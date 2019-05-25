@@ -7,6 +7,7 @@ import {
     Editor,
     KeyUtils,
     Range,
+    PathUtils,
     Point,
     Inline,
     Mark,
@@ -74,16 +75,28 @@ const schema: SchemaProperties = {
                 }
             }
         },
+        marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }],
+        text: /^Test$/
     },
     blocks: {
         image: {
             isVoid: true,
+            marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }]
         },
     },
 };
 
+const schema2: SchemaProperties = {
+    document: {
+        text(text) {
+            return true;
+        }
+    }
+};
+
 const pluginCommandName = 'plugin_command';
 const pluginQueryName = 'plugin_query';
+const pluginQueryResult = 1000;
 
 const plugin: Plugin = {
     normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
@@ -94,7 +107,7 @@ const plugin: Plugin = {
     validateNode: (node: Node, editor: Editor, next: () => void) => next(),
 
     commands: { [pluginCommandName]: (editor: Editor, ...args: any[]) => editor },
-    queries: { [pluginQueryName]: (editor: Editor, ...args: any[]) => editor },
+    queries: { [pluginQueryName]: (editor: Editor, ...args: any[]) => pluginQueryResult },
     schema: {...schema},
 };
 
@@ -116,6 +129,7 @@ editor.setReadOnly(true).setValue(value);
 editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
+const result: number = editor.query(pluginQueryName);
 
 // Test all editor commands
 editor
@@ -356,8 +370,131 @@ editor
 .wrapNodeByKey("a", inline)
 .wrapNodeByPath("a", inline)
 .wrapText("a", "b")
-.wrapTextAtRange(range, "a");
+.wrapTextAtRange(range, "a")
+.applyOperation({
+    type: "insert_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    marks: [Mark.create({type: 'test_mark'})],
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    data: Data.create({})
+})
+.applyOperation({
+    type: "add_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    mark: Mark.create({type: 'test_mark'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    mark: Mark.create({type: 'test_mark'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    properties: {type: 'test_mark'},
+    newProperties: {type: 'new_test_mark'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "insert_node",
+    path: 'a',
+    node: Block.create({type: 'block'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "merge_node",
+    path: 'a',
+    position: 0,
+    properties: {type: 'node'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "move_node",
+    path: 'a',
+    newPath: 'a',
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_node",
+    path: 'a',
+    node: Block.create({type: 'block'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_node",
+    path: 'a',
+    properties: {type: 'node'},
+    newProperties: {type: 'new_node'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "split_node",
+    path: 'a',
+    position: 0,
+    target: 1,
+    properties: {type: 'block'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_selection",
+    properties: {},
+    newProperties: {},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_value",
+    properties: {},
+    newProperties: {},
+    data: Data.create({})
+});
 
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
+
+const pathA = PathUtils.create([0, 1, 2, 3]);
+const pathB = PathUtils.create([1, 2, 3, 4]);
+
+PathUtils.compare(pathA, pathB);
+PathUtils.crop(pathA, pathB, 1);
+PathUtils.decrement(pathA, 1, 2);
+PathUtils.getAncestors(pathA);
+PathUtils.increment(pathA, 1, 2);
+PathUtils.isAbove(pathA, pathB);
+PathUtils.isAfter(pathA, pathB);
+PathUtils.isBefore(pathA, pathB);
+PathUtils.isEqual(pathA, pathB);
+PathUtils.isOlder(pathA, pathB);
+PathUtils.isPath("path");
+PathUtils.isSibling(pathA, pathB);
+PathUtils.isYounger(pathA, pathB);
+PathUtils.lift(pathA);
+PathUtils.drop(pathA);
+PathUtils.max(pathA, pathB);
+PathUtils.min(pathA, pathB);
+PathUtils.relate(pathA, pathB);
+
+PathUtils.transform(pathA, {
+    type: "insert_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    marks: [Mark.create({type: 'test_mark'})],
+    data: Data.create({})
+});

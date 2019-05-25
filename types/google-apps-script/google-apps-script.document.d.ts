@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-05-06
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -201,11 +201,13 @@ declare namespace GoogleAppsScript {
       getFootnotes(): Footnote[];
       getHeader(): HeaderSection;
       getId(): string;
+      getLanguage(): string;
       getName(): string;
       getNamedRangeById(id: string): NamedRange;
       getNamedRanges(): NamedRange[];
       getNamedRanges(name: string): NamedRange[];
       getSelection(): Range;
+      getSupportedLanguageCodes(): string[];
       getUrl(): string;
       getViewers(): Base.User[];
       newPosition(element: Element, offset: Integer): Position;
@@ -216,6 +218,7 @@ declare namespace GoogleAppsScript {
       removeViewer(user: Base.User): Document;
       saveAndClose(): void;
       setCursor(position: Position): Document;
+      setLanguage(languageCode: string): Document;
       setName(name: string): Document;
       setSelection(range: Range): Document;
     }

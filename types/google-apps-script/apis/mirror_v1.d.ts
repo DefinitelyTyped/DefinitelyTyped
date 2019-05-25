@@ -5,88 +5,88 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Mirror_v1 {
+  namespace Mirror {
     namespace Collection {
       namespace Timeline {
         export interface AttachmentsCollection {
           // Retrieves an attachment on a timeline item by item ID and attachment ID.
-          get(itemId: string, attachmentId: string): Mirror_v1.Schema.Attachment;
+          get(itemId: string, attachmentId: string): Mirror.Schema.Attachment;
           // Adds a new attachment to a timeline item.
-          insert(itemId: string): Mirror_v1.Schema.Attachment;
+          insert(itemId: string): Mirror.Schema.Attachment;
           // Adds a new attachment to a timeline item.
-          insert(itemId: string, mediaData: any): Mirror_v1.Schema.Attachment;
+          insert(itemId: string, mediaData: any): Mirror.Schema.Attachment;
           // Returns a list of attachments for a timeline item.
-          list(itemId: string): Mirror_v1.Schema.AttachmentsListResponse;
+          list(itemId: string): Mirror.Schema.AttachmentsListResponse;
           // Deletes an attachment from a timeline item.
           remove(itemId: string, attachmentId: string): void;
         }
       }
       export interface AccountsCollection {
         // Inserts a new account for a user
-        insert(resource: Schema.Account, userToken: string, accountType: string, accountName: string): Mirror_v1.Schema.Account;
+        insert(resource: Schema.Account, userToken: string, accountType: string, accountName: string): Mirror.Schema.Account;
       }
       export interface ContactsCollection {
         // Gets a single contact by ID.
-        get(id: string): Mirror_v1.Schema.Contact;
+        get(id: string): Mirror.Schema.Contact;
         // Inserts a new contact.
-        insert(resource: Schema.Contact): Mirror_v1.Schema.Contact;
+        insert(resource: Schema.Contact): Mirror.Schema.Contact;
         // Retrieves a list of contacts for the authenticated user.
-        list(): Mirror_v1.Schema.ContactsListResponse;
+        list(): Mirror.Schema.ContactsListResponse;
         // Updates a contact in place. This method supports patch semantics.
-        patch(resource: Schema.Contact, id: string): Mirror_v1.Schema.Contact;
+        patch(resource: Schema.Contact, id: string): Mirror.Schema.Contact;
         // Deletes a contact.
         remove(id: string): void;
         // Updates a contact in place.
-        update(resource: Schema.Contact, id: string): Mirror_v1.Schema.Contact;
+        update(resource: Schema.Contact, id: string): Mirror.Schema.Contact;
       }
       export interface LocationsCollection {
         // Gets a single location by ID.
-        get(id: string): Mirror_v1.Schema.Location;
+        get(id: string): Mirror.Schema.Location;
         // Retrieves a list of locations for the user.
-        list(): Mirror_v1.Schema.LocationsListResponse;
+        list(): Mirror.Schema.LocationsListResponse;
       }
       export interface SettingsCollection {
         // Gets a single setting by ID.
-        get(id: string): Mirror_v1.Schema.Setting;
+        get(id: string): Mirror.Schema.Setting;
       }
       export interface SubscriptionsCollection {
         // Creates a new subscription.
-        insert(resource: Schema.Subscription): Mirror_v1.Schema.Subscription;
+        insert(resource: Schema.Subscription): Mirror.Schema.Subscription;
         // Retrieves a list of subscriptions for the authenticated user and service.
-        list(): Mirror_v1.Schema.SubscriptionsListResponse;
+        list(): Mirror.Schema.SubscriptionsListResponse;
         // Deletes a subscription.
         remove(id: string): void;
         // Updates an existing subscription in place.
-        update(resource: Schema.Subscription, id: string): Mirror_v1.Schema.Subscription;
+        update(resource: Schema.Subscription, id: string): Mirror.Schema.Subscription;
       }
       export interface TimelineCollection {
-        Attachments?: Mirror_v1.Collection.Timeline.AttachmentsCollection;
+        Attachments?: Mirror.Collection.Timeline.AttachmentsCollection;
         // Gets a single timeline item by ID.
-        get(id: string): Mirror_v1.Schema.TimelineItem;
+        get(id: string): Mirror.Schema.TimelineItem;
         // Inserts a new item into the timeline.
-        insert(resource: Schema.TimelineItem): Mirror_v1.Schema.TimelineItem;
+        insert(resource: Schema.TimelineItem): Mirror.Schema.TimelineItem;
         // Inserts a new item into the timeline.
-        insert(resource: Schema.TimelineItem, mediaData: any): Mirror_v1.Schema.TimelineItem;
+        insert(resource: Schema.TimelineItem, mediaData: any): Mirror.Schema.TimelineItem;
         // Retrieves a list of timeline items for the authenticated user.
-        list(): Mirror_v1.Schema.TimelineListResponse;
+        list(): Mirror.Schema.TimelineListResponse;
         // Retrieves a list of timeline items for the authenticated user.
-        list(optionalArgs: object): Mirror_v1.Schema.TimelineListResponse;
+        list(optionalArgs: object): Mirror.Schema.TimelineListResponse;
         // Updates a timeline item in place. This method supports patch semantics.
-        patch(resource: Schema.TimelineItem, id: string): Mirror_v1.Schema.TimelineItem;
+        patch(resource: Schema.TimelineItem, id: string): Mirror.Schema.TimelineItem;
         // Deletes a timeline item.
         remove(id: string): void;
         // Updates a timeline item in place.
-        update(resource: Schema.TimelineItem, id: string): Mirror_v1.Schema.TimelineItem;
+        update(resource: Schema.TimelineItem, id: string): Mirror.Schema.TimelineItem;
         // Updates a timeline item in place.
-        update(resource: Schema.TimelineItem, id: string, mediaData: any): Mirror_v1.Schema.TimelineItem;
+        update(resource: Schema.TimelineItem, id: string, mediaData: any): Mirror.Schema.TimelineItem;
       }
     }
     namespace Schema {
       export interface Account {
-        authTokens?: Mirror_v1.Schema.AuthToken[];
+        authTokens?: Mirror.Schema.AuthToken[];
         features?: string[];
         password?: string;
-        userData?: Mirror_v1.Schema.UserData[];
+        userData?: Mirror.Schema.UserData[];
       }
       export interface Attachment {
         contentType?: string;
@@ -95,7 +95,7 @@ declare namespace GoogleAppsScript {
         isProcessingContent?: boolean;
       }
       export interface AttachmentsListResponse {
-        items?: Mirror_v1.Schema.Attachment[];
+        items?: Mirror.Schema.Attachment[];
         kind?: string;
       }
       export interface AuthToken {
@@ -106,7 +106,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface Contact {
-        acceptCommands?: Mirror_v1.Schema.Command[];
+        acceptCommands?: Mirror.Schema.Command[];
         acceptTypes?: string[];
         displayName?: string;
         id?: string;
@@ -120,7 +120,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface ContactsListResponse {
-        items?: Mirror_v1.Schema.Contact[];
+        items?: Mirror.Schema.Contact[];
         kind?: string;
       }
       export interface Location {
@@ -134,7 +134,7 @@ declare namespace GoogleAppsScript {
         timestamp?: string;
       }
       export interface LocationsListResponse {
-        items?: Mirror_v1.Schema.Location[];
+        items?: Mirror.Schema.Location[];
         kind?: string;
       }
       export interface MenuItem {
@@ -143,7 +143,7 @@ declare namespace GoogleAppsScript {
         id?: string;
         payload?: string;
         removeWhenSelected?: boolean;
-        values?: Mirror_v1.Schema.MenuValue[];
+        values?: Mirror.Schema.MenuValue[];
       }
       export interface MenuValue {
         displayName?: string;
@@ -154,7 +154,7 @@ declare namespace GoogleAppsScript {
         collection?: string;
         itemId?: string;
         operation?: string;
-        userActions?: Mirror_v1.Schema.UserAction[];
+        userActions?: Mirror.Schema.UserAction[];
         userToken?: string;
         verifyToken?: string;
       }
@@ -172,22 +172,22 @@ declare namespace GoogleAppsScript {
         collection?: string;
         id?: string;
         kind?: string;
-        notification?: Mirror_v1.Schema.Notification;
+        notification?: Mirror.Schema.Notification;
         operation?: string[];
         updated?: string;
         userToken?: string;
         verifyToken?: string;
       }
       export interface SubscriptionsListResponse {
-        items?: Mirror_v1.Schema.Subscription[];
+        items?: Mirror.Schema.Subscription[];
         kind?: string;
       }
       export interface TimelineItem {
-        attachments?: Mirror_v1.Schema.Attachment[];
+        attachments?: Mirror.Schema.Attachment[];
         bundleId?: string;
         canonicalUrl?: string;
         created?: string;
-        creator?: Mirror_v1.Schema.Contact;
+        creator?: Mirror.Schema.Contact;
         displayTime?: string;
         etag?: string;
         html?: string;
@@ -197,11 +197,11 @@ declare namespace GoogleAppsScript {
         isDeleted?: boolean;
         isPinned?: boolean;
         kind?: string;
-        location?: Mirror_v1.Schema.Location;
-        menuItems?: Mirror_v1.Schema.MenuItem[];
-        notification?: Mirror_v1.Schema.NotificationConfig;
+        location?: Mirror.Schema.Location;
+        menuItems?: Mirror.Schema.MenuItem[];
+        notification?: Mirror.Schema.NotificationConfig;
         pinScore?: number;
-        recipients?: Mirror_v1.Schema.Contact[];
+        recipients?: Mirror.Schema.Contact[];
         selfLink?: string;
         sourceItemId?: string;
         speakableText?: string;
@@ -211,7 +211,7 @@ declare namespace GoogleAppsScript {
         updated?: string;
       }
       export interface TimelineListResponse {
-        items?: Mirror_v1.Schema.TimelineItem[];
+        items?: Mirror.Schema.TimelineItem[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -225,42 +225,42 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Mirror_v1 {
-    Accounts?: Mirror_v1.Collection.AccountsCollection;
-    Contacts?: Mirror_v1.Collection.ContactsCollection;
-    Locations?: Mirror_v1.Collection.LocationsCollection;
-    Settings?: Mirror_v1.Collection.SettingsCollection;
-    Subscriptions?: Mirror_v1.Collection.SubscriptionsCollection;
-    Timeline?: Mirror_v1.Collection.TimelineCollection;
+  export interface Mirror {
+    Accounts?: Mirror.Collection.AccountsCollection;
+    Contacts?: Mirror.Collection.ContactsCollection;
+    Locations?: Mirror.Collection.LocationsCollection;
+    Settings?: Mirror.Collection.SettingsCollection;
+    Subscriptions?: Mirror.Collection.SubscriptionsCollection;
+    Timeline?: Mirror.Collection.TimelineCollection;
     // Create a new instance of Account
-    newAccount(): Mirror_v1.Schema.Account;
+    newAccount(): Mirror.Schema.Account;
     // Create a new instance of Attachment
-    newAttachment(): Mirror_v1.Schema.Attachment;
+    newAttachment(): Mirror.Schema.Attachment;
     // Create a new instance of AuthToken
-    newAuthToken(): Mirror_v1.Schema.AuthToken;
+    newAuthToken(): Mirror.Schema.AuthToken;
     // Create a new instance of Command
-    newCommand(): Mirror_v1.Schema.Command;
+    newCommand(): Mirror.Schema.Command;
     // Create a new instance of Contact
-    newContact(): Mirror_v1.Schema.Contact;
+    newContact(): Mirror.Schema.Contact;
     // Create a new instance of Location
-    newLocation(): Mirror_v1.Schema.Location;
+    newLocation(): Mirror.Schema.Location;
     // Create a new instance of MenuItem
-    newMenuItem(): Mirror_v1.Schema.MenuItem;
+    newMenuItem(): Mirror.Schema.MenuItem;
     // Create a new instance of MenuValue
-    newMenuValue(): Mirror_v1.Schema.MenuValue;
+    newMenuValue(): Mirror.Schema.MenuValue;
     // Create a new instance of Notification
-    newNotification(): Mirror_v1.Schema.Notification;
+    newNotification(): Mirror.Schema.Notification;
     // Create a new instance of NotificationConfig
-    newNotificationConfig(): Mirror_v1.Schema.NotificationConfig;
+    newNotificationConfig(): Mirror.Schema.NotificationConfig;
     // Create a new instance of Subscription
-    newSubscription(): Mirror_v1.Schema.Subscription;
+    newSubscription(): Mirror.Schema.Subscription;
     // Create a new instance of TimelineItem
-    newTimelineItem(): Mirror_v1.Schema.TimelineItem;
+    newTimelineItem(): Mirror.Schema.TimelineItem;
     // Create a new instance of UserAction
-    newUserAction(): Mirror_v1.Schema.UserAction;
+    newUserAction(): Mirror.Schema.UserAction;
     // Create a new instance of UserData
-    newUserData(): Mirror_v1.Schema.UserData;
+    newUserData(): Mirror.Schema.UserData;
   }
 }
 
-declare var Mirror_v1: GoogleAppsScript.Mirror_v1;
+declare var Mirror: GoogleAppsScript.Mirror;

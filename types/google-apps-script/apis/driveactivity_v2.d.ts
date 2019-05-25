@@ -5,40 +5,40 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Driveactivity_v2 {
+  namespace DriveActivity {
     namespace Collection {
       export interface ActivityCollection {
         // Query past activity in Google Drive.
-        query(resource: Schema.QueryDriveActivityRequest): Driveactivity_v2.Schema.QueryDriveActivityResponse;
+        query(resource: Schema.QueryDriveActivityRequest): DriveActivity.Schema.QueryDriveActivityResponse;
       }
     }
     namespace Schema {
       export interface Action {
-        actor?: Driveactivity_v2.Schema.Actor;
-        detail?: Driveactivity_v2.Schema.ActionDetail;
-        target?: Driveactivity_v2.Schema.Target;
-        timeRange?: Driveactivity_v2.Schema.TimeRange;
+        actor?: DriveActivity.Schema.Actor;
+        detail?: DriveActivity.Schema.ActionDetail;
+        target?: DriveActivity.Schema.Target;
+        timeRange?: DriveActivity.Schema.TimeRange;
         timestamp?: string;
       }
       export interface ActionDetail {
-        comment?: Driveactivity_v2.Schema.Comment;
-        create?: Driveactivity_v2.Schema.Create;
-        delete?: Driveactivity_v2.Schema.Delete;
-        dlpChange?: Driveactivity_v2.Schema.DataLeakPreventionChange;
+        comment?: DriveActivity.Schema.Comment;
+        create?: DriveActivity.Schema.Create;
+        delete?: DriveActivity.Schema.Delete;
+        dlpChange?: DriveActivity.Schema.DataLeakPreventionChange;
         edit?: any;
-        move?: Driveactivity_v2.Schema.Move;
-        permissionChange?: Driveactivity_v2.Schema.PermissionChange;
-        reference?: Driveactivity_v2.Schema.ApplicationReference;
-        rename?: Driveactivity_v2.Schema.Rename;
-        restore?: Driveactivity_v2.Schema.Restore;
-        settingsChange?: Driveactivity_v2.Schema.SettingsChange;
+        move?: DriveActivity.Schema.Move;
+        permissionChange?: DriveActivity.Schema.PermissionChange;
+        reference?: DriveActivity.Schema.ApplicationReference;
+        rename?: DriveActivity.Schema.Rename;
+        restore?: DriveActivity.Schema.Restore;
+        settingsChange?: DriveActivity.Schema.SettingsChange;
       }
       export interface Actor {
         administrator?: string;
         anonymous?: string;
-        impersonation?: Driveactivity_v2.Schema.Impersonation;
-        system?: Driveactivity_v2.Schema.SystemEvent;
-        user?: Driveactivity_v2.Schema.User;
+        impersonation?: DriveActivity.Schema.Impersonation;
+        system?: DriveActivity.Schema.SystemEvent;
+        user?: DriveActivity.Schema.User;
       }
       export interface ApplicationReference {
         type?: string;
@@ -47,20 +47,20 @@ declare namespace GoogleAppsScript {
         subtype?: string;
       }
       export interface Comment {
-        assignment?: Driveactivity_v2.Schema.Assignment;
-        mentionedUsers?: Driveactivity_v2.Schema.User[];
-        post?: Driveactivity_v2.Schema.Post;
-        suggestion?: Driveactivity_v2.Schema.Suggestion;
+        assignment?: DriveActivity.Schema.Assignment;
+        mentionedUsers?: DriveActivity.Schema.User[];
+        post?: DriveActivity.Schema.Post;
+        suggestion?: DriveActivity.Schema.Suggestion;
       }
       export interface ConsolidationStrategy {
         legacy?: any;
         none?: any;
       }
       export interface Copy {
-        originalObject?: Driveactivity_v2.Schema.TargetReference;
+        originalObject?: DriveActivity.Schema.TargetReference;
       }
       export interface Create {
-        copy?: Driveactivity_v2.Schema.Copy;
+        copy?: DriveActivity.Schema.Copy;
         new?: any;
         upload?: any;
       }
@@ -75,24 +75,24 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface DriveActivity {
-        actions?: Driveactivity_v2.Schema.Action[];
-        actors?: Driveactivity_v2.Schema.Actor[];
-        primaryActionDetail?: Driveactivity_v2.Schema.ActionDetail;
-        targets?: Driveactivity_v2.Schema.Target[];
-        timeRange?: Driveactivity_v2.Schema.TimeRange;
+        actions?: DriveActivity.Schema.Action[];
+        actors?: DriveActivity.Schema.Actor[];
+        primaryActionDetail?: DriveActivity.Schema.ActionDetail;
+        targets?: DriveActivity.Schema.Target[];
+        timeRange?: DriveActivity.Schema.TimeRange;
         timestamp?: string;
       }
       export interface DriveItem {
         file?: any;
-        folder?: Driveactivity_v2.Schema.Folder;
+        folder?: DriveActivity.Schema.Folder;
         mimeType?: string;
         name?: string;
-        owner?: Driveactivity_v2.Schema.Owner;
+        owner?: DriveActivity.Schema.Owner;
         title?: string;
       }
       export interface DriveItemReference {
         file?: any;
-        folder?: Driveactivity_v2.Schema.Folder;
+        folder?: DriveActivity.Schema.Folder;
         name?: string;
         title?: string;
       }
@@ -100,7 +100,7 @@ declare namespace GoogleAppsScript {
         legacyCommentId?: string;
         legacyDiscussionId?: string;
         linkToDiscussion?: string;
-        parent?: Driveactivity_v2.Schema.DriveItem;
+        parent?: DriveActivity.Schema.DriveItem;
       }
       export interface Folder {
         type?: string;
@@ -110,46 +110,46 @@ declare namespace GoogleAppsScript {
         title?: string;
       }
       export interface Impersonation {
-        impersonatedUser?: Driveactivity_v2.Schema.User;
+        impersonatedUser?: DriveActivity.Schema.User;
       }
       export interface KnownUser {
         isCurrentUser?: boolean;
         personName?: string;
       }
       export interface Move {
-        addedParents?: Driveactivity_v2.Schema.TargetReference[];
-        removedParents?: Driveactivity_v2.Schema.TargetReference[];
+        addedParents?: DriveActivity.Schema.TargetReference[];
+        removedParents?: DriveActivity.Schema.TargetReference[];
       }
       export interface Owner {
-        domain?: Driveactivity_v2.Schema.Domain;
-        teamDrive?: Driveactivity_v2.Schema.TeamDriveReference;
-        user?: Driveactivity_v2.Schema.User;
+        domain?: DriveActivity.Schema.Domain;
+        teamDrive?: DriveActivity.Schema.TeamDriveReference;
+        user?: DriveActivity.Schema.User;
       }
       export interface Permission {
         allowDiscovery?: boolean;
         anyone?: any;
-        domain?: Driveactivity_v2.Schema.Domain;
-        group?: Driveactivity_v2.Schema.Group;
+        domain?: DriveActivity.Schema.Domain;
+        group?: DriveActivity.Schema.Group;
         role?: string;
-        user?: Driveactivity_v2.Schema.User;
+        user?: DriveActivity.Schema.User;
       }
       export interface PermissionChange {
-        addedPermissions?: Driveactivity_v2.Schema.Permission[];
-        removedPermissions?: Driveactivity_v2.Schema.Permission[];
+        addedPermissions?: DriveActivity.Schema.Permission[];
+        removedPermissions?: DriveActivity.Schema.Permission[];
       }
       export interface Post {
         subtype?: string;
       }
       export interface QueryDriveActivityRequest {
         ancestorName?: string;
-        consolidationStrategy?: Driveactivity_v2.Schema.ConsolidationStrategy;
+        consolidationStrategy?: DriveActivity.Schema.ConsolidationStrategy;
         filter?: string;
         itemName?: string;
         pageSize?: number;
         pageToken?: string;
       }
       export interface QueryDriveActivityResponse {
-        activities?: Driveactivity_v2.Schema.DriveActivity[];
+        activities?: DriveActivity.Schema.DriveActivity[];
         nextPageToken?: string;
       }
       export interface Rename {
@@ -164,7 +164,7 @@ declare namespace GoogleAppsScript {
         newRestriction?: string;
       }
       export interface SettingsChange {
-        restrictionChanges?: Driveactivity_v2.Schema.RestrictionChange[];
+        restrictionChanges?: DriveActivity.Schema.RestrictionChange[];
       }
       export interface Suggestion {
         subtype?: string;
@@ -173,17 +173,17 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface Target {
-        driveItem?: Driveactivity_v2.Schema.DriveItem;
+        driveItem?: DriveActivity.Schema.DriveItem;
         fileComment?: any;
-        teamDrive?: Driveactivity_v2.Schema.TeamDrive;
+        teamDrive?: DriveActivity.Schema.TeamDrive;
       }
       export interface TargetReference {
-        driveItem?: Driveactivity_v2.Schema.DriveItemReference;
-        teamDrive?: Driveactivity_v2.Schema.TeamDriveReference;
+        driveItem?: DriveActivity.Schema.DriveItemReference;
+        teamDrive?: DriveActivity.Schema.TeamDriveReference;
       }
       export interface TeamDrive {
         name?: string;
-        root?: Driveactivity_v2.Schema.DriveItem;
+        root?: DriveActivity.Schema.DriveItem;
         title?: string;
       }
       export interface TeamDriveReference {
@@ -196,22 +196,22 @@ declare namespace GoogleAppsScript {
       }
       export interface User {
         deletedUser?: any;
-        knownUser?: Driveactivity_v2.Schema.KnownUser;
+        knownUser?: DriveActivity.Schema.KnownUser;
         unknownUser?: any;
       }
     }
   }
-  export interface Driveactivity_v2 {
-    Activity?: Driveactivity_v2.Collection.ActivityCollection;
+  export interface DriveActivity {
+    Activity?: DriveActivity.Collection.ActivityCollection;
     // Create a new instance of ConsolidationStrategy
-    newConsolidationStrategy(): Driveactivity_v2.Schema.ConsolidationStrategy;
+    newConsolidationStrategy(): DriveActivity.Schema.ConsolidationStrategy;
     // Create a new instance of Legacy
     newLegacy(): any;
     // Create a new instance of NoConsolidation
     newNoConsolidation(): any;
     // Create a new instance of QueryDriveActivityRequest
-    newQueryDriveActivityRequest(): Driveactivity_v2.Schema.QueryDriveActivityRequest;
+    newQueryDriveActivityRequest(): DriveActivity.Schema.QueryDriveActivityRequest;
   }
 }
 
-declare var Driveactivity_v2: GoogleAppsScript.Driveactivity_v2;
+declare var DriveActivity: GoogleAppsScript.DriveActivity;

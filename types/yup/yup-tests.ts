@@ -13,7 +13,8 @@ import {
     TestOptions,
     ValidateOptions,
     NumberSchema,
-    TestContext
+    TestContext,
+    LocaleObject
 } from "yup";
 
 // reach function
@@ -449,6 +450,33 @@ const validateOptions: ValidateOptions = {
     recursive: true,
     context: {
         key: "value"
+    }
+};
+
+const localeNotType1: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: "message"
+    }
+};
+const localeNotType2: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: () => "message"
+    }
+};
+const localeNotType3: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: (_ref) => {
+            const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
+            const finalPartOfTheMessage = isCast
+                ? ` (cast from the value '${_ref.originalValue}').`
+                : '.';
+
+            return `${_ref.path} must be a '${_ref.type}'` +
+                ` but the final value was: '${_ref.value}'${finalPartOfTheMessage}`;
+        }
     }
 };
 

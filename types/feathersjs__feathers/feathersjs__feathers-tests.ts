@@ -21,5 +21,15 @@ app.service('users').hooks({
             context.statusCode = 200;
             context.dispatch = { test: 'true' };
         }
+    },
+    after: [
+        (context: HookContext) => {
+            context.statusCode = 200;
+            context.dispatch = { test: 'true' };
+        }
+    ],
+    finally: (context: HookContext) => {
+        context.statusCode = 200;
+        context.dispatch = { test: 'true' };
     }
 });

@@ -30,7 +30,7 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   useCreateIndex: true,
   autoIndex: true
 });
-const connection3: null = mongoose.connect(connectUri, function (error) {
+const connection3 = mongoose.connect(connectUri, function (error) {
   error.stack;
 });
 
@@ -42,13 +42,13 @@ mongoose.createConnection(connectUri).then((conn)=> {
 }, () => {
 
 });
-mongoose.createConnection(connectUri).open('');
+mongoose.createConnection(connectUri).openUri('');
 mongoose.createConnection(connectUri, {
   db: {
     native_parser: true
   }
-}).open('');
-const dcWithCallback: null = mongoose.disconnect(cb);
+}).openUri('');
+const dcWithCallback: void = mongoose.disconnect(cb);
 const dcPromise: Promise<void> = mongoose.disconnect();
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
@@ -124,22 +124,6 @@ coll2.indexExists;
  */
 var conn1: mongoose.Connection = mongoose.createConnection('mongodb://user:pass@localhost:port/database');
 conn1 = new mongoose.Connection(mongoose);
-conn1.open('mongodb://localhost/test', 'myDb', 27017, {
-  replset: null,
-  config: {
-    autoIndex: false
-  }
-}, function (err) {}).open('');
-conn1.openSet('mongodb://localhost/test', 'db', {
-  replset: null,
-  mongos: true
-}, function (err) {}).then(cb).catch(cb);
-conn1.openUri('mongodb://localhost/test', 'myDb', 27017, {
-  replset: null,
-  config: {
-    autoIndex: false
-  }
-}, function (err) {}).open('');
 conn1.close().then(function () {}).catch(function (err) {});
 conn1.close(true).then(function () {}).catch(function (err) {});
 conn1.close(function (err) {});
@@ -815,6 +799,35 @@ ImageModel.findOne({}, function(err, doc) {
     doc.id;
   }
 });
+/* Using flatten maps example */
+interface Submission extends mongoose.Document {
+  name: string;
+  fields: string[];
+}
+var SubmissionSchema = new mongoose.Schema({
+  name: String,
+  fields: {
+    type: Map,
+    of: String
+  }
+});
+const SubmissionModel = mongoose.model<Submission>('Submission', SubmissionSchema);
+const submission = new SubmissionModel({
+  name: "Submission Name",
+  fields: {
+    extra: "Value",
+    other: "Thing"
+  }
+});
+submission.save()
+.then(result => {
+  console.log(result.toObject({
+    flattenMaps: true
+  }));
+})
+.catch(() => {
+  console.log("Flatten maps error");
+});
 
 /*
  * section types/subdocument.js
@@ -1070,6 +1083,7 @@ query.find().lt('age', 21);
 query.find().where('age').lte(21);
 query.find().lte('age', 21);
 query.maxDistance('path', 21).maxDistance(21);
+query.maxTimeMS(1000);
 query.maxscan(100).maxScan(100);
 query.maxScan(100).maxScan(100);
 query.merge(query).merge({});
@@ -1793,7 +1807,7 @@ mongoModel.baseModelName && mongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
 mongoModel.collection.initializeOrderedBulkOp;
 mongoModel.collection.findOne;
-mongoModel.db.openSet('');
+mongoModel.db.openUri('');
 mongoModel.discriminators;
 mongoModel.modelName.toLowerCase();
 MongoModel = mongoModel.base.model('new', mongoModel.schema);
@@ -2004,8 +2018,8 @@ const addFieldsAgg: mongoose.Aggregate<any> = aggregatePrototypeGraphLookup.addF
 
 MyModel.findById('foo').then((doc: mongoose.Document) => {
   const a: boolean = doc.isDirectSelected('bar');
-  const b: boolean = doc.isDeleted();
-  doc.isDeleted(true);
+  const b: boolean = doc.$isDeleted();
+  doc.$isDeleted(true);
 });
 
 MyModel.translateAliases({});
@@ -2117,6 +2131,15 @@ new mongoose.Schema({ name: String }, {
     wtimeout: 1000
   }
 });
+
+/**
+ * https://mongoosejs.com/docs/guide.html#shardKey
+ */
+new mongoose.Schema({name: String}, {
+  shardKey: {
+    tag: 1, name: 1
+  }
+})
 
 /* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
 

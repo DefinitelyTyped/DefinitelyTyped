@@ -40,6 +40,9 @@
 /// <reference path="google-apps-script.utilities.d.ts"/>
 /// <reference path="google-apps-script.xml-service.d.ts"/>
 
+// Events
+/// <reference path="google-apps-script-events.d.ts"/>
+
 // API Types (Advanced Google Services)
 /// <reference path="apis/adsense_v1_4.d.ts"/>
 /// <reference path="apis/analytics_v3.d.ts"/>

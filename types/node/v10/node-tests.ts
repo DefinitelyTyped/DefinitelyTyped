@@ -430,6 +430,18 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
             mode: 0o777,
         });
     }
+
+    {
+        let names: Promise<string[]>;
+        let buffers: Promise<Buffer[]>;
+        let namesOrBuffers: Promise<string[] | Buffer[]>;
+        let entries: Promise<fs.Dirent[]>;
+
+        names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
+        buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
+        namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
+        entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
+    }
 }
 
 ///////////////////////////////////////////////////////

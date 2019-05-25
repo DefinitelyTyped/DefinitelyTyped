@@ -434,6 +434,13 @@ declare namespace sharp {
          */
         recomb(inputMatrix: Matrix3x3): Sharp;
 
+        /**
+         * Transforms the image using brightness, saturation and hue rotation.
+         * @param options describes the modulation
+         * @returns A sharp instance that can be used to chain operations
+         */
+        modulate(options?: { brightness?: number, saturation?: number, hue?: number }): Sharp;
+
         //#endregion
 
         //#region Output functions
