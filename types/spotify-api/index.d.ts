@@ -84,9 +84,9 @@ declare namespace SpotifyApi {
         min_tempo?: number,
         min_time_signature?: number,
         min_valence?: number,
-        seed_artists?: string,   // Comma separated string
-        seed_genres?: string,   // Comma separated string
-        seed_tracks?: string,   // Comma separated string
+        seed_artists?: string[] | string,   // Array of strings or Comma separated string
+        seed_genres?: string[] | string,   // Array of strings or Comma separated string
+        seed_tracks?: string[] | string,   // Array of strings or Comma separated string
         target_acousticness?: number
         target_danceability?: number
         target_duration_ms?: number
@@ -119,6 +119,10 @@ declare namespace SpotifyApi {
 
     interface DeviceSpecificParameterObject {
         device_id?: string;
+        context_uri?: string;
+        position_ms?: number;
+        uris?: string[];
+        offset?: Object;
     }
 
     //
@@ -496,6 +500,16 @@ declare namespace SpotifyApi {
      */
     interface TrackSearchResponse {
         tracks: PagingObject<TrackObjectFull>
+    }
+
+    /**
+     * Search for artists/albums/tracks/playlists
+     * 
+     * GET /v1/search?type=album
+     * https://developer.spotify.com/web-api/search-item/
+     */
+    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse> {
+      
     }
 
     /**
