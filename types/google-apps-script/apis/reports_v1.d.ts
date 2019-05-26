@@ -111,7 +111,7 @@ declare namespace GoogleAppsScript {
         boolValue?: boolean;
         datetimeValue?: string;
         intValue?: string;
-        msgValue?: Object[];
+        msgValue?: object[];
         name?: string;
         stringValue?: string;
       }

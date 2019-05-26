@@ -134,8 +134,8 @@ declare namespace GoogleAppsScript {
     export interface Logger {
       clear(): void;
       getLog(): string;
-      log(data: Object): Logger;
-      log(format: string, ...values: Object[]): Logger;
+      log(data: object): Logger;
+      log(format: string, ...values: object[]): Logger;
     }
 
     /**
@@ -257,10 +257,10 @@ declare namespace GoogleAppsScript {
       prompt(prompt: string): PromptResponse;
       prompt(prompt: string, buttons: ButtonSet): PromptResponse;
       prompt(title: string, prompt: string, buttons: ButtonSet): PromptResponse;
-      showModalDialog(userInterface: Object, title: string): void;
-      showModelessDialog(userInterface: Object, title: string): void;
-      showSidebar(userInterface: Object): void;
-      showDialog(userInterface: Object): void;
+      showModalDialog(userInterface: object, title: string): void;
+      showModelessDialog(userInterface: object, title: string): void;
+      showSidebar(userInterface: object): void;
+      showDialog(userInterface: object): void;
     }
 
     /**
@@ -307,15 +307,15 @@ declare namespace GoogleAppsScript {
      */
     export interface console {
       error(): void;
-      error(formatOrObject: Object, ...values: Object[]): void;
+      error(formatOrObject: object, ...values: object[]): void;
       info(): void;
-      info(formatOrObject: Object, ...values: Object[]): void;
+      info(formatOrObject: object, ...values: object[]): void;
       log(): void;
-      log(formatOrObject: Object, ...values: Object[]): void;
+      log(formatOrObject: object, ...values: object[]): void;
       time(label: string): void;
       timeEnd(label: string): void;
       warn(): void;
-      warn(formatOrObject: Object, ...values: Object[]): void;
+      warn(formatOrObject: object, ...values: object[]): void;
     }
 
   }
