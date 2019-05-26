@@ -119,7 +119,7 @@ export interface CommonApiProps {
      * From Left to Right To Right to Left
      * @default false
      */
-    reverse?: boolean
+    reverse?: boolean;
 }
 
 export interface SliderProps extends CommonApiProps {
