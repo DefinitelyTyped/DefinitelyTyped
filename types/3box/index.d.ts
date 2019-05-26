@@ -1,3 +1,5 @@
+// Type definitions for 3box
+// Definitions by: KuhnChris <https://github.com/kuhnchris> 
 export interface BoxVerified {
     Verified: () => BoxVerified;
     DID: () => string;
