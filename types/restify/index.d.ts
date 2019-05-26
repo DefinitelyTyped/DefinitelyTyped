@@ -1,5 +1,5 @@
 // Type definitions for restify 7.2
-// Project: https://github.com/restify/node-restify, http://restifyjs.com
+// Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
 //                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
@@ -1226,6 +1226,8 @@ export namespace plugins {
          * Set to true if you want to end the request with a UnsupportedMediaTypeError when none of the supported content types was given.
          */
         rejectUnknown?: boolean;
+
+        requestBodyOnGet?: boolean;
 
         reviver?: any;
 

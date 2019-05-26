@@ -2461,7 +2461,7 @@ declare module "mongoose" {
     findById(id: any | string | number, projection: any, options: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
-    model(name: string): Model<T>;
+      model<U extends Document>(name: string): Model<U>;
 
     /**
      * Creates a Query and specifies a $where condition.
@@ -2708,7 +2708,7 @@ declare module "mongoose" {
      * Returns another Model instance.
      * @param name model name
      */
-    model(name: string): Model<this>;
+    model<T extends Document>(name: string): Model<T>;
 
     /**
      * Removes this document from the db.

@@ -22,6 +22,7 @@ export interface ClientOpts {
     return_buffers?: boolean;
     detect_buffers?: boolean;
     socket_keepalive?: boolean;
+    socket_initialdelay?: number;
     no_ready_check?: boolean;
     enable_offline_queue?: boolean;
     retry_max_delay?: number;

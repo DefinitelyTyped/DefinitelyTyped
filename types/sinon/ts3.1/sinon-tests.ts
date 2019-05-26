@@ -82,6 +82,7 @@ function testSandbox() {
     const stubInstance = sb.createStubInstance(cls);
     const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
     stubInstance.foo.calledWith('foo', 1);
+    stubInstance.foo.calledWith('foo');
     privateFooStubbedInstance.foo.calledWith();
     const clsFoo: sinon.SinonStub<[string, number], number> = stubInstance.foo;
     const privateFooFoo: sinon.SinonStub<[], void> = privateFooStubbedInstance.foo;
@@ -379,6 +380,7 @@ function testSpy() {
     let fn = (arg: string, arg2: number): boolean => true;
     const obj = class {
         foo() { }
+        foobar(p1?: string) { return p1; }
         set bar(val: number) { }
         get bar() { return 0; }
     };
@@ -387,8 +389,19 @@ function testSpy() {
     const spy = sinon.spy(); // $ExpectType SinonSpy<any[], any>
     const spyTwo = sinon.spy().named('spyTwo');
 
-    const methodSpy = sinon.spy(instance, 'foo');
-    const methodSpy2 = sinon.spy(instance, 'bar', ['set', 'get']);
+    const methodSpy = sinon.spy(instance, 'foo'); // $ExpectType SinonSpy<[], void>
+    const methodSpy2 = sinon.spy(instance, 'bar', ['set', 'get']); // $ExpectType SinonSpy<any[], any>
+    const methodSpy3 = sinon.spy(instance, 'foobar'); // $ExpectType SinonSpy<[(string | undefined)?], string | undefined>
+
+    methodSpy.calledBefore(methodSpy2);
+    methodSpy.calledAfter(methodSpy2);
+    methodSpy.calledImmediatelyBefore(methodSpy2);
+    methodSpy.calledImmediatelyAfter(methodSpy2);
+
+    methodSpy.calledBefore(methodSpy3);
+    methodSpy.calledAfter(methodSpy3);
+    methodSpy.calledImmediatelyBefore(methodSpy3);
+    methodSpy.calledImmediatelyAfter(methodSpy3);
 
     let count = 0;
     count = spy.callCount;

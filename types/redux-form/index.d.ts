@@ -14,6 +14,7 @@
 //                 Mohamed Shaaban <https://github.com/mshaaban088>
 //                 Ethan Setnik <https://github.com/esetnik>
 //                 Walter Barbagallo <https://github.com/bwlt>
+//                 Kota Marusue <https://github.com/mrsekut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import {

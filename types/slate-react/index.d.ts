@@ -9,6 +9,7 @@
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -331,6 +332,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     replaceNodeByPath: CoreEditor['replaceNodeByPath'];
     removeTextByKey: CoreEditor['removeTextByKey'];
     removeTextByPath: CoreEditor['removeTextByPath'];
+    setDecorations: CoreEditor['setDecorations'];
     setMarkByKey: CoreEditor['setMarkByKey'];
     setMarksByPath: CoreEditor['setMarksByPath'];
     setNodeByKey: CoreEditor['setNodeByKey'];

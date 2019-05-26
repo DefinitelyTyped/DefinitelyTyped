@@ -13,7 +13,8 @@ import {
     TestOptions,
     ValidateOptions,
     NumberSchema,
-    TestContext
+    TestContext,
+    LocaleObject
 } from "yup";
 
 // reach function
@@ -383,7 +384,9 @@ arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
 arrSchema.compact((value, index, array) => value === array[index]);
 
-yup.array(); // $ExpectType ArraySchema<{}>
+const arr = yup.array();
+const top = (<T>(x?: T): T => x!)();
+const validArr: yup.ArraySchema<typeof top> = arr;
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
 yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 
@@ -447,6 +450,33 @@ const validateOptions: ValidateOptions = {
     recursive: true,
     context: {
         key: "value"
+    }
+};
+
+const localeNotType1: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: "message"
+    }
+};
+const localeNotType2: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: () => "message"
+    }
+};
+const localeNotType3: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: (_ref) => {
+            const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
+            const finalPartOfTheMessage = isCast
+                ? ` (cast from the value '${_ref.originalValue}').`
+                : '.';
+
+            return `${_ref.path} must be a '${_ref.type}'` +
+                ` but the final value was: '${_ref.value}'${finalPartOfTheMessage}`;
+        }
     }
 };
 

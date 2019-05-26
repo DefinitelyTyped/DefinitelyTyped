@@ -1,4 +1,4 @@
-// Type definitions for Ember.js 3.0
+// Type definitions for Ember.js 3.1
 // Project: http://emberjs.com/, https://github.com/emberjs/ember
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>

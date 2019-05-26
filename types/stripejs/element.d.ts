@@ -168,6 +168,11 @@ export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'po
 // --- ELEMENT EVENTS --- //
 export interface OnChange {
     /**
+     * The type of the Element that changed.
+     */
+    elementType: ElementType;
+
+    /**
      * true if the value is empty
      */
     empty: boolean;

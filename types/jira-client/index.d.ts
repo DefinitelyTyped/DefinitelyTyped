@@ -77,6 +77,8 @@ declare class JiraApi {
 
     addWatcher(issueKey: string, username: string): Promise<JiraApi.JsonResponse>;
 
+    getIssueWatchers(issueId: string): Promise<JiraApi.JsonResponse[]>;
+
     deleteIssue(issueId: string): Promise<JiraApi.JsonResponse>;
 
     updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject): Promise<JiraApi.JsonResponse>;

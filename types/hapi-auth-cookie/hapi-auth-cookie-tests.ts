@@ -8,15 +8,17 @@ server.register({
 });
 
 const options: auth.Options = {
-    clearInvalid: true,
-    cookie:       'session',
-    domain:       '.typescript.org',
+    cookie: {
+        clearInvalid: true,
+        name:         'session',
+        domain:       '.typescript.org',
+        password:     'abcdef',
+        isSecure:     true,
+        ttl:          259200000,
+    },
     keepAlive:    true,
-    password:     'abcdef',
     redirectTo:   '/login',
-    isSecure:     true,
     appendNext:   false,
-    ttl:          259200000,
     validateFunc: async () => {
         return { valid: true };
     },

@@ -14,6 +14,7 @@
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
+//                 Adrián Caballero <https://github.com/adripanico>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -146,8 +147,8 @@ declare namespace Chart {
     }
 
     interface ChartTooltipItem {
-        xLabel?: string;
-        yLabel?: string;
+        xLabel?: string | number;
+        yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
     }
@@ -411,7 +412,7 @@ declare namespace Chart {
         color?: ChartColor;
         borderDash?: number[];
         borderDashOffset?: number;
-        lineWidth?: number;
+        lineWidth?: number | number[];
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
         drawTicks?: boolean;
@@ -426,10 +427,12 @@ declare namespace Chart {
     interface ScaleTitleOptions {
         display?: boolean;
         labelString?: string;
+        lineHeight?: number | string;
         fontColor?: ChartColor;
         fontFamily?: string;
         fontSize?: number;
         fontStyle?: string;
+        padding?: ChartLayoutPaddingObject | number;
     }
 
     interface TickOptions extends NestedTickOptions {
@@ -512,7 +515,7 @@ declare namespace Chart {
         hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
-        steppedLine?: 'before' | 'after' | boolean;
+        steppedLine?: 'before' | 'after' | 'middle' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];

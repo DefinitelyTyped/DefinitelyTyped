@@ -6,6 +6,7 @@ import qs = require('querystring');
 import request = require('request');
 import stream = require('stream');
 import urlModule = require('url');
+import constants = require('constants');
 
 let value: any;
 let str: string;
@@ -540,7 +541,7 @@ options = {
         // Or use `pfx` property replacing `cert` and `key` when using private key, certificate and CA certs in PFX or PKCS12 format:
         // pfx: fs.readFileSync(pfxFilePath),
         passphrase: 'password',
-        securityOptions: 'SSL_OP_NO_SSLv3'
+        secureOptions: constants.SSL_OP_NO_SSLv3
     }
 };
 

@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.25
+// Type definitions for stripe 6.26
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -20,6 +20,9 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Jonas Keisel <https://github.com/0xJoKe>
 //                 Andrew Delianides <https://github.com/delianides>
+//                 Gokul Chandrasekaran <https://github.com/gokulchandra>
+//                 Jamie Davies <https://github.com/viralpickaxe>
+//                 Christopher Eck <https://github.com/chrisleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -93,8 +96,10 @@ declare class Stripe {
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
     setTimeout(timeout?: number): void;
+    setMaxNetworkRetries(maxNetworkRetries: number): void;
     setHttpAgent(agent: string): void;
     getConstant(c: string): any;
+    getMaxNetworkRetries(): number;
     getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
@@ -218,6 +223,83 @@ declare namespace Stripe {
             business_primary_color?: string;
 
             /**
+             * Optional information related to the business.
+             */
+            business_profile?: {
+                /**
+                 * The merchant category code for the account. MCCs are used to classify businesses
+                 * based on the goods or services they provide.
+                 */
+                mcc?: string;
+
+                /**
+                 * The customer-facing business name.
+                 */
+                name?: string;
+
+                /**
+                 * Internal-only description of the product sold or service provided by the
+                 * business. It’s used by Stripe for risk and underwriting purposes.
+                 */
+                product_description?: string;
+
+                /**
+                 * A publicly available mailing address for sending support issues to.
+                 */
+                support_address?: {
+                    /**
+                     * Address line 1 (Street address/PO Box/Company name)
+                     */
+                    line1?: string;
+
+                    /**
+                     * Address line 2 (Apartment/Suite/Unit/Building)
+                     */
+                    line2?: string;
+
+                    /**
+                     * City/Suburb/Town/Village
+                     */
+                    city?: string;
+
+                    /**
+                     * State/Province/County
+                     */
+                    state?: string;
+
+                    /**
+                     * Zip/Postal Code
+                     */
+                    postal_code?: string;
+
+                    /**
+                     * 2-letter country code
+                     */
+                    country?: string;
+                };
+
+                /**
+                 * A publicly available email address for sending support issues to.
+                 */
+                support_email?: string;
+
+                /**
+                 * A publicly available phone number to call with support issues.
+                 */
+                support_phone?: string;
+
+                /**
+                 * A publicly available website for handling support issues.
+                 */
+                support_url?: string;
+
+                /**
+                 * The business’s publicly available website.
+                 */
+                url?: string;
+            };
+
+            /**
              * The URL that best shows the service or product provided for this account
              */
             business_url?: string;
@@ -283,6 +365,149 @@ declare namespace Stripe {
              * purposes.
              */
             product_description?: string;
+
+            /**
+             * Account options for customizing how the account functions within Stripe.
+             */
+            settings?: {
+                /**
+                 * Settings used to apply the account’s branding to email receipts, invoices,
+                 * Checkout, and other products.
+                 */
+                branding?: {
+                    /**
+                     * (ID of a file upload) An icon for the account. Must be square and at
+                     * least 128px x 128px.
+                     */
+                    icon?: string;
+
+                    /**
+                     * (ID of a file upload) A logo for the account that will be used in
+                     * Checkout instead of the icon and without the account’s name next to it
+                     * if provided. Must be at least 128px x 128px. This can be unset by
+                     * updating the value to null and then saving.
+                     */
+                    logo?: string;
+
+                    /**
+                     * A CSS hex color value representing the primary branding color for this account.
+                     */
+                    primary_color?: string;
+                };
+
+                /**
+                 * Settings specific to card charging on the account.
+                 */
+                card_payments?: {
+                    /**
+                     * Automatically declines certain charge types regardless of whether the card
+                     * issuer accepted or declined the charge.
+                     */
+                    decline_on?: {
+                        /**
+                         * Whether Stripe automatically declines charges with an incorrect ZIP or
+                         * postal code. This setting only applies when a ZIP or postal code is
+                         * provided and they fail bank verification.
+                         */
+                        avs_failure?: boolean;
+
+                        /**
+                         * Whether Stripe automatically declines charges with an incorrect CVC.
+                         * This setting only applies when a CVC is provided and it fails bank
+                         * verification.
+                         */
+                        cvc_failure?: boolean;
+                    };
+
+                    /**
+                     * The default text that appears on credit card statements when a charge is
+                     * made. This field prefixes any dynamic statement_descriptor specified on the
+                     * charge. statement_descriptor_prefix is useful for maximizing descriptor space
+                     * for the dynamic portion.
+                     */
+                    statement_descriptor_prefix?: string;
+                };
+
+                /**
+                 * Settings used to configure the account within the Stripe dashboard.
+                 */
+                dashboard?: {
+                    /**
+                     * The display name for this account. This is used on the Stripe Dashboard to
+                     * differentiate between accounts.
+                     */
+                    display_name?: string;
+
+                    /**
+                     * The timezone used in the Stripe Dashboard for this account. A list of
+                     * possible time zone values is maintained at the IANA Time Zone Database.
+                     */
+                    timezone?: string;
+                };
+
+                /**
+                 * Settings that apply across payment methods for charging on the account.
+                 */
+                payments?: {
+                    /**
+                     * The default text that appears on credit card statements when a charge is
+                     * made. This field prefixes any dynamic statement_descriptor specified on the
+                     * charge.
+                     */
+                    statement_descriptor?: string;
+                };
+
+                /**
+                 * Settings specific to the account’s payouts.
+                 */
+                payouts?: {
+                    /**
+                     * A Boolean indicating if Stripe should try to reclaim negative balances from
+                     * an attached bank account. See our Understanding Connect Account Balances
+                     * documentation for details. Default value is true for Express accounts and
+                     * false for Custom accounts.
+                     */
+                    debit_negative_balances?: boolean;
+
+                    /**
+                     * Details on when funds from charges are available, and when they are paid out
+                     * to an external account. See our Setting Bank and Debit Card Payouts
+                     * documentation for details.
+                     */
+                    schedule?: {
+                        /**
+                         * The number of days charges for the account will be held before being paid out.
+                         * May also be the string “minimum” for the lowest available value (based on
+                         * country). Default is “minimum”. Does not apply when interval is “manual”.
+                         */
+                        delay_days?: number | string;
+
+                        /**
+                         * How frequently funds will be paid out. One of "manual" (for only triggered
+                         * via API call), "daily", "weekly", or "monthly". Default is "daily".
+                         */
+                        interval?: "manual" | "daily" | "weekly" | "monthly";
+
+                        /**
+                         * The day of the month funds will be paid out. Required and available only if
+                         * interval is "monthly".
+                         */
+                        monthly_anchor?: number;
+
+                        /**
+                         * The day of the week funds will be paid out, of the style ‘monday’,
+                         * ‘tuesday’, etc. Required and available only if interval is weekly.
+                         */
+                        weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+                    };
+
+                    /**
+                     * The text that appears on the bank account statement for payouts. If not set,
+                     * this defaults to the platform’s bank descriptor as set in the Dashboard.
+                     */
+                    statement_descriptor?: string;
+                };
+            };
 
             /**
              * The text that will appear on credit card statements by default if a charge is
@@ -886,6 +1111,13 @@ declare namespace Stripe {
             receipt_number: string | null;
 
             /**
+             * This is the URL to view the receipt for this charge. The receipt is kept up-to-date to the
+             * latest state of the charge, including any refunds. If the charge is for an Invoice, the
+             * receipt will be stylized as an Invoice receipt.
+             */
+            receipt_url: string;
+
+            /**
              * Whether or not the charge has been fully refunded. If the charge is only partially refunded,
              * this attribute will still be false.
              */
@@ -960,15 +1192,13 @@ declare namespace Stripe {
             currency: string;
 
             /**
-             * A fee in pence that will be applied to the charge and transferred to the
-             * application owner's Stripe account. To use an application fee, the request
-             * must be made on behalf of another account, using the Stripe-Account
-             * header, an OAuth key, or the destination parameter. For more
-             * information, see the application fees documentation.
-             *
-             * Connect only.
+             * A fee in cents that will be applied to the charge and transferred
+             * to the application owner’s Stripe account. The request must be
+             * made with an OAuth key or the Stripe-Account header in order to
+             * take an application fee. For more information, see the
+             * application fees documentation.
              */
-            application_fee?: number;
+            application_fee_amount?: number;
 
             /**
              * Whether or not to immediately capture the charge. When false, the charge
@@ -1357,6 +1587,8 @@ declare namespace Stripe {
              */
             account_balance?: number;
 
+            address: IAddress | null;
+
             created: number;
 
             /**
@@ -1388,6 +1620,16 @@ declare namespace Stripe {
             metadata: IMetadata;
 
             /**
+             * The customer’s full name or business name.
+             */
+            name?: string | null;
+
+            /**
+             * The customer’s phone number.
+             */
+            phone?: string;
+
+            /**
              * Shipping information associated with the customer.
              */
             shipping: IShippingInformation | null;
@@ -1414,6 +1656,8 @@ declare namespace Stripe {
              */
             account_balance?: number;
 
+            address?: IAddress;
+
             /**
              * If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the
              * API will not have the discount.
@@ -1431,6 +1675,16 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+
+            /**
+             * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
+             */
+            name?: string;
+
+            /**
+             * The customer’s phone number. This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
 
             /**
              * The identifier of the plan to subscribe the customer to. If provided, the returned customer object will have a list of subscriptions
@@ -1478,6 +1732,8 @@ declare namespace Stripe {
              */
             account_balance?: number;
 
+            address?: IAddress;
+
             /**
              * If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the
              * API will not have the discount.
@@ -1500,6 +1756,21 @@ declare namespace Stripe {
              * This can be unset by updating the value to null and then saving.
              */
             email?: string;
+
+            /**
+             * The customer’s full name or business name. This can be unset by updating the value to null and then saving.
+             */
+            name?: string;
+
+            /**
+             * The customer’s phone number. This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
+
+            /**
+             * The prefix for the customer used to generate unique invoice numbers.
+             */
+            invoice_prefix?: string;
 
             shipping?: IShippingInformation;
 
@@ -1959,8 +2230,19 @@ declare namespace Stripe {
             /**
              * The fee in cents that will be applied to the invoice and transferred to the application owner's
              * Stripe account when the invoice is paid.
+             *
+             * @deprecated Stripe API Version 2019-03-14 changed the name of this property
+             * @see application_fee_amount
              */
             application_fee: number;
+
+            /**
+             * The fee in pence that will be applied to the invoice and transferred to the application owner’s
+             * Stripe account when the invoice is paid.
+             *
+             * @since Stripe API Version 2019-03-14
+             */
+            application_fee_amount: number;
 
             /**
              * Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any
@@ -1977,14 +2259,34 @@ declare namespace Stripe {
             attempted: boolean;
 
             /**
-             * Either charge_automatically, or send_invoice. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice. When `false`, the invoice’s state will not automatically advance
+             * without an explicit action.
+             */
+            auto_advance: boolean;
+
+            /**
+             * Either `charge_automatically`, or `send_invoice`. When charging automatically,
+             * Stripe will attempt to pay this invoice using the default source attached to the
+             * customer. When sending an invoice, Stripe will email this invoice to the customer
+             * with payment instructions.
              */
             billing: "charge_automatically" | "send_invoice";
 
             /**
-             * Indicates the reason why the invoice was created. subscription_cycle indicates an invoice created by a subscription advancing into a new period. subscription_update indicates an invoice created due to creating or updating a subscription. subscription is set for all old invoices to indicate either a change to a subscription or a period advancement. manual is set for all invoices unrelated to a subscription (for example: created via the invoice editor). The upcoming value is reserved for simulated invoices per the upcoming invoice endpoint.
+             * Indicates the reason why the invoice was created. `subscription_cycle` indicates an
+             * invoice created by a subscription advancing into a new period.
+             * `subscription_create` indicates an invoice created due to creating a subscription.
+             * `subscription_update` indicates an invoice created due to creating or updating a
+             * subscription. `subscription` is set for all old invoices to indicate either a change
+             * to a subscription or a period advancement. `manual` is set for all invoices
+             * unrelated to a subscription (for example: created via the invoice editor). The
+             * `upcoming` value is reserved for simulated invoices per the upcoming invoice
+             * endpoint. `subscription_threshold` indicates an invoice created due to a billing
+             * threshold being reached.
              */
-            billing_reason: "subscription_cycle" | "subscription_update" | "subscription" | "manual" | "upcoming";
+            billing_reason: "subscription_cycle" | "subscription_create" | "subscription_update" | "subscription" | "manual" | "upcoming" | "subscription_threshold";
 
             /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
@@ -1998,11 +2300,21 @@ declare namespace Stripe {
             closed: boolean;
 
             /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+
+            /**
              * Three-letter ISO currency code, in lowercase. Must be a supported currency.
              */
             currency: string;
 
-            customer: string;
+            /**
+             * Custom fields displayed on the invoice.
+             */
+            custom_fields: ICustomField[];
+
+            customer: string | customers.ICustomer;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2010,14 +2322,23 @@ declare namespace Stripe {
             date: number;
 
             /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to
+             * the subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source: string;
+
+            /**
              * An arbitrary string attached to the object. Often useful for displaying to users.
+             * Referenced as ‘memo’ in the Dashboard.
              */
             description: string;
 
             discount: coupons.IDiscount | null;
 
             /**
-             * The date on which payment for this invoice is due. This value will be null for invoices where billing=charge_automatically.
+             * The date on which payment for this invoice is due. This value will be `null` for
+             * invoices where `billing=charge_automatically`.
              */
             due_date: number | null;
 
@@ -2035,19 +2356,27 @@ declare namespace Stripe {
             forgiven: boolean;
 
             /**
-             * The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been frozen yet, this will be null.
+             * Footer displayed on the invoice.
+             */
+            footer: string;
+
+            /**
+             * The URL for the hosted invoice page, which allows customers to view and pay an
+             * invoice. If the invoice has not been finalized yet, this will be null.
              */
             hosted_invoice_url: string | null;
 
             /**
-             * The link to download the PDF for the invoice. If the invoice has not been frozen yet, this will be null.
+             * The link to download the PDF for the invoice. If the invoice has not been finalized
+             * yet, this will be null.
              */
             invoice_pdf: string | null;
 
             /**
              * The individual line items that make up the invoice.
              *
-             * lines is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
+             * `lines` is sorted as follows: invoice items in reverse chronological order, followed
+             * by the subscription, if any.
              */
             lines: IList<IInvoiceLineItem>;
 
@@ -2078,6 +2407,12 @@ declare namespace Stripe {
             paid: boolean;
 
             /**
+             * The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized,
+             * and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent. [Expandable]
+             */
+            payment_intent: paymentIntents.IPaymentIntent | null;
+
+            /**
              * End of the usage period during which invoice items were added to this invoice
              */
             period_end: number;
@@ -2102,6 +2437,16 @@ declare namespace Stripe {
              * Extra information about an invoice for the customer's credit card statement.
              */
             statement_descriptor: string;
+
+            /**
+             * The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`.
+             */
+            status: "draft" | "open" | "paid" | "uncollectible" | "void";
+
+            /**
+             * Contains the timestamps when an invoice was finalized, paid, marked uncollectible, or voided
+             */
+            status_transitions: IStatusTransitions;
 
             /**
              * The subscription that this invoice was prepared for, if any.
@@ -2130,6 +2475,12 @@ declare namespace Stripe {
              * before the invoice is paid. This field defaults to null.
              */
             tax_percent: number | null;
+
+            /**
+             * If `billing_reason` is set to `subscription_threshold` this returns more information
+             * on which threshold rules triggered the invoice.
+             */
+            threshold_reason: IThresholdReason;
 
             /**
              * Total after discount
@@ -2208,6 +2559,11 @@ declare namespace Stripe {
             subscription: string;
 
             /**
+             * The subscription item that generated this invoice item. Left empty if the line item is not an explicit result of a subscription.
+             */
+            subscription_item: string;
+
+            /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
              */
             type: "invoiceitem" | "subscription";
@@ -2223,7 +2579,63 @@ declare namespace Stripe {
              */
             application_fee?: number;
 
+            /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice. When `false`, the invoice’s state will not automatically advance
+             * without an explicit action.
+             */
+            auto_advance?: boolean;
+
+            /**
+             * Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe
+             * will attempt to pay this invoice using the default source attached to the customer.
+             * When sending an invoice, Stripe will email this invoice to the customer with payment
+             * instructions. Defaults to charge_automatically.
+             */
+            billing?: 'charge_automatically' | 'send_invoice';
+
+            /**
+             * A list of up to 4 custom fields to be displayed on the invoice.
+             */
+            custom_fields?: Array<{
+                /**
+                 * The name of the custom field. This may be up to 30 characters.
+                 */
+                name: string;
+
+                /**
+                 * The value of the custom field. This may be up to 30 characters.
+                 */
+                value: string;
+            }>;
+
+            /**
+             * The number of days from when the invoice is created until it is due. Valid only for
+             * invoices where `billing=send_invoice`.
+             */
+            days_until_due?: number;
+
+            /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to the
+             * subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source?: string;
+
             description?: string;
+
+            /**
+             * The date on which payment for this invoice is due. Valid only for invoices where
+             * `billing=send_invoice`;
+             */
+            due_date?: Date | number;
+
+            /**
+             * Footer to be displayed on the invoice. This can be unset by updating the value to
+             * `null` and then saving.
+             */
+            footer?: string | null;
 
             /**
              * Extra information about a charge for the customer’s credit card statement.
@@ -2231,8 +2643,10 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * The ID of the subscription to invoice. If not set, the created invoice will include all pending invoice items for
-             * the customer. If set, the created invoice will exclude pending invoice items that pertain to other subscriptions.
+             * The ID of the subscription to invoice, if any. If not set, the created invoice will
+             * include all pending invoice items for the customer. If set, the created invoice will
+             * exclude pending invoice items that pertain to other subscriptions. The subscription’s
+             * billing cycle and regular subscription events won’t be affected.
              */
             subscription?: string;
 
@@ -2251,11 +2665,59 @@ declare namespace Stripe {
             application_fee?: number;
 
             /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice.
+             */
+            auto_advance?: boolean;
+
+            /**
              * Boolean representing whether an invoice is closed or not. To close an invoice, pass true.
              */
             closed?: boolean;
 
+            /**
+             * A list of up to 4 custom fields to be displayed on the invoice.
+             */
+            custom_fields?: Array<{
+                /**
+                 * The name of the custom field. This may be up to 30 characters.
+                 */
+                name: string;
+
+                /**
+                 * The value of the custom field. This may be up to 30 characters.
+                 */
+                value: string;
+            }>;
+
+            /**
+             * The number of days from which the invoice is created until it is due. Only valid for
+             * invoices where billing=send_invoice. This field can only be updated on draft
+             * invoices.
+             */
+            days_until_due?: number;
+
+            /**
+             * ID of the default payment source for the invoice. It must belong to the customer
+             * associated with the invoice and be in a chargeable state. If not set, defaults to the
+             * subscription’s default source, if any, or to the customer’s default source.
+             */
+            default_source?: string;
+
             description?: string;
+
+            /**
+             * The date on which payment for this invoice is due. Only valid for invoices where
+             * `billing=send_invoice`. This field can only be updated on draft invoices.
+             */
+            due_date?: Date | number;
+
+            /**
+             * Footer to be displayed on the invoice. This can be unset by updating the value to
+             * `null` and then saving.
+             */
+            footer?: string | null;
 
             /**
              * Boolean representing whether an invoice is forgiven or not. To forgive an invoice, pass true. Forgiving an invoice
@@ -2270,7 +2732,10 @@ declare namespace Stripe {
             statement_descriptor?: string;
 
             /**
-             * The percent tax rate applied to the invoice, represented as a decimal number.
+             * The percent tax rate applied to the invoice, represented as a non-negative decimal
+             * number (with at most four decimal places) between 0 and 100. To unset a
+             * previously-set value, pass an empty string. This field can be updated only on draft
+             * invoices.
              */
             tax_percent?: number;
         }
@@ -2281,6 +2746,26 @@ declare namespace Stripe {
              * belonging to the customer associated with the invoice being paid.
              */
             source?: sources.ISourceCreationOptions;
+
+            /**
+             * Boolean representing whether an invoice is paid outside of Stripe.
+             * This will result in no charge being made.
+             */
+            paid_out_of_band?: boolean;
+
+            /**
+             * In cases where the source used to pay the invoice has insufficient
+             * funds, passing forgive=true controls whether a charge should be
+             * attempted for the full amount available on the source, up to the
+             * amount to fully pay the invoice. This effectively forgives the
+             * difference between the amount available on the source and the amount due.
+             * Passing forgive=false will fail the charge if the source hasn’t
+             * been pre-funded with the right amount. An example for this case is
+             * with ACH Credit Transfers and wires: if the amount wired is less
+             * than the amount due by a small amount, you might want to forgive
+             * the difference.
+             */
+            forgive?: boolean;
         }
 
         interface IInvoiceListOptions extends IListOptions {
@@ -2294,6 +2779,11 @@ declare namespace Stripe {
              * or it can be a dictionary with the following options:
              */
             created?: IDateFilter;
+
+            /**
+             * @deprecated Use created property instead as of api version 2019-03-14.
+             */
+            date?: IDateFilter;
 
             /**
              * The identifier of the customer whose invoices to return. If none is provided, all invoices will be returned.
@@ -2390,6 +2880,58 @@ declare namespace Stripe {
              * The period end date
              */
             end: number;
+        }
+
+        interface ICustomField {
+            /**
+             * The name of the custom field.
+             */
+            name: string;
+            /**
+             * The value of the custom field.
+             */
+            value: string;
+        }
+
+        interface IStatusTransitions {
+            /**
+             * The time that the invoice draft was finalized.
+             */
+            finalized_at: number;
+            /**
+             * The time that the invoice was marked uncollectible.
+             */
+            marked_uncollectible_at: number;
+            /**
+             * The time that the invoice was paid.
+             */
+            paid_at: number;
+            /**
+             * The time that the invoice was voided.
+             */
+            voided_at: number;
+        }
+
+        interface IThresholdReason {
+            /**
+             * The total invoice amount threshold boundary if it triggered the threshold invoice.
+             */
+            amount_gte: number;
+            /**
+             * Indicates which line items triggered a threshold invoice.
+             */
+            item_reasons: IItemReason[];
+        }
+
+        interface IItemReason {
+            /**
+             * The IDs of the line items that triggered the threshold invoice.
+             */
+            line_item_ids: string[];
+            /**
+             * The quantity threshold boundary that applied to the given line item.
+             */
+            usage_gte: number;
         }
     }
 
@@ -4422,6 +4964,13 @@ declare namespace Stripe {
              * See the Connect documentation for details.
              */
             transfer_group?: string;
+
+            /**
+             * An arbitrary string attached to the object. Often useful for
+             * displaying to users. This can be unset by updating the value
+             * to null and then saving.
+             */
+            description?: string;
         }
 
         interface ITransferUpdateOptions extends IDataOptionsWithMetadata {
@@ -5044,7 +5593,7 @@ declare namespace Stripe {
     }
 
     namespace subscriptions {
-        type SubscriptionStatus = "trialing" | "active" | "past_due" | "canceled" | "unpaid";
+        type SubscriptionStatus = "incomplete" | "incomplete_expired" | "trialing" | "active" | "past_due" | "canceled" | "unpaid";
         type SubscriptionBilling = "charge_automatically" | "send_invoice";
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
@@ -5063,6 +5612,41 @@ declare namespace Stripe {
             application_fee_percent: number;
 
             /**
+             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
+             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
+             * invoice with payment instructions.
+             */
+            billing: SubscriptionBilling;
+
+            /**
+             * Determines the date of the first full invoice, and, for plans with month or year intervals, the day of the month
+             * for subsequent invoices.
+             */
+            billing_cycle_anchor: number;
+
+            /**
+             * Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period.
+             */
+            billing_thresholds: null | {
+                /**
+                 * Monetary threshold that triggers the subscription to create an invoice.
+                 */
+                amount_gte: number;
+
+                /**
+                 * Indicates if the billing_cycle_anchor should be reset when a threshold is reached. If true, billing_cycle_anchor
+                 * will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+                 * This value may not be true if the subscription contains items with plans that have aggregate_usage=last_ever.
+                 */
+                reset_billing_cycle_anchor: boolean;
+            };
+
+            /**
+             * A date in the future at which the subscription will automatically get canceled.
+             */
+            cancel_at: number;
+
+            /**
              * If the subscription has been canceled with the at_period_end flag set to true, cancel_at_period_end on the
              * subscription will be true. You can use this attribute to determine whether a subscription that has a status
              * of active is scheduled to be canceled at the end of the current period.
@@ -5076,6 +5660,9 @@ declare namespace Stripe {
              */
             canceled_at: number | null;
 
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             created: number;
 
             /**
@@ -5094,6 +5681,25 @@ declare namespace Stripe {
             customer: string | customers.ICustomer;
 
             /**
+             * Number of days a customer has to pay invoices generated by this subscription. This value will be null for
+             * subscriptions where billing=charge_automatically.
+             */
+            days_until_due: number | null;
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription.
+             * If not set, invoices will use the default payment method in the customer’s invoice settings. [Expandable]
+             */
+            default_payment_method: string | null;
+
+            /**
+             * ID of the default payment source for the subscription.
+             * It must belong to the customer associated with the subscription and be in a chargeable state.
+             * If not set, defaults to the customer’s default source. [Expandable]
+             */
+            default_source: string;
+
+            /**
              * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a
              * subscription overrides a discount applied on a customer-wide basis.
              */
@@ -5105,9 +5711,26 @@ declare namespace Stripe {
              */
             ended_at: number | null;
 
-            metadata: IMetadata;
-
+            /**
+             * List of subscription items, each with an attached plan.
+             */
             items: IList<subscriptionItems.ISubscriptionItem>;
+
+            /**
+             * The most recent invoice this subscription has generated. [Expandable]
+             */
+            latest_invoice: null | invoices.IInvoice;
+
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful for storing additional information
+             * about the object in a structured format.
+             */
+            metadata: IMetadata;
 
             /**
              * Hash describing the plan the customer is subscribed to.  Only set if the subscription
@@ -5116,9 +5739,11 @@ declare namespace Stripe {
             plan?: plans.IPlan | null;
 
             /**
-             * The number of subscriptions for the associated plan
+             * The quantity of the plan to which the customer is subscribed. For example, if your plan is $10/user/month,
+             * and your customer has 5 users, you could pass 5 as the quantity to have the customer charged $50 (5 x $10) monthly.
+             * Only set if the subscription contains a single plan.
              */
-            quantity: number;
+            quantity?: number;
 
             /**
              * Date the subscription started
@@ -5126,13 +5751,29 @@ declare namespace Stripe {
             start: number;
 
             /**
-             * Possible values are "trialing", "active", "past_due", "canceled", or "unpaid". A subscription still in its trial period is trialing
-             * and moves to active when the trial period is over. When payment to renew the subscription fails, the subscription becomes
-             * past_due. After Stripe has exhausted all payment retry attempts, the subscription ends up with a status of either canceled
-             * or unpaid depending on your retry settings. Note that when a subscription has a status of unpaid, no subsequent invoices
-             * will be attempted (invoices will be created, but then immediately automatically closed. Additionally, updating customer
-             * card details will not lead to Stripe retrying the latest invoice.). After receiving updated card details from a customer,
-             * you may choose to reopen and pay their closed invoices.
+             * Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`,
+             * `past_due`, `canceled`, or `unpaid`.
+             *
+             * For `billing=charge_automatically` a subscription moves into `incomplete` if the
+             * initial payment attempt fails. A subscription in this state can only have metadata
+             * and default_source updated. Once the first invoice is paid, the subscription moves
+             * into an `active` state. If the first invoice is not paid within 23 hours, the
+             * subscription transitions to `incomplete_expired`. This is a terminal state, the open
+             * invoice will be voided and no further invoices will be generated.
+             *
+             * A subscription that is currently in a trial period is `trialing` and moves to
+             * `active` when the trial period is over.
+             *
+             * If subscription `billing=charge_automatically` it becomes `past_due` when payment to
+             * renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings)
+             * when Stripe has exhausted all payment retry attempts.
+             *
+             * If subscription `billing=send_invoice` it becomes `past_due` when its invoice is not
+             * paid by the due date, and `canceled` or `unpaid` if it is still not paid by an
+             * additional deadline after that. Note that when a subscription has a status of
+             * `unpaid`, no subsequent invoices will be attempted (invoices will be created, but
+             * then immediately automatically closed). After receiving updated payment information
+             * from a customer, you may choose to reopen and pay their closed invoices.
              */
             status: SubscriptionStatus;
 
@@ -5150,20 +5791,6 @@ declare namespace Stripe {
              * If the subscription has a trial, the beginning of that trial.
              */
             trial_start: number | null;
-
-            /**
-             * Either "charge_automatically", or "send_invoice". When charging automatically, Stripe will attempt to pay this subscription at the
-             * end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an
-             * invoice with payment instructions.
-             */
-            billing: SubscriptionBilling;
-
-            /**
-             * ID of the default payment source for the subscription.
-             * It must belong to the customer associated with the subscription and be in a chargeable state.
-             * If not set, defaults to the customer’s default source. [Expandable]
-             */
-            default_source: string;
         }
 
         interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
@@ -5442,6 +6069,19 @@ declare namespace Stripe {
              */
             object: "subscription_item";
 
+            /**
+             * Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period.
+             */
+            billing_thresholds: null | {
+                /**
+                 * Usage threshold that triggers the subscription to create an invoice
+                 */
+                usage_gte: number;
+            };
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             created: number;
 
             /**
@@ -5459,6 +6099,11 @@ declare namespace Stripe {
              * The quantity of the plan to which the customer should be subscribed.
              */
             quantity: number;
+
+            /**
+             * The subscription this subscription_item belongs to.
+             */
+            subscription: string;
         }
 
         interface ISubscriptionItemCreationOptions extends IDataOptionsWithMetadata {
@@ -8040,41 +8685,43 @@ declare namespace Stripe {
         [x: string]: string;
     }
 
+    interface IAddress {
+        /**
+         * Address line 1 (Street address/PO Box/Company name)
+         */
+        line1: string;
+
+        /**
+         * Address line 2 (Apartment/Suite/Unit/Building)
+         */
+        line2?: string;
+
+        /**
+         * City/Suburb/Town/Village
+         */
+        city?: string;
+
+        /**
+         * State/Province/County
+         */
+        state?: string;
+
+        /**
+         * Zip/Postal Code
+         */
+        postal_code?: string;
+
+        /**
+         * 2-letter country code
+         */
+        country?: string;
+    }
+
     interface IShippingInformation {
         /**
          * Shipping address.
          */
-        address: {
-            /**
-             * Address line 1 (Street address/PO Box/Company name)
-             */
-            line1: string;
-
-            /**
-             * Address line 2 (Apartment/Suite/Unit/Building)
-             */
-            line2?: string;
-
-            /**
-             * City/Suburb/Town/Village
-             */
-            city?: string;
-
-            /**
-             * State/Province/County
-             */
-            state?: string;
-
-            /**
-             * Zip/Postal Code
-             */
-            postal_code?: string;
-
-            /**
-             * 2-letter country code
-             */
-            country?: string;
-        };
+        address: IAddress;
 
         /**
          * Recipient name.

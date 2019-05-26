@@ -2,6 +2,7 @@ import * as nodemailer from 'nodemailer';
 
 import addressparser = require('nodemailer/lib/addressparser');
 import base64 = require('nodemailer/lib/base64');
+import DKIM = require('nodemailer/lib/dkim');
 import fetch = require('nodemailer/lib/fetch');
 import Cookies = require('nodemailer/lib/fetch/cookies');
 import JSONTransport = require('nodemailer/lib/json-transport');
@@ -628,8 +629,8 @@ function oauth2_2lo_test() {
         auth: {
             type: 'OAuth2',
             user: 'user@example.com',
-            serviceClient: '113600000000000000000',
-            privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
+            clientId: '113600000000000000000',
+            clientSecret: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
             accessToken: 'ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x',
             expires: 1484314697598
         }
@@ -1115,6 +1116,28 @@ function base64_test() {
     base64.encode('abcd= ÕÄÖÜ');
 
     base64.encode(new Buffer([0x00, 0x01, 0x02, 0x20, 0x03]));
+}
+
+// dkim
+
+function dkim_test_options() {
+    const dkim = new DKIM({
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    const stream = dkim.sign('Message');
+    stream.pipe(process.stdout);
+}
+
+function dkim_test_extra_options() {
+    const dkim = new DKIM();
+    const stream = dkim.sign('Message', {
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    stream.pipe(process.stdout);
 }
 
 // fetch

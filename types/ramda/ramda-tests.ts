@@ -270,6 +270,50 @@ class F2 {
     );
 };
 
+() => {
+    const get = (prop: string) => (obj: any): any[] => {
+        const propVal = obj[prop];
+        if (propVal) {
+            return [propVal];
+        } else {
+            return [];
+        }
+    };
+
+    const getStateCode: (input: any) => any[] = R.composeWith(
+        R.chain,
+        [
+            R.compose((val) => [val], R.toUpper),
+            get('state'),
+            get('address'),
+            get('user'),
+        ],
+    );
+    getStateCode({ user: { address: { state: "ny" } } }); // => []
+    getStateCode({}); // => []
+
+    const nextThree = (num: number): number[] => ([num, num + 1, num + 2]);
+    const onlyOverNine = (num: number): number[] => num > 9 ? [num] : [];
+    const toString = (input: any): string[] => [`${input}`];
+    const split = (input: string): string[] => input.split('');
+
+    const composed: (num: number) => string[] = R.composeWith(
+        R.chain,
+        [
+            split,
+            toString,
+            onlyOverNine,
+            nextThree,
+        ],
+    );
+    const composed2: (num: number) => string[] = R.composeWith(R.chain)([
+        split,
+        toString,
+        onlyOverNine,
+        nextThree,
+    ]);
+};
+
 /* composeP */
 () => {
     interface User {
@@ -377,6 +421,31 @@ class F2 {
 };
 
 () => {
+    interface User {
+        followers: string[];
+        name: string;
+    }
+
+    const db = {
+        getUserById(userName: string): Promise<User> {
+            return Promise.resolve({
+                name: 'Jon',
+                followers: [
+                    'Samwell',
+                    'Edd',
+                    'Grenn',
+                ],
+            });
+        },
+        getFollowers(user: User): Promise<string[]> {
+            return Promise.resolve(user.followers);
+        },
+    };
+    const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(R.then, [db.getUserById, db.getFollowers]);
+    const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.then)([db.getUserById, db.getFollowers]);
+};
+
+() => {
     R.invoker(1, "slice")(6, "abcdefghijklm");
     R.invoker(2, "slice")(6)(8, "abcdefghijklm");
 };
@@ -457,34 +526,6 @@ R.times(i, 5);
 })();
 
 (() => {
-    let numberOfCalls = 0;
-
-    function trackedAdd(a: number, b: number) {
-        numberOfCalls += 1;
-        return a + b;
-    }
-
-    const memoTrackedAdd = R.memoize(trackedAdd);
-
-    memoTrackedAdd(1, 2); // => 3
-    numberOfCalls; // => 1
-    memoTrackedAdd(1, 2); // => 3
-    numberOfCalls; // => 1
-    memoTrackedAdd(2, 3); // => 5
-    numberOfCalls; // => 2
-
-    // Note that argument order matters
-    memoTrackedAdd(2, 1); // => 3
-    numberOfCalls; // => 3
-
-    function stringLength(str: string): number {
-      return str.length;
-    }
-    const memoStringLength = R.memoize(stringLength);
-    const isLong = memoStringLength('short') > 10; // false
-})();
-
-(() => {
     interface Vector {
       x: number;
       y: number;
@@ -500,7 +541,7 @@ R.times(i, 5);
         };
     }
 
-    const memoVectorSum = R.memoizeWith(JSON.stringify, vectorSum);
+    const memoVectorSum = R.memoizeWith((a, b) => JSON.stringify([a, b]), vectorSum);
 
     memoVectorSum({ x: 1, y: 1 }, { x: 2, y: 2 }); // => { x: 3, y: 3 }
     numberOfCalls; // => 1
@@ -724,6 +765,15 @@ R.times(i, 5);
 (() => {
     const lteThree = (x: number) => x <= 3;
     R.dropLastWhile(lteThree, [1, 2, 3, 4, 3, 2, 1]); // => [1, 2, 3, 4]
+});
+
+(() => {
+    R.dropRepeats([1, 1, 1, 2, 3, 4, 4, 2, 2]); // => [1, 2, 3, 4, 2]
+});
+
+(() => {
+    const l = [1, -1, 1, 3, 4, -4, -4, -5, 5, 3, 3];
+    const x: number[] = R.dropRepeatsWith(R.eqBy(Math.abs), l); // => [1, 3, 4, -5, 3]
 });
 
 () => {
@@ -967,7 +1017,8 @@ interface Obj {
     }
     const list: Book[] = [{id: "xyz", title: "A"}, {id: "abc", title: "B"}];
     const a1 = R.indexBy(R.prop("id"), list);
-    const a2 = R.indexBy(R.prop("id"))(list);
+    // Typescript 3.3 incorrectly gives `a2: {}`, 3.4 gives an error instead.
+    // const a2 = R.indexBy(R.prop("id"))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
     const a4 = R.indexBy(R.prop<"id", string>("id"))(list);
     const a5 = R.indexBy<{ id: string }>(R.prop<"id", string>("id"))(list);
@@ -1413,6 +1464,31 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    interface Person { id: number; firstName: string; lastName: string; }
+    const makeQuery = (email: string) => ({ query: { email }});
+    const fetchMember = (query: any) => Promise.resolve({ id: 1, firstName: 'Jon', lastName: 'Snow' });
+    const getTitleAsync = (person: Person) => person.firstName === 'Jon' && person.lastName === 'Snow' ? Promise.resolve('King in the North') : Promise.reject('Unknown');
+
+    const getMemberName: (email: string) => Promise<{ firstName: string, lastName: string }> = R.pipe(
+        makeQuery,
+        fetchMember,
+        R.then(R.pick(['firstName', 'lastName'])),
+    );
+
+    const getMemberTitle: (email: string) => Promise<string> = R.pipe(
+        makeQuery,
+        fetchMember,
+        R.then(getTitleAsync),
+    );
+};
+
+() => {
+    const x: number = R.thunkify(R.identity)(42)();
+    const y: number = R.thunkify((a: number, b: number) => a + b)(25, 17)();
+    const z: number = R.thunkify((a: number, b: number) => a + b)(25)(17)();
+};
+
+() => {
     const a1 = R.times(R.identity, 5); // => [0, 1, 2, 3, 4]
     const a2 = R.times(R.identity)(5); // => [0, 1, 2, 3, 4]
 };
@@ -1459,7 +1535,7 @@ type Pair = KeyValuePair<string, number>;
     const list = [1, 2, 3];
     R.traverse(of, fn, list);
     R.traverse(of, fn)(list);
-    R.traverse<number, number[], {}>(of)(fn, list);
+    R.traverse<number, number>(of)(fn, list);
 };
 
 () => {
@@ -1670,6 +1746,16 @@ class Rectangle {
 };
 
 () => {
+    R.hasPath(['a', 'b'], {a: {b: 2}});         // true
+    R.hasPath(['a', 'b'], {a: {b: undefined}}); // => true
+    R.hasPath(['a', 'b'], {a: {c: 2}});         // => false
+    R.hasPath(['a', 'b'], {});                  // => false
+
+    const hasPathCurried = R.hasPath(['a', 'b']);
+    hasPathCurried({a: {b: 2}}); // true
+};
+
+() => {
     const raceResultsByFirstName = {
         first : "alice",
         second: "jake",
@@ -1703,6 +1789,25 @@ class Rectangle {
 () => {
     const f = new F();
     R.keysIn(f); // => ['x', 'y']
+};
+
+() => {
+    interface Person { firstName: string; lastName: string; }
+    const failedFetch = (id: string): Promise<Person> => Promise.reject('bad ID');
+    const useDefault = (): Person => ({ firstName: 'Bob', lastName: 'Loblaw' });
+    const loadAlternative = (): Promise<Person> => Promise.resolve({ firstName: 'Saul', lastName: 'Goodman' });
+
+    const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string; }> = R.pipe(
+      failedFetch,
+      R.otherwise(useDefault),
+      R.then(R.pick(['firstName', 'lastName'])),
+    );
+
+    const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
+      failedFetch,
+      R.otherwise(useDefault),
+      R.then(loadAlternative),
+    );
 };
 
 () => {
@@ -1796,8 +1901,11 @@ class Rectangle {
 };
 
 () => {
+    interface FBB { foo?: number; bar?: number; baz?: number; }
     const a = R.mergeAll([{foo: 1}, {bar: 2}, {baz: 3}]); // => {foo:1,bar:2,baz:3}
     const b = R.mergeAll([{foo: 1}, {foo: 2}, {bar: 2}]); // => {foo:2,bar:2}
+    const c = R.mergeAll<FBB>([{foo: 1}, {bar: 2}, {baz: 3}]); // => {foo:1,bar:2,baz:3}
+    const d = R.mergeAll<FBB>([{foo: 1}, {foo: 2}, {bar: 2}]); // => {foo:2,bar:2}
 };
 
 () => {
@@ -1822,6 +1930,20 @@ class Rectangle {
         {foo: {bar: [1, 2], userIds: [42]}},
         {foo: {bar: [3, 4], userIds: [34]}}
     ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
+};
+
+() => {
+    R.mergeLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
+    const curry1 = R.mergeLeft({foo: {bar: 1}});
+    curry1({foo: {bar: 2}}); // => {foo: {bar: 1}}
+};
+
+() => {
+    R.mergeRight({ name: 'fred', age: 10 }, { age: 40 });
+    // => { 'name': 'fred', 'age': 40 }
+
+    const withDefaults = R.mergeRight({x: 0, y: 0});
+    withDefaults({y: 2}); // => {x: 0, y: 2}
 };
 
 () => {
@@ -1853,9 +1975,9 @@ class Rectangle {
 };
 
 () => {
-    const a: boolean = R.pathSatisfies(x => x > 0, ["x"], {x: 1, y: 2}); // => true
-    const b: boolean = R.pathSatisfies(x => x > 0, ["x"])({x: 1, y: 2}); // => true
-    const c: boolean = R.pathSatisfies(x => x > 0)(["x"])({x: 1, y: 2}); // => true
+    const a: boolean = R.pathSatisfies((x: number) => x > 0, ["x"], {x: 1, y: 2}); // => true
+    const b: boolean = R.pathSatisfies((x: number) => x > 0, ["x"])({x: 1, y: 2}); // => true
+    const c: boolean = R.pathSatisfies((x: number) => x > 0)(["x"])({x: 1, y: 2}); // => true
 };
 
 () => {
@@ -1966,12 +2088,14 @@ class Rectangle {
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
+    R.propOr('Ramda', R.__, alice)('name');  // => 'ALICE'
+    R.propOr(R.__, 'foo', alice)('default');  // => 'default'
 };
 
 () => {
-    const a: boolean = R.propSatisfies(x => x > 0, "x", {x: 1, y: 2}); // => true
-    const b: boolean = R.propSatisfies(x => x > 0, "x")({x: 1, y: 2}); // => true
-    const c: boolean = R.propSatisfies(x => x > 0)("x")({x: 1, y: 2}); // => true
+    const a: boolean = R.propSatisfies((x: number) => x > 0, "x", {x: 1, y: 2}); // => true
+    const b: boolean = R.propSatisfies((x: number) => x > 0, "x")({x: 1, y: 2}); // => true
+    const c: boolean = R.propSatisfies((x: number) => x > 0)("x")({x: 1, y: 2}); // => true
 };
 
 () => {

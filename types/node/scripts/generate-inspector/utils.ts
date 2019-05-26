@@ -25,7 +25,14 @@ export function flattenArgs<T = string>(inBetween?: T): (acc: T[], next: T[]) =>
  * Returns whether an array exists and has elements.
  * @param a The array to check.
  */
-export const hasElements = (a: any[]): boolean => a && a.length > 0;
+export const hasElements = (a?: any[]): boolean => !!a && a.length > 0;
+
+/**
+ * Given an array that might have null elements, return an array with just the
+ * non-null elements.
+ * @param a The array to filter.
+ */
+export const filterNull = <T>(a: Array<T | null>): T[] => a.filter(x => x != null) as T[];
 
 /**
  * Returns the capitalized form of a given string.
@@ -48,16 +55,14 @@ export function isObjectReference(t: Field): t is ObjectReference {
  * @param documentable A Documentable object.
  */
 export const createDocs = ({ deprecated, description, experimental }: Documentable): string[] => {
-    const hasDocs = !!description ||
-        deprecated ||
-        experimental;
-    return hasDocs ? [
+    const hasDocs = !!description || deprecated || experimental;
+    return hasDocs ? filterNull([
         "/**",
         ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
-        deprecated && " * @deprecated",
-        experimental && " * @experimental",
+        deprecated ? " * @deprecated" : null,
+        experimental ? " * @experimental" : null,
         " */",
-    ].filter(l => l != null) : [];
+    ]) : [];
 };
 
 /**

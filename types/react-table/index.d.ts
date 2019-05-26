@@ -1,10 +1,11 @@
-// Type definitions for react-table 6.7
+// Type definitions for react-table 6.8
 // Project: https://github.com/react-tools/react-table
 // Definitions by: Roy Xue <https://github.com/royxue>,
 //                 Pavel Sakalo <https://github.com/psakalo>,
 //                 Krzysztof Porębski <https://github.com/Havret>,
 //                 Andy S <https://github.com/andys8>,
 //                 Grzegorz Rozdzialik <https://github.com/Gelio>
+//                 Cam Pepin <https://github.com/cpepin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
@@ -42,12 +43,10 @@ export interface Filter {
     value: any;
     pivotId?: string;
 }
-/** NOTE: to many configuration ways (only true values are confusing) */
+
 export interface SortingRule {
     id: string;
-    sort?: 'desc' | 'asc';
-    asc?: true;
-    desc?: true;
+    desc: boolean;
 }
 
 export interface TableProps<D = any, ResolvedData = D> extends
@@ -714,7 +713,6 @@ export interface FinalState<D = any> extends TableProps<D> {
     frozen: boolean;
     startRow: number;
     endRow: number;
-    pageRows: number;
     padRows: number;
     hasColumnFooter: boolean;
     hasHeaderGroups: boolean;
@@ -724,6 +722,7 @@ export interface FinalState<D = any> extends TableProps<D> {
 
     allVisibleColumns: Array<Column<D>>;
     allDecoratedColumns: Array<Column<D>>;
+    pageRows: DerivedDataObject[];
     resolvedData: DerivedDataObject[];
     sortedData: DerivedDataObject[];
     headerGroups: any[];

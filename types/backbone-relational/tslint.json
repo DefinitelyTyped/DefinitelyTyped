@@ -4,6 +4,7 @@
         "array-type": false,
         "comment-format": false,
         "dt-header": false,
+        "npm-naming": false,
         "eofline": false,
         "jsdoc-format": false,
         "max-line-length": false,

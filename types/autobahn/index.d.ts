@@ -1,6 +1,6 @@
-// Type definitions for AutobahnJS 0.9
-// Project: http://autobahn.ws/js/, https://github.com/crossbario/autobahn-js
-// Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy>, Wladimir Totino <https://github.com/valepu>, Mathias Teier <https://github.com/glenroy37>
+// Type definitions for AutobahnJS 18.10
+// Project: https://crossbar.io/autobahn/, https://github.com/crossbario/autobahn-js
+// Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy>, Wladimir Totino <https://github.com/valepu>, Mathias Teier <https://github.com/glenroy37>, Fran Rodriguez <https://github.com/spcfran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="when" />
@@ -190,9 +190,12 @@ declare namespace autobahn {
     export class Connection {
         constructor(options?: IConnectionOptions);
 
-        isOpen: boolean;
-        isRetrying: boolean;
-        session?: Session;
+        readonly isConnected: boolean;
+        readonly isOpen: boolean;
+        readonly isRetrying: boolean;
+        readonly transport: ITransport;
+        readonly session?: Session;
+        readonly defer?: DeferFactory;
 
         open(): void;
 
@@ -205,7 +208,7 @@ declare namespace autobahn {
     interface ITransportDefinition {
         url?: string;
         protocols?: string[];
-        type: string;
+        type: TransportType;
     }
 
     type DeferFactory = () => When.Promise<any>;
@@ -226,7 +229,7 @@ declare namespace autobahn {
         url?: string;
         protocols?: string[];
         onchallenge?: OnChallengeHandler;
-        realm?: string;
+        realm: string;
         authmethods?: string[];
         authid?: string;
     }
@@ -237,6 +240,19 @@ declare namespace autobahn {
         code: number;
     }
 
+    type DefaultTransportType = 'websocket' | 'longpoll' | 'rawsocket';
+    
+    // Workaround to get intellisense on type unions of 'literals' | string. 
+    // See https://github.com/Microsoft/TypeScript/issues/29729
+    type CustomTransportType = string & { zz_IGNORE_ME?: never };
+    type TransportType = DefaultTransportType | CustomTransportType;
+
+    interface ITransportInfo {
+        url?: string;
+        protocol?: string;
+        type: TransportType;
+    }
+
     interface ITransport {
         onopen: () => void;
         onmessage: (message: any[]) => void;
@@ -244,19 +260,23 @@ declare namespace autobahn {
 
         send(message: any[]): void;
         close(errorCode: number, reason?: string): void;
+        info: ITransportInfo;
     }
 
     interface ITransportFactory {
-        // constructor(options: any);
-        type: string;
+        type: TransportType;
         create(): ITransport;
+    }
+    
+    interface ITransportFactoryFactory {
+        new (options: any): ITransportFactory;
     }
 
     interface ITransports {
-        register(name: string, factory: any): void;
-        isRegistered(name: string): boolean;
-        get(name: string): any;
-        list(): string[];
+        register(name: TransportType, factory: ITransportFactoryFactory): void;
+        isRegistered(name: TransportType): boolean;
+        get(name: TransportType): ITransportFactoryFactory;
+        list(): TransportType[];
     }
 
     interface ILog {

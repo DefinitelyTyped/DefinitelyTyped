@@ -10,6 +10,7 @@
 //                 Ulf Schwekendiek <https://github.com/sulf>
 //                 Pablo Varela <https://github.com/pablopunk>
 //                 Claudio Procida <https://github.com/claudiopro>
+//                 Kevin Hawkinson <https://github.com/khawkinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -120,6 +121,8 @@ declare namespace Draft {
                 ariaLabel?: string;
                 ariaMultiline?: boolean;
 
+                role?: string;
+
                 webDriverTestID?: string;
 
                 /**
@@ -211,6 +214,8 @@ declare namespace Draft {
                 static isOptionKeyCommand(e: SyntheticKeyboardEvent): boolean;
 
                 static hasCommandModifier(e: SyntheticKeyboardEvent): boolean;
+
+                static isSoftNewlineEvent(e: SyntheticKeyboardEvent): boolean;
             }
 
             /**
@@ -500,10 +505,10 @@ declare namespace Draft {
             /**
              * A plain object representation of an EntityInstance.
              */
-            interface RawDraftEntity {
+            interface RawDraftEntity<T = { [key: string]: any }> {
                 type: DraftEntityType;
                 mutability: DraftEntityMutability;
-                data: { [key: string]: any };
+                data: T;
             }
 
             /**
