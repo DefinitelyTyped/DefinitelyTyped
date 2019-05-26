@@ -4,7 +4,7 @@
 //                 Troy Lamerton <https://github.com/troy-lamerton>
 //                 Martín Rodriguez <https://github.com/netux>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.2
 
 import Bluebird = require("bluebird");
 

@@ -2,6 +2,7 @@ import * as nodemailer from 'nodemailer';
 
 import addressparser = require('nodemailer/lib/addressparser');
 import base64 = require('nodemailer/lib/base64');
+import DKIM = require('nodemailer/lib/dkim');
 import fetch = require('nodemailer/lib/fetch');
 import Cookies = require('nodemailer/lib/fetch/cookies');
 import JSONTransport = require('nodemailer/lib/json-transport');
@@ -1115,6 +1116,28 @@ function base64_test() {
     base64.encode('abcd= ÕÄÖÜ');
 
     base64.encode(new Buffer([0x00, 0x01, 0x02, 0x20, 0x03]));
+}
+
+// dkim
+
+function dkim_test_options() {
+    const dkim = new DKIM({
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    const stream = dkim.sign('Message');
+    stream.pipe(process.stdout);
+}
+
+function dkim_test_extra_options() {
+    const dkim = new DKIM();
+    const stream = dkim.sign('Message', {
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    stream.pipe(process.stdout);
 }
 
 // fetch

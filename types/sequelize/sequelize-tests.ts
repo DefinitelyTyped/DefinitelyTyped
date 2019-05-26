@@ -136,6 +136,7 @@ User.hasMany( User, {
     foreignKey : 'parent',
     foreignKeyConstraint : true
 } );
+User.hasOne( Task, { foreignKey : 'userId', as : 'activeTasks', scope : { active : true } } );
 
 User.belongsToMany( Task, { through : 'UserTasks' } );
 User.belongsToMany( User, { through : Task } );
@@ -1195,8 +1196,12 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
-queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
-queryInterface.addIndex("Group", ["from"], { concurrently: true });
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' });
+queryInterface.addIndex( 'Group', ['from'], { type: 'FULLTEXT' });
+queryInterface.addIndex( 'Group', ['from'], { indicesType: 'FULLTEXT' } );
+queryInterface.addIndex( 'Group', ['from'], { concurrently: true } );
+queryInterface.addIndex( 'Group', ['data'], { using: 'gin', operator: 'jsonb_path_ops' } );
+queryInterface.addIndex( 'Group', { fields: ['data'], using: 'gin', operator: 'jsonb_path_ops' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590

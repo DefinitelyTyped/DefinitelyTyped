@@ -6,6 +6,7 @@
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
+//                 Brandon Wilson <https://github.com/wilsonianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -179,7 +180,7 @@ export interface ResponseInit {
     status?: number;
     statusText?: string;
     timeout?: number;
-    url: string;
+    url?: string;
 }
 
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
@@ -194,7 +195,7 @@ export type BodyInit =
 export type RequestInfo = string | Request;
 
 declare function fetch(
-    url: string | Request,
+    url: RequestInfo,
     init?: RequestInit
 ): Promise<Response>;
 
