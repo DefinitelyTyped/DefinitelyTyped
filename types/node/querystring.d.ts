@@ -12,9 +12,9 @@ declare module "querystring" {
 
     interface ParsedUrlQueryInput {
         [key: string]:
-            // The value type here is a "poor man's `unknown`". When these types support TypeScript
-            // 3.0+, we can replace this with `unknown`.
-            {} | null | undefined;
+        // The value type here is a "poor man's `unknown`". When these types support TypeScript
+        // 3.0+, we can replace this with `unknown`.
+        {} | null | undefined;
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
@@ -22,11 +22,11 @@ declare module "querystring" {
     /**
      * The querystring.encode() function is an alias for querystring.stringify().
      */
-    function encode(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
+    const encode: typeof stringify;
     /**
      * The querystring.decode() function is an alias for querystring.parse().
      */
-    function decode(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
+    const decode: typeof parse;
     function escape(str: string): string;
     function unescape(str: string): string;
 }
