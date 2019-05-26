@@ -7,15 +7,13 @@
 declare function Purdy(obj: object, options: Purdy.Options): void;
 
 declare namespace Purdy {
-    // tslint:disable-next-line strict-export-declare-modifiers
-    export interface Instance {
+    interface Instance {
         (obj: object, options: Options): void;
         print: (...args: any[]) => void;
         stringify: (...args: any[]) => string;
     }
 
-    // tslint:disable-next-line strict-export-declare-modifiers
-    export interface Options {
+    interface Options {
         depth?: number|null;
         plain?: boolean;
         json?: boolean;
@@ -27,11 +25,8 @@ declare namespace Purdy {
         pathPrefix?: string;
     }
 
-    // tslint:disable-next-line strict-export-declare-modifiers
-    export function purdy(options: Options): Instance;
-
-    // tslint:disable-next-line strict-export-declare-modifiers
-    export function stringify(obj: object, options: Options): string;
+    function purdy(options: Options): Instance;
+    function stringify(obj: object, options: Options): string;
 }
 
 export = Purdy;
