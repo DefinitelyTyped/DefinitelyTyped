@@ -1,6 +1,6 @@
-// Type definitions for 3box
+// Type definitions for 3box 1.7
 // Project: https://github.com/3box/3box-js
-// Definitions by: KuhnChris <https://github.com/kuhnchris> 
+// Definitions by: KuhnChris <https://github.com/kuhnchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface BoxVerified {
