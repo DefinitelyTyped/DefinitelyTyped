@@ -404,7 +404,7 @@ export class Table extends PureComponent<TableProps> {
             (params: RowMouseEventHandlerParams) => void
         >;
         onRowsRendered: Requireable<
-            (params: RowMouseEventHandlerParams) => void
+            (params: IndexRange & OverscanIndexRange) => void
         >;
         onScroll: Requireable<(params: ScrollEventData) => void>;
         overscanRowCount: Validator<number>;
