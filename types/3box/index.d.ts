@@ -1,7 +1,8 @@
 // Type definitions for 3box
 // Project: https://github.com/3box/3box-js
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: KuhnChris <https://github.com/kuhnchris> 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export interface BoxVerified {
     Verified: () => BoxVerified;
     DID: () => string;
