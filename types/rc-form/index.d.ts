@@ -6,6 +6,8 @@
 
 import * as React from 'react';
 
+export as namespace rcForm;
+
 type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
 type DeepPartial<T> = T extends Primitive
