@@ -84,7 +84,14 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
             return;
         }
     });
-    const myPayloadPromise = await myDropin.requestPaymentMethod();
+
+    const myPayload = await myDropin.requestPaymentMethod();
+    const details: object = myPayload.details;
+    const deviceData: string | null = myPayload.deviceData;
+    const nonce: string = myPayload.nonce;
+    const type: "CreditCard" | "PayPalAccount" | "VenmoAccount" | "AndroidPayCard" | "ApplePayCard" = myPayload.type;
+    const countryOfIssuance: string = myPayload.binData.countryOfIssuance;
+
     myDropin.teardown(error => {
         if (error) {
             return;

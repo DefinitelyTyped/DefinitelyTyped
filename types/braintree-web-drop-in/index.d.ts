@@ -101,10 +101,18 @@ export interface Dropin {
         event: "paymentOptionSelected",
         handler: (payload: { paymentOption: "card" | "paypal" | "paypalCredit" }) => void
     ): void;
-    requestPaymentMethod(callback: (error: object | null, payload: any) => void): void;
-    requestPaymentMethod(): Promise<any>;
+    requestPaymentMethod(callback: (error: object | null, payload: PaymentMethodPayload | undefined) => void): void;
+    requestPaymentMethod(): Promise<PaymentMethodPayload>;
     teardown(callback: (error: object | null | undefined) => void): void;
     teardown(): Promise<void>;
+}
+
+export interface PaymentMethodPayload {
+    nonce: string;
+    details: object;
+    type: "CreditCard" | "PayPalAccount" | "VenmoAccount" | "AndroidPayCard" | "ApplePayCard";
+    deviceData: string | null;
+    [key: string]: any;
 }
 
 // Methods
