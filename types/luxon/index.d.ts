@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.13
+// Type definitions for luxon 1.15.0
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -496,8 +496,11 @@ export interface ZoneOffsetOptions {
     localeCode?: string;
 }
 
+export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
+
 export class Zone {
     offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    formatOffset(ts: number, format: ZoneOffsetFormat): string;
     isValid: boolean;
     name: string;
     type: string;
