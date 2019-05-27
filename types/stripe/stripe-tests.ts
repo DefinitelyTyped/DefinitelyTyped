@@ -78,6 +78,17 @@ stripe.charges.create({
     charge.refunds.list().then((refund) => {
     });
 });
+stripe.charges.create({
+    amount: 400,
+    currency: "gbp",
+    source: "tok_17wV94BoqMA9o2xkhlAd3ALf", // obtained with Stripe.js
+    description: "Charge for test@example.com",
+    transfer_data: {
+        destination: "acct_17wV8KBoqMA9o2xk"
+    }
+}, (err, charge) => {
+    // asynchronously called
+});
 
 stripe.charges.retrieve("ch_15fvyXEe31JkLCeQOo0SwFk9", (err, charge) => {
     // asynchronously called
@@ -680,6 +691,23 @@ stripe.accounts.create({
     // asynchronously called
     }
 );
+stripe.accounts.create({
+    type: "custom",
+    business_type: "individual",
+    individual: {
+        first_name: "John",
+        last_name: "Smith",
+        email: "test@example.com",
+        dob: {
+            day: 1,
+            month: 1,
+            year: 1970
+        },
+    }
+}).then((customer) => {
+    // asynchronously called
+    }
+);
 
 stripe.accounts.retrieve(
     "acct_17wV8KBoqMA9o2xk",
@@ -696,7 +724,9 @@ stripe.accounts.retrieve(
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        support_phone: "555-867-5309"
+        business_profile: {
+            support_phone: "555-867-5309"
+        }
     },
     (err, account) => {
         // asynchronously called
@@ -704,7 +734,9 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 );
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        support_phone: "555-867-5309"
+        business_profile: {
+            support_phone: "555-867-5309"
+        }
     }).then(
     (account) => {
         // asynchronously called
@@ -713,7 +745,11 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        payout_statement_descriptor: "From Stripe"
+        settings: {
+            payouts: {
+                statement_descriptor: "From Stripe"
+            }
+        }
     }).then(
     (account) => {
         // asynchronously called
@@ -722,11 +758,15 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        payout_schedule: {
-            delay_days: 5,
-            interval: "monthly",
-            monthly_anchor: 4,
-            weekly_anchor: "monday"
+        settings: {
+            payouts: {
+                schedule: {
+                    delay_days: 5,
+                    interval: "monthly",
+                    monthly_anchor: 4,
+                    weekly_anchor: "monday"
+                }
+            }
         }
     }).then(
     (account) => {

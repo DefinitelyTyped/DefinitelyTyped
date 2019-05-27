@@ -13,7 +13,6 @@
 //                 Tyler Jones <https://github.com/squirly>
 //                 Troy Zarger <https://github.com/tzarger>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 Simon Schick <https://github.com/SimonSchick>
 //                 Slava Yultyyev <https://github.com/yultyyev>
 //                 Corey Psoinos <https://github.com/cpsoinos>
 //                 Adam Duren <https://github.com/adamduren>
@@ -174,6 +173,18 @@ declare namespace Stripe {
                  */
                 fields_needed: string[];
             };
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompany;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividual;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -206,22 +217,21 @@ declare namespace Stripe {
              * management directly with them. Possible values are custom and standard.
              */
             type: "custom" | "standard";
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompanyCreateUpdateOptions;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividualCreateUpdateOptions;
         }
 
         interface IAccountShared {
-            business_logo?: string;
-
-            /**
-             * The publicly sharable name for this account
-             */
-            business_name?: string;
-
-            /**
-             * A CSS hex color value representing the primary branding color for this
-             * account
-             */
-            business_primary_color?: string;
-
             /**
              * Optional information related to the business.
              */
@@ -300,36 +310,9 @@ declare namespace Stripe {
             };
 
             /**
-             * The URL that best shows the service or product provided for this account
+             * The business type. Can be individual or company.
              */
-            business_url?: string;
-
-            /**
-             * A boolean for whether or not Stripe should try to reclaim negative
-             * balances from the account holder’s bank account. See our managed
-             * account bank transfer guide for more information
-             */
-            debit_negative_balances?: boolean;
-
-            /**
-             * Account-level settings to automatically decline certain types of charges
-             * regardless of the bank’s decision.
-             */
-            decline_charge_on?: {
-                /**
-                 * Whether or not Stripe should automatically decline charges with an
-                 * incorrect zip/postal code. This setting only applies if a card includes a
-                 * zip code and the bank specifically marks it as failed.
-                 */
-                avs_failure?: boolean;
-
-                /**
-                 * Whether or not Stripe should automatically decline charges with an
-                 * incorrect CVC. This setting only applies if a card includes a CVC and the
-                 * bank specifically marks it as failed.
-                 */
-                cvc_failure?: boolean;
-            };
+            business_type?: "individual" | "company";
 
             /**
              * Three-letter ISO currency code representing the default currency for the
@@ -345,12 +328,6 @@ declare namespace Stripe {
              * will not email the account holder.
              */
             email?: string;
-
-            /**
-             * Information about the holder of this account, i.e. the user receiving funds
-             * from this account
-             */
-            legal_entity?: {}; // TODO: Implement this type definition.
 
             /**
              * A set of key/value pairs that you can attach to an account object. It can be
@@ -510,29 +487,6 @@ declare namespace Stripe {
             };
 
             /**
-             * The text that will appear on credit card statements by default if a charge is
-             * being made directly on the account.
-             */
-            statement_descriptor?: string;
-
-            /**
-             * A publicly shareable email address that can be reached for support for this
-             * account
-             */
-            support_email?: string;
-
-            /**
-             * A publicly shareable phone number that can be reached for support for
-             * this account
-             */
-            support_phone?: string;
-
-            /**
-             * A publicly shareable URL that can be reached for support for this account
-             */
-            support_url?: string;
-
-            /**
              * Details on who accepted the Stripe terms of service, and when they
              * accepted it. See our updating managed accounts guide for more
              * information
@@ -555,45 +509,6 @@ declare namespace Stripe {
                  */
                 user_agent?: string;
             };
-
-            /**
-             * Details on when funds from charges are available,
-             * and when they are paid out to an external account.
-             * See our Setting Bank and Debit Card Payouts documentation for details.
-             */
-            payout_schedule?: {
-                /**
-                 * The number of days charges for the account will be held before being
-                 * paid out. May also be the string “minimum” for the lowest available
-                 * value (based on country). Default is “minimum”. Does not apply when
-                 * interval is “manual”.
-                 */
-                delay_days?: number | string;
-
-                /**
-                 * How frequently funds will be paid out. One of "manual" (for only
-                 * triggered via API call), "daily", "weekly", or "monthly". Default is "daily".
-                 */
-                interval?: "manual" | "daily" | "weekly" | "monthly";
-
-                /**
-                 * The day of the month funds will be paid out. Required and available
-                 * only if interval is "monthly".
-                 */
-                monthly_anchor?: number;
-
-                /**
-                 * The day of the week funds will be paid out, of the style ‘monday’,
-                 * ‘tuesday’, etc. Required and available only if interval is weekly.
-                 */
-                weekly_anchor?: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
-            };
-
-            /**
-             * The text that appears on the bank account statement for payouts.
-             * If not set, this defaults to the platform’s bank descriptor as set in the Dashboard.
-             */
-            payout_statement_descriptor?: string;
         }
 
         interface IAccountUpdateOptions extends IDataOptions, IAccountShared {
@@ -653,6 +568,23 @@ declare namespace Stripe {
                  */
                 routing_number?: string;
             };
+
+            /**
+             * An account token, used to securely provide details to the account.
+             */
+            account_token?: string;
+
+            /**
+             * Information about the company or business.
+             * This field is null unless business_type is set to company.
+             */
+            company?: ICompanyCreateUpdateOptions;
+
+            /**
+             * Information about the person represented by the account.
+             * This field is null unless business_type is set to individual.
+             */
+            individual?: IIndividualCreateUpdateOptions;
         }
 
         interface IExternalAccountCreationOptions extends IDataOptionsWithMetadata {
@@ -703,6 +635,249 @@ declare namespace Stripe {
              * A single-use login link for an Express account to access their Stripe dashboard.
              */
             url: string;
+        }
+
+        interface ICompanyShared {
+            /**
+             * The company’s primary address.
+             */
+            address?: IAddress;
+
+            /**
+             * The Kana variation of the company’s primary address (Japan only).
+             */
+            address_kana?: IAddressKana;
+
+            /**
+             * The Kanji variation of the company’s primary address (Japan only).
+             */
+            address_kanji?: IAddressKanji;
+
+            /**
+             * Whether the company’s directors have been provided. Set this Boolean
+             * to true after creating all the company’s directors with the Persons API
+             * for accounts with a relationship.director requirement. This value is
+             * not automatically set to true after creating directors, so it needs to
+             * be updated to indicate all directors have been provided.
+             */
+            directors_provided?: boolean;
+
+            /**
+             * The company’s legal name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            name?: string;
+
+            /**
+             * The Kana variation of the company’s legal name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            name_kana?: string;
+
+            /**
+             * The Kanji variation of the company’s legal name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            name_kanji?: string;
+
+            /**
+             * Whether the company’s owners have been provided. Set this Boolean
+             * to true after creating all the company’s owners with the Persons API
+             * for accounts with a relationship.owner requirement.
+             */
+            owners_provided?: boolean;
+
+            /**
+             * The company’s phone number (used for verification).
+             * This can be unset by updating the value to null and then saving.
+             */
+            phone?: string;
+
+            /**
+             * The jurisdiction in which the tax_id is registered (Germany-based companies only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            tax_id_registrar?: string;
+        }
+
+        interface ICompanyCreateUpdateOptions extends ICompanyShared {
+            /**
+             * The business ID number of the company, as appropriate for the company’s country.
+             * (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a
+             * Company Number in the UK.) This can be unset by updating the value to null and then saving.
+             */
+            tax_id?: string;
+
+            /**
+             * The VAT number of the company.
+             * This can be unset by updating the value to null and then saving.
+             */
+            vat_id?: string;
+        }
+
+        interface ICompany extends ICompanyShared {
+            /**
+             * Whether the company’s business ID number was provided.
+             */
+            tax_id_provided?: boolean;
+
+            /**
+             * Whether the company’s business VAT number was provided.
+             */
+            vat_id_provided?: boolean;
+        }
+
+        interface IIndividualShared {
+            /**
+             * The individual’s primary address.
+             */
+            address?: IAddress;
+
+            /**
+             * The Kana variation of the the individual’s primary address (Japan only).
+             */
+            address_kana?: IAddressKana;
+
+            /**
+             * The Kanji variation of the the individual’s primary address (Japan only).
+             */
+            address_kanji?: IAddressKanji;
+
+            /**
+             * The individual’s date of birth.
+             */
+            dob?: {
+                /**
+                 * The day of birth, between 1 and 31.
+                 */
+                day: number;
+                /**
+                 * The month of birth, between 1 and 12.
+                 */
+                month: number;
+                /**
+                 * The four-digit year of birth.
+                 */
+                year: number;
+            };
+
+            /**
+             * The individual's email address.
+             */
+            email?: string;
+
+            /**
+             * The individual’s first name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            first_name?: string;
+
+            /**
+             * The Kana variation of the the individual’s first name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            first_name_kana?: string;
+
+            /**
+             * The Kanji variation of the individual’s first name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            first_name_kanji?: string;
+
+            /**
+             * The individual’s gender (International regulations require either “male” or “female”).
+             * This can be unset by updating the value to null and then saving.
+             */
+            gender?: "male" | "female";
+
+            /**
+             * The individual’s last name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            last_name?: string;
+
+            /**
+             * The Kana varation of the individual’s last name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            last_name_kana?: string;
+
+            /**
+             * The Kanji varation of the individual’s last name (Japan only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            last_name_kanji?: string;
+
+            /**
+             * The individual’s maiden name.
+             * This can be unset by updating the value to null and then saving.
+             */
+            maiden_name?: string;
+
+            /**
+             * Set of key-value pairs that you can attach to an object. This can be useful
+             * for storing additional information about the object in a structured format.
+             * Individual keys can be unset by posting an empty value to them.
+             * All keys can be unset by posting an empty value to metadata.
+             */
+            metadata?: {
+                [key: string]: string;
+            };
+
+            /**
+             * The individual’s phone number.
+             */
+            phone?: string;
+
+            /**
+             * The individual’s verification document information.
+             */
+            verification?: {
+                /**
+                 * An identifying document, either a passport or local ID card.
+                 */
+                document?: {
+                    /**
+                     * The back of an ID returned by a file upload with a purpose value of identity_document.
+                     * This can be unset by updating the value to null and then saving.
+                     */
+                    back?: string;
+
+                    /**
+                     * The front of an ID returned by a file upload with a purpose value of identity_document.
+                     * This can be unset by updating the value to null and then saving.
+                     */
+                    front?: string;
+                }
+            };
+        }
+
+        interface IIndividual extends IIndividualShared {
+            /**
+             * Whether the individual’s personal ID number was provided.
+             */
+            id_number_provided: boolean;
+
+            /**
+             * Whether the individual’s last 4 SSN digits was provided.
+             */
+            ssn_last_4_provided: boolean;
+        }
+
+        interface IIndividualCreateUpdateOptions extends IIndividualShared {
+            /**
+             * The government-issued ID number of the individual, as appropriate for the representative’s country.
+             * (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada).
+             * Instead of the number itself, you can also provide a PII token created with Stripe.js.
+             * This can be unset by updating the value to null and then saving.
+             */
+            id_number?: string;
+
+            /**
+             * The last four digits of the individual’s Social Security Number (U.S. only).
+             * This can be unset by updating the value to null and then saving.
+             */
+            ssn_last_4?: string;
         }
     }
 
@@ -1187,7 +1362,7 @@ declare namespace Stripe {
             amount: number;
 
             /**
-             * 3-letter ISO code for currency.
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
              */
             currency: string;
 
@@ -1215,29 +1390,6 @@ declare namespace Stripe {
              * will include the description of the charge(s) that they are describing.
              */
             description?: string;
-
-            /**
-             * An account to make the charge on behalf of. If specified, the charge will be
-             * attributed to the destination account for tax reporting, and the funds from
-             * the charge will be transferred to the destination account. The ID of the
-             * resulting transfer will be returned in the transfer field of the response. See
-             * the documentation for details.
-             *
-             * Connect only.
-             */
-            destination?: string | {
-                /**
-                 * ID of the Stripe account this fee will be transferred to.
-                 */
-                account: string;
-
-                /**
-                 * A positive integer in the smallest currency unit (e.g 100 cents to charge
-                 * $1.00, or 1 to charge ¥1, a 0-decimal currency) reflecting the amount of the
-                 * charge to be transferred to the destination[account].
-                 */
-                amount?: number;
-            };
 
             /**
              * A string that identifies this transaction as part of a group.
@@ -1301,6 +1453,23 @@ declare namespace Stripe {
              * incorrectly or not at all.
              */
             statement_descriptor?: string;
+
+            /**
+             * An optional dictionary including the account to automatically transfer
+             * to as part of a destination charge. See the Connect documentation for details.
+             */
+            transfer_data?: {
+                /**
+                 * ID of an existing, connected Stripe account.
+                 */
+                destination: string;
+
+                /**
+                 * The amount transferred to the destination account, if specified.
+                 * By default, the entire charge amount is transferred to the destination account.
+                 */
+                amount?: number;
+            };
         }
 
         interface IChargeCaptureOptions extends IDataOptions {
@@ -8715,6 +8884,94 @@ declare namespace Stripe {
          * 2-letter country code
          */
         country?: string;
+    }
+
+    interface IAddressKana {
+        /**
+         * City or ward.
+         * This can be unset by updating the value to null and then saving.
+         */
+        city?: string;
+
+        /**
+         * Two-letter country code (ISO 3166-1 alpha-2).
+         * This can be unset by updating the value to null and then saving.
+         */
+        country?: string;
+
+        /**
+         * Block or building number.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line1?: string;
+
+        /**
+         * Building details.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line2?: string;
+
+        /**
+         * Postal code.
+         * This can be unset by updating the value to null and then saving.
+         */
+        postal_code?: string;
+
+        /**
+         * Prefecture.
+         * This can be unset by updating the value to null and then saving.
+         */
+        state?: string;
+
+        /**
+         * Town or cho-me.
+         * This can be unset by updating the value to null and then saving.
+         */
+        town?: string;
+    }
+
+    interface IAddressKanji {
+        /**
+         * City or ward.
+         * This can be unset by updating the value to null and then saving.
+         */
+        city?: string;
+
+        /**
+         * Two-letter country code (ISO 3166-1 alpha-2).
+         * This can be unset by updating the value to null and then saving.
+         */
+        country?: string;
+
+        /**
+         * Block or building number.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line1?: string;
+
+        /**
+         * Building details.
+         * This can be unset by updating the value to null and then saving.
+         */
+        line2?: string;
+
+        /**
+         * Postal code.
+         * This can be unset by updating the value to null and then saving.
+         */
+        postal_code?: string;
+
+        /**
+         * Prefecture.
+         * This can be unset by updating the value to null and then saving.
+         */
+        state?: string;
+
+        /**
+         * Town or cho-me.
+         * This can be unset by updating the value to null and then saving.
+         */
+        town?: string;
     }
 
     interface IShippingInformation {
