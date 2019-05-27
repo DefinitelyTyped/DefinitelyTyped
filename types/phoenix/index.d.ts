@@ -28,7 +28,7 @@ export class Channel {
   onError(callback: (reason?: any) => void): void;
   onMessage(event: string, payload: any, ref: any): any;
 
-  on(event: string, callback: (response?: any) => void): void;
+  on(event: string, callback: (response?: any) => void): number;
   off(event: string): void;
 
   push(event: string, payload: object, timeout?: number): Push;
@@ -38,13 +38,13 @@ export type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 
 export interface SocketConnectOption {
   params: object | (() => object);
-  transport: any;
+  transport: string;
   timeout: number;
   heartbeatIntervalMs: number;
   reconnectAfterMs: number;
-  longpollernumber: number;
-  encode: (payload: object, callback: (encoded: any) => void) => any;
-  decode: (payload: string, callback: (decoded: any) => void) => any;
+  longpollerTimeout: number;
+  encode: (payload: object, callback: (encoded: any) => void) => void;
+  decode: (payload: string, callback: (decoded: any) => void) => void;
   logger: (kind: string, message: string, data: any) => void;
 }
 
@@ -63,7 +63,7 @@ export class Socket {
   channel(topic: string, chanParams?: object): Channel;
   push(data: object): void;
 
-  log(kind: string, message: string, data: object): void;
+  log(kind: string, message: string, data: any): void;
   hasLogger(): boolean;
 
   onOpen(callback: () => void): void;
@@ -130,7 +130,7 @@ export class Ajax {
 }
 
 export class Presence {
-  constructor(channel: Channel, opts?: object);
+  constructor(channel: Channel, opts?: PresenceOpts);
 
   onJoin(callback: PresenceOnJoinCallback): void;
   onLeave(callback: PresenceOnLeaveCallback): void;
@@ -169,3 +169,7 @@ export type PresenceOnLeaveCallback = (
   currentPresence?: any,
   newPresence?: any
 ) => void;
+
+export interface PresenceOpts {
+  events?: { state: string; diff: string };
+}
