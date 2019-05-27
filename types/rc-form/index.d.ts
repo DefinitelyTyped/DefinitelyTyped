@@ -6,8 +6,6 @@
 
 import * as React from 'react';
 
-export as namespace rcForm
-
 type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
 type DeepPartial<T> = T extends Primitive
@@ -145,5 +143,3 @@ interface ComponentDecorator<P> {
 type GetFields<T> = T extends FormComponentProps<infer A> ? A : {};
 
 export function createForm<TOwnProps extends FormComponentProps>(options?: FormCreateOption<TOwnProps>): ComponentDecorator<TOwnProps>;
-
-export {};
