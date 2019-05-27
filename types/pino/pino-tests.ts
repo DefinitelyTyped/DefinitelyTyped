@@ -133,7 +133,7 @@ const pretty = pino({
 		errorProps: '',
 		levelFirst: false,
 		messageKey: 'msg',
-        timestampKey: "timestamp",
+		timestampKey: "timestamp",
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
