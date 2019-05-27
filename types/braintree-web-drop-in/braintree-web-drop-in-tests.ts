@@ -90,7 +90,7 @@ dropin.create({ authorization: "", container: "my-div" }, (error, myDropin) => {
             return;
         }
     });
-    const myTeardownPromise = await myDropin.teardown();
+    await myDropin.teardown();
 })();
 
 function customFunction(options: dropin.Options) {

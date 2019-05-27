@@ -1,2 +1,2 @@
-interface Element {}
-interface HTMLElement extends Element {}
+interface Element { }
+interface HTMLElement extends Element { }

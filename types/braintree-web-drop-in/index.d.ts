@@ -18,96 +18,96 @@ https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-
 // Options
 
 export interface Options {
-    authorization: string
-    container: string | HTMLElement
-    locale?: string
-    translations?: object
-    paymentOptionPriority?: string[]
-    card?: boolean | cardCreateOptions
-    paypal?: paypalCreateOptions
-    paypalCredit?: paypalCreateOptions
-    venmo?: venmoCreateOptions | boolean
-    applePay?: applePayCreateOptions
-    googlePay?: googlePayCreateOptions
-    dataCollector?: dataCollectorOptions
-    threeDSecure?: threeDSecureOptions
-    vaultManager?: boolean
-    preselectVaultedPaymentMethod?: boolean
+    authorization: string;
+    container: string | HTMLElement;
+    locale?: string;
+    translations?: object;
+    paymentOptionPriority?: string[];
+    card?: boolean | cardCreateOptions;
+    paypal?: paypalCreateOptions;
+    paypalCredit?: paypalCreateOptions;
+    venmo?: venmoCreateOptions | boolean;
+    applePay?: applePayCreateOptions;
+    googlePay?: googlePayCreateOptions;
+    dataCollector?: dataCollectorOptions;
+    threeDSecure?: threeDSecureOptions;
+    vaultManager?: boolean;
+    preselectVaultedPaymentMethod?: boolean;
 }
 
 export interface applePayCreateOptions {
-    buttonStyle?: string
-    displayName: string
-    applePaySessionVersion?: number
-    paymentRequest: any
+    buttonStyle?: string;
+    displayName: string;
+    applePaySessionVersion?: number;
+    paymentRequest: any;
 }
 
 export interface cardCreateOptions {
     cardholderName?:
         | boolean
         | {
-              required?: boolean
-          }
+              required?: boolean;
+          };
     overrides: {
-        fields?: object
-        styles?: object
-    }
-    clearFieldsAfterTokenization?: boolean
+        fields?: object;
+        styles?: object;
+    };
+    clearFieldsAfterTokenization?: boolean;
     vault?: {
-        allowVaultCardOverride?: boolean
-        vaultCard?: boolean
-    }
+        allowVaultCardOverride?: boolean;
+        vaultCard?: boolean;
+    };
 }
 
 export interface dataCollectorOptions {
-    kount?: boolean
-    paypal?: boolean
+    kount?: boolean;
+    paypal?: boolean;
 }
 
 export interface googlePayCreateOptions {
-    merchantId: string
-    googlePayVersion?: string
-    transactionInfo: any
-    button?: any
+    merchantId: string;
+    googlePayVersion?: string;
+    transactionInfo: any;
+    button?: any;
 }
 
 export interface paypalCreateOptions {
-    flow: "checkout" | "vault"
-    amount?: string | number
-    currency?: string
-    buttonStyle?: string
-    commit?: boolean
+    flow: "checkout" | "vault";
+    amount?: string | number;
+    currency?: string;
+    buttonStyle?: string;
+    commit?: boolean;
 }
 
 export interface threeDSecureOptions {
-    amount: string
+    amount: string;
 }
 
 export interface venmoCreateOptions {
-    allowNewBrowserTab?: boolean
+    allowNewBrowserTab?: boolean;
 }
 
 // Dropin
 
 export interface Dropin {
-    clearSelectedPaymentMethod(): void
-    isPaymentMethodRequestable(): boolean
-    on(event: "noPaymentMethodRequestable", handler: () => void): void
+    clearSelectedPaymentMethod(): void;
+    isPaymentMethodRequestable(): boolean;
+    on(event: "noPaymentMethodRequestable", handler: () => void): void;
     on(
         event: "paymentMethodRequestable",
         handler: (payload: { type: "CreditCard" | "PayPalAccount"; paymentMethodIsSelected: boolean }) => void
-    ): void
+    ): void;
     on(
         event: "paymentOptionSelected",
         handler: (payload: { paymentOption: "card" | "paypal" | "paypalCredit" }) => void
-    ): void
-    requestPaymentMethod(callback: (error: object | null, payload: any) => void): void
-    requestPaymentMethod(): Promise<any>
-    teardown(callback: (error: object | null | undefined) => void): void
-    teardown(): Promise<void>
+    ): void;
+    requestPaymentMethod(callback: (error: object | null, payload: any) => void): void;
+    requestPaymentMethod(): Promise<any>;
+    teardown(callback: (error: object | null | undefined) => void): void;
+    teardown(): Promise<void>;
 }
 
 // Methods
 
-export function create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void
-export function create(options: Options): Promise<Dropin>
+export function create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
+export function create(options: Options): Promise<Dropin>;
