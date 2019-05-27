@@ -7,6 +7,7 @@
 //                 Pietro Vismara <https://github.com/pietrovismara>
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Jason Yu <https://github.com/ycmjason>
+//                 Miklos Danka <https://github.com/mdanka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
