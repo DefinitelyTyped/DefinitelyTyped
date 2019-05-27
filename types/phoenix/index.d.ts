@@ -20,12 +20,12 @@ declare module 'phoenix' {
   }
 
   class Channel {
-    constructor(topic: string, params?: object | Function, socket?: Socket);
+    constructor(topic: string, params?: object | (() => object), socket?: Socket);
 
     join(timeout?: number): Push;
     leave(timeout?: number): Push;
 
-    onClose(callback: Function): void;
+    onClose(callback: (payload: any, ref: any, joinRef: any) => void): void;
     onError(callback: (reason?: any) => void): void;
     onMessage(event: string, payload: any, ref: any): any;
 
@@ -38,14 +38,14 @@ declare module 'phoenix' {
   type ConnectionState = 'connecting' | 'open' | 'closing' | 'closed';
 
   interface SocketConnectOption {
-    params: object | Function;
+    params: object | (() => object);
     transport: any;
     timeout: number;
     heartbeatIntervalMs: number;
     reconnectAfterMs: number;
     longpollernumber: number;
-    encode: (payload: object, callback: Function) => any;
-    decode: (payload: string, callback: Function) => any;
+    encode: (payload: object, callback: (encoded: any) => void) => any;
+    decode: (payload: string, callback: (decoded: any) => void) => any;
     logger: (kind: string, message: string, data: any) => void;
   }
 
@@ -56,7 +56,7 @@ declare module 'phoenix' {
     endPointURL(): string;
 
     connect(params?: any): void;
-    disconnect(callback?: Function, code?: number, reason?: string): void;
+    disconnect(callback?: () => void, code?: number, reason?: string): void;
     connectionState(): ConnectionState;
     isConnected(): boolean;
 
@@ -67,10 +67,10 @@ declare module 'phoenix' {
     log(kind: string, message: string, data: object): void;
     hasLogger(): boolean;
 
-    onOpen(callback: Function): void;
-    onClose(callback: Function): void;
-    onError(callback: Function): void;
-    onMessage(callback: Function): void;
+    onOpen(callback: () => void): void;
+    onClose(callback: () => void): void;
+    onError(callback: () => void): void;
+    onMessage(callback: () => void): void;
 
     makeRef(): string;
   }
@@ -90,6 +90,7 @@ declare module 'phoenix' {
     close(code?: any, reason?: any): void;
   }
 
+  // tslint:disable:no-unnecessary-class
   class Ajax {
     static states: {[state: string]: number};
 
@@ -132,24 +133,24 @@ declare module 'phoenix' {
   class Presence {
     constructor(channel: Channel, opts?: object);
 
-    onJoin(callback: Function): void;
-    onLeave(callback: Function): void;
-    onSync(callback: Function): void;
+    onJoin(callback: PresenceOnJoinCallback): void;
+    onLeave(callback: PresenceOnLeaveCallback): void;
+    onSync(callback: () => void): void;
     list<T = any>(chooser?: (key: string, presence: any) => T): T[];
     inPendingSyncState(): boolean;
 
     static syncState(
       currentState: object,
       newState: object,
-      onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
-      onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
+      onJoin?: PresenceOnJoinCallback,
+      onLeave?: PresenceOnLeaveCallback
     ): any;
 
     static syncDiff(
       currentState: object,
       diff: {joins: object; leaves: object},
-      onJoin?: (key?: string, currentPresence?: any, newPresence?: any) => void,
-      onLeave?: (key?: string, currentPresence?: any, newPresence?: any) => void
+      onJoin?: PresenceOnJoinCallback,
+      onLeave?: PresenceOnLeaveCallback
     ): any;
 
     static list<T = any>(
@@ -157,4 +158,16 @@ declare module 'phoenix' {
       chooser?: (key: string, presence: any) => T,
     ): T[];
   }
+
+  type PresenceOnJoinCallback = (
+    key?: string,
+    currentPresence?: any,
+    newPresence?: any
+  ) => void;
+
+  type PresenceOnLeaveCallback = (
+    key?: string,
+    currentPresence?: any,
+    newPresence?: any
+  ) => void;
 }
