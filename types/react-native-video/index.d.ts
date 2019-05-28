@@ -29,6 +29,11 @@ export interface OnProgressData {
   seekableDuration: number;
 }
 
+export interface OnSeekData {
+  currentTime: number;
+  seekTime: number;
+}
+
 export interface LoadError {
   error: {
     '': string;
@@ -87,7 +92,7 @@ export interface VideoProperties extends ViewProps {
   onBuffer?(): void;
   onError?(error: LoadError): void;
   onProgress?(data: OnProgressData): void;
-  onSeek?(): void;
+  onSeek?(data: OnSeekData): void;
   onEnd?(): void;
   onFullscreenPlayerWillPresent?(): void;
   onFullscreenPlayerDidPresent?(): void;
