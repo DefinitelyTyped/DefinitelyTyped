@@ -14,17 +14,6 @@ type Params = {
  * The returned *render* function is created based on the supplied *patch* function.
  * That way we may use any modules we want.
  *
- * Example:
- * ```javascript
- * const snabbdom = require('snabbdom')
- * const patch = snabbdom.init([ // Init patch function with chosen modules
- *   require('snabbdom/modules/class').default, // makes it easy to toggle classes
- *   require('snabbdom/modules/props').default, // for setting properties on DOM elements
- *   require('snabbdom/modules/style').default, // handles styling on elements with support for animations
- *   require('snabbdom/modules/eventlisteners').default // attaches event listeners
- * ])
- * ```
- *
  * @returns: Renderer to render your Virtual-DOM
  */
 export function makeRender(params: Params): (vnode: VNode) => any;
