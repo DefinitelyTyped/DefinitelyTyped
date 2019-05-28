@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.33
+// Type definitions for Visual Studio Code 1.34
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/Microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.33 Extension API
+ * Type Definition for Visual Studio Code 1.34 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -5726,6 +5726,21 @@ declare module 'vscode' {
 	}
 
 	/**
+	 * Defines a port mapping used for localhost inside the webview.
+	 */
+	export interface WebviewPortMapping {
+		/**
+		 * Localhost port to remap inside the webview.
+		 */
+		readonly webviewPort: number;
+
+		/**
+		 * Destination port. The `webviewPort` is resolved to this port.
+		 */
+		readonly extensionHostPort: number;
+	}
+
+	/**
 	 * Content settings for a webview.
 	 */
 	export interface WebviewOptions {
@@ -5751,6 +5766,18 @@ declare module 'vscode' {
 		 * Pass in an empty array to disallow access to any local resources.
 		 */
 		readonly localResourceRoots?: ReadonlyArray<Uri>;
+
+		/**
+		 * Mappings of localhost ports used inside the webview.
+		 *
+		 * Port mapping allow webviews to transparently define how localhost ports are resolved. This can be used
+		 * to allow using a static localhost port inside the webview that is resolved to random port that a service is
+		 * running on.
+		 *
+		 * If a webview accesses localhost content, we recomend that you specify port mappings even if
+		 * the `webviewPort` and `extensionHostPort` ports are the same.
+		 */
+		readonly portMapping?: ReadonlyArray<WebviewPortMapping>;
 	}
 
 	/**
@@ -5946,7 +5973,7 @@ declare module 'vscode' {
 		 * serializer must restore the webview's `.html` and hook up all webview events.
 		 * @param state Persisted state from the webview content.
 		 *
-		 * @return Thenble indicating that the webview has been fully restored.
+		 * @return Thenable indicating that the webview has been fully restored.
 		 */
 		deserializeWebviewPanel(webviewPanel: WebviewPanel, state: any): Thenable<void>;
 	}
@@ -5983,6 +6010,11 @@ declare module 'vscode' {
 		 * The application root folder from which the editor is running.
 		 */
 		export const appRoot: string;
+
+		/**
+		 * The custom uri scheme the editor registers to in the operating system.
+		 */
+		export const uriScheme: string;
 
 		/**
 		 * Represents the preferred user-language, like `de-CH`, `fr`, or `en-US`.
@@ -6651,7 +6683,7 @@ declare module 'vscode' {
 		 * be able to handle uris which are directed to the extension itself. A uri must respect
 		 * the following rules:
 		 *
-		 * - The uri-scheme must be the product name;
+		 * - The uri-scheme must be `vscode.env.uriScheme`;
 		 * - The uri-authority must be the extension id (eg. `my.extension`);
 		 * - The uri-path, -query and -fragment parts are arbitrary.
 		 *

@@ -487,13 +487,14 @@ test = (
         { y: 6, x: 'B' },
         { y: 7, x: 'C' },
       ]}
+      y0={(d) => d.y - 1}
     />
   </VictoryChart>
 );
 
 // VictoryGroup test
 test = (
-  <VictoryGroup offset={40}>
+  <VictoryGroup color="#46c85e" offset={40}>
     <VictoryBar
       data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }]}
     />

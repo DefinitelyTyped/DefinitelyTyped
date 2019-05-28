@@ -1227,6 +1227,8 @@ export namespace plugins {
          */
         rejectUnknown?: boolean;
 
+        requestBodyOnGet?: boolean;
+
         reviver?: any;
 
         maxFieldsSize?: number;

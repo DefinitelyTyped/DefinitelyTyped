@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-04-26
+// Type definitions for Google Apps Script 2019-05-20
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -78,7 +78,7 @@ declare namespace GoogleAppsScript {
      *
      *     fields.newMetric()
      *       .setAggregation(aggregationType.AVG)
-     *       .setFieldType(fieldType.CURRENCY_USD);
+     *       .setType(fieldType.CURRENCY_USD);
      */
     export interface CommunityConnector {
       AggregationType: typeof AggregationType;

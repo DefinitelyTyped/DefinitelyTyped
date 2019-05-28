@@ -1,4 +1,4 @@
-// Type definitions for styled-system 4.1
+// Type definitions for styled-system 4.2
 // Project: https://github.com/jxnblk/styled-system#readme
 // Definitions by: Marshall Bowers <https://github.com/maxdeviant>
 //                 Ben McCormick <https://github.com/phobon>
@@ -12,6 +12,7 @@
 //                 Sara F-P <https://github.com/gretzky>
 //                 Chris LoPresto <https://github.com/chrislopresto>
 //                 Pedro Duarte <https://github.com/peduarte>
+//                 Dhalton Huber <https://github.com/Dhalton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -35,24 +36,27 @@ export interface styleFn {
     propTypes?: string[];
 }
 
-export interface LowLevelStylefunctionArguments {
-    prop: string;
-    cssProperty?: string;
-    key?: string;
-    getter?: () => any;
-    transformValue?: (n: string | number) => any;
-    scale?: Array<string | number>;
+export type Scale = object | Array<string | number>;
+
+export interface LowLevelStylefunctionArguments<N, S> {
+  prop: string;
+  cssProperty?: string;
+  alias?: string;
+  key?: string;
+  transformValue?: (n: N, scale?: S) => any;
+  scale?: S;
 }
 
-export function style(
-    args: LowLevelStylefunctionArguments
+export function style<N = string | number, S = Scale>(
+  // tslint:disable-next-line no-unnecessary-generics
+  args: LowLevelStylefunctionArguments<N, S>
 ): { [cssProp: string]: string };
 
 export function compose(
     ...funcs: Array<(...args: any[]) => any>
 ): (...args: any[]) => any;
 
-export function mapProps(mapper: (...args: any[]) => any): (func: any[]) => (...props: any[]) => any;
+export function mapProps(mapper: (...args: any[]) => any): (func: any) => (...props: any[]) => any;
 
 export interface VariantArgs {
     key?: string;
@@ -127,7 +131,7 @@ export interface SpaceProps<TLength = TLengthStyledSystem> {
 
 export const space: styleFn;
 
-export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight'> {}
+export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight' | 'my' | 'mx'> {}
 export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
 export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom'> {}
 export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
@@ -139,7 +143,7 @@ export const marginBottom: styleFn;
 export const marginLeft: styleFn;
 export const marginRight: styleFn;
 
-export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight'> {}
+export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight' | 'py' | 'px'> {}
 export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
 export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBottom'> {}
 export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}

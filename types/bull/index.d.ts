@@ -129,6 +129,11 @@ declare namespace Bull {
     data: T;
 
     /**
+     * Options of the job
+     */
+    opts: JobOptions;
+
+    /**
      * How many attempts where made to run this job
      */
     attemptsMade: number;
@@ -610,6 +615,11 @@ declare namespace Bull {
      * name: The name of the to be removed job
      */
     removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+
+    /**
+     * Removes a given repeatable job by key.
+     */
+    removeRepeatableByKey(key: string): Promise<void>;
 
     /**
      * Returns a promise that will return an array of job instances of the given types.

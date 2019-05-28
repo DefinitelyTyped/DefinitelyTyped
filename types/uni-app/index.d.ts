@@ -1,4 +1,4 @@
-// Type definitions for non-npm package uni-app 1.0
+// Type definitions for non-npm package uni-app 1.1
 // Project: https://github.com/dcloudio/uni-app
 // Definitions by: DCloud <https://github.com/dcloudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,28 +10,19 @@
  */
 declare const uni: Uni;
 
-interface TabItem {
-    /**
-     * 被点击tabItem的序号，从0开始
-     *
-     * 参考: [http://uniapp.dcloud.io/frame?id=页面生命周期](http://uniapp.dcloud.io/frame?id=页面生命周期)
-     */
-    index?: number;
-    /**
-     * 被点击tabItem的页面路径
-     *
-     * 参考: [http://uniapp.dcloud.io/frame?id=页面生命周期](http://uniapp.dcloud.io/frame?id=页面生命周期)
-     */
-    pagePath?: string;
-    /**
-     * 被点击tabItem的按钮文字
-     *
-     * 参考: [http://uniapp.dcloud.io/frame?id=页面生命周期](http://uniapp.dcloud.io/frame?id=页面生命周期)
-     */
-    text?: string;
-}
-
 declare class Uni {
+    /**
+     * 将 Base64 字符串转成 ArrayBuffer 对象
+     *
+     * 参考: [http://uniapp.dcloud.io/api/base64ToArrayBuffer?id=base64toarraybuffer](http://uniapp.dcloud.io/api/base64ToArrayBuffer?id=base64toarraybuffer)
+     */
+    base64ToArrayBuffer(base64: string): ArrayBuffer;
+    /**
+     * 将 ArrayBuffer 对象转成 Base64 字符串
+     *
+     * 参考: [http://uniapp.dcloud.io/api/arrayBufferToBase64?id=arraybuffertobase64](http://uniapp.dcloud.io/api/arrayBufferToBase64?id=arraybuffertobase64)
+     */
+    arrayBufferToBase64(arrayBuffer: ArrayBuffer): string;
     /**
      * 发起网络请求
      *
@@ -129,6 +120,12 @@ declare class Uni {
      */
     saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
     /**
+     * 压缩图片
+     *
+     * 参考: [http://uniapp.dcloud.io/api/media/image?id=compressimage](http://uniapp.dcloud.io/api/media/image?id=compressimage)
+     */
+    compressImage(options: CompressImageOptions): void;
+    /**
      * 录音管理
      *
      * 参考: [http://uniapp.dcloud.io/api/media/record-manager?id=getrecordermanager](http://uniapp.dcloud.io/api/media/record-manager?id=getrecordermanager)
@@ -209,7 +206,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync](http://uniapp.dcloud.io/api/storage/storage?id=setstoragesync)
      */
-    setStorageSync(key: string): any;
+    setStorageSync(key: string, value: any): void;
     /**
      * 从本地缓存中异步获取指定 key 对应的内容
      *
@@ -223,13 +220,13 @@ declare class Uni {
      */
     getStorageSync(key: string): any;
     /**
-     * 异步获取当前storage的相关信息
+     * 异步获取当前 storage 的相关信息
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfo](http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfo)
      */
     getStorageInfo(options: GetStorageInfoOptions): void;
     /**
-     * 同步获取当前storage的相关信息
+     * 同步获取当前 storage 的相关信息
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfosync](http://uniapp.dcloud.io/api/storage/storage?id=getstorageinfosync)
      */
@@ -245,7 +242,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync](http://uniapp.dcloud.io/api/storage/storage?id=removestoragesync)
      */
-    removeStorageSync(key: string): any;
+    removeStorageSync(key: string): void;
     /**
      * 清理本地数据缓存
      *
@@ -763,12 +760,6 @@ declare class Uni {
      */
     offWindowResize(callback: () => void): void;
     /**
-     * 动态加载网络字体
-     *
-     * 参考: [http://uniapp.dcloud.io/api/ui/font?id=loadfontface](http://uniapp.dcloud.io/api/ui/font?id=loadfontface)
-     */
-    loadFontFace(options: FontFace): void;
-    /**
      * 获取服务供应商
      *
      * 参考: [http://uniapp.dcloud.io/api/plugins/provider?id=getprovider](http://uniapp.dcloud.io/api/plugins/provider?id=getprovider)
@@ -900,6 +891,12 @@ declare class Uni {
      * 参考: [http://uniapp.dcloud.io/api/system/gyroscope?id=stopgyroscope](http://uniapp.dcloud.io/api/system/gyroscope?id=stopgyroscope)
      */
     stopGyroscope(options: StopGyroscopeOptions): void;
+    /**
+     * 动态加载网络字体
+     *
+     * 参考: [http://uniapp.dcloud.io/api/ui/font?id=loadfontface](http://uniapp.dcloud.io/api/ui/font?id=loadfontface)
+     */
+    loadFontFace(options: LoadFontFaceOptions): void;
 }
 
 interface GeneralCallbackResult {
@@ -907,56 +904,6 @@ interface GeneralCallbackResult {
      * 错误信息
      */
     errMsg?: string;
-}
-
-interface FontFace {
-    /**
-     * 定义的字体名称
-     */
-    family?: string;
-    /**
-     * 字体资源的地址
-     */
-    source?: string;
-    /**
-     * 可选的字体描述符
-     */
-    desc?: FontFaceDesc;
-    /**
-     * 接口调用成功的回调函数
-     */
-    success?: () => void;
-    /**
-     * 接口调用失败的回调函数
-     */
-    fail?: () => void;
-    /**
-     * 接口调用结束的回调函数（调用成功、失败都会执行）
-     */
-    complete?: () => void;
-}
-
-interface FontFaceDesc {
-    /**
-     * 字体样式
-     * - normal:
-     * - italic:
-     * - oblique:
-     */
-    style?: 'normal' | 'italic' | 'oblique';
-    /**
-     * 字体粗细
-     * - normal:
-     * - bold:
-     */
-    weight?: 'normal' | 'bold';
-    /**
-     * 设置小型大写字母的字体显示文本
-     * - normal:
-     * - small-caps:
-     * - inherit:
-     */
-    variant?: 'normal' | 'small-caps' | 'inherit';
 }
 
 interface RequestPaymentOptions {
@@ -1468,6 +1415,36 @@ interface SaveImageToPhotosAlbumOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface CompressImageOptions {
+    /**
+     * 图片路径，图片的路径，可以是相对路径、临时文件路径、存储文件路径
+     */
+    src?: string;
+    /**
+     * 压缩质量，范围0～100，数值越小，质量越低，压缩率越高（仅对jpg有效）
+     */
+    quality?: number;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: (result: CompressImageSuccessData) => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface CompressImageSuccessData {
+    /**
+     * 压缩后图片的临时文件路径
+     */
+    tempFilePath?: string;
 }
 
 interface StartRecordOptions {
@@ -2267,9 +2244,9 @@ interface SetStorageOptions {
      */
     key?: string;
     /**
-     * 需要存储的内容
+     * 需要存储的内容，只支持原生类型、及能够通过 JSON.stringify 序列化的对象
      */
-    data?: object | string;
+    data?: any;
     /**
      * 接口调用成功的回调函数
      */
@@ -2292,7 +2269,7 @@ interface GetStorageOptions {
     /**
      * 接口调用成功的回调函数
      */
-    success?: () => void;
+    success?: (result: any) => void;
     /**
      * 接口调用失败的回调函数
      */
@@ -2320,11 +2297,11 @@ interface GetStorageInfoOptions {
 
 interface GetStorageInfoSuccess {
     /**
-     * 当前storage中所有的key
+     * 当前storage中所有的 key
      */
-    keys?: string | any [];
+    keys?: string [];
     /**
-     * 当前占用的空间大小, 单位kb
+     * 当前占用的空间大小, 单位 kb
      */
     currentSize?: number;
     /**
@@ -2501,9 +2478,9 @@ interface MapContext {
      */
     getScale(options: MapContextGetScaleOptions): void;
     /**
-     * 获取原生地图对象
+     * 获取原生地图对象 plus.maps.Map
      */
-    $getAppMap(): object;
+    $getAppMap(): any;
 }
 
 interface MapContextGetCenterLocationOptions {
@@ -6317,4 +6294,61 @@ interface StopGyroscopeOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface StopGyroscopeOptions {
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: () => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface LoadFontFaceOptions {
+    /**
+     * 定义的字体名称
+     */
+    family?: string;
+    /**
+     * 字体资源的地址。建议格式为 TTF 和 WOFF，WOFF2 在低版本的iOS上会不兼容。
+     */
+    source?: string;
+    /**
+     * 可选的字体描述符
+     */
+    desc?: LoadFontFaceOptionsDesc;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: () => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: () => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface LoadFontFaceOptionsDesc {
+    /**
+     * 字体样式，可选值为 normal、italic、oblique
+     */
+    style?: string;
+    /**
+     * 字体粗细，可选值为 normal、bold、100、200../ 900
+     */
+    weight?: string;
+    /**
+     * 设置小型大写字母的字体显示文本，可选值为 normal、small-caps、inherit
+     */
+    variant?: string;
 }

@@ -583,6 +583,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "csv-parse",
+            "typingsPackageName": "csv-parse",
+            "sourceRepoURL": "https://github.com/adaltas/node-csv-parse",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "cycled",
             "typingsPackageName": "cycled",
             "sourceRepoURL": "https://github.com/sindresorhus/cycled",
@@ -1159,6 +1165,12 @@
             "asOfVersion": "9.1.0"
         },
         {
+            "libraryName": "@google-cloud/pubsub",
+            "typingsPackageName": "google-cloud__pubsub",
+            "sourceRepoURL": "https://github.com/googleapis/nodejs-pubsub",
+            "asOfVersion": "0.26.0"
+        },
+        {
             "libraryName": "Google Cloud Storage",
             "typingsPackageName": "google-cloud__storage",
             "sourceRepoURL": "https://github.com/googleapis/nodejs-storage",
@@ -1217,6 +1229,12 @@
             "typingsPackageName": "handsontable",
             "sourceRepoURL": "https://handsontable.com/",
             "asOfVersion": "0.35.0"
+        },
+        {
+            "libraryName": "hapi-auth-jwt2",
+            "typingsPackageName": "hapi-auth-jwt2",
+            "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
+            "asOfVersion": "8.6.1"
         },
         {
             "libraryName": "hard-rejection",
@@ -2773,6 +2791,12 @@
             "asOfVersion": "9.3.1"
         },
         {
+            "libraryName": "rollup-plugin-delete",
+            "typingsPackageName": "rollup-plugin-delete",
+            "sourceRepoURL": "https://github.com/vladshcherbin/rollup-plugin-delete",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "rollup-plugin-node-resolve",
             "typingsPackageName": "rollup-plugin-node-resolve",
             "sourceRepoURL": "https://github.com/rollup/rollup-plugin-node-resolve",
@@ -2999,6 +3023,12 @@
             "typingsPackageName": "strip-ansi",
             "sourceRepoURL": "https://github.com/chalk/strip-ansi",
             "asOfVersion": "5.2.0"
+        },
+        {
+            "libraryName": "strip-bom",
+            "typingsPackageName": "strip-bom",
+            "sourceRepoURL": "https://github.com/sindresorhus/strip-bom",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "strip-indent",

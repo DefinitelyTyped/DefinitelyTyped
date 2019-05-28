@@ -528,6 +528,7 @@ declare namespace Flexmonster {
         handler?: (() => void) | string;
         submenu?: ContextMenuItem[];
         isSelected?: boolean;
+        class?: string;
     }
 
     interface ChartData {
