@@ -890,7 +890,7 @@ export type Value =
 
 export interface EntityType {
     name?: string;
-    entities: EntitySynonyms[];
+    entities: Entity[];
     displayName: string;
     kind: EntityKind;
     autoExpansionMode: EntityAutoExpansionMode;
@@ -916,9 +916,9 @@ export interface ClientOptions {
     servicePath?: string;
 }
 
-export interface EntitySynonyms {
-    synonyms: NonEmptyArray<string>;
+export interface Entity {
     value: string;
+    synonyms: NonEmptyArray<string>;
 }
 
 export type EntityKind =
@@ -1237,11 +1237,6 @@ export interface SessionEntityType {
     name: string;
     entityOverrideMode: string;
     entities: Entity[];
-}
-
-export interface Entity {
-    value: string;
-    synonyms: string[];
 }
 
 export interface WebhookRequest {
