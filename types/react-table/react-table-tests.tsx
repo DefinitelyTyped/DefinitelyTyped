@@ -28,7 +28,7 @@ const columns: Array<Column<Data>> = [
         accessor: (data: Data) => data.age,
         Cell: props => <span className='number'>{props.value}</span>
       },
-      { Header: "Status", accessor: "progress" }
+      { Header: "Progress", accessor: "progress" }
     ]
   },
   {
