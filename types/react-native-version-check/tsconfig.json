@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-native-version-check-tests"]
+    "files": ["index.d.ts", "react-native-version-check-tests.ts"]
 }
