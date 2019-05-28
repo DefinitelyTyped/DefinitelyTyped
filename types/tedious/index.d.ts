@@ -1,4 +1,4 @@
-// Type definitions for tedious 3.0.0
+// Type definitions for tedious 4.0.0
 // Project: http://tediousjs.github.io/tedious/
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Chris Thompson <https://github.com/cjthompson>
@@ -385,16 +385,6 @@ export interface ConnectionAuthentication {
 }
 
 export interface ConnectionConfig {
-    /**
-     * User name to use for authentication.
-     */
-    userName?: string;
-
-    /**
-     * Password to use for authentication.
-     */
-    password?: string;
-
     /**
      * Hostname to connect to.
      */
