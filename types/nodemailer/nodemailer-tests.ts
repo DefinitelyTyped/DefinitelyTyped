@@ -1103,11 +1103,33 @@ function mailcomposer_build_test() {
 
 // addressparser
 
+function isAddress(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Address {
+    return (addressOrGroup as addressparser.Address).address !== undefined;
+}
+
+function isGroup(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Group {
+    return (addressOrGroup as addressparser.Group).group !== undefined;
+}
+
 function addressparser_test() {
     const input = 'andris@tr.ee';
-    const result = addressparser(input);
-    const address: string = result[0].address;
-    const name: string = result[0].name;
+    const results: addressparser.AddressOrGroup[] = addressparser(input);
+    const firstResult = results[0];
+    if (isAddress(firstResult)) {
+        const address: string = firstResult.address;
+        const name: string = firstResult.name;
+    } else if (isGroup(firstResult)) {
+        const group: addressparser.AddressOrGroup[] = firstResult.group;
+        const name: string = firstResult.name;
+    }
+}
+
+function addressparser_flatten_test() {
+    const input = 'andris@tr.ee';
+    const results = addressparser(input, { flatten: true });
+    const firstResult = results[0];
+    const address: string = firstResult.address;
+    const name: string = firstResult.name;
 }
 
 // base64
