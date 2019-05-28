@@ -5,7 +5,7 @@
 // TypeScript Version: 2.4
 
 /**
- * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema: a standard format for the output of static
+ * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.1 JSON Schema: a standard format for the output of static
  * analysis tools.
  */
 export interface Log {
@@ -495,7 +495,7 @@ export interface ExternalProperties {
     externalizedProperties?: PropertyBag;
 
     /**
-     * An array of graph objects that will merged with a separate run.
+     * An array of graph objects that will be merged with a separate run.
      */
     graphs?: Graph[];
 
@@ -931,9 +931,9 @@ export interface Location {
     id?: number;
 
     /**
-     * The logical location associated with the result.
+     * The logical locations associated with the result.
      */
-    logicalLocation?: LogicalLocation;
+    logicalLocations?: LogicalLocation[];
 
     /**
      * A message relevant to the location.
