@@ -3131,6 +3131,8 @@ declare namespace R {
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
         zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
         zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
+        zipObj<T>(keys: ReadonlyArray<number>, values: ReadonlyArray<T>): { [index: number]: T };
+        zipObj(keys: ReadonlyArray<number>): <T>(values: ReadonlyArray<T>) => { [index: number]: T };
 
         /**
          * Creates a new list out of the two supplied by applying the function to each
