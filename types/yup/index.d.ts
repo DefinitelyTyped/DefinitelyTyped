@@ -71,7 +71,8 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value: any): this;
     default(): T;
-    nullable(isNullable?: boolean): this;
+    nullable(isNullable?: true): Schema<T | null>;
+    nullable(isNullable: false): Schema<Exclude<T, null>>;
     required(message?: TestOptionsMessage): this;
     notRequired(): this;
     typeError(message?: TestOptionsMessage): this;
@@ -169,7 +170,9 @@ export interface ArraySchema<T> extends Schema<T[]> {
     min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     ensure(): ArraySchema<T>;
-    compact(rejector?: (value: T, index: number, array: T[]) => boolean): ArraySchema<T>;
+    compact(
+        rejector?: (value: T, index: number, array: T[]) => boolean
+    ): ArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object> = {
@@ -206,11 +209,11 @@ export interface ObjectSchema<T extends object> extends Schema<T> {
     constantCase(): ObjectSchema<T>;
 }
 
-export type TransformFunction<T> = ((
+export type TransformFunction<T> = (
     this: T,
     value: any,
     originalValue: any
-) => any);
+) => any;
 
 export interface WhenOptionsBuilder<T> {
     (value: any, schema: T): T;
@@ -230,7 +233,10 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string }) => ValidationError;
+    createError: (params?: {
+        path?: string;
+        message?: string;
+    }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -297,7 +303,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<{ name: string, params: object }>;
+    tests: Array<{ name: string; params: object }>;
     fields: object;
 }
 
@@ -371,18 +377,16 @@ export class Ref {
 export interface Lazy extends Schema<any> {}
 
 export interface FormatErrorParams {
-  path: string;
-  type: string;
-  value?: any;
-  originalValue?: any;
+    path: string;
+    type: string;
+    value?: any;
+    originalValue?: any;
 }
 
-export type LocaleValue =
-    | string
-    | ((params: FormatErrorParams) => string);
+export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
 export interface LocaleObject {
-    mixed?: { [key in keyof MixedSchema]?: string; } & { notType?: LocaleValue };
+    mixed?: { [key in keyof MixedSchema]?: string } & { notType?: LocaleValue };
     string?: { [key in keyof StringSchema]?: string };
     number?: { [key in keyof NumberSchema]?: string };
     boolean?: { [key in keyof BooleanSchema]?: string };

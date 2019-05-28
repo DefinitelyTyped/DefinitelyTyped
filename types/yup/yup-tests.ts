@@ -214,7 +214,7 @@ const testContext = function(this: TestContext) {
     // $ExpectType ValidationError
     this.createError({ message: "1" });
     // $ExpectType ValidationError
-    this.createError({ path: "1"});
+    this.createError({ path: "1" });
     // $ExpectType ValidationError
     this.createError();
     return true;
@@ -473,14 +473,19 @@ const localeNotType2: LocaleObject = {
 const localeNotType3: LocaleObject = {
     mixed: {
         required: "message",
-        notType: (_ref) => {
-            const isCast: boolean = _ref.originalValue != null && _ref.originalValue !== _ref.value;
+        notType: _ref => {
+            const isCast: boolean =
+                _ref.originalValue != null && _ref.originalValue !== _ref.value;
             const finalPartOfTheMessage = isCast
                 ? ` (cast from the value '${_ref.originalValue}').`
-                : '.';
+                : ".";
 
-            return `${_ref.path} must be a '${_ref.type}'` +
-                ` but the final value was: '${_ref.value}'${finalPartOfTheMessage}`;
+            return (
+                `${_ref.path} must be a '${_ref.type}'` +
+                ` but the final value was: '${
+                    _ref.value
+                }'${finalPartOfTheMessage}`
+            );
         }
     }
 };
@@ -599,3 +604,32 @@ yup.object<MyInterface>({
         .required(),
     arrayField: yup.array(yup.string()).required()
 });
+
+const personSchema = yup.object({
+    firstName: yup.string(),
+    email: yup
+        .string()
+        .email()
+        .nullable(),
+    canBeNull: yup.string().nullable(true),
+    mustBeAString: yup
+        .string()
+        .nullable(true)
+        .nullable(false)
+});
+
+type Person = ReturnType<typeof personSchema.cast>;
+// Equivalent to:
+// type Person = {
+//     firstName: string;
+//     email: string | null;
+//     canBeNull: string | null;
+//     mustBeAString: string;
+// }
+
+const person: Person = {
+    firstName: "",
+    email: null,
+    canBeNull: null,
+    mustBeAString: ""
+};
