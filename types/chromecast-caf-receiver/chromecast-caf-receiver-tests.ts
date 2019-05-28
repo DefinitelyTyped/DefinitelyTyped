@@ -27,6 +27,10 @@ const rEvent = new cast.framework.events.RequestEvent("BITRATE_CHANGED", {
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
 pManager.addEventListener("STALLED", () => {});
+pManager.addEventListener(cast.framework.events.category.CORE, () => {});
+pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
+pManager.addEventListener(cast.framework.events.category.FINE, () => {});
+pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
 // tslint:disable-next-line
@@ -62,7 +66,7 @@ const lrd: cast.framework.messages.LoadRequestData = {
         textTrackStyle: {},
         streamType: "BUFFERED",
         metadata: { metadataType: "GENERIC" },
-        hlsSegmentFormat: "AAC",
+        hlsSegmentFormat: "aac",
         contentId: "id",
         contentType: "type",
         breakClips: [breakClip],
@@ -110,3 +114,8 @@ const pData: cast.framework.ui.PlayerData = {
 // tslint:disable-next-line
 const binder = new cast.framework.ui.PlayerDataBinder(pData);
 binder.addEventListener("ANY_CHANGE", e => {});
+// tslint:disable-next-line
+const supportedCommands: number =
+    cast.framework.messages.Command.ALL_BASIC_MEDIA |
+    cast.framework.messages.Command.QUEUE_NEXT |
+    cast.framework.messages.Command.QUEUE_PREV;
