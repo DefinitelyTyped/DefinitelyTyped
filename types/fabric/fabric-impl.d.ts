@@ -1072,15 +1072,15 @@ interface IStaticCanvasOptions {
 }
 
 export interface FreeDrawingBrush {
-    /**
-     * Can be any regular color value.
-     */
-    color: string;
+	/**
+	 * Can be any regular color value.
+	 */
+	color: string;
 
-    /**
-     * Brush width measured in pixels.
-     */
-    width: number;
+	/**
+	 * Brush width measured in pixels.
+	 */
+	width: number;
 }
 
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
@@ -1095,7 +1095,7 @@ export class StaticCanvas {
 
 	_activeObject?: Object | Group;
 
-    public freeDrawingBrush: FreeDrawingBrush;
+	freeDrawingBrush: FreeDrawingBrush;
 
 	/**
 	 * Calculates canvas element offset relative to the document
