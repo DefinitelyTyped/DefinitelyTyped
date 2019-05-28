@@ -1,17 +1,19 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "forceConsistentCasingInFileNames": true,
-        "lib": ["es6"],
         "module": "commonjs",
+        "lib": ["es6"],
+        "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "target": "es6",
+        "baseUrl": "../",
         "typeRoots": ["../"],
         "types": []
     },
-    "files": ["index.d.ts"]
+    "files": [
+        "index.d.ts",
+        "microsoft-graph-tests.ts"
+    ]
 }
