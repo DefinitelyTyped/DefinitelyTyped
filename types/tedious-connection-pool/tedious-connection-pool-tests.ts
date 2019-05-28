@@ -12,7 +12,7 @@ const config: tedious.ConnectionConfig = {
 		options: {
 			userName: "rogier",
 			password: "rogiers password"
-		}		
+		}
 	}
 };
 
