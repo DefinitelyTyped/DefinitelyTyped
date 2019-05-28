@@ -2,7 +2,7 @@
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
 
-import { User, Event, DateTimeTimeZone, ItemBody, BodyType } from "microsoft-graph";
+import { User, Event, DateTimeTimeZone, ItemBody } from "microsoft-graph";
 
 const user: User = {
     officeLocation: "Bengaluru",
