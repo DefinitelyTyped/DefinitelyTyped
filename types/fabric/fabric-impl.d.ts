@@ -1075,12 +1075,12 @@ export interface FreeDrawingBrush {
     /**
      * Can be any regular color value.
      */
-    color: string;
+    public color: string;
 
     /**
      * Brush width measured in pixels.
      */
-    width: number;
+    public width: number;
 }
 
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
@@ -1094,7 +1094,7 @@ export class StaticCanvas {
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
 	_activeObject?: Object | Group;
-    
+
     public freeDrawingBrush: FreeDrawingBrush;
 
 	/**
