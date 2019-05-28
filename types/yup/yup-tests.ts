@@ -293,7 +293,7 @@ yup.object()
     });
 
 // String schema
-const strSchema = yup.string(); // $ExpectType StringSchema
+const strSchema = yup.string(); // $ExpectType StringSchema<string>
 strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
@@ -325,7 +325,7 @@ strSchema.uppercase("upper");
 strSchema.uppercase(() => "upper");
 
 // Number schema
-const numSchema = yup.number(); // $ExpectType NumberSchema
+const numSchema = yup.number(); // $ExpectType NumberSchema<number>
 numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, "message");
@@ -508,8 +508,8 @@ interface SubInterface {
 
 // $ExpectType ObjectSchema<MyInterface>
 const typedSchema = yup.object<MyInterface>({
-    stringField: yup.string().required(), // $ExpectType StringSchema
-    numberField: yup.number().required(), // $ExpectType NumberSchema
+    stringField: yup.string().required(), // $ExpectType StringSchema<string>
+    numberField: yup.number().required(), // $ExpectType NumberSchema<number>
     subFields: yup
         .object({
             testField: yup.string().required()
@@ -606,7 +606,7 @@ yup.object<MyInterface>({
 });
 
 const personSchema = yup.object({
-    firstName: yup.string(),
+    firstName: yup.string(), // $ExpectType StringSchema<string>
     email: yup
         .string()
         .nullable()
@@ -615,16 +615,12 @@ const personSchema = yup.object({
         .date()
         .nullable()
         .min(new Date(1900, 0, 1)),
-    canBeNull: yup
-        .string()
-        .nullable(true),
+    canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
     mustBeAString: yup
         .string()
         .nullable(true)
         .nullable(false),
-    children: yup
-        .array(yup.string())
-        .nullable()
+    children: yup.array(yup.string()).nullable()
 });
 
 type Person = ReturnType<typeof personSchema.cast>;
