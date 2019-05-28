@@ -609,13 +609,22 @@ const personSchema = yup.object({
     firstName: yup.string(),
     email: yup
         .string()
-        .email()
-        .nullable(),
-    canBeNull: yup.string().nullable(true),
+        .nullable()
+        .email(),
+    birthDate: yup
+        .date()
+        .nullable()
+        .min(new Date(1900, 0, 1)),
+    canBeNull: yup
+        .string()
+        .nullable(true),
     mustBeAString: yup
         .string()
         .nullable(true)
-        .nullable(false)
+        .nullable(false),
+    children: yup
+        .array(yup.string())
+        .nullable()
 });
 
 type Person = ReturnType<typeof personSchema.cast>;
@@ -623,13 +632,17 @@ type Person = ReturnType<typeof personSchema.cast>;
 // type Person = {
 //     firstName: string;
 //     email: string | null;
+//     birthDate: Date | null;
 //     canBeNull: string | null;
 //     mustBeAString: string;
+//     children: string[] | null;
 // }
 
 const person: Person = {
     firstName: "",
     email: null,
+    birthDate: null,
     canBeNull: null,
-    mustBeAString: ""
+    mustBeAString: "",
+    children: null
 };

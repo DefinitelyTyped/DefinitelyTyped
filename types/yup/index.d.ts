@@ -107,22 +107,24 @@ export interface StringSchemaConstructor {
     new (): StringSchema;
 }
 
-export interface StringSchema extends Schema<string> {
-    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
-    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
-    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
+export interface StringSchema<T = string> extends Schema<T> {
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     matches(
         regex: RegExp,
         messageOrOptions?:
             | TestOptionsMessage
             | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
-    ): StringSchema;
-    email(message?: TestOptionsMessage): StringSchema;
-    url(message?: TestOptionsMessage): StringSchema;
-    ensure(): StringSchema;
-    trim(message?: TestOptionsMessage): StringSchema;
-    lowercase(message?: TestOptionsMessage): StringSchema;
-    uppercase(message?: TestOptionsMessage): StringSchema;
+    ): StringSchema<T>;
+    email(message?: TestOptionsMessage): StringSchema<T>;
+    url(message?: TestOptionsMessage): StringSchema<T>;
+    ensure(): StringSchema<T>;
+    trim(message?: TestOptionsMessage): StringSchema<T>;
+    lowercase(message?: TestOptionsMessage): StringSchema<T>;
+    uppercase(message?: TestOptionsMessage): StringSchema<T>;
+    nullable(isNullable?: true): StringSchema<T | null>;
+    nullable(isNullable: false): StringSchema<Exclude<T, null>>;
 }
 
 export interface NumberSchemaConstructor {
@@ -130,16 +132,24 @@ export interface NumberSchemaConstructor {
     new (): NumberSchema;
 }
 
-export interface NumberSchema extends Schema<number> {
-    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    lessThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    moreThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    positive(message?: TestOptionsMessage): NumberSchema;
-    negative(message?: TestOptionsMessage): NumberSchema;
-    integer(message?: TestOptionsMessage): NumberSchema;
-    truncate(): NumberSchema;
-    round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
+export interface NumberSchema<T = number> extends Schema<T> {
+    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
+    lessThan(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NumberSchema<T>;
+    moreThan(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NumberSchema<T>;
+    positive(message?: TestOptionsMessage): NumberSchema<T>;
+    negative(message?: TestOptionsMessage): NumberSchema<T>;
+    integer(message?: TestOptionsMessage): NumberSchema<T>;
+    truncate(): NumberSchema<T>;
+    round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema<T>;
+    nullable(isNullable?: true): NumberSchema<T | null>;
+    nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -148,16 +158,27 @@ export interface BooleanSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface BooleanSchema extends Schema<boolean> {}
+export interface BooleanSchema<T = boolean> extends Schema<T> {
+    nullable(isNullable?: true): BooleanSchema<T | null>;
+    nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
+}
 
 export interface DateSchemaConstructor {
     (): DateSchema;
     new (): DateSchema;
 }
 
-export interface DateSchema extends Schema<Date> {
-    min(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
-    max(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
+export interface DateSchema<T = Date> extends Schema<T> {
+    min(
+        limit: Date | string | Ref,
+        message?: TestOptionsMessage
+    ): DateSchema<T>;
+    max(
+        limit: Date | string | Ref,
+        message?: TestOptionsMessage
+    ): DateSchema<T>;
+    nullable(isNullable?: true): DateSchema<T | null>;
+    nullable(isNullable: false): DateSchema<Exclude<T, null>>;
 }
 
 export interface ArraySchemaConstructor {
