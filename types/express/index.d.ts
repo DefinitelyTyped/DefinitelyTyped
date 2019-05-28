@@ -31,6 +31,12 @@ declare namespace e {
     var json: typeof bodyParser.json;
 
     /**
+     * This is a built-in middleware function in Express. It parses incoming requests with Buffer payloads and is based on body-parser.
+     * @since 4.14.0
+     */
+    var raw: typeof bodyParser.raw;
+
+    /**
      * These are the exposed prototypes.
      */
     var application: Application;
