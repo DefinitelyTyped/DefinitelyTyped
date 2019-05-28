@@ -1,4 +1,4 @@
-import { HoneywellScanner } from 'react-native-honeywell-scanner';
+import HoneywellScanner from 'react-native-honeywell-scanner';
 
 class Example {
     async test() {
