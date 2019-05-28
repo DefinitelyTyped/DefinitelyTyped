@@ -1,4 +1,5 @@
 import * as npmlog from "npmlog";
+import { MessageObject } from "npmlog";
 
 const prefix = "str";
 const message = "otherStr";
@@ -20,6 +21,7 @@ npmlog.disableColor();
 
 npmlog.enableProgress();
 npmlog.disableProgress();
+npmlog.progressEnabled();
 
 npmlog.enableUnicode();
 npmlog.disableUnicode();
@@ -42,3 +44,20 @@ npmlog.addLevel("styled-level", 42, {
     bold: false,
     underline: true,
 }, 'display name');
+
+npmlog.addLevel("broadcast", 10);
+
+npmlog.broadcast(prefix, message);
+npmlog.broadcast(message);
+
+npmlog.on("broadcast", () => {});
+
+const msg: MessageObject = {
+    id: 1,
+    level: "broadcast",
+    prefix,
+    message,
+    messageRaw: message,
+};
+
+npmlog.emit("broadcast", msg);
