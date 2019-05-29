@@ -1,5 +1,5 @@
 // Type definitions for swagger-schema-official 2.0
-// Project: http://swagger.io/specification/
+// Project: http://io/specification/
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>, Mauri Edo <https://github.com/mauriedo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -40,7 +40,7 @@ export interface Header extends BaseSchema {
 
 // ----------------------------- Parameter -----------------------------------
 
-export type ParameterType = 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
+export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'file';
 
 export interface BaseParameter {
   name: string;
@@ -58,6 +58,7 @@ export interface QueryParameter extends BaseParameter, BaseSchema {
   in: 'query';
   type: ParameterType;
   allowEmptyValue?: boolean;
+  collectionFormat?: string;
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
