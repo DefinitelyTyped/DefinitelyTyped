@@ -251,7 +251,7 @@ iso.zoneName; // $ExpectType string
 iso.toString(); // $ExpectType string
 
 DateTime.fromISO('2017-05-15T09:10:23', { zone: 'Europe/Paris', setZone: true }); // $ExpectType DateTime
-DateTime.fromFormat('2017-05-15T09:10:23 Europe/Paris', 'yyyy-MM-dd'T'HH:mm:ss z'); // $ExpectType DateTime
+DateTime.fromFormat('2017-05-15T09:10:23 Europe/Paris', "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime
 
 Settings.defaultZoneName = 'Asia/Tokyo';
 
