@@ -208,12 +208,14 @@ componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, sn
 
 const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
 <Memoized1 foo='string'/>;
+<Memoized1 foo='string'>Children</Memoized1>;
 
 const Memoized2 = React.memo(
     function Bar(props: { bar: string }) { return null; },
     (prevProps, nextProps) => prevProps.bar === nextProps.bar
 );
 <Memoized2 bar='string'/>;
+<Memoized2 bar='string'>Children</Memoized2>;
 
 const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
 <Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
