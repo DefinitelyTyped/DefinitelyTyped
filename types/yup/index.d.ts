@@ -108,7 +108,8 @@ export interface StringSchemaConstructor {
     new (): StringSchema;
 }
 
-export interface StringSchema<T extends string | null = string> extends Schema<T> {
+export interface StringSchema<T extends string | null = string>
+    extends Schema<T> {
     length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
@@ -160,7 +161,8 @@ export interface BooleanSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface BooleanSchema<T = boolean> extends Schema<T> {
+export interface BooleanSchema<T extends boolean | null = boolean>
+    extends Schema<T> {
     nullable(isNullable?: true): BooleanSchema<T | null>;
     nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
 }
@@ -170,7 +172,7 @@ export interface DateSchemaConstructor {
     new (): DateSchema;
 }
 
-export interface DateSchema<T extends Date | null= Date> extends Schema<T> {
+export interface DateSchema<T extends Date | null = Date> extends Schema<T> {
     min(
         limit: Date | string | Ref,
         message?: TestOptionsMessage
