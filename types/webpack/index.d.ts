@@ -1579,11 +1579,11 @@ declare namespace webpack {
     }
 
     class SingleEntryPlugin extends Plugin {
-        constructor(context: string, entry: string, name: string);
+        constructor(context: loader.LoaderContext, entry: string, name: string);
     }
 
     class MultiEntryPlugin extends Plugin {
-        constructor(context: string, entry: string, name: string);
+        constructor(context: loader.LoaderContext, entry: string, name: string);
     }
 
     namespace optimize {
