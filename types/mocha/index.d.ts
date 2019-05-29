@@ -2161,7 +2161,7 @@ declare namespace Mocha {
     type TestInterface = (suite: Suite) => void;
 
     interface ReporterConstructor {
-        new (runner: Runner, options: Mocha.MochaOptions): reporters.Base;
+        new (runner: Runner, options: MochaOptions): reporters.Base;
     }
 
     type Done = (err?: any) => void;
