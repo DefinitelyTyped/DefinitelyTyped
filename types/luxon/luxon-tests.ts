@@ -31,10 +31,11 @@ const testIanaZone = IANAZone.create('Europe/London');
 IANAZone.isValidSpecifier('Europe/London');
 IANAZone.isValidZone('Europe/London');
 IANAZone.resetCache();
+testIanaZone.formatOffset(dt.toMillis()); // $ExpectError
 testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // $ExpectType string
 testIanaZone.formatOffset(dt.toMillis(), 'short'); // $ExpectType string
 testIanaZone.formatOffset(dt.toMillis(), 'techie'); // $ExpectType string
-testIanaZone.offsetName(dt.toMillis()); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis()); // $ExpectError
 testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // $ExpectType string
 testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // $ExpectType string
 testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // $ExpectType string
