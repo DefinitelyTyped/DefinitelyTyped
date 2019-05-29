@@ -740,6 +740,10 @@ export class IndexedFormula extends Formula {
      */
     length: number;
     /**
+     * An UpdateManager initialised to this store
+     */
+    updater?: UpdateManager;
+    /**
      * Creates a new formula
      * @param features The list of features to support
      */
