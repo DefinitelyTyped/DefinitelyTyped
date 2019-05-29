@@ -1582,6 +1582,10 @@ declare namespace webpack {
         constructor(context: string, entry: string, name: string);
     }
 
+    class MultiEntryPlugin extends Plugin {
+        constructor(context: string, entry: string, name: string);
+    }
+
     namespace optimize {
         /** @deprecated use config.optimization.concatenateModules */
         class ModuleConcatenationPlugin extends Plugin { }
