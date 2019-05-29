@@ -39,9 +39,12 @@ export interface Header extends BaseSchema {
 }
 
 // ----------------------------- Parameter -----------------------------------
+
+type ParameterType = 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
+
 export interface BaseParameter {
   name: string;
-  in: string;
+  in: 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
   required?: boolean;
   description?: string;
 }
@@ -53,24 +56,24 @@ export interface BodyParameter extends BaseParameter {
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
   in: 'query';
-  type: string;
+  type: ParameterType;
   allowEmptyValue?: boolean;
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
   in: 'path';
-  type: string;
+  type: ParameterType;
   required: boolean;
 }
 
 export interface HeaderParameter extends BaseParameter, BaseSchema {
   in: 'header';
-  type: string;
+  type: ParameterType;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
   in: 'formData';
-  type: string;
+  type: ParameterType;
   collectionFormat?: string;
   allowEmptyValue?: boolean;
 }
