@@ -9,6 +9,7 @@
 //                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
