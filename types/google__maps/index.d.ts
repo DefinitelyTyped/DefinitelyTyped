@@ -1934,8 +1934,22 @@ export interface GeocodingRequest {
     /**
      * The street address that you want to geocode, in the format used by the national postal service of the country concerned.
      * Additional address elements such as business names and unit, suite or floor numbers should be avoided.
+     * **One, and only one, of address, location and placeId must be supplied.**
      */
     address?: string;
+    /**
+     * LatLng (or LatLngLiteral) for which to search.
+     * The geocoder performs a reverse geocode. See Reverse Geocoding for more information.
+     * **One, and only one, of address, location and placeId must be supplied.**
+     */
+    location?: LatLng;
+    /**
+     * The place ID associated with the location.
+     * Place IDs uniquely identify a place in the Google Places database and on Google Maps. Learn more about place IDs
+     * in the Places API developer guide. The geocoder performs a reverse geocode. See Reverse Geocoding for more information.
+     * **One, and only one, of address, location and placeId must be supplied.**
+     */
+    placeId?: string;
     /**
      * The bounding box of the viewport within which to bias geocode results more prominently.
      * This parameter will only influence, not fully restrict, results from the geocoder.
