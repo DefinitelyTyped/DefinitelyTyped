@@ -1,12 +1,8 @@
-// Type definitions for the Microsoft Graph API 1.9
+// Type definitions for the Microsoft Graph 1.9
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
-// TypeScript Version: 3.1
-
-//
-// Copyright (c) Microsoft Corporation.  All Rights Reserved.  Licensed under the MIT License.  See License in the project root for license information.
-//
-
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export as namespace microsoftgraph;
 
