@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5
+// Type definitions for Mongoose 5.5.1
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -1968,6 +1968,9 @@ declare module "mongoose" {
     /** Specifies the maxScan option. Cannot be used with distinct() */
     maxScan(val: number): this;
 
+    /** Specifies the maxTimeMS options. */
+    maxTimeMS(val: number): this;
+
     /**
      * Merges another Query or conditions object into this one.
      * When a Query is passed, conditions, field selection and options are merged.
@@ -2057,7 +2060,7 @@ declare module "mongoose" {
      */
     populate(path: string | any, select?: string | any, model?: any,
       match?: any, options?: any): this;
-    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
+    populate(options: QueryPopulateOptions | QueryPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -3304,7 +3307,7 @@ declare module "mongoose" {
     session?: ClientSession | null;
   }
 
-  interface ModelPopulateOptions {
+  interface QueryPopulateOptions {
     /** space delimited path(s) to populate */
     path: string;
     /** optional fields to select */
@@ -3316,7 +3319,12 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: any;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[];
+    populate?: QueryPopulateOptions | QueryPopulateOptions[];
+  }
+
+  interface ModelPopulateOptions extends QueryPopulateOptions {
+    /** optional, if true Mongoose will always set path to an array. Inferred from schema by default */
+    justOne?: boolean;
   }
 
   interface ModelUpdateOptions extends ModelOptions {

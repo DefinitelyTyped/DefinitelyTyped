@@ -18,10 +18,10 @@ declare namespace GoogleAppsScript {
       deleteAllProperties(): Properties;
       deleteProperty(key: string): Properties;
       getKeys(): string[];
-      getProperties(): Object;
+      getProperties(): object;
       getProperty(key: string): string | null;
-      setProperties(properties: Object): Properties;
-      setProperties(properties: Object, deleteAllOthers: boolean): Properties;
+      setProperties(properties: object): Properties;
+      setProperties(properties: object, deleteAllOthers: boolean): Properties;
       setProperty(key: string, value: string): Properties;
     }
 
@@ -55,10 +55,10 @@ declare namespace GoogleAppsScript {
       deleteAllProperties(): ScriptProperties;
       deleteProperty(key: string): ScriptProperties;
       getKeys(): string[];
-      getProperties(): Object;
+      getProperties(): object;
       getProperty(key: string): string | null;
-      setProperties(properties: Object): ScriptProperties;
-      setProperties(properties: Object, deleteAllOthers: boolean): ScriptProperties;
+      setProperties(properties: object): ScriptProperties;
+      setProperties(properties: object, deleteAllOthers: boolean): ScriptProperties;
       setProperty(key: string, value: string): ScriptProperties;
     }
 
@@ -72,10 +72,10 @@ declare namespace GoogleAppsScript {
       deleteAllProperties(): UserProperties;
       deleteProperty(key: string): UserProperties;
       getKeys(): string[];
-      getProperties(): Object;
+      getProperties(): object;
       getProperty(key: string): string | null;
-      setProperties(properties: Object): UserProperties;
-      setProperties(properties: Object, deleteAllOthers: boolean): UserProperties;
+      setProperties(properties: object): UserProperties;
+      setProperties(properties: object, deleteAllOthers: boolean): UserProperties;
       setProperty(key: string, value: string): UserProperties;
     }
 

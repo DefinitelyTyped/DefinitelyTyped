@@ -1,6 +1,8 @@
 // Type definitions for dialogflow 0.9
 // Project: https://github.com/googleapis/nodejs-dialogflow
-// Definitions by: Daniel Dyla <https://github.com/dyladan>, Tom Carrio <https://github.com/tcarrio>
+// Definitions by: Daniel Dyla <https://github.com/dyladan>
+//                 Tom Carrio <https://github.com/tcarrio>
+//                 Khalil Choudhry <https://github.com/khalilchoudhry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -677,7 +679,7 @@ export interface QueryResult {
     speechRecognitionConfidence: number;
     action: string;
     parameters: any;
-    allRequiredParamsSent: boolean;
+    allRequiredParamsPresent: boolean;
     fulfillmentText: string;
     fulfillmentMessages: Message[];
     webhookSource: string;
@@ -868,15 +870,27 @@ export interface Agent {
     classificationThreshold?: number;
 }
 
-export interface Context<N = string, T = any> {
-    name: N;
+export interface Context {
+    name?: string;
     lifespanCount?: number;
-    parameters?: T;
+    parameters?: ContextParameter;
 }
+
+export interface ContextParameter {
+    [key: string]: Value;
+}
+
+export type Value =
+    | "null_value"
+    | "number_value"
+    | "string_value"
+    | "bool_value"
+    | "struct_value"
+    | "list_value";
 
 export interface EntityType {
     name?: string;
-    entities: EntitySynonyms[];
+    entities: Entity[];
     displayName: string;
     kind: EntityKind;
     autoExpansionMode: EntityAutoExpansionMode;
@@ -902,9 +916,9 @@ export interface ClientOptions {
     servicePath?: string;
 }
 
-export interface EntitySynonyms {
-    synonyms: NonEmptyArray<string>;
+export interface Entity {
     value: string;
+    synonyms: NonEmptyArray<string>;
 }
 
 export type EntityKind =
@@ -955,7 +969,7 @@ export interface Part {
 }
 
 export interface Parameter {
-    name: string;
+    name?: string;
     displayName: string;
     value?: string;
     defaultValue?: string;
@@ -1223,11 +1237,6 @@ export interface SessionEntityType {
     name: string;
     entityOverrideMode: string;
     entities: Entity[];
-}
-
-export interface Entity {
-    value: string;
-    synonyms: string[];
 }
 
 export interface WebhookRequest {

@@ -48,7 +48,7 @@ export interface SelectTableHOCOptions {
     floatingLeft?: boolean;
 }
 
-declare function selectTableHOC<Props extends Partial<TableProps>>(
+declare function selectTableHOC<Props extends Partial<TableProps<any>>>(
     WrappedComponent: ComponentType<Props>,
     options?: SelectTableHOCOptions
 ): ComponentClass<Props & SelectTableAdditionalProps>;

@@ -167,7 +167,7 @@ declare class Mail extends EventEmitter {
     /** Usage: typeof transporter.MailMessage */
     MailMessage: MailMessage;
 
-    constructor(transporter: Transport, options: TransportOptions, defaults: TransportOptions);
+    constructor(transporter: Transport, options?: TransportOptions, defaults?: TransportOptions);
 
     /** Closes all connections in the pool. If there is a message being sent, the connection is closed later */
     close(): void;

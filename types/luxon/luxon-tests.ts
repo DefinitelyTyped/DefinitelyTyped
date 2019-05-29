@@ -10,6 +10,7 @@ import {
     IANAZone,
     Zone,
     ZoneOffsetOptions,
+    ZoneOffsetFormat,
 } from 'luxon';
 
 /* DateTime */
@@ -26,10 +27,13 @@ const fromObject = DateTime.fromObject({
 });
 
 const ianaZone = new IANAZone('America/Los_Angeles');
-IANAZone.create("Europe/London");
+const testIanaZone = IANAZone.create("Europe/London");
 IANAZone.isValidSpecifier("Europe/London");
 IANAZone.isValidZone("Europe/London");
 IANAZone.resetCache();
+testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // => +1
+testIanaZone.formatOffset(dt.toMillis(), 'short'); // => +01:00
+testIanaZone.formatOffset(dt.toMillis(), 'techie'); // => +0100
 const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
@@ -327,6 +331,9 @@ class SampleZone extends Zone {
 
     offsetName(ts: number, options?: ZoneOffsetOptions) {
         return 'SampleZone';
+    }
+    formatOffset(ts: number, format: ZoneOffsetFormat) {
+        return '+6';
     }
     equals(other: Zone) {
         return other.name === this.name;

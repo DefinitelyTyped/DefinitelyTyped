@@ -8,7 +8,7 @@ const TreeTable = treeTableHOC(ReactTable);
 
 const data = [{ id: 1, name: 'Foo' }, { id: 2, name: 'Bar' }];
 
-const columns: Column[] = [
+const columns: Array<Column<any>> = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'Name', accessor: 'name' }
 ];

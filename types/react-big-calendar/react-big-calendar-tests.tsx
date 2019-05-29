@@ -135,6 +135,9 @@ class CalendarResource {
               toolbar={true}
               popup={true}
               popupOffset={20}
+              onShowMore={(events, date) => {
+                  console.log('onShowMore fired, events: %O, date: %O', events, date);
+              }}
               selectable={true}
               step={20}
               rtl={true}
