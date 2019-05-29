@@ -23,7 +23,7 @@ export interface RouteConfig {
     exact?: boolean;
     strict?: boolean;
     routes?: RouteConfig[];
-    render?: (props?: RouteConfigComponentProps<any>) => React.ComponentType;
+    render?: (props: RouteComponentProps<any>) => React.ReactNode;
     [propName: string]: any;
 }
 
