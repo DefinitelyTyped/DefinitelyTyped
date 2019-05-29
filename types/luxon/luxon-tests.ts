@@ -27,13 +27,18 @@ const fromObject = DateTime.fromObject({
 });
 
 const ianaZone = new IANAZone('America/Los_Angeles');
-const testIanaZone = IANAZone.create("Europe/London");
-IANAZone.isValidSpecifier("Europe/London");
-IANAZone.isValidZone("Europe/London");
+const testIanaZone = IANAZone.create('Europe/London');
+IANAZone.isValidSpecifier('Europe/London');
+IANAZone.isValidZone('Europe/London');
 IANAZone.resetCache();
 testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // => +1
 testIanaZone.formatOffset(dt.toMillis(), 'short'); // => +01:00
 testIanaZone.formatOffset(dt.toMillis(), 'techie'); // => +0100
+testIanaZone.offsetName(dt.toMillis()); // => asd
+testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // => asd
+testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // => asd
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // => asd
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-gb'}); // => asd
 const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
@@ -41,7 +46,7 @@ const ianaZoneTest = DateTime.fromObject({
 FixedOffsetZone.utcInstance;
 
 FixedOffsetZone.instance(60);
-FixedOffsetZone.parseSpecifier("UTC+6");
+FixedOffsetZone.parseSpecifier('UTC+6');
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
@@ -246,7 +251,7 @@ iso.zoneName; // $ExpectType string
 iso.toString(); // $ExpectType string
 
 DateTime.fromISO('2017-05-15T09:10:23', { zone: 'Europe/Paris', setZone: true }); // $ExpectType DateTime
-DateTime.fromFormat('2017-05-15T09:10:23 Europe/Paris', "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime
+DateTime.fromFormat('2017-05-15T09:10:23 Europe/Paris', 'yyyy-MM-dd'T'HH:mm:ss z'); // $ExpectType DateTime
 
 Settings.defaultZoneName = 'Asia/Tokyo';
 
