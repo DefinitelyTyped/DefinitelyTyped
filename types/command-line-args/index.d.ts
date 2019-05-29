@@ -1,6 +1,7 @@
 // Type definitions for command-line-args 5.0.1
 // Project: https://github.com/75lb/command-line-args
 // Definitions by: Lloyd Brookes <https://github.com/75lb>
+//                 Bisius <https://github.com/Bisius>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
