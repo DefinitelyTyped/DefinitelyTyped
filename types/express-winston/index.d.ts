@@ -65,7 +65,7 @@ export interface BaseErrorLoggerOptions {
   dynamicMeta?: DynamicMetaFunction;
   level?: string | DynamicLevelFunction;
   metaField?: string;
-  msg?: string;
+  msg?: MessageTemplate;
   requestFilter?: RequestFilter;
   requestWhitelist?: string[];
 }
