@@ -40,7 +40,7 @@ export interface Header extends BaseSchema {
 
 // ----------------------------- Parameter -----------------------------------
 
-type ParameterType = 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
+export type ParameterType = 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
 
 export interface BaseParameter {
   name: string;
