@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-/// <reference path="global.d.ts" />
-
 /*
 USAGE:
 import * as dropin from "braintree-web-drop-in"
@@ -19,7 +17,7 @@ https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-
 
 export interface Options {
     authorization: string;
-    container: string | HTMLElement;
+    container: any;
     locale?: string;
     translations?: object;
     paymentOptionPriority?: string[];
