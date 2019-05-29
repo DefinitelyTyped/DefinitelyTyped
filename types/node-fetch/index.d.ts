@@ -7,6 +7,7 @@
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
 //                 Brandon Wilson <https://github.com/wilsonianb>
+//                 Julien Chaumond <https://github.com/julien-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -34,6 +35,7 @@ export class Request extends Body {
     protocol: string;
     size: number;
     timeout: number;
+    signal: AbortSignal;
 }
 
 export interface RequestInit {
@@ -49,6 +51,7 @@ export interface RequestInit {
     follow?: number; // =20 maximum redirect count. 0 to not follow redirect
     size?: number; // =0 maximum response body size in bytes. 0 to disable
     timeout?: number; // =0 req/res timeout in ms, it resets on redirect. 0 to disable (OS limit applies)
+    signal?: AbortSignal;
 
     // node-fetch does not support mode, cache or credentials options
 }
@@ -115,6 +118,10 @@ export class Headers implements Iterable<[string, string]> {
     keys(): Iterator<string>;
     values(): Iterator<[string]>;
     [Symbol.iterator](): Iterator<[string, string]>;
+}
+
+interface AbortSignal {
+    readonly aborted: boolean;
 }
 
 type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;

@@ -7,10 +7,12 @@ import fetch, {
     FetchError
 } from "node-fetch";
 import { Agent } from "http";
+import AbortController from "abort-controller";
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
+    const controller = new AbortController();
     const requestOptions: RequestInit = {
         compress: true,
         follow: 10,
@@ -18,7 +20,8 @@ function test_fetchUrlWithOptions() {
         method: "POST",
         redirect: "manual",
         size: 100,
-        timeout: 5000
+        timeout: 5000,
+        signal: controller.signal
     };
     handlePromise(
         fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions)
