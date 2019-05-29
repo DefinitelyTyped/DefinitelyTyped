@@ -1643,6 +1643,7 @@ export namespace errors {
     class ClientClosedRequest extends _Abstract {}
     class Conflict extends _Abstract {}
     class ExpectationFailed extends _Abstract {}
+    class Forbidden extends _Abstract {}
     class GatewayTimeout extends _Abstract {}
     class HTTPToHTTPS extends _Abstract {}
     class HTTPVersionNotSupported extends _Abstract {}
