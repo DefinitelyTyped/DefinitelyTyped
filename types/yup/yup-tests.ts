@@ -616,6 +616,7 @@ const personSchema = yup.object({
         .nullable()
         .min(new Date(1900, 0, 1)),
     canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
+    isAlive: yup.boolean().nullable(),
     mustBeAString: yup
         .string()
         .nullable(true)
@@ -630,6 +631,7 @@ type Person = ReturnType<typeof personSchema.cast>;
 //     email: string | null;
 //     birthDate: Date | null;
 //     canBeNull: string | null;
+//     isAlive: boolean | null;
 //     mustBeAString: string;
 //     children: string[] | null;
 // }
@@ -639,6 +641,17 @@ const person: Person = {
     email: null,
     birthDate: null,
     canBeNull: null,
+    isAlive: null,
     mustBeAString: "",
     children: null
 };
+
+person.email = "some@email.com";
+person.birthDate = new Date();
+person.isAlive = true;
+person.children = ["1", "2", "3"];
+
+// $ExpectError
+person.firstName = null;
+// $ExpectError
+person.mustBeAString = null;

@@ -108,7 +108,7 @@ export interface StringSchemaConstructor {
     new (): StringSchema;
 }
 
-export interface StringSchema<T = string> extends Schema<T> {
+export interface StringSchema<T extends string | null = string> extends Schema<T> {
     length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
@@ -133,7 +133,8 @@ export interface NumberSchemaConstructor {
     new (): NumberSchema;
 }
 
-export interface NumberSchema<T = number> extends Schema<T> {
+export interface NumberSchema<T extends number | null = number>
+    extends Schema<T> {
     min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
     lessThan(
@@ -169,7 +170,7 @@ export interface DateSchemaConstructor {
     new (): DateSchema;
 }
 
-export interface DateSchema<T = Date> extends Schema<T> {
+export interface DateSchema<T extends Date | null= Date> extends Schema<T> {
     min(
         limit: Date | string | Ref,
         message?: TestOptionsMessage
