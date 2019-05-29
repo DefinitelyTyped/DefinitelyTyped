@@ -494,7 +494,7 @@ export namespace Settings {
 
 export interface ZoneOffsetOptions {
     format?: 'short' | 'long';
-    localeCode?: string;
+    locale?: string;
 }
 
 export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
