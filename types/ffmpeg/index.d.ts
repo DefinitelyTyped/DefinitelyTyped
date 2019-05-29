@@ -159,4 +159,4 @@ interface Iffmpeg {
 
 declare var ffmpeg: Iffmpeg;
 
-export default ffmpeg;
+export = ffmpeg;
