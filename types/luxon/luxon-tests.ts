@@ -31,14 +31,14 @@ const testIanaZone = IANAZone.create('Europe/London');
 IANAZone.isValidSpecifier('Europe/London');
 IANAZone.isValidZone('Europe/London');
 IANAZone.resetCache();
-testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // => +1
-testIanaZone.formatOffset(dt.toMillis(), 'short'); // => +01:00
-testIanaZone.formatOffset(dt.toMillis(), 'techie'); // => +0100
-testIanaZone.offsetName(dt.toMillis()); // => asd
-testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // => asd
-testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // => asd
-testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // => asd
-testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-gb'}); // => asd
+testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'short'); // $ExpectType string
+testIanaZone.formatOffset(dt.toMillis(), 'techie'); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis()); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'short'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'long'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-us'}); // $ExpectType string
+testIanaZone.offsetName(dt.toMillis(), { format: 'short', locale: 'en-gb'}); // $ExpectType string
 const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
