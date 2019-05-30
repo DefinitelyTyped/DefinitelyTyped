@@ -4,28 +4,29 @@
 //                 Pavel Sakalo <https://github.com/psakalo>,
 //                 Krzysztof Porębski <https://github.com/Havret>,
 //                 Andy S <https://github.com/andys8>,
-//                 Grzegorz Rozdzialik <https://github.com/Gelio>
-//                 Cam Pepin <https://github.com/cpepin>
+//                 Grzegorz Rozdzialik <https://github.com/Gelio>,
+//                 Cam Pepin <https://github.com/cpepin>,
+//                 Sarid Shinwari <https://github.com/ngrok-sarid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
 
 export type ReactTableFunction = (value?: any) => void;
-export type AccessorFunction<D = any> = (row: D) => any;
-export type Accessor<D = any> = string | string[] | AccessorFunction<D>;
+export type AccessorFunction<D> = (row: D) => any;
+export type Accessor<D> = keyof D | Array<(keyof D)> | AccessorFunction<D>;
 export type Aggregator = (values: any, rows: any) => any;
-export type TableCellRenderer = ((cellInfo: CellInfo, column: any) => React.ReactNode) | React.ReactNode;
-export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement;
-export type PivotRenderer = ((cellInfo: CellInfo) => React.ReactNode) | (() => any) | string | React.ReactNode;
+export type TableCellRenderer<D> = ((cellInfo: CellInfo<D>, column: any) => React.ReactNode) | React.ReactNode;
+export type FilterRender<D> = (params: { column: Column<D>, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement;
+export type PivotRenderer<D> = ((cellInfo: CellInfo<D>) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
 export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
-export type ComponentPropsGetterR = (finalState: any, rowInfo?: RowInfo, column?: undefined, instance?: any) => object | undefined;
-export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, column?: Column, instance?: any) => object | undefined;
-export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column, instance?: any) => object | undefined;
+export type ComponentPropsGetterR<D> = (finalState: any, rowInfo?: RowInfo<D>, column?: undefined, instance?: any) => object | undefined;
+export type ComponentPropsGetterC<D> = (finalState: any, rowInfo?: undefined, column?: Column<D>, instance?: any) => object | undefined;
+export type ComponentPropsGetterRC<D> = (finalState: any, rowInfo?: RowInfo<D>, column?: Column<D>, instance?: any) => object | undefined;
 
 export type DefaultFilterFunction = (filter: Filter, row: any, column: any) => boolean;
 export type FilterFunction = (filter: Filter, rows: any[], column: any) => any[];
-export type SubComponentFunction = (rowInfo: RowInfo) => React.ReactNode;
+export type SubComponentFunction<D> = (rowInfo: RowInfo<D>) => React.ReactNode;
 export type PageChangeFunction = (page: number) => void;
 export type PageSizeChangeFunction = (newPageSize: number, newPage: number) => void;
 export type SortedChangeFunction = (newSorted: SortingRule[], column: any, additive: boolean) => void;
@@ -49,12 +50,12 @@ export interface SortingRule {
     desc: boolean;
 }
 
-export interface TableProps<D = any, ResolvedData = D> extends
+export interface TableProps<D, ResolvedData = D> extends
     TextProps,
-    ComponentDecoratorProps,
+    ComponentDecoratorProps<D>,
     ControlledStateCallbackProps,
     PivotingProps,
-    ControlledStateOverrideProps,
+    ControlledStateOverrideProps<D>,
     ComponentProps {
     /** Default: [] */
     data: D[];
@@ -166,7 +167,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     style: object;
 
     /** Global Column Defaults */
-    column: Partial<GlobalColumn>;
+    column: Partial<GlobalColumn<D>>;
 
     /** Array of all Available Columns */
     columns?: Array<Column<ResolvedData>>;
@@ -175,7 +176,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     expanderDefaults: Partial<ExpanderDefaults>;
 
     /** Privot defaults. */
-    pivotDefaults: Partial<PivotDefaults>;
+    pivotDefaults: Partial<PivotDefaults<D>>;
 
     /** The content rendered inside of a padding row */
     PadRowComponent: () => React.ReactNode;
@@ -191,7 +192,7 @@ export interface TableProps<D = any, ResolvedData = D> extends
     ) => React.ReactNode;
 }
 
-export interface ControlledStateOverrideProps {
+export interface ControlledStateOverrideProps<D> {
     /** Default: undefined */
     page: number | undefined;
 
@@ -217,7 +218,7 @@ export interface ControlledStateOverrideProps {
     expanded: {};
 
     /** Sub component */
-    SubComponent: SubComponentFunction;
+    SubComponent: SubComponentFunction<D>;
 }
 
 export interface PivotingProps {
@@ -303,27 +304,27 @@ export interface ControlledStateCallbackProps {
     onResizedChange: ResizedChangeFunction;
 }
 
-export interface ComponentDecoratorProps {
-    getProps: ComponentPropsGetterRC | ComponentPropsGetterC | ComponentPropsGetter0;
+export interface ComponentDecoratorProps<D> {
+    getProps: ComponentPropsGetterRC<D> | ComponentPropsGetterC<D> | ComponentPropsGetter0;
     getTableProps: ComponentPropsGetter0;
     getTheadGroupProps: ComponentPropsGetter0;
     getTheadGroupTrProps: ComponentPropsGetter0;
-    getTheadGroupThProps: ComponentPropsGetterC;
+    getTheadGroupThProps: ComponentPropsGetterC<D>;
     getTheadProps: ComponentPropsGetter0;
     getTheadTrProps: ComponentPropsGetter0;
-    getTheadThProps: ComponentPropsGetterC;
+    getTheadThProps: ComponentPropsGetterC<D>;
     getTheadFilterProps: ComponentPropsGetter0;
     getTheadFilterTrProps: ComponentPropsGetter0;
-    getTheadFilterThProps: ComponentPropsGetterC;
+    getTheadFilterThProps: ComponentPropsGetterC<D>;
     getTbodyProps: ComponentPropsGetter0;
-    getTrGroupProps: ComponentPropsGetterR | ComponentPropsGetter0;
-    getTrProps: ComponentPropsGetterR | ComponentPropsGetter0;
+    getTrGroupProps: ComponentPropsGetterR<D> | ComponentPropsGetter0;
+    getTrProps: ComponentPropsGetterR<D> | ComponentPropsGetter0;
 
     /**
      * @TODO not exists in react-table but in the docs
      */
     // getThProps: ComponentPropsGetter
-    getTdProps: ComponentPropsGetterRC | ComponentPropsGetterR;
+    getTdProps: ComponentPropsGetterRC<D> | ComponentPropsGetterR<D>;
     getTfootProps: ComponentPropsGetter0;
     getTfootTrProps: ComponentPropsGetter0;
 
@@ -382,17 +383,17 @@ export interface TextProps {
     rowsText: string;
 }
 
-export interface GlobalColumn extends
-    Column.Basics,
-    Column.CellProps,
-    Column.FilterProps,
-    Column.FooterProps,
-    Column.HeaderProps {
+export interface GlobalColumn<D> extends
+    Column.Basics<D>,
+    Column.CellProps<D>,
+    Column.FilterProps<D>,
+    Column.FooterProps<D>,
+    Column.HeaderProps<D> {
 }
 
 export namespace Column {
     /** Basic column props */
-    interface Basics {
+    interface Basics<D> {
         /** Default: undefined, use table default */
         sortable: boolean | undefined;
 
@@ -415,20 +416,20 @@ export namespace Column {
         defaultSortDesc: boolean | undefined;
 
         /** Used to render aggregated cells. Defaults to a comma separated list of values. */
-        Aggregated: TableCellRenderer;
+        Aggregated: TableCellRenderer<D>;
 
         /** Used to render a pivoted cell  */
-        Pivot: PivotRenderer;
+        Pivot: PivotRenderer<D>;
 
         /**  Used to render the value inside of a Pivot cell */
-        PivotValue: TableCellRenderer;
+        PivotValue: TableCellRenderer<D>;
 
         /** Used to render the expander in both Pivot and Expander cells */
-        Expander: TableCellRenderer;
+        Expander: TableCellRenderer<D>;
     }
 
     /** Configuration of a columns cell section */
-    interface CellProps {
+    interface CellProps<D> {
         /**
          * Default: undefined
          * A function that returns a primitive, or JSX / React Component
@@ -436,7 +437,7 @@ export namespace Column {
          * @example 'Cell Value'
          * @example ({data, column}) => <div>Cell Value</div>,
          */
-        Cell: TableCellRenderer;
+        Cell: TableCellRenderer<D>;
 
         /**
          * Set the classname of the `td` element of the column
@@ -457,7 +458,7 @@ export namespace Column {
     }
 
     /** Configuration of a columns header section */
-    interface HeaderProps {
+    interface HeaderProps<D> {
         /**
          * Default: undefined
          * A function that returns a primitive, or JSX / React Component
@@ -465,7 +466,7 @@ export namespace Column {
          * @example 'Header Name'
          * @example ({data, column}) => <div>Header Name</div>,
          */
-        Header: TableCellRenderer;
+        Header: TableCellRenderer<D>;
 
         /**
          * Set the classname of the `th` element of the column
@@ -487,7 +488,7 @@ export namespace Column {
     }
 
     /** Configuration of a columns footer section */
-    interface FooterProps {
+    interface FooterProps<D> {
         /**
          * Default: undefined
          * A function that returns a primitive, or JSX / React Component
@@ -495,7 +496,7 @@ export namespace Column {
          * @example 'Footer Name'
          * @example ({data, column}) => <div>Footer Name</div>,
          */
-        Footer: TableCellRenderer;
+        Footer: TableCellRenderer<D>;
 
         /**
          * Default: string
@@ -517,7 +518,7 @@ export namespace Column {
     }
 
     /** Filtering related column props */
-    interface FilterProps {
+    interface FilterProps<D> {
         /** Default: false */
         filterAll: boolean;
 
@@ -534,7 +535,7 @@ export namespace Column {
         hideFilter: boolean;
 
         /** Default: ... */
-        Filter: FilterRender;
+        Filter: FilterRender<D>;
     }
 }
 
@@ -552,17 +553,17 @@ export interface ExpanderDefaults {
     width: number;
 }
 
-export interface PivotDefaults {
+export interface PivotDefaults<D> {
     /** Will be overriden in methods.js to display ExpanderComponent */
-    render: TableCellRenderer;
+    render: TableCellRenderer<D>;
 }
 
-export interface Column<D = any> extends
-    Partial<Column.Basics>,
-    Partial<Column.CellProps>,
-    Partial<Column.FilterProps>,
-    Partial<Column.FooterProps>,
-    Partial<Column.HeaderProps> {
+export interface Column<D> extends
+    Partial<Column.Basics<D>>,
+    Partial<Column.CellProps<D>>,
+    Partial<Column.FilterProps<D>>,
+    Partial<Column.FooterProps<D>>,
+    Partial<Column.HeaderProps<D>> {
     /**
      * Property name as string or Accessor
      * @example: 'myProperty'
@@ -617,7 +618,7 @@ export interface Column<D = any> extends
     pivot?: boolean;
 }
 
-export interface ColumnRenderProps<D = any> {
+export interface ColumnRenderProps<D> {
     /** Sorted data. */
     data: D[];
 
@@ -625,15 +626,15 @@ export interface ColumnRenderProps<D = any> {
     column: Column<D>;
 }
 
-export interface RowRenderProps extends Partial<RowInfo> {
+export interface RowRenderProps<D> extends Partial<RowInfo<D>> {
     /** Whenever the current row is expanded */
     isExpanded?: boolean;
 
     /** The current cell value */
-    value?: any;
+    value?: D;
 }
 
-export interface RowInfo {
+export interface RowInfo<D> {
     /** Materialized row of data */
     row: any;
 
@@ -668,18 +669,18 @@ export interface RowInfo {
     subRows: any[];
 
     /** Original object passed to row */
-    original: any;
+    original: D;
 }
 
-export interface CellInfo extends RowInfo, Pick<ControlledStateOverrideProps, "resized"> {
+export interface CellInfo<D> extends RowInfo<D>, Pick<ControlledStateOverrideProps<D>, "resized"> {
     /* true if this row is expanded */
     isExpanded: boolean;
 
     /* the cell's column */
-    column: Column;
+    column: Column<D>;
 
     /* materialized value of the cell */
-    value: any;
+    value: D;
 
     /* true if the column is pivoted */
     pivoted: boolean;
@@ -709,7 +710,7 @@ export interface CellInfo extends RowInfo, Pick<ControlledStateOverrideProps, "r
     styles: object;
 }
 
-export interface FinalState<D = any> extends TableProps<D> {
+export interface FinalState<D> extends TableProps<D> {
     frozen: boolean;
     startRow: number;
     endRow: number;
@@ -728,10 +729,10 @@ export interface FinalState<D = any> extends TableProps<D> {
     headerGroups: any[];
 }
 
-export const ReactTableDefaults: TableProps;
+export const ReactTableDefaults: TableProps<any>;
 export default class ReactTable<D> extends React.Component<Partial<TableProps<D>>> { }
 
-export interface Instance<D = any> extends ReactTable<D> {
+export interface Instance<D> extends ReactTable<D> {
     context: any;
     props: Partial<TableProps<D>>;
     refs: any;

@@ -15,6 +15,7 @@
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
 //                 Adrián Caballero <https://github.com/adripanico>
+//                 wertzui <https://github.com/wertzui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -270,7 +271,7 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;
-        generateLabels?(chart: any): any;
+        generateLabels?(chart: Chart): ChartLegendLabelItem[];
         filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }

@@ -593,10 +593,7 @@ declare namespace Dockerode {
     };
     NetworkMode?: string;
     PortBindings?: any;
-    RestartPolicy?: {
-      Name: string;
-      MaximumRetryCount: number;
-    };
+    RestartPolicy?: RestartPolicy;
     VolumeDriver?: string;
     VolumesFrom?: any;
     Mounts?: MountConfig;
@@ -1153,6 +1150,9 @@ declare class Dockerode {
 
   createSecret(options: {}, callback: Callback<any>): void;
   createSecret(options: {}): Promise<any>;
+
+  createConfig(options: {}, callback: Callback<any>): void;
+  createConfig(options: {}): Promise<any>;
 
   createPlugin(options: {}, callback: Callback<any>): void;
   createPlugin(options: {}): Promise<any>;

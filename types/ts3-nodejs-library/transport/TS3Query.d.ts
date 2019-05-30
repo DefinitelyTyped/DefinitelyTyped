@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 import { ConnectionParams } from '../TeamSpeak3';
 
 declare class TS3Query extends EventEmitter {
-    constructor(config: ConnectionParams)
+    constructor(config: ConnectionParams);
 
     /**
      * Handles any TeamSpeak Query Response Line

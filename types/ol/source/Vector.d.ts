@@ -1,3 +1,77 @@
-import * as ol from 'openlayers';
-
-export default ol.source.Vector;
+import Collection from 'ol/Collection';
+import { Coordinate } from 'ol/coordinate';
+import { EventsKey } from 'ol/events';
+import Event from 'ol/events/Event';
+import { Extent } from 'ol/extent';
+import Feature from 'ol/Feature';
+import { FeatureLoader, FeatureUrlFunction } from 'ol/featureloader';
+import FeatureFormat from 'ol/format/Feature';
+import { ObjectEvent } from 'ol/Object';
+import Projection from 'ol/proj/Projection';
+import Source, { AttributionLike } from 'ol/source/Source';
+export class VectorSourceEvent extends Event {
+    constructor();
+    feature: Feature;
+}
+export type LoadingStrategy = ((param0: Extent, param1: number) => Extent[]);
+export interface Options {
+    attributions?: AttributionLike;
+    features?: Feature[] | Collection<Feature>;
+    format?: FeatureFormat;
+    loader?: FeatureLoader;
+    overlaps?: boolean;
+    strategy?: LoadingStrategy;
+    url?: string | FeatureUrlFunction;
+    useSpatialIndex?: boolean;
+    wrapX?: boolean;
+}
+export default class VectorSource extends Source {
+    constructor(opt_options?: Options);
+    protected addFeaturesInternal(features: Feature[]): void;
+    protected addFeatureInternal(feature: Feature): void;
+    protected removeFeatureInternal(feature: Feature): void;
+    getFeaturesAtCoordinate(coordinate: Coordinate): Feature[];
+    clear(opt_fast?: boolean): void;
+    forEachFeature<T>(callback: ((param0: Feature) => T)): T;
+    forEachFeatureAtCoordinateDirect<T>(coordinate: Coordinate, callback: ((param0: Feature) => T)): T;
+    forEachFeatureInExtent<T>(extent: Extent, callback: ((param0: Feature) => T)): T;
+    forEachFeatureIntersectingExtent<T>(extent: Extent, callback: ((param0: Feature) => T)): T;
+    getClosestFeatureToCoordinate(coordinate: Coordinate, opt_filter?: (() => void)): Feature;
+    getExtent(opt_extent?: Extent): Extent;
+    getFeatureById(id: string | number): Feature;
+    getFeatures(): Feature[];
+    addFeatures(features: Feature[]): void;
+    getFeaturesCollection(): Collection<Feature>;
+    getFeaturesInExtent(extent: Extent): Feature[];
+    getFormat(): FeatureFormat;
+    getOverlaps(): boolean;
+    getUrl(): string | FeatureUrlFunction;
+    hasFeature(feature: Feature): boolean;
+    isEmpty(): boolean;
+    loadFeatures(extent: Extent, resolution: number, projection: Projection): void;
+    removeFeature(feature: Feature): void;
+    addFeature(feature: Feature): void;
+    removeLoadedExtent(extent: Extent): void;
+    setLoader(loader: FeatureLoader): void;
+    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    once(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    un(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): void;
+    on(type: 'change', listener: (evt: Event) => void): EventsKey;
+    once(type: 'change', listener: (evt: Event) => void): EventsKey;
+    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'changefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    once(type: 'changefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    un(type: 'changefeature', listener: (evt: VectorSourceEvent) => void): void;
+    on(type: 'clear', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    once(type: 'clear', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    un(type: 'clear', listener: (evt: VectorSourceEvent) => void): void;
+    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
+    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
+    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+    on(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    once(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
+    un(type: 'removefeature', listener: (evt: VectorSourceEvent) => void): void;
+}

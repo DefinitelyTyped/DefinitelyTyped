@@ -4,9 +4,13 @@ import {
     Interval,
     Info,
     Settings,
+    InvalidZone,
+    LocalZone,
+    FixedOffsetZone,
     IANAZone,
     Zone,
     ZoneOffsetOptions,
+    ZoneOffsetFormat,
 } from 'luxon';
 
 /* DateTime */
@@ -23,9 +27,21 @@ const fromObject = DateTime.fromObject({
 });
 
 const ianaZone = new IANAZone('America/Los_Angeles');
+const testIanaZone = IANAZone.create("Europe/London");
+IANAZone.isValidSpecifier("Europe/London");
+IANAZone.isValidZone("Europe/London");
+IANAZone.resetCache();
+testIanaZone.formatOffset(dt.toMillis(), 'narrow'); // => +1
+testIanaZone.formatOffset(dt.toMillis(), 'short'); // => +01:00
+testIanaZone.formatOffset(dt.toMillis(), 'techie'); // => +0100
 const ianaZoneTest = DateTime.fromObject({
     zone: ianaZone,
 });
+
+FixedOffsetZone.utcInstance;
+
+FixedOffsetZone.instance(60);
+FixedOffsetZone.parseSpecifier("UTC+6");
 
 const fromIso = DateTime.fromISO('2017-05-15'); // => May 15, 2017 at midnight
 const fromIso2 = DateTime.fromISO('2017-05-15T08:30:00'); // => May 15, 2017 at midnight
@@ -315,6 +331,9 @@ class SampleZone extends Zone {
 
     offsetName(ts: number, options?: ZoneOffsetOptions) {
         return 'SampleZone';
+    }
+    formatOffset(ts: number, format: ZoneOffsetFormat) {
+        return '+6';
     }
     equals(other: Zone) {
         return other.name === this.name;

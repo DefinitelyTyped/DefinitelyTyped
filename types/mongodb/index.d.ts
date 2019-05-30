@@ -225,6 +225,20 @@ export class MongoError extends Error {
      * https://github.com/mongodb/node-mongodb-native/blob/a12aa15ac3eaae3ad5c4166ea1423aec4560f155/test/functional/find_tests.js#L1111
      */
     errmsg?: string;
+    name: string;
+}
+
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoNetworkError.html */
+export class MongoNetworkError extends MongoError {
+    constructor(message: string);
+    errorLabels: string[];
+}
+
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoParseError.html */
+export class MongoParseError extends MongoError {
+    constructor(message: string);
 }
 
 
@@ -1756,7 +1770,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#map */
     map<U>(transform: (document: T) => U): Cursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#max */
-    max(max: number): Cursor<T>;
+    max(max: object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#maxAwaitTimeMS */
     maxAwaitTimeMS(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#maxScan */
@@ -1764,7 +1778,7 @@ export class Cursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#maxTimeMS */
     maxTimeMS(value: number): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#min */
-    min(min: number): Cursor<T>;
+    min(min: object): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#next */
     next(): Promise<T | null>;
     next(callback: MongoCallback<T | null>): void;

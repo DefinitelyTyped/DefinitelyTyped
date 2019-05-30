@@ -12,6 +12,7 @@ import {
     StyleProp,
     TextInputProperties,
     ViewStyle,
+    FlatListProps,
 } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProperties {
@@ -34,10 +35,22 @@ export interface AutocompleteProps<T> extends TextInputProperties {
     data: T[];
 
     /**
+     * object
+     * Props to pass on to the underlying FlatList.
+     */
+    flatListProps?: Partial<FlatListProps<T>>;
+
+    /**
      * style
      * These styles will be applied to the container which surrounds the textInput component.
      */
     inputContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * function
+     * keyExtractor will be called to get key for each item. It's up to you which string to return as a key.
+     */
+    keyExtractor?(item: T, i: number): string;
 
     /**
      * style

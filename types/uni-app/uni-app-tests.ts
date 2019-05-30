@@ -19,3 +19,12 @@ uni.navigateTo({
 uni.showLoading({
     title: 'test'
 });
+
+uni.createSelectorQuery().select('.test').context(res => {
+    const context = <EditorContext> res.context;
+    context.getContents({
+        success() {
+            console.log('getContents success');
+        }
+    });
+});
