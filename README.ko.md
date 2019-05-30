@@ -166,11 +166,11 @@ DefinitelyTyped 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 ```js
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
-		"ban-types": false
-	}
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // 이 패키지는 Function 형을 사용하고 있으며, 고치는 게 쉽지 않다.
+    "ban-types": false
+  }
 }
 ```
 
@@ -258,14 +258,14 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 ```json
 {
-	"compilerOptions": {
-		"baseUrl": "../../",
-		"typeRoots": ["../../"],
-		"paths": {
-			"history": ["history/v2"]
-		}
-	},
-	"files": ["index.d.ts", "history-tests.ts"]
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "typeRoots": ["../../"],
+    "paths": {
+      "history": ["history/v2"]
+    }
+  },
+  "files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -293,9 +293,9 @@ NPM 패키지의 경우, `node -p 'require("foo")'` 가 원하는 값이라면 `
 
 ```json
 {
-	"paths": {
-		"@foo/bar": ["foo__bar"]
-	}
+  "paths": {
+    "@foo/bar": ["foo__bar"]
+  }
 }
 ```
 

@@ -6,11 +6,8 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 [{*.json,*.yml,*.ts,*.tsx,*.md}]
+# TODO: Use tabs as they are the superior option
 indent_style = space
 
 [*.md]
 indent_size = 2
-
-# Top-level .prettierrc.json uses tabs
-[/.prettierrc.json]
-indent_style = tab

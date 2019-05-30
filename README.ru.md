@@ -166,7 +166,7 @@ DefinitelyTyped работает только благодаря вкладу т
 
 ```js
 {
-	"extends": "dtslint/dt.json"
+  "extends": "dtslint/dt.json"
 }
 ```
 
@@ -174,11 +174,11 @@ DefinitelyTyped работает только благодаря вкладу т
 
 ```js
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// This package uses the Function type, and it will take effort to fix.
-		"ban-types": false
-	}
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type, and it will take effort to fix.
+    "ban-types": false
+  }
 }
 ```
 
@@ -266,14 +266,14 @@ f("one");
 
 ```json
 {
-	"compilerOptions": {
-		"baseUrl": "../../",
-		"typeRoots": ["../../"],
-		"paths": {
-			"history": ["history/v2"]
-		}
-	},
-	"files": ["index.d.ts", "history-tests.ts"]
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "typeRoots": ["../../"],
+    "paths": {
+      "history": ["history/v2"]
+    }
+  },
+  "files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -301,9 +301,9 @@ f("one");
 
 ```json
 {
-	"paths": {
-		"@foo/bar": ["foo__bar"]
-	}
+  "paths": {
+    "@foo/bar": ["foo__bar"]
+  }
 }
 ```
 

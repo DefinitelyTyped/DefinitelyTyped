@@ -1,14 +1,4 @@
 {
-	"$schema": "http://json.schemastore.org/prettierrc",
-	"trailingComma": "all",
-	"useTabs": true,
-
-	"overrides": [
-		{
-			"files": ["*.md"],
-			"options": {
-				"tabWidth": 2
-			}
-		}
-	]
+    "$schema": "http://json.schemastore.org/prettierrc",
+    "trailingComma": "all"
 }

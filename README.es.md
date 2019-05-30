@@ -164,11 +164,11 @@ Si el `tslint.json` deshabilita algunas reglas esto se debe a que aún no se ha 
 
 ```js
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// This package uses the Function type, and it will take effort to fix.
-		"ban-types": false
-	}
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type, and it will take effort to fix.
+    "ban-types": false
+  }
 }
 ```
 
@@ -255,14 +255,14 @@ Por ejemplo [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 
 ```json
 {
-	"compilerOptions": {
-		"baseUrl": "../../",
-		"typeRoots": ["../../"],
-		"paths": {
-			"history": ["history/v2"]
-		}
-	},
-	"files": ["index.d.ts", "history-tests.ts"]
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "typeRoots": ["../../"],
+    "paths": {
+      "history": ["history/v2"]
+    }
+  },
+  "files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -290,9 +290,9 @@ Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedade
 
 ```json
 {
-	"paths": {
-		"@foo/bar": ["foo__bar"]
-	}
+  "paths": {
+    "@foo/bar": ["foo__bar"]
+  }
 }
 ```
 

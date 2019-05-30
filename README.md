@@ -173,10 +173,10 @@ For example:
 
 ```json
 {
-	"private": true,
-	"dependencies": {
-		"foo": "^2.6.0"
-	}
+  "private": true,
+  "dependencies": {
+    "foo": "^2.6.0"
+  }
 }
 ```
 
@@ -190,7 +190,7 @@ All new packages must be linted. To lint a package, add a `tslint.json` to that 
 
 ```js
 {
-	"extends": "dtslint/dt.json"
+  "extends": "dtslint/dt.json"
 }
 ```
 
@@ -198,11 +198,11 @@ This should be the only content in a finished project's `tslint.json` file. If a
 
 ```js
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// This package uses the Function type, and it will take effort to fix.
-		"ban-types": false
-	}
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // This package uses the Function type, and it will take effort to fix.
+    "ban-types": false
+  }
 }
 ```
 
@@ -303,11 +303,11 @@ Here's a short explanation to get you started:
 
 ```json
 {
-	"private": true,
-	"types": "index",
-	"typesVersions": {
-		">=3.1.0-0": { "*": ["ts3.1/*"] }
-	}
+  "private": true,
+  "types": "index",
+  "typesVersions": {
+    ">=3.1.0-0": { "*": ["ts3.1/*"] }
+  }
 }
 ```
 
@@ -319,10 +319,10 @@ Here's a short explanation to get you started:
 
 ```json
 {
-	"compilerOptions": {
-		"baseUrl": "../../",
-		"typeRoots": ["../../"]
-	}
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "typeRoots": ["../../"]
+  }
 }
 ```
 
@@ -392,14 +392,14 @@ At the time of writing, the [history v2 `tsconfig.json`](https://github.com/Defi
 
 ```json
 {
-	"compilerOptions": {
-		"baseUrl": "../../",
-		"typeRoots": ["../../"],
-		"paths": {
-			"history": ["history/v2"]
-		}
-	},
-	"files": ["index.d.ts", "history-tests.ts"]
+  "compilerOptions": {
+    "baseUrl": "../../",
+    "typeRoots": ["../../"],
+    "paths": {
+      "history": ["history/v2"]
+    }
+  },
+  "files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
@@ -428,9 +428,9 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 ```json
 {
-	"paths": {
-		"@foo/bar": ["foo__bar"]
-	}
+  "paths": {
+    "@foo/bar": ["foo__bar"]
+  }
 }
 ```
 
