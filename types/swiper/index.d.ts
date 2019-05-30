@@ -448,6 +448,7 @@ export interface SwiperOptions {
     coverflowEffect?: CoverflowEffectOptions;
     flipEffect?: FlipEffectOptions;
     cubeEffect?: CubeEffectOptions;
+    thumbs?: ThumbsOptions;
     zoom?: ZoomOptions | boolean;
     keyboard?: KeyboardOptions | boolean;
     mousewheel?: MousewheelOptions | boolean;
@@ -945,6 +946,12 @@ export interface CubeEffectOptions {
     shadow?: boolean;
     shadowOffset?: number;
     shadowScale?: number;
+}
+
+export interface ThumbsOptions {
+    swiper?: Swiper;
+    slideThumbActiveClass?: string;
+    thumbsContainerClass?: string;
 }
 
 export interface ZoomOptions {
@@ -1551,6 +1558,11 @@ export default class Swiper {
      * Swiper CubeEffect module.
      */
     cubeEffect?: EffectCube;
+
+    /**
+     * Swiper Thumbs module.
+     */
+    thumbs?: object;
 
     /**
      * Swiper Zoom module.

@@ -253,11 +253,11 @@ declare namespace IORedis {
         zscore(key: KeyType, member: string, callback: (err: Error, res: string) => void): void;
         zscore(key: KeyType, member: string): Promise<string>;
 
-        zrank(key: KeyType, member: string, callback: (err: Error, res: number) => void): void;
-        zrank(key: KeyType, member: string): Promise<number>;
+        zrank(key: KeyType, member: string, callback: (err: Error, res: number | null) => void): void;
+        zrank(key: KeyType, member: string): Promise<number | null>;
 
-        zrevrank(key: KeyType, member: string, callback: (err: Error, res: number) => void): void;
-        zrevrank(key: KeyType, member: string): Promise<number>;
+        zrevrank(key: KeyType, member: string, callback: (err: Error, res: number | null) => void): void;
+        zrevrank(key: KeyType, member: string): Promise<number | null>;
 
         hset(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hset(key: KeyType, field: string, value: any): Promise<0 | 1>;

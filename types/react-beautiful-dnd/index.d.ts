@@ -211,3 +211,5 @@ export interface DraggableProps {
 }
 
 export class Draggable extends React.Component<DraggableProps> { }
+
+export function resetServerContext(): void;

@@ -23,6 +23,7 @@ export {
     Route,
     Router,
     StaticRouter,
+    SwitchProps,
     Switch,
     match,
     matchPath,

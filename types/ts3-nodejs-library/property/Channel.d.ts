@@ -9,7 +9,27 @@ interface ChannelListResponse {
 }
 
 declare class TeamSpeakChannel extends Abstract {
-    constructor(parent: TeamSpeak3, list: ChannelListResponse)
+    constructor(parent: TeamSpeak3, list: ChannelListResponse);
+
+    cid: number;
+    pid: number;
+    order: number;
+    name: string;
+    topic?: number;
+    flagDefault: 0 | 1;
+    flagPassword: 0 | 1;
+    flagPermanent: 0 | 1;
+    flagSemiPermanent: 0 | 1;
+    codec: number;
+    codecQuality: number;
+    neededTalkPower: number;
+    iconId: number;
+    secondsEmpty: number;
+    totalClientsFamily: number;
+    maxclients: number;
+    maxfamilyclients: number;
+    totalClients: number;
+    neededSubscribePower: number;
 
     /**
      * Returns the ID of the Channel

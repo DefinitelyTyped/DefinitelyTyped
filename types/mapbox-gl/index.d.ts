@@ -32,7 +32,7 @@ declare namespace mapboxgl {
         // Lookup
         | 'at' | 'get' | 'has' | 'length'
         // Decision
-        | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
         // Ramps, scales, curves
         | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
         // Variable binding
@@ -207,7 +207,7 @@ declare namespace mapboxgl {
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
-        easeTo(options: mapboxgl.CameraOptions & mapboxgl.AnimationOptions & {delayEndEvents?: number}, eventData?: mapboxgl.EventData): this;
+        easeTo(options: mapboxgl.EaseToOptions, eventData?: mapboxgl.EventData): this;
 
         flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
@@ -972,6 +972,35 @@ declare namespace mapboxgl {
     }
 
     /**
+     * MercatorCoordinate
+     */
+    export class MercatorCoordinate {
+        /** The x component of the position. */
+        x: number;
+
+        /** The y component of the position. */
+        y: number;
+
+        /**
+         * The z component of the position.
+         *
+         * @default 0
+         */
+        z?: number;
+
+        constructor(x: number, y: number, z?: number);
+
+        /** Returns the altitude in meters of the coordinate. */
+        toAltitude(): number;
+
+        /** Returns the LngLat for the coordinate. */
+        toLngLat(): LngLat;
+
+        /** Project a LngLat to a MercatorCoordinate. */
+        static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
+    }
+
+    /**
      * Marker
      */
     export class Marker extends Evented {
@@ -1191,6 +1220,13 @@ declare namespace mapboxgl {
         speed?: number;
         screenSpeed?: number;
         maxDuration?: number;
+    }
+
+    /**
+     * EaseToOptions
+     */
+    export interface EaseToOptions extends AnimationOptions, CameraOptions {
+        delayEndEvents?: number;
     }
 
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {

@@ -11,8 +11,43 @@ interface ClientListResponse {
     client_unique_identifier: string;
 }
 
+declare enum ClientType {
+    CLIENT = 0,
+    QUERY = 1
+}
+
 declare class TeamSpeakClient extends Abstract {
-    constructor(parent: TeamSpeak3, list: ClientListResponse)
+    constructor(parent: TeamSpeak3, list: ClientListResponse);
+
+    cid: number;
+    cfid: number;
+    ctid: number;
+    reasonid: number;
+    clid: number;
+    uniqueIdentifier: string;
+    nickname: string;
+    inputMuted: 0 | 1;
+    outputMuted: 0 | 1;
+    outputonlyMuted: 0 | 1;
+    inputHardware: number;
+    outputHardware: number;
+    isRecording: 0 | 1;
+    databaseId: number;
+    channelGroupId: number;
+    servergroups: number[];
+    away: 0 | 1;
+    type: ClientType;
+    talkPower: number;
+    talkRequest: number;
+    isTalker: 0 | 1;
+    isPrioritySpeaker: 0 | 1;
+    unreadMessages: string;
+    neededServerqueryViewPower: string;
+    iconId: number;
+    isChannelCommander: 0 | 1;
+    channelGroupInheritedChannelId: number;
+    badges?: string;
+    myteamspeakId?: string;
 
     /**
      * Returns the Database ID of the Client
@@ -97,7 +132,13 @@ declare class TeamSpeakClient extends Abstract {
      * @param  - Bantime in Seconds, if left empty it will result in a permaban
      * @param- Ban Reason
      */
-    banAdd(ip?: string, name?: string, uid?: string, time?: number, banreason?: string): Promise<any>;
+    banAdd(
+        ip?: string,
+        name?: string,
+        uid?: string,
+        time?: number,
+        banreason?: string
+    ): Promise<any>;
 
     /**
      * creates a new ban with the clients uid
@@ -150,7 +191,12 @@ declare class TeamSpeakClient extends Abstract {
      * @param - Whether the skip flag should be set. Defaults to 0.
      * @param - Whether the negate flag should be set. Defaults to 0.
      */
-    addPerm(perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
+    addPerm(
+        perm: string | number,
+        value: number,
+        skip?: number,
+        negate?: number
+    ): Promise<any>;
 
     /**
      * Removes a set of specified permissions from a client. Multiple permissions can be removed at once. A permission can be specified by permid or permsid

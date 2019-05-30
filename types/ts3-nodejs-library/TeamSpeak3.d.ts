@@ -1,12 +1,11 @@
+/// <reference types="node" />
+
 import { EventEmitter } from 'events';
 import TeamSpeakChannel = require('./property/Channel');
 import TeamSpeakClient = require('./property/Client');
 import TeamSpeakServer = require('./property/Server');
 import TeamSpeakServerGroup = require('./property/ServerGroup');
 import TeamSpeakChannelGroup = require('./property/ChannelGroup');
-
-// For the buffer type.
-import * as stream from 'steam';
 
 // We need this namespace, becaue we can't just export the interface directly,
 // as it would conflict with export = TeamSpeak3.
@@ -29,10 +28,157 @@ declare namespace TeamSpeak3 {
         /** Maximum wait time for the connection to get established. Defaults to 20000. */
         readyTimeout?: number;
     }
+
+    enum TargetMode {
+        CLIENT = 1,
+        CHANNEL = 2,
+        VIRTUAL_SERVER = 3
+    }
+
+    enum ClientType {
+        CLIENT = 0,
+        QUERY = 1
+    }
+
+    interface MessageData {
+        invoker: TeamSpeakClient;
+        msg: string;
+        targetmode: TargetMode;
+    }
+
+    interface WhoAmIResponse {
+        virtualserver_status: string;
+        virtualserver_id: number;
+        virtualserver_unique_identifier: string;
+        virtualserver_port: number;
+        client_id: number;
+        client_channel_id: number;
+        client_nickname: string;
+        client_database_id: number;
+        cient_login_name: string;
+        client_unique_identifier: string;
+        client_origin_server_id: number;
+    }
+
+    interface ClientMovedResponse {
+        client: TeamSpeakClient;
+        channel: TeamSpeakChannel;
+        reasonid: number;
+    }
+
+    interface ServerGroupClientListResponse {
+        cldbid: number;
+        client_nickname: string;
+        client_unique_identifier: string;
+    }
+
+    interface DisconnectedClient {
+        clid: number;
+        cid: number;
+        client_database_id: number;
+        client_nickname: string;
+        client_type: ClientType;
+        client_away: number;
+        client_away_message: string | undefined;
+        client_flag_talking: number;
+        client_input_muted: number;
+        client_output_muted: number;
+        client_input_hardware: number;
+        client_output_hardware: number;
+        client_talk_power: number;
+        client_is_talker: number;
+        client_is_priority_speaker: number;
+        client_is_recording: number;
+        client_is_channel_commander: number;
+        client_unique_identifier: string;
+        client_servergroups: number[];
+        client_channel_group_id: number;
+        client_channel_group_inherited_channel_id: number;
+        client_version: string;
+        client_platform: string;
+        client_idle_time: number;
+        client_created: number;
+        client_lastconnected: number;
+        client_icon_id: number;
+        client_country: string | undefined;
+        connection_client_ip: string;
+    }
+
+    interface DisconnectEvent {
+        cfid: number;
+        ctid: number;
+        reasonid: number;
+        reasonmsg: string;
+        clid: number;
+    }
+
+    interface ClientDisconnectResponse {
+        client: DisconnectedClient;
+        event: DisconnectEvent;
+    }
+
+    interface DebugInformation {
+        type: string;
+        data: string;
+    }
+
+    interface ComplainListEntry {
+        tcldbid: string;
+        tname: string;
+        fcldbid: string;
+        fname: string;
+        message: string;
+        timestamp: string;
+    }
+
+    interface BanListEntry {
+        banid: string;
+        ip?: string;
+        name?: string;
+        uid?: string;
+        mytsid?: string;
+        lastnickname?: string;
+        created: string;
+        duration: string;
+        invokername: string;
+        invokercldbid: string;
+        invokeruid: string;
+        reason: string;
+        enforcements: string;
+    }
+}
+
+interface TeamSpeak3 {
+    on(
+        event: 'textmessage',
+        listener: (data: TeamSpeak3.MessageData) => void
+    ): this;
+    on(
+        event: 'clientconnect',
+        listener: (data: { client: TeamSpeakClient }) => void
+    ): this;
+    on(
+        event: 'clientmoved',
+        listener: (data: TeamSpeak3.ClientMovedResponse) => void
+    ): this;
+    on(
+        event: 'clientdisconnect',
+        listener: (data: TeamSpeak3.ClientDisconnectResponse) => void
+    ): this;
+    on(
+        event: 'close' | 'error' | 'flooding',
+        listener: (err: Error) => void
+    ): this;
+    on(event: 'ready', listener: () => void): this;
+    on(
+        event: 'debug',
+        listener: (debug: TeamSpeak3.DebugInformation) => void
+    ): this;
+    on(event: string, listener: () => any): this;
 }
 
 declare class TeamSpeak3 extends EventEmitter {
-    constructor(config?: TeamSpeak3.ConnectionParams)
+    constructor(config?: TeamSpeak3.ConnectionParams);
 
     /**
      * Sends a raw command to the TeamSpeak Server.
@@ -60,7 +206,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - deletes the querylogin of this client
      * @returns Promise object which returns the Information about the Query executed
      */
-    queryLoginDel(cldbid: number): Promise<any>;
+    queryLoginDel(cldbid: number): Promise<void>;
 
     /**
      * List existing query client logins.
@@ -71,7 +217,11 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - how many clients should be listed
      * @returns Promise object which returns the Information about the Query executed
      */
-    queryLoginList(pattern?: string, start?: number, duration?: number): Promise<any>;
+    queryLoginList(
+        pattern?: string,
+        start?: number,
+        duration?: number
+    ): Promise<any>;
 
     /**
      * Change your ServerQuery clients settings using given properties.
@@ -96,7 +246,7 @@ declare class TeamSpeak3 extends EventEmitter {
     /**
      * Deselects the active virtual server and logs out from the server instance.
      */
-    logout(): Promise<any>;
+    logout(): Promise<void>;
 
     /**
      * Displays the servers version information including platform and build number.
@@ -143,7 +293,7 @@ declare class TeamSpeak3 extends EventEmitter {
     /**
      * Displays information about your current ServerQuery connection including your loginname, etc.
      */
-    whoami(): Promise<any>;
+    whoami(): Promise<TeamSpeak3.WhoAmIResponse>;
 
     /**
      * Displays detailed configuration information about the selected virtual server
@@ -216,7 +366,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * Displays the IDs of all clients currently residing in the server group.
      * @param - the ServerGroup id
      */
-    serverGroupClientList(sgid: number): Promise<any>;
+    serverGroupClientList(
+        sgid: number
+    ): Promise<
+        | TeamSpeak3.ServerGroupClientListResponse[]
+        | TeamSpeak3.ServerGroupClientListResponse
+    > | null;
 
     /**
      * Adds the client to the server group specified with sgid.
@@ -250,7 +405,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - The Type of the Group (0 = Query Group | 1 = Normal Group)
      * @param - Name of the Group
      */
-    serverGroupCopy(ssgid: number, tsgid?: number, type?: number, name?: string | boolean): Promise<any>;
+    serverGroupCopy(
+        ssgid: number,
+        tsgid?: number,
+        type?: number,
+        name?: string | boolean
+    ): Promise<any>;
 
     /**
      * Changes the name of the server group
@@ -274,7 +434,13 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Whether the skip flag should be set
      * @param - Whether the negate flag should be set
      */
-    serverGroupAddPerm(sgid: number, perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
+    serverGroupAddPerm(
+        sgid: number,
+        perm: string | number,
+        value: number,
+        skip?: number,
+        negate?: number
+    ): Promise<any>;
 
     /**
      * Removes a set of specified permissions from the server group.
@@ -304,13 +470,15 @@ declare class TeamSpeak3 extends EventEmitter {
      * Retrieves a Single Channel by the given Channel ID
      * @param- The Channel Id
      */
-    getChannelByID(cid: number): Promise<TeamSpeakChannel>;
+    getChannelByID(cid: number): Promise<TeamSpeakChannel | undefined>;
 
     /**
      * Retrieves a Single Channel by the given Channel Name
      * @param - The Name of the Channel
      */
-    getChannelByName(channel_name: number): Promise<TeamSpeakChannel>;
+    getChannelByName(
+        channel_name: number
+    ): Promise<TeamSpeakChannel | undefined>;
 
     /**
      * Displays detailed configuration information about a channel including ID, topic, description, etc.
@@ -358,7 +526,11 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - The permid or permsid
      * @param - The Value which should be set
      */
-    channelSetPerm(cid: number, perm: string | number, value: number): Promise<any>;
+    channelSetPerm(
+        cid: number,
+        perm: string | number,
+        value: number
+    ): Promise<any>;
 
     /**
      * Adds a set of specified permissions to a channel.
@@ -368,7 +540,10 @@ declare class TeamSpeak3 extends EventEmitter {
      * @example
      * ts3.channelSetPerms(5, [{ permsid: "i_channel_needed_modify_power", permvalue: 75 }])
      */
-    channelSetPerms(cid: number, permissions: Array<{ permsid: string, permvalue: number }>): Promise<any>; // TODO: permsid can be typed better (we know which permissions exist).
+    channelSetPerms(
+        cid: number,
+        permissions: Array<{ permsid: string; permvalue: number }>
+    ): Promise<any>; // TODO: permsid can be typed better (we know which permissions exist).
 
     /**
      * Removes a set of specified permissions from a channel.
@@ -383,25 +558,31 @@ declare class TeamSpeak3 extends EventEmitter {
      * Retrieves a Single Client by the given Client ID
      * @param clid - The Client Id
      */
-    getClientByID(clid: number): Promise<TeamSpeakClient>;
+    getClientByID(clid: number): Promise<TeamSpeakClient | undefined>;
 
     /**
      * Retrieves a Single Client by the given Client Database ID
      * @param - The Client Database Id
      */
-    getClientByDBID(client_database_id: number): Promise<TeamSpeakClient>;
+    getClientByDBID(
+        client_database_id: number
+    ): Promise<TeamSpeakClient | undefined>;
 
     /**
      * Retrieves a Single Client by the given Client Unique Identifier
      * @param - The Client Unique Identifier
      */
-    getClientByUID(client_unique_identifier: string): Promise<TeamSpeakClient>;
+    getClientByUID(
+        client_unique_identifier: string
+    ): Promise<TeamSpeakClient | undefined>;
 
     /**
      * Retrieves a Single Client by the given Client Unique Identifier
      * @param - The Nickname of the Client
      */
-    getClientByName(client_nickname: string): Promise<TeamSpeakClient>;
+    getClientByName(
+        client_nickname: string
+    ): Promise<TeamSpeakClient | undefined>;
 
     /**
      * Returns General Info of the Client, requires the Client to be online
@@ -417,14 +598,18 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - True when the results should be counted
      * @returns the Client Database Info
      */
-    clientDBList(start?: number, duration?: number, count?: boolean): Promise<any>;
+    clientDBList(
+        start?: number,
+        duration?: number,
+        count?: boolean
+    ): Promise<any>;
 
     /**
      * Returns the Clients Database Info
      * @param - the client database id
      * @returns the Client Database Info
      */
-    clientDBInfo(cldbid: number): Promise<any>;
+    clientDBInfo(cldbid: number): Promise<TeamSpeak3.DisconnectedClient | undefined>;
 
     /**
      * Kicks the Client from the Server
@@ -466,7 +651,13 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Whether the skip flag should be set
      * @param - Whether the negate flag should be set
      */
-    clientAddPerm(cldbid: number, perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
+    clientAddPerm(
+        cldbid: number,
+        perm: string | number,
+        value: number,
+        skip?: number,
+        negate?: number
+    ): Promise<any>;
 
     /**
      * Removes a set of specified permissions from a client.
@@ -517,31 +708,41 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - targetmode (1: client, 2: channel, 3: server)
      * @param - The message the Client should receive
      */
-    sendTextMessage(target: number, targetmode: number, msg: string): Promise<any>;
+    sendTextMessage(
+        target: number,
+        targetmode: number,
+        msg: string
+    ): Promise<any>;
 
     /**
      * Retrieves a single ServerGroup by the given ServerGroup ID
      * @param - the ServerGroup Id
      */
-    getServerGroupByID(sgid: number): Promise<TeamSpeakServerGroup>;
+    getServerGroupByID(sgid: number): Promise<TeamSpeakServerGroup | undefined>;
 
     /**
      * Retrieves a single ServerGroup by the given ServerGroup Name
      * @param - the ServerGroup name
      */
-    getServerGroupByName(name: number): Promise<TeamSpeakServerGroup>;
+    getServerGroupByName(
+        name: number
+    ): Promise<TeamSpeakServerGroup | undefined>;
 
     /**
      * Retrieves a single ChannelGroup by the given ChannelGroup ID
      * @param - the ChannelGroup Id
      */
-    getChannelGroupByID(cgid: number): Promise<TeamSpeakChannelGroup>;
+    getChannelGroupByID(
+        cgid: number
+    ): Promise<TeamSpeakChannelGroup | undefined>;
 
     /**
      * Retrieves a single ChannelGroup by the given ChannelGroup Name
      * @param - the ChannelGroup name
      */
-    getChannelGroupByName(name: number): Promise<TeamSpeakChannelGroup>;
+    getChannelGroupByName(
+        name: number
+    ): Promise<TeamSpeakChannelGroup | undefined>;
 
     /**
      * Sets the channel group of a client
@@ -549,7 +750,11 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - The Channel in which the Client should be assigned the Group
      * @param - The Client Database ID which should be added to the Group
      */
-    setClientChannelGroup(cgid: number, cid: number, cldbid: number): Promise<any>;
+    setClientChannelGroup(
+        cgid: number,
+        cid: number,
+        cldbid: number
+    ): Promise<any>;
 
     /**
      * Deletes the channel group. If force is set to 1, the channel group will be deleted even if there are clients within.
@@ -568,7 +773,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - The Type of the Group (0 = Template Group | 1 = Normal Group)
      * @param - Name of the Group
      */
-    channelGroupCopy(scgid: number, tcgid?: number, type?: number, name?: string | boolean): Promise<any>;
+    channelGroupCopy(
+        scgid: number,
+        tcgid?: number,
+        type?: number,
+        name?: string | boolean
+    ): Promise<any>;
 
     /**
      * Changes the name of the channel group
@@ -592,7 +802,13 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Whether the skip flag should be set
      * @param - Whether the negate flag should be set
      */
-    channelGroupAddPerm(cgid: number, perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
+    channelGroupAddPerm(
+        cgid: number,
+        perm: string | number,
+        value: number,
+        skip?: number,
+        negate?: number
+    ): Promise<any>;
 
     /**
      * Removes a set of specified permissions from the channel group. A permission can be specified by permid or permsid.
@@ -606,7 +822,10 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - the ChannelGroup id
      * @param - The Channel ID
      */
-    channelGroupClientList(cgid: number, cid?: number): Promise<TeamSpeakClient[]>;
+    channelGroupClientList(
+        cgid: number,
+        cid?: number
+    ): Promise<TeamSpeakClient[]>;
 
     /**
      * Displays all permissions assigned to a client for the channel specified with cid.
@@ -617,7 +836,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - One or more Permission IDs
      * @param - One or more Permission Names
      */
-    permOverview(cldbid: number, cid: number, permid?: number, permsid?: number): Promise<any>;
+    permOverview(
+        cldbid: number,
+        cid: number,
+        permid?: number,
+        permsid?: number
+    ): Promise<any>;
 
     /**
      * Retrieves a list of permissions available on the server instance including ID, name and description.
@@ -665,14 +889,22 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Depends on the Type given, add a valid Channel ID
      * @param - Token Description
      */
-    privilegeKeyAdd(tokentype: number, group: number, cid?: number, description?: string): Promise<any>;
+    privilegeKeyAdd(
+        tokentype: number,
+        group: number,
+        cid?: number,
+        description?: string
+    ): Promise<any>;
 
     /**
      * Create a new privilegekey token for a ServerGroup with the given description
      * @param - Server Group which should be generated the token for
      * @param - Token Description
      */
-    serverGroupPrivilegeKeyAdd(group: number, description?: string): Promise<any>;
+    serverGroupPrivilegeKeyAdd(
+        group: number,
+        description?: string
+    ): Promise<any>;
 
     /**
      * Create a new privilegekey token for a Channel Group and assigned Channel ID with the given description
@@ -680,7 +912,11 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Channel ID for which the token should be valid
      * @param - Token Description
      */
-    channelGroupPrivilegeKeyAdd(group: number, cid: number, description?: string): Promise<any>;
+    channelGroupPrivilegeKeyAdd(
+        group: number,
+        cid: number,
+        description?: string
+    ): Promise<any>;
 
     /**
      * Deletes an existing token matching the token key specified with token.
@@ -733,14 +969,14 @@ declare class TeamSpeak3 extends EventEmitter {
      * If dbid is specified, only complaints about the targeted client will be shown.
      * @param - Filter only for certain Client with the given Database ID
      */
-    complainList(cldbid?: number): Promise<any>;
+    complainList(cldbid?: number): Promise<TeamSpeak3.ComplainListEntry[]>;
 
     /**
      * Submits a complaint about the client with database ID dbid to the server.
      * @param - Filter only for certain Client with the given Database ID
      * @param - The Message which should be added
      */
-    complainAdd(cldbid: number, message?: string): Promise<any>;
+    complainAdd(cldbid: number, message?: string): Promise<void>;
 
     /**
      * Deletes the complaint about the client with ID tdbid submitted by the client with ID fdbid from the server.
@@ -748,12 +984,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - The Target Client Database ID
      * @param - The Client Database ID which filed the Report
      */
-    complainDel(tcldbid: number, fcldbid?: number): Promise<any>;
+    complainDel(tcldbid: number, fcldbid?: number): Promise<void>;
 
     /**
      * Displays a list of active bans on the selected virtual server.
      */
-    banList(): Promise<any>;
+    banList(): Promise<TeamSpeak3.BanListEntry[]>;
 
     /**
      * Adds a new ban rule on the selected virtual server.
@@ -764,13 +1000,19 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Bantime in Seconds, if left empty it will result in a permaban
      * @param - Ban Reason
      */
-    banAdd(ip?: string, name?: string, uid?: string, time?: number, banreason?: string): Promise<any>;
+    banAdd(
+        ip?: string,
+        name?: string,
+        uid?: string,
+        time?: number,
+        banreason?: string
+    ): Promise<{ banid: string }>;
 
     /**
      * Removes one or all bans from the server
      * @param- The BanID to remove, if not provided it will remove all bans
      */
-    banDel(banid?: number): Promise<any>;
+    banDel(banid?: number): Promise<void>;
 
     /**
      * Displays a specified number of entries from the servers log.
@@ -780,7 +1022,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Instance or Virtual Server Log
      * @param - Begin at Position
      */
-    logView(lines?: number, reverse?: number, instance?: number, begin_pos?: number): Promise<any>;
+    logView(
+        lines?: number,
+        reverse?: number,
+        instance?: number,
+        begin_pos?: number
+    ): Promise<any>;
 
     /**
      * Writes a custom entry into the servers log.
@@ -846,7 +1093,7 @@ declare class TeamSpeak3 extends EventEmitter {
      * Lists all Clients with a given Filter
      * @param - Filter Object
      */
-    clientList(filter: any): Promise<TeamSpeakClient[]>;
+    clientList(filter?: any): Promise<TeamSpeakClient[]>;
 
     /**
      * Displays a list of files and directories stored in the specified channels file repository.
@@ -897,7 +1144,14 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - the channel password from where the file gets renamed
      * @param - the channel password from where the file will get transferred to
      */
-    ftRenameFile(cid: number, oldname: string, newname: string, tcid?: string, cpw?: string, tcpw?: string): Promise<any>;
+    ftRenameFile(
+        cid: number,
+        oldname: string,
+        newname: string,
+        tcid?: string,
+        cpw?: string,
+        tcpw?: string
+    ): Promise<any>;
 
     /**
      * Initializes a file transfer upload. clientftfid is an arbitrary ID to identify the file transfer on client-side.
@@ -912,13 +1166,13 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - <Description Pending>
      */
     ftInitUpload(transfer: {
-        clientftfid?: any
-        name: string
-        size: number
-        cid?: number
-        cpw?: string
-        overwrite?: number
-        resume?: number
+        clientftfid?: any;
+        name: string;
+        size: number;
+        cid?: number;
+        cpw?: string;
+        overwrite?: number;
+        resume?: number;
     }): Promise<any>;
 
     /**
@@ -932,11 +1186,11 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - <Description Pending File Startposition?>
      */
     ftInitDownload(transfer: {
-        name: string
-        clientftfid?: number
-        cid?: number
-        cpw?: string
-        seekpos?: number
+        name: string;
+        clientftfid?: number;
+        cid?: number;
+        cpw?: string;
+        seekpos?: number;
     }): Promise<any>;
 
     /**
@@ -946,7 +1200,12 @@ declare class TeamSpeak3 extends EventEmitter {
      * @param - Channel ID to upload to
      * @param - Channel Password of the Channel which will be uploaded to
      */
-    uploadFile(path: string, data: string | Buffer, cid?: number, cpw?: string): Promise<any>;
+    uploadFile(
+        path: string,
+        data: string | Buffer,
+        cid?: number,
+        cpw?: string
+    ): Promise<any>;
 
     /**
      * Returns the file in the channel with the given path

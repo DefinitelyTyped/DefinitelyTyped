@@ -50,15 +50,15 @@ declare namespace wx {
 		header?: RequestHeader;
 		/** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
 		method?:
-			| "GET"
-			| "OPTIONS"
-			| "GET"
-			| "HEAD"
-			| "POST"
-			| "PUT"
-			| "DELETE"
-			| "TRACE"
-			| "CONNECT";
+		| "GET"
+		| "OPTIONS"
+		| "GET"
+		| "HEAD"
+		| "POST"
+		| "PUT"
+		| "DELETE"
+		| "TRACE"
+		| "CONNECT";
 		/** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
 		dataType?: string;
 		/**
@@ -286,6 +286,19 @@ declare namespace wx {
 	 * @version 1.2.0
 	 */
 	function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
+	interface compressImageOptions extends BaseOptions {
+		/**
+		 * 图片的路径，可以是相对路径，临时文件路径，存储文件路径，网络图片路径
+		 */
+		src: string; // 图片路径，图片的路径，可以是相对路径、临时文件路径、存储文件路径
+		quality?: number; // 默认值为80,压缩质量，范围0～100，数值越小，质量越低，压缩率越高（仅对jpg有效）。
+		success(tempFilePath: string): void;
+	}
+	/**
+	 * 压缩图片接口，可选压缩质量
+	 * @version 2.4.0
+	 */
+	function compressImage(options: compressImageOptions): void;
 	// 媒体-----录音
 	interface StartRecordAudioOptions extends BaseOptions {
 		/** 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'} */
@@ -799,6 +812,100 @@ declare namespace wx {
 		instance: any
 	): LivePlayerContext;
 	// 文件
+	interface AccessOptions extends BaseOptions {
+		path: string; // 要判断是否存在的文件/目录路径
+	}
+	interface AppendFileOptions extends BaseOptions {
+		filePath: string; // 要追加内容的文件路径
+		data: string | ArrayBuffer; // 要追加的文本或二进制数据
+		encoding?: string; // 指定写入文件的字符编码,默认为utf8
+	}
+	interface FsRemoveSavedFileOptions extends BaseOptions {
+		filePath: string;
+	}
+	interface CopyFileOptions extends BaseOptions {
+		srcPath: string; // 源文件路径，只可以是普通文件
+		destPath: string; // 目标文件路径
+	}
+	interface FsGetFileInfoOptions extends BaseOptions {
+		filePath: string; // 要读取的文件路径
+		success?(res: { size: number }): void;
+	}
+	interface MkdirOptions extends BaseOptions {
+		dirPath: string; // 创建的目录路径
+		recursive?: boolean; // 是否递归,默认false
+	}
+	interface ReaddirOptions extends BaseOptions {
+		dirPath: string; // 要读取的目录路径
+		success?(res: { files: string[] }): void;
+	}
+	interface ReadFileOptions extends BaseOptions {
+		filePath: string; // 要读取的文件的路径
+		encoding?: string; // 指定读取文件的字符编码，如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容
+		success?(res: { data: string | ArrayBuffer }): void;
+	}
+	interface RenameOptions extends BaseOptions {
+		oldPath: string; // 源文件路径，可以是普通文件或目录
+		newPath: string; // 新文件路径
+	}
+	type RmdirOptions = MkdirOptions;
+	interface Stat {
+		mode: string;
+		size: number;
+		lastAccessedTime: number;
+		lastModifiedTime: number;
+		isDirectory(): boolean;
+		isFile(): boolean;
+	}
+	interface StatOptions extends BaseOptions {
+		path: string; // 文件/目录路径
+		recursive?: boolean; // 是否递归,默认false
+		success?(res: { stats: Stat }): void;
+	}
+	interface UnlinkOptions extends BaseOptions {
+		filePath: string; // 要删除的文件路径
+	}
+	interface UnzipOptions extends BaseOptions {
+		zipFilePath: string; // 源文件路径，只可以是 zip 压缩文件
+		targetPath: string; // 目标目录路径
+	}
+	interface FsSaveFileOptions extends SaveFileOptions {
+		filePath: string;
+	}
+	type WriteFileOptions = AppendFileOptions;
+	interface FileSystemManager {
+		access(options: AccessOptions): void;
+		accessSync(path: string): void;
+		appendFile(options: AppendFileOptions): void;
+		appendFileSync(filePath: string, data: string | ArrayBuffer, encoding?: string): void;
+		saveFile(options: FsSaveFileOptions): void;
+		saveFileSync(tempFilePath: string, filePath?: string): SavedFileData;
+		getSavedFileList(options: GetSavedFileListOptions): void;
+		removeSavedFile(options: FsRemoveSavedFileOptions): void;
+		copyFile(options: CopyFileOptions): void;
+		copyFileSync(srcPath: string, destPath: string): void;
+		getFileInfo(options: FsGetFileInfoOptions): void;
+		mkdir(options: MkdirOptions): void;
+		mkdirSync(dirPath: string, recursive?: boolean): void;
+		readdir(options: ReaddirOptions): void;
+		readdirSync(dirPath: string): string[];
+		readFile(options: ReadFileOptions): void;
+		readFileSync(filePath: string, encoding?: string): string | ArrayBuffer;
+		rename(options: RenameOptions): void;
+		renameSync(oldPath: string, newPath: string): void;
+		rmdir(options: RmdirOptions): void;
+		rmdirSync(dirPath: string, recursive?: boolean): void;
+		stat(options: StatOptions): void;
+		statSync(path: string, recursive?: boolean): Stat | object;
+		unlink(options: UnlinkOptions): void;
+		unlinkSync(filePath: string): void;
+		unzip(options: UnzipOptions): void;
+		unzipSync(options: UnzipOptions): void;
+		writeFile(options: WriteFileOptions): void;
+		writeFileSync(filePath: string, data: string | ArrayBuffer, encoding?: string): void;
+	}
+	function getFileSystemManager(): FileSystemManager;
+
 	interface SavedFileData {
 		/** 文件的保存路径 */
 		savedFilePath: string;
@@ -3502,10 +3609,10 @@ declare namespace wx {
 	}
 
 	interface BuiltInEvent<T extends EventType, Detail>
-		extends BaseEvent<T, Detail> {}
+		extends BaseEvent<T, Detail> { }
 
 	interface CustomEvent<T extends string, Detail>
-		extends BaseEvent<T, Detail> {}
+		extends BaseEvent<T, Detail> { }
 
 	/**
 	 * 指定focus时的光标位置
@@ -3513,22 +3620,22 @@ declare namespace wx {
 	 */
 	interface InputEvent
 		extends BuiltInEvent<
-			"input",
-			{
-				value: string;
-				cursor: number;
-			}
-		> {}
+		"input",
+		{
+			value: string;
+			cursor: number;
+		}
+		> { }
 
 	interface FormEvent
 		extends BuiltInEvent<
-			"form",
-			{
-				value: { [name: string]: string | boolean | number };
-			}
-		> {}
+		"form",
+		{
+			value: { [name: string]: string | boolean | number };
+		}
+		> { }
 
-	interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
+	interface ScrollEvent extends BuiltInEvent<"scroll", {}> { }
 
 	interface Touch {
 		identifier: number;
@@ -3540,11 +3647,11 @@ declare namespace wx {
 
 	interface TouchEvent<T extends TouchEventType>
 		extends BuiltInEvent<
-			T,
-			{
-				x: number;
-				y: number;
-			}
+		T,
+		{
+			x: number;
+			y: number;
+		}
 		> {
 		touches: Touch[];
 		changedTouches: Touch[];
@@ -3738,15 +3845,15 @@ declare namespace wx {
 
 	type UnboxBehaviorsMethods<
 		Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = UnboxBehaviorMethods<UnionToIntersection<ArrayType<Behaviors>>>;
+		> = UnboxBehaviorMethods<UnionToIntersection<ArrayType<Behaviors>>>;
 
 	type UnboxBehaviorsData<
 		Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = UnboxBehaviorData<UnionToIntersection<ArrayType<Behaviors>>>;
+		> = UnboxBehaviorData<UnionToIntersection<ArrayType<Behaviors>>>;
 
 	type UnboxBehaviorsProps<
 		Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = UnboxBehaviorProps<UnionToIntersection<ArrayType<Behaviors>>>;
+		> = UnboxBehaviorProps<UnionToIntersection<ArrayType<Behaviors>>>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
@@ -3755,9 +3862,9 @@ declare namespace wx {
 		Methods,
 		Props,
 		Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = Methods & Instance & UnboxBehaviorsMethods<Behaviors>;
+		> = Methods & Instance & UnboxBehaviorsMethods<Behaviors>;
 
-	type Prop<T> = (() => T) | { new (...args: any[]): T & object };
+	type Prop<T> = (() => T) | { new(...args: any[]): T & object };
 
 	type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
 
@@ -3805,7 +3912,7 @@ declare namespace wx {
 		Methods,
 		Props,
 		Behaviors extends Array<Behavior<{}, {}, {}> | string>
-	> = object &
+		> = object &
 		ComponentOptions<V, Data, Methods, Props, Behaviors> &
 		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>, Behaviors>>;
 
@@ -3869,7 +3976,7 @@ declare namespace wx {
 		Methods = DefaultMethods<Instance>,
 		Props = PropsDefinition<DefaultProps>,
 		Behaviors extends Array<Behavior<{}, {}, {}> | string> = []
-	> extends Partial<Lifetimes> {
+		> extends Partial<Lifetimes> {
 		/**
 		 * 组件的对外属性，是属性名到属性设置的映射表
 		 * 属性设置中可包含三个字段:
@@ -3971,7 +4078,7 @@ declare namespace wx {
 		D,
 		P,
 		B extends Array<Behavior<{}, {}, {}> | string> = []
-	> {
+		> {
 		/**
 		 * 组件的文件路径
 		 */
@@ -3988,23 +4095,23 @@ declare namespace wx {
 		 * 组件数据，包括内部数据和属性值
 		 */
 		data: D &
-			UnboxBehaviorsData<B> &
-			{
-				[key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
-					(P & UnboxBehaviorsProps<B>)[key]
-				>
-			};
+		UnboxBehaviorsData<B> &
+		{
+			[key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+				(P & UnboxBehaviorsProps<B>)[key]
+			>
+		};
 
 		/**
 		 * 组件数据，包括内部数据和属性值（与 data 一致）
 		 */
 		properties: D &
-			UnboxBehaviorsData<B> &
-			{
-				[key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
-					(P & UnboxBehaviorsProps<B>)[key]
-				>
-			};
+		UnboxBehaviorsData<B> &
+		{
+			[key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+				(P & UnboxBehaviorsProps<B>)[key]
+			>
+		};
 		/**
 		 * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
 		 * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -4016,13 +4123,13 @@ declare namespace wx {
 		setData(
 			data: {
 				[key in keyof D]?:
-					| string
-					| number
-					| boolean
-					| symbol
-					| object
-					| null
-					| any[]
+				| string
+				| number
+				| boolean
+				| symbol
+				| object
+				| null
+				| any[]
 			},
 			callback?: () => void
 		): void;

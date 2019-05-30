@@ -6,6 +6,7 @@
 //                 Antonio Román <https://github.com/kyranet>
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
+//                 Brandon Wilson <https://github.com/wilsonianb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -138,8 +139,10 @@ export class Body {
     bodyUsed: boolean;
     buffer(): Promise<Buffer>;
     json(): Promise<any>;
+    size: number;
     text(): Promise<string>;
     textConverted(): Promise<string>;
+    timeout: number;
 }
 
 export class FetchError extends Error {
@@ -157,10 +160,8 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
-    size: number;
     status: number;
     statusText: string;
-    timeout: number;
     type: ResponseType;
     url: string;
 }
@@ -175,8 +176,11 @@ export type ResponseType =
 
 export interface ResponseInit {
     headers?: HeadersInit;
-    status: number;
+    size?: number;
+    status?: number;
     statusText?: string;
+    timeout?: number;
+    url?: string;
 }
 
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
@@ -191,7 +195,7 @@ export type BodyInit =
 export type RequestInfo = string | Request;
 
 declare function fetch(
-    url: string | Request,
+    url: RequestInfo,
     init?: RequestInit
 ): Promise<Response>;
 

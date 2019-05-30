@@ -1634,6 +1634,8 @@ export namespace key {
          */
         constructor(packetlist: packet.List);
 
+        primaryKey: Key;
+
         /**
          * Transforms packetlist to structured key data
          * @param packetlist The packets that form a key
@@ -4807,8 +4809,8 @@ export function getWorker(): worker.async_proxy.AsyncProxy | null;
 export function destroyWorker(): void;
 
 export interface UserID {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
 }
 
 export interface KeyOptions {

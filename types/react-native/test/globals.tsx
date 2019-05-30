@@ -26,3 +26,11 @@ fetch(myRequest, myInit)
         const init = { status: 200, statusText: "SuperSmashingGreat!" };
         const myResponse = new Response(blob, init);
     });
+
+const xmlRequest = new XMLHttpRequest();
+
+xmlRequest.addEventListener("load", (ev) => {
+    console.log(ev.lengthComputable)
+    console.log(ev.loaded)
+    console.log(ev.total)
+});

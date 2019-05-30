@@ -93,11 +93,11 @@ declare namespace GoogleAppsScript {
         range?: Docs.Schema.Range;
       }
       export interface CropProperties {
-        angle?: Number;
-        offsetBottom?: Number;
-        offsetLeft?: Number;
-        offsetRight?: Number;
-        offsetTop?: Number;
+        angle?: number;
+        offsetBottom?: number;
+        offsetLeft?: number;
+        offsetRight?: number;
+        offsetTop?: number;
       }
       export interface CropPropertiesSuggestionState {
         angleSuggested?: boolean;
@@ -126,7 +126,7 @@ declare namespace GoogleAppsScript {
         tableCellLocation?: Docs.Schema.TableCellLocation;
       }
       export interface Dimension {
-        magnitude?: Number;
+        magnitude?: number;
         unit?: string;
       }
       export interface Document {
@@ -253,13 +253,13 @@ declare namespace GoogleAppsScript {
         textStyle?: Docs.Schema.TextStyle;
       }
       export interface ImageProperties {
-        angle?: Number;
-        brightness?: Number;
+        angle?: number;
+        brightness?: number;
         contentUri?: string;
-        contrast?: Number;
+        contrast?: number;
         cropProperties?: Docs.Schema.CropProperties;
         sourceUri?: string;
-        transparency?: Number;
+        transparency?: number;
       }
       export interface ImagePropertiesSuggestionState {
         angleSuggested?: boolean;
@@ -447,7 +447,7 @@ declare namespace GoogleAppsScript {
         indentStart?: Docs.Schema.Dimension;
         keepLinesTogether?: boolean;
         keepWithNext?: boolean;
-        lineSpacing?: Number;
+        lineSpacing?: number;
         namedStyleType?: string;
         shading?: Docs.Schema.Shading;
         spaceAbove?: Docs.Schema.Dimension;
@@ -539,9 +539,9 @@ declare namespace GoogleAppsScript {
         replaceAllText?: Docs.Schema.ReplaceAllTextResponse;
       }
       export interface RgbColor {
-        blue?: Number;
-        green?: Number;
-        red?: Number;
+        blue?: number;
+        green?: number;
+        red?: number;
       }
       export interface SectionBreak {
         sectionStyle?: Docs.Schema.SectionStyle;

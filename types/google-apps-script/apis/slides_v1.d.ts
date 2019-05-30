@@ -55,12 +55,12 @@ declare namespace GoogleAppsScript {
     }
     namespace Schema {
       export interface AffineTransform {
-        scaleX?: Number;
-        scaleY?: Number;
-        shearX?: Number;
-        shearY?: Number;
-        translateX?: Number;
-        translateY?: Number;
+        scaleX?: number;
+        scaleY?: number;
+        shearX?: number;
+        shearY?: number;
+        translateX?: number;
+        translateY?: number;
         unit?: string;
       }
       export interface AutoText {
@@ -87,9 +87,9 @@ declare namespace GoogleAppsScript {
         colors?: Slides.Schema.ThemeColorPair[];
       }
       export interface ColorStop {
-        alpha?: Number;
+        alpha?: number;
         color?: Slides.Schema.OpaqueColor;
-        position?: Number;
+        position?: number;
       }
       export interface CreateImageRequest {
         elementProperties?: Slides.Schema.PageElementProperties;
@@ -160,11 +160,11 @@ declare namespace GoogleAppsScript {
         objectId?: string;
       }
       export interface CropProperties {
-        angle?: Number;
-        bottomOffset?: Number;
-        leftOffset?: Number;
-        rightOffset?: Number;
-        topOffset?: Number;
+        angle?: number;
+        bottomOffset?: number;
+        leftOffset?: number;
+        rightOffset?: number;
+        topOffset?: number;
       }
       export interface DeleteObjectRequest {
         objectId?: string;
@@ -188,7 +188,7 @@ declare namespace GoogleAppsScript {
         textRange?: Slides.Schema.Range;
       }
       export interface Dimension {
-        magnitude?: Number;
+        magnitude?: number;
         unit?: string;
       }
       export interface DuplicateObjectRequest {
@@ -214,14 +214,14 @@ declare namespace GoogleAppsScript {
         sourceUrl?: string;
       }
       export interface ImageProperties {
-        brightness?: Number;
-        contrast?: Number;
+        brightness?: number;
+        contrast?: number;
         cropProperties?: Slides.Schema.CropProperties;
         link?: Slides.Schema.Link;
         outline?: Slides.Schema.Outline;
         recolor?: Slides.Schema.Recolor;
         shadow?: Slides.Schema.Shadow;
-        transparency?: Number;
+        transparency?: number;
       }
       export interface InsertTableColumnsRequest {
         cellLocation?: Slides.Schema.TableCellLocation;
@@ -366,7 +366,7 @@ declare namespace GoogleAppsScript {
         indentEnd?: Slides.Schema.Dimension;
         indentFirstLine?: Slides.Schema.Dimension;
         indentStart?: Slides.Schema.Dimension;
-        lineSpacing?: Number;
+        lineSpacing?: number;
         spaceAbove?: Slides.Schema.Dimension;
         spaceBelow?: Slides.Schema.Dimension;
         spacingMode?: string;
@@ -495,13 +495,13 @@ declare namespace GoogleAppsScript {
         replaceAllText?: Slides.Schema.ReplaceAllTextResponse;
       }
       export interface RgbColor {
-        blue?: Number;
-        green?: Number;
-        red?: Number;
+        blue?: number;
+        green?: number;
+        red?: number;
       }
       export interface Shadow {
         alignment?: string;
-        alpha?: Number;
+        alpha?: number;
         blurRadius?: Slides.Schema.Dimension;
         color?: Slides.Schema.OpaqueColor;
         propertyState?: string;
@@ -545,7 +545,7 @@ declare namespace GoogleAppsScript {
         notesPage?: Slides.Schema.Page;
       }
       export interface SolidFill {
-        alpha?: Number;
+        alpha?: number;
         color?: Slides.Schema.OpaqueColor;
       }
       export interface StretchedPictureFill {
