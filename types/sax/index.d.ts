@@ -43,9 +43,9 @@ export interface Tag extends BaseTag {
     attributes: { [key: string]: string };
 }
 
-export declare function parser(strict: boolean, opt: SAXOptions): SAXParser;
+export declare function parser(strict?: boolean, opt?: SAXOptions): SAXParser;
 export declare class SAXParser {
-    constructor(strict: boolean, opt?: SAXOptions);
+    constructor(strict?: boolean, opt?: SAXOptions);
 
     // Methods
     end(): void;
@@ -86,8 +86,8 @@ export declare class SAXParser {
 }
 
 import stream = require("stream");
-export declare function createStream(strict: boolean, opt: SAXOptions): SAXStream;
+export declare function createStream(strict?: boolean, opt?: SAXOptions): SAXStream;
 export declare class SAXStream extends stream.Duplex {
-    constructor(strict: boolean, opt: SAXOptions);
+    constructor(strict?: boolean, opt?: SAXOptions);
     private _parser: SAXParser;
 }
