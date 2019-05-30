@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // const string enum is deemed best way to represent the underlying js
-        "no-const-enum": false,
         // no trivial way to split up ast.d.ts further to keep line limit without creating spaghetti
         "max-line-length": false
     }

@@ -1,115 +1,75 @@
-export const enum Type {
-    LabelStatement = "LabelStatement",
-    BreakStatement = "BreakStatement",
-    GotoStatement = "GotoStatement",
-    ReturnStatement = "ReturnStatement",
-    IfStatement = "IfStatement",
-    IfClause = "IfClause",
-    ElseifClause = "ElseifClause",
-    ElseClause = "ElseClause",
-    WhileStatement = "WhileStatement",
-    DoStatement = "DoStatement",
-    RepeatStatement = "RepeatStatement",
-    LocalStatement = "LocalStatement",
-    AssignmentStatement = "AssignmentStatement",
-    CallStatement = "CallStatement",
-    FunctionDeclaration = "FunctionDeclaration",
-    ForNumericStatement = "ForNumericStatement",
-    ForGenericStatement = "ForGenericStatement",
-    Chunk = "Chunk",
-    Identifier = "Identifier",
-    StringLiteral = "StringLiteral",
-    NumericLiteral = "NumericLiteral",
-    BooleanLiteral = "BooleanLiteral",
-    NilLiteral = "NilLiteral",
-    VarargLiteral = "VarargLiteral",
-    TableKey = "TableKey",
-    TableKeyString = "TableKeyString",
-    TableValue = "TableValue",
-    TableConstructorExpression = "TableConstructorExpression",
-    UnaryExpression = "UnaryExpression",
-    BinaryExpression = "BinaryExpression",
-    LogicalExpression = "LogicalExpression",
-    MemberExpression = "MemberExpression",
-    IndexExpression = "IndexExpression",
-    CallExpression = "CallExpression",
-    TableCallExpression = "TableCallExpression",
-    StringCallExpression = "StringCallExpression",
-    Comment = "Comment"
-}
-
-export interface Base<TType extends Type> {
+export interface Base<TType extends string> {
     type: TType;
 }
 
-export interface LabelStatement extends Base<Type.LabelStatement> {
+export interface LabelStatement extends Base<"LabelStatement"> {
     label: string;
 }
 
-export type BreakStatement = Base<Type.BreakStatement>;
+export type BreakStatement = Base<"BreakStatement">;
 
-export interface GotoStatement extends Base<Type.GotoStatement> {
+export interface GotoStatement extends Base<"GotoStatement"> {
     label: string;
 }
 
-export interface ReturnStatement extends Base<Type.ReturnStatement> {
+export interface ReturnStatement extends Base<"ReturnStatement"> {
     arguments: Expression[];
 }
 
-export interface IfStatement extends Base<Type.IfStatement> {
+export interface IfStatement extends Base<"IfStatement"> {
     clauses: IfClause[];
 }
 
-export interface IfClause extends Base<Type.IfClause> {
+export interface IfClause extends Base<"IfClause"> {
     condition: Expression;
     body: Statement[];
 }
 
-export interface ElseifClause extends Base<Type.ElseifClause> {
+export interface ElseifClause extends Base<"ElseifClause"> {
     condition: Expression;
     body: Statement[];
 }
 
-export interface ElseClause extends Base<Type.ElseClause> {
+export interface ElseClause extends Base<"ElseClause"> {
     body: Statement[];
 }
 
-export interface WhileStatement extends Base<Type.WhileStatement> {
+export interface WhileStatement extends Base<"WhileStatement"> {
     condition: Expression;
     body: Statement[];
 }
 
-export interface DoStatement extends Base<Type.DoStatement> {
+export interface DoStatement extends Base<"DoStatement"> {
     body: Statement[];
 }
 
-export interface RepeatStatement extends Base<Type.RepeatStatement> {
+export interface RepeatStatement extends Base<"RepeatStatement"> {
     condition: Expression;
     body: Statement[];
 }
 
-export interface LocalStatement extends Base<Type.LocalStatement> {
+export interface LocalStatement extends Base<"LocalStatement"> {
     variables: Identifier[];
     init: Expression[];
 }
 
-export interface AssignmentStatement extends Base<Type.AssignmentStatement> {
+export interface AssignmentStatement extends Base<"AssignmentStatement"> {
     variables: Array<IndexExpression | MemberExpression | Identifier>;
     init: Expression[];
 }
 
-export interface CallStatement extends Base<Type.CallStatement> {
+export interface CallStatement extends Base<"CallStatement"> {
     expression: CallExpression | StringCallExpression | TableCallExpression;
 }
 
-export interface FunctionDeclaration extends Base<Type.FunctionDeclaration> {
+export interface FunctionDeclaration extends Base<"FunctionDeclaration"> {
     identifier: Identifier | null;
     isLocal: boolean;
     parameters: Identifier[];
     body: Statement[];
 }
 
-export interface ForNumericStatement extends Base<Type.ForNumericStatement> {
+export interface ForNumericStatement extends Base<"ForNumericStatement"> {
     variable: Identifier;
     start: Expression;
     end: Expression;
@@ -117,150 +77,111 @@ export interface ForNumericStatement extends Base<Type.ForNumericStatement> {
     body: Statement[];
 }
 
-export interface ForGenericStatement extends Base<Type.ForGenericStatement> {
+export interface ForGenericStatement extends Base<"ForGenericStatement"> {
     variables: Identifier[];
     iterators: Expression[];
     body: Statement[];
 }
 
-export interface Chunk extends Base<Type.Chunk> {
+export interface Chunk extends Base<"Chunk"> {
     body: Statement[];
     comments: string[];
 }
 
-export interface Identifier extends Base<Type.Identifier> {
+export interface Identifier extends Base<"Identifier"> {
     name: string;
 }
 
-export interface StringLiteral extends Base<Type.StringLiteral> {
+export interface StringLiteral extends Base<"StringLiteral"> {
     value: string;
     raw: string;
 }
 
-export interface NumericLiteral extends Base<Type.NumericLiteral> {
+export interface NumericLiteral extends Base<"NumericLiteral"> {
     value: number;
     raw: string;
 }
 
-export interface BooleanLiteral extends Base<Type.BooleanLiteral> {
+export interface BooleanLiteral extends Base<"BooleanLiteral"> {
     value: boolean;
     raw: string;
 }
 
-export interface NilLiteral extends Base<Type.NilLiteral> {
+export interface NilLiteral extends Base<"NilLiteral"> {
     value: null;
     raw: string;
 }
 
-export interface VarargLiteral extends Base<Type.VarargLiteral> {
+export interface VarargLiteral extends Base<"VarargLiteral"> {
     value: string;
     raw: string;
 }
 
-export interface TableKey extends Base<Type.TableKey> {
+export interface TableKey extends Base<"TableKey"> {
     key: Expression;
     value: Expression;
 }
 
-export interface TableKeyString extends Base<Type.TableKeyString> {
+export interface TableKeyString extends Base<"TableKeyString"> {
     key: Identifier;
     value: Expression;
 }
 
-export interface TableValue extends Base<Type.TableValue> {
+export interface TableValue extends Base<"TableValue"> {
     value: Expression;
 }
 
-export interface TableConstructorExpression extends Base<Type.TableConstructorExpression> {
+export interface TableConstructorExpression extends Base<"TableConstructorExpression"> {
     fields: Array<TableKey | TableKeyString>;
 }
 
-export interface UnaryExpression extends Base<Type.UnaryExpression> {
+export interface UnaryExpression extends Base<"UnaryExpression"> {
     operator: "#" | "not";
     argument: Expression;
 }
 
-export interface BinaryExpression extends Base<Type.BinaryExpression> {
+export interface BinaryExpression extends Base<"BinaryExpression"> {
     operator: "+" | "-" | "*" | "/" | "%" | "^" | "==" | "~=" | "<=" | ">=" | "<" | ">" | "..";
     left: Expression;
     right: Expression;
 }
 
-export interface LogicalExpression extends Base<Type.LogicalExpression> {
+export interface LogicalExpression extends Base<"LogicalExpression"> {
     operator: "or" | "and";
     left: Expression;
     right: Expression;
 }
 
-export interface MemberExpression extends Base<Type.MemberExpression> {
+export interface MemberExpression extends Base<"MemberExpression"> {
     indexer: string;
     identifier: Identifier;
     base: Expression;
 }
 
-export interface IndexExpression extends Base<Type.IndexExpression> {
+export interface IndexExpression extends Base<"IndexExpression"> {
     base: Expression;
     index: Expression;
 }
 
-export interface CallExpression extends Base<Type.CallExpression> {
+export interface CallExpression extends Base<"CallExpression"> {
     base: Expression;
     arguments: Expression[];
 }
 
-export interface TableCallExpression extends Base<Type.TableCallExpression> {
+export interface TableCallExpression extends Base<"TableCallExpression"> {
     base: Expression;
     arguments: Expression[];
 }
 
-export interface StringCallExpression extends Base<Type.StringCallExpression> {
+export interface StringCallExpression extends Base<"StringCallExpression"> {
     base: Expression;
     argument: Expression;
 }
 
-export interface Comment extends Base<Type.Comment> {
+export interface Comment extends Base<"Comment"> {
     value: string;
     raw: string;
 }
-
-export type Node =
-    LabelStatement |
-    BreakStatement |
-    GotoStatement |
-    ReturnStatement |
-    IfStatement |
-    IfClause |
-    ElseifClause |
-    ElseClause |
-    WhileStatement |
-    DoStatement |
-    RepeatStatement |
-    LocalStatement |
-    AssignmentStatement |
-    CallStatement |
-    FunctionDeclaration |
-    ForNumericStatement |
-    ForGenericStatement |
-    Chunk |
-    Identifier |
-    StringLiteral |
-    NumericLiteral |
-    BooleanLiteral |
-    NilLiteral |
-    VarargLiteral |
-    TableKey |
-    TableKeyString |
-    TableValue |
-    TableConstructorExpression |
-    BinaryExpression |
-    LogicalExpression |
-    UnaryExpression |
-    MemberExpression |
-    IndexExpression |
-    CallExpression |
-    TableCallExpression |
-    StringCallExpression |
-    Comment;
 
 export type Expression =
     FunctionDeclaration |
@@ -295,3 +216,15 @@ export type Statement =
     FunctionDeclaration |
     ForNumericStatement |
     ForGenericStatement;
+
+export type Node =
+    Statement |
+    Expression |
+    IfClause |
+    ElseifClause |
+    ElseClause |
+    Chunk |
+    TableKey |
+    TableKeyString |
+    TableValue |
+    Comment;
