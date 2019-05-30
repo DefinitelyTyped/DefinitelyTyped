@@ -1,26 +1,28 @@
 import fs = require('fs');
-import initSqlJs from 'sql.js';
 
-var DB_PATH = 'data.db';
+import * as initSqlJs from 'sql.js';
+import initSqlJs2 from 'sql.js';
+import initSqlJs3 = require('sql.js');
+
+const DB_PATH = 'data.db';
 
 initSqlJs().then(SQL => {
     function createFile(path: string): void {
-        var fd = fs.openSync(path, 'a');
+        const fd = fs.openSync(path, 'a');
         fs.closeSync(fd);
     }
 
     // Open the database file. If it does not exist, create a blank database in memory.
-    var databaseData: Buffer;
-    databaseData = fs.existsSync(DB_PATH) ? fs.readFileSync(DB_PATH) : null;
-    var db = new SQL.Database(databaseData);
+    const databaseData = fs.existsSync(DB_PATH) ? fs.readFileSync(DB_PATH) : null;
+    const db = new SQL.Database(databaseData);
 
     // Create a new table 'test_table' in the database in memory.
-    var createTableStatement =
+    const createTableStatement =
         'DROP TABLE IF EXISTS test_table;' + 'CREATE TABLE test_table (id INTEGER PRIMARY KEY, content TEXT);';
     db.run(createTableStatement);
 
     // Insert 2 records for testing.
-    var insertRecordStatement = 'INSERT INTO test_table (id, content) VALUES (@id, @content);';
+    const insertRecordStatement = 'INSERT INTO test_table (id, content) VALUES (@id, @content);';
     db.run(insertRecordStatement, {
         '@id': 1,
         '@content': 'Content 1',
@@ -43,16 +45,16 @@ initSqlJs().then(SQL => {
     }
 
     // A simple SELECT query.
-    var selectRecordStatement = 'SELECT * FROM test_table WHERE id = @id;';
-    var selectStatementObject = db.prepare(selectRecordStatement);
-    var results = selectStatementObject.get({
+    const selectRecordStatement = 'SELECT * FROM test_table WHERE id = @id;';
+    const selectStatementObject = db.prepare(selectRecordStatement);
+    const results = selectStatementObject.get({
         '@id': 1,
     });
     console.log(results);
     selectStatementObject.free();
 
     // Access the results one by one, asynchronously.
-    var selectRecordsStatement = 'SELECT * FROM test_table;';
+    const selectRecordsStatement = 'SELECT * FROM test_table;';
     db.each(
         selectRecordsStatement,
         (obj: { [columnName: string]: number | string | Uint8Array }): void => {
@@ -69,7 +71,7 @@ initSqlJs().then(SQL => {
         if (!fs.existsSync(DB_PATH)) {
             createFile(DB_PATH);
         }
-        var exportedData = db.export();
+        const exportedData = db.export();
         fs.writeFileSync(DB_PATH, exportedData);
 
         // Finally, close the database connection and release the resources in memory.
@@ -77,7 +79,7 @@ initSqlJs().then(SQL => {
     }
 
     // Create a database
-    var db2 = new SQL.Database();
+    const db2 = new SQL.Database();
 
     // You can also use javascript functions inside your SQL code
     // Create the js function you need
@@ -88,4 +90,6 @@ initSqlJs().then(SQL => {
     db2.create_function('add_js', add);
     // Run a query in which the function is used
     db2.run("INSERT INTO hello VALUES (add_js(7, 3), add_js('Hello ', 'world'));"); // Inserts 10 and 'Hello world'
+
+    new SQL.Database(null);
 });
