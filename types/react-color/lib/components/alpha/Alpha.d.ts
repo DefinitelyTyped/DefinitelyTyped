@@ -1,5 +1,5 @@
 import { Component, ComponentType } from "react";
-import { RenderersProps, RGBColor, HSLColor, CustomPickerProps } from "../../..";
+import { RenderersProps, CustomPickerProps } from "../../..";
 
 export interface AlphaPickerProps extends RenderersProps, CustomPickerProps {
     width?: string;

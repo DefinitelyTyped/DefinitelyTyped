@@ -1,5 +1,5 @@
 import { Component, CSSProperties } from "react";
-import { ColorChangeHandler, CustomPickerInjectedProps } from "../../..";
+import { CustomPickerInjectedProps } from "../../..";
 
 export interface EditableInputStyles {
     input?: CSSProperties;

@@ -1,5 +1,5 @@
 import { Component, CSSProperties } from "react";
-import { ColorChangeHandler, CustomPickerProps, ColorState } from "../../..";
+import { CustomPickerProps, ColorState } from "../../..";
 
 export interface BlockPickerDefaultStyles {
     card?: CSSProperties;
