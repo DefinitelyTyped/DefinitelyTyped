@@ -4,7 +4,6 @@
 		"lib": [
 			"es5"
 		],
-		"strict": true,
 		"noImplicitAny": true,
 		"noImplicitThis": true,
 		"strictNullChecks": true,
