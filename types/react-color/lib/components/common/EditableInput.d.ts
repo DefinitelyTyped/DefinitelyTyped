@@ -1,5 +1,5 @@
-import { Component, ClassAttributes, CSSProperties } from "react";
-import { Color, ColorChangeHandler } from "../../..";
+import { Component, CSSProperties } from "react";
+import { ColorChangeHandler, CustomPickerInjectedProps } from "../../..";
 
 export interface EditableInputStyles {
     input?: CSSProperties;
@@ -7,14 +7,14 @@ export interface EditableInputStyles {
     wrap?: CSSProperties;
 }
 
-export interface EditableInputProps extends ClassAttributes<EditableInput> {
-    color?: Color;
+export interface EditableInputProps extends CustomPickerInjectedProps {
     label?: string;
-    onChange?: ColorChangeHandler;
+    arrowOffset?: number;
+    placeholder?: string;
+    value?: string | number;
     style?: EditableInputStyles;
-    value?: any;
-    dragLabel?: string;
-    dragMax?: string;
+    dragLabel?: boolean;
+    dragMax?: number;
 }
 
 export default class EditableInput extends Component<EditableInputProps> {}

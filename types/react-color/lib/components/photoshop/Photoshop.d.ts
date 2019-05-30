@@ -1,10 +1,28 @@
-import { Component } from "react";
-import { ColorChangeHandler, ColorPickerProps } from "../../..";
+import { Component, MouseEventHandler, MouseEvent, CSSProperties } from "react";
+import { CustomPickerProps } from "../../..";
 
-export interface PhotoshopPickerProps extends ColorPickerProps<PhotoshopPicker> {
+export interface PhotoshopPickerDefaultStyles {
+    picker?: CSSProperties;
+    head?: CSSProperties;
+    body?: CSSProperties;
+    saturation?: CSSProperties;
+    hue?: CSSProperties;
+    controls?: CSSProperties;
+    top?: CSSProperties;
+    preview?: CSSProperties;
+    actions?: CSSProperties;
+}
+
+export interface PhotoshopPickerStyles {
+    default?: PhotoshopPickerDefaultStyles;
+}
+
+export interface PhotoshopPickerProps extends CustomPickerProps {
     header?: string;
-    onAccept?: ColorChangeHandler;
-    onCancel?: ColorChangeHandler;
+    onAccept?: (event: MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onCancel?: (event: MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    styles?: PhotoshopPickerStyles;
+    className?: string;
 }
 
 export default class PhotoshopPicker extends Component<PhotoshopPickerProps> {}

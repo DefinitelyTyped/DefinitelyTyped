@@ -1,19 +1,22 @@
-import { ComponentClass, StatelessComponent } from "react";
-import { HSLColor, RGBColor, ColorChangeHandler, Color, ColorResult } from "../../..";
+import { ComponentType } from "react";
+import { Color, ColorState, ColorChangeHandler } from "../../..";
 
-export type ColorWrapChangeHandler = (color: Color | ColorResult) => void;
+type SetDifference<A, B> = A extends B ? never : A;
 
-export interface InjectedColorProps {
-    hex?: string;
-    hsl?: HSLColor;
-    rgb?: RGBColor;
-    onChange?: ColorWrapChangeHandler;
+type Diff<T, U> = Pick<T, SetDifference<keyof T, keyof U>>;
+
+export type OnChangeHandler = (colorState: ColorState) => void;
+
+export interface CustomPickerInjectedProps extends Partial<ColorState> {
+    onChange: ColorChangeHandler;
 }
 
-export interface ExportedColorProps {
+export interface CustomPickerProps {
     color?: Color;
-    onChange?: ColorChangeHandler;
-    onChangeComplete?: ColorChangeHandler;
+    onChange?: OnChangeHandler;
+    onChangeComplete?: OnChangeHandler;
 }
 
-export default function CustomPicker<A>(component: ComponentClass<A & InjectedColorProps> | StatelessComponent<A & InjectedColorProps>): ComponentClass<A & ExportedColorProps>;
+export default function CustomPicker<A>(
+    component: ComponentType<A & CustomPickerInjectedProps>
+): ComponentType<Diff<A, CustomPickerProps> & CustomPickerProps>;
