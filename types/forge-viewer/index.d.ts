@@ -943,7 +943,7 @@ declare namespace Autodesk {
                 matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
-                getCanvasBoundingClientRect(): ClientRect | DOMRect
+                getCanvasBoundingClientRect(): ClientRect | DOMRect;
 
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
