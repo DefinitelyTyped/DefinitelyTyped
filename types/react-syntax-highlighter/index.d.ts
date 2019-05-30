@@ -8,14 +8,14 @@
 
 type lineTagPropsFunction = (
     lineNumber: number
-) => React.DOMAttributes<HTMLElement>;
+) => React.HTMLAttributes<HTMLElement>;
 
 interface SyntaxHighlighterProps {
     language?: string;
     style?: any;
     customStyle?: any;
-    lineProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>;
-    codeTagProps?: React.DOMAttributes<HTMLElement>;
+    lineProps?: lineTagPropsFunction | React.HTMLAttributes<HTMLElement>;
+    codeTagProps?: React.HTMLAttributes<HTMLElement>;
     useInlineStyles?: boolean;
     showLineNumbers?: boolean;
     startingLineNumber?: number;
