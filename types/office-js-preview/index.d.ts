@@ -701,14 +701,23 @@ declare namespace Office {
              * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
              * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
-             * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter)
+             * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter.
              * 
-             * @param options Optional. An object literal that contains one or more of the following properties.
-             *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, 
-             *                    this value indicates of the handled event should continue execution or be canceled. 
-             *                    For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
+             * @param options Optional. An object that specifies behavior options for when the event is completed.
              */
-            completed(options?: { allowEvent: boolean }): void;
+            completed(options?: EventCompletedOptions): void;
+        }
+
+        /**
+         * Specifies the behavior for when the event is completed.
+         */
+        interface EventCompletedOptions {
+            /**
+             * A boolean value. When the completed method is used to signal completion of an event handler, 
+             * this value indicates of the handled event should continue execution or be canceled. 
+             * For example, an add-in that handles the `ItemSend` event can set `allowEvent = false` to cancel sending of the message.
+             */
+            allowEvent: boolean;
         }
 
         /**
