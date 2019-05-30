@@ -1,9 +1,9 @@
-// Type definitions for dir-walker-gen v1.0.1
+// Type definitions for dir-walker-gen 1.0
 // Project: https://github.com/vsoneji/dir-walker-gen
-// Definitions by: Shavkat Aynurin <https://github.com/aynurin/>
+// Definitions by: Shavkat Aynurin <https://github.com/aynurin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function DirGen(
+declare function DirGen(
     options: {
         /**
          * (Required) List of starting folders
@@ -36,3 +36,5 @@ export default function DirGen(
         includeExtensions?: string[]
     },
 ): IterableIterator<string>;
+
+export = DirGen;

@@ -1,10 +1,10 @@
-import DirGen from 'dir-walker-gen';
+import DirGen = require("dir-walker-gen");
 
 const options = {
     folders: [".."]
-}
+};
 
-let iterator = DirGen(options);
+const iterator = DirGen(options);
 
 let result = iterator.next();
 while (!result.done) {
