@@ -1,5 +1,4 @@
 import * as React from "react";
-import { ComponentType } from "react";
 import { render } from "react-dom";
 import {
     AlphaPicker,
@@ -30,7 +29,7 @@ interface CustomProps extends CustomPickerInjectedProps {
     customProp: string;
 }
 
-const CustomComponent: ComponentType<CustomProps> = (props: CustomProps) => {
+const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) => {
     const { customProp } = props;
     return (
         <div>

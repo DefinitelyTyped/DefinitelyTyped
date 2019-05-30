@@ -20,3 +20,5 @@ export interface CustomPickerProps {
 export default function CustomPicker<A>(
     component: ComponentType<A & CustomPickerInjectedProps>
 ): ComponentType<Diff<A, CustomPickerProps> & CustomPickerProps>;
+
+export {};

@@ -1,4 +1,4 @@
-// Type definitions for react-color 2.17.3
+// Type definitions for react-color 2.17
 // Project: https://github.com/casesandberg/react-color/, http://casesandberg.github.io/react-color
 // Definitions by:  Karol Janyst <https://github.com/LKay>,
 //                  Marks Polakovs <https://github.com/markspolakovs>,
