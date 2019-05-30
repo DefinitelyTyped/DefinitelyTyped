@@ -71,6 +71,31 @@ export enum ResourceTypes {
     DELEGATION_TOKEN = 6
 }
 
+export interface LoggerMessage {
+    /** @var namespace Context from which the logger was called. */
+    readonly namespace: string
+
+    /** @var level Logger level. */
+    readonly level: logLevel
+
+    /** @var label Logger level label. */
+    readonly label: string
+
+    /** @var log Content of the logger entry. */
+    readonly log: LoggerMessageContent
+}
+
+export interface LoggerMessageContent {
+    /** @var timestamp Message tiempstamp. */
+    readonly timestamp: Date
+
+    /** @var message Message sent to the logger. */
+    readonly message: string
+
+    // Other possible fields in the content, that depend on the context.
+    [key: string]: any
+}
+
 export interface KafkaOptions {
     clientId?: string;
     brokers: string[];
@@ -80,6 +105,7 @@ export interface KafkaOptions {
     requestTimeout?: number;
     retry?: RetryOptions;
     logLevel?: logLevel;
+    logCreator?: () => (message: LoggerMessage) => void;
 }
 
 export interface SASLOptions {
