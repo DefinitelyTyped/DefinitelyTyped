@@ -58,7 +58,7 @@ export interface QueryParameter extends BaseParameter, BaseSchema {
   in: 'query';
   type: ParameterType;
   allowEmptyValue?: boolean;
-  collectionFormat?: string;
+  collectionFormat?: 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi';
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
@@ -75,7 +75,7 @@ export interface HeaderParameter extends BaseParameter, BaseSchema {
 export interface FormDataParameter extends BaseParameter, BaseSchema {
   in: 'formData';
   type: ParameterType;
-  collectionFormat?: string;
+  collectionFormat?: 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi';
   allowEmptyValue?: boolean;
 }
 
