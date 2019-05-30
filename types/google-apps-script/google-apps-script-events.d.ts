@@ -16,83 +16,74 @@ declare namespace GoogleAppsScript {
   export module Events {
     // Internal interfaces
     interface AppsScriptEvent {
-      authMode: Script.AuthMode,
-      triggerUid: string,
-      user: Base.User,
+      authMode: Script.AuthMode;
+      triggerUid: string;
+      user: Base.User;
     }
 
     interface AppsScriptHttpRequestEvent {
-        parameter: object,
-        contextPath: string,
-        contentLength: number
-        queryString: string,
-        parameters: object,
-      }
+      parameter: object;
+      contextPath: string;
+      contentLength: number;
+      queryString: string;
+      parameters: object;
+    }
 
-    /**
-     * TODO: What about other properties? Object.keys(e.postData) contains:
-     * copyBlob, getAllBlobs, getAs, getBlob, getBytes, getContentType,
-     * getDataAsString, getDocId, getImageUrl, getName, getPrimitiveByteArray,
-     * isGoogleType, requireContentType, requireData, requireName, setBytes,
-     * setContentType, setContentTypeFromExtension, setDataFromString,
-     * setDataFromString, setName, toString
-     */
     interface AppsScriptHttpRequestEventPostData {
-        length: number,
-        type: string,
-        contents: string,
-        name: string, // Always the value "postData"
-      }
+      length: number;
+      type: string;
+      contents: string;
+      name: string;
+    }
 
     // External interfaces
     export interface SheetsOnOpen extends AppsScriptEvent {
-      source: Spreadsheet.Spreadsheet,
+      source: Spreadsheet.Spreadsheet;
     }
 
     enum SheetsOnChangeChangeType { EDIT, INSERT_ROW, INSERT_COLUMN, REMOVE_ROW, REMOVE_COLUMN, INSERT_GRID, REMOVE_GRID, FORMAT, OTHER }
     export interface SheetsOnChange extends AppsScriptEvent {
-      changeType: SheetsOnChangeChangeType,
+      changeType: SheetsOnChangeChangeType;
     }
 
     export interface SheetsOnEdit extends AppsScriptEvent {
-      oldValue: string,
-      range: Spreadsheet.Range,
-      source: Spreadsheet.Spreadsheet,
-      value: string,
+      oldValue: string;
+      range: Spreadsheet.Range;
+      source: Spreadsheet.Spreadsheet;
+      value: string;
     }
 
     export interface FormsOnSubmit extends AppsScriptEvent {
-      namedValues: { [key: string]: string[]; },
-      range: Spreadsheet.Range,
-      values: string[],
+      namedValues: { [key: string]: string[] };
+      range: Spreadsheet.Range;
+      values: string[];
     }
 
     export interface DocsOnOpen extends AppsScriptEvent {
-      source: Document.Document,
+      source: Document.Document;
     }
 
     export interface SlidesOnOpen extends AppsScriptEvent {
-      source: Slides.Presentation,
+      source: Slides.Presentation;
     }
 
     export interface FormsOnOpen extends AppsScriptEvent {
-      source: Forms.Form,
+      source: Forms.Form;
     }
 
     // TODO: Is there a `user` attribute?
     export interface CalendarEventUpdated extends AppsScriptEvent {
-      calendarId: string,
+      calendarId: string;
     }
 
     export interface AddonOnInstall {
-      authMode: Script.AuthMode,
+      authMode: Script.AuthMode;
     }
 
-    export interface DoGet extends AppsScriptHttpRequestEvent {
-    }
+    export interface DoGet extends AppsScriptHttpRequestEvent {}
 
     export interface DoPost extends AppsScriptHttpRequestEvent {
-      postData: AppsScriptHttpRequestEventPostData,
+      postData: AppsScriptHttpRequestEventPostData;
     }
   }
 }
