@@ -124,7 +124,7 @@ declare namespace ReactIntl {
             /*
              * one of "best fit" (default) | "numeric"
              */
-            style?: "best-fit" | "numeric";
+            style?: "best fit" | "numeric";
             format?: string;
             updateInterval?: number;
             initialNow?: any;
@@ -176,7 +176,7 @@ declare namespace ReactIntl {
         }
 
         interface PropsBase extends Base {
-            other?: any;
+            other: any;
             zero?: any;
             one?: any;
             two?: any;
