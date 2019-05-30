@@ -58,9 +58,14 @@ export interface AsyncQueue<T> {
     push<R, E = Error>(task: T | T[], callback?: AsyncResultCallback<R, E>): void;
     unshift<E = Error>(task: T | T[], callback?: ErrorCallback<E>): void;
     remove(filter: (node: DataContainer<T>) => boolean): void;
+
+    saturated(): Promise<void>;
     saturated(handler: () => void): void ;
+    empty(): Promise<void>;
     empty(handler: () => void): void;
+    drain(): Promise<void>;
     drain(handler: () => void): void;
+
     paused: boolean;
     pause(): void;
     resume(): void;
