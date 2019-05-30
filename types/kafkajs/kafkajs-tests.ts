@@ -20,8 +20,8 @@ const host = "localhost";
 const topic = "topic-test";
 
 const logger = (loggerMessage: LoggerMessage): void => {
-    console.log(`[${loggerMessage.namespace}] ${loggerMessage.log.message}`)
-}
+    console.log(`[${loggerMessage.namespace}] ${loggerMessage.log.message}`);
+};
 
 const kafka = new Kafka({
     logLevel: logLevel.INFO,

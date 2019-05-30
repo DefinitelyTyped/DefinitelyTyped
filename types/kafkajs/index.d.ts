@@ -73,27 +73,27 @@ export enum ResourceTypes {
 
 export interface LoggerMessage {
     /** @var namespace Context from which the logger was called. */
-    readonly namespace: string
+    readonly namespace: string;
 
     /** @var level Logger level. */
-    readonly level: logLevel
+    readonly level: logLevel;
 
     /** @var label Logger level label. */
-    readonly label: string
+    readonly label: string;
 
     /** @var log Content of the logger entry. */
-    readonly log: LoggerMessageContent
+    readonly log: LoggerMessageContent;
 }
 
 export interface LoggerMessageContent {
-    /** @var timestamp Message tiempstamp. */
-    readonly timestamp: Date
+    /** @var timestamp Message timestamp. */
+    readonly timestamp: Date;
 
     /** @var message Message sent to the logger. */
-    readonly message: string
+    readonly message: string;
 
     // Other possible fields in the content, that depend on the context.
-    [key: string]: any
+    [key: string]: any;
 }
 
 export interface KafkaOptions {
