@@ -1,5 +1,5 @@
-// Type definitions for json-to-ast 2.1.0
-// Project: https://github.com/trushin/json-to-ast
+// Type definitions for json-to-ast 2.1
+// Project: https://github.com/vtrushin/json-to-ast
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

@@ -1,19 +1,14 @@
+// $ExpectType ValueNode
 const ast = jsonToAst('{"a": 1}');
 processValueNode(ast);
 
 function logPos(node: jsonToAst.ASTNode) {
-	// $ExpectType Location | undefined;
-	const location = node.loc;
+	const location = node.loc; // $ExpectType Location | undefined
 
 	if (location != null) {
-		// $ExpectType Position;
-		location.start;
-
-		// $ExpectType Position;
-		location.end;
-
-		// $ExpectType string | null;
-		location.source;
+		location.start; // $ExpectType Position
+		location.end; // $ExpectType Position
+		location.source; // $ExpectType string | null
 	}
 }
 
@@ -22,37 +17,28 @@ function processValueNode(ast: jsonToAst.ValueNode) {
 
 	switch (ast.type) {
 		case "Object":
-			// $ExpectType ObjectNode
-			ast;
-			ast.children.forEach(child => {
-				// $ExpectType PropertyNode
-				child;
+			ast; // $ExpectType ObjectNode
 
-				// $ExpectType IdentifierNode
-				child.key;
+			ast.children.forEach(child => {
+				child; // $ExpectType PropertyNode
+				child.key; // $ExpectType IdentifierNode
 
 				processValueNode(child.value);
 			});
 			break;
 		case "Array":
-			// $ExpectType ArrayNode
-			ast;
+			ast; // $ExpectType ArrayNode
+
 			ast.children.forEach(child => {
-				// $ExpectType ObjectNode | ArrayNode | LiteralNode
-				child;
+				child; // $ExpectType ValueNode
 
 				processValueNode(child);
 			});
 			break;
 		case "Literal":
-			// $ExpectType LiteralNode
-			ast;
-
-			// $ExpectType string | number | boolean | null
-			ast.value;
-
-			// $ExpectType string
-			ast.raw;
+			ast; // $ExpectType LiteralNode
+			ast.value; // $ExpectType string | number | boolean | null
+			ast.raw; // $ExpectType string
 			break;
 	}
 }
