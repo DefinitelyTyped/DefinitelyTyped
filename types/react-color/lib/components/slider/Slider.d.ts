@@ -1,4 +1,4 @@
-import { Component, ReactNode, CSSProperties } from "react";
+import { Component, ComponentType, CSSProperties } from "react";
 import { CustomPickerProps } from "../../..";
 
 export interface SliderPickerDefaultStyles {
@@ -11,7 +11,7 @@ export interface SliderPickerStyles {
 }
 
 export interface SliderPickerProps extends CustomPickerProps {
-    pointer?: ReactNode;
+    pointer?: ComponentType;
     styles?: SliderPickerStyles;
     className?: string;
 }

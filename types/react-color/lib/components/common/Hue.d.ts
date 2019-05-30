@@ -1,9 +1,9 @@
-import { Component, ReactNode } from "react";
+import { Component, ComponentType } from "react";
 import { CustomPickerInjectedProps } from "../../..";
 
 export interface HueProps extends CustomPickerInjectedProps {
     direction?: "horizontal" | "vertical";
-    pointer?: ReactNode;
+    pointer?: ComponentType;
     radius?: string;
     shadow?: string;
 }

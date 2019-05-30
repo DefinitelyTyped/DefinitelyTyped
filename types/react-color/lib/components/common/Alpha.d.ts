@@ -1,4 +1,4 @@
-import { Component, ReactNode, CSSProperties } from "react";
+import { Component, ComponentType, CSSProperties } from "react";
 import { CustomPickerInjectedProps, RenderersProps } from "../../..";
 
 export interface AlphaStyle {
@@ -11,7 +11,7 @@ export interface AlphaStyle {
 }
 
 export interface AlphaProps extends RenderersProps, CustomPickerInjectedProps {
-    pointer?: ReactNode;
+    pointer?: ComponentType;
     radius?: string;
     shadow?: string;
     direction?: "vertical" | "horizontal";

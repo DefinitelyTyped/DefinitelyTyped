@@ -40,7 +40,7 @@ const CustomComponent: ComponentType<CustomProps> = (props: CustomProps) => {
                 radius="25px"
                 shadow="5px 10px"
                 direction="horizontal"
-                pointer={<div />}
+                pointer={() => <div />}
                 {...props}
             />
             <Checkboard
@@ -63,7 +63,7 @@ const CustomComponent: ComponentType<CustomProps> = (props: CustomProps) => {
             />
             <Hue
                 direction="horizontal"
-                pointer={<div />}
+                pointer={() => <div />}
                 radius="25px"
                 shadow="5px 10px"
                 {...props}
@@ -71,7 +71,7 @@ const CustomComponent: ComponentType<CustomProps> = (props: CustomProps) => {
             <Saturation
                 radius="25px"
                 shadow="5px 10px"
-                pointer={<div />}
+                pointer={() => <div />}
                 style={{ circle: { display: "block" } }}
                 {...props}
             />
@@ -90,7 +90,7 @@ render(
         height="100px"
         width="100px"
         direction="vertical"
-        pointer={<div />}
+        pointer={() => <div />}
         color={color}
         onChange={() => {}}
         onChangeComplete={() => {}}
@@ -179,7 +179,7 @@ render(
         width="100px"
         height="100px"
         direction="vertical"
-        pointer={<div />}
+        pointer={() => <div />}
         color={color}
         onChange={() => {}}
         onChangeComplete={() => {}}
@@ -231,7 +231,7 @@ render(
     <SliderPicker
         className="class-name"
         styles={{ default: { hue: { display: "block" } } }}
-        pointer={<div />}
+        pointer={() => <div />}
         color={color}
         onChange={() => {}}
         onChangeComplete={() => {}}

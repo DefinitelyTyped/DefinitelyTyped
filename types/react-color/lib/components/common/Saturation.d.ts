@@ -1,4 +1,4 @@
-import { Component, CSSProperties, ReactNode } from "react";
+import { Component, CSSProperties, ComponentType } from "react";
 import { CustomPickerInjectedProps } from "../../..";
 
 export interface SaturationStyle {
@@ -13,7 +13,7 @@ export interface SaturationProps extends CustomPickerInjectedProps {
     radius?: string;
     shadow?: string;
     style?: SaturationStyle;
-    pointer?: ReactNode;
+    pointer?: ComponentType;
 }
 
 export default class Saturation extends Component<SaturationProps> {}

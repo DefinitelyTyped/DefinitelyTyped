@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, ComponentType } from "react";
 import { RenderersProps, RGBColor, HSLColor, CustomPickerProps } from "../../..";
 
 export interface AlphaPickerProps extends RenderersProps, CustomPickerProps {
@@ -6,7 +6,7 @@ export interface AlphaPickerProps extends RenderersProps, CustomPickerProps {
     height?: string;
     direction?: "horizontal" | "vertical";
     style?: any;
-    pointer?: ReactNode;
+    pointer?: ComponentType;
     className?: string;
 }
 
