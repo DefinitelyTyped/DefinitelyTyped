@@ -494,13 +494,13 @@ export namespace Settings {
 
 export interface ZoneOffsetOptions {
     format?: 'short' | 'long';
-    localeCode?: string;
+    locale?: string;
 }
 
 export type ZoneOffsetFormat = 'narrow' | 'short' | 'techie';
 
 export class Zone {
-    offsetName(ts: number, options?: ZoneOffsetOptions): string;
+    offsetName(ts: number, options: ZoneOffsetOptions): string;
     formatOffset(ts: number, format: ZoneOffsetFormat): string;
     isValid: boolean;
     name: string;
