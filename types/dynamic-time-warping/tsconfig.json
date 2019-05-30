@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "dynamic-time-warping-tests.ts"
+        "test/dynamic-time-warping-module-tests.ts",
+        "test/dynamic-time-warping-global-tests.ts"
     ]
 }
