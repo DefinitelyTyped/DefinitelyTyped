@@ -1,5 +1,3 @@
-/// <reference types="json-to-ast"/>
-
 const ast = jsonToAst('{"a": 1}');
 processValueNode(ast);
 
