@@ -7064,3 +7064,110 @@ const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
  * https://developer.spotify.com/web-api/check-user-following-playlist/
  */
 const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistReponse = [true, false, true];
+
+
+
+
+/**
+ * Get current user's recently played tracks
+ * 
+ * GET /v1/me/player/recently-played
+ * https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/
+ */
+const getMyRecentlyPlayedTracks : SpotifyApi.UsersRecentlyPlayedTracksResponse = {
+  "items": [
+    {
+      "track": {
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/5INjqkS1o8h1imAzPqGZBb"
+            },
+            "href": "https://api.spotify.com/v1/artists/5INjqkS1o8h1imAzPqGZBb",
+            "id": "5INjqkS1o8h1imAzPqGZBb",
+            "name": "Tame Impala",
+            "type": "artist",
+            "uri": "spotify:artist:5INjqkS1o8h1imAzPqGZBb"
+          }
+        ],
+        "available_markets": [
+          "CA",
+          "MX",
+          "US"
+        ],
+        "disc_number": 1,
+        "duration_ms": 108546,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/2gNfxysfBRfl9Lvi9T3v6R"
+        },
+        "href": "https://api.spotify.com/v1/tracks/2gNfxysfBRfl9Lvi9T3v6R",
+        "id": "2gNfxysfBRfl9Lvi9T3v6R",
+        "name": "Disciples",
+        "preview_url": "https://p.scdn.co/mp3-preview/6023e5aac2123d098ce490488966b28838b14fa2",
+        "track_number": 9,
+        "type": "track",
+        "uri": "spotify:track:2gNfxysfBRfl9Lvi9T3v6R"
+      },
+      "played_at": "2016-12-13T20:44:04.589Z",
+      "context": {
+        "uri": "spotify:artist:5INjqkS1o8h1imAzPqGZBb",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5INjqkS1o8h1imAzPqGZBb"
+        },
+        "href": "https://api.spotify.com/v1/artists/5INjqkS1o8h1imAzPqGZBb",
+        "type": "artist"
+      }
+    },
+    {
+      "track": {
+        "artists": [
+          {
+            "external_urls": {
+              "spotify": "https://open.spotify.com/artist/5INjqkS1o8h1imAzPqGZBb"
+            },
+            "href": "https://api.spotify.com/v1/artists/5INjqkS1o8h1imAzPqGZBb",
+            "id": "5INjqkS1o8h1imAzPqGZBb",
+            "name": "Tame Impala",
+            "type": "artist",
+            "uri": "spotify:artist:5INjqkS1o8h1imAzPqGZBb"
+          }
+        ],
+        "available_markets": [
+          "CA",
+          "MX",
+          "US"
+        ],
+        "disc_number": 1,
+        "duration_ms": 467586,
+        "explicit": false,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/track/2X485T9Z5Ly0xyaghN73ed"
+        },
+        "href": "https://api.spotify.com/v1/tracks/2X485T9Z5Ly0xyaghN73ed",
+        "id": "2X485T9Z5Ly0xyaghN73ed",
+        "name": "Let It Happen",
+        "preview_url": "https://p.scdn.co/mp3-preview/05dee1ad0d2a6fa4ad07fbd24ae49d58468e8194",
+        "track_number": 1,
+        "type": "track",
+        "uri": "spotify:track:2X485T9Z5Ly0xyaghN73ed"
+      },
+      "played_at": "2016-12-13T20:42:17.016Z",
+      "context": {
+        "uri": "spotify:artist:5INjqkS1o8h1imAzPqGZBb",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5INjqkS1o8h1imAzPqGZBb"
+        },
+        "href": "https://api.spotify.com/v1/artists/5INjqkS1o8h1imAzPqGZBb",
+        "type": "artist"
+      }
+    }
+  ],
+  "next": "https://api.spotify.com/v1/me/player/recently-played?before=1481661737016&limit=2",
+  "cursors": {
+    "after": "1481661844589",
+    "before": "1481661737016"
+  },
+  "limit": 2,
+  "href": "https://api.spotify.com/v1/me/player/recently-played?limit=2"
+};
