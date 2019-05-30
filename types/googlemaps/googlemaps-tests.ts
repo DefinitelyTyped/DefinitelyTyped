@@ -67,14 +67,14 @@ map.panToBounds({
     east: 10,
     west: 10,
     south: 10
-})
+});
 
 map.panToBounds({
     north: 10,
     east: 10,
     west: 10,
     south: 10
-}, 50)
+}, 50);
 
 map.panToBounds({
     east: 10,
@@ -88,17 +88,16 @@ map.panToBounds({
     top: 50
 });
 
-
 /***** Data *****/
 
 new google.maps.Data();
-new google.maps.Data({ map: map });
+new google.maps.Data({map});
 
-var latLng = new google.maps.LatLng(52.201203, -1.724370),
-    feature = new google.maps.Data.Feature(),
-    geometry = new google.maps.Data.Geometry();
+let latLng = new google.maps.LatLng(52.201203, -1.724370);
+let feature = new google.maps.Data.Feature();
+let geometry = new google.maps.Data.Geometry();
 
-var data = map.data;
+let data = map.data;
 
 data.add(feature);
 
@@ -108,7 +107,7 @@ data.add({
     properties: {}
 });
 
-var isIn: boolean = map.data.contains(feature);
+let isIn: boolean = map.data.contains(feature);
 
 data.forEach((feature: google.maps.Data.Feature) => {
     console.log(feature.getId());
@@ -117,7 +116,7 @@ data.forEach((feature: google.maps.Data.Feature) => {
 map = data.getMap();
 data.setMap(map);
 
-var style = data.getStyle();
+let style = data.getStyle();
 data.setStyle(style);
 
 data.setStyle({
@@ -125,7 +124,7 @@ data.setStyle({
     cursor: "pointer",
     fillColor: "#79B55B",
     fillOpacity: 1,
-    icon: { url: "//maps.google.com/mapfiles/ms/icons/blue.png" } as google.maps.Icon,
+    icon: {url: "//maps.google.com/mapfiles/ms/icons/blue.png"},
     shape: { coords: [1, 2, 3], type: "circle" },
     strokeColor: "#79B55B",
     strokeOpacity: 1,
@@ -138,18 +137,35 @@ data.setStyle({
 data.overrideStyle(feature, { visible: true });
 data.revertStyle(feature);
 
-data.addGeoJson({ "type": "Feature", "geometry": { "type": "Point", "coordinates": [59.327090, 18.103701] } });
 data.addGeoJson({
-    "type": "FeatureCollection",
-    "features": [{
-        "type": "Feature",
-        "properties": { "dymmy": "7", },
-        "geometry": {
-                "type": "Polygon",
-                "coordinates": [[[123.61, -22.14], [122.38, -21.73], [121.06, -21.69], [119.66, -22.22], [119.00, -23.40], [123.61, -22.14]]]
-            }
-        }],
-}, { idPropertyName: "Test feature" });
+    type: "Feature",
+    geometry: {type: "Point", coordinates: [59.327090, 18.103701]}
+});
+data.addGeoJson(
+    {
+        type: "FeatureCollection",
+        features: [
+            {
+                type: "Feature",
+                properties: {dymmy: "7"},
+                geometry: {
+                    type: "Polygon",
+                    coordinates: [
+                        [
+                            [123.61, -22.14],
+                            [122.38, -21.73],
+                            [121.06, -21.69],
+                            [119.66, -22.22],
+                            [119.00, -23.40],
+                            [123.61, -22.14],
+                        ],
+                    ],
+                },
+            },
+        ],
+    },
+    {idPropertyName: "Test feature"},
+);
 
 data.loadGeoJson("http://magicGeoJsonSource.com");
 
@@ -161,47 +177,47 @@ data.loadGeoJson(
     "http://magicGeoJsonSource.com",
     { idPropertyName: "test" },
     (features) => {
-        for (var i = 0, len = features.length; i < len; i++) {
+        for (let i = 0, len = features.length; i < len; i++) {
             console.log(features[i].getId());
         }
     });
 
 data.toGeoJson((feature) => { });
 
-var dataMouseEvent: google.maps.Data.MouseEvent = {
-    feature: feature,
-    latLng: latLng,
+let dataMouseEvent: google.maps.Data.MouseEvent = {
+    feature,
+    latLng,
     stop: (): void => {}
 };
 
-var addFeatureEvent : google.maps.Data.AddFeatureEvent = {
-    feature: feature
+let addFeatureEvent: google.maps.Data.AddFeatureEvent = {
+    feature
 };
 
-var removeFeatureEvent: google.maps.Data.RemoveFeatureEvent = {
-    feature: feature
+let removeFeatureEvent: google.maps.Data.RemoveFeatureEvent = {
+    feature
 };
 
-var setGeometryEvent: google.maps.Data.SetGeometryEvent  = {
-    feature: feature,
+let setGeometryEvent: google.maps.Data.SetGeometryEvent  = {
+    feature,
     newGeometry: geometry,
     oldGeometry: geometry,
 };
 
-var setPropertyEvent: google.maps.Data.SetPropertyEvent = {
-    feature: feature,
+let setPropertyEvent: google.maps.Data.SetPropertyEvent = {
+    feature,
     name: "test",
     newValue: {},
     oldValue: {}
 };
 
-var removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
-    feature: feature,
+let removePropertyEvent: google.maps.Data.RemovePropertyEvent = {
+    feature,
     name: "test",
     oldValue: {}
 };
 
-var lineString = new google.maps.Data.LineString([ { lat: 52.201203, lng: -1.724370 }, { lat: 52.201203, lng: -2.724370 }]);
+let lineString = new google.maps.Data.LineString([ { lat: 52.201203, lng: -1.724370 }, { lat: 52.201203, lng: -2.724370 }]);
 lineString.forEachLatLng(latLng => console.log(`${latLng.lat} ${latLng.lng}`));
 
 data.setDrawingMode('LineString');
@@ -212,7 +228,7 @@ data.setControls(null);
 
 /***** Overlays *****/
 
-var icon: google.maps.Icon = {
+let icon: google.maps.Icon = {
     anchor: new google.maps.Point(16, 16),
     origin: new google.maps.Point(0, 0),
     scaledSize: new google.maps.Size(32, 32),
@@ -222,29 +238,27 @@ var icon: google.maps.Icon = {
 
 /***** MapTypeStyle *****/
 
-var mapTypeStyle: google.maps.MapTypeStyle ={
+let mapTypeStyle1: google.maps.MapTypeStyle = {
     featureType: 'all',
 };
 
-var mapTypeStyle: google.maps.MapTypeStyle ={
+let mapTypeStyle2: google.maps.MapTypeStyle = {
     featureType: 'administrative.country',
     elementType: 'all',
     stylers: [],
 };
 
-var mapTypeStyle: google.maps.MapTypeStyle ={
+let mapTypeStyle3: google.maps.MapTypeStyle = {
     featureType: 'landscape.natural',
     elementType: 'geometry',
     stylers: [],
 };
 
-var mapTypeStyle: google.maps.MapTypeStyle ={
+let mapTypeStyle4: google.maps.MapTypeStyle = {
     featureType: 'poi.school',
     elementType: 'labels',
     stylers: [],
 };
-
-
 
 /***** MARKERS *****/
 
@@ -258,7 +272,6 @@ google.maps.Marker.MAX_ZINDEX = 10; // $ExpectError
 const marker = new google.maps.Marker();
 
 const markerWithEmptyOptions = new google.maps.Marker({});
-const markerWithEmptyReadonlyOptions = new google.maps.Marker({} as google.maps.ReadonlyMarkerOptions);
 
 const markerWithAllOptions = new google.maps.Marker({
     anchorPoint: new google.maps.Point(0, 0),
@@ -277,23 +290,6 @@ const markerWithAllOptions = new google.maps.Marker({
     visible: true,
     zIndex: 0,
 });
-const markerWithAllReadonlyOptions = new google.maps.Marker({
-    anchorPoint: new google.maps.Point(0, 0),
-    animation: google.maps.Animation.BOUNCE,
-    clickable: true,
-    crossOnDrag: true,
-    cursor: 'test',
-    draggable: true,
-    icon: 'test',
-    label: 'test',
-    map: new google.maps.Map(document.createElement('div')),
-    opacity: 0.5,
-    optimized: true,
-    position: { lat: 0, lng: 0 },
-    title: 'test',
-    visible: true,
-    zIndex: 0,
-} as google.maps.ReadonlyMarkerOptions);
 
 // Marker methods
 
@@ -342,14 +338,6 @@ marker.setIcon({
     size: new google.maps.Size(10, 10),
     url: 'test',
 });
-marker.setIcon({
-    anchor: new google.maps.Point(0, 0),
-    labelOrigin: new google.maps.Point(0, 0),
-    origin: new google.maps.Point(0, 0),
-    scaledSize: new google.maps.Size(10, 10),
-    size: new google.maps.Size(10, 10),
-    url: 'test',
-} as google.maps.ReadonlyIcon);
 marker.setIcon({url: 'test'});
 marker.setIcon({
     anchor: new google.maps.Point(0, 0),
@@ -363,18 +351,6 @@ marker.setIcon({
     strokeOpacity: 0,
     strokeWeight: 0
 });
-marker.setIcon({
-    anchor: new google.maps.Point(0, 0),
-    fillColor: 'black',
-    fillOpacity: 0,
-    labelOrigin: new google.maps.Point(0, 0),
-    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-    rotation: 0,
-    scale: 1,
-    strokeColor: 'black',
-    strokeOpacity: 0,
-    strokeWeight: 0
-} as google.maps.ReadonlySymbol);
 marker.setIcon({}); // $ExpectError
 marker.setIcon('test');
 marker.setIcon(null);
@@ -386,15 +362,7 @@ marker.setLabel({
     fontSize: 'test',
     fontWeight: 'test',
 });
-marker.setLabel({
-    text: 'test',
-    color: 'test',
-    fontFamily: 'test',
-    fontSize: 'test',
-    fontWeight: 'test',
-} as google.maps.ReadonlyMarkerLabel);
 marker.setLabel({text: 'test'});
-marker.setLabel({text: 'test'} as google.maps.ReadonlyMarkerLabel);
 marker.setLabel({}); // $ExpectError
 marker.setLabel('test');
 marker.setLabel(null);
@@ -417,7 +385,7 @@ marker.setOptions({
     draggable: true,
     icon: '',
     label: '',
-    map: map,
+    map,
     opacity: 0.5,
     optimized: true,
     position: { lat: 0, lng: 0 },
@@ -425,29 +393,10 @@ marker.setOptions({
     visible: true,
     zIndex: 0,
 });
-marker.setOptions({
-    anchorPoint: new google.maps.Point(0, 0),
-    animation: google.maps.Animation.BOUNCE,
-    clickable: true,
-    crossOnDrag: true,
-    cursor: '',
-    draggable: true,
-    icon: '',
-    label: '',
-    map: map,
-    opacity: 0.5,
-    optimized: true,
-    position: { lat: 0, lng: 0 },
-    title: '',
-    visible: true,
-    zIndex: 0,
-} as google.maps.ReadonlyMarkerOptions);
 marker.setOptions({});
-marker.setOptions({} as google.maps.ReadonlyMarkerOptions);
 
 marker.setPosition(new google.maps.LatLng(0, 0));
 marker.setPosition({lat: 0, lng: 0});
-marker.setPosition({lat: 0, lng: 0} as google.maps.ReadonlyLatLngLiteral);
 marker.setPosition(null);
 
 marker.setShape({type: 'circle'}); // $ExpectError
@@ -569,13 +518,12 @@ marker.addListener('zindex_changed', () => {});
 
 marker.addListener('zindex_changed', (event) => {}); // $ExpectError
 
-
 /***** OverlayView *****/
 // https://developers.google.com/maps/documentation/javascript/customoverlays
-var div =  document.createElement('div');
+let div =  document.createElement('div');
 class Overlay extends google.maps.OverlayView {
-    public draw(): void {
-        var panes = this.getPanes();
+    draw(): void {
+        const panes = this.getPanes();
         panes.floatPane.appendChild(div);
         panes.floatShadow.appendChild(div);
         panes.mapPane.appendChild(div);
@@ -584,20 +532,20 @@ class Overlay extends google.maps.OverlayView {
         panes.overlayLayer.appendChild(div);
         panes.overlayMouseTarget.appendChild(div);
         panes.overlayShadow.appendChild(div);
-    };
+    }
 }
-var overlay = new Overlay();
+let overlay = new Overlay();
 overlay.setMap(map);
 
 /***** Rectangles *****/
 // https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
-var rectangle = new google.maps.Rectangle({
+let rectangle = new google.maps.Rectangle({
     strokeColor: '#FF0000',
     strokeOpacity: 0.8,
     strokeWeight: 2,
     fillColor: '#FF0000',
     fillOpacity: 0.35,
-    map: map,
+    map,
     bounds: {
         north: 33.685,
         south: 33.671,
@@ -608,7 +556,7 @@ var rectangle = new google.maps.Rectangle({
 
 /***** Circles *****/
 // circleOptions with LatLng center
-var circle1 = new google.maps.Circle({
+let circle1 = new google.maps.Circle({
     center: new google.maps.LatLng(59.327, 18.067),
     radius: 20,
     fillColor: '#FF0000',
@@ -619,7 +567,7 @@ var circle1 = new google.maps.Circle({
 });
 
 // circleOptions with LatLngLiteral center
-var circle2 = new google.maps.Circle({
+let circle2 = new google.maps.Circle({
     center: {lat: 59.327, lng: 18.067},
     radius: 20,
     fillColor: '#FF0000',
@@ -629,9 +577,8 @@ var circle2 = new google.maps.Circle({
     strokeWeight: 1
 });
 
-
 /***** StreetViewPanorama *****/
-var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
+let panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     zoom: 0,
     pano: 'reception',
     scrollwheel: false,
@@ -642,11 +589,10 @@ var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
     motionTracking: true,
     motionTrackingControl: true
 };
-var panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
+let panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
 
 // MVCObject method on StreetViewPanorama
-var panoramaEvent = panorama.addListener("pano_changed", () => {});
-
+let panoramaEvent = panorama.addListener("pano_changed", () => {});
 
 /***** MVCArray *****/
 
@@ -665,7 +611,7 @@ mvcArrayStr.setAt(0, "z");
 
 let heatmap = new google.maps.visualization.HeatmapLayer({
     data: [new google.maps.LatLng(37.782551, -122.445368), new google.maps.LatLng(37.782745, -122.444586), new google.maps.LatLng({lat: 37.782842, lng: -122.443688})],
-    map: map
+    map,
 });
 
 // setData Should Accept MVCArray<LatLng>
@@ -710,7 +656,7 @@ service.getDetails({
     }
 
     result.name; // $ExpectType string
-})
+});
 
 service.findPlaceFromQuery({
     query: 'Big Ben London',
