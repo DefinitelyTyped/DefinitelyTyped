@@ -1,8 +1,10 @@
 // Type definitions for hummus-recipe 1.8
 // Project: https://github.com/chunyenHuang/hummusRecipe
-// Definitions by: Erik Berreßem <https://github.com/erikberressem>
+// Definitions by: Erik Berreßem <https://github.com/she11sh0cked>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
+
+/// <reference types="node" />
 
 declare namespace Recipe {
     type CommentOptionsFlag =
@@ -186,10 +188,16 @@ declare namespace Recipe {
         rotation?: number;
         rotationOrigin?: number[];
     }
+
+    type EndPDFCallback1 = () => any;
+    type EndPDFCallback2 = (buffer: Buffer) => any;
+    type EndPDFCallback = EndPDFCallback1 | EndPDFCallback2;
 }
 
 declare class Recipe {
     constructor(src: string, output: string, options?: Recipe.RecipeOptions);
+
+    constructor(buffer: Buffer, options?: Recipe.RecipeOptions);
 
     comment(
         text: string,
@@ -275,7 +283,7 @@ declare class Recipe {
         options?: Recipe.RectangleOptions
     ): Recipe;
 
-    endPDF(callback?: () => any): Recipe;
+    endPDF(callback?: Recipe.EndPDFCallback): Recipe;
 }
 
 export = Recipe;

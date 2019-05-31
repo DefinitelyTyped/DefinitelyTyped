@@ -3251,7 +3251,7 @@ declare module "inspector" {
     function close(): void;
 
     /**
-     * Return the URL of the active inspector, or undefined if there is none.
+     * Return the URL of the active inspector, or `undefined` if there is none.
      */
-    function url(): string;
+    function url(): string | undefined;
 }
