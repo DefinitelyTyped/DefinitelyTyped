@@ -3001,9 +3001,21 @@
             "asOfVersion": "0.1.5"
         },
         {
+            "libraryName": "@storybook/addon-actions",
+            "typingsPackageName": "storybook__addon-actions",
+            "sourceRepoURL": "https://github.com/storybookjs/storybook",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "@storybook/addon-notes",
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@storybook/channels",
+            "typingsPackageName": "storybook__channels",
+            "sourceRepoURL": "https://github.com/storybookjs/storybook",
             "asOfVersion": "5.0.0"
         },
         {
