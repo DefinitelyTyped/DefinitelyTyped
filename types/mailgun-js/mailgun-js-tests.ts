@@ -38,6 +38,14 @@ const exampleSendData: mailgunFactory.messages.SendData = {
 
 mailgun.messages().send(exampleSendData, (err, body) => {});
 
+const exampleSendDataWithTemplate: mailgunFactory.messages.SendTemplateData = {
+    to: "someone@email.com",
+    template: "my-template",
+    "v:template-variable": "foo",
+  };
+
+const exampleSendDataTemplateResponse: Promise<mailgunFactory.messages.SendResponse> = mailgun.messages().send(exampleSendDataWithTemplate);
+
 let validationResultPromise: Promise<mailgunFactory.validation.ValidateResponse>;
 validationResultPromise = mailgun.validate("foo@mailgun.net");
 validationResultPromise = mailgun.validate("foo@mailgun.net", true);

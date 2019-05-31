@@ -2,6 +2,7 @@
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Ryan Leonard <https://github.com/CodeLenny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -72,6 +73,11 @@ declare namespace Mailgun {
 
         interface BatchData extends SendData {
             "recipient-variables"?: BatchSendRecipientVars;
+        }
+
+        interface SendTemplateData {
+            "template": string;
+            [templateVariable: string]: string;
         }
 
         interface BatchSendRecipientVars {
@@ -187,7 +193,7 @@ declare namespace Mailgun {
 
     interface Messages {
         send(
-            data: messages.SendData | messages.BatchData,
+            data: messages.SendData | messages.BatchData | messages.SendTemplateData,
             callback?: (error: Error, body: messages.SendResponse) => void
         ): Promise<messages.SendResponse>;
     }
