@@ -349,7 +349,7 @@ export interface RequestRoute {
     realm: ServerRealm;
 
     /** the route options object with all defaults applied. */
-    settings: RouteOptions;
+    settings: RouteSettings;
 
     /** the route internal normalized string representing the normalized path. */
     fingerprint: string;
@@ -1114,14 +1114,14 @@ export interface ResponseToolkit {
 
 export type RouteOptionsAccessScope = false | string | string[];
 
-export type RouteAccessEntity = 'any' | 'user' | 'app';
+export type AccessEntity = 'any' | 'user' | 'app';
 
 export interface RouteOptionsAccessScopeObject {
     scope: RouteOptionsAccessScope;
 }
 
 export interface RouteOptionsAccessEntityObject {
-    entity: RouteAccessEntity;
+    entity: AccessEntity;
 }
 
 export type RouteOptionsAccessObject =
@@ -1160,7 +1160,7 @@ export interface RouteOptionsAccess {
      * strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
      */
-    entity?: RouteAccessEntity;
+    entity?: AccessEntity;
 
     /**
      * Default value: 'required'.
@@ -1967,8 +1967,8 @@ export interface AccessScopes {
 }
 
 export interface AccessSetting {
-    entity?: RouteAccessEntity;
-    scopes: AccessScopes | false;
+    entity?: AccessEntity;
+    scope: AccessScopes | false;
 }
 
 export interface AuthSettings {

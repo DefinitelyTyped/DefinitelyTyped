@@ -1,13 +1,14 @@
-import { RouteSettings, AuthSettings, AccessSetting, AuthMode, RouteAccessEntity as AccessEntity, AccessScopes } from '@hapi/hapi';
+import { RouteSettings, AuthSettings, AccessSetting, AuthMode, AccessEntity, AccessScopes, RequestRoute } from '@hapi/hapi';
 
-declare let set: RouteSettings;
+declare let route: RequestRoute;
 
-const auth: AuthSettings | undefined = set.auth;
+const settings: RouteSettings = route.settings;
+const auth: AuthSettings | undefined = settings.auth;
 const strats: string[] = auth!.strategies;
 const mode: AuthMode = auth!.mode;
 const access: AccessSetting[] | undefined = auth!.access;
 const data: AccessEntity | undefined = access![0].entity;
-const scope: AccessScopes | false = access![0].scopes;
+const scope: AccessScopes | false = access![0].scope;
 let perms: string[] | undefined;
 perms = (<AccessScopes> scope).selection;
 perms = (<AccessScopes> scope).required;
