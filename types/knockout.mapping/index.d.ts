@@ -4,7 +4,7 @@
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="knockout" />
 
@@ -13,14 +13,17 @@ export as namespace mapping;
 declare var self: KnockoutMapping;
 export = self;
 
-
 declare global {
-    // the idea behind this is good, but doesn't work as intended. This will make object properties T | Observable<T>, 
-    //and you will have to put the correct Type in each property to use them, what defeats the purpose. Besides, this gives  
-    //RangeError: Maximum call stack size exceeded in TSC when used in all the mapping signatures. Maybe this can be used with TS 2.8 and conditional typing
+
     type KnockoutObservableType<T> = {
-        [P in keyof T]: KnockoutObservable<KnockoutObservableType<T[P]>> | T[P];
+        [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]> :
+                        T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]> :
+                        KnockoutObservableType<T[P]>;
     };
+
+    type KnockoutObservableArrayType<T> = T extends Primitives ? KnockoutObservableArray<T> : KnockoutObservableArray<KnockoutObservableType<T>>;
+
+    type Primitives = string | number | boolean;
 
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions
 
@@ -61,8 +64,6 @@ declare global {
          * @param viewModel View model object to be checked.
          */
         isMapped(viewModel: any): boolean;
-
-        //fromJS could be reduced the number of declarations, but KnockoutObservableType<T> would have to use Conditional Types available only on TS v2.8
 
         /**
          * Creates a view model object with observable properties for each of the properties on the source. 
@@ -113,13 +114,13 @@ declare global {
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T[], options?: KnockoutMappingOptions<T[]>, target?: KnockoutObservableArray<any>): KnockoutObservableArray<any>;
+        fromJS<T>(source: T[], options?: KnockoutMappingOptions<T[]>, target?: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T[], target: KnockoutObservableArray<any>): KnockoutObservableArray<any>;
+        fromJS<T>(source: T[], target: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
          * Creates a view model object with observable properties for each of the properties on the source. 
          * If 'target' is supplied, instead, target's observable properties are updated.
@@ -127,13 +128,13 @@ declare global {
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T, options?: KnockoutMappingOptions<T>, target?: any): any;
+        fromJS<T>(source: T, options?: KnockoutMappingOptions<T>, target?: KnockoutObservableType<T>): KnockoutObservableType<T>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T, target: any): any;
+        fromJS<T>(source: T, target: KnockoutObservableType<T>): KnockoutObservableType<T>;
         /**
          * Creates a view model object with observable properties for each of the properties on the source. 
          * If 'target' is supplied, instead, target's observable properties are updated.

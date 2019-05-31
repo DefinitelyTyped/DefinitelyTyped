@@ -1,16 +1,35 @@
+////////////////////////////////
 // variable tests and definitions
-
-let userInputJS: User = { firstName: "foo", lastName: "bar", age: 12 }
 interface User {
     firstName: string
-    lastName: string
     age: number
+    address: Address
+}
+
+interface Address {
+    street: string
 }
 
 interface MappedUser {
     firstName: KnockoutObservable<string>
-    lastName: KnockoutObservable<string>
     age: KnockoutObservable<number>
+    address: MappedAddress
+}
+
+interface MappedAddress {
+    street: KnockoutObservable<string>
+}
+
+interface Car {
+    name: string
+    maintenance: number[]
+    drivers: User[]
+}
+
+interface MappedCar {
+    name: KnockoutObservable<string>
+    maintenance: KnockoutObservableArray<number>
+    drivers: KnockoutObservableArray<MappedUser>
 }
 
 let badUserMappingOptions: KnockoutMappingOptions<User> = {
@@ -35,30 +54,56 @@ let badMapping = {
     inclfefeude: ["name"],
 }
 
-// fromJS function with JS object
+////////////////////////////////
+// fromJS function with JS object without Array properties
+let userInput: User = { firstName: "foo", age: 12, address: { street: "street name" } }
 
-let mappedUserViewModel: MappedUser = mapping.fromJS(userInputJS) // $ExpectType any
-mapping.fromJS(userInputJS, {}) // $ExpectType any
-mapping.fromJS(userInputJS, {}, mappedUserViewModel) // $ExpectType any
-mapping.fromJS(userInputJS, mappedUserViewModel) // $ExpectType any
-mapping.fromJS(userInputJS, userMappingOptions, mappedUserViewModel) // $ExpectType any
+let mappedUserViewModel: MappedUser = mapping.fromJS(userInput) // $ExpectType KnockoutObservableType<User>
+mappedUserViewModel.age // $ExpectType KnockoutObservable<number>
+
+mapping.fromJS(userInput, {}) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, {}, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, userMappingOptions, mappedUserViewModel) // $ExpectType KnockoutObservableType<User>
+mapping.fromJS(userInput, {}, userInput) // $ExpectError
+mapping.fromJS(userInput, userInput) // $ExpectError
 
 let untypedObject: any = { age: 22 }
+mapping.fromJS(untypedObject) // $ExpectType KnockoutObservableType<any>
+
+////////////////////////////////
+// fromJS function with JS object with Array properties
+
+let carInput: Car = { name: "hb20x", maintenance: [1, 2], drivers: [userInput] }
+let mappedCar: MappedCar = mapping.fromJS(carInput)
+let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
+
+////////////////////////////////
+// fromJS function with primitives
+let numberInput = 3
+let stringInput = "foo"
+let booleanInput = true
+
+mapping.fromJS(numberInput) // $ExpectType KnockoutObservable<number>
+mapping.fromJS(stringInput)  // $ExpectType KnockoutObservable<string>
+mapping.fromJS(booleanInput)  // $ExpectType KnockoutObservable<boolean>
+
+////////////////////////////////
+// fromJS function with JS Array
+let userArrayInput = [userInput]
 let untypedArrayObject: any[] = [2, 3]
-mapping.fromJS(untypedObject) // $ExpectType any
-mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any>
+let numberArrayInput = [3, 4, 67]
 
-// fromJS function with JS array and primitives
-let inputNumber = 3
-let inputString = "foo"
-let inputBoolean = true
-let inputNumberArray = [3, 4, 67]
+mapping.fromJS(userArrayInput) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userArrayInput, {}) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userArrayInput, {}, userArrayInput) // $ExpectError
+mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any> | KnockoutObservableArray<KnockoutObservableType<any>>
 
-mapping.fromJS(inputNumber) // $ExpectType KnockoutObservable<number>
-mapping.fromJS(inputString)  // $ExpectType KnockoutObservable<string>
-mapping.fromJS(inputBoolean)  // $ExpectType KnockoutObservable<boolean>
-let numberArrayViewModel = mapping.fromJS(inputNumberArray)  // $ExpectType KnockoutObservableArray<any>
+let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType KnockoutObservableArray<number>
+mapping.fromJS(numberArrayInput, {}, mappedNumberArrayViewModel) // $ExpectType KnockoutObservableArray<number>
+mapping.fromJS(numberArrayInput, {}, {}) // $ExpectError
 
+////////////////////////////////
 // fromJSON function
 interface nameObject {
     name: string
@@ -72,9 +117,10 @@ mapping.fromJSON(nameObjectInputJSON, {}) // $ExpectType any
 mapping.fromJSON(nameObjectInputJSON, nameObjectInput) // $ExpectType any
 mapping.fromJSON(nameObjectInputJSON, {}, nameObjectInput) // $ExpectType any
 
-let userInputJSON = "{ firstName: 'foo', lastName: 'bar', age: 12 }"
+let userInputJSON = "{ firstName: 'foo', age: 12 }"
 mapping.fromJSON(userInputJSON, userMappingOptions, mappedUserViewModel) // $ExpectType any
 
+////////////////////////////////
 // toJS function
 let nameObject: nameObject = mapping.toJS(nameObjectInput)
 mapping.toJS(nameObjectInput, {})
@@ -83,18 +129,20 @@ mapping.toJS<User>(mappedUserViewModel) // $ExpectType User
 mapping.toJS<User>(mappedUserViewModel, {}) // $ExpectType User
 
 mapping.toJS<number>(mappedUserViewModel) // $ExpectError
-mapping.toJS<User>(inputString) // $ExpectError
+mapping.toJS<User>(stringInput) // $ExpectError
 mapping.toJS(ko.observable(2)) // $ExpectType number
-mapping.toJS(numberArrayViewModel) // $ExpectType any[]
+mapping.toJS(mappedNumberArrayViewModel) // $ExpectType number[]
 
 mapping.toJS(untypedObject) // $ExpectType any
 mapping.toJS(ko.observableArray(untypedArrayObject)) // $ExpectType any[]
 
+////////////////////////////////
 // toJSON function
 mapping.toJSON(nameObjectInput) // $ExpectType string
 mapping.toJSON(nameObjectInput, {}) // $ExpectType string
 mapping.toJSON<MappedUser>(mappedUserViewModel, userMappingOptions) // $ExpectType string
 
+////////////////////////////////
 // visitModel function
 mapping.visitModel(nameObjectInput, (x: any) => x, {})
 mapping.visitModel(nameObjectInput, (x: any) => x, { visitedObjects: null })
