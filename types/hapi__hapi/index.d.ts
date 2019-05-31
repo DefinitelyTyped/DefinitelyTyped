@@ -201,6 +201,8 @@ export interface AuthCredentials {
     app?: AppCredentials;
 }
 
+export type AuthMode = 'required' | 'optional' | 'try';
+
 /**
  * Authentication information:
  * * artifacts - an artifact object received from the authentication strategy and used in authentication-related actions.
@@ -228,7 +230,7 @@ export interface RequestAuth {
      */
     isAuthorized: boolean;
     /** the route authentication mode. */
-    mode: string;
+    mode: AuthMode;
     /** the name of the strategy used. */
     strategy: string;
 }
@@ -1112,14 +1114,14 @@ export interface ResponseToolkit {
 
 export type RouteOptionsAccessScope = false | string | string[];
 
-export type RouteOptionsAccessEntity = 'any' | 'user' | 'app';
+export type RouteAccessEntity = 'any' | 'user' | 'app';
 
 export interface RouteOptionsAccessScopeObject {
     scope: RouteOptionsAccessScope;
 }
 
 export interface RouteOptionsAccessEntityObject {
-    entity: RouteOptionsAccessEntity;
+    entity: RouteAccessEntity;
 }
 
 export type RouteOptionsAccessObject =
@@ -1158,7 +1160,7 @@ export interface RouteOptionsAccess {
      * strategy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthaccessentity)
      */
-    entity?: RouteOptionsAccessEntity;
+    entity?: RouteAccessEntity;
 
     /**
      * Default value: 'required'.
@@ -1168,7 +1170,7 @@ export interface RouteOptionsAccess {
      * * 'try' - similar to 'optional', any request credentials are attempted authentication, but if the credentials are invalid, the request proceeds regardless of the authentication error.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsauthmode)
      */
-    mode?: 'required' | 'optional' | 'try';
+    mode?: AuthMode;
 
     /**
      * Default value: false, unless the scheme requires payload authentication.
@@ -1725,26 +1727,7 @@ export type RouteCompressionEncoderSettings = object;
 export interface RouteOptionsApp {
 }
 
-/**
- * Each route can be customized to change the default behavior of the request lifecycle.
- * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
- */
-export interface RouteOptions {
-    /**
-     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    app?: RouteOptionsApp;
-
-    /**
-     * Route authentication configuration. Value can be:
-     * false to disable authentication if a default strategy is set.
-     * a string with the name of an authentication strategy registered with server.auth.strategy(). The strategy will be set to 'required' mode.
-     * an authentication configuration object.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    auth?: false | string | RouteOptionsAccess;
-
+export interface CommonRouteProperties {
     /**
      * Default value: null.
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
@@ -1975,6 +1958,48 @@ export interface RouteOptions {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsvalidate)
      */
     validate?: RouteOptionsValidate;
+}
+
+export interface AccessScopes {
+    forbidden?: string[];
+    required?: string[];
+    selection?: string[];
+}
+
+export interface AccessSetting {
+    entity?: RouteAccessEntity;
+    scopes: AccessScopes | false;
+}
+
+export interface AuthSettings {
+    strategies: string[];
+    mode: AuthMode;
+    access?: AccessSetting[];
+}
+
+export interface RouteSettings extends CommonRouteProperties {
+    auth?: AuthSettings;
+}
+
+/**
+ * Each route can be customized to change the default behavior of the request lifecycle.
+ * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
+ */
+export interface RouteOptions extends CommonRouteProperties {
+    /**
+     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    app?: RouteOptionsApp;
+
+    /**
+     * Route authentication configuration. Value can be:
+     * false to disable authentication if a default strategy is set.
+     * a string with the name of an authentication strategy registered with server.auth.strategy(). The strategy will be set to 'required' mode.
+     * an authentication configuration object.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    auth?: false | string | RouteOptionsAccess;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
