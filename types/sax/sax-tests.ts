@@ -13,13 +13,11 @@ import fs = require("fs");
 
     parser.ENTITIES["foo"] = "bar";
 
-    parser.onerror = function(e: Error) {
-    };
+    parser.onerror = (e: Error) => {};
 
-    parser.ontext = function(text: string) {
-    };
+    parser.ontext = (text: string) => {};
 
-    parser.onopentag = function(tag: sax.QualifiedTag) {
+    parser.onopentag = (tag: sax.QualifiedTag) => {
         let prefix: string = tag.prefix;
         let local: string = tag.local;
         let uri: string = tag.uri;
@@ -36,17 +34,15 @@ import fs = require("fs");
         }
     };
 
-    parser.onattribute = function(attr: { name: string; value: string; }) {
-    };
+    parser.onattribute = (attr: { name: string; value: string; }) => {};
 
-    parser.onend = function() {
-    };
+    parser.onend = () => {};
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 
     let saxStream = sax.createStream(/*strict=*/true, opts);
 
-    saxStream.on("error", function(e: Error) {
+    saxStream.on("error", (e: Error) => {
         this._parser.error = null;
         this._parser.resume();
     });
@@ -66,23 +62,19 @@ import fs = require("fs");
 
     let parser = sax.parser(/*strict=*/true, opts);
 
-    parser.onerror = function(e: Error) {
-    };
+    parser.onerror = (e: Error) => {};
 
-    parser.ontext = function(text: string) {
-    };
+    parser.ontext = (text: string) => {};
 
-    parser.onopentag = function(tag: sax.Tag) {
+    parser.onopentag = (tag: sax.Tag) => {
         let name: string = tag.name;
         let isSelfClosing: boolean = tag.isSelfClosing;
         let attrValue: string = tag.attributes["name"];
     };
 
-    parser.onattribute = function(attr: { name: string; value: string; }) {
-    };
+    parser.onattribute = (attr: { name: string; value: string; }) => {};
 
-    parser.onend = function() {
-    };
+    parser.onend = () => {};
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 })();
