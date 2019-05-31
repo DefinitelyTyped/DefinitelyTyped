@@ -3,6 +3,7 @@
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="node"/>
 
