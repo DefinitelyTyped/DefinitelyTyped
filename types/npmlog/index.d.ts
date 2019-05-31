@@ -26,9 +26,12 @@ declare namespace npmlog {
         silly(prefix: string, message: string, ...args: any[]): void;
         verbose(prefix: string, message: string, ...args: any[]): void;
         info(prefix: string, message: string, ...args: any[]): void;
+        timing(prefix: string, message: string, ...args: any[]): void;
         http(prefix: string, message: string, ...args: any[]): void;
+        notice(prefix: string, message: string, ...args: any[]): void;
         warn(prefix: string, message: string, ...args: any[]): void;
         error(prefix: string, message: string, ...args: any[]): void;
+        silent(prefix: string, message: string, ...args: any[]): void;
 
         enableColor(): void;
         disableColor(): void;
