@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "braintree-web-drop-in-tests.ts"
+		"test/braintree-web-drop-in-global.test.ts",
+		"test/braintree-web-drop-in-module.test.ts"
     ]
 }

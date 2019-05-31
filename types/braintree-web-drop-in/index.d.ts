@@ -117,3 +117,14 @@ export interface PaymentMethodPayload {
 
 export function create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
 export function create(options: Options): Promise<Dropin>;
+
+// Global
+
+declare global {
+    const braintree: {
+        dropin: {
+            create(options: Options, callback: (error: object | null, dropin: Dropin | undefined) => void): void;
+            create(options: Options): Promise<Dropin>;
+        };
+    };
+}
