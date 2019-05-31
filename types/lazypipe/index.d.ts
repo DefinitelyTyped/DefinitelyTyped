@@ -1,6 +1,7 @@
 // Type definitions for lazypipe
 // Project: https://github.com/OverZealous/lazypipe
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
+//                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -18,7 +19,7 @@ interface IPipelineBuilder {
      * @param fn A stream creation function to call when the pipeline is created later.
      * @param args Any remaining arguments are saved and passed into fn when the pipeline is created.
      */
-    pipe(fn: Function, ...args: any[]): IPipelineBuilder;
+    pipe<TArgs extends any[]>(fn: (...args: TArgs) => NodeJS.ReadWriteStream, ...args: TArgs): IPipelineBuilder;
 }
 
 /**

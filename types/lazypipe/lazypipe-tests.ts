@@ -5,8 +5,12 @@ import lazypipe = require("lazypipe");
 
 const pipeline = lazypipe()
     .pipe(size)
-    .pipe(minifyHtml, {})
-    .pipe(size);
+    .pipe(minifyHtml, {
+        cdata: true
+    })
+    .pipe(size, {
+        showTotal: true
+    });
 
 gulp.src("*.html")
     .pipe(pipeline())
