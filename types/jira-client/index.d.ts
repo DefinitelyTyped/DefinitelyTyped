@@ -124,7 +124,7 @@ declare class JiraApi {
     addWorklog(
         issueId: string,
         worklog: JiraApi.WorklogObject,
-        newEstimate: JiraApi.EstimateObject
+        newEstimate?: JiraApi.EstimateObject
     ): Promise<JiraApi.JsonResponse>;
 
     deleteWorklog(issueId: string, worklogId: string): Promise<JiraApi.JsonResponse>;
