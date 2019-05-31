@@ -1,25 +1,21 @@
-import * as React from "react";
-import { withSizes, Sizes } from "react-sizes";
+import * as React from 'react';
+import { withSizes, Sizes } from 'react-sizes';
 
 interface TestProps {
     foo?: string;
 }
 
 interface TestInnerProps {
-    TestProps,
-    Sizes
-} 
+    TestProps;
+    Sizes;
+}
 
 const mapSizesToProps = ({ width, height }: Sizes) => ({
     width,
-    height
+    height,
 });
 
-const TestComponent: React.ComponentType<TestInnerProps> = ({
-    foo,
-    width,
-    height
-}) => {
+const TestComponent: React.ComponentType<TestInnerProps> = ({ foo, width, height }) => {
     foo; // $ExpectType string | undefined
     width; // $ExpectType number
     height; // $ExpectType number
