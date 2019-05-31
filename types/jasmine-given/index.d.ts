@@ -12,9 +12,9 @@ interface DoneFn {
   fail: (message?: Error | string) => void;
 }
 
-declare function Given(func: ((done: DoneFn) => void) | (() => void)): void;
-declare function When(func: ((done: DoneFn) => void) | (() => void)): void;
-declare function Then(func: ((done: DoneFn) => void) | (() => void)): void;
-declare function Then(label: string, func: ((done: DoneFn) => void) | (() => void)): void;
-declare function And(func: ((done: DoneFn) => void) | (() => void)): void;
-declare function Invariant(func: ((done: DoneFn) => void) | (() => void)): void;
+declare function Given(func: ((done: DoneFn) => void)): void;
+declare function When(func: ((done: DoneFn) => void)): void;
+declare function Then(func: ((done: DoneFn) => void)): void;
+declare function Then(label: string, func: ((done: DoneFn) => void)): void;
+declare function And(func: ((done: DoneFn) => void)): void;
+declare function Invariant(func: ((done: DoneFn) => void)): void;
