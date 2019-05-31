@@ -1,7 +1,7 @@
 // Type definitions for sax-js 1.x
 // Project: https://github.com/isaacs/sax-js
-// Definitions by: Asana <https://asana.com>
-//                 Evert Pot <https://evertpot.com/>
+// Definitions by: Vincent Siao (Asana, Inc.) <https://github.com/vsiao>
+//                 Evert Pot <https://github.com/evert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
