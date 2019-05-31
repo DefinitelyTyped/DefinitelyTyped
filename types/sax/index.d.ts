@@ -90,4 +90,28 @@ export declare function createStream(strict?: boolean, opt?: SAXOptions): SAXStr
 export declare class SAXStream extends stream.Duplex {
     constructor(strict?: boolean, opt?: SAXOptions);
     private _parser: SAXParser;
+    on(event: "text", listener: (text: string) => void): this;
+    on(event: "doctype", listener: (doctype: string) => void): this;
+    on(event: "processinginstruction", listener: (node: { name: string; body: string }) => void): this;
+    on(event: "opentag", listener: (tag: Tag | QualifiedTag) => void): this;
+    on(event: "closetag", listener: (tagName: string) => void): this;
+    on(event: "attribute", listener: (attr: { name: string; value: string }) => void): this;
+    on(event: "comment", listener: (comment: string) => void): this;
+    on(event: "opencdata", listener: () => void): this;
+    on(event: "cdata", listener: (cdata: string) => void): this;
+    on(event: "closecdata", listener: () => void): this;
+    on(event: "opennamespace", listener: (ns: { prefix: string; uri: string }) => void): this;
+    on(event: "closenamespace", listener: (ns: { prefix: string; uri: string }) => void): this;
+    on(event: "end", listener: () => void): this;
+    on(event: "ready", listener: () => void): this;
+    on(event: "script", listener: (script: string) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "data", listener: (chunk: any) => void): this;
+    on(event: "readable", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "drain", listener: () => void): this;
+    on(event: "finish", listener: () => void): this;
+    on(event: "pipe", listener: (src: stream.Readable) => void): this;
+    on(event: "unpipe", listener: (src: stream.Readable) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
