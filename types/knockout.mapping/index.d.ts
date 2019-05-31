@@ -83,48 +83,6 @@ declare global {
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS(source: string, options?: KnockoutMappingOptions<string>, target?: KnockoutObservable<string>): KnockoutObservable<string>;
-        /**
-         * Updates target's observable properties with those of the sources.
-         * @param source Plain JavaScript object to be mapped.
-         * @param target View model object previosly mapped to be updated.
-         */
-        fromJS(source: string, target: KnockoutObservable<string>): KnockoutObservable<string>;
-        /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
-         * If 'target' is supplied, instead, target's observable properties are updated.
-         * @param source Plain JavaScript object to be mapped.
-         * @param options Options on mapping behavior.
-         * @param target View model object previosly mapped to be updated.
-         */
-        fromJS(source: number, options?: KnockoutMappingOptions<number>, target?: KnockoutObservable<number>): KnockoutObservable<number>;
-        /**
-         * Updates target's observable properties with those of the sources.
-         * @param source Plain JavaScript object to be mapped.
-         * @param target View model object previosly mapped to be updated.
-         */
-        fromJS(source: number, target: KnockoutObservable<number>): KnockoutObservable<number>;
-        /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
-         * If 'target' is supplied, instead, target's observable properties are updated.
-         * @param source Plain JavaScript object to be mapped.
-         * @param options Options on mapping behavior.
-         * @param target View model object previosly mapped to be updated.
-         */
-        fromJS(source: boolean, options?: KnockoutMappingOptions<boolean>, target?: KnockoutObservable<boolean>): KnockoutObservable<boolean>;
-        /**
-         * Updates target's observable properties with those of the sources.
-         * @param source Plain JavaScript object to be mapped.
-         * @param target View model object previosly mapped to be updated.
-         */
-        fromJS(source: boolean, target: KnockoutObservable<boolean>): KnockoutObservable<boolean>;
-        /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
-         * If 'target' is supplied, instead, target's observable properties are updated.
-         * @param source Plain JavaScript object to be mapped.
-         * @param options Options on mapping behavior.
-         * @param target View model object previosly mapped to be updated.
-         */
         fromJS<T>(source: T[], options?: KnockoutMappingOptions<T[]>, target?: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
          * Updates target's observable properties with those of the sources.

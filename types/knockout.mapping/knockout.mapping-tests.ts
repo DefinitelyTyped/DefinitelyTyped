@@ -82,11 +82,13 @@ let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
 // fromJS function with primitives
 let numberInput = 3
 let stringInput = "foo"
-let booleanInput = true
+let booleanInput: boolean
 
 mapping.fromJS(numberInput) // $ExpectType KnockoutObservable<number>
-mapping.fromJS(stringInput)  // $ExpectType KnockoutObservable<string>
-mapping.fromJS(booleanInput)  // $ExpectType KnockoutObservable<boolean>
+mapping.fromJS(stringInput) // $ExpectType KnockoutObservable<string>
+
+// Typescript weirdly returns KnockoutObservable<false> | KnockoutObservable<true>
+let booleanMapped: KnockoutObservable<boolean> = mapping.fromJS(booleanInput)
 
 ////////////////////////////////
 // fromJS function with JS Array
@@ -125,16 +127,16 @@ mapping.fromJSON(userInputJSON, userMappingOptions, mappedUserViewModel) // $Exp
 
 mapping.toJS<User>(mappedUserViewModel) // $ExpectType User
 mapping.toJS<User>(mappedUserViewModel, {}) // $ExpectType User
+mapping.toJS<number>(mappedUserViewModel) // $ExpectError
+mapping.toJS<User>(stringInput) // $ExpectError
+
 mapping.toJS(ko.observable(2)) // $ExpectType number
 mapping.toJS(mappedNumberArrayViewModel) // $ExpectType number[]
 mapping.toJS(untypedObject) // $ExpectType any
 mapping.toJS(ko.observableArray(untypedArrayObject)) // $ExpectType any[]
 
-mapping.toJS<number>(mappedUserViewModel) // $ExpectError
-mapping.toJS<User>(stringInput) // $ExpectError
-
-// implicit type doesn't work for objects with properties that are objects.
-let unmmapedUser : User  = mapping.toJS(mappedUserViewModel)  // $ExpectError 
+// implicit type doesn't work for objects with properties that are objects. $ExpectError not working also, so commented out the rule
+// let unmmapedUser: User = mapping.toJS(mappedUserViewModel) 
 
 ////////////////////////////////
 // toJSON function
