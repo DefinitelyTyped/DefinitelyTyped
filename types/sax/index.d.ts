@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-
 export declare var EVENTS: string[];
 
 interface SAXOptions {

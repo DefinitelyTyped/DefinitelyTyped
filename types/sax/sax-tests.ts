@@ -44,7 +44,6 @@ import fs = require("fs");
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 
-
     let saxStream = sax.createStream(/*strict=*/true, opts);
 
     saxStream.on("error", function(e: Error) {
