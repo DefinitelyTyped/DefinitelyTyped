@@ -9,22 +9,25 @@
 
 
 interface IPipelineBuilder {
-    /**
-     * Returns a stream where all the internal steps are processed sequentially
-     * and the final result is passed on.
-     */
-    (): NodeJS.ReadWriteStream;
+    (): NodeJS.ReadWriteStream
 
     /**
-     * Creates a new lazy pipeline with all the previous steps, and the new step added to the end.
-     * @param fn A stream creation function to call when the pipeline is created later.
-     * @param args Any remaining arguments are saved and passed into fn when the pipeline is created.
+     * Adds a step to the end of the pipeline.
+     *
+     * @param destination
+     * The destination stream creation function to call when invoking the pipeline.
+     *
+     * @param args
+     * The arguments for the `destination`-function.
+     *
+     * A pipeline-builder.
      */
-    pipe<TArgs extends any[]>(fn: (...args: TArgs) => NodeJS.ReadWriteStream, ...args: TArgs): IPipelineBuilder;
+    pipe<TArgs extends any[]>(destination: (...args: TArgs) => NodeJS.ReadWriteStream, ...args: TArgs): IPipelineBuilder;
 }
 
 /**
- * Initializes a lazypipe.
+ * Returns a stream where all the internal steps are processed sequentially
+ * and the final result is passed on.
  */
 declare function lazypipe(): IPipelineBuilder;
 export = lazypipe;
