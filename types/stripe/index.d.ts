@@ -5988,7 +5988,7 @@ declare namespace Stripe {
              */
             coupon?: string;
 
-            source?: string | cards.ICardSourceCreationOptions;
+            default_source?: string | cards.ICardSourceCreationOptions;
 
             /**
              * The quantity you'd like to apply to the subscription you're creating. For example, if your plan is £10/user/month, and your customer
