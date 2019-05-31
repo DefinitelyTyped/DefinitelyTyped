@@ -4,7 +4,7 @@ import { MessageObject } from "npmlog";
 const prefix = "str";
 const message = "otherStr";
 
-['silly', 'verbose', 'info', 'http', 'warn', 'error'].forEach(lvl => npmlog.log(lvl, prefix, message));
+["silly", "verbose", "info", "timing", "http", "notice", "warn", "error", "silent"].forEach(lvl => npmlog.log(lvl, prefix, message));
 
 npmlog.silly(prefix, message);
 npmlog.verbose(prefix, message);
