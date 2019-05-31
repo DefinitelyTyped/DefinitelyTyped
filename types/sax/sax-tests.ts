@@ -146,3 +146,43 @@ import fs = require("fs");
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 })();
+
+// $ExpectType SAXParser
+sax.parser();
+
+// $ExpectType SAXParser
+sax.parser(true);
+
+// $ExpectType SAXParser
+sax.parser(true, {});
+
+// $ExpectType SAXParser
+sax.parser(true, {normalize: true, position: false});
+
+new sax.SAXParser();
+
+new sax.SAXParser(true);
+
+new sax.SAXParser(true, {});
+
+new sax.SAXParser(false, {lowercase: true, xmlns: false});
+
+// $ExpectType SAXStream
+sax.createStream();
+
+// $ExpectType SAXStream
+sax.createStream(false);
+
+// $ExpectType SAXStream
+sax.createStream(true, {});
+
+// $ExpectType SAXStream
+sax.createStream(true, {trim: true, position: false});
+
+new sax.SAXStream();
+
+new sax.SAXStream(true);
+
+new sax.SAXStream(false, {});
+
+new sax.SAXStream(false, {noscript: true});
