@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-export declare var EVENTS: string[];
+export const EVENTS: string[];
 
-interface SAXOptions {
+export interface SAXOptions {
     trim?: boolean;
     normalize?: boolean;
     lowercase?: boolean;
@@ -27,7 +27,7 @@ export interface QualifiedAttribute extends QualifiedName {
     value: string;
 }
 
-interface BaseTag {
+export interface BaseTag {
     name: string;
     isSelfClosing: boolean;
 }
@@ -42,8 +42,8 @@ export interface Tag extends BaseTag {
     attributes: { [key: string]: string };
 }
 
-export declare function parser(strict?: boolean, opt?: SAXOptions): SAXParser;
-export declare class SAXParser {
+export function parser(strict?: boolean, opt?: SAXOptions): SAXParser;
+export class SAXParser {
     constructor(strict?: boolean, opt?: SAXOptions);
 
     // Methods
@@ -85,8 +85,8 @@ export declare class SAXParser {
 }
 
 import stream = require("stream");
-export declare function createStream(strict?: boolean, opt?: SAXOptions): SAXStream;
-export declare class SAXStream extends stream.Duplex {
+export function createStream(strict?: boolean, opt?: SAXOptions): SAXStream;
+export class SAXStream extends stream.Duplex {
     constructor(strict?: boolean, opt?: SAXOptions);
     private _parser: SAXParser;
     on(event: "text", listener: (text: string) => void): this;
