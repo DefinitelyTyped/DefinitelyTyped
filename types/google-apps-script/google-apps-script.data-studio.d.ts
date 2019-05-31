@@ -105,7 +105,7 @@ declare namespace GoogleAppsScript {
      *       .setHelpText("This connector can connect to multiple data endpoints.");
      */
     export interface Config {
-      build(): object;
+      build(): any;
       newCheckbox(): Checkbox;
       newInfo(): Info;
       newOptionBuilder(): OptionBuilder;
@@ -196,7 +196,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Fields {
       asArray(): Field[];
-      build(): object[];
+      build(): any[];
       forIds(ids: string[]): Fields;
       getDefaultDimension(): Field;
       getDefaultMetric(): Field;
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface GetAuthTypeResponse {
-      build(): object;
+      build(): any;
       printJson(): string;
       setAuthType(authType: AuthType): GetAuthTypeResponse;
       setHelpUrl(helpUrl: string): GetAuthTypeResponse;

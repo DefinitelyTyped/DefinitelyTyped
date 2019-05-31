@@ -59,10 +59,10 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
-      getHeadingAttributes(paragraphHeading: ParagraphHeading): object;
+      getHeadingAttributes(paragraphHeading: ParagraphHeading): any;
       getImages(): InlineImage[];
       getListItems(): ListItem[];
       getMarginBottom(): number;
@@ -92,8 +92,8 @@ declare namespace GoogleAppsScript {
       insertTable(childIndex: Integer, table: Table): Table;
       removeChild(child: Element): Body;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): Body;
-      setHeadingAttributes(paragraphHeading: ParagraphHeading, attributes: object): Body;
+      setAttributes(attributes: any): Body;
+      setHeadingAttributes(paragraphHeading: ParagraphHeading, attributes: any): Body;
       setMarginBottom(marginBottom: number): Body;
       setMarginLeft(marginLeft: number): Body;
       setMarginRight(marginRight: number): Body;
@@ -148,7 +148,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
@@ -163,7 +163,7 @@ declare namespace GoogleAppsScript {
       merge(): ContainerElement;
       removeFromParent(): ContainerElement;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: object): ContainerElement;
+      setAttributes(attributes: any): ContainerElement;
       setLinkUrl(url: string): ContainerElement;
       setTextAlignment(textAlignment: TextAlignment): ContainerElement;
     }

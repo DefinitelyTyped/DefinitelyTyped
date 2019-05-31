@@ -357,7 +357,7 @@ declare namespace GoogleAppsScript {
         primaryEmail?: string;
       }
       export interface Aliases {
-        aliases?: object[];
+        aliases?: any[];
         etag?: string;
         kind?: string;
       }
