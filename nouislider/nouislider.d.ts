@@ -78,6 +78,57 @@ declare namespace noUiSlider {
          * Allows you to generate points along the slider.
          */
         pips?: PipsOptions;
+
+        /**
+         * If your styling system doesn't match the convention in noUiSlider, you can use the cssPrefix and cssClasses options to reconfigure the markup.
+         * Default "noUi-"
+         */
+        cssPrefix?: string;
+
+        /**
+         * Full list of classnames to override.
+         * Does NOT extend the default classes.
+         * Have a look at the source for the full, current list:
+         * https://github.com/leongersen/noUiSlider/blob/master/src/nouislider.js#L880
+         */
+        cssClasses?: ClassList;
+    }
+
+    interface ClassList {
+        target: string;
+        base: string;
+        origin: string;
+        handle: string;
+        handleLower: string;
+        handleUpper: string;
+        touchArea: string;
+        horizontal: string;
+        vertical: string;
+        background: string;
+        connect: string;
+        connects: string;
+        ltr: string;
+        rtl: string;
+        draggable: string;
+        drag: string;
+        tap: string;
+        active: string;
+        tooltip: string;
+        pips: string;
+        pipsHorizontal: string;
+        pipsVertical: string;
+        marker: string;
+        markerHorizontal: string;
+        markerVertical: string;
+        markerNormal: string;
+        markerLarge: string;
+        markerSub: string;
+        value: string;
+        valueHorizontal: string;
+        valueVertical: string;
+        valueNormal: string;
+        valueLarge: string;
+        valueSub: string;
     }
 
     interface PipsOptions {
