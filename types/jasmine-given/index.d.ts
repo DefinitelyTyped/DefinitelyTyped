@@ -1,6 +1,7 @@
 // Type definitions for jasmine-given 2.6
 // Project: https://github.com/searls/jasmine-given
-// Definitions by: Shai Reznik <https://github.com/shairez>, Dmitry Efimenko <https://github.com/DmitryEfimenko>
+// Definitions by: Shai Reznik <https://github.com/shairez>
+//                 Dmitry Efimenko <https://github.com/DmitryEfimenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
