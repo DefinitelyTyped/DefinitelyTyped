@@ -2,6 +2,7 @@
 // Project: https://github.com/isaacs/sax-js
 // Definitions by: Vincent Siao (Asana, Inc.) <https://github.com/vsiao>
 //                 Evert Pot <https://github.com/evert>
+//                 Daniel Cassidy <https://github.com/djcsdy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
