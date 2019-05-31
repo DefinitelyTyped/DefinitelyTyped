@@ -42,9 +42,77 @@ import fs = require("fs");
 
     const saxStream = sax.createStream(/*strict=*/true, opts);
 
-    saxStream.on("error", (e: Error) => {
+    saxStream.on("text", text => {
+        // $ExpectType string
+        text;
+    });
+
+    saxStream.on("doctype", doctype => {
+        // $ExpectType string
+        doctype;
+    });
+
+    saxStream.on("processinginstruction", node => {
+        // $ExpectType { name: string; body: string; }
+        node;
+    });
+
+    saxStream.on("opentag", tag => {
+        // $ExpectType Tag | QualifiedTag
+        tag;
+    });
+
+    saxStream.on("closetag", tagName => {
+        // $ExpectType string
+        tagName;
+    });
+
+    saxStream.on("attribute", attr => {
+        // $ExpectType { name: string; value: string; }
+        attr;
+    });
+
+    saxStream.on("comment", comment => {
+        // $ExpectType string
+        comment;
+    });
+
+    saxStream.on("cdata", cdata => {
+        // $ExpectType string
+        cdata;
+    });
+
+    saxStream.on("opennamespace", ns => {
+        // $ExpectType { prefix: string; uri: string; }
+        ns;
+    });
+
+    saxStream.on("closenamespace", ns => {
+        // $ExpectType { prefix: string; uri: string; }
+        ns;
+    });
+
+    saxStream.on("script", script => {
+        // $ExpectType string
+        script;
+    });
+
+    saxStream.on("error", error => {
+        // $ExpectType Error
+        error;
+
         this._parser.error = null;
         this._parser.resume();
+    });
+
+    saxStream.on("pipe", src => {
+        // $ExpectType Readable
+        src;
+    });
+
+    saxStream.on("unpipe", src => {
+        // $ExpectType Readable
+        src;
     });
 
     fs.createReadStream("file.xml")
