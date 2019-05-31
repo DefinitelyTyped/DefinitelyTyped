@@ -1,7 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // no trivial way to split up ast.d.ts further to keep line limit without creating spaghetti
-        "max-line-length": false
-    }
+    "extends": "dtslint/dt.json"
 }

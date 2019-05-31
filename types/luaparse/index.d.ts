@@ -19,17 +19,27 @@ export interface Options {
     locations: boolean;
     /** Store the start and end character locations on each syntax node. */
     ranges: boolean;
-    /** A callback which will be invoked when a syntax node has been completed. The node which has been created will be passed as the only parameter. */
+    /**
+     * A callback which will be invoked when a syntax node has been completed.
+     * The node which has been created will be passed as the only parameter.
+     */
     onCreateNode: (node: ast.Node) => void;
     /** A callback which will be invoked when a new scope is created. */
     onCreateScope: () => void;
     /** A callback which will be invoked when the current scope is destroyed. */
     onDestroyScope: () => void;
-    /** A callback which will be invoked when a local variable is declared. The identifier will be passed as the only parameter. */
+    /**
+     * A callback which will be invoked when a local variable is declared.
+     * The identifier will be passed as the only parameter.
+     */
     onLocalDeclaration: (identifier: ast.Identifier) => void;
     /** The version of Lua the parser will target; supported values are '5.1', '5.2', '5.3' and 'LuaJIT'. */
     luaVersion: "5.1" | "5.2" | "5.3" | "LuaJIT";
-    /** Whether to allow code points ≥ U+0080 in identifiers, like LuaJIT does. See 'Note on character encodings' below if you wish to use this option. Note: setting luaVersion: 'LuaJIT' currently does not enable this option; this may change in the future. */
+    /**
+     * Whether to allow code points ≥ U+0080 in identifiers, like LuaJIT does.
+     * See 'Note on character encodings' below if you wish to use this option.
+     * Note: setting luaVersion: 'LuaJIT' currently does not enable this option; this may change in the future.
+     */
     extendedIdentifiers: false;
 }
 
