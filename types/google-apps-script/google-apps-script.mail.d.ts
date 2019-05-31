@@ -19,9 +19,9 @@ declare namespace GoogleAppsScript {
      */
     export interface MailApp {
       getRemainingDailyQuota(): Integer;
-      sendEmail(message: object): void;
+      sendEmail(message: any): void;
       sendEmail(recipient: string, subject: string, body: string): void;
-      sendEmail(recipient: string, subject: string, body: string, options: object): void;
+      sendEmail(recipient: string, subject: string, body: string, options: any): void;
       sendEmail(to: string, replyTo: string, subject: string, body: string): void;
     }
 

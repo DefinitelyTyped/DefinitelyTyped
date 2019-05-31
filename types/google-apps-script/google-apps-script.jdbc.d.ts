@@ -14,10 +14,10 @@ declare namespace GoogleAppsScript {
      */
     export interface Jdbc {
       getCloudSqlConnection(url: string): JdbcConnection;
-      getCloudSqlConnection(url: string, info: object): JdbcConnection;
+      getCloudSqlConnection(url: string, info: any): JdbcConnection;
       getCloudSqlConnection(url: string, userName: string, password: string): JdbcConnection;
       getConnection(url: string): JdbcConnection;
-      getConnection(url: string, info: object): JdbcConnection;
+      getConnection(url: string, info: any): JdbcConnection;
       getConnection(url: string, userName: string, password: string): JdbcConnection;
       newDate(milliseconds: Integer): JdbcDate;
       newTime(milliseconds: Integer): JdbcTime;
@@ -33,8 +33,8 @@ declare namespace GoogleAppsScript {
      */
     export interface JdbcArray {
       free(): void;
-      getArray(): object;
-      getArray(index: Integer, count: Integer): object;
+      getArray(): any;
+      getArray(index: Integer, count: Integer): any;
       getBaseType(): Integer;
       getBaseTypeName(): string;
       getResultSet(): JdbcResultSet;
@@ -124,8 +124,8 @@ declare namespace GoogleAppsScript {
       getNClob(parameterName: string): JdbcClob;
       getNString(parameterIndex: Integer): string;
       getNString(parameterName: string): string;
-      getObject(parameterIndex: Integer): object;
-      getObject(parameterName: string): object;
+      getObject(parameterIndex: Integer): any;
+      getObject(parameterName: string): any;
       getParameterMetaData(): JdbcParameterMetaData;
       getQueryTimeout(): Integer;
       getRef(parameterIndex: Integer): JdbcRef;
@@ -201,12 +201,12 @@ declare namespace GoogleAppsScript {
       setNull(parameterIndex: Integer, sqlType: Integer, typeName: string): void;
       setNull(parameterName: string, sqlType: Integer): void;
       setNull(parameterName: string, sqlType: Integer, typeName: string): void;
-      setObject(index: Integer, x: object): void;
-      setObject(parameterIndex: Integer, x: object, targetSqlType: Integer): void;
-      setObject(parameterIndex: Integer, x: object, targetSqlType: Integer, scaleOrLength: Integer): void;
-      setObject(parameterName: string, x: object): void;
-      setObject(parameterName: string, x: object, targetSqlType: Integer): void;
-      setObject(parameterName: string, x: object, targetSqlType: Integer, scale: Integer): void;
+      setObject(index: Integer, x: any): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer, scaleOrLength: Integer): void;
+      setObject(parameterName: string, x: any): void;
+      setObject(parameterName: string, x: any, targetSqlType: Integer): void;
+      setObject(parameterName: string, x: any, targetSqlType: Integer, scale: Integer): void;
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
       setRef(parameterIndex: Integer, x: JdbcRef): void;
@@ -258,7 +258,7 @@ declare namespace GoogleAppsScript {
       clearWarnings(): void;
       close(): void;
       commit(): void;
-      createArrayOf(typeName: string, elements: object[]): JdbcArray;
+      createArrayOf(typeName: string, elements: any[]): JdbcArray;
       createBlob(): JdbcBlob;
       createClob(): JdbcClob;
       createNClob(): JdbcClob;
@@ -266,7 +266,7 @@ declare namespace GoogleAppsScript {
       createStatement(): JdbcStatement;
       createStatement(resultSetType: Integer, resultSetConcurrency: Integer): JdbcStatement;
       createStatement(resultSetType: Integer, resultSetConcurrency: Integer, resultSetHoldability: Integer): JdbcStatement;
-      createStruct(typeName: string, attributes: object[]): JdbcStruct;
+      createStruct(typeName: string, attributes: any[]): JdbcStruct;
       getAutoCommit(): boolean;
       getCatalog(): string;
       getHoldability(): Integer;
@@ -577,9 +577,9 @@ declare namespace GoogleAppsScript {
       setNString(parameterIndex: Integer, x: string): void;
       setNull(parameterIndex: Integer, sqlType: Integer): void;
       setNull(parameterIndex: Integer, sqlType: Integer, typeName: string): void;
-      setObject(index: Integer, x: object): void;
-      setObject(parameterIndex: Integer, x: object, targetSqlType: Integer): void;
-      setObject(parameterIndex: Integer, x: object, targetSqlType: Integer, scaleOrLength: Integer): void;
+      setObject(index: Integer, x: any): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer): void;
+      setObject(parameterIndex: Integer, x: any, targetSqlType: Integer, scaleOrLength: Integer): void;
       setPoolable(poolable: boolean): void;
       setQueryTimeout(seconds: Integer): void;
       setRef(parameterIndex: Integer, x: JdbcRef): void;
@@ -599,8 +599,8 @@ declare namespace GoogleAppsScript {
      */
     export interface JdbcRef {
       getBaseTypeName(): string;
-      getObject(): object;
-      setObject(object: object): void;
+      getObject(): any;
+      setObject(object: any): void;
     }
 
     /**
@@ -653,8 +653,8 @@ declare namespace GoogleAppsScript {
       getNClob(columnLabel: string): JdbcClob;
       getNString(columnIndex: Integer): string;
       getNString(columnLabel: string): string;
-      getObject(columnIndex: Integer): object;
-      getObject(columnLabel: string): object;
+      getObject(columnIndex: Integer): any;
+      getObject(columnLabel: string): any;
       getRef(columnIndex: Integer): JdbcRef;
       getRef(columnLabel: string): JdbcRef;
       getRow(): Integer;
@@ -727,10 +727,10 @@ declare namespace GoogleAppsScript {
       updateNString(columnLabel: string, x: string): void;
       updateNull(columnIndex: Integer): void;
       updateNull(columnLabel: string): void;
-      updateObject(columnIndex: Integer, x: object): void;
-      updateObject(columnIndex: Integer, x: object, scaleOrLength: Integer): void;
-      updateObject(columnLabel: string, x: object): void;
-      updateObject(columnLabel: string, x: object, scaleOrLength: Integer): void;
+      updateObject(columnIndex: Integer, x: any): void;
+      updateObject(columnIndex: Integer, x: any, scaleOrLength: Integer): void;
+      updateObject(columnLabel: string, x: any): void;
+      updateObject(columnLabel: string, x: any, scaleOrLength: Integer): void;
       updateRef(columnIndex: Integer, x: JdbcRef): void;
       updateRef(columnLabel: string, x: JdbcRef): void;
       updateRow(): void;
@@ -856,7 +856,7 @@ declare namespace GoogleAppsScript {
      * .
      */
     export interface JdbcStruct {
-      getAttributes(): object[];
+      getAttributes(): any[];
       getSQLTypeName(): string;
     }
 
