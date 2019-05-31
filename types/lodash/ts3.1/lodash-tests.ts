@@ -5623,10 +5623,10 @@ fp.now(); // $ExpectType number
     const literalsArray: Array<"a" | "b"> = ["a", "b"];
     const roLiteralsArray: ReadonlyArray<"a" | "b"> = literalsArray;
 
-    _.pick(obj1, "a"); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj1, 0, "a"); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj1, readonlyArray); // $ExpectType PartialDeep<AbcObject>
+    _.pick(obj1, "a"); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, 0, "a"); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, readonlyArray); // $ExpectType Partial<AbcObject>
     _.pick(obj2, "a", "b"); // $ExpectType Pick<AbcObject, "a" | "b">
     // We can't use ExpectType here because typescript keeps changing what order the types appear.
     let result1: Pick<AbcObject, "a" | "b">;
