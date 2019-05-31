@@ -69,7 +69,7 @@ mapping.fromJS(userInput, {}, userInput) // $ExpectError
 mapping.fromJS(userInput, userInput) // $ExpectError
 
 let untypedObject: any = { age: 22 }
-mapping.fromJS(untypedObject) // $ExpectType KnockoutObservableType<any>
+mapping.fromJS(untypedObject) // $ExpectType any
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
@@ -122,19 +122,19 @@ mapping.fromJSON(userInputJSON, userMappingOptions, mappedUserViewModel) // $Exp
 
 ////////////////////////////////
 // toJS function
-let nameObject: nameObject = mapping.toJS(nameObjectInput)
-mapping.toJS(nameObjectInput, {})
 
 mapping.toJS<User>(mappedUserViewModel) // $ExpectType User
 mapping.toJS<User>(mappedUserViewModel, {}) // $ExpectType User
+mapping.toJS(ko.observable(2)) // $ExpectType number
+mapping.toJS(mappedNumberArrayViewModel) // $ExpectType number[]
+mapping.toJS(untypedObject) // $ExpectType any
+mapping.toJS(ko.observableArray(untypedArrayObject)) // $ExpectType any[]
 
 mapping.toJS<number>(mappedUserViewModel) // $ExpectError
 mapping.toJS<User>(stringInput) // $ExpectError
-mapping.toJS(ko.observable(2)) // $ExpectType number
-mapping.toJS(mappedNumberArrayViewModel) // $ExpectType number[]
 
-mapping.toJS(untypedObject) // $ExpectType any
-mapping.toJS(ko.observableArray(untypedArrayObject)) // $ExpectType any[]
+// implicit type doesn't work for objects with properties that are objects.
+let unmmapedUser : User  = mapping.toJS(mappedUserViewModel)  // $ExpectError 
 
 ////////////////////////////////
 // toJSON function

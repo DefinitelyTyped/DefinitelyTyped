@@ -15,15 +15,26 @@ export = self;
 
 declare global {
 
+    type Primitives = string | number | boolean;
+
+    type MappedType<T> =
+        T extends Primitives ? KnockoutObservable<T> :
+        T extends object ? KnockoutObservableType<T> :
+        any;
+
     type KnockoutObservableType<T> = {
         [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]> :
                         T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]> :
-                        KnockoutObservableType<T[P]>;
+                        MappedType<T[P]>;
     };
 
     type KnockoutObservableArrayType<T> = T extends Primitives ? KnockoutObservableArray<T> : KnockoutObservableArray<KnockoutObservableType<T>>;
 
-    type Primitives = string | number | boolean;
+    // This is not working. It behaves as the old one. Test after solve problems with other stuff.
+    // type KnockoutObservableArrayType<T> =
+    //     T extends Primitives ? KnockoutObservableArray<T> :
+    //     T extends object ? KnockoutObservableArray<KnockoutObservableType<T>> :
+    //     KnockoutObservableArray<any>
 
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions
 
@@ -128,13 +139,13 @@ declare global {
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T, options?: KnockoutMappingOptions<T>, target?: KnockoutObservableType<T>): KnockoutObservableType<T>;
+        fromJS<T>(source: T, options?: KnockoutMappingOptions<T>, target?: MappedType<T>): MappedType<T>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T, target: KnockoutObservableType<T>): KnockoutObservableType<T>;
+        fromJS<T>(source: T, target: MappedType<T>): MappedType<T>;
         /**
          * Creates a view model object with observable properties for each of the properties on the source. 
          * If 'target' is supplied, instead, target's observable properties are updated.
