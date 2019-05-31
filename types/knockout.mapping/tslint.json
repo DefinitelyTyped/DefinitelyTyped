@@ -58,7 +58,7 @@
         "prefer-template": false,
         "quotemark": [true, "double", "avoid-escape" ],
         "radix": false,
-        "semicolon": [true, "never"],
+        "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
@@ -67,7 +67,6 @@
         "typedef-whitespace": false,
         "unified-signatures": false,
         "void-return": false,
-        "whitespace": false,
-        "no-unexpected-multiline": true
+        "whitespace": false
     }
 }
