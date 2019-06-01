@@ -5,6 +5,7 @@
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
+//                 aereal <https://github.com/aereal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
