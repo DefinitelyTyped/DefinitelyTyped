@@ -1,4 +1,4 @@
-import {NProgressOptions} from 'nprogress';
+import { NProgressOptions } from 'nprogress';
 import * as React from 'react';
 
 export interface NProgressProps {
