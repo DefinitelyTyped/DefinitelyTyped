@@ -221,7 +221,7 @@ export interface WhenOptionsBuilder<T> {
 
 export type WhenOptions<T> =
     | WhenOptionsBuilder<T>
-    | { is: boolean | ((...values: any) => boolean); then: any; otherwise: any }
+    | { is: boolean | ((...values: any[]) => boolean); then: any; otherwise: any }
     | object;
 
 export interface TestContext {
