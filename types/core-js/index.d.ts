@@ -337,9 +337,9 @@ declare var log: Log;
 // #############################################################################################
 
 interface Dict<T> {
-    [key: string]: T;
-    [key: number]: T;
-    // [key: symbol]: T;
+    [key: string]: T | undefined;
+    [key: number]: T | undefined;
+    // [key: symbol]: T | undefined;
 }
 
 interface DictConstructor {
