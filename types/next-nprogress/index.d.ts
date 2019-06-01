@@ -1,0 +1,12 @@
+// Type definitions for next-nprogress 1.4
+// Project: https://github.com/sergiodxa/next-nprogress#readme
+// Definitions by: Ovyerus <https://github.com/Ovyerus>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import {NProgressOptions} from 'nprogress';
+import {Component, ComponentType} from 'react';
+
+export default function withNProgress<P extends object>(
+    delayMs?: number,
+    options?: Partial<NProgressOptions>
+): (Page: ComponentType<P>) => ComponentType<P>;
