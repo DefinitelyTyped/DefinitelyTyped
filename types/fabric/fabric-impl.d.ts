@@ -1070,6 +1070,19 @@ interface IStaticCanvasOptions {
 	 */
 	svgViewportTransformation?: boolean;
 }
+
+export interface FreeDrawingBrush {
+	/**
+	 * Can be any regular color value.
+	 */
+	color: string;
+
+	/**
+	 * Brush width measured in pixels.
+	 */
+	width: number;
+}
+
 export interface StaticCanvas extends IObservable<StaticCanvas>, IStaticCanvasOptions, ICollection<StaticCanvas>, ICanvasAnimation<StaticCanvas> { }
 export class StaticCanvas {
 	/**
@@ -1081,6 +1094,8 @@ export class StaticCanvas {
 	constructor(element: HTMLCanvasElement | string, options?: ICanvasOptions);
 
 	_activeObject?: Object | Group;
+
+	freeDrawingBrush: FreeDrawingBrush;
 
 	/**
 	 * Calculates canvas element offset relative to the document

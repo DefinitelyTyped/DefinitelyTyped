@@ -771,3 +771,17 @@ styledMapType.name; // $ExpectType string
 styledMapType.projection; // $ExpectType Projection
 styledMapType.radius; // $ExpectType number
 styledMapType.tileSize; // $ExpectType Size
+
+const directionsWaypointEmpty: google.maps.DirectionsWaypoint = {};
+const directionsWaypointLocationString: google.maps.DirectionsWaypoint = {
+    location: '',
+};
+const directionsWaypointLocationLatLng: google.maps.DirectionsWaypoint = {
+    location: new google.maps.LatLng(0, 0),
+};
+const directionsWaypointLocationPlace: google.maps.DirectionsWaypoint = {
+    location: {query: ''},
+};
+const directionsWaypointStopover: google.maps.DirectionsWaypoint = {
+    stopover: true
+};

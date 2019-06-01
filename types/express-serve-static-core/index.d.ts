@@ -999,6 +999,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
     listen(port: number, hostname: string, backlog: number, callback?: () => void): http.Server;
     listen(port: number, hostname: string, callback?: () => void): http.Server;
     listen(port: number, callback?: () => void): http.Server;
+    listen(callback?: () => void): http.Server;
     listen(path: string, callback?: () => void): http.Server;
     listen(handle: any, listeningListener?: () => void): http.Server;
 

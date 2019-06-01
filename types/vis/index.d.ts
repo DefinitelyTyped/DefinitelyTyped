@@ -13,6 +13,7 @@
 //                 Avraham Essoudry <https://github.com/avrahamcool>
 //                 Dmitriy Trifonov <https://github.com/divideby>
 //                 Sam Welek <https://github.com/tiberiushunter>
+//                 Slaven Tomac <https://github.com/slavede>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
@@ -776,8 +777,10 @@ export class Timeline {
   );
 
   /**
-   * Add new vertical bar representing a custom time that can be dragged by the user. Parameter time can be a Date, Number, or String, and is new Date() by default.
-   * Parameter id can be Number or String and is undefined by default. The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
+   * Add new vertical bar representing a custom time that can be dragged by the user.
+   * Parameter time can be a Date, Number, or String, and is new Date() by default.
+   * Parameter id can be Number or String and is undefined by default.
+   * The id is added as CSS class name of the custom time bar, allowing to style multiple time bars differently.
    * The method returns id of the created bar.
    */
   addCustomTime(time: DateType, id?: IdType): IdType;
@@ -858,7 +861,8 @@ export class Timeline {
   removeCustomTime(id: IdType): void;
 
   /**
-   * Set a current time. This can be used for example to ensure that a client's time is synchronized with a shared server time. Only applicable when option showCurrentTime is true.
+   * Set a current time. This can be used for example to ensure that a client's time is synchronized with a shared server time.
+   * Only applicable when option showCurrentTime is true.
    */
   setCurrentTime(time: DateType): void;
 
@@ -894,12 +898,14 @@ export class Timeline {
   setItems(items: DataItemCollectionType): void;
 
   /**
-   * Set or update options. It is possible to change any option of the timeline at any time. You can for example switch orientation on the fly.
+   * Set or update options. It is possible to change any option of the timeline at any time.
+   * You can for example switch orientation on the fly.
    */
   setOptions(options: TimelineOptions): void;
 
   /**
-   * Select one or multiple items by their id. The currently selected items will be unselected. To unselect all selected items, call `setSelection([])`.
+   * Select one or multiple items by their id. The currently selected items will be unselected.
+   * To unselect all selected items, call `setSelection([])`.
    */
   setSelection(ids: IdType | IdType[], options?: { focus: boolean, animation: TimelineAnimationOptions }): void;
 
@@ -1860,6 +1866,13 @@ export interface NodeOptions {
   title?: string;
 
   value?: number;
+
+  /**
+   * If false, no widthConstraint is applied. If a number is specified, the minimum and maximum widths of the node are set to the value.
+   * The node's label's lines will be broken on spaces to stay below the maximum and the node's width
+   * will be set to the minimum if less than the value.
+   */
+  widthConstraint?: number | boolean | { minimum?: number, maximum?: number };
 
   x?: number;
 

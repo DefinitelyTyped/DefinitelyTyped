@@ -15281,9 +15281,11 @@ function APIReferenceExamples() {
         const str = src.exportJSON(); // "['Point', 50, 25]"
         // not type save import
         const res0 = paper.Point.importJSON(str);
+        // not type save import
+        const res1 = paper.Point.importJSON(src.toJSON());
         // type save import to existing object
         // if object is not same type with json, object will not be updated
-        const res1 = new paper.Point(0, 0);
+        const res2 = new paper.Point(0, 0);
         paper.Point.importJSON(str, res1);
     }
 }
