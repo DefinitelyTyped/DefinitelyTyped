@@ -91,4 +91,10 @@ export interface Renderer {
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
+    
+    (
+        element: ReactNode,
+        container: Element | null,
+        callback?: () => void
+    ): void;
 }
