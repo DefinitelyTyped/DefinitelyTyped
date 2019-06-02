@@ -689,7 +689,7 @@ declare namespace NodeJS {
     type ExitListener = (code: number) => void;
     type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
-    type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<any>) => void;
+    type UnhandledRejectionListener = (reason: Error | {} | null | undefined, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
     type SignalsListener = (signal: Signals) => void;
@@ -952,7 +952,10 @@ declare namespace NodeJS {
         on(event: "exit", listener: ExitListener): this;
         on(event: "rejectionHandled", listener: RejectionHandledListener): this;
         on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        on(event: "unhandledRejection", listener: 
+           
+           
+           ): this;
         on(event: "warning", listener: WarningListener): this;
         on(event: "message", listener: MessageListener): this;
         on(event: Signals, listener: SignalsListener): this;
