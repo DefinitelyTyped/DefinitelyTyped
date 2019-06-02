@@ -15,6 +15,16 @@ describe('ReactDOM', () => {
         ReactDOM.render(React.createElement('div'), rootElement);
     });
 
+    it('render primitive', () => {
+        const rootElement = document.createElement('div');
+        ReactDOM.render('foo', rootElement);
+    });
+
+    it('render fragment', () => {
+        const rootElement = document.createElement('div');
+        ReactDOM.render([React.createElement('div'), 'foo'], rootElement);
+    });
+
     it('hydrate', () => {
         const rootElement = document.createElement('div');
         ReactDOM.hydrate(React.createElement('div'), rootElement);
