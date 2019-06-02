@@ -1,4 +1,4 @@
-// Type definitions for leaflet-fullscreen 1.0
+// Type definitions for leaflet-rastercoords 1.0
 // Project: https://github.com/commenthol/leaflet-rastercoords
 // Definitions by: Kan Cheung <https://github.com/chinkan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
