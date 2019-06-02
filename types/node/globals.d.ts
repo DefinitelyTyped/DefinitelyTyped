@@ -952,10 +952,7 @@ declare namespace NodeJS {
         on(event: "exit", listener: ExitListener): this;
         on(event: "rejectionHandled", listener: RejectionHandledListener): this;
         on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
-        on(event: "unhandledRejection", listener: 
-           
-           
-           ): this;
+        on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         on(event: "warning", listener: WarningListener): this;
         on(event: "message", listener: MessageListener): this;
         on(event: Signals, listener: SignalsListener): this;
