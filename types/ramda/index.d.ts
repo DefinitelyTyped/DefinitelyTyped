@@ -1651,7 +1651,11 @@ declare namespace R {
         /**
          * Applies a list of functions to a list of values.
          */
-        juxt<T, U>(fns: Array<(...args: T[]) => U>): (...args: T[]) => U[];
+        juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+        juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
+        juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
+        juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
+        juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
 
         /**
          * Returns a list containing the names of all the enumerable own
