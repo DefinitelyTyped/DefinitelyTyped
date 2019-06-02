@@ -2308,17 +2308,18 @@ class Rectangle {
 };
 
 (() => {
-    function Circle(r: number) {
+    function Circle(r: number, colors: string) {
         this.r      = r;
-        this.colors = Array.prototype.slice.call(arguments, 1);
+        this.colors = colors;
     }
 
     Circle.prototype.area = function() { return Math.PI * Math.pow(this.r, 2); };
 
-    const circleN = R.constructN(2, Circle);
-    let c1      = circleN(1, "red");
+    const circleN = R.constructN(1, Circle);
+    circleN(10, "red");
+    circleN(10);
     const circle  = R.construct(Circle);
-    c1          = circle(1, "red");
+    circle(10, "red");
 })();
 
 /*****************************************************************

@@ -1144,13 +1144,13 @@ declare namespace R {
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          */
-        construct(fn: (...a: any[]) => any): (...a: any[]) => any;
+        construct<A extends any[], T>(constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: A) => T;
 
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          * The arity of the function returned is specified to allow using variadic constructor functions.
          */
-        constructN(n: number, fn: (...a: any[]) => any): (...a: any[]) => any;
+        constructN<A extends any[], T>(n: number, constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: Partial<A>) => T;
 
         /**
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
