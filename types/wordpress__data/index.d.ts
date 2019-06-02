@@ -51,7 +51,7 @@ export interface StoreConfig<S> {
         [k: string]: (...args: readonly any[]) => any;
     };
     controls?: {
-        [k: string]: (action: Action) => Promise<any> | any;
+        [k: string]: (action: Action) => any;
     };
     initialState?: S;
 }
