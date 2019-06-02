@@ -63,7 +63,7 @@ export interface Renderer {
     ): Element;
 
     (
-        element: SFCElement<any> | Array<SFCElement<any>>,
+        element: SFCElement<any> | Array<SFCElement<any>> | ReactNode,
         container: Element | null,
         callback?: () => void
     ): void;
@@ -91,10 +91,4 @@ export interface Renderer {
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
-    
-    (
-        element: ReactNode,
-        container: Element | null,
-        callback?: () => void
-    ): void;
 }
