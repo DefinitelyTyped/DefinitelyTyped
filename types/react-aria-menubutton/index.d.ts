@@ -158,6 +158,6 @@ export function closeMenu(
 		 * If `true`, the widget's button will receive focus when the
 		 * menu closes. Default: `false`.
 		 */
-		focusMenu: boolean;
+		focusButton: boolean;
 	}
 ): void;

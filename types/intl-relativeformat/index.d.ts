@@ -1,5 +1,5 @@
 // Type definitions for intl-relativeformat 2.1
-// Project: https://github.com/yahoo/intl-relativeformat
+// Project: https://github.com/formatjs/formatjs
 // Definitions by: Mohsen Azimi <https://github.com/mohsen1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1

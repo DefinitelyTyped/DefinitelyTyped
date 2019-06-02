@@ -10,6 +10,8 @@
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
+//                 Josh Miles <https://github.com/milesjos>
+//                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -530,13 +532,14 @@ export interface PlotData {
 	'x' | 'x+text' | 'x+name' |
 	'x+y' | 'x+y+text' | 'x+y+name' |
 	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
 	'y+z' | 'y+z+text' | 'y+z+name' |
 	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
 	'z+x' | 'z+x+text' | 'z+x+name' |
 	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<Label>;
+	hovertemplate: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
@@ -546,10 +549,12 @@ export interface PlotData {
 	fillcolor: string;
 	legendgroup: string;
 	name: string;
+	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	width: number | number[];
 	boxmean: boolean | 'sd';
 	colorscale: string | Array<[number, string]>;
 	zsmooth: 'fast' | 'best' | false;
