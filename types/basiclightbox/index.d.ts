@@ -21,7 +21,7 @@ export interface BasicLightBox {
     /**
      * Returns true when the lightbox instance is visible. Also returns true when the lightbox is currently in the process of showing/hiding and not fully visible/hidden, yet.
      */
-    visible: () => void;
+    visible: () => boolean;
 
     /**
      * Returns the DOM element/node associated with the instance.
