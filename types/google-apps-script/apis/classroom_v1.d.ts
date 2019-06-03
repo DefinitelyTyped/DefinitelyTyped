@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Classroom_v1 {
+  namespace Classroom {
     namespace Collection {
       namespace Courses {
         namespace CourseWork {
@@ -17,7 +17,7 @@ declare namespace GoogleAppsScript {
             // * `INVALID_ARGUMENT` if the request is malformed.
             // * `NOT_FOUND` if the requested course, course work, or student submission
             // does not exist.
-            get(courseId: string, courseWorkId: string, id: string): Classroom_v1.Schema.StudentSubmission;
+            get(courseId: string, courseWorkId: string, id: string): Classroom.Schema.StudentSubmission;
             // Returns a list of student submissions that the requester is permitted to
             // view, factoring in the OAuth scopes of the request.
             // `-` may be specified as the `course_work_id` to include student
@@ -29,7 +29,7 @@ declare namespace GoogleAppsScript {
             // requested course or course work, or for access errors.
             // * `INVALID_ARGUMENT` if the request is malformed.
             // * `NOT_FOUND` if the requested course does not exist.
-            list(courseId: string, courseWorkId: string): Classroom_v1.Schema.ListStudentSubmissionsResponse;
+            list(courseId: string, courseWorkId: string): Classroom.Schema.ListStudentSubmissionsResponse;
             // Returns a list of student submissions that the requester is permitted to
             // view, factoring in the OAuth scopes of the request.
             // `-` may be specified as the `course_work_id` to include student
@@ -41,7 +41,7 @@ declare namespace GoogleAppsScript {
             // requested course or course work, or for access errors.
             // * `INVALID_ARGUMENT` if the request is malformed.
             // * `NOT_FOUND` if the requested course does not exist.
-            list(courseId: string, courseWorkId: string, optionalArgs: object): Classroom_v1.Schema.ListStudentSubmissionsResponse;
+            list(courseId: string, courseWorkId: string, optionalArgs: object): Classroom.Schema.ListStudentSubmissionsResponse;
             // Modifies attachments of student submission.
             // Attachments may only be added to student submissions belonging to course
             // work objects with a `workType` of `ASSIGNMENT`.
@@ -56,7 +56,7 @@ declare namespace GoogleAppsScript {
             // * `INVALID_ARGUMENT` if the request is malformed.
             // * `NOT_FOUND` if the requested course, course work, or student submission
             // does not exist.
-            modifyAttachments(resource: Schema.ModifyAttachmentsRequest, courseId: string, courseWorkId: string, id: string): Classroom_v1.Schema.StudentSubmission;
+            modifyAttachments(resource: Schema.ModifyAttachmentsRequest, courseId: string, courseWorkId: string, id: string): Classroom.Schema.StudentSubmission;
             // Updates one or more fields of a student submission.
             // See google.StudentSubmission for details
             // of which fields may be updated and who may change them.
@@ -71,7 +71,7 @@ declare namespace GoogleAppsScript {
             // * `INVALID_ARGUMENT` if the request is malformed.
             // * `NOT_FOUND` if the requested course, course work, or student submission
             // does not exist.
-            patch(resource: Schema.StudentSubmission, courseId: string, courseWorkId: string, id: string): Classroom_v1.Schema.StudentSubmission;
+            patch(resource: Schema.StudentSubmission, courseId: string, courseWorkId: string, id: string): Classroom.Schema.StudentSubmission;
             // Updates one or more fields of a student submission.
             // See google.StudentSubmission for details
             // of which fields may be updated and who may change them.
@@ -86,7 +86,7 @@ declare namespace GoogleAppsScript {
             // * `INVALID_ARGUMENT` if the request is malformed.
             // * `NOT_FOUND` if the requested course, course work, or student submission
             // does not exist.
-            patch(resource: Schema.StudentSubmission, courseId: string, courseWorkId: string, id: string, optionalArgs: object): Classroom_v1.Schema.StudentSubmission;
+            patch(resource: Schema.StudentSubmission, courseId: string, courseWorkId: string, id: string, optionalArgs: object): Classroom.Schema.StudentSubmission;
             // Reclaims a student submission on behalf of the student that owns it.
             // Reclaiming a student submission transfers ownership of attached Drive
             // files to the student and updates the submission state.
@@ -150,19 +150,19 @@ declare namespace GoogleAppsScript {
           // * `FAILED_PRECONDITION` if the alias requested does not make sense for the
           //   requesting user or course (for example, if a user not in a domain
           //   attempts to access a domain-scoped alias).
-          create(resource: Schema.CourseAlias, courseId: string): Classroom_v1.Schema.CourseAlias;
+          create(resource: Schema.CourseAlias, courseId: string): Classroom.Schema.CourseAlias;
           // Returns a list of aliases for a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
           // course or for access errors.
           // * `NOT_FOUND` if the course does not exist.
-          list(courseId: string): Classroom_v1.Schema.ListCourseAliasesResponse;
+          list(courseId: string): Classroom.Schema.ListCourseAliasesResponse;
           // Returns a list of aliases for a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
           // course or for access errors.
           // * `NOT_FOUND` if the course does not exist.
-          list(courseId: string, optionalArgs: object): Classroom_v1.Schema.ListCourseAliasesResponse;
+          list(courseId: string, optionalArgs: object): Classroom.Schema.ListCourseAliasesResponse;
           // Deletes an alias of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to remove the
@@ -183,14 +183,14 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if the requested course does not exist.
           // * `FAILED_PRECONDITION` for the following request error:
           //     * AttachmentNotVisible
-          create(resource: Schema.Announcement, courseId: string): Classroom_v1.Schema.Announcement;
+          create(resource: Schema.Announcement, courseId: string): Classroom.Schema.Announcement;
           // Returns an announcement.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
           // requested course or announcement, or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course or announcement does not exist.
-          get(courseId: string, id: string): Classroom_v1.Schema.Announcement;
+          get(courseId: string, id: string): Classroom.Schema.Announcement;
           // Returns a list of announcements that the requester is permitted to view.
           // Course students may only view `PUBLISHED` announcements. Course teachers
           // and domain administrators may view all announcements.
@@ -199,7 +199,7 @@ declare namespace GoogleAppsScript {
           // the requested course or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course does not exist.
-          list(courseId: string): Classroom_v1.Schema.ListAnnouncementsResponse;
+          list(courseId: string): Classroom.Schema.ListAnnouncementsResponse;
           // Returns a list of announcements that the requester is permitted to view.
           // Course students may only view `PUBLISHED` announcements. Course teachers
           // and domain administrators may view all announcements.
@@ -208,7 +208,7 @@ declare namespace GoogleAppsScript {
           // the requested course or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course does not exist.
-          list(courseId: string, optionalArgs: object): Classroom_v1.Schema.ListAnnouncementsResponse;
+          list(courseId: string, optionalArgs: object): Classroom.Schema.ListAnnouncementsResponse;
           // Modifies assignee mode and options of an announcement.
           // Only a teacher of the course that contains the announcement may
           // call this method.
@@ -217,7 +217,7 @@ declare namespace GoogleAppsScript {
           // requested course or course work or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course or course work does not exist.
-          modifyAssignees(resource: Schema.ModifyAnnouncementAssigneesRequest, courseId: string, id: string): Classroom_v1.Schema.Announcement;
+          modifyAssignees(resource: Schema.ModifyAnnouncementAssigneesRequest, courseId: string, id: string): Classroom.Schema.Announcement;
           // Updates one or more fields of an announcement.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting developer project did not create
@@ -226,7 +226,7 @@ declare namespace GoogleAppsScript {
           // * `FAILED_PRECONDITION` if the requested announcement has already been
           // deleted.
           // * `NOT_FOUND` if the requested course or announcement does not exist
-          patch(resource: Schema.Announcement, courseId: string, id: string): Classroom_v1.Schema.Announcement;
+          patch(resource: Schema.Announcement, courseId: string, id: string): Classroom.Schema.Announcement;
           // Updates one or more fields of an announcement.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting developer project did not create
@@ -235,7 +235,7 @@ declare namespace GoogleAppsScript {
           // * `FAILED_PRECONDITION` if the requested announcement has already been
           // deleted.
           // * `NOT_FOUND` if the requested course or announcement does not exist
-          patch(resource: Schema.Announcement, courseId: string, id: string, optionalArgs: object): Classroom_v1.Schema.Announcement;
+          patch(resource: Schema.Announcement, courseId: string, id: string, optionalArgs: object): Classroom.Schema.Announcement;
           // Deletes an announcement.
           // This request must be made by the Developer Console project of the
           // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
@@ -250,7 +250,7 @@ declare namespace GoogleAppsScript {
           remove(courseId: string, id: string): void;
         }
         export interface CourseWorkCollection {
-          StudentSubmissions?: Classroom_v1.Collection.Courses.CourseWork.StudentSubmissionsCollection;
+          StudentSubmissions?: Classroom.Collection.Courses.CourseWork.StudentSubmissionsCollection;
           // Creates course work.
           // The resulting course work (and corresponding student submissions) are
           // associated with the Developer Console project of the
@@ -266,14 +266,14 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if the requested course does not exist.
           // * `FAILED_PRECONDITION` for the following request error:
           //     * AttachmentNotVisible
-          create(resource: Schema.CourseWork, courseId: string): Classroom_v1.Schema.CourseWork;
+          create(resource: Schema.CourseWork, courseId: string): Classroom.Schema.CourseWork;
           // Returns course work.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
           // requested course or course work, or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course or course work does not exist.
-          get(courseId: string, id: string): Classroom_v1.Schema.CourseWork;
+          get(courseId: string, id: string): Classroom.Schema.CourseWork;
           // Returns a list of course work that the requester is permitted to view.
           // Course students may only view `PUBLISHED` course work. Course teachers
           // and domain administrators may view all course work.
@@ -282,7 +282,7 @@ declare namespace GoogleAppsScript {
           // the requested course or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course does not exist.
-          list(courseId: string): Classroom_v1.Schema.ListCourseWorkResponse;
+          list(courseId: string): Classroom.Schema.ListCourseWorkResponse;
           // Returns a list of course work that the requester is permitted to view.
           // Course students may only view `PUBLISHED` course work. Course teachers
           // and domain administrators may view all course work.
@@ -291,7 +291,7 @@ declare namespace GoogleAppsScript {
           // the requested course or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course does not exist.
-          list(courseId: string, optionalArgs: object): Classroom_v1.Schema.ListCourseWorkResponse;
+          list(courseId: string, optionalArgs: object): Classroom.Schema.ListCourseWorkResponse;
           // Modifies assignee mode and options of a coursework.
           // Only a teacher of the course that contains the coursework may
           // call this method.
@@ -300,7 +300,7 @@ declare namespace GoogleAppsScript {
           // requested course or course work or for access errors.
           // * `INVALID_ARGUMENT` if the request is malformed.
           // * `NOT_FOUND` if the requested course or course work does not exist.
-          modifyAssignees(resource: Schema.ModifyCourseWorkAssigneesRequest, courseId: string, id: string): Classroom_v1.Schema.CourseWork;
+          modifyAssignees(resource: Schema.ModifyCourseWorkAssigneesRequest, courseId: string, id: string): Classroom.Schema.CourseWork;
           // Updates one or more fields of a course work.
           // See google.CourseWork for details
           // of which fields may be updated and who may change them.
@@ -317,7 +317,7 @@ declare namespace GoogleAppsScript {
           // deleted.
           // * `NOT_FOUND` if the requested course, course work, or student submission
           // does not exist.
-          patch(resource: Schema.CourseWork, courseId: string, id: string): Classroom_v1.Schema.CourseWork;
+          patch(resource: Schema.CourseWork, courseId: string, id: string): Classroom.Schema.CourseWork;
           // Updates one or more fields of a course work.
           // See google.CourseWork for details
           // of which fields may be updated and who may change them.
@@ -334,7 +334,7 @@ declare namespace GoogleAppsScript {
           // deleted.
           // * `NOT_FOUND` if the requested course, course work, or student submission
           // does not exist.
-          patch(resource: Schema.CourseWork, courseId: string, id: string, optionalArgs: object): Classroom_v1.Schema.CourseWork;
+          patch(resource: Schema.CourseWork, courseId: string, id: string, optionalArgs: object): Classroom.Schema.CourseWork;
           // Deletes a course work.
           // This request must be made by the Developer Console project of the
           // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
@@ -361,7 +361,7 @@ declare namespace GoogleAppsScript {
           //     * UserGroupsMembershipLimitReached
           // * `ALREADY_EXISTS` if the user is already a student or teacher in the
           // course.
-          create(resource: Schema.Student, courseId: string): Classroom_v1.Schema.Student;
+          create(resource: Schema.Student, courseId: string): Classroom.Schema.Student;
           // Adds a user as a student of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to create
@@ -374,26 +374,26 @@ declare namespace GoogleAppsScript {
           //     * UserGroupsMembershipLimitReached
           // * `ALREADY_EXISTS` if the user is already a student or teacher in the
           // course.
-          create(resource: Schema.Student, courseId: string, optionalArgs: object): Classroom_v1.Schema.Student;
+          create(resource: Schema.Student, courseId: string, optionalArgs: object): Classroom.Schema.Student;
           // Returns a student of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to view
           // students of this course or for access errors.
           // * `NOT_FOUND` if no student of this course has the requested ID or if the
           // course does not exist.
-          get(courseId: string, userId: string): Classroom_v1.Schema.Student;
+          get(courseId: string, userId: string): Classroom.Schema.Student;
           // Returns a list of students of this course that the requester
           // is permitted to view.
           // This method returns the following error codes:
           // * `NOT_FOUND` if the course does not exist.
           // * `PERMISSION_DENIED` for access errors.
-          list(courseId: string): Classroom_v1.Schema.ListStudentsResponse;
+          list(courseId: string): Classroom.Schema.ListStudentsResponse;
           // Returns a list of students of this course that the requester
           // is permitted to view.
           // This method returns the following error codes:
           // * `NOT_FOUND` if the course does not exist.
           // * `PERMISSION_DENIED` for access errors.
-          list(courseId: string, optionalArgs: object): Classroom_v1.Schema.ListStudentsResponse;
+          list(courseId: string, optionalArgs: object): Classroom.Schema.ListStudentsResponse;
           // Deletes a student of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to delete
@@ -416,26 +416,26 @@ declare namespace GoogleAppsScript {
           //     * UserGroupsMembershipLimitReached
           // * `ALREADY_EXISTS` if the user is already a teacher or student in the
           // course.
-          create(resource: Schema.Teacher, courseId: string): Classroom_v1.Schema.Teacher;
+          create(resource: Schema.Teacher, courseId: string): Classroom.Schema.Teacher;
           // Returns a teacher of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to view
           // teachers of this course or for access errors.
           // * `NOT_FOUND` if no teacher of this course has the requested ID or if the
           // course does not exist.
-          get(courseId: string, userId: string): Classroom_v1.Schema.Teacher;
+          get(courseId: string, userId: string): Classroom.Schema.Teacher;
           // Returns a list of teachers of this course that the requester
           // is permitted to view.
           // This method returns the following error codes:
           // * `NOT_FOUND` if the course does not exist.
           // * `PERMISSION_DENIED` for access errors.
-          list(courseId: string): Classroom_v1.Schema.ListTeachersResponse;
+          list(courseId: string): Classroom.Schema.ListTeachersResponse;
           // Returns a list of teachers of this course that the requester
           // is permitted to view.
           // This method returns the following error codes:
           // * `NOT_FOUND` if the course does not exist.
           // * `PERMISSION_DENIED` for access errors.
-          list(courseId: string, optionalArgs: object): Classroom_v1.Schema.ListTeachersResponse;
+          list(courseId: string, optionalArgs: object): Classroom.Schema.ListTeachersResponse;
           // Deletes a teacher of a course.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to delete
@@ -475,7 +475,7 @@ declare namespace GoogleAppsScript {
           //   the student and `invited_email_address` provided, or if the provided
           //   `invited_email_address` matches the Google account of an existing
           //   `Guardian` for this user.
-          create(resource: Schema.GuardianInvitation, studentId: string): Classroom_v1.Schema.GuardianInvitation;
+          create(resource: Schema.GuardianInvitation, studentId: string): Classroom.Schema.GuardianInvitation;
           // Returns a specific guardian invitation.
           // This method returns the following error codes:
           // * `PERMISSION_DENIED` if the requesting user is not permitted to view
@@ -488,7 +488,7 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if Classroom cannot find any record of the given student or
           //   `invitation_id`. May also be returned if the student exists, but the
           //   requesting user does not have access to see that student.
-          get(studentId: string, invitationId: string): Classroom_v1.Schema.GuardianInvitation;
+          get(studentId: string, invitationId: string): Classroom.Schema.GuardianInvitation;
           // Returns a list of guardian invitations that the requesting user is
           // permitted to view, filtered by the parameters provided.
           // This method returns the following error codes:
@@ -503,7 +503,7 @@ declare namespace GoogleAppsScript {
           //   `page_token` or `state` is provided.
           // * `NOT_FOUND` if a `student_id` is specified, and its format can be
           //   recognized, but Classroom has no record of that student.
-          list(studentId: string): Classroom_v1.Schema.ListGuardianInvitationsResponse;
+          list(studentId: string): Classroom.Schema.ListGuardianInvitationsResponse;
           // Returns a list of guardian invitations that the requesting user is
           // permitted to view, filtered by the parameters provided.
           // This method returns the following error codes:
@@ -518,7 +518,7 @@ declare namespace GoogleAppsScript {
           //   `page_token` or `state` is provided.
           // * `NOT_FOUND` if a `student_id` is specified, and its format can be
           //   recognized, but Classroom has no record of that student.
-          list(studentId: string, optionalArgs: object): Classroom_v1.Schema.ListGuardianInvitationsResponse;
+          list(studentId: string, optionalArgs: object): Classroom.Schema.ListGuardianInvitationsResponse;
           // Modifies a guardian invitation.
           // Currently, the only valid modification is to change the `state` from
           // `PENDING` to `COMPLETE`. This has the effect of withdrawing the invitation.
@@ -534,7 +534,7 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if the student ID provided is a valid student ID, but
           //   Classroom has no record of that student, or if the `id` field does not
           //   refer to a guardian invitation known to Classroom.
-          patch(resource: Schema.GuardianInvitation, studentId: string, invitationId: string): Classroom_v1.Schema.GuardianInvitation;
+          patch(resource: Schema.GuardianInvitation, studentId: string, invitationId: string): Classroom.Schema.GuardianInvitation;
           // Modifies a guardian invitation.
           // Currently, the only valid modification is to change the `state` from
           // `PENDING` to `COMPLETE`. This has the effect of withdrawing the invitation.
@@ -550,7 +550,7 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if the student ID provided is a valid student ID, but
           //   Classroom has no record of that student, or if the `id` field does not
           //   refer to a guardian invitation known to Classroom.
-          patch(resource: Schema.GuardianInvitation, studentId: string, invitationId: string, optionalArgs: object): Classroom_v1.Schema.GuardianInvitation;
+          patch(resource: Schema.GuardianInvitation, studentId: string, invitationId: string, optionalArgs: object): Classroom.Schema.GuardianInvitation;
         }
         export interface GuardiansCollection {
           // Returns a specific guardian.
@@ -566,7 +566,7 @@ declare namespace GoogleAppsScript {
           // * `NOT_FOUND` if the requesting user is permitted to view guardians for
           //   the requested `student_id`, but no `Guardian` record exists for that
           //   student that matches the provided `guardian_id`.
-          get(studentId: string, guardianId: string): Classroom_v1.Schema.Guardian;
+          get(studentId: string, guardianId: string): Classroom.Schema.Guardian;
           // Returns a list of guardians that the requesting user is permitted to
           // view, restricted to those that match the request.
           // To list guardians for any student that the requesting user may view
@@ -584,7 +584,7 @@ declare namespace GoogleAppsScript {
           //   `page_token` is provided.
           // * `NOT_FOUND` if a `student_id` is specified, and its format can be
           //   recognized, but Classroom has no record of that student.
-          list(studentId: string): Classroom_v1.Schema.ListGuardiansResponse;
+          list(studentId: string): Classroom.Schema.ListGuardiansResponse;
           // Returns a list of guardians that the requesting user is permitted to
           // view, restricted to those that match the request.
           // To list guardians for any student that the requesting user may view
@@ -602,7 +602,7 @@ declare namespace GoogleAppsScript {
           //   `page_token` is provided.
           // * `NOT_FOUND` if a `student_id` is specified, and its format can be
           //   recognized, but Classroom has no record of that student.
-          list(studentId: string, optionalArgs: object): Classroom_v1.Schema.ListGuardiansResponse;
+          list(studentId: string, optionalArgs: object): Classroom.Schema.ListGuardiansResponse;
           // Deletes a guardian.
           // The guardian will no longer receive guardian notifications and the guardian
           // will no longer be accessible via the API.
@@ -622,11 +622,11 @@ declare namespace GoogleAppsScript {
         }
       }
       export interface CoursesCollection {
-        Aliases?: Classroom_v1.Collection.Courses.AliasesCollection;
-        Announcements?: Classroom_v1.Collection.Courses.AnnouncementsCollection;
-        CourseWork?: Classroom_v1.Collection.Courses.CourseWorkCollection;
-        Students?: Classroom_v1.Collection.Courses.StudentsCollection;
-        Teachers?: Classroom_v1.Collection.Courses.TeachersCollection;
+        Aliases?: Classroom.Collection.Courses.AliasesCollection;
+        Announcements?: Classroom.Collection.Courses.AnnouncementsCollection;
+        CourseWork?: Classroom.Collection.Courses.CourseWorkCollection;
+        Students?: Classroom.Collection.Courses.StudentsCollection;
+        Teachers?: Classroom.Collection.Courses.TeachersCollection;
         // Creates a course.
         // The user specified in `ownerId` is the owner of the created course
         // and added as a teacher.
@@ -639,13 +639,13 @@ declare namespace GoogleAppsScript {
         //     * UserGroupsMembershipLimitReached
         // * `ALREADY_EXISTS` if an alias was specified in the `id` and
         // already exists.
-        create(resource: Schema.Course): Classroom_v1.Schema.Course;
+        create(resource: Schema.Course): Classroom.Schema.Course;
         // Returns a course.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
         // requested course or for access errors.
         // * `NOT_FOUND` if no course exists with the requested ID.
-        get(id: string): Classroom_v1.Schema.Course;
+        get(id: string): Classroom.Schema.Course;
         // Returns a list of courses that the requesting user is permitted to view,
         // restricted to those that match the request. Returned courses are ordered by
         // creation time, with the most recently created coming first.
@@ -653,7 +653,7 @@ declare namespace GoogleAppsScript {
         // * `PERMISSION_DENIED` for access errors.
         // * `INVALID_ARGUMENT` if the query argument is malformed.
         // * `NOT_FOUND` if any users specified in the query arguments do not exist.
-        list(): Classroom_v1.Schema.ListCoursesResponse;
+        list(): Classroom.Schema.ListCoursesResponse;
         // Returns a list of courses that the requesting user is permitted to view,
         // restricted to those that match the request. Returned courses are ordered by
         // creation time, with the most recently created coming first.
@@ -661,7 +661,7 @@ declare namespace GoogleAppsScript {
         // * `PERMISSION_DENIED` for access errors.
         // * `INVALID_ARGUMENT` if the query argument is malformed.
         // * `NOT_FOUND` if any users specified in the query arguments do not exist.
-        list(optionalArgs: object): Classroom_v1.Schema.ListCoursesResponse;
+        list(optionalArgs: object): Classroom.Schema.ListCoursesResponse;
         // Updates one or more fields in a course.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
@@ -671,7 +671,7 @@ declare namespace GoogleAppsScript {
         // if no update mask is supplied.
         // * `FAILED_PRECONDITION` for the following request errors:
         //     * CourseNotModifiable
-        patch(resource: Schema.Course, id: string): Classroom_v1.Schema.Course;
+        patch(resource: Schema.Course, id: string): Classroom.Schema.Course;
         // Updates one or more fields in a course.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
@@ -681,7 +681,7 @@ declare namespace GoogleAppsScript {
         // if no update mask is supplied.
         // * `FAILED_PRECONDITION` for the following request errors:
         //     * CourseNotModifiable
-        patch(resource: Schema.Course, id: string, optionalArgs: object): Classroom_v1.Schema.Course;
+        patch(resource: Schema.Course, id: string, optionalArgs: object): Classroom.Schema.Course;
         // Deletes a course.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to delete the
@@ -695,7 +695,7 @@ declare namespace GoogleAppsScript {
         // * `NOT_FOUND` if no course exists with the requested ID.
         // * `FAILED_PRECONDITION` for the following request errors:
         //     * CourseNotModifiable
-        update(resource: Schema.Course, id: string): Classroom_v1.Schema.Course;
+        update(resource: Schema.Course, id: string): Classroom.Schema.Course;
       }
       export interface InvitationsCollection {
         // Accepts an invitation, removing it and adding the invited user to the
@@ -721,27 +721,27 @@ declare namespace GoogleAppsScript {
         // the user already has this role or a role with greater permissions.
         // * `ALREADY_EXISTS` if an invitation for the specified user and course
         // already exists.
-        create(resource: Schema.Invitation): Classroom_v1.Schema.Invitation;
+        create(resource: Schema.Invitation): Classroom.Schema.Invitation;
         // Returns an invitation.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to view the
         // requested invitation or for access errors.
         // * `NOT_FOUND` if no invitation exists with the requested ID.
-        get(id: string): Classroom_v1.Schema.Invitation;
+        get(id: string): Classroom.Schema.Invitation;
         // Returns a list of invitations that the requesting user is permitted to
         // view, restricted to those that match the list request.
         // *Note:* At least one of `user_id` or `course_id` must be supplied. Both
         // fields can be supplied.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` for access errors.
-        list(): Classroom_v1.Schema.ListInvitationsResponse;
+        list(): Classroom.Schema.ListInvitationsResponse;
         // Returns a list of invitations that the requesting user is permitted to
         // view, restricted to those that match the list request.
         // *Note:* At least one of `user_id` or `course_id` must be supplied. Both
         // fields can be supplied.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` for access errors.
-        list(optionalArgs: object): Classroom_v1.Schema.ListInvitationsResponse;
+        list(optionalArgs: object): Classroom.Schema.ListInvitationsResponse;
         // Deletes an invitation.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to delete the
@@ -776,20 +776,20 @@ declare namespace GoogleAppsScript {
         //       not have permission to determine whether or not it exists; or
         //     * the specified `cloudPubsubTopic` cannot be located, or Classroom has
         //       not been granted permission to publish to it.
-        create(resource: Schema.Registration): Classroom_v1.Schema.Registration;
+        create(resource: Schema.Registration): Classroom.Schema.Registration;
         // Deletes a `Registration`, causing Classroom to stop sending notifications
         // for that `Registration`.
         remove(registrationId: string): void;
       }
       export interface UserProfilesCollection {
-        GuardianInvitations?: Classroom_v1.Collection.UserProfiles.GuardianInvitationsCollection;
-        Guardians?: Classroom_v1.Collection.UserProfiles.GuardiansCollection;
+        GuardianInvitations?: Classroom.Collection.UserProfiles.GuardianInvitationsCollection;
+        Guardians?: Classroom.Collection.UserProfiles.GuardiansCollection;
         // Returns a user profile.
         // This method returns the following error codes:
         // * `PERMISSION_DENIED` if the requesting user is not permitted to access
         // this user profile, if no profile exists with the requested ID, or for
         // access errors.
-        get(userId: string): Classroom_v1.Schema.UserProfile;
+        get(userId: string): Classroom.Schema.UserProfile;
       }
     }
     namespace Schema {
@@ -800,24 +800,24 @@ declare namespace GoogleAppsScript {
         creationTime?: string;
         creatorUserId?: string;
         id?: string;
-        individualStudentsOptions?: Classroom_v1.Schema.IndividualStudentsOptions;
-        materials?: Classroom_v1.Schema.Material[];
+        individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions;
+        materials?: Classroom.Schema.Material[];
         scheduledTime?: string;
         state?: string;
         text?: string;
         updateTime?: string;
       }
       export interface Assignment {
-        studentWorkFolder?: Classroom_v1.Schema.DriveFolder;
+        studentWorkFolder?: Classroom.Schema.DriveFolder;
       }
       export interface AssignmentSubmission {
-        attachments?: Classroom_v1.Schema.Attachment[];
+        attachments?: Classroom.Schema.Attachment[];
       }
       export interface Attachment {
-        driveFile?: Classroom_v1.Schema.DriveFile;
-        form?: Classroom_v1.Schema.Form;
-        link?: Classroom_v1.Schema.Link;
-        youTubeVideo?: Classroom_v1.Schema.YouTubeVideo;
+        driveFile?: Classroom.Schema.DriveFile;
+        form?: Classroom.Schema.Form;
+        link?: Classroom.Schema.Link;
+        youTubeVideo?: Classroom.Schema.YouTubeVideo;
       }
       export interface CloudPubsubTopic {
         topicName?: string;
@@ -826,7 +826,7 @@ declare namespace GoogleAppsScript {
         alternateLink?: string;
         calendarId?: string;
         courseGroupEmail?: string;
-        courseMaterialSets?: Classroom_v1.Schema.CourseMaterialSet[];
+        courseMaterialSets?: Classroom.Schema.CourseMaterialSet[];
         courseState?: string;
         creationTime?: string;
         description?: string;
@@ -838,7 +838,7 @@ declare namespace GoogleAppsScript {
         ownerId?: string;
         room?: string;
         section?: string;
-        teacherFolder?: Classroom_v1.Schema.DriveFolder;
+        teacherFolder?: Classroom.Schema.DriveFolder;
         teacherGroupEmail?: string;
         updateTime?: string;
       }
@@ -846,13 +846,13 @@ declare namespace GoogleAppsScript {
         alias?: string;
       }
       export interface CourseMaterial {
-        driveFile?: Classroom_v1.Schema.DriveFile;
-        form?: Classroom_v1.Schema.Form;
-        link?: Classroom_v1.Schema.Link;
-        youTubeVideo?: Classroom_v1.Schema.YouTubeVideo;
+        driveFile?: Classroom.Schema.DriveFile;
+        form?: Classroom.Schema.Form;
+        link?: Classroom.Schema.Link;
+        youTubeVideo?: Classroom.Schema.YouTubeVideo;
       }
       export interface CourseMaterialSet {
-        materials?: Classroom_v1.Schema.CourseMaterial[];
+        materials?: Classroom.Schema.CourseMaterial[];
         title?: string;
       }
       export interface CourseRosterChangesInfo {
@@ -861,19 +861,19 @@ declare namespace GoogleAppsScript {
       export interface CourseWork {
         alternateLink?: string;
         assigneeMode?: string;
-        assignment?: Classroom_v1.Schema.Assignment;
+        assignment?: Classroom.Schema.Assignment;
         associatedWithDeveloper?: boolean;
         courseId?: string;
         creationTime?: string;
         creatorUserId?: string;
         description?: string;
-        dueDate?: Classroom_v1.Schema.Date;
-        dueTime?: Classroom_v1.Schema.TimeOfDay;
+        dueDate?: Classroom.Schema.Date;
+        dueTime?: Classroom.Schema.TimeOfDay;
         id?: string;
-        individualStudentsOptions?: Classroom_v1.Schema.IndividualStudentsOptions;
-        materials?: Classroom_v1.Schema.Material[];
-        maxPoints?: Number;
-        multipleChoiceQuestion?: Classroom_v1.Schema.MultipleChoiceQuestion;
+        individualStudentsOptions?: Classroom.Schema.IndividualStudentsOptions;
+        materials?: Classroom.Schema.Material[];
+        maxPoints?: number;
+        multipleChoiceQuestion?: Classroom.Schema.MultipleChoiceQuestion;
         scheduledTime?: string;
         state?: string;
         submissionModificationMode?: string;
@@ -901,8 +901,8 @@ declare namespace GoogleAppsScript {
         title?: string;
       }
       export interface Feed {
-        courseRosterChangesInfo?: Classroom_v1.Schema.CourseRosterChangesInfo;
-        courseWorkChangesInfo?: Classroom_v1.Schema.CourseWorkChangesInfo;
+        courseRosterChangesInfo?: Classroom.Schema.CourseRosterChangesInfo;
+        courseWorkChangesInfo?: Classroom.Schema.CourseWorkChangesInfo;
         feedType?: string;
       }
       export interface Form {
@@ -918,12 +918,12 @@ declare namespace GoogleAppsScript {
         actorUserId?: string;
         gradeChangeType?: string;
         gradeTimestamp?: string;
-        maxPoints?: Number;
-        pointsEarned?: Number;
+        maxPoints?: number;
+        pointsEarned?: number;
       }
       export interface Guardian {
         guardianId?: string;
-        guardianProfile?: Classroom_v1.Schema.UserProfile;
+        guardianProfile?: Classroom.Schema.UserProfile;
         invitedEmailAddress?: string;
         studentId?: string;
       }
@@ -949,61 +949,61 @@ declare namespace GoogleAppsScript {
         url?: string;
       }
       export interface ListAnnouncementsResponse {
-        announcements?: Classroom_v1.Schema.Announcement[];
+        announcements?: Classroom.Schema.Announcement[];
         nextPageToken?: string;
       }
       export interface ListCourseAliasesResponse {
-        aliases?: Classroom_v1.Schema.CourseAlias[];
+        aliases?: Classroom.Schema.CourseAlias[];
         nextPageToken?: string;
       }
       export interface ListCourseWorkResponse {
-        courseWork?: Classroom_v1.Schema.CourseWork[];
+        courseWork?: Classroom.Schema.CourseWork[];
         nextPageToken?: string;
       }
       export interface ListCoursesResponse {
-        courses?: Classroom_v1.Schema.Course[];
+        courses?: Classroom.Schema.Course[];
         nextPageToken?: string;
       }
       export interface ListGuardianInvitationsResponse {
-        guardianInvitations?: Classroom_v1.Schema.GuardianInvitation[];
+        guardianInvitations?: Classroom.Schema.GuardianInvitation[];
         nextPageToken?: string;
       }
       export interface ListGuardiansResponse {
-        guardians?: Classroom_v1.Schema.Guardian[];
+        guardians?: Classroom.Schema.Guardian[];
         nextPageToken?: string;
       }
       export interface ListInvitationsResponse {
-        invitations?: Classroom_v1.Schema.Invitation[];
+        invitations?: Classroom.Schema.Invitation[];
         nextPageToken?: string;
       }
       export interface ListStudentSubmissionsResponse {
         nextPageToken?: string;
-        studentSubmissions?: Classroom_v1.Schema.StudentSubmission[];
+        studentSubmissions?: Classroom.Schema.StudentSubmission[];
       }
       export interface ListStudentsResponse {
         nextPageToken?: string;
-        students?: Classroom_v1.Schema.Student[];
+        students?: Classroom.Schema.Student[];
       }
       export interface ListTeachersResponse {
         nextPageToken?: string;
-        teachers?: Classroom_v1.Schema.Teacher[];
+        teachers?: Classroom.Schema.Teacher[];
       }
       export interface Material {
-        driveFile?: Classroom_v1.Schema.SharedDriveFile;
-        form?: Classroom_v1.Schema.Form;
-        link?: Classroom_v1.Schema.Link;
-        youtubeVideo?: Classroom_v1.Schema.YouTubeVideo;
+        driveFile?: Classroom.Schema.SharedDriveFile;
+        form?: Classroom.Schema.Form;
+        link?: Classroom.Schema.Link;
+        youtubeVideo?: Classroom.Schema.YouTubeVideo;
       }
       export interface ModifyAnnouncementAssigneesRequest {
         assigneeMode?: string;
-        modifyIndividualStudentsOptions?: Classroom_v1.Schema.ModifyIndividualStudentsOptions;
+        modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions;
       }
       export interface ModifyAttachmentsRequest {
-        addAttachments?: Classroom_v1.Schema.Attachment[];
+        addAttachments?: Classroom.Schema.Attachment[];
       }
       export interface ModifyCourseWorkAssigneesRequest {
         assigneeMode?: string;
-        modifyIndividualStudentsOptions?: Classroom_v1.Schema.ModifyIndividualStudentsOptions;
+        modifyIndividualStudentsOptions?: Classroom.Schema.ModifyIndividualStudentsOptions;
       }
       export interface ModifyIndividualStudentsOptions {
         addStudentIds?: string[];
@@ -1021,13 +1021,13 @@ declare namespace GoogleAppsScript {
         givenName?: string;
       }
       export interface Registration {
-        cloudPubsubTopic?: Classroom_v1.Schema.CloudPubsubTopic;
+        cloudPubsubTopic?: Classroom.Schema.CloudPubsubTopic;
         expiryTime?: string;
-        feed?: Classroom_v1.Schema.Feed;
+        feed?: Classroom.Schema.Feed;
         registrationId?: string;
       }
       export interface SharedDriveFile {
-        driveFile?: Classroom_v1.Schema.DriveFile;
+        driveFile?: Classroom.Schema.DriveFile;
         shareMode?: string;
       }
       export interface ShortAnswerSubmission {
@@ -1040,36 +1040,36 @@ declare namespace GoogleAppsScript {
       }
       export interface Student {
         courseId?: string;
-        profile?: Classroom_v1.Schema.UserProfile;
-        studentWorkFolder?: Classroom_v1.Schema.DriveFolder;
+        profile?: Classroom.Schema.UserProfile;
+        studentWorkFolder?: Classroom.Schema.DriveFolder;
         userId?: string;
       }
       export interface StudentSubmission {
         alternateLink?: string;
-        assignedGrade?: Number;
-        assignmentSubmission?: Classroom_v1.Schema.AssignmentSubmission;
+        assignedGrade?: number;
+        assignmentSubmission?: Classroom.Schema.AssignmentSubmission;
         associatedWithDeveloper?: boolean;
         courseId?: string;
         courseWorkId?: string;
         courseWorkType?: string;
         creationTime?: string;
-        draftGrade?: Number;
+        draftGrade?: number;
         id?: string;
         late?: boolean;
-        multipleChoiceSubmission?: Classroom_v1.Schema.MultipleChoiceSubmission;
-        shortAnswerSubmission?: Classroom_v1.Schema.ShortAnswerSubmission;
+        multipleChoiceSubmission?: Classroom.Schema.MultipleChoiceSubmission;
+        shortAnswerSubmission?: Classroom.Schema.ShortAnswerSubmission;
         state?: string;
-        submissionHistory?: Classroom_v1.Schema.SubmissionHistory[];
+        submissionHistory?: Classroom.Schema.SubmissionHistory[];
         updateTime?: string;
         userId?: string;
       }
       export interface SubmissionHistory {
-        gradeHistory?: Classroom_v1.Schema.GradeHistory;
-        stateHistory?: Classroom_v1.Schema.StateHistory;
+        gradeHistory?: Classroom.Schema.GradeHistory;
+        stateHistory?: Classroom.Schema.StateHistory;
       }
       export interface Teacher {
         courseId?: string;
-        profile?: Classroom_v1.Schema.UserProfile;
+        profile?: Classroom.Schema.UserProfile;
         userId?: string;
       }
       export interface TimeOfDay {
@@ -1081,8 +1081,8 @@ declare namespace GoogleAppsScript {
       export interface UserProfile {
         emailAddress?: string;
         id?: string;
-        name?: Classroom_v1.Schema.Name;
-        permissions?: Classroom_v1.Schema.GlobalPermission[];
+        name?: Classroom.Schema.Name;
+        permissions?: Classroom.Schema.GlobalPermission[];
         photoUrl?: string;
         verifiedTeacher?: boolean;
       }
@@ -1094,102 +1094,102 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Classroom_v1 {
-    Courses?: Classroom_v1.Collection.CoursesCollection;
-    Invitations?: Classroom_v1.Collection.InvitationsCollection;
-    Registrations?: Classroom_v1.Collection.RegistrationsCollection;
-    UserProfiles?: Classroom_v1.Collection.UserProfilesCollection;
+  export interface Classroom {
+    Courses?: Classroom.Collection.CoursesCollection;
+    Invitations?: Classroom.Collection.InvitationsCollection;
+    Registrations?: Classroom.Collection.RegistrationsCollection;
+    UserProfiles?: Classroom.Collection.UserProfilesCollection;
     // Create a new instance of Announcement
-    newAnnouncement(): Classroom_v1.Schema.Announcement;
+    newAnnouncement(): Classroom.Schema.Announcement;
     // Create a new instance of Assignment
-    newAssignment(): Classroom_v1.Schema.Assignment;
+    newAssignment(): Classroom.Schema.Assignment;
     // Create a new instance of AssignmentSubmission
-    newAssignmentSubmission(): Classroom_v1.Schema.AssignmentSubmission;
+    newAssignmentSubmission(): Classroom.Schema.AssignmentSubmission;
     // Create a new instance of Attachment
-    newAttachment(): Classroom_v1.Schema.Attachment;
+    newAttachment(): Classroom.Schema.Attachment;
     // Create a new instance of CloudPubsubTopic
-    newCloudPubsubTopic(): Classroom_v1.Schema.CloudPubsubTopic;
+    newCloudPubsubTopic(): Classroom.Schema.CloudPubsubTopic;
     // Create a new instance of Course
-    newCourse(): Classroom_v1.Schema.Course;
+    newCourse(): Classroom.Schema.Course;
     // Create a new instance of CourseAlias
-    newCourseAlias(): Classroom_v1.Schema.CourseAlias;
+    newCourseAlias(): Classroom.Schema.CourseAlias;
     // Create a new instance of CourseMaterial
-    newCourseMaterial(): Classroom_v1.Schema.CourseMaterial;
+    newCourseMaterial(): Classroom.Schema.CourseMaterial;
     // Create a new instance of CourseMaterialSet
-    newCourseMaterialSet(): Classroom_v1.Schema.CourseMaterialSet;
+    newCourseMaterialSet(): Classroom.Schema.CourseMaterialSet;
     // Create a new instance of CourseRosterChangesInfo
-    newCourseRosterChangesInfo(): Classroom_v1.Schema.CourseRosterChangesInfo;
+    newCourseRosterChangesInfo(): Classroom.Schema.CourseRosterChangesInfo;
     // Create a new instance of CourseWork
-    newCourseWork(): Classroom_v1.Schema.CourseWork;
+    newCourseWork(): Classroom.Schema.CourseWork;
     // Create a new instance of CourseWorkChangesInfo
-    newCourseWorkChangesInfo(): Classroom_v1.Schema.CourseWorkChangesInfo;
+    newCourseWorkChangesInfo(): Classroom.Schema.CourseWorkChangesInfo;
     // Create a new instance of Date
-    newDate(): Classroom_v1.Schema.Date;
+    newDate(): Classroom.Schema.Date;
     // Create a new instance of DriveFile
-    newDriveFile(): Classroom_v1.Schema.DriveFile;
+    newDriveFile(): Classroom.Schema.DriveFile;
     // Create a new instance of DriveFolder
-    newDriveFolder(): Classroom_v1.Schema.DriveFolder;
+    newDriveFolder(): Classroom.Schema.DriveFolder;
     // Create a new instance of Feed
-    newFeed(): Classroom_v1.Schema.Feed;
+    newFeed(): Classroom.Schema.Feed;
     // Create a new instance of Form
-    newForm(): Classroom_v1.Schema.Form;
+    newForm(): Classroom.Schema.Form;
     // Create a new instance of GlobalPermission
-    newGlobalPermission(): Classroom_v1.Schema.GlobalPermission;
+    newGlobalPermission(): Classroom.Schema.GlobalPermission;
     // Create a new instance of GradeHistory
-    newGradeHistory(): Classroom_v1.Schema.GradeHistory;
+    newGradeHistory(): Classroom.Schema.GradeHistory;
     // Create a new instance of GuardianInvitation
-    newGuardianInvitation(): Classroom_v1.Schema.GuardianInvitation;
+    newGuardianInvitation(): Classroom.Schema.GuardianInvitation;
     // Create a new instance of IndividualStudentsOptions
-    newIndividualStudentsOptions(): Classroom_v1.Schema.IndividualStudentsOptions;
+    newIndividualStudentsOptions(): Classroom.Schema.IndividualStudentsOptions;
     // Create a new instance of Invitation
-    newInvitation(): Classroom_v1.Schema.Invitation;
+    newInvitation(): Classroom.Schema.Invitation;
     // Create a new instance of Link
-    newLink(): Classroom_v1.Schema.Link;
+    newLink(): Classroom.Schema.Link;
     // Create a new instance of Material
-    newMaterial(): Classroom_v1.Schema.Material;
+    newMaterial(): Classroom.Schema.Material;
     // Create a new instance of ModifyAnnouncementAssigneesRequest
-    newModifyAnnouncementAssigneesRequest(): Classroom_v1.Schema.ModifyAnnouncementAssigneesRequest;
+    newModifyAnnouncementAssigneesRequest(): Classroom.Schema.ModifyAnnouncementAssigneesRequest;
     // Create a new instance of ModifyAttachmentsRequest
-    newModifyAttachmentsRequest(): Classroom_v1.Schema.ModifyAttachmentsRequest;
+    newModifyAttachmentsRequest(): Classroom.Schema.ModifyAttachmentsRequest;
     // Create a new instance of ModifyCourseWorkAssigneesRequest
-    newModifyCourseWorkAssigneesRequest(): Classroom_v1.Schema.ModifyCourseWorkAssigneesRequest;
+    newModifyCourseWorkAssigneesRequest(): Classroom.Schema.ModifyCourseWorkAssigneesRequest;
     // Create a new instance of ModifyIndividualStudentsOptions
-    newModifyIndividualStudentsOptions(): Classroom_v1.Schema.ModifyIndividualStudentsOptions;
+    newModifyIndividualStudentsOptions(): Classroom.Schema.ModifyIndividualStudentsOptions;
     // Create a new instance of MultipleChoiceQuestion
-    newMultipleChoiceQuestion(): Classroom_v1.Schema.MultipleChoiceQuestion;
+    newMultipleChoiceQuestion(): Classroom.Schema.MultipleChoiceQuestion;
     // Create a new instance of MultipleChoiceSubmission
-    newMultipleChoiceSubmission(): Classroom_v1.Schema.MultipleChoiceSubmission;
+    newMultipleChoiceSubmission(): Classroom.Schema.MultipleChoiceSubmission;
     // Create a new instance of Name
-    newName(): Classroom_v1.Schema.Name;
+    newName(): Classroom.Schema.Name;
     // Create a new instance of ReclaimStudentSubmissionRequest
     newReclaimStudentSubmissionRequest(): any;
     // Create a new instance of Registration
-    newRegistration(): Classroom_v1.Schema.Registration;
+    newRegistration(): Classroom.Schema.Registration;
     // Create a new instance of ReturnStudentSubmissionRequest
     newReturnStudentSubmissionRequest(): any;
     // Create a new instance of SharedDriveFile
-    newSharedDriveFile(): Classroom_v1.Schema.SharedDriveFile;
+    newSharedDriveFile(): Classroom.Schema.SharedDriveFile;
     // Create a new instance of ShortAnswerSubmission
-    newShortAnswerSubmission(): Classroom_v1.Schema.ShortAnswerSubmission;
+    newShortAnswerSubmission(): Classroom.Schema.ShortAnswerSubmission;
     // Create a new instance of StateHistory
-    newStateHistory(): Classroom_v1.Schema.StateHistory;
+    newStateHistory(): Classroom.Schema.StateHistory;
     // Create a new instance of Student
-    newStudent(): Classroom_v1.Schema.Student;
+    newStudent(): Classroom.Schema.Student;
     // Create a new instance of StudentSubmission
-    newStudentSubmission(): Classroom_v1.Schema.StudentSubmission;
+    newStudentSubmission(): Classroom.Schema.StudentSubmission;
     // Create a new instance of SubmissionHistory
-    newSubmissionHistory(): Classroom_v1.Schema.SubmissionHistory;
+    newSubmissionHistory(): Classroom.Schema.SubmissionHistory;
     // Create a new instance of Teacher
-    newTeacher(): Classroom_v1.Schema.Teacher;
+    newTeacher(): Classroom.Schema.Teacher;
     // Create a new instance of TimeOfDay
-    newTimeOfDay(): Classroom_v1.Schema.TimeOfDay;
+    newTimeOfDay(): Classroom.Schema.TimeOfDay;
     // Create a new instance of TurnInStudentSubmissionRequest
     newTurnInStudentSubmissionRequest(): any;
     // Create a new instance of UserProfile
-    newUserProfile(): Classroom_v1.Schema.UserProfile;
+    newUserProfile(): Classroom.Schema.UserProfile;
     // Create a new instance of YouTubeVideo
-    newYouTubeVideo(): Classroom_v1.Schema.YouTubeVideo;
+    newYouTubeVideo(): Classroom.Schema.YouTubeVideo;
   }
 }
 
-declare var Classroom_v1: GoogleAppsScript.Classroom_v1;
+declare var Classroom: GoogleAppsScript.Classroom;

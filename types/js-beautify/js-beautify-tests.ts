@@ -25,6 +25,7 @@ var full: string = js_beautify(
         "keep_array_indentation": false,
         "keep_function_indentation": false,
         "space_before_conditional": true,
+        "space_in_empty_paren": true,
         "break_chained_methods": false,
         "eval_code": false,
         "unescape_strings": false,

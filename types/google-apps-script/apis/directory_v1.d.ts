@@ -5,14 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Admin_directory_v1 {
+  namespace AdminDirectory {
     namespace Collection {
       namespace Groups {
         export interface AliasesCollection {
           // Add a alias for the group
-          insert(resource: Schema.Alias, groupKey: string): Admin_directory_v1.Schema.Alias;
+          insert(resource: Schema.Alias, groupKey: string): AdminDirectory.Schema.Alias;
           // List all aliases for a group
-          list(groupKey: string): Admin_directory_v1.Schema.Aliases;
+          list(groupKey: string): AdminDirectory.Schema.Aliases;
           // Remove a alias for the group
           remove(groupKey: string, alias: string): void;
         }
@@ -20,94 +20,94 @@ declare namespace GoogleAppsScript {
       namespace Resources {
         export interface BuildingsCollection {
           // Retrieves a building.
-          get(customer: string, buildingId: string): Admin_directory_v1.Schema.Building;
+          get(customer: string, buildingId: string): AdminDirectory.Schema.Building;
           // Inserts a building.
-          insert(resource: Schema.Building, customer: string): Admin_directory_v1.Schema.Building;
+          insert(resource: Schema.Building, customer: string): AdminDirectory.Schema.Building;
           // Inserts a building.
-          insert(resource: Schema.Building, customer: string, optionalArgs: object): Admin_directory_v1.Schema.Building;
+          insert(resource: Schema.Building, customer: string, optionalArgs: object): AdminDirectory.Schema.Building;
           // Retrieves a list of buildings for an account.
-          list(customer: string): Admin_directory_v1.Schema.Buildings;
+          list(customer: string): AdminDirectory.Schema.Buildings;
           // Retrieves a list of buildings for an account.
-          list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.Buildings;
+          list(customer: string, optionalArgs: object): AdminDirectory.Schema.Buildings;
           // Updates a building. This method supports patch semantics.
-          patch(resource: Schema.Building, customer: string, buildingId: string): Admin_directory_v1.Schema.Building;
+          patch(resource: Schema.Building, customer: string, buildingId: string): AdminDirectory.Schema.Building;
           // Updates a building. This method supports patch semantics.
-          patch(resource: Schema.Building, customer: string, buildingId: string, optionalArgs: object): Admin_directory_v1.Schema.Building;
+          patch(resource: Schema.Building, customer: string, buildingId: string, optionalArgs: object): AdminDirectory.Schema.Building;
           // Deletes a building.
           remove(customer: string, buildingId: string): void;
           // Updates a building.
-          update(resource: Schema.Building, customer: string, buildingId: string): Admin_directory_v1.Schema.Building;
+          update(resource: Schema.Building, customer: string, buildingId: string): AdminDirectory.Schema.Building;
           // Updates a building.
-          update(resource: Schema.Building, customer: string, buildingId: string, optionalArgs: object): Admin_directory_v1.Schema.Building;
+          update(resource: Schema.Building, customer: string, buildingId: string, optionalArgs: object): AdminDirectory.Schema.Building;
         }
         export interface CalendarsCollection {
           // Retrieves a calendar resource.
-          get(customer: string, calendarResourceId: string): Admin_directory_v1.Schema.CalendarResource;
+          get(customer: string, calendarResourceId: string): AdminDirectory.Schema.CalendarResource;
           // Inserts a calendar resource.
-          insert(resource: Schema.CalendarResource, customer: string): Admin_directory_v1.Schema.CalendarResource;
+          insert(resource: Schema.CalendarResource, customer: string): AdminDirectory.Schema.CalendarResource;
           // Retrieves a list of calendar resources for an account.
-          list(customer: string): Admin_directory_v1.Schema.CalendarResources;
+          list(customer: string): AdminDirectory.Schema.CalendarResources;
           // Retrieves a list of calendar resources for an account.
-          list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.CalendarResources;
+          list(customer: string, optionalArgs: object): AdminDirectory.Schema.CalendarResources;
           // Updates a calendar resource.
           // This method supports patch semantics, meaning you only need to include the fields you wish to update. Fields that are not present in the request will be preserved. This method supports patch semantics.
-          patch(resource: Schema.CalendarResource, customer: string, calendarResourceId: string): Admin_directory_v1.Schema.CalendarResource;
+          patch(resource: Schema.CalendarResource, customer: string, calendarResourceId: string): AdminDirectory.Schema.CalendarResource;
           // Deletes a calendar resource.
           remove(customer: string, calendarResourceId: string): void;
           // Updates a calendar resource.
           // This method supports patch semantics, meaning you only need to include the fields you wish to update. Fields that are not present in the request will be preserved.
-          update(resource: Schema.CalendarResource, customer: string, calendarResourceId: string): Admin_directory_v1.Schema.CalendarResource;
+          update(resource: Schema.CalendarResource, customer: string, calendarResourceId: string): AdminDirectory.Schema.CalendarResource;
         }
         export interface FeaturesCollection {
           // Retrieves a feature.
-          get(customer: string, featureKey: string): Admin_directory_v1.Schema.Feature;
+          get(customer: string, featureKey: string): AdminDirectory.Schema.Feature;
           // Inserts a feature.
-          insert(resource: Schema.Feature, customer: string): Admin_directory_v1.Schema.Feature;
+          insert(resource: Schema.Feature, customer: string): AdminDirectory.Schema.Feature;
           // Retrieves a list of features for an account.
-          list(customer: string): Admin_directory_v1.Schema.Features;
+          list(customer: string): AdminDirectory.Schema.Features;
           // Retrieves a list of features for an account.
-          list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.Features;
+          list(customer: string, optionalArgs: object): AdminDirectory.Schema.Features;
           // Updates a feature. This method supports patch semantics.
-          patch(resource: Schema.Feature, customer: string, featureKey: string): Admin_directory_v1.Schema.Feature;
+          patch(resource: Schema.Feature, customer: string, featureKey: string): AdminDirectory.Schema.Feature;
           // Deletes a feature.
           remove(customer: string, featureKey: string): void;
           // Renames a feature.
           rename(resource: Schema.FeatureRename, customer: string, oldName: string): void;
           // Updates a feature.
-          update(resource: Schema.Feature, customer: string, featureKey: string): Admin_directory_v1.Schema.Feature;
+          update(resource: Schema.Feature, customer: string, featureKey: string): AdminDirectory.Schema.Feature;
         }
       }
       namespace Users {
         export interface AliasesCollection {
           // Add a alias for the user
-          insert(resource: Schema.Alias, userKey: string): Admin_directory_v1.Schema.Alias;
+          insert(resource: Schema.Alias, userKey: string): AdminDirectory.Schema.Alias;
           // List all aliases for a user
-          list(userKey: string): Admin_directory_v1.Schema.Aliases;
+          list(userKey: string): AdminDirectory.Schema.Aliases;
           // List all aliases for a user
-          list(userKey: string, optionalArgs: object): Admin_directory_v1.Schema.Aliases;
+          list(userKey: string, optionalArgs: object): AdminDirectory.Schema.Aliases;
           // Remove a alias for the user
           remove(userKey: string, alias: string): void;
           // Watch for changes in user aliases list
-          watch(resource: Schema.Channel, userKey: string): Admin_directory_v1.Schema.Channel;
+          watch(resource: Schema.Channel, userKey: string): AdminDirectory.Schema.Channel;
           // Watch for changes in user aliases list
-          watch(resource: Schema.Channel, userKey: string, optionalArgs: object): Admin_directory_v1.Schema.Channel;
+          watch(resource: Schema.Channel, userKey: string, optionalArgs: object): AdminDirectory.Schema.Channel;
         }
         export interface PhotosCollection {
           // Retrieve photo of a user
-          get(userKey: string): Admin_directory_v1.Schema.UserPhoto;
+          get(userKey: string): AdminDirectory.Schema.UserPhoto;
           // Add a photo for the user. This method supports patch semantics.
-          patch(resource: Schema.UserPhoto, userKey: string): Admin_directory_v1.Schema.UserPhoto;
+          patch(resource: Schema.UserPhoto, userKey: string): AdminDirectory.Schema.UserPhoto;
           // Remove photos for the user
           remove(userKey: string): void;
           // Add a photo for the user
-          update(resource: Schema.UserPhoto, userKey: string): Admin_directory_v1.Schema.UserPhoto;
+          update(resource: Schema.UserPhoto, userKey: string): AdminDirectory.Schema.UserPhoto;
         }
       }
       export interface AspsCollection {
         // Get information about an ASP issued by a user.
-        get(userKey: string, codeId: number): Admin_directory_v1.Schema.Asp;
+        get(userKey: string, codeId: number): AdminDirectory.Schema.Asp;
         // List the ASPs issued by a user.
-        list(userKey: string): Admin_directory_v1.Schema.Asps;
+        list(userKey: string): AdminDirectory.Schema.Asps;
         // Delete an ASP issued by a user.
         remove(userKey: string, codeId: number): void;
       }
@@ -119,225 +119,225 @@ declare namespace GoogleAppsScript {
         // Take action on Chrome OS Device
         action(resource: Schema.ChromeOsDeviceAction, customerId: string, resourceId: string): void;
         // Retrieve Chrome OS Device
-        get(customerId: string, deviceId: string): Admin_directory_v1.Schema.ChromeOsDevice;
+        get(customerId: string, deviceId: string): AdminDirectory.Schema.ChromeOsDevice;
         // Retrieve Chrome OS Device
-        get(customerId: string, deviceId: string, optionalArgs: object): Admin_directory_v1.Schema.ChromeOsDevice;
+        get(customerId: string, deviceId: string, optionalArgs: object): AdminDirectory.Schema.ChromeOsDevice;
         // Retrieve all Chrome OS Devices of a customer (paginated)
-        list(customerId: string): Admin_directory_v1.Schema.ChromeOsDevices;
+        list(customerId: string): AdminDirectory.Schema.ChromeOsDevices;
         // Retrieve all Chrome OS Devices of a customer (paginated)
-        list(customerId: string, optionalArgs: object): Admin_directory_v1.Schema.ChromeOsDevices;
+        list(customerId: string, optionalArgs: object): AdminDirectory.Schema.ChromeOsDevices;
         // Move or insert multiple Chrome OS Devices to organizational unit
         moveDevicesToOu(resource: Schema.ChromeOsMoveDevicesToOu, customerId: string, orgUnitPath: string): void;
         // Update Chrome OS Device. This method supports patch semantics.
-        patch(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string): Admin_directory_v1.Schema.ChromeOsDevice;
+        patch(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string): AdminDirectory.Schema.ChromeOsDevice;
         // Update Chrome OS Device. This method supports patch semantics.
-        patch(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string, optionalArgs: object): Admin_directory_v1.Schema.ChromeOsDevice;
+        patch(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string, optionalArgs: object): AdminDirectory.Schema.ChromeOsDevice;
         // Update Chrome OS Device
-        update(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string): Admin_directory_v1.Schema.ChromeOsDevice;
+        update(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string): AdminDirectory.Schema.ChromeOsDevice;
         // Update Chrome OS Device
-        update(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string, optionalArgs: object): Admin_directory_v1.Schema.ChromeOsDevice;
+        update(resource: Schema.ChromeOsDevice, customerId: string, deviceId: string, optionalArgs: object): AdminDirectory.Schema.ChromeOsDevice;
       }
       export interface CustomersCollection {
         // Retrieves a customer.
-        get(customerKey: string): Admin_directory_v1.Schema.Customer;
+        get(customerKey: string): AdminDirectory.Schema.Customer;
         // Updates a customer. This method supports patch semantics.
-        patch(resource: Schema.Customer, customerKey: string): Admin_directory_v1.Schema.Customer;
+        patch(resource: Schema.Customer, customerKey: string): AdminDirectory.Schema.Customer;
         // Updates a customer.
-        update(resource: Schema.Customer, customerKey: string): Admin_directory_v1.Schema.Customer;
+        update(resource: Schema.Customer, customerKey: string): AdminDirectory.Schema.Customer;
       }
       export interface DomainAliasesCollection {
         // Retrieves a domain alias of the customer.
-        get(customer: string, domainAliasName: string): Admin_directory_v1.Schema.DomainAlias;
+        get(customer: string, domainAliasName: string): AdminDirectory.Schema.DomainAlias;
         // Inserts a Domain alias of the customer.
-        insert(resource: Schema.DomainAlias, customer: string): Admin_directory_v1.Schema.DomainAlias;
+        insert(resource: Schema.DomainAlias, customer: string): AdminDirectory.Schema.DomainAlias;
         // Lists the domain aliases of the customer.
-        list(customer: string): Admin_directory_v1.Schema.DomainAliases;
+        list(customer: string): AdminDirectory.Schema.DomainAliases;
         // Lists the domain aliases of the customer.
-        list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.DomainAliases;
+        list(customer: string, optionalArgs: object): AdminDirectory.Schema.DomainAliases;
         // Deletes a Domain Alias of the customer.
         remove(customer: string, domainAliasName: string): void;
       }
       export interface DomainsCollection {
         // Retrieves a domain of the customer.
-        get(customer: string, domainName: string): Admin_directory_v1.Schema.Domains;
+        get(customer: string, domainName: string): AdminDirectory.Schema.Domains;
         // Inserts a domain of the customer.
-        insert(resource: Schema.Domains, customer: string): Admin_directory_v1.Schema.Domains;
+        insert(resource: Schema.Domains, customer: string): AdminDirectory.Schema.Domains;
         // Lists the domains of the customer.
-        list(customer: string): Admin_directory_v1.Schema.Domains2;
+        list(customer: string): AdminDirectory.Schema.Domains2;
         // Deletes a domain of the customer.
         remove(customer: string, domainName: string): void;
       }
       export interface GroupsCollection {
-        Aliases?: Admin_directory_v1.Collection.Groups.AliasesCollection;
+        Aliases?: AdminDirectory.Collection.Groups.AliasesCollection;
         // Retrieve Group
-        get(groupKey: string): Admin_directory_v1.Schema.Group;
+        get(groupKey: string): AdminDirectory.Schema.Group;
         // Create Group
-        insert(resource: Schema.Group): Admin_directory_v1.Schema.Group;
+        insert(resource: Schema.Group): AdminDirectory.Schema.Group;
         // Retrieve all groups of a domain or of a user given a userKey (paginated)
-        list(): Admin_directory_v1.Schema.Groups;
+        list(): AdminDirectory.Schema.Groups;
         // Retrieve all groups of a domain or of a user given a userKey (paginated)
-        list(optionalArgs: object): Admin_directory_v1.Schema.Groups;
+        list(optionalArgs: object): AdminDirectory.Schema.Groups;
         // Update Group. This method supports patch semantics.
-        patch(resource: Schema.Group, groupKey: string): Admin_directory_v1.Schema.Group;
+        patch(resource: Schema.Group, groupKey: string): AdminDirectory.Schema.Group;
         // Delete Group
         remove(groupKey: string): void;
         // Update Group
-        update(resource: Schema.Group, groupKey: string): Admin_directory_v1.Schema.Group;
+        update(resource: Schema.Group, groupKey: string): AdminDirectory.Schema.Group;
       }
       export interface MembersCollection {
         // Retrieve Group Member
-        get(groupKey: string, memberKey: string): Admin_directory_v1.Schema.Member;
+        get(groupKey: string, memberKey: string): AdminDirectory.Schema.Member;
         // Checks whether the given user is a member of the group. Membership can be direct or nested.
-        hasMember(groupKey: string, memberKey: string): Admin_directory_v1.Schema.MembersHasMember;
+        hasMember(groupKey: string, memberKey: string): AdminDirectory.Schema.MembersHasMember;
         // Add user to the specified group.
-        insert(resource: Schema.Member, groupKey: string): Admin_directory_v1.Schema.Member;
+        insert(resource: Schema.Member, groupKey: string): AdminDirectory.Schema.Member;
         // Retrieve all members in a group (paginated)
-        list(groupKey: string): Admin_directory_v1.Schema.Members;
+        list(groupKey: string): AdminDirectory.Schema.Members;
         // Retrieve all members in a group (paginated)
-        list(groupKey: string, optionalArgs: object): Admin_directory_v1.Schema.Members;
+        list(groupKey: string, optionalArgs: object): AdminDirectory.Schema.Members;
         // Update membership of a user in the specified group. This method supports patch semantics.
-        patch(resource: Schema.Member, groupKey: string, memberKey: string): Admin_directory_v1.Schema.Member;
+        patch(resource: Schema.Member, groupKey: string, memberKey: string): AdminDirectory.Schema.Member;
         // Remove membership.
         remove(groupKey: string, memberKey: string): void;
         // Update membership of a user in the specified group.
-        update(resource: Schema.Member, groupKey: string, memberKey: string): Admin_directory_v1.Schema.Member;
+        update(resource: Schema.Member, groupKey: string, memberKey: string): AdminDirectory.Schema.Member;
       }
       export interface MobiledevicesCollection {
         // Take action on Mobile Device
         action(resource: Schema.MobileDeviceAction, customerId: string, resourceId: string): void;
         // Retrieve Mobile Device
-        get(customerId: string, resourceId: string): Admin_directory_v1.Schema.MobileDevice;
+        get(customerId: string, resourceId: string): AdminDirectory.Schema.MobileDevice;
         // Retrieve Mobile Device
-        get(customerId: string, resourceId: string, optionalArgs: object): Admin_directory_v1.Schema.MobileDevice;
+        get(customerId: string, resourceId: string, optionalArgs: object): AdminDirectory.Schema.MobileDevice;
         // Retrieve all Mobile Devices of a customer (paginated)
-        list(customerId: string): Admin_directory_v1.Schema.MobileDevices;
+        list(customerId: string): AdminDirectory.Schema.MobileDevices;
         // Retrieve all Mobile Devices of a customer (paginated)
-        list(customerId: string, optionalArgs: object): Admin_directory_v1.Schema.MobileDevices;
+        list(customerId: string, optionalArgs: object): AdminDirectory.Schema.MobileDevices;
         // Delete Mobile Device
         remove(customerId: string, resourceId: string): void;
       }
       export interface NotificationsCollection {
         // Retrieves a notification.
-        get(customer: string, notificationId: string): Admin_directory_v1.Schema.Notification;
+        get(customer: string, notificationId: string): AdminDirectory.Schema.Notification;
         // Retrieves a list of notifications.
-        list(customer: string): Admin_directory_v1.Schema.Notifications;
+        list(customer: string): AdminDirectory.Schema.Notifications;
         // Retrieves a list of notifications.
-        list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.Notifications;
+        list(customer: string, optionalArgs: object): AdminDirectory.Schema.Notifications;
         // Updates a notification. This method supports patch semantics.
-        patch(resource: Schema.Notification, customer: string, notificationId: string): Admin_directory_v1.Schema.Notification;
+        patch(resource: Schema.Notification, customer: string, notificationId: string): AdminDirectory.Schema.Notification;
         // Deletes a notification
         remove(customer: string, notificationId: string): void;
         // Updates a notification.
-        update(resource: Schema.Notification, customer: string, notificationId: string): Admin_directory_v1.Schema.Notification;
+        update(resource: Schema.Notification, customer: string, notificationId: string): AdminDirectory.Schema.Notification;
       }
       export interface OrgunitsCollection {
         // Retrieve organizational unit
-        get(customerId: string, orgUnitPath: string[]): Admin_directory_v1.Schema.OrgUnit;
+        get(customerId: string, orgUnitPath: string[]): AdminDirectory.Schema.OrgUnit;
         // Add organizational unit
-        insert(resource: Schema.OrgUnit, customerId: string): Admin_directory_v1.Schema.OrgUnit;
+        insert(resource: Schema.OrgUnit, customerId: string): AdminDirectory.Schema.OrgUnit;
         // Retrieve all organizational units
-        list(customerId: string): Admin_directory_v1.Schema.OrgUnits;
+        list(customerId: string): AdminDirectory.Schema.OrgUnits;
         // Retrieve all organizational units
-        list(customerId: string, optionalArgs: object): Admin_directory_v1.Schema.OrgUnits;
+        list(customerId: string, optionalArgs: object): AdminDirectory.Schema.OrgUnits;
         // Update organizational unit. This method supports patch semantics.
-        patch(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): Admin_directory_v1.Schema.OrgUnit;
+        patch(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): AdminDirectory.Schema.OrgUnit;
         // Remove organizational unit
         remove(customerId: string, orgUnitPath: string[]): void;
         // Update organizational unit
-        update(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): Admin_directory_v1.Schema.OrgUnit;
+        update(resource: Schema.OrgUnit, customerId: string, orgUnitPath: string[]): AdminDirectory.Schema.OrgUnit;
       }
       export interface PrivilegesCollection {
         // Retrieves a paginated list of all privileges for a customer.
-        list(customer: string): Admin_directory_v1.Schema.Privileges;
+        list(customer: string): AdminDirectory.Schema.Privileges;
       }
       export interface ResolvedAppAccessSettingsCollection {
         // Retrieves resolved app access settings of the logged in user.
-        GetSettings(): Admin_directory_v1.Schema.AppAccessCollections;
+        GetSettings(): AdminDirectory.Schema.AppAccessCollections;
         // Retrieves the list of apps trusted by the admin of the logged in user.
-        ListTrustedApps(): Admin_directory_v1.Schema.TrustedApps;
+        ListTrustedApps(): AdminDirectory.Schema.TrustedApps;
       }
       export interface ResourcesCollection {
-        Buildings?: Admin_directory_v1.Collection.Resources.BuildingsCollection;
-        Calendars?: Admin_directory_v1.Collection.Resources.CalendarsCollection;
-        Features?: Admin_directory_v1.Collection.Resources.FeaturesCollection;
+        Buildings?: AdminDirectory.Collection.Resources.BuildingsCollection;
+        Calendars?: AdminDirectory.Collection.Resources.CalendarsCollection;
+        Features?: AdminDirectory.Collection.Resources.FeaturesCollection;
       }
       export interface RoleAssignmentsCollection {
         // Retrieve a role assignment.
-        get(customer: string, roleAssignmentId: string): Admin_directory_v1.Schema.RoleAssignment;
+        get(customer: string, roleAssignmentId: string): AdminDirectory.Schema.RoleAssignment;
         // Creates a role assignment.
-        insert(resource: Schema.RoleAssignment, customer: string): Admin_directory_v1.Schema.RoleAssignment;
+        insert(resource: Schema.RoleAssignment, customer: string): AdminDirectory.Schema.RoleAssignment;
         // Retrieves a paginated list of all roleAssignments.
-        list(customer: string): Admin_directory_v1.Schema.RoleAssignments;
+        list(customer: string): AdminDirectory.Schema.RoleAssignments;
         // Retrieves a paginated list of all roleAssignments.
-        list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.RoleAssignments;
+        list(customer: string, optionalArgs: object): AdminDirectory.Schema.RoleAssignments;
         // Deletes a role assignment.
         remove(customer: string, roleAssignmentId: string): void;
       }
       export interface RolesCollection {
         // Retrieves a role.
-        get(customer: string, roleId: string): Admin_directory_v1.Schema.Role;
+        get(customer: string, roleId: string): AdminDirectory.Schema.Role;
         // Creates a role.
-        insert(resource: Schema.Role, customer: string): Admin_directory_v1.Schema.Role;
+        insert(resource: Schema.Role, customer: string): AdminDirectory.Schema.Role;
         // Retrieves a paginated list of all the roles in a domain.
-        list(customer: string): Admin_directory_v1.Schema.Roles;
+        list(customer: string): AdminDirectory.Schema.Roles;
         // Retrieves a paginated list of all the roles in a domain.
-        list(customer: string, optionalArgs: object): Admin_directory_v1.Schema.Roles;
+        list(customer: string, optionalArgs: object): AdminDirectory.Schema.Roles;
         // Updates a role. This method supports patch semantics.
-        patch(resource: Schema.Role, customer: string, roleId: string): Admin_directory_v1.Schema.Role;
+        patch(resource: Schema.Role, customer: string, roleId: string): AdminDirectory.Schema.Role;
         // Deletes a role.
         remove(customer: string, roleId: string): void;
         // Updates a role.
-        update(resource: Schema.Role, customer: string, roleId: string): Admin_directory_v1.Schema.Role;
+        update(resource: Schema.Role, customer: string, roleId: string): AdminDirectory.Schema.Role;
       }
       export interface SchemasCollection {
         // Retrieve schema
-        get(customerId: string, schemaKey: string): Admin_directory_v1.Schema.Schema;
+        get(customerId: string, schemaKey: string): AdminDirectory.Schema.Schema;
         // Create schema.
-        insert(resource: Schema.Schema, customerId: string): Admin_directory_v1.Schema.Schema;
+        insert(resource: Schema.Schema, customerId: string): AdminDirectory.Schema.Schema;
         // Retrieve all schemas for a customer
-        list(customerId: string): Admin_directory_v1.Schema.Schemas;
+        list(customerId: string): AdminDirectory.Schema.Schemas;
         // Update schema. This method supports patch semantics.
-        patch(resource: Schema.Schema, customerId: string, schemaKey: string): Admin_directory_v1.Schema.Schema;
+        patch(resource: Schema.Schema, customerId: string, schemaKey: string): AdminDirectory.Schema.Schema;
         // Delete schema
         remove(customerId: string, schemaKey: string): void;
         // Update schema
-        update(resource: Schema.Schema, customerId: string, schemaKey: string): Admin_directory_v1.Schema.Schema;
+        update(resource: Schema.Schema, customerId: string, schemaKey: string): AdminDirectory.Schema.Schema;
       }
       export interface TokensCollection {
         // Get information about an access token issued by a user.
-        get(userKey: string, clientId: string): Admin_directory_v1.Schema.Token;
+        get(userKey: string, clientId: string): AdminDirectory.Schema.Token;
         // Returns the set of tokens specified user has issued to 3rd party applications.
-        list(userKey: string): Admin_directory_v1.Schema.Tokens;
+        list(userKey: string): AdminDirectory.Schema.Tokens;
         // Delete all access tokens issued by a user for an application.
         remove(userKey: string, clientId: string): void;
       }
       export interface UsersCollection {
-        Aliases?: Admin_directory_v1.Collection.Users.AliasesCollection;
-        Photos?: Admin_directory_v1.Collection.Users.PhotosCollection;
+        Aliases?: AdminDirectory.Collection.Users.AliasesCollection;
+        Photos?: AdminDirectory.Collection.Users.PhotosCollection;
         // retrieve user
-        get(userKey: string): Admin_directory_v1.Schema.User;
+        get(userKey: string): AdminDirectory.Schema.User;
         // retrieve user
-        get(userKey: string, optionalArgs: object): Admin_directory_v1.Schema.User;
+        get(userKey: string, optionalArgs: object): AdminDirectory.Schema.User;
         // create user.
-        insert(resource: Schema.User): Admin_directory_v1.Schema.User;
+        insert(resource: Schema.User): AdminDirectory.Schema.User;
         // Retrieve either deleted users or all users in a domain (paginated)
-        list(): Admin_directory_v1.Schema.Users;
+        list(): AdminDirectory.Schema.Users;
         // Retrieve either deleted users or all users in a domain (paginated)
-        list(optionalArgs: object): Admin_directory_v1.Schema.Users;
+        list(optionalArgs: object): AdminDirectory.Schema.Users;
         // change admin status of a user
         makeAdmin(resource: Schema.UserMakeAdmin, userKey: string): void;
         // update user. This method supports patch semantics.
-        patch(resource: Schema.User, userKey: string): Admin_directory_v1.Schema.User;
+        patch(resource: Schema.User, userKey: string): AdminDirectory.Schema.User;
         // Delete user
         remove(userKey: string): void;
         // Undelete a deleted user
         undelete(resource: Schema.UserUndelete, userKey: string): void;
         // update user
-        update(resource: Schema.User, userKey: string): Admin_directory_v1.Schema.User;
+        update(resource: Schema.User, userKey: string): AdminDirectory.Schema.User;
         // Watch for changes in users list
-        watch(resource: Schema.Channel): Admin_directory_v1.Schema.Channel;
+        watch(resource: Schema.Channel): AdminDirectory.Schema.Channel;
         // Watch for changes in users list
-        watch(resource: Schema.Channel, optionalArgs: object): Admin_directory_v1.Schema.Channel;
+        watch(resource: Schema.Channel, optionalArgs: object): AdminDirectory.Schema.Channel;
       }
       export interface VerificationCodesCollection {
         // Generate new backup verification codes for the user.
@@ -345,7 +345,7 @@ declare namespace GoogleAppsScript {
         // Invalidate the current backup verification codes for the user.
         invalidate(userKey: string): void;
         // Returns the current set of valid backup verification codes for the specified user.
-        list(userKey: string): Admin_directory_v1.Schema.VerificationCodes;
+        list(userKey: string): AdminDirectory.Schema.VerificationCodes;
       }
     }
     namespace Schema {
@@ -357,7 +357,7 @@ declare namespace GoogleAppsScript {
         primaryEmail?: string;
       }
       export interface Aliases {
-        aliases?: Object[];
+        aliases?: any[];
         etag?: string;
         kind?: string;
       }
@@ -382,14 +382,14 @@ declare namespace GoogleAppsScript {
       }
       export interface Asps {
         etag?: string;
-        items?: Admin_directory_v1.Schema.Asp[];
+        items?: AdminDirectory.Schema.Asp[];
         kind?: string;
       }
       export interface Building {
-        address?: Admin_directory_v1.Schema.BuildingAddress;
+        address?: AdminDirectory.Schema.BuildingAddress;
         buildingId?: string;
         buildingName?: string;
-        coordinates?: Admin_directory_v1.Schema.BuildingCoordinates;
+        coordinates?: AdminDirectory.Schema.BuildingCoordinates;
         description?: string;
         etags?: string;
         floorNames?: string[];
@@ -405,11 +405,11 @@ declare namespace GoogleAppsScript {
         sublocality?: string;
       }
       export interface BuildingCoordinates {
-        latitude?: Number;
-        longitude?: Number;
+        latitude?: number;
+        longitude?: number;
       }
       export interface Buildings {
-        buildings?: Admin_directory_v1.Schema.Building[];
+        buildings?: AdminDirectory.Schema.Building[];
         etag?: string;
         kind?: string;
         nextPageToken?: string;
@@ -433,7 +433,7 @@ declare namespace GoogleAppsScript {
       }
       export interface CalendarResources {
         etag?: string;
-        items?: Admin_directory_v1.Schema.CalendarResource[];
+        items?: AdminDirectory.Schema.CalendarResource[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -450,15 +450,15 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface ChromeOsDevice {
-        activeTimeRanges?: Admin_directory_v1.Schema.ChromeOsDeviceActiveTimeRanges[];
+        activeTimeRanges?: AdminDirectory.Schema.ChromeOsDeviceActiveTimeRanges[];
         annotatedAssetId?: string;
         annotatedLocation?: string;
         annotatedUser?: string;
         bootMode?: string;
-        cpuStatusReports?: Admin_directory_v1.Schema.ChromeOsDeviceCpuStatusReports[];
-        deviceFiles?: Admin_directory_v1.Schema.ChromeOsDeviceDeviceFiles[];
+        cpuStatusReports?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReports[];
+        deviceFiles?: AdminDirectory.Schema.ChromeOsDeviceDeviceFiles[];
         deviceId?: string;
-        diskVolumeReports?: Admin_directory_v1.Schema.ChromeOsDeviceDiskVolumeReports[];
+        diskVolumeReports?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReports[];
         etag?: string;
         ethernetMacAddress?: string;
         firmwareVersion?: string;
@@ -473,13 +473,13 @@ declare namespace GoogleAppsScript {
         orgUnitPath?: string;
         osVersion?: string;
         platformVersion?: string;
-        recentUsers?: Admin_directory_v1.Schema.ChromeOsDeviceRecentUsers[];
+        recentUsers?: AdminDirectory.Schema.ChromeOsDeviceRecentUsers[];
         serialNumber?: string;
         status?: string;
         supportEndDate?: string;
-        systemRamFreeReports?: Admin_directory_v1.Schema.ChromeOsDeviceSystemRamFreeReports[];
+        systemRamFreeReports?: AdminDirectory.Schema.ChromeOsDeviceSystemRamFreeReports[];
         systemRamTotal?: string;
-        tpmVersionInfo?: Admin_directory_v1.Schema.ChromeOsDeviceTpmVersionInfo;
+        tpmVersionInfo?: AdminDirectory.Schema.ChromeOsDeviceTpmVersionInfo;
         willAutoRenew?: boolean;
       }
       export interface ChromeOsDeviceAction {
@@ -491,7 +491,7 @@ declare namespace GoogleAppsScript {
         date?: string;
       }
       export interface ChromeOsDeviceCpuStatusReports {
-        cpuTemperatureInfo?: Admin_directory_v1.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[];
+        cpuTemperatureInfo?: AdminDirectory.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo[];
         cpuUtilizationPercentageInfo?: number[];
         reportTime?: string;
       }
@@ -506,7 +506,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface ChromeOsDeviceDiskVolumeReports {
-        volumeInfo?: Admin_directory_v1.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo[];
+        volumeInfo?: AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo[];
       }
       export interface ChromeOsDeviceDiskVolumeReportsVolumeInfo {
         storageFree?: string;
@@ -530,7 +530,7 @@ declare namespace GoogleAppsScript {
         vendorSpecific?: string;
       }
       export interface ChromeOsDevices {
-        chromeosdevices?: Admin_directory_v1.Schema.ChromeOsDevice[];
+        chromeosdevices?: AdminDirectory.Schema.ChromeOsDevice[];
         etag?: string;
         kind?: string;
         nextPageToken?: string;
@@ -547,7 +547,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
         language?: string;
         phoneNumber?: string;
-        postalAddress?: Admin_directory_v1.Schema.CustomerPostalAddress;
+        postalAddress?: AdminDirectory.Schema.CustomerPostalAddress;
       }
       export interface CustomerPostalAddress {
         addressLine1?: string;
@@ -569,13 +569,13 @@ declare namespace GoogleAppsScript {
         verified?: boolean;
       }
       export interface DomainAliases {
-        domainAliases?: Admin_directory_v1.Schema.DomainAlias[];
+        domainAliases?: AdminDirectory.Schema.DomainAlias[];
         etag?: string;
         kind?: string;
       }
       export interface Domains {
         creationTime?: string;
-        domainAliases?: Admin_directory_v1.Schema.DomainAlias[];
+        domainAliases?: AdminDirectory.Schema.DomainAlias[];
         domainName?: string;
         etag?: string;
         isPrimary?: boolean;
@@ -583,7 +583,7 @@ declare namespace GoogleAppsScript {
         verified?: boolean;
       }
       export interface Domains2 {
-        domains?: Admin_directory_v1.Schema.Domains[];
+        domains?: AdminDirectory.Schema.Domains[];
         etag?: string;
         kind?: string;
       }
@@ -593,14 +593,14 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface FeatureInstance {
-        feature?: Admin_directory_v1.Schema.Feature;
+        feature?: AdminDirectory.Schema.Feature;
       }
       export interface FeatureRename {
         newName?: string;
       }
       export interface Features {
         etag?: string;
-        features?: Admin_directory_v1.Schema.Feature[];
+        features?: AdminDirectory.Schema.Feature[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -618,7 +618,7 @@ declare namespace GoogleAppsScript {
       }
       export interface Groups {
         etag?: string;
-        groups?: Admin_directory_v1.Schema.Group[];
+        groups?: AdminDirectory.Schema.Group[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -635,7 +635,7 @@ declare namespace GoogleAppsScript {
       export interface Members {
         etag?: string;
         kind?: string;
-        members?: Admin_directory_v1.Schema.Member[];
+        members?: AdminDirectory.Schema.Member[];
         nextPageToken?: string;
       }
       export interface MembersHasMember {
@@ -643,7 +643,7 @@ declare namespace GoogleAppsScript {
       }
       export interface MobileDevice {
         adbStatus?: boolean;
-        applications?: Admin_directory_v1.Schema.MobileDeviceApplications[];
+        applications?: AdminDirectory.Schema.MobileDeviceApplications[];
         basebandVersion?: string;
         bootloaderVersion?: string;
         brand?: string;
@@ -696,7 +696,7 @@ declare namespace GoogleAppsScript {
       export interface MobileDevices {
         etag?: string;
         kind?: string;
-        mobiledevices?: Admin_directory_v1.Schema.MobileDevice[];
+        mobiledevices?: AdminDirectory.Schema.MobileDevice[];
         nextPageToken?: string;
       }
       export interface Notification {
@@ -711,7 +711,7 @@ declare namespace GoogleAppsScript {
       }
       export interface Notifications {
         etag?: string;
-        items?: Admin_directory_v1.Schema.Notification[];
+        items?: AdminDirectory.Schema.Notification[];
         kind?: string;
         nextPageToken?: string;
         unreadNotificationsCount?: number;
@@ -730,10 +730,10 @@ declare namespace GoogleAppsScript {
       export interface OrgUnits {
         etag?: string;
         kind?: string;
-        organizationUnits?: Admin_directory_v1.Schema.OrgUnit[];
+        organizationUnits?: AdminDirectory.Schema.OrgUnit[];
       }
       export interface Privilege {
-        childPrivileges?: Admin_directory_v1.Schema.Privilege[];
+        childPrivileges?: AdminDirectory.Schema.Privilege[];
         etag?: string;
         isOuScopable?: boolean;
         kind?: string;
@@ -743,7 +743,7 @@ declare namespace GoogleAppsScript {
       }
       export interface Privileges {
         etag?: string;
-        items?: Admin_directory_v1.Schema.Privilege[];
+        items?: AdminDirectory.Schema.Privilege[];
         kind?: string;
       }
       export interface Role {
@@ -754,7 +754,7 @@ declare namespace GoogleAppsScript {
         roleDescription?: string;
         roleId?: string;
         roleName?: string;
-        rolePrivileges?: Admin_directory_v1.Schema.RoleRolePrivileges[];
+        rolePrivileges?: AdminDirectory.Schema.RoleRolePrivileges[];
       }
       export interface RoleAssignment {
         assignedTo?: string;
@@ -767,7 +767,7 @@ declare namespace GoogleAppsScript {
       }
       export interface RoleAssignments {
         etag?: string;
-        items?: Admin_directory_v1.Schema.RoleAssignment[];
+        items?: AdminDirectory.Schema.RoleAssignment[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -777,14 +777,14 @@ declare namespace GoogleAppsScript {
       }
       export interface Roles {
         etag?: string;
-        items?: Admin_directory_v1.Schema.Role[];
+        items?: AdminDirectory.Schema.Role[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface Schema {
         displayName?: string;
         etag?: string;
-        fields?: Admin_directory_v1.Schema.SchemaFieldSpec[];
+        fields?: AdminDirectory.Schema.SchemaFieldSpec[];
         kind?: string;
         schemaId?: string;
         schemaName?: string;
@@ -798,17 +798,17 @@ declare namespace GoogleAppsScript {
         indexed?: boolean;
         kind?: string;
         multiValued?: boolean;
-        numericIndexingSpec?: Admin_directory_v1.Schema.SchemaFieldSpecNumericIndexingSpec;
+        numericIndexingSpec?: AdminDirectory.Schema.SchemaFieldSpecNumericIndexingSpec;
         readAccessType?: string;
       }
       export interface SchemaFieldSpecNumericIndexingSpec {
-        maxValue?: Number;
-        minValue?: Number;
+        maxValue?: number;
+        minValue?: number;
       }
       export interface Schemas {
         etag?: string;
         kind?: string;
-        schemas?: Admin_directory_v1.Schema.Schema[];
+        schemas?: AdminDirectory.Schema.Schema[];
       }
       export interface Token {
         anonymous?: boolean;
@@ -822,7 +822,7 @@ declare namespace GoogleAppsScript {
       }
       export interface Tokens {
         etag?: string;
-        items?: Admin_directory_v1.Schema.Token[];
+        items?: AdminDirectory.Schema.Token[];
         kind?: string;
       }
       export interface TrustedAppId {
@@ -836,7 +836,7 @@ declare namespace GoogleAppsScript {
         etag?: string;
         kind?: string;
         nextPageToken?: string;
-        trustedApps?: Admin_directory_v1.Schema.TrustedAppId[];
+        trustedApps?: AdminDirectory.Schema.TrustedAppId[];
       }
       export interface User {
         addresses?: object;
@@ -867,7 +867,7 @@ declare namespace GoogleAppsScript {
         languages?: object;
         lastLoginTime?: string;
         locations?: object;
-        name?: Admin_directory_v1.Schema.UserName;
+        name?: AdminDirectory.Schema.UserName;
         nonEditableAliases?: string[];
         notes?: object;
         orgUnitPath?: string;
@@ -1019,7 +1019,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
         nextPageToken?: string;
         trigger_event?: string;
-        users?: Admin_directory_v1.Schema.User[];
+        users?: AdminDirectory.Schema.User[];
       }
       export interface VerificationCode {
         etag?: string;
@@ -1029,113 +1029,113 @@ declare namespace GoogleAppsScript {
       }
       export interface VerificationCodes {
         etag?: string;
-        items?: Admin_directory_v1.Schema.VerificationCode[];
+        items?: AdminDirectory.Schema.VerificationCode[];
         kind?: string;
       }
     }
   }
-  export interface Admin_directory_v1 {
-    Asps?: Admin_directory_v1.Collection.AspsCollection;
-    Channels?: Admin_directory_v1.Collection.ChannelsCollection;
-    Chromeosdevices?: Admin_directory_v1.Collection.ChromeosdevicesCollection;
-    Customers?: Admin_directory_v1.Collection.CustomersCollection;
-    DomainAliases?: Admin_directory_v1.Collection.DomainAliasesCollection;
-    Domains?: Admin_directory_v1.Collection.DomainsCollection;
-    Groups?: Admin_directory_v1.Collection.GroupsCollection;
-    Members?: Admin_directory_v1.Collection.MembersCollection;
-    Mobiledevices?: Admin_directory_v1.Collection.MobiledevicesCollection;
-    Notifications?: Admin_directory_v1.Collection.NotificationsCollection;
-    Orgunits?: Admin_directory_v1.Collection.OrgunitsCollection;
-    Privileges?: Admin_directory_v1.Collection.PrivilegesCollection;
-    ResolvedAppAccessSettings?: Admin_directory_v1.Collection.ResolvedAppAccessSettingsCollection;
-    Resources?: Admin_directory_v1.Collection.ResourcesCollection;
-    RoleAssignments?: Admin_directory_v1.Collection.RoleAssignmentsCollection;
-    Roles?: Admin_directory_v1.Collection.RolesCollection;
-    Schemas?: Admin_directory_v1.Collection.SchemasCollection;
-    Tokens?: Admin_directory_v1.Collection.TokensCollection;
-    Users?: Admin_directory_v1.Collection.UsersCollection;
-    VerificationCodes?: Admin_directory_v1.Collection.VerificationCodesCollection;
+  export interface AdminDirectory {
+    Asps?: AdminDirectory.Collection.AspsCollection;
+    Channels?: AdminDirectory.Collection.ChannelsCollection;
+    Chromeosdevices?: AdminDirectory.Collection.ChromeosdevicesCollection;
+    Customers?: AdminDirectory.Collection.CustomersCollection;
+    DomainAliases?: AdminDirectory.Collection.DomainAliasesCollection;
+    Domains?: AdminDirectory.Collection.DomainsCollection;
+    Groups?: AdminDirectory.Collection.GroupsCollection;
+    Members?: AdminDirectory.Collection.MembersCollection;
+    Mobiledevices?: AdminDirectory.Collection.MobiledevicesCollection;
+    Notifications?: AdminDirectory.Collection.NotificationsCollection;
+    Orgunits?: AdminDirectory.Collection.OrgunitsCollection;
+    Privileges?: AdminDirectory.Collection.PrivilegesCollection;
+    ResolvedAppAccessSettings?: AdminDirectory.Collection.ResolvedAppAccessSettingsCollection;
+    Resources?: AdminDirectory.Collection.ResourcesCollection;
+    RoleAssignments?: AdminDirectory.Collection.RoleAssignmentsCollection;
+    Roles?: AdminDirectory.Collection.RolesCollection;
+    Schemas?: AdminDirectory.Collection.SchemasCollection;
+    Tokens?: AdminDirectory.Collection.TokensCollection;
+    Users?: AdminDirectory.Collection.UsersCollection;
+    VerificationCodes?: AdminDirectory.Collection.VerificationCodesCollection;
     // Create a new instance of Alias
-    newAlias(): Admin_directory_v1.Schema.Alias;
+    newAlias(): AdminDirectory.Schema.Alias;
     // Create a new instance of Building
-    newBuilding(): Admin_directory_v1.Schema.Building;
+    newBuilding(): AdminDirectory.Schema.Building;
     // Create a new instance of BuildingAddress
-    newBuildingAddress(): Admin_directory_v1.Schema.BuildingAddress;
+    newBuildingAddress(): AdminDirectory.Schema.BuildingAddress;
     // Create a new instance of BuildingCoordinates
-    newBuildingCoordinates(): Admin_directory_v1.Schema.BuildingCoordinates;
+    newBuildingCoordinates(): AdminDirectory.Schema.BuildingCoordinates;
     // Create a new instance of CalendarResource
-    newCalendarResource(): Admin_directory_v1.Schema.CalendarResource;
+    newCalendarResource(): AdminDirectory.Schema.CalendarResource;
     // Create a new instance of Channel
-    newChannel(): Admin_directory_v1.Schema.Channel;
+    newChannel(): AdminDirectory.Schema.Channel;
     // Create a new instance of ChromeOsDevice
-    newChromeOsDevice(): Admin_directory_v1.Schema.ChromeOsDevice;
+    newChromeOsDevice(): AdminDirectory.Schema.ChromeOsDevice;
     // Create a new instance of ChromeOsDeviceAction
-    newChromeOsDeviceAction(): Admin_directory_v1.Schema.ChromeOsDeviceAction;
+    newChromeOsDeviceAction(): AdminDirectory.Schema.ChromeOsDeviceAction;
     // Create a new instance of ChromeOsDeviceActiveTimeRanges
-    newChromeOsDeviceActiveTimeRanges(): Admin_directory_v1.Schema.ChromeOsDeviceActiveTimeRanges;
+    newChromeOsDeviceActiveTimeRanges(): AdminDirectory.Schema.ChromeOsDeviceActiveTimeRanges;
     // Create a new instance of ChromeOsDeviceCpuStatusReports
-    newChromeOsDeviceCpuStatusReports(): Admin_directory_v1.Schema.ChromeOsDeviceCpuStatusReports;
+    newChromeOsDeviceCpuStatusReports(): AdminDirectory.Schema.ChromeOsDeviceCpuStatusReports;
     // Create a new instance of ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo
-    newChromeOsDeviceCpuStatusReportsCpuTemperatureInfo(): Admin_directory_v1.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo;
+    newChromeOsDeviceCpuStatusReportsCpuTemperatureInfo(): AdminDirectory.Schema.ChromeOsDeviceCpuStatusReportsCpuTemperatureInfo;
     // Create a new instance of ChromeOsDeviceDeviceFiles
-    newChromeOsDeviceDeviceFiles(): Admin_directory_v1.Schema.ChromeOsDeviceDeviceFiles;
+    newChromeOsDeviceDeviceFiles(): AdminDirectory.Schema.ChromeOsDeviceDeviceFiles;
     // Create a new instance of ChromeOsDeviceDiskVolumeReports
-    newChromeOsDeviceDiskVolumeReports(): Admin_directory_v1.Schema.ChromeOsDeviceDiskVolumeReports;
+    newChromeOsDeviceDiskVolumeReports(): AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReports;
     // Create a new instance of ChromeOsDeviceDiskVolumeReportsVolumeInfo
-    newChromeOsDeviceDiskVolumeReportsVolumeInfo(): Admin_directory_v1.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo;
+    newChromeOsDeviceDiskVolumeReportsVolumeInfo(): AdminDirectory.Schema.ChromeOsDeviceDiskVolumeReportsVolumeInfo;
     // Create a new instance of ChromeOsDeviceRecentUsers
-    newChromeOsDeviceRecentUsers(): Admin_directory_v1.Schema.ChromeOsDeviceRecentUsers;
+    newChromeOsDeviceRecentUsers(): AdminDirectory.Schema.ChromeOsDeviceRecentUsers;
     // Create a new instance of ChromeOsDeviceSystemRamFreeReports
-    newChromeOsDeviceSystemRamFreeReports(): Admin_directory_v1.Schema.ChromeOsDeviceSystemRamFreeReports;
+    newChromeOsDeviceSystemRamFreeReports(): AdminDirectory.Schema.ChromeOsDeviceSystemRamFreeReports;
     // Create a new instance of ChromeOsDeviceTpmVersionInfo
-    newChromeOsDeviceTpmVersionInfo(): Admin_directory_v1.Schema.ChromeOsDeviceTpmVersionInfo;
+    newChromeOsDeviceTpmVersionInfo(): AdminDirectory.Schema.ChromeOsDeviceTpmVersionInfo;
     // Create a new instance of ChromeOsMoveDevicesToOu
-    newChromeOsMoveDevicesToOu(): Admin_directory_v1.Schema.ChromeOsMoveDevicesToOu;
+    newChromeOsMoveDevicesToOu(): AdminDirectory.Schema.ChromeOsMoveDevicesToOu;
     // Create a new instance of Customer
-    newCustomer(): Admin_directory_v1.Schema.Customer;
+    newCustomer(): AdminDirectory.Schema.Customer;
     // Create a new instance of CustomerPostalAddress
-    newCustomerPostalAddress(): Admin_directory_v1.Schema.CustomerPostalAddress;
+    newCustomerPostalAddress(): AdminDirectory.Schema.CustomerPostalAddress;
     // Create a new instance of DomainAlias
-    newDomainAlias(): Admin_directory_v1.Schema.DomainAlias;
+    newDomainAlias(): AdminDirectory.Schema.DomainAlias;
     // Create a new instance of Domains
-    newDomains(): Admin_directory_v1.Schema.Domains;
+    newDomains(): AdminDirectory.Schema.Domains;
     // Create a new instance of Feature
-    newFeature(): Admin_directory_v1.Schema.Feature;
+    newFeature(): AdminDirectory.Schema.Feature;
     // Create a new instance of FeatureRename
-    newFeatureRename(): Admin_directory_v1.Schema.FeatureRename;
+    newFeatureRename(): AdminDirectory.Schema.FeatureRename;
     // Create a new instance of Group
-    newGroup(): Admin_directory_v1.Schema.Group;
+    newGroup(): AdminDirectory.Schema.Group;
     // Create a new instance of Member
-    newMember(): Admin_directory_v1.Schema.Member;
+    newMember(): AdminDirectory.Schema.Member;
     // Create a new instance of MobileDeviceAction
-    newMobileDeviceAction(): Admin_directory_v1.Schema.MobileDeviceAction;
+    newMobileDeviceAction(): AdminDirectory.Schema.MobileDeviceAction;
     // Create a new instance of Notification
-    newNotification(): Admin_directory_v1.Schema.Notification;
+    newNotification(): AdminDirectory.Schema.Notification;
     // Create a new instance of OrgUnit
-    newOrgUnit(): Admin_directory_v1.Schema.OrgUnit;
+    newOrgUnit(): AdminDirectory.Schema.OrgUnit;
     // Create a new instance of Role
-    newRole(): Admin_directory_v1.Schema.Role;
+    newRole(): AdminDirectory.Schema.Role;
     // Create a new instance of RoleAssignment
-    newRoleAssignment(): Admin_directory_v1.Schema.RoleAssignment;
+    newRoleAssignment(): AdminDirectory.Schema.RoleAssignment;
     // Create a new instance of RoleRolePrivileges
-    newRoleRolePrivileges(): Admin_directory_v1.Schema.RoleRolePrivileges;
+    newRoleRolePrivileges(): AdminDirectory.Schema.RoleRolePrivileges;
     // Create a new instance of Schema
-    newSchema(): Admin_directory_v1.Schema.Schema;
+    newSchema(): AdminDirectory.Schema.Schema;
     // Create a new instance of SchemaFieldSpec
-    newSchemaFieldSpec(): Admin_directory_v1.Schema.SchemaFieldSpec;
+    newSchemaFieldSpec(): AdminDirectory.Schema.SchemaFieldSpec;
     // Create a new instance of SchemaFieldSpecNumericIndexingSpec
-    newSchemaFieldSpecNumericIndexingSpec(): Admin_directory_v1.Schema.SchemaFieldSpecNumericIndexingSpec;
+    newSchemaFieldSpecNumericIndexingSpec(): AdminDirectory.Schema.SchemaFieldSpecNumericIndexingSpec;
     // Create a new instance of User
-    newUser(): Admin_directory_v1.Schema.User;
+    newUser(): AdminDirectory.Schema.User;
     // Create a new instance of UserMakeAdmin
-    newUserMakeAdmin(): Admin_directory_v1.Schema.UserMakeAdmin;
+    newUserMakeAdmin(): AdminDirectory.Schema.UserMakeAdmin;
     // Create a new instance of UserName
-    newUserName(): Admin_directory_v1.Schema.UserName;
+    newUserName(): AdminDirectory.Schema.UserName;
     // Create a new instance of UserPhoto
-    newUserPhoto(): Admin_directory_v1.Schema.UserPhoto;
+    newUserPhoto(): AdminDirectory.Schema.UserPhoto;
     // Create a new instance of UserUndelete
-    newUserUndelete(): Admin_directory_v1.Schema.UserUndelete;
+    newUserUndelete(): AdminDirectory.Schema.UserUndelete;
   }
 }
 
-declare var Admin_directory_v1: GoogleAppsScript.Admin_directory_v1;
+declare var AdminDirectory: GoogleAppsScript.AdminDirectory;

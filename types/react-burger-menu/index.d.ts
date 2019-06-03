@@ -2,6 +2,7 @@
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 David Acevedo <https://github.com/dacevedo12>
+//                 German Pineda <https://github.com/germanp173>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -27,11 +28,13 @@ export interface Props {
     bodyClassName?: string;
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
+    className?: string;
     crossButtonClassName?: string;
     crossClassName?: string;
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
     customOnKeyDown?(event: React.KeyboardEvent): void;
+    disableAutoFocus?: boolean;
     disableCloseOnEsc?: boolean;
     disableOverlayClick?: boolean;
     htmlClassName?: string;

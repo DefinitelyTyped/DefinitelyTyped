@@ -11,6 +11,7 @@
 *.csproj
 *.map
 *.swp
+*.code-workspace
 .DS_Store
 
 _Resharper.DefinitelyTyped

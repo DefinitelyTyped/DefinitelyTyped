@@ -5,220 +5,220 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Analytics_v3 {
+  namespace Analytics {
     namespace Collection {
       namespace Data {
         export interface GaCollection {
           // Returns Analytics data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string): Analytics_v3.Schema.GaData;
+          get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.GaData;
           // Returns Analytics data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics_v3.Schema.GaData;
+          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics.Schema.GaData;
         }
         export interface McfCollection {
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string): Analytics_v3.Schema.McfData;
+          get(ids: string, start_date: string, end_date: string, metrics: string): Analytics.Schema.McfData;
           // Returns Analytics Multi-Channel Funnels data for a view (profile).
-          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics_v3.Schema.McfData;
+          get(ids: string, start_date: string, end_date: string, metrics: string, optionalArgs: object): Analytics.Schema.McfData;
         }
         export interface RealtimeCollection {
           // Returns real time data for a view (profile).
-          get(ids: string, metrics: string): Analytics_v3.Schema.RealtimeData;
+          get(ids: string, metrics: string): Analytics.Schema.RealtimeData;
           // Returns real time data for a view (profile).
-          get(ids: string, metrics: string, optionalArgs: object): Analytics_v3.Schema.RealtimeData;
+          get(ids: string, metrics: string, optionalArgs: object): Analytics.Schema.RealtimeData;
         }
       }
       namespace Management {
         export interface AccountSummariesCollection {
           // Lists account summaries (lightweight tree comprised of accounts/properties/profiles) to which the user has access.
-          list(): Analytics_v3.Schema.AccountSummaries;
+          list(): Analytics.Schema.AccountSummaries;
           // Lists account summaries (lightweight tree comprised of accounts/properties/profiles) to which the user has access.
-          list(optionalArgs: object): Analytics_v3.Schema.AccountSummaries;
+          list(optionalArgs: object): Analytics.Schema.AccountSummaries;
         }
         export interface AccountUserLinksCollection {
           // Adds a new user to the given account.
-          insert(resource: Schema.EntityUserLink, accountId: string): Analytics_v3.Schema.EntityUserLink;
+          insert(resource: Schema.EntityUserLink, accountId: string): Analytics.Schema.EntityUserLink;
           // Lists account-user links for a given account.
-          list(accountId: string): Analytics_v3.Schema.EntityUserLinks;
+          list(accountId: string): Analytics.Schema.EntityUserLinks;
           // Lists account-user links for a given account.
-          list(accountId: string, optionalArgs: object): Analytics_v3.Schema.EntityUserLinks;
+          list(accountId: string, optionalArgs: object): Analytics.Schema.EntityUserLinks;
           // Removes a user from the given account.
           remove(accountId: string, linkId: string): void;
           // Updates permissions for an existing user on the given account.
-          update(resource: Schema.EntityUserLink, accountId: string, linkId: string): Analytics_v3.Schema.EntityUserLink;
+          update(resource: Schema.EntityUserLink, accountId: string, linkId: string): Analytics.Schema.EntityUserLink;
         }
         export interface AccountsCollection {
           // Lists all accounts to which the user has access.
-          list(): Analytics_v3.Schema.Accounts;
+          list(): Analytics.Schema.Accounts;
           // Lists all accounts to which the user has access.
-          list(optionalArgs: object): Analytics_v3.Schema.Accounts;
+          list(optionalArgs: object): Analytics.Schema.Accounts;
         }
         export interface ClientIdCollection {
           // Hashes the given Client ID.
-          hashClientId(resource: Analytics_v3.Schema.HashClientIdRequest): Analytics_v3.Schema.HashClientIdResponse;
+          hashClientId(resource: Analytics.Schema.HashClientIdRequest): Analytics.Schema.HashClientIdResponse;
         }
         export interface CustomDataSourcesCollection {
           // List custom data sources to which the user has access.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.CustomDataSources;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.CustomDataSources;
           // List custom data sources to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.CustomDataSources;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomDataSources;
         }
         export interface CustomDimensionsCollection {
           // Get a custom dimension to which the user has access.
-          get(accountId: string, webPropertyId: string, customDimensionId: string): Analytics_v3.Schema.CustomDimension;
+          get(accountId: string, webPropertyId: string, customDimensionId: string): Analytics.Schema.CustomDimension;
           // Create a new custom dimension.
-          insert(resource: Schema.CustomDimension, accountId: string, webPropertyId: string): Analytics_v3.Schema.CustomDimension;
+          insert(resource: Schema.CustomDimension, accountId: string, webPropertyId: string): Analytics.Schema.CustomDimension;
           // Lists custom dimensions to which the user has access.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.CustomDimensions;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.CustomDimensions;
           // Lists custom dimensions to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.CustomDimensions;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomDimensions;
           // Updates an existing custom dimension. This method supports patch semantics.
-          patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string): Analytics_v3.Schema.CustomDimension;
+          patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string): Analytics.Schema.CustomDimension;
           // Updates an existing custom dimension. This method supports patch semantics.
-          patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics_v3.Schema.CustomDimension;
+          patch(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics.Schema.CustomDimension;
           // Updates an existing custom dimension.
-          update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string): Analytics_v3.Schema.CustomDimension;
+          update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string): Analytics.Schema.CustomDimension;
           // Updates an existing custom dimension.
-          update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics_v3.Schema.CustomDimension;
+          update(resource: Schema.CustomDimension, accountId: string, webPropertyId: string, customDimensionId: string, optionalArgs: object): Analytics.Schema.CustomDimension;
         }
         export interface CustomMetricsCollection {
           // Get a custom metric to which the user has access.
-          get(accountId: string, webPropertyId: string, customMetricId: string): Analytics_v3.Schema.CustomMetric;
+          get(accountId: string, webPropertyId: string, customMetricId: string): Analytics.Schema.CustomMetric;
           // Create a new custom metric.
-          insert(resource: Schema.CustomMetric, accountId: string, webPropertyId: string): Analytics_v3.Schema.CustomMetric;
+          insert(resource: Schema.CustomMetric, accountId: string, webPropertyId: string): Analytics.Schema.CustomMetric;
           // Lists custom metrics to which the user has access.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.CustomMetrics;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.CustomMetrics;
           // Lists custom metrics to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.CustomMetrics;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.CustomMetrics;
           // Updates an existing custom metric. This method supports patch semantics.
-          patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string): Analytics_v3.Schema.CustomMetric;
+          patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string): Analytics.Schema.CustomMetric;
           // Updates an existing custom metric. This method supports patch semantics.
-          patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics_v3.Schema.CustomMetric;
+          patch(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics.Schema.CustomMetric;
           // Updates an existing custom metric.
-          update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string): Analytics_v3.Schema.CustomMetric;
+          update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string): Analytics.Schema.CustomMetric;
           // Updates an existing custom metric.
-          update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics_v3.Schema.CustomMetric;
+          update(resource: Schema.CustomMetric, accountId: string, webPropertyId: string, customMetricId: string, optionalArgs: object): Analytics.Schema.CustomMetric;
         }
         export interface ExperimentsCollection {
           // Returns an experiment to which the user has access.
-          get(accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics_v3.Schema.Experiment;
+          get(accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics.Schema.Experiment;
           // Create a new experiment.
-          insert(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Experiment;
+          insert(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Experiment;
           // Lists experiments to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Experiments;
+          list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Experiments;
           // Lists experiments to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics_v3.Schema.Experiments;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.Experiments;
           // Update an existing experiment. This method supports patch semantics.
-          patch(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics_v3.Schema.Experiment;
+          patch(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics.Schema.Experiment;
           // Delete an experiment.
           remove(accountId: string, webPropertyId: string, profileId: string, experimentId: string): void;
           // Update an existing experiment.
-          update(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics_v3.Schema.Experiment;
+          update(resource: Schema.Experiment, accountId: string, webPropertyId: string, profileId: string, experimentId: string): Analytics.Schema.Experiment;
         }
         export interface FiltersCollection {
           // Returns a filters to which the user has access.
-          get(accountId: string, filterId: string): Analytics_v3.Schema.Filter;
+          get(accountId: string, filterId: string): Analytics.Schema.Filter;
           // Create a new filter.
-          insert(resource: Schema.Filter, accountId: string): Analytics_v3.Schema.Filter;
+          insert(resource: Schema.Filter, accountId: string): Analytics.Schema.Filter;
           // Lists all filters for an account
-          list(accountId: string): Analytics_v3.Schema.Filters;
+          list(accountId: string): Analytics.Schema.Filters;
           // Lists all filters for an account
-          list(accountId: string, optionalArgs: object): Analytics_v3.Schema.Filters;
+          list(accountId: string, optionalArgs: object): Analytics.Schema.Filters;
           // Updates an existing filter. This method supports patch semantics.
-          patch(resource: Schema.Filter, accountId: string, filterId: string): Analytics_v3.Schema.Filter;
+          patch(resource: Schema.Filter, accountId: string, filterId: string): Analytics.Schema.Filter;
           // Delete a filter.
-          remove(accountId: string, filterId: string): Analytics_v3.Schema.Filter;
+          remove(accountId: string, filterId: string): Analytics.Schema.Filter;
           // Updates an existing filter.
-          update(resource: Schema.Filter, accountId: string, filterId: string): Analytics_v3.Schema.Filter;
+          update(resource: Schema.Filter, accountId: string, filterId: string): Analytics.Schema.Filter;
         }
         export interface GoalsCollection {
           // Gets a goal to which the user has access.
-          get(accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics_v3.Schema.Goal;
+          get(accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics.Schema.Goal;
           // Create a new goal.
-          insert(resource: Analytics_v3.Schema.Goal, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Goal;
+          insert(resource: Analytics.Schema.Goal, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Goal;
           // Lists goals to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Goals;
+          list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Goals;
           // Lists goals to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics_v3.Schema.Goals;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.Goals;
           // Updates an existing goal. This method supports patch semantics.
-          patch(resource: Schema.Goal, accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics_v3.Schema.Goal;
+          patch(resource: Schema.Goal, accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics.Schema.Goal;
           // Updates an existing goal.
-          update(resource: Schema.Goal, accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics_v3.Schema.Goal;
+          update(resource: Schema.Goal, accountId: string, webPropertyId: string, profileId: string, goalId: string): Analytics.Schema.Goal;
         }
         export interface ProfileFilterLinksCollection {
           // Returns a single profile filter link.
-          get(accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics_v3.Schema.ProfileFilterLink;
+          get(accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.ProfileFilterLink;
           // Create a new profile filter link.
-          insert(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.ProfileFilterLink;
+          insert(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.ProfileFilterLink;
           // Lists all profile filter links for a profile.
-          list(accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.ProfileFilterLinks;
+          list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.ProfileFilterLinks;
           // Lists all profile filter links for a profile.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics_v3.Schema.ProfileFilterLinks;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.ProfileFilterLinks;
           // Update an existing profile filter link. This method supports patch semantics.
-          patch(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics_v3.Schema.ProfileFilterLink;
+          patch(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.ProfileFilterLink;
           // Delete a profile filter link.
           remove(accountId: string, webPropertyId: string, profileId: string, linkId: string): void;
           // Update an existing profile filter link.
-          update(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics_v3.Schema.ProfileFilterLink;
+          update(resource: Schema.ProfileFilterLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.ProfileFilterLink;
         }
         export interface ProfileUserLinksCollection {
           // Adds a new user to the given view (profile).
-          insert(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.EntityUserLink;
+          insert(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.EntityUserLink;
           // Lists profile-user links for a given view (profile).
-          list(accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.EntityUserLinks;
+          list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.EntityUserLinks;
           // Lists profile-user links for a given view (profile).
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics_v3.Schema.EntityUserLinks;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.EntityUserLinks;
           // Removes a user from the given view (profile).
           remove(accountId: string, webPropertyId: string, profileId: string, linkId: string): void;
           // Updates permissions for an existing user on the given view (profile).
-          update(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics_v3.Schema.EntityUserLink;
+          update(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, profileId: string, linkId: string): Analytics.Schema.EntityUserLink;
         }
         export interface ProfilesCollection {
           // Gets a view (profile) to which the user has access.
-          get(accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Profile;
+          get(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Profile;
           // Create a new view (profile).
-          insert(resource: Schema.Profile, accountId: string, webPropertyId: string): Analytics_v3.Schema.Profile;
+          insert(resource: Schema.Profile, accountId: string, webPropertyId: string): Analytics.Schema.Profile;
           // Lists views (profiles) to which the user has access.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.Profiles;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.Profiles;
           // Lists views (profiles) to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.Profiles;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.Profiles;
           // Updates an existing view (profile). This method supports patch semantics.
-          patch(resource: Schema.Profile, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Profile;
+          patch(resource: Schema.Profile, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Profile;
           // Deletes a view (profile).
           remove(accountId: string, webPropertyId: string, profileId: string): void;
           // Updates an existing view (profile).
-          update(resource: Schema.Profile, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.Profile;
+          update(resource: Schema.Profile, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.Profile;
         }
         export interface RemarketingAudienceCollection {
           // Gets a remarketing audience to which the user has access.
-          get(accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics_v3.Schema.RemarketingAudience;
+          get(accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics.Schema.RemarketingAudience;
           // Creates a new remarketing audience.
-          insert(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string): Analytics_v3.Schema.RemarketingAudience;
+          insert(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string): Analytics.Schema.RemarketingAudience;
           // Lists remarketing audiences to which the user has access.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.RemarketingAudiences;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.RemarketingAudiences;
           // Lists remarketing audiences to which the user has access.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.RemarketingAudiences;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.RemarketingAudiences;
           // Updates an existing remarketing audience. This method supports patch semantics.
-          patch(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics_v3.Schema.RemarketingAudience;
+          patch(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics.Schema.RemarketingAudience;
           // Delete a remarketing audience.
           remove(accountId: string, webPropertyId: string, remarketingAudienceId: string): void;
           // Updates an existing remarketing audience.
-          update(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics_v3.Schema.RemarketingAudience;
+          update(resource: Schema.RemarketingAudience, accountId: string, webPropertyId: string, remarketingAudienceId: string): Analytics.Schema.RemarketingAudience;
         }
         export interface SegmentsCollection {
           // Lists segments to which the user has access.
-          list(): Analytics_v3.Schema.Segments;
+          list(): Analytics.Schema.Segments;
           // Lists segments to which the user has access.
-          list(optionalArgs: object): Analytics_v3.Schema.Segments;
+          list(optionalArgs: object): Analytics.Schema.Segments;
         }
         export interface UnsampledReportsCollection {
           // Returns a single unsampled report.
-          get(accountId: string, webPropertyId: string, profileId: string, unsampledReportId: string): Analytics_v3.Schema.UnsampledReport;
+          get(accountId: string, webPropertyId: string, profileId: string, unsampledReportId: string): Analytics.Schema.UnsampledReport;
           // Create a new unsampled report.
-          insert(resource: Schema.UnsampledReport, accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.UnsampledReport;
+          insert(resource: Schema.UnsampledReport, accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.UnsampledReport;
           // Lists unsampled reports to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string): Analytics_v3.Schema.UnsampledReports;
+          list(accountId: string, webPropertyId: string, profileId: string): Analytics.Schema.UnsampledReports;
           // Lists unsampled reports to which the user has access.
-          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics_v3.Schema.UnsampledReports;
+          list(accountId: string, webPropertyId: string, profileId: string, optionalArgs: object): Analytics.Schema.UnsampledReports;
           // Deletes an unsampled report.
           remove(accountId: string, webPropertyId: string, profileId: string, unsampledReportId: string): void;
         }
@@ -226,119 +226,119 @@ declare namespace GoogleAppsScript {
           // Delete data associated with a previous upload.
           deleteUploadData(resource: Schema.AnalyticsDataimportDeleteUploadDataRequest, accountId: string, webPropertyId: string, customDataSourceId: string): void;
           // List uploads to which the user has access.
-          get(accountId: string, webPropertyId: string, customDataSourceId: string, uploadId: string): Analytics_v3.Schema.Upload;
+          get(accountId: string, webPropertyId: string, customDataSourceId: string, uploadId: string): Analytics.Schema.Upload;
           // List uploads to which the user has access.
-          list(accountId: string, webPropertyId: string, customDataSourceId: string): Analytics_v3.Schema.Uploads;
+          list(accountId: string, webPropertyId: string, customDataSourceId: string): Analytics.Schema.Uploads;
           // List uploads to which the user has access.
-          list(accountId: string, webPropertyId: string, customDataSourceId: string, optionalArgs: object): Analytics_v3.Schema.Uploads;
+          list(accountId: string, webPropertyId: string, customDataSourceId: string, optionalArgs: object): Analytics.Schema.Uploads;
           // Upload data for a custom data source.
-          uploadData(accountId: string, webPropertyId: string, customDataSourceId: string): Analytics_v3.Schema.Upload;
+          uploadData(accountId: string, webPropertyId: string, customDataSourceId: string): Analytics.Schema.Upload;
           // Upload data for a custom data source.
-          uploadData(accountId: string, webPropertyId: string, customDataSourceId: string, mediaData: any): Analytics_v3.Schema.Upload;
+          uploadData(accountId: string, webPropertyId: string, customDataSourceId: string, mediaData: any): Analytics.Schema.Upload;
         }
         export interface WebPropertyAdWordsLinksCollection {
           // Returns a web property-Google Ads link to which the user has access.
-          get(accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics_v3.Schema.EntityAdWordsLink;
+          get(accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics.Schema.EntityAdWordsLink;
           // Creates a webProperty-Google Ads link.
-          insert(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string): Analytics_v3.Schema.EntityAdWordsLink;
+          insert(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string): Analytics.Schema.EntityAdWordsLink;
           // Lists webProperty-Google Ads links for a given web property.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.EntityAdWordsLinks;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.EntityAdWordsLinks;
           // Lists webProperty-Google Ads links for a given web property.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.EntityAdWordsLinks;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.EntityAdWordsLinks;
           // Updates an existing webProperty-Google Ads link. This method supports patch semantics.
-          patch(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics_v3.Schema.EntityAdWordsLink;
+          patch(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics.Schema.EntityAdWordsLink;
           // Deletes a web property-Google Ads link.
           remove(accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): void;
           // Updates an existing webProperty-Google Ads link.
-          update(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics_v3.Schema.EntityAdWordsLink;
+          update(resource: Schema.EntityAdWordsLink, accountId: string, webPropertyId: string, webPropertyAdWordsLinkId: string): Analytics.Schema.EntityAdWordsLink;
         }
         export interface WebpropertiesCollection {
           // Gets a web property to which the user has access.
-          get(accountId: string, webPropertyId: string): Analytics_v3.Schema.Webproperty;
+          get(accountId: string, webPropertyId: string): Analytics.Schema.Webproperty;
           // Create a new property if the account has fewer than 20 properties. Web properties are visible in the Google Analytics interface only if they have at least one profile.
-          insert(resource: Schema.Webproperty, accountId: string): Analytics_v3.Schema.Webproperty;
+          insert(resource: Schema.Webproperty, accountId: string): Analytics.Schema.Webproperty;
           // Lists web properties to which the user has access.
-          list(accountId: string): Analytics_v3.Schema.Webproperties;
+          list(accountId: string): Analytics.Schema.Webproperties;
           // Lists web properties to which the user has access.
-          list(accountId: string, optionalArgs: object): Analytics_v3.Schema.Webproperties;
+          list(accountId: string, optionalArgs: object): Analytics.Schema.Webproperties;
           // Updates an existing web property. This method supports patch semantics.
-          patch(resource: Schema.Webproperty, accountId: string, webPropertyId: string): Analytics_v3.Schema.Webproperty;
+          patch(resource: Schema.Webproperty, accountId: string, webPropertyId: string): Analytics.Schema.Webproperty;
           // Updates an existing web property.
-          update(resource: Schema.Webproperty, accountId: string, webPropertyId: string): Analytics_v3.Schema.Webproperty;
+          update(resource: Schema.Webproperty, accountId: string, webPropertyId: string): Analytics.Schema.Webproperty;
         }
         export interface WebpropertyUserLinksCollection {
           // Adds a new user to the given web property.
-          insert(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string): Analytics_v3.Schema.EntityUserLink;
+          insert(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string): Analytics.Schema.EntityUserLink;
           // Lists webProperty-user links for a given web property.
-          list(accountId: string, webPropertyId: string): Analytics_v3.Schema.EntityUserLinks;
+          list(accountId: string, webPropertyId: string): Analytics.Schema.EntityUserLinks;
           // Lists webProperty-user links for a given web property.
-          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics_v3.Schema.EntityUserLinks;
+          list(accountId: string, webPropertyId: string, optionalArgs: object): Analytics.Schema.EntityUserLinks;
           // Removes a user from the given web property.
           remove(accountId: string, webPropertyId: string, linkId: string): void;
           // Updates permissions for an existing user on the given web property.
-          update(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, linkId: string): Analytics_v3.Schema.EntityUserLink;
+          update(resource: Schema.EntityUserLink, accountId: string, webPropertyId: string, linkId: string): Analytics.Schema.EntityUserLink;
         }
       }
       namespace Metadata {
         export interface ColumnsCollection {
           // Lists all columns for a report type
-          list(reportType: string): Analytics_v3.Schema.Columns;
+          list(reportType: string): Analytics.Schema.Columns;
         }
       }
       namespace UserDeletion {
         export interface UserDeletionRequestCollection {
           // Insert or update a user deletion requests.
-          upsert(resource: Schema.UserDeletionRequest): Analytics_v3.Schema.UserDeletionRequest;
+          upsert(resource: Schema.UserDeletionRequest): Analytics.Schema.UserDeletionRequest;
         }
       }
       export interface DataCollection {
-        Ga?: Analytics_v3.Collection.Data.GaCollection;
-        Mcf?: Analytics_v3.Collection.Data.McfCollection;
-        Realtime?: Analytics_v3.Collection.Data.RealtimeCollection;
+        Ga?: Analytics.Collection.Data.GaCollection;
+        Mcf?: Analytics.Collection.Data.McfCollection;
+        Realtime?: Analytics.Collection.Data.RealtimeCollection;
       }
       export interface ManagementCollection {
-        AccountSummaries?: Analytics_v3.Collection.Management.AccountSummariesCollection;
-        AccountUserLinks?: Analytics_v3.Collection.Management.AccountUserLinksCollection;
-        Accounts?: Analytics_v3.Collection.Management.AccountsCollection;
-        ClientId?: Analytics_v3.Collection.Management.ClientIdCollection;
-        CustomDataSources?: Analytics_v3.Collection.Management.CustomDataSourcesCollection;
-        CustomDimensions?: Analytics_v3.Collection.Management.CustomDimensionsCollection;
-        CustomMetrics?: Analytics_v3.Collection.Management.CustomMetricsCollection;
-        Experiments?: Analytics_v3.Collection.Management.ExperimentsCollection;
-        Filters?: Analytics_v3.Collection.Management.FiltersCollection;
-        Goals?: Analytics_v3.Collection.Management.GoalsCollection;
-        ProfileFilterLinks?: Analytics_v3.Collection.Management.ProfileFilterLinksCollection;
-        ProfileUserLinks?: Analytics_v3.Collection.Management.ProfileUserLinksCollection;
-        Profiles?: Analytics_v3.Collection.Management.ProfilesCollection;
-        RemarketingAudience?: Analytics_v3.Collection.Management.RemarketingAudienceCollection;
-        Segments?: Analytics_v3.Collection.Management.SegmentsCollection;
-        UnsampledReports?: Analytics_v3.Collection.Management.UnsampledReportsCollection;
-        Uploads?: Analytics_v3.Collection.Management.UploadsCollection;
-        WebPropertyAdWordsLinks?: Analytics_v3.Collection.Management.WebPropertyAdWordsLinksCollection;
-        Webproperties?: Analytics_v3.Collection.Management.WebpropertiesCollection;
-        WebpropertyUserLinks?: Analytics_v3.Collection.Management.WebpropertyUserLinksCollection;
+        AccountSummaries?: Analytics.Collection.Management.AccountSummariesCollection;
+        AccountUserLinks?: Analytics.Collection.Management.AccountUserLinksCollection;
+        Accounts?: Analytics.Collection.Management.AccountsCollection;
+        ClientId?: Analytics.Collection.Management.ClientIdCollection;
+        CustomDataSources?: Analytics.Collection.Management.CustomDataSourcesCollection;
+        CustomDimensions?: Analytics.Collection.Management.CustomDimensionsCollection;
+        CustomMetrics?: Analytics.Collection.Management.CustomMetricsCollection;
+        Experiments?: Analytics.Collection.Management.ExperimentsCollection;
+        Filters?: Analytics.Collection.Management.FiltersCollection;
+        Goals?: Analytics.Collection.Management.GoalsCollection;
+        ProfileFilterLinks?: Analytics.Collection.Management.ProfileFilterLinksCollection;
+        ProfileUserLinks?: Analytics.Collection.Management.ProfileUserLinksCollection;
+        Profiles?: Analytics.Collection.Management.ProfilesCollection;
+        RemarketingAudience?: Analytics.Collection.Management.RemarketingAudienceCollection;
+        Segments?: Analytics.Collection.Management.SegmentsCollection;
+        UnsampledReports?: Analytics.Collection.Management.UnsampledReportsCollection;
+        Uploads?: Analytics.Collection.Management.UploadsCollection;
+        WebPropertyAdWordsLinks?: Analytics.Collection.Management.WebPropertyAdWordsLinksCollection;
+        Webproperties?: Analytics.Collection.Management.WebpropertiesCollection;
+        WebpropertyUserLinks?: Analytics.Collection.Management.WebpropertyUserLinksCollection;
       }
       export interface MetadataCollection {
-        Columns?: Analytics_v3.Collection.Metadata.ColumnsCollection;
+        Columns?: Analytics.Collection.Metadata.ColumnsCollection;
       }
       export interface ProvisioningCollection {
         // Creates an account ticket.
-        createAccountTicket(resource: Schema.AccountTicket): Analytics_v3.Schema.AccountTicket;
+        createAccountTicket(resource: Schema.AccountTicket): Analytics.Schema.AccountTicket;
         // Provision account.
-        createAccountTree(resource: Schema.AccountTreeRequest): Analytics_v3.Schema.AccountTreeResponse;
+        createAccountTree(resource: Schema.AccountTreeRequest): Analytics.Schema.AccountTreeResponse;
       }
       export interface UserDeletionCollection {
-        UserDeletionRequest?: Analytics_v3.Collection.UserDeletion.UserDeletionRequestCollection;
+        UserDeletionRequest?: Analytics.Collection.UserDeletion.UserDeletionRequestCollection;
       }
     }
     namespace Schema {
       export interface Account {
-        childLink?: Analytics_v3.Schema.AccountChildLink;
+        childLink?: Analytics.Schema.AccountChildLink;
         created?: string;
         id?: string;
         kind?: string;
         name?: string;
-        permissions?: Analytics_v3.Schema.AccountPermissions;
+        permissions?: Analytics.Schema.AccountPermissions;
         selfLink?: string;
         starred?: boolean;
         updated?: string;
@@ -357,7 +357,7 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface AccountSummaries {
-        items?: Analytics_v3.Schema.AccountSummary[];
+        items?: Analytics.Schema.AccountSummary[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -371,15 +371,15 @@ declare namespace GoogleAppsScript {
         kind?: string;
         name?: string;
         starred?: boolean;
-        webProperties?: Analytics_v3.Schema.WebPropertySummary[];
+        webProperties?: Analytics.Schema.WebPropertySummary[];
       }
       export interface AccountTicket {
-        account?: Analytics_v3.Schema.Account;
+        account?: Analytics.Schema.Account;
         id?: string;
         kind?: string;
-        profile?: Analytics_v3.Schema.Profile;
+        profile?: Analytics.Schema.Profile;
         redirectUri?: string;
-        webproperty?: Analytics_v3.Schema.Webproperty;
+        webproperty?: Analytics.Schema.Webproperty;
       }
       export interface AccountTreeRequest {
         accountName?: string;
@@ -390,13 +390,13 @@ declare namespace GoogleAppsScript {
         websiteUrl?: string;
       }
       export interface AccountTreeResponse {
-        account?: Analytics_v3.Schema.Account;
+        account?: Analytics.Schema.Account;
         kind?: string;
-        profile?: Analytics_v3.Schema.Profile;
-        webproperty?: Analytics_v3.Schema.Webproperty;
+        profile?: Analytics.Schema.Profile;
+        webproperty?: Analytics.Schema.Webproperty;
       }
       export interface Accounts {
-        items?: Analytics_v3.Schema.Account[];
+        items?: Analytics.Schema.Account[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -421,20 +421,20 @@ declare namespace GoogleAppsScript {
       export interface Columns {
         attributeNames?: string[];
         etag?: string;
-        items?: Analytics_v3.Schema.Column[];
+        items?: Analytics.Schema.Column[];
         kind?: string;
         totalResults?: number;
       }
       export interface CustomDataSource {
         accountId?: string;
-        childLink?: Analytics_v3.Schema.CustomDataSourceChildLink;
+        childLink?: Analytics.Schema.CustomDataSourceChildLink;
         created?: string;
         description?: string;
         id?: string;
         importBehavior?: string;
         kind?: string;
         name?: string;
-        parentLink?: Analytics_v3.Schema.CustomDataSourceParentLink;
+        parentLink?: Analytics.Schema.CustomDataSourceParentLink;
         profilesLinked?: string[];
         schema?: string[];
         selfLink?: string;
@@ -452,7 +452,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface CustomDataSources {
-        items?: Analytics_v3.Schema.CustomDataSource[];
+        items?: Analytics.Schema.CustomDataSource[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -469,7 +469,7 @@ declare namespace GoogleAppsScript {
         index?: number;
         kind?: string;
         name?: string;
-        parentLink?: Analytics_v3.Schema.CustomDimensionParentLink;
+        parentLink?: Analytics.Schema.CustomDimensionParentLink;
         scope?: string;
         selfLink?: string;
         updated?: string;
@@ -480,7 +480,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface CustomDimensions {
-        items?: Analytics_v3.Schema.CustomDimension[];
+        items?: Analytics.Schema.CustomDimension[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -499,7 +499,7 @@ declare namespace GoogleAppsScript {
         max_value?: string;
         min_value?: string;
         name?: string;
-        parentLink?: Analytics_v3.Schema.CustomMetricParentLink;
+        parentLink?: Analytics.Schema.CustomMetricParentLink;
         scope?: string;
         selfLink?: string;
         type?: string;
@@ -511,7 +511,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface CustomMetrics {
-        items?: Analytics_v3.Schema.CustomMetric[];
+        items?: Analytics.Schema.CustomMetric[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -521,8 +521,8 @@ declare namespace GoogleAppsScript {
         username?: string;
       }
       export interface EntityAdWordsLink {
-        adWordsAccounts?: Analytics_v3.Schema.AdWordsAccount[];
-        entity?: Analytics_v3.Schema.EntityAdWordsLinkEntity;
+        adWordsAccounts?: Analytics.Schema.AdWordsAccount[];
+        entity?: Analytics.Schema.EntityAdWordsLinkEntity;
         id?: string;
         kind?: string;
         name?: string;
@@ -530,10 +530,10 @@ declare namespace GoogleAppsScript {
         selfLink?: string;
       }
       export interface EntityAdWordsLinkEntity {
-        webPropertyRef?: Analytics_v3.Schema.WebPropertyRef;
+        webPropertyRef?: Analytics.Schema.WebPropertyRef;
       }
       export interface EntityAdWordsLinks {
-        items?: Analytics_v3.Schema.EntityAdWordsLink[];
+        items?: Analytics.Schema.EntityAdWordsLink[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -542,24 +542,24 @@ declare namespace GoogleAppsScript {
         totalResults?: number;
       }
       export interface EntityUserLink {
-        entity?: Analytics_v3.Schema.EntityUserLinkEntity;
+        entity?: Analytics.Schema.EntityUserLinkEntity;
         id?: string;
         kind?: string;
-        permissions?: Analytics_v3.Schema.EntityUserLinkPermissions;
+        permissions?: Analytics.Schema.EntityUserLinkPermissions;
         selfLink?: string;
-        userRef?: Analytics_v3.Schema.UserRef;
+        userRef?: Analytics.Schema.UserRef;
       }
       export interface EntityUserLinkEntity {
-        accountRef?: Analytics_v3.Schema.AccountRef;
-        profileRef?: Analytics_v3.Schema.ProfileRef;
-        webPropertyRef?: Analytics_v3.Schema.WebPropertyRef;
+        accountRef?: Analytics.Schema.AccountRef;
+        profileRef?: Analytics.Schema.ProfileRef;
+        webPropertyRef?: Analytics.Schema.WebPropertyRef;
       }
       export interface EntityUserLinkPermissions {
         effective?: string[];
         local?: string[];
       }
       export interface EntityUserLinks {
-        items?: Analytics_v3.Schema.EntityUserLink[];
+        items?: Analytics.Schema.EntityUserLink[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -581,7 +581,7 @@ declare namespace GoogleAppsScript {
         name?: string;
         objectiveMetric?: string;
         optimizationType?: string;
-        parentLink?: Analytics_v3.Schema.ExperimentParentLink;
+        parentLink?: Analytics.Schema.ExperimentParentLink;
         profileId?: string;
         reasonExperimentEnded?: string;
         rewriteVariationUrlsAsOriginal?: boolean;
@@ -590,11 +590,11 @@ declare namespace GoogleAppsScript {
         snippet?: string;
         startTime?: string;
         status?: string;
-        trafficCoverage?: Number;
+        trafficCoverage?: number;
         updated?: string;
-        variations?: Analytics_v3.Schema.ExperimentVariations[];
+        variations?: Analytics.Schema.ExperimentVariations[];
         webPropertyId?: string;
-        winnerConfidenceLevel?: Number;
+        winnerConfidenceLevel?: number;
         winnerFound?: boolean;
       }
       export interface ExperimentParentLink {
@@ -605,11 +605,11 @@ declare namespace GoogleAppsScript {
         name?: string;
         status?: string;
         url?: string;
-        weight?: Number;
+        weight?: number;
         won?: boolean;
       }
       export interface Experiments {
-        items?: Analytics_v3.Schema.Experiment[];
+        items?: Analytics.Schema.Experiment[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -620,20 +620,20 @@ declare namespace GoogleAppsScript {
       }
       export interface Filter {
         accountId?: string;
-        advancedDetails?: Analytics_v3.Schema.FilterAdvancedDetails;
+        advancedDetails?: Analytics.Schema.FilterAdvancedDetails;
         created?: string;
-        excludeDetails?: Analytics_v3.Schema.FilterExpression;
+        excludeDetails?: Analytics.Schema.FilterExpression;
         id?: string;
-        includeDetails?: Analytics_v3.Schema.FilterExpression;
+        includeDetails?: Analytics.Schema.FilterExpression;
         kind?: string;
-        lowercaseDetails?: Analytics_v3.Schema.FilterLowercaseDetails;
+        lowercaseDetails?: Analytics.Schema.FilterLowercaseDetails;
         name?: string;
-        parentLink?: Analytics_v3.Schema.FilterParentLink;
-        searchAndReplaceDetails?: Analytics_v3.Schema.FilterSearchAndReplaceDetails;
+        parentLink?: Analytics.Schema.FilterParentLink;
+        searchAndReplaceDetails?: Analytics.Schema.FilterSearchAndReplaceDetails;
         selfLink?: string;
         type?: string;
         updated?: string;
-        uppercaseDetails?: Analytics_v3.Schema.FilterUppercaseDetails;
+        uppercaseDetails?: Analytics.Schema.FilterUppercaseDetails;
       }
       export interface FilterAdvancedDetails {
         caseSensitive?: boolean;
@@ -685,7 +685,7 @@ declare namespace GoogleAppsScript {
         fieldIndex?: number;
       }
       export interface Filters {
-        items?: Analytics_v3.Schema.Filter[];
+        items?: Analytics.Schema.Filter[];
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
@@ -695,18 +695,18 @@ declare namespace GoogleAppsScript {
         username?: string;
       }
       export interface GaData {
-        columnHeaders?: Analytics_v3.Schema.GaDataColumnHeaders[];
+        columnHeaders?: Analytics.Schema.GaDataColumnHeaders[];
         containsSampledData?: boolean;
         dataLastRefreshed?: string;
-        dataTable?: Analytics_v3.Schema.GaDataDataTable;
+        dataTable?: Analytics.Schema.GaDataDataTable;
         id?: string;
         itemsPerPage?: number;
         kind?: string;
         nextLink?: string;
         previousLink?: string;
-        profileInfo?: Analytics_v3.Schema.GaDataProfileInfo;
-        query?: Analytics_v3.Schema.GaDataQuery;
-        rows?: String[][];
+        profileInfo?: Analytics.Schema.GaDataProfileInfo;
+        query?: Analytics.Schema.GaDataQuery;
+        rows?: string[][];
         sampleSize?: string;
         sampleSpace?: string;
         selfLink?: string;
@@ -719,8 +719,8 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface GaDataDataTable {
-        cols?: Analytics_v3.Schema.GaDataDataTableCols[];
-        rows?: Analytics_v3.Schema.GaDataDataTableRows[];
+        cols?: Analytics.Schema.GaDataDataTableCols[];
+        rows?: Analytics.Schema.GaDataDataTableRows[];
       }
       export interface GaDataDataTableCols {
         id?: string;
@@ -728,7 +728,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface GaDataDataTableRows {
-        c?: Analytics_v3.Schema.GaDataDataTableRowsC[];
+        c?: Analytics.Schema.GaDataDataTableRowsC[];
       }
       export interface GaDataDataTableRowsC {
         v?: string;
@@ -758,20 +758,20 @@ declare namespace GoogleAppsScript {
         accountId?: string;
         active?: boolean;
         created?: string;
-        eventDetails?: Analytics_v3.Schema.GoalEventDetails;
+        eventDetails?: Analytics.Schema.GoalEventDetails;
         id?: string;
         internalWebPropertyId?: string;
         kind?: string;
         name?: string;
-        parentLink?: Analytics_v3.Schema.GoalParentLink;
+        parentLink?: Analytics.Schema.GoalParentLink;
         profileId?: string;
         selfLink?: string;
         type?: string;
         updated?: string;
-        urlDestinationDetails?: Analytics_v3.Schema.GoalUrlDestinationDetails;
-        value?: Number;
-        visitNumPagesDetails?: Analytics_v3.Schema.GoalVisitNumPagesDetails;
-        visitTimeOnSiteDetails?: Analytics_v3.Schema.GoalVisitTimeOnSiteDetails;
+        urlDestinationDetails?: Analytics.Schema.GoalUrlDestinationDetails;
+        value?: number;
+        visitNumPagesDetails?: Analytics.Schema.GoalVisitNumPagesDetails;
+        visitTimeOnSiteDetails?: Analytics.Schema.GoalVisitTimeOnSiteDetails;
         webPropertyId?: string;
       }
       export interface GoalEventDetails {
@@ -933,7 +933,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface ProfileFilterLink {
-        filterRef?: Analytics_v3.Schema.FilterRef;
+        filterRef?: Analytics.Schema.FilterRef;
         id?: string;
         kind?: string;
         profileRef?: ProfileRef;
@@ -989,7 +989,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
         profileInfo?: RealtimeDataProfileInfo;
         query?: RealtimeDataQuery;
-        rows?: String[][];
+        rows?: string[][];
         selfLink?: string;
         totalResults?: number;
         totalsForAllResults?: object;
@@ -1207,133 +1207,133 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Analytics_v3 {
-    Data?: Analytics_v3.Collection.DataCollection;
-    Management?: Analytics_v3.Collection.ManagementCollection;
-    Metadata?: Analytics_v3.Collection.MetadataCollection;
-    Provisioning?: Analytics_v3.Collection.ProvisioningCollection;
-    UserDeletion?: Analytics_v3.Collection.UserDeletionCollection;
+  export interface Analytics {
+    Data?: Analytics.Collection.DataCollection;
+    Management?: Analytics.Collection.ManagementCollection;
+    Metadata?: Analytics.Collection.MetadataCollection;
+    Provisioning?: Analytics.Collection.ProvisioningCollection;
+    UserDeletion?: Analytics.Collection.UserDeletionCollection;
     // Create a new instance of Account
-    newAccount(): Analytics_v3.Schema.Account;
+    newAccount(): Analytics.Schema.Account;
     // Create a new instance of AccountChildLink
-    newAccountChildLink(): Analytics_v3.Schema.AccountChildLink;
+    newAccountChildLink(): Analytics.Schema.AccountChildLink;
     // Create a new instance of AccountPermissions
-    newAccountPermissions(): Analytics_v3.Schema.AccountPermissions;
+    newAccountPermissions(): Analytics.Schema.AccountPermissions;
     // Create a new instance of AccountRef
-    newAccountRef(): Analytics_v3.Schema.AccountRef;
+    newAccountRef(): Analytics.Schema.AccountRef;
     // Create a new instance of AccountTicket
-    newAccountTicket(): Analytics_v3.Schema.AccountTicket;
+    newAccountTicket(): Analytics.Schema.AccountTicket;
     // Create a new instance of AccountTreeRequest
-    newAccountTreeRequest(): Analytics_v3.Schema.AccountTreeRequest;
+    newAccountTreeRequest(): Analytics.Schema.AccountTreeRequest;
     // Create a new instance of AdWordsAccount
-    newAdWordsAccount(): Analytics_v3.Schema.AdWordsAccount;
+    newAdWordsAccount(): Analytics.Schema.AdWordsAccount;
     // Create a new instance of AnalyticsDataimportDeleteUploadDataRequest
-    newAnalyticsDataimportDeleteUploadDataRequest(): Analytics_v3.Schema.AnalyticsDataimportDeleteUploadDataRequest;
+    newAnalyticsDataimportDeleteUploadDataRequest(): Analytics.Schema.AnalyticsDataimportDeleteUploadDataRequest;
     // Create a new instance of CustomDimension
-    newCustomDimension(): Analytics_v3.Schema.CustomDimension;
+    newCustomDimension(): Analytics.Schema.CustomDimension;
     // Create a new instance of CustomDimensionParentLink
-    newCustomDimensionParentLink(): Analytics_v3.Schema.CustomDimensionParentLink;
+    newCustomDimensionParentLink(): Analytics.Schema.CustomDimensionParentLink;
     // Create a new instance of CustomMetric
-    newCustomMetric(): Analytics_v3.Schema.CustomMetric;
+    newCustomMetric(): Analytics.Schema.CustomMetric;
     // Create a new instance of CustomMetricParentLink
-    newCustomMetricParentLink(): Analytics_v3.Schema.CustomMetricParentLink;
+    newCustomMetricParentLink(): Analytics.Schema.CustomMetricParentLink;
     // Create a new instance of EntityAdWordsLink
-    newEntityAdWordsLink(): Analytics_v3.Schema.EntityAdWordsLink;
+    newEntityAdWordsLink(): Analytics.Schema.EntityAdWordsLink;
     // Create a new instance of EntityAdWordsLinkEntity
-    newEntityAdWordsLinkEntity(): Analytics_v3.Schema.EntityAdWordsLinkEntity;
+    newEntityAdWordsLinkEntity(): Analytics.Schema.EntityAdWordsLinkEntity;
     // Create a new instance of EntityUserLink
-    newEntityUserLink(): Analytics_v3.Schema.EntityUserLink;
+    newEntityUserLink(): Analytics.Schema.EntityUserLink;
     // Create a new instance of EntityUserLinkEntity
-    newEntityUserLinkEntity(): Analytics_v3.Schema.EntityUserLinkEntity;
+    newEntityUserLinkEntity(): Analytics.Schema.EntityUserLinkEntity;
     // Create a new instance of EntityUserLinkPermissions
-    newEntityUserLinkPermissions(): Analytics_v3.Schema.EntityUserLinkPermissions;
+    newEntityUserLinkPermissions(): Analytics.Schema.EntityUserLinkPermissions;
     // Create a new instance of Experiment
-    newExperiment(): Analytics_v3.Schema.Experiment;
+    newExperiment(): Analytics.Schema.Experiment;
     // Create a new instance of ExperimentParentLink
-    newExperimentParentLink(): Analytics_v3.Schema.ExperimentParentLink;
+    newExperimentParentLink(): Analytics.Schema.ExperimentParentLink;
     // Create a new instance of ExperimentVariations
-    newExperimentVariations(): Analytics_v3.Schema.ExperimentVariations;
+    newExperimentVariations(): Analytics.Schema.ExperimentVariations;
     // Create a new instance of Filter
-    newFilter(): Analytics_v3.Schema.Filter;
+    newFilter(): Analytics.Schema.Filter;
     // Create a new instance of FilterAdvancedDetails
-    newFilterAdvancedDetails(): Analytics_v3.Schema.FilterAdvancedDetails;
+    newFilterAdvancedDetails(): Analytics.Schema.FilterAdvancedDetails;
     // Create a new instance of FilterExpression
-    newFilterExpression(): Analytics_v3.Schema.FilterExpression;
+    newFilterExpression(): Analytics.Schema.FilterExpression;
     // Create a new instance of FilterLowercaseDetails
-    newFilterLowercaseDetails(): Analytics_v3.Schema.FilterLowercaseDetails;
+    newFilterLowercaseDetails(): Analytics.Schema.FilterLowercaseDetails;
     // Create a new instance of FilterParentLink
-    newFilterParentLink(): Analytics_v3.Schema.FilterParentLink;
+    newFilterParentLink(): Analytics.Schema.FilterParentLink;
     // Create a new instance of FilterRef
-    newFilterRef(): Analytics_v3.Schema.FilterRef;
+    newFilterRef(): Analytics.Schema.FilterRef;
     // Create a new instance of FilterSearchAndReplaceDetails
-    newFilterSearchAndReplaceDetails(): Analytics_v3.Schema.FilterSearchAndReplaceDetails;
+    newFilterSearchAndReplaceDetails(): Analytics.Schema.FilterSearchAndReplaceDetails;
     // Create a new instance of FilterUppercaseDetails
-    newFilterUppercaseDetails(): Analytics_v3.Schema.FilterUppercaseDetails;
+    newFilterUppercaseDetails(): Analytics.Schema.FilterUppercaseDetails;
     // Create a new instance of Goal
-    newGoal(): Analytics_v3.Schema.Goal;
+    newGoal(): Analytics.Schema.Goal;
     // Create a new instance of GoalEventDetails
-    newGoalEventDetails(): Analytics_v3.Schema.GoalEventDetails;
+    newGoalEventDetails(): Analytics.Schema.GoalEventDetails;
     // Create a new instance of GoalEventDetailsEventConditions
-    newGoalEventDetailsEventConditions(): Analytics_v3.Schema.GoalEventDetailsEventConditions;
+    newGoalEventDetailsEventConditions(): Analytics.Schema.GoalEventDetailsEventConditions;
     // Create a new instance of GoalParentLink
-    newGoalParentLink(): Analytics_v3.Schema.GoalParentLink;
+    newGoalParentLink(): Analytics.Schema.GoalParentLink;
     // Create a new instance of GoalUrlDestinationDetails
-    newGoalUrlDestinationDetails(): Analytics_v3.Schema.GoalUrlDestinationDetails;
+    newGoalUrlDestinationDetails(): Analytics.Schema.GoalUrlDestinationDetails;
     // Create a new instance of GoalUrlDestinationDetailsSteps
-    newGoalUrlDestinationDetailsSteps(): Analytics_v3.Schema.GoalUrlDestinationDetailsSteps;
+    newGoalUrlDestinationDetailsSteps(): Analytics.Schema.GoalUrlDestinationDetailsSteps;
     // Create a new instance of GoalVisitNumPagesDetails
-    newGoalVisitNumPagesDetails(): Analytics_v3.Schema.GoalVisitNumPagesDetails;
+    newGoalVisitNumPagesDetails(): Analytics.Schema.GoalVisitNumPagesDetails;
     // Create a new instance of GoalVisitTimeOnSiteDetails
-    newGoalVisitTimeOnSiteDetails(): Analytics_v3.Schema.GoalVisitTimeOnSiteDetails;
+    newGoalVisitTimeOnSiteDetails(): Analytics.Schema.GoalVisitTimeOnSiteDetails;
     // Create a new instance of HashClientIdRequest
-    newHashClientIdRequest(): Analytics_v3.Schema.HashClientIdRequest;
+    newHashClientIdRequest(): Analytics.Schema.HashClientIdRequest;
     // Create a new instance of IncludeConditions
-    newIncludeConditions(): Analytics_v3.Schema.IncludeConditions;
+    newIncludeConditions(): Analytics.Schema.IncludeConditions;
     // Create a new instance of LinkedForeignAccount
-    newLinkedForeignAccount(): Analytics_v3.Schema.LinkedForeignAccount;
+    newLinkedForeignAccount(): Analytics.Schema.LinkedForeignAccount;
     // Create a new instance of Profile
-    newProfile(): Analytics_v3.Schema.Profile;
+    newProfile(): Analytics.Schema.Profile;
     // Create a new instance of ProfileChildLink
-    newProfileChildLink(): Analytics_v3.Schema.ProfileChildLink;
+    newProfileChildLink(): Analytics.Schema.ProfileChildLink;
     // Create a new instance of ProfileFilterLink
-    newProfileFilterLink(): Analytics_v3.Schema.ProfileFilterLink;
+    newProfileFilterLink(): Analytics.Schema.ProfileFilterLink;
     // Create a new instance of ProfileParentLink
-    newProfileParentLink(): Analytics_v3.Schema.ProfileParentLink;
+    newProfileParentLink(): Analytics.Schema.ProfileParentLink;
     // Create a new instance of ProfilePermissions
-    newProfilePermissions(): Analytics_v3.Schema.ProfilePermissions;
+    newProfilePermissions(): Analytics.Schema.ProfilePermissions;
     // Create a new instance of ProfileRef
-    newProfileRef(): Analytics_v3.Schema.ProfileRef;
+    newProfileRef(): Analytics.Schema.ProfileRef;
     // Create a new instance of RemarketingAudience
-    newRemarketingAudience(): Analytics_v3.Schema.RemarketingAudience;
+    newRemarketingAudience(): Analytics.Schema.RemarketingAudience;
     // Create a new instance of RemarketingAudienceAudienceDefinition
-    newRemarketingAudienceAudienceDefinition(): Analytics_v3.Schema.RemarketingAudienceAudienceDefinition;
+    newRemarketingAudienceAudienceDefinition(): Analytics.Schema.RemarketingAudienceAudienceDefinition;
     // Create a new instance of RemarketingAudienceStateBasedAudienceDefinition
-    newRemarketingAudienceStateBasedAudienceDefinition(): Analytics_v3.Schema.RemarketingAudienceStateBasedAudienceDefinition;
+    newRemarketingAudienceStateBasedAudienceDefinition(): Analytics.Schema.RemarketingAudienceStateBasedAudienceDefinition;
     // Create a new instance of RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions
-    newRemarketingAudienceStateBasedAudienceDefinitionExcludeConditions(): Analytics_v3.Schema.RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions;
+    newRemarketingAudienceStateBasedAudienceDefinitionExcludeConditions(): Analytics.Schema.RemarketingAudienceStateBasedAudienceDefinitionExcludeConditions;
     // Create a new instance of UnsampledReport
-    newUnsampledReport(): Analytics_v3.Schema.UnsampledReport;
+    newUnsampledReport(): Analytics.Schema.UnsampledReport;
     // Create a new instance of UnsampledReportCloudStorageDownloadDetails
-    newUnsampledReportCloudStorageDownloadDetails(): Analytics_v3.Schema.UnsampledReportCloudStorageDownloadDetails;
+    newUnsampledReportCloudStorageDownloadDetails(): Analytics.Schema.UnsampledReportCloudStorageDownloadDetails;
     // Create a new instance of UnsampledReportDriveDownloadDetails
-    newUnsampledReportDriveDownloadDetails(): Analytics_v3.Schema.UnsampledReportDriveDownloadDetails;
+    newUnsampledReportDriveDownloadDetails(): Analytics.Schema.UnsampledReportDriveDownloadDetails;
     // Create a new instance of UserDeletionRequest
-    newUserDeletionRequest(): Analytics_v3.Schema.UserDeletionRequest;
+    newUserDeletionRequest(): Analytics.Schema.UserDeletionRequest;
     // Create a new instance of UserDeletionRequestId
-    newUserDeletionRequestId(): Analytics_v3.Schema.UserDeletionRequestId;
+    newUserDeletionRequestId(): Analytics.Schema.UserDeletionRequestId;
     // Create a new instance of UserRef
-    newUserRef(): Analytics_v3.Schema.UserRef;
+    newUserRef(): Analytics.Schema.UserRef;
     // Create a new instance of WebPropertyRef
-    newWebPropertyRef(): Analytics_v3.Schema.WebPropertyRef;
+    newWebPropertyRef(): Analytics.Schema.WebPropertyRef;
     // Create a new instance of Webproperty
-    newWebproperty(): Analytics_v3.Schema.Webproperty;
+    newWebproperty(): Analytics.Schema.Webproperty;
     // Create a new instance of WebpropertyChildLink
-    newWebpropertyChildLink(): Analytics_v3.Schema.WebpropertyChildLink;
+    newWebpropertyChildLink(): Analytics.Schema.WebpropertyChildLink;
     // Create a new instance of WebpropertyParentLink
-    newWebpropertyParentLink(): Analytics_v3.Schema.WebpropertyParentLink;
+    newWebpropertyParentLink(): Analytics.Schema.WebpropertyParentLink;
     // Create a new instance of WebpropertyPermissions
-    newWebpropertyPermissions(): Analytics_v3.Schema.WebpropertyPermissions;
+    newWebpropertyPermissions(): Analytics.Schema.WebpropertyPermissions;
   }
 }
 
-declare var Analytics_v3: GoogleAppsScript.Analytics_v3;
+declare var Analytics: GoogleAppsScript.Analytics;

@@ -11,6 +11,8 @@ import _Vue, { PluginObject } from "vue";
 declare module "vue/types/vue" {
   interface Vue {
     $i18n: Ii18n;
+    $t(key: string, options?: any, pluralization?: number): string | undefined;
+    $t(key: string, defaultValue: string, options?: any, pluralization?: number): string | undefined;
   }
 
   interface VueConstructor<V extends Vue = Vue> {
@@ -66,13 +68,13 @@ export interface Ii18n {
    * get localized string from store. note that we pass the arguments passed
    * to the function directly to the translateInLanguage function
    */
-  translate(key: string, options: any, pluralization?: number): string | undefined;
+  translate(key: string, options?: any, pluralization?: number): string | undefined;
 
   /**
    * get localized string from store. note that we pass the arguments passed
    * to the function directly to the translateInLanguage function
    */
-  translate(key: string, defaultValue: string, options: any, pluralization?: number): string | undefined;
+  translate(key: string, defaultValue: string, options?: any, pluralization?: number): string | undefined;
 
   /**
    * get localized string from store in a given language if available.

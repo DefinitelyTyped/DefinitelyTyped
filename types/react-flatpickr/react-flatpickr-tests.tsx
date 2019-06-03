@@ -42,3 +42,5 @@ const valueDateArrayElement = (
 const valueNumberArrayElement = (
     <DatePicker value={[1543516477474, 1544549477474]} />
 );
+
+const extraInputPropertiesElement = <DatePicker placeholder="Enter a date..." id="datepicker-1" />;

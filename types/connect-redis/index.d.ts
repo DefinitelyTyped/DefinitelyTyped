@@ -19,7 +19,8 @@ declare module "connect-redis" {
 
     namespace s {
         interface RedisStore extends session.Store {
-            new (options: RedisStoreOptions): session.Store;
+            new (options: RedisStoreOptions): RedisStore;
+            client: redis.RedisClient;
         }
         interface RedisStoreOptions {
             client?: redis.RedisClient;

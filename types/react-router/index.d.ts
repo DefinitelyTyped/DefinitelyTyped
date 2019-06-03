@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.4
+// Type definitions for React Router 5.0
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
 //                 Yuichi Murata <https://github.com/mrk21>
@@ -14,13 +14,13 @@
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
 //                 Egor Shulga <https://github.com/egorshulga>
-//                 Youen Toupin <https://github.com/neuoy>
 //                 Rahul Raina <https://github.com/rraina>
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
 //                 Ben Smith <https://github.com/8enSmith>
 //                 Wesley Tsai <https://github.com/wezleytsai>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Nicholas Hehr <https://github.com/HipsterBrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -137,3 +137,5 @@ export function generatePath(pattern: string, params?: { [paramName: string]: st
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
 // on a separate line instead of as a decorator.
 export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
+
+export const __RouterContext: React.Context<RouteComponentProps>;

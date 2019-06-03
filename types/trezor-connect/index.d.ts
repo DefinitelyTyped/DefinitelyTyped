@@ -322,7 +322,7 @@ export interface RefTransaction {
 export interface SignTransactionParams extends CommonParams {
   inputs: Input[];
   outputs: Output[];
-  refTxs: RefTransaction[];
+  refTxs?: RefTransaction[];
   coin: string;
   locktime?: number;
   version?: number;

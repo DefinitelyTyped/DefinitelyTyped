@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "scheduler-tests.ts"
+        "test/scheduler.ts",
+        "tracing.d.ts",
+        "test/tracing.ts"
     ]
 }

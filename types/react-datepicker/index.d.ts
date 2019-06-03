@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.2
+// Type definitions for react-datepicker 2.3
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -110,12 +110,14 @@ export interface ReactDatePickerProps {
 	showDisabledMonthNavigation?: boolean;
 	showMonthDropdown?: boolean;
 	showMonthYearDropdown?: boolean;
+	showMonthYearPicker?: boolean;
 	showTimeSelect?: boolean;
 	showTimeSelectOnly?: boolean;
 	showWeekNumbers?: boolean;
 	showYearDropdown?: boolean;
 	startDate?: Date | null;
 	startOpen?: boolean;
+	strictParsing?: boolean;
 	tabIndex?: number;
 	timeCaption?: string;
 	timeFormat?: string;

@@ -5,633 +5,633 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Dfareporting_v3_3 {
+  namespace Dfareporting {
     namespace Collection {
       namespace Reports {
         export interface CompatibleFieldsCollection {
           // Returns the fields that are compatible to be selected in the respective sections of a report criteria, given the fields already selected in the input report and user permissions.
-          query(resource: Schema.Report, profileId: string): Dfareporting_v3_3.Schema.CompatibleFields;
+          query(resource: Schema.Report, profileId: string): Dfareporting.Schema.CompatibleFields;
         }
         export interface FilesCollection {
           // Retrieves a report file. This method supports media download.
-          get(profileId: string, reportId: string, fileId: string): Dfareporting_v3_3.Schema.File;
+          get(profileId: string, reportId: string, fileId: string): Dfareporting.Schema.File;
           // Lists files for a report.
-          list(profileId: string, reportId: string): Dfareporting_v3_3.Schema.FileList;
+          list(profileId: string, reportId: string): Dfareporting.Schema.FileList;
           // Lists files for a report.
-          list(profileId: string, reportId: string, optionalArgs: object): Dfareporting_v3_3.Schema.FileList;
+          list(profileId: string, reportId: string, optionalArgs: object): Dfareporting.Schema.FileList;
         }
       }
       export interface AccountActiveAdSummariesCollection {
         // Gets the account's active ad summary by account ID.
-        get(profileId: string, summaryAccountId: string): Dfareporting_v3_3.Schema.AccountActiveAdSummary;
+        get(profileId: string, summaryAccountId: string): Dfareporting.Schema.AccountActiveAdSummary;
       }
       export interface AccountPermissionGroupsCollection {
         // Gets one account permission group by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.AccountPermissionGroup;
+        get(profileId: string, id: string): Dfareporting.Schema.AccountPermissionGroup;
         // Retrieves the list of account permission groups.
-        list(profileId: string): Dfareporting_v3_3.Schema.AccountPermissionGroupsListResponse;
+        list(profileId: string): Dfareporting.Schema.AccountPermissionGroupsListResponse;
       }
       export interface AccountPermissionsCollection {
         // Gets one account permission by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.AccountPermission;
+        get(profileId: string, id: string): Dfareporting.Schema.AccountPermission;
         // Retrieves the list of account permissions.
-        list(profileId: string): Dfareporting_v3_3.Schema.AccountPermissionsListResponse;
+        list(profileId: string): Dfareporting.Schema.AccountPermissionsListResponse;
       }
       export interface AccountUserProfilesCollection {
         // Gets one account user profile by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.AccountUserProfile;
+        get(profileId: string, id: string): Dfareporting.Schema.AccountUserProfile;
         // Inserts a new account user profile.
-        insert(resource: Schema.AccountUserProfile, profileId: string): Dfareporting_v3_3.Schema.AccountUserProfile;
+        insert(resource: Schema.AccountUserProfile, profileId: string): Dfareporting.Schema.AccountUserProfile;
         // Retrieves a list of account user profiles, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.AccountUserProfilesListResponse;
+        list(profileId: string): Dfareporting.Schema.AccountUserProfilesListResponse;
         // Retrieves a list of account user profiles, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.AccountUserProfilesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.AccountUserProfilesListResponse;
         // Updates an existing account user profile. This method supports patch semantics.
-        patch(resource: Schema.AccountUserProfile, profileId: string, id: string): Dfareporting_v3_3.Schema.AccountUserProfile;
+        patch(resource: Schema.AccountUserProfile, profileId: string, id: string): Dfareporting.Schema.AccountUserProfile;
         // Updates an existing account user profile.
-        update(resource: Schema.AccountUserProfile, profileId: string): Dfareporting_v3_3.Schema.AccountUserProfile;
+        update(resource: Schema.AccountUserProfile, profileId: string): Dfareporting.Schema.AccountUserProfile;
       }
       export interface AccountsCollection {
         // Gets one account by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Account;
+        get(profileId: string, id: string): Dfareporting.Schema.Account;
         // Retrieves the list of accounts, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.AccountsListResponse;
+        list(profileId: string): Dfareporting.Schema.AccountsListResponse;
         // Retrieves the list of accounts, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.AccountsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.AccountsListResponse;
         // Updates an existing account. This method supports patch semantics.
-        patch(resource: Schema.Account, profileId: string, id: string): Dfareporting_v3_3.Schema.Account;
+        patch(resource: Schema.Account, profileId: string, id: string): Dfareporting.Schema.Account;
         // Updates an existing account.
-        update(resource: Schema.Account, profileId: string): Dfareporting_v3_3.Schema.Account;
+        update(resource: Schema.Account, profileId: string): Dfareporting.Schema.Account;
       }
       export interface AdsCollection {
         // Gets one ad by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Ad;
+        get(profileId: string, id: string): Dfareporting.Schema.Ad;
         // Inserts a new ad.
-        insert(resource: Schema.Ad, profileId: string): Dfareporting_v3_3.Schema.Ad;
+        insert(resource: Schema.Ad, profileId: string): Dfareporting.Schema.Ad;
         // Retrieves a list of ads, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.AdsListResponse;
+        list(profileId: string): Dfareporting.Schema.AdsListResponse;
         // Retrieves a list of ads, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.AdsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.AdsListResponse;
         // Updates an existing ad. This method supports patch semantics.
-        patch(resource: Schema.Ad, profileId: string, id: string): Dfareporting_v3_3.Schema.Ad;
+        patch(resource: Schema.Ad, profileId: string, id: string): Dfareporting.Schema.Ad;
         // Updates an existing ad.
-        update(resource: Schema.Ad, profileId: string): Dfareporting_v3_3.Schema.Ad;
+        update(resource: Schema.Ad, profileId: string): Dfareporting.Schema.Ad;
       }
       export interface AdvertiserGroupsCollection {
         // Gets one advertiser group by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.AdvertiserGroup;
+        get(profileId: string, id: string): Dfareporting.Schema.AdvertiserGroup;
         // Inserts a new advertiser group.
-        insert(resource: Schema.AdvertiserGroup, profileId: string): Dfareporting_v3_3.Schema.AdvertiserGroup;
+        insert(resource: Schema.AdvertiserGroup, profileId: string): Dfareporting.Schema.AdvertiserGroup;
         // Retrieves a list of advertiser groups, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.AdvertiserGroupsListResponse;
+        list(profileId: string): Dfareporting.Schema.AdvertiserGroupsListResponse;
         // Retrieves a list of advertiser groups, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.AdvertiserGroupsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.AdvertiserGroupsListResponse;
         // Updates an existing advertiser group. This method supports patch semantics.
-        patch(resource: Schema.AdvertiserGroup, profileId: string, id: string): Dfareporting_v3_3.Schema.AdvertiserGroup;
+        patch(resource: Schema.AdvertiserGroup, profileId: string, id: string): Dfareporting.Schema.AdvertiserGroup;
         // Deletes an existing advertiser group.
         remove(profileId: string, id: string): void;
         // Updates an existing advertiser group.
-        update(resource: Schema.AdvertiserGroup, profileId: string): Dfareporting_v3_3.Schema.AdvertiserGroup;
+        update(resource: Schema.AdvertiserGroup, profileId: string): Dfareporting.Schema.AdvertiserGroup;
       }
       export interface AdvertiserLandingPagesCollection {
         // Gets one landing page by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.LandingPage;
+        get(profileId: string, id: string): Dfareporting.Schema.LandingPage;
         // Inserts a new landing page.
-        insert(resource: Schema.LandingPage, profileId: string): Dfareporting_v3_3.Schema.LandingPage;
+        insert(resource: Schema.LandingPage, profileId: string): Dfareporting.Schema.LandingPage;
         // Retrieves a list of landing pages.
-        list(profileId: string): Dfareporting_v3_3.Schema.AdvertiserLandingPagesListResponse;
+        list(profileId: string): Dfareporting.Schema.AdvertiserLandingPagesListResponse;
         // Retrieves a list of landing pages.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.AdvertiserLandingPagesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.AdvertiserLandingPagesListResponse;
         // Updates an existing landing page. This method supports patch semantics.
-        patch(resource: Schema.LandingPage, profileId: string, id: string): Dfareporting_v3_3.Schema.LandingPage;
+        patch(resource: Schema.LandingPage, profileId: string, id: string): Dfareporting.Schema.LandingPage;
         // Updates an existing landing page.
-        update(resource: Schema.LandingPage, profileId: string): Dfareporting_v3_3.Schema.LandingPage;
+        update(resource: Schema.LandingPage, profileId: string): Dfareporting.Schema.LandingPage;
       }
       export interface AdvertisersCollection {
         // Gets one advertiser by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Advertiser;
+        get(profileId: string, id: string): Dfareporting.Schema.Advertiser;
         // Inserts a new advertiser.
-        insert(resource: Schema.Advertiser, profileId: string): Dfareporting_v3_3.Schema.Advertiser;
+        insert(resource: Schema.Advertiser, profileId: string): Dfareporting.Schema.Advertiser;
         // Retrieves a list of advertisers, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.AdvertisersListResponse;
+        list(profileId: string): Dfareporting.Schema.AdvertisersListResponse;
         // Retrieves a list of advertisers, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.AdvertisersListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.AdvertisersListResponse;
         // Updates an existing advertiser. This method supports patch semantics.
-        patch(resource: Schema.Advertiser, profileId: string, id: string): Dfareporting_v3_3.Schema.Advertiser;
+        patch(resource: Schema.Advertiser, profileId: string, id: string): Dfareporting.Schema.Advertiser;
         // Updates an existing advertiser.
-        update(resource: Schema.Advertiser, profileId: string): Dfareporting_v3_3.Schema.Advertiser;
+        update(resource: Schema.Advertiser, profileId: string): Dfareporting.Schema.Advertiser;
       }
       export interface BrowsersCollection {
         // Retrieves a list of browsers.
-        list(profileId: string): Dfareporting_v3_3.Schema.BrowsersListResponse;
+        list(profileId: string): Dfareporting.Schema.BrowsersListResponse;
       }
       export interface CampaignCreativeAssociationsCollection {
         // Associates a creative with the specified campaign. This method creates a default ad with dimensions matching the creative in the campaign if such a default ad does not exist already.
-        insert(resource: Schema.CampaignCreativeAssociation, profileId: string, campaignId: string): Dfareporting_v3_3.Schema.CampaignCreativeAssociation;
+        insert(resource: Schema.CampaignCreativeAssociation, profileId: string, campaignId: string): Dfareporting.Schema.CampaignCreativeAssociation;
         // Retrieves the list of creative IDs associated with the specified campaign. This method supports paging.
-        list(profileId: string, campaignId: string): Dfareporting_v3_3.Schema.CampaignCreativeAssociationsListResponse;
+        list(profileId: string, campaignId: string): Dfareporting.Schema.CampaignCreativeAssociationsListResponse;
         // Retrieves the list of creative IDs associated with the specified campaign. This method supports paging.
-        list(profileId: string, campaignId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CampaignCreativeAssociationsListResponse;
+        list(profileId: string, campaignId: string, optionalArgs: object): Dfareporting.Schema.CampaignCreativeAssociationsListResponse;
       }
       export interface CampaignsCollection {
         // Gets one campaign by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Campaign;
+        get(profileId: string, id: string): Dfareporting.Schema.Campaign;
         // Inserts a new campaign.
-        insert(resource: Schema.Campaign, profileId: string): Dfareporting_v3_3.Schema.Campaign;
+        insert(resource: Schema.Campaign, profileId: string): Dfareporting.Schema.Campaign;
         // Retrieves a list of campaigns, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.CampaignsListResponse;
+        list(profileId: string): Dfareporting.Schema.CampaignsListResponse;
         // Retrieves a list of campaigns, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CampaignsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.CampaignsListResponse;
         // Updates an existing campaign. This method supports patch semantics.
-        patch(resource: Schema.Campaign, profileId: string, id: string): Dfareporting_v3_3.Schema.Campaign;
+        patch(resource: Schema.Campaign, profileId: string, id: string): Dfareporting.Schema.Campaign;
         // Updates an existing campaign.
-        update(resource: Schema.Campaign, profileId: string): Dfareporting_v3_3.Schema.Campaign;
+        update(resource: Schema.Campaign, profileId: string): Dfareporting.Schema.Campaign;
       }
       export interface ChangeLogsCollection {
         // Gets one change log by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.ChangeLog;
+        get(profileId: string, id: string): Dfareporting.Schema.ChangeLog;
         // Retrieves a list of change logs. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.ChangeLogsListResponse;
+        list(profileId: string): Dfareporting.Schema.ChangeLogsListResponse;
         // Retrieves a list of change logs. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.ChangeLogsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.ChangeLogsListResponse;
       }
       export interface CitiesCollection {
         // Retrieves a list of cities, possibly filtered.
-        list(profileId: string): Dfareporting_v3_3.Schema.CitiesListResponse;
+        list(profileId: string): Dfareporting.Schema.CitiesListResponse;
         // Retrieves a list of cities, possibly filtered.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CitiesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.CitiesListResponse;
       }
       export interface ConnectionTypesCollection {
         // Gets one connection type by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.ConnectionType;
+        get(profileId: string, id: string): Dfareporting.Schema.ConnectionType;
         // Retrieves a list of connection types.
-        list(profileId: string): Dfareporting_v3_3.Schema.ConnectionTypesListResponse;
+        list(profileId: string): Dfareporting.Schema.ConnectionTypesListResponse;
       }
       export interface ContentCategoriesCollection {
         // Gets one content category by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.ContentCategory;
+        get(profileId: string, id: string): Dfareporting.Schema.ContentCategory;
         // Inserts a new content category.
-        insert(resource: Schema.ContentCategory, profileId: string): Dfareporting_v3_3.Schema.ContentCategory;
+        insert(resource: Schema.ContentCategory, profileId: string): Dfareporting.Schema.ContentCategory;
         // Retrieves a list of content categories, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.ContentCategoriesListResponse;
+        list(profileId: string): Dfareporting.Schema.ContentCategoriesListResponse;
         // Retrieves a list of content categories, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.ContentCategoriesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.ContentCategoriesListResponse;
         // Updates an existing content category. This method supports patch semantics.
-        patch(resource: Schema.ContentCategory, profileId: string, id: string): Dfareporting_v3_3.Schema.ContentCategory;
+        patch(resource: Schema.ContentCategory, profileId: string, id: string): Dfareporting.Schema.ContentCategory;
         // Deletes an existing content category.
         remove(profileId: string, id: string): void;
         // Updates an existing content category.
-        update(resource: Schema.ContentCategory, profileId: string): Dfareporting_v3_3.Schema.ContentCategory;
+        update(resource: Schema.ContentCategory, profileId: string): Dfareporting.Schema.ContentCategory;
       }
       export interface ConversionsCollection {
         // Inserts conversions.
-        batchinsert(resource: Schema.ConversionsBatchInsertRequest, profileId: string): Dfareporting_v3_3.Schema.ConversionsBatchInsertResponse;
+        batchinsert(resource: Schema.ConversionsBatchInsertRequest, profileId: string): Dfareporting.Schema.ConversionsBatchInsertResponse;
         // Updates existing conversions.
-        batchupdate(resource: Schema.ConversionsBatchUpdateRequest, profileId: string): Dfareporting_v3_3.Schema.ConversionsBatchUpdateResponse;
+        batchupdate(resource: Schema.ConversionsBatchUpdateRequest, profileId: string): Dfareporting.Schema.ConversionsBatchUpdateResponse;
       }
       export interface CountriesCollection {
         // Gets one country by ID.
-        get(profileId: string, dartId: string): Dfareporting_v3_3.Schema.Country;
+        get(profileId: string, dartId: string): Dfareporting.Schema.Country;
         // Retrieves a list of countries.
-        list(profileId: string): Dfareporting_v3_3.Schema.CountriesListResponse;
+        list(profileId: string): Dfareporting.Schema.CountriesListResponse;
       }
       export interface CreativeAssetsCollection {
         // Inserts a new creative asset.
-        insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string): Dfareporting_v3_3.Schema.CreativeAssetMetadata;
+        insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string): Dfareporting.Schema.CreativeAssetMetadata;
         // Inserts a new creative asset.
-        insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string, mediaData: any): Dfareporting_v3_3.Schema.CreativeAssetMetadata;
+        insert(resource: Schema.CreativeAssetMetadata, profileId: string, advertiserId: string, mediaData: any): Dfareporting.Schema.CreativeAssetMetadata;
       }
       export interface CreativeFieldValuesCollection {
         // Gets one creative field value by ID.
-        get(profileId: string, creativeFieldId: string, id: string): Dfareporting_v3_3.Schema.CreativeFieldValue;
+        get(profileId: string, creativeFieldId: string, id: string): Dfareporting.Schema.CreativeFieldValue;
         // Inserts a new creative field value.
-        insert(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string): Dfareporting_v3_3.Schema.CreativeFieldValue;
+        insert(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string): Dfareporting.Schema.CreativeFieldValue;
         // Retrieves a list of creative field values, possibly filtered. This method supports paging.
-        list(profileId: string, creativeFieldId: string): Dfareporting_v3_3.Schema.CreativeFieldValuesListResponse;
+        list(profileId: string, creativeFieldId: string): Dfareporting.Schema.CreativeFieldValuesListResponse;
         // Retrieves a list of creative field values, possibly filtered. This method supports paging.
-        list(profileId: string, creativeFieldId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CreativeFieldValuesListResponse;
+        list(profileId: string, creativeFieldId: string, optionalArgs: object): Dfareporting.Schema.CreativeFieldValuesListResponse;
         // Updates an existing creative field value. This method supports patch semantics.
-        patch(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string, id: string): Dfareporting_v3_3.Schema.CreativeFieldValue;
+        patch(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string, id: string): Dfareporting.Schema.CreativeFieldValue;
         // Deletes an existing creative field value.
         remove(profileId: string, creativeFieldId: string, id: string): void;
         // Updates an existing creative field value.
-        update(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string): Dfareporting_v3_3.Schema.CreativeFieldValue;
+        update(resource: Schema.CreativeFieldValue, profileId: string, creativeFieldId: string): Dfareporting.Schema.CreativeFieldValue;
       }
       export interface CreativeFieldsCollection {
         // Gets one creative field by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.CreativeField;
+        get(profileId: string, id: string): Dfareporting.Schema.CreativeField;
         // Inserts a new creative field.
-        insert(resource: Schema.CreativeField, profileId: string): Dfareporting_v3_3.Schema.CreativeField;
+        insert(resource: Schema.CreativeField, profileId: string): Dfareporting.Schema.CreativeField;
         // Retrieves a list of creative fields, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.CreativeFieldsListResponse;
+        list(profileId: string): Dfareporting.Schema.CreativeFieldsListResponse;
         // Retrieves a list of creative fields, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CreativeFieldsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.CreativeFieldsListResponse;
         // Updates an existing creative field. This method supports patch semantics.
-        patch(resource: Schema.CreativeField, profileId: string, id: string): Dfareporting_v3_3.Schema.CreativeField;
+        patch(resource: Schema.CreativeField, profileId: string, id: string): Dfareporting.Schema.CreativeField;
         // Deletes an existing creative field.
         remove(profileId: string, id: string): void;
         // Updates an existing creative field.
-        update(resource: Schema.CreativeField, profileId: string): Dfareporting_v3_3.Schema.CreativeField;
+        update(resource: Schema.CreativeField, profileId: string): Dfareporting.Schema.CreativeField;
       }
       export interface CreativeGroupsCollection {
         // Gets one creative group by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.CreativeGroup;
+        get(profileId: string, id: string): Dfareporting.Schema.CreativeGroup;
         // Inserts a new creative group.
-        insert(resource: Schema.CreativeGroup, profileId: string): Dfareporting_v3_3.Schema.CreativeGroup;
+        insert(resource: Schema.CreativeGroup, profileId: string): Dfareporting.Schema.CreativeGroup;
         // Retrieves a list of creative groups, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.CreativeGroupsListResponse;
+        list(profileId: string): Dfareporting.Schema.CreativeGroupsListResponse;
         // Retrieves a list of creative groups, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CreativeGroupsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.CreativeGroupsListResponse;
         // Updates an existing creative group. This method supports patch semantics.
-        patch(resource: Schema.CreativeGroup, profileId: string, id: string): Dfareporting_v3_3.Schema.CreativeGroup;
+        patch(resource: Schema.CreativeGroup, profileId: string, id: string): Dfareporting.Schema.CreativeGroup;
         // Updates an existing creative group.
-        update(resource: Schema.CreativeGroup, profileId: string): Dfareporting_v3_3.Schema.CreativeGroup;
+        update(resource: Schema.CreativeGroup, profileId: string): Dfareporting.Schema.CreativeGroup;
       }
       export interface CreativesCollection {
         // Gets one creative by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Creative;
+        get(profileId: string, id: string): Dfareporting.Schema.Creative;
         // Inserts a new creative.
-        insert(resource: Schema.Creative, profileId: string): Dfareporting_v3_3.Schema.Creative;
+        insert(resource: Schema.Creative, profileId: string): Dfareporting.Schema.Creative;
         // Retrieves a list of creatives, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.CreativesListResponse;
+        list(profileId: string): Dfareporting.Schema.CreativesListResponse;
         // Retrieves a list of creatives, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.CreativesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.CreativesListResponse;
         // Updates an existing creative. This method supports patch semantics.
-        patch(resource: Schema.Creative, profileId: string, id: string): Dfareporting_v3_3.Schema.Creative;
+        patch(resource: Schema.Creative, profileId: string, id: string): Dfareporting.Schema.Creative;
         // Updates an existing creative.
-        update(resource: Schema.Creative, profileId: string): Dfareporting_v3_3.Schema.Creative;
+        update(resource: Schema.Creative, profileId: string): Dfareporting.Schema.Creative;
       }
       export interface DimensionValuesCollection {
         // Retrieves list of report dimension values for a list of filters.
-        query(resource: Schema.DimensionValueRequest, profileId: string): Dfareporting_v3_3.Schema.DimensionValueList;
+        query(resource: Schema.DimensionValueRequest, profileId: string): Dfareporting.Schema.DimensionValueList;
         // Retrieves list of report dimension values for a list of filters.
-        query(resource: Schema.DimensionValueRequest, profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.DimensionValueList;
+        query(resource: Schema.DimensionValueRequest, profileId: string, optionalArgs: object): Dfareporting.Schema.DimensionValueList;
       }
       export interface DirectorySitesCollection {
         // Gets one directory site by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.DirectorySite;
+        get(profileId: string, id: string): Dfareporting.Schema.DirectorySite;
         // Inserts a new directory site.
-        insert(resource: Schema.DirectorySite, profileId: string): Dfareporting_v3_3.Schema.DirectorySite;
+        insert(resource: Schema.DirectorySite, profileId: string): Dfareporting.Schema.DirectorySite;
         // Retrieves a list of directory sites, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.DirectorySitesListResponse;
+        list(profileId: string): Dfareporting.Schema.DirectorySitesListResponse;
         // Retrieves a list of directory sites, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.DirectorySitesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.DirectorySitesListResponse;
       }
       export interface DynamicTargetingKeysCollection {
         // Inserts a new dynamic targeting key. Keys must be created at the advertiser level before being assigned to the advertiser's ads, creatives, or placements. There is a maximum of 1000 keys per advertiser, out of which a maximum of 20 keys can be assigned per ad, creative, or placement.
-        insert(resource: Schema.DynamicTargetingKey, profileId: string): Dfareporting_v3_3.Schema.DynamicTargetingKey;
+        insert(resource: Schema.DynamicTargetingKey, profileId: string): Dfareporting.Schema.DynamicTargetingKey;
         // Retrieves a list of dynamic targeting keys.
-        list(profileId: string): Dfareporting_v3_3.Schema.DynamicTargetingKeysListResponse;
+        list(profileId: string): Dfareporting.Schema.DynamicTargetingKeysListResponse;
         // Retrieves a list of dynamic targeting keys.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.DynamicTargetingKeysListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.DynamicTargetingKeysListResponse;
         // Deletes an existing dynamic targeting key.
         remove(profileId: string, objectId: string, name: string, objectType: string): void;
       }
       export interface EventTagsCollection {
         // Gets one event tag by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.EventTag;
+        get(profileId: string, id: string): Dfareporting.Schema.EventTag;
         // Inserts a new event tag.
-        insert(resource: Schema.EventTag, profileId: string): Dfareporting_v3_3.Schema.EventTag;
+        insert(resource: Schema.EventTag, profileId: string): Dfareporting.Schema.EventTag;
         // Retrieves a list of event tags, possibly filtered.
-        list(profileId: string): Dfareporting_v3_3.Schema.EventTagsListResponse;
+        list(profileId: string): Dfareporting.Schema.EventTagsListResponse;
         // Retrieves a list of event tags, possibly filtered.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.EventTagsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.EventTagsListResponse;
         // Updates an existing event tag. This method supports patch semantics.
-        patch(resource: Schema.EventTag, profileId: string, id: string): Dfareporting_v3_3.Schema.EventTag;
+        patch(resource: Schema.EventTag, profileId: string, id: string): Dfareporting.Schema.EventTag;
         // Deletes an existing event tag.
         remove(profileId: string, id: string): void;
         // Updates an existing event tag.
-        update(resource: Schema.EventTag, profileId: string): Dfareporting_v3_3.Schema.EventTag;
+        update(resource: Schema.EventTag, profileId: string): Dfareporting.Schema.EventTag;
       }
       export interface FilesCollection {
         // Retrieves a report file by its report ID and file ID. This method supports media download.
-        get(reportId: string, fileId: string): Dfareporting_v3_3.Schema.File;
+        get(reportId: string, fileId: string): Dfareporting.Schema.File;
         // Lists files for a user profile.
-        list(profileId: string): Dfareporting_v3_3.Schema.FileList;
+        list(profileId: string): Dfareporting.Schema.FileList;
         // Lists files for a user profile.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.FileList;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.FileList;
       }
       export interface FloodlightActivitiesCollection {
         // Generates a tag for a floodlight activity.
-        generatetag(profileId: string): Dfareporting_v3_3.Schema.FloodlightActivitiesGenerateTagResponse;
+        generatetag(profileId: string): Dfareporting.Schema.FloodlightActivitiesGenerateTagResponse;
         // Generates a tag for a floodlight activity.
-        generatetag(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.FloodlightActivitiesGenerateTagResponse;
+        generatetag(profileId: string, optionalArgs: object): Dfareporting.Schema.FloodlightActivitiesGenerateTagResponse;
         // Gets one floodlight activity by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.FloodlightActivity;
+        get(profileId: string, id: string): Dfareporting.Schema.FloodlightActivity;
         // Inserts a new floodlight activity.
-        insert(resource: Schema.FloodlightActivity, profileId: string): Dfareporting_v3_3.Schema.FloodlightActivity;
+        insert(resource: Schema.FloodlightActivity, profileId: string): Dfareporting.Schema.FloodlightActivity;
         // Retrieves a list of floodlight activities, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.FloodlightActivitiesListResponse;
+        list(profileId: string): Dfareporting.Schema.FloodlightActivitiesListResponse;
         // Retrieves a list of floodlight activities, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.FloodlightActivitiesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.FloodlightActivitiesListResponse;
         // Updates an existing floodlight activity. This method supports patch semantics.
-        patch(resource: Schema.FloodlightActivity, profileId: string, id: string): Dfareporting_v3_3.Schema.FloodlightActivity;
+        patch(resource: Schema.FloodlightActivity, profileId: string, id: string): Dfareporting.Schema.FloodlightActivity;
         // Deletes an existing floodlight activity.
         remove(profileId: string, id: string): void;
         // Updates an existing floodlight activity.
-        update(resource: Schema.FloodlightActivity, profileId: string): Dfareporting_v3_3.Schema.FloodlightActivity;
+        update(resource: Schema.FloodlightActivity, profileId: string): Dfareporting.Schema.FloodlightActivity;
       }
       export interface FloodlightActivityGroupsCollection {
         // Gets one floodlight activity group by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.FloodlightActivityGroup;
+        get(profileId: string, id: string): Dfareporting.Schema.FloodlightActivityGroup;
         // Inserts a new floodlight activity group.
-        insert(resource: Schema.FloodlightActivityGroup, profileId: string): Dfareporting_v3_3.Schema.FloodlightActivityGroup;
+        insert(resource: Schema.FloodlightActivityGroup, profileId: string): Dfareporting.Schema.FloodlightActivityGroup;
         // Retrieves a list of floodlight activity groups, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.FloodlightActivityGroupsListResponse;
+        list(profileId: string): Dfareporting.Schema.FloodlightActivityGroupsListResponse;
         // Retrieves a list of floodlight activity groups, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.FloodlightActivityGroupsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.FloodlightActivityGroupsListResponse;
         // Updates an existing floodlight activity group. This method supports patch semantics.
-        patch(resource: Schema.FloodlightActivityGroup, profileId: string, id: string): Dfareporting_v3_3.Schema.FloodlightActivityGroup;
+        patch(resource: Schema.FloodlightActivityGroup, profileId: string, id: string): Dfareporting.Schema.FloodlightActivityGroup;
         // Updates an existing floodlight activity group.
-        update(resource: Schema.FloodlightActivityGroup, profileId: string): Dfareporting_v3_3.Schema.FloodlightActivityGroup;
+        update(resource: Schema.FloodlightActivityGroup, profileId: string): Dfareporting.Schema.FloodlightActivityGroup;
       }
       export interface FloodlightConfigurationsCollection {
         // Gets one floodlight configuration by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.FloodlightConfiguration;
+        get(profileId: string, id: string): Dfareporting.Schema.FloodlightConfiguration;
         // Retrieves a list of floodlight configurations, possibly filtered.
-        list(profileId: string): Dfareporting_v3_3.Schema.FloodlightConfigurationsListResponse;
+        list(profileId: string): Dfareporting.Schema.FloodlightConfigurationsListResponse;
         // Retrieves a list of floodlight configurations, possibly filtered.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.FloodlightConfigurationsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.FloodlightConfigurationsListResponse;
         // Updates an existing floodlight configuration. This method supports patch semantics.
-        patch(resource: Schema.FloodlightConfiguration, profileId: string, id: string): Dfareporting_v3_3.Schema.FloodlightConfiguration;
+        patch(resource: Schema.FloodlightConfiguration, profileId: string, id: string): Dfareporting.Schema.FloodlightConfiguration;
         // Updates an existing floodlight configuration.
-        update(resource: Schema.FloodlightConfiguration, profileId: string): Dfareporting_v3_3.Schema.FloodlightConfiguration;
+        update(resource: Schema.FloodlightConfiguration, profileId: string): Dfareporting.Schema.FloodlightConfiguration;
       }
       export interface InventoryItemsCollection {
         // Gets one inventory item by ID.
-        get(profileId: string, projectId: string, id: string): Dfareporting_v3_3.Schema.InventoryItem;
+        get(profileId: string, projectId: string, id: string): Dfareporting.Schema.InventoryItem;
         // Retrieves a list of inventory items, possibly filtered. This method supports paging.
-        list(profileId: string, projectId: string): Dfareporting_v3_3.Schema.InventoryItemsListResponse;
+        list(profileId: string, projectId: string): Dfareporting.Schema.InventoryItemsListResponse;
         // Retrieves a list of inventory items, possibly filtered. This method supports paging.
-        list(profileId: string, projectId: string, optionalArgs: object): Dfareporting_v3_3.Schema.InventoryItemsListResponse;
+        list(profileId: string, projectId: string, optionalArgs: object): Dfareporting.Schema.InventoryItemsListResponse;
       }
       export interface LanguagesCollection {
         // Retrieves a list of languages.
-        list(profileId: string): Dfareporting_v3_3.Schema.LanguagesListResponse;
+        list(profileId: string): Dfareporting.Schema.LanguagesListResponse;
       }
       export interface MetrosCollection {
         // Retrieves a list of metros.
-        list(profileId: string): Dfareporting_v3_3.Schema.MetrosListResponse;
+        list(profileId: string): Dfareporting.Schema.MetrosListResponse;
       }
       export interface MobileAppsCollection {
         // Gets one mobile app by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.MobileApp;
+        get(profileId: string, id: string): Dfareporting.Schema.MobileApp;
         // Retrieves list of available mobile apps.
-        list(profileId: string): Dfareporting_v3_3.Schema.MobileAppsListResponse;
+        list(profileId: string): Dfareporting.Schema.MobileAppsListResponse;
         // Retrieves list of available mobile apps.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.MobileAppsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.MobileAppsListResponse;
       }
       export interface MobileCarriersCollection {
         // Gets one mobile carrier by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.MobileCarrier;
+        get(profileId: string, id: string): Dfareporting.Schema.MobileCarrier;
         // Retrieves a list of mobile carriers.
-        list(profileId: string): Dfareporting_v3_3.Schema.MobileCarriersListResponse;
+        list(profileId: string): Dfareporting.Schema.MobileCarriersListResponse;
       }
       export interface OperatingSystemVersionsCollection {
         // Gets one operating system version by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.OperatingSystemVersion;
+        get(profileId: string, id: string): Dfareporting.Schema.OperatingSystemVersion;
         // Retrieves a list of operating system versions.
-        list(profileId: string): Dfareporting_v3_3.Schema.OperatingSystemVersionsListResponse;
+        list(profileId: string): Dfareporting.Schema.OperatingSystemVersionsListResponse;
       }
       export interface OperatingSystemsCollection {
         // Gets one operating system by DART ID.
-        get(profileId: string, dartId: string): Dfareporting_v3_3.Schema.OperatingSystem;
+        get(profileId: string, dartId: string): Dfareporting.Schema.OperatingSystem;
         // Retrieves a list of operating systems.
-        list(profileId: string): Dfareporting_v3_3.Schema.OperatingSystemsListResponse;
+        list(profileId: string): Dfareporting.Schema.OperatingSystemsListResponse;
       }
       export interface OrderDocumentsCollection {
         // Gets one order document by ID.
-        get(profileId: string, projectId: string, id: string): Dfareporting_v3_3.Schema.OrderDocument;
+        get(profileId: string, projectId: string, id: string): Dfareporting.Schema.OrderDocument;
         // Retrieves a list of order documents, possibly filtered. This method supports paging.
-        list(profileId: string, projectId: string): Dfareporting_v3_3.Schema.OrderDocumentsListResponse;
+        list(profileId: string, projectId: string): Dfareporting.Schema.OrderDocumentsListResponse;
         // Retrieves a list of order documents, possibly filtered. This method supports paging.
-        list(profileId: string, projectId: string, optionalArgs: object): Dfareporting_v3_3.Schema.OrderDocumentsListResponse;
+        list(profileId: string, projectId: string, optionalArgs: object): Dfareporting.Schema.OrderDocumentsListResponse;
       }
       export interface OrdersCollection {
         // Gets one order by ID.
-        get(profileId: string, projectId: string, id: string): Dfareporting_v3_3.Schema.Order;
+        get(profileId: string, projectId: string, id: string): Dfareporting.Schema.Order;
         // Retrieves a list of orders, possibly filtered. This method supports paging.
-        list(profileId: string, projectId: string): Dfareporting_v3_3.Schema.OrdersListResponse;
+        list(profileId: string, projectId: string): Dfareporting.Schema.OrdersListResponse;
         // Retrieves a list of orders, possibly filtered. This method supports paging.
-        list(profileId: string, projectId: string, optionalArgs: object): Dfareporting_v3_3.Schema.OrdersListResponse;
+        list(profileId: string, projectId: string, optionalArgs: object): Dfareporting.Schema.OrdersListResponse;
       }
       export interface PlacementGroupsCollection {
         // Gets one placement group by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.PlacementGroup;
+        get(profileId: string, id: string): Dfareporting.Schema.PlacementGroup;
         // Inserts a new placement group.
-        insert(resource: Schema.PlacementGroup, profileId: string): Dfareporting_v3_3.Schema.PlacementGroup;
+        insert(resource: Schema.PlacementGroup, profileId: string): Dfareporting.Schema.PlacementGroup;
         // Retrieves a list of placement groups, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.PlacementGroupsListResponse;
+        list(profileId: string): Dfareporting.Schema.PlacementGroupsListResponse;
         // Retrieves a list of placement groups, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.PlacementGroupsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.PlacementGroupsListResponse;
         // Updates an existing placement group. This method supports patch semantics.
-        patch(resource: Schema.PlacementGroup, profileId: string, id: string): Dfareporting_v3_3.Schema.PlacementGroup;
+        patch(resource: Schema.PlacementGroup, profileId: string, id: string): Dfareporting.Schema.PlacementGroup;
         // Updates an existing placement group.
-        update(resource: Schema.PlacementGroup, profileId: string): Dfareporting_v3_3.Schema.PlacementGroup;
+        update(resource: Schema.PlacementGroup, profileId: string): Dfareporting.Schema.PlacementGroup;
       }
       export interface PlacementStrategiesCollection {
         // Gets one placement strategy by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.PlacementStrategy;
+        get(profileId: string, id: string): Dfareporting.Schema.PlacementStrategy;
         // Inserts a new placement strategy.
-        insert(resource: Schema.PlacementStrategy, profileId: string): Dfareporting_v3_3.Schema.PlacementStrategy;
+        insert(resource: Schema.PlacementStrategy, profileId: string): Dfareporting.Schema.PlacementStrategy;
         // Retrieves a list of placement strategies, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.PlacementStrategiesListResponse;
+        list(profileId: string): Dfareporting.Schema.PlacementStrategiesListResponse;
         // Retrieves a list of placement strategies, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.PlacementStrategiesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.PlacementStrategiesListResponse;
         // Updates an existing placement strategy. This method supports patch semantics.
-        patch(resource: Schema.PlacementStrategy, profileId: string, id: string): Dfareporting_v3_3.Schema.PlacementStrategy;
+        patch(resource: Schema.PlacementStrategy, profileId: string, id: string): Dfareporting.Schema.PlacementStrategy;
         // Deletes an existing placement strategy.
         remove(profileId: string, id: string): void;
         // Updates an existing placement strategy.
-        update(resource: Schema.PlacementStrategy, profileId: string): Dfareporting_v3_3.Schema.PlacementStrategy;
+        update(resource: Schema.PlacementStrategy, profileId: string): Dfareporting.Schema.PlacementStrategy;
       }
       export interface PlacementsCollection {
         // Generates tags for a placement.
-        generatetags(profileId: string): Dfareporting_v3_3.Schema.PlacementsGenerateTagsResponse;
+        generatetags(profileId: string): Dfareporting.Schema.PlacementsGenerateTagsResponse;
         // Generates tags for a placement.
-        generatetags(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.PlacementsGenerateTagsResponse;
+        generatetags(profileId: string, optionalArgs: object): Dfareporting.Schema.PlacementsGenerateTagsResponse;
         // Gets one placement by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Placement;
+        get(profileId: string, id: string): Dfareporting.Schema.Placement;
         // Inserts a new placement.
-        insert(resource: Schema.Placement, profileId: string): Dfareporting_v3_3.Schema.Placement;
+        insert(resource: Schema.Placement, profileId: string): Dfareporting.Schema.Placement;
         // Retrieves a list of placements, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.PlacementsListResponse;
+        list(profileId: string): Dfareporting.Schema.PlacementsListResponse;
         // Retrieves a list of placements, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.PlacementsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.PlacementsListResponse;
         // Updates an existing placement. This method supports patch semantics.
-        patch(resource: Schema.Placement, profileId: string, id: string): Dfareporting_v3_3.Schema.Placement;
+        patch(resource: Schema.Placement, profileId: string, id: string): Dfareporting.Schema.Placement;
         // Updates an existing placement.
-        update(resource: Schema.Placement, profileId: string): Dfareporting_v3_3.Schema.Placement;
+        update(resource: Schema.Placement, profileId: string): Dfareporting.Schema.Placement;
       }
       export interface PlatformTypesCollection {
         // Gets one platform type by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.PlatformType;
+        get(profileId: string, id: string): Dfareporting.Schema.PlatformType;
         // Retrieves a list of platform types.
-        list(profileId: string): Dfareporting_v3_3.Schema.PlatformTypesListResponse;
+        list(profileId: string): Dfareporting.Schema.PlatformTypesListResponse;
       }
       export interface PostalCodesCollection {
         // Gets one postal code by ID.
-        get(profileId: string, code: string): Dfareporting_v3_3.Schema.PostalCode;
+        get(profileId: string, code: string): Dfareporting.Schema.PostalCode;
         // Retrieves a list of postal codes.
-        list(profileId: string): Dfareporting_v3_3.Schema.PostalCodesListResponse;
+        list(profileId: string): Dfareporting.Schema.PostalCodesListResponse;
       }
       export interface ProjectsCollection {
         // Gets one project by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Project;
+        get(profileId: string, id: string): Dfareporting.Schema.Project;
         // Retrieves a list of projects, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.ProjectsListResponse;
+        list(profileId: string): Dfareporting.Schema.ProjectsListResponse;
         // Retrieves a list of projects, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.ProjectsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.ProjectsListResponse;
       }
       export interface RegionsCollection {
         // Retrieves a list of regions.
-        list(profileId: string): Dfareporting_v3_3.Schema.RegionsListResponse;
+        list(profileId: string): Dfareporting.Schema.RegionsListResponse;
       }
       export interface RemarketingListSharesCollection {
         // Gets one remarketing list share by remarketing list ID.
-        get(profileId: string, remarketingListId: string): Dfareporting_v3_3.Schema.RemarketingListShare;
+        get(profileId: string, remarketingListId: string): Dfareporting.Schema.RemarketingListShare;
         // Updates an existing remarketing list share. This method supports patch semantics.
-        patch(resource: Schema.RemarketingListShare, profileId: string, remarketingListId: string): Dfareporting_v3_3.Schema.RemarketingListShare;
+        patch(resource: Schema.RemarketingListShare, profileId: string, remarketingListId: string): Dfareporting.Schema.RemarketingListShare;
         // Updates an existing remarketing list share.
-        update(resource: Schema.RemarketingListShare, profileId: string): Dfareporting_v3_3.Schema.RemarketingListShare;
+        update(resource: Schema.RemarketingListShare, profileId: string): Dfareporting.Schema.RemarketingListShare;
       }
       export interface RemarketingListsCollection {
         // Gets one remarketing list by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.RemarketingList;
+        get(profileId: string, id: string): Dfareporting.Schema.RemarketingList;
         // Inserts a new remarketing list.
-        insert(resource: Schema.RemarketingList, profileId: string): Dfareporting_v3_3.Schema.RemarketingList;
+        insert(resource: Schema.RemarketingList, profileId: string): Dfareporting.Schema.RemarketingList;
         // Retrieves a list of remarketing lists, possibly filtered. This method supports paging.
-        list(profileId: string, advertiserId: string): Dfareporting_v3_3.Schema.RemarketingListsListResponse;
+        list(profileId: string, advertiserId: string): Dfareporting.Schema.RemarketingListsListResponse;
         // Retrieves a list of remarketing lists, possibly filtered. This method supports paging.
-        list(profileId: string, advertiserId: string, optionalArgs: object): Dfareporting_v3_3.Schema.RemarketingListsListResponse;
+        list(profileId: string, advertiserId: string, optionalArgs: object): Dfareporting.Schema.RemarketingListsListResponse;
         // Updates an existing remarketing list. This method supports patch semantics.
-        patch(resource: Schema.RemarketingList, profileId: string, id: string): Dfareporting_v3_3.Schema.RemarketingList;
+        patch(resource: Schema.RemarketingList, profileId: string, id: string): Dfareporting.Schema.RemarketingList;
         // Updates an existing remarketing list.
-        update(resource: Schema.RemarketingList, profileId: string): Dfareporting_v3_3.Schema.RemarketingList;
+        update(resource: Schema.RemarketingList, profileId: string): Dfareporting.Schema.RemarketingList;
       }
       export interface ReportsCollection {
-        CompatibleFields?: Dfareporting_v3_3.Collection.Reports.CompatibleFieldsCollection;
-        Files?: Dfareporting_v3_3.Collection.Reports.FilesCollection;
+        CompatibleFields?: Dfareporting.Collection.Reports.CompatibleFieldsCollection;
+        Files?: Dfareporting.Collection.Reports.FilesCollection;
         // Retrieves a report by its ID.
-        get(profileId: string, reportId: string): Dfareporting_v3_3.Schema.Report;
+        get(profileId: string, reportId: string): Dfareporting.Schema.Report;
         // Creates a report.
-        insert(resource: Schema.Report, profileId: string): Dfareporting_v3_3.Schema.Report;
+        insert(resource: Schema.Report, profileId: string): Dfareporting.Schema.Report;
         // Retrieves list of reports.
-        list(profileId: string): Dfareporting_v3_3.Schema.ReportList;
+        list(profileId: string): Dfareporting.Schema.ReportList;
         // Retrieves list of reports.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.ReportList;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.ReportList;
         // Updates a report. This method supports patch semantics.
-        patch(resource: Schema.Report, profileId: string, reportId: string): Dfareporting_v3_3.Schema.Report;
+        patch(resource: Schema.Report, profileId: string, reportId: string): Dfareporting.Schema.Report;
         // Deletes a report by its ID.
         remove(profileId: string, reportId: string): void;
         // Runs a report.
-        run(profileId: string, reportId: string): Dfareporting_v3_3.Schema.File;
+        run(profileId: string, reportId: string): Dfareporting.Schema.File;
         // Runs a report.
-        run(profileId: string, reportId: string, optionalArgs: object): Dfareporting_v3_3.Schema.File;
+        run(profileId: string, reportId: string, optionalArgs: object): Dfareporting.Schema.File;
         // Updates a report.
-        update(resource: Schema.Report, profileId: string, reportId: string): Dfareporting_v3_3.Schema.Report;
+        update(resource: Schema.Report, profileId: string, reportId: string): Dfareporting.Schema.Report;
       }
       export interface SitesCollection {
         // Gets one site by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Site;
+        get(profileId: string, id: string): Dfareporting.Schema.Site;
         // Inserts a new site.
-        insert(resource: Schema.Site, profileId: string): Dfareporting_v3_3.Schema.Site;
+        insert(resource: Schema.Site, profileId: string): Dfareporting.Schema.Site;
         // Retrieves a list of sites, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.SitesListResponse;
+        list(profileId: string): Dfareporting.Schema.SitesListResponse;
         // Retrieves a list of sites, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.SitesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.SitesListResponse;
         // Updates an existing site. This method supports patch semantics.
-        patch(resource: Schema.Site, profileId: string, id: string): Dfareporting_v3_3.Schema.Site;
+        patch(resource: Schema.Site, profileId: string, id: string): Dfareporting.Schema.Site;
         // Updates an existing site.
-        update(resource: Schema.Site, profileId: string): Dfareporting_v3_3.Schema.Site;
+        update(resource: Schema.Site, profileId: string): Dfareporting.Schema.Site;
       }
       export interface SizesCollection {
         // Gets one size by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Size;
+        get(profileId: string, id: string): Dfareporting.Schema.Size;
         // Inserts a new size.
-        insert(resource: Schema.Size, profileId: string): Dfareporting_v3_3.Schema.Size;
+        insert(resource: Schema.Size, profileId: string): Dfareporting.Schema.Size;
         // Retrieves a list of sizes, possibly filtered. Retrieved sizes are globally unique and may include values not currently in use by your account. Due to this, the list of sizes returned by this method may differ from the list seen in the Trafficking UI.
-        list(profileId: string): Dfareporting_v3_3.Schema.SizesListResponse;
+        list(profileId: string): Dfareporting.Schema.SizesListResponse;
         // Retrieves a list of sizes, possibly filtered. Retrieved sizes are globally unique and may include values not currently in use by your account. Due to this, the list of sizes returned by this method may differ from the list seen in the Trafficking UI.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.SizesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.SizesListResponse;
       }
       export interface SubaccountsCollection {
         // Gets one subaccount by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.Subaccount;
+        get(profileId: string, id: string): Dfareporting.Schema.Subaccount;
         // Inserts a new subaccount.
-        insert(resource: Schema.Subaccount, profileId: string): Dfareporting_v3_3.Schema.Subaccount;
+        insert(resource: Schema.Subaccount, profileId: string): Dfareporting.Schema.Subaccount;
         // Gets a list of subaccounts, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.SubaccountsListResponse;
+        list(profileId: string): Dfareporting.Schema.SubaccountsListResponse;
         // Gets a list of subaccounts, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.SubaccountsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.SubaccountsListResponse;
         // Updates an existing subaccount. This method supports patch semantics.
-        patch(resource: Schema.Subaccount, profileId: string, id: string): Dfareporting_v3_3.Schema.Subaccount;
+        patch(resource: Schema.Subaccount, profileId: string, id: string): Dfareporting.Schema.Subaccount;
         // Updates an existing subaccount.
-        update(resource: Schema.Subaccount, profileId: string): Dfareporting_v3_3.Schema.Subaccount;
+        update(resource: Schema.Subaccount, profileId: string): Dfareporting.Schema.Subaccount;
       }
       export interface TargetableRemarketingListsCollection {
         // Gets one remarketing list by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.TargetableRemarketingList;
+        get(profileId: string, id: string): Dfareporting.Schema.TargetableRemarketingList;
         // Retrieves a list of targetable remarketing lists, possibly filtered. This method supports paging.
-        list(profileId: string, advertiserId: string): Dfareporting_v3_3.Schema.TargetableRemarketingListsListResponse;
+        list(profileId: string, advertiserId: string): Dfareporting.Schema.TargetableRemarketingListsListResponse;
         // Retrieves a list of targetable remarketing lists, possibly filtered. This method supports paging.
-        list(profileId: string, advertiserId: string, optionalArgs: object): Dfareporting_v3_3.Schema.TargetableRemarketingListsListResponse;
+        list(profileId: string, advertiserId: string, optionalArgs: object): Dfareporting.Schema.TargetableRemarketingListsListResponse;
       }
       export interface TargetingTemplatesCollection {
         // Gets one targeting template by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.TargetingTemplate;
+        get(profileId: string, id: string): Dfareporting.Schema.TargetingTemplate;
         // Inserts a new targeting template.
-        insert(resource: Schema.TargetingTemplate, profileId: string): Dfareporting_v3_3.Schema.TargetingTemplate;
+        insert(resource: Schema.TargetingTemplate, profileId: string): Dfareporting.Schema.TargetingTemplate;
         // Retrieves a list of targeting templates, optionally filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.TargetingTemplatesListResponse;
+        list(profileId: string): Dfareporting.Schema.TargetingTemplatesListResponse;
         // Retrieves a list of targeting templates, optionally filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.TargetingTemplatesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.TargetingTemplatesListResponse;
         // Updates an existing targeting template. This method supports patch semantics.
-        patch(resource: Schema.TargetingTemplate, profileId: string, id: string): Dfareporting_v3_3.Schema.TargetingTemplate;
+        patch(resource: Schema.TargetingTemplate, profileId: string, id: string): Dfareporting.Schema.TargetingTemplate;
         // Updates an existing targeting template.
-        update(resource: Schema.TargetingTemplate, profileId: string): Dfareporting_v3_3.Schema.TargetingTemplate;
+        update(resource: Schema.TargetingTemplate, profileId: string): Dfareporting.Schema.TargetingTemplate;
       }
       export interface UserProfilesCollection {
         // Gets one user profile by ID.
-        get(profileId: string): Dfareporting_v3_3.Schema.UserProfile;
+        get(profileId: string): Dfareporting.Schema.UserProfile;
         // Retrieves list of user profiles for a user.
-        list(): Dfareporting_v3_3.Schema.UserProfileList;
+        list(): Dfareporting.Schema.UserProfileList;
       }
       export interface UserRolePermissionGroupsCollection {
         // Gets one user role permission group by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.UserRolePermissionGroup;
+        get(profileId: string, id: string): Dfareporting.Schema.UserRolePermissionGroup;
         // Gets a list of all supported user role permission groups.
-        list(profileId: string): Dfareporting_v3_3.Schema.UserRolePermissionGroupsListResponse;
+        list(profileId: string): Dfareporting.Schema.UserRolePermissionGroupsListResponse;
       }
       export interface UserRolePermissionsCollection {
         // Gets one user role permission by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.UserRolePermission;
+        get(profileId: string, id: string): Dfareporting.Schema.UserRolePermission;
         // Gets a list of user role permissions, possibly filtered.
-        list(profileId: string): Dfareporting_v3_3.Schema.UserRolePermissionsListResponse;
+        list(profileId: string): Dfareporting.Schema.UserRolePermissionsListResponse;
         // Gets a list of user role permissions, possibly filtered.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.UserRolePermissionsListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.UserRolePermissionsListResponse;
       }
       export interface UserRolesCollection {
         // Gets one user role by ID.
-        get(profileId: string, id: string): Dfareporting_v3_3.Schema.UserRole;
+        get(profileId: string, id: string): Dfareporting.Schema.UserRole;
         // Inserts a new user role.
-        insert(resource: Schema.UserRole, profileId: string): Dfareporting_v3_3.Schema.UserRole;
+        insert(resource: Schema.UserRole, profileId: string): Dfareporting.Schema.UserRole;
         // Retrieves a list of user roles, possibly filtered. This method supports paging.
-        list(profileId: string): Dfareporting_v3_3.Schema.UserRolesListResponse;
+        list(profileId: string): Dfareporting.Schema.UserRolesListResponse;
         // Retrieves a list of user roles, possibly filtered. This method supports paging.
-        list(profileId: string, optionalArgs: object): Dfareporting_v3_3.Schema.UserRolesListResponse;
+        list(profileId: string, optionalArgs: object): Dfareporting.Schema.UserRolesListResponse;
         // Updates an existing user role. This method supports patch semantics.
-        patch(resource: Schema.UserRole, profileId: string, id: string): Dfareporting_v3_3.Schema.UserRole;
+        patch(resource: Schema.UserRole, profileId: string, id: string): Dfareporting.Schema.UserRole;
         // Deletes an existing user role.
         remove(profileId: string, id: string): void;
         // Updates an existing user role.
-        update(resource: Schema.UserRole, profileId: string): Dfareporting_v3_3.Schema.UserRole;
+        update(resource: Schema.UserRole, profileId: string): Dfareporting.Schema.UserRole;
       }
       export interface VideoFormatsCollection {
         // Gets one video format by ID.
-        get(profileId: string, id: number): Dfareporting_v3_3.Schema.VideoFormat;
+        get(profileId: string, id: number): Dfareporting.Schema.VideoFormat;
         // Lists available video formats.
-        list(profileId: string): Dfareporting_v3_3.Schema.VideoFormatsListResponse;
+        list(profileId: string): Dfareporting.Schema.VideoFormatsListResponse;
       }
     }
     namespace Schema {
@@ -652,7 +652,7 @@ declare namespace GoogleAppsScript {
         maximumImageSize?: string;
         name?: string;
         nielsenOcrEnabled?: boolean;
-        reportsConfiguration?: Dfareporting_v3_3.Schema.ReportsConfiguration;
+        reportsConfiguration?: Dfareporting.Schema.ReportsConfiguration;
         shareReportsWithTwitter?: boolean;
         teaserSizeLimit?: string;
       }
@@ -677,43 +677,43 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface AccountPermissionGroupsListResponse {
-        accountPermissionGroups?: Dfareporting_v3_3.Schema.AccountPermissionGroup[];
+        accountPermissionGroups?: Dfareporting.Schema.AccountPermissionGroup[];
         kind?: string;
       }
       export interface AccountPermissionsListResponse {
-        accountPermissions?: Dfareporting_v3_3.Schema.AccountPermission[];
+        accountPermissions?: Dfareporting.Schema.AccountPermission[];
         kind?: string;
       }
       export interface AccountUserProfile {
         accountId?: string;
         active?: boolean;
-        advertiserFilter?: Dfareporting_v3_3.Schema.ObjectFilter;
-        campaignFilter?: Dfareporting_v3_3.Schema.ObjectFilter;
+        advertiserFilter?: Dfareporting.Schema.ObjectFilter;
+        campaignFilter?: Dfareporting.Schema.ObjectFilter;
         comments?: string;
         email?: string;
         id?: string;
         kind?: string;
         locale?: string;
         name?: string;
-        siteFilter?: Dfareporting_v3_3.Schema.ObjectFilter;
+        siteFilter?: Dfareporting.Schema.ObjectFilter;
         subaccountId?: string;
         traffickerType?: string;
         userAccessType?: string;
-        userRoleFilter?: Dfareporting_v3_3.Schema.ObjectFilter;
+        userRoleFilter?: Dfareporting.Schema.ObjectFilter;
         userRoleId?: string;
       }
       export interface AccountUserProfilesListResponse {
-        accountUserProfiles?: Dfareporting_v3_3.Schema.AccountUserProfile[];
+        accountUserProfiles?: Dfareporting.Schema.AccountUserProfile[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface AccountsListResponse {
-        accounts?: Dfareporting_v3_3.Schema.Account[];
+        accounts?: Dfareporting.Schema.Account[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface Activities {
-        filters?: Dfareporting_v3_3.Schema.DimensionValue[];
+        filters?: Dfareporting.Schema.DimensionValue[];
         kind?: string;
         metricNames?: string[];
       }
@@ -721,41 +721,41 @@ declare namespace GoogleAppsScript {
         accountId?: string;
         active?: boolean;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         archived?: boolean;
         audienceSegmentId?: string;
         campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
-        clickThroughUrl?: Dfareporting_v3_3.Schema.ClickThroughUrl;
-        clickThroughUrlSuffixProperties?: Dfareporting_v3_3.Schema.ClickThroughUrlSuffixProperties;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
+        clickThroughUrlSuffixProperties?: Dfareporting.Schema.ClickThroughUrlSuffixProperties;
         comments?: string;
         compatibility?: string;
-        createInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
-        creativeGroupAssignments?: Dfareporting_v3_3.Schema.CreativeGroupAssignment[];
-        creativeRotation?: Dfareporting_v3_3.Schema.CreativeRotation;
-        dayPartTargeting?: Dfareporting_v3_3.Schema.DayPartTargeting;
-        defaultClickThroughEventTagProperties?: Dfareporting_v3_3.Schema.DefaultClickThroughEventTagProperties;
-        deliverySchedule?: Dfareporting_v3_3.Schema.DeliverySchedule;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo;
+        creativeGroupAssignments?: Dfareporting.Schema.CreativeGroupAssignment[];
+        creativeRotation?: Dfareporting.Schema.CreativeRotation;
+        dayPartTargeting?: Dfareporting.Schema.DayPartTargeting;
+        defaultClickThroughEventTagProperties?: Dfareporting.Schema.DefaultClickThroughEventTagProperties;
+        deliverySchedule?: Dfareporting.Schema.DeliverySchedule;
         dynamicClickTracker?: boolean;
         endTime?: string;
-        eventTagOverrides?: Dfareporting_v3_3.Schema.EventTagOverride[];
-        geoTargeting?: Dfareporting_v3_3.Schema.GeoTargeting;
+        eventTagOverrides?: Dfareporting.Schema.EventTagOverride[];
+        geoTargeting?: Dfareporting.Schema.GeoTargeting;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
-        keyValueTargetingExpression?: Dfareporting_v3_3.Schema.KeyValueTargetingExpression;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
+        keyValueTargetingExpression?: Dfareporting.Schema.KeyValueTargetingExpression;
         kind?: string;
-        languageTargeting?: Dfareporting_v3_3.Schema.LanguageTargeting;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        languageTargeting?: Dfareporting.Schema.LanguageTargeting;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         name?: string;
-        placementAssignments?: Dfareporting_v3_3.Schema.PlacementAssignment[];
-        remarketingListExpression?: Dfareporting_v3_3.Schema.ListTargetingExpression;
-        size?: Dfareporting_v3_3.Schema.Size;
+        placementAssignments?: Dfareporting.Schema.PlacementAssignment[];
+        remarketingListExpression?: Dfareporting.Schema.ListTargetingExpression;
+        size?: Dfareporting.Schema.Size;
         sslCompliant?: boolean;
         sslRequired?: boolean;
         startTime?: string;
         subaccountId?: string;
         targetingTemplateId?: string;
-        technologyTargeting?: Dfareporting_v3_3.Schema.TechnologyTargeting;
+        technologyTargeting?: Dfareporting.Schema.TechnologyTargeting;
         type?: string;
       }
       export interface AdBlockingConfiguration {
@@ -775,7 +775,7 @@ declare namespace GoogleAppsScript {
         width?: string;
       }
       export interface AdsListResponse {
-        ads?: Dfareporting_v3_3.Schema.Ad[];
+        ads?: Dfareporting.Schema.Ad[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -786,9 +786,9 @@ declare namespace GoogleAppsScript {
         defaultClickThroughEventTagId?: string;
         defaultEmail?: string;
         floodlightConfigurationId?: string;
-        floodlightConfigurationIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
         name?: string;
         originalFloodlightConfigurationId?: string;
@@ -803,17 +803,17 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface AdvertiserGroupsListResponse {
-        advertiserGroups?: Dfareporting_v3_3.Schema.AdvertiserGroup[];
+        advertiserGroups?: Dfareporting.Schema.AdvertiserGroup[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface AdvertiserLandingPagesListResponse {
         kind?: string;
-        landingPages?: Dfareporting_v3_3.Schema.LandingPage[];
+        landingPages?: Dfareporting.Schema.LandingPage[];
         nextPageToken?: string;
       }
       export interface AdvertisersListResponse {
-        advertisers?: Dfareporting_v3_3.Schema.Advertiser[];
+        advertisers?: Dfareporting.Schema.Advertiser[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -823,7 +823,7 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface AudienceSegmentGroup {
-        audienceSegments?: Dfareporting_v3_3.Schema.AudienceSegment[];
+        audienceSegments?: Dfareporting.Schema.AudienceSegment[];
         id?: string;
         name?: string;
       }
@@ -836,33 +836,33 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface BrowsersListResponse {
-        browsers?: Dfareporting_v3_3.Schema.Browser[];
+        browsers?: Dfareporting.Schema.Browser[];
         kind?: string;
       }
       export interface Campaign {
         accountId?: string;
-        adBlockingConfiguration?: Dfareporting_v3_3.Schema.AdBlockingConfiguration;
-        additionalCreativeOptimizationConfigurations?: Dfareporting_v3_3.Schema.CreativeOptimizationConfiguration[];
+        adBlockingConfiguration?: Dfareporting.Schema.AdBlockingConfiguration;
+        additionalCreativeOptimizationConfigurations?: Dfareporting.Schema.CreativeOptimizationConfiguration[];
         advertiserGroupId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         archived?: boolean;
-        audienceSegmentGroups?: Dfareporting_v3_3.Schema.AudienceSegmentGroup[];
+        audienceSegmentGroups?: Dfareporting.Schema.AudienceSegmentGroup[];
         billingInvoiceCode?: string;
-        clickThroughUrlSuffixProperties?: Dfareporting_v3_3.Schema.ClickThroughUrlSuffixProperties;
+        clickThroughUrlSuffixProperties?: Dfareporting.Schema.ClickThroughUrlSuffixProperties;
         comment?: string;
-        createInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo;
         creativeGroupIds?: string[];
-        creativeOptimizationConfiguration?: Dfareporting_v3_3.Schema.CreativeOptimizationConfiguration;
-        defaultClickThroughEventTagProperties?: Dfareporting_v3_3.Schema.DefaultClickThroughEventTagProperties;
+        creativeOptimizationConfiguration?: Dfareporting.Schema.CreativeOptimizationConfiguration;
+        defaultClickThroughEventTagProperties?: Dfareporting.Schema.DefaultClickThroughEventTagProperties;
         defaultLandingPageId?: string;
         endDate?: string;
-        eventTagOverrides?: Dfareporting_v3_3.Schema.EventTagOverride[];
+        eventTagOverrides?: Dfareporting.Schema.EventTagOverride[];
         externalId?: string;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         name?: string;
         nielsenOcrEnabled?: boolean;
         startDate?: string;
@@ -874,12 +874,12 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface CampaignCreativeAssociationsListResponse {
-        campaignCreativeAssociations?: Dfareporting_v3_3.Schema.CampaignCreativeAssociation[];
+        campaignCreativeAssociations?: Dfareporting.Schema.CampaignCreativeAssociation[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface CampaignsListResponse {
-        campaigns?: Dfareporting_v3_3.Schema.Campaign[];
+        campaigns?: Dfareporting.Schema.Campaign[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -900,12 +900,12 @@ declare namespace GoogleAppsScript {
         userProfileName?: string;
       }
       export interface ChangeLogsListResponse {
-        changeLogs?: Dfareporting_v3_3.Schema.ChangeLog[];
+        changeLogs?: Dfareporting.Schema.ChangeLog[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface CitiesListResponse {
-        cities?: Dfareporting_v3_3.Schema.City[];
+        cities?: Dfareporting.Schema.City[];
         kind?: string;
       }
       export interface City {
@@ -920,7 +920,7 @@ declare namespace GoogleAppsScript {
         regionDartId?: string;
       }
       export interface ClickTag {
-        clickThroughUrl?: Dfareporting_v3_3.Schema.CreativeClickThroughUrl;
+        clickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
         eventName?: string;
         name?: string;
       }
@@ -935,22 +935,22 @@ declare namespace GoogleAppsScript {
         overrideInheritedSuffix?: boolean;
       }
       export interface CompanionClickThroughOverride {
-        clickThroughUrl?: Dfareporting_v3_3.Schema.ClickThroughUrl;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
         creativeId?: string;
       }
       export interface CompanionSetting {
         companionsDisabled?: boolean;
-        enabledSizes?: Dfareporting_v3_3.Schema.Size[];
+        enabledSizes?: Dfareporting.Schema.Size[];
         imageOnly?: boolean;
         kind?: string;
       }
       export interface CompatibleFields {
-        crossDimensionReachReportCompatibleFields?: Dfareporting_v3_3.Schema.CrossDimensionReachReportCompatibleFields;
-        floodlightReportCompatibleFields?: Dfareporting_v3_3.Schema.FloodlightReportCompatibleFields;
+        crossDimensionReachReportCompatibleFields?: Dfareporting.Schema.CrossDimensionReachReportCompatibleFields;
+        floodlightReportCompatibleFields?: Dfareporting.Schema.FloodlightReportCompatibleFields;
         kind?: string;
-        pathToConversionReportCompatibleFields?: Dfareporting_v3_3.Schema.PathToConversionReportCompatibleFields;
-        reachReportCompatibleFields?: Dfareporting_v3_3.Schema.ReachReportCompatibleFields;
-        reportCompatibleFields?: Dfareporting_v3_3.Schema.ReportCompatibleFields;
+        pathToConversionReportCompatibleFields?: Dfareporting.Schema.PathToConversionReportCompatibleFields;
+        reachReportCompatibleFields?: Dfareporting.Schema.ReachReportCompatibleFields;
+        reportCompatibleFields?: Dfareporting.Schema.ReportCompatibleFields;
       }
       export interface ConnectionType {
         id?: string;
@@ -958,11 +958,11 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface ConnectionTypesListResponse {
-        connectionTypes?: Dfareporting_v3_3.Schema.ConnectionType[];
+        connectionTypes?: Dfareporting.Schema.ConnectionType[];
         kind?: string;
       }
       export interface ContentCategoriesListResponse {
-        contentCategories?: Dfareporting_v3_3.Schema.ContentCategory[];
+        contentCategories?: Dfareporting.Schema.ContentCategory[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -974,7 +974,7 @@ declare namespace GoogleAppsScript {
       }
       export interface Conversion {
         childDirectedTreatment?: boolean;
-        customVariables?: Dfareporting_v3_3.Schema.CustomFloodlightVariable[];
+        customVariables?: Dfareporting.Schema.CustomFloodlightVariable[];
         encryptedUserId?: string;
         encryptedUserIdCandidates?: string[];
         floodlightActivityId?: string;
@@ -988,7 +988,7 @@ declare namespace GoogleAppsScript {
         quantity?: string;
         timestampMicros?: string;
         treatmentForUnderage?: boolean;
-        value?: Number;
+        value?: number;
       }
       export interface ConversionError {
         code?: string;
@@ -996,32 +996,32 @@ declare namespace GoogleAppsScript {
         message?: string;
       }
       export interface ConversionStatus {
-        conversion?: Dfareporting_v3_3.Schema.Conversion;
-        errors?: Dfareporting_v3_3.Schema.ConversionError[];
+        conversion?: Dfareporting.Schema.Conversion;
+        errors?: Dfareporting.Schema.ConversionError[];
         kind?: string;
       }
       export interface ConversionsBatchInsertRequest {
-        conversions?: Dfareporting_v3_3.Schema.Conversion[];
-        encryptionInfo?: Dfareporting_v3_3.Schema.EncryptionInfo;
+        conversions?: Dfareporting.Schema.Conversion[];
+        encryptionInfo?: Dfareporting.Schema.EncryptionInfo;
         kind?: string;
       }
       export interface ConversionsBatchInsertResponse {
         hasFailures?: boolean;
         kind?: string;
-        status?: Dfareporting_v3_3.Schema.ConversionStatus[];
+        status?: Dfareporting.Schema.ConversionStatus[];
       }
       export interface ConversionsBatchUpdateRequest {
-        conversions?: Dfareporting_v3_3.Schema.Conversion[];
-        encryptionInfo?: Dfareporting_v3_3.Schema.EncryptionInfo;
+        conversions?: Dfareporting.Schema.Conversion[];
+        encryptionInfo?: Dfareporting.Schema.EncryptionInfo;
         kind?: string;
       }
       export interface ConversionsBatchUpdateResponse {
         hasFailures?: boolean;
         kind?: string;
-        status?: Dfareporting_v3_3.Schema.ConversionStatus[];
+        status?: Dfareporting.Schema.ConversionStatus[];
       }
       export interface CountriesListResponse {
-        countries?: Dfareporting_v3_3.Schema.Country[];
+        countries?: Dfareporting.Schema.Country[];
         kind?: string;
       }
       export interface Country {
@@ -1036,7 +1036,7 @@ declare namespace GoogleAppsScript {
         active?: boolean;
         adParameters?: string;
         adTagKeys?: string[];
-        additionalSizes?: Dfareporting_v3_3.Schema.Size[];
+        additionalSizes?: Dfareporting.Schema.Size[];
         advertiserId?: string;
         allowScriptAccess?: boolean;
         archived?: boolean;
@@ -1045,42 +1045,42 @@ declare namespace GoogleAppsScript {
         authoringTool?: string;
         autoAdvanceImages?: boolean;
         backgroundColor?: string;
-        backupImageClickThroughUrl?: Dfareporting_v3_3.Schema.CreativeClickThroughUrl;
+        backupImageClickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
         backupImageFeatures?: string[];
         backupImageReportingLabel?: string;
-        backupImageTargetWindow?: Dfareporting_v3_3.Schema.TargetWindow;
-        clickTags?: Dfareporting_v3_3.Schema.ClickTag[];
+        backupImageTargetWindow?: Dfareporting.Schema.TargetWindow;
+        clickTags?: Dfareporting.Schema.ClickTag[];
         commercialId?: string;
         companionCreatives?: string[];
         compatibility?: string[];
         convertFlashToHtml5?: boolean;
-        counterCustomEvents?: Dfareporting_v3_3.Schema.CreativeCustomEvent[];
-        creativeAssetSelection?: Dfareporting_v3_3.Schema.CreativeAssetSelection;
-        creativeAssets?: Dfareporting_v3_3.Schema.CreativeAsset[];
-        creativeFieldAssignments?: Dfareporting_v3_3.Schema.CreativeFieldAssignment[];
+        counterCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[];
+        creativeAssetSelection?: Dfareporting.Schema.CreativeAssetSelection;
+        creativeAssets?: Dfareporting.Schema.CreativeAsset[];
+        creativeFieldAssignments?: Dfareporting.Schema.CreativeFieldAssignment[];
         customKeyValues?: string[];
         dynamicAssetSelection?: boolean;
-        exitCustomEvents?: Dfareporting_v3_3.Schema.CreativeCustomEvent[];
-        fsCommand?: Dfareporting_v3_3.Schema.FsCommand;
+        exitCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[];
+        fsCommand?: Dfareporting.Schema.FsCommand;
         htmlCode?: string;
         htmlCodeLocked?: boolean;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         latestTraffickedCreativeId?: string;
         mediaDescription?: string;
-        mediaDuration?: Number;
+        mediaDuration?: number;
         name?: string;
         overrideCss?: string;
-        progressOffset?: Dfareporting_v3_3.Schema.VideoOffset;
+        progressOffset?: Dfareporting.Schema.VideoOffset;
         redirectUrl?: string;
         renderingId?: string;
-        renderingIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        renderingIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         requiredFlashPluginVersion?: string;
         requiredFlashVersion?: number;
-        size?: Dfareporting_v3_3.Schema.Size;
-        skipOffset?: Dfareporting_v3_3.Schema.VideoOffset;
+        size?: Dfareporting.Schema.Size;
+        skipOffset?: Dfareporting.Schema.VideoOffset;
         skippable?: boolean;
         sslCompliant?: boolean;
         sslOverride?: boolean;
@@ -1090,55 +1090,55 @@ declare namespace GoogleAppsScript {
         subaccountId?: string;
         thirdPartyBackupImageImpressionsUrl?: string;
         thirdPartyRichMediaImpressionsUrl?: string;
-        thirdPartyUrls?: Dfareporting_v3_3.Schema.ThirdPartyTrackingUrl[];
-        timerCustomEvents?: Dfareporting_v3_3.Schema.CreativeCustomEvent[];
+        thirdPartyUrls?: Dfareporting.Schema.ThirdPartyTrackingUrl[];
+        timerCustomEvents?: Dfareporting.Schema.CreativeCustomEvent[];
         totalFileSize?: string;
         type?: string;
-        universalAdId?: Dfareporting_v3_3.Schema.UniversalAdId;
+        universalAdId?: Dfareporting.Schema.UniversalAdId;
         version?: number;
       }
       export interface CreativeAsset {
         actionScript3?: boolean;
         active?: boolean;
-        additionalSizes?: Dfareporting_v3_3.Schema.Size[];
+        additionalSizes?: Dfareporting.Schema.Size[];
         alignment?: string;
         artworkType?: string;
-        assetIdentifier?: Dfareporting_v3_3.Schema.CreativeAssetId;
+        assetIdentifier?: Dfareporting.Schema.CreativeAssetId;
         audioBitRate?: number;
         audioSampleRate?: number;
-        backupImageExit?: Dfareporting_v3_3.Schema.CreativeCustomEvent;
+        backupImageExit?: Dfareporting.Schema.CreativeCustomEvent;
         bitRate?: number;
         childAssetType?: string;
-        collapsedSize?: Dfareporting_v3_3.Schema.Size;
+        collapsedSize?: Dfareporting.Schema.Size;
         companionCreativeIds?: string[];
         customStartTimeValue?: number;
         detectedFeatures?: string[];
         displayType?: string;
         duration?: number;
         durationType?: string;
-        expandedDimension?: Dfareporting_v3_3.Schema.Size;
+        expandedDimension?: Dfareporting.Schema.Size;
         fileSize?: string;
         flashVersion?: number;
-        frameRate?: Number;
+        frameRate?: number;
         hideFlashObjects?: boolean;
         hideSelectionBoxes?: boolean;
         horizontallyLocked?: boolean;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
-        mediaDuration?: Number;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
+        mediaDuration?: number;
         mimeType?: string;
-        offset?: Dfareporting_v3_3.Schema.OffsetPosition;
+        offset?: Dfareporting.Schema.OffsetPosition;
         orientation?: string;
         originalBackup?: boolean;
         politeLoad?: boolean;
-        position?: Dfareporting_v3_3.Schema.OffsetPosition;
+        position?: Dfareporting.Schema.OffsetPosition;
         positionLeftUnit?: string;
         positionTopUnit?: string;
         progressiveServingUrl?: string;
         pushdown?: boolean;
-        pushdownDuration?: Number;
+        pushdownDuration?: number;
         role?: string;
-        size?: Dfareporting_v3_3.Schema.Size;
+        size?: Dfareporting.Schema.Size;
         sslCompliant?: boolean;
         startTimeType?: string;
         streamingServingUrl?: string;
@@ -1154,28 +1154,28 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface CreativeAssetMetadata {
-        assetIdentifier?: Dfareporting_v3_3.Schema.CreativeAssetId;
-        clickTags?: Dfareporting_v3_3.Schema.ClickTag[];
+        assetIdentifier?: Dfareporting.Schema.CreativeAssetId;
+        clickTags?: Dfareporting.Schema.ClickTag[];
         detectedFeatures?: string[];
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
         warnedValidationRules?: string[];
       }
       export interface CreativeAssetSelection {
         defaultAssetId?: string;
-        rules?: Dfareporting_v3_3.Schema.Rule[];
+        rules?: Dfareporting.Schema.Rule[];
       }
       export interface CreativeAssignment {
         active?: boolean;
         applyEventTags?: boolean;
-        clickThroughUrl?: Dfareporting_v3_3.Schema.ClickThroughUrl;
-        companionCreativeOverrides?: Dfareporting_v3_3.Schema.CompanionClickThroughOverride[];
-        creativeGroupAssignments?: Dfareporting_v3_3.Schema.CreativeGroupAssignment[];
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
+        companionCreativeOverrides?: Dfareporting.Schema.CompanionClickThroughOverride[];
+        creativeGroupAssignments?: Dfareporting.Schema.CreativeGroupAssignment[];
         creativeId?: string;
-        creativeIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        creativeIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         endTime?: string;
-        richMediaExitOverrides?: Dfareporting_v3_3.Schema.RichMediaExitOverride[];
+        richMediaExitOverrides?: Dfareporting.Schema.RichMediaExitOverride[];
         sequence?: number;
         sslCompliant?: boolean;
         startTime?: string;
@@ -1192,16 +1192,16 @@ declare namespace GoogleAppsScript {
         advertiserCustomEventType?: string;
         artworkLabel?: string;
         artworkType?: string;
-        exitClickThroughUrl?: Dfareporting_v3_3.Schema.CreativeClickThroughUrl;
+        exitClickThroughUrl?: Dfareporting.Schema.CreativeClickThroughUrl;
         id?: string;
-        popupWindowProperties?: Dfareporting_v3_3.Schema.PopupWindowProperties;
+        popupWindowProperties?: Dfareporting.Schema.PopupWindowProperties;
         targetType?: string;
         videoReportingId?: string;
       }
       export interface CreativeField {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         id?: string;
         kind?: string;
         name?: string;
@@ -1217,19 +1217,19 @@ declare namespace GoogleAppsScript {
         value?: string;
       }
       export interface CreativeFieldValuesListResponse {
-        creativeFieldValues?: Dfareporting_v3_3.Schema.CreativeFieldValue[];
+        creativeFieldValues?: Dfareporting.Schema.CreativeFieldValue[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface CreativeFieldsListResponse {
-        creativeFields?: Dfareporting_v3_3.Schema.CreativeField[];
+        creativeFields?: Dfareporting.Schema.CreativeField[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface CreativeGroup {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         groupNumber?: number;
         id?: string;
         kind?: string;
@@ -1241,33 +1241,33 @@ declare namespace GoogleAppsScript {
         creativeGroupNumber?: string;
       }
       export interface CreativeGroupsListResponse {
-        creativeGroups?: Dfareporting_v3_3.Schema.CreativeGroup[];
+        creativeGroups?: Dfareporting.Schema.CreativeGroup[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface CreativeOptimizationConfiguration {
         id?: string;
         name?: string;
-        optimizationActivitys?: Dfareporting_v3_3.Schema.OptimizationActivity[];
+        optimizationActivitys?: Dfareporting.Schema.OptimizationActivity[];
         optimizationModel?: string;
       }
       export interface CreativeRotation {
-        creativeAssignments?: Dfareporting_v3_3.Schema.CreativeAssignment[];
+        creativeAssignments?: Dfareporting.Schema.CreativeAssignment[];
         creativeOptimizationConfigurationId?: string;
         type?: string;
         weightCalculationStrategy?: string;
       }
       export interface CreativesListResponse {
-        creatives?: Dfareporting_v3_3.Schema.Creative[];
+        creatives?: Dfareporting.Schema.Creative[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface CrossDimensionReachReportCompatibleFields {
-        breakdown?: Dfareporting_v3_3.Schema.Dimension[];
-        dimensionFilters?: Dfareporting_v3_3.Schema.Dimension[];
+        breakdown?: Dfareporting.Schema.Dimension[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[];
         kind?: string;
-        metrics?: Dfareporting_v3_3.Schema.Metric[];
-        overlapMetrics?: Dfareporting_v3_3.Schema.Metric[];
+        metrics?: Dfareporting.Schema.Metric[];
+        overlapMetrics?: Dfareporting.Schema.Metric[];
       }
       export interface CustomFloodlightVariable {
         kind?: string;
@@ -1275,11 +1275,11 @@ declare namespace GoogleAppsScript {
         value?: string;
       }
       export interface CustomRichMediaEvents {
-        filteredEventIds?: Dfareporting_v3_3.Schema.DimensionValue[];
+        filteredEventIds?: Dfareporting.Schema.DimensionValue[];
         kind?: string;
       }
       export interface CustomViewabilityMetric {
-        configuration?: Dfareporting_v3_3.Schema.CustomViewabilityMetricConfiguration;
+        configuration?: Dfareporting.Schema.CustomViewabilityMetricConfiguration;
         id?: string;
         name?: string;
       }
@@ -1304,7 +1304,7 @@ declare namespace GoogleAppsScript {
         appUrl?: string;
         fallbackUrl?: string;
         kind?: string;
-        mobileApp?: Dfareporting_v3_3.Schema.MobileApp;
+        mobileApp?: Dfareporting.Schema.MobileApp;
         remarketingListIds?: string[];
       }
       export interface DefaultClickThroughEventTagProperties {
@@ -1312,7 +1312,7 @@ declare namespace GoogleAppsScript {
         overrideInheritedEventTag?: boolean;
       }
       export interface DeliverySchedule {
-        frequencyCap?: Dfareporting_v3_3.Schema.FrequencyCap;
+        frequencyCap?: Dfareporting.Schema.FrequencyCap;
         hardCutoff?: boolean;
         impressionRatio?: string;
         priority?: string;
@@ -1343,36 +1343,36 @@ declare namespace GoogleAppsScript {
       }
       export interface DimensionValueList {
         etag?: string;
-        items?: Dfareporting_v3_3.Schema.DimensionValue[];
+        items?: Dfareporting.Schema.DimensionValue[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface DimensionValueRequest {
         dimensionName?: string;
         endDate?: string;
-        filters?: Dfareporting_v3_3.Schema.DimensionFilter[];
+        filters?: Dfareporting.Schema.DimensionFilter[];
         kind?: string;
         startDate?: string;
       }
       export interface DirectorySite {
         active?: boolean;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         inpageTagFormats?: string[];
         interstitialTagFormats?: string[];
         kind?: string;
         name?: string;
-        settings?: Dfareporting_v3_3.Schema.DirectorySiteSettings;
+        settings?: Dfareporting.Schema.DirectorySiteSettings;
         url?: string;
       }
       export interface DirectorySiteSettings {
         activeViewOptOut?: boolean;
-        dfpSettings?: Dfareporting_v3_3.Schema.DfpSettings;
+        dfpSettings?: Dfareporting.Schema.DfpSettings;
         instreamVideoPlacementAccepted?: boolean;
         interstitialPlacementAccepted?: boolean;
       }
       export interface DirectorySitesListResponse {
-        directorySites?: Dfareporting_v3_3.Schema.DirectorySite[];
+        directorySites?: Dfareporting.Schema.DirectorySite[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -1383,7 +1383,7 @@ declare namespace GoogleAppsScript {
         objectType?: string;
       }
       export interface DynamicTargetingKeysListResponse {
-        dynamicTargetingKeys?: Dfareporting_v3_3.Schema.DynamicTargetingKey[];
+        dynamicTargetingKeys?: Dfareporting.Schema.DynamicTargetingKey[];
         kind?: string;
       }
       export interface EncryptionInfo {
@@ -1395,9 +1395,9 @@ declare namespace GoogleAppsScript {
       export interface EventTag {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         enabledByDefault?: boolean;
         excludeFromAdxRequests?: boolean;
         id?: string;
@@ -1417,11 +1417,11 @@ declare namespace GoogleAppsScript {
         id?: string;
       }
       export interface EventTagsListResponse {
-        eventTags?: Dfareporting_v3_3.Schema.EventTag[];
+        eventTags?: Dfareporting.Schema.EventTag[];
         kind?: string;
       }
       export interface File {
-        dateRange?: Dfareporting_v3_3.Schema.DateRange;
+        dateRange?: Dfareporting.Schema.DateRange;
         etag?: string;
         fileName?: string;
         format?: string;
@@ -1430,11 +1430,11 @@ declare namespace GoogleAppsScript {
         lastModifiedTime?: string;
         reportId?: string;
         status?: string;
-        urls?: Dfareporting_v3_3.Schema.FileUrls;
+        urls?: Dfareporting.Schema.FileUrls;
       }
       export interface FileList {
         etag?: string;
-        items?: Dfareporting_v3_3.Schema.File[];
+        items?: Dfareporting.Schema.File[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -1454,32 +1454,32 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface FloodlightActivitiesListResponse {
-        floodlightActivities?: Dfareporting_v3_3.Schema.FloodlightActivity[];
+        floodlightActivities?: Dfareporting.Schema.FloodlightActivity[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface FloodlightActivity {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         cacheBustingType?: string;
         countingMethod?: string;
-        defaultTags?: Dfareporting_v3_3.Schema.FloodlightActivityDynamicTag[];
+        defaultTags?: Dfareporting.Schema.FloodlightActivityDynamicTag[];
         expectedUrl?: string;
         floodlightActivityGroupId?: string;
         floodlightActivityGroupName?: string;
         floodlightActivityGroupTagString?: string;
         floodlightActivityGroupType?: string;
         floodlightConfigurationId?: string;
-        floodlightConfigurationIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         floodlightTagType?: string;
         hidden?: boolean;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
         name?: string;
         notes?: string;
-        publisherTags?: Dfareporting_v3_3.Schema.FloodlightActivityPublisherDynamicTag[];
+        publisherTags?: Dfareporting.Schema.FloodlightActivityPublisherDynamicTag[];
         secure?: boolean;
         sslCompliant?: boolean;
         sslRequired?: boolean;
@@ -1496,11 +1496,11 @@ declare namespace GoogleAppsScript {
       export interface FloodlightActivityGroup {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         floodlightConfigurationId?: string;
-        floodlightConfigurationIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        floodlightConfigurationIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
         name?: string;
         subaccountId?: string;
@@ -1508,47 +1508,47 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface FloodlightActivityGroupsListResponse {
-        floodlightActivityGroups?: Dfareporting_v3_3.Schema.FloodlightActivityGroup[];
+        floodlightActivityGroups?: Dfareporting.Schema.FloodlightActivityGroup[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface FloodlightActivityPublisherDynamicTag {
         clickThrough?: boolean;
         directorySiteId?: string;
-        dynamicTag?: Dfareporting_v3_3.Schema.FloodlightActivityDynamicTag;
+        dynamicTag?: Dfareporting.Schema.FloodlightActivityDynamicTag;
         siteId?: string;
-        siteIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         viewThrough?: boolean;
       }
       export interface FloodlightConfiguration {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         analyticsDataSharingEnabled?: boolean;
-        customViewabilityMetric?: Dfareporting_v3_3.Schema.CustomViewabilityMetric;
+        customViewabilityMetric?: Dfareporting.Schema.CustomViewabilityMetric;
         exposureToConversionEnabled?: boolean;
         firstDayOfWeek?: string;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         inAppAttributionTrackingEnabled?: boolean;
         kind?: string;
-        lookbackConfiguration?: Dfareporting_v3_3.Schema.LookbackConfiguration;
+        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
         naturalSearchConversionAttributionOption?: string;
-        omnitureSettings?: Dfareporting_v3_3.Schema.OmnitureSettings;
+        omnitureSettings?: Dfareporting.Schema.OmnitureSettings;
         subaccountId?: string;
-        tagSettings?: Dfareporting_v3_3.Schema.TagSettings;
-        thirdPartyAuthenticationTokens?: Dfareporting_v3_3.Schema.ThirdPartyAuthenticationToken[];
-        userDefinedVariableConfigurations?: Dfareporting_v3_3.Schema.UserDefinedVariableConfiguration[];
+        tagSettings?: Dfareporting.Schema.TagSettings;
+        thirdPartyAuthenticationTokens?: Dfareporting.Schema.ThirdPartyAuthenticationToken[];
+        userDefinedVariableConfigurations?: Dfareporting.Schema.UserDefinedVariableConfiguration[];
       }
       export interface FloodlightConfigurationsListResponse {
-        floodlightConfigurations?: Dfareporting_v3_3.Schema.FloodlightConfiguration[];
+        floodlightConfigurations?: Dfareporting.Schema.FloodlightConfiguration[];
         kind?: string;
       }
       export interface FloodlightReportCompatibleFields {
-        dimensionFilters?: Dfareporting_v3_3.Schema.Dimension[];
-        dimensions?: Dfareporting_v3_3.Schema.Dimension[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[];
+        dimensions?: Dfareporting.Schema.Dimension[];
         kind?: string;
-        metrics?: Dfareporting_v3_3.Schema.Metric[];
+        metrics?: Dfareporting.Schema.Metric[];
       }
       export interface FrequencyCap {
         duration?: string;
@@ -1562,16 +1562,16 @@ declare namespace GoogleAppsScript {
         windowWidth?: number;
       }
       export interface GeoTargeting {
-        cities?: Dfareporting_v3_3.Schema.City[];
-        countries?: Dfareporting_v3_3.Schema.Country[];
+        cities?: Dfareporting.Schema.City[];
+        countries?: Dfareporting.Schema.Country[];
         excludeCountries?: boolean;
-        metros?: Dfareporting_v3_3.Schema.Metro[];
-        postalCodes?: Dfareporting_v3_3.Schema.PostalCode[];
-        regions?: Dfareporting_v3_3.Schema.Region[];
+        metros?: Dfareporting.Schema.Metro[];
+        postalCodes?: Dfareporting.Schema.PostalCode[];
+        regions?: Dfareporting.Schema.Region[];
       }
       export interface InventoryItem {
         accountId?: string;
-        adSlots?: Dfareporting_v3_3.Schema.AdSlot[];
+        adSlots?: Dfareporting.Schema.AdSlot[];
         advertiserId?: string;
         contentCategoryId?: string;
         estimatedClickThroughRate?: string;
@@ -1579,12 +1579,12 @@ declare namespace GoogleAppsScript {
         id?: string;
         inPlan?: boolean;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         name?: string;
         negotiationChannelId?: string;
         orderId?: string;
         placementStrategyId?: string;
-        pricing?: Dfareporting_v3_3.Schema.Pricing;
+        pricing?: Dfareporting.Schema.Pricing;
         projectId?: string;
         rfpId?: string;
         siteId?: string;
@@ -1592,7 +1592,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface InventoryItemsListResponse {
-        inventoryItems?: Dfareporting_v3_3.Schema.InventoryItem[];
+        inventoryItems?: Dfareporting.Schema.InventoryItem[];
         kind?: string;
         nextPageToken?: string;
       }
@@ -1602,7 +1602,7 @@ declare namespace GoogleAppsScript {
       export interface LandingPage {
         advertiserId?: string;
         archived?: boolean;
-        deepLinks?: Dfareporting_v3_3.Schema.DeepLink[];
+        deepLinks?: Dfareporting.Schema.DeepLink[];
         id?: string;
         kind?: string;
         name?: string;
@@ -1615,22 +1615,22 @@ declare namespace GoogleAppsScript {
         name?: string;
       }
       export interface LanguageTargeting {
-        languages?: Dfareporting_v3_3.Schema.Language[];
+        languages?: Dfareporting.Schema.Language[];
       }
       export interface LanguagesListResponse {
         kind?: string;
-        languages?: Dfareporting_v3_3.Schema.Language[];
+        languages?: Dfareporting.Schema.Language[];
       }
       export interface LastModifiedInfo {
         time?: string;
       }
       export interface ListPopulationClause {
-        terms?: Dfareporting_v3_3.Schema.ListPopulationTerm[];
+        terms?: Dfareporting.Schema.ListPopulationTerm[];
       }
       export interface ListPopulationRule {
         floodlightActivityId?: string;
         floodlightActivityName?: string;
-        listPopulationClauses?: Dfareporting_v3_3.Schema.ListPopulationClause[];
+        listPopulationClauses?: Dfareporting.Schema.ListPopulationClause[];
       }
       export interface ListPopulationTerm {
         contains?: boolean;
@@ -1664,7 +1664,7 @@ declare namespace GoogleAppsScript {
       }
       export interface MetrosListResponse {
         kind?: string;
-        metros?: Dfareporting_v3_3.Schema.Metro[];
+        metros?: Dfareporting.Schema.Metro[];
       }
       export interface MobileApp {
         directory?: string;
@@ -1675,7 +1675,7 @@ declare namespace GoogleAppsScript {
       }
       export interface MobileAppsListResponse {
         kind?: string;
-        mobileApps?: Dfareporting_v3_3.Schema.MobileApp[];
+        mobileApps?: Dfareporting.Schema.MobileApp[];
         nextPageToken?: string;
       }
       export interface MobileCarrier {
@@ -1687,7 +1687,7 @@ declare namespace GoogleAppsScript {
       }
       export interface MobileCarriersListResponse {
         kind?: string;
-        mobileCarriers?: Dfareporting_v3_3.Schema.MobileCarrier[];
+        mobileCarriers?: Dfareporting.Schema.MobileCarrier[];
       }
       export interface ObjectFilter {
         kind?: string;
@@ -1715,19 +1715,19 @@ declare namespace GoogleAppsScript {
         majorVersion?: string;
         minorVersion?: string;
         name?: string;
-        operatingSystem?: Dfareporting_v3_3.Schema.OperatingSystem;
+        operatingSystem?: Dfareporting.Schema.OperatingSystem;
       }
       export interface OperatingSystemVersionsListResponse {
         kind?: string;
-        operatingSystemVersions?: Dfareporting_v3_3.Schema.OperatingSystemVersion[];
+        operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[];
       }
       export interface OperatingSystemsListResponse {
         kind?: string;
-        operatingSystems?: Dfareporting_v3_3.Schema.OperatingSystem[];
+        operatingSystems?: Dfareporting.Schema.OperatingSystem[];
       }
       export interface OptimizationActivity {
         floodlightActivityId?: string;
-        floodlightActivityIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        floodlightActivityIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         weight?: number;
       }
       export interface Order {
@@ -1737,10 +1737,10 @@ declare namespace GoogleAppsScript {
         buyerInvoiceId?: string;
         buyerOrganizationName?: string;
         comments?: string;
-        contacts?: Dfareporting_v3_3.Schema.OrderContact[];
+        contacts?: Dfareporting.Schema.OrderContact[];
         id?: string;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         name?: string;
         notes?: string;
         planningTermId?: string;
@@ -1765,7 +1765,7 @@ declare namespace GoogleAppsScript {
         amendedOrderDocumentId?: string;
         approvedByUserProfileIds?: string[];
         cancelled?: boolean;
-        createdInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        createdInfo?: Dfareporting.Schema.LastModifiedInfo;
         effectiveDate?: string;
         id?: string;
         kind?: string;
@@ -1781,106 +1781,106 @@ declare namespace GoogleAppsScript {
       export interface OrderDocumentsListResponse {
         kind?: string;
         nextPageToken?: string;
-        orderDocuments?: Dfareporting_v3_3.Schema.OrderDocument[];
+        orderDocuments?: Dfareporting.Schema.OrderDocument[];
       }
       export interface OrdersListResponse {
         kind?: string;
         nextPageToken?: string;
-        orders?: Dfareporting_v3_3.Schema.Order[];
+        orders?: Dfareporting.Schema.Order[];
       }
       export interface PathToConversionReportCompatibleFields {
-        conversionDimensions?: Dfareporting_v3_3.Schema.Dimension[];
-        customFloodlightVariables?: Dfareporting_v3_3.Schema.Dimension[];
+        conversionDimensions?: Dfareporting.Schema.Dimension[];
+        customFloodlightVariables?: Dfareporting.Schema.Dimension[];
         kind?: string;
-        metrics?: Dfareporting_v3_3.Schema.Metric[];
-        perInteractionDimensions?: Dfareporting_v3_3.Schema.Dimension[];
+        metrics?: Dfareporting.Schema.Metric[];
+        perInteractionDimensions?: Dfareporting.Schema.Dimension[];
       }
       export interface Placement {
         accountId?: string;
         adBlockingOptOut?: boolean;
-        additionalSizes?: Dfareporting_v3_3.Schema.Size[];
+        additionalSizes?: Dfareporting.Schema.Size[];
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         archived?: boolean;
         campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         comment?: string;
         compatibility?: string;
         contentCategoryId?: string;
-        createInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo;
         directorySiteId?: string;
-        directorySiteIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         externalId?: string;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         keyName?: string;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
-        lookbackConfiguration?: Dfareporting_v3_3.Schema.LookbackConfiguration;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
+        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
         name?: string;
         paymentApproved?: boolean;
         paymentSource?: string;
         placementGroupId?: string;
-        placementGroupIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        placementGroupIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         placementStrategyId?: string;
-        pricingSchedule?: Dfareporting_v3_3.Schema.PricingSchedule;
+        pricingSchedule?: Dfareporting.Schema.PricingSchedule;
         primary?: boolean;
-        publisherUpdateInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        publisherUpdateInfo?: Dfareporting.Schema.LastModifiedInfo;
         siteId?: string;
-        siteIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
-        size?: Dfareporting_v3_3.Schema.Size;
+        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
+        size?: Dfareporting.Schema.Size;
         sslRequired?: boolean;
         status?: string;
         subaccountId?: string;
         tagFormats?: string[];
-        tagSetting?: Dfareporting_v3_3.Schema.TagSetting;
+        tagSetting?: Dfareporting.Schema.TagSetting;
         videoActiveViewOptOut?: boolean;
-        videoSettings?: Dfareporting_v3_3.Schema.VideoSettings;
+        videoSettings?: Dfareporting.Schema.VideoSettings;
         vpaidAdapterChoice?: string;
       }
       export interface PlacementAssignment {
         active?: boolean;
         placementId?: string;
-        placementIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        placementIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         sslRequired?: boolean;
       }
       export interface PlacementGroup {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         archived?: boolean;
         campaignId?: string;
-        campaignIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        campaignIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         childPlacementIds?: string[];
         comment?: string;
         contentCategoryId?: string;
-        createInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        createInfo?: Dfareporting.Schema.LastModifiedInfo;
         directorySiteId?: string;
-        directorySiteIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         externalId?: string;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         name?: string;
         placementGroupType?: string;
         placementStrategyId?: string;
-        pricingSchedule?: Dfareporting_v3_3.Schema.PricingSchedule;
+        pricingSchedule?: Dfareporting.Schema.PricingSchedule;
         primaryPlacementId?: string;
-        primaryPlacementIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        primaryPlacementIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         siteId?: string;
-        siteIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        siteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         subaccountId?: string;
       }
       export interface PlacementGroupsListResponse {
         kind?: string;
         nextPageToken?: string;
-        placementGroups?: Dfareporting_v3_3.Schema.PlacementGroup[];
+        placementGroups?: Dfareporting.Schema.PlacementGroup[];
       }
       export interface PlacementStrategiesListResponse {
         kind?: string;
         nextPageToken?: string;
-        placementStrategies?: Dfareporting_v3_3.Schema.PlacementStrategy[];
+        placementStrategies?: Dfareporting.Schema.PlacementStrategy[];
       }
       export interface PlacementStrategy {
         accountId?: string;
@@ -1890,16 +1890,16 @@ declare namespace GoogleAppsScript {
       }
       export interface PlacementTag {
         placementId?: string;
-        tagDatas?: Dfareporting_v3_3.Schema.TagData[];
+        tagDatas?: Dfareporting.Schema.TagData[];
       }
       export interface PlacementsGenerateTagsResponse {
         kind?: string;
-        placementTags?: Dfareporting_v3_3.Schema.PlacementTag[];
+        placementTags?: Dfareporting.Schema.PlacementTag[];
       }
       export interface PlacementsListResponse {
         kind?: string;
         nextPageToken?: string;
-        placements?: Dfareporting_v3_3.Schema.Placement[];
+        placements?: Dfareporting.Schema.Placement[];
       }
       export interface PlatformType {
         id?: string;
@@ -1908,11 +1908,11 @@ declare namespace GoogleAppsScript {
       }
       export interface PlatformTypesListResponse {
         kind?: string;
-        platformTypes?: Dfareporting_v3_3.Schema.PlatformType[];
+        platformTypes?: Dfareporting.Schema.PlatformType[];
       }
       export interface PopupWindowProperties {
-        dimension?: Dfareporting_v3_3.Schema.Size;
-        offset?: Dfareporting_v3_3.Schema.OffsetPosition;
+        dimension?: Dfareporting.Schema.Size;
+        offset?: Dfareporting.Schema.OffsetPosition;
         positionType?: string;
         showAddressBar?: boolean;
         showMenuBar?: boolean;
@@ -1930,12 +1930,12 @@ declare namespace GoogleAppsScript {
       }
       export interface PostalCodesListResponse {
         kind?: string;
-        postalCodes?: Dfareporting_v3_3.Schema.PostalCode[];
+        postalCodes?: Dfareporting.Schema.PostalCode[];
       }
       export interface Pricing {
         capCostType?: string;
         endDate?: string;
-        flights?: Dfareporting_v3_3.Schema.Flight[];
+        flights?: Dfareporting.Schema.Flight[];
         groupType?: string;
         pricingType?: string;
         startDate?: string;
@@ -1946,7 +1946,7 @@ declare namespace GoogleAppsScript {
         endDate?: string;
         flighted?: boolean;
         floodlightActivityId?: string;
-        pricingPeriods?: Dfareporting_v3_3.Schema.PricingSchedulePricingPeriod[];
+        pricingPeriods?: Dfareporting.Schema.PricingSchedulePricingPeriod[];
         pricingType?: string;
         startDate?: string;
         testingStartDate?: string;
@@ -1969,7 +1969,7 @@ declare namespace GoogleAppsScript {
         endDate?: string;
         id?: string;
         kind?: string;
-        lastModifiedInfo?: Dfareporting_v3_3.Schema.LastModifiedInfo;
+        lastModifiedInfo?: Dfareporting.Schema.LastModifiedInfo;
         name?: string;
         overview?: string;
         startDate?: string;
@@ -1985,15 +1985,15 @@ declare namespace GoogleAppsScript {
       export interface ProjectsListResponse {
         kind?: string;
         nextPageToken?: string;
-        projects?: Dfareporting_v3_3.Schema.Project[];
+        projects?: Dfareporting.Schema.Project[];
       }
       export interface ReachReportCompatibleFields {
-        dimensionFilters?: Dfareporting_v3_3.Schema.Dimension[];
-        dimensions?: Dfareporting_v3_3.Schema.Dimension[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[];
+        dimensions?: Dfareporting.Schema.Dimension[];
         kind?: string;
-        metrics?: Dfareporting_v3_3.Schema.Metric[];
-        pivotedActivityMetrics?: Dfareporting_v3_3.Schema.Metric[];
-        reachByFrequencyMetrics?: Dfareporting_v3_3.Schema.Metric[];
+        metrics?: Dfareporting.Schema.Metric[];
+        pivotedActivityMetrics?: Dfareporting.Schema.Metric[];
+        reachByFrequencyMetrics?: Dfareporting.Schema.Metric[];
       }
       export interface Recipient {
         deliveryType?: string;
@@ -2010,18 +2010,18 @@ declare namespace GoogleAppsScript {
       }
       export interface RegionsListResponse {
         kind?: string;
-        regions?: Dfareporting_v3_3.Schema.Region[];
+        regions?: Dfareporting.Schema.Region[];
       }
       export interface RemarketingList {
         accountId?: string;
         active?: boolean;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         description?: string;
         id?: string;
         kind?: string;
         lifeSpan?: string;
-        listPopulationRule?: Dfareporting_v3_3.Schema.ListPopulationRule;
+        listPopulationRule?: Dfareporting.Schema.ListPopulationRule;
         listSize?: string;
         listSource?: string;
         name?: string;
@@ -2036,48 +2036,48 @@ declare namespace GoogleAppsScript {
       export interface RemarketingListsListResponse {
         kind?: string;
         nextPageToken?: string;
-        remarketingLists?: Dfareporting_v3_3.Schema.RemarketingList[];
+        remarketingLists?: Dfareporting.Schema.RemarketingList[];
       }
       export interface Report {
         accountId?: string;
-        criteria?: Dfareporting_v3_3.Schema.ReportCriteria;
-        crossDimensionReachCriteria?: Dfareporting_v3_3.Schema.ReportCrossDimensionReachCriteria;
-        delivery?: Dfareporting_v3_3.Schema.ReportDelivery;
+        criteria?: Dfareporting.Schema.ReportCriteria;
+        crossDimensionReachCriteria?: Dfareporting.Schema.ReportCrossDimensionReachCriteria;
+        delivery?: Dfareporting.Schema.ReportDelivery;
         etag?: string;
         fileName?: string;
-        floodlightCriteria?: Dfareporting_v3_3.Schema.ReportFloodlightCriteria;
+        floodlightCriteria?: Dfareporting.Schema.ReportFloodlightCriteria;
         format?: string;
         id?: string;
         kind?: string;
         lastModifiedTime?: string;
         name?: string;
         ownerProfileId?: string;
-        pathToConversionCriteria?: Dfareporting_v3_3.Schema.ReportPathToConversionCriteria;
-        reachCriteria?: Dfareporting_v3_3.Schema.ReportReachCriteria;
-        schedule?: Dfareporting_v3_3.Schema.ReportSchedule;
+        pathToConversionCriteria?: Dfareporting.Schema.ReportPathToConversionCriteria;
+        reachCriteria?: Dfareporting.Schema.ReportReachCriteria;
+        schedule?: Dfareporting.Schema.ReportSchedule;
         subAccountId?: string;
         type?: string;
       }
       export interface ReportCompatibleFields {
-        dimensionFilters?: Dfareporting_v3_3.Schema.Dimension[];
-        dimensions?: Dfareporting_v3_3.Schema.Dimension[];
+        dimensionFilters?: Dfareporting.Schema.Dimension[];
+        dimensions?: Dfareporting.Schema.Dimension[];
         kind?: string;
-        metrics?: Dfareporting_v3_3.Schema.Metric[];
-        pivotedActivityMetrics?: Dfareporting_v3_3.Schema.Metric[];
+        metrics?: Dfareporting.Schema.Metric[];
+        pivotedActivityMetrics?: Dfareporting.Schema.Metric[];
       }
       export interface ReportCriteria {
-        activities?: Dfareporting_v3_3.Schema.Activities;
-        customRichMediaEvents?: Dfareporting_v3_3.Schema.CustomRichMediaEvents;
-        dateRange?: Dfareporting_v3_3.Schema.DateRange;
-        dimensionFilters?: Dfareporting_v3_3.Schema.DimensionValue[];
-        dimensions?: Dfareporting_v3_3.Schema.SortedDimension[];
+        activities?: Dfareporting.Schema.Activities;
+        customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents;
+        dateRange?: Dfareporting.Schema.DateRange;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
+        dimensions?: Dfareporting.Schema.SortedDimension[];
         metricNames?: string[];
       }
       export interface ReportCrossDimensionReachCriteria {
-        breakdown?: Dfareporting_v3_3.Schema.SortedDimension[];
-        dateRange?: Dfareporting_v3_3.Schema.DateRange;
+        breakdown?: Dfareporting.Schema.SortedDimension[];
+        dateRange?: Dfareporting.Schema.DateRange;
         dimension?: string;
-        dimensionFilters?: Dfareporting_v3_3.Schema.DimensionValue[];
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
         metricNames?: string[];
         overlapMetricNames?: string[];
         pivoted?: boolean;
@@ -2086,16 +2086,16 @@ declare namespace GoogleAppsScript {
         emailOwner?: boolean;
         emailOwnerDeliveryType?: string;
         message?: string;
-        recipients?: Dfareporting_v3_3.Schema.Recipient[];
+        recipients?: Dfareporting.Schema.Recipient[];
       }
       export interface ReportFloodlightCriteria {
-        customRichMediaEvents?: Dfareporting_v3_3.Schema.DimensionValue[];
-        dateRange?: Dfareporting_v3_3.Schema.DateRange;
-        dimensionFilters?: Dfareporting_v3_3.Schema.DimensionValue[];
-        dimensions?: Dfareporting_v3_3.Schema.SortedDimension[];
-        floodlightConfigId?: Dfareporting_v3_3.Schema.DimensionValue;
+        customRichMediaEvents?: Dfareporting.Schema.DimensionValue[];
+        dateRange?: Dfareporting.Schema.DateRange;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
+        dimensions?: Dfareporting.Schema.SortedDimension[];
+        floodlightConfigId?: Dfareporting.Schema.DimensionValue;
         metricNames?: string[];
-        reportProperties?: Dfareporting_v3_3.Schema.ReportFloodlightCriteriaReportProperties;
+        reportProperties?: Dfareporting.Schema.ReportFloodlightCriteriaReportProperties;
       }
       export interface ReportFloodlightCriteriaReportProperties {
         includeAttributedIPConversions?: boolean;
@@ -2104,20 +2104,20 @@ declare namespace GoogleAppsScript {
       }
       export interface ReportList {
         etag?: string;
-        items?: Dfareporting_v3_3.Schema.Report[];
+        items?: Dfareporting.Schema.Report[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface ReportPathToConversionCriteria {
-        activityFilters?: Dfareporting_v3_3.Schema.DimensionValue[];
-        conversionDimensions?: Dfareporting_v3_3.Schema.SortedDimension[];
-        customFloodlightVariables?: Dfareporting_v3_3.Schema.SortedDimension[];
-        customRichMediaEvents?: Dfareporting_v3_3.Schema.DimensionValue[];
-        dateRange?: Dfareporting_v3_3.Schema.DateRange;
-        floodlightConfigId?: Dfareporting_v3_3.Schema.DimensionValue;
+        activityFilters?: Dfareporting.Schema.DimensionValue[];
+        conversionDimensions?: Dfareporting.Schema.SortedDimension[];
+        customFloodlightVariables?: Dfareporting.Schema.SortedDimension[];
+        customRichMediaEvents?: Dfareporting.Schema.DimensionValue[];
+        dateRange?: Dfareporting.Schema.DateRange;
+        floodlightConfigId?: Dfareporting.Schema.DimensionValue;
         metricNames?: string[];
-        perInteractionDimensions?: Dfareporting_v3_3.Schema.SortedDimension[];
-        reportProperties?: Dfareporting_v3_3.Schema.ReportPathToConversionCriteriaReportProperties;
+        perInteractionDimensions?: Dfareporting.Schema.SortedDimension[];
+        reportProperties?: Dfareporting.Schema.ReportPathToConversionCriteriaReportProperties;
       }
       export interface ReportPathToConversionCriteriaReportProperties {
         clicksLookbackWindow?: number;
@@ -2131,11 +2131,11 @@ declare namespace GoogleAppsScript {
         pivotOnInteractionPath?: boolean;
       }
       export interface ReportReachCriteria {
-        activities?: Dfareporting_v3_3.Schema.Activities;
-        customRichMediaEvents?: Dfareporting_v3_3.Schema.CustomRichMediaEvents;
-        dateRange?: Dfareporting_v3_3.Schema.DateRange;
-        dimensionFilters?: Dfareporting_v3_3.Schema.DimensionValue[];
-        dimensions?: Dfareporting_v3_3.Schema.SortedDimension[];
+        activities?: Dfareporting.Schema.Activities;
+        customRichMediaEvents?: Dfareporting.Schema.CustomRichMediaEvents;
+        dateRange?: Dfareporting.Schema.DateRange;
+        dimensionFilters?: Dfareporting.Schema.DimensionValue[];
+        dimensions?: Dfareporting.Schema.SortedDimension[];
         enableAllDimensionCombinations?: boolean;
         metricNames?: string[];
         reachByFrequencyMetricNames?: string[];
@@ -2151,11 +2151,11 @@ declare namespace GoogleAppsScript {
       }
       export interface ReportsConfiguration {
         exposureToConversionEnabled?: boolean;
-        lookbackConfiguration?: Dfareporting_v3_3.Schema.LookbackConfiguration;
+        lookbackConfiguration?: Dfareporting.Schema.LookbackConfiguration;
         reportGenerationTimeZoneId?: string;
       }
       export interface RichMediaExitOverride {
-        clickThroughUrl?: Dfareporting_v3_3.Schema.ClickThroughUrl;
+        clickThroughUrl?: Dfareporting.Schema.ClickThroughUrl;
         enabled?: boolean;
         exitId?: string;
       }
@@ -2168,20 +2168,20 @@ declare namespace GoogleAppsScript {
         accountId?: string;
         approved?: boolean;
         directorySiteId?: string;
-        directorySiteIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        directorySiteIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         id?: string;
-        idDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        idDimensionValue?: Dfareporting.Schema.DimensionValue;
         keyName?: string;
         kind?: string;
         name?: string;
-        siteContacts?: Dfareporting_v3_3.Schema.SiteContact[];
-        siteSettings?: Dfareporting_v3_3.Schema.SiteSettings;
+        siteContacts?: Dfareporting.Schema.SiteContact[];
+        siteSettings?: Dfareporting.Schema.SiteSettings;
         subaccountId?: string;
-        videoSettings?: Dfareporting_v3_3.Schema.SiteVideoSettings;
+        videoSettings?: Dfareporting.Schema.SiteVideoSettings;
       }
       export interface SiteCompanionSetting {
         companionsDisabled?: boolean;
-        enabledSizes?: Dfareporting_v3_3.Schema.Size[];
+        enabledSizes?: Dfareporting.Schema.Size[];
         imageOnly?: boolean;
         kind?: string;
       }
@@ -2199,14 +2199,14 @@ declare namespace GoogleAppsScript {
         activeViewOptOut?: boolean;
         adBlockingOptOut?: boolean;
         disableNewCookie?: boolean;
-        tagSetting?: Dfareporting_v3_3.Schema.TagSetting;
+        tagSetting?: Dfareporting.Schema.TagSetting;
         videoActiveViewOptOutTemplate?: boolean;
         vpaidAdapterChoiceTemplate?: string;
       }
       export interface SiteSkippableSetting {
         kind?: string;
-        progressOffset?: Dfareporting_v3_3.Schema.VideoOffset;
-        skipOffset?: Dfareporting_v3_3.Schema.VideoOffset;
+        progressOffset?: Dfareporting.Schema.VideoOffset;
+        skipOffset?: Dfareporting.Schema.VideoOffset;
         skippable?: boolean;
       }
       export interface SiteTranscodeSetting {
@@ -2214,16 +2214,16 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface SiteVideoSettings {
-        companionSettings?: Dfareporting_v3_3.Schema.SiteCompanionSetting;
+        companionSettings?: Dfareporting.Schema.SiteCompanionSetting;
         kind?: string;
         orientation?: string;
-        skippableSettings?: Dfareporting_v3_3.Schema.SiteSkippableSetting;
-        transcodeSettings?: Dfareporting_v3_3.Schema.SiteTranscodeSetting;
+        skippableSettings?: Dfareporting.Schema.SiteSkippableSetting;
+        transcodeSettings?: Dfareporting.Schema.SiteTranscodeSetting;
       }
       export interface SitesListResponse {
         kind?: string;
         nextPageToken?: string;
-        sites?: Dfareporting_v3_3.Schema.Site[];
+        sites?: Dfareporting.Schema.Site[];
       }
       export interface Size {
         height?: number;
@@ -2234,12 +2234,12 @@ declare namespace GoogleAppsScript {
       }
       export interface SizesListResponse {
         kind?: string;
-        sizes?: Dfareporting_v3_3.Schema.Size[];
+        sizes?: Dfareporting.Schema.Size[];
       }
       export interface SkippableSetting {
         kind?: string;
-        progressOffset?: Dfareporting_v3_3.Schema.VideoOffset;
-        skipOffset?: Dfareporting_v3_3.Schema.VideoOffset;
+        progressOffset?: Dfareporting.Schema.VideoOffset;
+        skipOffset?: Dfareporting.Schema.VideoOffset;
         skippable?: boolean;
       }
       export interface SortedDimension {
@@ -2257,7 +2257,7 @@ declare namespace GoogleAppsScript {
       export interface SubaccountsListResponse {
         kind?: string;
         nextPageToken?: string;
-        subaccounts?: Dfareporting_v3_3.Schema.Subaccount[];
+        subaccounts?: Dfareporting.Schema.Subaccount[];
       }
       export interface TagData {
         adId?: string;
@@ -2284,7 +2284,7 @@ declare namespace GoogleAppsScript {
         accountId?: string;
         active?: boolean;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
         description?: string;
         id?: string;
         kind?: string;
@@ -2297,35 +2297,35 @@ declare namespace GoogleAppsScript {
       export interface TargetableRemarketingListsListResponse {
         kind?: string;
         nextPageToken?: string;
-        targetableRemarketingLists?: Dfareporting_v3_3.Schema.TargetableRemarketingList[];
+        targetableRemarketingLists?: Dfareporting.Schema.TargetableRemarketingList[];
       }
       export interface TargetingTemplate {
         accountId?: string;
         advertiserId?: string;
-        advertiserIdDimensionValue?: Dfareporting_v3_3.Schema.DimensionValue;
-        dayPartTargeting?: Dfareporting_v3_3.Schema.DayPartTargeting;
-        geoTargeting?: Dfareporting_v3_3.Schema.GeoTargeting;
+        advertiserIdDimensionValue?: Dfareporting.Schema.DimensionValue;
+        dayPartTargeting?: Dfareporting.Schema.DayPartTargeting;
+        geoTargeting?: Dfareporting.Schema.GeoTargeting;
         id?: string;
-        keyValueTargetingExpression?: Dfareporting_v3_3.Schema.KeyValueTargetingExpression;
+        keyValueTargetingExpression?: Dfareporting.Schema.KeyValueTargetingExpression;
         kind?: string;
-        languageTargeting?: Dfareporting_v3_3.Schema.LanguageTargeting;
-        listTargetingExpression?: Dfareporting_v3_3.Schema.ListTargetingExpression;
+        languageTargeting?: Dfareporting.Schema.LanguageTargeting;
+        listTargetingExpression?: Dfareporting.Schema.ListTargetingExpression;
         name?: string;
         subaccountId?: string;
-        technologyTargeting?: Dfareporting_v3_3.Schema.TechnologyTargeting;
+        technologyTargeting?: Dfareporting.Schema.TechnologyTargeting;
       }
       export interface TargetingTemplatesListResponse {
         kind?: string;
         nextPageToken?: string;
-        targetingTemplates?: Dfareporting_v3_3.Schema.TargetingTemplate[];
+        targetingTemplates?: Dfareporting.Schema.TargetingTemplate[];
       }
       export interface TechnologyTargeting {
-        browsers?: Dfareporting_v3_3.Schema.Browser[];
-        connectionTypes?: Dfareporting_v3_3.Schema.ConnectionType[];
-        mobileCarriers?: Dfareporting_v3_3.Schema.MobileCarrier[];
-        operatingSystemVersions?: Dfareporting_v3_3.Schema.OperatingSystemVersion[];
-        operatingSystems?: Dfareporting_v3_3.Schema.OperatingSystem[];
-        platformTypes?: Dfareporting_v3_3.Schema.PlatformType[];
+        browsers?: Dfareporting.Schema.Browser[];
+        connectionTypes?: Dfareporting.Schema.ConnectionType[];
+        mobileCarriers?: Dfareporting.Schema.MobileCarrier[];
+        operatingSystemVersions?: Dfareporting.Schema.OperatingSystemVersion[];
+        operatingSystems?: Dfareporting.Schema.OperatingSystem[];
+        platformTypes?: Dfareporting.Schema.PlatformType[];
       }
       export interface ThirdPartyAuthenticationToken {
         name?: string;
@@ -2360,7 +2360,7 @@ declare namespace GoogleAppsScript {
       }
       export interface UserProfileList {
         etag?: string;
-        items?: Dfareporting_v3_3.Schema.UserProfile[];
+        items?: Dfareporting.Schema.UserProfile[];
         kind?: string;
       }
       export interface UserRole {
@@ -2370,7 +2370,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
         name?: string;
         parentUserRoleId?: string;
-        permissions?: Dfareporting_v3_3.Schema.UserRolePermission[];
+        permissions?: Dfareporting.Schema.UserRolePermission[];
         subaccountId?: string;
       }
       export interface UserRolePermission {
@@ -2387,375 +2387,375 @@ declare namespace GoogleAppsScript {
       }
       export interface UserRolePermissionGroupsListResponse {
         kind?: string;
-        userRolePermissionGroups?: Dfareporting_v3_3.Schema.UserRolePermissionGroup[];
+        userRolePermissionGroups?: Dfareporting.Schema.UserRolePermissionGroup[];
       }
       export interface UserRolePermissionsListResponse {
         kind?: string;
-        userRolePermissions?: Dfareporting_v3_3.Schema.UserRolePermission[];
+        userRolePermissions?: Dfareporting.Schema.UserRolePermission[];
       }
       export interface UserRolesListResponse {
         kind?: string;
         nextPageToken?: string;
-        userRoles?: Dfareporting_v3_3.Schema.UserRole[];
+        userRoles?: Dfareporting.Schema.UserRole[];
       }
       export interface VideoFormat {
         fileType?: string;
         id?: number;
         kind?: string;
-        resolution?: Dfareporting_v3_3.Schema.Size;
+        resolution?: Dfareporting.Schema.Size;
         targetBitRate?: number;
       }
       export interface VideoFormatsListResponse {
         kind?: string;
-        videoFormats?: Dfareporting_v3_3.Schema.VideoFormat[];
+        videoFormats?: Dfareporting.Schema.VideoFormat[];
       }
       export interface VideoOffset {
         offsetPercentage?: number;
         offsetSeconds?: number;
       }
       export interface VideoSettings {
-        companionSettings?: Dfareporting_v3_3.Schema.CompanionSetting;
+        companionSettings?: Dfareporting.Schema.CompanionSetting;
         kind?: string;
         orientation?: string;
-        skippableSettings?: Dfareporting_v3_3.Schema.SkippableSetting;
-        transcodeSettings?: Dfareporting_v3_3.Schema.TranscodeSetting;
+        skippableSettings?: Dfareporting.Schema.SkippableSetting;
+        transcodeSettings?: Dfareporting.Schema.TranscodeSetting;
       }
     }
   }
-  export interface Dfareporting_v3_3 {
-    AccountActiveAdSummaries?: Dfareporting_v3_3.Collection.AccountActiveAdSummariesCollection;
-    AccountPermissionGroups?: Dfareporting_v3_3.Collection.AccountPermissionGroupsCollection;
-    AccountPermissions?: Dfareporting_v3_3.Collection.AccountPermissionsCollection;
-    AccountUserProfiles?: Dfareporting_v3_3.Collection.AccountUserProfilesCollection;
-    Accounts?: Dfareporting_v3_3.Collection.AccountsCollection;
-    Ads?: Dfareporting_v3_3.Collection.AdsCollection;
-    AdvertiserGroups?: Dfareporting_v3_3.Collection.AdvertiserGroupsCollection;
-    AdvertiserLandingPages?: Dfareporting_v3_3.Collection.AdvertiserLandingPagesCollection;
-    Advertisers?: Dfareporting_v3_3.Collection.AdvertisersCollection;
-    Browsers?: Dfareporting_v3_3.Collection.BrowsersCollection;
-    CampaignCreativeAssociations?: Dfareporting_v3_3.Collection.CampaignCreativeAssociationsCollection;
-    Campaigns?: Dfareporting_v3_3.Collection.CampaignsCollection;
-    ChangeLogs?: Dfareporting_v3_3.Collection.ChangeLogsCollection;
-    Cities?: Dfareporting_v3_3.Collection.CitiesCollection;
-    ConnectionTypes?: Dfareporting_v3_3.Collection.ConnectionTypesCollection;
-    ContentCategories?: Dfareporting_v3_3.Collection.ContentCategoriesCollection;
-    Conversions?: Dfareporting_v3_3.Collection.ConversionsCollection;
-    Countries?: Dfareporting_v3_3.Collection.CountriesCollection;
-    CreativeAssets?: Dfareporting_v3_3.Collection.CreativeAssetsCollection;
-    CreativeFieldValues?: Dfareporting_v3_3.Collection.CreativeFieldValuesCollection;
-    CreativeFields?: Dfareporting_v3_3.Collection.CreativeFieldsCollection;
-    CreativeGroups?: Dfareporting_v3_3.Collection.CreativeGroupsCollection;
-    Creatives?: Dfareporting_v3_3.Collection.CreativesCollection;
-    DimensionValues?: Dfareporting_v3_3.Collection.DimensionValuesCollection;
-    DirectorySites?: Dfareporting_v3_3.Collection.DirectorySitesCollection;
-    DynamicTargetingKeys?: Dfareporting_v3_3.Collection.DynamicTargetingKeysCollection;
-    EventTags?: Dfareporting_v3_3.Collection.EventTagsCollection;
-    Files?: Dfareporting_v3_3.Collection.FilesCollection;
-    FloodlightActivities?: Dfareporting_v3_3.Collection.FloodlightActivitiesCollection;
-    FloodlightActivityGroups?: Dfareporting_v3_3.Collection.FloodlightActivityGroupsCollection;
-    FloodlightConfigurations?: Dfareporting_v3_3.Collection.FloodlightConfigurationsCollection;
-    InventoryItems?: Dfareporting_v3_3.Collection.InventoryItemsCollection;
-    Languages?: Dfareporting_v3_3.Collection.LanguagesCollection;
-    Metros?: Dfareporting_v3_3.Collection.MetrosCollection;
-    MobileApps?: Dfareporting_v3_3.Collection.MobileAppsCollection;
-    MobileCarriers?: Dfareporting_v3_3.Collection.MobileCarriersCollection;
-    OperatingSystemVersions?: Dfareporting_v3_3.Collection.OperatingSystemVersionsCollection;
-    OperatingSystems?: Dfareporting_v3_3.Collection.OperatingSystemsCollection;
-    OrderDocuments?: Dfareporting_v3_3.Collection.OrderDocumentsCollection;
-    Orders?: Dfareporting_v3_3.Collection.OrdersCollection;
-    PlacementGroups?: Dfareporting_v3_3.Collection.PlacementGroupsCollection;
-    PlacementStrategies?: Dfareporting_v3_3.Collection.PlacementStrategiesCollection;
-    Placements?: Dfareporting_v3_3.Collection.PlacementsCollection;
-    PlatformTypes?: Dfareporting_v3_3.Collection.PlatformTypesCollection;
-    PostalCodes?: Dfareporting_v3_3.Collection.PostalCodesCollection;
-    Projects?: Dfareporting_v3_3.Collection.ProjectsCollection;
-    Regions?: Dfareporting_v3_3.Collection.RegionsCollection;
-    RemarketingListShares?: Dfareporting_v3_3.Collection.RemarketingListSharesCollection;
-    RemarketingLists?: Dfareporting_v3_3.Collection.RemarketingListsCollection;
-    Reports?: Dfareporting_v3_3.Collection.ReportsCollection;
-    Sites?: Dfareporting_v3_3.Collection.SitesCollection;
-    Sizes?: Dfareporting_v3_3.Collection.SizesCollection;
-    Subaccounts?: Dfareporting_v3_3.Collection.SubaccountsCollection;
-    TargetableRemarketingLists?: Dfareporting_v3_3.Collection.TargetableRemarketingListsCollection;
-    TargetingTemplates?: Dfareporting_v3_3.Collection.TargetingTemplatesCollection;
-    UserProfiles?: Dfareporting_v3_3.Collection.UserProfilesCollection;
-    UserRolePermissionGroups?: Dfareporting_v3_3.Collection.UserRolePermissionGroupsCollection;
-    UserRolePermissions?: Dfareporting_v3_3.Collection.UserRolePermissionsCollection;
-    UserRoles?: Dfareporting_v3_3.Collection.UserRolesCollection;
-    VideoFormats?: Dfareporting_v3_3.Collection.VideoFormatsCollection;
+  export interface Dfareporting {
+    AccountActiveAdSummaries?: Dfareporting.Collection.AccountActiveAdSummariesCollection;
+    AccountPermissionGroups?: Dfareporting.Collection.AccountPermissionGroupsCollection;
+    AccountPermissions?: Dfareporting.Collection.AccountPermissionsCollection;
+    AccountUserProfiles?: Dfareporting.Collection.AccountUserProfilesCollection;
+    Accounts?: Dfareporting.Collection.AccountsCollection;
+    Ads?: Dfareporting.Collection.AdsCollection;
+    AdvertiserGroups?: Dfareporting.Collection.AdvertiserGroupsCollection;
+    AdvertiserLandingPages?: Dfareporting.Collection.AdvertiserLandingPagesCollection;
+    Advertisers?: Dfareporting.Collection.AdvertisersCollection;
+    Browsers?: Dfareporting.Collection.BrowsersCollection;
+    CampaignCreativeAssociations?: Dfareporting.Collection.CampaignCreativeAssociationsCollection;
+    Campaigns?: Dfareporting.Collection.CampaignsCollection;
+    ChangeLogs?: Dfareporting.Collection.ChangeLogsCollection;
+    Cities?: Dfareporting.Collection.CitiesCollection;
+    ConnectionTypes?: Dfareporting.Collection.ConnectionTypesCollection;
+    ContentCategories?: Dfareporting.Collection.ContentCategoriesCollection;
+    Conversions?: Dfareporting.Collection.ConversionsCollection;
+    Countries?: Dfareporting.Collection.CountriesCollection;
+    CreativeAssets?: Dfareporting.Collection.CreativeAssetsCollection;
+    CreativeFieldValues?: Dfareporting.Collection.CreativeFieldValuesCollection;
+    CreativeFields?: Dfareporting.Collection.CreativeFieldsCollection;
+    CreativeGroups?: Dfareporting.Collection.CreativeGroupsCollection;
+    Creatives?: Dfareporting.Collection.CreativesCollection;
+    DimensionValues?: Dfareporting.Collection.DimensionValuesCollection;
+    DirectorySites?: Dfareporting.Collection.DirectorySitesCollection;
+    DynamicTargetingKeys?: Dfareporting.Collection.DynamicTargetingKeysCollection;
+    EventTags?: Dfareporting.Collection.EventTagsCollection;
+    Files?: Dfareporting.Collection.FilesCollection;
+    FloodlightActivities?: Dfareporting.Collection.FloodlightActivitiesCollection;
+    FloodlightActivityGroups?: Dfareporting.Collection.FloodlightActivityGroupsCollection;
+    FloodlightConfigurations?: Dfareporting.Collection.FloodlightConfigurationsCollection;
+    InventoryItems?: Dfareporting.Collection.InventoryItemsCollection;
+    Languages?: Dfareporting.Collection.LanguagesCollection;
+    Metros?: Dfareporting.Collection.MetrosCollection;
+    MobileApps?: Dfareporting.Collection.MobileAppsCollection;
+    MobileCarriers?: Dfareporting.Collection.MobileCarriersCollection;
+    OperatingSystemVersions?: Dfareporting.Collection.OperatingSystemVersionsCollection;
+    OperatingSystems?: Dfareporting.Collection.OperatingSystemsCollection;
+    OrderDocuments?: Dfareporting.Collection.OrderDocumentsCollection;
+    Orders?: Dfareporting.Collection.OrdersCollection;
+    PlacementGroups?: Dfareporting.Collection.PlacementGroupsCollection;
+    PlacementStrategies?: Dfareporting.Collection.PlacementStrategiesCollection;
+    Placements?: Dfareporting.Collection.PlacementsCollection;
+    PlatformTypes?: Dfareporting.Collection.PlatformTypesCollection;
+    PostalCodes?: Dfareporting.Collection.PostalCodesCollection;
+    Projects?: Dfareporting.Collection.ProjectsCollection;
+    Regions?: Dfareporting.Collection.RegionsCollection;
+    RemarketingListShares?: Dfareporting.Collection.RemarketingListSharesCollection;
+    RemarketingLists?: Dfareporting.Collection.RemarketingListsCollection;
+    Reports?: Dfareporting.Collection.ReportsCollection;
+    Sites?: Dfareporting.Collection.SitesCollection;
+    Sizes?: Dfareporting.Collection.SizesCollection;
+    Subaccounts?: Dfareporting.Collection.SubaccountsCollection;
+    TargetableRemarketingLists?: Dfareporting.Collection.TargetableRemarketingListsCollection;
+    TargetingTemplates?: Dfareporting.Collection.TargetingTemplatesCollection;
+    UserProfiles?: Dfareporting.Collection.UserProfilesCollection;
+    UserRolePermissionGroups?: Dfareporting.Collection.UserRolePermissionGroupsCollection;
+    UserRolePermissions?: Dfareporting.Collection.UserRolePermissionsCollection;
+    UserRoles?: Dfareporting.Collection.UserRolesCollection;
+    VideoFormats?: Dfareporting.Collection.VideoFormatsCollection;
     // Create a new instance of Account
-    newAccount(): Dfareporting_v3_3.Schema.Account;
+    newAccount(): Dfareporting.Schema.Account;
     // Create a new instance of AccountUserProfile
-    newAccountUserProfile(): Dfareporting_v3_3.Schema.AccountUserProfile;
+    newAccountUserProfile(): Dfareporting.Schema.AccountUserProfile;
     // Create a new instance of Activities
-    newActivities(): Dfareporting_v3_3.Schema.Activities;
+    newActivities(): Dfareporting.Schema.Activities;
     // Create a new instance of Ad
-    newAd(): Dfareporting_v3_3.Schema.Ad;
+    newAd(): Dfareporting.Schema.Ad;
     // Create a new instance of AdBlockingConfiguration
-    newAdBlockingConfiguration(): Dfareporting_v3_3.Schema.AdBlockingConfiguration;
+    newAdBlockingConfiguration(): Dfareporting.Schema.AdBlockingConfiguration;
     // Create a new instance of Advertiser
-    newAdvertiser(): Dfareporting_v3_3.Schema.Advertiser;
+    newAdvertiser(): Dfareporting.Schema.Advertiser;
     // Create a new instance of AdvertiserGroup
-    newAdvertiserGroup(): Dfareporting_v3_3.Schema.AdvertiserGroup;
+    newAdvertiserGroup(): Dfareporting.Schema.AdvertiserGroup;
     // Create a new instance of AudienceSegment
-    newAudienceSegment(): Dfareporting_v3_3.Schema.AudienceSegment;
+    newAudienceSegment(): Dfareporting.Schema.AudienceSegment;
     // Create a new instance of AudienceSegmentGroup
-    newAudienceSegmentGroup(): Dfareporting_v3_3.Schema.AudienceSegmentGroup;
+    newAudienceSegmentGroup(): Dfareporting.Schema.AudienceSegmentGroup;
     // Create a new instance of Browser
-    newBrowser(): Dfareporting_v3_3.Schema.Browser;
+    newBrowser(): Dfareporting.Schema.Browser;
     // Create a new instance of Campaign
-    newCampaign(): Dfareporting_v3_3.Schema.Campaign;
+    newCampaign(): Dfareporting.Schema.Campaign;
     // Create a new instance of CampaignCreativeAssociation
-    newCampaignCreativeAssociation(): Dfareporting_v3_3.Schema.CampaignCreativeAssociation;
+    newCampaignCreativeAssociation(): Dfareporting.Schema.CampaignCreativeAssociation;
     // Create a new instance of City
-    newCity(): Dfareporting_v3_3.Schema.City;
+    newCity(): Dfareporting.Schema.City;
     // Create a new instance of ClickTag
-    newClickTag(): Dfareporting_v3_3.Schema.ClickTag;
+    newClickTag(): Dfareporting.Schema.ClickTag;
     // Create a new instance of ClickThroughUrl
-    newClickThroughUrl(): Dfareporting_v3_3.Schema.ClickThroughUrl;
+    newClickThroughUrl(): Dfareporting.Schema.ClickThroughUrl;
     // Create a new instance of ClickThroughUrlSuffixProperties
-    newClickThroughUrlSuffixProperties(): Dfareporting_v3_3.Schema.ClickThroughUrlSuffixProperties;
+    newClickThroughUrlSuffixProperties(): Dfareporting.Schema.ClickThroughUrlSuffixProperties;
     // Create a new instance of CompanionClickThroughOverride
-    newCompanionClickThroughOverride(): Dfareporting_v3_3.Schema.CompanionClickThroughOverride;
+    newCompanionClickThroughOverride(): Dfareporting.Schema.CompanionClickThroughOverride;
     // Create a new instance of CompanionSetting
-    newCompanionSetting(): Dfareporting_v3_3.Schema.CompanionSetting;
+    newCompanionSetting(): Dfareporting.Schema.CompanionSetting;
     // Create a new instance of ConnectionType
-    newConnectionType(): Dfareporting_v3_3.Schema.ConnectionType;
+    newConnectionType(): Dfareporting.Schema.ConnectionType;
     // Create a new instance of ContentCategory
-    newContentCategory(): Dfareporting_v3_3.Schema.ContentCategory;
+    newContentCategory(): Dfareporting.Schema.ContentCategory;
     // Create a new instance of Conversion
-    newConversion(): Dfareporting_v3_3.Schema.Conversion;
+    newConversion(): Dfareporting.Schema.Conversion;
     // Create a new instance of ConversionsBatchInsertRequest
-    newConversionsBatchInsertRequest(): Dfareporting_v3_3.Schema.ConversionsBatchInsertRequest;
+    newConversionsBatchInsertRequest(): Dfareporting.Schema.ConversionsBatchInsertRequest;
     // Create a new instance of ConversionsBatchUpdateRequest
-    newConversionsBatchUpdateRequest(): Dfareporting_v3_3.Schema.ConversionsBatchUpdateRequest;
+    newConversionsBatchUpdateRequest(): Dfareporting.Schema.ConversionsBatchUpdateRequest;
     // Create a new instance of Country
-    newCountry(): Dfareporting_v3_3.Schema.Country;
+    newCountry(): Dfareporting.Schema.Country;
     // Create a new instance of Creative
-    newCreative(): Dfareporting_v3_3.Schema.Creative;
+    newCreative(): Dfareporting.Schema.Creative;
     // Create a new instance of CreativeAsset
-    newCreativeAsset(): Dfareporting_v3_3.Schema.CreativeAsset;
+    newCreativeAsset(): Dfareporting.Schema.CreativeAsset;
     // Create a new instance of CreativeAssetId
-    newCreativeAssetId(): Dfareporting_v3_3.Schema.CreativeAssetId;
+    newCreativeAssetId(): Dfareporting.Schema.CreativeAssetId;
     // Create a new instance of CreativeAssetMetadata
-    newCreativeAssetMetadata(): Dfareporting_v3_3.Schema.CreativeAssetMetadata;
+    newCreativeAssetMetadata(): Dfareporting.Schema.CreativeAssetMetadata;
     // Create a new instance of CreativeAssetSelection
-    newCreativeAssetSelection(): Dfareporting_v3_3.Schema.CreativeAssetSelection;
+    newCreativeAssetSelection(): Dfareporting.Schema.CreativeAssetSelection;
     // Create a new instance of CreativeAssignment
-    newCreativeAssignment(): Dfareporting_v3_3.Schema.CreativeAssignment;
+    newCreativeAssignment(): Dfareporting.Schema.CreativeAssignment;
     // Create a new instance of CreativeClickThroughUrl
-    newCreativeClickThroughUrl(): Dfareporting_v3_3.Schema.CreativeClickThroughUrl;
+    newCreativeClickThroughUrl(): Dfareporting.Schema.CreativeClickThroughUrl;
     // Create a new instance of CreativeCustomEvent
-    newCreativeCustomEvent(): Dfareporting_v3_3.Schema.CreativeCustomEvent;
+    newCreativeCustomEvent(): Dfareporting.Schema.CreativeCustomEvent;
     // Create a new instance of CreativeField
-    newCreativeField(): Dfareporting_v3_3.Schema.CreativeField;
+    newCreativeField(): Dfareporting.Schema.CreativeField;
     // Create a new instance of CreativeFieldAssignment
-    newCreativeFieldAssignment(): Dfareporting_v3_3.Schema.CreativeFieldAssignment;
+    newCreativeFieldAssignment(): Dfareporting.Schema.CreativeFieldAssignment;
     // Create a new instance of CreativeFieldValue
-    newCreativeFieldValue(): Dfareporting_v3_3.Schema.CreativeFieldValue;
+    newCreativeFieldValue(): Dfareporting.Schema.CreativeFieldValue;
     // Create a new instance of CreativeGroup
-    newCreativeGroup(): Dfareporting_v3_3.Schema.CreativeGroup;
+    newCreativeGroup(): Dfareporting.Schema.CreativeGroup;
     // Create a new instance of CreativeGroupAssignment
-    newCreativeGroupAssignment(): Dfareporting_v3_3.Schema.CreativeGroupAssignment;
+    newCreativeGroupAssignment(): Dfareporting.Schema.CreativeGroupAssignment;
     // Create a new instance of CreativeOptimizationConfiguration
-    newCreativeOptimizationConfiguration(): Dfareporting_v3_3.Schema.CreativeOptimizationConfiguration;
+    newCreativeOptimizationConfiguration(): Dfareporting.Schema.CreativeOptimizationConfiguration;
     // Create a new instance of CreativeRotation
-    newCreativeRotation(): Dfareporting_v3_3.Schema.CreativeRotation;
+    newCreativeRotation(): Dfareporting.Schema.CreativeRotation;
     // Create a new instance of CustomFloodlightVariable
-    newCustomFloodlightVariable(): Dfareporting_v3_3.Schema.CustomFloodlightVariable;
+    newCustomFloodlightVariable(): Dfareporting.Schema.CustomFloodlightVariable;
     // Create a new instance of CustomRichMediaEvents
-    newCustomRichMediaEvents(): Dfareporting_v3_3.Schema.CustomRichMediaEvents;
+    newCustomRichMediaEvents(): Dfareporting.Schema.CustomRichMediaEvents;
     // Create a new instance of CustomViewabilityMetric
-    newCustomViewabilityMetric(): Dfareporting_v3_3.Schema.CustomViewabilityMetric;
+    newCustomViewabilityMetric(): Dfareporting.Schema.CustomViewabilityMetric;
     // Create a new instance of CustomViewabilityMetricConfiguration
-    newCustomViewabilityMetricConfiguration(): Dfareporting_v3_3.Schema.CustomViewabilityMetricConfiguration;
+    newCustomViewabilityMetricConfiguration(): Dfareporting.Schema.CustomViewabilityMetricConfiguration;
     // Create a new instance of DateRange
-    newDateRange(): Dfareporting_v3_3.Schema.DateRange;
+    newDateRange(): Dfareporting.Schema.DateRange;
     // Create a new instance of DayPartTargeting
-    newDayPartTargeting(): Dfareporting_v3_3.Schema.DayPartTargeting;
+    newDayPartTargeting(): Dfareporting.Schema.DayPartTargeting;
     // Create a new instance of DeepLink
-    newDeepLink(): Dfareporting_v3_3.Schema.DeepLink;
+    newDeepLink(): Dfareporting.Schema.DeepLink;
     // Create a new instance of DefaultClickThroughEventTagProperties
-    newDefaultClickThroughEventTagProperties(): Dfareporting_v3_3.Schema.DefaultClickThroughEventTagProperties;
+    newDefaultClickThroughEventTagProperties(): Dfareporting.Schema.DefaultClickThroughEventTagProperties;
     // Create a new instance of DeliverySchedule
-    newDeliverySchedule(): Dfareporting_v3_3.Schema.DeliverySchedule;
+    newDeliverySchedule(): Dfareporting.Schema.DeliverySchedule;
     // Create a new instance of DfpSettings
-    newDfpSettings(): Dfareporting_v3_3.Schema.DfpSettings;
+    newDfpSettings(): Dfareporting.Schema.DfpSettings;
     // Create a new instance of DimensionFilter
-    newDimensionFilter(): Dfareporting_v3_3.Schema.DimensionFilter;
+    newDimensionFilter(): Dfareporting.Schema.DimensionFilter;
     // Create a new instance of DimensionValue
-    newDimensionValue(): Dfareporting_v3_3.Schema.DimensionValue;
+    newDimensionValue(): Dfareporting.Schema.DimensionValue;
     // Create a new instance of DimensionValueRequest
-    newDimensionValueRequest(): Dfareporting_v3_3.Schema.DimensionValueRequest;
+    newDimensionValueRequest(): Dfareporting.Schema.DimensionValueRequest;
     // Create a new instance of DirectorySite
-    newDirectorySite(): Dfareporting_v3_3.Schema.DirectorySite;
+    newDirectorySite(): Dfareporting.Schema.DirectorySite;
     // Create a new instance of DirectorySiteSettings
-    newDirectorySiteSettings(): Dfareporting_v3_3.Schema.DirectorySiteSettings;
+    newDirectorySiteSettings(): Dfareporting.Schema.DirectorySiteSettings;
     // Create a new instance of DynamicTargetingKey
-    newDynamicTargetingKey(): Dfareporting_v3_3.Schema.DynamicTargetingKey;
+    newDynamicTargetingKey(): Dfareporting.Schema.DynamicTargetingKey;
     // Create a new instance of EncryptionInfo
-    newEncryptionInfo(): Dfareporting_v3_3.Schema.EncryptionInfo;
+    newEncryptionInfo(): Dfareporting.Schema.EncryptionInfo;
     // Create a new instance of EventTag
-    newEventTag(): Dfareporting_v3_3.Schema.EventTag;
+    newEventTag(): Dfareporting.Schema.EventTag;
     // Create a new instance of EventTagOverride
-    newEventTagOverride(): Dfareporting_v3_3.Schema.EventTagOverride;
+    newEventTagOverride(): Dfareporting.Schema.EventTagOverride;
     // Create a new instance of FloodlightActivity
-    newFloodlightActivity(): Dfareporting_v3_3.Schema.FloodlightActivity;
+    newFloodlightActivity(): Dfareporting.Schema.FloodlightActivity;
     // Create a new instance of FloodlightActivityDynamicTag
-    newFloodlightActivityDynamicTag(): Dfareporting_v3_3.Schema.FloodlightActivityDynamicTag;
+    newFloodlightActivityDynamicTag(): Dfareporting.Schema.FloodlightActivityDynamicTag;
     // Create a new instance of FloodlightActivityGroup
-    newFloodlightActivityGroup(): Dfareporting_v3_3.Schema.FloodlightActivityGroup;
+    newFloodlightActivityGroup(): Dfareporting.Schema.FloodlightActivityGroup;
     // Create a new instance of FloodlightActivityPublisherDynamicTag
-    newFloodlightActivityPublisherDynamicTag(): Dfareporting_v3_3.Schema.FloodlightActivityPublisherDynamicTag;
+    newFloodlightActivityPublisherDynamicTag(): Dfareporting.Schema.FloodlightActivityPublisherDynamicTag;
     // Create a new instance of FloodlightConfiguration
-    newFloodlightConfiguration(): Dfareporting_v3_3.Schema.FloodlightConfiguration;
+    newFloodlightConfiguration(): Dfareporting.Schema.FloodlightConfiguration;
     // Create a new instance of FrequencyCap
-    newFrequencyCap(): Dfareporting_v3_3.Schema.FrequencyCap;
+    newFrequencyCap(): Dfareporting.Schema.FrequencyCap;
     // Create a new instance of FsCommand
-    newFsCommand(): Dfareporting_v3_3.Schema.FsCommand;
+    newFsCommand(): Dfareporting.Schema.FsCommand;
     // Create a new instance of GeoTargeting
-    newGeoTargeting(): Dfareporting_v3_3.Schema.GeoTargeting;
+    newGeoTargeting(): Dfareporting.Schema.GeoTargeting;
     // Create a new instance of KeyValueTargetingExpression
-    newKeyValueTargetingExpression(): Dfareporting_v3_3.Schema.KeyValueTargetingExpression;
+    newKeyValueTargetingExpression(): Dfareporting.Schema.KeyValueTargetingExpression;
     // Create a new instance of LandingPage
-    newLandingPage(): Dfareporting_v3_3.Schema.LandingPage;
+    newLandingPage(): Dfareporting.Schema.LandingPage;
     // Create a new instance of Language
-    newLanguage(): Dfareporting_v3_3.Schema.Language;
+    newLanguage(): Dfareporting.Schema.Language;
     // Create a new instance of LanguageTargeting
-    newLanguageTargeting(): Dfareporting_v3_3.Schema.LanguageTargeting;
+    newLanguageTargeting(): Dfareporting.Schema.LanguageTargeting;
     // Create a new instance of LastModifiedInfo
-    newLastModifiedInfo(): Dfareporting_v3_3.Schema.LastModifiedInfo;
+    newLastModifiedInfo(): Dfareporting.Schema.LastModifiedInfo;
     // Create a new instance of ListPopulationClause
-    newListPopulationClause(): Dfareporting_v3_3.Schema.ListPopulationClause;
+    newListPopulationClause(): Dfareporting.Schema.ListPopulationClause;
     // Create a new instance of ListPopulationRule
-    newListPopulationRule(): Dfareporting_v3_3.Schema.ListPopulationRule;
+    newListPopulationRule(): Dfareporting.Schema.ListPopulationRule;
     // Create a new instance of ListPopulationTerm
-    newListPopulationTerm(): Dfareporting_v3_3.Schema.ListPopulationTerm;
+    newListPopulationTerm(): Dfareporting.Schema.ListPopulationTerm;
     // Create a new instance of ListTargetingExpression
-    newListTargetingExpression(): Dfareporting_v3_3.Schema.ListTargetingExpression;
+    newListTargetingExpression(): Dfareporting.Schema.ListTargetingExpression;
     // Create a new instance of LookbackConfiguration
-    newLookbackConfiguration(): Dfareporting_v3_3.Schema.LookbackConfiguration;
+    newLookbackConfiguration(): Dfareporting.Schema.LookbackConfiguration;
     // Create a new instance of Metro
-    newMetro(): Dfareporting_v3_3.Schema.Metro;
+    newMetro(): Dfareporting.Schema.Metro;
     // Create a new instance of MobileApp
-    newMobileApp(): Dfareporting_v3_3.Schema.MobileApp;
+    newMobileApp(): Dfareporting.Schema.MobileApp;
     // Create a new instance of MobileCarrier
-    newMobileCarrier(): Dfareporting_v3_3.Schema.MobileCarrier;
+    newMobileCarrier(): Dfareporting.Schema.MobileCarrier;
     // Create a new instance of ObjectFilter
-    newObjectFilter(): Dfareporting_v3_3.Schema.ObjectFilter;
+    newObjectFilter(): Dfareporting.Schema.ObjectFilter;
     // Create a new instance of OffsetPosition
-    newOffsetPosition(): Dfareporting_v3_3.Schema.OffsetPosition;
+    newOffsetPosition(): Dfareporting.Schema.OffsetPosition;
     // Create a new instance of OmnitureSettings
-    newOmnitureSettings(): Dfareporting_v3_3.Schema.OmnitureSettings;
+    newOmnitureSettings(): Dfareporting.Schema.OmnitureSettings;
     // Create a new instance of OperatingSystem
-    newOperatingSystem(): Dfareporting_v3_3.Schema.OperatingSystem;
+    newOperatingSystem(): Dfareporting.Schema.OperatingSystem;
     // Create a new instance of OperatingSystemVersion
-    newOperatingSystemVersion(): Dfareporting_v3_3.Schema.OperatingSystemVersion;
+    newOperatingSystemVersion(): Dfareporting.Schema.OperatingSystemVersion;
     // Create a new instance of OptimizationActivity
-    newOptimizationActivity(): Dfareporting_v3_3.Schema.OptimizationActivity;
+    newOptimizationActivity(): Dfareporting.Schema.OptimizationActivity;
     // Create a new instance of Placement
-    newPlacement(): Dfareporting_v3_3.Schema.Placement;
+    newPlacement(): Dfareporting.Schema.Placement;
     // Create a new instance of PlacementAssignment
-    newPlacementAssignment(): Dfareporting_v3_3.Schema.PlacementAssignment;
+    newPlacementAssignment(): Dfareporting.Schema.PlacementAssignment;
     // Create a new instance of PlacementGroup
-    newPlacementGroup(): Dfareporting_v3_3.Schema.PlacementGroup;
+    newPlacementGroup(): Dfareporting.Schema.PlacementGroup;
     // Create a new instance of PlacementStrategy
-    newPlacementStrategy(): Dfareporting_v3_3.Schema.PlacementStrategy;
+    newPlacementStrategy(): Dfareporting.Schema.PlacementStrategy;
     // Create a new instance of PlatformType
-    newPlatformType(): Dfareporting_v3_3.Schema.PlatformType;
+    newPlatformType(): Dfareporting.Schema.PlatformType;
     // Create a new instance of PopupWindowProperties
-    newPopupWindowProperties(): Dfareporting_v3_3.Schema.PopupWindowProperties;
+    newPopupWindowProperties(): Dfareporting.Schema.PopupWindowProperties;
     // Create a new instance of PostalCode
-    newPostalCode(): Dfareporting_v3_3.Schema.PostalCode;
+    newPostalCode(): Dfareporting.Schema.PostalCode;
     // Create a new instance of PricingSchedule
-    newPricingSchedule(): Dfareporting_v3_3.Schema.PricingSchedule;
+    newPricingSchedule(): Dfareporting.Schema.PricingSchedule;
     // Create a new instance of PricingSchedulePricingPeriod
-    newPricingSchedulePricingPeriod(): Dfareporting_v3_3.Schema.PricingSchedulePricingPeriod;
+    newPricingSchedulePricingPeriod(): Dfareporting.Schema.PricingSchedulePricingPeriod;
     // Create a new instance of Recipient
-    newRecipient(): Dfareporting_v3_3.Schema.Recipient;
+    newRecipient(): Dfareporting.Schema.Recipient;
     // Create a new instance of Region
-    newRegion(): Dfareporting_v3_3.Schema.Region;
+    newRegion(): Dfareporting.Schema.Region;
     // Create a new instance of RemarketingList
-    newRemarketingList(): Dfareporting_v3_3.Schema.RemarketingList;
+    newRemarketingList(): Dfareporting.Schema.RemarketingList;
     // Create a new instance of RemarketingListShare
-    newRemarketingListShare(): Dfareporting_v3_3.Schema.RemarketingListShare;
+    newRemarketingListShare(): Dfareporting.Schema.RemarketingListShare;
     // Create a new instance of Report
-    newReport(): Dfareporting_v3_3.Schema.Report;
+    newReport(): Dfareporting.Schema.Report;
     // Create a new instance of ReportCriteria
-    newReportCriteria(): Dfareporting_v3_3.Schema.ReportCriteria;
+    newReportCriteria(): Dfareporting.Schema.ReportCriteria;
     // Create a new instance of ReportCrossDimensionReachCriteria
-    newReportCrossDimensionReachCriteria(): Dfareporting_v3_3.Schema.ReportCrossDimensionReachCriteria;
+    newReportCrossDimensionReachCriteria(): Dfareporting.Schema.ReportCrossDimensionReachCriteria;
     // Create a new instance of ReportDelivery
-    newReportDelivery(): Dfareporting_v3_3.Schema.ReportDelivery;
+    newReportDelivery(): Dfareporting.Schema.ReportDelivery;
     // Create a new instance of ReportFloodlightCriteria
-    newReportFloodlightCriteria(): Dfareporting_v3_3.Schema.ReportFloodlightCriteria;
+    newReportFloodlightCriteria(): Dfareporting.Schema.ReportFloodlightCriteria;
     // Create a new instance of ReportFloodlightCriteriaReportProperties
-    newReportFloodlightCriteriaReportProperties(): Dfareporting_v3_3.Schema.ReportFloodlightCriteriaReportProperties;
+    newReportFloodlightCriteriaReportProperties(): Dfareporting.Schema.ReportFloodlightCriteriaReportProperties;
     // Create a new instance of ReportPathToConversionCriteria
-    newReportPathToConversionCriteria(): Dfareporting_v3_3.Schema.ReportPathToConversionCriteria;
+    newReportPathToConversionCriteria(): Dfareporting.Schema.ReportPathToConversionCriteria;
     // Create a new instance of ReportPathToConversionCriteriaReportProperties
-    newReportPathToConversionCriteriaReportProperties(): Dfareporting_v3_3.Schema.ReportPathToConversionCriteriaReportProperties;
+    newReportPathToConversionCriteriaReportProperties(): Dfareporting.Schema.ReportPathToConversionCriteriaReportProperties;
     // Create a new instance of ReportReachCriteria
-    newReportReachCriteria(): Dfareporting_v3_3.Schema.ReportReachCriteria;
+    newReportReachCriteria(): Dfareporting.Schema.ReportReachCriteria;
     // Create a new instance of ReportSchedule
-    newReportSchedule(): Dfareporting_v3_3.Schema.ReportSchedule;
+    newReportSchedule(): Dfareporting.Schema.ReportSchedule;
     // Create a new instance of ReportsConfiguration
-    newReportsConfiguration(): Dfareporting_v3_3.Schema.ReportsConfiguration;
+    newReportsConfiguration(): Dfareporting.Schema.ReportsConfiguration;
     // Create a new instance of RichMediaExitOverride
-    newRichMediaExitOverride(): Dfareporting_v3_3.Schema.RichMediaExitOverride;
+    newRichMediaExitOverride(): Dfareporting.Schema.RichMediaExitOverride;
     // Create a new instance of Rule
-    newRule(): Dfareporting_v3_3.Schema.Rule;
+    newRule(): Dfareporting.Schema.Rule;
     // Create a new instance of Site
-    newSite(): Dfareporting_v3_3.Schema.Site;
+    newSite(): Dfareporting.Schema.Site;
     // Create a new instance of SiteCompanionSetting
-    newSiteCompanionSetting(): Dfareporting_v3_3.Schema.SiteCompanionSetting;
+    newSiteCompanionSetting(): Dfareporting.Schema.SiteCompanionSetting;
     // Create a new instance of SiteContact
-    newSiteContact(): Dfareporting_v3_3.Schema.SiteContact;
+    newSiteContact(): Dfareporting.Schema.SiteContact;
     // Create a new instance of SiteSettings
-    newSiteSettings(): Dfareporting_v3_3.Schema.SiteSettings;
+    newSiteSettings(): Dfareporting.Schema.SiteSettings;
     // Create a new instance of SiteSkippableSetting
-    newSiteSkippableSetting(): Dfareporting_v3_3.Schema.SiteSkippableSetting;
+    newSiteSkippableSetting(): Dfareporting.Schema.SiteSkippableSetting;
     // Create a new instance of SiteTranscodeSetting
-    newSiteTranscodeSetting(): Dfareporting_v3_3.Schema.SiteTranscodeSetting;
+    newSiteTranscodeSetting(): Dfareporting.Schema.SiteTranscodeSetting;
     // Create a new instance of SiteVideoSettings
-    newSiteVideoSettings(): Dfareporting_v3_3.Schema.SiteVideoSettings;
+    newSiteVideoSettings(): Dfareporting.Schema.SiteVideoSettings;
     // Create a new instance of Size
-    newSize(): Dfareporting_v3_3.Schema.Size;
+    newSize(): Dfareporting.Schema.Size;
     // Create a new instance of SkippableSetting
-    newSkippableSetting(): Dfareporting_v3_3.Schema.SkippableSetting;
+    newSkippableSetting(): Dfareporting.Schema.SkippableSetting;
     // Create a new instance of SortedDimension
-    newSortedDimension(): Dfareporting_v3_3.Schema.SortedDimension;
+    newSortedDimension(): Dfareporting.Schema.SortedDimension;
     // Create a new instance of Subaccount
-    newSubaccount(): Dfareporting_v3_3.Schema.Subaccount;
+    newSubaccount(): Dfareporting.Schema.Subaccount;
     // Create a new instance of TagSetting
-    newTagSetting(): Dfareporting_v3_3.Schema.TagSetting;
+    newTagSetting(): Dfareporting.Schema.TagSetting;
     // Create a new instance of TagSettings
-    newTagSettings(): Dfareporting_v3_3.Schema.TagSettings;
+    newTagSettings(): Dfareporting.Schema.TagSettings;
     // Create a new instance of TargetWindow
-    newTargetWindow(): Dfareporting_v3_3.Schema.TargetWindow;
+    newTargetWindow(): Dfareporting.Schema.TargetWindow;
     // Create a new instance of TargetingTemplate
-    newTargetingTemplate(): Dfareporting_v3_3.Schema.TargetingTemplate;
+    newTargetingTemplate(): Dfareporting.Schema.TargetingTemplate;
     // Create a new instance of TechnologyTargeting
-    newTechnologyTargeting(): Dfareporting_v3_3.Schema.TechnologyTargeting;
+    newTechnologyTargeting(): Dfareporting.Schema.TechnologyTargeting;
     // Create a new instance of ThirdPartyAuthenticationToken
-    newThirdPartyAuthenticationToken(): Dfareporting_v3_3.Schema.ThirdPartyAuthenticationToken;
+    newThirdPartyAuthenticationToken(): Dfareporting.Schema.ThirdPartyAuthenticationToken;
     // Create a new instance of ThirdPartyTrackingUrl
-    newThirdPartyTrackingUrl(): Dfareporting_v3_3.Schema.ThirdPartyTrackingUrl;
+    newThirdPartyTrackingUrl(): Dfareporting.Schema.ThirdPartyTrackingUrl;
     // Create a new instance of TranscodeSetting
-    newTranscodeSetting(): Dfareporting_v3_3.Schema.TranscodeSetting;
+    newTranscodeSetting(): Dfareporting.Schema.TranscodeSetting;
     // Create a new instance of UniversalAdId
-    newUniversalAdId(): Dfareporting_v3_3.Schema.UniversalAdId;
+    newUniversalAdId(): Dfareporting.Schema.UniversalAdId;
     // Create a new instance of UserDefinedVariableConfiguration
-    newUserDefinedVariableConfiguration(): Dfareporting_v3_3.Schema.UserDefinedVariableConfiguration;
+    newUserDefinedVariableConfiguration(): Dfareporting.Schema.UserDefinedVariableConfiguration;
     // Create a new instance of UserRole
-    newUserRole(): Dfareporting_v3_3.Schema.UserRole;
+    newUserRole(): Dfareporting.Schema.UserRole;
     // Create a new instance of UserRolePermission
-    newUserRolePermission(): Dfareporting_v3_3.Schema.UserRolePermission;
+    newUserRolePermission(): Dfareporting.Schema.UserRolePermission;
     // Create a new instance of VideoOffset
-    newVideoOffset(): Dfareporting_v3_3.Schema.VideoOffset;
+    newVideoOffset(): Dfareporting.Schema.VideoOffset;
     // Create a new instance of VideoSettings
-    newVideoSettings(): Dfareporting_v3_3.Schema.VideoSettings;
+    newVideoSettings(): Dfareporting.Schema.VideoSettings;
   }
 }
 
-declare var Dfareporting_v3_3: GoogleAppsScript.Dfareporting_v3_3;
+declare var Dfareporting: GoogleAppsScript.Dfareporting;
