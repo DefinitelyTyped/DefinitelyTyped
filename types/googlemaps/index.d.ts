@@ -2395,8 +2395,7 @@ declare namespace google.maps {
     getStatus(): StreetViewStatus;
     getVisible(): boolean;
     getZoom(): number;
-    registerPanoProvider(provider: (input: string) => StreetViewPanoramaData):
-        void;
+    rregisterPanoProvider(provider: (input: string, ) => StreetViewPanoramaData, opts?: PanoProviderOptions): void;
     setLinks(links: Array<StreetViewLink>): void;
     setMotionTracking(motionTracking: boolean): void;
     setOptions(options: StreetViewPanoramaOptions): void;
@@ -2519,6 +2518,13 @@ declare namespace google.maps {
   class StreetViewCoverageLayer extends MVCObject {
     getMap(): Map;
     setMap(map: Map|null): void;
+  }
+
+  export interface PanoProviderOptions {
+    /**
+     * If set, the renderer will use technologies (like webgl) that only work when cors headers are appropiately set on the provided images. It is the developer's task to serve the images correctly in combination with this flag, which might otherwise lead to SecurityErrors. 
+     */
+    cors?: boolean;
   }
 
   interface MotionTrackingControlOptions {
