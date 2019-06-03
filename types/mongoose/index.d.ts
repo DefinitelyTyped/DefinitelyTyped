@@ -1936,7 +1936,7 @@ declare module "mongoose" {
      * Documents returned from queries with the lean option enabled are plain
      * javascript objects, not MongooseDocuments. They have no save method,
      * getters/setters or other Mongoose magic applied.
-     * @param bool defaults to true
+     * @param {Boolean|Object} bool defaults to true
      */
     lean(bool?: boolean | object): Query<any> & QueryHelpers;
 
