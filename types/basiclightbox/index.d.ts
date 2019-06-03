@@ -9,45 +9,45 @@ export interface BasicLightBox {
      *
      * @param cb A function that gets executed as soon as the lightbox starts to fade in.
      */
-    show: (cb?: () => void) => void
+    show: (cb?: () => void) => void;
 
     /**
      * Closes a lightbox instance.
      *
      * @param cb A function that gets executed as soon as the lightbox has been faded out.
      */
-    close: (cb?: () => void) => void
+    close: (cb?: () => void) => void;
 
     /**
      * Returns true when the lightbox instance is visible. Also returns true when the lightbox is currently in the process of showing/hiding and not fully visible/hidden, yet.
      */
-    visible: () => void
+    visible: () => void;
 
     /**
      * Returns the DOM element/node associated with the instance.
      */
-    element: () => Element
+    element: () => Element;
   }
 
-  export type BasicLightBoxOptions = {
+  export interface BasicLightBoxOptions {
     /*
      * Prevents the lightbox from closing when clicking its background.
      */
-    closable?: boolean,
+    closable?: boolean;
     /*
      * One or more space separated classes to be added to the basicLightbox element.
      */
-    className?: string,
+    className?: string;
     /*
      * Function that gets executed before the lightbox will be shown.
      * Returning false will prevent the lightbox from showing.
      */
-    onShow?: (instance: BasicLightBox) => boolean,
+    onShow?: (instance: BasicLightBox) => boolean;
     /*
      * Function that gets executed before the lightbox closes.
      * Returning false will prevent the lightbox from closing.
      */
-    onClose?: (instance: BasicLightBox) => boolean
+    onClose?: (instance: BasicLightBox) => boolean;
   }
 
   /**
@@ -56,9 +56,9 @@ export interface BasicLightBox {
    * @param content Content of the lightbox.
    * @param options An object of options.
    */
-  export function create(content: string | Element, options?: BasicLightBoxOptions): BasicLightBox
+  export function create(content: string | Element, options?: BasicLightBoxOptions): BasicLightBox;
 
   /**
    * Returns `true` when a lightbox is visible. Also returns true when a lightbox is currently in the process of showing/hiding and not fully visible/hidden, yet.
    */
-  export function visible(): boolean
+  export function visible(): boolean;
