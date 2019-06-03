@@ -1,41 +1,56 @@
-/// <reference types="stripe-v2" />
+/// <reference types="stripe-v3" />
 
 declare function describe(desc: string, fn: () => void): void;
 declare function it(desc: string, fn: () => void): void;
 
-describe("Stripe", () => {
-    it("should excercise all Stripe API", () => {
-        const stripe = Stripe('public-key');
-        const stripeWithBetaOption = Stripe('public-key', { betas: ['beta-feature'] });
-        const elements = stripe.elements();
-        const style = {
-            base: {
-                color: '#32325d',
-                lineHeight: '24px',
-                fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
-                fontWeight: 'bold',
-                '::placeholder': {
-                    color: '#aab7c4'
-                }
+const style = {
+    base: {
+        color: '#32325d',
+        lineHeight: '24px',
+        fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        fontWeight: 'bold',
+        '::placeholder': {
+            color: '#aab7c4'
+        }
+    },
+    invalid: {
+        color: '#B71C1C',
+        iconColor: '#B71C1C'
+    }
+};
+
+describe("Stripe object", () => {
+    it("should exercise alternative ways to create Stripe object", () => {
+        const stripeWithBetaOption: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { betas: ['beta-feature'] }); // This looks deprecated
+        const stripeWithLocale: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { locale: 'zh' });
+        const stripeWithAccount: stripe.Stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx', { stripeAccount: 'acct_24BFMpJ1svR5A89k' });
+    });
+});
+
+describe("Stripe elements", () => {
+    const stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    const elements = stripe.elements();
+
+    it("should create a cards element", () => {
+        const card = elements.create('card', {
+            hidePostalCode: false,
+            style,
+            value: {
+                postalCode: '94110',
             },
-            invalid: {
-                color: '#B71C1C',
-                iconColor: '#B71C1C'
-            }
-        };
-        const card = elements.create('card', { hidePostalCode: true, style });
+        });
         card.mount(document.createElement('div'));
         card.on('ready', () => {
             console.log('ready');
         });
-        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
-            console.log(resp.elementType);
+        card.on('change', (response) => {
+            if (response) {
+                console.log(response.elementType, response.brand);
+            }
         });
-        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
-            console.log(resp.brand);
-        });
+
         stripe.createToken(card, {
             name: 'Jimmy',
             address_city: 'Toronto',
@@ -47,6 +62,7 @@ describe("Stripe", () => {
             (error: stripe.Error) => {
                 console.error(error);
             });
+
         // test 3D secure
         const threeDSecureFrame = <HTMLIFrameElement> document.getElementById('3d-secure-frame');
         const ownerInfo = {
@@ -105,7 +121,26 @@ describe("Stripe", () => {
             return Promise.resolve(null);
         });
         card.destroy();
-        // test payment request
+    });
+
+    it("should create an iban element", () => {
+        elements.create('iban', {
+            supportedCountries: ['SEPA'],
+            placeholderCountry: 'AT'
+        });
+    });
+
+    it("should create an idealBank element", () => {
+        const idealBank = elements.create('idealBank');
+        idealBank.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            if (resp.value && typeof resp.value !== 'object') {
+                console.log(resp.value.length);
+                const string: string = resp.value;
+            }
+        });
+    });
+
+    it ("should use payment request API", () => {
         const paymentRequest = stripe.paymentRequest({
             country: 'US',
             currency: 'usd',
@@ -145,86 +180,6 @@ describe("Stripe", () => {
                     ev.complete('fail');
                 }
             });
-        });
-    });
-});
-
-describe("Stripe v2 & v3", () => {
-    it("should excercise all Stripe API", () => {
-        function success(card: stripe.StripeCard) {
-            console.log(card.brand && card.brand.toString());
-        }
-
-        const cardNumber = '4242424242424242';
-
-        const isValid = Stripe.validateCardNumber(cardNumber);
-        if (isValid) {
-            const tokenData: stripe.StripeCardTokenData = {
-                number: cardNumber,
-                exp_month: 1,
-                exp_year: 2100,
-                cvc: '111'
-            };
-            Stripe.card.createToken(tokenData, (status, response) => {
-                if (response.error) {
-                    console.error(response.error.message);
-                    if (response.error.param) {
-                        console.error(response.error.param);
-                    }
-                } else {
-                    success(response.card);
-                }
-            });
-        }
-        const stripe = Stripe('public-key');
-        const elements = stripe.elements();
-        const style = {
-            base: {
-                color: '#32325d',
-                lineHeight: '24px',
-                fontFamily: 'Roboto, "Helvetica Neue", sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
-                fontWeight: 500,
-                '::placeholder': {
-                    color: '#aab7c4'
-                }
-            },
-            invalid: {
-                color: '#B71C1C',
-                iconColor: '#B71C1C'
-            }
-        };
-        const card = elements.create('card', { hidePostalCode: true, style });
-        card.mount(document.createElement('div'));
-        card.on('ready', () => {
-            console.log('ready');
-        });
-        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
-            console.log(resp.brand);
-        });
-        stripe.createToken(card, {
-            name: 'Jimmy',
-            address_city: 'Toronto',
-            address_country: 'Canada'
-        })
-            .then((result: stripe.TokenResponse) => {
-                console.log(result.token);
-            },
-            (error: stripe.Error) => {
-                console.error(error);
-            });
-
-        elements.create('iban', {
-            supportedCountries: ['SEPA'],
-            placeholderCountry: 'AT'
-        });
-        const idealBank = elements.create('idealBank');
-        idealBank.on('change', (resp: stripe.elements.ElementChangeResponse) => {
-            if (resp.value && typeof resp.value !== 'object') {
-                console.log(resp.value.length);
-                const string: string = resp.value;
-            }
         });
     });
 });

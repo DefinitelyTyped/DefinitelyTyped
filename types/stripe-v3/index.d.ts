@@ -77,8 +77,9 @@ declare namespace stripe {
     }
 
     interface StripeOptions {
-      stripeAccount?: string;
-      betas?: string[];
+        stripeAccount?: string;
+        betas?: string[];
+        locale?: string;
     }
 
     interface TokenOptions {
