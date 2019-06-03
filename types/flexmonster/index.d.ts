@@ -308,8 +308,11 @@ declare namespace Flexmonster {
         showFieldListSearch?: boolean;
         strictDataTypes?: boolean;
         caseSensitiveMembers?: boolean;
+<<<<<<< HEAD
         simplifyFieldListFolders?: boolean;
         validateReportFiles?: boolean;
+=======
+>>>>>>> Options.caseSensitiveMembers
     }
 
     interface PrintOptions {
