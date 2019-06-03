@@ -24,6 +24,7 @@ declare module 'leaflet' {
             lngFormatter?: (lng: number) => string;
             latFormatter?: (lat: number) => string;
             prefix?: string;
+            wrapLng?: boolean;
         }
 
         class MousePosition extends LControl {
