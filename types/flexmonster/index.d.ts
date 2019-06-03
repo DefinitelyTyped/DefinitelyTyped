@@ -359,6 +359,7 @@ declare namespace Flexmonster {
         useCustomizeCellForData?: boolean;
         excelExportAll?: boolean;
         requestHeader?: object;
+        fontUrl?: string;
     }
 
     interface Hierarchy {
