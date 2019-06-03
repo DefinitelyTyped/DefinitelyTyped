@@ -586,6 +586,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          * 
          * 
@@ -621,6 +622,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         roamingSettings: Office.RoamingSettings;
@@ -672,6 +674,7 @@ declare namespace Office {
          * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
@@ -699,6 +702,7 @@ declare namespace Office {
              * @remarks
              * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+             * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
              * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter.
