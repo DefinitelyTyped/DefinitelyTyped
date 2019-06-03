@@ -291,6 +291,7 @@ declare namespace Flexmonster {
         validateFormulas?: boolean;
         showFieldListSearch?: boolean;
         strictDataTypes?: boolean;
+        caseSensitiveMembers?: boolean;
     }
 
     interface PrintOptions {
