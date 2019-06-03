@@ -1,5 +1,3 @@
-/// <reference types="stripe-v3" />
-
 declare function describe(desc: string, fn: () => void): void;
 declare function it(desc: string, fn: () => void): void;
 
