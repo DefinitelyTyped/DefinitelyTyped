@@ -273,7 +273,7 @@ declare namespace Two {
             number
         > {}
 
-    type Object = Path | Group;
+    type Object = Path | Group | Text;
 
     class Vector {
         constructor(x: number, y: number);
@@ -298,7 +298,7 @@ declare namespace Two {
         length(): number;
         normalize(): this;
         distanceTo(v: Vector): number;
-        distanceSquared(v: Vector): number;
+        distanceToSquared(v: Vector): number;
         setLength(length: number): this;
         equals(v: Vector): boolean;
         lerp(v: Vector, t: number): this;
