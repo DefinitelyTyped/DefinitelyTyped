@@ -1,5 +1,4 @@
 import * as npmlog from "npmlog";
-import { MessageObject } from "npmlog";
 
 const prefix = "str";
 const message = "otherStr";
@@ -52,7 +51,7 @@ npmlog.broadcast(message);
 
 npmlog.on("broadcast", () => {});
 
-const msg: MessageObject = {
+const msg: npmlog.MessageObject = {
     id: 1,
     level: "broadcast",
     prefix,
