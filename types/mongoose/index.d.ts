@@ -24,6 +24,7 @@
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
+//                 Grimmer Kang <https://github.com/grimmer0125>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1937,7 +1938,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param bool defaults to true
      */
-    lean(bool?: boolean): Query<any> & QueryHelpers;
+    lean(bool?: boolean | object): Query<any> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;

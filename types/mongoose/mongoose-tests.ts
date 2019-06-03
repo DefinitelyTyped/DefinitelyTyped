@@ -1199,6 +1199,12 @@ query.
   sort('-occupation').
   select('name occupation').
   exec(cb).then(cb).catch(cb);
+/**
+ * https://mongoosejs.com/docs/api.html#query_Query-lean
+ */
+query.lean() // true
+query.lean(false)
+query.lean({})
 
 /*
  * section schema/array.js
