@@ -2617,13 +2617,6 @@ declare namespace google.maps {
         setMap(map: Map | null): void;
     }
 
-    export interface PanoProviderOptions {
-        /**
-         * If set, the renderer will use technologies (like webgl) that only work when cors headers are appropiately set on the provided images. It is the developer's task to serve the images correctly in combination with this flag, which might otherwise lead to SecurityErrors.
-         */
-        cors?: boolean;
-    }
-
     interface MotionTrackingControlOptions {
         position?: ControlPosition;
     }
