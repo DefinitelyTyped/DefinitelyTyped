@@ -85,4 +85,5 @@ import Two = require("two.js");
 {
     const v = new Two.Vector(0, 0);
     const dist = v.distanceToSquared(new Two.Vector(100, 200));
+    v.x = dist;
 }
