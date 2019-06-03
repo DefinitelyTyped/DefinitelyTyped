@@ -887,14 +887,15 @@ export interface Label {
 	font: Partial<Font>;
 }
 
-export interface HoverLabel extends Label {	
+export interface HoverLabel extends Label {
 	/** Sets the horizontal alignment of the text content within hover label box. */
 	align: "left" | "right" | "auto";
 
-	/** Sets the default length (in number of characters) (default 15) of the trace name 
+	/** 
+	 * Sets the default length (in number of characters) (default 15) of the trace name
 	 * in the hover labels for all traces.
-	 * -1 shows the whole name regardless of length. 
-	*/
+	 * -1 shows the whole name regardless of length.
+	 */
 	namelength: number;
 }
 
