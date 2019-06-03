@@ -2,6 +2,7 @@
 // Project: https://github.com/bugsnag/webpack-bugsnag-plugins#readme
 // Definitions by: Spencer Miskoviak <https://github.com/skovy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.4
 
 import * as webpack from "webpack";
 
