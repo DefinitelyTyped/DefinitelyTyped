@@ -95,6 +95,6 @@ declare namespace accepts {
     }
 }
 
-declare function accepts(req: IncomingMessage): accepts.Accepts;
+declare function accepts(req: Pick<IncomingMessage, 'headers'>): accepts.Accepts;
 
 export = accepts;
