@@ -1,4 +1,3 @@
-///
 // Type definitions for basiclightbox 5.0
 // Project: https://basiclightbox.electerious.com
 // Definitions by: Adrian Hope-Bailie <https://github.com/adrianhopebailie>
