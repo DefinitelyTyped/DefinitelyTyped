@@ -27,7 +27,7 @@ declare namespace stripe {
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
-        createPaymentMethod(type: 'card' | 'card_present', element: elements.Element, data?: StripePaymentMethod): Promise<StripePaymentMethodResponse>;
+        createPaymentMethod(type: paymentMethodType, element: elements.Element, data?: StripePaymentMethod): Promise<StripePaymentMethodResponse>;
         redirectToCheckout(options: StripeCheckoutOptions): never;
         retrievePaymentIntent(clientSecret: string): Promise<paymentIntent.PaymentIntentResponse>;
         handleCardPayment(clientSecret: string, element: elements.Element, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
