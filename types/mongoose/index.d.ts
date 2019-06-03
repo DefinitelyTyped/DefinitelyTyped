@@ -94,6 +94,8 @@ declare module "mongoose" {
   export var STATES: ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
+  /** An array containing all connections associated with this Mongoose instance. */
+  export var connections: Connection[];
   /** Models registred on the default mongoose connection. */
   export var models: { [index: string]: Model<any> };
   /** The node-mongodb-native driver Mongoose uses. */

@@ -41,6 +41,8 @@ mongoose.createConnection(connectUri).then((conn)=> {
   return conn.collections;
 }, () => {
 
+var connections: mongoose.Connection[] = mongoose.connections;
+
 });
 mongoose.createConnection(connectUri).openUri('');
 mongoose.createConnection(connectUri, {
