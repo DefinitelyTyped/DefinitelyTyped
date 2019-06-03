@@ -10569,9 +10569,9 @@ declare namespace Office {
          *
          * When invoked, this method returns the item ID via the callback method.
          * 
-         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode in order to get an `itemId` to use with EWS or the REST API,
-         * be aware that when Outlook is in cached mode, it may take some time before the item is actually synced to the server.
-         * Until the item is synced, using the `itemId` will return an error.
+         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
+         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
+         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
          *
          * [Api set: Mailbox Preview]
          *
@@ -10583,7 +10583,7 @@ declare namespace Office {
          * 
          * **Errors**: 
          * 
-         * - ItemNotSaved: The id can't be retrieved until the item is saved.
+         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -10595,9 +10595,9 @@ declare namespace Office {
          *
          * When invoked, this method returns the item ID via the callback method.
          * 
-         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode in order to get an `itemId` to use with EWS or the REST API,
-         * be aware that when Outlook is in cached mode, it may take some time before the item is actually synced to the server.
-         * Until the item is synced, using the `itemId` will return an error.
+         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
+         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
+         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
          *
          * [Api set: Mailbox Preview]
          *
@@ -10609,7 +10609,7 @@ declare namespace Office {
          * 
          * **Errors**: 
          * 
-         * - ItemNotSaved: The id can't be retrieved until the item is saved.
+         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          */
@@ -13675,9 +13675,9 @@ declare namespace Office {
          *
          * When invoked, this method returns the item ID via the callback method.
          * 
-         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode in order to get an `itemId` to use with EWS or the REST API,
-         * be aware that when Outlook is in cached mode, it may take some time before the item is actually synced to the server.
-         * Until the item is synced, using the `itemId` will return an error.
+         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
+         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
+         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
          *
          * [Api set: Mailbox Preview]
          *
@@ -13689,7 +13689,7 @@ declare namespace Office {
          * 
          * **Errors**: 
          * 
-         * - ItemNotSaved: The id can't be retrieved until the item is saved.
+         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param options - An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
@@ -13701,9 +13701,9 @@ declare namespace Office {
          *
          * When invoked, this method returns the item ID via the callback method.
          * 
-         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode in order to get an `itemId` to use with EWS or the REST API,
-         * be aware that when Outlook is in cached mode, it may take some time before the item is actually synced to the server.
-         * Until the item is synced, using the `itemId` will return an error.
+         * **Note**: If your add-in calls `getItemIdAsync` on an item in compose mode (e.g., to get an `itemId` to use with EWS or the REST API),
+         * be aware that when Outlook is in cached mode, it may take some time before the item is synced to the server.
+         * Until the item is synced, the `itemId` is not recognized and using it returns an error.
          *
          * [Api set: Mailbox Preview]
          *
@@ -13715,7 +13715,7 @@ declare namespace Office {
          * 
          * **Errors**: 
          * 
-         * - ItemNotSaved: The id can't be retrieved until the item is saved.
+         * - `ItemNotSaved`: The id can't be retrieved until the item is saved.
          * 
          * @param callback - When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          */
