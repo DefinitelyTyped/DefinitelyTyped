@@ -182,4 +182,74 @@ describe("Stripe elements", () => {
             });
         });
     });
+
+    it("should use payment method API", () => {
+        const card = elements.create('card');
+        stripe.createPaymentMethod('card', card, {
+            billing_details: {
+                name: 'Jenny Rosen',
+            },
+        }).then(result => {
+            if (result.error) {
+                console.error(result.error.param);
+            } else if (result.paymentMethod) {
+                console.log(result.paymentMethod.card && result.paymentMethod.card.number);
+            }
+        });
+    });
+
+    it("should use checkout API", () => {
+        stripe.redirectToCheckout({
+            items: [
+                {sku: 'sku_123', quantity: 1}
+            ],
+            successUrl: 'https://example.com/success',
+            cancelUrl: 'https://example.com/canceled',
+        }).then(errorResult => {
+            console.log(errorResult.error.param);
+        });
+    });
+
+    it("should use payment intents", () => {
+        stripe.retrievePaymentIntent('pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2')
+            .then(result => {
+                if (result.error) {
+                    console.error(result.error.message);
+                } else if (result.paymentIntent) {
+                    console.log(result.paymentIntent.description);
+                }
+            });
+
+        const card = elements.create('card');
+        stripe.handleCardPayment(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            card,
+            {
+                payment_method_data: {
+                    billing_details: {
+                        name: 'Jenny Rosen'
+                    }
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.paymentIntent) {
+                console.log(result.paymentIntent.receipt_email);
+            }
+        });
+
+        stripe.handleCardPayment(
+            '{PAYMENT_INTENT_CLIENT_SECRET}',
+            {
+                payment_method: '{PAYMENT_METHOD_ID}',
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.paymentIntent) {
+                console.log(result.paymentIntent.shipping.address);
+            }
+        });
+    });
 });

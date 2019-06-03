@@ -27,8 +27,8 @@ declare namespace stripe {
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
-        createPaymentMethod(type: paymentMethodType, element: elements.Element, data?: StripePaymentMethod): Promise<StripePaymentMethodResponse>;
-        redirectToCheckout(options: StripeCheckoutOptions): never;
+        createPaymentMethod(type: paymentMethodType, element: elements.Element, data?: StripePaymentMethodIncomplete): Promise<StripePaymentMethodResponse>;
+        redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
         retrievePaymentIntent(clientSecret: string): Promise<paymentIntent.PaymentIntentResponse>;
         handleCardPayment(clientSecret: string, element: elements.Element, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
         handleCardPayment(clientSecret: string, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
@@ -37,16 +37,24 @@ declare namespace stripe {
         confirmPaymentIntent(clientSecret: string, data: paymentIntent.PaymentIntentConfirmationData): Promise<paymentIntent.PaymentIntentResponse>;
     }
 
+    type StripeRedirectResponse = never | {
+        error: Error;
+    };
+
     interface StripePaymentMethodResponse {
         paymentMethod?: StripePaymentMethod;
         error?: Error;
     }
 
     type paymentMethodType = 'card' | 'card_present';
-    interface StripePaymentMethod {
+    interface StripePaymentMethod extends StripePaymentMethodIncomplete {
         id: string;
         type: paymentMethodType;
-        billing_details: OwnerInfo;
+    }
+
+    interface StripePaymentMethodIncomplete {
+        type?: paymentMethodType;
+        billing_details?: OwnerInfo;
         card?: StripePaymentMethodCard;
         metadata?: any;
     }
@@ -56,7 +64,7 @@ declare namespace stripe {
         items: StripeCheckoutItem[];
         successUrl: string;
         cancelUrl: string;
-        clientReferenceId: string;
+        clientReferenceId?: string;
         customerEmail?: string;
         billingAddressCollection?: billingAddressCollectionType;
         sessionId?: string;
@@ -311,7 +319,7 @@ declare namespace stripe {
 
         interface PaymentMethodData {
             billing_details?: OwnerInfo;
-            card: {[token: string]: string};
+            card?: {[token: string]: string};
         }
 
         interface PaymentIntentConfirmationData extends CardPaymentData {
