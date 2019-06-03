@@ -877,9 +877,16 @@ export interface Camera {
 }
 
 export interface Label {
+	align: "left" | "right" | "auto";
+	alignsrc: string;
 	bgcolor: string;
+	bgcolorsrc: string;
 	bordercolor: string;
+	bordercolorsrc: string;
+	bgcolorsrc: string;
 	font: Partial<Font>;
+	namelength: number;
+	namelengthsrc: string;
 }
 
 export interface Annotations extends Label {
