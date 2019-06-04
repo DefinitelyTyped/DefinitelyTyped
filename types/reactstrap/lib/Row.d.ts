@@ -7,6 +7,7 @@ export interface RowProps extends React.HTMLProps<HTMLElement> {
   cssModule?: CSSModule;
   tag?: React.ReactType;
   noGutters?: boolean;
+  form?: boolean;
 }
 
 declare class Row<T = {[key: string]: any}> extends React.Component<RowProps> {}
