@@ -8,6 +8,12 @@
 
 import * as React from 'react';
 
+export type Display = 'true' | 'false' | 'excluded';
+export type SortDirection = 'asc' | 'desc';
+export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+export type Responsive = 'stacked' | 'scroll';
+export type SelectableRows = 'multiple' | 'single' | 'none';
+
 interface MUIDataTableData {
     index: number;
     data: Array<object | number[] | string[]>;
@@ -97,14 +103,14 @@ export interface MUIDataTableTextLabels {
 }
 
 export interface MUIDataTableColumnOptions {
-    display?: 'true' | 'false' | 'excluded';
+    display?: Display;
     empty?: boolean;
     filter?: boolean;
     filterList?: string[];
     filterOptions?: string[];
     sort?: boolean;
     searchable?: boolean;
-    sortDirection?: 'asc' | 'desc';
+    sortDirection?: SortDirection;
     print?: boolean;
     download?: boolean;
     hint?: string;
@@ -118,10 +124,10 @@ export interface MUIDataTableOptions {
     count?: number;
     serverSide?: boolean;
     rowsSelected?: any[];
-    filterType?: 'dropdown' | 'checkbox' | 'multiselect' | 'textField';
+    filterType?: FilterType;
     textLabels?: MUIDataTableTextLabels;
     pagination?: boolean;
-    selectableRows?: boolean;
+    selectableRows?: SelectableRows;
     isRowSelectable?: (dataIndex: number) => boolean;
     resizableColumns?: boolean;
     expandableRows?: boolean;
@@ -140,7 +146,7 @@ export interface MUIDataTableOptions {
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
     elevation?: number;
     caseSensitive?: boolean;
-    responsive?: 'stacked' | 'scroll';
+    responsive?: Responsive;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     rowHover?: boolean;
@@ -266,7 +272,7 @@ export interface MUIDataTableHead {
 export interface MUIDataTableHeadCell {
     classes?: object;
     options: object;
-    sortDirection?: 'asc' | 'desc';
+    sortDirection?: SortDirection;
     toggleSort: (...args: any) => any;
     sort: boolean;
     hint: string;
