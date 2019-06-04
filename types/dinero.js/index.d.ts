@@ -12,6 +12,9 @@ declare function DineroFactory(options?: Dinero.Options): DineroFactory.Dinero;
 
 declare namespace DineroFactory {
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
+    let globalFormat: string;
+    let globalLocale: string;
+    let globalRoundingMode: string;
     function normalizePrecision(objects: Dinero[]): Dinero[];
 
     interface Options {
