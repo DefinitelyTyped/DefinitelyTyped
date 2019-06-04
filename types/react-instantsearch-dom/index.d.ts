@@ -55,21 +55,19 @@ interface CommonWidgetProps {
 }
 
 export interface InstantSearchProps {
-  apiKey: string;
-  appId: string;
   indexName: string;
+  searchClient: any;
 
-  algoliaClient?: any;
-  searchClient?: any;
   createURL?: (...args: any[]) => any;
   searchState?: any;
   refresh?: boolean;
   onSearchStateChange?: (...args: any[]) => any;
   onSearchParameters?: (...args: any[]) => any;
   resultsState?: any;
+  stalledSearchDelay?: number;
   root?: {
     Root: string | ((...args: any[]) => any);
-    props: any;
+    props?: object;
   };
 }
 /**
