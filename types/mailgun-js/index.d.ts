@@ -77,7 +77,7 @@ declare namespace Mailgun {
 
         interface SendTemplateData extends SendData {
             template: string;
-            [templateVariable: string]: string;
+            [templateVariable: string]: any;
         }
 
         interface BatchSendRecipientVars {
