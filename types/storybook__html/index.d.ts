@@ -6,7 +6,7 @@
 
 /// <reference types="webpack-env" />
 
-export type RenderFunction = () => string | string[];
+export type RenderFunction = () => string | string[] | HTMLElement;
 
 export interface DecoratorParameters {
     [key: string]: any;
