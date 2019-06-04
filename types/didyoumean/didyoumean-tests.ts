@@ -1,24 +1,27 @@
 import didYouMean from 'didyoumean';
 
-const input = 'insargrm'
-const list = ['facebook', 'twitter', 'instagram', 'linkedin'];
-console.log(didYouMean(input, list));
-> 'instagram'
+interface ListType {
+	id: string;
+}
+
+let input = 'insargrm';
+let result;
+const list: string[] = ['facebook', 'twitter', 'instagram', 'linkedin'];
+
 // The method matches 'insargrm' to 'instagram'.
+result = didYouMean(input, list);
 
 input = 'google plus';
-console.log(didYouMean(input, list));
-> null
+
 // The method was unable to find 'google plus' in the list of options.
+result = didYouMean(input, list);
+
+// Matching to a list of key, value pairs.
 
 input = 'insargrm';
-const listOfObjects = [ { id: 'facebook' }, { id: 'twitter' }, { id: 'instagram' }, { id: 'linkedin' } ];
+const listOfObjects: ListType[] = [ { id: 'facebook' }, { id: 'twitter' }, { id: 'instagram' }, { id: 'linkedin' } ];
 const key = 'id';
-console.log(didYouMean(input, list, key));
-> 'instagram'
-// The method returns the matching value.
+result = didYouMean(input, list, key);
 
 didYouMean.returnWinningObject = true;
-console.log(didYouMean(input, list, key));
-> { id: 'instagram' }
-// The method returns the matching object.
+result = didYouMean(input, list, key);

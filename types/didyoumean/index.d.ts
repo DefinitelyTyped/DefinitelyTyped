@@ -1,25 +1,23 @@
-// Type definitions for didyoumean 1.2.1
-// Project: https://github.com/dcporter/didyoumean
+// Type definitions for didyoumean 1.2
+// Project: https://github.com/dcporter/didyoumean.js
 // Definitions by: James George <https://github.com/jamesgeorge007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
-declare function didyoumean(str: any, list: any, key: any): any;
+export = didYouMean;
 
-export interface didyoumean {
-    const caseSensitive: boolean;
+declare function didYouMean(str: string, list: string[], key?: string): string | string[];
 
-    const nullResultValue: any;
+declare namespace didYouMean {
+    let caseSensitive: boolean;
 
-    const prototype: {
-    };
+    let nullResultValue: any;
 
-    const returnFirstMatch: boolean;
+    let returnFirstMatch: boolean;
 
-    const returnWinningObject: any;
+    let returnWinningObject: boolean;
 
-    const threshold: number;
+    let threshold: number;
 
-    const thresholdAbsolute: number;
-
+    let thresholdAbsolute: number;
 }
-
