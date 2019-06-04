@@ -165,6 +165,11 @@ mixed.when("isBig", {
     then: yup.number().min(5),
     otherwise: yup.number().min(0)
 });
+mixed.when(["isBig", "isSpecial"], {
+    is: (isBig, isSpecial) => isBig && isSpecial,
+    then: yup.number().min(5),
+    otherwise: yup.number().min(0),
+});
 mixed
     .when("isBig", {
         is: true,
