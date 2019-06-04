@@ -1610,6 +1610,25 @@ declare namespace chrome.declarativeContent {
     export interface PageChangedEvent extends chrome.events.Event<() => void> { }
 
     export var onPageChanged: PageChangedEvent;
+    
+    export interface ContentScript {
+        /** Names of CSS files to be injected as a part of the content script. */
+		css?: string[];
+
+        /** Names of JavaScript files to be injected as a part of the content script. */
+		js?: string[];
+
+        /** Whether the content script runs in all frames of the matching page, or in only the top frame. Default is false. */
+		allFrames?: boolean;
+
+        /** Whether to insert the content script on about:blank and about:srcdoc. Default is false. */
+		matchAboutBlank?: boolean;
+	}
+
+    /** Declarative event action that injects a content script. Warning: This action is still experimental and is not supported on stable builds of Chrome. */
+	export class RequestContentScript {
+		constructor(contentScript: ContentScript);
+	}
 }
 
 ////////////////////
