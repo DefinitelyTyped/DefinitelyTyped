@@ -1,7 +1,6 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-
 import { User, Event, DateTimeTimeZone, ItemBody } from "microsoft-graph";
 
 const user: User = {
