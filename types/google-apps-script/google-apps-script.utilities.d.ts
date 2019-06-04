@@ -63,7 +63,7 @@ declare namespace GoogleAppsScript {
       computeRsaSignature(algorithm: RsaAlgorithm, value: string, key: string): Byte[];
       computeRsaSignature(algorithm: RsaAlgorithm, value: string, key: string, charset: Charset): Byte[];
       formatDate(date: Date, timeZone: string, format: string): string;
-      formatString(template: string, ...args: object[]): string;
+      formatString(template: string, ...args: any[]): string;
       getUuid(): string;
       gzip(blob: Base.BlobSource): Base.Blob;
       gzip(blob: Base.BlobSource, name: string): Base.Blob;

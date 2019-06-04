@@ -1902,7 +1902,7 @@ declare module "../index" {
         /**
          * @see _.pick
          */
-        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
+        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialObject<T>;
     }
     interface Object<T> {
         /**

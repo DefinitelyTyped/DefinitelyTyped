@@ -89,7 +89,7 @@ declare namespace GoogleAppsScript {
       getBackground(): string;
       getBold(): boolean;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): object[];
+      getCriteriaValues(): any[];
       getFontColor(): string;
       getItalic(): boolean;
       getStrikethrough(): boolean;
@@ -175,7 +175,7 @@ declare namespace GoogleAppsScript {
       whenTextEndsWith(text: string): ConditionalFormatRuleBuilder;
       whenTextEqualTo(text: string): ConditionalFormatRuleBuilder;
       whenTextStartsWith(text: string): ConditionalFormatRuleBuilder;
-      withCriteria(criteria: BooleanCriteria, args: object[]): ConditionalFormatRuleBuilder;
+      withCriteria(criteria: BooleanCriteria, args: any[]): ConditionalFormatRuleBuilder;
     }
 
     /**
@@ -363,7 +363,7 @@ declare namespace GoogleAppsScript {
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
-      getCriteriaValues(): object[];
+      getCriteriaValues(): any[];
       getHelpText(): string;
     }
 
@@ -381,11 +381,11 @@ declare namespace GoogleAppsScript {
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
-      getCriteriaValues(): object[];
+      getCriteriaValues(): any[];
       getHelpText(): string;
       requireCheckbox(): DataValidationBuilder;
-      requireCheckbox(checkedValue: Object): DataValidationBuilder;
-      requireCheckbox(checkedValue: Object, uncheckedValue: Object): DataValidationBuilder;
+      requireCheckbox(checkedValue: any): DataValidationBuilder;
+      requireCheckbox(checkedValue: any, uncheckedValue: any): DataValidationBuilder;
       requireDate(): DataValidationBuilder;
       requireDateAfter(date: Base.Date): DataValidationBuilder;
       requireDateBefore(date: Base.Date): DataValidationBuilder;
@@ -414,7 +414,7 @@ declare namespace GoogleAppsScript {
       requireValueInRange(range: Range, showDropdown: boolean): DataValidationBuilder;
       setAllowInvalid(allowInvalidData: boolean): DataValidationBuilder;
       setHelpText(helpText: string): DataValidationBuilder;
-      withCriteria(criteria: DataValidationCriteria, args: object[]): DataValidationBuilder;
+      withCriteria(criteria: DataValidationCriteria, args: any[]): DataValidationBuilder;
     }
 
     /**
@@ -544,7 +544,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedAreaChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setRange(start: number, end: number): EmbeddedAreaChartBuilder;
@@ -592,7 +592,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setRange(start: number, end: number): EmbeddedBarChartBuilder;
       setStacked(): EmbeddedBarChartBuilder;
@@ -688,7 +688,7 @@ declare namespace GoogleAppsScript {
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
     }
@@ -723,7 +723,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setRange(start: number, end: number): EmbeddedColumnChartBuilder;
       setStacked(): EmbeddedColumnChartBuilder;
@@ -768,7 +768,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setRange(start: number, end: number): EmbeddedComboChartBuilder;
       setStacked(): EmbeddedComboChartBuilder;
@@ -814,7 +814,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setRange(start: number, end: number): EmbeddedHistogramChartBuilder;
       setStacked(): EmbeddedHistogramChartBuilder;
@@ -861,7 +861,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedLineChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedLineChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setRange(start: number, end: number): EmbeddedLineChartBuilder;
@@ -908,7 +908,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTitle(chartTitle: string): EmbeddedPieChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
@@ -944,7 +944,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedScatterChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTitle(chartTitle: string): EmbeddedScatterChartBuilder;
@@ -994,7 +994,7 @@ declare namespace GoogleAppsScript {
       setInitialSortingDescending(column: Integer): EmbeddedTableChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): EmbeddedTableChartBuilder;
@@ -1019,7 +1019,7 @@ declare namespace GoogleAppsScript {
     export interface FilterCriteria {
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): object[];
+      getCriteriaValues(): any[];
       getHiddenValues(): string[];
       getVisibleValues(): string[];
     }
@@ -1031,7 +1031,7 @@ declare namespace GoogleAppsScript {
       build(): FilterCriteria;
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): object[];
+      getCriteriaValues(): any[];
       getHiddenValues(): string[];
       getVisibleValues(): string[];
       setHiddenValues(values: string[]): FilterCriteriaBuilder;
@@ -1058,7 +1058,7 @@ declare namespace GoogleAppsScript {
       whenTextEndsWith(text: string): FilterCriteriaBuilder;
       whenTextEqualTo(text: string): FilterCriteriaBuilder;
       whenTextStartsWith(text: string): FilterCriteriaBuilder;
-      withCriteria(criteria: BooleanCriteria, args: object[]): FilterCriteriaBuilder;
+      withCriteria(criteria: BooleanCriteria, args: any[]): FilterCriteriaBuilder;
     }
 
     /**
@@ -1202,7 +1202,7 @@ declare namespace GoogleAppsScript {
      * Access and modify pivot table breakout groups.
      */
     export interface PivotGroup {
-      addManualGroupingRule(groupName: string, groupMembers: object[]): PivotGroup;
+      addManualGroupingRule(groupName: string, groupMembers: any[]): PivotGroup;
       areLabelsRepeated(): boolean;
       clearGroupingRule(): PivotGroup;
       clearSort(): PivotGroup;
@@ -1221,7 +1221,7 @@ declare namespace GoogleAppsScript {
       showRepeatedLabels(): PivotGroup;
       showTotals(showTotals: boolean): PivotGroup;
       sortAscending(): PivotGroup;
-      sortBy(value: PivotValue, oppositeGroupValues: object[]): PivotGroup;
+      sortBy(value: PivotValue, oppositeGroupValues: any[]): PivotGroup;
       sortDescending(): PivotGroup;
       totalsAreShown(): boolean;
     }
@@ -1383,7 +1383,7 @@ declare namespace GoogleAppsScript {
       canEdit(): boolean;
       check(): Range;
       clear(): Range;
-      clear(options: object): Range;
+      clear(options: any): Range;
       clearContent(): Range;
       clearDataValidations(): Range;
       clearFormat(): Range;
@@ -1393,7 +1393,7 @@ declare namespace GoogleAppsScript {
       copyFormatToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyTo(destination: Range): void;
       copyTo(destination: Range, copyPasteType: CopyPasteType, transposed: boolean): void;
-      copyTo(destination: Range, options: object): void;
+      copyTo(destination: Range, options: any): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1461,8 +1461,8 @@ declare namespace GoogleAppsScript {
       getTextRotations(): TextRotation[][];
       getTextStyle(): TextStyle;
       getTextStyles(): TextStyle[][];
-      getValue(): object;
-      getValues(): object[][];
+      getValue(): any;
+      getValues(): any[][];
       getVerticalAlignment(): string;
       getVerticalAlignments(): string[][];
       getWidth(): Integer;
@@ -1472,8 +1472,8 @@ declare namespace GoogleAppsScript {
       getWraps(): boolean[][];
       insertCells(shiftDimension: Dimension): Range;
       insertCheckboxes(): Range;
-      insertCheckboxes(checkedValue: Object): Range;
-      insertCheckboxes(checkedValue: Object, uncheckedValue: Object): Range;
+      insertCheckboxes(checkedValue: any): Range;
+      insertCheckboxes(checkedValue: any, uncheckedValue: any): Range;
       isBlank(): boolean;
       isChecked(): boolean;
       isEndColumnBounded(): boolean;
@@ -1499,27 +1499,27 @@ declare namespace GoogleAppsScript {
       setDataValidation(rule: DataValidation): Range;
       setDataValidations(rules: DataValidation[][]): Range;
       setFontColor(color: string): Range;
-      setFontColors(colors: object[][]): Range;
-      setFontFamilies(fontFamilies: object[][]): Range;
+      setFontColors(colors: any[][]): Range;
+      setFontFamilies(fontFamilies: any[][]): Range;
       setFontFamily(fontFamily: string): Range;
       setFontLine(fontLine: string): Range;
-      setFontLines(fontLines: object[][]): Range;
+      setFontLines(fontLines: any[][]): Range;
       setFontSize(size: Integer): Range;
-      setFontSizes(sizes: object[][]): Range;
+      setFontSizes(sizes: any[][]): Range;
       setFontStyle(fontStyle: string): Range;
-      setFontStyles(fontStyles: object[][]): Range;
+      setFontStyles(fontStyles: any[][]): Range;
       setFontWeight(fontWeight: string): Range;
-      setFontWeights(fontWeights: object[][]): Range;
+      setFontWeights(fontWeights: any[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
       setHorizontalAlignment(alignment: string): Range;
-      setHorizontalAlignments(alignments: object[][]): Range;
+      setHorizontalAlignments(alignments: any[][]): Range;
       setNote(note: string): Range;
-      setNotes(notes: object[][]): Range;
+      setNotes(notes: any[][]): Range;
       setNumberFormat(numberFormat: string): Range;
-      setNumberFormats(numberFormats: object[][]): Range;
+      setNumberFormats(numberFormats: any[][]): Range;
       setRichTextValue(value: RichTextValue): Range;
       setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
@@ -1530,18 +1530,18 @@ declare namespace GoogleAppsScript {
       setTextRotations(rotations: TextRotation[][]): Range;
       setTextStyle(style: TextStyle): Range;
       setTextStyles(styles: TextStyle[][]): Range;
-      setValue(value: object): Range;
-      setValues(values: object[][]): Range;
+      setValue(value: any): Range;
+      setValues(values: any[][]): Range;
       setVerticalAlignment(alignment: string): Range;
-      setVerticalAlignments(alignments: object[][]): Range;
+      setVerticalAlignments(alignments: any[][]): Range;
       setVerticalText(isVertical: boolean): Range;
       setWrap(isWrapEnabled: boolean): Range;
       setWrapStrategies(strategies: WrapStrategy[][]): Range;
       setWrapStrategy(strategy: WrapStrategy): Range;
-      setWraps(isWrapEnabled: object[][]): Range;
+      setWraps(isWrapEnabled: any[][]): Range;
       shiftColumnGroupDepth(delta: Integer): Range;
       shiftRowGroupDepth(delta: Integer): Range;
-      sort(sortSpecObj: object): Range;
+      sort(sortSpecObj: any): Range;
       splitTextToColumns(): void;
       splitTextToColumns(delimiter: string): void;
       splitTextToColumns(delimiter: TextToColumnsDelimiter): void;
@@ -1557,15 +1557,15 @@ declare namespace GoogleAppsScript {
       breakApart(): RangeList;
       check(): RangeList;
       clear(): RangeList;
-      clear(options: object): RangeList;
+      clear(options: any): RangeList;
       clearContent(): RangeList;
       clearDataValidations(): RangeList;
       clearFormat(): RangeList;
       clearNote(): RangeList;
       getRanges(): Range[];
       insertCheckboxes(): RangeList;
-      insertCheckboxes(checkedValue: Object): RangeList;
-      insertCheckboxes(checkedValue: Object, uncheckedValue: Object): RangeList;
+      insertCheckboxes(checkedValue: any): RangeList;
+      insertCheckboxes(checkedValue: any, uncheckedValue: any): RangeList;
       removeCheckboxes(): RangeList;
       setBackground(color: string): RangeList;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): RangeList;
@@ -1585,7 +1585,7 @@ declare namespace GoogleAppsScript {
       setShowHyperlink(showHyperlink: boolean): RangeList;
       setTextDirection(direction: TextDirection): RangeList;
       setTextRotation(degrees: Integer): RangeList;
-      setValue(value: object): RangeList;
+      setValue(value: any): RangeList;
       setVerticalAlignment(alignment: string): RangeList;
       setVerticalText(isVertical: boolean): RangeList;
       setWrap(isWrapEnabled: boolean): RangeList;
@@ -1672,12 +1672,12 @@ declare namespace GoogleAppsScript {
       addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Sheet;
       addDeveloperMetadata(key: string, value: string): Sheet;
       addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
-      appendRow(rowContents: object[]): Sheet;
+      appendRow(rowContents: any[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
       autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
       clear(): Sheet;
-      clear(options: object): Sheet;
+      clear(options: any): Sheet;
       clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
@@ -1736,7 +1736,7 @@ declare namespace GoogleAppsScript {
       getSelection(): Selection;
       getSheetId(): Integer;
       getSheetName(): string;
-      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): object[][];
+      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
       getTabColor(): string;
       getType(): SheetType;
       hasHiddenGridlines(): boolean;
@@ -1809,7 +1809,7 @@ declare namespace GoogleAppsScript {
     /**
      * The different types of sheets that can exist in a spreadsheet.
      */
-    export enum SheetType { GRID, OBJECT }
+    export enum SheetType { GRID, any }
 
     /**
      * Access and modify Google Sheets files. Common operations are adding new sheets and adding
@@ -1823,11 +1823,11 @@ declare namespace GoogleAppsScript {
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
       addEditors(emailAddresses: string[]): Spreadsheet;
-      addMenu(name: string, subMenus: object[]): void;
+      addMenu(name: string, subMenus: any[]): void;
       addViewer(emailAddress: string): Spreadsheet;
       addViewer(user: Base.User): Spreadsheet;
       addViewers(emailAddresses: string[]): Spreadsheet;
-      appendRow(rowContents: object[]): Sheet;
+      appendRow(rowContents: any[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
@@ -1875,7 +1875,7 @@ declare namespace GoogleAppsScript {
       getSheetByName(name: string): Sheet;
       getSheetId(): Integer;
       getSheetName(): string;
-      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): object[][];
+      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
       getSheets(): Sheet[];
       getSpreadsheetLocale(): string;
       getSpreadsheetTimeZone(): string;
@@ -1897,19 +1897,19 @@ declare namespace GoogleAppsScript {
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
       insertSheet(): Sheet;
       insertSheet(sheetIndex: Integer): Sheet;
-      insertSheet(sheetIndex: Integer, options: object): Sheet;
-      insertSheet(options: object): Sheet;
+      insertSheet(sheetIndex: Integer, options: any): Sheet;
+      insertSheet(options: any): Sheet;
       insertSheet(sheetName: string): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
-      insertSheet(sheetName: string, sheetIndex: Integer, options: object): Sheet;
-      insertSheet(sheetName: string, options: object): Sheet;
+      insertSheet(sheetName: string, sheetIndex: Integer, options: any): Sheet;
+      insertSheet(sheetName: string, options: any): Sheet;
       insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
       isIterativeCalculationEnabled(): boolean;
       isRowHiddenByFilter(rowPosition: Integer): boolean;
       isRowHiddenByUser(rowPosition: Integer): boolean;
       moveActiveSheet(pos: Integer): void;
-      moveChartToObjectSheet(chart: EmbeddedChart): Sheet;
+      moveChartToanySheet(chart: EmbeddedChart): Sheet;
       removeEditor(emailAddress: string): Spreadsheet;
       removeEditor(user: Base.User): Spreadsheet;
       removeMenu(name: string): void;
@@ -1936,7 +1936,7 @@ declare namespace GoogleAppsScript {
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setSpreadsheetLocale(locale: string): void;
       setSpreadsheetTimeZone(timezone: string): void;
-      show(userInterface: object): void;
+      show(userInterface: any): void;
       sort(columnPosition: Integer): Sheet;
       sort(columnPosition: Integer, ascending: boolean): Sheet;
       toast(msg: string): void;
@@ -1944,7 +1944,7 @@ declare namespace GoogleAppsScript {
       toast(msg: string, title: string, timeoutSeconds: number): void;
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
-      updateMenu(name: string, subMenus: object[]): void;
+      updateMenu(name: string, subMenus: any[]): void;
       getSheetProtection(): PageProtection;
       isAnonymousView(): boolean;
       isAnonymousWrite(): boolean;
