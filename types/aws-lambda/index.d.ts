@@ -768,8 +768,16 @@ export interface CloudFrontResponse {
     headers: CloudFrontHeaders;
 }
 
+export interface CloudFrontRequestBody {
+    action: 'read-only' | 'replace';
+    data: string;
+    encoding: 'base64' | 'text';
+    readonly inputTruncated: boolean;
+}
+
 export interface CloudFrontRequest {
     clientIp: string;
+    body?: CloudFrontRequestBody;
     method: string;
     uri: string;
     querystring: string;
