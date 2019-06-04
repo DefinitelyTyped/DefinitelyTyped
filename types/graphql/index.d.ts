@@ -353,6 +353,8 @@ export {
     valueFromASTUntyped,
     // Create a GraphQL language AST from a JavaScript value.
     astFromValue,
+    // Inline fragment definitions from AST
+    mergeAST,
     // A helper to use within recursive-descent visitors which need to be aware of
     // the GraphQL type system.
     TypeInfo,

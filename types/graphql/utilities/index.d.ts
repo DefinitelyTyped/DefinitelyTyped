@@ -80,6 +80,9 @@ export { TypeInfo } from "./TypeInfo";
 // Coerces a JavaScript value to a GraphQL type, or produces errors.
 export { coerceValue } from "./coerceValue";
 
+// Inline fragment definitions from AST
+export { mergeAST } from "./mergeAST";
+
 // @deprecated use coerceValue - will be removed in v15
 export { isValidJSValue } from "./isValidJSValue";
 
