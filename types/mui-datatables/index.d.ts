@@ -108,6 +108,7 @@ export interface MUIDataTableColumnOptions {
     sortDirection?: 'asc' | 'desc';
     print?: boolean;
     download?: boolean;
+    viewColumns?: boolean;
     hint?: string;
     customHeadRender?: (columnMeta: MUIDataTableCustomHeadRenderer, updateDirection: (params: any) => any) => string | React.ReactNode;
     customBodyRender?: (value: any, tableMeta: MUIDataTableMeta, updateValue: (s: any, c: any, p: any) => any) => string | React.ReactNode;
