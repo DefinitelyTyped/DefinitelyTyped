@@ -1,4 +1,4 @@
-// Type definitions for RequireJS 2.1.20
+// Type definitions for RequireJS 3.0.0
 // Project: http://requirejs.org/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 //                 Manuel Thalmann <https://github.com/manuth>
