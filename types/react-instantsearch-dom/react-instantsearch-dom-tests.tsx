@@ -7,8 +7,9 @@ import { Hit, connectRefinementList, connectMenu } from 'react-instantsearch-cor
 () => {
   const App = () => (
     <InstantSearch
+      appId="latency"
+      apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
       indexName="bestbuy"
-      searchClient={{}}
     >
       <Search />
     </InstantSearch>
