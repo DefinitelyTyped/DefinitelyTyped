@@ -12,9 +12,9 @@
 declare namespace WebAssembly {
     /// Other WebAssembly declarations, for compatibility with older versions of Typescript
     // tslint:disable-next-line no-empty-interface
-    interface Module { }
+    interface Module {}
     // tslint:disable-next-line no-empty-interface
-    interface Instance { }
+    interface Instance {}
     interface ResultObject {
         module: Module;
         instance: Instance;

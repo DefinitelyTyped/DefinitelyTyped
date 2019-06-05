@@ -9,8 +9,7 @@
 import * as _ from 'underscore';
 
 interface KnockoutObservableArrayFunctions<T> {
-
-  /* **
+    /* **
    Collections
   *****/
     each<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];

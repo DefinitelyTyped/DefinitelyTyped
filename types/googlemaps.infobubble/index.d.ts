@@ -39,43 +39,41 @@ THE SOFTWARE.
 */
 
 declare namespace google.maps.infobubble {
-
     export interface InfoBubble {
         /**
-          * Closes the infobubble
-          */
+         * Closes the infobubble
+         */
         close(): void;
 
         /**
-          * Checks if the infobubble is currently open
-          */
+         * Checks if the infobubble is currently open
+         */
         isOpen(): boolean;
 
         /**
-          * Opens the infobubble
-          * @map The google map object
-          * @marker The marker used for anchoring the infobubble to
-          */
-        open(map: google.maps.Map, marker: google.maps.Marker) : void;
+         * Opens the infobubble
+         * @map The google map object
+         * @marker The marker used for anchoring the infobubble to
+         */
+        open(map: google.maps.Map, marker: google.maps.Marker): void;
 
-		/**
-          * Returns the position of the InfoBubble
-          */
+        /**
+         * Returns the position of the InfoBubble
+         */
         getPosition(): google.maps.LatLng;
     }
 
     export interface InfoBubbleOptions {
-
         /**
-          * Percentage from the bottom left corner of the infobubble
-          */
+         * Percentage from the bottom left corner of the infobubble
+         */
         arrowPosition?: number;
 
         arrowSize?: number;
 
         /**
-          * 0: Middle, 1: Left, 2: Right
-          */
+         * 0: Middle, 1: Left, 2: Right
+         */
         arrowStyle?: number;
 
         backgroundColor?: string;
@@ -101,8 +99,8 @@ declare namespace google.maps.infobubble {
         padding?: number;
 
         /**
-          * 0: None, 1: Right, 2: Under
-          */
+         * 0: None, 1: Right, 2: Under
+         */
         shadowStyle?: number;
     }
 }

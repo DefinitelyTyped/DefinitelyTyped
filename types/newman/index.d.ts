@@ -5,13 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { EventEmitter } from "events";
-import {
-    Collection,
-    CollectionDefinition,
-    VariableScope,
-    VariableScopeDefinition
-} from "postman-collection";
+import { EventEmitter } from 'events';
+import { Collection, CollectionDefinition, VariableScope, VariableScopeDefinition } from 'postman-collection';
 
 export interface NewmanRunOptions {
     /** A JSON / Collection / String representing the collection. */
@@ -90,7 +85,7 @@ export interface NewmanRunOptions {
      *
      * Default value: false
      */
-    bail?: boolean | ["folder"] | ["failure"];
+    bail?: boolean | ['folder'] | ['failure'];
     /**
      * If present, allows overriding the default exit code from the current
      * collection run, useful for bypassing collection result failures.
@@ -173,7 +168,8 @@ export interface NewmanRunExecutionAssertionError {
     test: string;
     message: string;
     stack: string;
-}export interface NewmanRunFailure {
+}
+export interface NewmanRunFailure {
     error: NewmanRunExecutionAssertionError;
     /** The event where the failure occurred */
     at: string;

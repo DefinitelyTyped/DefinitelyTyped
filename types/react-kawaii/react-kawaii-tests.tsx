@@ -1,5 +1,17 @@
 import * as React from 'react';
-import { Cat, Planet, Mug, Browser, Backpack, Ghost, File, SpeechBubble, KawaiiMood, KawaiiProps, IceCream } from 'react-kawaii';
+import {
+    Cat,
+    Planet,
+    Mug,
+    Browser,
+    Backpack,
+    Ghost,
+    File,
+    SpeechBubble,
+    KawaiiMood,
+    KawaiiProps,
+    IceCream,
+} from 'react-kawaii';
 
 const PlanetExample = () => <Planet size={200} mood="blissful" color="#FDA7DC" />;
 const MugExample = () => <Mug size={200} mood="ko" color="rebeccapurple" />;

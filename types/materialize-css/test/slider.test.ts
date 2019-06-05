@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -14,7 +14,7 @@ const slider = new materialize.Slider(elem, {
     duration: 1,
     height: 1,
     indicators: true,
-    interval: 1
+    interval: 1,
 });
 
 // $ExpectType void
@@ -34,10 +34,10 @@ slider.prev();
 // $ExpectType void
 slider.start();
 
-$(".whatever").slider();
-$(".whatever").slider({ duration: 1 });
-$(".whatever").slider("destroy");
-$(".whatever").slider("next");
-$(".whatever").slider("pause");
-$(".whatever").slider("prev");
-$(".whatever").slider("start");
+$('.whatever').slider();
+$('.whatever').slider({ duration: 1 });
+$('.whatever').slider('destroy');
+$('.whatever').slider('next');
+$('.whatever').slider('pause');
+$('.whatever').slider('prev');
+$('.whatever').slider('start');

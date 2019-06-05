@@ -164,9 +164,7 @@ export class Column extends React.Component<ColumnProps & React.HTMLProps<HTMLEl
 export class Page extends React.Component<PageProps & React.HTMLProps<HTMLElement>> {}
 export class Row extends React.Component<RowProps & React.HTMLProps<HTMLElement>> {}
 export class Hidden extends React.Component<HiddenProps & React.HTMLProps<HTMLElement>> {}
-export class BreakpointProvider extends React.Component<
-    BreakpointsProps & React.HTMLProps<HTMLElement>
-> {}
+export class BreakpointProvider extends React.Component<BreakpointsProps & React.HTMLProps<HTMLElement>> {}
 export function withBreakpoints<T>(
     wrappedComponent: React.ComponentClass<T & BreakpointsProps>
 ): React.ComponentClass<T>;

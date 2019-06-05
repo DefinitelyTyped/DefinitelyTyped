@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs";
-export * from "fs";
+import * as fs from 'fs';
+export * from 'fs';
 
 /**
  * Asynchronous `rename(2)`.
@@ -65,7 +65,12 @@ export function ftruncate(fd: number, len?: number): Promise<void>;
 /**
  * Asynchronous `chown(2)`.
  */
-export function chown(path: string | Buffer, uid: number, gid: number, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function chown(
+    path: string | Buffer,
+    uid: number,
+    gid: number,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronous `chown(2)`.
@@ -85,7 +90,12 @@ export function fchown(fd: number, uid: number, gid: number): Promise<void>;
 /**
  * (Deprecated) Asynchronous `lchown(2)`.
  */
-export function lchown(path: string | Buffer, uid: number, gid: number, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function lchown(
+    path: string | Buffer,
+    uid: number,
+    gid: number,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * (Deprecated) Asynchronous `lchown(2)`.
@@ -95,7 +105,11 @@ export function lchown(path: string | Buffer, uid: number, gid: number): Promise
 /**
  * Asynchronous `chmod(2)`.
  */
-export function chmod(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function chmod(
+    path: string | Buffer,
+    mode: string | number,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronous `chmod(2)`.
@@ -117,7 +131,11 @@ export function fchmod(fd: number, mode: string | number): Promise<void>;
  *
  * NOTE: Only available on Mac OS X.
  */
-export function lchmod(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function lchmod(
+    path: string | Buffer,
+    mode: string | number,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * (Deprecated) Asynchronous `lchmod(2)`.
@@ -165,7 +183,11 @@ export function fstat(fd: number): Promise<fs.Stats>;
 /**
  * Asynchronous `link(2)`.
  */
-export function link(srcpath: string | Buffer, dstpath: string | Buffer, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function link(
+    srcpath: string | Buffer,
+    dstpath: string | Buffer,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronous `link(2)`.
@@ -175,12 +197,21 @@ export function link(srcpath: string | Buffer, dstpath: string | Buffer): Promis
 /**
  * Asynchronous `symlink(2)`.
  */
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type: string, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function symlink(
+    srcpath: string | Buffer,
+    dstpath: string | Buffer,
+    type: string,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronous `symlink(2)`.
  */
-export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function symlink(
+    srcpath: string | Buffer,
+    dstpath: string | Buffer,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronous `symlink(2)`.
@@ -190,7 +221,10 @@ export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type
 /**
  * Asynchronous `readlink(2)`.
  */
-export function readlink(path: string | Buffer, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
+export function readlink(
+    path: string | Buffer,
+    callback: (err: NodeJS.ErrnoException, linkString: string) => any
+): void;
 
 /**
  * Asynchronous `readlink(2)`.
@@ -200,7 +234,10 @@ export function readlink(path: string | Buffer): Promise<string>;
 /**
  * Asynchronous `realpath(3)`.
  */
-export function realpath(path: string | Buffer, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+export function realpath(
+    path: string | Buffer,
+    callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any
+): void;
 
 /**
  * Asynchronous `realpath(3)`.
@@ -251,7 +288,11 @@ export function rmdir(path: string | Buffer): Promise<void>;
  * @param path The path to the directory.
  * @param mode The mode for the directory (default: `0777`).
  */
-export function mkdir(path: string | Buffer, mode: string | number, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function mkdir(
+    path: string | Buffer,
+    mode: string | number,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronous `mkdir(2)`.
@@ -279,7 +320,11 @@ export function mkdir(path: string | Buffer, mode?: string | number): Promise<vo
  * @param prefix temp dir prefix
  * @param options "$encoding" or {encoding: "$encoding"}
  */
-export function mkdtemp(prefix: string, options: string | {encoding: string}, callback: (err: NodeJS.ErrnoException | undefined, folder: string) => void): void
+export function mkdtemp(
+    prefix: string,
+    options: string | { encoding: string },
+    callback: (err: NodeJS.ErrnoException | undefined, folder: string) => void
+): void;
 
 /**
  * Creates a unique temporary directory.
@@ -287,7 +332,10 @@ export function mkdtemp(prefix: string, options: string | {encoding: string}, ca
  * @param prefix temp dir prefix
  * @param options "$encoding" or {encoding: "$encoding"}
  */
-export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException | undefined, folder: string) => void): void;
+export function mkdtemp(
+    prefix: string,
+    callback: (err: NodeJS.ErrnoException | undefined, folder: string) => void
+): void;
 
 /**
  * Creates a unique temporary directory.
@@ -295,7 +343,7 @@ export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException | 
  * @param prefix temp dir prefix
  * @param options "$encoding" or {encoding: "$encoding"}
  */
-export function mkdtemp(prefix: string, options: string | {encoding: string}): Promise<string>
+export function mkdtemp(prefix: string, options: string | { encoding: string }): Promise<string>;
 
 /**
  * Asynchronous `readdir(3)`.
@@ -324,12 +372,21 @@ export function close(fd: number): Promise<void>;
 /**
  * Asynchronous `open(2)`.
  */
-export function open(path: string | Buffer, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+export function open(
+    path: string | Buffer,
+    flags: string | number,
+    mode: number,
+    callback: (err: NodeJS.ErrnoException, fd: number) => void
+): void;
 
 /**
  * Asynchronous `open(2)`.
  */
-export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+export function open(
+    path: string | Buffer,
+    flags: string | number,
+    callback: (err: NodeJS.ErrnoException, fd: number) => void
+): void;
 
 /**
  * Asynchronous `open(2)`.
@@ -339,7 +396,12 @@ export function open(path: string | Buffer, flags: string | number, mode?: numbe
 /**
  * Change the file timestamps of the file referenced by the supplied path.
  */
-export function utimes(path: string | Buffer, atime: number | Date, mtime: number | Date, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function utimes(
+    path: string | Buffer,
+    atime: number | Date,
+    mtime: number | Date,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Change the file timestamps of the file referenced by the supplied path.
@@ -349,7 +411,12 @@ export function utimes(path: string | Buffer, atime: number | Date, mtime: numbe
 /**
  * Change the file timestamps of a file referenced by the supplied file descriptor.
  */
-export function futimes(fd: number, atime: number | Date, mtime: number | Date, callback: (err?: NodeJS.ErrnoException) => void): void;
+export function futimes(
+    fd: number,
+    atime: number | Date,
+    mtime: number | Date,
+    callback: (err?: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Change the file timestamps of a file referenced by the supplied file descriptor.
@@ -369,17 +436,32 @@ export function fsync(fd: number): Promise<void>;
 /**
  * Write `data` to the file specified by `fd`.
  */
-export function write(fd: number, data: any, position: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+export function write(
+    fd: number,
+    data: any,
+    position: number,
+    encoding: string,
+    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void
+): void;
 
 /**
  * Write `data` to the file specified by `fd`.
  */
-export function write(fd: number, data: any, position: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+export function write(
+    fd: number,
+    data: any,
+    position: number,
+    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void
+): void;
 
 /**
  * Write `data` to the file specified by `fd`.
  */
-export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+export function write(
+    fd: number,
+    data: any,
+    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void
+): void;
 
 /**
  * Write `data` to the file specified by `fd`.
@@ -389,27 +471,59 @@ export function write(fd: number, data: string, position?: number, encoding?: st
 /**
  * Write `buffer` to the file specified by `fd`.
  */
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+export function write(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+    callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void
+): void;
 
 /**
  * Write `buffer` to the file specified by `fd`.
  */
-export function write(fd: number, buffer: Buffer, offset: number, length: number, callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+export function write(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    callback: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void
+): void;
 
 /**
  * Write `buffer` to the file specified by `fd`.
  */
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number): Promise<[number, Buffer]>;
+export function write(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position?: number
+): Promise<[number, Buffer]>;
 
 /**
  * Read data from the file specified by `fd`.
  */
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
+export function read(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+    callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void
+): void;
 
 /**
  * Read data from the file specified by `fd`.
  */
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
+export function read(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number
+): Promise<[number, Buffer]>;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -417,7 +531,11 @@ export function read(fd: number, buffer: Buffer, offset: number, length: number,
  * @param file The filename or descriptor
  * @param options The encoding for the result, or an object containing options.
  */
-export function readFile(file: string | number | Buffer, options: { encoding?: "buffer" | null; flag?: string; } | "buffer" | undefined | null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+export function readFile(
+    file: string | number | Buffer,
+    options: { encoding?: 'buffer' | null; flag?: string } | 'buffer' | undefined | null,
+    callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+): void;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -425,14 +543,21 @@ export function readFile(file: string | number | Buffer, options: { encoding?: "
  * @param file The filename or descriptor
  * @param options The encoding for the result, or an object containing options.
  */
-export function readFile(file: string | number | Buffer, options: { encoding: string; flag?: string; } | string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+export function readFile(
+    file: string | number | Buffer,
+    options: { encoding: string; flag?: string } | string,
+    callback: (err: NodeJS.ErrnoException, data: string) => void
+): void;
 
 /**
  * Asynchronously reads the entire contents of a file.
  *
  * @param file The filename or descriptor
  */
-export function readFile(file: string | number | Buffer, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+export function readFile(
+    file: string | number | Buffer,
+    callback: (err: NodeJS.ErrnoException, data: Buffer) => void
+): void;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -440,7 +565,10 @@ export function readFile(file: string | number | Buffer, callback: (err: NodeJS.
  * @param file The filename or descriptor
  * @param options The encoding for the result, or an object containing options.
  */
-export function readFile(file: string | number | Buffer, options?: { encoding?: "buffer" | null; flag?: string; } | "buffer" | null): Promise<Buffer>;
+export function readFile(
+    file: string | number | Buffer,
+    options?: { encoding?: 'buffer' | null; flag?: string } | 'buffer' | null
+): Promise<Buffer>;
 
 /**
  * Asynchronously reads the entire contents of a file.
@@ -448,22 +576,38 @@ export function readFile(file: string | number | Buffer, options?: { encoding?: 
  * @param file The filename or descriptor
  * @param options The encoding for the result, or an object containing options.
  */
-export function readFile(file: string | number | Buffer, options: { encoding: string; flag?: string; } | string): Promise<string>;
+export function readFile(
+    file: string | number | Buffer,
+    options: { encoding: string; flag?: string } | string
+): Promise<string>;
 
 /**
  * Asynchronously writes data to a file, replacing the file if it already exists.
  */
-export function writeFile(filename: string | number | Buffer, data: string | Buffer, options: { encoding?: string | null; mode?: string | number; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+export function writeFile(
+    filename: string | number | Buffer,
+    data: string | Buffer,
+    options: { encoding?: string | null; mode?: string | number; flag?: string } | string | undefined | null,
+    callback: (err: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronously writes data to a file, replacing the file if it already exists.
  */
-export function writeFile(filename: string | number | Buffer, data: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
+export function writeFile(
+    filename: string | number | Buffer,
+    data: string | Buffer,
+    callback: (err: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronously writes data to a file, replacing the file if it already exists.
  */
-export function writeFile(file: string | number | Buffer, data: string | Buffer, options?: { encoding?: string | null; mode?: string | number; flag?: string; } | string | null): Promise<void>;
+export function writeFile(
+    file: string | number | Buffer,
+    data: string | Buffer,
+    options?: { encoding?: string | null; mode?: string | number; flag?: string } | string | null
+): Promise<void>;
 
 /**
  * Asynchronously append data to a file, creating the file if it does not yet exist.
@@ -472,7 +616,12 @@ export function writeFile(file: string | number | Buffer, data: string | Buffer,
  * @param data The data to append to the file.
  * @param options The encoding for `data`, or an object with additional options.
  */
-export function appendFile(file: string | number | Buffer, data: string | Buffer, options: { encoding?: string | null; mode?: string | number; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+export function appendFile(
+    file: string | number | Buffer,
+    data: string | Buffer,
+    options: { encoding?: string | null; mode?: string | number; flag?: string } | string | undefined | null,
+    callback: (err: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronously append data to a file, creating the file if it does not yet exist.
@@ -480,7 +629,11 @@ export function appendFile(file: string | number | Buffer, data: string | Buffer
  * @param file The path to the file or a file descriptor.
  * @param data The data to append to the file.
  */
-export function appendFile(file: string | number | Buffer, data: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
+export function appendFile(
+    file: string | number | Buffer,
+    data: string | Buffer,
+    callback: (err: NodeJS.ErrnoException) => void
+): void;
 
 /**
  * Asynchronously append data to a file, creating the file if it does not yet exist.
@@ -489,7 +642,11 @@ export function appendFile(file: string | number | Buffer, data: string | Buffer
  * @param data The data to append to the file.
  * @param options The encoding for `data`, or an object with additional options.
  */
-export function appendFile(file: string | number | Buffer, data: string | Buffer, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): Promise<void>;
+export function appendFile(
+    file: string | number | Buffer,
+    data: string | Buffer,
+    options?: { encoding?: string | null; mode?: number | string; flag?: string } | string | null
+): Promise<void>;
 
 /**
  * Test whether or not the given path exists by checking with the file system.

@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "memwatch-next" {
+declare module 'memwatch-next' {
     type EventCallback = (data: LeakInformation | StatsInformation | Object) => void;
 
     /**
@@ -41,7 +41,7 @@ declare module "memwatch-next" {
          * End date.
          * @type {Date}
          */
-        end: Date,
+        end: Date;
 
         /**
          * Growth.

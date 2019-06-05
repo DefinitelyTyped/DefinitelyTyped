@@ -1,4 +1,3 @@
-
 import inherits = require('inherits');
 
 let any: any;

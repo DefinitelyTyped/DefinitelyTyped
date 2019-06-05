@@ -16,7 +16,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar
          */
         interface SeriesRadar {
-
             /**
              * @default
              * "radar"
@@ -178,7 +177,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -637,12 +635,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -974,7 +970,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -1090,7 +1085,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * Line color.
                  *
@@ -1191,7 +1185,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle
              */
             areaStyle?: {
-
                 /**
                  * Fill color.
                  *
@@ -1265,12 +1258,10 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1371,7 +1362,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1830,12 +1820,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2166,7 +2154,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -2264,7 +2251,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle
                  */
                 areaStyle?: {
-
                     /**
                      * Fill color.
                      *
@@ -2508,7 +2494,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -2763,7 +2748,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -2960,7 +2944,6 @@ declare namespace echarts {
 
         namespace SeriesRadar {
             interface DataObject {
-
                 /**
                  * Data item name
                  *
@@ -3083,7 +3066,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -3500,12 +3482,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3839,7 +3819,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Bar color..
                      *
@@ -3924,7 +3903,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -4025,7 +4003,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle
                  */
                 areaStyle?: {
-
                     /**
                      * Fill color.
                      *
@@ -4099,12 +4076,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -4525,12 +4500,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4873,7 +4846,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * Bar color..
                          *
@@ -4956,7 +4928,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle
                      */
                     lineStyle?: {
-
                         /**
                          * Line color.
                          *
@@ -5055,7 +5026,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle
                      */
                     areaStyle?: {
-
                         /**
                          * Fill color.
                          *
@@ -5134,7 +5104,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
@@ -5384,7 +5353,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

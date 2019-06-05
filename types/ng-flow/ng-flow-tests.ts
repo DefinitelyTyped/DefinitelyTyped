@@ -1,4 +1,2 @@
-
-
 var flowFactory: ng.flow.IFlowFactory;
-flowFactory.create(<flowjs.IFlowOptions> {});
+flowFactory.create(<flowjs.IFlowOptions>{});

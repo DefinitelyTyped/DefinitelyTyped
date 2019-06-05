@@ -34,4 +34,4 @@ export { default as View } from 'ol/View';
 export { default as WebGLMap } from 'ol/WebGLMap';
 export { VERSION } from 'ol/util';
 export function getUid(obj: { [key: string]: any }): string;
-export function inherits(childCtor: (() => void), parentCtor: (() => void)): void;
+export function inherits(childCtor: () => void, parentCtor: () => void): void;

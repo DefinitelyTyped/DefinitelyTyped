@@ -1,10 +1,7 @@
-import * as Modal from "./Modal";
+import * as Modal from './Modal';
 
 declare class ModalManager {
-    constructor(opts?: {
-        hideSiblingNodes?: boolean;
-        handleContainerOverflow?: boolean;
-    });
+    constructor(opts?: { hideSiblingNodes?: boolean; handleContainerOverflow?: boolean });
     isContainerOverflowing(modal: Modal): boolean;
     containerIndexFromModal(modal: Modal): number;
     setContainerStyle(containerState: any, container: any): void;

@@ -163,11 +163,13 @@ declare namespace Sortable {
          * Specify in pixels how far the mouse should move before it's considered as a drag.
          */
         fallbackTolerance?: number;
-        fallbackOffset?: { x: number, y: number };
+        fallbackOffset?: { x: number; y: number };
         /**
          * Selectors that do not lead to dragging (String or Function)
          */
-        filter?: string | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
+        filter?:
+            | string
+            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
         /**
          * ignore the HTML5 DnD behaviour and force the fallback to kick in
          */
@@ -194,7 +196,7 @@ declare namespace Sortable {
         /**
          * if you have custom scrollbar scrollFn may be used for autoscrolling
          */
-        scrollFn?: ((this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void);
+        scrollFn?: (this: Sortable, offsetX: number, offsetY: number, event: MouseEvent) => void;
         /**
          * px, how near the mouse must be to an edge to start scrolling.
          */
@@ -302,7 +304,11 @@ declare namespace Sortable {
          * @param tagName A tag name.
          * @param iterator An iterator.
          */
-        find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
+        find(
+            context: HTMLElement,
+            tagName: string,
+            iterator?: (value: HTMLElement, index: number) => void
+        ): NodeListOf<HTMLElement>;
 
         /**
          * Check the current matched set of elements against a selector.

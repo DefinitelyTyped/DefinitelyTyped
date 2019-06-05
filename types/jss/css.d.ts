@@ -5,13 +5,10 @@ import * as csstype from 'csstype';
 
 export type Length = string | number;
 
-export type ObservableProperties<P> = {
-    [K in keyof P]: P[K] | Observable<P[K]>
-};
+export type ObservableProperties<P> = { [K in keyof P]: P[K] | Observable<P[K]> };
 
-export type CSSProperties =
-	& ObservableProperties<csstype.Properties<Length>>
-	& ObservableProperties<csstype.PropertiesHyphen<Length>>;
+export type CSSProperties = ObservableProperties<csstype.Properties<Length>> &
+    ObservableProperties<csstype.PropertiesHyphen<Length>>;
 
 export interface JssProps {
     '@global'?: CSSProperties;

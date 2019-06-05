@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as Mongoose from "mongoose";
-import * as Joi from "joi";
+import * as Mongoose from 'mongoose';
+import * as Joi from 'joi';
 
 declare namespace Joigoose {
     interface Joigoose {

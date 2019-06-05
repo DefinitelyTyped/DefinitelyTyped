@@ -7,7 +7,6 @@
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
 declare namespace Chroma {
-
     export interface ChromaStatic {
         /**
          * Creates a color from a string representation (as supported in CSS).
@@ -155,7 +154,7 @@ declare namespace Chroma {
          *
          * @param color The string to convert to a color.
          */
-        new(color: string): Color;
+        new (color: string): Color;
 
         /**
          * Create a color in the specified color space using a, b and c as values.
@@ -165,7 +164,7 @@ declare namespace Chroma {
          * @param c
          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
          */
-        new(a: number, b: number, c: number, colorSpace?: string): Color;
+        new (a: number, b: number, c: number, colorSpace?: string): Color;
 
         /**
          * Create a color in the specified color space using a, b and c as color values and alpha as the alpha value.
@@ -176,7 +175,7 @@ declare namespace Chroma {
          * @param alpha The alpha value of the color.
          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
          */
-        new(a: number, b: number, c: number, alpha: number, colorSpace?: string): Color;
+        new (a: number, b: number, c: number, alpha: number, colorSpace?: string): Color;
 
         /**
          * Create a color in the specified color space using values.
@@ -184,7 +183,7 @@ declare namespace Chroma {
          * @param values An array of values (e.g. [r, g, b, a?]).
          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
          */
-        new(values: number[], colorSpace: string): Color;
+        new (values: number[], colorSpace: string): Color;
 
         /**
          * Convert this color to CSS hex representation.
@@ -311,7 +310,6 @@ declare namespace Chroma {
          */
         range(colors: string[]): Scale;
     }
-
 }
 
 declare var chroma: Chroma.ChromaStatic;

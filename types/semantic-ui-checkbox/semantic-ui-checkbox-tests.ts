@@ -42,7 +42,7 @@ function test_checkbox() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox({
@@ -97,17 +97,17 @@ function test_checkbox() {
         },
         selector: {
             input: 'input',
-            label: 'label'
+            label: 'label',
         },
         className: {
             checked: 'checked',
             disabled: 'disabled',
             radio: 'radio',
-            readOnly: 'read-only'
+            readOnly: 'read-only',
         },
         error: {
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).checkbox(); // $ExpectType JQuery<HTMLElement>
 

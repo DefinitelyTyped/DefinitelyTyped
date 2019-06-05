@@ -4,7 +4,7 @@
 
 $(document).on('ready', () => {
     function checkBrowserSupport() {
-        console.log("Native Browser support: ", $.fullscreen.isNativelySupported());
+        console.log('Native Browser support: ', $.fullscreen.isNativelySupported());
     }
 
     function activateFullscreen() {
@@ -16,8 +16,8 @@ $(document).on('ready', () => {
     }
 
     function fullscreenStatus() {
-        var state = ($.fullscreen.isFullScreen()) ? 'is active' : 'is inactive' ;
-        console.log("Fullscreen is %s", state);
+        var state = $.fullscreen.isFullScreen() ? 'is active' : 'is inactive';
+        console.log('Fullscreen is %s', state);
     }
 
     function runTests() {

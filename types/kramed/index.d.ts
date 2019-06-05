@@ -61,11 +61,11 @@ export interface KramedStatic {
     setOptions(options: KramedOptions): KramedStatic;
 
     Renderer: {
-        new(): KramedRenderer;
+        new (): KramedRenderer;
     };
 
     Parser: {
-        new(options: KramedOptions): KramedParser;
+        new (options: KramedOptions): KramedParser;
     };
 }
 
@@ -80,10 +80,13 @@ export interface KramedRenderer {
     paragraph(text: string): string;
     table(header: string, body: string): string;
     tablerow(content: string): string;
-    tablecell(content: string, flags: {
-        header: boolean,
-        align: string
-    }): string;
+    tablecell(
+        content: string,
+        flags: {
+            header: boolean;
+            align: string;
+        }
+    ): string;
     strong(text: string): string;
     em(text: string): string;
     codespan(code: string): string;

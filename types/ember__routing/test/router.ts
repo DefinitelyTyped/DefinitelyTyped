@@ -2,8 +2,7 @@ import Router from '@ember/routing/router';
 import Service, { inject as service } from '@ember/service';
 import EmberObject, { get } from '@ember/object';
 
-const AppRouter = Router.extend({
-});
+const AppRouter = Router.extend({});
 
 AppRouter.map(function() {
     this.route('index', { path: '/' });
@@ -22,7 +21,7 @@ AppRouter.map(function() {
     });
     this.route('not-found', { path: '/*path' });
     this.mount('my-engine');
-    this.mount('my-engine', { as: 'some-other-engine', path: '/some-other-engine'});
+    this.mount('my-engine', { as: 'some-other-engine', path: '/some-other-engine' });
 });
 
 const RouterServiceConsumer = Service.extend({
@@ -34,23 +33,19 @@ const RouterServiceConsumer = Service.extend({
         const x: string = get(this, 'router').currentURL;
     },
     transitionWithoutModel() {
-        get(this, 'router')
-        .transitionTo('some-route');
+        get(this, 'router').transitionTo('some-route');
     },
     transitionWithModel() {
         const model = EmberObject.create();
-        get(this, 'router')
-        .transitionTo('some.other.route', model);
+        get(this, 'router').transitionTo('some.other.route', model);
     },
     transitionWithMultiModel() {
         const model = EmberObject.create();
-        get(this, 'router')
-        .transitionTo('some.other.route', model, model);
+        get(this, 'router').transitionTo('some.other.route', model, model);
     },
     transitionWithModelAndOptions() {
         const model = EmberObject.create();
-        get(this, 'router')
-        .transitionTo('index', model, { queryParams: { search: 'ember' }});
+        get(this, 'router').transitionTo('index', model, { queryParams: { search: 'ember' } });
     },
     onAndRouteInfo() {
         const router = get(this, 'router');

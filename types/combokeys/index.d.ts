@@ -37,7 +37,6 @@ declare namespace Combokeys {
          */
         bind(keys: string | string[], callback: (event: KeyboardEvent) => void, action?: string): void;
 
-
         /**
          * binds multiple combinations to the same callback
          *
@@ -102,6 +101,6 @@ declare namespace Combokeys {
 
 declare var combokeys: Combokeys.CombokeysStatic;
 
-declare module "combokeys" {
+declare module 'combokeys' {
     export = combokeys;
 }

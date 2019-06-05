@@ -12,22 +12,28 @@ declare class ExpressOAuthServer {
 
     constructor(options: OAuth2Server.ServerOptions);
 
-    authenticate(options?: OAuth2Server.AuthenticateOptions): (
+    authenticate(
+        options?: OAuth2Server.AuthenticateOptions
+    ): (
         request: express.Request,
         response: express.Response,
-        next: express.NextFunction,
+        next: express.NextFunction
     ) => Promise<OAuth2Server.Token>;
 
-    authorize(options?: OAuth2Server.AuthorizeOptions): (
+    authorize(
+        options?: OAuth2Server.AuthorizeOptions
+    ): (
         request: express.Request,
         response: express.Response,
-        next: express.NextFunction,
+        next: express.NextFunction
     ) => Promise<OAuth2Server.AuthorizationCode>;
 
-    token(options?: OAuth2Server.TokenOptions): (
+    token(
+        options?: OAuth2Server.TokenOptions
+    ): (
         request: express.Request,
         response: express.Response,
-        next: express.NextFunction,
+        next: express.NextFunction
     ) => Promise<OAuth2Server.Token>;
 }
 

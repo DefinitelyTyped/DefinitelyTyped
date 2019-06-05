@@ -1,4 +1,3 @@
-
 // From https://hapijs.com/api/16.1.1#serverconnectionoptions
 
 import * as Hapi from '../../';
@@ -13,8 +12,7 @@ admin.connections.length === 1;
 
 // example 2
 
-var registerFunction: Hapi.PluginFunction<{}> = function (srv, options, next) {
-
+var registerFunction: Hapi.PluginFunction<{}> = function(srv, options, next) {
     // Use the 'srv' argument to add a new connection
 
     const server = srv.connection();
@@ -24,10 +22,9 @@ var registerFunction: Hapi.PluginFunction<{}> = function (srv, options, next) {
     server.route({
         path: '/',
         method: 'GET',
-        handler: function (request, reply) {
-
+        handler: function(request, reply) {
             return reply('hello');
-        }
+        },
     });
 
     return next();
@@ -35,5 +32,5 @@ var registerFunction: Hapi.PluginFunction<{}> = function (srv, options, next) {
 
 registerFunction.attributes = {
     name: 'example',
-    connections: false
+    connections: false,
 };

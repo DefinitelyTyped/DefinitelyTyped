@@ -1,14 +1,11 @@
 declare namespace pc {
-
     /**
      * @name pc.Node
      * @class A animation node has a name and contains an array of keyframes.
      * @description Create a new animation node
      * @returns {pc.Node} A new pc.Node.
      */
-    class Node {
-
-    }
+    class Node {}
 
     /**
      * @name pc.Animation

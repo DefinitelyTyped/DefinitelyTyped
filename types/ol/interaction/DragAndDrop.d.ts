@@ -9,9 +9,9 @@ import Projection from 'ol/proj/Projection';
 import VectorSource from 'ol/source/Vector';
 export default class DragAndDrop extends Interaction {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): EventsKey;
     once(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): EventsKey;
     un(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): void;

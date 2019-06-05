@@ -1,4 +1,4 @@
-import { Component, ComponentType } from "react";
+import { Component, ComponentType } from 'react';
 
 export interface FormSectionProps<P> {
     name: string;

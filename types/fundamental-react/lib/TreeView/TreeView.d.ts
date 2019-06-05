@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type TreeViewProps = {
     /* Object with rowId keys and boolean values representing whether that row is expanded. This variable is handled internally, but can be overridden by the consumer through this prop. */

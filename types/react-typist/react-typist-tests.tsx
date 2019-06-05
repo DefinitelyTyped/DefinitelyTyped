@@ -1,17 +1,17 @@
-import * as React from "react";
-import Typist from "react-typist";
+import * as React from 'react';
+import Typist from 'react-typist';
 
 class ReactTypist extends React.Component {
     state = {
-        renderMsg: false
+        renderMsg: false,
     };
 
     onHeaderTyped = () => {
         this.setState({ renderMsg: true });
-    }
+    };
 
     render() {
-        const docs = "//github.com/jstejada/react-typist";
+        const docs = '//github.com/jstejada/react-typist';
         return (
             <div className="TypistExample">
                 <Typist
@@ -24,10 +24,7 @@ class ReactTypist extends React.Component {
                 </Typist>
                 <div className="TypistExample-content">
                     {this.state.renderMsg ? (
-                        <Typist
-                            className="TypistExample-message"
-                            cursor={{ hideWhenDone: true }}
-                        >
+                        <Typist className="TypistExample-message" cursor={{ hideWhenDone: true }}>
                             * Easy to style
                             <Typist.Delay ms={1250} />
                             <br />
@@ -43,13 +40,13 @@ class ReactTypist extends React.Component {
                             <Typist.Delay ms={1250} />
                             <br />
                             <span>
-                                *{" "}
+                                *{' '}
                                 <a href={docs} className="flash">
                                     docs
                                 </a>
                             </span>
                             <br />
-                            {""}
+                            {''}
                         </Typist>
                     ) : null}
                 </div>

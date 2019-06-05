@@ -13,24 +13,24 @@ import { MarkSpec, NodeSpec, Schema } from 'prosemirror-model';
  * [Specs](#model.NodeSpec) for the nodes defined in this schema.
  */
 export let nodes: {
-  doc: NodeSpec;
-  paragraph: NodeSpec;
-  blockquote: NodeSpec;
-  horizontal_rule: NodeSpec;
-  heading: NodeSpec;
-  code_block: NodeSpec;
-  text: NodeSpec;
-  image: NodeSpec;
-  hard_break: NodeSpec;
+    doc: NodeSpec;
+    paragraph: NodeSpec;
+    blockquote: NodeSpec;
+    horizontal_rule: NodeSpec;
+    heading: NodeSpec;
+    code_block: NodeSpec;
+    text: NodeSpec;
+    image: NodeSpec;
+    hard_break: NodeSpec;
 };
 /**
  * [Specs](#model.MarkSpec) for the marks in the schema.
  */
 export let marks: {
-  link: MarkSpec;
-  em: MarkSpec;
-  strong: MarkSpec;
-  code: MarkSpec;
+    link: MarkSpec;
+    em: MarkSpec;
+    strong: MarkSpec;
+    code: MarkSpec;
 };
 /**
  * This schema rougly corresponds to the document schema used by

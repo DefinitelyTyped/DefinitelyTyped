@@ -6,7 +6,7 @@
 import Client = require('nes/client');
 
 const options: Client.ClientConnectOptions = {
-    delay: 3
-}
+    delay: 3,
+};
 
 const client: Client = new Client('ws://localhost', options);

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.VertexIterator
      * @class A vertex iterator simplifies the process of writing vertex data to a vertex buffer.
@@ -8,7 +7,7 @@ declare namespace pc {
      * @author Will Eastcott
      */
     class VertexIterator {
-        constructor(vertexBuffer: pc.VertexBuffer)
+        constructor(vertexBuffer: pc.VertexBuffer);
 
         element: any;
 

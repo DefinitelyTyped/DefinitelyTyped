@@ -28,7 +28,7 @@ declare namespace Tail {
 
     interface TailConstructor {
         /** Creates a new Tail object that starts watching the specified file immediately. */
-        new(filename: string, options?: TailOptions): Tail;
+        new (filename: string, options?: TailOptions): Tail;
     }
 
     interface Static {

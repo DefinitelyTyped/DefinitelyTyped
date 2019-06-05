@@ -1,2 +1,2 @@
-import { flatten } from "../fp";
+import { flatten } from '../fp';
 export = flatten;

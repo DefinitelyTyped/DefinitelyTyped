@@ -184,7 +184,7 @@ export class Scrollbar {
 /**
  * Parallax module.
  */
-export class Parallax { }
+export class Parallax {}
 
 /**
  * Zoom module.
@@ -256,18 +256,17 @@ export class Controller {
 /**
  * Accessibility module (a11y$)
  */
-export class A11y { }
+export class A11y {}
 
 /**
  * History Navigation module.
  */
-export class History { }
+export class History {}
 
 /**
  * Hash Navigation module.
  */
-export class HashNavigation {
-}
+export class HashNavigation {}
 
 /**
  * Autoplay module.
@@ -294,19 +293,19 @@ export class Autoplay {
 /**
  * Fade Effect module.
  */
-export class EffectFade { }
+export class EffectFade {}
 
 /**
  * Cube Effect module.
  */
-export class EffectCube { }
+export class EffectCube {}
 
 /**
  * Flip Effect module.
  */
-export class EffectFlip { }
+export class EffectFlip {}
 
 /**
  * Coverflow Effect module.
  */
-export class EffectCoverflow { }
+export class EffectCoverflow {}

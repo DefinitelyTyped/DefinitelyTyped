@@ -20,7 +20,8 @@ function logNode(node: commonmark.Node) {
         node.prev,
         node.sourcepos,
         node.title,
-        node.type);
+        node.type
+    );
 }
 
 const parser = new commonmark.Parser({ smart: true, time: true });

@@ -1,13 +1,6 @@
-import { ComponentClass, ClassAttributes } from "react";
-import { LocationState } from "history";
-import {
-    EnterHook,
-    ChangeHook,
-    LeaveHook,
-    RouteComponent,
-    RouteComponents,
-    RouterState
-} from "react-router";
+import { ComponentClass, ClassAttributes } from 'react';
+import { LocationState } from 'history';
+import { EnterHook, ChangeHook, LeaveHook, RouteComponent, RouteComponents, RouterState } from 'react-router';
 
 type ComponentCallback = (err: any, component: RouteComponent) => any;
 type ComponentsCallback = (err: any, components: RouteComponents) => any;

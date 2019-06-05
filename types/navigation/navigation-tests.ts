@@ -1,7 +1,7 @@
 import { Crumb, HashHistoryManager, StateNavigator, State } from 'navigation';
 
 // History Manager
-class LogHistoryManager extends HashHistoryManager  {
+class LogHistoryManager extends HashHistoryManager {
     addHistory(url: string) {
         console.log('add history');
         super.addHistory(url, false);
@@ -11,7 +11,7 @@ class LogHistoryManager extends HashHistoryManager  {
 // Configuration
 const config = [
     { key: 'people', route: ['people/{page}', 'people/{page}/sort/{sort}'], defaults: { page: 1 }, help: 'people.htm' },
-    { key: 'person', route: 'person/{id}', trackTypes: false, defaultTypes: { id: 'number' }, trackCrumbTrail: true }
+    { key: 'person', route: 'person/{id}', trackTypes: false, defaultTypes: { id: 'number' }, trackCrumbTrail: true },
 ];
 const stateNavigator = new StateNavigator(config);
 stateNavigator.configure(config, new LogHistoryManager());
@@ -33,7 +33,7 @@ people.navigated = (data, asyncData) => {};
 person.navigating = (data, url, navigate) => {
     navigate();
 };
-person.navigated = (data) => {};
+person.navigated = data => {};
 person.urlEncode = function urlEncode(state: State, key: string, val: string, queryString: boolean): string {
     return queryString ? val.replace(/\s/g, '+') : encodeURIComponent(val);
 };
@@ -73,13 +73,13 @@ link = crumb.url;
 stateNavigator.navigateLink(link, 'none', true);
 
 // Fluent Navigation
-link = stateNavigator.fluent()
+link = stateNavigator
+    .fluent()
     .navigate('people')
     .refresh()
     .refresh({ page: 3 })
     .navigate('person', { id: 10 })
-    .navigateBack(1)
-    .url;
+    .navigateBack(1).url;
 
 // State Context
 let state: State = stateNavigator.stateContext.state;

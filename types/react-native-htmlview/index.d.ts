@@ -5,14 +5,7 @@
 // TypeScript Version: 2.8
 
 import { Component, ComponentType, ReactNode } from 'react';
-import {
-    StyleProp,
-    TextProperties,
-    ViewProperties,
-    TextStyle,
-    ViewStyle,
-    ImageStyle,
-} from 'react-native';
+import { StyleProp, TextProperties, ViewProperties, TextStyle, ViewStyle, ImageStyle } from 'react-native';
 
 export interface HTMLViewNode {
     data?: string;

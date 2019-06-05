@@ -10,7 +10,7 @@ cors({
     origin: '*',
     allowHeaders: [],
     allowMethods: [],
-    exposeHeaders: []
+    exposeHeaders: [],
 });
 
 handler(async (req, res) => {});

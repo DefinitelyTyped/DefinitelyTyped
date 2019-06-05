@@ -1,7 +1,11 @@
 // Test map
 var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
-var squares: KnockoutObservableArray<number> = sourceItems.map(function (x) { return x * x; });
-var squaresAsStrings: KnockoutObservableArray<string> = sourceItems.map(function (x) { return (x * x).toString(); });
+var squares: KnockoutObservableArray<number> = sourceItems.map(function(x) {
+    return x * x;
+});
+var squaresAsStrings: KnockoutObservableArray<string> = sourceItems.map(function(x) {
+    return (x * x).toString();
+});
 
 sourceItems.push(6);
 // 'squares' has automatically updated and now contains [1, 4, 9, 16, 25, 36]
@@ -13,7 +17,9 @@ sourceItems.reverse();
 
 // Test Filtering
 
-var evenSquares: KnockoutObservableArray<number> = squares.filter(function (x) { return x % 2 === 0; });
+var evenSquares: KnockoutObservableArray<number> = squares.filter(function(x) {
+    return x % 2 === 0;
+});
 // evenSquares is now an observable containing [36, 16, 4]
 
 sourceItems.push(9);
@@ -22,7 +28,7 @@ sourceItems.push(9);
 sourceItems.push(10);
 // evenSquares now contains [36, 16, 4, 100]
 
-var sortedEvenSquares: KnockoutObservableArray<number> = evenSquares.sortBy(function (evenSquare, descending) {
+var sortedEvenSquares: KnockoutObservableArray<number> = evenSquares.sortBy(function(evenSquare, descending) {
     return descending(evenSquare);
 });
 // sortedEvenSquares now contains [100, 36, 16, 4]
@@ -38,21 +44,21 @@ class Person {
 }
 
 var persons: KnockoutObservableArray<Person> = ko.observableArray([
-    new Person("Marilyn Monroe", 1926),
-    new Person("Abraham Lincoln", 1809),
-    new Person("Mother Teresa", 1910),
-    new Person("John F. Kennedy", 1917),
-    new Person("Martin Luther King", 1929),
-    new Person("Nelson Mandela", 1918),
-    new Person("Winston Churchill", 1874),
-    new Person("Bill Gates", 1955),
-    new Person("Muhammad Ali", 1942),
-    new Person("Mahatma Gandhi", 1869),
-    new Person("Queen Elizabeth II", 1926)
+    new Person('Marilyn Monroe', 1926),
+    new Person('Abraham Lincoln', 1809),
+    new Person('Mother Teresa', 1910),
+    new Person('John F. Kennedy', 1917),
+    new Person('Martin Luther King', 1929),
+    new Person('Nelson Mandela', 1918),
+    new Person('Winston Churchill', 1874),
+    new Person('Bill Gates', 1955),
+    new Person('Muhammad Ali', 1942),
+    new Person('Mahatma Gandhi', 1869),
+    new Person('Queen Elizabeth II', 1926),
 ]);
 
 // Persons sorted by name
-var sortedByName: KnockoutObservableArray<Person> = persons.sortBy(function (person) {
+var sortedByName: KnockoutObservableArray<Person> = persons.sortBy(function(person) {
     return person.name();
 });
 
@@ -72,7 +78,7 @@ var sortedByName: KnockoutObservableArray<Person> = persons.sortBy(function (per
 // ]
 
 // Persons sorted by year of birth descending and then by name
-var sortedByYearOfBirthAndThenName: KnockoutObservableArray<Person> = persons.sortBy(function (person, descending) {
+var sortedByYearOfBirthAndThenName: KnockoutObservableArray<Person> = persons.sortBy(function(person, descending) {
     return [descending(person.yearOfBirth()), person.name()];
 });
 
@@ -91,7 +97,7 @@ var sortedByYearOfBirthAndThenName: KnockoutObservableArray<Person> = persons.so
 //     new Person("Muhammad Ali", 1942)
 // ]
 
-var squareIndex: KnockoutObservable<{ [index: string]: number[] }> = squares.indexBy(function (square) {
+var squareIndex: KnockoutObservable<{ [index: string]: number[] }> = squares.indexBy(function(square) {
     return square % 2 === 0 ? 'even' : 'odd';
 });
 
@@ -99,7 +105,7 @@ var squareIndex: KnockoutObservable<{ [index: string]: number[] }> = squares.ind
 // { even: [36, 16, 4], odd: [25, 9, 1] }
 
 // Persons indexed by year of birth
-var personsIndexedByYearBirth: KnockoutObservable<{ [index: number]: Person[] }> = persons.indexBy(function (person) {
+var personsIndexedByYearBirth: KnockoutObservable<{ [index: number]: Person[] }> = persons.indexBy(function(person) {
     return person.yearOfBirth();
 });
 
@@ -121,7 +127,7 @@ var personsIndexedByYearBirth: KnockoutObservable<{ [index: number]: Person[] }>
 // Persons indexed uniquely by name.
 // Notice unique indexes requires items to map to distint keys;
 // otherwise an exception is thrown.
-var personsIndexedByName: KnockoutObservable<{ [name: string]: Person }> = persons.uniqueIndexBy(function (person) {
+var personsIndexedByName: KnockoutObservable<{ [name: string]: Person }> = persons.uniqueIndexBy(function(person) {
     return person.name();
 });
 
@@ -142,7 +148,7 @@ var personsIndexedByName: KnockoutObservable<{ [name: string]: Person }> = perso
 
 var texts: KnockoutObservableArray<string> = ko.observableArray(['foo', 'bar', 'baz', 'qux', 'quux']);
 // Index texts by
-var indexedTexts: KnockoutObservable<{ [suffixOrPrefix: string]: string[] }> = texts.indexBy(function (text) {
+var indexedTexts: KnockoutObservable<{ [suffixOrPrefix: string]: string[] }> = texts.indexBy(function(text) {
     var firstLetter = text[0];
     var lastLetter = text[text.length - 1];
     return [firstLetter, lastLetter];
@@ -159,45 +165,43 @@ var indexedTexts: KnockoutObservable<{ [suffixOrPrefix: string]: string[] }> = t
 //     x: ['qux', 'quux']
 // }
 
+() => {
+    var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
+    var asString: KnockoutObservableArray<string>;
 
-(() => {
-	var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);
-	var asString: KnockoutObservableArray<string>;
+    asString = sourceItems.map((x: number) => x.toString());
 
-	asString = sourceItems.map((x: number) => x.toString());
+    asString = sourceItems.map<string>({
+        mapping: (x: number) => x.toString(),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: (x: number) => x.toString(),
-	});
+    asString = sourceItems.map<string>({
+        mapping: (x: number) => x.toString(),
+        disposeItem: (x: string) => console.log('disposing map to', x),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: (x: number) => x.toString(),
-		disposeItem: (x: string) => console.log('disposing map to', x),
-	});
+    asString = sourceItems.map<string>({
+        mappingWithDisposeCallback: (x: number) => ({
+            mappedValue: x.toString(),
+            dispose: () => console.log('disposing map from', x),
+        }),
+    });
 
-	asString = sourceItems.map<string>({
-		mappingWithDisposeCallback: (x: number) => ({
-			mappedValue: x.toString(),
-			dispose: () => console.log('disposing map from', x),
-		}),
-	});
+    asString = sourceItems.map(x => x.toString());
 
-	asString = sourceItems.map(x => x.toString());
+    asString = sourceItems.map({
+        mapping: x => x.toString(),
+    });
 
-	asString = sourceItems.map({
-		mapping: x => x.toString(),
-	});
+    asString = sourceItems.map<string>({
+        mapping: x => x.toString(),
+        disposeItem: x => console.log('disposing map to', x),
+    });
 
-	asString = sourceItems.map<string>({
-		mapping: x => x.toString(),
-		disposeItem: x => console.log('disposing map to', x),
-	});
-
-	asString = sourceItems.map({
-		mappingWithDisposeCallback: x => ({
-			mappedValue: x.toString(),
-			dispose: () => console.log('disposing map from', x),
-		}),
-	});
-
-});
+    asString = sourceItems.map({
+        mappingWithDisposeCallback: x => ({
+            mappedValue: x.toString(),
+            dispose: () => console.log('disposing map from', x),
+        }),
+    });
+};

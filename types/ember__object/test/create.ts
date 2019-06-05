@@ -16,7 +16,7 @@ assertType<(key: keyof EmberObject) => any>(o.get); // from prototype
 /**
  * One-argument case
  */
-const o1 = EmberObject.create({x: 9, y: 'hello', z: false});
+const o1 = EmberObject.create({ x: 9, y: 'hello', z: false });
 assertType<number>(o1.x);
 assertType<string>(o1.y);
 o1.y; // $ExpectType string
@@ -46,7 +46,7 @@ const p2b = Person.create({}, { firstName: 'string' });
 const p2c = Person.create({}, {}, { firstName: 'string' });
 
 export class PersonWithNumberName extends Person.extend({
-  fullName: 6
+    fullName: 6,
 }) {}
 
 const p4 = new PersonWithNumberName();

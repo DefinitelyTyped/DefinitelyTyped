@@ -6,7 +6,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
 
     state = {
         isTourOpen: false,
-        update: '13213'
+        update: '13213',
     };
 
     printTourStateForSomeReason = () => {
@@ -27,7 +27,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                 right,
                 top,
                 w,
-                width
+                width,
             } = this.ref.current.state;
 
             console.log(
@@ -49,7 +49,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                 width
             );
         }
-    }
+    };
 
     render() {
         return (
@@ -62,7 +62,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     isOpen={this.state.isTourOpen}
                     steps={[
                         {
-                            content: <div>Example</div>
+                            content: <div>Example</div>,
                         },
                         {
                             content: ({ close, goTo, inDOM, step }) => (
@@ -79,13 +79,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                                         <Arrow disabled onClick={() => console.log('do nothing')} />
                                     </Controls>
                                     <Navigation className="im-a-div">
-                                        <Dot
-                                            disabled
-                                            current={1}
-                                            index={0}
-                                            showNumber
-                                            accentColor="#000"
-                                        />
+                                        <Dot disabled current={1} index={0} showNumber accentColor="#000" />
                                     </Navigation>
                                     {inDOM ? 'Is in DOM' : 'Not in DOM'}, step: {step}
                                 </div>
@@ -94,13 +88,13 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                             position: 'center',
                             stepInteraction: false,
                             style: {
-                                display: 'flex'
+                                display: 'flex',
                             },
-                            action: (node: HTMLElement) => node.focus()
+                            action: (node: HTMLElement) => node.focus(),
                         },
                         {
-                            content: 'Last step'
-                        }
+                            content: 'Last step',
+                        },
                     ]}
                     onRequestClose={() => this.setState({ isTourOpen: false })}
                     accentColor="#f0123d"

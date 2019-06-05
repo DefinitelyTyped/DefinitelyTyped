@@ -1,5 +1,14 @@
-import { DataProvider, SortCriterion, FetchByKeysParameters, ContainsKeysResults, FetchByKeysResults, FetchByOffsetParameters, FetchByOffsetResults, FetchListResult,
-   FetchListParameters } from '../ojdataprovider';
+import {
+    DataProvider,
+    SortCriterion,
+    FetchByKeysParameters,
+    ContainsKeysResults,
+    FetchByKeysResults,
+    FetchByOffsetParameters,
+    FetchByOffsetResults,
+    FetchListResult,
+    FetchListParameters,
+} from '../ojdataprovider';
 declare class DeferredDataProvider<K, D> implements DataProvider<K, D> {
     constructor(dataProvider: Promise<DataProvider<K, D>>, capabilityFunc: (capabilityName: string) => any);
     addEventListener(eventType: string, listener: EventListener): any;

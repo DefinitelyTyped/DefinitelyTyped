@@ -13,7 +13,15 @@ import { TileCoord } from 'ol/tilecoord';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import TileState from 'ol/TileState';
 export class CustomTile extends ImageTile {
-    constructor(tileGrid: TileGrid, tileCoord: TileCoord, state: TileState, src: string, crossOrigin: string, tileLoadFunction: LoadFunction, opt_options?: Options_1);
+    constructor(
+        tileGrid: TileGrid,
+        tileCoord: TileCoord,
+        state: TileState,
+        src: string,
+        crossOrigin: string,
+        tileLoadFunction: LoadFunction,
+        opt_options?: Options_1
+    );
 }
 export interface Options {
     attributions?: AttributionLike;
@@ -30,9 +38,9 @@ export interface Options {
 }
 export default class Zoomify extends TileImage {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

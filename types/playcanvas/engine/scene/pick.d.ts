@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Picker
      * @class Picker object used to select mesh instances from screen coordinates.
@@ -12,7 +11,7 @@ declare namespace pc {
      * @property {pc.RenderTarget} renderTarget The render target used by the picker internally (read-only).
      */
     class Picker {
-        constructor(device: pc.GraphicsDevice, width: number, height: number)
+        constructor(device: pc.GraphicsDevice, width: number, height: number);
 
         width: number;
         height: number;

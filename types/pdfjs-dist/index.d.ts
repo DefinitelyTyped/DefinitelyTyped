@@ -27,7 +27,7 @@ interface PDFInfo {
     PDFFormatVersion: string;
     IsAcroFormPresent: boolean;
     IsXFAPresent: boolean;
-    [key: string]: any;	// return type is string, typescript chokes
+    [key: string]: any; // return type is string, typescript chokes
 }
 
 interface PDFMetadata {
@@ -49,7 +49,6 @@ interface PDFProgressData {
 }
 
 interface PDFDocumentProxy {
-
     /**
      * Total number of pages the PDF contains.
      **/
@@ -189,7 +188,6 @@ interface PDFViewerParams {
  * RenderTask is basically a promise but adds a cancel function to termiate it.
  **/
 interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
-
     /**
      * Cancel the rendering task.  If the task is currently rendering it will not be cancelled until graphics pauses with a timeout.  The promise that this object extends will resolve when cancelled.
      **/
@@ -197,7 +195,6 @@ interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
 }
 
 interface PDFPageProxy {
-
     /**
      * Page number of the page.  First page is 1.
      **/
@@ -289,7 +286,7 @@ interface PDFJSUtilStatic {
      * means normalization to (BL,TR) ordering. For systems with origin in the
      * top-left, this means (TL,BR) ordering.
      **/
-    normalizeRect(rect:number[]): number[];
+    normalizeRect(rect: number[]): number[];
 }
 
 export const PDFJS: PDFJSStatic;
@@ -425,10 +422,10 @@ interface PDFJSStatic {
 
     PDFViewer(params: PDFViewerParams): void;
     /**
-    * yet another viewer, this will render only one page at the time, reducing rendering time
-    * very important for mobile development
-    * @params {PDFViewerParams}
-    */
+     * yet another viewer, this will render only one page at the time, reducing rendering time
+     * very important for mobile development
+     * @params {PDFViewerParams}
+     */
     PDFSinglePageViewer(params: PDFViewerParams): void;
 }
 

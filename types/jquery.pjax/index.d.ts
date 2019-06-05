@@ -13,7 +13,7 @@ interface PjaxPopStateEventObject extends JQuery.Event {
     /**
      * Navigation direction. Could be "back" or "forward".
      */
-    direction: string
+    direction: string;
 }
 
 interface PjaxSettings extends JQuery.AjaxSettings {

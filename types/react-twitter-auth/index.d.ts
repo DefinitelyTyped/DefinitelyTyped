@@ -17,7 +17,7 @@ interface TwitterLoginProps {
     dialogWidth?: number;
     dialogHeight?: number;
     showIcon?: boolean;
-    credentials?: "omit" | "same-origin" | "include";
+    credentials?: 'omit' | 'same-origin' | 'include';
     customHeaders?: HeadersInit;
     children?: React.ReactNode;
     forceLogin?: boolean;

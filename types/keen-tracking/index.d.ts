@@ -7,10 +7,7 @@
 export default class KeenTracking {
     constructor(options: { projectId: string; writeKey: string; requestType?: string });
 
-    recordEvent(
-        collectionName: string,
-        event: object
-    ): Promise<{ created: boolean }>;
+    recordEvent(collectionName: string, event: object): Promise<{ created: boolean }>;
 
     recordEvents(events: {
         [collectionName: string]: object[];

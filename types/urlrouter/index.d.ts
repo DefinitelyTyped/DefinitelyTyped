@@ -5,21 +5,16 @@
 
 /// <reference types="node" />
 
-
-import http = require("http");
+import http = require('http');
 
 declare function UrlRouterInternal(handler: (app: UrlRouterInternal.App) => void): UrlRouterInternal.HttpHandler;
 
 declare namespace UrlRouterInternal {
-
-
     interface ServerRequest extends http.IncomingMessage {
         params: any;
     }
 
-    interface ServerResponse extends http.ServerResponse {
-
-    }
+    interface ServerResponse extends http.ServerResponse {}
 
     interface App {
         // https://github.com/visionmedia/node-methods/blob/master/index.js
@@ -41,7 +36,7 @@ declare namespace UrlRouterInternal {
         mkactivity(urlpattern: string, handler: HttpHandler): void;
         checkout(urlpattern: string, handler: HttpHandler): void;
         merge(urlpattern: string, handler: HttpHandler): void;
-        "m-search"(urlpattern: string, handler: HttpHandler): void;
+        'm-search'(urlpattern: string, handler: HttpHandler): void;
         notify(urlpattern: string, handler: HttpHandler): void;
         subscribe(urlpattern: string, handler: HttpHandler): void;
         unsubscribe(urlpattern: string, handler: HttpHandler): void;

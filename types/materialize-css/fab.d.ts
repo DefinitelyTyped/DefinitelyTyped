@@ -38,7 +38,7 @@ declare namespace M {
          * Direction FAB menu opens
          * @default "top"
          */
-        direction: "top" | "right" | "buttom" | "left";
+        direction: 'top' | 'right' | 'buttom' | 'left';
 
         /**
          * true: FAB menu appears on hover, false: FAB menu appears on click
@@ -55,6 +55,6 @@ declare namespace M {
 }
 
 interface JQuery {
-    floatingActionButton(method: keyof Pick<M.FloatingActionButton, "open" | "close" | "destroy">): JQuery;
+    floatingActionButton(method: keyof Pick<M.FloatingActionButton, 'open' | 'close' | 'destroy'>): JQuery;
     floatingActionButton(options?: Partial<M.FloatingActionButtonOptions>): JQuery;
 }

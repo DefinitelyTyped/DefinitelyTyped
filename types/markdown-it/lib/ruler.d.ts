@@ -1,5 +1,5 @@
-import MarkdownIt = require(".");
-import State = require("./rules_core/state_core");
+import MarkdownIt = require('.');
+import State = require('./rules_core/state_core');
 
 export = Ruler;
 

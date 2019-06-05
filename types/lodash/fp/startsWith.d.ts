@@ -1,2 +1,2 @@
-import { startsWith } from "../fp";
+import { startsWith } from '../fp';
 export = startsWith;

@@ -4,10 +4,28 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export type Event = 'location' | 'stationary' | 'activity' | 'start' | 'stop' | 'error' | 'authorization' | 'foreground' | 'background' | 'abort_requested';
+export type Event =
+    | 'location'
+    | 'stationary'
+    | 'activity'
+    | 'start'
+    | 'stop'
+    | 'error'
+    | 'authorization'
+    | 'foreground'
+    | 'background'
+    | 'abort_requested';
 export type iOSActivityType = 'AutomotiveNavigation' | 'OtherNavigation' | 'Fitness' | 'Other';
 export type Provider = 'gps' | 'network' | 'passive' | 'fused';
-export type ActivityType = 'IN_VEHICLE' | 'ON_BICYCLE' | 'ON_FOOT' | 'RUNNING' | 'STILL' | 'TILTING' | 'UNKNOWN' | 'WALKING';
+export type ActivityType =
+    | 'IN_VEHICLE'
+    | 'ON_BICYCLE'
+    | 'ON_FOOT'
+    | 'RUNNING'
+    | 'STILL'
+    | 'TILTING'
+    | 'UNKNOWN'
+    | 'WALKING';
 export type LogLevel = 'TRACE' | 'DEBUG' | 'INFO' | 'WARN' | 'ERROR';
 export type HeadlessTaskEventName = 'location' | 'stationary' | 'activity';
 
@@ -383,7 +401,11 @@ export interface BackgroundGeolocationStatic {
      * @param options
      * @see {@link https://github.com/mauron85/react-native-background-geolocation#getcurrentlocationsuccess-fail-options|Docs}
      */
-    getCurrentLocation(success: (location: Location) => void, fail: (error: LocationError) => void, options: LocationOptions): void;
+    getCurrentLocation(
+        success: (location: Location) => void,
+        fail: (error: LocationError) => void,
+        options: LocationOptions
+    ): void;
 
     /**
      * One time check for status of location services. In case of error, fail callback will be executed.
@@ -487,7 +509,13 @@ export interface BackgroundGeolocationStatic {
      * @param fail
      * @see {@link https://github.com/mauron85/react-native-background-geolocation#getlogentrieslimit-fromid-minlevel-success-fail|Docs}
      */
-    getLogEntries(limit: number, fromId: number, minLevel: LogLevel, success: (entries: LogEntry[]) => void, fail?: () => void): void;
+    getLogEntries(
+        limit: number,
+        fromId: number,
+        minLevel: LogLevel,
+        success: (entries: LogEntry[]) => void,
+        fail?: () => void
+    ): void;
 
     /**
      * Return all logged events. Useful for plugin debugging.

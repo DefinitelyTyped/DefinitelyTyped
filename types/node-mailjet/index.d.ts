@@ -90,8 +90,8 @@ export namespace Email {
 
     interface SendParamsMessage {
         From: {
-            Email: string
-            Name: string
+            Email: string;
+            Name: string;
         };
         To: SendParamsRecipient[];
         Cc?: SendParamsRecipient[];
@@ -109,17 +109,21 @@ export namespace Email {
         EventPayload?: string;
         CustomID?: string;
         Headers?: object;
-        Attachments?: [{
-            "ContentType": string
-            "Filename": string
-            "Base64Content": string
-        }];
-        InlinedAttachments?: [{
-            ContentType: string
-            Filename: string
-            ContentID: string
-            Base64Content: string
-        }];
+        Attachments?: [
+            {
+                ContentType: string;
+                Filename: string;
+                Base64Content: string;
+            }
+        ];
+        InlinedAttachments?: [
+            {
+                ContentType: string;
+                Filename: string;
+                ContentID: string;
+                Base64Content: string;
+            }
+        ];
     }
 
     interface PostResponseDataMessage {

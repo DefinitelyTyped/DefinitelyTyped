@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-import DropdownMenu = require("./DropdownMenu");
-import DropdownToggle = require("./DropdownToggle");
+import DropdownMenu = require('./DropdownMenu');
+import DropdownToggle = require('./DropdownToggle');
 
 declare class Dropdown extends React.Component<Dropdown.DropdownProps> {
     static Menu: typeof DropdownMenu;

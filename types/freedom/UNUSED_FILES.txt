@@ -1,2 +1,2 @@
-freedom-core-env.d.ts
-freedom-module-env.d.ts
+freedom - core - env.d.ts;
+freedom - module - env.d.ts;

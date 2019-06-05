@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import {
-    Dialogflow,
-    Dialogflow_V2,
-} from 'react-native-dialogflow';
+import { Dialogflow, Dialogflow_V2 } from 'react-native-dialogflow';
 
 const accessToken = 'accessToken';
 const eventName = 'event';
@@ -42,8 +39,6 @@ class Screen1 extends React.Component<any> {
     }
 
     render() {
-        return (
-            <View />
-        );
+        return <View />;
     }
 }

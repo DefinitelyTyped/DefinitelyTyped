@@ -9,7 +9,7 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
     namespace gridLayer {
         interface GoogleMutant extends GridLayer {
-            setElementSize(e: HTMLElement, size: Point): void ;
+            setElementSize(e: HTMLElement, size: Point): void;
         }
 
         type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';

@@ -27,9 +27,7 @@ export interface NonAssignmentCommutativeReducerContainer {
     reducer: Reducer;
 }
 
-export type ReducerContainer =
-    | AssignmentCommutativeReducerContainer
-    | NonAssignmentCommutativeReducerContainer;
+export type ReducerContainer = AssignmentCommutativeReducerContainer | NonAssignmentCommutativeReducerContainer;
 
 export type StackIndex = number;
 
@@ -62,28 +60,16 @@ export type StyletronComponent<Props> = React.FC<Props> & {
 };
 
 export interface StyledFn {
-    <
-        C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
-        P extends object
-    >(
+    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>, P extends object>(
         component: C,
         style: (props: P) => StyleObject
     ): StyletronComponent<
-        Pick<
-            React.ComponentProps<C>,
-            Exclude<keyof React.ComponentProps<C>, { className: string }>
-        > &
-            P
+        Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>> & P
     >;
     <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
         component: C,
         style: StyleObject
-    ): StyletronComponent<
-        Pick<
-            React.ComponentProps<C>,
-            Exclude<keyof React.ComponentProps<C>, { className: string }>
-        >
-    >;
+    ): StyletronComponent<Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>>>;
 }
 
 export interface WithStyleFn {
@@ -91,10 +77,7 @@ export interface WithStyleFn {
         component: C,
         style: (props: P) => StyleObject
     ): StyletronComponent<React.ComponentProps<C> & P>;
-    <C extends StyletronComponent<any>>(
-        component: C,
-        style: StyleObject
-    ): StyletronComponent<React.ComponentProps<C>>;
+    <C extends StyletronComponent<any>>(component: C, style: StyleObject): StyletronComponent<React.ComponentProps<C>>;
 }
 
 export interface WithTransformFn {
@@ -132,19 +115,12 @@ export interface DevProviderProps {
     debug?: DebugEngine;
 }
 
-export class DevProvider extends React.Component<
-    DevProviderProps,
-    { hydrating: boolean }
-> {}
+export class DevProvider extends React.Component<DevProviderProps, { hydrating: boolean }> {}
 
 export const Provider: typeof DevProvider | React.Provider<StandardEngine>;
 
 export function DevConsumer(props: {
-    children: (
-        styletronEngine: StandardEngine,
-        debugEngine: DebugEngine,
-        hydrating: boolean
-    ) => React.ReactNode;
+    children: (styletronEngine: StandardEngine, debugEngine: DebugEngine, hydrating: boolean) => React.ReactNode;
 }): JSX.Element;
 
 /**
@@ -165,9 +141,7 @@ export function createStyled(options: CreateStyledOptions): StyledFn;
 
 export const styled: ReturnType<typeof createStyled>;
 
-export function createStyledElementComponent(
-    styletron: Styletron
-): StyletronComponent<any>;
+export function createStyledElementComponent(styletron: Styletron): StyletronComponent<any>;
 
 export const withTransform: WithTransformFn;
 
@@ -177,25 +151,16 @@ export const withStyle: typeof withStyleDeep;
 
 export const withWrapper: WithWrapperFn;
 
-export function composeStatic(
-    styletron: Styletron,
-    reducerContainer: ReducerContainer
-): Styletron;
+export function composeStatic(styletron: Styletron, reducerContainer: ReducerContainer): Styletron;
 
 export function composeDynamic(
     styletron: Styletron,
     reducer: (style: StyleObject, props: object) => StyleObject
 ): Styletron;
 
-export function staticComposeShallow(
-    styletron: Styletron,
-    style: StyleObject
-): ReturnType<typeof composeStatic>;
+export function staticComposeShallow(styletron: Styletron, style: StyleObject): ReturnType<typeof composeStatic>;
 
-export function staticComposeDeep(
-    styletron: Styletron,
-    style: StyleObject
-): ReturnType<typeof composeStatic>;
+export function staticComposeDeep(styletron: Styletron, style: StyleObject): ReturnType<typeof composeStatic>;
 
 export function dynamicComposeShallow(
     styletron: Styletron,
@@ -212,22 +177,15 @@ export function autoComposeShallow(
     styleArg: StyleObject | ((props: object) => StyleObject)
 ): ReturnType<typeof staticComposeShallow>;
 
-export function autoComposeDeep(
-    styletron: Styletron,
-    styleArg: StyleObject
-): ReturnType<typeof staticComposeDeep>;
+export function autoComposeDeep(styletron: Styletron, styleArg: StyleObject): ReturnType<typeof staticComposeDeep>;
 export function autoComposeDeep(
     styletron: Styletron,
     styleArg: (props: object) => StyleObject
 ): ReturnType<typeof dynamicComposeDeep>;
 
-export function createShallowMergeReducer(
-    style: StyleObject
-): AssignmentCommutativeReducerContainer;
+export function createShallowMergeReducer(style: StyleObject): AssignmentCommutativeReducerContainer;
 
-export function createDeepMergeReducer(
-    style: StyleObject
-): AssignmentCommutativeReducerContainer;
+export function createDeepMergeReducer(style: StyleObject): AssignmentCommutativeReducerContainer;
 
 // Utility functions
 export function resolveStyle(

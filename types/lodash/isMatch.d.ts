@@ -1,2 +1,2 @@
-import { isMatch } from "./index";
+import { isMatch } from './index';
 export = isMatch;

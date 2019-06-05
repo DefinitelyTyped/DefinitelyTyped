@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.IndexBuffer
      * @class An index buffer is the mechanism via which the application specifies primitive
@@ -16,7 +15,13 @@ declare namespace pc {
      * @param {ArrayBuffer} [initialData] Initial data.
      */
     class IndexBuffer {
-        constructor(graphicsDevice: pc.GraphicsDevice, format: number, numIndices: number, usage?: number, initialData?: any)
+        constructor(
+            graphicsDevice: pc.GraphicsDevice,
+            format: number,
+            numIndices: number,
+            usage?: number,
+            initialData?: any
+        );
 
         /**
          * @function

@@ -1,5 +1,3 @@
-
-
 // Automatically trigger the loading animation on click
 Ladda.bind('input[type=submit]');
 
@@ -44,7 +42,14 @@ var btnElement = document.createElement('button');
 var laddaBtn = Ladda.create(btnElement);
 
 // Test operations via chaining
-laddaBtn.start().stop().toggle().setProgress(42).enable().disable().start();
+laddaBtn
+    .start()
+    .stop()
+    .toggle()
+    .setProgress(42)
+    .enable()
+    .disable()
+    .start();
 
 // Test isLoading
 console.assert(laddaBtn.isLoading() === true);

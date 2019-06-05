@@ -14,11 +14,7 @@ interface RegistryProxyMixin {
      * `inject`) or for service lookup. Each factory is registered with
      * a full name including two parts: `type:name`.
      */
-    register(
-        fullName: string,
-        factory: any,
-        options?: { singleton?: boolean; instantiate?: boolean }
-    ): any;
+    register(fullName: string, factory: any, options?: { singleton?: boolean; instantiate?: boolean }): any;
     /**
      * Unregister a factory.
      */
@@ -55,11 +51,7 @@ interface RegistryProxyMixin {
      * Define a dependency injection onto a specific factory or all factories
      * of a type.
      */
-    inject(
-        factoryNameOrType: string,
-        property: string,
-        injectionName: string
-    ): any;
+    inject(factoryNameOrType: string, property: string, injectionName: string): any;
 }
 declare const RegistryProxyMixin: Mixin<RegistryProxyMixin>;
 export default RegistryProxyMixin;

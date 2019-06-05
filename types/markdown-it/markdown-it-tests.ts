@@ -1,6 +1,6 @@
-import MarkdownIt = require("markdown-it");
-import Renderer = require("markdown-it/lib/renderer");
-import Token = require("markdown-it/lib/token");
+import MarkdownIt = require('markdown-it');
+import Renderer = require('markdown-it/lib/renderer');
+import Token = require('markdown-it/lib/token');
 
 {
     const md = new MarkdownIt();
@@ -21,7 +21,7 @@ import Token = require("markdown-it/lib/token");
     var md = MarkdownIt({
         html: true,
         linkify: true,
-        typographer: true
+        typographer: true,
     });
 }
 
@@ -34,7 +34,9 @@ import Token = require("markdown-it/lib/token");
         linkify: false,
         typographer: false,
         quotes: '“”‘’',
-        highlight: function () { return ''; }
+        highlight: function() {
+            return '';
+        },
     });
 }
 declare const plugin1: any;
@@ -51,31 +53,29 @@ declare const opts: any;
 import * as hljs from 'highlight.js';
 {
     var md = MarkdownIt({
-        highlight: function (str, lang) {
+        highlight: function(str, lang) {
             if (lang && hljs.getLanguage(lang)) {
                 try {
                     return hljs.highlight(lang, str).value;
-                } catch (__) { }
+                } catch (__) {}
             }
 
             return ''; // use external default escaping
-        }
+        },
     });
 }
 
 {
     var md = MarkdownIt({
-        highlight: function (str, lang) {
+        highlight: function(str, lang) {
             if (lang && hljs.getLanguage(lang)) {
                 try {
-                    return '<pre class="hljs"><code>' +
-                        hljs.highlight(lang, str, true).value +
-                        '</code></pre>';
-                } catch (__) { }
+                    return '<pre class="hljs"><code>' + hljs.highlight(lang, str, true).value + '</code></pre>';
+                } catch (__) {}
             }
 
             return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-        }
+        },
     });
     md.linkify.tlds('.py', false);
 }
@@ -101,25 +101,26 @@ import * as hljs from 'highlight.js';
 }
 
 {
-    var md = MarkdownIt()
-        .use(plugin1, 'foo_replace', 'text', function (tokens: any[], idx: number) {
-            tokens[idx].content = tokens[idx].content.replace(/foo/g, 'bar');
-        });
+    var md = MarkdownIt().use(plugin1, 'foo_replace', 'text', function(tokens: any[], idx: number) {
+        tokens[idx].content = tokens[idx].content.replace(/foo/g, 'bar');
+    });
 }
 
 {
     var md = MarkdownIt();
     // enable everything
-    md.validateLink = function () { return true; }
+    md.validateLink = function() {
+        return true;
+    };
 }
 
 function myToken(tokens: any, idx: number, options: any, env: any, self: any) {
     //...
     return result;
-};
+}
 {
     var md = MarkdownIt();
-    md.renderer.rules['my_token'] = myToken
+    md.renderer.rules['my_token'] = myToken;
 }
 
 {
@@ -140,29 +141,29 @@ function myToken(tokens: any, idx: number, options: any, env: any, self: any) {
                     console.log(error);
                 }
             }
-            return "";
+            return '';
         },
     });
-    md.renderer.rules["image"] = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
+    md.renderer.rules['image'] = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
         const token = tokens[index];
-        const aIndex = token.attrIndex("src");
+        const aIndex = token.attrIndex('src');
         token.attrs[aIndex][1];
-        token.attrPush(["style", "color: red"]);
+        token.attrPush(['style', 'color: red']);
 
-        return md.renderer.rules["image"](tokens, index, options, env, self);
+        return md.renderer.rules['image'](tokens, index, options, env, self);
     };
 
     let defaultLinkRender: MarkdownIt.TokenRender;
-    if (md.renderer.rules["link_open"]) {
-        defaultLinkRender = md.renderer.rules["link_open"];
+    if (md.renderer.rules['link_open']) {
+        defaultLinkRender = md.renderer.rules['link_open'];
     } else {
         defaultLinkRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
             return self.renderToken(tokens, index, options);
         };
     }
-    md.renderer.rules["link_open"] = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
-        tokens[index].attrPush(["target", "_blank"]);
-        tokens[index].attrPush(["rel", "nofollow"]);
+    md.renderer.rules['link_open'] = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => {
+        tokens[index].attrPush(['target', '_blank']);
+        tokens[index].attrPush(['rel', 'nofollow']);
         return defaultLinkRender(tokens, index, options, env, self);
     };
 }

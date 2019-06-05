@@ -41,10 +41,10 @@ const spinners = [
     <Spinner name="pacman" />,
 
     // Spinner options
-    <Spinner name="wordpress" fadeIn="full"/>,
-    <Spinner name="wordpress" fadeIn="half"/>,
-    <Spinner name="wordpress" fadeIn="quarter"/>,
-    <Spinner name="wordpress" fadeIn="none"/>,
+    <Spinner name="wordpress" fadeIn="full" />,
+    <Spinner name="wordpress" fadeIn="half" />,
+    <Spinner name="wordpress" fadeIn="quarter" />,
+    <Spinner name="wordpress" fadeIn="none" />,
     <Spinner name="wordpress" color="#F00" />,
     <Spinner name="wordpress" color="green" />,
     <Spinner name="wordpress" overrideSpinnerClassName="my-class-to-override" />,

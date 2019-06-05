@@ -8,8 +8,8 @@ import * as React from 'react';
 import { LinkProps, NavLinkProps } from 'react-router-dom';
 
 export interface HashLinkProps extends LinkProps {
-  smooth?: boolean;
-  scroll?: (element: HTMLElement) => void;
+    smooth?: boolean;
+    scroll?: (element: HTMLElement) => void;
 }
 
 export class HashLink extends React.Component<HashLinkProps, any> {}

@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 declare function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
 declare namespace GulpIstanbul {

@@ -15,10 +15,6 @@ interface MorphDomOptions {
     childrenOnly?: boolean;
 }
 
-declare function morphdom(
-    fromNode: Node,
-    toNode: Node | string,
-    options?: MorphDomOptions,
-): void;
+declare function morphdom(fromNode: Node, toNode: Node | string, options?: MorphDomOptions): void;
 
 export = morphdom;

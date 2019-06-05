@@ -2,11 +2,11 @@ import enquire = require('enquire.js');
 
 enquire
     .register('(min-width: 300px) and (max-width: 600px)', {
-      deferSetup: true,
-      match: () => {},
-      unmatch: () => {},
-      setup: () => {},
-      destroy: () => {}
+        deferSetup: true,
+        match: () => {},
+        unmatch: () => {},
+        setup: () => {},
+        destroy: () => {},
     })
     .register('(min-width: 300px) and (max-width: 600px)', {});
 

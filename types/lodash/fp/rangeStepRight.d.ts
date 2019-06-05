@@ -1,2 +1,2 @@
-import { rangeStepRight } from "../fp";
+import { rangeStepRight } from '../fp';
 export = rangeStepRight;

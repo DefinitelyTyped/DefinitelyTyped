@@ -27,10 +27,7 @@ export namespace v2 {
             options?: gax.CallOptions,
             cb?: (err: Error, agents: Agent[], arg3: any, response: any) => void
         ): Promise<Agent[]>;
-        searchAgentsStream(
-            request: SearchAgentRequest,
-            options?: gax.CallOptions
-        ): any;
+        searchAgentsStream(request: SearchAgentRequest, options?: gax.CallOptions): any;
         trainAgent(
             request: TrainAgentRequest,
             options?: gax.CallOptions,
@@ -63,34 +60,13 @@ export namespace v2 {
         getProjectId(): Promise<string>;
         getProjectId(callback?: (error: Error, id: string) => string): void;
 
-        listContexts(
-            request: ListContextsRequest,
-            options?: gax.CallOptions
-        ): Promise<[Context[]]>;
-        listContextsStream(
-            request: ListContextsRequest,
-            options?: gax.CallOptions
-        ): any;
-        getContext(
-            request: GetContextRequest,
-            options?: gax.CallOptions
-        ): Promise<[Context]>;
-        createContext(
-            request: CreateContextReqeust,
-            options?: gax.CallOptions
-        ): Promise<[Context]>;
-        updateContext(
-            request: UpdateContextRequest,
-            options?: gax.CallOptions
-        ): Promise<[Context]>;
-        deleteContext(
-            request: DeleteContextRequest,
-            options?: gax.CallOptions
-        ): Promise<void>;
-        deleteAllContexts(
-            request: DeleteAllContextsRequest,
-            options?: gax.CallOptions
-        ): Promise<void>;
+        listContexts(request: ListContextsRequest, options?: gax.CallOptions): Promise<[Context[]]>;
+        listContextsStream(request: ListContextsRequest, options?: gax.CallOptions): any;
+        getContext(request: GetContextRequest, options?: gax.CallOptions): Promise<[Context]>;
+        createContext(request: CreateContextReqeust, options?: gax.CallOptions): Promise<[Context]>;
+        updateContext(request: UpdateContextRequest, options?: gax.CallOptions): Promise<[Context]>;
+        deleteContext(request: DeleteContextRequest, options?: gax.CallOptions): Promise<void>;
+        deleteAllContexts(request: DeleteAllContextsRequest, options?: gax.CallOptions): Promise<void>;
 
         sessionPath(project: string, session: string): string;
         contextPath(project: string, session: string, context: string): string;
@@ -113,32 +89,14 @@ export namespace v2 {
         getProjectId(): Promise<string>;
         getProjectId(callback?: (error: Error, id: string) => string): void;
 
-        listEntityTypes(
-            request: ListEntityTypesRequest,
-            options?: gax.CallOptions
-        ): Promise<[EntityType[]]>;
+        listEntityTypes(request: ListEntityTypesRequest, options?: gax.CallOptions): Promise<[EntityType[]]>;
 
-        listEntityTypesStream(
-            request: ListEntityTypesRequest,
-            options?: gax.CallOptions
-        ): any;
+        listEntityTypesStream(request: ListEntityTypesRequest, options?: gax.CallOptions): any;
 
-        getEntityType(
-            request: GetEntityTypeRequest,
-            options?: gax.CallOptions
-        ): Promise<[EntityType]>;
-        createEntityType(
-            request: CreateEntityTypeRequest,
-            options?: gax.CallOptions
-        ): Promise<[EntityType]>;
-        updateEntityType(
-            request: UpdateEntityTypeRequest,
-            options?: gax.CallOptions
-        ): Promise<[EntityType]>;
-        deleteEntityType(
-            request: DeleteEntityTypeRequest,
-            options?: gax.CallOptions
-        ): Promise<void>;
+        getEntityType(request: GetEntityTypeRequest, options?: gax.CallOptions): Promise<[EntityType]>;
+        createEntityType(request: CreateEntityTypeRequest, options?: gax.CallOptions): Promise<[EntityType]>;
+        updateEntityType(request: UpdateEntityTypeRequest, options?: gax.CallOptions): Promise<[EntityType]>;
+        deleteEntityType(request: DeleteEntityTypeRequest, options?: gax.CallOptions): Promise<void>;
 
         batchUpdateEntityTypes(
             request: BatchUpdateEntityTypesRequest,
@@ -148,18 +106,9 @@ export namespace v2 {
             request: BatchDeleteEntityTypesRequest,
             options?: gax.CallOptions
         ): Promise<[gax.Operation]>;
-        batchCreateEntities(
-            request: BatchCreateEntitiesRequest,
-            options?: gax.CallOptions
-        ): Promise<[gax.Operation]>;
-        batchUpdateEntities(
-            request: BatchUpdateEntitiesRequest,
-            options?: gax.CallOptions
-        ): Promise<[gax.Operation]>;
-        batchDeleteEntities(
-            request: BatchDeleteEntitiesRequest,
-            options?: gax.CallOptions
-        ): Promise<[gax.Operation]>;
+        batchCreateEntities(request: BatchCreateEntitiesRequest, options?: gax.CallOptions): Promise<[gax.Operation]>;
+        batchUpdateEntities(request: BatchUpdateEntitiesRequest, options?: gax.CallOptions): Promise<[gax.Operation]>;
+        batchDeleteEntities(request: BatchDeleteEntitiesRequest, options?: gax.CallOptions): Promise<[gax.Operation]>;
 
         projectAgentPath(project: string): string;
         entityTypePath(project: string, entityType: string): string;
@@ -178,35 +127,14 @@ export namespace v2 {
         getProjectId(): Promise<string>;
         getProjectId(callback?: (error: Error, id: string) => string): void;
 
-        listIntents(
-            request: ListIntentsRequest,
-            options?: gax.CallOptions
-        ): Promise<[Intent[]]>;
-        getIntent(
-            request: GetIntentRequest,
-            options?: gax.CallOptions
-        ): Promise<[Intent]>;
-        createIntent(
-            request: CreateIntentRequest,
-            options?: gax.CallOptions
-        ): Promise<[Intent]>;
-        updateIntent(
-            request: UpdateIntentRequest,
-            options?: gax.CallOptions
-        ): Promise<[Intent]>;
-        deleteIntent(
-            request: DeleteIntentRequest,
-            options?: gax.CallOptions
-        ): Promise<void>;
+        listIntents(request: ListIntentsRequest, options?: gax.CallOptions): Promise<[Intent[]]>;
+        getIntent(request: GetIntentRequest, options?: gax.CallOptions): Promise<[Intent]>;
+        createIntent(request: CreateIntentRequest, options?: gax.CallOptions): Promise<[Intent]>;
+        updateIntent(request: UpdateIntentRequest, options?: gax.CallOptions): Promise<[Intent]>;
+        deleteIntent(request: DeleteIntentRequest, options?: gax.CallOptions): Promise<void>;
 
-        batchUpdateIntents(
-            request: BatchUpdateIntentsRequest,
-            options?: gax.CallOptions
-        ): Promise<[gax.Operation]>;
-        batchDeleteIntents(
-            request: BatchDeleteIntentsRequest,
-            options?: gax.CallOptions
-        ): Promise<[gax.Operation]>;
+        batchUpdateIntents(request: BatchUpdateIntentsRequest, options?: gax.CallOptions): Promise<[gax.Operation]>;
+        batchDeleteIntents(request: BatchDeleteIntentsRequest, options?: gax.CallOptions): Promise<[gax.Operation]>;
 
         projectAgentPath(project: string): string;
         intentPath(project: string, intent: string): string;
@@ -247,10 +175,7 @@ export namespace v2 {
             request: UpdateSessionEntityTypeRequest,
             options?: gax.CallOptions
         ): Promise<[SessionEntityType]>;
-        deleteSessionEntityType(
-            request: DeleteSessionEntityTypeRequest,
-            options?: gax.CallOptions
-        ): Promise<void>;
+        deleteSessionEntityType(request: DeleteSessionEntityTypeRequest, options?: gax.CallOptions): Promise<void>;
     }
 
     class SessionsClient {
@@ -263,10 +188,7 @@ export namespace v2 {
         getProjectId(): Promise<string>;
         getProjectId(callback?: (error: Error, id: string) => string): void;
 
-        detectIntent(
-            request: DetectIntentRequest,
-            options?: gax.CallOptions
-        ): Promise<DetectIntentResponse[]>;
+        detectIntent(request: DetectIntentRequest, options?: gax.CallOptions): Promise<DetectIntentResponse[]>;
         streamingDetectIntent(options?: gax.CallOptions): Promise<any>;
 
         sessionPath(projectId: string, sessionId: string): string;
@@ -276,12 +198,7 @@ export namespace v2 {
 export namespace v2beta1 {
     class AgentsClient extends v2.AgentsClient {}
     class ContextsClient extends v2.ContextsClient {
-        environmentSessionPath(
-            project: string,
-            environment: string,
-            user: string,
-            session: string
-        ): string;
+        environmentSessionPath(project: string, environment: string, user: string, session: string): string;
 
         environmentContextPath(
             project: string,
@@ -291,58 +208,27 @@ export namespace v2beta1 {
             context: string
         ): string;
 
-        matchProjectFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
-        matchEnvironmentFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
-        matchUserFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
-        matchSessionFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
+        matchProjectFromEnvironmentSessionName(environmentSessionName: string): string;
+        matchEnvironmentFromEnvironmentSessionName(environmentSessionName: string): string;
+        matchUserFromEnvironmentSessionName(environmentSessionName: string): string;
+        matchSessionFromEnvironmentSessionName(environmentSessionName: string): string;
 
-        matchProjectFromEnvironmentContextName(
-            environmentContextName: string
-        ): string;
-        matchEnvironmentFromEnvironmentContextName(
-            environmentContextName: string
-        ): string;
-        matchUserFromEnvironmentContextName(
-            environmentContextName: string
-        ): string;
-        matchSessionFromEnvironmentContextName(
-            environmentContextName: string
-        ): string;
-        matchContextFromEnvironmentContextName(
-            environmentContextName: string
-        ): string;
+        matchProjectFromEnvironmentContextName(environmentContextName: string): string;
+        matchEnvironmentFromEnvironmentContextName(environmentContextName: string): string;
+        matchUserFromEnvironmentContextName(environmentContextName: string): string;
+        matchSessionFromEnvironmentContextName(environmentContextName: string): string;
+        matchContextFromEnvironmentContextName(environmentContextName: string): string;
     }
     class EntityTypesClient extends v2.EntityTypesClient {}
     class IntentsClient extends v2.IntentsClient {}
     class SessionEntityTypesClient extends v2.SessionEntityTypesClient {}
     class SessionsClient extends v2.SessionsClient {
-        environmentSessionPath(
-            project: string,
-            environment: string,
-            user: string,
-            session: string
-        ): string;
+        environmentSessionPath(project: string, environment: string, user: string, session: string): string;
 
-        matchProjectFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
-        matchEnvironmentFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
-        matchUserFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
-        matchSessionFromEnvironmentSessionName(
-            environmentSessionName: string
-        ): string;
+        matchProjectFromEnvironmentSessionName(environmentSessionName: string): string;
+        matchEnvironmentFromEnvironmentSessionName(environmentSessionName: string): string;
+        matchUserFromEnvironmentSessionName(environmentSessionName: string): string;
+        matchSessionFromEnvironmentSessionName(environmentSessionName: string): string;
     }
 }
 
@@ -425,10 +311,7 @@ export namespace gax {
 }
 
 export namespace longrunning {
-    type Operation =
-        | UnfinishedOperation
-        | FailedOperation
-        | SuccessfulOperation;
+    type Operation = UnfinishedOperation | FailedOperation | SuccessfulOperation;
 
     interface BaseOperation {
         name: string;
@@ -880,13 +763,7 @@ export interface ContextParameter {
     [key: string]: Value;
 }
 
-export type Value =
-    | "null_value"
-    | "number_value"
-    | "string_value"
-    | "bool_value"
-    | "struct_value"
-    | "list_value";
+export type Value = 'null_value' | 'number_value' | 'string_value' | 'bool_value' | 'struct_value' | 'list_value';
 
 export interface EntityType {
     name?: string;
@@ -896,10 +773,7 @@ export interface EntityType {
     autoExpansionMode: EntityAutoExpansionMode;
 }
 
-export type MatchMode =
-    | "MATCH_MODE_UNSPECIFIED"
-    | "MATCH_MODE_HYBRID"
-    | "MATCH_MODE_ML_ONLY";
+export type MatchMode = 'MATCH_MODE_UNSPECIFIED' | 'MATCH_MODE_HYBRID' | 'MATCH_MODE_ML_ONLY';
 
 export interface Credentials {
     client_email: string;
@@ -921,17 +795,11 @@ export interface Entity {
     synonyms: NonEmptyArray<string>;
 }
 
-export type EntityKind =
-    | "KIND_MAP"
-    | "KIND_LIST";
+export type EntityKind = 'KIND_MAP' | 'KIND_LIST';
 
-export type EntityAutoExpansionMode =
-    | "AUTO_EXPANSION_MODE_DEFAULT"
-    | "AUTO_EXPANSION_MODE_UNSPECIFIED";
+export type EntityAutoExpansionMode = 'AUTO_EXPANSION_MODE_DEFAULT' | 'AUTO_EXPANSION_MODE_UNSPECIFIED';
 
-export type IntentView =
-    | "INTENT_VIEW_UNSPECIFIED"
-    | "INTENT_VIEW_FULL";
+export type IntentView = 'INTENT_VIEW_UNSPECIFIED' | 'INTENT_VIEW_FULL';
 
 export interface Intent {
     name?: string;
@@ -985,15 +853,15 @@ export interface FollowupIntentInfo {
 }
 
 export type Platform =
-    | "PLATFORM_UNSPECIFIED"
-    | "FACEBOOK"
-    | "SLACK"
-    | "TELEGRAM"
-    | "KIK"
-    | "SKYPE"
-    | "LINE"
-    | "VIBER"
-    | "ACTIONS_ON_GOOGLE";
+    | 'PLATFORM_UNSPECIFIED'
+    | 'FACEBOOK'
+    | 'SLACK'
+    | 'TELEGRAM'
+    | 'KIK'
+    | 'SKYPE'
+    | 'LINE'
+    | 'VIBER'
+    | 'ACTIONS_ON_GOOGLE';
 
 export interface MessageBase {
     platform?: Platform;
@@ -1002,57 +870,57 @@ export interface MessageBase {
 
 export interface TextMessage extends MessageBase {
     text: Text;
-    message: "text";
+    message: 'text';
 }
 
 export interface ImageMessage extends MessageBase {
     image: Image;
-    message: "image";
+    message: 'image';
 }
 
 export interface QuickRepliesMessage extends MessageBase {
     quickReplies: QuickReplies;
-    message: "quickReplies";
+    message: 'quickReplies';
 }
 
 export interface CardMessage extends MessageBase {
     card: Card;
-    message: "card";
+    message: 'card';
 }
 
 export interface PayloadMessage extends MessageBase {
     payload: any;
-    message: "payload";
+    message: 'payload';
 }
 
 export interface SimpleResponsesMessage extends MessageBase {
     simpleResponses: SimpleResponses;
-    message: "simpleResponses";
+    message: 'simpleResponses';
 }
 
 export interface BasicCardMessage extends MessageBase {
     basicCard: BasicCard;
-    message: "basicCard";
+    message: 'basicCard';
 }
 
 export interface SuggestionsMessage extends MessageBase {
     suggestions: Suggestions;
-    message: "suggestions";
+    message: 'suggestions';
 }
 
 export interface LinkOutSuggestionMessage extends MessageBase {
     linkOutSuggestion: LinkOutSuggestion;
-    message: "linkOutSuggestion";
+    message: 'linkOutSuggestion';
 }
 
 export interface ListSelectMessage extends MessageBase {
     listSelect: ListSelect;
-    message: "listSelect";
+    message: 'listSelect';
 }
 
 export interface CarouselSelectMessage extends MessageBase {
     carouselSelect: CarouselSelect;
-    message: "carouselSelect";
+    message: 'carouselSelect';
 }
 
 export type Message =
@@ -1157,14 +1025,14 @@ export interface TextInput {
 }
 
 export type AudioEncoding =
-    | "AUDIO_ENCODING_UNSPECIFIED"
-    | "AUDIO_ENCODING_LINEAR_16"
-    | "AUDIO_ENCODING_FLAC"
-    | "AUDIO_ENCODING_MULAW"
-    | "AUDIO_ENCODING_AMR"
-    | "AUDIO_ENCODING_AMR_WB"
-    | "AUDIO_ENCODING_OGG_OPUS"
-    | "AUDIO_ENCODING_SPEEX_WITH_HEADER_BYTE";
+    | 'AUDIO_ENCODING_UNSPECIFIED'
+    | 'AUDIO_ENCODING_LINEAR_16'
+    | 'AUDIO_ENCODING_FLAC'
+    | 'AUDIO_ENCODING_MULAW'
+    | 'AUDIO_ENCODING_AMR'
+    | 'AUDIO_ENCODING_AMR_WB'
+    | 'AUDIO_ENCODING_OGG_OPUS'
+    | 'AUDIO_ENCODING_SPEEX_WITH_HEADER_BYTE';
 
 export interface InputAudioConfig {
     // required by the documentation https://cloud.google.com/dialogflow-enterprise/docs/reference/rest/v2beta1/QueryInput
@@ -1177,10 +1045,10 @@ export interface InputAudioConfig {
 }
 
 export type OutputAudioEncoding =
-    | "OUTPUT_AUDIO_ENCODING_UNSPECIFIED"
-    | "OUTPUT_AUDIO_ENCODING_LINEAR_16"
-    | "OUTPUT_AUDIO_ENCODING_MP3"
-    | "OUTPUT_AUDIO_ENCODING_OGG_OPUS";
+    | 'OUTPUT_AUDIO_ENCODING_UNSPECIFIED'
+    | 'OUTPUT_AUDIO_ENCODING_LINEAR_16'
+    | 'OUTPUT_AUDIO_ENCODING_MP3'
+    | 'OUTPUT_AUDIO_ENCODING_OGG_OPUS';
 
 export interface OutputAudioConfig {
     audioEncoding: OutputAudioEncoding;
@@ -1197,10 +1065,10 @@ export interface SynthesizeSpeechConfig {
 }
 
 export type SsmlVoiceGender =
-    | "SSML_VOICE_GENDER_UNSPECIFIED"
-    | "SSML_VOICE_GENDER_MALE"
-    | "SSML_VOICE_GENDER_FEMALE"
-    | "SSML_VOICE_GENDER_NEUTRAL";
+    | 'SSML_VOICE_GENDER_UNSPECIFIED'
+    | 'SSML_VOICE_GENDER_MALE'
+    | 'SSML_VOICE_GENDER_FEMALE'
+    | 'SSML_VOICE_GENDER_NEUTRAL';
 
 export interface VoiceSelectionParams {
     name?: string;
@@ -1257,8 +1125,8 @@ export interface WebhookResponse {
 
 // Internal Types and Disabling Auto-Export
 export {};
-type NonEmptyArray<T> = T[] & {0: T};
+type NonEmptyArray<T> = T[] & { 0: T };
 interface Any {
     [key: string]: any;
-    "@type": string;
+    '@type': string;
 }

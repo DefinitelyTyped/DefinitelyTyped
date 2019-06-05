@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ScriptHandler
      * @class ResourceHandler for loading JavaScript files dynamically
@@ -10,7 +9,7 @@ declare namespace pc {
     class ScriptHandler {
         static _push(Type: ScriptType): void;
 
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
         load(url: string, callback: Function): void;
         open(url: string, data: any): any;
         patch(asset: pc.Asset, assets: pc.AssetRegistry): void;

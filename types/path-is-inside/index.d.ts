@@ -3,6 +3,5 @@
 // Definitions by: Alexander Marks <https://github.com/aomarks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function pathIsInside(thePath: string,
-                              potentialParent: string): boolean;
+declare function pathIsInside(thePath: string, potentialParent: string): boolean;
 export = pathIsInside;

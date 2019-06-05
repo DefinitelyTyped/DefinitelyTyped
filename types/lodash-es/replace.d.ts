@@ -1,2 +1,2 @@
-import { replace } from "lodash";
+import { replace } from 'lodash';
 export default replace;

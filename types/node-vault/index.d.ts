@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as mustache from "mustache";
-import * as request from "request";
+import * as mustache from 'mustache';
+import * as request from 'request';
 
 declare namespace NodeVault {
     interface Option {
@@ -28,7 +28,7 @@ declare namespace NodeVault {
     }
 
     interface client {
-        handleVaultResponse(res?: { statusCode: number, request: Option, body: any }): Promise<any>;
+        handleVaultResponse(res?: { statusCode: number; request: Option; body: any }): Promise<any>;
         apiVersion: string;
         endpoint: string;
         token: string;
@@ -110,9 +110,9 @@ declare namespace NodeVault {
     interface VaultOptions {
         debug?(...args: any[]): any;
         tv4?(...args: any[]): any;
-        commands?: Array<{ method: string, path: string, scheme: any }>;
+        commands?: Array<{ method: string; path: string; scheme: any }>;
         mustache?: typeof mustache;
-        "request-promise"?: any;
+        'request-promise'?: any;
         Promise?: PromiseConstructor;
 
         apiVersion?: string;

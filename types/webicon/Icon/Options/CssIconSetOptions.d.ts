@@ -1,5 +1,5 @@
-import { CssClassConfig } from "../CssClassConfig";
-import { IconOptions } from "./IconOptions";
+import { CssClassConfig } from '../CssClassConfig';
+import { IconOptions } from './IconOptions';
 
 /**
  * Provides options for css icon-sets.
@@ -15,10 +15,10 @@ export interface CssIconSetOptions extends IconOptions {
     /**
      * An alias of the `className`-property.
      */
-    class?: this["className"];
+    class?: this['className'];
 
     /**
      * An alias of the `className`-property.
      */
-    cssClass?: this["className"];
+    cssClass?: this['className'];
 }

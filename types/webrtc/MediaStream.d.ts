@@ -162,9 +162,11 @@ interface MediaStreamError {
 }
 
 interface NavigatorGetUserMedia {
-    (constraints: MediaStreamConstraints,
-     successCallback: (stream: MediaStream) => void,
-     errorCallback: (error: MediaStreamError) => void): void;
+    (
+        constraints: MediaStreamConstraints,
+        successCallback: (stream: MediaStream) => void,
+        errorCallback: (error: MediaStreamError) => void
+    ): void;
 }
 
 // to use with adapter.js, see: https://github.com/webrtc/adapter

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { ValidationMap } from "prop-types";
+import { ValidationMap } from 'prop-types';
 
 export interface InkElement {
     component: InkComponent<any>;
@@ -16,12 +16,7 @@ export interface InkElement {
     _children: InkNode[];
 }
 
-export type InkNode =
-    | ReadonlyArray<InkElement | string | number | null>
-    | InkElement
-    | string
-    | number
-    | null;
+export type InkNode = ReadonlyArray<InkElement | string | number | null> | InkElement | string | number | null;
 
 export function h<P extends Record<string, any>>(
     type: ComponentClass<P, any, any> | StatelessComponent<P, any>,
@@ -35,20 +30,12 @@ export function h<T extends keyof JSX.IntrinsicElements>(
     ...children: InkNode[]
 ): InkElement;
 
-export function render(
-    tree: InkElement,
-    stream?: NodeJS.WriteStream
-): (() => void);
+export function render(tree: InkElement, stream?: NodeJS.WriteStream): () => void;
 export function renderToString(tree: InkElement, prevTree?: InkElement): string;
 
-export type InkComponent<P extends Record<string, any> = {}> =
-    | ComponentClass<P, any, any>
-    | StatelessComponent<P, any>;
+export type InkComponent<P extends Record<string, any> = {}> = ComponentClass<P, any, any> | StatelessComponent<P, any>;
 
-export interface StatelessComponent<
-    P extends Record<string, any> = {},
-    C extends Record<string, any> = {}
-> {
+export interface StatelessComponent<P extends Record<string, any> = {}, C extends Record<string, any> = {}> {
     (props: P, context: C): InkElement;
     defaultProps?: Record<string, any>;
     propTypes?: ValidationMap<Record<string, any>>;
@@ -63,9 +50,7 @@ export abstract class Component<
     readonly context: C;
 
     setState(
-        nextState:
-            | Partial<Component["state"]>
-            | ((state: Component["state"]) => Partial<Component["state"]>),
+        nextState: Partial<Component['state']> | ((state: Component['state']) => Partial<Component['state']>),
         callback?: () => void
     ): void;
 }
@@ -77,30 +62,17 @@ export interface Component<
 > {
     state: S;
 
-    render(
-        props: Component["props"],
-        state: Component["state"],
-        context: Component["state"]
-    ): InkElement;
+    render(props: Component['props'], state: Component['state'], context: Component['state']): InkElement;
 
     componentWillMount?(): void;
     componentDidMount?(): void;
     componentWillUnmount?(): void;
-    componentWillReceiveProps?(
-        nextProps: Component["props"],
-        nextState: Component["state"]
-    ): void;
-    shouldComponentUpdate?(
-        nextProps: Component["props"],
-        nextState: Component["state"]
-    ): void;
-    componentWillUpdate?(
-        nextProps: Component["props"],
-        nextState: Component["state"]
-    ): void;
+    componentWillReceiveProps?(nextProps: Component['props'], nextState: Component['state']): void;
+    shouldComponentUpdate?(nextProps: Component['props'], nextState: Component['state']): void;
+    componentWillUpdate?(nextProps: Component['props'], nextState: Component['state']): void;
     componentDidUpdate?(): void;
 
-    getChildContext?(): (() => Record<string, any>);
+    getChildContext?(): () => Record<string, any>;
 }
 
 export interface ComponentClass<
@@ -108,11 +80,7 @@ export interface ComponentClass<
     S extends Record<string, any> = {},
     C extends Record<string, any> = {}
 > {
-    new (props: Component["props"], context: Component["state"]): Component<
-        P,
-        S,
-        C
-    >;
+    new (props: Component['props'], context: Component['state']): Component<P, S, C>;
     defaultProps?: Record<string, any>;
     propTypes?: ValidationMap<Record<string, any>>;
 }

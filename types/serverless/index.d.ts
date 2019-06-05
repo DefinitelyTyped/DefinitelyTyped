@@ -4,12 +4,12 @@
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Service = require("./classes/Service");
-import Plugin = require("./classes/Plugin");
-import PluginManager = require("./classes/PluginManager");
-import Utils = require("./classes/Utils");
-import YamlParser = require("./classes/YamlParser");
-import AwsProvider = require("./plugins/aws/provider/awsProvider");
+import Service = require('./classes/Service');
+import Plugin = require('./classes/Plugin');
+import PluginManager = require('./classes/PluginManager');
+import Utils = require('./classes/Utils');
+import YamlParser = require('./classes/YamlParser');
+import AwsProvider = require('./plugins/aws/provider/awsProvider');
 
 declare namespace Serverless {
     interface Options {
@@ -32,7 +32,7 @@ declare namespace Serverless {
         handler: string;
         timeout?: number;
         memorySize?: number;
-        environment?: { [ name: string ]: string };
+        environment?: { [name: string]: string };
     }
 
     interface Event {

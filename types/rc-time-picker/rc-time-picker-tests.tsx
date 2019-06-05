@@ -7,4 +7,5 @@ import moment from 'moment';
     onChange={(value: moment.Moment) => {}}
     placeholder={'Input time'}
     showSecond={false}
-    onOpen={({open}: { open: boolean }) => {}}/>;
+    onOpen={({ open }: { open: boolean }) => {}}
+/>;

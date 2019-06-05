@@ -23,7 +23,7 @@ export interface History {
     createPath(path: LocationDescriptor): Path;
     createHref(path: LocationDescriptor): Href;
     createLocation(path?: LocationDescriptor, action?: Action, key?: LocationKey): Location;
-    getCurrentLocation: () => Location
+    getCurrentLocation: () => Location;
 
     /** @deprecated use a location descriptor instead */
     createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location;
@@ -52,7 +52,7 @@ export type HistoryOptions = {
     basename?: string;
     entries?: string | [any];
     current?: number;
-}
+};
 
 export type Location = {
     pathname: Pathname;
@@ -76,12 +76,12 @@ export namespace History {
     export type LocationKey = string;
     export type LocationListener = (location: Location) => void;
     export type LocationState = any;
-    export type Path = string // Pathname + QueryString;
+    export type Path = string; // Pathname + QueryString;
     export type Pathname = string;
     export type Query = any;
     export type QueryString = string;
     export type Search = string;
-    export type TransitionHook = (location: Location, callback: (result: any) => void) => any
+    export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
     export type Href = string;
 }
 // Back-compat aliases
@@ -108,7 +108,6 @@ export interface HistoryQueries {
     createHref(path: Path, query?: Query): Href;
 }
 
-
 // Global usage, without modules, needs the small trick, because lib.d.ts
 // already has `history` and `History` global definitions:
 // var createHistory = ((window as any).History as HistoryModule.Module).createHistory;
@@ -127,12 +126,12 @@ export interface Module {
     };
 }
 
-export { default as createHistory } from "./lib/createBrowserHistory";
-export { default as createHashHistory } from "./lib/createHashHistory";
-export { default as createMemoryHistory } from "./lib/createMemoryHistory";
-export { default as createLocation } from "./lib/createLocation";
-export { default as useBasename } from "./lib/useBasename";
-export { default as useBeforeUnload } from "./lib/useBeforeUnload";
-export { default as useQueries } from "./lib/useQueries";
-import * as Actions from "./lib/actions";
+export { default as createHistory } from './lib/createBrowserHistory';
+export { default as createHashHistory } from './lib/createHashHistory';
+export { default as createMemoryHistory } from './lib/createMemoryHistory';
+export { default as createLocation } from './lib/createLocation';
+export { default as useBasename } from './lib/useBasename';
+export { default as useBeforeUnload } from './lib/useBeforeUnload';
+export { default as useQueries } from './lib/useQueries';
+import * as Actions from './lib/actions';
 export { Actions };

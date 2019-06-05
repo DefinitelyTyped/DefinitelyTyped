@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Controller
      * @class A general input handler which handles both mouse and keyboard input assigned to named actions.
@@ -17,11 +16,14 @@ declare namespace pc {
      * c.registerKeys("fire", [pc.KEY_ENTER, pc.KEY_SPACE]);
      */
     class Controller {
-        constructor(element?: Element, options?: {
-            keyboard?: pc.Keyboard,
-            mouse?: pc.Mouse,
-            gamepads: pc.GamePads
-        })
+        constructor(
+            element?: Element,
+            options?: {
+                keyboard?: pc.Keyboard;
+                mouse?: pc.Mouse;
+                gamepads: pc.GamePads;
+            }
+        );
 
         /**
          * @function
@@ -88,11 +90,11 @@ declare namespace pc {
         registerPadButton(action: string, pad: number, button: number): void;
 
         /**
-        * @function
-        * @name pc.Controller#registerAxis
-        * @param {Object} [options]
-        * @param {Object} [options.pad] The index of the game pad to register for (use pc.PAD_1, etc)
-        */
+         * @function
+         * @name pc.Controller#registerAxis
+         * @param {Object} [options]
+         * @param {Object} [options.pad] The index of the game pad to register for (use pc.PAD_1, etc)
+         */
         registerAxis(options?: { pad?: number }): void;
 
         /**

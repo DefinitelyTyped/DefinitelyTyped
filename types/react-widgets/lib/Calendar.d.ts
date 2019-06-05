@@ -69,12 +69,12 @@ interface CalendarProps extends ReactWidgetsCommonProps<CalendarClass>, AutoFocu
     /**
      * The starting and lowest level view the calendar can navigate down to.
      */
-    initialView?: "month" | "year" | "decade" | "century";
+    initialView?: 'month' | 'year' | 'decade' | 'century';
     /**
      * The highest level view the calendar can navigate up to. This value should be higher than
      * initialView
      */
-    finalView?: "month" | "year" | "decade" | "century";
+    finalView?: 'month' | 'year' | 'decade' | 'century';
     /**
      * A formatter for the header button of the month view
      */

@@ -1,11 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type InlineHelpPlacement =
-    | "bottom-right"
-    | "bottom-left"
-    | "right"
-    | "left"
-    | "bottom-center";
+export type InlineHelpPlacement = 'bottom-right' | 'bottom-left' | 'right' | 'left' | 'bottom-center';
 
 export type InlineHelpProps = {
     /* Location to display the inline help pop-up relative to the image. */

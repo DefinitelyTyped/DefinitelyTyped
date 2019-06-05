@@ -20,8 +20,8 @@ declare namespace Express {
     }
 }
 
-declare module "connect-timeout" {
-    import express = require("express");
+declare module 'connect-timeout' {
+    import express = require('express');
 
     namespace e {
         /**

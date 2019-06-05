@@ -1,2 +1,2 @@
-import { lastIndexOf } from "../fp";
+import { lastIndexOf } from '../fp';
 export = lastIndexOf;

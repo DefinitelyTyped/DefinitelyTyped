@@ -1,2 +1,2 @@
-import { repeat } from "../fp";
+import { repeat } from '../fp';
 export = repeat;

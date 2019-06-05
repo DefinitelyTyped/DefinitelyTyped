@@ -5,5 +5,5 @@ declare namespace MediaLeft {
         align?: string;
     }
 }
-declare class MediaLeft extends React.Component<MediaLeft.MediaLeftProps> { }
+declare class MediaLeft extends React.Component<MediaLeft.MediaLeftProps> {}
 export = MediaLeft;

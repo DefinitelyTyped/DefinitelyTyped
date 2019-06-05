@@ -1,18 +1,18 @@
 /// <reference types="jquery" />
 
-import Pikaday = require("pikaday");
-import moment = require("moment");
+import Pikaday = require('pikaday');
+import moment = require('moment');
 
-new Pikaday({field: document.getElementById('datepicker')});
-new Pikaday({field: $('#datepicker')[0]});
+new Pikaday({ field: document.getElementById('datepicker') });
+new Pikaday({ field: $('#datepicker')[0] });
 
 (() => {
-    const field: HTMLInputElement = <HTMLInputElement> document.getElementById('datepicker');
+    const field: HTMLInputElement = <HTMLInputElement>document.getElementById('datepicker');
     const picker = new Pikaday({
         onSelect: (date: Date) => {
             field.value = picker.toString();
             console.log(date.toISOString());
-        }
+        },
     });
     field.parentNode!.insertBefore(picker.el, field.nextSibling);
 })();
@@ -23,7 +23,7 @@ new Pikaday({field: $('#datepicker')[0]});
         format: 'D MMM YYYY',
         onSelect() {
             console.log(this.getMoment()!.format('Do MMMM YYYY'));
-        }
+        },
     });
 
     picker.toString();
@@ -62,11 +62,24 @@ new Pikaday({field: $('#datepicker')[0]});
     const i18n: Pikaday.PikadayI18nConfig = {
         previousMonth: 'Previous Month',
         nextMonth: 'Next Month',
-        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        months: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ],
         weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     };
-    new Pikaday({i18n});
+    new Pikaday({ i18n });
 })();
 
 (() => {
@@ -85,7 +98,7 @@ new Pikaday({field: $('#datepicker')[0]});
         minDate: new Date('2000-01-01'),
         maxDate: new Date('2020-12-31'),
         disableWeekends: true,
-        disableDayFn: (date) => true,
+        disableDayFn: date => true,
         yearRange: [2000, 2020],
         showWeekNumber: true,
         pickWholeWeek: true,
@@ -100,23 +113,23 @@ new Pikaday({field: $('#datepicker')[0]});
         theme: 'myTheme',
         blurFieldOnSelect: false,
         formatStrict: true,
-        toString: (date) => '2017-08-23',
+        toString: date => '2017-08-23',
         parse: () => new Date('2017-08-23'),
         onSelect: () => {},
         onOpen: () => {},
         onClose: () => {},
         onDraw: () => {},
-        keyboardInput: false
+        keyboardInput: false,
     });
 })();
 
 (() => {
     new Pikaday({
         yearRange: 5,
-        toString: (date, format) => '2017-08-23'
+        toString: (date, format) => '2017-08-23',
     });
 })();
 
 new Pikaday({
-    parse: (date) => null
+    parse: date => null,
 });

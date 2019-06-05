@@ -31,7 +31,8 @@ declare namespace Snekfetch {
         statusText: string;
     }
 
-    type methods = 'ACL'
+    type methods =
+        | 'ACL'
         | 'BIND'
         | 'CHECKOUT'
         | 'CONNECT'

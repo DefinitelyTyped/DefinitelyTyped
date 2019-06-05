@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export = Sticky;
 
@@ -26,7 +26,7 @@ declare namespace Sticky {
          * default one.
          */
         STATUS_RELEASED = 1,
-        STATUS_FIXED = 2
+        STATUS_FIXED = 2,
     }
 
     interface Status {

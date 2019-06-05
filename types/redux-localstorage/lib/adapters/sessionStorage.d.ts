@@ -1,3 +1,3 @@
-import { StorageAdapterCreator } from "../..";
+import { StorageAdapterCreator } from '../..';
 declare const adapterCreator: StorageAdapterCreator<Storage>;
 export = adapterCreator;

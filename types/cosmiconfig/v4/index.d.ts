@@ -19,7 +19,7 @@ interface Options {
     cache?: boolean;
     transform?: (result: Result) => Promise<Result> | Result;
     configPath?: string;
-    format?: "json" | "yaml" | "js";
+    format?: 'json' | 'yaml' | 'js';
 }
 
 // Default is false and makes load() method async
@@ -50,14 +50,8 @@ interface SyncExplorer extends Explorer {
     load(searchPath: null | undefined, configPath?: string): Result;
 }
 
-declare function cosmiconfig(
-    moduleName: string,
-    options: SyncOptions
-): SyncExplorer;
+declare function cosmiconfig(moduleName: string, options: SyncOptions): SyncExplorer;
 
-declare function cosmiconfig(
-    moduleName: string,
-    options?: AsyncOptions
-): AsyncExplorer;
+declare function cosmiconfig(moduleName: string, options?: AsyncOptions): AsyncExplorer;
 
 export = cosmiconfig;

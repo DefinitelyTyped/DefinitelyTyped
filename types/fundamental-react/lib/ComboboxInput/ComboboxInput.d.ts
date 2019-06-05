@@ -1,5 +1,5 @@
-import * as React from "react";
-import { MenuProps } from "../Menu/Menu";
+import * as React from 'react';
+import { MenuProps } from '../Menu/Menu';
 
 export type ComboboxInputProps = {
     /* An object containing a `Menu` component. */

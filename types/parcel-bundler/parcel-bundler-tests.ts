@@ -1,16 +1,16 @@
-import ParcelBundler, { ParcelOptions } from "parcel-bundler";
+import ParcelBundler, { ParcelOptions } from 'parcel-bundler';
 
 const parcelOption: ParcelOptions = { watch: false };
 
-const files = ["./index.d.ts"];
+const files = ['./index.d.ts'];
 
 const bundler = new ParcelBundler(files, parcelOption);
 
-bundler.on('buildStart', (entryPoints) => {
+bundler.on('buildStart', entryPoints => {
     console.log(entryPoints);
 });
 
-bundler.on('bundled', (bundle) => {
+bundler.on('bundled', bundle => {
     console.log(bundle);
 });
 
@@ -28,10 +28,10 @@ bundler.middleware();
 
 bundler.bundle().then(bundle => bundle.name);
 
-bundler.serve(1234, false, 'localhost').then((server) => server.close());
+bundler.serve(1234, false, 'localhost').then(server => server.close());
 
 const otherBundler = new ParcelBundler(['./missing.d.ts'], parcelOption);
 
-otherBundler.on('buildError', (error) => console.log(error));
+otherBundler.on('buildError', error => console.log(error));
 
 otherBundler.bundle();

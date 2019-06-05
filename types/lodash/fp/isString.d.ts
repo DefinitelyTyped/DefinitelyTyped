@@ -1,2 +1,2 @@
-import { isString } from "../fp";
+import { isString } from '../fp';
 export = isString;

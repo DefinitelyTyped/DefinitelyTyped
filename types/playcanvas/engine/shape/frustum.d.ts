@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Frustum
      * @class A frustum is a shape that defines the viewing space of a camera.
@@ -13,7 +12,7 @@ declare namespace pc {
      * @param {pc.Mat4} viewMatrix The inverse of the world transformation matrix for the frustum.
      */
     class Frustum {
-        constructor(projectionMatrix: pc.Mat4, viewMatrix: pc.Mat4)
+        constructor(projectionMatrix: pc.Mat4, viewMatrix: pc.Mat4);
 
         /**
          * @function

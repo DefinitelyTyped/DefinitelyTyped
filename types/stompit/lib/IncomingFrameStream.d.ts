@@ -1,4 +1,4 @@
-import { Transform, Readable, TransformOptions } from "stream";
+import { Transform, Readable, TransformOptions } from 'stream';
 
 declare class IncomingFrameStream extends Transform {
     constructor(opts?: TransformOptions);

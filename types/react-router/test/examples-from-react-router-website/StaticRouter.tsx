@@ -8,18 +8,14 @@ interface RouteStatusProps {
     statusCode: number;
 }
 
-const RouteStatus: React.SFC<RouteStatusProps> = (props) => (
+const RouteStatus: React.SFC<RouteStatusProps> = props => (
     <Route
-        render={({ staticContext }: {staticContext?: StaticContext}) => {
+        render={({ staticContext }: { staticContext?: StaticContext }) => {
             if (staticContext) {
                 staticContext.statusCode = props.statusCode;
             }
 
-            return (
-                <div>
-                    {props.children}
-                </div>
-            );
+            return <div>{props.children}</div>;
         }}
     />
 );
@@ -28,10 +24,8 @@ interface PrintContextProps {
     staticContext: StaticContext;
 }
 
-const PrintContext: React.SFC<PrintContextProps> = (props) => (
-    <p>
-        Static context: {JSON.stringify(props.staticContext)}
-    </p>
+const PrintContext: React.SFC<PrintContextProps> = props => (
+    <p>Static context: {JSON.stringify(props.staticContext)}</p>
 );
 
 class StaticRouterExample extends React.Component {

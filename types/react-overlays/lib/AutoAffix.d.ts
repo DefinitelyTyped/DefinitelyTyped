@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { AffixProps } from "./Affix";
+import { AffixProps } from './Affix';
 
 declare class AutoAffix extends React.Component<AutoAffixProps> {}
 declare namespace AutoAffix {}

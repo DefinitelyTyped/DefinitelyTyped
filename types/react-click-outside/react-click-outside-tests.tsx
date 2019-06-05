@@ -17,7 +17,7 @@ class StatefulComponent extends React.Component<Props, State> {
         this.setState({ isOpened: false });
     }
 
-  render() {
+    render() {
         return <div>{this.props.text}</div>;
     }
 }
@@ -30,8 +30,8 @@ class ComponentWithDecorator extends React.Component<Props, State> {
         this.setState({ isOpened: false });
     }
 
-  render() {
-      return <div>{this.props.text}</div>;
+    render() {
+        return <div>{this.props.text}</div>;
     }
 }
 

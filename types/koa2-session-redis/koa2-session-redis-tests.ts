@@ -8,8 +8,8 @@ const CONFIG = {
     store: new RedisStore({
         host: '127.0.0.1',
         port: 6379,
-        max_attempts: 0
-    })
+        max_attempts: 0,
+    }),
 };
 
 app.use(session(CONFIG, app));

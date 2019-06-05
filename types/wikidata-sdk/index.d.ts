@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { WikidataLanguage } from "./def/type/language";
-import { WikidataProperty } from "./def/type/property";
-import { WikidataSite } from "./def/type/site";
-import { WikidataSiteLink, WikidataSiteLinkSimplify, WikidataSiteLinkWithUrlSimplify } from "./def/object/sitelink";
-import { UrlResultFormat } from "./def/type/format";
+import { WikidataLanguage } from './def/type/language';
+import { WikidataProperty } from './def/type/property';
+import { WikidataSite } from './def/type/site';
+import { WikidataSiteLink, WikidataSiteLinkSimplify, WikidataSiteLinkWithUrlSimplify } from './def/object/sitelink';
+import { UrlResultFormat } from './def/type/format';
 import {
     WikidataLanguageBaseString,
     WikidataLanguageBaseStringSimplify,
     WikidataLanguageBaseArrayString,
-    WikidataLanguageBaseArrayStringSimplify
-} from "./def/object/language-base-string";
+    WikidataLanguageBaseArrayStringSimplify,
+} from './def/object/language-base-string';
 
-import { WikidataClaim, WikidataMainSnak, WikidataTimeDataValue, WikidataEntityDataValue } from "./def/object/claim";
+import { WikidataClaim, WikidataMainSnak, WikidataTimeDataValue, WikidataEntityDataValue } from './def/object/claim';
 
 // ----------------------------------- //
 // Export session                      //
@@ -31,7 +31,7 @@ export {
     WikidataLanguageBaseArrayStringSimplify,
     WikidataSiteLink,
     WikidataSiteLinkSimplify,
-    WikidataSiteLinkWithUrlSimplify
+    WikidataSiteLinkWithUrlSimplify,
 };
 
 export { UrlResultFormat };

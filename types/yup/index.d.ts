@@ -13,12 +13,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export function reach<T>(
-    schema: Schema<T>,
-    path: string,
-    value?: any,
-    context?: any
-): Schema<T>;
+export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
 export function addMethod<T extends Schema<any>>(
     schemaCtor: AnySchemaConstructor,
     name: string,
@@ -47,9 +42,7 @@ export type AnySchemaConstructor =
     | ArraySchemaConstructor
     | ObjectSchemaConstructor;
 
-export type TestOptionsMessage =
-    | string
-    | ((params: object & Partial<TestMessageParams>) => string);
+export type TestOptionsMessage = string | ((params: object & Partial<TestMessageParams>) => string);
 
 export interface Schema<T> {
     clone(): this;
@@ -80,13 +73,8 @@ export interface Schema<T> {
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
         name: string,
-        message:
-            | string
-            | ((params: object & Partial<TestMessageParams>) => string),
-        test: (
-            this: TestContext,
-            value?: any
-        ) => boolean | ValidationError | Promise<boolean | ValidationError>,
+        message: string | ((params: object & Partial<TestMessageParams>) => string),
+        test: (this: TestContext, value?: any) => boolean | ValidationError | Promise<boolean | ValidationError>,
         callbackStyleAsync?: boolean
     ): this;
     test(options: TestOptions): this;
@@ -112,9 +100,7 @@ export interface StringSchema extends Schema<string> {
     max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
     matches(
         regex: RegExp,
-        messageOrOptions?:
-            | TestOptionsMessage
-            | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
+        messageOrOptions?: TestOptionsMessage | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
     ): StringSchema;
     email(message?: TestOptionsMessage): StringSchema;
     url(message?: TestOptionsMessage): StringSchema;
@@ -138,7 +124,7 @@ export interface NumberSchema extends Schema<number> {
     negative(message?: TestOptionsMessage): NumberSchema;
     integer(message?: TestOptionsMessage): NumberSchema;
     truncate(): NumberSchema;
-    round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
+    round(type: 'floor' | 'ceil' | 'trunc' | 'round'): NumberSchema;
 }
 
 export interface BooleanSchemaConstructor {
@@ -172,19 +158,14 @@ export interface ArraySchema<T> extends Schema<T[]> {
     compact(rejector?: (value: T, index: number, array: T[]) => boolean): ArraySchema<T>;
 }
 
-export type ObjectSchemaDefinition<T extends object> = {
-    [field in keyof T]: Schema<T[field]> | Ref
-};
+export type ObjectSchemaDefinition<T extends object> = { [field in keyof T]: Schema<T[field]> | Ref };
 
 /**
  * Merges two interfaces. For properties in common, property types from `U` trump those of `T`.
  * This is conducive to the functionality of
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
-export type Shape<T extends object, U extends object> = {
-    [P in keyof T]: P extends keyof U ? U[P] : T[P]
-} &
-    U;
+export type Shape<T extends object, U extends object> = { [P in keyof T]: P extends keyof U ? U[P] : T[P] } & U;
 
 export interface ObjectSchemaConstructor {
     <T extends object>(fields?: ObjectSchemaDefinition<T>): ObjectSchema<T>;
@@ -197,20 +178,13 @@ export interface ObjectSchema<T extends object> extends Schema<T> {
         noSortEdges?: Array<[string, string]>
     ): ObjectSchema<Shape<T, U>>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(
-        onlyKnownKeys?: boolean,
-        message?: TestOptionsMessage
-    ): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys?: boolean, message?: TestOptionsMessage): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
 }
 
-export type TransformFunction<T> = ((
-    this: T,
-    value: any,
-    originalValue: any
-) => any);
+export type TransformFunction<T> = (this: T, value: any, originalValue: any) => any;
 
 export interface WhenOptionsBuilder<T> {
     (value: any, schema: T): T;
@@ -272,10 +246,7 @@ export interface TestOptions {
     /**
      * Test function, determines schema validity
      */
-    test: (
-        this: TestContext,
-        value: any
-    ) => boolean | ValidationError | Promise<boolean | ValidationError>;
+    test: (this: TestContext, value: any) => boolean | ValidationError | Promise<boolean | ValidationError>;
 
     /**
      * The validation error message
@@ -297,7 +268,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<{ name: string, params: object }>;
+    tests: Array<{ name: string; params: object }>;
     fields: object;
 }
 
@@ -327,17 +298,9 @@ export class ValidationError extends Error {
     params?: object;
 
     static isError(err: any): err is ValidationError;
-    static formatError(
-        message: string | ((params?: any) => string),
-        params?: any
-    ): string | ((params?: any) => string);
+    static formatError(message: string | ((params?: any) => string), params?: any): string | ((params?: any) => string);
 
-    constructor(
-        errors: string | string[],
-        value: any,
-        path: string,
-        type?: any
-    );
+    constructor(errors: string | string[], value: any, path: string, type?: any);
 }
 
 // It is tempting to declare `Ref` very simply, but there are problems with these approaches:
@@ -371,18 +334,16 @@ export class Ref {
 export interface Lazy extends Schema<any> {}
 
 export interface FormatErrorParams {
-  path: string;
-  type: string;
-  value?: any;
-  originalValue?: any;
+    path: string;
+    type: string;
+    value?: any;
+    originalValue?: any;
 }
 
-export type LocaleValue =
-    | string
-    | ((params: FormatErrorParams) => string);
+export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
 export interface LocaleObject {
-    mixed?: { [key in keyof MixedSchema]?: string; } & { notType?: LocaleValue };
+    mixed?: { [key in keyof MixedSchema]?: string } & { notType?: LocaleValue };
     string?: { [key in keyof StringSchema]?: string };
     number?: { [key in keyof NumberSchema]?: string };
     boolean?: { [key in keyof BooleanSchema]?: string };

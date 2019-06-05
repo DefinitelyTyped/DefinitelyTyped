@@ -5,7 +5,7 @@
 // TypeScript Version: 2.7
 
 declare class TurndownService {
-    constructor(options?: TurndownService.Options)
+    constructor(options?: TurndownService.Options);
 
     addRule(key: string, rule: TurndownService.Rule): this;
     keep(filter: TurndownService.Filter): this;
@@ -23,16 +23,16 @@ export = TurndownService;
 
 declare namespace TurndownService {
     interface Options {
-        headingStyle?: "setext" | "atx";
+        headingStyle?: 'setext' | 'atx';
         hr?: string;
         br?: string;
-        bulletListMarker?: "-" | "+" | "*";
-        codeBlockStyle?: "indented" | "fenced";
-        emDelimiter?: "_" | "*";
-        fence?: "```" | "~~~";
-        strongDelimiter?: "__" | "**";
-        linkStyle?: "inlined" | "referenced";
-        linkReferenceStyle?: "full" | "collapsed" | "shortcut";
+        bulletListMarker?: '-' | '+' | '*';
+        codeBlockStyle?: 'indented' | 'fenced';
+        emDelimiter?: '_' | '*';
+        fence?: '```' | '~~~';
+        strongDelimiter?: '__' | '**';
+        linkStyle?: 'inlined' | 'referenced';
+        linkReferenceStyle?: 'full' | 'collapsed' | 'shortcut';
 
         keepReplacement?: ReplacementFunction;
         blankReplacement?: ReplacementFunction;
@@ -65,11 +65,7 @@ declare namespace TurndownService {
     type Filter = TagName | TagName[] | FilterFunction;
     type FilterFunction = (node: HTMLElement, options: Options) => boolean;
 
-    type ReplacementFunction = (
-        content: string,
-        node: Node,
-        options: Options,
-    ) => string;
+    type ReplacementFunction = (content: string, node: Node, options: Options) => string;
 
     type TagName = keyof HTMLElementTagNameMap;
 }

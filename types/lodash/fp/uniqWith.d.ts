@@ -1,2 +1,2 @@
-import { uniqWith } from "../fp";
+import { uniqWith } from '../fp';
 export = uniqWith;

@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Request } from 'express';
 
 export interface IBaseStrategyOption {
     identityMetadata: string;
@@ -6,7 +6,7 @@ export interface IBaseStrategyOption {
     isB2C?: boolean;
     validateIssuer?: boolean;
     issuer?: string | string[];
-    loggingLevel?: "info" | "warn" | "error";
+    loggingLevel?: 'info' | 'warn' | 'error';
     loggingNoPII?: boolean;
     clockSkew?: number;
 }
@@ -24,7 +24,7 @@ export interface ITokenPayload {
     /** The "exp" (expiration time) claim identifies the expiration time on or after which the JWT must not be accepted for processing. */
     exp?: number;
     /** The "Authentication context class" claim. A value of "0" indicates the end-user authentication did not meet the requirements of ISO/IEC 29115. */
-    acr?: "0" | "1";
+    acr?: '0' | '1';
     /** An internal claim used by Azure AD to record data for token reuse. */
     aio?: string;
     /** Identifies how the subject of the token was authenticated.  */
@@ -33,12 +33,12 @@ export interface ITokenPayload {
     appid?: string;
     /** Indicates how the client was authenticated. For a public client, the value is "0".
      * If client ID and client secret are used, the value is "1". If a client certificate was used for authentication, the value is "2". */
-    appidacr?: "0" | "1" | "2";
+    appidacr?: '0' | '1' | '2';
     /** Only present in v2.0 tokens. The application ID of the client using the token. */
     azp?: string;
     /** Only present in v2.0 tokens. Indicates how the client was authenticated.
      * For a public client, the value is "0". If client ID and client secret are used, the value is "1". If a client certificate was used for authentication, the value is "2". */
-    azpacr?: "0" | "1" | "2";
+    azpacr?: '0' | '1' | '2';
     /** Provides object IDs that represent the subject's group memberships. */
     groups?: string | string[];
     /** Denoting the user is in at least one group. */
@@ -76,4 +76,3 @@ export interface ITokenPayload {
 export interface VerifyCallback {
     (error: any, user?: any, info?: any): void;
 }
-  

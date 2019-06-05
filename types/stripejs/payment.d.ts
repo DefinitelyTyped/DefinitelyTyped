@@ -1,4 +1,4 @@
-import { ShippingAddress, ShippingOption } from "./shipping";
+import { ShippingAddress, ShippingOption } from './shipping';
 
 /**
  * The Payment request object that can be used to make payments
@@ -227,9 +227,9 @@ export interface StripePaymentResponse {
 }
 
 export type completeStatus =
-    'success' |
-    'fail' |
-    'invalid_payer_name' |
-    'invalid_payer_phone' |
-    'invalid_payer_email' |
-    'invalid_shipping_address';
+    | 'success'
+    | 'fail'
+    | 'invalid_payer_name'
+    | 'invalid_payer_phone'
+    | 'invalid_payer_email'
+    | 'invalid_shipping_address';

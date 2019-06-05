@@ -1,3 +1,3 @@
-import retina = require("retinajs");
+import retina = require('retinajs');
 
 retina();

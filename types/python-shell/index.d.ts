@@ -3,7 +3,7 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>, Colin Richardson <https://github.com/WORMSS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 export class PythonShell extends EventEmitter {
     end(callback: (message: string) => void): void;

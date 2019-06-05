@@ -3,9 +3,26 @@ import LRUCache from 'ol/structs/LRUCache';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import { Transform } from 'ol/transform';
-export function drawImage(context: CanvasRenderingContext2D, transform: Transform, opacity: number, image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, originX: number, originY: number, w: number, h: number, x: number, y: number, scale: number): void;
+export function drawImage(
+    context: CanvasRenderingContext2D,
+    transform: Transform,
+    opacity: number,
+    image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+    originX: number,
+    originY: number,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    scale: number
+): void;
 export function measureTextWidth(font: string, text: string): number;
-export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;
+export function rotateAtOffset(
+    context: CanvasRenderingContext2D,
+    rotation: number,
+    offsetX: number,
+    offsetY: number
+): void;
 export type DeclutterGroup = any[];
 export interface FillState {
     fillStyle: ColorLike;

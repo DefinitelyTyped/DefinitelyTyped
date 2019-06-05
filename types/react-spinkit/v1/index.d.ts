@@ -7,11 +7,22 @@
 /// <reference types="react" />
 
 declare namespace spinner {
-	export interface SpinnerProps {
+    export interface SpinnerProps {
         /**
          * Specify spinner to use.
          */
-        spinnerName?: 'three-bounce' | 'double-bounce' | 'rotating-plane' | 'folding-cube' | 'wave' | 'wandering-cubes' | 'pulse' | 'chasing-dots' | 'circle' | 'cube-grid' | 'wordpress';
+        spinnerName?:
+            | 'three-bounce'
+            | 'double-bounce'
+            | 'rotating-plane'
+            | 'folding-cube'
+            | 'wave'
+            | 'wandering-cubes'
+            | 'pulse'
+            | 'chasing-dots'
+            | 'circle'
+            | 'cube-grid'
+            | 'wordpress';
         /**
          * Disable the initial fade-in of the spinner.
          */
@@ -24,10 +35,9 @@ declare namespace spinner {
          * Component className.
          */
         className?: string;
-	}
+    }
 
-	export interface Spinner extends React.ComponentClass<SpinnerProps> {
-	}
+    export interface Spinner extends React.ComponentClass<SpinnerProps> {}
 }
 
 declare const spinner: spinner.Spinner;

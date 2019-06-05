@@ -11,8 +11,10 @@ proxy.get('firstObject'); // 'amoeba'
 const overridden = Ember.ArrayProxy.create({
     content: Ember.A(pets),
     objectAtContent(idx: number): string {
-        return this.get('content').objectAt(idx)!.toUpperCase();
-    }
+        return this.get('content')
+            .objectAt(idx)!
+            .toUpperCase();
+    },
 });
 
 overridden.get('firstObject'); // 'DOG'

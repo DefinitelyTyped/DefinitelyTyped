@@ -503,7 +503,7 @@ function dynamicSlides() {
         e.preventDefault();
         swiper.appendSlide([
             `<div class="swiper-slide">Slide ${--appendNumber}</div>`,
-            `<div class="swiper-slide">Slide ${--appendNumber}</div>`
+            `<div class="swiper-slide">Slide ${--appendNumber}</div>`,
         ]);
     });
 }
@@ -650,8 +650,8 @@ function responsiveBreakpoints() {
             320: {
                 slidesPerView: 1,
                 spaceBetween: 10,
-            }
-        }
+            },
+        },
     });
 }
 
@@ -719,7 +719,7 @@ function virtualSlides() {
             prevEl: '.swiper-button-prev',
         },
         virtual: {
-            slides
+            slides,
         },
     });
     document.querySelector('.slide-1').addEventListener('click', e => {
@@ -749,13 +749,17 @@ function slideableNavigation() {
         on: {
             init: () => {
                 const slider = this;
-                menuButton.addEventListener('click', () => {
-                    if (slider.activeIndex === 0) {
-                        slider.slideNext();
-                    } else {
-                        slider.slidePrev();
-                    }
-                }, true);
+                menuButton.addEventListener(
+                    'click',
+                    () => {
+                        if (slider.activeIndex === 0) {
+                            slider.slideNext();
+                        } else {
+                            slider.slidePrev();
+                        }
+                    },
+                    true
+                );
             },
             slideChange: () => {
                 const slider = this;
@@ -765,7 +769,7 @@ function slideableNavigation() {
                     menuButton.classList.remove('cross');
                 }
             },
-        }
+        },
     });
 }
 

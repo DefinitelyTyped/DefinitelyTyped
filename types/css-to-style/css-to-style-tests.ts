@@ -1,4 +1,4 @@
-import toStyle from "css-to-style";
+import toStyle from 'css-to-style';
 
 toStyle(); // $ExpectError
 

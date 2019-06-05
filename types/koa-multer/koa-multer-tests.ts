@@ -5,7 +5,7 @@ const upload = multer({
     dest: 'uploads/',
     fileFilter: (req, file, cb) => {
         cb(null, true);
-    }
+    },
 });
 
 const app = new Koa();
@@ -23,7 +23,7 @@ const diskStorage = multer.diskStorage({
     },
     filename(req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}`);
-    }
+    },
 });
 
 const diskUpload = multer({ storage: diskStorage });

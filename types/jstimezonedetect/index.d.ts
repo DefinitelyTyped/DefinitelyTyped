@@ -5,6 +5,6 @@
 
 export function determine(): {
     name(): string;
-}
+};
 
 export as namespace jstz;

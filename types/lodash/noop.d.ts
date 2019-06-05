@@ -1,2 +1,2 @@
-import { noop } from "./index";
+import { noop } from './index';
 export = noop;

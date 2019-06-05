@@ -1,4 +1,4 @@
-import { FilterFunction } from "./FilterFunction";
+import { FilterFunction } from './FilterFunction';
 
 /**
  * A collection of filter-functions.

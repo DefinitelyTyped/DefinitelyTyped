@@ -4,11 +4,11 @@ import ReactScrollIntoViewIfNeeded from 'react-scroll-into-view-if-needed';
 const validOptions = {
     block: 'start',
     scrollMode: 'if-needed',
-    skipOverflowHiddenElements: true
+    skipOverflowHiddenElements: true,
 };
 
 const invalidOptions = {
-    invalidOption: 'foobar'
+    invalidOption: 'foobar',
 };
 
 () => (
@@ -17,7 +17,7 @@ const invalidOptions = {
         options={{
             block: 'start',
             scrollMode: 'if-needed',
-            skipOverflowHiddenElements: true
+            skipOverflowHiddenElements: true,
         }}
         elementType="h1"
     >
@@ -28,7 +28,7 @@ const invalidOptions = {
 () => (
     <ReactScrollIntoViewIfNeeded
         options={{
-            invalidOption: 'foobar' // $ExpectError
+            invalidOption: 'foobar', // $ExpectError
         }}
     >
         Children

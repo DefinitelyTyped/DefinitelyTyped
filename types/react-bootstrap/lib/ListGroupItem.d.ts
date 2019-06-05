@@ -11,5 +11,5 @@ declare namespace ListGroupItem {
         listItem?: boolean;
     }
 }
-declare class ListGroupItem extends React.Component<ListGroupItem.ListGroupItemProps> { }
+declare class ListGroupItem extends React.Component<ListGroupItem.ListGroupItemProps> {}
 export = ListGroupItem;

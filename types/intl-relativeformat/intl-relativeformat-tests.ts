@@ -1,13 +1,13 @@
-import IntlRelativeFormat from "intl-relativeformat";
+import IntlRelativeFormat from 'intl-relativeformat';
 
-let dateFormatter = new IntlRelativeFormat("en-US");
+let dateFormatter = new IntlRelativeFormat('en-US');
 
-dateFormatter = new IntlRelativeFormat("en-US", {
-    units: "day"
+dateFormatter = new IntlRelativeFormat('en-US', {
+    units: 'day',
 });
-dateFormatter = new IntlRelativeFormat("en-US", {
-    units: "day",
-    style: "numeric"
+dateFormatter = new IntlRelativeFormat('en-US', {
+    units: 'day',
+    style: 'numeric',
 });
 
 console.log(dateFormatter.resolvedOptions().locale);

@@ -1,5 +1,5 @@
-import Link from "next-server/link";
-import * as React from "react";
+import Link from 'next-server/link';
+import * as React from 'react';
 
 const links = (
     <div>
@@ -7,7 +7,7 @@ const links = (
             as="foo"
             href="https://www.example.com"
             onError={(e: any) => {
-                console.log("Handled error!", e);
+                console.log('Handled error!', e);
             }}
             prefetch
             replace

@@ -1,17 +1,25 @@
-import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location, History, MemoryHistory } from 'history';
+import {
+    createBrowserHistory,
+    createMemoryHistory,
+    createHashHistory,
+    createLocation,
+    Location,
+    History,
+    MemoryHistory,
+} from 'history';
 import * as LocationUtils from 'history/LocationUtils';
 import * as PathUtils from 'history/PathUtils';
 import * as DOMUtils from 'history/DOMUtils';
 import * as ExecutionEnvironment from 'history/ExecutionEnvironment';
 
-let input = { value: "" };
+let input = { value: '' };
 
 {
-    let history: History<{some: 'state'}> = createBrowserHistory();
+    let history: History<{ some: 'state' }> = createBrowserHistory();
 
     // Listen for changes to the current location. The
     // listener is called once immediately.
-    let unlisten = history.listen(function (location) {
+    let unlisten = history.listen(function(location) {
         console.log(location.pathname);
     });
 
@@ -28,7 +36,7 @@ let input = { value: "" };
     history.push({
         pathname: '/about',
         search: '?the=search',
-        state: { some: 'state' }
+        state: { some: 'state' },
     });
 
     // Change just the search on an existing location.
@@ -43,7 +51,7 @@ let input = { value: "" };
 }
 
 {
-    let history: MemoryHistory<{the: 'state'}> = createMemoryHistory();
+    let history: MemoryHistory<{ the: 'state' }> = createMemoryHistory();
 
     // Pushing a path string.
     history.push('/the/path');
@@ -64,20 +72,20 @@ let input = { value: "" };
     let unblock = history.block(true);
     unblock();
 
-    history.entries.forEach(function (location) {
+    history.entries.forEach(function(location) {
         let typedLocation: Location = location;
     });
 }
 
 {
-    let history = createHashHistory()
-    history.listen(function (location) {
+    let history = createHashHistory();
+    history.listen(function(location) {
         if (input.value !== '') {
             return 'Are you sure you want to leave this page?';
         }
     });
 
-    history.listen(function (location, action) {
+    history.listen(function(location, action) {
         if (typeof action === 'string') {
             console.log(action);
         }
@@ -91,7 +99,7 @@ let input = { value: "" };
         forceRefresh: false,
         getUserConfirmation(message, callback) {
             callback(window.confirm(message)); // The default behavior
-        }
+        },
     });
 }
 
@@ -115,9 +123,13 @@ let input = { value: "" };
 
 {
     let eventTarget: EventTarget;
-    DOMUtils.addEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
-    DOMUtils.removeEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
-    DOMUtils.getConfirmation('confirm?', (result) => console.log(result));
+    DOMUtils.addEventListener(eventTarget, 'onload', function(event) {
+        event.preventDefault();
+    });
+    DOMUtils.removeEventListener(eventTarget, 'onload', function(event) {
+        event.preventDefault();
+    });
+    DOMUtils.getConfirmation('confirm?', result => console.log(result));
     let booleanValues = DOMUtils.supportsGoWithoutReloadUsingHash() && DOMUtils.supportsHistory();
 }
 

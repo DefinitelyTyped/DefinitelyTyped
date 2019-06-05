@@ -65,12 +65,7 @@ export namespace Dialogflow_V2 {
     const LANG_SPANISH: 'es';
     const LANG_UKRAINIAN: 'uk';
 
-    function setConfiguration(
-        serviceAccount: string,
-        privateKey: string,
-        language: string,
-        projectId: string
-    ): void;
+    function setConfiguration(serviceAccount: string, privateKey: string, language: string, projectId: string): void;
     function startListening(resultCallback: (result: object) => void, errorCallback: (error: Error) => void): void;
     function finishListening(): void;
     function requestEvent(

@@ -29,12 +29,7 @@ declare function first<TEmitter extends EventEmitter>(
 ): first.Thunk<TEmitter>;
 
 declare namespace first {
-    type Listener<TEmitter extends EventEmitter> = (
-        err: any,
-        ee: TEmitter,
-        event: string[],
-        args: any[]
-    ) => void;
+    type Listener<TEmitter extends EventEmitter> = (err: any, ee: TEmitter, event: string[], args: any[]) => void;
 
     interface Thunk<TEmitter extends EventEmitter> {
         (listener: Listener<TEmitter>): void;

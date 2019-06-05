@@ -1,14 +1,14 @@
 const editor = CodeMirror(document.body);
 const position: CodeMirror.Position = { ch: 0, line: 0 };
 const opt: CodeMirror.CommentOptions = {
-    blockCommentEnd: "*/",
-    blockCommentStart: "/*",
-    blockCommentLead: "*",
+    blockCommentEnd: '*/',
+    blockCommentStart: '/*',
+    blockCommentLead: '*',
     commentBlankLines: true,
     fullLines: true,
     indent: true,
-    lineComment: "//",
-    padding: " "
+    lineComment: '//',
+    padding: ' ',
 };
 editor.toggleComment(opt);
 editor.blockComment(position, position, opt);

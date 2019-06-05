@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Context } from "mali";
+import { Context } from 'mali';
 
 declare function onError(
     fn: (err: Error, ctx: Context) => void

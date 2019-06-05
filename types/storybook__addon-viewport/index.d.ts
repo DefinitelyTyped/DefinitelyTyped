@@ -11,9 +11,9 @@ export type ViewportName = string;
 export interface ViewportProperties {
     name: ViewportName;
     styles: {
-        width?: string,
-        height?: string,
-        [styleName: string]: any,
+        width?: string;
+        height?: string;
+        [styleName: string]: any;
     };
     type?: 'desktop' | 'tablet' | 'mobile' | string;
 }

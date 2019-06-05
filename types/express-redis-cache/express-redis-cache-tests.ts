@@ -8,23 +8,30 @@ const cache = expressRedisCache();
 expressRedisCache({ host: 'localhsot', port: 6379, auth_pass: 'passw0rd' });
 expressRedisCache({ client: redis.createClient() });
 
-cache.on('error', (error) => {
+cache.on('error', error => {
     throw new Error('Cache error!');
 });
 
-app.get('/',
+app.get(
+    '/',
     cache.route(), // cache entry name is `cache.prefix + "/"`
-    (req, res, next) => { });
+    (req, res, next) => {}
+);
 
-app.get('/',
+app.get(
+    '/',
     cache.route('home'), // cache entry name is now `cache.prefix + "home"`
-    (req, res, next) => { });
+    (req, res, next) => {}
+);
 
-app.get('/',
+app.get(
+    '/',
     cache.route({ name: 'home' }), // cache entry name is `cache.prefix + "home"`
-    (req, res, next) => { });
+    (req, res, next) => {}
+);
 
-app.get('/user/:userid',
+app.get(
+    '/user/:userid',
     // middleware to define cache name
     (req, res, next) => {
         // set cache name
@@ -39,7 +46,8 @@ app.get('/user/:userid',
     }
 );
 
-app.get('/user',
+app.get(
+    '/user',
     // middleware to decide if using cache
     (req, res, next) => {
         // Use only cache if user not signed in
@@ -58,9 +66,10 @@ expressRedisCache({ prefix: 'test' });
 // Expiration
 expressRedisCache({ expire: 60 });
 
-app.get('/index.html',
+app.get(
+    '/index.html',
     cache.route({ expire: 5000 }), // cache entry will live 5000 seconds
-    (req, res) => { }
+    (req, res) => {}
 );
 
 // You can also use the number sugar syntax
@@ -68,17 +77,18 @@ cache.route(5000);
 // Or
 cache.route('index', 5000);
 
-app.get('/index.html',
+app.get(
+    '/index.html',
     cache.route({
         expire: {
             200: 5000,
             '4xx': 10,
             403: 5000,
             '5xx': 10,
-            xxx: 1
-        }
+            xxx: 1,
+        },
     }),
-    (req, res) => { }
+    (req, res) => {}
 );
 
 cache.get((error, entries) => {
@@ -95,11 +105,7 @@ cache.add(
     (error, added) => {}
 );
 
-cache.add(
-    'user:info',
-    JSON.stringify({ id: 1, email: 'john@doe.com' }),
-    (error, added) => {}
-);
+cache.add('user:info', JSON.stringify({ id: 1, email: 'john@doe.com' }), (error, added) => {});
 
 cache.del('home', (error, deleted) => {});
 cache.size((error, bytes) => {});

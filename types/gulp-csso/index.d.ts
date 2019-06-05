@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 declare function csso(structureMinimization?: boolean): NodeJS.ReadWriteStream;
-declare namespace csso { }
+declare namespace csso {}
 export = csso;

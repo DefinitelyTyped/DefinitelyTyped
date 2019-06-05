@@ -8,15 +8,70 @@
  * e.g. "a8" to "h1".
  */
 export type Square =
-    "a8" | "b8" | "c8" | "d8" | "e8" | "f8" | "g8" | "h8" |
-    "a7" | "b7" | "c7" | "d7" | "e7" | "f7" | "g7" | "h7" |
-    "a6" | "b6" | "c6" | "d6" | "e6" | "f6" | "g6" | "h6" |
-    "a5" | "b5" | "c5" | "d5" | "e5" | "f5" | "g5" | "h5" |
-    "a4" | "b4" | "c4" | "d4" | "e4" | "f4" | "g4" | "h4" |
-    "a3" | "b3" | "c3" | "d3" | "e3" | "f3" | "g3" | "h3" |
-    "a2" | "b2" | "c2" | "d2" | "e2" | "f2" | "g2" | "h2" |
-    "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1"
-;
+    | 'a8'
+    | 'b8'
+    | 'c8'
+    | 'd8'
+    | 'e8'
+    | 'f8'
+    | 'g8'
+    | 'h8'
+    | 'a7'
+    | 'b7'
+    | 'c7'
+    | 'd7'
+    | 'e7'
+    | 'f7'
+    | 'g7'
+    | 'h7'
+    | 'a6'
+    | 'b6'
+    | 'c6'
+    | 'd6'
+    | 'e6'
+    | 'f6'
+    | 'g6'
+    | 'h6'
+    | 'a5'
+    | 'b5'
+    | 'c5'
+    | 'd5'
+    | 'e5'
+    | 'f5'
+    | 'g5'
+    | 'h5'
+    | 'a4'
+    | 'b4'
+    | 'c4'
+    | 'd4'
+    | 'e4'
+    | 'f4'
+    | 'g4'
+    | 'h4'
+    | 'a3'
+    | 'b3'
+    | 'c3'
+    | 'd3'
+    | 'e3'
+    | 'f3'
+    | 'g3'
+    | 'h3'
+    | 'a2'
+    | 'b2'
+    | 'c2'
+    | 'd2'
+    | 'e2'
+    | 'f2'
+    | 'g2'
+    | 'h2'
+    | 'a1'
+    | 'b1'
+    | 'c1'
+    | 'd1'
+    | 'e1'
+    | 'f1'
+    | 'g1'
+    | 'h1';
 
 /**
  * Partial data about a chess move including the from and to square, and if a
@@ -42,7 +97,7 @@ export interface ShortMove {
      * - "r" for Rook
      * - "q" for Queen
      */
-    promotion?: "n" | "b" | "r" | "q";
+    promotion?: 'n' | 'b' | 'r' | 'q';
 }
 
 /**
@@ -54,7 +109,7 @@ export interface Move extends ShortMove {
      * - "b" for Black
      * - "w" for White
      */
-    color: "b" | "w";
+    color: 'b' | 'w';
 
     /** Flags indicating what occurred, combined into one string */
     flags: string;
@@ -68,7 +123,7 @@ export interface Move extends ShortMove {
      * - "q" for Queen
      * - "k" for King
      */
-    piece: "p" | "n" | "b" | "r" | "q" | "k";
+    piece: 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
 
     /** The Standard Algebraic Notation (SAN) representation of the move */
     san: string;
@@ -81,7 +136,7 @@ export interface Move extends ShortMove {
      * - "r" for Rook
      * - "q" for Queen
      */
-    captured?: "p" | "n" | "b" | "r" | "q";
+    captured?: 'p' | 'n' | 'b' | 'r' | 'q';
 }
 
 export interface Piece {
@@ -94,68 +149,124 @@ export interface Piece {
      * - "q" for Queen
      * - "k" for King
      */
-    type: "p" | "n" | "b" | "r" | "q" | "k";
+    type: 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
 
     /**
      * The color of the piece
      * - "b" for Black
      * - "w" for White
      */
-    color: "b" | "w";
+    color: 'b' | 'w';
 }
 
 export interface ChessInstance {
     /** The string that represents the White color side */
-    readonly WHITE: "w";
+    readonly WHITE: 'w';
 
     /** The string that represents the Black color side */
-    readonly BLACK: "b";
+    readonly BLACK: 'b';
 
     /** The string that represents a Pawn */
-    readonly PAWN: "p";
+    readonly PAWN: 'p';
 
     /** The string that represents a Knight */
-    readonly KNIGHT: "n";
+    readonly KNIGHT: 'n';
     /** The string that represents a Bishop */
-    readonly BISHOP: "b";
+    readonly BISHOP: 'b';
 
     /** The string that represents a Rook */
-    readonly ROOK: "r";
+    readonly ROOK: 'r';
 
     /** The string that represents a Queen */
-    readonly QUEEN: "q";
+    readonly QUEEN: 'q';
 
     /** The string that represents a King */
-    readonly KING: "k";
+    readonly KING: 'k';
 
     /** A list of all the squares in the game, from "a1" to "h8" */
     readonly SQUARES: [
-        "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
-        "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-        "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
-        "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-        "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-        "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-        "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-        "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1"
+        'a8',
+        'b8',
+        'c8',
+        'd8',
+        'e8',
+        'f8',
+        'g8',
+        'h8',
+        'a7',
+        'b7',
+        'c7',
+        'd7',
+        'e7',
+        'f7',
+        'g7',
+        'h7',
+        'a6',
+        'b6',
+        'c6',
+        'd6',
+        'e6',
+        'f6',
+        'g6',
+        'h6',
+        'a5',
+        'b5',
+        'c5',
+        'd5',
+        'e5',
+        'f5',
+        'g5',
+        'h5',
+        'a4',
+        'b4',
+        'c4',
+        'd4',
+        'e4',
+        'f4',
+        'g4',
+        'h4',
+        'a3',
+        'b3',
+        'c3',
+        'd3',
+        'e3',
+        'f3',
+        'g3',
+        'h3',
+        'a2',
+        'b2',
+        'c2',
+        'd2',
+        'e2',
+        'f2',
+        'g2',
+        'h2',
+        'a1',
+        'b1',
+        'c1',
+        'd1',
+        'e1',
+        'f1',
+        'g1',
+        'h1'
     ];
 
     /** Flags used to build flag strings for moves */
     readonly FLAGS: {
         /** a non-capture */
-        NORMAL: "n",
+        NORMAL: 'n';
         /** a standard capture */
-        CAPTURE: "c",
+        CAPTURE: 'c';
         /** a pawn push of two squares */
-        BIG_PAWN: "b",
+        BIG_PAWN: 'b';
         /** an en passant capture */
-        EP_CAPTURE: "e",
+        EP_CAPTURE: 'e';
         /** a promotion */
-        PROMOTION: "p",
+        PROMOTION: 'p';
         /** kingside castling */
-        KSIDE_CASTLE: "k",
+        KSIDE_CASTLE: 'k';
         /** queenside castling */
-        QSIDE_CASTLE: "q",
+        QSIDE_CASTLE: 'q';
     };
 
     /**
@@ -285,7 +396,9 @@ export interface ChessInstance {
      * within the FEN string.
      * @param fen the fen formatted string to validate
      */
-    validate_fen(fen: string): {
+    validate_fen(
+        fen: string
+    ): {
         /** Indicates if the fen is valid or not. */
         valid: boolean;
 
@@ -318,7 +431,7 @@ export interface ChessInstance {
      */
     pgn(options?: {
         /** the maximum width of a line */
-        max_width?: number,
+        max_width?: number;
         /** Specific newline character */
         newline_char?: string;
     }): string;
@@ -331,28 +444,31 @@ export interface ChessInstance {
      * @returns The method will return true if the PGN was parsed successfully,
      * otherwise false.
      */
-    load_pgn(pgn: string, options?: {
-        /**
-         * The newline_char is a string representation of a valid RegExp
-         * fragment and is used to process the PGN.
-         * It defaults to \r?\n.
-         * Special characters should not be pre-escaped, but any literal
-         * special characters should be escaped as is normal for a RegExp.
-         * Keep in mind that backslashes in JavaScript strings must
-         * themselves be escaped.
-         * Avoid using a newline_char that may occur elsewhere in a PGN,
-         * such as . or x, as this will result in unexpected behavior.
-         */
-        newline_char?: string;
+    load_pgn(
+        pgn: string,
+        options?: {
+            /**
+             * The newline_char is a string representation of a valid RegExp
+             * fragment and is used to process the PGN.
+             * It defaults to \r?\n.
+             * Special characters should not be pre-escaped, but any literal
+             * special characters should be escaped as is normal for a RegExp.
+             * Keep in mind that backslashes in JavaScript strings must
+             * themselves be escaped.
+             * Avoid using a newline_char that may occur elsewhere in a PGN,
+             * such as . or x, as this will result in unexpected behavior.
+             */
+            newline_char?: string;
 
-        /**
-         * The sloppy flag is a boolean that permits chess.js to parse moves in
-         * non-standard notations.
-         * See .move documentation for more information about non-SAN
-         * notations.
-         */
-        sloppy?: boolean;
-    }): boolean;
+            /**
+             * The sloppy flag is a boolean that permits chess.js to parse moves in
+             * non-standard notations.
+             * See .move documentation for more information about non-SAN
+             * notations.
+             */
+            sloppy?: boolean;
+        }
+    ): boolean;
 
     /**
      * Allows header information to be added to PGN output.
@@ -373,7 +489,7 @@ export interface ChessInstance {
      * Returns the current side to move.
      * @returns "b" if Black is the side to move, otherwise "w" for White.
      */
-    turn(): "b" | "w";
+    turn(): 'b' | 'w';
 
     /**
      * Attempts to make a move on the board, returning a move object if the
@@ -391,13 +507,16 @@ export interface ChessInstance {
      * and the chess board's state changes.
      * If the move was invalid, null is returned and the state does not update.
      */
-    move(move: string | ShortMove, options?: {
-        /**
-         * An optional sloppy flag can be used to parse a variety of
-         * non-standard move notations.
-         */
-        sloppy?: boolean;
-    }): Move | null;
+    move(
+        move: string | ShortMove,
+        options?: {
+            /**
+             * An optional sloppy flag can be used to parse a variety of
+             * non-standard move notations.
+             */
+            sloppy?: boolean;
+        }
+    ): Move | null;
 
     /**
      * Take back the last half-move, returning a move object if successful,
@@ -449,7 +568,7 @@ export interface ChessInstance {
      * @returns "light" if a light square, "dark" if a dark square, or null if
      * not a valid square.
      */
-    square_color(square: Square): "light" | "dark";
+    square_color(square: Square): 'light' | 'dark';
 
     /**
      * Returns the color of the square ('light' or 'dark').
@@ -457,7 +576,7 @@ export interface ChessInstance {
      * @returns "light" if a light square, "dark" if a dark square, or null if
      * not a valid square.
      */
-    square_color(square: string): "light" | "dark" | null;
+    square_color(square: string): 'light' | 'dark' | null;
 
     /**
      * Returns a list containing the moves of the current game.

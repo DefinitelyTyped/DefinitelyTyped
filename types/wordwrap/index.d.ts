@@ -45,7 +45,7 @@ declare namespace wordwrap {
      * which are longer than `stop - start`, in "hard" mode, split chunks with
      * `/\b/` and break up chunks longer than `stop - start`.
      */
-    type Mode = "soft" | "hard";
+    type Mode = 'soft' | 'hard';
 }
 
 export = wordwrap;

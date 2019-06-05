@@ -14,6 +14,6 @@ interface TextInputProps {
     value?: string;
 }
 
-declare class TextInput extends Component<TextInputProps> { }
+declare class TextInput extends Component<TextInputProps> {}
 
 export = TextInput;

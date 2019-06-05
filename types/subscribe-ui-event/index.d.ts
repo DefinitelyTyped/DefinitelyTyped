@@ -13,12 +13,7 @@ export type UIEventType =
     | 'scrollStart'
     | 'visibilitychange';
 
-export type TouchEventType =
-    | 'touchend'
-    | 'touchmove'
-    | 'touchmoveEnd'
-    | 'touchmoveStart'
-    | 'touchstart';
+export type TouchEventType = 'touchend' | 'touchmove' | 'touchmoveEnd' | 'touchmoveStart' | 'touchstart';
 
 export type EventType = UIEventType | TouchEventType;
 
@@ -53,10 +48,7 @@ export interface ArgmentedEvent<T extends EventType> {
     };
 }
 
-export type UIEventCallback<T extends UIEventType = UIEventType> = (
-    event: UIEvent,
-    payload: ArgmentedEvent<T>
-) => any;
+export type UIEventCallback<T extends UIEventType = UIEventType> = (event: UIEvent, payload: ArgmentedEvent<T>) => any;
 
 export type TouchEventCallback<T extends TouchEventType = TouchEventType> = (
     event: TouchEvent,
@@ -79,15 +71,9 @@ export function subscribe<T extends TouchEventType>(
     options?: SubscribeOptions
 ): Subscription;
 
-export function unsubscribe<T extends UIEventType>(
-    eventType: T,
-    callback: UIEventCallback<T>
-): void;
+export function unsubscribe<T extends UIEventType>(eventType: T, callback: UIEventCallback<T>): void;
 
-export function unsubscribe<T extends TouchEventType>(
-    eventType: T,
-    callback: TouchEventCallback<T>
-): void;
+export function unsubscribe<T extends TouchEventType>(eventType: T, callback: TouchEventCallback<T>): void;
 
 export function listen(
     target: EventTarget,

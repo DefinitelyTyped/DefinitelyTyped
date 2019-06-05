@@ -1,3 +1,3 @@
-export * from "async";
+export * from 'async';
 
 export as namespace tasync;

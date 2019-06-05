@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type PaginationProps = {
     /* Total number of items. itemsTotal / itemsPerPage calculates how many navigation items should be shown in the control. */

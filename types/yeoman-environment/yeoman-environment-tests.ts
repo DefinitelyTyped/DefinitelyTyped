@@ -1,3 +1,3 @@
-import * as Env from "yeoman-environment";
+import * as Env from 'yeoman-environment';
 
 Env.createEnv();

@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface MediaQueryTypes {
     all?: boolean;
@@ -85,6 +85,6 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
     onChange?: (matches: boolean) => void;
 }
 
-declare class MediaQuery extends React.Component<MediaQueryProps> { }
+declare class MediaQuery extends React.Component<MediaQueryProps> {}
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
 export default MediaQuery;

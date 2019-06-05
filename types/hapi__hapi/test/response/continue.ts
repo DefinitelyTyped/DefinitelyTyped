@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverextevent-method-options
-import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
+import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from '@hapi/hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -10,13 +10,13 @@ const serverRoute: ServerRoute = {
     method: 'GET',
     handler(request, h) {
         return 'ok: ' + request.path;
-    }
+    },
 };
 
 const server = new Server(options);
 server.route(serverRoute);
 
-server.ext("onRequest", (request, h) => {
+server.ext('onRequest', (request, h) => {
     request.setUrl('/test');
     return h.continue;
 });

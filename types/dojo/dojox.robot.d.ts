@@ -4,20 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     namespace robot {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/robot/recorder.html
          *
          *
          */
-        interface recorder {
-        }
+        interface recorder {}
     }
-
 }
 
-declare module "dojox/robot/recorder" {
-    var exp: dojox.robot.recorder
-    export=exp;
+declare module 'dojox/robot/recorder' {
+    var exp: dojox.robot.recorder;
+    export = exp;
 }

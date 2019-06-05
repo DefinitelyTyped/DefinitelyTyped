@@ -12,6 +12,4 @@ export interface LinearGradientProps {
     children?: React.ReactNode[] | React.ReactNode;
 }
 
-export default class LinearGradient extends React.Component<
-    LinearGradientProps
-> {}
+export default class LinearGradient extends React.Component<LinearGradientProps> {}

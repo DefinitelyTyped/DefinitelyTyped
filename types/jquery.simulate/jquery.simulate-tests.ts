@@ -1,4 +1,4 @@
-var $element = $("body");
+var $element = $('body');
 
-$element.simulate("click");
-$element.simulate("mousewheel", { detail: 50 });
+$element.simulate('click');
+$element.simulate('mousewheel', { detail: 50 });

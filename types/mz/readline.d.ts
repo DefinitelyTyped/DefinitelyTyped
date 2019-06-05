@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import * as readline from "readline";
-export * from "readline";
+import * as readline from 'readline';
+export * from 'readline';
 
 export interface ReadLine extends readline.ReadLine {
     question(query: string, callback: (answer: string) => void): void;
@@ -28,5 +28,10 @@ export interface ReadLineOptions {
     historySize?: number;
 }
 
-export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer, terminal?: boolean): ReadLine;
+export function createInterface(
+    input: NodeJS.ReadableStream,
+    output?: NodeJS.WritableStream,
+    completer?: Completer,
+    terminal?: boolean
+): ReadLine;
 export function createInterface(options: ReadLineOptions): ReadLine;

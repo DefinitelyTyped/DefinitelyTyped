@@ -12,7 +12,7 @@ console.log(ecparams.G.getEncoded().toString('hex')); // getEncoded() returns ty
 console.log(ecparams.h.toString(16));
 // => 1
 
-const privateKey = new Buffer("1184cd2cdd640ca42cfc3a091c51d549b2f016d454b2774019c2b2d2e08529fd", 'hex');
+const privateKey = new Buffer('1184cd2cdd640ca42cfc3a091c51d549b2f016d454b2774019c2b2d2e08529fd', 'hex');
 
 ecparams = ecurve.getCurveByName('secp256k1');
 const curvePt = ecparams.G.multiply(BigInteger.fromBuffer(privateKey));
@@ -33,15 +33,21 @@ publicKey = curvePt.getEncoded(true); // true forces compressed public key
 console.log(publicKey.toString('hex'));
 // => 03d0988bfa799f7d7ef9ab3de97ef481cd0f75d2367ad456607647edde665d6f6f
 
-const sha = crypto.createHash('sha256').update(publicKey).digest();
-const pubkeyHash = crypto.createHash('rmd160').update(sha).digest();
+const sha = crypto
+    .createHash('sha256')
+    .update(publicKey)
+    .digest();
+const pubkeyHash = crypto
+    .createHash('rmd160')
+    .update(sha)
+    .digest();
 
 // pubkeyHash of compressed public key
 console.log(pubkeyHash.toString('hex'));
 // => a1c2f92a9dacbd2991c3897724a93f338e44bdc1
 
 // address of compressed public key
-console.log(cs.encode(pubkeyHash, 0x0));  // <-- 0x0 is for public addresses
+console.log(cs.encode(pubkeyHash, 0x0)); // <-- 0x0 is for public addresses
 // => 1FkKMsKNJqWSDvTvETqcCeHcUQQ64kSC6s
 
 console.log(cs.encode(privateKey, 0x80)); // <--- 0x80 is for private addresses

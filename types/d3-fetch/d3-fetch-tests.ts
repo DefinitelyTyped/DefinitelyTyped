@@ -5,7 +5,7 @@ import { DSVParsedArray, DSVRaw, DSVRowString } from 'd3-dsv';
 // Preparatory Steps
 // ----------------------------------------------------------------------------
 
-type Headers = "Year" | "Make" | "Model" | "Length";
+type Headers = 'Year' | 'Make' | 'Model' | 'Length';
 
 interface Car {
     year: Date;
@@ -30,7 +30,7 @@ const map = new Map<string, number>();
 const imageProperties = {
     width: 300,
     height: 500,
-    crossOrigin: "anonymous",
+    crossOrigin: 'anonymous',
 };
 
 // ----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ arrayPromise = d3Fetch.buffer(url, init);
 imagePromise = d3Fetch.image(url);
 imagePromise = d3Fetch.image(url, imageProperties);
 // $ExpectError
-imagePromise = d3Fetch.image(url, {width: "500px"}); // fails, string not assignable to number | undefined
+imagePromise = d3Fetch.image(url, { width: '500px' }); // fails, string not assignable to number | undefined
 
 anyPromise = d3Fetch.json(url);
 anyPromise = d3Fetch.json(url, init);
@@ -78,13 +78,15 @@ declare const parseRowString: (rawRow: DSVRowString, index: number, columns: str
 
 const parseRow = (d: DSVRowString<Headers>, index: number, columns: Headers[]): Car | undefined | null => {
     const item: string | undefined = d[columns[0]];
-    const car = d.Make === 'Ford' ? null :
-        {
-            year: new Date(+d.Make!, 0, 1),
-            make: d.Make!,
-            model: d.Model!,
-            length: +d.Length!,
-        };
+    const car =
+        d.Make === 'Ford'
+            ? null
+            : {
+                  year: new Date(+d.Make!, 0, 1),
+                  make: d.Make!,
+                  model: d.Model!,
+                  length: +d.Length!,
+              };
     return index % 2 === 0 ? undefined : car;
 };
 
@@ -119,23 +121,23 @@ anyPromise = d3Fetch.csv(url, (d: DSVRaw<Car>) => map.set(d.model!, +d.year!));
 
 // DSV
 
-rawPromise = d3Fetch.dsv("|", url);
-rawPromise = d3Fetch.dsv("|", url, init);
+rawPromise = d3Fetch.dsv('|', url);
+rawPromise = d3Fetch.dsv('|', url, init);
 
-rawPromiseHeader = d3Fetch.dsv<Headers>("|", url);
-rawPromiseHeader = d3Fetch.dsv<Headers>("|", url, init);
+rawPromiseHeader = d3Fetch.dsv<Headers>('|', url);
+rawPromiseHeader = d3Fetch.dsv<Headers>('|', url, init);
 
-parsedPromise = d3Fetch.dsv<Car>("|", url, parseRowString);
-parsedPromise = d3Fetch.dsv<Car>("|", url, init, parseRowString);
+parsedPromise = d3Fetch.dsv<Car>('|', url, parseRowString);
+parsedPromise = d3Fetch.dsv<Car>('|', url, init, parseRowString);
 
-parsedPromise = d3Fetch.dsv<Car, Headers>("|", url, parseRow);
-parsedPromise = d3Fetch.dsv<Car, Headers>("|", url, init, parseRow);
+parsedPromise = d3Fetch.dsv<Car, Headers>('|', url, parseRow);
+parsedPromise = d3Fetch.dsv<Car, Headers>('|', url, init, parseRow);
 
-parsedPromise = d3Fetch.dsv("|", url, parseRow);
-parsedPromise = d3Fetch.dsv("|", url, init, parseRow);
-parsedPromise = d3Fetch.dsv("|", url, parseRowSimple);
+parsedPromise = d3Fetch.dsv('|', url, parseRow);
+parsedPromise = d3Fetch.dsv('|', url, init, parseRow);
+parsedPromise = d3Fetch.dsv('|', url, parseRowSimple);
 
-anyPromise = d3Fetch.dsv("|", url, (d: DSVRaw<Car>) => map.set(d.model!, +d.year!));
+anyPromise = d3Fetch.dsv('|', url, (d: DSVRaw<Car>) => map.set(d.model!, +d.year!));
 
 // TSV
 

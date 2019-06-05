@@ -6,8 +6,7 @@ import nunjucksDate = require('nunjucks-date');
 // http://momentjs.com/docs/#/displaying/format/
 nunjucksDate.setDefaultFormat('MMMM Do YYYY, h:mm:ss a');
 
-
-let env = { };
+let env = {};
 
 // Pass the environment to `install()`
 nunjucksDate.install(env);

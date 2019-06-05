@@ -1,11 +1,11 @@
-import * as es from "es-feature-detection";
+import * as es from 'es-feature-detection';
 
 const fns = es.builtins();
-if (fns["Array.prototype.includes"]) {
+if (fns['Array.prototype.includes']) {
     // [].includes
 }
 const syntax = es.syntax();
-if (syntax["Arrow function"]) {
+if (syntax['Arrow function']) {
     // new Function("() => {}");
 }
 

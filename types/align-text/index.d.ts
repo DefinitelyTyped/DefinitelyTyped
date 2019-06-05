@@ -26,9 +26,7 @@ interface Callback {
      * @param line the current line (string) being aligned
      * @param lines the array of all lines
      */
-    (len: number, longest: number, line: string, lines: string[]):
-        | number
-        | TransformResult;
+    (len: number, longest: number, line: string, lines: string[]): number | TransformResult;
 }
 
 declare function align_text(text: string, fn?: number | Callback): string;

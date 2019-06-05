@@ -1,11 +1,9 @@
+import seedrandom = require('seedrandom');
 
-
-import seedrandom = require("seedrandom");
-
-var rng = seedrandom("hello.");
+var rng = seedrandom('hello.');
 var n = rng();
 
-seedrandom("hello.", {global: true});
+seedrandom('hello.', { global: true });
 n = Math.random();
 
 rng = seedrandom();
@@ -21,7 +19,7 @@ n = rng.quick();
 n = rng.int32();
 n = rng.double();
 
-var saveable = seedrandom("secret-seed", {state: true});
+var saveable = seedrandom('secret-seed', { state: true });
 for (var j = 0; j < 1e5; ++j) saveable();
 var saved = saveable.state();
-var replica = seedrandom("", {state: saved});
+var replica = seedrandom('', { state: saved });

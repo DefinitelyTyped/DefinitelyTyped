@@ -1,10 +1,10 @@
 import taskGraphRunner, { Opts, Results } from 'task-graph-runner';
 
 const graph = new Map([
-    ["task-a", ["task-d"]],
-    ["task-b", ["task-d", "task-a"]],
-    ["task-c", ["task-d"]],
-    ["task-d", []],
+    ['task-a', ['task-d']],
+    ['task-b', ['task-d', 'task-a']],
+    ['task-c', ['task-d']],
+    ['task-d', []],
 ]);
 
 async function task(name: string) {

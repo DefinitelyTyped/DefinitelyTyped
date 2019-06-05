@@ -1,4 +1,3 @@
-
 import mockery = require('mockery');
 
 mockery.enable();
@@ -6,13 +5,15 @@ mockery.enable({});
 mockery.enable({
     useCleanCache: true,
     warnOnReplace: true,
-    warnOnUnregistered: true
+    warnOnUnregistered: true,
 });
 
 mockery.disable();
 
 var fsMock = {
-    stat: (path: any, cb: any) => { /* your mock code */ }
+    stat: (path: any, cb: any) => {
+        /* your mock code */
+    },
 };
 mockery.registerMock('fs', fsMock);
 

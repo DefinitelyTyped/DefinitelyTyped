@@ -1,6 +1,6 @@
-import * as Ajv from "ajv";
+import * as Ajv from 'ajv';
 
-import ajvMergePatch = require("ajv-merge-patch");
+import ajvMergePatch = require('ajv-merge-patch');
 
 const ajv = new Ajv();
 

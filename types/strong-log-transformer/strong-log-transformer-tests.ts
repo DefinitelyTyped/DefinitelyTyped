@@ -11,5 +11,5 @@ transformer({ tag: 'tag' }); // $ExpectType ReadWriteStream
 transformer({ mergeMultiline: true }); // $ExpectType ReadWriteStream
 transformer({ mergeMultiline: false }); // $ExpectType ReadWriteStream
 transformer({ timeStamp: true }); // $ExpectType ReadWriteStream
-transformer({ timeStamp : false }); // $ExpectType ReadWriteStream
+transformer({ timeStamp: false }); // $ExpectType ReadWriteStream
 transformer(transformer.DEFAULTS); // $ExpectType ReadWriteStream

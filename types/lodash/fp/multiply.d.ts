@@ -1,2 +1,2 @@
-import { multiply } from "../fp";
+import { multiply } from '../fp';
 export = multiply;

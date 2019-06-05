@@ -1,4 +1,4 @@
-import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
+import { UnwrapComputedPropertyGetter } from '@ember/object/-private/types';
 
 /**
  * Returns the cached value for a property, if one exists.
@@ -6,10 +6,7 @@ import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
  * property that is generated lazily, without accidentally causing
  * it to be created.
  */
-export function cacheFor<T, K extends keyof T>(
-    obj: T,
-    key: K
-): UnwrapComputedPropertyGetter<T[K]> | undefined;
+export function cacheFor<T, K extends keyof T>(obj: T, key: K): UnwrapComputedPropertyGetter<T[K]> | undefined;
 /**
  * Creates a shallow copy of the passed object. A deep copy of the object is
  * returned if the optional `deep` argument is `true`.

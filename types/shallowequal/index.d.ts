@@ -14,12 +14,7 @@ declare function shallowEqual<TCtx = any>(
 ): boolean;
 
 declare namespace shallowEqual {
-    type Customizer<T = any> = (
-        this: T,
-        objA: any,
-        objB: any,
-        indexOrKey?: number | string
-    ) => boolean | void;
+    type Customizer<T = any> = (this: T, objA: any, objB: any, indexOrKey?: number | string) => boolean | void;
 }
 
 export = shallowEqual;

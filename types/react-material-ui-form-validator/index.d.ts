@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from "react";
-import { TextFieldProps } from "material-ui";
+import * as React from 'react';
+import { TextFieldProps } from 'material-ui';
 
 export interface ValidatorFormProps {
     className?: string;

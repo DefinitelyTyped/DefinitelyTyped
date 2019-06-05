@@ -9,7 +9,7 @@ import { Component } from 'react';
 interface Props {
     countries?: string[];
     blackList?: boolean;
-    customLabels?: {[propName: string]: string};
+    customLabels?: { [propName: string]: string };
     selectedSize?: number;
     optionsSize?: number;
     defaultCountry?: string;

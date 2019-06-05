@@ -51,19 +51,41 @@ declare namespace OSRM {
     type Hint = string;
     type Duration = number;
     type Tile = [number, number, number];
-    type StepManeuverTypes = 'turn' | 'new name' | 'depart' | 'arrive' | 'merge' |
-                             'ramp' | 'on ramp' | 'off ramp' | 'fork' | 'end of road' |
-                             'use lane' | 'continue' | 'roundabout' | 'rotary' | 'roundabout turn' |
-                             'notification' | 'exit roundabout' | 'exit rotary';
-    type Indication = 'uturn' | 'sharp right' | 'right' | 'slight rigth' |
-                      'straight' |'slight left' | 'left' | 'sharp left';
+    type StepManeuverTypes =
+        | 'turn'
+        | 'new name'
+        | 'depart'
+        | 'arrive'
+        | 'merge'
+        | 'ramp'
+        | 'on ramp'
+        | 'off ramp'
+        | 'fork'
+        | 'end of road'
+        | 'use lane'
+        | 'continue'
+        | 'roundabout'
+        | 'rotary'
+        | 'roundabout turn'
+        | 'notification'
+        | 'exit roundabout'
+        | 'exit rotary';
+    type Indication =
+        | 'uturn'
+        | 'sharp right'
+        | 'right'
+        | 'slight rigth'
+        | 'straight'
+        | 'slight left'
+        | 'left'
+        | 'sharp left';
 
     interface LineString {
         type: 'LineString';
         coordinates: Coordinate[];
     }
 
-    interface  Waypoint {
+    interface Waypoint {
         hint: string;
         distance: number;
         name: string;

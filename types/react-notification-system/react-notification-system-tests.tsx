@@ -9,11 +9,11 @@ class MyComponent extends React.Component {
         message: 'Notification message',
         level: 'success',
         action: {
-            label: "Button inside this notification",
+            label: 'Button inside this notification',
             callback: () => {
                 this.notificationSystem.removeNotification(this.notification);
-            }
-        }
+            },
+        },
     };
 
     private addNotification() {
@@ -25,17 +25,19 @@ class MyComponent extends React.Component {
     }
 
     render() {
-
         const style: NotificationSystem.Style = {
-            NotificationItem: { // Override the notification item
-                DefaultStyle: { // Applied to every notification, regardless of the notification level
-                    margin: '10px 5px 2px 1px'
+            NotificationItem: {
+                // Override the notification item
+                DefaultStyle: {
+                    // Applied to every notification, regardless of the notification level
+                    margin: '10px 5px 2px 1px',
                 },
 
-                success: { // Applied only to the success notification item
-                    color: 'red'
-                }
-            }
+                success: {
+                    // Applied only to the success notification item
+                    color: 'red',
+                },
+            },
         };
 
         const attributes: NotificationSystem.Attributes = {
@@ -43,23 +45,21 @@ class MyComponent extends React.Component {
                 ...style,
                 Containers: {
                     DefaultStyle: {
-                        margin: '10px 5px 2px 1px'
-                    }
+                        margin: '10px 5px 2px 1px',
+                    },
                 },
                 Title: {
                     success: {
-                        color: 'green'
-                    }
-                }
-            }
+                        color: 'green',
+                    },
+                },
+            },
         };
 
         const ref = (instance: NotificationSystem.System) => {
-            this.notificationSystem = instance
-        }
+            this.notificationSystem = instance;
+        };
 
-        return (
-            <NotificationSystem style={style} ref={ref}/>
-        )
+        return <NotificationSystem style={style} ref={ref} />;
     }
 }

@@ -1,4 +1,4 @@
-import WordExtractor = require("word-extractor");
+import WordExtractor = require('word-extractor');
 
 const extractor = new WordExtractor();
 

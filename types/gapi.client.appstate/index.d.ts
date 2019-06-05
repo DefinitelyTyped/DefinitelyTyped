@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google App State API v1 */
-    function load(name: "appstate", version: "v1"): PromiseLike<void>;
-    function load(name: "appstate", version: "v1", callback: () => any): void;
+    function load(name: 'appstate', version: 'v1'): PromiseLike<void>;
+    function load(name: 'appstate', version: 'v1', callback: () => any): void;
 
     const states: appstate.StatesResource;
 

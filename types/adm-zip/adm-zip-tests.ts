@@ -13,19 +13,11 @@ zipEntries.forEach(zipEntry => {
 // outputs the content of some_folder/my_file.txt
 console.log(zip.readAsText('some_folder/my_file.txt'));
 // extracts the specified file to the specified location
-zip.extractEntryTo(
-    /*entry name*/ 'some_folder/my_file.txt',
-    /*target path*/ '/home/me/tempfolder',
-    /*overwrite*/ true
-);
+zip.extractEntryTo(/*entry name*/ 'some_folder/my_file.txt', /*target path*/ '/home/me/tempfolder', /*overwrite*/ true);
 // extracts everything
 zip.extractAllTo(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true);
 // extracts everything and calls callback -> async extracction
-zip.extractAllToAsync(
-    /*target path*/ '/home/me/zipcontent/',
-    /*overwrite*/ true,
-    (error: Error) => {}
-);
+zip.extractAllToAsync(/*target path*/ '/home/me/zipcontent/', /*overwrite*/ true, (error: Error) => {});
 
 // creating archives
 new AdmZip();

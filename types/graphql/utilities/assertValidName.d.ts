@@ -1,5 +1,5 @@
-import { GraphQLError } from "../error/GraphQLError";
-import { ASTNode } from "../language/ast";
+import { GraphQLError } from '../error/GraphQLError';
+import { ASTNode } from '../language/ast';
 
 /**
  * Upholds the spec rules about naming.

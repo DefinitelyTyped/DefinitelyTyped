@@ -1,6 +1,6 @@
-const firstrecord = new GlideRecord("core_company");
+const firstrecord = new GlideRecord('core_company');
 
-const record = new GlideRecord("core_company");
+const record = new GlideRecord('core_company');
 record.addQuery('property', '=', firstrecord.sys_id);
 record.addQuery('property2', '!=', 'somevalue');
 if (record.get('somesysid')) {
@@ -14,7 +14,7 @@ const rest = new sn_ws.RESTMessageV2();
 // test merging
 declare namespace servicenow {
     interface GlideRecord {
-        new(type: "othertype"): OtherType;
+        new (type: 'othertype'): OtherType;
     }
 
     interface OtherType extends GlideRecord {
@@ -22,5 +22,5 @@ declare namespace servicenow {
     }
 }
 
-const record2 = new GlideRecord("othertype");
-record2.someproperty = "foo";
+const record2 = new GlideRecord('othertype');
+record2.someproperty = 'foo';

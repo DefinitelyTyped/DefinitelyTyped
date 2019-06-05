@@ -7,15 +7,15 @@ declare var BaseX: BaseX.Base;
 export = BaseX;
 
 declare namespace BaseX {
-	interface EncodeBuffer {
-		[index: number]: number;
-		length: number;
-	}
+    interface EncodeBuffer {
+        [index: number]: number;
+        length: number;
+    }
 
-	interface BaseConverter {
-		encode: (buffer: EncodeBuffer) => string;
-		decode: (string: string) => number[];
-	}
+    interface BaseConverter {
+        encode: (buffer: EncodeBuffer) => string;
+        decode: (string: string) => number[];
+    }
 
-	type Base = (ALPHABET: string) => BaseConverter;
+    type Base = (ALPHABET: string) => BaseConverter;
 }

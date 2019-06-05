@@ -3,7 +3,6 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function sanitize(filename: string, options?: sanitize.Options): string;
 
 declare namespace sanitize {

@@ -1,8 +1,4 @@
-import {
-    matchesUA,
-    resolveUserAgent,
-    normalizeQuery
-} from 'browserslist-useragent';
+import { matchesUA, resolveUserAgent, normalizeQuery } from 'browserslist-useragent';
 
 // $ExpectType boolean
 matchesUA(
@@ -17,7 +13,7 @@ matchesUA(
         env: 'production',
         ignorePath: true,
         ignoreMinor: false,
-        allowHigherVersions: false
+        allowHigherVersions: false,
     }
 );
 

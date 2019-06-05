@@ -1,4 +1,4 @@
-import * as dialogflow from "dialogflow";
+import * as dialogflow from 'dialogflow';
 
 const agentsClient = new dialogflow.AgentsClient();
 const contextsClient = new dialogflow.ContextsClient();

@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import {
     ExecutionArgs,
     ExecutionResult,
@@ -20,7 +20,7 @@ import {
     GraphQLFieldResolver,
     ValidationContext,
     ASTVisitor,
-} from "graphql";
+} from 'graphql';
 export = graphqlHTTP;
 
 declare namespace graphqlHTTP {
@@ -66,11 +66,13 @@ declare namespace graphqlHTTP {
          * An optional function which will be used to validate instead of default `validate`
          * from `graphql-js`.
          */
-        customValidateFn?: ((
-          schema: GraphQLSchema,
-          documentAST: DocumentNode,
-          rules: ReadonlyArray<any>,
-        ) => ReadonlyArray<GraphQLError>) | null;
+        customValidateFn?:
+            | ((
+                  schema: GraphQLSchema,
+                  documentAST: DocumentNode,
+                  rules: ReadonlyArray<any>
+              ) => ReadonlyArray<GraphQLError>)
+            | null;
 
         /**
          * An optional function which will be used to execute instead of default `execute`

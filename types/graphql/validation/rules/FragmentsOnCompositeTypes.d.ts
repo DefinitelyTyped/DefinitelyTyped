@@ -1,5 +1,5 @@
-import { ValidationContext } from "../ValidationContext";
-import { ASTVisitor } from "../../language/visitor";
+import { ValidationContext } from '../ValidationContext';
+import { ASTVisitor } from '../../language/visitor';
 
 export function inlineFragmentOnNonCompositeErrorMessage(type: string): string;
 

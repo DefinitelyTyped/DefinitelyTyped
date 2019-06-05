@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 interface LEVELS {
     // 访问日志
@@ -57,7 +57,7 @@ interface LogInfo {
 
 type LogInput = string | LogInfo | Error;
 
-declare function yog_log(config?: LogConfig): ((req: Request, resp: Response, next: NextFunction) => any);
+declare function yog_log(config?: LogConfig): (req: Request, resp: Response, next: NextFunction) => any;
 
 declare namespace yog_log {
     class Logger {

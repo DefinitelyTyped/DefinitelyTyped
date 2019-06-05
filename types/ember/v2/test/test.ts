@@ -21,7 +21,7 @@ Ember.Test.registerAsyncHelper('boot', function(app) {
 });
 
 Ember.Test.registerAsyncHelper('waitForPromise', (app, promise) => {
-    return new Ember.Test.Promise((resolve) => {
+    return new Ember.Test.Promise(resolve => {
         Ember.Test.adapter.asyncStart();
 
         promise.then(() => {

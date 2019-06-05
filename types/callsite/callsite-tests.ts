@@ -1,6 +1,4 @@
-
-
-import callsite = require("callsite");
+import callsite = require('callsite');
 
 var stack = callsite();
 var p = stack[0];

@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -18,5 +18,5 @@ range.el;
 // $ExpectType undefined
 range.options;
 
-$(".whatever").range();
-$(".whatever").range("destroy");
+$('.whatever').range();
+$('.whatever').range('destroy');

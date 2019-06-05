@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-declare module "split2" {
+declare module 'split2' {
     import { Transform, TransformOptions } from 'stream';
 
-    type Matcher = string|RegExp;
+    type Matcher = string | RegExp;
     type Mapper = split.Mapper;
     type Options = split.Options;
 
@@ -26,7 +26,7 @@ declare module "split2" {
         }
 
         export interface Options extends TransformOptions {
-           maxLength?: number;
+            maxLength?: number;
         }
     }
 

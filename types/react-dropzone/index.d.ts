@@ -11,16 +11,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
+import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from 'react';
 
 export interface ImageFile extends File {
     preview?: string;
 }
 
 export type DropFileEventHandler = (acceptedOrRejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
-export type DropFilesEventHandler = (accepted: ImageFile[], rejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
+export type DropFilesEventHandler = (
+    accepted: ImageFile[],
+    rejected: ImageFile[],
+    event: DragEvent<HTMLDivElement>
+) => void;
 
-type PickedAttributes = "className" | "multiple" | "name" | "onClick" | "onDragStart" | "onDragEnter" | "onDragOver" | "onDragLeave" | "style";
+type PickedAttributes =
+    | 'className'
+    | 'multiple'
+    | 'name'
+    | 'onClick'
+    | 'onDragStart'
+    | 'onDragEnter'
+    | 'onDragOver'
+    | 'onDragLeave'
+    | 'style';
 
 export interface DropzoneProps extends Pick<InputHTMLAttributes<HTMLDivElement>, PickedAttributes> {
     accept?: string | ReadonlyArray<string>;

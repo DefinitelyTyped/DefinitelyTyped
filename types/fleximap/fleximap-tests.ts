@@ -1,10 +1,10 @@
-import { FlexiMap } from "fleximap";
+import { FlexiMap } from 'fleximap';
 
 let flexiMap = new FlexiMap();
 flexiMap = new FlexiMap({ arr: [] });
 flexiMap = new FlexiMap([{ arr: [] }, { obj: {} }]);
 
-flexiMap.set('keyA', {arr: [], obj: {}});
+flexiMap.set('keyA', { arr: [], obj: {} });
 let result = flexiMap.get(['keyA', 'arr']);
 
 flexiMap.add(['keyB1', 'keyB2', 'keyB3'], 123);

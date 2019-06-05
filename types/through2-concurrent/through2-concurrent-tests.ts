@@ -9,7 +9,7 @@ function flushCb(this: Transform, cb: () => void) {
 }
 const opts = {
     allowHalfOpen: false,
-    maxConcurrency: 5
+    maxConcurrency: 5,
 };
 
 str = through2();

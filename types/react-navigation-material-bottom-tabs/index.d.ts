@@ -5,11 +5,7 @@
 // TypeScript Version: 2.8
 
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import {
-    NavigationContainer,
-    NavigationPathsConfig,
-    NavigationRouteConfigMap
-} from 'react-navigation';
+import { NavigationContainer, NavigationPathsConfig, NavigationRouteConfigMap } from 'react-navigation';
 
 export interface TabConfig {
     shifting?: boolean;

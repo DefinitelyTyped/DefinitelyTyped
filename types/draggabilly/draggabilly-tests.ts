@@ -9,7 +9,7 @@ const draggie = new Draggabilly(elem, {
     axis: 'x',
     containment: true,
     grid: [20, 20],
-    handle: '.handle'
+    handle: '.handle',
 });
 
 const draggiePosX: number = draggie.position.x;

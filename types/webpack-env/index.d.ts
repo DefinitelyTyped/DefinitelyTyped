@@ -32,8 +32,18 @@ declare namespace __WebpackModuleApi {
          *
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
-        ensure(paths: string[], callback: (require: NodeRequire) => void, errorCallback?: (error: any) => void, chunkName?: string): void;
-        context(path: string, deep?: boolean, filter?: RegExp, mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once"): RequireContext;
+        ensure(
+            paths: string[],
+            callback: (require: NodeRequire) => void,
+            errorCallback?: (error: any) => void,
+            chunkName?: string
+        ): void;
+        context(
+            path: string,
+            deep?: boolean,
+            filter?: RegExp,
+            mode?: 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once'
+        ): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          *
@@ -53,7 +63,7 @@ declare namespace __WebpackModuleApi {
          */
         cache: {
             [id: string]: any;
-        }
+        };
     }
 
     interface Module {
@@ -67,18 +77,18 @@ declare namespace __WebpackModuleApi {
         children: any[];
         hot?: Hot;
     }
-    type ModuleId = string|number;
+    type ModuleId = string | number;
 
     interface HotNotifierInfo {
         type:
-          | 'self-declined'
-          | 'declined'
-          | 'unaccepted'
-          | 'accepted'
-          | 'disposed'
-          | 'accept-errored'
-          | 'self-accept-errored'
-          | 'self-accept-error-handler-errored';
+            | 'self-declined'
+            | 'declined'
+            | 'unaccepted'
+            | 'accepted'
+            | 'disposed'
+            | 'accept-errored'
+            | 'self-accept-errored'
+            | 'self-accept-error-handler-errored';
         /**
          * The module in question.
          */
@@ -103,7 +113,7 @@ declare namespace __WebpackModuleApi {
          * For accepted: The location of accept handlers that will handle the update
          */
         outdatedDependencies?: {
-          [dependencyId: number]: number[];
+            [dependencyId: number]: number[];
         };
         /**
          * For errors: the thrown error
@@ -114,7 +124,7 @@ declare namespace __WebpackModuleApi {
          * before the error handler tried to handle it.
          */
         originalError?: Error;
-      }
+    }
 
     interface Hot {
         /**
@@ -262,8 +272,8 @@ declare namespace __WebpackModuleApi {
         autoApply?: boolean;
     }
     /**
-    * Inside env you can pass any variable
-    */
+     * Inside env you can pass any variable
+     */
     interface NodeProcess {
         env?: any;
     }
@@ -273,8 +283,7 @@ declare namespace __WebpackModuleApi {
     type RequireLambda = __Require1 & __Require2;
 }
 
-interface NodeRequire extends __WebpackModuleApi.RequireFunction {
-}
+interface NodeRequire extends __WebpackModuleApi.RequireFunction {}
 
 declare var require: NodeRequire;
 
@@ -301,7 +310,10 @@ declare var __webpack_require__: any;
  * @param chunkId The id for the chunk to load.
  * @param callback A callback function called once the chunk is loaded.
  */
-declare var __webpack_chunk_load__: (chunkId: any, callback: (require: __WebpackModuleApi.RequireLambda) => void) => void;
+declare var __webpack_chunk_load__: (
+    chunkId: any,
+    callback: (require: __WebpackModuleApi.RequireLambda) => void
+) => void;
 
 /**
  * Access to the internal object of all modules.
@@ -330,8 +342,8 @@ interface NodeModule extends __WebpackModuleApi.Module {}
 declare var module: NodeModule;
 
 /**
-* Declare process variable
-*/
+ * Declare process variable
+ */
 declare namespace NodeJS {
     interface Process extends __WebpackModuleApi.NodeProcess {}
 }

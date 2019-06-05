@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Error Reporting API v1beta1 */
-    function load(name: "clouderrorreporting", version: "v1beta1"): PromiseLike<void>;
-    function load(name: "clouderrorreporting", version: "v1beta1", callback: () => any): void;
+    function load(name: 'clouderrorreporting', version: 'v1beta1'): PromiseLike<void>;
+    function load(name: 'clouderrorreporting', version: 'v1beta1', callback: () => any): void;
 
     const projects: clouderrorreporting.ProjectsResource;
 
@@ -296,7 +296,7 @@ declare namespace gapi.client {
             /** Lists the specified events. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -335,19 +335,19 @@ declare namespace gapi.client {
                  * [Optional] The exact value to match against
                  * [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type).
                  */
-                "serviceFilter.resourceType"?: string;
+                'serviceFilter.resourceType'?: string;
                 /**
                  * [Optional] The exact value to match against
                  * [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service).
                  */
-                "serviceFilter.service"?: string;
+                'serviceFilter.service'?: string;
                 /**
                  * [Optional] The exact value to match against
                  * [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version).
                  */
-                "serviceFilter.version"?: string;
+                'serviceFilter.version'?: string;
                 /** Restricts the query to the specified time range. */
-                "timeRange.period"?: string;
+                'timeRange.period'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -365,7 +365,7 @@ declare namespace gapi.client {
              */
             report(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -403,7 +403,7 @@ declare namespace gapi.client {
             /** Lists the specified groups. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -465,19 +465,19 @@ declare namespace gapi.client {
                  * [Optional] The exact value to match against
                  * [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type).
                  */
-                "serviceFilter.resourceType"?: string;
+                'serviceFilter.resourceType'?: string;
                 /**
                  * [Optional] The exact value to match against
                  * [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service).
                  */
-                "serviceFilter.service"?: string;
+                'serviceFilter.service'?: string;
                 /**
                  * [Optional] The exact value to match against
                  * [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version).
                  */
-                "serviceFilter.version"?: string;
+                'serviceFilter.version'?: string;
                 /** Restricts the query to the specified time range. */
-                "timeRange.period"?: string;
+                'timeRange.period'?: string;
                 /**
                  * [Optional] The preferred duration for a single returned `TimedCount`.
                  * If not set, no timed counts are returned.
@@ -493,7 +493,7 @@ declare namespace gapi.client {
             /** Get the specified group. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -536,7 +536,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -572,7 +572,7 @@ declare namespace gapi.client {
             /** Deletes all error events of a given project. */
             deleteEvents(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

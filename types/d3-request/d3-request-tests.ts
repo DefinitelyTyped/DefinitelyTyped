@@ -69,15 +69,14 @@ const r1: d3Request.Request = request.abort();
 // Get -------------------------------------------------------------------------
 
 // no arguments
-const r2: d3Request.Request = d3Request.request(url)
-    .get();
+const r2: d3Request.Request = d3Request.request(url).get();
 
 // with request datum
-const r3: d3Request.Request = d3Request.request(url)
-    .get<RequestDatumGET>({ kind: 'Listing' });
+const r3: d3Request.Request = d3Request.request(url).get<RequestDatumGET>({ kind: 'Listing' });
 
 // with callback for response handling
-const r4: d3Request.Request = d3Request.request(url)
+const r4: d3Request.Request = d3Request
+    .request(url)
     .response(xhr2Listing)
     .get<ResponseDatumGET[]>((error, response) => {
         if (!error) {
@@ -87,7 +86,8 @@ const r4: d3Request.Request = d3Request.request(url)
     });
 
 // with request datum and callback for response handling
-const r5: d3Request.Request = d3Request.request(url)
+const r5: d3Request.Request = d3Request
+    .request(url)
     .response(xhr2Listing)
     .get<RequestDatumGET, ResponseDatumGET[]>({ kind: 'Listing' }, (error, response) => {
         if (!error) {
@@ -163,7 +163,8 @@ r10 = r10.on('load', function(result: ResponseDatumGET[]) {
 });
 
 // $ExpectError
-r10 = r10.on<ResponseDatumGET[]>('load', function(result: number) { // fails, wrong argument type for callback
+r10 = r10.on<ResponseDatumGET[]>('load', function(result: number) {
+    // fails, wrong argument type for callback
     const that: d3Request.Request = this;
     const res: number = result;
     // do something;
@@ -204,15 +205,15 @@ function xhr2Success(xhr: XMLHttpRequest): ResponseDatumPOST {
 }
 
 // no arguments
-const r12: d3Request.Request = d3Request.request(url)
-    .post();
+const r12: d3Request.Request = d3Request.request(url).post();
 
 // with request datum
-const r13: d3Request.Request = d3Request.request(url)
-    .post<RequestDatumPOST>({ test: 'NewValue', value: 10 });
+const r13: d3Request.Request = d3Request.request(url).post<RequestDatumPOST>({ test: 'NewValue', value: 10 });
 
 // with callback for response handling
-const r14: d3Request.Request = d3Request.request(url).response(xhr2Success)
+const r14: d3Request.Request = d3Request
+    .request(url)
+    .response(xhr2Success)
     .post<ResponseDatumPOST>(function(error, response) {
         const that: d3Request.Request = this;
         const err: any = error;
@@ -220,7 +221,9 @@ const r14: d3Request.Request = d3Request.request(url).response(xhr2Success)
         console.log('Success? ', res.success);
     });
 
-const r15: d3Request.Request = d3Request.request(url).response(xhr2Success)
+const r15: d3Request.Request = d3Request
+    .request(url)
+    .response(xhr2Success)
     .post<RequestDatumPOST, ResponseDatumPOST>({ test: 'NewValue', value: 10 }, function(error, response) {
         const that: d3Request.Request = this;
         const err: any = error;
@@ -234,30 +237,26 @@ function xhr2Listing(xhr: XMLHttpRequest): ResponseDatumGET[] {
     return JSON.parse(xhr.responseText);
 }
 
-const r16: d3Request.Request = d3Request.request(url)
-    .response<ResponseDatumGET[]>(xhr2Listing);
+const r16: d3Request.Request = d3Request.request(url).response<ResponseDatumGET[]>(xhr2Listing);
 
 // ResponseType -----------------------------------------------------------------
 
 // get
-const responseType: XMLHttpRequestResponseType | undefined = d3Request.request(url)
-    .responseType();
+const responseType: XMLHttpRequestResponseType | undefined = d3Request.request(url).responseType();
 // set
-const r17: d3Request.Request = d3Request.request(url)
-    .responseType('json');
+const r17: d3Request.Request = d3Request.request(url).responseType('json');
 
 // Send ------------------------------------------------------------------------
 
 // method only
-const r18: d3Request.Request = d3Request.request(url)
-    .send('GET');
+const r18: d3Request.Request = d3Request.request(url).send('GET');
 
 // method and request datum
-const r19: d3Request.Request = d3Request.request(url)
-    .send<RequestDatumPOST>('POST', { test: 'NewValue', value: 10 });
+const r19: d3Request.Request = d3Request.request(url).send<RequestDatumPOST>('POST', { test: 'NewValue', value: 10 });
 
 // method and callback for response handling
-const r20: d3Request.Request = d3Request.request(url)
+const r20: d3Request.Request = d3Request
+    .request(url)
     .response(xhr2Listing)
     .send<ResponseDatumGET[]>('GET', (error, response) => {
         if (!error) {
@@ -267,7 +266,8 @@ const r20: d3Request.Request = d3Request.request(url)
     });
 
 // method,request datum and callback for response handling
-const r21: d3Request.Request = d3Request.request(url)
+const r21: d3Request.Request = d3Request
+    .request(url)
     .response(xhr2Listing)
     .send<RequestDatumGET, ResponseDatumGET[]>('GET', { kind: 'Listing' }, (error, response) => {
         if (!error) {
@@ -279,11 +279,9 @@ const r21: d3Request.Request = d3Request.request(url)
 // Timeout -----------------------------------------------------------------------
 
 // get
-const timeout: number = d3Request.request(url)
-    .timeout();
+const timeout: number = d3Request.request(url).timeout();
 // set
-const r22: d3Request.Request = d3Request.request(url)
-    .timeout(500);
+const r22: d3Request.Request = d3Request.request(url).timeout(500);
 
 // User----------------------------------------------------------------------------
 
@@ -357,14 +355,15 @@ const csvRequestWithCallback: d3Request.DsvRequest = d3Request.csv(url, function
 });
 
 // url, row mapping function and callback for response handling
-const csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<ResponseDatumGET>(url,
+const csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<ResponseDatumGET>(
+    url,
     (rawRow, index, columns) => {
         const rr: DSVRowString = rawRow;
         const i: number = index;
         const cols: string[] = columns;
         const mappedRow: ResponseDatumGET = {
             test: rr['test']!,
-            value: +rr['value']!
+            value: +rr['value']!,
         };
         return mappedRow;
     },
@@ -373,7 +372,8 @@ const csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<Respon
         const err: any = error;
         const d: DSVParsedArray<ResponseDatumGET> = data;
         console.log(data);
-    });
+    }
+);
 
 // -------------------------------------------------------------------------------
 // TSV Request
@@ -391,14 +391,15 @@ const tsvRequestWithCallback: d3Request.DsvRequest = d3Request.tsv(url, function
 });
 
 // url, row mapping function and callback for response handling
-const tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<ResponseDatumGET>(url,
+const tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<ResponseDatumGET>(
+    url,
     (rawRow, index, columns) => {
         const rr: DSVRowString = rawRow;
         const i: number = index;
         const cols: string[] = columns;
         const mappedRow: ResponseDatumGET = {
             test: rr['test']!,
-            value: +rr['value']!
+            value: +rr['value']!,
         };
         return mappedRow;
     },
@@ -407,7 +408,8 @@ const tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<Respon
         const err: any = error;
         const d: DSVParsedArray<ResponseDatumGET> = data;
         console.log(data);
-    });
+    }
+);
 
 // -------------------------------------------------------------------------------
 // DsvRequest interface
@@ -415,17 +417,16 @@ const tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<Respon
 
 // row(...) ----------------------------------------------------------------------
 
-csvRequest = csvRequest
-    .row<ResponseDatumGET>((rawRow, index, columns) => {
-        const rr: DSVRowString = rawRow;
-        const i: number = index;
-        const cols: string[] = columns;
-        const mappedRow: ResponseDatumGET = {
-            test: rr['test']!,
-            value: +rr['value']!
-        };
-        return mappedRow;
-    });
+csvRequest = csvRequest.row<ResponseDatumGET>((rawRow, index, columns) => {
+    const rr: DSVRowString = rawRow;
+    const i: number = index;
+    const cols: string[] = columns;
+    const mappedRow: ResponseDatumGET = {
+        test: rr['test']!,
+        value: +rr['value']!,
+    };
+    return mappedRow;
+});
 
 // inherited methods from Request interface ---------------------------------------
 

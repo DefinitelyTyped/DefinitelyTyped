@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface CommonFlexProps {
     /**
@@ -64,11 +64,9 @@ export interface CommonFlexProps {
     display?: string;
 }
 
-export interface FlexProps extends React.Props<Flex>, CommonFlexProps {
-}
+export interface FlexProps extends React.Props<Flex>, CommonFlexProps {}
 
-export class Flex extends React.Component<FlexProps> {
-}
+export class Flex extends React.Component<FlexProps> {}
 
 export interface ItemProps extends React.Props<Flex>, CommonFlexProps {
     /**
@@ -85,9 +83,7 @@ export interface ItemProps extends React.Props<Flex>, CommonFlexProps {
      * A value for the flex-basis css property. Valid values are: `0` (and `'none'`, which is the same),
      * `'auto'`, `'content'`, `'fit-content'`, `'min-content'`, `'max-content'`, `'fit'`.
      */
-    flexBasis?: number | "none" | "auto" | "content" | "fit-content" | "min-content" | "max-content" | "fit";
+    flexBasis?: number | 'none' | 'auto' | 'content' | 'fit-content' | 'min-content' | 'max-content' | 'fit';
 }
 
-export class Item extends React.Component<ItemProps> {
-}
-
+export class Item extends React.Component<ItemProps> {}

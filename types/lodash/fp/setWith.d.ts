@@ -1,2 +1,2 @@
-import { setWith } from "../fp";
+import { setWith } from '../fp';
 export = setWith;

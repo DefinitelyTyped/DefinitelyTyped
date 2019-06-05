@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
+import * as stream from 'stream';
 
 export interface SyncOptions {
     /** remove files that copied on past before copy. */
@@ -36,7 +36,12 @@ export class Watcher extends NodeJS.EventEmitter {
     close(): void;
 }
 
-export function copy(source: string, dest: string, options?: AsyncOptions, callback?: (error: Error | null) => void): void;
+export function copy(
+    source: string,
+    dest: string,
+    options?: AsyncOptions,
+    callback?: (error: Error | null) => void
+): void;
 export function copy(source: string, dest: string, callback?: (error: Error | null) => void): void;
 
 export function copySync(source: string, dest: string, options?: SyncOptions): void;

@@ -66,11 +66,11 @@ export type TransitionPromptHook = History.TransitionPromptHook;
 export type Hash = History.Hash;
 export type Href = History.Href;
 
-import { default as createBrowserHistory } from "./createBrowserHistory";
-import { default as createHashHistory } from "./createHashHistory";
-import { default as createMemoryHistory } from "./createMemoryHistory";
-import { createLocation, locationsAreEqual } from "./LocationUtils";
-import { parsePath, createPath } from "./PathUtils";
+import { default as createBrowserHistory } from './createBrowserHistory';
+import { default as createHashHistory } from './createHashHistory';
+import { default as createMemoryHistory } from './createMemoryHistory';
+import { createLocation, locationsAreEqual } from './LocationUtils';
+import { parsePath, createPath } from './PathUtils';
 
 // Global usage, without modules, needs the small trick, because lib.d.ts
 // already has `history` and `History` global definitions:
@@ -85,9 +85,9 @@ export interface Module {
     createPath: typeof createPath;
 }
 
-export * from "./createBrowserHistory";
-export * from "./createHashHistory";
-export * from "./createMemoryHistory";
-export { createLocation, locationsAreEqual } from "./LocationUtils";
-export { parsePath, createPath } from "./PathUtils";
+export * from './createBrowserHistory';
+export * from './createHashHistory';
+export * from './createMemoryHistory';
+export { createLocation, locationsAreEqual } from './LocationUtils';
+export { parsePath, createPath } from './PathUtils';
 export { createBrowserHistory, createHashHistory, createMemoryHistory };

@@ -7,8 +7,8 @@
 /// <reference types="node" />
 
 // This is a mocking library, types should reflect that of the actual library.
-export * from "aws-sdk";
-import { GlobalConfigInstance } from "aws-sdk/lib/config";
+export * from 'aws-sdk';
+import { GlobalConfigInstance } from 'aws-sdk/lib/config';
 
 export interface MockConfigInstance extends GlobalConfigInstance {
     basePath: string;

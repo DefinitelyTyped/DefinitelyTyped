@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { AutoAffix, Overlay, RootCloseWrapper } from "react-overlays";
-import { OverlayRenderProps } from "react-overlays/lib/Overlay";
+import { AutoAffix, Overlay, RootCloseWrapper } from 'react-overlays';
+import { OverlayRenderProps } from 'react-overlays/lib/Overlay';
 
-import { OverlayFade } from "./react-overlays-tests-transition";
+import { OverlayFade } from './react-overlays-tests-transition';
 
 class TestAffix extends React.Component {
     render(): JSX.Element {
@@ -30,11 +30,7 @@ class TestOverlay extends React.Component<{}, { open: boolean }> {
 
         return (
             <div>
-                <button
-                    type="button"
-                    ref={ref => (this.target = ref)}
-                    onClick={() => this.setState({ open: !open })}
-                >
+                <button type="button" ref={ref => (this.target = ref)} onClick={() => this.setState({ open: !open })}>
                     Click me
                 </button>
 
@@ -57,11 +53,7 @@ class TestRootCloseWrapper extends React.Component {
     handleRootClose = () => {};
     render() {
         return (
-            <RootCloseWrapper
-                onRootClose={this.handleRootClose}
-                disabled={false}
-                event="click"
-            >
+            <RootCloseWrapper onRootClose={this.handleRootClose} disabled={false} event="click">
                 <div>Test</div>
             </RootCloseWrapper>
         );

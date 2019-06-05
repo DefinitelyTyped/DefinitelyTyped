@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as CSSTransitionGroup from "react-addons-css-transition-group";
+import * as React from 'react';
+import * as CSSTransitionGroup from 'react-addons-css-transition-group';
 
 declare namespace CSSTransitionReplace {
     interface Props extends React.CSSTransitionGroupProps {
-        changeWidth?: boolean
-        overflowHidden?: boolean
+        changeWidth?: boolean;
+        overflowHidden?: boolean;
     }
 }
 

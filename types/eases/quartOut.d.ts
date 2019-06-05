@@ -1,2 +1,2 @@
-import { quartOut } from "./index";
+import { quartOut } from './index';
 export = quartOut;

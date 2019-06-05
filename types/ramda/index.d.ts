@@ -548,12 +548,12 @@ declare namespace R {
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type CommonKeys<T1, T2> = keyof T1 & keyof T2;
-    type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? T[K] extends object ? K : never : never;
+    type PropsThatAreObjects<T, K extends keyof T> = K extends keyof T ? (T[K] extends object ? K : never) : never;
     type CommonPropsThatAreObjects<T1, T2> = PropsThatAreObjects<T1, keyof T1> & PropsThatAreObjects<T2, keyof T2>;
 
     type Ord = number | string | boolean | Date;
 
-    type Path = ReadonlyArray<(number | string)>;
+    type Path = ReadonlyArray<number | string>;
 
     interface Functor<T> {
         map<U>(fn: (t: T) => U): Functor<U>;
@@ -614,174 +614,142 @@ declare namespace R {
     }
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
-        [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
+        [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P]
     };
 
-    type EvolveValue<V, E> =
-        E extends (value: V) => any ? ReturnType<E> :
-        E extends Evolver ? EvolveNestedValue<V, E> :
-        never;
+    type EvolveValue<V, E> = E extends (value: V) => any
+        ? ReturnType<E>
+        : E extends Evolver
+        ? EvolveNestedValue<V, E>
+        : never;
 
-    type EvolveNestedValue<V, E extends Evolver> =
-        V extends object ? (V extends Evolvable<E> ? Evolve<V, E> : never) : never;
+    type EvolveNestedValue<V, E extends Evolver> = V extends object
+        ? (V extends Evolvable<E> ? Evolve<V, E> : never)
+        : never;
 
     interface Evolver {
         [key: string]: ((value: any) => any) | Evolver;
     }
 
     // Represents all objects evolvable with Evolver E
-    type Evolvable<E extends Evolver> = {
-        [P in keyof E]?: Evolved<E[P]>;
-    };
+    type Evolvable<E extends Evolver> = { [P in keyof E]?: Evolved<E[P]> };
 
-    type Evolved<T> =
-        T extends (value: infer V) => any ? V :
-        T extends Evolver ? Evolvable<T> :
-        never;
+    type Evolved<T> = T extends (value: infer V) => any ? V : T extends Evolver ? Evolvable<T> : never;
 
-    interface Placeholder { __isRamdaPlaceholder__: true; }
+    interface Placeholder {
+        __isRamdaPlaceholder__: true;
+    }
 
     interface Reduced<T> {
         '@@transducer/value': T;
         '@@transducer/reduced': true;
     }
 
-    type PipeWithFns<V0, T> = [
-        (x0: V0) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ] | [
-        (x0: V0) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => T
-    ];
+    type PipeWithFns<V0, T> =
+        | [(x0: V0) => T]
+        | [(x0: V0) => any, (x: any) => T]
+        | [(x0: V0) => any, (x: any) => any, (x: any) => T]
+        | [(x0: V0) => any, (x: any) => any, (x: any) => any, (x: any) => T]
+        | [(x0: V0) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => T]
+        | [(x0: V0) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => T]
+        | [
+              (x0: V0) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => T
+          ]
+        | [
+              (x0: V0) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => T
+          ]
+        | [
+              (x0: V0) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => T
+          ]
+        | [
+              (x0: V0) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => T
+          ];
 
-    type ComposeWithFns<V0, T> = [
-        (x0: V0) => T
-    ] | [
-        (x: any) => T,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ] | [
-        (x: any) => T,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: any) => any,
-        (x: V0) => any
-    ];
+    type ComposeWithFns<V0, T> =
+        | [(x0: V0) => T]
+        | [(x: any) => T, (x: V0) => any]
+        | [(x: any) => T, (x: any) => any, (x: V0) => any]
+        | [(x: any) => T, (x: any) => any, (x: any) => any, (x: V0) => any]
+        | [(x: any) => T, (x: any) => any, (x: any) => any, (x: any) => any, (x: V0) => any]
+        | [(x: any) => T, (x: any) => any, (x: any) => any, (x: any) => any, (x: any) => any, (x: V0) => any]
+        | [
+              (x: any) => T,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: V0) => any
+          ]
+        | [
+              (x: any) => T,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: V0) => any
+          ]
+        | [
+              (x: any) => T,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: V0) => any
+          ]
+        | [
+              (x: any) => T,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: any) => any,
+              (x: V0) => any
+          ];
 
-    type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } & { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
-    type MergeDeep<Primary, Secondary> = { [K in CommonPropsThatAreObjects<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]> } &
+    type Merge<Primary, Secondary> = { [K in keyof Primary]: Primary[K] } &
+        { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
+    type MergeDeep<Primary, Secondary> = {
+        [K in CommonPropsThatAreObjects<Primary, Secondary>]: MergeDeep<Primary[K], Secondary[K]>
+    } &
         { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
         { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
@@ -790,7 +758,7 @@ declare namespace R {
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
          * position, and it returns a function waiting for its first argument.
          */
-        __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+        __: Placeholder /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */;
 
         /**
          * Adds two numbers (or strings). Equivalent to a + b but curried.
@@ -804,11 +772,17 @@ declare namespace R {
          * Creates a new list iteration function from an existing one by adding two new parameters to its callback
          * function: the current index, and the entire list.
          */
-        addIndex<T, U>(fn: (f: (item: T) => U, list: T[]) => U[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
+        addIndex<T, U>(
+            fn: (f: (item: T) => U, list: T[]) => U[]
+        ): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => U, b: ReadonlyArray<T>) => U[]>;
         /* Special case for forEach */
-        addIndex<T>(fn: (f: (item: T) => void, list: T[]) => T[]): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
+        addIndex<T>(
+            fn: (f: (item: T) => void, list: T[]) => T[]
+        ): Curry.Curry<(a: (item: T, idx: number, list?: T[]) => void, b: ReadonlyArray<T>) => T[]>;
         /* Special case for reduce */
-        addIndex<T, U>(fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U): Curry.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: ReadonlyArray<T>) => U>;
+        addIndex<T, U>(
+            fn: (f: (acc: U, item: T) => U, aci: U, list: T[]) => U
+        ): Curry.Curry<(a: (acc: U, item: T, idx: number, list?: T[]) => U, b: U, c: ReadonlyArray<T>) => U>;
 
         /**
          * Applies a function to the value at the given index of an array, returning a new copy of the array with the
@@ -837,8 +811,10 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(fn1: T, val2: any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string | null>(fn1: T): (val2: any) => boolean;
+        and<T extends { and?: (...a: any[]) => any } | number | boolean | string | null>(fn1: T, val2: any): boolean;
+        and<T extends { and?: (...a: any[]) => any } | number | boolean | string | null>(
+            fn1: T
+        ): (val2: any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -854,8 +830,8 @@ declare namespace R {
         /**
          * ap applies a list of functions to a list of values.
          */
-        ap<T, U>(fns: Array<((a: T) => U)>, vs: ReadonlyArray<T>): U[];
-        ap<T, U>(fns: Array<((a: T) => U)>): (vs: ReadonlyArray<T>) => U[];
+        ap<T, U>(fns: Array<(a: T) => U>, vs: ReadonlyArray<T>): U[];
+        ap<T, U>(fns: Array<(a: T) => U>): (vs: ReadonlyArray<T>) => U[];
 
         /**
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
@@ -1008,39 +984,105 @@ declare namespace R {
         compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
         compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
         compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
-        compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
+        compose<V0, V1, V2, T1, T2>(
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1, x2: V2) => T1
+        ): (x0: V0, x1: V1, x2: V2) => T2;
 
         compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
         compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
-        compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
-        compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
+        compose<V0, V1, T1, T2, T3>(
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1) => T1
+        ): (x0: V0, x1: V1) => T3;
+        compose<V0, V1, V2, T1, T2, T3>(
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1, x2: V2) => T1
+        ): (x0: V0, x1: V1, x2: V2) => T3;
 
         compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
-        compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
-        compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
-        compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
+        compose<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x: V0) => T1
+        ): (x: V0) => T4;
+        compose<V0, V1, T1, T2, T3, T4>(
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1) => T1
+        ): (x0: V0, x1: V1) => T4;
+        compose<V0, V1, V2, T1, T2, T3, T4>(
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1, x2: V2) => T1
+        ): (x0: V0, x1: V1, x2: V2) => T4;
 
-        compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
-        compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
-        compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
-        compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
+        compose<T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: () => T1
+        ): () => T5;
+        compose<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x: V0) => T1
+        ): (x: V0) => T5;
+        compose<V0, V1, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1) => T1
+        ): (x0: V0, x1: V1) => T5;
+        compose<V0, V1, V2, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1, x2: V2) => T1
+        ): (x0: V0, x1: V1, x2: V2) => T5;
 
-        compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
-        compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
+        compose<T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6,
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: () => T1
+        ): () => T6;
+        compose<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6,
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x: V0) => T1
+        ): (x: V0) => T6;
         compose<V0, V1, T1, T2, T3, T4, T5, T6>(
             fn5: (x: T5) => T6,
             fn4: (x: T4) => T5,
             fn3: (x: T3) => T4,
             fn2: (x: T2) => T3,
             fn1: (x: T1) => T2,
-            fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
+            fn0: (x0: V0, x1: V1) => T1
+        ): (x0: V0, x1: V1) => T6;
         compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
             fn5: (x: T5) => T6,
             fn4: (x: T4) => T5,
             fn3: (x: T3) => T4,
             fn2: (x: T2) => T3,
             fn1: (x: T1) => T2,
-            fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
+            fn0: (x0: V0, x1: V1, x2: V2) => T1
+        ): (x0: V0, x1: V1, x2: V2) => T6;
 
         /**
          * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
@@ -1050,33 +1092,30 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of composeWith(chain)
          */
-        composeK<V0, T1>(
-            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
-        composeK<V0, T1, T2>(
-            fn1: (x: T1) => T2[],
-            fn0: (x0: V0) => T1[]): (x0: V0) => T2[];
-        composeK<V0, T1, T2, T3>(
-            fn2: (x: T2) => T3[],
-            fn1: (x: T1) => T2[],
-            fn0: (x: V0) => T1[]): (x: V0) => T3[];
+        composeK<V0, T1>(fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        composeK<V0, T1, T2>(fn1: (x: T1) => T2[], fn0: (x0: V0) => T1[]): (x0: V0) => T2[];
+        composeK<V0, T1, T2, T3>(fn2: (x: T2) => T3[], fn1: (x: T1) => T2[], fn0: (x: V0) => T1[]): (x: V0) => T3[];
         composeK<V0, T1, T2, T3, T4>(
             fn3: (x: T3) => T4[],
             fn2: (x: T2) => T3[],
             fn1: (x: T1) => T2[],
-            fn0: (x: V0) => T1[]): (x: V0) => T4[];
+            fn0: (x: V0) => T1[]
+        ): (x: V0) => T4[];
         composeK<V0, T1, T2, T3, T4, T5>(
             fn4: (x: T4) => T5[],
             fn3: (x: T3) => T4[],
             fn2: (x: T2) => T3[],
             fn1: (x: T1) => T2[],
-            fn0: (x: V0) => T1[]): (x: V0) => T5[];
+            fn0: (x: V0) => T1[]
+        ): (x: V0) => T5[];
         composeK<V0, T1, T2, T3, T4, T5, T6>(
             fn5: (x: T5) => T6[],
             fn4: (x: T4) => T5[],
             fn3: (x: T3) => T4[],
             fn2: (x: T2) => T3[],
             fn1: (x: T1) => T2[],
-            fn0: (x: V0) => T1[]): (x: V0) => T6[];
+            fn0: (x: V0) => T1[]
+        ): (x: V0) => T6[];
 
         /**
          * Performs right-to-left composition of one or more Promise-returning functions.
@@ -1084,35 +1123,34 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of composeWith(then)
          */
-        composeP<V0, T1>(
-            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
-        composeP<V0, T1, T2>(
-            fn1: (x: T1) => Promise<T2>,
-            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T2>;
+        composeP<V0, T1>(fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        composeP<V0, T1, T2>(fn1: (x: T1) => Promise<T2>, fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T2>;
         composeP<V0, T1, T2, T3>(
             fn2: (x: T2) => Promise<T3>,
             fn1: (x: T1) => Promise<T2>,
-            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T3>;
+            fn0: (x: V0) => Promise<T1>
+        ): (x: V0) => Promise<T3>;
         composeP<V0, T1, T2, T3, T4>(
             fn3: (x: T3) => Promise<T4>,
             fn2: (x: T2) => Promise<T3>,
             fn1: (x: T1) => Promise<T2>,
-            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T4>;
+            fn0: (x: V0) => Promise<T1>
+        ): (x: V0) => Promise<T4>;
         composeP<V0, T1, T2, T3, T4, T5>(
             fn4: (x: T4) => Promise<T5>,
             fn3: (x: T3) => Promise<T4>,
             fn2: (x: T2) => Promise<T3>,
             fn1: (x: T1) => Promise<T2>,
-            fn0: (x: V0) => Promise<T1>):
-        (x: V0) => Promise<T5>;
+            fn0: (x: V0) => Promise<T1>
+        ): (x: V0) => Promise<T5>;
         composeP<V0, T1, T2, T3, T4, T5, T6>(
             fn5: (x: T5) => Promise<T6>,
             fn4: (x: T4) => Promise<T5>,
             fn3: (x: T3) => Promise<T4>,
             fn2: (x: T2) => Promise<T3>,
             fn1: (x: T1) => Promise<T2>,
-            fn0: (x: V0) => Promise<T1>):
-        (x: V0) => Promise<T6>;
+            fn0: (x: V0) => Promise<T1>
+        ): (x: V0) => Promise<T6>;
 
         /**
          * Performs right-to-left function composition using transforming function.
@@ -1173,7 +1211,7 @@ declare namespace R {
          * function is applied to those same arguments. The results of each branching function
          * are passed as arguments to the converging function to produce the return value.
          */
-        converge(after: ((...a: any[]) => any), fns: ReadonlyArray<((...a: any[]) => any)>): (...a: any[]) => any;
+        converge(after: (...a: any[]) => any, fns: ReadonlyArray<(...a: any[]) => any>): (...a: any[]) => any;
 
         /**
          * Counts the elements of a list according to how many match each value
@@ -1226,9 +1264,18 @@ declare namespace R {
          * Duplication is determined according to the value returned by applying the supplied predicate to two list
          * elements.
          */
-        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
-        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
-        differenceWith<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(
+            pred: (a: T1, b: T2) => boolean,
+            list1: ReadonlyArray<T1>,
+            list2: ReadonlyArray<T2>
+        ): T1[];
+        differenceWith<T1, T2>(
+            pred: (a: T1, b: T2) => boolean
+        ): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        differenceWith<T1, T2>(
+            pred: (a: T1, b: T2) => boolean,
+            list1: ReadonlyArray<T1>
+        ): (list2: ReadonlyArray<T2>) => T1[];
 
         /*
          * Returns a new object that does not contain a prop property.
@@ -1256,7 +1303,9 @@ declare namespace R {
          */
         drop<T>(n: number, xs: ReadonlyArray<T>): T[];
         drop(n: number, xs: string): string;
-        drop<T>(n: number): {
+        drop<T>(
+            n: number
+        ): {
             (xs: string): string;
             (xs: ReadonlyArray<T>): T[];
         };
@@ -1266,7 +1315,9 @@ declare namespace R {
          */
         dropLast<T>(n: number, xs: ReadonlyArray<T>): T[];
         dropLast(n: number, xs: string): string;
-        dropLast<T>(n: number): {
+        dropLast<T>(
+            n: number
+        ): {
             (xs: ReadonlyArray<T>): T[];
             (xs: string): string;
         };
@@ -1398,7 +1449,9 @@ declare namespace R {
          * order is reversed.
          */
         flip<T, U, TResult>(fn: (arg0: T, arg1: U) => TResult): (arg1: U, arg0?: T) => TResult;
-        flip<T, U, TResult>(fn: (arg0: T, arg1: U, ...args: any[]) => TResult): (arg1: U, arg0?: T, ...args: any[]) => TResult;
+        flip<T, U, TResult>(
+            fn: (arg0: T, arg1: U, ...args: any[]) => TResult
+        ): (arg1: U, arg0?: T, ...args: any[]) => TResult;
 
         /**
          * Iterate over an input list, calling a provided function fn for each element in the list.
@@ -1509,7 +1562,7 @@ declare namespace R {
          * a boolean.
          */
         includes(s: string, list: ReadonlyArray<string> | string): boolean;
-        includes(s: string): (list: ReadonlyArray<string> | string)  => boolean;
+        includes(s: string): (list: ReadonlyArray<string> | string) => boolean;
         includes<T>(target: T, list: ReadonlyArray<T>): boolean;
         includes<T>(target: T): (list: ReadonlyArray<T>) => boolean;
 
@@ -1548,8 +1601,13 @@ declare namespace R {
          */
 
         innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>): T1[];
-        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
-        innerJoin<T1, T2>(pred: (a: T1, b: T2) => boolean, list1: ReadonlyArray<T1>): (list2: ReadonlyArray<T2>) => T1[];
+        innerJoin<T1, T2>(
+            pred: (a: T1, b: T2) => boolean
+        ): (list1: ReadonlyArray<T1>, list2: ReadonlyArray<T2>) => T1[];
+        innerJoin<T1, T2>(
+            pred: (a: T1, b: T2) => boolean,
+            list1: ReadonlyArray<T1>
+        ): (list2: ReadonlyArray<T2>) => T1[];
 
         /**
          * Inserts the supplied element into the list, at index index. Note that
@@ -1704,7 +1762,9 @@ declare namespace R {
         /**
          * lensProp creates a lens that will focus on property k of the source object.
          */
-        lensProp(str: string): {
+        lensProp(
+            str: string
+        ): {
             <T, U>(obj: T): U;
             set<T, U, V>(val: T, obj: U): V;
             /*map<T>(fn: (...a: any[]) => any, obj: T): T*/
@@ -1714,13 +1774,13 @@ declare namespace R {
          * "lifts" a function of arity > 1 so that it may "map over" a list, Function or other object that satisfies
          * the FantasyLand Apply spec.
          */
-        lift(fn: ((...a: any[]) => any), ...args: any[]): any;
+        lift(fn: (...a: any[]) => any, ...args: any[]): any;
 
         /**
          * "lifts" a function to be the specified arity, so that it may "map over" that many lists, Functions or other
          * objects that satisfy the FantasyLand Apply spec.
          */
-        liftN(n: number, fn: ((...a: any[]) => any), ...args: any[]): any;
+        liftN(n: number, fn: (...a: any[]) => any, ...args: any[]): any;
 
         /**
          * Returns true if the first parameter is less than the second.
@@ -1752,31 +1812,54 @@ declare namespace R {
          * The mapAccum function behaves like a combination of map and reduce.
          */
         mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: ReadonlyArray<T>): [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: ReadonlyArray<T>) => [U, TResult[]];
-        mapAccum<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: ReadonlyArray<T>) => [U, TResult[]];
+        mapAccum<T, U, TResult>(
+            fn: (acc: U, value: T) => [U, TResult]
+        ): (acc: U, list: ReadonlyArray<T>) => [U, TResult[]];
+        mapAccum<T, U, TResult>(
+            fn: (acc: U, value: T) => [U, TResult],
+            acc: U
+        ): (list: ReadonlyArray<T>) => [U, TResult[]];
 
         /**
          * The mapAccumRight function behaves like a combination of map and reduce.
          */
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U, list: ReadonlyArray<T>): [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult]): (acc: U, list: ReadonlyArray<T>) => [U, TResult[]];
-        mapAccumRight<T, U, TResult>(fn: (acc: U, value: T) => [U, TResult], acc: U): (list: ReadonlyArray<T>) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(
+            fn: (acc: U, value: T) => [U, TResult],
+            acc: U,
+            list: ReadonlyArray<T>
+        ): [U, TResult[]];
+        mapAccumRight<T, U, TResult>(
+            fn: (acc: U, value: T) => [U, TResult]
+        ): (acc: U, list: ReadonlyArray<T>) => [U, TResult[]];
+        mapAccumRight<T, U, TResult>(
+            fn: (acc: U, value: T) => [U, TResult],
+            acc: U
+        ): (list: ReadonlyArray<T>) => [U, TResult[]];
 
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
         mapObjIndexed<T, TResult>(
-            fn: (value: T, key: string, obj?: {
-                [key: string]: T
-            }) => TResult,
+            fn: (
+                value: T,
+                key: string,
+                obj?: {
+                    [key: string]: T;
+                }
+            ) => TResult,
             obj: {
-                [key: string]: T
+                [key: string]: T;
             }
         ): {
-            [key: string]: TResult
+            [key: string]: TResult;
         };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
-        mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
+        mapObjIndexed<T, TResult>(
+            fn: (value: T, key: string, obj?: any) => TResult,
+            obj: any
+        ): { [index: string]: TResult };
+        mapObjIndexed<T, TResult>(
+            fn: (value: T, key: string, obj?: any) => TResult
+        ): (obj: any) => { [index: string]: TResult };
 
         /**
          * Tests a regular expression agains a String
@@ -1953,7 +2036,9 @@ declare namespace R {
          */
         move<T>(from: number, to: number, list: ReadonlyArray<T>): T[];
         move(from: number, to: number): <T>(list: ReadonlyArray<T>) => T[];
-        move(from: number): {
+        move(
+            from: number
+        ): {
             <T>(to: number, list: ReadonlyArray<T>): T[];
             (to: number): <T>(list: ReadonlyArray<T>) => T[];
         };
@@ -2025,8 +2110,8 @@ declare namespace R {
          */
         or<T, U>(a: T, b: U): T | U;
         or<T>(a: T): <U>(b: U) => T | U;
-        or<T extends { or?: ((...a: any[]) => any); }, U>(fn1: T, val2: U): T | U;
-        or<T extends { or?: ((...a: any[]) => any); }>(fn1: T): <U>(val2: U) => T | U;
+        or<T extends { or?: (...a: any[]) => any }, U>(fn1: T, val2: U): T | U;
+        or<T extends { or?: (...a: any[]) => any }>(fn1: T): <U>(val2: U) => T | U;
 
         /**
          * Returns the result of applying the onFailure function to the value inside a failed promise.
@@ -2063,7 +2148,10 @@ declare namespace R {
 
         partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1, V2]): (x2: V3) => T;
         partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0, V1]): (x2: V2, x3: V3) => T;
-        partial<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V0]): (x1: V1, x2: V2, x3: V3) => T;
+        partial<V0, V1, V2, V3, T>(
+            fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+            args: [V0]
+        ): (x1: V1, x2: V2, x3: V3) => T;
 
         partial<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
@@ -2078,8 +2166,14 @@ declare namespace R {
         partialRight<V0, V1, V2, T>(fn: (x0: V0, x1: V1, x2: V2) => T, args: [V2]): (x1: V0, x2: V1) => T;
 
         partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V1, V2, V3]): (x0: V0) => T;
-        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V2, V3]): (x0: V0, x1: V1) => T;
-        partialRight<V0, V1, V2, V3, T>(fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T, args: [V3]): (x0: V0, x1: V1, x2: V2) => T;
+        partialRight<V0, V1, V2, V3, T>(
+            fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+            args: [V2, V3]
+        ): (x0: V0, x1: V1) => T;
+        partialRight<V0, V1, V2, V3, T>(
+            fn: (x0: V0, x1: V1, x2: V2, x3: V3) => T,
+            args: [V3]
+        ): (x0: V0, x1: V1, x2: V2) => T;
 
         partialRight<T>(fn: (...a: any[]) => T, args: any[]): (...a: any[]) => T;
 
@@ -2153,33 +2247,105 @@ declare namespace R {
         pipe<T1, T2>(fn0: () => T1, fn1: (x: T1) => T2): () => T2;
         pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
         pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
-        pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
+        pipe<V0, V1, V2, T1, T2>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2
+        ): (x0: V0, x1: V1, x2: V2) => T2;
 
         pipe<T1, T2, T3>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): () => T3;
         pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
-        pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
-        pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
+        pipe<V0, V1, T1, T2, T3>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3
+        ): (x0: V0, x1: V1) => T3;
+        pipe<V0, V1, V2, T1, T2, T3>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3
+        ): (x0: V0, x1: V1, x2: V2) => T3;
 
         pipe<T1, T2, T3, T4>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): () => T4;
-        pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
-        pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
-        pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
+        pipe<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4
+        ): (x: V0) => T4;
+        pipe<V0, V1, T1, T2, T3, T4>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4
+        ): (x0: V0, x1: V1) => T4;
+        pipe<V0, V1, V2, T1, T2, T3, T4>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4
+        ): (x0: V0, x1: V1, x2: V2) => T4;
 
-        pipe<T1, T2, T3, T4, T5>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): () => T5;
-        pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
-        pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
+        pipe<T1, T2, T3, T4, T5>(
+            fn0: () => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5
+        ): () => T5;
+        pipe<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5
+        ): (x: V0) => T5;
+        pipe<V0, V1, T1, T2, T3, T4, T5>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5
+        ): (x0: V0, x1: V1) => T5;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5
+        ): (x0: V0, x1: V1, x2: V2) => T5;
 
-        pipe<T1, T2, T3, T4, T5, T6>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): () => T6;
-        pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
+        pipe<T1, T2, T3, T4, T5, T6>(
+            fn0: () => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6
+        ): () => T6;
+        pipe<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6
+        ): (x: V0) => T6;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6
+        ): (x0: V0, x1: V1) => T6;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
             fn2: (x: T2) => T3,
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
-            fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
+            fn5: (x: T5) => T6
+        ): (x0: V0, x1: V1, x2: V2) => T6;
 
         pipe<T1, T2, T3, T4, T5, T6, T7>(
             fn0: () => T1,
@@ -2188,7 +2354,8 @@ declare namespace R {
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
-            fn: (x: T6) => T7): () => T7;
+            fn: (x: T6) => T7
+        ): () => T7;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7>(
             fn0: (x: V0) => T1,
             fn1: (x: T1) => T2,
@@ -2196,7 +2363,8 @@ declare namespace R {
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
-            fn: (x: T6) => T7): (x: V0) => T7;
+            fn: (x: T6) => T7
+        ): (x: V0) => T7;
         pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(
             fn0: (x0: V0, x1: V1) => T1,
             fn1: (x: T1) => T2,
@@ -2204,7 +2372,8 @@ declare namespace R {
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
-            fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
+            fn6: (x: T6) => T7
+        ): (x0: V0, x1: V1) => T7;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
@@ -2212,7 +2381,8 @@ declare namespace R {
             fn3: (x: T3) => T4,
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
-            fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
+            fn6: (x: T6) => T7
+        ): (x0: V0, x1: V1, x2: V2) => T7;
 
         pipe<T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: () => T1,
@@ -2222,7 +2392,8 @@ declare namespace R {
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
-            fn: (x: T7) => T8): () => T8;
+            fn: (x: T7) => T8
+        ): () => T8;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x: V0) => T1,
             fn1: (x: T1) => T2,
@@ -2231,7 +2402,8 @@ declare namespace R {
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
-            fn: (x: T7) => T8): (x: V0) => T8;
+            fn: (x: T7) => T8
+        ): (x: V0) => T8;
         pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x0: V0, x1: V1) => T1,
             fn1: (x: T1) => T2,
@@ -2240,7 +2412,8 @@ declare namespace R {
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
-            fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
+            fn7: (x: T7) => T8
+        ): (x0: V0, x1: V1) => T8;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
@@ -2249,7 +2422,8 @@ declare namespace R {
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
-            fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
+            fn7: (x: T7) => T8
+        ): (x0: V0, x1: V1, x2: V2) => T8;
 
         pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: () => T1,
@@ -2260,7 +2434,8 @@ declare namespace R {
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
-            fn8: (x: T8) => T9): () => T9;
+            fn8: (x: T8) => T9
+        ): () => T9;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0) => T1,
             fn1: (x: T1) => T2,
@@ -2270,7 +2445,8 @@ declare namespace R {
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
-            fn8: (x: T8) => T9): (x0: V0) => T9;
+            fn8: (x: T8) => T9
+        ): (x0: V0) => T9;
         pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0, x1: V1) => T1,
             fn1: (x: T1) => T2,
@@ -2280,7 +2456,8 @@ declare namespace R {
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
-            fn8: (x: T8) => T9): (x0: V0, x1: V1) => T9;
+            fn8: (x: T8) => T9
+        ): (x0: V0, x1: V1) => T9;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
@@ -2290,7 +2467,8 @@ declare namespace R {
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
-            fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
+            fn8: (x: T8) => T9
+        ): (x0: V0, x1: V1, x2: V2) => T9;
 
         pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: () => T1,
@@ -2302,7 +2480,8 @@ declare namespace R {
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9,
-            fn9: (x: T9) => T10): () => T10;
+            fn9: (x: T9) => T10
+        ): () => T10;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0) => T1,
             fn1: (x: T1) => T2,
@@ -2313,7 +2492,8 @@ declare namespace R {
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9,
-            fn9: (x: T9) => T10): (x0: V0) => T10;
+            fn9: (x: T9) => T10
+        ): (x0: V0) => T10;
         pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0, x1: V1) => T1,
             fn1: (x: T1) => T2,
@@ -2324,7 +2504,8 @@ declare namespace R {
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9,
-            fn9: (x: T9) => T10): (x0: V0, x1: V1) => T10;
+            fn9: (x: T9) => T10
+        ): (x0: V0, x1: V1) => T10;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
@@ -2335,7 +2516,8 @@ declare namespace R {
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9,
-            fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
+            fn9: (x: T9) => T10
+        ): (x0: V0, x1: V1, x2: V2) => T10;
 
         /**
          * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
@@ -2345,33 +2527,30 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of pipeWith(chain)
          */
-        pipeK<V0, T1>(
-            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
-        pipeK<V0, T1, T2>(
-            fn0: (x0: V0) => T1[],
-            fn1: (x: T1) => T2[]): (x0: V0) => T2[];
-        pipeK<V0, T1, T2, T3>(
-            fn0: (x: V0) => T1[],
-            fn1: (x: T1) => T2[],
-            fn2: (x: T2) => T3[]): (x: V0) => T3[];
+        pipeK<V0, T1>(fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        pipeK<V0, T1, T2>(fn0: (x0: V0) => T1[], fn1: (x: T1) => T2[]): (x0: V0) => T2[];
+        pipeK<V0, T1, T2, T3>(fn0: (x: V0) => T1[], fn1: (x: T1) => T2[], fn2: (x: T2) => T3[]): (x: V0) => T3[];
         pipeK<V0, T1, T2, T3, T4>(
             fn0: (x: V0) => T1[],
             fn1: (x: T1) => T2[],
             fn2: (x: T2) => T3[],
-            fn3: (x: T3) => T4[]): (x: V0) => T4[];
+            fn3: (x: T3) => T4[]
+        ): (x: V0) => T4[];
         pipeK<V0, T1, T2, T3, T4, T5>(
             fn0: (x: V0) => T1[],
             fn1: (x: T1) => T2[],
             fn2: (x: T2) => T3[],
             fn3: (x: T3) => T4[],
-            fn4: (x: T4) => T5[]): (x: V0) => T5[];
+            fn4: (x: T4) => T5[]
+        ): (x: V0) => T5[];
         pipeK<V0, T1, T2, T3, T4, T5, T6>(
             fn0: (x: V0) => T1[],
             fn1: (x: T1) => T2[],
             fn2: (x: T2) => T3[],
             fn3: (x: T3) => T4[],
             fn4: (x: T4) => T5[],
-            fn5: (x: T5) => T6[]): (x: V0) => T6[];
+            fn5: (x: T5) => T6[]
+        ): (x: V0) => T6[];
         pipeK<V0, T1, T2, T3, T4, T5, T6, T7>(
             fn0: (x: V0) => T1[],
             fn1: (x: T1) => T2[],
@@ -2379,7 +2558,8 @@ declare namespace R {
             fn3: (x: T3) => T4[],
             fn4: (x: T4) => T5[],
             fn5: (x: T5) => T6[],
-            fn: (x: T6) => T7[]): (x: V0) => T7[];
+            fn: (x: T6) => T7[]
+        ): (x: V0) => T7[];
         pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x: V0) => T1[],
             fn1: (x: T1) => T2[],
@@ -2388,7 +2568,8 @@ declare namespace R {
             fn4: (x: T4) => T5[],
             fn5: (x: T5) => T6[],
             fn6: (x: T6) => T7[],
-            fn: (x: T7) => T8[]): (x: V0) => T8[];
+            fn: (x: T7) => T8[]
+        ): (x: V0) => T8[];
         pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0) => T1[],
             fn1: (x: T1) => T2[],
@@ -2398,7 +2579,8 @@ declare namespace R {
             fn5: (x: T5) => T6[],
             fn6: (x: T6) => T7[],
             fn7: (x: T7) => T8[],
-            fn8: (x: T8) => T9[]): (x0: V0) => T9[];
+            fn8: (x: T8) => T9[]
+        ): (x0: V0) => T9[];
         pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0) => T1[],
             fn1: (x: T1) => T2[],
@@ -2409,7 +2591,8 @@ declare namespace R {
             fn6: (x: T6) => T7[],
             fn7: (x: T7) => T8[],
             fn8: (x: T8) => T9[],
-            fn9: (x: T9) => T10[]): (x0: V0) => T10[];
+            fn9: (x: T9) => T10[]
+        ): (x0: V0) => T10[];
 
         /**
          * Performs left-to-right composition of one or more Promise-returning functions.
@@ -2417,33 +2600,34 @@ declare namespace R {
          *
          * @deprecated since 0.26 in favor of pipeWith(then)
          */
-        pipeP<V0, T1>(
-            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
-        pipeP<V0, T1, T2>(
-            fn0: (x0: V0) => Promise<T1>,
-            fn1: (x: T1) => Promise<T2>): (x0: V0) => Promise<T2>;
+        pipeP<V0, T1>(fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        pipeP<V0, T1, T2>(fn0: (x0: V0) => Promise<T1>, fn1: (x: T1) => Promise<T2>): (x0: V0) => Promise<T2>;
         pipeP<V0, T1, T2, T3>(
             fn0: (x: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
-            fn2: (x: T2) => Promise<T3>): (x: V0) => Promise<T3>;
+            fn2: (x: T2) => Promise<T3>
+        ): (x: V0) => Promise<T3>;
         pipeP<V0, T1, T2, T3, T4>(
             fn0: (x: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
             fn2: (x: T2) => Promise<T3>,
-            fn3: (x: T3) => Promise<T4>): (x: V0) => Promise<T4>;
+            fn3: (x: T3) => Promise<T4>
+        ): (x: V0) => Promise<T4>;
         pipeP<V0, T1, T2, T3, T4, T5>(
             fn0: (x: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
             fn2: (x: T2) => Promise<T3>,
             fn3: (x: T3) => Promise<T4>,
-            fn4: (x: T4) => Promise<T5>): (x: V0) => Promise<T5>;
+            fn4: (x: T4) => Promise<T5>
+        ): (x: V0) => Promise<T5>;
         pipeP<V0, T1, T2, T3, T4, T5, T6>(
             fn0: (x: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
             fn2: (x: T2) => Promise<T3>,
             fn3: (x: T3) => Promise<T4>,
             fn4: (x: T4) => Promise<T5>,
-            fn5: (x: T5) => Promise<T6>): (x: V0) => Promise<T6>;
+            fn5: (x: T5) => Promise<T6>
+        ): (x: V0) => Promise<T6>;
         pipeP<V0, T1, T2, T3, T4, T5, T6, T7>(
             fn0: (x: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
@@ -2451,7 +2635,8 @@ declare namespace R {
             fn3: (x: T3) => Promise<T4>,
             fn4: (x: T4) => Promise<T5>,
             fn5: (x: T5) => Promise<T6>,
-            fn: (x: T6) => Promise<T7>): (x: V0) => Promise<T7>;
+            fn: (x: T6) => Promise<T7>
+        ): (x: V0) => Promise<T7>;
         pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
@@ -2460,7 +2645,8 @@ declare namespace R {
             fn4: (x: T4) => Promise<T5>,
             fn5: (x: T5) => Promise<T6>,
             fn6: (x: T6) => Promise<T7>,
-            fn: (x: T7) => Promise<T8>): (x: V0) => Promise<T8>;
+            fn: (x: T7) => Promise<T8>
+        ): (x: V0) => Promise<T8>;
         pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
@@ -2470,7 +2656,8 @@ declare namespace R {
             fn5: (x: T5) => Promise<T6>,
             fn6: (x: T6) => Promise<T7>,
             fn7: (x: T7) => Promise<T8>,
-            fn8: (x: T8) => Promise<T9>): (x0: V0) => Promise<T9>;
+            fn8: (x: T8) => Promise<T9>
+        ): (x0: V0) => Promise<T9>;
         pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0) => Promise<T1>,
             fn1: (x: T1) => Promise<T2>,
@@ -2481,7 +2668,8 @@ declare namespace R {
             fn6: (x: T6) => Promise<T7>,
             fn7: (x: T7) => Promise<T8>,
             fn8: (x: T8) => Promise<T9>,
-            fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
+            fn9: (x: T9) => Promise<T10>
+        ): (x0: V0) => Promise<T10>;
 
         /*
          * Performs left-to-right function composition using transforming function.
@@ -2531,7 +2719,9 @@ declare namespace R {
          */
         propEq<T>(name: string | number, val: T, obj: any): boolean;
         propEq<T>(name: string | number, val: T): (obj: any) => boolean;
-        propEq(name: string | number): {
+        propEq(
+            name: string | number
+        ): {
             <T>(val: T, obj: any): boolean;
             <T>(val: T): (obj: any) => boolean;
         };
@@ -2541,7 +2731,9 @@ declare namespace R {
          */
         propIs(type: any, name: string, obj: any): boolean;
         propIs(type: any, name: string): (obj: any) => boolean;
-        propIs(type: any): {
+        propIs(
+            type: any
+        ): {
             (name: string, obj: any): boolean;
             (name: string): (obj: any) => boolean;
         };
@@ -2585,18 +2777,41 @@ declare namespace R {
          * function and passing it an accumulator value and the current value from the array, and
          * then passing the result to the next call.
          */
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduce<T, TResult>(fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(
+            fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>,
+            acc: TResult,
+            list: ReadonlyArray<T>
+        ): TResult;
+        reduce<T, TResult>(
+            fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>
+        ): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+        reduce<T, TResult>(
+            fn: (acc: TResult, elem: T) => TResult | Reduced<TResult>,
+            acc: TResult
+        ): (list: ReadonlyArray<T>) => TResult;
 
         /**
          * Groups the elements of the list according to the result of calling the String-returning function keyFn on each
          * element and reduces the elements of each group to a single value via the reducer function valueFn.
          */
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string, list: ReadonlyArray<T>): { [index: string]: TResult };
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult, keyFn: (elem: T) => string): (list: ReadonlyArray<T>) => { [index: string]: TResult };
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult, acc: TResult): Curry.Curry<(a: (elem: T) => string, b: ReadonlyArray<T>) => { [index: string]: TResult }>;
-        reduceBy<T, TResult>(valueFn: (acc: TResult, elem: T) => TResult): Curry.Curry<(a: TResult, b: (elem: T) => string, c: ReadonlyArray<T>) => { [index: string]: TResult }>;
+        reduceBy<T, TResult>(
+            valueFn: (acc: TResult, elem: T) => TResult,
+            acc: TResult,
+            keyFn: (elem: T) => string,
+            list: ReadonlyArray<T>
+        ): { [index: string]: TResult };
+        reduceBy<T, TResult>(
+            valueFn: (acc: TResult, elem: T) => TResult,
+            acc: TResult,
+            keyFn: (elem: T) => string
+        ): (list: ReadonlyArray<T>) => { [index: string]: TResult };
+        reduceBy<T, TResult>(
+            valueFn: (acc: TResult, elem: T) => TResult,
+            acc: TResult
+        ): Curry.Curry<(a: (elem: T) => string, b: ReadonlyArray<T>) => { [index: string]: TResult }>;
+        reduceBy<T, TResult>(
+            valueFn: (acc: TResult, elem: T) => TResult
+        ): Curry.Curry<(a: TResult, b: (elem: T) => string, c: ReadonlyArray<T>) => { [index: string]: TResult }>;
 
         /**
          * Returns a value wrapped to indicate that it is the final value of the reduce and
@@ -2611,8 +2826,13 @@ declare namespace R {
          * then passing the result to the next call.
          */
         reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult): (acc: TResult, list: ReadonlyArray<T>) => TResult;
-        reduceRight<T, TResult>(fn: (elem: T, acc: TResult) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
+        reduceRight<T, TResult>(
+            fn: (elem: T, acc: TResult) => TResult
+        ): (acc: TResult, list: ReadonlyArray<T>) => TResult;
+        reduceRight<T, TResult>(
+            fn: (elem: T, acc: TResult) => TResult,
+            acc: TResult
+        ): (list: ReadonlyArray<T>) => TResult;
 
         /**
          * Like reduce, reduceWhile returns a single item by iterating through the list, successively
@@ -2620,10 +2840,24 @@ declare namespace R {
          * each step. If the predicate returns false, it "short-circuits" the iteration and returns
          * the current value of the accumulator.
          */
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult, list: ReadonlyArray<T>): TResult;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult, acc: TResult): (list: ReadonlyArray<T>) => TResult;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean, fn: (acc: TResult, elem: T) => TResult): Curry.Curry<(a: TResult, b: ReadonlyArray<T>) => TResult>;
-        reduceWhile<T, TResult>(predicate: (acc: TResult, elem: T) => boolean): Curry.Curry<(a: (acc: TResult, elem: T) => TResult, b: TResult, c: ReadonlyArray<T>) => TResult>;
+        reduceWhile<T, TResult>(
+            predicate: (acc: TResult, elem: T) => boolean,
+            fn: (acc: TResult, elem: T) => TResult,
+            acc: TResult,
+            list: ReadonlyArray<T>
+        ): TResult;
+        reduceWhile<T, TResult>(
+            predicate: (acc: TResult, elem: T) => boolean,
+            fn: (acc: TResult, elem: T) => TResult,
+            acc: TResult
+        ): (list: ReadonlyArray<T>) => TResult;
+        reduceWhile<T, TResult>(
+            predicate: (acc: TResult, elem: T) => boolean,
+            fn: (acc: TResult, elem: T) => TResult
+        ): Curry.Curry<(a: TResult, b: ReadonlyArray<T>) => TResult>;
+        reduceWhile<T, TResult>(
+            predicate: (acc: TResult, elem: T) => boolean
+        ): Curry.Curry<(a: (acc: TResult, elem: T) => TResult, b: TResult, c: ReadonlyArray<T>) => TResult>;
 
         /**
          * Similar to `filter`, except that it keeps only values for which the given predicate
@@ -2647,9 +2881,18 @@ declare namespace R {
         /**
          * Replace a substring or regex match in a string with a replacement.
          */
-        replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string), str: string): string;
-        replace(pattern: RegExp | string, replacement: string | ((match: string, ...args: any[]) => string)): (str: string) => string;
-        replace(pattern: RegExp | string): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
+        replace(
+            pattern: RegExp | string,
+            replacement: string | ((match: string, ...args: any[]) => string),
+            str: string
+        ): string;
+        replace(
+            pattern: RegExp | string,
+            replacement: string | ((match: string, ...args: any[]) => string)
+        ): (str: string) => string;
+        replace(
+            pattern: RegExp | string
+        ): (replacement: string | ((match: string, ...args: any[]) => string)) => (str: string) => string;
 
         /**
          * Returns a new list with the same elements as the original list, just in the reverse order.
@@ -2680,11 +2923,16 @@ declare namespace R {
          */
         slice(a: number, b: number, list: string): string;
         slice<T>(a: number, b: number, list: ReadonlyArray<T>): T[];
-        slice(a: number, b: number): {
+        slice(
+            a: number,
+            b: number
+        ): {
             (list: string): string;
             <T>(list: ReadonlyArray<T>): T[];
         };
-        slice(a: number): {
+        slice(
+            a: number
+        ): {
             (b: number, list: string): string;
             <T>(b: number, list: ReadonlyArray<T>): T[];
         };
@@ -2706,8 +2954,8 @@ declare namespace R {
         /**
          * Sorts a list according to a list of comparators.
          */
-        sortWith<T>(fns: ReadonlyArray<((a: T, b: T) => number)>, list: ReadonlyArray<T>): T[];
-        sortWith<T>(fns: ReadonlyArray<((a: T, b: T) => number)>): (list: ReadonlyArray<T>) => T[];
+        sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>, list: ReadonlyArray<T>): T[];
+        sortWith<T>(fns: ReadonlyArray<(a: T, b: T) => number>): (list: ReadonlyArray<T>) => T[];
 
         /**
          * Splits a string into an array of strings based on the given
@@ -2721,7 +2969,9 @@ declare namespace R {
          */
         splitAt<T>(index: number, list: ReadonlyArray<T>): [T[], T[]];
         splitAt(index: number, list: string): [string, string];
-        splitAt(index: number): {
+        splitAt(
+            index: number
+        ): {
             <T>(list: ReadonlyArray<T>): [T[], T[]];
             (list: string): [string, string];
         };
@@ -2731,7 +2981,9 @@ declare namespace R {
          */
         splitEvery<T>(a: number, list: ReadonlyArray<T>): T[][];
         splitEvery(a: number, list: string): string[];
-        splitEvery(a: number): {
+        splitEvery(
+            a: number
+        ): {
             (list: string): string[];
             <T>(list: ReadonlyArray<T>): T[][];
         };
@@ -2776,8 +3028,14 @@ declare namespace R {
          * Finds the set (i.e. no duplicates) of all elements contained in the first or second list, but not both.
          * Duplication is determined according to the value returned by applying the supplied predicate to two list elements.
          */
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean, list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
-        symmetricDifferenceWith<T>(pred: (a: T, b: T) => boolean): Curry.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
+        symmetricDifferenceWith<T>(
+            pred: (a: T, b: T) => boolean,
+            list1: ReadonlyArray<T>,
+            list2: ReadonlyArray<T>
+        ): T[];
+        symmetricDifferenceWith<T>(
+            pred: (a: T, b: T) => boolean
+        ): Curry.Curry<(a: ReadonlyArray<T>, b: ReadonlyArray<T>) => T[]>;
 
         /**
          * A function that always returns true. Any passed in parameters are ignored.
@@ -2796,7 +3054,9 @@ declare namespace R {
          */
         take<T>(n: number, xs: ReadonlyArray<T>): T[];
         take(n: number, xs: string): string;
-        take<T>(n: number): {
+        take<T>(
+            n: number
+        ): {
             (xs: string): string;
             (xs: ReadonlyArray<T>): T[];
         };
@@ -2807,7 +3067,9 @@ declare namespace R {
          */
         takeLast<T>(n: number, xs: ReadonlyArray<T>): T[];
         takeLast(n: number, xs: string): string;
-        takeLast(n: number): {
+        takeLast(
+            n: number
+        ): {
             <T>(xs: ReadonlyArray<T>): T[];
             (xs: string): string;
         };
@@ -2851,7 +3113,9 @@ declare namespace R {
          * Creates a thunk out of a function.
          * A thunk delays a calculation until its result is needed, providing lazy evaluation of arguments.
          */
-        thunkify<F extends (...args: any[]) => any>(fn: F): Curry.Curry<(...args: Parameters<F>) => (() => ReturnType<F>)>;
+        thunkify<F extends (...args: any[]) => any>(
+            fn: F
+        ): Curry.Curry<(...args: Parameters<F>) => () => ReturnType<F>>;
 
         /**
          * Calls an input function `n` times, returning an array containing the results of those
@@ -2903,10 +3167,24 @@ declare namespace R {
          * list, successively calling the transformed iterator function and passing it an accumulator value and the
          * current value from the array, and then passing the result to the next call.
          */
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>, fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>, list: ReadonlyArray<T>): U;
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>): (fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>, list: ReadonlyArray<T>) => U;
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>, fn: (acc: U[], val: U) => ReadonlyArray<U>): (acc: ReadonlyArray<T>, list: ReadonlyArray<T>) => U;
-        transduce<T, U>(xf: (arg: T[]) => ReadonlyArray<T>, fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>): (list: ReadonlyArray<T>) => U;
+        transduce<T, U>(
+            xf: (arg: T[]) => ReadonlyArray<T>,
+            fn: (acc: U[], val: U) => ReadonlyArray<U>,
+            acc: ReadonlyArray<T>,
+            list: ReadonlyArray<T>
+        ): U;
+        transduce<T, U>(
+            xf: (arg: T[]) => ReadonlyArray<T>
+        ): (fn: (acc: U[], val: U) => ReadonlyArray<U>, acc: ReadonlyArray<T>, list: ReadonlyArray<T>) => U;
+        transduce<T, U>(
+            xf: (arg: T[]) => ReadonlyArray<T>,
+            fn: (acc: U[], val: U) => ReadonlyArray<U>
+        ): (acc: ReadonlyArray<T>, list: ReadonlyArray<T>) => U;
+        transduce<T, U>(
+            xf: (arg: T[]) => ReadonlyArray<T>,
+            fn: (acc: U[], val: U) => ReadonlyArray<U>,
+            acc: ReadonlyArray<T>
+        ): (list: ReadonlyArray<T>) => U;
 
         /**
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
@@ -2919,8 +3197,13 @@ declare namespace R {
          * an Applicative of Traversable.
          */
         traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>): B[][];
-        traverse<A, B>(of: (a: B) => ReadonlyArray<B>, fn: (t: A) => ReadonlyArray<B>): (list: ReadonlyArray<A>) => B[][];
-        traverse<A, B>(of: (a: B) => ReadonlyArray<B>): (fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>) => B[][];
+        traverse<A, B>(
+            of: (a: B) => ReadonlyArray<B>,
+            fn: (t: A) => ReadonlyArray<B>
+        ): (list: ReadonlyArray<A>) => B[][];
+        traverse<A, B>(
+            of: (a: B) => ReadonlyArray<B>
+        ): (fn: (t: A) => ReadonlyArray<B>, list: ReadonlyArray<A>) => B[][];
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -2940,7 +3223,9 @@ declare namespace R {
          * 'Number', 'Array', or 'Null'. Does not attempt to distinguish user Object types any further, reporting them
          * all as 'Object'.
          */
-        type(val: any): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
+        type(
+            val: any
+        ): 'Object' | 'Number' | 'Boolean' | 'String' | 'Null' | 'Array' | 'RegExp' | 'Function' | 'Undefined';
 
         /**
          * Takes a function fn, which takes a single array argument, and returns a function which:
@@ -3044,7 +3329,7 @@ declare namespace R {
          * need to be transformed, although you can ignore them, it's best to pass an identity function so
          * that the new function reports the correct arity.
          */
-        useWith(fn: ((...a: any[]) => any), transformers: Array<((...a: any[]) => any)>): (...a: any[]) => any;
+        useWith(fn: (...a: any[]) => any, transformers: Array<(...a: any[]) => any>): (...a: any[]) => any;
 
         /**
          * Returns a list of all the enumerable own properties of the supplied object.
@@ -3138,9 +3423,18 @@ declare namespace R {
          * Creates a new list out of the two supplied by applying the function to each
          * equally-positioned pair in the lists.
          */
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: ReadonlyArray<T>, list2: ReadonlyArray<U>): TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult, list1: ReadonlyArray<T>): (list2: ReadonlyArray<U>) => TResult[];
-        zipWith<T, U, TResult>(fn: (x: T, y: U) => TResult): (list1: ReadonlyArray<T>, list2: ReadonlyArray<U>) => TResult[];
+        zipWith<T, U, TResult>(
+            fn: (x: T, y: U) => TResult,
+            list1: ReadonlyArray<T>,
+            list2: ReadonlyArray<U>
+        ): TResult[];
+        zipWith<T, U, TResult>(
+            fn: (x: T, y: U) => TResult,
+            list1: ReadonlyArray<T>
+        ): (list2: ReadonlyArray<U>) => TResult[];
+        zipWith<T, U, TResult>(
+            fn: (x: T, y: U) => TResult
+        ): (list1: ReadonlyArray<T>, list2: ReadonlyArray<U>) => TResult[];
     }
 }
 

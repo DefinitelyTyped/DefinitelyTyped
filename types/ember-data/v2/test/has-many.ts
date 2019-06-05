@@ -47,7 +47,7 @@ blogPost.get('commentsAsync').then(comments => {
 
 blogPost.set('commentsAsync', blogPost.get('commentsAsync'));
 blogPost.set('commentsAsync', Ember.A());
-blogPost.set('commentsAsync', Ember.A([ comment! ]));
+blogPost.set('commentsAsync', Ember.A([comment!]));
 
 class PaymentMethod extends DS.Model {}
 declare module 'ember-data' {

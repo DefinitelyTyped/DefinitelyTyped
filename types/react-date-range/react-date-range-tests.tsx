@@ -1,10 +1,5 @@
-import * as React from "react";
-import {
-    defaultRanges,
-    DateRange,
-    DateRangePicker,
-    Range
-} from "react-date-range";
+import * as React from 'react';
+import { defaultRanges, DateRange, DateRangePicker, Range } from 'react-date-range';
 
 class ReactDatePicker extends React.Component<any, any> {
     constructor(props: {}) {
@@ -25,7 +20,7 @@ class ReactDatePicker extends React.Component<any, any> {
                     onChange={this.handleChange}
                     theme={{
                         Calendar: { width: 200 },
-                        PredefinedRanges: { marginLeft: 10, marginTop: 10 }
+                        PredefinedRanges: { marginLeft: 10, marginTop: 10 },
                     }}
                 />
             </div>
@@ -52,7 +47,7 @@ class ReactDateRangePicker extends React.Component<any, any> {
                     onChange={this.handleChange}
                     theme={{
                         Calendar: { width: 200 },
-                        PredefinedRanges: { marginLeft: 10, marginTop: 10 }
+                        PredefinedRanges: { marginLeft: 10, marginTop: 10 },
                     }}
                 />
             </div>

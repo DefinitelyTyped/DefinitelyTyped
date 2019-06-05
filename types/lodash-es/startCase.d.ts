@@ -1,2 +1,2 @@
-import { startCase } from "lodash";
+import { startCase } from 'lodash';
 export default startCase;

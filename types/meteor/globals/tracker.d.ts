@@ -25,9 +25,12 @@ declare module Tracker {
 
     function afterFlush(callback: Function): void;
 
-    function autorun(runFunc: (computation: Computation) => void, options?: {
-        onError?: Function;
-    }): Computation;
+    function autorun(
+        runFunc: (computation: Computation) => void,
+        options?: {
+            onError?: Function;
+        }
+    ): Computation;
 
     function flush(): void;
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import Koa = require("koa");
+import Koa = require('koa');
 
 declare namespace UserAgent {
     interface UserAgent {
@@ -65,7 +65,7 @@ declare namespace UserAgent {
     const UserAgent: Koa.Middleware;
 }
 
-declare module "koa" {
+declare module 'koa' {
     interface Context {
         userAgent: UserAgent.UserAgent;
     }

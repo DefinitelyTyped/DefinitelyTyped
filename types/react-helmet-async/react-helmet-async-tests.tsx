@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { renderToString } from "react-dom/server";
-import { Helmet, HelmetProvider, PopulatedContext } from "react-helmet-async";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { renderToString } from 'react-dom/server';
+import { Helmet, HelmetProvider, PopulatedContext } from 'react-helmet-async';
 
 const App1 = () => (
     <HelmetProvider>
@@ -15,7 +15,7 @@ const App1 = () => (
     </HelmetProvider>
 );
 
-ReactDOM.render(<App1 />, document.getElementById("root"));
+ReactDOM.render(<App1 />, document.getElementById('root'));
 
 const helmetContext = {};
 

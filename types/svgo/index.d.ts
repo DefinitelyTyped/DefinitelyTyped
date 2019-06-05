@@ -306,7 +306,7 @@ declare namespace SVGO {
 
     interface Options {
         /** Output as Data URI string. */
-        datauri?: "base64" | "enc" | "unenc";
+        datauri?: 'base64' | 'enc' | 'unenc';
 
         /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
         floatPrecision?: number;

@@ -9,7 +9,7 @@
 declare namespace AMap {
     namespace ArrivalRange {
         interface EventMap {
-            error: Event<'error', { info: string; }>;
+            error: Event<'error', { info: string }>;
         }
         interface SearchOptions {
             /**

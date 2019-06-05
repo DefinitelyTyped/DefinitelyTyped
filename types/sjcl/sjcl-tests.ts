@@ -1,4 +1,4 @@
-import sjcl = require("sjcl"); 
+import sjcl = require('sjcl');
 
 var b: boolean;
 var n: number;
@@ -9,59 +9,59 @@ var ba: sjcl.BitArray;
 function testBigNumber() {
     bn = new sjcl.bn();
     bn = new sjcl.bn(0);
-    bn = new sjcl.bn("0");
+    bn = new sjcl.bn('0');
     bn = new sjcl.bn(bn);
 
     bn = bn.initWith(0);
-    bn = bn.initWith("0");
+    bn = bn.initWith('0');
     bn = bn.initWith(bn);
 
     bn = bn.addM(0);
-    bn = bn.addM("0");
+    bn = bn.addM('0');
     bn = bn.addM(bn);
 
     bn = bn.subM(0);
-    bn = bn.subM("0");
+    bn = bn.subM('0');
     bn = bn.subM(bn);
 
     bn = bn.mod(0);
-    bn = bn.mod("0");
+    bn = bn.mod('0');
     bn = bn.mod(bn);
 
     bn = bn.inverseMod(0);
-    bn = bn.inverseMod("0");
+    bn = bn.inverseMod('0');
     bn = bn.inverseMod(bn);
 
     bn = bn.add(0);
-    bn = bn.add("0");
+    bn = bn.add('0');
     bn = bn.add(bn);
 
     bn = bn.sub(0);
-    bn = bn.sub("0");
+    bn = bn.sub('0');
     bn = bn.sub(bn);
 
     bn = bn.mul(0);
-    bn = bn.mul("0");
+    bn = bn.mul('0');
     bn = bn.mul(bn);
 
     bn = bn.mulmod(0, 0);
-    bn = bn.mulmod(0, "0");
+    bn = bn.mulmod(0, '0');
     bn = bn.mulmod(0, bn);
-    bn = bn.mulmod("0", 0);
-    bn = bn.mulmod("0", "0");
-    bn = bn.mulmod("0", bn);
+    bn = bn.mulmod('0', 0);
+    bn = bn.mulmod('0', '0');
+    bn = bn.mulmod('0', bn);
     bn = bn.mulmod(bn, 0);
-    bn = bn.mulmod(bn, "0");
+    bn = bn.mulmod(bn, '0');
     bn = bn.mulmod(bn, bn);
 
     bn = bn.powermod(0, 0);
-    bn = bn.powermod(0, "0");
+    bn = bn.powermod(0, '0');
     bn = bn.powermod(0, bn);
-    bn = bn.powermod("0", 0);
-    bn = bn.powermod("0", "0");
-    bn = bn.powermod("0", bn);
+    bn = bn.powermod('0', 0);
+    bn = bn.powermod('0', '0');
+    bn = bn.powermod('0', bn);
     bn = bn.powermod(bn, 0);
-    bn = bn.powermod(bn, "0");
+    bn = bn.powermod(bn, '0');
     bn = bn.powermod(bn, bn);
 
     bn = bn.copy();
@@ -146,22 +146,26 @@ function testCodecs() {
 
 function testHashes() {
     var hash: sjcl.SjclHash;
-    ba = hash.reset().update("xxx").update(ba).finalize();
+    ba = hash
+        .reset()
+        .update('xxx')
+        .update(ba)
+        .finalize();
 
     hash = new sjcl.hash.sha1();
     hash = new sjcl.hash.sha1(hash);
     ba = sjcl.hash.sha1.hash(ba);
-    ba = sjcl.hash.sha1.hash("xxx");
+    ba = sjcl.hash.sha1.hash('xxx');
 
     hash = new sjcl.hash.sha256();
     hash = new sjcl.hash.sha256(hash);
     ba = sjcl.hash.sha256.hash(ba);
-    ba = sjcl.hash.sha256.hash("xxx");
+    ba = sjcl.hash.sha256.hash('xxx');
 
     hash = new sjcl.hash.sha512();
     hash = new sjcl.hash.sha512(hash);
     ba = sjcl.hash.sha512.hash(ba);
-    ba = sjcl.hash.sha512.hash("xxx");
+    ba = sjcl.hash.sha512.hash('xxx');
 }
 
 function testSymetric() {
@@ -185,20 +189,20 @@ function testSymetric() {
 }
 
 function testHmacPbdkf2() {
-    ba = sjcl.misc.pbkdf2("xxx", "xxx");
-    ba = sjcl.misc.pbkdf2("xxx", "xxx", 1000);
-    ba = sjcl.misc.pbkdf2("xxx", "xxx", 1000, 12);
-    ba = sjcl.misc.pbkdf2("xxx", "xxx", 1000, 12, sjcl.misc.hmac);
+    ba = sjcl.misc.pbkdf2('xxx', 'xxx');
+    ba = sjcl.misc.pbkdf2('xxx', 'xxx', 1000);
+    ba = sjcl.misc.pbkdf2('xxx', 'xxx', 1000, 12);
+    ba = sjcl.misc.pbkdf2('xxx', 'xxx', 1000, 12, sjcl.misc.hmac);
 
-    ba = sjcl.misc.pbkdf2("xxx", ba);
-    ba = sjcl.misc.pbkdf2("xxx", ba, 1000);
-    ba = sjcl.misc.pbkdf2("xxx", ba, 1000, 12);
-    ba = sjcl.misc.pbkdf2("xxx", ba, 1000, 12, sjcl.misc.hmac);
+    ba = sjcl.misc.pbkdf2('xxx', ba);
+    ba = sjcl.misc.pbkdf2('xxx', ba, 1000);
+    ba = sjcl.misc.pbkdf2('xxx', ba, 1000, 12);
+    ba = sjcl.misc.pbkdf2('xxx', ba, 1000, 12, sjcl.misc.hmac);
 
-    ba = sjcl.misc.pbkdf2(ba, "xxx");
-    ba = sjcl.misc.pbkdf2(ba, "xxx", 1000);
-    ba = sjcl.misc.pbkdf2(ba, "xxx", 1000, 12);
-    ba = sjcl.misc.pbkdf2(ba, "xxx", 1000, 12, sjcl.misc.hmac);
+    ba = sjcl.misc.pbkdf2(ba, 'xxx');
+    ba = sjcl.misc.pbkdf2(ba, 'xxx', 1000);
+    ba = sjcl.misc.pbkdf2(ba, 'xxx', 1000, 12);
+    ba = sjcl.misc.pbkdf2(ba, 'xxx', 1000, 12, sjcl.misc.hmac);
 
     ba = sjcl.misc.pbkdf2(ba, ba);
     ba = sjcl.misc.pbkdf2(ba, ba, 1000);
@@ -209,15 +213,15 @@ function testHmacPbdkf2() {
     hmac = new sjcl.misc.hmac(ba);
     hmac = new sjcl.misc.hmac(ba, sjcl.hash.sha512);
 
-    ba = hmac.mac("xxx");
+    ba = hmac.mac('xxx');
     ba = hmac.mac(ba);
 
-    ba = hmac.encrypt("xxx");
+    ba = hmac.encrypt('xxx');
     ba = hmac.encrypt(ba);
 
     hmac.reset();
 
-    hmac.update("xxx");
+    hmac.update('xxx');
     hmac.update(ba);
 
     ba = hmac.digest();
@@ -226,7 +230,7 @@ function testHmacPbdkf2() {
 function testECC() {
     var keys = sjcl.ecc.elGamal.generateKeys(192, 0);
 
-    var ciphertext = sjcl.encrypt(keys.pub, "hello world");
+    var ciphertext = sjcl.encrypt(keys.pub, 'hello world');
     var plaintext = sjcl.decrypt(keys.sec, ciphertext);
 
     // TODO: Maybe deeper testing required. Let me know
@@ -251,17 +255,17 @@ function testSRP() {
 
 function testConvenince() {
     var x: sjcl.SjclCipherEncrypted;
-    x = sjcl.encrypt("xxx", "text");
+    x = sjcl.encrypt('xxx', 'text');
     s = sjcl.decrypt(ba, x);
 
-    x = sjcl.encrypt("xxx", "text", { iv: ba, salt: ba });
+    x = sjcl.encrypt('xxx', 'text', { iv: ba, salt: ba });
     s = sjcl.decrypt(ba, x, { iv: ba, salt: ba });
 
     var y: sjcl.SjclCipherDecrypted;
 
-    sjcl.encrypt("xxx", "text", { iv: ba, salt: ba, mode: "gcm" }, x);
-    s = sjcl.decrypt(ba, x, { iv: ba, salt: ba, mode: "gcm" }, y);
+    sjcl.encrypt('xxx', 'text', { iv: ba, salt: ba, mode: 'gcm' }, x);
+    s = sjcl.decrypt(ba, x, { iv: ba, salt: ba, mode: 'gcm' }, y);
 
-    sjcl.encrypt("xxx", "text", { iv: ba, salt: ba, mode: "gcm", iter: 200 }, x);
-    s = sjcl.decrypt(ba, x, { iv: ba, salt: ba, mode: "gcm", iter: 200 }, y);
+    sjcl.encrypt('xxx', 'text', { iv: ba, salt: ba, mode: 'gcm', iter: 200 }, x);
+    s = sjcl.decrypt(ba, x, { iv: ba, salt: ba, mode: 'gcm', iter: 200 }, y);
 }

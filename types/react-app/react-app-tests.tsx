@@ -10,29 +10,29 @@ const routes = {
             action() {
                 return {
                     title: 'Foo Page',
-                    component: <h1>Foo!</h1>
+                    component: <h1>Foo!</h1>,
                 };
-            }
+            },
         },
         {
             path: '/bar',
             action() {
                 return {
                     title: 'Bar Page',
-                    component: <h1>Bar!</h1>
+                    component: <h1>Bar!</h1>,
                 };
-            }
-        }
-    ]
+            },
+        },
+    ],
 };
 
-<Link to="/bar" className="a-link"/>;
-<Layout className="my-layout"/>;
+<Link to="/bar" className="a-link" />;
+<Layout className="my-layout" />;
 <Header />;
 <Navigation />;
 
 createApp({
     routes,
     context: { store },
-    container: document.body
+    container: document.body,
 });

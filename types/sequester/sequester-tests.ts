@@ -1,6 +1,6 @@
-import * as sequester from "sequester";
+import * as sequester from 'sequester';
 
-function cb() {};
+function cb() {}
 
 {
     const lock = sequester.createLock();

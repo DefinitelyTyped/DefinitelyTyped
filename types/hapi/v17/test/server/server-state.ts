@@ -1,5 +1,5 @@
 // from https://hapijs.com/tutorials/cookies?lang=en_US
-import { Server, ServerOptions, ServerRoute, ServerStateCookieOptions } from "hapi";
+import { Server, ServerOptions, ServerRoute, ServerStateCookieOptions } from 'hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -11,7 +11,7 @@ const serverRoute: ServerRoute = {
     handler(_request, h) {
         h.state('test', { test: true });
         return h.response('Hello').state('data', { firstVisit: false });
-    }
+    },
 };
 
 const server = new Server(options);

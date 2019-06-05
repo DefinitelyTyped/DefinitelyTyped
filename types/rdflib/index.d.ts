@@ -369,12 +369,7 @@ export class Statement {
      * @param object The statement's object
      * @param graph The graph the contains this statement
      */
-    constructor(
-        subject: ValueType,
-        predicate: ValueType,
-        object: ValueType,
-        graph: ValueType
-    );
+    constructor(subject: ValueType, predicate: ValueType, object: ValueType, graph: ValueType);
     /**
      * Gets whether two statements are the same
      * @param other The other statement
@@ -404,19 +399,13 @@ export namespace convert {
      * @param n3String The n3 string
      * @param jsonCallback Callback when the operation terminated
      */
-    function convertToJson(
-        n3String: string,
-        jsonCallback: (err: string, jsonString: string) => void
-    ): void;
+    function convertToJson(n3String: string, jsonCallback: (err: string, jsonString: string) => void): void;
     /**
      * Converts an n3 string to n-quads
      * @param n3String The n3 string
      * @param nquadCallback Callback when the operation terminated
      */
-    function convertToNQuads(
-        n3String: string,
-        nquadCallback: (err: string, nquadString: string) => void
-    ): void;
+    function convertToNQuads(n3String: string, nquadCallback: (err: string, nquadString: string) => void): void;
 }
 /**
  * A formula, or store of RDF statements
@@ -588,11 +577,7 @@ export class Formula extends Node {
      * @param doc A document (the graph that contains statements)
      * @param excludePredicateURIs The predicate URIs to exclude
      */
-    connectedStatements(
-        subject: Node,
-        doc: ValueType,
-        excludePredicateURIs: ReadonlyArray<string>
-    ): Statement[];
+    connectedStatements(subject: Node, doc: ValueType, excludePredicateURIs: ReadonlyArray<string>): Statement[];
     /**
      * Creates a new empty formula
      */
@@ -755,13 +740,7 @@ export class IndexedFormula extends Formula {
      * @param why The graph that contains the statement
      * @param justOne Whether to only get one statement
      */
-    statementsMatching(
-        subj: Node,
-        pred: Node,
-        obj: Node,
-        why: Node,
-        justOne: boolean
-    ): Statement[];
+    statementsMatching(subj: Node, pred: Node, obj: Node, why: Node, justOne: boolean): Statement[];
     /**
      * Adds all the statements to this formula
      * @param statements A collection of statements
@@ -810,12 +789,7 @@ export class IndexedFormula extends Formula {
      * @param object The object
      * @param graph The graph that contains the statement
      */
-    match(
-        subject: ValueType,
-        predicate: ValueType,
-        object: ValueType,
-        graph: ValueType
-    ): Statement[];
+    match(subject: ValueType, predicate: ValueType, object: ValueType, graph: ValueType): Statement[];
     /**
      * Find out whether a given URI is used as symbol in the formula
      * @param uri The URI to look for
@@ -856,13 +830,7 @@ export class IndexedFormula extends Formula {
      * @param why The graph that contains the statement
      * @param limit The number of statements to remove
      */
-    removeMany(
-        subj: Node,
-        pred: Node,
-        obj: Node,
-        why: Node,
-        limit: number
-    ): void;
+    removeMany(subj: Node, pred: Node, obj: Node, why: Node, limit: number): void;
     /**
      * Remove all matching statements
      * @param subject The subject
@@ -870,12 +838,7 @@ export class IndexedFormula extends Formula {
      * @param object The object
      * @param graph The graph that contains the statement
      */
-    removeMatches(
-        subject: ValueType,
-        predicate: ValueType,
-        object: ValueType,
-        graph: ValueType
-    ): void;
+    removeMatches(subject: ValueType, predicate: ValueType, object: ValueType, graph: ValueType): void;
     /**
      * Removes a statement
      * @param st The statement to remove
@@ -940,10 +903,7 @@ export namespace DataFactory {
      * @param value The lexical value
      * @param languageOrDatatype Either the language or the datatype
      */
-    function literal(
-        value: string,
-        languageOrDatatype: string | NamedNode
-    ): Literal;
+    function literal(value: string, languageOrDatatype: string | NamedNode): Literal;
     /**
      * Creates a new named node
      * @param value The new named node
@@ -956,12 +916,7 @@ export namespace DataFactory {
      * @param object The object
      * @param graph The containing graph
      */
-    function quad(
-        subject: Node,
-        predicate: Node,
-        object: Node,
-        graph: Node
-    ): Statement;
+    function quad(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
     /**
      * Creates a new statement
      * @param subject The subject
@@ -969,12 +924,7 @@ export namespace DataFactory {
      * @param object The object
      * @param graph The containing graph
      */
-    function st(
-        subject: Node,
-        predicate: Node,
-        object: Node,
-        graph: Node
-    ): Statement;
+    function st(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
     /**
      * Creates a new statement
      * @param subject The subject
@@ -1006,11 +956,7 @@ export namespace Util {
      * @param p A property
      * @param requestedBy
      */
-    function AJAR_handleNewTerm(
-        kb: Formula,
-        p: NamedNode,
-        requestedBy: string
-    ): Promise<any>;
+    function AJAR_handleNewTerm(kb: Formula, p: NamedNode, requestedBy: string): Promise<any>;
 }
 /**
  * A datatype-specific handler for fetching data
@@ -1086,12 +1032,7 @@ export function lit(val: string, lang: string, dt: NamedNode): Literal;
  * @param object The object
  * @param graph The containing graph
  */
-export function st(
-    subject: Node,
-    predicate: Node,
-    object: Node,
-    graph: Node
-): Statement;
+export function st(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
 /**
  * Creates a new named node
  * @param value The new named node
@@ -1116,10 +1057,7 @@ export function defaultGraph(): DefaultGraph;
  * @param value The lexical value
  * @param languageOrDatatype Either the language or the datatype
  */
-export function literal(
-    value: string,
-    languageOrDatatype: string | NamedNode
-): Literal;
+export function literal(value: string, languageOrDatatype: string | NamedNode): Literal;
 /**
  * Creates a new named node
  * @param value The new named node
@@ -1132,12 +1070,7 @@ export function namedNode(value: string): NamedNode;
  * @param object The object
  * @param graph The containing graph
  */
-export function quad(
-    subject: Node,
-    predicate: Node,
-    object: Node,
-    graph: Node
-): Statement;
+export function quad(subject: Node, predicate: Node, object: Node, graph: Node): Statement;
 /**
  * Creates a new statement
  * @param subject The subject

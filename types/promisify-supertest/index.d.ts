@@ -16,8 +16,7 @@ declare function supertest(app: express.Express): supertest.SuperTest;
 declare namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
-    interface SuperTest extends superagent.SuperAgent<Test> {
-    }
+    interface SuperTest extends superagent.SuperAgent<Test> {}
 
     interface Test extends superagent.SuperAgentRequest {
         url: string;
@@ -33,8 +32,7 @@ declare namespace supertest {
         end(callback?: CallbackHandler): this & Promise<Response>;
     }
 
-    interface Response extends superagent.Response {
-    }
+    interface Response extends superagent.Response {}
 }
 
 export = supertest;

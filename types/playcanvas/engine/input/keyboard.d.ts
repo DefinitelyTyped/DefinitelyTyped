@@ -1,31 +1,30 @@
 type BrowserKeyboardEvent = typeof KeyboardEvent;
 
 declare namespace pc {
-
     /**
-    * @name pc.KeyboardEvent
-    * @class The KeyboardEvent is passed into all event callbacks from the {@link pc.Keyboard}. It corresponds to a key press or release.
-    * @description Create a new KeyboardEvent
-    * @param {pc.Keyboard} keyboard The keyboard object which is firing the event.
-    * @param {pc.KeyboardEvent} event The original browser event that was fired.
-    * @property {Number} key The keyCode of the key that has changed. See the pc.KEY_* constants.
-    * @property {Element} element The element that fired the keyboard event.
-    * @property {KeyboardEvent} event The original browser event which was fired.
-    * @example
-    * var onKeyDown = function (e) {
-    *     if (e.key === pc.KEY_SPACE) {
-    *         // space key pressed
-    *     }
-    *     e.event.preventDefault(); // Use original browser event to prevent browser action.
-    * };
-    * app.keyboard.on("keydown", onKeyDown, this);
-    */
+     * @name pc.KeyboardEvent
+     * @class The KeyboardEvent is passed into all event callbacks from the {@link pc.Keyboard}. It corresponds to a key press or release.
+     * @description Create a new KeyboardEvent
+     * @param {pc.Keyboard} keyboard The keyboard object which is firing the event.
+     * @param {pc.KeyboardEvent} event The original browser event that was fired.
+     * @property {Number} key The keyCode of the key that has changed. See the pc.KEY_* constants.
+     * @property {Element} element The element that fired the keyboard event.
+     * @property {KeyboardEvent} event The original browser event which was fired.
+     * @example
+     * var onKeyDown = function (e) {
+     *     if (e.key === pc.KEY_SPACE) {
+     *         // space key pressed
+     *     }
+     *     e.event.preventDefault(); // Use original browser event to prevent browser action.
+     * };
+     * app.keyboard.on("keydown", onKeyDown, this);
+     */
     class KeyboardEvent {
-        constructor(keyboard: pc.Keyboard, event: BrowserKeyboardEvent)
+        constructor(keyboard: pc.Keyboard, event: BrowserKeyboardEvent);
 
         key: number;
         element: Element;
-        event: BrowserKeyboardEvent
+        event: BrowserKeyboardEvent;
     }
 
     /**
@@ -51,21 +50,21 @@ declare namespace pc {
      * var keyboard = new pc.Keyboard(window); // attach keyboard listeners to the window
      */
     class Keyboard {
-        constructor(element?: Element, options?: { preventDefault?: boolean, stopPropagation?: boolean })
+        constructor(element?: Element, options?: { preventDefault?: boolean; stopPropagation?: boolean });
 
         /**
-        * @function
-        * @name pc.Keyboard#attach
-        * @description Attach the keyboard event handlers to an Element
-        * @param {Element} element The element to listen for keyboard events on.
-        */
+         * @function
+         * @name pc.Keyboard#attach
+         * @description Attach the keyboard event handlers to an Element
+         * @param {Element} element The element to listen for keyboard events on.
+         */
         attach(element: Element): void;
 
         /**
-        * @function
-        * @name pc.Keyboard#detach
-        * @description Detach the keyboard event handlers from the element it is attached to.
-        */
+         * @function
+         * @name pc.Keyboard#detach
+         * @description Detach the keyboard event handlers from the element it is attached to.
+         */
         detach(): void;
 
         /**
@@ -76,7 +75,6 @@ declare namespace pc {
          * @param {Number} keyCode
          */
         private toKeyIdentifier(keyCode: number): string;
-
 
         /**
          * @private
@@ -112,7 +110,6 @@ declare namespace pc {
          * @return {Boolean} true if the key was pressed.
          */
         wasReleased(key: number): boolean;
-
 
         // Events
 
@@ -160,7 +157,17 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(
+            name: string,
+            arg1: any,
+            arg2?: any,
+            arg3?: any,
+            arg4?: any,
+            arg5?: any,
+            arg6?: any,
+            arg7?: any,
+            arg8?: any
+        ): any;
 
         /**
          * @function
@@ -179,14 +186,14 @@ declare namespace pc {
         once(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
-        * @function
-        * @name pc.Keyboard#hasEvent
-        * @description Test if there are any handlers bound to an event name
-        * @param {String} name The name of the event to test
-        * @example
-        * obj.on('test', function () { }); // bind an event to 'test'
-        * obj.hasEvent('test'); // returns true
-        */
+         * @function
+         * @name pc.Keyboard#hasEvent
+         * @description Test if there are any handlers bound to an event name
+         * @param {String} name The name of the event to test
+         * @example
+         * obj.on('test', function () { }); // bind an event to 'test'
+         * obj.hasEvent('test'); // returns true
+         */
         hasEvent(name: string): boolean;
     }
 }

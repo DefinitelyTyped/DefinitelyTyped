@@ -1,4 +1,4 @@
-import * as tryer from "tryer";
+import * as tryer from 'tryer';
 
 tryer(); // $ExpectError
 
@@ -33,10 +33,10 @@ tryer({ when: () => 1 });
 tryer({ until: () => 1 });
 
 // $ExpectError
-tryer({ limit: "notNumber" });
+tryer({ limit: 'notNumber' });
 
 // $ExpectError
-tryer({ interval: "notNumber" });
+tryer({ interval: 'notNumber' });
 
 tryer({});
 
@@ -52,5 +52,5 @@ tryer({
     until: () => true,
     when: () => false,
     limit: 1,
-    pass: () => {}
+    pass: () => {},
 });

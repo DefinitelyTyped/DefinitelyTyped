@@ -16,24 +16,28 @@ gulp.src('./src/js/**/*.js')
 
 // sort descending
 gulp.src('./src/js/**/*.js')
-    .pipe(sort({
-        asc: false
-    }))
+    .pipe(
+        sort({
+            asc: false,
+        })
+    )
     .pipe(gulp.dest('./build/js'));
 
 // sort with a custom comparator
 gulp.src('./src/js/**/*.js')
-    .pipe(sort({
-        comparator: function(file1, file2) {
-            if (file1.path.indexOf('build') > -1) {
-                return 1;
-            }
-            if (file2.path.indexOf('build') > -1) {
-                return -1;
-            }
-            return 0;
-        }
-    }))
+    .pipe(
+        sort({
+            comparator: function(file1, file2) {
+                if (file1.path.indexOf('build') > -1) {
+                    return 1;
+                }
+                if (file2.path.indexOf('build') > -1) {
+                    return -1;
+                }
+                return 0;
+            },
+        })
+    )
     .pipe(gulp.dest('./build/js'));
 
 function customComparator(file1: gulpUtil.File, file2: gulpUtil.File) {

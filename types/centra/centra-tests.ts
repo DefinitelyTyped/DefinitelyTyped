@@ -14,7 +14,8 @@ function typeTests() {
         .compress()
         .option('host', '123')
         .option('port', 123)
-        .send().then(resp => {
+        .send()
+        .then(resp => {
             resp.json().then((s: string) => s);
             resp.text().then((s: string) => s);
             resp.statusCode;
@@ -23,17 +24,18 @@ function typeTests() {
             resp.body.buffer.byteLength;
         });
 
-    centra(new URL('google.com'))
-        .query('page', '2');
+    centra(new URL('google.com')).query('page', '2');
 }
 
 async function functionalTests() {
-    await centra('http://example.com').send().then(async r => {
-        if (r.statusCode !== 200) {
-            throw new Error('Bad status code');
-        }
-        r.text().then(t => t);
-    });
+    await centra('http://example.com')
+        .send()
+        .then(async r => {
+            if (r.statusCode !== 200) {
+                throw new Error('Bad status code');
+            }
+            r.text().then(t => t);
+        });
 
     await centra(new URL('https://jsonplaceholder.typicode.com/todos'))
         .query('userId', 1)

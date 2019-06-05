@@ -154,6 +154,6 @@ declare class HexoLogger extends bunyan {
     log(format: any, ...params: any[]): void;
 }
 
-declare function createLogger(options?: { name?: string; silent?: boolean; debug?: boolean; }): HexoLogger;
+declare function createLogger(options?: { name?: string; silent?: boolean; debug?: boolean }): HexoLogger;
 
 export = createLogger;

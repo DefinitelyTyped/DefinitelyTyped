@@ -5,19 +5,25 @@
 
 declare namespace icongen {
     interface Options {
-        favicon?: {
-            ico: number[];
-            name: string;
-            sizes: number[];
-        } | {};
-        icns?: {
-            name: string;
-            sizes: number[];
-        } | {};
-        ico?: {
-            name: string;
-            sizes: number[];
-        } | {};
+        favicon?:
+            | {
+                  ico: number[];
+                  name: string;
+                  sizes: number[];
+              }
+            | {};
+        icns?:
+            | {
+                  name: string;
+                  sizes: number[];
+              }
+            | {};
+        ico?:
+            | {
+                  name: string;
+                  sizes: number[];
+              }
+            | {};
         report?: boolean;
     }
 }

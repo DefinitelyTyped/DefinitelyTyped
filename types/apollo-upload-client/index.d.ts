@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { ApolloLink } from "apollo-link";
-import { HttpOptions } from "apollo-link-http-common";
+import { ApolloLink } from 'apollo-link';
+import { HttpOptions } from 'apollo-link-http-common';
 
-export { ReactNativeFile } from "extract-files";
+export { ReactNativeFile } from 'extract-files';
 
 /**
  * `createUploadLink` options match `createHttpLink` options

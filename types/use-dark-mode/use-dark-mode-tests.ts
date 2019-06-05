@@ -1,4 +1,4 @@
-import useDarkMode from "use-dark-mode";
+import useDarkMode from 'use-dark-mode';
 
 // $ExpectType DarkMode
 const darkMode = useDarkMode(false);
@@ -19,7 +19,7 @@ useDarkMode(true, {
 
 // $ExpectType DarkMode
 useDarkMode(true, {
-    onChange: (value) => {
+    onChange: value => {
         value; // $ExpectType: boolean
     },
     storageKey: null,

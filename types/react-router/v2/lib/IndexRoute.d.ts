@@ -15,6 +15,6 @@ declare namespace self {
         onEnter?: Router.EnterHook;
         onLeave?: Router.LeaveHook;
     }
-    interface IndexRoute extends React.ComponentClass<IndexRouteProps> { }
-    interface IndexRouteElement extends React.ReactElement<IndexRouteProps> { }
+    interface IndexRoute extends React.ComponentClass<IndexRouteProps> {}
+    interface IndexRouteElement extends React.ReactElement<IndexRouteProps> {}
 }

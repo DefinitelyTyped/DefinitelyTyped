@@ -59,9 +59,13 @@ export declare module HelloSign {
         description: string;
     }
 
-    type MessageEvent = SignedMessageEvent | DeclinedMessageEvent |
-        CanceledMessageEvent | SentMessageEvent | TemplateCreatedMessageEvent |
-        ErrorMessageEvent;
+    type MessageEvent =
+        | SignedMessageEvent
+        | DeclinedMessageEvent
+        | CanceledMessageEvent
+        | SentMessageEvent
+        | TemplateCreatedMessageEvent
+        | ErrorMessageEvent;
 
     interface ClientCultures {
         /**

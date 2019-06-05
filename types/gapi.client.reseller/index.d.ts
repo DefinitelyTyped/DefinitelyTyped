@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Enterprise Apps Reseller API v1 */
-    function load(name: "reseller", version: "v1"): PromiseLike<void>;
-    function load(name: "reseller", version: "v1", callback: () => any): void;
+    function load(name: 'reseller', version: 'v1'): PromiseLike<void>;
+    function load(name: 'reseller', version: 'v1', callback: () => any): void;
 
     const customers: reseller.CustomersResource;
 

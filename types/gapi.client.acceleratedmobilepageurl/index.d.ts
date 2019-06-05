@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Accelerated Mobile Pages (AMP) URL API v1 */
-    function load(name: "acceleratedmobilepageurl", version: "v1"): PromiseLike<void>;
-    function load(name: "acceleratedmobilepageurl", version: "v1", callback: () => any): void;
+    function load(name: 'acceleratedmobilepageurl', version: 'v1'): PromiseLike<void>;
+    function load(name: 'acceleratedmobilepageurl', version: 'v1', callback: () => any): void;
 
     const ampUrls: acceleratedmobilepageurl.AmpUrlsResource;
 
@@ -66,7 +66,7 @@ declare namespace gapi.client {
              */
             batchGet(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

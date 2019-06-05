@@ -22,7 +22,7 @@ export class Dashboard {
 export class ReportInstance {
     constructor(report: Report, id: string);
 
-    retrieve(callback: Callback<ReportResult>): Promise<ReportResult>
+    retrieve(callback: Callback<ReportResult>): Promise<ReportResult>;
 }
 
 export class Report {
@@ -51,20 +51,15 @@ export class Report {
     instances(callback?: Callback<ReportInstance[]>): Promise<ReportInstance[]>;
 }
 
-export interface ReportInstanceAttrs {
-}
+export interface ReportInstanceAttrs {}
 
-export interface ReportMetadata {
-}
+export interface ReportMetadata {}
 
-export interface ReportResult {
-}
+export interface ReportResult {}
 
-export interface ReportInfo {
-}
+export interface ReportInfo {}
 
-export interface DashboardInfo {
-}
+export interface DashboardInfo {}
 
 export class Analytics {
     report(id: string): Promise<Report>;

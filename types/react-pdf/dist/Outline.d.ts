@@ -24,4 +24,4 @@ export interface Props {
     onLoadSuccess?: (pdf: any) => void;
 }
 
-export default class Outline extends React.Component<Props> { }
+export default class Outline extends React.Component<Props> {}

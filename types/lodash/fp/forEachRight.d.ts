@@ -1,2 +1,2 @@
-import { forEachRight } from "../fp";
+import { forEachRight } from '../fp';
 export = forEachRight;

@@ -21,5 +21,5 @@ declare namespace Nav {
         ulId?: string;
     }
 }
-declare class Nav extends React.Component<Nav.NavProps> { }
+declare class Nav extends React.Component<Nav.NavProps> {}
 export = Nav;

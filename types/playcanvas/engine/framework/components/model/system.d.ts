@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ModelComponentSystem
      * @description Create a new ModelComponentSystem
@@ -9,6 +8,6 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class ModelComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
     }
 }

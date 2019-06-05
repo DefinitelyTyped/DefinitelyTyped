@@ -1,2 +1,2 @@
-import { pullAllWith } from "./index";
+import { pullAllWith } from './index';
 export = pullAllWith;

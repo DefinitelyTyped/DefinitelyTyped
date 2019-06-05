@@ -24,21 +24,28 @@ declare class CamlBuilder {
     static FromXml(xml: string): CamlBuilder.IRawQuery;
 }
 declare module CamlBuilder {
-    type Aggregation = {
-        count: string;
-    } | {
-        sum: string;
-    } | {
-        avg: string;
-    } | {
-        max: string;
-    } | {
-        min: string;
-    } | {
-        stdev: string;
-    } | {
-        var: string;
-    };
+    type Aggregation =
+        | {
+              count: string;
+          }
+        | {
+              sum: string;
+          }
+        | {
+              avg: string;
+          }
+        | {
+              max: string;
+          }
+        | {
+              min: string;
+          }
+        | {
+              stdev: string;
+          }
+        | {
+              var: string;
+          };
     type ViewField = string | Aggregation;
     interface IView extends IFinalizable {
         /** Define query */
@@ -130,8 +137,7 @@ declare module CamlBuilder {
         /** Adds Or clause to the query. */
         Or(): IFieldExpression;
     }
-    interface IGroupedQuery extends ISortable {
-    }
+    interface IGroupedQuery extends ISortable {}
     interface ISortedQuery extends IFinalizable {
         /** Specifies next order field (ascending) */
         ThenBy(fieldInternalName: string): any;
@@ -190,7 +196,13 @@ declare module CamlBuilder {
             @param endDateField Internal name of "End Time" field (default: "EndDate" - all OOTB Calendar lists use this name)
             @param recurrenceIDField Internal name of "Recurrence ID" field (default: "RecurrenceID" - all OOTB Calendar lists use this name)
          */
-        DateRangesOverlap(overlapType: DateRangesOverlapType, calendarDate: string, eventDateField?: string, endDateField?: string, recurrenceIDField?: string): IExpression;
+        DateRangesOverlap(
+            overlapType: DateRangesOverlapType,
+            calendarDate: string,
+            eventDateField?: string,
+            endDateField?: string,
+            recurrenceIDField?: string
+        ): IExpression;
     }
     interface IBooleanFieldExpression {
         /** Checks whether the value of the field is True */

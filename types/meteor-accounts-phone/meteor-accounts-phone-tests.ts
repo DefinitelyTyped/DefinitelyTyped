@@ -1,17 +1,16 @@
-
 let booleanResult: boolean;
 const options = {};
 function noop() {}
 
 SMS.twilio = {
-  FROM: 'me',
-  ACCOUNT_SID: 'my-account-sid',
-  AUTH_TOKEN: 'my-auth-token'
+    FROM: 'me',
+    ACCOUNT_SID: 'my-account-sid',
+    AUTH_TOKEN: 'my-auth-token',
 };
 
 SMS.phoneTemplate = {
-  from: 'me',
-  text: noop
+    from: 'me',
+    text: noop,
 };
 
 SMS.send(options);
@@ -23,14 +22,14 @@ Meteor.loginWithPhoneAndPassword(options, 'password', noop);
 Meteor.loginWithPhoneAndPassword('options', 'password', noop);
 
 Accounts._options = {
-  verificationCodeLength: 4,
-  verificationMaxRetries: 10,
-  verificationRetriesWaitTime: 60 * 1000,
-  verificationWaitTime: 10 * 1000,
-  sendPhoneVerificationCodeOnCreation: true,
-  forbidClientAccountCreation: true,
-  phoneVerificationMasterCode: ['1234'],
-  adminPhoneNumbers: ['+972546999999']
+    verificationCodeLength: 4,
+    verificationMaxRetries: 10,
+    verificationRetriesWaitTime: 60 * 1000,
+    verificationWaitTime: 10 * 1000,
+    sendPhoneVerificationCodeOnCreation: true,
+    forbidClientAccountCreation: true,
+    phoneVerificationMasterCode: ['1234'],
+    adminPhoneNumbers: ['+972546999999'],
 };
 
 Accounts.createUserWithPhone(options);

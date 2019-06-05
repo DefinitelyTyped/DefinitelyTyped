@@ -44,14 +44,14 @@ utils.matcherHint('[.not]primeNumberMatcher', '12');
 utils.matcherHint('[.not]primeNumberMatcher', '12', '13');
 utils.matcherHint('[.not]primeNumberMatcher', '12', '13', {});
 utils.matcherHint('[.not]primeNumberMatcher', '12', '13', {
-    secondArgument: ''
-});
-utils.matcherHint('[.not]primeNumberMatcher', '12', '13', {
     secondArgument: '',
-    isDirectExpectCall: true
 });
 utils.matcherHint('[.not]primeNumberMatcher', '12', '13', {
     secondArgument: '',
     isDirectExpectCall: true,
-    notAnOption: 'notAnOptionValue' // $ExpectError
+});
+utils.matcherHint('[.not]primeNumberMatcher', '12', '13', {
+    secondArgument: '',
+    isDirectExpectCall: true,
+    notAnOption: 'notAnOptionValue', // $ExpectError
 });

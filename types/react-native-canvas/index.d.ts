@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import * as React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 
 export interface CanvasProps {
     baseUrl?: string;
@@ -30,24 +30,10 @@ export interface CanvasRenderingContext2D {
     shadowOffsetY: number;
     strokeStyle: string;
     textAlign: string;
-    arc: (
-        x: number,
-        y: number,
-        r: number,
-        sAngle: number,
-        eAngle: number,
-        counterClockwise?: number
-    ) => void;
+    arc: (x: number, y: number, r: number, sAngle: number, eAngle: number, counterClockwise?: number) => void;
     arcTo: (x1: number, y1: number, x2: number, y2: number, r: number) => void;
     beginPath: () => void;
-    bezierCurveTo: (
-        cp1x: number,
-        cp1y: number,
-        cp2x: number,
-        cp2y: number,
-        x: number,
-        y: number
-    ) => void;
+    bezierCurveTo: (cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) => void;
     clearRect: (x: number, y: number, width: number, height: number) => void;
     clip: () => void;
     closePath: () => void;
@@ -57,21 +43,9 @@ export interface CanvasRenderingContext2D {
         height: number,
         imageData: ImageData
     ) => void;
-    createLinearGradient: (
-        x0: number,
-        yo: number,
-        x1: number,
-        y1: number
-    ) => void;
+    createLinearGradient: (x0: number, yo: number, x1: number, y1: number) => void;
     createPattern: () => void;
-    createRadialGradient: (
-        x0: number,
-        y0: number,
-        r0: number,
-        x1: number,
-        y1: number,
-        r1: number
-    ) => void;
+    createRadialGradient: (x0: number, y0: number, r0: number, x1: number, y1: number, r1: number) => void;
     drawFocusIfNeeded: (html: HTMLElement) => void;
     drawImage: (
         image: Image,
@@ -85,15 +59,7 @@ export interface CanvasRenderingContext2D {
         dHeight?: number
     ) => void;
     drawWidgetAsOnScreen: (window: any) => void;
-    drawWindow: (
-        window: any,
-        x: number,
-        y: number,
-        w: number,
-        h: number,
-        bgColor: string,
-        flags?: any
-    ) => void; //
+    drawWindow: (window: any, x: number, y: number, w: number, h: number, bgColor: string, flags?: any) => void; //
     fill: (Path2D: Path2D, fillRule?: any) => void;
     fillRect: (x: number, y: number, width: number, height: number) => void;
     fillText: (text: string, x: number, y: number, maxWidth?: number) => void;
@@ -109,12 +75,7 @@ export interface CanvasRenderingContext2D {
     ) => void;
     getImageData: (sx: number, sy: number, sw: number, sh: number) => ImageData;
     getLineDash: () => number[];
-    isPointInPath: (
-        x: number,
-        y: number,
-        fillRule: any,
-        path: Path2D
-    ) => boolean;
+    isPointInPath: (x: number, y: number, fillRule: any, path: Path2D) => boolean;
     isPointInStroke: (x: number, y: number, path: Path2D) => boolean;
     lineTo: (x: number, y: number) => void;
     measureText: (text: string) => any;
@@ -135,25 +96,11 @@ export interface CanvasRenderingContext2D {
     save: () => void;
     scale: (x: number, y: number) => void;
     setLineDash: (segments: number[]) => void;
-    setTransform: (
-        a: number,
-        b: number,
-        c: number,
-        d: number,
-        e: number,
-        f: number
-    ) => void;
+    setTransform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
     stroke: (path: Path2D) => void;
     strokeRect: (x: number, y: number, width: number, height: number) => void;
     strokeText: (text: string, x: number, y: number, maxWidth?: number) => void;
-    transform: (
-        a: number,
-        b: number,
-        c: number,
-        d: number,
-        e: number,
-        f: number
-    ) => void;
+    transform: (a: number, b: number, c: number, d: number, e: number, f: number) => void;
     translate: (x: number, y: number) => void;
 }
 
@@ -194,13 +141,13 @@ export class Path2D {
         }
     ) => void;
 
-    closePath: CanvasRenderingContext2D["closePath"];
-    moveTo: CanvasRenderingContext2D["moveTo"];
-    lineTo: CanvasRenderingContext2D["lineTo"];
-    bezierCurveTo: CanvasRenderingContext2D["bezierCurveTo"];
-    quadraticCurveTo: CanvasRenderingContext2D["quadraticCurveTo"];
-    arc: CanvasRenderingContext2D["arc"];
-    arcTo: CanvasRenderingContext2D["arcTo"];
-    ellipse: CanvasRenderingContext2D["ellipse"];
-    rect: CanvasRenderingContext2D["rect"];
+    closePath: CanvasRenderingContext2D['closePath'];
+    moveTo: CanvasRenderingContext2D['moveTo'];
+    lineTo: CanvasRenderingContext2D['lineTo'];
+    bezierCurveTo: CanvasRenderingContext2D['bezierCurveTo'];
+    quadraticCurveTo: CanvasRenderingContext2D['quadraticCurveTo'];
+    arc: CanvasRenderingContext2D['arc'];
+    arcTo: CanvasRenderingContext2D['arcTo'];
+    ellipse: CanvasRenderingContext2D['ellipse'];
+    rect: CanvasRenderingContext2D['rect'];
 }

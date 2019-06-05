@@ -25,21 +25,21 @@
 
 /// <reference types="koa" />
 
-import * as Koa from "koa";
-import * as Handlebars from "handlebars";
+import * as Koa from 'koa';
+import * as Handlebars from 'handlebars';
 
 declare namespace Hbs {
     export interface Middleware {
-        viewPath: Array<string> | string,
-        handlebars?: Function,
-        templateOptions?: {},
-        extname?: string,
-        partialsPath?: Array<string> | string,
-        defaultLayout?: string,
-        layoutsPath?: string,
-        contentHelperName?: string,
-        blockHelperName?: string,
-        disableCache?: boolean
+        viewPath: Array<string> | string;
+        handlebars?: Function;
+        templateOptions?: {};
+        extname?: string;
+        partialsPath?: Array<string> | string;
+        defaultLayout?: string;
+        layoutsPath?: string;
+        contentHelperName?: string;
+        blockHelperName?: string;
+        disableCache?: boolean;
     }
 }
 
@@ -54,8 +54,8 @@ declare class Hbs {
 declare const hbs: Hbs;
 export = hbs;
 
-declare module "koa" {
+declare module 'koa' {
     export interface Context {
-        render(tpl: string, locals?: {[key: string]: any}): Promise<void>;
+        render(tpl: string, locals?: { [key: string]: any }): Promise<void>;
     }
 }

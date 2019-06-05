@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { CommonFileSystemMethod } from './common-types'
-import { Dictionary } from './concord'
+import { CommonFileSystemMethod } from './common-types';
+import { Dictionary } from './concord';
 declare class Storage {
     count: number;
     data: Dictionary<any>;

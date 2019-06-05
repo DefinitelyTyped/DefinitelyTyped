@@ -9,6 +9,6 @@ import * as CleanCSS from 'clean-css';
 
 declare function minifyCSS(options?: CleanCSS.Options): NodeJS.ReadWriteStream;
 
-declare namespace minifyCSS { }
+declare namespace minifyCSS {}
 
 export = minifyCSS;

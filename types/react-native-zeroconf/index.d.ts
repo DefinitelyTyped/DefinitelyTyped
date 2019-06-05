@@ -28,7 +28,7 @@ export interface Service {
     host: string;
     port: number;
     txt: {
-        [key: string]: any
+        [key: string]: any;
     };
 }
 

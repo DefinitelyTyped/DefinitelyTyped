@@ -20,7 +20,7 @@ console.log(riot.util.vdom[0].isMounted);
 const mockOpts = {
     foo: true,
     bar: 1,
-    baz: [1, '2', [3]]
+    baz: [1, '2', [3]],
 };
 
 const tag = riot.mount('test')[0];
@@ -89,7 +89,7 @@ const optsMixin: OptsMixin = {
         this.opts = opts;
         if (!update) this.update();
         return this;
-    }
+    },
 };
 // mixin object
 tag.mixin(optsMixin);
@@ -101,8 +101,7 @@ tag.mixin('optsMixin');
 riot.mixin(optsMixin);
 
 // using mixin in tag instances
-interface TagWithOptsMixin extends riot.TagInterface, OptsMixin {
-}
+interface TagWithOptsMixin extends riot.TagInterface, OptsMixin {}
 
 (tag as TagWithOptsMixin).setOpts(mockOpts, true).getOpts();
 
@@ -116,7 +115,8 @@ interface TimerTag extends riot.TagInterface {
 }
 
 // Manual construction
-riot.tag<TimerTag>('timer',
+riot.tag<TimerTag>(
+    'timer',
     '<p>Seconds Elapsed: { time }</p>',
     'timer { display: block; border: 2px }',
     'class="tic-toc"',
@@ -130,7 +130,8 @@ riot.tag<TimerTag>('timer',
         const timer = setInterval(this.tick, 1000);
 
         this.on('unmount', () => clearInterval(timer));
-    });
+    }
+);
 
 // Template-less tag construction
 riot.tag<TimerTag>('timer', false, function() {
@@ -144,11 +145,22 @@ riot.observable().on('test', cb);
 // can add observable functionality to existing object
 riot.observable({}).on('test', cb);
 // all observable methods support fluent interface
-riot.observable().on('test', cb).one('test', cb).off('test').off('test', cb)
-    .trigger('test').trigger('test', 1, 'arg1').on('test', cb);
+riot.observable()
+    .on('test', cb)
+    .one('test', cb)
+    .off('test')
+    .off('test', cb)
+    .trigger('test')
+    .trigger('test', 1, 'arg1')
+    .on('test', cb);
 // tags are observable
-tag.on('test', cb).one('test', cb).off('test').off('test', cb)
-    .trigger('test').trigger('test', 1, 'arg1').unmount();
+tag.on('test', cb)
+    .one('test', cb)
+    .off('test')
+    .off('test', cb)
+    .trigger('test')
+    .trigger('test', 1, 'arg1')
+    .unmount();
 
 // Custom tag
 class MyTag extends riot.Tag {

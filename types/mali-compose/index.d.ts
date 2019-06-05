@@ -4,12 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Context } from "mali";
+import { Context } from 'mali';
 
 declare function compose(
-    middleware: ReadonlyArray<
-        (ctx: Context, next: () => Promise<void>) => Promise<void>
-    >
+    middleware: ReadonlyArray<(ctx: Context, next: () => Promise<void>) => Promise<void>>
 ): (context: Context, next: () => Promise<void>) => Promise<void>;
 
 export = compose;

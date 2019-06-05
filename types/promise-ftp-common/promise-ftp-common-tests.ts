@@ -1,4 +1,4 @@
-import * as PromiseFtpCommon from "promise-ftp-common";
+import * as PromiseFtpCommon from 'promise-ftp-common';
 
 // $ExpectType typeof STATUSES
 PromiseFtpCommon.STATUSES;

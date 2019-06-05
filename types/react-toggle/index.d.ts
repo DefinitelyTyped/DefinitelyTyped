@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, InputHTMLAttributes, ReactNode } from "react";
+import { Component, InputHTMLAttributes, ReactNode } from 'react';
 
 export interface ToggleIcons {
     checked?: ReactNode;
@@ -12,8 +12,8 @@ export interface ToggleIcons {
 }
 
 export interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
-    "aria-labelledby"?: string;
-    "aria-label"?: string;
+    'aria-labelledby'?: string;
+    'aria-label'?: string;
     icons?: boolean | ToggleIcons;
 }
 

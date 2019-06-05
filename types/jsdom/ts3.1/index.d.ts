@@ -1,10 +1,10 @@
 /// <reference lib="dom" />
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import { MarkupData } from "parse5";
-import * as tough from "tough-cookie";
-import { Script } from "vm";
+import { EventEmitter } from 'events';
+import { MarkupData } from 'parse5';
+import * as tough from 'tough-cookie';
+import { Script } from 'vm';
 
 export class JSDOM {
     static fromURL(url: string, options?: FromUrlOptions): Promise<JSDOM>;
@@ -13,10 +13,7 @@ export class JSDOM {
 
     static fragment(html: string): DocumentFragment;
 
-    constructor(
-        html?: string | Buffer | BinaryData,
-        options?: ConstructorOptions
-    );
+    constructor(html?: string | Buffer | BinaryData, options?: ConstructorOptions);
 
     readonly window: DOMWindow;
     readonly virtualConsole: VirtualConsole;
@@ -61,8 +58,8 @@ export interface Options {
      * and cannot be used with an XML content type since our XML parser does not support location info.
      */
     includeNodeLocations?: boolean;
-    runScripts?: "dangerously" | "outside-only";
-    resources?: "usable" | ResourceLoader;
+    runScripts?: 'dangerously' | 'outside-only';
+    resources?: 'usable' | ResourceLoader;
     virtualConsole?: VirtualConsole;
     cookieJar?: CookieJar;
     beforeParse?(window: DOMWindow): void;
@@ -278,7 +275,7 @@ export type BinaryData =
 
 export class VirtualConsole extends EventEmitter {
     on<K extends keyof Console>(method: K, callback: Console[K]): this;
-    on(event: "jsdomError", callback: (e: Error) => void): this;
+    on(event: 'jsdomError', callback: (e: Error) => void): this;
 
     sendTo(console: Console, options?: VirtualConsoleSendToOptions): this;
 }
@@ -300,11 +297,7 @@ export interface FetchOptions {
     cookieJar?: CookieJar;
     referrer?: string;
     accept?: string;
-    element?:
-        | HTMLScriptElement
-        | HTMLLinkElement
-        | HTMLIFrameElement
-        | HTMLImageElement;
+    element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement;
 }
 
 export interface ResourceLoaderConstructorOptions {

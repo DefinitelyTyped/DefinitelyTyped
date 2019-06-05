@@ -86,5 +86,4 @@ declare namespace pc {
      * @description Create look up table for types
      */
     function _typeLookup(): { [key: string]: any };
-
 }

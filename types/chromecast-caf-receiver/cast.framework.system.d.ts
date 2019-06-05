@@ -1,47 +1,47 @@
-import { EventType } from "./cast.framework.events";
+import { EventType } from './cast.framework.events';
 
-export as namespace system
+export as namespace system;
 export type EventType =
     // Fired when the system is ready.
-    | "READY"
+    | 'READY'
     // Fired when the application is terminated
-    | "SHUTDOWN"
+    | 'SHUTDOWN'
     // Fired when a new sender has connected.
-    | "SENDER_CONNECTED"
+    | 'SENDER_CONNECTED'
     // Fired when a sender has disconnected.
-    | "SENDER_DISCONNECTED"
+    | 'SENDER_DISCONNECTED'
     // Fired when there is a system error.
-    | "ERROR"
+    | 'ERROR'
     // Fired when the system volume has changed.
-    | "SYSTEM_VOLUME_CHANGED"
+    | 'SYSTEM_VOLUME_CHANGED'
     // Fired when the visibility of the application has changed
     // (for example after a HDMI Input change or when the TV is turned
     // off/on and the cast device is externally powered).
     // Note that this API has the same effect as the webkitvisibilitychange event raised
     // by your document, we provided it as CastReceiverManager API for convenience and
     // to avoid a dependency on a webkit-prefixed event.
-    | "VISIBILITY_CHANGED"
+    | 'VISIBILITY_CHANGED'
     // Fired when the standby state of the TV has changed.
     // This event is related to the visibility chnaged event, as if the TV is in standby
     // the visibility will be false, the visibility is more granular
     // (as it also detects that the TV has selected a different channel)
     // but it is not reliably detected in all TVs,
     // standby can be used in those cases as most TVs implement it.
-    | "STANDBY_CHANGED"
-    | "MAX_VIDEO_RESOLUTION_CHANGED"
-    | "FEEDBACK_STARTED";
+    | 'STANDBY_CHANGED'
+    | 'MAX_VIDEO_RESOLUTION_CHANGED'
+    | 'FEEDBACK_STARTED';
 
 export type SystemState =
-    | "NOT_STARTED"
-    | "STARTING_IN_BACKGROUND"
-    | "STARTING"
-    | "READY"
-    | "STOPPING_IN_BACKGROUND"
-    | "STOPPING";
+    | 'NOT_STARTED'
+    | 'STARTING_IN_BACKGROUND'
+    | 'STARTING'
+    | 'READY'
+    | 'STOPPING_IN_BACKGROUND'
+    | 'STOPPING';
 
-export type StandbyState = "STANDBY" | "NOT_STANDBY" | "UNKNOWN";
+export type StandbyState = 'STANDBY' | 'NOT_STANDBY' | 'UNKNOWN';
 
-export type DisconnectReason = "REQUESTED_BY_SENDER" | "ERROR" | "UNKNOWN";
+export type DisconnectReason = 'REQUESTED_BY_SENDER' | 'ERROR' | 'UNKNOWN';
 
 /**
  * Event dispatched by @see{@link CastReceiverManager} when the visibility of the application changes (HDMI input change; TV is turned off).

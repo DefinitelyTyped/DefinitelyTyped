@@ -21,11 +21,7 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        off<C = this>(
-            eventName: string,
-            handler: ((this: C, event: any) => void) | 'mv',
-            context?: C
-        ): this;
+        off<C = this>(eventName: string, handler: ((this: C, event: any) => void) | 'mv', context?: C): this;
         /**
          * 触发事件
          * @param eventName 事件名称
@@ -45,7 +41,11 @@ declare namespace AMap {
          * @param handler 事件功能函数
          * @param context 事件上下文
          */
-        function addDomListener<N extends keyof HTMLElementTagNameMap, E extends keyof HTMLElementEventMap, C = HTMLElementTagNameMap[N]>(
+        function addDomListener<
+            N extends keyof HTMLElementTagNameMap,
+            E extends keyof HTMLElementEventMap,
+            C = HTMLElementTagNameMap[N]
+        >(
             // tslint:disable-next-line: no-unnecessary-generics
             instance: HTMLElementTagNameMap[N],
             eventName: E,

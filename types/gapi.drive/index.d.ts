@@ -22,7 +22,7 @@ declare namespace gapi.client {
             trash: (parameters: TrashParameters) => HttpRequest<FileResource>;
             untrash: (parameters: UntrashParameters) => HttpRequest<FileResource>;
             watch: (parameters: WatchParameters) => HttpRequest<ChannelResource>;
-        }
+        };
 
         interface GetParameters {
             fileId: string;
@@ -35,7 +35,7 @@ declare namespace gapi.client {
 
         interface PatchParameters {
             fileId: string;
-            resource?: FileResource
+            resource?: FileResource;
             convert?: boolean;
             modifiedDateBehavior?: string;
             newRevision?: boolean;
@@ -116,12 +116,10 @@ declare namespace gapi.client {
             supportsTeamDrives?: boolean;
         }
 
-
         interface UntrashParameters {
             fileId: string;
             supportsTeamDrives?: boolean;
         }
-
 
         interface WatchParameters {
             fileId: string;

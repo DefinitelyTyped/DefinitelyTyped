@@ -1,5 +1,4 @@
-
-import * as PriorityQueue from "js-priority-queue";
+import * as PriorityQueue from 'js-priority-queue';
 
 {
     var queue = new PriorityQueue<number>({ comparator: (a, b) => b - a });
@@ -13,7 +12,7 @@ import * as PriorityQueue from "js-priority-queue";
     new PriorityQueue({ comparator: compareNumbers });
 }
 {
-    new PriorityQueue({ initialValues: [1, 2, 3] })
+    new PriorityQueue({ initialValues: [1, 2, 3] });
 }
 {
     new PriorityQueue({ strategy: PriorityQueue.ArrayStrategy }); // Array

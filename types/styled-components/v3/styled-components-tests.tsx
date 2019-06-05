@@ -116,9 +116,7 @@ class Example extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <Wrapper>
-                    <Title>
-                        Hello World, this is my first styled component!
-                    </Title>
+                    <Title>Hello World, this is my first styled component!</Title>
 
                     <Input placeholder="@mxstbr" type="text" />
                     <TomatoButton name="demo" />
@@ -206,9 +204,7 @@ const Article = styled.section`
 `;
 
 // A Link instance should be backed by an HTMLAnchorElement
-const ComposedLink = () => (
-    <Link onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />
-);
+const ComposedLink = () => <Link onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />;
 
 /**
  * construction via string tag
@@ -223,11 +219,7 @@ const LinkFromString = styled('a')`
 `;
 
 // A LinkFromString instance should be backed by an HTMLAnchorElement
-const MyOtherComponent = () => (
-    <LinkFromString
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
-    />
-);
+const MyOtherComponent = () => <LinkFromString onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />;
 
 // Create a <LinkFromStringWithProps> react component that renders an <a>
 // which takes extra props
@@ -243,10 +235,7 @@ const LinkFromStringWithProps = styled('a')`
 
 // A LinkFromStringWithProps instance should be backed by an HTMLAnchorElement
 const MyOtherComponentWithProps = () => (
-    <LinkFromStringWithProps
-        canClick={false}
-        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined}
-    />
+    <LinkFromStringWithProps canClick={false} onClick={(e: React.MouseEvent<HTMLAnchorElement>) => undefined} />
 );
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
@@ -414,9 +403,7 @@ interface WithThemeProps {
     text: string;
 }
 
-const Component = (props: WithThemeProps) => (
-    <div style={{ color: props.theme.color }}>{props.text}</div>
-);
+const Component = (props: WithThemeProps) => <div style={{ color: props.theme.color }}>{props.text}</div>;
 
 const ComponentWithTheme = withTheme(Component);
 
@@ -470,9 +457,7 @@ const css2 = sheet2.getStyleElement();
 
 const sheet3 = new ServerStyleSheet();
 const appStream = ReactDOMServer.renderToNodeStream(<Title>Hello world</Title>);
-const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(
-    appStream,
-);
+const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(appStream);
 
 /**
  * StyledComponent.withComponent
@@ -517,19 +502,17 @@ const WithComponentAbbr = WithComponentH1.withComponent('abbr');
 
 const WithComponentAnchor = WithComponentH1.withComponent('a');
 const AnchorContainer = () => (
-    <WithComponentAnchor href="https://example.com">
-        withComponent Anchor
-    </WithComponentAnchor>
+    <WithComponentAnchor href="https://example.com">withComponent Anchor</WithComponentAnchor>
 );
 
 const WithComponentRandomHeading = WithComponentH1.withComponent(Random);
 
-const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({
-    className,
-}) => <div className={className} />;
-const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({
-    className,
-}) => <div className={className} />;
+const WithComponentCompA: React.SFC<{ a: number; className?: string }> = ({ className }) => (
+    <div className={className} />
+);
+const WithComponentCompB: React.SFC<{ b: number; className?: string }> = ({ className }) => (
+    <div className={className} />
+);
 const WithComponentStyledA = styled(WithComponentCompA)`
     color: ${(props: { color: string }) => props.color};
 `;
@@ -538,11 +521,6 @@ const WithComponentFirstStyledA = styled(WithComponentStyledA).attrs({
     a: 1,
 })``;
 
-const WithComponentFirstStyledB = WithComponentFirstStyledA.withComponent(
-    WithComponentCompB,
-);
+const WithComponentFirstStyledB = WithComponentFirstStyledA.withComponent(WithComponentCompB);
 
-const test = () => [
-    <WithComponentFirstStyledA color={'black'} />,
-    <WithComponentFirstStyledB b={2} color={'black'} />,
-];
+const test = () => [<WithComponentFirstStyledA color={'black'} />, <WithComponentFirstStyledB b={2} color={'black'} />];

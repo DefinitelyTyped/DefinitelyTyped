@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google OAuth2 API v2 */
-    function load(name: "oauth2", version: "v2"): PromiseLike<void>;
-    function load(name: "oauth2", version: "v2", callback: () => any): void;
+    function load(name: 'oauth2', version: 'v2'): PromiseLike<void>;
+    function load(name: 'oauth2', version: 'v2', callback: () => any): void;
 
     const userinfo: oauth2.UserinfoResource;
 

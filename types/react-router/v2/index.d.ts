@@ -17,28 +17,28 @@ export const routerShape: React.Requireable<any>;
 
 export const locationShape: React.Requireable<any>;
 
-import Router from "./lib/Router";
-import Link from "./lib/Link";
-import IndexLink from "./lib/IndexLink";
-import IndexRedirect from "./lib/IndexRedirect";
-import IndexRoute from "./lib/IndexRoute";
-import Redirect from "./lib/Redirect";
-import Route from "./lib/Route";
-import * as History from "./lib/routerHistory";
-import Lifecycle from "./lib/Lifecycle";
-import RouteContext from "./lib/RouteContext";
-import browserHistory from "./lib/browserHistory";
-import hashHistory from "./lib/hashHistory";
-import useRoutes from "./lib/useRoutes";
-import { createRoutes } from "./lib/RouteUtils";
-import { formatPattern } from "./lib/PatternUtils";
-import RouterContext from "./lib/RouterContext";
-import PropTypes from "./lib/PropTypes";
-import match from "./lib/match";
-import useRouterHistory from "./lib/useRouterHistory";
-import createMemoryHistory from "./lib/createMemoryHistory";
-import withRouter from "./lib/withRouter";
-import applyRouterMiddleware from "./lib/applyRouterMiddleware";
+import Router from './lib/Router';
+import Link from './lib/Link';
+import IndexLink from './lib/IndexLink';
+import IndexRedirect from './lib/IndexRedirect';
+import IndexRoute from './lib/IndexRoute';
+import Redirect from './lib/Redirect';
+import Route from './lib/Route';
+import * as History from './lib/routerHistory';
+import Lifecycle from './lib/Lifecycle';
+import RouteContext from './lib/RouteContext';
+import browserHistory from './lib/browserHistory';
+import hashHistory from './lib/hashHistory';
+import useRoutes from './lib/useRoutes';
+import { createRoutes } from './lib/RouteUtils';
+import { formatPattern } from './lib/PatternUtils';
+import RouterContext from './lib/RouterContext';
+import PropTypes from './lib/PropTypes';
+import match from './lib/match';
+import useRouterHistory from './lib/useRouterHistory';
+import createMemoryHistory from './lib/createMemoryHistory';
+import withRouter from './lib/withRouter';
+import applyRouterMiddleware from './lib/applyRouterMiddleware';
 
 // PlainRoute is defined in the API documented at:
 // https://github.com/rackt/react-router/blob/master/docs/API.md
@@ -89,7 +89,7 @@ export {
     useRouterHistory,
     createMemoryHistory,
     withRouter,
-    applyRouterMiddleware
+    applyRouterMiddleware,
 };
 
 export default Router;

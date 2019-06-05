@@ -1,12 +1,10 @@
 declare namespace pc {
-
     /**
-    * @name pc.Http
-    * @class Used to send and receive HTTP requests.
-    * @description Create a new Http instance. Note: By default a PlayCanvas application creates an instance of this object at `pc.http`.
-    */
+     * @name pc.Http
+     * @class Used to send and receive HTTP requests.
+     * @description Create a new Http instance. Note: By default a PlayCanvas application creates an instance of this object at `pc.http`.
+     */
     class Http {
-
         /**
          * @function
          * @name pc.Http#get
@@ -28,14 +26,20 @@ declare namespace pc {
          *     console.log(response);
          * });
          */
-        get(url: string, options: {
-            headers: {},
-            async: boolean,
-            cache: {},
-            withCredentials: boolean,
-            responseType: string,
-            postData: Document | {}
-        } | Function, callback?: Function): void;
+        get(
+            url: string,
+            options:
+                | {
+                      headers: {};
+                      async: boolean;
+                      cache: {};
+                      withCredentials: boolean;
+                      responseType: string;
+                      postData: Document | {};
+                  }
+                | Function,
+            callback?: Function
+        ): void;
 
         /**
          * @function
@@ -53,13 +57,20 @@ declare namespace pc {
          * the postdata is JSON stringified, otherwise by default the data is sent as form-urlencoded
          * @param {Function} callback The callback used when the response has returned. Passed (err, data) where data is the response (format depends on response type, text, Object, ArrayBuffer, XML) and err is the error code.
          */
-        post(url: string, data: Document | {}, options: {
-            headers: {},
-            async: boolean,
-            cache: {},
-            withCredentials: boolean,
-            responseType: string,
-        } | Function, callback?: Function): void;
+        post(
+            url: string,
+            data: Document | {},
+            options:
+                | {
+                      headers: {};
+                      async: boolean;
+                      cache: {};
+                      withCredentials: boolean;
+                      responseType: string;
+                  }
+                | Function,
+            callback?: Function
+        ): void;
 
         /**
          * @function
@@ -78,13 +89,20 @@ declare namespace pc {
          * the postdata is JSON stringified, otherwise by default the data is sent as form-urlencoded
          * @param {Function} callback The callback used when the response has returned. Passed (err, data) where data is the response (format depends on response type, text, Object, ArrayBuffer, XML) and err is the error code.
          */
-        put(url: string, data: Document | {}, options: {
-            headers: {},
-            async: boolean,
-            cache: {},
-            withCredentials: boolean,
-            responseType: string,
-        } | Function, callback?: Function): void;
+        put(
+            url: string,
+            data: Document | {},
+            options:
+                | {
+                      headers: {};
+                      async: boolean;
+                      cache: {};
+                      withCredentials: boolean;
+                      responseType: string;
+                  }
+                | Function,
+            callback?: Function
+        ): void;
 
         /**
          * @function
@@ -102,14 +120,20 @@ declare namespace pc {
          * the postdata is JSON stringified, otherwise by default the data is sent as form-urlencoded
          * @param {Function} callback The callback used when the response has returned. Passed (err, data) where data is the response (format depends on response type, text, Object, ArrayBuffer, XML) and err is the error code.
          */
-        del(url: string, options: {
-            headers: {},
-            async: boolean,
-            cache: {},
-            withCredentials: boolean,
-            responseType: string,
-            postData: Document | {}
-        } | Function, callback?: Function): void;
+        del(
+            url: string,
+            options:
+                | {
+                      headers: {};
+                      async: boolean;
+                      cache: {};
+                      withCredentials: boolean;
+                      responseType: string;
+                      postData: Document | {};
+                  }
+                | Function,
+            callback?: Function
+        ): void;
 
         /**
          * @function
@@ -128,13 +152,20 @@ declare namespace pc {
          * the postdata is JSON stringified, otherwise by default the data is sent as form-urlencoded
          * @param {Function} callback The callback used when the response has retured. Passed (err, data) where data is the response (format depends on response type, text, Object, ArrayBuffer, XML) and err is the error code.
          */
-        request(method: string, url: string, options: {
-            headers: {},
-            async: boolean,
-            cache: {},
-            withCredentials: boolean,
-            responseType: string,
-            postData: Document | {}
-        } | Function, callback?: Function): void;
+        request(
+            method: string,
+            url: string,
+            options:
+                | {
+                      headers: {};
+                      async: boolean;
+                      cache: {};
+                      withCredentials: boolean;
+                      responseType: string;
+                      postData: Document | {};
+                  }
+                | Function,
+            callback?: Function
+        ): void;
     }
 }

@@ -9,7 +9,7 @@ declare namespace BabyParse {
          * Parse a csv string or a csv file
          */
         parse(csvString: string, config?: ParseConfig): ParseResult;
-        
+
         /**
          * Parse single file or multiple files
          */
@@ -63,27 +63,27 @@ declare namespace BabyParse {
         Parser: ParserConstructor;
     }
     interface ParseConfig {
-        delimiter?: string;            // default: ""
-        newline?: string;              // default: ""
-        header?: boolean;              // default: false
-        dynamicTyping?: boolean;       // default: false
-        preview?: number;              // default: 0
-        encoding?: string;             // default: ""
-        worker?: boolean;              // default: false
-        comments?: boolean;            // default: false
-        download?: boolean;            // default: false
-        skipEmptyLines?: boolean;      // default: false
-        fastMode?: boolean;            // default: undefined
+        delimiter?: string; // default: ""
+        newline?: string; // default: ""
+        header?: boolean; // default: false
+        dynamicTyping?: boolean; // default: false
+        preview?: number; // default: 0
+        encoding?: string; // default: ""
+        worker?: boolean; // default: false
+        comments?: boolean; // default: false
+        download?: boolean; // default: false
+        skipEmptyLines?: boolean; // default: false
+        fastMode?: boolean; // default: undefined
 
         // Callbacks
-        step?(results: ParseResult, parser: Parser): void;  // default: undefined
+        step?(results: ParseResult, parser: Parser): void; // default: undefined
         complete?(results: ParseResult): void; // default: undefined
     }
 
     interface UnparseConfig {
-        quotes?: boolean|boolean[];    // default: false
-        delimiter?: string;  // default: ","
-        newline?: string;    // default: "\r\n"
+        quotes?: boolean | boolean[]; // default: false
+        delimiter?: string; // default: ","
+        newline?: string; // default: "\r\n"
     }
 
     interface UnparseObject {
@@ -92,23 +92,23 @@ declare namespace BabyParse {
     }
 
     interface FileObject {
-        file: string
-        config?: ParseConfig
+        file: string;
+        config?: ParseConfig;
     }
 
     interface ParseError {
-        type: string;     // A generalization of the error
-        code: string;     // Standardized error code
-        message: string;  // Human-readable details
-        row: number;      // Row index of parsed data where error is
+        type: string; // A generalization of the error
+        code: string; // Standardized error code
+        message: string; // Human-readable details
+        row: number; // Row index of parsed data where error is
     }
 
     interface ParseMeta {
-        delimiter: string;     // Delimiter used
-        linebreak: string;     // Line break sequence used
-        aborted: boolean;      // Whether process was aborted
+        delimiter: string; // Delimiter used
+        linebreak: string; // Line break sequence used
+        aborted: boolean; // Whether process was aborted
         fields: Array<string>; // Array of field names
-        truncated: boolean;    // Whether preview consumed all input
+        truncated: boolean; // Whether preview consumed all input
     }
 
     /**
@@ -123,7 +123,9 @@ declare namespace BabyParse {
         errors: Array<ParseError>;
         meta: ParseMeta;
     }
-    interface ParserConstructor { new (config: ParseConfig): Parser; }
+    interface ParserConstructor {
+        new (config: ParseConfig): Parser;
+    }
     interface Parser {
         // Parses the input
         parse(input: string): any;
@@ -134,12 +136,11 @@ declare namespace BabyParse {
         // Gets the cursor position
         getCharIndex(): number;
     }
-
 }
 
-declare var Baby:BabyParse.Static;
+declare var Baby: BabyParse.Static;
 
-declare module "babyparse"{
-    var Baby:BabyParse.Static;
+declare module 'babyparse' {
+    var Baby: BabyParse.Static;
     export = Baby;
 }

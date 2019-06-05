@@ -3,6 +3,5 @@
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function fullname(): Promise<string>;
 export = fullname;

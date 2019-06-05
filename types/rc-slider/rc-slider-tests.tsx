@@ -5,18 +5,10 @@ import Slider, { Range, Handle, createSliderWithTooltip } from 'rc-slider';
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 const RangeWithTooltip = createSliderWithTooltip(Range);
 
-ReactDOM.render(
-    <Slider defaultValue={1} max={2} step={0.01} min={0.01} />,
-    document.querySelector('.app')
-);
+ReactDOM.render(<Slider defaultValue={1} max={2} step={0.01} min={0.01} />, document.querySelector('.app'));
 
 ReactDOM.render(
-    <Handle
-        className="bottom"
-        vertical={true}
-        offset={10}
-        tabIndex={-1}
-    />,
+    <Handle className="bottom" vertical={true} offset={10} tabIndex={-1} />,
     document.querySelector('.another-app')
 );
 
@@ -29,7 +21,7 @@ ReactDOM.render(
         className="bottomRight"
         min={0.01}
         max={1}
-        marks={{ 1: "1" }}
+        marks={{ 1: '1' }}
         step={0.01}
         vertical={true}
         handle={() => <Slider />}
@@ -41,9 +33,9 @@ ReactDOM.render(
         onAfterChange={onChangeFunc1}
         defaultValue={0.1}
         value={0.1}
-        style={{backgroundColor: 'plum'}}
-        dotStyle={{backgroundColor: 'antiquewhite'}}
-        activeDotStyle={{backgroundColor: 'antiquewhite'}}
+        style={{ backgroundColor: 'plum' }}
+        dotStyle={{ backgroundColor: 'antiquewhite' }}
+        activeDotStyle={{ backgroundColor: 'antiquewhite' }}
         reverse={true}
     />,
     document.querySelector('.another-app')
@@ -63,17 +55,11 @@ ReactDOM.render(
     document.querySelector('.app')
 );
 
-ReactDOM.render(
-    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} />,
-    document.querySelector('.app')
-);
+ReactDOM.render(<SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} />, document.querySelector('.app'));
+
+ReactDOM.render(<RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />, document.querySelector('.app'));
 
 ReactDOM.render(
-    <RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />,
-    document.querySelector('.app')
-);
-
-ReactDOM.render(
-    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} tipProps={{ placement: 'right' }}/>,
+    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} tipProps={{ placement: 'right' }} />,
     document.querySelector('.app')
 );

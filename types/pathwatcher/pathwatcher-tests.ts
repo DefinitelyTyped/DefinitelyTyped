@@ -1,5 +1,5 @@
-import { Disposable } from "event-kit";
-import { File, Directory } from "pathwatcher";
+import { Disposable } from 'event-kit';
+import { File, Directory } from 'pathwatcher';
 
 let bool: boolean;
 let str: string;
@@ -10,8 +10,8 @@ let dir: Directory;
 
 // File =======================================================================
 // Construction
-file = new File("Test.file");
-new File("Test.file", false);
+file = new File('Test.file');
+new File('Test.file', false);
 
 async function fileCreation() {
     bool = await file.create();
@@ -39,7 +39,7 @@ async function getFileDigest() {
 }
 
 str = file.getDigestSync();
-file.setEncoding("utf8");
+file.setEncoding('utf8');
 str = file.getEncoding();
 
 // Managing Paths
@@ -64,16 +64,16 @@ const stream = file.createReadStream();
 stream.close();
 
 async function writeFile() {
-    await file.write("Test");
+    await file.write('Test');
 }
 
 file.createWriteStream();
-file.writeSync("Test");
+file.writeSync('Test');
 
 // Directory ==================================================================
 // Construction
-dir = new Directory("Test.file");
-new Directory("Test.file", true);
+dir = new Directory('Test.file');
+new Directory('Test.file', true);
 
 async function createDirectory() {
     bool = await dir.create();
@@ -99,12 +99,12 @@ bool = dir.isRoot();
 str = dir.getPath();
 str = dir.getRealPathSync();
 str = dir.getBaseName();
-dir.relativize("Test.file") ;
+dir.relativize('Test.file');
 
 // Traversing
 dir = dir.getParent();
-file = dir.getFile("Test.file");
-dir = dir.getSubdirectory("Test");
+file = dir.getFile('Test.file');
+dir = dir.getSubdirectory('Test');
 dir.getEntriesSync();
 dir.getEntries((error, entries) => {});
-bool = dir.contains("Test.file");
+bool = dir.contains('Test.file');

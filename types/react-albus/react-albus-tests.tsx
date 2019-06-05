@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Wizard, Step, Steps, withWizard } from "react-albus";
+import * as React from 'react';
+import { Wizard, Step, Steps, withWizard } from 'react-albus';
 
-declare module "react-albus" {
+declare module 'react-albus' {
     interface StepObject {
         quote?: string;
     }
@@ -15,7 +15,7 @@ const Example = () => (
             const location = wiz.history.location;
             wiz.next();
             wiz.previous();
-            wiz.push("merlin");
+            wiz.push('merlin');
             wiz.replace(wiz.step.id);
             wiz.steps.map(step => {
                 wiz.push(step.id);
@@ -40,9 +40,7 @@ const Example = () => (
                         <div>
                             <h1>Gandalf</h1>
                             <button onClick={() => stepWiz.next()}>Next</button>
-                            <button onClick={() => stepWiz.previous()}>
-                                Previous
-                            </button>
+                            <button onClick={() => stepWiz.previous()}>Previous</button>
                         </div>
                     )}
                 />

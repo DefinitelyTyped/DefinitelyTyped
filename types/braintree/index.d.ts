@@ -16,7 +16,7 @@ declare namespace braintree {
         Development = 'Development',
         Production = 'Production',
         Qa = 'Qa',
-        Sandbox = 'Sandbox'
+        Sandbox = 'Sandbox',
     }
 
     export interface GatewayConfig {
@@ -77,7 +77,11 @@ declare namespace braintree {
         create(request: AddressCreateRequest): Promise<ValidatedResponse<Address>>;
         delete(customerId: string, addressId: string): Promise<void>;
         find(customerId: string, addressId: string): Promise<Address>;
-        update(customerId: string, addressId: string, updates: AddressUpdateRequest): Promise<ValidatedResponse<Address>>;
+        update(
+            customerId: string,
+            addressId: string,
+            updates: AddressUpdateRequest
+        ): Promise<ValidatedResponse<Address>>;
     }
 
     interface ClientTokenGateway {
@@ -110,8 +114,14 @@ declare namespace braintree {
 
     interface DisputeGateway {
         accept(disputeId: string): Promise<ValidatedResponse<Dispute>>;
-        addFileEvidence(disputeId: string, evidence: { documentId: string, category?: string }): Promise<ValidatedResponse<Evidence>>;
-        addTextEvidence(disputeId: string, evidence: { content: string, category?: string}): Promise<ValidatedResponse<Evidence>>;
+        addFileEvidence(
+            disputeId: string,
+            evidence: { documentId: string; category?: string }
+        ): Promise<ValidatedResponse<Evidence>>;
+        addTextEvidence(
+            disputeId: string,
+            evidence: { content: string; category?: string }
+        ): Promise<ValidatedResponse<Evidence>>;
         finalize(disputeId: string): Promise<ValidatedResponse<Dispute>>;
         find(disputeId: string): Promise<Dispute>;
         removeEvidence(disputeId: string, evidenceId: string): Promise<ValidatedResponse<Dispute>>;
@@ -122,7 +132,10 @@ declare namespace braintree {
         all(): Promise<MerchantAccount[]>;
         create(request: MerchantAccountCreateRequest): Promise<ValidatedResponse<MerchantAccount>>;
         createForCurrency(currency: string, id?: string): Promise<ValidatedResponse<MerchantAccount>>;
-        update(merchantAccountId: string, updates: MerchantAccountUpdateRequest): Promise<ValidatedResponse<MerchantAccount>>;
+        update(
+            merchantAccountId: string,
+            updates: MerchantAccountUpdateRequest
+        ): Promise<ValidatedResponse<MerchantAccount>>;
         find(merchantAccountId: string): Promise<MerchantAccount>;
     }
 
@@ -130,34 +143,41 @@ declare namespace braintree {
         create(request: PaymentMethodCreateRequest): Promise<ValidatedResponse<PaymentMethod>>;
         delete(token: string): Promise<void>;
         find(token: string): Promise<PaymentMethod>;
-        grant(sharedPaymentMethodToken: string, options: {allowVaulting?: boolean, includeBillingPostalCode?: boolean, revokeAfter?: Date }): Promise<Readonly<string>>;
+        grant(
+            sharedPaymentMethodToken: string,
+            options: { allowVaulting?: boolean; includeBillingPostalCode?: boolean; revokeAfter?: Date }
+        ): Promise<Readonly<string>>;
         revoke(sharedPaymentMethodToken: string): Promise<void>;
         update(token: string, updates: PaymentMethodUpdateRequest): Promise<ValidatedResponse<PaymentMethod>>;
     }
 
-     interface PaymentMethodNonceGateway {
+    interface PaymentMethodNonceGateway {
         create(paymentMethodToken: string): Promise<ValidatedResponse<PaymentMethodNonce>>;
         find(paymentMethodNonce: string): Promise<PaymentMethodNonce>;
     }
 
-     interface PlanGateway {
+    interface PlanGateway {
         all(): Promise<Plan[]>;
     }
 
-     interface SettlementBatchSummaryGateway {
-        generate(request: {settlementDate: string, groupByCustomField?: string}): Promise<SettlementBatchSummary>;
+    interface SettlementBatchSummaryGateway {
+        generate(request: { settlementDate: string; groupByCustomField?: string }): Promise<SettlementBatchSummary>;
     }
 
-     interface SubscriptionGateway {
+    interface SubscriptionGateway {
         cancel(subscriptionId: string): Promise<void>;
         create(request: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
-        retryCharge(subscriptionId: string, amount?: string, submitForSettlement?: boolean): Promise<ValidatedResponse<Subscription>>;
+        retryCharge(
+            subscriptionId: string,
+            amount?: string,
+            submitForSettlement?: boolean
+        ): Promise<ValidatedResponse<Subscription>>;
         search(searchFn: any): Promise<Subscription[]>;
         update(subscriptionId: string, updates: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
     }
 
-     interface TestingGateway {
+    interface TestingGateway {
         settle(transactionId: string): Promise<ValidatedResponse<Transaction>>;
         settlementConfirm(transactionId: string): Promise<ValidatedResponse<Transaction>>;
         settlementDecline(transactionId: string): Promise<ValidatedResponse<Transaction>>;
@@ -165,21 +185,27 @@ declare namespace braintree {
         settlementPending(transactionId: string): Promise<ValidatedResponse<Transaction>>;
     }
 
-     interface TransactionGateway {
+    interface TransactionGateway {
         cancelRelease(transactionId: string): Promise<void>;
-        cloneTransaction(transactionId: string, options: {amount: string, options: {submitForSettlement: boolean}}): Promise<void>;
+        cloneTransaction(
+            transactionId: string,
+            options: { amount: string; options: { submitForSettlement: boolean } }
+        ): Promise<void>;
         find(transactionId: string): Promise<Transaction>;
         holdInEscrow(transactionId: string): Promise<Transaction>;
         refund(transactionId: string, amount?: string): Promise<ValidatedResponse<Transaction>>;
         releaseFromEscrow(transactionId: string): Promise<Transaction>;
         sale(request: TransactionRequest): Promise<ValidatedResponse<Transaction>>;
         search(searchFn: any): Promise<Transaction[]>;
-        submitForPartialSettlement(authorizedTransactionId: string, amount: string): Promise<ValidatedResponse<Transaction>>;
+        submitForPartialSettlement(
+            authorizedTransactionId: string,
+            amount: string
+        ): Promise<ValidatedResponse<Transaction>>;
         submitForSettlement(transactionId: string, amount?: string): Promise<ValidatedResponse<Transaction>>;
         void(transactionId: string): Promise<ValidatedResponse<Transaction>>;
     }
 
-     interface TransactionLineItemGateway {
+    interface TransactionLineItemGateway {
         findAll(transactionId: string): Promise<TransactionLineItem[]>;
     }
 
@@ -374,7 +400,7 @@ declare namespace braintree {
             streetAddress?: string;
             options?: {
                 updateExisting?: boolean;
-            }
+            };
         };
         cardholderName?: string;
         cvv?: string;
@@ -664,8 +690,15 @@ declare namespace braintree {
      */
 
     // Payment method is an instance of one of these types
-    export type PaymentMethod = AndroidPayCard | ApplePayCard | PayPalAccount | CreditCard | SamsungPayCard |
-        VenmoAccount | VisaCheckoutCard | MasterpassCard;
+    export type PaymentMethod =
+        | AndroidPayCard
+        | ApplePayCard
+        | PayPalAccount
+        | CreditCard
+        | SamsungPayCard
+        | VenmoAccount
+        | VisaCheckoutCard
+        | MasterpassCard;
 
     export interface PaymentMethodCreateRequest {
         billingAddress?: {
@@ -716,8 +749,8 @@ declare namespace braintree {
             region?: string;
             streetAddress?: string;
             options?: {
-                updateExisting?: boolean
-            }
+                updateExisting?: boolean;
+            };
         };
         billingAddressId?: string;
         cardholderName?: string;
@@ -767,7 +800,16 @@ declare namespace braintree {
         lastTwo?: string;
     }
 
-    export type PaymentMethodType = 'AndroidPayCard' | 'ApplePayCard' | 'CreditCard' |'MasterpassCard' | 'PayPalAccount' | 'UsBankAccount' | 'VenmoAccount' | 'VisaCheckoutCard' | 'SamsungPayCard';
+    export type PaymentMethodType =
+        | 'AndroidPayCard'
+        | 'ApplePayCard'
+        | 'CreditCard'
+        | 'MasterpassCard'
+        | 'PayPalAccount'
+        | 'UsBankAccount'
+        | 'VenmoAccount'
+        | 'VisaCheckoutCard'
+        | 'SamsungPayCard';
 
     /**
      * Plan
@@ -858,7 +900,7 @@ declare namespace braintree {
             doNotInheritAddOnsOrDiscounts?: boolean;
             paypal?: {
                 description?: string;
-            }
+            };
             startImmediately?: boolean;
         };
         paymentMethodNonce?: string;
@@ -891,7 +933,7 @@ declare namespace braintree {
         amount: string;
         androidPayCard?: {
             bin: string;
-            commercial: Commercial
+            commercial: Commercial;
             countryOfIssuance: string;
             debit: Debit;
             durbinRegulated: DurbinRegulated;
@@ -914,7 +956,7 @@ declare namespace braintree {
             bin: string;
             cardType: string;
             cardholderName: string;
-            commercial: Commercial
+            commercial: Commercial;
             countryOfIssuance: string;
             debit: Debit;
             durbinRegulated: DurbinRegulated;
@@ -944,7 +986,7 @@ declare namespace braintree {
             countryName?: string;
             extendedAddress?: string;
             firstName?: string;
-            id?: string
+            id?: string;
             lastName?: string;
             locality?: string;
             postalCode?: string;
@@ -1093,7 +1135,7 @@ declare namespace braintree {
             countryName?: string;
             extendedAddress?: string;
             firstName?: string;
-            id?: string
+            id?: string;
             lastName?: string;
             locality?: string;
             postalCode?: string;
@@ -1148,7 +1190,7 @@ declare namespace braintree {
     }
 
     interface ClientToken {
-      clientToken: string;
+        clientToken: string;
     }
 
     export interface TransactionRequest {
@@ -1176,7 +1218,7 @@ declare namespace braintree {
             expirationMonth?: string;
             expirationYear?: string;
             number?: string;
-            token?: string
+            token?: string;
         };
         customer?: {
             company?: string;
@@ -1207,7 +1249,7 @@ declare namespace braintree {
             paypal?: {
                 customField?: string;
                 description?: string;
-            }
+            };
             skipAdvancedFraudChecking?: boolean;
             skipAvs?: boolean;
             skipCvv?: boolean;
@@ -1216,11 +1258,11 @@ declare namespace braintree {
             storeShippingAddressInVault?: boolean;
             submitForSettlement?: boolean;
             threeDSecure?: {
-                required?: boolean
-            }
+                required?: boolean;
+            };
             venmo?: {
                 profileId?: string;
-            }
+            };
         };
         orderId?: string;
         paymentMethodNonce?: string;
@@ -1300,14 +1342,31 @@ declare namespace braintree {
         sourcePaymentMethodToken: string;
     }
 
-    export type GatewayRejectionReason = 'application_incomplete' | 'avs' | 'avs_and_cvv' | 'cvv' | 'duplicate' | 'fraud' | 'risk_threshold' | 'three_d_secure' | 'token_issuance';
+    export type GatewayRejectionReason =
+        | 'application_incomplete'
+        | 'avs'
+        | 'avs_and_cvv'
+        | 'cvv'
+        | 'duplicate'
+        | 'fraud'
+        | 'risk_threshold'
+        | 'three_d_secure'
+        | 'token_issuance';
 
-    export type PaymentInstrumentType = 'android_pay_card' | 'apple_pay_card' | 'credit_card' | 'masterpass_card' | 'paypal_account' | 'samsung_pay_card' | 'venmo_account' | 'visa_checkout_card';
+    export type PaymentInstrumentType =
+        | 'android_pay_card'
+        | 'apple_pay_card'
+        | 'credit_card'
+        | 'masterpass_card'
+        | 'paypal_account'
+        | 'samsung_pay_card'
+        | 'venmo_account'
+        | 'visa_checkout_card';
 
     export type TransactionProcessorResponseType = 'approved' | 'soft_declined' | 'hard_declined';
 
     export enum TransactionRequestSource {
-        recurring =  'recurring',
+        recurring = 'recurring',
         unscheduled = 'unscheduled',
         recurring_first = 'recurring_first',
         moto = 'moto',
@@ -1320,8 +1379,19 @@ declare namespace braintree {
         id: string;
     }
 
-    export type TransactionStatus = 'authorization_expired' | 'authorized' | 'authorizing' | 'settlement_pending' | 'settlement_declined' |
-        'failed' | 'gateway_rejected' | 'processor_declined' | 'settled' | 'settling' | 'submitted_for_settlement' | 'voided';
+    export type TransactionStatus =
+        | 'authorization_expired'
+        | 'authorized'
+        | 'authorizing'
+        | 'settlement_pending'
+        | 'settlement_declined'
+        | 'failed'
+        | 'gateway_rejected'
+        | 'processor_declined'
+        | 'settled'
+        | 'settling'
+        | 'submitted_for_settlement'
+        | 'voided';
 
     export interface TransactionStatusHistory {
         amount: string;

@@ -1,4 +1,4 @@
-import slowDown = require("express-slow-down");
+import slowDown = require('express-slow-down');
 
 const slowerAllDefaults = slowDown({});
 
@@ -21,11 +21,11 @@ const slowerWithCallbacks = slowDown({
 });
 
 class MockStore implements slowDown.Store {
-    incr(key: string, cb: slowDown.StoreIncrementCallback) { }
-    decrement(key: string) { }
-    resetKey(key: string) { }
+    incr(key: string, cb: slowDown.StoreIncrementCallback) {}
+    decrement(key: string) {}
+    resetKey(key: string) {}
 }
 
 const slowerWithStore = slowDown({
-    store: new MockStore()
+    store: new MockStore(),
 });

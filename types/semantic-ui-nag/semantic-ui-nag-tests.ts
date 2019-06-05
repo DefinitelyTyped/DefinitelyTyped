@@ -24,7 +24,7 @@ function test_nag() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).nag({
@@ -32,7 +32,7 @@ function test_nag() {
         displayTime: 0,
         animation: {
             show: 'slide',
-            hide: 'slide'
+            hide: 'slide',
         },
         context: $(),
         detachable: false,
@@ -49,16 +49,16 @@ function test_nag() {
         },
         className: {
             bottom: 'bottom',
-            fixed: 'fixed'
+            fixed: 'fixed',
         },
         selector: {
-            close: 'close'
+            close: 'close',
         },
         error: {
             noCookieStorage: 'noCookieStorage',
             noStorage: 'noStorage',
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).nag(); // $ExpectType JQuery<HTMLElement>
 

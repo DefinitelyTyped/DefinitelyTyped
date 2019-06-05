@@ -16,7 +16,7 @@ const metricsLogger = new metrics.BufferedMetricsLogger({
     host: 'myhost',
     prefix: 'myapp.',
     flushIntervalSeconds: 15,
-    defaultTags: ['env:staging', 'region:us-east-1']
+    defaultTags: ['env:staging', 'region:us-east-1'],
 });
 metricsLogger.gauge('mygauge', 42);
 metricsLogger.gauge('mykey', 11, ['a', 'b', 'c'], Date.now());

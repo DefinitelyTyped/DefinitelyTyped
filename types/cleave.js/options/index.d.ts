@@ -1,4 +1,4 @@
-import { CreditCardTypeChangeHandler } from "./creditCard";
+import { CreditCardTypeChangeHandler } from './creditCard';
 
 export interface CleaveOptions {
     creditCard?: boolean;
@@ -26,7 +26,7 @@ export interface CleaveOptions {
 }
 
 // Numeral Options
-export type NumeralThousandsGroupStyleType = "lakh" | "thousand" | "wan" | "none";
+export type NumeralThousandsGroupStyleType = 'lakh' | 'thousand' | 'wan' | 'none';
 
 export interface CleaveOptions {
     numeral?: boolean;

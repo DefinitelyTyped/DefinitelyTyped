@@ -8,12 +8,11 @@ export = Long;
 export as namespace Long;
 
 declare namespace Long {}
-declare class Long
-{
+declare class Long {
     /**
      * Constructs a 64 bit two's-complement integer, given its low and high 32 bit values as signed integers. See the from* functions below for more convenient ways of constructing Longs.
      */
-    constructor( low: number, high?: number, unsigned?: boolean );
+    constructor(low: number, high?: number, unsigned?: boolean);
 
     /**
      * Maximum unsigned value.
@@ -73,87 +72,87 @@ declare class Long
     /**
      * Returns a Long representing the 64 bit integer that comes by concatenating the given low and high bits. Each is assumed to use 32 bits.
      */
-    static fromBits( lowBits:number, highBits:number, unsigned?:boolean ): Long;
+    static fromBits(lowBits: number, highBits: number, unsigned?: boolean): Long;
 
     /**
      * Returns a Long representing the given 32 bit integer value.
      */
-    static fromInt( value: number, unsigned?: boolean ): Long;
+    static fromInt(value: number, unsigned?: boolean): Long;
 
     /**
      * Returns a Long representing the given value, provided that it is a finite number. Otherwise, zero is returned.
      */
-    static fromNumber( value: number, unsigned?: boolean ): Long;
+    static fromNumber(value: number, unsigned?: boolean): Long;
 
     /**
      * Returns a Long representation of the given string, written using the specified radix.
      */
-    static fromString( str: string, unsigned?: boolean | number, radix?: number ): Long;
+    static fromString(str: string, unsigned?: boolean | number, radix?: number): Long;
 
     /**
      * Creates a Long from its byte representation.
      */
-    static fromBytes( bytes: number[], unsigned?: boolean, le?: boolean ): Long;
+    static fromBytes(bytes: number[], unsigned?: boolean, le?: boolean): Long;
 
     /**
      * Creates a Long from its little endian byte representation.
      */
-    static fromBytesLE( bytes: number[], unsigned?: boolean ): Long;
+    static fromBytesLE(bytes: number[], unsigned?: boolean): Long;
 
     /**
      * Creates a Long from its little endian byte representation.
      */
-    static fromBytesBE( bytes: number[], unsigned?: boolean ): Long;
+    static fromBytesBE(bytes: number[], unsigned?: boolean): Long;
 
     /**
      * Tests if the specified object is a Long.
      */
-    static isLong( obj: any ): boolean;
+    static isLong(obj: any): boolean;
 
     /**
      * Converts the specified value to a Long.
      */
-    static fromValue( val: Long | number | string | {low: number, high: number, unsigned: boolean} ): Long;
+    static fromValue(val: Long | number | string | { low: number; high: number; unsigned: boolean }): Long;
 
     /**
      * Returns the sum of this and the specified Long.
      */
-    add( addend: number | Long | string ): Long;
+    add(addend: number | Long | string): Long;
 
     /**
      * Returns the bitwise AND of this Long and the specified.
      */
-    and( other: Long | number | string ): Long;
+    and(other: Long | number | string): Long;
 
     /**
      * Compares this Long's value with the specified's.
      */
-    compare( other: Long | number | string ): number;
+    compare(other: Long | number | string): number;
 
     /**
      * Compares this Long's value with the specified's.
      */
-    comp( other: Long | number | string ): number;
+    comp(other: Long | number | string): number;
 
     /**
      * Returns this Long divided by the specified.
      */
-    divide( divisor: Long | number | string ): Long;
+    divide(divisor: Long | number | string): Long;
 
     /**
      * Returns this Long divided by the specified.
      */
-    div( divisor: Long | number | string ): Long;
+    div(divisor: Long | number | string): Long;
 
     /**
      * Tests if this Long's value equals the specified's.
      */
-    equals( other: Long | number | string ): boolean;
+    equals(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value equals the specified's.
      */
-    eq( other: Long | number | string ): boolean;
+    eq(other: Long | number | string): boolean;
 
     /**
      * Gets the high 32 bits as a signed integer.
@@ -183,22 +182,22 @@ declare class Long
     /**
      * Tests if this Long's value is greater than the specified's.
      */
-    greaterThan( other: Long | number | string ): boolean;
+    greaterThan(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is greater than the specified's.
      */
-    gt( other: Long | number | string ): boolean;
+    gt(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is greater than or equal the specified's.
      */
-    greaterThanOrEqual( other: Long | number | string ): boolean;
+    greaterThanOrEqual(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is greater than or equal the specified's.
      */
-    gte( other: Long | number | string ): boolean;
+    gte(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is even.
@@ -228,42 +227,42 @@ declare class Long
     /**
      * Tests if this Long's value is less than the specified's.
      */
-    lessThan( other: Long | number | string ): boolean;
+    lessThan(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is less than the specified's.
      */
-    lt( other: Long | number | string ): boolean;
+    lt(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is less than or equal the specified's.
      */
-    lessThanOrEqual( other: Long | number | string ): boolean;
+    lessThanOrEqual(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value is less than or equal the specified's.
      */
-    lte( other: Long | number | string ): boolean;
+    lte(other: Long | number | string): boolean;
 
     /**
      * Returns this Long modulo the specified.
      */
-    modulo( other: Long | number | string ): Long;
+    modulo(other: Long | number | string): Long;
 
     /**
      * Returns this Long modulo the specified.
      */
-    mod( other: Long | number | string ): Long;
+    mod(other: Long | number | string): Long;
 
     /**
      * Returns the product of this and the specified Long.
      */
-    multiply( multiplier: Long | number | string ): Long;
+    multiply(multiplier: Long | number | string): Long;
 
     /**
      * Returns the product of this and the specified Long.
      */
-    mul( multiplier: Long | number | string ): Long;
+    mul(multiplier: Long | number | string): Long;
 
     /**
      * Negates this Long's value.
@@ -283,57 +282,57 @@ declare class Long
     /**
      * Tests if this Long's value differs from the specified's.
      */
-    notEquals( other: Long | number | string ): boolean;
+    notEquals(other: Long | number | string): boolean;
 
     /**
      * Tests if this Long's value differs from the specified's.
      */
-    neq( other: Long | number | string ): boolean;
+    neq(other: Long | number | string): boolean;
 
     /**
      * Returns the bitwise OR of this Long and the specified.
      */
-    or( other: Long | number | string ): Long;
+    or(other: Long | number | string): Long;
 
     /**
      * Returns this Long with bits shifted to the left by the given amount.
      */
-    shiftLeft( numBits: number | Long ): Long;
+    shiftLeft(numBits: number | Long): Long;
 
     /**
      * Returns this Long with bits shifted to the left by the given amount.
      */
-    shl( numBits: number | Long ): Long;
+    shl(numBits: number | Long): Long;
 
     /**
      * Returns this Long with bits arithmetically shifted to the right by the given amount.
      */
-    shiftRight( numBits: number | Long ): Long;
+    shiftRight(numBits: number | Long): Long;
 
     /**
      * Returns this Long with bits arithmetically shifted to the right by the given amount.
      */
-    shr( numBits: number | Long ): Long;
+    shr(numBits: number | Long): Long;
 
     /**
      * Returns this Long with bits logically shifted to the right by the given amount.
      */
-    shiftRightUnsigned( numBits: number | Long ): Long;
+    shiftRightUnsigned(numBits: number | Long): Long;
 
     /**
      * Returns this Long with bits logically shifted to the right by the given amount.
      */
-    shru( numBits: number | Long ): Long;
+    shru(numBits: number | Long): Long;
 
     /**
      * Returns the difference of this and the specified Long.
      */
-    subtract( subtrahend: number | Long | string ): Long;
+    subtract(subtrahend: number | Long | string): Long;
 
     /**
      * Returns the difference of this and the specified Long.
      */
-    sub( subtrahend: number | Long |string ): Long;
+    sub(subtrahend: number | Long | string): Long;
 
     /**
      * Converts the Long to a 32 bit integer, assuming it is a 32 bit integer.
@@ -349,7 +348,7 @@ declare class Long
      * Converts this Long to its byte representation.
      */
 
-    toBytes( le?: boolean ): number[];
+    toBytes(le?: boolean): number[];
 
     /**
      * Converts this Long to its little endian byte representation.
@@ -371,7 +370,7 @@ declare class Long
     /**
      * Converts the Long to a string written in the specified radix.
      */
-    toString( radix?: number ): string;
+    toString(radix?: number): string;
 
     /**
      * Converts this Long to unsigned.
@@ -381,5 +380,5 @@ declare class Long
     /**
      * Returns the bitwise XOR of this Long and the given one.
      */
-    xor( other: Long | number | string ): Long;
+    xor(other: Long | number | string): Long;
 }

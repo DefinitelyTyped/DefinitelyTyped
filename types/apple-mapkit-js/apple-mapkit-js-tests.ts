@@ -1,14 +1,14 @@
 mapkit.init({
-    language: "en",
-    authorizationCallback: (done) => {
-        done("my-map-token");
-    }
+    language: 'en',
+    authorizationCallback: done => {
+        done('my-map-token');
+    },
 });
 
 const map: mapkit.Map = new mapkit.Map(document.querySelector<HTMLElement>('.test'), {
     isZoomEnabled: true,
     isRotationEnabled: false,
-    tintColor: 'green'
+    tintColor: 'green',
 });
 
 const colors = mapkit.Map.ColorSchemes.Dark;

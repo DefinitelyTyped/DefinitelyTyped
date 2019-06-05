@@ -13,5 +13,4 @@ export = logger;
 
 declare function logger(logger: Logger): Middleware;
 
-declare namespace logger {
-}
+declare namespace logger {}

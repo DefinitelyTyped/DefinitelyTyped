@@ -26,7 +26,7 @@ declare namespace ContentType {
     }
 }
 
-declare module "content-type" {
+declare module 'content-type' {
     var x: ContentType.MediaTypeStatic;
     export = x;
 }

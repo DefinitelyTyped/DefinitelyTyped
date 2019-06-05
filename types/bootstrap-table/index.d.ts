@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 interface JQuery {
-    bootstrapTable(options?: any): JQuery;    
+    bootstrapTable(options?: any): JQuery;
     bootstrapTable(method: string, parameter?: any): JQuery;
 }
 

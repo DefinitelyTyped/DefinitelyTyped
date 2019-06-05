@@ -102,7 +102,12 @@ export class DerivativesApi {
     constructor();
 
     deleteManifest(urn: string, credentials: AuthToken): Promise<ApiResponse>;
-    getDerivativeManifest(urn: string, derivativeUrn: string, opts: object, credentials: AuthToken): Promise<ApiResponse>;
+    getDerivativeManifest(
+        urn: string,
+        derivativeUrn: string,
+        opts: object,
+        credentials: AuthToken
+    ): Promise<ApiResponse>;
     getFormats(opts: object, credentials: AuthToken): Promise<ApiResponse>;
     getManifest(urn: string, opts: object, credentials: AuthToken): Promise<ApiResponse>;
     getMetadata(urn: string, opts: object, credentials: AuthToken): Promise<ApiResponse>;
@@ -171,20 +176,20 @@ export namespace Dm {
             derivatives: {
                 data: {
                     id: string;
-                },
+                };
                 meta: {
                     link: {
                         href: string;
-                    }
-                }
-            },
+                    };
+                };
+            };
             item: any;
             refs: any;
             storage: {
                 data: {
                     id: string;
                     type: string;
-                }
+                };
             };
             thumbnail: any;
         };

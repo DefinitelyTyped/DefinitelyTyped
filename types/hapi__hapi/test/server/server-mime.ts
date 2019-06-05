@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servermime
-import { Server, ServerOptions } from "@hapi/hapi";
+import { Server, ServerOptions } from '@hapi/hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -9,14 +9,14 @@ const options: ServerOptions = {
                 source: 'steve',
                 compressible: false,
                 extensions: ['node', 'module', 'npm'],
-                type: 'node/module'
-            }
-        }
-    }
+                type: 'node/module',
+            },
+        },
+    },
 };
 
 const server = new Server(options);
-console.log(server.mime.path('code.js').type);        // 'application/javascript'
-console.log(server.mime.path('file.npm').type);        // 'node/module'
+console.log(server.mime.path('code.js').type); // 'application/javascript'
+console.log(server.mime.path('file.npm').type); // 'node/module'
 
 server.start();

@@ -4,14 +4,14 @@ import { AuthenticationContext, adalFetch, adalGetToken, runWithAdal, withAdalLo
 const resourceUrl = 'https://graph.microsoft.net';
 
 const adalConfig: AdalConfig = {
-    cacheLocation: "localStorage",
+    cacheLocation: 'localStorage',
     clientId: '9ha8cqc6-4668-459a-9272-f48c80a053y5',
     endpoints: {
-        api: resourceUrl
+        api: resourceUrl,
     },
     postLogoutRedirectUri: 'https://localhost:3000',
-    tenant: 'tenantname.onmicrosoft.com'
-  };
+    tenant: 'tenantname.onmicrosoft.com',
+};
 
 const authContext = new AuthenticationContext(adalConfig);
 
@@ -28,17 +28,21 @@ class App extends React.Component {
 }
 
 // user must login to use the app
-runWithAdal(authContext, () => {
-    //  ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
-}, false);
+runWithAdal(
+    authContext,
+    () => {
+        //  ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
+    },
+    false
+);
 
 const withAdalLoginApi = withAdalLogin(authContext, resourceUrl);
 
-const Loading: React.SFC = (props) => {
+const Loading: React.SFC = props => {
     return null;
 };
 
-const ErrorPage: React.SFC = (props) => {
+const ErrorPage: React.SFC = props => {
     return null;
 };
 
@@ -54,22 +58,32 @@ class ProtectedPage1 extends React.Component {
     }
 }
 
-const ProtectedPage2: React.SFC = (props) => {
+const ProtectedPage2: React.SFC = props => {
     return null;
 };
 
-const AdalProtectedPage1 = withAdalLoginApi(ProtectedPage1, () => <Loading />, () => <ErrorPage/>);
-const AdalProtectedPage2 = withAdalLoginApi(ProtectedPage2, () => <h4>loading...</h4>, () => <h4>It seems something went wrong...</h4>);
+const AdalProtectedPage1 = withAdalLoginApi(ProtectedPage1, () => <Loading />, () => <ErrorPage />);
+const AdalProtectedPage2 = withAdalLoginApi(
+    ProtectedPage2,
+    () => <h4>loading...</h4>,
+    () => <h4>It seems something went wrong...</h4>
+);
 
 // user must login to use only specific pages
-runWithAdal(authContext, () => {
-     const routes = <div>
-          <Route exact={true} path='/' component={SignInPage} /> // $ExpectError
-          <Route path='/private1' component={AdalProtectedPage1} /> // $ExpectError
-          <Route path='/private2' component={AdalProtectedPage2} /> // $ExpectError
-        </div>;
+runWithAdal(
+    authContext,
+    () => {
+        const routes = (
+            <div>
+                <Route exact={true} path="/" component={SignInPage} /> // $ExpectError
+                <Route path="/private1" component={AdalProtectedPage1} /> // $ExpectError
+                <Route path="/private2" component={AdalProtectedPage2} /> // $ExpectError
+            </div>
+        );
         // $ExpectError
-     const App = <ConnectedRouter history={({} as any)} children={routes} />;
-     // $ExpectError
-     ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
-}, true);
+        const App = <ConnectedRouter history={{} as any} children={routes} />;
+        // $ExpectError
+        ReactDOM.render(<App />, document.getElementById('react-app') as HTMLElement);
+    },
+    true
+);

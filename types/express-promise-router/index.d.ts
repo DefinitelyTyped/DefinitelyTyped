@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
 export default router;
  =============================================== */
 
-import { Router } from "express";
+import { Router } from 'express';
 
 /**
  * A simple wrapper for Express 4's Router that allows middleware to return

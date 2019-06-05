@@ -5,7 +5,7 @@
 //                 Aaron Dancer <https://github.com/aarondancer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from "react";
+import * as React from 'react';
 
 export {
     Affix,
@@ -18,7 +18,7 @@ export {
     DropdownMenu,
     DropdownToggle,
     RootCloseWrapper,
-    WaitForContainer
+    WaitForContainer,
 } from './lib';
 
 // these callbacks are used in a few components

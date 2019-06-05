@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TL {
-
     export var Timeline: ITimeline;
     export interface ITimeline extends ITimelineEvents {
         new (containerId: string, data: string | ITimelineConfig): ITimeline;
@@ -44,13 +43,13 @@ declare namespace TL {
     }
 
     export interface ITimelineEvents {
-        addEventListener(type: string, fn: ()=>void, context?: any): ITimelineEvents;
+        addEventListener(type: string, fn: () => void, context?: any): ITimelineEvents;
         hasEventListeners(type: string): boolean;
-        removeEventListener(type: string, fn:()=>void, context?: any): ITimelineEvents;
+        removeEventListener(type: string, fn: () => void, context?: any): ITimelineEvents;
         fireEvent(type: string, data?: any): ITimelineEvents;
 
-        on(type: string, fn: ()=>void, context?: any): ITimelineEvents;
-        off(type: string, fn:()=>void, context?: any): ITimelineEvents;
+        on(type: string, fn: () => void, context?: any): ITimelineEvents;
+        off(type: string, fn: () => void, context?: any): ITimelineEvents;
         fire(type: string, data?: any): ITimelineEvents;
     }
 
@@ -99,7 +98,7 @@ declare namespace TL {
          * url: the fully-qualified URL pointing to an image which will be used as the background
          * color: a CSS color, in hexadecimal (e.g. #0f9bd1) or a valid CSS color keyword.
          */
-        background?: { url?: string, color?: string };
+        background?: { url?: string; color?: string };
         /*
          * Defaults to true, which means that Timeline will scan text fields and automatically add <a> tags so that
          * links and email addresses are "clickable." If set to false, you may still manually apply the tags in the

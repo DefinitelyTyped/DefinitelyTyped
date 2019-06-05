@@ -5,8 +5,8 @@ const app = express();
 
 app.use(flash());
 
-app.use((req) => {
-  req.flash();
-  req.flash('message');
-  req.flash('event', 'message');
+app.use(req => {
+    req.flash();
+    req.flash('message');
+    req.flash('event', 'message');
 });

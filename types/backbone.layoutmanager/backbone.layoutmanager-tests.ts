@@ -5,7 +5,7 @@ class DisplayView extends Backbone.View<Backbone.Model> {
     constructor(options?: Backbone.ViewOptions<Backbone.Model>) {
         super(options);
         this.manage = true;
-        this.template = "#display";
+        this.template = '#display';
     }
     manage: boolean;
     template: string;
@@ -15,18 +15,18 @@ class DisplayView extends Backbone.View<Backbone.Model> {
 class View extends Backbone.Layout<Backbone.Model> {
     constructor(options?: Backbone.LayoutOptions<Backbone.Model>) {
         super(options);
-        this.template = "#view";
+        this.template = '#view';
 
         // When you click the View contents, it will wrap them in a bold tag.
         this.events = <any>{
-            "click": "wrapElement",
-            "mouseenter": "insertElement",
-            "mouseleave": "removeElement"
-        }
+            click: 'wrapElement',
+            mouseenter: 'insertElement',
+            mouseleave: 'removeElement',
+        };
     }
 
     wrapElement(): void {
-        this.$el.wrap("<b>");
+        this.$el.wrap('<b>');
     }
 
     insertElement(): void {
@@ -35,22 +35,22 @@ class View extends Backbone.Layout<Backbone.Model> {
 
     removeElement(): void {
         // Removes the inserted DisplayView.
-        this.removeView("");
+        this.removeView('');
     }
 }
 
 // Create a new Layout.
 var layout = new Backbone.Layout<Backbone.Model>({
     // Attach the Layout to the main container.
-    el: ".main",
+    el: '.main',
 
     // Use the previous defined template.
-    template: "#layout",
+    template: '#layout',
 
     // Declaratively bind a nested View to the Layout.
     views: {
-        "p": new View()
-    }
+        p: new View(),
+    },
 });
 
 // Render the Layout.

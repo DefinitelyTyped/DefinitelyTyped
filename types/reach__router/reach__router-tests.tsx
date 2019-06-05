@@ -1,11 +1,4 @@
-import {
-    Link,
-    Location,
-    LocationProvider,
-    RouteComponentProps,
-    Router,
-    Redirect
-} from '@reach/router';
+import { Link, Location, LocationProvider, RouteComponentProps, Router, Redirect } from '@reach/router';
 import * as React from 'react';
 import { render } from 'react-dom';
 
@@ -15,9 +8,7 @@ interface DashParams {
 
 const Home = (props: RouteComponentProps) => <div>Home</div>;
 
-const Dash = (props: RouteComponentProps<DashParams>) => (
-    <div>Dash for item ${props.id}</div>
-);
+const Dash = (props: RouteComponentProps<DashParams>) => <div>Dash for item ${props.id}</div>;
 
 const NotFound = (props: RouteComponentProps) => <div>Route not found</div>;
 
@@ -40,9 +31,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={() => context.navigate('/')}>
-                        Go Home
-                    </button>
+                    <button onClick={() => context.navigate('/')}>Go Home</button>
                 </>
             )}
         </Location>
@@ -50,9 +39,7 @@ render(
             {context => (
                 <>
                     <div>hostname is {context.location.hostname}</div>
-                    <button onClick={() => context.navigate('/')}>
-                        Go Home
-                    </button>
+                    <button onClick={() => context.navigate('/')}>Go Home</button>
                 </>
             )}
         </LocationProvider>

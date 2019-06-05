@@ -1,16 +1,15 @@
 import coffeelint = require('gulp-coffeelint');
 import gulp = require('gulp');
 
-gulp.task('lint', function () {
+gulp.task('lint', function() {
     gulp.src('./src/*.coffee')
         .pipe(coffeelint())
-        .pipe(coffeelint.reporter())
+        .pipe(coffeelint.reporter());
 });
 
 gulp.src('./src/*.coffee')
     .pipe(coffeelint())
     .pipe(coffeelint.reporter('csv'));
-
 
 declare var stylish: Function;
 
@@ -44,7 +43,8 @@ var myReporter = (function() {
 })();
 
 gulp.task('lint', function() {
-    return gulp.src('./src/*.coffee')
+    return gulp
+        .src('./src/*.coffee')
         .pipe(coffeelint())
         .pipe(coffeelint.reporter(myReporter));
 });

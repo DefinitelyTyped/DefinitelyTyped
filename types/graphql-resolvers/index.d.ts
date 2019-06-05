@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { IFieldResolver } from "graphql-tools";
+import { IFieldResolver } from 'graphql-tools';
 
 export const skip: undefined;
 
@@ -24,13 +24,9 @@ export function allResolvers<TSource = any, TContext = any>(
     resolvers: Array<IFieldResolver<TSource, TContext, TArgs>>
 ): IFieldResolver<TSource, TContext, TArgs>;
 
-export function resolveDependee(
-    dependeeName: string
-): IFieldResolver<any, any, TArgs>;
+export function resolveDependee(dependeeName: string): IFieldResolver<any, any, TArgs>;
 
-export function resolveDependees(
-    dependeeNames: string[]
-): IFieldResolver<any, any, TArgs>;
+export function resolveDependees(dependeeNames: string[]): IFieldResolver<any, any, TArgs>;
 
 export function isDependee<TSource = any, TContext = any>(
     resolver: IFieldResolver<TSource, TContext, TArgs>

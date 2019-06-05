@@ -5,14 +5,25 @@
 
 export = getWidth;
 
-declare function getWidth(
-	string: string,
-	settings?: Settings,
-): number;
+declare function getWidth(string: string, settings?: Settings): number;
 
 interface Settings {
-	bold?: boolean;
-	font?: "andale mono"|"arial"|"avenir next"|"avenir"|"comic sans ms"|"courier new"|"georgia"|"impact"|"open sans"|"tahoma"|"times new roman"|"trebuchet ms"|"verdana"|"webdings";
-	italic?: boolean;
-	size?: number;
+    bold?: boolean;
+    font?:
+        | 'andale mono'
+        | 'arial'
+        | 'avenir next'
+        | 'avenir'
+        | 'comic sans ms'
+        | 'courier new'
+        | 'georgia'
+        | 'impact'
+        | 'open sans'
+        | 'tahoma'
+        | 'times new roman'
+        | 'trebuchet ms'
+        | 'verdana'
+        | 'webdings';
+    italic?: boolean;
+    size?: number;
 }

@@ -1,8 +1,8 @@
-import "jquery";
-import { SortDefinition } from "../Sorting/SortDefinition";
-import { PagerConfiguration } from "./PagerConfiguration";
-import { PagerDataPart } from "./PagerDataPart";
-import { PagerMemory } from "./PagerMemory";
+import 'jquery';
+import { SortDefinition } from '../Sorting/SortDefinition';
+import { PagerConfiguration } from './PagerConfiguration';
+import { PagerDataPart } from './PagerDataPart';
+import { PagerMemory } from './PagerMemory';
 
 /**
  * Represents the configuration-store of the `pager` addon.

@@ -35,10 +35,7 @@ export class BerWriter {
     readonly _size: number;
     _offset: number;
 
-    constructor(options?: {
-        size: number;
-        growthFactor: number;
-    });
+    constructor(options?: { size: number; growthFactor: number });
 
     endSequence(): void;
     startSequence(tag?: number): void;

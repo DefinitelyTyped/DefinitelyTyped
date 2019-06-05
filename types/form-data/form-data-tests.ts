@@ -48,7 +48,7 @@ import * as ImportUsingES6Syntax from 'form-data';
         method: 'post',
         host: 'example.org',
         path: '/upload',
-        headers: form.getHeaders()
+        headers: form.getHeaders(),
     });
 
     form.pipe(request);
@@ -73,7 +73,7 @@ import * as ImportUsingES6Syntax from 'form-data';
 
     const options = {
         header: `${CRLF}--${form.getBoundary()}${CRLF}X-Custom-Header: 123${CRLF}${CRLF}`,
-        knownLength: 1
+        knownLength: 1,
     };
 
     form.append('my_buffer', buffer, options);
@@ -86,24 +86,30 @@ import * as ImportUsingES6Syntax from 'form-data';
 
 (() => {
     const form = new FormData();
-    form.submit({
-        host: 'example.com',
-        path: '/probably.php?extra=params',
-        auth: 'username:password'
-    }, (err, res) => {
-        console.log(res.statusCode);
-    });
+    form.submit(
+        {
+            host: 'example.com',
+            path: '/probably.php?extra=params',
+            auth: 'username:password',
+        },
+        (err, res) => {
+            console.log(res.statusCode);
+        }
+    );
 })();
 
 (() => {
     const form = new FormData();
-    form.submit({
-        host: 'example.com',
-        path: '/surelynot.php',
-        headers: { 'x-test-header': 'test-header-value' }
-    }, (err, res) => {
-        console.log(res.statusCode);
-    });
+    form.submit(
+        {
+            host: 'example.com',
+            path: '/surelynot.php',
+            headers: { 'x-test-header': 'test-header-value' },
+        },
+        (err, res) => {
+            console.log(res.statusCode);
+        }
+    );
 })();
 
 (() => {

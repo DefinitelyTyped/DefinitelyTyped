@@ -1,4 +1,4 @@
-declare module "querystring" {
+declare module 'querystring' {
     interface StringifyOptions {
         encodeURIComponent?: (str: string) => string;
     }
@@ -8,11 +8,12 @@ declare module "querystring" {
         decodeURIComponent?: (str: string) => string;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery {
+        [key: string]: string | string[];
+    }
 
     interface ParsedUrlQueryInput {
-        [key: string]:
-        // The value type here is a "poor man's `unknown`". When these types support TypeScript
+        [key: string]: // The value type here is a "poor man's `unknown`". When these types support TypeScript
         // 3.0+, we can replace this with `unknown`.
         {} | null | undefined;
     }

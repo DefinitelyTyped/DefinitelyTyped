@@ -1,4 +1,4 @@
-import snakeCase = require("just-snake-case");
+import snakeCase = require('just-snake-case');
 
 // Pass single `object`.
 snakeCase('myString'); // $ExpectType string

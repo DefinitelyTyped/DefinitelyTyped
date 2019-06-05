@@ -1,4 +1,3 @@
-
 import Squire = require('squirejs');
 
 // Default Configuration
@@ -11,8 +10,8 @@ injector = new Squire('other-requirejs-context');
 injector.require(['a'], function(A: any) {}, function(err: any) {});
 
 // mock(String name | Object(name: mock), Object mock)
-injector.mock("a", {});
-injector.mock({a: {}});
+injector.mock('a', {});
+injector.mock({ a: {} });
 
 // store(String name | Array names)
 injector.store('a');

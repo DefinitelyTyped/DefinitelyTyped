@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.math
      * @namespace
@@ -27,10 +26,10 @@ declare namespace pc {
         const RAD_TO_DEG: number;
 
         /**
-        * @name pc.math.INV_LOG2
-        * @description Inverse log 2
-        * @type Number
-        */
+         * @name pc.math.INV_LOG2
+         * @description Inverse log 2
+         * @type Number
+         */
         const INV_LOG2: number;
 
         /**
@@ -91,17 +90,17 @@ declare namespace pc {
          * @description Convert 4 1-byte Numbers into a single unsigned 32bit Number.
          * @returns {Number} A single unsigned 32bit Number.
          * @example
-          * // Set result1 to 0x11223344 from an array of 4 values
-          * var result1 = pc.math.bytesToInt32([0x11, 0x22, 0x33, 0x44]);
-          *
-          * // Set result2 to 0x11223344 from 4 discrete values
-          * var result2 = pc.math.bytesToInt32(0x11, 0x22, 0x33, 0x44);
+         * // Set result1 to 0x11223344 from an array of 4 values
+         * var result1 = pc.math.bytesToInt32([0x11, 0x22, 0x33, 0x44]);
+         *
+         * // Set result2 to 0x11223344 from 4 discrete values
+         * var result2 = pc.math.bytesToInt32(0x11, 0x22, 0x33, 0x44);
          * @param {Number} r A single byte (0-255)
          * @param {Number} g A single byte (0-255)
          * @param {Number} b A single byte (0-255)
          * @param {Number} a A single byte (0-255)
          */
-        function bytesToInt32(r: number, g: number, b: number, a: number): number
+        function bytesToInt32(r: number, g: number, b: number, a: number): number;
 
         /**
          * @function
@@ -114,7 +113,7 @@ declare namespace pc {
          * a is returned. When alpha is 1, b is returned. Between 0 and 1, a linear interpolation between
          * a and b is returned. alpha is clamped between 0 and 1.
          */
-        function lerp(a: number, b: number, alpha: number): number
+        function lerp(a: number, b: number, alpha: number): number;
 
         /**
          * @function
@@ -157,7 +156,7 @@ declare namespace pc {
          * @param {Number} max Upper bound for range.
          * @returns {Number} Pseudo-random number between the supplied range.
          */
-        function random(min: number, max: number): number
+        function random(min: number, max: number): number;
 
         /**
          * @function

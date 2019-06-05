@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Context, ClientContext, CognitoIdentity, Handler } from "aws-lambda";
+import { Context, ClientContext, CognitoIdentity, Handler } from 'aws-lambda';
 
 declare namespace lambdaTester {
     type Verifier = (result: any) => void;
@@ -14,10 +14,7 @@ declare namespace lambdaTester {
         event(event: any): this;
         context(context: Context): this;
         clientContext(clientContext: ClientContext): this;
-        identity(
-            cognitoIdentityId: string,
-            cognitoIdentityPoolId: string
-        ): this;
+        identity(cognitoIdentityId: string, cognitoIdentityPoolId: string): this;
         timeout(seconds: number): this;
         xray(): this;
         expectSucceed(verifier: Verifier): Promise<any>;

@@ -1,2 +1,2 @@
-import { findIndex } from "lodash";
+import { findIndex } from 'lodash';
 export default findIndex;

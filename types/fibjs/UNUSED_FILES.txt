@@ -1,1 +1,1 @@
-declare/_test_env.d.ts
+declare / _test_env.d.ts;

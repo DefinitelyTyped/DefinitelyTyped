@@ -8,12 +8,17 @@
 /// <reference types="node" />
 
 // tslint:disable-next-line no-single-declare-module
-declare module "meteor/universe:i18n" {
-    import { OutgoingHttpHeaders } from "http";
+declare module 'meteor/universe:i18n' {
+    import { OutgoingHttpHeaders } from 'http';
 
     namespace i18n {
         // component functions
-        function createComponent(translator?: Translator, locale?: string, reactjs?: React.ReactInstance, type?: any): new () => React.Component<ReactComponentProps>;
+        function createComponent(
+            translator?: Translator,
+            locale?: string,
+            reactjs?: React.ReactInstance,
+            type?: any
+        ): new () => React.Component<ReactComponentProps>;
 
         // translator functions
         function createTranslator(namespace: string, options?: TranslaterOptions): Translator;

@@ -52,13 +52,21 @@ let numOrUndefinedExtent: [number, number] | [undefined, undefined];
 let strOrUndefinedExtent: [string, string] | [undefined, undefined];
 let numericOrUndefinedExtent: [NumCoercible, NumCoercible] | [undefined, undefined];
 let dateMixedOrUndefined: [Date, Date] | [undefined, undefined];
-let mixedOrUndefinedExtent: [d3Array.Primitive | NumCoercible, d3Array.Primitive | NumCoercible] | [undefined, undefined];
+let mixedOrUndefinedExtent:
+    | [d3Array.Primitive | NumCoercible, d3Array.Primitive | NumCoercible]
+    | [undefined, undefined];
 let dateOrUndefinedExtent: [Date, Date] | [undefined, undefined];
 
 let numbersArray = [10, 20, 30, 40, 50];
 const numbersOrUndefinedArray = [10, 20, undefined, null, 40, 50];
 let stringyNumbersArray = ['10', '20', '30', '40', '50'];
-const numericArray = [new NumCoercible(10), new NumCoercible(20), new NumCoercible(30), new NumCoercible(40), new NumCoercible(50)];
+const numericArray = [
+    new NumCoercible(10),
+    new NumCoercible(20),
+    new NumCoercible(30),
+    new NumCoercible(40),
+    new NumCoercible(50),
+];
 let dateArray = [new Date(2016, 6, 1), new Date(2016, 7, 30), new Date(2015, 3, 15)];
 
 const mixedObjectArray = [
@@ -66,7 +74,7 @@ const mixedObjectArray = [
     new MixedObject(20, new Date(2016, 7, 30)),
     new MixedObject(30, new Date(2015, 3, 15)),
     new MixedObject(40, new Date(2014, 3, 15)),
-    new MixedObject(50, new Date(2017, 4, 15))
+    new MixedObject(50, new Date(2017, 4, 15)),
 ];
 
 const mixedObjectOrUndefinedArray = [...mixedObjectArray, undefined];
@@ -97,11 +105,19 @@ function accessorMixedObjectToDate(datum: MixedObject, index: number, array: Arr
     return datum.date;
 }
 
-function accessorMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorMixedObjectToNumOrUndefined(
+    datum: MixedObject | undefined,
+    index: number,
+    array: ArrayLike<MixedObject | undefined>
+): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+function accessorMixedObjectToStrOrUndefined(
+    datum: MixedObject | undefined,
+    index: number,
+    array: ArrayLike<MixedObject>
+): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
@@ -113,7 +129,11 @@ function accessorLikeMixedObjectToStr(datum: MixedObject, index: number, array: 
     return datum.str;
 }
 
-function accessorLikeMixedObjectToNumeric(datum: MixedObject, index: number, array: ArrayLike<MixedObject>): NumCoercible {
+function accessorLikeMixedObjectToNumeric(
+    datum: MixedObject,
+    index: number,
+    array: ArrayLike<MixedObject>
+): NumCoercible {
     return datum.numeric;
 }
 
@@ -121,15 +141,27 @@ function accessorLikeMixedObjectToDate(datum: MixedObject, index: number, array:
     return datum.date;
 }
 
-function accessorLikeMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorLikeMixedObjectToNumOrUndefined(
+    datum: MixedObject | undefined,
+    index: number,
+    array: ArrayLike<MixedObject | undefined>
+): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
-function accessorLikeMixedObjectToStrOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject>): string | undefined | null {
+function accessorLikeMixedObjectToStrOrUndefined(
+    datum: MixedObject | undefined,
+    index: number,
+    array: ArrayLike<MixedObject>
+): string | undefined | null {
     return datum ? datum.str : undefined;
 }
 
-function accessorReadOnlyMixedObjectToNumOrUndefined(datum: MixedObject | undefined, index: number, array: ArrayLike<MixedObject | undefined>): number | undefined | null {
+function accessorReadOnlyMixedObjectToNumOrUndefined(
+    datum: MixedObject | undefined,
+    index: number,
+    array: ArrayLike<MixedObject | undefined>
+): number | undefined | null {
     return datum ? datum.num : undefined;
 }
 
@@ -168,18 +200,21 @@ numOrUndefined = d3Array.max(mixedObjectArrayLike, accessorLikeMixedObjectToNum)
 numOrUndefined = d3Array.max(mixedObjectArray, accessorLikeMixedObjectToNum);
 numOrUndefined = d3Array.max(mixedObjectArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
-numOrUndefined = d3Array.max(mixedObjectArray, (d) => {
+numOrUndefined = d3Array.max(mixedObjectArray, d => {
     const l: MixedObject = d;
     return l.num;
 });
 
-strOrUndefined = d3Array.max(mixedObjectArray, (d) => {
+strOrUndefined = d3Array.max(mixedObjectArray, d => {
     const l: MixedObject = d;
     return l.str;
 });
 
 // $ExpectError
-numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => { a.push(3); return 0; });
+numOrUndefined = d3Array.max(readonlyNumbersArray, (d, i, a) => {
+    a.push(3);
+    return 0;
+});
 
 // min() -----------------------------------------------------------------------
 
@@ -278,7 +313,11 @@ numOrUndefined = d3Array.quantile(readonlyNumbersOrUndefinedArray, 0.5);
 
 numOrUndefined = d3Array.quantile(mixedObjectArray, 0.5, accessorMixedObjectToNum);
 numOrUndefined = d3Array.quantile(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
-numOrUndefined = d3Array.quantile(readonlyMixedObjectOrUndefinedArray, 0.5, accessorReadOnlyMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.quantile(
+    readonlyMixedObjectOrUndefinedArray,
+    0.5,
+    accessorReadOnlyMixedObjectToNumOrUndefined
+);
 
 // sum() -----------------------------------------------------------------------
 
@@ -464,8 +503,7 @@ let mixedObjectDateBisectorObject: d3Array.Bisector<MixedObject, Date>;
 mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(el => el.date);
 
 // define using comparator
-mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>((el, x) =>
-    el.date.valueOf() - x.valueOf());
+mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>((el, x) => el.date.valueOf() - x.valueOf());
 
 // bisect left
 num = mixedObjectDateBisectorObject.left(mixedObjectArray, new Date(2015, 3, 14));
@@ -510,13 +548,10 @@ const testArray1 = [
     new MixedObject(20, new Date(2016, 7, 30)),
     new MixedObject(30, new Date(2015, 3, 15)),
     new MixedObject(40, new Date(2014, 3, 15)),
-    new MixedObject(50, new Date(2017, 4, 15))
+    new MixedObject(50, new Date(2017, 4, 15)),
 ];
 
-const testArray2 = [
-    new MixedObject(40, new Date(2016, 3, 1)),
-    new MixedObject(50, new Date(2016, 9, 30)),
-];
+const testArray2 = [new MixedObject(40, new Date(2016, 3, 1)), new MixedObject(50, new Date(2016, 9, 30))];
 
 let testArrays: MixedObject[][] = [testArray1, testArray2];
 
@@ -546,11 +581,11 @@ const nums = [1, 2];
 crossed = d3Array.cross(chars, nums);
 crossed = d3Array.cross<string, number>(chars, nums);
 
-let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => (a + b) + 'px');
+let strArray: string[] = d3Array.cross<number, number, string>([2, 3], [5, 6], (a, b) => a + b + 'px');
 strArray = d3Array.cross([2, 3], [5, 6], (a, b) => {
     const aa: number = a;
     const bb: number = b;
-    return (aa + bb) + 'px';
+    return aa + bb + 'px';
 });
 
 const readonlyChars = chars as ReadonlyArray<string>;
@@ -559,11 +594,15 @@ const readonlyNums = new Uint8Array(nums);
 crossed = d3Array.cross(readonlyChars, readonlyNums);
 crossed = d3Array.cross<string, number>(readonlyChars, readonlyNums);
 
-strArray = d3Array.cross<number, number, string>([2, 3] as ReadonlyArray<number>, new Uint8ClampedArray([5, 6]), (a, b) => (a + b) + 'px');
+strArray = d3Array.cross<number, number, string>(
+    [2, 3] as ReadonlyArray<number>,
+    new Uint8ClampedArray([5, 6]),
+    (a, b) => a + b + 'px'
+);
 strArray = d3Array.cross([2, 3] as ReadonlyArray<number>, new Uint8ClampedArray([5, 6]), (a, b) => {
     const aa: number = a;
     const bb: number = b;
-    return (aa + bb) + 'px';
+    return aa + bb + 'px';
 });
 
 d3Array.cross(new Uint8Array([1, 2, 3, 4, 5]), new Uint8Array([10, 20, 30, 40, 50]));
@@ -604,7 +643,7 @@ const testObject = {
     val: 10,
     name: 'Test',
     when: new Date(),
-    more: [10, 30, 40]
+    more: [10, 30, 40],
 };
 
 const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
@@ -677,7 +716,10 @@ let histoMixed_NumberOrUndefined: d3Array.HistogramGeneratorNumber<MixedObject, 
 histoMixed_NumberOrUndefined = d3Array.histogram<MixedObject, number | undefined>();
 
 // MixedObject | undefined - number | undefined
-let histoMixedOrUndefined_NumberOrUndefined: d3Array.HistogramGeneratorNumber<MixedObject | undefined, number | undefined>;
+let histoMixedOrUndefined_NumberOrUndefined: d3Array.HistogramGeneratorNumber<
+    MixedObject | undefined,
+    number | undefined
+>;
 histoMixedOrUndefined_NumberOrUndefined = d3Array.histogram<MixedObject | undefined, number | undefined>();
 
 // MixedObject | undefined - number
@@ -711,22 +753,37 @@ histoNumber_Number = histoNumber_Number.value((d: number, i: number, data: Array
 });
 
 // MixedObject - number | undefined
-const valueFnMixedObject_NumberOrUndefined: valueAccessor<MixedObject, number | undefined> = histoMixed_NumberOrUndefined.value();
-histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.value((d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
-    return d.str === "NA" ? undefined : d.num;
-});
+const valueFnMixedObject_NumberOrUndefined: valueAccessor<
+    MixedObject,
+    number | undefined
+> = histoMixed_NumberOrUndefined.value();
+histoMixed_NumberOrUndefined = histoMixed_NumberOrUndefined.value(
+    (d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
+        return d.str === 'NA' ? undefined : d.num;
+    }
+);
 
 // MixedObject | undefined - number | undefined
-const valueFnMixedOrUndefined_NumberOrUndefined: valueAccessor<MixedObject | undefined, number | undefined> = histoMixedOrUndefined_NumberOrUndefined.value();
-histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.value((d: MixedObject | undefined, i: number, data: ArrayLike<MixedObject | undefined>) => {
-    return d ? d.num : undefined;
-});
+const valueFnMixedOrUndefined_NumberOrUndefined: valueAccessor<
+    MixedObject | undefined,
+    number | undefined
+> = histoMixedOrUndefined_NumberOrUndefined.value();
+histoMixedOrUndefined_NumberOrUndefined = histoMixedOrUndefined_NumberOrUndefined.value(
+    (d: MixedObject | undefined, i: number, data: ArrayLike<MixedObject | undefined>) => {
+        return d ? d.num : undefined;
+    }
+);
 
 // MixedObject | undefined - number
-const valueFnMixedOrUndefined_Number: valueAccessor<MixedObject | undefined, number> = histoMixedOrUndefined_Number.value();
-histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.value((d: MixedObject | undefined, i: number, data: ArrayLike<MixedObject | undefined>) => {
-    return d ? d.num : 0;
-});
+const valueFnMixedOrUndefined_Number: valueAccessor<
+    MixedObject | undefined,
+    number
+> = histoMixedOrUndefined_Number.value();
+histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.value(
+    (d: MixedObject | undefined, i: number, data: ArrayLike<MixedObject | undefined>) => {
+        return d ? d.num : 0;
+    }
+);
 
 // MixedObject - Date
 const valueFnMixedObject_Date: valueAccessor<MixedObject, Date> = histoMixedObject_Date.value();
@@ -735,10 +792,15 @@ histoMixedObject_Date = histoMixedObject_Date.value((d: MixedObject, i: number, 
 });
 
 // MixedObject - Date | undefined
-const valueFnMixedObject_DateOrUndefined: valueAccessor<MixedObject, Date | undefined> = histoMixedObject_DateOrUndefined.value();
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.value((d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
-    return d.date;
-});
+const valueFnMixedObject_DateOrUndefined: valueAccessor<
+    MixedObject,
+    Date | undefined
+> = histoMixedObject_DateOrUndefined.value();
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.value(
+    (d: MixedObject, i: number, data: ArrayLike<MixedObject>) => {
+        return d.date;
+    }
+);
 
 // domain(...) -----------------------------------------------------------------
 
@@ -771,15 +833,21 @@ histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.domain(d3Array.exten
 domainFnDate = histoMixedObject_Date.domain();
 histoMixedObject_Date = histoMixedObject_Date.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
 histoMixedObject_Date = histoMixedObject_Date.domain([domain[0], domain[domain.length]]);
-histoMixedObject_Date = histoMixedObject_Date.domain((values) => [values[0], values[values.length]]);
+histoMixedObject_Date = histoMixedObject_Date.domain(values => [values[0], values[values.length]]);
 // $ExpectError
 histoMixedObject_Date = histoMixedObject_Date.domain(timeScale.domain()); // fails, as scale domain is an array with possibly more than the two elements expected by histogram
 
 // MixedObject - Date | undefined
 domainFnDate = histoMixedObject_Date.domain();
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([new Date(2014, 3, 15), new Date(2017, 4, 15)]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([
+    new Date(2014, 3, 15),
+    new Date(2017, 4, 15),
+]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain([domain[0], domain[domain.length]]);
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain((values) =>  [values[0]!, values[values.length]!]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.domain(values => [
+    values[0]!,
+    values[values.length]!,
+]);
 
 // thresholds(...) -------------------------------------------------------------
 
@@ -820,9 +888,17 @@ histoMixedOrUndefined_Number = histoMixedOrUndefined_Number.thresholds(d3Array.t
 
 // MixedObject - Date
 thresholdsDate = histoMixedObject_Date.thresholds();
-histoMixedObject_Date = histoMixedObject_Date.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
+histoMixedObject_Date = histoMixedObject_Date.thresholds([
+    new Date(2015, 11, 15),
+    new Date(2016, 6, 1),
+    new Date(2016, 8, 30),
+]);
 histoMixedObject_Date = histoMixedObject_Date.thresholds(timeScale.ticks(timeYear));
-histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date>) => [new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
+histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date>) => [
+    new Date(2015, 11, 15),
+    new Date(2016, 6, 1),
+    new Date(2016, 8, 30),
+]);
 histoMixedObject_Date = histoMixedObject_Date.thresholds((values: ArrayLike<Date>, min: Date, max: Date) => {
     const thresholds: Date[] = [values[0], values[2], values[4]];
     return thresholds;
@@ -832,12 +908,18 @@ histoMixedObject_Date = histoMixedObject_Date.thresholds(d3Array.thresholdScott)
 
 // MixedObject - Date | undefined
 thresholdsDateOrUndefined = histoMixedObject_DateOrUndefined.thresholds();
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds([new Date(2015, 11, 15), new Date(2016, 6, 1), new Date(2016, 8, 30)]);
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds([
+    new Date(2015, 11, 15),
+    new Date(2016, 6, 1),
+    new Date(2016, 8, 30),
+]);
 histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds(timeScale.ticks(timeYear));
-histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds((values: ArrayLike<Date | undefined>, min: Date, max: Date) => {
-    const thresholds: Date[] = [values[0]!, new Date(2015, 11, 15), values[values.length]!];
-    return thresholds;
-});
+histoMixedObject_DateOrUndefined = histoMixedObject_DateOrUndefined.thresholds(
+    (values: ArrayLike<Date | undefined>, min: Date, max: Date) => {
+        const thresholds: Date[] = [values[0]!, new Date(2015, 11, 15), values[values.length]!];
+        return thresholds;
+    }
+);
 
 // Use histogram generator =====================================================
 

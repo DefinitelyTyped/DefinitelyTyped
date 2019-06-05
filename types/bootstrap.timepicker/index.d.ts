@@ -7,7 +7,7 @@
 /// <reference types="jquery"/>
 
 interface TimepickerOptions {
-    defaultTime?: string|boolean|Date;
+    defaultTime?: string | boolean | Date;
     disableFocus?: boolean;
     disableMousewheel?: boolean;
     explicitMode?: boolean;
@@ -19,7 +19,7 @@ interface TimepickerOptions {
     showSeconds?: boolean;
     showInputs?: boolean;
     showMeridian?: boolean;
-    template?: string|boolean;
+    template?: string | boolean;
     appendWidgetTo?: string;
     maxHours?: number;
     snapToStep?: boolean;

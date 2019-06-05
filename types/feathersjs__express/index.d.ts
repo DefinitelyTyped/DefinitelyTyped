@@ -15,25 +15,33 @@ export default feathersExpress;
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 // TypeScript methods cannot be overloaded with a different signature. Derive two application types without the use methods.
-type ExpressAndFeathersApplicationWithoutUse<T> = Omit<express.Application, 'use'> & Omit<FeathersApplication<T>, 'use'>;
+type ExpressAndFeathersApplicationWithoutUse<T> = Omit<express.Application, 'use'> &
+    Omit<FeathersApplication<T>, 'use'>;
 // Give the "any" type for the feathers options object a more precise name.
 export type FeathersServiceOptions = any;
 
 export interface FeathersRouterMatcher<T> {
-    (path: PathParams, ...handlers: Array<(RequestHandler | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application)>): T;
+    (
+        path: PathParams,
+        ...handlers: Array<
+            RequestHandler | RequestHandlerParams | Partial<ServiceMethods<any> & SetupMethod> | Application
+        >
+    ): T;
 }
 
-type FeathersApplicationRequestHandler<T> = express.IRouterHandler<T> & FeathersRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+type FeathersApplicationRequestHandler<T> = express.IRouterHandler<T> &
+    FeathersRouterMatcher<T> &
+    ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application<T = any> extends ExpressAndFeathersApplicationWithoutUse<T> {
     use: FeathersApplicationRequestHandler<T>;
 }
 
 export function errorHandler(options?: {
-    public?: string,
-    logger?: { error?: (msg: string) => void },
-    html?: any,
-    json?: any,
+    public?: string;
+    logger?: { error?: (msg: string) => void };
+    html?: any;
+    json?: any;
 }): express.ErrorRequestHandler;
 
 export function notFound(): express.RequestHandler;
@@ -68,7 +76,7 @@ export {
     RouterOptions,
     Send,
     static,
-    urlencoded
+    urlencoded,
 } from 'express';
 
 export const original: typeof express;

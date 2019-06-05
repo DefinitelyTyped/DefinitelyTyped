@@ -54,7 +54,7 @@ export interface PasswordRealmResponse {
     expiresIn: number;
     idToken: string;
     scope: string;
-    tokenType: "Bearer";
+    tokenType: 'Bearer';
     refreshToken?: string;
 }
 
@@ -160,7 +160,7 @@ export class WebAuth {
 }
 
 export interface UsersOptions {
-    baseUrl: Options["domain"];
+    baseUrl: Options['domain'];
     token: string;
 }
 

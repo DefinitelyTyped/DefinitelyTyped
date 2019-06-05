@@ -23,4 +23,3 @@ type(new Map());
 
 // $ExpectType string
 type(new Set());
-

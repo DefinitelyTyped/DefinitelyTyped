@@ -51,13 +51,12 @@ interface CustomData {
 function isCustomData(data: any): data is CustomData {
     return data != null && typeof data.message === 'string';
 }
-function doSomethingWithCustomData(data: CustomData) {
-}
+function doSomethingWithCustomData(data: CustomData) {}
 const customData: CustomData = {
-    message: 'tango'
+    message: 'tango',
 };
 const fileWithData = vfile({
-    data: customData
+    data: customData,
 });
 
 if (isCustomData(fileWithData.data)) {
@@ -78,8 +77,8 @@ const customVFile = vfile<CustomVFile>({
     contents: 'Alpha *braavo* charlie.',
     custom: 'Custom tango',
     data: {
-        custom: 12345
-    }
+        custom: 12345,
+    },
 });
 
 customVFile.custom = 'test';

@@ -1,4 +1,3 @@
-
 /// <reference types="node" />
 
 import clc = require('cli-color');
@@ -20,7 +19,9 @@ text = clc.bold.italic.underline.blink.inverse.strike(text);
 text = clc.black.red.green.yellow.blue.magenta.cyan.white(text);
 text = clc.bgBlack.bgRed.bgGreen.bgYellow.bgBlack.bgMagenta.bgCyan.bgWhite(text);
 text = clc.blackBright.redBright.greenBright.yellowBright.blueBright.magentaBright.cyanBright.whiteBright(text);
-text = clc.bgBlackBright.bgRedBright.bgGreenBright.bgYellowBright.bgBlueBright.bgMagentaBright.bgCyanBright.bgWhiteBright(text);
+text = clc.bgBlackBright.bgRedBright.bgGreenBright.bgYellowBright.bgBlueBright.bgMagentaBright.bgCyanBright.bgWhiteBright(
+    text
+);
 text = clc.xterm(color).bgXterm(color)(text);
 
 text = clc.bold.red.bgGreen.yellowBright.bgBlueBright.xterm(color)(text, text, text);

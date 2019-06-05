@@ -3,7 +3,6 @@
 // Definitions by: Exceptionless <https://github.com/exceptionless>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export interface StackFrame {
     getTypeName(): string;
     getFunctionName(): string;

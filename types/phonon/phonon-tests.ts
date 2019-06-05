@@ -7,34 +7,43 @@ phonon.options({
         enableBrowserBackButton: true,
         templateRootDirectory: '',
         defaultTemplateExtension: 'html',
-        useHash: true
+        useHash: true,
     },
     i18n: {
         directory: 'res/lang/',
         localeFallback: 'en',
-        localePreferred: 'en-US'
+        localePreferred: 'en-US',
+    },
+});
+
+phonon.navigator().on(
+    {
+        page: 'pagename',
+        content: 'content.html',
+        preventClose: false,
+        readyDelay: 1,
+    },
+    activity => {
+        activity.onCreate(() => {});
+        activity.onReady(() => {});
+        activity.onTransitionEnd(() => {});
+        activity.onClose(self => {});
+        activity.onHidden(() => {});
+        activity.onHashChanged((req1, req2) => {});
+        activity.onTabChanged(() => {});
     }
-});
+);
 
-phonon.navigator().on({
-    page: 'pagename',
-    content: 'content.html',
-    preventClose: false,
-    readyDelay: 1
-}, activity => {
-    activity.onCreate(() => {});
-    activity.onReady(() => {});
-    activity.onTransitionEnd(() => {});
-    activity.onClose(self => {});
-    activity.onHidden(() => {});
-    activity.onHashChanged((req1, req2) => {});
-    activity.onTabChanged(() => {});
-});
-
-phonon.navigator().onPage('home').addEvent('create', () => {});
-phonon.navigator().onPage('home').addEvent('close', api => {
-    api.close();
-});
+phonon
+    .navigator()
+    .onPage('home')
+    .addEvent('create', () => {});
+phonon
+    .navigator()
+    .onPage('home')
+    .addEvent('close', api => {
+        api.close();
+    });
 
 phonon.navigator().start();
 
@@ -44,7 +53,7 @@ page = phonon.navigator().previousPage;
 
 let ev = document.createEvent('');
 document.on('pagecreated', event => {
-  console.log('global state pagecreated: ' + event.detail.page);
+    console.log('global state pagecreated: ' + event.detail.page);
 });
 document.on('pagehash', event => {
     console.log('global state pagehash: ' + event.detail.page);
@@ -65,7 +74,7 @@ phonon.i18n().get('my_key', value => {});
 phonon.i18n().get(['my_key_1', 'my_key_two'], values => {});
 
 phonon.updateLocale('new-language');
-phonon.i18n().setPreference("fr");
+phonon.i18n().setPreference('fr');
 phonon.i18n().getPreference();
 phonon.i18n().getLocale();
 
@@ -76,11 +85,11 @@ const req = phonon.ajax({
     crossDomain: true,
     dataType: 'json',
     contentType: 'application/json',
-    data: {key1: 'val1', key2: 'val2'},
+    data: { key1: 'val1', key2: 'val2' },
     timeout: 5000,
     headers: {
         'header-name1': 'value1',
-        'header-name2': 'value2'
+        'header-name2': 'value2',
     },
     success(res, xhr) {
         console.log(res);
@@ -88,7 +97,7 @@ const req = phonon.ajax({
     error(res, flagError, xhr) {
         console.error(flagError);
         console.log(res);
-    }
+    },
 });
 
 req.cancel();
@@ -123,18 +132,18 @@ phonon.sidePanel('#side-panel-id').open();
 phonon.sidePanel('#side-panel-id').close();
 
 // Code examples from http://phonon.quarkdev.com/docs/dialogs
-let pAlert = phonon.alert("text", "title", true, "textOk");
+let pAlert = phonon.alert('text', 'title', true, 'textOk');
 pAlert.on('confirm', () => {});
 
-const pconfirm = phonon.confirm("text", "title", true, "textOk", "textCancel");
+const pconfirm = phonon.confirm('text', 'title', true, 'textOk', 'textCancel');
 pconfirm.on('confirm', () => {});
 pconfirm.on('cancel', () => {});
 
-let pPrompt = phonon.prompt("text", "title", true, "textOk", "textCancel");
+let pPrompt = phonon.prompt('text', 'title', true, 'textOk', 'textCancel');
 pPrompt.on('confirm', inputValue => {});
 pPrompt.on('cancel', () => {});
 
-phonon.indicator("title", true);
+phonon.indicator('title', true);
 
 let myDialog = phonon.dialog('#my-dialog');
 myDialog.open();
@@ -145,7 +154,7 @@ myDialog.on('confirm', () => {});
 let notif = phonon.notif('Hello', 3000, true, 'CANCEL');
 notif.setColor('positive');
 
-notif = phonon.notif("#id");
+notif = phonon.notif('#id');
 notif.show();
 notif.hide();
 
@@ -157,12 +166,12 @@ popover.setList(['a', 'b', 'c']);
 popover.setList([
     {
         text: 'a',
-        value: 'a'
+        value: 'a',
     },
     {
         text: 'b',
-        value: 'tg'
-    }
+        value: 'tg',
+    },
 ]);
 popover.setList(['a', 'b', 'c'], item => {
     const text = typeof item === 'string' ? item : item.text;
@@ -181,15 +190,17 @@ popover.onItemChanged(data => {
     console.error(data);
 });
 element.on('itemchanged', event => {
-  console.log(event.detail);
+    console.log(event.detail);
 });
 
-popover = phonon.popover()
-  .setList(['a', 'b', 'c'])
-  .attachButton('.my-button', true)
-  .onItemChanged(data => {
-      console.log(data);
-  }).openFrom('.my-button');
+popover = phonon
+    .popover()
+    .setList(['a', 'b', 'c'])
+    .attachButton('.my-button', true)
+    .onItemChanged(data => {
+        console.log(data);
+    })
+    .openFrom('.my-button');
 
 // Code examples from http://phonon.quarkdev.com/docs/preloaders
 phonon.preloader('#my-preloader').show();
@@ -208,14 +219,14 @@ phonon.options({
         defaultPage: 'home',
         animatePages: true,
         enableBrowserBackButton: true,
-        templateRootDirectory: './tpl'
+        templateRootDirectory: './tpl',
     },
-    i18n: null
+    i18n: null,
 });
 
 let app = phonon.navigator();
-app.on({page: 'home', preventClose: false, content: null});
-app.on({page: 'pagetwo', preventClose: true, content: 'pagetwo.html', readyDelay: 1}, activity => {
+app.on({ page: 'home', preventClose: false, content: null });
+app.on({ page: 'pagetwo', preventClose: true, content: 'pagetwo.html', readyDelay: 1 }, activity => {
     let action: string | null = null;
     const onAction = (evt: any) => {
         const target = evt.target;
@@ -261,18 +272,18 @@ phonon.options({
         defaultPage: 'home',
         animatePages: true,
         templateRootDirectory: 'contents/',
-        enableBrowserBackButton: true // should be disabled on Cordova
+        enableBrowserBackButton: true, // should be disabled on Cordova
     },
     i18n: {
         directory: 'lang/',
         localeFallback: 'en',
-        localePreferred: 'en-US'
-    }
+        localePreferred: 'en-US',
+    },
 });
 
 const app2 = phonon.navigator();
-app2.on({page: 'home', content: 'home.html'});
-app2.on({page: 'pagedialog', content: 'pagedialog.html'}, activity => {
+app2.on({ page: 'home', content: 'home.html' });
+app2.on({ page: 'pagedialog', content: 'pagedialog.html' }, activity => {
     activity.onCreate(() => {
         const showAlert = document.querySelector('#show-alert');
         if (showAlert) {
@@ -297,14 +308,14 @@ app2.on({page: 'pagedialog', content: 'pagedialog.html'}, activity => {
         const showPrompt = document.querySelector('#show-prompt');
         if (showPrompt) {
             showPrompt.on('tap', () => {
-            const prompt = phonon.prompt('Example', 'Hello');
-            prompt.on('confirm', value => {
-                phonon.alert(value, 'Inserted Value');
+                const prompt = phonon.prompt('Example', 'Hello');
+                prompt.on('confirm', value => {
+                    phonon.alert(value, 'Inserted Value');
+                });
+                prompt.on('cancel', () => {
+                    phonon.alert('Prompt Canceled');
+                });
             });
-            prompt.on('cancel', () => {
-                phonon.alert('Prompt Canceled');
-            });
-        });
         }
 
         const showIndicator = document.querySelector('#show-indicator');
@@ -312,21 +323,21 @@ app2.on({page: 'pagedialog', content: 'pagedialog.html'}, activity => {
             showIndicator.on('tap', () => {
                 const indicator = phonon.indicator('Please wait 3 seconds', false);
                 window.setTimeout(() => {
-                indicator.close();
+                    indicator.close();
                 }, 3000);
             });
         }
     });
 });
 
-app2.on({page: 'pageform', content: 'pageform.html'});
-app2.on({page: 'pagefla', content: 'pagefla.html'});
-app2.on({page: 'pagegrid', content: 'pagegrid.html'});
+app2.on({ page: 'pageform', content: 'pageform.html' });
+app2.on({ page: 'pagefla', content: 'pagefla.html' });
+app2.on({ page: 'pagegrid', content: 'pagegrid.html' });
 
-app2.on({page: 'pagelist', content: 'pagelist.html'});
-app2.on({page: 'pageaccordion', content: 'pageaccordion.html'});
+app2.on({ page: 'pagelist', content: 'pagelist.html' });
+app2.on({ page: 'pageaccordion', content: 'pageaccordion.html' });
 
-app2.on({page: 'pagenotif', content: 'pagenotif.html', readyDelay: 500}, activity => {
+app2.on({ page: 'pagenotif', content: 'pagenotif.html', readyDelay: 500 }, activity => {
     activity.onCreate(() => {
         const showAutoNotif = document.querySelector('#show-auto-notif');
         if (showAutoNotif) {
@@ -355,9 +366,9 @@ app2.on({page: 'pagenotif', content: 'pagenotif.html', readyDelay: 500}, activit
     });
 });
 
-app2.on({page: 'pagepanel', content: 'pagepanel.html'});
-app2.on({page: 'pagepopover', content: 'pagepopover.html'});
-app2.on({page: 'pagepreloader', content: 'pagepreloader.html'}, activity => {
+app2.on({ page: 'pagepanel', content: 'pagepanel.html' });
+app2.on({ page: 'pagepopover', content: 'pagepopover.html' });
+app2.on({ page: 'pagepreloader', content: 'pagepreloader.html' }, activity => {
     activity.onReady(() => {
         const myCircle = document.querySelector('#my-circle');
         if (myCircle) {
@@ -381,13 +392,13 @@ app2.on({page: 'pagepreloader', content: 'pagepreloader.html'}, activity => {
     });
 });
 
-app2.on({page: 'pagesidepanel', content: 'pagesidepanel.html'});
-app2.on({page: 'pagetable', content: 'pagetable.html'});
-app2.on({page: 'pagetabs', content: 'pagetabs.html'}, activity => {
+app2.on({ page: 'pagesidepanel', content: 'pagesidepanel.html' });
+app2.on({ page: 'pagetable', content: 'pagetable.html' });
+app2.on({ page: 'pagetabs', content: 'pagetabs.html' }, activity => {
     activity.onTabChanged(tabNumber => {
         const tab = document.querySelector('.tab-number');
         if (tab) {
-            tab.innerHTML = tabNumber + "";
+            tab.innerHTML = tabNumber + '';
         }
     });
 });
@@ -396,18 +407,18 @@ app2.start();
 // Example from http://phonon.quarkdev.com/App/public/phonon/examples/components/accordion-example/#!home
 phonon.options({
     navigator: {
-        defaultPage: 'home'
+        defaultPage: 'home',
     },
-    i18n: null
+    i18n: null,
 });
 phonon.navigator().start();
 
 // Example from http://phonon.quarkdev.com/App/public/phonon/examples/components/autocomplete-example/#!home
 phonon.options({
     navigator: {
-        defaultPage: 'home'
+        defaultPage: 'home',
     },
-    i18n: null
+    i18n: null,
 });
 phonon.navigator().on({ page: 'home' }, activity => {
     activity.onReady(() => {
@@ -416,20 +427,20 @@ phonon.navigator().on({ page: 'home' }, activity => {
         let list = '';
         // external autocomplete
         const req = phonon.ajax({
-            method: "GET",
+            method: 'GET',
             url: 'https://restcountries.eu/rest/v1/lang/en',
-            dataType: "json",
+            dataType: 'json',
             success(res, xhr) {
                 list = res.map((i: any) => i.name);
                 // initialize autocomplete
                 if (input) {
-                    phonon.autocomplete(input, {list});
+                    phonon.autocomplete(input, { list });
                 }
             },
             error(res, flagError, xhr) {
                 console.error(flagError);
                 console.log(res);
-            }
+            },
         });
     });
 });
@@ -441,55 +452,55 @@ phonon.options({
         defaultPage: 'home',
         animatePages: true,
         templateRootDirectory: 'contents/',
-        enableBrowserBackButton: true // should be disabled on Cordova
+        enableBrowserBackButton: true, // should be disabled on Cordova
     },
-    i18n: null
+    i18n: null,
 });
 
 let app3 = phonon.navigator();
-app3.on({page: 'home', content: null}, activity => {
+app3.on({ page: 'home', content: null }, activity => {
     activity.onCreate(() => {
         let element = document.querySelector('#show-alert');
         if (element) {
-          element.on('tap', () => {
-            phonon.alert('Example', 'Hello');
-          });
+            element.on('tap', () => {
+                phonon.alert('Example', 'Hello');
+            });
         }
 
         element = document.querySelector('#show-confirm');
         if (element) {
             element.on('tap', () => {
-              const confirm = phonon.confirm('Example', 'Hello');
-              confirm.on('confirm', () => {
-                phonon.alert('Confirmed!');
-              });
-              confirm.on('cancel', value => {
-                phonon.alert('Canceled!');
-              });
+                const confirm = phonon.confirm('Example', 'Hello');
+                confirm.on('confirm', () => {
+                    phonon.alert('Confirmed!');
+                });
+                confirm.on('cancel', value => {
+                    phonon.alert('Canceled!');
+                });
             });
         }
 
         element = document.querySelector('#show-prompt');
         if (element) {
-          element.on('tap', () => {
-            const prompt = phonon.prompt('Example', 'Hello');
-            prompt.on('confirm', value => {
-              phonon.alert(value, 'Inserted Value');
+            element.on('tap', () => {
+                const prompt = phonon.prompt('Example', 'Hello');
+                prompt.on('confirm', value => {
+                    phonon.alert(value, 'Inserted Value');
+                });
+                prompt.on('cancel', () => {
+                    phonon.alert('Prompt Canceled');
+                });
             });
-            prompt.on('cancel', () => {
-              phonon.alert('Prompt Canceled');
-            });
-          });
         }
 
         element = document.querySelector('#show-indicator');
         if (element) {
-          element.on('tap', () => {
-            const indicator = phonon.indicator('Please wait 3 seconds', false);
-            window.setTimeout(() => {
-              indicator.close();
-            }, 3000);
-          });
+            element.on('tap', () => {
+                const indicator = phonon.indicator('Please wait 3 seconds', false);
+                window.setTimeout(() => {
+                    indicator.close();
+                }, 3000);
+            });
         }
     });
 });
@@ -506,7 +517,7 @@ let elSetEnUs = document.querySelector('.set-en-us');
 let defaultLocale = 'fr';
 
 function setupHTML() {
-    const pref = (phonon.i18n().getPreference() ? phonon.i18n().getPreference() : 'not used');
+    const pref = phonon.i18n().getPreference() ? phonon.i18n().getPreference() : 'not used';
     if (elPrefLang) {
         elPrefLang.textContent = 'Preferred language : ' + pref;
     }
@@ -525,7 +536,7 @@ const setPreference = (evt: any) => {
     const target = evt.target;
     const lang = target.getAttribute('data-l');
     if (lang) {
-          phonon.updateLocale(lang);
+        phonon.updateLocale(lang);
     }
 };
 
@@ -545,8 +556,8 @@ phonon.options({
     i18n: {
         directory: 'res/lang/',
         localeFallback: defaultLocale,
-        localePreferred: 'en'
-    }
+        localePreferred: 'en',
+    },
 });
 setupHTML();
 phonon.navigator().start();

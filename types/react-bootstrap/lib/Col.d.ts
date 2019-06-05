@@ -25,5 +25,5 @@ declare namespace Col {
         xsPush?: number;
     }
 }
-declare class Col extends React.Component<Col.ColProps> { }
+declare class Col extends React.Component<Col.ColProps> {}
 export = Col;

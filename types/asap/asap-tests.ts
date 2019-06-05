@@ -1,5 +1,5 @@
-import asap = require("asap");
-import rawAsap = require("asap/raw");
+import asap = require('asap');
+import rawAsap = require('asap/raw');
 
 class Callable {
     call(): void {
@@ -14,9 +14,11 @@ function f(): void {
 asap(f);
 
 // $ExpectType void
-asap((): void => {
-    "'arrow' invoked";
-});
+asap(
+    (): void => {
+        "'arrow' invoked";
+    }
+);
 
 // $ExpectType void
 asap(new Callable());
@@ -25,9 +27,11 @@ asap(new Callable());
 rawAsap(f);
 
 // $ExpectType void
-rawAsap((): void => {
-    "'arrow' invoked";
-});
+rawAsap(
+    (): void => {
+        "'arrow' invoked";
+    }
+);
 
 // $ExpectType void
 rawAsap(new Callable());

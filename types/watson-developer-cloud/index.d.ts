@@ -505,7 +505,7 @@ export class SpeechToTextV1 {
 
     recognizeLive(params: any, ...args: any[]): any;
 
-    registerCallback(params: any, callback: (any)): any;
+    registerCallback(params: any, callback: any): any;
 
     resetCustomization(params: any, callback: any): any;
 

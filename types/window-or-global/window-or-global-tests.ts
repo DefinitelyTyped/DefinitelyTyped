@@ -1,3 +1,3 @@
-import * as root from "window-or-global";
+import * as root from 'window-or-global';
 
-root.addEventListener("click", () => console.log("Hi!"));
+root.addEventListener('click', () => console.log('Hi!'));

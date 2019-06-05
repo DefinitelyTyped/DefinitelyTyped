@@ -3,11 +3,11 @@ $(document).ready(() => {
         // Select extension options
         select: {
             blurable: true,
-            className: "selectClass",
+            className: 'selectClass',
             info: true,
-            items: "row",
-            selector: "td:first-child",
-            style: "os"
-        }
+            items: 'row',
+            selector: 'td:first-child',
+            style: 'os',
+        },
     };
 });

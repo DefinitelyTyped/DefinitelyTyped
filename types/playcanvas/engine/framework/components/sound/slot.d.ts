@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.SoundSlot
      * @class The SoundSlot controls playback of an audio asset.
@@ -31,16 +30,20 @@ declare namespace pc {
      * @property {pc.SoundInstance[]} instances An array that contains all the {@link pc.SoundInstance}s currently being played by the slot.
      */
     class SoundSlot {
-        constructor(component: pc.SoundComponent, name: string, options?: {
-            volume?: number;
-            pitch?: number;
-            loop?: boolean;
-            startTime?: number;
-            duration?: number;
-            overlap?: boolean;
-            autoPlay?: boolean;
-            asset?: number;
-        })
+        constructor(
+            component: pc.SoundComponent,
+            name: string,
+            options?: {
+                volume?: number;
+                pitch?: number;
+                loop?: boolean;
+                startTime?: number;
+                duration?: number;
+                overlap?: boolean;
+                autoPlay?: boolean;
+                asset?: number;
+            }
+        );
 
         name: string;
         volume?: number;

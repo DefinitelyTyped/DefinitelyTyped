@@ -29,17 +29,11 @@ export function history(config?: { depth?: number | null; newGroupDelay?: number
 /**
  * A command function that undoes the last change, if any.
  */
-export function undo<S extends Schema = any>(
-  state: EditorState<S>,
-  dispatch?: (tr: Transaction<S>) => void
-): boolean;
+export function undo<S extends Schema = any>(state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void): boolean;
 /**
  * A command function that redoes the last undone change, if any.
  */
-export function redo<S extends Schema = any>(
-  state: EditorState<S>,
-  dispatch?: (tr: Transaction<S>) => void
-): boolean;
+export function redo<S extends Schema = any>(state: EditorState<S>, dispatch?: (tr: Transaction<S>) => void): boolean;
 /**
  * The amount of undoable events available in a given state.
  */

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Dataflow API v1b3 */
-    function load(name: "dataflow", version: "v1b3"): PromiseLike<void>;
-    function load(name: "dataflow", version: "v1b3", callback: () => any): void;
+    function load(name: 'dataflow', version: 'v1b3'): PromiseLike<void>;
+    function load(name: 'dataflow', version: 'v1b3', callback: () => any): void;
 
     const projects: dataflow.ProjectsResource;
 
@@ -2080,7 +2080,7 @@ declare namespace gapi.client {
             /** Get encoded debug configuration for component. Not cacheable. */
             getConfig(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2113,7 +2113,7 @@ declare namespace gapi.client {
             /** Send encoded debug capture data for component. */
             sendCapture(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2148,7 +2148,7 @@ declare namespace gapi.client {
             /** Request the job status. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2209,7 +2209,7 @@ declare namespace gapi.client {
             /** Leases a dataflow WorkItem to run. */
             lease(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2242,7 +2242,7 @@ declare namespace gapi.client {
             /** Reports the status of dataflow WorkItems leased by a worker. */
             reportStatus(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2277,7 +2277,7 @@ declare namespace gapi.client {
             /** List the jobs of a project across all regions. */
             aggregated(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2325,7 +2325,7 @@ declare namespace gapi.client {
             /** Creates a Cloud Dataflow job. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2362,7 +2362,7 @@ declare namespace gapi.client {
             /** Gets the state of the specified Cloud Dataflow job. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2399,7 +2399,7 @@ declare namespace gapi.client {
             /** Request the job status. */
             getMetrics(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2439,7 +2439,7 @@ declare namespace gapi.client {
             /** List the jobs of a project in a given region. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2487,7 +2487,7 @@ declare namespace gapi.client {
             /** Updates the state of an existing Cloud Dataflow job. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2527,7 +2527,7 @@ declare namespace gapi.client {
             /** Get encoded debug configuration for component. Not cacheable. */
             getConfig(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2562,7 +2562,7 @@ declare namespace gapi.client {
             /** Send encoded debug capture data for component. */
             sendCapture(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2599,7 +2599,7 @@ declare namespace gapi.client {
             /** Request the job status. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2660,7 +2660,7 @@ declare namespace gapi.client {
             /** Leases a dataflow WorkItem to run. */
             lease(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2695,7 +2695,7 @@ declare namespace gapi.client {
             /** Reports the status of dataflow WorkItems leased by a worker. */
             reportStatus(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2732,7 +2732,7 @@ declare namespace gapi.client {
             /** Creates a Cloud Dataflow job. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2769,7 +2769,7 @@ declare namespace gapi.client {
             /** Gets the state of the specified Cloud Dataflow job. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2806,7 +2806,7 @@ declare namespace gapi.client {
             /** Request the job status. */
             getMetrics(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2846,7 +2846,7 @@ declare namespace gapi.client {
             /** List the jobs of a project in a given region. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2894,7 +2894,7 @@ declare namespace gapi.client {
             /** Updates the state of an existing Cloud Dataflow job. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2934,7 +2934,7 @@ declare namespace gapi.client {
             /** Creates a Cloud Dataflow job from a template. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2967,7 +2967,7 @@ declare namespace gapi.client {
             /** Get the template associated with a template. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3008,7 +3008,7 @@ declare namespace gapi.client {
             /** Launch a template. */
             launch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3054,7 +3054,7 @@ declare namespace gapi.client {
             /** Send a worker_message to the service. */
             workerMessages(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3091,7 +3091,7 @@ declare namespace gapi.client {
             /** Creates a Cloud Dataflow job from a template. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3122,7 +3122,7 @@ declare namespace gapi.client {
             /** Get the template associated with a template. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3163,7 +3163,7 @@ declare namespace gapi.client {
             /** Launch a template. */
             launch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3209,7 +3209,7 @@ declare namespace gapi.client {
             /** Send a worker_message to the service. */
             workerMessages(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

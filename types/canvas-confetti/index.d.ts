@@ -85,10 +85,7 @@ declare namespace confetti {
         resize: boolean;
     }
 
-    function create(
-        canvas: HTMLCanvasElement,
-        options?: GlobalOptions
-    ): (options?: Options) => Promise<null> | null;
+    function create(canvas: HTMLCanvasElement, options?: GlobalOptions): (options?: Options) => Promise<null> | null;
 }
 
 export = confetti;

@@ -9,39 +9,39 @@ let n = 0;
 
 // quick uniform shortcuts
 // $ExpectType number
-random.float(min = 0, max = 1); // uniform float in [ min, max )
+random.float((min = 0), (max = 1)); // uniform float in [ min, max )
 // $ExpectType number
-random.int(min = 0, max = 1); // uniform integer in [ min, max ]
+random.int((min = 0), (max = 1)); // uniform integer in [ min, max ]
 // $ExpectType boolean
 random.boolean(); // true or false
 
 // uniform
 // $ExpectType () => number
-random.uniform(min = 0, max = 1); // () => [ min, max )
+random.uniform((min = 0), (max = 1)); // () => [ min, max )
 // $ExpectType () => number
-random.uniformInt(min = 0, max = 1); // () => [ min, max ]
+random.uniformInt((min = 0), (max = 1)); // () => [ min, max ]
 // $ExpectType () => boolean
 random.uniformBoolean(); // () => [ false, true ]
 
 // normal
 // $ExpectType () => number
-random.normal(mu = 0, sigma = 1);
+random.normal((mu = 0), (sigma = 1));
 // $ExpectType () => number
-random.logNormal(mu = 0, sigma = 1);
+random.logNormal((mu = 0), (sigma = 1));
 
 // bernoulli
 // $ExpectType () => number
-random.bernoulli(p = 0.5);
+random.bernoulli((p = 0.5));
 // $ExpectType () => number
-random.binomial(n = 1, p = 0.5);
+random.binomial((n = 1), (p = 0.5));
 // $ExpectType () => number
-random.geometric(p = 0.5);
+random.geometric((p = 0.5));
 
 // poisson
 // $ExpectType () => number
-random.poisson(lambda = 1);
+random.poisson((lambda = 1));
 // $ExpectType () => number
-random.exponential(lambda = 1);
+random.exponential((lambda = 1));
 
 // misc
 // $ExpectType () => number

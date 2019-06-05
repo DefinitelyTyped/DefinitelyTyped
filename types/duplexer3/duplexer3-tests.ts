@@ -1,8 +1,8 @@
 import * as stream from 'stream';
 import duplexer3 = require('duplexer3');
 
-const writable = new stream.Writable({objectMode: true});
-const readable = new stream.Readable({objectMode: true});
+const writable = new stream.Writable({ objectMode: true });
+const readable = new stream.Readable({ objectMode: true });
 
 writable._write = (input, encoding, done) => {
     if (readable.push(input)) {
@@ -24,7 +24,7 @@ writable.once('finish', () => {
 });
 
 const duplex = duplexer3(writable, readable);
-const duplex2 = duplexer3({bubbleErrors: true, allowHalfOpen: true}, writable, readable);
+const duplex2 = duplexer3({ bubbleErrors: true, allowHalfOpen: true }, writable, readable);
 
 duplex.on('data', e => {
     console.log('got data', JSON.stringify(e));

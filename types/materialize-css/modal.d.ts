@@ -111,6 +111,6 @@ declare namespace M {
 }
 
 interface JQuery {
-    modal(method: keyof Pick<M.Modal, "open" | "close" | "destroy">): JQuery;
+    modal(method: keyof Pick<M.Modal, 'open' | 'close' | 'destroy'>): JQuery;
     modal(options?: Partial<M.ModalOptions>): JQuery;
 }

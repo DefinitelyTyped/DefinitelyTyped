@@ -9,7 +9,6 @@ import * as FalcorJsonGraph from 'falcor-json-graph';
 import DataSource = FalcorModel.DataSource;
 
 declare class FalcorRouter extends DataSource {
-
     constructor(routes: Array<FalcorRouter.RouteDefinition>, options?: FalcorRouter.RouterOptions);
 
     /**
@@ -22,7 +21,6 @@ declare class FalcorRouter extends DataSource {
 }
 
 declare namespace FalcorRouter {
-
     class CreatedRouter extends FalcorRouter {
         constructor(options?: RouterOptions);
     }
@@ -47,7 +45,11 @@ declare namespace FalcorRouter {
 
     type RouteDefinition = GetRoute | SetRoute | CallRoute;
     type RouteResult = FalcorJsonGraph.PathValue | Array<FalcorJsonGraph.PathValue> | FalcorJsonGraph.JSONEnvelope<any>;
-    type CallRouteResult = FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath> | FalcorJsonGraph.JSONGraphEnvelope;
+    type CallRouteResult =
+        | FalcorJsonGraph.PathValue
+        | FalcorJsonGraph.InvalidPath
+        | Array<FalcorJsonGraph.PathValue | FalcorJsonGraph.InvalidPath>
+        | FalcorJsonGraph.JSONGraphEnvelope;
 
     interface RouterOptions {
         debug?: boolean;
@@ -57,4 +59,3 @@ declare namespace FalcorRouter {
 }
 
 export = FalcorRouter;
-

@@ -4,17 +4,17 @@ jQuery('#myFormId').ajaxForm();
 
 jQuery('#myFormId').ajaxSubmit();
 
-var queryString1 : string = jQuery('#myFormId').formSerialize();
+var queryString1: string = jQuery('#myFormId').formSerialize();
 
-var queryString2 : string = jQuery('#myFormId .specialFields').fieldSerialize();
+var queryString2: string = jQuery('#myFormId .specialFields').fieldSerialize();
 
-var valueArray1 : string[] = jQuery('#myFormId :password').fieldValue();
+var valueArray1: string[] = jQuery('#myFormId :password').fieldValue();
 
 var valueArray2: string[] = jQuery('#myUncheckedCheckbox').fieldValue(false);
 
-var value1: string = jQuery.fieldValue(document.getElementById("some_id"));
+var value1: string = jQuery.fieldValue(document.getElementById('some_id'));
 
-var value2: string = jQuery.fieldValue(document.getElementById("some_id"), false);
+var value2: string = jQuery.fieldValue(document.getElementById('some_id'), false);
 
 jQuery('#myFormId').resetForm();
 
@@ -30,8 +30,9 @@ jQuery.fn.ajaxSubmit.debug = true;
 
 // bind form using 'ajaxForm'
 $('#myForm1').ajaxForm({
-    target: '#output1',   // target element(s) to be updated with server response
-    beforeSubmit: function (formData, jqForm, options) {  // pre-submit callback
+    target: '#output1', // target element(s) to be updated with server response
+    beforeSubmit: function(formData, jqForm, options) {
+        // pre-submit callback
         // formData is an array; here we use $.param to convert it to a string to display it
         // but the form plugin does this for you automatically when it submits the data
         var queryString = $.param(formData);
@@ -46,7 +47,8 @@ $('#myForm1').ajaxForm({
         // returning anything other than false will allow the form submit to continue
         return true;
     },
-    success: function (responseText, statusText, xhr) {  // post-submit callback
+    success: function(responseText, statusText, xhr) {
+        // post-submit callback
         // for normal html responses, the first argument to the success callback
         // is the XMLHttpRequest object's responseText property
 
@@ -58,9 +60,14 @@ $('#myForm1').ajaxForm({
         // property set to 'json' then the first argument to the success callback
         // is the json data object returned by the server
 
-        alert('status: ' + statusText + '\n\nresponseText: \n' + responseText +
-            '\n\nThe output div should have already been updated with the responseText.');
-    }
+        alert(
+            'status: ' +
+                statusText +
+                '\n\nresponseText: \n' +
+                responseText +
+                '\n\nThe output div should have already been updated with the responseText.'
+        );
+    },
 
     // other available options:
     //url:       url         // override for form's 'action' attribute
@@ -76,8 +83,9 @@ $('#myForm1').ajaxForm({
 // ajaxSubmit
 
 $('#myForm2').ajaxSubmit({
-    target: '#output2',   // target element(s) to be updated with server response
-    beforeSubmit: function (formData, jqForm, options) {  // pre-submit callback
+    target: '#output2', // target element(s) to be updated with server response
+    beforeSubmit: function(formData, jqForm, options) {
+        // pre-submit callback
         // formData is an array; here we use $.param to convert it to a string to display it
         // but the form plugin does this for you automatically when it submits the data
         var queryString = $.param(formData);
@@ -92,7 +100,8 @@ $('#myForm2').ajaxSubmit({
         // returning anything other than false will allow the form submit to continue
         return true;
     },
-    success: function showResponse(responseText, statusText, xhr) {  // post-submit callback
+    success: function showResponse(responseText, statusText, xhr) {
+        // post-submit callback
         // for normal html responses, the first argument to the success callback
         // is the XMLHttpRequest object's responseText property
 
@@ -104,9 +113,14 @@ $('#myForm2').ajaxSubmit({
         // property set to 'json' then the first argument to the success callback
         // is the json data object returned by the server
 
-        alert('status: ' + statusText + '\n\nresponseText: \n' + responseText +
-            '\n\nThe output div should have already been updated with the responseText.');
-    }
+        alert(
+            'status: ' +
+                statusText +
+                '\n\nresponseText: \n' +
+                responseText +
+                '\n\nThe output div should have already been updated with the responseText.'
+        );
+    },
 
     // other available options:
     //url:       url         // override for form's 'action' attribute
@@ -122,7 +136,7 @@ $('#myForm2').ajaxSubmit({
 // Validation
 
 $('#myForm2').ajaxForm({
-    beforeSubmit: function (formData, jqForm, options) {
+    beforeSubmit: function(formData, jqForm, options) {
         // formData is an array of objects representing the name and value of each field
         // that will be sent to the server;  it takes the following form:
         //
@@ -142,7 +156,7 @@ $('#myForm2').ajaxForm({
             }
         }
         alert('Both fields contain values.');
-    }
+    },
 });
 
 // JSON
@@ -153,10 +167,10 @@ $('#jsonForm').ajaxForm({
 
     // success identifies the function to invoke when the server response
     // has been received
-    success: function (data) {
+    success: function(data) {
         // 'data' is the json object returned from the server
         alert(data.message);
-    }
+    },
 });
 
 // XML
@@ -167,12 +181,12 @@ $('#xmlForm').ajaxForm({
 
     // success identifies the function to invoke when the server response
     // has been received
-    success: function (responseXML) {
+    success: function(responseXML) {
         // 'responseXML' is the XML document returned by the server; we use
         // jQuery to extract the content of the message node from the XML doc
         var message = $('message', responseXML).text();
         alert(message);
-    }
+    },
 });
 
 // HTML
@@ -183,7 +197,7 @@ $('#htmlForm').ajaxForm({
 
     // success identifies the function to invoke when the server response
     // has been received; here we apply a fade-in effect to the new content
-    success: function () {
+    success: function() {
         $('#htmlExampleTarget').fadeIn('slow');
-    }
+    },
 });

@@ -1,4 +1,4 @@
-import * as names from "starwars-names";
+import * as names from 'starwars-names';
 
 const allNames = names.all;
 const randomName = names.random();

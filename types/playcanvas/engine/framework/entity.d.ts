@@ -1,7 +1,18 @@
 declare namespace pc {
-    type ComponentTypes = 'animation' | 'audiolistener' | 'camera' | 'collision' |
-        'element' | 'light' | 'model' | 'particlesystem' |
-        'rigidbody' | 'screen' | 'script' | 'sound' | 'zone';
+    type ComponentTypes =
+        | 'animation'
+        | 'audiolistener'
+        | 'camera'
+        | 'collision'
+        | 'element'
+        | 'light'
+        | 'model'
+        | 'particlesystem'
+        | 'rigidbody'
+        | 'screen'
+        | 'script'
+        | 'sound'
+        | 'zone';
 
     /**
      * @name pc.Entity
@@ -50,9 +61,8 @@ declare namespace pc {
      * @extends pc.GraphNode
      */
     class Entity extends pc.GraphNode {
-
-        constructor(name?: string, app?: pc.Application)
-        constructor(app?: pc.Application)
+        constructor(name?: string, app?: pc.Application);
+        constructor(app?: pc.Application);
 
         private _app: pc.Application;
 
@@ -149,27 +159,26 @@ declare namespace pc {
         findByGuid(guid: string): pc.Entity;
 
         /**
-        * @function
-        * @name pc.Entity#destroy
-        * @description Remove all components from the Entity and detach it from the Entity hierarchy. Then recursively destroy all ancestor Entities
-        * @example
-        * var firstChild = this.entity.children[0];
-        * firstChild.destroy(); // delete child, all components and remove from hierarchy
-        */
+         * @function
+         * @name pc.Entity#destroy
+         * @description Remove all components from the Entity and detach it from the Entity hierarchy. Then recursively destroy all ancestor Entities
+         * @example
+         * var firstChild = this.entity.children[0];
+         * firstChild.destroy(); // delete child, all components and remove from hierarchy
+         */
         destroy(): void;
 
         /**
-        * @function
-        * @name pc.Entity#clone
-        * @description Create a deep copy of the Entity. Duplicate the full Entity hierarchy, with all Components and all descendants.
-        * Note, this Entity is not in the hierarchy and must be added manually.
-        * @returns {pc.Entity} A new Entity which is a deep copy of the original.
-        * @example
-        *   var e = this.entity.clone(); // Clone Entity
-        *   this.entity.parent.addChild(e); // Add it as a sibling to the original
-        */
+         * @function
+         * @name pc.Entity#clone
+         * @description Create a deep copy of the Entity. Duplicate the full Entity hierarchy, with all Components and all descendants.
+         * Note, this Entity is not in the hierarchy and must be added manually.
+         * @returns {pc.Entity} A new Entity which is a deep copy of the original.
+         * @example
+         *   var e = this.entity.clone(); // Clone Entity
+         *   this.entity.parent.addChild(e); // Add it as a sibling to the original
+         */
         clone(): pc.Entity;
-
 
         // Possible attached components
         animation: pc.AnimationComponent;
@@ -185,6 +194,5 @@ declare namespace pc {
         script: pc.ScriptComponent;
         sound: pc.SoundComponent;
         zone: pc.ZoneComponent;
-
     }
 }

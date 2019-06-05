@@ -1,5 +1,4 @@
-
-import Magic = require("mmmagic");
+import Magic = require('mmmagic');
 
 // get general description of a file
 var magic: Magic.Magic;

@@ -7,7 +7,7 @@ import {
     getStorybook,
     RenderFunction,
     getStorybookUI,
-    Story
+    Story,
 } from '@storybook/react-native';
 
 const Decorator = (story: RenderFunction) => <div>{story()}</div>;
@@ -23,21 +23,13 @@ addDecorator(Decorator);
 
 // setAddon
 interface AnyAddon {
-    addWithSideEffect<T>(
-        this: Story & T,
-        storyName: string,
-        storyFn: RenderFunction
-    ): Story & T;
+    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T;
 }
 const AnyAddon: AnyAddon = {
-    addWithSideEffect<T>(
-        this: Story & T,
-        storyName: string,
-        storyFn: RenderFunction
-    ): Story & T {
+    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T {
         console.log(this.kind === 'withAnyAddon');
         return this.add(storyName, storyFn);
-    }
+    },
 };
 setAddon(AnyAddon);
 storiesOf<AnyAddon>('withAnyAddon', module)
@@ -51,14 +43,12 @@ storiesOf<AnyAddon>('withAnyAddon', module)
 configure(() => undefined, module);
 
 // getStorybook
-getStorybook().forEach(({ kind, stories }) =>
-    stories.forEach(({ name, render }) => render())
-);
+getStorybook().forEach(({ kind, stories }) => stories.forEach(({ name, render }) => render()));
 
 const StorybookUI = getStorybookUI({
     port: 9001,
     host: 'localhost',
-    onDeviceUI: true
+    onDeviceUI: true,
 });
 
 const TestRender = () => <StorybookUI />;

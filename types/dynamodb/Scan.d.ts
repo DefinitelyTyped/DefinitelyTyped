@@ -2,10 +2,7 @@ import { ExecuteFilter } from './ExecuteFilter';
 
 export interface Scan {
     limit(num: number): Scan;
-    addFilterCondition(condition: {
-        attributeNames: any;
-        attributeValues: any;
-    }): Scan;
+    addFilterCondition(condition: { attributeNames: any; attributeValues: any }): Scan;
     startKey(hashKey: string, rangeKey?: string): Scan;
     attributes(attrs: ReadonlyArray<string> | string): Scan;
     select(value: string): Scan;

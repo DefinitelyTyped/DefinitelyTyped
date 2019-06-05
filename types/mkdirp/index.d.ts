@@ -9,7 +9,11 @@
 import fs = require('fs');
 
 declare function mkdirp(dir: string, cb: (err: NodeJS.ErrnoException, made: mkdirp.Made) => void): void;
-declare function mkdirp(dir: string, opts: mkdirp.Mode | mkdirp.Options, cb: (err: NodeJS.ErrnoException, made: mkdirp.Made) => void): void;
+declare function mkdirp(
+    dir: string,
+    opts: mkdirp.Mode | mkdirp.Options,
+    cb: (err: NodeJS.ErrnoException, made: mkdirp.Made) => void
+): void;
 
 declare namespace mkdirp {
     type Made = string | null;

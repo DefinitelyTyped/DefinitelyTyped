@@ -13,7 +13,7 @@ declare global {
 
     namespace Airtable {
         interface FieldSet {
-            [ key: string ]: undefined | string | ReadonlyArray<Attachment>;
+            [key: string]: undefined | string | ReadonlyArray<Attachment>;
         }
 
         interface Base {

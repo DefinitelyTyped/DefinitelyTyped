@@ -19,7 +19,7 @@ export interface BrotliEncodeParams {
 }
 
 export interface BrotliFlushable {
-	flush(): void;
+    flush(): void;
 }
 
 export type IltorbCallback = (err: Error | null | undefined, output: Buffer) => void;

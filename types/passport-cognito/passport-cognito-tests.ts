@@ -2,15 +2,15 @@
  * Created by Maksym Butsykin <https://github.com/mbutsykin>
  */
 
-import passport = require("passport");
-import cognito = require("passport-cognito");
+import passport = require('passport');
+import cognito = require('passport-cognito');
 
 passport.use(
     new cognito.Strategy(
         {
-            clientId: "clientId",
-            region: "region",
-            userPoolId: "userPoolId"
+            clientId: 'clientId',
+            region: 'region',
+            userPoolId: 'userPoolId',
         },
         (
             accessToken: string,

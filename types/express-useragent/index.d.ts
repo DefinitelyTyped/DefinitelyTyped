@@ -68,6 +68,6 @@ declare namespace ExpressUseragent {
     function express(): (req: express.Request, res: express.Response, next?: Function) => void;
 }
 
-declare module "express-useragent" {
+declare module 'express-useragent' {
     export = ExpressUseragent;
 }

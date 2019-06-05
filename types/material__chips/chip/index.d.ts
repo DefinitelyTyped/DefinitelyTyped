@@ -19,7 +19,7 @@ import MDCChipFoundation from './foundation';
 import MDCChipAdapter from './adapter';
 import { MDCRipple } from 'material__ripple';
 
-export {  MDCChipFoundation, MDCChipAdapter };
+export { MDCChipFoundation, MDCChipAdapter };
 
 export class MDCChip extends MDCComponent<MDCChipAdapter, MDCChipFoundation> {
     static attachTo(root: Element): MDCChip;

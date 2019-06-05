@@ -1,4 +1,4 @@
-import { Graph } from "graphlib";
+import { Graph } from 'graphlib';
 import { read, readMany, write } from 'graphlib-dot';
 
 // Module tests

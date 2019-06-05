@@ -17,30 +17,40 @@ export interface Currency {
 export const currencies: Currency[];
 export const defaultCurrency: Currency;
 export function findCurrency(currencyCode: string): Currency;
-export function format(value: number, options: {
-    code?: string,
-    locale?: string,
-    symbol?: string,
-    decimal?: string,
-    thousand?: string,
-    precision?: number,
-    format?: string | {
-        pos: string,
-        neg: string,
-        zero: string
+export function format(
+    value: number,
+    options: {
+        code?: string;
+        locale?: string;
+        symbol?: string;
+        decimal?: string;
+        thousand?: string;
+        precision?: number;
+        format?:
+            | string
+            | {
+                  pos: string;
+                  neg: string;
+                  zero: string;
+              };
     }
-}): string;
+): string;
 
-export function unformat(value: string, options: {
-    code?: string,
-    locale?: string,
-    symbol?: string,
-    decimal?: string,
-    thousand?: string,
-    precision?: number,
-    format?: string | {
-        pos: string,
-        neg: string,
-        zero: string
+export function unformat(
+    value: string,
+    options: {
+        code?: string;
+        locale?: string;
+        symbol?: string;
+        decimal?: string;
+        thousand?: string;
+        precision?: number;
+        format?:
+            | string
+            | {
+                  pos: string;
+                  neg: string;
+                  zero: string;
+              };
     }
-}): number;
+): number;

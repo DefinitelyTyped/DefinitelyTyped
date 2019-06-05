@@ -9,35 +9,30 @@ declare namespace jsts {
     export var version: string;
 
     namespace geom {
-
-
-
         /**
          * Specifies the precision model of the Coordinates in a Geometry. In other words, specifies the grid of allowable points for all Geometrys.
          * The makePrecise method allows rounding a coordinate to a "precise" value; that is, one whose precision is known exactly.
          *
          * Coordinates are assumed to be precise in geometries. That is, the coordinates are assumed to be rounded to the precision model given for the geometry. JTS input routines automatically round coordinates to the precision model before creating Geometries. All internal operations assume that coordinates are rounded to the precision model. Constructive methods (such as boolean operations) always round computed coordinates to the appropriate precision model.
-         * 
+         *
          * Currently one type of precision model are supported:
          *
          * FLOATING - represents full double precision floating point.
          * Coordinates are represented internally as Java double-precision values. Since Java uses the IEEE-754 floating point standard, this provides 53 bits of precision.
-         * 
+         *
          * JSTS methods currently do not handle inputs with different precision models.
          *
          */
         export class PrecisionModel {
-
-
             static FIXED: string;
             static FLOATING: string;
             static FLOATING_SINGLE: string;
 
             /**
-             * 
+             *
              * @param modelType
              */
-            constructor(modelType?: number|string);
+            constructor(modelType?: number | string);
         }
 
         /**
@@ -51,12 +46,10 @@ declare namespace jsts {
          * It is assumed that input Coordinates meet the given precision.
          */
         export class GeometryFactory {
-
             /**
              * Constructs a GeometryFactory that generates Geometries having a floating PrecisionModel and a spatial-reference ID of 0.
              */
             constructor(precisionModel?: PrecisionModel);
-
 
             /**
              * Creates a LineString using the given Coordinates; a null or empty array will
@@ -77,11 +70,9 @@ declare namespace jsts {
              * @return {Point} A new Point.
              */
             createPoint(coordinates: Coordinate): Point;
-
         }
 
         export class GeometryCollection extends jsts.geom.Geometry {
-
             constructor(geometries?: Array<Geometry>, factory?: GeometryFactory);
         }
 
@@ -596,8 +587,8 @@ declare namespace jsts {
             constructor(factory?: any);
 
             /**
-            * The bounding box of this <code>Geometry</code>.
-            */
+             * The bounding box of this <code>Geometry</code>.
+             */
             envelope: Envelope;
 
             /**
@@ -1567,8 +1558,7 @@ declare namespace jsts {
          * must be equal (in 2D). If these conditions are not met, the constructors
          * throw an {@link IllegalArgumentException}
          */
-        export class LinearRing extends LineString {
-        }
+        export class LinearRing extends LineString {}
 
         export class LineString extends Geometry {
             /**
@@ -1680,8 +1670,6 @@ declare namespace jsts {
     }
 
     namespace io {
-
-
         /**
          * OpenLayers 3 Geometry parser and writer
          */
@@ -1764,18 +1752,15 @@ declare namespace jsts {
             reducePrecision(geometry: geom.Geometry): void;
         }
 
-
-
         export class WKTWriter {
             /**
              * @constructor
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
-            
         }
     }
 }
 
-declare module "jsts" {
+declare module 'jsts' {
     export = jsts;
 }

@@ -1,7 +1,7 @@
-import { TextDecoder, TextEncoder } from "text-encoding-utf-8";
+import { TextDecoder, TextEncoder } from 'text-encoding-utf-8';
 
 function test_encoder() {
-    const text = "plain text";
+    const text = 'plain text';
     let uint8array: Uint8Array;
 
     // constructor
@@ -22,7 +22,7 @@ function test_encoder() {
 }
 
 function test_decoder() {
-    let text = "plain text";
+    let text = 'plain text';
     const uint8array: Uint8Array = TextEncoder().encode(text);
     const arrayBuffer: ArrayBuffer = uint8array.buffer;
 

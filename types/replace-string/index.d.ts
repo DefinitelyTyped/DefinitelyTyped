@@ -13,12 +13,7 @@ declare function replaceString(
 ): string;
 
 declare namespace replaceString {
-    type ReplacementFn = (
-        needle: string,
-        matchCount: number,
-        input: string,
-        matchIndex: number
-    ) => string;
+    type ReplacementFn = (needle: string, matchCount: number, input: string, matchIndex: number) => string;
 
     interface Options {
         fromIndex?: number;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/mudkipme/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
 interface JSONErrorOptions {
     /**

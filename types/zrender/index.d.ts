@@ -36,7 +36,7 @@ declare namespace zrender {
             colorStops?: ColorStops,
 
             /** @default false */
-            globalCoord?: GlobalCoords,
+            globalCoord?: GlobalCoords
         ): {
             type: 'linear';
             x: X;

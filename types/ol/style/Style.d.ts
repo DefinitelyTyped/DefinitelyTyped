@@ -11,7 +11,7 @@ import Text from 'ol/style/Text';
 export function createDefaultStyle(feature: FeatureLike, resolution: number): Style[];
 export function createEditingStyle(): { [key in GeometryType]: Style[] };
 export function toFunction(obj: StyleFunction | Style[] | Style): StyleFunction;
-export type GeometryFunction = ((param0: FeatureLike) => Geometry | RenderFeature);
+export type GeometryFunction = (param0: FeatureLike) => Geometry | RenderFeature;
 export interface Options {
     geometry?: string | Geometry | GeometryFunction;
     fill?: Fill;
@@ -21,7 +21,7 @@ export interface Options {
     text?: Text;
     zIndex?: number;
 }
-export type RenderFunction = ((param0: Coordinate | Coordinate[] | Coordinate[][], param1: State) => void);
+export type RenderFunction = (param0: Coordinate | Coordinate[] | Coordinate[][], param1: State) => void;
 export default class Style {
     constructor(opt_options?: Options);
     getZIndex(): number;
@@ -41,5 +41,5 @@ export default class Style {
     setText(text: Text): void;
     setZIndex(zIndex: number): void;
 }
-export type StyleFunction = ((param0: FeatureLike, param1: number) => Style | Style[]);
+export type StyleFunction = (param0: FeatureLike, param1: number) => Style | Style[];
 export type StyleLike = Style | Style[] | StyleFunction;

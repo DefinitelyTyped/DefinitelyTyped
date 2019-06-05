@@ -1,13 +1,13 @@
 import * as onoff from 'onoff';
 
-var led:onoff.Gpio = new onoff.Gpio(17, 'out');
+var led: onoff.Gpio = new onoff.Gpio(17, 'out');
 
-var toggleLed = function():void {
-    var lastState:number = led.readSync();
+var toggleLed = function(): void {
+    var lastState: number = led.readSync();
     led.writeSync(lastState ^ 1);
 };
 
-var intervalId:NodeJS.Timer = setInterval(toggleLed, 100);
+var intervalId: NodeJS.Timer = setInterval(toggleLed, 100);
 
 setTimeout(function() {
     clearInterval(intervalId);
@@ -15,4 +15,4 @@ setTimeout(function() {
     led.unexport();
 }, 2000);
 
-var accessible:boolean = onoff.Gpio.accessible;
+var accessible: boolean = onoff.Gpio.accessible;

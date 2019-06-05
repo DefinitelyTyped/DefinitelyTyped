@@ -1,4 +1,4 @@
-import { PureComponent, Validator, Requireable } from "react";
+import { PureComponent, Validator, Requireable } from 'react';
 
 export type OnScrollParams = {
     clientHeight: number;
@@ -48,10 +48,7 @@ export type ScrollSyncState = {
 /**
  * HOC that simplifies the process of synchronizing scrolling between two or more virtualized components.
  */
-export class ScrollSync extends PureComponent<
-    ScrollSyncProps,
-    ScrollSyncState
-> {
+export class ScrollSync extends PureComponent<ScrollSyncProps, ScrollSyncState> {
     static propTypes: {
         children: Validator<(props: ScrollSyncChildProps) => React.ReactNode>;
     };

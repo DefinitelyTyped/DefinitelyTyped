@@ -3,7 +3,7 @@ import { Paint } from 'athenajs';
 const paint: Paint = new Paint('brush', {
     width: 300,
     height: 200,
-    color: 'red'
+    color: 'red',
 });
 
 paint.color = 'red';

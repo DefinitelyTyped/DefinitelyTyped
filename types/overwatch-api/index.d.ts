@@ -7,36 +7,36 @@
 
 export type callbackFunc<T> = (err: Error | null, data: T) => void;
 
-export type OverwatchPlatform = "pc" | "xbl" | "psn";
-export type OverwatchServerRegion = "us" | "eu" | "kr" | "cn" | "global";
+export type OverwatchPlatform = 'pc' | 'xbl' | 'psn';
+export type OverwatchServerRegion = 'us' | 'eu' | 'kr' | 'cn' | 'global';
 export type OverwatchHero =
-    | "Zarya"
-    | "Mercy"
-    | "Reinhardt"
-    | "Zenyatta"
-    | "Hanzo"
-    | "Orisa"
-    | "Genji"
-    | "Roadhog"
-    | "McCree"
-    | "Tracer"
-    | "Ana"
-    | "Winston"
-    | "D.Va"
-    | "Moira"
-    | "Junkrat"
-    | "Soldier: 76"
-    | "Brigitte"
-    | "Lúcio"
-    | "Torbjörn"
-    | "Reaper"
-    | "Pharah"
-    | "Widowmaker"
-    | "Bastion"
-    | "Symmetra"
-    | "Mei"
-    | "Sombra"
-    | "Doomfist";
+    | 'Zarya'
+    | 'Mercy'
+    | 'Reinhardt'
+    | 'Zenyatta'
+    | 'Hanzo'
+    | 'Orisa'
+    | 'Genji'
+    | 'Roadhog'
+    | 'McCree'
+    | 'Tracer'
+    | 'Ana'
+    | 'Winston'
+    | 'D.Va'
+    | 'Moira'
+    | 'Junkrat'
+    | 'Soldier: 76'
+    | 'Brigitte'
+    | 'Lúcio'
+    | 'Torbjörn'
+    | 'Reaper'
+    | 'Pharah'
+    | 'Widowmaker'
+    | 'Bastion'
+    | 'Symmetra'
+    | 'Mei'
+    | 'Sombra'
+    | 'Doomfist';
 
 export interface GameType {
     won: number;
@@ -123,10 +123,7 @@ export interface CompetitiveTopHeroData extends QuickplayTopHeroData {
 }
 
 export interface StatsCategories {
-    top_heroes: StatByGameType<
-        QuickplayTopHeroData,
-        CompetitiveTopHeroData
-    >;
+    top_heroes: StatByGameType<QuickplayTopHeroData, CompetitiveTopHeroData>;
     combat: StatsByGameType<Stat>;
     match_awards: StatsByGameType<Stat>;
     assists: StatsByGameType<Stat>;
@@ -144,13 +141,13 @@ export function getProfile(
     platform: OverwatchPlatform,
     region: OverwatchServerRegion,
     tag: string,
-    callback: callbackFunc<ProfileApiResponse>,
+    callback: callbackFunc<ProfileApiResponse>
 ): void;
 export function getStats(
     platform: OverwatchPlatform,
     region: OverwatchServerRegion,
     tag: string,
-    callback: callbackFunc<StatsApiResponse>,
+    callback: callbackFunc<StatsApiResponse>
 ): void;
 export namespace owl {
     interface ApiResponse<T> {

@@ -23,5 +23,5 @@ declare global {
 }
 
 declare function chaiRoughly(chai: any, utils: any): void;
-declare namespace chaiRoughly { }
+declare namespace chaiRoughly {}
 export = chaiRoughly;

@@ -6,12 +6,12 @@
 export function fromLatLon(
     latitude: number,
     longitude: number,
-    forceZoneNum?: number,
+    forceZoneNum?: number
 ): {
-    easting: number
-    northing: number
-    zoneNum: number
-    zoneLetter: string
+    easting: number;
+    northing: number;
+    zoneNum: number;
+    zoneLetter: string;
 };
 
 export function toLatLon(
@@ -20,8 +20,8 @@ export function toLatLon(
     zoneNum: number,
     zoneLetter: string,
     northern: boolean,
-    strict?: boolean,
+    strict?: boolean
 ): {
-    latitude: number
-    longitude: number
+    latitude: number;
+    longitude: number;
 };

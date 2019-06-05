@@ -15,5 +15,5 @@ declare namespace MenuItem {
         title?: string;
     }
 }
-declare class MenuItem extends React.Component<MenuItem.MenuItemProps> { }
+declare class MenuItem extends React.Component<MenuItem.MenuItemProps> {}
 export = MenuItem;

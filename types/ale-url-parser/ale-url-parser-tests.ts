@@ -13,8 +13,8 @@ url = stringify({
     hash: 'hash',
     query: {
         foo: 1,
-        bar: [2, '3']
-    }
+        bar: [2, '3'],
+    },
 });
 console.log(url);
 

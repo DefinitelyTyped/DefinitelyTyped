@@ -14,13 +14,13 @@ declare namespace FilterTable {
          */
         autofocus?: boolean;
         /**
-        * Callback function after a filter is performed.
-        * Default: 'null'
-        * @param term filter term (string)
-        * @param table table being filtered (JQuery object)
-        * @returns {void} 
-        */
-        callback?: (term:string, table:JQuery) => void;
+         * Callback function after a filter is performed.
+         * Default: 'null'
+         * @param term filter term (string)
+         * @param table table being filtered (JQuery object)
+         * @returns {void}
+         */
+        callback?: (term: string, table: JQuery) => void;
         /**
          * Class applied to the main filter input container
          * Default: 'filter-table'
@@ -52,9 +52,9 @@ declare namespace FilterTable {
          */
         inputSelector?: string;
         /**
-        * Name attribute of the filter input field
-        * Default: 'filter-table'
-        */
+         * Name attribute of the filter input field
+         * Default: 'filter-table'
+         */
         inputName?: string;
         /**
          * Tag name of the filter input itself
@@ -62,59 +62,59 @@ declare namespace FilterTable {
          */
         inputType?: string;
         /**
-        * Text to precede the filter input
-        * Default: 'Filter:'
-        */
+         * Text to precede the filter input
+         * Default: 'Filter:'
+         */
         label?: string;
         /**
-        * Filter only when at least this number of characters are in the filter input field
-        * Default: '1'
-        */
+         * Filter only when at least this number of characters are in the filter input field
+         * Default: '1'
+         */
         minChars?: number;
         /**
-        * Only show the filter on tables with this number of rows or more
-        * Default: '8'
-        */
+         * Only show the filter on tables with this number of rows or more
+         * Default: '8'
+         */
         minRows?: number;
         /**
-        * HTML5 placeholder text for the filter input
-        * Default: 'search this table'
-        */
+         * HTML5 placeholder text for the filter input
+         * Default: 'search this table'
+         */
         placeholder?: string;
         /**
-        * Trap the return key in the filter input field to prevent form submission
-        * Default: 'true'
-        */
+         * Trap the return key in the filter input field to prevent form submission
+         * Default: 'true'
+         */
         preventReturnKey?: boolean;
         /**
-        * List of clickable phrases to quick fill the search
-        * Default: '[]'
-        */
+         * List of clickable phrases to quick fill the search
+         * Default: '[]'
+         */
         quickList?: string[];
         /**
-        * Class of each quick list item
-        * Default: 'quick'
-        */
+         * Class of each quick list item
+         * Default: 'quick'
+         */
         quickListClass?: string;
         /**
-        * Label for the clear filtering quick list item (or none if blank)
-        * Default: ''
-        */
+         * Label for the clear filtering quick list item (or none if blank)
+         * Default: ''
+         */
         quickListClear?: string;
         /**
-        * Tag name surrounding quick list items (e.g., ul)
-        * Default: ''
-        */
+         * Tag name surrounding quick list items (e.g., ul)
+         * Default: ''
+         */
         quickListGroupTag?: string;
         /**
-        * Tag name of each quick list item (e.g., a or li)
-        * Default: 'a'
-        */
+         * Tag name of each quick list item (e.g., a or li)
+         * Default: 'a'
+         */
         quickListTag?: string; // "a" | "li"
         /**
-        * Class applied to visible rows
-        * Default: 'visible'
-        */
+         * Class applied to visible rows
+         * Default: 'visible'
+         */
         visibleClass?: string;
     }
 

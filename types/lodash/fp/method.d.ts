@@ -1,2 +1,2 @@
-import { method } from "../fp";
+import { method } from '../fp';
 export = method;

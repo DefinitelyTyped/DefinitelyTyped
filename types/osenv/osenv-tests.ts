@@ -1,4 +1,4 @@
-import osenv = require("osenv");
+import osenv = require('osenv');
 
 osenv.hostname();
 osenv.hostname((er, hostname) => {});

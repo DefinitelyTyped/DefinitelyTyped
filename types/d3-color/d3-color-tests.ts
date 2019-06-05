@@ -128,7 +128,13 @@ console.log('Opacity = %d', cCubehelix.opacity);
 
 // Prototype, instanceof and typeguard
 
-declare let color: d3Color.RGBColor | d3Color.HSLColor | d3Color.LabColor | d3Color.HCLColor | d3Color.CubehelixColor | null;
+declare let color:
+    | d3Color.RGBColor
+    | d3Color.HSLColor
+    | d3Color.LabColor
+    | d3Color.HCLColor
+    | d3Color.CubehelixColor
+    | null;
 
 if (color instanceof d3Color.rgb) {
     cRGB = color;

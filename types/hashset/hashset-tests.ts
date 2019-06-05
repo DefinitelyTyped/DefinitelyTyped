@@ -1,12 +1,9 @@
-
-
 class Point {
-    constructor(public x: number, public y: number) {
-    }
+    constructor(public x: number, public y: number) {}
 }
 
 function hashPoint(p: Point) {
-    return "Point:" + p.x + "," + p.y;
+    return 'Point:' + p.x + ',' + p.y;
 }
 
 function pointsEqual(p1: Point, p2: Point) {

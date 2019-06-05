@@ -1,2 +1,2 @@
-import { over } from "../fp";
+import { over } from '../fp';
 export = over;

@@ -34,7 +34,7 @@ export interface TiltOptions {
     /**
      * What axis should be disabled. Can be X or Y.
      */
-    axis?: null | "x" | "y";
+    axis?: null | 'x' | 'y';
     /**
      * If the tilt effect has to be reset on exit.
      */
@@ -50,12 +50,12 @@ export interface TiltOptions {
     /**
      * the maximum "glare" opacity
      */
-    "max-glare"?: number;
+    'max-glare'?: number;
     /**
      * false = VanillaTilt creates the glare elements for you, otherwise
      * you need to add .js-tilt-glare>.js-tilt-glare-inner by yourself
      */
-    "glare-prerender"?: boolean;
+    'glare-prerender'?: boolean;
 }
 
 export interface TiltValues {

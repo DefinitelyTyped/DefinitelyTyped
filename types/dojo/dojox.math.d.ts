@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/math.html
      *
@@ -12,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface math {
-    }
+    interface math {}
     namespace math {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/math/BigInteger.html
@@ -23,7 +21,9 @@ declare namespace dojox {
          * @param b
          * @param c
          */
-        interface BigInteger{(a: any, b: any, c: any): void}
+        interface BigInteger {
+            (a: any, b: any, c: any): void;
+        }
         namespace BigInteger {
             /**
              *
@@ -34,7 +34,9 @@ declare namespace dojox {
              * @param c
              * @param n
              */
-            interface am{(i: any, x: any, w: any, j: any, c: any, n: any): number}
+            interface am {
+                (i: any, x: any, w: any, j: any, c: any, n: any): number;
+            }
         }
 
         /**
@@ -45,7 +47,9 @@ declare namespace dojox {
          * @param b
          * @param c
          */
-        interface BigInteger_ext{(a: any, b: any, c: any): void}
+        interface BigInteger_ext {
+            (a: any, b: any, c: any): void;
+        }
         namespace BigInteger_ext {
             /**
              *
@@ -56,7 +60,9 @@ declare namespace dojox {
              * @param c
              * @param n
              */
-            interface am{(i: any, x: any, w: any, j: any, c: any, n: any): number}
+            interface am {
+                (i: any, x: any, w: any, j: any, c: any, n: any): number;
+            }
         }
 
         /**
@@ -67,15 +73,14 @@ declare namespace dojox {
          * @param p
          * @param m
          */
-        interface round{(v: any, p: any, m: any): void}
-        module _base {
+        interface round {
+            (v: any, p: any, m: any): void;
         }
+        module _base {}
 
-        namespace curves {
-        }
+        namespace curves {}
 
-        namespace matrix {
-        }
+        namespace matrix {}
 
         namespace random {
             /**
@@ -83,12 +88,14 @@ declare namespace dojox {
              *
              *
              */
-            interface prng4{(): void}
+            interface prng4 {
+                (): void;
+            }
             namespace prng4 {
                 /**
                  *
                  */
-                var size: number
+                var size: number;
             }
 
             /**
@@ -142,38 +149,35 @@ declare namespace dojox {
             }
         }
 
-        namespace stats {
-        }
-
+        namespace stats {}
     }
-
 }
 
-declare module "dojox/math" {
-    var exp: dojox.math
-    export=exp;
+declare module 'dojox/math' {
+    var exp: dojox.math;
+    export = exp;
 }
-declare module "dojox/math/BigInteger" {
-    var exp: dojox.math.BigInteger
-    export=exp;
+declare module 'dojox/math/BigInteger' {
+    var exp: dojox.math.BigInteger;
+    export = exp;
 }
-declare module "dojox/math/BigInteger-ext" {
-    var exp: dojox.math.BigInteger_ext
-    export=exp;
+declare module 'dojox/math/BigInteger-ext' {
+    var exp: dojox.math.BigInteger_ext;
+    export = exp;
 }
-declare module "dojox/math/round" {
-    var exp: dojox.math.round
-    export=exp;
+declare module 'dojox/math/round' {
+    var exp: dojox.math.round;
+    export = exp;
 }
-declare module "dojox/math/random/prng4" {
-    var exp: dojox.math.random.prng4
-    export=exp;
+declare module 'dojox/math/random/prng4' {
+    var exp: dojox.math.random.prng4;
+    export = exp;
 }
-declare module "dojox/math/random/Simple" {
-    var exp: dojox.math.random.Simple
-    export=exp;
+declare module 'dojox/math/random/Simple' {
+    var exp: dojox.math.random.Simple;
+    export = exp;
 }
-declare module "dojox/math/random/Secure" {
-    var exp: dojox.math.random.Secure
-    export=exp;
+declare module 'dojox/math/random/Secure' {
+    var exp: dojox.math.random.Secure;
+    export = exp;
 }

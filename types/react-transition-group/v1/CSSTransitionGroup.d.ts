@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { HTMLTransitionGroupProps } from "./index";
+import { Component } from 'react';
+import { HTMLTransitionGroupProps } from './index';
 
 declare namespace CSSTransitionGroup {
     interface CSSTransitionGroupTransitionName {

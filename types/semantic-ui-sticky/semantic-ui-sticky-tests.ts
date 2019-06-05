@@ -22,7 +22,7 @@ function test_sticky() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).sticky({
@@ -57,15 +57,15 @@ function test_sticky() {
             fixed: 'fixed',
             supported: 'supported',
             top: 'top',
-            bottom: 'bottom'
+            bottom: 'bottom',
         },
         error: {
             container: 'container',
             visible: 'visible',
             method: 'method',
             invalidContext: 'invalidContext',
-            elementSize: 'elementSize'
-        }
+            elementSize: 'elementSize',
+        },
     });
     $(selector).sticky(); // $ExpectType JQuery<HTMLElement>
 

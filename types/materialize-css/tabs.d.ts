@@ -64,7 +64,7 @@ declare namespace M {
 }
 
 interface JQuery {
-    tabs(method: keyof Pick<M.Tabs, "destroy">): JQuery;
-    tabs(method: keyof Pick<M.Tabs, "select">, tabId: string): JQuery;
+    tabs(method: keyof Pick<M.Tabs, 'destroy'>): JQuery;
+    tabs(method: keyof Pick<M.Tabs, 'select'>, tabId: string): JQuery;
     tabs(options?: Partial<M.TabsOptions>): JQuery;
 }

@@ -14,9 +14,19 @@ notie.confirm('Are you sure?', 'Yes', 'Cancel', function() {
     });
 });
 
-notie.input('Please enter your email address:', 'Submit', 'Cancel', 'email', 'name@example.com', function(value_entered) {
+notie.input('Please enter your email address:', 'Submit', 'Cancel', 'email', 'name@example.com', function(
+    value_entered
+) {
     notie.alert(1, 'You entered: ' + value_entered, 2);
 });
-notie.input('What city do you live in?', 'Submit', 'Cancel', 'text', 'Enter your city:', function(value_entered) {
-    notie.alert(1, 'You entered: ' + value_entered, 2);
-}, 'New York');
+notie.input(
+    'What city do you live in?',
+    'Submit',
+    'Cancel',
+    'text',
+    'Enter your city:',
+    function(value_entered) {
+        notie.alert(1, 'You entered: ' + value_entered, 2);
+    },
+    'New York'
+);

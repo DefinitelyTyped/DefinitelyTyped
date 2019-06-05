@@ -1,5 +1,5 @@
-import * as React from "react";
-import { GetInitialProps, NextContext } from ".";
+import * as React from 'react';
+import { GetInitialProps, NextContext } from '.';
 
 /**
  * Initial props returned from base Error class.

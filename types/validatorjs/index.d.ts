@@ -37,11 +37,7 @@ declare namespace Validator {
         has(attribute: string): boolean;
     }
 
-    type RegisterCallback = (
-        value: string | number | boolean,
-        args: string,
-        attribute: string
-    ) => boolean;
+    type RegisterCallback = (value: string | number | boolean, args: string, attribute: string) => boolean;
 
     type RegisterAsyncCallback = (
         value: string | number | boolean,
@@ -51,11 +47,7 @@ declare namespace Validator {
     ) => void;
 
     interface ValidatorStatic {
-        new <A>(
-            data: A,
-            rules: Rules,
-            customMessages?: ErrorMessages
-        ): Validator<A>;
+        new <A>(data: A, rules: Rules, customMessages?: ErrorMessages): Validator<A>;
         setMessages(lang: string, messages: ErrorMessages): any;
         getMessages(lang: string): ErrorMessages;
         useLang(lang: string): void;
@@ -63,11 +55,7 @@ declare namespace Validator {
         setAttributeFormatter(func: AttributeFormatter): void;
         stopOnError(attributes: boolean | Array<string>): void;
         register(name: string, fn: RegisterCallback, message?: string): void;
-        registerAsync(
-            name: string,
-            fn: RegisterAsyncCallback,
-            message: string
-        ): void;
+        registerAsync(name: string, fn: RegisterAsyncCallback, message: string): void;
     }
 
     interface Validator<A> {

@@ -7,10 +7,10 @@ declare function elv(val: any): boolean;
 
 declare namespace elv {
     const behavior: {
-        enableFalse: boolean
-        enableNaN: boolean
-        enableNull: boolean
-        enableUndefined: boolean
+        enableFalse: boolean;
+        enableNaN: boolean;
+        enableNull: boolean;
+        enableUndefined: boolean;
     };
     function coalesce(...args: any[]): any;
     function ncoalesce(...args: any[]): any;

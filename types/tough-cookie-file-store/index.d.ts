@@ -12,9 +12,9 @@ declare class FileCookieStore extends tough.Store {
     idx: {
         [domain: string]: {
             [path: string]: {
-                [key: string]: tough.Cookie
-            }
-        }
+                [key: string]: tough.Cookie;
+            };
+        };
     };
     filePath: string;
     synchronous: boolean;
@@ -23,18 +23,9 @@ declare class FileCookieStore extends tough.Store {
 
     checkExpired(domain: string | null, path: string | null, key: string | null): boolean;
 
-    findCookie(
-        domain: string,
-        path: string,
-        key: string,
-        cb: (err: null, cookie: tough.Cookie | null) => void
-    ): void;
+    findCookie(domain: string, path: string, key: string, cb: (err: null, cookie: tough.Cookie | null) => void): void;
 
-    findCookies(
-        domain: string,
-        path: string,
-        cb: (err: null, cookies: tough.Cookie[]) => void
-    ): void;
+    findCookies(domain: string, path: string, cb: (err: null, cookies: tough.Cookie[]) => void): void;
 
     getAllCookies(cb: (err: Error | null, cookies: tough.Cookie[]) => void): void;
 
@@ -46,22 +37,9 @@ declare class FileCookieStore extends tough.Store {
 
     putCookie(cookie: tough.Cookie, cb: (err: Error | null) => void): void;
 
-    removeCookie(
-        domain: string,
-        path: string,
-        key: string,
-        cb: (err: Error | null) => void
-    ): void;
+    removeCookie(domain: string, path: string, key: string, cb: (err: Error | null) => void): void;
 
-    removeCookies(
-        domain: string,
-        path: string,
-        cb: (err: Error | null) => void
-    ): void;
+    removeCookies(domain: string, path: string, cb: (err: Error | null) => void): void;
 
-    updateCookie(
-        oldCookie: tough.Cookie,
-        newCookie: tough.Cookie,
-        cb: (err: Error | null) => void
-    ): void;
+    updateCookie(oldCookie: tough.Cookie, newCookie: tough.Cookie, cb: (err: Error | null) => void): void;
 }

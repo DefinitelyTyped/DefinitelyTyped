@@ -8,7 +8,7 @@
 // TODO: import types for [`rlp`](https://github.com/ethereumjs/rlp)
 // TODO: import types for [`secp256k1`](https://github.com/cryptocoinjs/secp256k1-node/)
 
-import BN = require("bn.js");
+import BN = require('bn.js');
 
 export const SHA3_NULL_S: string;
 
@@ -24,13 +24,22 @@ export function bufferToHex(buf: Buffer | Uint8Array): string;
 
 export function bufferToInt(buf: Buffer | Uint8Array): number;
 
-export function defineProperties(self: {[k: string]: any}, fields: string[], data: {[k: string]: any}): {[k: string]: any};
+export function defineProperties(
+    self: { [k: string]: any },
+    fields: string[],
+    data: { [k: string]: any }
+): { [k: string]: any };
 
-export function ecrecover(msgHash: Buffer | Uint8Array, v: number, r: Buffer | Uint8Array, s: Buffer | Uint8Array): Buffer | Uint8Array;
+export function ecrecover(
+    msgHash: Buffer | Uint8Array,
+    v: number,
+    r: Buffer | Uint8Array,
+    s: Buffer | Uint8Array
+): Buffer | Uint8Array;
 
-export function ecsign(msgHash: Buffer | Uint8Array, privateKey: Buffer | Uint8Array): {[k: string]: any};
+export function ecsign(msgHash: Buffer | Uint8Array, privateKey: Buffer | Uint8Array): { [k: string]: any };
 
-export function fromRpcSig(sig: string): {[k: string]: any};
+export function fromRpcSig(sig: string): { [k: string]: any };
 
 export function fromSigned(num: Buffer | Uint8Array): BN;
 
@@ -50,7 +59,12 @@ export function isValidPrivate(privateKey: Buffer | Uint8Array): boolean;
 
 export function isValidPublic(publicKey: Buffer | Uint8Array, sanitize?: boolean): any;
 
-export function isValidSignature(v: Buffer | Uint8Array, r: Buffer | Uint8Array, s: Buffer | Uint8Array, homestead?: boolean): boolean;
+export function isValidSignature(
+    v: Buffer | Uint8Array,
+    r: Buffer | Uint8Array,
+    s: Buffer | Uint8Array,
+    homestead?: boolean
+): boolean;
 
 export function isZeroAddress(address: string): boolean;
 
@@ -68,7 +82,11 @@ export function ripemd160(a: Buffer | Uint8Array | any[] | string | number, padd
 
 export function rlphash(a: Buffer | Uint8Array | any[] | string | number): Buffer | Uint8Array;
 
-export function setLengthLeft(msg: Buffer | Uint8Array | any[], length: number, right?: boolean): Buffer | Uint8Array | any[];
+export function setLengthLeft(
+    msg: Buffer | Uint8Array | any[],
+    length: number,
+    right?: boolean
+): Buffer | Uint8Array | any[];
 
 export function setLengthRight(msg: Buffer | Uint8Array | any[], length: number): Buffer | Uint8Array | any[];
 

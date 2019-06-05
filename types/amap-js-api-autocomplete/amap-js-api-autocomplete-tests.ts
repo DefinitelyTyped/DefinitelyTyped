@@ -13,7 +13,7 @@ new AMap.Autocomplete({
     citylimit: true,
     input: 'input',
     output: 'output',
-    outPutDirAuto: true
+    outPutDirAuto: true,
 });
 // $ExpectType Autocomplete
 new AMap.Autocomplete({
@@ -23,7 +23,7 @@ new AMap.Autocomplete({
     citylimit: true,
     input,
     output: div,
-    outPutDirAuto: true
+    outPutDirAuto: true,
 });
 
 autoComplete.search('keyword', (status, result) => {

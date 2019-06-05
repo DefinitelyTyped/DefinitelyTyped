@@ -13,7 +13,7 @@ import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
 
-declare module "koa" {
+declare module 'koa' {
     interface Context {
         websocket: ws;
         path: string;
@@ -46,6 +46,10 @@ declare namespace KoaWebsocket {
     }
 }
 
-declare function KoaWebsocket(app: Koa, wsOptions?: ws.ServerOptions, httpsOptions?: https.ServerOptions): KoaWebsocket.App;
+declare function KoaWebsocket(
+    app: Koa,
+    wsOptions?: ws.ServerOptions,
+    httpsOptions?: https.ServerOptions
+): KoaWebsocket.App;
 
 export = KoaWebsocket;

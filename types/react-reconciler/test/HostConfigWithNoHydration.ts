@@ -1,8 +1,7 @@
 // Renderers that don't support hydration
 // can re-export everything from this module.
 
-function shim(...args: any[]): any {
-}
+function shim(...args: any[]): any {}
 
 // Hydration (when unsupported)
 export const supportsHydration = false;

@@ -50,8 +50,8 @@ declare class SESTransport extends EventEmitter implements Transport {
     sendingRate: number;
     sendingRateTTL: number | null;
     rateInterval: number;
-    rateMessages: Array<{ ts: number, pending: boolean }>;
-    pending: Array<{ mail: Mail; callback(err: Error | null, info: SESTransport.SentMessageInfo): void; }>;
+    rateMessages: Array<{ ts: number; pending: boolean }>;
+    pending: Array<{ mail: Mail; callback(err: Error | null, info: SESTransport.SentMessageInfo): void }>;
     idling: boolean;
 
     constructor(options: SESTransport.Options);

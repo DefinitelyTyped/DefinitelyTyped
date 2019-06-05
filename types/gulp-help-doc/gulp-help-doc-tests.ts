@@ -10,14 +10,14 @@ import usage = require('gulp-help-doc');
 gulp.task('demo', function() {});
 
 let logger: {
-    output: string,
-    log(msg: string): any
+    output: string;
+    log(msg: string): any;
 } = {
     output: '',
-    log: msg => logger.output += msg + '\n'
+    log: msg => (logger.output += msg + '\n'),
 };
 
 usage(gulp, {
     logger: logger,
-    gulpfile: __filename
+    gulpfile: __filename,
 }).then(() => console.log(logger.output));

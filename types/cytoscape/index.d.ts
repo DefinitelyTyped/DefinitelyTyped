@@ -171,7 +171,11 @@ declare namespace cytoscape {
         /**
          * An array of [[Elements]] specified as plain objects. For convenience, this option can alternatively be specified as a promise that resolves to the elements JSON.
          */
-        elements?: ElementsDefinition | ElementDefinition[] | Promise<ElementsDefinition> | Promise<ElementDefinition[]>;
+        elements?:
+            | ElementsDefinition
+            | ElementDefinition[]
+            | Promise<ElementsDefinition>
+            | Promise<ElementDefinition[]>;
         /**
          * The [[Stylesheet]] used to style the graph. For convenience, this option can alternatively be specified as a promise that resolves to the stylesheet.
          */
@@ -378,10 +382,15 @@ declare namespace cytoscape {
      * All of the library’s features are accessed through this object.
      * http://js.cytoscape.org/#core
      */
-    interface Core extends
-        CoreGraphManipulation, CoreGraphManipulationExt,
-        CoreEvents, CoreViewportManipulation, CoreAnimation,
-        CoreLayout, CoreStyle, CoreExport { }
+    interface Core
+        extends CoreGraphManipulation,
+            CoreGraphManipulationExt,
+            CoreEvents,
+            CoreViewportManipulation,
+            CoreAnimation,
+            CoreLayout,
+            CoreStyle,
+            CoreExport {}
 
     /**
      * These are the principle functions used to interact with the graph model.
@@ -441,7 +450,9 @@ declare namespace cytoscape {
         /**
          * Get elements in the graph matching the specified selector or filter function.
          */
-        filter(selector: Selector | ((ele: Singular, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
+        filter(
+            selector: Selector | ((ele: Singular, i: number, eles: CollectionArgument) => boolean)
+        ): CollectionReturnValue;
 
         /**
          * Allow for manipulation of elements without triggering multiple style calculations or multiple redraws.
@@ -844,7 +855,12 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#cy.extent
          */
         extent(): {
-            x1: number, y1: number, x2: number, y2: number, w: number, h: number
+            x1: number;
+            y1: number;
+            x2: number;
+            y2: number;
+            w: number;
+            h: number;
         };
 
         /**
@@ -1108,13 +1124,13 @@ declare namespace cytoscape {
         /**
          * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
          */
-        output?: "base64uri" | "base64";
+        output?: 'base64uri' | 'base64';
     }
     interface ExportBlobOptions extends ExportOptions {
         /**
          * output Whether the output should be 'base64uri' (default), 'base64', or 'blob'.
          */
-        output?: "blob";
+        output?: 'blob';
     }
 
     interface ExportJpgOptions extends ExportOptions {
@@ -1125,10 +1141,8 @@ declare namespace cytoscape {
          */
         quality?: number;
     }
-    interface ExportJpgStringOptions extends ExportJpgOptions, ExportStringOptions {
-    }
-    interface ExportJpgBlobOptions extends ExportJpgOptions, ExportBlobOptions {
-    }
+    interface ExportJpgStringOptions extends ExportJpgOptions, ExportStringOptions {}
+    interface ExportJpgBlobOptions extends ExportJpgOptions, ExportBlobOptions {}
 
     interface CoreExport {
         /**
@@ -1164,14 +1178,19 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection
      */
     interface Collection<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
-        extends
-        CollectionGraphManipulation, CollectionEvents,
-        CollectionData, CollectionPosition,
-        CollectionTraversing,
-        CollectionLayout,
-        CollectionSelection, CollectionStyle, CollectionAnimation,
-        CollectionComparision, CollectionIteration<TIn, TOut>,
-        CollectionBuildingFiltering<TIn, TOut>, CollectionAlgorithms { }
+        extends CollectionGraphManipulation,
+            CollectionEvents,
+            CollectionData,
+            CollectionPosition,
+            CollectionTraversing,
+            CollectionLayout,
+            CollectionSelection,
+            CollectionStyle,
+            CollectionAnimation,
+            CollectionComparision,
+            CollectionIteration<TIn, TOut>,
+            CollectionBuildingFiltering<TIn, TOut>,
+            CollectionAlgorithms {}
 
     /**
      * ele  --> Cy.Singular
@@ -1180,9 +1199,12 @@ declare namespace cytoscape {
      */
     interface Singular<TOut = SingularElementReturnValue, TIn = SingularElementArgument>
         extends Collection<TOut, TIn>,
-        SingularGraphManipulation,
-        SingularData, SingularPosition,
-        SingularSelection, SingularStyle, SingularAnimation { }
+            SingularGraphManipulation,
+            SingularData,
+            SingularPosition,
+            SingularSelection,
+            SingularStyle,
+            SingularAnimation {}
 
     interface ElementsDefinition {
         nodes: NodeDefinition[];
@@ -1203,17 +1225,19 @@ declare namespace cytoscape {
      *
      * The output is a collection of edge elements OR single edge.
      */
-    interface EdgeCollection extends Collection<EdgeSingular, EdgeSingular>,
-        EdgeCollectionTraversing { }
+    interface EdgeCollection extends Collection<EdgeSingular, EdgeSingular>, EdgeCollectionTraversing {}
     /**
      *  nodes -> Cy.NodeCollection
      *  a collection of one or more nodes
      *
      * The output is a collection of node elements OR single node.
      */
-    interface NodeCollection extends Collection<NodeSingular, NodeSingular>,
-        NodeCollectionMetadata, NodeCollectionPosition, NodeCollectionTraversing,
-        NodeCollectionCompound { }
+    interface NodeCollection
+        extends Collection<NodeSingular, NodeSingular>,
+            NodeCollectionMetadata,
+            NodeCollectionPosition,
+            NodeCollectionTraversing,
+            NodeCollectionCompound {}
 
     type SingularElementArgument = EdgeSingular | NodeSingular;
     type SingularElementReturnValue = EdgeSingular & NodeSingular;
@@ -1221,15 +1245,23 @@ declare namespace cytoscape {
      *  edge --> Cy.EdgeSingular
      *  a collection of a single edge
      */
-    interface EdgeSingular extends Singular<EdgeSingular, EdgeSingular>, EdgeCollection,
-        EdgeSingularData, EdgeSingularPoints, EdgeSingularTraversing { }
+    interface EdgeSingular
+        extends Singular<EdgeSingular, EdgeSingular>,
+            EdgeCollection,
+            EdgeSingularData,
+            EdgeSingularPoints,
+            EdgeSingularTraversing {}
 
     /**
      *  node --> Cy.NodeSingular
      *  a collection of a single node
      */
-    interface NodeSingular extends Singular<NodeSingular, NodeSingular>, NodeCollection,
-        NodeSingularMetadata, NodeSingularPosition, NodeSingularCompound { }
+    interface NodeSingular
+        extends Singular<NodeSingular, NodeSingular>,
+            NodeCollection,
+            NodeSingularMetadata,
+            NodeSingularPosition,
+            NodeSingularCompound {}
 
     /**
      * http://js.cytoscape.org/#collection/graph-manipulation
@@ -1262,7 +1294,7 @@ declare namespace cytoscape {
          * Effectively move edges to different nodes. The modified (actually new) elements are returned.
          * http://js.cytoscape.org/#eles.move
          */
-        move(location: { source?: string, target?: string }): EdgeCollection;
+        move(location: { source?: string; target?: string }): EdgeCollection;
         /**
          * Effectively move nodes to different parent node. The modified (actually new) elements are returned.
          * http://js.cytoscape.org/#eles.move
@@ -1990,7 +2022,7 @@ declare namespace cytoscape {
         /**
          * Get a name-value pair object containing visual style properties and their values for the element.
          */
-        style(): {[index: string]: any};
+        style(): { [index: string]: any };
         /**
          * Set a particular style property value.
          * @param name The name of the visual style property to set.
@@ -2010,7 +2042,7 @@ declare namespace cytoscape {
         /**
          * Get a name-value pair object containing visual style properties and their values for the element.
          */
-        css(): {[index: string]: any};
+        css(): { [index: string]: any };
         /**
          * Remove all or specific style overrides.
          * @param names A space-separated list of property names to remove overrides
@@ -2336,7 +2368,9 @@ declare namespace cytoscape {
      * @param eles The elements or array of elements to add or elements in the graph matching the selector.
      * http://js.cytoscape.org/#eles.union
      */
-    type CollectionBuildingUnionFunc = (eles: CollectionArgument | CollectionArgument[] | Selector) => CollectionReturnValue;
+    type CollectionBuildingUnionFunc = (
+        eles: CollectionArgument | CollectionArgument[] | Selector
+    ) => CollectionReturnValue;
 
     /**
      * Get a new collection, resulting from the collection without some specified elements.
@@ -2444,10 +2478,12 @@ declare namespace cytoscape {
          * both - is the set of elements in both collections.
          * http://js.cytoscape.org/#eles.diff
          */
-        diff(selector: Selector | CollectionArgument): {
-            left: CollectionReturnValue,
-            right: CollectionReturnValue,
-            both: CollectionReturnValue
+        diff(
+            selector: Selector | CollectionArgument
+        ): {
+            left: CollectionReturnValue;
+            right: CollectionReturnValue;
+            both: CollectionReturnValue;
         };
 
         /**
@@ -2509,7 +2545,9 @@ declare namespace cytoscape {
          * ele - The element being considered.
          * http://js.cytoscape.org/#eles.filter
          */
-        filter(selector: Selector | ((ele: TIn, i: number, eles: CollectionArgument) => boolean)): CollectionReturnValue;
+        filter(
+            selector: Selector | ((ele: TIn, i: number, eles: CollectionArgument) => boolean)
+        ): CollectionReturnValue;
         /**
          * Get the nodes that match the specified selector.
          *
@@ -2565,8 +2603,7 @@ declare namespace cytoscape {
          * also stated explicitly as generic
          * http://js.cytoscape.org/#eles.reduce
          */
-        reduce<T>(fn: (prevVal: T, ele: TIn,
-            i: number, eles: CollectionArgument) => T, initialValue: T): T;
+        reduce<T>(fn: (prevVal: T, ele: TIn, i: number, eles: CollectionArgument) => T, initialValue: T): T;
 
         /**
          * Find a minimum value in a collection.
@@ -2579,15 +2616,18 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.min
          */
-        min<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
+        min<T>(
+            fn: (ele: TIn, i: number, eles: CollectionArgument) => T,
+            thisArg?: any
+        ): {
             /**
              * The minimum value found.
              */
-            value: T,
+            value: T;
             /**
              * The element that corresponds to the minimum value.
              */
-            ele: SingularElementReturnValue
+            ele: SingularElementReturnValue;
         };
 
         /**
@@ -2601,15 +2641,18 @@ declare namespace cytoscape {
          *
          * http://js.cytoscape.org/#eles.max
          */
-        max<T>(fn: (ele: TIn, i: number, eles: CollectionArgument) => T, thisArg?: any): {
+        max<T>(
+            fn: (ele: TIn, i: number, eles: CollectionArgument) => T,
+            thisArg?: any
+        ): {
             /**
              * The minimum value found.
              */
-            value: T,
+            value: T;
             /**
              * The element that corresponds to the minimum value.
              */
-            ele: SingularElementReturnValue
+            ele: SingularElementReturnValue;
         };
     }
 
@@ -2853,7 +2896,13 @@ declare namespace cytoscape {
      * i - The index indicating this node is the ith visited node.
      * depth - How many edge hops away this node is from the root nodes.
      */
-    type SearchVisitFunction = (v: NodeSingular,  e: EdgeSingular, u: NodeSingular, i: number, depth: number) => boolean | void;
+    type SearchVisitFunction = (
+        v: NodeSingular,
+        e: EdgeSingular,
+        u: NodeSingular,
+        i: number,
+        depth: number
+    ) => boolean | void;
     interface SearchFirstOptionsBase {
         /**
          * A handler function that is called when a node is visited in the search.
@@ -2981,16 +3030,16 @@ declare namespace cytoscape {
         /**
          * The root node (selector or collection) where the search starts.
          */
-        "root": any;
+        root: any;
         /**
          * A function that returns the positive numeric weight for this edge.
          */
-        "weight"?: WeightFn;
+        weight?: WeightFn;
         /**
          * Indicating whether the algorithm should only go along
          * edges from source to target (default false).
          */
-        "directed": boolean;
+        directed: boolean;
     }
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
@@ -3254,7 +3303,7 @@ declare namespace cytoscape {
          * The optimal result is found with a high probability, but without guarantee.
          * http://js.cytoscape.org/#eles.kargerStein
          */
-        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection; };
+        kargerStein(): { cut: EdgeCollection; partitionFirst: NodeCollection; partitionSecond: NodeCollection };
         /**
          * Rank the nodes in the collection using the Page Rank algorithm.
          * http://js.cytoscape.org/#eles.pageRank
@@ -3265,16 +3314,18 @@ declare namespace cytoscape {
          * calculate the degree centrality of the specified root node.
          * http://js.cytoscape.org/#eles.degreeCentrality
          */
-        degreeCentrality(options: SearchDegreeCentralityOptions):
-            SearchDegreeCentralityResultDirected | SearchDegreeCentralityResultUndirected;
+        degreeCentrality(
+            options: SearchDegreeCentralityOptions
+        ): SearchDegreeCentralityResultDirected | SearchDegreeCentralityResultUndirected;
 
         /**
          * Considering only the elements in the calling collection,
          * calculate the normalised degree centrality of the nodes.
          * http://js.cytoscape.org/#eles.degreeCentralityNormalized
          */
-        degreeCentralityNormalized(options: SearchDegreeCentralityNormalizedOptions):
-            SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
+        degreeCentralityNormalized(
+            options: SearchDegreeCentralityNormalizedOptions
+        ): SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
 
         /**
          * Considering only the elements in the calling collection,
@@ -3287,9 +3338,9 @@ declare namespace cytoscape {
          * calculate the closeness centrality of the nodes.
          * http://js.cytoscape.org/#eles.closenessCentralityNormalized
          */
-        closenessCentralityNormalized(options: SearchClosenessCentralityNormalizedOptions):
-            SearchDegreeCentralityNormalizedResultDirected |
-            SearchDegreeCentralityNormalizedResultUndirected;
+        closenessCentralityNormalized(
+            options: SearchClosenessCentralityNormalizedOptions
+        ): SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
         /**
          * Considering only the elements in the calling collection,
          * calculate the betweenness centrality of the nodes.
@@ -3412,7 +3463,7 @@ declare namespace cytoscape {
      * 'single' : a new selection made by the user becomes the entire set of currently
      *            selected elements (i.e. the previous elements are unselected)
      */
-    type SelectionType = "additive" | "single";
+    type SelectionType = 'additive' | 'single';
 
     /**
      * http://js.cytoscape.org/#ele.group
@@ -3421,13 +3472,13 @@ declare namespace cytoscape {
      * 'nodes'
      * 'edges'
      */
-    type ElementGroup = "nodes" | "edges";
+    type ElementGroup = 'nodes' | 'edges';
 
     /**
      * 'x' : x coordinate
      * 'y' : y coordinate
      */
-    type PositionDimension = "x" | "y";
+    type PositionDimension = 'x' | 'y';
 
     /**
      * Usually temp or nonserialisable data can be stored.
@@ -3459,9 +3510,20 @@ declare namespace cytoscape {
          * (i.e. width !== height for several equilateral shapes).
          * 'polygon' is a custom polygon specified via shape-polygon-points.
          */
-        type NodeShape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
-            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star"
-            | "diamond" | "vee" | "rhomboid" | "polygon";
+        type NodeShape =
+            | 'rectangle'
+            | 'roundrectangle'
+            | 'ellipse'
+            | 'triangle'
+            | 'pentagon'
+            | 'hexagon'
+            | 'heptagon'
+            | 'octagon'
+            | 'star'
+            | 'diamond'
+            | 'vee'
+            | 'rhomboid'
+            | 'polygon';
 
         /**
          * A space-separated list of numbers ranging on [-1, 1],
@@ -3474,70 +3536,70 @@ declare namespace cytoscape {
         /**
          * The line style; may be solid, dotted, dashed, or double
          */
-        type LineStyle = "solid" | "dotted" | "dashed" | "double";
+        type LineStyle = 'solid' | 'dotted' | 'dashed' | 'double';
 
         /**
          * http://js.cytoscape.org/#style/node-body
          */
         interface Node extends Partial<Overlay>, PaddingNode, Partial<Labels> {
-            "label"?: string;
+            label?: string;
             /**
              * The CSS content field
              */
-            "content"?: string;
+            content?: string;
             /**
              * The width of the node’s body.
              * This property can take on the special value label
              * so the width is automatically based on the node’s label.
              */
-            "width"?: number | string;
+            width?: number | string;
             /**
              * The height of the node’s body.
              * This property can take on the special value label
              * so the height is automatically based on the node’s label.
              */
-            "height"?: number | string;
+            height?: number | string;
             /**
              * The shape of the node’s body.
              */
-            "shape"?: NodeShape;
-            "shape-polygon-points"?: ShapePolygonPoints;
+            shape?: NodeShape;
+            'shape-polygon-points'?: ShapePolygonPoints;
 
-            "opacity"?: number;
+            opacity?: number;
 
-            "backgroundColor"?: Colour;
+            backgroundColor?: Colour;
             /**
              * The colour of the node’s body.
              */
-            "background-color"?: Colour;
+            'background-color'?: Colour;
             /**
              * Blackens the node’s body for values from 0 to 1;
              * whitens the node’s body for values from 0 to -1.
              */
-            "background-blacken"?: number;
+            'background-blacken'?: number;
             /**
              * The opacity level of the node’s background colour.
              */
-            "background-opacity"?: number;
+            'background-opacity'?: number;
             /**
              * The size of the node’s border.
              */
-            "border-width"?: number;
+            'border-width'?: number;
             /**
              * The style of the node’s border.
              */
-            "border-style"?: LineStyle;
+            'border-style'?: LineStyle;
             /**
              * The colour of the node’s border.
              */
-            "border-color"?: Colour;
+            'border-color'?: Colour;
             /**
              * The opacity of the node’s border.
              * A value between [0 1].
              */
-            "border-opacity"?: number;
+            'border-opacity'?: number;
 
-            "text-opacity"?: number;
+            'text-opacity'?: number;
         }
 
         /**
@@ -3547,13 +3609,15 @@ declare namespace cytoscape {
          * or it can be used to add spacing between a compound node parent and its children.
          */
         interface PaddingNode {
-            "padding-left"?: string;
-            "padding-right"?: string;
-            "padding-top"?: string;
-            "padding-bottom"?: string;
+            'padding-left'?: string;
+            'padding-right'?: string;
+            'padding-top'?: string;
+            'padding-bottom'?: string;
         }
 
-        interface Dictionary { [key: string]: any; }
+        interface Dictionary {
+            [key: string]: any;
+        }
 
         // export interface ElementCss extends CSSStyleDeclaration { }
         /**
@@ -3568,11 +3632,11 @@ declare namespace cytoscape {
              * You may use a data URI to use embedded images,
              * thereby saving a HTTP request.
              */
-            "background-image"?: string;
+            'background-image'?: string;
             /**
              * The opacity of the background image. [0 1]
              */
-            "background-image-opacity"?: number;
+            'background-image-opacity'?: number;
             /**
              * Specifies the width of the image.
              * A percent value (e.g. 50%) may be used to set
@@ -3582,7 +3646,7 @@ declare namespace cytoscape {
              * in calculating the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the width of the image.
              */
-            "background-width"?: number | string;
+            'background-width'?: number | string;
             /**
              * Specifies the height of the image.
              * A percent value (e.g. 50%) may be used to set the image
@@ -3592,34 +3656,34 @@ declare namespace cytoscape {
              * the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the height of the image.
              */
-            "background-height"?: number | string;
+            'background-height'?: number | string;
             /**
              * How the background image is fit to the node;
              * may be none for original size,
              * contain to fit inside node,
              * or cover to cover the node.
              */
-            "background-fit"?: "none" | "contain" | "cover";
+            'background-fit'?: 'none' | 'contain' | 'cover';
             /**
              * Whether to repeat the background image;
              * may be no-repeat, repeat-x, repeat-y, or repeat.
              */
-            "background-repeat"?: "no-repeat" | "repeat-x" | "repeat-y" | "repeat";
+            'background-repeat'?: 'no-repeat' | 'repeat-x' | 'repeat-y' | 'repeat';
             /**
              * The x position of the background image,
              * measured in percent(e.g. 50%) or pixels (e.g. 10px).
              */
-            "background-position-x"?: number | string;
+            'background-position-x'?: number | string;
             /**
              * The y position of the background image,
              * measured in percent(e.g. 50%) or pixels (e.g. 10px).
              */
-            "background-position-y"?: number | string;
+            'background-position-y'?: number | string;
             /**
              * How background image clipping is handled;
              * may be node for clipped to node shape or none for no clipping.
              */
-            "background-clip"?: "clipped" | "none";
+            'background-clip'?: 'clipped' | 'none';
         }
 
         /**
@@ -3643,22 +3707,22 @@ declare namespace cytoscape {
             /**
              * The diameter of the pie, measured as a percent of node size (e.g. 100%) or an absolute length (e.g. 25px).
              */
-            "pie-size": string;
+            'pie-size': string;
             /**
              * The colour of the node’s ith pie chart slice.
              */
-            "pie-i-background-color": Colour;
+            'pie-i-background-color': Colour;
             /**
              * The size of the node’s ith pie chart slice, measured in percent (e.g. 25% or 25).
              */
-            "pie-i-background-size": number;
+            'pie-i-background-size': number;
             /**
              * The opacity of the node’s ith pie chart slice.
              */
-            "pie-i-background-opacity": number;
+            'pie-i-background-opacity': number;
         }
 
-        interface Edge extends EdgeLine, EdgeArror, Partial<Overlay> { }
+        interface Edge extends EdgeLine, EdgeArror, Partial<Overlay> {}
 
         /**
          * These properties affect the styling of an edge’s line:
@@ -3669,7 +3733,7 @@ declare namespace cytoscape {
             /**
              * The width of an edge’s line.
              */
-            "width"?: number | string;
+            width?: number | string;
             /**
              * The curving method used to separate two or more edges between two nodes;
              * may be
@@ -3681,15 +3745,15 @@ declare namespace cytoscape {
              * Smaller node shapes, like triangle, will not be as aesthetically pleasing.
              * Also note that edge arrows are unsupported for haystack edges.
              */
-            "curve-style"?: "haystack" | "straight" | "bezier" | "unbundled-bezier" | "segments" | "taxi";
+            'curve-style'?: 'haystack' | 'straight' | 'bezier' | 'unbundled-bezier' | 'segments' | 'taxi';
             /**
              * The colour of the edge’s line.
              */
-            "line-color"?: Colour;
+            'line-color'?: Colour;
             /**
              * The style of the edge’s line.
              */
-            "line-style"?: LineStyle;
+            'line-style'?: LineStyle;
         }
 
         /**
@@ -3702,13 +3766,13 @@ declare namespace cytoscape {
              * From the line perpendicular from source to target,
              * this value specifies the distance between successive bezier edges.
              */
-            "control-point-step-size": number;
+            'control-point-step-size': number;
             /**
              * A single value that overrides "control-point-step-size" with a manual value.
              * Because it overrides the step size, bezier edges with the same value will overlap.
              * Thus, it’s best to use this as a one- off value for particular edges if need be.
              */
-            "control-point-distance": number;
+            'control-point-distance': number;
             /**
              * A single value that weights control points along the line from source to target.
              * The value usually ranges on [0, 1], with
@@ -3716,7 +3780,7 @@ declare namespace cytoscape {
              * 1 towards the target node —
              * but larger or smaller values can also be used.
              */
-            "control-point-weight": number;
+            'control-point-weight': number;
             /**
              * With value intersection (default),
              * the line from source to target for "control-point-weight" is
@@ -3727,7 +3791,7 @@ declare namespace cytoscape {
              * — but it should be used carefully because you can create invalid
              * points that intersection would have automatically corrected.
              */
-            "edge-distances": number;
+            'edge-distances': number;
         }
         /**
          * Unbundled bezier edges
@@ -3741,7 +3805,7 @@ declare namespace cytoscape {
              * distance perpendicular to a line formed
              * from source to target, e.g. -20 20 - 20.
              */
-            "control-point-distances": string;
+            'control-point-distances': string;
             /**
              * A series of values that weights control points along
              * a line from source to target, e.g. 0.25 0.5 0.75.
@@ -3750,7 +3814,7 @@ declare namespace cytoscape {
              * 1 towards the target node
              * — but larger or smaller values can also be used.
              */
-            "control-point-weights": string;
+            'control-point-weights': string;
             /**
              * With value intersection (default),
              * the line from source to target for "control-point-weights"
@@ -3762,7 +3826,7 @@ declare namespace cytoscape {
              * — but it should be used carefully because you can create
              * invalid points that intersection would have automatically corrected.
              */
-            "edge-distances": number;
+            'edge-distances': number;
         }
         /**
          * Haystack edges
@@ -3777,7 +3841,7 @@ declare namespace cytoscape {
              * A value between 0 and 1 inclusive that indicates the relative radius used to position haystack edges on their connected nodes.
              * The outside of the node is at 1, and the centre of the node is at 0.
              */
-            "haystack-radius": number;
+            'haystack-radius': number;
         }
         /**
          * Segments edges
@@ -3788,13 +3852,13 @@ declare namespace cytoscape {
             /**
              * A series of values that specify for each segment point the distance perpendicular to a line formed from source to target, e.g. -20 20 - 20.
              */
-            "segment-distances": string;
+            'segment-distances': string;
             /**
              * A series of values that weights segment points along a line from source to target,
              * e.g. 0.25 0.5 0.75.A value usually ranges on [0, 1],
              * with 0 towards the source node and 1 towards the target node — but larger or smaller values can also be used.
              */
-            "segment-weights": string;
+            'segment-weights': string;
             /**
              * With value
              *  * "intersection" (default), the line from source to target
@@ -3804,11 +3868,19 @@ declare namespace cytoscape {
              * — but it should be used carefully because you can create
              * invalid points that intersection would have automatically corrected.
              */
-            "edge-distances": "intersection" | "segment-weights" | "node-position";
+            'edge-distances': 'intersection' | 'segment-weights' | 'node-position';
         }
-        type ArrowShape = "tee" | "triangle" | "triangle-tee" | "triangle-backcurve" | "square" | "circle" | "diamond" | "none";
+        type ArrowShape =
+            | 'tee'
+            | 'triangle'
+            | 'triangle-tee'
+            | 'triangle-backcurve'
+            | 'square'
+            | 'circle'
+            | 'diamond'
+            | 'none';
 
-        type ArrowFill = "filled" | "hollow";
+        type ArrowFill = 'filled' | 'hollow';
 
         /**
          * Edge arrow
@@ -3827,31 +3899,31 @@ declare namespace cytoscape {
          */
         interface EdgeArror {
             /** The colour of the edge’s source arrow. */
-            "source-arrow-color"?: Colour;
+            'source-arrow-color'?: Colour;
             /** The colour of the edge’s "mid-source" arrow. */
-            "mid-source-arrow-color"?: Colour;
+            'mid-source-arrow-color'?: Colour;
             /** The colour of the edge’s target arrow. */
-            "target-arrow-color"?: Colour;
+            'target-arrow-color'?: Colour;
             /** The colour of the edge’s "mid-target" arrow. */
-            "mid-target-arrow-color"?: Colour;
+            'mid-target-arrow-color'?: Colour;
 
             /** The shape of the edge’s source arrow. */
-            "source-arrow-shape"?: ArrowShape;
+            'source-arrow-shape'?: ArrowShape;
             /** The shape of the edge’s mid-source arrow. */
-            "mid-source-arrow-shape"?: ArrowShape;
+            'mid-source-arrow-shape'?: ArrowShape;
             /** The shape of the edge’s target arrow. */
-            "target-arrow-shape"?: ArrowShape;
+            'target-arrow-shape'?: ArrowShape;
             /** The shape of the edge’s mid-target arrow. */
-            "mid-target-arrow-shape"?: ArrowShape;
+            'mid-target-arrow-shape'?: ArrowShape;
 
             /** The fill state of the edge’s source arrow. */
-            "source-arrow-fill"?: ArrowFill;
+            'source-arrow-fill'?: ArrowFill;
             /** The fill state of the edge’s mid-source arrow. */
-            "mid-source-arrow-fill"?: ArrowFill;
+            'mid-source-arrow-fill'?: ArrowFill;
             /** The fill state of the edge’s target arrow. */
-            "target-arrow-fill"?: ArrowFill;
+            'target-arrow-fill'?: ArrowFill;
             /** The fill state of the edge’s mid-target arrow. */
-            "mid-target-arrow-fill"?: ArrowFill;
+            'mid-target-arrow-fill'?: ArrowFill;
         }
 
         /**
@@ -3862,33 +3934,33 @@ declare namespace cytoscape {
              * Whether to display the element; may be element for displayed or none for not displayed.
              * Note that a "display: none" bezier edge does not take up space in its bundle.
              */
-            "display": "none" | "displayed";
+            display: 'none' | 'displayed';
             /**
              * Whether the element is visible; may be visible or hidden.
              * Note that a "visibility : hidden" bezier edge still takes up space in its bundle.
              */
-            "visibility": "none" | "visible";
+            visibility: 'none' | 'visible';
             /**
              * The opacity of the element, ranging from 0 to 1.
              * Note that the opacity of a compound node parent affects the effective opacity of its children.
              */
-            "opacity": number;
+            opacity: number;
             /**
              * An integer value that affects the relative draw order of elements.
              * In general, an element with a higher "z-index" will be drawn on top of an element with a lower "z-index".
              * Note that edges are under nodes despite "z-index", except when necessary for compound nodes.
              */
-            "z-index": number;
+            'z-index': number;
         }
 
         /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-style */
-        type FontStyle = "normal" | "italic" | "oblique";
+        type FontStyle = 'normal' | 'italic' | 'oblique';
 
         /** https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
-        type FontWeight = number | "normal" | "bold" | "lighter" | "bolder";
+        type FontWeight = number | 'normal' | 'bold' | 'lighter' | 'bolder';
 
         /** http://js.cytoscape.org/#style/labels */
-        type TextTranformation = "none" | "uppercase" | "lowercase";
+        type TextTranformation = 'none' | 'uppercase' | 'lowercase';
 
         /**
          * Labels
@@ -3900,48 +3972,48 @@ declare namespace cytoscape {
             /**
              * The text to display for an element’s label.
              */
-            "label": string;
+            label: string;
             /**
              * The text to display for an edge’s source label.
              */
-            "source-label": string;
+            'source-label': string;
             /**
              * The text to display for an edge’s target label.
              */
-            "target-label": string;
+            'target-label': string;
             /**
              * Basic font styling:
              */
             /**
              * The colour of the element’s label.
              */
-            "color": Colour;
+            color: Colour;
             /**
              * The opacity of the label text, including its outline.
              */
-            "text-opacity": number;
+            'text-opacity': number;
             /**
              * A comma-separated list of font names to use on the label text.
              */
-            "font-family": string;
+            'font-family': string;
             /**
              * The size of the label text.
              * https://developer.mozilla.org/en-US/docs/Web/CSS/font-family
              */
-            "font-size": number;
+            'font-size': number;
             /**
              * A CSS font style to be applied to the label text.
              * https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
              */
-            "font-style": FontStyle;
+            'font-style': FontStyle;
             /**
              * A CSS font weight to be applied to the label text.
              */
-            "font-weight": FontWeight;
+            'font-weight': FontWeight;
             /**
              * A transformation to apply to the label text.
              */
-            "text-transform": TextTranformation;
+            'text-transform': TextTranformation;
 
             /**
              * Wrapping text:
@@ -3952,14 +4024,14 @@ declare namespace cytoscape {
              *  * "none" for no wrapping (including manual newlines ) or
              *  * "wrap" for manual and/ or autowrapping.
              */
-            "text-wrap": "none" | "wrap" | "ellipsis";
+            'text-wrap': 'none' | 'wrap' | 'ellipsis';
             /**
              * The maximum width for wrapped text,
              * applied when "text-wrap" is set to wrap.
              * For only manual newlines (i.e.\n), set a very large
              * value like 1000px such that only your newline characters would apply.
              */
-            "text-max-width": string;
+            'text-max-width': string;
 
             /**
              * Node label alignment:
@@ -3968,11 +4040,11 @@ declare namespace cytoscape {
             /**
              * The vertical alignment of a node’s label.
              */
-            "text-halign": "left" | "center" | "right";
+            'text-halign': 'left' | 'center' | 'right';
             /**
              * The vertical alignment of a node’s label.
              */
-            "text-valign": "top" | "center" | "bottom";
+            'text-valign': 'top' | 'center' | 'bottom';
 
             /**
              * Edge label alignment:
@@ -3981,11 +4053,11 @@ declare namespace cytoscape {
             /**
              * For the source label of an edge, how far from the source node the label should be placed.
              */
-            "source-text-offset": number;
+            'source-text-offset': number;
             /**
              * For the target label of an edge, how far from the target node the label should be placed.
              */
-            "target-text-offset": number;
+            'target-text-offset': number;
             /**
              * Margins:
              */
@@ -3993,27 +4065,27 @@ declare namespace cytoscape {
             /**
              * A margin that shifts the label along the x- axis.
              */
-            "text-margin-x": number;
+            'text-margin-x': number;
             /**
              * A margin that shifts the label along the y- axis.
              */
-            "text-margin-y": number;
+            'text-margin-y': number;
             /**
              * (For the source label of an edge.)
              */
-            "source-text-margin-x": number;
+            'source-text-margin-x': number;
             /**
              * (For the source label of an edge.)
              */
-            "source-text-margin-y": number;
+            'source-text-margin-y': number;
             /**
              * (For the target label of an edge.)
              */
-            "target-text-margin-x": number;
+            'target-text-margin-x': number;
             /**
              * (For the target label of an edge.)
              */
-            "target-text-margin-y": number;
+            'target-text-margin-y': number;
             /**
              * Rotating text:
              */
@@ -4025,16 +4097,16 @@ declare namespace cytoscape {
              *  * The special value none can be used to denote 0deg.
              *  * Rotations works best with left- to - right text.
              */
-            "text-rotation": number;
+            'text-rotation': number;
 
             /**
              * (For the source label of an edge.)
              */
-            "source-text-rotation": number;
+            'source-text-rotation': number;
             /**
              * (For the target label of an edge.)
              */
-            "target-text-rotation": number;
+            'target-text-rotation': number;
 
             /**
              * Outline:
@@ -4043,40 +4115,40 @@ declare namespace cytoscape {
             /**
              * The colour of the outline around the element’s label text.
              */
-            "text-outline-color": Colour;
+            'text-outline-color': Colour;
             /**
              * The opacity of the outline on label text.
              */
-            "text-outline-opacity": number;
+            'text-outline-opacity': number;
             /**
              * The size of the outline on label text.
              */
-            "text-outline-width": number;
+            'text-outline-width': number;
             /**
              * Shadow:
              */
             /**
              * The shadow blur distance.
              */
-            "text-shadow-blur": number;
+            'text-shadow-blur': number;
             /**
              * The colour of the shadow.
              */
-            "text-shadow-color": Colour;
+            'text-shadow-color': Colour;
             /**
              * The x offset relative to the text where the shadow will be displayed, can be negative.
              * If you set blur to 0, add an offset to view your shadow.
              */
-            "text-shadow-offset-x": number;
+            'text-shadow-offset-x': number;
             /**
              * The y offset relative to the text where the shadow will be displayed, can be negative.
              * If you set blur to 0, add an offset to view your shadow.
              */
-            "text-shadow-offset-y": number;
+            'text-shadow-offset-y': number;
             /**
              * The opacity of the shadow on the text; the shadow is disabled for 0 (default value).
              */
-            "text-shadow-opacity": number;
+            'text-shadow-opacity': number;
 
             /**
              * Background:
@@ -4085,15 +4157,15 @@ declare namespace cytoscape {
             /**
              * A colour to apply on the text background.
              */
-            "text-background-color": Colour;
+            'text-background-color': Colour;
             /**
              * The opacity of the label background; the background is disabled for 0 (default value).
              */
-            "text-background-opacity": number;
+            'text-background-opacity': number;
             /**
              * The shape to use for the label background.
              */
-            "text-background-shape": "rectangle" | "roundrectangle";
+            'text-background-shape': 'rectangle' | 'roundrectangle';
 
             /**
              * Border:
@@ -4102,19 +4174,19 @@ declare namespace cytoscape {
             /**
              * The width of the border around the label; the border is disabled for 0 (default value).
              */
-            "text-border-opacity": number;
+            'text-border-opacity': number;
             /**
              * The width of the border around the label.
              */
-            "text-border-width": number;
+            'text-border-width': number;
             /**
              * The style of the border around the label.
              */
-            "text-border-style": LineStyle;
+            'text-border-style': LineStyle;
             /**
              * The colour of the border around the label.
              */
-            "text-border-color": Colour;
+            'text-border-color': Colour;
 
             /**
              * Interactivity:
@@ -4128,12 +4200,12 @@ declare namespace cytoscape {
              * This effect is more pronounced at larger screen pixel ratios.However,
              * it is guaranteed that the label will be shown at sizes equal to or greater than the value specified.
              */
-            "min-zoomed-font-size": number;
+            'min-zoomed-font-size': number;
             /**
              * Whether events should occur on an element if the label receives an event.
              * You may want a style applied to the text onactive so you know the text is activatable.
              */
-            "text-events": "yes" | "no";
+            'text-events': 'yes' | 'no';
         }
 
         /**
@@ -4144,12 +4216,12 @@ declare namespace cytoscape {
              * Whether events should occur on an element (e.g.tap, mouseover, etc.).
              *  * For "no", the element receives no events and events simply pass through to the core/viewport.
              */
-            "events": "yes" | "no";
+            events: 'yes' | 'no';
             /**
              *  Whether events should occur on an element if the label receives an event.
              * You may want a style applied to the text on active so you know the text is activatable.
              */
-            "text-events": "yes" | "no";
+            'text-events': 'yes' | 'no';
         }
 
         /**
@@ -4161,15 +4233,15 @@ declare namespace cytoscape {
             /**
              * The colour of the overlay.
              */
-            "overlay-color": Colour;
+            'overlay-color': Colour;
             /**
              * The area outside of the element within which the overlay is shown.
              */
-            "overlay-padding": number;
+            'overlay-padding': number;
             /**
              * The opacity of the overlay.
              */
-            "overlay-opacity": number;
+            'overlay-opacity': number;
         }
         /**
          * These properties allow for the creation of shadows on nodes or edges.
@@ -4180,34 +4252,57 @@ declare namespace cytoscape {
             /**
              * The shadow blur, note that if greater than 0, this could impact performance.
              */
-            "shadow-blur": number;
+            'shadow-blur': number;
             /**
              * The colour of the shadow.
              */
-            "shadow-color": Colour;
+            'shadow-color': Colour;
             /**
              * The x offset relative to the node/edge where the shadow will be displayed, can be negative. If you set blur to 0, add an offset to view your shadow.
              */
-            "shadow-offset-x": number;
+            'shadow-offset-x': number;
             /**
              * The y offset relative to the node/edge where the shadow will be displayed, can be negative. If you set blur to 0, add an offset to view your shadow.
              */
-            "shadow-offset-y": number;
+            'shadow-offset-y': number;
             /**
              * The opacity of the shadow.
              */
-            "shadow-opacity": number;
+            'shadow-opacity': number;
         }
 
         /**
          * Transition animation
          */
-        type TransitionTimingFunction = "linear" | "spring" | "cubic-bezier" | "ease" | "ease-in" | "ease-out" |
-            "ease-in-out" | "ease-in-sine" | "ease-out-sine" | "ease-in-out-sine" | "ease-in-quad" |
-            "ease-out-quad" | "ease-in-out-quad" | "ease-in-cubic" | "ease-out-cubic" |
-            "ease-in-out-cubic" | "ease-in-quart" | "ease-out-quart" | "ease-in-out-quart" |
-            "ease-in-quint" | "ease-out-quint" | "ease-in-out-quint" | "ease-in-expo" |
-            "ease-out-expo" | "ease-in-out-expo" | "ease-in-circ" | "ease-out-circ" | "ease-in-out-circ";
+        type TransitionTimingFunction =
+            | 'linear'
+            | 'spring'
+            | 'cubic-bezier'
+            | 'ease'
+            | 'ease-in'
+            | 'ease-out'
+            | 'ease-in-out'
+            | 'ease-in-sine'
+            | 'ease-out-sine'
+            | 'ease-in-out-sine'
+            | 'ease-in-quad'
+            | 'ease-out-quad'
+            | 'ease-in-out-quad'
+            | 'ease-in-cubic'
+            | 'ease-out-cubic'
+            | 'ease-in-out-cubic'
+            | 'ease-in-quart'
+            | 'ease-out-quart'
+            | 'ease-in-out-quart'
+            | 'ease-in-quint'
+            | 'ease-out-quint'
+            | 'ease-in-out-quint'
+            | 'ease-in-expo'
+            | 'ease-out-expo'
+            | 'ease-in-out-expo'
+            | 'ease-in-circ'
+            | 'ease-out-circ'
+            | 'ease-in-out-circ';
 
         /**
          * http://js.cytoscape.org/#style/transition-animation
@@ -4216,19 +4311,19 @@ declare namespace cytoscape {
             /**
              * A comma separated list of style properties to animate in this state.
              */
-            "transition-property": string;
+            'transition-property': string;
             /**
              * The length of the transition in seconds(e.g. 0.5s).
              */
-            "transition-duration": number;
+            'transition-duration': number;
             /**
              * The length of the delay in seconds before the transition occurs (e.g. 250ms).
              */
-            "transition-delay": number;
+            'transition-delay': number;
             /**
              * An easing function that controls the animation progress curve (a visualisation of easings serves as a reference).
              */
-            "transition-timing-function": TransitionTimingFunction;
+            'transition-timing-function': TransitionTimingFunction;
         }
 
         /**
@@ -4245,45 +4340,45 @@ declare namespace cytoscape {
             /**
              * The colour of the indicator shown when the background is grabbed by the user.
              */
-            "active-bg-color": Colour;
+            'active-bg-color': Colour;
             /**
              * The opacity of the active background indicator.
              */
-            "active-bg-opacity": number;
+            'active-bg-opacity': number;
             /**
              * The size of the active background indicator.
              */
-            "active-bg-size": number;
+            'active-bg-size': number;
             /**
              * Selection box:
              */
             /**
              * The background colour of the selection box used for drag selection.
              */
-            "selection-box-color": Colour;
+            'selection-box-color': Colour;
             /**
              * The colour of the border on the selection box.
              */
-            "selection-box-border-color": Colour;
+            'selection-box-border-color': Colour;
             /**
              * The size of the border on the selection box.
              */
-            "selection-box-border-width": number;
+            'selection-box-border-width': number;
             /**
              * The opacity of the selection box.
              */
-            "selection-box-opacity": number;
+            'selection-box-opacity': number;
             /**
              * Texture during viewport gestures:
              */
             /**
              * The colour of the area outside the viewport texture when initOptions.textureOnViewport === true.
              */
-            "outside-texture-bg-color": Colour;
+            'outside-texture-bg-color': Colour;
             /**
              * The opacity of the area outside the viewport texture.
              */
-            "outside-texture-bg-opacity": number;
+            'outside-texture-bg-opacity': number;
         }
     }
 
@@ -4294,7 +4389,7 @@ declare namespace cytoscape {
      *
      * http://js.cytoscape.org/#events
      */
-    interface EventObject extends InputEventObject, LayoutEventObject { }
+    interface EventObject extends InputEventObject, LayoutEventObject {}
 
     /**
      * http://js.cytoscape.org/#events/event-object
@@ -4334,23 +4429,23 @@ declare namespace cytoscape {
      */
     type UserInputDeviceEventName =
         // when the mouse button is pressed
-        "mousedown" |
+        | 'mousedown'
         // when the mouse button is released
-        "mouseup" |
+        | 'mouseup'
         // after mousedown then mouseup
-        "click" |
+        | 'click'
         // when the cursor is put on top of the target
-        "mouseover" |
+        | 'mouseover'
         // when the cursor is moved off of the target
-        "mouseout" |
+        | 'mouseout'
         // when the cursor is moved somewhere on top of the target
-        "mousemove" |
+        | 'mousemove'
         // when one or more fingers starts to touch the screen
-        "touchstart" |
+        | 'touchstart'
         // when one or more fingers are moved on the screen
-        "touchmove" |
+        | 'touchmove'
         // when one or more fingers are removed from the screen
-        "touchend";
+        | 'touchend';
 
     /**
      * There are also some higher level events that you can use
@@ -4360,39 +4455,43 @@ declare namespace cytoscape {
      */
     type UserInputDeviceEventNameExt =
         // normalised tap start event (either mousedown or touchstart)
-        "tapstart" | "vmousedown" |
+        | 'tapstart'
+        | 'vmousedown'
         // normalised move event (either touchmove or mousemove)
-        "tapdrag" | "vmousemove" |
+        | 'tapdrag'
+        | 'vmousemove'
         // normalised over element event (either touchmove or mousemove/mouseover)
-        "tapdragover" |
+        | 'tapdragover'
         // normalised off of element event (either touchmove or mousemove/mouseout)
-        "tapdragout" |
+        | 'tapdragout'
         // normalised tap end event (either mouseup or touchend)
-        "tapend" | "vmouseup" |
+        | 'tapend'
+        | 'vmouseup'
         // normalised tap event (either click, or touchstart followed by touchend without touchmove)
-        "tap" | "vclick" |
+        | 'tap'
+        | 'vclick'
         // normalised tap hold event
-        "taphold" |
+        | 'taphold'
         // normalised right-click mousedown or two-finger tapstart
-        "cxttapstart" |
+        | 'cxttapstart'
         // normalised right-click mouseup or two-finger tapend
-        "cxttapend" |
+        | 'cxttapend'
         // normalised right-click or two-finger tap
-        "cxttap" |
+        | 'cxttap'
         // normalised mousemove or two-finger drag after cxttapstart but before cxttapend
-        "cxtdrag" |
+        | 'cxtdrag'
         // when going over a node via cxtdrag
-        "cxtdragover" |
+        | 'cxtdragover'
         // when going off a node via cxtdrag
-        "cxtdragout" |
+        | 'cxtdragout'
         // when starting box selection
-        "boxstart" |
+        | 'boxstart'
         // when ending box selection
-        "boxend" |
+        | 'boxend'
         // triggered on elements when selected by box selection
-        "boxselect" |
+        | 'boxselect'
         // triggered on elements when inside the box on boxend
-        "box";
+        | 'box';
 
     /**
      * These events are custom to Cytoscape.js. You can bind to these events for collections.
@@ -4400,33 +4499,33 @@ declare namespace cytoscape {
      */
     type CollectionEventName =
         // when an element is added to the graph
-        "add" |
+        | 'add'
         // when an element is removed from the graph
-        "remove" |
+        | 'remove'
         // when an element is selected
-        "select" |
+        | 'select'
         // when an element is unselected
-        "unselect" |
+        | 'unselect'
         // when an element is locked
-        "lock" |
+        | 'lock'
         // when an element is unlocked
-        "unlock" |
+        | 'unlock'
         // when an element is grabbed directly (including only the one node directly under the cursor or the user’s finger)
-        "grabon" |
+        | 'grabon'
         // when an element is grabbed (including all elements that would be dragged)
-        "grab" |
+        | 'grab'
         // when an element is grabbed and then moved
-        "drag" |
+        | 'drag'
         // when an element is freed (i.e. let go from being grabbed)
-        "free" |
+        | 'free'
         // when an element changes position
-        "position" |
+        | 'position'
         // when an element’s data is changed
-        "data" |
+        | 'data'
         // when an element’s scratchpad data is changed
-        "scratch" |
+        | 'scratch'
         // when an element’s style is changed
-        "style";
+        | 'style';
 
     /**
      * These events are custom to Cytoscape.js, and they occur on the core.
@@ -4434,23 +4533,23 @@ declare namespace cytoscape {
      */
     type GraphEventName =
         // when a layout starts running
-        "layoutstart" |
+        | 'layoutstart'
         // when a layout has set initial positions for all the nodes (but perhaps not final positions)
-        "layoutready" |
+        | 'layoutready'
         // when a layout has finished running completely or otherwise stopped running
-        "layoutstop" |
+        | 'layoutstop'
         // when a new Core of Cytoscape.js is ready to be interacted with
-        "ready" |
+        | 'ready'
         // when the Core of Cytoscape.js was explicitly destroyed by calling .destroy().
-        "destroy" |
+        | 'destroy'
         // when the viewport is (re)rendered
-        "render" |
+        | 'render'
         // when the viewport is panned
-        "pan" |
+        | 'pan'
         // when the viewport is zoomed
-        "zoom" |
+        | 'zoom'
         // when the viewport is resized (usually by calling cy.resize(), a window resize, or toggling a class on the Cytoscape.js div)
-        "resize";
+        | 'resize';
 
     /**
      * Layouts
@@ -4477,12 +4576,18 @@ declare namespace cytoscape {
      * and some layouts will allow for more precise edge lengths than others.
      */
 
-    interface Layouts extends LayoutManipulation, LayoutEvents { }
+    interface Layouts extends LayoutManipulation, LayoutEvents {}
 
     type LayoutOptions =
-        NullLayoutOptions | RandomLayoutOptions | PresetLayoutOptions |
-        GridLayoutOptions | CircleLayoutOptions | ConcentricLayoutOptions |
-        BreadthFirstLayoutOptions | CoseLayoutOptions | BaseLayoutOptions;
+        | NullLayoutOptions
+        | RandomLayoutOptions
+        | PresetLayoutOptions
+        | GridLayoutOptions
+        | CircleLayoutOptions
+        | ConcentricLayoutOptions
+        | BreadthFirstLayoutOptions
+        | CoseLayoutOptions
+        | BaseLayoutOptions;
 
     type LayoutHandler = (e: LayoutEventObject) => void;
 
@@ -4497,7 +4602,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#layouts/null
      */
     interface NullLayoutOptions {
-        name: "null";
+        name: 'null';
     }
     interface BoundingBox12 {
         x1: number;
@@ -4523,7 +4628,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#layouts/random
      */
     interface RandomLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
-        name: "random";
+        name: 'random';
         // whether to fit to viewport
         fit: boolean;
         // fit padding
@@ -4535,10 +4640,12 @@ declare namespace cytoscape {
     /**
      * http://js.cytoscape.org/#layouts/preset
      */
-    interface NodePositionMap { [nodeid: string]: Position; }
+    interface NodePositionMap {
+        [nodeid: string]: Position;
+    }
     type NodePositionFunction = (nodeid: string) => Position;
     interface PresetLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
-        name: "preset";
+        name: 'preset';
         // map of (node id) => (position obj); or function(node){ return somPos; }
         positions?: NodePositionMap | NodePositionFunction;
         // the zoom level to set (prob want fit = false if set)
@@ -4552,7 +4659,7 @@ declare namespace cytoscape {
     }
 
     interface SortableNode {
-        data: { weight: number; };
+        data: { weight: number };
     }
 
     // function(a, b){ return a.data('weight') - b.data('weight') }
@@ -4581,7 +4688,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#layouts/grid
      */
     interface GridLayoutOptions extends ShapedLayoutOptions {
-        name: "grid";
+        name: 'grid';
 
         // extra spacing around nodes when avoidOverlap: true
         avoidOverlapPadding?: number;
@@ -4593,14 +4700,14 @@ declare namespace cytoscape {
         // force num of columns in the grid
         cols?: number;
         // returns { row, col } for element
-        position(nodeid: string): { row: number; col: number; };
+        position(nodeid: string): { row: number; col: number };
     }
 
     /**
      * http://js.cytoscape.org/#layouts/circle
      */
     interface CircleLayoutOptions extends ShapedLayoutOptions {
-        name: "circle";
+        name: 'circle';
 
         // the radius of the circle
         radius?: number;
@@ -4616,7 +4723,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#layouts/concentric
      */
     interface ConcentricLayoutOptions extends ShapedLayoutOptions {
-        name: "concentric";
+        name: 'concentric';
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
         startAngle: number;
@@ -4635,16 +4742,16 @@ declare namespace cytoscape {
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor: undefined;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric(node: { degree(): number; }): number;
+        concentric(node: { degree(): number }): number;
         // the variation of concentric values in each level
-        levelWidth(node: { maxDegree(): number; }): number;
+        levelWidth(node: { maxDegree(): number }): number;
     }
 
     /**
      * http://js.cytoscape.org/#layouts/breadthfirst
      */
     interface BreadthFirstLayoutOptions extends ShapedLayoutOptions {
-        name: "breadthfirst";
+        name: 'breadthfirst';
 
         // whether the tree is directed downwards (or edges can point in any direction if false)
         directed: boolean;
@@ -4660,7 +4767,7 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#layouts/cose
      */
     interface CoseLayoutOptions extends ShapedLayoutOptions {
-        name: "cose";
+        name: 'cose';
 
         // Number of iterations between consecutive screen positions update
         // (0 -> only updated on the end)
@@ -4867,7 +4974,7 @@ declare namespace cytoscape {
          * completing the animation or frame for the next frame of the animation.
          * http://js.cytoscape.org/#ani.promise
          */
-        promise(animationEvent?: "completed" | "complete" | "frame"): Promise<EventObject>;
+        promise(animationEvent?: 'completed' | 'complete' | 'frame'): Promise<EventObject>;
     }
 
     /**

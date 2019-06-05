@@ -26,10 +26,10 @@ declare const StyleFix: StyleFix;
 // PrefixFree
 declare namespace PrefixFree {
 	/** The known prefixes used for CSS properties. */
-	type KnownPrefixCSS = "-moz-" | "-ms-" | "-o-" | "-webkit-";
+	type KnownPrefixCSS = '-moz-' | '-ms-' | '-o-' | '-webkit-';
 
 	/** The known prefixes used for CSS properties in `CSSStyleDeclaration`. */
-	type KnownPrefixJS = "Moz" | "Ms" | "O" | "Webkit";
+	type KnownPrefixJS = 'Moz' | 'Ms' | 'O' | 'Webkit';
 }
 
 interface PrefixFree {

@@ -73,8 +73,8 @@ export class Quaternion {
     static identity: Quaternion;
     static zero: Quaternion;
 
-    angleAxis: { axis: Vector3, angle: number };
-    eulerAngles: { x: number, y: number, z: number };
+    angleAxis: { axis: Vector3; angle: number };
+    eulerAngles: { x: number; y: number; z: number };
     x: number;
     y: number;
     z: number;
@@ -123,7 +123,7 @@ export class Matrix4x4 {
     m43: number;
     m44: number;
     rows: number[][];
-    size: { rows: number, columns: number };
+    size: { rows: number; columns: number };
     values: number[];
 
     determinant(): number;
@@ -164,6 +164,6 @@ export class Transform {
 export namespace Transform {
     enum Space {
         Self,
-        World
+        World,
     }
 }

@@ -3,7 +3,7 @@
 // Definitions by: Arvitaly <https://github.com/arvitaly>, gjurgens <https://github.com/gjurgens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
-import { Socket } from "net";
+import { Socket } from 'net';
 declare namespace NodeIPC {
     class IPC {
         /**
@@ -120,14 +120,14 @@ declare namespace NodeIPC {
          * This defaults to not being set. When using udp6 make sure to specify a valid IPv6 host, like ::1
          * @param callback Function to be called when the server is created
          */
-        serveNet(host?: string, port?: number, UDPType?: "udp4" | "udp6", callback?: () => void): void;
+        serveNet(host?: string, port?: number, UDPType?: 'udp4' | 'udp6', callback?: () => void): void;
         /**
          * https://www.npmjs.com/package/node-ipc#servenet
          * @param UDPType If set this will create the server as a UDP socket. 'udp4' or 'udp6' are valid values.
          * This defaults to not being set. When using udp6 make sure to specify a valid IPv6 host, like ::1
          * @param callback Function to be called when the server is created
          */
-        serveNet(UDPType: "udp4" | "udp6", callback?: () => void): void;
+        serveNet(UDPType: 'udp4' | 'udp6', callback?: () => void): void;
         /**
          * https://www.npmjs.com/package/node-ipc#servenet
          * @param callback Function to be called when the server is created
@@ -162,21 +162,21 @@ declare namespace NodeIPC {
         /**
          * triggered when an error has occured
          */
-        on(event: "error", callback: (err: any) => void): Client;
+        on(event: 'error', callback: (err: any) => void): Client;
         /**
          * connect - triggered when socket connected
          * disconnect - triggered by client when socket has disconnected from server
          * destroy - triggered when socket has been totally destroyed, no further auto retries will happen and all references are gone
          */
-        on(event: "connect" | "disconnect" | "destroy", callback: () => void): Client;
+        on(event: 'connect' | 'disconnect' | 'destroy', callback: () => void): Client;
         /**
          * triggered by server when a client socket has disconnected
          */
-        on(event: "socket.disconnected", callback: (socket: Socket, destroyedSocketID: string) => void): Client;
+        on(event: 'socket.disconnected', callback: (socket: Socket, destroyedSocketID: string) => void): Client;
         /**
          * triggered when ipc.config.rawBuffer is true and a message is received
          */
-        on(event: "data", callback: (buffer: Buffer) => void): Client;
+        on(event: 'data', callback: (buffer: Buffer) => void): Client;
         emit(event: string, value?: any): Client;
         /**
          * Unbind subscribed events
@@ -237,7 +237,7 @@ declare namespace NodeIPC {
          * the default encoding for data sent on sockets. Mostly used if rawBuffer is set to true.
          * Valid values are : ascii utf8 utf16le ucs2 base64 hex
          */
-        encoding: "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "hex";
+        encoding: 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'base64' | 'hex';
         /**
          * Default: false
          * If true, data will be sent and received as a raw node Buffer NOT an Object as JSON.

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Ray
      * @class An infinite ray
@@ -14,7 +13,7 @@ declare namespace pc {
      * Defaults to a direction down the world negative Z axis (0, 0, -1).
      */
     class Ray {
-        constructor(origin?: pc.Vec3, direction?: pc.Vec3)
+        constructor(origin?: pc.Vec3, direction?: pc.Vec3);
 
         origin: pc.Vec3;
         direction: pc.Vec3;

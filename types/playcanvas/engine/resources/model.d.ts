@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ModelHandler
      * @class Resource Handler for creating pc.Model resources
@@ -7,10 +6,9 @@ declare namespace pc {
      * @param {pc.GraphicsDevice} device The graphics device that will be rendering
      */
     class ModelHandler {
-
         static DEFAULT_MATERIAL: pc.StandardMaterial;
 
-        constructor(device: pc.GraphicsDevice)
+        constructor(device: pc.GraphicsDevice);
 
         /**
          * @function
@@ -33,7 +31,7 @@ declare namespace pc {
          * @description Add a parser that converts raw data into a {@link pc.Model}
          * Default parser is for JSON models
          * @param {Object} parser See JsonModelParser for example
-         * @param {Function} decider Function that decides on which parser to use. 
+         * @param {Function} decider Function that decides on which parser to use.
          * Function should take (url, data) arguments and return true if this parser should be used to parse the data into a {@link pc.Model}.
          * The first parser to return true is used.
          */

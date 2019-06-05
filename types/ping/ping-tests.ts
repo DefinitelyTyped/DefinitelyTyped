@@ -1,8 +1,4 @@
-import {
-  PingConfig,
-  promise,
-  sys,
-} from 'ping';
+import { PingConfig, promise, sys } from 'ping';
 
 const config: PingConfig = {
     numeric: false,
@@ -29,7 +25,7 @@ async function test() {
     const stddev: string = res.stddev;
 
     if (res.time !== 'unknown') {
-      const time: number = res.time;
+        const time: number = res.time;
     }
 
     if (res.numeric_host) {

@@ -1,37 +1,35 @@
 declare namespace pc {
-
     /**
-    * @name pc.Vec4
-    * @class A 4-dimensional vector.
-    * @description Creates a new Vec4 object
-    * @param {Number} [x] The x value. If x is an array of length 4, the array will be used to populate all components.
-    * @param {Number} [y] The y value
-    * @param {Number} [z] The z value
-    * @param {Number} [w] The w value
-    */
+     * @name pc.Vec4
+     * @class A 4-dimensional vector.
+     * @description Creates a new Vec4 object
+     * @param {Number} [x] The x value. If x is an array of length 4, the array will be used to populate all components.
+     * @param {Number} [y] The y value
+     * @param {Number} [z] The z value
+     * @param {Number} [w] The w value
+     */
     class Vec4 {
         data: Float32Array;
 
-        constructor(x: number, y: number, z: number, w: number)
-        constructor(x: [number, number, number, number])
+        constructor(x: number, y: number, z: number, w: number);
+        constructor(x: [number, number, number, number]);
         constructor();
 
-
         /**
-             * @function
-             * @name pc.Vec4#add
-             * @description Adds a 4-dimensional vector to another in place.
-             * @param {pc.Vec4} rhs The vector to add to the specified vector.
-             * @returns {pc.Vec4} Self for chaining.
-             * @example
-             * var a = new pc.Vec4(10, 10, 10, 10);
-             * var b = new pc.Vec4(20, 20, 20, 20);
-             *
-             * a.add(b);
-             *
-             * // Should output [30, 30, 30]
-             * console.log("The result of the addition is: " + a.toString());
-             */
+         * @function
+         * @name pc.Vec4#add
+         * @description Adds a 4-dimensional vector to another in place.
+         * @param {pc.Vec4} rhs The vector to add to the specified vector.
+         * @returns {pc.Vec4} Self for chaining.
+         * @example
+         * var a = new pc.Vec4(10, 10, 10, 10);
+         * var b = new pc.Vec4(20, 20, 20, 20);
+         *
+         * a.add(b);
+         *
+         * // Should output [30, 30, 30]
+         * console.log("The result of the addition is: " + a.toString());
+         */
         add(rhs: pc.Vec4): this;
 
         /**
@@ -365,7 +363,7 @@ declare namespace pc {
          * @name pc.Vec4.ONE
          * @description A constant vector set to [1, 1, 1, 1].
          */
-        static readonly ONE: pc.Vec4
+        static readonly ONE: pc.Vec4;
 
         /**
          * @field
@@ -375,6 +373,6 @@ declare namespace pc {
          * @name pc.Vec4.ZERO
          * @description A constant vector set to [0, 0, 0, 0].
          */
-        static readonly ZERO: pc.Vec4
+        static readonly ZERO: pc.Vec4;
     }
 }

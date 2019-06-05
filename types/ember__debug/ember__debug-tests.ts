@@ -1,4 +1,4 @@
-import { runInDebug, warn, debug, assert, registerWarnHandler, registerDeprecationHandler } from "@ember/debug";
+import { runInDebug, warn, debug, assert, registerWarnHandler, registerDeprecationHandler } from '@ember/debug';
 
 /**
  * @ember/debug tests
@@ -10,8 +10,9 @@ runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
 const tomsterCount = 2;
 warn('Too many tomsters!'); // $ExpectType void
 warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
-    id: 'ember-debug.too-many-tomsters'
+warn('Too many tomsters!', tomsterCount <= 3, {
+    // $ExpectType void
+    id: 'ember-debug.too-many-tomsters',
 });
 
 debug(); // $ExpectError
@@ -28,7 +29,8 @@ assert('This code path should never be run'); // $ExpectType void
 // next is not called, so no warnings get the default behavior
 registerWarnHandler(); // $ExpectError
 registerWarnHandler(() => {}); // $ExpectType void
-registerWarnHandler((message, { id }, next) => { // $ExpectType void
+registerWarnHandler((message, { id }, next) => {
+    // $ExpectType void
     message; // $ExpectType string
     id; // $ExpectType string
     next; // $ExpectType () => void
@@ -37,7 +39,8 @@ registerWarnHandler((message, { id }, next) => { // $ExpectType void
 // next is not called, so no warnings get the default behavior
 registerDeprecationHandler(); // $ExpectError
 registerDeprecationHandler(() => {}); // $ExpectType void
-registerDeprecationHandler((message, { id, until }, next) => { // $ExpectType void
+registerDeprecationHandler((message, { id, until }, next) => {
+    // $ExpectType void
     message; // $ExpectType string
     id; // $ExpectType string
     until; // $ExpectType string

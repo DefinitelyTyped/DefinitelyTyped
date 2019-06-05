@@ -13,7 +13,7 @@ interface HtmlToTextStatic {
      *
      */
     fromFile(file: string, options: HtmlToTextOptions, callback: Function): void;
-    
+
     /**
      * Convert html content of file to text with the default options.
      *
@@ -22,7 +22,7 @@ interface HtmlToTextStatic {
      *
      */
     fromFile(file: string, callback: Function): void;
-    
+
     /**
      * Convert html string to text
      *
@@ -46,7 +46,7 @@ interface HtmlToTextOptions {
      *  document. This is necessary because the majority of HTML E-Mails uses a
      *  table based layout. Prefix your table selectors with an . for the class
      *  and with a # for the id attribute. All other tables are ignored.
-     *   You can assign true to this attribute to select all tables. Default: []     
+     *   You can assign true to this attribute to select all tables. Default: []
      */
     tables?: Array<string> | boolean;
 
@@ -75,24 +75,24 @@ interface HtmlToTextOptions {
      *  Ignore all document images if true.
      */
     ignoreImage?: boolean;
-    
+
     /**
      *  Dont print brackets around the link if true
      */
     noLinkBrackets?: boolean;
-    
+
     /**
      *  By default, any newlines \n in a block of text will be removed.
      *  If true, these newlines will not be removed.
      */
     preserveNewlines?: boolean;
-    
+
     /**
      *  By default, headings (<h1>, <h2>, etc) are uppercased.
      *  Set to false to leave headings as they are.
      */
     uppercaseHeadings?: boolean;
-    
+
     /**
      *  By default, paragraphs are converted with two newlines (\n\n).
      *  Set to true to convert to a single newline.
@@ -100,7 +100,7 @@ interface HtmlToTextOptions {
     singleNewLineParagraphs?: boolean;
 }
 
-declare module "html-to-text" {
+declare module 'html-to-text' {
     export = htmlToText;
 }
 

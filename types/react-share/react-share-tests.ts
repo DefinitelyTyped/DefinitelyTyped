@@ -7,7 +7,6 @@ import {
     OKShareCount, // $ExpectType FunctionComponent<ShareCountComponentProps>
     RedditShareCount, // $ExpectType FunctionComponent<ShareCountComponentProps>
     TumblrShareCount, // $ExpectType FunctionComponent<ShareCountComponentProps>
-
     FacebookIcon, // $ExpectType FunctionComponent<IconComponentProps>
     TwitterIcon, // $ExpectType FunctionComponent<IconComponentProps>
     TelegramIcon, // $ExpectType FunctionComponent<IconComponentProps>

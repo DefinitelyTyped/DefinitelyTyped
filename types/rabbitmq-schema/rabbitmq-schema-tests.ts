@@ -13,4 +13,4 @@ rabbitSchema.getQueueByName('images.jpeg.get');
 rabbitSchema.getExchangeByName('images');
 
 rabbitSchema.validate(topology);
-rabbitSchema.validateMessage('images', 'images.jpeg.get', {testMsg: 'ok'});
+rabbitSchema.validateMessage('images', 'images.jpeg.get', { testMsg: 'ok' });

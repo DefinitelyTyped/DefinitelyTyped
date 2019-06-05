@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost
-import { Request, ResponseToolkit, Server, ServerOptions } from "hapi";
+import { Request, ResponseToolkit, Server, ServerOptions } from 'hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -12,8 +12,8 @@ server.route({
     path: '/',
     method: 'GET',
     handler(request, h) {
-        return h.response("Hello World");
-    }
+        return h.response('Hello World');
+    },
 });
 
 server.start();

@@ -58,7 +58,7 @@ const any: any = 1;
         constructor() {
             super();
 
-            this.emit("mingling");
+            this.emit('mingling');
         }
     }
 }

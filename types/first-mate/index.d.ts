@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Disposable } from "event-kit";
+import { Disposable } from 'event-kit';
 
 /** Grammar that tokenizes lines of text. */
 export class Grammar {
@@ -46,8 +46,7 @@ export class Grammar {
      *  in the file which defaults to `false`.
      *  @return An object representing the result of the tokenize.
      */
-    tokenizeLine(line: string, ruleStack: GrammarRule[], firstLine?: false):
-        TokenizeLineResult;
+    tokenizeLine(line: string, ruleStack: GrammarRule[], firstLine?: false): TokenizeLineResult;
 }
 
 /** Instance side of GrammarRegistry class. */
@@ -55,7 +54,7 @@ export class GrammarRegistry {
     maxTokensPerLine: number;
     maxLineLength: number;
 
-    constructor(options?: { maxTokensPerLine?: number, maxLineLength?: number });
+    constructor(options?: { maxTokensPerLine?: number; maxLineLength?: number });
 
     // Event Subscription
     /**
@@ -85,7 +84,7 @@ export class GrammarRegistry {
      *  @param scopeName A string such as `source.js`.
      *  @return A Grammar or undefined.
      */
-    grammarForScopeName(scopeName: string): Grammar|undefined;
+    grammarForScopeName(scopeName: string): Grammar | undefined;
 
     /**
      *  Add a grammar to this registry.
@@ -109,7 +108,7 @@ export class GrammarRegistry {
      *  @param scopeName A string such as `source.js`.
      *  @return Returns the removed Grammar or undefined.
      */
-    removeGrammarForScopeName(scopeName: string): Grammar|undefined;
+    removeGrammarForScopeName(scopeName: string): Grammar | undefined;
 
     /**
      *  Read a grammar synchronously but don't add it to the registry.
@@ -123,8 +122,7 @@ export class GrammarRegistry {
      *  @param grammarPath The absolute file path to the grammar.
      *  @param callback The function to be invoked once the Grammar has been read in.
      */
-    readGrammar(grammarPath: string, callback: (error: Error|null, grammar?: Grammar) =>
-        void): void;
+    readGrammar(grammarPath: string, callback: (error: Error | null, grammar?: Grammar) => void): void;
 
     /**
      *  Read a grammar synchronously and add it to this registry.
@@ -139,8 +137,7 @@ export class GrammarRegistry {
      *  @param callback The function to be invoked once the Grammar has been read in
      *  and added to the registry.
      */
-    loadGrammar(grammarPath: string, callback: (error: Error|null, grammar?: Grammar) =>
-        void): void;
+    loadGrammar(grammarPath: string, callback: (error: Error | null, grammar?: Grammar) => void): void;
 
     /**
      *  Convert compact tags representation into convenient, space-inefficient tokens.
@@ -148,7 +145,7 @@ export class GrammarRegistry {
      *  @param tags The tags returned from a call to Grammar::tokenizeLine().
      *  @return An array of Token instances decoded from the given tags.
      */
-    decodeTokens(lineText: string, tags: Array<number|string>): GrammarToken[];
+    decodeTokens(lineText: string, tags: Array<number | string>): GrammarToken[];
 }
 
 export class ScopeSelector {
@@ -164,14 +161,14 @@ export class ScopeSelector {
      *  @param scopes A single scope or an array of them to be compared against.
      *  @return A boolean indicating whether or not this ScopeSelector matched.
      */
-    matches(scopes: string|ReadonlyArray<string>): boolean;
+    matches(scopes: string | ReadonlyArray<string>): boolean;
 
     /**
      *  Gets the prefix of this scope selector.
      *  @param scopes The scopes to match a prefix against.
      *  @return The matching prefix, if there is one.
      */
-    getPrefix(scopes: string|ReadonlyArray<string>): string|undefined;
+    getPrefix(scopes: string | ReadonlyArray<string>): string | undefined;
 
     /**
      *  Convert this TextMate scope selector to a CSS selector.
@@ -226,7 +223,7 @@ export interface TokenizeLineResult {
      *  to scope names, call GrammarRegistry::scopeForId with the absolute
      *  value of the id.
      */
-    tags: Array<number|string>;
+    tags: Array<number | string>;
 
     /**
      *  This is a dynamic property. Invoking it will incur additional overhead,

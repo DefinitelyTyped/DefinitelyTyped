@@ -1,19 +1,18 @@
 declare namespace pc {
-
     /**
-    * @component
-    * @name pc.ScriptComponent
-    * @class The ScriptComponent allows you to extend the functionality of an Entity by attaching your own Script Types defined in JavaScript files
-    * to be executed with access to the Entity. For more details on scripting see <a href="//developer.playcanvas.com/user-manual/scripting/">Scripting</a>.
-    * @param {pc.ScriptComponentSystem} system The ComponentSystem that created this Component
-    * @param {pc.Entity} entity The Entity that this Component is attached to.
-    * @extends pc.Component
-    * @property {ScriptType[]} scripts An array of all script instances attached to an entity. This Array shall not be modified by developer.
-    */
+     * @component
+     * @name pc.ScriptComponent
+     * @class The ScriptComponent allows you to extend the functionality of an Entity by attaching your own Script Types defined in JavaScript files
+     * to be executed with access to the Entity. For more details on scripting see <a href="//developer.playcanvas.com/user-manual/scripting/">Scripting</a>.
+     * @param {pc.ScriptComponentSystem} system The ComponentSystem that created this Component
+     * @param {pc.Entity} entity The Entity that this Component is attached to.
+     * @extends pc.Component
+     * @property {ScriptType[]} scripts An array of all script instances attached to an entity. This Array shall not be modified by developer.
+     */
     class ScriptComponent extends pc.Component {
-        constructor(system: pc.ScriptComponentSystem, entity: pc.Entity)
+        constructor(system: pc.ScriptComponentSystem, entity: pc.Entity);
 
-        scripts: ScriptType[]
+        scripts: ScriptType[];
 
         /**
          * @function
@@ -46,7 +45,7 @@ declare namespace pc {
          *     }
          * });
          */
-        create(name: string, args?: { enabled?: boolean, attributes?: {}}): ScriptType;
+        create(name: string, args?: { enabled?: boolean; attributes?: {} }): ScriptType;
 
         /**
          * @function
@@ -57,7 +56,7 @@ declare namespace pc {
          * @example
          * entity.script.destroy('playerController');
          */
-        destroy(name: string): boolean;        
+        destroy(name: string): boolean;
 
         /**
          * @function

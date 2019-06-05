@@ -110,7 +110,7 @@ export class SlopeColor extends AbstractColor {
         left?: number,
         right?: number,
         leftSlope?: number,
-        rightSlope?: number,
+        rightSlope?: number
     );
 
     BRIGHTNESS_GAIN: number;

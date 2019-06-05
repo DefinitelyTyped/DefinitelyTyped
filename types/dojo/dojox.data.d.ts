@@ -3,10 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
-
     namespace data {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/data/restListener.html
@@ -15,7 +12,9 @@ declare namespace dojox {
          *
          * @param message
          */
-        interface restListener{(message: any): void}
+        interface restListener {
+            (message: any): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/data/AndOrReadStore.html
          *
@@ -48,16 +47,16 @@ declare namespace dojox {
              * all item handles will become invalid and a new fetch must be issued.
              *
              */
-            "clearOnClose": boolean;
+            'clearOnClose': boolean;
             /**
              *
              */
-            "data": Object;
+            'data': Object;
             /**
              * Parameter for specifying that it is OK for the xhrGet call to fail silently.
              *
              */
-            "failOk": boolean;
+            'failOk': boolean;
             /**
              * Parameter to indicate to process data from the url as hierarchical
              * (data items can contain other data items in js form).  Default is true
@@ -66,28 +65,28 @@ declare namespace dojox {
              * specific reference format, are left straight JS data objects.
              *
              */
-            "hierarchical": boolean;
+            'hierarchical': boolean;
             /**
              *
              */
-            "typeMap": Object;
+            'typeMap': Object;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Parameter to allow specifying if preventCache should be passed to the xhrGet call or not when loading data from a url.
              * Note this does not mean the store calls the server on each fetch, only that the data load has preventCache set as an option.
              * Added for tracker: #6072
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -264,16 +263,16 @@ declare namespace dojox {
              * all item handles will become invalid and a new fetch must be issued.
              *
              */
-            "clearOnClose": boolean;
+            'clearOnClose': boolean;
             /**
              *
              */
-            "data": Object;
+            'data': Object;
             /**
              * Parameter for specifying that it is OK for the xhrGet call to fail silently.
              *
              */
-            "failOk": boolean;
+            'failOk': boolean;
             /**
              * Parameter to indicate to process data from the url as hierarchical
              * (data items can contain other data items in js form).  Default is true
@@ -282,26 +281,26 @@ declare namespace dojox {
              * specific reference format, are left straight JS data objects.
              *
              */
-            "hierarchical": boolean;
+            'hierarchical': boolean;
             /**
              *
              */
-            "referenceIntegrity": boolean;
+            'referenceIntegrity': boolean;
             /**
              *
              */
-            "typeMap": Object;
+            'typeMap': Object;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Parameter to allow specifying if preventCache should be passed to the xhrGet call or not when loading data from a url.
              * Note this does not mean the store calls the server on each fetch, only that the data load has preventCache set as an option.
              * Added for tracker: #6072
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * Over-ride of base close function of ItemFileReadStore to add in check for store state.
              * Over-ride of base close function of ItemFileReadStore to add in check for store state.
@@ -581,23 +580,23 @@ declare namespace dojox {
              * So the parser can instantiate the store via markup.
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Whether or not to pass the preventCache parameter to the connection
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * Whether to use X-Method-Override for PUT/DELETE.
              *
              */
-            "xmethod": boolean;
+            'xmethod': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -760,30 +759,30 @@ declare namespace dojox {
             /**
              *
              */
-            "label": string;
+            'label': string;
             /**
              *
              */
-            "sendQuery": boolean;
+            'sendQuery': boolean;
             /**
              *
              */
-            "unescapeHTML": boolean;
+            'unescapeHTML': boolean;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Configurable preventCache option for the URL.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -951,32 +950,32 @@ declare namespace dojox {
              * A object that will be converted into the xmlStr property, and then parsed into a CDF.
              *
              */
-            "data": Object;
+            'data': Object;
             /**
              * The unique identifier for each item. Defaults to "jsxid" which is standard for a CDF
              * document. Should not be changed.
              *
              */
-            "identity": string;
+            'identity': string;
             /**
              * The property within each item used to define the item.
              *
              */
-            "label": string;
+            'label': string;
             /**
              *
              */
-            "mode": number;
+            'mode': number;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * A string that can be parsed into an XML document and should be formatted according
              * to the CDF spec.
              *
              */
-            "xmlStr": string;
+            'xmlStr': string;
             /**
              *
              * @param args
@@ -992,7 +991,7 @@ declare namespace dojox {
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -1215,11 +1214,11 @@ declare namespace dojox {
             /**
              *
              */
-            "cacheByDefault": boolean;
+            'cacheByDefault': boolean;
             /**
              *
              */
-            "serverVersion": number;
+            'serverVersion': number;
             /**
              *
              * @param args
@@ -1569,33 +1568,33 @@ declare namespace dojox {
              * Declarative hook for setting the identifier.
              *
              */
-            "identifier": string;
+            'identifier': string;
             /**
              * Declarative hook for setting the label attribute.
              *
              */
-            "label": string;
+            'label': string;
             /**
              * Declatative and programmatic hook for defining the separator
              * character used in the Csv style file.
              *
              */
-            "separator": string;
+            'separator': string;
             /**
              * Declarative hook for setting Csv source url.
              *
              */
-            "url": string;
+            'url': string;
             /**
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -1791,39 +1790,39 @@ declare namespace dojox {
              * Flag to pass on to xhr functions to check if we are OK to fail the call silently
              *
              */
-            "failOk": boolean;
+            'failOk': boolean;
             /**
              * Default attribute to use to represent the item as a user-readable
              * string.  Public, so users can change it.
              *
              */
-            "label": string;
+            'label': string;
             /**
              * Array of options to always send when doing requests.
              * Back end service controls this, like 'dirsOnly', 'showHiddenFiles', 'expandChildren', etc.
              *
              */
-            "options": any[];
+            'options': any[];
             /**
              *
              */
-            "pathAsQueryParam": boolean;
+            'pathAsQueryParam': boolean;
             /**
              * The path separator to use when chaining requests for children
              * Can be overriden by the server on initial load
              *
              */
-            "pathSeparator": string;
+            'pathSeparator': string;
             /**
              * The URL to the file path service.
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Flag to dennote if preventCache should be passed to xhrGet.
              *
              */
-            "urlPreventCache": string;
+            'urlPreventCache': string;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -1937,11 +1936,11 @@ declare namespace dojox {
             /**
              *
              */
-            "label": string;
+            'label': string;
             /**
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -2077,15 +2076,15 @@ declare namespace dojox {
             /**
              *
              */
-            "label": string;
+            'label': string;
             /**
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              *
              */
-            "urlRegistry": Object;
+            'urlRegistry': Object;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -2234,12 +2233,12 @@ declare namespace dojox {
              * The default attribute which acts as a label for each item.
              *
              */
-            "label": string;
+            'label': string;
             /**
              * Sets whether or not to pass preventCache to dojo.io.script.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -2352,34 +2351,34 @@ declare namespace dojox {
              * The id in the document for an element from which to get the data.
              *
              */
-            "dataId": string;
+            'dataId': string;
             /**
              * Flag to denote if it should try to load from a data id (nested in the page)
              * The moment the store is created, instead of waiting for first
              * fetch call.
              *
              */
-            "fetchOnCreate": boolean;
+            'fetchOnCreate': boolean;
             /**
              *
              */
-            "trimWhitespace": boolean;
+            'trimWhitespace': boolean;
             /**
              * The URL from which to load an HTML document for data loading
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Flag to denote if peventCache should be used on xhrGet calls.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -2534,18 +2533,18 @@ declare namespace dojox {
              * The id of the table to load as store contents.
              *
              */
-            "tableId": string;
+            'tableId': string;
             /**
              * The URL from which to load an HTML document for data loading
              *
              */
-            "url": string;
+            'url': string;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -2702,7 +2701,7 @@ declare namespace dojox {
              * Disabled by default.
              *
              */
-            "allowNoTrailingSlash": boolean;
+            'allowNoTrailingSlash': boolean;
             /**
              * This parameter is used by the ServiceStore to estimate the total count. When
              * paging is indicated in a fetch and the response includes the full number of items
@@ -2715,12 +2714,12 @@ declare namespace dojox {
              * total count.
              *
              */
-            "estimateCountFactor": number;
+            'estimateCountFactor': number;
             /**
              * Treat objects in queries as partially loaded objects
              *
              */
-            "idAsRef": boolean;
+            'idAsRef': boolean;
             /**
              * Defaults to 'id'. The name of the attribute that holds an objects id.
              * This can be a preexisting id provided by the server.
@@ -2729,54 +2728,54 @@ declare namespace dojox {
              * will generate an id for it and add it to the index.
              *
              */
-            "idAttribute": string;
+            'idAttribute': string;
             /**
              *
              */
-            "jsonQueryPagination": boolean;
+            'jsonQueryPagination': boolean;
             /**
              *
              */
-            "labelAttribute": string;
+            'labelAttribute': string;
             /**
              *
              */
-            "loadLazyValues": boolean;
+            'loadLazyValues': boolean;
             /**
              * Will load any schemas referenced content-type header or in Link headers
              *
              */
-            "loadReferencedSchema": boolean;
+            'loadReferencedSchema': boolean;
             /**
              *
              */
-            "referenceIntegrity": boolean;
+            'referenceIntegrity': boolean;
             /**
              * This is a schema object for this store. This should be JSON Schema format.
              *
              */
-            "schema": Object;
+            'schema': Object;
             /**
              * This is the service object that is used to retrieve lazy data and save results
              * The function should be directly callable with a single parameter of an object id to be loaded
              *
              */
-            "service": Object;
+            'service': Object;
             /**
              * Setting this to true will set the store to using synchronous calls by default.
              * Sync calls return their data immediately from the calling function, so
              * callbacks are unnecessary. This will only work with a synchronous capable service.
              *
              */
-            "syncMode": boolean;
+            'syncMode': boolean;
             /**
              *
              */
-            "target": string;
+            'target': string;
             /**
              *
              */
-            "useFullIdInQueries": boolean;
+            'useFullIdInQueries': boolean;
             /**
              * Removes an object from the list of dirty objects
              * This will prevent that object from being saved to the server on the next save
@@ -3023,7 +3022,7 @@ declare namespace dojox {
              * Disabled by default.
              *
              */
-            "allowNoTrailingSlash": boolean;
+            'allowNoTrailingSlash': boolean;
             /**
              * This parameter is used by the ServiceStore to estimate the total count. When
              * paging is indicated in a fetch and the response includes the full number of items
@@ -3036,12 +3035,12 @@ declare namespace dojox {
              * total count.
              *
              */
-            "estimateCountFactor": number;
+            'estimateCountFactor': number;
             /**
              * Treat objects in queries as partially loaded objects
              *
              */
-            "idAsRef": boolean;
+            'idAsRef': boolean;
             /**
              * Defaults to 'id'. The name of the attribute that holds an objects id.
              * This can be a preexisting id provided by the server.
@@ -3050,46 +3049,46 @@ declare namespace dojox {
              * will generate an id for it and add it to the index.
              *
              */
-            "idAttribute": string;
+            'idAttribute': string;
             /**
              *
              */
-            "labelAttribute": string;
+            'labelAttribute': string;
             /**
              *
              */
-            "loadLazyValues": boolean;
+            'loadLazyValues': boolean;
             /**
              * Will load any schemas referenced content-type header or in Link headers
              *
              */
-            "loadReferencedSchema": boolean;
+            'loadReferencedSchema': boolean;
             /**
              *
              */
-            "referenceIntegrity": boolean;
+            'referenceIntegrity': boolean;
             /**
              * This is a schema object for this store. This should be JSON Schema format.
              *
              */
-            "schema": Object;
+            'schema': Object;
             /**
              * This is the service object that is used to retrieve lazy data and save results
              * The function should be directly callable with a single parameter of an object id to be loaded
              *
              */
-            "service": Object;
+            'service': Object;
             /**
              * Setting this to true will set the store to using synchronous calls by default.
              * Sync calls return their data immediately from the calling function, so
              * callbacks are unnecessary. This will only work with a synchronous capable service.
              *
              */
-            "syncMode": boolean;
+            'syncMode': boolean;
             /**
              *
              */
-            "target": string;
+            'target': string;
             /**
              * Removes an object from the list of dirty objects
              * This will prevent that object from being saved to the server on the next save
@@ -3331,22 +3330,22 @@ declare namespace dojox {
             /**
              *
              */
-            "data": string;
+            'data': string;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Controls if urlPreventCache should be used with underlying xhrGet.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -3510,48 +3509,48 @@ declare namespace dojox {
             /**
              *
              */
-            "ATOM_CONTENT_TYPE": number;
+            'ATOM_CONTENT_TYPE': number;
             /**
              *
              */
-            "ATOM_CONTENT_TYPE_STRING": string;
+            'ATOM_CONTENT_TYPE_STRING': string;
             /**
              *
              */
-            "iframeElement": Object;
+            'iframeElement': Object;
             /**
              *
              */
-            "itemPath": string;
+            'itemPath': string;
             /**
              *
              */
-            "RSS_CONTENT_TYPE": number;
+            'RSS_CONTENT_TYPE': number;
             /**
              *
              */
-            "RSS_CONTENT_TYPE_STRING": string;
+            'RSS_CONTENT_TYPE_STRING': string;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              *
              */
-            "urlElement": Object;
+            'urlElement': Object;
             /**
              * Flag denoting if xhrGet calls should use the preventCache option.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              *
              */
-            "XML_CONTENT_TYPE": number;
+            'XML_CONTENT_TYPE': number;
             /**
              *
              */
-            "XML_CONTENT_TYPE_STRING": string;
+            'XML_CONTENT_TYPE_STRING': string;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -3700,23 +3699,23 @@ declare namespace dojox {
              * The attribute of the Opml item to act as a label.
              *
              */
-            "label": string;
+            'label': string;
             /**
              * The location from which to fetch the Opml document.
              *
              */
-            "url": string;
+            'url': string;
             /**
              * Flag to denote if the underlying xhrGet call should set preventCache.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -3910,11 +3909,11 @@ declare namespace dojox {
             /**
              *
              */
-            "jsonQueryPagination": boolean;
+            'jsonQueryPagination': boolean;
             /**
              *
              */
-            "useFullIdInQueries": boolean;
+            'useFullIdInQueries': boolean;
             /**
              * Invokes the XHR proxy plugin. Call this if you will be using x-site data.
              *
@@ -3940,17 +3939,17 @@ declare namespace dojox {
              * The attribute to use from the picasa item as its label.
              *
              */
-            "label": string;
+            'label': string;
             /**
              * Define out how many results to return for a fetch.
              *
              */
-            "maxResults": number;
+            'maxResults': number;
             /**
              * Flag denoting if preventCache should be passed to io.script.
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -4102,30 +4101,30 @@ declare namespace dojox {
              * By default every request for paging is sent to the server.
              *
              */
-            "doClientPaging": boolean;
+            'doClientPaging': boolean;
             /**
              * By default all the sorting is done serverside before the data is returned
              * which is the proper place to be doing it for really large datasets.
              *
              */
-            "doClientSorting": boolean;
+            'doClientSorting': boolean;
             /**
              *
              */
-            "lastRequestHash": Object;
+            'lastRequestHash': Object;
             /**
              *
              */
-            "requestMethod": string;
+            'requestMethod': string;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              *
              * @param request               Optional
@@ -4257,7 +4256,7 @@ declare namespace dojox {
              * Disabled by default.
              *
              */
-            "allowNoTrailingSlash": boolean;
+            'allowNoTrailingSlash': boolean;
             /**
              * This parameter is used by the ServiceStore to estimate the total count. When
              * paging is indicated in a fetch and the response includes the full number of items
@@ -4270,12 +4269,12 @@ declare namespace dojox {
              * total count.
              *
              */
-            "estimateCountFactor": number;
+            'estimateCountFactor': number;
             /**
              * Treat objects in queries as partially loaded objects
              *
              */
-            "idAsRef": boolean;
+            'idAsRef': boolean;
             /**
              * Defaults to 'id'. The name of the attribute that holds an objects id.
              * This can be a preexisting id provided by the server.
@@ -4284,46 +4283,46 @@ declare namespace dojox {
              * will generate an id for it and add it to the index.
              *
              */
-            "idAttribute": string;
+            'idAttribute': string;
             /**
              *
              */
-            "labelAttribute": string;
+            'labelAttribute': string;
             /**
              *
              */
-            "loadLazyValues": boolean;
+            'loadLazyValues': boolean;
             /**
              * Will load any schemas referenced content-type header or in Link headers
              *
              */
-            "loadReferencedSchema": boolean;
+            'loadReferencedSchema': boolean;
             /**
              *
              */
-            "referenceIntegrity": boolean;
+            'referenceIntegrity': boolean;
             /**
              * This is a schema object for this store. This should be JSON Schema format.
              *
              */
-            "schema": Object;
+            'schema': Object;
             /**
              * This is the service object that is used to retrieve lazy data and save results
              * The function should be directly callable with a single parameter of an object id to be loaded
              *
              */
-            "service": Object;
+            'service': Object;
             /**
              * Setting this to true will set the store to using synchronous calls by default.
              * Sync calls return their data immediately from the calling function, so
              * callbacks are unnecessary. This will only work with a synchronous capable service.
              *
              */
-            "syncMode": boolean;
+            'syncMode': boolean;
             /**
              *
              */
-            "target": string;
+            'target': string;
             /**
              * Removes an object from the list of dirty objects
              * This will prevent that object from being saved to the server on the next save
@@ -4567,7 +4566,7 @@ declare namespace dojox {
              * total count.
              *
              */
-            "estimateCountFactor": number;
+            'estimateCountFactor': number;
             /**
              * Defaults to 'id'. The name of the attribute that holds an objects id.
              * This can be a preexisting id provided by the server.
@@ -4576,33 +4575,33 @@ declare namespace dojox {
              * will generate an id for it and add it to the index.
              *
              */
-            "idAttribute": string;
+            'idAttribute': string;
             /**
              *
              */
-            "labelAttribute": string;
+            'labelAttribute': string;
             /**
              *
              */
-            "loadLazyValues": boolean;
+            'loadLazyValues': boolean;
             /**
              * This is a schema object for this store. This should be JSON Schema format.
              *
              */
-            "schema": Object;
+            'schema': Object;
             /**
              * This is the service object that is used to retrieve lazy data and save results
              * The function should be directly callable with a single parameter of an object id to be loaded
              *
              */
-            "service": Object;
+            'service': Object;
             /**
              * Setting this to true will set the store to using synchronous calls by default.
              * Sync calls return their data immediately from the calling function, so
              * callbacks are unnecessary. This will only work with a synchronous capable service.
              *
              */
-            "syncMode": boolean;
+            'syncMode': boolean;
             /**
              *
              * @param request
@@ -4727,11 +4726,11 @@ declare namespace dojox {
             /**
              *
              */
-            "Parts": Object;
+            'Parts': Object;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -4841,7 +4840,7 @@ declare namespace dojox {
              * total count.
              *
              */
-            "estimateCountFactor": number;
+            'estimateCountFactor': number;
             /**
              * Defaults to 'id'. The name of the attribute that holds an objects id.
              * This can be a preexisting id provided by the server.
@@ -4850,33 +4849,33 @@ declare namespace dojox {
              * will generate an id for it and add it to the index.
              *
              */
-            "idAttribute": string;
+            'idAttribute': string;
             /**
              *
              */
-            "labelAttribute": string;
+            'labelAttribute': string;
             /**
              *
              */
-            "loadLazyValues": boolean;
+            'loadLazyValues': boolean;
             /**
              * This is a schema object for this store. This should be JSON Schema format.
              *
              */
-            "schema": Object;
+            'schema': Object;
             /**
              * This is the service object that is used to retrieve lazy data and save results
              * The function should be directly callable with a single parameter of an object id to be loaded
              *
              */
-            "service": Object;
+            'service': Object;
             /**
              * Setting this to true will set the store to using synchronous calls by default.
              * Sync calls return their data immediately from the calling function, so
              * callbacks are unnecessary. This will only work with a synchronous capable service.
              *
              */
-            "syncMode": boolean;
+            'syncMode': boolean;
             /**
              *
              * @param request
@@ -5021,37 +5020,37 @@ declare namespace dojox {
             /**
              *
              */
-            "attributeMap": Object;
+            'attributeMap': Object;
             /**
              *
              */
-            "keyAttribute": string;
+            'keyAttribute': string;
             /**
              *
              */
-            "label": string;
+            'label': string;
             /**
              *
              */
-            "rootItem": string;
+            'rootItem': string;
             /**
              *
              */
-            "sendQuery": boolean;
+            'sendQuery': boolean;
             /**
              *
              */
-            "url": string;
+            'url': string;
             /**
              *
              */
-            "urlPreventCache": boolean;
+            'urlPreventCache': boolean;
             /**
              * See dojo/data/api/Read.close()
              *
              * @param request               Optional
              */
-            close(request: dojo.data.api.Request ): void;
+            close(request: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -5474,11 +5473,11 @@ declare namespace dojox {
                 /**
                  *
                  */
-                "jsonQueryPagination": boolean;
+                'jsonQueryPagination': boolean;
                 /**
                  *
                  */
-                "useFullIdInQueries": boolean;
+                'useFullIdInQueries': boolean;
                 /**
                  *
                  * @param request
@@ -5675,12 +5674,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -5789,12 +5788,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -5908,12 +5907,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -6037,12 +6036,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -6155,12 +6154,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -6272,12 +6271,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -6389,12 +6388,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -6503,12 +6502,12 @@ declare namespace dojox {
                  * The default attribute which acts as a label for each item.
                  *
                  */
-                "label": string;
+                'label': string;
                 /**
                  * Sets whether or not to pass preventCache to dojo.io.script.
                  *
                  */
-                "urlPreventCache": boolean;
+                'urlPreventCache': boolean;
                 /**
                  * See dojo/data/api/Read.close()
                  *
@@ -6594,188 +6593,186 @@ declare namespace dojox {
                 loadItem(keywordArgs: any): void;
             }
         }
-
     }
-
 }
 
-declare module "dojox/data/restListener" {
-    var exp: dojox.data.restListener
-    export=exp;
+declare module 'dojox/data/restListener' {
+    var exp: dojox.data.restListener;
+    export = exp;
 }
-declare module "dojox/data/css" {
-    var exp: dojox.data.css
-    export=exp;
+declare module 'dojox/data/css' {
+    var exp: dojox.data.css;
+    export = exp;
 }
-declare module "dojox/data/css.rules" {
-    var exp: dojox.data.css.rules
-    export=exp;
+declare module 'dojox/data/css.rules' {
+    var exp: dojox.data.css.rules;
+    export = exp;
 }
-declare module "dojox/data/dom" {
-    var exp: dojox.data.dom
-    export=exp;
+declare module 'dojox/data/dom' {
+    var exp: dojox.data.dom;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore" {
-    var exp: dojox.data.GoogleSearchStore
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore' {
+    var exp: dojox.data.GoogleSearchStore;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.ImageSearch" {
-    var exp: dojox.data.GoogleSearchStore.ImageSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.ImageSearch' {
+    var exp: dojox.data.GoogleSearchStore.ImageSearch;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.BookSearch" {
-    var exp: dojox.data.GoogleSearchStore.BookSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.BookSearch' {
+    var exp: dojox.data.GoogleSearchStore.BookSearch;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.LocalSearch" {
-    var exp: dojox.data.GoogleSearchStore.LocalSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.LocalSearch' {
+    var exp: dojox.data.GoogleSearchStore.LocalSearch;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.BlogSearch" {
-    var exp: dojox.data.GoogleSearchStore.BlogSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.BlogSearch' {
+    var exp: dojox.data.GoogleSearchStore.BlogSearch;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.VideoSearch" {
-    var exp: dojox.data.GoogleSearchStore.VideoSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.VideoSearch' {
+    var exp: dojox.data.GoogleSearchStore.VideoSearch;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.Search" {
-    var exp: dojox.data.GoogleSearchStore.Search
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.Search' {
+    var exp: dojox.data.GoogleSearchStore.Search;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.WebSearch" {
-    var exp: dojox.data.GoogleSearchStore.WebSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.WebSearch' {
+    var exp: dojox.data.GoogleSearchStore.WebSearch;
+    export = exp;
 }
-declare module "dojox/data/GoogleSearchStore.NewsSearch" {
-    var exp: dojox.data.GoogleSearchStore.NewsSearch
-    export=exp;
+declare module 'dojox/data/GoogleSearchStore.NewsSearch' {
+    var exp: dojox.data.GoogleSearchStore.NewsSearch;
+    export = exp;
 }
-declare module "dojox/data/AndOrReadStore" {
-    var exp: dojox.data.AndOrReadStore
-    export=exp;
+declare module 'dojox/data/AndOrReadStore' {
+    var exp: dojox.data.AndOrReadStore;
+    export = exp;
 }
-declare module "dojox/data/AppStore" {
-    var exp: dojox.data.AppStore
-    export=exp;
+declare module 'dojox/data/AppStore' {
+    var exp: dojox.data.AppStore;
+    export = exp;
 }
-declare module "dojox/data/AndOrWriteStore" {
-    var exp: dojox.data.AndOrWriteStore
-    export=exp;
+declare module 'dojox/data/AndOrWriteStore' {
+    var exp: dojox.data.AndOrWriteStore;
+    export = exp;
 }
-declare module "dojox/data/AtomReadStore" {
-    var exp: dojox.data.AtomReadStore
-    export=exp;
+declare module 'dojox/data/AtomReadStore' {
+    var exp: dojox.data.AtomReadStore;
+    export = exp;
 }
-declare module "dojox/data/ClientFilter" {
-    var exp: dojox.data.ClientFilter
-    export=exp;
+declare module 'dojox/data/ClientFilter' {
+    var exp: dojox.data.ClientFilter;
+    export = exp;
 }
-declare module "dojox/data/CouchDBRestStore" {
-    var exp: dojox.data.CouchDBRestStore
-    export=exp;
+declare module 'dojox/data/CouchDBRestStore' {
+    var exp: dojox.data.CouchDBRestStore;
+    export = exp;
 }
-declare module "dojox/data/CdfStore" {
-    var exp: dojox.data.CdfStore
-    export=exp;
+declare module 'dojox/data/CdfStore' {
+    var exp: dojox.data.CdfStore;
+    export = exp;
 }
-declare module "dojox/data/CssRuleStore" {
-    var exp: dojox.data.CssRuleStore
-    export=exp;
+declare module 'dojox/data/CssRuleStore' {
+    var exp: dojox.data.CssRuleStore;
+    export = exp;
 }
-declare module "dojox/data/CssClassStore" {
-    var exp: dojox.data.CssClassStore
-    export=exp;
+declare module 'dojox/data/CssClassStore' {
+    var exp: dojox.data.CssClassStore;
+    export = exp;
 }
-declare module "dojox/data/CsvStore" {
-    var exp: dojox.data.CsvStore
-    export=exp;
+declare module 'dojox/data/CsvStore' {
+    var exp: dojox.data.CsvStore;
+    export = exp;
 }
-declare module "dojox/data/FileStore" {
-    var exp: dojox.data.FileStore
-    export=exp;
+declare module 'dojox/data/FileStore' {
+    var exp: dojox.data.FileStore;
+    export = exp;
 }
-declare module "dojox/data/FlickrRestStore" {
-    var exp: dojox.data.FlickrRestStore
-    export=exp;
+declare module 'dojox/data/FlickrRestStore' {
+    var exp: dojox.data.FlickrRestStore;
+    export = exp;
 }
-declare module "dojox/data/GoogleFeedStore" {
-    var exp: dojox.data.GoogleFeedStore
-    export=exp;
+declare module 'dojox/data/GoogleFeedStore' {
+    var exp: dojox.data.GoogleFeedStore;
+    export = exp;
 }
-declare module "dojox/data/FlickrStore" {
-    var exp: dojox.data.FlickrStore
-    export=exp;
+declare module 'dojox/data/FlickrStore' {
+    var exp: dojox.data.FlickrStore;
+    export = exp;
 }
-declare module "dojox/data/HtmlStore" {
-    var exp: dojox.data.HtmlStore
-    export=exp;
+declare module 'dojox/data/HtmlStore' {
+    var exp: dojox.data.HtmlStore;
+    export = exp;
 }
-declare module "dojox/data/HtmlTableStore" {
-    var exp: dojox.data.HtmlTableStore
-    export=exp;
+declare module 'dojox/data/HtmlTableStore' {
+    var exp: dojox.data.HtmlTableStore;
+    export = exp;
 }
-declare module "dojox/data/KeyValueStore" {
-    var exp: dojox.data.KeyValueStore
-    export=exp;
+declare module 'dojox/data/KeyValueStore' {
+    var exp: dojox.data.KeyValueStore;
+    export = exp;
 }
-declare module "dojox/data/JsonRestStore" {
-    var exp: dojox.data.JsonRestStore
-    export=exp;
+declare module 'dojox/data/JsonRestStore' {
+    var exp: dojox.data.JsonRestStore;
+    export = exp;
 }
-declare module "dojox/data/JsonQueryRestStore" {
-    var exp: dojox.data.JsonQueryRestStore
-    export=exp;
+declare module 'dojox/data/JsonQueryRestStore' {
+    var exp: dojox.data.JsonQueryRestStore;
+    export = exp;
 }
-declare module "dojox/data/PersevereStore" {
-    var exp: dojox.data.PersevereStore
-    export=exp;
+declare module 'dojox/data/PersevereStore' {
+    var exp: dojox.data.PersevereStore;
+    export = exp;
 }
-declare module "dojox/data/OpenSearchStore" {
-    var exp: dojox.data.OpenSearchStore
-    export=exp;
+declare module 'dojox/data/OpenSearchStore' {
+    var exp: dojox.data.OpenSearchStore;
+    export = exp;
 }
-declare module "dojox/data/PicasaStore" {
-    var exp: dojox.data.PicasaStore
-    export=exp;
+declare module 'dojox/data/PicasaStore' {
+    var exp: dojox.data.PicasaStore;
+    export = exp;
 }
-declare module "dojox/data/OpmlStore" {
-    var exp: dojox.data.OpmlStore
-    export=exp;
+declare module 'dojox/data/OpmlStore' {
+    var exp: dojox.data.OpmlStore;
+    export = exp;
 }
-declare module "dojox/data/RailsStore" {
-    var exp: dojox.data.RailsStore
-    export=exp;
+declare module 'dojox/data/RailsStore' {
+    var exp: dojox.data.RailsStore;
+    export = exp;
 }
-declare module "dojox/data/QueryReadStore" {
-    var exp: dojox.data.QueryReadStore
-    export=exp;
+declare module 'dojox/data/QueryReadStore' {
+    var exp: dojox.data.QueryReadStore;
+    export = exp;
 }
-declare module "dojox/data/S3Store" {
-    var exp: dojox.data.S3Store
-    export=exp;
+declare module 'dojox/data/S3Store' {
+    var exp: dojox.data.S3Store;
+    export = exp;
 }
-declare module "dojox/data/SnapLogicStore" {
-    var exp: dojox.data.SnapLogicStore
-    export=exp;
+declare module 'dojox/data/SnapLogicStore' {
+    var exp: dojox.data.SnapLogicStore;
+    export = exp;
 }
-declare module "dojox/data/XmlItem" {
-    var exp: dojox.data.XmlItem
-    export=exp;
+declare module 'dojox/data/XmlItem' {
+    var exp: dojox.data.XmlItem;
+    export = exp;
 }
-declare module "dojox/data/ServiceStore" {
-    var exp: dojox.data.ServiceStore
-    export=exp;
+declare module 'dojox/data/ServiceStore' {
+    var exp: dojox.data.ServiceStore;
+    export = exp;
 }
-declare module "dojox/data/WikipediaStore" {
-    var exp: dojox.data.WikipediaStore
-    export=exp;
+declare module 'dojox/data/WikipediaStore' {
+    var exp: dojox.data.WikipediaStore;
+    export = exp;
 }
-declare module "dojox/data/XmlStore" {
-    var exp: dojox.data.XmlStore
-    export=exp;
+declare module 'dojox/data/XmlStore' {
+    var exp: dojox.data.XmlStore;
+    export = exp;
 }
-declare module "dojox/data/util/JsonQuery" {
-    var exp: dojox.data.util.JsonQuery
-    export=exp;
+declare module 'dojox/data/util/JsonQuery' {
+    var exp: dojox.data.util.JsonQuery;
+    export = exp;
 }

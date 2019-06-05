@@ -1,8 +1,8 @@
 import * as json2mq from 'json2mq';
 
-json2mq({ screen: true });  // -> 'screen'
+json2mq({ screen: true }); // -> 'screen'
 
-json2mq({ handheld: false });  // -> 'not handheld'
+json2mq({ handheld: false }); // -> 'not handheld'
 
 json2mq({ minWidth: 100, maxWidth: 200 });
 // -> '(min-width: 100px) and (max-width: 200px)'

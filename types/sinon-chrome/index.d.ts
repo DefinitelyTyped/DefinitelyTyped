@@ -196,7 +196,7 @@ declare namespace SinonChrome.declarativeContent {
     export var onPageChanged: SinonChrome.events.Event;
 }
 
-declare namespace SinonChrome. desktopCapture {
+declare namespace SinonChrome.desktopCapture {
     export var cancelChooseDesktopMedia: SinonChromeStub;
     export var chooseDesktopMedia: SinonChromeStub;
 }

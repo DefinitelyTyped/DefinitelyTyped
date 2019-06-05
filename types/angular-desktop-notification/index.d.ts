@@ -140,9 +140,9 @@ declare module 'angular' {
         // tslint:disable-next-line interface-name
         interface IDesktopNotificationService {
             permissions: {
-                default: 'default',
-                denied: 'denied',
-                granted: 'granted',
+                default: 'default';
+                denied: 'denied';
+                granted: 'granted';
             };
 
             /**

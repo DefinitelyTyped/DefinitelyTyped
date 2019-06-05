@@ -10,7 +10,7 @@ export interface SetVersionByQueryParamOptions {
     removeQueryParam: boolean;
 }
 
-export type CustomParsingFunction = (header: Request["headers"]["accept"]) => string;
+export type CustomParsingFunction = (header: Request['headers']['accept']) => string;
 
 export function setVersion(version: string): Handler;
 

@@ -30,7 +30,7 @@ declare namespace OneSignalCordovaPlugin {
         setSubscription(enable: boolean): void;
         enableVibrate(enable: boolean): void;
         enableSound(enable: boolean): void;
-        setLogLevel(logLevel: { logLevel: number, visualLevel: number }): void;
+        setLogLevel(logLevel: { logLevel: number; visualLevel: number }): void;
         getIds(callback: (id: { userId: string; pushToken: string }) => void): void;
         registerForPushNotifications(): void;
     }
@@ -177,24 +177,24 @@ declare namespace OneSignalCordovaPlugin {
     const enum OSLockScreenVisibility {
         Public = 1,
         Private = 0,
-        Secret = -1
+        Secret = -1,
     }
 
     const enum OSDisplayType {
         None = 0,
         InAppAlert = 1,
-        Notification = 2
+        Notification = 2,
     }
 
     const enum OSActionType {
         Opened = 0,
-        ActionTake = 1
+        ActionTake = 1,
     }
 
     const enum OSInFocusDisplayOption {
         None = 0,
         InAppAlert = 1,
-        Notification = 2
+        Notification = 2,
     }
 
     const enum OSNotificationPermission {

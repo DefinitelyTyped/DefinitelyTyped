@@ -5,7 +5,7 @@
 //                 matthias jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
 export = dc;
 declare var dc: dc.Base;
@@ -49,7 +49,9 @@ declare namespace dc {
 
     // http://dc-js.github.io/dc.js/docs/html/dc.units.html
     export interface UnitFunction {
-        (start: number|Date, end: number|Date, domain?: number|Array<string>): number | Array<number|Date|string>;
+        (start: number | Date, end: number | Date, domain?: number | Array<string>):
+            | number
+            | Array<number | Date | string>;
     }
 
     export interface FloatPointUnits {
@@ -174,14 +176,14 @@ declare namespace dc {
         renderlet(fn: (chart: T) => any): T;
         useViewBoxResizing: IGetSet<boolean, T>;
 
-        on(event: "renderlet", fn: (chart: T, filter: any) => any): T;
-        on(event: "pretransition", fn: (chart: T, filter: any) => any): T;
-        on(event: "preRender", fn: (chart: T) => any): T;
-        on(event: "postRender", fn: (chart: T) => any): T;
-        on(event: "preRedraw", fn: (chart: T) => any): T;
-        on(event: "postRedraw", fn: (chart: T) => any): T;
-        on(event: "filtered", fn: (chart: T, filter: any) => any): T;
-        on(event: "zoomed", fn: (chart: T, filter: any) => any): T;
+        on(event: 'renderlet', fn: (chart: T, filter: any) => any): T;
+        on(event: 'pretransition', fn: (chart: T, filter: any) => any): T;
+        on(event: 'preRender', fn: (chart: T) => any): T;
+        on(event: 'postRender', fn: (chart: T) => any): T;
+        on(event: 'preRedraw', fn: (chart: T) => any): T;
+        on(event: 'postRedraw', fn: (chart: T) => any): T;
+        on(event: 'filtered', fn: (chart: T, filter: any) => any): T;
+        on(event: 'zoomed', fn: (chart: T, filter: any) => any): T;
         on(event: string, fn: (chart: T, ...args: any[]) => any): T;
     }
 
@@ -193,7 +195,7 @@ declare namespace dc {
     }
 
     export interface MarginMixin<T> {
-        margins: IGetSet<Margins, T>
+        margins: IGetSet<Margins, T>;
     }
 
     export interface ColorMixin<T> {
@@ -338,7 +340,7 @@ declare namespace dc {
         rightYAxis: IGetSet<d3.svg.Axis, ICompositeChart<T>>;
     }
 
-    export interface CompositeChart extends ICompositeChart<CompositeChart> { }
+    export interface CompositeChart extends ICompositeChart<CompositeChart> {}
 
     export interface SeriesChart extends ICompositeChart<SeriesChart> {
         chart: IGetSet<(c: any) => BaseMixin<any>, SeriesChart>;
@@ -365,7 +367,11 @@ declare namespace dc {
         point(name: string, x: number, y: number): void;
     }
 
-    export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
+    export interface RowChart
+        extends CapMixin<RowChart>,
+            MarginMixin<RowChart>,
+            ColorMixin<RowChart>,
+            BaseMixin<RowChart> {
         x: IGetSet<Scale<number>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
         xAxis: IGetSet<d3.svg.Axis, RowChart>;
@@ -418,7 +424,7 @@ declare namespace dc {
     export interface SelectMenu extends BaseMixin<SelectMenu> {
         order: IGetSet<(a: any, b: any) => number, SelectMenu>;
         promptText: IGetSet<string, SelectMenu>;
-        filterDisplayed: IGetSet<(a: {value: any, key: any}, index: number) => boolean, SelectMenu>;
+        filterDisplayed: IGetSet<(a: { value: any; key: any }, index: number) => boolean, SelectMenu>;
         multiple: IGetSet<boolean, SelectMenu>;
         promptValue: IGetSet<any, SelectMenu>;
         numberVisible: IGetSet<number, SelectMenu>;

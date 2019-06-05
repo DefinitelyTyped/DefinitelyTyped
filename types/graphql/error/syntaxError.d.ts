@@ -1,5 +1,5 @@
-import { Source } from "../language/source";
-import { GraphQLError } from "./GraphQLError";
+import { Source } from '../language/source';
+import { GraphQLError } from './GraphQLError';
 
 /**
  * Produces a GraphQLError representing a syntax error, containing useful

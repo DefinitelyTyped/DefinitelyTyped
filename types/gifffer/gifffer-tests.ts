@@ -11,7 +11,7 @@ gifs = Gifffer({
         position: 'absolute',
         top: '50%',
         left: '50%',
-        margin: '-30px 0 0 -30px'
+        margin: '-30px 0 0 -30px',
     },
     playButtonIconStyles: {
         width: '0',
@@ -21,8 +21,8 @@ gifs = Gifffer({
         'border-left': '14px solid rgba(0, 0, 0, 0.5)',
         position: 'absolute',
         left: '26px',
-        top: '16px'
-    }
+        top: '16px',
+    },
 });
 
 gifs[0].click();

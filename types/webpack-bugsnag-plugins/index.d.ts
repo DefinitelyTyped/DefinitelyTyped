@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as webpack from "webpack";
+import * as webpack from 'webpack';
 
 export interface SourceMapUploaderOptions {
     /**
@@ -77,13 +77,7 @@ export interface BuildReporterBuild {
         /**
          *  The source control provider.
          */
-        provider:
-            | "github"
-            | "github-enterprise"
-            | "gitlab"
-            | "gitlab-onpremise"
-            | "bitbucket"
-            | "bitbucket-server";
+        provider: 'github' | 'github-enterprise' | 'gitlab' | 'gitlab-onpremise' | 'bitbucket' | 'bitbucket-server';
 
         /**
          * A URL (git/ssh/https) pointing to the repository, or webpage representing
@@ -119,7 +113,7 @@ export interface BuildReporterOptions {
      *
      * @default warn
      */
-    logLevel?: "debug" | "info" | "warn" | "error";
+    logLevel?: 'debug' | 'info' | 'warn' | 'error';
 
     /**
      * Provide a different logger object

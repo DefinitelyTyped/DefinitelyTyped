@@ -1,6 +1,6 @@
-import { baseGenerator, generate } from "astring";
-import { FunctionExpression, MemberExpression, Program } from "estree";
-import { Stream } from "stream";
+import { baseGenerator, generate } from 'astring';
+import { FunctionExpression, MemberExpression, Program } from 'estree';
+import { Stream } from 'stream';
 
 const ast: Program = null;
 const functionE: FunctionExpression = null;
@@ -15,18 +15,30 @@ generate(memberE);
 const string: string = generate(ast, {
     comments: true,
     generator: baseGenerator,
-    indent: "\t",
-    lineEnd: "\n",
+    indent: '\t',
+    lineEnd: '\n',
     startingIndentLevel: 42,
-    sourceMap: null
+    sourceMap: null,
 });
 
 // options with output option should return Stream
 const stream: Stream = generate(ast, {
-    output: new Stream()
+    output: new Stream(),
 });
 
 // Generator should map node types to functions whose first parameter is same node type
-baseGenerator.Program(ast, { write(s: string) { return; } });
-baseGenerator.FunctionExpression(functionE, { write(s: string) { return; } });
-baseGenerator.MemberExpression(memberE, { write(s: string) { return; } });
+baseGenerator.Program(ast, {
+    write(s: string) {
+        return;
+    },
+});
+baseGenerator.FunctionExpression(functionE, {
+    write(s: string) {
+        return;
+    },
+});
+baseGenerator.MemberExpression(memberE, {
+    write(s: string) {
+        return;
+    },
+});

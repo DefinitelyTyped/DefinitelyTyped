@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 declare class Affix extends React.Component<Affix.AffixProps> {}
 export = Affix;

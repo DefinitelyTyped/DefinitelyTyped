@@ -25,7 +25,7 @@ counterpart.registerTranslations('es', { hello: 'Hola' });
 counterpart.registerInterpolations({ library: 'Counterpart' });
 
 counterpart.setKeyTransformer((value: string, options: object) => {
-  return value.toUpperCase();
+    return value.toUpperCase();
 });
 
 counterpart.localize(new Date(), { format: 'short' });

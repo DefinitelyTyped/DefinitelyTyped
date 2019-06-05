@@ -16,17 +16,16 @@ interface JQuery {
     w2popup(options: Object): W2UI.W2Popup;
 }
 
-declare var w2popup: W2UI.W2Popup
-declare var w2ui: W2UI.W2UI
+declare var w2popup: W2UI.W2Popup;
+declare var w2ui: W2UI.W2UI;
 
 declare namespace W2UI {
-
     interface W2Event {
         onComplete: () => void;
         target: string;
     }
 
-    type W2EventHandler = ((e: W2Event) => void) | ((id: string, e: W2Event) => void)
+    type W2EventHandler = ((e: W2Event) => void) | ((id: string, e: W2Event) => void);
 
     /* Primitives (first alphabetically, then by documentation order) */
 
@@ -42,7 +41,7 @@ declare namespace W2UI {
         type?: string;
     }
 
-    type W2Object = W2Layout | W2Grid | W2Toolbar | W2Sidebar | W2Tabs | W2Form | W2Popup
+    type W2Object = W2Layout | W2Grid | W2Toolbar | W2Sidebar | W2Tabs | W2Form | W2Popup;
 
     interface W2Panel {
         content?: string | JQuery;
@@ -108,9 +107,9 @@ declare namespace W2UI {
     }
 
     namespace W2Grid {
-        interface Columns { }
-        interface Ranges { }
-        interface Records { }
+        interface Columns {}
+        interface Ranges {}
+        interface Records {}
     }
 
     interface W2Grid extends W2Common, W2OnClickable {
@@ -402,8 +401,7 @@ declare namespace W2UI {
     }
 
     interface W2OnClickable {
-      onClick(event: W2Event): void;
-      onClick(id: string, data: W2Event): void;
+        onClick(event: W2Event): void;
+        onClick(id: string, data: W2Event): void;
     }
-
 }

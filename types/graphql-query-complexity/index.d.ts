@@ -3,5 +3,5 @@
 // Definitions by: Abhik Mitra <https://github.com/abhikmitra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-import createQueryComplexityValidator from "./dist";
+import createQueryComplexityValidator from './dist';
 export default createQueryComplexityValidator;

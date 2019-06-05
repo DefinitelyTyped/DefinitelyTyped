@@ -1,5 +1,5 @@
-import Maybe from "../tsutils/Maybe";
-import { GraphQLSchema } from "../type/schema";
+import Maybe from '../tsutils/Maybe';
+import { GraphQLSchema } from '../type/schema';
 import {
     GraphQLOutputType,
     GraphQLCompositeType,
@@ -8,9 +8,9 @@ import {
     GraphQLArgument,
     GraphQLEnumValue,
     GraphQLType,
-} from "../type/definition";
-import { GraphQLDirective } from "../type/directives";
-import { ASTNode, FieldNode } from "../language/ast";
+} from '../type/definition';
+import { GraphQLDirective } from '../type/directives';
+import { ASTNode, FieldNode } from '../language/ast';
 
 /**
  * TypeInfo is a utility class which, given a GraphQL schema, can keep track

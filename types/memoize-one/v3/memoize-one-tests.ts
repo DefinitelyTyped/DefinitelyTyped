@@ -1,6 +1,6 @@
 import memoizeOne, { EqualityFn } from 'memoize-one';
 
-declare function add(a: number, b: number): number ;
+declare function add(a: number, b: number): number;
 declare function lousyEqualityFn(a: any, b: any): boolean;
 declare function strictEqualityFn<T>(a: T, b: T): boolean;
 
@@ -30,4 +30,4 @@ memoizeOne(add, (a: string, b: string) => 0); // $ExpectError
 /**
  * The `EqualityFn` type is publicly accessible.
  */
-const simpleIsEqual: EqualityFn = (x: number, y: number): boolean => (x === y);
+const simpleIsEqual: EqualityFn = (x: number, y: number): boolean => x === y;

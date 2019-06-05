@@ -50,10 +50,7 @@ export interface PageEvents {
     onPageScroll: (event: Page) => void;
 }
 
-export interface PageDefinitions
-    extends ComponentDefinitions,
-        PageEvents,
-        PageHooks {
+export interface PageDefinitions extends ComponentDefinitions, PageEvents, PageHooks {
     mixins: Array<Partial<PageDefinitions>>;
 }
 

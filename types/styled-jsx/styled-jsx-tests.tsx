@@ -19,7 +19,11 @@ const styledGlobal = (
 );
 
 const buttonColor = 'red';
-const separatedCSS = css`button { color: ${buttonColor}; }`;
+const separatedCSS = css`
+    button {
+        color: ${buttonColor};
+    }
+`;
 const withSeparatedCSS = (
     <div>
         <style jsx>{separatedCSS}</style>
@@ -29,7 +33,9 @@ const withSeparatedCSS = (
 const globalCSS = css.global`body { margin: 0; }`;
 const withGlobalCSS = (
     <div>
-        <style jsx global>{globalCSS}</style>
+        <style jsx global>
+            {globalCSS}
+        </style>
     </div>
 );
 
@@ -50,9 +56,7 @@ const withDynamicResolvedCSS = (
 );
 
 const stylesChildren = flushToReact();
-const jsxToRender = (
-    <head>{ stylesChildren }</head>
-);
+const jsxToRender = <head>{stylesChildren}</head>;
 
 const stylesAsString: string = flushToHTML();
 const html = `

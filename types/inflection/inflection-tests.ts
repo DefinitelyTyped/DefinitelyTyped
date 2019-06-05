@@ -1,42 +1,40 @@
+import inflection = require('inflection');
 
+inflection.indexOf(['hi', 'there'], 'guys');
 
-import inflection = require("inflection");
+inflection.pluralize('person');
+inflection.pluralize('person', 'guys');
 
-inflection.indexOf(["hi", "there"], "guys");
+inflection.singularize('Hats');
+inflection.singularize('guys', 'person');
 
-inflection.pluralize("person");
-inflection.pluralize("person", "guys");
+inflection.inflect('Hats', 1);
+inflection.inflect('guys', 1, 'person');
 
-inflection.singularize("Hats");
-inflection.singularize("guys", "person");
+inflection.camelize('message_properties');
+inflection.camelize('message_properties', true);
 
-inflection.inflect("Hats", 1);
-inflection.inflect("guys", 1, "person");
+inflection.underscore('MP');
+inflection.underscore('MP', true);
 
-inflection.camelize("message_properties");
-inflection.camelize("message_properties", true);
+inflection.humanize('message_properties');
+inflection.humanize('message_properties', true);
 
-inflection.underscore("MP");
-inflection.underscore("MP", true);
+inflection.capitalize('message_properties');
 
-inflection.humanize("message_properties");
-inflection.humanize("message_properties", true);
+inflection.dasherize('message_properties');
 
-inflection.capitalize("message_properties");
+inflection.titleize('message_properties');
 
-inflection.dasherize("message_properties");
+inflection.demodulize('Message::Bus::Properties');
 
-inflection.titleize("message_properties");
+inflection.tableize('MessageBusProperty');
 
-inflection.demodulize("Message::Bus::Properties");
+inflection.classify('message_bus_properties');
 
-inflection.tableize("MessageBusProperty");
+inflection.foreign_key('MessageBusProperty');
+inflection.foreign_key('MessageBusProperty', true);
 
-inflection.classify("message_bus_properties");
+inflection.ordinalize('the 1 pitch');
 
-inflection.foreign_key("MessageBusProperty");
-inflection.foreign_key("MessageBusProperty", true);
-
-inflection.ordinalize("the 1 pitch");
-
-inflection.transform("all job", [ "pluralize", "capitalize", "dasherize" ]);
+inflection.transform('all job', ['pluralize', 'capitalize', 'dasherize']);

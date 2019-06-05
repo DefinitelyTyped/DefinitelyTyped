@@ -202,6 +202,6 @@ declare namespace NodeRSS {
          * @param {FeedOptions} feedOptions - Options for the RSS feed.
          * @returns {RSS}
          */
-        new(feedOptions: FeedOptions): RSS;
+        new (feedOptions: FeedOptions): RSS;
     }
 }

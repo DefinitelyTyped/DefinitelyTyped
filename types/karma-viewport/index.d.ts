@@ -9,8 +9,8 @@ declare namespace KarmaViewport {
     interface Breakpoint {
         name: string;
         size: {
-            width: number,
-            height: number,
+            width: number;
+            height: number;
         };
     }
 

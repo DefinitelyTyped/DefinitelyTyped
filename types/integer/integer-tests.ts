@@ -10,8 +10,8 @@ console.assert(!num0.compare(30));
 num0 = num0.add(num0);
 console.assert(!num0.compare(60));
 
-let num1: Integer.IntClass = Integer.fromBits(0xFF);
-const num2: Integer.IntClass = Integer.fromBits(0xFF, 0xFF);
+let num1: Integer.IntClass = Integer.fromBits(0xff);
+const num2: Integer.IntClass = Integer.fromBits(0xff, 0xff);
 num1 = num1.shl(32);
 console.assert(!num1.compare(num2));
 

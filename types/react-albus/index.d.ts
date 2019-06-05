@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { History } from "history";
+import * as React from 'react';
+import { History } from 'history';
 
 export interface StepObject {
     id: string;
@@ -28,9 +28,7 @@ export interface WizardComponentProps {
     wizard: WizardContext;
 }
 
-export function withWizard<P>(
-    component: React.ComponentType<P & WizardComponentProps>
-): React.ComponentType<P>;
+export function withWizard<P>(component: React.ComponentType<P & WizardComponentProps>): React.ComponentType<P>;
 
 export interface WizardProps {
     onNext?: (wizard: WizardContext) => void;

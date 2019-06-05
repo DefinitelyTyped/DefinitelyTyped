@@ -45,57 +45,49 @@ google.script.run
 google.script.run.testFunctionWithoutParameter();
 google.script.run.testFunctionWithNumber(0);
 google.script.run.testFunctionWithBoolean(true);
-google.script.run.testFunctionWithString("");
+google.script.run.testFunctionWithString('');
 google.script.run.testFunctionWithNull(null);
 google.script.run.testFunctionWithArray([
     0,
     true,
-    "",
+    '',
     null,
     undefined,
     [],
     {
         number: 0,
         boolean: true,
-        string: "",
+        string: '',
         nullValue: null,
         undef: undefined,
-        array: [0, true, "", null, undefined, [], {}],
-        object: {}
-    }
+        array: [0, true, '', null, undefined, [], {}],
+        object: {},
+    },
 ]);
 google.script.run.testFunctionWithObject({
     number: 0,
     boolean: true,
-    string: "",
+    string: '',
     nullValue: null,
     undef: undefined,
-    array: [0, true, "", null, undefined, [], {}],
-    object: {}
+    array: [0, true, '', null, undefined, [], {}],
+    object: {},
 });
 google.script.run.testFunctionWithMultipleParameters(
     0,
     true,
-    "",
+    '',
     null,
     undefined,
-    [
-        0,
-        true,
-        "",
-        null,
-        undefined,
-        [],
-        {}
-    ],
+    [0, true, '', null, undefined, [], {}],
     {
         number: 0,
         boolean: true,
-        string: "",
+        string: '',
         nullValue: null,
         undef: undefined,
-        array: [0, true, "", null, undefined, [], {}],
-        object: {}
+        array: [0, true, '', null, undefined, [], {}],
+        object: {},
     }
 );
 google.script.run.testFunctionWithForm(new HTMLFormElement());

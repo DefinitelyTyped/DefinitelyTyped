@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 declare namespace compiler {
-    type PropType = "variable" | "value" | "expression";
+    type PropType = 'variable' | 'value' | 'expression';
     type PropData = string | number | boolean;
     type PropKey = string;
     type PropValue = [PropType, PropData];
@@ -15,9 +15,7 @@ declare namespace compiler {
     type Node = TreeNode | string;
     type AST = Node[];
 
-    type PostProcessor =
-        | ((ast: AST) => AST)
-        | ((ast: AST, callback: (err: any, value: AST) => void) => void);
+    type PostProcessor = ((ast: AST) => AST) | ((ast: AST, callback: (err: any, value: AST) => void) => void);
 
     interface Options {
         spellcheck?: boolean;

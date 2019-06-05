@@ -18,7 +18,7 @@ import { Selection, TransitionLike } from 'd3-selection';
 /**
  * A helper type to alias elements which can serve as a domain for an axis.
  */
-export type AxisDomain = number | string | Date | { valueOf(): number};
+export type AxisDomain = number | string | Date | { valueOf(): number };
 
 /**
  * A helper interface to describe the minimal contract to be met by a time interval

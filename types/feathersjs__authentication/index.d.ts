@@ -34,7 +34,7 @@ export interface FeathersAuthenticationOptions {
          * By default is an access token
          */
         header?: {
-            [key: string]: any
+            [key: string]: any;
         };
 
         /**
@@ -70,7 +70,7 @@ export function service(options: FeathersAuthenticationOptions): (app?: Applicat
 
 export namespace service {
     class Service<T = any> {
-        constructor(app: Application)
+        constructor(app: Application);
         create(data: Partial<T>, params: Params): Promise<{ accessToken: string }>;
         remove(id: null | string, params: Params): Promise<{ accessToken: string }>;
     }

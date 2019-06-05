@@ -1,18 +1,19 @@
 import resize = require('gulp-image-resize');
 
-resize();                       // $ExpectType Transform
+resize(); // $ExpectType Transform
 resize(undefined);
-resize("1");                  // $ExpectError
+resize('1'); // $ExpectError
 
-resize({                        // $ExpectType Transform
+resize({
+    // $ExpectType Transform
     width: 100,
     height: 100,
     crop: true,
-    upscale: false
+    upscale: false,
 });
 
 resize({
-    widt: 5                     // $ExpectError
+    widt: 5, // $ExpectError
 });
 
 resize({
@@ -32,7 +33,7 @@ resize({
     background: undefined,
     flatten: undefined,
     percentage: undefined,
-    cover: undefined
+    cover: undefined,
 });
 
 resize({ format: 'jpeg' });

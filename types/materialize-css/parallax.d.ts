@@ -29,5 +29,5 @@ declare namespace M {
 
 interface JQuery {
     parallax(options?: Partial<M.ParallaxOptions>): JQuery;
-    parallax(method: keyof Pick<M.Parallax, "destroy">): JQuery;
+    parallax(method: keyof Pick<M.Parallax, 'destroy'>): JQuery;
 }

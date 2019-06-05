@@ -7,7 +7,7 @@ const streamFromArray = (array: number[]): Readable => {
         objectMode: true,
         read(): void {
             this.push(index < array.length ? array[index++] : null);
-        }
+        },
     });
 };
 
@@ -17,7 +17,7 @@ const streamToArray = (array: number[]): Writable =>
         write(chunk, encoding, callback) {
             array.push(chunk);
             callback(null);
-        }
+        },
     });
 
 {
@@ -101,9 +101,9 @@ const streamToArray = (array: number[]): Writable =>
             objectMode: true,
             transform(x: number, _: string | undefined, callback: (error: Error | undefined, chunk: any) => void) {
                 callback(undefined, x * x);
-            }
+            },
         }),
-        (x: number) => 2 * x + 1
+        (x: number) => 2 * x + 1,
     ]);
     const out1: number[] = [];
     const out2: number[] = [];

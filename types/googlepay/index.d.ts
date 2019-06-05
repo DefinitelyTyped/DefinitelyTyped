@@ -44,7 +44,9 @@ declare namespace google.payments.api {
         tokenizationSpecification?: PaymentMethodTokenizationSpecification;
     }
 
-    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
+    type PaymentMethodTokenizationSpecification =
+        | PaymentGatewayTokenizationSpecification
+        | DirectTokenizationSpecification;
     type TokenizationType = 'DIRECT' | 'PAYMENT_GATEWAY';
 
     interface BasePaymentMethodTokenizationSpecification {

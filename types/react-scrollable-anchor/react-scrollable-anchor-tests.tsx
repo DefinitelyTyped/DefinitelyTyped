@@ -1,11 +1,11 @@
 import * as React from 'react';
-import ScrollableAnchor, { goToAnchor, goToTop, removeHash, configureAnchors } from "react-scrollable-anchor";
+import ScrollableAnchor, { goToAnchor, goToTop, removeHash, configureAnchors } from 'react-scrollable-anchor';
 
 /*
  * goToAnchor
  */
 // $ExpectType void
-goToAnchor("one");
+goToAnchor('one');
 // $ExpectError
 goToAnchor(1);
 
@@ -42,6 +42,10 @@ configureAnchors({ scrollDuration: 'string' });
 configureAnchors({ keepLastAnchorHash: 3 });
 
 // $ExpectError
-<ScrollableAnchor><div>Test</div></ScrollableAnchor>;
+<ScrollableAnchor>
+    <div>Test</div>
+</ScrollableAnchor>;
 
-<ScrollableAnchor id="anchorId"><div>Test</div></ScrollableAnchor>;
+<ScrollableAnchor id="anchorId">
+    <div>Test</div>
+</ScrollableAnchor>;

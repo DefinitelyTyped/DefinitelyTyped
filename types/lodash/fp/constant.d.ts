@@ -1,2 +1,2 @@
-import { constant } from "../fp";
+import { constant } from '../fp';
 export = constant;

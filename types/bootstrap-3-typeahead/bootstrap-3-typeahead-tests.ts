@@ -8,11 +8,8 @@ $(document).ready(() => {
 
     // with options example
     const options: Bootstrap3Typeahead.Options = {
-        source: [
-            {id: 'someId1', name: 'Display name 1'},
-            {id: 'someId2', name: 'Display name 2'}
-        ],
-        autoSelect: true
+        source: [{ id: 'someId1', name: 'Display name 1' }, { id: 'someId2', name: 'Display name 2' }],
+        autoSelect: true,
     };
 
     $('#typeahead').typeahead(options);

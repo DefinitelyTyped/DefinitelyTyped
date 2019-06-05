@@ -12,13 +12,13 @@ diff('ts', 'js');
 diff(Symbol(), Symbol(1));
 diff(undefined, undefined);
 
-diff([], ['a'], { }); // $ExpectType string
+diff([], ['a'], {}); // $ExpectType string
 diff([], ['a'], { expand: false }); // $ExpectType string
 diff([], ['a'], { contextLines: 3 }); // $ExpectType string
 // $ExpectType string
 diff([], ['a'], {
     aAnnotation: 'esperado',
-    bAnnotation: 'recibido'
+    bAnnotation: 'recibido',
 });
 
 diff(); // $ExpectError
@@ -30,7 +30,7 @@ diff([], ['a'], { contextLines: 3 }); // $ExpectType string
 // $ExpectType string
 diff([], ['a'], {
     aAnnotation: 'esperado',
-    bAnnotation: 'recibido'
+    bAnnotation: 'recibido',
 });
 
 // $ExpectError
@@ -38,5 +38,5 @@ diff([], ['a'], {
     expand: 'yeah',
     aAnnotation: false,
     bAnnotation: {},
-    contextLines: 'two'
+    contextLines: 'two',
 });

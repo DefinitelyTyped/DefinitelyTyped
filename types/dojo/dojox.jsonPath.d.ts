@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/jsonPath.html
      *
@@ -12,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface jsonPath {
-    }
+    interface jsonPath {}
     namespace jsonPath {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/jsonPath/query.html
@@ -24,17 +22,17 @@ declare namespace dojox {
          * @param expr jsonPath expression (string) to be evaluated
          * @param arg {} special arguments.resultType: "VALUE"||"BOTH"||"PATH"} (defaults to value)evalType: "RESULT"||"ITEM"} (defaults to ?)
          */
-        interface query { (obj: Object, expr: String, arg: Object): void }
+        interface query {
+            (obj: Object, expr: String, arg: Object): void;
+        }
     }
-
-
 }
 
-declare module "dojox/jsonPath" {
-    var exp: dojox.jsonPath
-    export=exp;
+declare module 'dojox/jsonPath' {
+    var exp: dojox.jsonPath;
+    export = exp;
 }
-declare module "dojox/jsonPath/query" {
-    var exp: dojox.jsonPath.query
-    export=exp;
+declare module 'dojox/jsonPath/query' {
+    var exp: dojox.jsonPath.query;
+    export = exp;
 }

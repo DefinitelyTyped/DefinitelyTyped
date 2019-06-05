@@ -1,5 +1,5 @@
-import * as end from "./end";
-import * as properties from "./properties";
+import * as end from './end';
+import * as properties from './properties';
 
 declare const _default: {
     end: typeof end;

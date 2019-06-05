@@ -9,42 +9,40 @@
  * Helpers class and interfaces defined here, to make `nw` module cleaner.
  */
 declare module NWJS_Helpers {
-
     /**
      * Node.js v6.x EventEmitter Class
      */
     class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
 
-        static listenerCount( emitter: EventEmitter, event: string ): number; // deprecated
+        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener( event: string, listener: Function ): this;
+        addListener(event: string, listener: Function): this;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
-        once( event: string, listener: Function ): this;
+        once(event: string, listener: Function): this;
 
-        removeListener( event: string, listener: Function ): this;
+        removeListener(event: string, listener: Function): this;
 
-        removeAllListeners( event?: string ): this;
+        removeAllListeners(event?: string): this;
 
-        setMaxListeners( n: number ): this;
+        setMaxListeners(n: number): this;
 
         getMaxListeners(): number;
 
-        listeners( event: string ): Function[];
+        listeners(event: string): Function[];
 
-        emit( event: string, ...args: any[] ): boolean;
+        emit(event: string, ...args: any[]): boolean;
 
-        listenerCount( type: string ): number;
+        listenerCount(type: string): number;
     }
 
     /**
      * The clipboard object.
      */
     interface clip {
-
         /**
          * Write `data` of `type` to the clipboard.
          *
@@ -52,7 +50,7 @@ declare module NWJS_Helpers {
          * @param type {string} (Optional) the type of the data. Support text, png, jpeg, html and rtf. By default, type is set to "text".
          * @param raw {boolean} (Optional) requiring raw image data. This option is only valid if type is png or jpeg. By default, raw is set to false.
          */
-        set( data: string, type?: string, raw?: boolean ): void;
+        set(data: string, type?: string, raw?: boolean): void;
 
         /**
          * Get the data of `type` from clipboard.
@@ -61,7 +59,7 @@ declare module NWJS_Helpers {
          * @param raw {boolean} (Optional) requiring raw image data. This option is only valid if type is png or jpeg.
          * @returns {string} the data retrieved from the clipboard.
          */
-        get( type?: string, raw?: boolean ): string;
+        get(type?: string, raw?: boolean): string;
 
         /**
          * Get an array contains list of available types of data in clipboard currenly.
@@ -91,7 +89,6 @@ declare module NWJS_Helpers {
      * Options to modify default `edit` and `window` MenuItems in Mac.
      */
     interface CreateMacBuiltinOption {
-
         /**
          * {Boolean} (Optional) do not populate the Edit menu
          */
@@ -107,7 +104,6 @@ declare module NWJS_Helpers {
      * Options for MenuItem.
      */
     interface MenuItemOption {
-
         /**
          * {string} (Optional) Label for normal item or checkbox
          */
@@ -126,7 +122,7 @@ declare module NWJS_Helpers {
         /**
          * {string} (Optional) The type of the item. Three types are accepted: normal, checkbox, separator
          */
-        type?: string | "normal" | "checkbox" | "separator";
+        type?: string | 'normal' | 'checkbox' | 'separator';
 
         /**
          * {Function} (Optional) The callback function when item is triggered by mouse click or keyboard shortcut
@@ -163,46 +159,44 @@ declare module NWJS_Helpers {
      * nw.Screen screen object
      */
     interface screen {
-
         /**
          * Unique id for a screen
          */
-        id: number,
+        id: number;
 
         /**
          * Physical screen resolution, can be negative, not necessarily start from 0,depending on screen arrangement
          */
         bounds: {
-            x: number,
-            y: number,
-            width: number,
-            height: number
-        },
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+        };
 
         /**
          * Useable area within the screen bound
          */
         work_area: {
-            x: number,
-            y: number,
-            width: number,
-            height: number
-        },
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+        };
 
-        scaleFactor: number,
+        scaleFactor: number;
 
-        isBuiltIn: boolean,
+        isBuiltIn: boolean;
 
-        rotation: number,
+        rotation: number;
 
-        touchSupport: number
+        touchSupport: number;
     }
 
     /**
      * This API behaves similar functions as Screen.chooseDesktopMedia. But it doesn"t have GUI.
      */
     interface DesktopCaptureMonitor extends EventEmitter {
-
         /**
          * Boolean of whether the DesktopCaptureMonitor is started.
          */
@@ -214,7 +208,7 @@ declare module NWJS_Helpers {
          * @param should_include_screens {boolean} Whether should include screens
          * @param should_include_windows {boolean} Whether should include windows
          */
-        start( should_include_screens: boolean, should_include_windows: boolean ): void;
+        start(should_include_screens: boolean, should_include_windows: boolean): void;
 
         /**
          * The DesktopCaptureMonitor will stop monitoring the system.
@@ -226,9 +220,9 @@ declare module NWJS_Helpers {
          *
          * @param id {string} valid stream id.
          */
-        registerStream( id: string ): void;
+        registerStream(id: string): void;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Emit when a new source was added.
@@ -241,7 +235,10 @@ declare module NWJS_Helpers {
          * - (optional) type {string} Type of the stream: "screen", "window", "other" or "unknown".
          * - (optional) primary {boolean} This will be true if the source is the primary monitor. (Windows OS only)
          */
-        on( event: 'added', listener: ( id?: string, name?: string, order?: number, type?: string, primary?: boolean ) => any ): this;
+        on(
+            event: 'added',
+            listener: (id?: string, name?: string, order?: number, type?: string, primary?: boolean) => any
+        ): this;
 
         /**
          * Emit when a source was removed.
@@ -250,7 +247,7 @@ declare module NWJS_Helpers {
          * @param listener {Function(order?)} The callback that handles the `remove` event.
          * - (optional) order {number} Is the order of the media source that is no longer capturable.
          */
-        on( event: 'removed', listener: ( order?: number ) => any ): this;
+        on(event: 'removed', listener: (order?: number) => any): this;
 
         /**
          * Emit when the Z-order of a source changed (this may change for windows as others are focused).
@@ -261,7 +258,7 @@ declare module NWJS_Helpers {
          * - (optional) new_order {number} Is the new z-order.
          * - (optional) old_order {number} Is the old z-order.
          */
-        on( event: 'orderchanged', listener: ( id?: string, new_order?: number, old_order?: number ) => any ): this;
+        on(event: 'orderchanged', listener: (id?: string, new_order?: number, old_order?: number) => any): this;
 
         /**
          * Emit when the name of the source has changed. This can happen when a window changes title.
@@ -271,7 +268,7 @@ declare module NWJS_Helpers {
          * - (optional) id {string} Is the media id of the screen or window that has a name changed.
          * - (optional) name {string} Is the new name of the screen or window.
          */
-        on( event: 'namechanged', listener: ( id?: string, name?: string ) => any ): this;
+        on(event: 'namechanged', listener: (id?: string, name?: string) => any): this;
 
         /**
          * Emit when the thumbnail of a source changed.
@@ -281,14 +278,13 @@ declare module NWJS_Helpers {
          * - (optional) id {string} Is the media id of the screen or window that has an updated thumbnail.
          * - (optional) name {string} Is the base64 encoded png of the thumbnail.
          */
-        on( event: 'thumbnailchanged', listener: ( id?: string, thumbnail?: string ) => any ): this;
+        on(event: 'thumbnailchanged', listener: (id?: string, thumbnail?: string) => any): this;
     }
 
     /**
      * Shortcut option is an object contains initial settings for the Shortcut.
      */
     interface ShortcutOption {
-
         /**
          * {Function} (Optional) A callback when the hotkey is triggered.
          */
@@ -299,7 +295,7 @@ declare module NWJS_Helpers {
          *
          * @param msg {string} Failure message
          */
-        failed: ( msg?: string ) => any;
+        failed: (msg?: string) => any;
 
         /**
          * {string} Key combinations of the shortcut, such as "ctrl+shift+a".
@@ -311,7 +307,6 @@ declare module NWJS_Helpers {
      *  Option for tray that contains initial settings for the Tray.
      */
     interface TrayOption {
-
         /**
          * {string} title
          */
@@ -347,7 +342,6 @@ declare module NWJS_Helpers {
      * Options for nw.Window.get().print().
      */
     interface PrintOption {
-
         /**
          * The device name of the printer
          */
@@ -384,23 +378,21 @@ declare module NWJS_Helpers {
      * Config for nw.Window.get().capturePage().
      */
     interface CapturePageConfig {
-
         /**
          * (Optional) The image format used to generate the image. It supports two formats: "png" and "jpeg". If ignored, it’s "jpeg" by default.
          */
-        format?: string
+        format?: string;
 
         /**
          *  (Optional) It supports three types: "raw", "buffer" and "datauri". If ignored, it’s "datauri" by default.
          */
-        datatype?: string
+        datatype?: string;
     }
 
     /**
      * This includes multiple functions to manipulate the cookies.
      */
     interface Cookies {
-
         /**
          * Retrieves information about a single cookie.
          *
@@ -408,7 +400,7 @@ declare module NWJS_Helpers {
          * @param callback {function(cookie?)} The callback when cookie retrieved.
          * - (Optional) cookie {Cookie} Contains details about the cookie. This parameter is null if no such cookie was found.
          */
-        get( details: CookiesGetDetails, callback: ( cookie?: Cookie ) => void ): void;
+        get(details: CookiesGetDetails, callback: (cookie?: Cookie) => void): void;
 
         /**
          * Retrieves all cookies from a single cookie store that match the given information.
@@ -417,7 +409,7 @@ declare module NWJS_Helpers {
          * @param callback {function(cookies?)} The callback when cookies retrieved.
          * - (Optional) cookies {Cookie[]} All the existing, unexpired cookies that match the given cookie info.
          */
-        getAll( details: CookiesGetAllDetails, callback: ( cookies?: Cookie[] ) => void ): void;
+        getAll(details: CookiesGetAllDetails, callback: (cookies?: Cookie[]) => void): void;
 
         /**
          * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
@@ -426,7 +418,7 @@ declare module NWJS_Helpers {
          * @param callback {function(cookie?)} The callback when cookie has been set.
          * - (Optional) cookie {Cookie} Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
          */
-        set( details: CookiesSetDetails, callback: ( cookie?: Cookie ) => void ): void;
+        set(details: CookiesSetDetails, callback: (cookie?: Cookie) => void): void;
 
         /**
          * Deletes a cookie by name.
@@ -435,7 +427,7 @@ declare module NWJS_Helpers {
          * @param callback {function(cookie?)} The callback when cookie has been set.
          * - (Optional) details {Objet} Contains details about the cookie that's been removed. If removal failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
          */
-        remove( details: CookiesRemoveDetails, callback: ( details?: CookiesRemovedDetails ) => void ): void;
+        remove(details: CookiesRemoveDetails, callback: (details?: CookiesRemovedDetails) => void): void;
 
         /**
          * Fired when a cookie is set or removed.
@@ -447,15 +439,14 @@ declare module NWJS_Helpers {
              * @param callback {function(changeInfo?)} The callback when cookie has been changed.
              * - (Optional) changeInfo {Objet} Contains details about the cookie that's been changed.
              */
-            addListener( callback: ( changeInfo: CookiesOnChangedCallbackChangeInfo ) => void ): void;
-        }
+            addListener(callback: (changeInfo: CookiesOnChangedCallbackChangeInfo) => void): void;
+        };
     }
 
     /**
      * Represents information about an HTTP cookie.
      */
     interface Cookie {
-
         /**
          * The name of the cookie.
          */
@@ -494,7 +485,7 @@ declare module NWJS_Helpers {
         /**
          * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
          */
-        sameSite: string | "no_restriction" | "lax" | "strict";
+        sameSite: string | 'no_restriction' | 'lax' | 'strict';
 
         /**
          * True if the cookie is a session cookie, as opposed to a persistent cookie with an expiration date.
@@ -516,7 +507,6 @@ declare module NWJS_Helpers {
      * Coockies.get() details argument object
      */
     interface CookiesGetDetails {
-
         /**
          * The URL with which the cookie to retrieve is associated.
          */
@@ -537,7 +527,6 @@ declare module NWJS_Helpers {
      * Coockies.getAll() details argument object
      */
     interface CookiesGetAllDetails {
-
         /**
          * Restricts the retrieved cookies to those that would match the given URL.
          */
@@ -578,7 +567,6 @@ declare module NWJS_Helpers {
      * Coockies.set() details argument object
      */
     interface CookiesSetDetails {
-
         /**
          * The request-URI to associate with the setting of the cookie.
          */
@@ -617,7 +605,7 @@ declare module NWJS_Helpers {
         /**
          * The cookie's same-site status: defaults to 'no_restriction'.
          */
-        sameSite?: string | "no_restriction" | "lax" | "strict";
+        sameSite?: string | 'no_restriction' | 'lax' | 'strict';
 
         /**
          * The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.
@@ -634,7 +622,6 @@ declare module NWJS_Helpers {
      * Coockies.remove() details argument object
      */
     interface CookiesRemoveDetails {
-
         /**
          * The URL associated with the cookie.
          */
@@ -655,7 +642,6 @@ declare module NWJS_Helpers {
      * Coockies.remove() callback details argument object
      */
     interface CookiesRemovedDetails {
-
         /**
          * The URL associated with the cookie that's been removed.
          */
@@ -676,7 +662,6 @@ declare module NWJS_Helpers {
      * Coockies.onChanged.addListener() callback details argument object
      */
     interface CookiesOnChangedCallbackChangeInfo {
-
         /**
          * True if a cookie was removed.
          */
@@ -690,14 +675,13 @@ declare module NWJS_Helpers {
         /**
          * The underlying reason behind the cookie's change.
          */
-        cause: string | "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite"
+        cause: string | 'evicted' | 'expired' | 'explicit' | 'expired_overwrite' | 'overwrite';
     }
 
     /**
      * nw.Window.get().on('new-win-policy') callback policy argument object
      */
     interface WinPolicy {
-
         /**
          * Ignore the request, navigation won’t happen.
          */
@@ -728,14 +712,13 @@ declare module NWJS_Helpers {
          *
          *@param m {Object} The object is in the same format as the Window subfields in manifest format.
          */
-        setNewWindowManifest( m: WindowOption ): void;
+        setNewWindowManifest(m: WindowOption): void;
     }
 
     /**
      * nw.Window Option that is in the same format as the Window subfields in manifest format.
      */
     interface WindowOption {
-
         /**
          * The id used to identify the window.
          */
@@ -838,7 +821,6 @@ declare module NWJS_Helpers {
     }
 
     interface WindowOpenOption extends WindowOption {
-
         /**
          * (Optional) Whether to open a new window in a separate render process.
          */
@@ -864,7 +846,6 @@ declare module NWJS_Helpers {
      * nw.Window.get().on('navigation') callback policy argument object
      */
     interface WinNavigationPolicy {
-
         /**
          * Ignore the request, navigation won’t happen.
          */
@@ -872,7 +853,6 @@ declare module NWJS_Helpers {
     }
 
     interface win extends EventEmitter {
-
         /**
          * Get the corresponding DOM window object of the native window.
          */
@@ -939,7 +919,7 @@ declare module NWJS_Helpers {
          * @param x {Integer} Offset to the left of the screen
          * @param y {Integer} Offset to the top of the screen
          */
-        moveTo( x: number, y: number ): void;
+        moveTo(x: number, y: number): void;
 
         /**
          * Moves a window a specified number of pixels relative to its current coordinates.
@@ -947,7 +927,7 @@ declare module NWJS_Helpers {
          * @param x {Integer} Horizontal offset
          * @param y {Integer} Vertical offset
          */
-        moveBy( x: number, y: number ): void;
+        moveBy(x: number, y: number): void;
 
         /**
          * Resizes a window to the specified width and height.
@@ -955,7 +935,7 @@ declare module NWJS_Helpers {
          * @param width {Integer} The width of the window
          * @param height {Integer} The height of the window
          */
-        resizeTo( width: number, height: number ): void;
+        resizeTo(width: number, height: number): void;
 
         /**
          * Resizes a window by the specified amount.
@@ -963,7 +943,7 @@ declare module NWJS_Helpers {
          * @param width {Integer} The offset width of the window
          * @param height {Integer} The offset height of the window
          */
-        resizeBy( width: number, height: number ): void;
+        resizeBy(width: number, height: number): void;
 
         /**
          * Focus on the window.
@@ -980,7 +960,7 @@ declare module NWJS_Helpers {
          *
          * @param is_show {boolean} (Optional) Specify whether the window should be shown or hidden. It's set to true by default.
          */
-        show( is_show?: boolean ): void;
+        show(is_show?: boolean): void;
 
         /**
          * Hide the window.
@@ -992,7 +972,7 @@ declare module NWJS_Helpers {
          *
          * @param force {boolean} (Optional) Specify whether to close the window forcely and bypass close event.
          */
-        close( force?: boolean ): void;
+        close(force?: boolean): void;
 
         /**
          * Reloads the current window.
@@ -1061,7 +1041,7 @@ declare module NWJS_Helpers {
          * @param callback {function(dev_win?)} callback with the native window of the DevTools window.
          * - (optional) dev_win {window} Window object that you can use any properties and methods of Window except the events
          */
-        showDevTools( iframe?: string | HTMLIFrameElement, callback?: ( dev_win?: Window ) => void ): void;
+        showDevTools(iframe?: string | HTMLIFrameElement, callback?: (dev_win?: Window) => void): void;
 
         /**
          * Close the devtools window.
@@ -1074,7 +1054,7 @@ declare module NWJS_Helpers {
          * @param callback {function(dev_win?)} callback with the native window of the DevTools window.
          * - (optional) printers {any[]} An array of json objects for the printer information.
          */
-        getPrinters( callback: ( printers?: any[] ) => void ): void;
+        getPrinters(callback: (printers?: any[]) => void): void;
 
         /**
          * Query the status of devtools window.
@@ -1086,7 +1066,7 @@ declare module NWJS_Helpers {
          *
          * @param options {any | PrintOption} Specify whether to close the window forcely and bypass close event.
          */
-        print( options: any | PrintOption ): void;
+        print(options: any | PrintOption): void;
 
         /**
          * Set window's maximum size.
@@ -1094,7 +1074,7 @@ declare module NWJS_Helpers {
          * @param width {Integer} The maximum width of the window
          * @param height {Integer} The maximum height of the window
          */
-        setMaximumSize( width: number, height: number ): void;
+        setMaximumSize(width: number, height: number): void;
 
         /**
          * Set window's minimum size.
@@ -1102,28 +1082,28 @@ declare module NWJS_Helpers {
          * @param width {Integer} The minimum width of the window
          * @param height {Integer} The minimum height of the window
          */
-        setMinimumSize( width: number, height: number ): void;
+        setMinimumSize(width: number, height: number): void;
 
         /**
          * Set whether window is resizable.
          *
          * @param resizable {boolean} Whether the window can be resized
          */
-        setResizable( resizable: boolean ): void;
+        setResizable(resizable: boolean): void;
 
         /**
          * Sets the widget to be on top of all other windows in the window system.
          *
          * @param top {boolean} Whether the window should always be on top
          */
-        setAlwaysOnTop( top: boolean ): void;
+        setAlwaysOnTop(top: boolean): void;
 
         /**
          * For platforms that support multiple workspaces (currently Mac OS X and Linux), this allows NW.js windows to be visible on all workspaces simultaneously.
          *
          * @param visible {boolean} Whether the window should be visible on all workspaces
          */
-        setVisibleOnAllWorkspaces( visible: boolean ): void;
+        setVisibleOnAllWorkspaces(visible: boolean): void;
 
         /**
          * Returns a a boolean indicating if the platform (currently Mac OS X and Linux) support Window API method setVisibleOnAllWorkspace(Boolean).
@@ -1135,21 +1115,21 @@ declare module NWJS_Helpers {
          *
          * @param position {string} The position of the window. There are three valid positions: null or center or mouse
          */
-        setPosition( position: string ): void;
+        setPosition(position: string): void;
 
         /**
          * Control whether to show window in taskbar or dock.
          *
          * @param show {boolean} Whether show in task bar
          */
-        setShowInTaskbar( show: boolean ): void;
+        setShowInTaskbar(show: boolean): void;
 
         /**
          * Request the user’s attension by making the window flashes in the task bar.
          *
          * @param attension {boolean | number} If a Boolean, it indicates to request or cancel user’s attension. If an Integer, it indicates the number of times the window flashes.
          */
-        requestAttention( attension: boolean | number ): void;
+        requestAttention(attension: boolean | number): void;
 
         /**
          * Captures the visible area of the window.
@@ -1158,21 +1138,21 @@ declare module NWJS_Helpers {
          * - (optional) arg {base64string|Buffer} Captured page data.
          * @param config {string|CapturePageConfig} (Optional) Conig how captured page returned.
          */
-        capturePage( callback: ( arg: string | Object ) => void, config?: string | CapturePageConfig ): void;
+        capturePage(callback: (arg: string | Object) => void, config?: string | CapturePageConfig): void;
 
         /**
          * Show window progress bar.
          *
          * @param progress {number} valid values within [0, 1]. Setting to negative value (<0) removes the progress bar.
          */
-        setProgressBar( progress: number ): void;
+        setProgressBar(progress: number): void;
 
         /**
          * Set the badge label on the window icon in taskbar or dock.
          *
          * @param label {string} Badge label.
          */
-        setBadgeLabel( label: string ): void;
+        setBadgeLabel(label: string): void;
 
         /**
          * Execute a piece of JavaScript in the frame.
@@ -1180,7 +1160,7 @@ declare module NWJS_Helpers {
          * @param frame {HTMLIFrameElement} The frame to execute in. If iframe is null, it assumes in current window / frame.
          * @param script {string} The source code of the script to be executed
          */
-        eval( frame: HTMLIFrameElement, script: string ): void;
+        eval(frame: HTMLIFrameElement, script: string): void;
 
         /**
          * Load and execute the compiled snapshot in the frame.
@@ -1188,9 +1168,9 @@ declare module NWJS_Helpers {
          * @param frame {HTMLIFrameElement} The frame to execute in. If iframe is null, it assumes in current window / frame.
          * @param path {string} the path of the snapshot file generated by nwjc
          */
-        evalNWBin( frame: HTMLIFrameElement, path: string ): void;
+        evalNWBin(frame: HTMLIFrameElement, path: string): void;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * The close event is a special event that will affect the result of the Window.close() function.
@@ -1199,7 +1179,7 @@ declare module NWJS_Helpers {
          * @param listener {function(byCommandQ?)} The callback that handles the `close` event.
          * - (optional) byCommandQ {string} Whether it’s being closed by ⌘+Q.
          */
-        on( event: 'close', listener: ( byCommandQ?: string | any ) => any ): this;
+        on(event: 'close', listener: (byCommandQ?: string | any) => any): this;
 
         /**
          * The closed event is emitted after corresponding window is closed.
@@ -1207,7 +1187,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `closed` event.
          */
-        on( event: 'closed', listener: () => any ): this;
+        on(event: 'closed', listener: () => any): this;
 
         /**
          * Emitted when the window starts to reload, normally you cannot catch this event because usually it’s emitted before you actually setup the callback.
@@ -1215,7 +1195,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `loading` event.
          */
-        on( event: 'loading', listener: () => any ): this;
+        on(event: 'loading', listener: () => any): this;
 
         /**
          * Emitted when the window is fully loaded, this event behaves the same with window.onload, but doesn’t rely on the DOM.
@@ -1223,7 +1203,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `loaded` event.
          */
-        on( event: 'loaded', listener: () => any ): this;
+        on(event: 'loaded', listener: () => any): this;
 
         /**
          * Emitted when the document object in this window or a child iframe is available, after all files are loaded, but before DOM is constructed or any script is run.
@@ -1232,7 +1212,7 @@ declare module NWJS_Helpers {
          * @param listener {function(byCommandQ?)} The callback that handles the `document-start` event.
          * - (optional) frame {HTMLIFrameElement|any} Is the iframe object, or null if the event is for the window..
          */
-        on( event: 'document-start', listener: ( frame: HTMLIFrameElement | any ) => any ): this;
+        on(event: 'document-start', listener: (frame: HTMLIFrameElement | any) => any): this;
 
         /**
          * Emitted when the document object in this window or a child iframe is unloaded, but before the onunload event is emitted.
@@ -1241,7 +1221,7 @@ declare module NWJS_Helpers {
          * @param listener {function(byCommandQ?)} The callback that handles the `document-end` event.
          * - (optional) frame {HTMLIFrameElement|any} Is the iframe object, or null if the event is for the window..
          */
-        on( event: 'document-end', listener: ( frame: HTMLIFrameElement | any ) => any ): this;
+        on(event: 'document-end', listener: (frame: HTMLIFrameElement | any) => any): this;
 
         /**
          * Emitted when window gets focus.
@@ -1249,7 +1229,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `focus` event.
          */
-        on( event: 'focus', listener: () => any ): this;
+        on(event: 'focus', listener: () => any): this;
 
         /**
          * Emitted when window loses focus.
@@ -1257,7 +1237,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `blur` event.
          */
-        on( event: 'blur', listener: () => any ): this;
+        on(event: 'blur', listener: () => any): this;
 
         /**
          * Emitted when window is minimized.
@@ -1265,7 +1245,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `minimize` event.
          */
-        on( event: 'minimize', listener: () => any ): this;
+        on(event: 'minimize', listener: () => any): this;
 
         /**
          * Emitted when window is restored from minimize, maximize and fullscreen state.
@@ -1273,7 +1253,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `restore` event.
          */
-        on( event: 'restore', listener: () => any ): this;
+        on(event: 'restore', listener: () => any): this;
 
         /**
          * Emitted when window is maximized.
@@ -1281,7 +1261,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `maximize` event.
          */
-        on( event: 'maximize', listener: () => any ): this;
+        on(event: 'maximize', listener: () => any): this;
 
         /**
          * Emitted after window is moved.
@@ -1291,7 +1271,7 @@ declare module NWJS_Helpers {
          * - (optional) x {Integer} The new location of the left corner of the window.
          * - (optional) y {Integer} The new location of the top corner of the window.
          */
-        on( event: 'move', listener: ( x?: number, y?: number ) => any ): this;
+        on(event: 'move', listener: (x?: number, y?: number) => any): this;
 
         /**
          * Emitted after window is resized.
@@ -1301,7 +1281,7 @@ declare module NWJS_Helpers {
          * - (optional) width {Integer} The new width of the window.
          * - (optional) height {Integer} The new height of the window.
          */
-        on( event: 'resize', listener: ( width?: number, height?: number ) => any ): this;
+        on(event: 'resize', listener: (width?: number, height?: number) => any): this;
 
         /**
          * Emitted when window enters fullscreen state.
@@ -1309,7 +1289,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `enter-fullscreen` event.
          */
-        on( event: 'enter-fullscreen', listener: () => any ): this;
+        on(event: 'enter-fullscreen', listener: () => any): this;
 
         /**
          * Emitted when window zooming changed.
@@ -1318,7 +1298,7 @@ declare module NWJS_Helpers {
          * @param listener {function(byCommandQ?)} The callback that handles the `zoom` event.
          * - (optional) zoom {Integer} Indicating the new zoom level
          */
-        on( event: 'zoom', listener: ( zoom?: number ) => any ): this;
+        on(event: 'zoom', listener: (zoom?: number) => any): this;
 
         /**
          * Emitted after Devtools is closed.
@@ -1326,7 +1306,7 @@ declare module NWJS_Helpers {
          * @param event {string} Event name
          * @param listener {function} The callback that handles the `devtools-closed` event.
          */
-        on( event: 'devtools-closed', listener: () => any ): this;
+        on(event: 'devtools-closed', listener: () => any): this;
 
         /**
          * Emitted when a new window is requested from this window or a child iframe.
@@ -1337,7 +1317,10 @@ declare module NWJS_Helpers {
          * - (optional) url {string} Is the address of the requested link
          * - (optional) policy {Object} Is an object contain window policy.
          */
-        on( event: 'new-win-policy', listener: ( frame?: HTMLIFrameElement | any, url?: string, policy?: WinPolicy ) => any ): this;
+        on(
+            event: 'new-win-policy',
+            listener: (frame?: HTMLIFrameElement | any, url?: string, policy?: WinPolicy) => any
+        ): this;
 
         /**
          * Emitted when navigating to another page.
@@ -1348,18 +1331,19 @@ declare module NWJS_Helpers {
          * - (optional) url {string} Is the address of the requested link
          * - (optional) policy {Object} Is an object contain window policy.
          */
-        on( event: 'navigation', listener: ( frame?: HTMLIFrameElement | any, url?: string, policy?: WinNavigationPolicy ) => any ): this;
+        on(
+            event: 'navigation',
+            listener: (frame?: HTMLIFrameElement | any, url?: string, policy?: WinNavigationPolicy) => any
+        ): this;
     }
 }
 
 declare namespace nw {
-
     /* Reference: http://docs.nwjs.io/en/latest/References/App/ */
     /**
      * Application General Functionality And Properties.
      */
     export interface App {
-
         /**
          * Get the filtered command line arguments when starting the app.
          */
@@ -1411,14 +1395,14 @@ declare namespace nw {
          * @param url {string} the URL to query for proxy
          * @returns {string} Proxy config that is in the same format used in PAC (e.g. "DIRECT", "PROXY localhost:8080").
          */
-        getProxyForURL( url: string ): string;
+        getProxyForURL(url: string): string;
 
         /**
          * Set the proxy config which the web engine will be used to request network resources.
          *
          * @param config {string} Proxy rules
          */
-        setProxyConfig( config: string ): void;
+        setProxyConfig(config: string): void;
 
         /**
          * Quit current app.
@@ -1433,10 +1417,12 @@ declare namespace nw {
          * @param destinationHost {string} The destination host where the sourceOrigin can access to. e.g. myapp
          * @param allowDestinationSubdomains {Boolean} If set to true, the sourceOrigin is allowed to access subdomains of
          */
-        addOriginAccessWhitelistEntry( sourceOrigin: string,
+        addOriginAccessWhitelistEntry(
+            sourceOrigin: string,
             destinationProtocol: string,
             destinationHost: string,
-            allowDestinationSubdomains: boolean ): void;
+            allowDestinationSubdomains: boolean
+        ): void;
 
         /**
          * Remove an entry from the whitelist used for controlling cross-origin access.
@@ -1446,26 +1432,28 @@ declare namespace nw {
          * @param destinationHost {string} The destination host where the sourceOrigin can access to. e.g. myapp
          * @param allowDestinationSubdomains {Boolean} If set to true, the sourceOrigin is allowed to access subdomains of
          */
-        removeOriginAccessWhitelistEntry( sourceOrigin: string,
+        removeOriginAccessWhitelistEntry(
+            sourceOrigin: string,
             destinationProtocol: string,
             destinationHost: string,
-            allowDestinationSubdomains: boolean ): void;
+            allowDestinationSubdomains: boolean
+        ): void;
 
         /**
          * Register a global keyboard shortcut (also known as system-wide hot key) to the system.
          *
          * @param shortcut {Shortcut} the Shortcut object to register.
          */
-        registerGlobalHotKey( shortcut: Shortcut ): void;
+        registerGlobalHotKey(shortcut: Shortcut): void;
 
         /**
          * Unregisters a global keyboard shortcut.
          *
          * @param shortcut {Shortcut} the Shortcut object to register.
          */
-        unregisterGlobalHotKey( shortcut: Shortcut ): void;
+        unregisterGlobalHotKey(shortcut: Shortcut): void;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Emitted when users opened a file with your app.
@@ -1474,7 +1462,7 @@ declare namespace nw {
          * @param listener {Function(args?)} The callback that handles the `open` event.
          * - (optional) args {string} the full command line of the program.
          */
-        on( event: 'open', listener: ( args?: string ) => any ): this;
+        on(event: 'open', listener: (args?: string) => any): this;
 
         /**
          * This event is sent when the user clicks the dock icon for an already running application. This is a Mac specific feature.
@@ -1482,7 +1470,7 @@ declare namespace nw {
          * @param event {string} Event name
          * @param listener {Function} The callback that handles the `reopen` event.
          */
-        on( event: 'reopen', listener: () => any ): this;
+        on(event: 'reopen', listener: () => any): this;
     }
 
     /* Clipboard: http://docs.nwjs.io/en/latest/References/Clipboard/ */
@@ -1508,7 +1496,7 @@ declare namespace nw {
          *
          * @param option {Object} (Optional) Option to customize returned menu object.
          */
-        constructor( option?: NWJS_Helpers.MenuOption );
+        constructor(option?: NWJS_Helpers.MenuOption);
 
         /**
          * Get an array that contains all items of a menu. Each item is an instance of MenuItem.
@@ -1520,7 +1508,7 @@ declare namespace nw {
          *
          * @param item {MenuItem} the item to be appended to the tail of the menu
          */
-        append( item: MenuItem ): void;
+        append(item: MenuItem): void;
 
         /**
          * Insert the `item` at `i`th position of the menu. The index is started from 0.
@@ -1528,21 +1516,21 @@ declare namespace nw {
          * @param item {MenuItem} the item to be inserted into the menu
          * @param i {Integer} the index in the menu list to insert the the item
          */
-        insert( item: MenuItem, i: number ): void;
+        insert(item: MenuItem, i: number): void;
 
         /**
          * Remove `item` from the menu.
          *
          * @param item {MenuItem} the item to be removed
          */
-        remove( item: MenuItem ): void;
+        remove(item: MenuItem): void;
 
         /**
          * Remove the `i`th item form the menu.
          *
          * @param i {Integer} the index of the item to be removed from the menu
          */
-        removeAt( i: number ): void;
+        removeAt(i: number): void;
 
         /**
          * Popup the context menu at the anchor in (`x`, `y`) in current window.
@@ -1550,7 +1538,7 @@ declare namespace nw {
          * @param x {Integer} the x position of the anchor
          * @param y {Integer} the y position of the anchor
          */
-        popup( x: number, y: number ): void;
+        popup(x: number, y: number): void;
 
         /**
          * Creates the builtin menus (App, Edit and Window) within the menubar on Mac.
@@ -1558,7 +1546,7 @@ declare namespace nw {
          * @param appname {string} The application name
          * @param options {Object} (Optional) Options to modify default `edit` and `window` MenuItems in Mac
          */
-        createMacBuiltin( appname: string, options?: NWJS_Helpers.CreateMacBuiltinOption ): void;
+        createMacBuiltin(appname: string, options?: NWJS_Helpers.CreateMacBuiltinOption): void;
     }
 
     /* MenuItem: http://docs.nwjs.io/en/latest/References/MenuItem/ */
@@ -1566,13 +1554,12 @@ declare namespace nw {
      * `MenuItem` represents an item in a menu.
      */
     class MenuItem extends NWJS_Helpers.EventEmitter {
-
         /**
          * Create a new MenuItem.
          *
          * @param option {Object} Customize how MenuItem render and behave.
          */
-        constructor( option: NWJS_Helpers.MenuItemOption );
+        constructor(option: NWJS_Helpers.MenuItemOption);
 
         /**
          * Get the `type` of a `MenuItem`
@@ -1629,7 +1616,7 @@ declare namespace nw {
          */
         modifiers: string;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Emitted when user activates the menu item.
@@ -1637,7 +1624,7 @@ declare namespace nw {
          * @param event {string} Event name
          * @param listener {Function} The callback that handles the `click` event.
          */
-        on( event: 'click', listener: () => any ): this;
+        on(event: 'click', listener: () => any): this;
     }
 
     /* Screen: http://docs.nwjs.io/en/latest/References/Screen/ */
@@ -1646,7 +1633,6 @@ declare namespace nw {
      * Screen is a singleton object, need to be initiated once by calling nw.Screen.Init().
      */
     interface Screen extends NWJS_Helpers.EventEmitter {
-
         /**
          * Init the Screen singleton object, you only need to call this once.
          */
@@ -1663,14 +1649,14 @@ declare namespace nw {
          * @param callback {Function} callback function with chosed streamId.
          * - (optional) streamId {string}  streamId will be false if failed to execute or existing session is alive.
          */
-        chooseDesktopMedia( sources: string[], callback: ( streamId?: string | boolean ) => void ): void;
+        chooseDesktopMedia(sources: string[], callback: (streamId?: string | boolean) => void): void;
 
         /**
          * Use this API to monitor the changes of screens and windows on desktop. This is an instance of EventEmitter.
          */
         DesktopCaptureMonitor: NWJS_Helpers.DesktopCaptureMonitor;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Emitted when the screen resolution, arrangement is changed.
@@ -1679,7 +1665,7 @@ declare namespace nw {
          * @param listener {Function(screen?)} The callback that handles the `displayBoundsChanged` event.
          * - (optional) screen {screen} screen object
          */
-        on( event: 'displayBoundsChanged', listener: ( screen: NWJS_Helpers.screen ) => any ): this;
+        on(event: 'displayBoundsChanged', listener: (screen: NWJS_Helpers.screen) => any): this;
 
         /**
          * Emitted when a new screen added.
@@ -1688,7 +1674,7 @@ declare namespace nw {
          * @param listener {Function(screen?)} The callback that handles the `displayAdded` event.
          * - (optional) screen {screen} screen object
          */
-        on( event: 'displayAdded ', listener: ( screen: NWJS_Helpers.screen ) => any ): this;
+        on(event: 'displayAdded ', listener: (screen: NWJS_Helpers.screen) => any): this;
 
         /**
          * Emitted when existing screen removed.
@@ -1697,7 +1683,7 @@ declare namespace nw {
          * @param listener {Function(screen?)} The callback that handles the `displayRemoved` event.
          * - (optional) screen {screen} screen object
          */
-        on( event: 'displayRemoved ', listener: ( screen: NWJS_Helpers.screen ) => any ): this;
+        on(event: 'displayRemoved ', listener: (screen: NWJS_Helpers.screen) => any): this;
     }
 
     /* Shell: http://docs.nwjs.io/en/latest/References/Shell/ */
@@ -1705,27 +1691,26 @@ declare namespace nw {
      * `Shell` is a collection of APIs that do desktop related jobs.
      */
     interface Shell {
-
         /**
          * Open the given external URI in the desktop"s default manner.
          *
          * @param uri {string} A URL to open in system default manner.
          */
-        openExternal( uri: string ): void;
+        openExternal(uri: string): void;
 
         /**
          * Open the given file_path in the desktop"s default manner.
          *
          * @param file_path {string} path to a local file
          */
-        openItem( file_path: string ): void;
+        openItem(file_path: string): void;
 
         /**
          * Show the given file_path in the parent folder with file manager. If possible, select the file.
          *
          * @param file_path {string} path to a local file
          */
-        showItemInFolder( file_path: string ): void;
+        showItemInFolder(file_path: string): void;
     }
 
     /* Shortcut: http://docs.nwjs.io/en/latest/References/Shortcut/ */
@@ -1733,13 +1718,12 @@ declare namespace nw {
      * `Shortcut` represents a global keyboard shortcut, also known as system-wide hotkey.
      */
     export class Shortcut extends NWJS_Helpers.EventEmitter {
-
         /**
          * Create new Shortcut.
          *
          * @param option {Object} Shortcut option is an object contains initial settings for the Shortcut.
          */
-        constructor( option: NWJS_Helpers.ShortcutOption );
+        constructor(option: NWJS_Helpers.ShortcutOption);
 
         /**
          * Get or set the active callback of a Shortcut. It will be called when user presses the shortcut.
@@ -1751,14 +1735,14 @@ declare namespace nw {
          *
          * @param msg {string} Failure message
          */
-        failed: ( msg?: string ) => any;
+        failed: (msg?: string) => any;
 
         /**
          * Get the key of a Shortcut.
          */
         key: string;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Get or set the active callback of a Shortcut. It will be called when user presses the shortcut.
@@ -1766,7 +1750,7 @@ declare namespace nw {
          * @param event {string} Event name
          * @param listener {Function} The callback that handles the `active` event.
          */
-        on( event: 'active', listener: () => any ): this;
+        on(event: 'active', listener: () => any): this;
 
         /**
          * Get or set the failed callback of a Shortcut. It will be called when application passes an invalid key, or failed to register the key.
@@ -1775,7 +1759,7 @@ declare namespace nw {
          * @param listener {Function(msg?)} The callback that handles the `failed` event.
          * - (optional) msg {string} Failure message
          */
-        on( event: 'failed', listener: ( msg?: string ) => any ): this;
+        on(event: 'failed', listener: (msg?: string) => any): this;
     }
 
     /* Tray: http://docs.nwjs.io/en/latest/References/Tray/ */
@@ -1787,7 +1771,7 @@ declare namespace nw {
          * Create a new Tray.
          * @param option {Object} Contains initial settings for the Tray.
          */
-        constructor( option: NWJS_Helpers.TrayOption );
+        constructor(option: NWJS_Helpers.TrayOption);
 
         /**
          * Get or set the title of the tray.
@@ -1824,7 +1808,7 @@ declare namespace nw {
          */
         remove(): void;
 
-        on( event: string, listener: Function ): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Emitted when user clicks the menu item with left mouse button.
@@ -1832,7 +1816,7 @@ declare namespace nw {
          * @param event {string} Event name
          * @param listener {Function} The callback that handles the `click` event.
          */
-        on( event: 'click ', listener: () => any ): this;
+        on(event: 'click ', listener: () => any): this;
     }
 
     /* Window: http://docs.nwjs.io/en/latest/References/Window/ */
@@ -1840,13 +1824,12 @@ declare namespace nw {
      * Window is a wrapper of the DOM's window object. It has extended operations and can receive various window events.
      */
     interface Window extends NWJS_Helpers.EventEmitter {
-
         /**
          * Get the native Window Object.
          *
          * @param event {DOM Window} (Optional) Is the DOM window
          */
-        get( window_object?: Object ): NWJS_Helpers.win;
+        get(window_object?: Object): NWJS_Helpers.win;
 
         /**
          * Open a new window and load url in it.
@@ -1856,7 +1839,11 @@ declare namespace nw {
          * @param callback {string} (Optional) Callback when with the opened native Window object
          * - (Optional) new_win {object} New opened window object.
          */
-        open( url: string, option?: NWJS_Helpers.WindowOpenOption, callback?: ( new_win?: NWJS_Helpers.win ) => void ): void;
+        open(
+            url: string,
+            option?: NWJS_Helpers.WindowOpenOption,
+            callback?: (new_win?: NWJS_Helpers.win) => void
+        ): void;
     }
 
     export var App: App;
@@ -1866,15 +1853,11 @@ declare namespace nw {
     export var Window: Window;
 }
 
-declare module "nw.gui" {
-    export class Menu extends nw.Menu {
-    }
-    export class MenuItem extends nw.MenuItem {
-    }
-    export class Shortcut extends nw.Shortcut {
-    }
-    export class Tray extends nw.Tray {
-    }
+declare module 'nw.gui' {
+    export class Menu extends nw.Menu {}
+    export class MenuItem extends nw.MenuItem {}
+    export class Shortcut extends nw.Shortcut {}
+    export class Tray extends nw.Tray {}
     export var App: nw.App;
     export var Clipboard: nw.Clipboard;
     export var Screen: nw.Screen;

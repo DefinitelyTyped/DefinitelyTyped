@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Play EMM API v1 */
-    function load(name: "androidenterprise", version: "v1"): PromiseLike<void>;
-    function load(name: "androidenterprise", version: "v1", callback: () => any): void;
+    function load(name: 'androidenterprise', version: 'v1'): PromiseLike<void>;
+    function load(name: 'androidenterprise', version: 'v1', callback: () => any): void;
 
     const devices: androidenterprise.DevicesResource;
 

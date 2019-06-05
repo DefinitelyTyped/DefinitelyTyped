@@ -38,20 +38,14 @@ type OneArgCommandFn = (arg1: string, callback: CallbackFn) => void;
 type TwoArgCommandFn = (arg1: string, arg2: string, callback: CallbackFn) => void;
 type PromiseCommandFn = (arg1?: string, arg2?: string) => NssmPromise<string>;
 
-type NssmCommandFn =
-    & ZeroArgCommandFn
-    & OneArgCommandFn
-    & TwoArgCommandFn
-    & PromiseCommandFn;
+type NssmCommandFn = ZeroArgCommandFn & OneArgCommandFn & TwoArgCommandFn & PromiseCommandFn;
 
 export = nssm;
 
 declare function nssm(serviceName: string, options?: nssm.NssmOptions): nssm.Nssm;
 
 declare namespace nssm {
-    type Nssm = {
-        [key in Command]: NssmCommandFn
-    };
+    type Nssm = { [key in Command]: NssmCommandFn };
 
     interface NssmOptions {
         nssmExe?: string;

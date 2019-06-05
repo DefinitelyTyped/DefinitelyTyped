@@ -102,7 +102,7 @@ function test_sync() {
 function test_expandKeys() {
     const config = {
         'foo "bar"': { doStuff: true },
-        'foo "baz"': { doStuff: true }
+        'foo "baz"': { doStuff: true },
     };
     const keys = parse.expandKeys(config);
 

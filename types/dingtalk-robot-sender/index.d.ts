@@ -17,61 +17,61 @@ interface BaseUrlOptions {
 }
 
 declare namespace Message {
-  interface Text {
-    msgtype: 'text';
-    text: {
-        content: string;
-    };
-    at?: {
-        atMobiles: string[];
-        isAtAll: boolean;
-    };
-  }
+    interface Text {
+        msgtype: 'text';
+        text: {
+            content: string;
+        };
+        at?: {
+            atMobiles: string[];
+            isAtAll: boolean;
+        };
+    }
 
-  interface Link {
-    msgtype: 'link';
-    link: {
-      text: string;
-      title: string;
-      picUrl: string;
-      messageUrl: string;
-    };
-  }
+    interface Link {
+        msgtype: 'link';
+        link: {
+            text: string;
+            title: string;
+            picUrl: string;
+            messageUrl: string;
+        };
+    }
 
-  interface Markdown {
-    msgtype: 'markdown';
-    markdown: {
-      title: string;
-      text: string;
-      atMobiles: string[];
-      isAtAll: boolean;
-    };
-  }
+    interface Markdown {
+        msgtype: 'markdown';
+        markdown: {
+            title: string;
+            text: string;
+            atMobiles: string[];
+            isAtAll: boolean;
+        };
+    }
 
-  interface ActionCard {
-    msgtype: 'actionCard';
-    actionCard: {
-      title: string;
-      text: string;
-      singleTitle?: string;
-      singleURL?: string;
-      hideAvatar: '0' | '1';
-      btnOrientation: '0' | '1';
-      btns?: Array<{
-        title: string;
-        actionURL: string;
-      }>;
-    };
-  }
+    interface ActionCard {
+        msgtype: 'actionCard';
+        actionCard: {
+            title: string;
+            text: string;
+            singleTitle?: string;
+            singleURL?: string;
+            hideAvatar: '0' | '1';
+            btnOrientation: '0' | '1';
+            btns?: Array<{
+                title: string;
+                actionURL: string;
+            }>;
+        };
+    }
 
-  interface FeedCardItem {
-    msgtype: 'feedCard';
-    feedCard: {
-      title: string;
-      messageURL: string;
-      picURL: string;
-    };
-  }
+    interface FeedCardItem {
+        msgtype: 'feedCard';
+        feedCard: {
+            title: string;
+            messageURL: string;
+            picURL: string;
+        };
+    }
 }
 
 type MessageType = Message.Text | Message.Link | Message.Markdown | Message.ActionCard | Message.FeedCardItem;
@@ -93,7 +93,7 @@ declare class ChatBot {
      * @param content 发动的消息对象
      * @return
      */
-     send(content: MessageType): Promise<AxiosResponse>;
+    send(content: MessageType): Promise<AxiosResponse>;
 
     /**
      * 发送纯文本消息，支持@群内成员
@@ -149,6 +149,6 @@ declare class ChatBot {
      * @return
      */
     feedCard(links: Message.FeedCardItem[]): Promise<AxiosResponse>;
-  }
+}
 
-  export = ChatBot;
+export = ChatBot;

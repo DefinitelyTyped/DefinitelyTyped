@@ -1,5 +1,5 @@
-import * as ProxyLists from "proxy-lists";
-import { EventEmitter } from "events";
+import * as ProxyLists from 'proxy-lists';
+import { EventEmitter } from 'events';
 
 const options: ProxyLists.Options = {
     filterMode: 'strict',
@@ -12,8 +12,8 @@ const options: ProxyLists.Options = {
     series: false,
     ipTypes: ['ipv4'],
     defaultRequestOptions: {
-		method: "GET"
-	}
+        method: 'GET',
+    },
 };
 
 // `gettingProxies` is an event emitter object.
@@ -39,17 +39,17 @@ gettingProxies.on('data', proxies => {
 });
 
 const source: ProxyLists.AddSource = {
-	homeUrl: 'www.example.com',
-	getProxies: (options: ProxyLists.InternalOptions) => {
-		return new EventEmitter();
-	}
+    homeUrl: 'www.example.com',
+    getProxies: (options: ProxyLists.InternalOptions) => {
+        return new EventEmitter();
+    },
 };
 
 ProxyLists.addSource('testSource', source);
 
 const listSourcesOptions: ProxyLists.ListSourcesOptions = {
-	sourcesWhiteList: ['freeproxylists'],
-    sourcesBlackList: ['freeproxylists']
+    sourcesWhiteList: ['freeproxylists'],
+    sourcesBlackList: ['freeproxylists'],
 };
 
 ProxyLists.listSources(listSourcesOptions).forEach(source => console.log(source.name, source.homeUrl));

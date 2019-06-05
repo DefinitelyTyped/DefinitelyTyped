@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -11,14 +11,14 @@ const els = M.ScrollSpy.init(document.querySelectorAll('.whatever'));
 
 // $ExpectType ScrollSpy
 const scrollspy = new materialize.ScrollSpy(elem, {
-    activeClass: "class",
+    activeClass: 'class',
     getActiveElement(id) {
         // $ExpectType string
         id;
-        return "string";
+        return 'string';
     },
     scrollOffset: 1,
-    throttle: 1
+    throttle: 1,
 });
 
 // $ExpectType void
@@ -28,5 +28,5 @@ scrollspy.el;
 // $ExpectType ScrollSpyOptions
 scrollspy.options;
 
-$(".whatever").scrollSpy();
-$(".whatever").scrollSpy("destroy");
+$('.whatever').scrollSpy();
+$('.whatever').scrollSpy('destroy');

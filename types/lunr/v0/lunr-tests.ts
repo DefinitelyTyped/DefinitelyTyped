@@ -3,7 +3,7 @@
  */
 function basic_test() {
     const index = lunr(function() {
-        this.field('title', {boost: 10});
+        this.field('title', { boost: 10 });
         this.field('body');
         this.ref('id');
     });
@@ -11,13 +11,13 @@ function basic_test() {
     index.add({
         id: 1,
         title: 'Foo',
-        body: 'Foo foo foo!'
+        body: 'Foo foo foo!',
     });
 
     index.add({
         id: 2,
         title: 'Bar',
-        body: 'Bar bar bar!'
+        body: 'Bar bar bar!',
     });
 
     index.search('foo');

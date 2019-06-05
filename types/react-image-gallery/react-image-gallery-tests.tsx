@@ -13,15 +13,15 @@ class ImageGallery extends React.Component {
     render() {
         const galleryItem: ReactImageGalleryItem = {
             original: 'http://localhost/logo.jpg',
-            originalTitle: 'My Logo'
+            originalTitle: 'My Logo',
         };
 
         const props: ReactImageGalleryProps = {
             items: [galleryItem],
             autoPlay: false,
-            showFullscreenButton: false
+            showFullscreenButton: false,
         };
 
-        return <ReactImageGallery ref={(r) => this.gallery = r} {...props} />;
+        return <ReactImageGallery ref={r => (this.gallery = r)} {...props} />;
     }
 }

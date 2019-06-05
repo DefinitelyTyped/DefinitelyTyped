@@ -10,4 +10,4 @@ uuidv4.empty();
 uuidv4.is('00000000-0000-0000-0000-000000000000');
 
 // $ExpectType string
-uuidv4.fromString("test");
+uuidv4.fromString('test');

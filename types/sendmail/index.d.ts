@@ -58,10 +58,7 @@ declare namespace sendMailFactory {
 
 type CallbackFn = (err: Error, domain: string) => void;
 
-type SendMailFn = (
-    mail: sendMailFactory.MailInput,
-    callback: CallbackFn
-) => void;
+type SendMailFn = (mail: sendMailFactory.MailInput, callback: CallbackFn) => void;
 
 declare function sendMailFactory(options: sendMailFactory.Options): SendMailFn;
 

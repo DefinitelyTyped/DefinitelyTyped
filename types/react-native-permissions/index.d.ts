@@ -12,7 +12,7 @@ export interface Rationale {
 
 export type CheckOptions = string | { type: string };
 
-export type RequestOptions = string | { type: string, rationale?: Rationale };
+export type RequestOptions = string | { type: string; rationale?: Rationale };
 
 export interface ReactNativePermissions {
     canOpenSettings: () => Promise<boolean>;

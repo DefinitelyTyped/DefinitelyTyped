@@ -35,7 +35,7 @@ function test_popup() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).popup({
@@ -55,7 +55,7 @@ function test_popup() {
         on: 'manual',
         delay: {
             show: 200,
-            hide: 300
+            hide: 300,
         },
         transition: 'fade',
         duration: 50,
@@ -105,7 +105,7 @@ function test_popup() {
         title: 'title',
         html: $(),
         selector: {
-            popup: 'popup'
+            popup: 'popup',
         },
         metadata: {
             content: 'content',
@@ -113,22 +113,22 @@ function test_popup() {
             offset: 'offset',
             position: 'position',
             title: 'title',
-            variation: 'variation'
+            variation: 'variation',
         },
         className: {
             loading: 'loading',
             popup: 'popup',
             position: 'top',
             visible: 'visible',
-            popupVisible: 'popupVisible'
+            popupVisible: 'popupVisible',
         },
         error: {
             invalidPosition: 'invalidPosition',
             cannotPlace: 'cannotPlace',
             method: 'method',
             noTransition: 'noTransition',
-            notFound: 'notFound'
-        }
+            notFound: 'notFound',
+        },
     });
     $(selector).popup(); // $ExpectType JQuery<HTMLElement>
 

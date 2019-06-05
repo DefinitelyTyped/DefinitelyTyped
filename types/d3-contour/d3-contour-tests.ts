@@ -7,12 +7,7 @@
  */
 
 import * as d3Contour from 'd3-contour';
-import {
-    range,
-    thresholdSturges,
-    ThresholdNumberArrayGenerator,
-    ThresholdCountGenerator
-} from 'd3-array';
+import { range, thresholdSturges, ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
 import { geoPath } from 'd3-geo';
 import { randomNormal } from 'd3-random';
 
@@ -27,19 +22,25 @@ const m = 256;
 const values: number[] = new Array(n * m);
 for (let j = 0.5, k = 0; j < m; j += 1) {
     for (let i = 0.5; i < n; i += 1) {
-        values[k] = goldsteinPrice(i / n * 4 - 2, 1 - j / m * 3);
+        values[k] = goldsteinPrice((i / n) * 4 - 2, 1 - (j / m) * 3);
         k += 1;
     }
 }
 
 function goldsteinPrice(x: number, y: number) {
-    return (1 + Math.pow(x + y + 1, 2) * (19 - 14 * x + 3 * x * x - 14 * y + 6 * x * x + 3 * y * y))
-        * (30 + Math.pow(2 * x - 3 * y, 2) * (18 - 32 * x + 12 * x * x + 48 * y - 36 * x * y + 27 * y * y));
+    return (
+        (1 + Math.pow(x + y + 1, 2) * (19 - 14 * x + 3 * x * x - 14 * y + 6 * x * x + 3 * y * y)) *
+        (30 + Math.pow(2 * x - 3 * y, 2) * (18 - 32 * x + 12 * x * x + 48 * y - 36 * x * y + 27 * y * y))
+    );
 }
 
 let size: [number, number];
 let boolFlag: boolean;
-const thresholdArrayGen: ThresholdNumberArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
+const thresholdArrayGen: ThresholdNumberArrayGenerator<number> = (
+    values: ArrayLike<number>,
+    min?: number,
+    max?: number
+) => {
     let thresholds: number[];
     thresholds = [values[1], values[2], values[4]];
     return thresholds;
@@ -83,8 +84,7 @@ boolFlag = contGen.smooth();
 contGen = contGen.thresholds(10);
 
 // set with array
-const thresholds1 = range(1, 21)
-    .map(p => Math.pow(2, p));
+const thresholds1 = range(1, 21).map(p => Math.pow(2, p));
 contGen = contGen.thresholds(thresholds1);
 
 // set with threshold array generator
@@ -125,7 +125,7 @@ let contDensCustom: d3Contour.ContourDensity<CustomDatum> = d3Contour.contourDen
 // x(...) ----------------------------------------------------------------------
 
 // set with chainability
-contDensCustom = contDensCustom.x((datum) => {
+contDensCustom = contDensCustom.x(datum => {
     const d: CustomDatum = datum; // check passed in argument type
     return d.x;
 });
@@ -136,7 +136,7 @@ const xAcc: (d: CustomDatum) => number = contDensCustom.x();
 // y(...) ----------------------------------------------------------------------
 
 // set with chainability
-contDensCustom = contDensCustom.y((datum) => {
+contDensCustom = contDensCustom.y(datum => {
     const d: CustomDatum = datum; // check passed in argument type
     return d.y;
 });
@@ -145,7 +145,7 @@ contDensCustom = contDensCustom.y((datum) => {
 const yAcc: (d: CustomDatum) => number = contDensCustom.y();
 
 // weight(...) -----------------------------------------------------------------
-contDensCustom = contDensCustom.weight((datum) => {
+contDensCustom = contDensCustom.weight(datum => {
     return 5;
 });
 
@@ -196,7 +196,7 @@ const rY = randomNormal(1, 2);
 for (let i = 0; i < 1000; i += 1) {
     indNorm.push({
         x: rX(),
-        y: rY()
+        y: rY(),
     });
 }
 

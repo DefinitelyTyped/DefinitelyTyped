@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load QPX Express API v1 */
-    function load(name: "qpxexpress", version: "v1"): PromiseLike<void>;
-    function load(name: "qpxexpress", version: "v1", callback: () => any): void;
+    function load(name: 'qpxexpress', version: 'v1'): PromiseLike<void>;
+    function load(name: 'qpxexpress', version: 'v1', callback: () => any): void;
 
     const trips: qpxexpress.TripsResource;
 

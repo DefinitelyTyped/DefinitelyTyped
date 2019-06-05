@@ -10,9 +10,9 @@ export default class CartoDB extends XYZ {
     getConfig(): { [key: string]: any };
     setConfig(config: { [key: string]: any }): void;
     updateConfig(config: { [key: string]: any }): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

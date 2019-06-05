@@ -14,7 +14,7 @@ export default function reduceReducer<S>(
     r1: Reducer<S>,
     r2: Reducer<S>,
     r3: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(
     r0: Reducer<S>,
@@ -22,7 +22,7 @@ export default function reduceReducer<S>(
     r2: Reducer<S>,
     r3: Reducer<S>,
     r4: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(
     r0: Reducer<S>,
@@ -31,7 +31,7 @@ export default function reduceReducer<S>(
     r3: Reducer<S>,
     r4: Reducer<S>,
     r5: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(
     r0: Reducer<S>,
@@ -41,7 +41,7 @@ export default function reduceReducer<S>(
     r4: Reducer<S>,
     r5: Reducer<S>,
     r6: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(
     r0: Reducer<S>,
@@ -52,7 +52,7 @@ export default function reduceReducer<S>(
     r5: Reducer<S>,
     r6: Reducer<S>,
     r7: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(
     r0: Reducer<S>,
@@ -64,7 +64,7 @@ export default function reduceReducer<S>(
     r6: Reducer<S>,
     r7: Reducer<S>,
     r8: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(
     r0: Reducer<S>,
@@ -77,6 +77,6 @@ export default function reduceReducer<S>(
     r7: Reducer<S>,
     r8: Reducer<S>,
     r9: Reducer<S>,
-    s: S | null,
+    s: S | null
 ): Reducer<S>;
 export default function reduceReducer<S>(...reducers: Array<Reducer<S>>): Reducer<S>;

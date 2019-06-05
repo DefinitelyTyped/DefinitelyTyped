@@ -1,3 +1,3 @@
-import SCBroker = require("sc-broker-cluster/scbroker");
+import SCBroker = require('sc-broker-cluster/scbroker');
 
 export = SCBroker;

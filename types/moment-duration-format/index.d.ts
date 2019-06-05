@@ -7,9 +7,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as moment from "moment";
+import * as moment from 'moment';
 
-declare module "moment" {
+declare module 'moment' {
     namespace duration {
         const fn: Duration;
     }
@@ -27,10 +27,7 @@ declare module "moment" {
     }
 
     type UnitOfTrimV1 = 'left' | 'right';
-    type UnitOfTrim = (
-        'large' | 'small' | 'both' |
-        'mid' | 'all' | 'final'
-    );
+    type UnitOfTrim = 'large' | 'small' | 'both' | 'mid' | 'all' | 'final';
 
     interface DurationFormatSettings {
         trim?: false | UnitOfTrimV1 | UnitOfTrim | string | Array<UnitOfTrim | string>;
@@ -58,21 +55,36 @@ declare module "moment" {
         useToLocaleString?: boolean;
     }
 
-    type DurationLabelType = "long" | "standard" | "short";
-    type DurationTemplate = "HMS" | "HM" | "MS";
-    type DurationToken = (
-        "S" | "SS" | "SSS" |
-        "s" | "ss" | "sss" |
-        "m" | "mm" | "mmm" |
-        "h" | "hh" | "hhh" |
-        "d" | "dd" | "ddd" |
-        "w" | "ww" | "www" |
-        "M" | "MM" | "MMM" |
-        "y" | "yy" | "yyy"
-    );
+    type DurationLabelType = 'long' | 'standard' | 'short';
+    type DurationTemplate = 'HMS' | 'HM' | 'MS';
+    type DurationToken =
+        | 'S'
+        | 'SS'
+        | 'SSS'
+        | 's'
+        | 'ss'
+        | 'sss'
+        | 'm'
+        | 'mm'
+        | 'mmm'
+        | 'h'
+        | 'hh'
+        | 'hhh'
+        | 'd'
+        | 'dd'
+        | 'ddd'
+        | 'w'
+        | 'ww'
+        | 'www'
+        | 'M'
+        | 'MM'
+        | 'MMM'
+        | 'y'
+        | 'yy'
+        | 'yyy';
 
-    type DurationLabelDef = {[duration in DurationToken]: string};
-    type DurationTimeDef = {[template in DurationTemplate]: string};
+    type DurationLabelDef = { [duration in DurationToken]: string };
+    type DurationTimeDef = { [template in DurationTemplate]: string };
 
     interface DurationLabelTypeDef {
         type: DurationLabelType;
@@ -88,7 +100,7 @@ declare module "moment" {
         durationPluralKey?: (token: string, integerValue: number, decimalValue: number) => string;
     }
 
-    type TemplateFunction = ((this: DurationFormatSettings) => string);
+    type TemplateFunction = (this: DurationFormatSettings) => string;
 }
 
 declare function momentDurationFormatSetup(_moment: typeof moment): void;

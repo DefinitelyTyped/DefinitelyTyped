@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Batch
      * @class Holds information about batched mesh instances. Created in {@link pc.BatchManager#create}.
@@ -10,7 +9,7 @@ declare namespace pc {
      * @property {Number} [batchGroupId] Link this batch to a specific batch group. This is done automatically with default batches.
      */
     class Batch {
-        constructor(meshInstances: pc.MeshInstance[], dynamic: boolean, batchGroupId: number)
+        constructor(meshInstances: pc.MeshInstance[], dynamic: boolean, batchGroupId: number);
 
         origMeshIntances: pc.MeshInstance[];
         meshInstance: pc.MeshInstance;
@@ -29,7 +28,7 @@ declare namespace pc {
      * @property {String} name Name of the group.
      */
     class BatchGroup {
-        constructor(id: number, name: string, dynamic: boolean, maxAabbSize: number)
+        constructor(id: number, name: string, dynamic: boolean, maxAabbSize: number);
 
         dynamic: boolean;
         maxAabbSize: number;
@@ -42,7 +41,7 @@ declare namespace pc {
      * @class Glues many mesh instances into a single one for better performance.
      */
     class BatchManager {
-        constructor(device: any, root: pc.Entity, scene: pc.Scene)
+        constructor(device: any, root: pc.Entity, scene: pc.Scene);
 
         device: any;
         root: pc.Entity;
@@ -106,7 +105,7 @@ declare namespace pc {
          * This is useful to keep a balance between the number of draw calls and the number of drawn triangles, because smaller batches can be hidden when not visible in camera.
          * @returns {Array} An array of arrays of mesh instances, each valid to pass to {@link pc.BatchManager#create}.
          */
-        prepare(meshInstances: pc.MeshInstance[], dynamic: boolean, maxAabbSize: number): pc.MeshInstance[][]
+        prepare(meshInstances: pc.MeshInstance[], dynamic: boolean, maxAabbSize: number): pc.MeshInstance[][];
 
         /**
          * @function

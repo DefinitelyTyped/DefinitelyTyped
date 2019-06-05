@@ -52,5 +52,4 @@ declare module 'moment' {
         jDayOfYear(d: number): Moment;
         jDayOfYear(): number;
     }
-
 }

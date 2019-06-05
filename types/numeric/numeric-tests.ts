@@ -1,4 +1,4 @@
-import numeric = require("numeric");
+import numeric = require('numeric');
 
 const vector = [2, 5];
 const matrix = [vector, vector];
@@ -7,12 +7,12 @@ const sparseMatrix: [number[], number[], number[]] = [vector, vector, vector];
 
 numeric.bench(() => null, 150); // $ExpectType number
 numeric.prettyPrint(vector); // $ExpectType string
-numeric.parseDate("08-08-17"); // $ExpectType number
-numeric.parseDate(["08-05-87", "08-05-75"]); // $ExpectType number[]
-numeric.parseFloat("55.24"); // $ExpectType number
-numeric.parseFloat(["25.15", "44.25", "as"]); // $ExpectType number[]
-numeric.parseCSV("car, bike"); // $ExpectType string[][]
-numeric.toCSV([[25, 52, 62, 66], ["car", "bad", "bike", {}]]); // $ExpectType string
+numeric.parseDate('08-08-17'); // $ExpectType number
+numeric.parseDate(['08-05-87', '08-05-75']); // $ExpectType number[]
+numeric.parseFloat('55.24'); // $ExpectType number
+numeric.parseFloat(['25.15', '44.25', 'as']); // $ExpectType number[]
+numeric.parseCSV('car, bike'); // $ExpectType string[][]
+numeric.toCSV([[25, 52, 62, 66], ['car', 'bad', 'bike', {}]]); // $ExpectType string
 numeric.imageURL([[25, 50], [52, 52]]); // $ExpectType string
 numeric.getURL('sdf'); // $ExpectType any
 
@@ -135,9 +135,9 @@ numeric.cloneeqV(vector); // $ExpectType NonNullPrimitive[]
 numeric.add(2, 5, 6); // $ExpectType number
 numeric.add(2, 3, vector); // $ExpectType number[]
 numeric.add(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["+"](2, 5, 6); // $ExpectType number
-numeric["+"](2, 3, vector); // $ExpectType number[]
-numeric["+"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['+'](2, 5, 6); // $ExpectType number
+numeric['+'](2, 3, vector); // $ExpectType number[]
+numeric['+'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.addVV(vector, vector); // $ExpectType number[]
 numeric.addSV(2, vector); // $ExpectType number[]
 numeric.addVS(vector, 2); // $ExpectType number[]
@@ -148,9 +148,9 @@ numeric.addeqS(vector, 3); // $ExpectType number[]
 numeric.sub(2, 5, 6); // $ExpectType number
 numeric.sub(2, 3, vector); // $ExpectType number[]
 numeric.sub(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["-"](2, 5, 6); // $ExpectType number
-numeric["-"](2, 3, vector); // $ExpectType number[]
-numeric["-"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['-'](2, 5, 6); // $ExpectType number
+numeric['-'](2, 3, vector); // $ExpectType number[]
+numeric['-'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.subVV(vector, vector); // $ExpectType number[]
 numeric.subSV(2, vector); // $ExpectType number[]
 numeric.subVS(vector, 2); // $ExpectType number[]
@@ -161,9 +161,9 @@ numeric.subeqS(vector, 3); // $ExpectType number[]
 numeric.mul(2, 5, 6); // $ExpectType number
 numeric.mul(2, 3, vector); // $ExpectType number[]
 numeric.mul(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["*"](2, 5, 6); // $ExpectType number
-numeric["*"](2, 3, vector); // $ExpectType number[]
-numeric["*"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['*'](2, 5, 6); // $ExpectType number
+numeric['*'](2, 3, vector); // $ExpectType number[]
+numeric['*'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.mulVV(vector, vector); // $ExpectType number[]
 numeric.mulSV(2, vector); // $ExpectType number[]
 numeric.mulVS(vector, 2); // $ExpectType number[]
@@ -174,9 +174,9 @@ numeric.muleqS(vector, 3); // $ExpectType number[]
 numeric.div(2, 5, 6); // $ExpectType number
 numeric.div(2, 3, vector); // $ExpectType number[]
 numeric.div(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["/"](2, 5, 6); // $ExpectType number
-numeric["/"](2, 3, vector); // $ExpectType number[]
-numeric["/"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['/'](2, 5, 6); // $ExpectType number
+numeric['/'](2, 3, vector); // $ExpectType number[]
+numeric['/'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.divVV(vector, vector); // $ExpectType number[]
 numeric.divSV(2, vector); // $ExpectType number[]
 numeric.divVS(vector, 2); // $ExpectType number[]
@@ -187,9 +187,9 @@ numeric.diveqS(vector, 3); // $ExpectType number[]
 numeric.mod(2, 5, 6); // $ExpectType number
 numeric.mod(2, 3, vector); // $ExpectType number[]
 numeric.mod(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["%"](2, 5, 6); // $ExpectType number
-numeric["%"](2, 3, vector); // $ExpectType number[]
-numeric["%"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['%'](2, 5, 6); // $ExpectType number
+numeric['%'](2, 3, vector); // $ExpectType number[]
+numeric['%'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.modVV(vector, vector); // $ExpectType number[]
 numeric.modSV(2, vector); // $ExpectType number[]
 numeric.modVS(vector, 2); // $ExpectType number[]
@@ -200,9 +200,9 @@ numeric.modeqS(vector, 3); // $ExpectType number[]
 numeric.and(2, 5, 6); // $ExpectType number
 numeric.and(2, 3, vector); // $ExpectType number[]
 numeric.and(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["&&"](2, 5, 6); // $ExpectType number
-numeric["&&"](2, 3, vector); // $ExpectType number[]
-numeric["&&"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['&&'](2, 5, 6); // $ExpectType number
+numeric['&&'](2, 3, vector); // $ExpectType number[]
+numeric['&&'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.andVV(vector, vector); // $ExpectType number[]
 numeric.andSV(2, vector); // $ExpectType number[]
 numeric.andVS(vector, 2); // $ExpectType number[]
@@ -213,9 +213,9 @@ numeric.andeqS(vector, 3); // $ExpectType number[]
 numeric.or(2, 5, 6); // $ExpectType number
 numeric.or(2, 3, vector); // $ExpectType number[]
 numeric.or(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["||"](2, 5, 6); // $ExpectType number
-numeric["||"](2, 3, vector); // $ExpectType number[]
-numeric["||"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['||'](2, 5, 6); // $ExpectType number
+numeric['||'](2, 3, vector); // $ExpectType number[]
+numeric['||'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.orVV(vector, vector); // $ExpectType number[]
 numeric.orSV(2, vector); // $ExpectType number[]
 numeric.orVS(vector, 2); // $ExpectType number[]
@@ -226,9 +226,9 @@ numeric.oreqS(vector, 3); // $ExpectType number[]
 numeric.eq(2, 5); // $ExpectType boolean
 numeric.eq(2, vector); // $ExpectType boolean[]
 numeric.eq(threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
-numeric["==="](2, 5); // $ExpectType boolean
-numeric["==="](2, vector); // $ExpectType boolean[]
-numeric["==="](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
+numeric['==='](2, 5); // $ExpectType boolean
+numeric['==='](2, vector); // $ExpectType boolean[]
+numeric['==='](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
 numeric.eqVV(vector, vector); // $ExpectType boolean[]
 numeric.eqSV(2, vector); // $ExpectType boolean[]
 numeric.eqVS(vector, 2); // $ExpectType boolean[]
@@ -239,9 +239,9 @@ numeric.eqeqS(vector, 3); // $ExpectType boolean[]
 numeric.neq(2, 5); // $ExpectType boolean
 numeric.neq(2, vector); // $ExpectType boolean[]
 numeric.neq(threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
-numeric["==="](2, 5); // $ExpectType boolean
-numeric["==="](2, vector); // $ExpectType boolean[]
-numeric["==="](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
+numeric['==='](2, 5); // $ExpectType boolean
+numeric['==='](2, vector); // $ExpectType boolean[]
+numeric['==='](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
 numeric.neqVV(vector, vector); // $ExpectType boolean[]
 numeric.neqSV(2, vector); // $ExpectType boolean[]
 numeric.neqVS(vector, 2); // $ExpectType boolean[]
@@ -252,9 +252,9 @@ numeric.neqeqS(vector, 3); // $ExpectType boolean[]
 numeric.lt(2, 5); // $ExpectType boolean
 numeric.lt(2, vector); // $ExpectType boolean[]
 numeric.lt(threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
-numeric["==="](2, 5); // $ExpectType boolean
-numeric["==="](2, vector); // $ExpectType boolean[]
-numeric["==="](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
+numeric['==='](2, 5); // $ExpectType boolean
+numeric['==='](2, vector); // $ExpectType boolean[]
+numeric['==='](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
 numeric.ltVV(vector, vector); // $ExpectType boolean[]
 numeric.ltSV(2, vector); // $ExpectType boolean[]
 numeric.ltVS(vector, 2); // $ExpectType boolean[]
@@ -265,9 +265,9 @@ numeric.lteqS(vector, 3); // $ExpectType boolean[]
 numeric.gt(2, 5); // $ExpectType boolean
 numeric.gt(2, vector); // $ExpectType boolean[]
 numeric.gt(threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
-numeric["==="](2, 5); // $ExpectType boolean
-numeric["==="](2, vector); // $ExpectType boolean[]
-numeric["==="](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
+numeric['==='](2, 5); // $ExpectType boolean
+numeric['==='](2, vector); // $ExpectType boolean[]
+numeric['==='](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
 numeric.gtVV(vector, vector); // $ExpectType boolean[]
 numeric.gtSV(2, vector); // $ExpectType boolean[]
 numeric.gtVS(vector, 2); // $ExpectType boolean[]
@@ -278,9 +278,9 @@ numeric.gteqS(vector, 3); // $ExpectType boolean[]
 numeric.leq(2, 5); // $ExpectType boolean
 numeric.leq(2, vector); // $ExpectType boolean[]
 numeric.leq(threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
-numeric["==="](2, 5); // $ExpectType boolean
-numeric["==="](2, vector); // $ExpectType boolean[]
-numeric["==="](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
+numeric['==='](2, 5); // $ExpectType boolean
+numeric['==='](2, vector); // $ExpectType boolean[]
+numeric['==='](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
 numeric.leqVV(vector, vector); // $ExpectType boolean[]
 numeric.leqSV(2, vector); // $ExpectType boolean[]
 numeric.leqVS(vector, 2); // $ExpectType boolean[]
@@ -291,9 +291,9 @@ numeric.leqeqS(vector, 3); // $ExpectType boolean[]
 numeric.geq(2, 5); // $ExpectType boolean
 numeric.geq(2, vector); // $ExpectType boolean[]
 numeric.geq(threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
-numeric["==="](2, 5); // $ExpectType boolean
-numeric["==="](2, vector); // $ExpectType boolean[]
-numeric["==="](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
+numeric['==='](2, 5); // $ExpectType boolean
+numeric['==='](2, vector); // $ExpectType boolean[]
+numeric['==='](threeDimensionalMatrix, threeDimensionalMatrix); // $ExpectType MultidimensionalArray<boolean>
 numeric.geqVV(vector, vector); // $ExpectType boolean[]
 numeric.geqSV(2, vector); // $ExpectType boolean[]
 numeric.geqVS(vector, 2); // $ExpectType boolean[]
@@ -304,9 +304,9 @@ numeric.geqeqS(vector, 3); // $ExpectType boolean[]
 numeric.band(2, 5, 6); // $ExpectType number
 numeric.band(2, 3, vector); // $ExpectType number[]
 numeric.band(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["&"](2, 5, 6); // $ExpectType number
-numeric["&"](2, 3, vector); // $ExpectType number[]
-numeric["&"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['&'](2, 5, 6); // $ExpectType number
+numeric['&'](2, 3, vector); // $ExpectType number[]
+numeric['&'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.bandVV(vector, vector); // $ExpectType number[]
 numeric.bandSV(2, vector); // $ExpectType number[]
 numeric.bandVS(vector, 2); // $ExpectType number[]
@@ -317,9 +317,9 @@ numeric.bandeqS(vector, 3); // $ExpectType number[]
 numeric.bor(2, 5, 6); // $ExpectType number
 numeric.bor(2, 3, vector); // $ExpectType number[]
 numeric.bor(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["|"](2, 5, 6); // $ExpectType number
-numeric["|"](2, 3, vector); // $ExpectType number[]
-numeric["|"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['|'](2, 5, 6); // $ExpectType number
+numeric['|'](2, 3, vector); // $ExpectType number[]
+numeric['|'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.borVV(vector, vector); // $ExpectType number[]
 numeric.borSV(2, vector); // $ExpectType number[]
 numeric.borVS(vector, 2); // $ExpectType number[]
@@ -330,9 +330,9 @@ numeric.boreqS(vector, 3); // $ExpectType number[]
 numeric.bxor(2, 5, 6); // $ExpectType number
 numeric.bxor(2, 3, vector); // $ExpectType number[]
 numeric.bxor(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["^"](2, 5, 6); // $ExpectType number
-numeric["^"](2, 3, vector); // $ExpectType number[]
-numeric["^"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['^'](2, 5, 6); // $ExpectType number
+numeric['^'](2, 3, vector); // $ExpectType number[]
+numeric['^'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.bxorVV(vector, vector); // $ExpectType number[]
 numeric.bxorSV(2, vector); // $ExpectType number[]
 numeric.bxorVS(vector, 2); // $ExpectType number[]
@@ -343,9 +343,9 @@ numeric.bxoreqS(vector, 3); // $ExpectType number[]
 numeric.lshift(2, 5, 6); // $ExpectType number
 numeric.lshift(2, 3, vector); // $ExpectType number[]
 numeric.lshift(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric["<<"](2, 5, 6); // $ExpectType number
-numeric["<<"](2, 3, vector); // $ExpectType number[]
-numeric["<<"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['<<'](2, 5, 6); // $ExpectType number
+numeric['<<'](2, 3, vector); // $ExpectType number[]
+numeric['<<'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.lshiftVV(vector, vector); // $ExpectType number[]
 numeric.lshiftSV(2, vector); // $ExpectType number[]
 numeric.lshiftVS(vector, 2); // $ExpectType number[]
@@ -356,9 +356,9 @@ numeric.lshifteqS(vector, 3); // $ExpectType number[]
 numeric.rshift(2, 5, 6); // $ExpectType number
 numeric.rshift(2, 3, vector); // $ExpectType number[]
 numeric.rshift(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric[">>"](2, 5, 6); // $ExpectType number
-numeric[">>"](2, 3, vector); // $ExpectType number[]
-numeric[">>"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['>>'](2, 5, 6); // $ExpectType number
+numeric['>>'](2, 3, vector); // $ExpectType number[]
+numeric['>>'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.rshiftVV(vector, vector); // $ExpectType number[]
 numeric.rshiftSV(2, vector); // $ExpectType number[]
 numeric.rshiftVS(vector, 2); // $ExpectType number[]
@@ -369,9 +369,9 @@ numeric.rshifteqS(vector, 3); // $ExpectType number[]
 numeric.rrshift(2, 5, 6); // $ExpectType number
 numeric.rrshift(2, 3, vector); // $ExpectType number[]
 numeric.rrshift(threeDimensionalMatrix, 2, threeDimensionalMatrix); // $ExpectType number[][][]
-numeric[">>>"](2, 5, 6); // $ExpectType number
-numeric[">>>"](2, 3, vector); // $ExpectType number[]
-numeric[">>>"](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
+numeric['>>>'](2, 5, 6); // $ExpectType number
+numeric['>>>'](2, 3, vector); // $ExpectType number[]
+numeric['>>>'](threeDimensionalMatrix, 2, 4); // $ExpectType number[][][]
 numeric.rrshiftVV(vector, vector); // $ExpectType number[]
 numeric.rrshiftSV(2, vector); // $ExpectType number[]
 numeric.rrshiftVS(vector, 2); // $ExpectType number[]
@@ -459,12 +459,7 @@ numeric.random(vector); // $ExpectType NonScalar
 numeric.norm2(threeDimensionalMatrix); // $ExpectType number
 numeric.linspace(1, 3, 5); // $ExpectType number[]
 numeric.getBlock(threeDimensionalMatrix, vector, vector); // $ExpectType number[][][]
-const block: number[][][] = numeric.setBlock(
-    threeDimensionalMatrix,
-    vector,
-    vector,
-    threeDimensionalMatrix
-);
+const block: number[][][] = numeric.setBlock(threeDimensionalMatrix, vector, vector, threeDimensionalMatrix);
 numeric.blockMatrix(matrix); // $ExpectType number[][]
 numeric.tensor(3, 5); // $ExpectType number
 numeric.tensor(vector, vector); // $ExpectType number[][]
@@ -598,28 +593,20 @@ numeric.ccsrrshiftMM(sparseMatrix, sparseMatrix); // $ExpectType [number[], numb
 
 const lu = numeric.cLU(matrix);
 numeric.cLUSolve(lu, vector); // $ExpectType number[]
-numeric.cgrid(2, "L"); // $ExpectType number[][]
+numeric.cgrid(2, 'L'); // $ExpectType number[][]
 numeric.cdelsq(matrix); // $ExpectType number[][]
 numeric.cdotmv(matrix, vector); // $ExpectType number[]
 
-const spline = numeric.spline(vector, matrix, "periodic", 3);
+const spline = numeric.spline(vector, matrix, 'periodic', 3);
 spline.diff().roots(); // $ExpectType number[]
 spline.at(vector); // $ExpectType number | number[]
 
 numeric.uncmin((x: number[]) => 23, vector, 2, null, 3, () => undefined, {
-    Hinv: matrix
+    Hinv: matrix,
 });
 numeric.gradient((x: number[]) => 44, vector); // $ExpectType number[]
 
-const dopri = numeric.dopri(
-    1,
-    1,
-    1,
-    (x = 23, y = 44) => 44,
-    2,
-    3,
-    (x = 23, y = 44) => 44
-);
+const dopri = numeric.dopri(1, 1, 1, (x = 23, y = 44) => 44, 2, 3, (x = 23, y = 44) => 44);
 dopri.at(vector); // $ExpectType number[] | number[][]
 
 numeric.echelonize(matrix); // $ExpectType { I: number[][]; A: number[][]; P: number[]; }

@@ -1,8 +1,6 @@
 namespace adoneTests.crypto.asn1 {
     const {
-        crypto: {
-            asn1
-        }
+        crypto: { asn1 },
     } = adone;
 
     let arrBuf: ArrayBuffer;
@@ -12,30 +10,28 @@ namespace adoneTests.crypto.asn1 {
     let date: Date;
 
     namespace BaseBlock {
-        const {
-            BaseBlock
-        } = asn1;
+        const { BaseBlock } = asn1;
 
         new BaseBlock({
-            blockLength: 10
+            blockLength: 10,
         });
         new BaseBlock({
-            error: "a"
+            error: 'a',
         });
         new BaseBlock({
-            name: "a"
+            name: 'a',
         });
         new BaseBlock({
-            optional: true
+            optional: true,
         });
         new BaseBlock({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new BaseBlock({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new BaseBlock({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new BaseBlock();
@@ -113,30 +109,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Primitive {
-        const {
-            Primitive
-        } = asn1;
+        const { Primitive } = asn1;
 
         new Primitive({
-            blockLength: 10
+            blockLength: 10,
         });
         new Primitive({
-            error: "a"
+            error: 'a',
         });
         new Primitive({
-            name: "a"
+            name: 'a',
         });
         new Primitive({
-            optional: true
+            optional: true,
         });
         new Primitive({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new Primitive({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new Primitive({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new Primitive();
@@ -215,30 +209,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Constructed {
-        const {
-            Constructed
-        } = asn1;
+        const { Constructed } = asn1;
 
         new Constructed({
-            blockLength: 10
+            blockLength: 10,
         });
         new Constructed({
-            error: "a"
+            error: 'a',
         });
         new Constructed({
-            name: "a"
+            name: 'a',
         });
         new Constructed({
-            optional: true
+            optional: true,
         });
         new Constructed({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new Constructed({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new Constructed({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new Constructed();
@@ -317,30 +309,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace EndOfContent {
-        const {
-            EndOfContent
-        } = asn1;
+        const { EndOfContent } = asn1;
 
         new EndOfContent({
-            blockLength: 10
+            blockLength: 10,
         });
         new EndOfContent({
-            error: "a"
+            error: 'a',
         });
         new EndOfContent({
-            name: "a"
+            name: 'a',
         });
         new EndOfContent({
-            optional: true
+            optional: true,
         });
         new EndOfContent({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new EndOfContent({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new EndOfContent({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new EndOfContent();
@@ -418,30 +408,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Boolean {
-        const {
-            Boolean: _Boolean
-        } = asn1;
+        const { Boolean: _Boolean } = asn1;
 
         new _Boolean({
-            blockLength: 10
+            blockLength: 10,
         });
         new _Boolean({
-            error: "a"
+            error: 'a',
         });
         new _Boolean({
-            name: "a"
+            name: 'a',
         });
         new _Boolean({
-            optional: true
+            optional: true,
         });
         new _Boolean({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new _Boolean({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new _Boolean({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new _Boolean();
@@ -520,30 +508,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Sequence {
-        const {
-            Sequence
-        } = asn1;
+        const { Sequence } = asn1;
 
         new Sequence({
-            blockLength: 10
+            blockLength: 10,
         });
         new Sequence({
-            error: "a"
+            error: 'a',
         });
         new Sequence({
-            name: "a"
+            name: 'a',
         });
         new Sequence({
-            optional: true
+            optional: true,
         });
         new Sequence({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new Sequence({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new Sequence({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new Sequence();
@@ -622,30 +608,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Set {
-        const {
-            Set
-        } = asn1;
+        const { Set } = asn1;
 
         new Set({
-            blockLength: 10
+            blockLength: 10,
         });
         new Set({
-            error: "a"
+            error: 'a',
         });
         new Set({
-            name: "a"
+            name: 'a',
         });
         new Set({
-            optional: true
+            optional: true,
         });
         new Set({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new Set({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new Set({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new Set();
@@ -724,30 +708,28 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Null {
-        const {
-            Null: Null
-        } = asn1;
+        const { Null: Null } = asn1;
 
         new Null({
-            blockLength: 10
+            blockLength: 10,
         });
         new Null({
-            error: "a"
+            error: 'a',
         });
         new Null({
-            name: "a"
+            name: 'a',
         });
         new Null({
-            optional: true
+            optional: true,
         });
         new Null({
-            primitiveSchema: {}
+            primitiveSchema: {},
         });
         new Null({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new Null({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new Null();
@@ -825,21 +807,19 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace OctetString {
-        const {
-            OctetString
-        } = asn1;
+        const { OctetString } = asn1;
 
         new OctetString({
-            blockLength: 10
+            blockLength: 10,
         });
         new OctetString({
-            error: "a"
+            error: 'a',
         });
         new OctetString({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new OctetString({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new OctetString();
@@ -935,21 +915,19 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace BitString {
-        const {
-            BitString
-        } = asn1;
+        const { BitString } = asn1;
 
         new BitString({
-            blockLength: 10
+            blockLength: 10,
         });
         new BitString({
-            error: "a"
+            error: 'a',
         });
         new BitString({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new BitString({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new BitString();
@@ -1045,12 +1023,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Integer {
-        const {
-            Integer
-        } = asn1;
+        const { Integer } = asn1;
 
         new Integer({
-            value: 10
+            value: 10,
         });
 
         const b = new Integer();
@@ -1130,12 +1106,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Enumerated {
-        const {
-            Enumerated
-        } = asn1;
+        const { Enumerated } = asn1;
 
         new Enumerated({
-            value: 10
+            value: 10,
         });
 
         const b = new Enumerated();
@@ -1215,24 +1189,22 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace ObjectIdentifier {
-        const {
-            ObjectIdentifier
-        } = asn1;
+        const { ObjectIdentifier } = asn1;
 
         new ObjectIdentifier({
-            blockLength: 10
+            blockLength: 10,
         });
         new ObjectIdentifier({
-            error: "a"
+            error: 'a',
         });
         new ObjectIdentifier({
-            value: "ha"
+            value: 'ha',
         });
         new ObjectIdentifier({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
         new ObjectIdentifier({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new ObjectIdentifier();
@@ -1313,16 +1285,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Utf8String {
-        const {
-            Utf8String
-        } = asn1;
+        const { Utf8String } = asn1;
 
         new Utf8String({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new Utf8String({
-            value: "a"
+            value: 'a',
         });
 
         namespace idblock {
@@ -1403,12 +1373,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace BmpString {
-        const {
-            BmpString
-        } = asn1;
+        const { BmpString } = asn1;
 
         new BmpString({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new BmpString();
@@ -1492,12 +1460,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace UniversalString {
-        const {
-            UniversalString
-        } = asn1;
+        const { UniversalString } = asn1;
 
         new UniversalString({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new UniversalString();
@@ -1581,12 +1547,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace NumericString {
-        const {
-            NumericString
-        } = asn1;
+        const { NumericString } = asn1;
 
         new NumericString({
-            value: "123"
+            value: '123',
         });
 
         const b = new NumericString();
@@ -1669,12 +1633,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace PrintableString {
-        const {
-            PrintableString
-        } = asn1;
+        const { PrintableString } = asn1;
 
         new PrintableString({
-            value: "123"
+            value: '123',
         });
 
         const b = new PrintableString();
@@ -1757,12 +1719,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace TeletexString {
-        const {
-            TeletexString
-        } = asn1;
+        const { TeletexString } = asn1;
 
         new TeletexString({
-            value: "123"
+            value: '123',
         });
 
         const b = new TeletexString();
@@ -1845,12 +1805,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace VideotexString {
-        const {
-            VideotexString
-        } = asn1;
+        const { VideotexString } = asn1;
 
         new VideotexString({
-            value: "123"
+            value: '123',
         });
 
         const b = new VideotexString();
@@ -1933,12 +1891,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace IA5String {
-        const {
-            IA5String
-        } = asn1;
+        const { IA5String } = asn1;
 
         new IA5String({
-            value: "123"
+            value: '123',
         });
 
         const b = new IA5String();
@@ -2021,12 +1977,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace GraphicString {
-        const {
-            GraphicString
-        } = asn1;
+        const { GraphicString } = asn1;
 
         new GraphicString({
-            value: "123"
+            value: '123',
         });
 
         const b = new GraphicString();
@@ -2109,12 +2063,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace VisibleString {
-        const {
-            VisibleString
-        } = asn1;
+        const { VisibleString } = asn1;
 
         new VisibleString({
-            value: "123"
+            value: '123',
         });
 
         const b = new VisibleString();
@@ -2197,12 +2149,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace GeneralString {
-        const {
-            GeneralString
-        } = asn1;
+        const { GeneralString } = asn1;
 
         new GeneralString({
-            value: "123"
+            value: '123',
         });
 
         const b = new GeneralString();
@@ -2285,12 +2235,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace CharacterString {
-        const {
-            CharacterString
-        } = asn1;
+        const { CharacterString } = asn1;
 
         new CharacterString({
-            value: "123"
+            value: '123',
         });
 
         const b = new CharacterString();
@@ -2373,40 +2321,38 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace UTCTime {
-        const {
-            UTCTime
-        } = asn1;
+        const { UTCTime } = asn1;
 
         new UTCTime({
-            value: "123"
+            value: '123',
         });
 
         new UTCTime({
-            blockLength: 10
+            blockLength: 10,
         });
 
         new UTCTime({
-            error: "a"
+            error: 'a',
         });
 
         new UTCTime({
-            isHexOnly: true
+            isHexOnly: true,
         });
 
         new UTCTime({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
 
         new UTCTime({
-            valueDate: new Date()
+            valueDate: new Date(),
         });
 
         new UTCTime({
-            valueHex: new ArrayBuffer(10)
+            valueHex: new ArrayBuffer(10),
         });
 
         new UTCTime({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new UTCTime();
@@ -2502,40 +2448,38 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace GeneralizedTime {
-        const {
-            GeneralizedTime
-        } = asn1;
+        const { GeneralizedTime } = asn1;
 
         new GeneralizedTime({
-            value: "123"
+            value: '123',
         });
 
         new GeneralizedTime({
-            blockLength: 10
+            blockLength: 10,
         });
 
         new GeneralizedTime({
-            error: "a"
+            error: 'a',
         });
 
         new GeneralizedTime({
-            isHexOnly: true
+            isHexOnly: true,
         });
 
         new GeneralizedTime({
-            valueBeforeDecode: new ArrayBuffer(10)
+            valueBeforeDecode: new ArrayBuffer(10),
         });
 
         new GeneralizedTime({
-            valueDate: new Date()
+            valueDate: new Date(),
         });
 
         new GeneralizedTime({
-            valueHex: new ArrayBuffer(10)
+            valueHex: new ArrayBuffer(10),
         });
 
         new GeneralizedTime({
-            warnings: ["a"]
+            warnings: ['a'],
         });
 
         const b = new GeneralizedTime();
@@ -2632,16 +2576,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace DATE {
-        const {
-            DATE
-        } = asn1;
+        const { DATE } = asn1;
 
         new DATE({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new DATE({
-            value: "a"
+            value: 'a',
         });
 
         namespace idblock {
@@ -2722,16 +2664,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace TimeOfDay {
-        const {
-            TimeOfDay
-        } = asn1;
+        const { TimeOfDay } = asn1;
 
         new TimeOfDay({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new TimeOfDay({
-            value: "a"
+            value: 'a',
         });
 
         namespace idblock {
@@ -2812,16 +2752,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace DateTime {
-        const {
-            DateTime
-        } = asn1;
+        const { DateTime } = asn1;
 
         new DateTime({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new DateTime({
-            value: "a"
+            value: 'a',
         });
 
         namespace idblock {
@@ -2902,16 +2840,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Duration {
-        const {
-            Duration
-        } = asn1;
+        const { Duration } = asn1;
 
         new Duration({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new Duration({
-            value: "a"
+            value: 'a',
         });
 
         namespace idblock {
@@ -2992,16 +2928,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace TIME {
-        const {
-            TIME
-        } = asn1;
+        const { TIME } = asn1;
 
         new TIME({
-            value: "ha"
+            value: 'ha',
         });
 
         const b = new TIME({
-            value: "a"
+            value: 'a',
         });
 
         namespace idblock {
@@ -3082,16 +3016,14 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Choice {
-        const {
-            Choice
-        } = asn1;
+        const { Choice } = asn1;
 
         new Choice({
-            optional: true
+            optional: true,
         });
 
         const c = new Choice({
-            value: [new asn1.Integer({ value: 10 })]
+            value: [new asn1.Integer({ value: 10 })],
         });
 
         c.value[0].toBER();
@@ -3099,13 +3031,11 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Any {
-        const {
-            Any
-        } = asn1;
+        const { Any } = asn1;
 
         const a = new Any({
-            name: "A",
-            optional: true
+            name: 'A',
+            optional: true,
         });
 
         str = a.name;
@@ -3113,22 +3043,20 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace Repeated {
-        const {
-            Repeated
-        } = asn1;
+        const { Repeated } = asn1;
 
         new Repeated();
         new Repeated({
-            local: true
+            local: true,
         });
         new Repeated({
-            name: "a"
+            name: 'a',
         });
         new Repeated({
-            optional: true
+            optional: true,
         });
         const r = new Repeated({
-            value: new asn1.Any()
+            value: new asn1.Any(),
         });
 
         str = r.name;
@@ -3139,12 +3067,10 @@ namespace adoneTests.crypto.asn1 {
     }
 
     namespace RawData {
-        const {
-            RawData
-        } = asn1;
+        const { RawData } = asn1;
 
         const r = new RawData({
-            data: new ArrayBuffer(10)
+            data: new ArrayBuffer(10),
         });
         arrBuf = r.data;
         num = r.fromBER(new ArrayBuffer(10), 0, 0);

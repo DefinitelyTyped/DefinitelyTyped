@@ -5,7 +5,7 @@ interface TestStore {
     bar: number;
 }
 
-const db = new Store<TestStore>('data', {type: 'memory'});
+const db = new Store<TestStore>('data', { type: 'memory' });
 
 // save with custom ID
 db.save('bar', 123, (err, id) => {

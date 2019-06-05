@@ -1,9 +1,9 @@
-import { ReactNativeFile, ReactNativeFileOptions } from "extract-files";
+import { ReactNativeFile, ReactNativeFileOptions } from 'extract-files';
 
 const options: ReactNativeFileOptions = {
-    name: "",
-    type: "",
-    uri: "",
+    name: '',
+    type: '',
+    uri: '',
 };
 
 new ReactNativeFile(options);

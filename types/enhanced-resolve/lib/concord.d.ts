@@ -46,5 +46,5 @@ export {
     isTypeMatched,
     matchModule,
     matchType,
-    parseType
+    parseType,
 };

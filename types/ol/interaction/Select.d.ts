@@ -9,7 +9,7 @@ import VectorLayer from 'ol/layer/Vector';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import { ObjectEvent } from 'ol/Object';
 import { StyleFunction, StyleLike } from 'ol/style/Style';
-export type FilterFunction = ((param0: FeatureLike, param1: Layer) => boolean);
+export type FilterFunction = (param0: FeatureLike, param1: Layer) => boolean;
 export interface Options {
     addCondition?: Condition;
     condition?: Condition;
@@ -30,9 +30,9 @@ export default class Select extends Interaction {
     getLayer(feature: FeatureLike): VectorLayer;
     getOverlay(): VectorLayer;
     setHitTolerance(hitTolerance: number): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

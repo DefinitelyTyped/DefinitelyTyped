@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { ColorPickerProps } from "../../..";
+import { Component } from 'react';
+import { ColorPickerProps } from '../../..';
 
 export type MaterialPickerProps = ColorPickerProps<MaterialPicker>;
 

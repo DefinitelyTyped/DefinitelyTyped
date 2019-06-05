@@ -1,6 +1,6 @@
-import * as addClass from "./addClass";
-import * as removeClass from "./removeClass";
-import * as hasClass from "./hasClass";
+import * as addClass from './addClass';
+import * as removeClass from './removeClass';
+import * as hasClass from './hasClass';
 
 declare const _default: {
     addClass: typeof addClass;

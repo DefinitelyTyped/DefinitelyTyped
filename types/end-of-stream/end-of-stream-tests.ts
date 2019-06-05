@@ -1,4 +1,4 @@
-import eos = require("end-of-stream");
+import eos = require('end-of-stream');
 
 declare const readableStream: NodeJS.ReadableStream;
 declare const writableStream: NodeJS.WritableStream;

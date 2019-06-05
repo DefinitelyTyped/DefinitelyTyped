@@ -45,7 +45,7 @@ declare namespace m {
     }
 
     interface GetterOptions {
-       bufferStream?: boolean;
+        bufferStream?: boolean;
     }
 
     interface ImageInfo {
@@ -197,7 +197,7 @@ declare namespace m {
         orderedDither(channelType: ChannelType | string, NxN: string): State;
         out(...customArguments: string[]): State;
         outputDirectory(directory: string): State;
-        page(width: number, height: number, arg?: '%' | '!' | '<' | '>' |string): State;
+        page(width: number, height: number, arg?: '%' | '!' | '<' | '>' | string): State;
         pause(seconds: number): State;
         pen(color: string): State;
         ping(): State;
@@ -252,7 +252,14 @@ declare namespace m {
         threshold(value: number, percent?: boolean): State;
         thumb(width: number, height: number, outName: string, callback: WriteCallback): State;
         thumb(width: number, height: number, outName: string, quality: number, callback: WriteCallback): State;
-        thumb(width: number, height: number, outName: string, quality: number, align: 'topleft' | 'center' | string, callback: WriteCallback): State;
+        thumb(
+            width: number,
+            height: number,
+            outName: string,
+            quality: number,
+            align: 'topleft' | 'center' | string,
+            callback: WriteCallback
+        ): State;
         tile(filename: string): State;
         title(title: string): State;
         transform(color: string): State;
@@ -302,8 +309,18 @@ declare namespace m {
         drawEllipse(x0: number, y0: number, rx: number, ry: number, a0: number, a1: number): State;
         drawLine(x0: number, y0: number, x1: number, y1: number): State;
         drawPoint(x: number, y: number): State;
-        drawPolygon(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: Array<[number, number]>): State;
-        drawPolyline(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: Array<[number, number]>): State;
+        drawPolygon(
+            coord0: [number, number],
+            coord1: [number, number],
+            coord2: [number, number],
+            ...coords: Array<[number, number]>
+        ): State;
+        drawPolyline(
+            coord0: [number, number],
+            coord1: [number, number],
+            coord2: [number, number],
+            ...coords: Array<[number, number]>
+        ): State;
         drawRectangle(x0: number, y0: number, x1: number, y1: number, wc?: number, hc?: number): State;
         drawText(x: number, y: number, text: string, gravity?: GravityDirection | string): State;
         fill(color: string): State;
@@ -328,11 +345,17 @@ declare namespace m {
     }
 
     function compare(filename1: string, filename2: string, callback: CompareCallback): void;
-    function compare(filename1: string, filename2: string, options: CompareOptions | number, callback: CompareCallback): void;
+    function compare(
+        filename1: string,
+        filename2: string,
+        options: CompareOptions | number,
+        callback: CompareCallback
+    ): void;
 
     function subClass(options: ClassOptions): SubClass;
 
-    type ChannelOperator = 'Add'
+    type ChannelOperator =
+        | 'Add'
         | 'And'
         | 'Assign'
         | 'Depth'
@@ -362,7 +385,8 @@ declare namespace m {
         | 'Noise-Random'
         | 'Noise-Uniform';
 
-    type ChannelType = 'All'
+    type ChannelType =
+        | 'All'
         | 'Intensity'
         | 'Red'
         | 'Green'
@@ -373,7 +397,8 @@ declare namespace m {
         | 'Black'
         | 'Opacity';
 
-    type ColorSpace = 'CineonLog'
+    type ColorSpace =
+        | 'CineonLog'
         | 'CMYK'
         | 'GRAY'
         | 'HSL'
@@ -393,7 +418,8 @@ declare namespace m {
 
     type CompareCallback = (err: Error, isEqual: boolean, equality: number, raw: number) => any;
 
-    type ComposeOperator = 'Over'
+    type ComposeOperator =
+        | 'Over'
         | 'In'
         | 'Out'
         | 'Atop'
@@ -416,23 +442,12 @@ declare namespace m {
         | 'CopyYellow'
         | 'CopyBlack';
 
-    type CompressionType = 'None'
-        | 'BZip'
-        | 'Fax'
-        | 'Group4'
-        | 'JPEG'
-        | 'Lossless'
-        | 'LZW'
-        | 'RLE'
-        | 'Zip'
-        | 'LZMA';
+    type CompressionType = 'None' | 'BZip' | 'Fax' | 'Group4' | 'JPEG' | 'Lossless' | 'LZW' | 'RLE' | 'Zip' | 'LZMA';
 
-    type DisposeMethod = 'Undefined'
-        | 'None'
-        | 'Background'
-        | 'Previous';
+    type DisposeMethod = 'Undefined' | 'None' | 'Background' | 'Previous';
 
-    type Encoding = 'AdobeCustom'
+    type Encoding =
+        | 'AdobeCustom'
         | 'AdobeExpert'
         | 'AdobeStandard'
         | 'AppleRoman'
@@ -445,11 +460,10 @@ declare namespace m {
         | 'Unicode'
         | 'Wansung';
 
-    type EndianType = 'MSB'
-        | 'LSB'
-        | 'Native';
+    type EndianType = 'MSB' | 'LSB' | 'Native';
 
-    type FilterType = 'Point'
+    type FilterType =
+        | 'Point'
         | 'Box'
         | 'Triangle'
         | 'Hermite'
@@ -467,7 +481,8 @@ declare namespace m {
 
     type GetterCallback<T> = (err: Error, value: T) => any;
 
-    type GravityDirection = 'NorthWest'
+    type GravityDirection =
+        | 'NorthWest'
         | 'North'
         | 'NorthEast'
         | 'West'
@@ -477,12 +492,10 @@ declare namespace m {
         | 'South'
         | 'SouthEast';
 
-    type HighlightStyle = 'Assign'
-        | 'Threshold'
-        | 'Tint'
-        | 'XOR';
+    type HighlightStyle = 'Assign' | 'Threshold' | 'Tint' | 'XOR';
 
-    type ImageType = 'Bilevel'
+    type ImageType =
+        | 'Bilevel'
         | 'Grayscale'
         | 'Palette'
         | 'PaletteMatte'
@@ -492,54 +505,22 @@ declare namespace m {
         | 'ColorSeparationMatte'
         | 'Optimize';
 
-    type IntentType = 'Absolute'
-        | 'Perceptual'
-        | 'Relative'
-        | 'Saturation';
+    type IntentType = 'Absolute' | 'Perceptual' | 'Relative' | 'Saturation';
 
-    type InterlaceType = 'None'
-        | 'Line'
-        | 'Plane'
-        | 'Partition';
+    type InterlaceType = 'None' | 'Line' | 'Plane' | 'Partition';
 
-    type LimitType = 'disk'
-        | 'file'
-        | 'map'
-        | 'memory'
-        | 'pixels'
-        | 'threads';
+    type LimitType = 'disk' | 'file' | 'map' | 'memory' | 'pixels' | 'threads';
 
-    type ListType = 'Color'
-        | 'Delegate'
-        | 'Format'
-        | 'Magic'
-        | 'Module'
-        | 'Resource'
-        | 'Type';
+    type ListType = 'Color' | 'Delegate' | 'Format' | 'Magic' | 'Module' | 'Resource' | 'Type';
 
-    type NamedColor = 'Red'
-        | 'Green'
-        | 'Blue'
-        | 'Opacity'
-        | 'Matte'
-        | 'Cyan'
-        | 'Magenta'
-        | 'Yellow'
-        | 'Black'
-        | 'Gray';
+    type NamedColor = 'Red' | 'Green' | 'Blue' | 'Opacity' | 'Matte' | 'Cyan' | 'Magenta' | 'Yellow' | 'Black' | 'Gray';
 
-    type NoiseType = 'uniform'
-        | 'gaussian'
-        | 'multiplicative'
-        | 'impulse'
-        | 'laplacian'
-        | 'poisson';
+    type NoiseType = 'uniform' | 'gaussian' | 'multiplicative' | 'impulse' | 'laplacian' | 'poisson';
 
-    type OperationMode = 'frame'
-        | 'unframe'
-        | 'concatenate';
+    type OperationMode = 'frame' | 'unframe' | 'concatenate';
 
-    type PreviewType = 'Rotate'
+    type PreviewType =
+        | 'Rotate'
         | 'Shear'
         | 'Roll'
         | 'Hue'
@@ -569,31 +550,24 @@ declare namespace m {
         | 'CharcoalDrawing'
         | 'JPEG';
 
-    type ResizeOption = '%' /** Width and height are specified in percents */
+    type ResizeOption =
+        | '%' /** Width and height are specified in percents */
         | '@' /** Specify maximum area in pixels */
         | '!' /** Ignore aspect ratio */
         | '^' /** Width and height are minimum values */
         | '<' /** Change dimensions only if image is smaller than width or height */
         | '>'; /** Change dimensions only if image is larger than width or height */
 
-    type SetDrawMethod = 'point'
-        | 'replace'
-        | 'floodfill'
-        | 'filltoborder'
-        | 'reset';
+    type SetDrawMethod = 'point' | 'replace' | 'floodfill' | 'filltoborder' | 'reset';
 
     type SetDrawProperty = 'color' | 'matte';
 
-    type UnitType = 'Undefined'
-        | 'PixelsPerInch'
-        | 'PixelsPerCentimeter';
+    type UnitType = 'Undefined' | 'PixelsPerInch' | 'PixelsPerCentimeter';
 
-    type VirtualPixelMethod = 'Constant'
-        | 'Edge'
-        | 'Mirror'
-        | 'Tile';
+    type VirtualPixelMethod = 'Constant' | 'Edge' | 'Mirror' | 'Tile';
 
-    type VisualType = 'StaticGray'
+    type VisualType =
+        | 'StaticGray'
         | 'GrayScale'
         | 'StaticColor'
         | 'PseudoColor'

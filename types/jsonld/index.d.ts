@@ -8,8 +8,8 @@ import { Context, JsonLd, Document, Url, JsonLdProcessor, RemoteDocument } from 
 
 // Some typealiases for better readability and some placeholders
 type MimeNQuad = 'application/n-quads';
-type RdfDataSet = object;  // Placeholder
-type RdfOrString = RdfDataSet|string;
+type RdfDataSet = object; // Placeholder
+type RdfOrString = RdfDataSet | string;
 type Callback<T> = (err: Error, res: T) => void;
 type DocCallback = Callback<JsonLd>;
 
@@ -20,9 +20,10 @@ type DocCallback = Callback<JsonLd>;
 
 export namespace Options {
     interface DocLoader {
-        documentLoader?: (url: Url,
-            callback: (err: Error, remoteDoc: RemoteDocument) => void)
-                => Promise<RemoteDocument>;
+        documentLoader?: (
+            url: Url,
+            callback: (err: Error, remoteDoc: RemoteDocument) => void
+        ) => Promise<RemoteDocument>;
     }
 
     interface Common extends DocLoader {
@@ -117,9 +118,9 @@ export function expand(input: Document, options: Options.Expand, callback: DocCa
 export function expand(input: Document, callback: DocCallback): void;
 export function expand(input: Document, options?: Options.Expand): Promise<JsonLd>;
 
-export function flatten(input: Document, ctx: Context|null, options: Options.Flatten, callback: DocCallback): void;
-export function flatten(input: Document, ctx: Context|null, callback: DocCallback): void;
-export function flatten(input: Document, ctx: Context|null, options?: Options.Flatten): Promise<JsonLd>;
+export function flatten(input: Document, ctx: Context | null, options: Options.Flatten, callback: DocCallback): void;
+export function flatten(input: Document, ctx: Context | null, callback: DocCallback): void;
+export function flatten(input: Document, ctx: Context | null, options?: Options.Flatten): Promise<JsonLd>;
 
 export function frame(input: Document, frame: Document, options: Options.Frame, callback: DocCallback): void;
 export function frame(input: Document, frame: Document, callback: DocCallback): void;

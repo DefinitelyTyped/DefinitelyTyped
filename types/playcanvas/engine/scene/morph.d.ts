@@ -1,5 +1,4 @@
 declare namespace pc {
-
     interface MorphTargetOptions {
         deltaPositions: number[];
         deltaNormals?: number[];

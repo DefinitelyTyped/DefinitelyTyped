@@ -12,8 +12,7 @@ declare namespace ps_tree {
         STAT: string;
     }
 
-    const prototype: {
-    };
+    const prototype: {};
 }
 
 declare function ps_tree(pid: number, callback: (error: Error, children: ReadonlyArray<ps_tree.PS>) => void): void;

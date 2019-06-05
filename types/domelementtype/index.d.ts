@@ -8,38 +8,38 @@ export namespace DomElementType {
     /***
      * Text
      */
-    const Text = "text";
+    const Text = 'text';
     /***
      * <? ... ?>
      */
-    const Directive = "directive";
+    const Directive = 'directive';
     /***
      * <!-- ... -->
      */
-    const Comment = "comment";
+    const Comment = 'comment';
     /***
      * <script> tags
      */
-    const Script = "script";
+    const Script = 'script';
     /***
      * <style> tags
      */
-    const Style = "style";
+    const Style = 'style';
     /***
      * Any tag
      */
-    const Tag = "tag";
+    const Tag = 'tag';
     /***
      * <![CDATA[ ... ]]>
      */
-    const CDATA = "cdata";
+    const CDATA = 'cdata';
     /***
      * <!DOCTYPE ... >
      */
-    const Doctype = "doctype";
+    const Doctype = 'doctype';
 
     /***
      * Checks whether element object is a tag
      */
-    function isTag(elem: { type: string}): boolean;
+    function isTag(elem: { type: string }): boolean;
 }

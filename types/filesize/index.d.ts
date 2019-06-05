@@ -65,7 +65,7 @@ declare namespace Filesize {
         /**
          * Output of function (array, exponent, object, or string), default is string
          */
-        output?: "array" | "exponent" | "object" | "string";
+        output?: 'array' | 'exponent' | 'object' | 'string';
         /**
          * Decimal place, default is 2
          */
@@ -81,7 +81,7 @@ declare namespace Filesize {
         /**
          * Standard unit of measure, can be iec or jedec, default is jedec; can be overruled by base
          */
-        standard?: "iec" | "jedec";
+        standard?: 'iec' | 'jedec';
         /**
          * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
          */
@@ -94,6 +94,6 @@ declare namespace Filesize {
 
     interface Filesize {
         (bytes: number, options?: Options): string;
-        partial: (options: Options) => ((bytes: number) => string);
+        partial: (options: Options) => (bytes: number) => string;
     }
 }

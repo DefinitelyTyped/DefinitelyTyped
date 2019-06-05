@@ -1,12 +1,12 @@
-import MailDev = require("maildev")
+import MailDev = require('maildev');
 
 var options: MailDevOptions = {
-  silent: true,
-  disableWeb: true,
-  smtp: 1025,
-  web: 1080,
-  webUser: 'admin',
-  webPass: 'secret'
+    silent: true,
+    disableWeb: true,
+    smtp: 1025,
+    web: 1080,
+    webUser: 'admin',
+    webPass: 'secret',
 };
 var maildev = new MailDev(options);
 
@@ -15,4 +15,4 @@ maildev.listen(errorCallback);
 
 var eventName = 'new';
 var emailCallback = (email: Object): void => {};
-maildev.on(eventName, emailCallback)
+maildev.on(eventName, emailCallback);

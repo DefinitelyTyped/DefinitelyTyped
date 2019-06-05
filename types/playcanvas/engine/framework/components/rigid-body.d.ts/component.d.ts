@@ -1,5 +1,5 @@
 declare namespace pc {
-    type rigidBodyType = 'pc.BODYTYPE_STATIC' | 'pc.BODYTYPE_DYNAMIC' | 'pc.BODYTYPE_KINEMATIC'
+    type rigidBodyType = 'pc.BODYTYPE_STATIC' | 'pc.BODYTYPE_DYNAMIC' | 'pc.BODYTYPE_KINEMATIC';
 
     /**
      * @component
@@ -43,10 +43,10 @@ declare namespace pc {
      * Defaults to pc.BODYTYPE_STATIC.
      */
     class RigidBodyComponent extends pc.Component {
-        constructor(system: pc.RigidBodyComponentSystem, entity: pc.Entity)
+        constructor(system: pc.RigidBodyComponentSystem, entity: pc.Entity);
 
         /**
-         * Controls the rate at which a body loses angular velocity over time. 
+         * Controls the rate at which a body loses angular velocity over time.
          * @type {number}
          * @memberof RigidBodyComponent
          */
@@ -60,7 +60,7 @@ declare namespace pc {
         angularFactor: pc.Vec3;
 
         /**
-         * Defines the rotational speed of the body around each world axis. 
+         * Defines the rotational speed of the body around each world axis.
          * @type {pc.Vec3}
          * @memberof RigidBodyComponent
          */
@@ -76,7 +76,7 @@ declare namespace pc {
 
         /**
          * The collision group this body belongs to. Combine the group and the mask to
-         * prevent bodies colliding with each other. Defaults to 1. 
+         * prevent bodies colliding with each other. Defaults to 1.
          * @type {number}
          * @memberof RigidBodyComponent
          */
@@ -144,29 +144,27 @@ declare namespace pc {
          */
         type: rigidBodyType;
 
-
-
         /**
-        * @private
-        * @function
-        * @name pc.RigidBodyComponent#createBody
-        * @description If the Entity has a Collision shape attached then create a rigid body using this shape. This method destroys the existing body.
-        */
+         * @private
+         * @function
+         * @name pc.RigidBodyComponent#createBody
+         * @description If the Entity has a Collision shape attached then create a rigid body using this shape. This method destroys the existing body.
+         */
         private createBody(): void;
 
         /**
-        * @function
-        * @name pc.RigidBodyComponent#isActive
-        * @description Returns true if the rigid body is currently actively being simulated. i.e. not 'sleeping'
-        * @returns {Boolean} True if the body is active
-        */
+         * @function
+         * @name pc.RigidBodyComponent#isActive
+         * @description Returns true if the rigid body is currently actively being simulated. i.e. not 'sleeping'
+         * @returns {Boolean} True if the body is active
+         */
         isActive(): boolean;
 
         /**
-        * @function
-        * @name pc.RigidBodyComponent#activate
-        * @description Forcibly activate the rigid body simulation
-        */
+         * @function
+         * @name pc.RigidBodyComponent#activate
+         * @description Forcibly activate the rigid body simulation
+         */
         activate(): void;
 
         /**
@@ -248,9 +246,8 @@ declare namespace pc {
          * @param {Number} [px] The x component of the point at which to apply the impulse, in local space (relative to the Entity).
          * @param {Number} [py] The y component of the point at which to apply the impulse, in local space (relative to the Entity).
          * @param {Number} [pz] The z component of the point at which to apply the impulse, in local space (relative to the Entity).
-        */
+         */
         applyImpulse(x: number, y: number, z: number, px?: number, py?: number, pz?: number): void;
-
 
         /**
          * @function
@@ -268,7 +265,7 @@ declare namespace pc {
          * @param {Number} x The x component of the torque impulse to apply, in world space.
          * @param {Number} y The y component of the torque impulse to apply, in world space.
          * @param {Number} z The z component of the torque impulse to apply, in world space.
-        */
+         */
         applyTorqueImpulse(x: number, y: number, z: number): void;
 
         /**
@@ -303,7 +300,6 @@ declare namespace pc {
          */
         isKinematic(): boolean;
 
-
         /**
          * @private
          * @function
@@ -324,34 +320,34 @@ declare namespace pc {
         private syncBodyToEntity(): void;
 
         /**
-        * @function
-        * @name pc.RigidBodyComponent#teleport
-        * @description Teleport an entity to a new position and/or orientation
-        * @param {pc.Vec3} position The new position
-        * @param {pc.Vec3} [angles] The new set of Euler angles
-        */
+         * @function
+         * @name pc.RigidBodyComponent#teleport
+         * @description Teleport an entity to a new position and/or orientation
+         * @param {pc.Vec3} position The new position
+         * @param {pc.Vec3} [angles] The new set of Euler angles
+         */
         teleport(position: pc.Vec3, angles?: pc.Vec3): void;
 
         /**
-        * @function
-        * @name pc.RigidBodyComponent#teleport^2
-        * @description Teleport an entity to a new position and/or orientation
-        * @param {pc.Vec3} position The new position
-        * @param {pc.Quat} [rotation] The new rotation
-        */
+         * @function
+         * @name pc.RigidBodyComponent#teleport^2
+         * @description Teleport an entity to a new position and/or orientation
+         * @param {pc.Vec3} position The new position
+         * @param {pc.Quat} [rotation] The new rotation
+         */
         teleport(position: pc.Vec3, rotation?: pc.Vec3): void;
 
         /**
-        * @function
-        * @name pc.RigidBodyComponent#teleport^3
-        * @description Teleport an entity to a new position and/or orientation
-        * @param {Number} x The new position x value
-        * @param {Number} y The new position y value
-        * @param {Number} z The new position z value
-        * @param {Number} [x] The new x angle value
-        * @param {Number} [y] The new y angle value
-        * @param {Number} [z] The new z angle value
-        */
+         * @function
+         * @name pc.RigidBodyComponent#teleport^3
+         * @description Teleport an entity to a new position and/or orientation
+         * @param {Number} x The new position x value
+         * @param {Number} y The new position y value
+         * @param {Number} z The new position z value
+         * @param {Number} [x] The new x angle value
+         * @param {Number} [y] The new y angle value
+         * @param {Number} [z] The new z angle value
+         */
         teleport(x: number, y: number, z: number, ax?: number, ay?: number, az?: number): void;
 
         /**

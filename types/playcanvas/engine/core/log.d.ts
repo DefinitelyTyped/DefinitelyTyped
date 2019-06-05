@@ -1,7 +1,5 @@
 declare namespace pc {
-
     namespace log {
-
         /**
          * @private
          * @function
@@ -9,7 +7,7 @@ declare namespace pc {
          * @description Write text to the console
          * @param {String} text
          */
-        function write (text: string): void;
+        function write(text: string): void;
 
         /**
          * @private

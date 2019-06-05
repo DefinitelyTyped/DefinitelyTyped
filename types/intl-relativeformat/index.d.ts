@@ -43,18 +43,18 @@ export default class IntlRelativeFormat {
              * "year" or "year-short":
              */
             units?:
-                | "second"
-                | "second-short"
-                | "minute"
-                | "minute-short"
-                | "hour"
-                | "hour-short"
-                | "day"
-                | "day-short"
-                | "month"
-                | "month-short"
-                | "year"
-                | "year-short";
+                | 'second'
+                | 'second-short'
+                | 'minute'
+                | 'minute-short'
+                | 'hour'
+                | 'hour-short'
+                | 'day'
+                | 'day-short'
+                | 'month'
+                | 'month-short'
+                | 'year'
+                | 'year-short';
 
             /**
              * By default, the relative time is computed as "best fit",
@@ -62,7 +62,7 @@ export default class IntlRelativeFormat {
              * or "in 1 year" will be "next year", etc. But you can force to always
              * use the "numeric" alternative:
              */
-            style?: "best fit" | "numeric";
+            style?: 'best fit' | 'numeric';
         }
     );
 

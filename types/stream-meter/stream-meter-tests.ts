@@ -1,12 +1,12 @@
 import meter = require('stream-meter');
 
-var m:meter.StreamMeter = meter();
+var m: meter.StreamMeter = meter();
 process.stdin.pipe(m).pipe(process.stdout);
 
 var bytes: number;
 bytes = m.bytes;
 bytes = m.maxBytes;
-m.on("error", () => {});
+m.on('error', () => {});
 
 // with argument
 m = meter(129);

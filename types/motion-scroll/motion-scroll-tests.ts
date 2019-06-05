@@ -1,3 +1,3 @@
-import MotionScroll = require("motion-scroll");
+import MotionScroll = require('motion-scroll');
 
 MotionScroll.scroll({});

@@ -3,14 +3,14 @@ import badgen from 'badgen';
 // $ExpectType string
 badgen({
     subject: 'SUBJECT',
-    status: 'STATUS'
+    status: 'STATUS',
 });
 
 // $ExpectType string
 badgen({
     subject: 'SUBJECT',
     status: 'STATUS',
-    color: 'green'
+    color: 'green',
 });
 
 // $ExpectType string
@@ -20,5 +20,5 @@ badgen({
     color: '#FF0000',
     style: 'flat',
     icon: 'data:image/svg+xml;base64,...',
-    iconWidth: 20
+    iconWidth: 20,
 });

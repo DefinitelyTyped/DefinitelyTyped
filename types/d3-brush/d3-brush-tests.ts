@@ -31,7 +31,12 @@ const brushY: d3Brush.BrushBehavior<BrushDatum> = d3Brush.brushY<BrushDatum>();
 
 // extent() ----------------------------------------------------------------------
 
-let extent: (this: SVGGElement, d: BrushDatum, i: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => [[number, number], [number, number]];
+let extent: (
+    this: SVGGElement,
+    d: BrushDatum,
+    i: number,
+    group: SVGGElement[] | ArrayLike<SVGGElement>
+) => [[number, number], [number, number]];
 extent = brush.extent();
 
 // chainable with array
@@ -65,7 +70,9 @@ const handleSize: number = brush.handleSize();
 
 // on() ------------------------------------------------------------------------
 
-let brushed: ((this: SVGGElement, datum: BrushDatum, index: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => void) | undefined;
+let brushed:
+    | ((this: SVGGElement, datum: BrushDatum, index: number, group: SVGGElement[] | ArrayLike<SVGGElement>) => void)
+    | undefined;
 brushed = (d, i, group) => {
     // do anything
 };
@@ -102,7 +109,7 @@ const g = select<SVGSVGElement, any>('svg')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],
-        filterZoomEvent: true
+        filterZoomEvent: true,
     });
 
 g.call(brush);
@@ -112,7 +119,7 @@ const gX = select<SVGSVGElement, any>('svg')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],
-        filterZoomEvent: true
+        filterZoomEvent: true,
     });
 
 gX.call(brushX);

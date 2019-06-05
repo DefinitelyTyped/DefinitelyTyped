@@ -1,4 +1,4 @@
-import * as fs from "fs-promise";
+import * as fs from 'fs-promise';
 
 let src: string;
 declare const dst: string;
@@ -11,7 +11,7 @@ const writeJsonOptions: fs.WriteJsonOptions = {
     replacer(key, value) {
         src = key;
         return value;
-    }
+    },
 };
 declare const readJsonOptions: fs.ReadJsonOptions;
 
@@ -25,15 +25,15 @@ async function test() {
     await fs.ensureLink(src, dst);
     await fs.createLink(src, dst);
     await fs.ensureSymlink(src, dst);
-    await fs.ensureSymlink(src, dst, "dir");
-    await fs.ensureSymlink(src, dst, "file");
-    await fs.ensureSymlink(src, dst, "junction");
-    await fs.createSymlink(src, dst, "dir");
+    await fs.ensureSymlink(src, dst, 'dir');
+    await fs.ensureSymlink(src, dst, 'file');
+    await fs.ensureSymlink(src, dst, 'junction');
+    await fs.createSymlink(src, dst, 'dir');
     await fs.mkdirs(dir);
     await fs.mkdirp(dir);
     await fs.move(src, dst);
-    await fs.outputFile(path, "test");
-    await fs.outputFile(path, "test", writeOptions);
+    await fs.outputFile(path, 'test');
+    await fs.outputFile(path, 'test', writeOptions);
     await fs.outputFile(path, new Buffer([1, 2]));
     await fs.outputFile(path, new Buffer([1, 2]), writeOptions);
     await fs.outputJson(path, data);
@@ -50,8 +50,10 @@ async function test() {
     return dirs;
 }
 
-test().then((dirs: string[]) => {
-    console.log(dirs);
-}).catch((err) => {
-    console.log(err);
-});
+test()
+    .then((dirs: string[]) => {
+        console.log(dirs);
+    })
+    .catch(err => {
+        console.log(err);
+    });

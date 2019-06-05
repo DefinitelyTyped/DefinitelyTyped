@@ -1,6 +1,6 @@
-import * as React from "react";
-import { NextContext, NextComponentType } from ".";
-import { RouterProps, DefaultQuery } from "./router";
+import * as React from 'react';
+import { NextContext, NextComponentType } from '.';
+import { RouterProps, DefaultQuery } from './router';
 
 // Deprecated
 export type AppComponentProps = AppProps;
@@ -13,10 +13,7 @@ export type AppComponentContext = NextAppContext;
  *
  * @template Q Query object schema.
  */
-export interface NextAppContext<
-    Q extends DefaultQuery = DefaultQuery,
-    CustomReq = {}
-> {
+export interface NextAppContext<Q extends DefaultQuery = DefaultQuery, CustomReq = {}> {
     Component: NextComponentType<any, any, NextContext<Q, CustomReq>>;
     router: RouterProps<Q>;
     ctx: NextContext<Q, CustomReq>;
@@ -36,10 +33,7 @@ export interface DefaultAppIProps {
  *
  * @template Q Query object schema.
  */
-export interface AppProps<
-    Q extends DefaultQuery = DefaultQuery,
-    CustomReq = {}
-> {
+export interface AppProps<Q extends DefaultQuery = DefaultQuery, CustomReq = {}> {
     Component: NextComponentType<any, any, NextContext<Q, CustomReq>>;
     router: RouterProps<Q>;
 }
@@ -52,11 +46,7 @@ export interface AppProps<
  * @template IP Initial props returned from getInitialProps.
  * @template C Context passed to getInitialProps.
  */
-export type AppComponentType<P = {}, IP = P, C = NextAppContext> = NextComponentType<
-    P & AppProps,
-    IP,
-    C
->;
+export type AppComponentType<P = {}, IP = P, C = NextAppContext> = NextComponentType<P & AppProps, IP, C>;
 
 export class Container extends React.Component {}
 export default class App<P = {}, S = {}> extends React.Component<P & DefaultAppIProps & AppProps, S> {

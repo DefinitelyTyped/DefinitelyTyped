@@ -5,24 +5,24 @@
 
 export interface MotionAndOrientationPayload {
     do: {
-    alpha: number;
-    beta: number;
-    gamma: number;
-    absolute: number;
+        alpha: number;
+        beta: number;
+        gamma: number;
+        absolute: number;
     };
 
     dm: {
-    x: number;
-    y: number;
-    z: number;
+        x: number;
+        y: number;
+        z: number;
 
-    gx: number;
-    gy: number;
-    gz: number;
+        gx: number;
+        gy: number;
+        gz: number;
 
-    alpha: number;
-    beta: number;
-    gamma: number;
+        alpha: number;
+        beta: number;
+        gamma: number;
     };
 }
 
@@ -69,7 +69,7 @@ export interface LoggerData {
 export type LogListener = (data: LoggerData) => void;
 
 export class GyroNorm {
-    constructor()
+    constructor();
 
     static GAME: string;
     static WORLD: string;

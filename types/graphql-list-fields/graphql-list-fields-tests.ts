@@ -1,10 +1,10 @@
-import getFieldNames = require("graphql-list-fields");
+import getFieldNames = require('graphql-list-fields');
 
-import { GraphQLID, GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
+import { GraphQLID, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
 
 const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
-        name: "SampleType",
+        name: 'SampleType',
         fields: {
             scalarField: {
                 type: GraphQLString,
@@ -14,7 +14,7 @@ const schema = new GraphQLSchema({
             },
             someType: {
                 type: new GraphQLObjectType({
-                    name: "SomeType",
+                    name: 'SomeType',
                     fields: {
                         a: { type: GraphQLID },
                         b: { type: GraphQLString },

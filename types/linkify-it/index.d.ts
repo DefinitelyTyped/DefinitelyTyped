@@ -5,14 +5,8 @@
 // TypeScript Version: 2.2
 
 declare const LinkifyIt: {
-    (
-        schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options,
-        options?: LinkifyIt.Options
-    ): LinkifyIt.LinkifyIt;
-    new (
-        schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options,
-        options?: LinkifyIt.Options
-    ): LinkifyIt.LinkifyIt;
+    (schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options, options?: LinkifyIt.Options): LinkifyIt.LinkifyIt;
+    new (schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options, options?: LinkifyIt.Options): LinkifyIt.LinkifyIt;
 };
 
 declare namespace LinkifyIt {

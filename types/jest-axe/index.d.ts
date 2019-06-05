@@ -6,7 +6,7 @@
 
 /// <reference types="jest" />
 
-import { AxeResults, Result, RunOnly } from "axe-core";
+import { AxeResults, Result, RunOnly } from 'axe-core';
 
 /**
  * Version of the aXe verifier with defaults set.

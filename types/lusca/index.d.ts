@@ -39,13 +39,15 @@ declare namespace lusca {
 
     type csrfOptions = csrfOptionsAngular | csrfOptionsNonAngular;
 
-    interface csrfOptionsAngular  {
+    interface csrfOptionsAngular {
         key?: string;
         secret?: string;
         impl?: () => any;
-        cookie?: string | {
-            options?: object;
-        };
+        cookie?:
+            | string
+            | {
+                  options?: object;
+              };
         angular: true;
     }
 
@@ -53,10 +55,12 @@ declare namespace lusca {
         key?: string;
         secret?: string;
         impl?: () => any;
-        cookie?: string | {
-            name: string;
-            options?: object;
-        };
+        cookie?:
+            | string
+            | {
+                  name: string;
+                  options?: object;
+              };
         angular?: false;
     }
 

@@ -14,7 +14,7 @@ class SearchQuery extends Component {
         super();
 
         this.state = {
-            query: ''
+            query: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -25,12 +25,7 @@ class SearchQuery extends Component {
         return (
             <div>
                 Enter your query:
-
-				<TextInput
-                    value={state.query}
-                    onChange={this.handleChange}
-                    onSubmit={this.handleSubmit}
-                />
+                <TextInput value={state.query} onChange={this.handleChange} onSubmit={this.handleSubmit} />
             </div>
         );
     }

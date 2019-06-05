@@ -40,7 +40,10 @@ export namespace SubdivisionInfo {
 }
 export type SubdivisionInfo = SubdivisionInfo.Full;
 
-export function subdivision(countryCodeOrFullSubdivisionCode: string, subdivisionCodeOrName?: string): InfoOrEmptyRecord<SubdivisionInfo>;
+export function subdivision(
+    countryCodeOrFullSubdivisionCode: string,
+    subdivisionCodeOrName?: string
+): InfoOrEmptyRecord<SubdivisionInfo>;
 
 export function country(countryCodeOrName: string): InfoOrEmptyRecord<CountryInfo>;
 
@@ -48,5 +51,5 @@ export const data: CountryInfo.Map;
 
 // map of alpha 3 codes to alpha 3 codes
 export const codes: {
-    [alpha3: string]: string
+    [alpha3: string]: string;
 };

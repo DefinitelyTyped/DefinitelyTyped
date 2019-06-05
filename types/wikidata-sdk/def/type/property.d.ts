@@ -1,1 +1,1 @@
-export type WikidataProperty = "info" | "sitelinks" | "aliases" | "labels" | "descriptions" | "claims" | "datatype";
+export type WikidataProperty = 'info' | 'sitelinks' | 'aliases' | 'labels' | 'descriptions' | 'claims' | 'datatype';

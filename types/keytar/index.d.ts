@@ -6,7 +6,6 @@
 //                 Queenie Ma <https://github.com/queeniema>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * Get the stored password for the service and account.
  *
@@ -45,7 +44,7 @@ export declare function deletePassword(service: string, account: string): Promis
  *
  * @returns A promise for the credentials array.
  */
-export declare function findCredentials(service: string): Promise<Array<{ account: string, password: string }>>;
+export declare function findCredentials(service: string): Promise<Array<{ account: string; password: string }>>;
 
 /**
  * Find a password for the service in the keychain. This is ideal for scenarios where an account is not required.

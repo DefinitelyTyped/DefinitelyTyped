@@ -11,5 +11,5 @@ export interface LayoutOptions {
     hasM?: boolean;
 }
 export interface Options {
-    readExtensions?: ((param0: Feature, param1: Node) => void);
+    readExtensions?: (param0: Feature, param1: Node) => void;
 }

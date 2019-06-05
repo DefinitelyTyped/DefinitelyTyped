@@ -1,3 +1,3 @@
-import isNode = require("detect-node");
+import isNode = require('detect-node');
 
 isNode;

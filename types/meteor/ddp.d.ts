@@ -1,4 +1,4 @@
-declare module "meteor/ddp" {
+declare module 'meteor/ddp' {
     module DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;

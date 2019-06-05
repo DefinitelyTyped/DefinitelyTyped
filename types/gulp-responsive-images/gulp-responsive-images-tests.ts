@@ -2,17 +2,13 @@ import gulpResponsiveImages = require('gulp-responsive-images');
 
 gulpResponsiveImages(); // $ExpectError
 
-gulpResponsiveImages({});       // $ExpectType Transform
+gulpResponsiveImages({}); // $ExpectType Transform
 
-gulpResponsiveImages({ 1: "abcd" }); // $ExpectError
+gulpResponsiveImages({ 1: 'abcd' }); // $ExpectError
 
 gulpResponsiveImages({
-    'hero.png': [
-        {
-        }
-    ]
-}
-);
+    'hero.png': [{}],
+});
 
 gulpResponsiveImages({
     'hero.png': [
@@ -25,22 +21,20 @@ gulpResponsiveImages({
             sharpen: false,
             suffix: '-100',
             upscale: false,
-            width: 100
-        }
-    ]
-}
-);
+            width: 100,
+        },
+    ],
+});
 
 gulpResponsiveImages({
     'hero.png': [
         {
-            format: "jpeg",
-            rename: "image.jpg",
-            percentage: 50
-        }
-    ]
-}
-);
+            format: 'jpeg',
+            rename: 'image.jpg',
+            percentage: 50,
+        },
+    ],
+});
 
 gulpResponsiveImages({
     'hero.png': [
@@ -56,8 +50,7 @@ gulpResponsiveImages({
             width: undefined,
             format: undefined,
             rename: undefined,
-            percentage: undefined
-        }
-    ]
-}
-);
+            percentage: undefined,
+        },
+    ],
+});

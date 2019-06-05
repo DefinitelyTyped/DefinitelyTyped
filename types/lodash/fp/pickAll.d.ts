@@ -1,2 +1,2 @@
-import { pickAll } from "../fp";
+import { pickAll } from '../fp';
 export = pickAll;

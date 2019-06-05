@@ -1,4 +1,4 @@
-import EmberObject from "@ember/object";
+import EmberObject from '@ember/object';
 
 /**
  * Ember.NoneLocation does not interact with the browser. It is useful for

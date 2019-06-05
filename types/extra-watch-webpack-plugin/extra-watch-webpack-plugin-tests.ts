@@ -1,6 +1,6 @@
-import ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
+import ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 
 new ExtraWatchWebpackPlugin();
 new ExtraWatchWebpackPlugin({});
-new ExtraWatchWebpackPlugin({ files: "string", dirs: "string" });
-new ExtraWatchWebpackPlugin({ files: ["array"], dirs: ["array"] });
+new ExtraWatchWebpackPlugin({ files: 'string', dirs: 'string' });
+new ExtraWatchWebpackPlugin({ files: ['array'], dirs: ['array'] });

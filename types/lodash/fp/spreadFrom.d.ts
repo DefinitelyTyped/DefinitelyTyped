@@ -1,2 +1,2 @@
-import { spreadFrom } from "../fp";
+import { spreadFrom } from '../fp';
 export = spreadFrom;

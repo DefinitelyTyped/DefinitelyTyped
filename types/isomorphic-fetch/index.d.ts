@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare namespace _fetch { }
+declare namespace _fetch {}
 declare const _fetch: typeof fetch;
 export = _fetch;

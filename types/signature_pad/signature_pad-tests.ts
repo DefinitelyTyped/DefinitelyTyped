@@ -31,7 +31,7 @@ function SetDuringInit() {
     const signaturePad = new SignaturePad(canvas, {
         minWidth: 5,
         maxWidth: 10,
-        penColor: 'rgb(66, 133, 244)'
+        penColor: 'rgb(66, 133, 244)',
     });
 }
 

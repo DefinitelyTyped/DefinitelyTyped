@@ -16,12 +16,12 @@ Gun({
     s3: {
         key: '',
         secret: '',
-        bucket: ''
+        bucket: '',
     },
     file: 'file/path.json',
     uuid() {
         return 'xxxxxx';
-    }
+    },
 });
 
 interface AppState {
@@ -50,7 +50,7 @@ app.get('object')
     .get('arr2')
     .set({ foo: 1, bar: '2' });
 app.get('object').put({
-    bool: true
+    bool: true,
 });
 
 app.get('object')

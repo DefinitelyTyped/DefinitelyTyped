@@ -17,7 +17,9 @@ import * as http from 'http';
 // for docs go to https://github.com/expressjs/body-parser/tree/1.16.0#body-parser
 
 // @deprecated
-declare function bodyParser(options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded): NextHandleFunction;
+declare function bodyParser(
+    options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded
+): NextHandleFunction;
 
 declare namespace bodyParser {
     interface Options {

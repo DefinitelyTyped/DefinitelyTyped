@@ -1,10 +1,17 @@
 /// <reference types="node" />
 
 import {
-    ReadableStream, ReadableStreamSource, WritableStream,
-    ReadableStreamDefaultController, WritableStreamSink, WritableStreamDefaultController, ReadableByteStreamController,
-    TransformStream, TransformStreamDefaultController, TransformStreamTransformer
-} from "whatwg-streams";
+    ReadableStream,
+    ReadableStreamSource,
+    WritableStream,
+    ReadableStreamDefaultController,
+    WritableStreamSink,
+    WritableStreamDefaultController,
+    ReadableByteStreamController,
+    TransformStream,
+    TransformStreamDefaultController,
+    TransformStreamTransformer,
+} from 'whatwg-streams';
 
 // Examples taken from https://streams.spec.whatwg.org/#creating-examples
 
@@ -12,31 +19,31 @@ import {
 
 function makeReadableWebSocketStream(url: string, protocols: string | string[]) {
     const ws = new WebSocket(url, protocols);
-    ws.binaryType = "arraybuffer";
+    ws.binaryType = 'arraybuffer';
 
     return new ReadableStream({
         start(controller) {
             ws.onmessage = event => controller.enqueue(event.data);
             ws.onclose = () => controller.close();
-            ws.onerror = () => controller.error(new Error("The WebSocket errored!"));
+            ws.onerror = () => controller.error(new Error('The WebSocket errored!'));
         },
 
         cancel() {
             ws.close();
-        }
+        },
     });
 }
 
 {
     const writableStream = new WritableStream();
 
-    const webSocketStream = makeReadableWebSocketStream("wss://example.com:443/", "protocol");
+    const webSocketStream = makeReadableWebSocketStream('wss://example.com:443/', 'protocol');
 
-    webSocketStream.pipeTo(writableStream)
-        .then(() => console.log("All data successfully written!"))
-        .catch(e => console.error("Something went wrong!", e));
+    webSocketStream
+        .pipeTo(writableStream)
+        .then(() => console.log('All data successfully written!'))
+        .catch(e => console.error('Something went wrong!', e));
 }
-
 
 // 8.2. A readable stream with an underlying push source and backpressure support
 
@@ -56,7 +63,7 @@ function makeReadableBackpressureSocketStream(host: string, port: number) {
             };
 
             socket.onend = () => controller.close();
-            socket.onerror = () => controller.error(new Error("The socket errored!"));
+            socket.onerror = () => controller.error(new Error('The socket errored!'));
         },
 
         pull() {
@@ -68,12 +75,11 @@ function makeReadableBackpressureSocketStream(host: string, port: number) {
 
         cancel() {
             socket.close();
-        }
+        },
     });
 
-    function createBackpressureSocket(host: string, port: number): any { };
+    function createBackpressureSocket(host: string, port: number): any {}
 }
-
 
 // 8.3. A readable byte stream with an underlying push source (no backpressure support)
 
@@ -83,7 +89,7 @@ function makeUDPSocketStream(host: string, port: number) {
     const socket = createUDPSocket(host, port);
 
     return new ReadableStream({
-        type: "bytes",
+        type: 'bytes',
 
         start(controller: ReadableByteStreamController) {
             readRepeatedly().catch(e => controller.error(e));
@@ -115,12 +121,11 @@ function makeUDPSocketStream(host: string, port: number) {
 
         cancel() {
             socket.close();
-        }
+        },
     });
 
-    function createUDPSocket(host: string, port: number): any { };
+    function createUDPSocket(host: string, port: number): any {}
 }
-
 
 // 8.4. A readable stream with an underlying pull source
 
@@ -141,7 +146,7 @@ function makeReadableFileStream(filename: string) {
 
     return new ReadableStream({
         start() {
-            return fs.open(filename, "r").then(result => {
+            return fs.open(filename, 'r').then(result => {
                 fd = result;
             });
         },
@@ -161,10 +166,9 @@ function makeReadableFileStream(filename: string) {
 
         cancel() {
             return fs.close(fd);
-        }
+        },
     });
 }
-
 
 // 8.5. A readable byte stream with an underlying pull source
 
@@ -176,10 +180,10 @@ function makeReadableByteFileStream(filename: string) {
     let position = 0;
 
     return new ReadableStream({
-        type: "bytes",
+        type: 'bytes',
 
         start() {
-            return fs.open(filename, "r").then(result => {
+            return fs.open(filename, 'r').then(result => {
                 fd = result;
             });
         },
@@ -203,10 +207,9 @@ function makeReadableByteFileStream(filename: string) {
             return fs.close(fd);
         },
 
-        autoAllocateChunkSize: DEFAULT_CHUNK_SIZE
+        autoAllocateChunkSize: DEFAULT_CHUNK_SIZE,
     });
 }
-
 
 // 8.6. A writable stream with no backpressure or success signals
 
@@ -215,8 +218,8 @@ function makeWritableWebSocketStream(url: string, protocols: string | string[]) 
 
     return new WritableStream({
         start(controller) {
-            ws.onerror = () => controller.error(new Error("The WebSocket errored!"));
-            return new Promise<void>(resolve => ws.onopen = () => resolve());
+            ws.onerror = () => controller.error(new Error('The WebSocket errored!'));
+            return new Promise<void>(resolve => (ws.onopen = () => resolve()));
         },
 
         write(chunk) {
@@ -230,20 +233,20 @@ function makeWritableWebSocketStream(url: string, protocols: string | string[]) 
                 ws.onclose = () => resolve();
                 ws.close();
             });
-        }
+        },
     });
 }
 
 {
     const readableStream = new ReadableStream();
 
-    const webSocketStream = makeWritableWebSocketStream("wss://example.com:443/", "protocol");
+    const webSocketStream = makeWritableWebSocketStream('wss://example.com:443/', 'protocol');
 
-    readableStream.pipeTo(webSocketStream)
-        .then(() => console.log("All data successfully written!"))
-        .catch(e => console.error("Something went wrong!", e));
+    readableStream
+        .pipeTo(webSocketStream)
+        .then(() => console.log('All data successfully written!'))
+        .catch(e => console.error('Something went wrong!', e));
 }
-
 
 // 8.7. A writable stream with backpressure and success signals
 
@@ -254,7 +257,7 @@ function makeWritableFileStream(filename: string) {
 
     return new WritableStream<string>({
         start() {
-            return fs.open(filename, "w").then(result => {
+            return fs.open(filename, 'w').then(result => {
                 fd = result;
             });
         },
@@ -265,33 +268,32 @@ function makeWritableFileStream(filename: string) {
 
         close() {
             return fs.close(fd);
-        }
+        },
     });
 }
 
 {
-    const fileStream = makeWritableFileStream("/example/path/on/fs.txt");
+    const fileStream = makeWritableFileStream('/example/path/on/fs.txt');
     const writer = fileStream.getWriter();
 
-    writer.write("To stream, or not to stream\n");
-    writer.write("That is the question\n");
+    writer.write('To stream, or not to stream\n');
+    writer.write('That is the question\n');
 
-    writer.close()
-        .then(() => console.log("chunks written and stream closed successfully!"))
+    writer
+        .close()
+        .then(() => console.log('chunks written and stream closed successfully!'))
         .catch(e => console.error(e));
 }
 
-
 // 8.8. A { readable, writable } stream pair wrapping the same underlying resource
-
 
 function streamifyWebSocket(url: string, protocol: string) {
     const ws = new WebSocket(url, protocol);
-    ws.binaryType = "arraybuffer";
+    ws.binaryType = 'arraybuffer';
 
     return {
         readable: new ReadableStream(new WebSocketSource(ws)),
-        writable: new WritableStream<string>(new WebSocketSink(ws))
+        writable: new WritableStream<string>(new WebSocketSink(ws)),
     };
 }
 
@@ -306,8 +308,8 @@ class WebSocketSource implements ReadableStreamSource {
         this._ws.onmessage = event => controller.enqueue(event.data);
         this._ws.onclose = () => controller.close();
 
-        this._ws.addEventListener("error", () => {
-            controller.error(new Error("The WebSocket errored!"));
+        this._ws.addEventListener('error', () => {
+            controller.error(new Error('The WebSocket errored!'));
         });
     }
 
@@ -324,11 +326,11 @@ class WebSocketSink implements WritableStreamSink {
     }
 
     start(controller: WritableStreamDefaultController) {
-        this._ws.addEventListener("error", () => {
-            controller.error(new Error("The WebSocket errored!"));
+        this._ws.addEventListener('error', () => {
+            controller.error(new Error('The WebSocket errored!'));
         });
 
-        return new Promise<void>(resolve => this._ws.onopen = () => resolve());
+        return new Promise<void>(resolve => (this._ws.onopen = () => resolve()));
     }
 
     write(chunk: any) {
@@ -344,23 +346,21 @@ class WebSocketSink implements WritableStreamSink {
 }
 
 {
-    const streamyWS = streamifyWebSocket("wss://example.com:443/", "protocol");
+    const streamyWS = streamifyWebSocket('wss://example.com:443/', 'protocol');
     const writer = streamyWS.writable.getWriter();
     const reader = streamyWS.readable.getReader();
 
-    writer.write("Hello");
-    writer.write("web socket!");
+    writer.write('Hello');
+    writer.write('web socket!');
 
     reader.read().then(({ value, done }) => {
-        console.log("The web socket says: ", value);
+        console.log('The web socket says: ', value);
     });
 }
 
-
 // 8.9. A transform stream that replaces template tags
 
-
-type Dictionary<T> = { [key: string]: T }
+type Dictionary<T> = { [key: string]: T };
 
 declare function fetch(input?: Request | string): Promise<Response>;
 declare interface FetchEvent {
@@ -374,10 +374,8 @@ declare class Response {
     constructor(body?: ReadableStream);
     readonly body: ReadableStream;
 }
-declare class TextDecoderStream extends TransformStream<string, ArrayBufferView> {
-}
-declare class TextEncoderStream extends TransformStream<Uint8Array, string> {
-}
+declare class TextDecoderStream extends TransformStream<string, ArrayBufferView> {}
+declare class TextEncoderStream extends TransformStream<Uint8Array, string> {}
 
 class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
     substitutions: Dictionary<string>;
@@ -386,13 +384,13 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
 
     constructor(substitutions: Dictionary<string>) {
         this.substitutions = substitutions;
-        this.partialChunk = "";
+        this.partialChunk = '';
         this.lastIndex = undefined;
     }
 
     transform(chunk: string, controller: TransformStreamDefaultController<string>) {
         chunk = this.partialChunk + chunk;
-        this.partialChunk = "";
+        this.partialChunk = '';
         // lastIndex is the index of the first character after the last substitution.
         this.lastIndex = 0;
         chunk = chunk.replace(/\{\{([a-zA-Z0-9_-]+)\}\}/g, this.replaceTag.bind(this));
@@ -418,7 +416,7 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
     replaceTag(match: string, p1: string, offset: number) {
         let replacement = this.substitutions[p1];
         if (replacement === undefined) {
-            replacement = "";
+            replacement = '';
         }
         this.lastIndex = offset + replacement.length;
         return replacement;
@@ -426,10 +424,10 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
 }
 
 {
-    const userName = "";
-    const displayName = "";
-    const icon = "";
-    const date = "";
+    const userName = '';
+    const displayName = '';
+    const icon = '';
+    const date = '';
     const fetchEvent = {} as FetchEvent;
 
     const data = { userName, displayName, icon, date };
@@ -449,14 +447,13 @@ class LipFuzzTransformer implements TransformStreamTransformer<string, string> {
     );
 }
 
-
 // 8.10. A transform stream created from a sync mapper function
 
 function mapperTransformStream<R, W>(mapperFunction: (chunk: W) => R) {
     return new TransformStream<R, W>({
         transform(chunk, controller) {
             controller.enqueue(mapperFunction(chunk));
-        }
+        },
     });
 }
 
@@ -465,11 +462,10 @@ function mapperTransformStream<R, W>(mapperFunction: (chunk: W) => R) {
     const writer = ts.writable.getWriter();
     const reader = ts.readable.getReader();
 
-    writer.write("No need to shout");
+    writer.write('No need to shout');
 
     // Logs "NO NEED TO SHOUT":
     reader.read().then(({ value }) => console.log(value));
-
 }
 
 {
@@ -477,9 +473,9 @@ function mapperTransformStream<R, W>(mapperFunction: (chunk: W) => R) {
     const writer = ts.writable.getWriter();
     const reader = ts.readable.getReader();
 
-    writer.write("[1, ");
+    writer.write('[1, ');
 
     // Logs a SyntaxError, twice:
     reader.read().catch(e => console.error(e));
-    writer.write("{}").catch(e => console.error(e));
+    writer.write('{}').catch(e => console.error(e));
 }

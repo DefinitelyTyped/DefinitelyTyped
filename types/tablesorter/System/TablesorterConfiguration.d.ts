@@ -1,21 +1,21 @@
-import "jquery";
-import { CoreTheme } from "../Design/CoreTheme";
-import { GlobalizeSettings } from "../Globalization/GlobalizeSettings";
-import { TextExtractor } from "../Parsing/TextExtractor";
-import { EmptySorting } from "../Sorting/EmptySorting";
-import { NumberSorter } from "../Sorting/NumberSorter";
-import { RelativeSortDefinition } from "../Sorting/RelativeSortDefinition";
-import { SortDefinition } from "../Sorting/SortDefinition";
-import { SortOrder } from "../Sorting/SortOrder";
-import { StringSorting } from "../Sorting/StringSorting";
-import { TextSorter } from "../Sorting/TextSorter";
-import { WidgetOptions } from "../Widgets/WidgetOptions";
-import { InitializationEventHandler } from "./InitializationEventHandler";
-import { MappedSettings } from "./MappedSettings";
-import { RenderHeaderEventHandler } from "./RenderHeaderEventHandler";
-import { RenderTemplateEventHandler } from "./RenderTemplateEventHandler";
-import { TablesorterConfigBase } from "./TablesorterConfigBase";
-import { TablesorterHeading } from "./TablesorterHeading";
+import 'jquery';
+import { CoreTheme } from '../Design/CoreTheme';
+import { GlobalizeSettings } from '../Globalization/GlobalizeSettings';
+import { TextExtractor } from '../Parsing/TextExtractor';
+import { EmptySorting } from '../Sorting/EmptySorting';
+import { NumberSorter } from '../Sorting/NumberSorter';
+import { RelativeSortDefinition } from '../Sorting/RelativeSortDefinition';
+import { SortDefinition } from '../Sorting/SortDefinition';
+import { SortOrder } from '../Sorting/SortOrder';
+import { StringSorting } from '../Sorting/StringSorting';
+import { TextSorter } from '../Sorting/TextSorter';
+import { WidgetOptions } from '../Widgets/WidgetOptions';
+import { InitializationEventHandler } from './InitializationEventHandler';
+import { MappedSettings } from './MappedSettings';
+import { RenderHeaderEventHandler } from './RenderHeaderEventHandler';
+import { RenderTemplateEventHandler } from './RenderTemplateEventHandler';
+import { TablesorterConfigBase } from './TablesorterConfigBase';
+import { TablesorterHeading } from './TablesorterHeading';
 
 /**
  * Represents settings for the `tablesorter`.
@@ -165,7 +165,7 @@ export interface TablesorterConfiguration<TElement = HTMLElement> extends Tables
     /**
      * The methods for extracting text from cells.
      */
-    textExtraction?: "basic" | TextExtractor<TElement> | MappedSettings<"basic" | TextExtractor<TElement>>;
+    textExtraction?: 'basic' | TextExtractor<TElement> | MappedSettings<'basic' | TextExtractor<TElement>>;
 
     /**
      * The attribute to read the text-value from `img`-tags.
@@ -175,7 +175,7 @@ export interface TablesorterConfiguration<TElement = HTMLElement> extends Tables
     /**
      * Either global `Globalize`-settings or per-column `Globalize`-settings to apply.
      */
-    globalize?: GlobalizeSettings | {[index: number]: GlobalizeSettings};
+    globalize?: GlobalizeSettings | { [index: number]: GlobalizeSettings };
 
     /**
      * A value indicating whether changes to child-rows are ignored by the table-sorter.

@@ -9,9 +9,7 @@ compiler('Hello there old chap!', { forceBlock: true });
 
 <Markdown options={{ forceInline: true }}># You got it babe!</Markdown>;
 
-const MyParagraph: React.FunctionComponent = ({ children, ...props }) => (
-    <div {...props}>{children}</div>
-);
+const MyParagraph: React.FunctionComponent = ({ children, ...props }) => <div {...props}>{children}</div>;
 render(
     <Markdown
         options={{
@@ -23,22 +21,22 @@ render(
                     },
                 },
                 h2: {
-                    component: 'div'
+                    component: 'div',
                 },
                 h3: {
                     component: 'span',
                     props: {
-                        className: 'foo'
-                    }
+                        className: 'foo',
+                    },
                 },
                 p: MyParagraph,
                 h4: 'h3',
-                MyParagraph
+                MyParagraph,
             },
         }}
     >
         # Hello world!
-  </Markdown>,
+    </Markdown>,
     document.body
 );
 
@@ -52,11 +50,8 @@ render(
                 // tslint:disable-next-line:no-null-undefined-union
                 props?: React.Attributes & P | null,
                 // tslint:disable-next-line:no-null-undefined-union
-                ...children: React.ReactNode[]) => (
-                    <div className="parent">
-                        {React.createElement(type, props, children)}
-                    </div>
-                )
+                ...children: React.ReactNode[]
+            ) => <div className="parent">{React.createElement(type, props, children)}</div>,
         }}
     />,
     document.body

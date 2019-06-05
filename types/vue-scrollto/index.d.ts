@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { PluginFunction } from "vue";
+import { PluginFunction } from 'vue';
 
 declare namespace VueScrollTo {
     interface Options {

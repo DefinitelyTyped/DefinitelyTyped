@@ -22,205 +22,204 @@ declare function swaggerize(options: swaggerize.Options): express.RequestHandler
 declare namespace swaggerize {
     export module Swagger {
         export interface ApiDefinition {
-            swagger: string
-            info: InfoObject
-            host?: string
-            basePath?: string
-            schemes?: string[]
-            consumes?: MimeTypes
-            produces?: MimeTypes
-            paths: PathsObject
-            definitions?: DefinitionsObject
-            parameters?: ParametersDefinitionsObject
-            responses?: ResponsesDefinitionsObject
-            securityDefinitions?: SecurityDefinitionsObject
-            security?: SecurityRequirementObject[]
-            tags?: TagObject[]
-            externalDocs?: ExternalDocumentationObject
+            swagger: string;
+            info: InfoObject;
+            host?: string;
+            basePath?: string;
+            schemes?: string[];
+            consumes?: MimeTypes;
+            produces?: MimeTypes;
+            paths: PathsObject;
+            definitions?: DefinitionsObject;
+            parameters?: ParametersDefinitionsObject;
+            responses?: ResponsesDefinitionsObject;
+            securityDefinitions?: SecurityDefinitionsObject;
+            security?: SecurityRequirementObject[];
+            tags?: TagObject[];
+            externalDocs?: ExternalDocumentationObject;
         }
 
-        type MimeTypes = string[]
+        type MimeTypes = string[];
 
         export interface InfoObject {
-            title: string
-            description?: string
-            termsOfService?: string
-            contact?: ContactObject
-            license?: LicenseObject
-            version: string
+            title: string;
+            description?: string;
+            termsOfService?: string;
+            contact?: ContactObject;
+            license?: LicenseObject;
+            version: string;
         }
 
         export interface ContactObject {
-            name?: string
-            url?: string
-            email?: string
+            name?: string;
+            url?: string;
+            email?: string;
         }
 
         export interface LicenseObject {
-            name: string
-            url?: string
+            name: string;
+            url?: string;
         }
 
         export interface PathsObject {
-            [index: string]: PathItemObject | any
+            [index: string]: PathItemObject | any;
         }
 
         export interface PathItemObject {
-            $ref?: string
-            get?: OperationObject
-            put?: OperationObject
-            post?: OperationObject
-            'delete'?: OperationObject
-            options?: OperationObject
-            head?: OperationObject
-            patch?: OperationObject
-            parameters?: Parameters
+            $ref?: string;
+            get?: OperationObject;
+            put?: OperationObject;
+            post?: OperationObject;
+            delete?: OperationObject;
+            options?: OperationObject;
+            head?: OperationObject;
+            patch?: OperationObject;
+            parameters?: Parameters;
         }
 
         export interface OperationObject {
-            tags?: string[]
-            summary?: string
-            description?: string
-            externalDocs?: ExternalDocumentationObject
-            operationId?: string
-            consumes?: MimeTypes
-            produces?: MimeTypes
-            parameters?: Parameters
-            responses: ResponsesObject
-            schemes?: string[]
-            deprecated?: boolean
-            security?: SecurityRequirementObject[]
+            tags?: string[];
+            summary?: string;
+            description?: string;
+            externalDocs?: ExternalDocumentationObject;
+            operationId?: string;
+            consumes?: MimeTypes;
+            produces?: MimeTypes;
+            parameters?: Parameters;
+            responses: ResponsesObject;
+            schemes?: string[];
+            deprecated?: boolean;
+            security?: SecurityRequirementObject[];
         }
 
         export interface DefinitionsObject {
-            [index: string]: SchemaObject
+            [index: string]: SchemaObject;
         }
 
         export interface ResponsesObject {
-            [index: string]: Response | any
-            'default': Response
+            [index: string]: Response | any;
+            default: Response;
         }
 
-        type Response = ResponseObject | ReferenceObject
+        type Response = ResponseObject | ReferenceObject;
 
         export interface ResponsesDefinitionsObject {
-            [index: string]: ResponseObject
+            [index: string]: ResponseObject;
         }
 
         export interface ResponseObject {
-            description: string
-            schema?: SchemaObject
-            headers?: HeadersObject
-            examples?: ExampleObject
+            description: string;
+            schema?: SchemaObject;
+            headers?: HeadersObject;
+            examples?: ExampleObject;
         }
 
         export interface HeadersObject {
-            [index: string]: HeaderObject
+            [index: string]: HeaderObject;
         }
 
-        export interface HeaderObject extends ItemsObject {
-        }
+        export interface HeaderObject extends ItemsObject {}
 
         export interface ExampleObject {
-            [index: string]: any
+            [index: string]: any;
         }
 
         export interface SecurityDefinitionsObject {
-            [index: string]: SecuritySchemeObject
+            [index: string]: SecuritySchemeObject;
         }
 
         export interface SecuritySchemeObject {
-            type: string
-            description?: string
-            name: string
-            'in': string
-            flow: string
-            authorizationUrl: string
-            tokenUrl: string
-            scopes: ScopesObject
+            type: string;
+            description?: string;
+            name: string;
+            in: string;
+            flow: string;
+            authorizationUrl: string;
+            tokenUrl: string;
+            scopes: ScopesObject;
         }
 
         export interface ScopesObject {
-            [index: string]: any
+            [index: string]: any;
         }
 
         export interface SecurityRequirementObject {
-            [index: string]: string[]
+            [index: string]: string[];
         }
 
         export interface TagObject {
-            name: string
-            description?: string
-            externalDocs?: ExternalDocumentationObject
+            name: string;
+            description?: string;
+            externalDocs?: ExternalDocumentationObject;
         }
 
         export interface ItemsObject {
-            type: string
-            format?: string
-            items?: ItemsObject
-            collectionFormat?: string
-            'default'?: any
-            maximum?: number
-            exclusiveMaximum: boolean
-            minimum?: number
-            exclusiveMinimum?: boolean
-            maxLength?: number
-            minLength?: number
-            pattern?: string
-            maxItems?: number
-            minItems?: number
-            uniqueItems?: boolean
-            'enum'?: any[]
-            multipleOf?: number
+            type: string;
+            format?: string;
+            items?: ItemsObject;
+            collectionFormat?: string;
+            default?: any;
+            maximum?: number;
+            exclusiveMaximum: boolean;
+            minimum?: number;
+            exclusiveMinimum?: boolean;
+            maxLength?: number;
+            minLength?: number;
+            pattern?: string;
+            maxItems?: number;
+            minItems?: number;
+            uniqueItems?: boolean;
+            enum?: any[];
+            multipleOf?: number;
         }
 
         export interface ParametersDefinitionsObject {
-            [index: string]: ParameterObject
+            [index: string]: ParameterObject;
         }
 
-        type Parameters = (ParameterObject | ReferenceObject)[]
+        type Parameters = (ParameterObject | ReferenceObject)[];
 
         export interface ParameterObject {
-            name: string
-            'in': string
-            description?: string
-            required?: boolean
+            name: string;
+            in: string;
+            description?: string;
+            required?: boolean;
         }
 
         export interface InBodyParameterObject extends ParameterObject {
-            schema: SchemaObject
+            schema: SchemaObject;
         }
 
         export interface GeneralParameterObject extends ParameterObject, ItemsObject {
-            allowEmptyValue?: boolean
+            allowEmptyValue?: boolean;
         }
 
         export interface ReferenceObject {
-            $ref: string
+            $ref: string;
         }
 
         export interface ExternalDocumentationObject {
-            [index: string]: any
-            description?: string
-            url: string
+            [index: string]: any;
+            description?: string;
+            url: string;
         }
 
         export interface SchemaObject extends IJsonSchema {
-            [index: string]: any
-            discriminator?: string
-            readOnly?: boolean
-            xml?: XMLObject
-            externalDocs: ExternalDocumentationObject
-            example: any
+            [index: string]: any;
+            discriminator?: string;
+            readOnly?: boolean;
+            xml?: XMLObject;
+            externalDocs: ExternalDocumentationObject;
+            example: any;
         }
 
         export interface XMLObject {
-            [index: string]: any
-            name?: string
-            namespace?: string
-            prefix?: string
-            attribute?: boolean
-            wrapped?: boolean
+            [index: string]: any;
+            name?: string;
+            namespace?: string;
+            prefix?: string;
+            attribute?: boolean;
+            wrapped?: boolean;
         }
     }
 
@@ -229,61 +228,61 @@ declare namespace swaggerize {
     }
 
     export interface Options {
-        api: Swagger.ApiDefinition
-        docspath: string
-        handlers: string | RouteSegment
+        api: Swagger.ApiDefinition;
+        docspath: string;
+        handlers: string | RouteSegment;
     }
 
     export interface IConfig {
-        api: Swagger.ApiDefinition
-        routes: express.IRoute[]
+        api: Swagger.ApiDefinition;
+        routes: express.IRoute[];
     }
 
     export interface SwaggerizedExpress extends express.Express {
-        swagger: IConfig
+        swagger: IConfig;
     }
 }
 
 interface IJsonSchema {
-    id?: string
-    $schema?: string
-    title?: string
-    description?: string
-    multipleOf?: number
-    maximum?: number
-    exclusiveMaximum?: boolean
-    minimum?: number
-    exclusiveMinimum?: boolean
-    maxLength?: number
-    minLength?: number
-    pattern?: string
-    additionalItems?: boolean | IJsonSchema
-    items?: IJsonSchema | IJsonSchema[]
-    maxItems?: number
-    minItems?: number
-    uniqueItems?: boolean
-    maxProperties?: number
-    minProperties?: number
-    required?: string[]
-    additionalProperties?: boolean | IJsonSchema
+    id?: string;
+    $schema?: string;
+    title?: string;
+    description?: string;
+    multipleOf?: number;
+    maximum?: number;
+    exclusiveMaximum?: boolean;
+    minimum?: number;
+    exclusiveMinimum?: boolean;
+    maxLength?: number;
+    minLength?: number;
+    pattern?: string;
+    additionalItems?: boolean | IJsonSchema;
+    items?: IJsonSchema | IJsonSchema[];
+    maxItems?: number;
+    minItems?: number;
+    uniqueItems?: boolean;
+    maxProperties?: number;
+    minProperties?: number;
+    required?: string[];
+    additionalProperties?: boolean | IJsonSchema;
     definitions?: {
-        [name: string]: IJsonSchema
-    }
+        [name: string]: IJsonSchema;
+    };
     properties?: {
-        [name: string]: IJsonSchema
-    }
+        [name: string]: IJsonSchema;
+    };
     patternProperties?: {
-        [name: string]: IJsonSchema
-    }
+        [name: string]: IJsonSchema;
+    };
     dependencies?: {
-        [name: string]: IJsonSchema | string[]
-    }
-    'enum'?: any[]
-    type?: string | string[]
-    allOf?: IJsonSchema[]
-    anyOf?: IJsonSchema[]
-    oneOf?: IJsonSchema[]
-    not?: IJsonSchema
+        [name: string]: IJsonSchema | string[];
+    };
+    enum?: any[];
+    type?: string | string[];
+    allOf?: IJsonSchema[];
+    anyOf?: IJsonSchema[];
+    oneOf?: IJsonSchema[];
+    not?: IJsonSchema;
 }
 
 export = swaggerize;

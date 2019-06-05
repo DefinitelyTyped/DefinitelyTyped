@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     namespace string_ {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/string/sprintf.html
@@ -13,13 +12,17 @@ declare namespace dojox {
          * @param format
          * @param filler
          */
-        interface sprintf { (format: String, filler: any): void }
+        interface sprintf {
+            (format: String, filler: any): void;
+        }
         namespace sprintf {
             /**
              *
              * @param format
              */
-            interface Formatter { (format: String): void }
+            interface Formatter {
+                (format: String): void;
+            }
         }
 
         /**
@@ -29,42 +32,54 @@ declare namespace dojox {
          *
          * @param str       Optional
          */
-        interface Builder { (str?: String): void }
+        interface Builder {
+            (str?: String): void;
+        }
         namespace Builder {
             /**
              *
              */
-            var length: number
+            var length: number;
             /**
              * Append all arguments to the end of the buffer
              *
              * @param s
              */
-            interface append { (s: String[]): void }
+            interface append {
+                (s: String[]): void;
+            }
             /**
              * Append an array of items to the internal buffer.
              *
              * @param strings
              */
-            interface appendArray { (strings: any[]): void }
+            interface appendArray {
+                (strings: any[]): void;
+            }
             /**
              * Remove all characters from the buffer.
              *
              */
-            interface clear { (): void }
+            interface clear {
+                (): void;
+            }
             /**
              * Alias for append.
              *
              * @param s
              */
-            interface concat { (s: String[]): void }
+            interface concat {
+                (s: String[]): void;
+            }
             /**
              * Insert string str starting at index.
              *
              * @param index
              * @param str
              */
-            interface insert { (index: number, str: String): void }
+            interface insert {
+                (index: number, str: String): void;
+            }
             /**
              * Remove len characters starting at index start.  If len
              * is not provided, the end of the string is assumed.
@@ -72,19 +87,25 @@ declare namespace dojox {
              * @param start
              * @param len               Optional
              */
-            interface remove { (start: number, len: number): void }
+            interface remove {
+                (start: number, len: number): void;
+            }
             /**
              * Replace instances of one string with another in the buffer.
              *
              * @param oldStr
              * @param newStr
              */
-            interface replace { (oldStr: String, newStr: String): void }
+            interface replace {
+                (oldStr: String, newStr: String): void;
+            }
             /**
              * Return the string representation of the internal buffer.
              *
              */
-            interface toString { (): void }
+            interface toString {
+                (): void;
+            }
         }
 
         /**
@@ -97,7 +118,9 @@ declare namespace dojox {
          * @param parseDelim       OptionalEach group (excluding the 0 group) is passed as a parameter. If the function returnsa value, it's added to the list of tokens.
          * @param instance       OptionalUsed as the "this" instance when calling parseDelim
          */
-        interface tokenize { (str: String, re: RegExp, parseDelim?: Function, instance?: Object): void }
+        interface tokenize {
+            (str: String, re: RegExp, parseDelim?: Function, instance?: Object): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/string/BidiEngine.html
          *
@@ -267,26 +290,25 @@ declare namespace dojox {
             stripSpecialCharacters(str: any): void;
         }
     }
-
 }
 
-declare module "dojox/string/tokenize" {
-    var exp: dojox.string_.tokenize
-    export=exp;
+declare module 'dojox/string/tokenize' {
+    var exp: dojox.string_.tokenize;
+    export = exp;
 }
-declare module "dojox/string/sprintf" {
-    var exp: dojox.string_.sprintf
-    export=exp;
+declare module 'dojox/string/sprintf' {
+    var exp: dojox.string_.sprintf;
+    export = exp;
 }
-declare module "dojox/string/Builder" {
-    var exp: dojox.string_.Builder
-    export=exp;
+declare module 'dojox/string/Builder' {
+    var exp: dojox.string_.Builder;
+    export = exp;
 }
-declare module "dojox/string/BidiComplex" {
-    var exp: dojox.string_.BidiComplex
-    export=exp;
+declare module 'dojox/string/BidiComplex' {
+    var exp: dojox.string_.BidiComplex;
+    export = exp;
 }
-declare module "dojox/string/BidiEngine" {
-    var exp: dojox.string_.BidiEngine
-    export=exp;
+declare module 'dojox/string/BidiEngine' {
+    var exp: dojox.string_.BidiEngine;
+    export = exp;
 }

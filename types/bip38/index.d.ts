@@ -18,24 +18,41 @@ export interface ScryptParams {
     p: number;
 }
 
-export function decrypt(string: string, passphrase: string,
-                        progressCallback?: (status: ProgressStatus) => void,
-                        scryptParams?: ScryptParams): { privateKey: Buffer, compressed: boolean };
+export function decrypt(
+    string: string,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams
+): { privateKey: Buffer; compressed: boolean };
 
-export function decryptECMult(buffer: Buffer, passphrase: string,
-                              progressCallback?: (status: ProgressStatus) => void,
-                              scryptParams?: ScryptParams): { privateKey: Buffer, compressed: boolean };
+export function decryptECMult(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams
+): { privateKey: Buffer; compressed: boolean };
 
-export function decryptRaw(buffer: Buffer, passphrase: string,
-                           progressCallback?: (status: ProgressStatus) => void,
-                           scryptParams?: ScryptParams): { privateKey: Buffer, compressed: boolean };
+export function decryptRaw(
+    buffer: Buffer,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams
+): { privateKey: Buffer; compressed: boolean };
 
-export function encrypt(buffer: Buffer, compressed: boolean, passphrase: string,
-                        progressCallback?: (status: ProgressStatus) => void,
-                        scryptParams?: ScryptParams): string;
+export function encrypt(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams
+): string;
 
-export function encryptRaw(buffer: Buffer, compressed: boolean, passphrase: string,
-                           progressCallback?: (status: ProgressStatus) => void,
-                           scryptParams?: ScryptParams): Buffer;
+export function encryptRaw(
+    buffer: Buffer,
+    compressed: boolean,
+    passphrase: string,
+    progressCallback?: (status: ProgressStatus) => void,
+    scryptParams?: ScryptParams
+): Buffer;
 
 export function verify(string: string): boolean;

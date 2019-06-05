@@ -1,13 +1,13 @@
-import * as tty from "tty"; // For typing
+import * as tty from 'tty'; // For typing
 
-let stdin = (process.stdin as tty.ReadStream);
+let stdin = process.stdin as tty.ReadStream;
 
-if(!stdin.isTTY) {
-    console.log("Terminal not supported");
+if (!stdin.isTTY) {
+    console.log('Terminal not supported');
     process.exit(0);
 }
 
-const MenuContainerFactory = require("terminal-menu");
+const MenuContainerFactory = require('terminal-menu');
 
 let menu = MenuContainerFactory({ width: 29, x: 4, y: 2 });
 menu.reset();
@@ -24,7 +24,7 @@ menu.add('BACKUP DATA TO FLOPPY DISK');
 menu.add('RESTORE FROM FLOPPY DISK');
 menu.add('EXIT');
 
-menu.on('select', function (label: string) {
+menu.on('select', function(label: string) {
     menu.close();
     console.log('SELECTED: ' + label);
 });
@@ -33,7 +33,7 @@ stdin.pipe(menu.createStream()).pipe(process.stdout);
 
 stdin.setRawMode(true);
 
-menu.on('close', function () {
+menu.on('close', function() {
     stdin.setRawMode(false);
     stdin.end();
 });

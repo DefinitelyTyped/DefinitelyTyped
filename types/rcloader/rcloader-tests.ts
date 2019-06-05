@@ -1,10 +1,9 @@
+import RcLoader = require('rcloader');
 
-import RcLoader = require("rcloader");
-
-const rcLoader = new RcLoader(".configfilename", {
-    lookup: true
+const rcLoader = new RcLoader('.configfilename', {
+    lookup: true,
 });
 
-rcLoader.for("foo.json", (err, fileOpts) => {
+rcLoader.for('foo.json', (err, fileOpts) => {
     // send the file along
 });

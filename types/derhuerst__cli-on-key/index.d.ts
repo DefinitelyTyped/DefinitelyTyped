@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
+import stream = require('stream');
 
 declare namespace listen {
     interface Key {
@@ -22,9 +22,6 @@ declare namespace listen {
     type OffKeyPress = (key: Key) => void;
 }
 
-declare function listen(
-    stream: stream.Readable,
-    callback: listen.Callback
-): listen.OffKeyPress;
+declare function listen(stream: stream.Readable, callback: listen.Callback): listen.OffKeyPress;
 
 export = listen;

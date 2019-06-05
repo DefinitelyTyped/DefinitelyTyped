@@ -1,6 +1,6 @@
 /* This is test code for the js-nacl type defintions, to make sure it compiles */
 
-import * as nacl from "js-nacl";
+import * as nacl from 'js-nacl';
 
 nacl.instantiate((inst: nacl.Nacl) => {
     demo_hex(inst);
@@ -12,28 +12,28 @@ nacl.instantiate((inst: nacl.Nacl) => {
 });
 
 function demo_hex(inst: nacl.Nacl): void {
-    const hex = "1234567890ABCDEF";
+    const hex = '1234567890ABCDEF';
     const bin = inst.from_hex(hex);
     inst.to_hex(bin); // $ExpectType string
 
-    const text = "\uD800\uDC01";
+    const text = '\uD800\uDC01';
     const utf8 = inst.encode_utf8(text);
     inst.decode_utf8(utf8); // $ExpectType string
 
-    const latinText = "Bl\xf6\xdf";
+    const latinText = 'Bl\xf6\xdf';
     const latin = inst.encode_latin1(latinText);
     inst.decode_latin1(latin); // $ExpectType string
 }
 
 function demo_hash(inst: nacl.Nacl): void {
-    const msg: nacl.Message = inst.encode_utf8("some text to hash");
+    const msg: nacl.Message = inst.encode_utf8('some text to hash');
     inst.crypto_hash(msg); // $ExpectType Uint8Array
     inst.crypto_hash_sha256(msg); // $ExpectType Uint8Array
 }
 
 function demo_sign(inst: nacl.Nacl): void {
     const keypair = inst.crypto_sign_keypair();
-    const msg: nacl.Message = inst.encode_utf8("very important message");
+    const msg: nacl.Message = inst.encode_utf8('very important message');
     const packet = inst.crypto_sign(msg, keypair.signSk);
     inst.crypto_sign_open(packet, keypair.signPk); // $ExpectType Uint8Array | null
 
@@ -42,7 +42,7 @@ function demo_sign(inst: nacl.Nacl): void {
 }
 
 function demo_box(inst: nacl.Nacl): void {
-    const msg: nacl.Message = inst.encode_utf8("signed, sealed, and delivered");
+    const msg: nacl.Message = inst.encode_utf8('signed, sealed, and delivered');
     const sender = inst.crypto_box_keypair();
     const rcpt = inst.crypto_box_keypair();
     const nonce = inst.crypto_box_random_nonce();
@@ -57,7 +57,7 @@ function demo_box(inst: nacl.Nacl): void {
 }
 
 function demo_secret_box(inst: nacl.Nacl): void {
-    const msg: nacl.Message = inst.encode_utf8("for your eyes only");
+    const msg: nacl.Message = inst.encode_utf8('for your eyes only');
     const keypair = inst.crypto_box_keypair();
     const nonce = inst.crypto_secretbox_random_nonce();
 
@@ -66,7 +66,7 @@ function demo_secret_box(inst: nacl.Nacl): void {
 }
 
 function demo_derived(inst: nacl.Nacl): void {
-    const seed = inst.encode_utf8("123456789012345678901234567890qq"); // 32 byte secret
+    const seed = inst.encode_utf8('123456789012345678901234567890qq'); // 32 byte secret
     inst.crypto_sign_seed_keypair(seed); // $ExpectType SignKeyPair
     inst.crypto_box_seed_keypair(seed); // $ExpectType BoxKeyPair
     inst.crypto_box_keypair_from_raw_sk(seed); // $ExpectType BoxKeyPair

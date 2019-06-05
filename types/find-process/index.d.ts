@@ -4,7 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare function find(by: string, value: string | number): Promise<Array<{ pid: string, ppid: string, uid: string, gid: string, name: string, cmd: string }>>;
+declare function find(
+    by: string,
+    value: string | number
+): Promise<Array<{ pid: string; ppid: string; uid: string; gid: string; name: string; cmd: string }>>;
 declare namespace find {}
 
 export = find;

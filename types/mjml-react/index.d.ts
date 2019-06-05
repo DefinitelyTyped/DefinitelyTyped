@@ -7,10 +7,10 @@
 import * as React from 'react';
 
 export namespace extensions {
-    class MjmlComment extends React.Component<{ children: string }> { }
-    class MjmlConditionalComment extends React.Component<{ children: string; condition: string }> { }
-    class MjmlTrackingPixel extends React.Component<{ src: string }> { }
-    class MjmlYahooStyle extends React.Component<{ children: string }> { }
+    class MjmlComment extends React.Component<{ children: string }> {}
+    class MjmlConditionalComment extends React.Component<{ children: string; condition: string }> {}
+    class MjmlTrackingPixel extends React.Component<{ src: string }> {}
+    class MjmlYahooStyle extends React.Component<{ children: string }> {}
 }
 
 export namespace utils {
@@ -76,30 +76,30 @@ export interface MjmlProps {
     owa?: string;
 }
 
-export class Mjml extends React.Component<MjmlProps & RequiredChildrenProps> { }
+export class Mjml extends React.Component<MjmlProps & RequiredChildrenProps> {}
 
 // mj-head
-export class MjmlHead extends React.Component<RequiredChildrenProps> { }
+export class MjmlHead extends React.Component<RequiredChildrenProps> {}
 
 // mj-attributes
-export class MjmlAttributes extends React.Component<RequiredChildrenProps> { }
-export class MjmlAll extends React.Component<{ [key: string]: any; children?: React.ReactNode }> { }
-export class MjmlClass extends React.Component<{ [key: string]: any; children?: React.ReactNode; name: string }> { }
+export class MjmlAttributes extends React.Component<RequiredChildrenProps> {}
+export class MjmlAll extends React.Component<{ [key: string]: any; children?: React.ReactNode }> {}
+export class MjmlClass extends React.Component<{ [key: string]: any; children?: React.ReactNode; name: string }> {}
 
 // mj-breakpoint
 export interface MjmlBreakpointProps {
     width?: string | number;
 }
 
-export class MjmlBreakpoint extends React.Component<MjmlBreakpointProps> { }
+export class MjmlBreakpoint extends React.Component<MjmlBreakpointProps> {}
 
 // mj-body
 export interface MjmlBodyProps {
-    width ?: number;
+    width?: number;
     backgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlBody extends React.Component<RequiredChildrenProps & MjmlBodyProps & ClassNameProps> { }
+export class MjmlBody extends React.Component<RequiredChildrenProps & MjmlBodyProps & ClassNameProps> {}
 
 // mj-font
 export interface MjmlFontProps {
@@ -107,19 +107,19 @@ export interface MjmlFontProps {
     name?: string;
 }
 
-export class MjmlFont extends React.Component<MjmlFontProps> { }
+export class MjmlFont extends React.Component<MjmlFontProps> {}
 
 // mj-preview
-export class MjmlPreview extends React.Component<{ children: string }> { }
+export class MjmlPreview extends React.Component<{ children: string }> {}
 
 // mj-style
-export class MjmlStyle extends React.Component<{ children: string, inline?: boolean }> { }
+export class MjmlStyle extends React.Component<{ children: string; inline?: boolean }> {}
 
 // mj-title
-export class MjmlTitle extends React.Component<{ children: string }> { }
+export class MjmlTitle extends React.Component<{ children: string }> {}
 
 // mj-accordion
-export class MjmlAccordion extends React.Component<RequiredChildrenProps & MjmlAccordionElementProps> { }
+export class MjmlAccordion extends React.Component<RequiredChildrenProps & MjmlAccordionElementProps> {}
 
 export interface MjmlAccordionElementProps {
     fontFamily?: string;
@@ -134,7 +134,9 @@ export interface MjmlAccordionElementProps {
     backgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlAccordionElement extends React.Component<RequiredChildrenProps & MjmlAccordionElementProps & ClassNameProps> { }
+export class MjmlAccordionElement extends React.Component<
+    RequiredChildrenProps & MjmlAccordionElementProps & ClassNameProps
+> {}
 
 export interface MjmlAccordionTextProps {
     color?: React.CSSProperties['color'];
@@ -143,7 +145,9 @@ export interface MjmlAccordionTextProps {
     backgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlAccordionText extends React.Component<RequiredChildrenProps & MjmlAccordionTextProps & PaddingProps & ClassNameProps> { }
+export class MjmlAccordionText extends React.Component<
+    RequiredChildrenProps & MjmlAccordionTextProps & PaddingProps & ClassNameProps
+> {}
 
 export interface MjmlAccordionTitleProps {
     color?: React.CSSProperties['color'];
@@ -152,7 +156,9 @@ export interface MjmlAccordionTitleProps {
     fontSize?: string | number;
 }
 
-export class MjmlAccordionTitle extends React.Component<RequiredChildrenProps & MjmlAccordionTitleProps & PaddingProps & ClassNameProps> { }
+export class MjmlAccordionTitle extends React.Component<
+    RequiredChildrenProps & MjmlAccordionTitleProps & PaddingProps & ClassNameProps
+> {}
 
 // mj-button
 export interface MjmlButtonProps {
@@ -174,7 +180,9 @@ export interface MjmlButtonProps {
     height?: string | number;
 }
 
-export class MjmlButton extends React.Component<RequiredChildrenProps & MjmlButtonProps & PaddingProps & ClassNameProps & HrefProps & BorderProps> { }
+export class MjmlButton extends React.Component<
+    RequiredChildrenProps & MjmlButtonProps & PaddingProps & ClassNameProps & HrefProps & BorderProps
+> {}
 
 // mj-carousel
 export interface MjmlCarouselProps {
@@ -201,7 +209,7 @@ export interface MjmlCarouselImageProps {
     title?: string;
 }
 
-export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & ClassNameProps & HrefProps> { }
+export class MjmlCarouselImage extends React.Component<MjmlCarouselImageProps & ClassNameProps & HrefProps> {}
 
 // mj-carousel
 export interface MjmlColumnProps {
@@ -210,7 +218,9 @@ export interface MjmlColumnProps {
     backgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlColumn extends React.Component<RequiredChildrenProps & MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps> { }
+export class MjmlColumn extends React.Component<
+    RequiredChildrenProps & MjmlColumnProps & PaddingProps & ClassNameProps & BorderProps
+> {}
 
 // mj-divider
 export interface MjmlDividerProps {
@@ -221,7 +231,7 @@ export interface MjmlDividerProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlDivider extends React.Component<MjmlDividerProps & ClassNameProps & PaddingProps> { }
+export class MjmlDivider extends React.Component<MjmlDividerProps & ClassNameProps & PaddingProps> {}
 
 // mj-group
 export interface MjmlGroupProps {
@@ -230,7 +240,7 @@ export interface MjmlGroupProps {
     backgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlGroup extends React.Component<MjmlGroupProps & RequiredChildrenProps & ClassNameProps> { }
+export class MjmlGroup extends React.Component<MjmlGroupProps & RequiredChildrenProps & ClassNameProps> {}
 
 // mj-hero
 export interface MjmlHeroProps {
@@ -245,7 +255,7 @@ export interface MjmlHeroProps {
     backgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlHero extends React.Component<MjmlHeroProps & ClassNameProps & PaddingProps> { }
+export class MjmlHero extends React.Component<MjmlHeroProps & ClassNameProps & PaddingProps> {}
 
 // mj-image
 export interface MjmlImageProps {
@@ -262,7 +272,7 @@ export interface MjmlImageProps {
     fluidOnMobile?: string;
 }
 
-export class MjmlImage extends React.Component<MjmlImageProps & PaddingProps & ClassNameProps & HrefProps> { }
+export class MjmlImage extends React.Component<MjmlImageProps & PaddingProps & ClassNameProps & HrefProps> {}
 
 // mj-navbar
 export interface MjmlNavbarProps {
@@ -284,7 +294,7 @@ export interface MjmlNavbarProps {
     icoLineHeight?: string;
 }
 
-export class MjmlNavbar extends React.Component<MjmlNavbarProps & RequiredChildrenProps> { }
+export class MjmlNavbar extends React.Component<MjmlNavbarProps & RequiredChildrenProps> {}
 
 export interface MjmlNavbarLinkProps {
     color?: React.CSSProperties['color'];
@@ -297,10 +307,10 @@ export interface MjmlNavbarLinkProps {
     textTransform?: string;
 }
 
-export class MjmlNavbarLink extends React.Component<MjmlNavbarLinkProps & HrefProps & PaddingProps> { }
+export class MjmlNavbarLink extends React.Component<MjmlNavbarLinkProps & HrefProps & PaddingProps> {}
 
 // mj-raw
-export class MjmlRaw extends React.Component<RequiredChildrenProps> { }
+export class MjmlRaw extends React.Component<RequiredChildrenProps> {}
 
 // mj-section
 export interface MjmlSectionProps {
@@ -314,7 +324,9 @@ export interface MjmlSectionProps {
     direction?: 'ltr' | 'rtl';
 }
 
-export class MjmlSection extends React.Component<MjmlSectionProps & RequiredChildrenProps & BorderProps & PaddingProps & ClassNameProps> { }
+export class MjmlSection extends React.Component<
+    MjmlSectionProps & RequiredChildrenProps & BorderProps & PaddingProps & ClassNameProps
+> {}
 
 // mj-social
 export interface MjmlSocialProps {
@@ -332,7 +344,7 @@ export interface MjmlSocialProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps> { }
+export class MjmlSocial extends React.Component<MjmlSocialProps & PaddingProps> {}
 
 export interface MjmlSocialElementProps {
     borderRadius?: string | number;
@@ -346,14 +358,37 @@ export interface MjmlSocialElementProps {
     textDecoration?: string;
     align?: string;
     color?: React.CSSProperties['color'];
-    name?: 'facebook' | 'facebook-noshare' | 'twitter' | 'twitter-noshare' | 'google' | 'google-noshare' | 'pinterest' | 'pinterest-noshare' |
-        'linkedin' | 'linkedin-noshare' | 'tumblr' | 'tumblr-noshare' | 'xing' | 'xing-noshare' |
-        'github' | 'instagram' | 'web' | 'snapchat' | 'youtube' | 'vimeo' | 'medium' | 'soundcloud' | 'dribbble';
+    name?:
+        | 'facebook'
+        | 'facebook-noshare'
+        | 'twitter'
+        | 'twitter-noshare'
+        | 'google'
+        | 'google-noshare'
+        | 'pinterest'
+        | 'pinterest-noshare'
+        | 'linkedin'
+        | 'linkedin-noshare'
+        | 'tumblr'
+        | 'tumblr-noshare'
+        | 'xing'
+        | 'xing-noshare'
+        | 'github'
+        | 'instagram'
+        | 'web'
+        | 'snapchat'
+        | 'youtube'
+        | 'vimeo'
+        | 'medium'
+        | 'soundcloud'
+        | 'dribbble';
     src?: string;
     alt?: string;
 }
 
-export class MjmlSocialElement extends React.Component<MjmlSocialElementProps & RequiredChildrenProps & HrefProps & PaddingProps> { }
+export class MjmlSocialElement extends React.Component<
+    MjmlSocialElementProps & RequiredChildrenProps & HrefProps & PaddingProps
+> {}
 
 // mj-spacer
 export interface MjmlSpacerProps {
@@ -363,7 +398,7 @@ export interface MjmlSpacerProps {
     verticalAlign?: React.CSSProperties['verticalAlign'];
 }
 
-export class MjmlSpacer extends React.Component<MjmlSpacerProps & BorderProps & PaddingProps & ClassNameProps> { }
+export class MjmlSpacer extends React.Component<MjmlSpacerProps & BorderProps & PaddingProps & ClassNameProps> {}
 
 // mj-table
 export interface MjmlTableProps {
@@ -379,7 +414,7 @@ export interface MjmlTableProps {
     tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit';
 }
 
-export class MjmlTable extends React.Component<MjmlTableProps & RequiredChildrenProps & PaddingProps> { }
+export class MjmlTable extends React.Component<MjmlTableProps & RequiredChildrenProps & PaddingProps> {}
 
 // mj-text
 export interface MjmlTextProps {
@@ -397,7 +432,7 @@ export interface MjmlTextProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
 }
 
-export class MjmlText extends React.Component<MjmlTextProps & RequiredChildrenProps & PaddingProps & ClassNameProps> { }
+export class MjmlText extends React.Component<MjmlTextProps & RequiredChildrenProps & PaddingProps & ClassNameProps> {}
 
 // mj-wrapper
 export interface MjmlWrapperProps {
@@ -410,4 +445,6 @@ export interface MjmlWrapperProps {
     textAlign?: React.CSSProperties['textAlign'];
 }
 
-export class MjmlWrapper extends React.Component<MjmlWrapperProps & RequiredChildrenProps & BorderProps & PaddingProps & ClassNameProps> { }
+export class MjmlWrapper extends React.Component<
+    MjmlWrapperProps & RequiredChildrenProps & BorderProps & PaddingProps & ClassNameProps
+> {}

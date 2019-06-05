@@ -3,7 +3,6 @@
 // Definitions by: Borek Bernard <https://github.com/borekb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export = promisify;
 
 /**

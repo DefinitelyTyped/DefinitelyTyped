@@ -1,8 +1,7 @@
 // Renderers that don't support persistence
 // can re-export everything from this module.
 
-function shim(...args: any[]): any {
-}
+function shim(...args: any[]): any {}
 
 // Persistence (when unsupported)
 export const supportsPersistence = false;

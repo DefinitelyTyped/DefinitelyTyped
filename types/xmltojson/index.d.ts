@@ -3,8 +3,6 @@
 // Definitions by: Travis Crowe <https://github.com/traviscrowe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 export = xmltojson;
 
 declare namespace xmltojson {
@@ -15,19 +13,19 @@ declare namespace xmltojson {
     function stringToXml(xmlString: string): Document;
 
     interface Options {
-        mergeCDATA?: boolean,
-        grokAttr?: boolean,
-        grokText?: boolean,
-        normalize?: boolean,
-        xmlns?: boolean,
-        namespaceKey?: string,
-        textKey?: string,
-        valueKey?: string,
-        attrKey?: string,
-        cdataKey?: string,
-        attrsAsObject?: boolean,
-        stripAttrPrefix?: boolean,
-        stripElemPrefix?: boolean,
-        childrenAsArray?: boolean
+        mergeCDATA?: boolean;
+        grokAttr?: boolean;
+        grokText?: boolean;
+        normalize?: boolean;
+        xmlns?: boolean;
+        namespaceKey?: string;
+        textKey?: string;
+        valueKey?: string;
+        attrKey?: string;
+        cdataKey?: string;
+        attrsAsObject?: boolean;
+        stripAttrPrefix?: boolean;
+        stripElemPrefix?: boolean;
+        childrenAsArray?: boolean;
     }
 }

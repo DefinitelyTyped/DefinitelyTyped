@@ -3,10 +3,7 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace Slick {
-
     export interface Column<T extends SlickData> {
         header?: Header;
     }
@@ -32,7 +29,6 @@ declare namespace Slick {
     }
 
     export module Plugins {
-
         export class HeaderButtons<T extends SlickData> extends Plugin<T> {
             constructor();
             public onCommand: Event<OnCommandEventArgs<T>>;

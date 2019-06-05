@@ -29,5 +29,5 @@ declare global {
     }
 }
 
-declare function chaiAlmost(tolerance?: number): ((chai: any, utils: any) => void);
+declare function chaiAlmost(tolerance?: number): (chai: any, utils: any) => void;
 export = chaiAlmost;

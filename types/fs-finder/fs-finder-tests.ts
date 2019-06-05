@@ -1,7 +1,4 @@
-
-
 import finder = require('fs-finder');
-
 
 // static
 var a = finder.in('./*');
@@ -22,7 +19,6 @@ finder.findFile('./*', (paths: string[]) => {});
 
 var g = finder.findDirectory('./*');
 finder.findDirectory('./*', (paths: string[]) => {});
-
 
 // instance
 var instance = finder.in('./any*');
@@ -49,7 +45,6 @@ paths = instance.findDirectories();
 paths = instance.findFile();
 paths = instance.findDirectory();
 
-
 // Base
 instance = instance.recursively();
 instance = instance.recursively(false);
@@ -63,7 +58,7 @@ instance = instance.lookUp(false);
 instance = instance.findFirst();
 instance = instance.findFirst(true);
 instance = instance.filter((path: string) => {
-	return false;
+    return false;
 });
 
 paths = instance.getPathsSync('all', './*', './dir');

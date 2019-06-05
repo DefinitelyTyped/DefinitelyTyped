@@ -10,9 +10,14 @@
 export as namespace ReactDOM;
 
 import {
-    ReactInstance, Component, ComponentState,
-    ReactElement, SFCElement, CElement,
-    DOMAttributes, DOMElement
+    ReactInstance,
+    Component,
+    ComponentState,
+    ReactElement,
+    SFCElement,
+    CElement,
+    DOMAttributes,
+    DOMElement,
 } from 'react';
 
 export function findDOMNode<E extends Element>(instance: ReactInstance | null | undefined): E;
@@ -23,11 +28,7 @@ export function render<P extends DOMAttributes<T>, T extends Element>(
     container: Element | null,
     callback?: (element: T) => any
 ): T;
-export function render<P>(
-    element: SFCElement<P>,
-    container: Element | null,
-    callback?: () => any
-): void;
+export function render<P>(element: SFCElement<P>, container: Element | null, callback?: () => any): void;
 export function render<P, T extends Component<P, ComponentState>>(
     element: CElement<P, T>,
     container: Element | null,
@@ -57,14 +58,17 @@ export function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, 
     parentComponent: Component<any>,
     element: DOMElement<P, T>,
     container: Element,
-    callback?: (element: T) => any): T;
+    callback?: (element: T) => any
+): T;
 export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
     parentComponent: Component<any>,
     element: CElement<P, T>,
     container: Element,
-    callback?: (component: T) => any): T;
+    callback?: (component: T) => any
+): T;
 export function unstable_renderSubtreeIntoContainer<P>(
     parentComponent: Component<any>,
     element: ReactElement<P>,
     container: Element,
-    callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+    callback?: (component?: Component<P, ComponentState> | Element) => any
+): Component<P, ComponentState> | Element | void;

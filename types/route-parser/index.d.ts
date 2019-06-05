@@ -24,7 +24,7 @@ declare class Route<TParams extends {} = { [i: string]: any }> {
      * var route = new Route('/:one/:two')
      * route.match('/foo/bar/') // -> {one: 'foo', two: 'bar'}
      */
-    match(pathname: string): {[k in keyof TParams]: string} | false;
+    match(pathname: string): { [k in keyof TParams]: string } | false;
 
     /**
      * Reverse a route specification to a path, returning false if it can't be

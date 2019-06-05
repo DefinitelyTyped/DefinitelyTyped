@@ -33,9 +33,13 @@ export interface TaskStatusAware<Result = any, Args extends any[] = any[]> exten
     readonly result?: Result;
     readonly error?: TaskError;
 
-    match<PendingType, RejectedType, ResolvedType>(props: TaskMatchProps<PendingType, RejectedType, ResolvedType, Args, Result>): PendingType | RejectedType | ResolvedType;
+    match<PendingType, RejectedType, ResolvedType>(
+        props: TaskMatchProps<PendingType, RejectedType, ResolvedType, Args, Result>
+    ): PendingType | RejectedType | ResolvedType;
 
-    wrap<R, A extends any[]>(func: (inner: TaskStatusAware<Result, Args>) => (...args: A) => Promise<R>): TaskStatusAware<R, A>;
+    wrap<R, A extends any[]>(
+        func: (inner: TaskStatusAware<Result, Args>) => (...args: A) => Promise<R>
+    ): TaskStatusAware<R, A>;
 
     setState(props: TaskOptions<Result>): void;
 
@@ -43,7 +47,10 @@ export interface TaskStatusAware<Result = any, Args extends any[] = any[]> exten
 }
 
 export interface TaskCreator<K extends keyof TaskOptions<any>> extends MethodDecorator, PropertyDecorator {
-    <R, A extends any[]>(func: TaskFunc<R, A>, options?: Pick<TaskOptions<WithoutPromise<R>>, K>): TaskStatusAware<WithoutPromise<R>, A>;
+    <R, A extends any[]>(func: TaskFunc<R, A>, options?: Pick<TaskOptions<WithoutPromise<R>>, K>): TaskStatusAware<
+        WithoutPromise<R>,
+        A
+    >;
 
     (options: Pick<TaskOptions<WithoutPromise<any>>, K>): PropertyDecorator;
     (options: Pick<TaskOptions<WithoutPromise<any>>, K>): MethodDecorator;

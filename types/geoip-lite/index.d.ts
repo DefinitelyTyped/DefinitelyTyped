@@ -3,7 +3,6 @@
 // Definitions by: Yuce Tekol <http://yuce.me/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace mod {
     export interface Lookup {
         range: Array<number>; // range start, end

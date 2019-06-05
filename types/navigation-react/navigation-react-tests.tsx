@@ -4,7 +4,7 @@ import * as React from 'react';
 
 const stateNavigator = new StateNavigator([
     { key: 'people', route: 'people/{page}' },
-    { key: 'person', route: 'person/{id}', trackCrumbTrail: true }
+    { key: 'person', route: 'person/{id}', trackCrumbTrail: true },
 ]);
 
 // Refresh Link
@@ -20,10 +20,11 @@ RefreshLinkTest = () => {
             disableActive={true}
             lazy={false}
             historyAction="replace"
-            navigating= {(e: MouseEvent, domId: string, link: string) => true}
+            navigating={(e: MouseEvent, domId: string, link: string) => true}
             stateNavigator={stateNavigator}
             target="_blank"
-            aria-label="Go to the second page of people">
+            aria-label="Go to the second page of people"
+        >
             People
         </RefreshLink>
     );
@@ -43,10 +44,11 @@ NavigationLinkTest = () => {
             disableActive={false}
             lazy={false}
             historyAction="add"
-            navigating= {(e: MouseEvent, domId: string, link: string) => true}
+            navigating={(e: MouseEvent, domId: string, link: string) => true}
             stateNavigator={stateNavigator}
             target="_blank"
-            aria-label="View the person's details">
+            aria-label="View the person's details"
+        >
             Person
         </NavigationLink>
     );
@@ -61,10 +63,11 @@ NavigationBackLinkTest = () => {
             distance={1}
             lazy={false}
             historyAction="none"
-            navigating= {(e: MouseEvent, domId: string, link: string) => true}
+            navigating={(e: MouseEvent, domId: string, link: string) => true}
             stateNavigator={stateNavigator}
             target="_blank"
-            aria-label="Go back to the list of people">
+            aria-label="Go back to the list of people"
+        >
             People
         </NavigationBackLink>
     );

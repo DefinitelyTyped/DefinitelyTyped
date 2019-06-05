@@ -32,14 +32,16 @@ declare namespace ReactIntl {
         withRef?: boolean;
     }
 
-    function injectIntl<P>(component: React.ComponentType<P & InjectedIntlProps>, options?: InjectIntlConfig):
-        React.ComponentClass<Pick<P, Exclude<keyof P, keyof InjectedIntlProps>>> & { WrappedComponent: React.ComponentType<P & InjectedIntlProps> };
+    function injectIntl<P>(
+        component: React.ComponentType<P & InjectedIntlProps>,
+        options?: InjectIntlConfig
+    ): React.ComponentClass<Pick<P, Exclude<keyof P, keyof InjectedIntlProps>>> & {
+        WrappedComponent: React.ComponentType<P & InjectedIntlProps>;
+    };
 
     function addLocaleData(data: Locale[] | Locale): void;
 
-    type Messages<Names extends keyof any = string> = {
-        [key in Names]: FormattedMessage.MessageDescriptor;
-    };
+    type Messages<Names extends keyof any = string> = { [key in Names]: FormattedMessage.MessageDescriptor };
 
     function defineMessages<Names extends keyof any>(messages: Messages<Names>): Messages<Names>;
 
@@ -74,8 +76,14 @@ declare namespace ReactIntl {
         formatRelative(value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }): string;
         formatNumber(value: number, options?: FormattedNumber.PropsBase): string;
         formatPlural(value: number, options?: FormattedPlural.Base): keyof FormattedPlural.PropsBase;
-        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
-        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: MessageValue}): string;
+        formatMessage(
+            messageDescriptor: FormattedMessage.MessageDescriptor,
+            values?: { [key: string]: MessageValue }
+        ): string;
+        formatHTMLMessage(
+            messageDescriptor: FormattedMessage.MessageDescriptor,
+            values?: { [key: string]: MessageValue }
+        ): string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };
@@ -104,7 +112,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class FormattedDate extends React.Component<FormattedDate.Props> { }
+    class FormattedDate extends React.Component<FormattedDate.Props> {}
 
     namespace FormattedTime {
         type PropsBase = IntlComponent.DateTimeFormatProps;
@@ -114,18 +122,18 @@ declare namespace ReactIntl {
             children?: (formattedTime: string) => React.ReactNode;
         }
     }
-    class FormattedTime extends React.Component<FormattedTime.Props> { }
+    class FormattedTime extends React.Component<FormattedTime.Props> {}
 
     namespace FormattedRelative {
         interface PropsBase {
             /*
              * one of "second", "minute", "hour", "day", "month" or "year"
              */
-            units?: "second" | "minute" | "hour" | "day" | "month" | "year";
+            units?: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year';
             /*
              * one of "best fit" (default) | "numeric"
              */
-            style?: "best fit" | "numeric";
+            style?: 'best fit' | 'numeric';
             format?: string;
             updateInterval?: number;
             initialNow?: any;
@@ -137,7 +145,7 @@ declare namespace ReactIntl {
         }
     }
 
-    class FormattedRelative extends React.Component<FormattedRelative.Props> { }
+    class FormattedRelative extends React.Component<FormattedRelative.Props> {}
 
     namespace FormattedMessage {
         interface MessageDescriptor {
@@ -147,14 +155,14 @@ declare namespace ReactIntl {
         }
 
         interface Props extends MessageDescriptor {
-            values?: {[key: string]: MessageValue | JSX.Element};
+            values?: { [key: string]: MessageValue | JSX.Element };
             tagName?: React.ReactType;
             children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }
-    class FormattedMessage extends React.Component<FormattedMessage.Props> { }
+    class FormattedMessage extends React.Component<FormattedMessage.Props> {}
 
-    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props> { }
+    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props> {}
 
     namespace FormattedNumber {
         interface PropsBase extends Intl.NumberFormatOptions {
@@ -166,14 +174,14 @@ declare namespace ReactIntl {
             children?: (formattedNumber: string) => React.ReactNode;
         }
     }
-    class FormattedNumber extends React.Component<FormattedNumber.Props> { }
+    class FormattedNumber extends React.Component<FormattedNumber.Props> {}
 
     namespace FormattedPlural {
         interface Base {
             /*
              * one of "cardinal" (default) | "ordinal"
              */
-            style?: "cardinal" | "ordinal";
+            style?: 'cardinal' | 'ordinal';
         }
 
         interface PropsBase extends Base {
@@ -190,7 +198,7 @@ declare namespace ReactIntl {
             children?: (formattedPlural: React.ReactNode) => React.ReactNode;
         }
     }
-    class FormattedPlural extends React.Component<FormattedPlural.Props> { }
+    class FormattedPlural extends React.Component<FormattedPlural.Props> {}
 
     namespace IntlProvider {
         interface Props {
@@ -213,1171 +221,1171 @@ declare namespace ReactIntl {
     }
 }
 
-declare module "react-intl" {
+declare module 'react-intl' {
     export = ReactIntl;
 }
 
-declare module "react-intl/locale-data/af" {
+declare module 'react-intl/locale-data/af' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/agq" {
+declare module 'react-intl/locale-data/agq' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ak" {
+declare module 'react-intl/locale-data/ak' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/am" {
+declare module 'react-intl/locale-data/am' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ar" {
+declare module 'react-intl/locale-data/ar' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/as" {
+declare module 'react-intl/locale-data/as' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/asa" {
+declare module 'react-intl/locale-data/asa' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ast" {
+declare module 'react-intl/locale-data/ast' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/az" {
+declare module 'react-intl/locale-data/az' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bas" {
+declare module 'react-intl/locale-data/bas' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/be" {
+declare module 'react-intl/locale-data/be' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bem" {
+declare module 'react-intl/locale-data/bem' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bez" {
+declare module 'react-intl/locale-data/bez' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bg" {
+declare module 'react-intl/locale-data/bg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bh" {
+declare module 'react-intl/locale-data/bh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bm" {
+declare module 'react-intl/locale-data/bm' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bn" {
+declare module 'react-intl/locale-data/bn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bo" {
+declare module 'react-intl/locale-data/bo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/br" {
+declare module 'react-intl/locale-data/br' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/brx" {
+declare module 'react-intl/locale-data/brx' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/bs" {
+declare module 'react-intl/locale-data/bs' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ca" {
+declare module 'react-intl/locale-data/ca' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ce" {
+declare module 'react-intl/locale-data/ce' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/cgg" {
+declare module 'react-intl/locale-data/cgg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/chr" {
+declare module 'react-intl/locale-data/chr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ckb" {
+declare module 'react-intl/locale-data/ckb' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/cs" {
+declare module 'react-intl/locale-data/cs' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/cu" {
+declare module 'react-intl/locale-data/cu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/cy" {
+declare module 'react-intl/locale-data/cy' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/da" {
+declare module 'react-intl/locale-data/da' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dav" {
+declare module 'react-intl/locale-data/dav' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/de" {
+declare module 'react-intl/locale-data/de' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dje" {
+declare module 'react-intl/locale-data/dje' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dsb" {
+declare module 'react-intl/locale-data/dsb' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dua" {
+declare module 'react-intl/locale-data/dua' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dv" {
+declare module 'react-intl/locale-data/dv' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dyo" {
+declare module 'react-intl/locale-data/dyo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/dz" {
+declare module 'react-intl/locale-data/dz' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ebu" {
+declare module 'react-intl/locale-data/ebu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ee" {
+declare module 'react-intl/locale-data/ee' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/el" {
+declare module 'react-intl/locale-data/el' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/en" {
+declare module 'react-intl/locale-data/en' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/eo" {
+declare module 'react-intl/locale-data/eo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/es" {
+declare module 'react-intl/locale-data/es' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/et" {
+declare module 'react-intl/locale-data/et' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/eu" {
+declare module 'react-intl/locale-data/eu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ewo" {
+declare module 'react-intl/locale-data/ewo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fa" {
+declare module 'react-intl/locale-data/fa' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ff" {
+declare module 'react-intl/locale-data/ff' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fi" {
+declare module 'react-intl/locale-data/fi' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fil" {
+declare module 'react-intl/locale-data/fil' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fo" {
+declare module 'react-intl/locale-data/fo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fr" {
+declare module 'react-intl/locale-data/fr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fur" {
+declare module 'react-intl/locale-data/fur' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/fy" {
+declare module 'react-intl/locale-data/fy' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ga" {
+declare module 'react-intl/locale-data/ga' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/gd" {
+declare module 'react-intl/locale-data/gd' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/gl" {
+declare module 'react-intl/locale-data/gl' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/gsw" {
+declare module 'react-intl/locale-data/gsw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/gu" {
+declare module 'react-intl/locale-data/gu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/guw" {
+declare module 'react-intl/locale-data/guw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/guz" {
+declare module 'react-intl/locale-data/guz' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/gv" {
+declare module 'react-intl/locale-data/gv' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ha" {
+declare module 'react-intl/locale-data/ha' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/haw" {
+declare module 'react-intl/locale-data/haw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/he" {
+declare module 'react-intl/locale-data/he' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/hi" {
+declare module 'react-intl/locale-data/hi' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/hr" {
+declare module 'react-intl/locale-data/hr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/hsb" {
+declare module 'react-intl/locale-data/hsb' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/hu" {
+declare module 'react-intl/locale-data/hu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/hy" {
+declare module 'react-intl/locale-data/hy' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/id" {
+declare module 'react-intl/locale-data/id' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ig" {
+declare module 'react-intl/locale-data/ig' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ii" {
+declare module 'react-intl/locale-data/ii' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/in" {
+declare module 'react-intl/locale-data/in' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/is" {
+declare module 'react-intl/locale-data/is' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/it" {
+declare module 'react-intl/locale-data/it' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/iu" {
+declare module 'react-intl/locale-data/iu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/iw" {
+declare module 'react-intl/locale-data/iw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ja" {
+declare module 'react-intl/locale-data/ja' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/jbo" {
+declare module 'react-intl/locale-data/jbo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/jgo" {
+declare module 'react-intl/locale-data/jgo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ji" {
+declare module 'react-intl/locale-data/ji' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/jmc" {
+declare module 'react-intl/locale-data/jmc' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/jv" {
+declare module 'react-intl/locale-data/jv' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/jw" {
+declare module 'react-intl/locale-data/jw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ka" {
+declare module 'react-intl/locale-data/ka' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kab" {
+declare module 'react-intl/locale-data/kab' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kaj" {
+declare module 'react-intl/locale-data/kaj' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kam" {
+declare module 'react-intl/locale-data/kam' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kcg" {
+declare module 'react-intl/locale-data/kcg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kde" {
+declare module 'react-intl/locale-data/kde' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kea" {
+declare module 'react-intl/locale-data/kea' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/khq" {
+declare module 'react-intl/locale-data/khq' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ki" {
+declare module 'react-intl/locale-data/ki' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kk" {
+declare module 'react-intl/locale-data/kk' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kkj" {
+declare module 'react-intl/locale-data/kkj' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kl" {
+declare module 'react-intl/locale-data/kl' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kln" {
+declare module 'react-intl/locale-data/kln' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/km" {
+declare module 'react-intl/locale-data/km' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kn" {
+declare module 'react-intl/locale-data/kn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ko" {
+declare module 'react-intl/locale-data/ko' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kok" {
+declare module 'react-intl/locale-data/kok' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ks" {
+declare module 'react-intl/locale-data/ks' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ksb" {
+declare module 'react-intl/locale-data/ksb' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ksf" {
+declare module 'react-intl/locale-data/ksf' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ksh" {
+declare module 'react-intl/locale-data/ksh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ku" {
+declare module 'react-intl/locale-data/ku' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/kw" {
+declare module 'react-intl/locale-data/kw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ky" {
+declare module 'react-intl/locale-data/ky' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lag" {
+declare module 'react-intl/locale-data/lag' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lb" {
+declare module 'react-intl/locale-data/lb' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lg" {
+declare module 'react-intl/locale-data/lg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lkt" {
+declare module 'react-intl/locale-data/lkt' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ln" {
+declare module 'react-intl/locale-data/ln' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lo" {
+declare module 'react-intl/locale-data/lo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lrc" {
+declare module 'react-intl/locale-data/lrc' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lt" {
+declare module 'react-intl/locale-data/lt' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lu" {
+declare module 'react-intl/locale-data/lu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/luo" {
+declare module 'react-intl/locale-data/luo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/luy" {
+declare module 'react-intl/locale-data/luy' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/lv" {
+declare module 'react-intl/locale-data/lv' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mas" {
+declare module 'react-intl/locale-data/mas' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mer" {
+declare module 'react-intl/locale-data/mer' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mfe" {
+declare module 'react-intl/locale-data/mfe' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mg" {
+declare module 'react-intl/locale-data/mg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mgh" {
+declare module 'react-intl/locale-data/mgh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mgo" {
+declare module 'react-intl/locale-data/mgo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mk" {
+declare module 'react-intl/locale-data/mk' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ml" {
+declare module 'react-intl/locale-data/ml' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mn" {
+declare module 'react-intl/locale-data/mn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mo" {
+declare module 'react-intl/locale-data/mo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mr" {
+declare module 'react-intl/locale-data/mr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ms" {
+declare module 'react-intl/locale-data/ms' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mt" {
+declare module 'react-intl/locale-data/mt' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mua" {
+declare module 'react-intl/locale-data/mua' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/my" {
+declare module 'react-intl/locale-data/my' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/mzn" {
+declare module 'react-intl/locale-data/mzn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nah" {
+declare module 'react-intl/locale-data/nah' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/naq" {
+declare module 'react-intl/locale-data/naq' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nb" {
+declare module 'react-intl/locale-data/nb' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nd" {
+declare module 'react-intl/locale-data/nd' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ne" {
+declare module 'react-intl/locale-data/ne' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nl" {
+declare module 'react-intl/locale-data/nl' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nmg" {
+declare module 'react-intl/locale-data/nmg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nn" {
+declare module 'react-intl/locale-data/nn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nnh" {
+declare module 'react-intl/locale-data/nnh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/no" {
+declare module 'react-intl/locale-data/no' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nqo" {
+declare module 'react-intl/locale-data/nqo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nr" {
+declare module 'react-intl/locale-data/nr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nso" {
+declare module 'react-intl/locale-data/nso' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nus" {
+declare module 'react-intl/locale-data/nus' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ny" {
+declare module 'react-intl/locale-data/ny' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/nyn" {
+declare module 'react-intl/locale-data/nyn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/om" {
+declare module 'react-intl/locale-data/om' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/or" {
+declare module 'react-intl/locale-data/or' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/os" {
+declare module 'react-intl/locale-data/os' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/pa" {
+declare module 'react-intl/locale-data/pa' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/pap" {
+declare module 'react-intl/locale-data/pap' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/pl" {
+declare module 'react-intl/locale-data/pl' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/prg" {
+declare module 'react-intl/locale-data/prg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ps" {
+declare module 'react-intl/locale-data/ps' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/pt" {
+declare module 'react-intl/locale-data/pt' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/qu" {
+declare module 'react-intl/locale-data/qu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/rm" {
+declare module 'react-intl/locale-data/rm' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/rn" {
+declare module 'react-intl/locale-data/rn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ro" {
+declare module 'react-intl/locale-data/ro' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/rof" {
+declare module 'react-intl/locale-data/rof' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ru" {
+declare module 'react-intl/locale-data/ru' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/rw" {
+declare module 'react-intl/locale-data/rw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/rwk" {
+declare module 'react-intl/locale-data/rwk' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sah" {
+declare module 'react-intl/locale-data/sah' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/saq" {
+declare module 'react-intl/locale-data/saq' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sbp" {
+declare module 'react-intl/locale-data/sbp' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sdh" {
+declare module 'react-intl/locale-data/sdh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/se" {
+declare module 'react-intl/locale-data/se' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/seh" {
+declare module 'react-intl/locale-data/seh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ses" {
+declare module 'react-intl/locale-data/ses' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sg" {
+declare module 'react-intl/locale-data/sg' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sh" {
+declare module 'react-intl/locale-data/sh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/shi" {
+declare module 'react-intl/locale-data/shi' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/si" {
+declare module 'react-intl/locale-data/si' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sk" {
+declare module 'react-intl/locale-data/sk' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sl" {
+declare module 'react-intl/locale-data/sl' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sma" {
+declare module 'react-intl/locale-data/sma' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/smi" {
+declare module 'react-intl/locale-data/smi' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/smj" {
+declare module 'react-intl/locale-data/smj' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/smn" {
+declare module 'react-intl/locale-data/smn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sms" {
+declare module 'react-intl/locale-data/sms' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sn" {
+declare module 'react-intl/locale-data/sn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/so" {
+declare module 'react-intl/locale-data/so' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sq" {
+declare module 'react-intl/locale-data/sq' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sr" {
+declare module 'react-intl/locale-data/sr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ss" {
+declare module 'react-intl/locale-data/ss' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ssy" {
+declare module 'react-intl/locale-data/ssy' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/st" {
+declare module 'react-intl/locale-data/st' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sv" {
+declare module 'react-intl/locale-data/sv' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/sw" {
+declare module 'react-intl/locale-data/sw' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/syr" {
+declare module 'react-intl/locale-data/syr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ta" {
+declare module 'react-intl/locale-data/ta' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/te" {
+declare module 'react-intl/locale-data/te' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/teo" {
+declare module 'react-intl/locale-data/teo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/th" {
+declare module 'react-intl/locale-data/th' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ti" {
+declare module 'react-intl/locale-data/ti' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/tig" {
+declare module 'react-intl/locale-data/tig' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/tk" {
+declare module 'react-intl/locale-data/tk' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/tl" {
+declare module 'react-intl/locale-data/tl' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/tn" {
+declare module 'react-intl/locale-data/tn' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/to" {
+declare module 'react-intl/locale-data/to' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/tr" {
+declare module 'react-intl/locale-data/tr' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ts" {
+declare module 'react-intl/locale-data/ts' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/twq" {
+declare module 'react-intl/locale-data/twq' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/tzm" {
+declare module 'react-intl/locale-data/tzm' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ug" {
+declare module 'react-intl/locale-data/ug' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/uk" {
+declare module 'react-intl/locale-data/uk' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ur" {
+declare module 'react-intl/locale-data/ur' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/uz" {
+declare module 'react-intl/locale-data/uz' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/vai" {
+declare module 'react-intl/locale-data/vai' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/ve" {
+declare module 'react-intl/locale-data/ve' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/vi" {
+declare module 'react-intl/locale-data/vi' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/vo" {
+declare module 'react-intl/locale-data/vo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/vun" {
+declare module 'react-intl/locale-data/vun' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/wa" {
+declare module 'react-intl/locale-data/wa' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/wae" {
+declare module 'react-intl/locale-data/wae' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/wo" {
+declare module 'react-intl/locale-data/wo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/xh" {
+declare module 'react-intl/locale-data/xh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/xog" {
+declare module 'react-intl/locale-data/xog' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/yav" {
+declare module 'react-intl/locale-data/yav' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/yi" {
+declare module 'react-intl/locale-data/yi' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/yo" {
+declare module 'react-intl/locale-data/yo' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/zgh" {
+declare module 'react-intl/locale-data/zgh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/zh" {
+declare module 'react-intl/locale-data/zh' {
     const data: ReactIntl.LocaleData;
     export = data;
 }
 
-declare module "react-intl/locale-data/zu" {
+declare module 'react-intl/locale-data/zu' {
     const data: ReactIntl.LocaleData;
     export = data;
 }

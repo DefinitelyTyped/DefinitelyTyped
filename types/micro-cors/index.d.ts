@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { RequestHandler } from "micro";
+import { RequestHandler } from 'micro';
 
 interface Options {
     maxAge?: string;

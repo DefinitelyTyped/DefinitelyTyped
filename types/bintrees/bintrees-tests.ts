@@ -18,7 +18,7 @@ describe('bintrees', () => {
     });
 
     it('builds a tree of strings', () => {
-        let treeB = new BinTree((a:string, b:string) => a.length - b.length);
+        let treeB = new BinTree((a: string, b: string) => a.length - b.length);
 
         treeB.insert('hi');
         treeB.insert('there');
@@ -31,9 +31,8 @@ describe('bintrees', () => {
     });
 
     it('maintains a tree of objects', () => {
-
         interface C {
-            id: number
+            id: number;
         }
 
         let treeC = new BinTree<C>((a: C, b: C) => a.id - b.id);
@@ -50,4 +49,3 @@ describe('bintrees', () => {
         assert.deepEqual(ids, [100, 105, 110]);
     });
 });
-

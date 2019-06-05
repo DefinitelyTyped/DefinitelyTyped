@@ -1,5 +1,5 @@
-import English = require("./English");
-import Language = require("./Language");
+import English = require('./English');
+import Language = require('./Language');
 
 declare namespace Russian {
     interface Vocabulary extends English.Vocabulary {}

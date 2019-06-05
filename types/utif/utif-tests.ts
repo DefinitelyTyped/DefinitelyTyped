@@ -1,4 +1,4 @@
-import * as UTIF from "utif";
+import * as UTIF from 'utif';
 
 // $ExpectType IFD[]
 const IFDs = UTIF.decode(new ArrayBuffer(64));

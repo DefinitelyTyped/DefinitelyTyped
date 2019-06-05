@@ -1,4 +1,4 @@
-import { parse as parseUriTemplate, UriTemplate, UriTemplateError } from "uritemplate";
+import { parse as parseUriTemplate, UriTemplate, UriTemplateError } from 'uritemplate';
 
 function test_uritemplate() {
     // syntax check: UriTemplate.parse
@@ -6,9 +6,9 @@ function test_uritemplate() {
 
     // syntax check: template.expand
     const url: string = template.expand({
-        categoryId : 'shoes',
+        categoryId: 'shoes',
         sort: 'price',
-        pageNumber: 8
+        pageNumber: 8,
     });
 
     // import module check
@@ -23,6 +23,6 @@ function test_uritemplate() {
     const error: UriTemplateError = new UriTemplateError({
         expressionText: 'error expression',
         message: 'error message',
-        position: 5
+        position: 5,
     });
 }

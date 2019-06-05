@@ -108,8 +108,14 @@ declare class Workbox extends EventTargetShim {
      */
     messageSW(): Promise<object>;
 
-    addEventListener<K extends keyof WokerboxEventMap>(type: K, listener: (this: Workbox, ev: WokerboxEventMap[K]) => void): void;
-    removeEventListener<K extends keyof WokerboxEventMap>(type: K, listener: (this: Workbox, ev: WokerboxEventMap[K]) => void): void;
+    addEventListener<K extends keyof WokerboxEventMap>(
+        type: K,
+        listener: (this: Workbox, ev: WokerboxEventMap[K]) => void
+    ): void;
+    removeEventListener<K extends keyof WokerboxEventMap>(
+        type: K,
+        listener: (this: Workbox, ev: WokerboxEventMap[K]) => void
+    ): void;
 }
 
 export { Workbox };

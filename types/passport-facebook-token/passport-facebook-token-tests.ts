@@ -5,22 +5,26 @@ import PassportFacebookToken = require('passport-facebook-token');
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
         callback(null, { username: 'ray' });
-    }
+    },
 };
 
 const options: PassportFacebookToken.StrategyOptions = {
     clientID: 'TEST_CLIENT_ID',
-    clientSecret: 'TEST_CLIENT_SECRET'
+    clientSecret: 'TEST_CLIENT_SECRET',
 };
 
 const optionsWithRequest: PassportFacebookToken.StrategyOptionsWithRequest = {
     clientID: 'TEST_CLIENT_ID',
     clientSecret: 'TEST_CLIENT_SECRET',
-    passReqToCallback: true
+    passReqToCallback: true,
 };
 
-const verify: PassportFacebookToken.VerifyFunction =
-    (accessToken: string, refreshToken: string, profile: PassportFacebookToken.Profile, done: (err: any, user?: any, info?: any) => void) => {
+const verify: PassportFacebookToken.VerifyFunction = (
+    accessToken: string,
+    refreshToken: string,
+    profile: PassportFacebookToken.Profile,
+    done: (err: any, user?: any, info?: any) => void
+) => {
     User.findOrCreate(profile.id, profile.provider, (err, user) => {
         if (err) {
             done(err);
@@ -29,8 +33,13 @@ const verify: PassportFacebookToken.VerifyFunction =
     });
 };
 
-const verifyWithRequest: PassportFacebookToken.VerifyFunctionWithRequest =
-    (req: express.Request, accessToken: string, refreshToken: string, profile: PassportFacebookToken.Profile, done: (err: any, user?: any, info?: any) => void) => {
+const verifyWithRequest: PassportFacebookToken.VerifyFunctionWithRequest = (
+    req: express.Request,
+    accessToken: string,
+    refreshToken: string,
+    profile: PassportFacebookToken.Profile,
+    done: (err: any, user?: any, info?: any) => void
+) => {
     User.findOrCreate(profile.id, profile.provider, (err, user) => {
         if (err) {
             done(err);

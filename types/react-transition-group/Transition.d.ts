@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from 'react';
 
 export type EndHandler = (node: HTMLElement, done: () => void) => void;
 export type EnterHandler = (node: HTMLElement, isAppearing: boolean) => void;
@@ -31,12 +31,7 @@ export interface TransitionActions {
     exit?: boolean;
 }
 
-export type TransitionStatus =
-    typeof ENTERING |
-    typeof ENTERED |
-    typeof EXITING |
-    typeof EXITED |
-    typeof UNMOUNTED;
+export type TransitionStatus = typeof ENTERING | typeof ENTERED | typeof EXITING | typeof EXITED | typeof UNMOUNTED;
 export type TransitionChildren = React.ReactNode | ((status: TransitionStatus) => React.ReactNode);
 export interface TransitionProps extends TransitionActions {
     /**
@@ -79,7 +74,7 @@ export interface TransitionProps extends TransitionActions {
      * - enter defaults to `0`
      * - exit defaults to `0`
      */
-    timeout: number | { enter?: number, exit?: number };
+    timeout: number | { enter?: number; exit?: number };
 
     /**
      * Add a custom transition end trigger. Called with the transitioning DOM
@@ -138,7 +133,7 @@ export interface TransitionProps extends TransitionActions {
      * ```
      */
     children?: TransitionChildren;
-    [ prop: string ]: any;
+    [prop: string]: any;
 }
 
 /**

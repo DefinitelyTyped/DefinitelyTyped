@@ -32,7 +32,7 @@ const styleReference = styles.red;
 
 // Create a blue block
 const BlueBlock = (props: ViewProps) => {
-    const { name = "some blue block", style, ...otherProps } = props;
+    const { name = 'some blue block', style, ...otherProps } = props;
 
     return (
         <View
@@ -47,9 +47,9 @@ const BlueBlock = (props: ViewProps) => {
             {...otherProps}
         >
             <Text
-            style={{
-                color: '#fff',
-            }}
+                style={{
+                    color: '#fff',
+                }}
             >
                 Blue
             </Text>

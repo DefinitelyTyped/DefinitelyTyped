@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import "node";
+import * as React from 'react';
+import 'node';
 
 export type ReactComponent<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
 export type ExtractProps<TComponent> = TComponent extends ReactComponent<infer TProps> ? TProps : {};
@@ -22,4 +22,6 @@ export interface AppContainerProps {
 }
 export class AppContainer extends React.Component<AppContainerProps, React.ComponentState> {}
 
-export function hot(sourceModule: NodeModule): <TComponent>(component: TComponent) => ReactComponent<ExtractProps<TComponent>>;
+export function hot(
+    sourceModule: NodeModule
+): <TComponent>(component: TComponent) => ReactComponent<ExtractProps<TComponent>>;

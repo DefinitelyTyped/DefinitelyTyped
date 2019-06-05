@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type InputType = "normal" | "valid" | "invalid" | "warning";
+export type InputType = 'normal' | 'valid' | 'invalid' | 'warning';
 
 export type FormInputProps = {
     className?: string;

@@ -11,5 +11,5 @@ declare namespace Table {
         bsClass?: string;
     }
 }
-declare class Table extends React.Component<Table.TableProps> { }
+declare class Table extends React.Component<Table.TableProps> {}
 export = Table;

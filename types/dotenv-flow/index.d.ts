@@ -6,14 +6,14 @@
 /// <reference types="node" />
 
 export interface DotenvParseOptions {
-  /**
-   * You may turn on logging to help debug why certain keys or values are not being set as you expect.
-   */
-  debug?: boolean;
+    /**
+     * You may turn on logging to help debug why certain keys or values are not being set as you expect.
+     */
+    debug?: boolean;
 }
 
 export interface DotenvParseOutput {
-  [name: string]: string;
+    [name: string]: string;
 }
 
 /**
@@ -23,31 +23,28 @@ export interface DotenvParseOutput {
  * @param options - additional options
  * @returns an object with keys and values based on `src`
  */
-export function parse(
-  src: string | Buffer,
-  options?: DotenvParseOptions
-): DotenvParseOutput;
+export function parse(src: string | Buffer, options?: DotenvParseOptions): DotenvParseOutput;
 
 export interface DotenvConfigOptions {
-  /**
-   * You may specify a custom path if your file containing environment variables is located elsewhere.
-   */
-  cwd?: string;
+    /**
+     * You may specify a custom path if your file containing environment variables is located elsewhere.
+     */
+    cwd?: string;
 
-  /**
-   * You may specify the encoding of your file containing environment variables.
-   */
-  encoding?: string;
+    /**
+     * You may specify the encoding of your file containing environment variables.
+     */
+    encoding?: string;
 
-  /**
-   * In some cases the original "dotenv" library can be used by one of the dependent npm modules. Use to fix this.
-   */
-  purge_dotenv?: boolean;
+    /**
+     * In some cases the original "dotenv" library can be used by one of the dependent npm modules. Use to fix this.
+     */
+    purge_dotenv?: boolean;
 }
 
 export interface DotenvConfigOutput {
-  error?: Error;
-  parsed?: DotenvParseOutput;
+    error?: Error;
+    parsed?: DotenvParseOutput;
 }
 
 /**

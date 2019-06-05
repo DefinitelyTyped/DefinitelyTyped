@@ -3,14 +3,14 @@ import importedLoadJs = require('loadjs');
 const loadOptions: importedLoadJs.LoadOptions = {
     before: (path, scriptEl) => {},
     success: () => {},
-    error: (pathsNotFound) => {},
+    error: pathsNotFound => {},
     async: true,
-    numRetries: 3
+    numRetries: 3,
 };
 
 const readyOptions: importedLoadJs.ReadyOptions = {
     success: () => {},
-    error: (depsNotFound) => {},
+    error: depsNotFound => {},
 };
 
 importedLoadJs('/path/to/foo.js', () => {});

@@ -1,2 +1,2 @@
-import { minBy } from "../fp";
+import { minBy } from '../fp';
 export = minBy;

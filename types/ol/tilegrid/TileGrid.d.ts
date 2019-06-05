@@ -25,7 +25,13 @@ export default class TileGrid {
     getResolution(z: number): number;
     getResolutions(): number[];
     getTileCoordCenter(tileCoord: TileCoord): Coordinate;
-    forEachTileCoordParentTileRange<T>(tileCoord: TileCoord, callback: ((this: T, param1: number, param2: TileRange) => boolean), opt_this?: T, opt_tileRange?: TileRange, opt_extent?: Extent): boolean;
+    forEachTileCoordParentTileRange<T>(
+        tileCoord: TileCoord,
+        callback: (this: T, param1: number, param2: TileRange) => boolean,
+        opt_this?: T,
+        opt_tileRange?: TileRange,
+        opt_extent?: Extent
+    ): boolean;
     getTileCoordExtent(tileCoord: TileCoord, opt_extent?: Extent): Extent;
     getTileCoordForCoordAndResolution(coordinate: Coordinate, resolution: number, opt_tileCoord?: TileCoord): TileCoord;
     getTileCoordForCoordAndZ(coordinate: Coordinate, z: number, opt_tileCoord?: TileCoord): TileCoord;
@@ -34,6 +40,6 @@ export default class TileGrid {
     getTileRangeForExtentAndZ(extent: Extent, z: number, opt_tileRange?: TileRange): TileRange;
     getTileSize(z: number): number | Size;
     getZForResolution(resolution: number, opt_direction?: number): number;
-    forEachTileCoord(extent: Extent, zoom: number, callback: ((param0: TileCoord) => void)): void;
+    forEachTileCoord(extent: Extent, zoom: number, callback: (param0: TileCoord) => void): void;
     getTileCoordChildTileRange(tileCoord: TileCoord, opt_tileRange?: TileRange, opt_extent?: Extent): TileRange;
 }

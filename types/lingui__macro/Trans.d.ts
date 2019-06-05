@@ -10,4 +10,4 @@ export interface TransPropsWithoutI18n extends RenderProps {
     children?: ReactNode;
 }
 
-export default class Trans extends Component<TransPropsWithoutI18n> { }
+export default class Trans extends Component<TransPropsWithoutI18n> {}

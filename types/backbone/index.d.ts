@@ -18,7 +18,6 @@ export as namespace Backbone;
 import * as _ from 'underscore';
 
 declare namespace Backbone {
-
     interface AddOptions extends Silenceable {
         at?: number;
         merge?: boolean;
@@ -69,18 +68,15 @@ declare namespace Backbone {
         error?: (modelOrCollection?: any, jqxhr?: JQueryXHR, options?: any) => void;
     }
 
-    interface ModelSetOptions extends Silenceable, Validable {
-    }
+    interface ModelSetOptions extends Silenceable, Validable {}
 
-    export interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {
-    }
+    export interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {}
 
     interface ModelSaveOptions extends Silenceable, Waitable, Validable, Parseable, PersistenceOptions {
         patch?: boolean;
     }
 
-    interface ModelDestroyOptions extends Waitable, PersistenceOptions {
-    }
+    interface ModelDestroyOptions extends Waitable, PersistenceOptions {}
 
     interface CollectionFetchOptions extends PersistenceOptions, Parseable, CollectionSetOptions {
         reset?: boolean;
@@ -91,14 +87,14 @@ declare namespace Backbone {
     }
 
     interface RoutesHash {
-        [routePattern: string]: string | {(...urlParts: string[]): void};
+        [routePattern: string]: string | { (...urlParts: string[]): void };
     }
 
     /**
      * DOM events (used in the events property of a View)
      */
     interface EventsHash {
-        [selector: string]: string | {(eventObject: JQuery.TriggeredEvent): void};
+        [selector: string]: string | { (eventObject: JQuery.TriggeredEvent): void };
     }
 
     /**
@@ -112,7 +108,7 @@ declare namespace Backbone {
     }
 
     export const Events: Events;
-    interface Events extends EventsMixin { }
+    interface Events extends EventsMixin {}
 
     /**
      * Helper shorthands for classes that implement the Events interface.
@@ -201,10 +197,9 @@ declare namespace Backbone {
     }
 
     class Model extends ModelBase implements Events {
-
         /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
+         * Do not use, prefer TypeScript's extend functionality.
+         **/
         public static extend(properties: any, classProperties?: any): any;
 
         attributes: any;
@@ -214,15 +209,14 @@ declare namespace Backbone {
         collection: Collection<any>;
 
         private _changing: boolean;
-        private _previousAttributes : any;
+        private _previousAttributes: any;
         private _pending: boolean;
 
-
         /**
-        * Default attributes for the model. It can be an object hash or a method returning an object hash.
-        * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
+         * Default attributes for the model. It can be an object hash or a method returning an object hash.
+         * For assigning an object hash, do it like this: this.defaults = <any>{ attribute: value, ... };
+         * That works only if you set it in the constructor or the initialize method.
+         **/
         defaults(): ObjectHash;
         id: any;
         idAttribute: string;
@@ -250,21 +244,21 @@ declare namespace Backbone {
         fetch(options?: ModelFetchOptions): JQueryXHR;
 
         /**
-        * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
-        * @example
-        * get name(): string {
-        *    return super.get("name");
-        * }
-        **/
+         * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
+         * @example
+         * get name(): string {
+         *    return super.get("name");
+         * }
+         **/
         /*private*/ get(attributeName: string): any;
 
         /**
-        * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
-        * @example
-        * set name(value: string) {
-        *    super.set("name", value);
-        * }
-        **/
+         * For strongly-typed assignment of attributes, use the `set` method only privately in public setter properties.
+         * @example
+         * set name(value: string) {
+         *    super.set("name", value);
+         * }
+         **/
         /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
@@ -283,7 +277,7 @@ declare namespace Backbone {
         has(attribute: string): boolean;
         hasChanged(attribute?: string): boolean;
         isNew(): boolean;
-        isValid(options?:any): boolean;
+        isValid(options?: any): boolean;
         previous(attribute: string): any;
         previousAttributes(): any[];
         save(attributes?: any, options?: ModelSaveOptions): any;
@@ -310,13 +304,12 @@ declare namespace Backbone {
     }
 
     class Collection<TModel extends Model = Model> extends ModelBase implements Events {
-
         /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
+         * Do not use, prefer TypeScript's extend functionality.
+         **/
         public static extend(properties: any, classProperties?: any): any;
 
-        model: new (...args:any[]) => TModel;
+        model: new (...args: any[]) => TModel;
         models: TModel[];
         length: number;
 
@@ -336,23 +329,26 @@ declare namespace Backbone {
         /**
          * Specify a model attribute name (string) or function that will be used to sort the collection.
          */
-        comparator: string | { bivarianceHack(element: TModel): number | string }["bivarianceHack"] | { bivarianceHack(compare: TModel, to?: TModel): number }["bivarianceHack"];
+        comparator:
+            | string
+            | { bivarianceHack(element: TModel): number | string }['bivarianceHack']
+            | { bivarianceHack(compare: TModel, to?: TModel): number }['bivarianceHack'];
 
-        add(model: {}|TModel, options?: AddOptions): TModel;
-        add(models: ({}|TModel)[], options?: AddOptions): TModel[];
+        add(model: {} | TModel, options?: AddOptions): TModel;
+        add(models: ({} | TModel)[], options?: AddOptions): TModel[];
         at(index: number): TModel;
         /**
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
          **/
-        get(id: number|string|Model): TModel;
-        has(key: number|string|Model): boolean;
+        get(id: number | string | Model): TModel;
+        has(key: number | string | Model): boolean;
         clone(): this;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
         pop(options?: Silenceable): TModel;
-        remove(model: {}|TModel, options?: Silenceable): TModel;
-        remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
+        remove(model: {} | TModel, options?: Silenceable): TModel;
+        remove(models: ({} | TModel)[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
 
         /**
@@ -372,12 +368,12 @@ declare namespace Backbone {
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
-        modelId(attrs: any) : any
+        modelId(attrs: any): any;
 
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
         private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
-        private _isModel(obj: any) : obj is Model;
+        private _isModel(obj: any): obj is Model;
 
         /**
          * Return a shallow copy of this collection's models, using the same options as native Array#slice.
@@ -456,17 +452,16 @@ declare namespace Backbone {
     }
 
     class Router extends EventsMixin implements Events {
-
         /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
+         * Do not use, prefer TypeScript's extend functionality.
+         **/
         public static extend(properties: any, classProperties?: any): any;
 
         /**
-        * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
-        * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
+         * Routes hash or a method returning the routes hash that maps URLs with parameters to methods on your Router.
+         * For assigning routes as object hash, do it like this: this.routes = <any>{ "route": callback, ... };
+         * That works only if you set it in the constructor or the initialize method.
+         **/
         routes: RoutesHash | any;
 
         /**
@@ -479,11 +474,11 @@ declare namespace Backbone {
 
         constructor(options?: RouterOptions);
         initialize(options?: RouterOptions): void;
-        route(route: string|RegExp, name: string, callback?: Function): Router;
+        route(route: string | RegExp, name: string, callback?: Function): Router;
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
-        execute(callback: Function, args: any[], name: string) : void;
+        execute(callback: Function, args: any[], name: string): void;
 
         private _bindRoutes(): void;
         private _routeToRegExp(route: string): RegExp;
@@ -493,7 +488,6 @@ declare namespace Backbone {
     var history: History;
 
     class History extends EventsMixin implements Events {
-
         handlers: any[];
         interval: number;
 
@@ -504,7 +498,7 @@ declare namespace Backbone {
         decodeFragment(fragment: string): string;
         getSearch(): string;
         stop(): void;
-        route(route: string|RegExp, callback: Function): number;
+        route(route: string | RegExp, callback: Function): number;
         checkUrl(e?: any): void;
         getPath(): string;
         matchRoot(): boolean;
@@ -517,23 +511,22 @@ declare namespace Backbone {
         private _updateHash(location: Location, fragment: string, replace: boolean): void;
     }
 
-   interface ViewOptions<TModel extends Model = Model> {
-      model?: TModel;
-       // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
-      collection?: Backbone.Collection<any>; //was: Collection<TModel>;
-      el?: any;
-      events?: EventsHash;
-      id?: string;
-      className?: string;
-      tagName?: string;
-      attributes?: {[id: string]: any};
+    interface ViewOptions<TModel extends Model = Model> {
+        model?: TModel;
+        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
+        collection?: Backbone.Collection<any>; //was: Collection<TModel>;
+        el?: any;
+        events?: EventsHash;
+        id?: string;
+        className?: string;
+        tagName?: string;
+        attributes?: { [id: string]: any };
     }
 
     class View<TModel extends Model = Model> extends EventsMixin implements Events {
-
         /**
-        * Do not use, prefer TypeScript's extend functionality.
-        **/
+         * Do not use, prefer TypeScript's extend functionality.
+         **/
         public static extend(properties: any, classProperties?: any): any;
 
         /**
@@ -548,17 +541,17 @@ declare namespace Backbone {
         initialize(options?: ViewOptions<TModel>): void;
 
         /**
-        * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
-        * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
-        * That works only if you set it in the constructor or the initialize method.
-        **/
+         * Events hash or a method returning the events hash that maps events/selectors to methods on your View.
+         * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
+         * That works only if you set it in the constructor or the initialize method.
+         **/
         events(): EventsHash;
 
         $(selector: string): JQuery;
         model: TModel;
         collection: Collection<TModel>;
         //template: (json, options?) => string;
-        setElement(element: HTMLElement|JQuery, delegate?: boolean): View<TModel>;
+        setElement(element: HTMLElement | JQuery, delegate?: boolean): View<TModel>;
         id: string;
         cid: string;
         className: string;

@@ -139,8 +139,8 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
             Replace.replace({
                 filter: (stack: FilterBase.Stack, token: FilterBase.Token) => stack.length > 2,
                 replacement: (stack: FilterBase.Stack, token: FilterBase.Token) => [
-                    { name: token.name === 'startArray' ? 'trueValue' : 'falseValue' }
-                ]
+                    { name: token.name === 'startArray' ? 'trueValue' : 'falseValue' },
+                ],
             })
         );
 
@@ -210,7 +210,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
+            },
         })
     );
     parser.pipe(
@@ -221,7 +221,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
+            },
         })
     );
     parser.pipe(StreamArray.streamArray());
@@ -250,7 +250,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
+            },
         })
     );
     parser.pipe(
@@ -261,7 +261,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
+            },
         })
     );
     parser.pipe(StreamObject.streamObject());
@@ -290,7 +290,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
+            },
         })
     );
     parser.pipe(
@@ -301,7 +301,7 @@ const used = (array: any[]) => array.forEach(value => console.log(!!value));
                     if (asm.current.action === 'accept') return true;
                     if (asm.current.action === 'reject') return false;
                 }
-            }
+            },
         })
     );
     parser.pipe(StreamValues.streamValues());

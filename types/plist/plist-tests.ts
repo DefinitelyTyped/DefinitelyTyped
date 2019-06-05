@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as plist from "plist";
+import * as fs from 'fs';
+import * as plist from 'plist';
 
 ///
 /// Typing for test
@@ -16,10 +16,15 @@ interface Person {
 // instanceOfPerson(obj)
 function instanceOfPerson(obj: any): obj is Person {
     return (
-        "id" in obj && typeof obj.id === "number" &&
-        "name" in obj && typeof obj.name === "string" &&
-        "birthday" in obj && obj.birthday instanceof Date &&
-        "data" in obj && obj.data instanceof Buffer);
+        'id' in obj &&
+        typeof obj.id === 'number' &&
+        'name' in obj &&
+        typeof obj.name === 'string' &&
+        'birthday' in obj &&
+        obj.birthday instanceof Date &&
+        'data' in obj &&
+        obj.data instanceof Buffer
+    );
 }
 
 ///
@@ -66,8 +71,7 @@ if (plistValue1 instanceof Array) {
 }
 
 // parsing a plist from filename
-const plistValue2 = plist.parse(
-    fs.readFileSync("plist/sample.plist", "utf8"));
+const plistValue2 = plist.parse(fs.readFileSync('plist/sample.plist', 'utf8'));
 console.log(plistValue2);
 
 ///
@@ -77,7 +81,7 @@ console.log(plistValue2);
 const plistString1 = plist.build(plistValue1);
 console.log(plistString1);
 
-const plistString2 = plist.build(plistValue2, {pretty: false});
+const plistString2 = plist.build(plistValue2, { pretty: false });
 console.log(plistString2);
 
 function f(a: ReadonlyArray<string>) {

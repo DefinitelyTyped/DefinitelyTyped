@@ -3,25 +3,25 @@ declare namespace adone.text {
         namespace I {
             interface CharsOptions {
                 top: string;
-                "top-mid": string;
-                "top-left": string;
-                "top-right": string;
+                'top-mid': string;
+                'top-left': string;
+                'top-right': string;
                 bottom: string;
-                "bottom-mid": string;
-                "bottom-left": string;
-                "bottom-right": string;
+                'bottom-mid': string;
+                'bottom-left': string;
+                'bottom-right': string;
                 left: string;
-                "left-mid": string;
+                'left-mid': string;
                 mid: string;
-                "mid-mid": string;
+                'mid-mid': string;
                 right: string;
-                "right-mid": string;
+                'right-mid': string;
                 middle: string;
             }
 
             interface StyleOptions {
-                "padding-left": number;
-                "padding-right": number;
+                'padding-left': number;
+                'padding-right': number;
                 head: string[];
                 border: string[];
                 compact: boolean;
@@ -31,8 +31,8 @@ declare namespace adone.text {
                 truncate: string;
                 colWidths: number[];
                 rowHeights: number[];
-                colAligns: Array<"left" | "center" | "right">;
-                rowAligns: Array<"top" | "center" | "bottom">;
+                colAligns: Array<'left' | 'center' | 'right'>;
+                rowAligns: Array<'top' | 'center' | 'bottom'>;
                 head: string[];
             }
 
@@ -61,7 +61,7 @@ declare namespace adone.text {
             interface BorderlessConstructorOptions {
                 colWidths?: number[];
                 head?: string[];
-                colAligns?: Array<"left" | "center" | "right">;
+                colAligns?: Array<'left' | 'center' | 'right'>;
                 style?: Partial<StyleOptions>;
             }
         }

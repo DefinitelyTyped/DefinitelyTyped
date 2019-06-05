@@ -9,25 +9,25 @@ import { Context } from 'koa';
 declare function KoaBetterBody(options?: KoaBetterBody.Options): KoaBetterBody.Body;
 
 declare namespace KoaBetterBody {
-  interface Options {
-    fields?: boolean | string;
-    files?: boolean | string;
-    multipart?: boolean;
-    textLimit?: string;
-    formLimit?: string;
-    urlencodedLimit?: string;
-    jsonLimit?: string;
-    bufferLimit?: string;
-    jsonStrict?: boolean;
-    detectJSON?: () => any;
-    strict?: boolean;
-    delimiter?: symbol;
-    decodeURIComponent?: any;
-    maxKeys?: number;
-    buffer?: boolean;
-  }
+    interface Options {
+        fields?: boolean | string;
+        files?: boolean | string;
+        multipart?: boolean;
+        textLimit?: string;
+        formLimit?: string;
+        urlencodedLimit?: string;
+        jsonLimit?: string;
+        bufferLimit?: string;
+        jsonStrict?: boolean;
+        detectJSON?: () => any;
+        strict?: boolean;
+        delimiter?: symbol;
+        decodeURIComponent?: any;
+        maxKeys?: number;
+        buffer?: boolean;
+    }
 
-  type Body = (context: Context, next: () => void) => Generator;
+    type Body = (context: Context, next: () => void) => Generator;
 }
 
 export = KoaBetterBody;

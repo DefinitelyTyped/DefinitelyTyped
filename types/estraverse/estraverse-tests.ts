@@ -2,37 +2,37 @@ import * as estraverse from 'estraverse';
 import * as estree from 'estree';
 
 let ast: estree.Node = {
-    "type": "Program",
-    "body": [
+    type: 'Program',
+    body: [
         {
-            "type": "VariableDeclaration",
-            "declarations": [
+            type: 'VariableDeclaration',
+            declarations: [
                 {
-                    "type": "VariableDeclarator",
-                    "id": {
-                        "type": "Identifier",
-                        "name": "answer"
+                    type: 'VariableDeclarator',
+                    id: {
+                        type: 'Identifier',
+                        name: 'answer',
                     },
-                    "init": {
-                        "type": "BinaryExpression",
-                        "operator": "*",
-                        "left": {
-                            "type": "Literal",
-                            "value": 6,
-                            "raw": "6"
+                    init: {
+                        type: 'BinaryExpression',
+                        operator: '*',
+                        left: {
+                            type: 'Literal',
+                            value: 6,
+                            raw: '6',
                         },
-                        "right": {
-                            "type": "Literal",
-                            "value": 7,
-                            "raw": "7"
-                        }
-                    }
-                }
+                        right: {
+                            type: 'Literal',
+                            value: 7,
+                            raw: '7',
+                        },
+                    },
+                },
             ],
-            "kind": "var"
-        }
+            kind: 'var',
+        },
     ],
-    "sourceType": "script"
+    sourceType: 'script',
 };
 
 estraverse.traverse(ast, {
@@ -44,8 +44,8 @@ estraverse.traverse(ast, {
     leave: (node: estree.Node, parentNode: estree.Node | null) => {},
     fallback: 'iteration',
     keys: {
-        TestExpression: ['argument']
-    }
+        TestExpression: ['argument'],
+    },
 });
 
 estraverse.replace(ast, {
@@ -54,5 +54,5 @@ estraverse.replace(ast, {
     },
     leave: (node: estree.Node, parentNode: estree.Node | null) => {
         return node;
-    }
+    },
 });

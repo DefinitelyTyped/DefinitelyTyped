@@ -12,7 +12,9 @@
 
 function longdesc() {
     function add_0() {
-        $('p').add('div').addClass('widget');
+        $('p')
+            .add('div')
+            .addClass('widget');
         var pdiv = $('p').add('div');
     }
 
@@ -22,21 +24,27 @@ function longdesc() {
     }
 
     function add_2() {
-        $('li').add('p').css('background-color', 'red');
+        $('li')
+            .add('p')
+            .css('background-color', 'red');
     }
 
     function add_3() {
-        $('li').add(document.getElementsByTagName('p')[0])
+        $('li')
+            .add(document.getElementsByTagName('p')[0])
             .css('background-color', 'red');
     }
 
     function add_4() {
-        $('li').add('<p id=\'new\'>new paragraph</p>')
+        $('li')
+            .add("<p id='new'>new paragraph</p>")
             .css('background-color', 'red');
     }
 
     function add_back_0() {
-        $('li.third-item').nextAll().addBack()
+        $('li.third-item')
+            .nextAll()
+            .addBack()
             .css('background-color', 'red');
     }
 
@@ -45,7 +53,9 @@ function longdesc() {
     }
 
     function add_class_1() {
-        $('p').removeClass('myClass noClass').addClass('yourClass');
+        $('p')
+            .removeClass('myClass noClass')
+            .addClass('yourClass');
     }
 
     function add_class_2() {
@@ -69,11 +79,13 @@ function longdesc() {
     }
 
     function after_3() {
-        var $newdiv1 = $('<div id=\'object1\'></div>'),
+        var $newdiv1 = $("<div id='object1'></div>"),
             newdiv2 = document.createElement('div'),
             existingdiv1 = document.getElementById('foo')!;
 
-        $('p').first().after($newdiv1, [newdiv2, existingdiv1]);
+        $('p')
+            .first()
+            .after($newdiv1, [newdiv2, existingdiv1]);
     }
 
     function ajax_complete_0() {
@@ -91,8 +103,7 @@ function longdesc() {
     function ajax_complete_2() {
         $(document).ajaxComplete(function(event, xhr, settings) {
             if (settings.url === 'ajax/test.html') {
-                $('.log').text('Triggered ajaxComplete handler. The result is ' +
-                    xhr.responseText);
+                $('.log').text('Triggered ajaxComplete handler. The result is ' + xhr.responseText);
             }
         });
     }
@@ -176,63 +187,77 @@ function longdesc() {
     function ajax_success_2() {
         $(document).ajaxSuccess(function(event, xhr, settings) {
             if (settings.url == 'ajax/test.html') {
-                $('.log').text('Triggered ajaxSuccess handler. The Ajax response was: ' +
-                    xhr.responseText);
+                $('.log').text('Triggered ajaxSuccess handler. The Ajax response was: ' + xhr.responseText);
             }
         });
     }
 
     function animate_0() {
         $('#clickme').click(function() {
-            $('#book').animate({
-                opacity: 0.25,
-                left: '+=50',
-                height: 'toggle',
-            }, 5000, function() {
-                // Animation complete.
-            });
+            $('#book').animate(
+                {
+                    opacity: 0.25,
+                    left: '+=50',
+                    height: 'toggle',
+                },
+                5000,
+                function() {
+                    // Animation complete.
+                }
+            );
         });
     }
 
     function animate_1() {
-        $('li').animate({
-            opacity: .5,
-            height: '50%',
-        }, {
-            step: function(now, fx) {
-                var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
-                $('body').append('<div>' + data + '</div>');
+        $('li').animate(
+            {
+                opacity: 0.5,
+                height: '50%',
             },
-        });
+            {
+                step: function(now, fx) {
+                    var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+                    $('body').append('<div>' + data + '</div>');
+                },
+            }
+        );
     }
 
     function animate_2() {
         $('#clickme').click(function() {
-            $('#book').animate({
-                width: ['toggle', 'swing'],
-                height: ['toggle', 'swing'],
-                opacity: 'toggle',
-            }, 5000, 'linear', function() {
-                $(this).after('<div>Animation complete.</div>');
-            });
+            $('#book').animate(
+                {
+                    width: ['toggle', 'swing'],
+                    height: ['toggle', 'swing'],
+                    opacity: 'toggle',
+                },
+                5000,
+                'linear',
+                function() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            );
         });
     }
 
     function animate_3() {
         $('#clickme').click(function() {
-            $('#book').animate({
-                width: 'toggle',
-                height: 'toggle',
-            }, {
-                duration: 5000,
-                specialEasing: {
-                    width: 'linear',
-                    height: 'easeOutBounce',
+            $('#book').animate(
+                {
+                    width: 'toggle',
+                    height: 'toggle',
                 },
-                complete: function() {
-                    $(this).after('<div>Animation complete.</div>');
-                },
-            });
+                {
+                    duration: 5000,
+                    specialEasing: {
+                        width: 'linear',
+                        height: 'easeOutBounce',
+                    },
+                    complete: function() {
+                        $(this).after('<div>Animation complete.</div>');
+                    },
+                }
+            );
         });
     }
 
@@ -245,7 +270,7 @@ function longdesc() {
     }
 
     function append_2() {
-        var $newdiv1 = $('<div id=\'object1\'></div>'),
+        var $newdiv1 = $("<div id='object1'></div>"),
             newdiv2 = document.createElement('div'),
             existingdiv1 = document.getElementById('foo')!;
 
@@ -290,16 +315,18 @@ function longdesc() {
     }
 
     function before_2() {
-        var newdiv1 = $('<div id=\'object1\'></div>'),
+        var newdiv1 = $("<div id='object1'></div>"),
             newdiv2 = document.createElement('div'),
             existingdiv1 = document.getElementById('foo')!;
 
-        $('p').first().before(newdiv1, [newdiv2, existingdiv1]);
+        $('p')
+            .first()
+            .before(newdiv1, [newdiv2, existingdiv1]);
     }
 
     function bind_0() {
         $('#foo').bind('click', function() {
-            alert('User clicked on \'foo.\'');
+            alert("User clicked on 'foo.'");
         });
     }
 
@@ -329,9 +356,7 @@ function longdesc() {
     function bind_4() {
         $(document).ready(function() {
             $('#foo').bind('click', function(event) {
-                alert('The mouse cursor is at (' +
-                    event.pageX + ', ' + event.pageY +
-                    ')');
+                alert('The mouse cursor is at (' + event.pageX + ', ' + event.pageY + ')');
             });
         });
     }
@@ -349,17 +374,25 @@ function longdesc() {
 
     function bind_6() {
         var message = 'Spoon!';
-        $('#foo').bind('click', {
-            msg: message,
-        }, function(event) {
-            alert(event.data.msg);
-        });
+        $('#foo').bind(
+            'click',
+            {
+                msg: message,
+            },
+            function(event) {
+                alert(event.data.msg);
+            }
+        );
         message = 'Not in the face!';
-        $('#bar').bind('click', {
-            msg: message,
-        }, function(event) {
-            alert(event.data.msg);
-        });
+        $('#bar').bind(
+            'click',
+            {
+                msg: message,
+            },
+            function(event) {
+                alert(event.data.msg);
+            }
+        );
     }
 
     function blur_0() {
@@ -381,7 +414,9 @@ function longdesc() {
     }
 
     function children_0() {
-        $('ul.level-2').children().css('background-color', 'red');
+        $('ul.level-2')
+            .children()
+            .css('background-color', 'red');
     }
 
     function click_0() {
@@ -401,14 +436,17 @@ function longdesc() {
     }
 
     function clone_1() {
-        $('.hello').clone().appendTo('.goodbye');
+        $('.hello')
+            .clone()
+            .appendTo('.goodbye');
     }
 
     function clone_2() {
         // Original element with attached data
         var $elem = $('#elem').data('arr', [1]),
-            $clone = $elem.clone(true)
-            // Deep copy to prevent data sharing
+            $clone = $elem
+                .clone(true)
+                // Deep copy to prevent data sharing
                 .data('arr', $.extend([], $elem.data('arr')));
     }
 
@@ -535,10 +573,19 @@ function longdesc() {
     }
 
     function delay_0() {
-        $('#foo').slideUp(300).delay(800).fadeIn(400);
+        $('#foo')
+            .slideUp(300)
+            .delay(800)
+            .fadeIn(400);
     }
 
-    function delegate_0(elements: HTMLElement[], selector: string, events: string, data: any, handler: JQuery.TypeEventHandler<HTMLElement, any, any, any, string>) {
+    function delegate_0(
+        elements: HTMLElement[],
+        selector: string,
+        events: string,
+        data: any,
+        handler: JQuery.TypeEventHandler<HTMLElement, any, any, any, string>
+    ) {
         // jQuery 1.4.3+
         $(elements).delegate(selector, events, data, handler);
         // jQuery 1.7+
@@ -597,15 +644,21 @@ function longdesc() {
     }
 
     function eq_0() {
-        $('li').eq(2).css('background-color', 'red');
+        $('li')
+            .eq(2)
+            .css('background-color', 'red');
     }
 
     function eq_1() {
-        $('li').eq(-2).css('background-color', 'red');
+        $('li')
+            .eq(-2)
+            .css('background-color', 'red');
     }
 
     function eq_2() {
-        $('li').eq(5).css('background-color', 'red');
+        $('li')
+            .eq(5)
+            .css('background-color', 'red');
     }
 
     function fade_out_0() {
@@ -617,7 +670,9 @@ function longdesc() {
     }
 
     function filter_0() {
-        $('li').filter(':even').css('background-color', 'red');
+        $('li')
+            .filter(':even')
+            .css('background-color', 'red');
     }
 
     function filter_1() {
@@ -637,7 +692,9 @@ function longdesc() {
     }
 
     function find_0() {
-        $('li.item-ii').find('li').css('background-color', 'red');
+        $('li.item-ii')
+            .find('li')
+            .css('background-color', 'red');
     }
 
     function find_1() {
@@ -650,11 +707,15 @@ function longdesc() {
 
     function find_3() {
         var item1 = $('li.item-1')[0];
-        $('li.item-ii').find(item1).css('background-color', 'red');
+        $('li.item-ii')
+            .find(item1)
+            .css('background-color', 'red');
     }
 
     function first_0() {
-        $('li').first().css('background-color', 'red');
+        $('li')
+            .first()
+            .css('background-color', 'red');
     }
 
     function focus_0() {
@@ -686,7 +747,9 @@ function longdesc() {
     }
 
     function has_0() {
-        $('li').has('ul').css('background-color', 'red');
+        $('li')
+            .has('ul')
+            .css('background-color', 'red');
     }
 
     function has_class_0() {
@@ -731,8 +794,7 @@ function longdesc() {
     }
 
     function html_1() {
-        $('div.demo-container')
-            .html('<p>All new content. <em>You bet!</em></p>');
+        $('div.demo-container').html('<p>All new content. <em>You bet!</em></p>');
     }
 
     function html_2() {
@@ -815,12 +877,11 @@ function longdesc() {
             beforeSend: function(xhr) {
                 xhr.overrideMimeType('text/plain; charset=x-user-defined');
             },
-        })
-            .done(function(data) {
-                if (console && console.log) {
-                    console.log('Sample of data:', data.slice(0, 100));
-                }
-            });
+        }).done(function(data) {
+            if (console && console.log) {
+                console.log('Sample of data:', data.slice(0, 100));
+            }
+        });
     }
 
     function jquery_ajax_2() {
@@ -927,7 +988,7 @@ function longdesc() {
     function jquery_ajax_setup_1() {
         $.ajax({
             // url not set here; uses ping.php
-            data: { 'name': 'Dan' },
+            data: { name: 'Dan' },
         });
     }
 
@@ -968,7 +1029,7 @@ function longdesc() {
                         image = new Image();
                         function done(status: number) {
                             if (image) {
-                                var statusText: JQuery.Ajax.TextStatus = ( status === 200 ) ? 'success' : 'error',
+                                var statusText: JQuery.Ajax.TextStatus = status === 200 ? 'success' : 'error',
                                     tmp = image;
                                 image = image.onreadystatechange = image.onerror = image.onload = null;
                                 // Error:(962, 50) TS2345:Argument of type 'string' is not assignable to parameter of type
@@ -1201,7 +1262,7 @@ function longdesc() {
             // First, check to see if cssHooks are supported
             if (!$.cssHooks) {
                 // If not, output an error message
-                throw( new Error('jQuery 1.4.3 or above is required for this plugin to work') );
+                throw new Error('jQuery 1.4.3 or above is required for this plugin to work');
             }
 
             // Wrap in a document ready call, because jQuery writes
@@ -1225,7 +1286,6 @@ function longdesc() {
             function styleSupport(prop: string) {
                 var vendorProp,
                     supportedProp,
-
                     // Capitalize first character of the prop to test vendor prefix
                     capProp = prop.charAt(0).toUpperCase() + prop.slice(1),
                     prefixes = ['Moz', 'Webkit', 'O', 'ms'],
@@ -1261,7 +1321,7 @@ function longdesc() {
     function jquery_css_hooks_2() {
         (function($) {
             if (!$.cssHooks) {
-                throw( new Error('jQuery 1.4.3+ is needed for this plugin to work') );
+                throw new Error('jQuery 1.4.3+ is needed for this plugin to work');
             }
 
             function styleSupport(prop: string) {
@@ -1370,8 +1430,8 @@ function longdesc() {
 
     function jquery_each_1() {
         var obj = {
-            'flammable': 'inflammable',
-            'duh': 'no duh',
+            flammable: 'inflammable',
+            duh: 'no duh',
         };
         $.each(obj, function(key, value) {
             alert(key + ': ' + value);
@@ -1386,8 +1446,8 @@ function longdesc() {
 
     function jquery_each_3() {
         var obj = {
-            'flammable': 'inflammable',
-            'duh': 'no duh',
+            flammable: 'inflammable',
+            duh: 'no duh',
         };
         $.each(obj, function(key, value) {
             alert(key + ': ' + value);
@@ -1451,11 +1511,11 @@ function longdesc() {
         $.getJSON('ajax/test.json', function(data) {
             var items: string[] = [];
             $.each(data, function(key, val) {
-                items.push('<li id=\'' + (key as string) + '\'>' + val + '</li>');
+                items.push("<li id='" + (key as string) + "'>" + val + '</li>');
             });
 
             $('<ul/>', {
-                'class': 'my-new-list',
+                class: 'my-new-list',
                 html: items.join(''),
             }).appendTo('body');
         });
@@ -1463,9 +1523,9 @@ function longdesc() {
 
     function jquery_get_json_2() {
         return {
-            'one': 'Singular sensation',
-            'two': 'Beady little eyes',
-            'three': 'Little birds pitch by my doorstep',
+            one: 'Singular sensation',
+            two: 'Beady little eyes',
+            three: 'Little birds pitch by my doorstep',
         };
     }
 
@@ -1528,48 +1588,70 @@ function longdesc() {
 
     function jquery_html_prefilter_2() {
         var panything = '[\\w\\W]*?',
-
             // Whitespace
             // https://html.spec.whatwg.org/multipage/infrastructure.html#space-character
             pspace = '[\\x20\\t\\r\\n\\f]',
-
             // End of tag name (whitespace or greater-than)
             pnameEnd = pspace.replace(']', '>]'),
-
             // Tag name (a leading letter, then almost anything)
             // https://html.spec.whatwg.org/multipage/syntax.html#tag-open-state
             // https://html.spec.whatwg.org/multipage/syntax.html#tag-name-state
             pname = '[a-z]' + pnameEnd.replace('[', '[^/\\0') + '*',
-
             // Void element (end tag prohibited)
             // https://html.spec.whatwg.org/multipage/syntax.html#void-elements
-            pvoidName = '(?:area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|' +
-                'source|track|wbr)(?=' + pnameEnd + ')',
-
+            pvoidName =
+                '(?:area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|' +
+                'source|track|wbr)(?=' +
+                pnameEnd +
+                ')',
             // Attributes (double-quoted value, single-quoted value, unquoted value, or no value)
             // https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
-            pattrs = '(?:' + pspace + '+[^\\0-\\x20\\x7f-\\x9f="\'/>]+(?:' + pspace + '*=' + pspace +
-                '*(?:"' + panything + '"|\'' + panything + '\'|' +
-                pnameEnd.replace('[', '[^') + '*(?!/)' +
-                ')|))*' + pspace + '*',
-
+            pattrs =
+                '(?:' +
+                pspace +
+                '+[^\\0-\\x20\\x7f-\\x9f="\'/>]+(?:' +
+                pspace +
+                '*=' +
+                pspace +
+                '*(?:"' +
+                panything +
+                '"|\'' +
+                panything +
+                "'|" +
+                pnameEnd.replace('[', '[^') +
+                '*(?!/)' +
+                ')|))*' +
+                pspace +
+                '*',
             // Trailing content of a close tag
             pcloseTail = '(?:' + pspace + panything + '|)',
-
             rspecialHtml = new RegExp(
                 // Non-void element that self-closes: $1–$5
-                '(<)(?!' + pvoidName + ')(' + pname + ')(' + pattrs + ')(\\/)(>)|' +
-                // No-innerHTML container (element, comment, or CDATA): $6
-                '(<(script|style|textarea)' + pattrs + '>' + panything + '<\\/\\7' + pcloseTail + '>|' +
-                '<!--' + panything + '--)',
-                'gi',
+                '(<)(?!' +
+                    pvoidName +
+                    ')(' +
+                    pname +
+                    ')(' +
+                    pattrs +
+                    ')(\\/)(>)|' +
+                    // No-innerHTML container (element, comment, or CDATA): $6
+                    '(<(script|style|textarea)' +
+                    pattrs +
+                    '>' +
+                    panything +
+                    '<\\/\\7' +
+                    pcloseTail +
+                    '>|' +
+                    '<!--' +
+                    panything +
+                    '--)',
+                'gi'
             ),
-
             // "<"; element name; attributes; ">"; "<"; "/"; element name; ">"; no-innerHTML container
             pspecialReplacement = '$1$2$3$5$1$4$2$5$6';
 
         $.htmlPrefilter = function(html) {
-            return ( html + '' ).replace(rspecialHtml, pspecialReplacement);
+            return (html + '').replace(rspecialHtml, pspecialReplacement);
         };
     }
 
@@ -1583,7 +1665,7 @@ function longdesc() {
 
     function jquery_map_0() {
         // The following object masquerades as an array.
-        var fakeArray = { 'length': 2, 0: 'Addy', 1: 'Subtracty' };
+        var fakeArray = { length: 2, 0: 'Addy', 1: 'Subtracty' };
 
         // Therefore, convert it to a real array
         var realArray = $.makeArray(fakeArray);
@@ -1599,11 +1681,7 @@ function longdesc() {
     }
 
     function jquery_param_0() {
-        [
-            { name: 'first', value: 'Rick' },
-            { name: 'last', value: 'Astley' },
-            { name: 'job', value: 'Rock Star' },
-        ];
+        [{ name: 'first', value: 'Rick' }, { name: 'last', value: 'Astley' }, { name: 'job', value: 'Rock Star' }];
     }
 
     function jquery_param_1() {
@@ -1685,7 +1763,7 @@ function longdesc() {
     }
 
     function jquery_when_1() {
-        $.when({ testing: 123 }).done(function(x: { testing: number; }) {
+        $.when({ testing: 123 }).done(function(x: { testing: number }) {
             alert(x.testing); // Alerts "123"
         });
     }
@@ -1726,11 +1804,11 @@ function longdesc() {
     }
 
     function jquery_0() {
-        $('<p id=\'test\'>My <em>new</em> text</p>').appendTo('body');
+        $("<p id='test'>My <em>new</em> text</p>").appendTo('body');
     }
 
     function jquery_1() {
-        $('<a href=\'http://jquery.com\'></a>');
+        $("<a href='http://jquery.com'></a>");
     }
 
     function jquery_2() {
@@ -1745,7 +1823,7 @@ function longdesc() {
 
     function jquery_4() {
         $('', {
-            'class': 'my-div',
+            class: 'my-div',
             on: {
                 touchstart: function(event: JQuery.Event) {
                     // Do something
@@ -1854,7 +1932,9 @@ function longdesc() {
     }
 
     function last_0() {
-        $('li').last().css('background-color', 'red');
+        $('li')
+            .last()
+            .css('background-color', 'red');
     }
 
     function load_0() {
@@ -1975,24 +2055,33 @@ function longdesc() {
     }
 
     function next_0() {
-        $('li.third-item').next().css('background-color', 'red');
+        $('li.third-item')
+            .next()
+            .css('background-color', 'red');
     }
 
     function next_all_0() {
-        $('li.third-item').nextAll().css('background-color', 'red');
+        $('li.third-item')
+            .nextAll()
+            .css('background-color', 'red');
     }
 
     function not_0() {
-        $('li').not(':even').css('background-color', 'red');
+        $('li')
+            .not(':even')
+            .css('background-color', 'red');
     }
 
     function not_1() {
-        $('li').not(document.getElementById('notli')!)
+        $('li')
+            .not(document.getElementById('notli')!)
             .css('background-color', 'red');
     }
 
     function offset_parent_0() {
-        $('li.item-a').offsetParent().css('background-color', 'red');
+        $('li.item-a')
+            .offsetParent()
+            .css('background-color', 'red');
     }
 
     function on_0() {
@@ -2016,16 +2105,24 @@ function longdesc() {
     }
 
     function on_3() {
-        function greet(event: JQuery.TriggeredEvent<HTMLElement, { name: string; }>) {
+        function greet(event: JQuery.TriggeredEvent<HTMLElement, { name: string }>) {
             alert('Hello ' + event.data.name);
         }
 
-        $('button').on('click', {
-            name: 'Karl',
-        }, greet);
-        $('button').on('click', {
-            name: 'Addy',
-        }, greet);
+        $('button').on(
+            'click',
+            {
+                name: 'Karl',
+            },
+            greet
+        );
+        $('button').on(
+            'click',
+            {
+                name: 'Addy',
+            },
+            greet
+        );
     }
 
     function on_4() {
@@ -2064,11 +2161,15 @@ function longdesc() {
     }
 
     function parent_0() {
-        $('li.item-a').parent().css('background-color', 'red');
+        $('li.item-a')
+            .parent()
+            .css('background-color', 'red');
     }
 
     function parents_0() {
-        $('li.item-a').parents().css('background-color', 'red');
+        $('li.item-a')
+            .parents()
+            .css('background-color', 'red');
     }
 
     function prepend_0() {
@@ -2080,7 +2181,7 @@ function longdesc() {
     }
 
     function prepend_2() {
-        var $newdiv1 = $('<div id=\'object1\'></div>'),
+        var $newdiv1 = $("<div id='object1'></div>"),
             newdiv2 = document.createElement('div'),
             existingdiv1 = document.getElementById('foo')!;
 
@@ -2096,11 +2197,15 @@ function longdesc() {
     }
 
     function prev_0() {
-        $('li.third-item').prev().css('background-color', 'red');
+        $('li.third-item')
+            .prev()
+            .css('background-color', 'red');
     }
 
     function prev_all_0() {
-        $('li.third-item').prevAll().css('background-color', 'red');
+        $('li.third-item')
+            .prevAll()
+            .css('background-color', 'red');
     }
 
     function prop_0() {
@@ -2110,13 +2215,15 @@ function longdesc() {
     }
 
     function prop_1() {
-        $('input[type=\'checkbox\']').prop('checked', function(i, val) {
+        $("input[type='checkbox']").prop('checked', function(i, val) {
             return !val;
         });
     }
 
     function queue_0() {
-        $('#foo').slideUp().fadeIn();
+        $('#foo')
+            .slideUp()
+            .fadeIn();
     }
 
     function queue_1() {
@@ -2177,12 +2284,16 @@ function longdesc() {
     }
 
     function remove_class_1() {
-        $('p').removeClass('myClass noClass').addClass('yourClass');
+        $('p')
+            .removeClass('myClass noClass')
+            .addClass('yourClass');
     }
 
     function remove_class_2() {
         $('li:last').removeClass(function() {
-            return $(this).prev().attr('class')!;
+            return $(this)
+                .prev()
+                .attr('class')!;
         });
     }
 
@@ -2280,19 +2391,27 @@ function longdesc() {
     }
 
     function siblings_0() {
-        $('li.third-item').siblings().css('background-color', 'red');
+        $('li.third-item')
+            .siblings()
+            .css('background-color', 'red');
     }
 
     function slice_0() {
-        $('li').slice(2).css('background-color', 'red');
+        $('li')
+            .slice(2)
+            .css('background-color', 'red');
     }
 
     function slice_1() {
-        $('li').slice(2, 4).css('background-color', 'red');
+        $('li')
+            .slice(2, 4)
+            .css('background-color', 'red');
     }
 
     function slice_2() {
-        $('li').slice(-2, -1).css('background-color', 'red');
+        $('li')
+            .slice(-2, -1)
+            .css('background-color', 'red');
     }
 
     function slide_down_0() {
@@ -2320,11 +2439,20 @@ function longdesc() {
     }
 
     function stop_0() {
-        $('#hoverme-stop-2').hover(function() {
-            $(this).find('img').stop(true, true).fadeOut();
-        }, function() {
-            $(this).find('img').stop(true, true).fadeIn();
-        });
+        $('#hoverme-stop-2').hover(
+            function() {
+                $(this)
+                    .find('img')
+                    .stop(true, true)
+                    .fadeOut();
+            },
+            function() {
+                $(this)
+                    .find('img')
+                    .stop(true, true)
+                    .fadeIn();
+            }
+        );
     }
 
     function submit_0() {
@@ -2347,7 +2475,7 @@ function longdesc() {
 
     function text_1() {
         $('ul li').text(function(index) {
-            return 'item number ' + ( index + 1 );
+            return 'item number ' + (index + 1);
         });
     }
 
@@ -2393,7 +2521,11 @@ function longdesc() {
 
     function toggle_class_2() {
         $('div.foo').toggleClass(function() {
-            if ($(this).parent().is('.bar')) {
+            if (
+                $(this)
+                    .parent()
+                    .is('.bar')
+            ) {
                 return 'happy';
             } else {
                 return 'sad';
@@ -2506,31 +2638,31 @@ function longdesc() {
     }
 
     function wrap_0() {
-        $('.inner').wrap('<div class=\'new\'></div>');
+        $('.inner').wrap("<div class='new'></div>");
     }
 
     function wrap_1() {
         $('.inner').wrap(function() {
-            return '<div class=\'' + $(this).text() + '\'></div>';
+            return "<div class='" + $(this).text() + "'></div>";
         });
     }
 
     function wrap_all_0() {
-        $('.inner').wrapAll('<div class=\'new\' />');
+        $('.inner').wrapAll("<div class='new' />");
     }
 
     function wrap_inner_0() {
-        $('.inner').wrapInner('<div class=\'new\'></div>');
+        $('.inner').wrapInner("<div class='new'></div>");
     }
 
     function wrap_inner_1() {
         $('.inner').wrapInner(function() {
-            return '<div class=\'' + this.nodeValue + '\'></div>';
+            return "<div class='" + this.nodeValue + "'></div>";
         });
     }
 
     function wrap_inner_2(elem: HTMLElement) {
-        $(elem).wrapInner('<div class=\'test\'></div>');
+        $(elem).wrapInner("<div class='test'></div>");
         $(elem).wrapInner('<div class="test"></div>');
     }
 }

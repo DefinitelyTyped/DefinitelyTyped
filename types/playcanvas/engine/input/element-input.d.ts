@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ElementInputEvent
      * @class Represents an input event fired on a {@link pc.ElementComponent}. When an event is raised on an ElementComponent it bubbles up to its parent ElementComponents unless we call stopPropagation().
@@ -9,7 +8,7 @@ declare namespace pc {
      * @property {pc.ElementComponent} element The ElementComponent that this event was originally raised on.
      */
     class ElementInputEvent {
-        constructor(event: BrowserMouseEvent | BrowserTouchEvent, element: pc.ElementComponent)
+        constructor(event: BrowserMouseEvent | BrowserTouchEvent, element: pc.ElementComponent);
 
         event: BrowserMouseEvent | BrowserTouchEvent;
         element: pc.ElementComponent;
@@ -43,7 +42,14 @@ declare namespace pc {
      * @property {Number} wheel The amount of the wheel movement
      */
     class ElementMouseEvent extends pc.ElementInputEvent {
-        constructor(event: BrowserMouseEvent, element: pc.ElementComponent, x: number, y: number, lastX: number, lastY: number)
+        constructor(
+            event: BrowserMouseEvent,
+            element: pc.ElementComponent,
+            x: number,
+            y: number,
+            lastX: number,
+            lastY: number
+        );
 
         ctrlKey: boolean;
         altKey: boolean;
@@ -67,7 +73,7 @@ declare namespace pc {
      * @property {Touch[]} changedTouches The Touch objects representing individual points of contact whose states changed between the previous touch event and this one.
      */
     class ElementTouchEvent extends pc.ElementInputEvent {
-        constructor(event: BrowserTouchEvent, element: pc.ElementComponent, input: pc.ElementInput)
+        constructor(event: BrowserTouchEvent, element: pc.ElementComponent, input: pc.ElementInput);
 
         touches: BrowserTouch[];
         changedTouches: BrowserTouch[];
@@ -81,7 +87,7 @@ declare namespace pc {
      * @param {Element} domElement The DOM element
      */
     class ElementInput {
-        constructor(domElement: Element)
+        constructor(domElement: Element);
 
         /**
          * @function

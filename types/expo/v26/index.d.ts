@@ -20,11 +20,11 @@ import {
     ViewProps,
     ViewStyle,
     Permission,
-    StyleProp
+    StyleProp,
 } from 'react-native';
 
 export type Axis = number;
-export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+export type BarCodeReadCallback = (params: { type: string; data: string }) => void;
 export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
@@ -34,7 +34,9 @@ export type ResizeModeCover = 'cover';
 export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
-export interface HashMap { [key: string]: any; }
+export interface HashMap {
+    [key: string]: any;
+}
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -84,7 +86,7 @@ export interface AdMobBannerProperties extends ViewProps {
     adViewWillLeaveApplication?(): void;
 }
 
-export class AdMobBanner extends Component<AdMobBannerProperties> { }
+export class AdMobBanner extends Component<AdMobBannerProperties> {}
 export interface AdMobAppEvent {
     name: string;
     info: string;
@@ -92,7 +94,7 @@ export interface AdMobAppEvent {
 export interface PublisherBannerProperties extends AdMobBannerProperties {
     onAdMobDispatchAppEvent?(event: AdMobAppEvent): void;
 }
-export class PublisherBanner extends Component<PublisherBannerProperties> { }
+export class PublisherBanner extends Component<PublisherBannerProperties> {}
 
 export type AdMobInterstitialEmptyEvent =
     | 'interstitialDidLoad'
@@ -128,10 +130,16 @@ export namespace AdMobRewarded {
     function showAdAsync(): Promise<void>;
     function dismissAdAsync(): Promise<void>;
     function getIsReadyAsync(): Promise<boolean>;
-    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(
+        event: 'rewardedVideoDidRewardUser',
+        handler: (type: string, amount: number) => void
+    ): void;
     function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
     function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
-    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(
+        event: 'rewardedVideoDidRewardUser',
+        handler: (type: string, amount: number) => void
+    ): void;
     function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
     function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
     function removeAllListeners(): void;
@@ -194,12 +202,19 @@ export interface AppLoadingProps {
  *
  * This is incredibly useful to let you download and cache fonts, logo and icon images and other assets that you want to be sure the user has on their device for an optimal experience before rendering they start using the app.
  */
-export class AppLoading extends Component<AppLoadingProps> { }
+export class AppLoading extends Component<AppLoadingProps> {}
 // #endregion AppLoading
 
 /** This module provides an interface to Expo’s asset system. An asset is any file that lives alongside the source code of your app that the app needs at runtime. Examples include images, fonts and sounds. Expo’s asset system integrates with React Native’s, so that you can refer to files with require('path/to/file'). This is how you refer to static image files in React Native for use in an Image component, for example. */
 export class Asset {
-    constructor({ name, type, hash, uri, width, height }: {
+    constructor({
+        name,
+        type,
+        hash,
+        uri,
+        width,
+        height,
+    }: {
         name: string;
         type: string;
         hash: string;
@@ -231,7 +246,7 @@ export class Asset {
 
     downloading: boolean;
     downloaded: boolean;
-    downloadCallbacks: Array<{ resolve: () => any, reject: (e?: any) => any }>;
+    downloadCallbacks: Array<{ resolve: () => any; reject: (e?: any) => any }>;
 
     /** Downloads the asset data to a local file in the device’s cache directory. Once the returned promise is fulfilled without error, the localUri field of this asset points to a local file containing the asset data. The asset is only downloaded if an up-to-date local file for the asset isn’t already present due to an earlier download. */
     downloadAsync(): Promise<void>;
@@ -260,7 +275,7 @@ export namespace Audio {
         INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
 
         /** If this option is set, your experience’s audio lowers the volume ("ducks") of audio from other apps while your audio plays. */
-        INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
+        INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2,
     }
 
     const INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS: 0;
@@ -272,7 +287,7 @@ export namespace Audio {
         INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
 
         /** This is the default option. If this option is set, your experience’s audio lowers the volume ("ducks") of audio from other apps while your audio plays. */
-        INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
+        INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2,
     }
 
     const INTERRUPTION_MODE_ANDROID_DO_NOT_MIX: 1;
@@ -343,18 +358,21 @@ export namespace Audio {
     const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE_CONSTRAINED: 2;
     const RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE: 3;
 
-    type RecordingStatus = {
-        canRecord: false,
-        isDoneRecording: false
-    } | {
-        canRecord: true,
-        isRecording: boolean,
-        durationMillis: number
-    } | {
-        canRecord: false,
-        isDoneRecording: true,
-        durationMillis: number
-    };
+    type RecordingStatus =
+        | {
+              canRecord: false;
+              isDoneRecording: false;
+          }
+        | {
+              canRecord: true;
+              isRecording: boolean;
+              durationMillis: number;
+          }
+        | {
+              canRecord: false;
+              isDoneRecording: true;
+              durationMillis: number;
+          };
 
     const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: RecordingOptions;
     const RECORDING_OPTIONS_PRESET_LOW_QUALITY: RecordingOptions;
@@ -433,7 +451,7 @@ export namespace Audio {
 
             /** If set to true, the system will attempt to download the resource to the device before loading. This value defaults to `true`. Note that at the moment, this will only work for `source`s of the form `require('path/to/file')` or `Asset` objects. */
             downloadFirst?: boolean
-        ): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        ): Promise<{ sound: Sound; status: PlaybackStatus }>;
     }
 
     class Recording {
@@ -487,7 +505,7 @@ export namespace Audio {
 
             /** A function taking a single parameter `PlaybackStatus`. This value defaults to `null` if no parameter is passed. */
             onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null
-        ): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        ): Promise<{ sound: Sound; status: PlaybackStatus }>;
     }
 }
 
@@ -495,22 +513,26 @@ export namespace Audio {
  * AuthSession
  */
 export namespace AuthSession {
-    type StartAsyncResponse = {
-        type: 'cancel';
-    } | {
-        type: 'dismissed';
-    } | {
-        type: 'success';
-        params: HashMap;
-        event: HashMap;
-    } | {
-        type: 'error';
-        params: HashMap;
-        errorCode: string;
-        event: HashMap;
-    };
+    type StartAsyncResponse =
+        | {
+              type: 'cancel';
+          }
+        | {
+              type: 'dismissed';
+          }
+        | {
+              type: 'success';
+              params: HashMap;
+              event: HashMap;
+          }
+        | {
+              type: 'error';
+              params: HashMap;
+              errorCode: string;
+              event: HashMap;
+          };
 
-    function startAsync(options: { authUrl: string; returnUrl?: string; }): Promise<StartAsyncResponse>;
+    function startAsync(options: { authUrl: string; returnUrl?: string }): Promise<StartAsyncResponse>;
     function dismiss(): void;
     function getRedirectUrl(): string;
 }
@@ -519,32 +541,34 @@ export namespace AuthSession {
 /**
  * AV
  */
-export type PlaybackStatus = {
-    isLoaded: false;
-    androidImplementation?: string;
+export type PlaybackStatus =
+    | {
+          isLoaded: false;
+          androidImplementation?: string;
 
-    /** Populated exactly once when an error forces the object to unload. */
-    error?: string;
-} | {
-    isLoaded: true;
-    androidImplementation?: string;
-    uri: string;
-    progressUpdateIntervalMillis: number;
-    durationMillis?: number;
-    positionMillis: number;
-    playableDurationMillis?: number;
-    shouldPlay: boolean;
-    isPlaying: boolean;
-    isBuffering: boolean;
-    rate: number;
-    shouldCorrectPitch: boolean;
-    volume: number;
-    isMuted: boolean;
-    isLooping: boolean;
+          /** Populated exactly once when an error forces the object to unload. */
+          error?: string;
+      }
+    | {
+          isLoaded: true;
+          androidImplementation?: string;
+          uri: string;
+          progressUpdateIntervalMillis: number;
+          durationMillis?: number;
+          positionMillis: number;
+          playableDurationMillis?: number;
+          shouldPlay: boolean;
+          isPlaying: boolean;
+          isBuffering: boolean;
+          rate: number;
+          shouldCorrectPitch: boolean;
+          volume: number;
+          isMuted: boolean;
+          isLooping: boolean;
 
-    /** True exactly once when the track plays to finish. */
-    didJustFinish: boolean;
-};
+          /** True exactly once when the track plays to finish. */
+          didJustFinish: boolean;
+      };
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
@@ -610,8 +634,8 @@ export class PlaybackObject {
 
         /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
         tolerances?: {
-            toleranceMillisBefore: number,
-            toleranceMillisAfter: number
+            toleranceMillisBefore: number;
+            toleranceMillisAfter: number;
         }
     ): Promise<PlaybackStatus>;
 
@@ -653,8 +677,8 @@ export class PlaybackObject {
 
         /** This is equivalent to `playbackObject.setStatusAsync({ positionMillis: millis, seekMillisToleranceBefore: toleranceMillisBefore, seekMillisToleranceAfter: toleranceMillisAfter })`. The tolerances are used only on iOS. */
         tolerances?: {
-            toleranceMillisBefore: number,
-            toleranceMillisAfter: number
+            toleranceMillisBefore: number;
+            toleranceMillisAfter: number;
         }
     ): Promise<PlaybackStatus>;
 
@@ -712,8 +736,8 @@ export class BarCodeScanner extends Component<BarCodeScannerProps> {
     static Constants: {
         TorchMode: {
             on: string;
-            off: string
-        }
+            off: string;
+        };
     } & CameraConstants;
 }
 // #endregion
@@ -726,7 +750,7 @@ export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
-export class BlurView extends Component<BlurViewProps> { }
+export class BlurView extends Component<BlurViewProps> {}
 // #endregion
 
 /**
@@ -763,7 +787,7 @@ export interface RecordingOptions {
 
 export class CameraObject {
     takePictureAsync(options?: PictureOptions): Promise<PictureResponse>;
-    recordAsync(options: RecordingOptions): Promise<{ uri: string; }>;
+    recordAsync(options: RecordingOptions): Promise<{ uri: string }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
@@ -883,70 +907,70 @@ export namespace Constants {
         platforms?: string[];
         githubUrl?: string;
         notification?: {
-            icon?: string,
-            color?: string,
-            androidMode?: 'default' | 'collapse',
-            androidCollapsedTitle?: string
+            icon?: string;
+            color?: string;
+            androidMode?: 'default' | 'collapse';
+            androidCollapsedTitle?: string;
         };
         loading?: {
-            icon?: string,
-            exponentIconColor?: 'white' | 'blue',
-            exponentIconGrayscale?: 1 | 0,
-            backgroundImage?: string,
-            backgroundColor?: string,
-            hideExponentText?: boolean
+            icon?: string;
+            exponentIconColor?: 'white' | 'blue';
+            exponentIconGrayscale?: 1 | 0;
+            backgroundImage?: string;
+            backgroundColor?: string;
+            hideExponentText?: boolean;
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'light-content' | 'dark-content',
-            backgroundColor?: string
+            barStyle?: 'light-content' | 'dark-content';
+            backgroundColor?: string;
         };
         androidShowExponentNotificationInShellApp?: boolean;
         extra?: {
-            [propName: string]: any
+            [propName: string]: any;
         };
         rnCliPath?: any;
         entryPoint?: string;
         packagerOpts?: {
-            hostType?: string,
-            dev?: boolean,
-            strict?: boolean,
-            minify?: boolean,
-            urlType?: string,
-            urlRandomness?: string,
-            lanType?: string,
-            [propName: string]: any
+            hostType?: string;
+            dev?: boolean;
+            strict?: boolean;
+            minify?: boolean;
+            urlType?: string;
+            urlRandomness?: string;
+            lanType?: string;
+            [propName: string]: any;
         };
         ignoreNodeModulesValidation?: any;
         nodeModulesPath?: string;
         ios?: {
-            bundleIdentifier?: string,
-            buildNumber?: string,
+            bundleIdentifier?: string;
+            buildNumber?: string;
             config?: {
-                usesNonExemptEncryption?: boolean,
+                usesNonExemptEncryption?: boolean;
                 googleSignIn?: {
-                    reservedClientId: string
-                }
-            },
-            supportsTablet?: boolean,
-            infoPlist?: any
+                    reservedClientId: string;
+                };
+            };
+            supportsTablet?: boolean;
+            infoPlist?: any;
         };
         android?: {
-            package?: string,
-            versionCode?: string,
+            package?: string;
+            versionCode?: string;
             config?: {
                 fabric?: {
-                    apiKey: string,
-                    buildSecret: string
-                },
+                    apiKey: string;
+                    buildSecret: string;
+                };
                 googleMaps?: {
-                    apiKey: string
-                },
+                    apiKey: string;
+                };
                 googleSignIn?: {
-                    apiKey: string,
-                    certificateHash: string
-                }
-            }
+                    apiKey: string;
+                    certificateHash: string;
+                };
+            };
         };
         facebookScheme?: any;
         facebookAppId?: string;
@@ -1006,10 +1030,25 @@ export namespace Contacts {
     const DATES: Dates;
     const RELATIONSHIPS: Relationships;
 
-    type FieldType = PhoneNumbers | Emails | Addresses | Image | Thumbnail |
-        Note | Birthday | NonGregorianBirthday | NamePrefix | NameSuffix |
-        PhoneticFirstName | PhoneticMiddleName | PhoneticLastName | SocialProfiles |
-        InstantMessageAddresses | UrlAddresses | Dates | Relationships;
+    type FieldType =
+        | PhoneNumbers
+        | Emails
+        | Addresses
+        | Image
+        | Thumbnail
+        | Note
+        | Birthday
+        | NonGregorianBirthday
+        | NamePrefix
+        | NameSuffix
+        | PhoneticFirstName
+        | PhoneticMiddleName
+        | PhoneticLastName
+        | SocialProfiles
+        | InstantMessageAddresses
+        | UrlAddresses
+        | Dates
+        | Relationships;
 
     interface Options {
         pageSize?: number;
@@ -1122,14 +1161,16 @@ export namespace DocumentPicker {
         type?: string;
     }
 
-    type Response = {
-        type: 'success';
-        uri: string;
-        name: string;
-        size: number;
-    } | {
-        type: 'cancel';
-    };
+    type Response =
+        | {
+              type: 'success';
+              uri: string;
+              name: string;
+              size: number;
+          }
+        | {
+              type: 'cancel';
+          };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -1178,15 +1219,17 @@ export namespace FacebookAds {
         setMediaCachePolicy(cachePolicy: MediaCachePolicy): void;
     }
 
-    function withNativeAd(component: Component<{
-        icon?: string;
-        coverImage?: string;
-        title?: string;
-        subtitle?: string;
-        description?: string;
-        callToActionText?: string;
-        socialContext?: string;
-    }>): Component<{ adsManager: NativeAdsManager }, { ad: any, canRequestAds: boolean }>;
+    function withNativeAd(
+        component: Component<{
+            icon?: string;
+            coverImage?: string;
+            title?: string;
+            subtitle?: string;
+            description?: string;
+            callToActionText?: string;
+            socialContext?: string;
+        }>
+    ): Component<{ adsManager: NativeAdsManager }, { ad: any; canRequestAds: boolean }>;
 
     /**
      * Banner View
@@ -1200,7 +1243,7 @@ export namespace FacebookAds {
         onError: () => void;
     }
 
-    class BannerView extends Component<BannerViewProps> { }
+    class BannerView extends Component<BannerViewProps> {}
 
     /**
      * Ad Settings
@@ -1230,7 +1273,7 @@ export interface FaceFeature {
         size: {
             width: number;
             height: number;
-        },
+        };
         origin: Point;
     };
     smilingProbability?: number;
@@ -1295,17 +1338,19 @@ export namespace FaceDetector {
  * FileSystem
  */
 export namespace FileSystem {
-    type FileInfo = {
-        exists: true;
-        isDirectory: boolean;
-        uri: string;
-        size: number;
-        modificationTime: number;
-        md5?: Md5;
-    } | {
-        exists: false;
-        isDirectory: false;
-    };
+    type FileInfo =
+        | {
+              exists: true;
+              isDirectory: boolean;
+              uri: string;
+              size: number;
+              modificationTime: number;
+              md5?: Md5;
+          }
+        | {
+              exists: false;
+              isDirectory: false;
+          };
 
     interface DownloadResult {
         uri: string;
@@ -1317,15 +1362,15 @@ export namespace FileSystem {
     const documentDirectory: string;
     const cacheDirectory: string;
 
-    function getInfoAsync(fileUri: string, options?: { md5?: string, size?: boolean; }): Promise<FileInfo>;
+    function getInfoAsync(fileUri: string, options?: { md5?: string; size?: boolean }): Promise<FileInfo>;
     function readAsStringAsync(fileUri: string): Promise<string>;
     function writeAsStringAsync(fileUri: string, contents: string): Promise<void>;
-    function deleteAsync(fileUri: string, options?: { idempotent: boolean; }): Promise<void>;
-    function moveAsync(options: { from: string, to: string; }): Promise<void>;
-    function copyAsync(options: { from: string, to: string; }): Promise<void>;
+    function deleteAsync(fileUri: string, options?: { idempotent: boolean }): Promise<void>;
+    function moveAsync(options: { from: string; to: string }): Promise<void>;
+    function copyAsync(options: { from: string; to: string }): Promise<void>;
     function makeDirectoryAsync(dirUri: string, options?: { intermediates: boolean }): Promise<void>;
     function readDirectoryAsync(dirUri: string): Promise<string[]>;
-    function downloadAsync(uri: string, fileUri: string, options?: { md5?: boolean; }): Promise<DownloadResult>;
+    function downloadAsync(uri: string, fileUri: string, options?: { md5?: boolean }): Promise<DownloadResult>;
     function createDownloadResumable(
         uri: string,
         fileUri: string,
@@ -1337,7 +1382,7 @@ export namespace FileSystem {
     interface PauseResult {
         url: string;
         fileUri: string;
-        options: { md5: boolean; };
+        options: { md5: boolean };
         resumeData: string;
     }
 
@@ -1371,14 +1416,16 @@ export namespace FileSystem {
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
 export namespace Fingerprint {
-    type FingerprintAuthenticationResult = {
-        success: true
-    } | {
-        success: false,
+    type FingerprintAuthenticationResult =
+        | {
+              success: true;
+          }
+        | {
+              success: false;
 
-        /** Error code in the case where authentication fails. */
-        error: string
-    };
+              /** Error code in the case where authentication fails. */
+              error: string;
+          };
 
     /** Determine whether the Fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
@@ -1418,7 +1465,7 @@ export interface GLViewProps extends ViewProps {
     msaaSamples: number;
 }
 
-export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
+export class GLView extends Component<GLViewProps, { msaaSamples: number }> {}
 // #endregion
 
 /**
@@ -1435,23 +1482,25 @@ export namespace Google {
         scopes?: string[];
     }
 
-    type LogInResult = {
-        type: 'cancel';
-    } | {
-        type: 'success';
-        accessToken: string;
-        idToken?: string;
-        refreshToken?: string;
-        serverAuthCode?: string;
-        user: {
-            id: string;
-            name: string;
-            givenName: string;
-            familyName: string;
-            photoUrl?: string;
-            email?: string;
-        }
-    };
+    type LogInResult =
+        | {
+              type: 'cancel';
+          }
+        | {
+              type: 'success';
+              accessToken: string;
+              idToken?: string;
+              refreshToken?: string;
+              serverAuthCode?: string;
+              user: {
+                  id: string;
+                  name: string;
+                  givenName: string;
+                  familyName: string;
+                  photoUrl?: string;
+                  email?: string;
+              };
+          };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }
@@ -1505,7 +1554,11 @@ export namespace ImageManipulator {
         crop?: CropParameters;
     }
 
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulate(
+        uri: string,
+        actions: ImageManipulationOptions,
+        saveOptions?: SaveOptions
+    ): Promise<ImageResult>;
 }
 
 /**
@@ -1660,7 +1713,7 @@ export interface LinearGradientProps {
     style?: StyleProp<ViewStyle>;
 }
 
-export class LinearGradient extends Component<LinearGradientProps> { }
+export class LinearGradient extends Component<LinearGradientProps> {}
 // #endregion
 
 /**
@@ -1686,7 +1739,7 @@ export namespace Location {
     interface LocationData {
         coords: {
             heading: number;
-            speed: number
+            speed: number;
         } & Coords;
         timestamp: number;
     }
@@ -1756,7 +1809,7 @@ export namespace Notifications {
         body?: string;
         data?: any;
         ios?: {
-            sound?: boolean
+            sound?: boolean;
         };
         android?: {
             sound?: boolean;
@@ -1776,7 +1829,7 @@ export namespace Notifications {
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,
-        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
+        schedulingOptions: { time: Date | number; repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
     ): Promise<LocalNotificationId>;
     function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function dismissAllNotificationsAsync(): Promise<void>;
@@ -1791,17 +1844,25 @@ export namespace Notifications {
  */
 export namespace Pedometer {
     function isAvailableAsync(): Promise<boolean>;
-    function getStepCountAsync(start: Date, end: Date): Promise<{ steps: number; }>;
-    function watchStepCount(callback: (params: { steps: number; }) => void): EventSubscription;
+    function getStepCountAsync(start: Date, end: Date): Promise<{ steps: number }>;
+    function watchStepCount(callback: (params: { steps: number }) => void): EventSubscription;
 }
 
 /**
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'audioRecording' | 'calendar' |
-    'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
-    'remoteNotifications' | 'systemBrightness' | 'userFacingNotifications';
+    type PermissionType =
+        | 'audioRecording'
+        | 'calendar'
+        | 'cameraRoll'
+        | 'camera'
+        | 'contacts'
+        | 'location'
+        | 'reminders'
+        | 'remoteNotifications'
+        | 'systemBrightness'
+        | 'userFacingNotifications';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1881,10 +1942,7 @@ export namespace SecureStore {
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    function initialize(keys: { androidWriteKey: string; iosWriteKey: string }): void;
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
     function track(event: string): void;
@@ -1929,7 +1987,7 @@ export namespace SQLite {
     interface Database {
         transaction(
             callback: (transaction: Transaction) => any,
-            error?: (error: Error) => any,     // TODO def of error
+            error?: (error: Error) => any, // TODO def of error
             success?: () => any
         ): void;
     }
@@ -1954,13 +2012,15 @@ export namespace SQLite {
     }
 
     function openDatabase(
-        name: string | {
-            name: string,
-            version?: string,
-            description?: string,
-            size?: number,
-            callback?: () => any
-        },
+        name:
+            | string
+            | {
+                  name: string;
+                  version?: string;
+                  description?: string;
+                  size?: number;
+                  callback?: () => any;
+              },
         version?: string,
         description?: string,
         size?: number,
@@ -2089,7 +2149,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
+export class Svg extends Component<{ width: number; height: number; viewBox?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -2115,13 +2175,13 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement),
+    view?: number | React.ReactElement,
     options?: {
-        width?: number,
-        height?: number,
-        format?: 'png' | 'jpg' | 'jpeg' | 'webm',
-        quality?: number,
-        result?: 'file' | 'base64' | 'data-uri',
+        width?: number;
+        height?: number;
+        format?: 'png' | 'jpg' | 'jpeg' | 'webm';
+        quality?: number;
+        result?: 'file' | 'base64' | 'data-uri';
     }
 ): Promise<string>;
 
@@ -2140,9 +2200,7 @@ export namespace Util {
     function reload(): void;
 
     /** _Android only_. Invokes a callback when a new version of your app is successfully downloaded in the background. */
-    function addNewVersionListenerExperimental(listener: (event: {
-        manifest: object;
-    }) => void): { remove(): void; };
+    function addNewVersionListenerExperimental(listener: (event: { manifest: object }) => void): { remove(): void };
 }
 
 // #region Video
@@ -2164,7 +2222,7 @@ export enum FullscreenUpdateVariants {
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
     IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
-    IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
+    IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3,
 }
 
 export interface FullscreenUpdateEvent {
@@ -2508,7 +2566,7 @@ export namespace Calendar {
         CALDAV = 'caldav',
         EXCHANGE = 'exchange',
         SUBSCRIBED = 'subscribed',
-        BIRTHDAYS = 'birthdays'
+        BIRTHDAYS = 'birthdays',
     }
 
     enum Availability {
@@ -2516,7 +2574,7 @@ export namespace Calendar {
         BUSY = 'busy',
         FREE = 'free',
         TENTATIVE = 'tentative',
-        UNAVAILABLE = 'unavailable' // iOS
+        UNAVAILABLE = 'unavailable', // iOS
     }
 
     enum AlarmMethod {
@@ -2535,7 +2593,7 @@ export namespace Calendar {
         RESOURCE = 'resource',
         OPTIONAL = 'optional', // Android
         REQUIRED = 'required', // Android
-        NONE = 'none' // Android
+        NONE = 'none', // Android
     }
 
     enum CalendarAccessLevel {
@@ -2547,21 +2605,21 @@ export namespace Calendar {
         READ = 'read',
         RESPOND = 'respond',
         ROOT = 'root',
-        NONE = 'none'
+        NONE = 'none',
     }
 
     enum EventAccessLevel {
         CONFIDENTIAL = 'confidential',
         PRIVATE = 'private',
         PUBLIC = 'public',
-        DEFAULT = 'default'
+        DEFAULT = 'default',
     }
 
     enum EventStatus {
         NONE = 'none',
         CONFIRMED = 'confirmed',
         TENTATIVE = 'tentative',
-        CANCELED = 'canceled'
+        CANCELED = 'canceled',
     }
 
     enum AttendeeRole {
@@ -2574,7 +2632,7 @@ export namespace Calendar {
         ORGANIZER = 'organizer', // Android
         PERFORMER = 'performer', // Android
         SPEAKER = 'speaker', // Android
-        NONE = 'none' // Android
+        NONE = 'none', // Android
     }
 
     enum AttendeeStatus {
@@ -2587,19 +2645,19 @@ export namespace Calendar {
         COMPLETED = 'completed', // iOS
         IN_PROCESS = 'inProcess', // iOS
         INVITED = 'invited', // Android
-        NONE = 'none' // Android
+        NONE = 'none', // Android
     }
 
     enum Frequency {
         DAILY = 'daily',
         WEEKLY = 'weekly',
         MONTHLY = 'monthly',
-        YEARLY = 'yearly'
+        YEARLY = 'yearly',
     }
 
     enum ReminderStatus {
         COMPLETED = 'completed',
-        INCOMPLETE = 'incomplete'
+        INCOMPLETE = 'incomplete',
     }
 
     interface RecurringEventOptions {
@@ -2831,7 +2889,8 @@ export namespace Updates {
     /** An object that is passed into each event listener when a new version is available. */
     interface UpdateEvent {
         /** Type of the event */
-        type: EventType.DownloadStart
+        type:
+            | EventType.DownloadStart
             | EventType.DownloadProgress
             | EventType.DownloadFinished
             | EventType.NoUpdateAvailable

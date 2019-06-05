@@ -1,4 +1,4 @@
-import Redis = require("ioredis");
+import Redis = require('ioredis');
 const redis = new Redis();
 
 redis.set('foo', 'bar');
@@ -32,23 +32,25 @@ redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
 redis.exists('foo').then(result => result * 1);
-redis.exists('foo', ((err, data) => data * 1));
+redis.exists('foo', (err, data) => data * 1);
 
-new Redis();       // Connect to 127.0.0.1:6379
-new Redis(6380);   // 127.0.0.1:6380
-new Redis(6379, '192.168.1.1');       // 192.168.1.1:6379
+new Redis(); // Connect to 127.0.0.1:6379
+new Redis(6380); // 127.0.0.1:6380
+new Redis(6379, '192.168.1.1'); // 192.168.1.1:6379
 new Redis('/tmp/redis.sock');
 new Redis({
-    port: 6379,          // Redis port
-    host: '127.0.0.1',   // Redis host
-    family: 4,           // 4 (IPv4) or 6 (IPv6)
+    port: 6379, // Redis port
+    host: '127.0.0.1', // Redis host
+    family: 4, // 4 (IPv4) or 6 (IPv6)
     password: 'auth',
     db: 0,
-    retryStrategy() { return false; },
+    retryStrategy() {
+        return false;
+    },
     showFriendlyErrorStack: true,
     tls: {
-        servername: 'tlsservername'
-    }
+        servername: 'tlsservername',
+    },
 });
 
 const pub = new Redis();
@@ -86,25 +88,35 @@ pipeline.exec((err, results) => {
 });
 
 // You can even chain the commands:
-redis.pipeline().set('foo', 'bar').del('cc').exec((err, results) => {
-});
+redis
+    .pipeline()
+    .set('foo', 'bar')
+    .del('cc')
+    .exec((err, results) => {});
 
 // `exec` also returns a Promise:
-const promise = redis.pipeline().set('foo', 'bar').get('foo').exec();
-promise.then((result) => {
+const promise = redis
+    .pipeline()
+    .set('foo', 'bar')
+    .get('foo')
+    .exec();
+promise.then(result => {
     // result === [[null, 'OK'], [null, 'bar']]
 });
 
-redis.pipeline().set('foo', 'bar').get('foo', (err, result) => {
-    // result === 'bar'
-}).exec((err, result) => {
-    // result[1][1] === 'bar'
-});
+redis
+    .pipeline()
+    .set('foo', 'bar')
+    .get('foo', (err, result) => {
+        // result === 'bar'
+    })
+    .exec((err, result) => {
+        // result[1][1] === 'bar'
+    });
 
-redis.pipeline([
-    ['set', 'foo', 'bar'],
-    ['get', 'foo']
-]).exec(() => { /* ... */ });
+redis.pipeline([['set', 'foo', 'bar'], ['get', 'foo']]).exec(() => {
+    /* ... */
+});
 
 Redis.Command.setArgumentTransformer('set', args => {
     return args;
@@ -115,51 +127,54 @@ Redis.Command.setReplyTransformer('get', (result: any) => {
 });
 
 // multi
-redis.multi().set('foo', 'bar').set('foo', 'baz').get('foo', (err, result) => {
-    // result === 'QUEUED'
-}).exec((err, results) => {
-    // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
-});
+redis
+    .multi()
+    .set('foo', 'bar')
+    .set('foo', 'baz')
+    .get('foo', (err, result) => {
+        // result === 'QUEUED'
+    })
+    .exec((err, results) => {
+        // results = [[null, 'OK'], [null, 'OK'], [null, 'baz']]
+    });
 
-redis.multi([
-    ['set', 'foo', 'bar'],
-    ['get', 'foo']
-]).exec((err, results) => {
+redis.multi([['set', 'foo', 'bar'], ['get', 'foo']]).exec((err, results) => {
     // results = [[null, 'OK'], [null, 'bar']]
 });
 
-redis.Promise.onPossiblyUnhandledRejection((error) => {
-});
+redis.Promise.onPossiblyUnhandledRejection(error => {});
 
 const keys = ['foo', 'bar'];
 redis.mget(...keys);
 
+new Redis.Cluster(['localhost']);
+
+new Redis.Cluster([6379]);
+
 new Redis.Cluster([
-    'localhost'
+    {
+        host: 'localhost',
+    },
 ]);
 
 new Redis.Cluster([
-    6379
+    {
+        port: 6379,
+    },
 ]);
 
-new Redis.Cluster([{
-    host: 'localhost'
-}]);
-
-new Redis.Cluster([{
-    port: 6379
-}]);
-
-new Redis.Cluster([{
-    host: 'localhost',
-    port: 6379
-}]);
+new Redis.Cluster([
+    {
+        host: 'localhost',
+        port: 6379,
+    },
+]);
 
 // ClusterRetryStrategy can return non-numbers to stop retrying
 new Redis.Cluster([], {
-    clusterRetryStrategy: (times: number) => null
+    clusterRetryStrategy: (times: number) => null,
 });
 
 new Redis.Cluster([], {
-    clusterRetryStrategy: (times: number) => 1
+    clusterRetryStrategy: (times: number) => 1,
 });

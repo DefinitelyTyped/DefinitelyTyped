@@ -1,8 +1,8 @@
-import { format, check } from "prettier-package-json";
+import { format, check } from 'prettier-package-json';
 
 const json = {
-    name: "some-package",
-    version: "0.0.0"
+    name: 'some-package',
+    version: '0.0.0',
 };
 
 // $ExpectType string
@@ -16,7 +16,7 @@ format(json, {
     tabWidth: 2,
     useTabs: false,
     expandUsers: false,
-    keyOrder: ["name", "version"]
+    keyOrder: ['name', 'version'],
 });
 
 // $ExpectType string
@@ -32,27 +32,27 @@ format(json, {
         b;
 
         return b < a ? -1 : b > a ? 1 : 0;
-    }
+    },
 });
 
 // $ExpectType boolean
-check("");
+check('');
 
 // $ExpectType boolean
 check(json);
 
 // $ExpectType boolean
-check("", {});
+check('', {});
 
 // $ExpectType boolean
 check(json, {});
 
 // $ExpectType boolean
-check("", {
+check('', {
     tabWidth: 8,
     useTabs: true,
     expandUsers: false,
-    keyOrder: ["private", "version"]
+    keyOrder: ['private', 'version'],
 });
 
 // $ExpectType boolean
@@ -65,5 +65,5 @@ check(json, {
         b;
 
         return b < a ? -1 : b > a ? 1 : 0;
-    }
+    },
 });

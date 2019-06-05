@@ -1,3 +1,3 @@
-import createMultyMiddleware = require("multy");
+import createMultyMiddleware = require('multy');
 
 const middleware = createMultyMiddleware();

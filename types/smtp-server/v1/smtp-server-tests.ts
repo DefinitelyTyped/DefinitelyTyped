@@ -12,4 +12,3 @@ function SMTPServerConnectTest() {
 }
 
 SMTPServerConnectTest();
-

@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 declare namespace ngAnnotate {
     interface NgAnnotate {
         (option?: Option): NodeJS.ReadWriteStream;

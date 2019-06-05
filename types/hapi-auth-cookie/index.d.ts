@@ -30,7 +30,10 @@ declare module 'hapi' {
 }
 
 declare namespace hapiAuthCookie {
-    interface ValidateResponse { valid: boolean; credentials?: AuthCredentials; }
+    interface ValidateResponse {
+        valid: boolean;
+        credentials?: AuthCredentials;
+    }
     type ValidateFunction = (request?: Request, session?: object) => Promise<ValidateResponse>;
     type RedirectToFunction = (request?: Request) => string;
 

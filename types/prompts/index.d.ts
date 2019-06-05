@@ -78,22 +78,29 @@ declare namespace prompts {
         inactive?: string;
         choices?: Choice[];
         hint?: string;
-        suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
+        suggest?: (prev: any, values: any, prompt: PromptObject) => void;
         limit?: number;
         mask?: string;
     }
 
     type Answers<T extends string> = { [id in T]: any };
 
-    type PrevCaller<T extends string, R = T> = (
-        prev: any,
-        values: Answers<T>,
-        prompt: PromptObject
-    ) => R;
+    type PrevCaller<T extends string, R = T> = (prev: any, values: Answers<T>, prompt: PromptObject) => R;
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date";
+    type PromptType =
+        | 'text'
+        | 'password'
+        | 'invisible'
+        | 'number'
+        | 'confirm'
+        | 'list'
+        | 'toggle'
+        | 'select'
+        | 'multiselect'
+        | 'autocomplete'
+        | 'date';
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

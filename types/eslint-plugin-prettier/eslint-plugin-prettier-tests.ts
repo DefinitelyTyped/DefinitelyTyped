@@ -5,12 +5,7 @@ declare function log(...args: Array<string | number>): void;
 utils.showInvisibles(' some string ');
 
 utils.generateDifferences('abc', 'def').forEach(difference => {
-    const {
-        operation,
-        offset,
-        deleteText = '',
-        insertText = '',
-    } = difference;
+    const { operation, offset, deleteText = '', insertText = '' } = difference;
 
     switch (operation) {
         case 'delete':

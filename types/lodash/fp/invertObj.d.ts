@@ -1,2 +1,2 @@
-import { invertObj } from "../fp";
+import { invertObj } from '../fp';
 export = invertObj;

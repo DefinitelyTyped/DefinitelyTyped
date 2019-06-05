@@ -1,1 +1,1 @@
-export { default as Shellbar } from "./Shellbar";
+export { default as Shellbar } from './Shellbar';

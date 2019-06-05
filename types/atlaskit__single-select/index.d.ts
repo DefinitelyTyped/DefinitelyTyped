@@ -67,9 +67,7 @@ export interface Props {
      * Handler called when the select is opened or closed. Called with an object
      * that has both the event, and the new isOpen state.
      */
-    onOpenChange?: (
-        change: { event: SyntheticEvent<any>; isOpen: boolean },
-    ) => void;
+    onOpenChange?: (change: { event: SyntheticEvent<any>; isOpen: boolean }) => void;
     /** Text to be shown within the select when no item is selected. */
     placeholder?: string;
     /** Where the select dropdown should be displayed relative to the field position. */

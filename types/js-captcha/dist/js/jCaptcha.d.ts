@@ -17,7 +17,7 @@ declare namespace jCaptcha {
         canvasFontFamily?: string;
         canvasFillStyle?: string;
 
-        callback?: (response: "success" | "error", input: NodeListOf<Element>) => void;
+        callback?: (response: 'success' | 'error', input: NodeListOf<Element>) => void;
     }
 }
 

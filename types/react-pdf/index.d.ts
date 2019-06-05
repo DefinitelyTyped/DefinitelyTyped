@@ -8,8 +8,4 @@ import Document from './dist/Document';
 import Page from './dist/Page';
 import Outline from './dist/Outline';
 
-export {
-    Document,
-    Page,
-    Outline
-};
+export { Document, Page, Outline };

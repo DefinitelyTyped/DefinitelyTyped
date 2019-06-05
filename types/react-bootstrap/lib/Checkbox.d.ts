@@ -6,8 +6,8 @@ declare namespace Checkbox {
         disabled?: boolean;
         inline?: boolean;
         inputRef?: (instance: HTMLInputElement) => void;
-        validationState?: "success" | "warning" | "error";
+        validationState?: 'success' | 'warning' | 'error';
     }
 }
-declare class Checkbox extends React.Component<Checkbox.CheckboxProps> { }
+declare class Checkbox extends React.Component<Checkbox.CheckboxProps> {}
 export = Checkbox;

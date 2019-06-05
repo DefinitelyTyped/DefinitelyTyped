@@ -115,7 +115,7 @@ function verifyApplyMethods(oldStr: string, newStr: string, uniDiffStr: string) 
             }
             return line === patchContent;
         },
-        fuzzFactor: 0
+        fuzzFactor: 0,
     };
     diff.applyPatches([uniDiff], options);
     diff.applyPatches(uniDiffStr, options);

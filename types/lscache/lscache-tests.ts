@@ -1,5 +1,3 @@
-
-
 // Copied examples directly from lscache github site with slight modifications
 alert(lscache.supported());
 
@@ -11,6 +9,6 @@ alert(lscache.get('greeting'));
 
 lscache.remove('greeting');
 
-lscache.set('data', { 'name': 'Pamela', 'age': 26 }, 2);
+lscache.set('data', { name: 'Pamela', age: 26 }, 2);
 
 alert(lscache.get('data').name);

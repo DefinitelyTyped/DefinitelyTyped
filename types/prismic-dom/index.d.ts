@@ -7,42 +7,32 @@
 // TypeScript Version: 2.1
 
 type ElementType =
-    | "heading1"
-    | "heading2"
-    | "heading3"
-    | "heading4"
-    | "heading5"
-    | "heading6"
-    | "paragraph"
-    | "preformatted"
-    | "strong"
-    | "em"
-    | "list-item"
-    | "o-list-item"
-    | "group-list-item"
-    | "group-o-list-item"
-    | "image"
-    | "embed"
-    | "hyperlink"
-    | "label"
-    | "span";
+    | 'heading1'
+    | 'heading2'
+    | 'heading3'
+    | 'heading4'
+    | 'heading5'
+    | 'heading6'
+    | 'paragraph'
+    | 'preformatted'
+    | 'strong'
+    | 'em'
+    | 'list-item'
+    | 'o-list-item'
+    | 'group-list-item'
+    | 'group-o-list-item'
+    | 'image'
+    | 'embed'
+    | 'hyperlink'
+    | 'label'
+    | 'span';
 
-type Elements = {[key in ElementType]: string};
+type Elements = { [key in ElementType]: string };
 
-type HTMLSerializer<T> = (
-    type: ElementType,
-    element: any,
-    text: string | null,
-    children: T[],
-    index: number,
-) => T;
+type HTMLSerializer<T> = (type: ElementType, element: any, text: string | null, children: T[], index: number) => T;
 
 interface RichText {
-    asHtml(
-        richText: any,
-        linkResolver?: (doc: any) => string,
-        serializer?: HTMLSerializer<string>,
-    ): string;
+    asHtml(richText: any, linkResolver?: (doc: any) => string, serializer?: HTMLSerializer<string>): string;
     asText(richText: any, joinString?: string): string;
     Elements: Elements;
 }
@@ -57,7 +47,7 @@ export const HTMLSerializer: HTMLSerializer<string>;
 
 declare const _default: {
     RichText: RichText;
-    Link: Link
+    Link: Link;
 };
 
 export default _default;

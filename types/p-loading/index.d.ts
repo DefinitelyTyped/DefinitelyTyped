@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 interface PLoadingOptions {
-    action?: "show" | "hide" | "destroy";
+    action?: 'show' | 'hide' | 'destroy';
     maskColor?: string;
     containerHTML?: string;
     containerAttrs?: object;
@@ -32,7 +32,7 @@ interface PLoadingOptions {
     destroyAfterHide?: boolean;
     idPrefix?: string;
     pluginNameSpace?: string;
-    useAddOns?: string [];
+    useAddOns?: string[];
 }
 
 interface PLoading {

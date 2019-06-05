@@ -53,7 +53,6 @@ declare interface Frisby {
     toss(): void;
 
     create(msg: string): Frisby;
-
 }
 
 declare global {

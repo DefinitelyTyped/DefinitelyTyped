@@ -1,8 +1,7 @@
-
-import clone = require("clone");
+import clone = require('clone');
 
 var original = {
-    key: "value"
+    key: 'value',
 };
 
 var copy = clone(original);

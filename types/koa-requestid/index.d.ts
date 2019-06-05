@@ -8,8 +8,4 @@ import { Middleware } from 'koa';
 
 export = requestId;
 
-declare function requestId(options?: {
-    expose?: string;
-    header?: string;
-    query?: string;
-}): Middleware;
+declare function requestId(options?: { expose?: string; header?: string; query?: string }): Middleware;

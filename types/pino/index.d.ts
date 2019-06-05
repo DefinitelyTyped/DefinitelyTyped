@@ -46,7 +46,9 @@ declare namespace P {
         /**
          * Generates a JSONifiable object from the HTTP `request` object passed to the `createServer` callback of Node's HTTP server.
          */
-        req(req: http.IncomingMessage): {
+        req(
+            req: http.IncomingMessage
+        ): {
             method: string;
             url: string;
             headers: http.IncomingHttpHeaders;
@@ -56,11 +58,13 @@ declare namespace P {
         /**
          * Generates a JSONifiable object from the HTTP `response` object passed to the `createServer` callback of Node's HTTP server.
          */
-        res(res: http.ServerResponse): { statusCode: number; header: string; };
+        res(res: http.ServerResponse): { statusCode: number; header: string };
         /**
          * Serializes an Error object.
          */
-        err(err: Error): {
+        err(
+            err: Error
+        ): {
             type: string;
             message: string;
             stack: string;
@@ -107,7 +111,10 @@ declare namespace P {
      * @param [handler]: Function that will be called by the handler returned from this function
      * @returns Exit listener function that can be supplied to process exit events and will call the supplied handler function
      */
-    function final(logger: Logger, handler: (error: Error, finalLogger: Logger, ...args: any[]) => void): (error: Error | null, ...args: any[]) => void;
+    function final(
+        logger: Logger,
+        handler: (error: Error, finalLogger: Logger, ...args: any[]) => void
+    ): (error: Error | null, ...args: any[]) => void;
 
     /**
      * The pino.final method can be used to acquire a final logger instance that synchronously flushes on every write.
@@ -120,11 +127,11 @@ declare namespace P {
         /**
          * Returns the mappings of level names to their respective internal number representation.
          */
-        values: { [level: string]: number; };
+        values: { [level: string]: number };
         /**
          * Returns the mappings of level internal level numbers to their string representations.
          */
-        labels: { [level: number]: string; };
+        labels: { [level: number]: string };
     }
     type TimeFn = () => string;
     type DestinationStream = stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom;
@@ -221,21 +228,23 @@ declare namespace P {
              * This option will create a pino-like log object instead of passing all arguments to a console method.
              * When `write` is set, `asObject` will always be `true`.
              */
-            asObject?: boolean,
+            asObject?: boolean;
             /**
              * Instead of passing log messages to console.log they can be passed to a supplied function. If `write` is
              * set to a single function, all logging objects are passed to this function. If write is an object, it can
              * have methods that correspond to the levels. When a message is logged at a given level, the corresponding
              * method is called. If a method isn't present, the logging falls back to using the `console`.
              */
-            write?: WriteFn | ({
-                fatal?: WriteFn;
-                error?: WriteFn;
-                warn?: WriteFn;
-                info?: WriteFn;
-                debug?: WriteFn;
-                trace?: WriteFn;
-            } & { [logLevel: string]: WriteFn });
+            write?:
+                | WriteFn
+                | ({
+                      fatal?: WriteFn;
+                      error?: WriteFn;
+                      warn?: WriteFn;
+                      info?: WriteFn;
+                      debug?: WriteFn;
+                      trace?: WriteFn;
+                  } & { [logLevel: string]: WriteFn });
         };
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
@@ -306,7 +315,7 @@ declare namespace P {
         [key: string]: any;
     }
 
-    type Logger = BaseLogger & { [key: string]: LogFn; };
+    type Logger = BaseLogger & { [key: string]: LogFn };
 
     interface BaseLogger extends EventEmitter {
         /**
@@ -459,7 +468,12 @@ declare namespace P {
         isLevelEnabled(level: LevelWithSilent | string): boolean;
     }
 
-    type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;
+    type LevelChangeEventListener = (
+        lvl: LevelWithSilent | string,
+        val: number,
+        prevLvl: LevelWithSilent | string,
+        prevVal: number
+    ) => void;
 
     interface LogFn {
         (msg: string, ...args: any[]): void;

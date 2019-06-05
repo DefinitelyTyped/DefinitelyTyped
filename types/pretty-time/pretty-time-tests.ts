@@ -1,4 +1,4 @@
-import DateTime = require("pretty-time");
+import DateTime = require('pretty-time');
 
 DateTime([1200708, 795428088]);
 

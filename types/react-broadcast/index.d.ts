@@ -12,7 +12,7 @@ export namespace Subscriber {
     }
     interface Props<T> extends Partial<DefaultProps> {
         channel: string;
-        children?: ((state: T) => React.ReactNode);
+        children?: (state: T) => React.ReactNode;
     }
 }
 
@@ -27,5 +27,5 @@ export namespace Broadcast {
     }
 }
 
-export class Broadcast<T> extends React.Component<Broadcast.Props<T>, any> { }
-export class Subscriber<T> extends React.Component<Subscriber.Props<T>, any> { }
+export class Broadcast<T> extends React.Component<Broadcast.Props<T>, any> {}
+export class Subscriber<T> extends React.Component<Subscriber.Props<T>, any> {}

@@ -1,8 +1,8 @@
-import { unstable_createResource } from "react-cache";
+import { unstable_createResource } from 'react-cache';
 
 const fetchName = (name: string) =>
     new Promise<string>((resolve, reject) => {
-        if (name === "Bob") {
+        if (name === 'Bob') {
             resolve(name);
         } else {
             reject(`Invalid name: ${name}`);
@@ -10,11 +10,11 @@ const fetchName = (name: string) =>
     });
 
 const nameResource = unstable_createResource(fetchName);
-nameResource.read("Bob");
+nameResource.read('Bob');
 
 const fetchUser = ({ name }: { name: string }) =>
     new Promise<string>((resolve, reject) => {
-        if (name === "Jill") {
+        if (name === 'Jill') {
             resolve(name);
         } else {
             reject(`Invalid name: ${name}`);
@@ -22,4 +22,4 @@ const fetchUser = ({ name }: { name: string }) =>
     });
 
 const userResource = unstable_createResource(fetchUser, ({ name }) => name);
-userResource.read({ name: "Jill" });
+userResource.read({ name: 'Jill' });

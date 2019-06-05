@@ -13,7 +13,7 @@ import {
     InputHTMLAttributes,
     ReactElement,
     ReactNode,
-    TextareaHTMLAttributes
+    TextareaHTMLAttributes,
 } from 'react';
 
 export type AlertType = 'info' | 'success' | 'warn' | 'error';
@@ -31,8 +31,7 @@ export interface AlertProps {
 /**
  * Educational status alerts.
  */
-export class Alert extends Component<AlertProps> {
-}
+export class Alert extends Component<AlertProps> {}
 
 export type ButtonSize = 'alpha' | 'beta' | 'gamma';
 export interface ButtonProps {
@@ -48,8 +47,7 @@ export interface ButtonProps {
 /**
  * Button component.
  */
-export class Button extends Component<ButtonProps> {
-}
+export class Button extends Component<ButtonProps> {}
 
 export interface CheckboxProps {
     readonly checked?: boolean;
@@ -67,8 +65,7 @@ export interface CheckboxState {
 /**
  * Styled checkbox element.
  */
-export class Checkbox extends Component<CheckboxProps, CheckboxState> {
-}
+export class Checkbox extends Component<CheckboxProps, CheckboxState> {}
 
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     readonly alt: string;
@@ -87,8 +84,7 @@ export interface ImageState {
 /**
  * Wrapper for external images.
  */
-export class Image extends Component<ImageProps, ImageState> {
-}
+export class Image extends Component<ImageProps, ImageState> {}
 
 export interface LabelProps {
     readonly label?: string;
@@ -112,8 +108,7 @@ export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 /**
  * Styled link element.
  */
-export class Link extends Component<LinkProps> {
-}
+export class Link extends Component<LinkProps> {}
 
 export interface LoadingBarProps {
     readonly color?: string;
@@ -129,8 +124,7 @@ export interface LoadingBarState {
 /**
  * Indeterminate loading bar component.
  */
-export class LoadingBar extends Component<LoadingBarProps, LoadingBarState> {
-}
+export class LoadingBar extends Component<LoadingBarProps, LoadingBarState> {}
 
 export type ModalSize = 'alpha' | 'beta' | 'gamma';
 export interface ModalProps {
@@ -149,8 +143,7 @@ export interface ModalState {
 /**
  * Container for a full-page modal dialog.
  */
-export class Modal extends Component<ModalProps, ModalState> {
-}
+export class Modal extends Component<ModalProps, ModalState> {}
 
 export type PulsatorSize = 'alpha' | 'beta' | 'gamma' | 'delta';
 export interface PulsatorProps {
@@ -167,8 +160,7 @@ export interface PulsatorState {
 /**
  * Indeterminate progress indication spinner.
  */
-export class Pulsator extends Component<PulsatorProps, PulsatorState> {
-}
+export class Pulsator extends Component<PulsatorProps, PulsatorState> {}
 
 export type RadioGroupProps = HTMLAttributes<HTMLDivElement> & {
     readonly options?: Array<{
@@ -186,8 +178,7 @@ export type RadioGroupProps = HTMLAttributes<HTMLDivElement> & {
 /**
  * Group of individually selectable radio buttons.
  */
-export class RadioGroup extends Component<RadioGroupProps> {
-}
+export class RadioGroup extends Component<RadioGroupProps> {}
 
 export interface SelectListProps {
     readonly placeholder?: string;
@@ -215,8 +206,7 @@ export interface SelectListState {
 /**
  * Dropdown menu component.
  */
-export class SelectList extends Component<SelectListProps, SelectListState> {
-}
+export class SelectList extends Component<SelectListProps, SelectListState> {}
 
 export interface SpacingProps {
     readonly padding?: boolean;
@@ -248,8 +238,7 @@ export interface SpinnerProps {
 /**
  * Indeterminate progress indication spinner.
  */
-export class Spinner extends Component<SpinnerProps> {
-}
+export class Spinner extends Component<SpinnerProps> {}
 
 export interface TabsProps {
     readonly options?: Array<{
@@ -267,8 +256,7 @@ export interface TabsProps {
 /**
  * Horizontally organized segments of options.
  */
-export class Tabs extends Component<TabsProps> {
-}
+export class Tabs extends Component<TabsProps> {}
 
 export type TagSize = 'alpha' | 'beta';
 export interface TagProps {
@@ -302,8 +290,7 @@ export interface TextProps {
 /**
  * Text component with automatic typeface formatting.
  */
-export class Text extends Component<TextProps> {
-}
+export class Text extends Component<TextProps> {}
 
 export type TextAreaProps = TextFieldProps & {
     readonly error?: string;
@@ -318,18 +305,18 @@ export type TextAreaProps = TextFieldProps & {
  */
 export const TextArea: FunctionComponent<TextAreaProps>;
 
-export type TextFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & InputHTMLAttributes<HTMLInputElement> & {
-    readonly error?: string;
-    readonly secondary?: boolean;
-    readonly textarea?: boolean;
-    readonly style?: CSSProperties;
-};
+export type TextFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> &
+    InputHTMLAttributes<HTMLInputElement> & {
+        readonly error?: string;
+        readonly secondary?: boolean;
+        readonly textarea?: boolean;
+        readonly style?: CSSProperties;
+    };
 
 /**
  * Input element for accepting user text input.
  */
-export class TextField extends Component<TextFieldProps> {
-}
+export class TextField extends Component<TextFieldProps> {}
 
 export interface ToastProps {
     readonly color?: string;
@@ -362,8 +349,7 @@ export interface TooltipState {
 /**
  * Wrap an arbitrary element with a tooltip next to the element on hover.
  */
-export class Tooltip extends Component<TooltipProps, TooltipState> {
-}
+export class Tooltip extends Component<TooltipProps, TooltipState> {}
 
 export interface ElementalProps {
     readonly fontOpts?: {
@@ -453,10 +439,10 @@ export const sizes: {
 
 export const spacing: {
     default: string;
-    micro: string
-    tiny: string
-    small: string
-    large: string
-    huge: string
+    micro: string;
+    tiny: string;
+    small: string;
+    large: string;
+    huge: string;
     enormous: string;
 };

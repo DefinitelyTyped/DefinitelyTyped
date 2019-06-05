@@ -1,8 +1,7 @@
-
 import sanitize = require('sanitize-filename');
 
 // Some string that may be unsafe as a filesystem filename
-var UNSAFE_FILENAME = "h*ello:/world?\u0000";
+var UNSAFE_FILENAME = 'h*ello:/world?\u0000';
 
 // Sanitize the unsafe filename to be safe for use as a filename
 var filename: string;

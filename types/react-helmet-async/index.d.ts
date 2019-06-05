@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import { HelmetData } from "react-helmet";
+import * as React from 'react';
+import { HelmetData } from 'react-helmet';
 
-export { default as Helmet } from "react-helmet";
+export { default as Helmet } from 'react-helmet';
 
 export interface PopulatedContext {
     helmet: HelmetData;

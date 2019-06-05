@@ -5,8 +5,8 @@ function test_options() {
     options.arrowPosition = 50;
     options.arrowSize = 15;
     options.arrowStyle = 0;
-    options.backgroundColor = "#000";
-    options.borderColor = "#000";
+    options.backgroundColor = '#000';
+    options.borderColor = '#000';
     options.borderRadius = 5;
     options.borderWidth = 1;
     options.disableAnimation = false;
@@ -28,6 +28,6 @@ function test_bubble() {
     bubble.open(map, marker);
     var isOpen = bubble.isOpen();
     bubble.close();
-    
+
     position = bubble.getPosition();
 }

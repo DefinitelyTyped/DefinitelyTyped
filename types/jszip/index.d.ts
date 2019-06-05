@@ -15,7 +15,7 @@ interface JSZipSupport {
 
 type Compression = 'STORE' | 'DEFLATE';
 
-interface Metadata  {
+interface Metadata {
     percent: number;
     currentFile: string;
 }
@@ -137,7 +137,7 @@ declare namespace JSZip {
 }
 
 interface JSZip {
-    files: {[key: string]: JSZip.JSZipObject};
+    files: { [key: string]: JSZip.JSZipObject };
 
     /**
      * Get a file from the archive
@@ -163,7 +163,11 @@ interface JSZip {
      * @param options Optional information about the file
      * @return JSZip object
      */
-    file<T extends JSZip.InputType>(path: string, data: InputByType[T] | Promise<InputByType[T]>, options?: JSZip.JSZipFileOptions): this;
+    file<T extends JSZip.InputType>(
+        path: string,
+        data: InputByType[T] | Promise<InputByType[T]>,
+        options?: JSZip.JSZipFileOptions
+    ): this;
     file<T extends JSZip.InputType>(path: string, data: null, options?: JSZip.JSZipFileOptions & { dir: true }): this;
 
     /**
@@ -212,7 +216,10 @@ interface JSZip {
      * @param onUpdate The optional function called on each internal update with the metadata.
      * @return The serialized archive
      */
-    generateAsync<T extends JSZip.OutputType>(options?: JSZip.JSZipGeneratorOptions<T>, onUpdate?: OnUpdateCallback): Promise<OutputByType[T]>;
+    generateAsync<T extends JSZip.OutputType>(
+        options?: JSZip.JSZipGeneratorOptions<T>,
+        onUpdate?: OnUpdateCallback
+    ): Promise<OutputByType[T]>;
 
     /**
      * Generates a new archive asynchronously
@@ -221,7 +228,10 @@ interface JSZip {
      * @param onUpdate The optional function called on each internal update with the metadata.
      * @return A Node.js `ReadableStream`
      */
-    generateNodeStream(options?: JSZip.JSZipGeneratorOptions<'nodebuffer'>, onUpdate?: OnUpdateCallback): NodeJS.ReadableStream;
+    generateNodeStream(
+        options?: JSZip.JSZipGeneratorOptions<'nodebuffer'>,
+        onUpdate?: OnUpdateCallback
+    ): NodeJS.ReadableStream;
 
     /**
      * Deserialize zip file asynchronously

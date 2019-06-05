@@ -4,12 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Q from "q";
+import * as Q from 'q';
 
 export = MsPortalTestFx;
 
 declare namespace MsPortalTestFx {
-
     export module Locators {
         export class Locator {
             seleniumLocator: any;
@@ -181,8 +180,7 @@ declare namespace MsPortalTestFx {
             constructor(parentLocator?: Locators.Locator);
         }
 
-        class PricingTierPart extends Part {
-        }
+        class PricingTierPart extends Part {}
 
         export class Tile extends MsPortalTestFx.PortalElement {
             public progressLocator: Locators.Locator;
@@ -221,7 +219,11 @@ declare namespace MsPortalTestFx {
 
     export module Tests {
         export module Parts {
-            export function canPinAllBladeParts(targetBladeDeepLink: string, targetBladeTitle: string, timeout?: number): Q.Promise<boolean>;
+            export function canPinAllBladeParts(
+                targetBladeDeepLink: string,
+                targetBladeTitle: string,
+                timeout?: number
+            ): Q.Promise<boolean>;
         }
     }
 
@@ -255,10 +257,10 @@ declare namespace MsPortalTestFx {
         capabilities: {
             browserName: string;
             chromeOptions: {
-                args: string[]
-            }
-        },
-        chromeDriverPath?: string,
+                args: string[];
+            };
+        };
+        chromeDriverPath?: string;
         portalUrl: string;
         signInUrl?: string;
         signInEmail?: string;
@@ -273,21 +275,40 @@ declare namespace MsPortalTestFx {
         Info,
         Warning,
         Severe,
-        Off
+        Off,
     }
 
     export class Portal {
         portalContext: PortalContext;
 
         goHome(timeout?: number): Q.Promise<void>;
-        openGalleryCreateBlade(galleryPackageName: string, bladeTitle: string, timeout?: number): Q.Promise<Blades.CreateBlade>;
-        openBrowseBlade(resourceProvider: string, resourceType: string, bladeTitle: string, timeout?: number): Q.Promise<Blades.BrowseResourceBlade>;
+        openGalleryCreateBlade(
+            galleryPackageName: string,
+            bladeTitle: string,
+            timeout?: number
+        ): Q.Promise<Blades.CreateBlade>;
+        openBrowseBlade(
+            resourceProvider: string,
+            resourceType: string,
+            bladeTitle: string,
+            timeout?: number
+        ): Q.Promise<Blades.BrowseResourceBlade>;
         openResourceBlade(resourceId: string, bladeTitle: string, timeout?: number): Q.Promise<Blades.Blade>;
         navigateToDeepLink(deepLink: string, timeout?: number): Q.Promise<any>;
         waitForElementVisible(locator: Locators.Locator, timeout?: number): Q.Promise<boolean>;
         waitForElementNotVisible(locator: Locators.Locator, timeout?: number): Q.Promise<boolean>;
-        waitUntilElementContainsAttribute(locator: Locators.Locator, attributeName: string, attributeValue: string, timeout?: number): Q.Promise<any>;
-        waitUntilElementDoesNotContainAttribute(locator: Locators.Locator, attributeName: string, attributeValue: string, timeout?: number): Q.Promise<any>;
+        waitUntilElementContainsAttribute(
+            locator: Locators.Locator,
+            attributeName: string,
+            attributeValue: string,
+            timeout?: number
+        ): Q.Promise<any>;
+        waitUntilElementDoesNotContainAttribute(
+            locator: Locators.Locator,
+            attributeName: string,
+            attributeValue: string,
+            timeout?: number
+        ): Q.Promise<any>;
         waitForElementLocated(locator: Locators.Locator, timeout?: number): Q.Promise<any>;
         waitForElementsLocated(locator: Locators.Locator, timeout?: number): Q.Promise<any[]>;
         takeScreenshot(filePrefix?: string): Q.Promise<string>;

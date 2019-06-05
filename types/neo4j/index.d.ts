@@ -6,7 +6,7 @@
 
 /// <reference types="request" />
 
-import { Request } from "request";
+import { Request } from 'request';
 
 type ResultCallback = (error: any, result: any) => void;
 type DoneCallback = (error: any) => void;

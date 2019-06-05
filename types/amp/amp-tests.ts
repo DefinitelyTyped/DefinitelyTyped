@@ -37,8 +37,8 @@ new Stream({
     },
     final: (callback: (error?: Error) => void) => {
         // do nothing
-    }
+    },
 });
 
 // $ExpectError
-new Stream({somethingNoneExisting: true});
+new Stream({ somethingNoneExisting: true });

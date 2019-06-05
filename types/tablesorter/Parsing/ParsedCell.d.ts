@@ -1,5 +1,5 @@
-import "jquery";
-import { ParsedOption } from "./ParsedOption";
+import 'jquery';
+import { ParsedOption } from './ParsedOption';
 
 /**
  * Represents a parsed row.

@@ -11,7 +11,7 @@ export type DateType = Date | string | number;
 export enum EVENT_TYPE {
     START = 1,
     HOVER,
-    END
+    END,
 }
 
 export interface RangedSelection {

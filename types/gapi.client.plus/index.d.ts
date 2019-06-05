@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google+ API v1 */
-    function load(name: "plus", version: "v1"): PromiseLike<void>;
-    function load(name: "plus", version: "v1", callback: () => any): void;
+    function load(name: 'plus', version: 'v1'): PromiseLike<void>;
+    function load(name: 'plus', version: 'v1', callback: () => any): void;
 
     const activities: plus.ActivitiesResource;
 

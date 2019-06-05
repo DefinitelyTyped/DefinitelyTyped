@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type AlertType = "warning" | "error" | "success" | "information";
+export type AlertType = 'warning' | 'error' | 'success' | 'information';
 
 export type AlertProps = {
     buttonProps?: { [x: string]: any };
@@ -19,9 +19,7 @@ export type AlertProps = {
     };
     type?: AlertType;
     /* Callback function passing event when close button is clicked. */
-    onCloseClicked?: (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => void;
+    onCloseClicked?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 } & { [x: string]: any };
 
 declare class Alert extends React.Component<AlertProps> {}

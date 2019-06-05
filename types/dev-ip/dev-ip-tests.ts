@@ -1,9 +1,9 @@
-import devIp = require("dev-ip");
+import devIp = require('dev-ip');
 
 const ips = devIp();
 
 function main() {
-    if (typeof ips === "boolean") {
+    if (typeof ips === 'boolean') {
         return;
     }
 

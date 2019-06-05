@@ -1,25 +1,25 @@
-import { Detector, Models } from "snowboy";
-import * as fs from "fs";
+import { Detector, Models } from 'snowboy';
+import * as fs from 'fs';
 
 const models = new Models();
 
 models.add({
     file: 'resources/snowboy.umdl',
     sensitivity: '0.5',
-    hotwords: 'snowboy'
+    hotwords: 'snowboy',
 });
 
 const detector = new Detector({
-    resource: "resources/common.res",
+    resource: 'resources/common.res',
     models,
-    audioGain: 1.0
+    audioGain: 1.0,
 });
 
 detector.on('silence', () => {
     console.log('silence');
 });
 
-detector.on('sound', (buffer) => {
+detector.on('sound', buffer => {
     // <buffer> contains the last chunk of the audio that triggers the "sound"
     // event. It could be written to a wav stream.
     console.log('sound');

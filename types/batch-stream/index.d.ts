@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import stream = require('stream');
 
 interface Options {

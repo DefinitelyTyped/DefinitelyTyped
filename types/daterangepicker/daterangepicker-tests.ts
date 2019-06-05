@@ -8,14 +8,14 @@ function tests_simple() {
             timePicker: true,
             timePickerIncrement: 30,
             locale: {
-                format: 'MM/DD/YYYY h:mm A'
+                format: 'MM/DD/YYYY h:mm A',
             },
             maxSpan: { days: 10 },
             applyButtonClasses: 'my-apply-class',
             cancelButtonClasses: 'my-cancel-class',
             showDropdowns: true,
             maxYear: 3000,
-            minYear: 2000
+            minYear: 2000,
         })
         .data('daterangepicker')
         .remove();
@@ -33,15 +33,13 @@ function tests_simple() {
                     .startOf('month'),
                 moment()
                     .subtract(1, 'month')
-                    .endOf('month')
-            ]
-        }
+                    .endOf('month'),
+            ],
+        },
     });
 
     $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(
-            `${picker.startDate.format('MM/DD/YYYY')} - ${picker.endDate.format('MM/DD/YYYY')}`
-        );
+        $(this).val(`${picker.startDate.format('MM/DD/YYYY')} - ${picker.endDate.format('MM/DD/YYYY')}`);
     });
 
     $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -51,7 +49,7 @@ function tests_simple() {
     $('#demo').daterangepicker(
         {
             startDate: '05/06/2016',
-            endDate: '05/12/2016'
+            endDate: '05/12/2016',
         },
         (start: moment.Moment, end: moment.Moment, label: string) => {
             console.log(
@@ -62,9 +60,7 @@ function tests_simple() {
 
     $(() => {
         function cb(start: moment.Moment, end: moment.Moment) {
-            $('#reportrange span').html(
-                `${start.format('MMMM D, YYYY')} - ${end.format('MMMM D, YYYY')}`
-            );
+            $('#reportrange span').html(`${start.format('MMMM D, YYYY')} - ${end.format('MMMM D, YYYY')}`);
         }
         cb(moment().subtract(29, 'days'), moment());
 
@@ -82,9 +78,9 @@ function tests_simple() {
                             .startOf('month'),
                         moment()
                             .subtract(1, 'month')
-                            .endOf('month')
-                    ]
-                }
+                            .endOf('month'),
+                    ],
+                },
             },
             cb
         );
@@ -95,16 +91,16 @@ function tests_simple() {
                     Today: [moment(), moment()],
                     Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 },
-                showCustomRangeLabel: false
+                showCustomRangeLabel: false,
             },
             cb
         );
 
         $('#endDate').daterangepicker({
             singleDatePicker: true,
-            startDate: moment()
+            startDate: moment(),
         });
     });
 }

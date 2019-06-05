@@ -1,4 +1,4 @@
-import * as nodeRal from "node-ral";
+import * as nodeRal from 'node-ral';
 
 class FormConverter extends nodeRal.Converter {
     pack(config: nodeRal.Service, data: {}) {

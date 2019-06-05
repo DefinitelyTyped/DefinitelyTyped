@@ -4,7 +4,7 @@ const matchers = [
     'path/to/file.js',
     'path/anyjs/**/*.js',
     /foo\.js$/,
-    (str: string) => str.indexOf('bar') !== -1 && str.length > 10
+    (str: string) => str.indexOf('bar') !== -1 && str.length > 10,
 ];
 
 // $ExpectType boolean

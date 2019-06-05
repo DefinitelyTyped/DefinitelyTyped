@@ -71,5 +71,5 @@ export {
     tabs,
     textField,
     toolbar,
-    topAppBar
+    topAppBar,
 };

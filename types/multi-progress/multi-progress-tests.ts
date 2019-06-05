@@ -11,8 +11,8 @@ const multi = new MultiProgress(process.stderr);
 
 // create a progress bar
 const bar = multi.newBar('  downloading [:bar] :percent :etas', {
-  complete: '=',
-  incomplete: ' ',
-  width: 30,
-  total: 20
+    complete: '=',
+    incomplete: ' ',
+    width: 30,
+    total: 20,
 });

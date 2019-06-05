@@ -8,11 +8,7 @@ interface Lock {
     locked: boolean;
 }
 
-type Release = (
-    cb: (err?: any, value?: any) => any,
-    err: any,
-    value: any
-) => void;
+type Release = (cb: (err?: any, value?: any) => any, err: any, value: any) => void;
 
 declare function mutexify(): Lock;
 

@@ -11,8 +11,8 @@
 
 /// <reference types="node" />
 
-import { Agent } from "http";
-import { URLSearchParams } from "url";
+import { Agent } from 'http';
+import { URLSearchParams } from 'url';
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
@@ -54,50 +54,44 @@ export interface RequestInit {
 }
 
 export type RequestContext =
-    "audio"
-    | "beacon"
-    | "cspreport"
-    | "download"
-    | "embed"
-    | "eventsource"
-    | "favicon"
-    | "fetch"
-    | "font"
-    | "form"
-    | "frame"
-    | "hyperlink"
-    | "iframe"
-    | "image"
-    | "imageset"
-    | "import"
-    | "internal"
-    | "location"
-    | "manifest"
-    | "object"
-    | "ping"
-    | "plugin"
-    | "prefetch"
-    | "script"
-    | "serviceworker"
-    | "sharedworker"
-    | "style"
-    | "subresource"
-    | "track"
-    | "video"
-    | "worker"
-    | "xmlhttprequest"
-    | "xslt";
-export type RequestMode = "cors" | "no-cors" | "same-origin";
-export type RequestRedirect = "error" | "follow" | "manual";
-export type RequestCredentials = "omit" | "include" | "same-origin";
+    | 'audio'
+    | 'beacon'
+    | 'cspreport'
+    | 'download'
+    | 'embed'
+    | 'eventsource'
+    | 'favicon'
+    | 'fetch'
+    | 'font'
+    | 'form'
+    | 'frame'
+    | 'hyperlink'
+    | 'iframe'
+    | 'image'
+    | 'imageset'
+    | 'import'
+    | 'internal'
+    | 'location'
+    | 'manifest'
+    | 'object'
+    | 'ping'
+    | 'plugin'
+    | 'prefetch'
+    | 'script'
+    | 'serviceworker'
+    | 'sharedworker'
+    | 'style'
+    | 'subresource'
+    | 'track'
+    | 'video'
+    | 'worker'
+    | 'xmlhttprequest'
+    | 'xslt';
+export type RequestMode = 'cors' | 'no-cors' | 'same-origin';
+export type RequestRedirect = 'error' | 'follow' | 'manual';
+export type RequestCredentials = 'omit' | 'include' | 'same-origin';
 
-export type RequestCache =
-    "default"
-    | "force-cache"
-    | "no-cache"
-    | "no-store"
-    | "only-if-cached"
-    | "reload";
+export type RequestCache = 'default' | 'force-cache' | 'no-cache' | 'no-store' | 'only-if-cached' | 'reload';
 
 export class Headers implements Iterable<[string, string]> {
     constructor(init?: HeadersInit);
@@ -121,7 +115,7 @@ type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
 
 interface BlobOptions {
     type?: string;
-    endings?: "transparent" | "native";
+    endings?: 'transparent' | 'native';
 }
 
 export class Blob {
@@ -146,7 +140,7 @@ export class Body {
 }
 
 export class FetchError extends Error {
-    name: "FetchError";
+    name: 'FetchError';
     constructor(message: string, type: string, systemError?: string);
     type: string;
     code?: string;
@@ -166,13 +160,7 @@ export class Response extends Body {
     url: string;
 }
 
-export type ResponseType =
-    "basic"
-    | "cors"
-    | "default"
-    | "error"
-    | "opaque"
-    | "opaqueredirect";
+export type ResponseType = 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaqueredirect';
 
 export interface ResponseInit {
     headers?: HeadersInit;
@@ -186,18 +174,10 @@ export interface ResponseInit {
 export type HeadersInit = Headers | string[][] | { [key: string]: string };
 // HeaderInit is exported to support backwards compatibility. See PR #34382
 export type HeaderInit = HeadersInit;
-export type BodyInit =
-    ArrayBuffer
-    | ArrayBufferView
-    | NodeJS.ReadableStream
-    | string
-    | URLSearchParams;
+export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
 export type RequestInfo = string | Request;
 
-declare function fetch(
-    url: RequestInfo,
-    init?: RequestInit
-): Promise<Response>;
+declare function fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
 
 declare namespace fetch {
     function isRedirect(code: number): boolean;

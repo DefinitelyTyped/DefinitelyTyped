@@ -27,15 +27,14 @@ export interface ArtistParams {
     artist_mbid?: number;
 }
 
-export interface ArtistRelatedParams extends  ArtistParams, Pageable {
-}
+export interface ArtistRelatedParams extends ArtistParams, Pageable {}
 
-export interface ArtistAlbumsParams extends  ArtistParams, Pageable {
+export interface ArtistAlbumsParams extends ArtistParams, Pageable {
     g_album_name?: TBoolean;
     s_release_date?: TSort;
 }
 
-export interface ArtistSearchParams extends  Pageable {
+export interface ArtistSearchParams extends Pageable {
     q_artist?: string;
     f_artist_id?: number;
     f_artist_mbid?: number;
@@ -46,12 +45,12 @@ export interface MatcherLyricsParams {
     q_artist?: string;
 }
 
-export interface MatcherSubtitleParams extends  MatcherLyricsParams {
+export interface MatcherSubtitleParams extends MatcherLyricsParams {
     f_subtitle_length?: number;
     f_subtitle_length_max_deviation?: number;
 }
 
-export interface MatcherTrackParams extends  MatcherLyricsParams {
+export interface MatcherTrackParams extends MatcherLyricsParams {
     f_has_lyrics?: TBoolean;
     f_has_subtitle?: TBoolean;
 }
@@ -59,7 +58,13 @@ export interface MatcherTrackParams extends  MatcherLyricsParams {
 export interface TrackLyricsFeedbackParams {
     lyrics_id?: number;
     track_id?: number;
-    feedback?: 'wrong_lyrics' | 'wrong_attribution' | 'bad_characters' | 'lines_too_long' | 'wrong_verses' | 'wrong_formatting';
+    feedback?:
+        | 'wrong_lyrics'
+        | 'wrong_attribution'
+        | 'bad_characters'
+        | 'lines_too_long'
+        | 'wrong_verses'
+        | 'wrong_formatting';
 }
 
 export interface TrackLyricsAddParams {
@@ -89,7 +94,7 @@ export interface TrackParams {
     track_mbid?: number;
 }
 
-export interface TrackSearchParams extends  Pageable {
+export interface TrackSearchParams extends Pageable {
     q?: string;
     q_lyrics?: string;
     f_has_lyrics?: TBoolean;
@@ -106,12 +111,12 @@ export interface TrackSearchResult {
     message: {
         body: {
             track_list: TrackResult[];
-        },
+        };
         header: {
             available: number;
             execute_time: number;
             status_code: number;
-        }
+        };
     };
 }
 
@@ -152,17 +157,17 @@ export interface TrackResult {
     };
 }
 
-export interface ChartTracksParams extends  Pageable {
+export interface ChartTracksParams extends Pageable {
     country?: string;
     f_has_lyrics?: TBoolean;
 }
 
-export interface ChartArtistsParams extends  Pageable {
+export interface ChartArtistsParams extends Pageable {
     country?: string;
 }
 
 export default class Musicmatch {
-    constructor(obj?: { apikey?: string, format?: string });
+    constructor(obj?: { apikey?: string; format?: string });
 
     album(params: AlbumParams): Promise<any>;
 

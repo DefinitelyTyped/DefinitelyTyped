@@ -1,4 +1,3 @@
+import * as escapeHTML from 'escape-html';
 
-import * as escapeHTML from "escape-html";
-
-const result = escapeHTML("foo & bar");
+const result = escapeHTML('foo & bar');

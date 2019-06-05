@@ -16,7 +16,10 @@ export default class TextFeature extends FeatureFormat {
     writeFeatures(features: Feature[], opt_options?: WriteOptions): string;
     readGeometry(source: Document | Node | { [key: string]: any } | string, opt_options?: ReadOptions): Geometry;
     readFeatures(source: Document | Node | { [key: string]: any } | string, opt_options?: ReadOptions): Feature[];
-    readFeatures(source: Document | Node | ArrayBuffer | { [key: string]: any } | string, opt_options?: ReadOptions): FeatureLike[];
+    readFeatures(
+        source: Document | Node | ArrayBuffer | { [key: string]: any } | string,
+        opt_options?: ReadOptions
+    ): FeatureLike[];
     writeGeometry(geometry: Geometry, opt_options?: WriteOptions): string;
     readFeature(source: Document | Node | { [key: string]: any } | string, opt_options?: ReadOptions): Feature;
     readFeature(source: Document | Node | { [key: string]: any } | string, opt_options?: ReadOptions): FeatureLike;

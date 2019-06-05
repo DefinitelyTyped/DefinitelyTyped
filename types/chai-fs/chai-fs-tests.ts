@@ -113,23 +113,47 @@ assert.notIsEmptyDirectory(path, msg);
 
 // directory().with.contents([...])
 // #1
-expect(path).to.be.a.directory(msg).with.contents(array);
-expect(path).to.be.a.directory(msg).with.contents(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.contents(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.contents(array, msg);
 // #2
-expect(path).to.be.a.directory(msg).and.not.have.contents(array);
-expect(path).to.be.a.directory(msg).and.not.have.contents(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.contents(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.contents(array, msg);
 // #3
-expect(path).to.be.a.directory(msg).with.deep.contents(array);
-expect(path).to.be.a.directory(msg).with.deep.contents(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.contents(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.contents(array, msg);
 // #4
-expect(path).to.be.a.directory(msg).and.not.have.deep.contents(array);
-expect(path).to.be.a.directory(msg).and.not.have.deep.contents(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.contents(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.contents(array, msg);
 // #5
-expect(path).to.be.a.directory(msg).and.include.contents(array);
-expect(path).to.be.a.directory(msg).and.include.contents(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.include.contents(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.include.contents(array, msg);
 // #6
-expect(path).to.be.a.directory(msg).and.not.include.contents(array);
-expect(path).to.be.a.directory(msg).and.not.include.contents(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.include.contents(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.include.contents(array, msg);
 
 // #1
 path.should.be.a.directory(msg).with.contents(array);
@@ -165,35 +189,75 @@ assert.notDirectoryInclude(path, array, msg);
 
 // directory().with.files([...])
 // #1
-expect(path).to.be.a.directory(msg).with.files(array);
-expect(path).to.be.a.directory(msg).with.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.files(array, msg);
 // #2
-expect(path).to.be.a.directory(msg).with.files(array);
-expect(path).to.be.a.directory(msg).with.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.files(array, msg);
 // #3
-expect(path).to.be.a.directory(msg).and.not.have.files(array);
-expect(path).to.be.a.directory(msg).and.not.have.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.files(array, msg);
 // #4
-expect(path).to.be.a.directory(msg).and.not.have.files(array);
-expect(path).to.be.a.directory(msg).and.not.have.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.files(array, msg);
 // #5
-expect(path).to.be.a.directory(msg).with.deep.files(array, msg);
-expect(path).to.be.a.directory(msg).with.deep.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.files(array);
 // #6
-expect(path).to.be.a.directory(msg).with.deep.files(array);
-expect(path).to.be.a.directory(msg).with.deep.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.files(array, msg);
 // #7
-expect(path).to.be.a.directory(msg).and.not.have.deep.files(array);
-expect(path).to.be.a.directory(msg).and.not.have.deep.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.files(array, msg);
 // #8
-expect(path).to.be.a.directory(msg).and.not.have.deep.files(array);
-expect(path).to.be.a.directory(msg).and.not.have.deep.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.files(array, msg);
 // #9
-expect(path).to.be.a.directory(msg).and.include.files(array);
-expect(path).to.be.a.directory(msg).and.include.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.include.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.include.files(array, msg);
 // #10
-expect(path).to.be.a.directory(msg).and.not.include.files(array);
-expect(path).to.be.a.directory(msg).and.not.include.files(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.include.files(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.include.files(array, msg);
 
 // #1
 path.should.be.a.directory(msg).with.files(array);
@@ -231,23 +295,47 @@ assert.notDirectoryIncludeFiles(path, array, msg);
 
 // directory().with.subDirs([...])
 // #1
-expect(path).to.be.a.directory(msg).with.subDirs(array);
-expect(path).to.be.a.directory(msg).with.subDirs(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.subDirs(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.subDirs(array, msg);
 // #2
-expect(path).to.be.a.directory(msg).and.not.have.subDirs(array);
-expect(path).to.be.a.directory(msg).and.not.have.subDirs(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.subDirs(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.subDirs(array, msg);
 // #3
-expect(path).to.be.a.directory(msg).with.deep.subDirs(array);
-expect(path).to.be.a.directory(msg).with.deep.subDirs(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.subDirs(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .with.deep.subDirs(array, msg);
 // #4
-expect(path).to.be.a.directory(msg).and.not.have.deep.subDirs(array);
-expect(path).to.be.a.directory(msg).and.not.have.deep.subDirs(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.subDirs(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.have.deep.subDirs(array, msg);
 // #5
-expect(path).to.be.a.directory(msg).and.include.subDirs(array);
-expect(path).to.be.a.directory(msg).and.include.subDirs(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.include.subDirs(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.include.subDirs(array, msg);
 // #6
-expect(path).to.be.a.directory(msg).and.not.include.subDirs(array);
-expect(path).to.be.a.directory(msg).and.not.include.subDirs(array, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.include.subDirs(array);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.include.subDirs(array, msg);
 
 // #1
 path.should.be.a.directory(msg).with.subDirs(array);
@@ -277,17 +365,33 @@ assert.notDirectoryIncludeSubDirs(path, array, msg);
 
 // directory().and.equal(otherPath)
 // #1
-expect(path).to.be.a.directory(msg).and.equal(otherPath);
-expect(path).to.be.a.directory(msg).and.equal(otherPath, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.equal(otherPath);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.equal(otherPath, msg);
 // #2
-expect(path).to.be.a.directory(msg).and.not.equal(otherPath);
-expect(path).to.be.a.directory(msg).and.not.equal(otherPath, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.equal(otherPath);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.equal(otherPath, msg);
 // #3
-expect(path).to.be.a.directory(msg).and.deep.equal(otherPath);
-expect(path).to.be.a.directory(msg).and.deep.equal(otherPath, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.deep.equal(otherPath);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.deep.equal(otherPath, msg);
 // #4
-expect(path).to.be.a.directory(msg).and.not.deep.equal(otherPath);
-expect(path).to.be.a.directory(msg).and.not.deep.equal(otherPath, msg);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.deep.equal(otherPath);
+expect(path)
+    .to.be.a.directory(msg)
+    .and.not.deep.equal(otherPath, msg);
 
 // #1
 path.should.be.a.directory(msg).and.equal(otherPath);
@@ -334,10 +438,18 @@ assert.isEmptyFile(path, msg);
 assert.notIsEmptyFile(path, msg);
 
 // file().with.content(str)
-expect(path).to.be.a.file(msg).with.content(data);
-expect(path).to.be.a.file(msg).with.content(data, msg);
-expect(path).to.be.a.file(msg).and.not.have.content(data);
-expect(path).to.be.a.file(msg).and.not.have.content(data, msg);
+expect(path)
+    .to.be.a.file(msg)
+    .with.content(data);
+expect(path)
+    .to.be.a.file(msg)
+    .with.content(data, msg);
+expect(path)
+    .to.be.a.file(msg)
+    .and.not.have.content(data);
+expect(path)
+    .to.be.a.file(msg)
+    .and.not.have.content(data, msg);
 
 path.should.be.a.file(msg).with.content(data);
 path.should.be.a.file(msg).with.content(data, msg);
@@ -362,10 +474,18 @@ assert.notFileContentMatch(path, /xyz/);
 assert.notFileContentMatch(path, /xyz/, msg);
 
 // file().and.equal(otherPath)
-expect(path).to.be.a.file(msg).and.equal(otherPath);
-expect(path).to.be.a.file(msg).and.equal(otherPath, msg);
-expect(path).to.be.a.file(msg).and.not.equal(otherPath);
-expect(path).to.be.a.file(msg).and.not.equal(otherPath, msg);
+expect(path)
+    .to.be.a.file(msg)
+    .and.equal(otherPath);
+expect(path)
+    .to.be.a.file(msg)
+    .and.equal(otherPath, msg);
+expect(path)
+    .to.be.a.file(msg)
+    .and.not.equal(otherPath);
+expect(path)
+    .to.be.a.file(msg)
+    .and.not.equal(otherPath, msg);
 
 path.should.be.a.file(msg).and.equal(otherPath);
 path.should.be.a.file(msg).and.equal(otherPath, msg);
@@ -388,8 +508,12 @@ assert.notJsonFile(path);
 assert.notJsonFile(path, msg);
 
 // file().using.json.schema(obj)
-expect(path).to.be.a.file(msg).with.json.using.schema(obj);
-expect(path).to.be.a.file(msg).with.json.not.using.schema(obj);
+expect(path)
+    .to.be.a.file(msg)
+    .with.json.using.schema(obj);
+expect(path)
+    .to.be.a.file(msg)
+    .with.json.not.using.schema(obj);
 
 path.should.be.a.file(msg).with.json.using.schema(obj);
 path.should.be.a.file(msg).with.json.not.using.schema(obj);

@@ -5,8 +5,18 @@ import Projection from 'ol/proj/Projection';
 import { Size } from 'ol/size';
 import { TileCoord } from 'ol/tilecoord';
 import TileGrid from 'ol/tilegrid/TileGrid';
-export function createForExtent(extent: Extent, opt_maxZoom?: number, opt_tileSize?: number | Size, opt_corner?: Corner): TileGrid;
-export function createForProjection(projection: ProjectionLike, opt_maxZoom?: number, opt_tileSize?: number | Size, opt_corner?: Corner): TileGrid;
+export function createForExtent(
+    extent: Extent,
+    opt_maxZoom?: number,
+    opt_tileSize?: number | Size,
+    opt_corner?: Corner
+): TileGrid;
+export function createForProjection(
+    projection: ProjectionLike,
+    opt_maxZoom?: number,
+    opt_tileSize?: number | Size,
+    opt_corner?: Corner
+): TileGrid;
 export function createXYZ(opt_options?: XYZOptions): TileGrid;
 export function extentFromProjection(projection: ProjectionLike): Extent;
 export function getForProjection(projection: Projection): TileGrid;

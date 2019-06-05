@@ -9,7 +9,7 @@ import * as React from 'react';
 
 export interface Frame {
     name: string;
-    data: [{ x: Plotly.Datum, y: Plotly.Datum }];
+    data: [{ x: Plotly.Datum; y: Plotly.Datum }];
     group: 'lower' | 'upper';
 }
 
@@ -100,5 +100,4 @@ export interface PlotParams {
     onUnhover?: (event: Readonly<Plotly.PlotMouseEvent>) => void;
 }
 
-export default class Plot extends React.PureComponent<PlotParams> {
-}
+export default class Plot extends React.PureComponent<PlotParams> {}

@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as ReactNative from "react-native";
+import * as React from 'react';
+import * as ReactNative from 'react-native';
 
 export interface SpinnerProps {
     cancelable?: boolean;
     color?: string;
-    animation?: "none" | "slide" | "fade";
+    animation?: 'none' | 'slide' | 'fade';
     overlayColor?: string;
-    size?: "normal" | "small" | "large";
+    size?: 'normal' | 'small' | 'large';
     textContent?: string;
     textStyle?: ReactNative.StyleProp<ReactNative.TextStyle>;
     visible?: boolean;

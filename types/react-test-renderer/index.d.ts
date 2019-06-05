@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement, ReactType } from "react";
+import { ReactElement, ReactType } from 'react';
 
 // extracted from:
 // - https://github.com/facebook/react/blob/v16.0.0/src/renderers/testing/ReactTestRendererFiberEntry.js
@@ -20,7 +20,7 @@ export interface ReactTestRendererJSON {
     children: null | ReactTestRendererJSON[];
 }
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
-    nodeType: "component" | "host";
+    nodeType: 'component' | 'host';
     instance: any;
     rendered: null | ReactTestRendererTree;
 }

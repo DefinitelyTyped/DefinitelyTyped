@@ -10,7 +10,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace jwt {
-
         interface JwtToken {
             iss?: string;
             sub?: string;

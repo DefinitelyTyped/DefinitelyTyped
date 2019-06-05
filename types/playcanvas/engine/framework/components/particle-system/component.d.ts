@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @component
      * @name pc.ParticleSystemComponent
@@ -69,7 +68,7 @@ declare namespace pc {
      * @property {pc.Curve} alphaGraph2 If not null, particles pick random values between alphaGraph and alphaGraph2.
      */
     class ParticleSystemComponent extends pc.Component {
-        constructor(system: pc.ParticleSystemComponentSystem, entity: pc.Entity)
+        constructor(system: pc.ParticleSystemComponentSystem, entity: pc.Entity);
 
         autoPlay: boolean;
         loop: boolean;
@@ -116,53 +115,53 @@ declare namespace pc {
         alphaGraph2: pc.Curve;
 
         /**
-        * @function
-        * @name pc.ParticleSystemComponent#reset
-        * @description Resets particle state, doesn't affect playing.
-        */
+         * @function
+         * @name pc.ParticleSystemComponent#reset
+         * @description Resets particle state, doesn't affect playing.
+         */
         reset(): void;
 
         /**
-        * @function
-        * @name pc.ParticleSystemComponent#stop
-        * @description Disables the emission of new particles, lets existing to finish their simulation.
-        */
+         * @function
+         * @name pc.ParticleSystemComponent#stop
+         * @description Disables the emission of new particles, lets existing to finish their simulation.
+         */
         stop(): void;
 
         /**
-        * @function
-        * @name pc.ParticleSystemComponent#pause
-        * @description Freezes the simulation.
-        */
+         * @function
+         * @name pc.ParticleSystemComponent#pause
+         * @description Freezes the simulation.
+         */
         pause(): void;
 
         /**
-        * @function
-        * @name pc.ParticleSystemComponent#unpause
-        * @description Unfreezes the simulation.
-        */
+         * @function
+         * @name pc.ParticleSystemComponent#unpause
+         * @description Unfreezes the simulation.
+         */
         unpause(): void;
 
         /**
-        * @function
-        * @name pc.ParticleSystemComponent#play
-        * @description Enables/unfreezes the simulation.
-        */
+         * @function
+         * @name pc.ParticleSystemComponent#play
+         * @description Enables/unfreezes the simulation.
+         */
         play(): void;
 
         /**
-        * @function
-        * @name pc.ParticleSystemComponent#isPlaying
-        * @description Checks if simulation is in progress.
-        */
+         * @function
+         * @name pc.ParticleSystemComponent#isPlaying
+         * @description Checks if simulation is in progress.
+         */
         isPlaying(): void;
 
         /**
-        * @private
-        * @function
-        * @name pc.ParticleSystemComponent#rebuild
-        * @description Rebuilds all data used by this particle system.
-        */
+         * @private
+         * @function
+         * @name pc.ParticleSystemComponent#rebuild
+         * @description Rebuilds all data used by this particle system.
+         */
         private rebuild(): void;
     }
 }

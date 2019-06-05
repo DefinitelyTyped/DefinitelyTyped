@@ -17,7 +17,7 @@
 import { MDCStrings } from 'material__base';
 
 export interface strings extends MDCStrings {
-   CHIP_SELECTOR: '.mdc-chip';
+    CHIP_SELECTOR: '.mdc-chip';
 }
 
 export interface cssClasses extends MDCStrings {

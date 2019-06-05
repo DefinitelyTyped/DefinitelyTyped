@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Fusion Tables API v2 */
-    function load(name: "fusiontables", version: "v2"): PromiseLike<void>;
-    function load(name: "fusiontables", version: "v2", callback: () => any): void;
+    function load(name: 'fusiontables', version: 'v2'): PromiseLike<void>;
+    function load(name: 'fusiontables', version: 'v2', callback: () => any): void;
 
     const column: fusiontables.ColumnResource;
 

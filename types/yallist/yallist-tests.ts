@@ -3,7 +3,7 @@ import Yallist = require('yallist');
 const forEachIterable = {
     forEach(fn: (item: string, idx: number) => void, thisArg?: any) {},
 };
-const thisArg: {someProp?: number} = {};
+const thisArg: { someProp?: number } = {};
 const node = new Yallist.Node('foo');
 
 Yallist.create<string | number>([1, 2, 3]); // $ExpectType Yallist<string | number>
@@ -60,23 +60,27 @@ myList.push(); // $ExpectType number
 myList.push('foo'); // $ExpectType number
 myList.push('foo', 'bar'); // $ExpectType number
 
-myList.reduce((acc, v, i) => { // $ExpectType string
+myList.reduce((acc, v, i) => {
+    // $ExpectType string
     acc; // $ExpectType string
     v; // $ExpectType string
     i; // $ExpectType number
     return acc;
 });
-myList.reduce((acc, v) => { // $ExpectType boolean
+myList.reduce((acc, v) => {
+    // $ExpectType boolean
     acc; // $ExpectType boolean
     return acc;
 }, true);
-myList.reduceReverse((acc, v, i) => { // $ExpectType string
+myList.reduceReverse((acc, v, i) => {
+    // $ExpectType string
     acc; // $ExpectType string
     v; // $ExpectType string
     i; // $ExpectType number
     return acc;
 });
-myList.reduceReverse((acc, v) => { // $ExpectType boolean
+myList.reduceReverse((acc, v) => {
+    // $ExpectType boolean
     acc; // $ExpectType boolean
     return acc;
 }, true);

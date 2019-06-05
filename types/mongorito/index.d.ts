@@ -11,8 +11,7 @@ export { Timestamp, ObjectId, MinKey, MaxKey, DBRef, Long } from 'mongodb';
 export type Class<T> = new (...args: any[]) => T;
 export type ModelClass = Class<Model>;
 
-export class MQuery {
-}
+export class MQuery {}
 
 // "extends MQuery": not actually inheritance, but more easy to implement
 export class Query extends MQuery {
@@ -62,7 +61,7 @@ export class Model extends Query {
      * @see mongodb.Collection#listIndexes()
      * @see mongodb.CommandCursor#toArray()
      */
-    static listIndexes(options?: { batchSize?: number, readPreference?: ReadPreference | string }): Promise<any[]>;
+    static listIndexes(options?: { batchSize?: number; readPreference?: ReadPreference | string }): Promise<any[]>;
 
     /**
      * @see mongodb.Collection#createIndex()
@@ -106,24 +105,24 @@ export class Model extends Query {
 }
 
 export enum ActionTypes {
-    GET = "@@mongorito/GET",
-    SET = "@@mongorito/SET",
-    UNSET = "@@mongorito/UNSET",
-    REFRESH = "@@mongorito/REFRESH",
-    REFRESHED = "@@mongorito/REFRESHED",
-    SAVE = "@@mongorito/SAVE",
-    CREATE = "@@mongorito/CREATE",
-    CREATED = "@@mongorito/CREATED",
-    UPDATE = "@@mongorito/UPDATE",
-    UPDATED = "@@mongorito/UPDATED",
-    REMOVE = "@@mongorito/REMOVE",
-    REMOVED = "@@mongorito/REMOVED",
-    INCREMENT = "@@mongorito/INCREMENT",
-    CREATE_INDEX = "@@mongorito/CREATE_INDEX",
-    DROP_INDEX = "@@mongorito/DROP_INDEX",
-    LIST_INDEXES = "@@mongorito/LIST_INDEXES",
-    QUERY = "@@mongorito/QUERY",
-    CALL = "@@mongorito/CALL"
+    GET = '@@mongorito/GET',
+    SET = '@@mongorito/SET',
+    UNSET = '@@mongorito/UNSET',
+    REFRESH = '@@mongorito/REFRESH',
+    REFRESHED = '@@mongorito/REFRESHED',
+    SAVE = '@@mongorito/SAVE',
+    CREATE = '@@mongorito/CREATE',
+    CREATED = '@@mongorito/CREATED',
+    UPDATE = '@@mongorito/UPDATE',
+    UPDATED = '@@mongorito/UPDATED',
+    REMOVE = '@@mongorito/REMOVE',
+    REMOVED = '@@mongorito/REMOVED',
+    INCREMENT = '@@mongorito/INCREMENT',
+    CREATE_INDEX = '@@mongorito/CREATE_INDEX',
+    DROP_INDEX = '@@mongorito/DROP_INDEX',
+    LIST_INDEXES = '@@mongorito/LIST_INDEXES',
+    QUERY = '@@mongorito/QUERY',
+    CALL = '@@mongorito/CALL',
 }
 
 export interface GetAction {
@@ -206,17 +205,17 @@ export interface ListIndexesAction {
 export interface QueryAction {
     type: ActionTypes.QUERY;
     method: string;
-    query: Array<{ method: string, args: any }>;
+    query: Array<{ method: string; args: any }>;
 }
 
 export interface CallAction {
     type: ActionTypes.CALL;
     method: string;
-    args: Array<{ method: string, args: any }>;
+    args: Array<{ method: string; args: any }>;
 }
 
 export type Action =
-    GetAction
+    | GetAction
     | SetAction
     | UnsetAction
     | RefreshAction
@@ -267,7 +266,7 @@ export type Plugin = (modelClass: ModelClass) => (store: PluginStore) => (next: 
 export enum DatabaseState {
     STATE_CONNECTED = 0,
     STATE_CONNECTING = 1,
-    STATE_DISCONNECTED = 2
+    STATE_DISCONNECTED = 2,
 }
 
 export class Database {

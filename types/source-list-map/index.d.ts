@@ -58,11 +58,7 @@ export class SourceListMap {
         originalSource?: string
     );
 
-    add(
-        generatedCode: string | CodeNode | SourceNode | SourceListMap,
-        source?: string,
-        originalSource?: string
-    ): void;
+    add(generatedCode: string | CodeNode | SourceNode | SourceListMap, source?: string, originalSource?: string): void;
 
     prepend(generatedCode: SourceListMap | SourceNode | CodeNode, source?: string, originalSource?: string): void;
 
@@ -70,7 +66,9 @@ export class SourceListMap {
 
     toString(): string;
 
-    toStringWithSourceMap(options: { file: any }): {
+    toStringWithSourceMap(options: {
+        file: any;
+    }): {
         source: string;
         map: {
             version: number;
@@ -83,8 +81,9 @@ export class SourceListMap {
 }
 
 export function fromStringWithSourceMap(
-    code: string, map: {
-        sources: (string | SourceNode | CodeNode) [];
+    code: string,
+    map: {
+        sources: (string | SourceNode | CodeNode)[];
         sourcesContent: string[];
         mappings: string;
     }

@@ -23,7 +23,7 @@ export default class FlashLines extends Paint {
             startValue: 1,
             endValue: 0,
             duration: 400,
-            loop: 2
+            loop: 2,
         });
     }
 

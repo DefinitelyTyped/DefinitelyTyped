@@ -6,6 +6,6 @@
 export interface Options {
     capitalize?: boolean;
     caseInsensitive?: boolean;
-    numbers?: "colloquial";
+    numbers?: 'colloquial';
 }
 export function indefinite(word: string | number, opts?: Options): string;

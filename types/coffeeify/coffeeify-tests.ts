@@ -1,4 +1,3 @@
-
 import coffeeify = require('coffeeify');
 
 coffeeify.sourceMap = false;
@@ -11,4 +10,3 @@ coffeeify.compile('out.js', 'console.log 42', (err, compiled) => {
 });
 
 coffeeify('test.coffee').end();
-

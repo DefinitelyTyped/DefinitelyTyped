@@ -10,10 +10,10 @@
 //                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /************************************************
-*                                               *
-*               Node.js v6.x API                *
-*                                               *
-************************************************/
+ *                                               *
+ *               Node.js v6.x API                *
+ *                                               *
+ ************************************************/
 // NOTE: These definitions support NodeJS and TypeScript 3.1.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
@@ -31,16 +31,16 @@
 // TypeScript 2.1-specific augmentations:
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-interface Iterable<T> { }
+interface MapConstructor {}
+interface WeakMapConstructor {}
+interface SetConstructor {}
+interface WeakSetConstructor {}
+interface Iterable<T> {}
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
-interface IterableIterator<T> { }
-interface IteratorResult<T> { }
+interface IterableIterator<T> {}
+interface IteratorResult<T> {}
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
     readonly iterator: symbol;

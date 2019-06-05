@@ -4,10 +4,9 @@ import { FlexboxPropTypes } from '../utils';
 /**
  * Accordion component.
  * http://foundation.zurb.com/sites/docs/accordion.html
-  */
+ */
 export declare const Accordion: React.StatelessComponent<AccordianProps>;
-export interface AccordianProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {
-}
+export interface AccordianProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLUListElement> {}
 /**
  * Accordion item component.
  */

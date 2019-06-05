@@ -1,2 +1,2 @@
-import { now } from "./index";
+import { now } from './index';
 export = now;

@@ -25,11 +25,10 @@ export interface RosterItem {
     subscription: RosterSubscriptionState;
     ask: string;
     groups: string[];
-    resources: {[resourceId: string]: RosterResource};
+    resources: { [resourceId: string]: RosterResource };
 }
 
-export type RosterUpdateCallback =
-(items: RosterItem[], item: RosterItem, previousItem: RosterItem) => any;
+export type RosterUpdateCallback = (items: RosterItem[], item: RosterItem, previousItem: RosterItem) => any;
 export type PresenceRequestCallback = (from: string) => any;
 
 interface StropheRosterPlugin {

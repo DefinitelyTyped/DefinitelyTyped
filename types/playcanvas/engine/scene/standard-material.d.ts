@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.StandardMaterial
      * @class A Standard material is the main, general purpose material that is most often used for rendering.

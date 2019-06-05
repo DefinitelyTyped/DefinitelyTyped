@@ -23,7 +23,7 @@
 // TypeScript Version: 2.6
 
 // The primary entry point into fulfilling a GraphQL request.
-export { graphql, graphqlSync, GraphQLArgs } from "./graphql";
+export { graphql, graphqlSync, GraphQLArgs } from './graphql';
 
 // Create and operate on GraphQL type definitions and schema.
 export {
@@ -158,7 +158,7 @@ export {
     GraphQLScalarSerializer,
     GraphQLScalarValueParser,
     GraphQLScalarLiteralParser,
-} from "./type";
+} from './type';
 
 // Parse and operate on GraphQL language source files.
 export {
@@ -259,7 +259,7 @@ export {
     KindEnum,
     TokenKindEnum,
     DirectiveLocationEnum,
-} from "./language";
+} from './language';
 
 // Execute GraphQL queries.
 export {
@@ -270,9 +270,9 @@ export {
     // type
     ExecutionArgs,
     ExecutionResult,
-} from "./execution";
+} from './execution';
 
-export { subscribe, createSourceEventStream } from "./subscription";
+export { subscribe, createSourceEventStream } from './subscription';
 
 // Validate GraphQL queries.
 export {
@@ -306,10 +306,10 @@ export {
     ValuesOfCorrectTypeRule,
     VariablesAreInputTypesRule,
     VariablesInAllowedPositionRule,
-} from "./validation";
+} from './validation';
 
 // Create and format GraphQL errors.
-export { GraphQLError, formatError, printError, GraphQLFormattedError } from "./error";
+export { GraphQLError, formatError, printError, GraphQLFormattedError } from './error';
 
 // Utilities for operating on GraphQL type schema and parsed sources.
 export {
@@ -407,4 +407,4 @@ export {
     IntrospectionType,
     IntrospectionTypeRef,
     IntrospectionUnionType,
-} from "./utilities";
+} from './utilities';

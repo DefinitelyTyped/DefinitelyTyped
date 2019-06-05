@@ -13,6 +13,11 @@
  *
  * @returns The generator object, yeilding each line as a string
  */
-declare function readlines(fd: number, filesize: number, bufferSize?: number, position?: number): IterableIterator<Buffer>;
+declare function readlines(
+    fd: number,
+    filesize: number,
+    bufferSize?: number,
+    position?: number
+): IterableIterator<Buffer>;
 
 export = readlines;

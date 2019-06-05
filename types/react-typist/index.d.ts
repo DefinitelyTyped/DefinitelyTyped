@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import * as React from "react";
+import * as React from 'react';
 
 export namespace TreeView {
     interface CursorProps {
@@ -20,10 +20,7 @@ export namespace TreeView {
         lineIdx: number;
         character: string;
         charIdx: number;
-        defDelayGenerator: (
-            mn: number,
-            st: number
-        ) => (...params: any) => number;
+        defDelayGenerator: (mn: number, st: number) => (...params: any) => number;
     }
 
     interface DelayProps {
@@ -47,11 +44,7 @@ export interface TreeViewProps {
     onCharacterTyped?: (char: string, charIndex: number) => void;
     onLineTyped?: (line: string, lineIndex: number) => void;
     onTypingDone?: () => void;
-    delayGenerator?: (
-        mean: number,
-        std: number,
-        current: TreeView.CurrentTextProps
-    ) => number;
+    delayGenerator?: (mean: number, std: number, current: TreeView.CurrentTextProps) => number;
 }
 
 export class TreeView extends React.Component<TreeViewProps> {}

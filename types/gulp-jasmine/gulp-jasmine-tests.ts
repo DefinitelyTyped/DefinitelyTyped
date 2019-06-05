@@ -1,5 +1,5 @@
-import gulpJasmine = require("gulp-jasmine");
-import jasmine = require("jasmine");
+import gulpJasmine = require('gulp-jasmine');
+import jasmine = require('jasmine');
 
 const dummyReporter: jasmine.CustomReporter = {};
 
@@ -11,10 +11,8 @@ gulpJasmine({
     reporter: dummyReporter,
     timeout: 1000,
     errorOnFail: false,
-    config: {}
+    config: {},
 });
 gulpJasmine({ reporter: [dummyReporter, dummyReporter] });
-const readonlyDummyReporters: ReadonlyArray<jasmine.CustomReporter> = [
-    dummyReporter, dummyReporter
-];
+const readonlyDummyReporters: ReadonlyArray<jasmine.CustomReporter> = [dummyReporter, dummyReporter];
 gulpJasmine({ reporter: readonlyDummyReporters });

@@ -16,7 +16,7 @@ console.log('storage is supported: ', store.enabled === true);
 // https://github.com/marcuswestin/store.js/#api
 
 // Store current user
-store.set('user', { name:'Marcus' });
+store.set('user', { name: 'Marcus' });
 
 // Get current user
 store.get('user');
@@ -29,7 +29,7 @@ store.clearAll();
 
 // Loop over all stored values
 store.each(function(value, key) {
-    console.log(key, '==', value)
+    console.log(key, '==', value);
 });
 
 // https://github.com/marcuswestin/store.js/#write-your-own-plugin
@@ -52,8 +52,8 @@ const versionHistoryPlugin = function(this: StoreJsAPI) {
         },
         getHistory: function(key: string) {
             return historyStore.get(key);
-        }
-    }
+        },
+    };
 };
 store.addPlugin(versionHistoryPlugin);
 store.set('foo', 'bar 1');

@@ -36,18 +36,18 @@ declare const container: HTMLElement;
     h337.create({ container });
 
     // $ExpectType Heatmap<"count", "xPos", "yPos">
-    h337.create<"count", "xPos", "yPos">({
+    h337.create<'count', 'xPos', 'yPos'>({
         container,
-        valueField: "count",
-        xField: "xPos",
-        yField: "yPos",
+        valueField: 'count',
+        xField: 'xPos',
+        yField: 'yPos',
     });
 
-    const config: h337.HeatmapConfiguration<"count", "xPos", "yPos"> = {
+    const config: h337.HeatmapConfiguration<'count', 'xPos', 'yPos'> = {
         container,
-        valueField: "count",
-        xField: "xPos",
-        yField: "yPos",
+        valueField: 'count',
+        xField: 'xPos',
+        yField: 'yPos',
     };
     // $ExpectType Heatmap<"count", "xPos", "yPos">
     h337.create(config);
@@ -61,48 +61,41 @@ declare const container: HTMLElement;
     // $ExpectType Heatmap<"value", "x", "y">
     heatmap.addData({ x: 1, y: 1, value: 5 });
 
-    heatmap.addData([
-        { x: 1, y: 1, value: 1 },
-        { x: 2, y: 2, value: 2 },
-    ]);
+    heatmap.addData([{ x: 1, y: 1, value: 1 }, { x: 2, y: 2, value: 2 }]);
 
     heatmap.addData({ x: null, y: 1, value: 1 }); // $ExpectError
     heatmap.addData({ x: 1, y: null, value: 1 }); // $ExpectError
     heatmap.addData({ x: 1, y: 1, value: null }); // $ExpectError
     heatmap.addData({ y: 1, value: 1 }); // $ExpectError
     heatmap.addData({ x: 1, value: 1 }); // $ExpectError
-    heatmap.addData({ x: 1, y: 1, }); // $ExpectError
+    heatmap.addData({ x: 1, y: 1 }); // $ExpectError
 }
 
 {
-    const heatmap = h337.create<"count", "xPos", "yPos">({
+    const heatmap = h337.create<'count', 'xPos', 'yPos'>({
         container,
-        xField: "xPos",
-        yField: "yPos",
-        valueField: "count",
+        xField: 'xPos',
+        yField: 'yPos',
+        valueField: 'count',
     });
 
     // $ExpectType Heatmap<"count", "xPos", "yPos">
     heatmap.addData({ xPos: 1, yPos: 1, count: 5 });
 
-    heatmap.addData([
-        { xPos: 1, yPos: 1, count: 1 },
-        { xPos: 2, yPos: 2, count: 2 },
-    ]);
+    heatmap.addData([{ xPos: 1, yPos: 1, count: 1 }, { xPos: 2, yPos: 2, count: 2 }]);
 
     heatmap.addData({ xPos: null, yPos: 1, count: 1 }); // $ExpectError
     heatmap.addData({ xPos: 1, yPos: null, count: 1 }); // $ExpectError
     heatmap.addData({ xPos: 1, yPos: 1, count: null }); // $ExpectError
     heatmap.addData({ yPos: 1, count: 1 }); // $ExpectError
     heatmap.addData({ xPos: 1, count: 1 }); // $ExpectError
-    heatmap.addData({ xPos: 1, yPos: 1, }); // $ExpectError
+    heatmap.addData({ xPos: 1, yPos: 1 }); // $ExpectError
 }
 
 // -- Heatmap#setData --
 
 {
-    const validData: ReadonlyArray<h337.DataPoint> =
-        [{ x: 1, y: 2, value: 1 }];
+    const validData: ReadonlyArray<h337.DataPoint> = [{ x: 1, y: 2, value: 1 }];
 
     const heatmap = h337.create({ container });
     heatmap.setData({ max: 5, data: validData }); // $ExpectError
@@ -112,7 +105,7 @@ declare const container: HTMLElement;
     heatmap.setData({
         min: 0,
         max: 1,
-        data: validData
+        data: validData,
     });
 
     // $ExpectError
@@ -120,10 +113,9 @@ declare const container: HTMLElement;
 }
 
 {
-    const validData: ReadonlyArray<h337.DataPoint<"count", "xPos", "yPos">> =
-        [{ xPos: 1, yPos: 2, count: 1 }];
+    const validData: ReadonlyArray<h337.DataPoint<'count', 'xPos', 'yPos'>> = [{ xPos: 1, yPos: 2, count: 1 }];
 
-    const heatmap = h337.create<"count", "xPos", "yPos">({ container });
+    const heatmap = h337.create<'count', 'xPos', 'yPos'>({ container });
     heatmap.setData({ max: 5, data: validData }); // $ExpectError
     heatmap.setData({ min: 5, data: validData }); // $ExpectError
 
@@ -131,7 +123,7 @@ declare const container: HTMLElement;
     heatmap.setData({
         min: 0,
         max: 1,
-        data: validData
+        data: validData,
     });
 
     // $ExpectError
@@ -161,11 +153,11 @@ declare const container: HTMLElement;
     // $ExpectType Heatmap<"value", "x", "y">
     heatmap.configure({ container });
 
-    const nextHeatmap = heatmap.configure<"count", "xPos", "yPos">({
+    const nextHeatmap = heatmap.configure<'count', 'xPos', 'yPos'>({
         container,
-        valueField: "count",
-        xField: "xPos",
-        yField: "yPos"
+        valueField: 'count',
+        xField: 'xPos',
+        yField: 'yPos',
     });
 
     nextHeatmap; // $ExpectType Heatmap<"count", "xPos", "yPos">
@@ -181,7 +173,7 @@ declare const container: HTMLElement;
     h337.create({ container }).getValueAt({ x: 0, y: 1 });
 
     // $ExpectType number
-    h337.create<"foo", "bar", "baz">({ container }).getValueAt({ x: 0, y: 1 });
+    h337.create<'foo', 'bar', 'baz'>({ container }).getValueAt({ x: 0, y: 1 });
 }
 
 // -- Heatmap#getData --
@@ -191,7 +183,7 @@ declare const container: HTMLElement;
     h337.create({ container }).getData();
 
     // $ExpectType HeatmapData<DataCircle>
-    h337.create<"foo", "bar", "baz">({ container }).getData();
+    h337.create<'foo', 'bar', 'baz'>({ container }).getData();
 }
 
 // -- Heatmap#getDataURL --
@@ -207,19 +199,18 @@ declare const container: HTMLElement;
     h337.create({ container }).repaint();
 
     // $ExpectType Heatmap<"foo", "bar", "baz">
-    h337.create<"foo", "bar", "baz">({ container }).repaint();
+    h337.create<'foo', 'bar', 'baz'>({ container }).repaint();
 }
 
 // -- Leaflet plugin --
 
 {
-    const baseLayer = L.tileLayer(
-        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            // tslint:disable-next-line max-line-length
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            maxZoom: 18
-        }
-    );
+    const baseLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        // tslint:disable-next-line max-line-length
+        attribution:
+            'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        maxZoom: 18,
+    });
 
     const testData: h337.HeatmapData<h337.DataPoint<'count', 'lat', 'lng'>> = {
         min: 1,
@@ -228,23 +219,24 @@ declare const container: HTMLElement;
             {
                 lat: 24.6408,
                 lng: 46.7728,
-                count: 3
-            }, {
+                count: 3,
+            },
+            {
                 lat: 50.75,
                 lng: -1.55,
-                count: 1
-            }
-        ]
+                count: 1,
+            },
+        ],
     };
 
     const config: h337.HeatmapOverlayConfiguration<'count'> = {
         radius: 2,
-        maxOpacity: .8,
+        maxOpacity: 0.8,
         scaleRadius: true,
         useLocalExtrema: true,
         latField: 'lat',
         lngField: 'lng',
-        valueField: 'count'
+        valueField: 'count',
     };
     config; // $ExpectType HeatmapOverlayConfiguration<"count", "lat", "lng">
 
@@ -254,7 +246,7 @@ declare const container: HTMLElement;
     const map = new L.Map('map-canvas', {
         center: new L.LatLng(25.6586, -80.3568),
         zoom: 4,
-        layers: [baseLayer, heatmapLayer]
+        layers: [baseLayer, heatmapLayer],
     });
 
     // $ExpectType void

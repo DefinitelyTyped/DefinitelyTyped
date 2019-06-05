@@ -8,12 +8,12 @@ storiesOf('Text', module)
             {
                 name: 'white',
                 value: '#fff',
-                default: true
+                default: true,
             },
             {
                 name: 'black',
-                value: '#000'
-            }
+                value: '#000',
+            },
         ])
     )
     .add('default', () => <p>This is just sample.</p>);

@@ -15,7 +15,11 @@ declare namespace mock {
          * @param plugins An array of Plugin objects.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
-        <TResponse, TPayload>(mocks?: Array<requests.AllRequests<TResponse, TPayload>>, plugins?: Array<Plugin>, skipDefaults?: boolean): ProtractorHttpMock;
+        <TResponse, TPayload>(
+            mocks?: Array<requests.AllRequests<TResponse, TPayload>>,
+            plugins?: Array<Plugin>,
+            skipDefaults?: boolean
+        ): ProtractorHttpMock;
 
         /**
          * Instantiate mock module. This must be done before the browser connects.
@@ -24,7 +28,11 @@ declare namespace mock {
          * @param plugins An array of NPM modules as strings.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
-        <TResponse, TPayload>(mocks?: Array<requests.AllRequests<TResponse, TPayload>>, plugins?: Array<string>, skipDefaults?: boolean): ProtractorHttpMock;
+        <TResponse, TPayload>(
+            mocks?: Array<requests.AllRequests<TResponse, TPayload>>,
+            plugins?: Array<string>,
+            skipDefaults?: boolean
+        ): ProtractorHttpMock;
 
         /**
          * Instantiate mock modules from files. This must be done before the browser connects.
@@ -139,19 +147,20 @@ declare namespace mock {
         /**
          * Request methods type
          */
-        type Method = "GET" | "POST" | "DELETE" | "PUT" | "HEAD" | "PATCH" | "JSONP";
+        type Method = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'HEAD' | 'PATCH' | 'JSONP';
 
         /**
          * All available request types.
          */
-        type AllRequests<T1, T2> = Get<T1> |
-            PostData<T1, T2> |
-            Post<T1> |
-            Head<T1> |
-            Delete<T1> |
-            Put<T1> |
-            Patch<T1> |
-            Jsonp<T1>;
+        type AllRequests<T1, T2> =
+            | Get<T1>
+            | PostData<T1, T2>
+            | Post<T1>
+            | Head<T1>
+            | Delete<T1>
+            | Put<T1>
+            | Patch<T1>
+            | Jsonp<T1>;
 
         /**
          * GET request mock.

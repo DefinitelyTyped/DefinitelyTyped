@@ -42,15 +42,15 @@ import {
     MediaLibrary,
     Haptic,
     Constants,
-    SplashScreen
+    SplashScreen,
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
     latitude: 0,
-    longitude: 0
+    longitude: 0,
 });
 
-Accelerometer.addListener((obj) => {
+Accelerometer.addListener(obj => {
     obj.x;
     obj.y;
     obj.z;
@@ -95,10 +95,10 @@ async () => {
 
 Amplitude.initialize('key');
 Amplitude.setUserId('userId');
-Amplitude.setUserProperties({key: 1});
+Amplitude.setUserProperties({ key: 1 });
 Amplitude.clearUserProperties();
 Amplitude.logEvent('name');
-Amplitude.logEventWithProperties('event', {key: 'value'});
+Amplitude.logEventWithProperties('event', { key: 'value' });
 Amplitude.setGroup('type', ['value']);
 
 const asset = Asset.fromModule(1);
@@ -111,14 +111,14 @@ const asset1 = new Asset({
     name: 'name',
     hash: 'hash',
     width: 122,
-    height: 122
+    height: 122,
 });
 
 const url = AuthSession.getRedirectUrl();
 AuthSession.dismiss();
 AuthSession.startAsync({
     authUrl: 'url1',
-    returnUrl: 'url2'
+    returnUrl: 'url2',
 }).then(result => {
     switch (result.type) {
         case 'success':
@@ -138,7 +138,7 @@ AuthSession.startAsync({
 });
 AuthSession.startAsync({
     authUrl: 'url1',
-    returnUrl: undefined
+    returnUrl: undefined,
 });
 
 Audio.setAudioModeAsync({
@@ -146,7 +146,7 @@ Audio.setAudioModeAsync({
     playsInSilentModeIOS: true,
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
-    allowsRecordingIOS: true
+    allowsRecordingIOS: true,
 });
 Audio.setIsEnabledAsync(true);
 
@@ -225,10 +225,15 @@ Audio.RECORDING_OPTION_IOS_BIT_RATE_STRATEGY_VARIABLE === 3;
 Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY;
 Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY;
 async () => {
-    const result = await Audio.Sound.create({uri: 'uri'}, {
-        volume: 0.55,
-        rate: 16.5
-    }, null, true);
+    const result = await Audio.Sound.create(
+        { uri: 'uri' },
+        {
+            volume: 0.55,
+            rate: 16.5,
+        },
+        null,
+        true
+    );
 
     const sound = result.sound;
     const status = result.status;
@@ -241,18 +246,11 @@ async () => {
     }
 
     const _status = await sound.getStatusAsync();
-    await sound.loadAsync({uri: 'uri'});
+    await sound.loadAsync({ uri: 'uri' });
 };
 
-() => (
-    <AppLoading
-        startAsync={() => Promise.resolve()}
-        onFinish={() => {}}
-        onError={(error) => console.log(error)} />
-);
-() => (
-    <AppLoading />
-);
+() => <AppLoading startAsync={() => Promise.resolve()} onFinish={() => {}} onError={error => console.log(error)} />;
+() => <AppLoading />;
 
 const barcodeReadCallback = () => {};
 () => (
@@ -260,14 +258,11 @@ const barcodeReadCallback = () => {};
         type="front"
         torchMode="off"
         barCodeTypes={[BarCodeScanner.Constants.BarCodeType.aztec]}
-        onBarCodeRead={barcodeReadCallback} />
+        onBarCodeRead={barcodeReadCallback}
+    />
 );
 
-() => (
-    <BlurView
-        tint="dark"
-        intensity={2} />
-);
+() => <BlurView tint="dark" intensity={2} />;
 
 async () => {
     await Brightness.setBrightnessAsync(0.65);
@@ -283,17 +278,21 @@ Camera.Constants.WhiteBalance;
 Camera.Constants.VideoQuality;
 Camera.Constants.BarCodeType;
 () => {
-    return(<Camera ref={(component: any) => {
-        if (component) {
-            component.recordAsync();
-        }
-    }} />);
+    return (
+        <Camera
+            ref={(component: any) => {
+                if (component) {
+                    component.recordAsync();
+                }
+            }}
+        />
+    );
 };
 async (camera: CameraObject) => {
     const picture = await camera.takePictureAsync({
         quality: 0.5,
         base64: true,
-        exif: true
+        exif: true,
     });
 
     picture.uri;
@@ -310,7 +309,7 @@ async (camera: CameraObject) => {
             pic.height;
             pic.exif;
             pic.base64;
-        }
+        },
     });
 };
 
@@ -325,16 +324,10 @@ async () => {
 };
 
 async () => {
-    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync("appId");
+    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync('appId');
 };
 
-() => (
-    <FacebookAds.BannerView
-        type="large"
-        placementId="str"
-        onPress={() => {}}
-        onError={() => {}} />
-);
+() => <FacebookAds.BannerView type="large" placementId="str" onPress={() => {}} onError={() => {}} />;
 
 async () => {
     const info = await FileSystem.getInfoAsync('file');
@@ -352,7 +345,7 @@ async () => {
     const string: string = await FileSystem.readAsStringAsync('file');
     await FileSystem.writeAsStringAsync('file', 'content');
     await FileSystem.deleteAsync('file');
-    await FileSystem.moveAsync({ from: 'from', to: 'to'});
+    await FileSystem.moveAsync({ from: 'from', to: 'to' });
     await FileSystem.copyAsync({ from: 'from', to: 'to' });
     await FileSystem.makeDirectoryAsync('dir');
     const dirs: string[] = await FileSystem.readDirectoryAsync('dir');
@@ -400,14 +393,18 @@ async () => {
 };
 
 async () => {
-    const result = await ImageManipulator.manipulate('url', [
-        { rotate: 90 },
-        { resize: { width: 300 } },
-        { resize: { height: 300 } },
-        { resize: { height: 300, width: 300 } },
-    ], {
-        compress: 0.75
-    });
+    const result = await ImageManipulator.manipulate(
+        'url',
+        [
+            { rotate: 90 },
+            { resize: { width: 300 } },
+            { resize: { height: 300 } },
+            { resize: { height: 300, width: 300 } },
+        ],
+        {
+            compress: 0.75,
+        }
+    );
 
     result.height;
     result.uri;
@@ -424,20 +421,18 @@ async () => {
     const result = await FaceDetector.detectFaces('url', {
         mode: FaceDetector.Constants.Mode.fast,
         detectLandmarks: FaceDetector.Constants.Landmarks.all,
-        runClassifications: FaceDetector.Constants.Classifications.none
+        runClassifications: FaceDetector.Constants.Classifications.none,
     });
 
     result.faces[0];
 };
 
 async () => {
-    function isBoolean(x: boolean) {
-    }
-    function isString(x: string) {
-    }
+    function isBoolean(x: boolean) {}
+    function isString(x: string) {}
     // Two examples of members inherited from react-native Linking
     // to prove that inheritence is working.
-    Linking.addEventListener('url', (e) => {
+    Linking.addEventListener('url', e => {
         e.url === '';
     });
     isBoolean(await Linking.canOpenURL('expo://'));
@@ -445,19 +440,13 @@ async () => {
     // Extensions added by expo.
 
     isString(Linking.makeUrl('path'));
-    isString(Linking.makeUrl('path', { q: 2, u: 'ery', }));
+    isString(Linking.makeUrl('path', { q: 2, u: 'ery' }));
 
-    const {
-        path,
-        queryParams,
-    } = Linking.parse('');
+    const { path, queryParams } = Linking.parse('');
     isString(path);
     isString(queryParams['x'] || '');
 
-    const {
-        path: path2,
-        queryParams: queryParams2,
-    } = await Linking.parseInitialURLAsync();
+    const { path: path2, queryParams: queryParams2 } = await Linking.parseInitialURLAsync();
     isString(path2);
     isString(queryParams2['y'] || '');
 };
@@ -469,18 +458,12 @@ async () => {
             y={5}
             width={150}
             height={50}
-            fill='rgb(0,0,255)'
+            fill="rgb(0,0,255)"
             strokeWidth={3}
-            stroke='rgb(0,0,0)'
+            stroke="rgb(0,0,0)"
             transform="translate(0, 0)"
         />
-        <Svg.Circle
-            cx={50}
-            cy={50}
-            r={50}
-            fill="pink"
-            transform="translate(0, 0)"
-        />
+        <Svg.Circle cx={50} cy={50} r={50} fill="pink" transform="translate(0, 0)" />
         <Svg.Ellipse
             cx={55}
             cy={55}
@@ -491,15 +474,7 @@ async () => {
             fill="yellow"
             transform="translate(0, 0)"
         />
-        <Svg.Line
-            x1={0}
-            y1={0}
-            x2={100}
-            y2={100}
-            stroke="red"
-            strokeWidth={2}
-            transform="translate(0, 0)"
-        />
+        <Svg.Line x1={0} y1={0} x2={100} y2={100} stroke="red" strokeWidth={2} transform="translate(0, 0)" />
         <Svg.Polygon
             points="40,5 70,80 25,95"
             fill="lime"
@@ -527,41 +502,40 @@ async () => {
             STROKED TEXT
         </Svg.Text>
         <Svg.Defs>
-            <Svg.Path
-                id="path"
-                d=""
-            />
+            <Svg.Path id="path" d="" />
         </Svg.Defs>
         <Svg.G transform="translate(0, 0)" y={20}>
             <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
                 <Svg.TextPath href="#path" startOffset="-10%">
                     We go up and down,
-                    <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
+                    <Svg.TSpan fill="red" dy="5,5,5">
+                        then up again
+                    </Svg.TSpan>
                 </Svg.TextPath>
             </Svg.Text>
-            <Svg.Path
-                d=""
-                fill="none"
-                stroke="red"
-                strokeWidth={1}
-            />
+            <Svg.Path d="" fill="none" stroke="red" strokeWidth={1} />
         </Svg.G>
         <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
-        <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
+        <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20" />
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
-            <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
-            <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
+            <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red" />
+            <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white" />
         </Svg.Symbol>
         <Svg.Defs>
             <Svg.ClipPath id="clip">
-                <Svg.Circle cx="50%" cy="50%" r="40%"/>
+                <Svg.Circle cx="50%" cy="50%" r="40%" />
             </Svg.ClipPath>
-            <Svg.RadialGradient id="grad" cx="50%" cy="50%" rx="50%" ry="50%" fx="50%" fy="50%" gradientUnits="userSpaceOnUse">
-                <Svg.Stop
-                    offset="0%"
-                    stopColor="#ff0"
-                    stopOpacity="1"
-                />
+            <Svg.RadialGradient
+                id="grad"
+                cx="50%"
+                cy="50%"
+                rx="50%"
+                ry="50%"
+                fx="50%"
+                fy="50%"
+                gradientUnits="userSpaceOnUse"
+            >
+                <Svg.Stop offset="0%" stopColor="#ff0" stopOpacity="1" />
             </Svg.RadialGradient>
             <Svg.LinearGradient id="grad" x1="0" y1="0" x2="170" y2="0">
                 <Svg.Stop offset="1" stopColor="red" stopOpacity="1" />
@@ -570,14 +544,13 @@ async () => {
     </Svg>
 );
 
-() => (
-    <Svg width={100} height={50} preserveAspectRatio="none" />
-);
+() => <Svg width={100} height={50} preserveAspectRatio="none" />;
 
 IntentLauncherAndroid.ACTION_ACCESSIBILITY_SETTINGS === 'android.settings.ACCESSIBILITY_SETTINGS';
 IntentLauncherAndroid.ACTION_APP_NOTIFICATION_REDACTION === 'android.settings.ACTION_APP_NOTIFICATION_REDACTION';
 IntentLauncherAndroid.ACTION_CONDITION_PROVIDER_SETTINGS === 'android.settings.ACTION_CONDITION_PROVIDER_SETTINGS';
-IntentLauncherAndroid.ACTION_NOTIFICATION_LISTENER_SETTINGS === 'android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS';
+IntentLauncherAndroid.ACTION_NOTIFICATION_LISTENER_SETTINGS ===
+    'android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS';
 IntentLauncherAndroid.ACTION_PRINT_SETTINGS === 'android.settings.ACTION_PRINT_SETTINGS';
 IntentLauncherAndroid.ACTION_ADD_ACCOUNT_SETTINGS === 'android.settings.ADD_ACCOUNT_SETTINGS';
 IntentLauncherAndroid.ACTION_AIRPLANE_MODE_SETTINGS === 'android.settings.AIRPLANE_MODE_SETTINGS';
@@ -599,8 +572,10 @@ IntentLauncherAndroid.ACTION_DISPLAY_SETTINGS === 'android.settings.DISPLAY_SETT
 IntentLauncherAndroid.ACTION_DREAM_SETTINGS === 'android.settings.DREAM_SETTINGS';
 IntentLauncherAndroid.ACTION_HARD_KEYBOARD_SETTINGS === 'android.settings.HARD_KEYBOARD_SETTINGS';
 IntentLauncherAndroid.ACTION_HOME_SETTINGS === 'android.settings.HOME_SETTINGS';
-IntentLauncherAndroid.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS === 'android.settings.IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS';
-IntentLauncherAndroid.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS === 'android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS';
+IntentLauncherAndroid.ACTION_IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS ===
+    'android.settings.IGNORE_BACKGROUND_DATA_RESTRICTIONS_SETTINGS';
+IntentLauncherAndroid.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS ===
+    'android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS';
 IntentLauncherAndroid.ACTION_INPUT_METHOD_SETTINGS === 'android.settings.INPUT_METHOD_SETTINGS';
 IntentLauncherAndroid.ACTION_INPUT_METHOD_SUBTYPE_SETTINGS === 'android.settings.INPUT_METHOD_SUBTYPE_SETTINGS';
 IntentLauncherAndroid.ACTION_INTERNAL_STORAGE_SETTINGS === 'android.settings.INTERNAL_STORAGE_SETTINGS';
@@ -616,12 +591,14 @@ IntentLauncherAndroid.ACTION_NFCSHARING_SETTINGS === 'android.settings.NFCSHARIN
 IntentLauncherAndroid.ACTION_NFC_PAYMENT_SETTINGS === 'android.settings.NFC_PAYMENT_SETTINGS';
 IntentLauncherAndroid.ACTION_NFC_SETTINGS === 'android.settings.NFC_SETTINGS';
 IntentLauncherAndroid.ACTION_NIGHT_DISPLAY_SETTINGS === 'android.settings.NIGHT_DISPLAY_SETTINGS';
-IntentLauncherAndroid.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS === 'android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS';
+IntentLauncherAndroid.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS ===
+    'android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS';
 IntentLauncherAndroid.ACTION_NOTIFICATION_SETTINGS === 'android.settings.NOTIFICATION_SETTINGS';
 IntentLauncherAndroid.ACTION_PAIRING_SETTINGS === 'android.settings.PAIRING_SETTINGS';
 IntentLauncherAndroid.ACTION_PRIVACY_SETTINGS === 'android.settings.PRIVACY_SETTINGS';
 IntentLauncherAndroid.ACTION_QUICK_LAUNCH_SETTINGS === 'android.settings.QUICK_LAUNCH_SETTINGS';
-IntentLauncherAndroid.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS === 'android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS';
+IntentLauncherAndroid.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS ===
+    'android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS';
 IntentLauncherAndroid.ACTION_SECURITY_SETTINGS === 'android.settings.SECURITY_SETTINGS';
 IntentLauncherAndroid.ACTION_SETTINGS === 'android.settings.SETTINGS';
 IntentLauncherAndroid.ACTION_SHOW_ADMIN_SUPPORT_DETAILS === 'android.settings.SHOW_ADMIN_SUPPORT_DETAILS';
@@ -658,17 +635,9 @@ IntentLauncherAndroid.ACTION_ZEN_MODE_SETTINGS === 'android.settings.ZEN_MODE_SE
 KeepAwake.activate();
 KeepAwake.deactivate();
 
-() => (
-    <LinearGradient
-        colors={['#fff']}
-        start={[1, 1]} />
-);
+() => <LinearGradient colors={['#fff']} start={[1, 1]} />;
 
-() => (
-    <LinearGradient
-        colors={['#fff']}
-        style={{ flex: 1 }} />
-);
+() => <LinearGradient colors={['#fff']} style={{ flex: 1 }} />;
 
 Permissions.CAMERA === 'camera';
 Permissions.CAMERA_ROLL === 'cameraRoll';
@@ -694,9 +663,7 @@ ScreenOrientation.allow(ScreenOrientation.Orientation.ALL);
 
 class __TestEntry__ extends React.Component {
     render() {
-        return(
-            <Text>test</Text>
-        );
+        return <Text>test</Text>;
     }
 }
 registerRootComponent(__TestEntry__);
@@ -740,14 +707,14 @@ async () => {
         calendar.source.isLocalAccount === false;
     }
 
-    const id1 =  await Calendar.createCalendarAsync({
-        accessLevel: Calendar.CalendarAccessLevel.EDITOR
+    const id1 = await Calendar.createCalendarAsync({
+        accessLevel: Calendar.CalendarAccessLevel.EDITOR,
     });
 
     id1 === '';
 
     const id2 = await Calendar.updateCalendarAsync('1234', {
-        isVisible: false
+        isVisible: false,
     });
 
     id2 === '';
@@ -756,11 +723,7 @@ async () => {
 
     await Calendar.deleteCalendarAsync('1234');
 
-    const events = await Calendar.getEventsAsync(
-        ['123', '124'],
-        new Date(),
-        new Date()
-    );
+    const events = await Calendar.getEventsAsync(['123', '124'], new Date(), new Date());
 
     const event1 = events[0];
 
@@ -780,7 +743,7 @@ async () => {
     event1.isDetached === false;
 
     const event2 = await Calendar.getEventAsync('123', {
-        futureEvents: true
+        futureEvents: true,
     });
 
     const eventId1 = await Calendar.createEventAsync('123');
@@ -816,7 +779,7 @@ async () => {
 
 async () => {
     const result = await MailComposer.composeAsync({
-        subject: 'sss'
+        subject: 'sss',
     });
 
     result.status === 'saved';
@@ -856,69 +819,69 @@ async () => {
 };
 
 async () => {
-  const asset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('some-url');
-  const getAssetsOptions: MediaLibrary.GetAssetsOptions = {
-    first: 0,
-    after: 'lastAssetId',
-    album: 'albumId',
-    sortBy: MediaLibrary.SortBy.creationTime,
-    mediaType: MediaLibrary.MediaType.photo
-  };
-  const assetsList: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync(getAssetsOptions);
-  const endCursor: string = assetsList.endCursor;
-  const hasNextPage: boolean = assetsList.hasNextPage;
-  const totalCount: number = assetsList.totalCount;
-  const asset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(asset);
-  if (await MediaLibrary.deleteAssetsAsync(assetsList.assets)) {
-    console.log('assets deleted');
-  }
-  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
-  const album: MediaLibrary.Album | null = await MediaLibrary.getAlbumAsync('albumName');
-  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('albumName', asset1);
-  if (await MediaLibrary.addAssetsToAlbumAsync([asset, asset1], album1, true)) {
-    console.log('assets added');
-  }
+    const asset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('some-url');
+    const getAssetsOptions: MediaLibrary.GetAssetsOptions = {
+        first: 0,
+        after: 'lastAssetId',
+        album: 'albumId',
+        sortBy: MediaLibrary.SortBy.creationTime,
+        mediaType: MediaLibrary.MediaType.photo,
+    };
+    const assetsList: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync(getAssetsOptions);
+    const endCursor: string = assetsList.endCursor;
+    const hasNextPage: boolean = assetsList.hasNextPage;
+    const totalCount: number = assetsList.totalCount;
+    const asset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(asset);
+    if (await MediaLibrary.deleteAssetsAsync(assetsList.assets)) {
+        console.log('assets deleted');
+    }
+    const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+    const album: MediaLibrary.Album | null = await MediaLibrary.getAlbumAsync('albumName');
+    const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('albumName', asset1);
+    if (await MediaLibrary.addAssetsToAlbumAsync([asset, asset1], album1, true)) {
+        console.log('assets added');
+    }
 
-  const moments: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+    const moments: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
 
-  switch (getAssetsOptions.mediaType) {
-    case MediaLibrary.MediaType.audio:
-    case MediaLibrary.MediaType.photo:
-    case MediaLibrary.MediaType.video:
-    case MediaLibrary.MediaType.unknow:
-      return true;
-  }
+    switch (getAssetsOptions.mediaType) {
+        case MediaLibrary.MediaType.audio:
+        case MediaLibrary.MediaType.photo:
+        case MediaLibrary.MediaType.video:
+        case MediaLibrary.MediaType.unknow:
+            return true;
+    }
 
-  switch (getAssetsOptions.sortBy) {
-    case MediaLibrary.SortBy.default:
-    case MediaLibrary.SortBy.id:
-    case MediaLibrary.SortBy.creationTime:
-    case MediaLibrary.SortBy.modificationTime:
-    case MediaLibrary.SortBy.mediaType:
-    case MediaLibrary.SortBy.width:
-    case MediaLibrary.SortBy.height:
-    case MediaLibrary.SortBy.duration:
-      return true;
-  }
+    switch (getAssetsOptions.sortBy) {
+        case MediaLibrary.SortBy.default:
+        case MediaLibrary.SortBy.id:
+        case MediaLibrary.SortBy.creationTime:
+        case MediaLibrary.SortBy.modificationTime:
+        case MediaLibrary.SortBy.mediaType:
+        case MediaLibrary.SortBy.width:
+        case MediaLibrary.SortBy.height:
+        case MediaLibrary.SortBy.duration:
+            return true;
+    }
 };
 // #region MediaLibrary
 async () => {
-  const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
-  const mlAssetResult: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync({
-    first: 0,
-    after: '',
-    album: 'Album',
-    sortBy: MediaLibrary.SortBy.creationTime,
-    mediaType: MediaLibrary.MediaType.photo
-  });
-  const mlAsset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(mlAsset);
-  const areDeleted: boolean = await MediaLibrary.deleteAssetsAsync([mlAsset]);
-  const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
-  const album: MediaLibrary.Album = await MediaLibrary.getAlbumAsync('album');
-  const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('album', mlAsset);
-  const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
-  const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
-  const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
+    const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
+    const mlAssetResult: MediaLibrary.GetAssetsResult = await MediaLibrary.getAssetsAsync({
+        first: 0,
+        after: '',
+        album: 'Album',
+        sortBy: MediaLibrary.SortBy.creationTime,
+        mediaType: MediaLibrary.MediaType.photo,
+    });
+    const mlAsset1: MediaLibrary.Asset = await MediaLibrary.getAssetInfoAsync(mlAsset);
+    const areDeleted: boolean = await MediaLibrary.deleteAssetsAsync([mlAsset]);
+    const albums: MediaLibrary.Album[] = await MediaLibrary.getAlbumsAsync();
+    const album: MediaLibrary.Album = await MediaLibrary.getAlbumAsync('album');
+    const album1: MediaLibrary.Album = await MediaLibrary.createAlbumAsync('album', mlAsset);
+    const areAddedToAlbum: boolean = await MediaLibrary.addAssetsToAlbumAsync([mlAsset, mlAsset1], 'album');
+    const areDeletedFromAlbum: boolean = await MediaLibrary.removeAssetsFromAlbumAsync([mlAsset, mlAsset1], 'album');
+    const momuents: MediaLibrary.Album[] = await MediaLibrary.getMomentsAsync();
 };
 //#endregion
 

@@ -3,7 +3,7 @@
 // Definitions by: Nick Zelei <https://github.com/zelein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "utf8" {
+declare module 'utf8' {
     /**
      * A string representing the semantic version number.
      */

@@ -38,16 +38,8 @@ export interface TypographyOptions {
     boldWeight?: number | string;
     blockMarginBottom?: number;
     includeNormalize?: boolean;
-    overrideStyles?: (
-        VerticalRhythm: VerticalRhythm,
-        options: TypographyOptions,
-        styles: any
-    ) => object;
-    overrideThemeStyles?: (
-        VerticalRhythm: VerticalRhythm,
-        options: TypographyOptions,
-        styles: any
-    ) => object;
+    overrideStyles?: (VerticalRhythm: VerticalRhythm, options: TypographyOptions, styles: any) => object;
+    overrideThemeStyles?: (VerticalRhythm: VerticalRhythm, options: TypographyOptions, styles: any) => object;
     plugins?: any[];
 }
 
@@ -57,11 +49,11 @@ declare class Typography {
     createStyles(): string;
     toJSON(): object;
     injectStyles(): void;
-    rhythm: VerticalRhythm["rhythm"];
-    scale: VerticalRhythm["scale"];
-    adjustFontSizeTo: VerticalRhythm["adjustFontSizeTo"];
-    linesForFontSize: VerticalRhythm["linesForFontSize"];
-    establishBaseline: VerticalRhythm["establishBaseline"];
+    rhythm: VerticalRhythm['rhythm'];
+    scale: VerticalRhythm['scale'];
+    adjustFontSizeTo: VerticalRhythm['adjustFontSizeTo'];
+    linesForFontSize: VerticalRhythm['linesForFontSize'];
+    establishBaseline: VerticalRhythm['establishBaseline'];
 }
 
 export default Typography;

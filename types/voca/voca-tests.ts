@@ -9,15 +9,27 @@ let numAry: number[];
 // Case
 str = v.camelCase();
 str = v.camelCase('bird flight');
-str = v('bird flight').camelCase().value();
-str = v.chain('bird flight').camelCase().value();
+str = v('bird flight')
+    .camelCase()
+    .value();
+str = v
+    .chain('bird flight')
+    .camelCase()
+    .value();
 
 str = v.capitalize();
 str = v.capitalize('apple');
 str = v.capitalize('aPPle', true);
-str = v('apple').capitalize().value();
-str = v('apple').capitalize(true).value();
-str = v.chain('apple').capitalize(true).value();
+str = v('apple')
+    .capitalize()
+    .value();
+str = v('apple')
+    .capitalize(true)
+    .value();
+str = v
+    .chain('apple')
+    .capitalize(true)
+    .value();
 
 str = v.decapitalize('Sun');
 str = v.kebabCase('goodbye blue sky');
@@ -25,8 +37,13 @@ str = v.lowerCase('Green');
 str = v.snakeCase('learning to fly');
 
 str = v.swapCase('learning to fly');
-str = v('learning to fly').swapCase().value();
-str = v.chain('learning to fly').swapCase().value();
+str = v('learning to fly')
+    .swapCase()
+    .value();
+str = v
+    .chain('learning to fly')
+    .swapCase()
+    .value();
 
 str = v.titleCase('learning to fly');
 str = v.titleCase('another brick in the wall', ['in', 'the']);
@@ -36,7 +53,7 @@ str = v.upperCase('school');
 strAry = v('Back to School')
     .lowerCase()
     .words();
-str = v(" Back to School ")
+str = v(' Back to School ')
     .trim()
     .truncate(7)
     .value();
@@ -48,11 +65,11 @@ strAry = v
     .value();
 
 strAry = v('Back to School')
-     .chain()
-     .lowerCase()
-     .words()
-     .value();
-str = v(" Back to School ")
+    .chain()
+    .lowerCase()
+    .words()
+    .value();
+str = v(' Back to School ')
     .chain()
     .trim()
     .truncate(7)
@@ -79,8 +96,13 @@ str = v(' Space travel ')
 
 // Chop
 str = v.charAt('helicopter', 0);
-str = v('helicopter').charAt(0).value();
-str = v.chain('helicopter').charAt(0).value();
+str = v('helicopter')
+    .charAt(0)
+    .value();
+str = v
+    .chain('helicopter')
+    .charAt(0)
+    .value();
 
 str = v.codePointAt('rain', 1);
 str = v.first('helicopter');
@@ -103,7 +125,10 @@ str = v.truncate('Good day, Little Red Riding Hood', 14, ' (...)');
 num = v.count();
 num = v.count('rain');
 num = v('rain').count();
-num = v.chain('rain').count().value();
+num = v
+    .chain('rain')
+    .count()
+    .value();
 
 num = v.countGraphemes('cafe\u0301');
 num = v.countSubstrings('bad boys, bad boys whatcha gonna do?', 'boys');
@@ -116,18 +141,33 @@ num = v.countWords('gravity can cross dimensions');
 // Escape
 str = v.escapeHtml();
 str = v.escapeHtml('<p>wonderful world</p>');
-str = v('<p>wonderful world</p>').escapeHtml().value();
-str = v.chain('<p>wonderful world</p>').escapeHtml().value();
+str = v('<p>wonderful world</p>')
+    .escapeHtml()
+    .value();
+str = v
+    .chain('<p>wonderful world</p>')
+    .escapeHtml()
+    .value();
 
 str = v.escapeRegExp();
 str = v.escapeRegExp('(hours)[minutes]{seconds}');
-str = v('(hours)[minutes]{seconds}').escapeRegExp().value();
-str = v.chain('(hours)[minutes]{seconds}').escapeRegExp().value();
+str = v('(hours)[minutes]{seconds}')
+    .escapeRegExp()
+    .value();
+str = v
+    .chain('(hours)[minutes]{seconds}')
+    .escapeRegExp()
+    .value();
 
 str = v.unescapeHtml();
 str = v.unescapeHtml('&lt;p&gt;wonderful world&lt;/p&gt;');
-str = v('&lt;p&gt;wonderful world&lt;/p&gt;').unescapeHtml().value();
-str = v.chain('&lt;p&gt;wonderful world&lt;/p&gt;').unescapeHtml().value();
+str = v('&lt;p&gt;wonderful world&lt;/p&gt;')
+    .unescapeHtml()
+    .value();
+str = v
+    .chain('&lt;p&gt;wonderful world&lt;/p&gt;')
+    .unescapeHtml()
+    .value();
 
 // Format
 str = v.sprintf();
@@ -136,40 +176,61 @@ str = v.sprintf('%s costs $%d', 'coffee', 2);
 str = v.sprintf('%1$s %2$s %1$s %2$s, watcha gonna %3$s', 'bad', 'boys', 'do');
 str = v.sprintf('% 6s', 'bird');
 str = v.sprintf('%d %i %+d', 15, -2, 25);
-str = v.sprintf("%06d", 15);
+str = v.sprintf('%06d', 15);
 str = v.sprintf('%.2e %g', 100.5, 0.455);
-str = v('%s, %s!').sprintf('Hello', 'World').value();
-str = v.chain('%s, %s!').sprintf('Hello', 'World').value();
+str = v('%s, %s!')
+    .sprintf('Hello', 'World')
+    .value();
+str = v
+    .chain('%s, %s!')
+    .sprintf('Hello', 'World')
+    .value();
 
 str = v.vprintf();
 str = v.vprintf('%s', ['Welcome']);
 str = v.vprintf('%s has %d apples', ['Alexandra', 3]);
-str = v('%s').vprintf(['Welcome']).value();
-str = v.chain('%s').vprintf(['Welcome']).value();
+str = v('%s')
+    .vprintf(['Welcome'])
+    .value();
+str = v
+    .chain('%s')
+    .vprintf(['Welcome'])
+    .value();
 
 // Index
 num = v.indexOf();
 num = v.indexOf('morning');
 num = v.indexOf('morning', 'n');
 num = v('morning').indexOf('n');
-num = v.chain('morning').indexOf('n').value();
+num = v
+    .chain('morning')
+    .indexOf('n')
+    .value();
 
 num = v.lastIndexOf();
 num = v.lastIndexOf('morning');
 num = v.lastIndexOf('morning', 'n');
 num = v('morning').lastIndexOf('n');
-num = v.chain('morning').lastIndexOf('n').value();
+num = v
+    .chain('morning')
+    .lastIndexOf('n')
+    .value();
 
 num = v.search('morning', /rn/);
-num = v.search('evening', '/\d/');
+num = v.search('evening', '/d/');
 
 // Manipulate
 str = v.insert();
 str = v.insert('ct');
 str = v.insert('ct', 'a');
 str = v.insert('ct', 'a', 1);
-str = v('ct').insert('a', 1).value();
-str = v.chain('ct').insert('a', 1).value();
+str = v('ct')
+    .insert('a', 1)
+    .value();
+str = v
+    .chain('ct')
+    .insert('a', 1)
+    .value();
 
 str = v.latinise();
 str = v.latinise('cafe\u0301');
@@ -223,18 +284,28 @@ str = v.tr();
 str = v.tr('hello', 'el', 'ip');
 str = v.tr('Yes. The fire rises.', {
     Yes: 'Awesome',
-    fire: 'flame'
+    fire: 'flame',
 });
-str = v('hello').tr('el', 'ip').value();
-str = v('Yes. The fire rises.').tr({
-    Yes: 'Awesome',
-    fire: 'flame'
-}).value();
-str = v.chain('hello').tr('el', 'ip').value();
-str = v.chain('Yes. The fire rises.').tr({
-    Yes: 'Awesome',
-    fire: 'flame'
-}).value();
+str = v('hello')
+    .tr('el', 'ip')
+    .value();
+str = v('Yes. The fire rises.')
+    .tr({
+        Yes: 'Awesome',
+        fire: 'flame',
+    })
+    .value();
+str = v
+    .chain('hello')
+    .tr('el', 'ip')
+    .value();
+str = v
+    .chain('Yes. The fire rises.')
+    .tr({
+        Yes: 'Awesome',
+        fire: 'flame',
+    })
+    .value();
 
 str = v.trim();
 str = v.trim(' Mother nature ');
@@ -251,16 +322,16 @@ str = v.trimRight('do you feel in charge?!!!', '!');
 str = v.wordWrap();
 str = v.wordWrap('Hello world');
 str = v.wordWrap('Hello world', {
-    width: 5
+    width: 5,
 });
 str = v.wordWrap('Hello world', {
     width: 5,
     newLine: '<br/>',
-    indent: '__'
+    indent: '__',
 });
 str = v.wordWrap('Wonderful world', {
     width: 5,
-    cut: true
+    cut: true,
 });
 
 // Query
@@ -269,14 +340,20 @@ bool = v.endsWith('red alert');
 bool = v.endsWith('red alert', 'alert');
 bool = v.endsWith('Murphy', 'ph', 5);
 bool = v('Murphy').endsWith('ph', 5);
-bool = v.chain('Murphy').endsWith('ph', 5).value();
+bool = v
+    .chain('Murphy')
+    .endsWith('ph', 5)
+    .value();
 
 bool = v.includes();
 bool = v.includes('starship');
 bool = v.includes('starship', 'star');
 bool = v.includes('galaxy', 'g', 1);
 bool = v('galaxy').includes('g', 1);
-bool = v.chain('galaxy').includes('g', 1).value();
+bool = v
+    .chain('galaxy')
+    .includes('g', 1)
+    .value();
 
 bool = v.isAlpha();
 bool = v.isAlpha('bart');
@@ -304,8 +381,14 @@ bool = v.isString('vacation');
 bool = v.isString(560);
 bool = v('vacation').isString();
 bool = v(560).isString();
-bool = v.chain('vacation').isString().value();
-bool = v.chain(560).isString().value();
+bool = v
+    .chain('vacation')
+    .isString()
+    .value();
+bool = v
+    .chain(560)
+    .isString()
+    .value();
 
 bool = v.isUpperCase();
 bool = v.isUpperCase('ACDC');

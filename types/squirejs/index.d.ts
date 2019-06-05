@@ -3,7 +3,6 @@
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare class Squire {
     constructor();
     constructor(context: string);
@@ -20,7 +19,7 @@ declare class Squire {
 declare namespace Squire {
     namespace Helpers {
         export function returns<T>(what: T): () => T;
-        export function constructs<T>(what: T): () => (() => T);
+        export function constructs<T>(what: T): () => () => T;
     }
 }
 

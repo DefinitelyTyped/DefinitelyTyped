@@ -27,7 +27,7 @@ export const IdentityVerification: {
 };
 
 export class Client {
-    constructor(auth: { token: string } | { appId: string, appApiKey: string });
+    constructor(auth: { token: string } | { appId: string; appApiKey: string });
     constructor(username: string, password: string);
 
     users: Users;
@@ -39,7 +39,7 @@ export class Client {
 }
 
 export class ApiResponse<T> extends IncomingMessage {
-  body: T;
+    body: T;
 }
 
 export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
@@ -57,8 +57,8 @@ export class Users {
     list(): Promise<ApiResponse<UserList>>;
     list(cb: callback<ApiResponse<UserList>>): void;
 
-    listBy(params: {tag_id?: string, segment_id?: string}): Promise<ApiResponse<UserList>>;
-    listBy(params: {tag_id?: string, segment_id?: string}, cb: callback<ApiResponse<UserList>>): void;
+    listBy(params: { tag_id?: string; segment_id?: string }): Promise<ApiResponse<UserList>>;
+    listBy(params: { tag_id?: string; segment_id?: string }, cb: callback<ApiResponse<UserList>>): void;
 
     scroll: Scroll<User>;
 
@@ -82,18 +82,17 @@ export class Leads {
     list(): Promise<ApiResponse<LeadList>>;
     list(cb: callback<ApiResponse<LeadList>>): void;
 
-    listBy(params: { email?: string, tag_id?: string, segment_id?: string }): Promise<ApiResponse<LeadList>>;
-    listBy(params: { email?: string, tag_id?: string, segment_id?: string }, cb: callback<ApiResponse<LeadList>>): void;
+    listBy(params: { email?: string; tag_id?: string; segment_id?: string }): Promise<ApiResponse<LeadList>>;
+    listBy(params: { email?: string; tag_id?: string; segment_id?: string }, cb: callback<ApiResponse<LeadList>>): void;
 
-    find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>
+    find(identifier: LeadIdentifier): Promise<ApiResponse<Lead>>;
     find(identifier: LeadIdentifier, cb: callback<ApiResponse<Lead>>): void;
 
     delete(id: string): Promise<ApiResponse<Lead>>;
     delete(id: string, cb: callback<ApiResponse<Lead>>): void;
 
-    convert(params: { contact: LeadIdentifier, user: UserIdentifier }): Promise<ApiResponse<Lead>>;
-    convert(params: { contact: LeadIdentifier, user: UserIdentifier }, cb: callback<ApiResponse<Lead>>): void;
-
+    convert(params: { contact: LeadIdentifier; user: UserIdentifier }): Promise<ApiResponse<Lead>>;
+    convert(params: { contact: LeadIdentifier; user: UserIdentifier }, cb: callback<ApiResponse<Lead>>): void;
 }
 
 export class Companies {
@@ -109,8 +108,8 @@ export class Companies {
     list(): Promise<ApiResponse<CompanyList>>;
     list(cb: callback<ApiResponse<CompanyList>>): void;
 
-    listBy(params: {tag_id?: string, segment_id?: string}): Promise<ApiResponse<CompanyList>>;
-    listBy(params: {tag_id?: string, segment_id?: string}, cb: callback<ApiResponse<CompanyList>>): void;
+    listBy(params: { tag_id?: string; segment_id?: string }): Promise<ApiResponse<CompanyList>>;
+    listBy(params: { tag_id?: string; segment_id?: string }, cb: callback<ApiResponse<CompanyList>>): void;
 
     scroll: Scroll<Company>;
 
@@ -118,20 +117,20 @@ export class Companies {
 }
 
 export class Tags {
-  create(tag: Partial<Tag>): Promise<ApiResponse<Tag>>;
-  create(tag: Partial<Tag>, cb: callback<ApiResponse<Tag>>): void;
+    create(tag: Partial<Tag>): Promise<ApiResponse<Tag>>;
+    create(tag: Partial<Tag>, cb: callback<ApiResponse<Tag>>): void;
 
-  tag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
-  tag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
+    tag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
+    tag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
 
-  untag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
-  untag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
+    untag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
+    untag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
 
-  delete(tag: TagIdentifier): Promise<IncomingMessage>;
-  delete(tag: TagIdentifier, cb: callback<IncomingMessage>): void;
+    delete(tag: TagIdentifier): Promise<IncomingMessage>;
+    delete(tag: TagIdentifier, cb: callback<IncomingMessage>): void;
 
-  list(): Promise<ApiResponse<TagList>>;
-  list(cb: callback<ApiResponse<TagList>>): void;
+    list(): Promise<ApiResponse<TagList>>;
+    list(cb: callback<ApiResponse<TagList>>): void;
 }
 
 export class Events {

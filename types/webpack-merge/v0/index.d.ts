@@ -6,8 +6,8 @@
 
 ///<reference types="webpack" />
 
-declare module "webpack-merge" {
-    import { Configuration } from "webpack";
+declare module 'webpack-merge' {
+    import { Configuration } from 'webpack';
 
     interface WebpackMerge {
         /**

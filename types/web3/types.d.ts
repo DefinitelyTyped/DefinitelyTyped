@@ -1,13 +1,10 @@
 export type Callback<T> = (error: Error, result: T) => void;
 
 export interface EventEmitter {
-    on(type: "data", handler: (event: EventLog) => void): EventEmitter;
-    on(type: "changed", handler: (receipt: EventLog) => void): EventEmitter;
-    on(type: "error", handler: (error: Error) => void): EventEmitter;
-    on(
-        type: "error" | "data" | "changed",
-        handler: (error: Error | TransactionReceipt | string) => void
-    ): EventEmitter;
+    on(type: 'data', handler: (event: EventLog) => void): EventEmitter;
+    on(type: 'changed', handler: (receipt: EventLog) => void): EventEmitter;
+    on(type: 'error', handler: (error: Error) => void): EventEmitter;
+    on(type: 'error' | 'data' | 'changed', handler: (error: Error | TransactionReceipt | string) => void): EventEmitter;
 }
 
 export interface EventLog {
@@ -77,16 +74,13 @@ export interface Subscribe<T> {
         unsubscribe(callback?: Callback<boolean>): void | boolean;
         arguments: object;
     };
-    on(type: "data" | "changed", handler: (data: T) => void): void;
-    on(type: "error", handler: (data: Error) => void): void;
+    on(type: 'data' | 'changed', handler: (data: T) => void): void;
+    on(type: 'error', handler: (data: Error) => void): void;
 }
 
 export interface Shh {
     generateSymKeyFromPassword(password: string): Promise<string>;
-    generateSymKeyFromPassword(
-        password: string,
-        callback: Callback<string>
-    ): void;
+    generateSymKeyFromPassword(password: string, callback: Callback<string>): void;
     // TODO: type every method
 }
 export class Bzz {} // TODO: Type

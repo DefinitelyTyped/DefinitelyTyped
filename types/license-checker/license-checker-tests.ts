@@ -1,24 +1,24 @@
 // From README.md:
 
-import * as checker from "license-checker";
+import * as checker from 'license-checker';
 
 checker.init(
     {
-        start: "/path/to/start/looking",
+        start: '/path/to/start/looking',
         production: true,
         customPath: {
-            licenseText: ""
+            licenseText: '',
         },
         json: false,
         csv: false,
-        csvComponentPrefix: "prefixColumn",
-        out: "/write/to/specific/file",
-        failOn: "impermissible;licenses",
-        onlyAllow: "permissible;licenses",
-        packages: "packages;to;check",
-        excludePackages: "packages;to;exclude",
+        csvComponentPrefix: 'prefixColumn',
+        out: '/write/to/specific/file',
+        failOn: 'impermissible;licenses',
+        onlyAllow: 'permissible;licenses',
+        packages: 'packages;to;check',
+        excludePackages: 'packages;to;exclude',
         excludePrivatePackages: false,
-        direct: false
+        direct: false,
     },
     (err: Error, json: checker.ModuleInfos): void => {
         if (err) {

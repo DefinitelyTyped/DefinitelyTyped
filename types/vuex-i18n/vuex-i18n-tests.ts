@@ -1,9 +1,9 @@
 // load vue and vuex instance
-import Vue from "vue";
-import { Store } from "vuex";
+import Vue from 'vue';
+import { Store } from 'vuex';
 
 // load vuex i18n module
-import vuexI18n, { i18nState } from "vuex-i18n";
+import vuexI18n, { i18nState } from 'vuex-i18n';
 
 // declare interface for store's root state
 interface RootState {
@@ -28,24 +28,24 @@ Vue.use(vuexI18n.plugin, store);
 // structured as object trees and will automatically be flattened by the the
 // plugin
 const translationsEn = {
-  content: "This is some {type} content",
-  tree: {
-    nested: "This is nested content"
-  }
+    content: 'This is some {type} content',
+    tree: {
+        nested: 'This is nested content',
+    },
 };
 
 // translations can be kept in separate files for each language
 // i.e. resources/i18n/de.json.
 const translationsDe = {
-  "My nice title": "Ein schöner Titel",
-  content: "Dies ist ein toller Inhalt"
+    'My nice title': 'Ein schöner Titel',
+    content: 'Dies ist ein toller Inhalt',
 };
 
 // add translations directly to the application
-Vue.i18n.add("en", translationsEn);
-Vue.i18n.add("de", translationsDe);
+Vue.i18n.add('en', translationsEn);
+Vue.i18n.add('de', translationsDe);
 
 // set the start locale to use
-Vue.i18n.set("en");
+Vue.i18n.set('en');
 
-Vue.i18n.translateIn("en", "tree.nested");
+Vue.i18n.translateIn('en', 'tree.nested');

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component } from 'react';
 
 export interface InternalTreeNodeProps extends TreeNodeProps {
     eventKey: string;
@@ -18,7 +18,7 @@ export interface InternalTreeNodeProps extends TreeNodeProps {
     dragOverGapBottom: boolean;
 }
 
-export interface InternalTreeNode extends Component<InternalTreeNodeProps> { }
+export interface InternalTreeNode extends Component<InternalTreeNodeProps> {}
 
 export interface TreeNodeProps {
     /**
@@ -47,7 +47,7 @@ export interface TreeNodeProps {
     icon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element);
 }
 
-export class TreeNode extends Component<TreeNodeProps> { }
+export class TreeNode extends Component<TreeNodeProps> {}
 
 export interface ExpandData {
     expanded: boolean;
@@ -59,14 +59,14 @@ export interface CheckData {
     checkedNodes: InternalTreeNode[];
     halfCheckedKeys: string[];
     node: InternalTreeNode;
-    event: "check";
+    event: 'check';
 }
 
 export interface SelectData {
     selected: boolean;
     selectedNodes: InternalTreeNode[];
     node: InternalTreeNode;
-    event: "select";
+    event: 'select';
 }
 
 export interface OnRightClickData {
@@ -260,4 +260,4 @@ export interface TreeProps {
     onDragEnd?: (props: OnDragEndData) => void;
 }
 
-export default class Tree extends Component<TreeProps> { }
+export default class Tree extends Component<TreeProps> {}

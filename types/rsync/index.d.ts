@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import * as child_process from 'child_process';
 interface StreamDataHandler {
     (data: any): void;

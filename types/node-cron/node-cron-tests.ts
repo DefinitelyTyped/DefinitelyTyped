@@ -14,10 +14,14 @@ cron.schedule('1-5 * * * *', () => {
 });
 
 // tslint:disable-next-line rule
-const task = cron.schedule('* * * * *', () => {
-    log('immediately started');
-    // because of manual call start method
-}, { scheduled: false });
+const task = cron.schedule(
+    '* * * * *',
+    () => {
+        log('immediately started');
+        // because of manual call start method
+    },
+    { scheduled: false }
+);
 
 task.start();
 
@@ -47,8 +51,12 @@ if (valid && !invalid) {
 }
 
 // check timezones are accepted from the string literal
-const tast4 = cron.schedule('* * * * *', () => {
-    log('will execute every minute until stopped');
-}, { timezone: 'Europe/London' });
+const tast4 = cron.schedule(
+    '* * * * *',
+    () => {
+        log('will execute every minute until stopped');
+    },
+    { timezone: 'Europe/London' }
+);
 
 tast4.destroy();

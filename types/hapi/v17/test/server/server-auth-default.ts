@@ -1,7 +1,7 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions
 //      https://github.com/hapijs/hapi/blob/master/API.md#-serverauthschemename-scheme
-import { Request, ResponseToolkit, Server, ServerAuthScheme, ServerAuthSchemeOptions } from "hapi";
-import * as Boom from "boom";
+import { Request, ResponseToolkit, Server, ServerAuthScheme, ServerAuthSchemeOptions } from 'hapi';
+import * as Boom from 'boom';
 
 declare module 'hapi' {
     interface UserCredentials {
@@ -22,7 +22,7 @@ const scheme: ServerAuthScheme = (server, options) => {
                 throw Boom.unauthorized(null, 'Custom');
             }
             return h.authenticated({ credentials: { user: { a: 1 }, scope: ['test'] } });
-        }
+        },
     };
 };
 
@@ -35,7 +35,7 @@ server.route({
     path: '/',
     handler(request, h) {
         return request.auth.credentials.user || 'not authed';
-    }
+    },
 });
 
 server.start();

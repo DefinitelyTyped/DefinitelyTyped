@@ -23,7 +23,7 @@ import TileRange from 'ol/TileRange';
 import { Transform } from 'ol/transform';
 import View, { State } from 'ol/View';
 export interface AtPixelOptions {
-    layerFilter: ((param0: Layer) => boolean);
+    layerFilter: (param0: Layer) => boolean;
     hitTolerance?: number;
 }
 export interface FrameState {
@@ -75,8 +75,16 @@ export default class PluggableMap extends BaseObject {
     getTarget(): HTMLElement | string;
     addControl(control: Control): void;
     createRenderer(): MapRenderer;
-    forEachFeatureAtPixel<S, T>(pixel: Pixel, callback: ((this: S, param1: FeatureLike, param2: Layer) => T), opt_options?: AtPixelOptions): T;
-    forEachLayerAtPixel<S, T>(pixel: Pixel, callback: ((this: S, param1: Layer, param2: Uint8ClampedArray | Uint8Array) => T), opt_options?: AtPixelOptions): T;
+    forEachFeatureAtPixel<S, T>(
+        pixel: Pixel,
+        callback: (this: S, param1: FeatureLike, param2: Layer) => T,
+        opt_options?: AtPixelOptions
+    ): T;
+    forEachLayerAtPixel<S, T>(
+        pixel: Pixel,
+        callback: (this: S, param1: Layer, param2: Uint8ClampedArray | Uint8Array) => T,
+        opt_options?: AtPixelOptions
+    ): T;
     getControls(): Collection<Control>;
     getCoordinateFromPixel(pixel: Pixel): Coordinate;
     getEventCoordinate(event: Event): Coordinate;
@@ -116,9 +124,9 @@ export default class PluggableMap extends BaseObject {
     skipFeature(feature: Feature): void;
     unskipFeature(feature: Feature): void;
     updateSize(): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -171,4 +179,4 @@ export default class PluggableMap extends BaseObject {
     once(type: 'singleclick', listener: (evt: MapBrowserEvent) => void): EventsKey;
     un(type: 'singleclick', listener: (evt: MapBrowserEvent) => void): void;
 }
-export type PostRenderFunction = ((param0: PluggableMap, param1?: FrameState) => boolean);
+export type PostRenderFunction = (param0: PluggableMap, param1?: FrameState) => boolean;

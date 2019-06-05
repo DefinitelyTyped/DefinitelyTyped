@@ -1,50 +1,50 @@
 import phin = require('phin');
 
 export function typeTests() {
-    function testParseNoneStreamFalse(o: { url: string, parse?: 'none', stream?: false } | string) {
+    function testParseNoneStreamFalse(o: { url: string; parse?: 'none'; stream?: false } | string) {
         phin(o); // $ExpectType Promise<BufferResponse>
     }
 
-    function testParseJsonStreamFalse(o: { url: string, parse: 'json', stream?: false }) {
+    function testParseJsonStreamFalse(o: { url: string; parse: 'json'; stream?: false }) {
         phin(o); // $ExpectType Promise<JsonResponse>
     }
 
-    function testStreamTrue(o: { url: string, parse?: 'json' | 'none', stream: true }) {
+    function testStreamTrue(o: { url: string; parse?: 'json' | 'none'; stream: true }) {
         phin(o); // $ExpectType Promise<StreamResponse>
     }
 
-    function testCallbackParseNoneStreamFalse(o: { url: string, parse?: 'none', stream?: false } | string) {
+    function testCallbackParseNoneStreamFalse(o: { url: string; parse?: 'none'; stream?: false } | string) {
         phin.unpromisified(o, (_err, r) => {
             r; // $ExpectType BufferResponse
         });
     }
 
-    function testCallbackParseJsonStreamFalse(o: { url: string, parse: 'json', stream?: false }) {
+    function testCallbackParseJsonStreamFalse(o: { url: string; parse: 'json'; stream?: false }) {
         phin.unpromisified(o, (_err, r) => {
             r; // $ExpectType JsonResponse
         });
     }
 
-    function testCallbackStreamTrue(o: { url: string, parse?: 'json' | 'none', stream: true }) {
+    function testCallbackStreamTrue(o: { url: string; parse?: 'json' | 'none'; stream: true }) {
         phin.unpromisified(o, (_err, r) => {
             r; // $ExpectType StreamResponse
         });
     }
 
-    function testCallbackAny(o: { url: string, parse?: 'json' | 'none', stream?: boolean }) {
+    function testCallbackAny(o: { url: string; parse?: 'json' | 'none'; stream?: boolean }) {
         phin.unpromisified(o, (_err, r) => {
             r; // $ExpectType AnyResponse
         });
     }
 
-    function testDefaultsParseNoneStreamFalse(d: { parse?: 'none', stream?: false }) {
+    function testDefaultsParseNoneStreamFalse(d: { parse?: 'none'; stream?: false }) {
         const p = phin.defaults(d);
         return {
-            testSame(o: phin.Options & { parse?: 'none', stream?: false } | string) {
+            testSame(o: phin.Options & { parse?: 'none'; stream?: false } | string) {
                 p(o); // $ExpectType Promise<BufferResponse>
             },
 
-            testJson(o: phin.Options & { parse: 'json', stream?: false }) {
+            testJson(o: phin.Options & { parse: 'json'; stream?: false }) {
                 p(o); // $ExpectType Promise<JsonResponse>
             },
 
@@ -54,18 +54,18 @@ export function typeTests() {
 
             testOthers(o: phin.Options) {
                 p(o); // $ExpectType Promise<AnyResponse>
-            }
+            },
         };
     }
 
-    function testDefaultsParseJsonStreamFalse(d: { parse: 'json', stream?: false }) {
+    function testDefaultsParseJsonStreamFalse(d: { parse: 'json'; stream?: false }) {
         const p = phin.defaults(d);
         return {
-            testSame(o: phin.Options & { parse: 'none', stream?: false }) {
+            testSame(o: phin.Options & { parse: 'none'; stream?: false }) {
                 p(o); // $ExpectType Promise<BufferResponse>
             },
 
-            testJson(o: phin.Options & { parse?: 'json', stream?: false } | string) {
+            testJson(o: phin.Options & { parse?: 'json'; stream?: false } | string) {
                 p(o); // $ExpectType Promise<JsonResponse>
             },
 
@@ -75,18 +75,18 @@ export function typeTests() {
 
             testOthers(o: phin.Options) {
                 p(o); // $ExpectType Promise<AnyResponse>
-            }
+            },
         };
     }
 
-    function testDefaultsParseJsonStreamTrue(d: { parse: 'json', stream: true }) {
+    function testDefaultsParseJsonStreamTrue(d: { parse: 'json'; stream: true }) {
         const p = phin.defaults(d);
         return {
-            testSame(o: phin.Options & { parse: 'none', stream: false }) {
+            testSame(o: phin.Options & { parse: 'none'; stream: false }) {
                 p(o); // $ExpectType Promise<BufferResponse>
             },
 
-            testJson(o: phin.Options & { parse?: 'json', stream: false }) {
+            testJson(o: phin.Options & { parse?: 'json'; stream: false }) {
                 p(o); // $ExpectType Promise<JsonResponse>
             },
 
@@ -96,18 +96,18 @@ export function typeTests() {
 
             testOthers(o: phin.Options) {
                 p(o); // $ExpectType Promise<AnyResponse>
-            }
+            },
         };
     }
 
-    function testDefaultsParseNoneStreamTrue(d: { parse?: 'none', stream: true }) {
+    function testDefaultsParseNoneStreamTrue(d: { parse?: 'none'; stream: true }) {
         const p = phin.defaults(d);
         return {
-            testSame(o: phin.Options & { parse?: 'none', stream: false }) {
+            testSame(o: phin.Options & { parse?: 'none'; stream: false }) {
                 p(o); // $ExpectType Promise<BufferResponse>
             },
 
-            testJson(o: phin.Options & { parse: 'json', stream: false }) {
+            testJson(o: phin.Options & { parse: 'json'; stream: false }) {
                 p(o); // $ExpectType Promise<JsonResponse>
             },
 
@@ -117,18 +117,18 @@ export function typeTests() {
 
             testOthers(o: phin.Options) {
                 p(o); // $ExpectType Promise<AnyResponse>
-            }
+            },
         };
     }
 
-    function testDefaultsAny(d: { parse?: 'none' | 'json', stream?: boolean }) {
+    function testDefaultsAny(d: { parse?: 'none' | 'json'; stream?: boolean }) {
         const p = phin.defaults(d);
         return {
-            testSame(o: phin.Options & { parse: 'none', stream: false }) {
+            testSame(o: phin.Options & { parse: 'none'; stream: false }) {
                 p(o); // $ExpectType Promise<BufferResponse>
             },
 
-            testJson(o: phin.Options & { parse: 'json', stream: false }) {
+            testJson(o: phin.Options & { parse: 'json'; stream: false }) {
                 p(o); // $ExpectType Promise<JsonResponse>
             },
 
@@ -138,14 +138,16 @@ export function typeTests() {
 
             testOthers(o: phin.Options | string) {
                 p(o); // $ExpectType Promise<AnyResponse>
-            }
+            },
         };
     }
 }
 
 async function functionalTests() {
     await phin('http://example.com').then(r => {
-        if (!Buffer.isBuffer(r.body)) { throw new Error('Not a buffer?'); }
+        if (!Buffer.isBuffer(r.body)) {
+            throw new Error('Not a buffer?');
+        }
     });
 
     await phin('http://placekitten.com/50/50').then(r => {

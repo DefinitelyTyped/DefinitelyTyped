@@ -9,15 +9,15 @@ const options: KramedOptions = {
     smartLists: true,
     silent: false,
     highlight(code: string, lang: string) {
-    	return '';
+        return '';
     },
     langPrefix: 'lang-',
     smartypants: false,
-    renderer: new kramed.Renderer()
+    renderer: new kramed.Renderer(),
 };
 
 function callback() {
-	'callback called';
+    'callback called';
 }
 
 kramed.setOptions(options);

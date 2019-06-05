@@ -23,7 +23,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree
          */
         interface SeriesTree {
-
             /**
              * @default
              * "tree"
@@ -383,7 +382,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -492,7 +490,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -952,12 +949,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1289,7 +1284,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.lineStyle
              */
             lineStyle?: {
-
                 /**
                  * The color of the tree edge.
                  *
@@ -1363,12 +1357,10 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1469,7 +1461,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.emphasis.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * The color of the tree edge.
                      *
@@ -1543,7 +1534,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2003,12 +1993,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2344,7 +2332,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves
              */
             leaves?: {
-
                 /**
                  * Describes the style of the text label corresponding to the
                  * leaf node.
@@ -2353,7 +2340,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2815,12 +2801,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3154,7 +3138,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -3257,12 +3240,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3728,12 +3709,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4076,7 +4055,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.leaves.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4195,7 +4173,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -4450,7 +4427,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -4672,7 +4648,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -4778,7 +4753,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -5193,12 +5167,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -5529,12 +5501,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5953,12 +5923,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -6301,7 +6269,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -6408,7 +6375,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
@@ -6658,7 +6624,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-tree.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

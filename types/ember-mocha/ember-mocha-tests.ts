@@ -1,76 +1,86 @@
 import {
-    describeComponent, describeModel, describeModule,
-    setResolver, setupAcceptanceTest, setupComponentTest,
-    setupModelTest, setupTest, setupRenderingTest,
-    setupApplicationTest
+    describeComponent,
+    describeModel,
+    describeModule,
+    setResolver,
+    setupAcceptanceTest,
+    setupComponentTest,
+    setupModelTest,
+    setupTest,
+    setupRenderingTest,
+    setupApplicationTest,
 } from 'ember-mocha';
 import { describe, it, beforeEach, afterEach, before, after } from 'mocha';
 import chai = require('chai');
-import Ember from "ember";
+import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 describeModule('name', function() {
-    beforeEach(function() {
-    });
+    beforeEach(function() {});
 
-    it('test', function() {
-    });
+    it('test', function() {});
 });
 
 describeModule('name', 'description', function() {
-    it('test', function() {
-    });
+    it('test', function() {});
 });
 
 describeModule(
     'name',
     'description',
     {
-        needs: ['service:notifications']
+        needs: ['service:notifications'],
     },
-    function() {
-    }
+    function() {}
 );
 
-describeModule('component:x-foo', 'TestModule callbacks', {
-    needs: [],
+describeModule(
+    'component:x-foo',
+    'TestModule callbacks',
+    {
+        needs: [],
 
-    beforeSetup() {
+        beforeSetup() {},
+        setup() {},
+        teardown() {},
+        afterTeardown() {},
     },
-    setup() {
-    },
-    teardown() {
-    },
-    afterTeardown() {
-    }
-}, function() {
-});
+    function() {}
+);
 
-describeComponent('x-foo', {
-    integration: true
-}, function() {
-});
+describeComponent(
+    'x-foo',
+    {
+        integration: true,
+    },
+    function() {}
+);
 
-describeComponent('x-foo', {
-    unit: true,
-    needs: ['helper:pluralize-string']
-}, function() {
-});
+describeComponent(
+    'x-foo',
+    {
+        unit: true,
+        needs: ['helper:pluralize-string'],
+    },
+    function() {}
+);
 
 describeComponent.skip(
     'block-slot',
     'Integration: BlockSlotComponent',
     {
-        integration: true
+        integration: true,
     },
-    function() {
-    }
+    function() {}
 );
 
-describeModel('user', {
-    needs: ['model:child']
-}, function() {
-});
+describeModel(
+    'user',
+    {
+        needs: ['model:child'],
+    },
+    function() {}
+);
 
 describeModule('component:x-foo', 'TestModule callbacks', function() {
     before(function() {
@@ -86,21 +96,18 @@ describeModule('component:x-foo', 'TestModule callbacks', function() {
         this.factory('object:user').create();
     });
 
-    after(function() {
-    });
+    after(function() {});
 
-    beforeEach(function() {
-    });
+    beforeEach(function() {});
 
-    afterEach(function() {
-    });
+    afterEach(function() {});
 });
 
 describe('setupTest', function() {
     setupTest('service:ajax');
 
     setupTest('service:ajax', {
-        unit: true
+        unit: true,
     });
 
     setupTest('controller:sidebar', {
@@ -115,22 +122,20 @@ describe('setupTest', function() {
 
     setupModelTest('contact', {
         // Specify the other units that are required for this test.
-        needs: []
+        needs: [],
     });
 
     const Application = Ember.Application.extend();
 
     setupAcceptanceTest({ Application });
 
-    it('test', function() {
-    });
+    it('test', function() {});
 });
 
 // testing context
 describe('for test suite A', function() {
     context('when trying method foo', function() {
-        it('should test correctly', function() {
-        });
+        it('should test correctly', function() {});
     });
 });
 
@@ -150,9 +155,7 @@ it('renders', function() {
         {{ x-foo value=value action="result" }}
     `);
     this.render('{{ x-foo value=value action="result" }}');
-    this.render([
-        '{{ x-foo value=value action="result" }}'
-    ]);
+    this.render(['{{ x-foo value=value action="result" }}']);
 
     chai.expect(this.$('div>.value').text()).to.equal('cat', 'The component shows the correct value');
 
@@ -164,13 +167,13 @@ it('renders', function() {
     const subject = this.subject();
 
     const subject2 = this.subject({
-        item: 42
+        item: 42,
     });
 
     const { inputFormat } = this.setProperties({
         inputFormat: 'M/D/YY',
         outputFormat: 'MMMM D, YYYY',
-        date: '5/3/10'
+        date: '5/3/10',
     });
 
     const { inputFormat: if2, outputFormat } = this.getProperties('inputFormat', 'outputFormat');
@@ -191,7 +194,7 @@ it('can calculate the result', function(assert) {
 
 it.skip('disabled test');
 
-it.skip('disabled test', function() { });
+it.skip('disabled test', function() {});
 
 // New testing APIs of ember-mocha 0.14
 
@@ -234,8 +237,7 @@ describe('setupTest', function() {
         this.owner.factoryFor('service:foo');
     });
 
-    it('test', function() {
-    });
+    it('test', function() {});
 });
 
 describe('rendering test', function() {
@@ -248,6 +250,9 @@ describe('rendering test', function() {
         // render the component
         await this.render(hbs`{{ x-foo value=value}}`);
 
-        chai.expect(this.element.querySelector('div>.value')!.textContent!.trim()).to.equal('cat', 'The component shows the correct value');
+        chai.expect(this.element.querySelector('div>.value')!.textContent!.trim()).to.equal(
+            'cat',
+            'The component shows the correct value'
+        );
     });
 });

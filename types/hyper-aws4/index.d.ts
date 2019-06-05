@@ -12,7 +12,7 @@ export interface Header {
     [header: string]: string;
 }
 
-export type HttpMethods = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+export type HttpMethods = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 export interface Request {
     url: string;

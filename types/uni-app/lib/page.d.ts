@@ -29,7 +29,7 @@ declare namespace Page {
          * - `menu`：右上角转发菜单。
          *
          */
-        from: "button" | "menu" | string;
+        from: 'button' | 'menu' | string;
         /**
          * 如果 `from` 值是 `button`，则 `target` 是触发这次转发事件的 `button`，否则为 `undefined`
          */
@@ -71,7 +71,7 @@ declare namespace Page {
             /**
              * 打开当前页面路径中的参数
              */
-            query?: { [queryKey: string]: string },
+            query?: { [queryKey: string]: string }
         ): void;
         /**
          * 生命周期回调—监听页面显示
@@ -118,7 +118,7 @@ declare namespace Page {
             /**
              * 分享发起来源参数
              */
-            options?: ShareAppMessageOption,
+            options?: ShareAppMessageOption
         ): CustomShareContent;
         /**
          * 页面滚动触发事件的处理函数
@@ -128,7 +128,7 @@ declare namespace Page {
             /**
              * 页面滚动参数
              */
-            options?: PageScrollOption,
+            options?: PageScrollOption
         ): void;
 
         /**
@@ -138,13 +138,11 @@ declare namespace Page {
             /**
              * tab 点击参数
              */
-            options?: TabItemTapOption,
+            options?: TabItemTapOption
         ): void;
     }
 
-    type PageConstructor = <T extends AnyObject & PageInstance>(
-            options: PageInstance<AnyObject, T> & T,
-        ) => void;
+    type PageConstructor = <T extends AnyObject & PageInstance>(options: PageInstance<AnyObject, T> & T) => void;
 
     type GetCurrentPages = <T extends AnyObject = {}>() => Array<PageInstance<AnyObject, T> & T>;
 }

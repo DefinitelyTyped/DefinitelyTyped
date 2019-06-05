@@ -1,2 +1,2 @@
-import { floor } from "../fp";
+import { floor } from '../fp';
 export = floor;

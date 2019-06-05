@@ -3,7 +3,6 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace istanbul {
     interface Istanbul {
         new (options?: any): Istanbul;
@@ -27,25 +26,20 @@ declare namespace istanbul {
         getFinalCoverage(): any;
     }
 
-    interface Config {
-    }
+    interface Config {}
 
-    interface ContentWriter {
-    }
+    interface ContentWriter {}
 
-    interface FileWriter {
-    }
+    interface FileWriter {}
 
-    interface Hook {
-    }
+    interface Hook {}
 
     interface Instrumenter {
         new (options?: any): Instrumenter;
         instrumentSync(code: string, filename: string): string;
     }
 
-    interface Report {
-    }
+    interface Report {}
 
     interface Configuration {
         new (obj: any, overrides: any): Configuration;
@@ -58,14 +52,11 @@ declare namespace istanbul {
         write(collector: Collector, sync: boolean, callback: Function): void;
     }
 
-    interface Store {
-    }
+    interface Store {}
 
-    interface ObjectUtils {
-    }
+    interface ObjectUtils {}
 
-    interface Writer {
-    }
+    interface Writer {}
 }
 
 declare var istanbul: istanbul.Istanbul;

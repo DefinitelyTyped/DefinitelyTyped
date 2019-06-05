@@ -2,42 +2,32 @@
  * Display Messenger
  */
 NativeKeyboard.showMessenger({
-    onSubmit: (text) => {},
+    onSubmit: text => {},
     onKeyboardDidHide: () => {},
     onKeyboardDidShow: () => {},
     onKeyboardWillShow: () => {},
-    onTextChanged: (text) => {},
+    onTextChanged: text => {},
     onKeyboardWillHide: () => {},
 });
 
 /**
  * Display Messenger Keyboard
  */
-NativeKeyboard.showMessengerKeyboard(
-    () => {},
-    () => {});
+NativeKeyboard.showMessengerKeyboard(() => {}, () => {});
 
 /**
  * Hide Messenger
  */
-NativeKeyboard.hideMessenger(
-    { animated: true},
-    () => {},
-    () => {});
+NativeKeyboard.hideMessenger({ animated: true }, () => {}, () => {});
 
 NativeKeyboard.hideMessenger();
 
 /**
  * Hide Messenger Keyboard
  */
-NativeKeyboard.hideMessengerKeyboard(
-    () => {},
-    () => {});
+NativeKeyboard.hideMessengerKeyboard(() => {}, () => {});
 
 /**
  * Update Messenger Keyboard
  */
-NativeKeyboard.updateMessenger(
-    {text: 'FooBar'},
-    () => {},
-    () => {});
+NativeKeyboard.updateMessenger({ text: 'FooBar' }, () => {}, () => {});

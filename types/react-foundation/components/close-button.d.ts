@@ -9,5 +9,4 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const CloseButton: React.StatelessComponent<CloseButtonProps>;
-export interface CloseButtonProps extends FlexboxPropTypes, React.ButtonHTMLAttributes<HTMLButtonElement> {
-}
+export interface CloseButtonProps extends FlexboxPropTypes, React.ButtonHTMLAttributes<HTMLButtonElement> {}

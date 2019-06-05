@@ -12,7 +12,7 @@ import {
     TextStyle,
     ImageStyle,
 } from 'react-native';
-import SortableList, {RowProps } from 'react-native-sortable-list';
+import SortableList, { RowProps } from 'react-native-sortable-list';
 
 const window = Dimensions.get('window');
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         shadowColor: 'rgba(0,0,0,0.2)',
         shadowOpacity: 1,
-        shadowOffset: {height: 2, width: 2},
+        shadowOffset: { height: 2, width: 2 },
         shadowRadius: 2,
     } as ViewStyle,
 
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 24,
     } as TextStyle,
-
 });
 
 class Basic extends React.Component {
@@ -113,30 +112,30 @@ class Basic extends React.Component {
                     style={styles.list}
                     contentContainerStyle={styles.contentContainer}
                     data={data}
-                    renderRow={this._renderRow}/>
+                    renderRow={this._renderRow}
+                />
             </View>
         );
     }
 
-    _renderRow = ({data, active}: RowProps) => {
-        return <Row data={data} active={active}/>
-    }
+    _renderRow = ({ data, active }: RowProps) => {
+        return <Row data={data} active={active} />;
+    };
 }
 
 interface RowState {
     style: {
-        shadowRadius: Animated.Value
-        transform: {scale: Animated.Value}[]
-    }
+        shadowRadius: Animated.Value;
+        transform: { scale: Animated.Value }[];
+    };
 }
 
 class Row extends React.Component<RowProps, RowState> {
-
     state = {
         style: {
             shadowRadius: new Animated.Value(2),
-            transform: [{scale: new Animated.Value(1)}],
-        }
+            transform: [{ scale: new Animated.Value(1) }],
+        },
     };
 
     componentWillReceiveProps(nextProps: RowProps) {
@@ -152,53 +151,49 @@ class Row extends React.Component<RowProps, RowState> {
     }
 
     startActivationAnimation = () => {
-        const {style} = this.state;
+        const { style } = this.state;
 
         Animated.parallel([
             Animated.timing(style.transform[0].scale, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 1.1
+                toValue: 1.1,
             }),
             Animated.timing(style.shadowRadius, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 10
+                toValue: 10,
             }),
         ]).start();
     };
 
     startDeactivationAnimation = () => {
-        const {style} = this.state;
+        const { style } = this.state;
 
         Animated.parallel([
             Animated.timing(style.transform[0].scale, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 1
+                toValue: 1,
             }),
             Animated.timing(style.shadowRadius, {
                 duration: 100,
                 easing: Easing.out(Easing.quad),
-                toValue: 2
+                toValue: 2,
             }),
         ]).start();
     };
 
     render() {
-        const {data} = this.props;
+        const { data } = this.props;
 
         return (
-            <Animated.View style={[
-                styles.row,
-                this.state.style,
-    ]}>
-                <Image source={{uri: data.image}} style={styles.image}/>
+            <Animated.View style={[styles.row, this.state.style]}>
+                <Image source={{ uri: data.image }} style={styles.image} />
                 <Text style={styles.text}>{data.text}</Text>
             </Animated.View>
         );
     }
 }
-
 
 AppRegistry.registerComponent('Basic', () => Basic);

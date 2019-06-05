@@ -56,7 +56,7 @@ declare namespace url {
              * File path.
              */
             file?: string;
-        },
+        }
     ) => string;
     type CustomHashFunction = (file: Buffer) => string;
     type CustomFilterFunction = (file: string) => boolean;

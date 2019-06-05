@@ -5,5 +5,5 @@ declare namespace InputGroupAddon {
         bsClass?: string;
     }
 }
-declare class InputGroupAddon extends React.Component<InputGroupAddon.InputGroupAddonProps> { }
+declare class InputGroupAddon extends React.Component<InputGroupAddon.InputGroupAddonProps> {}
 export = InputGroupAddon;

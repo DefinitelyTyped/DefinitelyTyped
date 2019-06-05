@@ -1,2 +1,2 @@
-import { toLower } from "lodash";
+import { toLower } from 'lodash';
 export default toLower;

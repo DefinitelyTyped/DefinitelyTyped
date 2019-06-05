@@ -6,8 +6,7 @@ let flag: boolean;
 let str: string;
 let numberArray: number[];
 
-function testMatrix () {
-
+function testMatrix() {
     const a = new Matrix([[1, 2, 3], [1, 2, 3], [1, 2, 3]]);
     const b = new Matrix([[1, 2, 3], [1, 2, 3], [1, 2, 3]]);
 
@@ -48,16 +47,15 @@ function testMatrix () {
     num = matrix.get(3, 3);
     matrix = matrix.set(3, 3, 3);
     matrix = matrix.swap(3, 3);
-    matrix = matrix.map((element) => 3);
-    matrix = matrix.each((element) => {});
+    matrix = matrix.map(element => 3);
+    matrix = matrix.each(element => {});
     matrix.reduce((memo, element) => 3, 3);
     num = matrix.rank();
     str = matrix.toString();
     numberArrayArray = matrix.toArray();
 }
 
-function testVector () {
-
+function testVector() {
     const a = new Vector([1, 2, 3]);
     const b = new Vector([4, 5, 6]);
 
@@ -84,11 +82,11 @@ function testVector () {
     num = vector.get(3);
     num = vector.min();
     num = vector.max();
-    vector = vector.set(3,3);
+    vector = vector.set(3, 3);
     vector = vector.combine(b);
     vector = vector.push(3);
-    vector = vector.map((element) => 3);
-    vector = vector.each((element) => {});
+    vector = vector.map(element => 3);
+    vector = vector.each(element => {});
     vector.reduce((memo, element) => 3, 3);
     str = vector.toString();
     numberArray = vector.toArray();

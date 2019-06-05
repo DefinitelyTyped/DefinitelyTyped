@@ -21,7 +21,7 @@ export default class Siema {
 }
 
 export interface PageInterface {
-  [key: number]: number;
+    [key: number]: number;
 }
 
 export interface SiemaOptions {

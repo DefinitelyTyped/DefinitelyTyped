@@ -1,2 +1,2 @@
-import { isBuffer } from "lodash";
+import { isBuffer } from 'lodash';
 export default isBuffer;

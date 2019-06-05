@@ -1,3 +1,3 @@
-import { MakeDecoratorResult } from "../index";
+import { MakeDecoratorResult } from '../index';
 
 export const addReadme: MakeDecoratorResult;

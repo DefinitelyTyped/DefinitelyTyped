@@ -3,7 +3,7 @@ export namespace Hashsig {
         NORMAL = 0,
         IGNORE_WHITESPACE = 1,
         SMART_WHITESPACE = 2,
-        ALLOW_SMALL_FILES = 4
+        ALLOW_SMALL_FILES = 4,
     }
 }
 

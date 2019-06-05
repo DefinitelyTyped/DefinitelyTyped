@@ -13,7 +13,7 @@ declare module 'katex/dist/contrib/auto-render' {
         /**
          * A boolean of whether the math in the expression should be rendered in display mode or not
          */
-        display: boolean
+        display: boolean;
     }
 
     export interface RenderMathInElementSpecificOptions {

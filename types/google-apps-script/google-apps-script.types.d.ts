@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module GoogleAppsScript {
-  type BigNumber = any;
-  type Byte = number;
-  type Integer = number;
-  type Char = string;
-  type JdbcSQL_XML = any;
+    type BigNumber = any;
+    type Byte = number;
+    type Integer = number;
+    type Char = string;
+    type JdbcSQL_XML = any;
 }

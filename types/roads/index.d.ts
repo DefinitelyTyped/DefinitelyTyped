@@ -9,7 +9,7 @@
  * Roads module
  */
 export type Keys = string;
-export type Option = {[k in Keys]: any};
+export type Option = { [k in Keys]: any };
 
 /**
  * @param validOrigins An array of origin urls that can send requests to this API
@@ -191,7 +191,11 @@ export namespace middleware {
          * @param path Paht to receive the request
          * @param fn Handle the request received
          */
-        addRoute(method: string, path: string, fn: (url: any, body: any, headers: Headers, next: () => any) => any): any;
+        addRoute(
+            method: string,
+            path: string,
+            fn: (url: any, body: any, headers: Headers, next: () => any) => any
+        ): any;
 
         /**
          * Receive file request

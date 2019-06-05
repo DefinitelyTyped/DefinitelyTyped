@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const raf: {
-  (callback: (timestamp: number) => void): number;
-  cancel: (handle: number) => void;
-  polyfill: (globalObject?: any) => void;
+    (callback: (timestamp: number) => void): number;
+    cancel: (handle: number) => void;
+    polyfill: (globalObject?: any) => void;
 };
 
 export = raf;

@@ -9,10 +9,7 @@
 
 export type GoogleError = any;
 
-export type APICallback<T = any> = (
-    err: GoogleError | null,
-    response?: T
-) => void;
+export type APICallback<T = any> = (err: GoogleError | null, response?: T) => void;
 
 export interface PromiseLike<T> extends Promise<T> {
     /**
@@ -58,11 +55,7 @@ export interface ListVoicesRequest {
 
 export type ListVoicesOptions = CallOptions;
 
-export type SsmlVoiceGender =
-    | "SSML_VOICE_GENDER_UNSPECIFIED"
-    | "MALE"
-    | "FEMALE"
-    | "NEUTRAL";
+export type SsmlVoiceGender = 'SSML_VOICE_GENDER_UNSPECIFIED' | 'MALE' | 'FEMALE' | 'NEUTRAL';
 
 export interface Voice {
     language_codes: string[];
@@ -81,11 +74,7 @@ export interface VoiceSelectionParams {
     ssmlGender?: SsmlVoiceGender;
 }
 
-export type AudioEncoding =
-    | "AUDIO_ENCODING_UNSPECIFIED"
-    | "LINEAR16"
-    | "MP3"
-    | "OGG_OPUS";
+export type AudioEncoding = 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'OGG_OPUS';
 
 export interface AudioConfig {
     audioEncoding: AudioEncoding;
@@ -112,10 +101,7 @@ declare class TextToSpeechClient {
     constructor(options?: ClientOptions);
 
     listVoices: MethodOverload<ListVoicesRequest, ListVoicesResponse>;
-    synthesizeSpeech: MethodOverload<
-        SynthesizeSpeechRequest,
-        SynthesizeSpeechResponse
-    >;
+    synthesizeSpeech: MethodOverload<SynthesizeSpeechRequest, SynthesizeSpeechResponse>;
 }
 
 declare const TextToSpeech: { TextToSpeechClient: typeof TextToSpeechClient };

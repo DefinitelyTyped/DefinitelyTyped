@@ -6,13 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import {
-    ViewStyle,
-    TextStyle,
-    TextInputProps,
-    TouchableWithoutFeedbackProps,
-    ViewProps,
-} from 'react-native';
+import { ViewStyle, TextStyle, TextInputProps, TouchableWithoutFeedbackProps, ViewProps } from 'react-native';
 
 ///////////////////////////////
 // COMPONENT STYLES
@@ -250,10 +244,9 @@ export interface MKColorStatic {
     palette_yellow_600: string;
 }
 
-export interface MKButtonProperties extends
-    TouchableWithoutFeedbackProps, MKRippleProperties {
-        fab?: boolean;
-        enabled?: boolean;
+export interface MKButtonProperties extends TouchableWithoutFeedbackProps, MKRippleProperties {
+    fab?: boolean;
+    enabled?: boolean;
 }
 
 export interface MKTextFieldProperties extends TextInputProps, FloatingLabelProperties {
@@ -336,8 +329,8 @@ export interface MKRangeSliderProperties extends BaseSlider {
     minValue?: number;
     maxValue?: number;
     onStart?(): void;
-    onConfirm?(curValue: { min: number, max: number }): void;
-    onChange?(curValue: { min: number, max: number }): void;
+    onConfirm?(curValue: { min: number; max: number }): void;
+    onChange?(curValue: { min: number; max: number }): void;
 }
 
 export interface MKSpinnerProperties extends ViewProps {
@@ -408,10 +401,7 @@ export namespace MKRadioButton {
 
     class Group implements MKRadioButtonGroup {
         buttons: any[];
-        constructor(
-            onAdd?: (btn: MKRadioButton) => void,
-            onRemove?: (btn: MKRadioButton) => void
-        );
+        constructor(onAdd?: (btn: MKRadioButton) => void, onRemove?: (btn: MKRadioButton) => void);
         add: (btn: MKRadioButton) => void;
         onChecked: (btn: MKRadioButton, checked: boolean) => void;
         onRemoved: (btn: MKRadioButton) => void;

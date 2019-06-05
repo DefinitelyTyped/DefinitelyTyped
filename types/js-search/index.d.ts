@@ -3,13 +3,9 @@
 // Definitions by: Guo Yunhe <https://github.com/guoyunhe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "js-search" {
-
+declare module 'js-search' {
     class Search {
-
-        constructor(
-            uidFieldName: string | Array<string>
-        );
+        constructor(uidFieldName: string | Array<string>);
 
         public indexStrategy: IIndexStrategy;
         public sanitizer: ISanitizer;
@@ -22,7 +18,6 @@ declare module "js-search" {
         public addIndex(field: string | Array<string>): void;
 
         public search(query: string): Array<Object>;
-
     }
 
     interface IIndexStrategy {
@@ -54,16 +49,9 @@ declare module "js-search" {
     }
 
     interface ISearchIndex {
-        indexDocument(
-            token: string,
-            uid: string,
-            document: Object
-        ): void;
+        indexDocument(token: string, uid: string, document: Object): void;
 
-        search(
-            tokens: Array<string>,
-            corpus: Array<Object>
-        ): Array<Object>;
+        search(tokens: Array<string>, corpus: Array<Object>): Array<Object>;
     }
 
     type ITfIdfTokenMap = {
@@ -112,10 +100,7 @@ declare module "js-search" {
     type StemmingFunction = (text: string) => string;
 
     class StemmingTokenizer implements ITokenizer {
-        constructor(
-            stemmingFunction: StemmingFunction,
-            decoratedTokenizer: ITokenizer
-        );
+        constructor(stemmingFunction: StemmingFunction, decoratedTokenizer: ITokenizer);
 
         tokenize(text: string): Array<string>;
     }
@@ -129,15 +114,8 @@ declare module "js-search" {
     var StopWordsMap: any;
 
     class TokenHighlighter {
-
-        constructor(
-            opt_indexStrategy: IIndexStrategy,
-            opt_sanitizer: ISanitizer,
-            opt_wrapperTagName: string
-        );
+        constructor(opt_indexStrategy: IIndexStrategy, opt_sanitizer: ISanitizer, opt_wrapperTagName: string);
 
         public highlight(text: string, tokens: Array<string>): string;
-
     }
-
 }

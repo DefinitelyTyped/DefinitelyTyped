@@ -8,11 +8,10 @@ router.add('GET', '/user/:name/:id', 'test', 'test2', 'test3');
 type Handler = (typedValue: number, couldBeAResponse: string) => void;
 
 const typed = new Trouter<Handler>();
-typed.get('/user/:id', (t: number, s: string) => {
-});
+typed.get('/user/:id', (t: number, s: string) => {});
 const findResult = typed.find('GET', '/users/1');
 if (findResult.handlers.length > 0) {
-    findResult.handlers[0](42, "asdf");
+    findResult.handlers[0](42, 'asdf');
 }
 const notFound = typed.find('GET', '/not-existent');
 if (notFound.handlers.length === 0) {

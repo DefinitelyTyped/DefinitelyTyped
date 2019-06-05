@@ -1040,29 +1040,107 @@ export interface Commands<R> {
      * Return a range of members in a sorted set, by lexicographical range.
      */
     zrangebylex(key: string, min: string, max: string, cb?: Callback<string[]>): R;
-    zrangebylex(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    zrangebylex(
+        key: string,
+        min: string,
+        max: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
     ZRANGEBYLEX(key: string, min: string, max: string, cb?: Callback<string[]>): R;
-    ZRANGEBYLEX(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZRANGEBYLEX(
+        key: string,
+        min: string,
+        max: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
      */
     zrevrangebylex(key: string, min: string, max: string, cb?: Callback<string[]>): R;
-    zrevrangebylex(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    zrevrangebylex(
+        key: string,
+        min: string,
+        max: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
     ZREVRANGEBYLEX(key: string, min: string, max: string, cb?: Callback<string[]>): R;
-    ZREVRANGEBYLEX(key: string, min: string, max: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZREVRANGEBYLEX(
+        key: string,
+        min: string,
+        max: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
 
     /**
      * Return a range of members in a sorted set, by score.
      */
     zrangebyscore(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
-    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
-    zrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
-    zrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    zrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        cb?: Callback<string[]>
+    ): R;
+    zrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
+    zrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
     ZRANGEBYSCORE(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
-    ZRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        cb?: Callback<string[]>
+    ): R;
+    ZRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
+    ZRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
 
     /**
      * Determine the index of a member in a sorted set.
@@ -1106,13 +1184,59 @@ export interface Commands<R> {
      * Return a range of members in a sorted set, by score, with scores ordered from high to low.
      */
     zrevrangebyscore(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
-    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
-    zrevrangebyscore(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
-    zrevrangebyscore(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    zrevrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        cb?: Callback<string[]>
+    ): R;
+    zrevrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
+    zrevrangebyscore(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
     ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, cb?: Callback<string[]>): R;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, cb?: Callback<string[]>): R;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
-    ZREVRANGEBYSCORE(key: string, min: number | string, max: number | string, withscores: string, limit: string, offset: number, count: number, cb?: Callback<string[]>): R;
+    ZREVRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        cb?: Callback<string[]>
+    ): R;
+    ZREVRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
+    ZREVRANGEBYSCORE(
+        key: string,
+        min: number | string,
+        max: number | string,
+        withscores: string,
+        limit: string,
+        offset: number,
+        count: number,
+        cb?: Callback<string[]>
+    ): R;
 
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low.
@@ -1172,7 +1296,10 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     stream: Duplex;
 
     on(event: 'message' | 'message_buffer', listener: (channel: string, message: string) => void): this;
-    on(event: 'pmessage' | 'pmessage_buffer', listener: (pattern: string, channel: string, message: string) => void): this;
+    on(
+        event: 'pmessage' | 'pmessage_buffer',
+        listener: (pattern: string, channel: string, message: string) => void
+    ): this;
     on(event: 'subscribe' | 'unsubscribe', listener: (channel: string, count: number) => void): this;
     on(event: 'psubscribe' | 'punsubscribe', listener: (pattern: string, count: number) => void): this;
     on(event: string, listener: (...args: any[]) => void): this;
@@ -1226,11 +1353,11 @@ export function createClient(options?: ClientOpts): RedisClient;
 
 export function print(err: Error | null, reply: any): void;
 
-export class RedisError extends Error { }
-export class ReplyError extends RedisError { }
-export class AbortError extends RedisError { }
+export class RedisError extends Error {}
+export class ReplyError extends RedisError {}
+export class AbortError extends RedisError {}
 export class ParserError extends RedisError {
     offset: number;
     buffer: Buffer;
 }
-export class AggregateError extends AbortError { }
+export class AggregateError extends AbortError {}

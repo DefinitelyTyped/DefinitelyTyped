@@ -46,7 +46,12 @@ export class List implements RedomComponent {
 
     onunmount?(): void;
 
-    static extend(parent: RedomQuery, View: RedomComponentConstructor, key?: string, initData?: any): RedomComponentConstructor;
+    static extend(
+        parent: RedomQuery,
+        View: RedomComponentConstructor,
+        key?: string,
+        initData?: any
+    ): RedomComponentConstructor;
 }
 
 export class Place implements RedomComponent {
@@ -95,7 +100,12 @@ export function s(query: RedomQuery, ...args: RedomQueryArgument[]): SVGElement;
 export function text(str: string): Text;
 
 export namespace list {
-    function extend(parent: RedomQuery, View: RedomComponentConstructor, key?: string, initData?: any): RedomComponentConstructor;
+    function extend(
+        parent: RedomQuery,
+        View: RedomComponentConstructor,
+        key?: string,
+        initData?: any
+    ): RedomComponentConstructor;
 }
 
 export namespace svg {

@@ -2,29 +2,31 @@ uni.request({
     url: 'https://dcloud.io',
     success(res) {
         uni.showToast({
-            title: res.data
+            title: res.data,
         });
     },
     fail(error) {
         uni.showToast({
-            title: error.errMsg
+            title: error.errMsg,
         });
-    }
+    },
 });
 
 uni.navigateTo({
-    url: 'index/index'
+    url: 'index/index',
 });
 
 uni.showLoading({
-    title: 'test'
+    title: 'test',
 });
 
-uni.createSelectorQuery().select('.test').context(res => {
-    const context = <EditorContext> res.context;
-    context.getContents({
-        success() {
-            console.log('getContents success');
-        }
+uni.createSelectorQuery()
+    .select('.test')
+    .context(res => {
+        const context = <EditorContext>res.context;
+        context.getContents({
+            success() {
+                console.log('getContents success');
+            },
+        });
     });
-});

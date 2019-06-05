@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import SocketIO = require("socket.io");
+import SocketIO = require('socket.io');
 
 /**
  * This function returns a middleware function for use with Socket.IO that authenticates a new connection.
@@ -18,28 +18,28 @@ export function authorize(options: JwtAuthOptions, callback?: JwtAuthorizeCallba
  * This is an object literal that contains options.
  */
 export interface JwtAuthOptions {
-	secret: string | JwtSecretFunc;
-	timeout?: number; // In milliseconds to handle the second round trip.
-	callback?: boolean; // To disconnect socket server-side without a client-side callback if no valid token.
-	decodedPropertyName: string; // Property to store the docoded token to.
-	handshake?: boolean; // Used to trigger a single round trip authentication.
+    secret: string | JwtSecretFunc;
+    timeout?: number; // In milliseconds to handle the second round trip.
+    callback?: boolean; // To disconnect socket server-side without a client-side callback if no valid token.
+    decodedPropertyName: string; // Property to store the docoded token to.
+    handshake?: boolean; // Used to trigger a single round trip authentication.
 }
 
 export interface JwtData {
-	message: string;
-	code: string;
-	type: string;
+    message: string;
+    code: string;
+    type: string;
 }
 
 /**
  * An Error Object used by the package.
  */
 export class UnauthorizedError extends Error {
-	constructor(code: string, error: Error);
+    constructor(code: string, error: Error);
 
-	message: string;
-	inner: Error;
-	data: JwtData;
+    message: string;
+    inner: Error;
+    data: JwtData;
 }
 
 /**

@@ -1,6 +1,6 @@
 // Type definitions for Knockout.Mapping 2.0
 // Project: https://github.com/SteveSanderson/knockout.mapping
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, 
+// Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,16 +13,13 @@ export as namespace mapping;
 declare var self: KnockoutMapping;
 export = self;
 
-
 declare global {
-    // the idea behind this is good, but doesn't work as intended. This will make object properties T | Observable<T>, 
-    //and you will have to put the correct Type in each property to use them, what defeats the purpose. Besides, this gives  
+    // the idea behind this is good, but doesn't work as intended. This will make object properties T | Observable<T>,
+    //and you will have to put the correct Type in each property to use them, what defeats the purpose. Besides, this gives
     //RangeError: Maximum call stack size exceeded in TSC when used in all the mapping signatures. Maybe this can be used with TS 2.8 and conditional typing
-    type KnockoutObservableType<T> = {
-        [P in keyof T]: KnockoutObservable<KnockoutObservableType<T[P]>> | T[P];
-    };
+    type KnockoutObservableType<T> = { [P in keyof T]: KnockoutObservable<KnockoutObservableType<T[P]>> | T[P] };
 
-    type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions
+    type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions;
 
     interface KnockoutMappingStandardOptions {
         ignore?: string[];
@@ -33,9 +30,7 @@ declare global {
         deferEvaluation?: boolean; // Undocumented
     }
 
-    type KnockoutMappingSpecificOptions<T> = {
-        [P in keyof T]?: KnockoutPropertyMappingCallBack
-    }
+    type KnockoutMappingSpecificOptions<T> = { [P in keyof T]?: KnockoutPropertyMappingCallBack };
 
     interface KnockoutPropertyMappingCallBack {
         create?: (options: KnockoutMappingCreateOptions) => void;
@@ -65,13 +60,17 @@ declare global {
         //fromJS could be reduced the number of declarations, but KnockoutObservableType<T> would have to use Conditional Types available only on TS v2.8
 
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Plain JavaScript object to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS(source: string, options?: KnockoutMappingOptions<string>, target?: KnockoutObservable<string>): KnockoutObservable<string>;
+        fromJS(
+            source: string,
+            options?: KnockoutMappingOptions<string>,
+            target?: KnockoutObservable<string>
+        ): KnockoutObservable<string>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
@@ -79,13 +78,17 @@ declare global {
          */
         fromJS(source: string, target: KnockoutObservable<string>): KnockoutObservable<string>;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Plain JavaScript object to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS(source: number, options?: KnockoutMappingOptions<number>, target?: KnockoutObservable<number>): KnockoutObservable<number>;
+        fromJS(
+            source: number,
+            options?: KnockoutMappingOptions<number>,
+            target?: KnockoutObservable<number>
+        ): KnockoutObservable<number>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
@@ -93,13 +96,17 @@ declare global {
          */
         fromJS(source: number, target: KnockoutObservable<number>): KnockoutObservable<number>;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Plain JavaScript object to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS(source: boolean, options?: KnockoutMappingOptions<boolean>, target?: KnockoutObservable<boolean>): KnockoutObservable<boolean>;
+        fromJS(
+            source: boolean,
+            options?: KnockoutMappingOptions<boolean>,
+            target?: KnockoutObservable<boolean>
+        ): KnockoutObservable<boolean>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
@@ -107,13 +114,17 @@ declare global {
          */
         fromJS(source: boolean, target: KnockoutObservable<boolean>): KnockoutObservable<boolean>;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Plain JavaScript object to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T[], options?: KnockoutMappingOptions<T[]>, target?: KnockoutObservableArray<any>): KnockoutObservableArray<any>;
+        fromJS<T>(
+            source: T[],
+            options?: KnockoutMappingOptions<T[]>,
+            target?: KnockoutObservableArray<any>
+        ): KnockoutObservableArray<any>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Plain JavaScript object to be mapped.
@@ -121,7 +132,7 @@ declare global {
          */
         fromJS<T>(source: T[], target: KnockoutObservableArray<any>): KnockoutObservableArray<any>;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Plain JavaScript object to be mapped.
          * @param options Options on mapping behavior.
@@ -135,7 +146,7 @@ declare global {
          */
         fromJS<T>(source: T, target: any): any;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source JSON of a JavaScript object to be mapped.
          * @param options Options on mapping behavior.
@@ -149,7 +160,7 @@ declare global {
          */
         fromJSON(source: string, target: any): any;
         /**
-         * Creates an unmapped object containing only the properties of the mapped object that were part of your original JS object. 
+         * Creates an unmapped object containing only the properties of the mapped object that were part of your original JS object.
          * @param viewModel View model object previosly mapped.
          * @param options Options on mapping behavior.
          */
@@ -179,7 +190,17 @@ declare global {
         /**
          * Undocumented.
          */
-        visitModel(rootObject: any, callback: Function, options?: { visitedObjects?: any; parentName?: string; ignore?: string[]; copy?: string[]; include?: string[]; }): any;
+        visitModel(
+            rootObject: any,
+            callback: Function,
+            options?: {
+                visitedObjects?: any;
+                parentName?: string;
+                ignore?: string[];
+                copy?: string[];
+                include?: string[];
+            }
+        ): any;
     }
 
     interface KnockoutObservableArrayFunctions<T> {
@@ -196,7 +217,8 @@ declare global {
         mappedDestroyAll(): void;
     }
 
-    interface KnockoutStatic { // this is a declaration merging with knockout's interface
+    interface KnockoutStatic {
+        // this is a declaration merging with knockout's interface
         mapping: KnockoutMapping;
     }
 }

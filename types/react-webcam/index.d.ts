@@ -12,8 +12,8 @@ export = Webcam;
 declare class Webcam extends React.Component<Webcam.WebcamProps, Webcam.WebcamState> {
     private static mountedInstances: Webcam[];
     private static userMediaRequested: boolean;
-    getScreenshot(): string|null;
-    getCanvas(): HTMLCanvasElement|null;
+    getScreenshot(): string | null;
+    getCanvas(): HTMLCanvasElement | null;
     requestUserMedia(): void;
     handleUserMedia(error: Error, stream: MediaStream): void;
 }
@@ -23,16 +23,16 @@ declare namespace Webcam {
         audio?: boolean;
         onUserMedia?(): void;
         onUserMediaError?(): void;
-        height?: number|string;
-        width?: number|string;
+        height?: number | string;
+        width?: number | string;
         screenshotFormat?: 'image/jpeg' | 'image/png' | 'image/webp';
         style?: React.CSSProperties;
         className?: string;
         screenshotQuality?: number;
         minScreenshotWidth?: number;
         minScreenshotHeight?: number;
-        audioConstraints?: MediaStreamConstraints["audio"];
-        videoConstraints?: MediaStreamConstraints["video"];
+        audioConstraints?: MediaStreamConstraints['audio'];
+        videoConstraints?: MediaStreamConstraints['video'];
         imageSmoothing?: boolean;
     }
 

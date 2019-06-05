@@ -1,2 +1,2 @@
-import { xor } from "../fp";
+import { xor } from '../fp';
 export = xor;

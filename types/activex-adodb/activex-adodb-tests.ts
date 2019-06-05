@@ -28,7 +28,9 @@ const toConnectionString = (o: { [index: string]: any }) => {
     const parts: string[] = [];
     for (const key in o) {
         let val = o[key];
-        if (typeof val === 'string') { val = `'${val}'`; }
+        if (typeof val === 'string') {
+            val = `'${val}'`;
+        }
         parts.push(`${key}=${val}`);
     }
     return parts.join(';');
@@ -43,7 +45,7 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
     conn.ConnectionString = toConnectionString({
         Provider: 'Microsoft.ACE.OLEDB.12.0',
         'Data Source': pathToExcelFile,
-        'Extended Properties': "Excel 12.0;HDR=Yes"
+        'Extended Properties': 'Excel 12.0;HDR=Yes',
     });
     conn.Open();
 
@@ -66,7 +68,12 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
 
     const rs = new ActiveXObject('ADODB.Recordset');
     rs.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
-    rs.Open('SELECT * FROM Table1', conn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockBatchOptimistic);
+    rs.Open(
+        'SELECT * FROM Table1',
+        conn,
+        ADODB.CursorTypeEnum.adOpenForwardOnly,
+        ADODB.LockTypeEnum.adLockBatchOptimistic
+    );
     rs.ActiveConnection = null;
 
     const v = rs(0).Value;
@@ -86,7 +93,7 @@ const printLine = () => WScript.Echo(new Array(26).join('-'));
 const withConnection = (initialCatalog: string, fn: (conn: ADODB.Connection) => void) => {
     let conn: ADODB.Connection | null = new ActiveXObject('ADODB.Connection');
     const connectionString = toConnectionString({
-        'Initial Catalog': initialCatalog
+        'Initial Catalog': initialCatalog,
     });
     try {
         conn.Open(connectionString);
@@ -101,7 +108,10 @@ const withConnection = (initialCatalog: string, fn: (conn: ADODB.Connection) => 
     }
 };
 
-const withRs = (catalogOrConnection: string | ADODB.Connection, tableOrCommand: string | ADODB.Command, fn: (rs: ADODB.Recordset) => void,
+const withRs = (
+    catalogOrConnection: string | ADODB.Connection,
+    tableOrCommand: string | ADODB.Command,
+    fn: (rs: ADODB.Recordset) => void,
     type: ADODB.CursorTypeEnum = ADODB.CursorTypeEnum.adOpenUnspecified,
     location: ADODB.CursorLocationEnum = ADODB.CursorLocationEnum.adUseNone,
     lockType: ADODB.LockTypeEnum = ADODB.LockTypeEnum.adLockOptimistic
@@ -110,7 +120,7 @@ const withRs = (catalogOrConnection: string | ADODB.Connection, tableOrCommand: 
     if (typeof connection === 'string') {
         // expand catalog to full connection string
         connection = toConnectionString({
-            'Initial Catalog': connection
+            'Initial Catalog': connection,
         });
     }
 
@@ -186,7 +196,9 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
                     // Get next record.
                     rs.MoveNext();
 
-                    if (rs.EOF) { break; }
+                    if (rs.EOF) {
+                        break;
+                    }
                 }
             }
         }, ADODB.CursorTypeEnum.adOpenStatic);
@@ -226,7 +238,13 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
         cmdContact.ActiveConnection = conn;
 
         // create parameter and insert variable value
-        const param = cmdContact.CreateParameter('CityName', ADODB.DataTypeEnum.adChar, ADODB.ParameterDirectionEnum.adParamInput, 30, cityName);
+        const param = cmdContact.CreateParameter(
+            'CityName',
+            ADODB.DataTypeEnum.adChar,
+            ADODB.ParameterDirectionEnum.adParamInput,
+            30,
+            cityName
+        );
         cmdContact.Parameters.Append(param);
 
         let rsContact: ADODB.Recordset | null = null;
@@ -311,34 +329,40 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
 
 // https://msdn.microsoft.com/en-us/library/jj249928.aspx
 {
-    withRs('Northwind', 'Customers', rs => {
-        const loop20 = () => {
-            const start = new Date().getTime();
+    withRs(
+        'Northwind',
+        'Customers',
+        rs => {
+            const loop20 = () => {
+                const start = new Date().getTime();
 
-            // loop through the recordset 20 times
-            for (let i = 0; i < 20; i++) {
-                rs.MoveFirst();
-                while (!rs.EOF) {
-                    // do something with the record
-                    const strTemp = rs('CompanyName').Value as string;
-                    rs.MoveNext();
+                // loop through the recordset 20 times
+                for (let i = 0; i < 20; i++) {
+                    rs.MoveFirst();
+                    while (!rs.EOF) {
+                        // do something with the record
+                        const strTemp = rs('CompanyName').Value as string;
+                        rs.MoveNext();
+                    }
                 }
-            }
 
-            const end = new Date().getTime();
-            return end - start;
-        };
+                const end = new Date().getTime();
+                return end - start;
+            };
 
-        const noCache = loop20();
+            const noCache = loop20();
 
-        // cache records in groups of 30
-        rs.MoveFirst();
-        rs.CacheSize = 30;
+            // cache records in groups of 30
+            rs.MoveFirst();
+            rs.CacheSize = 30;
 
-        const cache = loop20();
+            const cache = loop20();
 
-        WScript.Echo(`No cache: ${noCache}; with cache: ${cache}`);
-    }, ADODB.CursorTypeEnum.adOpenUnspecified, ADODB.CursorLocationEnum.adUseClient);
+            WScript.Echo(`No cache: ${noCache}; with cache: ${cache}`);
+        },
+        ADODB.CursorTypeEnum.adOpenUnspecified,
+        ADODB.CursorLocationEnum.adUseClient
+    );
 }
 
 // https://msdn.microsoft.com/en-us/library/jj249157.aspx
@@ -363,7 +387,13 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
             // command object parameters
             const cmdAuthor = new ActiveXObject('ADODB.Command');
             cmdAuthor.CommandText = 'SELECT * FROM Authors WHERE au_name = ?';
-            const lastNameParameter = cmdAuthor.CreateParameter('Last Name', ADODB.DataTypeEnum.adChar, ADODB.ParameterDirectionEnum.adParamInput, 20, lastName);
+            const lastNameParameter = cmdAuthor.CreateParameter(
+                'Last Name',
+                ADODB.DataTypeEnum.adChar,
+                ADODB.ParameterDirectionEnum.adParamInput,
+                20,
+                lastName
+            );
             cmdAuthor.Parameters.Append(lastNameParameter);
             cmdAuthor.ActiveConnection = conn;
 
@@ -391,39 +421,50 @@ const withEmployees = (fn: (rs: ADODB.Recordset) => void, type: ADODB.CursorType
 {
     withConnection('Northwind', conn => {
         const sql = 'SELECT * FROM Customers';
-        withRs(conn, sql, rs => {
-            rs.MoveFirst();
-            if (rs.RecordCount === 0) {
-                WScript.Echo(`No records matched for '${sql}'`);
-                return;
-            }
-
-            // print headings for each field name
-            WScript.Echo(collectionToArray(rs.Fields).map(fld => fld.Name).join('\t'));
-
-            // JScript doesn't support multi-dimensional arrays
-            // so we'll convert the returned array to a single
-            // dimensional JScript array and then display the data.
-            const safeArray = rs.GetRows();
-            const data = new VBArray(safeArray).toArray();
-
-            const fieldCount = rs.Fields.Count;
-
-            data.forEach((cellValue, index) => {
-                const currentField = index % fieldCount;
-
-                // don't print tab character for first and last columns
-                if (currentField > 0 && currentField < fieldCount - 1) {
-                    WScript.StdOut.Write('\t');
+        withRs(
+            conn,
+            sql,
+            rs => {
+                rs.MoveFirst();
+                if (rs.RecordCount === 0) {
+                    WScript.Echo(`No records matched for '${sql}'`);
+                    return;
                 }
 
-                const displayValue = cellValue === null ? '-null-' : cellValue;
-                if (currentField === fieldCount - 1) {
-                    WScript.StdOut.WriteLine(displayValue);
-                } else {
-                    WScript.StdOut.Write(displayValue);
-                }
-            });
-        }, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.CursorLocationEnum.adUseClient, ADODB.LockTypeEnum.adLockOptimistic);
+                // print headings for each field name
+                WScript.Echo(
+                    collectionToArray(rs.Fields)
+                        .map(fld => fld.Name)
+                        .join('\t')
+                );
+
+                // JScript doesn't support multi-dimensional arrays
+                // so we'll convert the returned array to a single
+                // dimensional JScript array and then display the data.
+                const safeArray = rs.GetRows();
+                const data = new VBArray(safeArray).toArray();
+
+                const fieldCount = rs.Fields.Count;
+
+                data.forEach((cellValue, index) => {
+                    const currentField = index % fieldCount;
+
+                    // don't print tab character for first and last columns
+                    if (currentField > 0 && currentField < fieldCount - 1) {
+                        WScript.StdOut.Write('\t');
+                    }
+
+                    const displayValue = cellValue === null ? '-null-' : cellValue;
+                    if (currentField === fieldCount - 1) {
+                        WScript.StdOut.WriteLine(displayValue);
+                    } else {
+                        WScript.StdOut.Write(displayValue);
+                    }
+                });
+            },
+            ADODB.CursorTypeEnum.adOpenKeyset,
+            ADODB.CursorLocationEnum.adUseClient,
+            ADODB.LockTypeEnum.adLockOptimistic
+        );
     });
 }

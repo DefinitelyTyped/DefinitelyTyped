@@ -1,4 +1,4 @@
-import Component from "@ember/component";
+import Component from '@ember/component';
 import TextSupport from '@ember/component/-private/text-support';
 /**
  * The internal class used to create text inputs when the `{{input}}`

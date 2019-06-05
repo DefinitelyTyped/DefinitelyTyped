@@ -7,22 +7,14 @@ interface Evented {
     /**
      * Subscribes to a named event with given function.
      */
-    on<Target>(
-        name: string,
-        target: Target,
-        method: (this: Target, ...args: any[]) => void
-    ): this;
+    on<Target>(name: string, target: Target, method: (this: Target, ...args: any[]) => void): this;
     on(name: string, method: (...args: any[]) => void): this;
     /**
      * Subscribes a function to a named event and then cancels the subscription
      * after the first time the event is triggered. It is good to use ``one`` when
      * you only care about the first time an event has taken place.
      */
-    one<Target>(
-        name: string,
-        target: Target,
-        method: (this: Target, ...args: any[]) => void
-    ): this;
+    one<Target>(name: string, target: Target, method: (this: Target, ...args: any[]) => void): this;
     one(name: string, method: (...args: any[]) => void): this;
     /**
      * Triggers a named event for the object. Any additional arguments
@@ -33,11 +25,7 @@ interface Evented {
     /**
      * Cancels subscription for given name, target, and method.
      */
-    off<Target>(
-        name: string,
-        target: Target,
-        method: (this: Target, ...args: any[]) => void
-    ): this;
+    off<Target>(name: string, target: Target, method: (this: Target, ...args: any[]) => void): this;
     off(name: string, method: (...args: any[]) => void): this;
     /**
      * Checks to see if object has any subscriptions for named event.
@@ -50,7 +38,4 @@ export default Evented;
  * Define a property as a function that should be executed when
  * a specified event or events are triggered.
  */
-export function on(
-    eventNames: string,
-    func: (...args: any[]) => void
-): (...args: any[]) => void;
+export function on(eventNames: string, func: (...args: any[]) => void): (...args: any[]) => void;

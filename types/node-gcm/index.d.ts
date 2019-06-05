@@ -4,8 +4,6 @@
 //                 BWYou <https://github.com/yousky/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 export interface INotificationOptions {
     title: string;
     body?: string;
@@ -49,7 +47,6 @@ export declare class Message {
     addNotification(key: string, value: INotificationOptions): void;
 }
 
-
 export interface ISenderOptions {
     proxy?: any;
     maxSockets?: number;
@@ -61,12 +58,12 @@ export interface ISenderSendOptions {
 }
 
 export interface IRecipient {
-    to?: string,
-    topic?: string,
-    condition?: string,
-    notificationKey?: string,
-    registrationIds?: string[],
-    registrationTokens?: string[]
+    to?: string;
+    topic?: string;
+    condition?: string;
+    notificationKey?: string;
+    registrationIds?: string[];
+    registrationTokens?: string[];
 }
 
 export declare class Sender {
@@ -74,12 +71,29 @@ export declare class Sender {
     key: string;
     options: ISenderOptions;
 
-    send(message: Message, registrationIds: string | string[] | IRecipient, callback: (err: any, resJson: IResponseBody) => void): void;
-    send(message: Message, registrationIds: string | string[] | IRecipient, retries: number, callback: (err: any, resJson: IResponseBody) => void): void;
-    send(message: Message, registrationIds: string | string[] | IRecipient, options: ISenderSendOptions, callback: (err: any, resJson: IResponseBody) => void): void;
-    sendNoRetry(message: Message, registrationIds: string | string[] | IRecipient, callback: (err: any, resJson: IResponseBody) => void): void;
+    send(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        callback: (err: any, resJson: IResponseBody) => void
+    ): void;
+    send(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        retries: number,
+        callback: (err: any, resJson: IResponseBody) => void
+    ): void;
+    send(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        options: ISenderSendOptions,
+        callback: (err: any, resJson: IResponseBody) => void
+    ): void;
+    sendNoRetry(
+        message: Message,
+        registrationIds: string | string[] | IRecipient,
+        callback: (err: any, resJson: IResponseBody) => void
+    ): void;
 }
-
 
 export interface IResponseBody {
     success: number;

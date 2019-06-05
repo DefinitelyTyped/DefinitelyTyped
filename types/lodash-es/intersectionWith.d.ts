@@ -1,2 +1,2 @@
-import { intersectionWith } from "lodash";
+import { intersectionWith } from 'lodash';
 export default intersectionWith;

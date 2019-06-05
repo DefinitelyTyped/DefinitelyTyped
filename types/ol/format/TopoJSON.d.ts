@@ -18,7 +18,7 @@ import {
     MultiPolygon as MultiPolygon_1,
     Point as Point_1,
     Polygon as Polygon_1,
-    Topology
+    Topology,
 } from 'topojson-specification';
 export interface Options {
     dataProjection?: ProjectionLike;

@@ -1,21 +1,22 @@
-import { Component, ReactType, HTMLProps, ReactElement } from "react";
-import { TransitionActions, TransitionProps } from "./Transition";
+import { Component, ReactType, HTMLProps, ReactElement } from 'react';
+import { TransitionActions, TransitionProps } from './Transition';
 
 declare namespace TransitionGroup {
-    interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
-        component?: T|null;
+    interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div'> extends TransitionActions {
+        component?: T | null;
     }
 
     interface ComponentTransitionGroupProps<T extends ReactType> extends TransitionActions {
         component: T;
     }
 
-    type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", V extends ReactType = any> =
-        (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T]) | (ComponentTransitionGroupProps<V>) & {
-        children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
-        childFactory?(child: ReactElement): ReactElement;
-        [prop: string]: any;
-    };
+    type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = 'div', V extends ReactType = any> =
+        | (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T])
+        | (ComponentTransitionGroupProps<V>) & {
+              children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
+              childFactory?(child: ReactElement): ReactElement;
+              [prop: string]: any;
+          };
 }
 
 /**

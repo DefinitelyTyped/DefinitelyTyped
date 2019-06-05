@@ -65,7 +65,7 @@ export class State implements StateInfo {
     /**
      * Gets the formatted default array NavigationData for this State
      */
-    formattedArrayDefaults: { [index: string]: string[]; };
+    formattedArrayDefaults: { [index: string]: string[] };
     /**
      * Gets the textual description of the state
      */
@@ -453,7 +453,7 @@ export class StateNavigator {
     /**
      * Gets a list of States
      */
-    states: { [index: string]: State; };
+    states: { [index: string]: State };
     /**
      * Initializes a new instance of the StateNavigator class
      * @param states A collection of States
@@ -544,7 +544,7 @@ export class StateNavigator {
      * Parses the url out into State and Navigation Data
      * @param url The url to parse
      */
-    parseLink(url: string): { state: State; data: any; };
+    parseLink(url: string): { state: State; data: any };
     /**
      * Creates a FluentNavigator
      * @param withContext a value indicating whether to inherit the current

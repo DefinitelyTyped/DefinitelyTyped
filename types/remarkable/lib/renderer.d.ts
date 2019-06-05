@@ -1,4 +1,4 @@
-import Remarkable = require(".");
+import Remarkable = require('.');
 
 export = Renderer;
 

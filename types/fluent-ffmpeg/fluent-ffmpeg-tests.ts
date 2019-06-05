@@ -13,7 +13,6 @@ ffmpeg('/path/to/file.avi')
 
 // Output-related methods apply to the last output added
 ffmpeg('/path/to/file.avi')
-
     .output('outputfile.mp4')
     .audioCodec('libfaac')
     .videoCodec('libx264')
@@ -39,12 +38,14 @@ const command = ffmpeg('/path/to/source.avi')
     .format('mp4');
 
 // Create a clone to save a small resized version
-command.clone()
+command
+    .clone()
     .size('320x200')
     .save('/path/to/output-small.mp4');
 
 // Create a clone to save a medium resized version
-command.clone()
+command
+    .clone()
     .size('640x400')
     .save('/path/to/output-medium.mp4');
 
@@ -60,21 +61,21 @@ ffmpeg.setFfprobePath('path/to/ffprobe');
 ffmpeg.setFfmpegPath('path/to/ffmpeg');
 
 ffmpeg.getAvailableFormats((err, formats) => {
-  console.log('Available formats:');
-  console.dir(formats);
+    console.log('Available formats:');
+    console.dir(formats);
 });
 
 ffmpeg.getAvailableCodecs((err, codecs) => {
-  console.log('Available codecs:');
-  console.dir(codecs);
+    console.log('Available codecs:');
+    console.dir(codecs);
 });
 
 ffmpeg.getAvailableEncoders((err, encoders) => {
-  console.log('Available encoders:');
-  console.dir(encoders);
+    console.log('Available encoders:');
+    console.dir(encoders);
 });
 
 ffmpeg.getAvailableFilters((err, filters) => {
-  console.log("Available filters:");
-  console.dir(filters);
+    console.log('Available filters:');
+    console.dir(filters);
 });

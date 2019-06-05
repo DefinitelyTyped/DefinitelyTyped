@@ -1,6 +1,6 @@
-import * as React from "react";
-import { View } from "react-native";
-import PercentageCircle from "react-native-percentage-circle";
+import * as React from 'react';
+import { View } from 'react-native';
+import PercentageCircle from 'react-native-percentage-circle';
 
 class PercentageCircleTest extends React.Component {
     render() {

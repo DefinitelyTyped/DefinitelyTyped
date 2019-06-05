@@ -1,4 +1,4 @@
-import { Sizeable } from "../Sizeable";
+import { Sizeable } from '../Sizeable';
 
 /**
  * Provides options for sizeable objects.
@@ -7,10 +7,10 @@ export interface SizeableOptions extends Sizeable {
     /**
      * An alias of the `iconSize`-property.
      */
-    size?: this["iconSize"];
+    size?: this['iconSize'];
 
     /**
      * An alias of the `iconSize`-property.
      */
-    svgIconSize?: this["iconSize"];
+    svgIconSize?: this['iconSize'];
 }

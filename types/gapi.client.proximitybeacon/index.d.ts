@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Proximity Beacon API v1beta1 */
-    function load(name: "proximitybeacon", version: "v1beta1"): PromiseLike<void>;
-    function load(name: "proximitybeacon", version: "v1beta1", callback: () => any): void;
+    function load(name: 'proximitybeacon', version: 'v1beta1'): PromiseLike<void>;
+    function load(name: 'proximitybeacon', version: 'v1beta1', callback: () => any): void;
 
     const beaconinfo: proximitybeacon.BeaconinfoResource;
 
@@ -394,7 +394,7 @@ declare namespace gapi.client {
              */
             getforobserved(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -437,7 +437,7 @@ declare namespace gapi.client {
              */
             batchDelete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -509,7 +509,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -565,7 +565,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -621,7 +621,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -685,7 +685,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -748,7 +748,7 @@ declare namespace gapi.client {
              */
             activate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -803,7 +803,7 @@ declare namespace gapi.client {
              */
             deactivate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -858,7 +858,7 @@ declare namespace gapi.client {
              */
             decommission(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -912,7 +912,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -969,7 +969,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1023,7 +1023,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1142,7 +1142,7 @@ declare namespace gapi.client {
              */
             register(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1190,7 +1190,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1248,7 +1248,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1285,7 +1285,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1336,7 +1336,7 @@ declare namespace gapi.client {
              */
             getEidparams(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

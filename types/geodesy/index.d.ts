@@ -6,9 +6,28 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type format = 'd' | 'dm' | 'dms';
-export type datum = 'ED50'| 'Irl1975'| 'NAD27'| 'NAD83'| 'NTF'| 'OSGB36'| 'Potsdam'| 'TokyoJapan'| 'WGS72'| 'WGS84';
+export type datum =
+    | 'ED50'
+    | 'Irl1975'
+    | 'NAD27'
+    | 'NAD83'
+    | 'NTF'
+    | 'OSGB36'
+    | 'Potsdam'
+    | 'TokyoJapan'
+    | 'WGS72'
+    | 'WGS84';
 export type hemisphere = 'N' | 'S';
-export type ellipsoid = 'WGS84' | 'Airy1830' | 'AiryModified' | 'Bessel1841' | 'Clarke1866' | 'Clarke1880IGN' | 'GRS80' | 'Intl1924' | 'WGS72';
+export type ellipsoid =
+    | 'WGS84'
+    | 'Airy1830'
+    | 'AiryModified'
+    | 'Bessel1841'
+    | 'Clarke1866'
+    | 'Clarke1880IGN'
+    | 'GRS80'
+    | 'Intl1924'
+    | 'WGS72';
 export type transform = [number, number, number, number, number, number, number];
 export type LatLon = LatLonEllipsoidal;
 
@@ -64,7 +83,7 @@ export class Mgrs {
         easting: number,
         northing: number,
         datum?: datum
-    )
+    );
     static parse(mgrsGridRef: string): Mgrs;
     toUtm(): Utm;
     toString(digits?: 2 | 4 | 6 | 8 | 10): string;
@@ -150,14 +169,19 @@ export class LatLonEllipsoidal {
 export class LatLonSpherical {
     lat: number;
     lon: number;
-    constructor(lat: number, lon: number)
+    constructor(lat: number, lon: number);
     distanceTo(point: LatLonSpherical, radius?: number): number;
     bearingTo(point: LatLonSpherical): number;
     finalBearingTo(point: LatLonSpherical): number;
     midpointTo(point: LatLonSpherical): number;
     intermediatePointTo(point: LatLonSpherical, fraction: number): LatLonSpherical;
     destinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical;
-    static intersection(point1: LatLonSpherical, bearing1: number, point2: LatLonSpherical, bearing2: number): LatLonSpherical;
+    static intersection(
+        point1: LatLonSpherical,
+        bearing1: number,
+        point2: LatLonSpherical,
+        bearing2: number
+    ): LatLonSpherical;
     crossTrackDistanceTo(pathStart: LatLonSpherical, pathEnd: LatLonSpherical, radius?: number): number;
     maxLatitude(bearing: number): number;
     static crossingParallels(point1: LatLonSpherical, point2: LatLonSpherical, latitude: number): any;
@@ -182,7 +206,12 @@ export class LatLonVectors {
     intermediatePointTo(point: LatLonVectors, fraction: number): LatLonVectors;
     intermediatePointOnChordTo(point: LatLonVectors, fraction: number): LatLonVectors;
     destinationPoint(distance: number, bearing: number, radius?: number): LatLonVectors;
-    static intersection(path1start: LatLonVectors, path1brngEnd: LatLonVectors | number, path2start: LatLonVectors, path2brngEnd: LatLonVectors | number): LatLonVectors;
+    static intersection(
+        path1start: LatLonVectors,
+        path1brngEnd: LatLonVectors | number,
+        path2start: LatLonVectors,
+        path2brngEnd: LatLonVectors | number
+    ): LatLonVectors;
     crossTrackDistanceTo(pathStart: LatLonVectors, pathBrngEnd: LatLonVectors | number, radius?: number): number;
     alongTrackDistanceTo(pathStart: LatLonVectors, pathBrngEnd: LatLonVectors | number, radius?: number): number;
     nearestPointOnSegment(point1: LatLonVectors, point2: LatLonVectors): LatLonVectors;
@@ -192,4 +221,4 @@ export class LatLonVectors {
     static meanOf(points: ReadonlyArray<LatLonVectors>): LatLonVectors;
     equals(point: LatLonVectors): boolean;
     toString(format?: string, dp?: number): string;
-  }
+}

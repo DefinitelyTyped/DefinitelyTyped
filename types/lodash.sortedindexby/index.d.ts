@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { sortedIndexBy } from "lodash";
+import { sortedIndexBy } from 'lodash';
 export = sortedIndexBy;

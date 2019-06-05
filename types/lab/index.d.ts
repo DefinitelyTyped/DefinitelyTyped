@@ -184,4 +184,4 @@ type ExperimentWithOptionsArgs = (desc: string, options: ExperimentOptions, cb: 
 
 type TestArgs = (desc: string, cb: TestCallback) => {};
 
-type TestWithOptionsArgs = (desc: string, options: TestOptions, cb: TestCallback) => {}
+type TestWithOptionsArgs = (desc: string, options: TestOptions, cb: TestCallback) => {};

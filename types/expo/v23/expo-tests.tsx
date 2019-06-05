@@ -21,10 +21,10 @@ import {
     FacebookAds,
     FileSystem,
     ImagePicker,
-    PublisherBanner
+    PublisherBanner,
 } from 'expo';
 
-Accelerometer.addListener((obj) => {
+Accelerometer.addListener(obj => {
     obj.x;
     obj.y;
     obj.z;
@@ -63,11 +63,11 @@ AdMobRewarded.requestAd(() => AdMobRewarded.showAd());
 
 Amplitude.initialize('key');
 Amplitude.setUserId('userId');
-Amplitude.setUserProperties({key: 1});
+Amplitude.setUserProperties({ key: 1 });
 Amplitude.clearUserProperties();
 Amplitude.logEvent('name');
-Amplitude.logEventWithProperties('event', {key: 'value'});
-Amplitude.setGroup('type', {key: 'value'});
+Amplitude.logEventWithProperties('event', { key: 'value' });
+Amplitude.setGroup('type', { key: 'value' });
 
 const asset = Asset.fromModule(1);
 asset.downloadAsync();
@@ -79,14 +79,14 @@ const asset1 = new Asset({
     name: 'name',
     hash: 'hash',
     width: 122,
-    height: 122
+    height: 122,
 });
 
 const url = AuthSession.getRedirectUrl();
 AuthSession.dismiss();
 AuthSession.startAsync({
     authUrl: 'url1',
-    returnUrl: 'url2'
+    returnUrl: 'url2',
 }).then(result => {
     switch (result.type) {
         case 'success':
@@ -110,14 +110,19 @@ Audio.setAudioModeAsync({
     playsInSilentModeIOS: true,
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
-    allowsRecordingIOS: true
+    allowsRecordingIOS: true,
 });
 Audio.setIsEnabledAsync(true);
 async () => {
-    const result = await Audio.Sound.create('uri', {
-        volume: 0.5,
-        rate: 0.6
-    }, null, true);
+    const result = await Audio.Sound.create(
+        'uri',
+        {
+            volume: 0.5,
+            rate: 0.6,
+        },
+        null,
+        true
+    );
 
     const sound = result.sound;
     const status = result.status;
@@ -133,34 +138,17 @@ async () => {
     await sound.loadAsync('uri');
 };
 
-() => (
-    <AppLoading
-        startAsync={() => Promise.resolve()}
-        onFinish={() => {}}
-        onError={(error) => console.log(error)} />
-);
-() => (
-    <AppLoading />
-);
+() => <AppLoading startAsync={() => Promise.resolve()} onFinish={() => {}} onError={error => console.log(error)} />;
+() => <AppLoading />;
 
 const barcodeReadCallback = () => {};
-() => (
-    <BarCodeScanner
-        type="front"
-        torchMode="off"
-        barCodeTypes={['s']}
-        onBarCodeRead={barcodeReadCallback} />
-);
+() => <BarCodeScanner type="front" torchMode="off" barCodeTypes={['s']} onBarCodeRead={barcodeReadCallback} />;
 
-() => (
-    <BlurView
-        tint="dark"
-        intensity={2} />
-);
+() => <BlurView tint="dark" intensity={2} />;
 
 async () => {
-    await Brightness.setBrightnessAsync(.6);
-    await Brightness.setSystemBrightnessAsync(.7);
+    await Brightness.setBrightnessAsync(0.6);
+    await Brightness.setSystemBrightnessAsync(0.7);
     const br1 = await Brightness.getBrightnessAsync();
     const br2 = await Brightness.getSystemBrightnessAsync();
 };
@@ -172,11 +160,15 @@ Camera.Constants.WhiteBalance;
 Camera.Constants.VideoQuality;
 Camera.Constants.BarCodeType;
 () => {
-    return(<Camera ref={(component: any) => {
-        if (component) {
-            component.recordAsync();
-        }
-    }} />);
+    return (
+        <Camera
+            ref={(component: any) => {
+                if (component) {
+                    component.recordAsync();
+                }
+            }}
+        />
+    );
 };
 
 async () => {
@@ -190,16 +182,10 @@ async () => {
 };
 
 async () => {
-    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync("appId");
+    const { type, expires, token } = await Facebook.logInWithReadPermissionsAsync('appId');
 };
 
-() => (
-    <FacebookAds.BannerView
-        type="large"
-        placementId="str"
-        onPress={() => {}}
-        onError={() => {}} />
-);
+() => <FacebookAds.BannerView type="large" placementId="str" onPress={() => {}} onError={() => {}} />;
 
 async () => {
     const info = await FileSystem.getInfoAsync('file');
@@ -217,7 +203,7 @@ async () => {
     const string: string = await FileSystem.readAsStringAsync('file');
     await FileSystem.writeAsStringAsync('file', 'content');
     await FileSystem.deleteAsync('file');
-    await FileSystem.moveAsync({ from: 'from', to: 'to'});
+    await FileSystem.moveAsync({ from: 'from', to: 'to' });
     await FileSystem.copyAsync({ from: 'from', to: 'to' });
     await FileSystem.makeDirectoryAsync('dir');
     const dirs: string[] = await FileSystem.readDirectoryAsync('dir');

@@ -20,8 +20,8 @@ export interface Options {
     strokeStyle?: Stroke;
     targetSize?: number;
     showLabels?: boolean;
-    lonLabelFormatter?: ((param0: number) => string);
-    latLabelFormatter?: ((param0: number) => string);
+    lonLabelFormatter?: (param0: number) => string;
+    latLabelFormatter?: (param0: number) => string;
     lonLabelPosition?: number;
     latLabelPosition?: number;
     lonLabelStyle?: Text;

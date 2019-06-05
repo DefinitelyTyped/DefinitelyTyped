@@ -21,7 +21,7 @@ const server = http.createServer((req, res) => {
 function isFresh(req: http.IncomingMessage, res: http.ServerResponse) {
     return fresh(req.headers, {
         etag: res.getHeader('ETag'),
-        'last-modified': res.getHeader('Last-Modified')
+        'last-modified': res.getHeader('Last-Modified'),
     });
 }
 

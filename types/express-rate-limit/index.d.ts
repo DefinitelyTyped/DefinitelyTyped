@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import express = require("express");
+import express = require('express');
 
 declare namespace RateLimit {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;

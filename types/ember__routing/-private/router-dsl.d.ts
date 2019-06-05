@@ -9,10 +9,10 @@ export default class RouterDSL {
     mount(
         name: string,
         options?: {
-            as?: string,
-            path?: string,
-            resetNamespace?: boolean,
-            engineInfo?: any
+            as?: string;
+            path?: string;
+            resetNamespace?: boolean;
+            engineInfo?: any;
         }
     ): void;
 }

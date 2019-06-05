@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 interface ReactResizeDetectorDimensions {
     height: number;
@@ -40,7 +40,7 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
      * undefined - callback will be fired for every frame.
      * Default: undefined
      */
-    refreshMode?: "throttle" | "debounce";
+    refreshMode?: 'throttle' | 'debounce';
     /**
      * Use this in conjunction with refreshMode.
      * Important! It's a numeric prop so set it accordingly, e.g. refreshRate={500}.
@@ -73,9 +73,7 @@ interface ReactResizeDetectorProps extends React.Props<ReactResizeDetector> {
     render?: (props: ReactResizeDetectorDimensions) => React.ReactNode;
 }
 
-declare class ReactResizeDetector extends React.PureComponent<
-    ReactResizeDetectorProps
-> {}
+declare class ReactResizeDetector extends React.PureComponent<ReactResizeDetectorProps> {}
 
 export function withResizeDetector(
     WrappedComponent: React.ReactNode,

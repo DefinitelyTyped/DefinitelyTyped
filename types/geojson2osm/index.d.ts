@@ -11,4 +11,4 @@
  * @param features Input features
  * @returns OpenStreetMap XML
  */
-export function geojson2osm(features: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): any
+export function geojson2osm(features: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): any;

@@ -1,4 +1,4 @@
-import CipherBase = require("cipher-base");
+import CipherBase = require('cipher-base');
 
 const buf = new Buffer(1);
 

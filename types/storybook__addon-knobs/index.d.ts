@@ -44,7 +44,12 @@ export function boolean(name: string, value: boolean, groupId?: string): boolean
 
 export function files(label: string, accept: string, defaultValue: string[]): string[];
 
-export function number(name: string, value: number, options?: NumberOptions | EmptyNumberOptions, groupId?: string): number;
+export function number(
+    name: string,
+    value: number,
+    options?: NumberOptions | EmptyNumberOptions,
+    groupId?: string
+): number;
 
 export function color(name: string, value: string, groupId?: string): string;
 
@@ -53,12 +58,12 @@ export function object<T>(name: string, value: T, groupId?: string): T;
 export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
 
 export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
-export function select<
-    T extends Exclude<
-        React.OptionHTMLAttributes<HTMLOptionElement>['value'],
-        undefined
-    >
->(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
+export function select<T extends Exclude<React.OptionHTMLAttributes<HTMLOptionElement>['value'], undefined>>(
+    name: string,
+    options: ReadonlyArray<T>,
+    value: T,
+    groupId?: string
+): T;
 
 export function date(name: string, value?: Date, groupId?: string): Date;
 
@@ -67,13 +72,7 @@ export function array<T>(name: string, value: ReadonlyArray<T>, separator?: stri
 export function button(name: string, handler: () => any, groupId?: string): void;
 
 export interface OptionsKnobOptions {
-    display?:
-    | "radio"
-    | "inline-radio"
-    | "check"
-    | "inline-check"
-    | "select"
-    | "multi-select";
+    display?: 'radio' | 'inline-radio' | 'check' | 'inline-check' | 'select' | 'multi-select';
 }
 
 export function optionsKnob<T>(
@@ -94,4 +93,7 @@ export interface WrapStoryProps {
 }
 
 export function withKnobs(storyFn: RenderFunction, context: StoryContext): React.ReactElement<WrapStoryProps>;
-export function withKnobsOptions(options: { debounce: boolean, timestamps: boolean }): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;
+export function withKnobsOptions(options: {
+    debounce: boolean;
+    timestamps: boolean;
+}): (storyFn: RenderFunction, context: StoryContext) => React.ReactElement<WrapStoryProps>;

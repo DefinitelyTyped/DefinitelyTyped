@@ -9,13 +9,12 @@
 
 /** Browserify transform for Babel
  */
-import stream = require("stream");
-import babel = require("babel-core");
+import stream = require('stream');
+import babel = require('babel-core');
 
 declare function Babelify(filename: string, opts?: Babelify.BabelifyOptions): Babelify.BabelifyObject;
 
 declare namespace Babelify {
-
     export interface BabelifyConstructor {
         (filename: string, opts: Babelify.BabelifyOptions): Babelify.BabelifyObject;
     }
@@ -42,4 +41,3 @@ declare namespace Babelify {
 }
 
 export = Babelify;
-

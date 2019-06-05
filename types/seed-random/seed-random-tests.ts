@@ -11,14 +11,14 @@ const fakeRandomA = seed('foo');
 const fakeRandomB = seed('foo');
 assert(fakeRandomA() === fakeRandomB());
 
-const fakeRandomC = seed('foo', {entropy: true});
-const fakeRandomD = seed('foo', {entropy: true});
+const fakeRandomC = seed('foo', { entropy: true });
+const fakeRandomD = seed('foo', { entropy: true });
 assert(fakeRandomC() !== fakeRandomD());
 
 // override global Math.random
-seed('foo', {global: true});
+seed('foo', { global: true });
 const numA = Math.random();
-seed('foo', {global: true});
+seed('foo', { global: true });
 const numB = Math.random();
 assert(numA === numB);
 

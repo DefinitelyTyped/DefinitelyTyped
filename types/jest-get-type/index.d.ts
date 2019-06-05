@@ -6,19 +6,19 @@
 
 declare namespace getType {
     type ValueType =
-    | 'array'
-    | 'boolean'
-    | 'function'
-    | 'null'
-    | 'number'
-    | 'object'
-    | 'regexp'
-    | 'map'
-    | 'set'
-    | 'date'
-    | 'string'
-    | 'symbol'
-    | 'undefined';
+        | 'array'
+        | 'boolean'
+        | 'function'
+        | 'null'
+        | 'number'
+        | 'object'
+        | 'regexp'
+        | 'map'
+        | 'set'
+        | 'date'
+        | 'string'
+        | 'symbol'
+        | 'undefined';
 }
 
 declare function getType(value: any): getType.ValueType;

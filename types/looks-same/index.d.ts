@@ -108,7 +108,12 @@ interface LooksSameColor {
  * @param options The options passed to looksSame function
  * @param callback Call when finish compare
  */
-declare function looksSame(image1: string, image2: string, options: LooksSameOptions, callback: LooksSameCallback): void;
+declare function looksSame(
+    image1: string,
+    image2: string,
+    options: LooksSameOptions,
+    callback: LooksSameCallback
+): void;
 /**
  * Compare two images
  * @param image1 The first image path
@@ -120,7 +125,10 @@ declare function looksSame(image1: string, image2: string, callback: LooksSameCa
 // https://stackoverflow.com/questions/44058101/typescript-declare-third-party-modules
 declare namespace looksSame {
     function createDiff(options: CreateDiffOptions, callback: (error: Error | null) => any): void;
-    function createDiff(options: CreateDiffAsBufferOptions, callback: (error: Error | null, buffer: Buffer) => any): void;
+    function createDiff(
+        options: CreateDiffAsBufferOptions,
+        callback: (error: Error | null, buffer: Buffer) => any
+    ): void;
 
     /**
      * Compare two colors

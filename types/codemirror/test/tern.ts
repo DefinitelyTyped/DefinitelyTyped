@@ -1,23 +1,26 @@
 const options: CodeMirror.TernOptions = {
-
-    completionTip: (data) => {
+    completionTip: data => {
         const d = data.completions;
-        return "";
+        return '';
     },
 
     showError: (editor, message) => {
         alert(message);
-    }
-
+    },
 };
 
 const ts = new CodeMirror.TernServer(options);
 
-ts.request(cm.getDoc(), "completions", (_e, d) => {
-    if (d) {
-        const c = d.completions;
-    }
-}, { ch: 0, line: 0 });
+ts.request(
+    cm.getDoc(),
+    'completions',
+    (_e, d) => {
+        if (d) {
+            const c = d.completions;
+        }
+    },
+    { ch: 0, line: 0 }
+);
 
 ts.complete(cm.getDoc());
 

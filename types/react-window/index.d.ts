@@ -6,21 +6,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Component,
-    ComponentType,
-    CSSProperties,
-    Ref,
-    Key,
-    FunctionComponent,
-    ComponentClass
-} from "react";
+import { Component, ComponentType, CSSProperties, Ref, Key, FunctionComponent, ComponentClass } from 'react';
 
-export type CSSDirection = "ltr" | "rtl";
-export type Direction = "vertical" | "horizontal"; // TODO: deprecate in favour of Layout
-export type Layout = "vertical" | "horizontal";
-export type ScrollDirection = "forward" | "backward";
-export type Align = "auto" | "smart" | "center" | "end" | "start";
+export type CSSDirection = 'ltr' | 'rtl';
+export type Direction = 'vertical' | 'horizontal'; // TODO: deprecate in favour of Layout
+export type Layout = 'vertical' | 'horizontal';
+export type ScrollDirection = 'forward' | 'backward';
+export type Align = 'auto' | 'smart' | 'center' | 'end' | 'start';
 
 export interface ListChildComponentProps {
     index: number;
@@ -39,10 +31,7 @@ export interface GridChildComponentProps {
 
 // This is supposed to represent the type of the first parameter to
 // React.createElement.
-export type ReactElementType =
-    | FunctionComponent<any>
-    | ComponentClass<any>
-    | string;
+export type ReactElementType = FunctionComponent<any> | ComponentClass<any> | string;
 
 export interface CommonProps {
     /**
@@ -191,11 +180,7 @@ export interface ListProps extends CommonProps {
     onScroll?: (props: ListOnScrollProps) => any;
 }
 
-export type GridItemKeySelector = (params: {
-    columnIndex: number;
-    rowIndex: number;
-    data: any;
-}) => Key;
+export type GridItemKeySelector = (params: { columnIndex: number; rowIndex: number; data: any }) => Key;
 
 export interface GridOnItemsRenderedProps {
     overscanColumnStartIndex: number;
@@ -438,11 +423,7 @@ export class FixedSizeGrid extends Component<FixedSizeGridProps> {
      *
      * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
-    scrollToItem(params: {
-        align?: Align;
-        columnIndex?: number;
-        rowIndex?: number;
-    }): void;
+    scrollToItem(params: { align?: Align; columnIndex?: number; rowIndex?: number }): void;
 }
 
 export class VariableSizeGrid extends Component<VariableSizeGridProps> {
@@ -467,11 +448,7 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
      *
      * If either `columnIndex` or `rowIndex` are omitted, `scrollLeft` or `scrollTop` will be unchanged (respectively).
      */
-    scrollToItem(params: {
-        align?: Align;
-        columnIndex?: number;
-        rowIndex?: number;
-    }): void;
+    scrollToItem(params: { align?: Align; columnIndex?: number; rowIndex?: number }): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each column index for performance purposes.
      * This method clears that cached data for all columns after (and including) the specified index.
@@ -491,11 +468,7 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
      * If you would like to delay this re-render until e.g. a state update has completed in the parent component,
      * specify a value of false for the optional shouldForceUpdate parameter.
      */
-    resetAfterIndices(params: {
-        columnIndex: number;
-        rowIndex: number;
-        shouldForceUpdate?: boolean;
-    }): void;
+    resetAfterIndices(params: { columnIndex: number; rowIndex: number; shouldForceUpdate?: boolean }): void;
     /**
      * VariableSizeGrid caches offsets and measurements for each row index for performance purposes.
      * This method clears that cached data for all rows after (and including) the specified index.
@@ -514,10 +487,7 @@ export class VariableSizeGrid extends Component<VariableSizeGridProps> {
  *
  * @see https://reactjs.org/docs/react-api.html#reactmemo
  */
-export function areEqual(
-    prevProps: Readonly<object>,
-    nextProps: Readonly<object>
-): boolean;
+export function areEqual(prevProps: Readonly<object>, nextProps: Readonly<object>): boolean;
 
 /**
  * Custom shouldComponentUpdate for class components.

@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.5
 
-import * as GeoJSON from "geojson";
-import { Objects, OrNull, Topology } from "topojson-specification";
+import * as GeoJSON from 'geojson';
+import { Objects, OrNull, Topology } from 'topojson-specification';
 
 export type Triangle = [[number, number], [number, number], [number, number]];
 export type TriangleWeighter = (triangle: Triangle) => number;

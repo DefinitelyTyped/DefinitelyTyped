@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { ChildProcess } from "child_process";
+import { ChildProcess } from 'child_process';
 
 import MongoMemoryServer = _MongoMemoryServer.MongoMemoryServer;
 import MongoInstance = _MongoInstance.MongodbInstance;
@@ -45,10 +45,10 @@ declare namespace _MongoInstance {
     interface MongodOps {
         // instance options
         instance: {
-            port: number,
-            storageEngine?: string,
-            dbPath: string,
-            debug?: boolean | ((...args: any[]) => any),
+            port: number;
+            storageEngine?: string;
+            dbPath: string;
+            debug?: boolean | ((...args: any[]) => any);
         };
 
         // mongo binary options
@@ -56,14 +56,14 @@ declare namespace _MongoInstance {
 
         // child process spawn options
         spawn?: {
-            cwd?: string,
-            env?: object,
-            argv0?: string,
-            stdio?: string | any[],
-            detached?: boolean,
-            uid?: number,
-            gid?: number,
-            shell?: boolean | string,
+            cwd?: string;
+            env?: object;
+            argv0?: string;
+            stdio?: string | any[];
+            detached?: boolean;
+            uid?: number;
+            gid?: number;
+            shell?: boolean | string;
         };
 
         debug?: boolean | ((...args: any[]) => any);
@@ -73,11 +73,11 @@ declare namespace _MongoInstance {
         static childProcessList: ChildProcess[];
 
         opts: MongodOps;
-        debug: ((...args: any[]) => any);
+        debug: (...args: any[]) => any;
         childProcess: ChildProcess;
         killerProcess: ChildProcess;
-        instanceReady: ((...args: any[]) => any);
-        instanceFailed: ((...args: any[]) => any);
+        instanceReady: (...args: any[]) => any;
+        instanceFailed: (...args: any[]) => any;
 
         static run(opts: MongodOps): Promise<MongodbInstance>;
 
@@ -100,18 +100,18 @@ declare namespace _MongoInstance {
 declare namespace _MongoMemoryServer {
     interface MongoMemoryServerOptsT {
         instance: {
-            port?: number,
-            dbPath?: string,
-            dbName?: string,
-            storageEngine?: string,
-            debug?: boolean | ((...args: any[]) => any),
+            port?: number;
+            dbPath?: string;
+            dbName?: string;
+            storageEngine?: string;
+            debug?: boolean | ((...args: any[]) => any);
         };
         binary: {
-            version?: string,
-            downloadDir?: string,
-            platform?: string,
-            arch?: string,
-            debug?: boolean | ((...args: any[]) => any),
+            version?: string;
+            downloadDir?: string;
+            platform?: string;
+            arch?: string;
+            debug?: boolean | ((...args: any[]) => any);
         };
         debug?: boolean;
         spawn: any;
@@ -127,8 +127,8 @@ declare namespace _MongoMemoryServer {
         instance: _MongoInstance.MongodbInstance;
         childProcess: ChildProcess;
         tmpDir?: {
-            name: string,
-            removeCallback: ((...args: any[]) => any),
+            name: string;
+            removeCallback: (...args: any[]) => any;
         };
     }
 
@@ -136,7 +136,7 @@ declare namespace _MongoMemoryServer {
         isRunning: boolean;
         runningInstance: Promise<MongoInstanceDataT> | undefined;
         opts: MongoMemoryServerOptsT;
-        debug: ((...args: any[]) => any);
+        debug: (...args: any[]) => any;
 
         constructor(opts?: Partial<MongoMemoryServerOptsT>);
 

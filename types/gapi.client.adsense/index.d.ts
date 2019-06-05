@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load AdSense Management API v1.4 */
-    function load(name: "adsense", version: "v1.4"): PromiseLike<void>;
-    function load(name: "adsense", version: "v1.4", callback: () => any): void;
+    function load(name: 'adsense', version: 'v1.4'): PromiseLike<void>;
+    function load(name: 'adsense', version: 'v1.4', callback: () => any): void;
 
     const accounts: adsense.AccountsResource;
 

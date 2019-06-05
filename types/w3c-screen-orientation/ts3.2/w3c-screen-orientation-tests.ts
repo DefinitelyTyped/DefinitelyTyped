@@ -1,10 +1,10 @@
 // Example 1 (from the spec):
 const show = () => {
-    console.log("Orientation type is " + screen.orientation.type);
-    console.log("Orientation angle is " + screen.orientation.angle);
+    console.log('Orientation type is ' + screen.orientation.type);
+    console.log('Orientation angle is ' + screen.orientation.angle);
 };
 
-screen.orientation.addEventListener("change", show);
+screen.orientation.addEventListener('change', show);
 window.onload = show;
 
 // Example 2 (from the spec):

@@ -1,6 +1,17 @@
 declare namespace pc {
-    type AttributesType = 'boolean' | 'number' | 'string' | 'json' | 'asset' | 'entity' |
-        'rgb' | 'rgba' | 'vec2' | 'vec3' | 'vec4' | 'curve';
+    type AttributesType =
+        | 'boolean'
+        | 'number'
+        | 'string'
+        | 'json'
+        | 'asset'
+        | 'entity'
+        | 'rgb'
+        | 'rgba'
+        | 'vec2'
+        | 'vec3'
+        | 'vec4'
+        | 'curve';
     type AttributesArgs = {
         type: AttributesType;
         default?: any;
@@ -16,16 +27,16 @@ declare namespace pc {
         curves?: string[];
         color?: string;
         enum?: object[];
-    }
+    };
 
     /**
-    * @name pc.ScriptAttributes
-    * @class Container of Script Attribute definitions. Implements an interface to add/remove attributes and store their definition for a {@link ScriptType}.
-    * Note: An instance of pc.ScriptAttributes is created automatically by each {@link ScriptType}.
-    * @param {ScriptType} scriptType Script Type that attributes relate to.
-    */
+     * @name pc.ScriptAttributes
+     * @class Container of Script Attribute definitions. Implements an interface to add/remove attributes and store their definition for a {@link ScriptType}.
+     * Note: An instance of pc.ScriptAttributes is created automatically by each {@link ScriptType}.
+     * @param {ScriptType} scriptType Script Type that attributes relate to.
+     */
     class ScriptAttributes {
-        constructor(scriptType: ScriptType)
+        constructor(scriptType: ScriptType);
 
         /**
          * @function
@@ -114,56 +125,59 @@ declare namespace pc {
     }
 
     /**
-    * @static
-    * @function
-    * @name pc.createScript
-    * @description Method to create named {@link ScriptType}.
-    * It returns new function (class) "Script Type", which is auto-registered to {@link pc.ScriptRegistry} using it's name.
-    * This is the main interface to create Script Types, to define custom logic using JavaScript, that is used to create interaction for entities.
-    * @param {String} name unique Name of a Script Type.
-    * If a Script Type with the same name has already been registered and the new one has a `swap` method defined in its prototype,
-    * then it will perform hot swapping of existing Script Instances on entities using this new Script Type.
-    * Note: There is a reserved list of names that cannot be used, such as list below as well as some starting from `_` (underscore):
-    * system, entity, create, destroy, swap, move, scripts, onEnable, onDisable, onPostStateChange, has, on, off, fire, once, hasEvent
-    * @param {pc.Application} [app] Optional application handler, to choose which {@link pc.ScriptRegistry} to add a script to.
-    * By default it will use `pc.Application.getApplication()` to get current {@link pc.Application}.
-    * @returns {Function} The constructor of a {@link ScriptType}, which the developer is meant to extend by adding attributes and prototype methods.
-    * @example
-    * var Turning = pc.createScript('turn');
-    *
-    * // define `speed` attribute that is available in Editor UI
-    * Turning.attributes.add('speed', {
-    *     type: 'number',
-    *     default: 180,
-    *     placeholder: 'deg/s'
-    * });
-    *
-    * // runs every tick
-    * Turning.prototype.update = function(dt) {
-    *     this.entity.rotate(0, this.speed * dt, 0);
-    * };
-    */
-    function createScript<Instance extends ScriptType, Class extends ScriptTypeConstructor<Instance>>(name: string, app?: pc.Application): Class;
+     * @static
+     * @function
+     * @name pc.createScript
+     * @description Method to create named {@link ScriptType}.
+     * It returns new function (class) "Script Type", which is auto-registered to {@link pc.ScriptRegistry} using it's name.
+     * This is the main interface to create Script Types, to define custom logic using JavaScript, that is used to create interaction for entities.
+     * @param {String} name unique Name of a Script Type.
+     * If a Script Type with the same name has already been registered and the new one has a `swap` method defined in its prototype,
+     * then it will perform hot swapping of existing Script Instances on entities using this new Script Type.
+     * Note: There is a reserved list of names that cannot be used, such as list below as well as some starting from `_` (underscore):
+     * system, entity, create, destroy, swap, move, scripts, onEnable, onDisable, onPostStateChange, has, on, off, fire, once, hasEvent
+     * @param {pc.Application} [app] Optional application handler, to choose which {@link pc.ScriptRegistry} to add a script to.
+     * By default it will use `pc.Application.getApplication()` to get current {@link pc.Application}.
+     * @returns {Function} The constructor of a {@link ScriptType}, which the developer is meant to extend by adding attributes and prototype methods.
+     * @example
+     * var Turning = pc.createScript('turn');
+     *
+     * // define `speed` attribute that is available in Editor UI
+     * Turning.attributes.add('speed', {
+     *     type: 'number',
+     *     default: 180,
+     *     placeholder: 'deg/s'
+     * });
+     *
+     * // runs every tick
+     * Turning.prototype.update = function(dt) {
+     *     this.entity.rotate(0, this.speed * dt, 0);
+     * };
+     */
+    function createScript<Instance extends ScriptType, Class extends ScriptTypeConstructor<Instance>>(
+        name: string,
+        app?: pc.Application
+    ): Class;
     namespace createScript {
         export let reservedAttributes: any;
     }
 
     /**
-    * @name ScriptType
-    * @class Represents the type of a script. It is returned by {@link pc.createScript}. Also referred to as Script Type.<br />
-    * The type is to be extended using its JavaScript prototype. There is a <strong>list of methods</strong>
-    * that will be executed by the engine on instances of this type, such as: <ul><li>initialize</li><li>postInitialize</li><li>update</li><li>postUpdate</li><li>swap</li></ul>
-    * <strong>initialize</strong> and <strong>postInitialize</strong> - are called if defined when script is about to run for the first time - postInitialize will run after all initialize methods are executed in the same tick or enabling chain of actions.<br />
-    * <strong>update</strong> and <strong>postUpdate</strong> - methods are called if defined for enabled (running state) scripts on each tick.<br />
-    * <strong>swap</strong> - This method will be called when a {@link ScriptType} that already exists in the registry gets redefined.
-    * If the new {@link ScriptType} has a `swap` method in its prototype, then it will be executed to perform hot-reload at runtime.
-    * @property {pc.Application} app The {@link pc.Application} that the instance of this type belongs to.
-    * @property {pc.Entity} entity The {@link pc.Entity} that the instance of this type belongs to.
-    * @property {Boolean} enabled True if the instance of this type is in running state. False when script is not running,
-    * because the Entity or any of its parents are disabled or the Script Component is disabled or the Script Instance is disabled.
-    * When disabled no update methods will be called on each tick.
-    * initialize and postInitialize methods will run once when the script instance is in `enabled` state during app tick.
-    */
+     * @name ScriptType
+     * @class Represents the type of a script. It is returned by {@link pc.createScript}. Also referred to as Script Type.<br />
+     * The type is to be extended using its JavaScript prototype. There is a <strong>list of methods</strong>
+     * that will be executed by the engine on instances of this type, such as: <ul><li>initialize</li><li>postInitialize</li><li>update</li><li>postUpdate</li><li>swap</li></ul>
+     * <strong>initialize</strong> and <strong>postInitialize</strong> - are called if defined when script is about to run for the first time - postInitialize will run after all initialize methods are executed in the same tick or enabling chain of actions.<br />
+     * <strong>update</strong> and <strong>postUpdate</strong> - methods are called if defined for enabled (running state) scripts on each tick.<br />
+     * <strong>swap</strong> - This method will be called when a {@link ScriptType} that already exists in the registry gets redefined.
+     * If the new {@link ScriptType} has a `swap` method in its prototype, then it will be executed to perform hot-reload at runtime.
+     * @property {pc.Application} app The {@link pc.Application} that the instance of this type belongs to.
+     * @property {pc.Entity} entity The {@link pc.Entity} that the instance of this type belongs to.
+     * @property {Boolean} enabled True if the instance of this type is in running state. False when script is not running,
+     * because the Entity or any of its parents are disabled or the Script Component is disabled or the Script Instance is disabled.
+     * When disabled no update methods will be called on each tick.
+     * initialize and postInitialize methods will run once when the script instance is in `enabled` state during app tick.
+     */
     interface ScriptTypeConstructor<S extends ScriptType> {
         [key: string]: any;
 
@@ -217,7 +231,7 @@ declare namespace pc {
          */
         extend?(methods: { [key: string]: () => any }): void;
 
-        new(args: { app: pc.Application, entity: pc.Entity, enabled?: boolean}): S;
+        new (args: { app: pc.Application; entity: pc.Entity; enabled?: boolean }): S;
         readonly prototype: S;
     }
 
@@ -305,7 +319,17 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire?(name: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire?(
+            name: string,
+            arg1?: any,
+            arg2?: any,
+            arg3?: any,
+            arg4?: any,
+            arg5?: any,
+            arg6?: any,
+            arg7?: any,
+            arg8?: any
+        ): any;
 
         /**
          * @function
@@ -324,15 +348,14 @@ declare namespace pc {
         once?(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
-        * @function
-        * @name pc.ScriptType#hasEvent
-        * @description Test if there are any handlers bound to an event name
-        * @param {String} name The name of the event to test
-        * @example
-        * obj.on('test', function () { }); // bind an event to 'test'
-        * obj.hasEvent('test'); // returns true
-        */
+         * @function
+         * @name pc.ScriptType#hasEvent
+         * @description Test if there are any handlers bound to an event name
+         * @param {String} name The name of the event to test
+         * @example
+         * obj.on('test', function () { }); // bind an event to 'test'
+         * obj.hasEvent('test'); // returns true
+         */
         hasEvent?(name: string): boolean;
-
     }
 }

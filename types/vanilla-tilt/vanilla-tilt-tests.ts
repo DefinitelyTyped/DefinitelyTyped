@@ -10,18 +10,18 @@ const element: VanillaTilt = new VanillaTilt(document.createElement('a'), {
     scale: 2,
     speed: 200,
     glare: true,
-    "max-glare": 1,
-    "glare-prerender": true,
+    'max-glare': 1,
+    'glare-prerender': true,
 });
 
 VanillaTilt.init(document.createElement('a'), {
-    axis: 'x'
+    axis: 'x',
 });
 
 element.removeEventListener();
 
 VanillaTilt.init([document.createElement('a')], {
-    axis: null
+    axis: null,
 });
 
 const values: TiltValues = element.getValues();

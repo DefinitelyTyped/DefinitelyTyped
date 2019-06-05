@@ -1,32 +1,28 @@
-import express = require("express");
-import passport = require("passport");
-import google = require("passport-google-oauth20");
+import express = require('express');
+import passport = require('passport');
+import google = require('passport-google-oauth20');
 
 // Just some test model.
 const User = {
-    findOrCreate(
-        id: string,
-        provider: string,
-        callback: (err: any, user: any) => void
-    ): void {
-        callback(null, { username: "alfred" });
-    }
+    findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
+        callback(null, { username: 'alfred' });
+    },
 };
 
 const callbackURL = process.env.PASSPORT_GOOGLE_CALLBACK_URL;
 const clientID = process.env.PASSPORT_GOOGLE_CONSUMER_KEY;
 const clientSecret = process.env.PASSPORT_GOOGLE_CONSUMER_SECRET;
 
-if (typeof callbackURL === "undefined") {
-    throw new Error("callbackURL is undefined");
+if (typeof callbackURL === 'undefined') {
+    throw new Error('callbackURL is undefined');
 }
 
-if (typeof clientID === "undefined") {
-    throw new Error("clientID is undefined");
+if (typeof clientID === 'undefined') {
+    throw new Error('clientID is undefined');
 }
 
-if (typeof clientSecret === "undefined") {
-    throw new Error("clientSecret is undefined");
+if (typeof clientSecret === 'undefined') {
+    throw new Error('clientSecret is undefined');
 }
 
 passport.use(
@@ -34,7 +30,7 @@ passport.use(
         {
             callbackURL,
             clientID,
-            clientSecret
+            clientSecret,
         },
         (
             accessToken: string,
@@ -59,7 +55,7 @@ passport.use(
             callbackURL,
             clientID,
             clientSecret,
-            passReqToCallback: true
+            passReqToCallback: true,
         },
         (
             request: express.Request,

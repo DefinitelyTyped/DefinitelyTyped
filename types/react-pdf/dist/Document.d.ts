@@ -107,4 +107,4 @@ export interface Props {
     rotate?: number;
 }
 
-export default class Document extends React.Component<Props> { }
+export default class Document extends React.Component<Props> {}

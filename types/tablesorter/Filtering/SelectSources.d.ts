@@ -1,5 +1,5 @@
-import { FunctionSelectSource } from "./FunctionSelectSource";
-import { ValidSelectSources } from "./ValidSelectSources";
+import { FunctionSelectSource } from './FunctionSelectSource';
+import { ValidSelectSources } from './ValidSelectSources';
 
 /**
  * Represents types for specifying select-sources.

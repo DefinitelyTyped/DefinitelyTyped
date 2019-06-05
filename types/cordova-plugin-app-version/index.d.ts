@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Cordova {
-	getAppVersion: {
-		getAppName: () => Promise<string>;
-		getPackageName: () => Promise<string>;
-		getVersionCode: () => Promise<string>;
-		getVersionNumber: () => Promise<string>;
-	};
+    getAppVersion: {
+        getAppName: () => Promise<string>;
+        getPackageName: () => Promise<string>;
+        getVersionCode: () => Promise<string>;
+        getVersionNumber: () => Promise<string>;
+    };
 }

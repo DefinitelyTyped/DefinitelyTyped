@@ -2,20 +2,16 @@ import * as React from 'react';
 import { Gateway, GatewayProvider, GatewayDest } from 'react-gateway';
 
 class GatewayComponent extends React.Component {
-  render() {
-    return (
-      <div>{this.props.children}</div>
-    );
-  }
+    render() {
+        return <div>{this.props.children}</div>;
+    }
 }
 
 class ReactGateway extends React.Component<Gateway.GatewayProps> {
     render() {
         return (
             <Gateway {...this.props}>
-                <div>
-                    Text goes here.
-                </div>
+                <div>Text goes here.</div>
             </Gateway>
         );
     }

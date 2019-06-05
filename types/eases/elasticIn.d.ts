@@ -1,2 +1,2 @@
-import { elasticIn } from "./index";
+import { elasticIn } from './index';
 export = elasticIn;

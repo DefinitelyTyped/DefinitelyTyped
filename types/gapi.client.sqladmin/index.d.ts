@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Cloud SQL Administration API v1beta4 */
-    function load(name: "sqladmin", version: "v1beta4"): PromiseLike<void>;
-    function load(name: "sqladmin", version: "v1beta4", callback: () => any): void;
+    function load(name: 'sqladmin', version: 'v1beta4'): PromiseLike<void>;
+    function load(name: 'sqladmin', version: 'v1beta4', callback: () => any): void;
 
     const backupRuns: sqladmin.BackupRunsResource;
 

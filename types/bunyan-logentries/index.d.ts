@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import bunyan = require("bunyan");
+import bunyan = require('bunyan');
 
 interface StreamOptions {
     token: string;

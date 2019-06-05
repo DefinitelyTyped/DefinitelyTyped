@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-    ComposableMap,
-    Geographies,
-    Geography,
-    Marker,
-    Markers,
-    ZoomableGroup,
-} from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography, Marker, Markers, ZoomableGroup } from 'react-simple-maps';
 
 const Map = () => (
     <ComposableMap

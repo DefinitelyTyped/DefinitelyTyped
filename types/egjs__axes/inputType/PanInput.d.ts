@@ -1,5 +1,5 @@
-import { DIRECTION } from "../const";
-import { IInputType, IInputTypeObserver } from "./InputType";
+import { DIRECTION } from '../const';
+import { IInputType, IInputTypeObserver } from './InputType';
 export interface PanInputOption {
     inputType?: string[];
     scale?: number[];

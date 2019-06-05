@@ -10,10 +10,10 @@ import { AbstractLevelDOWN } from 'abstract-leveldown';
 export interface MemDown<K, V> extends AbstractLevelDOWN<K, V> {}
 
 export interface MemDownConstructor {
-  // tslint:disable-next-line no-unnecessary-generics
-  new <K = any, V = any>(): MemDown<K, V>;
-  // tslint:disable-next-line no-unnecessary-generics
-  <K = any, V = any>(): MemDown<K, V>;
+    // tslint:disable-next-line no-unnecessary-generics
+    new <K = any, V = any>(): MemDown<K, V>;
+    // tslint:disable-next-line no-unnecessary-generics
+    <K = any, V = any>(): MemDown<K, V>;
 }
 
 export const MemDown: MemDownConstructor;

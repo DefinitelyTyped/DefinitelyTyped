@@ -161,9 +161,7 @@ export const TemplateTag: {
  * @param  [side=''] The side of the string to trim. Can be 'start' or 'end' (alternatively 'left' or 'right')
  * @return a TemplateTag transformer
  */
-export function trimResultTransformer(
-    side?: 'start' | 'end' | 'left' | 'right' | ''
-): TemplateTransformer;
+export function trimResultTransformer(side?: 'start' | 'end' | 'left' | 'right' | ''): TemplateTransformer;
 
 /**
  * strips indentation from a template literal

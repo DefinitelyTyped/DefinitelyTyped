@@ -1,2 +1,2 @@
-import { functions } from "../fp";
+import { functions } from '../fp';
 export = functions;

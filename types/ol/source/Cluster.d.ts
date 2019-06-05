@@ -9,7 +9,7 @@ export default class Cluster extends VectorSource {
     constructor(options: Options);
     protected distance: number;
     protected features: Feature[];
-    protected geometryFunction: ((param0: Feature) => Point);
+    protected geometryFunction: (param0: Feature) => Point;
     protected resolution: number;
     protected source: VectorSource;
     protected cluster(): void;
@@ -17,9 +17,9 @@ export default class Cluster extends VectorSource {
     getDistance(): number;
     getSource(): VectorSource;
     setDistance(distance: number): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     once(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): EventsKey;
     un(type: 'addfeature', listener: (evt: VectorSourceEvent) => void): void;
@@ -42,7 +42,7 @@ export default class Cluster extends VectorSource {
 export interface Options {
     attributions?: AttributionLike;
     distance?: number;
-    geometryFunction?: ((param0: Feature) => Point);
+    geometryFunction?: (param0: Feature) => Point;
     source: VectorSource;
     wrapX?: boolean;
 }

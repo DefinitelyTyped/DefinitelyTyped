@@ -9,12 +9,12 @@
 interface JQueryColorpickerOptions {
     // Events
     // TODO: Figure out actual types.
-    cancel?: Function,
-    close?: Function,
-    init?: Function,
-    select?: Function,
-    ok?: Function,
-    open?: Function,
+    cancel?: Function;
+    close?: Function;
+    init?: Function;
+    select?: Function;
+    ok?: Function;
+    open?: Function;
 
     alpha?: boolean;
     altAlpha?: boolean;
@@ -39,7 +39,7 @@ interface JQueryColorpickerOptions {
     hsv?: boolean;
     inline?: boolean;
     inlineFrame?: boolean;
-    layout?: { [part: string]: number[]; };
+    layout?: { [part: string]: number[] };
     limit?: string;
     modal?: boolean;
     mode?: string;
@@ -61,14 +61,14 @@ interface JQueryColorpickerOptions {
 }
 
 interface JQueryColorpickerStatic {
-    limits: { [name: string]: (color: any) => void; };
-    parsers: { [name: string]: (color: any) => any; };
-    parts: { [name: string]: (inst: any) => any; };
-    partslists: { [name: string]: string[]; };
-    regional: { [key: string]: string; };
-    swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB; }; };
-    writers: { [name: string]: (color: any, that: any) => any; };
-    Color: { new(r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
+    limits: { [name: string]: (color: any) => void };
+    parsers: { [name: string]: (color: any) => any };
+    parts: { [name: string]: (inst: any) => any };
+    partslists: { [name: string]: string[] };
+    regional: { [key: string]: string };
+    swatches: { [swatch: string]: { [name: string]: JQueryColorpickerStatic.RGB } };
+    writers: { [name: string]: (color: any, that: any) => any };
+    Color: { new (r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color };
 }
 
 declare namespace JQueryColorpickerStatic {
@@ -158,11 +158,11 @@ interface JQueryStatic {
 }
 
 interface JQuery {
-    colorpicker(method: "close"): JQuery;
-    colorpicker(method: "destroy"): JQuery;
-    colorpicker(method: "open"): JQuery;
+    colorpicker(method: 'close'): JQuery;
+    colorpicker(method: 'destroy'): JQuery;
+    colorpicker(method: 'open'): JQuery;
     colorpicker(method: string): JQuery;
-    colorpicker(method: "setColor", color: any): JQuery;
+    colorpicker(method: 'setColor', color: any): JQuery;
     colorpicker(method: string, ...params: any[]): JQuery;
     colorpicker(options?: JQueryColorpickerOptions): JQuery;
 }

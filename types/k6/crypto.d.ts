@@ -25,6 +25,6 @@ export function createHash(algorithm: string): Hasher;
 export function createHMAC(algorithm: string, secret: string): Hasher;
 
 export interface Hasher {
-  update: (input: string) =>  void;
-  digest: (outputEncoding: OutputEncoding) =>  string;
+    update: (input: string) => void;
+    digest: (outputEncoding: OutputEncoding) => string;
 }

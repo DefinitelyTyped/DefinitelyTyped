@@ -1,4 +1,4 @@
-import { DocumentNode, OperationDefinitionNode } from "../language/ast";
+import { DocumentNode, OperationDefinitionNode } from '../language/ast';
 
 /**
  * separateOperations accepts a single AST document which may contain many

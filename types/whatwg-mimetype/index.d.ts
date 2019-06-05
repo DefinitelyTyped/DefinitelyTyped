@@ -6,17 +6,17 @@
 export = MIMEType;
 
 declare class MIMEType {
-  type: string;
-  subtype: string;
+    type: string;
+    subtype: string;
 
-  readonly essence: string;
-  readonly parameters: Map<string, string>;
+    readonly essence: string;
+    readonly parameters: Map<string, string>;
 
-  static parse(s: string): MIMEType | null;
+    static parse(s: string): MIMEType | null;
 
-  constructor(s: string);
+    constructor(s: string);
 
-  isHTML(): boolean;
-  isXML(): boolean;
-  isJavaScript(opts?: { allowParameters?: boolean }): boolean;
+    isHTML(): boolean;
+    isXML(): boolean;
+    isJavaScript(opts?: { allowParameters?: boolean }): boolean;
 }

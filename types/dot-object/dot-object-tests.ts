@@ -1,56 +1,58 @@
 var obj = {
-  'first_name': 'John',
-  'last_name': 'Doe'
+    first_name: 'John',
+    last_name: 'Doe',
 };
 
 dot.move('first_name', 'contact.firstname', obj);
 dot.move('last_name', 'contact.lastname', obj);
 
 var src = {
-  name: 'John',
-  stuff: {
-    phone: {
-      brand: 'iphone',
-      version: 6
-    }
-  }
+    name: 'John',
+    stuff: {
+        phone: {
+            brand: 'iphone',
+            version: 6,
+        },
+    },
 };
 
 var tgt = { name: 'Brandon' };
 
-dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt, [(arg: any) => {
-  return arg;
-}]);
+dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt, [
+    (arg: any) => {
+        return arg;
+    },
+]);
 
 dot.transfer('stuff.phone', 'wanna.haves.phone', src, tgt);
 
 var row = {
-  'id': 2,
-  'contact.name.first': 'John',
-  'contact.name.last': 'Doe',
-  'contact.email': 'example@gmail.com',
-  'contact.info.about.me': 'classified',
-  'devices[0]': 'mobile',
-  'devices[1]': 'laptop',
-  'some.other.things.0': 'this',
-  'some.other.things.1': 'that'
+    id: 2,
+    'contact.name.first': 'John',
+    'contact.name.last': 'Doe',
+    'contact.email': 'example@gmail.com',
+    'contact.info.about.me': 'classified',
+    'devices[0]': 'mobile',
+    'devices[1]': 'laptop',
+    'some.other.things.0': 'this',
+    'some.other.things.1': 'that',
 };
 
 dot.object(row, (arg: any) => {
-  return arg;
+    return arg;
 });
 
 dot.str('this.is.my.string', 'value', tgt);
 
 var newObj = {
-  some: {
-    nested: {
-      value: 'Hi there!'
-    }
-  },
-  breath: {
-    value: 'Hello'
-  }
+    some: {
+        nested: {
+            value: 'Hi there!',
+        },
+    },
+    breath: {
+        value: 'Hello',
+    },
 };
 
 var val = dot.pick('some.nested.value', newObj);

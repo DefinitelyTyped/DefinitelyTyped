@@ -18,7 +18,7 @@ interface SassResults {
         end: Date;
         duration: number;
         includedFiles: string[];
-    }
+    };
 }
 
 interface SassOptions extends Options {

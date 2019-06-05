@@ -1,4 +1,4 @@
-import ansiRegex = require("ansi-regex");
+import ansiRegex = require('ansi-regex');
 
 ansiRegex(); // $ExpectType RegExp
 
@@ -9,7 +9,7 @@ ansiRegex().test('\u001B[4mcake\u001B[0m'); // $ExpectType boolean
 ansiRegex().test('cake'); // $ExpectType boolean
 // => false
 
-ansiRegex({onlyFirst: true}).test('cake'); // $ExpectType boolean
+ansiRegex({ onlyFirst: true }).test('cake'); // $ExpectType boolean
 // => false
 
 '\u001B[4mcake\u001B[0m'.match(ansiRegex()); // $ExpectType RegExpMatchArray | null

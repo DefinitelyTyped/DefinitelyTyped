@@ -12,10 +12,7 @@ export = oneTime;
  * @param fn Function that should only be called once.
  * @returns A function that only calls `fn` once.
  */
-declare function oneTime<T extends any[], R>(
-    fn: (...args: T) => R,
-    options?: oneTime.Options
-): (...args: T) => R;
+declare function oneTime<T extends any[], R>(fn: (...args: T) => R, options?: oneTime.Options): (...args: T) => R;
 
 declare namespace oneTime {
     /**

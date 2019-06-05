@@ -6,7 +6,7 @@ declare function printHostingInstructions(
     publicUrl: string,
     publicPath: string,
     buildFolder: string,
-    useYarn: boolean,
+    useYarn: boolean
 ): void;
 
 export = printHostingInstructions;

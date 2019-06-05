@@ -8,8 +8,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { RequestHandler, Request, Response, NextFunction } from "express";
-import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+import { RequestHandler, Request, Response, NextFunction } from 'express';
+import { RequestOptions, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 
 declare namespace proxy {
     interface ProxyOptions {
@@ -21,14 +21,28 @@ declare namespace proxy {
         limit?: number | string;
         proxyErrorHandler?: (err: any, res: Response, next: NextFunction) => any;
         proxyReqPathResolver?: (req: Request) => string;
-        proxyReqOptDecorator?: (proxyReqOpts: RequestOptions, srcReq: Request) => RequestOptions | Promise<RequestOptions>;
-        userResHeaderDecorator?: (headers: IncomingHttpHeaders, userReq: Request, userRes: Response, proxyReq: Request, proxyRes: Response) => OutgoingHttpHeaders;
-        userResDecorator?: (proxyRes: Response, proxyResData: any, userReq: Request, userRes: Response) => Buffer | string | Promise<Buffer|string>;
+        proxyReqOptDecorator?: (
+            proxyReqOpts: RequestOptions,
+            srcReq: Request
+        ) => RequestOptions | Promise<RequestOptions>;
+        userResHeaderDecorator?: (
+            headers: IncomingHttpHeaders,
+            userReq: Request,
+            userRes: Response,
+            proxyReq: Request,
+            proxyRes: Response
+        ) => OutgoingHttpHeaders;
+        userResDecorator?: (
+            proxyRes: Response,
+            proxyResData: any,
+            userReq: Request,
+            userRes: Response
+        ) => Buffer | string | Promise<Buffer | string>;
         preserveHostHdr?: boolean;
         parseReqBody?: boolean;
     }
 }
 
-declare function proxy(host: string|((req: Request) => string), options?: proxy.ProxyOptions): RequestHandler;
+declare function proxy(host: string | ((req: Request) => string), options?: proxy.ProxyOptions): RequestHandler;
 
 export = proxy;

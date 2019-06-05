@@ -1,4 +1,4 @@
-import { DataShape, FormErrors, FormMeta } from "../index";
+import { DataShape, FormErrors, FormMeta } from '../index';
 
 /**
  * A "selector" API to make it easier to connect() to form values. Creates a selector

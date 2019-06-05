@@ -1,2 +1,2 @@
-import { random } from "lodash";
+import { random } from 'lodash';
 export default random;

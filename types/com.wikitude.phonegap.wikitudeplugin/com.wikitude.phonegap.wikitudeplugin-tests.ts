@@ -10,16 +10,14 @@ WikitudePlugin.loadARchitectWorld(
     },
     'www/assets/07_3dModels_6_3dModelAtGeoLocation/index.html',
     ['geo'],
-    <JSON> startupConfiguration
+    <JSON>startupConfiguration
 );
 
 WikitudePlugin.setOnUrlInvokeCallback(url => {
     if (url.indexOf('captureScreen') > -1) {
         WikitudePlugin.captureScreen(
             absoluteFilePath => {
-                WikitudePlugin.callJavaScript(
-                    `World.testFunction('Screenshot saved at: ${absoluteFilePath}');`
-                );
+                WikitudePlugin.callJavaScript(`World.testFunction('Screenshot saved at: ${absoluteFilePath}');`);
             },
             errorMessage => {
                 console.log(errorMessage);

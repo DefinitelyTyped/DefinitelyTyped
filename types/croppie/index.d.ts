@@ -14,11 +14,11 @@ declare class Croppie {
     constructor(container: HTMLElement, options?: Croppie.CroppieOptions);
 
     bind(options: {
-        url: string,
-        points?: number[],
-        orientation?: number,
-        zoom?: number,
-        useCanvas?: boolean,
+        url: string;
+        points?: number[];
+        orientation?: number;
+        zoom?: number;
+        useCanvas?: boolean;
     }): Promise<void>;
 
     result(options: Croppie.ResultOptions & { type: 'base64' | 'canvas' }): Promise<string>;
@@ -45,14 +45,14 @@ declare namespace Croppie {
 
     interface ResultOptions {
         type?: Type;
-        size?: 'viewport' | 'original' | { width: number, height: number };
+        size?: 'viewport' | 'original' | { width: number; height: number };
         format?: Format;
         quality?: number;
         circle?: boolean;
     }
 
     interface CroppieOptions {
-        boundary?: { width: number, height: number };
+        boundary?: { width: number; height: number };
         customClass?: string;
         enableExif?: boolean;
         enableOrientation?: boolean;
@@ -60,7 +60,7 @@ declare namespace Croppie {
         enforceBoundary?: boolean;
         mouseWheelZoom?: boolean;
         showZoomer?: boolean;
-        viewport?: { width: number, height: number, type?: CropType };
+        viewport?: { width: number; height: number; type?: CropType };
     }
 
     interface CropData {

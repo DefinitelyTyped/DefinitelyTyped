@@ -1,4 +1,4 @@
-import trunc = require("math-trunc");
+import trunc = require('math-trunc');
 
 // $ExpectType number
 trunc(13.37);

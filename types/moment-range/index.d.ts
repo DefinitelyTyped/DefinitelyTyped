@@ -26,9 +26,9 @@ export class DateRange {
 
     subtract(other: DateRange): DateRange[];
 
-    by(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
+    by(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean; step?: number }): Iterable<moment.Moment>;
 
-    byRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
+    byRange(interval: DateRange, options?: { exclusive?: boolean; step?: number }): Iterable<moment.Moment>;
 
     isSame(other: DateRange): boolean;
 
@@ -50,9 +50,12 @@ export class DateRange {
 
     duration(unit?: moment.unitOfTime.Diff, precise?: boolean): number;
 
-    reverseBy(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
+    reverseBy(
+        interval: moment.unitOfTime.Diff,
+        options?: { exclusive?: boolean; step?: number }
+    ): Iterable<moment.Moment>;
 
-    reverseByRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
+    reverseByRange(interval: DateRange, options?: { exclusive?: boolean; step?: number }): Iterable<moment.Moment>;
 }
 
 export interface MomentRangeMethods {

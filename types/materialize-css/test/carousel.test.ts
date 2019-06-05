@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -24,7 +24,7 @@ const carousel = new materialize.Carousel(elem, {
         dragged;
     },
     padding: 1,
-    shift: 1
+    shift: 1,
 });
 
 // $ExpectType number
@@ -46,8 +46,8 @@ carousel.prev(1);
 // $ExpectType void
 carousel.set(2);
 
-$(".whatever").carousel();
-$(".whatever").carousel("destroy");
-$(".whatever").carousel("next", 1);
-$(".whatever").carousel("prev", 1);
-$(".whatever").carousel("set", 1);
+$('.whatever').carousel();
+$('.whatever').carousel('destroy');
+$('.whatever').carousel('next', 1);
+$('.whatever').carousel('prev', 1);
+$('.whatever').carousel('set', 1);

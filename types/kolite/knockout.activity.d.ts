@@ -7,7 +7,6 @@
 /// <reference types="jquery" />
 /// <reference types="knockout" />
 
-
 // Activity /////////////////////////////////////////////
 
 interface KoLiteActivityOptions {
@@ -25,17 +24,17 @@ interface KoLiteActivityOptions {
 interface KoLiteActivity {
     (options: KoLiteActivityOptions): JQuery;
     defaults: KoLiteActivityOptions;
-    getOpacity(options: { steps?: number; segments?: number; opacity?: number; }, i: number): number;
+    getOpacity(options: { steps?: number; segments?: number; opacity?: number }, i: number): number;
 }
 
 interface KoLiteActivityDefaultOptions {
-    activityClass?: string,
-    container?: string,
-    inactiveClass?: string
+    activityClass?: string;
+    container?: string;
+    inactiveClass?: string;
 }
 
 interface KoLiteActivityBindingHandler extends KnockoutBindingHandler {
-    defaultOptions: KoLiteActivityDefaultOptions
+    defaultOptions: KoLiteActivityDefaultOptions;
 }
 
 interface KnockoutBindingHandlers {

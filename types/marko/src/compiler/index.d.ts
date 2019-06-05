@@ -37,9 +37,4 @@ export function buildTaglibLookup(dirname: string): taglibLookup.TaglibLookup;
 
 export function registerTaglib(filePath: string): void;
 
-export {
-    taglibLookup,
-    taglibLoader,
-    taglibFinder,
-    modules
-};
+export { taglibLookup, taglibLoader, taglibFinder, modules };

@@ -51,10 +51,7 @@ export type VerifyFunction = (
 ) => void;
 
 export class Strategy implements passport.Strategy {
-    constructor(
-        options: StrategyOptions,
-        verify: VerifyFunctionWithParams | VerifyFunction
-    );
+    constructor(options: StrategyOptions, verify: VerifyFunctionWithParams | VerifyFunction);
 
     name: string;
     authenticate: (req: express.Request, options?: object) => void;

@@ -69,7 +69,7 @@ export interface PokemonVariation {
         power?: number[];
         stamina?: number[];
         skill?: number[];
-        jump?: number[]
+        jump?: number[];
     };
     abilities?: string[];
     image_suffix?: string;
@@ -179,7 +179,7 @@ export interface Move {
     affected_by_kings_rock: boolean;
     in_battle_properties?: {
         increased_critical_hit_ratio?: boolean;
-        status_conditions?: MoveStatusCondition[]
+        status_conditions?: MoveStatusCondition[];
     };
     stat_modifiers?: MoveStatModifier[];
 }

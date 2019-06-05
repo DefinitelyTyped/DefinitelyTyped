@@ -12,8 +12,6 @@ client
     .asPromise()
     .then(response => {
         response.json.results.forEach(result => {
-            console.log(
-                result.geometry.location
-            );
+            console.log(result.geometry.location);
         });
     });

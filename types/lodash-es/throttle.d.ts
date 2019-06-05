@@ -1,2 +1,2 @@
-import { throttle } from "lodash";
+import { throttle } from 'lodash';
 export default throttle;

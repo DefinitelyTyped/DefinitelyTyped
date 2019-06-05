@@ -101,13 +101,7 @@ export class Line {
  * @param dangerZone The point after which the value will be drawn in red because it's too high
  * @param suffix A value to output after the gauge itself
  */
-export function Gauge(
-    value: number,
-    maxValue: number,
-    guageWidth: number,
-    dangerZone: number,
-    suffix: string,
-): string;
+export function Gauge(value: number, maxValue: number, guageWidth: number, dangerZone: number, suffix: string): string;
 
 /**
  * A simple command line sparkline that draws a series of values, and highlights the peak for the period

@@ -40,44 +40,48 @@ class BasicExample extends React.Component {
     };
 
     genCustomMenu = () => {
-        const menuItems = Object.keys(groups).reduce((accum, letter) => {
-            const header = [
-                <Menu.Divider key={`${letter}-start`} />,
-                <Menu.Header key={`${letter}-header`}>
-                    {`States starting with: ${letter.toUpperCase()}`}
-                    <ClearButton onClick={() => {}} />
-                </Menu.Header>,
-                <Menu.Divider key={`${letter}-end`} />,
-            ];
-            const states = groups[letter].map((state: State, index: number) => {
-                return (<MenuItem key={state.name} position={index} option={state}>{state.name}</MenuItem>);
-            });
-            return [...accum, ...header, ...states];
-        }, [] as JSX.Element[]);
+        const menuItems = Object.keys(groups).reduce(
+            (accum, letter) => {
+                const header = [
+                    <Menu.Divider key={`${letter}-start`} />,
+                    <Menu.Header key={`${letter}-header`}>
+                        {`States starting with: ${letter.toUpperCase()}`}
+                        <ClearButton onClick={() => {}} />
+                    </Menu.Header>,
+                    <Menu.Divider key={`${letter}-end`} />,
+                ];
+                const states = groups[letter].map((state: State, index: number) => {
+                    return (
+                        <MenuItem key={state.name} position={index} option={state}>
+                            {state.name}
+                        </MenuItem>
+                    );
+                });
+                return [...accum, ...header, ...states];
+            },
+            [] as JSX.Element[]
+        );
 
         return menuItems;
-    }
+    };
 
     render() {
         const { multiple } = this.state;
 
         return (
             <div>
-                <Typeahead
-                    options={stateNames}
-                    placeholder="Choose a name"
-                />
+                <Typeahead options={stateNames} placeholder="Choose a name" />
                 <Typeahead
                     options={stateNames}
                     placeholder="Choose a name"
                     multiple
-                    filterBy={(option, props) => (props.text.indexOf(option) !== -1)}
+                    filterBy={(option, props) => props.text.indexOf(option) !== -1}
                 />
                 <Typeahead
                     labelKey="name"
                     multiple={multiple}
                     options={options}
-                    maxHeight='300px'
+                    maxHeight="300px"
                     onInputChange={(value, e) => {}}
                     placeholder="Choose a state..."
                 />
@@ -85,71 +89,69 @@ class BasicExample extends React.Component {
                     labelKey="name"
                     multiple={multiple}
                     options={options}
-                    maxHeight='300px'
-                    filterBy={(option, props) => (props.text.indexOf(option.name) !== -1) }
+                    maxHeight="300px"
+                    filterBy={(option, props) => props.text.indexOf(option.name) !== -1}
                     placeholder="Choose a state..."
                 />
                 <Typeahead
                     labelKey="name"
                     multiple={multiple}
                     options={options}
-                    maxHeight='300px'
-                    filterBy={(option, {text}) => (text.indexOf(option.name) !== -1) }
+                    maxHeight="300px"
+                    filterBy={(option, { text }) => text.indexOf(option.name) !== -1}
                     placeholder="Choose a state..."
                 />
                 <Typeahead
                     labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
-                    renderMenuItemChildren={ (option, props, index) =>
-                        <Highlighter key="name" search={props.text || ""}>
+                    renderMenuItemChildren={(option, props, index) => (
+                        <Highlighter key="name" search={props.text || ''}>
                             {option.name} {index}
                         </Highlighter>
-                    }
+                    )}
                 />
                 <Typeahead
                     labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
                     renderMenu={(results, menuProps) => (
-                      <Menu {...menuProps}>
-                        { results.map((result, index) => (
-                          <MenuItem option={result} position={index} key={index}>
-                            { result.customOption && 'New: ' }
-                            <Highlighter search={menuProps.text}>{result.name}</Highlighter>
-                          </MenuItem>
-                        )) }
-                      </Menu>
+                        <Menu {...menuProps}>
+                            {results.map((result, index) => (
+                                <MenuItem option={result} position={index} key={index}>
+                                    {result.customOption && 'New: '}
+                                    <Highlighter search={menuProps.text}>{result.name}</Highlighter>
+                                </MenuItem>
+                            ))}
+                        </Menu>
                     )}
                 />
-                <Typeahead
-                    labelKey="name"
-                    options={options}
-                    placeholder="Choose a state...">
+                <Typeahead labelKey="name" options={options} placeholder="Choose a state...">
                     <Menu id="menu-id">
-                    {options.map((o, idx) => (
-                      <MenuItem
-                        key={idx}
-                        option={o}
-                        position={idx}>
-                        {o.name}
-                      </MenuItem>
-                    ))}
-                  </Menu>
+                        {options.map((o, idx) => (
+                            <MenuItem key={idx} option={o} position={idx}>
+                                {o.name}
+                            </MenuItem>
+                        ))}
+                    </Menu>
                 </Typeahead>
                 <Typeahead
                     labelKey="name"
                     options={options}
                     placeholder="Choose a state..."
                     renderToken={(selectedItem, props, index) => {
-                        return <Token
-                            active
-                            disabled={false}
-                            tabIndex={5}
-                            href="https://test.com"
-                            onRemove={() => console.log(props.text)}>
-                            {selectedItem.name}<ClearButton onClick={() => {}} />
-                            </Token>;
+                        return (
+                            <Token
+                                active
+                                disabled={false}
+                                tabIndex={5}
+                                href="https://test.com"
+                                onRemove={() => console.log(props.text)}
+                            >
+                                {selectedItem.name}
+                                <ClearButton onClick={() => {}} />
+                            </Token>
+                        );
                     }}
                 >
                     <Menu id="menu-id">{...this.genCustomMenu()}</Menu>

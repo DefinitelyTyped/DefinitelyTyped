@@ -1,5 +1,5 @@
-import wheel = require("wheel");
-import { addWheelListener, removeWheelListener } from "wheel";
+import wheel = require('wheel');
+import { addWheelListener, removeWheelListener } from 'wheel';
 
 // Test 'wheel' function and module
 

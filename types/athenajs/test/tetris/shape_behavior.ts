@@ -127,7 +127,7 @@ class ShapeBehavior extends Behavior {
             this.checkKeyDelay(2, timestamp, -1, 0);
         } else if (IM.isKeyDown('RIGHT')) {
             this.checkKeyDelay(3, timestamp, 1, 0);
-        } else if ((IM.isKeyDown('UP') || IM.isKeyDown('SPACE')) && (timestamp - this.lastRotation > 150)) {
+        } else if ((IM.isKeyDown('UP') || IM.isKeyDown('SPACE')) && timestamp - this.lastRotation > 150) {
             this.lastRotation = timestamp;
             sprite.nextRotation();
         } else if (this.state) {

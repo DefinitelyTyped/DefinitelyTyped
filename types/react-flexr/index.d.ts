@@ -11,12 +11,12 @@ declare namespace __ReactFlexr {
         /**
          * Vertical Align Sub Cells: top, center, bottom
          */
-        align?: "top" | "center" | "bottom";
+        align?: 'top' | 'center' | 'bottom';
 
         /**
          * Horizontal Align Sub Cells: left, center, right
          */
-        hAlign?: "left" | "center" | "right";
+        hAlign?: 'left' | 'center' | 'right';
 
         /**
          * Override default gutter: '1em', '5%', '10px', etc.
@@ -31,14 +31,13 @@ declare namespace __ReactFlexr {
         flexCells?: boolean;
     }
 
-    export class Grid extends React.Component<GridProps> {
-    }
+    export class Grid extends React.Component<GridProps> {}
 
     interface CellProps extends React.Props<Cell> {
         /**
          * Vertical Align This Cell: top, center, bottom
          */
-        align?: "top" | "center" | "bottom";
+        align?: 'top' | 'center' | 'bottom';
 
         /**
          * Override default gutter: '1em', '5%', '10px', etc.
@@ -80,8 +79,7 @@ declare namespace __ReactFlexr {
         desk?: string | number;
     }
 
-    export class Cell extends React.Component<CellProps> {
-    }
+    export class Cell extends React.Component<CellProps> {}
 
     /**
      * Simple resize event throttler. Usefull for force updating when the
@@ -94,7 +92,7 @@ declare namespace __ReactFlexr {
 
     export const optimizedResize: OptimizedResize;
 
-    export type ErgonomicType = "palm" | "lap" | "portable" | "desk";
+    export type ErgonomicType = 'palm' | 'lap' | 'portable' | 'desk';
 
     /**
      * The internal function that Flexr uses to check which ergonomic
@@ -146,6 +144,6 @@ declare namespace __ReactFlexr {
     export const desk: string;
 }
 
-declare module "react-flexr" {
+declare module 'react-flexr' {
     export = __ReactFlexr;
 }

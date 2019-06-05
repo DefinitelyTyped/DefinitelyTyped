@@ -1,4 +1,3 @@
-
 import JSON5 = require('json5');
 
 const STR = "{ key:'val', 'key2':[0,1,2,] } //comment ";

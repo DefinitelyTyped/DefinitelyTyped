@@ -1,19 +1,19 @@
-import * as walk from "walk";
+import * as walk from 'walk';
 
 const options: walk.WalkOptions = {
     followLinks: true,
     filters: ['.gitignore'],
     listeners: {
-        directories: () => { },
-        directory: () => { },
-        directoryError: () => { },
-        end: () => { },
-        errors: () => { },
-        file: () => { },
-        files: () => { },
-        names: () => { },
-        nodeError: () => { }
-    }
+        directories: () => {},
+        directory: () => {},
+        directoryError: () => {},
+        end: () => {},
+        errors: () => {},
+        file: () => {},
+        files: () => {},
+        names: () => {},
+        nodeError: () => {},
+    },
 };
 
 // $ExpectType Walker
@@ -27,7 +27,7 @@ walker.on('directories', (
     next
 ) => {
     root.trim();
-    statsArray.forEach((stats) => `${stats.name} (${stats.type})`);
+    statsArray.forEach(stats => `${stats.name} (${stats.type})`);
     next();
 });
 
@@ -45,18 +45,18 @@ walker.on('file', (
     }
 
     switch (stats.type) {
-        case "blockDevice":
-        case "characterDevice":
-        case "directory":
-        case "FIFO":
-        case "file":
-        case "socket":
-        case "symbolicLink":
+        case 'blockDevice':
+        case 'characterDevice':
+        case 'directory':
+        case 'FIFO':
+        case 'file':
+        case 'socket':
+        case 'symbolicLink':
             // All good
             break;
     }
 });
 // $ExpectError
-walker.on('foo', () => { });
+walker.on('foo', () => {});
 walker.pause();
 walker.resume();

@@ -1,2 +1,2 @@
-import { isArrayLikeObject } from "./index";
+import { isArrayLikeObject } from './index';
 export = isArrayLikeObject;

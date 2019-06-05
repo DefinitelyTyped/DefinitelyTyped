@@ -40,36 +40,24 @@ agent
 const callback = (err: any, res: request.Response) => {};
 
 // Request basics
-request
-    .get('/search')
-    .end(callback);
+request.get('/search').end(callback);
 
-request('GET', '/search')
-    .end(callback);
+request('GET', '/search').end(callback);
 
-request
-    .get('http://example.com/search')
-    .end(callback);
+request.get('http://example.com/search').end(callback);
 
-request
-    .head('/favicon.ico')
-    .end(callback);
+request.head('/favicon.ico').end(callback);
 
-request
-    .del('/user/1')
-    .end(callback);
+request.del('/user/1').end(callback);
 
-request
-    .delete('/user/1')
-    .end(callback);
+request.delete('/user/1').end(callback);
 
 request
     .delete('/user/1')
     .send()
     .end(callback);
 
-request('/search')
-    .end(callback);
+request('/search').end(callback);
 
 // Setting header fields
 request
@@ -120,53 +108,51 @@ request
     .end(callback);
 
 // POST / PUT requests
-request.post('/user')
+request
+    .post('/user')
     .set('Content-Type', 'application/json')
     .send('{"name":"tj","pet":"tobi"}')
     .end(callback);
 
-request.post('/user')
+request
+    .post('/user')
     .send({ name: 'tj', pet: 'tobi' })
     .end(callback);
 
-request.post('/user')
+request
+    .post('/user')
     .send({ name: 'tj' })
     .send({ pet: 'tobi' })
     .end(callback);
 
-request.post('/user')
+request
+    .post('/user')
     .send('name=tj')
     .send('pet=tobi')
     .end(callback);
 
-request.post('/user')
+request
+    .post('/user')
     .type('form')
     .send({ name: 'tj' })
     .send({ pet: 'tobi' })
     .end(callback);
 
 // Setting the Content-Type
-request.post('/user')
-    .set('Content-Type', 'application/json');
+request.post('/user').set('Content-Type', 'application/json');
 
-request.post('/user')
-    .type('application/json');
+request.post('/user').type('application/json');
 
-request.post('/user')
-    .type('json');
+request.post('/user').type('json');
 
-request.post('/user')
-    .type('png');
+request.post('/user').type('png');
 
 // Setting Accept
-request.get('/user')
-    .accept('application/json');
+request.get('/user').accept('application/json');
 
-request.get('/user')
-    .accept('json');
+request.get('/user').accept('json');
 
-request.get('/user')
-    .accept('png');
+request.get('/user').accept('png');
 
 // Setting max response size
 request
@@ -199,40 +185,38 @@ request
 request.serialize['application/xml'] = (obj: any) => 'generated xml here';
 
 // Parsing response bodies
-request('/search')
-    .end((res: request.Response) => {
-        const status: number = res.status;
-        const body = res.body;
-        const files: object = res.files;
-        const text: string = res.text;
-        const contentLength = res.header['content-length'];
-        const contentType: string = res.type;
-        const charset: string = res.charset;
-        const redirects: string[] = res.redirects;
-    });
+request('/search').end((res: request.Response) => {
+    const status: number = res.status;
+    const body = res.body;
+    const files: object = res.files;
+    const text: string = res.text;
+    const contentLength = res.header['content-length'];
+    const contentType: string = res.type;
+    const charset: string = res.charset;
+    const redirects: string[] = res.redirects;
+});
 
 // Getting response 'Set-Cookie'
-request('/search')
-    .end((res: request.Response) => {
-      const setCookie: string[] = res.get('Set-Cookie');
-    });
+request('/search').end((res: request.Response) => {
+    const setCookie: string[] = res.get('Set-Cookie');
+});
 
 // Custom parsers
 request
     .post('/search')
     .parse((res, callback) => {
-        res.setEncoding("binary");
-        let data = "";
-        res.on("data", (chunk: string) => {
+        res.setEncoding('binary');
+        let data = '';
+        res.on('data', (chunk: string) => {
             data += chunk;
         });
 
-        res.on("end", () => {
-            callback(null, new Buffer(data, "base64"));
+        res.on('end', () => {
+            callback(null, new Buffer(data, 'base64'));
         });
     })
     .end((res: request.Response) => {
-        res.body.toString("hex");
+        res.body.toString('hex');
     });
 
 const req = request.get('/hoge');
@@ -264,7 +248,7 @@ request
 
 request
     .get('http://local')
-    .auth('user', 'pass', {type: 'auto'})
+    .auth('user', 'pass', { type: 'auto' })
     .end(callback);
 
 request
@@ -334,8 +318,8 @@ request
     .field('user[email]', 'tobi@learnboost.com')
     .field({
         field1: 'value1',
-        field2: Buffer.from([ 10, 20 ]),
-        field3: [ 'value1', 'value2' ],
+        field2: Buffer.from([10, 20]),
+        field3: ['value1', 'value2'],
         field4: true,
     })
     .attach('image', 'path/to/tobi.png')
@@ -351,13 +335,11 @@ request
 request
     .post('/upload')
     .attach('image', 'path/to/tobi.png')
-    .end((err: any, res: request.Response): void => {
-    });
+    .end((err: any, res: request.Response): void => {});
 request
     .post('/upload')
     .attach('image', 'path/to/tobi.png')
-    .on('error', (err: any) => {
-    })
+    .on('error', (err: any) => {})
     .end(callback);
 
 // Progress
@@ -377,10 +359,8 @@ request
 // Promise
 request
     .get('/search')
-    .then((response) => {
-    })
-    .catch((error) => {
-    });
+    .then(response => {})
+    .catch(error => {});
 // Requesting binary data.
 // adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
 request
@@ -414,7 +394,7 @@ request
     .post('/secure')
     .pfx({
         pfx: passpfx,
-        passphrase: 'test'
+        passphrase: 'test',
     })
     .end(callback);
 
@@ -429,11 +409,11 @@ request
 // Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
 // which has additional properties.
 const echoPlugin = (request: request.SuperAgentRequest) => {
-  req.url = '' + req.url;
-  req.cookies = '' + req.cookies;
-  if (req.method) {
-    req.url = '/echo';
-  }
+    req.url = '' + req.url;
+    req.cookies = '' + req.cookies;
+    if (req.method) {
+        req.url = '/echo';
+    }
 };
 
 request

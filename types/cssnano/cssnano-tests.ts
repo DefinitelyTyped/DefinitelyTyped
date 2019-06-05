@@ -9,9 +9,12 @@ const nano3: Transformer = cssnano({
     preset: 'default',
 });
 const nano4: Transformer = cssnano({
-    preset: ['default', {
-        discardComments: {
-            removeAll: true,
+    preset: [
+        'default',
+        {
+            discardComments: {
+                removeAll: true,
+            },
         },
-    }],
+    ],
 });

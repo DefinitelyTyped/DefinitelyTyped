@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as profiler from "v8-profiler";
+import * as fs from 'fs';
+import * as profiler from 'v8-profiler';
 
 {
     var snapshot1 = profiler.takeSnapshot('1');
@@ -8,7 +8,7 @@ import * as profiler from "v8-profiler";
 }
 {
     profiler.startProfiling('', true);
-    setTimeout(function () {
+    setTimeout(function() {
         var profile = profiler.stopProfiling('');
         profiler.deleteAllProfiles();
     }, 1000);
@@ -22,13 +22,14 @@ import * as profiler from "v8-profiler";
     console.log(snapshot1.compare(snapshot2));
 
     // Export snapshot to file file
-    snapshot1.export(function (error, result) {
+    snapshot1.export(function(error, result) {
         fs.writeFileSync('snapshot1.json', result);
         snapshot1.delete();
     });
 
     // Export snapshot to file stream
-    snapshot2.export()
+    snapshot2
+        .export()
         .pipe(fs.createWriteStream('snapshot2.json'))
         .on('finish', snapshot2.delete);
 }
@@ -40,14 +41,15 @@ import * as profiler from "v8-profiler";
 
     console.log(snapshot1.getHeader(), snapshot2.getHeader());
 
-    profile1.export(function (error, result) {
+    profile1.export(function(error, result) {
         fs.writeFileSync('profile1.json', result);
         profile1.delete();
     });
 
-    profile2.export()
+    profile2
+        .export()
         .pipe(fs.createWriteStream('profile2.json'))
-        .on('finish', function () {
+        .on('finish', function() {
             profile2.delete();
         });
 }

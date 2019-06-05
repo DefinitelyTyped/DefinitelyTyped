@@ -1,6 +1,6 @@
-import { GraphQLError } from "../error/GraphQLError";
-import { ValueNode } from "../language/ast";
-import { GraphQLInputType } from "../type/definition";
+import { GraphQLError } from '../error/GraphQLError';
+import { ValueNode } from '../language/ast';
+import { GraphQLInputType } from '../type/definition';
 
 /**
  * Utility which determines if a value literal node is valid for an input type.

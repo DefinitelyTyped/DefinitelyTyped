@@ -1,7 +1,7 @@
-import * as npmlog from "npmlog";
+import * as npmlog from 'npmlog';
 
-const prefix = "str";
-const message = "otherStr";
+const prefix = 'str';
+const message = 'otherStr';
 
 ['silly', 'verbose', 'info', 'http', 'warn', 'error'].forEach(lvl => npmlog.log(lvl, prefix, message));
 
@@ -27,18 +27,23 @@ npmlog.disableUnicode();
 npmlog.pause();
 npmlog.resume();
 
-npmlog.addLevel("new-level", 42);
-npmlog.addLevel("styled-level", 42, {
+npmlog.addLevel('new-level', 42);
+npmlog.addLevel('styled-level', 42, {
     fg: 'red',
     bg: 'blue',
     bold: false,
     inverse: true,
     underline: true,
-    bell: false
+    bell: false,
 });
 
-npmlog.addLevel("styled-level", 42, {
-    fg: 'red',
-    bold: false,
-    underline: true,
-}, 'display name');
+npmlog.addLevel(
+    'styled-level',
+    42,
+    {
+        fg: 'red',
+        bold: false,
+        underline: true,
+    },
+    'display name'
+);

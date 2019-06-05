@@ -5,10 +5,10 @@
 // TypeScript Version: 2.4
 
 export enum Direction {
-    North = "N",
-    South = "S",
-    East = "E",
-    West = "W"
+    North = 'N',
+    South = 'S',
+    East = 'E',
+    West = 'W',
 }
 
 export interface Neighbours {
@@ -46,11 +46,7 @@ export interface Point {
  *     var geohash = Geohash.encode(52.205, 0.119, 7); // geohash: 'u120fxw'
  */
 
-export function encode(
-    latitude: number,
-    longitude: number,
-    precision?: number
-): string;
+export function encode(latitude: number, longitude: number, precision?: number): string;
 
 /**
  * Decode geohash to latitude/longitude (location is approximate centre of geohash cell,

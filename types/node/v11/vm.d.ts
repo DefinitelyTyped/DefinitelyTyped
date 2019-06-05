@@ -1,4 +1,4 @@
-declare module "vm" {
+declare module 'vm' {
     interface Context {
         [key: string]: any;
     }

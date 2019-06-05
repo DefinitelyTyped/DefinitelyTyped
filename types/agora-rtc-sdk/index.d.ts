@@ -18,7 +18,7 @@ export function checkSystemRequirements(): boolean;
 export function getDevices(callback: (devices: any[]) => void): void;
 
 /*~ You can declare types that are available via importing the module */
-export interface ClientConfig  {
+export interface ClientConfig {
     mode: 'live' | 'rtc';
     codec: 'vp8' | 'h264';
     proxyServer?: string;
@@ -32,7 +32,7 @@ export interface ClientConfig  {
     };
 }
 
-export interface StreamSpec  {
+export interface StreamSpec {
     streamID: number;
     audio: boolean;
     video: boolean;
@@ -180,13 +180,7 @@ export type SafariVideoProfile =
     | '4K_1'
     | '4K_3';
 
-export type ScreenSharingProfile =
-    | '480p_1'
-    | '480p_2'
-    | '720p_1'
-    | '720p_2'
-    | '1080p_1'
-    | '1080p_2';
+export type ScreenSharingProfile = '480p_1' | '480p_2' | '720p_1' | '720p_2' | '1080p_1' | '1080p_2';
 
 export type ClientEvent =
     | 'stream-published'
@@ -203,9 +197,7 @@ export type ClientEvent =
     | 'error';
 
 export interface Stream {
-    getStats(
-        callback: (stats: LocalStreamStats | RemoteStreamStats) => void
-    ): void;
+    getStats(callback: (stats: LocalStreamStats | RemoteStreamStats) => void): void;
     init(onSuccess: () => void, onFailure: (err: any) => void): void;
     getId(): number;
     getAttributes(): any;
@@ -216,13 +208,7 @@ export interface Stream {
     disableVideo(): void;
     enableAudio(): void;
     disableAudio(): void;
-    setVideoProfile(
-        profile:
-        | VideoProfile
-        | FirefoxVideoProfile
-        | SafariVideoProfile
-        | ScreenSharingProfile
-    ): void;
+    setVideoProfile(profile: VideoProfile | FirefoxVideoProfile | SafariVideoProfile | ScreenSharingProfile): void;
     play(HTMLElementID: string): void;
     stop(): void;
     close(): void;
@@ -230,11 +216,7 @@ export interface Stream {
 
 export interface Client {
     on(eventName: ClientEvent, callback: (evt: any) => void): void;
-    init(
-        appId: string,
-        onSuccess: () => void,
-        onFailure: (err: any) => void
-    ): void;
+    init(appId: string, onSuccess: () => void, onFailure: (err: any) => void): void;
     join(
         tokenOrKey: string,
         channel: string,
@@ -242,26 +224,11 @@ export interface Client {
         onSuccess: (uid: number) => void,
         onFailure: (err: any) => void
     ): void;
-    renewChannelKey(
-        key: string,
-        onSuccess: () => void,
-        onFailure: (err: any) => void
-    ): void;
-    enableDualStream(
-        onSuccess: () => void,
-        onFailure: (err: any) => void
-    ): void;
+    renewChannelKey(key: string, onSuccess: () => void, onFailure: (err: any) => void): void;
+    enableDualStream(onSuccess: () => void, onFailure: (err: any) => void): void;
     setRemoteVideoStreamType(stream: Stream, streamType: 0 | 1): void;
-    setLowStreamParameter(param: {
-        width: number;
-        height: number;
-        framerate: number;
-        birate: number;
-    }): void;
-    disableDualStream(
-        onSuccess: () => void,
-        onFailure: (err: any) => void
-    ): void;
+    setLowStreamParameter(param: { width: number; height: number; framerate: number; birate: number }): void;
+    disableDualStream(onSuccess: () => void, onFailure: (err: any) => void): void;
     leave(onSuccess: () => void, onFailure: (err: any) => void): void;
     publish(stream: Stream, onFailure: (err: any) => void): void;
     unpublish(stream: Stream, onFailure: (err: any) => void): void;
@@ -270,9 +237,7 @@ export interface Client {
     setProxyServer(proxyServer: ClientConfig['proxyServer']): void;
     setTurnServer(turnServer: ClientConfig['turnServer']): void;
     setEncryptionSecret(password: string): void;
-    setEncryptionMode(
-        encryptionMode: 'aes-128-xts' | 'aes-256-xts' | 'aes-128-ecb'
-    ): void;
+    setEncryptionMode(encryptionMode: 'aes-128-xts' | 'aes-256-xts' | 'aes-128-ecb'): void;
 }
 
 /*~ You can declare properties of the module using const, let, or var */
@@ -305,7 +270,7 @@ export namespace Logger {
     type WARNING = 2;
     type ERROR = 3;
     type NONE = 4;
-    function setLogLevel(level: DEBUG|INFO|WARNING|NONE): void;
+    function setLogLevel(level: DEBUG | INFO | WARNING | NONE): void;
     function log(args: any): void;
     function debug(args: any): void;
     function info(args: any): void;

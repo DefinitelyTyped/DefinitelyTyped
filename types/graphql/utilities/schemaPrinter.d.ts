@@ -1,5 +1,5 @@
-import { GraphQLSchema } from "../type/schema";
-import { GraphQLType, GraphQLNamedType } from "../type/definition";
+import { GraphQLSchema } from '../type/schema';
+import { GraphQLType, GraphQLNamedType } from '../type/definition';
 
 export interface Options {
     /**

@@ -1,3 +1,3 @@
-declare module "process" {
+declare module 'process' {
     export = process;
 }

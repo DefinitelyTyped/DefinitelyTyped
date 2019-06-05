@@ -6,12 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export type maskArray = Array<string | RegExp>;
 
-export interface MaskedInputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface MaskedInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     mask?: maskArray | ((value: string) => maskArray);
 
     guide?: boolean;
@@ -20,10 +19,7 @@ export interface MaskedInputProps
 
     keepCharPositions?: boolean;
 
-    pipe?: (
-        conformedValue: string,
-        config: any
-    ) => false | string | { value: string; indexesOfPipedChars: number[] };
+    pipe?: (conformedValue: string, config: any) => false | string | { value: string; indexesOfPipedChars: number[] };
 
     showMask?: boolean;
 
@@ -37,11 +33,8 @@ export interface conformToMaskResult {
     };
 }
 
-export default class MaskedInput extends React.Component<
-    MaskedInputProps,
-    any
-> {
-  inputElement: HTMLElement;
+export default class MaskedInput extends React.Component<MaskedInputProps, any> {
+    inputElement: HTMLElement;
 }
 
 export function conformToMask(

@@ -1,3 +1,3 @@
-import * as lw from "eth-lightwallet";
+import * as lw from 'eth-lightwallet';
 
 lw.keystore.createVault({});

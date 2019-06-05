@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Component, ReactNode } from "react";
+import { Component, ReactNode } from 'react';
 
 import {
     DraggingStyle,
     DraggableProvidedDragHandleProps,
     DraggableStateSnapshot,
-    NotDraggingStyle
-} from "react-beautiful-dnd";
+    NotDraggingStyle,
+} from 'react-beautiful-dnd';
 
 export type ItemId = any;
 
@@ -45,9 +45,9 @@ export interface TreeDestinationPosition {
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-interface TreeDraggingStyle extends Omit<DraggingStyle, "transition"> {
+interface TreeDraggingStyle extends Omit<DraggingStyle, 'transition'> {
     paddingLeft: number;
-    transition: "none" | string;
+    transition: 'none' | string;
 }
 
 type TreeDraggableStyle = NotDraggingStyle | TreeDraggingStyle;
@@ -57,7 +57,7 @@ interface TreeDraggableProps {
     // inline style
     style?: TreeDraggableStyle;
     // used for shared global styles
-    "data-react-beautiful-dnd-draggable": string;
+    'data-react-beautiful-dnd-draggable': string;
 }
 
 interface TreeDraggableProvided {
@@ -86,17 +86,9 @@ interface TreeItemMutation {
     data?: TreeItemData;
 }
 
-export function mutateTree(
-    tree: TreeData,
-    itemId: ItemId,
-    mutation: TreeItemMutation
-): TreeData;
+export function mutateTree(tree: TreeData, itemId: ItemId, mutation: TreeItemMutation): TreeData;
 
-export function moveItemOnTree(
-    tree: TreeData,
-    from: TreeSourcePosition,
-    to: TreeDestinationPosition
-): TreeData;
+export function moveItemOnTree(tree: TreeData, from: TreeSourcePosition, to: TreeDestinationPosition): TreeData;
 
 interface TreeProps {
     /** The tree data structure. */
@@ -108,10 +100,7 @@ interface TreeProps {
     /** Function that will be called when the user starts dragging. */
     onDragStart: (itemId: ItemId) => void;
     /** Function that will be called when the user finishes dragging. */
-    onDragEnd: (
-        sourcePosition: TreeSourcePosition,
-        destinationPosition: TreeDestinationPosition | undefined
-    ) => void;
+    onDragEnd: (sourcePosition: TreeSourcePosition, destinationPosition: TreeDestinationPosition | undefined) => void;
     /** Function that will be called to render a single item. */
     renderItem: (itemProps: RenderItemParams) => ReactNode;
     /** Number of pixel is used to scaffold the tree by the consumer. */

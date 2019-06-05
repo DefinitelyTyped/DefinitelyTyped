@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Model
      * @class A model is a graphical object that can be added to or removed from a scene.

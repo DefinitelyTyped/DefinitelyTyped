@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servermethodmethods
-import { Server, ServerMethodConfigurationObject } from "hapi";
+import { Server, ServerMethodConfigurationObject } from 'hapi';
 
 const server = new Server({
     port: 8000,
@@ -16,10 +16,10 @@ const methodObject: ServerMethodConfigurationObject = {
     options: {
         cache: {
             expiresIn: 2000,
-            generateTimeout: 100
+            generateTimeout: 100,
         },
-        generateKey: (a: string | undefined) => a === undefined ? null : a
-    }
+        generateKey: (a: string | undefined) => (a === undefined ? null : a),
+    },
 };
 
 server.method(methodObject);

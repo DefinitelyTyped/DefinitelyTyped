@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/rails.html
      *
@@ -21,7 +20,7 @@ declare namespace dojox {
     }
 }
 
-declare module "dojox/rails" {
-    var exp: dojox.rails
-    export=exp;
+declare module 'dojox/rails' {
+    var exp: dojox.rails;
+    export = exp;
 }

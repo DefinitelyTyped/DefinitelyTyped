@@ -9,10 +9,7 @@
 
 import { IncomingMessage, ServerResponse } from 'http';
 import { ComponentType } from 'react';
-import {
-    MapDispatchToPropsParam, MapStateToPropsParam,
-    MergeProps, Options as ConnectOptions
-} from 'react-redux';
+import { MapDispatchToPropsParam, MapStateToPropsParam, MergeProps, Options as ConnectOptions } from 'react-redux';
 import { Store } from 'redux';
 
 declare namespace nextReduxWrapper {
@@ -42,7 +39,13 @@ declare namespace nextReduxWrapper {
     ) => Store<TInitialState>;
 }
 
-declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
+declare function nextReduxWrapper<
+    TInitialState = any,
+    TStateProps = any,
+    TDispatchProps = any,
+    TOwnProps = any,
+    TMergedProps = any
+>(
     makeStore: nextReduxWrapper.NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     config?: nextReduxWrapper.Options
 ): (ComponentType: ComponentType<TOwnProps & TMergedProps>) => nextReduxWrapper.NextReduxWrappedComponent<TOwnProps>;

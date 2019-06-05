@@ -18,7 +18,6 @@
 /// <reference types="node" />
 
 declare namespace Parse {
-
     let applicationId: string;
     let javaScriptKey: string | undefined;
     let masterKey: string | undefined;
@@ -39,25 +38,24 @@ declare namespace Parse {
     }
 
     interface FullOptions {
-      success?: Function;
-      error?: Function;
-      useMasterKey?: boolean;
-      sessionToken?: string;
-      installationId?: string;
-      progress?: Function;
+        success?: Function;
+        error?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        progress?: Function;
     }
 
     interface RequestOptions {
-      useMasterKey?: boolean;
-      sessionToken?: string;
-      installationId?: string;
-      batchSize?: number;
-      include?: string | string[];
-      progress?: Function;
+        useMasterKey?: boolean;
+        sessionToken?: string;
+        installationId?: string;
+        batchSize?: number;
+        include?: string | string[];
+        progress?: Function;
     }
 
-    interface SuccessFailureOptions extends SuccessOption, ErrorOption {
-    }
+    interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
 
     interface SignUpOptions {
         useMasterKey?: boolean;
@@ -83,8 +81,7 @@ declare namespace Parse {
         useMasterKey?: boolean;
     }
 
-    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {
-    }
+    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
 
     interface SilentOption {
         /**
@@ -122,7 +119,6 @@ declare namespace Parse {
      * of your application.</p>
      */
     class ACL extends BaseObject {
-
         permissionsById: any;
 
         constructor(arg1?: any);
@@ -155,7 +151,6 @@ declare namespace Parse {
         getWriteAccess(userId: string): boolean;
     }
 
-
     /**
      * A Parse.File is a local representation of a file that is saved to the Parse
      * cloud.
@@ -186,12 +181,10 @@ declare namespace Parse {
      *     extension.
      */
     class File {
-
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
         save(options?: SuccessFailureOptions): Promise<File>;
-
     }
 
     /**
@@ -218,7 +211,6 @@ declare namespace Parse {
      *   object.save();</pre></p>
      */
     class GeoPoint extends BaseObject {
-
         latitude: number;
         longitude: number;
 
@@ -235,7 +227,6 @@ declare namespace Parse {
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
     class Relation<S extends Object = Object, T extends Object = Object> extends BaseObject {
-
         parent: S;
         key: string;
         targetClassName: string;
@@ -278,7 +269,6 @@ declare namespace Parse {
      * Creates a new model with defined attributes.
      */
     class Object extends BaseObject {
-
         id: string;
         createdAt: Date;
         updatedAt: Date;
@@ -295,7 +285,11 @@ declare namespace Parse {
         static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
-        static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
+        static fetchAllWithInclude<T extends Object>(
+            list: T[],
+            keys: string | Array<string | Array<string>>,
+            options: RequestOptions
+        ): Promise<T[]>;
         static fromJSON(json: any, override?: boolean): Object;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
@@ -355,17 +349,17 @@ declare namespace Parse {
     }
 
     namespace Object {
-        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions {}
 
-        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
+        interface DestroyAllOptions extends BatchSizeOption, ScopeOptions {}
 
-        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions {}
 
-        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FetchOptions extends SuccessFailureOptions, ScopeOptions {}
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption {}
 
-        interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
+        interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -382,7 +376,6 @@ declare namespace Parse {
      * push notifications has an associated Installation object.
      */
     class Installation extends Object {
-
         badge: any;
         channels: string[];
         timeZone: any;
@@ -395,7 +388,6 @@ declare namespace Parse {
         appVersion: string;
         parseVersion: string;
         appIdentifier: string;
-
     }
     /**
      * Creates a new parse Parse.Query for the given Parse.Object subclass.
@@ -454,7 +446,6 @@ declare namespace Parse {
      * });</pre></p>
      */
     class Query<T extends Object = Object> extends BaseObject {
-
         objectClass: any;
         className: string;
 
@@ -472,7 +463,7 @@ declare namespace Parse {
         addDescending(key: string[]): Query<T>;
         ascending(key: string): Query<T>;
         ascending(key: string[]): Query<T>;
-        aggregate(pipeline: Query.AggregationOptions|Query.AggregationOptions[]): Query<T>;
+        aggregate(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Query<T>;
         containedBy(key: string, values: any[]): Query<T>;
         containedIn(key: string, values: any[]): Query<T>;
         contains(key: string, substring: string): Query<T>;
@@ -525,28 +516,28 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface FindOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface FirstOptions extends SuccessFailureOptions, ScopeOptions {}
+        interface GetOptions extends SuccessFailureOptions, ScopeOptions {}
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
-            group?: { objectId?: string, [key:string]: any };
-            match?: {[key: string]: any};
-            project?: {[key: string]: any};
+            group?: { objectId?: string; [key: string]: any };
+            match?: { [key: string]: any };
+            project?: { [key: string]: any };
             limit?: number;
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
-            sort?: {[key: string]: 1|-1};
+            sort?: { [key: string]: 1 | -1 };
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
         interface FullTextOptions {
-          language?: string;
-          caseSensitive?: boolean;
-          diacriticSensitive?: boolean;
+            language?: string;
+            caseSensitive?: boolean;
+            diacriticSensitive?: boolean;
         }
     }
 
@@ -646,7 +637,6 @@ subscription.on('close', () => {});
      * cloud.
      */
     class Role extends Object {
-
         constructor(name: string, acl: ACL);
 
         getRoles(): Relation<Role, Role>;
@@ -681,7 +671,6 @@ subscription.on('close', () => {});
      * uniqueness.</p>
      */
     class User extends Object {
-
         static allowCustomUserClass(isAllowed: boolean): void;
         static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
@@ -709,9 +698,7 @@ subscription.on('close', () => {});
         getSessionToken(): string;
     }
 
-
     namespace Analytics {
-
         function track(name: string, dimensions: any): Promise<any>;
     }
 
@@ -721,7 +708,6 @@ subscription.on('close', () => {});
      * Provides a set of utilities for using Parse with Facebook.
      */
     namespace FacebookUtils {
-
         function init(options?: any): void;
         function isLinked(user: User): boolean;
         function link(user: User, permissions: any, options?: SuccessFailureOptions): void;
@@ -737,7 +723,6 @@ subscription.on('close', () => {});
      * </em></strong></p>
      */
     namespace Cloud {
-
         interface CookieOptions {
             domain?: string;
             expires?: Date;
@@ -789,8 +774,8 @@ subscription.on('close', () => {});
         interface AfterSaveRequest extends TriggerRequest {
             context: object;
         }
-        interface AfterDeleteRequest extends TriggerRequest { }
-        interface BeforeDeleteRequest extends TriggerRequest { }
+        interface AfterDeleteRequest extends TriggerRequest {}
+        interface BeforeDeleteRequest extends TriggerRequest {}
         interface BeforeSaveRequest extends TriggerRequest {
             context: object;
         }
@@ -801,18 +786,18 @@ subscription.on('close', () => {});
             PrimaryPreferred = 'PRIMARY_PREFERRED',
             Secondary = 'SECONDARY',
             SecondaryPreferred = 'SECONDARY_PREFERRED',
-            Nearest = 'NEAREST'
+            Nearest = 'NEAREST',
         }
 
         interface BeforeFindRequest extends TriggerRequest {
-            query: Query
-            count: boolean
-            isGet: boolean
-            readPreference?: ReadPreferenceOption
+            query: Query;
+            count: boolean;
+            isGet: boolean;
+            readPreference?: ReadPreferenceOption;
         }
 
         interface AfterFindRequest extends TriggerRequest {
-            objects: Object[]
+            objects: Object[];
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => Promise<void> | void): void;
@@ -828,7 +813,7 @@ subscription.on('close', () => {});
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
         function useMasterKey(): void;
 
-        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface RunOptions extends SuccessFailureOptions, ScopeOptions {}
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
@@ -872,21 +857,17 @@ subscription.on('close', () => {});
         }
     }
 
-
     class Error {
-
         code: ErrorCode;
         message: string;
 
         constructor(code: ErrorCode, message: string);
-
     }
 
     /*
      * We need to inline the codes in order to make compilation work without this type definition as dependency.
      */
     const enum ErrorCode {
-
         OTHER_CAUSE = -1,
         INTERNAL_SERVER_ERROR = 1,
         CONNECTION_FAILED = 100,
@@ -941,7 +922,7 @@ subscription.on('close', () => {});
         UNSUPPORTED_SERVICE = 252,
         AGGREGATE_ERROR = 600,
         FILE_READ_ERROR = 601,
-        X_DOMAIN_REQUEST = 602
+        X_DOMAIN_REQUEST = 602,
     }
 
     /**
@@ -957,16 +938,13 @@ subscription.on('close', () => {});
      * directly.
      */
     namespace Op {
-
         interface BaseOperation extends IBaseObject {
             objects(): any[];
         }
 
-        interface Add extends BaseOperation {
-        }
+        interface Add extends BaseOperation {}
 
-        interface AddUnique extends BaseOperation {
-        }
+        interface AddUnique extends BaseOperation {}
 
         interface Increment extends IBaseObject {
             amount: number;
@@ -981,9 +959,7 @@ subscription.on('close', () => {});
             value(): any;
         }
 
-        interface Unset extends IBaseObject {
-        }
-
+        interface Unset extends IBaseObject {}
     }
 
     /**
@@ -1047,16 +1023,16 @@ subscription.on('close', () => {});
     function setLocalDatastoreController(controller: any): void;
 }
 
-declare module "parse/node" {
+declare module 'parse/node' {
     export = Parse;
 }
 
-declare module "parse" {
-    import * as parse from "parse/node";
-    export = parse
+declare module 'parse' {
+    import * as parse from 'parse/node';
+    export = parse;
 }
 
-declare module "parse/react-native" {
-    import * as parse from "parse/node";
-    export = parse
+declare module 'parse/react-native' {
+    import * as parse from 'parse/node';
+    export = parse;
 }

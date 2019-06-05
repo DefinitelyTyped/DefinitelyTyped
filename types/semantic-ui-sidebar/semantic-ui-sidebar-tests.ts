@@ -33,7 +33,7 @@ function test_sidebar() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).sidebar({
@@ -51,14 +51,14 @@ function test_sidebar() {
                 left: 'left',
                 right: 'right',
                 top: 'top',
-                bottom: 'bottom'
+                bottom: 'bottom',
             },
             computer: {
                 left: 'left',
                 right: 'right',
                 top: 'top',
-                bottom: 'bottom'
-            }
+                bottom: 'bottom',
+            },
         },
         useLegacy: false,
         duration: 20,
@@ -89,7 +89,7 @@ function test_sidebar() {
             top: 'top',
             left: 'left',
             bottom: 'bottom',
-            visible: 'visible'
+            visible: 'visible',
         },
         regExp: {
             ios: /(iPad|iPhone|iPod)/g,
@@ -99,15 +99,15 @@ function test_sidebar() {
             fixed: 'fixed',
             omitted: 'omitted',
             pusher: 'pusher',
-            sidebar: 'sidebar'
+            sidebar: 'sidebar',
         },
         error: {
             method: 'method',
             pusher: 'pusher',
             movedSidebar: 'movedSidebar',
             overlay: 'overlay',
-            notFound: 'notFound'
-        }
+            notFound: 'notFound',
+        },
     });
     $(selector).sidebar(); // $ExpectType JQuery<HTMLElement>
 

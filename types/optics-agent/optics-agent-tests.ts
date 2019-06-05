@@ -1,12 +1,12 @@
 import OpticsAgent, {
-  configureAgent,
-  instrumentSchema,
-  koaMiddleware,
-  middleware,
-  instrumentHapiServer,
-  context,
-  Options,
-  Agent,
+    configureAgent,
+    instrumentSchema,
+    koaMiddleware,
+    middleware,
+    instrumentHapiServer,
+    context,
+    Options,
+    Agent,
 } from 'optics-agent';
 import { GraphQLSchema } from 'graphql';
 import express = require('express');
@@ -14,15 +14,15 @@ import * as hapi from 'hapi';
 import KoaServer = require('koa');
 
 const configOptions: Options = {
-  apiKey: "",
-  reportTraces: false,
-  reportVariables: false,
-  printReports: false,
-  normalizeQuery: (info: any) => "",
-  endpointUrl: "",
-  proxyUrl: "",
-  reportIntervalMs: 1,
-  shutdownGracefully: false,
+    apiKey: '',
+    reportTraces: false,
+    reportVariables: false,
+    printReports: false,
+    normalizeQuery: (info: any) => '',
+    endpointUrl: '',
+    proxyUrl: '',
+    reportIntervalMs: 1,
+    shutdownGracefully: false,
 };
 OpticsAgent.configureAgent(configOptions);
 

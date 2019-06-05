@@ -192,7 +192,7 @@ export namespace TransactionValues {
         /**
          * JCB.
          */
-        JCB
+        JCB,
     }
 
     /**
@@ -237,7 +237,7 @@ export namespace TransactionValues {
         /**
          * Fee. For everything else, there's fee.
          */
-        FEE
+        FEE,
     }
 
     /**
@@ -255,7 +255,7 @@ export namespace TransactionValues {
         /**
          * Actual.
          */
-        ACTUAL
+        ACTUAL,
     }
 
     /**
@@ -285,7 +285,7 @@ export namespace TransactionValues {
         /**
          * Gift card.
          */
-        GIFT_CARD
+        GIFT_CARD,
     }
 
     /**
@@ -293,7 +293,7 @@ export namespace TransactionValues {
      */
     enum CustomerInfoProperties {
         CUSTOMER_INFO_PROPERTY_UNSPECIFIED,
-        EMAIL
+        EMAIL,
     }
 
     /**
@@ -327,7 +327,7 @@ export namespace TransactionValues {
         /**
          * Order was not declined, but the cart was updated during confirmation.
          */
-        CART_CHANGE_REQUESTED
+        CART_CHANGE_REQUESTED,
     }
 
     /**
@@ -361,7 +361,7 @@ export namespace TransactionValues {
         /**
          * User received what was ordered.
          */
-        FULFILLED
+        FULFILLED,
     }
 
     /**
@@ -418,7 +418,7 @@ export namespace TransactionValues {
         /**
          * Customer Service.
          */
-        CUSTOMER_SERVICE
+        CUSTOMER_SERVICE,
     }
 
     /**
@@ -439,7 +439,7 @@ export namespace TransactionValues {
         /**
          * Payment was declined.
          */
-        PAYMENT_DECLINED
+        PAYMENT_DECLINED,
     }
 
     /**
@@ -469,7 +469,7 @@ export namespace TransactionValues {
         /**
          * Information about order return. Used with {@link ReturnInfo}.
          */
-        RETURN
+        RETURN,
     }
 
     /**
@@ -496,7 +496,7 @@ export namespace TransactionValues {
         /**
          * Transactions are not supported for current region/country.
          */
-        REGION_NOT_SUPPORTED
+        REGION_NOT_SUPPORTED,
     }
 
     /**
@@ -521,7 +521,7 @@ export namespace TransactionValues {
         /**
          * User denied to give delivery address.
          */
-        REJECTED
+        REJECTED,
     }
 
     /**
@@ -558,7 +558,7 @@ export namespace TransactionValues {
         /**
          * Pick up location of the order.
          */
-        PICK_UP
+        PICK_UP,
     }
 
     /**
@@ -580,7 +580,7 @@ export namespace TransactionValues {
         /**
          * Reservation time.
          */
-        RESERVATION_SLOT
+        RESERVATION_SLOT,
     }
 
     /**
@@ -599,7 +599,7 @@ export namespace TransactionValues {
          * Allows payment service to pass public key for payment info encryption and receive encrypted
          * response.
          */
-        DIRECT
+        DIRECT,
     }
 }
 
@@ -1014,7 +1014,12 @@ export class OrderUpdate {
      * @param nanos Partial unit count of price.
      * @return Returns current constructed OrderUpdate.
      */
-    setTotalPrice(priceType: TransactionValues.PriceType, currencyCode: string, units: number, nanos?: number): OrderUpdate;
+    setTotalPrice(
+        priceType: TransactionValues.PriceType,
+        currencyCode: string,
+        units: number,
+        nanos?: number
+    ): OrderUpdate;
 
     /**
      * Adds an actionable item for the user to manage the order.
@@ -1039,7 +1044,14 @@ export class OrderUpdate {
      *     addLineItemStateUpdate.
      * @return Returns current constructed OrderUpdate.
      */
-    addLineItemPriceUpdate(itemId: string, priceType: TransactionValues.PriceType, currencyCode: string, units: number, nanos?: number, reason?: string): OrderUpdate;
+    addLineItemPriceUpdate(
+        itemId: string,
+        priceType: TransactionValues.PriceType,
+        currencyCode: string,
+        units: number,
+        nanos?: number,
+        reason?: string
+    ): OrderUpdate;
 
     /**
      * Adds a single state update for a particular line item in the order.
@@ -1051,7 +1063,12 @@ export class OrderUpdate {
      *     any reason given in addLineitemPriceUpdate.
      * @return Returns current constructed OrderUpdate.
      */
-    addLineItemStateUpdate(itemId: string, state: TransactionValues.OrderState, label: string, reason?: string): OrderUpdate;
+    addLineItemStateUpdate(
+        itemId: string,
+        state: TransactionValues.OrderState,
+        label: string,
+        reason?: string
+    ): OrderUpdate;
 
     /**
      * Sets some extra information about the order. Takes an order update info

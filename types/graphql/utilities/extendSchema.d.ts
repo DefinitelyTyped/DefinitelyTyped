@@ -1,6 +1,6 @@
-import { DocumentNode } from "../language/ast";
-import { GraphQLSchema } from "../type/schema";
-import { GraphQLSchemaValidationOptions } from "../type/schema";
+import { DocumentNode } from '../language/ast';
+import { GraphQLSchema } from '../type/schema';
+import { GraphQLSchemaValidationOptions } from '../type/schema';
 
 interface Options extends GraphQLSchemaValidationOptions {
     /**

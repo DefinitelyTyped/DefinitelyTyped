@@ -6,24 +6,32 @@
 
 /// <reference types="jquery"/>
 
-type DatepickerEvents = "show"|"hide"|"clearDate"|"changeDate"|"changeMonth"|"changeYear"|"changeDecade"|"changeCentury";
+type DatepickerEvents =
+    | 'show'
+    | 'hide'
+    | 'clearDate'
+    | 'changeDate'
+    | 'changeMonth'
+    | 'changeYear'
+    | 'changeDecade'
+    | 'changeCentury';
 
-type DatepickerViewModes = 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
+type DatepickerViewModes = 0 | 'days' | 1 | 'months' | 2 | 'years' | 3 | 'decades' | 4 | 'centuries' | 'millenium';
 
 type DatepickerOrientations =
-    "auto"
-    | "left top"
-    | "left bottom"
-    | "right top"
-    | "right bottom"
-    | "top auto"
-    | "bottom auto"
-    | "auto left"
-    | "top left"
-    | "bottom left"
-    | "auto right"
-    | "top right"
-    | "bottom right"
+    | 'auto'
+    | 'left top'
+    | 'left bottom'
+    | 'right top'
+    | 'right bottom'
+    | 'top auto'
+    | 'bottom auto'
+    | 'auto left'
+    | 'top left'
+    | 'bottom left'
+    | 'auto right'
+    | 'top right'
+    | 'bottom right';
 
 /**
  * All options that take a “Date” can handle a Date object; a String
@@ -37,18 +45,18 @@ type DatepickerOrientations =
 interface DatepickerOptions {
     format?: string | DatepickerCustomFormatOptions;
     weekStart?: number;
-    startDate?: Date|string;
-    endDate?: Date|string;
+    startDate?: Date | string;
+    endDate?: Date | string;
     autoclose?: boolean;
     startView?: number;
-    todayBtn?: boolean|"linked";
+    todayBtn?: boolean | 'linked';
     todayHighlight?: boolean;
     keyboardNavigation?: boolean;
     language?: string;
-    beforeShowDay?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowDayResponse;
-    beforeShowYear?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
-    beforeShowDecade?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
-    beforeShowCentury?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
+    beforeShowDay?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowDayResponse;
+    beforeShowYear?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
+    beforeShowDecade?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
+    beforeShowCentury?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
     calendarWeeks?: boolean;
     clearBtn?: boolean;
     daysOfWeekDisabled?: number[];
@@ -56,10 +64,10 @@ interface DatepickerOptions {
     inputs?: any[];
     minViewMode?: DatepickerViewModes;
     maxViewMode?: DatepickerViewModes;
-    multidate?: boolean|number;
+    multidate?: boolean | number;
     multidateSeparator?: string;
     orientation?: DatepickerOrientations;
-    assumeNearbyYear?: boolean|number;
+    assumeNearbyYear?: boolean | number;
     viewMode?: string;
     templates?: any;
     zIndexOffset?: number;
@@ -67,23 +75,23 @@ interface DatepickerOptions {
     immediateUpdates?: boolean;
     title?: string;
     container?: string;
-    datesDisabled?:string|string[];
-    daysOfWeekHighlighted?:string|number[];
-    defaultViewDate?:Date|string|DatepickerViewDate;
-    updateViewDate?:boolean;
+    datesDisabled?: string | string[];
+    daysOfWeekHighlighted?: string | number[];
+    defaultViewDate?: Date | string | DatepickerViewDate;
+    updateViewDate?: boolean;
     enableOnReadonly?: boolean;
 }
 
 interface DatepickerViewDate {
-    year:number;
+    year: number;
     /** Month starting with 0 */
-    month:number;
+    month: number;
     /** Day of the month starting with 1 */
-    day:number;
+    day: number;
 }
 
 interface DatepickerBeforeShowResponse {
-    enabled?:boolean;
+    enabled?: boolean;
     classes?: string;
     tooltip?: string;
 }
@@ -100,9 +108,9 @@ interface DatepickerCustomFormatOptions {
 interface DatepickerEventObject extends JQueryEventObject {
     date: Date;
     dates: Date[];
-    format(ix?:number): string;
+    format(ix?: number): string;
     format(format?: string): string;
-    format(ix?:number, format?: string): string;
+    format(ix?: number, format?: string): string;
 }
 
 interface JQuery {
@@ -114,7 +122,12 @@ interface JQuery {
     off(events: DatepickerEvents, selector?: string, handler?: (eventObject: DatepickerEventObject) => any): JQuery;
     off(events: DatepickerEvents, handler: (eventObject: DatepickerEventObject) => any): JQuery;
 
-    on(events: DatepickerEvents, selector: string, data: any, handler?: (eventObject: DatepickerEventObject) => any): JQuery;
+    on(
+        events: DatepickerEvents,
+        selector: string,
+        data: any,
+        handler?: (eventObject: DatepickerEventObject) => any
+    ): JQuery;
     on(events: DatepickerEvents, selector: string, handler: (eventObject: DatepickerEventObject) => any): JQuery;
     on(events: DatepickerEvents, handler: (eventObject: DatepickerEventObject) => any): JQuery;
 }

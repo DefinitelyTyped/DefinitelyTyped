@@ -1,4 +1,4 @@
-import HumanizeMs = require("humanize-ms");
+import HumanizeMs = require('humanize-ms');
 
 HumanizeMs('1s');
 

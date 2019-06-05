@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load BigQuery Data Transfer API v1 */
-    function load(name: "bigquerydatatransfer", version: "v1"): PromiseLike<void>;
-    function load(name: "bigquerydatatransfer", version: "v1", callback: () => any): void;
+    function load(name: 'bigquerydatatransfer', version: 'v1'): PromiseLike<void>;
+    function load(name: 'bigquerydatatransfer', version: 'v1', callback: () => any): void;
 
     const projects: bigquerydatatransfer.ProjectsResource;
 
@@ -357,7 +357,7 @@ declare namespace gapi.client {
              */
             checkValidCreds(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -394,7 +394,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -431,7 +431,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -484,7 +484,7 @@ declare namespace gapi.client {
              */
             checkValidCreds(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -521,7 +521,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -558,7 +558,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -604,7 +604,7 @@ declare namespace gapi.client {
             /** Returns user facing log messages for the data transfer run. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -655,7 +655,7 @@ declare namespace gapi.client {
             /** Deletes the specified transfer run. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -689,7 +689,7 @@ declare namespace gapi.client {
             /** Returns information about the particular transfer run. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -723,7 +723,7 @@ declare namespace gapi.client {
             /** Returns information about running and completed jobs. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -775,7 +775,7 @@ declare namespace gapi.client {
             /** Creates a new data transfer configuration. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -835,7 +835,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -869,7 +869,7 @@ declare namespace gapi.client {
             /** Returns information about a data transfer config. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -903,7 +903,7 @@ declare namespace gapi.client {
             /** Returns information about all data transfers in the project. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -952,7 +952,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1016,7 +1016,7 @@ declare namespace gapi.client {
              */
             scheduleRuns(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1053,7 +1053,7 @@ declare namespace gapi.client {
             /** Get information about a location. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1084,7 +1084,7 @@ declare namespace gapi.client {
             /** Lists information about the supported locations for this service. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1125,7 +1125,7 @@ declare namespace gapi.client {
             /** Returns user facing log messages for the data transfer run. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1176,7 +1176,7 @@ declare namespace gapi.client {
             /** Deletes the specified transfer run. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1210,7 +1210,7 @@ declare namespace gapi.client {
             /** Returns information about the particular transfer run. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1244,7 +1244,7 @@ declare namespace gapi.client {
             /** Returns information about running and completed jobs. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1296,7 +1296,7 @@ declare namespace gapi.client {
             /** Creates a new data transfer configuration. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1356,7 +1356,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1390,7 +1390,7 @@ declare namespace gapi.client {
             /** Returns information about a data transfer config. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1424,7 +1424,7 @@ declare namespace gapi.client {
             /** Returns information about all data transfers in the project. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1473,7 +1473,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1537,7 +1537,7 @@ declare namespace gapi.client {
              */
             scheduleRuns(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

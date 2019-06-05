@@ -9,7 +9,7 @@ React.createElement(Switch, {
     checkedChildren: 'hello',
     disabled: false,
     onChange: console.log,
-    unCheckedChildren: 'world'
+    unCheckedChildren: 'world',
 });
 
 /**

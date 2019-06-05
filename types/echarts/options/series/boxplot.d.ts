@@ -18,7 +18,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot
          */
         interface SeriesBoxplot {
-
             /**
              * @default
              * "boxplot"
@@ -147,7 +146,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * boxplot color. Color is taken from
                  * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -255,12 +253,10 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -500,7 +496,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -630,7 +625,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1091,12 +1085,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1426,7 +1418,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -1891,12 +1882,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -2243,7 +2232,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -2343,7 +2331,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -2478,7 +2465,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -2701,7 +2687,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -2803,7 +2788,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -2910,7 +2894,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3329,12 +3312,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3676,7 +3657,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -4097,12 +4077,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -4560,7 +4538,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -4613,7 +4590,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -4687,7 +4663,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -4768,7 +4743,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -4874,7 +4848,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -5018,7 +4991,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -5026,7 +4998,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -5247,7 +5218,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -5357,7 +5327,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -5475,7 +5444,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -5551,7 +5519,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -5633,7 +5600,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Special label types, are used to label maximum value,
                          * minimum value and so on.
@@ -5854,7 +5820,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -5964,7 +5929,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -6082,7 +6046,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -6158,7 +6121,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -6349,7 +6311,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6367,7 +6328,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -6782,12 +6742,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -7117,7 +7075,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -7536,12 +7493,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -7888,7 +7843,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -7988,7 +7942,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -8135,7 +8088,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -8143,7 +8095,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -8234,7 +8185,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -8339,7 +8289,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -8453,7 +8402,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -8874,12 +8822,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -9222,7 +9168,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -9657,12 +9602,10 @@ declare namespace echarts {
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -10019,7 +9962,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify this item is on min or max or average value.
                          *
@@ -10110,7 +10052,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10215,7 +10156,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10329,7 +10269,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10750,12 +10689,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -11098,7 +11035,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11533,12 +11469,10 @@ declare namespace echarts {
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -12091,7 +12025,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -12346,7 +12279,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -12543,7 +12475,6 @@ declare namespace echarts {
 
         namespace SeriesBoxplot {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -12569,7 +12500,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -12678,12 +12608,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * boxplot color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -12805,7 +12733,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
@@ -13055,7 +12982,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

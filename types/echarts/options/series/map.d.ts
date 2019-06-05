@@ -23,7 +23,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map
          */
         interface SeriesMap {
-
             /**
              * @default
              * "map"
@@ -165,7 +164,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.scaleLimit
              */
             scaleLimit?: {
-
                 /**
                  * Minimum scaling
                  *
@@ -221,7 +219,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -678,12 +675,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1011,7 +1006,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.label.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1470,12 +1464,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.label.emphasis.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1812,7 +1804,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * Area filling color.
                  *
@@ -1822,7 +1813,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.itemStyle.areaColor
                  */
                 areaColor?: {
-
                     /**
                      * color.
                      *
@@ -1926,7 +1916,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.itemStyle.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * Area filling color.
                      *
@@ -2303,7 +2292,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint
              */
             markPoint?: {
-
                 /**
                  * Symbol of .
                  *
@@ -2433,7 +2421,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2894,12 +2881,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3229,7 +3214,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3694,12 +3678,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4046,7 +4028,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -4146,7 +4127,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -4272,7 +4252,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data
                  */
                 data?: {
-
                     /**
                      * Mark point name.
                      *
@@ -4480,7 +4459,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -4582,7 +4560,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.itemStyle.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * color.
                              *
@@ -4689,7 +4666,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -5108,12 +5084,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -5455,7 +5429,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.label.emphasis
                          */
                         emphasis?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -5876,12 +5849,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.label.emphasis.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markPoint.data.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -6339,7 +6310,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine
              */
             markLine?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -6392,7 +6362,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.label
                  */
                 label?: {
-
                     /**
                      * Whether show label or not.
                      *
@@ -6466,7 +6435,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether show label or not.
                          *
@@ -6547,7 +6515,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.lineStyle
                  */
                 lineStyle?: {
-
                     /**
                      * Line color.
                      *
@@ -6653,7 +6620,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.lineStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Line color.
                          *
@@ -6777,7 +6743,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data
                  */
                 data?: {
-
                     /**
                      * Data of the starting point.
                      *
@@ -6785,7 +6750,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.0
                      */
                     0?: {
-
                         /**
                          * Works only when
                          * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markLine.data.type)
@@ -6991,7 +6955,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.0.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7101,7 +7064,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.0.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7219,7 +7181,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7295,7 +7256,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -7377,7 +7337,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.1
                      */
                     1?: {
-
                         /**
                          * Works only when
                          * [type](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-.markLine.data.type)
@@ -7583,7 +7542,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.1.lineStyle
                          */
                         lineStyle?: {
-
                             /**
                              * Line color.
                              *
@@ -7693,7 +7651,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.1.lineStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Line color.
                                  *
@@ -7811,7 +7768,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether show label or not.
                              *
@@ -7887,7 +7843,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markLine.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether show label or not.
                                  *
@@ -8078,7 +8033,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea
              */
             markArea?: {
-
                 /**
                  * Whether to ignore mouse events.
                  * Default value is false, for triggering and responding to
@@ -8096,7 +8050,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -8511,12 +8464,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8846,7 +8797,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.label.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -9265,12 +9215,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.label.emphasis.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9617,7 +9565,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -9717,7 +9664,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.itemStyle.emphasis
                      */
                     emphasis?: {
-
                         /**
                          * color.
                          *
@@ -9849,7 +9795,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data
                  */
                 data?: {
-
                     /**
                      * Specify the left-top point.
                      *
@@ -9857,7 +9802,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0
                      */
                     0?: {
-
                         /**
                          * Specify the dimension on which min, max, average
                          * are calculated, available when
@@ -9934,7 +9878,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -10039,7 +9982,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -10153,7 +10095,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -10574,12 +10515,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10922,7 +10861,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -11357,12 +11295,10 @@ declare namespace echarts {
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.0.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -11719,7 +11655,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1
                      */
                     1?: {
-
                         /**
                          * Specify the dimension on which min, max, average
                          * are calculated, available when
@@ -11796,7 +11731,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.itemStyle
                          */
                         itemStyle?: {
-
                             /**
                              * color.
                              *
@@ -11901,7 +11835,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.itemStyle.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * color.
                                  *
@@ -12015,7 +11948,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.label
                          */
                         label?: {
-
                             /**
                              * Whether to show label.
                              *
@@ -12436,12 +12368,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.label.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -12784,7 +12714,6 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.label.emphasis
                              */
                             emphasis?: {
-
                                 /**
                                  * Whether to show label.
                                  *
@@ -13219,12 +13148,10 @@ declare namespace echarts {
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.label.emphasis.rich
                                  */
                                 rich?: {
-
                                     /**
                                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.markArea.data.1.label.emphasis.rich.%3Cuser%20defined%20style%20name%3E
                                      */
                                     [userStyle: string]: {
-
                                         /**
                                          * text color.
                                          *
@@ -13699,7 +13626,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -13954,7 +13880,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -14151,7 +14076,6 @@ declare namespace echarts {
 
         namespace SeriesMap {
             interface DataObject {
-
                 /**
                  * The name of the map area where the data belongs to, such
                  * as `'China'` or `'United Kingdom'` .
@@ -14184,7 +14108,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * Color of the area.
                      *
@@ -14192,7 +14115,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.itemStyle.areaColor
                      */
                     areaColor?: {
-
                         /**
                          * color.
                          *
@@ -14304,7 +14226,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -14727,12 +14648,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -15063,12 +14982,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.emphasis.itemStyle.areaColor
                          */
@@ -15176,7 +15093,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -15603,12 +15519,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -15955,7 +15869,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
@@ -16205,7 +16118,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-map.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

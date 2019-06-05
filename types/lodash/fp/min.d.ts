@@ -1,2 +1,2 @@
-import { min } from "../fp";
+import { min } from '../fp';
 export = min;

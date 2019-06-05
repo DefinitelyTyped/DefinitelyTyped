@@ -5,8 +5,6 @@
 
 /// <reference types="node"/>
 
-
-
 interface BuffersStatics {
     new (bufs?: Buffer[] | Buffers): Buffers;
     (bufs?: Buffer[] | Buffers): Buffers;

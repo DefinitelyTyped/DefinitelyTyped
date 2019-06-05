@@ -23,11 +23,7 @@ declare class Pool {
      * @param callback will be called once the worker is created
      */
     acquire(filename: string, callback: (error: Error | null, worker: Worker) => void): void;
-    acquire(
-        filename: string,
-        options: WorkerOptions,
-        callback: (error: Error | null, worker: Worker) => void
-    ): void;
+    acquire(filename: string, options: WorkerOptions, callback: (error: Error | null, worker: Worker) => void): void;
 
     /**
      * Calls `worker.terminate()` on all workers in the pool.
@@ -37,7 +33,7 @@ declare class Pool {
 }
 
 declare namespace Pool {
-     interface Options {
+    interface Options {
         /**
          * Maximum number of workers allowed in the pool. Other workers will be queued
          * and started once there's room in the pool.

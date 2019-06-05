@@ -19,5 +19,5 @@ interface BootstrapToggleOptions {
 
 interface JQuery {
     bootstrapToggle(options?: BootstrapToggleOptions): JQuery;
-    bootstrapToggle(command: "destroy" | "on" | "off" | "toggle" | "enable" | "disable"): JQuery;
+    bootstrapToggle(command: 'destroy' | 'on' | 'off' | 'toggle' | 'enable' | 'disable'): JQuery;
 }

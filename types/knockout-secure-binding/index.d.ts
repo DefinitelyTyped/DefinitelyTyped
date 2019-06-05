@@ -23,7 +23,7 @@ interface KnockoutStatic {
     };
 }
 
-declare module "knockout-secure-binding" {
+declare module 'knockout-secure-binding' {
     var klass: {
         new (options?: KnockoutSecureBindingOptions): KnockoutBindingProvider;
     };

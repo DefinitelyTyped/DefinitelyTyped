@@ -23,7 +23,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver
          */
         interface SeriesThemeRiver {
-
             /**
              * @default
              * "themeRiver"
@@ -200,7 +199,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -580,12 +578,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -917,7 +913,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color.
                  *
@@ -1018,12 +1013,10 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1402,12 +1395,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1738,7 +1729,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -1972,10 +1962,9 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.data
              */
-            data?: (
-                (void | number | string | SeriesThemeRiver.DataObject)[]
-                | (void | number | string | SeriesThemeRiver.DataObject)[][]
-            );
+            data?:
+                | (void | number | string | SeriesThemeRiver.DataObject)[]
+                | (void | number | string | SeriesThemeRiver.DataObject)[][];
 
             /**
              * tooltip settings in this series.
@@ -1984,7 +1973,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -2239,7 +2227,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-themeRiver.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -2436,7 +2423,6 @@ declare namespace echarts {
 
         namespace SeriesThemeRiver {
             interface DataObject {
-
                 /**
                  * the time attribute of time and theme.
                  *

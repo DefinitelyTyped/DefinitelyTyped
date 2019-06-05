@@ -22,7 +22,11 @@
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
-        context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
+        context:
+            | string
+            | CanvasRenderingContext2D
+            | HTMLCanvasElement
+            | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
         options: Chart.ChartConfiguration
     );
     config: Chart.ChartConfiguration;
@@ -70,12 +74,12 @@ interface Meta {
     type: Chart.ChartType;
     data: MetaData[];
     dataset?: Chart.ChartDataSets;
-    controller: { [key: string]: any; };
+    controller: { [key: string]: any };
     hidden?: boolean;
     total?: string;
     xAxisID?: string;
     yAxisID?: string;
-    "$filler"?: { [key: string]: any; };
+    $filler?: { [key: string]: any };
 }
 
 interface MetaData {
@@ -111,13 +115,32 @@ interface Model {
 }
 
 declare namespace Chart {
-    type ChartType = 'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter';
+    type ChartType =
+        | 'line'
+        | 'bar'
+        | 'horizontalBar'
+        | 'radar'
+        | 'doughnut'
+        | 'polarArea'
+        | 'bubble'
+        | 'pie'
+        | 'scatter';
 
     type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
     type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
 
-    type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
+    type PointStyle =
+        | 'circle'
+        | 'cross'
+        | 'crossRot'
+        | 'dash'
+        | 'line'
+        | 'rect'
+        | 'rectRounded'
+        | 'rectRot'
+        | 'star'
+        | 'triangle';
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
@@ -199,9 +222,9 @@ declare namespace Chart {
         datasets?: ChartDataSets[];
     }
 
-	interface RadialChartOptions extends ChartOptions {
-		scale?: RadialLinearScale;
-	}
+    interface RadialChartOptions extends ChartOptions {
+        scale?: RadialLinearScale;
+    }
 
     interface ChartSize {
         height: number;
@@ -494,8 +517,7 @@ declare namespace Chart {
     }
 
     // tslint:disable-next-line no-empty-interface
-    interface LogarithmicTickOptions extends TickOptions {
-    }
+    interface LogarithmicTickOptions extends TickOptions {}
 
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
@@ -526,7 +548,11 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[];
         pointHoverBorderColor?: ChartColor | ChartColor[];
         pointHoverBorderWidth?: number | number[];
-        pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
+        pointStyle?:
+            | PointStyle
+            | HTMLImageElement
+            | HTMLCanvasElement
+            | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: ChartType | string;
@@ -557,7 +583,7 @@ declare namespace Chart {
         position?: string;
         ticks?: TickOptions;
         gridLines?: GridLineOptions;
-        barThickness?: number | "flex";
+        barThickness?: number | 'flex';
         maxBarThickness?: number;
         scaleLabel?: ScaleTitleOptions;
         time?: TimeScale;
@@ -585,8 +611,7 @@ declare namespace Chart {
     }
 
     // tslint:disable-next-line no-empty-interface
-    interface ChartYAxe extends CommonAxe {
-    }
+    interface ChartYAxe extends CommonAxe {}
 
     interface LinearScale extends ChartScales {
         ticks?: LinearTickOptions;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type LocalizationEditorProps = {
     /* A collection of properties to apply to the `<label>`, `<input>`/`<textarea>` and `<button>` elements. */
@@ -27,8 +27,6 @@ export type LocalizationEditorProps = {
     textarea?: boolean;
 } & { [x: string]: any };
 
-declare const LocalizationEditor: React.FunctionComponent<
-    LocalizationEditorProps
->;
+declare const LocalizationEditor: React.FunctionComponent<LocalizationEditorProps>;
 
 export default LocalizationEditor;

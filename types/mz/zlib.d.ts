@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import * as zlib from "zlib";
-export * from "zlib";
+import * as zlib from 'zlib';
+export * from 'zlib';
 
 export function deflate(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
 export function deflate(buf: Buffer): Promise<Buffer>;

@@ -1,7 +1,7 @@
 var tour = new Shepherd.Tour({
     defaults: {
-        classes: 'shepherd-theme-default'
-    }
+        classes: 'shepherd-theme-default',
+    },
 });
 
 var step1Options: TetherShepherd.IShepherdTourStepOptions = {
@@ -9,18 +9,18 @@ var step1Options: TetherShepherd.IShepherdTourStepOptions = {
     title: 'Test Step Title',
     attachTo: {
         element: '#button',
-        on: 'right'
+        on: 'right',
     },
     buttons: [
         {
             text: 'Continue',
-            action: tour.next
+            action: tour.next,
         },
         {
             text: 'Cancel',
-            action: tour.cancel
-        }
-    ]
+            action: tour.cancel,
+        },
+    ],
 };
 
 tour.addStep('test-step', step1Options);
@@ -34,20 +34,20 @@ var step2Options: TetherShepherd.IShepherdTourStepOptions = {
             text: 'Done',
             action: tour.next,
             events: {
-                'mouseover': () => {
+                mouseover: () => {
                     console.log('I did not feel like making a function body that pretended to do something else');
-                }
-            }
-        }
+                },
+            },
+        },
     ],
     when: {
         destroy: () => {
             console.log('Destroyed the Step 2');
-        }
+        },
     },
     showOn: () => {
         return true;
-    }
+    },
 };
 
 tour.addStep('test-step-2', step2Options);

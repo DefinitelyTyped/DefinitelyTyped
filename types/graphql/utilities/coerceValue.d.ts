@@ -1,6 +1,6 @@
-import { GraphQLError } from "../error/GraphQLError";
-import { ASTNode } from "../language/ast";
-import { GraphQLInputType } from "../type/definition";
+import { GraphQLError } from '../error/GraphQLError';
+import { ASTNode } from '../language/ast';
+import { GraphQLInputType } from '../type/definition';
 
 interface CoercedValue {
     readonly errors: ReadonlyArray<GraphQLError> | undefined;

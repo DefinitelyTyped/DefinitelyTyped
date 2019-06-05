@@ -1,11 +1,10 @@
 declare namespace pc {
-
     /**
      * @name pc.Lightmapper
      * @class The lightmapper is used to bake scene lights into textures.
      */
     class Lightmapper {
-        constructor(device: pc.GraphicsDevice, root: pc.Entity, scene: pc.Scene, renderer: any, assets: pc.Asset[])
+        constructor(device: pc.GraphicsDevice, root: pc.Entity, scene: pc.Scene, renderer: any, assets: pc.Asset[]);
 
         /**
          * @function

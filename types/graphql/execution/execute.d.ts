@@ -1,13 +1,13 @@
-import Maybe from "../tsutils/Maybe";
-import { GraphQLError, locatedError } from "../error";
-import { GraphQLSchema } from "../type/schema";
+import Maybe from '../tsutils/Maybe';
+import { GraphQLError, locatedError } from '../error';
+import { GraphQLSchema } from '../type/schema';
 import {
     GraphQLField,
     GraphQLFieldResolver,
     ResponsePath,
     GraphQLObjectType,
     GraphQLResolveInfo,
-} from "../type/definition";
+} from '../type/definition';
 import {
     DirectiveNode,
     DocumentNode,
@@ -16,8 +16,8 @@ import {
     FieldNode,
     InlineFragmentNode,
     FragmentDefinitionNode,
-} from "../language/ast";
-import { PromiseOrValue } from "../jsutils/PromiseOrValue";
+} from '../language/ast';
+import { PromiseOrValue } from '../jsutils/PromiseOrValue';
 
 /**
  * Data that must be available at all points during query execution.

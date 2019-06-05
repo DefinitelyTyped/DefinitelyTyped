@@ -4,11 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Schema } from "mongoose";
+import { Schema } from 'mongoose';
 
 export = mongooseUniqueValidator;
 
 declare function mongooseUniqueValidator(schema: Schema, options?: any): void;
 
-declare namespace mongooseUniqueValidator {
-}
+declare namespace mongooseUniqueValidator {}

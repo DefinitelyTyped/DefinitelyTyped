@@ -10,8 +10,8 @@
 
 /// <reference types="node" />
 
-declare module "v8-profiler" {
-    import * as fs from "fs";
+declare module 'v8-profiler' {
+    import * as fs from 'fs';
 
     namespace V8Profiler {
         type Profiler = {
@@ -92,7 +92,7 @@ declare module "v8-profiler" {
              * callback(error, data) receives serialized profile as second argument. (Serialization is equal to JSON.stringify result).
              */
             export(): fs.ReadStream;
-        }
+        };
     }
 
     var V8Profiler: V8Profiler.Profiler;

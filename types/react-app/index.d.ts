@@ -16,7 +16,8 @@ export interface LayoutProps {
     className: string;
 }
 
-export interface RouteProps { // takes the form of universal-router routes
+export interface RouteProps {
+    // takes the form of universal-router routes
     path: string;
     children: ChildProps[];
 }

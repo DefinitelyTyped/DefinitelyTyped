@@ -29,7 +29,7 @@ declare var GM_info: {
         name: string;
         namespace: string;
         resources: Object;
-        "run-at": string;
+        'run-at': string;
         unwrap: boolean;
         version: string;
     };
@@ -222,8 +222,7 @@ interface GMXMLHttpRequestSyncResult {
  * Returned object by {@link GM_xmlhttpRequest}.
  * @see  {@link http://wiki.greasespot.net/GM_xmlhttpRequest#Returns}
  */
-interface GMXMLHttpRequestResult extends GMXMLHttpRequestAsyncResult, GMXMLHttpRequestSyncResult {
-}
+interface GMXMLHttpRequestResult extends GMXMLHttpRequestAsyncResult, GMXMLHttpRequestSyncResult {}
 
 /**
  * Sends a HTTP request to a URL.

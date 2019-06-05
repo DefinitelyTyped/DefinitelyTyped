@@ -31,6 +31,12 @@ declare namespace unistUtilIs {
  * @param context Context object to invoke `test` with
  * @returns Whether test passed and `node` is a `Node` (object with `type` set to non-empty `string`).
  */
-declare function unistUtilIs(test: unistUtilIs.Test | unistUtilIs.Test[], node: unknown, index?: number, parent?: Unist.Parent, context?: any): boolean;
+declare function unistUtilIs(
+    test: unistUtilIs.Test | unistUtilIs.Test[],
+    node: unknown,
+    index?: number,
+    parent?: Unist.Parent,
+    context?: any
+): boolean;
 
 export = unistUtilIs;

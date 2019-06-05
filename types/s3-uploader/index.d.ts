@@ -63,5 +63,9 @@ declare namespace Upload {
 declare class Upload {
     public constructor(awsBucketName: string, opts: Upload.S3UploaderOptions);
 
-    public upload(src: string, opts?: Upload.S3UploaderOptions, cb?: (err: string, images: Upload.image[], meta: Upload.Meta) => void): void;
+    public upload(
+        src: string,
+        opts?: Upload.S3UploaderOptions,
+        cb?: (err: string, images: Upload.image[], meta: Upload.Meta) => void
+    ): void;
 }

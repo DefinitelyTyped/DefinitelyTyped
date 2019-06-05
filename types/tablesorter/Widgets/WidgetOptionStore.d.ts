@@ -1,4 +1,4 @@
-import { WidgetOptions } from "./WidgetOptions";
+import { WidgetOptions } from './WidgetOptions';
 
 /**
  * Represents the configuration-store of the widgets.

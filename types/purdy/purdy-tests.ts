@@ -6,22 +6,22 @@ const obj: object = {
     nil: null,
     bool: false,
     nested: {
-        hello: "world"
-    }
+        hello: 'world',
+    },
 };
 
 const options: Purdy.Options = {
-    pathPrefix: "",
+    pathPrefix: '',
     arrayIndex: true,
     indent: 2,
-    align: "left",
+    align: 'left',
     depth: null,
-    json: true
+    json: true,
 };
 
 Purdy(obj, options); // $ExpectType void
 Purdy.stringify(obj, options); // $ExpectType string
 
 const inst = Purdy.purdy(options); // $ExpectType Instance
-inst.print("string", 5, true, obj); // $ExpectType void
-inst.stringify("string", 5, true, obj); // $ExpectType string
+inst.print('string', 5, true, obj); // $ExpectType void
+inst.stringify('string', 5, true, obj); // $ExpectType string

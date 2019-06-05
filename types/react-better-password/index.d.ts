@@ -14,4 +14,4 @@ export interface PasswordProps {
     timeout?: number;
     value?: string;
 }
-export default class Password extends React.Component<PasswordProps> { }
+export default class Password extends React.Component<PasswordProps> {}

@@ -1,4 +1,3 @@
-
 import bufferEqual = require('buffer-equal');
 
 var bool: boolean;

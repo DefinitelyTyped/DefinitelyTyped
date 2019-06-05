@@ -6,7 +6,7 @@
 
 /// <reference types="react"/>
 
-declare module "react-dropzone" {
+declare module 'react-dropzone' {
     interface DropzoneProps {
         // Drop behavior
         onDrop?: (accepted: File[], rejected: File[]) => any;

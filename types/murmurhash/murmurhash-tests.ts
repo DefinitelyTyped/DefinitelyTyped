@@ -1,6 +1,6 @@
 import murmurhash = require('murmurhash');
 
-const stringValue = "test";
+const stringValue = 'test';
 let numberValue = 123;
 
 numberValue = murmurhash(stringValue);

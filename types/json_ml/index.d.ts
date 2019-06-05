@@ -8,8 +8,4 @@
 
 export type Node = string | [string, ...any[]];
 export function parse(xml: string, trim?: boolean): Node[];
-export function stringify(
-    object: Node[],
-    replacer?: ((node: Cheerio) => any) | null,
-    indent?: number
-): string;
+export function stringify(object: Node[], replacer?: ((node: Cheerio) => any) | null, indent?: number): string;

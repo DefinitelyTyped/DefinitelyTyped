@@ -7,15 +7,22 @@
 
 import { Url } from 'url';
 
-export type FSReadOptions = {
-    encoding?: null;
-    flag?: string;
-    } | null | undefined;
-export type FSWriteOptions = string | {
-    encoding?: string | null;
-    mode?: string | number;
-    flag?: string;
-    } | null | undefined;
+export type FSReadOptions =
+    | {
+          encoding?: null;
+          flag?: string;
+      }
+    | null
+    | undefined;
+export type FSWriteOptions =
+    | string
+    | {
+          encoding?: string | null;
+          mode?: string | number;
+          flag?: string;
+      }
+    | null
+    | undefined;
 
 export type ReadCallback = (err: NodeJS.ErrnoException | null, data: Buffer) => void;
 export type WriteCallback = (err: NodeJS.ErrnoException) => void;
@@ -28,24 +35,30 @@ export interface FS {
     writeFileSync(path: Path, data: any, options?: FSWriteOptions): void;
 }
 
-export type JFReadOptions = {
-    encoding?: null;
-    flag?: string;
-    throws?: boolean;
-    fs?: FS;
-    reviver?: (key: any, value: any) => any;
-    } | null | undefined;
+export type JFReadOptions =
+    | {
+          encoding?: null;
+          flag?: string;
+          throws?: boolean;
+          fs?: FS;
+          reviver?: (key: any, value: any) => any;
+      }
+    | null
+    | undefined;
 
-export type JFWriteOptions = string | {
-    encoding?: string | null;
-    mode?: string | number;
-    flag?: string;
-    throws?: boolean;
-    fs?: FS;
-    EOL?: string;
-    spaces?: string | number;
-    replacer?: (key: string, value: any) => any;
-    } | null;
+export type JFWriteOptions =
+    | string
+    | {
+          encoding?: string | null;
+          mode?: string | number;
+          flag?: string;
+          throws?: boolean;
+          fs?: FS;
+          EOL?: string;
+          spaces?: string | number;
+          replacer?: (key: string, value: any) => any;
+      }
+    | null;
 
 export type JFReadCallback = (err: NodeJS.ErrnoException | null, data: any) => void;
 

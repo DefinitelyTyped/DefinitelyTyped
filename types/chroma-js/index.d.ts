@@ -21,7 +21,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl";
+    type InterpolationMode = 'rgb' | 'hsl' | 'hsv' | 'hsi' | 'lab' | 'lch' | 'hcl';
 
     interface ChromaStatic {
         /**
@@ -107,8 +107,11 @@ declare namespace chroma {
         /**
          * Blends two colors using RGB channel-wise blend functions.
          */
-        blend(color1: string | Color, color2: string | Color,
-              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'): Color;
+        blend(
+            color1: string | Color,
+            color2: string | Color,
+            blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'
+        ): Color;
 
         /**
          * Returns a random color.
@@ -198,7 +201,7 @@ declare namespace chroma {
          * colors in Lab space. The input range of the function is [0..1].
          * You can convert it to a scale instance by calling <code>chroma.bezier(...).scale()</code>
          */
-        bezier(colors: string[]): { (t: number): Color, scale(): Scale};
+        bezier(colors: string[]): { (t: number): Color; scale(): Scale };
 
         scale(name: string | Color): Scale;
 
@@ -427,7 +430,10 @@ declare namespace chroma {
          * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
          * arguments, scale.colors returns the original array of colors used to create the scale.
          */
-        colors(c: number | undefined, format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(
+            c: number | undefined,
+            format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'
+        ): Color[];
         colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
         colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
         colors(c: number | undefined, format?: 'hex' | 'name'): string[];

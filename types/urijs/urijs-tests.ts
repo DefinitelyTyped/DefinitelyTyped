@@ -10,7 +10,7 @@ URI({
     port: '80',
     path: '/foo/bar.html',
     query: 'foo=bar&bar=baz',
-    fragment: 'frag'
+    fragment: 'frag',
 });
 URI(document.createElement('a'));
 
@@ -24,7 +24,7 @@ new URI({
     port: '80',
     path: '/foo/bar.html',
     query: 'foo=bar&bar=baz',
-    fragment: 'frag'
+    fragment: 'frag',
 });
 new URI(document.createElement('a'));
 
@@ -52,10 +52,10 @@ URI('http://example.org/foo/hello.html').segmentCoded('foo bar');
 URI('http://example.org/foo/hello.html').segmentCoded(0, 'foo bar');
 URI('http://example.org/foo/hello.html').segmentCoded(['foo bar', 'bar foo', 'foo bar.html']);
 
-const withDuplicates = URI("?bar=1&bar=1")
-  .duplicateQueryParameters(true)
-  .normalizeQuery()
-  .toString();
+const withDuplicates = URI('?bar=1&bar=1')
+    .duplicateQueryParameters(true)
+    .normalizeQuery()
+    .toString();
 
 /*
  To enable `URI.expand` when using `URI.js` via `npm`, include the following:
@@ -67,37 +67,40 @@ const withDuplicates = URI("?bar=1&bar=1")
  */
 URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
     URI.expand('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
-        p: ["foo", "bar.html"],
-        q: {foo: "bar", bar: "baz"},
-        h: "frag"
+        p: ['foo', 'bar.html'],
+        q: { foo: 'bar', bar: 'baz' },
+        h: 'frag',
     })
 );
 
 // Basic URITemplate type usage
 URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
     URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
-        p: ["foo", "bar.html"],
-        q: {foo: "bar", bar: "baz"},
-        h: "frag"
+        p: ['foo', 'bar.html'],
+        q: { foo: 'bar', bar: 'baz' },
+        h: 'frag',
     })
 );
 
 // Using a callback for a specific key value.
 URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
     URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
-        p: (key) => ["foo", "bar.html"],
-        q: {foo: "bar", bar: "baz"},
-        h: "frag"
+        p: key => ['foo', 'bar.html'],
+        q: { foo: 'bar', bar: 'baz' },
+        h: 'frag',
     })
 );
 
 // Using a callback for entire data parameter.
 URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-    URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand((key) => {
+    URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand(key => {
         switch (key) {
-            case 'p': return ["foo", "bar.html"];
-            case '1': return {foo: "bar", bar: "baz"};
-            case 'h': return "frag";
+            case 'p':
+                return ['foo', 'bar.html'];
+            case '1':
+                return { foo: 'bar', bar: 'baz' };
+            case 'h':
+                return 'frag';
         }
     })
 );
@@ -105,9 +108,9 @@ URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
 // Supports null/undefined values for certain keys
 URI('http://user:pass@example.org:80/foo/bar.html').equals(
     URITemplate('http://user:pass@example.org:80{/p*}{?q*}{#h}').expand({
-        p: ["foo", "bar.html"],
+        p: ['foo', 'bar.html'],
         q: null,
-        h: undefined
+        h: undefined,
     })
 );
 
@@ -118,69 +121,72 @@ template.parse() === template;
 Tests for hasSearch(), hasQuery()
 From: http://medialize.github.io/URI.js/docs.html#search-has
 */
-uri = URI("?string=bar&list=one&list=two&number=123&null&empty=");
+uri = URI('?string=bar&list=one&list=two&number=123&null&empty=');
 
-test(uri.hasQuery("string"), true);
-test(uri.hasSearch("nono"), false);
+test(uri.hasQuery('string'), true);
+test(uri.hasSearch('nono'), false);
 
-test(uri.hasQuery("string", true), true);
-test(uri.hasSearch("string", false), false);
+test(uri.hasQuery('string', true), true);
+test(uri.hasSearch('string', false), false);
 
-test(uri.hasQuery("string", "bar"), true);
-test(uri.hasSearch("number", 123), true);
+test(uri.hasQuery('string', 'bar'), true);
+test(uri.hasSearch('number', 123), true);
 
-test(uri.hasQuery("list", "two", true), true);
-test(uri.hasSearch("list", ["two"], true), true);
-test(uri.hasQuery("list", "three", true), false);
-test(uri.hasSearch("list", ["two", "three"], true), false);
-test(uri.hasQuery("list", /ne$/, true), true);
+test(uri.hasQuery('list', 'two', true), true);
+test(uri.hasSearch('list', ['two'], true), true);
+test(uri.hasQuery('list', 'three', true), false);
+test(uri.hasSearch('list', ['two', 'three'], true), false);
+test(uri.hasQuery('list', /ne$/, true), true);
 
-test(uri.hasQuery("string", /ar$/), true);
+test(uri.hasQuery('string', /ar$/), true);
 
 test(uri.hasQuery(/^str/), true);
-test(uri.hasQuery(/^li/, "two"), true);
+test(uri.hasQuery(/^li/, 'two'), true);
 
-test(uri.hasQuery("string", (value: string, name: string, data: string) => {
-    return true;
-}), true);
+test(
+    uri.hasQuery('string', (value: string, name: string, data: string) => {
+        return true;
+    }),
+    true
+);
 
 /*
 Tests for removeSearch()
 From: https://medialize.github.io/URI.js/docs.html#search-remove
 */
-uri = new URI("?hello=world&hello=mars&foo=bar");
-uri.removeSearch("hello");
-uri.search(true) === "?foo=bar";
+uri = new URI('?hello=world&hello=mars&foo=bar');
+uri.removeSearch('hello');
+uri.search(true) === '?foo=bar';
 
-uri.search("?hello=world&hello=mars&foo=bar");
-uri.removeSearch("hello", "world");
-uri.search(true) === "?hello=mars&foo=bar";
+uri.search('?hello=world&hello=mars&foo=bar');
+uri.removeSearch('hello', 'world');
+uri.search(true) === '?hello=mars&foo=bar';
 
-uri.search("?hello=world&hello=mars&foo=bar&mine=true");
-uri.removeSearch(["hello", "foo"]);
-uri.search(true) === "?mine=true";
+uri.search('?hello=world&hello=mars&foo=bar&mine=true');
+uri.removeSearch(['hello', 'foo']);
+uri.search(true) === '?mine=true';
 
 /*
 Tests for is()
 From: https://medialize.github.io/URI.js/docs.html#is
 */
-uri = new URI("?hello=world&hello=mars&foo=bar");
-test(uri.is("relative"), true);
-test(uri.is("absolute"), false);
-test(uri.is("urn"), false);
-test(uri.is("url"), true);
-test(uri.is("domain"), false);
-test(uri.is("name"), false);
-test(uri.is("sld"), false);
-test(uri.is("idn"), false);
-test(uri.is("punycode"), false);
-test(uri.is("ip"), false);
-test(uri.is("ip4"), false);
-test(uri.is("ipv4"), false);
-test(uri.is("inet4"), false);
-test(uri.is("ip6"), false);
-test(uri.is("ipv6"), false);
-test(uri.is("inet6"), false);
+uri = new URI('?hello=world&hello=mars&foo=bar');
+test(uri.is('relative'), true);
+test(uri.is('absolute'), false);
+test(uri.is('urn'), false);
+test(uri.is('url'), true);
+test(uri.is('domain'), false);
+test(uri.is('name'), false);
+test(uri.is('sld'), false);
+test(uri.is('idn'), false);
+test(uri.is('punycode'), false);
+test(uri.is('ip'), false);
+test(uri.is('ip4'), false);
+test(uri.is('ipv4'), false);
+test(uri.is('inet4'), false);
+test(uri.is('ip6'), false);
+test(uri.is('ipv6'), false);
+test(uri.is('inet6'), false);
 
 /*
 Tests for URI.build()
@@ -189,7 +195,7 @@ From: https://medialize.github.io/URI.js/docs.html#static-build
 URI.build({
     protocol: 'mailto',
     path: 'mail@example.org',
-    urn: true
+    urn: true,
 }) === 'mailto:mail@example.org';
 
 /*
@@ -197,9 +203,9 @@ Tests for URI.parse()
 From: https://medialize.github.io/URI.js/docs.html#static-parse
 */
 let parts = URI.parse('mailto:mail@example.org');
-parts.path === "mail@example.org";
+parts.path === 'mail@example.org';
 parts.preventInvalidHostname = false;
-parts.protocol === "mailto";
+parts.protocol === 'mailto';
 parts.urn === true;
 
 function test<T>(a: T, b: T): boolean {

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Groups Settings API v1 */
-    function load(name: "groupssettings", version: "v1"): PromiseLike<void>;
-    function load(name: "groupssettings", version: "v1", callback: () => any): void;
+    function load(name: 'groupssettings', version: 'v1'): PromiseLike<void>;
+    function load(name: 'groupssettings', version: 'v1', callback: () => any): void;
 
     const groups: groupssettings.GroupsResource;
 

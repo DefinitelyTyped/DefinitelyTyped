@@ -6,14 +6,11 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
-
-  export interface INetworkInformationService {
-
-      getNetwork(): string;
-      isOnline(): boolean;
-      isOffline(): boolean;
-      clearOfflineWatch(): void;
-      clearOnlineWatch(): void;
-  }
-
+    export interface INetworkInformationService {
+        getNetwork(): string;
+        isOnline(): boolean;
+        isOffline(): boolean;
+        clearOfflineWatch(): void;
+        clearOnlineWatch(): void;
+    }
 }

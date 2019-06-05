@@ -15,4 +15,4 @@ type Node = t.Node;
 export = template;
 declare function template(code: string, opts?: BabylonOptions): UseTemplate;
 
-type UseTemplate = (nodes?: {[placeholder: string]: Node}) => Node;
+type UseTemplate = (nodes?: { [placeholder: string]: Node }) => Node;

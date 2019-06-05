@@ -1,2 +1,2 @@
-import { isBoolean } from "lodash";
+import { isBoolean } from 'lodash';
 export default isBoolean;

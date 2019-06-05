@@ -10,7 +10,7 @@ imagemin(['*.png'], {
             quality: [0.4, 0.5],
             dithering: 0,
             posterize: 1,
-            verbose: true
-        })
-    ]
+            verbose: true,
+        }),
+    ],
 });

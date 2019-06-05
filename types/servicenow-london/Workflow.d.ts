@@ -67,10 +67,7 @@ declare namespace global {
          * @param context GlideRecord on wf_context of the context to start the Workflow engine on
          * @param operation The String event for processing
          */
-        startFlowFromContextInsert(
-            context: ScopedGlideRecord,
-            operation: GlideRecordOperation
-        ): void;
+        startFlowFromContextInsert(context: ScopedGlideRecord, operation: GlideRecordOperation): void;
 
         /**
          * An intermediate method used to start a workflow with preloaded values for SLA Timer

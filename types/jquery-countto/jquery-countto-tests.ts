@@ -1,4 +1,4 @@
-import { Options } from "jquery-countto";
+import { Options } from 'jquery-countto';
 
 // Basic usage
 $('.timer').countTo();
@@ -10,18 +10,18 @@ const options: Options = {
     speed: 1000,
     refreshInterval: 50,
     formatter: (value: number, options: Options) => {
-      return value.toFixed(options.decimals);
+        return value.toFixed(options.decimals);
     },
     onUpdate: (value: number) => {
-      console.log(value);
+        console.log(value);
     },
     onComplete: (value: number) => {
-      console.log(value);
-    }
-  };
+        console.log(value);
+    },
+};
 
 $('.timer').countTo(options);
-$('.timer').countTo({from: 50});
+$('.timer').countTo({ from: 50 });
 
 // Controls
 $('.timer').countTo('start');

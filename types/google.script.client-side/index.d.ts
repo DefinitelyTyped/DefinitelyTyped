@@ -118,7 +118,14 @@ declare namespace google.script {
 
     const run: Runner;
 
-    type Parameter = number | boolean | string | { [index: number]: Parameter } | { [key: string]: Parameter } | null | undefined;
+    type Parameter =
+        | number
+        | boolean
+        | string
+        | { [index: number]: Parameter }
+        | { [key: string]: Parameter }
+        | null
+        | undefined;
 
     type Runner = {
         /**

@@ -7,14 +7,27 @@
 export = mapObj;
 
 declare function mapObj<O extends object, T extends string>(
-    source: O, mapper: mapObj.Mapper<O, T, any>, options: mapObj.DeepOptions): object;
+    source: O,
+    mapper: mapObj.Mapper<O, T, any>,
+    options: mapObj.DeepOptions
+): object;
 declare function mapObj<O extends object, O2 extends object, T extends string, U>(
-    source: O, mapper: mapObj.Mapper<O, T, U>, options: mapObj.TargetOptions<O2>): O2 & {[K in T]: U};
+    source: O,
+    mapper: mapObj.Mapper<O, T, U>,
+    options: mapObj.TargetOptions<O2>
+): O2 & { [K in T]: U };
 declare function mapObj<O extends object, T extends string, U>(
-    source: O, mapper: mapObj.Mapper<O, T, U>, options?: mapObj.Options): {[K in T]: U};
+    source: O,
+    mapper: mapObj.Mapper<O, T, U>,
+    options?: mapObj.Options
+): { [K in T]: U };
 
 declare namespace mapObj {
-    type Mapper<O extends object, T extends string, U> = (sourceKey: keyof O, sourceValue: O[keyof O], source: O) => [T, U];
+    type Mapper<O extends object, T extends string, U> = (
+        sourceKey: keyof O,
+        sourceValue: O[keyof O],
+        source: O
+    ) => [T, U];
 
     interface DeepOptions extends Options {
         deep: true;

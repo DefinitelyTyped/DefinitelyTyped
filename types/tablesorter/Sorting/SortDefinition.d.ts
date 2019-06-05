@@ -1,4 +1,4 @@
-import { SortDefinitionOrder } from "./SortDefinitionOrder";
+import { SortDefinitionOrder } from './SortDefinitionOrder';
 
 /**
  * Represents a definition of a sorting.

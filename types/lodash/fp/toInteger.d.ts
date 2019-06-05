@@ -1,2 +1,2 @@
-import { toInteger } from "../fp";
+import { toInteger } from '../fp';
 export = toInteger;

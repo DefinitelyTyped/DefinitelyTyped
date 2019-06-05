@@ -1,11 +1,11 @@
-import mermaid from "mermaid";
+import mermaid from 'mermaid';
 
 const config = {
     startOnLoad: true,
     flowchart: {
         useMaxWidth: false,
-        htmlLabels: true
-    }
+        htmlLabels: true,
+    },
 };
 
 mermaid.initialize(config);
@@ -15,14 +15,11 @@ mermaid.initialize(config);
 const { mermaidAPI } = mermaid;
 mermaidAPI.initialize({});
 
-const element = document.querySelector("#graphDiv")!;
+const element = document.querySelector('#graphDiv')!;
 
-const insertSvg = (
-    svgCode: string,
-    bindFunctions: (element: Element) => void
-) => {
+const insertSvg = (svgCode: string, bindFunctions: (element: Element) => void) => {
     element.innerHTML = svgCode;
 };
 
-const graphDefinition = "graph TB\na-->b";
-const graph = mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
+const graphDefinition = 'graph TB\na-->b';
+const graph = mermaidAPI.render('graphDiv', graphDefinition, insertSvg);

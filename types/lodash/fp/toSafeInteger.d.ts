@@ -1,2 +1,2 @@
-import { toSafeInteger } from "../fp";
+import { toSafeInteger } from '../fp';
 export = toSafeInteger;

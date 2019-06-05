@@ -8,15 +8,17 @@ function basics() {
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
-            this.bunny = PIXI.Sprite.fromImage("required/assets/basics/bunny.png");
+            this.bunny = PIXI.Sprite.fromImage('required/assets/basics/bunny.png');
             this.bunny.anchor.set(0.5);
             this.bunny.x = this.app.renderer.width / 2;
             this.bunny.y = this.app.renderer.height / 2;
             this.app.stage.addChild(this.bunny);
 
-            this.app.ticker.add((delta: number): void => {
-                this.bunny.rotation += 0.1 / delta;
-            });
+            this.app.ticker.add(
+                (delta: number): void => {
+                    this.bunny.rotation += 0.1 / delta;
+                }
+            );
         }
     }
 
@@ -37,17 +39,20 @@ function basics() {
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
-            this.sprite = PIXI.Sprite.fromImage("../../_assets/basics/bunny.png");
+            this.sprite = PIXI.Sprite.fromImage('../../_assets/basics/bunny.png');
             this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
             this.sprite.anchor.set(0.5);
             this.sprite.x = this.app.renderer.width / 2;
             this.sprite.y = this.app.renderer.height / 2;
             this.sprite.interactive = true;
             this.sprite.buttonMode = true;
-            this.sprite.on("pointerdown", (): void => {
-                this.sprite.scale.x *= 1.25;
-                this.sprite.scale.y *= 1.25;
-            });
+            this.sprite.on(
+                'pointerdown',
+                (): void => {
+                    this.sprite.scale.x *= 1.25;
+                    this.sprite.scale.y *= 1.25;
+                }
+            );
             this.app.stage.addChild(this.sprite);
         }
     }
@@ -63,7 +68,7 @@ function basics() {
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            const texture = PIXI.Texture.fromImage("../../_assets/basics/bunny.png");
+            const texture = PIXI.Texture.fromImage('../../_assets/basics/bunny.png');
 
             for (let i = 0; i < 25; i++) {
                 const bunny = new PIXI.Sprite(texture);
@@ -79,9 +84,11 @@ function basics() {
             this.container.pivot.x = this.container.width / 2;
             this.container.pivot.y = this.container.height / 2;
 
-            this.app.ticker.add((delta: number): void => {
-                this.container.rotation -= 0.01 / delta;
-            });
+            this.app.ticker.add(
+                (delta: number): void => {
+                    this.container.rotation -= 0.01 / delta;
+                }
+            );
         }
     }
 
@@ -96,7 +103,7 @@ function basics() {
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            const texture = PIXI.Texture.fromImage("../../_assets/basics/bunny.png");
+            const texture = PIXI.Texture.fromImage('../../_assets/basics/bunny.png');
 
             for (let i = 0; i < 25; i++) {
                 const bunny = new PIXI.Sprite(texture);
@@ -115,9 +122,9 @@ function basics() {
         constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
-                    type: "1f",
-                    value: 0
-                }
+                    type: '1f',
+                    value: 0,
+                },
             });
         }
     }
@@ -130,15 +137,15 @@ function basics() {
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
-            this.background = PIXI.Sprite.fromImage("required/assets/bkg-grass.jpg");
+            this.background = PIXI.Sprite.fromImage('required/assets/bkg-grass.jpg');
             this.background.width = this.app.renderer.width;
             this.background.height = this.app.renderer.height;
             this.app.stage.addChild(this.background);
 
             this.app.stop();
 
-            PIXI.loader.add("shader", "_assets/basics/shader.frag")
-                .load((loader: PIXI.loaders.Loader, resource: any): void => {
+            PIXI.loader.add('shader', '_assets/basics/shader.frag').load(
+                (loader: PIXI.loaders.Loader, resource: any): void => {
                     this.filter = new PIXI.Filter(null, resource.shader.data);
                     this.background.filters = [this.filter];
                     this.app.start();
@@ -146,7 +153,8 @@ function basics() {
                     this.app.ticker.add((delta: number) => {
                         this.filter.uniforms.customUniform += 0.04 / delta;
                     });
-                });
+                }
+            );
         }
     }
 
@@ -161,7 +169,7 @@ function basics() {
             const graphics = new PIXI.Graphics();
 
             // set a fill and line style
-            graphics.beginFill(0xFF3300);
+            graphics.beginFill(0xff3300);
             graphics.lineStyle(4, 0xffd900, 1);
 
             // draw a shape
@@ -172,19 +180,19 @@ function basics() {
             graphics.endFill();
 
             // set a fill and a line style again and draw a rectangle
-            graphics.lineStyle(2, 0x0000FF, 1);
-            graphics.beginFill(0xFF700B, 1);
+            graphics.lineStyle(2, 0x0000ff, 1);
+            graphics.beginFill(0xff700b, 1);
             graphics.drawRect(50, 250, 120, 120);
 
             // draw a rounded rectangle
-            graphics.lineStyle(2, 0xFF00FF, 1);
-            graphics.beginFill(0xFF00BB, 0.25);
+            graphics.lineStyle(2, 0xff00ff, 1);
+            graphics.beginFill(0xff00bb, 0.25);
             graphics.drawRoundedRect(150, 450, 300, 100, 15);
             graphics.endFill();
 
             // draw a circle, set the lineStyle to zero so the circle doesn"t have an outline
             graphics.lineStyle(0);
-            graphics.beginFill(0xFFFF0B, 0.5);
+            graphics.beginFill(0xffff0b, 0.5);
             graphics.drawCircle(470, 90, 60);
             graphics.endFill();
 
@@ -207,7 +215,7 @@ function basics() {
             this.container = new PIXI.Container();
             this.app.stage.addChild(this.container);
 
-            const texture = PIXI.Texture.fromImage("required/assets/basics/bunny.png");
+            const texture = PIXI.Texture.fromImage('required/assets/basics/bunny.png');
 
             for (let i = 0; i < 25; i++) {
                 const bunny = new PIXI.Sprite(texture);
@@ -240,12 +248,12 @@ function basics() {
 
         constructor() {
             PIXI.loader
-                .add("required/assets/basics/fighter.json")
+                .add('required/assets/basics/fighter.json')
                 .load((loader: PIXI.loaders.Loader, resource: any) => {
                     const frames = [];
 
                     for (let i = 0; i < 30; i++) {
-                        const val = i < 10 ? "0" + i : i;
+                        const val = i < 10 ? '0' + i : i;
 
                         frames.push(PIXI.Texture.fromFrame(`rollSequence00${val}.png`));
                     }
@@ -276,29 +284,29 @@ function basics() {
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
-            this.basicText = new PIXI.Text("Basic text in pixi");
+            this.basicText = new PIXI.Text('Basic text in pixi');
             this.basicText.x = 30;
             this.basicText.y = 90;
             this.app.stage.addChild(this.basicText);
 
             const style = new PIXI.TextStyle({
-                fontFamily: "Arial",
+                fontFamily: 'Arial',
                 fontSize: 36,
-                fontStyle: "italic",
-                fontWeight: "bold",
-                fill: ["#ffffff", "#fff0b5"],
-                stroke: "#4a1850",
+                fontStyle: 'italic',
+                fontWeight: 'bold',
+                fill: ['#ffffff', '#fff0b5'],
+                stroke: '#4a1850',
                 strokeThickness: 5,
                 dropShadow: true,
-                dropShadowColor: "#000000",
+                dropShadowColor: '#000000',
                 dropShadowBlur: 4,
                 dropShadowAngle: Math.PI / 6,
                 dropShadowDistance: 6,
                 wordWrap: true,
-                wordWrapWidth: 440
+                wordWrapWidth: 440,
             });
 
-            this.richText = new PIXI.Text("Rich text with a lot of options and across multiple lines", style);
+            this.richText = new PIXI.Text('Rich text with a lot of options and across multiple lines', style);
             this.richText.x = 30;
             this.richText.y = 180;
             this.app.stage.addChild(this.richText);
@@ -319,7 +327,7 @@ function basics() {
                 this.points.push(new PIXI.Point(i * ropeLength, 0));
             }
 
-            this.strip = new PIXI.mesh.Rope(PIXI.Texture.fromImage("required/assets/snake.png"), this.points);
+            this.strip = new PIXI.mesh.Rope(PIXI.Texture.fromImage('required/assets/snake.png'), this.points);
             this.strip.x = -40;
             this.strip.y = 300;
             this.app.stage.addChild(this.strip);
@@ -335,8 +343,8 @@ function basics() {
 
                 // make the snake
                 for (let i = 0; i < this.points.length; i++) {
-                    this.points[i].y = Math.sin((i * 0.5) + this.count) * 30;
-                    this.points[i].x = i * ropeLength + Math.cos((i * 0.3) + this.count) * 20;
+                    this.points[i].y = Math.sin(i * 0.5 + this.count) * 30;
+                    this.points[i].x = i * ropeLength + Math.cos(i * 0.3 + this.count) * 20;
                 }
                 this.renderPoints();
             });
@@ -368,7 +376,7 @@ function basics() {
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            const texture = PIXI.Texture.fromImage("required/assets/p2.jpeg");
+            const texture = PIXI.Texture.fromImage('required/assets/p2.jpeg');
 
             this.tilingSprite = new PIXI.extras.TilingSprite(
                 texture,
@@ -379,14 +387,16 @@ function basics() {
 
             this.count = 0;
 
-            this.app.ticker.add((deltaTime: number): void => {
-                this.count += 0.005;
+            this.app.ticker.add(
+                (deltaTime: number): void => {
+                    this.count += 0.005;
 
-                this.tilingSprite.tileScale.x = 2 + Math.sin(this.count);
-                this.tilingSprite.tileScale.y = 2 + Math.cos(this.count);
-                this.tilingSprite.tilePosition.x += 1;
-                this.tilingSprite.tilePosition.y += 1;
-            });
+                    this.tilingSprite.tileScale.x = 2 + Math.sin(this.count);
+                    this.tilingSprite.tileScale.y = 2 + Math.cos(this.count);
+                    this.tilingSprite.tilePosition.x += 1;
+                    this.tilingSprite.tilePosition.y += 1;
+                }
+            );
         }
     }
 
@@ -419,16 +429,19 @@ function basics() {
             // Add to the stage
             this.app.stage.addChild(this.button);
 
-            this.button.on("pointertap", (): void => {
-                this.button.destroy();
+            this.button.on(
+                'pointertap',
+                (): void => {
+                    this.button.destroy();
 
-                const texture = PIXI.Texture.fromVideo("required/assets/testVideo.mp4");
+                    const texture = PIXI.Texture.fromVideo('required/assets/testVideo.mp4');
 
-                this.videoSprite = new PIXI.Sprite(texture);
-                this.videoSprite.width = this.app.renderer.width;
-                this.videoSprite.height = this.app.renderer.height;
-                this.app.stage.addChild(this.videoSprite);
-            });
+                    this.videoSprite = new PIXI.Sprite(texture);
+                    this.videoSprite.width = this.app.renderer.width;
+                    this.videoSprite.height = this.app.renderer.height;
+                    this.app.stage.addChild(this.videoSprite);
+                }
+            );
         }
     }
 }
@@ -446,13 +459,13 @@ function demos() {
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
 
-            this.bg = PIXI.Sprite.fromImage("required/assets/bkg.jpg");
+            this.bg = PIXI.Sprite.fromImage('required/assets/bkg.jpg');
             this.app.stage.addChild(this.bg);
 
-            this.cells = PIXI.Sprite.fromImage("required/assets/cells.png");
+            this.cells = PIXI.Sprite.fromImage('required/assets/cells.png');
             this.cells.scale.set(1.5);
 
-            this.mask = PIXI.Sprite.fromImage("required/assets/flowerTop.png");
+            this.mask = PIXI.Sprite.fromImage('required/assets/flowerTop.png');
             this.mask.anchor.set(0.5);
             this.mask.x = 310;
             this.mask.y = 190;
@@ -465,14 +478,16 @@ function demos() {
 
             this.reset();
 
-            this.app.ticker.add((deltaTime: number): void => {
-                this.mask.position.x += (this.target.x - this.mask.x) * 0.1;
-                this.mask.position.y += (this.target.y - this.mask.y) * 0.1;
+            this.app.ticker.add(
+                (deltaTime: number): void => {
+                    this.mask.position.x += (this.target.x - this.mask.x) * 0.1;
+                    this.mask.position.y += (this.target.y - this.mask.y) * 0.1;
 
-                if (Math.abs(this.mask.x - this.target.x) < 1) {
-                    this.reset();
+                    if (Math.abs(this.mask.x - this.target.x) < 1) {
+                        this.reset();
+                    }
                 }
-            });
+            );
         }
 
         private reset(): void {
@@ -489,9 +504,8 @@ function demos() {
             this.app.stop();
             document.body.appendChild(this.app.view);
 
-            PIXI.loader
-                .add("spritesheet", "required/assets/mc.json")
-                .load((): void => {
+            PIXI.loader.add('spritesheet', 'required/assets/mc.json').load(
+                (): void => {
                     const explosionTextures: PIXI.Texture[] = [];
 
                     for (let i = 0; i < 26; i++) {
@@ -512,7 +526,8 @@ function demos() {
                     }
 
                     this.app.start();
-                });
+                }
+            );
         }
     }
 
@@ -532,7 +547,7 @@ function demos() {
                 position: true,
                 rotation: true,
                 uvs: true,
-                tint: true
+                tint: true,
             });
             this.app.stage.addChild(this.sprites);
 
@@ -540,11 +555,11 @@ function demos() {
 
             const totalSprites = this.app.renderer instanceof PIXI.WebGLRenderer ? 10000 : 100;
 
-            const dudeTexture = PIXI.Texture.fromImage("required/assets/tinyMaggot.png");
+            const dudeTexture = PIXI.Texture.fromImage('required/assets/tinyMaggot.png');
 
             for (let i = 0; i < totalSprites; i++) {
                 const dude = new Dude(dudeTexture);
-                dude.tint = Math.random() * 0xE8D4CD;
+                dude.tint = Math.random() * 0xe8d4cd;
                 dude.anchor.set(0.5);
                 dude.scale.set(0.8 + Math.random() * 0.3);
                 dude.x = Math.random() * this.app.renderer.width;
@@ -568,30 +583,32 @@ function demos() {
 
             this.tick = 0;
 
-            this.app.ticker.add((): void => {
-                for (const dude of this.maggots) {
-                    dude.scale.y = 0.95 + Math.sin(this.tick + dude.offset) * 0.05;
-                    dude.direction += dude.turningSpeed * 0.01;
-                    dude.x += Math.sin(dude.direction) * (dude.speed * dude.scale.y);
-                    dude.y += Math.cos(dude.direction) * (dude.speed * dude.scale.y);
-                    dude.rotation = -dude.direction + Math.PI;
+            this.app.ticker.add(
+                (): void => {
+                    for (const dude of this.maggots) {
+                        dude.scale.y = 0.95 + Math.sin(this.tick + dude.offset) * 0.05;
+                        dude.direction += dude.turningSpeed * 0.01;
+                        dude.x += Math.sin(dude.direction) * (dude.speed * dude.scale.y);
+                        dude.y += Math.cos(dude.direction) * (dude.speed * dude.scale.y);
+                        dude.rotation = -dude.direction + Math.PI;
 
-                    // wrap the maggots
-                    if (dude.x < this.dudeBounds.x) {
-                        dude.x += this.dudeBounds.width;
-                    } else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
-                        dude.x -= this.dudeBounds.width;
+                        // wrap the maggots
+                        if (dude.x < this.dudeBounds.x) {
+                            dude.x += this.dudeBounds.width;
+                        } else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
+                            dude.x -= this.dudeBounds.width;
+                        }
+
+                        if (dude.y < this.dudeBounds.y) {
+                            dude.y += this.dudeBounds.height;
+                        } else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
+                            dude.y -= this.dudeBounds.height;
+                        }
                     }
 
-                    if (dude.y < this.dudeBounds.y) {
-                        dude.y += this.dudeBounds.height;
-                    } else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
-                        dude.y -= this.dudeBounds.height;
-                    }
+                    this.tick += 0.1;
                 }
-
-                this.tick += 0.1;
-            });
+            );
         }
     }
     class Dude extends PIXI.Sprite {
@@ -615,13 +632,13 @@ function demos() {
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            this.background = PIXI.Sprite.fromImage("required/assets/BGrotate.jpg");
+            this.background = PIXI.Sprite.fromImage('required/assets/BGrotate.jpg');
             this.app.stage.addChild(this.background);
 
             this.dudeArray = [];
 
             const totalDudes = 20;
-            const dudeTexture = PIXI.Texture.fromImage("required/assets/flowerTop.png");
+            const dudeTexture = PIXI.Texture.fromImage('required/assets/flowerTop.png');
 
             for (let i = 0; i < totalDudes; i++) {
                 const dude = new Dude(dudeTexture);
@@ -646,27 +663,29 @@ function demos() {
                 this.app.renderer.height + dudeBoundsPadding * 2
             );
 
-            this.app.ticker.add((): void => {
-                for (const dude of this.dudeArray) {
-                    dude.direction += dude.turningSpeed * 0.01;
-                    dude.x += Math.sin(dude.direction) * dude.speed;
-                    dude.y += Math.cos(dude.direction) * dude.speed;
-                    dude.rotation = -dude.direction - Math.PI / 2;
+            this.app.ticker.add(
+                (): void => {
+                    for (const dude of this.dudeArray) {
+                        dude.direction += dude.turningSpeed * 0.01;
+                        dude.x += Math.sin(dude.direction) * dude.speed;
+                        dude.y += Math.cos(dude.direction) * dude.speed;
+                        dude.rotation = -dude.direction - Math.PI / 2;
 
-                    // wrap the dudes by testing their bounds...
-                    if (dude.x < this.dudeBounds.x) {
-                        dude.x += this.dudeBounds.width;
-                    } else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
-                        dude.x -= this.dudeBounds.width;
-                    }
+                        // wrap the dudes by testing their bounds...
+                        if (dude.x < this.dudeBounds.x) {
+                            dude.x += this.dudeBounds.width;
+                        } else if (dude.x > this.dudeBounds.x + this.dudeBounds.width) {
+                            dude.x -= this.dudeBounds.width;
+                        }
 
-                    if (dude.y < this.dudeBounds.y) {
-                        dude.y += this.dudeBounds.height;
-                    } else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
-                        dude.y -= this.dudeBounds.height;
+                        if (dude.y < this.dudeBounds.y) {
+                            dude.y += this.dudeBounds.height;
+                        } else if (dude.y > this.dudeBounds.y + this.dudeBounds.height) {
+                            dude.y -= this.dudeBounds.height;
+                        }
                     }
                 }
-            });
+            );
         }
     }
 
@@ -684,12 +703,7 @@ function demos() {
             this.app.stop();
 
             this.aliens = [];
-            const alienFrames = [
-                "eggHead.png",
-                "flowerTop.png",
-                "helmlok.png",
-                "skully.png"
-            ];
+            const alienFrames = ['eggHead.png', 'flowerTop.png', 'helmlok.png', 'skully.png'];
 
             this.count = 0;
 
@@ -698,14 +712,13 @@ function demos() {
             this.alienContainer.y = 300;
             this.app.stage.addChild(this.alienContainer);
 
-            PIXI.loader
-                .add("spritesheet", "required/assets/monsters.json")
-                .load((): void => {
+            PIXI.loader.add('spritesheet', 'required/assets/monsters.json').load(
+                (): void => {
                     for (let i = 0; i < 100; i++) {
                         const frameName = alienFrames[i % 4];
 
                         const alien = PIXI.Sprite.fromFrame(frameName);
-                        alien.tint = Math.random() * 0xFFFFFF;
+                        alien.tint = Math.random() * 0xffffff;
                         alien.x = Math.random() * 800 - 400;
                         alien.y = Math.random() * 600 - 300;
                         alien.anchor.x = 0.5;
@@ -715,23 +728,29 @@ function demos() {
                     }
                     this.app.start();
 
-                    this.app.stage.on("pointerTap", (event: PIXI.interaction.InteractionEvent): void => {
-                        this.alienContainer.cacheAsBitmap = !this.alienContainer.cacheAsBitmap;
-                    });
-                    this.app.ticker.add((): void => {
-                        // let"s rotate the aliens a little bit
-                        for (let i = 0; i < 100; i++) {
-                            const alien = this.aliens[i];
-                            alien.rotation += 0.1;
+                    this.app.stage.on(
+                        'pointerTap',
+                        (event: PIXI.interaction.InteractionEvent): void => {
+                            this.alienContainer.cacheAsBitmap = !this.alienContainer.cacheAsBitmap;
                         }
+                    );
+                    this.app.ticker.add(
+                        (): void => {
+                            // let"s rotate the aliens a little bit
+                            for (let i = 0; i < 100; i++) {
+                                const alien = this.aliens[i];
+                                alien.rotation += 0.1;
+                            }
 
-                        this.count += 0.01;
+                            this.count += 0.01;
 
-                        this.alienContainer.scale.x = Math.sin(this.count);
-                        this.alienContainer.scale.y = Math.sin(this.count);
-                        this.alienContainer.rotation += 0.01;
-                    });
-                });
+                            this.alienContainer.scale.x = Math.sin(this.count);
+                            this.alienContainer.scale.y = Math.sin(this.count);
+                            this.alienContainer.rotation += 0.01;
+                        }
+                    );
+                }
+            );
         }
     }
 
@@ -744,7 +763,7 @@ function demos() {
             this.app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
             document.body.appendChild(this.app.view);
 
-            const texture = PIXI.Texture.fromImage("required/assets/bunny.png");
+            const texture = PIXI.Texture.fromImage('required/assets/bunny.png');
             texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
 
             for (let i = 0; i < 10; i++) {
@@ -763,28 +782,40 @@ function demos() {
             bunny.anchor.set(0.5);
             bunny.scale.set(3);
             bunny
-                .on("pointerdown", (event: PIXI.interaction.InteractionEvent): void => {
-                    this.data = event.data;
-                    bunny.alpha = 0.5;
-                    this.dragging = true;
-                })
-                .on("pointerup", (event: PIXI.interaction.InteractionEvent): void => {
-                    this.data = null;
-                    bunny.alpha = 0.5;
-                    this.dragging = false;
-                })
-                .on("pointerupoutside", (event: PIXI.interaction.InteractionEvent): void => {
-                    this.data = null;
-                    bunny.alpha = 0.5;
-                    this.dragging = false;
-                })
-                .on("pointermove", (event: PIXI.interaction.InteractionEvent): void => {
-                    if (this.dragging) {
-                        const newPosition = this.data.getLocalPosition(bunny);
-                        bunny.x = newPosition.x;
-                        bunny.y = newPosition.y;
+                .on(
+                    'pointerdown',
+                    (event: PIXI.interaction.InteractionEvent): void => {
+                        this.data = event.data;
+                        bunny.alpha = 0.5;
+                        this.dragging = true;
                     }
-                });
+                )
+                .on(
+                    'pointerup',
+                    (event: PIXI.interaction.InteractionEvent): void => {
+                        this.data = null;
+                        bunny.alpha = 0.5;
+                        this.dragging = false;
+                    }
+                )
+                .on(
+                    'pointerupoutside',
+                    (event: PIXI.interaction.InteractionEvent): void => {
+                        this.data = null;
+                        bunny.alpha = 0.5;
+                        this.dragging = false;
+                    }
+                )
+                .on(
+                    'pointermove',
+                    (event: PIXI.interaction.InteractionEvent): void => {
+                        if (this.dragging) {
+                            const newPosition = this.data.getLocalPosition(bunny);
+                            bunny.x = newPosition.x;
+                            bunny.y = newPosition.y;
+                        }
+                    }
+                );
 
             bunny.x = x;
             bunny.y = y;
@@ -806,7 +837,7 @@ function demos() {
 
             const graphics = new PIXI.Graphics();
 
-            graphics.beginFill(0xFF3300);
+            graphics.beginFill(0xff3300);
             graphics.lineStyle(10, 0xffd900, 1);
 
             graphics.moveTo(50, 50);
@@ -817,8 +848,8 @@ function demos() {
             graphics.lineTo(50, 50);
             graphics.endFill();
 
-            graphics.lineStyle(10, 0xFF0000, 0.8);
-            graphics.beginFill(0xFF700B, 1);
+            graphics.lineStyle(10, 0xff0000, 0.8);
+            graphics.beginFill(0xff700b, 1);
 
             graphics.moveTo(210, 300);
             graphics.lineTo(450, 320);
@@ -829,15 +860,15 @@ function demos() {
             graphics.lineTo(210, 300);
             graphics.endFill();
 
-            graphics.lineStyle(2, 0x0000FF, 1);
+            graphics.lineStyle(2, 0x0000ff, 1);
             graphics.drawRect(50, 250, 100, 100);
 
             graphics.lineStyle(0);
-            graphics.beginFill(0xFFFF0B, 0.5);
+            graphics.beginFill(0xffff0b, 0.5);
             graphics.drawCircle(470, 200, 100);
             graphics.endFill();
 
-            graphics.lineStyle(20, 0x33FF00);
+            graphics.lineStyle(20, 0x33ff00);
             graphics.moveTo(30, 30);
             graphics.lineTo(600, 300);
 
@@ -852,31 +883,39 @@ function demos() {
 
             this.count = 0;
 
-            this.app.stage.on("pointertap", (): void => {
-                this.graphics.lineStyle(Math.random() * 30, Math.random() * 0xFFFFFF, 1);
-                this.graphics.moveTo(Math.random() * 800, Math.random() * 600);
-                this.graphics.bezierCurveTo(
-                    Math.random() * 800, Math.random() * 600,
-                    Math.random() * 800, Math.random() * 600,
-                    Math.random() * 800, Math.random() * 600
-                );
-            });
+            this.app.stage.on(
+                'pointertap',
+                (): void => {
+                    this.graphics.lineStyle(Math.random() * 30, Math.random() * 0xffffff, 1);
+                    this.graphics.moveTo(Math.random() * 800, Math.random() * 600);
+                    this.graphics.bezierCurveTo(
+                        Math.random() * 800,
+                        Math.random() * 600,
+                        Math.random() * 800,
+                        Math.random() * 600,
+                        Math.random() * 800,
+                        Math.random() * 600
+                    );
+                }
+            );
 
-            this.app.ticker.add((): void => {
-                this.count += 0.1;
+            this.app.ticker.add(
+                (): void => {
+                    this.count += 0.1;
 
-                this.thing.clear();
-                this.thing.lineStyle(10, 0xff0000, 1);
-                this.thing.beginFill(0xffFF00, 0.5);
+                    this.thing.clear();
+                    this.thing.lineStyle(10, 0xff0000, 1);
+                    this.thing.beginFill(0xffff00, 0.5);
 
-                this.thing.moveTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
-                this.thing.lineTo(120 + Math.cos(this.count) * 20, -100 + Math.sin(this.count) * 20);
-                this.thing.lineTo(120 + Math.sin(this.count) * 20, 100 + Math.cos(this.count) * 20);
-                this.thing.lineTo(-120 + Math.cos(this.count) * 20, 100 + Math.sin(this.count) * 20);
-                this.thing.lineTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
+                    this.thing.moveTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
+                    this.thing.lineTo(120 + Math.cos(this.count) * 20, -100 + Math.sin(this.count) * 20);
+                    this.thing.lineTo(120 + Math.sin(this.count) * 20, 100 + Math.cos(this.count) * 20);
+                    this.thing.lineTo(-120 + Math.cos(this.count) * 20, 100 + Math.sin(this.count) * 20);
+                    this.thing.lineTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
 
-                this.thing.rotation = this.count * 0.1;
-            });
+                    this.thing.rotation = this.count * 0.1;
+                }
+            );
         }
     }
 
@@ -889,7 +928,7 @@ function demos() {
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            const background = PIXI.Sprite.fromImage("required/assets/button_test_BG.jpg");
+            const background = PIXI.Sprite.fromImage('required/assets/button_test_BG.jpg');
             background.width = this.app.renderer.width;
             background.height = this.app.renderer.height;
             this.background = background;
@@ -897,17 +936,11 @@ function demos() {
 
             this.buttons = [];
 
-            const buttonPositions = [
-                175, 75,
-                655, 75,
-                410, 325,
-                150, 465,
-                685, 445
-            ];
+            const buttonPositions = [175, 75, 655, 75, 410, 325, 150, 465, 685, 445];
 
-            const textureButton = PIXI.Texture.fromImage("../../_assets/button.png");
-            const textureButtonDown = PIXI.Texture.fromImage("../../_assets/buttonDown.png");
-            const textureButtonOver = PIXI.Texture.fromImage("../../_assets/buttonOver.png");
+            const textureButton = PIXI.Texture.fromImage('../../_assets/button.png');
+            const textureButtonDown = PIXI.Texture.fromImage('../../_assets/buttonDown.png');
+            const textureButtonOver = PIXI.Texture.fromImage('../../_assets/buttonOver.png');
 
             for (let i = 0; i < 5; i++) {
                 const button = new PIXI.Sprite(textureButton);
@@ -918,21 +951,36 @@ function demos() {
                 button.buttonMode = true;
 
                 button
-                    .on("pointerdown", (): void => {
-                        // blah
-                    })
-                    .on("pointerup", (): void => {
-                        // blah
-                    })
-                    .on("pointerupoutside", (): void => {
-                        // blah
-                    })
-                    .on("pointerover", (): void => {
-                        // blah
-                    })
-                    .on("pointerout", (): void => {
-                        // blah
-                    });
+                    .on(
+                        'pointerdown',
+                        (): void => {
+                            // blah
+                        }
+                    )
+                    .on(
+                        'pointerup',
+                        (): void => {
+                            // blah
+                        }
+                    )
+                    .on(
+                        'pointerupoutside',
+                        (): void => {
+                            // blah
+                        }
+                    )
+                    .on(
+                        'pointerover',
+                        (): void => {
+                            // blah
+                        }
+                    )
+                    .on(
+                        'pointerout',
+                        (): void => {
+                            // blah
+                        }
+                    );
 
                 this.app.stage.addChild(button);
                 this.buttons.push(button);
@@ -963,7 +1011,7 @@ function demos() {
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
 
-            this.bg = PIXI.Sprite.fromImage("required/assets/BGrotate.jpg");
+            this.bg = PIXI.Sprite.fromImage('required/assets/BGrotate.jpg');
             this.bg.anchor.set(0.5);
             this.bg.x = this.app.renderer.width / 2;
             this.bg.y = this.app.renderer.height / 2;
@@ -974,16 +1022,16 @@ function demos() {
             this.container.y = this.app.renderer.height / 2;
             this.app.stage.addChild(this.container);
 
-            this.bgFront = PIXI.Sprite.fromImage("required/assets/SceneRotate.jpg");
+            this.bgFront = PIXI.Sprite.fromImage('required/assets/SceneRotate.jpg');
             this.bgFront.anchor.set(0.5);
 
-            this.light2 = PIXI.Sprite.fromImage("required/assets/LightRotate2.png");
+            this.light2 = PIXI.Sprite.fromImage('required/assets/LightRotate2.png');
             this.light2.anchor.set(0.5);
 
-            this.light1 = PIXI.Sprite.fromImage("required/assets/LightRotate1.png");
+            this.light1 = PIXI.Sprite.fromImage('required/assets/LightRotate1.png');
             this.light1.anchor.set(0.5);
 
-            this.panda = PIXI.Sprite.fromImage("required/assets/panda.png");
+            this.panda = PIXI.Sprite.fromImage('required/assets/panda.png');
             this.panda.anchor.set(0.5);
 
             this.container.addChild(this.bgFront, this.light2, this.light1, this.panda);
@@ -999,38 +1047,43 @@ function demos() {
 
             this.count = 0;
 
-            this.app.stage.on("pointertap", (): void => {
-                if (!this.container.mask) {
-                    this.container.mask = this.thing;
-                } else {
-                    this.container.mask = null;
+            this.app.stage.on(
+                'pointertap',
+                (): void => {
+                    if (!this.container.mask) {
+                        this.container.mask = this.thing;
+                    } else {
+                        this.container.mask = null;
+                    }
                 }
-            });
+            );
 
-            this.app.ticker.add((): void => {
-                this.bg.rotation += 0.01;
-                this.bgFront.rotation -= 0.01;
+            this.app.ticker.add(
+                (): void => {
+                    this.bg.rotation += 0.01;
+                    this.bgFront.rotation -= 0.01;
 
-                this.light1.rotation += 0.02;
-                this.light2.rotation += 0.01;
+                    this.light1.rotation += 0.02;
+                    this.light2.rotation += 0.01;
 
-                this.panda.scale.x = 1 + Math.sin(this.count) * 0.04;
-                this.panda.scale.y = 1 + Math.cos(this.count) * 0.04;
+                    this.panda.scale.x = 1 + Math.sin(this.count) * 0.04;
+                    this.panda.scale.y = 1 + Math.cos(this.count) * 0.04;
 
-                this.count += 0.1;
+                    this.count += 0.1;
 
-                this.thing.clear();
+                    this.thing.clear();
 
-                this.thing.beginFill(0x8bc5ff, 0.4);
-                this.thing.moveTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
-                this.thing.lineTo(-320 + Math.cos(this.count) * 20, 100 + Math.sin(this.count) * 20);
-                this.thing.lineTo(120 + Math.cos(this.count) * 20, -100 + Math.sin(this.count) * 20);
-                this.thing.lineTo(120 + Math.sin(this.count) * 20, 100 + Math.cos(this.count) * 20);
-                this.thing.lineTo(-120 + Math.cos(this.count) * 20, 100 + Math.sin(this.count) * 20);
-                this.thing.lineTo(-120 + Math.sin(this.count) * 20, -300 + Math.cos(this.count) * 20);
-                this.thing.lineTo(-320 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
-                this.thing.rotation = this.count * 0.1;
-            });
+                    this.thing.beginFill(0x8bc5ff, 0.4);
+                    this.thing.moveTo(-120 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
+                    this.thing.lineTo(-320 + Math.cos(this.count) * 20, 100 + Math.sin(this.count) * 20);
+                    this.thing.lineTo(120 + Math.cos(this.count) * 20, -100 + Math.sin(this.count) * 20);
+                    this.thing.lineTo(120 + Math.sin(this.count) * 20, 100 + Math.cos(this.count) * 20);
+                    this.thing.lineTo(-120 + Math.cos(this.count) * 20, 100 + Math.sin(this.count) * 20);
+                    this.thing.lineTo(-120 + Math.sin(this.count) * 20, -300 + Math.cos(this.count) * 20);
+                    this.thing.lineTo(-320 + Math.sin(this.count) * 20, -100 + Math.cos(this.count) * 20);
+                    this.thing.rotation = this.count * 0.1;
+                }
+            );
         }
     }
 
@@ -1052,14 +1105,8 @@ function demos() {
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            this.renderTexture = PIXI.RenderTexture.create(
-                this.app.renderer.width,
-                this.app.renderer.height
-            );
-            this.renderTexture2 = PIXI.RenderTexture.create(
-                this.app.renderer.width,
-                this.app.renderer.height
-            );
+            this.renderTexture = PIXI.RenderTexture.create(this.app.renderer.width, this.app.renderer.height);
+            this.renderTexture2 = PIXI.RenderTexture.create(this.app.renderer.width, this.app.renderer.height);
             this.currentTexture = this.renderTexture;
 
             this.outputSprite = new PIXI.Sprite(this.currentTexture);
@@ -1074,14 +1121,14 @@ function demos() {
             this.app.stage.addChild(this.stuffContainer);
 
             const fruits = [
-                "required/assets/spinObj_01.png",
-                "required/assets/spinObj_02.png",
-                "required/assets/spinObj_03.png",
-                "required/assets/spinObj_04.png",
-                "required/assets/spinObj_05.png",
-                "required/assets/spinObj_06.png",
-                "required/assets/spinObj_07.png",
-                "required/assets/spinObj_08.png"
+                'required/assets/spinObj_01.png',
+                'required/assets/spinObj_02.png',
+                'required/assets/spinObj_03.png',
+                'required/assets/spinObj_04.png',
+                'required/assets/spinObj_05.png',
+                'required/assets/spinObj_06.png',
+                'required/assets/spinObj_07.png',
+                'required/assets/spinObj_08.png',
             ];
 
             this.items = [];
@@ -1097,24 +1144,26 @@ function demos() {
 
             this.count = 0;
 
-            this.app.ticker.add((): void => {
-                for (const item of this.items) {
-                    item.rotation += 0.1;
+            this.app.ticker.add(
+                (): void => {
+                    for (const item of this.items) {
+                        item.rotation += 0.1;
+                    }
+
+                    this.count += 0.01;
+
+                    const temp = this.renderTexture;
+                    this.renderTexture = this.renderTexture2;
+                    this.renderTexture2 = temp;
+
+                    this.outputSprite.texture = this.renderTexture;
+
+                    this.stuffContainer.rotation -= 0.01;
+                    this.outputSprite.scale.set(1 + Math.sin(this.count) * 0.2);
+
+                    this.app.renderer.render(this.app.stage, this.renderTexture2, false);
                 }
-
-                this.count += 0.01;
-
-                const temp = this.renderTexture;
-                this.renderTexture = this.renderTexture2;
-                this.renderTexture2 = temp;
-
-                this.outputSprite.texture = this.renderTexture;
-
-                this.stuffContainer.rotation -= 0.01;
-                this.outputSprite.scale.set(1 + Math.sin(this.count) * 0.2);
-
-                this.app.renderer.render(this.app.stage, this.renderTexture2, false);
-            });
+            );
         }
     }
 
@@ -1139,7 +1188,7 @@ function demos() {
                 this.points.push(new PIXI.Point(i * ropeLength, 0));
             }
 
-            this.strip = new PIXI.mesh.Rope(PIXI.Texture.fromImage("required/assets/snake.png"), this.points);
+            this.strip = new PIXI.mesh.Rope(PIXI.Texture.fromImage('required/assets/snake.png'), this.points);
             this.strip.x = -459;
 
             this.snakeContainer = new PIXI.Container();
@@ -1149,13 +1198,15 @@ function demos() {
             this.snakeContainer.addChild(this.strip);
             this.app.stage.addChild(this.snakeContainer);
 
-            this.app.ticker.add((): void => {
-                this.count += 0.1;
-                for (let i = 0; i < this.points.length; i++) {
-                    this.points[i].y = Math.sin((i * 0.5) + this.count) * 30;
-                    this.points[i].x = i * ropeLength + Math.cos((i * 0.3) + this.count) * 20;
+            this.app.ticker.add(
+                (): void => {
+                    this.count += 0.1;
+                    for (let i = 0; i < this.points.length; i++) {
+                        this.points[i].y = Math.sin(i * 0.5 + this.count) * 30;
+                        this.points[i].x = i * ropeLength + Math.cos(i * 0.3 + this.count) * 20;
+                    }
                 }
-            });
+            );
         }
     }
 
@@ -1172,50 +1223,53 @@ function demos() {
             this.app = new PIXI.Application();
             document.body.appendChild(this.app.view);
 
-            PIXI.loader
-                .add("desyrel", "required/assets/desyrel.xml")
-                .load((): void => {
-                    this.bitmapFontText = new PIXI.extras.BitmapText("bitmap fonts are\n now supported!", { font: "35px Desyrel", align: "right" });
+            PIXI.loader.add('desyrel', 'required/assets/desyrel.xml').load(
+                (): void => {
+                    this.bitmapFontText = new PIXI.extras.BitmapText('bitmap fonts are\n now supported!', {
+                        font: '35px Desyrel',
+                        align: 'right',
+                    });
                     this.bitmapFontText.x = this.app.renderer.width - this.bitmapFontText.textWidth - 20;
                     this.bitmapFontText.y = 20;
                     this.app.stage.addChild(this.bitmapFontText);
-                });
+                }
+            );
 
-            this.background = PIXI.Sprite.fromImage("required/assets/textDemoBG.jpg");
+            this.background = PIXI.Sprite.fromImage('required/assets/textDemoBG.jpg');
             this.background.width = this.app.renderer.width;
             this.background.height = this.app.renderer.height;
             this.app.stage.addChild(this.background);
 
-            this.textSample = new PIXI.Text("Pixi.js can has\n multiline text!", {
-                fontFamily: "Snippet",
+            this.textSample = new PIXI.Text('Pixi.js can has\n multiline text!', {
+                fontFamily: 'Snippet',
                 fontSize: 35,
-                fill: "white",
-                align: "left"
+                fill: 'white',
+                align: 'left',
             });
             this.textSample.position.set(20);
 
-            this.spinningText = new PIXI.Text("I\"m fun!", {
-                fontWeight: "bold",
+            this.spinningText = new PIXI.Text('I"m fun!', {
+                fontWeight: 'bold',
                 fontSize: 60,
-                fontFamily: "Arial",
-                fill: "#cc00ff",
-                align: "center",
-                stroke: "#FFFFFF",
-                strokeThickness: 6
+                fontFamily: 'Arial',
+                fill: '#cc00ff',
+                align: 'center',
+                stroke: '#FFFFFF',
+                strokeThickness: 6,
             });
             this.spinningText.anchor.set(0.5);
             this.spinningText.x = this.app.renderer.width / 2;
             this.spinningText.y = this.app.renderer.height / 2;
 
-            this.countingText = new PIXI.Text("COUNT 4Elet: 0", {
-                fontWeight: "bold",
-                fontStyle: "italic",
+            this.countingText = new PIXI.Text('COUNT 4Elet: 0', {
+                fontWeight: 'bold',
+                fontStyle: 'italic',
                 fontSize: 60,
-                fontFamily: "Arvo",
-                fill: "#3e1707",
-                align: "center",
-                stroke: "#a4410e",
-                strokeThickness: 7
+                fontFamily: 'Arvo',
+                fill: '#3e1707',
+                align: 'center',
+                stroke: '#a4410e',
+                strokeThickness: 7,
             });
 
             this.countingText.x = this.app.renderer.width / 2;
@@ -1226,12 +1280,14 @@ function demos() {
 
             this.count = 0;
 
-            this.app.ticker.add((): void => {
-                this.count += 0.05;
-                this.countingText.text = "COUNT 4Elet: " + Math.floor(this.count);
+            this.app.ticker.add(
+                (): void => {
+                    this.count += 0.05;
+                    this.countingText.text = 'COUNT 4Elet: ' + Math.floor(this.count);
 
-                this.spinningText.rotation += 0.03;
-            });
+                    this.spinningText.rotation += 0.03;
+                }
+            );
         }
     }
 
@@ -1248,7 +1304,7 @@ function demos() {
 
             this.bol = false;
 
-            PIXI.loader.add("flowerTop", "required/assets/flowerTop.png");
+            PIXI.loader.add('flowerTop', 'required/assets/flowerTop.png');
             PIXI.loader.load((loader: PIXI.loaders.Loader, resources: any) => {
                 this.texture = resources.flowerTop.texture;
                 this.init();
@@ -1275,20 +1331,25 @@ function demos() {
                 textures.push(rotatedTexture);
             }
 
-            const offsetX = this.app.renderer.width / 16 | 0;
-            const offsetY = this.app.renderer.height / 8 | 0;
-            const gridW = this.app.renderer.width / 4 | 0;
-            const gridH = this.app.renderer.height / 5 | 0;
+            const offsetX = (this.app.renderer.width / 16) | 0;
+            const offsetY = (this.app.renderer.height / 8) | 0;
+            const gridW = (this.app.renderer.width / 4) | 0;
+            const gridH = (this.app.renderer.height / 5) | 0;
 
             for (let i = 0; i < 16; i++) {
                 const dude = new PIXI.Sprite(textures[i < 8 ? i * 2 : (i - 8) * 2 + 1]);
                 dude.scale.x = 0.5;
                 dude.scale.y = 0.5;
                 dude.x = offsetX + gridW * (i % 4);
-                dude.y = offsetY + gridH * (i / 4 | 0);
+                dude.y = offsetY + gridH * ((i / 4) | 0);
                 this.app.stage.addChild(dude);
 
-                const text = new PIXI.Text("rotate = " + dude.texture.rotate, { fontFamily: "Courier New", fontSize: "12px", fill: "white", align: "left" });
+                const text = new PIXI.Text('rotate = ' + dude.texture.rotate, {
+                    fontFamily: 'Courier New',
+                    fontSize: '12px',
+                    fill: 'white',
+                    align: 'left',
+                });
                 text.x = dude.x;
                 text.y = dude.y - 20;
                 this.app.stage.addChild(text);
@@ -1309,9 +1370,9 @@ function demos() {
 
             this.bol = false;
 
-            this.texture = PIXI.Texture.fromImage("required/assets/flowerTop.png");
+            this.texture = PIXI.Texture.fromImage('required/assets/flowerTop.png');
 
-            this.secondTexture = PIXI.Texture.fromImage("required/assets/eggHead.png");
+            this.secondTexture = PIXI.Texture.fromImage('required/assets/eggHead.png');
 
             this.dude = new PIXI.Sprite(this.texture);
             this.dude.anchor.set(0.5);
@@ -1321,18 +1382,23 @@ function demos() {
             this.dude.buttonMode = true;
             this.app.stage.addChild(this.dude);
 
-            this.dude.on("pointertap", (): void => {
-                this.bol = !this.bol;
-                if (this.bol) {
-                    this.dude.texture = this.secondTexture;
-                } else {
-                    this.dude.texture = this.texture;
+            this.dude.on(
+                'pointertap',
+                (): void => {
+                    this.bol = !this.bol;
+                    if (this.bol) {
+                        this.dude.texture = this.secondTexture;
+                    } else {
+                        this.dude.texture = this.texture;
+                    }
                 }
-            });
+            );
 
-            this.app.ticker.add((): void => {
-                this.dude.rotation += 0.1;
-            });
+            this.app.ticker.add(
+                (): void => {
+                    this.dude.rotation += 0.1;
+                }
+            );
         }
     }
 
@@ -1348,7 +1414,7 @@ function demos() {
 
             const totalDudes = 20;
 
-            const dudeTexture = PIXI.Texture.fromImage("required/assets/eggHead.png");
+            const dudeTexture = PIXI.Texture.fromImage('required/assets/eggHead.png');
 
             for (let i = 0; i < totalDudes; i++) {
                 const dude = new Dude(dudeTexture);
@@ -1356,7 +1422,7 @@ function demos() {
                 dude.scale.set(0.8 + Math.random() * 0.3);
                 dude.x = Math.random() * this.app.renderer.width;
                 dude.y = Math.random() * this.app.renderer.height;
-                dude.tint = Math.random() * 0xFFFFFF;
+                dude.tint = Math.random() * 0xffffff;
                 dude.direction = Math.random() * Math.PI * 2;
                 dude.turningSpeed = Math.random() - 0.8;
                 dude.speed = 2 + Math.random() * 2;
@@ -1366,31 +1432,35 @@ function demos() {
             }
 
             const dudeBoundsPadding = 100;
-            const dudeBounds = new PIXI.Rectangle(-dudeBoundsPadding,
+            const dudeBounds = new PIXI.Rectangle(
+                -dudeBoundsPadding,
                 -dudeBoundsPadding,
                 this.app.renderer.width + dudeBoundsPadding * 2,
-                this.app.renderer.height + dudeBoundsPadding * 2);
+                this.app.renderer.height + dudeBoundsPadding * 2
+            );
 
-            this.app.ticker.add((): void => {
-                for (const dude of this.aliens) {
-                    dude.direction += dude.turningSpeed * 0.01;
-                    dude.x += Math.sin(dude.direction) * dude.speed;
-                    dude.y += Math.cos(dude.direction) * dude.speed;
-                    dude.rotation = -dude.direction - Math.PI / 2;
+            this.app.ticker.add(
+                (): void => {
+                    for (const dude of this.aliens) {
+                        dude.direction += dude.turningSpeed * 0.01;
+                        dude.x += Math.sin(dude.direction) * dude.speed;
+                        dude.y += Math.cos(dude.direction) * dude.speed;
+                        dude.rotation = -dude.direction - Math.PI / 2;
 
-                    if (dude.x < dudeBounds.x) {
-                        dude.x += dudeBounds.width;
-                    } else if (dude.x > dudeBounds.x + dudeBounds.width) {
-                        dude.x -= dudeBounds.width;
-                    }
+                        if (dude.x < dudeBounds.x) {
+                            dude.x += dudeBounds.width;
+                        } else if (dude.x > dudeBounds.x + dudeBounds.width) {
+                            dude.x -= dudeBounds.width;
+                        }
 
-                    if (dude.y < dudeBounds.y) {
-                        dude.y += dudeBounds.height;
-                    } else if (dude.y > dudeBounds.y + dudeBounds.height) {
-                        dude.y -= dudeBounds.height;
+                        if (dude.y < dudeBounds.y) {
+                            dude.y += dudeBounds.height;
+                        } else if (dude.y > dudeBounds.y + dudeBounds.height) {
+                            dude.y -= dudeBounds.height;
+                        }
                     }
                 }
-            });
+            );
         }
     }
 
@@ -1402,7 +1472,7 @@ function demos() {
             this.app = new PIXI.Application(800, 600, { transparent: true });
             document.body.appendChild(this.app.view);
 
-            this.bunny = PIXI.Sprite.fromImage("required/assets/bunny.png");
+            this.bunny = PIXI.Sprite.fromImage('required/assets/bunny.png');
 
             this.bunny.anchor.set(0.5);
 
@@ -1411,9 +1481,11 @@ function demos() {
 
             this.app.stage.addChild(this.bunny);
 
-            this.app.ticker.add((): void => {
-                this.bunny.rotation += 0.1;
-            });
+            this.app.ticker.add(
+                (): void => {
+                    this.bunny.rotation += 0.1;
+                }
+            );
         }
     }
 }
@@ -1432,18 +1504,18 @@ function filters() {
             this.app = new PIXI.Application(800, 600);
             document.body.appendChild(this.app.view);
 
-            this.bg = PIXI.Sprite.fromImage("required/assets/depth_blur_BG.jpg");
+            this.bg = PIXI.Sprite.fromImage('required/assets/depth_blur_BG.jpg');
             this.bg.width = this.app.renderer.width;
             this.bg.height = this.app.renderer.height;
             this.app.stage.addChild(this.bg);
 
-            this.littleDudes = PIXI.Sprite.fromImage("required/assets/depth_blur_dudes.jpg");
-            this.littleDudes.x = (this.app.renderer.width / 2) - 315;
+            this.littleDudes = PIXI.Sprite.fromImage('required/assets/depth_blur_dudes.jpg');
+            this.littleDudes.x = this.app.renderer.width / 2 - 315;
             this.littleDudes.y = 200;
             this.app.stage.addChild(this.littleDudes);
 
-            this.littleRobot = PIXI.Sprite.fromImage("required/assets/depth_blur_moby.jpg");
-            this.littleRobot.x = (this.app.renderer.width / 2) - 200;
+            this.littleRobot = PIXI.Sprite.fromImage('required/assets/depth_blur_moby.jpg');
+            this.littleRobot.x = this.app.renderer.width / 2 - 200;
             this.littleRobot.y = 100;
             this.app.stage.addChild(this.littleRobot);
 
@@ -1455,15 +1527,17 @@ function filters() {
 
             this.count = 0;
 
-            this.app.ticker.add((): void => {
-                this.count += 0.005;
+            this.app.ticker.add(
+                (): void => {
+                    this.count += 0.005;
 
-                const blurAmount = Math.cos(this.count);
-                const blurAmount2 = Math.sin(this.count);
+                    const blurAmount = Math.cos(this.count);
+                    const blurAmount2 = Math.sin(this.count);
 
-                this.blurFilter1.blur = 20 * (blurAmount);
-                this.blurFilter2.blur = 20 * (blurAmount2);
-            });
+                    this.blurFilter1.blur = 20 * blurAmount;
+                    this.blurFilter2.blur = 20 * blurAmount2;
+                }
+            );
         }
     }
 
@@ -1512,7 +1586,7 @@ function filters() {
                 this.maggots.push(maggot);
             }
 
-            this.displacementSprite = PIXI.Sprite.fromImage("required/assets/displace.png");
+            this.displacementSprite = PIXI.Sprite.fromImage('required/assets/displace.png');
             const displacementFilter = new PIXI.filters.DisplacementFilter(this.displacementSprite);
             this.app.stage.addChild(this.displacementSprite);
 
@@ -1521,12 +1595,12 @@ function filters() {
             displacementFilter.scale.x = 110;
             displacementFilter.scale.y = 110;
 
-            this.ring = PIXI.Sprite.fromImage("required/assets/ring.png");
+            this.ring = PIXI.Sprite.fromImage('required/assets/ring.png');
             this.ring.anchor.set(0.5);
             this.ring.visible = false;
             this.app.stage.addChild(this.ring);
 
-            this.bg = PIXI.Sprite.fromImage("required/assets/bkg-grass.jpg");
+            this.bg = PIXI.Sprite.fromImage('required/assets/bkg-grass.jpg');
             this.bg.width = this.app.renderer.width;
             this.bg.height = this.app.renderer.height;
             this.bg.alpha = 0.4;
@@ -1534,34 +1608,34 @@ function filters() {
 
             this.count = 0;
 
-            this.app.stage
-                .on("mousemove", this.onPointerMove)
-                .on("touchmove", this.onPointerMove);
+            this.app.stage.on('mousemove', this.onPointerMove).on('touchmove', this.onPointerMove);
 
-            this.app.ticker.add((): void => {
-                this.count += 0.05;
+            this.app.ticker.add(
+                (): void => {
+                    this.count += 0.05;
 
-                for (const maggot of this.maggots) {
-                    maggot.direction += maggot.turnSpeed * 0.01;
-                    maggot.x += Math.sin(maggot.direction) * maggot.speed;
-                    maggot.y += Math.cos(maggot.direction) * maggot.speed;
+                    for (const maggot of this.maggots) {
+                        maggot.direction += maggot.turnSpeed * 0.01;
+                        maggot.x += Math.sin(maggot.direction) * maggot.speed;
+                        maggot.y += Math.cos(maggot.direction) * maggot.speed;
 
-                    maggot.rotation = -maggot.direction - Math.PI / 2;
-                    maggot.scale.x = maggot.original.x + Math.sin(this.count) * 0.2;
+                        maggot.rotation = -maggot.direction - Math.PI / 2;
+                        maggot.scale.x = maggot.original.x + Math.sin(this.count) * 0.2;
 
-                    if (maggot.x < bounds.x) {
-                        maggot.x += bounds.width;
-                    } else if (maggot.x > bounds.x + bounds.width) {
-                        maggot.x -= bounds.width;
-                    }
+                        if (maggot.x < bounds.x) {
+                            maggot.x += bounds.width;
+                        } else if (maggot.x > bounds.x + bounds.width) {
+                            maggot.x -= bounds.width;
+                        }
 
-                    if (maggot.y < bounds.y) {
-                        maggot.y += bounds.height;
-                    } else if (maggot.y > bounds.y + bounds.height) {
-                        maggot.y -= bounds.height;
+                        if (maggot.y < bounds.y) {
+                            maggot.y += bounds.height;
+                        } else if (maggot.y > bounds.y + bounds.height) {
+                            maggot.y -= bounds.height;
+                        }
                     }
                 }
-            });
+            );
         }
 
         private onPointerMove = (eventData: PIXI.interaction.InteractionEvent): void => {
@@ -1570,7 +1644,7 @@ function filters() {
             this.displacementSprite.y = eventData.data.global.y - this.displacementSprite.height / 2;
             this.ring.x = eventData.data.global.x - 25;
             this.ring.y = eventData.data.global.y;
-        }
+        };
     }
     class DisplacementMapDude extends PIXI.Sprite {
         direction: number = 0;
@@ -1579,7 +1653,7 @@ function filters() {
         original: PIXI.Point = new PIXI.Point();
 
         constructor() {
-            super(PIXI.Texture.fromImage("../../_assets/maggot.png"));
+            super(PIXI.Texture.fromImage('../../_assets/maggot.png'));
         }
     }
 
@@ -1601,7 +1675,7 @@ function filters() {
             this.app.stage.interactive = true;
             document.body.appendChild(this.app.view);
 
-            this.bg = PIXI.Sprite.fromImage("required/assets/BGrotate.jpg");
+            this.bg = PIXI.Sprite.fromImage('required/assets/BGrotate.jpg');
             this.bg.anchor.set(0.5);
             this.bg.x = this.app.renderer.width / 2;
             this.bg.y = this.app.renderer.height / 2;
@@ -1613,19 +1687,19 @@ function filters() {
             this.container.position.y = this.app.renderer.height / 2;
             this.app.stage.addChild(this.container);
 
-            this.bgFront = PIXI.Sprite.fromImage("required/assets/SceneRotate.jpg");
+            this.bgFront = PIXI.Sprite.fromImage('required/assets/SceneRotate.jpg');
             this.bgFront.anchor.set(0.5);
             this.container.addChild(this.bgFront);
 
-            this.light2 = PIXI.Sprite.fromImage("required/assets/LightRotate2.png");
+            this.light2 = PIXI.Sprite.fromImage('required/assets/LightRotate2.png');
             this.light2.anchor.set(0.5);
             this.container.addChild(this.light2);
 
-            this.light1 = PIXI.Sprite.fromImage("../../_assets/LightRotate1.png");
+            this.light1 = PIXI.Sprite.fromImage('../../_assets/LightRotate1.png');
             this.light1.anchor.set(0.5);
             this.container.addChild(this.light1);
 
-            this.panda = PIXI.Sprite.fromImage("required/assets/panda.png");
+            this.panda = PIXI.Sprite.fromImage('required/assets/panda.png');
             this.panda.anchor.set(0.5);
             this.container.addChild(this.panda);
 
@@ -1634,41 +1708,46 @@ function filters() {
             this.count = 0;
             this.enabled = true;
 
-            this.app.stage.on("pointertap", (): void => {
-                this.enabled = !this.enabled;
-                this.app.stage.filters = this.enabled ? [this.filter] : null;
-            });
+            this.app.stage.on(
+                'pointertap',
+                (): void => {
+                    this.enabled = !this.enabled;
+                    this.app.stage.filters = this.enabled ? [this.filter] : null;
+                }
+            );
 
-            this.help = new PIXI.Text("Click or tap to turn filters on / off.", {
-                fontFamily: "Arial",
+            this.help = new PIXI.Text('Click or tap to turn filters on / off.', {
+                fontFamily: 'Arial',
                 fontSize: 12,
-                fontWeight: "bold",
-                fill: "white"
+                fontWeight: 'bold',
+                fill: 'white',
             });
             this.help.y = this.app.renderer.height - 25;
             this.help.x = 10;
             this.app.stage.addChild(this.help);
 
-            this.app.ticker.add((delta: number): void => {
-                this.bg.rotation += 0.01;
-                this.bgFront.rotation -= 0.01;
-                this.light1.rotation += 0.02;
-                this.light2.rotation += 0.01;
+            this.app.ticker.add(
+                (delta: number): void => {
+                    this.bg.rotation += 0.01;
+                    this.bgFront.rotation -= 0.01;
+                    this.light1.rotation += 0.02;
+                    this.light2.rotation += 0.01;
 
-                this.panda.scale.x = 1 + Math.sin(this.count) * 0.04;
-                this.panda.scale.y = 1 + Math.cos(this.count) * 0.04;
+                    this.panda.scale.x = 1 + Math.sin(this.count) * 0.04;
+                    this.panda.scale.y = 1 + Math.cos(this.count) * 0.04;
 
-                this.count += 0.1;
+                    this.count += 0.1;
 
-                const matrix = this.filter.matrix;
+                    const matrix = this.filter.matrix;
 
-                matrix[1] = Math.sin(this.count) * 3;
-                matrix[2] = Math.cos(this.count);
-                matrix[3] = Math.cos(this.count) * 1.5;
-                matrix[4] = Math.sin(this.count / 3) * 2;
-                matrix[5] = Math.sin(this.count / 2);
-                matrix[6] = Math.sin(this.count / 4);
-            });
+                    matrix[1] = Math.sin(this.count) * 3;
+                    matrix[2] = Math.cos(this.count);
+                    matrix[3] = Math.cos(this.count) * 1.5;
+                    matrix[4] = Math.sin(this.count / 3) * 2;
+                    matrix[5] = Math.sin(this.count / 2);
+                    matrix[6] = Math.sin(this.count / 4);
+                }
+            );
         }
     }
 }

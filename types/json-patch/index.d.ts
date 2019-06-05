@@ -35,11 +35,11 @@ declare namespace jsonpatch {
     function apply(document: any, patches: OpPatch[]): any;
     function compile(patches: OpPatch[]): (document: any) => any;
 
-    class JSONPatchError extends Error { }
-    class InvalidPointerError extends Error { }
-    class InvalidPatchError extends JSONPatchError { }
-    class PatchConflictError extends JSONPatchError { }
-    class PatchTestFailed extends Error { }
+    class JSONPatchError extends Error {}
+    class InvalidPointerError extends Error {}
+    class InvalidPatchError extends JSONPatchError {}
+    class PatchConflictError extends JSONPatchError {}
+    class PatchTestFailed extends Error {}
 }
 
 export = jsonpatch;

@@ -1,4 +1,4 @@
-import "jquery";
+import 'jquery';
 
 /**
  * Represents parsed data.

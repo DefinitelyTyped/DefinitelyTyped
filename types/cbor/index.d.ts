@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
+import stream = require('stream');
 
 export function decode(input: Buffer | string): any;
 export function decodeAll(input: Buffer | string, callback: (error: any, objs: any[]) => void): void;
@@ -14,12 +14,8 @@ export function decodeFirst(input: Buffer | string, callback: (error: any, obj: 
 export function decodeFirstSync(input: Buffer | string): any;
 export function encode(input: any): Buffer;
 
-export class Decoder extends stream.Transform  {
-    constructor(params?: {
-        input?: Buffer | string;
-        encoding?: string;
-        tags?: {[tag: number]: (val: any[]) => any}
-    });
+export class Decoder extends stream.Transform {
+    constructor(params?: { input?: Buffer | string; encoding?: string; tags?: { [tag: number]: (val: any[]) => any } });
 }
 
 export class Encoder extends stream.Transform {

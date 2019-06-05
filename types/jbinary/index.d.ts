@@ -11,31 +11,29 @@
 
 import jDataView = require('jdataview');
 
-declare class jBinary
-{
+declare class jBinary {
+    static loadData(source: any, callback?: (error: string, data: any) => any): any;
+    static load(source: any, typeSet?: any, callback?: (error: string, data: any) => any): any;
 
-    static loadData(source:any, callback?: (error:string, data:any) => any):any;
-    static load(source:any, typeSet?:any, callback?: (error:string, data:any) => any):any;
+    static saveAs(destination: any, mimeType?: string, callback?: (error: string, data: any) => any): any;
+    static toURI(mimeType?: string): any;
 
-    static saveAs(destination:any, mimeType?:string, callback?: (error:string, data:any) => any):any;
-    static toURI(mimeType?:string):any;
+    constructor(data: Array<number>);
+    constructor(data: jDataView, typeSet: Object);
+    constructor(bufferSize: number, typeSet: Object);
 
-    constructor(data:Array<number>);
-    constructor(data:jDataView, typeSet:Object);
-    constructor(bufferSize:number, typeSet:Object);
+    read(type: string, offset?: number): any;
+    readAll(): any;
 
-    read(type:string, offset?:number):any;
-    readAll():any;
+    write(type: string, data: any, offset?: number): number;
+    writeAll(data: any): number;
 
-    write(type:string, data:any, offset?:number):number;
-    writeAll(data:any):number;
+    tell(): number;
+    seek(position: number, callback?: (prop: jBinary, data: any) => any): number;
+    skip(count: number, callback?: (prop: jBinary, data: any) => any): number;
 
-    tell():number;
-    seek(position:number, callback?: (prop:jBinary, data:any) => any):number;
-    skip(count:number, callback?: (prop:jBinary, data:any) => any):number;
-
-    slice(start:number, end:number, forceCopy?:boolean):jBinary;
-    as(typeSet:Object, modifyOriginal?:boolean):jBinary;
+    slice(start: number, end: number, forceCopy?: boolean): jBinary;
+    as(typeSet: Object, modifyOriginal?: boolean): jBinary;
 }
 
 export = jBinary;

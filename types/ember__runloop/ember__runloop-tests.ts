@@ -9,13 +9,14 @@ const queues: string[] = run.queues;
 // It will be the responsibility of each consuming package that needs access to the backburner property
 // to merge the private types in the public API.
 declare module '@ember/runloop' {
-  interface RunNamespace {
-    backburner: Backburner;
-  }
+    interface RunNamespace {
+        backburner: Backburner;
+    }
 }
 
 function testRun() {
-    run(() => { // $ExpectType number
+    run(() => {
+        // $ExpectType number
         // code to be executed within a RunLoop
         return 123;
     });
@@ -39,7 +40,7 @@ function testBind() {
 
         setupEditor(editor: string) {
             this.set('editor', editor);
-        }
+        },
     });
 }
 
@@ -52,9 +53,13 @@ function testCancel() {
 
     run.cancel(runNext);
 
-    const runLater = run.later(myContext, () => {
-        // will not be executed
-    }, 500);
+    const runLater = run.later(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        500
+    );
 
     run.cancel(runLater);
 
@@ -70,29 +75,42 @@ function testCancel() {
 
     run.cancel(runOnce);
 
-    const throttle = run.throttle(myContext, () => {
-        // will not be executed
-    }, 1, false);
+    const throttle = run.throttle(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        1,
+        false
+    );
 
     run.cancel(throttle);
 
-    const debounce = run.debounce(myContext, () => {
-        // will not be executed
-    }, 1);
+    const debounce = run.debounce(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        1
+    );
 
     run.cancel(debounce);
 
-    const debounceImmediate = run.debounce(myContext, () => {
-        // will be executed since we passed in true (immediate)
-    }, 100, true);
+    const debounceImmediate = run.debounce(
+        myContext,
+        () => {
+            // will be executed since we passed in true (immediate)
+        },
+        100,
+        true
+    );
 
     // the 100ms delay until this method can be called again will be canceled
     run.cancel(debounceImmediate);
 }
 
 function testDebounce() {
-    function runIt() {
-    }
+    function runIt() {}
 
     const myContext = { name: 'debounce' };
 
@@ -108,8 +126,8 @@ function testDebounce() {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
                 run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
-            }
-        }
+            },
+        },
     });
 }
 
@@ -139,9 +157,13 @@ function testJoin() {
 
 function testLater() {
     const myContext = {};
-    run.later(myContext, () => {
-        // code here will execute within a RunLoop in about 500ms with this == myContext
-    }, 500);
+    run.later(
+        myContext,
+        () => {
+            // code here will execute within a RunLoop in about 500ms with this == myContext
+        },
+        500
+    );
 }
 
 function testNext() {
@@ -158,8 +180,7 @@ function testOnce() {
             run.once(this, 'processFullName');
         },
 
-        processFullName() {
-        }
+        processFullName() {},
     });
 }
 
@@ -175,7 +196,7 @@ function testSchedule() {
                 // this will be executed in the 'actions' queue, after bindings have synced.
                 console.log('scheduled on actions queue');
             });
-        }
+        },
     });
 
     run.schedule('actions', () => {
@@ -200,8 +221,7 @@ function testScheduleOnce() {
 }
 
 function testThrottle() {
-    function runIt() {
-    }
+    function runIt() {}
 
     const myContext = { name: 'throttle' };
 
@@ -210,7 +230,7 @@ function testThrottle() {
 }
 
 function testBackburner() {
-  const debugInfo: DebugInfo = run.backburner.getDebugInfo();
-  const queueItems: QueueItem[] = debugInfo.timers;
-  const deferredActionQueues: DeferredActionQueues[] = debugInfo.instanceStack;
+    const debugInfo: DebugInfo = run.backburner.getDebugInfo();
+    const queueItems: QueueItem[] = debugInfo.timers;
+    const deferredActionQueues: DeferredActionQueues[] = debugInfo.instanceStack;
 }

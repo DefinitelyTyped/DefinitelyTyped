@@ -1,8 +1,8 @@
-import Maybe from "../tsutils/Maybe";
-import { GraphQLSchema } from "../type/schema";
-import { DocumentNode } from "../language/ast";
-import { GraphQLFieldResolver } from "../type/definition";
-import { ExecutionResult, ExecutionResultDataDefault } from "../execution/execute";
+import Maybe from '../tsutils/Maybe';
+import { GraphQLSchema } from '../type/schema';
+import { DocumentNode } from '../language/ast';
+import { GraphQLFieldResolver } from '../type/definition';
+import { ExecutionResult, ExecutionResultDataDefault } from '../execution/execute';
 
 /**
  * Implements the "Subscribe" algorithm described in the GraphQL specification.

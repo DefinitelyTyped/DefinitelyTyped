@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Texture
      * @class A texture is a container for texel data that can be utilized in a fragment shader.
@@ -85,26 +84,29 @@ declare namespace pc {
      * @author Will Eastcott
      */
     class Texture {
-        constructor(graphicsDevice: pc.GraphicsDevice, options?: {
-            width: number,
-            height: number,
-            depth: number,
-            format: number,
-            minFilter: number,
-            magFilter: number,
-            anisotropy: number,
-            addressU: number,
-            addressV: number,
-            addressW: number,
-            mipmaps: boolean,
-            cubemap: boolean,
-            volume: boolean,
-            rgbm: boolean,
-            fixCubemapSeams: boolean,
-            flipY: boolean,
-            compareOnRead: boolean,
-            compareFunc: boolean
-        })
+        constructor(
+            graphicsDevice: pc.GraphicsDevice,
+            options?: {
+                width: number;
+                height: number;
+                depth: number;
+                format: number;
+                minFilter: number;
+                magFilter: number;
+                anisotropy: number;
+                addressU: number;
+                addressV: number;
+                addressW: number;
+                mipmaps: boolean;
+                cubemap: boolean;
+                volume: boolean;
+                rgbm: boolean;
+                fixCubemapSeams: boolean;
+                flipY: boolean;
+                compareOnRead: boolean;
+                compareFunc: boolean;
+            }
+        );
 
         name: string;
 
@@ -321,7 +323,7 @@ declare namespace pc {
          * @param {Number} options.level The mip level to lock with 0 being the top level. Defaults to 0.
          * @param {Number} options.face If the texture is a cubemap, this is the index of the face to lock.
          */
-        lock(options: { level: number, face: number }): Uint8Array | Uint16Array | Float32Array;
+        lock(options: { level: number; face: number }): Uint8Array | Uint16Array | Float32Array;
 
         /**
          * @private
@@ -341,8 +343,11 @@ declare namespace pc {
          * or an array of 6 canvas, image or video elements.
          */
         setSource(
-            source: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement |
-                Array<HTMLCanvasElement | HTMLImageElement | HTMLVideoElement>
+            source:
+                | HTMLCanvasElement
+                | HTMLImageElement
+                | HTMLVideoElement
+                | Array<HTMLCanvasElement | HTMLImageElement | HTMLVideoElement>
         ): void;
 
         /**
@@ -352,7 +357,7 @@ declare namespace pc {
          * a single image.
          * @return {HTMLImageElement} The source image of this texture.
          */
-        getSource(): HTMLImageElement
+        getSource(): HTMLImageElement;
 
         /**
          * @function

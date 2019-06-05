@@ -1,2 +1,2 @@
-import { stubObject } from "../fp";
+import { stubObject } from '../fp';
 export = stubObject;

@@ -5,7 +5,7 @@
 // TypeScript Version: 2.6
 /// <reference types="node" />
 
-import { Road } from "roads";
+import { Road } from 'roads';
 
 /**
  * Roads-Server is a simple webserver for setting up and using the roads framework on an HTTP or HTTP 2 server

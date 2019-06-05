@@ -40,29 +40,29 @@ declare namespace parse {
 	}
 
 	interface ObjectNode extends ASTNode {
-		type: "Object";
+		type: 'Object';
 		children: PropertyNode[];
 	}
 
 	interface PropertyNode extends ASTNode {
-		type: "Property";
+		type: 'Property';
 		key: IdentifierNode;
 		value: ValueNode;
 	}
 
 	interface IdentifierNode extends ASTNode {
-		type: "Identifier";
+		type: 'Identifier';
 		value: string;
 		raw: string;
 	}
 
 	interface ArrayNode extends ASTNode {
-		type: "Array";
+		type: 'Array';
 		children: ValueNode[];
 	}
 
 	interface LiteralNode extends ASTNode {
-		type: "Literal";
+		type: 'Literal';
 		value: string | number | boolean | null;
 		raw: string;
 	}

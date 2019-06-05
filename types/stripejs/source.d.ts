@@ -1,6 +1,6 @@
-import { StripeError } from "./index";
-import { Customer } from "./customer";
-import { Token } from "./token";
+import { StripeError } from './index';
+import { Customer } from './customer';
+import { Token } from './token';
 
 /**
  * @see https://stripe.com/docs/api#sources
@@ -109,22 +109,22 @@ export interface Source {
 }
 
 export type paymentOptions =
-    'ach_credit_transfer' |
-    'ach_debit' |
-    'alipay' |
-    'bancontact' |
-    'card' |
-    'card_present' |
-    'eps' |
-    'giropay' |
-    'ideal' |
-    'multibanco' |
-    'p24' |
-    'paper_check' |
-    'sepa_credit_transfer' |
-    'sepa_debit' |
-    'sofort' |
-    'three_d_secure';
+    | 'ach_credit_transfer'
+    | 'ach_debit'
+    | 'alipay'
+    | 'bancontact'
+    | 'card'
+    | 'card_present'
+    | 'eps'
+    | 'giropay'
+    | 'ideal'
+    | 'multibanco'
+    | 'p24'
+    | 'paper_check'
+    | 'sepa_credit_transfer'
+    | 'sepa_debit'
+    | 'sofort'
+    | 'three_d_secure';
 
 // --- CODE VERIFICATION --- //
 export interface CodeVerification {

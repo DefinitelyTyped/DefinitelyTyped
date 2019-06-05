@@ -5,14 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as passport from "passport";
-import * as express from "express";
-import * as oauth2 from "passport-oauth2";
-import { OutgoingHttpHeaders } from "http";
+import * as passport from 'passport';
+import * as express from 'express';
+import * as oauth2 from 'passport-oauth2';
+import { OutgoingHttpHeaders } from 'http';
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
-    Exclude<keyof oauth2._StrategyOptionsBase, "authorizationURL" | "tokenURL">
+    Exclude<keyof oauth2._StrategyOptionsBase, 'authorizationURL' | 'tokenURL'>
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
@@ -40,12 +40,7 @@ export interface Profile extends passport.Profile {
 export class Strategy extends oauth2.Strategy {
     constructor(
         options: StrategyOptions,
-        verify: (
-            accessToken: string,
-            refreshToken: string,
-            profile: Profile,
-            done: oauth2.VerifyCallback
-        ) => void
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: oauth2.VerifyCallback) => void
     );
     constructor(
         options: StrategyOptionsWithRequest,

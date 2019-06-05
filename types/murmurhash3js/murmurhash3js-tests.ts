@@ -1,4 +1,3 @@
-
 import * as murmurhash3js from 'murmurhash3js';
 
 murmurhash3js.x86.hash32('string');

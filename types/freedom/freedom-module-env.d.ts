@@ -3,6 +3,4 @@
 // Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-declare var freedom :freedom.FreedomInModuleEnv;
+declare var freedom: freedom.FreedomInModuleEnv;

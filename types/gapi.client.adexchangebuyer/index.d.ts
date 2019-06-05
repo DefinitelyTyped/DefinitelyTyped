@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Ad Exchange Buyer API v1.4 */
-    function load(name: "adexchangebuyer", version: "v1.4"): PromiseLike<void>;
-    function load(name: "adexchangebuyer", version: "v1.4", callback: () => any): void;
+    function load(name: 'adexchangebuyer', version: 'v1.4'): PromiseLike<void>;
+    function load(name: 'adexchangebuyer', version: 'v1.4', callback: () => any): void;
 
     const accounts: adexchangebuyer.AccountsResource;
 

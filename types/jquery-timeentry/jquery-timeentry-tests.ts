@@ -9,9 +9,9 @@ options.showSeconds = true;
 options.unlimitedHours = true;
 options.separator = '!';
 options.ampmPrefix = 'x';
-options.ampmNames = ['am','pm'];
+options.ampmNames = ['am', 'pm'];
 options.appendText = 'foo';
-options.timeSteps = [1,1,1];
+options.timeSteps = [1, 1, 1];
 options.initialField = 0;
 options.noSeparatorEntry = false;
 options.tabToExit = true;
@@ -19,8 +19,8 @@ options.useMouseWheel = false;
 
 options.defaultTime = new Date(0, 0, 0, 11, 30, 0);
 options.defaultTime = '11:30AM';
-options.defaultTime= +20;
-options.defaultTime= '!+2h +30m';
+options.defaultTime = +20;
+options.defaultTime = '!+2h +30m';
 
 options.minTime = new Date(0, 0, 0, 8, 30, 0);
 options.minTime = '08:30AM';
@@ -52,7 +52,7 @@ options.beforeSetTime = (oldTime: Date, newTime: Date, minTime: Date, maxTime: D
 $(selector).timeEntry(options);
 
 // functions by name
-$(selector).timeEntry('option', {show24Hours: true});
+$(selector).timeEntry('option', { show24Hours: true });
 $(selector).timeEntry('option', 'show24Hours', true);
 
 // global settings

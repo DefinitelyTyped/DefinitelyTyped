@@ -1,2 +1,2 @@
-import { snakeCase } from "../fp";
+import { snakeCase } from '../fp';
 export = snakeCase;

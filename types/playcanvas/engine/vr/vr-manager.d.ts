@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.VrManager
      * @class Manage and update {@link pc.VrDisplay}s that are attached to this device.
@@ -11,7 +10,7 @@ declare namespace pc {
      * @property {Boolean} usesPolyfill Reports whether this device supports the WebVR API using a polyfill
      */
     class VrManager {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
 
         displays: pc.VrDisplay[];
         display: pc.VrDisplay;
@@ -31,7 +30,6 @@ declare namespace pc {
          * @description Called once per frame to poll all attached displays
          */
         poll(): void;
-
 
         // Events
 
@@ -79,7 +77,17 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(
+            name: string,
+            arg1: any,
+            arg2?: any,
+            arg3?: any,
+            arg4?: any,
+            arg5?: any,
+            arg6?: any,
+            arg7?: any,
+            arg8?: any
+        ): any;
 
         /**
          * @function
@@ -98,14 +106,14 @@ declare namespace pc {
         once(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
-        * @function
-        * @name pc.VrManager#hasEvent
-        * @description Test if there are any handlers bound to an event name
-        * @param {String} name The name of the event to test
-        * @example
-        * obj.on('test', function () { }); // bind an event to 'test'
-        * obj.hasEvent('test'); // returns true
-        */
+         * @function
+         * @name pc.VrManager#hasEvent
+         * @description Test if there are any handlers bound to an event name
+         * @param {String} name The name of the event to test
+         * @example
+         * obj.on('test', function () { }); // bind an event to 'test'
+         * obj.hasEvent('test'); // returns true
+         */
         hasEvent(name: string): boolean;
     }
 }

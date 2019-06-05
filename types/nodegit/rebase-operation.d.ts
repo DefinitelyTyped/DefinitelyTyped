@@ -7,7 +7,7 @@ export namespace RebaseOperation {
         EDIT = 2,
         SQUASH = 3,
         FIXUP = 4,
-        EXEC = 5
+        EXEC = 5,
     }
 }
 

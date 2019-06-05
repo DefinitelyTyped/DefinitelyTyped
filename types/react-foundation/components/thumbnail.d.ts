@@ -9,8 +9,7 @@ import { FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Thumbnail: React.StatelessComponent<ThumbnailProps>;
-export interface ThumbnailProps extends FlexboxPropTypes, React.ImgHTMLAttributes<HTMLImageElement> {
-}
+export interface ThumbnailProps extends FlexboxPropTypes, React.ImgHTMLAttributes<HTMLImageElement> {}
 /**
  * Thumbnail link component.
  * http://foundation.zurb.com/sites/docs/switch.html

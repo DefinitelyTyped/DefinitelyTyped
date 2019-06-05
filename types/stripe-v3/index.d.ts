@@ -23,23 +23,43 @@ declare namespace stripe {
         createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
         createToken(name: 'bank_account', options: BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'pii', options: PiiTokenOptions): Promise<TokenResponse>;
-        createSource(element: elements.Element, options?: {owner?: OwnerInfo}): Promise<SourceResponse>;
+        createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
-        createPaymentMethod(type: paymentMethodType, element: elements.Element, data?: StripePaymentMethodIncomplete): Promise<StripePaymentMethodResponse>;
+        createPaymentMethod(
+            type: paymentMethodType,
+            element: elements.Element,
+            data?: StripePaymentMethodIncomplete
+        ): Promise<StripePaymentMethodResponse>;
         redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
         retrievePaymentIntent(clientSecret: string): Promise<paymentIntent.PaymentIntentResponse>;
-        handleCardPayment(clientSecret: string, element: elements.Element, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
-        handleCardPayment(clientSecret: string, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
+        handleCardPayment(
+            clientSecret: string,
+            element: elements.Element,
+            data?: paymentIntent.CardPaymentData
+        ): Promise<paymentIntent.PaymentIntentResponse>;
+        handleCardPayment(
+            clientSecret: string,
+            data?: paymentIntent.CardPaymentData
+        ): Promise<paymentIntent.PaymentIntentResponse>;
         handleCardAction(clientSecret: string): Promise<paymentIntent.PaymentIntentResponse>;
-        confirmPaymentIntent(clientSecret: string, element: elements.Element, data: paymentIntent.PaymentIntentConfirmationData): Promise<paymentIntent.PaymentIntentResponse>;
-        confirmPaymentIntent(clientSecret: string, data: paymentIntent.PaymentIntentConfirmationData): Promise<paymentIntent.PaymentIntentResponse>;
+        confirmPaymentIntent(
+            clientSecret: string,
+            element: elements.Element,
+            data: paymentIntent.PaymentIntentConfirmationData
+        ): Promise<paymentIntent.PaymentIntentResponse>;
+        confirmPaymentIntent(
+            clientSecret: string,
+            data: paymentIntent.PaymentIntentConfirmationData
+        ): Promise<paymentIntent.PaymentIntentResponse>;
     }
 
-    type StripeRedirectResponse = never | {
-        error: Error;
-    };
+    type StripeRedirectResponse =
+        | never
+        | {
+              error: Error;
+          };
 
     interface StripePaymentMethodResponse {
         paymentMethod?: StripePaymentMethod;
@@ -272,7 +292,14 @@ declare namespace stripe {
             error?: Error;
         }
 
-        type paymentIntentStatus = 'requires_payment_method' | 'requires_confirmation' | 'requires_action' | 'processing' | 'requires_capture' | 'canceled' | 'succeeded';
+        type paymentIntentStatus =
+            | 'requires_payment_method'
+            | 'requires_confirmation'
+            | 'requires_action'
+            | 'processing'
+            | 'requires_capture'
+            | 'canceled'
+            | 'succeeded';
         interface StripePaymentIntent {
             id: string;
             object: 'payment_intent';
@@ -319,7 +346,7 @@ declare namespace stripe {
 
         interface PaymentMethodData {
             billing_details?: OwnerInfo;
-            card?: {[token: string]: string};
+            card?: { [token: string]: string };
         }
 
         interface PaymentIntentConfirmationData extends CardPaymentData {
@@ -395,14 +422,26 @@ declare namespace stripe {
         }
 
         interface StripePaymentRequest {
-            canMakePayment(): Promise<{applePay?: boolean} | null>;
+            canMakePayment(): Promise<{ applePay?: boolean } | null>;
             show(): void;
             update(options: StripePaymentRequestUpdateOptions): void;
             on(event: 'token', handler: (response: StripeTokenPaymentResponse) => void): void;
             on(event: 'source', handler: (response: StripeSourcePaymentResponse) => void): void;
             on(event: 'cancel', handler: () => void): void;
-            on(event: 'shippingaddresschange', handler: (response: {updateWith: (options: UpdateDetails) => void, shippingAddress: ShippingAddress}) => void): void;
-            on(event: 'shippingoptionchange', handler: (response: {updateWith: (options: UpdateDetails) => void, shippingOption: ShippingOption}) => void): void;
+            on(
+                event: 'shippingaddresschange',
+                handler: (response: {
+                    updateWith: (options: UpdateDetails) => void;
+                    shippingAddress: ShippingAddress;
+                }) => void
+            ): void;
+            on(
+                event: 'shippingoptionchange',
+                handler: (response: {
+                    updateWith: (options: UpdateDetails) => void;
+                    shippingOption: ShippingOption;
+                }) => void
+            ): void;
         }
     }
 
@@ -420,7 +459,7 @@ declare namespace stripe {
             // Cannot find name 'HTMLElement'
             mount(domElement: any): void;
             on(event: eventTypes, handler: handler): void;
-            on(event: 'click', handler: (response: {preventDefault: () => void}) => void): void;
+            on(event: 'click', handler: (response: { preventDefault: () => void }) => void): void;
             focus(): void;
             blur(): void;
             clear(): void;
@@ -445,7 +484,15 @@ declare namespace stripe {
             locale?: string;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
+        type elementsType =
+            | 'card'
+            | 'cardNumber'
+            | 'cardExpiry'
+            | 'cardCvc'
+            | 'postalCode'
+            | 'paymentRequestButton'
+            | 'iban'
+            | 'idealBank';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
         }
@@ -471,7 +518,7 @@ declare namespace stripe {
                 invalid?: Style;
                 paymentRequestButton?: PaymentRequestButtonStyleOptions;
             };
-            value?: string | { [objectKey: string]: string; };
+            value?: string | { [objectKey: string]: string };
             paymentRequest?: paymentRequest.StripePaymentRequest;
             supportedCountries?: string[];
             disabled?: boolean;

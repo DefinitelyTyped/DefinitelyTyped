@@ -1,7 +1,7 @@
-import * as React from "react";
-import styled, { css } from "styled-components";
-import { Box, Flex, Text, Heading, Button, Link, Image, Card } from "rebass";
-import "styled-components/macro";
+import * as React from 'react';
+import styled, { css } from 'styled-components';
+import { Box, Flex, Text, Heading, Button, Link, Image, Card } from 'rebass';
+import 'styled-components/macro';
 
 const CustomComponent: React.FunctionComponent = ({ children }) => {
     return <div>{children}</div>;
@@ -12,7 +12,7 @@ const ExtendedBox = styled(Box)`
 `;
 
 ExtendedBox.defaultProps = {
-    p: 3
+    p: 3,
 };
 
 const boxCss = css`
@@ -23,7 +23,7 @@ const boxCss = css`
 const CssBox = () => <Box css={boxCss} />;
 
 export default () => (
-    <Box width={1} css={{ height: "100vh" }} py={[1, 2, 3]} ml="1em">
+    <Box width={1} css={{ height: '100vh' }} py={[1, 2, 3]} ml="1em">
         <Flex width={1} alignItems="center" justifyContent="center">
             <Heading fontSize={5} fontWeight="bold">
                 Hi, I'm a heading.
@@ -42,11 +42,7 @@ export default () => (
             >
                 Card
             </Card>
-            <Image
-                width={[1, 1, 1 / 2]}
-                src="https://source.unsplash.com/random/1280x720"
-                borderRadius="1em"
-            />
+            <Image width={[1, 1, 1 / 2]} src="https://source.unsplash.com/random/1280x720" borderRadius="1em" />
             <Link href="https://rebassjs.org" title="Rebass" target="_blank">
                 Link
             </Link>

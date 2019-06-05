@@ -7,9 +7,22 @@ export as namespace WebIDL2;
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
 
-export type IDLRootType = InterfaceType | InterfaceMixinType | NamespaceType | CallbackType | DictionaryType | EnumType | TypedefType | ImplementsType | IncludesType;
+export type IDLRootType =
+    | InterfaceType
+    | InterfaceMixinType
+    | NamespaceType
+    | CallbackType
+    | DictionaryType
+    | EnumType
+    | TypedefType
+    | ImplementsType
+    | IncludesType;
 
-export type IDLInterfaceMemberType = OperationMemberType | AttributeMemberType | ConstantMemberType | DeclarationMemberType;
+export type IDLInterfaceMemberType =
+    | OperationMemberType
+    | AttributeMemberType
+    | ConstantMemberType
+    | DeclarationMemberType;
 
 export type IDLNamespaceMemberType = OperationMemberType | AttributeMemberType;
 
@@ -53,7 +66,7 @@ export interface IDLTypeDescription {
 }
 
 export interface InterfaceType {
-    type: "interface" | "callback interface";
+    type: 'interface' | 'callback interface';
     /** The name of the interface */
     name: string;
     /** A boolean indicating whether it's a partial interface. */
@@ -67,7 +80,7 @@ export interface InterfaceType {
 }
 
 export interface InterfaceMixinType {
-    type: "interface mixin";
+    type: 'interface mixin';
     /** The name of the interface mixin */
     name: string;
     /** A boolean indicating whether it's a partial interface mixin. */
@@ -79,7 +92,7 @@ export interface InterfaceMixinType {
 }
 
 export interface NamespaceType {
-    type: "namespace";
+    type: 'namespace';
     /** A boolean indicating whether it's a partial namespace. */
     partial: boolean;
     /** The enum's name. */
@@ -91,7 +104,7 @@ export interface NamespaceType {
 }
 
 export interface CallbackType {
-    type: "callback";
+    type: 'callback';
     /** The name of the callback. */
     name: string;
     /** An IDL Type describing what the callback returns. */
@@ -103,7 +116,7 @@ export interface CallbackType {
 }
 
 export interface DictionaryType {
-    type: "dictionary";
+    type: 'dictionary';
     /** The dictionary name. */
     name: string;
     /** Boolean indicating whether it's a partial dictionary. */
@@ -124,7 +137,7 @@ export interface DictionaryMemberType extends FieldType {
 }
 
 export interface FieldType {
-    type: "field";
+    type: 'field';
     /** The name of the field. */
     name: string;
     /** An IDL Type describing what field's type. */
@@ -136,17 +149,17 @@ export interface FieldType {
 }
 
 export interface EnumType {
-    type: "enum";
+    type: 'enum';
     /** The enum's name. */
     name: string;
     /** An array of values (strings). */
-    values: Array<{ type: "string", value: string }>;
+    values: Array<{ type: 'string'; value: string }>;
     /** A list of extended attributes. */
     extAttrs: ExtendedAttributes[];
 }
 
 export interface TypedefType {
-    type: "typedef";
+    type: 'typedef';
     /** The typedef's name. */
     name: string;
     /** An IDL Type describing what typedef's type. */
@@ -156,7 +169,7 @@ export interface TypedefType {
 }
 
 export interface ImplementsType {
-    type: "implements";
+    type: 'implements';
     /** The interface that implements another. */
     target: string;
     /** The interface that is being implemented by the target. */
@@ -166,7 +179,7 @@ export interface ImplementsType {
 }
 
 export interface IncludesType {
-    type: "includes";
+    type: 'includes';
     /** The interface that includes an interface mixin. */
     target: string;
     /** The interface mixin that is being included by the target. */
@@ -176,7 +189,7 @@ export interface IncludesType {
 }
 
 export interface OperationMemberType {
-    type: "operation";
+    type: 'operation';
     /** True if a getter operation. */
     getter: boolean;
     /** True if a setter operation. */
@@ -198,7 +211,7 @@ export interface OperationMemberType {
 }
 
 export interface AttributeMemberType {
-    type: "attribute";
+    type: 'attribute';
     /** The attribute's name. */
     name: string;
     /** True if it's a static attribute. */
@@ -216,7 +229,7 @@ export interface AttributeMemberType {
 }
 
 export interface ConstantMemberType {
-    type: "const";
+    type: 'const';
     /** Whether its type is nullable. */
     nullable: boolean;
     /** An IDL Type of the constant that represents a simple type, the type name. */
@@ -253,28 +266,28 @@ export interface ExtendedAttributes {
 }
 
 export interface Token {
-    type: "float" | "integer" | "identifier" | "string" | "whitespace" | "other";
+    type: 'float' | 'integer' | 'identifier' | 'string' | 'whitespace' | 'other';
     value: string;
 }
 
 export interface ExtendedAttributeRightHandSideIdentifier {
-    type: "identifier";
+    type: 'identifier';
     value: string;
 }
 
 export interface ExtendedAttributeRightHandSideIdentifierList {
-    type: "identifier-list";
+    type: 'identifier-list';
     value: string[];
 }
 
 export interface ValueDescription {
-    type: "string" | "number" | "boolean" | "null" | "Infinity" | "NaN" | "sequence";
+    type: 'string' | 'number' | 'boolean' | 'null' | 'Infinity' | 'NaN' | 'sequence';
     value: string | any[] | null;
     negative: boolean | null;
 }
 
 export interface DeclarationMemberType {
-    type: "iterable" | "legacyiterable" | "setlike" | "maplike";
+    type: 'iterable' | 'legacyiterable' | 'setlike' | 'maplike';
     /** An array with one or more IDL Types representing the declared type arguments. */
     idlType: IDLTypeDescription[];
     /** Whether the maplike or setlike is declared as read only. */

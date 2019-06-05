@@ -1,2 +1,2 @@
-import { mapValues } from "./index";
+import { mapValues } from './index';
 export = mapValues;

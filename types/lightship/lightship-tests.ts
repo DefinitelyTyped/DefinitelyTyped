@@ -4,7 +4,7 @@ const lightshipParams: UserConfigurationType = {
     detectKubernetes: false,
     timeout: 1000,
     port: 50,
-    signals: ['SIGBUS']
+    signals: ['SIGBUS'],
 };
 
 const lightship: LightshipType = createLightship(lightshipParams);

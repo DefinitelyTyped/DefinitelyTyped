@@ -65,13 +65,13 @@ resultDate = faker.date.soon();
 resultDate = faker.date.soon(30);
 resultStr = faker.date.month();
 resultStr = faker.date.month({
-	abbr: true,
-	context: true
+    abbr: true,
+    context: true,
 });
 resultStr = faker.date.weekday();
 resultStr = faker.date.weekday({
-	abbr: true,
-	context: true
+    abbr: true,
+    context: true,
 });
 
 resultStr = faker.finance.account();
@@ -105,7 +105,7 @@ resultStr = faker.helpers.slugify('foo bar quux');
 resultStr = faker.helpers.replaceSymbolWithNumber('foo# bar#');
 resultStr = faker.helpers.replaceSymbols('foo# bar? quux#');
 resultStrArr = faker.helpers.shuffle(['foo', 'bar', 'quux']);
-resultStr = faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
+resultStr = faker.helpers.mustache('{{foo}}{{bar}}', { foo: 'x', bar: 'y' });
 
 const card = faker.helpers.createCard();
 resultStr = card.name;
@@ -176,18 +176,18 @@ resultStr = faker.phone.phoneFormats();
 resultNum = faker.random.number();
 resultNum = faker.random.number(0);
 resultNum = faker.random.number({
-	min: 0,
-	max: 0,
-	precision: 0
+    min: 0,
+    max: 0,
+    precision: 0,
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
 resultStr = faker.random.objectElement();
-resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
+resultStr = faker.random.objectElement({ foo: 'bar', field: 'foo' });
 resultStr = faker.random.uuid();
 resultBool = faker.random.boolean();
 resultStr = faker.random.word();
-resultStr = faker.random.word("noun");
+resultStr = faker.random.word('noun');
 resultStr = faker.random.words();
 resultStr = faker.random.words(0);
 resultStr = faker.random.image();
@@ -197,13 +197,13 @@ resultStr = faker.random.alphaNumeric(0);
 resultStr = faker.random.hexaDecimal();
 resultStr = faker.random.hexaDecimal(3);
 
-resultStr = faker.system.fileName("foo", "bar");
-resultStr = faker.system.commonFileName("foo", "bar");
+resultStr = faker.system.fileName('foo', 'bar');
+resultStr = faker.system.commonFileName('foo', 'bar');
 resultStr = faker.system.mimeType();
 resultStr = faker.system.commonFileType();
 resultStr = faker.system.commonFileExt();
 resultStr = faker.system.fileType();
-resultStr = faker.system.fileExt("foo");
+resultStr = faker.system.fileExt('foo');
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();

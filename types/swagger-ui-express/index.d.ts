@@ -4,12 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { RequestHandler } from "express";
-import { ServeStaticOptions } from "serve-static";
+import { RequestHandler } from 'express';
+import { ServeStaticOptions } from 'serve-static';
 
-interface JsonObject { [key: string]: any; }
-interface SwaggerUiOptions { [key: string]: any; }
-interface SwaggerOptions { [key: string]: any; }
+interface JsonObject {
+    [key: string]: any;
+}
+interface SwaggerUiOptions {
+    [key: string]: any;
+}
+interface SwaggerOptions {
+    [key: string]: any;
+}
 
 interface SwaggerUiExpress {
     /**
@@ -24,13 +30,15 @@ interface SwaggerUiExpress {
      * @param customeSiteTitle custom title for a page
      * @returns an express middleware function that returns the generated html page.
      */
-    setup(swaggerDoc?: JsonObject | null,
+    setup(
+        swaggerDoc?: JsonObject | null,
         opts?: SwaggerUiOptions | false | null,
         options?: SwaggerOptions,
         customCss?: string | false | null,
         customfavIcon?: string | false | null,
         swaggerUrl?: string | false | null,
-        customeSiteTitle?: string | false | null): RequestHandler;
+        customeSiteTitle?: string | false | null
+    ): RequestHandler;
 
     /**
      * Returns handlers for serving Swagger UI files.
@@ -62,13 +70,15 @@ interface SwaggerUiExpress {
      * @param customeSiteTitle custom title for a page
      * @returns the generated html page.
      */
-    generateHTML(swaggerDoc?: JsonObject | null,
+    generateHTML(
+        swaggerDoc?: JsonObject | null,
         opts?: SwaggerUiOptions | false | null,
         options?: SwaggerOptions,
         customCss?: string | false | null,
         customfavIcon?: string | false | null,
         swaggerUrl?: string | false | null,
-        customeSiteTitle?: string | false | null): string;
+        customeSiteTitle?: string | false | null
+    ): string;
 
     /**
      * Returns handlers for serving Swagger UI files.

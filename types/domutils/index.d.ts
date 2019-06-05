@@ -3,7 +3,7 @@
 // Definitions by: Johan Davidsson <https://github.com/johandavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DomElement } from "domhandler";
+import { DomElement } from 'domhandler';
 /***
  * Append an element after another
  *
@@ -81,7 +81,7 @@ export function getName(elem: DomElement): string;
  * @argument dom An array of DomElement that should be stringified
  * @argument [opts] Optional options object
  */
-export function getOuterHTML(dom: DomElement[], opts?: { decodeEntities?: boolean, xmlMode?: boolean}): string;
+export function getOuterHTML(dom: DomElement[], opts?: { decodeEntities?: boolean; xmlMode?: boolean }): string;
 export function getParent(elem: DomElement): DomElement;
 export function getSiblings(elem: DomElement): DomElement[];
 export function getText(elem: DomElement): string;

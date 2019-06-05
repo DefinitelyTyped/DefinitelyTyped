@@ -1,5 +1,4 @@
-
-import autoprefixer = require("autoprefixer-core");
+import autoprefixer = require('autoprefixer-core');
 
 var css: string;
 

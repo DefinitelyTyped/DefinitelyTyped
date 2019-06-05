@@ -89,12 +89,12 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     /**
      * The starting and lowest level view the calendar can navigate down to.
      */
-    initialView?: "month" | "year" | "decade" | "century";
+    initialView?: 'month' | 'year' | 'decade' | 'century';
     /**
      * The highest level view the calendar can navigate up to. This value should be higher than
      * initialView.
      */
-    finalView?: "month" | "year" | "decade" | "century";
+    finalView?: 'month' | 'year' | 'decade' | 'century';
     /**
      * The current selected date, should be a Date instance or null.
      */
@@ -136,12 +136,12 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * handle the opening and closing internally.
      * @default false
      */
-    open?: false | "date" | "time";
+    open?: false | 'date' | 'time';
     /**
      * The defaultOpen prop can be used to set an
      * initialization value for uncontrolled widgets.
      */
-    defaultOpen?: false | "calendar" | "time";
+    defaultOpen?: false | 'calendar' | 'time';
     /**
      * Called when the DateTimePicker is about to open or close. onToggle should be used when
      * the open prop is set otherwise the widget will never open or close.

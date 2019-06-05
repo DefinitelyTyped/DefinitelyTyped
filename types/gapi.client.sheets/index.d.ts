@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Sheets API v4 */
-    function load(name: "sheets", version: "v4"): PromiseLike<void>;
-    function load(name: "sheets", version: "v4", callback: () => any): void;
+    function load(name: 'sheets', version: 'v4'): PromiseLike<void>;
+    function load(name: 'sheets', version: 'v4', callback: () => any): void;
 
     const spreadsheets: sheets.SpreadsheetsResource;
 
@@ -2531,7 +2531,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2570,7 +2570,7 @@ declare namespace gapi.client {
              */
             search(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2606,7 +2606,7 @@ declare namespace gapi.client {
              */
             copyTo(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2656,7 +2656,7 @@ declare namespace gapi.client {
              */
             append(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2719,7 +2719,7 @@ declare namespace gapi.client {
              */
             batchClear(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2756,7 +2756,7 @@ declare namespace gapi.client {
              */
             batchClearByDataFilter(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2790,7 +2790,7 @@ declare namespace gapi.client {
              */
             batchGet(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2850,7 +2850,7 @@ declare namespace gapi.client {
              */
             batchGetByDataFilter(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2886,7 +2886,7 @@ declare namespace gapi.client {
              */
             batchUpdate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2922,7 +2922,7 @@ declare namespace gapi.client {
              */
             batchUpdateByDataFilter(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2958,7 +2958,7 @@ declare namespace gapi.client {
              */
             clear(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2994,7 +2994,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3053,7 +3053,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3131,7 +3131,7 @@ declare namespace gapi.client {
              */
             batchUpdate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3162,7 +3162,7 @@ declare namespace gapi.client {
             /** Creates a spreadsheet, returning the newly created spreadsheet. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3213,7 +3213,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -3274,7 +3274,7 @@ declare namespace gapi.client {
              */
             getByDataFilter(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

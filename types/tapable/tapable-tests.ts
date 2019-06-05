@@ -9,32 +9,30 @@ import {
     AsyncParallelBailHook,
     AsyncSeriesHook,
     AsyncSeriesBailHook,
-    AsyncSeriesWaterfallHook
-} from "tapable";
+    AsyncSeriesWaterfallHook,
+} from 'tapable';
 
 class DllPlugin {
     apply(compiler: Compiler) {
-        compiler.plugin('doSomething', function (...args: string[]) {
+        compiler.plugin('doSomething', function(...args: string[]) {
             console.log(args);
         });
 
-        compiler.plugin(['doSomething', 'doNothing'], function (...args: string[]) {
+        compiler.plugin(['doSomething', 'doNothing'], function(...args: string[]) {
             console.log(args);
         });
     }
 }
 
 class Compiler extends Tapable {
-    constructor(){
-        super()
+    constructor() {
+        super();
     }
 }
 
 const compiler = new Compiler();
 
-let callback: Tapable.CallbackFunction = function () {
-
-};
+let callback: Tapable.CallbackFunction = function() {};
 
 compiler.apply(new DllPlugin());
 
@@ -59,7 +57,7 @@ compiler.applyPluginsParallelBailResult1('doSomething', 'a', callback);
 const multi = new MultiHook([new SyncHook(['hi'])]);
 
 const isNumber = (val: number) => val;
-const isAny = (val: {a: { n: {y: '!'}}}) => val;
+const isAny = (val: { a: { n: { y: '!' } } }) => val;
 const isUndefined = (val: undefined) => val;
 
 // Without generics
@@ -74,18 +72,18 @@ const isUndefined = (val: undefined) => val;
         asyncSeriesHook: new AsyncSeriesHook(['arg1']),
         asyncSeriesBailHook: new AsyncSeriesBailHook(['arg1']),
         asyncSeriesWaterfallHook: new AsyncSeriesWaterfallHook(['arg1']),
-    }
+    };
 
     // Without generics we won't get any information
     // for the tap interface:
-    hooks.syncHook.tap('AHook', () => ('ReturnValue'));
-    hooks.syncBailHook.tap('AHook', () => ('ReturnValue'));
-    hooks.syncWaterfallHook.tap('AHook', () => ('ReturnValue'));
-    hooks.asyncParallelHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncParallelBailHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesBailHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async () => ('ReturnValue'));
+    hooks.syncHook.tap('AHook', () => 'ReturnValue');
+    hooks.syncBailHook.tap('AHook', () => 'ReturnValue');
+    hooks.syncWaterfallHook.tap('AHook', () => 'ReturnValue');
+    hooks.asyncParallelHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncParallelBailHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesBailHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async () => 'ReturnValue');
 
     async function getHookResults() {
         return {
@@ -98,10 +96,10 @@ const isUndefined = (val: undefined) => val;
             asyncSeriesHook: await hooks.asyncSeriesHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesBailHook: await hooks.asyncSeriesBailHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesWaterfallHook: await hooks.asyncSeriesWaterfallHook.promise({ name: 'sue', age: 34 }),
-        }
+        };
     }
 
-    getHookResults().then((result) => {
+    getHookResults().then(result => {
         // Allways undefined:
         console.log(isUndefined(result.syncHook));
         console.log(isUndefined(result.asyncSeriesHook));
@@ -121,7 +119,7 @@ const isUndefined = (val: undefined) => val;
 
 // With generics
 (() => {
-    type Person = {name: string, age: number};
+    type Person = { name: string; age: number };
     const hooks = {
         syncHook: new SyncHook<Person, undefined, undefined>(['arg1']),
         syncBailHook: new SyncBailHook<Person, undefined, undefined, number>(['arg1']),
@@ -132,17 +130,17 @@ const isUndefined = (val: undefined) => val;
         asyncSeriesHook: new AsyncSeriesHook<Person, undefined, undefined>(['arg1']),
         asyncSeriesBailHook: new AsyncSeriesBailHook<Person, undefined, undefined, number>(['arg1']),
         asyncSeriesWaterfallHook: new AsyncSeriesWaterfallHook<Person, undefined, undefined>(['arg1']),
-    }
+    };
 
     // Without generics we will get information
-    hooks.syncHook.tap('AHook', () => ('Any Return Value'));
-    hooks.syncBailHook.tap('AHook', (person) => person.age);
-    hooks.syncWaterfallHook.tap('AHook', (person) => ({ name: 'sue', age: person.age + 1 }));
-    hooks.asyncParallelHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncParallelBailHook.tapPromise('AHook', async (person) => person.age);
-    hooks.asyncSeriesHook.tapPromise('AHook', async () => ('ReturnValue'));
-    hooks.asyncSeriesBailHook.tapPromise('AHook', async (person) => person.age);
-    hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async (person) => ({ name: 'sue', age: person.age + 1 }));
+    hooks.syncHook.tap('AHook', () => 'Any Return Value');
+    hooks.syncBailHook.tap('AHook', person => person.age);
+    hooks.syncWaterfallHook.tap('AHook', person => ({ name: 'sue', age: person.age + 1 }));
+    hooks.asyncParallelHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncParallelBailHook.tapPromise('AHook', async person => person.age);
+    hooks.asyncSeriesHook.tapPromise('AHook', async () => 'ReturnValue');
+    hooks.asyncSeriesBailHook.tapPromise('AHook', async person => person.age);
+    hooks.asyncSeriesWaterfallHook.tapPromise('AHook', async person => ({ name: 'sue', age: person.age + 1 }));
 
     async function getHookResults() {
         return {
@@ -155,10 +153,10 @@ const isUndefined = (val: undefined) => val;
             asyncSeriesHook: await hooks.asyncSeriesHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesBailHook: await hooks.asyncSeriesBailHook.promise({ name: 'sue', age: 34 }),
             asyncSeriesWaterfallHook: await hooks.asyncSeriesWaterfallHook.promise({ name: 'sue', age: 34 }),
-        }
+        };
     }
 
-    getHookResults().then((result) => {
+    getHookResults().then(result => {
         // Allways undefined:
         console.log(isUndefined(result.syncHook));
         console.log(isUndefined(result.asyncSeriesHook));

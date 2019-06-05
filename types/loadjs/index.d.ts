@@ -9,7 +9,11 @@ export as namespace loadjs;
 export = loadjs;
 
 declare function loadjs(files: string | string[], bundleIdOrLoaded: string | loadjs.LoadedFn): void;
-declare function loadjs(files: string[], bundleId: string, optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn): void;
+declare function loadjs(
+    files: string[],
+    bundleId: string,
+    optionsOrCallback: loadjs.LoadOptions | loadjs.LoadedFn
+): void;
 
 declare namespace loadjs {
     type LoadedFn = () => void;

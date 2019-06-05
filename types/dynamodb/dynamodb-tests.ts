@@ -57,7 +57,7 @@ dynamo.createTables(
         } else {
             console.log('Tables has been created');
         }
-    },
+    }
 );
 
 BlogPost.deleteTable(err => {
@@ -131,12 +131,9 @@ Event = dynamo.define('Event', {
 
 Account.config({ tableName: 'AccountsTable' });
 
-Account.create(
-    { email: 'foo@example.com', name: 'Foo Bar', age: 21 },
-    (err, acc) => {
-        console.log('created account in DynamoDB', acc.get('email'));
-    },
-);
+Account.create({ email: 'foo@example.com', name: 'Foo Bar', age: 21 }, (err, acc) => {
+    console.log('created account in DynamoDB', acc.get('email'));
+});
 
 const acc = new Account({ email: 'test@example.com', name: 'Test Example' });
 
@@ -152,7 +149,7 @@ BlogPost.create(
     },
     (err, post) => {
         console.log('created blog post', post.get('title'));
-    },
+    }
 );
 
 const item1 = { email: 'foo1@example.com', name: 'Foo 1', age: 10 };
@@ -172,34 +169,22 @@ Account.create({ id: 123, name: 'Kurt Warner' }, params, (error, acc) => {
     // ...
 });
 
-Account.create(
-    { id: 123, name: 'Kurt Warner' },
-    { overwrite: false },
-    (error, acc) => {
-        // ...
-    },
-);
+Account.create({ id: 123, name: 'Kurt Warner' }, { overwrite: false }, (error, acc) => {
+    // ...
+});
 
 Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, (err, acc) => {
     console.log('update account', acc.get('name'));
 });
 
-Account.update(
-    { email: 'foo@example.com', name: 'Bar Tester' },
-    { ReturnValues: 'ALL_OLD' },
-    (err, acc) => {
-        console.log('update account', acc.get('name')); // prints the old account name
-    },
-);
+Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, { ReturnValues: 'ALL_OLD' }, (err, acc) => {
+    console.log('update account', acc.get('name')); // prints the old account name
+});
 
 // Only update the account if the current age of the account is 21
-Account.update(
-    { email: 'foo@example.com', name: 'Bar Tester' },
-    { expected: { age: 22 } },
-    (err, acc) => {
-        console.log('update account', acc.get('name'));
-    },
-);
+Account.update({ email: 'foo@example.com', name: 'Bar Tester' }, { expected: { age: 22 } }, (err, acc) => {
+    console.log('update account', acc.get('name'));
+});
 
 // setting an attribute to null will delete the attribute from DynamoDB
 Account.update({ email: 'foo@example.com', age: null }, (err, acc) => {
@@ -218,7 +203,7 @@ BlogPost.update(
     },
     (err, post) => {
         console.log('added single tag to blog post', post.get('tags'));
-    },
+    }
 );
 
 BlogPost.update(
@@ -229,7 +214,7 @@ BlogPost.update(
     },
     (err, post) => {
         console.log('added tags to blog post', post.get('tags'));
-    },
+    }
 );
 
 BlogPost.update(
@@ -240,7 +225,7 @@ BlogPost.update(
     },
     (err, post) => {
         console.log('removed cloud tag from blog post', post.get('tags'));
-    },
+    }
 );
 
 BlogPost.update(
@@ -251,7 +236,7 @@ BlogPost.update(
     },
     (err, post) => {
         console.log('removed multiple tags', post.get('tags'));
-    },
+    }
 );
 
 params = {};
@@ -277,11 +262,7 @@ const Movie = dynamo.define('Movie', {
     schema: {},
 });
 
-Movie.update(
-    { title: 'Movie 0', description: 'This is a description' },
-    params,
-    (err, mov) => {},
-);
+Movie.update({ title: 'Movie 0', description: 'This is a description' }, params, (err, mov) => {});
 
 Account.destroy('foo@example.com', err => {
     console.log('account deleted');
@@ -320,37 +301,22 @@ Account.get('test@example.com', { ConsistentRead: true }, (err, acc) => {
     console.log('got account', acc.get('email'));
 });
 
-Account.get(
-    'test@example.com',
-    { ConsistentRead: true, AttributesToGet: ['name', 'age'] },
-    (err, acc) => {
-        console.log('got account', acc.get('email'));
-        console.log(acc.get('name'));
-        console.log(acc.get('age'));
-        console.log(acc.get('email')); // prints null
-    },
-);
+Account.get('test@example.com', { ConsistentRead: true, AttributesToGet: ['name', 'age'] }, (err, acc) => {
+    console.log('got account', acc.get('email'));
+    console.log(acc.get('name'));
+    console.log(acc.get('age'));
+    console.log(acc.get('email')); // prints null
+});
 
-BlogPost.get(
-    'werner@example.com',
-    'dynamodb-keeps-getting-better-and-cheaper',
-    (err, post) => {
-        console.log('loaded post by range and hash key', post.get('content'));
-    },
-);
+BlogPost.get('werner@example.com', 'dynamodb-keeps-getting-better-and-cheaper', (err, post) => {
+    console.log('loaded post by range and hash key', post.get('content'));
+});
 
-BlogPost.get(
-    { email: 'werner@example.com', title: 'Expanding the Cloud' },
-    (err, post) => {
-        console.log('loded post', post.get('content'));
-    },
-);
+BlogPost.get({ email: 'werner@example.com', title: 'Expanding the Cloud' }, (err, post) => {
+    console.log('loded post', post.get('content'));
+});
 
-Account.get(
-    { id: '123456789' },
-    { ProjectionExpression: 'email, age, settings.nickname' },
-    (err, acc) => {},
-);
+Account.get({ id: '123456789' }, { ProjectionExpression: 'email, age, settings.nickname' }, (err, acc) => {});
 
 const callback = () => {};
 
@@ -707,12 +673,9 @@ Account.parallelScan(totalSegments)
 // Load All accounts
 Account.parallelScan(totalSegments).exec();
 
-Account.getItems(
-    ['foo@example.com', 'bar@example.com', 'test@example.com'],
-    (err, accounts) => {
-        console.log(`loaded ${accounts.length} accounts`); // prints loaded 3 accounts
-    },
-);
+Account.getItems(['foo@example.com', 'bar@example.com', 'test@example.com'], (err, accounts) => {
+    console.log(`loaded ${accounts.length} accounts`); // prints loaded 3 accounts
+});
 
 // For models with range keys you must pass in objects of hash and range key attributes
 const postKey1 = { email: 'test@example.com', title: 'Hello World!' };
@@ -722,13 +685,9 @@ BlogPost.getItems([postKey1, postKey2], (err, posts) => {
     console.log('loaded posts');
 });
 
-Account.getItems(
-    ['foo@example.com', 'bar@example.com'],
-    { ConsistentRead: true },
-    (err, accounts) => {
-        console.log(`loaded ${accounts.length} accounts`); // prints loaded 2 accounts
-    },
-);
+Account.getItems(['foo@example.com', 'bar@example.com'], { ConsistentRead: true }, (err, accounts) => {
+    console.log(`loaded ${accounts.length} accounts`); // prints loaded 2 accounts
+});
 
 let stream = Account.parallelScan(4).exec();
 
@@ -808,15 +767,12 @@ Account = dynamo.define('Account', {
     },
 });
 
-Account.create(
-    { email: 'test@example.com', name: 'Test Account' },
-    (err, acc) => {
-        console.log('created account at', acc.get('created')); // prints created Date
+Account.create({ email: 'test@example.com', name: 'Test Account' }, (err, acc) => {
+    console.log('created account at', acc.get('created')); // prints created Date
 
-        acc.set({ age: 22 });
+    acc.set({ age: 22 });
 
-        acc.update((err: any) => {
-            console.log('updated account age');
-        });
-    },
-);
+    acc.update((err: any) => {
+        console.log('updated account age');
+    });
+});

@@ -7,15 +7,12 @@ errors.logError(new Error(), () => {}); // $ExpectType void
 errors.prependCurrentStack(new Error()); // $ExpectType Error
 
 // $ExpectType ErrorConstructor
-errors.helpers.generateClass(
-    'TestingError',
-    {
-        extends: new Error(),
-        globalize: false,
-        args: [],
-        generateMessage: () => ''
-    }
-);
+errors.helpers.generateClass('TestingError', {
+    extends: new Error(),
+    globalize: false,
+    args: [],
+    generateMessage: () => '',
+});
 
 new errors.Error('Testing'); // $ExpectType Error
 new errors.AlreadyInUseError('Nobody', 'nothing'); // $ExpectType AlreadyInUseError

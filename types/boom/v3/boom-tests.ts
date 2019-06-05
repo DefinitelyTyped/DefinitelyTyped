@@ -1,5 +1,3 @@
-
-
 import Boom = require('boom');
 
 Boom.create(500, 'Internal server error', { timestamp: Date.now() });

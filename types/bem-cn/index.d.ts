@@ -11,7 +11,7 @@ declare namespace BemCn {
     function setup(settings?: Settings): void;
 
     interface Modifications {
-        [key: string]: (string | boolean);
+        [key: string]: string | boolean;
     }
 
     interface Inner {

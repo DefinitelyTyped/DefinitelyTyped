@@ -13,7 +13,7 @@ declare class List {
     searched: boolean;
     filtered: boolean;
 
-    constructor(element: string|HTMLElement, options?: List.ListOptions, values?: object[]);
+    constructor(element: string | HTMLElement, options?: List.ListOptions, values?: object[]);
 
     add(values: object[], callback?: (item: List.ListItem) => void): void;
     remove(valueName: string, value: any): number;
@@ -58,7 +58,7 @@ declare namespace List {
         order?: string;
         alphabet?: string;
         insensitive?: boolean;
-        sortFunction?: ((a: object, b: object) => number|undefined);
+        sortFunction?: (a: object, b: object) => number | undefined;
     }
 }
 

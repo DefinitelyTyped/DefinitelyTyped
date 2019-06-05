@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
+import * as stream from 'stream';
 
 /**
  * Return a new through stream that should get written module-deps objects and will output sorted objects.

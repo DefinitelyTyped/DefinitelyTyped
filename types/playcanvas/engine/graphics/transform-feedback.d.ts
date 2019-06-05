@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.TransformFeedback
      * @class Transform feedback helper object
@@ -64,7 +63,7 @@ declare namespace pc {
      * @param {Number} [usage] The optional usage type of the output vertex buffer (see pc.BUFFER_*). pc.BUFFER_GPUDYNAMIC is recommended for continuous update, and is the default value.
      */
     class TransformFeedback {
-        constructor(inputBuffer: pc.VertexBuffer, usage?: number)
+        constructor(inputBuffer: pc.VertexBuffer, usage?: number);
 
         /**
          * @function

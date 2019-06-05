@@ -16,17 +16,18 @@ const multiDndComponent = createDragDropManager(MultiBackend(HTML5ToTouch), cont
  */
 const CustomBackends: Backends = {
     backends: [
-    {
-        backend: TouchBackend({ enableMouseEvents: false }),
-        preview: true,
-        transition: createTransition('touchstart', (event: TouchEvent) => {
-            return event.touches != null;
-        })
-    },
-    {
-        backend: TouchBackend({}),
-        transition: TouchTransition
-    }]
+        {
+            backend: TouchBackend({ enableMouseEvents: false }),
+            preview: true,
+            transition: createTransition('touchstart', (event: TouchEvent) => {
+                return event.touches != null;
+            }),
+        },
+        {
+            backend: TouchBackend({}),
+            transition: TouchTransition,
+        },
+    ],
 };
 const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBackends), context);
 
@@ -35,9 +36,7 @@ const multiCustomBackendsComponent = createDragDropManager(MultiBackend(CustomBa
  */
 class App extends React.Component {
     generator = (type: string, item: any, style: React.CSSProperties) =>
-        (type === 'card')
-            ? <div style={style}>{item.label}</div>
-            : <div />
+        type === 'card' ? <div style={style}>{item.label}</div> : <div />;
 
     render() {
         return (

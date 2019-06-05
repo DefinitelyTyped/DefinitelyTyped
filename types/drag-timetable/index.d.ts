@@ -9,8 +9,7 @@
 export function create(container: HTMLElement | null, options: any): TimetableInstance;
 
 export namespace create {
-    const prototype: {
-    };
+    const prototype: {};
 }
 
 export class TimetableInstance {
@@ -33,4 +32,4 @@ export class TimetableTask {
     updateTaskUI(): void;
 
     getTimeElement(): HTMLDivElement;
- }
+}

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Highcharts from "highcharts";
-import * as React from "react";
+import * as Highcharts from 'highcharts';
+import * as React from 'react';
 
 /**
  * Props for ReactHighcharts component.

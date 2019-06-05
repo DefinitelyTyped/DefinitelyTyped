@@ -1,8 +1,8 @@
 import * as Airtable from 'airtable';
 
 interface Row extends Airtable.FieldSet {
-  field1: string;
-  attachments: Airtable.Attachment[];
+    field1: string;
+    attachments: Airtable.Attachment[];
 }
 
 const airtable = new Airtable();
@@ -25,17 +25,17 @@ async () => {
                 attachment.type; // $ExpectType string
                 attachment.url; // $ExpectType string
                 if (attachment.thumbnails) {
-                  attachment.thumbnails.full.height; // $ExpectType number
-                  attachment.thumbnails.full.width; // $ExpectType number
-                  attachment.thumbnails.full.url; // $ExpectType string
+                    attachment.thumbnails.full.height; // $ExpectType number
+                    attachment.thumbnails.full.width; // $ExpectType number
+                    attachment.thumbnails.full.url; // $ExpectType string
 
-                  attachment.thumbnails.large.height; // $ExpectType number
-                  attachment.thumbnails.large.width; // $ExpectType number
-                  attachment.thumbnails.large.url; // $ExpectType string
+                    attachment.thumbnails.large.height; // $ExpectType number
+                    attachment.thumbnails.large.width; // $ExpectType number
+                    attachment.thumbnails.large.url; // $ExpectType string
 
-                  attachment.thumbnails.small.height; // $ExpectType number
-                  attachment.thumbnails.small.width; // $ExpectType number
-                  attachment.thumbnails.small.url; // $ExpectType string
+                    attachment.thumbnails.small.height; // $ExpectType number
+                    attachment.thumbnails.small.width; // $ExpectType number
+                    attachment.thumbnails.small.url; // $ExpectType string
                 }
             }
         }

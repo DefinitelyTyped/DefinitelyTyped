@@ -9,15 +9,15 @@ const optionDefinitions: commandLineArgs.OptionDefinition[] = [
         multiple: true,
         lazyMultiple: true,
         defaultOption: true,
-        group: 'one'
-    }
+        group: 'one',
+    },
 ];
 
 const options = commandLineArgs(optionDefinitions, {
-    argv: [ '--one', '1' ],
+    argv: ['--one', '1'],
     partial: true,
     stopAtFirstUnknown: true,
-    camelCase: true
+    camelCase: true,
 });
 
 const unknown = options._unknown;

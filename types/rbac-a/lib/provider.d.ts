@@ -1,2 +1,2 @@
-import { Provider } from "..";
+import { Provider } from '..';
 export = Provider;

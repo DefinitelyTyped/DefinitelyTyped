@@ -9,11 +9,10 @@
 /// <reference types="express-session" />
 /// <reference types="redis" />
 
-declare module "connect-redis" {
-    import * as express from "express";
-    import * as session from "express-session";
-    import * as redis from "redis";
-
+declare module 'connect-redis' {
+    import * as express from 'express';
+    import * as session from 'express-session';
+    import * as redis from 'redis';
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 

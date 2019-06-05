@@ -23,11 +23,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import Providers, { Provider } from "./providers";
-import { Bzz, Shh } from "./types";
-import { BatchRequest, Net, Personal } from "./eth/types";
-import Utils from "./utils";
-import Eth from "./eth/index";
+import Providers, { Provider } from './providers';
+import { Bzz, Shh } from './types';
+import { BatchRequest, Net, Personal } from './eth/types';
+import Utils from './utils';
+import Eth from './eth/index';
 
 declare class Web3 {
     static providers: Providers;

@@ -1,5 +1,3 @@
-
-
 import express = require('express');
 import mysql = require('mysql');
 import connection = require('express-myconnection');
@@ -14,15 +12,13 @@ app.use(
             user: 'dbuser',
             password: 'password',
             port: 3306,
-            database: 'mydb'
+            database: 'mydb',
         },
         'single'
     )
 );
 
-
-app.use(function list(req: express.Request, res: express.Response, next: Function){
-
+app.use(function list(req: express.Request, res: express.Response, next: Function) {
     req.getConnection(function(err: mysql.MysqlError, connection: mysql.Connection) {
         if (err) return next(err);
 

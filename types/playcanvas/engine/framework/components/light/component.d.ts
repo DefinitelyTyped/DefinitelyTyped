@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @component
      * @name pc.LightComponent
@@ -100,7 +99,7 @@ declare namespace pc {
      * @extends pc.Component
      */
     class LightComponent extends pc.Component {
-        constructor(system: pc.LightComponentSystem, entity: pc.Entity)
+        constructor(system: pc.LightComponentSystem, entity: pc.Entity);
 
         type: string;
         color: pc.Color;
@@ -132,6 +131,5 @@ declare namespace pc {
         cookieScale: pc.Vec2;
         cookieOffset: pc.Vec2;
         isStatic: boolean;
-
     }
 }

@@ -5,13 +5,11 @@
 // TypeScript Version: 2.8
 
 /// <reference types="googlemaps" />
-import { Component, ReactNode } from "react";
+import { Component, ReactNode } from 'react';
 
 export default ReactGoogleMapsLoader;
 
-declare class ReactGoogleMapsLoader extends Component<
-    ReactGoogleMapsLoader.Props
-> {}
+declare class ReactGoogleMapsLoader extends Component<ReactGoogleMapsLoader.Props> {}
 
 declare namespace ReactGoogleMapsLoader {
     type GoogleMaps = typeof google.maps;

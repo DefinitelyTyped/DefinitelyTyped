@@ -1,14 +1,14 @@
 import P = require('parsimmon');
-import { Parser, Mark, Result, Index, Reply, Language, TypedLanguage } from "parsimmon";
+import { Parser, Mark, Result, Index, Reply, Language, TypedLanguage } from 'parsimmon';
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
 class Foo {
-	bar: Bar;
+    bar: Bar;
 }
 
 class Bar {
-	foo: Foo;
+    foo: Foo;
 }
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -47,21 +47,21 @@ let fooMarkPar: Parser<Mark<Foo>> = null!;
 
 const result = fooMarkPar.parse(str);
 if (result.status) {
-	index = result.value.start;
-	index = result.value.end;
-	foo = result.value.value;
+    index = result.value.start;
+    index = result.value.end;
+    foo = result.value.value;
 }
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-let fooResult: Result<Foo> = fooPar.parse("");
+let fooResult: Result<Foo> = fooPar.parse('');
 
 // https://github.com/Microsoft/TypeScript/issues/12882
 if (fooResult.status === true) {
-	foo = fooResult.value;
+    foo = fooResult.value;
 } else {
-	strArr = fooResult.expected;
-	index = fooResult.index;
+    strArr = fooResult.expected;
+    index = fooResult.index;
 }
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -82,36 +82,39 @@ foo = fooPar.tryParse(str);
 fooPar = fooPar.or(fooPar);
 fooOrBarPar = fooPar.or(barPar);
 
-barPar = fooPar.chain((f) => {
-	foo = f;
-	return barPar;
+barPar = fooPar.chain(f => {
+    foo = f;
+    return barPar;
 });
 
-barPar = fooPar.then((f) => {
-	foo = f;
-	return barPar;
+barPar = fooPar.then(f => {
+    foo = f;
+    return barPar;
 });
 barPar = fooPar.then(barPar);
 
-barPar = fooPar.map((f) => {
-	foo = f;
-	return bar;
+barPar = fooPar.map(f => {
+    foo = f;
+    return bar;
 });
 
 strPar = P.string(str);
 
-strPar = strPar.contramap((f) => {
-	f; // $ExpectType string
-	return f.toUpperCase();
+strPar = strPar.contramap(f => {
+    f; // $ExpectType string
+    return f.toUpperCase();
 });
 
-barPar = strPar.promap((f) => {
-	f; // $ExpectType string
-	return 3;
-}, (f) => {
-	f; // $ExpectType number
-	return bar;
-});
+barPar = strPar.promap(
+    f => {
+        f; // $ExpectType string
+        return 3;
+    },
+    f => {
+        f; // $ExpectType number
+        return bar;
+    }
+);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -148,26 +151,31 @@ const par: Parser<[Bar, Foo, number]> = P.seq(barPar, fooPar, numPar);
 const par2: Parser<number> = P.seq(barPar, fooPar, numPar).map(([a, b, c]: [Bar, Foo, number]) => 42);
 
 interface SeqObj {
-	first: number;
-	second: string;
-	third: Foo;
+    first: number;
+    second: string;
+    third: Foo;
 }
 
 const seqObjPar: Parser<SeqObj> = P.seqObj<SeqObj>(
-	['first', numPar],
-	barPar,
-	fooArrPar,
-	['third', fooPar],
-	['second', strPar]);
+    ['first', numPar],
+    barPar,
+    fooArrPar,
+    ['third', fooPar],
+    ['second', strPar]
+);
 
-fooPar = P.custom<Foo>((success, failure) => (stream, i) => { str = stream; num = i; return success(num, foo); });
+fooPar = P.custom<Foo>((success, failure) => (stream, i) => {
+    str = stream;
+    num = i;
+    return success(num, foo);
+});
 fooPar = P.custom<Foo>((success, failure) => (stream, i) => failure(num, str));
 
 fooPar = P.alt(fooPar, fooPar);
 anyPar = P.alt(barPar, fooPar, numPar);
 
 fooPar = P.lazy(() => {
-	return fooPar;
+    return fooPar;
 });
 
 voidPar = P.fail(str);
@@ -182,25 +190,20 @@ const bytePar: Parser<number> = P.byte(3);
 const byteParMany: Parser<number[]> = P.bitSeq([1, 2, 5, 1]);
 
 interface ByteSeqObj {
-	first: number;
-	second: number;
-	third: number;
+    first: number;
+    second: number;
+    third: number;
 }
 
-const byteParObj: Parser<ByteSeqObj> = P.bitSeqObj([
-	['first', 3],
-	6,
-	['second', 8],
-	7,
-	['third', 9],
-]);
+const byteParObj: Parser<ByteSeqObj> = P.bitSeqObj([['first', 3], 6, ['second', 8], 7, ['third', 9]]);
 
-const byteParObjErr: Parser<ByteSeqObj> = P.bitSeqObj([ // $ExpectError
-	['first', 3],
-	6,
-	['second', 8],
-	7,
-	/* missing 'third' key */
+const byteParObjErr: Parser<ByteSeqObj> = P.bitSeqObj([
+    // $ExpectError
+    ['first', 3],
+    6,
+    ['second', 8],
+    7,
+    /* missing 'third' key */
 ]);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -248,7 +251,7 @@ emptyStrPar = P.lookahead(fooPar);
 
 strPar = strPar.tie();
 
-strPar = strPar.tieWith("");
+strPar = strPar.tieWith('');
 
 fooPar = P.of(foo);
 
@@ -257,7 +260,13 @@ str = P.formatError('foo', strPar.parse('bar'));
 strPar = P.seqMap(P.digit, (a: string) => 'foo');
 numPar = P.seqMap(P.digit, P.digits, (a: string, b: string) => 42);
 strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo');
-strPar = P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo');
+strPar = P.seqMap(
+    P.digit,
+    P.digits,
+    P.letter,
+    P.letters.map(Number),
+    (a: string, b: string, c: string, d: number) => 'foo'
+);
 
 strArrPar = P.sepBy(P.string('foo'), P.string('bar'));
 strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));
@@ -268,21 +277,16 @@ strPar = P.takeWhile((a: string) => true);
 
 // Slightly modified from the documentation example for 'parser.thru(wrapper)'.
 function makeNode<Name extends string>(name: Name) {
-	return <T>(parser: P.Parser<T>): P.Parser<P.Node<Name, T>> => {
-		return P.seqMap(
-			P.index,
-			parser,
-			P.index,
-			(start, value, end) => {
-				return {
-					name,
-					start,
-					value,
-					end,
-				};
-			},
-		);
-	};
+    return <T>(parser: P.Parser<T>): P.Parser<P.Node<Name, T>> => {
+        return P.seqMap(P.index, parser, P.index, (start, value, end) => {
+            return {
+                name,
+                start,
+                value,
+                end,
+            };
+        });
+    };
 }
 
 let node: P.Parser<P.Node<'identifier', string>> = P.letters.node('identifier');
@@ -294,10 +298,7 @@ node = P.letters.thru(makeNode('identifier'));
 fooPar = fooPar.empty(); // $ExpectType Parser<never>
 
 // example taken from the documentation for the #ap method
-numPar = P.digit
-  .ap(P.digit
-    .map(s => (t: string) =>
-      Number(s) + Number(t)));
+numPar = P.digit.ap(P.digit.map(s => (t: string) => Number(s) + Number(t)));
 
 fooArrPar = fooPar.sepBy(barPar);
 fooArrPar = fooPar.sepBy1(barPar);
@@ -309,8 +310,8 @@ fooPar = barPar.of(foo);
 let language: Language;
 
 language = P.createLanguage({
-	SomeRule: r => P.alt(P.string(""), r.AnotherRule),
-	AnotherRule: () => P.string(""),
+    SomeRule: r => P.alt(P.string(''), r.AnotherRule),
+    AnotherRule: () => P.string(''),
 });
 
 // $ExpectType Parser<any>
@@ -321,22 +322,22 @@ language.AnotherRule;
 language.UndefinedRule;
 
 interface MyLanguageSpec {
-	FooRule: Foo;
-	BarRule: Bar;
-	StringRule: string;
+    FooRule: Foo;
+    BarRule: Bar;
+    StringRule: string;
 }
 
 let myLanguage: TypedLanguage<MyLanguageSpec>;
 
 myLanguage = P.createLanguage<MyLanguageSpec>({
-	FooRule: r => {
-		fooPar = r.FooRule;
-		barPar = r.BarRule;
-		strPar = r.StringRule;
-		return fooPar;
-	},
-	BarRule: r => barPar,
-	StringRule: () => strPar,
+    FooRule: r => {
+        fooPar = r.FooRule;
+        barPar = r.BarRule;
+        strPar = r.StringRule;
+        return fooPar;
+    },
+    BarRule: r => barPar,
+    StringRule: () => strPar,
 });
 
 // $ExpectType Parser<Foo>
@@ -349,9 +350,9 @@ myLanguage.StringRule;
 const noRules = P.createLanguage<{}>({});
 
 // $ExpectError
-P.createLanguage<{MissingRule: string}>({});
+P.createLanguage<{ MissingRule: string }>({});
 
-P.createLanguage<{SomeRule: string}>({
-	SomeRule: r => strPar,
-	AnotherRule: (r: any) => strPar // $ExpectError
+P.createLanguage<{ SomeRule: string }>({
+    SomeRule: r => strPar,
+    AnotherRule: (r: any) => strPar, // $ExpectError
 });

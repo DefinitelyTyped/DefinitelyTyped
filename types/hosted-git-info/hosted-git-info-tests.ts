@@ -1,4 +1,4 @@
-import info = require("hosted-git-info");
+import info = require('hosted-git-info');
 
 info.fromUrl('');
 const result = info.fromUrl('', {});

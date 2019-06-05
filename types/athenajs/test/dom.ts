@@ -5,7 +5,9 @@ const body = Dom(document.body);
 const domElt: HTMLElement = body[0];
 
 // Dom.appendTo
-div.appendTo(body).show().hide();
+div.appendTo(body)
+    .show()
+    .hide();
 div.appendTo(domElt);
 
 const str: string | null = body.css('display');

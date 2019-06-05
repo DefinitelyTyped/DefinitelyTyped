@@ -1,6 +1,4 @@
-export function close(offcanvas: {
-    selector: string;
-}): Promise<boolean>;
+export function close(offcanvas: { selector: string }): Promise<boolean>;
 export function open(offcanvas: {
     selector: string;
     content: string;
@@ -15,9 +13,7 @@ export function setupResponsive(offcanvas: {
     edge?: 'start' | 'end' | 'top' | 'bottom';
     query: string | null;
 }): void;
-export function tearDownResponsive(offcanvas: {
-    selector: string;
-}): void;
+export function tearDownResponsive(offcanvas: { selector: string }): void;
 export function toggle(offcanvas: {
     selector: string;
     content: string;

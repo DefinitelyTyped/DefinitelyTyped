@@ -5,7 +5,7 @@
 
 /**
  * Return an argument object populated with the array arguments from args
- * 
+ *
  * @param args An optional argument array (typically `process.argv.slice(2)`)
  * @param opts An optional options object to customize the parsing
  */
@@ -34,8 +34,9 @@ declare function minimist<T extends minimist.ParsedArgs>(args?: string[], opts?:
 declare namespace minimist {
     export interface Opts {
         /**
-         * A string or array of strings argument names to always treat as strings         
-         */ 
+         * A string or array of strings argument names to always treat as strings
+         */
+
         string?: string | string[];
 
         /**
@@ -60,8 +61,8 @@ declare namespace minimist {
         stopEarly?: boolean;
 
         /**
-         * A function which is invoked with a command line parameter not defined in the opts 
-         * configuration object. If the function returns false, the unknown option is not added to argv         
+         * A function which is invoked with a command line parameter not defined in the opts
+         * configuration object. If the function returns false, the unknown option is not added to argv
          */
         unknown?: (arg: string) => boolean;
 
@@ -83,7 +84,7 @@ declare namespace minimist {
         /**
          * Contains all the arguments that didn't have an option associated with them
          */
-        _: string[];       
+        _: string[];
     }
 }
 

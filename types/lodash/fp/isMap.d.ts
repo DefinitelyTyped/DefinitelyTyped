@@ -1,2 +1,2 @@
-import { isMap } from "../fp";
+import { isMap } from '../fp';
 export = isMap;

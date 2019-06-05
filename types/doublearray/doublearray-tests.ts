@@ -1,12 +1,10 @@
-
-
 // https://github.com/takuyaa/doublearray/blob/master/README.md
 var words = [
     { k: 'a', v: 1 },
     { k: 'abc', v: 2 },
     { k: '奈良', v: 3 },
     { k: '奈良先端', v: 4 },
-    { k: '奈良先端科学技術大学院大学', v: 5 }
+    { k: '奈良先端科学技術大学院大学', v: 5 },
 ];
 
 var trie = doublearray.builder().build(words);

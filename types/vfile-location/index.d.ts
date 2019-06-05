@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as VFile from "vfile";
+import * as VFile from 'vfile';
 
 declare function vfileLocation(vfile: string | VFile.VFile): vfileLocation.Location;
 

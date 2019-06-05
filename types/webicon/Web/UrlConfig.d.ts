@@ -1,4 +1,4 @@
-import { DynamicUrlDeclaration } from "./DynamicUrlDeclaration";
+import { DynamicUrlDeclaration } from './DynamicUrlDeclaration';
 
 /**
  * Represents a url.

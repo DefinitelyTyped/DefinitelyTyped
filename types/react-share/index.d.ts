@@ -51,9 +51,7 @@ export const FacebookShareButton: React.StatelessComponent<
         hashtag?: string;
     }
 >;
-export const GooglePlusShareButton: React.StatelessComponent<
-    CommonShareButtonProps
->;
+export const GooglePlusShareButton: React.StatelessComponent<CommonShareButtonProps>;
 export const LinkedinShareButton: React.StatelessComponent<
     CommonShareButtonProps & {
         /** Title of the shared page */

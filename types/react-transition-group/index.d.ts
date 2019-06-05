@@ -6,12 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import CSSTransition = require("./CSSTransition");
-import Transition from "./Transition";
-import TransitionGroup = require("./TransitionGroup");
+import CSSTransition = require('./CSSTransition');
+import Transition from './Transition';
+import TransitionGroup = require('./TransitionGroup');
 
-export {
-    CSSTransition,
-    Transition,
-    TransitionGroup
-};
+export { CSSTransition, Transition, TransitionGroup };

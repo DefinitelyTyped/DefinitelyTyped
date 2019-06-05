@@ -1,2 +1,2 @@
-import { conformsTo } from "./index";
+import { conformsTo } from './index';
 export = conformsTo;

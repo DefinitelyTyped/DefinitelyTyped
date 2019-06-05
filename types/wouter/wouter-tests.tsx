@@ -1,14 +1,5 @@
 import * as React from 'react';
-import {
-    Router,
-    Route,
-    Link,
-    Switch,
-    useRouter,
-    useRoute,
-    useLocation,
-    Redirect,
-} from 'wouter';
+import { Router, Route, Link, Switch, useRouter, useRoute, useLocation, Redirect } from 'wouter';
 
 const Inbox = () => <h1>Inbox</h1>;
 const BaseTest = () => (
@@ -25,9 +16,7 @@ const BaseTest = () => (
 
         <Router>
             <Route path="/about">About Us</Route>
-            <Route path="/users/:name">
-                {(params) => <div>Hello, {params && params.name}!</div>}
-            </Route>
+            <Route path="/users/:name">{params => <div>Hello, {params && params.name}!</div>}</Route>
             <Route path="/inbox" component={Inbox} />
         </Router>
     </div>
@@ -50,9 +39,9 @@ const UseRouteTest = () => {
 };
 
 const UseRouterTest = () => {
-    const {history, matcher} = useRouter();
+    const { history, matcher } = useRouter();
     const [path] = useLocation();
-    const [match, params] = matcher("/users/:name", path);
+    const [match, params] = matcher('/users/:name', path);
 
     if (!match) return null;
 

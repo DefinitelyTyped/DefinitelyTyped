@@ -37,7 +37,6 @@ export type ITransitionServiceOptions = angular.ui.bootstrap.ITransitionServiceO
 
 declare module 'angular' {
     export namespace ui.bootstrap {
-
         interface IAccordionConfig {
             /**
              * Controls whether expanding an item will cause the other items to close.
@@ -66,7 +65,7 @@ declare module 'angular' {
 
         type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
 
-        type DatepickerMode = "day" | "month" | "year";
+        type DatepickerMode = 'day' | 'month' | 'year';
 
         interface IDatepickerCellArgs {
             date: Date;
@@ -220,7 +219,7 @@ declare module 'angular' {
              * @default null
              */
             dateDisabled?: DatepickerCallback<boolean>;
-            
+
             /**
              * Defines an optional expression to add classes based on passing an object with date and current mode properties.
              *
@@ -230,7 +229,6 @@ declare module 'angular' {
         }
 
         interface IDatepickerPopupConfig extends IDatepickerConfig {
-
             /**
              * A list of alternate formats acceptable for manual entry.
              *
@@ -392,7 +390,7 @@ declare module 'angular' {
         /**
          * @deprecated use IModalInstanceService instead.
          */
-        interface IModalServiceInstance extends IModalInstanceService { }
+        interface IModalServiceInstance extends IModalInstanceService {}
 
         interface IModalScope extends angular.IScope {
             /**
@@ -577,7 +575,6 @@ declare module 'angular' {
             value: any;
         }
 
-
         interface IPaginationConfig {
             /**
              * Total number of items in all pages.
@@ -706,7 +703,6 @@ declare module 'angular' {
             nextText?: string;
         }
 
-
         interface IPositionCoordinates {
             width?: number;
             height?: number;
@@ -726,7 +722,6 @@ declare module 'angular' {
             offset(element: JQuery): IPositionCoordinates;
         }
 
-
         interface IProgressConfig {
             /**
              * Whether bars use transitions to achieve the width change.
@@ -742,7 +737,6 @@ declare module 'angular' {
              */
             max?: number;
         }
-
 
         interface IRatingConfig {
             /**
@@ -773,7 +767,6 @@ declare module 'angular' {
              */
             titles?: Array<string>;
         }
-
 
         interface ITimepickerConfig {
             /**
@@ -854,7 +847,6 @@ declare module 'angular' {
             templateUrl?: string;
         }
 
-
         interface ITooltipOptions {
             /**
              * Where to place it? Defaults to 'top', but also accepts 'right', 'bottom', or 'left'.
@@ -918,7 +910,6 @@ declare module 'angular' {
             setTriggers(triggers: Object): void;
         }
 
-
         /**
          * WARNING: $transition is now deprecated. Use $animate from ngAnimate instead.
          */
@@ -945,7 +936,9 @@ declare module 'angular' {
              *
              * @return A promise that is resolved when the transition finishes.
              */
-            (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
+            (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<
+                angular.IAugmentedJQuery
+            >;
         }
 
         interface ITransitionServiceOptions {

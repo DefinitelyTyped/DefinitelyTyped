@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Request, RequestHandler } from "express";
+import { Request, RequestHandler } from 'express';
 
 declare function SwaggerExpressValidator(options: SwaggerExpressValidator.Options): RequestHandler;
 

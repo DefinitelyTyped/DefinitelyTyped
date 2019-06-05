@@ -3,7 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "match-media-mock" {
+declare module 'match-media-mock' {
     /**
      * Mock configuration options
      */

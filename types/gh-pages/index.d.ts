@@ -19,14 +19,9 @@ export interface PublishOptions {
     tag?: string;
     user?: null | {
         name: string;
-        email: string
+        email: string;
     };
 }
 
-export function publish(
-    basePath: string,
-    callback: (err: any) => void): void;
-export function publish(
-    basePath: string,
-    config: PublishOptions,
-    callback?: (err: any) => void): void;
+export function publish(basePath: string, callback: (err: any) => void): void;
+export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): void;

@@ -65,7 +65,10 @@ declare namespace request {
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
-        initParams(uriOrOpts: string | RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(
+            uriOrOpts: string | RequiredUriUrl & TOptions,
+            callback?: RequestCallback
+        ): RequiredUriUrl & TOptions;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
@@ -74,9 +77,8 @@ declare namespace request {
         debug: boolean;
     }
 
-    interface DefaultUriUrlRequestApi<TRequest extends Request,
-            TOptions extends CoreOptions,
-            TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
+    interface DefaultUriUrlRequestApi<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions>
+        extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
         (callback?: RequestCallback): TRequest;
 
@@ -203,8 +205,8 @@ declare namespace request {
     interface Multipart {
         chunked?: boolean;
         data?: Array<{
-            'content-type'?: string,
-            body: string
+            'content-type'?: string;
+            body: string;
         }>;
     }
 
@@ -281,7 +283,7 @@ declare namespace request {
         pool: false | { [key: string]: http.Agent | https.Agent };
         dests: stream.Readable[];
         callback?: RequestCallback;
-        uri: Url & { href: string, pathname: string };
+        uri: Url & { href: string; pathname: string };
         proxy: null | string | Url;
         tunnel: boolean;
         setHost: boolean;

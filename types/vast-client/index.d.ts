@@ -26,7 +26,7 @@ export class VASTTracker extends NodeJS.EventEmitter {
         /**
          * An optional variation of the creative, for Companion and NonLinear Ads
          */
-        variation?: VastCreativeCompanion | VastCreativeNonLinear,
+        variation?: VastCreativeCompanion | VastCreativeNonLinear
     );
     /**
      * Sets the duration of the ad and updates the quartiles based on that.
@@ -76,7 +76,7 @@ export class VASTTracker extends NodeJS.EventEmitter {
         /**
          * Indicate if the video is expanded or no
          */
-        expanded: boolean,
+        expanded: boolean
     ): void;
     /**
      * Must be called if you want to overwrite the <Linear> Skipoffset value. This will init the skip countdown duration.
@@ -143,7 +143,7 @@ export class VASTClient {
         /**
          * Optional custom storage to be used instead of the default one
          */
-        customStorage?: VASTClientCustomStorage,
+        customStorage?: VASTClientCustomStorage
     );
     cappingFreeLunch: number;
     cappingMinimumTimeInterval: number;
@@ -201,7 +201,7 @@ export class VASTParser extends NodeJS.EventEmitter {
          */
         urlTemplates: string[],
         errorCode: Pick<VastError, 'ERRORCODE'>,
-        ...data: Array<Pick<VastError, Exclude<keyof VastError, 'ERRORCODE'>>>,
+        ...data: Array<Pick<VastError, Exclude<keyof VastError, 'ERRORCODE'>>>
     ): void;
     /**
      * Fetches a VAST document for the given url.
@@ -233,7 +233,7 @@ export class VASTParser extends NodeJS.EventEmitter {
         /**
          * An optional Object of parameters to be used in the parsing process.
          */
-        options?: VastRequestOptions,
+        options?: VastRequestOptions
     ): Promise<VastResponse>;
     /**
      * Parses the given xml Object into a VASTResponse.
@@ -247,7 +247,7 @@ export class VASTParser extends NodeJS.EventEmitter {
         /**
          * An optional Object of parameters to be used in the parsing process.
          */
-        options?: VastRequestOptions,
+        options?: VastRequestOptions
     ): Promise<VastResponse>;
 }
 
@@ -261,11 +261,7 @@ export function UrlHandlerCbType(err: null, xml: XMLDocument): void;
 export function UrlHandlerCbType(err: Error): void;
 
 export interface VASTClientUrlHandler {
-    get(
-        url: string,
-        options: { timeout: number, withCredentials: boolean },
-        cb: typeof UrlHandlerCbType,
-    ): void;
+    get(url: string, options: { timeout: number; withCredentials: boolean }, cb: typeof UrlHandlerCbType): void;
 }
 
 export interface VastRequestOptions {

@@ -10,8 +10,8 @@ import http = require('http');
 
 declare namespace requestPromise {
     interface RequestPromise<T = any> extends request.Request {
-        then: Promise<T>["then"];
-        catch: Promise<T>["catch"];
+        then: Promise<T>['then'];
+        catch: Promise<T>['catch'];
         promise(): Promise<T>;
     }
 

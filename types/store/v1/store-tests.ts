@@ -24,5 +24,5 @@ store.getAll().user.name == 'marcus';
 
 // Loop over all stored values
 store.forEach(function(key, val) {
-    console.log(key, '==', val)
+    console.log(key, '==', val);
 });

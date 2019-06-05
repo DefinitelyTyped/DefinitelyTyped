@@ -12,7 +12,7 @@ const httpsAgent: Agent = new Agent();
 
 request
     .post('/api/pet')
-    .send({name: 'Manny', species: 'cat'})
+    .send({ name: 'Manny', species: 'cat' })
     .set('X-API-Key', 'foobar')
     .set('Accept', 'application/json')
     .agent(httpsAgent)
@@ -27,7 +27,7 @@ request
 const agent = request.agent();
 agent
     .post('/api/pet')
-    .send({name: 'Manny', species: 'cat'})
+    .send({ name: 'Manny', species: 'cat' })
     .set('X-API-Key', 'foobar')
     .set('Accept', 'application/json')
     .end((err, res) => {
@@ -41,36 +41,24 @@ agent
 const callback = (err: any, res: request.Response) => {};
 
 // Request basics
-request
-    .get('/search')
-    .end(callback);
+request.get('/search').end(callback);
 
-request('GET', '/search')
-    .end(callback);
+request('GET', '/search').end(callback);
 
-request
-    .get('http://example.com/search')
-    .end(callback);
+request.get('http://example.com/search').end(callback);
 
-request
-    .head('/favicon.ico')
-    .end(callback);
+request.head('/favicon.ico').end(callback);
 
-request
-    .del('/user/1')
-    .end(callback);
+request.del('/user/1').end(callback);
 
-request
-    .delete('/user/1')
-    .end(callback);
+request.delete('/user/1').end(callback);
 
 request
     .delete('/user/1')
     .send()
     .end(callback);
 
-request('/search')
-    .end(callback);
+request('/search').end(callback);
 
 // Setting header fields
 request
@@ -81,20 +69,20 @@ request
 
 request
     .get('/search')
-    .set({'API-Key': 'foobar', Accept: 'application/json'})
+    .set({ 'API-Key': 'foobar', Accept: 'application/json' })
     .end(callback);
 
 // GET requests
 request
     .get('/search')
-    .query({query: 'Manny'})
-    .query({range: '1..5'})
-    .query({order: 'desc'})
+    .query({ query: 'Manny' })
+    .query({ range: '1..5' })
+    .query({ order: 'desc' })
     .end(callback);
 
 request
     .get('/search')
-    .query({query: 'Manny', range: '1..5', order: 'desc'})
+    .query({ query: 'Manny', range: '1..5', order: 'desc' })
     .end(callback);
 
 request
@@ -111,57 +99,55 @@ request
 // HEAD requests
 request
     .head('/users')
-    .query({email: 'joe@smith.com'})
+    .query({ email: 'joe@smith.com' })
     .end(callback);
 
 // POST / PUT requests
-request.post('/user')
+request
+    .post('/user')
     .set('Content-Type', 'application/json')
     .send('{"name":"tj","pet":"tobi"}')
     .end(callback);
 
-request.post('/user')
-    .send({name: 'tj', pet: 'tobi'})
+request
+    .post('/user')
+    .send({ name: 'tj', pet: 'tobi' })
     .end(callback);
 
-request.post('/user')
-    .send({name: 'tj'})
-    .send({pet: 'tobi'})
+request
+    .post('/user')
+    .send({ name: 'tj' })
+    .send({ pet: 'tobi' })
     .end(callback);
 
-request.post('/user')
+request
+    .post('/user')
     .send('name=tj')
     .send('pet=tobi')
     .end(callback);
 
-request.post('/user')
+request
+    .post('/user')
     .type('form')
-    .send({name: 'tj'})
-    .send({pet: 'tobi'})
+    .send({ name: 'tj' })
+    .send({ pet: 'tobi' })
     .end(callback);
 
 // Setting the Content-Type
-request.post('/user')
-    .set('Content-Type', 'application/json');
+request.post('/user').set('Content-Type', 'application/json');
 
-request.post('/user')
-    .type('application/json');
+request.post('/user').type('application/json');
 
-request.post('/user')
-    .type('json');
+request.post('/user').type('json');
 
-request.post('/user')
-    .type('png');
+request.post('/user').type('png');
 
 // Setting Accept
-request.get('/user')
-    .accept('application/json');
+request.get('/user').accept('application/json');
 
-request.get('/user')
-    .accept('json');
+request.get('/user').accept('json');
 
-request.get('/user')
-    .accept('png');
+request.get('/user').accept('png');
 
 // Setting max response size
 request
@@ -172,14 +158,13 @@ request
 // Query strings
 request
     .post('/')
-    .query({format: 'json'})
-    .query({dest: '/login'})
-    .send({post: 'data', here: 'wahoo'})
+    .query({ format: 'json' })
+    .query({ dest: '/login' })
+    .send({ post: 'data', here: 'wahoo' })
     .end(callback);
 
 // Parsing response bodies
-request('/search')
-  .end((res: request.Response) => {
+request('/search').end((res: request.Response) => {
     const status: number = res.status;
     const body = res.body;
     const files: object = res.files;
@@ -188,24 +173,24 @@ request('/search')
     const contentType: string = res.type;
     const charset: string = res.charset;
     const redirects: string[] = res.redirects;
-  });
+});
 
 // Custom parsers
 request
     .post('/search')
     .parse((res, callback) => {
-        res.setEncoding("binary");
-        let data = "";
-        res.on("data", (chunk: string) => {
+        res.setEncoding('binary');
+        let data = '';
+        res.on('data', (chunk: string) => {
             data += chunk;
         });
 
-        res.on("end", () => {
-            callback(null, new Buffer(data, "base64"));
+        res.on('end', () => {
+            callback(null, new Buffer(data, 'base64'));
         });
     })
     .end((res: request.Response) => {
-        res.body.toString("hex");
+        res.body.toString('hex');
     });
 
 const req = request.get('/hoge');
@@ -294,28 +279,24 @@ request
 request
     .post('/upload')
     .attach('image', 'path/to/tobi.png')
-    .end((err: any, res: request.Response): void => {
-    });
+    .end((err: any, res: request.Response): void => {});
 request
     .post('/upload')
     .attach('image', 'path/to/tobi.png')
-    .on('error', (err: any) => {
-    })
+    .on('error', (err: any) => {})
     .end(callback);
 
 // Promise
 request
     .get('/search')
-    .then((response) => {
-    })
-    .catch((error) => {
-    });
+    .then(response => {})
+    .catch(error => {});
 // Requesting binary data.
 // adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
 request
-  .get('/blob')
-  .responseType('blob')
-  .end((err, res) => {
-    assert(res.xhr instanceof XMLHttpRequest);
-    assert(res.xhr.response instanceof Blob);
-  });
+    .get('/blob')
+    .responseType('blob')
+    .end((err, res) => {
+        assert(res.xhr instanceof XMLHttpRequest);
+        assert(res.xhr.response instanceof Blob);
+    });

@@ -1,2 +1,2 @@
-import { assocPath } from "../fp";
+import { assocPath } from '../fp';
 export = assocPath;

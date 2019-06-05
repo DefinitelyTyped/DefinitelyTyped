@@ -1,5 +1,5 @@
-import Dictionary = require("../Dictionary");
-import Library = require("../Library");
+import Dictionary = require('../Dictionary');
+import Library = require('../Library');
 
 declare namespace Language {
     interface Vocabulary {

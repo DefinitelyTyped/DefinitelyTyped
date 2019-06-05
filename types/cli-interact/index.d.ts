@@ -16,7 +16,7 @@ export interface NumberOptions {
 }
 
 export function getChar(promptText: string, allowedCharsAsString: string, flagAllowNoAnswer?: boolean): string;
-export function getChoice(title: string, choices: string[], opts: ChoiceOptions & {returnNumeric: true}): number;
+export function getChoice(title: string, choices: string[], opts: ChoiceOptions & { returnNumeric: true }): number;
 export function getChoice(title: string, choices: string[], opts?: ChoiceOptions): string;
 export function getChoiceByChar(title: string, choices: string[], flagAllowNoAnswer?: boolean): string;
 export function getInteger(promptText: string): number;

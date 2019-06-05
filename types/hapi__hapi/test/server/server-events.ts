@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-servereventevents
-import { Server, ServerEvents } from "@hapi/hapi";
+import { Server, ServerEvents } from '@hapi/hapi';
 import Podium = require('@hapi/podium');
 import '@hapi/hapi/definitions/server/server';
 

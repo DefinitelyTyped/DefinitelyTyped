@@ -1,2 +1,2 @@
-import { trimChars } from "../fp";
+import { trimChars } from '../fp';
 export = trimChars;

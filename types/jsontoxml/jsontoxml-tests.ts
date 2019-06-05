@@ -1,7 +1,7 @@
 import jsontoxml = require('jsontoxml');
 
 // $ExpectType string
-jsontoxml({foo: 'bar'}, {escape: true, xmlHeader: true});
+jsontoxml({ foo: 'bar' }, { escape: true, xmlHeader: true });
 
 // $ExpectType string
 jsontoxml.escape('&test');

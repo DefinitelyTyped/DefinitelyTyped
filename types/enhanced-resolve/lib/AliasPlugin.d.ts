@@ -1,5 +1,5 @@
 import Resolver = require('./Resolver');
-import Resolve  = require('enhanced-resolve');
+import Resolve = require('enhanced-resolve');
 
 declare class AliasPlugin {
     alias: string;

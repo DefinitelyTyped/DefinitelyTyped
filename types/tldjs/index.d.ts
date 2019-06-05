@@ -21,28 +21,30 @@ export declare function isValidHostname(host: string): boolean;
 
 export declare function extractHostname(host: string): string | null;
 
-export declare function parse(host: string): {
-    hostname: ReturnType<typeof extractHostname>,
-    isValid: ReturnType<typeof isValid>,
-    isIp: boolean,
-    tldExists: ReturnType<typeof tldExists>,
-    publicSuffix: ReturnType<typeof getPublicSuffix>,
-    domain: ReturnType<typeof getDomain>,
-    subdomain: ReturnType<typeof getSubdomain>,
+export declare function parse(
+    host: string
+): {
+    hostname: ReturnType<typeof extractHostname>;
+    isValid: ReturnType<typeof isValid>;
+    isIp: boolean;
+    tldExists: ReturnType<typeof tldExists>;
+    publicSuffix: ReturnType<typeof getPublicSuffix>;
+    domain: ReturnType<typeof getDomain>;
+    subdomain: ReturnType<typeof getSubdomain>;
 };
 
 export declare function fromUserSettings(options: {
-    rules?: any,
-    validHosts?: string[],
-    extractHostname?: ReturnType<typeof extractHostname>,
+    rules?: any;
+    validHosts?: string[];
+    extractHostname?: ReturnType<typeof extractHostname>;
 }): {
-    extractHostname: typeof extractHostname,
-    isValidHostname: typeof isValidHostname,
-    isValid: typeof isValid,
-    parse: typeof parse,
-    tldExists: typeof tldExists,
-    getPublicSuffix: typeof getPublicSuffix,
-    getDomain: typeof getDomain,
-    getSubdomain: typeof getSubdomain,
-    fromUserSettings: typeof fromUserSettings,
+    extractHostname: typeof extractHostname;
+    isValidHostname: typeof isValidHostname;
+    isValid: typeof isValid;
+    parse: typeof parse;
+    tldExists: typeof tldExists;
+    getPublicSuffix: typeof getPublicSuffix;
+    getDomain: typeof getDomain;
+    getSubdomain: typeof getSubdomain;
+    fromUserSettings: typeof fromUserSettings;
 };

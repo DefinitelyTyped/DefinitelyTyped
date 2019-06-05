@@ -311,7 +311,11 @@ export class ActionsSdkApp extends AssistantApp {
      * @return The response that is sent to Assistant to ask user to provide input.
      * @actionssdk
      */
-    askWithList(inputPrompt: object | SimpleResponse | RichResponse, list: List, dialogState?: object): express.Response | null;
+    askWithList(
+        inputPrompt: object | SimpleResponse | RichResponse,
+        list: List,
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Asks to collect user's input with a carousel.
@@ -354,7 +358,11 @@ export class ActionsSdkApp extends AssistantApp {
      * @return The response that is sent to Assistant to ask user to provide input.
      * @actionssdk
      */
-    askWithCarousel(inputPrompt: object | SimpleResponse | RichResponse, carousel: Carousel, dialogState?: object): express.Response | null;
+    askWithCarousel(
+        inputPrompt: object | SimpleResponse | RichResponse,
+        carousel: Carousel,
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Tells Assistant to render the speech response and close the mic.

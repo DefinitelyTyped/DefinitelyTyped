@@ -1,11 +1,11 @@
-import { ASTNode, FileInfo, API, Transform, Parser } from "jscodeshift";
+import { ASTNode, FileInfo, API, Transform, Parser } from 'jscodeshift';
 
 // Can define transform with `function`.
 function replaceWithFooTransform(fileInfo: FileInfo, api: API) {
     return api
         .jscodeshift(fileInfo.source)
-        .findVariableDeclarators("foo")
-        .renameTo("bar")
+        .findVariableDeclarators('foo')
+        .renameTo('bar')
         .toSource();
 }
 
@@ -19,9 +19,9 @@ const reverseIdentifiersTransform: Transform = (file, api) => {
             j(path).replaceWith(
                 j.identifier(
                     path.node.name
-                        .split("")
+                        .split('')
                         .reverse()
-                        .join("")
+                        .join('')
                 )
             );
         })
@@ -32,13 +32,13 @@ const reverseIdentifiersTransform: Transform = (file, api) => {
 const parser: Parser = {
     parse(source, options) {
         // return estree compatible AST
-        return { type: "root" };
-    }
+        return { type: 'root' };
+    },
 };
 
 // Can pass options to recast
 const transformWithRecastFormattingOptions: Transform = (file, { j }) => {
-    return j(file.source).toSource({ quote: "single" });
+    return j(file.source).toSource({ quote: 'single' });
 };
 
 const transformWithRecastParseOptions: Transform = (file, { j }) => {
@@ -50,22 +50,19 @@ const transformWithRecastParseOptions: Transform = (file, { j }) => {
 // `ASTNode` supports type narrowing.
 {
     const node = ({} as any) as ASTNode;
-    if (node.type === "CatchClause") {
+    if (node.type === 'CatchClause') {
         // $ExpectType CatchClause
         node;
 
-        if (node.param && node.param.type === "Identifier") {
+        if (node.param && node.param.type === 'Identifier') {
             // $ExpectType Identifier
             node.param;
 
-            if (
-                node.param.typeAnnotation &&
-                node.param.typeAnnotation.type === "TSTypeAnnotation"
-            ) {
+            if (node.param.typeAnnotation && node.param.typeAnnotation.type === 'TSTypeAnnotation') {
                 // $ExpectType TSTypeAnnotation
                 node.param.typeAnnotation;
 
-                if (node.param.typeAnnotation.typeAnnotation.type === "TSArrayType") {
+                if (node.param.typeAnnotation.typeAnnotation.type === 'TSArrayType') {
                     // $ExpectType TSArrayType
                     node.param.typeAnnotation.typeAnnotation;
                 }

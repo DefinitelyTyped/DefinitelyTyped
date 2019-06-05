@@ -2,7 +2,7 @@ import Protocol = require('bittorrent-protocol');
 import * as net from 'net';
 
 class TestExtension implements Protocol.Extension {
-    constructor(protected wire: Protocol.Wire) { }
+    constructor(protected wire: Protocol.Wire) {}
     name = 'extname';
 }
 

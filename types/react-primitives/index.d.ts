@@ -16,7 +16,7 @@ import {
     StyleSheet,
     Text,
     TouchableOpacityProps,
-    View
+    View,
 } from 'react-native';
 
 export const Touchable: ComponentType<TouchableOpacityProps>;
@@ -30,13 +30,4 @@ export interface PlatformStatic {
 }
 export const Platform: PlatformStatic;
 
-export {
-    Animated,
-    Dimensions,
-    Easing,
-    Image,
-    PixelRatio,
-    StyleSheet,
-    Text,
-    View
-};
+export { Animated, Dimensions, Easing, Image, PixelRatio, StyleSheet, Text, View };

@@ -62,7 +62,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap
          */
         interface SeriesTreemap {
-
             /**
              * @default
              * "treemap"
@@ -399,7 +398,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels
              */
             levels?: {
-
                 /**
                  * `treemap` is able to map any dimensions of data to visual.
                  *
@@ -717,7 +715,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -1178,12 +1175,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -1568,7 +1563,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -2023,12 +2017,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2388,7 +2380,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
                      * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -2504,12 +2495,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -2976,12 +2965,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -3335,7 +3322,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel
                      */
                     upperLabel?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -3802,12 +3788,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -4161,7 +4145,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.levels.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * The color of a node. It use global palette
                          * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -4184,7 +4167,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent
              */
             silent?: {
-
                 /**
                  * Enable hyperlink jump when clicking on node.
                  * It is avaliable when
@@ -4230,7 +4212,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
@@ -4480,7 +4461,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.silent.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *
@@ -4963,7 +4943,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label
              */
             label?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -5422,12 +5401,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -5809,7 +5786,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel
              */
             upperLabel?: {
-
                 /**
                  * Whether to show label.
                  *
@@ -6262,12 +6238,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -6625,7 +6599,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * The color of a node. It use global palette
                  * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -6740,12 +6713,10 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -7206,12 +7177,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -7553,7 +7522,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -8014,12 +7982,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -8361,7 +8327,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
                      * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -8381,7 +8346,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb
              */
             breadcrumb?: {
-
                 /**
                  * Whether to show the breadcrumb.
                  *
@@ -8490,7 +8454,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * boxplot color.
                      *
@@ -8600,7 +8563,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *
@@ -8924,12 +8886,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -9261,12 +9221,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * boxplot color.
                          *
@@ -9377,7 +9335,6 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle
                          */
                         textStyle?: {
-
                             /**
                              * text color.
                              *
@@ -9703,12 +9660,10 @@ declare namespace echarts {
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich
                              */
                             rich?: {
-
                                 /**
                                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.breadcrumb.emphasis.itemStyle.textStyle.rich.%3Cuser%20defined%20style%20name%3E
                                  */
                                 [userStyle: string]: {
-
                                     /**
                                      * text color.
                                      *
@@ -10101,7 +10056,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -10356,7 +10310,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -10903,7 +10856,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label
                  */
                 label?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -11364,12 +11316,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -11754,7 +11704,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel
                  */
                 upperLabel?: {
-
                     /**
                      * Whether to show label.
                      *
@@ -12209,12 +12158,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -12574,7 +12521,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * The color of a node. It use global palette
                      * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -12690,12 +12636,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -13162,12 +13106,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -13521,7 +13463,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel
                      */
                     upperLabel?: {
-
                         /**
                          * Whether to show label.
                          *
@@ -13988,12 +13929,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.upperLabel.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -14347,7 +14286,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * The color of a node. It use global palette
                          * [option.color](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)

@@ -1,4 +1,13 @@
-import { getProfile, OverwatchPlatform, OverwatchServerRegion, ProfileApiResponse, owl, getStats, StatsApiResponse, CompetitiveTopHeroData } from 'overwatch-api';
+import {
+    getProfile,
+    OverwatchPlatform,
+    OverwatchServerRegion,
+    ProfileApiResponse,
+    owl,
+    getStats,
+    StatsApiResponse,
+    CompetitiveTopHeroData,
+} from 'overwatch-api';
 
 const platform: OverwatchPlatform = 'pc';
 const region: OverwatchServerRegion = 'us';

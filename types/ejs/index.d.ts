@@ -132,4 +132,4 @@ export function fileLoader(filePath: string): string;
 /**
  * Name for detection of EJS.
  */
-export const name = "ejs";
+export const name = 'ejs';

@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -19,6 +19,6 @@ parallax.el;
 // $ExpectType ParallaxOptions
 parallax.options;
 
-$(".whatever").parallax();
-$(".whatever").parallax({ responsiveThreshold: 2 });
-$(".whatever").parallax("destroy");
+$('.whatever').parallax();
+$('.whatever').parallax({ responsiveThreshold: 2 });
+$('.whatever').parallax('destroy');

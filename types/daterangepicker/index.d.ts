@@ -36,11 +36,7 @@ declare class daterangepicker {
 }
 
 declare namespace daterangepicker {
-    type DataRangePickerCallback = (
-        start: moment.Moment,
-        end: moment.Moment,
-        label: string | null
-    ) => void;
+    type DataRangePickerCallback = (start: moment.Moment, end: moment.Moment, label: string | null) => void;
 
     type DateOrString = string | moment.Moment | Date;
 

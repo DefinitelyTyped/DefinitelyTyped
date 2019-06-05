@@ -8,5 +8,5 @@ declare namespace PanelTitle {
         toggle?: boolean;
     }
 }
-declare class PanelTitle extends React.Component<PanelTitle.PanelTitleProps> { }
+declare class PanelTitle extends React.Component<PanelTitle.PanelTitleProps> {}
 export = PanelTitle;

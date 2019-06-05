@@ -9,7 +9,6 @@
 
 /// <reference types="node" />
 
-
 import events = require('events');
 import http = require('http');
 import https = require('https');
@@ -241,7 +240,7 @@ export declare class request extends events.EventEmitter {
      * You may optionally pass in an HTTP Status code (such as 404) and a textual
      * description that will be sent to the client in the form of an
      * `X-WebSocket-Reject-Reason` header.
-         * Optional extra http headers can be added via Object key/values on extraHeaders.
+     * Optional extra http headers can be added via Object key/values on extraHeaders.
      */
     reject(httpStatus?: number, reason?: string, extraHeaders?: Object): void;
 
@@ -367,8 +366,13 @@ declare class connection extends events.EventEmitter {
     /** Whether or not the connection is still connected. Read-only */
     connected: boolean;
 
-    constructor(socket: net.Socket, extensions: IExtension[], protocol: string,
-        maskOutgoingPackets: boolean, config: IConfig);
+    constructor(
+        socket: net.Socket,
+        extensions: IExtension[],
+        protocol: string,
+        maskOutgoingPackets: boolean,
+        config: IConfig
+    );
 
     /**
      * Close the connection. A close frame will be sent to the remote peer indicating
@@ -566,10 +570,34 @@ declare class client extends events.EventEmitter {
      *                 any scripting content that caused the connection to be requested.
      * @param requestUrl should be a standard websocket url
      */
-    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
-    connect(requestUrl: string, protocols?: string, origin?: string, headers?: object, extraRequestOptions?: http.RequestOptions): void;
+    connect(
+        requestUrl: url.Url,
+        protocols?: string[],
+        origin?: string,
+        headers?: object,
+        extraRequestOptions?: http.RequestOptions
+    ): void;
+    connect(
+        requestUrl: string,
+        protocols?: string[],
+        origin?: string,
+        headers?: object,
+        extraRequestOptions?: http.RequestOptions
+    ): void;
+    connect(
+        requestUrl: url.Url,
+        protocols?: string,
+        origin?: string,
+        headers?: object,
+        extraRequestOptions?: http.RequestOptions
+    ): void;
+    connect(
+        requestUrl: string,
+        protocols?: string,
+        origin?: string,
+        headers?: object,
+        extraRequestOptions?: http.RequestOptions
+    ): void;
 
     /**
      * Will cancel an in-progress connection request before either the `connect` event or the `connectFailed` event has been emitted.
@@ -587,7 +615,6 @@ declare class client extends events.EventEmitter {
 }
 
 declare class routerRequest extends events.EventEmitter {
-
     /** A reference to the original Node HTTP request object */
     httpRequest: http.IncomingMessage;
     /** A string containing the path that was requested by the client */
@@ -647,11 +674,10 @@ interface IRouterConfig {
     /*
      * The WebSocketServer instance to attach to.
      */
-    server: server
+    server: server;
 }
 
 declare class router extends events.EventEmitter {
-
     constructor(config?: IRouterConfig);
 
     /** Attach to WebSocket server */
@@ -667,7 +693,6 @@ declare class router extends events.EventEmitter {
 
     unmount(path: string, protocol?: string): void;
     unmount(path: RegExp, protocol?: string): void;
-
 }
 
 declare class w3cwebsocket {
@@ -682,7 +707,7 @@ declare class w3cwebsocket {
     extensions: IExtension[];
     bufferedAmount: number;
 
-    binaryType: "arraybuffer";
+    binaryType: 'arraybuffer';
 
     CONNECTING: number;
     OPEN: number;
@@ -694,7 +719,14 @@ declare class w3cwebsocket {
     onclose: () => void;
     onmessage: (message: any) => void;
 
-    constructor(url: string, protocols?: string | string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+    constructor(
+        url: string,
+        protocols?: string | string[],
+        origin?: string,
+        headers?: any[],
+        requestOptions?: object,
+        clientConfig?: IClientConfig
+    );
 
     send(data: Buffer): void;
     send(data: IStringified): void;

@@ -15,6 +15,6 @@ interface ImageInfo {
 declare function sizeOf(pathOrBuffer: string | Buffer): ImageInfo;
 declare function sizeOf(path: string, callback: (err: Error, dimensions: ImageInfo) => void): void;
 
-declare namespace sizeOf { }
+declare namespace sizeOf {}
 
 export = sizeOf;

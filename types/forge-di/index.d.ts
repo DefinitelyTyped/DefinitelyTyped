@@ -3,7 +3,6 @@
 // Definitions by: Adam Carr <https://github.com/adamcarr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * Implementation of the forge dependency injection manager.
  */
@@ -72,7 +71,13 @@ declare class Forge {
     inspect(): string;
 
     resolve<T>(name: string, context?: Forge.IContext, hint?: string, all?: boolean, ...args: any[]): T | T[];
-    resolveBindings(context: Forge.IContext, bindings: Forge.IBinding[], hint: string, args: any[], unwrap: boolean): Forge.IBinding[];
+    resolveBindings(
+        context: Forge.IContext,
+        bindings: Forge.IBinding[],
+        hint: string,
+        args: any[],
+        unwrap: boolean
+    ): Forge.IBinding[];
 }
 
 declare namespace Forge {

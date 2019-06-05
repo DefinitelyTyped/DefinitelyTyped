@@ -15,15 +15,15 @@ declare global {
     namespace Express {
         // These open interfaces may be extended in an application-specific manner via declaration merging.
         // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/method-override/index.d.ts)
-        interface Request { }
-        interface Response { }
-        interface Application { }
+        interface Request {}
+        interface Response {}
+        interface Application {}
     }
 }
 
-import * as http from "http";
-import { EventEmitter } from "events";
-import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from "range-parser";
+import * as http from 'http';
+import { EventEmitter } from 'events';
+import { Options as RangeParserOptions, Result as RangeParserResult, Ranges as RangeParserRanges } from 'range-parser';
 
 export interface NextFunction {
     // tslint:disable-next-line callable-types (In ts2.1 it thinks the type alias has no call signatures)
@@ -109,7 +109,7 @@ export interface IRouter extends RequestHandler {
     mkactivity: IRouterMatcher<this>;
     mkcol: IRouterMatcher<this>;
     move: IRouterMatcher<this>;
-    "m-search": IRouterMatcher<this>;
+    'm-search': IRouterMatcher<this>;
     notify: IRouterMatcher<this>;
     propfind: IRouterMatcher<this>;
     proppatch: IRouterMatcher<this>;
@@ -149,7 +149,7 @@ export interface IRoute {
     mkactivity: IRouterHandler<this>;
     mkcol: IRouterHandler<this>;
     move: IRouterHandler<this>;
-    "m-search": IRouterHandler<this>;
+    'm-search': IRouterHandler<this>;
     notify: IRouterHandler<this>;
     purge: IRouterHandler<this>;
     report: IRouterHandler<this>;
@@ -160,7 +160,7 @@ export interface IRoute {
     unsubscribe: IRouterHandler<this>;
 }
 
-export interface Router extends IRouter { }
+export interface Router extends IRouter {}
 
 export interface CookieOptions {
     maxAge?: number;
@@ -174,9 +174,12 @@ export interface CookieOptions {
     sameSite?: boolean | string;
 }
 
-export interface ByteRange { start: number; end: number; }
+export interface ByteRange {
+    start: number;
+    end: number;
+}
 
-export interface RequestRanges extends RangeParserRanges { }
+export interface RequestRanges extends RangeParserRanges {}
 
 export type Errback = (err: Error) => void;
 
@@ -200,10 +203,10 @@ export interface Request extends http.IncomingMessage, Express.Request {
      *
      * Aliased as `req.header()`.
      */
-    get(name: "set-cookie"): string[] | undefined;
+    get(name: 'set-cookie'): string[] | undefined;
     get(name: string): string | undefined;
 
-    header(name: "set-cookie"): string[] | undefined;
+    header(name: 'set-cookie'): string[] | undefined;
     header(name: string): string | undefined;
 
     /**
@@ -842,11 +845,13 @@ export interface Response extends http.ServerResponse, Express.Response {
     req?: Request;
 }
 
-export interface Handler extends RequestHandler { }
+export interface Handler extends RequestHandler {}
 
 export type RequestParamHandler = (req: Request, res: Response, next: NextFunction, value: any, name: string) => any;
 
-export type ApplicationRequestHandler<T> = IRouterHandler<T> & IRouterMatcher<T> & ((...handlers: RequestHandlerParams[]) => T);
+export type ApplicationRequestHandler<T> = IRouterHandler<T> &
+    IRouterMatcher<T> &
+    ((...handlers: RequestHandlerParams[]) => T);
 
 export interface Application extends EventEmitter, IRouter, Express.Application {
     /**
@@ -897,7 +902,10 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      * engines to follow this convention, thus allowing them to
      * work seamlessly within Express.
      */
-    engine(ext: string, fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void): Application;
+    engine(
+        ext: string,
+        fn: (path: string, options: object, callback: (e: any, rendered: string) => void) => void
+    ): Application;
 
     /**
      * Assign `setting` to `val`, or return `setting`'s value.

@@ -6,15 +6,33 @@
 
 /// <reference types="node" />
 import { Peripheral } from 'raspi-peripheral';
-export const PARITY_NONE = "none";
-export const PARITY_EVEN = "even";
-export const PARITY_ODD = "odd";
-export const PARITY_MARK = "mark";
-export const PARITY_SPACE = "space";
-export const DEFAULT_PORT = "/dev/ttyAMA0";
+export const PARITY_NONE = 'none';
+export const PARITY_EVEN = 'even';
+export const PARITY_ODD = 'odd';
+export const PARITY_MARK = 'mark';
+export const PARITY_SPACE = 'space';
+export const DEFAULT_PORT = '/dev/ttyAMA0';
 export interface Options {
     portId?: string;
-    baudRate?: 115200 | 57600 | 38400 | 19200 | 9600 | 4800 | 2400 | 1800 | 1200 | 600 | 300 | 200 | 150 | 134 | 110 | 75 | 50 | number;
+    baudRate?:
+        | 115200
+        | 57600
+        | 38400
+        | 19200
+        | 9600
+        | 4800
+        | 2400
+        | 1800
+        | 1200
+        | 600
+        | 300
+        | 200
+        | 150
+        | 134
+        | 110
+        | 75
+        | 50
+        | number;
     dataBits?: 8 | 7 | 6 | 5;
     stopBits?: 1 | 2;
     parity?: 'none' | 'even' | 'mark' | 'odd' | 'space';

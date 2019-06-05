@@ -7,7 +7,7 @@ new AMap.LineSearch({
     pageIndex: 1,
     pageSize: 2,
     city: '深圳',
-    extensions: 'all'
+    extensions: 'all',
 });
 
 // $ExpectType void

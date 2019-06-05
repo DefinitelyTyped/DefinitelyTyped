@@ -16,7 +16,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as CSS from "csstype";
+import * as CSS from 'csstype';
 
 export const defaultBreakpoints: string[];
 
@@ -39,22 +39,20 @@ export interface styleFn {
 export type Scale = object | Array<string | number>;
 
 export interface LowLevelStylefunctionArguments<N, S> {
-  prop: string;
-  cssProperty?: string;
-  alias?: string;
-  key?: string;
-  transformValue?: (n: N, scale?: S) => any;
-  scale?: S;
+    prop: string;
+    cssProperty?: string;
+    alias?: string;
+    key?: string;
+    transformValue?: (n: N, scale?: S) => any;
+    scale?: S;
 }
 
 export function style<N = string | number, S = Scale>(
-  // tslint:disable-next-line no-unnecessary-generics
-  args: LowLevelStylefunctionArguments<N, S>
+    // tslint:disable-next-line no-unnecessary-generics
+    args: LowLevelStylefunctionArguments<N, S>
 ): { [cssProp: string]: string };
 
-export function compose(
-    ...funcs: Array<(...args: any[]) => any>
-): (...args: any[]) => any;
+export function compose(...funcs: Array<(...args: any[]) => any>): (...args: any[]) => any;
 
 export function mapProps(mapper: (...args: any[]) => any): (func: any) => (...props: any[]) => any;
 
@@ -131,7 +129,22 @@ export interface SpaceProps<TLength = TLengthStyledSystem> {
 
 export const space: styleFn;
 
-export interface MarginProps extends Pick<SpaceProps, 'm' | 'margin' | 'mt' | 'marginTop' | 'mb' | 'marginBottom' | 'ml' | 'marginLeft' | 'mr' | 'marginRight' | 'my' | 'mx'> {}
+export interface MarginProps
+    extends Pick<
+        SpaceProps,
+        | 'm'
+        | 'margin'
+        | 'mt'
+        | 'marginTop'
+        | 'mb'
+        | 'marginBottom'
+        | 'ml'
+        | 'marginLeft'
+        | 'mr'
+        | 'marginRight'
+        | 'my'
+        | 'mx'
+    > {}
 export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
 export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom'> {}
 export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
@@ -143,7 +156,22 @@ export const marginBottom: styleFn;
 export const marginLeft: styleFn;
 export const marginRight: styleFn;
 
-export interface PaddingProps extends Pick<SpaceProps, 'p' | 'padding' | 'pt' | 'paddingTop' | 'pb' | 'paddingBottom' | 'pl' | 'paddingLeft' | 'pr' | 'paddingRight' | 'py' | 'px'> {}
+export interface PaddingProps
+    extends Pick<
+        SpaceProps,
+        | 'p'
+        | 'padding'
+        | 'pt'
+        | 'paddingTop'
+        | 'pb'
+        | 'paddingBottom'
+        | 'pl'
+        | 'paddingLeft'
+        | 'pr'
+        | 'paddingRight'
+        | 'py'
+        | 'px'
+    > {}
 export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
 export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBottom'> {}
 export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}
@@ -666,9 +694,7 @@ export interface GridTemplateColumnsProps<TLength = TLengthStyledSystem> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)
      */
-    gridTemplateColumns?: ResponsiveValue<
-        CSS.GridTemplateColumnsProperty<TLength>
-    >;
+    gridTemplateColumns?: ResponsiveValue<CSS.GridTemplateColumnsProperty<TLength>>;
 }
 
 export const gridTemplateColumns: styleFn;
@@ -912,9 +938,7 @@ export interface BackgroundPositionProps<TLength = TLengthStyledSystem> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position)
      */
-    backgroundPosition?: ResponsiveValue<
-        CSS.BackgroundPositionProperty<TLength>
-    >;
+    backgroundPosition?: ResponsiveValue<CSS.BackgroundPositionProperty<TLength>>;
 }
 
 export const backgroundPosition: styleFn;

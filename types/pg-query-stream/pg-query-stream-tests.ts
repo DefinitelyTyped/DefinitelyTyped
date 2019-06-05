@@ -3,7 +3,7 @@ import * as pg from 'pg';
 
 const options: QueryStream.Options = {
     highWaterMark: 1000,
-    batchSize: 100
+    batchSize: 100,
 };
 
 const query = new QueryStream('SELECT * FROM generate_series(0, $1) num', [1000000], options);

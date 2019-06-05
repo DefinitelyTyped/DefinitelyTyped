@@ -1,4 +1,4 @@
-import { Static } from "highcharts";
+import { Static } from 'highcharts';
 
 declare function HighchartsExporting(H: Static): Static;
 export = HighchartsExporting;

@@ -5,7 +5,6 @@
 
 /// <reference types="chai" />
 
-
 interface JsxChaiStatic {
     jsxChai: jsxChaiFunction;
 }

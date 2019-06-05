@@ -3,7 +3,7 @@
 // Definitions by: BNedry <https://github.com/BNedry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "pathfinding" {
+declare module 'pathfinding' {
     namespace Pathfinding {
         export namespace Heuristic {
             function manhattan(dx: number, dy: number): number;
@@ -22,7 +22,7 @@ declare module "pathfinding" {
             Always = 1,
             Never = 2,
             IfAtMostOneObstacle = 3,
-            OnlyWhenNoObstacle = 4
+            OnlyWhenNoObstacle = 4,
         }
 
         interface Node {
@@ -149,7 +149,11 @@ declare module "pathfinding" {
         }
 
         interface JumpPointFinder {
-            (opt: JumpPointFinderOptions): JPFNeverMoveDiagonally | JPFAlwaysMoveDiagonally | JPFMoveDiagonallyIfNoObstacles | JPFMoveDiagonallyIfAtMostOneObstacle;
+            (opt: JumpPointFinderOptions):
+                | JPFNeverMoveDiagonally
+                | JPFAlwaysMoveDiagonally
+                | JPFMoveDiagonallyIfNoObstacles
+                | JPFMoveDiagonallyIfAtMostOneObstacle;
         }
 
         export var Grid: Grid;

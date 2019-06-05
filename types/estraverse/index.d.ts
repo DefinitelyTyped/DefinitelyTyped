@@ -9,12 +9,16 @@ export interface Visitor {
     enter?: (node: ESTree.Node, parentNode: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
     leave?: (node: ESTree.Node, parentNode: ESTree.Node | null) => VisitorOption | ESTree.Node | void;
 
-    fallback?: 'iteration'|((node: ESTree.Node) => string[]);
+    fallback?: 'iteration' | ((node: ESTree.Node) => string[]);
 
-    keys?: {[nodeType: string]: string[];};
+    keys?: { [nodeType: string]: string[] };
 }
 
-export enum VisitorOption {Skip, Break, Remove}
+export enum VisitorOption {
+    Skip,
+    Break,
+    Remove,
+}
 
 export function traverse(ast: ESTree.Node, visitor: Visitor): void;
 export function replace(ast: ESTree.Node, visitor: Visitor): ESTree.Node;

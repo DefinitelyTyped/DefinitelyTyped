@@ -27,7 +27,7 @@ import {
     visit,
     currentURL,
     currentRouteName,
-    setApplication
+    setApplication,
 } from '@ember/test-helpers';
 
 const MyApp = Application.extend({ modulePrefix: 'my-app' });
@@ -66,7 +66,7 @@ test('DOM interactions', async () => {
     await click(root);
 });
 
-test('routing helpers', async (assert) => {
+test('routing helpers', async assert => {
     await visit('/foo');
 
     assert.equal(currentURL(), '/foo');
@@ -78,7 +78,7 @@ test('pause and resume', async () => {
     setTimeout(resumeTest, 1000);
 });
 
-test('wait helpers', async (assert) => {
+test('wait helpers', async assert => {
     await render(hbs`<div class="message">Hello</div>`);
 
     await waitFor('.message', { count: 1, timeout: 10, timeoutMessage: 'uh oh' });
@@ -92,6 +92,6 @@ test('wait helpers', async (assert) => {
         hasPendingTimers,
         hasPendingWaiters,
         hasRunLoop,
-        pendingRequestCount
+        pendingRequestCount,
     } = getSettledState();
 });

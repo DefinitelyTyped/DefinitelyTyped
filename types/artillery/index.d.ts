@@ -6,7 +6,9 @@
 import * as request from 'request';
 import * as events from 'events';
 
-export interface ScenarioContext { vars: {[key: string]: any}; }
+export interface ScenarioContext {
+    vars: { [key: string]: any };
+}
 export type Next = (err?: Error) => void;
 export type ResponseRequest = request.ResponseRequest;
 export type RequestResponse = request.RequestResponse;

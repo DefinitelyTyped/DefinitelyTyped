@@ -1,58 +1,57 @@
-import { Chart, ChartData, Point } from "chart.js";
+import { Chart, ChartData, Point } from 'chart.js';
 
 // alternative:
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
-    }
+    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {},
 };
 
 const ctx = new CanvasRenderingContext2D();
 
 const chart: Chart = new Chart(ctx, {
-    type: "bar",
+    type: 'bar',
     plugins: [plugin, plugin],
     data: {
-        labels: ["group 1"],
+        labels: ['group 1'],
         datasets: [
             {
-                backgroundColor: "#000000",
+                backgroundColor: '#000000',
                 hoverBackgroundColor: ctx.createLinearGradient(0, 0, 0, 100),
                 hoverBorderColor: ctx.createLinearGradient(0, 0, 0, 100),
                 borderWidth: 1,
-                label: "test",
-                data: [1, null, 3]
-            }
-        ]
+                label: 'test',
+                data: [1, null, 3],
+            },
+        ],
     },
     options: {
         hover: {
-            intersect: true
+            intersect: true,
         },
         onHover(ev: MouseEvent, points: any[]) {
             return;
         },
         title: {
-            text: ["foo", "bar"]
+            text: ['foo', 'bar'],
         },
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
             mode: 'index',
             itemSort: (a, b) => Math.random() - 0.5,
-            position: "average",
+            position: 'average',
             caretPadding: 2,
             displayColors: true,
-            borderColor: "rgba(0,0,0,0)",
-            borderWidth: 1
+            borderColor: 'rgba(0,0,0,0)',
+            borderWidth: 1,
         },
         scales: {
             xAxes: [
                 {
                     ticks: {
-                        callback: Math.floor
+                        callback: Math.floor,
                     },
                     gridLines: {
                         display: false,
@@ -60,24 +59,24 @@ const chart: Chart = new Chart(ctx, {
                         borderDashOffset: 2,
                         zeroLineBorderDash: [5, 15],
                         zeroLineBorderDashOffset: 2,
-                        lineWidth: [1, 2, 3]
-                    }
-                }
-            ]
+                        lineWidth: [1, 2, 3],
+                    },
+                },
+            ],
         },
         legend: {
             display: true,
             labels: {
                 usePointStyle: true,
-                padding: 40
-            }
+                padding: 40,
+            },
         },
         devicePixelRatio: 2,
         plugins: {
             bar: false,
-            foo: {}
-        }
-    }
+            foo: {},
+        },
+    },
 });
 chart.update();
 
@@ -98,7 +97,7 @@ chart.config.options = {
     legend: {
         display: false,
     },
-    legendCallback: () => 'legend replacement'
+    legendCallback: () => 'legend replacement',
 };
 chart.update();
 const customLegend = chart.generateLegend();
@@ -109,7 +108,7 @@ const tickOptions: Chart.LinearTickOptions = {
     max: 100,
     stepSize: 33,
     display: false,
-    beginAtZero: true
+    beginAtZero: true,
 };
 const scaleOptions: Chart.RadialLinearScale = {
     ticks: tickOptions,
@@ -122,26 +121,28 @@ const scaleOptions: Chart.RadialLinearScale = {
     },
 };
 const radarChartOptions: Chart.RadialChartOptions = {
-    legend: {display: false},
+    legend: { display: false },
     scale: scaleOptions,
     responsive: true,
 };
 const chartConfig: Chart.ChartConfiguration = {
     type: 'radar',
     data: {
-        labels: ['#apples', '#pears', '#apricots', '#acorns', '#amigas', "#orics"],
-        datasets: [{
-            label: "test",
-            lineTension: 0.15,
-            data: [1, 1, 2, 3, 5],
-            backgroundColor: '#37738353',
-            borderColor: '#37738353',
-            borderWidth: 3,
-            borderCapStyle: 'round',
-            fill: true
-        }]
+        labels: ['#apples', '#pears', '#apricots', '#acorns', '#amigas', '#orics'],
+        datasets: [
+            {
+                label: 'test',
+                lineTension: 0.15,
+                data: [1, 1, 2, 3, 5],
+                backgroundColor: '#37738353',
+                borderColor: '#37738353',
+                borderWidth: 3,
+                borderCapStyle: 'round',
+                fill: true,
+            },
+        ],
     },
-    options: radarChartOptions
+    options: radarChartOptions,
 };
 const radialChart: Chart = new Chart(new CanvasRenderingContext2D(), chartConfig);
 radialChart.update();
@@ -159,6 +160,6 @@ if (radialChart.chartArea) {
 Chart.Tooltip.positioners.custom = (elements: any[], eventPosition: Point) => {
     return {
         x: eventPosition.x,
-        y: eventPosition.y + 10
+        y: eventPosition.y + 10,
     };
 };

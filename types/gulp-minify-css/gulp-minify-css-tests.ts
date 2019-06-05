@@ -1,8 +1,8 @@
-import * as gulp from "gulp";
-import minifyCSS = require("gulp-minify-css");
+import * as gulp from 'gulp';
+import minifyCSS = require('gulp-minify-css');
 
-gulp.task("minify-css", () => {
-    gulp.src("css/**/*.css")
+gulp.task('minify-css', () => {
+    gulp.src('css/**/*.css')
         .pipe(minifyCSS({ keepBreaks: true }))
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest('dist'));
 });

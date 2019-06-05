@@ -8,7 +8,7 @@ import {
     MultiPoint,
     MultiPolygon,
     Point,
-    Polygon
+    Polygon,
 } from 'geojson';
 import { ReadOptions, WriteOptions } from 'ol/format/Feature';
 import JSONFeature from 'ol/format/JSONFeature';

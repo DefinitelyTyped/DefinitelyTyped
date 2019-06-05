@@ -6,5 +6,5 @@ declare namespace ModalTitle {
         bsClass?: string;
     }
 }
-declare class ModalTitle extends React.Component<ModalTitle.ModalTitleProps> { }
+declare class ModalTitle extends React.Component<ModalTitle.ModalTitleProps> {}
 export = ModalTitle;

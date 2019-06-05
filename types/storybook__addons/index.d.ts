@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import Channel = require("@storybook/channels");
-import { RenderFunction, StoryDecorator } from "@storybook/react";
+import Channel = require('@storybook/channels');
+import { RenderFunction, StoryDecorator } from '@storybook/react';
 
 export const mockChannel: Channel;
 
@@ -17,8 +17,9 @@ export interface Context {
 export type GetStoryFunc = (context: Context) => ReturnType<StoryDecorator>;
 
 export interface Wrapper<Options, Parameters> {
-    (getStory: GetStoryFunc, context: Context, optsAndParams: { options: Options, parameters: Parameters }):
-        ReturnType<StoryDecorator>;
+    (getStory: GetStoryFunc, context: Context, optsAndParams: { options: Options; parameters: Parameters }): ReturnType<
+        StoryDecorator
+    >;
 }
 
 export interface MakeDecoratorOptions<ParameterName extends string, Options, Parameters> {
@@ -64,8 +65,8 @@ export interface Decorator<ParameterName extends string, Options, Parameters> {
 // include the type declarations on the options/parameters in your wrapper
 // function.
 export function makeDecorator<ParameterName extends string, Options = any, Parameters = any>(
-    options: MakeDecoratorOptions<ParameterName, Options, Parameters>):
-        Decorator<ParameterName, Options, Parameters>;
+    options: MakeDecoratorOptions<ParameterName, Options, Parameters>
+): Decorator<ParameterName, Options, Parameters>;
 
 export class AddonStore {
     constructor();

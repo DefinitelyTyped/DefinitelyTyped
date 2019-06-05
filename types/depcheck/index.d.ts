@@ -3,15 +3,12 @@
 // Definitions by: ark120202 <https://github.com/ark120202>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function depcheck(
-    rootDir: string,
-    options: depcheck.Options,
-): Promise<depcheck.Results>;
+declare function depcheck(rootDir: string, options: depcheck.Options): Promise<depcheck.Results>;
 
 declare function depcheck<T>(
     rootDir: string,
     options: depcheck.Options,
-    callback: (results: depcheck.Results) => T,
+    callback: (results: depcheck.Results) => T
 ): Promise<T>;
 
 declare namespace depcheck {
@@ -19,12 +16,7 @@ declare namespace depcheck {
         [key: string]: any;
     }
 
-    type Parser = (
-        content: string,
-        filePath: string,
-        deps: ReadonlyArray<string>,
-        rootDir: string,
-    ) => Node;
+    type Parser = (content: string, filePath: string, deps: ReadonlyArray<string>, rootDir: string) => Node;
 
     type Detector = (node: Node) => ReadonlyArray<string> | string;
 

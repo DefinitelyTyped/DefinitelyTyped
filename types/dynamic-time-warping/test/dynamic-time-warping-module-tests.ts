@@ -1,4 +1,4 @@
-import DTW = require("dynamic-time-warping");
+import DTW = require('dynamic-time-warping');
 
 const ser1 = [9, 93, 15, 19, 24];
 const ser2 = [31, 97, 81, 82, 39];

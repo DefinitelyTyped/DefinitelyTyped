@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load PageSpeed Insights API v2 */
-    function load(name: "pagespeedonline", version: "v2"): PromiseLike<void>;
-    function load(name: "pagespeedonline", version: "v2", callback: () => any): void;
+    function load(name: 'pagespeedonline', version: 'v2'): PromiseLike<void>;
+    function load(name: 'pagespeedonline', version: 'v2', callback: () => any): void;
 
     const pagespeedapi: pagespeedonline.PagespeedapiResource;
 
@@ -89,33 +89,36 @@ declare namespace gapi.client {
                 /** The locale of the formattedResults, e.g. "en_US". */
                 locale?: string;
                 /** Dictionary of formatted rule results, with one entry for each PageSpeed rule instantiated and run by the server. */
-                ruleResults?: Record<string, {
-                    /** List of rule groups that this rule belongs to. Each entry in the list is one of "SPEED" or "USABILITY". */
-                    groups?: string[];
-                    /** Localized name of the rule, intended for presentation to a user. */
-                    localizedRuleName?: string;
-                    /**
-                     * The impact (unbounded floating point value) that implementing the suggestions for this rule would have on making the page faster. Impact is comparable
-                     * between rules to determine which rule's suggestions would have a higher or lower impact on making a page faster. For instance, if enabling compression
-                     * would save 1MB, while optimizing images would save 500kB, the enable compression rule would have 2x the impact of the image optimization rule, all
-                     * other things being equal.
-                     */
-                    ruleImpact?: number;
-                    /** A brief summary description for the rule, indicating at a high level what should be done to follow the rule and what benefit can be gained by doing so. */
-                    summary?: PagespeedApiFormatStringV2;
-                    /** List of blocks of URLs. Each block may contain a heading and a list of URLs. Each URL may optionally include additional details. */
-                    urlBlocks?: Array<{
-                        /** Heading to be displayed with the list of URLs. */
-                        header?: PagespeedApiFormatStringV2;
-                        /** List of entries that provide information about URLs in the url block. Optional. */
-                        urls?: Array<{
-                            /** List of entries that provide additional details about a single URL. Optional. */
-                            details?: PagespeedApiFormatStringV2[];
-                            /** A format string that gives information about the URL, and a list of arguments for that format string. */
-                            result?: PagespeedApiFormatStringV2;
+                ruleResults?: Record<
+                    string,
+                    {
+                        /** List of rule groups that this rule belongs to. Each entry in the list is one of "SPEED" or "USABILITY". */
+                        groups?: string[];
+                        /** Localized name of the rule, intended for presentation to a user. */
+                        localizedRuleName?: string;
+                        /**
+                         * The impact (unbounded floating point value) that implementing the suggestions for this rule would have on making the page faster. Impact is comparable
+                         * between rules to determine which rule's suggestions would have a higher or lower impact on making a page faster. For instance, if enabling compression
+                         * would save 1MB, while optimizing images would save 500kB, the enable compression rule would have 2x the impact of the image optimization rule, all
+                         * other things being equal.
+                         */
+                        ruleImpact?: number;
+                        /** A brief summary description for the rule, indicating at a high level what should be done to follow the rule and what benefit can be gained by doing so. */
+                        summary?: PagespeedApiFormatStringV2;
+                        /** List of blocks of URLs. Each block may contain a heading and a list of URLs. Each URL may optionally include additional details. */
+                        urlBlocks?: Array<{
+                            /** Heading to be displayed with the list of URLs. */
+                            header?: PagespeedApiFormatStringV2;
+                            /** List of entries that provide information about URLs in the url block. Optional. */
+                            urls?: Array<{
+                                /** List of entries that provide additional details about a single URL. Optional. */
+                                details?: PagespeedApiFormatStringV2[];
+                                /** A format string that gives information about the URL, and a list of arguments for that format string. */
+                                result?: PagespeedApiFormatStringV2;
+                            }>;
                         }>;
-                    }>;
-                }>;
+                    }
+                >;
             };
             /** Canonicalized and final URL for the document, after following page redirects (if any). */
             id?: string;
@@ -155,13 +158,16 @@ declare namespace gapi.client {
             /** Response code for the document. 200 indicates a normal page load. 4xx/5xx indicates an error. */
             responseCode?: number;
             /** A map with one entry for each rule group in these results. */
-            ruleGroups?: Record<string, {
-                /**
-                 * The score (0-100) for this rule group, which indicates how much better a page could be in that category (e.g. how much faster, or how much more
-                 * usable). A high score indicates little room for improvement, while a lower score indicates more room for improvement.
-                 */
-                score?: number;
-            }>;
+            ruleGroups?: Record<
+                string,
+                {
+                    /**
+                     * The score (0-100) for this rule group, which indicates how much better a page could be in that category (e.g. how much faster, or how much more
+                     * usable). A high score indicates little room for improvement, while a lower score indicates more room for improvement.
+                     */
+                    score?: number;
+                }
+            >;
             /** Base64-encoded screenshot of the page that was analyzed. */
             screenshot?: PagespeedApiImageV2;
             /** Title of the page, as displayed in the browser's title bar. */

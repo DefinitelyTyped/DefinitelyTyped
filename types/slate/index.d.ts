@@ -12,8 +12,8 @@
 //                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as Immutable from "immutable";
-import { SyntheticEvent } from "react";
+import * as Immutable from 'immutable';
+import { SyntheticEvent } from 'react';
 
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
@@ -40,7 +40,7 @@ export interface Rules {
     isVoid?: boolean;
     last?: ObjectAndType | ObjectAndType[];
     marks?: Array<{
-        type: string | ((type: string) => boolean)
+        type: string | ((type: string) => boolean);
     }>;
     nodes?: Array<{
         min?: number;
@@ -70,7 +70,7 @@ export interface ValueJSON {
     selection?: Selection;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
-    object?: "value";
+    object?: 'value';
 }
 
 export type Path = Immutable.List<number> | string | number;
@@ -79,7 +79,7 @@ export class Value extends Immutable.Record({}) {
     document: Document;
     selection: Selection;
     data: Data;
-    object: "value";
+    object: 'value';
     decorations: Immutable.List<Decoration>;
 
     readonly anchorText: Text;
@@ -119,12 +119,7 @@ export class Value extends Immutable.Record({}) {
     toJSON(): ValueJSON;
     addMark(path: Path, offset: number, length: number, mark: Mark): Value;
     insertNode(path: Path, node: Node): Value;
-    insertText(
-        path: Path,
-        offset: number,
-        text: string,
-        marks: Immutable.Set<Mark>
-    ): Value;
+    insertText(path: Path, offset: number, text: string, marks: Immutable.Set<Mark>): Value;
     isValue(value: Value): boolean;
     mergeNode(path: Path): Value;
     moveNode(path: Path, newPath: Path, newIndex?: number): Value;
@@ -132,13 +127,7 @@ export class Value extends Immutable.Record({}) {
     removeNode(path: Path): Value;
     removeText(path: Path, offset: number, text: Text): Value;
     setNode(path: Path, properties: any): Value;
-    setMark(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Value;
+    setMark(path: Path, offset: number, length: number, mark: Mark, properties: MarkProperties): Value;
     setProperties(properties: ValueProperties): Value;
     setSelection(properties: RangeProperties): Value;
     splitNode(path: Path, position: number, properties: any): Value;
@@ -156,22 +145,14 @@ export interface DocumentJSON {
     nodes?: NodeJSON[];
     key?: string;
     data?: { [key: string]: any };
-    object?: "document";
+    object?: 'document';
 }
 
-export class Document<DataMap = { [key: string]: any }> extends BaseNode<
-    DataMap
-> {
-    object: "document";
+export class Document<DataMap = { [key: string]: any }> extends BaseNode<DataMap> {
+    object: 'document';
     nodes: Immutable.List<Block>;
 
-    static create(
-        properties:
-            | DocumentProperties
-            | Document
-            | Immutable.List<Node>
-            | Node[]
-    ): Document;
+    static create(properties: DocumentProperties | Document | Immutable.List<Node> | Node[]): Document;
     static fromJSON(properties: DocumentJSON | Document): Document;
     static fromJS(properties: DocumentJSON | Document): Document;
     static isDocument(maybeDocument: any): maybeDocument is Document;
@@ -191,23 +172,19 @@ export interface BlockJSON {
     key?: string;
     nodes?: Array<BlockJSON | InlineJSON | TextJSON>;
     data?: { [key: string]: any };
-    object: "block";
+    object: 'block';
 }
 
 export class Block extends BaseNode {
-    object: "block";
+    object: 'block';
     nodes: Immutable.List<Block | Text | Inline>;
 
     static create(properties: BlockProperties | Block | string): Block;
-    static createList(
-        array?: BlockProperties[] | Block[] | string[]
-    ): Immutable.List<Block>;
+    static createList(array?: BlockProperties[] | Block[] | string[]): Immutable.List<Block>;
     static fromJSON(properties: BlockJSON | Block): Block;
     static fromJS(properties: BlockJSON | Block): Block;
     static isBlock(maybeBlock: any): maybeBlock is Block;
-    static isBlockList(
-        maybeBlockList: any
-    ): maybeBlockList is Immutable.List<Block>;
+    static isBlockList(maybeBlockList: any): maybeBlockList is Immutable.List<Block>;
 
     toJSON(): BlockJSON;
 }
@@ -224,23 +201,19 @@ export interface InlineJSON {
     key?: string;
     nodes?: NodeJSON[];
     data?: { [key: string]: any };
-    object: "inline";
+    object: 'inline';
 }
 
 export class Inline extends BaseNode {
-    object: "inline";
+    object: 'inline';
     nodes: Immutable.List<Inline | Text>;
 
     static create(properties: InlineProperties | Inline | string): Inline;
-    static createList(
-        array?: InlineProperties[] | Inline[] | string[]
-    ): Immutable.List<Inline>;
+    static createList(array?: InlineProperties[] | Inline[] | string[]): Immutable.List<Inline>;
     static fromJSON(properties: InlineJSON | Inline): Inline;
     static fromJS(properties: InlineJSON | Inline): Inline;
     static isInline(maybeInline: any): maybeInline is Inline;
-    static isInlineList(
-        maybeInlineList: any
-    ): maybeInlineList is Immutable.List<Inline>;
+    static isInlineList(maybeInlineList: any): maybeInlineList is Immutable.List<Inline>;
 
     toJSON(): InlineJSON;
 }
@@ -254,7 +227,7 @@ export interface TextProperties {
 export interface TextJSON {
     key?: string;
     leaves: LeafJSON[];
-    object: "text";
+    object: 'text';
 }
 
 export interface LeafAndOffset {
@@ -265,18 +238,14 @@ export interface LeafAndOffset {
 }
 
 export class Text extends Immutable.Record({}) {
-    object: "text";
+    object: 'text';
     key: string;
 
     readonly text: string;
 
     static create(properties: TextProperties | Text | string): Text;
     static createList(
-        elements?:
-            | Text[]
-            | TextProperties[]
-            | Immutable.List<Text>
-            | Immutable.List<TextProperties>
+        elements?: Text[] | TextProperties[] | Immutable.List<Text> | Immutable.List<TextProperties>
     ): Immutable.List<Text>;
     static fromJSON(properties: TextJSON | Text): Text;
     static fromJS(properties: TextJSON | Text): Text;
@@ -290,18 +259,12 @@ export class Text extends Immutable.Record({}) {
     addMark(index: number, length: number, mark: Mark): Text;
     addMarks(index: number, lenght: number, marks: Immutable.Set<Mark>): Text;
     getLeaves(decorations?: Range[]): Immutable.List<Leaf>;
-    getActiveMarksBetweenOffsets(
-        startOffset: number,
-        endOffset: number
-    ): Immutable.Set<Mark>;
+    getActiveMarksBetweenOffsets(startOffset: number, endOffset: number): Immutable.Set<Mark>;
     getActiveMarks(): Immutable.Set<Mark>;
     getFirstText(): Text;
     getLastText(): Text;
     getText(): string;
-    getMarksBetweenOffsets(
-        startOffset: number,
-        endOffset: number
-    ): Immutable.Set<Mark>;
+    getMarksBetweenOffsets(startOffset: number, endOffset: number): Immutable.Set<Mark>;
     getMarks(): Immutable.OrderedSet<Mark>;
     getMarksAsArray(): Mark[];
     getMarksAtIndex(index: number): Immutable.OrderedSet<Mark>;
@@ -313,12 +276,7 @@ export class Text extends Immutable.Record({}) {
     removeMark(index: number, length: Mark, mark: Mark): Text;
     removeText(start: number, length: number): Text;
     resolvePath(path: Path, index: number): Immutable.List<string>;
-    updateMark(
-        index: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Text;
+    updateMark(index: number, length: number, mark: Mark, properties: MarkProperties): Text;
     splitText(offset: number): Text[];
     mergeText(text: Text): Text;
     setLeaves(leaves: Immutable.List<Leaf>): Text;
@@ -332,33 +290,24 @@ export interface LeafProperties {
 export interface LeafJSON {
     marks?: MarkJSON[];
     text?: string;
-    object: "leaf";
+    object: 'leaf';
 }
 
 export class Leaf extends Immutable.Record({}) {
-    object: "leaf";
+    object: 'leaf';
     marks: Immutable.Set<Mark> | null;
     text: string;
 
     static create(properties: LeafProperties): Leaf;
     static createLeaves(leaves: Immutable.List<Leaf>): Immutable.List<Leaf>;
-    static splitLeaves(
-        leaves: Immutable.List<Leaf>,
-        offset: number
-    ): Array<Immutable.List<Leaf>>;
+    static splitLeaves(leaves: Immutable.List<Leaf>, offset: number): Array<Immutable.List<Leaf>>;
     static createList(
-        attrs?:
-            | Leaf[]
-            | LeafProperties[]
-            | Immutable.List<Leaf>
-            | Immutable.List<LeafProperties>
+        attrs?: Leaf[] | LeafProperties[] | Immutable.List<Leaf> | Immutable.List<LeafProperties>
     ): Immutable.List<Leaf>;
     static fromJSON(properties: LeafJSON): Leaf;
     static fromJS(properties: LeafJSON): Leaf;
     static isLeaf(maybeLeaf: any): maybeLeaf is Leaf;
-    static isLeafList(
-        maybeLeafList: any
-    ): maybeLeafList is Immutable.List<Leaf>;
+    static isLeafList(maybeLeafList: any): maybeLeafList is Immutable.List<Leaf>;
 
     updateMark(mark: Mark, newMark: Mark): Leaf;
     addMarks(marks: Immutable.Set<Mark>): Leaf;
@@ -369,31 +318,21 @@ export class Leaf extends Immutable.Record({}) {
 
 export type Node = Document | Block | Inline | Text;
 export type NodeJSON = DocumentJSON | BlockJSON | InlineJSON | TextJSON;
-export type NodeProperties =
-    | DocumentProperties
-    | BlockProperties
-    | InlineProperties
-    | TextProperties;
+export type NodeProperties = DocumentProperties | BlockProperties | InlineProperties | TextProperties;
 
 // tslint:disable-next-line strict-export-declare-modifiers
-declare class BaseNode<
-    DataMap = { [key: string]: any }
-> extends Immutable.Record({}) {
+declare class BaseNode<DataMap = { [key: string]: any }> extends Immutable.Record({}) {
     data: Immutable.Map<keyof DataMap, DataMap[keyof DataMap]>;
     type: string;
     key: string;
-    object: "document" | "block" | "inline" | "text";
+    object: 'document' | 'block' | 'inline' | 'text';
     nodes: Immutable.List<Node>;
 
     readonly text: string;
 
     static isNode(maybeNode: any): maybeNode is Node;
-    static isNodeList(
-        maybeNodeList: any
-    ): maybeNodeList is Immutable.List<Node>;
-    static createProperties(
-        attrs: NodeProperties | string | Node
-    ): NodeProperties;
+    static isNodeList(maybeNodeList: any): maybeNodeList is Immutable.List<Node>;
+    static createProperties(attrs: NodeProperties | string | Node): NodeProperties;
     static fromJSON(value: NodeJSON | Node): Node;
     static fromJS(value: NodeJSON | Node): Node;
 
@@ -467,10 +406,7 @@ declare class BaseNode<
     getPreviousText(path: Path): Text | null;
     getRootBlocksAtRange(range: Range): Immutable.List<Block>;
     getRootInlinesAtRange(range: Range): Immutable.List<Block>;
-    getSelectionIndexes(
-        range: Range,
-        isSelected?: boolean
-    ): { start: number; end: number } | null;
+    getSelectionIndexes(range: Range, isSelected?: boolean): { start: number; end: number } | null;
     getText(): string;
     getTextAtOffset(offset: number): Text | null;
     getTextDirection(): string | null;
@@ -486,12 +422,7 @@ declare class BaseNode<
     hasNode(path: Path): boolean;
     hasVoidParent(path: Path, editor: Editor): boolean;
     insertNode(path: Path, node: Node): Node;
-    insertText(
-        path: Path,
-        offset: number,
-        text: string,
-        marks: Immutable.Set<Mark>
-    ): Node;
+    insertText(path: Path, offset: number, text: string, marks: Immutable.Set<Mark>): Node;
     isLeafBlock(): boolean;
     isLeafInline(): boolean;
     mapChildren(iterator: () => void): Node;
@@ -510,13 +441,7 @@ declare class BaseNode<
     resolvePoint(point: Point): Point;
     resolveRange(range: Range): Range;
     setNode(path: Path, properties: NodeProperties): Node;
-    setMark(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Node;
+    setMark(path: Path, offset: number, length: number, mark: Mark, properties: MarkProperties): Node;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
     validate(editor: Editor): Error | void;
 }
@@ -529,18 +454,16 @@ export interface MarkProperties {
 export interface MarkJSON {
     type: string;
     data?: { [key: string]: any };
-    object: "mark";
+    object: 'mark';
 }
 
 export class Mark extends Immutable.Record({}) {
-    object: "mark";
+    object: 'mark';
     type: string;
     data: Immutable.Map<string, any>;
 
     static create(properties: MarkProperties | Mark | string): Mark;
-    static createSet(
-        array: MarkProperties[] | Mark[] | string[]
-    ): Immutable.Set<Mark>;
+    static createSet(array: MarkProperties[] | Mark[] | string[]): Immutable.Set<Mark>;
     static fromJSON(properties: MarkJSON | Mark): Mark;
     static fromJS(properties: MarkJSON | Mark): Mark;
     static isMark(maybeMark: any): maybeMark is Mark;
@@ -564,7 +487,7 @@ export interface SelectionJSON {
 }
 
 export class Selection extends BaseRange {
-    object: "selection";
+    object: 'selection';
     anchor: Point;
     focus: Point;
     isFocused: boolean;
@@ -572,12 +495,8 @@ export class Selection extends BaseRange {
 
     readonly isBlurred: boolean;
 
-    static create(
-        properties: SelectionProperties | Selection | Range
-    ): Selection;
-    static createProperties(
-        attrs: SelectionProperties | string | Selection | Range
-    ): SelectionProperties;
+    static create(properties: SelectionProperties | Selection | Range): Selection;
+    static createProperties(attrs: SelectionProperties | string | Selection | Range): SelectionProperties;
     static fromJSON(properties: SelectionJSON): Selection;
 
     toJSON(): SelectionJSON;
@@ -599,20 +518,14 @@ export interface RangeJSON {
 }
 
 export class Range extends BaseRange {
-    object: "range";
+    object: 'range';
     anchor: Point;
 
     static create(properties: RangeProperties | Range): Range;
     static createList(
-        elements?:
-            | Range[]
-            | RangeProperties[]
-            | Immutable.List<Range>
-            | Immutable.List<RangeProperties>
+        elements?: Range[] | RangeProperties[] | Immutable.List<Range> | Immutable.List<RangeProperties>
     ): Immutable.List<Range>;
-    static createProperties(
-        attrs: RangeProperties | string | Range
-    ): RangeProperties;
+    static createProperties(attrs: RangeProperties | string | Range): RangeProperties;
     static fromJSON(properties: RangeJSON): Range;
     static fromJS(properties: RangeJSON): Range;
     static isRange(maybeRange: any): maybeRange is Range;
@@ -633,7 +546,7 @@ export interface DecorationJSON {
 }
 
 export class Decoration extends BaseRange {
-    object: "decoration";
+    object: 'decoration';
     anchor: Point;
     focus: Point;
     mark: Mark | null;
@@ -645,9 +558,7 @@ export class Decoration extends BaseRange {
             | Immutable.List<Decoration>
             | Immutable.List<DecorationProperties>
     ): Immutable.List<Decoration>;
-    static createProperties(
-        attrs: DecorationProperties | string | Decoration
-    ): DecorationProperties;
+    static createProperties(attrs: DecorationProperties | string | Decoration): DecorationProperties;
     static fromJSON(properties: DecorationJSON): Decoration;
     static fromJS(properties: DecorationJSON): Decoration;
     static isDecoration(maybeDecoration: any): maybeDecoration is Decoration;
@@ -657,10 +568,7 @@ export class Decoration extends BaseRange {
     setProperties(properties: Decoration | DecorationProperties): Decoration;
 }
 
-export type RangeTypeProperties =
-    | RangeProperties
-    | SelectionProperties
-    | DecorationProperties;
+export type RangeTypeProperties = RangeProperties | SelectionProperties | DecorationProperties;
 
 export type RangeTypeJSON = RangeJSON | SelectionJSON | DecorationJSON;
 export type RangeType = Range | Selection | Decoration;
@@ -723,9 +631,7 @@ declare class BaseRange extends Immutable.Record({}) {
     setPoints(values: Point[]): RangeType;
     updatePoints(updator: () => Point): RangeType;
     setStart(point: Point): RangeType;
-    setProperties(
-        properties: RangeTypeProperties | string | RangeType
-    ): RangeType;
+    setProperties(properties: RangeTypeProperties | string | RangeType): RangeType;
 
     toJSON(): RangeTypeJSON;
     toRange(): RangeType;
@@ -742,11 +648,11 @@ export interface PointJSON {
     key?: string | null;
     offset?: number;
     path?: Path | null;
-    object: "point";
+    object: 'point';
 }
 
 export class Point extends Immutable.Record({}) {
-    object: "point";
+    object: 'point';
     key: string | null;
     offset: number;
     path: Path | null;
@@ -792,7 +698,7 @@ export type Operation =
     | SetValueOperation;
 
 export interface InsertTextOperation {
-    type: "insert_text";
+    type: 'insert_text';
     path: Path;
     offset: number;
     text: string;
@@ -801,7 +707,7 @@ export interface InsertTextOperation {
 }
 
 export interface RemoveTextOperation {
-    type: "remove_text";
+    type: 'remove_text';
     path: Path;
     offset: number;
     text: string;
@@ -809,7 +715,7 @@ export interface RemoveTextOperation {
 }
 
 export interface AddMarkOperation {
-    type: "add_mark";
+    type: 'add_mark';
     path: Path;
     offset: number;
     length: number;
@@ -818,7 +724,7 @@ export interface AddMarkOperation {
 }
 
 export interface RemoveMarkOperation {
-    type: "remove_mark";
+    type: 'remove_mark';
     path: Path;
     offset: number;
     length: number;
@@ -827,7 +733,7 @@ export interface RemoveMarkOperation {
 }
 
 export interface SetMarkOperation {
-    type: "set_mark";
+    type: 'set_mark';
     path: Path;
     offset: number;
     length: number;
@@ -837,14 +743,14 @@ export interface SetMarkOperation {
 }
 
 export interface InsertNodeOperation {
-    type: "insert_node";
+    type: 'insert_node';
     path: Path;
     node: Node;
     data: Data;
 }
 
 export interface MergeNodeOperation {
-    type: "merge_node";
+    type: 'merge_node';
     path: Path;
     position: number;
     properties: NodeProperties;
@@ -852,21 +758,21 @@ export interface MergeNodeOperation {
 }
 
 export interface MoveNodeOperation {
-    type: "move_node";
+    type: 'move_node';
     path: Path;
     newPath: Path | number[];
     data: Data;
 }
 
 export interface RemoveNodeOperation {
-    type: "remove_node";
+    type: 'remove_node';
     path: Path;
     node: Node;
     data: Data;
 }
 
 export interface SetNodeOperation {
-    type: "set_node";
+    type: 'set_node';
     path: Path;
     properties: NodeProperties;
     newProperties: NodeProperties;
@@ -874,7 +780,7 @@ export interface SetNodeOperation {
 }
 
 export interface SplitNodeOperation {
-    type: "split_node";
+    type: 'split_node';
     path: Path;
     position: number;
     target: number;
@@ -883,14 +789,14 @@ export interface SplitNodeOperation {
 }
 
 export interface SetSelectionOperation {
-    type: "set_selection";
+    type: 'set_selection';
     properties: SelectionProperties;
     newProperties: SelectionProperties;
     data: Data;
 }
 
 export interface SetValueOperation {
-    type: "set_value";
+    type: 'set_value';
     properties: ValueProperties;
     newProperties: ValueProperties;
     data: Data;
@@ -902,28 +808,28 @@ export interface Operations {
 }
 
 export type ErrorCode =
-    | "child_object_invalid"
-    | "child_required"
-    | "child_type_invalid"
-    | "child_unknown"
-    | "child_min_invalid"
-    | "child_max_invalid"
-    | "first_child_object_invalid"
-    | "first_child_type_invalid"
-    | "last_child_object_invalid"
-    | "last_child_type_invalid"
-    | "next_sibling_object_invalid"
-    | "next_sibling_type_invalid"
-    | "node_data_invalid"
-    | "node_is_void_invalid"
-    | "node_mark_invalid"
-    | "node_object_invalid"
-    | "node_text_invalid"
-    | "node_type_invalid"
-    | "parent_object_invalid"
-    | "parent_type_invalid"
-    | "previous_sibling_object_invalid"
-    | "previous_sibling_type_invalid";
+    | 'child_object_invalid'
+    | 'child_required'
+    | 'child_type_invalid'
+    | 'child_unknown'
+    | 'child_min_invalid'
+    | 'child_max_invalid'
+    | 'first_child_object_invalid'
+    | 'first_child_type_invalid'
+    | 'last_child_object_invalid'
+    | 'last_child_type_invalid'
+    | 'next_sibling_object_invalid'
+    | 'next_sibling_type_invalid'
+    | 'node_data_invalid'
+    | 'node_is_void_invalid'
+    | 'node_mark_invalid'
+    | 'node_object_invalid'
+    | 'node_text_invalid'
+    | 'node_type_invalid'
+    | 'parent_object_invalid'
+    | 'parent_type_invalid'
+    | 'previous_sibling_object_invalid'
+    | 'previous_sibling_type_invalid';
 
 export class SlateError extends Error {
     code: ErrorCode;
@@ -943,163 +849,104 @@ export namespace PathUtils {
     /**
      * Compare paths `path` and `target` to see which is before or after.
      */
-    function compare(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): number | null;
+    function compare(path: Immutable.List<number>, target: Immutable.List<number>): number | null;
 
     /**
      * Create a path from `attrs`.
      */
-    function create(
-        attrs: Immutable.List<number> | number[]
-    ): Immutable.List<number>;
+    function create(attrs: Immutable.List<number> | number[]): Immutable.List<number>;
 
     /**
      * Crop paths `a` and `b` to an equal size, defaulting to the shortest.
      */
-    function crop(
-        a: Immutable.List<number>,
-        b: Immutable.List<number>,
-        size?: number
-    ): Array<Immutable.List<number>>;
+    function crop(a: Immutable.List<number>, b: Immutable.List<number>, size?: number): Array<Immutable.List<number>>;
 
     /**
      * Decrement a `path` by `n` at `index`, defaulting to the last index.
      */
-    function decrement(
-        path: Immutable.List<number>,
-        n?: number,
-        index?: number
-    ): Immutable.List<number>;
+    function decrement(path: Immutable.List<number>, n?: number, index?: number): Immutable.List<number>;
 
     /**
      * Get all ancestor paths of the given path.
      */
-    function getAncestors(
-        path: Immutable.List<number>
-    ): Immutable.List<number>;
+    function getAncestors(path: Immutable.List<number>): Immutable.List<number>;
 
     /**
      * Increment a `path` by `n` at `index`, defaulting to the last index.
      */
-    function increment(
-        path: Immutable.List<number>,
-        n?: number,
-        index?: number
-    ): Immutable.List<number>;
+    function increment(path: Immutable.List<number>, n?: number, index?: number): Immutable.List<number>;
 
     /**
      * Is a `path` above another `target` path?
      */
-    function isAbove(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isAbove(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Is a `path` after another `target` path in a document?
      */
-    function isAfter(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isAfter(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Is a `path` before another `target` path in a document?
      */
-    function isBefore(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isBefore(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Is a `path` equal to another `target` path in a document?
      */
-    function isEqual(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isEqual(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Is a `path` older than a `target` path? Meaning that it ends as an older
      * sibling of one of the indexes in the target.
      */
-    function isOlder(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isOlder(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Is an `any` object a path?
      */
-    function isPath(
-        any: any
-    ): boolean;
+    function isPath(any: any): boolean;
 
     /**
      * Is a `path` a sibling of a `target` path?
      */
-    function isSibling(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isSibling(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Is a `path` younger than a `target` path? Meaning that it ends as a younger
      * sibling of one of the indexes in the target.
      */
-    function isYounger(
-        path: Immutable.List<number>,
-        target: Immutable.List<number>
-    ): boolean;
+    function isYounger(path: Immutable.List<number>, target: Immutable.List<number>): boolean;
 
     /**
      * Lift a `path` to refer to its `n`th ancestor.
      */
-    function lift(
-        path: Immutable.List<number>
-    ): Immutable.List<number>;
+    function lift(path: Immutable.List<number>): Immutable.List<number>;
 
     /**
      * Drop a `path`, returning a relative path from a depth of `n`.
      */
-    function drop(
-        path: Immutable.List<number>,
-        n?: number
-    ): Immutable.List<number>;
+    function drop(path: Immutable.List<number>, n?: number): Immutable.List<number>;
 
     /**
      * Get the maximum length of paths `a` and `b`.
      */
-    function max(
-        a: Immutable.List<number>,
-        b: Immutable.List<number>
-    ): number;
+    function max(a: Immutable.List<number>, b: Immutable.List<number>): number;
 
     /**
      * Get the minimum length of paths `a` and `b`.
      */
-    function min(
-        a: Immutable.List<number>,
-        b: Immutable.List<number>
-    ): number;
+    function min(a: Immutable.List<number>, b: Immutable.List<number>): number;
 
     /**
      * Get the common ancestor path of path `a` and path `b`.
      */
-    function relate(
-        a: Immutable.List<number>,
-        b: Immutable.List<number>
-    ): Immutable.List<number>;
+    function relate(a: Immutable.List<number>, b: Immutable.List<number>): Immutable.List<number>;
 
     /**
      * Transform a `path` by an `operation`, adjusting it to stay current.
      */
-    function transform(
-        path: Immutable.List<number>,
-        operation: Operation
-    ): Immutable.List<Immutable.List<number>>;
+    function transform(path: Immutable.List<number>, operation: Operation): Immutable.List<Immutable.List<number>>;
 }
 
 export interface Command {
@@ -1123,26 +970,26 @@ export interface Plugin {
     onQuery?: (query: Query, editor: Editor, next: () => void) => void;
     validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
 
-    commands?: {[name: string]: CommandFunc};
-    queries?: {[name: string]: QueryFunc};
+    commands?: { [name: string]: CommandFunc };
+    queries?: { [name: string]: QueryFunc };
     schema?: SchemaProperties;
 }
 
 export interface EditorProperties {
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
     plugins?: Plugin[];
     readOnly?: boolean;
     value?: Value;
 }
 
 export class Editor implements Controller {
-    object: "editor";
-    onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
+    object: 'editor';
+    onChange: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
     operations: Immutable.List<Operation>;
     plugins: Plugin[];
     readOnly: boolean;
     value: Value;
-    constructor(attributes: EditorProperties)
+    constructor(attributes: EditorProperties);
 
     /**
      * Synchronously flush the current changes to editor, calling onChange.
@@ -1173,10 +1020,7 @@ export class Editor implements Controller {
     splitBlock(depth?: number): Editor;
     splitInline(depth?: number): Editor;
     removeMark(mark: Mark | MarkProperties | string): Editor;
-    replaceMark(
-        mark: Mark | MarkProperties | string,
-        newMark: Mark | MarkProperties | string
-    ): Editor;
+    replaceMark(mark: Mark | MarkProperties | string, newMark: Mark | MarkProperties | string): Editor;
     toggleMark(mark: Mark | MarkProperties | string): Editor;
     unwrapBlock(properties: BlockProperties | string): Editor;
     unwrapInline(properties: InlineProperties | string): Editor;
@@ -1344,50 +1188,20 @@ export class Editor implements Controller {
     wrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
     wrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
     wrapTextAtRange(range: Range, prefix: string, suffix?: string): Editor;
-    addMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
-    addMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
+    addMarkByKey(key: string, offset: number, length: number, mark: MarkProperties | Mark | string): Editor;
+    addMarkByPath(path: Path, offset: number, length: number, mark: MarkProperties | Mark | string): Editor;
     insertNodeByKey(key: string, index: number, node: Node): Editor;
     insertNodeByPath(path: Path, index: number, node: Node): Editor;
     insertFragmentByKey(key: string, index: number, fragment: Document): Editor;
     insertFragmentByPath(path: Path, index: number, fragment: Document): Editor;
-    insertTextByKey(
-        key: string,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Editor;
-    insertTextByPath(
-        path: Path,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Editor;
+    insertTextByKey(key: string, offset: number, text: string, marks?: Immutable.Set<Mark> | Mark[]): Editor;
+    insertTextByPath(path: Path, offset: number, text: string, marks?: Immutable.Set<Mark> | Mark[]): Editor;
     mergeNodeByKey(key: string): Editor;
     mergeNodeByPath(path: Path): Editor;
     moveNodeByKey(key: string, newKey: string, newIndex: number): Editor;
     moveNodeByPath(path: Path, newPath: Path, newIndex: number): Editor;
-    removeMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark | Mark | string
-    ): Editor;
-    removeMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
+    removeMarkByKey(key: string, offset: number, length: number, mark: Mark | Mark | string): Editor;
+    removeMarkByPath(path: Path, offset: number, length: number, mark: MarkProperties | Mark | string): Editor;
     removeNodeByKey(key: string): Editor;
     removeNodeByPath(path: Path): Editor;
     replaceNodeByKey(key: string, node: Node): Editor;
@@ -1395,20 +1209,8 @@ export class Editor implements Controller {
     removeTextByKey(key: string, offset: number, length: number): Editor;
     removeTextByPath(path: Path, offset: number, length: number): Editor;
     setDecorations(decorations: Immutable.List<Decoration> | Decoration[]): Editor;
-    setMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Editor;
-    setMarksByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Editor;
+    setMarkByKey(key: string, offset: number, length: number, mark: Mark, properties: MarkProperties): Editor;
+    setMarksByPath(path: Path, offset: number, length: number, mark: Mark, properties: MarkProperties): Editor;
     setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Editor;
     setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Editor;
     splitNodeByKey(key: string, offset: number): Editor;
@@ -1520,10 +1322,7 @@ export interface Controller {
      * Remove a mark from the characters in the current selection.
      * Passing a string will implicitly create a Mark of that type.
      */
-    replaceMark(
-        mark: Mark | MarkProperties | string,
-        newMark: Mark | MarkProperties | string
-    ): Controller;
+    replaceMark(mark: Mark | MarkProperties | string, newMark: Mark | MarkProperties | string): Controller;
 
     /**
      * Add or remove a mark from the characters in the current selection, depending on it already exists on any or not.
@@ -2229,21 +2028,11 @@ export interface Controller {
     /**
      * Add a mark to length characters starting at an offset in a node by key
      */
-    addMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Controller;
+    addMarkByKey(key: string, offset: number, length: number, mark: MarkProperties | Mark | string): Controller;
     /**
      * Add a mark to length characters starting at an offset in a node by path
      */
-    addMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Controller;
+    addMarkByPath(path: Path, offset: number, length: number, mark: MarkProperties | Mark | string): Controller;
     /**
      * Insert a node at index inside a parent node by key
      */
@@ -2263,21 +2052,11 @@ export interface Controller {
     /**
      * Insert text at an offset in a text node by its key with optional marks
      */
-    insertTextByKey(
-        key: string,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Controller;
+    insertTextByKey(key: string, offset: number, text: string, marks?: Immutable.Set<Mark> | Mark[]): Controller;
     /**
      * Insert text at an offset in a text node by its path with optional marks
      */
-    insertTextByPath(
-        path: Path,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Controller;
+    insertTextByPath(path: Path, offset: number, text: string, marks?: Immutable.Set<Mark> | Mark[]): Controller;
     /**
      * Merge a node by its key with its previous sibling
      */
@@ -2297,21 +2076,11 @@ export interface Controller {
     /**
      * Remove a mark from length characters starting at an offset in a node by key
      */
-    removeMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark | Mark | string
-    ): Controller;
+    removeMarkByKey(key: string, offset: number, length: number, mark: Mark | Mark | string): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by path
      */
-    removeMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Controller;
+    removeMarkByPath(path: Path, offset: number, length: number, mark: MarkProperties | Mark | string): Controller;
     /**
      * Remove a node from the document by its key
      */
@@ -2339,23 +2108,11 @@ export interface Controller {
     /**
      * Set a dictionary of properties on a mark by its key.
      */
-    setMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Controller;
+    setMarkByKey(key: string, offset: number, length: number, mark: Mark, properties: MarkProperties): Controller;
     /**
      * Set a dictionary of properties on a mark by its path.
      */
-    setMarksByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Controller;
+    setMarksByPath(path: Path, offset: number, length: number, mark: Mark, properties: MarkProperties): Controller;
     /**
      * Set a dictionary of properties on a node by its key.
      */

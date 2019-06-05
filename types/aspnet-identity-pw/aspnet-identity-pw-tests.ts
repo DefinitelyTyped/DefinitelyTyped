@@ -1,4 +1,3 @@
-
 import passwordHasher = require('aspnet-identity-pw');
 
 function usageSync() {

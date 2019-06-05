@@ -9,7 +9,7 @@
 declare namespace AMap {
     namespace DistrictSearch {
         interface EventMap {
-            error: Event<'error', { info: string; }>;
+            error: Event<'error', { info: string }>;
             complete: Event<'complete', SearchResult>;
         }
         type Level = 'country' | 'province' | 'city' | 'district' | 'biz_area';

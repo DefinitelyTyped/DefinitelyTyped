@@ -1,2 +1,2 @@
-import { sortedIndexOf } from "../fp";
+import { sortedIndexOf } from '../fp';
 export = sortedIndexOf;

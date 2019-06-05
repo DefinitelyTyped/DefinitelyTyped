@@ -169,58 +169,59 @@ declare namespace SemanticUI {
     type DropdownSettings = DropdownSettings.Param;
 
     namespace DropdownSettings {
-        type Param = (Pick<_Impl, 'on'> |
-            Pick<_Impl, 'allowReselection'> |
-            Pick<_Impl, 'allowAdditions'> |
-            Pick<_Impl, 'hideAdditions'> |
-            Pick<_Impl, 'action'> |
-            Pick<_Impl, 'minCharacters'> |
-            Pick<_Impl, 'match'> |
-            Pick<_Impl, 'selectOnKeydown'> |
-            Pick<_Impl, 'forceSelection'> |
-            Pick<_Impl, 'allowCategorySelection'> |
-            Pick<_Impl, 'placeholder'> |
-            Pick<_Impl, 'apiSettings'> |
-            Pick<_Impl, 'fields'> |
-            Pick<_Impl, 'saveRemoteData'> |
-            Pick<_Impl, 'filterRemoteData'> |
-            Pick<_Impl, 'useLabels'> |
-            Pick<_Impl, 'maxSelections'> |
-            Pick<_Impl, 'glyphWidth'> |
-            Pick<_Impl, 'label'> |
-            Pick<_Impl, 'direction'> |
-            Pick<_Impl, 'keepOnScreen'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'fullTextSearch'> |
-            Pick<_Impl, 'preserveHTML'> |
-            Pick<_Impl, 'sortSelect'> |
-            Pick<_Impl, 'showOnFocus'> |
-            Pick<_Impl, 'allowTab'> |
-            Pick<_Impl, 'transition'> |
-            Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'keys'> |
-            Pick<_Impl, 'delay'> |
-            Pick<_Impl, 'onChange'> |
-            Pick<_Impl, 'onAdd'> |
-            Pick<_Impl, 'onRemove'> |
-            Pick<_Impl, 'onLabelCreate'> |
-            Pick<_Impl, 'onLabelRemove'> |
-            Pick<_Impl, 'onLabelSelect'> |
-            Pick<_Impl, 'onNoResults'> |
-            Pick<_Impl, 'onShow'> |
-            Pick<_Impl, 'onHide'> |
-            Pick<_Impl, 'message'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'regExp'> |
-            Pick<_Impl, 'metadata'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'on'>
+            | Pick<_Impl, 'allowReselection'>
+            | Pick<_Impl, 'allowAdditions'>
+            | Pick<_Impl, 'hideAdditions'>
+            | Pick<_Impl, 'action'>
+            | Pick<_Impl, 'minCharacters'>
+            | Pick<_Impl, 'match'>
+            | Pick<_Impl, 'selectOnKeydown'>
+            | Pick<_Impl, 'forceSelection'>
+            | Pick<_Impl, 'allowCategorySelection'>
+            | Pick<_Impl, 'placeholder'>
+            | Pick<_Impl, 'apiSettings'>
+            | Pick<_Impl, 'fields'>
+            | Pick<_Impl, 'saveRemoteData'>
+            | Pick<_Impl, 'filterRemoteData'>
+            | Pick<_Impl, 'useLabels'>
+            | Pick<_Impl, 'maxSelections'>
+            | Pick<_Impl, 'glyphWidth'>
+            | Pick<_Impl, 'label'>
+            | Pick<_Impl, 'direction'>
+            | Pick<_Impl, 'keepOnScreen'>
+            | Pick<_Impl, 'context'>
+            | Pick<_Impl, 'fullTextSearch'>
+            | Pick<_Impl, 'preserveHTML'>
+            | Pick<_Impl, 'sortSelect'>
+            | Pick<_Impl, 'showOnFocus'>
+            | Pick<_Impl, 'allowTab'>
+            | Pick<_Impl, 'transition'>
+            | Pick<_Impl, 'duration'>
+            | Pick<_Impl, 'keys'>
+            | Pick<_Impl, 'delay'>
+            | Pick<_Impl, 'onChange'>
+            | Pick<_Impl, 'onAdd'>
+            | Pick<_Impl, 'onRemove'>
+            | Pick<_Impl, 'onLabelCreate'>
+            | Pick<_Impl, 'onLabelRemove'>
+            | Pick<_Impl, 'onLabelSelect'>
+            | Pick<_Impl, 'onNoResults'>
+            | Pick<_Impl, 'onShow'>
+            | Pick<_Impl, 'onHide'>
+            | Pick<_Impl, 'message'>
+            | Pick<_Impl, 'selector'>
+            | Pick<_Impl, 'regExp'>
+            | Pick<_Impl, 'metadata'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -256,7 +257,13 @@ declare namespace SemanticUI {
              * @default 'activate'
              * @see {@link http://semantic-ui.com/modules/dropdown.html#/usage}
              */
-            action: 'activate' | 'select' | 'combo' | 'nothing' | 'hide' | ((this: JQuery, text: string, value: string | false, element: JQuery) => void);
+            action:
+                | 'activate'
+                | 'select'
+                | 'combo'
+                | 'nothing'
+                | 'hide'
+                | ((this: JQuery, text: string, value: string | false, element: JQuery) => void);
             /**
              * The minimum characters for a search to begin showing results
              *
@@ -530,10 +537,11 @@ declare namespace SemanticUI {
         type FieldsSettings = FieldsSettings.Param;
 
         namespace FieldsSettings {
-            type Param = (Pick<_Impl, 'remoteValues'> |
-                Pick<_Impl, 'values'> |
-                Pick<_Impl, 'name'> |
-                Pick<_Impl, 'value'>) &
+            type Param = (
+                | Pick<_Impl, 'remoteValues'>
+                | Pick<_Impl, 'values'>
+                | Pick<_Impl, 'name'>
+                | Pick<_Impl, 'value'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -567,9 +575,7 @@ declare namespace SemanticUI {
         type LabelSettings = LabelSettings.Param;
 
         namespace LabelSettings {
-            type Param = (Pick<_Impl, 'transition'> |
-                Pick<_Impl, 'duration'> |
-                Pick<_Impl, 'variation'>) &
+            type Param = (Pick<_Impl, 'transition'> | Pick<_Impl, 'duration'> | Pick<_Impl, 'variation'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -591,17 +597,18 @@ declare namespace SemanticUI {
         type KeySettings = KeySettings.Param;
 
         namespace KeySettings {
-            type Param = (Pick<_Impl, 'backspace'> |
-                Pick<_Impl, 'delimiter'> |
-                Pick<_Impl, 'deleteKey'> |
-                Pick<_Impl, 'enter'> |
-                Pick<_Impl, 'escape'> |
-                Pick<_Impl, 'pageUp'> |
-                Pick<_Impl, 'pageDown'> |
-                Pick<_Impl, 'leftArrow'> |
-                Pick<_Impl, 'upArrow'> |
-                Pick<_Impl, 'rightArrow'> |
-                Pick<_Impl, 'downArrow'>) &
+            type Param = (
+                | Pick<_Impl, 'backspace'>
+                | Pick<_Impl, 'delimiter'>
+                | Pick<_Impl, 'deleteKey'>
+                | Pick<_Impl, 'enter'>
+                | Pick<_Impl, 'escape'>
+                | Pick<_Impl, 'pageUp'>
+                | Pick<_Impl, 'pageDown'>
+                | Pick<_Impl, 'leftArrow'>
+                | Pick<_Impl, 'upArrow'>
+                | Pick<_Impl, 'rightArrow'>
+                | Pick<_Impl, 'downArrow'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -655,10 +662,7 @@ declare namespace SemanticUI {
         type DelaySettings = DelaySettings.Param;
 
         namespace DelaySettings {
-            type Param = (Pick<_Impl, 'hide'> |
-                Pick<_Impl, 'show'> |
-                Pick<_Impl, 'search'> |
-                Pick<_Impl, 'touch'>) &
+            type Param = (Pick<_Impl, 'hide'> | Pick<_Impl, 'show'> | Pick<_Impl, 'search'> | Pick<_Impl, 'touch'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -684,10 +688,11 @@ declare namespace SemanticUI {
         type MessageSettings = MessageSettings.Param;
 
         namespace MessageSettings {
-            type Param = (Pick<_Impl, 'addResult'> |
-                Pick<_Impl, 'count'> |
-                Pick<_Impl, 'maxSelections'> |
-                Pick<_Impl, 'noResults'>) &
+            type Param = (
+                | Pick<_Impl, 'addResult'>
+                | Pick<_Impl, 'count'>
+                | Pick<_Impl, 'maxSelections'>
+                | Pick<_Impl, 'noResults'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -713,19 +718,20 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'addition'> |
-                Pick<_Impl, 'dropdown'> |
-                Pick<_Impl, 'icon'> |
-                Pick<_Impl, 'input'> |
-                Pick<_Impl, 'item'> |
-                Pick<_Impl, 'label'> |
-                Pick<_Impl, 'remove'> |
-                Pick<_Impl, 'siblingLabel'> |
-                Pick<_Impl, 'menu'> |
-                Pick<_Impl, 'message'> |
-                Pick<_Impl, 'menuIcon'> |
-                Pick<_Impl, 'search'> |
-                Pick<_Impl, 'text'>) &
+            type Param = (
+                | Pick<_Impl, 'addition'>
+                | Pick<_Impl, 'dropdown'>
+                | Pick<_Impl, 'icon'>
+                | Pick<_Impl, 'input'>
+                | Pick<_Impl, 'item'>
+                | Pick<_Impl, 'label'>
+                | Pick<_Impl, 'remove'>
+                | Pick<_Impl, 'siblingLabel'>
+                | Pick<_Impl, 'menu'>
+                | Pick<_Impl, 'message'>
+                | Pick<_Impl, 'menuIcon'>
+                | Pick<_Impl, 'search'>
+                | Pick<_Impl, 'text'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -787,8 +793,7 @@ declare namespace SemanticUI {
         type RegExpSettings = RegExpSettings.Param;
 
         namespace RegExpSettings {
-            type Param = (Pick<_Impl, 'escape'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'escape'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -801,11 +806,12 @@ declare namespace SemanticUI {
         type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = (Pick<_Impl, 'defaultText'> |
-                Pick<_Impl, 'defaultValue'> |
-                Pick<_Impl, 'placeholderText'> |
-                Pick<_Impl, 'text'> |
-                Pick<_Impl, 'value'>) &
+            type Param = (
+                | Pick<_Impl, 'defaultText'>
+                | Pick<_Impl, 'defaultValue'>
+                | Pick<_Impl, 'placeholderText'>
+                | Pick<_Impl, 'text'>
+                | Pick<_Impl, 'value'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -835,25 +841,26 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'addition'> |
-                Pick<_Impl, 'animating'> |
-                Pick<_Impl, 'disabled'> |
-                Pick<_Impl, 'dropdown'> |
-                Pick<_Impl, 'filtered'> |
-                Pick<_Impl, 'hidden'> |
-                Pick<_Impl, 'item'> |
-                Pick<_Impl, 'label'> |
-                Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'menu'> |
-                Pick<_Impl, 'message'> |
-                Pick<_Impl, 'multiple'> |
-                Pick<_Impl, 'placeholder'> |
-                Pick<_Impl, 'search'> |
-                Pick<_Impl, 'selected'> |
-                Pick<_Impl, 'selection'> |
-                Pick<_Impl, 'upward'> |
-                Pick<_Impl, 'visible'>) &
+            type Param = (
+                | Pick<_Impl, 'active'>
+                | Pick<_Impl, 'addition'>
+                | Pick<_Impl, 'animating'>
+                | Pick<_Impl, 'disabled'>
+                | Pick<_Impl, 'dropdown'>
+                | Pick<_Impl, 'filtered'>
+                | Pick<_Impl, 'hidden'>
+                | Pick<_Impl, 'item'>
+                | Pick<_Impl, 'label'>
+                | Pick<_Impl, 'loading'>
+                | Pick<_Impl, 'menu'>
+                | Pick<_Impl, 'message'>
+                | Pick<_Impl, 'multiple'>
+                | Pick<_Impl, 'placeholder'>
+                | Pick<_Impl, 'search'>
+                | Pick<_Impl, 'selected'>
+                | Pick<_Impl, 'selection'>
+                | Pick<_Impl, 'upward'>
+                | Pick<_Impl, 'visible'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -939,11 +946,12 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'action'> |
-                Pick<_Impl, 'alreadySetup'> |
-                Pick<_Impl, 'labels'> |
-                Pick<_Impl, 'method'> |
-                Pick<_Impl, 'noTransition'>) &
+            type Param = (
+                | Pick<_Impl, 'action'>
+                | Pick<_Impl, 'alreadySetup'>
+                | Pick<_Impl, 'labels'>
+                | Pick<_Impl, 'method'>
+                | Pick<_Impl, 'noTransition'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {

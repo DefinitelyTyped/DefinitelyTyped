@@ -17,7 +17,10 @@ export = FormData;
 declare class FormData extends stream.Readable {
     append(key: string, value: any, options?: FormData.AppendOptions | string): void;
     getHeaders(): FormData.Headers;
-    submit(params: string | FormData.SubmitOptions, callback?: (error: Error | undefined, response: http.IncomingMessage) => void): http.ClientRequest;
+    submit(
+        params: string | FormData.SubmitOptions,
+        callback?: (error: Error | undefined, response: http.IncomingMessage) => void
+    ): http.ClientRequest;
     getBoundary(): string;
     getLength(callback: (err: Error | undefined, length: number) => void): void;
     getLengthSync(): number;

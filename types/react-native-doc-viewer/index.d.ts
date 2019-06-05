@@ -7,10 +7,10 @@
 export function openDoc(
     files: Array<{
         url: string;
-        fileName?: string,
-        fileNameOptional?: string,
-        cache?: boolean,
-        fileType?: string
+        fileName?: string;
+        fileNameOptional?: string;
+        cache?: boolean;
+        fileType?: string;
     }>,
     callback: (error: string, url: string) => void
 ): void;
@@ -25,7 +25,4 @@ export function openDocBinaryinUrl(
     callback: (error: string, url: string) => void
 ): void;
 
-export function playMovie(
-    path: string,
-    callback: (error: string, url: string) => void
-): void;
+export function playMovie(path: string, callback: (error: string, url: string) => void): void;

@@ -1,4 +1,4 @@
-import EmberObject from "@ember/object";
+import EmberObject from '@ember/object';
 
 /**
  * `Ember.HashLocation` implements the location API using the browser's

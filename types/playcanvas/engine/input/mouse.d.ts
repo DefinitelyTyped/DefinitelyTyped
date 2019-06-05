@@ -2,27 +2,27 @@ type BrowserMouseEvent = MouseEvent;
 
 declare namespace pc {
     /**
-    * @name pc.MouseEvent
-    * @class MouseEvent object that is passed to events 'mousemove', 'mouseup', 'mousedown' and 'mousewheel'.
-    * @description Create an new MouseEvent
-    * @param {pc.Mouse} mouse The Mouse device that is firing this event
-    * @param {MouseEvent} event The original browser event that fired
-    * @property {Number} x The x co-ordinate of the mouse pointer relative to the element pc.Mouse is attached to
-    * @property {Number} y The y co-ordinate of the mouse pointer relative to the element pc.Mouse is attached to
-    * @property {Number} dx The change in x co-ordinate since the last mouse event
-    * @property {Number} dy The change in y co-ordinate since the last mouse event
-    * @property {pc.MOUSEBUTTON} button The button
-    * @property {Number} wheel A value representing the amount the mouse wheel has moved, only valid for {@link mousemove} events
-    * @property {Element} element The element that the mouse was fired from
-    * @property {Boolean} ctrlKey True if the ctrl key was pressed when this event was fired
-    * @property {Boolean} shiftKey True if the shift key was pressed when this event was fired
-    * @property {Boolean} altKey True if the alt key was pressed when this event was fired
-    * @property {Boolean} metaKey True if the meta key was pressed when this event was fired
-    * @property {MouseEvent} event The original browser event
-    * @since 0.88.0
-    */
+     * @name pc.MouseEvent
+     * @class MouseEvent object that is passed to events 'mousemove', 'mouseup', 'mousedown' and 'mousewheel'.
+     * @description Create an new MouseEvent
+     * @param {pc.Mouse} mouse The Mouse device that is firing this event
+     * @param {MouseEvent} event The original browser event that fired
+     * @property {Number} x The x co-ordinate of the mouse pointer relative to the element pc.Mouse is attached to
+     * @property {Number} y The y co-ordinate of the mouse pointer relative to the element pc.Mouse is attached to
+     * @property {Number} dx The change in x co-ordinate since the last mouse event
+     * @property {Number} dy The change in y co-ordinate since the last mouse event
+     * @property {pc.MOUSEBUTTON} button The button
+     * @property {Number} wheel A value representing the amount the mouse wheel has moved, only valid for {@link mousemove} events
+     * @property {Element} element The element that the mouse was fired from
+     * @property {Boolean} ctrlKey True if the ctrl key was pressed when this event was fired
+     * @property {Boolean} shiftKey True if the shift key was pressed when this event was fired
+     * @property {Boolean} altKey True if the alt key was pressed when this event was fired
+     * @property {Boolean} metaKey True if the meta key was pressed when this event was fired
+     * @property {MouseEvent} event The original browser event
+     * @since 0.88.0
+     */
     class MouseEvent {
-        constructor(mouse: pc.Mouse, event: BrowserMouseEvent)
+        constructor(mouse: pc.Mouse, event: BrowserMouseEvent);
 
         x: number;
         y: number;
@@ -46,14 +46,14 @@ declare namespace pc {
      */
     class Mouse {
         /**
-        * @function
-        * @name pc.Mouse.isPointerLocked
-        * @description Check if the mouse pointer has been locked, using {@link pc.Mouse#enabledPointerLock}
-        * @returns {Boolean} True if locked
-        */
+         * @function
+         * @name pc.Mouse.isPointerLocked
+         * @description Check if the mouse pointer has been locked, using {@link pc.Mouse#enabledPointerLock}
+         * @returns {Boolean} True if locked
+         */
         static isPointerLocked(): void;
 
-        constructor(element?: Element)
+        constructor(element?: Element);
 
         /**
          * @function
@@ -85,26 +85,26 @@ declare namespace pc {
         enableContextMenu(): void;
 
         /**
-        * @function
-        * @name pc.Mouse#enablePointerLock
-        * @description Request that the browser hides the mouse cursor and locks the mouse to the element.
-        * Allowing raw access to mouse movement input without risking the mouse exiting the element.
-        * Notes: <br />
-        * <ul>
-        * <li>In some browsers this will only work when the browser is running in fullscreen mode. See {@link pc.Application#enableFullscreen}
-        * <li>Enabling pointer lock can only be initiated by a user action e.g. in the event handler for a mouse or keyboard input.
-        * </ul>
-        * @param {Function} [success] Function called if the request for mouse lock is successful.
-        * @param {Function} [error] Function called if the request for mouse lock is unsuccessful.
-        */
+         * @function
+         * @name pc.Mouse#enablePointerLock
+         * @description Request that the browser hides the mouse cursor and locks the mouse to the element.
+         * Allowing raw access to mouse movement input without risking the mouse exiting the element.
+         * Notes: <br />
+         * <ul>
+         * <li>In some browsers this will only work when the browser is running in fullscreen mode. See {@link pc.Application#enableFullscreen}
+         * <li>Enabling pointer lock can only be initiated by a user action e.g. in the event handler for a mouse or keyboard input.
+         * </ul>
+         * @param {Function} [success] Function called if the request for mouse lock is successful.
+         * @param {Function} [error] Function called if the request for mouse lock is unsuccessful.
+         */
         enablePointerLock(success?: (...args: any[]) => {}, error?: (...args: any[]) => {}): void;
 
         /**
-        * @function
-        * @name pc.Mouse#disablePointerLock
-        * @description Return control of the mouse cursor to the user
-        * @param {Function} [success] Function called when the mouse lock is disabled
-        */
+         * @function
+         * @name pc.Mouse#disablePointerLock
+         * @description Return control of the mouse cursor to the user
+         * @param {Function} [success] Function called when the mouse lock is disabled
+         */
         disablePointerLock(success?: (...args: any[]) => {}): void;
 
         /**
@@ -141,7 +141,6 @@ declare namespace pc {
          * @returns {Boolean} True if the mouse button was released since the last update
          */
         wasReleased(button: number): boolean;
-
 
         // Events
 
@@ -189,7 +188,17 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(
+            name: string,
+            arg1: any,
+            arg2?: any,
+            arg3?: any,
+            arg4?: any,
+            arg5?: any,
+            arg6?: any,
+            arg7?: any,
+            arg8?: any
+        ): any;
 
         /**
          * @function
@@ -208,14 +217,14 @@ declare namespace pc {
         once(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
-        * @function
-        * @name pc.Mouse#hasEvent
-        * @description Test if there are any handlers bound to an event name
-        * @param {String} name The name of the event to test
-        * @example
-        * obj.on('test', function () { }); // bind an event to 'test'
-        * obj.hasEvent('test'); // returns true
-        */
+         * @function
+         * @name pc.Mouse#hasEvent
+         * @description Test if there are any handlers bound to an event name
+         * @param {String} name The name of the event to test
+         * @example
+         * obj.on('test', function () { }); // bind an event to 'test'
+         * obj.hasEvent('test'); // returns true
+         */
         hasEvent(name: string): boolean;
     }
 }

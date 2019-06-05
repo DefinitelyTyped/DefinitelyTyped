@@ -1,12 +1,10 @@
 declare namespace pc {
-
     /**
      * @private
      * @name pc.Camera
      * @class A camera.
      */
     class Camera {
-
         /**
          * @private
          * @function
@@ -27,7 +25,7 @@ declare namespace pc {
          * @param {pc.Vec3} [screenCoord] 3D vector to receive screen coordinate result.
          * @returns {pc.Vec3} The screen space coordinate.
          */
-        private worldToScreen(worldCoord: pc.Vec3, cw: number, ch: number, screenCoord?: pc.Vec3): pc.Vec3
+        private worldToScreen(worldCoord: pc.Vec3, cw: number, ch: number, screenCoord?: pc.Vec3): pc.Vec3;
 
         /**
          * @private
@@ -42,7 +40,7 @@ declare namespace pc {
          * @param {pc.Vec3} [worldCoord] 3D vector to receive world coordinate result.
          * @returns {pc.Vec3} The world space coordinate.
          */
-        private screenToWorld(x: number, y: number, z: number, cw: number, ch: number, worldCoord?: pc.Vec3): pc.Vec3
+        private screenToWorld(x: number, y: number, z: number, cw: number, ch: number, worldCoord?: pc.Vec3): pc.Vec3;
 
         /**
          * @private
@@ -60,7 +58,7 @@ declare namespace pc {
          * @description Retrieves the projection matrix for the specified camera.
          * @returns {pc.Mat4} The camera's projection matrix.
          */
-        private getProjectionMatrix(): pc.Mat4
+        private getProjectionMatrix(): pc.Mat4;
 
         /**
          * @private
@@ -72,7 +70,7 @@ declare namespace pc {
          * @param {Number} clearOptions.depth The options determining the behaviour of subsequent render target clears.
          * @param {pc.CLEARFLAG} clearOptions.flags The options determining the behaviour of subsequent render target clears.
          */
-        setClearOptions(options: { color: number[], depth: number, flags: any }): void;
+        setClearOptions(options: { color: number[]; depth: number; flags: any }): void;
 
         /**
          * @private

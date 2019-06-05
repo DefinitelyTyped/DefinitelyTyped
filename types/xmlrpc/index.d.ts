@@ -18,7 +18,7 @@ declare module 'xmlrpc' {
         url?: string;
         cookies?: boolean;
         headers?: { [header: string]: string };
-        basic_auth?: { user: string, pass: string };
+        basic_auth?: { user: string; pass: string };
         method?: string;
     }
 
@@ -38,7 +38,7 @@ declare module 'xmlrpc' {
 
     class Cookies {
         get(name: string): string;
-        set(name: string, value: string, options?: { secure: boolean, expires: Date }): void;
+        set(name: string, value: string, options?: { secure: boolean; expires: Date }): void;
         toString(): string;
     }
 
@@ -83,7 +83,7 @@ declare module 'xmlrpc' {
 
             decodeIso8601(time: string): Date;
             encodeIso8601(date: Date): string;
-        }
+        };
 
         export class CustomType {
             tagName: string;

@@ -1,21 +1,21 @@
 declare namespace pc {
     /**
-    * @component Animation
-    * @name pc.AnimationComponent
-    * @description Create a new AnimationComponent
-    * @class The Animation Component allows an Entity to playback animations on models
-    * @param {pc.AnimationComponentSystem} system The {@link pc.ComponentSystem} that created this Component
-    * @param {pc.Entity} entity The Entity that this Component is attached to
-    * @extends pc.Component
-    * @property {Number} speed Speed multiplier for animation play back speed. 1.0 is playback at normal speed, 0.0 pauses the animation
-    * @property {Boolean} loop If true the animation will restart from the beginning when it reaches the end
-    * @property {Boolean} activate If true the first animation asset will begin playing when the Pack is loaded
-    * @property {pc.Asset[]} assets The array of animation assets - can also be an array of asset ids.
-    * @property {Number} currentTime Get or Set the current time position (in seconds) of the animation
-    * @property {Number} duration Get the duration in seconds of the current animation.
-    */
+     * @component Animation
+     * @name pc.AnimationComponent
+     * @description Create a new AnimationComponent
+     * @class The Animation Component allows an Entity to playback animations on models
+     * @param {pc.AnimationComponentSystem} system The {@link pc.ComponentSystem} that created this Component
+     * @param {pc.Entity} entity The Entity that this Component is attached to
+     * @extends pc.Component
+     * @property {Number} speed Speed multiplier for animation play back speed. 1.0 is playback at normal speed, 0.0 pauses the animation
+     * @property {Boolean} loop If true the animation will restart from the beginning when it reaches the end
+     * @property {Boolean} activate If true the first animation asset will begin playing when the Pack is loaded
+     * @property {pc.Asset[]} assets The array of animation assets - can also be an array of asset ids.
+     * @property {Number} currentTime Get or Set the current time position (in seconds) of the animation
+     * @property {Number} duration Get the duration in seconds of the current animation.
+     */
     class AnimationComponent extends pc.Component {
-        constructor(system: pc.AnimationComponentSystem, entity: pc.Entity)
+        constructor(system: pc.AnimationComponentSystem, entity: pc.Entity);
 
         speed: number;
         loop: boolean;
@@ -40,12 +40,12 @@ declare namespace pc {
         play(name: string, blendTime?: number): void;
 
         /**
-        * @function
-        * @name pc.AnimationComponent#getAnimation
-        * @description Return an animation
-        * @param {String} name The name of the animation asset
-        * @returns {pc.Animation} An Animation
-        */
+         * @function
+         * @name pc.AnimationComponent#getAnimation
+         * @description Return an animation
+         * @param {String} name The name of the animation asset
+         * @returns {pc.Animation} An Animation
+         */
         getAnimation(name: string): pc.Animation;
     }
 }

@@ -1,6 +1,5 @@
 export namespace Replies {
-    interface Empty {
-    }
+    interface Empty {}
     interface AssertQueue {
         queue: string;
         messageCount: number;
@@ -191,24 +190,24 @@ export interface MessageProperties {
 }
 
 export interface MessagePropertyHeaders {
-    "x-first-death-exchange"?: string;
-    "x-first-death-queue"?: string;
-    "x-first-death-reason"?: string;
-    "x-death"?: XDeath[];
+    'x-first-death-exchange'?: string;
+    'x-first-death-queue'?: string;
+    'x-first-death-reason'?: string;
+    'x-death'?: XDeath[];
     [key: string]: any;
 }
 
 export interface XDeath {
     count: number;
-    reason: "rejected" | "expired" | "maxlen";
+    reason: 'rejected' | 'expired' | 'maxlen';
     queue: string;
     time: {
-        "!": "timestamp";
+        '!': 'timestamp';
         value: number;
     };
     exchange: string;
-    "original-expiration"?: any;
-    "routing-keys": string[];
+    'original-expiration'?: any;
+    'routing-keys': string[];
 }
 
 export interface ServerProperties {

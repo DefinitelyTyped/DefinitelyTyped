@@ -7,5 +7,5 @@ const nodeType = new NodeType();
 const state = new EditorState();
 commands.deleteSelection(state);
 
-commands.baseKeymap["Ctrl-h"];
+commands.baseKeymap['Ctrl-h'];
 commands.wrapIn(nodeType, { attr: 'value' });

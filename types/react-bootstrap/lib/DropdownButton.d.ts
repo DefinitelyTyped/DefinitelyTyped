@@ -14,7 +14,6 @@ declare namespace DropdownButton {
     }
 
     export type DropdownButtonProps = DropdownButtonBaseProps & Omit<React.HTMLProps<DropdownButton>, 'title'>;
-
 }
-declare class DropdownButton extends React.Component<DropdownButton.DropdownButtonProps> { }
+declare class DropdownButton extends React.Component<DropdownButton.DropdownButtonProps> {}
 export = DropdownButton;

@@ -13,9 +13,9 @@ export default class Layer extends BaseLayer {
     getSource(): Source;
     setMap(map: PluggableMap): void;
     setSource(source: Source): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'postcompose', listener: (evt: RenderEvent) => void): EventsKey;
     once(type: 'postcompose', listener: (evt: RenderEvent) => void): EventsKey;
     un(type: 'postcompose', listener: (evt: RenderEvent) => void): void;

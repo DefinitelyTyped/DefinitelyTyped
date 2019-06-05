@@ -3,35 +3,37 @@ import LRU = require('lru-cache');
 const num = 1;
 
 interface Foo {
-	foo(): void;
+    foo(): void;
 }
 
 const foo = {
-    foo() {}
+    foo() {},
 };
 
 const cache = LRU<string, Foo>();
 cache; // $ExpectType Cache<string, Foo>
-LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
-	max: num,
-	maxAge: num,
-	length(value) {
+LRU<string, Foo>({
+    // $ExpectType Cache<string, Foo>
+    max: num,
+    maxAge: num,
+    length(value) {
         value; // $ExpectType Foo
         return num;
-	},
-	dispose(key, value) {
+    },
+    dispose(key, value) {
         key; // $ExpectType string
         value; // $ExpectType Foo
-	},
-	stale: false,
+    },
+    stale: false,
     noDisposeOnSet: false,
 });
 LRU<string, Foo>(num); // $ExpectType Cache<string, Foo>
 new LRU<string, Foo>(); // $ExpectType Cache<string, Foo>
-new LRU<string, Foo>({ // $ExpectType Cache<string, Foo>
+new LRU<string, Foo>({
+    // $ExpectType Cache<string, Foo>
     max: num,
     maxAge: num,
-    length: (value) => {
+    length: value => {
         return num;
     },
     dispose: (key, value) => {},

@@ -1,2 +1,2 @@
-import { random } from "./index";
+import { random } from './index';
 export = random;

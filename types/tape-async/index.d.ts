@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import tapeSync = require("tape");
+import tapeSync = require('tape');
 export = tape;
 
 declare function tape(name: string | tape.TestOptions, cb: tape.TestCase): void;

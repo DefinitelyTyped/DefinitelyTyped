@@ -135,31 +135,32 @@ declare namespace SemanticUI {
     type ProgressSettings = ProgressSettings.Param;
 
     namespace ProgressSettings {
-        type Param = (Pick<_Impl, 'autoSuccess'> |
-            Pick<_Impl, 'showActivity'> |
-            Pick<_Impl, 'limitValues'> |
-            Pick<_Impl, 'label'> |
-            Pick<_Impl, 'random'> |
-            Pick<_Impl, 'precision'> |
-            Pick<_Impl, 'total'> |
-            Pick<_Impl, 'value'> |
-            Pick<_Impl, 'onChange'> |
-            Pick<_Impl, 'onSuccess'> |
-            Pick<_Impl, 'onActive'> |
-            Pick<_Impl, 'onError'> |
-            Pick<_Impl, 'onWarning'> |
-            Pick<_Impl, 'text'> |
-            Pick<_Impl, 'regExp'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'metadata'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
+        type Param = (
+            | Pick<_Impl, 'autoSuccess'>
+            | Pick<_Impl, 'showActivity'>
+            | Pick<_Impl, 'limitValues'>
+            | Pick<_Impl, 'label'>
+            | Pick<_Impl, 'random'>
+            | Pick<_Impl, 'precision'>
+            | Pick<_Impl, 'total'>
+            | Pick<_Impl, 'value'>
+            | Pick<_Impl, 'onChange'>
+            | Pick<_Impl, 'onSuccess'>
+            | Pick<_Impl, 'onActive'>
+            | Pick<_Impl, 'onError'>
+            | Pick<_Impl, 'onWarning'>
+            | Pick<_Impl, 'text'>
+            | Pick<_Impl, 'regExp'>
+            | Pick<_Impl, 'selector'>
+            | Pick<_Impl, 'metadata'>
+            | Pick<_Impl, 'className'>
+            | Pick<_Impl, 'error'>
+            | Pick<_Impl, 'namespace'>
+            | Pick<_Impl, 'name'>
+            | Pick<_Impl, 'silent'>
+            | Pick<_Impl, 'debug'>
+            | Pick<_Impl, 'performance'>
+            | Pick<_Impl, 'verbose'>) &
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
@@ -315,9 +316,7 @@ declare namespace SemanticUI {
         type RandomSettings = RandomSettings.Param;
 
         namespace RandomSettings {
-            type Param = (Pick<_Impl, 'min'> |
-                Pick<_Impl, 'max'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'min'> | Pick<_Impl, 'max'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -334,12 +333,13 @@ declare namespace SemanticUI {
         type TextSettings = TextSettings.Param;
 
         namespace TextSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'error'> |
-                Pick<_Impl, 'success'> |
-                Pick<_Impl, 'warning'> |
-                Pick<_Impl, 'percent'> |
-                Pick<_Impl, 'ratio'>) &
+            type Param = (
+                | Pick<_Impl, 'active'>
+                | Pick<_Impl, 'error'>
+                | Pick<_Impl, 'success'>
+                | Pick<_Impl, 'warning'>
+                | Pick<_Impl, 'percent'>
+                | Pick<_Impl, 'ratio'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -373,8 +373,7 @@ declare namespace SemanticUI {
         type RegExpSettings = RegExpSettings.Param;
 
         namespace RegExpSettings {
-            type Param = (Pick<_Impl, 'variable'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'variable'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -387,9 +386,7 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'bar'> |
-                Pick<_Impl, 'label'> |
-                Pick<_Impl, 'progress'>) &
+            type Param = (Pick<_Impl, 'bar'> | Pick<_Impl, 'label'> | Pick<_Impl, 'progress'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -411,9 +408,7 @@ declare namespace SemanticUI {
         type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = (Pick<_Impl, 'percent'> |
-                Pick<_Impl, 'total'> |
-                Pick<_Impl, 'value'>) &
+            type Param = (Pick<_Impl, 'percent'> | Pick<_Impl, 'total'> | Pick<_Impl, 'value'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -435,10 +430,11 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'active'> |
-                Pick<_Impl, 'error'> |
-                Pick<_Impl, 'success'> |
-                Pick<_Impl, 'warning'>) &
+            type Param = (
+                | Pick<_Impl, 'active'>
+                | Pick<_Impl, 'error'>
+                | Pick<_Impl, 'success'>
+                | Pick<_Impl, 'warning'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -464,9 +460,7 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'method'> |
-                Pick<_Impl, 'nonNumeric'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param = (Pick<_Impl, 'method'> | Pick<_Impl, 'nonNumeric'>) & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

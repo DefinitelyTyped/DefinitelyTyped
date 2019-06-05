@@ -6,7 +6,7 @@
 
 export as namespace amplitude;
 
-type Callback = (responseCode: number, responseBody: string, details?: { reason: string; }) => void;
+type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;
 type LogReturn = number | void;
 
 interface Config {
@@ -44,7 +44,7 @@ interface Config {
         platform?: boolean;
         region?: boolean;
         version_name?: boolean;
-    },
+    };
     unsentKey?: string;
     unsentIdentifyKey?: string;
     uploadBatchSize?: number;
@@ -61,7 +61,6 @@ export class Identify {
 }
 
 export class Revenue {
-
     setProductId(productId: string): Revenue;
     setQuantity(quantity: number): Revenue;
     setPrice(price: number): Revenue;
@@ -70,7 +69,6 @@ export class Revenue {
 }
 
 export class AmplitudeClient {
-
     constructor(instanceName?: string);
 
     options: Config;
@@ -108,7 +106,12 @@ export class AmplitudeClient {
 
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)
 
-export function init(apiKey: string, userId?: string, options?: Config, callback?: (client: AmplitudeClient) => void): void;
+export function init(
+    apiKey: string,
+    userId?: string,
+    options?: Config,
+    callback?: (client: AmplitudeClient) => void
+): void;
 
 export function setVersionName(version: string): void;
 
@@ -137,8 +140,6 @@ export function logEventWithGroups(event: string, data?: any, groups?: any, call
 export function logRevenueV2(revenue_obj: Revenue): LogReturn;
 export function logRevenue(pric: number, quantity: number, product: string): LogReturn;
 export function logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
-
-
 
 export function getInstance(instanceName?: string): AmplitudeClient;
 export const __VERSION__: string;

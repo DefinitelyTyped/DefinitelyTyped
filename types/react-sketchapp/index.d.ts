@@ -75,8 +75,8 @@ export interface ResizingConstraintPropTypes {
 export interface ShadowsPropTypes {
     shadowColor?: string | number;
     shadowOffset?: {
-      width?: number;
-      height?: number;
+        width?: number;
+        height?: number;
     };
     shadowOpacity?: number;
     shadowRadius?: number;
@@ -132,12 +132,7 @@ export interface Style {
     position?: 'absolute' | 'relative';
     flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
     flexWrap?: 'wrap' | 'nowrap';
-    justifyContent?:
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'space-between'
-        | 'space-around';
+    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
     alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch';
     alignSelf?: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'stretch';
     overflow?: 'visible' | 'hidden' | 'scroll';
@@ -229,13 +224,7 @@ export class Artboard extends React.Component<ArtboardProps, any> {}
 
 // Image
 export type ImageSource = string | { src: string };
-export type ResizeMode =
-    | 'contain'
-    | 'cover'
-    | 'stretch'
-    | 'center'
-    | 'repeat'
-    | 'none';
+export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center' | 'repeat' | 'none';
 export interface ImageProps {
     children?: React.ReactNode[] | React.ReactNode;
     source?: ImageSource;
@@ -281,19 +270,13 @@ export const StyleSheet: {
     /**
      * Create an optimized `StyleSheet` reference from a style object.
      */
-    create: <T extends { [key: string]: Style | TextStyle }>(
-        t: T,
-    ) => { [P in keyof T]: StyleReference };
+    create: <T extends { [key: string]: Style | TextStyle }>(t: T) => { [P in keyof T]: StyleReference };
     /**
      * Flatten an array of style objects into one aggregated object, or look up the definition for a
      * registered stylesheet.
      */
     flatten: (
-        input:
-            | Array<Style | TextStyle | StyleReference>
-            | StyleReference
-            | undefined
-            | Style,
+        input: Array<Style | TextStyle | StyleReference> | StyleReference | undefined | Style
     ) => Style | TextStyle; // returns the expanded style or expanded style reference which conforms
     // to the `Style | TextStyle` interface
     /**
@@ -312,7 +295,7 @@ export const TextStyles: {
      */
     create: (
         options: { context: SketchContext; clearExistingStyles?: boolean },
-        styles: { [key: string]: TextStyle },
+        styles: { [key: string]: TextStyle }
     ) => any;
     /**
      * Find a stored native Sketch style object for a given JavaScript style object. You probably
@@ -342,7 +325,7 @@ export const TextStyles: {
  */
 export function makeSymbol<P>(
     node: React.ComponentClass<P> | ((props: P) => JSX.Element),
-    name?: string,
+    name?: string
 ): React.ComponentClass<P & { overrides?: { [key: string]: any } }>;
 
 /**

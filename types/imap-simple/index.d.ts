@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import Imap = require("imap");
+import Imap = require('imap');
 
 export interface ImapSimpleOptions {
     /** Options to pass to node-imap constructor. */
@@ -56,7 +56,11 @@ export class ImapSimple extends NodeJS.EventEmitter {
     getBoxes(): Promise<Imap.MailBoxes>;
 
     /** Search for and retrieve mail in the currently open mailbox. */
-    search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
+    search(
+        searchCriteria: any[],
+        fetchOptions: Imap.FetchOptions,
+        callback: (err: Error, messages: Message[]) => void
+    ): void;
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions): Promise<Message[]>;
 
     /** Close the connection to the imap server. */

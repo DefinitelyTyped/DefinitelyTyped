@@ -1,2 +1,2 @@
-import { toFinite } from "lodash";
+import { toFinite } from 'lodash';
 export default toFinite;

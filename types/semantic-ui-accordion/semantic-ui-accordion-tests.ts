@@ -25,7 +25,7 @@ function test_accordion() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).accordion({
@@ -56,15 +56,15 @@ function test_accordion() {
             accordion: 'accordion',
             title: 'title',
             trigger: 'trigger',
-            content: 'content'
+            content: 'content',
         },
         className: {
             active: 'active',
-            animating: 'animating'
+            animating: 'animating',
         },
         error: {
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).accordion(); // $ExpectType JQuery<HTMLElement>
 

@@ -1,5 +1,5 @@
-import ChannelPool = require("./ChannelPool");
-import ConnectFailover = require("./ConnectFailover");
+import ChannelPool = require('./ChannelPool');
+import ConnectFailover = require('./ConnectFailover');
 
 declare class ChannelFactory extends ChannelPool {
     constructor(connectFailover: ConnectFailover);

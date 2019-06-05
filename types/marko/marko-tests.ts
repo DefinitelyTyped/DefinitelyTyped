@@ -16,9 +16,7 @@ const template: Template = require('template.marko');
 
 (document: Document) => {
     // $ExpectType RenderResult
-    template
-        .renderSync({ name: 'Marko' })
-        .appendTo(document.body);
+    template.renderSync({ name: 'Marko' }).appendTo(document.body);
 
     createServer((req, res) => {
         res.setHeader('content-type', 'text/html');
@@ -26,12 +24,10 @@ const template: Template = require('template.marko');
         template.render({ name: 'Marko' }, res);
     }).listen(8080);
 
-    template
-        .render({ $global: { flags: ['mobile'] } })
-        .then((result) => {
-            // $ExpectType RenderResult
-            result.appendTo(document.body);
-        });
+    template.render({ $global: { flags: ['mobile'] } }).then(result => {
+        // $ExpectType RenderResult
+        result.appendTo(document.body);
+    });
 
     template.render({}, (err: Error | null, result: RenderResult) => {
         // $ExpectType RenderResult
@@ -125,7 +121,7 @@ app.get('/', (req: express.Request, res: markoExpress.Response) => {
     res.marko(template, {
         name: 'Frank',
         count: 30,
-        colors: ['red', 'green', 'blue']
+        colors: ['red', 'green', 'blue'],
     });
 });
 

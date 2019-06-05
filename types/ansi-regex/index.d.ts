@@ -5,10 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ansiRegex {
-  interface Options {
-    /** Match only the first ANSI escape. */
-    onlyFirst?: boolean;
-  }
+    interface Options {
+        /** Match only the first ANSI escape. */
+        onlyFirst?: boolean;
+    }
 }
 
 declare function ansiRegex(options?: ansiRegex.Options): RegExp;

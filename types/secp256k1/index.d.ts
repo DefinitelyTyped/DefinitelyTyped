@@ -8,8 +8,13 @@
 /** Options for the `sign` function */
 export interface SignOptions {
     /** Nonce generator. By default it is rfc6979 */
-    noncefn?: (message: Buffer, privateKey: Buffer, algo: Buffer | null,
-               data: Buffer | null, attempt: number) => Buffer;
+    noncefn?: (
+        message: Buffer,
+        privateKey: Buffer,
+        algo: Buffer | null,
+        data: Buffer | null,
+        attempt: number
+    ) => Buffer;
 
     /**
      * Additional data for noncefn (RFC 6979 3.6) (32 bytes).
@@ -113,7 +118,11 @@ export function signatureImportLax(signature: Buffer): Buffer;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function sign(message: Buffer, privateKey: Buffer, options?: SignOptions): {signature: Buffer, recovery: number};
+export function sign(
+    message: Buffer,
+    privateKey: Buffer,
+    options?: SignOptions
+): { signature: Buffer; recovery: number };
 
 /**
  * Verify an ECDSA signature.

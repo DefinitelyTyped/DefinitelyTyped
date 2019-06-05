@@ -1,2 +1,2 @@
-import { zipWith } from "lodash";
+import { zipWith } from 'lodash';
 export default zipWith;

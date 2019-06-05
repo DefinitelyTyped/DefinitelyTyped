@@ -1,5 +1,3 @@
-
-
 import hash = require('object-hash');
 
 var hashed: string;
@@ -15,10 +13,10 @@ hashed = hash.MD5(obj);
 hashed = hash.keysMD5(obj);
 
 var options = {
-	algorithm: 'md5',
-	encoding: 'utf8',
-	excludeValues: true,
-	unorderedArrays: true
+    algorithm: 'md5',
+    encoding: 'utf8',
+    excludeValues: true,
+    unorderedArrays: true,
 };
 
 hashed = hash(obj, options);

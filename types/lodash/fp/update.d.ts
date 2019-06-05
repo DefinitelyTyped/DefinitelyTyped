@@ -1,2 +1,2 @@
-import { update } from "../fp";
+import { update } from '../fp';
 export = update;

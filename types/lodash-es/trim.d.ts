@@ -1,2 +1,2 @@
-import { trim } from "lodash";
+import { trim } from 'lodash';
 export default trim;

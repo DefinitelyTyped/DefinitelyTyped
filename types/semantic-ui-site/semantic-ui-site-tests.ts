@@ -27,22 +27,19 @@ function test_site() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).site({
-        modules: [
-            'module1',
-            'module2',
-        ],
+        modules: ['module1', 'module2'],
         siteNamespace: 'siteNamespace',
         namespaceStub: {
             cache: {},
             config: {},
             sections: {},
             section: {},
-            utilities: {}
-        }
+            utilities: {},
+        },
     });
     $(selector).site(); // $ExpectType JQuery<HTMLElement>
 

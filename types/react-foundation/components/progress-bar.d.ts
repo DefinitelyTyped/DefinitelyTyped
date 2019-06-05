@@ -25,8 +25,7 @@ export interface PaginationProps extends FlexboxPropTypes, React.HTMLAttributes<
  * @returns {Object}
  */
 export declare const ProgressMeter: React.StatelessComponent<ProgressMeterProps>;
-export interface ProgressMeterProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {
-}
+export interface ProgressMeterProps extends GeneralPropTypes, React.HTMLAttributes<HTMLDivElement> {}
 /**
  * Progress meter with text sub-component.
  *

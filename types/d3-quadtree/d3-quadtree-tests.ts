@@ -13,7 +13,9 @@ import * as d3Quadtree from 'd3-quadtree';
 // ---------------------------------------------------------------------------
 
 // custom type guard
-function isLeaf<T>(a: d3Quadtree.QuadtreeInternalNode<T> | d3Quadtree.QuadtreeLeaf<T>): a is d3Quadtree.QuadtreeLeaf<T> {
+function isLeaf<T>(
+    a: d3Quadtree.QuadtreeInternalNode<T> | d3Quadtree.QuadtreeLeaf<T>
+): a is d3Quadtree.QuadtreeLeaf<T> {
     return a.length === undefined;
 }
 
@@ -35,20 +37,13 @@ let testData: TestDatum[] = [
     { x: 15, y: 80 },
     { x: 50, y: 30 },
     { x: 35, y: 60 },
-    { x: 70, y: 20 }
+    { x: 70, y: 20 },
 ];
 
 let node: d3Quadtree.QuadtreeInternalNode<TestDatum> | d3Quadtree.QuadtreeLeaf<TestDatum>;
 let numberAccessor: (d: TestDatum) => number;
 
-const simpleTestData: Array<[number, number]> = [
-    [10, 20],
-    [30, 10],
-    [15, 80],
-    [50, 30],
-    [35, 60],
-    [70, 20]
-];
+const simpleTestData: Array<[number, number]> = [[10, 20], [30, 10], [15, 80], [50, 30], [35, 60], [70, 20]];
 
 // ---------------------------------------------------------------------------
 // Quadtree
@@ -113,13 +108,13 @@ quadtree = quadtree.cover(50, 90);
 
 quadtree = quadtree.add({ x: 35, y: 35 });
 // $ExpectError
-quadtree = quadtree.add({x: 35}); // fails, incompatible data type
+quadtree = quadtree.add({ x: 35 }); // fails, incompatible data type
 
 // addAll(...) ---------------------------------------------------------------
 
 quadtree = quadtree.addAll(testData);
 // $ExpectError
-quadtree = quadtree.addAll([{x: 35}, {x: 55, y: 13}]); // fails, incompatible data type
+quadtree = quadtree.addAll([{ x: 35 }, { x: 55, y: 13 }]); // fails, incompatible data type
 
 // remove(...) ---------------------------------------------------------------
 

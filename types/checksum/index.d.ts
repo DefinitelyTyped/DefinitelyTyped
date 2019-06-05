@@ -3,8 +3,6 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace checksum {
     /**
      * Options object for all functions

@@ -11,4 +11,4 @@ export interface I18nProviderProps {
     defaultRender?: ReactNode;
 }
 
-export default class I18nProvider extends Component<I18nProviderProps> { }
+export default class I18nProvider extends Component<I18nProviderProps> {}

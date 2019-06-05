@@ -1,9 +1,9 @@
-import readFile = require("fs-readfile-promise");
+import readFile = require('fs-readfile-promise');
 
 declare const path: string;
 declare const encoding: string;
 declare const nullable: null;
-declare const options: { encoding: string, flag: string };
+declare const options: { encoding: string; flag: string };
 
 async function testPathOnly() {
     return readFile(path);

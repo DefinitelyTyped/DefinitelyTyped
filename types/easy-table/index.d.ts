@@ -3,9 +3,7 @@
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare class EasyTable {
-
     /**
      * String to separate columns
      */
@@ -215,7 +213,7 @@ interface FormatObject {
 
 interface ColumnFormat<T> {
     name?: string;
-    printer?: CellPrinter<T>
+    printer?: CellPrinter<T>;
 }
 
 export = EasyTable;

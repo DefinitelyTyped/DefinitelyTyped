@@ -16,12 +16,13 @@ interface IBANStatic {
      */
     electronicFormat(iban: string): string;
 
-    /** 
+    /**
      * @summary Convert the passed BBAN to an IBAN for this country specification.
      * @param {string} countryCode The country of the BBAN.
      * @param {string} bban The BBAN to convert to IBAN.
      * @returns {string} The IBAN.
-     */ 
+     */
+
     fromBBAN(countryCode: string, bban: string): string;
 
     /**
@@ -39,7 +40,7 @@ interface IBANStatic {
      */
     isValidBBAN(countryCode: string, bban: string): boolean;
 
-    /** 
+    /**
      * @summary Returns the IBAN in a print format.
      * @param {string} iban The IBAN to convert.
      * @param {string} separator The separator to use between IBAN blocks, defaults to ' '.
@@ -58,5 +59,5 @@ interface IBANStatic {
 declare var IBAN: IBANStatic;
 
 declare module 'iban' {
-  export = IBAN;
+    export = IBAN;
 }

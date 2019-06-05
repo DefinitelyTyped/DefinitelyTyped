@@ -4,12 +4,12 @@ import { spacing } from '../theme';
 import { CommonProps } from '../types';
 
 interface ComponentProps {
-  /** The children to be rendered. */
-  children: ReactNode;
-  /** Component to wrap the label, recieves headingProps. */
-  Heading: ComponentType<any>;
-  /** Label to be displayed in the heading component. */
-  label: ReactNode;
+    /** The children to be rendered. */
+    children: ReactNode;
+    /** Component to wrap the label, recieves headingProps. */
+    Heading: ComponentType<any>;
+    /** Label to be displayed in the heading component. */
+    label: ReactNode;
 }
 export type GroupProps<OptionType> = CommonProps<OptionType> & ComponentProps;
 

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @static
      * @readonly
@@ -528,181 +527,181 @@ declare namespace pc {
      * @name pc.SEMANTIC_POSITION
      * @description Vertex attribute to be treated as a position.
      */
-    const SEMANTIC_POSITION = "POSITION";
+    const SEMANTIC_POSITION = 'POSITION';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_NORMAL
      * @description Vertex attribute to be treated as a normal.
      */
-    const SEMANTIC_NORMAL = "NORMAL";
+    const SEMANTIC_NORMAL = 'NORMAL';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TANGENT
      * @description Vertex attribute to be treated as a tangent.
      */
-    const SEMANTIC_TANGENT = "TANGENT";
+    const SEMANTIC_TANGENT = 'TANGENT';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_BLENDWEIGHT
      * @description Vertex attribute to be treated as skin blend weights.
      */
-    const SEMANTIC_BLENDWEIGHT = "BLENDWEIGHT";
+    const SEMANTIC_BLENDWEIGHT = 'BLENDWEIGHT';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_BLENDINDICES
      * @description Vertex attribute to be treated as skin blend indices.
      */
-    const SEMANTIC_BLENDINDICES = "BLENDINDICES";
+    const SEMANTIC_BLENDINDICES = 'BLENDINDICES';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_COLOR
      * @description Vertex attribute to be treated as a color.
      */
-    const SEMANTIC_COLOR = "COLOR";
+    const SEMANTIC_COLOR = 'COLOR';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD0
      * @description Vertex attribute to be treated as a texture coordinate (set 0).
      */
-    const SEMANTIC_TEXCOORD0 = "TEXCOORD0";
+    const SEMANTIC_TEXCOORD0 = 'TEXCOORD0';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD1
      * @description Vertex attribute to be treated as a texture coordinate (set 1).
      */
-    const SEMANTIC_TEXCOORD1 = "TEXCOORD1";
+    const SEMANTIC_TEXCOORD1 = 'TEXCOORD1';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD2
      * @description Vertex attribute to be treated as a texture coordinate (set 2).
      */
-    const SEMANTIC_TEXCOORD2 = "TEXCOORD2";
+    const SEMANTIC_TEXCOORD2 = 'TEXCOORD2';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD3
      * @description Vertex attribute to be treated as a texture coordinate (set 3).
      */
-    const SEMANTIC_TEXCOORD3 = "TEXCOORD3";
+    const SEMANTIC_TEXCOORD3 = 'TEXCOORD3';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD4
      * @description Vertex attribute to be treated as a texture coordinate (set 4).
      */
-    const SEMANTIC_TEXCOORD4 = "TEXCOORD4";
+    const SEMANTIC_TEXCOORD4 = 'TEXCOORD4';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD5
      * @description Vertex attribute to be treated as a texture coordinate (set 5).
      */
-    const SEMANTIC_TEXCOORD5 = "TEXCOORD5";
+    const SEMANTIC_TEXCOORD5 = 'TEXCOORD5';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD6
      * @description Vertex attribute to be treated as a texture coordinate (set 6).
      */
-    const SEMANTIC_TEXCOORD6 = "TEXCOORD6";
+    const SEMANTIC_TEXCOORD6 = 'TEXCOORD6';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_TEXCOORD7
      * @description Vertex attribute to be treated as a texture coordinate (set 7).
      */
-    const SEMANTIC_TEXCOORD7 = "TEXCOORD7";
+    const SEMANTIC_TEXCOORD7 = 'TEXCOORD7';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR0
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR0 = "ATTR0";
+    const SEMANTIC_ATTR0 = 'ATTR0';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR1
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR1 = "ATTR1";
+    const SEMANTIC_ATTR1 = 'ATTR1';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR2
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR2 = "ATTR2";
+    const SEMANTIC_ATTR2 = 'ATTR2';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR3
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR3 = "ATTR3";
+    const SEMANTIC_ATTR3 = 'ATTR3';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR4
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR4 = "ATTR4";
+    const SEMANTIC_ATTR4 = 'ATTR4';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR5
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR5 = "ATTR5";
+    const SEMANTIC_ATTR5 = 'ATTR5';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR6
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR6 = "ATTR6";
+    const SEMANTIC_ATTR6 = 'ATTR6';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR7
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR7 = "ATTR7";
+    const SEMANTIC_ATTR7 = 'ATTR7';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR8
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR8 = "ATTR8";
+    const SEMANTIC_ATTR8 = 'ATTR8';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR9
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR9 = "ATTR9";
+    const SEMANTIC_ATTR9 = 'ATTR9';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR10
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR10 = "ATTR10";
+    const SEMANTIC_ATTR10 = 'ATTR10';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR11
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR11 = "ATTR11";
+    const SEMANTIC_ATTR11 = 'ATTR11';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR12
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR12 = "ATTR12";
+    const SEMANTIC_ATTR12 = 'ATTR12';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR13
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR13 = "ATTR13";
+    const SEMANTIC_ATTR13 = 'ATTR13';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR14
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR14 = "ATTR14";
+    const SEMANTIC_ATTR14 = 'ATTR14';
     /**
      * @enum pc.SEMANTIC
      * @name pc.SEMANTIC_ATTR15
      * @description Vertex attribute with a user defined semantic.
      */
-    const SEMANTIC_ATTR15 = "ATTR15";
+    const SEMANTIC_ATTR15 = 'ATTR15';
 
     const SHADERTAG_MATERIAL = 1;
 

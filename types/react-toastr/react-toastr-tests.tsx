@@ -8,15 +8,11 @@ class Test extends React.Component {
 
     toastRef = (ref: ToastContainer) => {
         this.ref = ref;
-    }
+    };
 
     render() {
         return (
-            <ToastContainer
-                ref={this.toastRef}
-                toastMessageFactory={toastMessageFactory}
-                className="toast-top-right"
-            />
+            <ToastContainer ref={this.toastRef} toastMessageFactory={toastMessageFactory} className="toast-top-right" />
         );
     }
 }

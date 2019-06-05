@@ -1,22 +1,22 @@
-import * as React from "react";
-import Webcam = require("react-webcam");
+import * as React from 'react';
+import Webcam = require('react-webcam');
 
 export class ReactWebcamTest extends React.Component {
     private webcam: Webcam;
 
     setRef = (webcam: Webcam) => {
         this.webcam = webcam;
-    }
+    };
 
     capture = () => {
         const imageSrc = this.webcam.getScreenshot();
-    }
+    };
 
     render() {
         const videoConstraints = {
             width: 1280,
             height: 720,
-            facingMode: "user"
+            facingMode: 'user',
         };
 
         return (

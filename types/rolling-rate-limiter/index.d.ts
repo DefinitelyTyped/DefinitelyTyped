@@ -9,29 +9,29 @@ declare function RollingRateLimiter(options: RollingRateLimiter.InMemoryOptions)
 declare function RollingRateLimiter(options: RollingRateLimiter.WithRedisOptions): RollingRateLimiter.AsyncLimiter;
 
 declare namespace RollingRateLimiter {
-  interface GeneralOptions {
-    interval: number;
-    maxInInterval: number;
-    minDifference?: number;
-  }
+    interface GeneralOptions {
+        interval: number;
+        maxInInterval: number;
+        minDifference?: number;
+    }
 
-  interface WithRedisOptions extends GeneralOptions {
-    redis: CompatibleRedisClient;
-    namespace?: string;
-  }
+    interface WithRedisOptions extends GeneralOptions {
+        redis: CompatibleRedisClient;
+        namespace?: string;
+    }
 
-  interface CompatibleRedisClient {
-    multi: () => any;
-  }
+    interface CompatibleRedisClient {
+        multi: () => any;
+    }
 
-  type InMemoryOptions = GeneralOptions;
+    type InMemoryOptions = GeneralOptions;
 
-  type AsyncLimiterWithToken = (token: string, callback: AsyncLimiterCallback) => void;
-  type AsyncLimiterWithoutToken = (callback: AsyncLimiterCallback) => void;
-  type AsyncLimiterCallback = (err: any, timeLeft: number, actionsLeft: number) => void;
-  type AsyncLimiter = AsyncLimiterWithToken & AsyncLimiterWithToken;
+    type AsyncLimiterWithToken = (token: string, callback: AsyncLimiterCallback) => void;
+    type AsyncLimiterWithoutToken = (callback: AsyncLimiterCallback) => void;
+    type AsyncLimiterCallback = (err: any, timeLeft: number, actionsLeft: number) => void;
+    type AsyncLimiter = AsyncLimiterWithToken & AsyncLimiterWithToken;
 
-  type SyncLimiter = (token?: string) => number;
+    type SyncLimiter = (token?: string) => number;
 
-  type SyncOrAsyncLimiter = SyncLimiter & AsyncLimiter;
+    type SyncOrAsyncLimiter = SyncLimiter & AsyncLimiter;
 }

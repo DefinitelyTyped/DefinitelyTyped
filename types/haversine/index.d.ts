@@ -23,11 +23,11 @@ declare namespace haversine {
 
     interface GeoJSON {
         geometry: {
-            coordinates: LatLonTuple
+            coordinates: LatLonTuple;
         };
     }
 
-    type Coordinate = (CoordinateLongitudeLatitude | CoordinateLonLat | CoordinateLatLng | LatLonTuple | GeoJSON);
+    type Coordinate = CoordinateLongitudeLatitude | CoordinateLonLat | CoordinateLatLng | LatLonTuple | GeoJSON;
 
     interface Options {
         /**
@@ -48,10 +48,6 @@ declare namespace haversine {
 /**
  * Determines the great-circle distance between two points on a sphere given their longitudes and latitudes
  */
-declare function haversine(
-    start: haversine.Coordinate,
-    end: haversine.Coordinate,
-    options?: haversine.Options
-): number;
+declare function haversine(start: haversine.Coordinate, end: haversine.Coordinate, options?: haversine.Options): number;
 
 export = haversine;

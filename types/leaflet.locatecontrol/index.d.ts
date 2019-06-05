@@ -9,10 +9,10 @@ import * as L from 'leaflet';
 declare module 'leaflet' {
     namespace Control {
         class Locate extends Control {
-          onAdd(map: Map): HTMLElement;
-          start(): void;
-          stop(): void;
-          setView(): void;
+            onAdd(map: Map): HTMLElement;
+            start(): void;
+            stop(): void;
+            setView(): void;
         }
         interface LocateOptions {
             position?: string;

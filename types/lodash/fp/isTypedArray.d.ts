@@ -1,2 +1,2 @@
-import { isTypedArray } from "../fp";
+import { isTypedArray } from '../fp';
 export = isTypedArray;

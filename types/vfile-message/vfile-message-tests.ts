@@ -3,21 +3,21 @@ import vfileMessage = require('vfile-message');
 const message = vfileMessage('Error!');
 vfileMessage(new Error());
 vfileMessage('Error!', {
-  type: 'random node'
+    type: 'random node',
 });
 vfileMessage('Error!', {
-  start: {
-    line: 1,
-    column: 1
-  },
-  end: {
-    line: 1,
-    column: 1
-  }
+    start: {
+        line: 1,
+        column: 1,
+    },
+    end: {
+        line: 1,
+        column: 1,
+    },
 });
 vfileMessage('Error!', {
-  line: 1,
-  column: 1
+    line: 1,
+    column: 1,
 });
 vfileMessage('Error!', undefined, 'test');
 

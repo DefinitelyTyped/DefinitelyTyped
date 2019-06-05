@@ -3,6 +3,5 @@
 // Definitions by: Anton Karsten <https://github.com/antonkarsten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function resolveResponse(response: any): any;
 export = resolveResponse;

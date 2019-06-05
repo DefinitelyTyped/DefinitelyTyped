@@ -109,7 +109,12 @@ declare module '@ember/test-helpers/dom/trigger-key-event' {
         metaKey?: boolean;
     }
 
-    export default function(target: Target, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
+    export default function(
+        target: Target,
+        eventType: KeyEvent,
+        key: number | string,
+        modifiers?: KeyModifiers
+    ): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/fill-in' {
@@ -121,7 +126,7 @@ declare module '@ember/test-helpers/dom/fill-in' {
 declare module '@ember/test-helpers/dom/type-in' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target, text: string, options?: {delay: number}): Promise<void>;
+    export default function(target: Target, text: string, options?: { delay: number }): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/find' {
@@ -218,7 +223,7 @@ declare module '@ember/test-helpers/teardown-application-context' {
 declare module '@ember/test-helpers/validate-error-handler' {
     import Error from '@ember/error';
 
-    export default function(callback?: (error: Error) => void): { isValid: boolean, message: string };
+    export default function(callback?: (error: Error) => void): { isValid: boolean; message: string };
 }
 
 declare module '@ember/test-helpers/application' {

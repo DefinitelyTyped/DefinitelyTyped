@@ -5,8 +5,8 @@
 // TypeScript Version: 2.1
 
 // opentracing requires typescript version ^2.1
-import * as opentracing from "opentracing";
-import * as prometheus from "prom-client";
+import * as opentracing from 'opentracing';
+import * as prometheus from 'prom-client';
 
 // Counter tracks the number of times an event has occurred
 export interface Counter {
@@ -73,15 +73,9 @@ export interface TracingOptions {
     tags?: any;
 }
 
-export function initTracer(
-    tracingConfig: TracingConfig,
-    tracingOptions: TracingOptions
-): opentracing.Tracer;
+export function initTracer(tracingConfig: TracingConfig, tracingOptions: TracingOptions): opentracing.Tracer;
 
-export function initTracerFromEnv(
-    tracingConfig: TracingConfig,
-    tracingOptions: TracingOptions
-): opentracing.Tracer;
+export function initTracerFromEnv(tracingConfig: TracingConfig, tracingOptions: TracingOptions): opentracing.Tracer;
 
 export class PrometheusMetricsFactory {
     constructor(client: typeof prometheus, serviceName: string);

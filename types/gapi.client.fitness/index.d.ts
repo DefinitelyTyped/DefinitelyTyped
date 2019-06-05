@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Fitness v1 */
-    function load(name: "fitness", version: "v1"): PromiseLike<void>;
-    function load(name: "fitness", version: "v1", callback: () => any): void;
+    function load(name: 'fitness', version: 'v1'): PromiseLike<void>;
+    function load(name: 'fitness', version: 'v1', callback: () => any): void;
 
     const users: fitness.UsersResource;
 

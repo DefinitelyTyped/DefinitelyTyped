@@ -61,14 +61,17 @@ declare namespace browser.alarms {
      *     Users should never provide both 'when' and 'delayInMinutes'. If 'periodInMinutes' is provided, then the
      *     alarm recurs repeatedly after that many minutes.
      */
-    function create(name: string, alarmInfo: {
-        /** Time when the alarm is scheduled to first fire, in milliseconds past the epoch. */
-        when?: number;
-        /** Number of minutes from the current time after which the alarm should first fire. */
-        delayInMinutes?: number;
-        /** Number of minutes after which the alarm should recur repeatedly. */
-        periodInMinutes?: number;
-    }): void;
+    function create(
+        name: string,
+        alarmInfo: {
+            /** Time when the alarm is scheduled to first fire, in milliseconds past the epoch. */
+            when?: number;
+            /** Number of minutes from the current time after which the alarm should first fire. */
+            delayInMinutes?: number;
+            /** Number of minutes after which the alarm should recur repeatedly. */
+            periodInMinutes?: number;
+        }
+    ): void;
 
     /**
      * Retrieves details about the specified alarm.
@@ -115,13 +118,15 @@ declare namespace browser._manifest {
             [key: number]: ExtensionFileUrl;
         };
         incognito?: _WebExtensionManifestIncognito;
-        background?: {
-            page: ExtensionURL;
-            persistent?: PersistentBackgroundProperty;
-        } | {
-            scripts: ExtensionURL[];
-            persistent?: PersistentBackgroundProperty;
-        };
+        background?:
+            | {
+                  page: ExtensionURL;
+                  persistent?: PersistentBackgroundProperty;
+              }
+            | {
+                  scripts: ExtensionURL[];
+                  persistent?: PersistentBackgroundProperty;
+              };
         options_ui?: {
             page: ExtensionURL;
             browser_style?: boolean;
@@ -212,7 +217,7 @@ declare namespace browser._manifest {
                     additionalProperties?: string;
                 };
                 description?: string;
-            }
+            };
         };
         devtools_page?: ExtensionURL;
         omnibox?: {
@@ -301,9 +306,11 @@ declare namespace browser._manifest {
         languages: {
             [key: string]: {
                 chrome_resources: {
-                    [key: string]: ExtensionURL | {
-                        [key: string]: ExtensionURL;
-                    };
+                    [key: string]:
+                        | ExtensionURL
+                        | {
+                              [key: string]: ExtensionURL;
+                          };
                 };
                 version: string;
             };
@@ -417,13 +424,17 @@ declare namespace browser._manifest {
         run_at?: extensionTypes.RunAt;
     }
 
-    type IconPath = {
-        [key: number]: ExtensionFileUrl;
-    } | ExtensionFileUrl;
+    type IconPath =
+        | {
+              [key: number]: ExtensionFileUrl;
+          }
+        | ExtensionFileUrl;
 
-    type IconImageData = {
-        [key: number]: ImageData;
-    } | ImageData;
+    type IconImageData =
+        | {
+              [key: number]: ImageData;
+          }
+        | ImageData;
 
     type ImageData = any;
 
@@ -434,18 +445,20 @@ declare namespace browser._manifest {
     type PersistentBackgroundProperty = boolean;
 
     /** Represents a native manifest file */
-    type NativeManifest = {
-        name: string;
-        description: string;
-        path: string;
-        type: "pkcs11" | "stdio";
-        allowed_extensions: ExtensionID[];
-    } | {
-        name: ExtensionID;
-        description: string;
-        data: { [key: string]: any };
-        type: "storage";
-    };
+    type NativeManifest =
+        | {
+              name: string;
+              description: string;
+              path: string;
+              type: 'pkcs11' | 'stdio';
+              allowed_extensions: ExtensionID[];
+          }
+        | {
+              name: ExtensionID;
+              description: string;
+              data: { [key: string]: any };
+              type: 'storage';
+          };
 
     type ThemeColor = string | [number, number, number] | [number, number, number, number];
 
@@ -610,120 +623,112 @@ declare namespace browser._manifest {
     type KeyName = string;
 
     type _OptionalPermission =
-        "browserSettings"
-        | "cookies"
-        | "downloads"
-        | "downloads.open"
-        | "clipboardRead"
-        | "clipboardWrite"
-        | "geolocation"
-        | "idle"
-        | "notifications"
-        | "topSites"
-        | "webNavigation"
-        | "webRequest"
-        | "webRequestBlocking"
-        | "bookmarks"
-        | "find"
-        | "history"
-        | "menus.overrideContext"
-        | "search"
-        | "activeTab"
-        | "tabs"
-        | "tabHide";
+        | 'browserSettings'
+        | 'cookies'
+        | 'downloads'
+        | 'downloads.open'
+        | 'clipboardRead'
+        | 'clipboardWrite'
+        | 'geolocation'
+        | 'idle'
+        | 'notifications'
+        | 'topSites'
+        | 'webNavigation'
+        | 'webRequest'
+        | 'webRequestBlocking'
+        | 'bookmarks'
+        | 'find'
+        | 'history'
+        | 'menus.overrideContext'
+        | 'search'
+        | 'activeTab'
+        | 'tabs'
+        | 'tabHide';
 
     type _Permission =
-        "contextualIdentities"
-        | "dns"
-        | "identity"
-        | "management"
-        | "alarms"
-        | "mozillaAddons"
-        | "storage"
-        | "unlimitedStorage"
-        | "privacy"
-        | "proxy"
-        | "nativeMessaging"
-        | "telemetry"
-        | "theme"
-        | "browsingData"
-        | "devtools"
-        | "geckoProfiler"
-        | "menus"
-        | "contextMenus"
-        | "pkcs11"
-        | "sessions";
+        | 'contextualIdentities'
+        | 'dns'
+        | 'identity'
+        | 'management'
+        | 'alarms'
+        | 'mozillaAddons'
+        | 'storage'
+        | 'unlimitedStorage'
+        | 'privacy'
+        | 'proxy'
+        | 'nativeMessaging'
+        | 'telemetry'
+        | 'theme'
+        | 'browsingData'
+        | 'devtools'
+        | 'geckoProfiler'
+        | 'menus'
+        | 'contextMenus'
+        | 'pkcs11'
+        | 'sessions';
 
-    type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
+    type _WebExtensionManifestIncognito = 'not_allowed' | 'spanning';
 
     /** Defines the location the browserAction will appear by default. The default location is navbar. */
-    type _WebExtensionManifestBrowserActionDefaultArea =
-        "navbar"
-        | "menupanel"
-        | "tabstrip"
-        | "personaltoolbar";
+    type _WebExtensionManifestBrowserActionDefaultArea = 'navbar' | 'menupanel' | 'tabstrip' | 'personaltoolbar';
 
     /** The type of param can be either "purpose" or "pref". */
-    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
+    type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = 'purpose' | 'pref';
 
     /** The context that initiates a search, required if condition is "purpose". */
     type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
-        "contextmenu"
-        | "searchbar"
-        | "homepage"
-        | "keyword"
-        | "newtab";
+        | 'contextmenu'
+        | 'searchbar'
+        | 'homepage'
+        | 'keyword'
+        | 'newtab';
 
     type _ProtocolHandlerProtocol =
-        "bitcoin"
-        | "dat"
-        | "dweb"
-        | "geo"
-        | "gopher"
-        | "im"
-        | "ipfs"
-        | "ipns"
-        | "irc"
-        | "ircs"
-        | "magnet"
-        | "mailto"
-        | "mms"
-        | "news"
-        | "nntp"
-        | "sip"
-        | "sms"
-        | "smsto"
-        | "ssb"
-        | "ssh"
-        | "tel"
-        | "urn"
-        | "webcal"
-        | "wtai"
-        | "xmpp";
+        | 'bitcoin'
+        | 'dat'
+        | 'dweb'
+        | 'geo'
+        | 'gopher'
+        | 'im'
+        | 'ipfs'
+        | 'ipns'
+        | 'irc'
+        | 'ircs'
+        | 'magnet'
+        | 'mailto'
+        | 'mms'
+        | 'news'
+        | 'nntp'
+        | 'sip'
+        | 'sms'
+        | 'smsto'
+        | 'ssb'
+        | 'ssh'
+        | 'tel'
+        | 'urn'
+        | 'webcal'
+        | 'wtai'
+        | 'xmpp';
 
-    type _MatchPattern = "<all_urls>";
+    type _MatchPattern = '<all_urls>';
 
     type _ThemeTypeAdditionalBackgroundsAlignment =
-        "bottom"
-        | "center"
-        | "left"
-        | "right"
-        | "top"
-        | "center bottom"
-        | "center center"
-        | "center top"
-        | "left bottom"
-        | "left center"
-        | "left top"
-        | "right bottom"
-        | "right center"
-        | "right top";
+        | 'bottom'
+        | 'center'
+        | 'left'
+        | 'right'
+        | 'top'
+        | 'center bottom'
+        | 'center center'
+        | 'center top'
+        | 'left bottom'
+        | 'left center'
+        | 'left top'
+        | 'right bottom'
+        | 'right center'
+        | 'right top';
 
-    type _ThemeTypeAdditionalBackgroundsTiling =
-        "no-repeat"
-        | "repeat"
-        | "repeat-x"
-        | "repeat-y";
+    type _ThemeTypeAdditionalBackgroundsTiling = 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
 }
 
 /**
@@ -736,13 +741,10 @@ declare namespace browser._manifest {
 declare namespace browser.browserSettings {
     /* browserSettings types */
     /** How images should be animated in the browser. */
-    type ImageAnimationBehavior =
-        "normal"
-        | "none"
-        | "once";
+    type ImageAnimationBehavior = 'normal' | 'none' | 'once';
 
     /** After which mouse event context menus should popup. */
-    type ContextMenuMouseEvent = "mouseup" | "mousedown";
+    type ContextMenuMouseEvent = 'mouseup' | 'mousedown';
 
     /* browserSettings properties */
     /** Allows or disallows pop-up windows from opening in response to user events. */
@@ -810,7 +812,7 @@ declare namespace browser.clipboard {
     type ArrayBuffer = any;
 
     /** The type of imageData. */
-    type _SetImageData = "jpeg" | "png";
+    type _SetImageData = 'jpeg' | 'png';
 
     /* clipboard functions */
     /**
@@ -920,14 +922,17 @@ declare namespace browser.contextualIdentities {
      * @param cookieStoreId The ID of the contextual identity cookie store.
      * @param details Details about the contextual identity being created.
      */
-    function update(cookieStoreId: string, details: {
-        /** The name of the contextual identity. */
-        name?: string;
-        /** The color of the contextual identity. */
-        color?: string;
-        /** The icon of the contextual identity. */
-        icon?: string;
-    }): Promise<ContextualIdentity>;
+    function update(
+        cookieStoreId: string,
+        details: {
+            /** The name of the contextual identity. */
+            name?: string;
+            /** The color of the contextual identity. */
+            color?: string;
+            /** The icon of the contextual identity. */
+            icon?: string;
+        }
+    ): Promise<ContextualIdentity>;
 
     /**
      * Deletes a contetual identity by its cookie Store ID.
@@ -937,22 +942,28 @@ declare namespace browser.contextualIdentities {
 
     /* contextualIdentities events */
     /** Fired when a container is updated. */
-    const onUpdated: WebExtEvent<(changeInfo: {
-        /** Contextual identity that has been updated */
-        contextualIdentity: ContextualIdentity;
-    }) => void>;
+    const onUpdated: WebExtEvent<
+        (changeInfo: {
+            /** Contextual identity that has been updated */
+            contextualIdentity: ContextualIdentity;
+        }) => void
+    >;
 
     /** Fired when a new container is created. */
-    const onCreated: WebExtEvent<(changeInfo: {
-        /** Contextual identity that has been created */
-        contextualIdentity: ContextualIdentity;
-    }) => void>;
+    const onCreated: WebExtEvent<
+        (changeInfo: {
+            /** Contextual identity that has been created */
+            contextualIdentity: ContextualIdentity;
+        }) => void
+    >;
 
     /** Fired when a container is removed. */
-    const onRemoved: WebExtEvent<(changeInfo: {
-        /** Contextual identity that has been removed */
-        contextualIdentity: ContextualIdentity;
-    }) => void>;
+    const onRemoved: WebExtEvent<
+        (changeInfo: {
+            /** Contextual identity that has been removed */
+            contextualIdentity: ContextualIdentity;
+        }) => void
+    >;
 }
 
 /**
@@ -969,10 +980,7 @@ declare namespace browser.cookies {
      * corresponds to a cookie set without a 'SameSite' attribute, 'lax' to 'SameSite=Lax', and 'strict' to
      * 'SameSite=Strict'.
      */
-    type SameSiteStatus =
-        "no_restriction"
-        | "lax"
-        | "strict";
+    type SameSiteStatus = 'no_restriction' | 'lax' | 'strict';
 
     /** Represents information about an HTTP cookie. */
     interface Cookie {
@@ -1030,12 +1038,7 @@ declare namespace browser.cookies {
      * will be "evicted". If a cookie was automatically removed due to a "set" call that overwrote it, "cause" will be
      * "overwrite". Plan your response accordingly.
      */
-    type OnChangedCause =
-        "evicted"
-        | "expired"
-        | "explicit"
-        | "expired_overwrite"
-        | "overwrite";
+    type OnChangedCause = 'evicted' | 'expired' | 'explicit' | 'expired_overwrite' | 'overwrite';
 
     /* cookies functions */
     /**
@@ -1160,16 +1163,19 @@ declare namespace browser.cookies {
          * enabled.
          */
         firstPartyDomain?: string;
-    }): Promise<{
-        /** The URL associated with the cookie that's been removed. */
-        url: string;
-        /** The name of the cookie that's been removed. */
-        name: string;
-        /** The ID of the cookie store from which the cookie was removed. */
-        storeId: string;
-        /** The first-party domain associated with the cookie that's been removed. */
-        firstPartyDomain: string;
-    } | undefined>;
+    }): Promise<
+        | {
+              /** The URL associated with the cookie that's been removed. */
+              url: string;
+              /** The name of the cookie that's been removed. */
+              name: string;
+              /** The ID of the cookie store from which the cookie was removed. */
+              storeId: string;
+              /** The first-party domain associated with the cookie that's been removed. */
+              firstPartyDomain: string;
+          }
+        | undefined
+    >;
 
     /** Lists all existing cookie stores. */
     function getAllCookieStores(): Promise<CookieStore[]>;
@@ -1181,14 +1187,16 @@ declare namespace browser.cookies {
      * with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second
      * notification with "cause" "explicit".
      */
-    const onChanged: WebExtEvent<(changeInfo: {
-        /** True if a cookie was removed. */
-        removed: boolean;
-        /** Information about the cookie that was set or removed. */
-        cookie: Cookie;
-        /** The underlying reason behind the cookie's change. */
-        cause: OnChangedCause;
-    }) => void>;
+    const onChanged: WebExtEvent<
+        (changeInfo: {
+            /** True if a cookie was removed. */
+            removed: boolean;
+            /** Information about the cookie that was set or removed. */
+            cookie: Cookie;
+            /** The underlying reason behind the cookie's change. */
+            cause: OnChangedCause;
+        }) => void
+    >;
 }
 
 /**
@@ -1215,16 +1223,16 @@ declare namespace browser.dns {
     type ResolveFlags = _ResolveFlags[];
 
     type _ResolveFlags =
-        "allow_name_collisions"
-        | "bypass_cache"
-        | "canonical_name"
-        | "disable_ipv4"
-        | "disable_ipv6"
-        | "disable_trr"
-        | "offline"
-        | "priority_low"
-        | "priority_medium"
-        | "speculate";
+        | 'allow_name_collisions'
+        | 'bypass_cache'
+        | 'canonical_name'
+        | 'disable_ipv4'
+        | 'disable_ipv6'
+        | 'disable_trr'
+        | 'offline'
+        | 'priority_low'
+        | 'priority_medium'
+        | 'speculate';
 
     /* dns functions */
     /** Resolves a hostname to a DNS record. */
@@ -1238,36 +1246,33 @@ declare namespace browser.dns {
  */
 declare namespace browser.downloads {
     /* downloads types */
-    type FilenameConflictAction =
-        "uniquify"
-        | "overwrite"
-        | "prompt";
+    type FilenameConflictAction = 'uniquify' | 'overwrite' | 'prompt';
 
     type InterruptReason =
-        "FILE_FAILED"
-        | "FILE_ACCESS_DENIED"
-        | "FILE_NO_SPACE"
-        | "FILE_NAME_TOO_LONG"
-        | "FILE_TOO_LARGE"
-        | "FILE_VIRUS_INFECTED"
-        | "FILE_TRANSIENT_ERROR"
-        | "FILE_BLOCKED"
-        | "FILE_SECURITY_CHECK_FAILED"
-        | "FILE_TOO_SHORT"
-        | "NETWORK_FAILED"
-        | "NETWORK_TIMEOUT"
-        | "NETWORK_DISCONNECTED"
-        | "NETWORK_SERVER_DOWN"
-        | "NETWORK_INVALID_REQUEST"
-        | "SERVER_FAILED"
-        | "SERVER_NO_RANGE"
-        | "SERVER_BAD_CONTENT"
-        | "SERVER_UNAUTHORIZED"
-        | "SERVER_CERT_PROBLEM"
-        | "SERVER_FORBIDDEN"
-        | "USER_CANCELED"
-        | "USER_SHUTDOWN"
-        | "CRASH";
+        | 'FILE_FAILED'
+        | 'FILE_ACCESS_DENIED'
+        | 'FILE_NO_SPACE'
+        | 'FILE_NAME_TOO_LONG'
+        | 'FILE_TOO_LARGE'
+        | 'FILE_VIRUS_INFECTED'
+        | 'FILE_TRANSIENT_ERROR'
+        | 'FILE_BLOCKED'
+        | 'FILE_SECURITY_CHECK_FAILED'
+        | 'FILE_TOO_SHORT'
+        | 'NETWORK_FAILED'
+        | 'NETWORK_TIMEOUT'
+        | 'NETWORK_DISCONNECTED'
+        | 'NETWORK_SERVER_DOWN'
+        | 'NETWORK_INVALID_REQUEST'
+        | 'SERVER_FAILED'
+        | 'SERVER_NO_RANGE'
+        | 'SERVER_BAD_CONTENT'
+        | 'SERVER_UNAUTHORIZED'
+        | 'SERVER_CERT_PROBLEM'
+        | 'SERVER_FORBIDDEN'
+        | 'USER_CANCELED'
+        | 'USER_SHUTDOWN'
+        | 'CRASH';
 
     /**
      * *file*:
@@ -1283,15 +1288,7 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of DangerTypes may change.
      */
-    type DangerType =
-        "file"
-        | "url"
-        | "content"
-        | "uncommon"
-        | "host"
-        | "unwanted"
-        | "safe"
-        | "accepted";
+    type DangerType = 'file' | 'url' | 'content' | 'uncommon' | 'host' | 'unwanted' | 'safe' | 'accepted';
 
     /**
      * *in_progress*:
@@ -1303,10 +1300,7 @@ declare namespace browser.downloads {
      *
      * These string constants will never change, however the set of States may change.
      */
-    type State =
-        "in_progress"
-        | "interrupted"
-        | "complete";
+    type State = 'in_progress' | 'interrupted' | 'complete';
 
     interface DownloadItem {
         /** An identifier that is persistent across browser sessions. */
@@ -1429,7 +1423,7 @@ declare namespace browser.downloads {
     }
 
     /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-    type _DownloadMethod = "GET" | "POST";
+    type _DownloadMethod = 'GET' | 'POST';
 
     /* downloads functions */
     /**
@@ -1508,13 +1502,16 @@ declare namespace browser.downloads {
      * icon cannot be determined, browser.extension.lastError will contain an error message.
      * @param downloadId The identifier for the download.
      */
-    function getFileIcon(downloadId: number, options?: {
-        /**
-         * The size of the icon. The returned icon will be square with dimensions size * size pixels. The default size
-         * for the icon is 32x32 pixels.
-         */
-        size?: number;
-    }): Promise<string>;
+    function getFileIcon(
+        downloadId: number,
+        options?: {
+            /**
+             * The size of the icon. The returned icon will be square with dimensions size * size pixels. The default size
+             * for the icon is 32x32 pixels.
+             */
+            size?: number;
+        }
+    ): Promise<string>;
 
     /** Open the downloaded file. */
     function open(downloadId: number): Promise<void>;
@@ -1559,34 +1556,36 @@ declare namespace browser.downloads {
      * When any of a DownloadItem's properties except `bytesReceived` changes, this event fires with the `downloadId`
      * and an object containing the properties that changed.
      */
-    const onChanged: WebExtEvent<(downloadDelta: {
-        /** The `id` of the DownloadItem that changed. */
-        id: number;
-        /** Describes a change in a DownloadItem's `url`. */
-        url?: StringDelta;
-        /** Describes a change in a DownloadItem's `filename`. */
-        filename?: StringDelta;
-        /** Describes a change in a DownloadItem's `danger`. */
-        danger?: StringDelta;
-        /** Describes a change in a DownloadItem's `mime`. */
-        mime?: StringDelta;
-        /** Describes a change in a DownloadItem's `startTime`. */
-        startTime?: StringDelta;
-        /** Describes a change in a DownloadItem's `endTime`. */
-        endTime?: StringDelta;
-        /** Describes a change in a DownloadItem's `state`. */
-        state?: StringDelta;
-        canResume?: BooleanDelta;
-        /** Describes a change in a DownloadItem's `paused`. */
-        paused?: BooleanDelta;
-        /** Describes a change in a DownloadItem's `error`. */
-        error?: StringDelta;
-        /** Describes a change in a DownloadItem's `totalBytes`. */
-        totalBytes?: DoubleDelta;
-        /** Describes a change in a DownloadItem's `fileSize`. */
-        fileSize?: DoubleDelta;
-        exists?: BooleanDelta;
-    }) => void>;
+    const onChanged: WebExtEvent<
+        (downloadDelta: {
+            /** The `id` of the DownloadItem that changed. */
+            id: number;
+            /** Describes a change in a DownloadItem's `url`. */
+            url?: StringDelta;
+            /** Describes a change in a DownloadItem's `filename`. */
+            filename?: StringDelta;
+            /** Describes a change in a DownloadItem's `danger`. */
+            danger?: StringDelta;
+            /** Describes a change in a DownloadItem's `mime`. */
+            mime?: StringDelta;
+            /** Describes a change in a DownloadItem's `startTime`. */
+            startTime?: StringDelta;
+            /** Describes a change in a DownloadItem's `endTime`. */
+            endTime?: StringDelta;
+            /** Describes a change in a DownloadItem's `state`. */
+            state?: StringDelta;
+            canResume?: BooleanDelta;
+            /** Describes a change in a DownloadItem's `paused`. */
+            paused?: BooleanDelta;
+            /** Describes a change in a DownloadItem's `error`. */
+            error?: StringDelta;
+            /** Describes a change in a DownloadItem's `totalBytes`. */
+            totalBytes?: DoubleDelta;
+            /** Describes a change in a DownloadItem's `fileSize`. */
+            fileSize?: DoubleDelta;
+            exists?: BooleanDelta;
+        }) => void
+    >;
 }
 
 /**
@@ -1768,17 +1767,11 @@ declare namespace browser.experiments {
 
     type APIEvents = APIEvent[];
 
-    type APIEvent = "startup";
+    type APIEvent = 'startup';
 
-    type APIParentScope =
-        "addon_parent"
-        | "content_parent"
-        | "devtools_parent";
+    type APIParentScope = 'addon_parent' | 'content_parent' | 'devtools_parent';
 
-    type APIChildScope =
-        "addon_child"
-        | "content_child"
-        | "devtools_child";
+    type APIChildScope = 'addon_child' | 'content_child' | 'devtools_child';
 }
 
 /**
@@ -1789,20 +1782,19 @@ declare namespace browser.experiments {
 declare namespace browser.extension {
     /* extension types */
     /** The type of extension view. */
-    type ViewType =
-        "tab"
-        | "popup"
-        | "sidebar";
+    type ViewType = 'tab' | 'popup' | 'sidebar';
 
     /* extension properties */
     /**
      * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has
      * occured lastError will be `undefined`.
      */
-    const lastError: {
-        /** Description of the error that has taken place. */
-        message: string;
-    } | undefined;
+    const lastError:
+        | {
+              /** Description of the error that has taken place. */
+              message: string;
+          }
+        | undefined;
 
     /**
      * True for content scripts running inside incognito tabs, and for extension pages running inside an incognito
@@ -1868,7 +1860,9 @@ declare namespace browser.extension {
      *     the same document, then only one may send a response.
      * @deprecated Please use `runtime.onMessage`.
      */
-    const onRequest: WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void> | undefined;
+    const onRequest:
+        | WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
+        | undefined;
 
     /**
      * Fired when a request is sent from another extension.
@@ -1877,7 +1871,9 @@ declare namespace browser.extension {
      *     or undefined if there is no response.
      * @deprecated Please use `runtime.onMessageExternal`.
      */
-    const onRequestExternal: WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void> | undefined;
+    const onRequestExternal:
+        | WebExtEvent<(request: any, sender: runtime.MessageSender, sendResponse: (response?: any) => void) => void>
+        | undefined;
 }
 
 /**
@@ -1888,7 +1884,7 @@ declare namespace browser.extension {
 declare namespace browser.extensionTypes {
     /* extensionTypes types */
     /** The format of an image. */
-    type ImageFormat = "jpeg" | "png";
+    type ImageFormat = 'jpeg' | 'png';
 
     /** Details about the format and quality of an image. */
     interface ImageDetails {
@@ -1903,13 +1899,10 @@ declare namespace browser.extensionTypes {
     }
 
     /** The soonest that the JavaScript or CSS will be injected into the tab. */
-    type RunAt =
-        "document_start"
-        | "document_end"
-        | "document_idle";
+    type RunAt = 'document_start' | 'document_end' | 'document_idle';
 
     /** The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet. */
-    type CSSOrigin = "user" | "author";
+    type CSSOrigin = 'user' | 'author';
 
     /**
      * Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be
@@ -1945,19 +1938,20 @@ declare namespace browser.extensionTypes {
         cssOrigin?: CSSOrigin;
     }
 
-    type Date = string | number | object/*Date*/;
+    type Date = string | number | object /*Date*/;
 
-    type ExtensionFileOrCode = {
-        file: _manifest.ExtensionURL;
-    } | {
-        code: string;
-    };
+    type ExtensionFileOrCode =
+        | {
+              file: _manifest.ExtensionURL;
+          }
+        | {
+              code: string;
+          };
 
     /** A plain JSON value */
     type PlainJSONValue = null | string | number | boolean | _PlainJSONArray | _PlainJSONObject;
 
-    interface _PlainJSONArray extends Array<PlainJSONValue> {
-    }
+    interface _PlainJSONArray extends Array<PlainJSONValue> {}
 
     interface _PlainJSONObject {
         [key: string]: PlainJSONValue;
@@ -2004,7 +1998,9 @@ declare namespace browser.i18n {
      * Detects the language of the provided text using CLD.
      * @param text User input string to be translated.
      */
-    function detectLanguage(text: string): Promise<{
+    function detectLanguage(
+        text: string
+    ): Promise<{
         /** CLD detected language reliability */
         isReliable: boolean;
         /** array of detectedLanguage */
@@ -2063,16 +2059,16 @@ declare namespace browser.identity {
      */
     function removeCachedAuthToken(details: {
         token: string;
-    }): Promise<{
-        email: string;
-        id: string;
-    } | undefined>;
+    }): Promise<
+        | {
+              email: string;
+              id: string;
+          }
+        | undefined
+    >;
 
     /** Starts an auth flow at the specified URL. */
-    function launchWebAuthFlow(details: {
-        url: _manifest.HttpURL;
-        interactive?: boolean;
-    }): Promise<string>;
+    function launchWebAuthFlow(details: { url: _manifest.HttpURL; interactive?: boolean }): Promise<string>;
 
     /**
      * Generates a redirect URL to be used in |launchWebAuthFlow|.
@@ -2097,7 +2093,7 @@ declare namespace browser.identity {
  */
 declare namespace browser.idle {
     /* idle types */
-    type IdleState = "active" | "idle";
+    type IdleState = 'active' | 'idle';
 
     /* idle functions */
     /**
@@ -2145,10 +2141,10 @@ declare namespace browser.management {
     }
 
     /** A reason the item is disabled. */
-    type ExtensionDisabledReason = "unknown" | "permissions_increase";
+    type ExtensionDisabledReason = 'unknown' | 'permissions_increase';
 
     /** The type of this extension, 'extension' or 'theme'. */
-    type ExtensionType = "extension" | "theme";
+    type ExtensionType = 'extension' | 'theme';
 
     /**
      * How the extension was installed. One of
@@ -2157,11 +2153,7 @@ declare namespace browser.management {
      * `sideload`: The extension was installed by other software on the machine,
      * `other`: The extension was installed by other means.
      */
-    type ExtensionInstallType =
-        "development"
-        | "normal"
-        | "sideload"
-        | "other";
+    type ExtensionInstallType = 'development' | 'normal' | 'sideload' | 'other';
 
     /** Information about an installed extension. */
     interface ExtensionInfo {
@@ -2222,9 +2214,12 @@ declare namespace browser.management {
         url: _manifest.HttpURL;
         /** A hash of the XPI file, using sha256 or stronger. */
         hash?: string;
-    }): Promise<{
-        id: _manifest.ExtensionID;
-    } | undefined>;
+    }): Promise<
+        | {
+              id: _manifest.ExtensionID;
+          }
+        | undefined
+    >;
 
     /**
      * Returns information about the calling extension. Note: This function can be used without requesting the
@@ -2271,13 +2266,9 @@ declare namespace browser.management {
  */
 declare namespace browser.notifications {
     /* notifications types */
-    type TemplateType =
-        "basic"
-        | "image"
-        | "list"
-        | "progress";
+    type TemplateType = 'basic' | 'image' | 'list' | 'progress';
 
-    type PermissionLevel = "granted" | "denied";
+    type PermissionLevel = 'granted' | 'denied';
 
     interface NotificationItem {
         /** Title of one item of a list notification. */
@@ -2492,8 +2483,7 @@ declare namespace browser.permissions {
  *
  * Not allowed in: Content scripts, Devtools pages
  */
-declare namespace browser.privacy {
-}
+declare namespace browser.privacy {}
 
 /**
  * Use the `browser.privacy` API to control usage of the features in the browser that can affect a user's privacy.
@@ -2506,10 +2496,10 @@ declare namespace browser.privacy.network {
     /* privacy.network types */
     /** The IP handling policy of WebRTC. */
     type IPHandlingPolicy =
-        "default"
-        | "default_public_and_private_interfaces"
-        | "default_public_interface_only"
-        | "disable_non_proxied_udp";
+        | 'default'
+        | 'default_public_and_private_interfaces'
+        | 'default_public_interface_only'
+        | 'disable_non_proxied_udp';
 
     /* privacy.network properties */
     /**
@@ -2556,10 +2546,7 @@ declare namespace browser.privacy.services {
 declare namespace browser.privacy.websites {
     /* privacy.websites types */
     /** The mode for tracking protection. */
-    type TrackingProtectionModeOption =
-        "always"
-        | "never"
-        | "private_browsing";
+    type TrackingProtectionModeOption = 'always' | 'never' | 'private_browsing';
 
     /** The settings for cookies. */
     interface CookieConfig {
@@ -2571,11 +2558,11 @@ declare namespace browser.privacy.websites {
 
     /** The type of cookies to allow. */
     type _CookieConfigBehavior =
-        "allow_all"
-        | "reject_all"
-        | "reject_third_party"
-        | "allow_visited"
-        | "reject_trackers";
+        | 'allow_all'
+        | 'reject_all'
+        | 'reject_third_party'
+        | 'allow_visited'
+        | 'reject_trackers';
 
     /* privacy.websites properties */
     /**
@@ -2673,51 +2660,48 @@ declare namespace browser.proxy {
     }
 
     /** The type of proxy to use. */
-    type _ProxyConfigProxyType =
-        "none"
-        | "autoDetect"
-        | "system"
-        | "manual"
-        | "autoConfig";
+    type _ProxyConfigProxyType = 'none' | 'autoDetect' | 'system' | 'manual' | 'autoConfig';
 
-    interface _ProxyOnRequestEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: webRequest.ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /**
-         * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
-         */
-        ip?: string;
-        /** Indicates if this response was fetched from disk cache. */
-        fromCache: boolean;
-        /** The HTTP request headers that are going to be sent out with this request. */
-        requestHeaders?: webRequest.HttpHeaders;
-    }) => void> {
-        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
+    interface _ProxyOnRequestEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: webRequest.ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /**
+             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+             */
+            ip?: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** The HTTP request headers that are going to be sent out with this request. */
+            requestHeaders?: webRequest.HttpHeaders;
+        }) => void
+    > {
+        addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<'requestHeaders'>): void;
 
         removeListener(cb: TCallback): void;
 
@@ -2802,19 +2786,10 @@ declare namespace browser.runtime {
     }
 
     /** The operating system the browser is running on. */
-    type PlatformOs =
-        "mac"
-        | "win"
-        | "android"
-        | "cros"
-        | "linux"
-        | "openbsd";
+    type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
 
     /** The machine's processor architecture. */
-    type PlatformArch =
-        "arm"
-        | "x86-32"
-        | "x86-64";
+    type PlatformArch = 'arm' | 'x86-32' | 'x86-64';
 
     /** An object containing information about the current platform. */
     interface PlatformInfo {
@@ -2842,16 +2817,10 @@ declare namespace browser.runtime {
     }
 
     /** Result of the update check. */
-    type RequestUpdateCheckStatus =
-        "throttled"
-        | "no_update"
-        | "update_available";
+    type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
 
     /** The reason that this event is being dispatched. */
-    type OnInstalledReason =
-        "install"
-        | "update"
-        | "browser_update";
+    type OnInstalledReason = 'install' | 'update' | 'browser_update';
 
     /**
      * The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the
@@ -2859,19 +2828,18 @@ declare namespace browser.runtime {
      * is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in
      * the enterprise policy.
      */
-    type OnRestartRequiredReason =
-        "app_update"
-        | "os_update"
-        | "periodic";
+    type OnRestartRequiredReason = 'app_update' | 'os_update' | 'periodic';
 
     type PlatformNaclArch = any;
 
     /* runtime properties */
     /** This will be defined during an API method callback if there was an error */
-    const lastError: {
-        /** Details about the error which occurred. */
-        message?: string;
-    } | undefined;
+    const lastError:
+        | {
+              /** Details about the error which occurred. */
+              message?: string;
+          }
+        | undefined;
 
     /** The ID of the extension/app. */
     const id: string;
@@ -2941,15 +2909,18 @@ declare namespace browser.runtime {
      * @returns Port through which messages can be sent and received. The port's `runtime.Port onDisconnect` event is
      *     fired if the extension/app does not exist.
      */
-    function connect(extensionId?: string, connectInfo?: {
-        /** Will be passed into onConnect for processes that are listening for the connection event. */
-        name?: string;
-        /**
-         * Whether the TLS channel ID will be passed into onConnectExternal for processes that are listening for the
-         * connection event.
-         */
-        includeTlsChannelId?: boolean;
-    }): Port;
+    function connect(
+        extensionId?: string,
+        connectInfo?: {
+            /** Will be passed into onConnect for processes that are listening for the connection event. */
+            name?: string;
+            /**
+             * Whether the TLS channel ID will be passed into onConnectExternal for processes that are listening for the
+             * connection event.
+             */
+            includeTlsChannelId?: boolean;
+        }
+    ): Port;
 
     /**
      * Connects to a native application in the host machine.
@@ -2967,16 +2938,19 @@ declare namespace browser.runtime {
      *
      * Allowed in: Proxy scripts
      */
-    function sendMessage(message: any, options?: {
-        /**
-         * Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the
-         * connection event.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        includeTlsChannelId?: boolean;
-        /** If true, the message will be directed to the extension's proxy sandbox. */
-        toProxyScript?: boolean;
-    }): Promise<any>;
+    function sendMessage(
+        message: any,
+        options?: {
+            /**
+             * Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the
+             * connection event.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            includeTlsChannelId?: boolean;
+            /** If true, the message will be directed to the extension's proxy sandbox. */
+            toProxyScript?: boolean;
+        }
+    ): Promise<any>;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to
      * `runtime.connect` but only sends a single message, with an optional response. If sending to your extension, the
@@ -2988,16 +2962,20 @@ declare namespace browser.runtime {
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to
      *     your own extension/app. Required if sending messages from a web page for web messaging.
      */
-    function sendMessage(extensionId: string, message: any, options?: {
-        /**
-         * Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the
-         * connection event.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        includeTlsChannelId?: boolean;
-        /** If true, the message will be directed to the extension's proxy sandbox. */
-        toProxyScript?: boolean;
-    }): Promise<any>;
+    function sendMessage(
+        extensionId: string,
+        message: any,
+        options?: {
+            /**
+             * Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the
+             * connection event.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            includeTlsChannelId?: boolean;
+            /** If true, the message will be directed to the extension's proxy sandbox. */
+            toProxyScript?: boolean;
+        }
+    ): Promise<any>;
 
     /**
      * Send a single message to a native application.
@@ -3016,7 +2994,7 @@ declare namespace browser.runtime {
      * Returns a DirectoryEntry for the package directory.
      * @deprecated Unsupported on Firefox at this time.
      */
-    function getPackageDirectoryEntry(): Promise<object/*DirectoryEntry*/>;
+    function getPackageDirectoryEntry(): Promise<object /*DirectoryEntry*/>;
 
     /* runtime events */
     /**
@@ -3029,23 +3007,25 @@ declare namespace browser.runtime {
      * Fired when the extension is first installed, when the extension is updated to a new version, and when the
      * browser is updated to a new version.
      */
-    const onInstalled: WebExtEvent<(details: {
-        /** The reason that this event is being dispatched. */
-        reason: OnInstalledReason;
-        /**
-         * Indicates the previous version of the extension, which has just been updated. This is present only if
-         * 'reason' is 'update'.
-         */
-        previousVersion?: string;
-        /** Indicates whether the addon is installed as a temporary extension. */
-        temporary: boolean;
-        /**
-         * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is
-         * 'shared_module_update'.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        id?: string;
-    }) => void>;
+    const onInstalled: WebExtEvent<
+        (details: {
+            /** The reason that this event is being dispatched. */
+            reason: OnInstalledReason;
+            /**
+             * Indicates the previous version of the extension, which has just been updated. This is present only if
+             * 'reason' is 'update'.
+             */
+            previousVersion?: string;
+            /** Indicates whether the addon is installed as a temporary extension. */
+            temporary: boolean;
+            /**
+             * Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is
+             * 'shared_module_update'.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            id?: string;
+        }) => void
+    >;
 
     /**
      * Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up.
@@ -3072,10 +3052,12 @@ declare namespace browser.runtime {
      * `runtime.reload` is called in response to this event.
      * @param details The manifest details of the available update.
      */
-    const onUpdateAvailable: WebExtEvent<(details: {
-        /** The version number of the available update. */
-        version: string;
-    }) => void>;
+    const onUpdateAvailable: WebExtEvent<
+        (details: {
+            /** The version number of the available update. */
+            version: string;
+        }) => void
+    >;
 
     /**
      * Fired when an update for the browser is available, but isn't installed immediately because a browser restart is
@@ -3103,7 +3085,9 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener
      *     returns.
      */
-    const onMessage: WebExtEvent<(message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void>;
+    const onMessage: WebExtEvent<
+        (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void
+    >;
 
     /**
      * Fired when a message is sent from another extension/app. Cannot be used in a content script.
@@ -3116,7 +3100,9 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener
      *     returns.
      */
-    const onMessageExternal: WebExtEvent<(message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void>;
+    const onMessageExternal: WebExtEvent<
+        (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void
+    >;
 
     /**
      * Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at
@@ -3216,10 +3202,7 @@ declare namespace browser.telemetry {
      * Type of scalar: 'count' for numeric values, 'string' for string values, 'boolean' for boolean values. Maps to
      * `nsITelemetry.SCALAR_TYPE_*`.
      */
-    type ScalarType =
-        "count"
-        | "string"
-        | "boolean";
+    type ScalarType = 'count' | 'string' | 'boolean';
 
     /** Represents registration data for a Telemetry scalar. */
     interface ScalarData {
@@ -3258,16 +3241,20 @@ declare namespace browser.telemetry {
      * @param message The data payload for the ping.
      * @param options Options object.
      */
-    function submitPing(type: string, message: { [key: string]: any }, options: {
-        /** True if the ping should contain the client id. */
-        addClientId?: boolean;
-        /** True if the ping should contain the environment data. */
-        addEnvironment?: boolean;
-        /** Set to override the environment data. */
-        overrideEnvironment?: { [key: string]: any };
-        /** If true, send the ping using the PingSender. */
-        usePingSender?: boolean;
-    }): Promise<any>;
+    function submitPing(
+        type: string,
+        message: { [key: string]: any },
+        options: {
+            /** True if the ping should contain the client id. */
+            addClientId?: boolean;
+            /** True if the ping should contain the environment data. */
+            addEnvironment?: boolean;
+            /** Set to override the environment data. */
+            overrideEnvironment?: { [key: string]: any };
+            /** If true, send the ping using the PingSender. */
+            usePingSender?: boolean;
+        }
+    ): Promise<any>;
 
     /** Checks if Telemetry upload is enabled. */
     function canUpload(): Promise<any>;
@@ -3301,7 +3288,13 @@ declare namespace browser.telemetry {
      * @param [value] An optional string value to record.
      * @param [extra] An optional object of the form (string -> string). It should only contain registered extra keys.
      */
-    function recordEvent(category: string, method: string, object: string, value?: number, extra?: { [key: string]: string }): Promise<any>;
+    function recordEvent(
+        category: string,
+        method: string,
+        object: string,
+        value?: number,
+        extra?: { [key: string]: string }
+    ): Promise<any>;
 
     /**
      * Register new scalars to record them from addons. See nsITelemetry.idl for more details.
@@ -3431,11 +3424,7 @@ declare namespace browser.types {
      *
      * Only `regular` is supported by Firefox at this time.
      */
-    type SettingScope =
-        "regular"
-        | "regular_only"
-        | "incognito_persistent"
-        | "incognito_session_only";
+    type SettingScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
 
     /**
      * One of
@@ -3446,10 +3435,10 @@ declare namespace browser.types {
      * *   `controlled_by_this_extension`: controlled by this extension
      */
     type LevelOfControl =
-        "not_controllable"
-        | "controlled_by_other_extensions"
-        | "controllable_by_this_extension"
-        | "controlled_by_this_extension";
+        | 'not_controllable'
+        | 'controlled_by_other_extensions'
+        | 'controllable_by_this_extension'
+        | 'controlled_by_this_extension';
 
     interface Setting {
         /**
@@ -3500,17 +3489,19 @@ declare namespace browser.types {
          * Fired after the setting changes.
          * @deprecated Unsupported on Firefox at this time.
          */
-        onChange: WebExtEvent<(details: {
-            /** The value of the setting after the change. */
-            value: any;
-            /** The level of control of the setting. */
-            levelOfControl: LevelOfControl;
-            /**
-             * Whether the value that has changed is specific to the incognito session.
-             * This property will _only_ be present if the user has enabled the extension in incognito mode.
-             */
-            incognitoSpecific?: boolean;
-        }) => void>;
+        onChange: WebExtEvent<
+            (details: {
+                /** The value of the setting after the change. */
+                value: any;
+                /** The level of control of the setting. */
+                levelOfControl: LevelOfControl;
+                /**
+                 * Whether the value that has changed is specific to the incognito session.
+                 * This property will _only_ be present if the user has enabled the extension in incognito mode.
+                 */
+                incognitoSpecific?: boolean;
+            }) => void
+        >;
     }
 }
 
@@ -3565,22 +3556,24 @@ declare namespace browser.userScripts {
      *
      * Allowed in: Content scripts only
      */
-    const onBeforeScript: WebExtEvent<(userScript: {
-        /** The userScript metadata (as set in userScripts.register) */
-        metadata: any;
-        /** The userScript global */
-        global: any;
-        /**
-         * Exports all the properties of a given plain object as userScript globals
-         * @param sourceObject A plain object whose properties are exported as userScript globals
-         */
-        defineGlobals: (sourceObject: object) => void;
-        /**
-         * Convert a given value to make it accessible to the userScript code
-         * @param value A value to convert into an object accessible to the userScript
-         */
-        export: (value: any) => any;
-    }) => void>;
+    const onBeforeScript: WebExtEvent<
+        (userScript: {
+            /** The userScript metadata (as set in userScripts.register) */
+            metadata: any;
+            /** The userScript global */
+            global: any;
+            /**
+             * Exports all the properties of a given plain object as userScript globals
+             * @param sourceObject A plain object whose properties are exported as userScript globals
+             */
+            defineGlobals: (sourceObject: object) => void;
+            /**
+             * Convert a given value to make it accessible to the userScript code
+             * @param value A value to convert into an object accessible to the userScript
+             */
+            export: (value: any) => any;
+        }) => void
+    >;
 }
 
 /**
@@ -3598,47 +3591,45 @@ declare namespace browser.webNavigation {
      * backwards compatibility).
      */
     type TransitionType =
-        "link"
-        | "typed"
-        | "auto_bookmark"
-        | "auto_subframe"
-        | "manual_subframe"
-        | "generated"
-        | "start_page"
-        | "form_submit"
-        | "reload"
-        | "keyword"
-        | "keyword_generated";
+        | 'link'
+        | 'typed'
+        | 'auto_bookmark'
+        | 'auto_subframe'
+        | 'manual_subframe'
+        | 'generated'
+        | 'start_page'
+        | 'form_submit'
+        | 'reload'
+        | 'keyword'
+        | 'keyword_generated';
 
-    type TransitionQualifier =
-        "client_redirect"
-        | "server_redirect"
-        | "forward_back"
-        | "from_address_bar";
+    type TransitionQualifier = 'client_redirect' | 'server_redirect' | 'forward_back' | 'from_address_bar';
 
     interface EventUrlFilters {
         url: events.UrlFilter[];
     }
 
-    interface _WebNavigationOnBeforeNavigateEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation is about to occur. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique for a given tab and process.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
-        parentFrameId: number;
-        /** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnBeforeNavigateEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation is about to occur. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique for a given tab and process.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
+            parentFrameId: number;
+            /** The time when the browser was about to start the navigation, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3646,33 +3637,35 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnCommittedEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation occurs. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique within a tab.
-         */
-        frameId: number;
-        /**
-         * Cause of the navigation.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionType?: TransitionType;
-        /**
-         * A list of transition qualifiers.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionQualifiers?: TransitionQualifier[];
-        /** The time when the navigation was committed, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnCommittedEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique within a tab.
+             */
+            frameId: number;
+            /**
+             * Cause of the navigation.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            transitionType?: TransitionType;
+            /**
+             * A list of transition qualifiers.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            transitionQualifiers?: TransitionQualifier[];
+            /** The time when the navigation was committed, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3680,23 +3673,25 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnDOMContentLoadedEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation occurs. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique within a tab.
-         */
-        frameId: number;
-        /** The time when the page's DOM was fully constructed, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnDOMContentLoadedEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique within a tab.
+             */
+            frameId: number;
+            /** The time when the page's DOM was fully constructed, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3704,23 +3699,25 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnCompletedEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation occurs. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique within a tab.
-         */
-        frameId: number;
-        /** The time when the document finished loading, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnCompletedEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique within a tab.
+             */
+            frameId: number;
+            /** The time when the document finished loading, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3728,28 +3725,30 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnErrorOccurredEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation occurs. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique within a tab.
-         */
-        frameId: number;
-        /**
-         * The error description.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        error?: string;
-        /** The time when the error occurred, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnErrorOccurredEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique within a tab.
+             */
+            frameId: number;
+            /**
+             * The error description.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            error?: string;
+            /** The time when the error occurred, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3757,22 +3756,24 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnCreatedNavigationTargetEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation is triggered. */
-        sourceTabId: number;
-        /** The ID of the process runs the renderer for the source tab. */
-        sourceProcessId: number;
-        /**
-         * The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame.
-         */
-        sourceFrameId: number;
-        /** The URL to be opened in the new window. */
-        url: string;
-        /** The ID of the tab in which the url is opened */
-        tabId: number;
-        /** The time when the browser was about to create a new view, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnCreatedNavigationTargetEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation is triggered. */
+            sourceTabId: number;
+            /** The ID of the process runs the renderer for the source tab. */
+            sourceProcessId: number;
+            /**
+             * The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame.
+             */
+            sourceFrameId: number;
+            /** The URL to be opened in the new window. */
+            url: string;
+            /** The ID of the tab in which the url is opened */
+            tabId: number;
+            /** The time when the browser was about to create a new view, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3780,33 +3781,35 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnReferenceFragmentUpdatedEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation occurs. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique within a tab.
-         */
-        frameId: number;
-        /**
-         * Cause of the navigation.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionType?: TransitionType;
-        /**
-         * A list of transition qualifiers.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionQualifiers?: TransitionQualifier[];
-        /** The time when the navigation was committed, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnReferenceFragmentUpdatedEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique within a tab.
+             */
+            frameId: number;
+            /**
+             * Cause of the navigation.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            transitionType?: TransitionType;
+            /**
+             * A list of transition qualifiers.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            transitionQualifiers?: TransitionQualifier[];
+            /** The time when the navigation was committed, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3814,33 +3817,35 @@ declare namespace browser.webNavigation {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebNavigationOnHistoryStateUpdatedEvent<TCallback = (details: {
-        /** The ID of the tab in which the navigation occurs. */
-        tabId: number;
-        url: string;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /**
-         * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
-         * subframe. Frame IDs are unique within a tab.
-         */
-        frameId: number;
-        /**
-         * Cause of the navigation.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionType?: TransitionType;
-        /**
-         * A list of transition qualifiers.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        transitionQualifiers?: TransitionQualifier[];
-        /** The time when the navigation was committed, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void> {
+    interface _WebNavigationOnHistoryStateUpdatedEvent<
+        TCallback = (details: {
+            /** The ID of the tab in which the navigation occurs. */
+            tabId: number;
+            url: string;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /**
+             * 0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a
+             * subframe. Frame IDs are unique within a tab.
+             */
+            frameId: number;
+            /**
+             * Cause of the navigation.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            transitionType?: TransitionType;
+            /**
+             * A list of transition qualifiers.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            transitionQualifiers?: TransitionQualifier[];
+            /** The time when the navigation was committed, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    > {
         addListener(cb: TCallback, filters?: EventUrlFilters): void;
 
         removeListener(cb: TCallback): void;
@@ -3890,28 +3895,30 @@ declare namespace browser.webNavigation {
     function getAllFrames(details: {
         /** The ID of the tab. */
         tabId: number;
-    }): Promise<Array<{
-        /**
-         * True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired.
-         */
-        errorOccurred?: boolean;
-        /**
-         * The ID of the process runs the renderer for this tab.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        processId?: number;
-        /** The ID of the tab in which the frame is. */
-        tabId: number;
-        /**
-         * The ID of the frame. 0 indicates that this is the main frame; a positive value indicates the ID of a
-         * subframe.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
-        parentFrameId: number;
-        /** The URL currently associated with this frame. */
-        url: string;
-    }>>;
+    }): Promise<
+        Array<{
+            /**
+             * True if the last navigation in this frame was interrupted by an error, i.e. the onErrorOccurred event fired.
+             */
+            errorOccurred?: boolean;
+            /**
+             * The ID of the process runs the renderer for this tab.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            processId?: number;
+            /** The ID of the tab in which the frame is. */
+            tabId: number;
+            /**
+             * The ID of the frame. 0 indicates that this is the main frame; a positive value indicates the ID of a
+             * subframe.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame. Set to -1 of no parent frame exists. */
+            parentFrameId: number;
+            /** The URL currently associated with this frame. */
+            url: string;
+        }>
+    >;
 
     /* webNavigation events */
     /** Fired when a navigation is about to occur. */
@@ -3946,14 +3953,16 @@ declare namespace browser.webNavigation {
     const onReferenceFragmentUpdated: _WebNavigationOnReferenceFragmentUpdatedEvent;
 
     /** Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab. */
-    const onTabReplaced: WebExtEvent<(details: {
-        /** The ID of the tab that was replaced. */
-        replacedTabId: number;
-        /** The ID of the tab that replaced the old tab. */
-        tabId: number;
-        /** The time when the replacement happened, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => void>;
+    const onTabReplaced: WebExtEvent<
+        (details: {
+            /** The ID of the tab that was replaced. */
+            replacedTabId: number;
+            /** The ID of the tab that replaced the old tab. */
+            tabId: number;
+            /** The time when the replacement happened, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => void
+    >;
 
     /**
      * Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated
@@ -3973,46 +3982,43 @@ declare namespace browser.webNavigation {
 declare namespace browser.webRequest {
     /* webRequest types */
     type ResourceType =
-        "main_frame"
-        | "sub_frame"
-        | "stylesheet"
-        | "script"
-        | "image"
-        | "object"
-        | "object_subrequest"
-        | "xmlhttprequest"
-        | "xbl"
-        | "xslt"
-        | "ping"
-        | "beacon"
-        | "xml_dtd"
-        | "font"
-        | "media"
-        | "websocket"
-        | "csp_report"
-        | "imageset"
-        | "web_manifest"
-        | "speculative"
-        | "other";
+        | 'main_frame'
+        | 'sub_frame'
+        | 'stylesheet'
+        | 'script'
+        | 'image'
+        | 'object'
+        | 'object_subrequest'
+        | 'xmlhttprequest'
+        | 'xbl'
+        | 'xslt'
+        | 'ping'
+        | 'beacon'
+        | 'xml_dtd'
+        | 'font'
+        | 'media'
+        | 'websocket'
+        | 'csp_report'
+        | 'imageset'
+        | 'web_manifest'
+        | 'speculative'
+        | 'other';
 
-    type OnBeforeRequestOptions = "blocking" | "requestBody";
+    type OnBeforeRequestOptions = 'blocking' | 'requestBody';
 
-    type OnBeforeSendHeadersOptions = "requestHeaders" | "blocking";
+    type OnBeforeSendHeadersOptions = 'requestHeaders' | 'blocking';
 
-    type OnSendHeadersOptions = "requestHeaders";
+    type OnSendHeadersOptions = 'requestHeaders';
 
-    type OnHeadersReceivedOptions = "blocking" | "responseHeaders";
+    type OnHeadersReceivedOptions = 'blocking' | 'responseHeaders';
 
-    type OnAuthRequiredOptions =
-        "responseHeaders"
-        | "blocking"
-        | "asyncBlocking";
+    type OnAuthRequiredOptions = 'responseHeaders' | 'blocking' | 'asyncBlocking';
 
-    type OnResponseStartedOptions = "responseHeaders";
+    type OnResponseStartedOptions = 'responseHeaders';
 
-    type OnBeforeRedirectOptions = "responseHeaders";
+    type OnBeforeRedirectOptions = 'responseHeaders';
 
-    type OnCompletedOptions = "responseHeaders";
+    type OnCompletedOptions = 'responseHeaders';
 
     /** An object describing filters to apply to webRequest events. */
     interface RequestFilter {
@@ -4105,12 +4111,12 @@ declare namespace browser.webRequest {
     }
 
     type CertificateTransparencyStatus =
-        "not_applicable"
-        | "policy_compliant"
-        | "policy_not_enough_scts"
-        | "policy_not_diverse_scts";
+        | 'not_applicable'
+        | 'policy_compliant'
+        | 'policy_not_enough_scts'
+        | 'policy_not_diverse_scts';
 
-    type TransportWeaknessReasons = "cipher";
+    type TransportWeaknessReasons = 'cipher';
 
     /** Contains the security properties of the request (ie. SSL/TLS information). */
     interface SecurityInfo {
@@ -4160,67 +4166,60 @@ declare namespace browser.webRequest {
         file?: string;
     }
 
-    type _SecurityInfoState =
-        "insecure"
-        | "weak"
-        | "broken"
-        | "secure";
+    type _SecurityInfoState = 'insecure' | 'weak' | 'broken' | 'secure';
 
     /** Protocol version if state is "secure" */
-    type _SecurityInfoProtocolVersion =
-        "TLSv1"
-        | "TLSv1.1"
-        | "TLSv1.2"
-        | "TLSv1.3"
-        | "unknown";
+    type _SecurityInfoProtocolVersion = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
 
-    interface _WebRequestOnBeforeRequestEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. */
-        requestBody?: {
-            /** Errors when obtaining request body data. */
-            error?: string;
+    interface _WebRequestOnBeforeRequestEvent<
+        TCallback = (details: {
             /**
-             * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as
-             * either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for
-             * each key contains the list of all values for that key. If the data is of another media type, or if it is
-             * malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1',
-             * 'value2']}.
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
              */
-            formData?: object;
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
             /**
-             * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed
-             * request body elements are contained in this array.
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
              */
-            raw?: UploadData[];
-        };
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'. */
+            requestBody?: {
+                /** Errors when obtaining request body data. */
+                error?: string;
+                /**
+                 * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as
+                 * either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for
+                 * each key contains the list of all values for that key. If the data is of another media type, or if it is
+                 * malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1',
+                 * 'value2']}.
+                 */
+                formData?: object;
+                /**
+                 * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed
+                 * request body elements are contained in this array.
+                 */
+                raw?: UploadData[];
+            };
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+        }) => BlockingResponse | Promise<BlockingResponse> | void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4228,37 +4227,39 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnBeforeSendHeadersEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /** The HTTP request headers that are going to be sent out with this request. */
-        requestHeaders?: HttpHeaders;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+    interface _WebRequestOnBeforeSendHeadersEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /** The HTTP request headers that are going to be sent out with this request. */
+            requestHeaders?: HttpHeaders;
+        }) => BlockingResponse | Promise<BlockingResponse> | void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4266,37 +4267,39 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnSendHeadersEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /** The HTTP request headers that have been sent out with this request. */
-        requestHeaders?: HttpHeaders;
-    }) => void> {
+    interface _WebRequestOnSendHeadersEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /** The HTTP request headers that have been sent out with this request. */
+            requestHeaders?: HttpHeaders;
+        }) => void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnSendHeadersOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4304,44 +4307,46 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnHeadersReceivedEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /**
-         * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
-         * that lack a status line).
-         */
-        statusLine: string;
-        /** The HTTP response headers that have been received with this response. */
-        responseHeaders?: HttpHeaders;
-        /** Standard HTTP status code returned by the server. */
-        statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+    interface _WebRequestOnHeadersReceivedEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /**
+             * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
+             * that lack a status line).
+             */
+            statusLine: string;
+            /** The HTTP response headers that have been received with this response. */
+            responseHeaders?: HttpHeaders;
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+        }) => BlockingResponse | Promise<BlockingResponse> | void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4349,55 +4354,57 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnAuthRequiredEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /** The authentication scheme, e.g. Basic or Digest. */
-        scheme: string;
-        /** The authentication realm provided by the server, if there is one. */
-        realm?: string;
-        /** The server requesting authentication. */
-        challenger: {
-            host: string;
-            port: number;
-        };
-        /** True for Proxy-Authenticate, false for WWW-Authenticate. */
-        isProxy: boolean;
-        /** The HTTP response headers that were received along with this response. */
-        responseHeaders?: HttpHeaders;
-        /**
-         * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
-         * that lack a status line) or an empty string if there are no headers.
-         */
-        statusLine: string;
-        /** Standard HTTP status code returned by the server. */
-        statusCode: number;
-    }) => BlockingResponse | Promise<BlockingResponse> | void> {
+    interface _WebRequestOnAuthRequiredEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /** The authentication scheme, e.g. Basic or Digest. */
+            scheme: string;
+            /** The authentication realm provided by the server, if there is one. */
+            realm?: string;
+            /** The server requesting authentication. */
+            challenger: {
+                host: string;
+                port: number;
+            };
+            /** True for Proxy-Authenticate, false for WWW-Authenticate. */
+            isProxy: boolean;
+            /** The HTTP response headers that were received along with this response. */
+            responseHeaders?: HttpHeaders;
+            /**
+             * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
+             * that lack a status line) or an empty string if there are no headers.
+             */
+            statusLine: string;
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+        }) => BlockingResponse | Promise<BlockingResponse> | void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4405,50 +4412,52 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnResponseStartedEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /**
-         * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
-         */
-        ip?: string;
-        /** Indicates if this response was fetched from disk cache. */
-        fromCache: boolean;
-        /** Standard HTTP status code returned by the server. */
-        statusCode: number;
-        /** The HTTP response headers that were received along with this response. */
-        responseHeaders?: HttpHeaders;
-        /**
-         * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
-         * that lack a status line) or an empty string if there are no headers.
-         */
-        statusLine: string;
-    }) => void> {
+    interface _WebRequestOnResponseStartedEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /**
+             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+             */
+            ip?: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** The HTTP response headers that were received along with this response. */
+            responseHeaders?: HttpHeaders;
+            /**
+             * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
+             * that lack a status line) or an empty string if there are no headers.
+             */
+            statusLine: string;
+        }) => void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnResponseStartedOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4456,52 +4465,54 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnBeforeRedirectEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /**
-         * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
-         */
-        ip?: string;
-        /** Indicates if this response was fetched from disk cache. */
-        fromCache: boolean;
-        /** Standard HTTP status code returned by the server. */
-        statusCode: number;
-        /** The new URL. */
-        redirectUrl: string;
-        /** The HTTP response headers that were received along with this redirect. */
-        responseHeaders?: HttpHeaders;
-        /**
-         * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
-         * that lack a status line) or an empty string if there are no headers.
-         */
-        statusLine: string;
-    }) => void> {
+    interface _WebRequestOnBeforeRedirectEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /**
+             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+             */
+            ip?: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** The new URL. */
+            redirectUrl: string;
+            /** The HTTP response headers that were received along with this redirect. */
+            responseHeaders?: HttpHeaders;
+            /**
+             * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
+             * that lack a status line) or an empty string if there are no headers.
+             */
+            statusLine: string;
+        }) => void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRedirectOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4509,50 +4520,52 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnCompletedEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /**
-         * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
-         */
-        ip?: string;
-        /** Indicates if this response was fetched from disk cache. */
-        fromCache: boolean;
-        /** Standard HTTP status code returned by the server. */
-        statusCode: number;
-        /** The HTTP response headers that were received along with this response. */
-        responseHeaders?: HttpHeaders;
-        /**
-         * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
-         * that lack a status line) or an empty string if there are no headers.
-         */
-        statusLine: string;
-    }) => void> {
+    interface _WebRequestOnCompletedEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /**
+             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+             */
+            ip?: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /** Standard HTTP status code returned by the server. */
+            statusCode: number;
+            /** The HTTP response headers that were received along with this response. */
+            responseHeaders?: HttpHeaders;
+            /**
+             * HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses
+             * that lack a status line) or an empty string if there are no headers.
+             */
+            statusLine: string;
+        }) => void
+    > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnCompletedOptions[]): void;
 
         removeListener(cb: TCallback): void;
@@ -4560,46 +4573,48 @@ declare namespace browser.webRequest {
         hasListener(cb: TCallback): boolean;
     }
 
-    interface _WebRequestOnErrorOccurredEvent<TCallback = (details: {
-        /**
-         * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
-         * relate different events of the same request.
-         */
-        requestId: string;
-        url: string;
-        /** Standard HTTP method. */
-        method: string;
-        /**
-         * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
-         * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
-         * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
-         * within a tab.
-         */
-        frameId: number;
-        /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
-        parentFrameId: number;
-        /** URL of the resource that triggered this request. */
-        originUrl?: string;
-        /** URL of the page into which the requested resource will be loaded. */
-        documentUrl?: string;
-        /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
-        tabId: number;
-        /** How the requested resource will be used. */
-        type: ResourceType;
-        /** The time when this signal is triggered, in milliseconds since the epoch. */
-        timeStamp: number;
-        /**
-         * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
-         */
-        ip?: string;
-        /** Indicates if this response was fetched from disk cache. */
-        fromCache: boolean;
-        /**
-         * The error description. This string is _not_ guaranteed to remain backwards compatible between releases. You
-         * must not parse and act based upon its content.
-         */
-        error: string;
-    }) => void> {
+    interface _WebRequestOnErrorOccurredEvent<
+        TCallback = (details: {
+            /**
+             * The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to
+             * relate different events of the same request.
+             */
+            requestId: string;
+            url: string;
+            /** Standard HTTP method. */
+            method: string;
+            /**
+             * The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a
+             * subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or
+             * `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique
+             * within a tab.
+             */
+            frameId: number;
+            /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
+            parentFrameId: number;
+            /** URL of the resource that triggered this request. */
+            originUrl?: string;
+            /** URL of the page into which the requested resource will be loaded. */
+            documentUrl?: string;
+            /** The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab. */
+            tabId: number;
+            /** How the requested resource will be used. */
+            type: ResourceType;
+            /** The time when this signal is triggered, in milliseconds since the epoch. */
+            timeStamp: number;
+            /**
+             * The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+             */
+            ip?: string;
+            /** Indicates if this response was fetched from disk cache. */
+            fromCache: boolean;
+            /**
+             * The error description. This string is _not_ guaranteed to remain backwards compatible between releases. You
+             * must not parse and act based upon its content.
+             */
+            error: string;
+        }) => void
+    > {
         addListener(cb: TCallback, filter: RequestFilter): void;
 
         removeListener(cb: TCallback): void;
@@ -4622,17 +4637,20 @@ declare namespace browser.webRequest {
     function handlerBehaviorChanged(): Promise<void>;
 
     /** ... */
-    function filterResponseData(requestId: string): object/*StreamFilter*/;
+    function filterResponseData(requestId: string): object /*StreamFilter*/;
 
     /**
      * Retrieves the security information for the request. Returns a promise that will resolve to a SecurityInfo object.
      */
-    function getSecurityInfo(requestId: string, options?: {
-        /** Include the entire certificate chain. */
-        certificateChain?: boolean;
-        /** Include raw certificate data for processing by the extension. */
-        rawDER?: boolean;
-    }): Promise<SecurityInfo>;
+    function getSecurityInfo(
+        requestId: string,
+        options?: {
+            /** Include the entire certificate chain. */
+            certificateChain?: boolean;
+            /** Include raw certificate data for processing by the extension. */
+            rawDER?: boolean;
+        }
+    ): Promise<SecurityInfo>;
 
     /* webRequest events */
     /**
@@ -4703,13 +4721,10 @@ declare namespace browser.bookmarks {
      * by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the
      * user and the extension (default).
      */
-    type BookmarkTreeNodeUnmodifiable = "managed";
+    type BookmarkTreeNodeUnmodifiable = 'managed';
 
     /** Indicates the type of a BookmarkTreeNode, which can be one of bookmark, folder or separator. */
-    type BookmarkTreeNodeType =
-        "bookmark"
-        | "folder"
-        | "separator";
+    type BookmarkTreeNodeType = 'bookmark' | 'folder' | 'separator';
 
     /**
      * A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder.
@@ -4787,14 +4802,18 @@ declare namespace browser.bookmarks {
      *     an object. If an object, the properties `query`, `url`, and `title` may be specified and bookmarks matching
      *     all specified properties will be produced.
      */
-    function search(query: string | {
-        /** A string of words and quoted phrases that are matched against bookmark URLs and titles. */
-        query?: string;
-        /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
-        url?: string;
-        /** The title of the bookmark; matches verbatim. */
-        title?: string;
-    }): Promise<BookmarkTreeNode[]>;
+    function search(
+        query:
+            | string
+            | {
+                  /** A string of words and quoted phrases that are matched against bookmark URLs and titles. */
+                  query?: string;
+                  /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
+                  url?: string;
+                  /** The title of the bookmark; matches verbatim. */
+                  title?: string;
+              }
+    ): Promise<BookmarkTreeNode[]>;
 
     /**
      * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
@@ -4802,19 +4821,25 @@ declare namespace browser.bookmarks {
     function create(bookmark: CreateDetails): Promise<BookmarkTreeNode | undefined>;
 
     /** Moves the specified BookmarkTreeNode to the provided location. */
-    function move(id: string, destination: {
-        parentId?: string;
-        index?: number;
-    }): Promise<BookmarkTreeNode | undefined>;
+    function move(
+        id: string,
+        destination: {
+            parentId?: string;
+            index?: number;
+        }
+    ): Promise<BookmarkTreeNode | undefined>;
 
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified
      * properties will be left unchanged. **Note:** Currently, only 'title' and 'url' are supported.
      */
-    function update(id: string, changes: {
-        title?: string;
-        url?: string;
-    }): Promise<BookmarkTreeNode | undefined>;
+    function update(
+        id: string,
+        changes: {
+            title?: string;
+            url?: string;
+        }
+    ): Promise<BookmarkTreeNode | undefined>;
 
     /** Removes a bookmark or an empty bookmark folder. */
     function remove(id: string): Promise<void>;
@@ -4830,36 +4855,58 @@ declare namespace browser.bookmarks {
      * Fired when a bookmark or folder is removed. When a folder is removed recursively, a single notification is fired
      * for the folder, and none for its contents.
      */
-    const onRemoved: WebExtEvent<(id: string, removeInfo: {
-        parentId: string;
-        index: number;
-        node: BookmarkTreeNode;
-    }) => void>;
+    const onRemoved: WebExtEvent<
+        (
+            id: string,
+            removeInfo: {
+                parentId: string;
+                index: number;
+                node: BookmarkTreeNode;
+            }
+        ) => void
+    >;
 
     /**
      * Fired when a bookmark or folder changes. **Note:** Currently, only title and url changes trigger this.
      */
-    const onChanged: WebExtEvent<(id: string, changeInfo: {
-        title: string;
-        url?: string;
-    }) => void>;
+    const onChanged: WebExtEvent<
+        (
+            id: string,
+            changeInfo: {
+                title: string;
+                url?: string;
+            }
+        ) => void
+    >;
 
     /** Fired when a bookmark or folder is moved to a different parent folder. */
-    const onMoved: WebExtEvent<(id: string, moveInfo: {
-        parentId: string;
-        index: number;
-        oldParentId: string;
-        oldIndex: number;
-    }) => void>;
+    const onMoved: WebExtEvent<
+        (
+            id: string,
+            moveInfo: {
+                parentId: string;
+                index: number;
+                oldParentId: string;
+                oldIndex: number;
+            }
+        ) => void
+    >;
 
     /**
      * Fired when the children of a folder have changed their order due to the order being sorted in the UI. This is
      * not called as a result of a move().
      * @deprecated Unsupported on Firefox at this time.
      */
-    const onChildrenReordered: WebExtEvent<(id: string, reorderInfo: {
-        childIds: string[];
-    }) => void> | undefined;
+    const onChildrenReordered:
+        | WebExtEvent<
+              (
+                  id: string,
+                  reorderInfo: {
+                      childIds: string[];
+                  }
+              ) => void
+          >
+        | undefined;
 }
 
 /**
@@ -4893,7 +4940,7 @@ declare namespace browser.browserAction {
     type ColorArray = [number, number, number, number];
 
     /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
-    type ImageDataType = object/*ImageData*/;
+    type ImageDataType = object /*ImageData*/;
 
     /**
      * An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red
@@ -4941,9 +4988,11 @@ declare namespace browser.browserAction {
          * will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified.
          * Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?: ImageDataType | {
-            [key: number]: ImageDataType;
-        };
+        imageData?:
+            | ImageDataType
+            | {
+                  [key: number]: ImageDataType;
+              };
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If
          * the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel
@@ -4951,9 +5000,11 @@ declare namespace browser.browserAction {
          * size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must
          * be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string | {
-            [key: number]: string;
-        };
+        path?:
+            | string
+            | {
+                  [key: number]: string;
+              };
         /**
          * When setting a value, it will be specific to the specified tab, and will automatically reset when the tab
          * navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the
@@ -5278,8 +5329,7 @@ declare namespace browser.commands {
  *
  * Allowed in: Devtools pages only
  */
-declare namespace browser.devtools {
-}
+declare namespace browser.devtools {}
 
 /**
  * Use the `browser.devtools.inspectedWindow` API to interact with the inspected window: obtain the tab ID for the
@@ -5326,28 +5376,31 @@ declare namespace browser.devtools.inspectedWindow {
      * @param expression An expression to evaluate.
      * @param [options] The options parameter can contain one or more options.
      */
-    function eval(expression: string, options?: {
-        /**
-         * If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the
-         * expression is evaluated in the top frame of the inspected page.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        frameURL?: string;
-        /**
-         * Evaluate the expression in the context of the content script of the calling extension, provided that the
-         * content script is already injected into the inspected page. If not, the expression is not evaluated and the
-         * callback is invoked with the exception parameter set to an object that has the `isError` field set to true
-         * and the `code` field set to `E_NOTFOUND`.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        useContentScriptContext?: boolean;
-        /**
-         * Evaluate the expression in the context of a content script of an extension that matches the specified
-         * origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext.
-         * @deprecated Unsupported on Firefox at this time.
-         */
-        contextSecurityOrigin?: string;
-    }): Promise<object | undefined>;
+    function eval(
+        expression: string,
+        options?: {
+            /**
+             * If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the
+             * expression is evaluated in the top frame of the inspected page.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            frameURL?: string;
+            /**
+             * Evaluate the expression in the context of the content script of the calling extension, provided that the
+             * content script is already injected into the inspected page. If not, the expression is not evaluated and the
+             * callback is invoked with the exception parameter set to an object that has the `isError` field set to true
+             * and the `code` field set to `E_NOTFOUND`.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            useContentScriptContext?: boolean;
+            /**
+             * Evaluate the expression in the context of a content script of an extension that matches the specified
+             * origin. If given, contextSecurityOrigin overrides the 'true' setting on userContentScriptContext.
+             * @deprecated Unsupported on Firefox at this time.
+             */
+            contextSecurityOrigin?: string;
+        }
+    ): Promise<object | undefined>;
 
     /** Reloads the inspected page. */
     function reload(reloadOptions?: {
@@ -5498,7 +5551,7 @@ declare namespace browser.devtools.panels {
          * Fired when the user switches to the panel.
          * @param window The JavaScript `window` object of panel's page.
          */
-        onShown: WebExtEvent<(window: object/*global*/) => void>;
+        onShown: WebExtEvent<(window: object /*global*/) => void>;
         /** Fired when the user switches away from the panel. */
         onHidden: WebExtEvent<() => void>;
     }
@@ -5538,7 +5591,7 @@ declare namespace browser.devtools.panels {
          * Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it.
          * @param window The JavaScript `window` object of the sidebar page, if one was set with the `setPage()` method.
          */
-        onShown: WebExtEvent<(window: object/*global*/) => void>;
+        onShown: WebExtEvent<(window: object /*global*/) => void>;
         /**
          * Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts
          * the sidebar pane.
@@ -5565,7 +5618,7 @@ declare namespace browser.devtools.panels {
         onClicked: WebExtEvent<() => void>;
     }
 
-    type _Create = "";
+    type _Create = '';
 
     /* devtools.panels properties */
     /** Elements panel. */
@@ -5585,7 +5638,11 @@ declare namespace browser.devtools.panels {
      *     default extension icon as the panel icon.
      * @param pagePath Path of the panel's HTML page relative to the extension directory.
      */
-    function create(title: string, iconPath: _manifest.ExtensionURL | _Create, pagePath: _manifest.ExtensionURL): Promise<ExtensionPanel | undefined>;
+    function create(
+        title: string,
+        iconPath: _manifest.ExtensionURL | _Create,
+        pagePath: _manifest.ExtensionURL
+    ): Promise<ExtensionPanel | undefined>;
 
     /**
      * Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset
@@ -5624,18 +5681,21 @@ declare namespace browser.find {
      * @param queryphrase The string to search for.
      * @param [params] Search parameters.
      */
-    function find(queryphrase: string, params?: {
-        /** Tab to query. Defaults to the active tab. */
-        tabId?: number;
-        /** Find only ranges with case sensitive match. */
-        caseSensitive?: boolean;
-        /** Find only ranges that match entire word. */
-        entireWord?: boolean;
-        /** Return rectangle data which describes visual position of search results. */
-        includeRectData?: boolean;
-        /** Return range data which provides range data in a serializable form. */
-        includeRangeData?: boolean;
-    }): Promise<{
+    function find(
+        queryphrase: string,
+        params?: {
+            /** Tab to query. Defaults to the active tab. */
+            tabId?: number;
+            /** Find only ranges with case sensitive match. */
+            caseSensitive?: boolean;
+            /** Find only ranges that match entire word. */
+            entireWord?: boolean;
+            /** Return rectangle data which describes visual position of search results. */
+            includeRectData?: boolean;
+            /** Return range data which provides range data in a serializable form. */
+            includeRangeData?: boolean;
+        }
+    ): Promise<{
         count: number;
         rangeData?: Array<{
             framePos: number;
@@ -5688,22 +5748,22 @@ declare namespace browser.find {
 declare namespace browser.geckoProfiler {
     /* geckoProfiler types */
     type ProfilerFeature =
-        "java"
-        | "js"
-        | "leaf"
-        | "mainthreadio"
-        | "memory"
-        | "privacy"
-        | "responsiveness"
-        | "screenshots"
-        | "seqstyle"
-        | "stackwalk"
-        | "tasktracer"
-        | "threads"
-        | "trackopts"
-        | "jstracer";
+        | 'java'
+        | 'js'
+        | 'leaf'
+        | 'mainthreadio'
+        | 'memory'
+        | 'privacy'
+        | 'responsiveness'
+        | 'screenshots'
+        | 'seqstyle'
+        | 'stackwalk'
+        | 'tasktracer'
+        | 'threads'
+        | 'trackopts'
+        | 'jstracer';
 
-    type Supports = "windowLength";
+    type Supports = 'windowLength';
 
     /* geckoProfiler functions */
     /** Starts the profiler with the specified settings. */
@@ -5774,17 +5834,17 @@ declare namespace browser.history {
     /* history types */
     /** The transition type for this visit from its referrer. */
     type TransitionType =
-        "link"
-        | "typed"
-        | "auto_bookmark"
-        | "auto_subframe"
-        | "manual_subframe"
-        | "generated"
-        | "auto_toplevel"
-        | "form_submit"
-        | "reload"
-        | "keyword"
-        | "keyword_generated";
+        | 'link'
+        | 'typed'
+        | 'auto_bookmark'
+        | 'auto_subframe'
+        | 'manual_subframe'
+        | 'generated'
+        | 'auto_toplevel'
+        | 'form_submit'
+        | 'reload'
+        | 'keyword'
+        | 'keyword_generated';
 
     /** An object encapsulating one result of a history query. */
     interface HistoryItem {
@@ -5885,19 +5945,23 @@ declare namespace browser.history {
      * Fired when one or more URLs are removed from the history service. When all visits have been removed the URL is
      * purged from history.
      */
-    const onVisitRemoved: WebExtEvent<(removed: {
-        /** True if all history was removed. If true, then urls will be empty. */
-        allHistory: boolean;
-        urls: string[];
-    }) => void>;
+    const onVisitRemoved: WebExtEvent<
+        (removed: {
+            /** True if all history was removed. If true, then urls will be empty. */
+            allHistory: boolean;
+            urls: string[];
+        }) => void
+    >;
 
     /** Fired when the title of a URL is changed in the browser history. */
-    const onTitleChanged: WebExtEvent<(changed: {
-        /** The URL for which the title has changed */
-        url: string;
-        /** The new title for the URL. */
-        title: string;
-    }) => void>;
+    const onTitleChanged: WebExtEvent<
+        (changed: {
+            /** The URL for which the title has changed */
+            url: string;
+            /** The new title for the URL. */
+            title: string;
+        }) => void
+    >;
 }
 
 /**
@@ -5913,28 +5977,24 @@ declare namespace browser.contextMenus {
      * contexts except for 'tab' and 'tools_menu'.
      */
     type ContextType =
-        "all"
-        | "page"
-        | "frame"
-        | "selection"
-        | "link"
-        | "editable"
-        | "password"
-        | "image"
-        | "video"
-        | "audio"
-        | "launcher"
-        | "bookmark"
-        | "browser_action"
-        | "page_action"
-        | "tab";
+        | 'all'
+        | 'page'
+        | 'frame'
+        | 'selection'
+        | 'link'
+        | 'editable'
+        | 'password'
+        | 'image'
+        | 'video'
+        | 'audio'
+        | 'launcher'
+        | 'bookmark'
+        | 'browser_action'
+        | 'page_action'
+        | 'tab';
 
     /** The type of menu item. */
-    type ItemType =
-        "normal"
-        | "checkbox"
-        | "radio"
-        | "separator";
+    type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
 
     /** Information sent when a context menu item is clicked. */
     interface OnClickData {
@@ -5984,18 +6044,13 @@ declare namespace browser.contextMenus {
         targetElementId?: number;
     }
 
-    type _OnClickDataModifiers =
-        "Shift"
-        | "Alt"
-        | "Command"
-        | "Ctrl"
-        | "MacCtrl";
+    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
 
     /**
      * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and
      * 'tab' are supported. showDefaults cannot be used with this option.
      */
-    type _OverrideContextContext = "bookmark" | "tab";
+    type _OverrideContextContext = 'bookmark' | 'tab';
 
     /* contextMenus properties */
     /**
@@ -6012,94 +6067,100 @@ declare namespace browser.contextMenus {
      *     item, details will be available in `runtime.lastError`.
      * @returns The ID of the newly created item.
      */
-    function create(createProperties: {
-        /** The type of menu item. Defaults to 'normal' if not specified. */
-        type?: ItemType;
-        /**
-         * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this
-         * extension.
-         */
-        id?: string;
-        icons?: {
-            [key: number]: string;
-        };
-        /**
-         * The text to be displayed in the item; this is _required_ unless `type` is 'separator'. When the context is
-         * 'selection', you can use `%s` within the string to show the selected text. For example, if this parameter's
-         * value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the
-         * selection is "Translate 'cool' to Pig Latin".
-         */
-        title?: string;
-        /**
-         * The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio
-         * item can be selected at a time in a given group of radio items.
-         */
-        checked?: boolean;
-        /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
-        contexts?: ContextType[];
-        /**
-         * List of view types where the menu item will be shown. Defaults to any view, including those without a
-         * viewType.
-         */
-        viewTypes?: extension.ViewType[];
-        /** Whether the item is visible in the menu. */
-        visible?: boolean;
-        /**
-         * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead,
-         * they should register a listener for `contextMenus.onClicked`.
-         * @param info Information about the item clicked and the context where the click happened.
-         * @param tab The details of the tab where the click took place. Note: this parameter only present for
-         *     extensions.
-         */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
-        /** The ID of a parent menu item; this makes the item a child of a previously added item. */
-        parentId?: number | string;
-        /**
-         * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This
-         * applies to frames as well.) For details on the format of a pattern, see Match Patterns.
-         */
-        documentUrlPatterns?: string[];
-        /**
-         * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and
-         * the href of anchor tags.
-         */
-        targetUrlPatterns?: string[];
-        /** Whether this context menu item is enabled or disabled. Defaults to true. */
-        enabled?: boolean;
-        /**
-         * Specifies a command to issue for the context click. Currently supports internal commands
-         * _execute_page_action, _execute_browser_action and _execute_sidebar_action.
-         */
-        command?: string;
-    }, callback?: () => void): number | string;
+    function create(
+        createProperties: {
+            /** The type of menu item. Defaults to 'normal' if not specified. */
+            type?: ItemType;
+            /**
+             * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this
+             * extension.
+             */
+            id?: string;
+            icons?: {
+                [key: number]: string;
+            };
+            /**
+             * The text to be displayed in the item; this is _required_ unless `type` is 'separator'. When the context is
+             * 'selection', you can use `%s` within the string to show the selected text. For example, if this parameter's
+             * value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the
+             * selection is "Translate 'cool' to Pig Latin".
+             */
+            title?: string;
+            /**
+             * The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio
+             * item can be selected at a time in a given group of radio items.
+             */
+            checked?: boolean;
+            /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
+            contexts?: ContextType[];
+            /**
+             * List of view types where the menu item will be shown. Defaults to any view, including those without a
+             * viewType.
+             */
+            viewTypes?: extension.ViewType[];
+            /** Whether the item is visible in the menu. */
+            visible?: boolean;
+            /**
+             * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead,
+             * they should register a listener for `contextMenus.onClicked`.
+             * @param info Information about the item clicked and the context where the click happened.
+             * @param tab The details of the tab where the click took place. Note: this parameter only present for
+             *     extensions.
+             */
+            onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+            /** The ID of a parent menu item; this makes the item a child of a previously added item. */
+            parentId?: number | string;
+            /**
+             * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This
+             * applies to frames as well.) For details on the format of a pattern, see Match Patterns.
+             */
+            documentUrlPatterns?: string[];
+            /**
+             * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and
+             * the href of anchor tags.
+             */
+            targetUrlPatterns?: string[];
+            /** Whether this context menu item is enabled or disabled. Defaults to true. */
+            enabled?: boolean;
+            /**
+             * Specifies a command to issue for the context click. Currently supports internal commands
+             * _execute_page_action, _execute_browser_action and _execute_sidebar_action.
+             */
+            command?: string;
+        },
+        callback?: () => void
+    ): number | string;
 
     /**
      * Updates a previously created context menu item.
      * @param id The ID of the item to update.
      * @param updateProperties The properties to update. Accepts the same values as the create function.
      */
-    function update(id: number | string, updateProperties: {
-        type?: ItemType;
-        icons?: {
-            [key: number]: string;
-        };
-        title?: string;
-        checked?: boolean;
-        contexts?: ContextType[];
-        viewTypes?: extension.ViewType[];
-        /** Whether the item is visible in the menu. */
-        visible?: boolean;
-        /**
-         * @param tab The details of the tab where the click took place. Note: this parameter only present for
-         *     extensions.
-         */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
-        /** Note: You cannot change an item to be a child of one of its own descendants. */
-        parentId?: number | string;
-        documentUrlPatterns?: string[];
-        targetUrlPatterns?: string[];
-        enabled?: boolean;
-    }): Promise<void>;
+    function update(
+        id: number | string,
+        updateProperties: {
+            type?: ItemType;
+            icons?: {
+                [key: number]: string;
+            };
+            title?: string;
+            checked?: boolean;
+            contexts?: ContextType[];
+            viewTypes?: extension.ViewType[];
+            /** Whether the item is visible in the menu. */
+            visible?: boolean;
+            /**
+             * @param tab The details of the tab where the click took place. Note: this parameter only present for
+             *     extensions.
+             */
+            onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+            /** Note: You cannot change an item to be a child of one of its own descendants. */
+            parentId?: number | string;
+            documentUrlPatterns?: string[];
+            targetUrlPatterns?: string[];
+            enabled?: boolean;
+        }
+    ): Promise<void>;
 
     /**
      * Removes a context menu item.
@@ -6140,7 +6201,7 @@ declare namespace browser.contextMenus {
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the
      *     menus.onShown, onClicked or onclick event.
      */
-    function getTargetElement(targetElementId: number): object/*Element*/ | void;
+    function getTargetElement(targetElementId: number): object /*Element*/ | void;
 
     /* contextMenus events */
     /**
@@ -6159,22 +6220,27 @@ declare namespace browser.contextMenus {
      *     permissions for the given context: linkUrl, linkText, srcUrl, pageUrl, frameUrl, selectionText.
      * @param tab The details of the tab where the menu was opened.
      */
-    const onShown: WebExtEvent<(info: {
-        /** A list of IDs of the menu items that were shown. */
-        menuIds: number | string[];
-        /** A list of all contexts that apply to the menu. */
-        contexts: ContextType[];
-        viewType?: extension.ViewType;
-        editable: boolean;
-        mediaType?: string;
-        linkUrl?: string;
-        linkText?: string;
-        srcUrl?: string;
-        pageUrl?: string;
-        frameUrl?: string;
-        selectionText?: string;
-        targetElementId?: number;
-    }, tab: tabs.Tab) => void>;
+    const onShown: WebExtEvent<
+        (
+            info: {
+                /** A list of IDs of the menu items that were shown. */
+                menuIds: number | string[];
+                /** A list of all contexts that apply to the menu. */
+                contexts: ContextType[];
+                viewType?: extension.ViewType;
+                editable: boolean;
+                mediaType?: string;
+                linkUrl?: string;
+                linkText?: string;
+                srcUrl?: string;
+                pageUrl?: string;
+                frameUrl?: string;
+                selectionText?: string;
+                targetElementId?: number;
+            },
+            tab: tabs.Tab
+        ) => void
+    >;
 
     /** Fired when a menu is hidden. This event is only fired if onShown has fired before. */
     const onHidden: WebExtEvent<() => void>;
@@ -6193,29 +6259,25 @@ declare namespace browser.menus {
      * contexts except for 'tab' and 'tools_menu'.
      */
     type ContextType =
-        "all"
-        | "page"
-        | "frame"
-        | "selection"
-        | "link"
-        | "editable"
-        | "password"
-        | "image"
-        | "video"
-        | "audio"
-        | "launcher"
-        | "bookmark"
-        | "browser_action"
-        | "page_action"
-        | "tab"
-        | "tools_menu";
+        | 'all'
+        | 'page'
+        | 'frame'
+        | 'selection'
+        | 'link'
+        | 'editable'
+        | 'password'
+        | 'image'
+        | 'video'
+        | 'audio'
+        | 'launcher'
+        | 'bookmark'
+        | 'browser_action'
+        | 'page_action'
+        | 'tab'
+        | 'tools_menu';
 
     /** The type of menu item. */
-    type ItemType =
-        "normal"
-        | "checkbox"
-        | "radio"
-        | "separator";
+    type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
 
     /** Information sent when a context menu item is clicked. */
     interface OnClickData {
@@ -6265,18 +6327,13 @@ declare namespace browser.menus {
         targetElementId?: number;
     }
 
-    type _OnClickDataModifiers =
-        "Shift"
-        | "Alt"
-        | "Command"
-        | "Ctrl"
-        | "MacCtrl";
+    type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
 
     /**
      * ContextType to override, to allow menu items from other extensions in the menu. Currently only 'bookmark' and
      * 'tab' are supported. showDefaults cannot be used with this option.
      */
-    type _OverrideContextContext = "bookmark" | "tab";
+    type _OverrideContextContext = 'bookmark' | 'tab';
 
     /* menus properties */
     /**
@@ -6293,94 +6350,100 @@ declare namespace browser.menus {
      *     item, details will be available in `runtime.lastError`.
      * @returns The ID of the newly created item.
      */
-    function create(createProperties: {
-        /** The type of menu item. Defaults to 'normal' if not specified. */
-        type?: ItemType;
-        /**
-         * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this
-         * extension.
-         */
-        id?: string;
-        icons?: {
-            [key: number]: string;
-        };
-        /**
-         * The text to be displayed in the item; this is _required_ unless `type` is 'separator'. When the context is
-         * 'selection', you can use `%s` within the string to show the selected text. For example, if this parameter's
-         * value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the
-         * selection is "Translate 'cool' to Pig Latin".
-         */
-        title?: string;
-        /**
-         * The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio
-         * item can be selected at a time in a given group of radio items.
-         */
-        checked?: boolean;
-        /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
-        contexts?: ContextType[];
-        /**
-         * List of view types where the menu item will be shown. Defaults to any view, including those without a
-         * viewType.
-         */
-        viewTypes?: extension.ViewType[];
-        /** Whether the item is visible in the menu. */
-        visible?: boolean;
-        /**
-         * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead,
-         * they should register a listener for `contextMenus.onClicked`.
-         * @param info Information about the item clicked and the context where the click happened.
-         * @param tab The details of the tab where the click took place. Note: this parameter only present for
-         *     extensions.
-         */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
-        /** The ID of a parent menu item; this makes the item a child of a previously added item. */
-        parentId?: number | string;
-        /**
-         * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This
-         * applies to frames as well.) For details on the format of a pattern, see Match Patterns.
-         */
-        documentUrlPatterns?: string[];
-        /**
-         * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and
-         * the href of anchor tags.
-         */
-        targetUrlPatterns?: string[];
-        /** Whether this context menu item is enabled or disabled. Defaults to true. */
-        enabled?: boolean;
-        /**
-         * Specifies a command to issue for the context click. Currently supports internal commands
-         * _execute_page_action, _execute_browser_action and _execute_sidebar_action.
-         */
-        command?: string;
-    }, callback?: () => void): number | string;
+    function create(
+        createProperties: {
+            /** The type of menu item. Defaults to 'normal' if not specified. */
+            type?: ItemType;
+            /**
+             * The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this
+             * extension.
+             */
+            id?: string;
+            icons?: {
+                [key: number]: string;
+            };
+            /**
+             * The text to be displayed in the item; this is _required_ unless `type` is 'separator'. When the context is
+             * 'selection', you can use `%s` within the string to show the selected text. For example, if this parameter's
+             * value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the
+             * selection is "Translate 'cool' to Pig Latin".
+             */
+            title?: string;
+            /**
+             * The initial state of a checkbox or radio item: true for selected and false for unselected. Only one radio
+             * item can be selected at a time in a given group of radio items.
+             */
+            checked?: boolean;
+            /** List of contexts this menu item will appear in. Defaults to ['page'] if not specified. */
+            contexts?: ContextType[];
+            /**
+             * List of view types where the menu item will be shown. Defaults to any view, including those without a
+             * viewType.
+             */
+            viewTypes?: extension.ViewType[];
+            /** Whether the item is visible in the menu. */
+            visible?: boolean;
+            /**
+             * A function that will be called back when the menu item is clicked. Event pages cannot use this; instead,
+             * they should register a listener for `contextMenus.onClicked`.
+             * @param info Information about the item clicked and the context where the click happened.
+             * @param tab The details of the tab where the click took place. Note: this parameter only present for
+             *     extensions.
+             */
+            onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+            /** The ID of a parent menu item; this makes the item a child of a previously added item. */
+            parentId?: number | string;
+            /**
+             * Lets you restrict the item to apply only to documents whose URL matches one of the given patterns. (This
+             * applies to frames as well.) For details on the format of a pattern, see Match Patterns.
+             */
+            documentUrlPatterns?: string[];
+            /**
+             * Similar to documentUrlPatterns, but lets you filter based on the src attribute of img/audio/video tags and
+             * the href of anchor tags.
+             */
+            targetUrlPatterns?: string[];
+            /** Whether this context menu item is enabled or disabled. Defaults to true. */
+            enabled?: boolean;
+            /**
+             * Specifies a command to issue for the context click. Currently supports internal commands
+             * _execute_page_action, _execute_browser_action and _execute_sidebar_action.
+             */
+            command?: string;
+        },
+        callback?: () => void
+    ): number | string;
 
     /**
      * Updates a previously created context menu item.
      * @param id The ID of the item to update.
      * @param updateProperties The properties to update. Accepts the same values as the create function.
      */
-    function update(id: number | string, updateProperties: {
-        type?: ItemType;
-        icons?: {
-            [key: number]: string;
-        };
-        title?: string;
-        checked?: boolean;
-        contexts?: ContextType[];
-        viewTypes?: extension.ViewType[];
-        /** Whether the item is visible in the menu. */
-        visible?: boolean;
-        /**
-         * @param tab The details of the tab where the click took place. Note: this parameter only present for
-         *     extensions.
-         */
-        onclick?: (info: OnClickData, tab: tabs.Tab) => void;
-        /** Note: You cannot change an item to be a child of one of its own descendants. */
-        parentId?: number | string;
-        documentUrlPatterns?: string[];
-        targetUrlPatterns?: string[];
-        enabled?: boolean;
-    }): Promise<void>;
+    function update(
+        id: number | string,
+        updateProperties: {
+            type?: ItemType;
+            icons?: {
+                [key: number]: string;
+            };
+            title?: string;
+            checked?: boolean;
+            contexts?: ContextType[];
+            viewTypes?: extension.ViewType[];
+            /** Whether the item is visible in the menu. */
+            visible?: boolean;
+            /**
+             * @param tab The details of the tab where the click took place. Note: this parameter only present for
+             *     extensions.
+             */
+            onclick?: (info: OnClickData, tab: tabs.Tab) => void;
+            /** Note: You cannot change an item to be a child of one of its own descendants. */
+            parentId?: number | string;
+            documentUrlPatterns?: string[];
+            targetUrlPatterns?: string[];
+            enabled?: boolean;
+        }
+    ): Promise<void>;
 
     /**
      * Removes a context menu item.
@@ -6421,7 +6484,7 @@ declare namespace browser.menus {
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the
      *     menus.onShown, onClicked or onclick event.
      */
-    function getTargetElement(targetElementId: number): object/*Element*/ | void;
+    function getTargetElement(targetElementId: number): object /*Element*/ | void;
 
     /* menus events */
     /**
@@ -6440,22 +6503,27 @@ declare namespace browser.menus {
      *     permissions for the given context: linkUrl, linkText, srcUrl, pageUrl, frameUrl, selectionText.
      * @param tab The details of the tab where the menu was opened.
      */
-    const onShown: WebExtEvent<(info: {
-        /** A list of IDs of the menu items that were shown. */
-        menuIds: number | string[];
-        /** A list of all contexts that apply to the menu. */
-        contexts: ContextType[];
-        viewType?: extension.ViewType;
-        editable: boolean;
-        mediaType?: string;
-        linkUrl?: string;
-        linkText?: string;
-        srcUrl?: string;
-        pageUrl?: string;
-        frameUrl?: string;
-        selectionText?: string;
-        targetElementId?: number;
-    }, tab: tabs.Tab) => void>;
+    const onShown: WebExtEvent<
+        (
+            info: {
+                /** A list of IDs of the menu items that were shown. */
+                menuIds: number | string[];
+                /** A list of all contexts that apply to the menu. */
+                contexts: ContextType[];
+                viewType?: extension.ViewType;
+                editable: boolean;
+                mediaType?: string;
+                linkUrl?: string;
+                linkText?: string;
+                srcUrl?: string;
+                pageUrl?: string;
+                frameUrl?: string;
+                selectionText?: string;
+                targetElementId?: number;
+            },
+            tab: tabs.Tab
+        ) => void
+    >;
 
     /** Fired when a menu is hidden. This event is only fired if onShown has fired before. */
     const onHidden: WebExtEvent<() => void>;
@@ -6471,20 +6539,14 @@ declare namespace browser.menus {
 declare namespace browser.omnibox {
     /* omnibox types */
     /** The style type. */
-    type DescriptionStyleType =
-        "url"
-        | "match"
-        | "dim";
+    type DescriptionStyleType = 'url' | 'match' | 'dim';
 
     /**
      * The window disposition for the omnibox query. This is the recommended context to display results. For example,
      * if the omnibox command is to navigate to a certain URL, a disposition of 'newForegroundTab' means the navigation
      * should take place in a new selected tab.
      */
-    type OnInputEnteredDisposition =
-        "currentTab"
-        | "newForegroundTab"
-        | "newBackgroundTab";
+    type OnInputEnteredDisposition = 'currentTab' | 'newForegroundTab' | 'newBackgroundTab';
 
     /** A suggest result. */
     interface SuggestResult {
@@ -6582,7 +6644,7 @@ declare namespace browser.omnibox {
 declare namespace browser.pageAction {
     /* pageAction types */
     /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
-    type ImageDataType = object/*ImageData*/;
+    type ImageDataType = object /*ImageData*/;
 
     /* pageAction functions */
     /**
@@ -6632,9 +6694,11 @@ declare namespace browser.pageAction {
          * will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified.
          * Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?: ImageDataType | {
-            [key: number]: ImageDataType;
-        };
+        imageData?:
+            | ImageDataType
+            | {
+                  [key: number]: ImageDataType;
+              };
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If
          * the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel
@@ -6642,9 +6706,11 @@ declare namespace browser.pageAction {
          * size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must
          * be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string | {
-            [key: number]: string;
-        };
+        path?:
+            | string
+            | {
+                  [key: number]: string;
+              };
     }): Promise<void>;
 
     /** Sets the html document to be opened as a popup when the user clicks on the page action's icon. */
@@ -6688,7 +6754,9 @@ declare namespace browser.pkcs11 {
     function uninstallModule(name: string): Promise<void>;
 
     /** Enumerate a module's slots, each with their name and whether a token is present */
-    function getModuleSlots(name: string): Promise<{
+    function getModuleSlots(
+        name: string
+    ): Promise<{
         name: string;
         token?: {
             name: string;
@@ -6869,7 +6937,7 @@ declare namespace browser.sessions {
 declare namespace browser.sidebarAction {
     /* sidebarAction types */
     /** Pixel data for an image. Must be an ImageData object (for example, from a `canvas` element). */
-    type ImageDataType = object/*ImageData*/;
+    type ImageDataType = object /*ImageData*/;
 
     /* sidebarAction functions */
     /** Sets the title of the sidebar action. This shows up in the tooltip. */
@@ -6907,9 +6975,11 @@ declare namespace browser.sidebarAction {
          * will be selected. Initially only scales 1 and 2 will be supported. At least one image must be specified.
          * Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        imageData?: ImageDataType | {
-            [key: number]: ImageDataType;
-        };
+        imageData?:
+            | ImageDataType
+            | {
+                  [key: number]: ImageDataType;
+              };
         /**
          * Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If
          * the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel
@@ -6972,11 +7042,11 @@ declare namespace browser.tabs {
     /** An event that caused a muted state change. */
     type MutedInfoReason =
         /** A user input action has set/overridden the muted state. */
-        "user"
+        | 'user'
         /** Tab capture started, forcing a muted state change. */
-        | "capture"
+        | 'capture'
         /** An extension, identified by the extensionId field, set the muted state. */
-        | "extension";
+        | 'extension';
 
     /** Tab muted state and the reason for the last state change. */
     interface MutedInfo {
@@ -7091,18 +7161,18 @@ declare namespace browser.tabs {
      */
     type ZoomSettingsMode =
         /** Zoom changes are handled automatically by the browser. */
-        "automatic"
+        | 'automatic'
         /**
          * Overrides the automatic handling of zoom changes. The `onZoomChange` event will still be dispatched, and it
          * is the responsibility of the extension to listen for this event and manually scale the page. This mode does
          * not support `per-origin` zooming, and will thus ignore the `scope` zoom setting and assume `per-tab`.
          */
-        | "manual"
+        | 'manual'
         /**
          * Disables all zooming in the tab. The tab will revert to the default zoom level, and all attempted zoom
          * changes will be ignored.
          */
-        | "disabled";
+        | 'disabled';
 
     /**
      * Defines whether zoom changes will persist for the page's origin, or only take effect in this tab; defaults to
@@ -7115,13 +7185,13 @@ declare namespace browser.tabs {
          * navigating to other pages in the same origin, they will all be zoomed to the same zoom factor. The
          * `per-origin` scope is only available in the `automatic` mode.
          */
-        "per-origin"
+        | 'per-origin'
         /**
          * Zoom changes only take effect in this tab, and zoom changes in other tabs will not affect the zooming of
          * this tab. Also, `per-tab` zoom changes are reset on navigation; navigating a tab will always load pages with
          * their `per-origin` zoom factors.
          */
-        | "per-tab";
+        | 'per-tab';
 
     /** Defines how zoom changes in a tab are handled and at what scope. */
     interface ZoomSettings {
@@ -7188,30 +7258,25 @@ declare namespace browser.tabs {
     }
 
     /** Whether the tabs have completed loading. */
-    type TabStatus = "loading" | "complete";
+    type TabStatus = 'loading' | 'complete';
 
     /** The type of window. */
-    type WindowType =
-        "normal"
-        | "popup"
-        | "panel"
-        | "app"
-        | "devtools";
+    type WindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
 
     /** Event names supported in onUpdated. */
     type UpdatePropertyName =
-        "attention"
-        | "audible"
-        | "discarded"
-        | "favIconUrl"
-        | "hidden"
-        | "isarticle"
-        | "isArticle"
-        | "mutedInfo"
-        | "pinned"
-        | "sharingState"
-        | "status"
-        | "title";
+        | 'attention'
+        | 'audible'
+        | 'discarded'
+        | 'favIconUrl'
+        | 'hidden'
+        | 'isarticle'
+        | 'isArticle'
+        | 'mutedInfo'
+        | 'pinned'
+        | 'sharingState'
+        | 'status'
+        | 'title';
 
     /** An object describing filters to apply to tabs.onUpdated events. */
     interface UpdateFilter {
@@ -7226,46 +7291,49 @@ declare namespace browser.tabs {
         windowId?: number;
     }
 
-    type _QueryScreen =
-        "Screen"
-        | "Window"
-        | "Application";
+    type _QueryScreen = 'Screen' | 'Window' | 'Application';
 
-    interface _TabsOnUpdatedEvent<TCallback = (tabId: number, changeInfo: {
-        /** The tab's new attention state. */
-        attention?: boolean;
-        /** The tab's new audible state. */
-        audible?: boolean;
-        /** True while the tab is not loaded with content. */
-        discarded?: boolean;
-        /**
-         * The tab's new favicon URL. This property is only present if the extension's manifest includes the `"tabs"`
-         * permission.
-         */
-        favIconUrl?: string;
-        /** The tab's new hidden state. */
-        hidden?: boolean;
-        /** Whether the document in the tab can be rendered in reader mode. */
-        isArticle?: boolean;
-        /** The tab's new muted state and the reason for the change. */
-        mutedInfo?: MutedInfo;
-        /** The tab's new pinned state. */
-        pinned?: boolean;
-        /** The tab's new sharing state for screen, microphone and camera. */
-        sharingState?: SharingState;
-        /** The status of the tab. Can be either _loading_ or _complete_. */
-        status?: string;
-        /**
-         * The title of the tab if it has changed. This property is only present if the extension's manifest includes
-         * the `"tabs"` permission.
-         */
-        title?: string;
-        /**
-         * The tab's URL if it has changed. This property is only present if the extension's manifest includes the
-         * `"tabs"` permission.
-         */
-        url?: string;
-    }, tab: Tab) => void> {
+    interface _TabsOnUpdatedEvent<
+        TCallback = (
+            tabId: number,
+            changeInfo: {
+                /** The tab's new attention state. */
+                attention?: boolean;
+                /** The tab's new audible state. */
+                audible?: boolean;
+                /** True while the tab is not loaded with content. */
+                discarded?: boolean;
+                /**
+                 * The tab's new favicon URL. This property is only present if the extension's manifest includes the `"tabs"`
+                 * permission.
+                 */
+                favIconUrl?: string;
+                /** The tab's new hidden state. */
+                hidden?: boolean;
+                /** Whether the document in the tab can be rendered in reader mode. */
+                isArticle?: boolean;
+                /** The tab's new muted state and the reason for the change. */
+                mutedInfo?: MutedInfo;
+                /** The tab's new pinned state. */
+                pinned?: boolean;
+                /** The tab's new sharing state for screen, microphone and camera. */
+                sharingState?: SharingState;
+                /** The status of the tab. Can be either _loading_ or _complete_. */
+                status?: string;
+                /**
+                 * The title of the tab if it has changed. This property is only present if the extension's manifest includes
+                 * the `"tabs"` permission.
+                 */
+                title?: string;
+                /**
+                 * The tab's URL if it has changed. This property is only present if the extension's manifest includes the
+                 * `"tabs"` permission.
+                 */
+                url?: string;
+            },
+            tab: Tab
+        ) => void
+    > {
         addListener(cb: TCallback, filter?: UpdateFilter): void;
 
         removeListener(cb: TCallback): void;
@@ -7293,12 +7361,15 @@ declare namespace browser.tabs {
      * @returns A port that can be used to communicate with the content scripts running in the specified tab. The
      *     port's `runtime.Port` event is fired if the tab closes or does not exist.
      */
-    function connect(tabId: number, connectInfo?: {
-        /** Will be passed into onConnect for content scripts that are listening for the connection event. */
-        name?: string;
-        /** Open a port to a specific frame identified by `frameId` instead of all frames in the tab. */
-        frameId?: number;
-    }): runtime.Port;
+    function connect(
+        tabId: number,
+        connectInfo?: {
+            /** Will be passed into onConnect for content scripts that are listening for the connection event. */
+            name?: string;
+            /** Open a port to a specific frame identified by `frameId` instead of all frames in the tab. */
+            frameId?: number;
+        }
+    ): runtime.Port;
 
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a
@@ -7313,10 +7384,14 @@ declare namespace browser.tabs {
      * response is sent back. The `runtime.onMessage` event is fired in each content script running in the specified
      * tab for the current extension.
      */
-    function sendMessage(tabId: number, message: any, options?: {
-        /** Send a message to a specific frame identified by `frameId` instead of all frames in the tab. */
-        frameId?: number;
-    }): Promise<any>;
+    function sendMessage(
+        tabId: number,
+        message: any,
+        options?: {
+            /** Send a message to a specific frame identified by `frameId` instead of all frames in the tab. */
+            frameId?: number;
+        }
+    ): Promise<any>;
 
     /**
      * Gets the tab that is selected in the specified window.
@@ -7479,56 +7554,65 @@ declare namespace browser.tabs {
      * Modifies the properties of a tab. Properties that are not specified in `updateProperties` are not modified.
      * @param tabId Defaults to the selected tab of the current window.
      */
-    function update(tabId: number, updateProperties: {
-        /** A URL to navigate the tab to. */
-        url?: string;
-        /**
-         * Whether the tab should be active. Does not affect whether the window is focused (see `windows.update`).
-         */
-        active?: boolean;
-        /** Adds or removes the tab from the current selection. */
-        highlighted?: boolean;
-        /**
-         * Whether the tab should be selected.
-         * @deprecated Please use _highlighted_.
-         */
-        selected?: boolean;
-        /** Whether the tab should be pinned. */
-        pinned?: boolean;
-        /** Whether the tab should be muted. */
-        muted?: boolean;
-        /**
-         * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.
-         */
-        openerTabId?: number;
-        /** Whether the load should replace the current history entry for the tab. */
-        loadReplace?: boolean;
-        /**
-         * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
-         */
-        successorTabId?: number;
-    }): Promise<Tab | undefined>;
+    function update(
+        tabId: number,
+        updateProperties: {
+            /** A URL to navigate the tab to. */
+            url?: string;
+            /**
+             * Whether the tab should be active. Does not affect whether the window is focused (see `windows.update`).
+             */
+            active?: boolean;
+            /** Adds or removes the tab from the current selection. */
+            highlighted?: boolean;
+            /**
+             * Whether the tab should be selected.
+             * @deprecated Please use _highlighted_.
+             */
+            selected?: boolean;
+            /** Whether the tab should be pinned. */
+            pinned?: boolean;
+            /** Whether the tab should be muted. */
+            muted?: boolean;
+            /**
+             * The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.
+             */
+            openerTabId?: number;
+            /** Whether the load should replace the current history entry for the tab. */
+            loadReplace?: boolean;
+            /**
+             * The ID of this tab's successor. If specified, the successor tab must be in the same window as this tab.
+             */
+            successorTabId?: number;
+        }
+    ): Promise<Tab | undefined>;
 
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved
      * to and from normal (window.type === "normal") windows.
      * @param tabIds The tab or list of tabs to move.
      */
-    function move(tabIds: number | number[], moveProperties: {
-        /** Defaults to the window the tab is currently in. */
-        windowId?: number;
-        /** The position to move the window to. -1 will place the tab at the end of the window. */
-        index: number;
-    }): Promise<Tab | Tab[] | undefined>;
+    function move(
+        tabIds: number | number[],
+        moveProperties: {
+            /** Defaults to the window the tab is currently in. */
+            windowId?: number;
+            /** The position to move the window to. -1 will place the tab at the end of the window. */
+            index: number;
+        }
+    ): Promise<Tab | Tab[] | undefined>;
 
     /**
      * Reload a tab.
      * @param [tabId] The ID of the tab to reload; defaults to the selected tab of the current window.
      */
-    function reload(tabId?: number, reloadProperties?: {
-        /** Whether using any local cache. Default is false. */
-        bypassCache?: boolean;
-    }): Promise<void>;
+    function reload(
+        tabId?: number,
+        reloadProperties?: {
+            /** Whether using any local cache. Default is false. */
+            bypassCache?: boolean;
+        }
+    ): Promise<void>;
 
     /**
      * Closes one or more tabs.
@@ -7685,18 +7769,22 @@ declare namespace browser.tabs {
      *     leave the last tab without a successor. If options.append is true, then this tab is made the predecessor of
      *     the first tab in the array instead.
      */
-    function moveInSuccession(tabIds: number[], tabId?: number, options?: {
-        /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
-        append?: boolean;
-        /**
-         * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other
-         * side of the chain after it is prepended or appended. If true, one of the following happens: if
-         * options.append is false, the first tab in the array is set as the successor of any current predecessors of
-         * tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in
-         * the array. Defaults to false.
-         */
-        insert?: boolean;
-    }): Promise<any>;
+    function moveInSuccession(
+        tabIds: number[],
+        tabId?: number,
+        options?: {
+            /** Whether to move the tabs before (false) or after (true) tabId in the succession. Defaults to false. */
+            append?: boolean;
+            /**
+             * Whether to link up the current predecessors or successor (depending on options.append) of tabId to the other
+             * side of the chain after it is prepended or appended. If true, one of the following happens: if
+             * options.append is false, the first tab in the array is set as the successor of any current predecessors of
+             * tabId; if options.append is true, the current successor of tabId is set as the successor of the last tab in
+             * the array. Defaults to false.
+             */
+            insert?: boolean;
+        }
+    ): Promise<any>;
 
     /* tabs events */
     /**
@@ -7718,21 +7806,33 @@ declare namespace browser.tabs {
      * moved. Move events are not fired for the other tabs that must move in response. This event is not fired when a
      * tab is moved between windows. For that, see `tabs.onDetached`.
      */
-    const onMoved: WebExtEvent<(tabId: number, moveInfo: {
-        windowId: number;
-        fromIndex: number;
-        toIndex: number;
-    }) => void>;
+    const onMoved: WebExtEvent<
+        (
+            tabId: number,
+            moveInfo: {
+                windowId: number;
+                fromIndex: number;
+                toIndex: number;
+            }
+        ) => void
+    >;
 
     /**
      * Fires when the selected tab in a window changes.
      * @param tabId The ID of the tab that has become active.
      * @deprecated Please use `tabs.onActivated`.
      */
-    const onSelectionChanged: WebExtEvent<(tabId: number, selectInfo: {
-        /** The ID of the window the selected tab changed inside of. */
-        windowId: number;
-    }) => void> | undefined;
+    const onSelectionChanged:
+        | WebExtEvent<
+              (
+                  tabId: number,
+                  selectInfo: {
+                      /** The ID of the window the selected tab changed inside of. */
+                      windowId: number;
+                  }
+              ) => void
+          >
+        | undefined;
 
     /**
      * Fires when the selected tab in a window changes. Note that the tab's URL may not be set at the time this event
@@ -7740,73 +7840,105 @@ declare namespace browser.tabs {
      * @param tabId The ID of the tab that has become active.
      * @deprecated Please use `tabs.onActivated`.
      */
-    const onActiveChanged: WebExtEvent<(tabId: number, selectInfo: {
-        /** The ID of the window the selected tab changed inside of. */
-        windowId: number;
-    }) => void> | undefined;
+    const onActiveChanged:
+        | WebExtEvent<
+              (
+                  tabId: number,
+                  selectInfo: {
+                      /** The ID of the window the selected tab changed inside of. */
+                      windowId: number;
+                  }
+              ) => void
+          >
+        | undefined;
 
     /**
      * Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event
      * fired, but you can listen to onUpdated events to be notified when a URL is set.
      */
-    const onActivated: WebExtEvent<(activeInfo: {
-        /** The ID of the tab that has become active. */
-        tabId: number;
-        /** The ID of the tab that was previously active, if that tab is still open. */
-        previousTabId?: number;
-        /** The ID of the window the active tab changed inside of. */
-        windowId: number;
-    }) => void>;
+    const onActivated: WebExtEvent<
+        (activeInfo: {
+            /** The ID of the tab that has become active. */
+            tabId: number;
+            /** The ID of the tab that was previously active, if that tab is still open. */
+            previousTabId?: number;
+            /** The ID of the window the active tab changed inside of. */
+            windowId: number;
+        }) => void
+    >;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @deprecated Please use `tabs.onHighlighted`.
      */
-    const onHighlightChanged: WebExtEvent<(selectInfo: {
-        /** The window whose tabs changed. */
-        windowId: number;
-        /** All highlighted tabs in the window. */
-        tabIds: number[];
-    }) => void> | undefined;
+    const onHighlightChanged:
+        | WebExtEvent<
+              (selectInfo: {
+                  /** The window whose tabs changed. */
+                  windowId: number;
+                  /** All highlighted tabs in the window. */
+                  tabIds: number[];
+              }) => void
+          >
+        | undefined;
 
     /** Fired when the highlighted or selected tabs in a window changes. */
-    const onHighlighted: WebExtEvent<(highlightInfo: {
-        /** The window whose tabs changed. */
-        windowId: number;
-        /** All highlighted tabs in the window. */
-        tabIds: number[];
-    }) => void>;
+    const onHighlighted: WebExtEvent<
+        (highlightInfo: {
+            /** The window whose tabs changed. */
+            windowId: number;
+            /** All highlighted tabs in the window. */
+            tabIds: number[];
+        }) => void
+    >;
 
     /** Fired when a tab is detached from a window, for example because it is being moved between windows. */
-    const onDetached: WebExtEvent<(tabId: number, detachInfo: {
-        oldWindowId: number;
-        oldPosition: number;
-    }) => void>;
+    const onDetached: WebExtEvent<
+        (
+            tabId: number,
+            detachInfo: {
+                oldWindowId: number;
+                oldPosition: number;
+            }
+        ) => void
+    >;
 
     /** Fired when a tab is attached to a window, for example because it was moved between windows. */
-    const onAttached: WebExtEvent<(tabId: number, attachInfo: {
-        newWindowId: number;
-        newPosition: number;
-    }) => void>;
+    const onAttached: WebExtEvent<
+        (
+            tabId: number,
+            attachInfo: {
+                newWindowId: number;
+                newPosition: number;
+            }
+        ) => void
+    >;
 
     /** Fired when a tab is closed. */
-    const onRemoved: WebExtEvent<(tabId: number, removeInfo: {
-        /** The window whose tab is closed. */
-        windowId: number;
-        /** True when the tab is being closed because its window is being closed. */
-        isWindowClosing: boolean;
-    }) => void>;
+    const onRemoved: WebExtEvent<
+        (
+            tabId: number,
+            removeInfo: {
+                /** The window whose tab is closed. */
+                windowId: number;
+                /** True when the tab is being closed because its window is being closed. */
+                isWindowClosing: boolean;
+            }
+        ) => void
+    >;
 
     /** Fired when a tab is replaced with another tab due to prerendering or instant. */
     const onReplaced: WebExtEvent<(addedTabId: number, removedTabId: number) => void>;
 
     /** Fired when a tab is zoomed. */
-    const onZoomChange: WebExtEvent<(ZoomChangeInfo: {
-        tabId: number;
-        oldZoomFactor: number;
-        newZoomFactor: number;
-        zoomSettings: ZoomSettings;
-    }) => void>;
+    const onZoomChange: WebExtEvent<
+        (ZoomChangeInfo: {
+            tabId: number;
+            oldZoomFactor: number;
+            newZoomFactor: number;
+            zoomSettings: ZoomSettings;
+        }) => void
+    >;
 }
 
 /**
@@ -7821,23 +7953,13 @@ declare namespace browser.windows {
      * The type of browser window this is. Under some circumstances a Window may not be assigned type property, for
      * example when querying closed windows from the `sessions` API.
      */
-    type WindowType =
-        "normal"
-        | "popup"
-        | "panel"
-        | "app"
-        | "devtools";
+    type WindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
 
     /**
      * The state of this browser window. Under some circumstances a Window may not be assigned state property, for
      * example when querying closed windows from the `sessions` API.
      */
-    type WindowState =
-        "normal"
-        | "minimized"
-        | "maximized"
-        | "fullscreen"
-        | "docked";
+    type WindowState = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'docked';
 
     interface Window {
         /**
@@ -7888,11 +8010,7 @@ declare namespace browser.windows {
      * Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless
      * the '--enable-panels' flag is set.
      */
-    type CreateType =
-        "normal"
-        | "popup"
-        | "panel"
-        | "detached_panel";
+    type CreateType = 'normal' | 'popup' | 'panel' | 'detached_panel';
 
     /** Specifies whether the `windows.Window` returned should contain a list of the `tabs.Tab` objects. */
     interface GetInfo {
@@ -8006,39 +8124,42 @@ declare namespace browser.windows {
      * Updates the properties of a window. Specify only the properties that you want to change; unspecified properties
      * will be left unchanged.
      */
-    function update(windowId: number, updateInfo: {
-        /**
-         * The offset from the left edge of the screen to move the window to in pixels. This value is ignored for
-         * panels.
-         */
-        left?: number;
-        /**
-         * The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels.
-         */
-        top?: number;
-        /** The width to resize the window to in pixels. This value is ignored for panels. */
-        width?: number;
-        /** The height to resize the window to in pixels. This value is ignored for panels. */
-        height?: number;
-        /**
-         * If true, brings the window to the front. If false, brings the next window in the z-order to the front.
-         */
-        focused?: boolean;
-        /**
-         * If true, causes the window to be displayed in a manner that draws the user's attention to the window,
-         * without changing the focused window. The effect lasts until the user changes focus to the window. This
-         * option has no effect if the window already has focus. Set to false to cancel a previous draw attention
-         * request.
-         */
-        drawAttention?: boolean;
-        /**
-         * The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with
-         * 'left', 'top', 'width' or 'height'.
-         */
-        state?: WindowState;
-        /** A string to add to the beginning of the window title. */
-        titlePreface?: string;
-    }): Promise<Window | undefined>;
+    function update(
+        windowId: number,
+        updateInfo: {
+            /**
+             * The offset from the left edge of the screen to move the window to in pixels. This value is ignored for
+             * panels.
+             */
+            left?: number;
+            /**
+             * The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels.
+             */
+            top?: number;
+            /** The width to resize the window to in pixels. This value is ignored for panels. */
+            width?: number;
+            /** The height to resize the window to in pixels. This value is ignored for panels. */
+            height?: number;
+            /**
+             * If true, brings the window to the front. If false, brings the next window in the z-order to the front.
+             */
+            focused?: boolean;
+            /**
+             * If true, causes the window to be displayed in a manner that draws the user's attention to the window,
+             * without changing the focused window. The effect lasts until the user changes focus to the window. This
+             * option has no effect if the window already has focus. Set to false to cancel a previous draw attention
+             * request.
+             */
+            drawAttention?: boolean;
+            /**
+             * The new state of the window. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with
+             * 'left', 'top', 'width' or 'height'.
+             */
+            state?: WindowState;
+            /** A string to add to the beginning of the window title. */
+            titlePreface?: string;
+        }
+    ): Promise<Window | undefined>;
 
     /** Removes (closes) a window, and all the tabs inside it. */
     function remove(windowId: number): Promise<void>;

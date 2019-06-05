@@ -1,5 +1,5 @@
-import { GraphQLError } from "./GraphQLError";
-import { SourceLocation } from "../language/location";
+import { GraphQLError } from './GraphQLError';
+import { SourceLocation } from '../language/location';
 
 /**
  * Given a GraphQLError, format it according to the rules described by the

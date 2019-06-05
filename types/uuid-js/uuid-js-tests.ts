@@ -18,7 +18,7 @@ console.log(uuidFirst.toString(), uuidLast.toString());
 
 // Use these TimeUUID's to perform range queries in cassandra:
 const today = new Date().getTime();
-const last30days = (new Date().setDate(today - 30));
+const last30days = new Date().setDate(today - 30);
 
 const rangeStart = UUID.firstFromTime(last30days);
 const rangeEnd = UUID.lastFromTime(today);

@@ -9,7 +9,7 @@ declare namespace cropperjs {
         CropBoxIsJustWithInTheContainer = 0,
         CropBoxShouldBeWithInTheCanvas = 1,
         CanvasShouldNotBeWithInTheContainer = 2,
-        ContainerSshouldBeWithInTheCanvas = 3
+        ContainerSshouldBeWithInTheCanvas = 3,
     }
     type CropperReadyEvent = CustomEvent;
     interface CropperCropEvent extends CustomEvent {

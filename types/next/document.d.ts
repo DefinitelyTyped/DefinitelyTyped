@@ -1,6 +1,6 @@
-import * as React from "react";
-import { NextContext, NextComponentType } from ".";
-import { DefaultQuery } from "./router";
+import * as React from 'react';
+import { NextContext, NextComponentType } from '.';
+import { DefaultQuery } from './router';
 
 /**
  * Result from renderPage().
@@ -30,17 +30,10 @@ export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (
  *
  * @template Q Query object schema.
  */
-export interface NextDocumentContext<
-    Q extends DefaultQuery = DefaultQuery,
-    CustomReq = {}
-> extends NextContext<Q, CustomReq> {
+export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery, CustomReq = {}>
+    extends NextContext<Q, CustomReq> {
     /** A callback that executes the actual React rendering logic (synchronously) */
-    renderPage<
-        E extends PageProps = AnyPageProps,
-        P = E,
-        EA extends PageProps = AnyPageProps,
-        PA = EA
-    >(
+    renderPage<E extends PageProps = AnyPageProps, P = E, EA extends PageProps = AnyPageProps, PA = EA>(
         enhancer?:
             | Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
             | { enhanceApp?: Enhancer<EA, PA>; enhanceComponent?: Enhancer<E, P> } // tslint:disable-line no-unnecessary-generics
@@ -118,10 +111,6 @@ export class Html extends React.Component<React.HTMLProps<HTMLHtmlElement>> {}
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}
-export default class Document<P = {}> extends React.Component<
-    P & DefaultDocumentIProps & DocumentProps
-> {
-    static getInitialProps(
-        context: NextDocumentContext
-    ): DefaultDocumentIProps | Promise<DefaultDocumentIProps>;
+export default class Document<P = {}> extends React.Component<P & DefaultDocumentIProps & DocumentProps> {
+    static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps | Promise<DefaultDocumentIProps>;
 }

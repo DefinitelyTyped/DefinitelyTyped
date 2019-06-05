@@ -1,3 +1,3 @@
-import { AdapterSync } from "../index";
+import { AdapterSync } from '../index';
 declare const LocalStorage: AdapterSync;
 export = LocalStorage;

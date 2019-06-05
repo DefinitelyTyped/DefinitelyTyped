@@ -4,247 +4,242 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
-  title: string;
-  version: string;
-  description?: string;
-  termsOfService?: string;
-  contact?: Contact;
-  license?: License;
+    title: string;
+    version: string;
+    description?: string;
+    termsOfService?: string;
+    contact?: Contact;
+    license?: License;
 }
 
 export interface Contact {
-  name?: string;
-  email?: string;
-  url?: string;
+    name?: string;
+    email?: string;
+    url?: string;
 }
 
 export interface License {
-  name: string;
-  url?: string;
+    name: string;
+    url?: string;
 }
 
 export interface ExternalDocs {
-  url: string;
-  description?: string;
+    url: string;
+    description?: string;
 }
 
 export interface Tag {
-  name: string;
-  description?: string;
-  externalDocs?: ExternalDocs;
+    name: string;
+    description?: string;
+    externalDocs?: ExternalDocs;
 }
 
 export interface Header extends BaseSchema {
-  type: string;
+    type: string;
 }
 
 // ----------------------------- Parameter -----------------------------------
 export interface BaseParameter {
-  name: string;
-  in: string;
-  required?: boolean;
-  description?: string;
+    name: string;
+    in: string;
+    required?: boolean;
+    description?: string;
 }
 
 export interface BodyParameter extends BaseParameter {
-  in: 'body';
-  schema?: Schema;
+    in: 'body';
+    schema?: Schema;
 }
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
-  in: 'query';
-  type: string;
-  allowEmptyValue?: boolean;
+    in: 'query';
+    type: string;
+    allowEmptyValue?: boolean;
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
-  in: 'path';
-  type: string;
-  required: boolean;
+    in: 'path';
+    type: string;
+    required: boolean;
 }
 
 export interface HeaderParameter extends BaseParameter, BaseSchema {
-  in: 'header';
-  type: string;
+    in: 'header';
+    type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
-  in: 'formData';
-  type: string;
-  collectionFormat?: string;
-  allowEmptyValue?: boolean;
+    in: 'formData';
+    type: string;
+    collectionFormat?: string;
+    allowEmptyValue?: boolean;
 }
 
-export type Parameter =
-  BodyParameter |
-  FormDataParameter |
-  QueryParameter |
-  PathParameter |
-  HeaderParameter;
+export type Parameter = BodyParameter | FormDataParameter | QueryParameter | PathParameter | HeaderParameter;
 
 // ------------------------------- Path --------------------------------------
 export interface Path {
-  $ref?: string;
-  get?: Operation;
-  put?: Operation;
-  post?: Operation;
-  delete?: Operation;
-  options?: Operation;
-  head?: Operation;
-  patch?: Operation;
-  parameters?: Array<Parameter | Reference>;
+    $ref?: string;
+    get?: Operation;
+    put?: Operation;
+    post?: Operation;
+    delete?: Operation;
+    options?: Operation;
+    head?: Operation;
+    patch?: Operation;
+    parameters?: Array<Parameter | Reference>;
 }
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response | Reference };
-  summary?: string;
-  description?: string;
-  externalDocs?: ExternalDocs;
-  operationId?: string;
-  produces?: string[];
-  consumes?: string[];
-  parameters?: Array<Parameter | Reference>;
-  schemes?: string[];
-  deprecated?: boolean;
-  security?: Security[];
-  tags?: string[];
+    responses: { [responseName: string]: Response | Reference };
+    summary?: string;
+    description?: string;
+    externalDocs?: ExternalDocs;
+    operationId?: string;
+    produces?: string[];
+    consumes?: string[];
+    parameters?: Array<Parameter | Reference>;
+    schemes?: string[];
+    deprecated?: boolean;
+    security?: Security[];
+    tags?: string[];
 }
 
 // ----------------------------- Reference -----------------------------------
 export interface Reference {
-  $ref: string;
+    $ref: string;
 }
 
 // ----------------------------- Response ------------------------------------
 export interface Response {
-  description: string;
-  schema?: Schema;
-  headers?: { [headerName: string]: Header };
-  examples?: { [exampleName: string]: {} };
+    description: string;
+    schema?: Schema;
+    headers?: { [headerName: string]: Header };
+    examples?: { [exampleName: string]: {} };
 }
 
 // ------------------------------ Schema -------------------------------------
 export interface BaseSchema {
-  format?: string;
-  title?: string;
-  description?: string;
-  default?: string | boolean | number | {};
-  multipleOf?: number;
-  maximum?: number;
-  exclusiveMaximum?: boolean;
-  minimum?: number;
-  exclusiveMinimum?: boolean;
-  maxLength?: number;
-  minLength?: number;
-  pattern?: string;
-  maxItems?: number;
-  minItems?: number;
-  uniqueItems?: boolean;
-  maxProperties?: number;
-  minProperties?: number;
-  enum?: Array<string | boolean | number | {}>;
-  type?: string;
-  items?: Schema | Schema[];
+    format?: string;
+    title?: string;
+    description?: string;
+    default?: string | boolean | number | {};
+    multipleOf?: number;
+    maximum?: number;
+    exclusiveMaximum?: boolean;
+    minimum?: number;
+    exclusiveMinimum?: boolean;
+    maxLength?: number;
+    minLength?: number;
+    pattern?: string;
+    maxItems?: number;
+    minItems?: number;
+    uniqueItems?: boolean;
+    maxProperties?: number;
+    minProperties?: number;
+    enum?: Array<string | boolean | number | {}>;
+    type?: string;
+    items?: Schema | Schema[];
 }
 
 export interface Schema extends BaseSchema {
-  $ref?: string;
-  allOf?: Schema[];
-  additionalProperties?: Schema;
-  properties?: { [propertyName: string]: Schema };
-  discriminator?: string;
-  readOnly?: boolean;
-  xml?: XML;
-  externalDocs?: ExternalDocs;
-  example?: any;
-  required?: string[];
+    $ref?: string;
+    allOf?: Schema[];
+    additionalProperties?: Schema;
+    properties?: { [propertyName: string]: Schema };
+    discriminator?: string;
+    readOnly?: boolean;
+    xml?: XML;
+    externalDocs?: ExternalDocs;
+    example?: any;
+    required?: string[];
 }
 
 export interface XML {
-  name?: string;
-  namespace?: string;
-  prefix?: string;
-  attribute?: boolean;
-  wrapped?: boolean;
+    name?: string;
+    namespace?: string;
+    prefix?: string;
+    attribute?: boolean;
+    wrapped?: boolean;
 }
 
 // ----------------------------- Security ------------------------------------
 export interface BaseSecurity {
-  type: 'basic' | 'apiKey' | 'oauth2';
-  description?: string;
+    type: 'basic' | 'apiKey' | 'oauth2';
+    description?: string;
 }
 
 export interface BasicAuthenticationSecurity extends BaseSecurity {
-  type: 'basic';
+    type: 'basic';
 }
 
 export interface ApiKeySecurity extends BaseSecurity {
-  type: 'apiKey';
-  name: string;
-  in: string;
+    type: 'apiKey';
+    name: string;
+    in: string;
 }
 
 export interface BaseOAuthSecuirty extends BaseSecurity {
-  type: 'oauth2';
-  flow: 'accessCode' | 'application' | 'implicit' | 'password';
+    type: 'oauth2';
+    flow: 'accessCode' | 'application' | 'implicit' | 'password';
 }
 
 export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
-  type: 'oauth2';
-  flow: 'implicit';
-  authorizationUrl: string;
+    type: 'oauth2';
+    flow: 'implicit';
+    authorizationUrl: string;
 }
 
 export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
-  type: 'oauth2';
-  flow: 'password';
-  tokenUrl: string;
-  scopes?: OAuthScope[];
+    type: 'oauth2';
+    flow: 'password';
+    tokenUrl: string;
+    scopes?: OAuthScope[];
 }
 
 export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
-  type: 'oauth2';
-  flow: 'application';
-  tokenUrl: string;
-  scopes?: OAuthScope[];
+    type: 'oauth2';
+    flow: 'application';
+    tokenUrl: string;
+    scopes?: OAuthScope[];
 }
 
 export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
-  type: 'oauth2';
-  flow: 'accessCode';
-  tokenUrl: string;
-  authorizationUrl: string;
-  scopes?: OAuthScope[];
+    type: 'oauth2';
+    flow: 'accessCode';
+    tokenUrl: string;
+    authorizationUrl: string;
+    scopes?: OAuthScope[];
 }
 
 export interface OAuthScope {
-  [scopeName: string]: string;
+    [scopeName: string]: string;
 }
 
 export type Security =
-  BasicAuthenticationSecurity |
-  OAuth2AccessCodeSecurity |
-  OAuth2ApplicationSecurity |
-  OAuth2ImplicitSecurity |
-  OAuth2PasswordSecurity |
-  ApiKeySecurity;
+    | BasicAuthenticationSecurity
+    | OAuth2AccessCodeSecurity
+    | OAuth2ApplicationSecurity
+    | OAuth2ImplicitSecurity
+    | OAuth2PasswordSecurity
+    | ApiKeySecurity;
 
 // --------------------------------- Spec ------------------------------------
 export interface Spec {
-  swagger: string;
-  info: Info;
-  externalDocs?: ExternalDocs;
-  host?: string;
-  basePath?: string;
-  schemes?: string[];
-  consumes?: string[];
-  produces?: string[];
-  paths: { [pathName: string]: Path };
-  definitions?: { [definitionsName: string]: Schema };
-  parameters?: { [parameterName: string]: BodyParameter | QueryParameter };
-  responses?: { [responseName: string]: Response };
-  security?: Array<{ [securityDefinitionName: string]: string[] }>;
-  securityDefinitions?: { [securityDefinitionName: string]: Security };
-  tags?: Tag[];
+    swagger: string;
+    info: Info;
+    externalDocs?: ExternalDocs;
+    host?: string;
+    basePath?: string;
+    schemes?: string[];
+    consumes?: string[];
+    produces?: string[];
+    paths: { [pathName: string]: Path };
+    definitions?: { [definitionsName: string]: Schema };
+    parameters?: { [parameterName: string]: BodyParameter | QueryParameter };
+    responses?: { [responseName: string]: Response };
+    security?: Array<{ [securityDefinitionName: string]: string[] }>;
+    securityDefinitions?: { [securityDefinitionName: string]: Security };
+    tags?: Tag[];
 }

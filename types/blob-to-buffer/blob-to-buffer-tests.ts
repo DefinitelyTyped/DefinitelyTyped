@@ -1,4 +1,4 @@
-import blobToBuffer = require("blob-to-buffer");
+import blobToBuffer = require('blob-to-buffer');
 
 blobToBuffer(new Blob(), (error, buffer) => {
     console.log(error);

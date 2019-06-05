@@ -1,4 +1,15 @@
-import { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w, isHTMLSafe } from '@ember/string';
+import {
+    dasherize,
+    camelize,
+    capitalize,
+    classify,
+    decamelize,
+    htmlSafe,
+    loc,
+    underscore,
+    w,
+    isHTMLSafe,
+} from '@ember/string';
 import { SafeString } from '@ember/string/-private/handlebars';
 
 dasherize(); // $ExpectError
@@ -30,17 +41,17 @@ capitalize('blue man group'); // $ExpectType string
 capitalize('', ''); // $ExpectError
 
 loc(); // $ExpectError
-loc("_Hello World");  // $ExpectType string
-loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
+loc('_Hello World'); // $ExpectType string
+loc('_Hello %@ %@', ['John', 'Smith']); // $ExpectType string
 
 const handlebarsSafeString: SafeString = htmlSafe('lorem ipsum...');
 htmlSafe('lorem ipsum...'); // $ExpectType SafeString
 const regularString: string = htmlSafe('lorem ipsum...'); // $ExpectError
 
 function isSafeTest(a: string | SafeString) {
-  if (isHTMLSafe(a)) {
-      a = a.toString();
-  }
+    if (isHTMLSafe(a)) {
+        a = a.toString();
+    }
 
-  camelize(a);
+    camelize(a);
 }

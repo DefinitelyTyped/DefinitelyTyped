@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component } from 'react';
 
 interface OnVolumeChangeParam {
     muted: boolean;
@@ -12,7 +12,7 @@ interface OnVolumeChangeParam {
 }
 
 interface Props {
-    type?: "youtube" | "vimeo" | "video" | "audio";
+    type?: 'youtube' | 'vimeo' | 'video' | 'audio';
     className?: string;
     videoId?: string;
     url?: string;
@@ -56,28 +56,28 @@ interface Props {
         option?: string[] | number[];
     };
     loop?: {
-        active?: boolean
+        active?: boolean;
     };
     speed?: {
         selected?: number;
-        options?: number[]
+        options?: number[];
     };
     keyboard?: {
         focused?: boolean;
-        global?: boolean
+        global?: boolean;
     };
     tooltips?: {
         controls?: boolean;
-        seek?: boolean
+        seek?: boolean;
     };
     fullscreen?: {
         enabled?: boolean;
         fallback?: boolean;
-        iosNative?: boolean
+        iosNative?: boolean;
     };
     storage?: {
         enabled?: boolean;
-        key?: string
+        key?: string;
     };
     controls?: string[];
     settings?: string[];

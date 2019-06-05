@@ -23,5 +23,5 @@ class MyDialog extends ModalDialog {
 class MyOtherDialog extends ModalDialog.extend({
     testProperties() {
         this.hasOverlay; // $ExpectType boolean
-    }
+    },
 }) {}

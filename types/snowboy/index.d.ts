@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import { Stream } from "stream";
+import { Stream } from 'stream';
 
-export type State = "sound" | "silence" | "hotword" | "error";
+export type State = 'sound' | 'silence' | 'hotword' | 'error';
 
 export class Detector extends Stream {
     constructor(params: any);

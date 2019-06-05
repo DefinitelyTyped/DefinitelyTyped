@@ -11,5 +11,5 @@ function test() {
     const dcL: DC = motorHat.dcs[0];
     const dcR: DC = motorHat.dcs[1];
     dcL.run('fwd', () => {});
-    dcR.setSpeed(50, (err) => {});
+    dcR.setSpeed(50, err => {});
 }

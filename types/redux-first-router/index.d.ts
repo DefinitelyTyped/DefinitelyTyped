@@ -11,13 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import {
-    Dispatch,
-    Store,
-    Reducer,
-    Middleware,
-    StoreEnhancer
-} from 'redux';
+import { Dispatch, Store, Reducer, Middleware, StoreEnhancer } from 'redux';
 import { History } from 'history';
 
 export type Nullable<T> = T | null | undefined;
@@ -28,10 +22,7 @@ export type RouteString = string;
 
 export type ConfirmLeave = (state: object, action: object) => Nullable<string>;
 
-export type RouteThunk<TState = any> = (
-    dispatch: Dispatch<any>,
-    getState: StateGetter<TState>,
-) => any | Promise<any>;
+export type RouteThunk<TState = any> = (dispatch: Dispatch<any>, getState: StateGetter<TState>) => any | Promise<any>;
 
 export type RouteObject<TKeys = {}, TState = any> = TKeys & {
     capitalizedWords?: boolean;
@@ -142,25 +133,14 @@ export interface HistoryLocation {
 
 export type HistoryAction = string;
 
-export type Listener = (
-    location: HistoryLocation,
-    action: HistoryAction
-) => void;
+export type Listener = (location: HistoryLocation, action: HistoryAction) => void;
 
 export type ScrollBehavior = object;
 
 export interface Router<TState = any> {
-    getStateForActionOriginal(
-        action: object,
-        state: Nullable<TState>
-    ): Nullable<TState>;
-    getStateForAction(
-        action: object,
-        state: Nullable<TState>
-    ): Nullable<TState>;
-    getPathAndParamsForState(
-        state: TState
-    ): { path: Nullable<string>; params: Nullable<Params> };
+    getStateForActionOriginal(action: object, state: Nullable<TState>): Nullable<TState>;
+    getStateForAction(action: object, state: Nullable<TState>): Nullable<TState>;
+    getPathAndParamsForState(state: TState): { path: Nullable<string>; params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
@@ -196,9 +176,9 @@ export interface NavigatorsConfig<TKeys = {}, TState = any> {
         routesMap: RoutesMap<TKeys, TState>,
         action: object
     ): {
-            action: object;
-            navigationAction: Nullable<NavigationAction>;
-        };
+        action: object;
+        navigationAction: Nullable<NavigationAction>;
+    };
 }
 
 export interface Bag {
@@ -332,14 +312,14 @@ export function canGoForward(): boolean;
 
 export function connectRoutes<TKeys = {}, TState = any>(
     routesMap: RoutesMap<TKeys, TState>,
-    options?: Options<TKeys, TState>,
+    options?: Options<TKeys, TState>
 ): {
-        reducer: Reducer<LocationState<TKeys, TState>>;
-        middleware: Middleware;
-        thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
-        enhancer: StoreEnhancer;
-        initialDispatch?(): void;
-    };
+    reducer: Reducer<LocationState<TKeys, TState>>;
+    middleware: Middleware;
+    thunk(store: Store<TState>): Promise<Nullable<RouteThunk<TState>>>;
+    enhancer: StoreEnhancer;
+    initialDispatch?(): void;
+};
 
 export function go(n: number): void;
 

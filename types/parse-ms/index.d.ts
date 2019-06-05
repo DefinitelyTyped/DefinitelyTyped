@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = parseMs;
-declare function parseMs(ms: number): {
+declare function parseMs(
+    ms: number
+): {
     days: number;
     hours: number;
     minutes: number;

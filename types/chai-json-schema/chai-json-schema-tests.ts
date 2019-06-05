@@ -7,13 +7,13 @@ should();
 const goodApple = {
     skin: 'thin',
     colors: ['red', 'green', 'yellow'],
-    taste: 10
+    taste: 10,
 };
 
 const badApple = {
     colors: ['brown'],
     taste: 0,
-    worms: 2
+    worms: 2,
 };
 
 const fruitSchema = {
@@ -26,17 +26,17 @@ const fruitSchema = {
             minItems: 1,
             uniqueItems: true,
             items: {
-                type: 'string'
-            }
+                type: 'string',
+            },
         },
         skin: {
-            type: 'string'
+            type: 'string',
         },
         taste: {
             type: 'number',
-            minimum: 5
-        }
-    }
+            minimum: 5,
+        },
+    },
 };
 
 // bdd style
@@ -53,8 +53,8 @@ assert.notJsonSchema(badApple, fruitSchema);
 // tv4
 const schema = {
     items: {
-        type: 'boolean'
-    }
+        type: 'boolean',
+    },
 };
 
 const data1 = [true, false];

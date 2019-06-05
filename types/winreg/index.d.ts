@@ -333,6 +333,6 @@ declare namespace Winreg {
     }
 }
 
-declare module "winreg" {
+declare module 'winreg' {
     export = Winreg;
 }

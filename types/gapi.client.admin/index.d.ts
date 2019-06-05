@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Admin Reports API reports_v1 */
-    function load(name: "admin", version: "reports_v1"): PromiseLike<void>;
-    function load(name: "admin", version: "reports_v1", callback: () => any): void;
+    function load(name: 'admin', version: 'reports_v1'): PromiseLike<void>;
+    function load(name: 'admin', version: 'reports_v1', callback: () => any): void;
 
     const activities: admin.ActivitiesResource;
 

@@ -5,5 +5,5 @@ shouldBeString = $sanitizeService(shouldBeString);
 
 declare var $linky: ng.sanitize.filter.ILinky;
 shouldBeString = $linky(shouldBeString);
-shouldBeString = $linky(shouldBeString, "target");
+shouldBeString = $linky(shouldBeString, 'target');
 shouldBeString = $linky(shouldBeString, shouldBeString);

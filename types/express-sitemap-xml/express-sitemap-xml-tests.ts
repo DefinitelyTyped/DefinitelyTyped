@@ -5,7 +5,7 @@ import expressSitemapXml = require('express-sitemap-xml');
 const page2Leaf: expressSitemapXml.LeafObject = {
     changeFreq: 'weekly',
     lastMod: new Date(),
-    url: '/page2'
+    url: '/page2',
 };
 
 const leaves = ['/page1', page2Leaf];

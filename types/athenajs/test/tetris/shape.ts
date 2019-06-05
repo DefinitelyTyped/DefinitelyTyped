@@ -44,61 +44,89 @@ class Shape extends Sprite {
          */
         this.shapes = [
             {
-                name: 'I', width: 80, height: 80, color: 7, rotations: [
+                name: 'I',
+                width: 80,
+                height: 80,
+                color: 7,
+                rotations: [
                     [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-                    [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
-                ]
+                    [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+                ],
             },
             {
-                name: 'J', width: 60, height: 60, color: 6, rotations: [
+                name: 'J',
+                width: 60,
+                height: 60,
+                color: 6,
+                rotations: [
                     [1, 0, 0, 1, 1, 1, 0, 0, 0],
                     [0, 1, 1, 0, 1, 0, 0, 1, 0],
                     [0, 0, 0, 1, 1, 1, 0, 0, 1],
-                    [0, 1, 0, 0, 1, 0, 1, 1, 0]
-                ]
+                    [0, 1, 0, 0, 1, 0, 1, 1, 0],
+                ],
             },
             {
-                name: 'L', width: 60, height: 60, color: 5, rotations: [
+                name: 'L',
+                width: 60,
+                height: 60,
+                color: 5,
+                rotations: [
                     [0, 0, 1, 1, 1, 1, 0, 0, 0],
                     [0, 1, 0, 0, 1, 0, 0, 1, 1],
                     [0, 0, 0, 1, 1, 1, 1, 0, 0],
-                    [1, 1, 0, 0, 1, 0, 0, 1, 0]
-                ]
+                    [1, 1, 0, 0, 1, 0, 0, 1, 0],
+                ],
             },
             {
-                name: 'O', width: 80, height: 60, color: 4, rotations: [
+                name: 'O',
+                width: 80,
+                height: 60,
+                color: 4,
+                rotations: [
                     [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
                     [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
                     [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-                    [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0]
-                ]
+                    [0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+                ],
             },
             {
-                name: 'S', width: 60, height: 60, color: 3, rotations: [
+                name: 'S',
+                width: 60,
+                height: 60,
+                color: 3,
+                rotations: [
                     [0, 1, 1, 1, 1, 0, 0, 0, 0],
                     [0, 1, 0, 0, 1, 1, 0, 0, 1],
                     [0, 0, 0, 0, 1, 1, 1, 1, 0],
-                    [1, 0, 0, 1, 1, 0, 0, 1, 0]
-                ]
+                    [1, 0, 0, 1, 1, 0, 0, 1, 0],
+                ],
             },
             {
-                name: 'Z', width: 60, height: 60, color: 2, rotations: [
+                name: 'Z',
+                width: 60,
+                height: 60,
+                color: 2,
+                rotations: [
                     [1, 1, 0, 0, 1, 1, 0, 0, 0],
                     [0, 0, 1, 0, 1, 1, 0, 1, 0],
                     [0, 0, 0, 1, 1, 0, 0, 1, 1],
-                    [0, 1, 0, 1, 1, 0, 1, 0, 0]
-                ]
+                    [0, 1, 0, 1, 1, 0, 1, 0, 0],
+                ],
             },
             {
-                name: 'T', width: 60, height: 60, color: 1, rotations: [
+                name: 'T',
+                width: 60,
+                height: 60,
+                color: 1,
+                rotations: [
                     [0, 1, 0, 1, 1, 1, 0, 0, 0],
                     [0, 1, 0, 0, 1, 1, 0, 1, 0],
                     [0, 0, 0, 1, 1, 1, 0, 1, 0],
-                    [0, 1, 0, 1, 1, 0, 0, 1, 0]
-                ]
-            }
+                    [0, 1, 0, 1, 1, 0, 0, 1, 0],
+                ],
+            },
         ];
 
         this.addAnimations();
@@ -111,7 +139,7 @@ class Shape extends Sprite {
     moveToTop(): void {
         if (this.shape) {
             const map = this.currentMap;
-            const col = Math.floor(((map.width - this.shape.width) / 2) / map.tileWidth);
+            const col = Math.floor((map.width - this.shape.width) / 2 / map.tileWidth);
 
             this.moveTo(col * map.tileWidth, 0);
         }
@@ -124,7 +152,7 @@ class Shape extends Sprite {
     setShape(name: string, rotation: number): void {
         this.shapeName = name;
         this.rotation = rotation;
-        this.shape = this.shapes.find((shape) => shape.name === this.shapeName) || this.shapes[0];
+        this.shape = this.shapes.find(shape => shape.name === this.shapeName) || this.shapes[0];
         this.setAnimation(`${name}${rotation}`);
     }
 
@@ -132,8 +160,8 @@ class Shape extends Sprite {
      * Pick a new random shape
      */
     setRandomShape(): void {
-        const shapeName = this.shapes[Math.random() * 7 | 0].name;
-        const rotation = Math.random() * 4 | 0;
+        const shapeName = this.shapes[(Math.random() * 7) | 0].name;
+        const rotation = (Math.random() * 4) | 0;
 
         console.log(`[Shape] setRandomShape() - ${shapeName}`);
 
@@ -141,13 +169,13 @@ class Shape extends Sprite {
             this.animate('Fade', {
                 duration: 200,
                 startValue: 1,
-                endValue: 0
+                endValue: 0,
             }).then(() => {
                 this.setShape(shapeName, rotation);
                 this.animate('Fade', {
                     duration: 200,
                     startValue: 0,
-                    endValue: 1
+                    endValue: 1,
                 });
             });
         } else {
@@ -191,7 +219,7 @@ class Shape extends Sprite {
                     AM.play('ground');
                     this.notify('ground', {
                         startLine: tilePos.y,
-                        numRows: this.shape.height / map.tileHeight
+                        numRows: this.shape.height / map.tileHeight,
                     });
                 }
             }
@@ -240,11 +268,16 @@ class Shape extends Sprite {
         // shape sprite images start at the top of the image file
         let offsetY = 0;
 
-        this.shapes.forEach((shape) => {
+        this.shapes.forEach(shape => {
             let offsetX = 0;
             for (let i = 0; i < 4; ++i) {
                 this.addAnimation(`${shape.name}${i}`, 'tiles', {
-                    offsetY, offsetX, frameWidth: shape.width, frameHeight: shape.height, frameDuration: 1, numFrames: 1
+                    offsetY,
+                    offsetX,
+                    frameWidth: shape.width,
+                    frameHeight: shape.height,
+                    frameDuration: 1,
+                    numFrames: 1,
                 });
                 offsetX += shape.width;
             }

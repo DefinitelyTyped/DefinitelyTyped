@@ -1,7 +1,7 @@
-import Maybe from "../tsutils/Maybe";
-import { GraphQLFieldConfigArgumentMap, GraphQLArgument } from "./definition";
-import { DirectiveDefinitionNode } from "../language/ast";
-import { DirectiveLocationEnum } from "../language/directiveLocation";
+import Maybe from '../tsutils/Maybe';
+import { GraphQLFieldConfigArgumentMap, GraphQLArgument } from './definition';
+import { DirectiveDefinitionNode } from '../language/ast';
+import { DirectiveLocationEnum } from '../language/directiveLocation';
 
 /**
  * Test if the given value is a GraphQL directive.
@@ -47,7 +47,7 @@ export const GraphQLSkipDirective: GraphQLDirective;
 /**
  * Constant string used for default reason for a deprecation.
  */
-export const DEFAULT_DEPRECATION_REASON: "No longer supported";
+export const DEFAULT_DEPRECATION_REASON: 'No longer supported';
 
 /**
  * Used to declare element of a GraphQL schema as deprecated.

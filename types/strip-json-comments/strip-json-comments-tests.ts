@@ -1,4 +1,4 @@
-import stripJsonComments = require("strip-json-comments");
+import stripJsonComments = require('strip-json-comments');
 
 const json = '{/*rainbows*/"unicorn":"cake"}';
 
@@ -7,5 +7,5 @@ JSON.parse(stripJsonComments(json));
 
 stripJsonComments(json, {});
 stripJsonComments(json, {
-    whitespace: true
+    whitespace: true,
 });

@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare namespace download {
-}
+declare namespace download {}
 declare function download(data: string | File | Blob, filename?: string, mimeType?: string): XMLHttpRequest | boolean;
 export = download;

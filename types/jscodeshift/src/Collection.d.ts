@@ -1,7 +1,7 @@
-import recast = require("recast");
-import JSXElement = require("./collections/JSXElement");
-import NodeCollection = require("./collections/Node");
-import VariableDeclarator = require("./collections/VariableDeclarator");
+import recast = require('recast');
+import JSXElement = require('./collections/JSXElement');
+import NodeCollection = require('./collections/Node');
+import VariableDeclarator = require('./collections/VariableDeclarator');
 
 type ASTPath<N> = recast.NodePath<N, N>;
 
@@ -26,9 +26,7 @@ export interface Collection<N>
     filter<S extends N>(
         callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>
     ): Collection<S>;
-    filter(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean
-    ): Collection<N>;
+    filter(callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean): Collection<N>;
 
     /**
      * Executes callback for each node/path in the collection.

@@ -235,7 +235,7 @@ declare namespace pc {
 
     const VIEW_CENTER: 0;
     const VIEW_LEFT: 1;
-    const VIEW_RIGHT: 2
+    const VIEW_RIGHT: 2;
 
     /**
      * @name pc.Scene

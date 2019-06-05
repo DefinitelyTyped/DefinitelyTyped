@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from "http";
+import { IncomingMessage } from 'http';
 
 // https://github.com/panva/node-openid-client/tree/master/docs#issuer
 
@@ -61,23 +61,30 @@ export class Client {
 
     callbackParams(input: string | IncomingMessage): {};
 
-    callback(redirectUri: string, parameters: {}, checks?: {
-        readonly response_type?: string;
-        readonly state?: string;
-        readonly nonce?: string;
-        readonly code_verifier?: string;
-        readonly max_age?: number;
-    }): Promise<TokenSet>;
+    callback(
+        redirectUri: string,
+        parameters: {},
+        checks?: {
+            readonly response_type?: string;
+            readonly state?: string;
+            readonly nonce?: string;
+            readonly code_verifier?: string;
+            readonly max_age?: number;
+        }
+    ): Promise<TokenSet>;
 
     userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
 
     grant(body: {
-        readonly grant_type: "authorization_code" | "client_credentials" | "password" | "refresh_token" | string;
+        readonly grant_type: 'authorization_code' | 'client_credentials' | 'password' | 'refresh_token' | string;
         readonly [name: string]: string | undefined;
     }): Promise<TokenSet>;
 
-    introspect(token: string, tokenTypeHint?: string, extras?: { readonly introspectBody?: {} }):
-        Promise<{ readonly [name: string]: {} | null | undefined }>;
+    introspect(
+        token: string,
+        tokenTypeHint?: string,
+        extras?: { readonly introspectBody?: {} }
+    ): Promise<{ readonly [name: string]: {} | null | undefined }>;
 }
 
 export class TokenSet {

@@ -10,8 +10,9 @@ declare module Meteor {
     /** Settings **/
     interface Settings {
         public: {
-            [id: string]: any
-        }, [id: string]: any
+            [id: string]: any;
+        };
+        [id: string]: any;
     }
     var settings: Settings;
     /** Settings **/
@@ -52,7 +53,7 @@ declare module Meteor {
     }
     interface TypedError extends global_Error {
         message: string;
-        errorType: string;          
+        errorType: string;
     }
     /** Error **/
 
@@ -65,32 +66,33 @@ declare module Meteor {
         unblock(): void;
     }
 
-    function methods(methods: {[key: string]: (this: MethodThisType, ...args: any[]) => any}): void;
+    function methods(methods: { [key: string]: (this: MethodThisType, ...args: any[]) => any }): void;
 
     function call(name: string, ...args: any[]): any;
 
     function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
-        name: string, 
-        args: ReadonlyArray<EJSONable | EJSONableProperty>, 
+        name: string,
+        args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
             wait?: boolean;
             onResultReceived?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void;
             returnStubValue?: boolean;
             throwStubExceptions?: boolean;
-        }, 
-        asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void): any;
+        },
+        asyncCallback?: (error: global_Error | Meteor.Error | undefined, result?: Result) => void
+    ): any;
     /** Method **/
 
     /** Url **/
     var absoluteUrl: {
-      (path?: string, options?: absoluteUrlOptions): string;
-      defaultOptions: absoluteUrlOptions;
-    }
+        (path?: string, options?: absoluteUrlOptions): string;
+        defaultOptions: absoluteUrlOptions;
+    };
 
     interface absoluteUrlOptions {
-      secure?: boolean;
-      replaceLocalhost?: boolean;
-      rootUrl?: string;
+        secure?: boolean;
+        replaceLocalhost?: boolean;
+        rootUrl?: string;
     }
     /** Url **/
 
@@ -137,34 +139,65 @@ declare module Meteor {
         loginStyle?: string;
     }
 
-    function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithMeteorDeveloperAccount(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithFacebook(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithFacebook(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithGithub(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithGithub(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithGoogle(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithGoogle(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithMeetup(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithMeetup(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithTwitter(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithTwitter(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithWeibo(options?: Meteor.LoginWithExternalServiceOptions, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithWeibo(
+        options?: Meteor.LoginWithExternalServiceOptions,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
     function loggingIn(): boolean;
 
-    function loginWith<ExternalService>(options?: {
-        requestPermissions?: ReadonlyArray<string>;
-        requestOfflineToken?: boolean;
-        loginUrlParameters?: Object;
-        userEmail?: string;
-        loginStyle?: string;
-        redirectUrl?: string;
-    }, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWith<ExternalService>(
+        options?: {
+            requestPermissions?: ReadonlyArray<string>;
+            requestOfflineToken?: boolean;
+            loginUrlParameters?: Object;
+            userEmail?: string;
+            loginStyle?: string;
+            redirectUrl?: string;
+        },
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithPassword(user: Object | string, password: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithPassword(
+        user: Object | string,
+        password: string,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
-    function loginWithToken(token: string, callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
+    function loginWithToken(
+        token: string,
+        callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void
+    ): void;
 
     function logout(callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void): void;
 

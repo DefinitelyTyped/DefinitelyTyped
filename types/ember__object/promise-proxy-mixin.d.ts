@@ -1,5 +1,5 @@
-import Mixin from "@ember/object/mixin";
-import RSVP from "rsvp";
+import Mixin from '@ember/object/mixin';
+import RSVP from 'rsvp';
 
 /**
  * A low level mixin making ObjectProxy promise-aware.

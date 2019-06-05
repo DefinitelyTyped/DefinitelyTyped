@@ -8,7 +8,6 @@ function testConstructor(model: PouchDB.Core.Document<MyModel>) {
     db = new PouchDB<MyModel>('myDb', {
         adapter: 'leveldb',
     });
-    db.get('model').then((result) => model);
-    db.viewCleanup().catch((error) => {
-    });
+    db.get('model').then(result => model);
+    db.viewCleanup().catch(error => {});
 }

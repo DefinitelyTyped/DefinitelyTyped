@@ -5,8 +5,8 @@ export interface EventHandlerMapType {
 }
 
 declare const YouTubePlayerHelpers: {
-    proxyEvents(emitter: EmitterType): EventHandlerMapType,
-    promisifyPlayer(playerAPIReady: Promise<YouTubePlayer>, strictState?: boolean): YouTubePlayer,
+    proxyEvents(emitter: EmitterType): EventHandlerMapType;
+    promisifyPlayer(playerAPIReady: Promise<YouTubePlayer>, strictState?: boolean): YouTubePlayer;
 };
 
 export default YouTubePlayerHelpers;

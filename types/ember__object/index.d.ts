@@ -4,17 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import CoreObject from "@ember/object/core";
-import Observable from "@ember/object/observable";
+import CoreObject from '@ember/object/core';
+import Observable from '@ember/object/observable';
 import {
     ComputedPropertyCallback,
     UnwrapComputedPropertyGetter,
     UnwrapComputedPropertySetter,
     UnwrapComputedPropertyGetters,
     UnwrapComputedPropertySetters,
-    ExtractPropertyNamesOfType
-} from "@ember/object/-private/types";
-import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
+    ExtractPropertyNamesOfType,
+} from '@ember/object/-private/types';
+import ComputedProperty, * as ComputedNamespace from '@ember/object/computed';
 
 /**
  * `Ember.Object` is the main base class for all Ember objects. It is a subclass
@@ -23,24 +23,10 @@ import ComputedProperty, * as ComputedNamespace from "@ember/object/computed";
  */
 export default class EmberObject extends CoreObject.extend(Observable) {}
 declare function computed(...deps: string[]): MethodDecorator;
-declare function computed<T>(
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
-    k1: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
-    k1: string,
-    k2: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
-declare function computed<T>(
-    k1: string,
-    k2: string,
-    k3: string,
-    cb: ComputedPropertyCallback<T>
-): ComputedProperty<T>;
+declare function computed<T>(cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
+declare function computed<T>(k1: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
+declare function computed<T>(k1: string, k2: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
+declare function computed<T>(k1: string, k2: string, k3: string, cb: ComputedPropertyCallback<T>): ComputedProperty<T>;
 declare function computed<T>(
     k1: string,
     k2: string,
@@ -115,15 +101,8 @@ export { computed };
 /**
  * Specify a method that observes property changes.
  */
-export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    func: Fn
-): Fn;
-export function observer<Fn extends (target: any, key: string) => void>(
-    key1: string,
-    key2: string,
-    func: Fn
-): Fn;
+export function observer<Fn extends (target: any, key: string) => void>(key1: string, func: Fn): Fn;
+export function observer<Fn extends (target: any, key: string) => void>(key1: string, key2: string, func: Fn): Fn;
 export function observer<Fn extends (target: any, key: string) => void>(
     key1: string,
     key2: string,
@@ -156,10 +135,7 @@ export function aliasMethod(methodName: string): ComputedProperty<any>;
  * the function will be invoked. If the property is not defined but the
  * object implements the `unknownProperty` method then that will be invoked.
  */
-export function get<T, K extends keyof T>(
-    obj: T,
-    key: K
-): UnwrapComputedPropertyGetter<T[K]>;
+export function get<T, K extends keyof T>(obj: T, key: K): UnwrapComputedPropertyGetter<T[K]>;
 /**
  * Retrieves the value of a property from an Object, or a default value in the
  * case that the property returns `undefined`.
@@ -187,14 +163,8 @@ export function set<T, K extends keyof T>(obj: T, key: K, value: T[K]): T[K];
  * To get multiple properties at once, call `Ember.getProperties`
  * with an object followed by a list of strings or an array:
  */
-export function getProperties<T, K extends keyof T>(
-    obj: T,
-    list: K[]
-): Pick<UnwrapComputedPropertyGetters<T>, K>; // for dynamic K
-export function getProperties<T, K extends keyof T>(
-    obj: T,
-    ...list: K[]
-): Pick<UnwrapComputedPropertyGetters<T>, K>;
+export function getProperties<T, K extends keyof T>(obj: T, list: K[]): Pick<UnwrapComputedPropertyGetters<T>, K>; // for dynamic K
+export function getProperties<T, K extends keyof T>(obj: T, ...list: K[]): Pick<UnwrapComputedPropertyGetters<T>, K>;
 
 /**
  * Set a list of properties on an object. These properties are set inside
@@ -206,10 +176,7 @@ export function setProperties<T, K extends keyof T>(
     hash: Pick<UnwrapComputedPropertySetters<T>, K>
 ): Pick<UnwrapComputedPropertyGetters<T>, K>;
 // TODO: in TS2.9 - Pick<UnwrapComputedPropertySetters<T> | T, K>
-export function setProperties<T, K extends keyof T>(
-    obj: T,
-    hash: Pick<T, K>
-): Pick<T, K>;
+export function setProperties<T, K extends keyof T>(obj: T, hash: Pick<T, K>): Pick<T, K>;
 
 /**
  * Error-tolerant form of `Ember.set`. Will not blow up if any part of the
@@ -234,7 +201,7 @@ export function notifyPropertyChange(obj: object, keyName: string): void;
 
 export const action: MethodDecorator;
 
-declare module "@ember/utils/-private/types" {
+declare module '@ember/utils/-private/types' {
     interface TypeLookup {
         class: typeof EmberObject;
         instance: EmberObject;

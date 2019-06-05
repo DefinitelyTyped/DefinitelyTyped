@@ -8,7 +8,6 @@
 /** pack node-style source files from a json stream into a browser bundle
  */
 declare namespace browserPack {
-
     export interface Options {
         /** Whether the bundle should include require= (or the opts.externalRequireName) so that
          * require() is available outside the bundle

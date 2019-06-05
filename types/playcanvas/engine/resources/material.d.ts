@@ -1,5 +1,4 @@
 declare namespace pc {
-
     function getMaterialParamType(name: string): string;
 
     class MaterialHandler {

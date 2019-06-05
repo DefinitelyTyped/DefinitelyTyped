@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from "http";
+import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from 'http';
 
 export = ForeverAgentModule;
 
@@ -24,5 +24,5 @@ declare class ForeverAgentSSL extends ForeverAgent {
 }
 
 declare const ForeverAgentModule: typeof ForeverAgent & {
-    SSL: typeof ForeverAgentSSL,
+    SSL: typeof ForeverAgentSSL;
 };

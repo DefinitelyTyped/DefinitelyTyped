@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 declare namespace shell {
     interface Shell {
         (commands: string | string[], options?: Option): NodeJS.ReadWriteStream;

@@ -37,7 +37,7 @@ NetlifyIdentityWidget.on('close', () => {
 });
 
 // Event handling after login
-NetlifyIdentityWidget.on('login', (user) => {
+NetlifyIdentityWidget.on('login', user => {
     // You can now use User info after a successful login
 });
 
@@ -47,13 +47,13 @@ NetlifyIdentityWidget.on('logout', () => {
 });
 
 // Event handling after login on page refresh
-NetlifyIdentityWidget.on('init', (user) => {
+NetlifyIdentityWidget.on('init', user => {
     // Now the widget is ready to use
     // If a user was already logged in, the value is returned else null is passed via callback
 });
 
 // Event handling on errors
-NetlifyIdentityWidget.on('error', (err) => {
+NetlifyIdentityWidget.on('error', err => {
     // The error occured during operation is passed in via callback
 });
 

@@ -4,8 +4,7 @@
 };
 
 () => {
-    const v1: CSSVariableReferenceValue = new CSSVariableReferenceValue(
-        'v1', new CSSUnparsedValue([]));
+    const v1: CSSVariableReferenceValue = new CSSVariableReferenceValue('v1', new CSSUnparsedValue([]));
     const vVariable: string = v1.variable;
     v1.variable = 'v3';
     const vFalback: CSSUnparsedValue | undefined = v1.fallback;
@@ -32,12 +31,30 @@
     const em1 = CSSNumericValue.parse('1em');
     const vw2 = CSSNumericValue.parse('2vw');
 
-    const addRes: CSSNumericValue = v.add(1).add(em1).add(2, vw2);
-    const subRes: CSSNumericValue = v.sub(1).sub(em1).sub(2, vw2);
-    const mulRes: CSSNumericValue = v.mul(1).mul(em1).mul(2, vw2);
-    const divRes: CSSNumericValue = v.div(1).div(em1).div(2, vw2);
-    const minRes: CSSNumericValue = v.min(1).min(em1).min(2, vw2);
-    const maxRes: CSSNumericValue = v.max(1).max(em1).max(2, vw2);
+    const addRes: CSSNumericValue = v
+        .add(1)
+        .add(em1)
+        .add(2, vw2);
+    const subRes: CSSNumericValue = v
+        .sub(1)
+        .sub(em1)
+        .sub(2, vw2);
+    const mulRes: CSSNumericValue = v
+        .mul(1)
+        .mul(em1)
+        .mul(2, vw2);
+    const divRes: CSSNumericValue = v
+        .div(1)
+        .div(em1)
+        .div(2, vw2);
+    const minRes: CSSNumericValue = v
+        .min(1)
+        .min(em1)
+        .min(2, vw2);
+    const maxRes: CSSNumericValue = v
+        .max(1)
+        .max(em1)
+        .max(2, vw2);
 
     const resEquals1 = v.equals(20);
     const resEquals2 = v.equals(em1);

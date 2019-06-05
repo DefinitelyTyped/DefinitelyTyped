@@ -10,7 +10,7 @@ console.log(notifier.update);
 
 // Also exposed as a class
 notifier = new UpdateNotifier.UpdateNotifier({
-    updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 7, // 1 week
 });
 
 if (notifier.update) {
@@ -27,8 +27,8 @@ if (notifier.update) {
             margin: 1,
             align: 'center',
             borderColor: 'yellow',
-            borderStyle: 'round'
-        }
+            borderStyle: 'round',
+        },
     });
 }
 
@@ -37,12 +37,7 @@ notifier = new UpdateNotifier.UpdateNotifier({
     callback: (err, update) => {
         if (err) throw err;
         if (update) {
-            console.log(
-                update.current,
-                update.latest,
-                update.name,
-                update.type
-            );
+            console.log(update.current, update.latest, update.name, update.type);
         }
-    }
+    },
 });

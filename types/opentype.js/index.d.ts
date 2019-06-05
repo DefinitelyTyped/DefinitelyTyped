@@ -60,38 +60,13 @@ export class Font {
         y: number | undefined,
         fontSize: number | undefined,
         options: RenderOptions | undefined,
-        callback: (
-            glyph: Glyph,
-            x: number,
-            y: number,
-            fontSize: number,
-            options?: RenderOptions
-        ) => void
+        callback: (glyph: Glyph, x: number, y: number, fontSize: number, options?: RenderOptions) => void
     ): number;
-    getAdvanceWidth(
-        text: string,
-        fontSize?: number,
-        options?: RenderOptions
-    ): number;
+    getAdvanceWidth(text: string, fontSize?: number, options?: RenderOptions): number;
     getEnglishName(name: string): string;
-    getKerningValue(
-        leftGlyph: Glyph | number,
-        rightGlyph: Glyph | number
-    ): number;
-    getPath(
-        text: string,
-        x: number,
-        y: number,
-        fontSize: number,
-        options?: RenderOptions
-    ): Path;
-    getPaths(
-        text: string,
-        x: number,
-        y: number,
-        fontSize: number,
-        options?: RenderOptions
-    ): Path[];
+    getKerningValue(leftGlyph: Glyph | number, rightGlyph: Glyph | number): number;
+    getPath(text: string, x: number, y: number, fontSize: number, options?: RenderOptions): Path;
+    getPaths(text: string, x: number, y: number, fontSize: number, options?: RenderOptions): Path[];
     glyphIndexToName(gid: number): string;
     glyphNames: GlyphNames;
     hasChar(c: string): boolean;
@@ -208,13 +183,7 @@ export class Glyph {
 
     addUnicode(unicode: number): void;
     bindConstructorValues(options: GlyphOptions): void;
-    draw(
-        ctx: CanvasRenderingContext2D,
-        x?: number,
-        y?: number,
-        fontSize?: number,
-        options?: RenderOptions
-    ): void;
+    draw(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
     drawMetrics(
         ctx: CanvasRenderingContext2D,
         x?: number,
@@ -222,23 +191,11 @@ export class Glyph {
         fontSize?: number,
         options?: RenderOptions
     ): void;
-    drawPoints(
-        ctx: CanvasRenderingContext2D,
-        x?: number,
-        y?: number,
-        fontSize?: number,
-        options?: RenderOptions
-    ): void;
+    drawPoints(ctx: CanvasRenderingContext2D, x?: number, y?: number, fontSize?: number, options?: RenderOptions): void;
     getBoundingBox(): BoundingBox;
     getContours(): Contour;
     getMetrics(): Metrics;
-    getPath(
-        x?: number,
-        y?: number,
-        fontSize?: number,
-        options?: RenderOptions,
-        font?: Font
-    ): Path;
+    getPath(x?: number, y?: number, fontSize?: number, options?: RenderOptions, font?: Font): Path;
 }
 export interface GlyphOptions {
     advanceWidth?: number;
@@ -264,7 +221,7 @@ export class GlyphNames {
 export class GlyphSet {
     private font;
     private glyphs;
-    constructor(font: Font, glyphs: Glyph[] | Array<(() => Glyph)>);
+    constructor(font: Font, glyphs: Glyph[] | Array<() => Glyph>);
     get(index: number): Glyph;
     length: number;
     push(index: number, loader: () => Glyph): void;
@@ -321,25 +278,11 @@ export class Path {
     private stroke;
     private strokeWidth;
     constructor();
-    bezierCurveTo(
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number,
-        x: number,
-        y: number
-    ): void;
+    bezierCurveTo(x1: number, y1: number, x2: number, y2: number, x: number, y: number): void;
     close: () => void;
     closePath(): void;
     commands: PathCommand[];
-    curveTo: (
-        x1: number,
-        y1: number,
-        x2: number,
-        y2: number,
-        x: number,
-        y: number
-    ) => void;
+    curveTo: (x1: number, y1: number, x2: number, y2: number, x: number, y: number) => void;
     draw(ctx: CanvasRenderingContext2D): void;
     extend(pathOrCommands: Path | PathCommand[] | BoundingBox): void;
     getBoundingBox(): BoundingBox;
@@ -394,10 +337,7 @@ export type Substitution = (font: Font) => any;
  * STATIC
  ******************************************/
 
-export function load(
-    url: string,
-    callback: (error: any, font?: Font) => void
-): void;
+export function load(url: string, callback: (error: any, font?: Font) => void): void;
 
 export function loadSync(url: string): Font;
 

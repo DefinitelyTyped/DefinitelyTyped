@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @function
      * @name pc.createStyle

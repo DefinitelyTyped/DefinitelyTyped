@@ -6,7 +6,6 @@
 
 /// <reference types="node" />
 
-
 type CompletionCallback = (error: any) => any;
 
 type BufferCallback = (error: any, bytesReadOrWritten: number, buffer: Buffer) => any;
@@ -34,7 +33,6 @@ export interface I2cBusFuncs {
 }
 
 export interface I2cBus {
-
     /**
      * Asynchronous close.
      *
@@ -375,7 +373,6 @@ export interface I2cBus {
      *     The number of bytes written.
      */
     writeI2cBlockSync(address: number, command: number, length: number, buffer: Buffer): number;
-
 }
 
 /**

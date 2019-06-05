@@ -8,7 +8,6 @@
 /// <reference types="jquery"/>
 
 interface JQuery {
-
     /**
      * inits the jSignature widget
      */

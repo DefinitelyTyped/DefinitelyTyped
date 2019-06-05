@@ -12,12 +12,12 @@ export type TouchAction = 'auto' | 'none' | 'pan-x' | 'pan-y' | 'manipulation';
 export interface PointableProps extends React.HTMLAttributes<Element>, React.SVGAttributes<Element> {
     tagName?: keyof ElementTagNameMap;
     touchAction?: TouchAction;
-    elementRef?(el: HTMLElement|SVGElement): void;
+    elementRef?(el: HTMLElement | SVGElement): void;
 }
 
 export default class Pointable extends React.Component<PointableProps> {
     static defaultProps: {
-        tagName: 'div',
-        touchAction: 'auto'
+        tagName: 'div';
+        touchAction: 'auto';
     };
 }

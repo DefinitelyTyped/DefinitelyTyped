@@ -17,7 +17,10 @@ export default class XMLFeature extends FeatureFormat {
     readFeature(source: Document | Node | { [key: string]: any } | string, opt_options?: ReadOptions): FeatureLike;
     readFeatureFromNode(node: Node, opt_options?: ReadOptions): Feature;
     readFeatures(source: Document | Node | { [key: string]: any } | string, opt_options?: ReadOptions): Feature[];
-    readFeatures(source: Document | Node | ArrayBuffer | { [key: string]: any } | string, opt_options?: ReadOptions): FeatureLike[];
+    readFeatures(
+        source: Document | Node | ArrayBuffer | { [key: string]: any } | string,
+        opt_options?: ReadOptions
+    ): FeatureLike[];
     writeFeatures(features: Feature[], opt_options?: WriteOptions): string;
     writeFeaturesNode(features: Feature[], opt_options?: WriteOptions): Node;
     writeGeometryNode(geometry: Geometry, opt_options?: WriteOptions): Node;

@@ -3,7 +3,6 @@
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
  * Generate a salt synchronously
  * @param rounds Number of rounds to process the data for (default - 10)
@@ -41,7 +40,12 @@ export declare function hash(data: string, salt: string, callback: (error: Error
  * @param progressCallback Callback to be fired multiple times during the hash calculation to signify progress
  * @param callback Callback with error and hashed result, to be fired once the data has been encrypted
  */
-export declare function hash(data: string, salt: string, progressCallback: () => void, callback: (error: Error, result: string) => void): void;
+export declare function hash(
+    data: string,
+    salt: string,
+    progressCallback: () => void,
+    callback: (error: Error, result: string) => void
+): void;
 
 /**
  * Compares data with a hash synchronously

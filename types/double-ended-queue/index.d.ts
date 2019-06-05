@@ -7,12 +7,12 @@ interface Deque<T> {
     readonly length: number;
     push(...items: T[]): number;
     unshift(...items: T[]): number;
-    pop(): T|undefined;
-    shift(): T|undefined;
+    pop(): T | undefined;
+    shift(): T | undefined;
     toArray(): T[];
-    peekBack(): T|undefined;
-    peekFront(): T|undefined;
-    get(index: number): T|undefined;
+    peekBack(): T | undefined;
+    peekFront(): T | undefined;
+    get(index: number): T | undefined;
     isEmpty(): boolean;
     clear(): void;
 }
@@ -20,7 +20,7 @@ interface Deque<T> {
 declare const Deque: {
     prototype: Deque<any>;
     new <T>(items?: ReadonlyArray<T>): Deque<T>;
-    new <T>(capacity: number): Deque<T>;  // tslint:disable-line:no-unnecessary-generics
+    new <T>(capacity: number): Deque<T>; // tslint:disable-line:no-unnecessary-generics
 };
 
 export = Deque;

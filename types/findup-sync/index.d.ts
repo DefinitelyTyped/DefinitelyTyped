@@ -10,10 +10,7 @@ import micromatch = require('micromatch');
 
 export = findupSync;
 
-declare function findupSync(
-    patternOrPatterns: string[] | string,
-    micromatchOptions?: findupSync.Options
-): string;
+declare function findupSync(patternOrPatterns: string[] | string, micromatchOptions?: findupSync.Options): string;
 
 declare namespace findupSync {
     interface Options extends micromatch.Options {

@@ -11,16 +11,10 @@ declare function localtunnel(
     callback: localtunnel.TunnelCallback
 ): localtunnel.Tunnel;
 
-declare function localtunnel(
-    port: number,
-    callback: localtunnel.TunnelCallback
-): localtunnel.Tunnel;
+declare function localtunnel(port: number, callback: localtunnel.TunnelCallback): localtunnel.Tunnel;
 
 declare namespace localtunnel {
-    type TunnelCallback = (
-        err: string,
-        tunnel?: Tunnel
-    ) => void;
+    type TunnelCallback = (err: string, tunnel?: Tunnel) => void;
 
     interface TunnelConfig {
         host?: string;

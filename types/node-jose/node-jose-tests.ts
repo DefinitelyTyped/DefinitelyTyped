@@ -53,7 +53,7 @@ keystore.generate('oct', 256).then(result => {
 const props = {
     kid: 'gBdaS-G8RLax2qgObTD94w',
     alg: 'A256GCM',
-    use: 'enc'
+    use: 'enc',
 };
 
 let key2: jose.JWK.Key;
@@ -115,7 +115,7 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
         });
 
     let opts = {
-        algorithms: ['PS*']
+        algorithms: ['PS*'],
     };
     jose.JWS.createVerify(key, opts)
         .verify('input')
@@ -124,7 +124,7 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
         });
 
     opts = {
-        algorithms: ['*', '!HS*']
+        algorithms: ['*', '!HS*'],
     };
     jose.JWS.createVerify(key, opts)
         .verify('input')
@@ -134,8 +134,8 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
 
     const opts2 = {
         handlers: {
-            exp: true
-        }
+            exp: true,
+        },
     };
 
     jose.JWS.createVerify(key, opts2)
@@ -193,7 +193,7 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
         });
 
     const opts3 = {
-        algorithms: ['dir', 'A*GCM']
+        algorithms: ['dir', 'A*GCM'],
     };
     jose.JWE.createDecrypt(key, opts3)
         .decrypt('input')
@@ -202,7 +202,7 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
         });
 
     const opts4 = {
-        algorithms: ['*', '!RSA*']
+        algorithms: ['*', '!RSA*'],
     };
     jose.JWS.createVerify(key, opts4)
         .verify('input')
@@ -212,8 +212,8 @@ jose.JWK.createKey('oct', 256, { alg: 'A256GCM' }).then(result => {
 
     const opts5 = {
         handlers: {
-            exp: true
-        }
+            exp: true,
+        },
     };
     jose.JWE.createDecrypt(key, opts5)
         .decrypt('input')

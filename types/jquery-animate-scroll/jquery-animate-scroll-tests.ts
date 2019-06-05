@@ -1,4 +1,4 @@
-import { Options } from "jquery-animate-scroll";
+import { Options } from 'jquery-animate-scroll';
 
 // basic usage
 $('a').animateScroll();
@@ -9,9 +9,9 @@ $.scrollTo($('#article-1'));
 
 // with options
 const options: Options = {
-  $container: $('body'),
-  speed: 1000,
-  offset: -100
+    $container: $('body'),
+    speed: 1000,
+    offset: -100,
 };
 
 $('a').animateScroll(options);

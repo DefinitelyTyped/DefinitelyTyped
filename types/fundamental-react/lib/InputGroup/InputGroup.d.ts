@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type InputGroupAddonPosition = "before" | "after";
+export type InputGroupAddonPosition = 'before' | 'after';
 
-export type InputGroupTypes = "text" | "number" | "search";
+export type InputGroupTypes = 'text' | 'number' | 'search';
 
 export type InputGroupProps = {
     /* Set to **true** to enable an input with actions. Actions can be shown with a text label or icon. */

@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     namespace dnd {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/dnd/BoundingBoxController.html
@@ -59,22 +57,22 @@ declare namespace dojox {
              * be draggable dnd item nodes
              *
              */
-            "allowNested": boolean;
+            'allowNested': boolean;
             /**
              *
              */
-            "conservative": boolean;
+            'conservative': boolean;
             /**
              * The DOM node the mouse is currently hovered over
              *
              */
-            "current": HTMLElement;
+            'current': HTMLElement;
             /**
              * Map from an item's id (which is also the DOMNode's id) to
              * the dojo/dnd/Container.Item itself.
              *
              */
-            "map": Object;
+            'map': Object;
             /**
              * The set of id's that are currently selected, such that this.selection[id] == 1
              * if the node w/that id is selected.  Can iterate over selected node's id's like:
@@ -82,15 +80,15 @@ declare namespace dojox {
              * for(var id in this.selection)
              *
              */
-            "selection": Object;
+            'selection': Object;
             /**
              *
              */
-            "singular": boolean;
+            'singular': boolean;
             /**
              *
              */
-            "skipForm": boolean;
+            'skipForm': boolean;
             /**
              * removes all data items from the map
              *
@@ -317,13 +315,12 @@ declare namespace dojox {
             onSelectStart(e: Event): void;
         }
     }
-
 }
-declare module "dojox/dnd/BoundingBoxController" {
-    var exp: dojox.dnd.BoundingBoxController
-    export=exp;
+declare module 'dojox/dnd/BoundingBoxController' {
+    var exp: dojox.dnd.BoundingBoxController;
+    export = exp;
 }
-declare module "dojox/dnd/Selector" {
-    var exp: dojox.dnd.Selector
-    export=exp;
+declare module 'dojox/dnd/Selector' {
+    var exp: dojox.dnd.Selector;
+    export = exp;
 }

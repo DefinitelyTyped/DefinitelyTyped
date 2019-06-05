@@ -39,9 +39,9 @@ interface RandomConstructor {
     new (engine?: Random.Engine): Random;
 
     engines: {
-        nativeMath: Random.Engine,
-        browserCrypto: Random.Engine,
-        mt19937(): Random.MT19937
+        nativeMath: Random.Engine;
+        browserCrypto: Random.Engine;
+        mt19937(): Random.MT19937;
     };
 
     Engine(): number;

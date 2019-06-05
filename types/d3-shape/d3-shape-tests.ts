@@ -37,14 +37,14 @@ const arcDefaultDatum: d3Shape.DefaultArcObject = {
     outerRadius: 60,
     startAngle: 0,
     endAngle: Math.PI / 2,
-    padAngle: 0.03
+    padAngle: 0.03,
 };
 
 const arcReducedDefaultDatum: d3Shape.DefaultArcObject = {
     innerRadius: 40,
     outerRadius: 60,
     startAngle: 0,
-    endAngle: Math.PI / 2
+    endAngle: Math.PI / 2,
 };
 
 const arcDatum: ArcDatum = {
@@ -52,7 +52,7 @@ const arcDatum: ArcDatum = {
     oRadius: 60,
     sAngle: 0,
     eAngle: Math.PI / 2,
-    pAngle: 0.03
+    pAngle: 0.03,
 };
 
 let accessorArcDatumNumber: (this: any, d: ArcDatum, ...args: any[]) => number;
@@ -66,7 +66,7 @@ const defaultArcObject: d3Shape.DefaultArcObject = {
     outerRadius: 100,
     startAngle: 0,
     endAngle: Math.PI / 2,
-    padAngle: 0
+    padAngle: 0,
 };
 
 num = defaultArcObject.innerRadius;
@@ -174,7 +174,9 @@ canvasArc(arcDefaultDatum);
 
 const pArc: Selection<SVGPathElement, ArcDatum, any, any> = select<SVGPathElement, ArcDatum>('.arc-paths'); // mock
 const wrongArc1: Selection<SVGCircleElement, ArcDatum, any, any> = select<SVGCircleElement, ArcDatum>('.arc-paths'); // mock
-const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.arc-paths'); // mock
+const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>(
+    '.arc-paths'
+); // mock
 
 pArc.attr('d', svgArc);
 // $ExpectError
@@ -201,7 +203,8 @@ class Arcer {
         this.outerRadius = outerRadius;
         this.cornerRadius = 3;
 
-        this.arc = d3Shape.arc<Arcer, ArcerDatum>()
+        this.arc = d3Shape
+            .arc<Arcer, ArcerDatum>()
             .innerRadius(d => {
                 return Math.min(d.innerRadius, this.innerRadius);
             })
@@ -248,13 +251,13 @@ let accessorPieDatumNumber: (this: any, data: PieDatum[], ...args: any[]) => num
 const pieArcObject: d3Shape.PieArcDatum<PieDatum> = {
     data: {
         val: 10,
-        name: "Segment 1"
+        name: 'Segment 1',
     },
     value: 10,
     index: 0,
     startAngle: 0,
     endAngle: Math.PI / 2,
-    padAngle: 0
+    padAngle: 0,
 };
 
 const pieDatum: PieDatum = pieArcObject.data;
@@ -274,7 +277,11 @@ let pie: d3Shape.Pie<any, PieDatum> = d3Shape.pie<PieDatum>();
 
 // value(...) -------------------------------------------------------------------------
 
-let defaultPieValueAccessor: (d: number | { valueOf(): number }, i: number, data: Array<number | { valueOf(): number }>) => number;
+let defaultPieValueAccessor: (
+    d: number | { valueOf(): number },
+    i: number,
+    data: Array<number | { valueOf(): number }>
+) => number;
 
 defaultPie = defaultPie.value(10);
 
@@ -349,11 +356,7 @@ let defaultPieChart: Array<d3Shape.PieArcDatum<number | { valueOf(): number }>>;
 
 defaultPieChart = defaultPie([20, 10, 30, 40]);
 
-const pieData: PieDatum[] = [
-    { name: 'John', val: 20 },
-    { name: 'Jill', val: 10 },
-    { name: 'Rodrigo', val: 30 }
-];
+const pieData: PieDatum[] = [{ name: 'John', val: 20 }, { name: 'Jill', val: 10 }, { name: 'Rodrigo', val: 30 }];
 let pieChart: Array<d3Shape.PieArcDatum<PieDatum>>;
 
 pieChart = pie(pieData);
@@ -448,7 +451,7 @@ defaultLine([[10, 10], [20, 10], [20, 20]]);
 const lineData: LineDatum[] = [
     { x: 10, y: 10, missing: false },
     { x: 20, y: 10, missing: false },
-    { x: 20, y: 20, missing: false }
+    { x: 20, y: 20, missing: false },
 ];
 
 const linePathStringMaybe: string | null = line(lineData);
@@ -528,7 +531,7 @@ defaultLineRadial([[10, 10], [20, 10], [20, 20]]);
 const lineRadialData: LineRadialDatum[] = [
     { angle: 0, radius: 10, missing: false },
     { angle: Math.PI / 2, radius: 20, missing: false },
-    { angle: 2 * Math.PI, radius: 10, missing: false }
+    { angle: 2 * Math.PI, radius: 10, missing: false },
 ];
 
 const lineRadialPathStringMaybe: string | null = lineRadial(lineRadialData);
@@ -678,7 +681,7 @@ defaultArea([[10, 10], [20, 10], [20, 20]]);
 const areaData: AreaDatum[] = [
     { x0: 10, y0: 10, x1: 10, y1: 30, missing: false },
     { x0: 20, y0: 20, x1: 20, y1: 40, missing: false },
-    { x0: 30, y0: 30, x1: 30, y1: 30, missing: false }
+    { x0: 30, y0: 30, x1: 30, y1: 30, missing: false },
 ];
 
 const areaPathStringMaybe: string | null = area(areaData);
@@ -817,7 +820,7 @@ defaultAreaRadial([[10, 10], [20, 10], [20, 20]]);
 const areaRadialData: AreaRadialDatum[] = [
     { startAngle: 0, innerRadius: 10, endAngle: 0, outerRadius: 30, missing: false },
     { startAngle: Math.PI / 2, innerRadius: 20, endAngle: Math.PI / 2, outerRadius: 40, missing: false },
-    { startAngle: Math.PI, innerRadius: 30, endAngle: Math.PI, outerRadius: 30, missing: false }
+    { startAngle: Math.PI, innerRadius: 30, endAngle: Math.PI, outerRadius: 30, missing: false },
 ];
 
 const areaRadialPathStringMaybe: string | null = areaRadial(areaRadialData);
@@ -853,7 +856,7 @@ let curveGenerator: d3Shape.CurveGenerator;
 let curveFactory: d3Shape.CurveFactory = d3Shape.curveBasis;
 
 curveGenerator = curveFactory(path());
-curveGenerator = curveFactory(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = curveFactory(context!); // force context to be non-null with post-fix for mock
 
 curveGenerator.lineStart();
 curveGenerator.lineEnd();
@@ -872,7 +875,7 @@ let curveBundleFactory: d3Shape.CurveBundleFactory;
 curveBundleFactory = d3Shape.curveBundle;
 curveBundleFactory = d3Shape.curveBundle.beta(0.5);
 
-lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(context!);  // force context to be non-null with post-fix for mock
+lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(context!); // force context to be non-null with post-fix for mock
 lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(path());
 // $ExpectError
 curveGenerator = d3Shape.curveBundle.beta(0.5)(context); // fails, no area related methods
@@ -882,19 +885,19 @@ let curveCardinalFactory: d3Shape.CurveCardinalFactory;
 curveCardinalFactory = d3Shape.curveCardinal;
 curveCardinalFactory = d3Shape.curveCardinal.tension(0.5);
 
-curveGenerator = d3Shape.curveCardinal.tension(0.5)(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = d3Shape.curveCardinal.tension(0.5)(context!); // force context to be non-null with post-fix for mock
 curveGenerator = d3Shape.curveCardinal.tension(0.5)(path());
 
 curveCardinalFactory = d3Shape.curveCardinalOpen;
 curveCardinalFactory = d3Shape.curveCardinalOpen.tension(0.5);
 
-curveGenerator = d3Shape.curveCardinalOpen.tension(0.5)(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = d3Shape.curveCardinalOpen.tension(0.5)(context!); // force context to be non-null with post-fix for mock
 curveGenerator = d3Shape.curveCardinalOpen.tension(0.5)(path());
 
 curveCardinalFactory = d3Shape.curveCardinalClosed;
 curveCardinalFactory = d3Shape.curveCardinalClosed.tension(0.5);
 
-curveGenerator = d3Shape.curveCardinalClosed.tension(0.5)(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = d3Shape.curveCardinalClosed.tension(0.5)(context!); // force context to be non-null with post-fix for mock
 curveGenerator = d3Shape.curveCardinalClosed.tension(0.5)(path());
 
 let curveCatmullRomFactory: d3Shape.CurveCatmullRomFactory;
@@ -902,19 +905,19 @@ let curveCatmullRomFactory: d3Shape.CurveCatmullRomFactory;
 curveCatmullRomFactory = d3Shape.curveCatmullRom;
 curveCatmullRomFactory = d3Shape.curveCatmullRom.alpha(0.5);
 
-curveGenerator = d3Shape.curveCatmullRom.alpha(0.5)(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = d3Shape.curveCatmullRom.alpha(0.5)(context!); // force context to be non-null with post-fix for mock
 curveGenerator = d3Shape.curveCatmullRom.alpha(0.5)(path());
 
 curveCatmullRomFactory = d3Shape.curveCatmullRomOpen;
 curveCatmullRomFactory = d3Shape.curveCatmullRomOpen.alpha(0.5);
 
-curveGenerator = d3Shape.curveCatmullRomOpen.alpha(0.5)(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = d3Shape.curveCatmullRomOpen.alpha(0.5)(context!); // force context to be non-null with post-fix for mock
 curveGenerator = d3Shape.curveCatmullRomOpen.alpha(0.5)(path());
 
 curveCatmullRomFactory = d3Shape.curveCatmullRomClosed;
 curveCatmullRomFactory = d3Shape.curveCatmullRomClosed.alpha(0.5);
 
-curveGenerator = d3Shape.curveCatmullRomClosed.alpha(0.5)(context!);  // force context to be non-null with post-fix for mock
+curveGenerator = d3Shape.curveCatmullRomClosed.alpha(0.5)(context!); // force context to be non-null with post-fix for mock
 curveGenerator = d3Shape.curveCatmullRomClosed.alpha(0.5)(path());
 
 curveFactory = d3Shape.curveLinear;
@@ -947,12 +950,18 @@ declare const linkDatum: HierarchyPointLink<TreeNodeDatum>;
 
 declare const defaultLinkDatum: d3Shape.DefaultLinkObject;
 
-const pLink: Selection<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
-    select<SVGPathElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
-const wrongLink1: Selection<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>, any, any> =
-    select<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>>('.link-paths'); // mock
-const wrongLink2: Selection<SVGPathElement, d3Shape.DefaultLinkObject, any, any> =
-    select<SVGPathElement, d3Shape.DefaultLinkObject>('.link-paths'); // mock
+const pLink: Selection<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, any, any> = select<
+    SVGPathElement,
+    HierarchyPointLink<TreeNodeDatum>
+>('.link-paths'); // mock
+const wrongLink1: Selection<SVGCircleElement, HierarchyPointLink<TreeNodeDatum>, any, any> = select<
+    SVGCircleElement,
+    HierarchyPointLink<TreeNodeDatum>
+>('.link-paths'); // mock
+const wrongLink2: Selection<SVGPathElement, d3Shape.DefaultLinkObject, any, any> = select<
+    SVGPathElement,
+    d3Shape.DefaultLinkObject
+>('.link-paths'); // mock
 
 // Test DefaultLinkObject Interface ==================================================
 
@@ -975,7 +984,11 @@ link = d3Shape.linkVertical<HierarchyPointLink<TreeNodeDatum>, HierarchyPointNod
 
 let svgLink: d3Shape.Link<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
 
-svgLink = d3Shape.linkHorizontal<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+svgLink = d3Shape.linkHorizontal<
+    SVGPathElement,
+    HierarchyPointLink<TreeNodeDatum>,
+    HierarchyPointNode<TreeNodeDatum>
+>();
 svgLink = d3Shape.linkVertical<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
 
 let defaultLinkRadial: d3Shape.LinkRadial<any, d3Shape.DefaultLinkObject, [number, number]>;
@@ -986,14 +999,26 @@ let radialLink: d3Shape.LinkRadial<any, HierarchyPointLink<TreeNodeDatum>, Hiera
 
 radialLink = d3Shape.linkRadial<HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
 
-let svgLinkRadial: d3Shape.LinkRadial<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>;
+let svgLinkRadial: d3Shape.LinkRadial<
+    SVGPathElement,
+    HierarchyPointLink<TreeNodeDatum>,
+    HierarchyPointNode<TreeNodeDatum>
+>;
 
-svgLinkRadial = d3Shape.linkRadial<SVGPathElement, HierarchyPointLink<TreeNodeDatum>, HierarchyPointNode<TreeNodeDatum>>();
+svgLinkRadial = d3Shape.linkRadial<
+    SVGPathElement,
+    HierarchyPointLink<TreeNodeDatum>,
+    HierarchyPointNode<TreeNodeDatum>
+>();
 
 // Configure link generators ========================================================
 
 let defaultNodeAccessor: (d: d3Shape.DefaultLinkObject, ...args: any[]) => [number, number];
-let svgTreeNodeAccessor: (this: SVGPathElement, d: HierarchyPointLink<TreeNodeDatum>, ...args: any[]) => HierarchyPointNode<TreeNodeDatum>;
+let svgTreeNodeAccessor: (
+    this: SVGPathElement,
+    d: HierarchyPointLink<TreeNodeDatum>,
+    ...args: any[]
+) => HierarchyPointNode<TreeNodeDatum>;
 
 let defaultCoordinateAccessor: (d: [number, number], ...args: any[]) => number;
 let svgCoordinateAccessor: (this: SVGPathElement, d: HierarchyPointNode<TreeNodeDatum>, ...args: any[]) => number;
@@ -1199,7 +1224,7 @@ let customSymbol: d3Shape.SymbolType;
 customSymbol = {
     draw(context: d3Shape.CanvasPath_D3Shape, size: number): void {
         // draw custom symbol using canvas path methods
-    }
+    },
 };
 
 // Symbol() create Symbol Generator ===================================================
@@ -1240,7 +1265,9 @@ canvasSymbol = canvasSymbol.type(d3Shape.symbolDiamond);
 
 svgSymbol = svgSymbol.type(d => {
     let t: d3Shape.SymbolType;
-    switch (d.type) { // datum type is SymbolDatum
+    switch (
+        d.type // datum type is SymbolDatum
+    ) {
         case 'circle':
             t = d3Shape.symbolCircle;
             break;
@@ -1264,12 +1291,16 @@ canvasSymbol();
 
 const symbolDatum: SymbolDatum = {
     size: 30,
-    type: 'circle'
+    type: 'circle',
 };
 
 const pSymbol: Selection<SVGPathElement, SymbolDatum, any, any> = select<SVGPathElement, SymbolDatum>('.symbol-path'); // mock
-const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<SVGCircleElement, SymbolDatum>('.symbol-path'); // mock
-const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
+const wrongSymbol1: Selection<SVGCircleElement, SymbolDatum, any, any> = select<SVGCircleElement, SymbolDatum>(
+    '.symbol-path'
+); // mock
+const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>(
+    '.symbol-path'
+); // mock
 
 pSymbol.attr('d', svgSymbol);
 // $ExpectError
@@ -1296,7 +1327,8 @@ class Symbolizer {
                 this.type = d3Shape.symbolCircle;
                 break;
         }
-        this.symbol = d3Shape.symbol<Symbolizer, SymbolDatum>()
+        this.symbol = d3Shape
+            .symbol<Symbolizer, SymbolDatum>()
             .size(function(this: Symbolizer, d?: SymbolDatum) {
                 return d ? d.size : this.size;
             })
@@ -1354,7 +1386,7 @@ const coordinatates: [number, number] = d3Shape.pointRadial(0, 12);
 // -----------------------------------------------------------------------------------
 
 interface StackDatum {
-    values: { [name: string]: number; };
+    values: { [name: string]: number };
 }
 
 let seriesDatum: StackDatum;
@@ -1369,14 +1401,14 @@ let key: StackKey;
 const keys: StackKey[] = [
     { name: 'bananas', label: 'Bananas' },
     { name: 'apples', label: 'Apples' },
-    { name: 'oranges', label: 'Oranges' }
+    { name: 'oranges', label: 'Oranges' },
 ];
 
 const stackData: StackDatum[] = [
     { values: { bananas: 10, apples: 20, oranges: 10 } },
     { values: { bananas: 10, apples: 25, oranges: 0 } },
     { values: { bananas: 20, apples: 20, oranges: 30 } },
-    { values: { bananas: 12, apples: 10, oranges: 50 } }
+    { values: { bananas: 12, apples: 10, oranges: 50 } },
 ];
 
 // Create stack generator ==========================================================
@@ -1440,7 +1472,7 @@ let defaultSeriesArray: Array<d3Shape.Series<{ [key: string]: number }, string>>
 defaultSeriesArray = defaultStack([
     { bananas: 10, apples: 20, oranges: 10 },
     { bananas: 30, apples: 10, oranges: 30 },
-    { bananas: 80, apples: 20, oranges: 40 }
+    { bananas: 80, apples: 20, oranges: 40 },
 ]);
 
 let seriesArray: Array<d3Shape.Series<StackDatum, StackKey>>;

@@ -4,41 +4,41 @@ const data: Data = {
     string: 'string',
     number: 1,
     object: {
-        key: 'value'
+        key: 'value',
     },
     array: [],
     boolean: true,
-    null: null
+    null: null,
 };
 
 const point: Point = {
     line: 1,
     column: 1,
-    offset: 0
+    offset: 0,
 };
 
 const position: Position = {
     start: point,
     end: point,
-    indent: [1]
+    indent: [1],
 };
 
 const node: Node = {
     type: 'node',
     data,
-    position
+    position,
 };
 
 const text: Literal = {
     type: 'text',
     data,
     position,
-    value: 'value'
+    value: 'value',
 };
 
 const parent: Parent = {
     type: 'parent',
     data,
     position,
-    children: [node, text]
+    children: [node, text],
 };

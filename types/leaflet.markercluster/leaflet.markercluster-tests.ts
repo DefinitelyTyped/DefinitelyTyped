@@ -41,9 +41,7 @@ markerClusterGroup = L.markerClusterGroup(markerClusterGroupOptions);
 let map = L.map('foo');
 
 markerClusterGroup = markerClusterGroup.addTo(map);
-map = map
-    .addLayer(markerClusterGroup)
-    .removeLayer(markerClusterGroup);
+map = map.addLayer(markerClusterGroup).removeLayer(markerClusterGroup);
 
 const latLng: L.LatLng = L.latLng(10, 10);
 
@@ -85,13 +83,13 @@ hasLayer = markerClusterGroup.hasLayer(marker);
 
 // inheritance
 const Subclass1 = L.MarkerClusterGroup.extend({
-    myFunction() {}
+    myFunction() {},
 });
 class Subclass2 extends L.MarkerClusterGroup {
     myFunction() {}
 }
 const Subclass3 = L.MarkerCluster.extend({
-    myFunction() {}
+    myFunction() {},
 });
 class Subclass4 extends L.MarkerCluster {
     myFunction() {}

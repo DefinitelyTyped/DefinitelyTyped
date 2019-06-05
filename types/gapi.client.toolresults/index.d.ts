@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Cloud Tool Results API v1beta3 */
-    function load(name: "toolresults", version: "v1beta3"): PromiseLike<void>;
-    function load(name: "toolresults", version: "v1beta3", callback: () => any): void;
+    function load(name: 'toolresults', version: 'v1beta3'): PromiseLike<void>;
+    function load(name: 'toolresults', version: 'v1beta3', callback: () => any): void;
 
     const projects: toolresults.ProjectsResource;
 

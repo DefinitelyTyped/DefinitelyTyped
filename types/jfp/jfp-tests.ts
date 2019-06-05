@@ -1,6 +1,6 @@
-import j = require("jfp");
+import j = require('jfp');
 
-function testFn () {};
+function testFn() {}
 
 j(testFn);
 
@@ -12,7 +12,10 @@ j.between([3, 7], 5) === true;
 j.call(testFn, 1, 2, 3);
 j.clone({});
 j.compact([]);
-j.compose(testFn, testFn)();
+j.compose(
+    testFn,
+    testFn
+)();
 j.composePredicate(j.isZero)(0);
 j.concat([], []);
 j.conj('foo', []);
@@ -102,7 +105,9 @@ j.shortCircuit('foo', testFn, 'bar');
 j.slice(0, [1, 2, 3]);
 j.slice(0, [1, 2, 3], 1);
 j.some(j.isEven, [1, 2, 3]);
-j.sort([1, 2, 3, 4], function () { return 0});
+j.sort([1, 2, 3, 4], function() {
+    return 0;
+});
 j.splitPartial(testFn, [], [])();
 j.subtract(6, 5);
 j.symmetricDifference([], []);

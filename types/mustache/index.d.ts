@@ -25,7 +25,7 @@ interface MustacheStatic {
     /**
      * A simple string scanner that is used by the template parser to find tokens in template strings.
      */
-    Scanner: typeof MustacheScanner
+    Scanner: typeof MustacheScanner;
 
     /**
      * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.

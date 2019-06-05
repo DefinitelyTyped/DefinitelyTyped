@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { methodOf } from "lodash";
+import { methodOf } from 'lodash';
 export = methodOf;

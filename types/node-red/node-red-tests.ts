@@ -25,10 +25,10 @@ export = (RED: nodered.Red) => {
         this.status({ fill: 'red', shape: 'dot', text: 'status' });
         this.status({});
         this.send({ payload: 'Milk' });
-        this.send([[
-            { payload: 'FirstMessageFirstNode' },
-            { payload: 'SecondMessageFirstNode' },
-        ], { payload: "MessageSecondNode" }]);
+        this.send([
+            [{ payload: 'FirstMessageFirstNode' }, { payload: 'SecondMessageFirstNode' }],
+            { payload: 'MessageSecondNode' },
+        ]);
         this.on('close', () => {
             this.someResource.close();
         });

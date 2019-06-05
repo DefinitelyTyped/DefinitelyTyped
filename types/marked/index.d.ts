@@ -27,7 +27,11 @@ declare function marked(src: string, callback: (error: any | undefined, parseRes
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  * @return String of compiled HTML
  */
-declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
+declare function marked(
+    src: string,
+    options?: marked.MarkedOptions,
+    callback?: (error: any | undefined, parseResult: string) => void
+): string;
 
 declare namespace marked {
     /**
@@ -62,7 +66,11 @@ declare namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, options?: MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
+    function parse(
+        src: string,
+        options?: MarkedOptions,
+        callback?: (error: any | undefined, parseResult: string) => void
+    ): string;
 
     /**
      * @param src Tokenized source as array of tokens
@@ -100,10 +108,13 @@ declare namespace marked {
         paragraph(text: string): string;
         table(header: string, body: string): string;
         tablerow(content: string): string;
-        tablecell(content: string, flags: {
-            header: boolean;
-            align: 'center' | 'left' | 'right' | null;
-        }): string;
+        tablecell(
+            content: string,
+            flags: {
+                header: boolean;
+                align: 'center' | 'left' | 'right' | null;
+            }
+        ): string;
         strong(text: string): string;
         em(text: string): string;
         codespan(code: string): string;
@@ -153,12 +164,12 @@ declare namespace marked {
 
     type TokensList = Token[] & {
         links: {
-            [key: string]: { href: string; title: string; }
-        }
+            [key: string]: { href: string; title: string };
+        };
     };
 
     type Token =
-        Tokens.Space
+        | Tokens.Space
         | Tokens.Code
         | Tokens.Heading
         | Tokens.Table

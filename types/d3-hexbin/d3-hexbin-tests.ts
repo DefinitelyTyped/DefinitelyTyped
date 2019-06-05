@@ -29,7 +29,7 @@ const data: Array<[number, number]> = [[10, 20], [30, 10]];
 
 let pointHexbin: d3Hexbin.Hexbin<Point>;
 let pointHexbinBins: Array<d3Hexbin.HexbinBin<Point>>;
-const pointData: Point[] = [{x: 10, y: 20}, {x: 30, y: 10}];
+const pointData: Point[] = [{ x: 10, y: 20 }, { x: 30, y: 10 }];
 
 let pointAccessor: (d: Point) => number;
 

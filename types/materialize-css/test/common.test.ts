@@ -1,5 +1,5 @@
-import * as M from "materialize-css";
-import * as jQuery from "jquery";
+import * as M from 'materialize-css';
+import * as jQuery from 'jquery';
 
 // Test Component Initialization
 

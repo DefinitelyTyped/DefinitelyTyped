@@ -1,6 +1,6 @@
 function testUsingWithNodeHTTPServer() {
     var socket = io('http://localhost');
-    socket.on('news', function (data: any) {
+    socket.on('news', function(data: any) {
         console.log(data);
         socket.emit('my other event', { my: 'data' });
     });
@@ -8,7 +8,7 @@ function testUsingWithNodeHTTPServer() {
 
 function testUsingWithExpress() {
     var socket = io.connect('http://localhost');
-    socket.on('news', function (data: any) {
+    socket.on('news', function(data: any) {
         console.log(data);
         socket.emit('my other event', { my: 'data' });
     });
@@ -16,29 +16,29 @@ function testUsingWithExpress() {
 
 function testUsingWithTheExpressFramework() {
     var socket = io.connect('http://localhost');
-    socket.on('news', function (data: any) {
+    socket.on('news', function(data: any) {
         console.log(data);
         socket.emit('my other event', { my: 'data' });
     });
 }
 
 function testRestrictingYourselfToANamespace() {
-    var chat = io.connect('http://localhost/chat')
-        , news = io.connect('http://localhost/news');
+    var chat = io.connect('http://localhost/chat'),
+        news = io.connect('http://localhost/news');
 
-    chat.on('connect', function () {
+    chat.on('connect', function() {
         chat.emit('hi!');
     });
 
-    news.on('news', function () {
+    news.on('news', function() {
         news.emit('woot');
     });
 }
 
 function testSendingAndGettingData() {
     var socket = io();
-    socket.on('connect', function () {
-        socket.emit('ferret', 'tobi', function (data: any) {
+    socket.on('connect', function() {
+        socket.emit('ferret', 'tobi', function(data: any) {
             console.log(data);
         });
     });
@@ -46,11 +46,10 @@ function testSendingAndGettingData() {
 
 function testUsingItJustAsACrossBrowserWebSocket() {
     var socket = io('http://localhost/');
-    socket.on('connect', function () {
+    socket.on('connect', function() {
         socket.emit('hi');
 
-        socket.on('message', function (msg: any) {
-        });
+        socket.on('message', function(msg: any) {});
     });
 }
 

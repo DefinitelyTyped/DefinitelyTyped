@@ -12,7 +12,7 @@ interface TruncateOptions {
     /**
      * Omission symbol for truncated string, '...' by default.
      */
-    ellipsis: boolean|string;
+    ellipsis: boolean | string;
 }
 
 /**

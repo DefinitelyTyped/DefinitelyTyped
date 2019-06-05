@@ -57,7 +57,10 @@ declare module 'leaflet' {
     }
 
     class PolylineDecorator extends FeatureGroup {
-        constructor(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][], options?: PolylineDecoratorOptions);
+        constructor(
+            paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][],
+            options?: PolylineDecoratorOptions
+        );
     }
 
     function polylineDecorator(paths: Polyline | Polyline[], options?: PolylineDecoratorOptions): PolylineDecorator;

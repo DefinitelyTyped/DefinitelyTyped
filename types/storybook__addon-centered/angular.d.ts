@@ -1,2 +1,2 @@
-import centered from "./index";
+import centered from './index';
 export default centered;

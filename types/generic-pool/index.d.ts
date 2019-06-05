@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 export class Pool<T> extends EventEmitter {
     spareResourceCapacity: number;

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load G Suite Activity API v1 */
-    function load(name: "appsactivity", version: "v1"): PromiseLike<void>;
-    function load(name: "appsactivity", version: "v1", callback: () => any): void;
+    function load(name: 'appsactivity', version: 'v1'): PromiseLike<void>;
+    function load(name: 'appsactivity', version: 'v1', callback: () => any): void;
 
     const activities: appsactivity.ActivitiesResource;
 
@@ -131,9 +131,9 @@ declare namespace gapi.client {
                 /** Data format for the response. */
                 alt?: string;
                 /** Identifies the Drive folder containing the items for which to return activities. */
-                "drive.ancestorId"?: string;
+                'drive.ancestorId'?: string;
                 /** Identifies the Drive item to return activities for. */
-                "drive.fileId"?: string;
+                'drive.fileId'?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Indicates the strategy to use when grouping singleEvents items in the associated combinedEvent object. */

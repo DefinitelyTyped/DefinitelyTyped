@@ -1,8 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-declare class DropdownToggle extends React.Component<
-    DropdownToggle.DropdownToggleProps
-> {}
+declare class DropdownToggle extends React.Component<DropdownToggle.DropdownToggleProps> {}
 export = DropdownToggle;
 
 declare namespace DropdownToggle {
@@ -22,8 +20,6 @@ declare namespace DropdownToggle {
          * argument should spread through to **a component that can accept a ref**. Use
          * the `onToggle` argument to toggle the menu open or closed
          */
-        children(
-            renderProps: DropdownToggleRenderProps
-        ): React.ReactElement;
+        children(renderProps: DropdownToggleRenderProps): React.ReactElement;
     }
 }

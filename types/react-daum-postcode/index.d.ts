@@ -7,20 +7,20 @@
 import { Component } from 'react';
 
 export namespace DaumPostcode {
-  interface Props {
-    onComplete: any;
-    width?: number | string;
-    height?: number | string;
-    autoClose?: boolean;
-    autoResize?: boolean;
-    animation?: boolean;
-    style?: any;
-    defaultQuery?: string;
-    theme?: any;
-    scriptUrl?: string;
-  }
+    interface Props {
+        onComplete: any;
+        width?: number | string;
+        height?: number | string;
+        autoClose?: boolean;
+        autoResize?: boolean;
+        animation?: boolean;
+        style?: any;
+        defaultQuery?: string;
+        theme?: any;
+        scriptUrl?: string;
+    }
 }
 
 export default class DaumPostcode extends Component<DaumPostcode.Props, any> {
-  render(): JSX.Element;
+    render(): JSX.Element;
 }

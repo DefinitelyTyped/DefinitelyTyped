@@ -1,5 +1,5 @@
-import { ComponentClass, CSSProperties, HTMLProps } from "react";
-import { IndexLinkProps } from "react-router/lib/IndexLink";
+import { ComponentClass, CSSProperties, HTMLProps } from 'react';
+import { IndexLinkProps } from 'react-router/lib/IndexLink';
 
 export interface LinkProps extends IndexLinkProps {
     onlyActiveOnIndex?: boolean;

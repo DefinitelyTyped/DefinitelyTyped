@@ -47,23 +47,24 @@ declare namespace uri {
         href(): string;
         href(url: string): void;
 
-        is(qry:
-            'relative' |
-            'absolute' |
-            'urn' |
-            'url' |
-            'domain' |
-            'name' |
-            'sld' |
-            'idn' |
-            'punycode' |
-            'ip' |
-            'ip4' |
-            'ipv4' |
-            'inet4' |
-            'ip6' |
-            'ipv6' |
-            'inet6'
+        is(
+            qry:
+                | 'relative'
+                | 'absolute'
+                | 'urn'
+                | 'url'
+                | 'domain'
+                | 'name'
+                | 'sld'
+                | 'idn'
+                | 'punycode'
+                | 'ip'
+                | 'ip4'
+                | 'ipv4'
+                | 'inet4'
+                | 'ip6'
+                | 'ipv6'
+                | 'inet6'
         ): boolean;
         iso8859(): URI;
 
@@ -124,8 +125,16 @@ declare namespace uri {
         setQuery(qry: object): URI;
         setSearch(key: string, value: string): URI;
         setSearch(qry: object): URI;
-        hasQuery(name: /*string | */any, value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any), withinArray?: boolean): boolean;
-        hasSearch(name: /*string | */any, value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any), withinArray?: boolean): boolean;
+        hasQuery(
+            name: /*string | */ any,
+            value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+            withinArray?: boolean
+        ): boolean;
+        hasSearch(
+            name: /*string | */ any,
+            value?: string | number | boolean | string[] | number[] | boolean[] | RegExp | ((...args: any[]) => any),
+            withinArray?: boolean
+        ): boolean;
         subdomain(): string;
         subdomain(subdomain: string): URI;
         suffix(suffix?: boolean): string;
@@ -168,21 +177,10 @@ declare namespace uri {
         addQuery(data: object, qryObj: object): object;
 
         build(parts: URIOptions): string;
-        buildAuthority(parts: {
-            username?: string;
-            password?: string;
-            hostname?: string;
-            port?: string;
-        }): string;
-        buildHost(parts: {
-            hostname?: string;
-            port?: string;
-        }): string;
+        buildAuthority(parts: { username?: string; password?: string; hostname?: string; port?: string }): string;
+        buildHost(parts: { hostname?: string; port?: string }): string;
         buildQuery(qry: object, duplicates?: boolean): string;
-        buildUserinfo(parts: {
-            username?: string;
-            password?: string;
-        }): string;
+        buildUserinfo(parts: { username?: string; password?: string }): string;
 
         commonPath(path1: string, path2: string): string;
 
@@ -199,21 +197,30 @@ declare namespace uri {
         joinPaths(...paths: Array<string | URI>): URI;
 
         parse(url: string): Parts;
-        parseAuthority(url: string, parts: {
-            username?: string;
-            password?: string;
-            hostname?: string;
-            port?: string;
-        }): string;
-        parseHost(url: string, parts: {
-            hostname?: string;
-            port?: string;
-        }): string;
+        parseAuthority(
+            url: string,
+            parts: {
+                username?: string;
+                password?: string;
+                hostname?: string;
+                port?: string;
+            }
+        ): string;
+        parseHost(
+            url: string,
+            parts: {
+                hostname?: string;
+                port?: string;
+            }
+        ): string;
         parseQuery(url: string): object;
-        parseUserinfo(url: string, parts: {
-            username?: string;
-            password?: string;
-        }): string;
+        parseUserinfo(
+            url: string,
+            parts: {
+                username?: string;
+                password?: string;
+            }
+        ): string;
 
         removeQuery(data: object, prop: string, value: string): object;
         removeQuery(data: object, props: string[] | object): object;
@@ -229,34 +236,34 @@ declare namespace uri {
 
     type URITemplateLiteral = string;
     interface URITemplateVariable {
-      name: string;
-      explode: boolean;
-      maxLength?: number;
+        name: string;
+        explode: boolean;
+        maxLength?: number;
     }
 
     interface URITemplateExpression {
-      expression: string;
-      operator: string;
-      variables: ReadonlyArray<URITemplateVariable>;
+        expression: string;
+        operator: string;
+        variables: ReadonlyArray<URITemplateVariable>;
     }
 
     type URITemplatePart = URITemplateLiteral | URITemplateExpression;
 
     interface URITemplate {
-      expand(data: URITemplateInput, opts?: object): URI;
-      parse(): this;
+        expand(data: URITemplateInput, opts?: object): URI;
+        parse(): this;
 
-      /**
-       * @description The parsed parts of the URI Template. Only present after calling
-       *              `parse()` first.
-       */
-      parts?: ReadonlyArray<URITemplatePart>;
+        /**
+         * @description The parsed parts of the URI Template. Only present after calling
+         *              `parse()` first.
+         */
+        parts?: ReadonlyArray<URITemplatePart>;
     }
 
     interface URITemplateStatic {
-      (template: string): URITemplate;
+        (template: string): URITemplate;
 
-      new (template: string): URITemplate;
+        new (template: string): URITemplate;
     }
 }
 

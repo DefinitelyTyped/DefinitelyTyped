@@ -101,8 +101,12 @@ function plusTests() {
     0.1 + 0.2; // 0.30000000000000004
     const x = new Big(0.1);
     const y = x.plus(0.2); // '0.3'
-    Big(0.7).plus(x).plus(y); // '1'
-    Big(0.7).add(x).add(y); // '1'
+    Big(0.7)
+        .plus(x)
+        .plus(y); // '1'
+    Big(0.7)
+        .add(x)
+        .add(y); // '1'
 }
 
 function powTests() {
@@ -113,7 +117,7 @@ function powTests() {
     Big(3).pow(-2); // '0.11111111111111111111'
 
     new Big(123.456).pow(1000).toString().length; // 5099
-    new Big(2).pow(1e+6); // Time taken (Node.js): 9 minutes 34 secs.
+    new Big(2).pow(1e6); // Time taken (Node.js): 9 minutes 34 secs.
 }
 
 function roundTests() {
@@ -199,7 +203,7 @@ function toJSONTests() {
 
     const a = new Big('123').toJSON();
 
-    JSON.parse(str, (k, v)  => k === '' ? v : new Big(v)); // Returns an array of three Big numbers.
+    JSON.parse(str, (k, v) => (k === '' ? v : new Big(v))); // Returns an array of three Big numbers.
 }
 
 // test Big.c

@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import stream = require("stream");
-import events = require("events");
-import zlib = require("zlib");
+import stream = require('stream');
+import events = require('events');
+import zlib = require('zlib');
 
 // #region Interfaces
 
@@ -100,8 +100,8 @@ export const fieldEnds: number[];
  */
 export const types: {
     0: string;
-    "\0": string;
-    "": string;
+    '\0': string;
+    '': string;
     1: string;
     2: string;
     3: string;
@@ -597,7 +597,11 @@ export interface FileOptions {
  *
  * Archive data may be read from the returned stream.
  */
-export function create(options: CreateOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Readable;
+export function create(
+    options: CreateOptions,
+    fileList: ReadonlyArray<string>,
+    callback?: (err?: Error) => void
+): stream.Readable;
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -607,7 +611,11 @@ export function create(options: CreateOptions, fileList: ReadonlyArray<string>, 
  */
 export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>): Promise<void>;
 export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: ReadonlyArray<string>): void;
-export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>, callback: (err?: Error) => void): void;
+export function create(
+    options: CreateOptions & FileOptions,
+    fileList: ReadonlyArray<string>,
+    callback: (err?: Error) => void
+): void;
 
 /**
  * Alias for create
@@ -626,7 +634,11 @@ export const c: typeof create;
  *
  * Archive data should be written to the returned stream.
  */
-export function extract(options: ExtractOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
+export function extract(
+    options: ExtractOptions,
+    fileList?: ReadonlyArray<string>,
+    callback?: (err?: Error) => void
+): stream.Writable;
 
 /**
  * Extract a tarball archive. The fileList is an array of paths to extract
@@ -640,7 +652,11 @@ export function extract(options: ExtractOptions, fileList?: ReadonlyArray<string
  */
 export function extract(options: ExtractOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
 export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
-export function extract(options: ExtractOptions & FileOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): void;
+export function extract(
+    options: ExtractOptions & FileOptions,
+    fileList: ReadonlyArray<string> | undefined,
+    callback: (err?: Error) => void
+): void;
 
 /**
  * Alias for extract
@@ -655,7 +671,11 @@ export const x: typeof extract;
  *
  * Archive data should be written to the returned stream.
  */
-export function list(options?: ListOptions, fileList?: ReadonlyArray<string>, callback?: (err?: Error) => void): stream.Writable;
+export function list(
+    options?: ListOptions,
+    fileList?: ReadonlyArray<string>,
+    callback?: (err?: Error) => void
+): stream.Writable;
 
 /**
  * List the contents of a tarball archive. The fileList is an array of paths
@@ -680,7 +700,11 @@ export const t: typeof list;
  * starts with @, prepend it with ./.
  */
 export function replace(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function replace(options: ReplaceOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): Promise<void>;
+export function replace(
+    options: ReplaceOptions,
+    fileList: ReadonlyArray<string> | undefined,
+    callback: (err?: Error) => void
+): Promise<void>;
 
 /**
  * Alias for replace
@@ -695,7 +719,11 @@ export const r: typeof replace;
  * To add a file that starts with @, prepend it with ./.
  */
 export function update(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function update(options: ReplaceOptions, fileList: ReadonlyArray<string> | undefined, callback: (err?: Error) => void): Promise<void>;
+export function update(
+    options: ReplaceOptions,
+    fileList: ReadonlyArray<string> | undefined,
+    callback: (err?: Error) => void
+): Promise<void>;
 
 /**
  * Alias for update

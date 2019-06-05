@@ -10,12 +10,8 @@ str = mu2.root;
 
 read = mu2.compileAndRender(str, value);
 
-mu2.compile(str, (err: Error, parsed: mu2.IParsed) => {
-
-});
-mu2.compileText(str, str, (err: Error, parsed: mu2.IParsed) => {
-
-});
+mu2.compile(str, (err: Error, parsed: mu2.IParsed) => {});
+mu2.compileText(str, str, (err: Error, parsed: mu2.IParsed) => {});
 parsed = mu2.compileText(str, str);
 parsed = mu2.compileText(str);
 

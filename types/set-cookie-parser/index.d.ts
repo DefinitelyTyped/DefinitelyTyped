@@ -6,10 +6,13 @@
 
 /// <reference types="node" />
 
-declare module "set-cookie-parser" {
-    import http = require("http");
+declare module 'set-cookie-parser' {
+    import http = require('http');
 
-    function SetCookieParser(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: SetCookieParser.Options): SetCookieParser.Cookie[];
+    function SetCookieParser(
+        input: string | ReadonlyArray<string> | http.IncomingMessage,
+        options?: SetCookieParser.Options
+    ): SetCookieParser.Cookie[];
 
     namespace SetCookieParser {
         function parse(input: string | ReadonlyArray<string> | http.IncomingMessage, options?: Options): Cookie[];
@@ -30,7 +33,7 @@ declare module "set-cookie-parser" {
         type Options = {
             decodeValues?: boolean;
             map?: boolean;
-        }
+        };
     }
 
     export = SetCookieParser;

@@ -12,11 +12,7 @@ export function waitForState(
     config?: Config
 ): Promise<void>;
 
-export function waitForElement(
-    wrapper: ReactWrapper,
-    elementSelector: EnzymeSelector,
-    config?: Config
-): Promise<void>;
+export function waitForElement(wrapper: ReactWrapper, elementSelector: EnzymeSelector, config?: Config): Promise<void>;
 
 export function waitForProps(
     wrapper: ReactWrapper,

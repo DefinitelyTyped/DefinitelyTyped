@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as Q from "q";
+import * as Q from 'q';
 
 type milliseconds = number;
 declare namespace NodePersist {

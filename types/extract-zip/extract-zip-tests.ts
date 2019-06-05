@@ -11,7 +11,7 @@ options = {
     defaultFileMode: num,
 };
 
-extract(str, options, (err) => {
+extract(str, options, err => {
     if (err) {
         console.error(err);
         return;

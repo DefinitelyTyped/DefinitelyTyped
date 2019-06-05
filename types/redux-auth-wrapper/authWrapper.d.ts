@@ -1,5 +1,5 @@
-import { ReactType } from "react";
-import { AuthConfig, AuthWrapperDecorator } from ".";
+import { ReactType } from 'react';
+import { AuthConfig, AuthWrapperDecorator } from '.';
 
 export interface InjectedAuthProps {
     isAuthenticated: boolean;

@@ -1,4 +1,4 @@
-import StockEvent from "./StockEvent";
+import StockEvent from './StockEvent';
 
 /**
  * DataSet is objects which holds all information about data.

@@ -1,2 +1,2 @@
-import { isTypedArray } from "lodash";
+import { isTypedArray } from 'lodash';
 export default isTypedArray;

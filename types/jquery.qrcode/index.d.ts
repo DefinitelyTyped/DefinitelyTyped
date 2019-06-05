@@ -15,7 +15,7 @@ declare namespace JQueryQRCode {
         LABEL_STRIP,
         LABEL_BOX,
         IMAGE_STRIP,
-        IMAGE_BOX
+        IMAGE_BOX,
     }
 
     interface Options {
@@ -23,101 +23,96 @@ declare namespace JQueryQRCode {
          * Render method: 'canvas', 'image' or 'div'
          * @default 'canvas'
          */
-        render?: string,
+        render?: string;
 
         /**
          * Start of version range, somewhere in 1 .. 40
          * @default 1
          */
-        minVersion?: number,
+        minVersion?: number;
         /**
          * End of version range, somewhere in 1 .. 40
          * @default 40
          */
-        maxVersion?: number,
+        maxVersion?: number;
 
         /**
          * Error correction level: 'L', 'M', 'Q' or 'H'
          * @default 'L'
          */
-        ecLevel?: string,
+        ecLevel?: string;
 
         /**
          * Left offset in pixels, if drawn onto existing canvas
          * @default 0
          */
-        left?: number,
+        left?: number;
         /**
          * Top offset in pixels, if drawn onto existing canvas
          * @default 0
          */
-        top?: number,
+        top?: number;
 
         /**
          * Size in pixel
          * @default 200
          */
-        size?: number,
+        size?: number;
 
         /**
          * Code color or image element
          * @default '#000'
          */
-        fill?: string,
+        fill?: string;
 
         /**
          * Background color or image element, null for transparent background
          * @default null
          */
-        background?: string,
+        background?: string;
 
         /**
          * The text content of the QR code.
          * @default 'no text'
          */
-        text?: string,
+        text?: string;
 
         /**
          * Corner radius relative to module width: 0.0 .. 0.5
          * @default 0
          */
-        radius?: number,
+        radius?: number;
 
         /**
          * Quiet zone in modules
          * @default 0
          */
-        quiet?: number,
+        quiet?: number;
 
         /**
          * Mode
          * @default Mode.NORMAL
          */
-        mode?: Mode,
-
+        mode?: Mode;
 
         /** @default 0.1 */
-        mSize?: number,
+        mSize?: number;
         /** @default 0.5 */
-        mPosX?: number,
+        mPosX?: number;
         /** @default 0.5 */
-        mPosY?: number,
+        mPosY?: number;
 
         /** @default 'no label' */
-        label?: string,
+        label?: string;
         /** @default 'sans' */
-        fontname?: string,
+        fontname?: string;
         /** @default '#000' */
-        fontcolor?: string,
+        fontcolor?: string;
 
         /** @default null */
-        image?: string
+        image?: string;
     }
-
-
 }
-
-
 
 interface JQuery {
     /**

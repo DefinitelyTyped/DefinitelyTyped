@@ -4,13 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import {
-    Server as HttpServer,
-    IncomingMessage,
-    ServerResponse,
-    IncomingHttpHeaders,
-    OutgoingHttpHeaders,
-} from 'http';
+import { Server as HttpServer, IncomingMessage, ServerResponse, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import { Server as HttpsServer } from 'https';
 import { EventEmitter } from 'events';
 

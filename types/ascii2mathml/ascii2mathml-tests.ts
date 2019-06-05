@@ -13,5 +13,5 @@ ascii2mathml('', {
     dir: 'ltr',
     bare: false,
     standalone: false,
-    annotate: false
+    annotate: false,
 });

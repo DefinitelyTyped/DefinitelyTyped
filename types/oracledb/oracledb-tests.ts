@@ -47,7 +47,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
                     assert(error.offset !== undefined, 'offset not defined for DB error');
 
                     return resolve();
-                },
+                }
             );
 
             setTimeout((): void => {
@@ -55,7 +55,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
 
                 connection.break().then((): void => {});
             }, 1000);
-        },
+        }
     );
 
 const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<void> => {
@@ -73,12 +73,12 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
             precision: 0,
             scale: -127,
         },
-        'connection.getStatementInfo() has invalid metaData field in its response',
+        'connection.getStatementInfo() has invalid metaData field in its response'
     );
 
     assert(
         info.bindNames.includes('MYDATE'),
-        'connection.getStatementInfo() has invalid bindNames field in its response',
+        'connection.getStatementInfo() has invalid bindNames field in its response'
     );
     assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');
 
@@ -146,7 +146,7 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         {},
         {
             resultSet: true,
-        },
+        }
     );
 
     assert.deepStrictEqual(result.metaData[0], { name: '1' });

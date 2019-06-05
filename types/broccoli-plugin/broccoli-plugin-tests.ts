@@ -7,7 +7,7 @@ class SlowItDown extends Plugin {
     constructor(private readonly waitInMS: number) {
         super([], {
             annotation: `${waitInMS} ms`,
-            needsCache: false
+            needsCache: false,
         });
     }
 
@@ -20,7 +20,7 @@ class FileCopier extends Plugin {
     constructor(inputNodes: Plugin.BroccoliNode[]) {
         super(inputNodes, {
             name: 'CopyFiles',
-            persistentOutput: true
+            persistentOutput: true,
         });
     }
 
@@ -35,11 +35,7 @@ class FileCopier extends Plugin {
     }
 }
 
-new FileCopier([
-    new SlowItDown(5000),
-    'src',
-    'assets'
-]);
+new FileCopier([new SlowItDown(5000), 'src', 'assets']);
 
 new Plugin(); // $ExpectError
 new Plugin([{}]); // $ExpectError

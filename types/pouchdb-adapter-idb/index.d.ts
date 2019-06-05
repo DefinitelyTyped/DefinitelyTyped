@@ -14,8 +14,7 @@ declare namespace PouchDB {
     }
 
     namespace IdbAdapter {
-        interface IdbAdapterConfiguration
-                extends Configuration.LocalDatabaseConfiguration {
+        interface IdbAdapterConfiguration extends Configuration.LocalDatabaseConfiguration {
             /**
              * Configures storage persistence.
              *
@@ -27,9 +26,7 @@ declare namespace PouchDB {
     }
 
     interface Static {
-        new<Content extends {}>(name: string | null,
-                                options: IdbAdapter.IdbAdapterConfiguration
-                               ): Database<Content>;
+        new <Content extends {}>(name: string | null, options: IdbAdapter.IdbAdapterConfiguration): Database<Content>;
     }
 }
 

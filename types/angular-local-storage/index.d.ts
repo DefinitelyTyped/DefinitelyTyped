@@ -96,7 +96,7 @@ declare module 'angular' {
              */
             clearAll(): any;
         }
-        
+
         type StorageType = 'localStorage' | 'sessionStorage';
 
         interface ILocalStorageService {
@@ -153,7 +153,13 @@ declare module 'angular' {
              * @param value optional
              * @param key The corresponding key used in local storage
              */
-            bind(scope: angular.IScope, property: string, value?: any, key?: string, storageType?: StorageType): Function;
+            bind(
+                scope: angular.IScope,
+                property: string,
+                value?: any,
+                key?: string,
+                storageType?: StorageType
+            ): Function;
             /**
              * Return the derive key
              * Returns String

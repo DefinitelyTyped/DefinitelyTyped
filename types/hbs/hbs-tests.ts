@@ -20,7 +20,7 @@ hbs.registerPartials(__dirname + '/views/partials', () => {});
 
 hbs.localsAsTemplateData(app);
 
-const safeString = new hbs.handlebars.SafeString("string");
+const safeString = new hbs.handlebars.SafeString('string');
 
 const instance1 = hbs.create();
 const instance2 = hbs.create();

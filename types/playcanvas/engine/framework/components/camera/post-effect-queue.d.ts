@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.PostEffectQueue
      * @description Create a new PostEffectQueue
@@ -8,7 +7,7 @@ declare namespace pc {
      * @param {pc.CameraComponent} camera The camera component
      */
     class PostEffectQueue {
-        constructor(app: pc.Application, camera: pc.CameraComponent)
+        constructor(app: pc.Application, camera: pc.CameraComponent);
 
         /**
          * @private

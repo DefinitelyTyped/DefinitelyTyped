@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { TimeoutsOptions } from "retry";
+import { TimeoutsOptions } from 'retry';
 
 export interface LockOptions {
     stale?: number; // default: 10000

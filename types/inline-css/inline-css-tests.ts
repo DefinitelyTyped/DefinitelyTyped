@@ -1,10 +1,9 @@
-
 import inlineCss = require('inline-css');
 
 var str: string;
 var bool: boolean;
 
-var options:inlineCss.Options;
+var options: inlineCss.Options;
 
 str = options.url;
 str = options.extraCss;
@@ -18,17 +17,15 @@ bool = options.applyWidthAttributes;
 bool = options.applyTableAttributes;
 
 options = {
-	url: str,
-	extraCss: str,
-	applyStyleTags: bool,
-	applyLinkTags: bool,
-	removeStyleTags: bool,
-	removeLinkTags: bool,
-	preserveMediaQueries: bool,
-	applyWidthAttributes: bool,
-	applyTableAttributes: bool
+    url: str,
+    extraCss: str,
+    applyStyleTags: bool,
+    applyLinkTags: bool,
+    removeStyleTags: bool,
+    removeLinkTags: bool,
+    preserveMediaQueries: bool,
+    applyWidthAttributes: bool,
+    applyTableAttributes: bool,
 };
 
-inlineCss(str, options).then((value:string) => {
-
-});
+inlineCss(str, options).then((value: string) => {});

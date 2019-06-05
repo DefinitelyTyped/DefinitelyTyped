@@ -12,10 +12,10 @@ it('should be able to use configureToMatchImageSnapshot in a test', () => {
         noColors: true,
         customDiffConfig: {
             threshold: 5,
-            includeAA: false
+            includeAA: false,
         },
         failureThreshold: 10,
-        failureThresholdType: 'percent'
+        failureThresholdType: 'percent',
     });
     expect.extend({ toMatchImageSnapshot: matchFn });
 
@@ -29,13 +29,13 @@ it('Should be able to use configuration directly in toMatchImageSnapshot', () =>
         noColors: true,
         customDiffConfig: {
             threshold: 5,
-            includeAA: false
+            includeAA: false,
         },
         customDiffDir: './diffs',
         diffDirection: 'vertical',
         updatePassedSnapshot: true,
         failureThreshold: 10,
-        failureThresholdType: 'percent'
+        failureThresholdType: 'percent',
     };
 
     expect('Me').toMatchImageSnapshot(options);

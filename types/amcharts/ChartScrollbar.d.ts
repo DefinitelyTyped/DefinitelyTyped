@@ -1,5 +1,5 @@
-import AmGraph from "./AmGraph";
-import CategoryAxis from "./CategoryAxis";
+import AmGraph from './AmGraph';
+import CategoryAxis from './CategoryAxis';
 
 /**
  * ChartScrollbar class displays chart scrollbar. Supported by AmSerialChart and AmXYChart.

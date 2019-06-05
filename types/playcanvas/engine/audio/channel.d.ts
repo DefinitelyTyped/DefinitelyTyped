@@ -1,19 +1,22 @@
 declare namespace pc {
-
     /**
-    * @private
-    * @name pc.Channel
-    * @class A channel is created when the pc.AudioManager begins playback of a pc.Sound. Usually created internally by
-    * pc.AudioManager#playSound or pc.AudioManager#playSound3d. Developers usually won't have to create Channels manually.
-    * @param {pc.AudioManager} manager The AudioManager instance
-    * @param {pc.Sound} sound The sound to playback
-    * @param {Object} options
-    * @param {Number} [options.volume=1] The playback volume, between 0 and 1.
-    * @param {Number} [options.pitch=1] The relative pitch, default of 1, plays at normal pitch.
-    * @param {Boolean} [options.loop=false] Whether the sound should loop when it reaches the end or not.
-    */
+     * @private
+     * @name pc.Channel
+     * @class A channel is created when the pc.AudioManager begins playback of a pc.Sound. Usually created internally by
+     * pc.AudioManager#playSound or pc.AudioManager#playSound3d. Developers usually won't have to create Channels manually.
+     * @param {pc.AudioManager} manager The AudioManager instance
+     * @param {pc.Sound} sound The sound to playback
+     * @param {Object} options
+     * @param {Number} [options.volume=1] The playback volume, between 0 and 1.
+     * @param {Number} [options.pitch=1] The relative pitch, default of 1, plays at normal pitch.
+     * @param {Boolean} [options.loop=false] Whether the sound should loop when it reaches the end or not.
+     */
     class Channel {
-        constructor(manager: pc.SoundManager, sound: pc.Sound, options?: { volume: number, pitch: number, loop: boolean })
+        constructor(
+            manager: pc.SoundManager,
+            sound: pc.Sound,
+            options?: { volume: number; pitch: number; loop: boolean }
+        );
 
         /**
          * @private

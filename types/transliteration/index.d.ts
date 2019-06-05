@@ -23,7 +23,7 @@ export namespace transliterate {
         /**
          * Custom replacement of the strings before transliteration
          */
-        replace?: string[][] |  {[source: string]: string};
+        replace?: string[][] | { [source: string]: string };
 
         /**
          * Strings in the ignore list will be bypassed from transliteration
@@ -58,7 +58,7 @@ export namespace slugify {
         /**
          * Custom replacement of the strings before transliteration
          */
-        replace?: string[][] |  {[source: string]: string};
+        replace?: string[][] | { [source: string]: string };
 
         /**
          * Strings in the ignore list will be bypassed from transliteration

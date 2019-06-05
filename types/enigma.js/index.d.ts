@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module "enigma.js" {
+declare module 'enigma.js' {
     const e: IEnigmaClass;
     export = e;
 }
@@ -23,7 +23,7 @@ interface IEnigmaClass {
 }
 
 declare namespace enigmaJS {
-    type MixinType = "Doc"| "GenericObject"| "GenericBookmark" | string;
+    type MixinType = 'Doc' | 'GenericObject' | 'GenericBookmark' | string;
 
     interface IMixin {
         /**
@@ -33,7 +33,7 @@ declare namespace enigmaJS {
          */
         types: MixinType[];
 
-        init(args: {config: any, api: IGeneratedAPI}): void;
+        init(args: { config: any; api: IGeneratedAPI }): void;
 
         /**
          * mixin.extend is an object containing methods to extend the generated API with. These method names cannot already exist or enigma.js will throw an error.
@@ -182,7 +182,7 @@ declare namespace enigmaJS {
          * @param event - Event that triggers the function
          * @param func - Called function
          */
-        on(event: "opened" | "closed" | "suspended" | "resumed" | string, func: any): void;
+        on(event: 'opened' | 'closed' | 'suspended' | 'resumed' | string, func: any): void;
     }
 
     interface IGeneratedAPI {
@@ -217,12 +217,12 @@ declare namespace enigmaJS {
          * @param event - function called if this event occures
          * @param func - function that is called
          */
-        on(event: "changed" | "closed", func: () => void): void;
+        on(event: 'changed' | 'closed', func: () => void): void;
 
         /**
          * manual emit an events
          * @param event - event that occures
          */
-        emit(event: "changed" | "closed"): void;
+        emit(event: 'changed' | 'closed'): void;
     }
 }

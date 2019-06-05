@@ -67,7 +67,7 @@ function TestClassComponents() {
 // convenience to avoid having to model the component's type with static fields.
 
 function TestFunctionalComponents() {
-    const A = ({x, y}: {x: number; y?: number}) => <div>{x + (y || 0)}</div>;
+    const A = ({ x, y }: { x: number; y?: number }) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
@@ -78,7 +78,7 @@ function TestFunctionalComponents() {
         },
     });
 
-    const B = ({n}: {n: number}) => <div>{n}</div>;
+    const B = ({ n }: { n: number }) => <div>{n}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const BWithStatics = Object.assign(B, {
@@ -118,7 +118,7 @@ function TestFunctionalComponents() {
 }
 
 function TestMemoComponents() {
-    const A = ({x, y}: {x: number; y?: number}) => <div>{x + (y || 0)}</div>;
+    const A = ({ x, y }: { x: number; y?: number }) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
@@ -129,7 +129,7 @@ function TestMemoComponents() {
         },
     });
 
-    const B = React.memo(({n}: {n: number}) => <div>{n}</div>);
+    const B = React.memo(({ n }: { n: number }) => <div>{n}</div>);
 
     // tslint:disable-next-line:prefer-object-spread
     const BWithStatics = Object.assign(B, {
@@ -169,7 +169,7 @@ function TestMemoComponents() {
 }
 
 function TestForwardRefComponents() {
-    const A = ({x, y}: {x: number; y?: number}) => <div>{x + (y || 0)}</div>;
+    const A = ({ x, y }: { x: number; y?: number }) => <div>{x + (y || 0)}</div>;
 
     // tslint:disable-next-line:prefer-object-spread
     const AWithStatics = Object.assign(A, {
@@ -180,9 +180,7 @@ function TestForwardRefComponents() {
         },
     });
 
-    const B = React.forwardRef(
-        ({n}: {n: number}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}>{n}</div>
-    );
+    const B = React.forwardRef(({ n }: { n: number }, ref: React.Ref<HTMLDivElement>) => <div ref={ref}>{n}</div>);
 
     // tslint:disable-next-line:prefer-object-spread
     const BWithStatics = Object.assign(B, {

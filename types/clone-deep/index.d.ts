@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-declare function cloneDeep<T>(
-  val: T,
-  instanceClone?: true | ((val: T) => T)
-): T;
+declare function cloneDeep<T>(val: T, instanceClone?: true | ((val: T) => T)): T;
 
 export = cloneDeep;

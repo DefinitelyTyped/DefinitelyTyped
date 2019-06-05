@@ -31,11 +31,7 @@ interface Options {
 type Callback = () => void;
 
 interface EnquireJs {
-    register(
-        mediaQuery: string,
-        options: Options | Options[] | Callback,
-        shouldDegrade?: boolean,
-    ): EnquireJs;
+    register(mediaQuery: string, options: Options | Options[] | Callback, shouldDegrade?: boolean): EnquireJs;
     unregister(mediaQuery: string, handler?: Callback | Options): void;
 }
 

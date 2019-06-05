@@ -1,2 +1,2 @@
-import { stubFalse } from "lodash";
+import { stubFalse } from 'lodash';
 export default stubFalse;

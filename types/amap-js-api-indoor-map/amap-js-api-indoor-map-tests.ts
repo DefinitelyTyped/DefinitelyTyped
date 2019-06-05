@@ -8,7 +8,7 @@ const indoorMap = new AMap.IndoorMap({
     opacity: 0.5,
     cursor: 'cursor',
     hideFloorBar: false,
-    alaysShow: true
+    alaysShow: true,
 });
 
 // $ExpectType void
@@ -54,15 +54,15 @@ indoorMap.showIndoorMap('indoorMapId', (error, result) => {
 // $ExpectType void
 indoorMap.showIndoorMap('indoorMapId', 1);
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, () => { });
+indoorMap.showIndoorMap('indoorMapId', 1, () => {});
 // $ExpectType void
 indoorMap.showIndoorMap('indoorMapId', 1, 'shopId');
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', () => { });
+indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', () => {});
 // $ExpectType void
 indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', true);
 // $ExpectType void
-indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', true, () => { });
+indoorMap.showIndoorMap('indoorMapId', 1, 'shopId', true, () => {});
 
 let floor: undefined | false;
 floor = indoorMap.showFloor(1);

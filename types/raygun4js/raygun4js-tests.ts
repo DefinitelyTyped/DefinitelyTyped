@@ -3,13 +3,13 @@
 
 import rg4js, { RaygunStatic } from 'raygun4js';
 
-rg4js("apiKey", "api-key");
-rg4js("enableCrashReporting", true);
-rg4js("enablePulse", true);
+rg4js('apiKey', 'api-key');
+rg4js('enableCrashReporting', true);
+rg4js('enablePulse', true);
 rg4js('setUser', {
-    identifier: "username",
-    firstName: "Robert",
-    fullName: "Robert Raygun"
+    identifier: 'username',
+    firstName: 'Robert',
+    fullName: 'Robert Raygun',
 });
 
 try {
@@ -84,11 +84,11 @@ client.onAfterSend(xhr => {
 client.endSession();
 
 client.trackEvent('pageView', {
-    path: '/url'
+    path: '/url',
 });
 
 client.disableAutoBreadcrumbs();
 
 client.enableAutoBreadcrumbs();
 
-client.recordBreadcrumb("Breadcrumb Message", { custom: "data" });
+client.recordBreadcrumb('Breadcrumb Message', { custom: 'data' });

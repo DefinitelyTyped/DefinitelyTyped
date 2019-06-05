@@ -21,9 +21,13 @@ let count: number;
 
 simpleI = d3Time.timeInterval(
     // floor function
-    (d: Date) => { d.setUTCMinutes(0, 0, 0); },
+    (d: Date) => {
+        d.setUTCMinutes(0, 0, 0);
+    },
     // offset function
-    (d: Date, step: number) => { d.setUTCHours(d.getUTCHours() + step); }
+    (d: Date, step: number) => {
+        d.setUTCHours(d.getUTCHours() + step);
+    }
 );
 
 // Below test fails, as generating countable interval requires count function argument
@@ -36,18 +40,26 @@ simpleI = d3Time.timeInterval(
 
 countableI = d3Time.timeInterval(
     // floor function
-    (d: Date) => { d.setUTCMinutes(0, 0, 0); },
+    (d: Date) => {
+        d.setUTCMinutes(0, 0, 0);
+    },
     // offset function
-    (d: Date, step: number) => { d.setUTCHours(d.getUTCHours() + step); },
+    (d: Date, step: number) => {
+        d.setUTCHours(d.getUTCHours() + step);
+    },
     // count function
     (start: Date, end: Date) => (end.valueOf() - start.valueOf()) / 36e5
 );
 
 countableI = d3Time.timeInterval(
     // floor function
-    (d: Date) => { d.setUTCMinutes(0, 0, 0); },
+    (d: Date) => {
+        d.setUTCMinutes(0, 0, 0);
+    },
     // offset function
-    (d: Date, step: number) => { d.setUTCHours(d.getUTCHours() + step); },
+    (d: Date, step: number) => {
+        d.setUTCHours(d.getUTCHours() + step);
+    },
     // count function
     (start: Date, end: Date) => (end.valueOf() - start.valueOf()) / 36e5,
     // field function

@@ -6,35 +6,33 @@
 
 /* tslint:disable:no-unnecessary-generics */
 
-import { IncomingMessage, ServerResponse } from "http";
-import { GraphQLScalarType } from "graphql";
-import { RequestHandler } from "express";
-import { Middleware } from "koa";
+import { IncomingMessage, ServerResponse } from 'http';
+import { GraphQLScalarType } from 'graphql';
+import { RequestHandler } from 'express';
+import { Middleware } from 'koa';
 
 export interface UploadOptions {
-  maxFieldSize?: number;
-  maxFileSize?: number;
-  maxFiles?: number;
+    maxFieldSize?: number;
+    maxFileSize?: number;
+    maxFiles?: number;
 }
 
 export interface GraphQLOperation {
-  query: string;
-  operationName?: null | string;
-  variables?: null | unknown;
+    query: string;
+    operationName?: null | string;
+    variables?: null | unknown;
 }
 
 export function processRequest(
-  request: IncomingMessage,
-  response: ServerResponse,
-  uploadOptions?: UploadOptions
+    request: IncomingMessage,
+    response: ServerResponse,
+    uploadOptions?: UploadOptions
 ): Promise<GraphQLOperation | GraphQLOperation[]>;
 
-export function graphqlUploadExpress(
-  uploadOptions?: UploadOptions
-): RequestHandler;
+export function graphqlUploadExpress(uploadOptions?: UploadOptions): RequestHandler;
 
-export function graphqlUploadKoa <StateT = any, CustomT = {}>(
-  uploadOptions?: UploadOptions
+export function graphqlUploadKoa<StateT = any, CustomT = {}>(
+    uploadOptions?: UploadOptions
 ): Middleware<StateT, CustomT>;
 
 export const GraphQLUpload: GraphQLScalarType;

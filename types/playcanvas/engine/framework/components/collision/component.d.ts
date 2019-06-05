@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @component
      * @name pc.CollisionComponent
@@ -67,7 +66,7 @@ declare namespace pc {
      * @extends pc.Component
      */
     class CollisionComponent extends pc.Component {
-        constructor(system: pc.CollisionComponentSystem, entity: pc.Entity)
+        constructor(system: pc.CollisionComponentSystem, entity: pc.Entity);
 
         type: string;
         halfExtents: pc.Vec3;

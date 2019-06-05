@@ -5,8 +5,6 @@
 
 // netmask.d.ts
 
-
-
 export declare function long2ip(long: number): string;
 export declare function ip2long(ip: string): number;
 

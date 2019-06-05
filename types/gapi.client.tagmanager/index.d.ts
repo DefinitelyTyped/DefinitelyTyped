@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Tag Manager API v2 */
-    function load(name: "tagmanager", version: "v2"): PromiseLike<void>;
-    function load(name: "tagmanager", version: "v2", callback: () => any): void;
+    function load(name: 'tagmanager', version: 'v2'): PromiseLike<void>;
+    function load(name: 'tagmanager', version: 'v2', callback: () => any): void;
 
     const accounts: tagmanager.AccountsResource;
 

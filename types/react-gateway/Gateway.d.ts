@@ -5,5 +5,5 @@ declare namespace Gateway {
         into: string;
     }
 }
-declare class Gateway extends React.Component<Gateway.GatewayProps> { }
+declare class Gateway extends React.Component<Gateway.GatewayProps> {}
 export = Gateway;

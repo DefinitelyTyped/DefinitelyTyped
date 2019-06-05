@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type ButtonOptions = "emphasized" | "light";
+export type ButtonOptions = 'emphasized' | 'light';
 
-export type ButtonTypes = "standard" | "positive" | "negative" | "medium";
+export type ButtonTypes = 'standard' | 'positive' | 'negative' | 'medium';
 
 export type ButtonProps = {
     className?: string;
@@ -19,7 +19,7 @@ export type ButtonProps = {
     selected?: boolean;
     type?: ButtonTypes;
     /* Value for the `type` attribute on the `<button>` element. */
-    typeAttr?: "submit" | "reset" | "button";
+    typeAttr?: 'submit' | 'reset' | 'button';
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 } & { [x: string]: any };
 

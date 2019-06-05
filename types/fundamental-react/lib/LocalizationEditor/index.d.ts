@@ -1,1 +1,1 @@
-export { default as LocalizationEditor } from "./LocalizationEditor";
+export { default as LocalizationEditor } from './LocalizationEditor';

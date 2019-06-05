@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.RenderTarget
      * @class A render target is a rectangular rendering surface.
@@ -40,23 +39,27 @@ declare namespace pc {
      */
     class RenderTarget {
         constructor(options: {
-            colorBuffer?: pc.Texture,
-            depth?: boolean,
-            stencil?: boolean,
-            depthBuffer?: pc.Texture,
-            samples?: number,
-            autoResolve?: boolean,
-            face?: number
-        })
-        constructor(options: pc.GraphicsDevice, _arg2: pc.Texture, _arg3: {
-            colorBuffer?: pc.Texture,
-            depth?: boolean,
-            stencil?: boolean,
-            depthBuffer?: pc.Texture,
-            samples?: number,
-            autoResolve?: boolean,
-            face?: number
-        })
+            colorBuffer?: pc.Texture;
+            depth?: boolean;
+            stencil?: boolean;
+            depthBuffer?: pc.Texture;
+            samples?: number;
+            autoResolve?: boolean;
+            face?: number;
+        });
+        constructor(
+            options: pc.GraphicsDevice,
+            _arg2: pc.Texture,
+            _arg3: {
+                colorBuffer?: pc.Texture;
+                depth?: boolean;
+                stencil?: boolean;
+                depthBuffer?: pc.Texture;
+                samples?: number;
+                autoResolve?: boolean;
+                face?: number;
+            }
+        );
 
         /**
          * @function
@@ -90,7 +93,6 @@ declare namespace pc {
          * @param {Boolean} depth Copy depth buffer
          */
         copy(source: pc.RenderTarget, color: boolean, depth: boolean): pc.RenderTarget;
-
 
         /**
          * @readonly
@@ -132,7 +134,7 @@ declare namespace pc {
          * @type Number
          * @description Width of the render target in pixels.
          */
-        readonly width: number
+        readonly width: number;
 
         /**
          * @readonly

@@ -18,10 +18,14 @@ const UserSchema: SequenceSchema = new Schema({
     name: String,
     country: String,
     city: String,
-    inhabitant_number: Number
+    inhabitant_number: Number,
 }) as SequenceSchema;
 
-let seqOpts: SequenceOptions = { id: 'inhabitant_seq', inc_field: 'inhabitant_number', reference_fields: ['country', 'city'] };
+let seqOpts: SequenceOptions = {
+    id: 'inhabitant_seq',
+    inc_field: 'inhabitant_number',
+    reference_fields: ['country', 'city'],
+};
 UserSchema.plugin(mongooseSequence, seqOpts);
 
 let UserModel: Model<User> = model<User>('User', UserSchema);
@@ -31,7 +35,7 @@ let UserModel: Model<User> = model<User>('User', UserSchema);
 let user: User = new UserModel({
     name: 'Patrice',
     country: 'France',
-    city: 'Paris'
+    city: 'Paris',
 });
 user.save();
 console.log(user.inhabitant_number);

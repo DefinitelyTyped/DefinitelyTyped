@@ -1,6 +1,6 @@
 // create a PlayCanvas application
 const canvas = document.getElementById('application') as HTMLCanvasElement;
-const app = new pc.Application(canvas, { });
+const app = new pc.Application(canvas, {});
 app.start();
 
 // fill the available space at full resolution
@@ -15,13 +15,13 @@ window.addEventListener('resize', () => {
 // create box entity
 const cube = new pc.Entity('cube');
 cube.addComponent('model', {
-    type: 'box'
+    type: 'box',
 });
 
 // create camera entity
 const camera = new pc.Entity('camera');
 camera.addComponent('camera', {
-    clearColor: new pc.Color(0.1, 0.1, 0.1)
+    clearColor: new pc.Color(0.1, 0.1, 0.1),
 });
 
 // create directional light entity

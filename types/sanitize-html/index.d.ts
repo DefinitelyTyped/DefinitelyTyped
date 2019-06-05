@@ -10,61 +10,54 @@
 //                 Jianrong Yu <https://github.com/YuJianrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Options} from "htmlparser2";
+import { Options } from 'htmlparser2';
 
 export = sanitize;
 
 declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 
 declare namespace sanitize {
-  type Attributes = { [attr: string]: string };
+    type Attributes = { [attr: string]: string };
 
+    type Tag = { tagName: string; attribs: Attributes; text?: string };
 
-  type Tag = { tagName: string; attribs: Attributes; text?: string; };
+    type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
+    interface IDefaults {
+        allowedAttributes: { [index: string]: string[] };
+        allowedSchemes: string[];
+        allowedSchemesByTag: { [index: string]: string[] };
+        allowedTags: string[];
+        selfClosing: string[];
+    }
 
-  type Transformer = (tagName: string, attribs: Attributes) => Tag;
+    interface IFrame {
+        tag: string;
+        attribs: { [index: string]: string };
+        text: string;
+        tagPosition: number;
+    }
 
+    interface IOptions {
+        allowedAttributes?: { [index: string]: string[] } | boolean;
+        allowedStyles?: { [index: string]: { [index: string]: RegExp[] } };
+        allowedClasses?: { [index: string]: string[] } | boolean;
+        allowedIframeHostnames?: string[];
+        allowIframeRelativeUrls?: boolean;
+        allowedSchemes?: string[] | boolean;
+        allowedSchemesByTag?: { [index: string]: string[] } | boolean;
+        allowedSchemesAppliedToAttributes?: string[];
+        allowProtocolRelative?: boolean;
+        allowedTags?: string[] | boolean;
+        textFilter?: (text: string) => string;
+        exclusiveFilter?: (frame: IFrame) => boolean;
+        nonTextTags?: string[];
+        selfClosing?: string[];
+        transformTags?: { [tagName: string]: string | Transformer };
+        parser?: Options;
+    }
 
-  interface IDefaults {
-    allowedAttributes: { [index: string]: string[] };
-    allowedSchemes: string[];
-    allowedSchemesByTag: { [index: string]: string[] };
-    allowedTags: string[];
-    selfClosing: string[];
-  }
+    var defaults: IDefaults;
 
-
-  interface IFrame {
-    tag: string;
-    attribs: { [index: string]: string };
-    text: string;
-    tagPosition: number;
-  }
-
-
-  interface IOptions {
-    allowedAttributes?: { [index: string]: string[] } | boolean;
-    allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
-    allowedClasses?: { [index: string]: string[] } | boolean;
-    allowedIframeHostnames?: string[];
-    allowIframeRelativeUrls?: boolean;
-    allowedSchemes?: string[] | boolean;
-    allowedSchemesByTag?: { [index: string]: string[] } | boolean;
-    allowedSchemesAppliedToAttributes?: string[];
-    allowProtocolRelative?: boolean;
-    allowedTags?: string[] | boolean;
-    textFilter?: (text: string) => string; 
-    exclusiveFilter?: (frame: IFrame) => boolean;
-    nonTextTags?: string[];
-    selfClosing?: string[];
-    transformTags?: { [tagName: string]: string | Transformer };
-    parser?: Options;
-  }
-
-
-  var defaults: IDefaults;
-
-
-  function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
+    function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }

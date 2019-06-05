@@ -41,14 +41,14 @@ interface RiotRoute {
      * This is an utility function to extract the query from the url.
      * @since v2.3
      */
-    query(): { [name: string]: string; };
+    query(): { [name: string]: string };
 
     /**
      * Change the base path.
      *
      * @param arg - a new base or '#' or '#!'
      */
-    base(arg?: string|RegExp): void;
+    base(arg?: string | RegExp): void;
 
     /**
      * Changes the default parser to a custom one.

@@ -3,13 +3,6 @@ import ReactSlider from 'react-slider';
 
 class Slider extends React.Component<ReactSlider.ReactSliderProps> {
     render() {
-        return (
-            <ReactSlider
-                snapDragDisabled
-                barClassName="classnameForBar"
-                withBars={false}
-                {...this.props}
-            />
-        );
+        return <ReactSlider snapDragDisabled barClassName="classnameForBar" withBars={false} {...this.props} />;
     }
 }

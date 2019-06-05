@@ -1,14 +1,14 @@
-import * as matches from "./matches";
-import * as height from "./height";
-import * as width from "./width";
-import * as offset from "./offset";
-import * as offsetParent from "./offsetParent";
-import * as position from "./position";
-import * as contains from "./contains";
-import * as scrollParent from "./scrollParent";
-import * as scrollTop from "./scrollTop";
-import * as querySelectorAll from "./querySelectorAll";
-import * as closest from "./closest";
+import * as matches from './matches';
+import * as height from './height';
+import * as width from './width';
+import * as offset from './offset';
+import * as offsetParent from './offsetParent';
+import * as position from './position';
+import * as contains from './contains';
+import * as scrollParent from './scrollParent';
+import * as scrollTop from './scrollTop';
+import * as querySelectorAll from './querySelectorAll';
+import * as closest from './closest';
 
 declare const _default: {
     matches: typeof matches;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import express = require("express");
+import express = require('express');
 
 declare namespace SlowDown {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;

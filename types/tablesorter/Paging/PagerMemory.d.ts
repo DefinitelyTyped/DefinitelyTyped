@@ -1,4 +1,4 @@
-import { SortDefinition } from "../Sorting/SortDefinition";
+import { SortDefinition } from '../Sorting/SortDefinition';
 
 /**
  * The memorized settings of the `pager`.

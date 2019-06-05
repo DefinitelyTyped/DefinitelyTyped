@@ -1,4 +1,4 @@
-import * as FluxStore from "./FluxStore";
+import * as FluxStore from './FluxStore';
 
 declare namespace FluxMixinLegacy {
     interface Options {

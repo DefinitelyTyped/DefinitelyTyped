@@ -7,9 +7,7 @@
 /// <reference types="jquery" />
 
 declare namespace JQueryEasyLoading {
-
     interface Static {
-
         /**
          * Extend the Loading plugin default settings with the user options
          * Use it as `$.Loading.setDefaults({ ... })`
@@ -20,7 +18,6 @@ declare namespace JQueryEasyLoading {
     }
 
     interface LoadingObject {
-
         /**
          * Initializes the overlay and attach handlers to the appropriate events
          */
@@ -82,7 +79,6 @@ declare namespace JQueryEasyLoading {
     }
 
     interface Options {
-
         /**
          * jQuery element to be used as overlay
          * If not defined, a default overlay will be created
@@ -161,11 +157,10 @@ declare namespace JQueryEasyLoading {
         onClick?: Function;
     }
 
-    type Command = "resize" | "start" | "stop" | "toggle";
+    type Command = 'resize' | 'start' | 'stop' | 'toggle';
 }
 
 interface JQueryStatic {
-
     Loading: JQueryEasyLoading.Static;
 }
 
@@ -194,8 +189,7 @@ interface JQuery {
 
 declare var factory: (root?: any, jQuery?: JQueryStatic) => JQueryStatic;
 
-declare module "jquery-easy-loading" {
-
+declare module 'jquery-easy-loading' {
     /**
      * The package `jquery-easy-loading` would return a factory for the library
      * itself if you use this not in the browser env.

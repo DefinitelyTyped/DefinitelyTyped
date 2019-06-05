@@ -1,37 +1,66 @@
 declare namespace pc {
-
     /**
-    * @name pc.Mat4
-    * @class A 4x4 matrix.
-    * @description Creates a new Mat4 object
-    * @param {Number} [v0] The value in row 0, column 0. If v0 is an array of length 16, the array will be used to populate all components.
-    * @param {Number} [v1] The value in row 1, column 0.
-    * @param {Number} [v2] The value in row 2, column 0.
-    * @param {Number} [v3] The value in row 3, column 0.
-    * @param {Number} [v4] The value in row 0, column 1.
-    * @param {Number} [v5] The value in row 1, column 1.
-    * @param {Number} [v6] The value in row 2, column 1.
-    * @param {Number} [v7] The value in row 3, column 1.
-    * @param {Number} [v8] The value in row 0, column 2.
-    * @param {Number} [v9] The value in row 1, column 2.
-    * @param {Number} [v10] The value in row 2, column 2.
-    * @param {Number} [v11] The value in row 3, column 2.
-    * @param {Number} [v12] The value in row 0, column 3.
-    * @param {Number} [v13] The value in row 1, column 3.
-    * @param {Number} [v14] The value in row 2, column 3.
-    * @param {Number} [v15] The value in row 3, column 3.
-    */
+     * @name pc.Mat4
+     * @class A 4x4 matrix.
+     * @description Creates a new Mat4 object
+     * @param {Number} [v0] The value in row 0, column 0. If v0 is an array of length 16, the array will be used to populate all components.
+     * @param {Number} [v1] The value in row 1, column 0.
+     * @param {Number} [v2] The value in row 2, column 0.
+     * @param {Number} [v3] The value in row 3, column 0.
+     * @param {Number} [v4] The value in row 0, column 1.
+     * @param {Number} [v5] The value in row 1, column 1.
+     * @param {Number} [v6] The value in row 2, column 1.
+     * @param {Number} [v7] The value in row 3, column 1.
+     * @param {Number} [v8] The value in row 0, column 2.
+     * @param {Number} [v9] The value in row 1, column 2.
+     * @param {Number} [v10] The value in row 2, column 2.
+     * @param {Number} [v11] The value in row 3, column 2.
+     * @param {Number} [v12] The value in row 0, column 3.
+     * @param {Number} [v13] The value in row 1, column 3.
+     * @param {Number} [v14] The value in row 2, column 3.
+     * @param {Number} [v15] The value in row 3, column 3.
+     */
     class Mat4 {
         data: Float32Array;
 
         constructor(
-            v0: number, v1: number, v2: number, v3: number, v4: number, v5: number, v6: number, v7: number, v8: number,
-            v9: number, v10: number, v11: number, v12: number, v13: number, v14: number, v15: number
+            v0: number,
+            v1: number,
+            v2: number,
+            v3: number,
+            v4: number,
+            v5: number,
+            v6: number,
+            v7: number,
+            v8: number,
+            v9: number,
+            v10: number,
+            v11: number,
+            v12: number,
+            v13: number,
+            v14: number,
+            v15: number
         );
-        constructor(v0: [
-            number, number, number, number, number, number, number, number,
-            number, number, number, number, number, number, number, number
-        ]);
+        constructor(
+            v0: [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ]
+        );
         constructor();
 
         /**
@@ -188,7 +217,7 @@ declare namespace pc {
          *
          * var tv = m.transformVector(v);
          */
-        transformVector(vec: pc.Vec3, res?: pc.Vec3): pc.Vec3
+        transformVector(vec: pc.Vec3, res?: pc.Vec3): pc.Vec3;
 
         /**
          * @function
@@ -349,12 +378,26 @@ declare namespace pc {
          * @description Sets matrix data from an array.
          * @param {Array} Source array. Must have 16 values.
          */
-        set(src: [
-            number, number, number, number,
-            number, number, number, number,
-            number, number, number, number,
-            number, number, number, number
-        ]): this;
+        set(
+            src: [
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number,
+                number
+            ]
+        ): this;
 
         /**
          * @function

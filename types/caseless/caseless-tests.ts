@@ -1,4 +1,4 @@
-import caseless = require("caseless");
+import caseless = require('caseless');
 
 new caseless.Caseless(); // $ExpectError
 
@@ -9,7 +9,7 @@ caseless(); // $ExpectType Caseless
 caseless({}); // $ExpectType Caseless
 caseless(null); // $ExpectError
 caseless(1); // $ExpectError
-caseless("2"); // $ExpectError
+caseless('2'); // $ExpectError
 
 const c2 = caseless();
 
@@ -32,10 +32,10 @@ c2.del('foo'); // $ExpectType boolean
 
 caseless.httpify(null, {}); // $ExpectError
 caseless.httpify(1, {}); // $ExpectError
-caseless.httpify("2", {}); // $ExpectError
+caseless.httpify('2', {}); // $ExpectError
 caseless.httpify({}, null); // $ExpectError
 caseless.httpify({}, 1); // $ExpectError
-caseless.httpify({}, "2"); // $ExpectError
+caseless.httpify({}, '2'); // $ExpectError
 
 caseless.httpify({}, {}); // $ExpectType Caseless
 

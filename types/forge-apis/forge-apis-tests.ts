@@ -1,8 +1,15 @@
-import { AuthClientTwoLegged, AuthClientThreeLegged, BucketsApi, HubsApi, FoldersApi, DerivativesApi } from 'forge-apis';
+import {
+    AuthClientTwoLegged,
+    AuthClientThreeLegged,
+    BucketsApi,
+    HubsApi,
+    FoldersApi,
+    DerivativesApi,
+} from 'forge-apis';
 
-const authClientTwoLegged: AuthClientTwoLegged = new AuthClientTwoLegged("", "", []);
+const authClientTwoLegged: AuthClientTwoLegged = new AuthClientTwoLegged('', '', []);
 
-const authClientThreeLegged: AuthClientThreeLegged = new AuthClientThreeLegged("", "", "", []);
+const authClientThreeLegged: AuthClientThreeLegged = new AuthClientThreeLegged('', '', '', []);
 
 const bucketsApi: BucketsApi = new BucketsApi();
 

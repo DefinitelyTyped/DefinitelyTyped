@@ -1,2 +1,2 @@
-import { parseInt } from "lodash";
+import { parseInt } from 'lodash';
 export default parseInt;

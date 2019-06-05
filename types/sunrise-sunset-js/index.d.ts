@@ -3,14 +3,6 @@
 // Definitions by: Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function getSunrise(
-    latitude: number,
-    longitude: number,
-    date?: Date
-): Date;
+export function getSunrise(latitude: number, longitude: number, date?: Date): Date;
 
-export function getSunset(
-    latitude: number,
-    longitude: number,
-    date?: Date
-): Date;
+export function getSunset(latitude: number, longitude: number, date?: Date): Date;

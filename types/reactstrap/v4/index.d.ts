@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 export interface CSSModule {
-  [className: string]: string;
+    [className: string]: string;
 }
 
 export { default as Alert } from './lib/Alert';
@@ -79,9 +79,9 @@ export { default as Tag } from './lib/Tag';
 export { default as TetherContent } from './lib/TetherContent';
 export { default as Tooltip } from './lib/Tooltip';
 export {
-  UncontrolledAlert,
-  UncontrolledButtonDropdown,
-  UncontrolledDropdown,
-  UncontrolledNavDropdown,
-  UncontrolledTooltip
+    UncontrolledAlert,
+    UncontrolledButtonDropdown,
+    UncontrolledDropdown,
+    UncontrolledNavDropdown,
+    UncontrolledTooltip,
 } from './lib/Uncontrolled';

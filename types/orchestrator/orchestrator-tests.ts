@@ -1,6 +1,6 @@
 'use strict';
 
-import stream = require("stream");
+import stream = require('stream');
 import Q = require('q');
 import Orchestrator = require('orchestrator');
 
@@ -12,21 +12,23 @@ const orchestrator = new Orchestrator();
 // orchestrator.add(name[, deps][, function]);
 //
 
-orchestrator.add('thing1', function() {
-    // do stuff
-}).add('thing2', function() {
-    // do stuff
-});
+orchestrator
+    .add('thing1', function() {
+        // do stuff
+    })
+    .add('thing2', function() {
+        // do stuff
+    });
 orchestrator.add('mytask', ['array', 'of', 'task', 'names'], function() {
     // Do stuff
 });
-orchestrator.add('thing2', function(callback){
+orchestrator.add('thing2', function(callback) {
     const err: any = null;
     // do stuff
     callback(err);
 });
 
-orchestrator.add('thing3', function(){
+orchestrator.add('thing3', function() {
     const deferred = Q.defer<void>();
 
     // do async stuff
@@ -37,7 +39,7 @@ orchestrator.add('thing3', function(){
     return deferred.promise;
 });
 
-orchestrator.add('thing4', function(){
+orchestrator.add('thing4', function() {
     const stm = new stream.Stream();
     // do stream stuff
     return stm;
@@ -67,11 +69,13 @@ const hasThing1: boolean = orchestrator.hasTask('thing1');
 // orchestrator.start(tasks...[, cb]);
 //
 
-orchestrator.start('thing1', 'thing2', 'thing3', 'thing4', function(err: any) {
-    // all done
-}).start(['thing1', 'thing2'], ['thing3', 'thing4'], "thing5", function(err) {
-    const res: any = err;
-});
+orchestrator
+    .start('thing1', 'thing2', 'thing3', 'thing4', function(err: any) {
+        // all done
+    })
+    .start(['thing1', 'thing2'], ['thing3', 'thing4'], 'thing5', function(err) {
+        const res: any = err;
+    });
 
 //
 // orchestrator.stop()

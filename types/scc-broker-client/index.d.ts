@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import SCBroker = require("sc-broker/scbroker");
-import ClusterBrokerClient = require("./cluster-broker-client");
-import { Secret } from "jsonwebtoken";
+import SCBroker = require('sc-broker/scbroker');
+import ClusterBrokerClient = require('./cluster-broker-client');
+import { Secret } from 'jsonwebtoken';
 
 export interface MappingEngine {
     setSites(sites: string[]): void;
@@ -17,7 +17,7 @@ export interface MappingEngine {
 export interface SCCBrokerClientOptions {
     stateServerReconnectRandomness?: number;
     authKey?: Secret;
-    mappingEngine?: "skeletonRendezvous" | "simple" | MappingEngine;
+    mappingEngine?: 'skeletonRendezvous' | 'simple' | MappingEngine;
 
     clientPoolSize?: number;
 

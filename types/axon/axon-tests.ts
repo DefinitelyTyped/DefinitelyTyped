@@ -20,19 +20,19 @@ const subSocket = new SubSocket();
 pubSocket.send('anything');
 
 // $ExpectType PubSocket
-pubSocket.send('anything', {w: 100, h: 200});
+pubSocket.send('anything', { w: 100, h: 200 });
 
 // $ExpectType PubSocket
 pubEmitterSocket.send('anything');
 
 // $ExpectType PubSocket
-pubEmitterSocket.send('anything', {w: 100, h: 200});
+pubEmitterSocket.send('anything', { w: 100, h: 200 });
 
 // $ExpectType Socket
 pubEmitterSocket.bind(3000);
 
 // $ExpectError
-pubEmitterSocket.bind({a, b, c});
+pubEmitterSocket.bind({ a, b, c });
 
 // $ExpectError
 pubEmitterSocket.bind();
@@ -41,7 +41,7 @@ pubEmitterSocket.bind();
 pubEmitterSocket.connect(3000);
 
 // $ExpectError
-pubEmitterSocket.connect({a, b, c});
+pubEmitterSocket.connect({ a, b, c });
 
 // $ExpectError
 pubEmitterSocket.connect();
@@ -71,7 +71,7 @@ reqSocket.onmessage();
 reqSocket.send('anything');
 
 // $ExpectType void
-reqSocket.send('anything', {w: 100, h: 200});
+reqSocket.send('anything', { w: 100, h: 200 });
 
 // $ExpectType Socket
 socket.set('name', 'aaa');

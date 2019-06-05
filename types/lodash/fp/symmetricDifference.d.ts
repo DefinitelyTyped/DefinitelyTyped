@@ -1,2 +1,2 @@
-import { symmetricDifference } from "../fp";
+import { symmetricDifference } from '../fp';
 export = symmetricDifference;

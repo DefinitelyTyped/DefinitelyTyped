@@ -8,7 +8,9 @@
  * Returns an object containing all own property descriptors of an object
  * @param o - Object that contains the properties and methods. This can be an object that you created or an existing Document Object Model (DOM) object.
  */
-declare function getOwnPropertyDescriptors <T extends object>(o: T): { [K in keyof T]: TypedPropertyDescriptor<T[K]> } & PropertyDescriptorMap;
+declare function getOwnPropertyDescriptors<T extends object>(
+    o: T
+): { [K in keyof T]: TypedPropertyDescriptor<T[K]> } & PropertyDescriptorMap;
 
 declare namespace getOwnPropertyDescriptors {
     function shim(): typeof getOwnPropertyDescriptors;

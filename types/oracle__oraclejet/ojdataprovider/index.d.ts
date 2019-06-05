@@ -4,14 +4,14 @@ export interface AttributeFilterOperator<D> {
     value: any;
 }
 export namespace AttributeFilterOperator {
-    type AttributeOperator = "$co" | "$eq" | "$ew" | "$pr" | "$gt" | "$ge" | "$lt" | "$le" | "$ne" | "$regex" | "$sw";
+    type AttributeOperator = '$co' | '$eq' | '$ew' | '$pr' | '$gt' | '$ge' | '$lt' | '$le' | '$ne' | '$regex' | '$sw';
 }
 export interface CompoundFilterOperator<D> {
     criteria: Array<FilterOperator<D>>;
     op: CompoundFilterOperator.CompoundOperator;
 }
 export namespace CompoundFilterOperator {
-    type CompoundOperator = "$and" | "$or";
+    type CompoundOperator = '$and' | '$or';
 }
 export interface ContainsKeysResults<K> {
     containsParameters: FetchByKeysParameters<K>;
@@ -55,9 +55,7 @@ export interface FetchByKeysCapability<D> {
     implementation: 'iteration' | 'lookup';
 }
 export namespace FetchByKeysMixin {
-    function applyMixin(derivedCtor: {
-        new (): DataProvider<any, any>;
-    }): any;
+    function applyMixin(derivedCtor: { new (): DataProvider<any, any> }): any;
 }
 export interface FetchByKeysParameters<K> {
     attributes?: Array<string | FetchAttribute>;
@@ -71,9 +69,7 @@ export interface FetchByOffsetCapability<D> {
     implementation: 'iteration' | 'randomAccess';
 }
 export namespace FetchByOffsetMixin {
-    function applyMixin(derivedCtor: {
-        new (): DataProvider<any, any>;
-    }): any;
+    function applyMixin(derivedCtor: { new (): DataProvider<any, any> }): any;
 }
 export interface FetchByOffsetParameters<D> extends FetchListParameters<D> {
     attributes?: Array<string | FetchAttribute>;

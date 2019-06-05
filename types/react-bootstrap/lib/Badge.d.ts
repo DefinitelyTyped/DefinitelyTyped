@@ -6,5 +6,5 @@ declare namespace Badge {
         pullRight?: boolean;
     }
 }
-declare class Badge extends React.Component<Badge.BadgeProps> { }
+declare class Badge extends React.Component<Badge.BadgeProps> {}
 export = Badge;

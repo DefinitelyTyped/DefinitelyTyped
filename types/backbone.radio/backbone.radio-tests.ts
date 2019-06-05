@@ -1,21 +1,14 @@
-
 /// <reference types="jquery" />
 
 import * as Backbone from 'backbone';
 
-class MyCommands extends Backbone.Radio.Commands {
+class MyCommands extends Backbone.Radio.Commands {}
 
-}
+class MyRequests extends Backbone.Radio.Requests {}
 
-class MyRequests extends Backbone.Radio.Requests {
+function onRender(): void {}
 
-}
-
-function onRender() : void {
-
-}
-
-function onStart(arg1 : string, arg2 : number) : number {
+function onStart(arg1: string, arg2: number): number {
     return 0;
 }
 
@@ -31,13 +24,13 @@ function TestCommands() {
     r = myCommands.complyOnce('start', onStart, myCommands);
 
     r = myCommands.comply({
-        'render': onRender,
-        'start': onStart
+        render: onRender,
+        start: onStart,
     });
 
     r = myCommands.complyOnce({
-        'render': onRender,
-        'start': onStart
+        render: onRender,
+        start: onStart,
     });
 
     myCommands.stopComplying('render');
@@ -59,13 +52,13 @@ function TestRequests() {
     r = myRequests.replyOnce('start', onStart, myRequests);
 
     r = myRequests.reply({
-        'render': onRender,
-        'start': onStart
+        render: onRender,
+        start: onStart,
     });
 
     r = myRequests.replyOnce({
-        'render': onRender,
-        'start': onStart
+        render: onRender,
+        start: onStart,
     });
 
     myRequests.stopReplying('render');

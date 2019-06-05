@@ -1,4 +1,4 @@
-import * as kissFFT from "kissfft-js";
+import * as kissFFT from 'kissfft-js';
 
 const fft = new kissFFT.FFT(0); // $ExpectType FFT
 fft.forward([1, 2, 3]); // $ExpectType number[]

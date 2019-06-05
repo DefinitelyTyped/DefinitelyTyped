@@ -1,2 +1,2 @@
-import { subtract } from "../fp";
+import { subtract } from '../fp';
 export = subtract;

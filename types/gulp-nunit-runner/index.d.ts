@@ -45,7 +45,7 @@ declare namespace nunit {
         x86?: boolean; // true|false,
 
         // [3.x] Dispose each test runner after it has finished running its tests.
-        "dispose-runners"?: boolean; // true|false,
+        'dispose-runners'?: boolean; // true|false,
 
         // Timeout for each test case in milliseconds.
         timeout?: number; // 1000,

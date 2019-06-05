@@ -36,7 +36,7 @@ declare namespace Hubot {
     }
 
     class Message {
-        constructor(user: User, done?: boolean)
+        constructor(user: User, done?: boolean);
         user: User;
         text: string;
         id: string;

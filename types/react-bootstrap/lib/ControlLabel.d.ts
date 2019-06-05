@@ -7,5 +7,5 @@ declare namespace ControlLabel {
         srOnly?: boolean;
     }
 }
-declare class ControlLabel extends React.Component<ControlLabel.ControlLabelProps> { }
+declare class ControlLabel extends React.Component<ControlLabel.ControlLabelProps> {}
 export = ControlLabel;

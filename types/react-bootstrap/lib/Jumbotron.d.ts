@@ -5,5 +5,5 @@ declare namespace Jumbotron {
         componentClass?: React.ReactType;
     }
 }
-declare class Jumbotron extends React.Component<Jumbotron.JumbotronProps> { }
+declare class Jumbotron extends React.Component<Jumbotron.JumbotronProps> {}
 export = Jumbotron;

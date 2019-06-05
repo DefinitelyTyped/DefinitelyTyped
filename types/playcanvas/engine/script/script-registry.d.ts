@@ -1,14 +1,13 @@
 declare namespace pc {
-
     /**
-    * @name pc.ScriptRegistry
-    * @class Container for all Script Types that are available to this application
-    * @description Create an instance of a pc.ScriptRegistry.
-    * Note: PlayCanvas scripts can access the Script Registry from inside the application with {@link pc.Application#scripts} {@link pc.ADDRESS_REPEAT}.
-    * @param {pc.Application} app Application to attach registry to.
-    */
+     * @name pc.ScriptRegistry
+     * @class Container for all Script Types that are available to this application
+     * @description Create an instance of a pc.ScriptRegistry.
+     * Note: PlayCanvas scripts can access the Script Registry from inside the application with {@link pc.Application#scripts} {@link pc.ADDRESS_REPEAT}.
+     * @param {pc.Application} app Application to attach registry to.
+     */
     class ScriptRegistry {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
 
         app: pc.Application;
 
@@ -75,6 +74,5 @@ declare namespace pc {
          * }));
          */
         list(): ScriptType[];
-
     }
 }

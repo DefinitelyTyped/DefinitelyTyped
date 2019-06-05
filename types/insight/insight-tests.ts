@@ -10,7 +10,7 @@ var insight = new Insight({
     pkg: dummyPackage,
 });
 
-(()=> {
+(() => {
     // ask for permission the first time
     if (insight.optOut === undefined) {
         return insight.askPermission();

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.GraphicsDevice
      * @class The graphics device manages the underlying graphics context. It is responsible
@@ -11,7 +10,7 @@ declare namespace pc {
      * @param {Object} [options] Options passed when creating the WebGL context. More info here https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
      */
     class GraphicsDevice {
-        constructor(canvas: HTMLCanvasElement, options?: {})
+        constructor(canvas: HTMLCanvasElement, options?: {});
 
         /**
          * @readonly
@@ -138,7 +137,7 @@ declare namespace pc {
          *     indexed: false
          * )};
          */
-        draw(primitive: { type: number, base: number, count: number, indexed: boolean }, numInstances?: number): void;
+        draw(primitive: { type: number; base: number; count: number; indexed: boolean }, numInstances?: number): void;
 
         /**
          * @function
@@ -171,7 +170,7 @@ declare namespace pc {
          *     flags: pc.CLEARFLAG_COLOR | pc.CLEARFLAG_DEPTH
          * });
          */
-        clear(options: { color: number[], depth: number, flags: number }): void;
+        clear(options: { color: number[]; depth: number; flags: number }): void;
 
         /**
          * @function
@@ -539,7 +538,7 @@ declare namespace pc {
          * pc.GraphicsDevice#setBoneLimit.
          * @returns {Number} The maximum number of bones that can be supported by the host hardware.
          */
-        private getBoneLimit(): number
+        private getBoneLimit(): number;
 
         /**
          * @private
@@ -553,17 +552,17 @@ declare namespace pc {
         private setBoneLimit(maxBones: number): void;
 
         /**
-        * @function
-        * @name pc.GraphicsDevice#resizeCanvas
-        * @description Sets the width and height of the canvas, then fires the 'resizecanvas' event.
-        */
+         * @function
+         * @name pc.GraphicsDevice#resizeCanvas
+         * @description Sets the width and height of the canvas, then fires the 'resizecanvas' event.
+         */
         resizeCanvas(width: number, height: number): void;
 
         /**
-        * @function
-        * @name pc.GraphicsDevice#clearShaderCache
-        * @description Frees memory from all shaders ever allocated with this device
-        */
+         * @function
+         * @name pc.GraphicsDevice#clearShaderCache
+         * @description Frees memory from all shaders ever allocated with this device
+         */
         clearShaderCache(): void;
 
         /**
@@ -589,7 +588,6 @@ declare namespace pc {
          * @description The maximum supported texture anisotropy setting.
          */
         readonly maxAnisotropy: number;
-
 
         // Events
 
@@ -637,7 +635,17 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(
+            name: string,
+            arg1: any,
+            arg2?: any,
+            arg3?: any,
+            arg4?: any,
+            arg5?: any,
+            arg6?: any,
+            arg7?: any,
+            arg8?: any
+        ): any;
 
         /**
          * @function
@@ -656,14 +664,14 @@ declare namespace pc {
         once(name: string, callback: (...args: any[]) => void, scope: any): any;
 
         /**
-        * @function
-        * @name pc.GraphicsDevice#hasEvent
-        * @description Test if there are any handlers bound to an event name
-        * @param {String} name The name of the event to test
-        * @example
-        * obj.on('test', function () { }); // bind an event to 'test'
-        * obj.hasEvent('test'); // returns true
-        */
+         * @function
+         * @name pc.GraphicsDevice#hasEvent
+         * @description Test if there are any handlers bound to an event name
+         * @param {String} name The name of the event to test
+         * @example
+         * obj.on('test', function () { }); // bind an event to 'test'
+         * obj.hasEvent('test'); // returns true
+         */
         hasEvent(name: string): boolean;
     }
 }

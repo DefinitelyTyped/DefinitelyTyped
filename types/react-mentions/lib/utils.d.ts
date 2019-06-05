@@ -1,4 +1,4 @@
-import { DisplayTransformFunc } from "../";
+import { DisplayTransformFunc } from '../';
 
 /**
  * For the passed character index in the plain text string, returns the corresponding index in the marked up value string.

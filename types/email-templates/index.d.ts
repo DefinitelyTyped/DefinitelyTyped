@@ -33,7 +33,7 @@ interface EmailConfig {
     /**
      * Pass a custom render function if necessary
      */
-    render?: { view: string, locals: any };
+    render?: { view: string; locals: any };
     /**
      * force text-only rendering of template (disregards template folder)
      */
@@ -78,7 +78,7 @@ declare class EmailTemplate {
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
-    juiceResources(html: string): Promise<string> ;
+    juiceResources(html: string): Promise<string>;
     /**
      *
      * @param view The Html pug to render
@@ -92,22 +92,22 @@ declare class EmailTemplate {
 }
 
 declare namespace EmailTemplate {
-        /**
-         *   shorthand use of `juiceResources` with the config
-         *   mainly for custom renders like from a database).
-         */
-        function juiceResources(html: string): Promise<string> ;
+    /**
+     *   shorthand use of `juiceResources` with the config
+     *   mainly for custom renders like from a database).
+     */
+    function juiceResources(html: string): Promise<string>;
 
-        /**
-         *
-         * @param view The Html pug to render
-         * @param locals The template Variables
-         */
-        function render(view: string, locals: any): Promise<string>;
+    /**
+     *
+     * @param view The Html pug to render
+     * @param locals The template Variables
+     */
+    function render(view: string, locals: any): Promise<string>;
 
-        /**
-         * Send the Email
-         */
-        function send(options: EmailOptions): any;
+    /**
+     * Send the Email
+     */
+    function send(options: EmailOptions): any;
 }
 export = EmailTemplate;

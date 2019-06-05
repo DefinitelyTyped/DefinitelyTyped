@@ -3,7 +3,7 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/QuatroDevOfficial>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace JwtDecode { }
+declare namespace JwtDecode {}
 
 declare function JwtDecode<TTokenDto>(token: string): TTokenDto;
 

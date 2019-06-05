@@ -62,7 +62,7 @@ declare class Configstore {
      * Equivalent to <code>Configstore.all = {};</code>
      */
     clear(): void;
-  }
+}
 
 declare namespace Configstore {
     interface ConfigstoreOptions {

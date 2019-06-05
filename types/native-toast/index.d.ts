@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const toast: {
-    (options: toast.ToastOptions): toast.Toast,
-    success: (options: toast.ToastOptions) => toast.Toast,
-    warning: (options: toast.ToastOptions) => toast.Toast,
-    info: (options: toast.ToastOptions) => toast.Toast,
-    error: (options: toast.ToastOptions) => toast.Toast,
+    (options: toast.ToastOptions): toast.Toast;
+    success: (options: toast.ToastOptions) => toast.Toast;
+    warning: (options: toast.ToastOptions) => toast.Toast;
+    info: (options: toast.ToastOptions) => toast.Toast;
+    error: (options: toast.ToastOptions) => toast.Toast;
 };
 
 export = toast;
@@ -16,11 +16,20 @@ export = toast;
 declare namespace toast {
     interface ToastOptions {
         message?: string;
-        position?: "center" | "west" | "east" | "south" | "south-west" | "south-east" | "north" | "north-west" | "north-east";
+        position?:
+            | 'center'
+            | 'west'
+            | 'east'
+            | 'south'
+            | 'south-west'
+            | 'south-east'
+            | 'north'
+            | 'north-west'
+            | 'north-east';
         timeout?: number;
         el?: HTMLElement;
         rounded?: boolean;
-        type?: "success" | "warning" | "info" | "error";
+        type?: 'success' | 'warning' | 'info' | 'error';
         debug?: boolean;
         edge?: boolean;
         icon?: boolean;

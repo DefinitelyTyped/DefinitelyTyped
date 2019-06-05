@@ -1,7 +1,7 @@
-import ScenarioLevelPlugin = require("./mocha/ScenarioLevelPlugin");
-import StepLevelPlugin = require("./mocha/StepLevelPlugin");
+import ScenarioLevelPlugin = require('./mocha/ScenarioLevelPlugin');
+import StepLevelPlugin = require('./mocha/StepLevelPlugin');
 
-export import casper = require("./CasperPlugin");
+export import casper = require('./CasperPlugin');
 
 export interface MochaPlugin {
     ScenarioLevelPlugin: typeof ScenarioLevelPlugin;

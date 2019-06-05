@@ -1,4 +1,3 @@
-
 import jug = require('jug');
 
 /*
@@ -6,45 +5,43 @@ Example 1.
  */
 var root = jug.init();
 
-root
-    .seed()
-    .seed();
+root.seed().seed();
 
 root.data({
     interest: {
         genre: 'Action',
         year: 2014,
-        stars: [ 'Eva Green', 'Duck Dogers' ]
-    }
+        stars: ['Eva Green', 'Duck Dogers'],
+    },
 });
 
-root.edge( 0 ).data({
+root.edge(0).data({
     info: {
         name: '300: Rise of an Empire',
         genre: 'Action',
-        stars: [ 'Eva Green', 'Duck Dogers' ],
-        year: 2014
-    }
+        stars: ['Eva Green', 'Duck Dogers'],
+        year: 2014,
+    },
 });
 
-root.edge( 1 ).data({
+root.edge(1).data({
     info: {
         name: 'Man of Steel',
         genre: 'Action',
-        stars: [ 'Henry Cavill' ],
-        year: 2013
-    }
+        stars: ['Henry Cavill'],
+        year: 2013,
+    },
 });
 
 root.edge(1).seed({
     test: {
-        some: 'value'
-    }
+        some: 'value',
+    },
 });
 
 var distance = root.proximity('interest', 'info');
-var close = distance.indexOf( 0 );
-var nodeData = root.edge( close ).data();
+var close = distance.indexOf(0);
+var nodeData = root.edge(close).data();
 
 /*
 Example 2.
@@ -53,8 +50,8 @@ var wire = jug.init({
     interest: {
         cloth: 't-shirt',
         color: 'red',
-        size: 'medium'
-    }
+        size: 'medium',
+    },
 });
 
 /*
@@ -69,8 +66,8 @@ wire.seed({
     info: {
         cloth: 't-shirt',
         color: 'red',
-        size: 'medium'
-    }
+        size: 'medium',
+    },
 });
 
 /*

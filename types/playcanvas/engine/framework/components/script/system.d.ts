@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ScriptComponentSystem
      * @description Create a new ScriptComponentSystem
@@ -8,6 +7,6 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class ScriptComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
     }
 }

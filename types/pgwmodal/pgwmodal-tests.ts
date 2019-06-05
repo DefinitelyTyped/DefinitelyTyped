@@ -1,24 +1,22 @@
-
-
 var $j: JQueryStatic;
 var $z: ZeptoStatic;
 
 function test_open(): void {
     var r: boolean = $j.pgwModal({
-        content: 'Modal Example 1'
+        content: 'Modal Example 1',
     });
 
     $j.pgwModal({
         target: '#modalContent',
         title: 'Modal title 2',
-        maxWidth: 800
+        maxWidth: 800,
     });
 
     $j.pgwModal({
         url: 'modal-test.php',
         loadingContent: '<span style="text-align:center">Loading in progress</span>',
         closable: false,
-        titleBar: false
+        titleBar: false,
     });
 }
 

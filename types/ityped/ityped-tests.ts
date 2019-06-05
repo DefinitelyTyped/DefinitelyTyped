@@ -1,18 +1,16 @@
-import { init } from "ityped";
+import { init } from 'ityped';
 
 const config = {
-    strings: [
-        "Strings!",
-    ],
+    strings: ['Strings!'],
     typeSpeed: 120,
     pause: 500,
-    loop: true
+    loop: true,
 };
 
-init("#selector", config);
+init('#selector', config);
 
-init("#anotherSelector", {
-    loop: false
+init('#anotherSelector', {
+    loop: false,
 });
 
-init("#anotherOne", {});
+init('#anotherOne', {});

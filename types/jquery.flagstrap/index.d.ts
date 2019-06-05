@@ -44,25 +44,25 @@ declare module jQueryFlagStrap {
          */
         scrollableHeight?: string;
         /**
-        * Default: (all)
-        * Only show specific countries
-        * Example:
-        * 
-        * {"GB": "United Kingdom", "US": "United States"}
-        * 
-        * will only show the USA and UK.
-        */
+         * Default: (all)
+         * Only show specific countries
+         * Example:
+         *
+         * {"GB": "United Kingdom", "US": "United States"}
+         *
+         * will only show the USA and UK.
+         */
         countries?: Object;
         /**
          * Default: {value: "", text: "Please select a country"}
          * Set the placeholder value and text. To disable the placeholder define as (boolean) false.
          */
-        placeholder: boolean | FlagStrapPlaceholderOptions; 
+        placeholder: boolean | FlagStrapPlaceholderOptions;
         /**
          * Default: null
          * This callback gets called each time the select is changed. It receives two parameters, the new value, and the select element.
          */
-        onSelect?(value: any, element: any): void; 
+        onSelect?(value: any, element: any): void;
     }
 
     interface FlagStrapStatic {
@@ -79,7 +79,7 @@ interface JQuery {
     /**
      * A lightwieght jQuery plugin for creating Bootstrap 3 compatible country select boxes with flags.
      */
-    
+
     flagStrap(): void;
     flagStrap(options: jQueryFlagStrap.FlagStrapOptions): void;
 }

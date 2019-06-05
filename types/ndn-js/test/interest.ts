@@ -1,9 +1,9 @@
 /// <reference types="node"/>
-import ndn = require("ndn-js");
+import ndn = require('ndn-js');
 
 let interest = new ndn.Interest();
-interest = new ndn.Interest(new ndn.Name("/A"));
-interest = new ndn.Interest("/A");
+interest = new ndn.Interest(new ndn.Name('/A'));
+interest = new ndn.Interest('/A');
 interest = new ndn.Interest(interest);
 
 let name: ndn.Name = interest.getName();
@@ -15,14 +15,15 @@ let n: number = interest.getInterestLifetimeMilliseconds();
 blob = interest.getApplicationParameters();
 n = interest.getIncomingFaceId();
 
-interest = interest.setName(name)
-                   .setCanBePrefix(true)
-                   .setMustBeFresh(true)
-                   .setForwardingHint(fh)
-                   .setInterestLifetimeMilliseconds(2000)
-                   .setApplicationParameters(blob)
-                   .setApplicationParameters(Buffer.alloc(4))
-                   .appendParametersDigestToName();
+interest = interest
+    .setName(name)
+    .setCanBePrefix(true)
+    .setMustBeFresh(true)
+    .setForwardingHint(fh)
+    .setInterestLifetimeMilliseconds(2000)
+    .setApplicationParameters(blob)
+    .setApplicationParameters(Buffer.alloc(4))
+    .appendParametersDigestToName();
 
 b = interest.matchesData(new ndn.Data());
 b = interest.matchesName(name);

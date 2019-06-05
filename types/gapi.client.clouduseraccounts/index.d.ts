@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Cloud User Accounts API vm_alpha */
-    function load(name: "clouduseraccounts", version: "vm_alpha"): PromiseLike<void>;
-    function load(name: "clouduseraccounts", version: "vm_alpha", callback: () => any): void;
+    function load(name: 'clouduseraccounts', version: 'vm_alpha'): PromiseLike<void>;
+    function load(name: 'clouduseraccounts', version: 'vm_alpha', callback: () => any): void;
 
     const globalAccountsOperations: clouduseraccounts.GlobalAccountsOperationsResource;
 

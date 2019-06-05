@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Skeleton
      * @property {Boolean} looping Determines whether skeleton is looping its animation.
@@ -7,7 +6,7 @@ declare namespace pc {
      * @param {pc.GraphNode} graph The root pc.GraphNode of the skeleton.
      */
     class Skeleton {
-        constructor(graph: pc.GraphNode)
+        constructor(graph: pc.GraphNode);
 
         /**
          * @function
@@ -41,7 +40,7 @@ declare namespace pc {
          * @description Animation currently assigned to skeleton.
          */
         animation: pc.Animation;
-        
+
         /**
          * @name pc.Skeleton#currentTime
          * @type Number

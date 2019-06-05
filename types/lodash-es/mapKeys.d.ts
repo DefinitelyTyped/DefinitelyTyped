@@ -1,2 +1,2 @@
-import { mapKeys } from "lodash";
+import { mapKeys } from 'lodash';
 export default mapKeys;

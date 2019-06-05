@@ -1,11 +1,11 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverapp
-import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
+import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from 'hapi';
 
 const options: ServerOptions = {
     port: 8000,
 };
 
-declare module "hapi" {
+declare module 'hapi' {
     // Demonstrate augmenting the application state.
     interface ApplicationState {
         key?: string;
@@ -20,7 +20,7 @@ const serverRoute: ServerRoute = {
     method: 'GET',
     handler(request, h) {
         return 'key: ' + request.server.app.key;
-    }
+    },
 };
 
 server.route(serverRoute);

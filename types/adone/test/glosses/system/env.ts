@@ -1,8 +1,6 @@
 namespace adoneTests.system.env {
     const {
-        system: {
-            env
-        }
+        system: { env },
     } = adone;
 
     let str: string;

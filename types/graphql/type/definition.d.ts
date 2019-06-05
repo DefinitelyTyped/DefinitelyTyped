@@ -1,5 +1,5 @@
-import Maybe from "../tsutils/Maybe";
-import { PromiseOrValue } from "../jsutils/PromiseOrValue";
+import Maybe from '../tsutils/Maybe';
+import { PromiseOrValue } from '../jsutils/PromiseOrValue';
 import {
     ScalarTypeDefinitionNode,
     ObjectTypeDefinitionNode,
@@ -20,8 +20,8 @@ import {
     UnionTypeExtensionNode,
     EnumTypeExtensionNode,
     InputObjectTypeExtensionNode,
-} from "../language/ast";
-import { GraphQLSchema } from "./schema";
+} from '../language/ast';
+import { GraphQLSchema } from './schema';
 
 /**
  * These are all of the possible kinds of types.

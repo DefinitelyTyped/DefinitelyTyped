@@ -26,46 +26,46 @@ import MDCFoundation from 'material__base/foundation';
 import { cssClasses, strings } from '../constants';
 
 export class MDCDismissibleDrawerFoundation extends MDCFoundation<MDCDrawerAdapter> {
-  static readonly strings: strings;
-  static readonly cssClasses: cssClasses;
-  static readonly defaultAdapter: MDCDrawerAdapter;
+    static readonly strings: strings;
+    static readonly cssClasses: cssClasses;
+    static readonly defaultAdapter: MDCDrawerAdapter;
 
-  constructor(adapter: MDCDrawerAdapter);
+    constructor(adapter: MDCDrawerAdapter);
 
-  destroy(): void;
+    destroy(): void;
 
-  /**
-   * Function to open the drawer.
-   */
-  open(): void;
+    /**
+     * Function to open the drawer.
+     */
+    open(): void;
 
-  /**
-   * Function to close the drawer.
-   */
-  close(): void;
+    /**
+     * Function to close the drawer.
+     */
+    close(): void;
 
-  /**
-   * Returns true if drawer is in open state.
-   */
-  isOpen(): boolean;
+    /**
+     * Returns true if drawer is in open state.
+     */
+    isOpen(): boolean;
 
-  /**
-   * Returns true if drawer is animating open.
-   */
-  isOpening(): boolean;
+    /**
+     * Returns true if drawer is animating open.
+     */
+    isOpening(): boolean;
 
-  /**
-   * Returns true if drawer is animating closed.
-   */
-  isClosing(): boolean;
+    /**
+     * Returns true if drawer is animating closed.
+     */
+    isClosing(): boolean;
 
-  /**
-   * Keydown handler to close drawer when key is escape.
-   */
-  handleKeydown(evt: KeyboardEvent): void;
+    /**
+     * Keydown handler to close drawer when key is escape.
+     */
+    handleKeydown(evt: KeyboardEvent): void;
 
-  /**
-   * Handles a transition end event on the root element.
-   */
-  handleTransitionEnd(evt: Event): void;
+    /**
+     * Handles a transition end event on the root element.
+     */
+    handleTransitionEnd(evt: Event): void;
 }

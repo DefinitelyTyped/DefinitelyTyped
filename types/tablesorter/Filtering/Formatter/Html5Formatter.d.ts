@@ -1,7 +1,7 @@
-import "jquery";
-import { Html5ColorOptions } from "./Options/Html5ColorOptions";
-import { Html5NumberOptions } from "./Options/Html5NumberOptions";
-import { Html5RangeOptions } from "./Options/Html5RangeOptions";
+import 'jquery';
+import { Html5ColorOptions } from './Options/Html5ColorOptions';
+import { Html5NumberOptions } from './Options/Html5NumberOptions';
+import { Html5RangeOptions } from './Options/Html5RangeOptions';
 
 /**
  * Provides the functionality to generate html5-controls.

@@ -3,16 +3,16 @@ import hbs from 'htmlbars-inline-precompile';
 import { test, skip, moduleFor, moduleForModel, moduleForComponent, setResolver } from 'ember-qunit';
 
 moduleForComponent('x-foo', {
-    integration: true
+    integration: true,
 });
 
 moduleForComponent('x-foo', {
     unit: true,
-    needs: ['helper:pluralize-string']
+    needs: ['helper:pluralize-string'],
 });
 
 moduleForModel('user', {
-    needs: ['model:child']
+    needs: ['model:child'],
 });
 
 moduleFor('controller:home');
@@ -20,8 +20,7 @@ moduleFor('controller:home');
 moduleFor('component:x-foo', 'Some description');
 
 moduleFor('component:x-foo', 'TestModule callbacks', {
-    beforeSetup() {
-    },
+    beforeSetup() {},
 
     beforeEach(assert) {
         this.registry.register('helper:i18n', {});
@@ -38,7 +37,7 @@ moduleFor('component:x-foo', 'TestModule callbacks', {
 
     afterTeardown(assert) {
         assert.ok(true);
-    }
+    },
 });
 
 // if you don't have a custom resolver, do it like this:
@@ -59,9 +58,7 @@ test('it renders', function(assert) {
         {{ x-foo value=value action="result" }}
     `);
     this.render('{{ x-foo value=value action="result" }}');
-    this.render([
-        '{{ x-foo value=value action="result" }}'
-    ]);
+    this.render(['{{ x-foo value=value action="result" }}']);
 
     assert.equal(this.$('div>.value').text(), 'cat', 'The component shows the correct value');
 
@@ -75,13 +72,13 @@ test('it renders', function(assert) {
     const subject = this.subject();
 
     const subject2 = this.subject({
-        item: 42
+        item: 42,
     });
 
     const { inputFormat } = this.setProperties({
         inputFormat: 'M/D/YY',
         outputFormat: 'MMMM D, YYYY',
-        date: '5/3/10'
+        date: '5/3/10',
     });
 
     const { inputFormat: if2, outputFormat } = this.getProperties('inputFormat', 'outputFormat');
@@ -104,4 +101,4 @@ test('It can calculate the result', function(assert) {
 
 skip('disabled test');
 
-skip('disabled test', function(assert) { });
+skip('disabled test', function(assert) {});

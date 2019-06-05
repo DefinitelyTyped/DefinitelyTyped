@@ -9,12 +9,7 @@ import {
     createRoutine,
 } from 'redux-saga-routines';
 
-import {
-    ActionFunction0,
-    ActionFunction1,
-    ActionFunctionAny,
-    Action
-} from 'redux-actions';
+import { ActionFunction0, ActionFunction1, ActionFunctionAny, Action } from 'redux-actions';
 
 const routine_anyargs = createRoutine('ANYARGS');
 routine_anyargs();

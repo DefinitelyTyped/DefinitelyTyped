@@ -1,4 +1,4 @@
-import isDate = require("is-date-object");
+import isDate = require('is-date-object');
 
 isDate();
 isDate(undefined);

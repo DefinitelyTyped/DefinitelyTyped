@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Ad Exchange Buyer API II v2beta1 */
-    function load(name: "adexchangebuyer2", version: "v2beta1"): PromiseLike<void>;
-    function load(name: "adexchangebuyer2", version: "v2beta1", callback: () => any): void;
+    function load(name: 'adexchangebuyer2', version: 'v2beta1'): PromiseLike<void>;
+    function load(name: 'adexchangebuyer2', version: 'v2beta1', callback: () => any): void;
 
     const accounts: adexchangebuyer2.AccountsResource;
 
@@ -875,7 +875,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Numerical account ID of the client's sponsor buyer. (required) */
@@ -911,7 +911,7 @@ declare namespace gapi.client {
             /** Retrieves an existing client user invitation. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Numerical account ID of the client's sponsor buyer. (required) */
@@ -952,7 +952,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Numerical account ID of the client's sponsor buyer. (required) */
@@ -1008,7 +1008,7 @@ declare namespace gapi.client {
             /** Retrieves an existing client user. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Numerical account ID of the client's sponsor buyer. (required) */
@@ -1049,7 +1049,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1107,7 +1107,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Numerical account ID of the client's sponsor buyer. (required) */
@@ -1147,7 +1147,7 @@ declare namespace gapi.client {
             /** Creates a new client buyer. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1181,7 +1181,7 @@ declare namespace gapi.client {
             /** Gets a client buyer with a given client account ID. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Numerical account ID of the client's sponsor buyer. (required) */
@@ -1214,7 +1214,7 @@ declare namespace gapi.client {
             /** Lists all the clients for the current sponsor buyer. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Unique numerical account ID of the sponsor buyer to list the clients for. */
@@ -1258,7 +1258,7 @@ declare namespace gapi.client {
             /** Updates an existing client buyer. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1298,7 +1298,7 @@ declare namespace gapi.client {
             /** Associate an existing deal with a creative. */
             add(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** The account the creative belongs to. */
@@ -1331,7 +1331,7 @@ declare namespace gapi.client {
             /** List all creative-deal associations. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1398,7 +1398,7 @@ declare namespace gapi.client {
             /** Remove the association between a deal and a creative. */
             remove(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** The account the creative belongs to. */
@@ -1433,7 +1433,7 @@ declare namespace gapi.client {
             /** Creates a creative. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1474,7 +1474,7 @@ declare namespace gapi.client {
             /** Gets a creative. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** The account the creative belongs to. */
@@ -1507,7 +1507,7 @@ declare namespace gapi.client {
             /** Lists creatives. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1577,7 +1577,7 @@ declare namespace gapi.client {
              */
             stopWatching(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** The account of the creative to stop notifications for. */
@@ -1613,7 +1613,7 @@ declare namespace gapi.client {
             /** Updates a creative. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1659,7 +1659,7 @@ declare namespace gapi.client {
              */
             watch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** The account of the creative to watch. */
@@ -1701,7 +1701,7 @@ declare namespace gapi.client {
             /** Lists all metrics that are measured in terms of number of bids. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -1753,7 +1753,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -1805,7 +1805,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -1857,7 +1857,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -1909,7 +1909,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -1968,7 +1968,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2027,7 +2027,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2078,7 +2078,7 @@ declare namespace gapi.client {
             /** Lists all metrics that are measured in terms of number of impressions. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2130,7 +2130,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2182,7 +2182,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2231,7 +2231,7 @@ declare namespace gapi.client {
             /** Creates the specified filter set for the account with the given account ID. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2271,7 +2271,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2307,7 +2307,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */
@@ -2340,7 +2340,7 @@ declare namespace gapi.client {
             /** Lists all filter sets for the account with the given account ID. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Account ID of the buyer. */

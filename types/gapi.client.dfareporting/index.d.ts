@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load DCM/DFA Reporting And Trafficking API v2.8 */
-    function load(name: "dfareporting", version: "v2.8"): PromiseLike<void>;
-    function load(name: "dfareporting", version: "v2.8", callback: () => any): void;
+    function load(name: 'dfareporting', version: 'v2.8'): PromiseLike<void>;
+    function load(name: 'dfareporting', version: 'v2.8', callback: () => any): void;
 
     const accountActiveAdSummaries: dfareporting.AccountActiveAdSummariesResource;
 

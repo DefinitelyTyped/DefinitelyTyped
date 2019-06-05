@@ -1,47 +1,47 @@
-import BigNumber = require("bn.js");
-import * as us from "underscore";
+import BigNumber = require('bn.js');
+import * as us from 'underscore';
 
 type Unit =
-    | "noether"
-    | "wei"
-    | "kwei"
-    | "Kwei"
-    | "babbage"
-    | "femtoether"
-    | "mwei"
-    | "Mwei"
-    | "lovelace"
-    | "picoether"
-    | "gwei"
-    | "Gwei"
-    | "shannon"
-    | "nanoether"
-    | "nano"
-    | "szabo"
-    | "microether"
-    | "micro"
-    | "finney"
-    | "milliether"
-    | "milli"
-    | "ether"
-    | "kether"
-    | "grand"
-    | "mether"
-    | "gether"
-    | "tether";
+    | 'noether'
+    | 'wei'
+    | 'kwei'
+    | 'Kwei'
+    | 'babbage'
+    | 'femtoether'
+    | 'mwei'
+    | 'Mwei'
+    | 'lovelace'
+    | 'picoether'
+    | 'gwei'
+    | 'Gwei'
+    | 'shannon'
+    | 'nanoether'
+    | 'nano'
+    | 'szabo'
+    | 'microether'
+    | 'micro'
+    | 'finney'
+    | 'milliether'
+    | 'milli'
+    | 'ether'
+    | 'kether'
+    | 'grand'
+    | 'mether'
+    | 'gether'
+    | 'tether';
 
 type Mixed =
     | string
     | number
     | BigNumber
     | {
-        type: string;
-        value: string;
-    }
+          type: string;
+          value: string;
+      }
     | {
-        t: string;
-        v: string;
-    };
+          t: string;
+          v: string;
+      };
 
 type Hex = string | number;
 
@@ -72,13 +72,7 @@ export default interface Utils {
     padLeft(string: string, chars: number, sign: string): string;
     rightPad(string: string, chars: number, sign: string): string;
     padRight(string: string, chars: number, sign: string): string;
-    sha3(
-        val: string,
-        val2?: string,
-        val3?: string,
-        val4?: string,
-        val5?: string
-    ): string;
+    sha3(val: string, val2?: string, val3?: string, val4?: string, val5?: string): string;
     soliditySha3(...val: Mixed[]): string;
     randomHex(bytes: number): string;
     stringToHex(val: string): string;

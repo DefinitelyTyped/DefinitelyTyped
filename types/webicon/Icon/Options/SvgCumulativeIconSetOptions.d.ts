@@ -1,4 +1,4 @@
-import { IconSetOptions } from "./IconSetOptions";
+import { IconSetOptions } from './IconSetOptions';
 
 /**
  * Provides options for svg-sets which are loaded lazily.

@@ -1,10 +1,5 @@
 import { GraphQLSchema, buildSchema } from 'graphql';
-import {
-    UserError,
-    maskErrors,
-    HandlerFunction,
-    setDefaultHandler
-} from 'graphql-errors';
+import { UserError, maskErrors, HandlerFunction, setDefaultHandler } from 'graphql-errors';
 
 // $ExpectType GraphQLSchema
 const schema: GraphQLSchema = buildSchema(`

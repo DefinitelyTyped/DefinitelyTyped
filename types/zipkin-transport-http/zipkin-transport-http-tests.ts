@@ -1,8 +1,4 @@
-import {
-    Tracer,
-    BatchRecorder,
-    jsonEncoder,
-} from 'zipkin';
+import { Tracer, BatchRecorder, jsonEncoder } from 'zipkin';
 
 import CLSContext = require('zipkin-context-cls');
 import { HttpLogger } from 'zipkin-transport-http';
@@ -13,8 +9,8 @@ const tracer = new Tracer({
     recorder: new BatchRecorder({
         logger: new HttpLogger({
             endpoint: 'http://localhost:9411/api/v2/spans',
-            jsonEncoder: jsonEncoder.JSON_V2
-        })
+            jsonEncoder: jsonEncoder.JSON_V2,
+        }),
     }),
-    localServiceName: 'service-a'
+    localServiceName: 'service-a',
 });

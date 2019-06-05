@@ -1,6 +1,6 @@
-import pageIcon = require("page-icon");
+import pageIcon = require('page-icon');
 
-const siteUrl = "https://www.facebook.com/";
+const siteUrl = 'https://www.facebook.com/';
 pageIcon(siteUrl)
     .then(function(icon) {
         // do things with icon object
@@ -10,8 +10,8 @@ pageIcon(siteUrl)
         console.error(error);
     });
 
-const twUrl = "https://twitter.com";
-pageIcon(twUrl, {ext: ".png"})
+const twUrl = 'https://twitter.com';
+pageIcon(twUrl, { ext: '.png' })
     .then(icon => {
         if (!icon) {
             return;

@@ -1,4 +1,4 @@
-import Combokeys = require("combokeys");
+import Combokeys = require('combokeys');
 
 const combokeys1: Combokeys.Combokeys = new Combokeys(document.createElement('div'));
 const combokeys2: Combokeys.Combokeys = new Combokeys(document.createElement('div'));
@@ -27,4 +27,4 @@ combokeys1.detach();
 
 Combokeys.reset();
 
-Combokeys.instances.forEach((combokeys: Combokeys.Combokeys) => combokeys.reset() );
+Combokeys.instances.forEach((combokeys: Combokeys.Combokeys) => combokeys.reset());

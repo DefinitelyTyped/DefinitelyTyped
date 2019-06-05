@@ -1,1 +1,1 @@
-export type UrlResultFormat = "json" | "xml";
+export type UrlResultFormat = 'json' | 'xml';

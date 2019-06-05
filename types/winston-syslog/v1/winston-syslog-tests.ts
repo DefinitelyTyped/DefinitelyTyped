@@ -1,8 +1,8 @@
 import winston = require('winston');
 import { SyslogTransportOptions } from 'winston-syslog';
 
-const str = "";
-const bool  = true;
+const str = '';
+const bool = true;
 const num = 1;
 const obj: any = {};
 
@@ -28,8 +28,6 @@ const syslogOptions: SyslogTransportOptions = {
 
 winston.add(winston.transports.Syslog, syslogOptions);
 
-const logger: winston.LoggerInstance = new (winston.Logger)({
-  transports: [
-    new (winston.transports.Syslog)(syslogOptions),
-  ]
+const logger: winston.LoggerInstance = new winston.Logger({
+    transports: [new winston.transports.Syslog(syslogOptions)],
 });

@@ -6,13 +6,13 @@
 
 /// <reference types="node" />
 
-import { ReadStream as FSReadStream, WriteStream as FSWriteStream } from "fs";
+import { ReadStream as FSReadStream, WriteStream as FSWriteStream } from 'fs';
 
 export class ReadAfterDestroyedError extends Error {}
 
 export class ReadStream extends FSReadStream {}
 
 export class WriteStream extends FSWriteStream {
-  constructor()
-  createReadStream(name?: string): ReadStream;
+    constructor();
+    createReadStream(name?: string): ReadStream;
 }

@@ -13,12 +13,12 @@ interface JsonRPCResponse {
 }
 
 interface Callback<ResultType> {
-  (error: Error): void;
-  (error: null, val: ResultType): void;
+    (error: Error): void;
+    (error: null, val: ResultType): void;
 }
 
 export class Provider {
-  send(payload: JsonRPCRequest, callback: Callback<JsonRPCResponse>): any;
+    send(payload: JsonRPCRequest, callback: Callback<JsonRPCResponse>): any;
 }
 
 export class WebsocketProvider extends Provider {
@@ -57,10 +57,7 @@ export class IpcProvider extends Provider {
 }
 
 export default interface Providers {
-    WebsocketProvider: new (
-        host: string,
-        timeout?: number
-    ) => WebsocketProvider;
+    WebsocketProvider: new (host: string, timeout?: number) => WebsocketProvider;
     HttpProvider: new (host: string, timeout?: number) => HttpProvider;
     IpcProvider: new (path: string, net: any) => IpcProvider;
 }

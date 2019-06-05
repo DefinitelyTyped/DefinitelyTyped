@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google People API v1 */
-    function load(name: "people", version: "v1"): PromiseLike<void>;
-    function load(name: "people", version: "v1", callback: () => any): void;
+    function load(name: 'people', version: 'v1'): PromiseLike<void>;
+    function load(name: 'people', version: 'v1', callback: () => any): void;
 
     const contactGroups: people.ContactGroupsResource;
 
@@ -842,7 +842,7 @@ declare namespace gapi.client {
             /** Modify the members of a contact group owned by the authenticated user. */
             modify(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -878,7 +878,7 @@ declare namespace gapi.client {
              */
             batchGet(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -911,7 +911,7 @@ declare namespace gapi.client {
             /** Create a new contact group owned by the authenticated user. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -943,7 +943,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -979,7 +979,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1015,7 +1015,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1060,7 +1060,7 @@ declare namespace gapi.client {
              */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1102,7 +1102,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1168,7 +1168,7 @@ declare namespace gapi.client {
                  * response. Each path should start with `person.`: for example,
                  * `person.names` or `person.photos`.
                  */
-                "requestMask.includeField"?: string;
+                'requestMask.includeField'?: string;
                 /**
                  * Whether the response should include a sync token, which can be used to get
                  * all changes since the last request.
@@ -1196,7 +1196,7 @@ declare namespace gapi.client {
             /** Create a new contact and return the person resource for that contact. */
             createContact(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1227,7 +1227,7 @@ declare namespace gapi.client {
             /** Delete a contact person. Any non-contact data will not be deleted. */
             deleteContact(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1263,7 +1263,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1322,7 +1322,7 @@ declare namespace gapi.client {
                  * response. Each path should start with `person.`: for example,
                  * `person.names` or `person.photos`.
                  */
-                "requestMask.includeField"?: string;
+                'requestMask.includeField'?: string;
                 /**
                  * The resource name of the person to provide information about.
                  *
@@ -1348,7 +1348,7 @@ declare namespace gapi.client {
              */
             getBatchGet(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1407,7 +1407,7 @@ declare namespace gapi.client {
                  * response. Each path should start with `person.`: for example,
                  * `person.names` or `person.photos`.
                  */
-                "requestMask.includeField"?: string;
+                'requestMask.includeField'?: string;
                 /**
                  * The resource names of the people to provide information about.
                  *
@@ -1442,7 +1442,7 @@ declare namespace gapi.client {
              */
             updateContact(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

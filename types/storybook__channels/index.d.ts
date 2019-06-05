@@ -22,7 +22,7 @@ declare namespace Channel {
 }
 
 declare class Channel {
-    constructor(options?: { transport?: Channel.Transport, async?: boolean });
+    constructor(options?: { transport?: Channel.Transport; async?: boolean });
     addListener(type: EventName, listener: Listener): void;
     addPeerListener(type: EventName, listener: Listener): void;
     emit(type: EventName, ...args: any): void;

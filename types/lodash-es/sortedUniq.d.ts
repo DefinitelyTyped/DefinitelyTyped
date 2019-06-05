@@ -1,2 +1,2 @@
-import { sortedUniq } from "lodash";
+import { sortedUniq } from 'lodash';
 export default sortedUniq;

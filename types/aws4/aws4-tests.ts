@@ -1,7 +1,7 @@
-import * as aws4 from "aws4";
+import * as aws4 from 'aws4';
 
 let requestSigner = new aws4.RequestSigner({}, {});
-requestSigner.matchHost("");
+requestSigner.matchHost('');
 requestSigner.isSingleRegion();
 requestSigner.createHost();
 requestSigner.prepareRequest();

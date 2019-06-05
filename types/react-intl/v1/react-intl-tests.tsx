@@ -2,11 +2,10 @@
  * Created by Bruno Grieder
  */
 
-import * as React from 'react'
+import * as React from 'react';
 
-import * as reactMixin from 'react-mixin'
-import { IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate } from 'react-intl'
-
+import * as reactMixin from 'react-mixin';
+import { IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate } from 'react-intl';
 
 ///////////////////////////////////////////////////////////////////////////
 //
@@ -16,75 +15,65 @@ import { IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedD
 //
 ////////////////////////////////////////////////////////////////////////////
 
-
-const MESSAGES: {[key: string] : { [lang: string]: string }} = {
-
+const MESSAGES: { [key: string]: { [lang: string]: string } } = {
     Sorry: {
         'en-US': 'Sorry {name}',
-        'fr-FR': 'Désolé {name}'
-    }
-}
-
+        'fr-FR': 'Désolé {name}',
+    },
+};
 
 namespace I18nDirect {
-
     export interface Props extends IntlComponent.Props {}
 }
 
 class I18nDirect extends React.Component<I18nDirect.Props> {
+    private readonly _currentLocale: string;
+    private _messages: { [key: string]: string };
 
-    private readonly _currentLocale: string
-    private _messages: {[key: string]: string}
-
-    constructor( props: I18nDirect.Props ) {
-        super( props )
+    constructor(props: I18nDirect.Props) {
+        super(props);
     }
-
 
     render() {
-
         return (
-
             <ul>
-                <li>FormattedNumber:&nbsp;
-                    <FormattedNumber value={99.95} style="currency" currency="USD"/>
+                <li>
+                    FormattedNumber:&nbsp;
+                    <FormattedNumber value={99.95} style="currency" currency="USD" />
                 </li>
-                <li>FormattedMessage:&nbsp;
-                    <FormattedMessage message={this._messages['Sorry']} name='Dave'/>
+                <li>
+                    FormattedMessage:&nbsp;
+                    <FormattedMessage message={this._messages['Sorry']} name="Dave" />
                 </li>
-                <li>FormattedDate:&nbsp;
-                    <FormattedDate value={new Date()}/>
+                <li>
+                    FormattedDate:&nbsp;
+                    <FormattedDate value={new Date()} />
                 </li>
             </ul>
-
-        )
+        );
     }
 
-    componentWillReceiveProps( nextProps: I18nDirect.Props ) {
-        this.compileMessages(nextProps)
+    componentWillReceiveProps(nextProps: I18nDirect.Props) {
+        this.compileMessages(nextProps);
     }
 
     componentWillMount() {
-        this.compileMessages(this.props)
+        this.compileMessages(this.props);
     }
-
 
     private readonly compileMessages = (props: I18nDirect.Props): void => {
-
-        let locale: string = ( props.locales && props.locales[ 0 ] ) || 'en-US'
+        let locale: string = (props.locales && props.locales[0]) || 'en-US';
 
         if (this._currentLocale !== locale) {
-
-            this._messages = Object.keys( MESSAGES ).reduce(
-                ( dic , key ) => {
-                    dic[ key ] = MESSAGES[ key ][ locale ]
-                    return dic
+            this._messages = Object.keys(MESSAGES).reduce(
+                (dic, key) => {
+                    dic[key] = MESSAGES[key][locale];
+                    return dic;
                 },
-                {} as { [key: string]: string; }
-            )
+                {} as { [key: string]: string }
+            );
         }
-    }
-
+    };
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -95,40 +84,35 @@ class I18nDirect extends React.Component<I18nDirect.Props> {
 //
 ////////////////////////////////////////////////////////////////////////////
 
-
 namespace I18nMixin {
-
     export interface Props extends IntlComponent.Props {}
 }
 
-@reactMixin.decorate( IntlMixin )
+@reactMixin.decorate(IntlMixin)
 class I18nMixin extends React.Component<I18nMixin.Props> implements IntlComponent {
+    private readonly _currentLocale: string;
 
-    private readonly _currentLocale: string
-
-    constructor( props: I18nMixin.Props ) {
-        super( props )
+    constructor(props: I18nMixin.Props) {
+        super(props);
     }
 
     //Expose the method provided by the Mixin
-    getIntlMessage: (key: string) => string =  this['getIntlMessage']
-
+    getIntlMessage: (key: string) => string = this['getIntlMessage'];
 
     render() {
-
         return (
-
             <ul>
-                <li>FormattedNumber:
-                    <FormattedNumber value={99.95} style="currency" currency="USD"/>
+                <li>
+                    FormattedNumber:
+                    <FormattedNumber value={99.95} style="currency" currency="USD" />
                 </li>
-                <li>FormattedMessage:
-                    <FormattedMessage message={this.getIntlMessage('Sorry')} name='Dave'/> {/* this uses the mixin */}
+                <li>
+                    FormattedMessage:
+                    <FormattedMessage message={this.getIntlMessage('Sorry')} name="Dave" /> {/* this uses the mixin */}
                 </li>
             </ul>
-
-        )
+        );
     }
 }
 
-export { I18nDirect, I18nMixin }
+export { I18nDirect, I18nMixin };

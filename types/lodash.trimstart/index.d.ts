@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { trimStart } from "lodash";
+import { trimStart } from 'lodash';
 export = trimStart;

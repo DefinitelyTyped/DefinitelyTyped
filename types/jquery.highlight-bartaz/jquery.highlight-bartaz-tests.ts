@@ -1,7 +1,3 @@
-
-
-
-
 $('#content').highlight('lorem');
 
 // search for and highlight more terms at once

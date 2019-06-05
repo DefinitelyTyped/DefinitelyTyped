@@ -99,7 +99,8 @@ declare namespace OwlCarousel {
 
     type HandlerCallback = (...args: any[]) => void;
 
-    type OnEvent = 'initialize.owl.carousel'
+    type OnEvent =
+        | 'initialize.owl.carousel'
         | 'initialized.owl.carousel'
         | 'resize.owl.carousel'
         | 'resized.owl.carousel'
@@ -116,7 +117,8 @@ declare namespace OwlCarousel {
         | 'stop.owl.video'
         | 'play.owl.video';
 
-    type TriggerEvent = 'refresh.owl.carousel'
+    type TriggerEvent =
+        | 'refresh.owl.carousel'
         | 'next.owl.carousel'
         | 'prev.owl.carousel'
         | 'to.owl.carousel'

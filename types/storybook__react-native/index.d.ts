@@ -98,8 +98,6 @@ export interface StorybookUIOptions {
     keyboardAvoidingViewVerticalOffset?: number;
 }
 
-export function getStorybookUI(
-    options: StorybookUIOptions
-): React.ComponentClass;
+export function getStorybookUI(options: StorybookUIOptions): React.ComponentClass;
 
 export * from '@storybook/react';

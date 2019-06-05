@@ -6,7 +6,6 @@
 
 /// <reference types="react" />
 
-
 import * as React from 'react';
 
 export interface ClassDecorator {
@@ -16,7 +15,4 @@ export interface ClassDecorator {
 declare var propTypes: (map: React.ValidationMap<any>) => ClassDecorator;
 declare var defaultProps: (defaultProps: any) => ClassDecorator;
 
-export {
-propTypes,
-defaultProps
-}
+export { propTypes, defaultProps };

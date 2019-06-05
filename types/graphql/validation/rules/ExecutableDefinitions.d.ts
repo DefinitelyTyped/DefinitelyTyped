@@ -1,5 +1,5 @@
-import { ASTValidationContext } from "../ValidationContext";
-import { ASTVisitor } from "../../language/visitor";
+import { ASTValidationContext } from '../ValidationContext';
+import { ASTVisitor } from '../../language/visitor';
 
 export function nonExecutableDefinitionMessage(defName: string): string;
 

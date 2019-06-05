@@ -6,15 +6,15 @@
 /// <reference types="node" />
 
 interface opts {
-  fileName?: string;
-  width?: number;
-  height?: number;
-  url?: string;
+    fileName?: string;
+    width?: number;
+    height?: number;
+    url?: string;
 }
 
 declare function svg2png(sourceBuffer: Buffer, opts?: opts): Promise<Buffer>;
 
 declare namespace svg2png {
-  function sync(sourceBuffer: Buffer, opts?: opts): Buffer;
+    function sync(sourceBuffer: Buffer, opts?: opts): Buffer;
 }
 export = svg2png;

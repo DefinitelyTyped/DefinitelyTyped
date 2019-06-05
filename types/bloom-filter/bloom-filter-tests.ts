@@ -21,8 +21,8 @@ const woahFilter = new BloomFilter(serialized);
 
 // initialize directly
 const newFilter = new BloomFilter({
-  vData: Buffer.from('123', 'hex'), // the data of the filter
-  nHashFuncs: 3, // the number of hash functions to use
-  nTweak: 2147483649, // the seed used for the hash fuctions
-  nFlags: 0 // flags used to update the filter when matched
+    vData: Buffer.from('123', 'hex'), // the data of the filter
+    nHashFuncs: 3, // the number of hash functions to use
+    nTweak: 2147483649, // the seed used for the hash fuctions
+    nFlags: 0, // flags used to update the filter when matched
 });

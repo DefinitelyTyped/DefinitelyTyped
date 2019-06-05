@@ -29,7 +29,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst
          */
         interface SeriesSunburst {
-
             /**
              * @default
              * "sunburst"
@@ -166,7 +165,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label
              */
             label?: {
-
                 /**
                  * If it is `number` type, then is stands for rotation, from
                  * -90 degrees to 90 degrees, and positive values stand for
@@ -641,12 +639,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label.rich
                  */
                 rich?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
-
                         /**
                          * text color.
                          *
@@ -1007,7 +1003,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -1193,7 +1188,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.emphasis
              */
             emphasis?: {
-
                 /**
                  * `label` sets the text style for every sectors.
                  *
@@ -1216,7 +1210,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.emphasis.label
                  */
                 label?: {
-
                     /**
                      * If it is `number` type, then is stands for rotation,
                      * from -90 degrees to 90 degrees, and positive values stand
@@ -1695,12 +1688,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.emphasis.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -2063,7 +2054,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -2176,7 +2166,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlight
              */
             highlight?: {
-
                 /**
                  * `label` sets the text style for every sectors.
                  *
@@ -2199,7 +2188,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlight.label
                  */
                 label?: {
-
                     /**
                      * If it is `number` type, then is stands for rotation,
                      * from -90 degrees to 90 degrees, and positive values stand
@@ -2678,12 +2666,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlight.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -3046,7 +3032,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlight.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -3159,7 +3144,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.downplay
              */
             downplay?: {
-
                 /**
                  * `label` sets the text style for every sectors.
                  *
@@ -3182,7 +3166,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.downplay.label
                  */
                 label?: {
-
                     /**
                      * If it is `number` type, then is stands for rotation,
                      * from -90 degrees to 90 degrees, and positive values stand
@@ -3661,12 +3644,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.downplay.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -4029,7 +4010,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.downplay.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -4155,7 +4135,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels
              */
             levels?: {
-
                 /**
                  * `label` sets the text style for every sectors.
                  *
@@ -4178,7 +4157,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label
                  */
                 label?: {
-
                     /**
                      * If it is `number` type, then is stands for rotation,
                      * from -90 degrees to 90 degrees, and positive values stand
@@ -4657,12 +4635,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -5025,7 +5001,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -5137,7 +5112,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * `label` sets the text style for every sectors.
                      *
@@ -5160,7 +5134,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.emphasis.label
                      */
                     label?: {
-
                         /**
                          * If it is `number` type, then is stands for rotation,
                          * from -90 degrees to 90 degrees, and positive values
@@ -5645,12 +5618,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -6026,7 +5997,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -6141,7 +6111,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.highlight
                  */
                 highlight?: {
-
                     /**
                      * `label` sets the text style for every sectors.
                      *
@@ -6164,7 +6133,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.highlight.label
                      */
                     label?: {
-
                         /**
                          * If it is `number` type, then is stands for rotation,
                          * from -90 degrees to 90 degrees, and positive values
@@ -6649,12 +6617,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.highlight.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -7030,7 +6996,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.highlight.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -7145,7 +7110,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.downplay
                  */
                 downplay?: {
-
                     /**
                      * `label` sets the text style for every sectors.
                      *
@@ -7168,7 +7132,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.downplay.label
                      */
                     label?: {
-
                         /**
                          * If it is `number` type, then is stands for rotation,
                          * from -90 degrees to 90 degrees, and positive values
@@ -7653,12 +7616,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.downplay.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -8034,7 +7995,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.downplay.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -8249,7 +8209,6 @@ declare namespace echarts {
 
         namespace SeriesSunburst {
             interface DataObject {
-
                 /**
                  * Value for each item.
                  * If contains children, value can be left unset, and sum of
@@ -8318,7 +8277,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label
                  */
                 label?: {
-
                     /**
                      * If it is `number` type, then is stands for rotation,
                      * from -90 degrees to 90 degrees, and positive values stand
@@ -8797,12 +8755,10 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich
                      */
                     rich?: {
-
                         /**
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
-
                             /**
                              * text color.
                              *
@@ -9165,7 +9121,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color. Color is taken from
                      * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -9277,7 +9232,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * `label` sets the text style for every sectors.
                      *
@@ -9300,7 +9254,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label
                      */
                     label?: {
-
                         /**
                          * If it is `number` type, then is stands for rotation,
                          * from -90 degrees to 90 degrees, and positive values
@@ -9785,12 +9738,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -10166,7 +10117,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -10281,7 +10231,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight
                  */
                 highlight?: {
-
                     /**
                      * `label` sets the text style for every sectors.
                      *
@@ -10304,7 +10253,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label
                      */
                     label?: {
-
                         /**
                          * If it is `number` type, then is stands for rotation,
                          * from -90 degrees to 90 degrees, and positive values
@@ -10789,12 +10737,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -11170,7 +11116,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -11285,7 +11230,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay
                  */
                 downplay?: {
-
                     /**
                      * `label` sets the text style for every sectors.
                      *
@@ -11308,7 +11252,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label
                      */
                     label?: {
-
                         /**
                          * If it is `number` type, then is stands for rotation,
                          * from -90 degrees to 90 degrees, and positive values
@@ -11793,12 +11736,10 @@ declare namespace echarts {
                          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich
                          */
                         rich?: {
-
                             /**
                              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
-
                                 /**
                                  * text color.
                                  *
@@ -12174,7 +12115,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color. Color is taken from
                          * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)

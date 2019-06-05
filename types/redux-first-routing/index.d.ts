@@ -42,15 +42,20 @@ export function goBack(): goBackAction;
 export type goForwardAction = Action<typeof GO_FORWARD>;
 export function goForward(): goForwardAction;
 
-export interface locationChangeAction<P extends Pathname, S extends Search, H extends Hash> extends Action<typeof LOCATION_CHANGE> {
+export interface locationChangeAction<P extends Pathname, S extends Search, H extends Hash>
+    extends Action<typeof LOCATION_CHANGE> {
     payload: {
         pathname: P;
         search: S;
-        queries: any,
-        hash: H,
+        queries: any;
+        hash: H;
     };
 }
-export function locationChange<P extends Pathname, S extends Search, H extends Hash>(_: { pathname: P, search: S, hash: H }): locationChangeAction<P, S, H>;
+export function locationChange<P extends Pathname, S extends Search, H extends Hash>(_: {
+    pathname: P;
+    search: S;
+    hash: H;
+}): locationChangeAction<P, S, H>;
 
 export interface State {
     pathname: Pathname;

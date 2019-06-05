@@ -1,2 +1,2 @@
-import { gte } from "../fp";
+import { gte } from '../fp';
 export = gte;

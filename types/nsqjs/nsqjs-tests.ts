@@ -2,7 +2,7 @@ import nsqjs = require('nsqjs');
 
 // Reader
 const reader = new nsqjs.Reader('sample_topic', 'test_channel', {
-    nsqdTCPAddresses: '127.0.0.1:4150'
+    nsqdTCPAddresses: '127.0.0.1:4150',
 });
 
 reader.connect();
@@ -44,7 +44,9 @@ writer.on('ready', () => {
     writer.publish('sample_topic', 'message');
     writer.publish('sample_topic', ['message 1', 'message 2']);
     writer.publish('sample_topic', 'message', error => {
-        if (error) { return; }
+        if (error) {
+            return;
+        }
         writer.close();
     });
 });

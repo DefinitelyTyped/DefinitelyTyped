@@ -18,7 +18,7 @@ NotFound: The path "/example" could not be resolved
     at ...
 */
 
-console.log(httperr.methodNotAllowed({allowed: ['GET', 'POST']}));
+console.log(httperr.methodNotAllowed({ allowed: ['GET', 'POST'] }));
 /*
 { [MethodNotAllowed]
   title: 'Method Not Allowed',
@@ -49,10 +49,9 @@ console.log(err instanceof httperr.MethodNotAllowed); // false
 console.log(err instanceof httperr.HttpError); // true
 console.log(err instanceof Error); // true
 
-
 // ----------------------------------------
 // Advanced usage: creating custom Error subclasses
-var Custom404Error = httperr.createHttpError(404, 'Not Found', function (config) {
+var Custom404Error = httperr.createHttpError(404, 'Not Found', function(config) {
     this.message = 'The resource was not found';
     this['some custom property'] = config.parameters['some custom parameter'];
 });
@@ -60,7 +59,6 @@ err = new Custom404Error();
 
 var Custom500Error = httperr.createHttpError(500, 'Something went wrong');
 err = new Custom500Error();
-
 
 // ----------------------------------------
 // Advanced usage: returning a JSON serializable representation of an error

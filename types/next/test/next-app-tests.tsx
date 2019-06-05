@@ -1,6 +1,6 @@
-import * as React from "react";
-import App, { Container, NextAppContext, AppProps, AppComponentType } from "next/app";
-import { DefaultQuery } from "next/router";
+import * as React from 'react';
+import App, { Container, NextAppContext, AppProps, AppComponentType } from 'next/app';
+import { DefaultQuery } from 'next/router';
 
 interface TestAppProps {
     pageProps: any;
@@ -82,7 +82,7 @@ const withExample = <P extends {}>(App: AppComponentType<P & WithExampleProps, P
             const pageProps = App.getInitialProps && (await App.getInitialProps(context));
 
             // tslint:disable-next-line prefer-object-spread
-            return Object.assign({}, pageProps, { test: "test" });
+            return Object.assign({}, pageProps, { test: 'test' });
         }
 
         constructor(props: P & AppProps & WithExampleHocProps) {

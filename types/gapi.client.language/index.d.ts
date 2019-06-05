@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Natural Language API v1 */
-    function load(name: "language", version: "v1"): PromiseLike<void>;
-    function load(name: "language", version: "v1", callback: () => any): void;
+    function load(name: 'language', version: 'v1'): PromiseLike<void>;
+    function load(name: 'language', version: 'v1', callback: () => any): void;
 
     const documents: language.DocumentsResource;
 
@@ -312,7 +312,7 @@ declare namespace gapi.client {
              */
             analyzeEntities(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -344,7 +344,7 @@ declare namespace gapi.client {
              */
             analyzeEntitySentiment(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -373,7 +373,7 @@ declare namespace gapi.client {
             /** Analyzes the sentiment of the provided text. */
             analyzeSentiment(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -406,7 +406,7 @@ declare namespace gapi.client {
              */
             analyzeSyntax(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -438,7 +438,7 @@ declare namespace gapi.client {
              */
             annotateText(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

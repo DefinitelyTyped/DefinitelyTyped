@@ -23,9 +23,11 @@ result = xmlpoke('<a/>', xml => xml.add('/a/b', xmlval));
 assert.equal(result, '<a><b><c/></b></a>');
 
 // add with map
-result = xmlpoke('<a/>', xml => xml.add({
-    '/a/b': 'c'
-}));
+result = xmlpoke('<a/>', xml =>
+    xml.add({
+        '/a/b': 'c',
+    })
+);
 assert.equal(result, '<a><b>c</b></a>');
 
 // set with xpath, value
@@ -33,9 +35,11 @@ result = xmlpoke('<a>b</a>', xml => xml.set('/a', 'c'));
 assert.equal(result, '<a>c</a>');
 
 // set with map
-result = xmlpoke('<a>b</a>', xml => xml.set({
-    '/a': 'c'
-}));
+result = xmlpoke('<a>b</a>', xml =>
+    xml.set({
+        '/a': 'c',
+    })
+);
 assert.equal(result, '<a>c</a>');
 
 // set with xpath that doesn't exist (no-op)
@@ -47,9 +51,11 @@ result = xmlpoke('<a/>', xml => xml.setOrAdd('/a/b', 'c'));
 assert.equal(result, '<a><b>c</b></a>');
 
 // setOrAdd with map
-result = xmlpoke('<a/>', xml => xml.setOrAdd({
-    '/a/b': 'c'
-}));
+result = xmlpoke('<a/>', xml =>
+    xml.setOrAdd({
+        '/a/b': 'c',
+    })
+);
 assert.equal(result, '<a><b>c</b></a>');
 
 // setOrAdd with xpath that doesn't exist: add
@@ -66,15 +72,17 @@ assert.equal(result, '<a/>');
 
 // withBasePath, addNamespace, errorOnNoMatches
 result = xmlpoke('<test><x><![CDATA[hello]]></x></test>', xml =>
-    xml.withBasePath('/test')
-       .addNamespace('x', 'http://example.com/x')
-       .errorOnNoMatches()
-       .set('/x', (node, value) => {
+    xml
+        .withBasePath('/test')
+        .addNamespace('x', 'http://example.com/x')
+        .errorOnNoMatches()
+        .set('/x', (node, value) => {
             assert.equal(typeof node, 'object');
             assert.equal((node.constructor as any).name, 'Element');
             assert.equal(value, 'hello');
             return 'y';
-       }));
+        })
+);
 assert.equal(result, '<test><x>y</x></test>');
 
 // ensure

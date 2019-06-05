@@ -10,8 +10,8 @@ const context = {
         version: '1.0.0',
         gitTag: '1.0.0',
         gitHead: 'f1eed296d2ffe184fb15f52b1c5ad778f5c87645',
-        notes: 'New release'
+        notes: 'New release',
     },
-    logger: console
+    logger: console,
 };
 publish({}, context);

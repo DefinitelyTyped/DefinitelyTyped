@@ -14,7 +14,7 @@ export interface Options {
     exclude?: Array<string | RegExp> | string | RegExp | null;
 
     // Enable sourcemaps support
-    sourceMap ?: boolean;
+    sourceMap?: boolean;
 
     // Plugin's options
     process?: boolean;

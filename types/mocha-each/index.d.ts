@@ -11,10 +11,7 @@ import { ITest, ITestDefinition, ITestCallbackContext } from 'mocha';
  * a series of mocha tests, defined using the `it` notation common to
  * Mocha.
  */
-declare function forEach(
-    parameters: ReadonlyArray<any>,
-    defaultIt?: ITestDefinition
-): { it: ForEachITestDefinition };
+declare function forEach(parameters: ReadonlyArray<any>, defaultIt?: ITestDefinition): { it: ForEachITestDefinition };
 
 /**
  * This interface describes the kind of `it` available from a `forEach` call.
@@ -39,12 +36,9 @@ interface ForEachITestDefinition {
      *     callback?: (this, ...args, done?: MochaDone)
      * Additionally, Mocha does not export its MochaDone interface.
      */
-    (expectation: string, callback?:
-        (this: ITestCallbackContext, ...args: any[]) => any): ITest;
-    only(expectation: string, callback?:
-        (this: ITestCallbackContext, ...args: any[]) => any): ITest;
-    skip(expectation: string, callback?:
-        (this: ITestCallbackContext, ...args: any[]) => any): ITest;
+    (expectation: string, callback?: (this: ITestCallbackContext, ...args: any[]) => any): ITest;
+    only(expectation: string, callback?: (this: ITestCallbackContext, ...args: any[]) => any): ITest;
+    skip(expectation: string, callback?: (this: ITestCallbackContext, ...args: any[]) => any): ITest;
 }
 
 export = forEach;

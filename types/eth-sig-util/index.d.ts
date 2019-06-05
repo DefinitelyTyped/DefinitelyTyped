@@ -20,9 +20,13 @@ export function normalize(input: string | number): string;
 ////////////////////////////////////////////////////////////////////////////////
 // Personal message signing utils
 
-export interface MessageData<T = any> { data: T; }
+export interface MessageData<T = any> {
+    data: T;
+}
 
-export interface SignedMessageData<T = any> extends MessageData<T> { sig: string; }
+export interface SignedMessageData<T = any> extends MessageData<T> {
+    sig: string;
+}
 
 export function personalSign(privateKey: Buffer, message: MessageData): string;
 
@@ -43,14 +47,9 @@ export type EIP712LegacyData = ReadonlyArray<EIP712LegacyField>;
 
 export function typedSignatureHash(data: EIP712LegacyData): string;
 
-export function signTypedDataLegacy(
-    privateKey: Buffer,
-    message: MessageData<EIP712LegacyData>,
-): string;
+export function signTypedDataLegacy(privateKey: Buffer, message: MessageData<EIP712LegacyData>): string;
 
-export function recoverTypedSignatureLegacy(
-    message: SignedMessageData<EIP712LegacyData>,
-): string;
+export function recoverTypedSignatureLegacy(message: SignedMessageData<EIP712LegacyData>): string;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Elliptic curve encryption utils
@@ -69,38 +68,24 @@ export interface EncryptedData {
  * @param data a utf-8 string to be encrypted
  * @param version one of the supported encryption schemes, @see `EncryptionType`
  */
-export function encrypt(
-    receiverPublicKey: string,
-    data: MessageData<string>,
-    version: EncryptionType,
-): EncryptedData;
+export function encrypt(receiverPublicKey: string, data: MessageData<string>, version: EncryptionType): EncryptedData;
 
 /**
  * Same as @see `encrypt`, but encrypts a JSON object.
  */
-export function encryptSafely(
-    receiverPublicKey: string,
-    data: MessageData,
-    version: EncryptionType,
-): EncryptedData;
+export function encryptSafely(receiverPublicKey: string, data: MessageData, version: EncryptionType): EncryptedData;
 
 /**
  * @param encryptedData result of @see `encrypt`.
  * @param receiverPrivateKey should be a 32-byte Buffer or *not* 0x-prefixed hex string.
  */
-export function decrypt(
-    encryptedData: EncryptedData,
-    receiverPrivateKey: string | Buffer,
-): string;
+export function decrypt(encryptedData: EncryptedData, receiverPrivateKey: string | Buffer): string;
 
 /**
  * @param encryptedData result of @see `encryptSafely`.
  * @param receiverPrivateKey should be a 32-byte Buffer or *not* 0x-prefixed hex string.
  */
-export function decryptSafely(
-    encryptedData: EncryptedData,
-    receiverPrivateKey: string | Buffer,
-): any;
+export function decryptSafely(encryptedData: EncryptedData, receiverPrivateKey: string | Buffer): any;
 
 /**
  * @param privateKey should be a 32-byte Buffer or *not* 0x-prefixed hex string.
@@ -152,9 +137,7 @@ export namespace TypedDataUtils {
 
     function encodeType(primaryType: string, types: EIP712Types): string;
 
-    function findTypeDependencies(
-        primaryType: string, types: EIP712Types,
-    ): string[];
+    function findTypeDependencies(primaryType: string, types: EIP712Types): string[];
 
     function hashStruct(primaryType: string, data: EIP712Message, types: EIP712Types): Buffer;
 
@@ -174,11 +157,6 @@ export namespace TypedDataUtils {
  */
 export const TYPED_MESSAGE_SCHEMA: any;
 
-export function signTypedData(
-    privateKey: Buffer,
-    msgParams: MessageData<EIP712TypedData>,
-): string;
+export function signTypedData(privateKey: Buffer, msgParams: MessageData<EIP712TypedData>): string;
 
-export function recoverTypedSignature(
-    msgParams: SignedMessageData<EIP712TypedData>,
-): string;
+export function recoverTypedSignature(msgParams: SignedMessageData<EIP712TypedData>): string;

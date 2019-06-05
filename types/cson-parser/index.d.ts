@@ -22,4 +22,8 @@ export function parse(text: string, reviver?: (key: any, value: any) => any): an
  * @param replacer A function that transforms the results or an array of strings and numbers that acts as a approved list for selecting the object properties that will be stringified.
  * @param space Adds indentation, white space, and line break characters to the return-value CSON text to make it easier to read.
  */
-export function stringify(value: any, replacer?: ReplacerFunction | Array<(number | string)> | null, space?: string | number): string;
+export function stringify(
+    value: any,
+    replacer?: ReplacerFunction | Array<number | string> | null,
+    space?: string | number
+): string;

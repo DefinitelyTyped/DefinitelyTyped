@@ -42,7 +42,7 @@ export namespace raygun {
         occurredOn: Date;
         details: {
             client: {
-                name: "raygun-node";
+                name: 'raygun-node';
                 version: string;
             };
             groupingKey?: string;
@@ -75,24 +75,11 @@ export namespace raygun {
         };
     }
 
-    interface RaygunOfflineStorageProvider<
-        TTransportItem = RaygunPayload,
-        TStorageItem = string
-    > {
+    interface RaygunOfflineStorageProvider<TTransportItem = RaygunPayload, TStorageItem = string> {
         init(options: any): RaygunOfflineStorageProvider;
         save(item: TTransportItem, callback: (error?: Error) => void): void;
-        retrieve(
-            callback: (
-                error: Error,
-                storageItems: ReadonlyArray<TStorageItem>
-            ) => void
-        ): void;
-        send(
-            callback: (
-                error: Error,
-                sendItems: ReadonlyArray<TStorageItem>
-            ) => void
-        ): void;
+        retrieve(callback: (error: Error, storageItems: ReadonlyArray<TStorageItem>) => void): void;
+        send(callback: (error: Error, sendItems: ReadonlyArray<TStorageItem>) => void): void;
     }
 
     type OnBeforeSend = (
@@ -135,12 +122,7 @@ declare class Client {
         request?: raygun.RaygunRequest,
         tags?: ReadonlyArray<string>
     ): raygun.RaygunPayload;
-    expressHandler(
-        error: Error,
-        request: raygun.RaygunRequest,
-        res: any,
-        next: any
-    ): void;
+    expressHandler(error: Error, request: raygun.RaygunRequest, res: any, next: any): void;
 }
 
 export { Client };

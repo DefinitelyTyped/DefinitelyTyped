@@ -24,7 +24,7 @@ method = request.method;
 let path: string = context.path;
 path = request.path;
 
-let query: {[param: string]: string | string[]} = context.query;
+let query: { [param: string]: string | string[] } = context.query;
 query = request.query;
 const querySearch: string | string[] = query['search'];
 

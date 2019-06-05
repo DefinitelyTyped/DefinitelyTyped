@@ -1,4 +1,5 @@
-const collectionToArray = <T>(col: any) => { // tslint:disable-line no-unnecessary-generics
+const collectionToArray = <T>(col: any) => {
+    // tslint:disable-line no-unnecessary-generics
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -36,9 +37,9 @@ const collectionToArray = <T>(col: any) => { // tslint:disable-line no-unnecessa
     const findName = (name: string) => {
         try {
             return dqc.FindUser(name);
-        } catch { }
+        } catch {}
         try {
             return dqc.FindUser(dqc.TranslateLogonNameToSID(name));
-        } catch { }
+        } catch {}
     };
 })();

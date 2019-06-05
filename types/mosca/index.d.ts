@@ -13,16 +13,27 @@ export class Server {
 
     constructor(opts: any, callback?: () => void);
 
-    on(when: string, callback: (() => void) | ((client: Client) => void) | ((packet: Packet, client: Client) => void)): void;
+    on(
+        when: string,
+        callback: (() => void) | ((client: Client) => void) | ((packet: Packet, client: Client) => void)
+    ): void;
     once(when: string, callback: () => void): void;
     toString(): string;
     subscribe(topic: string, callback: () => void, done: () => void): void;
     publish(message: Message, callback: (obj: any, packet: Packet) => void): void;
-    authenticate(client: Client, username: string, password: string,
-        callback: (obj: any, authenticated: boolean) => void): void;
+    authenticate(
+        client: Client,
+        username: string,
+        password: string,
+        callback: (obj: any, authenticated: boolean) => void
+    ): void;
     published(packet: Packet, client: Client, callback: (obj: any) => void): void;
-    authorizePublish(client: Client, topic: string, payload: string,
-        callback: (obj: any, authorized: boolean) => void): void;
+    authorizePublish(
+        client: Client,
+        topic: string,
+        payload: string,
+        callback: (obj: any, authorized: boolean) => void
+    ): void;
     authorizeSubscribe(client: Client, topic: string, callback: (obj: any, authorized: boolean) => void): void;
     authorizeForward(client: Client, packet: Packet, callback: (obj: any, authorized: boolean) => void): void;
     storePacket(packet: Packet, callback: () => void): void;
@@ -30,8 +41,12 @@ export class Server {
     forwardRetained(pattern: string, client: Client, callback: () => void): void;
     restoreClientSubscriptions(client: Client, callback: () => void): void;
     forwardOfflinePackets(client: Client, callback: () => void): void;
-    updateOfflinePacket(client: Client, originMessageId: number, packet: Packet,
-        callback: (obj: any, packet: Packet) => void): void;
+    updateOfflinePacket(
+        client: Client,
+        originMessageId: number,
+        packet: Packet,
+        callback: (obj: any, packet: Packet) => void
+    ): void;
     persistClient(client: Client, callback: () => void): void;
     close(callback?: () => void): void;
     attachHttpServer(server: any, path?: any): void;
@@ -67,8 +82,13 @@ export class Stats {
 export class Authorizer {
     users: any;
 
-    addUser(username: string, password: string, authorizePublish: string,
-        authorizeSubscribe: string, callback: (func: any) => void): void;
+    addUser(
+        username: string,
+        password: string,
+        authorizePublish: string,
+        authorizeSubscribe: string,
+        callback: (func: any) => void
+    ): void;
 }
 
 export interface Packet {

@@ -5,10 +5,7 @@
 // TypeScript Version: 2.1
 
 export const Parser: {
-    new (
-        prefixes?: { [prefix: string]: string },
-        baseIRI?: string,
-    ): SparqlParser;
+    new (prefixes?: { [prefix: string]: string }, baseIRI?: string): SparqlParser;
 };
 
 export const Generator: {
@@ -34,7 +31,7 @@ export type Query = SelectQuery | ConstructQuery | AskQuery | DescribeQuery;
 export interface BaseQuery {
     type: 'query';
     base?: string;
-    prefixes: { [prefix: string]: string; };
+    prefixes: { [prefix: string]: string };
     where?: Pattern[];
     values?: ValuePatternRow[];
 }
@@ -80,7 +77,7 @@ export interface DescribeQuery extends BaseQuery {
 
 export interface Update {
     type: 'update';
-    prefixes: { [prefix: string]: string; };
+    prefixes: { [prefix: string]: string };
     updates: UpdateOperation[];
 }
 
@@ -96,11 +93,7 @@ export interface InsertDeleteOperation {
 
 export type Quads = BgpPattern | GraphQuads;
 
-export type ManagementOperation =
-    | CopyMoveAddOperation
-    | LoadOperation
-    | CreateOperation
-    | ClearDropOperation;
+export type ManagementOperation = CopyMoveAddOperation | LoadOperation | CreateOperation | ClearDropOperation;
 
 export interface CopyMoveAddOperation {
     type: 'copy' | 'move' | 'add';
@@ -220,7 +213,7 @@ export interface ValuePatternRow {
  *
  * Term is a nominal type based on string.
  */
-export type Term = string & { __termBrand: string; };
+export type Term = string & { __termBrand: string };
 
 export interface Triple {
     subject: Term;

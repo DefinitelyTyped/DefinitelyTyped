@@ -8,14 +8,14 @@
  * Option form to request an access token.
  */
 interface AccessTokenAuthorizeOptions extends AuthorizeOptions {
-    response_type?: "token";
+    response_type?: 'token';
 }
 
 /**
  * Option form to request a code.
  */
 interface CodeAuthorizeOptions extends AuthorizeOptions {
-    response_type: "code";
+    response_type: 'code';
 }
 
 /**
@@ -55,13 +55,13 @@ interface AuthorizeOptions {
  *
  * Accepted values for `scope` member of `authorize` options.
  */
-type AuthorizationScopeOptions = "profile" | "profile:user_id" | "postal_code";
+type AuthorizationScopeOptions = 'profile' | 'profile:user_id' | 'postal_code';
 
-type AuthorizeResponseType = "token" | "code";
+type AuthorizeResponseType = 'token' | 'code';
 
 type AuthorizeScope = AuthorizationScopeOptions | AuthorizationScopeOptions[];
 
-type AuthorizeInteractiveOption = "auto" | "always" | "never";
+type AuthorizeInteractiveOption = 'auto' | 'always' | 'never';
 
 type AuthorizeRequest = CodeRequest | AccessTokenRequest;
 
@@ -80,7 +80,7 @@ interface AccessTokenRequest extends AuthorizeRequestBase<AccessTokenRequest> {
     /**
      * The type of token issued. Must be `"bearer"`.
      */
-    token_type: "bearer";
+    token_type: 'bearer';
     /**
      * The access token issued by the authorization server.
      */
@@ -130,24 +130,22 @@ interface AuthorizeRequestBase<T extends AuthorizeRequest> {
 }
 
 type AuthorizeRequestErrorType =
-    | "access_denied"
-    | "invalid_grant"
-    | "invalid_request"
-    | "invalid_scope"
-    | "server_error"
-    | "temporarily_unavailable"
-    | "unauthorized_client";
+    | 'access_denied'
+    | 'invalid_grant'
+    | 'invalid_request'
+    | 'invalid_scope'
+    | 'server_error'
+    | 'temporarily_unavailable'
+    | 'unauthorized_client';
 
-type AuthorizeRequestStatus = "queued" | "in_progress" | "complete";
+type AuthorizeRequestStatus = 'queued' | 'in_progress' | 'complete';
 
 /**
  * Type of callback invoked after `authorize` completes.
  */
 type NextCallback<T extends AuthorizeRequest> = (response: T) => void;
 
-type RetrieveProfileResponse =
-    | RetrieveProfileResponseError
-    | RetrieveProfileResponseSuccess;
+type RetrieveProfileResponse = RetrieveProfileResponseError | RetrieveProfileResponseSuccess;
 
 /**
  * Response type if `retrieveProfile` call failed.
@@ -209,10 +207,7 @@ declare namespace amazon {
             options: AccessTokenAuthorizeOptions,
             next?: string | NextCallback<AccessTokenRequest>
         ): AccessTokenRequest;
-        function authorize(
-            options: CodeAuthorizeOptions,
-            next?: string | NextCallback<CodeRequest>
-        ): CodeRequest;
+        function authorize(options: CodeAuthorizeOptions, next?: string | NextCallback<CodeRequest>): CodeRequest;
 
         /**
          * Retrieves the customer profile and passes it to a callback function.
@@ -220,10 +215,7 @@ declare namespace amazon {
          * @param accessToken An access token. If this parameter is omitted, retrieveProfile will call authorize, requesting the profile scope.
          * @param callback Called with the profile data or an error string
          */
-        function retrieveProfile(
-            accessToken: string,
-            callback?: RetrieveProfileCallback
-        ): void;
+        function retrieveProfile(accessToken: string, callback?: RetrieveProfileCallback): void;
         /**
          * Retrieves the customer profile and passes it to a callback function.
          * If no `access_token` is provided, this function will call `authorize`

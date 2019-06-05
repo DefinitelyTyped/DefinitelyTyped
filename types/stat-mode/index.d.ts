@@ -12,7 +12,7 @@ declare class Mode {
     setuid: boolean;
     setgid: boolean;
     sticky: boolean;
-    constructor(stat: {mode: number});
+    constructor(stat: { mode: number });
     isBlockDevice(isBlockDevice?: boolean): boolean;
     isCharacterDevice(isCharacterDevice?: boolean): boolean;
     isDirectory(isDirectory?: boolean): boolean;

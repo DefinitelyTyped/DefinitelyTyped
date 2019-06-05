@@ -1,4 +1,4 @@
-import { FormStateMap } from "../index";
+import { FormStateMap } from '../index';
 
 export function formValueSelector<State = {}>(
     form: string,

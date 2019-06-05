@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 interface InitOptions {
     loadMaps?: boolean;
     debug?: boolean;

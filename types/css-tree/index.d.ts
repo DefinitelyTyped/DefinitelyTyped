@@ -9,12 +9,12 @@ export interface CssLocation {
     start: {
         offset: number;
         line: number;
-        column: number
+        column: number;
     };
     end: {
         offset: number;
         line: number;
-        column: number
+        column: number;
     };
 }
 
@@ -24,8 +24,18 @@ export interface ListItem<TData> {
     data: TData;
 }
 
-export type IteratorFn<TData, TResult, TContext = List<TData>> = (this: TContext, item: TData, node: ListItem<TData>, list: List<TData>) => TResult;
-export type FilterFn<TData, TResult extends TData, TContext = List<TData>> = (this: TContext, item: TData, node: ListItem<TData>, list: List<TData>) => item is TResult;
+export type IteratorFn<TData, TResult, TContext = List<TData>> = (
+    this: TContext,
+    item: TData,
+    node: ListItem<TData>,
+    list: List<TData>
+) => TResult;
+export type FilterFn<TData, TResult extends TData, TContext = List<TData>> = (
+    this: TContext,
+    item: TData,
+    node: ListItem<TData>,
+    list: List<TData>
+) => item is TResult;
 
 export class List<TData> {
     constructor();
@@ -395,7 +405,7 @@ export interface WhiteSpace extends CssNodeCommon {
 }
 
 export type CssNode =
-    AnPlusB
+    | AnPlusB
     | Atrule
     | AtrulePrelude
     | AttributeSelector
@@ -437,7 +447,7 @@ export type CssNode =
     | WhiteSpace;
 
 export type CssNodePlain =
-    AnPlusB
+    | AnPlusB
     | AtrulePlain
     | AtrulePreludePlain
     | AttributeSelector

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 declare namespace ReactInputMask {
     interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -43,7 +43,6 @@ declare namespace ReactInputMask {
     }
 }
 
-declare class ReactInputMask extends React.Component<ReactInputMask.Props> {
-}
+declare class ReactInputMask extends React.Component<ReactInputMask.Props> {}
 
 export default ReactInputMask;

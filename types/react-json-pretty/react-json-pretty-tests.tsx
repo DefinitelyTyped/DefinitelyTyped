@@ -1,16 +1,16 @@
-import * as React from "react";
-import JSONPretty = require("react-json-pretty");
+import * as React from 'react';
+import JSONPretty = require('react-json-pretty');
 
 export class Test extends React.Component {
     render() {
         const json = {
-            foo: "bar"
+            foo: 'bar',
         };
 
         return (
             <div>
-                <JSONPretty json={ json } />
-                <JSONPretty json={ JSON.stringify(json) } />
+                <JSONPretty json={json} />
+                <JSONPretty json={JSON.stringify(json)} />
             </div>
         );
     }

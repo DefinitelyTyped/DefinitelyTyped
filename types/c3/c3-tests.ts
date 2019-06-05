@@ -150,15 +150,15 @@ function data_examples() {
                 grouped: true,
                 multiple: true,
                 draggable: true,
-                isselectable: (d) => true,
+                isselectable: d => true,
             },
             onclick: (d, element) => {
                 /* code */
             },
-            onmouseover: (d) => {
+            onmouseover: d => {
                 /* code */
             },
-            onmouseout: (d) => {
+            onmouseout: d => {
                 /* code */
             },
         },
@@ -270,7 +270,7 @@ function axis_examples() {
                     position: 'outer-middle',
                 },
                 tick: {
-                    format: (d) => '$' + d,
+                    format: d => '$' + d,
                 },
             },
             y2: {
@@ -328,13 +328,13 @@ function legend_examples() {
                 step: undefined,
             },
             item: {
-                onclick: (id) => {
+                onclick: id => {
                     /* code */
                 },
-                onmouseover: (id) => {
+                onmouseover: id => {
                     /* code */
                 },
-                onmouseout: (id) => {
+                onmouseout: id => {
                     /* code */
                 },
             },
@@ -371,7 +371,7 @@ function subchart_examples() {
                 height: 20,
             },
 
-            onbrush: (domain) => {
+            onbrush: domain => {
                 /* code */
             },
         },
@@ -386,13 +386,13 @@ function zoom_examples() {
             type: 'scroll',
             rescale: true,
             extent: [1, 100], // enable more zooming
-            onzoom: (domain) => {
+            onzoom: domain => {
                 /* code */
             },
-            onzoomstart: (event) => {
+            onzoomstart: event => {
                 /* code */
             },
-            onzoomend: (domain) => {
+            onzoomend: domain => {
                 /* code */
             },
         },
@@ -521,10 +521,7 @@ function gauge_examples() {
 function simple_multiple() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
     });
 
@@ -543,15 +540,7 @@ function timeseries() {
             x: 'x',
             xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
             columns: [
-                [
-                    'x',
-                    '20130101',
-                    '20130102',
-                    '20130103',
-                    '20130104',
-                    '20130105',
-                    '20130106',
-                ],
+                ['x', '20130101', '20130102', '20130103', '20130104', '20130105', '20130106'],
                 ['data1', 30, 200, 100, 400, 150, 250],
                 ['data2', 130, 340, 200, 500, 250, 350],
             ],
@@ -570,10 +559,7 @@ function timeseries() {
 function chart_spline() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'spline',
         },
     });
@@ -612,10 +598,7 @@ function simple_xy_multiple() {
 function simple_regions() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             regions: {
                 data1: [{ start: 1, end: 2, style: 'dashed' }, { start: 3 }], // currently 'dashed' style only
                 data2: [{ end: 3 }],
@@ -627,10 +610,7 @@ function simple_regions() {
 function chart_step() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 300, 350, 300, 0, 0, 100],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 300, 350, 300, 0, 0, 100], ['data2', 130, 100, 140, 200, 150, 50]],
             types: {
                 data1: 'step',
                 data2: 'area-step',
@@ -642,10 +622,7 @@ function chart_step() {
 function area_chart() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 300, 350, 300, 0, 0, 0],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 300, 350, 300, 0, 0, 0], ['data2', 130, 100, 140, 200, 150, 50]],
             types: {
                 data1: 'area',
                 data2: 'area-spline',
@@ -657,10 +634,7 @@ function area_chart() {
 function chart_area_stacked() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 300, 350, 300, 0, 0, 120],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 300, 350, 300, 0, 0, 120], ['data2', 130, 100, 140, 200, 150, 50]],
             types: {
                 data1: 'area-spline',
                 data2: 'area-spline',
@@ -674,10 +648,7 @@ function chart_area_stacked() {
 function chart_bar() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'bar',
         },
         bar: {
@@ -1064,17 +1035,7 @@ function categorized() {
         axis: {
             x: {
                 type: 'category',
-                categories: [
-                    'cat1',
-                    'cat2',
-                    'cat3',
-                    'cat4',
-                    'cat5',
-                    'cat6',
-                    'cat7',
-                    'cat8',
-                    'cat9',
-                ],
+                categories: ['cat1', 'cat2', 'cat3', 'cat4', 'cat5', 'cat6', 'cat7', 'cat8', 'cat9'],
             },
         },
     });
@@ -1083,10 +1044,7 @@ function categorized() {
 function axes_rotated() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             types: {
                 data1: 'bar',
             },
@@ -1100,10 +1058,7 @@ function axes_rotated() {
 function axes_y2() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             axes: {
                 data1: 'y',
                 data2: 'y2',
@@ -1122,15 +1077,7 @@ function axes_x_tick_format() {
         data: {
             x: 'x',
             columns: [
-                [
-                    'x',
-                    '2010-01-01',
-                    '2011-01-01',
-                    '2012-01-01',
-                    '2013-01-01',
-                    '2014-01-01',
-                    '2015-01-01',
-                ],
+                ['x', '2010-01-01', '2011-01-01', '2012-01-01', '2013-01-01', '2014-01-01', '2015-01-01'],
                 ['sample', 30, 200, 100, 400, 150, 250],
             ],
         },
@@ -1166,21 +1113,7 @@ function axes_x_tick_count() {
                     '2013-01-11',
                     '2013-01-12',
                 ],
-                [
-                    'sample',
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                ],
+                ['sample', 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250],
             ],
         },
         axis: {
@@ -1215,21 +1148,7 @@ function axes_x_tick_values() {
                     '2013-01-11',
                     '2013-01-12',
                 ],
-                [
-                    'sample',
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                    30,
-                    200,
-                    100,
-                    400,
-                    150,
-                    250,
-                ],
+                ['sample', 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250],
             ],
         },
         axis: {
@@ -1295,10 +1214,7 @@ function axes_x_tick_fit() {
     const chart = c3.generate({
         data: {
             x: 'x',
-            columns: [
-                ['x', '2013-10-31', '2013-12-31', '2014-01-31', '2014-02-28'],
-                ['sample', 30, 100, 400, 150],
-            ],
+            columns: [['x', '2013-10-31', '2013-12-31', '2014-01-31', '2014-02-28'], ['sample', 30, 100, 400, 150]],
         },
         axis: {
             x: {
@@ -1316,10 +1232,7 @@ function axes_x_tick_width() {
     const chart = c3.generate({
         data: {
             x: 'x',
-            columns: [
-                ['x', '2013-10-31', '2013-12-31', '2014-01-31', '2014-02-28'],
-                ['sample', 30, 100, 400, 150],
-            ],
+            columns: [['x', '2013-10-31', '2013-12-31', '2014-01-31', '2014-02-28'], ['sample', 30, 100, 400, 150]],
         },
         axis: {
             x: {
@@ -1378,21 +1291,7 @@ function axes_x_tick_rotate() {
                     'www.somesitename11.com',
                     'www.somesitename12.com',
                 ],
-                [
-                    'pv',
-                    90,
-                    100,
-                    140,
-                    200,
-                    100,
-                    400,
-                    90,
-                    100,
-                    140,
-                    200,
-                    100,
-                    400,
-                ],
+                ['pv', 90, 100, 140, 200, 100, 400, 90, 100, 140, 200, 100, 400],
             ],
             type: 'bar',
         },
@@ -1428,10 +1327,7 @@ function axes_y_tick_format() {
 function axes_y_padding() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             axes: {
                 data1: 'y',
                 data2: 'y2',
@@ -1468,10 +1364,7 @@ function axes_y_range() {
 function axes_label() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['sample', 30, 200, 100, 400, 150, 250],
-                ['sample2', 130, 300, 200, 500, 250, 350],
-            ],
+            columns: [['sample', 30, 200, 100, 400, 150, 250], ['sample2', 130, 300, 200, 500, 250, 350]],
             axes: {
                 sample2: 'y2',
             },
@@ -1494,10 +1387,7 @@ function axes_label() {
 function axes_label_position() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['sample1', 30, 200, 100, 400, 150, 250],
-                ['sample2', 430, 300, 500, 400, 650, 250],
-            ],
+            columns: [['sample1', 30, 200, 100, 400, 150, 250], ['sample2', 430, 300, 500, 400, 650, 250]],
             axes: {
                 sample1: 'y',
                 sample2: 'y2',
@@ -1687,13 +1577,7 @@ function data_stringx() {
         data: {
             x: 'x',
             columns: [
-                [
-                    'x',
-                    'www.site1.com',
-                    'www.site2.com',
-                    'www.site3.com',
-                    'www.site4.com',
-                ],
+                ['x', 'www.site1.com', 'www.site2.com', 'www.site3.com', 'www.site4.com'],
                 ['download', 30, 200, 100, 400],
                 ['loading', 90, 100, 140, 200],
             ],
@@ -1710,13 +1594,7 @@ function data_stringx() {
     setTimeout(() => {
         chart.load({
             columns: [
-                [
-                    'x',
-                    'www.siteA.com',
-                    'www.siteB.com',
-                    'www.siteC.com',
-                    'www.siteD.com',
-                ],
+                ['x', 'www.siteA.com', 'www.siteB.com', 'www.siteC.com', 'www.siteD.com'],
                 ['download', 130, 200, 150, 350],
                 ['loading', 190, 180, 190, 140],
             ],
@@ -1736,13 +1614,7 @@ function data_stringx() {
     setTimeout(() => {
         chart.load({
             columns: [
-                [
-                    'x',
-                    'www.site1.com',
-                    'www.site2.com',
-                    'www.site3.com',
-                    'www.site4.com',
-                ],
+                ['x', 'www.site1.com', 'www.site2.com', 'www.site3.com', 'www.site4.com'],
                 ['download', 130, 300, 200, 470],
                 ['loading', 190, 130, 240, 340],
             ],
@@ -1751,10 +1623,7 @@ function data_stringx() {
 
     setTimeout(() => {
         chart.load({
-            columns: [
-                ['download', 30, 30, 20, 170],
-                ['loading', 90, 30, 40, 40],
-            ],
+            columns: [['download', 30, 30, 20, 170], ['loading', 90, 30, 40, 40]],
         });
     }, 4000);
 
@@ -1781,25 +1650,14 @@ function data_load() {
 
     setTimeout(() => {
         chart.load({
-            columns: [
-                ['data1', 130, 120, 150, 140, 160, 150],
-                ['data4', 30, 20, 50, 40, 60, 50],
-            ],
+            columns: [['data1', 130, 120, 150, 140, 160, 150], ['data4', 30, 20, 50, 40, 60, 50]],
             unload: ['data2', 'data3'],
         });
     }, 2000);
 
     setTimeout(() => {
         chart.load({
-            rows: [
-                ['data2', 'data3'],
-                [120, 300],
-                [160, 240],
-                [200, 290],
-                [160, 230],
-                [130, 300],
-                [220, 320],
-            ],
+            rows: [['data2', 'data3'], [120, 300], [160, 240], [200, 290], [160, 230], [130, 300], [220, 320]],
             unload: 'data4',
         });
     }, 3000);
@@ -1844,15 +1702,7 @@ function data_load() {
 
     setTimeout(() => {
         chart.load({
-            rows: [
-                ['data5', 'data6'],
-                [190, 420],
-                [140, 460],
-                [150, 500],
-                [220, 460],
-                [180, 430],
-                [190, 520],
-            ],
+            rows: [['data5', 'data6'], [190, 420], [140, 460], [150, 500], [220, 460], [180, 430], [190, 520]],
             type: 'line',
         });
     }, 9000);
@@ -1867,10 +1717,7 @@ function data_load() {
 function data_name() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             names: {
                 data1: 'Name 1',
                 data2: 'Name 2',
@@ -1895,9 +1742,7 @@ function data_color() {
             },
             color: (color, d) => {
                 // d will be 'id' when called for legends
-                return d.id && d.id === 'data3'
-                    ? d3.rgb(color).darker(d.value / 150)
-                    : color;
+                return d.id && d.id === 'data3' ? d3.rgb(color).darker(d.value / 150) : color;
             },
         },
     });
@@ -2027,10 +1872,7 @@ function grid_x_lines() {
 function grid_y_lines() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['sample', 30, 200, 100, 400, 150, 250],
-                ['sample2', 1300, 1200, 1100, 1400, 1500, 1250],
-            ],
+            columns: [['sample', 30, 200, 100, 400, 150, 250], ['sample2', 1300, 1200, 1100, 1400, 1500, 1250]],
             axes: {
                 sample2: 'y2',
             },
@@ -2064,10 +1906,7 @@ function grid_y_lines() {
 function region() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250, 400],
-                ['data2', 830, 1200, 1100, 1400, 1150, 1250, 1500],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250, 400], ['data2', 830, 1200, 1100, 1400, 1150, 1250, 1500]],
             axes: {
                 data2: 'y2',
             },
@@ -2096,14 +1935,7 @@ function region_timeseries() {
         data: {
             x: 'date',
             columns: [
-                [
-                    'date',
-                    '2014-01-01',
-                    '2014-01-10',
-                    '2014-01-20',
-                    '2014-01-30',
-                    '2014-02-01',
-                ],
+                ['date', '2014-01-01', '2014-01-10', '2014-01-20', '2014-01-30', '2014-02-01'],
                 ['sample', 30, 200, 100, 400, 150, 250],
             ],
         },
@@ -2222,10 +2054,7 @@ function options_legend() {
 function legend_position() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
         legend: {
             position: 'right',
@@ -2275,20 +2104,20 @@ function legend_custom() {
         .data(['data1', 'data2', 'data3'])
         .enter()
         .append('span')
-        .attr('data-id', (id) => id)
-        .html((id) => id)
+        .attr('data-id', id => id)
+        .html(id => id)
         .each(function(id) {
             // this is most likely the wrong context now
             // tslint:disable-next-line
             d3.select(this).style('background-color', chart.color(id));
         })
-        .on('mouseover', (id) => {
+        .on('mouseover', id => {
             chart.focus(id);
         })
-        .on('mouseout', (id) => {
+        .on('mouseout', id => {
             chart.revert();
         })
-        .on('click', (id) => {
+        .on('click', id => {
             chart.toggle(id);
         });
 }
@@ -2319,10 +2148,7 @@ function legend_tiles() {
 function tooltip_show() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
         tooltip: {
             show: false,
@@ -2348,10 +2174,7 @@ function tooltip_grouped() {
 function tooltip_format() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30000, 20000, 10000, 40000, 15000, 250000],
-                ['data2', 100, 200, 100, 40, 150, 250],
-            ],
+            columns: [['data1', 30000, 20000, 10000, 40000, 15000, 250000], ['data2', 100, 200, 100, 40, 150, 250]],
             axes: {
                 data2: 'y2',
             },
@@ -2373,8 +2196,7 @@ function tooltip_format() {
             format: {
                 title: (d: any) => 'Data ' + d,
                 value: (value: any, ratio: any, id: any) => {
-                    const format =
-                        id === 'data1' ? d3.format(',') : d3.format('$');
+                    const format = id === 'data1' ? d3.format(',') : d3.format('$');
                     return format(value);
                 },
                 //            value: d3.format(",") // apply this format to both y and y2
@@ -2386,10 +2208,7 @@ function tooltip_format() {
 function tooltip_order() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
         tooltip: {
             order: 'asc',
@@ -2400,10 +2219,7 @@ function tooltip_order() {
 function tooltip_order_function() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
         tooltip: {
             order: (data1, data2) => {
@@ -2537,10 +2353,7 @@ function transition_duration() {
 function point_show() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
         point: {
             show: false,
@@ -2595,23 +2408,12 @@ function api_flow() {
 
     setTimeout(() => {
         chart.flow({
-            columns: [
-                ['x', '2013-01-11', '2013-01-21'],
-                ['data1', 500, 200],
-                ['data2', 100, 300],
-                ['data3', 200, 120],
-            ],
+            columns: [['x', '2013-01-11', '2013-01-21'], ['data1', 500, 200], ['data2', 100, 300], ['data3', 200, 120]],
             duration: 1500,
             done: () => {
                 chart.flow({
                     columns: [
-                        [
-                            'x',
-                            '2013-02-11',
-                            '2013-02-12',
-                            '2013-02-13',
-                            '2013-02-14',
-                        ],
+                        ['x', '2013-02-11', '2013-02-12', '2013-02-13', '2013-02-14'],
                         ['data1', 200, 300, 100, 250],
                         ['data2', 100, 90, 40, 120],
                         ['data3', 100, 100, 300, 500],
@@ -2651,10 +2453,7 @@ function api_flow() {
 function api_data_name() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             names: {
                 data1: 'Name 1',
                 data2: 'Name 2',
@@ -2712,10 +2511,7 @@ function api_data_color() {
 function api_axis_label() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             axes: {
                 data1: 'y',
                 data2: 'y2',
@@ -2747,10 +2543,7 @@ function api_axis_label() {
 function api_axis_range() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
             axes: {
                 data1: 'y',
                 data2: 'y2',
@@ -2803,10 +2596,7 @@ function api_axis_range() {
 function api_resize() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 50, 20, 10, 40, 15, 25]],
         },
     });
 
@@ -2832,10 +2622,7 @@ function api_grid_x() {
     });
 
     setTimeout(() => {
-        chart.xgrids([
-            { value: 1, text: 'Label 1' },
-            { value: 4, text: 'Label 4' },
-        ]);
+        chart.xgrids([{ value: 1, text: 'Label 1' }, { value: 4, text: 'Label 4' }]);
     }, 1000);
 
     setTimeout(() => {
@@ -2855,10 +2642,7 @@ function api_grid_x() {
     }, 5000);
 
     setTimeout(() => {
-        chart.xgrids([
-            { value: 1, text: 'Label 1' },
-            { value: 4, text: 'Label 4' },
-        ]);
+        chart.xgrids([{ value: 1, text: 'Label 1' }, { value: 4, text: 'Label 4' }]);
     }, 6000);
 
     setTimeout(() => {
@@ -2873,10 +2657,7 @@ function api_grid_x() {
 function transform_line() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'bar',
         },
     });
@@ -2901,10 +2682,7 @@ function transform_line() {
 function transform_spline() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'bar',
         },
     });
@@ -2929,10 +2707,7 @@ function transform_spline() {
 function transform_bar() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'line',
         },
     });
@@ -2957,10 +2732,7 @@ function transform_bar() {
 function transform_area() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'bar',
         },
     });
@@ -2985,10 +2757,7 @@ function transform_area() {
 function transform_areaspline() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
             type: 'bar',
         },
     });
@@ -3263,10 +3032,7 @@ function transform_scatter() {
 function transform_pie() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
         },
     });
 
@@ -3286,10 +3052,7 @@ function transform_pie() {
 function transform_donut() {
     const chart = c3.generate({
         data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 130, 100, 140, 200, 150, 50],
-            ],
+            columns: [['data1', 30, 200, 100, 400, 150, 250], ['data2', 130, 100, 140, 200, 150, 50]],
         },
     });
 
@@ -3330,16 +3093,10 @@ function style_grid() {
         },
         grid: {
             x: {
-                lines: [
-                    { value: 2 },
-                    { value: 4, class: 'grid4', text: 'LABEL 4' },
-                ],
+                lines: [{ value: 2 }, { value: 4, class: 'grid4', text: 'LABEL 4' }],
             },
             y: {
-                lines: [
-                    { value: 500 },
-                    { value: 800, class: 'grid800', text: 'LABEL 800' },
-                ],
+                lines: [{ value: 500 }, { value: 800, class: 'grid800', text: 'LABEL 800' }],
             },
         },
     });

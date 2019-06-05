@@ -1,8 +1,8 @@
-import * as yesql from "yesql";
+import * as yesql from 'yesql';
 
 yesql(''); // $ExpectType string
-yesql('', {pg: true}); // $ExpectType string
-yesql('', {type: 'mysql'}); // $ExpectType string
+yesql('', { pg: true }); // $ExpectType string
+yesql('', { type: 'mysql' }); // $ExpectType string
 
 yesql.pg(''); // $ExpectType (data: object) => { text: string; values: any[]; }
 yesql.pg('')({}); // $ExpectType { text: string; values: any[]; }

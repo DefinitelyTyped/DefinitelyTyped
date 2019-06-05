@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load URL Shortener API v1 */
-    function load(name: "urlshortener", version: "v1"): PromiseLike<void>;
-    function load(name: "urlshortener", version: "v1", callback: () => any): void;
+    function load(name: 'urlshortener', version: 'v1'): PromiseLike<void>;
+    function load(name: 'urlshortener', version: 'v1', callback: () => any): void;
 
     const url: urlshortener.UrlResource;
 
@@ -145,7 +145,7 @@ declare namespace gapi.client {
                  */
                 quotaUser?: string;
                 /** Token for requesting successive pages of results. */
-                "start-token"?: string;
+                'start-token'?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<UrlHistory>;

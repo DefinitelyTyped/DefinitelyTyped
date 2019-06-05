@@ -14,11 +14,7 @@ declare class Cache<K, V> {
     reset(): void;
     size(): number;
     values(): V[];
-    wrap(
-        key: K,
-        revalidate: Cache.RevalidationCallback<K, V>,
-        callback: Cache.OptionsCallback<K, V>
-    ): void;
+    wrap(key: K, revalidate: Cache.RevalidationCallback<K, V>, callback: Cache.OptionsCallback<K, V>): void;
 }
 
 declare namespace Cache {

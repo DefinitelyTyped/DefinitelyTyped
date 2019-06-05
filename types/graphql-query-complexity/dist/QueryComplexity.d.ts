@@ -1,7 +1,17 @@
 /**
  * Created by Ivo Meißner on 28.07.17.
  */
-import { ValidationContext, FragmentDefinitionNode, OperationDefinitionNode, FieldNode, InlineFragmentNode, GraphQLUnionType, GraphQLObjectType, GraphQLInterfaceType, GraphQLError } from 'graphql';
+import {
+    ValidationContext,
+    FragmentDefinitionNode,
+    OperationDefinitionNode,
+    FieldNode,
+    InlineFragmentNode,
+    GraphQLUnionType,
+    GraphQLObjectType,
+    GraphQLInterfaceType,
+    GraphQLError,
+} from 'graphql';
 export interface QueryComplexityOptions {
     maximumComplexity: number;
     variables?: object;
@@ -19,8 +29,11 @@ export default class QueryComplexity {
     constructor(context: ValidationContext, options: QueryComplexityOptions);
     onOperationDefinitionEnter(operation: OperationDefinitionNode): void;
     onOperationDefinitionLeave(): GraphQLError | undefined;
-    nodeComplexity(node: FieldNode | FragmentDefinitionNode | InlineFragmentNode |
-         OperationDefinitionNode, typeDef: GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType, complexity?: number): number;
+    nodeComplexity(
+        node: FieldNode | FragmentDefinitionNode | InlineFragmentNode | OperationDefinitionNode,
+        typeDef: GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType,
+        complexity?: number
+    ): number;
     createError(): GraphQLError;
     getDefaultComplexity(args: object, childScore: number): number;
 }

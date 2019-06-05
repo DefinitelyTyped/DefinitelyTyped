@@ -3,14 +3,13 @@
 // Definitions by: MichaelBennett <https://github.com/bennett000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare let invariant:invariant.InvariantStatic;
+declare let invariant: invariant.InvariantStatic;
 
 export = invariant;
 export as namespace invariant;
 
 declare namespace invariant {
-  interface InvariantStatic {
-    (testValue:any, format?:string, ...extra:any[]):void;
-  }
+    interface InvariantStatic {
+        (testValue: any, format?: string, ...extra: any[]): void;
+    }
 }
-

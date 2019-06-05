@@ -4,6 +4,6 @@ import formatUnicorn = require('format-unicorn/safe');
 let outputString: string;
 
 outputString = formatUnicorn('Hello, {name}; you have {favoriteNumber}', {
-  name: "kruncher",
-  favoriteNumber: 42
+    name: 'kruncher',
+    favoriteNumber: 42,
 });

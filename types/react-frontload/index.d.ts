@@ -20,12 +20,12 @@ export const Frontload: ComponentClass<FrontloadProps>;
 
 export function frontloadConnect(
     frontload: (props: any) => Promise<void>,
-    options?: FrontloadConnectOptions,
+    options?: FrontloadConnectOptions
 ): <P = {}>(Component: ComponentType<P>) => ComponentType<P>;
 
 export function frontloadServerRender(
     renderMarkup: (dryRun?: boolean) => string,
-    withLogging?: boolean,
+    withLogging?: boolean
 ): Promise<string>;
 
 export as namespace ReactFrontload;

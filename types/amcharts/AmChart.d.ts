@@ -1,8 +1,8 @@
-import AmBalloon from "./AmBalloon";
-import AmLegend from "./AmLegend";
-import ExportSettings from "./ExportSettings";
-import Label from "./Label";
-import Title from "./Title";
+import AmBalloon from './AmBalloon';
+import AmLegend from './AmLegend';
+import ExportSettings from './ExportSettings';
+import Label from './Label';
+import Title from './Title';
 
 /**
  * AmChart is a base class of all charts. It can not be instantiated explicitly.
@@ -270,7 +270,7 @@ export default class AmChart {
         rotation?: number,
         alpha?: number,
         bold?: boolean,
-        url?: string,
+        url?: string
     ): any;
     /**
      * Adds a legend to the chart.
@@ -344,12 +344,10 @@ export default class AmChart {
      */
     addListener(
         type: string,
-        handler: (
-            e: {
-                type: string; // Either "dataUpdated" or "init".
-                chart: AmChart;
-            },
-        ) => void,
+        handler: (e: {
+            type: string; // Either "dataUpdated" or "init".
+            chart: AmChart;
+        }) => void
     ): void;
     /**
      * Removes event listener from chart object.

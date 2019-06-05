@@ -90,7 +90,7 @@ export interface TwixStatic {
     formatTemplate?: (left: any, right: any) => any;
 }
 
-declare module "moment" {
+declare module 'moment' {
     interface Moment {
         twix(date: Date): Twix;
         twix(date: Date, allDay: boolean): Twix;

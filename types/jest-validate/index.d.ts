@@ -10,18 +10,11 @@ export class ValidationError extends Error {
     constructor(name: string, message: string, comment?: string);
 }
 
-export function createDidYouMeanMessage(
-    unrecognized: string,
-    allowedOptions: string[]
-): string;
+export function createDidYouMeanMessage(unrecognized: string, allowedOptions: string[]): string;
 
 export function format(value: any): string;
 
-export function logValidationWarning(
-    name: string,
-    message: string,
-    commant?: string
-): void;
+export function logValidationWarning(name: string, message: string, commant?: string): void;
 
 export interface Title {
     deprecation?: string;
@@ -57,30 +50,15 @@ export interface ValidationOptions {
     /**
      * optional functions responsible for displaying warning and error messages.
      */
-    deprecate?(
-        config: object,
-        key: string,
-        deprecatedConfig: DeprecatedConfig,
-        options: ValidationOptions
-    ): boolean;
+    deprecate?(config: object, key: string, deprecatedConfig: DeprecatedConfig, options: ValidationOptions): boolean;
     /**
      * optional functions responsible for displaying warning and error messages.
      */
-    error?(
-        key: string,
-        received: any,
-        exampleValue: any,
-        options: ValidationOptions
-    ): void;
+    error?(key: string, received: any, exampleValue: any, options: ValidationOptions): void;
     /**
      * optional functions responsible for displaying warning and error messages.
      */
-    unknown?(
-        config: object,
-        exampleConfig: object,
-        key: string,
-        options: ValidationOptions
-    ): void;
+    unknown?(config: object, exampleConfig: object, key: string, options: ValidationOptions): void;
 }
 
 /**

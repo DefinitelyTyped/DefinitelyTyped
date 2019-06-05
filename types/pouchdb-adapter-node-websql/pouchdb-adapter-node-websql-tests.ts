@@ -1,9 +1,6 @@
-function isBoolean(someBoolean: boolean) {
-}
-function isNumber(someNumber: number) {
-}
-function isString(someString: string) {
-}
+function isBoolean(someBoolean: boolean) {}
+function isNumber(someNumber: number) {}
+function isString(someString: string) {}
 
 function testConstructor() {
     interface MyModel {
@@ -18,7 +15,7 @@ function testConstructor() {
         adapter: 'websql',
     });
 
-    db.info().then((info) => {
+    db.info().then(info => {
         isBoolean(info.sqlite_plugin);
         isString(info.websql_encoding);
     });

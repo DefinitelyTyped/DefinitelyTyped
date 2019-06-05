@@ -1,53 +1,53 @@
-import * as React from "react";
-import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema } from "react-jsonschema-form";
-import { JSONSchema6 } from "json-schema";
+import * as React from 'react';
+import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema } from 'react-jsonschema-form';
+import { JSONSchema6 } from 'json-schema';
 
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
 
 const schema: JSONSchema6 = {
-    title: "A registration form",
-    type: "object",
-    required: ["firstName", "lastName"],
+    title: 'A registration form',
+    type: 'object',
+    required: ['firstName', 'lastName'],
     properties: {
         firstName: {
-            type: "string",
-            title: "First name"
+            type: 'string',
+            title: 'First name',
         },
         lastName: {
-            type: "string",
-            title: "Last name"
+            type: 'string',
+            title: 'Last name',
         },
         age: {
-            type: "integer",
-            title: "Age"
+            type: 'integer',
+            title: 'Age',
         },
         bio: {
-            type: "string",
-            title: "Bio"
+            type: 'string',
+            title: 'Bio',
         },
         password: {
-            type: "string",
-            title: "Password",
-            minLength: 3
-        }
-    }
+            type: 'string',
+            title: 'Password',
+            minLength: 3,
+        },
+    },
 };
 
 const uiSchema: UiSchema = {
     age: {
-        "ui:widget": "updown"
+        'ui:widget': 'updown',
     },
     bio: {
-        "ui:widget": "textarea"
+        'ui:widget': 'textarea',
     },
     password: {
-        "ui:widget": "password",
-        "ui:help": "Hint: Make it strong!"
+        'ui:widget': 'password',
+        'ui:help': 'Hint: Make it strong!',
     },
     date: {
-        "ui:widget": "alt-datetime"
-    }
+        'ui:widget': 'alt-datetime',
+    },
 };
 
 interface IExampleState {
@@ -77,12 +77,12 @@ export default function ErrorListExample(props: ErrorListProps) {
 export class Example extends React.Component<any, IExampleState> {
     public state: IExampleState = {
         formData: {
-            firstName: "Chuck",
-            lastName: "Norris",
+            firstName: 'Chuck',
+            lastName: 'Norris',
             age: 75,
-            bio: "Roundhouse kicking asses since 1940",
-            password: "noneed"
-        }
+            bio: 'Roundhouse kicking asses since 1940',
+            password: 'noneed',
+        },
     };
 
     constructor(props: any) {
@@ -128,32 +128,24 @@ export const FuncExample = (props: FuncExampleProps) => {
             ErrorList={ErrorListExample}
             onChange={(formData, errorSchema) => {
                 onChange(formData);
-                onError(errorSchema)
+                onError(errorSchema);
             }}
         />
     );
 };
 
-export const BooleanCustomWidget: React.SFC<WidgetProps> = (props) =>
-    <input
-        onFocus={()=> props.onFocus('id', true)}
-        onBlur={()=> props.onFocus('id', true)}
-    />
+export const BooleanCustomWidget: React.SFC<WidgetProps> = props => (
+    <input onFocus={() => props.onFocus('id', true)} onBlur={() => props.onFocus('id', true)} />
+);
 
-export const NumberCustomWidget: React.SFC<WidgetProps> = (props) =>
-    <input
-        onFocus={()=> props.onFocus('id', 0)}
-        onBlur={()=> props.onFocus('id', 0)}
-    />
+export const NumberCustomWidget: React.SFC<WidgetProps> = props => (
+    <input onFocus={() => props.onFocus('id', 0)} onBlur={() => props.onFocus('id', 0)} />
+);
 
-export const StringCustomWidget: React.SFC<WidgetProps> = (props) =>
-    <input
-        onFocus={()=> props.onFocus('id', 'value')}
-        onBlur={()=> props.onFocus('id', 'value')}
-    />
+export const StringCustomWidget: React.SFC<WidgetProps> = props => (
+    <input onFocus={() => props.onFocus('id', 'value')} onBlur={() => props.onFocus('id', 'value')} />
+);
 
-export const NullCustomWidget: React.SFC<WidgetProps> = (props) =>
-    <input
-        onFocus={()=> props.onFocus('id', null)}
-        onBlur={()=> props.onFocus('id', null)}
-    />
+export const NullCustomWidget: React.SFC<WidgetProps> = props => (
+    <input onFocus={() => props.onFocus('id', null)} onBlur={() => props.onFocus('id', null)} />
+);

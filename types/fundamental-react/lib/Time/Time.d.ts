@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface TimeBaseProps {
     /* Set to **true** to use the 12-hour clock (hours ranging from 01 to 12) and to display a meridiem control. */
@@ -51,12 +51,7 @@ export type TimeProps = TimeBaseProps & {
     secondsInputProps?: { [x: string]: any };
     /* Additional props to be spread to the seconds up `<button>` element. */
     secondsUpButtonProps?: { [x: string]: any };
-    onChange?: (time: {
-        hour: string;
-        minute: string;
-        second: string;
-        meridiem: 0 | 1;
-    }) => void;
+    onChange?: (time: { hour: string; minute: string; second: string; meridiem: 0 | 1 }) => void;
 } & { [x: string]: any };
 
 declare class Time extends React.Component<TimeProps> {}

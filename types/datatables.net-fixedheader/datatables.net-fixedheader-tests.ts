@@ -4,12 +4,12 @@ let config_1: DataTables.Settings = {
         footer: true,
         footerOffset: 4,
         header: true,
-        headerOffset: 3
-    }
+        headerOffset: 3,
+    },
 };
 
-let dt: DataTables.Api = $("selector").DataTable({
-    fixedHeader: true
+let dt: DataTables.Api = $('selector').DataTable({
+    fixedHeader: true,
 });
 
 // Statics
@@ -29,6 +29,4 @@ dt.fixedHeader.disable();
 dt.fixedHeader.enable(true);
 
 // Chaining
-dt
-    .fixedHeader.footerOffset(10)
-    .fixedHeader.headerOffset(10);
+dt.fixedHeader.footerOffset(10).fixedHeader.headerOffset(10);

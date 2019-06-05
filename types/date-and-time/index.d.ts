@@ -21,11 +21,7 @@ export interface Subtract {
  * @returns The formatted string
  *
  */
-export function format(
-    dateObj: Date,
-    formatString: string,
-    utc?: boolean
-): string;
+export function format(dateObj: Date, formatString: string, utc?: boolean): string;
 
 /**
  * Parsing a date string
@@ -34,11 +30,7 @@ export function format(
  * @param [utc] - input as UTC
  * @returns the constructed date or NaN
  */
-export function parse(
-    dateString: string,
-    formatString: string,
-    utc?: boolean
-): Date | number;
+export function parse(dateString: string, formatString: string, utc?: boolean): Date | number;
 
 /**
  * Validation

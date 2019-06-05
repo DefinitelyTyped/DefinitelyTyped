@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load APIs Discovery Service v1 */
-    function load(name: "discovery", version: "v1"): PromiseLike<void>;
-    function load(name: "discovery", version: "v1", callback: () => any): void;
+    function load(name: 'discovery', version: 'v1'): PromiseLike<void>;
+    function load(name: 'discovery', version: 'v1', callback: () => any): void;
 
     const apis: discovery.ApisResource;
 
@@ -125,10 +125,13 @@ declare namespace gapi.client {
                 /** OAuth 2.0 authentication information. */
                 oauth2?: {
                     /** Available OAuth 2.0 scopes. */
-                    scopes?: Record<string, {
-                        /** Description of scope. */
-                        description?: string;
-                    }>;
+                    scopes?: Record<
+                        string,
+                        {
+                            /** Description of scope. */
+                            description?: string;
+                        }
+                    >;
                 };
             };
             /** [DEPRECATED] The base path for REST requests. */

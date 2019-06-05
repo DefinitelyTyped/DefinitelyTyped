@@ -1,5 +1,4 @@
-
-import bCrypt = require("bcrypt-nodejs");
+import bCrypt = require('bcrypt-nodejs');
 
 function test_sync() {
     var salt1 = bCrypt.genSaltSync();

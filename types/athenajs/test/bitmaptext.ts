@@ -12,7 +12,7 @@ const bitmap: BitmapText = new BitmapText('myBitmap', {
     startY: 36,
     charWidth: 18,
     charHeight: 18,
-    imageId: 'font'
+    imageId: 'font',
 });
 
 bitmap.center();

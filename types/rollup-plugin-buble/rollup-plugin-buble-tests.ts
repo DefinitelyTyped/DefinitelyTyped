@@ -37,7 +37,7 @@ import buble = require('rollup-plugin-buble');
             stickyRegExp: true,
             templateString: false,
             unicodeRegExp: true,
-        }
+        },
     });
 })();
 

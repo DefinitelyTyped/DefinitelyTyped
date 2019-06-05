@@ -1,2 +1,2 @@
-import { thru } from "../fp";
+import { thru } from '../fp';
 export = thru;

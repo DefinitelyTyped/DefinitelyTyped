@@ -99,11 +99,7 @@ declare class WPAPI {
      * @param restBase A REST route string, e.g. '/author/(?P\d+)'
      * @param options An (optional) options object
      */
-    registerRoute(
-        namespace: string,
-        restBase: string,
-        options?: WPAPI.RegisterRouteOptions
-    ): WPAPI.WPRequestFactory;
+    registerRoute(namespace: string, restBase: string, options?: WPAPI.RegisterRouteOptions): WPAPI.WPRequestFactory;
 
     /**
      * Set the default headers to use for all HTTP requests created from this
@@ -296,7 +292,7 @@ declare namespace WPAPI {
          *
          * @param direction The order to use when sorting the response
          */
-        order(direction: "asc" | "desc"): WPRequest;
+        order(direction: 'asc' | 'desc'): WPRequest;
 
         /**
          * Order a collection by a specific field
@@ -321,10 +317,7 @@ declare namespace WPAPI {
          * parameter keys and their corresponding values
          * @param value The value of the parameter being set
          */
-        param(
-            props: string | { [name: string]: string | number | any[] },
-            value?: string | number | any[]
-        ): WPRequest;
+        param(props: string | { [name: string]: string | number | any[] }, value?: string | number | any[]): WPRequest;
 
         /**
          * Set the number of items to be returned in a page of responses.
@@ -348,10 +341,7 @@ declare namespace WPAPI {
          * names and their associated string values
          * @param value The value of the header being set
          */
-        setHeaders(
-            headers: string | { [name: string]: string },
-            value?: string
-        ): WPRequest;
+        setHeaders(headers: string | { [name: string]: string }, value?: string): WPRequest;
 
         /**
          * Set a component of the resource URL itself (as opposed to a query
@@ -382,10 +372,7 @@ declare namespace WPAPI {
          * @param failureCallback A callback to handle any errors encountered
          * by the request
          */
-        then(
-            successCallback?: (data: any) => void,
-            failureCallback?: (error: Error) => void
-        ): Promise<any>;
+        then(successCallback?: (data: any) => void, failureCallback?: (error: Error) => void): Promise<any>;
 
         /**
          * Parse the request into a WordPress API request URI string
@@ -473,10 +460,7 @@ declare namespace WPAPI {
         head?: TransportFunction;
     }
 
-    type TransportFunction = (
-        wpreq: WPRequest,
-        cb?: WPRequestCallback
-    ) => Promise<any>;
+    type TransportFunction = (wpreq: WPRequest, cb?: WPRequestCallback) => Promise<any>;
 
     interface Routes {
         [path: string]: Route;
@@ -491,7 +475,7 @@ declare namespace WPAPI {
         };
     }
 
-    type HTTPMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+    type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
     interface HTTPEndpoint {
         methods: HTTPMethod[];
@@ -511,13 +495,7 @@ declare namespace WPAPI {
         };
     }
 
-    type HTTPArgumentType =
-        | "string"
-        | "integer"
-        | "number"
-        | "boolean"
-        | "object"
-        | "array";
+    type HTTPArgumentType = 'string' | 'integer' | 'number' | 'boolean' | 'object' | 'array';
 
     interface HTTPHeaders {
         [key: string]: string;

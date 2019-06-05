@@ -4,7 +4,7 @@ var read: NodeJS.ReadableStream;
 
 // Types
 var strPredicate: gs.UniqueByStringPredicate = 'base';
-var fnPredicate: gs.UniqueByFunctionPredicate = (entry) => entry.path;
+var fnPredicate: gs.UniqueByFunctionPredicate = entry => entry.path;
 
 // Base cases
 read = gs('xx');

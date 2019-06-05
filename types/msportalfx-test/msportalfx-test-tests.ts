@@ -1,8 +1,8 @@
 import * as Q from 'q';
 import testFx = require('msportalfx-test');
 
-var galleryPackageName = "My.Package";
-var bladeTitle = "A Service";
+var galleryPackageName = 'My.Package';
+var bladeTitle = 'A Service';
 var resourceProvider = 'My.Provider';
 var resourceType = 'myResourceType';
 var resourceName = 'myResource';
@@ -19,20 +19,24 @@ var stringPromise: Q.Promise<string>;
 
 var summaryBlade = new testFx.Blades.Blade(resourceName);
 
-function TestPortal() {    
+function TestPortal() {
     testFx.portal.portalContext.signInEmail = userName;
     testFx.portal.portalContext.signInPassword = password;
-    testFx.portal.portalContext.features = [{ name: "greatfeature", value: "true" }];
+    testFx.portal.portalContext.features = [{ name: 'greatfeature', value: 'true' }];
     testFx.portal.portalContext.testExtensions = [{ name: extensionName, uri: extensionUrl }];
 
     anyPromise = testFx.portal.waitForElementLocated(summaryBlade.getLocator(), 30000);
     anyPromise = testFx.portal.quit();
     var createBladePromise = testFx.portal.openGalleryCreateBlade(galleryPackageName, bladeTitle, 20000);
     var browseResourcePromise = testFx.portal.openBrowseBlade(resourceProvider, resourceType, bladeTitle, 20000);
-    var bladePromise = testFx.portal.openResourceBlade(resourceId, summaryBlade.title, 20000)
-    var stringPromise = testFx.portal.takeScreenshot("TestPortal");
+    var bladePromise = testFx.portal.openResourceBlade(resourceId, summaryBlade.title, 20000);
+    var stringPromise = testFx.portal.takeScreenshot('TestPortal');
     var stringArrayPromise = testFx.portal.getBrowserLogs(testFx.LogLevel.All);
-    anyPromise = testFx.portal.waitUntilElementDoesNotContainAttribute(testFx.Locators.By.className('part'), 'class', 'invalid');
+    anyPromise = testFx.portal.waitUntilElementDoesNotContainAttribute(
+        testFx.Locators.By.className('part'),
+        'class',
+        'invalid'
+    );
     voidPromise = testFx.portal.goHome();
     boolPromise = testFx.portal.waitForElementVisible(summaryBlade.getLocator());
     var anyArrayPromise = testFx.portal.waitForElementsLocated(summaryBlade.getLocator());
@@ -64,7 +68,7 @@ function TestBlades() {
 }
 
 function TestParts() {
-    var part = new testFx.Parts.Part(summaryBlade.getLocator(), "Roles");
+    var part = new testFx.Parts.Part(summaryBlade.getLocator(), 'Roles');
     voidPromise = part.click();
     boolPromise = part.isSelected();
     boolPromise = part.waitUntilLoaded();
@@ -94,7 +98,7 @@ function TestControls() {
     var creatorAndSelectorPromise = creatorAndSelector.clickCreateNew();
     creatorAndSelectorPromise = creatorAndSelector.enterNewValue('XYZ');
 
-    var textField = new testFx.Controls.TextField(summaryBlade.getLocator(), "Resource name");
+    var textField = new testFx.Controls.TextField(summaryBlade.getLocator(), 'Resource name');
     var textFieldPromise = textField.sendKeys(resourceName);
 
     var hotSpot = new testFx.Controls.HotSpot(summaryBlade.getLocator());
@@ -104,7 +108,7 @@ function TestControls() {
 function TestActionBars() {
     var createBar = new testFx.ActionBars.CreateActionBar(summaryBlade.getLocator());
     voidPromise = createBar.createButton.click();
-    
+
     var deleteBar = new testFx.ActionBars.DeleteActionBar(summaryBlade.getLocator());
     voidPromise = deleteBar.deleteButton.click();
     voidPromise = deleteBar.cancelButton.click();
@@ -115,7 +119,7 @@ function TestActionBars() {
 
 function TestCommands() {
     var menu = new testFx.Commands.ContextMenu();
-    var itemName = "Pin";
+    var itemName = 'Pin';
     boolPromise = menu.hasItem(itemName);
     voidPromise = menu.clickItem(itemName);
 
@@ -130,7 +134,7 @@ function TestStartBoard() {
 
 function TestNotifications() {
     var menu = new testFx.Notifications.NotificationsMenu();
-    menu.waitForNewNotification("success").then((notification) => {
+    menu.waitForNewNotification('success').then(notification => {
         stringPromise = notification.getDescription();
     });
 }

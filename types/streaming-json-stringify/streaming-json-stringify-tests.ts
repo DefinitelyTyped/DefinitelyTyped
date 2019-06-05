@@ -6,9 +6,7 @@ const app = express();
 app.get('/things', (req, res) => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-    process.stdin
-        .pipe(Stringify())
-        .pipe(res);
+    process.stdin.pipe(Stringify()).pipe(res);
 });
 
 const replacer: Stringify.Replacer = () => {};
@@ -22,9 +20,9 @@ stringify.seperator = ',';
 stringify.closer = ']';
 stringify.stringifier = JSON.stringify;
 
-Stringify({replacer() {}});
-Stringify({space: 2});
-Stringify({opener: '['});
-Stringify({seperator: ','});
-Stringify({closer: ']'});
-Stringify({stringifier: JSON.stringify});
+Stringify({ replacer() {} });
+Stringify({ space: 2 });
+Stringify({ opener: '[' });
+Stringify({ seperator: ',' });
+Stringify({ closer: ']' });
+Stringify({ stringifier: JSON.stringify });

@@ -46,7 +46,7 @@ interface JQueryColor {
      * Returns a copy of the color object with the blue set to val.
      */
     blue(val: number): JQueryColor;
-    
+
     /**
      * Returns a copy of the color object with the blue set to val.
      */

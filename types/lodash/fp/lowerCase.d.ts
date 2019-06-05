@@ -1,2 +1,2 @@
-import { lowerCase } from "../fp";
+import { lowerCase } from '../fp';
 export = lowerCase;

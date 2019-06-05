@@ -7,12 +7,7 @@
 /// <reference types="node" />
 
 import { Stream as BunyanStream } from 'bunyan';
-import {
-    Config,
-    EventFormatter,
-    Logger as SplunkLogger,
-    SendContext
-} from 'splunk-logging';
+import { Config, EventFormatter, Logger as SplunkLogger, SendContext } from 'splunk-logging';
 
 export interface SplunkStream extends NodeJS.WritableStream {
     logger: SplunkLogger;

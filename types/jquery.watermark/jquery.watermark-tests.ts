@@ -14,7 +14,7 @@ $.watermark.options.hideBeforeUnload = false;
 $.watermark.options = {
     className: 'myClass',
     useNative: false,
-    hideBeforeUnload: false
+    hideBeforeUnload: false,
 };
 
 $.watermark.options.hideBeforeUnload = true;

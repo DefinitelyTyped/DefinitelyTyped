@@ -1,7 +1,7 @@
 import * as yauzl from 'yauzl';
 import { Writable } from 'stream';
 
-yauzl.open('path/to/file.zip', {lazyEntries: true}, (err, zipfile) => {
+yauzl.open('path/to/file.zip', { lazyEntries: true }, (err, zipfile) => {
     if (err) {
         throw err;
     }
@@ -27,4 +27,4 @@ yauzl.open('path/to/file.zip', {lazyEntries: true}, (err, zipfile) => {
     }
 });
 
-yauzl.open('options.zip', {strictFileNames: true}, () => {});
+yauzl.open('options.zip', { strictFileNames: true }, () => {});

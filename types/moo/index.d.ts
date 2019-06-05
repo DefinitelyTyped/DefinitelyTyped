@@ -18,11 +18,11 @@ export const fallback: { fallback: true };
 
 export type TypeMapper = (x: string) => string;
 
-export function keywords(kws: {[k: string]: string | string[]}): TypeMapper;
+export function keywords(kws: { [k: string]: string | string[] }): TypeMapper;
 
 export function compile(rules: Rules): Lexer;
 
-export function states(states: {[x: string]: Rules}, start?: string): Lexer;
+export function states(states: { [x: string]: Rules }, start?: string): Lexer;
 
 export interface Rule {
     match?: RegExp | string | string[];

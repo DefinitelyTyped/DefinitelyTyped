@@ -18,7 +18,7 @@ export namespace jdenticon {
 
     export function toSvg(hash: string, size: number, padding?: number): string;
 
-    export function update(el: Element|string, hash?: string, padding?: number): void;
+    export function update(el: Element | string, hash?: string, padding?: number): void;
 
     export let config: JdenticonConfig;
 

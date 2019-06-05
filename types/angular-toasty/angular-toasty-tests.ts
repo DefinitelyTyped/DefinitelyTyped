@@ -1,8 +1,6 @@
-
-
 interface AngularToastyTestControllerScope extends ng.IScope {
-    button:string;
-    options:toasty.IToastyConfig;
+    button: string;
+    options: toasty.IToastyConfig;
     runToasts(): void;
     runQuickToasts(): void;
     newToast(): void;
@@ -10,11 +8,9 @@ interface AngularToastyTestControllerScope extends ng.IScope {
 }
 
 class AngularToastyTestController {
-
     static $inject = ['$scope', 'toasty'];
 
-    constructor($scope:AngularToastyTestControllerScope, toasty:toasty.IToastyService) {
-
+    constructor($scope: AngularToastyTestControllerScope, toasty: toasty.IToastyService) {
         var options: toasty.IToastyConfig = {
             title: 'Toast It!',
             msg: 'Mmmm, tasties...',
@@ -25,18 +21,18 @@ class AngularToastyTestController {
             html: false,
             shake: false,
             theme: 'bootstrap',
-            onAdd: function () {
+            onAdd: function() {
                 console.log('Toasty ' + this.id + ' has been added!', this);
             },
-            onRemove: function () {
+            onRemove: function() {
                 console.log('Toasty ' + this.id + ' has been removed!', this);
             },
-            onClick: function () {
+            onClick: function() {
                 console.log('Toasty ' + this.id + ' has been clicked!', this);
-            }
+            },
         };
 
-        $scope.runToasts = function () {
+        $scope.runToasts = function() {
             toasty(options);
             toasty.default(options);
             toasty.info(options);
@@ -46,8 +42,8 @@ class AngularToastyTestController {
             toasty.warning(options);
         };
 
-        $scope.runQuickToasts = function () {
-            var title = 'Toast it!'
+        $scope.runQuickToasts = function() {
+            var title = 'Toast it!';
             toasty(title);
             toasty.default(title);
             toasty.info(title);
@@ -57,20 +53,23 @@ class AngularToastyTestController {
             toasty.warning(title);
         };
 
-        $scope.clearToasts = function () {
+        $scope.clearToasts = function() {
             toasty.clear();
         };
     }
-};
+}
 
 angular
     .module('main', ['angular-toasty'])
-    .config(['toastyConfigProvider', (toastyConfigProvider:toasty.IToastyConfigProvider) => {
-        toastyConfigProvider.setConfig({
-            title: 'global',
-            limit: 10,
-            sound: false,
-            shake: true
-        });
-    }])
+    .config([
+        'toastyConfigProvider',
+        (toastyConfigProvider: toasty.IToastyConfigProvider) => {
+            toastyConfigProvider.setConfig({
+                title: 'global',
+                limit: 10,
+                sound: false,
+                shake: true,
+            });
+        },
+    ])
     .controller('MainController', AngularToastyTestController);

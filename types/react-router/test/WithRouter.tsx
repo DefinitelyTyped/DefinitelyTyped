@@ -5,9 +5,7 @@ interface TOwnProps extends RouteComponentProps {
     username: string;
 }
 
-const ComponentFunction = (props: TOwnProps) => (
-    <h2>Welcome {props.username}</h2>
-);
+const ComponentFunction = (props: TOwnProps) => <h2>Welcome {props.username}</h2>;
 
 class ComponentClass extends React.Component<TOwnProps> {
     render() {
@@ -18,9 +16,7 @@ class ComponentClass extends React.Component<TOwnProps> {
 const WithRouterComponentFunction = withRouter(ComponentFunction);
 const WithRouterComponentClass = withRouter(ComponentClass);
 
-const WithRouterTestFunction = () => (
-    <WithRouterComponentFunction username="John" />
-);
+const WithRouterTestFunction = () => <WithRouterComponentFunction username="John" />;
 const WithRouterTestClass = () => <WithRouterComponentClass username="John" />;
 
 // union props

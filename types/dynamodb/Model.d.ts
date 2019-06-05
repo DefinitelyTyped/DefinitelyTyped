@@ -33,43 +33,14 @@ export namespace Model {
     function scan(): Scan;
     function parallelScan(totalSegments: number): ParallelScan;
     const getItems: GetItemsOperation;
-    function batchGetItems(
-        hashKey: string,
-        rangeKey: string,
-        options: any,
-        callback?: Callback,
-    ): Promise<any> | void;
-    function createTable(
-        hashKey: string,
-        rangeKey: string,
-        options: any,
-        callback?: Callback,
-    ): Promise<any> | void;
-    function updateTable(
-        hashKey: string,
-        rangeKey: string,
-        options: any,
-        callback?: Callback,
-    ): Promise<any> | void;
-    function describeTable(
-        hashKey: string,
-        rangeKey: string,
-        options: any,
-        callback?: Callback,
-    ): Promise<any> | void;
+    function batchGetItems(hashKey: string, rangeKey: string, options: any, callback?: Callback): Promise<any> | void;
+    function createTable(hashKey: string, rangeKey: string, options: any, callback?: Callback): Promise<any> | void;
+    function updateTable(hashKey: string, rangeKey: string, options: any, callback?: Callback): Promise<any> | void;
+    function describeTable(hashKey: string, rangeKey: string, options: any, callback?: Callback): Promise<any> | void;
     function deleteTable(callback: Callback): void;
     function deleteTable(): Promise<any>;
-    function tableName(
-        hashKey: string,
-        rangeKey: string,
-        options: any,
-        callback: Callback,
-    ): void;
-    function tableName(
-        hashKey: string,
-        rangeKey: string,
-        options: any,
-    ): Promise<any>;
+    function tableName(hashKey: string, rangeKey: string, options: any, callback: Callback): void;
+    function tableName(hashKey: string, rangeKey: string, options: any): Promise<any>;
     const itemFactory: typeof Model;
     const log: bunyan;
     const after: any;
@@ -97,17 +68,8 @@ export namespace Model {
     }
 
     interface GetOperation {
-        (
-            hashKey: string,
-            rangeKey: string,
-            options: object,
-            callback: Callback,
-        ): void;
-        (
-            data: object | string,
-            options: object | string,
-            callback: Callback,
-        ): void;
+        (hashKey: string, rangeKey: string, options: object, callback: Callback): void;
+        (data: object | string, options: object | string, callback: Callback): void;
         (data: object | string, callback: Callback): void;
         (hashKey: string, rangeKey: string, options: object): Promise<any>;
         (hashKey: string, options?: object | string): Promise<any>;
@@ -120,22 +82,11 @@ export namespace Model {
     }
 
     interface DestroyOperation {
-        (
-            hashKey: string,
-            rangeKey: string,
-            options: OperationOptions,
-            callback: Callback,
-        ): void;
+        (hashKey: string, rangeKey: string, options: OperationOptions, callback: Callback): void;
         (hashKey: string, rangeKey: string, callback: Callback): void;
-        (
-            data: { [key: string]: any } | string,
-            options: OperationOptions,
-            callback: Callback,
-        ): void;
+        (data: { [key: string]: any } | string, options: OperationOptions, callback: Callback): void;
         (data: { [key: string]: any } | string, callback: Callback): void;
-        (hashKey: string, rangeKey: string, options: OperationOptions): Promise<
-            any
-        >;
+        (hashKey: string, rangeKey: string, options: OperationOptions): Promise<any>;
         (hashKey: string, options?: OperationOptions | string): Promise<any>;
     }
 

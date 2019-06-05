@@ -40,9 +40,7 @@ declare namespace jsonquery {
         [path: string]: any;
     }
 
-    type QueryValue<T> = {
-        [P in keyof T]?: T[P] | BaseCondition<T[P]>;
-    };
+    type QueryValue<T> = { [P in keyof T]?: T[P] | BaseCondition<T[P]> };
 }
 
 export = jsonquery;

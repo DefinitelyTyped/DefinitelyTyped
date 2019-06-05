@@ -5,7 +5,7 @@ const config: webpack.Configuration = {
     plugins: [
         new BundleAnalyzerPlugin(),
         new BundleAnalyzerPlugin({
-            analyzerMode: 'static'
+            analyzerMode: 'static',
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'server',
@@ -17,14 +17,10 @@ const config: webpack.Configuration = {
             generateStatsFile: true,
             statsFilename: 'stats.json',
             statsOptions: {
-                source: false
+                source: false,
             },
-            excludeAssets: [
-                'foo',
-                /foo/,
-                assetName => assetName.indexOf('foo') !== -1
-            ],
-            logLevel: 'info'
-        })
-    ]
+            excludeAssets: ['foo', /foo/, assetName => assetName.indexOf('foo') !== -1],
+            logLevel: 'info',
+        }),
+    ],
 };

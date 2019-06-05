@@ -12,7 +12,7 @@ csso.minify('.test { color: #ff0000; }', {
     forceMediaMerge: true,
     clone: false,
     comments: '',
-    logger: () => {}
+    logger: () => {},
 });
 
 csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').css; // $ExpectType string
@@ -37,20 +37,20 @@ csso.minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000', {
             ids: ['y'],
             classes: ['c'],
         },
-        scopes: [
-            ['a', 'b', 'c'],
-            ['d', 'e']
-        ],
+        scopes: [['a', 'b', 'c'], ['d', 'e']],
     },
 });
 
 csso.compress({ type: 'CDC' }).ast; // $ExpectType CssNode
-csso.compress({ type: 'CDC' }, {
-    restructure: false,
-    forceMediaMerge: true,
-    clone: false,
-    comments: '',
-    logger: () => {}
-}).ast; // $ExpectType CssNode
+csso.compress(
+    { type: 'CDC' },
+    {
+        restructure: false,
+        forceMediaMerge: true,
+        clone: false,
+        comments: '',
+        logger: () => {},
+    }
+).ast; // $ExpectType CssNode
 
 csso.syntax.parse('.b {font-weight: bold}'); // $ExpectType CssNode

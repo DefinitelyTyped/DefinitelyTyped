@@ -1,4 +1,4 @@
-import { SortOrder } from "../Sorting/SortOrder";
+import { SortOrder } from '../Sorting/SortOrder';
 
 /**
  * I don't fucking know what this is supposed to be...

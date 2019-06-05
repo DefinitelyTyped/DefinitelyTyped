@@ -1,4 +1,4 @@
-import { DomElementType } from "domelementtype";
+import { DomElementType } from 'domelementtype';
 
 console.log(DomElementType.Text === 'text');
 console.log(DomElementType.Directive === 'directive');

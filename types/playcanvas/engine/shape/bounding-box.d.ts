@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.BoundingBox
      * @description Create a new axis-aligned bounding box.
@@ -8,7 +7,7 @@ declare namespace pc {
      * @param {pc.Vec3} [halfExtents] Half the distance across the box in each axis. The constructor takes a reference of this parameter.
      */
     class BoundingBox {
-        constructor(center?: pc.Vec3, halfExtents?: pc.Vec3)
+        constructor(center?: pc.Vec3, halfExtents?: pc.Vec3);
 
         center: pc.Vec3;
         halfExtents: pc.Vec3;

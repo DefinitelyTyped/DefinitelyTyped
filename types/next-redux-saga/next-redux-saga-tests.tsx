@@ -56,10 +56,10 @@ const Com1 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps,
             const a = 1;
         }
         return createStore(reducer, initialState);
-    },
+    }
 )(withReduxSaga<OwnProps & Props>({ async: true })(Page));
 
 const Com2 = withRedux(makeStore)(withReduxSaga(Page));
 
-const com1Instance = (<Com1 bar="foo" />);
-const com2Instance = (<Com2 />);
+const com1Instance = <Com1 bar="foo" />;
+const com2Instance = <Com2 />;

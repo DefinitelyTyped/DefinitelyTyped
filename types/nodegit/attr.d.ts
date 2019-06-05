@@ -5,7 +5,7 @@ export namespace Attr {
         UNSPECIFIED_T = 0,
         TRUE_T = 1,
         FALSE_T = 2,
-        VALUE_T = 3
+        VALUE_T = 3,
     }
 }
 

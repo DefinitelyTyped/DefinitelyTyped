@@ -25,10 +25,10 @@ declare namespace inquirer {
         | Question<A>[]
         | ReadonlyArray<Question<A>>
         | Observable<Question<A>>;
-    type Answers = Record<string, any>
+    type Answers = Record<string, any>;
     type StreamOptions = {
-        input?: NodeJS.ReadStream,
-        output?: NodeJS.WriteStream,
+        input?: NodeJS.ReadStream;
+        output?: NodeJS.WriteStream;
     };
 
     interface Inquirer {
@@ -115,9 +115,9 @@ declare namespace inquirer {
          * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
          */
         choices?:
-        | ReadonlyArray<ChoiceType<A>>
-        | ((answers: A) => ReadonlyArray<ChoiceType<A>>)
-        | ((answers: A) => Promise<ReadonlyArray<ChoiceType<A>>>);
+            | ReadonlyArray<ChoiceType<A>>
+            | ((answers: A) => ReadonlyArray<ChoiceType<A>>)
+            | ((answers: A) => Promise<ReadonlyArray<ChoiceType<A>>>);
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the _Answers_ hash.
@@ -136,36 +136,35 @@ declare namespace inquirer {
         pageSize?: number;
     }
 
-    type Question<A extends Answers = Answers> = (
-        ListQuestion<A> |
-        RawListQuestion<A> |
-        ExpandQuestion<A> |
-        CheckboxQuestion<A> |
-        ConfirmQuestion<A> |
-        InputQuestion<A> |
-        NumberQuestion<A> |
-        PasswordQuestion<A> |
-        EditorQuestion<A>
-    )
+    type Question<A extends Answers = Answers> =
+        | ListQuestion<A>
+        | RawListQuestion<A>
+        | ExpandQuestion<A>
+        | CheckboxQuestion<A>
+        | ConfirmQuestion<A>
+        | InputQuestion<A>
+        | NumberQuestion<A>
+        | PasswordQuestion<A>
+        | EditorQuestion<A>;
 
-    interface ListQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
-        type: 'list'
+    interface ListQuestion<A> extends QuestionCommon<A>, Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
+        type: 'list';
     }
 
-    interface RawListQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
-        type: 'rawlist'
+    interface RawListQuestion<A>
+        extends QuestionCommon<A>,
+            Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
+        type: 'rawlist';
     }
 
-    interface ExpandQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
-        type: 'expand'
+    interface ExpandQuestion<A> extends QuestionCommon<A>, Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
+        type: 'expand';
     }
 
-    interface CheckboxQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
-        type: 'checkbox'
+    interface CheckboxQuestion<A>
+        extends QuestionCommon<A>,
+            Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
+        type: 'checkbox';
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
          * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -175,12 +174,11 @@ declare namespace inquirer {
     }
 
     interface ConfirmQuestion<A> extends QuestionCommon<A>, QuestionOptions<A> {
-        type: 'confirm'
+        type: 'confirm';
     }
 
-    interface InputQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
-        type?: 'input'
+    interface InputQuestion<A> extends QuestionCommon<A>, Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
+        type?: 'input';
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
          * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -189,9 +187,8 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface NumberQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
-        type: 'number'
+    interface NumberQuestion<A> extends QuestionCommon<A>, Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
+        type: 'number';
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
          * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -200,9 +197,8 @@ declare namespace inquirer {
         validate?(input: number, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface PasswordQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
-        type: 'password'
+    interface PasswordQuestion<A> extends QuestionCommon<A>, Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
+        type: 'password';
         /**
          * Hides the user input.
          */
@@ -215,9 +211,8 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface EditorQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter'> {
-        type: 'editor'
+    interface EditorQuestion<A> extends QuestionCommon<A>, Pick<QuestionOptions<A>, 'filter'> {
+        type: 'editor';
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
          * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -231,8 +226,8 @@ declare namespace inquirer {
      * https://github.com/SBoudrias/Inquirer.js/blob/ff075f587ef78504f0eae4ee5ca0656432429026/packages/inquirer/lib/ui/prompt.js#L88
      */
     interface Answer {
-        name: string,
-        answer: any,
+        name: string;
+        answer: any;
     }
 
     namespace prompts {
@@ -263,13 +258,12 @@ declare namespace inquirer {
     }
 
     namespace ui {
-
         /**
          * Base interface class other can inherits from
          */
         interface BaseUI {
             rl: ReadlineInterface;
-            new(opt: StreamOptions): BaseUI;
+            new (opt: StreamOptions): BaseUI;
             /**
              * Handle the ^C exit
              * @return {null}
@@ -285,7 +279,7 @@ declare namespace inquirer {
          */
         interface PromptUI extends BaseUI {
             process: Observable<Answer>;
-            new(prompts: Prompts, opt: StreamOptions): PromptUI;
+            new (prompts: Prompts, opt: StreamOptions): PromptUI;
             run<A>(questions: Questions<A>): Promise<A>;
             /**
              * Once all prompt are over
@@ -301,7 +295,7 @@ declare namespace inquirer {
          * Sticky bottom bar user interface
          */
         interface BottomBar extends BaseUI {
-            new(opt?: StreamOptions & { bottomBar?: string }): BottomBar;
+            new (opt?: StreamOptions & { bottomBar?: string }): BottomBar;
             /**
              * Render the prompt to screen
              * @return self
@@ -333,7 +327,6 @@ declare namespace inquirer {
             write(message: string): void;
             log: ThroughStream;
         }
-
     }
 
     namespace objects {
@@ -368,10 +361,7 @@ declare namespace inquirer {
          * @param choices  All `choice` to keep in the collection
          */
         interface Choices<A> {
-            new (
-                choices: ReadonlyArray<string | Separator | ChoiceOption<A>>,
-                answers?: A
-            ): Choices<A>;
+            new (choices: ReadonlyArray<string | Separator | ChoiceOption<A>>, answers?: A): Choices<A>;
             choices: ReadonlyArray<Choice<A>>;
             realChoices: ReadonlyArray<Choice<A>>;
             length: number;

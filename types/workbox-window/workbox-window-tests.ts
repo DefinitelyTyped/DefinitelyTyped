@@ -3,12 +3,12 @@ import { Workbox } from 'workbox-window';
 {
     const wb = new Workbox('/sw.js');
 
-    wb.addEventListener('message', (event) => {
+    wb.addEventListener('message', event => {
         event.target; // $ExpectType Workbox
         event.data; // $ExpectType any
     });
 
-    wb.addEventListener('waiting', (event) => {
+    wb.addEventListener('waiting', event => {
         event.isUpdate; // $ExpectType boolean | undefined
     });
 

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.VertexBuffer
      * @class A vertex buffer is the mechanism via which the application specifies vertex
@@ -12,7 +11,13 @@ declare namespace pc {
      * @param {ArrayBuffer} [initialData] Initial data.
      */
     class VertexBuffer {
-        constructor(graphicsDevice: pc.GraphicsDevice, format: pc.VertexFormat, numVertices: number, usage?: number, initialData?: ArrayBuffer)
+        constructor(
+            graphicsDevice: pc.GraphicsDevice,
+            format: pc.VertexFormat,
+            numVertices: number,
+            usage?: number,
+            initialData?: ArrayBuffer
+        );
 
         /**
          * @function

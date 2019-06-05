@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { SCAuthEngine } from "sc-auth";
-import { SCServer } from "socketcluster-server";
+import { SCAuthEngine } from 'sc-auth';
+import { SCServer } from 'socketcluster-server';
 
-export import SCClientSocket = require("./lib/scclientsocket");
+export import SCClientSocket = require('./lib/scclientsocket');
 
 export function create(options?: SCClientSocket.ClientOptions): SCClientSocket;
 

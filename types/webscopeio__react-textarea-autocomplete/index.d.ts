@@ -7,7 +7,7 @@
 export default ReactTextareaAutocomplete;
 export as namespace ReactTextareaAutocomplete;
 
-import * as React from "react";
+import * as React from 'react';
 
 export type CaretPositionType = 'start' | 'end' | 'next' | number;
 
@@ -17,9 +17,7 @@ export interface TextToReplaceType {
     key?: string;
 }
 
-export type DataProviderType<TItem> = (token: string) =>
-    | Promise<TItem[]>
-    | TItem[];
+export type DataProviderType<TItem> = (token: string) => Promise<TItem[]> | TItem[];
 
 export interface ItemComponentProps<TItem> {
     selected: boolean;
@@ -68,7 +66,7 @@ export interface TriggerType<TItem> {
     [key: string]: SettingType<TItem>;
 }
 
-type PickedAttributes = "onChange" | "onSelect" | "onBlur" | "value";
+type PickedAttributes = 'onChange' | 'onSelect' | 'onBlur' | 'value';
 
 export interface TextareaProps<TItem> extends Pick<React.InputHTMLAttributes<HTMLTextAreaElement>, PickedAttributes> {
     /**
@@ -170,7 +168,10 @@ export interface TextareaState<TItem> {
     component?: React.SFC<ItemComponentProps<TItem>>;
 }
 
-declare class ReactTextareaAutocomplete<TItem extends string | object> extends React.Component<TextareaProps<TItem>, TextareaState<TItem>> {
+declare class ReactTextareaAutocomplete<TItem extends string | object> extends React.Component<
+    TextareaProps<TItem>,
+    TextareaState<TItem>
+> {
     /**
      * Gets the current caret position in the textarea.
      */
@@ -183,7 +184,7 @@ declare class ReactTextareaAutocomplete<TItem extends string | object> extends R
     /**
      * Returns selectionStart and selectionEnd of the textarea.
      */
-    getSelectionPosition(): { selectionStart: number, selectionEnd: number };
+    getSelectionPosition(): { selectionStart: number; selectionEnd: number };
     /**
      * 	Returns currently selected word.
      */

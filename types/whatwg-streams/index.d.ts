@@ -17,7 +17,7 @@ export interface ReadableByteStreamSource {
     pull?(controller: ReadableByteStreamController): void | Promise<any>;
     cancel?(reason: any): void | Promise<any>;
 
-    type: "bytes";
+    type: 'bytes';
     autoAllocateChunkSize?: number;
 }
 
@@ -50,8 +50,11 @@ declare class ReadableStream<R = ArrayBufferView> {
 
     cancel(reason: any): Promise<void>;
     getReader(): ReadableStreamDefaultReader<R>;
-    getReader({ mode }: { mode: "byob" }): ReadableStreamBYOBReader<R>;
-    pipeThrough<T extends ReadableStream<any>>({ writable, readable }: WritableReadablePair<WritableStream<R>, T>, options?: PipeOptions): T;
+    getReader({ mode }: { mode: 'byob' }): ReadableStreamBYOBReader<R>;
+    pipeThrough<T extends ReadableStream<any>>(
+        { writable, readable }: WritableReadablePair<WritableStream<R>, T>,
+        options?: PipeOptions
+    ): T;
     pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
     tee(): [ReadableStream<R>, ReadableStream<R>];
 }
@@ -152,7 +155,11 @@ export interface TransformStreamTransformer<R, W> {
 }
 
 declare class TransformStream<R, W> implements WritableReadablePair<WritableStream<W>, ReadableStream<R>> {
-    constructor(transformer?: TransformStreamTransformer<R, W>, writableStrategy?: QueuingStrategy<W>, readableStrategy?: QueuingStrategy<R>);
+    constructor(
+        transformer?: TransformStreamTransformer<R, W>,
+        writableStrategy?: QueuingStrategy<W>,
+        readableStrategy?: QueuingStrategy<R>
+    );
 
     readonly readable: ReadableStream<R>;
     readonly writable: WritableStream<W>;

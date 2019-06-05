@@ -1,4 +1,4 @@
-declare module "meteor/check" {
+declare module 'meteor/check' {
     module Match {
         var Any: any;
         var String: any;

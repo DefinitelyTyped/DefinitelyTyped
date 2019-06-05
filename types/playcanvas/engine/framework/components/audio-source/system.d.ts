@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.AudioSourceComponentSystem
      * @class Controls playback of an audio sample. This class will be deprecated in favor of {@link pc.SoundComponentSystem}.
@@ -8,7 +7,7 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class AudioSourceComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application, manager: pc.SoundManager)
+        constructor(app: pc.Application, manager: pc.SoundManager);
 
         /**
          * @name pc.AudioSourceComponentSystem#setVolume()

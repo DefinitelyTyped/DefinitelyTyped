@@ -6,7 +6,7 @@ new UI({
     outputStream: process.stderr,
     errorStream: process.stdout,
     writeLevel: 'DEBUG',
-    ci: false
+    ci: false,
 });
 
 const ui = new UI();
@@ -52,7 +52,7 @@ ui.stopProgress('hello'); // $ExpectError
 
 const question: Question<{ answer: boolean }> = {
     message: 'Yes / No?',
-    type: 'confirm'
+    type: 'confirm',
 };
 
 ui.prompt(question).then(result => {

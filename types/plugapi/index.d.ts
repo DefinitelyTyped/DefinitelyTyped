@@ -133,9 +133,9 @@ declare namespace PlugAPI {
         }
 
         interface Ban {
-            HOUR: "h";
-            DAY: "d";
-            PERMA: "f";
+            HOUR: 'h';
+            DAY: 'd';
+            PERMA: 'f';
         }
 
         interface BanReason {
@@ -147,9 +147,9 @@ declare namespace PlugAPI {
         }
 
         interface Mute {
-            SHORT: "s";
-            MEDIUM: "m";
-            LONG: "l";
+            SHORT: 's';
+            MEDIUM: 'm';
+            LONG: 'l';
         }
 
         interface MuteReason {
@@ -161,58 +161,58 @@ declare namespace PlugAPI {
         }
 
         interface Events {
-            ADVANCE: "advance";
-            BAN: "ban";
-            BOOTH_LOCKED: "boothLocked";
-            CHAT: "chat";
-            CHAT_COMMAND: "command";
-            CHAT_DELETE: "chatDelete";
-            CHAT_LEVEL_UPDATE: "roomMinChatLevelUpdate";
-            COMMAND: "command";
-            DJ_LIST_CYCLE: "djListCycle";
-            DJ_LIST_UPDATE: "djListUpdate";
-            DJ_LIST_LOCKED: "djListLocked";
-            EARN: "earn";
-            FOLLOW_JOIN: "followJoin";
-            FLOOD_CHAT: "floodChat";
-            FRIEND_REQUEST: "friendRequest";
-            GIFTED: "gifted";
-            GRAB: "grab";
-            KILL_SESSION: "killSession";
-            MAINT_MODE: "plugMaintenance";
-            MAINT_MODE_ALERT: "plugMaintenanceAlert";
-            MODERATE_ADD_DJ: "modAddDJ";
-            MODERATE_ADD_WAITLIST: "modAddWaitList";
-            MODERATE_AMBASSADOR: "modAmbassador";
-            MODERATE_BAN: "modBan";
-            MODERATE_MOVE_DJ: "modMoveDJ";
-            MODERATE_MUTE: "modMute";
-            MODERATE_REMOVE_DJ: "modRemoveDJ";
-            MODERATE_REMOVE_WAITLIST: "modRemoveWaitList";
-            MODERATE_SKIP: "modSkip";
-            MODERATE_STAFF: "modStaff";
-            NOTIFY: "notify";
-            PDJ_MESSAGE: "pdjMessage";
-            PDJ_UPDATE: "pdjUpdate";
-            PING: "ping";
-            PLAYLIST_CYCLE: "playlistCycle";
-            REQUEST_DURATION: "requestDuration";
-            REQUEST_DURATION_RETRY: "requestDurationRetry";
-            ROOM_CHANGE: "roomChanged";
-            ROOM_DESCRIPTION_UPDATE: "roomDescriptionUpdate";
-            ROOM_JOIN: "roomJoin";
-            ROOM_NAME_UPDATE: "roomNameUpdate";
-            ROOM_VOTE_SKIP: "roomVoteSkip";
-            ROOM_WELCOME_UPDATE: "roomWelcomeUpdate";
-            SESSION_CLOSE: "sessionClose";
-            SKIP: "skip";
-            STROBE_TOGGLE: "strobeToggle";
-            USER_COUNTER_UPDATE: "userCounterUpdate";
-            USER_FOLLOW: "userFollow";
-            USER_JOIN: "userJoin";
-            USER_LEAVE: "userLeave";
-            USER_UPDATE: "userUpdate";
-            VOTE: "vote";
+            ADVANCE: 'advance';
+            BAN: 'ban';
+            BOOTH_LOCKED: 'boothLocked';
+            CHAT: 'chat';
+            CHAT_COMMAND: 'command';
+            CHAT_DELETE: 'chatDelete';
+            CHAT_LEVEL_UPDATE: 'roomMinChatLevelUpdate';
+            COMMAND: 'command';
+            DJ_LIST_CYCLE: 'djListCycle';
+            DJ_LIST_UPDATE: 'djListUpdate';
+            DJ_LIST_LOCKED: 'djListLocked';
+            EARN: 'earn';
+            FOLLOW_JOIN: 'followJoin';
+            FLOOD_CHAT: 'floodChat';
+            FRIEND_REQUEST: 'friendRequest';
+            GIFTED: 'gifted';
+            GRAB: 'grab';
+            KILL_SESSION: 'killSession';
+            MAINT_MODE: 'plugMaintenance';
+            MAINT_MODE_ALERT: 'plugMaintenanceAlert';
+            MODERATE_ADD_DJ: 'modAddDJ';
+            MODERATE_ADD_WAITLIST: 'modAddWaitList';
+            MODERATE_AMBASSADOR: 'modAmbassador';
+            MODERATE_BAN: 'modBan';
+            MODERATE_MOVE_DJ: 'modMoveDJ';
+            MODERATE_MUTE: 'modMute';
+            MODERATE_REMOVE_DJ: 'modRemoveDJ';
+            MODERATE_REMOVE_WAITLIST: 'modRemoveWaitList';
+            MODERATE_SKIP: 'modSkip';
+            MODERATE_STAFF: 'modStaff';
+            NOTIFY: 'notify';
+            PDJ_MESSAGE: 'pdjMessage';
+            PDJ_UPDATE: 'pdjUpdate';
+            PING: 'ping';
+            PLAYLIST_CYCLE: 'playlistCycle';
+            REQUEST_DURATION: 'requestDuration';
+            REQUEST_DURATION_RETRY: 'requestDurationRetry';
+            ROOM_CHANGE: 'roomChanged';
+            ROOM_DESCRIPTION_UPDATE: 'roomDescriptionUpdate';
+            ROOM_JOIN: 'roomJoin';
+            ROOM_NAME_UPDATE: 'roomNameUpdate';
+            ROOM_VOTE_SKIP: 'roomVoteSkip';
+            ROOM_WELCOME_UPDATE: 'roomWelcomeUpdate';
+            SESSION_CLOSE: 'sessionClose';
+            SKIP: 'skip';
+            STROBE_TOGGLE: 'strobeToggle';
+            USER_COUNTER_UPDATE: 'userCounterUpdate';
+            USER_FOLLOW: 'userFollow';
+            USER_JOIN: 'userJoin';
+            USER_LEAVE: 'userLeave';
+            USER_UPDATE: 'userUpdate';
+            VOTE: 'vote';
         }
     }
 
@@ -388,27 +388,27 @@ declare class PlugAPI {
     sendChat(msg: string, timeout?: number): void;
     setLogger(logObject: PlugAPI.LogObject): boolean;
 
-    on(event: "boothCycle", callback: (data: PlugAPI.Event.BoothCycle) => void): void;
-    on(event: "boothLocked", callback: (data: PlugAPI.Event.BoothLocked) => void): void;
-    on(event: "chat", callback: (data: PlugAPI.Event.Chat) => void): void;
-    on(event: "chatDelete", callback: (data: PlugAPI.Event.ChatDelete) => void): void;
-    on(event: "grab", callback: (data: PlugAPI.Event.Grab) => void): void;
-    on(event: "advance", callback: (data: PlugAPI.Event.Advance) => void): void;
-    on(event: "djListUpdate", callback: (data: PlugAPI.Event.DJListUpdate) => void): void;
-    on(event: "emote", callback: (data: PlugAPI.Event.Emote) => void): void;
-    on(event: "followJoin", callback: (data: PlugAPI.Event.FollowJoin) => void): void;
-    on(event: "modAddDJ", callback: (data: PlugAPI.Event.ModAddDJ) => void): void;
-    on(event: "modBan", callback: (data: PlugAPI.Event.ModBan) => void): void;
-    on(event: "modMoveDJ", callback: (data: PlugAPI.Event.ModMoveDJ) => void): void;
-    on(event: "modRemoveDJ", callback: (data: PlugAPI.Event.ModRemoveDJ) => void): void;
-    on(event: "modSkip", callback: (data: PlugAPI.Event.ModSkip) => void): void;
-    on(event: "roomMinChatLevelUpdate", callback: (data: PlugAPI.Event.RoomMinChatLevelUpdate) => void): void;
-    on(event: "roomJoin", callback: (data: PlugAPI.Event.RoomJoin) => void): void;
-    on(event: "userJoin", callback: (data: PlugAPI.Event.UserJoin) => void): void;
-    on(event: "userLeave", callback: (data: PlugAPI.Event.UserLeave) => void): void;
-    on(event: "userUpdate", callback: (data: PlugAPI.Event.UserUpdate) => void): void;
-    on(event: "vote", callback: (data: PlugAPI.Event.Vote) => void): void;
-    on(event: "command", callback: (data: PlugAPI.Event.Command) => void): void;
+    on(event: 'boothCycle', callback: (data: PlugAPI.Event.BoothCycle) => void): void;
+    on(event: 'boothLocked', callback: (data: PlugAPI.Event.BoothLocked) => void): void;
+    on(event: 'chat', callback: (data: PlugAPI.Event.Chat) => void): void;
+    on(event: 'chatDelete', callback: (data: PlugAPI.Event.ChatDelete) => void): void;
+    on(event: 'grab', callback: (data: PlugAPI.Event.Grab) => void): void;
+    on(event: 'advance', callback: (data: PlugAPI.Event.Advance) => void): void;
+    on(event: 'djListUpdate', callback: (data: PlugAPI.Event.DJListUpdate) => void): void;
+    on(event: 'emote', callback: (data: PlugAPI.Event.Emote) => void): void;
+    on(event: 'followJoin', callback: (data: PlugAPI.Event.FollowJoin) => void): void;
+    on(event: 'modAddDJ', callback: (data: PlugAPI.Event.ModAddDJ) => void): void;
+    on(event: 'modBan', callback: (data: PlugAPI.Event.ModBan) => void): void;
+    on(event: 'modMoveDJ', callback: (data: PlugAPI.Event.ModMoveDJ) => void): void;
+    on(event: 'modRemoveDJ', callback: (data: PlugAPI.Event.ModRemoveDJ) => void): void;
+    on(event: 'modSkip', callback: (data: PlugAPI.Event.ModSkip) => void): void;
+    on(event: 'roomMinChatLevelUpdate', callback: (data: PlugAPI.Event.RoomMinChatLevelUpdate) => void): void;
+    on(event: 'roomJoin', callback: (data: PlugAPI.Event.RoomJoin) => void): void;
+    on(event: 'userJoin', callback: (data: PlugAPI.Event.UserJoin) => void): void;
+    on(event: 'userLeave', callback: (data: PlugAPI.Event.UserLeave) => void): void;
+    on(event: 'userUpdate', callback: (data: PlugAPI.Event.UserUpdate) => void): void;
+    on(event: 'vote', callback: (data: PlugAPI.Event.Vote) => void): void;
+    on(event: 'command', callback: (data: PlugAPI.Event.Command) => void): void;
     on(event: string, callback: (data: any) => void): void;
 }
 

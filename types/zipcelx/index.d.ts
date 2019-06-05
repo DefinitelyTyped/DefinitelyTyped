@@ -14,7 +14,7 @@ export interface ZipCelXCell {
     /**
      * The cell value type
      */
-    type: "string" | "number";
+    type: 'string' | 'number';
 }
 
 /**

@@ -47,6 +47,4 @@ export function keymap(bindings: { [key: string]: any }): Plugin;
  * [`keymap`](#keymap.keymap), return a [keydown
  * handler](#view.EditorProps.handleKeyDown) handles them.
  */
-export function keydownHandler(bindings: {
-  [key: string]: any;
-}): (view: EditorView, event: Event) => boolean;
+export function keydownHandler(bindings: { [key: string]: any }): (view: EditorView, event: Event) => boolean;

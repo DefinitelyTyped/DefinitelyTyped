@@ -1,8 +1,9 @@
-
 namespace nvd3_test_timeSeries {
-    var data = [{
-        values: []
-    }];
+    var data = [
+        {
+            values: [],
+        },
+    ];
 
     var i, x;
     var gap = false;
@@ -21,12 +22,10 @@ namespace nvd3_test_timeSeries {
                     prevVal = Math.random() * 100;
                 }
                 data[0].values.push({ x: x * 1000, y: prevVal });
-            }
-            else {
+            } else {
                 gap = true;
             }
-        }
-        else {
+        } else {
             if (Math.random() < probExitGap) {
                 gap = false;
             }
@@ -35,38 +34,60 @@ namespace nvd3_test_timeSeries {
 
     var chart;
 
-    var halfBarXMin = data[0].values[0].x - barTimespan / 2 * 1000;
-    var halfBarXMax = data[0].values[data[0].values.length - 1].x + barTimespan / 2 * 1000;
+    var halfBarXMin = data[0].values[0].x - (barTimespan / 2) * 1000;
+    var halfBarXMax = data[0].values[data[0].values.length - 1].x + (barTimespan / 2) * 1000;
 
     function renderChart(location, meaning) {
-        nv.addGraph(function () {
+        nv.addGraph(function() {
             chart = nv.models.historicalBarChart();
             chart
                 .xScale(d3.time.scale()) // use a time scale instead of plain numbers in order to get nice round default values in the axis
                 .color(['#68c'])
                 .forceX([halfBarXMin, halfBarXMax]) // fix half-bar problem on the first and last bars
                 .useInteractiveGuideline(true) // check out the css that turns the guideline into this nice thing
-                .margin({ "left": 80, "right": 50, "top": 20, "bottom": 30 })
-                .duration(0)
-                ;
+                .margin({ left: 80, right: 50, top: 20, bottom: 30 })
+                .duration(0);
 
             var tickMultiFormat = d3.time.format.multi([
-                ["%-I:%M%p", function (d) { return d.getMinutes(); }], // not the beginning of the hour
-                ["%-I%p", function (d) { return d.getHours(); }], // not midnight
-                ["%b %-d", function (d) { return d.getDate() != 1; }], // not the first of the month
-                ["%b %-d", function (d) { return d.getMonth(); }], // not Jan 1st
-                ["%Y", function () { return true; }]
+                [
+                    '%-I:%M%p',
+                    function(d) {
+                        return d.getMinutes();
+                    },
+                ], // not the beginning of the hour
+                [
+                    '%-I%p',
+                    function(d) {
+                        return d.getHours();
+                    },
+                ], // not midnight
+                [
+                    '%b %-d',
+                    function(d) {
+                        return d.getDate() != 1;
+                    },
+                ], // not the first of the month
+                [
+                    '%b %-d',
+                    function(d) {
+                        return d.getMonth();
+                    },
+                ], // not Jan 1st
+                [
+                    '%Y',
+                    function() {
+                        return true;
+                    },
+                ],
             ]);
             chart.xAxis
                 .showMaxMin(false)
                 .tickPadding(10)
-                .tickFormat(function (d) { return tickMultiFormat(new Date(d)); })
-                ;
+                .tickFormat(function(d) {
+                    return tickMultiFormat(new Date(d));
+                });
 
-            chart.yAxis
-                .showMaxMin(false)
-                .tickFormat(d3.format(",.0f"))
-                ;
+            chart.yAxis.showMaxMin(false).tickFormat(d3.format(',.0f'));
 
             var svgElem = d3.select(location);
             svgElem
@@ -87,15 +108,19 @@ namespace nvd3_test_timeSeries {
                 .attr('x2', 0)
                 .attr('y1', tickY2 + 4)
                 .attr('y2', tickY2)
-                .attr('stroke-width', 1)
-                ;
+                .attr('stroke-width', 1);
 
             // set up the tooltip to display full dates
             var tsFormat = d3.time.format('%b %-d, %Y %I:%M%p');
             var contentGenerator = chart.interactiveLayer.tooltip.contentGenerator();
             var tooltip = chart.interactiveLayer.tooltip;
-            tooltip.contentGenerator(function (d) { d.value = d.series[0].data.x; return contentGenerator(d); });
-            tooltip.headerFormatter(function (d) { return tsFormat(new Date(d)); });
+            tooltip.contentGenerator(function(d) {
+                d.value = d.series[0].data.x;
+                return contentGenerator(d);
+            });
+            tooltip.headerFormatter(function(d) {
+                return tsFormat(new Date(d));
+            });
 
             // common stuff for the sections below
             var xScale = chart.xScale();
@@ -109,12 +134,11 @@ namespace nvd3_test_timeSeries {
                     .selectAll('.nv-bars')
                     .selectAll('rect')
                     .attr('width', (1 - barSpacingFraction) * barWidth)
-                    .attr('transform', function (d, i) {
+                    .attr('transform', function(d, i) {
                         var deltaX = xScale(data[0].values[i].x) - xPixelFirstBar;
-                        deltaX += barSpacingFraction / 2 * barWidth;
+                        deltaX += (barSpacingFraction / 2) * barWidth;
                         return 'translate(' + deltaX + ', 0)';
-                    })
-                    ;
+                    });
             }
 
             /*
@@ -133,8 +157,7 @@ namespace nvd3_test_timeSeries {
 
             if (meaning === 'instant') {
                 fixBarWidths(0.2);
-            }
-            else if (meaning === 'timespan') {
+            } else if (meaning === 'timespan') {
                 fixBarWidths(0.0);
                 shiftXAxis();
             }
@@ -146,8 +169,8 @@ namespace nvd3_test_timeSeries {
     renderChart('#test1', 'instant');
     renderChart('#test2', 'timespan');
 
-    window.setTimeout(function () {
-        window.setTimeout(function () {
+    window.setTimeout(function() {
+        window.setTimeout(function() {
             document.getElementById('sc-one').style.display = 'block';
             document.getElementById('sc-two').style.display = 'none';
         }, 0);
@@ -157,11 +180,9 @@ namespace nvd3_test_timeSeries {
         if (style === 'instant') {
             document.getElementById('sc-one').style.display = 'block';
             document.getElementById('sc-two').style.display = 'none';
-        }
-        else if (style === 'timespan') {
+        } else if (style === 'timespan') {
             document.getElementById('sc-one').style.display = 'none';
             document.getElementById('sc-two').style.display = 'block';
         }
     }
-
 }

@@ -1,10 +1,6 @@
-import * as PF from "pathfinding";
+import * as PF from 'pathfinding';
 
-var matrix = [
-    [0, 0, 0, 1, 0],
-    [1, 0, 0, 0, 1],
-    [0, 0, 1, 0, 0],
-];
+var matrix = [[0, 0, 0, 1, 0], [1, 0, 0, 0, 1], [0, 0, 1, 0, 0]];
 var grid = new PF.Grid(matrix);
 var gridBackup = grid.clone();
 

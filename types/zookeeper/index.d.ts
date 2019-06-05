@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 /// <reference types="node" />
 
-type ACL = number | { perms: number, scheme: string, auth: string };
+type ACL = number | { perms: number; scheme: string; auth: string };
 
 interface Stat {
     czxid: number;

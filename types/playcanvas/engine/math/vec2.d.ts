@@ -1,12 +1,11 @@
 declare namespace pc {
-
     /**
-    * @name pc.Vec2
-    * @class A 2-dimensional vector.
-    * @description Creates a new Vec2 object
-    * @param {Number} [x] The x value. If x is an array of length 2, the array will be used to populate all components.
-    * @param {Number} [y] The y value
-    */
+     * @name pc.Vec2
+     * @class A 2-dimensional vector.
+     * @description Creates a new Vec2 object
+     * @param {Number} [x] The x value. If x is an array of length 2, the array will be used to populate all components.
+     * @param {Number} [y] The y value
+     */
     class Vec2 {
         data: Float32Array;
 
@@ -286,7 +285,6 @@ declare namespace pc {
          * console.log(v.toString());
          */
         toString(): string;
-
 
         /**
          * @field

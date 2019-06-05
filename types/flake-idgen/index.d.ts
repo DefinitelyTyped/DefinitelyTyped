@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 interface ConstructorOptions {
     datacenter?: number;
     worker?: number;

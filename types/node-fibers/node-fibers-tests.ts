@@ -1,8 +1,8 @@
 // node-fibers tests
 // compile with --module=common
 
-import Fiber = require("fibers");
-import Future = require("fibers/future");
+import Fiber = require('fibers');
+import Future = require('fibers/future');
 
 function sleep(ms: number) {
     var fiber = Fiber.current;
@@ -13,9 +13,9 @@ function sleep(ms: number) {
 }
 
 Fiber(function() {
-    console.log('wait... ' + new Date);
+    console.log('wait... ' + new Date());
     sleep(1000);
-    console.log('ok... ' + new Date);
+    console.log('ok... ' + new Date());
 }).run();
 console.log('back in main');
 
@@ -30,14 +30,14 @@ for (var ii = inc.run(1); ii <= 10; ii = inc.run(1)) {
     console.log(ii);
 }
 
-
 // Generator function. Returns a function which returns incrementing
 // Fibonacci numbers with each call.
 function Fibonacci() {
     // Create a new fiber which yields sequential Fibonacci numbers
     var fiber = Fiber(function() {
         Fiber.yield(0); // F(0) -> 0
-        var prev = 0, curr = 1;
+        var prev = 0,
+            curr = 1;
         while (true) {
             Fiber.yield(curr);
             var tmp = prev + curr;
@@ -69,13 +69,11 @@ try {
     while (true) {
         fn.run();
     }
-} catch(e) {
+} catch (e) {
     console.log('safely caught that error!');
     console.log(e.stack);
 }
 console.log('done!');
-
-
 
 // This function returns a future which resolves after a timeout. This
 // demonstrates manually resolving futures.

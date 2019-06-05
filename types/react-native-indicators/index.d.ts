@@ -50,9 +50,7 @@ export interface UIActivityIndicatorProps extends BaseIndicatorProps {
     size?: number;
 }
 
-export class UIActivityIndicator extends Component<
-    UIActivityIndicatorProps
-> {}
+export class UIActivityIndicator extends Component<UIActivityIndicatorProps> {}
 
 export interface BallIndicatorProps extends BaseIndicatorProps {
     /**

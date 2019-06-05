@@ -1,4 +1,4 @@
-import * as bser from "bser";
+import * as bser from 'bser';
 
-const encoded = bser.dumpToBuffer(["hello"]);
+const encoded = bser.dumpToBuffer(['hello']);
 console.log(bser.loadFromBuffer(encoded)); // ['hello']

@@ -62,12 +62,12 @@ validOpts = {
         number: { base: str },
         object: {
             base: false,
-            children: { childRule: str }
+            children: { childRule: str },
         },
         customType: {
-            customRule: str
-        }
-    }
+            customRule: str,
+        },
+    },
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -164,7 +164,7 @@ let validErrFunc: Joi.ValidationErrorFunction;
 validErrItem = {
     message: str,
     type: str,
-    path: [str]
+    path: [str],
 };
 
 validErrItem = {
@@ -172,7 +172,7 @@ validErrItem = {
     type: str,
     path: [str],
     options: validOpts,
-    context: obj
+    context: obj,
 };
 
 validErrFunc = errs => errs;
@@ -208,41 +208,36 @@ let schemaMap: Joi.SchemaMap = {};
 
 schemaMap = {
     a: numSchema,
-    b: strSchema
+    b: strSchema,
 };
 schemaMap = {
     a: numSchema,
     b: {
         b1: strSchema,
-        b2: anySchema
-    }
+        b2: anySchema,
+    },
 };
 schemaMap = {
     a: numSchema,
-    b: [
-        { b1: strSchema },
-        { b2: anySchema }
-    ],
+    b: [{ b1: strSchema }, { b2: anySchema }],
     c: arrSchema,
-    d: schemaLike
+    d: schemaLike,
 };
 schemaMap = {
     a: 1,
     b: {
         b1: '1',
-        b2: 2
+        b2: 2,
     },
-    c: [
-        { c1: true },
-        { c2: null }
-    ]
+    c: [{ c1: true }, { c2: null }],
 };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 anySchema = Joi.any();
 
-{ // common
+{
+    // common
     anySchema = anySchema.allow(x);
     anySchema = anySchema.allow(x, x);
     anySchema = anySchema.allow([x, x, x]);
@@ -316,7 +311,18 @@ arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.ordered(anySchema);
-arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema, schemaLike);
+arrSchema = arrSchema.ordered(
+    anySchema,
+    numSchema,
+    strSchema,
+    arrSchema,
+    boolSchema,
+    binSchema,
+    dateSchema,
+    funcSchema,
+    objSchema,
+    schemaLike
+);
 arrSchema = arrSchema.ordered(schemaMap);
 arrSchema = arrSchema.ordered([schemaMap, schemaMap, schemaLike]);
 arrSchema = arrSchema.min(num);
@@ -336,7 +342,8 @@ arrSchema = arrSchema.items([schemaMap, schemaMap, schemaLike]);
 
 // - - - - - - - -
 
-{ // common copy paste
+{
+    // common copy paste
     // use search & replace from any
     arrSchema = arrSchema.allow(x);
     arrSchema = arrSchema.allow(x, x);
@@ -390,7 +397,8 @@ arrSchema = arrSchema.items([schemaMap, schemaMap, schemaLike]);
 boolSchema = Joi.bool();
 boolSchema = Joi.boolean();
 
-{ // common copy paste
+{
+    // common copy paste
     boolSchema = boolSchema.allow(x);
     boolSchema = boolSchema.allow(x, x);
     boolSchema = boolSchema.allow([x, x, x]);
@@ -465,7 +473,8 @@ binSchema = binSchema.min(num);
 binSchema = binSchema.max(num);
 binSchema = binSchema.length(num);
 
-{ // common
+{
+    // common
     binSchema = binSchema.allow(x);
     binSchema = binSchema.allow(x, x);
     binSchema = binSchema.allow([x, x, x]);
@@ -551,7 +560,8 @@ dateSchema = dateSchema.timestamp();
 dateSchema = dateSchema.timestamp('javascript');
 dateSchema = dateSchema.timestamp('unix');
 
-{ // common
+{
+    // common
     dateSchema = dateSchema.allow(x);
     dateSchema = dateSchema.allow(x, x);
     dateSchema = dateSchema.allow([x, x, x]);
@@ -628,7 +638,8 @@ numSchema = numSchema.positive();
 numSchema = numSchema.negative();
 numSchema = numSchema.port();
 
-{ // common
+{
+    // common
     numSchema = numSchema.allow(x);
     numSchema = numSchema.allow(x, x);
     numSchema = numSchema.allow([x, x, x]);
@@ -753,7 +764,8 @@ objSchema = objSchema.forbiddenKeys(str);
 objSchema = objSchema.forbiddenKeys(str, str);
 objSchema = objSchema.forbiddenKeys(strArr);
 
-{ // common
+{
+    // common
     objSchema = objSchema.allow(x);
     objSchema = objSchema.allow(x, x);
     objSchema = objSchema.allow([x, x, x]);
@@ -851,7 +863,8 @@ strSchema = strSchema.base64(base64Opts);
 strSchema = strSchema.dataUri();
 strSchema = strSchema.dataUri(dataUriOpts);
 
-{ // common
+{
+    // common
     strSchema = strSchema.allow(x);
     strSchema = strSchema.allow(x, x);
     strSchema = strSchema.allow([x, x, x]);
@@ -921,7 +934,8 @@ schema = Joi.lazy(() => schema, { once: true });
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-{ // validate tests
+{
+    // validate tests
     {
         Joi.validate(value, obj);
         Joi.validate(value, schema);
@@ -952,8 +966,12 @@ schema = Joi.lazy(() => schema, { once: true });
     {
         let value = { username: 'example', password: 'example' };
         const schema = Joi.object().keys({
-            username: Joi.string().max(255).required(),
-            password: Joi.string().regex(/^[a-zA-Z0-9]{3,255}$/).required(),
+            username: Joi.string()
+                .max(255)
+                .required(),
+            password: Joi.string()
+                .regex(/^[a-zA-Z0-9]{3,255}$/)
+                .required(),
         });
         let returnValue: Joi.ValidationResult<typeof value>;
 
@@ -977,7 +995,9 @@ schema = Joi.lazy(() => schema, { once: true });
 
         returnValue
             .then(val => JSON.stringify(val, null, 2))
-            .then(val => { throw new Error('one error'); })
+            .then(val => {
+                throw new Error('one error');
+            })
             .catch(e => {});
     }
 }
@@ -1032,7 +1052,7 @@ const Joi3 = Joi.extend({
                 const fIsAllowed = params.allowFalse;
             },
             validate(params, value: boolean, state, options) {
-                if (value || params.allowFalse && !value) {
+                if (value || (params.allowFalse && !value)) {
                     return value;
                 }
                 return this.createError('asd', { v: value }, state, options);
@@ -1049,7 +1069,7 @@ const Joi6 = Joi.extend({ name: '', base: schema }, [{ name: '', base: schema },
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-const defaultsJoi = Joi.defaults((schema) => {
+const defaultsJoi = Joi.defaults(schema => {
     switch (schema.schemaType) {
         case 'string':
             return schema.allow('');

@@ -9,7 +9,7 @@ import * as assert from 'assert';
 
     const led = new Gpio(18, {
         mode: Gpio.OUTPUT,
-        alert: true
+        alert: true,
     });
 
     led.digitalWrite(0);
@@ -46,7 +46,7 @@ import * as assert from 'assert';
                 }
             }
         });
-    }());
+    })();
 
     // frequency 250Hz, duty cycle 7us
     led.hardwarePwmWrite(250, 250 * 7);
@@ -60,7 +60,7 @@ import * as assert from 'assert';
 
     const led = new Gpio(17, {
         mode: Gpio.OUTPUT,
-        alert: true
+        alert: true,
     });
 
     led.digitalWrite(0);
@@ -98,7 +98,7 @@ import * as assert from 'assert';
                 }
             }
         });
-    }());
+    })();
 
     iv = setInterval(function timer() {
         led.trigger(10, 1);
@@ -124,7 +124,7 @@ import * as assert from 'assert';
     const bank1 = new GpioBank();
     let iv: NodeJS.Timer;
 
-    bank1.clear(1 << 18 | 1 << 17);
+    bank1.clear((1 << 18) | (1 << 17));
     assert.strictEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
 
     iv = setInterval(function timer(): void {
@@ -154,7 +154,7 @@ import * as assert from 'assert';
     }, 250);
 
     setTimeout(function timer() {
-        bank1.clear(1 << 18 | 1 << 17);
+        bank1.clear((1 << 18) | (1 << 17));
         clearInterval(iv);
     }, 2000);
 })();
@@ -188,7 +188,7 @@ import * as assert from 'assert';
     const Gpio = pigpio.Gpio;
     const button = new Gpio(4, {
         mode: Gpio.INPUT,
-        pullUpDown: Gpio.PUD_DOWN
+        pullUpDown: Gpio.PUD_DOWN,
     });
 
     let time = process.hrtime();
@@ -199,7 +199,7 @@ import * as assert from 'assert';
     }
 
     time = process.hrtime(time);
-    const ops = Math.floor(maxI / (time[0] + time[1] / 1E9));
+    const ops = Math.floor(maxI / (time[0] + time[1] / 1e9));
 
     console.log('  ' + ops + ' read ops per second');
 })();
@@ -217,7 +217,7 @@ import * as assert from 'assert';
     }
 
     time = process.hrtime(time);
-    const ops = Math.floor((maxI * 2) / (time[0] + time[1] / 1E9));
+    const ops = Math.floor((maxI * 2) / (time[0] + time[1] / 1e9));
 
     console.log('  ' + ops + ' write ops per second');
 })();
@@ -331,7 +331,7 @@ import * as assert from 'assert';
 
             risingEdge();
         }, 1000);
-    }());
+    })();
 })();
 
 (function isr_multiple_sources(): void {
@@ -382,7 +382,7 @@ import * as assert from 'assert';
 
         setTimeout(function timer() {
             time = process.hrtime(time);
-            const interruptsPerSec = Math.floor(interruptCount / (time[0] + time[1] / 1E9));
+            const interruptsPerSec = Math.floor(interruptCount / (time[0] + time[1] / 1e9));
 
             console.log('  ' + interruptsPerSec + ' interrupts per second');
 
@@ -444,7 +444,7 @@ import * as assert from 'assert';
     const button = new Gpio(4, {
         mode: Gpio.INPUT,
         pullUpDown: Gpio.PUD_DOWN,
-        edge: Gpio.EITHER_EDGE
+        edge: Gpio.EITHER_EDGE,
     });
     const led = new Gpio(17, { mode: Gpio.OUTPUT });
 
@@ -472,7 +472,7 @@ import * as assert from 'assert';
         const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
 
         led.hardwarePwmWrite(FREQUENCY, 500000);
-    }());
+    })();
 
     (function next() {
         const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
@@ -496,7 +496,7 @@ import * as assert from 'assert';
                 closing = true;
             }
         });
-    }());
+    })();
 })();
 
 (function notifier_pwm(): void {
@@ -510,7 +510,7 @@ import * as assert from 'assert';
         const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
 
         led.hardwarePwmWrite(FREQUENCY, 500000);
-    }());
+    })();
 
     (function closure() {
         const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
@@ -535,7 +535,7 @@ import * as assert from 'assert';
                         ledStateErrors += 1;
                     }
 
-                    if ((lastSeqno + 1) !== seqno) {
+                    if (lastSeqno + 1 !== seqno) {
                         console.log('  seqno error, was %d, expected %d', seqno, lastSeqno + 1);
                         seqnoErrors += 1;
                     }
@@ -566,7 +566,7 @@ import * as assert from 'assert';
                 console.log('  max tick diff: %d us', maxTickDiff);
             }
         });
-    }());
+    })();
 })();
 
 (function notifier_stress(): void {
@@ -582,7 +582,7 @@ import * as assert from 'assert';
         const led = new Gpio(LED_GPIO, { mode: Gpio.OUTPUT });
 
         led.hardwarePwmWrite(FREQUENCY, 500000);
-    }());
+    })();
 
     (function closure() {
         const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
@@ -666,7 +666,7 @@ import * as assert from 'assert';
         });
 
         iv = setInterval(printInfo, 5000);
-    }());
+    })();
 })();
 
 (function notifier(): void {
@@ -685,7 +685,7 @@ import * as assert from 'assert';
 
         const iv = setInterval(function timer() {
             const time = process.hrtime();
-            const diff = Math.floor(((time[0] * 1e9 + time[1]) - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
+            const diff = Math.floor((time[0] * 1e9 + time[1] - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
 
             lastTime = time;
 
@@ -708,7 +708,7 @@ import * as assert from 'assert';
                 console.log('  max setInterval diff: %d us', maxSetIntervalDiff);
             }
         }, 1);
-    }());
+    })();
 
     (function closure() {
         const ledNotifier = new Notifier({ bits: 1 << LED_GPIO });
@@ -733,7 +733,7 @@ import * as assert from 'assert';
                         ledStateErrors += 1;
                     }
 
-                    if ((lastSeqno + 1) !== seqno) {
+                    if (lastSeqno + 1 !== seqno) {
                         console.log('  seqno error, was %d, expected %d', seqno, lastSeqno + 1);
                         seqnoErrors += 1;
                     }
@@ -762,7 +762,7 @@ import * as assert from 'assert';
                 console.log('  max tick diff: %d us', maxTickDiff);
             }
         });
-    }());
+    })();
 })();
 
 (function pull_up_down(): void {
@@ -783,7 +783,9 @@ import * as assert from 'assert';
         led.pwmWrite(dutyCycle);
 
         const dutyCycleRead: number = led.getPwmDutyCycle();
-        assert.strictEqual(dutyCycleRead, dutyCycle,
+        assert.strictEqual(
+            dutyCycleRead,
+            dutyCycle,
             'expected dutyCycle to be ' + dutyCycle + ', not ' + dutyCycleRead
         );
 
@@ -841,15 +843,15 @@ import * as assert from 'assert';
     let pulseWidth = 500;
 
     motor.servoWrite(0);
-    assert.strictEqual(motor.getServoPulseWidth(), 0,
-        'expected pulseWidth to be 0'
-    );
+    assert.strictEqual(motor.getServoPulseWidth(), 0, 'expected pulseWidth to be 0');
 
     iv = setInterval(function timer() {
         motor.servoWrite(pulseWidth);
 
         const pulseWidthRead = motor.getServoPulseWidth();
-        assert.strictEqual(pulseWidthRead, pulseWidth,
+        assert.strictEqual(
+            pulseWidthRead,
+            pulseWidth,
             'expected pulseWidth to be ' + pulseWidth + ', not ' + pulseWidthRead
         );
 
@@ -894,10 +896,10 @@ import * as assert from 'assert';
     const input = new Gpio(7, {
         mode: Gpio.INPUT,
         pullUpDown: Gpio.PUD_OFF,
-        alert: true
+        alert: true,
     });
     const output = new Gpio(8, {
-      mode: Gpio.OUTPUT
+        mode: Gpio.OUTPUT,
     });
     let count = 0;
 
@@ -918,7 +920,7 @@ import * as assert from 'assert';
 
     setTimeout(() => {
         assert.strictEqual(count, 1, 'expected 1 alert function call instead of ' + count);
-        console.log("  success...");
+        console.log('  success...');
         process.exit(0);
     }, 1000);
 })();

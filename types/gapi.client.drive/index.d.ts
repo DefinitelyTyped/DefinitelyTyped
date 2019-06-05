@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Drive API v3 */
-    function load(name: "drive", version: "v3"): PromiseLike<void>;
-    function load(name: "drive", version: "v3", callback: () => any): void;
+    function load(name: 'drive', version: 'v3'): PromiseLike<void>;
+    function load(name: 'drive', version: 'v3', callback: () => any): void;
 
     namespace drive {
         interface About {

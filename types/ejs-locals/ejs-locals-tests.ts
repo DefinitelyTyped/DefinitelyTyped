@@ -1,5 +1,3 @@
-
-
 import express = require('express');
 import ejsLocals = require('ejs-locals');
 

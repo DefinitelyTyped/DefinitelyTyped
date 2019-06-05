@@ -1,5 +1,5 @@
 // from https://hapijs.com/tutorials/getting-started#adding-routes
-import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "@hapi/hapi";
+import { Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from '@hapi/hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -10,7 +10,7 @@ const serverRoute: ServerRoute = {
     method: 'GET',
     handler(request, h) {
         return 'ok: ' + request.path;
-    }
+    },
 };
 
 const serverRoutes: ServerRoute[] = [
@@ -19,14 +19,14 @@ const serverRoutes: ServerRoute[] = [
         method: 'GET',
         handler(request, h) {
             return 'ok: ' + request.path;
-        }
+        },
     },
     {
         path: '/test2',
         method: 'GET',
         handler(request, h) {
             return 'ok: ' + request.path;
-        }
+        },
     },
 ];
 

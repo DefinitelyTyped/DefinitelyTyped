@@ -1,22 +1,26 @@
 // Tests for: https://github.com/topojson/us-atlas and https://github.com/topojson/world-atlas
 
 const world: topojson.WorldAtlas = {
-    type: "Topology",
+    type: 'Topology',
     objects: {
         countries: {
-            type: "GeometryCollection",
-            geometries: [{
-                type: "Polygon",
-                arcs: [[]],
-                id: "004",
-            }],
+            type: 'GeometryCollection',
+            geometries: [
+                {
+                    type: 'Polygon',
+                    arcs: [[]],
+                    id: '004',
+                },
+            ],
         },
         land: {
-            type: "GeometryCollection",
-            geometries: [{
-                type: "MultiPolygon",
-                arcs: [[[]]],
-            }],
+            type: 'GeometryCollection',
+            geometries: [
+                {
+                    type: 'MultiPolygon',
+                    arcs: [[[]]],
+                },
+            ],
         },
     },
     arcs: [[]],
@@ -28,7 +32,7 @@ const world: topojson.WorldAtlas = {
 };
 
 const us: topojson.UsAtlas = {
-    type: "Topology",
+    type: 'Topology',
     bbox: [-56, 12, 942, 596],
     transform: {
         scale: [0, 0],
@@ -36,27 +40,33 @@ const us: topojson.UsAtlas = {
     },
     objects: {
         counties: {
-            type: "GeometryCollection",
-            geometries: [{
-                type: "Polygon",
-                arcs: [[]],
-                id: "05089",
-            }],
+            type: 'GeometryCollection',
+            geometries: [
+                {
+                    type: 'Polygon',
+                    arcs: [[]],
+                    id: '05089',
+                },
+            ],
         },
         states: {
-            type: "GeometryCollection",
-            geometries: [{
-                type: "MultiPolygon",
-                arcs: [[[]]],
-                id: "11",
-            }],
+            type: 'GeometryCollection',
+            geometries: [
+                {
+                    type: 'MultiPolygon',
+                    arcs: [[[]]],
+                    id: '11',
+                },
+            ],
         },
         nation: {
-            type: "GeometryCollection",
-            geometries: [{
-                type: "MultiPolygon",
-                arcs: [[[]]],
-            }],
+            type: 'GeometryCollection',
+            geometries: [
+                {
+                    type: 'MultiPolygon',
+                    arcs: [[[]]],
+                },
+            ],
         },
     },
     arcs: [[[]]],

@@ -5,93 +5,93 @@
 // TypeScript Version: 2.4
 
 export interface With {
-  name: string;
-  stmt: any[];
-  columns?: any[];
+    name: string;
+    stmt: any[];
+    columns?: any[];
 }
 export type WhilteListCheckMode = 'table' | 'column';
 export interface TableColumnAst {
-  tableList: string[];
-  columnsList: string[];
-  ast: AST[] | AST;
+    tableList: string[];
+    columnsList: string[];
+    ast: AST[] | AST;
 }
 export interface From {
-  db: string | null;
-  table: string;
-  as: string | null;
+    db: string | null;
+    table: string;
+    as: string | null;
 }
 export interface Dual {
-  type: 'dual';
+    type: 'dual';
 }
 export interface Limit {
-  type: string;
-  value: number;
+    type: string;
+    value: number;
 }
 export interface OrderBy {
-  type: 'ASC' | 'DESC';
-  expr: any;
+    type: 'ASC' | 'DESC';
+    expr: any;
 }
 export interface ColumnRef {
-  type: 'column_ref';
-  table: string | null;
-  column: string;
+    type: 'column_ref';
+    table: string | null;
+    column: string;
 }
 export interface SetList {
-  column: string;
-  value: any;
-  table: string | null;
+    column: string;
+    value: any;
+    table: string | null;
 }
 export interface InsertReplaceValue {
-  type: 'expr_list';
-  value: any[];
+    type: 'expr_list';
+    value: any[];
 }
 export interface Select {
-  with: With | null;
-  type: 'select';
-  options: any[] | null;
-  distinct: 'DISTINCT' | null;
-  columns: any[] | '*';
-  from: Array<From | Dual> | null;
-  where: any;
-  groupby: ColumnRef[] | null;
-  having: any[] | null;
-  orderby: OrderBy[] | null;
-  limit: Limit[] | null;
+    with: With | null;
+    type: 'select';
+    options: any[] | null;
+    distinct: 'DISTINCT' | null;
+    columns: any[] | '*';
+    from: Array<From | Dual> | null;
+    where: any;
+    groupby: ColumnRef[] | null;
+    having: any[] | null;
+    orderby: OrderBy[] | null;
+    limit: Limit[] | null;
 }
 export interface Insert_Replace {
-  type: 'replace' | 'insert';
-  db: string | null;
-  table: string;
-  columns: string[] | null;
-  values: InsertReplaceValue[];
+    type: 'replace' | 'insert';
+    db: string | null;
+    table: string;
+    columns: string[] | null;
+    values: InsertReplaceValue[];
 }
 export interface Update {
-  type: 'udpate';
-  db: string | null;
-  table: string;
-  set: SetList[];
-  where: any;
+    type: 'udpate';
+    db: string | null;
+    table: string;
+    set: SetList[];
+    where: any;
 }
 export interface Delete {
-  type: 'delete';
-  tables: any;
-  from: Array<From | Dual>;
-  where: any;
+    type: 'delete';
+    tables: any;
+    from: Array<From | Dual>;
+    where: any;
 }
 export type AST = Select | Insert_Replace | Update | Delete;
 
 export class Parser {
-  constructor();
+    constructor();
 
-  parse(sql: string): TableColumnAst;
+    parse(sql: string): TableColumnAst;
 
-  astify(sql: string): AST[] | AST;
+    astify(sql: string): AST[] | AST;
 
-  sqlify(ast: AST[] | AST): string;
+    sqlify(ast: AST[] | AST): string;
 
-  whiteListCheck(sql: string, whiteList: string[], type?: WhilteListCheckMode): Error | undefined;
+    whiteListCheck(sql: string, whiteList: string[], type?: WhilteListCheckMode): Error | undefined;
 
-  tableList(sql: string): string[];
+    tableList(sql: string): string[];
 
-  columnList(sql: string): string[];
+    columnList(sql: string): string[];
 }

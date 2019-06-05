@@ -5,5 +5,5 @@ const cluster = recluster(path.join(__dirname, 'server.js'));
 cluster.run();
 
 process.on('SIGUSR2', () => {
-  cluster.reload();
+    cluster.reload();
 });

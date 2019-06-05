@@ -20,63 +20,63 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 /// <reference path="./baidumap.control.d.ts" />
 declare namespace BMap {
     class TileLayer {
-        constructor(opts?: TileLayerOptions)
-        getTilesUrl(tileCoord: Pixel, zoom: number): string
-        getCopyright(): Copyright
-        isTransparentPng(): boolean
+        constructor(opts?: TileLayerOptions);
+        getTilesUrl(tileCoord: Pixel, zoom: number): string;
+        getCopyright(): Copyright;
+        isTransparentPng(): boolean;
     }
     interface TileLayerOptions {
-        transparentPng?: boolean
-        tileUrlTemplate?: string
-        copyright?: Copyright
-        zIndex?: number
+        transparentPng?: boolean;
+        tileUrlTemplate?: string;
+        copyright?: Copyright;
+        zIndex?: number;
     }
     class TrafficLayer extends TileLayer {
-        constructor(opts?: TrafficLayerOptions)
+        constructor(opts?: TrafficLayerOptions);
     }
     interface TrafficLayerOptions {
-        predictDate?: PredictDate
+        predictDate?: PredictDate;
     }
     interface PredictDate {
-        weekday: number
-        hour: number
+        weekday: number;
+        hour: number;
     }
     class CustomLayer extends TileLayer {
-        constructor(opts: CustomLayerOptions)
-        onhotspotclick: (event: { type: string, target: any, content: any }) => void
+        constructor(opts: CustomLayerOptions);
+        onhotspotclick: (event: { type: string; target: any; content: any }) => void;
     }
     interface Custompoi {
-        poiId: string
-        databoxId: string
-        title: string
-        address: string
-        phoneNumber: string
-        postcode: string
-        provinceCode: number
-        province: string
-        cityCode: number
-        city: string
-        districtCode: number
-        district: string
-        point: Point
-        tags: string[]
-        typeId: number
-        extendedData: any
+        poiId: string;
+        databoxId: string;
+        title: string;
+        address: string;
+        phoneNumber: string;
+        postcode: string;
+        provinceCode: number;
+        province: string;
+        cityCode: number;
+        city: string;
+        districtCode: number;
+        district: string;
+        point: Point;
+        tags: string[];
+        typeId: number;
+        extendedData: any;
     }
     class PanoramaCoverageLayer extends TileLayer {
-        constructor()
+        constructor();
     }
     interface CustomLayerOptions {
-        databoxId?: string
-        geotableId?: string
-        q?: string
-        tags?: string
-        filter?: string
-        pointDensityType?: PointDensityType
+        databoxId?: string;
+        geotableId?: string;
+        q?: string;
+        tags?: string;
+        filter?: string;
+        pointDensityType?: PointDensityType;
     }
-    type PointDensityType = number
+    type PointDensityType = number;
 }
 
-declare const BMAP_POINT_DENSITY_HIGH: BMap.PointDensityType
-declare const BMAP_POINT_DENSITY_MEDIUM: BMap.PointDensityType
-declare const BMAP_POINT_DENSITY_LOW: BMap.PointDensityType
+declare const BMAP_POINT_DENSITY_HIGH: BMap.PointDensityType;
+declare const BMAP_POINT_DENSITY_MEDIUM: BMap.PointDensityType;
+declare const BMAP_POINT_DENSITY_LOW: BMap.PointDensityType;

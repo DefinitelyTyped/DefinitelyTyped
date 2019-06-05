@@ -1,6 +1,6 @@
-import stream = require("stream");
+import stream = require('stream');
 import Stream = stream.Readable;
-import merge = require("merge-stream");
+import merge = require('merge-stream');
 
 const stream1 = new Stream();
 const stream2 = new Stream();

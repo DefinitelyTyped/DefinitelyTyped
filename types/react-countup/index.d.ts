@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactCountUp;
 
@@ -35,28 +35,11 @@ declare namespace ReactCountUp {
         easingFn?(t: number, b: number, c: number, d: number): void;
         formattingFn?(value: number): string;
         onComplete?(): void;
-        onEnd?(providedFn: {
-            pauseResume(): void;
-            reset(): void;
-            start(): void;
-            update(): void;
-        }): void;
-        onStart?(providedFn: {
-            pauseResume(): void;
-            reset(): void;
-            update(): void;
-        }): void;
-        onPauseResume?(): (
-            providedFn: { reset(): void; start(): void; update(): void }
-        ) => void;
-        onReset?(): (
-            providedFn: { pauseResume(): void; start(): void; update(): void }
-        ) => void;
-        onUpdate?(providedFn: {
-            pauseResume(): void;
-            reset(): void;
-            start(): void;
-        }): void;
+        onEnd?(providedFn: { pauseResume(): void; reset(): void; start(): void; update(): void }): void;
+        onStart?(providedFn: { pauseResume(): void; reset(): void; update(): void }): void;
+        onPauseResume?(): (providedFn: { reset(): void; start(): void; update(): void }) => void;
+        onReset?(): (providedFn: { pauseResume(): void; start(): void; update(): void }) => void;
+        onUpdate?(providedFn: { pauseResume(): void; reset(): void; start(): void }): void;
         style?: React.CSSProperties;
         children?(data: RenderProps): React.ReactElement;
     }

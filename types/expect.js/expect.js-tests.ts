@@ -1,5 +1,3 @@
-
-
 function test_expect() {
     expect();
     expect(1);
@@ -71,7 +69,7 @@ function test_contain() {
 }
 
 function test_length() {
-    expect([1,2,3]).to.have.length(3);
+    expect([1, 2, 3]).to.have.length(3);
 }
 
 function test_empty() {
@@ -94,7 +92,7 @@ function test_key() {
 function test_throwException() {
     var fn = () => {};
     expect(fn).to.throwError();
-    expect(fn).to.throwException(function (e) {
+    expect(fn).to.throwException(function(e) {
         expect(e).to.be.a(SyntaxError);
     });
     expect(fn).to.throwException(/matches the exception message/);
@@ -103,8 +101,12 @@ function test_throwException() {
 
 function test_withArgs() {
     var fn = () => {};
-    expect(fn).withArgs().to.throwException();
-    expect(fn).withArgs(true, 1, '').to.throwException();
+    expect(fn)
+        .withArgs()
+        .to.throwException();
+    expect(fn)
+        .withArgs(true, 1, '')
+        .to.throwException();
 }
 
 function test_within() {

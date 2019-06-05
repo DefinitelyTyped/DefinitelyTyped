@@ -1,4 +1,4 @@
-import cloner = require("cloner");
+import cloner = require('cloner');
 
 interface A {
     test: string;
@@ -22,18 +22,18 @@ let bO: B;
 let bN: B;
 
 aO = {
-    test: "test",
+    test: 'test',
     nest: {
-        test: "nestTest",
-        num: 1
-    }
+        test: 'nestTest',
+        num: 1,
+    },
 };
 bO = {
-    somethingElse: "se",
+    somethingElse: 'se',
     nest: {
-        somethingElse: "nestSe",
-        notNaN: 0
-    }
+        somethingElse: 'nestSe',
+        notNaN: 0,
+    },
 };
 
 aN = cloner.deep.copy(aO);

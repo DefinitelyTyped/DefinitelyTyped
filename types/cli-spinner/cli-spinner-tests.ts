@@ -16,7 +16,10 @@ spinner = new Spinner({
 });
 
 spinner = spinner.start();
-spinner = spinner.stop().stop(true).stop(false);
+spinner = spinner
+    .stop()
+    .stop(true)
+    .stop(false);
 spinner = spinner.clearLine(process.stdout);
 spinner = spinner.setSpinnerDelay(100);
 spinner = spinner.setSpinnerString('My spinner string');

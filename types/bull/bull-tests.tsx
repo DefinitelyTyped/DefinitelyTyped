@@ -2,12 +2,12 @@
  * Created by Bruno Grieder
  */
 
-import Redis = require("ioredis");
-import Queue = require("bull");
+import Redis = require('ioredis');
+import Queue = require('bull');
 
 const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
 const audioQueue = new Queue('audio transcoding', {
-    redis: {port: 6379, host: '127.0.0.1'}, // Specify Redis connection using object
+    redis: { port: 6379, host: '127.0.0.1' }, // Specify Redis connection using object
     settings: {},
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
@@ -69,9 +69,9 @@ imageQueue.process((job, done) => {
     throw new Error('some unexpected error');
 });
 
-videoQueue.add({video: 'http://example.com/video1.mov'});
-audioQueue.add({audio: 'http://example.com/audio1.mp3'});
-imageQueue.add({image: 'http://example.com/image1.tiff'});
+videoQueue.add({ video: 'http://example.com/video1.mov' });
+audioQueue.add({ audio: 'http://example.com/audio1.mp3' });
+imageQueue.add({ image: 'http://example.com/image1.tiff' });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -82,8 +82,8 @@ imageQueue.add({image: 'http://example.com/image1.tiff'});
 const clusterQueue = new Queue('queue on redis cluster', {
     prefix: 'cluster-test',
     createClient: (clusterUri: Redis.ClusterNode) => {
-        return new Redis.Cluster([{port: 6379, host: '127.0.0.1'}]);
-    }
+        return new Redis.Cluster([{ port: 6379, host: '127.0.0.1' }]);
+    },
 });
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ const pdfQueue = new Queue('pdf transcoding', {
             default:
                 return new Redis(options);
         }
-    }
+    },
 });
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -125,18 +125,19 @@ async function pfdPromise(job: Queue.Job) {
 
 pdfQueue.process(1, pfdPromise);
 
-videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
-.then((video1Job) => {
-    // When job has successfully be placed in the queue the job is returned
-    // then wait for completion
-    return video1Job.finished();
-})
-.then(() => {
-    // completed successfully
-})
-.catch((err) => {
-    // error
-});
+videoQueue
+    .add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
+    .then(video1Job => {
+        // When job has successfully be placed in the queue the job is returned
+        // then wait for completion
+        return video1Job.finished();
+    })
+    .then(() => {
+        // completed successfully
+    })
+    .catch(err => {
+        // error
+    });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
@@ -145,19 +146,19 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 //////////////////////////////////////////////////////////////////////////////////
 
 pdfQueue
-.on('error', (err: Error) => undefined)
-.on('active', (job: Queue.Job, jobPromise: Queue.JobPromise) => jobPromise.cancel())
-.on('waiting', (jobId: Queue.JobId) => undefined)
-.on('active', (job: Queue.Job) => undefined)
-.on('stalled', (job: Queue.Job) => undefined)
-.on('progress', (job: Queue.Job) => undefined)
-.on('completed', (job: Queue.Job) => undefined)
-.on('failed', (job: Queue.Job) => undefined)
-.on('paused', () => undefined)
-.on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
-.on('drained', () => undefined)
-.on('removed', (job: Queue.Job) => undefined);
+    .on('error', (err: Error) => undefined)
+    .on('active', (job: Queue.Job, jobPromise: Queue.JobPromise) => jobPromise.cancel())
+    .on('waiting', (jobId: Queue.JobId) => undefined)
+    .on('active', (job: Queue.Job) => undefined)
+    .on('stalled', (job: Queue.Job) => undefined)
+    .on('progress', (job: Queue.Job) => undefined)
+    .on('completed', (job: Queue.Job) => undefined)
+    .on('failed', (job: Queue.Job) => undefined)
+    .on('paused', () => undefined)
+    .on('resumed', () => undefined)
+    .on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
+    .on('drained', () => undefined)
+    .on('removed', (job: Queue.Job) => undefined);
 
 pdfQueue.setMaxListeners(42);
 
@@ -171,11 +172,11 @@ profileQueue.process(100, () => {});
 // other tests
 const myQueue = new Queue('myQueue', {
     settings: {
-        drainDelay: 5
+        drainDelay: 5,
     },
     defaultJobOptions: {
         stackTraceLimit: 1,
-    }
+    },
 });
 
 myQueue.on('active', (job: Queue.Job) => {
@@ -189,7 +190,7 @@ myQueue.on('active', (job: Queue.Job) => {
         }
     });
 
-    job.moveToFailed({ message: "Call to external service failed!" }, true);
+    job.moveToFailed({ message: 'Call to external service failed!' }, true);
     job.moveToFailed(new Error('test error'), true);
     job.moveToFailed(new Error('test error'), true).then(val => {
         if (val) {

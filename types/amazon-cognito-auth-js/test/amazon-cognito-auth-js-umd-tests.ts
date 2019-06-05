@@ -14,7 +14,7 @@ const authOptions: AmazonCognitoIdentity.CognitoAuthOptions = {
     ClientId: '1a2b3c4d5e6f7g',
     AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
     RedirectUriSignIn: 'https://myapp.com/login',
-    RedirectUriSignOut: 'https://myapp.com/logout'
+    RedirectUriSignOut: 'https://myapp.com/logout',
 };
 const auth = new AmazonCognitoIdentity.CognitoAuth(authOptions);
 auth.userhandler; // $ExpectType CognitoAuthUserHandler

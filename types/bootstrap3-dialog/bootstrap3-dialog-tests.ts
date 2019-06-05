@@ -1,49 +1,49 @@
 function BootstrapDialogOptionsTests() {
-    const options1: BootstrapDialog.DialogOptions = { };
+    const options1: BootstrapDialog.DialogOptions = {};
     const options2: BootstrapDialog.DialogOptions = {
         animate: false,
-        buttons: [{id: "btn-1"}],
-        callback: (result: boolean) => { },
+        buttons: [{ id: 'btn-1' }],
+        callback: (result: boolean) => {},
         closable: false,
         closeByBackdrop: false,
         closeByKeyboard: false,
-        data: {name: "value"},
+        data: { name: 'value' },
         draggable: false,
-        description: "",
-        buttonLabel: "",
-        message: "",
-        onhide: (dialog: BootstrapDialog.DialogContext) => { },
-        onhidden: (dialog: BootstrapDialog.DialogContext) => { },
-        onshow: (dialog: BootstrapDialog.DialogContext) => { },
-        onshown: (dialog: BootstrapDialog.DialogContext) => { },
+        description: '',
+        buttonLabel: '',
+        message: '',
+        onhide: (dialog: BootstrapDialog.DialogContext) => {},
+        onhidden: (dialog: BootstrapDialog.DialogContext) => {},
+        onshow: (dialog: BootstrapDialog.DialogContext) => {},
+        onshown: (dialog: BootstrapDialog.DialogContext) => {},
         size: BootstrapDialog.SIZE_LARGE,
-        title: "",
+        title: '',
         type: BootstrapDialog.TYPE_DEFAULT,
-        btnCancelLabel: "",
-        btnOKClass: "",
-        btnOKLabel: "",
-        cssClass: "",
-        spinicon: "",
+        btnCancelLabel: '',
+        btnOKClass: '',
+        btnOKLabel: '',
+        cssClass: '',
+        spinicon: '',
         autodestroy: false,
         nl2br: false,
     };
-    options2.onhide = (dialog: BootstrapDialog.DialogContext): void => { };
+    options2.onhide = (dialog: BootstrapDialog.DialogContext): void => {};
     options2.onhide = (dialog: BootstrapDialog.DialogContext): boolean => false;
-    options2.message = "";
-    options2.message = $("#element");
+    options2.message = '';
+    options2.message = $('#element');
     options2.message = (dialog?: BootstrapDialog.DialogContext): string => {
-        return "";
+        return '';
     };
     options2.message = (dialog?: BootstrapDialog.DialogContext): JQuery => {
-        return $("#element");
+        return $('#element');
     };
     // BootstrapDialog.SIZE_xxx constants.
     options2.size = BootstrapDialog.SIZE_LARGE;
     options2.size = BootstrapDialog.SIZE_NORMAL;
     options2.size = BootstrapDialog.SIZE_SMALL;
     options2.size = BootstrapDialog.SIZE_WIDE;
-    options2.title = "";
-    options2.title = $("#element");
+    options2.title = '';
+    options2.title = $('#element');
     // BootstrapDialog.TYPE_xxx constants.
     options2.type = BootstrapDialog.TYPE_DANGER;
     options2.type = BootstrapDialog.TYPE_DEFAULT;
@@ -54,31 +54,31 @@ function BootstrapDialogOptionsTests() {
 }
 
 function BootstrapDialogStaticTests() {
-    BootstrapDialog.alert("");
-    BootstrapDialog.alert("", () => { });
-    BootstrapDialog.confirm("");
-    BootstrapDialog.confirm("", (result: boolean) => { });
+    BootstrapDialog.alert('');
+    BootstrapDialog.alert('', () => {});
+    BootstrapDialog.confirm('');
+    BootstrapDialog.confirm('', (result: boolean) => {});
     const instance1: BootstrapDialog.DialogInstance = BootstrapDialog.show({});
     // BUTTON_SIZES
     BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL] = '';
     const buttonSize: string = BootstrapDialog.BUTTON_SIZES[BootstrapDialog.SIZE_NORMAL];
     // Buttons order
-    BootstrapDialog.BUTTONS_ORDER_CANCEL_OK = "";
-    BootstrapDialog.BUTTONS_ORDER_OK_CANCEL = "";
+    BootstrapDialog.BUTTONS_ORDER_CANCEL_OK = '';
+    BootstrapDialog.BUTTONS_ORDER_OK_CANCEL = '';
     // DEFAULT_TEXTS
     BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = 'Information';
     const defaultText: string = BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT];
     // Miscellaneous
-    BootstrapDialog.ICON_SPINNER = "";
-    BootstrapDialog.NAMESPACE = "";
+    BootstrapDialog.ICON_SPINNER = '';
+    BootstrapDialog.NAMESPACE = '';
 }
 
 function BootstrapDialogContextTests() {
     const dialog1: BootstrapDialog.DialogContext = BootstrapDialog({});
     dialog1.close();
     dialog1.enableButtons(false);
-    const button: JQuery = dialog1.getButton("");
-    const value: any = dialog1.getData("name");
+    const button: JQuery = dialog1.getButton('');
+    const value: any = dialog1.getData('name');
     const modal: JQuery = dialog1.getModal();
     const content: JQuery = dialog1.getModalContent();
     const dialog: JQuery = dialog1.getModalDialog();
@@ -89,10 +89,10 @@ function BootstrapDialogContextTests() {
     dialog1.open();
     dialog1.realize();
     dialog1.setClosable(false);
-    dialog1.setData("name", "value");
-    dialog1.setData("", null);
-    dialog1.setMessage("");
-    dialog1.setTitle("");
+    dialog1.setData('name', 'value');
+    dialog1.setData('', null);
+    dialog1.setMessage('');
+    dialog1.setTitle('');
     dialog1.setType(BootstrapDialog.TYPE_DEFAULT);
 }
 
@@ -109,15 +109,15 @@ function BootstrapDialogInstanceTests() {
 }
 
 function BootstrapDialogButtonTests() {
-    const button1: BootstrapDialog.DialogButton = { };
+    const button1: BootstrapDialog.DialogButton = {};
     const button2: BootstrapDialog.DialogButton = {
-        id: "",
-        label: "",
+        id: '',
+        label: '',
         hotkey: 0,
-        icon: "",
-        cssClass: "",
-        data: {name: "value"},
+        icon: '',
+        cssClass: '',
+        data: { name: 'value' },
         autospin: false,
-        action: (dialog: BootstrapDialog.DialogContext) => { },
+        action: (dialog: BootstrapDialog.DialogContext) => {},
     };
 }

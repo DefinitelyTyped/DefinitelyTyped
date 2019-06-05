@@ -103,7 +103,7 @@ declare namespace lunr {
          */
         metadataWhitelist: string[];
 
-        constructor()
+        constructor();
 
         /**
          * Sets the document field used as the document reference. Every document must have this field.
@@ -306,7 +306,7 @@ declare namespace lunr {
         /**
          * @param attrs The attributes of the built search index.
          */
-        constructor(attrs: Index.Attributes)
+        constructor(attrs: Index.Attributes);
 
         /**
          * Performs a search against the index using lunr query syntax.
@@ -371,7 +371,7 @@ declare namespace lunr {
          * @param field - The field in which the term was found
          * @param metadata - The metadata recorded about this term in this field
          */
-        constructor(term: string, field: string, metadata: object)
+        constructor(term: string, field: string, metadata: object);
 
         /**
          * An instance of lunr.MatchData will be created for every term that matches a
@@ -403,11 +403,7 @@ declare namespace lunr {
      * @param i - The index of this token in the complete list of tokens for this document/field.
      * @param tokens - All tokens for this document/field.
      */
-    type PipelineFunction = (
-        token: Token,
-        i: number,
-        tokens: Token[]
-    ) => null | Token | Token[];
+    type PipelineFunction = (token: Token, i: number, tokens: Token[]) => null | Token | Token[];
 
     /**
      * lunr.Pipelines maintain an ordered list of functions to be applied to all
@@ -437,7 +433,7 @@ declare namespace lunr {
      * is not necessary.
      */
     class Pipeline {
-        constructor()
+        constructor();
 
         /**
          * Register a function with the pipeline.
@@ -550,13 +546,13 @@ declare namespace lunr {
             /**
              * Term's presence in a document is prohibited, documents that do contain this term will not be returned.
              */
-            PROHIBITED = 3
+            PROHIBITED = 3,
         }
 
         enum wildcard {
             NONE = 0,
             LEADING = 1 << 0,
-            TRAILING = 1 << 1
+            TRAILING = 1 << 1,
         }
 
         /**
@@ -599,7 +595,7 @@ declare namespace lunr {
         /**
          * @param allFields An array of all available fields in a lunr.Index.
          */
-        constructor(allFields: string[])
+        constructor(allFields: string[]);
 
         /**
          * Adds a {@link lunr.Query~Clause} to this query.
@@ -639,12 +635,12 @@ declare namespace lunr {
     }
 
     class QueryParseError extends Error {
-        name: "QueryParseError";
+        name: 'QueryParseError';
         message: string;
         start: number;
         end: number;
 
-        constructor(message: string, start: string, end: string)
+        constructor(message: string, start: string, end: string);
     }
 
     /**
@@ -705,7 +701,7 @@ declare namespace lunr {
          * @param [str=''] - The string token being wrapped.
          * @param [metadata={}] - Metadata associated with this token.
          */
-        constructor(str: string, metadata: object)
+        constructor(str: string, metadata: object);
 
         /**
          * Returns the token string that is being wrapped by this object.
@@ -754,7 +750,7 @@ declare namespace lunr {
      * This helps to reduce the space used for storing the token set.
      */
     class TokenSet {
-        constructor()
+        constructor();
 
         /**
          * Creates a TokenSet instance from the given sorted array of words.
@@ -901,7 +897,7 @@ declare namespace lunr {
         /**
          * @param [elements] - The flat list of element index and element value pairs.
          */
-        constructor(elements: number[])
+        constructor(elements: number[]);
 
         /**
          * Calculates the position within the vector to insert a given index.
@@ -933,11 +929,7 @@ declare namespace lunr {
          * @param fn - A function that is called for updates, the existing value and the
          * requested value are passed as arguments
          */
-        upsert(
-            insertIdx: number,
-            val: number,
-            fn: (existingVal: number, val: number) => number
-        ): void;
+        upsert(insertIdx: number, val: number, fn: (existingVal: number, val: number) => number): void;
 
         /**
          * Calculates the magnitude of this vector.

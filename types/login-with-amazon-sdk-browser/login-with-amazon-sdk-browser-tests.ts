@@ -1,17 +1,17 @@
-amazon.Login.setClientId("my-client-id");
-amazon.Login.setSiteDomain("my://site.domain");
+amazon.Login.setClientId('my-client-id');
+amazon.Login.setSiteDomain('my://site.domain');
 amazon.Login.setSandboxMode(true);
 amazon.Login.setUseCookie(true);
 
 const clientId: string = amazon.Login.getClientId();
 
 // Request full user data
-const scope: AuthorizeScope = ["profile", "profile:user_id", "postal_code"];
+const scope: AuthorizeScope = ['profile', 'profile:user_id', 'postal_code'];
 // Authorize with a url as the `next` parameter
 amazon.Login.authorize(
     {
         scope,
-        interactive: "never",
+        interactive: 'never',
         popup: false,
     },
     (req: AccessTokenRequest) => {
@@ -25,12 +25,12 @@ amazon.Login.authorize(
 );
 
 const request = amazon.Login.authorize({
-    response_type: "code",
-    state: "my-state",
-    scope: "profile",
+    response_type: 'code',
+    state: 'my-state',
+    scope: 'profile',
 });
 
-request.onComplete("my://redirect.url");
+request.onComplete('my://redirect.url');
 request.onComplete((req: CodeRequest) => {
     console.log(req.code);
     console.log(req.state);

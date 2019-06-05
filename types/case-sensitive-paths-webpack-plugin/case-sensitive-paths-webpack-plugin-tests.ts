@@ -9,7 +9,7 @@ const c: Configuration = {
     plugins: [
         new CaseSensitivePathsWebpackPlugin(),
         new CaseSensitivePathsWebpackPlugin({
-            debug: true
+            debug: true,
         }),
     ],
 };

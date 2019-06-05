@@ -17,7 +17,7 @@ export interface MimosOptions {
      *  * the key is the lower-cased correct mime-type. (Ex. "application/javascript").
      *  * the value should an object @see MimosOptionsValue
      */
-    override: {[index: string]: MimosOptionsValue};
+    override: { [index: string]: MimosOptionsValue };
 }
 
 export interface MimosOptionsValue extends MimeDbDataStructure {

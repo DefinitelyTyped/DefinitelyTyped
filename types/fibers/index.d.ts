@@ -5,8 +5,6 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fibers.d.ts
 
-
-
 declare function fibers(callback: () => void): fibers.Fiber;
 
 declare namespace fibers {

@@ -25,14 +25,8 @@ export interface Calendar {
 
 export interface RenderProps {
     calendars: Calendar[];
-    getBackProps: (data: {
-        calendars: Calendar[];
-        offset?: number;
-    }) => Record<string, any>;
-    getForwardProps: (data: {
-        calendars: Calendar[];
-        offset?: number;
-    }) => Record<string, any>;
+    getBackProps: (data: { calendars: Calendar[]; offset?: number }) => Record<string, any>;
+    getForwardProps: (data: { calendars: Calendar[]; offset?: number }) => Record<string, any>;
     getDateProps: (data: { dateObj: DateObj }) => Record<string, any>;
 }
 

@@ -1,28 +1,34 @@
 declare namespace AMap {
     namespace GeoJSON {
-        type Geometry = {
-            type: 'Point';
-            coordinates: [number, number];
-        } | {
-            type: 'MultiPoint' | 'LineString' | 'Polygon';
-            coordinates: Array<[number, number]>;
-        } | {
-            type: 'MultiLineString' | 'MultiPolygon';
-            coordinates: Array<Array<[number, number]>>;
-        } | {
-            type: 'GeometryCollection';
-            geometries: Geometry[];
-        };
+        type Geometry =
+            | {
+                  type: 'Point';
+                  coordinates: [number, number];
+              }
+            | {
+                  type: 'MultiPoint' | 'LineString' | 'Polygon';
+                  coordinates: Array<[number, number]>;
+              }
+            | {
+                  type: 'MultiLineString' | 'MultiPolygon';
+                  coordinates: Array<Array<[number, number]>>;
+              }
+            | {
+                  type: 'GeometryCollection';
+                  geometries: Geometry[];
+              };
 
-        type GeoJSONObject = {
-            type: 'Feature';
-            properties: any;
-            geometry: Geometry;
-        } | {
-            type: 'FeatureCollection',
-            properties: any;
-            features: GeoJSONObject[];
-        };
+        type GeoJSONObject =
+            | {
+                  type: 'Feature';
+                  properties: any;
+                  geometry: Geometry;
+              }
+            | {
+                  type: 'FeatureCollection';
+                  properties: any;
+                  features: GeoJSONObject[];
+              };
         interface Options {
             /**
              * 要加载的标准GeoJSON对象

@@ -1,11 +1,6 @@
-import * as Hubot from "hubot";
+import * as Hubot from 'hubot';
 
-const robot = new Hubot.Robot<{}>(
-  'src/adapters',
-  'slack',
-  false,
-  'hubot',
-);
+const robot = new Hubot.Robot<{}>('src/adapters', 'slack', false, 'hubot');
 robot; // $ExpectType Robot<{}>
 robot.adapter; // $ExpectType {}
 robot.hear(/hello/, () => null); // $ExpectType void

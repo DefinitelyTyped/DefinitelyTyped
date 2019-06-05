@@ -1,6 +1,6 @@
-import * as React from "react";
-import { NextStatelessComponent, NextContext, NextComponentType, NextFunctionComponent } from "next";
-import { DefaultQuery } from "next/router";
+import * as React from 'react';
+import { NextStatelessComponent, NextContext, NextComponentType, NextFunctionComponent } from 'next';
+import { DefaultQuery } from 'next/router';
 
 interface NextComponentProps {
     example: string;
@@ -69,7 +69,7 @@ const withExample = <P extends {}>(Page: NextComponentType<P & WithExampleProps,
             const pageProps = Page.getInitialProps && (await Page.getInitialProps(ctx));
 
             // tslint:disable-next-line prefer-object-spread
-            return Object.assign({}, pageProps, { test: "test" });
+            return Object.assign({}, pageProps, { test: 'test' });
         }
 
         constructor(props: P & WithExampleHocProps) {
@@ -92,7 +92,7 @@ const withBasic = <P extends {}>(Page: NextComponentType<P>) =>
             // tslint:disable-next-line prefer-object-spread
             const props = Object.assign({}, pageProps);
 
-            if (ctx.query.example === "bar") {
+            if (ctx.query.example === 'bar') {
                 // Redirect
             }
 
@@ -132,19 +132,12 @@ withBasic(ClassNext);
 withBasic(withExample(NextWithExample));
 
 class ClassNextWithCustomReq extends React.Component<NextComponentProps> {
-    static async getInitialProps(
-        ctx: NextContext<DefaultQuery, { customField: "custom value" }>
-    ) {
+    static async getInitialProps(ctx: NextContext<DefaultQuery, { customField: 'custom value' }>) {
         const example = ctx.req ? ctx.req.customField : undefined;
         return { example };
     }
 
     render() {
-        return (
-            <div>
-                I'm a class component with a custom field in the request!{" "}
-                {this.props.example}
-            </div>
-        );
+        return <div>I'm a class component with a custom field in the request! {this.props.example}</div>;
     }
 }

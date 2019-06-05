@@ -31,14 +31,7 @@ declare namespace log {
     /**
      * Possible log level descriptors, may be string, lower or upper case, or number.
      */
-    type LogLevelDesc = LogLevelNumbers
-        | 'trace'
-        | 'debug'
-        | 'info'
-        | 'warn'
-        | 'error'
-        | 'silent'
-        | keyof LogLevel;
+    type LogLevelDesc = LogLevelNumbers | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent' | keyof LogLevel;
 
     type LoggingMethod = (...message: any[]) => void;
 

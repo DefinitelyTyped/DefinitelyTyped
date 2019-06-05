@@ -17,17 +17,16 @@ declare namespace pc {
      * obj.fire('hello', 'world');
      */
     namespace events {
-
         /**
-        * @function
-        * @name pc.events.attach
-        * @description Attach event methods 'on', 'off', 'fire' and 'hasEvent' to the target object
-        * @param {Object} target The object to add events to.
-        * @return {Object} The target object
-        * @example
-        * var obj = { };
-        * pc.events.attach(obj);
-        */
+         * @function
+         * @name pc.events.attach
+         * @description Attach event methods 'on', 'off', 'fire' and 'hasEvent' to the target object
+         * @param {Object} target The object to add events to.
+         * @return {Object} The target object
+         * @example
+         * var obj = { };
+         * pc.events.attach(obj);
+         */
         function attach<T>(target: T): T;
 
         /**
@@ -74,7 +73,17 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        function fire(name: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): void;
+        function fire(
+            name: string,
+            arg1?: any,
+            arg2?: any,
+            arg3?: any,
+            arg4?: any,
+            arg5?: any,
+            arg6?: any,
+            arg7?: any,
+            arg8?: any
+        ): void;
 
         /**
          * @function
@@ -93,14 +102,14 @@ declare namespace pc {
         function once(name: string, callback: (...args: any[]) => void, scope?: any): void;
 
         /**
-        * @function
-        * @name pc.events.hasEvent
-        * @description Test if there are any handlers bound to an event name
-        * @param {String} name The name of the event to test
-        * @example
-        * obj.on('test', function () { }); // bind an event to 'test'
-        * obj.hasEvent('test'); // returns true
-        */
+         * @function
+         * @name pc.events.hasEvent
+         * @description Test if there are any handlers bound to an event name
+         * @param {String} name The name of the event to test
+         * @example
+         * obj.on('test', function () { }); // bind an event to 'test'
+         * obj.hasEvent('test'); // returns true
+         */
         function hasEvent(name: string): boolean;
     }
 }

@@ -5,9 +5,9 @@
 //                 Evan Yamanishi <https://github.com/sh0ji>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Registry from "undertaker-registry";
-import { Duplex } from "stream";
-import { EventEmitter } from "events";
+import * as Registry from 'undertaker-registry';
+import { Duplex } from 'stream';
+import { EventEmitter } from 'events';
 
 declare namespace Undertaker {
     interface TaskFunctionParams {
@@ -43,7 +43,7 @@ declare namespace Undertaker {
     }
 
     interface TreeResult {
-        label: "Tasks";
+        label: 'Tasks';
         nodes: Node[];
     }
 

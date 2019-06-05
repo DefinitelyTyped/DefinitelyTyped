@@ -34,7 +34,7 @@ export default class VectorLayer extends Layer {
     protected type: LayerType;
     getDeclutter(): boolean;
     getRenderMode(): VectorRenderType | string;
-    getRenderOrder(): ((param0: Feature, param1: Feature) => number);
+    getRenderOrder(): (param0: Feature, param1: Feature) => number;
     getSource(): VectorSource;
     getSource(): Source;
     getStyle(): StyleLike;
@@ -45,9 +45,9 @@ export default class VectorLayer extends Layer {
     setRenderOrder(renderOrder: OrderFunction): void;
     setStyle(style: Style | Style[] | StyleFunction): void;
     getStyleFunction(): StyleFunction;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

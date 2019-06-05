@@ -1,5 +1,5 @@
-import * as React from "react";
-import { CalendarBaseProps } from "../Calendar/Calendar";
+import * as React from 'react';
+import { CalendarBaseProps } from '../Calendar/Calendar';
 
 export type DatePickerProps = CalendarBaseProps & {
     buttonProps?: { [x: string]: any };

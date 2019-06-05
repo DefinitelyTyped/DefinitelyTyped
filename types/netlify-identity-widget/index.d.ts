@@ -59,7 +59,7 @@ export function init(opts?: InitOptions): void;
 /**
  * Opens the netlify login modal to the corresponding tab.
  */
-export function open(tabName?: "signup" | "login"): void;
+export function open(tabName?: 'signup' | 'login'): void;
 
 /**
  * Closes the netlify login modal.

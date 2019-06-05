@@ -3,13 +3,10 @@
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ClientConfig } from "pg";
+import { ClientConfig } from 'pg';
 
 interface PgEars {
-    listen(
-        channel: string,
-        cb: (err: Error | null, payload?: string) => void
-    ): null;
+    listen(channel: string, cb: (err: Error | null, payload?: string) => void): null;
     notify(channel: string, payload: any, cb?: (err: Error) => void): void;
 }
 

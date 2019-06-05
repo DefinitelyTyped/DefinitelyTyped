@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Firestore API v1beta1 */
-    function load(name: "firestore", version: "v1beta1"): PromiseLike<void>;
-    function load(name: "firestore", version: "v1beta1", callback: () => any): void;
+    function load(name: 'firestore', version: 'v1beta1'): PromiseLike<void>;
+    function load(name: 'firestore', version: 'v1beta1', callback: () => any): void;
 
     const projects: firestore.ProjectsResource;
 
@@ -864,7 +864,7 @@ declare namespace gapi.client {
              */
             batchGet(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -898,7 +898,7 @@ declare namespace gapi.client {
             /** Starts a new transaction. */
             beginTransaction(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -932,7 +932,7 @@ declare namespace gapi.client {
             /** Commits a transaction, while optionally updating documents. */
             commit(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -966,7 +966,7 @@ declare namespace gapi.client {
             /** Creates a new document. */
             createDocument(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -991,7 +991,7 @@ declare namespace gapi.client {
                  * The list of field paths in the mask. See Document.fields for a field
                  * path syntax reference.
                  */
-                "mask.fieldPaths"?: string;
+                'mask.fieldPaths'?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /**
@@ -1014,7 +1014,7 @@ declare namespace gapi.client {
             /** Deletes a document. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1027,12 +1027,12 @@ declare namespace gapi.client {
                  * When set to `true`, the target document must exist.
                  * When set to `false`, the target document must not exist.
                  */
-                "currentDocument.exists"?: boolean;
+                'currentDocument.exists'?: boolean;
                 /**
                  * When set, the target document must exist and have been last updated at
                  * that time.
                  */
-                "currentDocument.updateTime"?: string;
+                'currentDocument.updateTime'?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1058,7 +1058,7 @@ declare namespace gapi.client {
             /** Gets a single document. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1075,7 +1075,7 @@ declare namespace gapi.client {
                  * The list of field paths in the mask. See Document.fields for a field
                  * path syntax reference.
                  */
-                "mask.fieldPaths"?: string;
+                'mask.fieldPaths'?: string;
                 /**
                  * The resource name of the Document to get. In the format:
                  * `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -1104,7 +1104,7 @@ declare namespace gapi.client {
             /** Lists documents. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1126,7 +1126,7 @@ declare namespace gapi.client {
                  * The list of field paths in the mask. See Document.fields for a field
                  * path syntax reference.
                  */
-                "mask.fieldPaths"?: string;
+                'mask.fieldPaths'?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** The order to sort results by. For example: `priority desc, name`. */
@@ -1175,7 +1175,7 @@ declare namespace gapi.client {
             /** Lists all the collection IDs underneath a document. */
             listCollectionIds(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1218,7 +1218,7 @@ declare namespace gapi.client {
             /** Listens to changes. */
             listen(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1252,7 +1252,7 @@ declare namespace gapi.client {
             /** Updates or inserts a document. */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1265,12 +1265,12 @@ declare namespace gapi.client {
                  * When set to `true`, the target document must exist.
                  * When set to `false`, the target document must not exist.
                  */
-                "currentDocument.exists"?: boolean;
+                'currentDocument.exists'?: boolean;
                 /**
                  * When set, the target document must exist and have been last updated at
                  * that time.
                  */
-                "currentDocument.updateTime"?: string;
+                'currentDocument.updateTime'?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1279,7 +1279,7 @@ declare namespace gapi.client {
                  * The list of field paths in the mask. See Document.fields for a field
                  * path syntax reference.
                  */
-                "mask.fieldPaths"?: string;
+                'mask.fieldPaths'?: string;
                 /**
                  * The resource name of the document, for example
                  * `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -1297,7 +1297,7 @@ declare namespace gapi.client {
                  * The list of field paths in the mask. See Document.fields for a field
                  * path syntax reference.
                  */
-                "updateMask.fieldPaths"?: string;
+                'updateMask.fieldPaths'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1306,7 +1306,7 @@ declare namespace gapi.client {
             /** Rolls back a transaction. */
             rollback(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1340,7 +1340,7 @@ declare namespace gapi.client {
             /** Runs a query. */
             runQuery(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1378,7 +1378,7 @@ declare namespace gapi.client {
             /** Streams batches of document updates and deletes, in order. */
             write(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1429,7 +1429,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1463,7 +1463,7 @@ declare namespace gapi.client {
             /** Deletes an index. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1497,7 +1497,7 @@ declare namespace gapi.client {
             /** Gets an index. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1531,7 +1531,7 @@ declare namespace gapi.client {
             /** Lists the indexes that match the specified filters. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

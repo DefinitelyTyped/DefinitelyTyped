@@ -20,10 +20,10 @@
  *
  * Version 1.2 - amended callback on commmand.fail() method - accepts response,
  *               status and message values
- * 
+ *
  * Version 1.3 - added module declaration so it be used with node, requirejs etc.
  *               removed jquery reference as it is not required
- * 
+ *
  */
 
 //
@@ -68,7 +68,6 @@ interface KnockoutBindingHandlers {
 // namespace for ko.plus types
 //
 declare namespace KoPlus {
-
     //#region Command types
 
     //
@@ -95,7 +94,7 @@ declare namespace KoPlus {
         //
         done: (callback: (data: any) => void) => Command;
 
-        fail: (callback: (response: any, status?: string, statusText?:string) => void) => Command;
+        fail: (callback: (response: any, status?: string, statusText?: string) => void) => Command;
 
         always: (callback: Function) => Command;
 
@@ -148,20 +147,18 @@ declare namespace KoPlus {
     //
     // extend the standard KnockoutObservable to add editable functions
     //
-    export interface Editable<T> extends KnockoutObservable<T>, EditableFunctions {
-    }
+    export interface Editable<T> extends KnockoutObservable<T>, EditableFunctions {}
 
     //
     // extend the standard KnockoutObservableArray to add editable functions
     //
-    export interface EditableArray<T> extends KnockoutObservableArray<T>, EditableFunctions {
-    }
+    export interface EditableArray<T> extends KnockoutObservableArray<T>, EditableFunctions {}
 
     //#endregion
 }
 
 declare var ko: KnockoutStatic;
 
-declare module "ko.plus" {
+declare module 'ko.plus' {
     export = ko;
 }

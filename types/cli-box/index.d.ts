@@ -48,8 +48,8 @@ interface Box {
             text: string;
             offset: {
                 y: number;
-            }
-        }>
+            };
+        }>;
     };
     options: {
         width: number;
@@ -61,8 +61,8 @@ interface Box {
 }
 
 interface BoxConstructor {
-    new(options: Options | string, text?: Text | string): Box;
-    (options: (Exclude<Options, 'stringify'> & { stringify: true }), text?: Text | string): string;
+    new (options: Options | string, text?: Text | string): Box;
+    (options: Exclude<Options, 'stringify'> & { stringify: true }, text?: Text | string): string;
     (options: Options | string, text?: Text | string): Box;
     defaults: { marks: Marks };
 }

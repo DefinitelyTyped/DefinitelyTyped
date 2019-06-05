@@ -32,5 +32,5 @@ export {
     NimbleEmoji,
     NimbleEmojiProps,
     Category,
-    CategoryProps
+    CategoryProps,
 } from './components';

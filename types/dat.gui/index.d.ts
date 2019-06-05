@@ -51,19 +51,19 @@ export class GUI {
     __folders: GUI[];
     domElement: HTMLElement;
 
-    add(target: Object, propName:string, min?: number, max?: number, step?: number): GUIController;
-    add(target: Object, propName:string, status: boolean): GUIController;
-    add(target: Object, propName:string, items:string[]): GUIController;
-    add(target: Object, propName:string, items:number[]): GUIController;
-    add(target: Object, propName:string, items:Object): GUIController;
+    add(target: Object, propName: string, min?: number, max?: number, step?: number): GUIController;
+    add(target: Object, propName: string, status: boolean): GUIController;
+    add(target: Object, propName: string, items: string[]): GUIController;
+    add(target: Object, propName: string, items: number[]): GUIController;
+    add(target: Object, propName: string, items: Object): GUIController;
 
-    addColor(target: Object, propName:string): GUIController;
+    addColor(target: Object, propName: string): GUIController;
 
     remove(controller: GUIController): void;
     destroy(): void;
 
-    addFolder(propName:string): GUI;
-    removeFolder(subFolder:GUI):void;
+    addFolder(propName: string): GUI;
+    removeFolder(subFolder: GUI): void;
 
     open(): void;
     close(): void;
@@ -73,8 +73,8 @@ export class GUI {
 
     getSaveObject(): Object;
     save(): void;
-    saveAs(presetName:string): void;
-    revert(gui:GUI): void;
+    saveAs(presetName: string): void;
+    revert(gui: GUI): void;
 
     listen(controller: GUIController): void;
     updateDisplay(): void;
@@ -112,7 +112,7 @@ export class GUIController {
     fire(): GUIController;
 
     // augmentController in dat/gui/GUI.js
-    options(option:any):GUIController;
+    options(option: any): GUIController;
     name(s: string): GUIController;
     listen(): GUIController;
     remove(): GUIController;

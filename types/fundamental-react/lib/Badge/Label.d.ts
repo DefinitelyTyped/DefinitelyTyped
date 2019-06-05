@@ -1,4 +1,4 @@
-export type LabelTypes = "success" | "warning" | "error";
+export type LabelTypes = 'success' | 'warning' | 'error';
 
 export type LabelProps = {
     className?: string;

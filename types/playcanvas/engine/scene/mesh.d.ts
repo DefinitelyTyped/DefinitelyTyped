@@ -1,11 +1,10 @@
 declare namespace pc {
-
     type MeshPrimitive = {
         type: number;
         base: number;
         count: number;
         indexed?: boolean;
-    }
+    };
 
     /**
      * @name pc.Mesh
@@ -72,7 +71,7 @@ declare namespace pc {
      * @property {Boolean} cull Controls whether the mesh instance can be culled with frustum culling
      */
     class MeshInstance {
-        constructor(node: pc.GraphNode, mesh: pc.Mesh, material: pc.Material)
+        constructor(node: pc.GraphNode, mesh: pc.Mesh, material: pc.Material);
 
         castShadow: boolean;
         visible: boolean;

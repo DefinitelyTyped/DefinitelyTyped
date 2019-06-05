@@ -1,95 +1,86 @@
-import { Data, Point, Position } from "unist";
-import {
-    Parent,
-    Properties,
-    Literal,
-    Root,
-    Element,
-    DocType,
-    Comment,
-    Text
-} from "hast-format";
+import { Data, Point, Position } from 'unist';
+import { Parent, Properties, Literal, Root, Element, DocType, Comment, Text } from 'hast-format';
 
 const data: Data = {
-    string: "string",
+    string: 'string',
     number: 1,
     object: {
-        key: "value"
+        key: 'value',
     },
     array: [],
     boolean: true,
-    null: null
+    null: null,
 };
 
 const point: Point = {
     line: 1,
     column: 1,
-    offset: 0
+    offset: 0,
 };
 
 const position: Position = {
     start: point,
     end: point,
-    indent: [1]
+    indent: [1],
 };
 
 const literal: Literal = {
-    type: "text",
+    type: 'text',
     data,
     point,
-    value: "value"
+    value: 'value',
 };
 
 const comment: Comment = {
-    type: "comment",
+    type: 'comment',
     data,
     point,
-    value: "value"
+    value: 'value',
 };
 
 const text: Text = {
-    type: "text",
+    type: 'text',
     data,
     point,
-    value: "value"
+    value: 'value',
 };
 
 const docType: DocType = {
-    type: "doctype",
-    name: "name",
-    public: "public",
-    system: "system"
+    type: 'doctype',
+    name: 'name',
+    public: 'public',
+    system: 'system',
 };
 
 const element: Element = getElement();
 
 const parent: Parent = {
-    type: "parent",
+    type: 'parent',
     data,
     position,
-    children: [getElement(), docType, comment, text]
+    children: [getElement(), docType, comment, text],
 };
 
 const root: Root = {
-    type: "root",
+    type: 'root',
     data,
     position,
-    children: [getElement(), docType, comment, text]
+    children: [getElement(), docType, comment, text],
 };
 
 const properties: Properties = {
-    propertyName1: "propertyValue1",
-    propertyName2: ["propertyValue2", "propertyValue3"],
+    propertyName1: 'propertyValue1',
+    propertyName2: ['propertyValue2', 'propertyValue3'],
     propertyName3: true,
-    propertyName4: 47
+    propertyName4: 47,
 };
 
 function getElement(): Element {
     return {
-        type: "element",
-        tagName: "tagName",
+        type: 'element',
+        tagName: 'tagName',
         properties,
         content: root,
-        children: [element, comment, text]
+        children: [element, comment, text],
     };
 }

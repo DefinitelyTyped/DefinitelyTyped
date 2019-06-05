@@ -2,17 +2,17 @@
 // slightly changed to remove external dependencies
 
 // Initialize the OAuth2 Library
-import * as oauth2lib from "simple-oauth2";
+import * as oauth2lib from 'simple-oauth2';
 
 // Set the configuration settings
 const credentials: oauth2lib.ModuleOptions = {
     client: {
         id: '<client-id>',
-        secret: '<client-secret>'
+        secret: '<client-secret>',
     },
     auth: {
-        tokenHost: 'https://api.oauth.com'
-    }
+        tokenHost: 'https://api.oauth.com',
+    },
 };
 
 const oauth2 = oauth2lib.create(credentials);
@@ -23,7 +23,7 @@ const oauth2 = oauth2lib.create(credentials);
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
         redirect_uri: 'http://localhost:3000/callback',
         scope: '<scope>',
-        state: '<state>'
+        state: '<state>',
     });
 
     // Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
@@ -33,7 +33,7 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenConfig = {
         code: '<code>',
         redirect_uri: 'http://localhost:3000/callback',
-        scope: ['<scope1>', '<scope2>']
+        scope: ['<scope1>', '<scope2>'],
     };
 
     // Callbacks
@@ -49,11 +49,12 @@ const oauth2 = oauth2lib.create(credentials);
 
     // Promises
     // Save the access token
-    oauth2.authorizationCode.getToken(tokenConfig)
-        .then((result) => {
+    oauth2.authorizationCode
+        .getToken(tokenConfig)
+        .then(result => {
             const token = oauth2.accessToken.create(result);
         })
-        .catch((error) => {
+        .catch(error => {
             console.log('Access Token Error', error.message);
         });
 })();
@@ -63,7 +64,7 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenConfig = {
         username: 'username',
         password: 'password',
-        scope: [ '<scope1>', '<scope2>' ],
+        scope: ['<scope1>', '<scope2>'],
     };
 
     // Callbacks
@@ -79,11 +80,12 @@ const oauth2 = oauth2lib.create(credentials);
 
     // Promises
     // Save the access token
-    oauth2.ownerPassword.getToken(tokenConfig)
-        .then((result) => {
+    oauth2.ownerPassword
+        .getToken(tokenConfig)
+        .then(result => {
             const token = oauth2.accessToken.create(result);
         })
-        .catch((error) => {
+        .catch(error => {
             console.log('Access Token Error', error.message);
         });
 })();
@@ -105,11 +107,12 @@ const oauth2 = oauth2lib.create(credentials);
 
     // Promises
     // Get the access token object for the client
-    oauth2.clientCredentials.getToken(tokenConfig)
-        .then((result) => {
+    oauth2.clientCredentials
+        .getToken(tokenConfig)
+        .then(result => {
             const token = oauth2.accessToken.create(result);
         })
-        .catch((error) => {
+        .catch(error => {
             console.log('Access Token error', error.message);
         });
 })();
@@ -120,7 +123,7 @@ const oauth2 = oauth2lib.create(credentials);
     const tokenObject = {
         access_token: '<access-token>',
         refresh_token: '<refresh-token>',
-        expires_in: '7200'
+        expires_in: '7200',
     };
 
     // Create the access token wrapper
@@ -134,26 +137,26 @@ const oauth2 = oauth2lib.create(credentials);
         });
 
         // Promises
-        accessToken.refresh()
-            .then((result) => {
-                accessToken = result;
-            });
+        accessToken.refresh().then(result => {
+            accessToken = result;
+        });
     }
 
     // Callbacks
     // Revoke only the access token
-    accessToken.revoke('access_token', (error) => {
+    accessToken.revoke('access_token', error => {
         // Session ended. But the refresh_token is still valid.
 
         // Revoke the refresh_token
-        accessToken.revoke('refresh_token', (error) => {
+        accessToken.revoke('refresh_token', error => {
             console.log('token revoked.');
         });
     });
 
     // Promises
     // Revoke only the access token
-    accessToken.revoke('access_token')
+    accessToken
+        .revoke('access_token')
         .then(() => {
             // Revoke the refresh token
             return accessToken.revoke('refresh_token');
@@ -161,7 +164,7 @@ const oauth2 = oauth2lib.create(credentials);
         .then(() => {
             console.log('Token revoked');
         })
-        .catch((error) => {
+        .catch(error => {
             console.log('Error revoking token.', error.message);
         });
 })();

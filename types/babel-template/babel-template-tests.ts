@@ -9,7 +9,7 @@ const buildRequire = template(`
 
 const ast = buildRequire({
     IMPORT_NAME: t.identifier('myModule'),
-    SOURCE: t.stringLiteral('my-module')
+    SOURCE: t.stringLiteral('my-module'),
 });
 
 console.log(generate(ast).code);

@@ -4,8 +4,8 @@ import chaiWebdriverio = require('chai-webdriverio');
 
 const options = {
     desiredCapabilities: {
-        browserName: 'firefox'
-    }
+        browserName: 'firefox',
+    },
 };
 
 const browser = webdriverio.remote(options);

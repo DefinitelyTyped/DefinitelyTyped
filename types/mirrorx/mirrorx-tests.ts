@@ -8,8 +8,12 @@ mirror.model({
     name: 'app',
     initialState: 0,
     reducers: {
-        increment(state: any) { return state + 1; },
-        decrement(state: any) { return state - 1; }
+        increment(state: any) {
+            return state + 1;
+        },
+        decrement(state: any) {
+            return state - 1;
+        },
     },
     effects: {
         async incrementAsync() {
@@ -19,6 +23,6 @@ mirror.model({
                 }, 1000);
             });
             mirror.actions.app.increment();
-        }
-    }
+        },
+    },
 });

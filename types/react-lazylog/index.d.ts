@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export * from "./build/LazyLog";
-export * from "./build/ScrollFollow";
+export * from './build/LazyLog';
+export * from './build/ScrollFollow';

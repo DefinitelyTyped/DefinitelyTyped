@@ -6,7 +6,6 @@
 
 /// <reference types="node" />
 
-
 import ref = require('ref');
 import StructType = require('ref-struct');
 
@@ -20,14 +19,14 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    new (libFile: string, funcs?: { [key: string]: any[] }, lib?: object): any;
 
     /**
      * @param libFile name of library
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    (libFile: string, funcs?: { [key: string]: any[] }, lib?: object): any;
 }
 export const Library: Library;
 
@@ -124,7 +123,7 @@ export const DynamicLibrary: {
         RTLD_NODELETE: number;
         RTLD_NEXT: Buffer;
         RTLD_DEFAUL: Buffer;
-    }
+    };
 
     new (path?: string, mode?: number): DynamicLibrary;
     (path?: string, mode?: number): DynamicLibrary;
@@ -145,14 +144,14 @@ export const Callback: Callback;
 
 export const ffiType: {
     /** Get a `ffi_type *` Buffer appropriate for the given type. */
-    (type: ref.Type | string): Buffer
+    (type: ref.Type | string): Buffer;
     FFI_TYPE: StructType;
 };
 
 export function CIF(retType: any, types: any[], abi?: any): Buffer;
 export function CIF_var(retType: any, types: any[], numFixedArgs: number, abi?: any): Buffer;
 export const HAS_OBJC: boolean;
-export const FFI_TYPES: {[key: string]: Buffer};
+export const FFI_TYPES: { [key: string]: Buffer };
 export const FFI_OK: number;
 export const FFI_BAD_TYPEDEF: number;
 export const FFI_BAD_ABI: number;
@@ -179,13 +178,30 @@ export const FFI_TYPE: StructType;
 
 /** Default types. */
 export const types: {
-    void: ref.Type;                 int64: ref.Type;                 ushort: ref.Type;
-    int: ref.Type;                  uint64: ref.Type;                float: ref.Type;
-    uint: ref.Type;                 long: ref.Type;                  double: ref.Type;
-    int8: ref.Type;                 ulong: ref.Type;                 Object: ref.Type;
-    uint8: ref.Type;                longlong: ref.Type;              CString: ref.Type;
-    int16: ref.Type;                ulonglong: ref.Type;             bool: ref.Type;
-    uint16: ref.Type;               char: ref.Type;                  byte: ref.Type;
-    int32: ref.Type;                uchar: ref.Type;                 size_t: ref.Type;
-    uint32: ref.Type;               short: ref.Type;
+    void: ref.Type;
+    int64: ref.Type;
+    ushort: ref.Type;
+    int: ref.Type;
+    uint64: ref.Type;
+    float: ref.Type;
+    uint: ref.Type;
+    long: ref.Type;
+    double: ref.Type;
+    int8: ref.Type;
+    ulong: ref.Type;
+    Object: ref.Type;
+    uint8: ref.Type;
+    longlong: ref.Type;
+    CString: ref.Type;
+    int16: ref.Type;
+    ulonglong: ref.Type;
+    bool: ref.Type;
+    uint16: ref.Type;
+    char: ref.Type;
+    byte: ref.Type;
+    int32: ref.Type;
+    uchar: ref.Type;
+    size_t: ref.Type;
+    uint32: ref.Type;
+    short: ref.Type;
 };

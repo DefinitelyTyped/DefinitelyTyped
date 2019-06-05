@@ -14,6 +14,6 @@ declare namespace Randomstring {
     function generate(options?: GenerateOptions | number): string;
 }
 
-declare module "randomstring" {
+declare module 'randomstring' {
     export = Randomstring;
 }

@@ -8,13 +8,11 @@ export default switchery;
 export as namespace Switchery;
 
 declare namespace Switchery {
-
     interface SwitcheryStatic {
         new (node: Node, options?: Options): Switchery;
     }
 
     interface Options {
-
         /**
          * color of the switch element (HEX or RGB value)
          * @default '#64bd63'
@@ -33,7 +31,7 @@ declare namespace Switchery {
         /**
          * color of unchecked jack/handle element
          * @default 'null'
-		 */
+         */
         jackSecondaryColor?: string;
         /**
          * class name for the switch element (by default styled in switchery.css)
@@ -64,26 +62,25 @@ declare namespace Switchery {
 }
 
 interface Switchery {
-
-	/**
+    /**
      * Unbinding all event handlers attached to the switch element to prepare the object for garbage collection.
      * @returns {void}
      */
     destroy(): void;
 
-	/**
+    /**
      * Enable disabled switch by re-adding event handlers and changing the opacity to 1.
      * @returns {void}
      */
     enable(): void;
 
-	/**
+    /**
      * Disable switch by unbinding attached events and changing opacity to disabledOpacity value
      * @returns {void}
      */
     disable(): void;
 
-	/**
+    /**
      * Check if switch is currently disabled by checking the readonly and disabled attributes on the checkbox and the disabled option set via JS.
      *  If any of those are present, the returned value is true.
      * @returns {boolean} whether it's disabled or not.

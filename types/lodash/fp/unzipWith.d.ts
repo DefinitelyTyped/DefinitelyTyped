@@ -1,2 +1,2 @@
-import { unzipWith } from "../fp";
+import { unzipWith } from '../fp';
 export = unzipWith;

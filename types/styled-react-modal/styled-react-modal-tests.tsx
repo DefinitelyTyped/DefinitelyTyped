@@ -3,7 +3,7 @@ import Modal, { ModalProvider, BaseModalBackground as BackgroundComponent } from
 import styled from 'styled-components';
 
 const background = styled.div`
-    background: rgba(0,0,0,.3);
+    background: rgba(0, 0, 0, 0.3);
 `;
 
 // Padding through a custom backgroundComponent
@@ -29,7 +29,7 @@ const test2 = (
     <ModalProvider backgroundComponent={BackgroundComponent}>
         <Modal
             isOpen={true}
-            backgroundProps={{style: {padding: "20px"}}}
+            backgroundProps={{ style: { padding: '20px' } }}
             onBackgroundClick={() => console.log('Background click!')}
             onEscapeKeydown={() => console.log('Background click!')}
             afterOpen={() => console.log('After Open!')}
@@ -46,9 +46,7 @@ const test2 = (
 // Minimal Setup
 const test3 = (
     <ModalProvider>
-        <Modal isOpen={true}>
-            Modal Content!
-        </Modal>
+        <Modal isOpen={true}>Modal Content!</Modal>
     </ModalProvider>
 );
 

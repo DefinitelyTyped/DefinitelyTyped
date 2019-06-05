@@ -1,4 +1,4 @@
-import "jquery";
+import 'jquery';
 
 /**
  * Provides tests for the variables.
@@ -26,7 +26,7 @@ export class TestVariables<T extends HTMLElement> {
         // $ExpectType TablesorterConfiguration<T>
         $.tablesorter.defaults;
         // $ExpectType () => any
-        $.tablesorter.instanceMethods[""];
+        $.tablesorter.instanceMethods[''];
         // $ExpectType Locale
         $.tablesorter.language;
         // $ExpectType Parser<T>[]
@@ -34,7 +34,7 @@ export class TestVariables<T extends HTMLElement> {
         // $ExpectType ThemeCollection
         $.tablesorter.themes;
         // $ExpectType Theme
-        $.tablesorter.themes[""];
+        $.tablesorter.themes[''];
         // $ExpectType Widget<T>[]
         $.tablesorter.widgets;
 

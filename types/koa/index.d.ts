@@ -17,16 +17,16 @@
 
  =============================================== */
 /// <reference types="node" />
-import * as accepts from "accepts";
-import * as Cookies from "cookies";
-import { EventEmitter } from "events";
-import { IncomingMessage, ServerResponse, Server } from "http";
+import * as accepts from 'accepts';
+import * as Cookies from 'cookies';
+import { EventEmitter } from 'events';
+import { IncomingMessage, ServerResponse, Server } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
-import httpAssert = require("http-assert");
-import * as Keygrip from "keygrip";
-import * as compose from "koa-compose";
-import { Socket, ListenOptions } from "net";
-import * as url from "url";
+import httpAssert = require('http-assert');
+import * as Keygrip from 'keygrip';
+import * as compose from 'koa-compose';
+import { Socket, ListenOptions } from 'net';
+import * as url from 'url';
 
 declare interface ContextDelegatedRequest {
     /**
@@ -449,35 +449,14 @@ declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
      *
      *    http.createServer(app.callback()).listen(...)
      */
-    listen(
-        port?: number,
-        hostname?: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        hostname?: string,
-        listeningListener?: () => void,
-    ): Server;
-    listen(
-        port: number,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): Server;
+    listen(port: number, hostname?: string, listeningListener?: () => void): Server;
+    listen(port: number, backlog?: number, listeningListener?: () => void): Server;
     listen(port: number, listeningListener?: () => void): Server;
-    listen(
-        path: string,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(path: string, backlog?: number, listeningListener?: () => void): Server;
     listen(path: string, listeningListener?: () => void): Server;
     listen(options: ListenOptions, listeningListener?: () => void): Server;
-    listen(
-        handle: any,
-        backlog?: number,
-        listeningListener?: () => void,
-    ): Server;
+    listen(handle: any, backlog?: number, listeningListener?: () => void): Server;
     listen(handle: any, listeningListener?: () => void): Server;
 
     /**
@@ -498,7 +477,7 @@ declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
      * Old-style middleware will be converted.
      */
     use<NewStateT = {}, NewCustomT = {}>(
-        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
+        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>
     ): Application<StateT & NewStateT, CustomT & NewCustomT>;
 
     /**
@@ -512,10 +491,7 @@ declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
      *
      * @api private
      */
-    createContext<StateT = any>(
-        req: IncomingMessage,
-        res: ServerResponse,
-    ): Application.ParameterizedContext<StateT>;
+    createContext<StateT = any>(req: IncomingMessage, res: ServerResponse): Application.ParameterizedContext<StateT>;
 
     /**
      * Default error handler.
@@ -611,9 +587,7 @@ declare namespace Application {
         toJSON(): any;
     }
 
-    interface BaseContext
-        extends ContextDelegatedRequest,
-            ContextDelegatedResponse {
+    interface BaseContext extends ContextDelegatedRequest, ContextDelegatedResponse {
         /**
          * util.inspect() implementation, which
          * just returns the JSON output.

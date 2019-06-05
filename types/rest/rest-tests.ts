@@ -1,5 +1,3 @@
-
-
 import when = require('when');
 import rest = require('rest');
 
@@ -26,7 +24,6 @@ rest('/').then(function(response) {
     console.log('response: ', response);
 });
 
-
 var client = rest.wrap(mime);
 client({ path: '/data.json' }).then(function(response) {
     console.log('response: ', response);
@@ -52,7 +49,7 @@ registry.register('application/vnd.com.example', {
         var str: string;
         // do object to string conversions
         return str;
-    }
+    },
 });
 
 var noop = interceptor({
@@ -70,7 +67,7 @@ var noop = interceptor({
     },
     error: (response: rest.Response, config: any, meta: rest.Meta) => {
         return response;
-    }
+    },
 });
 
 var fail = interceptor({

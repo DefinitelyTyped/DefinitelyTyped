@@ -1,4 +1,4 @@
-import { parse } from "parse5";
+import { parse } from 'parse5';
 import {
     Node,
     ParentNode,
@@ -6,19 +6,19 @@ import {
     DocumentType,
     Element,
     TextNode,
-    CommentNode
-} from "parse5-htmlparser2-tree-adapter";
+    CommentNode,
+} from 'parse5-htmlparser2-tree-adapter';
 import treeAdapter = require('parse5-htmlparser2-tree-adapter');
 
 // htmlparser2 AST
-const htmlparser2Document = parse("<html>", {
-    treeAdapter
+const htmlparser2Document = parse('<html>', {
+    treeAdapter,
 }) as Document;
 
 htmlparser2Document; // $ExpectType Document
 htmlparser2Document.name; // $ExpectType "root"
 htmlparser2Document.type; // $ExpectType "root"
-htmlparser2Document["x-mode"]; // $ExpectType DocumentMode
+htmlparser2Document['x-mode']; // $ExpectType DocumentMode
 
 const htmlparser2Node = htmlparser2Document as Node;
 
@@ -44,16 +44,16 @@ const htmlparser2Doctype = htmlparser2Document.childNodes[0] as DocumentType;
 htmlparser2Doctype; // $ExpectType DocumentType
 htmlparser2Doctype.data; // $ExpectType string
 htmlparser2Doctype.name; // $ExpectType "!doctype"
-htmlparser2Doctype["x-name"]; // $ExpectType string
-htmlparser2Doctype["x-publicId"]; // $ExpectType string
-htmlparser2Doctype["x-systemId"]; // $ExpectType string
+htmlparser2Doctype['x-name']; // $ExpectType string
+htmlparser2Doctype['x-publicId']; // $ExpectType string
+htmlparser2Doctype['x-systemId']; // $ExpectType string
 
 const htmlparser2Element = htmlparser2Document.childNodes[0] as Element;
 
 htmlparser2Element; // $ExpectType Element
-htmlparser2Element.attribs["someAttr"]; // $ExpectType string
-htmlparser2Element["x-attribsNamespace"]["someAttr"]; // $ExpectType string
-htmlparser2Element["x-attribsPrefix"]["someAttr"]; // $ExpectType string
+htmlparser2Element.attribs['someAttr']; // $ExpectType string
+htmlparser2Element['x-attribsNamespace']['someAttr']; // $ExpectType string
+htmlparser2Element['x-attribsPrefix']['someAttr']; // $ExpectType string
 htmlparser2Element.namespace; // $ExpectType string
 htmlparser2Element.tagName; // $ExpectType string
 htmlparser2Element.sourceCodeLocation!; // $ExpectType ElementLocation

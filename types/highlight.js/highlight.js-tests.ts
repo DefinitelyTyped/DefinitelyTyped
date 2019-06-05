@@ -7,10 +7,10 @@
 
 import * as hljs from 'highlight.js';
 
-var code = "using System;\npublic class Test\n{\npublic static void Main()\n{\n// your code goes here\n}\n}";
-var lang = "cs";
+var code = 'using System;\npublic class Test\n{\npublic static void Main()\n{\n// your code goes here\n}\n}';
+var lang = 'cs';
 
-hljs.configure({ tabReplace: "    " }); // 4 spaces
+hljs.configure({ tabReplace: '    ' }); // 4 spaces
 
 var hl = hljs.highlight(lang, code).value;
 hl = hljs.highlightAuto(code).value;

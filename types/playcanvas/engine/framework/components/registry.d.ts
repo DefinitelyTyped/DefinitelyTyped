@@ -1,12 +1,10 @@
 declare namespace pc {
-
     /**
      * @name pc.ComponentSystemRegistry
      * @class Store, access and delete instances of the various ComponentSystems
      * @description Create a new ComponentSystemRegistry
      */
     class ComponentSystemRegistry {
-
         /**
          * @private
          * @function

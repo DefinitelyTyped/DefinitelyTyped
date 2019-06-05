@@ -48,5 +48,5 @@ export declare type WindowOptionDiff = {
     [key in keyof WindowOption]: {
         oldVal: WindowOption[key];
         newVal: WindowOption[key];
-    };
+    }
 };

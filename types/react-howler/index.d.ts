@@ -13,7 +13,7 @@ import { Howl } from 'howler';
 declare enum HOWLER_STATE {
     UNLOADED = 'unloaded',
     LOADING = 'loading',
-    LOADED = 'loaded'
+    LOADED = 'loaded',
 }
 
 interface Props {

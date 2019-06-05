@@ -1,2 +1,2 @@
-import { upperFirst } from "lodash";
+import { upperFirst } from 'lodash';
 export default upperFirst;

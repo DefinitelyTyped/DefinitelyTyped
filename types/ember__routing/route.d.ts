@@ -1,8 +1,8 @@
-import EmberObject from "@ember/object";
-import ActionHandler from "@ember/object/-private/action-handler";
-import Transition from "@ember/routing/-private/transition";
-import Evented from "@ember/object/evented";
-import { RenderOptions, RouteQueryParam } from "@ember/routing/types";
+import EmberObject from '@ember/object';
+import ActionHandler from '@ember/object/-private/action-handler';
+import Transition from '@ember/routing/-private/transition';
+import Evented from '@ember/object/evented';
+import { RenderOptions, RouteQueryParam } from '@ember/routing/types';
 import Controller, { Registry as ControllerRegistry } from '@ember/controller';
 
 /**

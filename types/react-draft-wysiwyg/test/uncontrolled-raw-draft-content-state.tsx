@@ -1,13 +1,10 @@
 // From https://github.com/jpuri/react-draft-wysiwyg/blob/master/docs/src/components/Docs/Props/EditorStateProp/index.js#L125
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Editor, RawDraftContentState } from "react-draft-wysiwyg";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { Editor, RawDraftContentState } from 'react-draft-wysiwyg';
 
-class UncontrolledEditor extends React.Component<
-    {},
-    { contentState: RawDraftContentState }
-> {
+class UncontrolledEditor extends React.Component<{}, { contentState: RawDraftContentState }> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -22,15 +19,15 @@ class UncontrolledEditor extends React.Component<
                     "entityRanges":[],
                     "data":{}
                 }]
-            }`)
+            }`),
         };
     }
 
     onContentStateChange = (contentState: RawDraftContentState) => {
         this.setState({
-            contentState
+            contentState,
         });
-    }
+    };
 
     render() {
         const { contentState } = this.state;
@@ -45,4 +42,4 @@ class UncontrolledEditor extends React.Component<
     }
 }
 
-ReactDOM.render(<UncontrolledEditor />, document.getElementById("target"));
+ReactDOM.render(<UncontrolledEditor />, document.getElementById('target'));

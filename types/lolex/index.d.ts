@@ -10,7 +10,20 @@
 /**
  * Names of clock methods that may be faked by install.
  */
-type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime" | "requestAnimationFrame" | "cancelAnimationFrame" | "requestIdleCallback" | "cancelIdleCallback";
+type FakeMethod =
+    | 'setTimeout'
+    | 'clearTimeout'
+    | 'setImmediate'
+    | 'clearImmediate'
+    | 'setInterval'
+    | 'clearInterval'
+    | 'Date'
+    | 'nextTick'
+    | 'hrtime'
+    | 'requestAnimationFrame'
+    | 'cancelAnimationFrame'
+    | 'requestIdleCallback'
+    | 'cancelIdleCallback';
 
 /**
  * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
@@ -143,12 +156,12 @@ export interface LolexClock<TTimerId extends TimerId> extends GlobalTimers<TTime
      */
     cancelIdleCallback: (id: TTimerId) => void;
 
-	/**
-	 * Get the number of waiting timers.
-	 *
-	 * @returns number of waiting timers.
-	 */
-	countTimers: () => number;
+    /**
+     * Get the number of waiting timers.
+     *
+     * @returns number of waiting timers.
+     */
+    countTimers: () => number;
 
     /**
      * Advances the clock to the the moment of the first scheduled timer, firing it.
@@ -174,10 +187,10 @@ export interface LolexClock<TTimerId extends TimerId> extends GlobalTimers<TTime
      */
     runAll: () => void;
 
-	/**
-	 * Advanced the clock to the next animation frame while firing all scheduled callbacks.
-	 */
-	runToFrame: () => void;
+    /**
+     * Advanced the clock to the next animation frame while firing all scheduled callbacks.
+     */
+    runToFrame: () => void;
 
     /**
      * Takes note of the last scheduled timer when it is run, and advances the clock to
@@ -203,7 +216,7 @@ type BrowserClock = LolexClock<number> & {
      */
     performance: {
         now: () => number;
-    }
+    };
 };
 
 /**
@@ -229,8 +242,8 @@ type NodeClock = LolexClock<NodeTimer> & {
     nextTick: (callback: () => void) => void;
 
     /**
-	 * Run all pending microtasks scheduled with nextTick.
-	 */
+     * Run all pending microtasks scheduled with nextTick.
+     */
     runMicrotasks: () => void;
 };
 

@@ -8,6 +8,6 @@ const fooType = new GraphQLObjectType({
         created: {
             type: GraphQLDate,
             description: 'Date foo was created',
-        }
-    }
+        },
+    },
 });

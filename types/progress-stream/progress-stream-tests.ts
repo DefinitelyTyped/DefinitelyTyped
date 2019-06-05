@@ -1,5 +1,5 @@
-import progress = require("progress-stream");
-import stream = require("stream");
+import progress = require('progress-stream');
+import stream = require('stream');
 
 const options: progress.Options = {
     time: 100,
@@ -41,10 +41,10 @@ progress(options, progressListener);
 progress(progressListener);
 
 // $ExpectType ProgressStream
-p.on("progress", progressListener);
+p.on('progress', progressListener);
 
 // $ExpectType ProgressStream
-p.on("length", (length: number) => {});
+p.on('length', (length: number) => {});
 
 p.setLength(200); // $ExpectType void
 
@@ -53,15 +53,15 @@ p.progress(); // $ExpectType Progress
 // Check if ProgressStream extends stream.Transform correctly
 
 // $ExpectType ProgressStream
-p.on("close", () => {});
+p.on('close', () => {});
 // $ExpectType ProgressStream
-p.on("data", (chunk: any) => {});
+p.on('data', (chunk: any) => {});
 // $ExpectType ProgressStream
-p.on("end", () => {});
+p.on('end', () => {});
 // $ExpectType ProgressStream
-p.on("error", (err: Error) => {});
+p.on('error', (err: Error) => {});
 // $ExpectType ProgressStream
-p.on("readable", () => {});
+p.on('readable', () => {});
 // $ExpectType ProgressStream
 p.pause();
 

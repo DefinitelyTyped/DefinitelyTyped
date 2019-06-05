@@ -9,8 +9,13 @@
 /// <reference types="jquery"/>
 
 declare namespace Chosen {
-    type OnEvent = "chosen:ready" | "chosen:maxselected" | "chosen:showing_dropdown" | "chosen:hiding_dropdown" | "chosen:no_results";
-    type TriggerEvent = "chosen:updated" | "chosen:activate" | "chosen:open" | "chosen:close";
+    type OnEvent =
+        | 'chosen:ready'
+        | 'chosen:maxselected'
+        | 'chosen:showing_dropdown'
+        | 'chosen:hiding_dropdown'
+        | 'chosen:no_results';
+    type TriggerEvent = 'chosen:updated' | 'chosen:activate' | 'chosen:open' | 'chosen:close';
 
     interface Options {
         /**
@@ -125,12 +130,12 @@ declare namespace Chosen {
 }
 
 interface JQuery {
-    chosen(options?: Chosen.Options | "destroy"): JQuery;
+    chosen(options?: Chosen.Options | 'destroy'): JQuery;
 
     /**
      * Chosen triggers the standard DOM event whenever a selection is made (it also sends a selected or deselected parameter that tells you which option was changed).
      */
-    on(events: "change", handler: (eventObject: JQueryEventObject, args: Chosen.SelectedData) => any): JQuery;
+    on(events: 'change', handler: (eventObject: JQueryEventObject, args: Chosen.SelectedData) => any): JQuery;
 
     /**
      * * `chosen:ready` Triggered after Chosen has been fully instantiated.

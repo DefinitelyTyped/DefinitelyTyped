@@ -38,11 +38,20 @@ export interface StrategyOptionWithRequest extends StrategyOption {
     passReqToCallback: true;
 }
 
-export type VerifyFunction =
-    (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+export type VerifyFunction = (
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: (error: any, user?: any, info?: any) => void
+) => void;
 
-export type VerifyFunctionWithRequest =
-    (req: Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any, info?: any) => void) => void;
+export type VerifyFunctionWithRequest = (
+    req: Request,
+    accessToken: string,
+    refreshToken: string,
+    profile: Profile,
+    done: (error: any, user?: any, info?: any) => void
+) => void;
 
 export class Strategy extends passportStrategy {
     constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);

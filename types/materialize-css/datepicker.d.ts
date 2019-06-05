@@ -194,8 +194,8 @@ declare namespace M {
 }
 
 interface JQuery {
-    datepicker(method: keyof Pick<M.Datepicker, "open" | "close" | "destroy">): JQuery;
-    datepicker(method: keyof Pick<M.Datepicker, "setDate">, date?: Date): JQuery;
-    datepicker(method: keyof Pick<M.Datepicker, "gotoDate">, date: Date): JQuery;
+    datepicker(method: keyof Pick<M.Datepicker, 'open' | 'close' | 'destroy'>): JQuery;
+    datepicker(method: keyof Pick<M.Datepicker, 'setDate'>, date?: Date): JQuery;
+    datepicker(method: keyof Pick<M.Datepicker, 'gotoDate'>, date: Date): JQuery;
     datepicker(options?: Partial<M.DatepickerOptions>): JQuery;
 }

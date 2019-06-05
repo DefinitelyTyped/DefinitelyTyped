@@ -12,5 +12,5 @@ expect.extend({
     toMatchDecoratedSpecificSnapshot(received, snapshotFile) {
         const data = doSomeThing(received);
         return toMatchSpecificSnapshot.call(this, data, snapshotFile);
-    }
+    },
 });

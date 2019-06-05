@@ -92,7 +92,7 @@ declare namespace gsap {
         points?: number;
         randomize?: boolean;
         strength?: number;
-        taper?: "in" | "out" | "both" | "none";
+        taper?: 'in' | 'out' | 'both' | 'none';
         template?: Ease;
     }
 

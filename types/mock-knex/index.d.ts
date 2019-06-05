@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as Knex from "knex";
-import { EventEmitter } from "events";
+import * as Knex from 'knex';
+import { EventEmitter } from 'events';
 
 /**
  * Attaches mocked client to knex instance
@@ -48,15 +48,9 @@ export interface Tracker extends EventEmitter {
      *
      * @param callback A function that gets executed on 'query' event.
      */
-    on(
-        event: "query",
-        callback: (query: QueryDetails, step: number) => void
-    ): this;
+    on(event: 'query', callback: (query: QueryDetails, step: number) => void): this;
 
-    once(
-        event: "query",
-        callback: (query: QueryDetails, step: number) => void
-    ): this;
+    once(event: 'query', callback: (query: QueryDetails, step: number) => void): this;
 }
 
 /**

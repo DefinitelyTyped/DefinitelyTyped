@@ -1,5 +1,5 @@
-import * as React from "react";
-import { TimeBaseProps } from "../Time/Time";
+import * as React from 'react';
+import { TimeBaseProps } from '../Time/Time';
 
 export type TimePickerProps = TimeBaseProps & {
     buttonProps?: { [x: string]: any };

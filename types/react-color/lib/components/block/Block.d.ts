@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { ColorPickerProps, ColorResult } from "../../..";
+import { Component } from 'react';
+import { ColorPickerProps, ColorResult } from '../../..';
 
 export interface BlockPickerProps extends ColorPickerProps<BlockPicker> {
     colors?: string[];

@@ -1,23 +1,23 @@
 import * as svc from 'polyfill-service';
 
 const o: svc.GetPolyfillsOptions = {
-    uaString: ''
+    uaString: '',
 };
 
 o.excludes = ['foo'];
 o.features = {
     foo: {},
-    bar: {flags: ['gated', 'always']}
+    bar: { flags: ['gated', 'always'] },
 };
 
 const o2: svc.GetPolyfillStringOptions = {
-    uaString: ''
+    uaString: '',
 };
 
 o2.excludes = ['foo'];
 o2.features = {
     foo: {},
-    bar: {flags: ['gated', 'always']}
+    bar: { flags: ['gated', 'always'] },
 };
 o2.minify = true;
 o2.minify = false;

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load DoubleClick Bid Manager API v1 */
-    function load(name: "doubleclickbidmanager", version: "v1"): PromiseLike<void>;
-    function load(name: "doubleclickbidmanager", version: "v1", callback: () => any): void;
+    function load(name: 'doubleclickbidmanager', version: 'v1'): PromiseLike<void>;
+    function load(name: 'doubleclickbidmanager', version: 'v1', callback: () => any): void;
 
     const lineitems: doubleclickbidmanager.LineitemsResource;
 

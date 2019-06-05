@@ -52,10 +52,7 @@ export interface AzureProviderOptions {
     location?: string;
 }
 
-export type ProviderOptions = BaseProviderOptions & Partial<
-    | AmazonProviderOptions
-    | AzureProviderOptions
->;
+export type ProviderOptions = BaseProviderOptions & Partial<AmazonProviderOptions | AzureProviderOptions>;
 
 /**
  * Storage
@@ -77,42 +74,17 @@ export namespace storage {
         config: ProviderOptions;
         protocol: string;
 
-        getContainers(
-            callback: (err: ClientError, containers: Container[]) => any,
-        ): void;
-        createContainer(
-            options: any,
-            callback: (err: ClientError, container: Container) => any,
-        ): void;
-        destroyContainer(
-            containerName: string,
-            callback: (err: ClientError) => any,
-        ): void;
-        getContainer(
-            containerName: string,
-            callback: (err: ClientError, container: Container) => any,
-        ): void;
+        getContainers(callback: (err: ClientError, containers: Container[]) => any): void;
+        createContainer(options: any, callback: (err: ClientError, container: Container) => any): void;
+        destroyContainer(containerName: string, callback: (err: ClientError) => any): void;
+        getContainer(containerName: string, callback: (err: ClientError, container: Container) => any): void;
         upload(options: StorageUploadOptions): NodeJS.WriteStream;
         download(options: StorageDownloadOptions): NodeJS.ReadStream;
-        getFiles(
-            containerName: string,
-            callback: (err: ClientError, files: File[]) => any,
-        ): void;
-        getFile(
-            containerName: string,
-            file: string,
-            callback: (err: ClientError, file: File) => any,
-        ): void;
-        removeFile(
-            containerName: string,
-            file: string,
-            callback: (err: ClientError) => any,
-        ): void;
+        getFiles(containerName: string, callback: (err: ClientError, files: File[]) => any): void;
+        getFile(containerName: string, file: string, callback: (err: ClientError, file: File) => any): void;
+        removeFile(containerName: string, file: string, callback: (err: ClientError) => any): void;
         // Logs
-        on(
-            eventName: string,
-            callback: (message: string, object?: any) => any,
-        ): void;
+        on(eventName: string, callback: (message: string, object?: any) => any): void;
     }
 
     interface Container {

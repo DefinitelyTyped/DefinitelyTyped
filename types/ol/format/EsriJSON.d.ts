@@ -8,7 +8,7 @@ import {
     Polygon,
     Polyline,
     Position,
-    SpatialReferenceWkid
+    SpatialReferenceWkid,
 } from 'arcgis-rest-api';
 import { ReadOptions, WriteOptions } from 'ol/format/Feature';
 import JSONFeature from 'ol/format/JSONFeature';

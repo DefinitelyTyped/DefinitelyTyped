@@ -3,7 +3,6 @@
 // Definitions by: glen-84 <https://github.com/glen-84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace parseGlob {
     interface Result {
         /**

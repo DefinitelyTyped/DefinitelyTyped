@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
-import { Action } from "redux";
-import { Attributes, Notification } from "react-notification-system";
+import { Component } from 'react';
+import { Action } from 'redux';
+import { Attributes, Notification } from 'react-notification-system';
 
 export as namespace Notifications;
 
@@ -17,7 +17,7 @@ declare class Notifications extends Component<Notifications.NotificationsProps> 
 declare namespace Notifications {
     type NotificationsState = Notification[];
 
-    type NotificationLevel = "error" | "warning" | "info" | "success";
+    type NotificationLevel = 'error' | 'warning' | 'info' | 'success';
 
     type NotificationsReducer<A extends Action> = (state: NotificationsState, action: A) => NotificationsState;
 

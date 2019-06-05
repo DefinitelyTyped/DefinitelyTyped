@@ -20,32 +20,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 /// <reference path="./baidumap.maplayer.d.ts" />
 declare namespace BMap {
     class MapType {
-        constructor(name: string, layers: TileLayer | TileLayer[], opts?: MapTypeOptions)
-        getName(): string
-        getTileLayer(): TileLayer
-        getMinZoom(): number
-        getMaxZoom(): number
-        getProjection(): Projection
-        getTextColor(): string
-        getTips(): string
+        constructor(name: string, layers: TileLayer | TileLayer[], opts?: MapTypeOptions);
+        getName(): string;
+        getTileLayer(): TileLayer;
+        getMinZoom(): number;
+        getMaxZoom(): number;
+        getProjection(): Projection;
+        getTextColor(): string;
+        getTips(): string;
     }
     interface MapTypeOptions {
-        minZoom?: number
-        maxZoom?: number
-        errorImageUrl?: string
-        textColor?: number
-        tips?: string
+        minZoom?: number;
+        maxZoom?: number;
+        errorImageUrl?: string;
+        textColor?: number;
+        tips?: string;
     }
     interface Projection {
-        lngLatToPoint(lngLat: Point): Pixel
-        pointToLngLat(point: Pixel): Point
+        lngLatToPoint(lngLat: Point): Pixel;
+        pointToLngLat(point: Pixel): Point;
     }
-    interface MercatorProjection extends Projection {
-    }
-    interface PerspectiveProjection extends Projection {
-    }
+    interface MercatorProjection extends Projection {}
+    interface PerspectiveProjection extends Projection {}
 }
-declare const BMAP_NORMAL_MAP: BMap.MapType
-declare const BMAP_PERSPECTIVE_MAP: BMap.MapType
-declare const BMAP_SATELLITE_MAP: BMap.MapType
-declare const BMAP_HYBRID_MAP: BMap.MapType
+declare const BMAP_NORMAL_MAP: BMap.MapType;
+declare const BMAP_PERSPECTIVE_MAP: BMap.MapType;
+declare const BMAP_SATELLITE_MAP: BMap.MapType;
+declare const BMAP_HYBRID_MAP: BMap.MapType;

@@ -33,10 +33,7 @@ export function register(namespace: string, roxContainer: RoxContainer): void;
  *
  * https://support.rollout.io/docs/javascript-browser-api#section-setup
  */
-export function setup(
-    apiKey: string,
-    options?: RoxSetupOptions
-): Promise<unknown>;
+export function setup(apiKey: string, options?: RoxSetupOptions): Promise<unknown>;
 
 export interface RoxSetupOptions {
     version?: string;
@@ -44,21 +41,13 @@ export interface RoxSetupOptions {
     configurationFetchedHandler?(fetcherResult: RoxFetcherResult): void;
     debugLevel?: 'verbose';
     // https://support.rollout.io/docs/javascript-browser-api#section-using-the-impressionhandler-option
-    impressionHandler?(
-        reporting: RoxReporting,
-        experiment: RoxExperiment,
-        context: unknown
-    ): void;
+    impressionHandler?(reporting: RoxReporting, experiment: RoxExperiment, context: unknown): void;
     platform?: string;
     freeze?: 'untilLaunch' | 'none';
 }
 
 export interface RoxFetcherResult {
-    fetcherStatus:
-        | 'APPLIED_FROM_EMBEDDED'
-        | 'APPLIED_FROM_CACHE'
-        | 'APPLIED_FROM_NETWORK'
-        | 'ERROR_FETCH_FAILED';
+    fetcherStatus: 'APPLIED_FROM_EMBEDDED' | 'APPLIED_FROM_CACHE' | 'APPLIED_FROM_NETWORK' | 'ERROR_FETCH_FAILED';
     creationDate: Date;
     hasChanges: boolean;
     errorDetails?: string;
@@ -80,18 +69,9 @@ export interface RoxExperiment {
  * Note that you might have to call unfreeze after setting custom properties such as email after login
  * https://support.rollout.io/docs/custom-properties
  */
-export function setCustomNumberProperty(
-    name: string,
-    value: number | (() => number)
-): void;
-export function setCustomStringProperty(
-    name: string,
-    value: string | (() => string)
-): void;
-export function setCustomBooleanProperty(
-    name: string,
-    value: boolean | (() => boolean)
-): void;
+export function setCustomNumberProperty(name: string, value: number | (() => number)): void;
+export function setCustomStringProperty(name: string, value: string | (() => string)): void;
+export function setCustomBooleanProperty(name: string, value: boolean | (() => boolean)): void;
 
 /**
  * Unfreeze the state of all flags in code
@@ -204,10 +184,7 @@ export interface RoxOverrides {
      *
      * Note that for boolean flag we still give the value as a string.
      */
-    setOverride(
-        nameSpacedFlagName: string,
-        value: string | 'false' | 'true'
-    ): void;
+    setOverride(nameSpacedFlagName: string, value: string | 'false' | 'true'): void;
 
     /**
      * Clears the override value from the flag (and the disk).

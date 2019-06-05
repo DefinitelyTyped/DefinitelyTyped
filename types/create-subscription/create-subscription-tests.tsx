@@ -1,5 +1,5 @@
-import * as React from "react";
-import { createSubscription, Subscription } from "create-subscription";
+import * as React from 'react';
+import { createSubscription, Subscription } from 'create-subscription';
 
 //
 // Example: Subscribing to event dispatchers
@@ -14,8 +14,8 @@ function FollowerComponent({ followersCount }: { followersCount: number }) {
 
 interface EventDispatcher<T> {
     value: T;
-    addEventListener(eventName: "change", onChange: (newValue: T) => any): void;
-    removeEventListener(eventName: "change", onChange: (newValue: T) => any): void;
+    addEventListener(eventName: 'change', onChange: (newValue: T) => any): void;
+    removeEventListener(eventName: 'change', onChange: (newValue: T) => any): void;
 }
 
 // Create a wrapper component to manage the subscription.
@@ -24,9 +24,9 @@ const EventHandlerSubscription = createSubscription({
     getCurrentValue: (eventDispatcher: EventDispatcher<number>) => eventDispatcher.value,
     subscribe: (eventDispatcher: EventDispatcher<number>, callback) => {
         const onChange = (event: any) => callback(eventDispatcher.value);
-        eventDispatcher.addEventListener("change", onChange);
-        return () => eventDispatcher.removeEventListener("change", onChange);
-    }
+        eventDispatcher.addEventListener('change', onChange);
+        return () => eventDispatcher.removeEventListener('change', onChange);
+    },
 });
 
 declare const eventDispatcher: EventDispatcher<number>;
@@ -79,7 +79,7 @@ const PromiseSubscription = createSubscription({
         // There is no way to "unsubscribe" from a Promise.
         // create-subscription will still prevent stale values from rendering.
         return () => {};
-    }
+    },
 });
 
 declare const loadingPromise: Promise<string>;
@@ -100,12 +100,18 @@ declare const loadingPromise: Promise<string>;
 declare const wrongPromise: Promise<number>;
 
 // $ExpectError
-<PromiseSubscription source={wrongPromise}>
-    {value => null}
-</PromiseSubscription>;
+<PromiseSubscription source={wrongPromise}>{value => null}</PromiseSubscription>;
 
 // $ExpectError
-const MismatchSubscription = createSubscription({ getCurrentValue: (a: number) => null, subscribe: (a: string, callback) => (() => undefined) });
+const MismatchSubscription = createSubscription({
+    getCurrentValue: (a: number) => null,
+    subscribe: (a: string, callback) => () => undefined,
+});
 
 // $ExpectError
-const NoUnsubscribe = createSubscription({ getCurrentValue: (a: number) => a, subscribe: (a: number, callback) => { /* oops, should've returned a callback here */ }});
+const NoUnsubscribe = createSubscription({
+    getCurrentValue: (a: number) => a,
+    subscribe: (a: number, callback) => {
+        /* oops, should've returned a callback here */
+    },
+});

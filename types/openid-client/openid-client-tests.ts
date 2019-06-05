@@ -1,5 +1,5 @@
-import { IncomingMessage } from "http";
-import { Issuer, generators } from "openid-client";
+import { IncomingMessage } from 'http';
+import { Issuer, generators } from 'openid-client';
 
 async (req: IncomingMessage) => {
     const issuer = await Issuer.discover('https://accounts.google.com');
@@ -26,47 +26,49 @@ async (req: IncomingMessage) => {
 
     //
 
-    client.authorizationUrl({
-        scope: 'openid email profile',
-        response_mode: 'form_post',
-        nonce: 'nonce',
-        resource: 'https://my.api.example.com/resource/32178',
-        code_challenge,
-        code_challenge_method: 'S256',
-    }).substring(0);
+    client
+        .authorizationUrl({
+            scope: 'openid email profile',
+            response_mode: 'form_post',
+            nonce: 'nonce',
+            resource: 'https://my.api.example.com/resource/32178',
+            code_challenge,
+            code_challenge_method: 'S256',
+        })
+        .substring(0);
 
     //
 
     const params = client.callbackParams(req);
     const callbackResponse = await client.callback('https://client.example.com/callback', params, { code_verifier });
     console.log(callbackResponse.id_token, callbackResponse.access_token, callbackResponse.refresh_token);
-    console.log(callbackResponse.expired(), callbackResponse.claims()["some claim name"]);
+    console.log(callbackResponse.expired(), callbackResponse.claims()['some claim name']);
 
     //
 
-    await client.userinfo("access token");
+    await client.userinfo('access token');
     const userinfo = await client.userinfo(callbackResponse);
-    console.log(userinfo["some user info name"]);
+    console.log(userinfo['some user info name']);
 
     //
 
     const grantResponse = await client.grant({
-        grant_type: "client_credentials",
-        acr_values: "acr_values",
+        grant_type: 'client_credentials',
+        acr_values: 'acr_values',
     });
     console.log(grantResponse.access_token);
 
     //
 
-    const introspectResponse = await client.introspect("token");
-    console.log(introspectResponse["some claim name"]);
+    const introspectResponse = await client.introspect('token');
+    console.log(introspectResponse['some claim name']);
 
-    client.introspect("token", "tokenTypeHint");
+    client.introspect('token', 'tokenTypeHint');
 
-    client.introspect("token", "tokenTypeHint", {});
-    client.introspect("token", "tokenTypeHint", { introspectBody: {} });
+    client.introspect('token', 'tokenTypeHint', {});
+    client.introspect('token', 'tokenTypeHint', { introspectBody: {} });
 
     //
 
-    client.endSessionUrl({ id_token_hint: "id_token_hint" }).substring(0);
+    client.endSessionUrl({ id_token_hint: 'id_token_hint' }).substring(0);
 };

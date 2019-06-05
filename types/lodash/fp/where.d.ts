@@ -1,2 +1,2 @@
-import { where } from "../fp";
+import { where } from '../fp';
 export = where;

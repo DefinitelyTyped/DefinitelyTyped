@@ -1,12 +1,9 @@
-
-
 class Point {
-    constructor(public x: number, public y: number) {
-    }
+    constructor(public x: number, public y: number) {}
 }
 
 function hashPoint(p: Point) {
-    return "Point:" + p.x + "," + p.y;
+    return 'Point:' + p.x + ',' + p.y;
 }
 
 function pointsEqual(p1: Point, p2: Point) {
@@ -20,6 +17,6 @@ function getColourAt(x: number, y: number) {
     return coloursForPoints.get(point);
 }
 
-coloursForPoints.put(new Point(1, 2), "green");
+coloursForPoints.put(new Point(1, 2), 'green');
 
 alert(getColourAt(1, 2)); // Alerts green

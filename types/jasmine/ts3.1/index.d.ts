@@ -156,11 +156,16 @@ interface DoneFn extends Function {
  * @param method The name of the method to replace with a `Spy`.
  */
 declare function spyOn<T, K extends keyof T = keyof T>(
-    object: T, method: T[K] extends Function ? K : never,
+    object: T,
+    method: T[K] extends Function ? K : never
 ): jasmine.Spy<
-    T[K] extends InferableFunction ? T[K] :
-    T[K] extends {new (...args: infer A): infer V} ? (...args: A) => V :
-    T[K] extends Function ? InferableFunction : never
+    T[K] extends InferableFunction
+        ? T[K]
+        : T[K] extends { new (...args: infer A): infer V }
+        ? (...args: A) => V
+        : T[K] extends Function
+        ? InferableFunction
+        : never
 >;
 
 /**
@@ -183,16 +188,11 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = undefined> =
-        T extends undefined ?
-            (ReadonlyArray<string> | {[methodName: string]: any}) :
-            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends InferableFunction ? T[P] : any>});
+    type SpyObjMethodNames<T = undefined> = T extends undefined
+        ? (ReadonlyArray<string> | { [methodName: string]: any })
+        : (ReadonlyArray<keyof T> | { [P in keyof T]?: ReturnType<T[P] extends InferableFunction ? T[P] : any> });
 
-    type AnyMethods<T> = {
-        [K in {
-            [K in keyof T]: T[K] extends Function ? K : never
-        }[keyof T]]: InferableFunction
-    };
+    type AnyMethods<T> = { [K in { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]]: InferableFunction };
 
     function clock(): Clock;
 
@@ -392,7 +392,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: string }): any;
+        new (options: { random: boolean; seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -430,8 +430,7 @@ declare namespace jasmine {
         append(value: any): void;
     }
 
-    interface StringPrettyPrinter extends PrettyPrinter {
-    }
+    interface StringPrettyPrinter extends PrettyPrinter {}
 
     interface Queue {
         new (env: any): any;
@@ -588,8 +587,7 @@ declare namespace jasmine {
         expected: string;
     }
 
-    interface PassedExpectation extends CustomReportExpectation {
-    }
+    interface PassedExpectation extends CustomReportExpectation {}
 
     interface CustomReporterResult {
         description: string;
@@ -715,9 +713,7 @@ declare namespace jasmine {
         withArgs(...args: any[]): Spy<Fn>;
     }
 
-    type SpyObj<T> = T & {
-        [k in keyof T]: T[k] extends InferableFunction ? T[k] & Spy<T[k]> : T[k];
-    };
+    type SpyObj<T> = T & { [k in keyof T]: T[k] extends InferableFunction ? T[k] & Spy<T[k]> : T[k] };
 
     interface SpyAnd<Fun extends InferableFunction> {
         identity: string;
@@ -824,7 +820,7 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_DEPTH: number;
 }
 
-declare module "jasmine" {
+declare module 'jasmine' {
     class jasmine {
         constructor(options: any);
         jasmine: jasmine.Jasmine;

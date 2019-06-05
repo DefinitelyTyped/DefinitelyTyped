@@ -1,5 +1,5 @@
-import klaw = require("klaw");
-import * as  path from "path";
+import klaw = require('klaw');
+import * as path from 'path';
 
 // README.md: Streams 1 (push) example:
 
@@ -38,7 +38,6 @@ function filterFunc(item: string): boolean {
     return basename === '.' || basename[0] !== '.';
 }
 
-klaw('/some/dir', { filter: filterFunc })
-    .on('data', (item: klaw.Item) => {
-        // only items of none hidden folders will reach here
-    });
+klaw('/some/dir', { filter: filterFunc }).on('data', (item: klaw.Item) => {
+    // only items of none hidden folders will reach here
+});

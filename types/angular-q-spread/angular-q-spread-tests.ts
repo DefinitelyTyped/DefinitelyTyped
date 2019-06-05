@@ -10,30 +10,23 @@ interface IScope {
 function TestCtrl($scope: IScope, $q: ng.IQService, MyService: IMyService) {
     $scope.name = null;
 
-    function firstCallback(firstname: string, lastname: string)
-    {
+    function firstCallback(firstname: string, lastname: string) {
         return firstname + ' ' + lastname;
     }
 
-    function anotherCallback(fullname: string)
-    {
+    function anotherCallback(fullname: string) {
         $scope.name = fullname;
     }
 
-    function failureCallback(reason: any)
-    {
+    function failureCallback(reason: any) {
         alert('Could not load data: ' + reason);
     }
 
-    $q
-        .all([
-            MyService.getFirstname(),
-            MyService.getLastname()
-        ])
+    $q.all([MyService.getFirstname(), MyService.getLastname()])
         .spread(firstCallback)
         .then(anotherCallback)
         .catch(failureCallback);
-};
+}
 
 TestCtrl.$inject = ['$scope', '$q', 'MyService'];
 

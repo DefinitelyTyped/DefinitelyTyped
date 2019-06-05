@@ -88,7 +88,7 @@ export interface StripeJS {
      *
      * @return an object containing the generated Source or an error
      */
-    retrieveSource({id, client_secret}: { id: string, client_secret: string }): Promise<SourceResult>;
+    retrieveSource({ id, client_secret }: { id: string; client_secret: string }): Promise<SourceResult>;
 }
 
 export interface StripeConfigOptions {
@@ -139,10 +139,10 @@ export interface StripeError {
 }
 
 export type errorType =
-    'api_connection_error' |
-    'api_error' |
-    'authentication_error' |
-    'card_error' |
-    'idempotency_error' |
-    'invalid_request_error' |
-    'rate_limit_error';
+    | 'api_connection_error'
+    | 'api_error'
+    | 'authentication_error'
+    | 'card_error'
+    | 'idempotency_error'
+    | 'invalid_request_error'
+    | 'rate_limit_error';

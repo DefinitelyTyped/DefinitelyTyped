@@ -1,18 +1,11 @@
-import * as fs from "fs";
-import circuitBreaker, {
-    CircuitBreaker,
-    CircuitBreakerOptions,
-    promisify,
-    stats,
-    Stats,
-    Window
-} from "opossum";
+import * as fs from 'fs';
+import circuitBreaker, { CircuitBreaker, CircuitBreakerOptions, promisify, stats, Stats, Window } from 'opossum';
 
 let readFile = promisify(fs.readFile);
 stats.removeAllListeners();
 
 let breaker: CircuitBreaker;
-const callbackNoArgs = () => console.log("foo");
+const callbackNoArgs = () => console.log('foo');
 
 breaker = circuitBreaker(() => true, {
     timeout: false,
@@ -20,15 +13,15 @@ breaker = circuitBreaker(() => true, {
     resetTimeout: 10,
     rollingCountTimeout: 500,
     rollingCountBuckets: 20,
-    name: "test",
-    group: "group",
+    name: 'test',
+    group: 'group',
     rollingPercentilesEnabled: true,
     capacity: 1,
     errorThresholdPercentage: 1,
     enabled: true,
     allowWarmUp: true,
     volumeThreshold: 1,
-    cache: true
+    cache: true,
 });
 
 breaker.name; // $ExpectType string
@@ -65,38 +58,38 @@ function asyncFunctionThatCouldFail(x: any, y: any) {
 const options: CircuitBreakerOptions = {
     timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
     errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
-    resetTimeout: 30000 // After 30 seconds, try again.
+    resetTimeout: 30000, // After 30 seconds, try again.
 };
 breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker
-    .fire("foo")
+    .fire('foo')
     .then(console.log)
     .catch(console.error);
 
 breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
 // if asyncFunctionThatCouldFail starts to fail, firing the breaker
 // will trigger our fallback function
-breaker.fallback(() => "Sorry, out of service right now");
-breaker.on("fallback", result => console.log(result));
+breaker.fallback(() => 'Sorry, out of service right now');
+breaker.on('fallback', result => console.log(result));
 
 breaker = circuitBreaker(callbackNoArgs, options);
 
 breaker.fallback(callbackNoArgs);
 
-breaker.on("success", result => console.log(result));
-breaker.on("timeout", callbackNoArgs);
-breaker.on("reject", callbackNoArgs);
-breaker.on("open", callbackNoArgs);
-breaker.on("halfOpen", callbackNoArgs);
-breaker.on("close", callbackNoArgs);
-breaker.on("fallback", data => console.log(data));
+breaker.on('success', result => console.log(result));
+breaker.on('timeout', callbackNoArgs);
+breaker.on('reject', callbackNoArgs);
+breaker.on('open', callbackNoArgs);
+breaker.on('halfOpen', callbackNoArgs);
+breaker.on('close', callbackNoArgs);
+breaker.on('fallback', data => console.log(data));
 
 readFile = circuitBreaker.promisify(fs.readFile);
 breaker = circuitBreaker(readFile, options);
 
 breaker
-    .fire("./package.json", "utf-8")
+    .fire('./package.json', 'utf-8')
     .then(console.log)
     .catch(console.error);
 
@@ -108,7 +101,7 @@ breaker.hystrixStats.getHystrixStream().pipe(process.stdout);
 // each 100ms long.
 const circuit = circuitBreaker(fs.readFile, {
     rollingCountBuckets: 10,
-    rollingCountTimeout: 1000
+    rollingCountTimeout: 1000,
 });
 
 // get the cumulative statistics for the last second

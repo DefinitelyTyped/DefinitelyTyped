@@ -1,2 +1,2 @@
-import { nAry } from "../fp";
+import { nAry } from '../fp';
 export = nAry;

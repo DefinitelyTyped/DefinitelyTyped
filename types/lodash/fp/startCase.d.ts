@@ -1,2 +1,2 @@
-import { startCase } from "../fp";
+import { startCase } from '../fp';
 export = startCase;

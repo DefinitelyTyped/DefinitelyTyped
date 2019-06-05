@@ -4,8 +4,9 @@ import * as async from 'async';
 import PQ = require('libpq');
 
 // Stub mocha functions
-const {describe, it, before, after, beforeEach, afterEach} = null as any as {
-    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+const { describe, it, before, after, beforeEach, afterEach } = (null as any) as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) &
+        ((cb: (done: any) => void) => void) & { only: any; skip: any };
 };
 
 declare const _: { times<T>(n: number, f: () => T): T[] };
@@ -26,15 +27,19 @@ const blink = (n: number, cb: Function) => {
     const connect = (con: PQ, cb: (err?: Error) => void) => {
         con.connect(cb);
     };
-    async.each(connections, connect, ok(() => {
-        connections.forEach((con) => {
-            con.finish();
-        });
-        cb();
-    }));
+    async.each(
+        connections,
+        connect,
+        ok(() => {
+            connections.forEach(con => {
+                con.finish();
+            });
+            cb();
+        })
+    );
 };
 
-const queryText = "SELECT * FROM generate_series(1, 1000)";
+const queryText = 'SELECT * FROM generate_series(1, 1000)';
 
 const query = (pq: PQ, cb: Function) => {
     const readError = (message?: string) => {
@@ -74,7 +79,7 @@ const query = (pq: PQ, cb: Function) => {
 };
 
 describe('async connection', () => {
-    it('works', (done) => {
+    it('works', done => {
         const pq = new PQ();
         assert(!pq.connected, 'should have connected set to falsy');
         pq.connect(err => {
@@ -85,20 +90,20 @@ describe('async connection', () => {
         });
     });
 
-    it('works with hard-coded connection parameters', (done) => {
+    it('works with hard-coded connection parameters', done => {
         const pq = new PQ();
         const conString = `host=${process.env.PGHOST || 'localhost'}`;
         pq.connect(conString, done);
     });
 
-    it('returns an error to the callback if connection fails', (done) => {
+    it('returns an error to the callback if connection fails', done => {
         new PQ().connect('host=asldkfjasldkfjalskdfjasdf', err => {
             assert(err, 'should have passed an error');
             done();
         });
     });
 
-    it('respects the active domain', (done) => {
+    it('respects the active domain', done => {
         const pq = new PQ();
         const domain = require('domain').create();
         domain.run(() => {
@@ -202,7 +207,7 @@ describe('async simple query', () => {
 });
 
 describe('cancel a request', () => {
-    it('works', (done) => {
+    it('works', done => {
         const pq = new PQ();
         pq.connectSync();
         const sent = pq.sendQuery('pg_sleep(5000)');
@@ -225,7 +230,7 @@ describe('Constructing multiple', () => {
         }
     });
 
-    it('connects and disconnects each client', (done) => {
+    it('connects and disconnects each client', done => {
         const connect = (n: number, cb: (err?: Error) => void) => {
             const pq = new PQ();
             pq.connect(cb);
@@ -256,15 +261,14 @@ describe('COPY IN', () => {
         const success = pq.exec('COPY test_data FROM stdin');
         assert.equal(pq.resultStatus(), 'PGRES_COPY_IN');
 
-        const buffer = new Buffer("bob\t100\n", 'utf8');
+        const buffer = new Buffer('bob\t100\n', 'utf8');
         const res1 = pq.putCopyData(buffer);
         assert.strictEqual(res1, 1);
 
         const res2 = pq.putCopyEnd();
         assert.strictEqual(res2, 1);
 
-        while (pq.getResult()) {
-        }
+        while (pq.getResult()) {}
 
         pq.exec('SELECT COUNT(*) FROM test_data');
         assert.equal(pq.getvalue(0, 0), 4);
@@ -274,20 +278,16 @@ describe('COPY IN', () => {
         const success = pq.exec('COPY test_data FROM stdin');
         assert.equal(pq.resultStatus(), 'PGRES_COPY_IN');
 
-        const buffer = new Buffer("bob\t100\n", 'utf8');
+        const buffer = new Buffer('bob\t100\n', 'utf8');
         const res1 = pq.putCopyData(buffer);
         assert.strictEqual(res1, 1);
 
         const res2 = pq.putCopyEnd('cancel!');
         assert.strictEqual(res2, 1);
 
-        while (pq.getResult()) {
-        }
+        while (pq.getResult()) {}
         assert(pq.errorMessage());
-        assert(
-          pq.errorMessage().includes('cancel!'),
-          `${pq.errorMessage()} should have contained "cancel!"`
-        );
+        assert(pq.errorMessage().includes('cancel!'), `${pq.errorMessage()} should have contained "cancel!"`);
 
         pq.exec('SELECT COUNT(*) FROM test_data');
         assert.equal(pq.getvalue(0, 0), 4);
@@ -308,7 +308,7 @@ describe('COPY OUT', () => {
     });
 
     const getRow = (pq: PQ, expected: string) => {
-        const result = <Buffer> pq.getCopyData(false);
+        const result = <Buffer>pq.getCopyData(false);
         assert(result instanceof Buffer, 'Result should be a buffer');
         assert.equal(result.toString('utf8'), expected);
     };
@@ -319,7 +319,7 @@ describe('COPY OUT', () => {
         getRow(pq, 'brian\t32\n');
         getRow(pq, 'aaron\t30\n');
         getRow(pq, '\t\\N\n');
-        assert.strictEqual(<number> pq.getCopyData(), -1);
+        assert.strictEqual(<number>pq.getCopyData(), -1);
     });
 });
 
@@ -349,8 +349,7 @@ describe('without being connected', () => {
     it('throws when writing while not connected', () => {
         const pq = new PQ();
         assert.throws(() => {
-            pq.writable(() => {
-            });
+            pq.writable(() => {});
         });
     });
 });
@@ -385,7 +384,10 @@ describe('error info', () => {
             assert.notEqual(err, null);
             assert.equal(err.severity, 'ERROR');
             assert.equal(err.sqlState, 42804);
-            assert.equal(err.messagePrimary, 'column "age" is of type integer but expression is of type timestamp with time zone');
+            assert.equal(
+                err.messagePrimary,
+                'column "age" is of type integer but expression is of type timestamp with time zone'
+            );
             assert.equal(err.messageDetail, undefined);
             assert.equal(err.messageHint, 'You will need to rewrite or cast the expression.');
             assert.equal(err.statementPosition, 33);
@@ -396,9 +398,9 @@ describe('error info', () => {
             assert.equal(err.tableName, undefined);
             assert.equal(err.dataTypeName, undefined);
             assert.equal(err.constraintName, undefined);
-            assert.equal(err.sourceFile, "parse_target.c");
+            assert.equal(err.sourceFile, 'parse_target.c');
             assert(parseInt(err.sourceLine, 10));
-            assert.equal(err.sourceFunction, "transformAssignedExpr");
+            assert.equal(err.sourceFunction, 'transformAssignedExpr');
         });
     });
 });
@@ -450,7 +452,7 @@ describe('connecting', () => {
 });
 
 describe('many connections', () => {
-    it('works', (done) => {
+    it('works', done => {
         async.timesSeries(10, blink, done);
     });
 });
@@ -458,10 +460,10 @@ describe('many connections', () => {
 describe('connectSync', () => {
     it('works 50 times in a row', () => {
         const pqs = _.times(50, () => new PQ());
-        pqs.forEach((pq) => {
+        pqs.forEach(pq => {
             pq.connectSync();
         });
-        pqs.forEach((pq) => {
+        pqs.forEach(pq => {
             pq.finish();
         });
     });
@@ -469,13 +471,13 @@ describe('connectSync', () => {
 
 describe('connect async', () => {
     const total = 50;
-    it(`works ${total} times in a row`, (done) => {
+    it(`works ${total} times in a row`, done => {
         const pqs = _.times(total, () => new PQ());
 
         let count = 0;
         const connect = (cb: Function) => {
-            pqs.forEach((pq) => {
-                pq.connect((err) => {
+            pqs.forEach(pq => {
+                pq.connect(err => {
                     assert.ifError(err);
                     count++;
                     pq.startReader();
@@ -486,7 +488,7 @@ describe('connect async', () => {
             });
         };
         connect(() => {
-            pqs.forEach((pq) => {
+            pqs.forEach(pq => {
                 pq.stopReader();
                 pq.finish();
             });
@@ -498,19 +500,19 @@ describe('connect async', () => {
 describe('multiple queries', () => {
     const pq = new PQ();
 
-    before((done) => {
+    before(done => {
         pq.connect(done);
     });
 
-    it('first query works', (done) => {
+    it('first query works', done => {
         query(pq, done);
     });
 
-    it('second query works', (done) => {
+    it('second query works', done => {
         query(pq, done);
     });
 
-    it('third query works', (done) => {
+    it('third query works', done => {
         query(pq, done);
     });
 });

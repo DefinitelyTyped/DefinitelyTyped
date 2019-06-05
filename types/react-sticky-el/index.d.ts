@@ -4,21 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export default Sticky;
 
 declare class Sticky extends React.Component<Sticky.Props> {}
 
 declare namespace Sticky {
-    interface Props<HolderProps extends object = {}>
-        extends React.HTMLAttributes<HTMLElement> {
+    interface Props<HolderProps extends object = {}> extends React.HTMLAttributes<HTMLElement> {
         /**
          * 'top' or 'bottom' - to which side element should stick.
          *
          * Defaults to 'top'.
          */
-        mode?: "top" | "bottom";
+        mode?: 'top' | 'bottom';
 
         /**
          * Allows you to disable sticking by setting this prop to `true`.

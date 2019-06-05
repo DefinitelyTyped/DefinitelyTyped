@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-declare namespace NodeJS  {
+declare namespace NodeJS {
     interface Global {
-        mapOptions: any
+        mapOptions: any;
     }
 }
 
@@ -106,12 +106,12 @@ interface Options {
  *     console.log('starting')
  * })
  */
-declare function TileReduce (options: Options): Events;
+declare function TileReduce(options: Options): Events;
 
 declare namespace TileReduce {
     type BBox = [number, number, number, number];
     type Tile = [number, number, number];
-    type Types = "start" | "map" | "reduce" | "end";
+    type Types = 'start' | 'map' | 'reduce' | 'end';
     interface Source {
         name: string;
         mbtiles?: string;
@@ -122,6 +122,6 @@ declare namespace TileReduce {
     }
 }
 
-declare module "tile-reduce" {
-    export = TileReduce
+declare module 'tile-reduce' {
+    export = TileReduce;
 }

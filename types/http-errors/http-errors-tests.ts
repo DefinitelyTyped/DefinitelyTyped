@@ -28,22 +28,22 @@ err.headers; // $ExpectType { [key: string]: string; } | undefined
 err = create(404, 'LOL');
 
 // create(status, props)
-err = create(404, {id: 1});
+err = create(404, { id: 1 });
 
 // create(status, props) with status prop
 err = create(404, {
     id: 1,
-    status: 500
+    status: 500,
 });
 
 // create(status, props) with statusCode prop
 err = create(404, {
     id: 1,
-    statusCode: 500
+    statusCode: 500,
 });
 
 // create(props)
-err = create({id: 1});
+err = create({ id: 1 });
 // $ExpectType any
 err.id;
 
@@ -54,22 +54,22 @@ err = create('LOL', 404);
 err = create('LOL');
 
 // create(msg, props)
-err = create('LOL', {id: 1});
+err = create('LOL', { id: 1 });
 
 // create(err)
 err = create(new Error('LOL'));
 
 // create(err, props)
-err = create(new Error('LOL'), {id: 1});
+err = create(new Error('LOL'), { id: 1 });
 
 // create(status, err, props)
-err = create(404, new Error('LOL'), {id: 1});
+err = create(404, new Error('LOL'), { id: 1 });
 
 // create(status, msg, props)
-err = create(404, 'LOL', {id: 1});
+err = create(404, 'LOL', { id: 1 });
 
 // create(status, msg, { expose: false })
-err = create(404, 'LOL', {expose: false});
+err = create(404, 'LOL', { expose: false });
 
 err = new create.NotFound();
 err = new create.InternalServerError();
@@ -99,21 +99,21 @@ if (err instanceof create.HttpError) {
 
 // should support err instanceof Error
 create(404) instanceof Error;
-(new create['404']()) instanceof Error;
-(new create['500']()) instanceof Error;
+new create['404']() instanceof Error;
+new create['500']() instanceof Error;
 
 // should support err instanceof exposed constructor
 create(404) instanceof create.NotFound;
 create(500) instanceof create.InternalServerError;
-(new create['404']()) instanceof create.NotFound;
-(new create['500']()) instanceof create.InternalServerError;
-(new create.NotFound()) instanceof create.NotFound;
-(new create.InternalServerError()) instanceof create.InternalServerError;
+new create['404']() instanceof create.NotFound;
+new create['500']() instanceof create.InternalServerError;
+new create.NotFound() instanceof create.NotFound;
+new create.InternalServerError() instanceof create.InternalServerError;
 
 // should support err instanceof HttpError
 create(404) instanceof create.HttpError;
-(new create['404']()) instanceof create.HttpError;
-(new create['500']()) instanceof create.HttpError;
+new create['404']() instanceof create.HttpError;
+new create['500']() instanceof create.HttpError;
 
 // should support util.isError()
 util.isError(create(404));

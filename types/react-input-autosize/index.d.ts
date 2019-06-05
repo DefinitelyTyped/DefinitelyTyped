@@ -7,7 +7,9 @@
 
 import * as React from 'react';
 
-export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
+export interface AutosizeInputProps
+    extends React.InputHTMLAttributes<HTMLInputElement>,
+        React.ClassAttributes<HTMLInputElement> {
     inputClassName?: string;
     inputRef?: (instance: HTMLInputElement | null) => void;
     inputStyle?: React.CSSProperties;

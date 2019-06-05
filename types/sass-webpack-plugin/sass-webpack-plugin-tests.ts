@@ -17,14 +17,14 @@ new SassPlugin({ './src/styles/index.scss': 'bundle.css' }, env);
 
 // with sass tuning
 new SassPlugin('./src/styles/index.scss', env, {
-  sass: {
-    includePaths: ['node_modules/bootstrap-sass/assets/stylesheets']
-  }
+    sass: {
+        includePaths: ['node_modules/bootstrap-sass/assets/stylesheets'],
+    },
 });
 
 // with source maps + compressing - autoprefixing
 new SassPlugin('./src/styles/index.scss', {
-  sourceMap: true,
-  sass: { outputStyle: 'compressed' },
-  autoprefixer: false
+    sourceMap: true,
+    sass: { outputStyle: 'compressed' },
+    autoprefixer: false,
 });

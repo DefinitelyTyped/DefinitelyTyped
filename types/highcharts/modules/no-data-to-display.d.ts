@@ -1,6 +1,6 @@
-import { Static } from "highcharts";
+import { Static } from 'highcharts';
 
-declare module "highcharts" {
+declare module 'highcharts' {
     interface ChartObject {
         /**
          * Returns true if there are data points within the plot area now

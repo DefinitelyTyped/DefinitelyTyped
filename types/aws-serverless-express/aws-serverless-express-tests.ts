@@ -8,7 +8,7 @@ app.use(eventContext());
 const server = awsServerlessExpress.createServer(app, () => {}, []);
 
 const mockEvent = {
-    key: 'value'
+    key: 'value',
 };
 
 const mockContext = {
@@ -23,10 +23,13 @@ const mockContext = {
     getRemainingTimeInMillis: () => 2000,
     done: () => false,
     fail: (error: any) => false,
-    succeed: (message: string) => false
+    succeed: (message: string) => false,
 };
 
 awsServerlessExpress.proxy(server, mockEvent, mockContext);
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CALLBACK', () => {});
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CONTEXT_SUCCEED');
-awsServerlessExpress.proxy(server, mockEvent, mockContext, 'PROMISE').promise.then((response: awsServerlessExpress.Response) => {}).catch(err => {});
+awsServerlessExpress
+    .proxy(server, mockEvent, mockContext, 'PROMISE')
+    .promise.then((response: awsServerlessExpress.Response) => {})
+    .catch(err => {});

@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import { Observable } from "rxjs";
+import * as stream from 'stream';
+import { Observable } from 'rxjs';
 
 declare namespace Listr {
     interface ListrRenderer {
@@ -20,14 +20,17 @@ declare namespace Listr {
     interface ListrOptions {
         concurrent?: boolean | number;
         exitOnError?: boolean;
-        renderer?: "silent" | "default" | "verbose" | ListrRenderer;
-        nonTTYRenderer?: "silent" | "default" | "verbose" | ListrRenderer;
+        renderer?: 'silent' | 'default' | 'verbose' | ListrRenderer;
+        nonTTYRenderer?: 'silent' | 'default' | 'verbose' | ListrRenderer;
     }
 
     interface ListrTask {
         title: string;
         output?: string;
-        task: (ctx: any, task: ListrTaskWrapper) => void | string | Promise<any> | stream.Readable | Listr | Observable<any>;
+        task: (
+            ctx: any,
+            task: ListrTaskWrapper
+        ) => void | string | Promise<any> | stream.Readable | Listr | Observable<any>;
         skip?: (ctx: any, task: ListrTaskWrapper) => boolean | Promise<boolean> | string | void | Observable<boolean>;
         enabled?: (ctx: any, task: ListrTaskWrapper) => boolean | Promise<boolean> | Observable<boolean>;
     }

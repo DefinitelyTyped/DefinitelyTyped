@@ -1,6 +1,6 @@
-import AWS = require("aws-sdk");
-import multer = require("multer");
-import s3Storage = require("multer-s3");
+import AWS = require('aws-sdk');
+import multer = require('multer');
+import s3Storage = require('multer-s3');
 
 declare const accessKeyId: string;
 declare const secretAccessKey: string;

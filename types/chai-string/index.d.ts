@@ -49,5 +49,5 @@ declare global {
 }
 
 declare function chaiString(chai: any, utils: any): void;
-declare namespace chaiString { }
+declare namespace chaiString {}
 export = chaiString;

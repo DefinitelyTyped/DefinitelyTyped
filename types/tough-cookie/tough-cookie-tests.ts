@@ -1,7 +1,7 @@
 import { Cookie, CookieJar, MemoryCookieStore } from 'tough-cookie';
 
 let header = '';
-const cb = () => { };
+const cb = () => {};
 
 const cookie = Cookie.parse(header)!;
 cookie.value = 'somethingdifferent';
@@ -14,5 +14,5 @@ cookiejar.getCookies('http://example.com/otherpath', (err, cookies) => {
     // res.headers['cookie'] = cookies.join('; ');
 });
 
-CookieJar.deserializeSync("test cookie with store", new MemoryCookieStore());
-CookieJar.deserializeSync("test cookie");
+CookieJar.deserializeSync('test cookie with store', new MemoryCookieStore());
+CookieJar.deserializeSync('test cookie');

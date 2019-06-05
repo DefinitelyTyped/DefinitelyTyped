@@ -43,17 +43,17 @@ export interface BabylonOptions {
 }
 
 export type PluginName =
-    'estree' |
-    'jsx' |
-    'flow' |
-    'typescript' |
-    'classConstructorCall' |
-    'doExpressions' |
-    'objectRestSpread' |
-    'decorators' |
-    'classProperties' |
-    'exportExtensions' |
-    'asyncGenerators' |
-    'functionBind' |
-    'functionSent' |
-    'dynamicImport';
+    | 'estree'
+    | 'jsx'
+    | 'flow'
+    | 'typescript'
+    | 'classConstructorCall'
+    | 'doExpressions'
+    | 'objectRestSpread'
+    | 'decorators'
+    | 'classProperties'
+    | 'exportExtensions'
+    | 'asyncGenerators'
+    | 'functionBind'
+    | 'functionSent'
+    | 'dynamicImport';

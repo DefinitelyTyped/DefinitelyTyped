@@ -1,4 +1,4 @@
-import { Options } from "nivo-slider";
+import { Options } from 'nivo-slider';
 
 // basic usage
 $('#slider').nivoSlider();
@@ -18,6 +18,6 @@ const options: Options = {
     pauseOnHover: true,
     manualAdvance: false,
     prevText: 'Prev',
-    nextText: 'Next'
+    nextText: 'Next',
 };
 $('#slider').nivoSlider(options);

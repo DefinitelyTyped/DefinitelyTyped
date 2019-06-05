@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/html.html
      *
@@ -12,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface html {
-    }
+    interface html {}
     namespace html {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/html/ellipsis.html
@@ -25,8 +23,7 @@ declare namespace dojox {
          * NOTE: When using the dojoxEllipsis class within tables, the table needs to have the table-layout: fixed style
          *
          */
-        interface ellipsis {
-        }
+        interface ellipsis {}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/html/entities.html
          *
@@ -101,7 +98,7 @@ declare namespace dojox {
             /**
              *
              */
-            "ext-dojo": Object;
+            'ext-dojo': Object;
             /**
              *
              */
@@ -212,43 +209,43 @@ declare namespace dojox {
                  * Only useful if you grab content from a another folder than the current one
                  *
                  */
-                "adjustPaths": boolean;
+                'adjustPaths': boolean;
                 /**
                  * Should the content be treated as a full html document,
                  * and the real content stripped of ,  wrapper before injection
                  *
                  */
-                "cleanContent": boolean;
+                'cleanContent': boolean;
                 /**
                  * The content to be placed in the node. Can be an HTML string, a node reference, or a enumerable list of nodes
                  *
                  */
-                "content": string;
+                'content': string;
                 /**
                  *
                  */
-                "executeScripts": boolean;
+                'executeScripts': boolean;
                 /**
                  * Should the content be treated as a full html document,
                  * and the real content stripped of <html> <body> wrapper before injection
                  *
                  */
-                "extractContent": boolean;
+                'extractContent': boolean;
                 /**
                  * Usually only used internally, and auto-generated with each instance
                  *
                  */
-                "id": Object;
+                'id': Object;
                 /**
                  * An node which will be the parent element that we set content into
                  *
                  */
-                "node": HTMLElement;
+                'node': HTMLElement;
                 /**
                  * Should the node by passed to the parser after the new content is set
                  *
                  */
-                "parseContent": boolean;
+                'parseContent': boolean;
                 /**
                  * Flag passed to parser.  Root for attribute names to search for.   If scopeName is dojo,
                  * will search for data-dojo-type (or dojoType).  For backwards compatibility
@@ -256,28 +253,28 @@ declare namespace dojox {
                  * multi-version support is used, when it will be something like dojo16, dojo20, etc.)
                  *
                  */
-                "parserScope": string;
+                'parserScope': string;
                 /**
                  *
                  */
-                "referencePath": string;
+                'referencePath': string;
                 /**
                  *
                  */
-                "renderStyles": boolean;
+                'renderStyles': boolean;
                 /**
                  *
                  */
-                "scriptHasHooks": boolean;
+                'scriptHasHooks': boolean;
                 /**
                  *
                  */
-                "scriptHookReplacement": Object;
+                'scriptHookReplacement': Object;
                 /**
                  * Start the child widgets after parsing them.   Only obeyed if parseContent is true.
                  *
                  */
-                "startup": boolean;
+                'startup': boolean;
                 /**
                  *
                  */
@@ -428,43 +425,43 @@ declare namespace dojox {
                  * Only useful if you grab content from a another folder than the current one
                  *
                  */
-                "adjustPaths": boolean;
+                'adjustPaths': boolean;
                 /**
                  * Should the content be treated as a full html document,
                  * and the real content stripped of ,  wrapper before injection
                  *
                  */
-                "cleanContent": boolean;
+                'cleanContent': boolean;
                 /**
                  * The content to be placed in the node. Can be an HTML string, a node reference, or a enumerable list of nodes
                  *
                  */
-                "content": string;
+                'content': string;
                 /**
                  *
                  */
-                "executeScripts": boolean;
+                'executeScripts': boolean;
                 /**
                  * Should the content be treated as a full html document,
                  * and the real content stripped of <html> <body> wrapper before injection
                  *
                  */
-                "extractContent": boolean;
+                'extractContent': boolean;
                 /**
                  * Usually only used internally, and auto-generated with each instance
                  *
                  */
-                "id": Object;
+                'id': Object;
                 /**
                  * An node which will be the parent element that we set content into
                  *
                  */
-                "node": HTMLElement;
+                'node': HTMLElement;
                 /**
                  * Should the node by passed to the parser after the new content is set
                  *
                  */
-                "parseContent": boolean;
+                'parseContent': boolean;
                 /**
                  * Flag passed to parser.  Root for attribute names to search for.   If scopeName is dojo,
                  * will search for data-dojo-type (or dojoType).  For backwards compatibility
@@ -472,28 +469,28 @@ declare namespace dojox {
                  * multi-version support is used, when it will be something like dojo16, dojo20, etc.)
                  *
                  */
-                "parserScope": string;
+                'parserScope': string;
                 /**
                  *
                  */
-                "referencePath": string;
+                'referencePath': string;
                 /**
                  *
                  */
-                "renderStyles": boolean;
+                'renderStyles': boolean;
                 /**
                  *
                  */
-                "scriptHasHooks": boolean;
+                'scriptHasHooks': boolean;
                 /**
                  *
                  */
-                "scriptHookReplacement": Object;
+                'scriptHookReplacement': Object;
                 /**
                  * Start the child widgets after parsing them.   Only obeyed if parseContent is true.
                  *
                  */
-                "startup": boolean;
+                'startup': boolean;
                 /**
                  *
                  */
@@ -558,54 +555,50 @@ declare namespace dojox {
         }
 
         namespace ext_dojo {
-            namespace style {
-            }
-
+            namespace style {}
         }
 
-        namespace format {
-        }
-
+        namespace format {}
     }
 }
 
-declare module "dojox/html" {
-    var exp: dojox.html
-    export=exp;
+declare module 'dojox/html' {
+    var exp: dojox.html;
+    export = exp;
 }
-declare module "dojox/html/ellipsis" {
-    var exp: dojox.html.ellipsis
-    export=exp;
+declare module 'dojox/html/ellipsis' {
+    var exp: dojox.html.ellipsis;
+    export = exp;
 }
-declare module "dojox/html/entities" {
-    var exp: dojox.html.entities
-    export=exp;
+declare module 'dojox/html/entities' {
+    var exp: dojox.html.entities;
+    export = exp;
 }
-declare module "dojox/html/metrics" {
-    var exp: dojox.html.metrics
-    export=exp;
+declare module 'dojox/html/metrics' {
+    var exp: dojox.html.metrics;
+    export = exp;
 }
-declare module "dojox/html/styles" {
-    var exp: dojox.html.styles
-    export=exp;
+declare module 'dojox/html/styles' {
+    var exp: dojox.html.styles;
+    export = exp;
 }
-declare module "dojox/html/styles._ContentSetter" {
-    var exp: dojox.html.styles._ContentSetter
-    export=exp;
+declare module 'dojox/html/styles._ContentSetter' {
+    var exp: dojox.html.styles._ContentSetter;
+    export = exp;
 }
-declare module "dojox/html/styles.ext-dojo" {
-    var exp: dojox.html.styles.ext_dojo
-    export=exp;
+declare module 'dojox/html/styles.ext-dojo' {
+    var exp: dojox.html.styles.ext_dojo;
+    export = exp;
 }
-declare module "dojox/html/styles.metrics" {
-    var exp: dojox.html.styles.metrics
-    export=exp;
+declare module 'dojox/html/styles.metrics' {
+    var exp: dojox.html.styles.metrics;
+    export = exp;
 }
-declare module "dojox/html/styles.entities" {
-    var exp: dojox.html.styles.entities
-    export=exp;
+declare module 'dojox/html/styles.entities' {
+    var exp: dojox.html.styles.entities;
+    export = exp;
 }
-declare module "dojox/html/_base._ContentSetter" {
-    var exp: dojox.html._base._ContentSetter
-    export=exp;
+declare module 'dojox/html/_base._ContentSetter' {
+    var exp: dojox.html._base._ContentSetter;
+    export = exp;
 }

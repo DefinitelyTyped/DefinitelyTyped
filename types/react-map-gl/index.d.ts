@@ -75,7 +75,10 @@ export interface QueryRenderedFeaturesParams {
 
 export class StaticMap extends React.Component<StaticMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        parameters?: QueryRenderedFeaturesParams
+    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export interface ExtraState {
@@ -193,7 +196,7 @@ export type EasingFunction = (t: number) => number;
 export enum TRANSITION_EVENTS {
     BREAK = 1,
     SNAP_TO_END = 2,
-    IGNORE = 3
+    IGNORE = 3,
 }
 
 export class TransitionInterpolator {}
@@ -254,7 +257,10 @@ export interface InteractiveMapProps extends StaticMapProps {
 
 export class InteractiveMap extends React.Component<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        parameters?: QueryRenderedFeaturesParams
+    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export default InteractiveMap;

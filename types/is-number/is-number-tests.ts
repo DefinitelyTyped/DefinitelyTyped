@@ -10,4 +10,4 @@ const arrayConstructorTest: boolean = isNumber(new Array('abc'));
 const bufferTest: boolean = isNumber(Buffer.from('abc'));
 const nullTest: boolean = isNumber(null);
 const undefinedTest: boolean = isNumber(undefined);
-const objectTest: boolean = isNumber({abc: 'abc'});
+const objectTest: boolean = isNumber({ abc: 'abc' });

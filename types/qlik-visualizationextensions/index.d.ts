@@ -7,12 +7,12 @@
 /// <reference types="angular" />
 
 declare namespace BackendAPI {
-    type StateType = "L" | "S" | "O" | "D" | "A" | "X" | "XS" | "XL";
-    type SortIndicatorType = "N" | "A" | "D";
-    type DimensionType = "D" | "N" | "T";
-    type GroupingType = "N" | "H" | "C";
-    type FieldAttributesType = "U" | "A" | "I" | "R" | "F" | "M" | "D" | "T" | "TS" | "IV";
-    type PatchType = "Add" | "Remove" | "Replace";
+    type StateType = 'L' | 'S' | 'O' | 'D' | 'A' | 'X' | 'XS' | 'XL';
+    type SortIndicatorType = 'N' | 'A' | 'D';
+    type DimensionType = 'D' | 'N' | 'T';
+    type GroupingType = 'N' | 'H' | 'C';
+    type FieldAttributesType = 'U' | 'A' | 'I' | 'R' | 'F' | 'M' | 'D' | 'T' | 'TS' | 'IV';
+    type PatchType = 'Add' | 'Remove' | 'Replace';
 
     interface ICharRange {
         /**
@@ -1717,8 +1717,8 @@ declare namespace GlobalAPI {
 }
 
 declare namespace NavigationAPI {
-    type NavigationModeType = "ANALYSIS" | "EDIT";
-    type NavigationErrorType = "NOSUCHSHEET" | "NOCURRENTSHEET" | "NOSUCHSTORY";
+    type NavigationModeType = 'ANALYSIS' | 'EDIT';
+    type NavigationErrorType = 'NOSUCHSHEET' | 'NOCURRENTSHEET' | 'NOSUCHSTORY';
 
     /**
      * The navigation result object.
@@ -1764,12 +1764,12 @@ declare namespace NavigationAPI {
         /**
          * Used for analysis mode.
          */
-        edit: "edit";
+        edit: 'edit';
 
         /**
          * Used for edit mode.
          */
-        analysis: "analysis";
+        analysis: 'analysis';
 
         /**
          * Gets the current sheet ID.
@@ -2233,8 +2233,18 @@ declare namespace VariableAPI {
 }
 
 declare namespace VisualizationAPI {
-    type VisualizationType = "barchart" | "combochart" | "gauge" | "kpi" | "linechart" | "piechart" | "pivot-table" |
-        "scatterplot" | "table" | "treemap" | "extension";
+    type VisualizationType =
+        | 'barchart'
+        | 'combochart'
+        | 'gauge'
+        | 'kpi'
+        | 'linechart'
+        | 'piechart'
+        | 'pivot-table'
+        | 'scatterplot'
+        | 'table'
+        | 'treemap'
+        | 'extension';
 
     interface IVisualization {
         /**
@@ -2321,7 +2331,7 @@ declare namespace ExtensionAPI {
     }
 
     // ExtensionAPI
-    type SelectionModeType = "CONFIRM" | "QUICK";
+    type SelectionModeType = 'CONFIRM' | 'QUICK';
 
     interface IInitialProperties {
         qHyperCubeDef?: any; // IHyperCubeDef;
@@ -2356,12 +2366,11 @@ declare namespace ExtensionAPI {
     interface IInitialProperties {
         // qHyperCubeDef: IVisualizationHyperCubeDef;
         // qListObjectDef: IVis
-
         // [""]:
     }
 
     //#region IDefinition
-    type ExpressionType = "always" | "optional" | "";
+    type ExpressionType = 'always' | 'optional' | '';
 
     type func<T> = () => T;
     type valueOrfunc<T> = T | func<T>;
@@ -2391,8 +2400,7 @@ declare namespace ExtensionAPI {
         max: number;
     }
 
-    interface ICustomInteger extends ICustomNumber {
-    }
+    interface ICustomInteger extends ICustomNumber {}
 
     interface ICustomArray extends ICustomControl {
         itemTitleRef: string;
@@ -2404,52 +2412,52 @@ declare namespace ExtensionAPI {
 
     interface ICustomButton extends ICustomControl {
         label: string;
-        component: "button";
+        component: 'button';
         action: valueOrfunc<void>;
     }
 
     interface ICustomButtonGroup extends ICustomControl {
-        component: "buttongroup";
+        component: 'buttongroup';
         defaultValue: string;
         options: valueOrfunc<ICustomControlOption>;
     }
 
     interface ICustomCheckBox extends ICustomControl {
-        component: "checkbox";
+        component: 'checkbox';
         defaultValue: boolean;
     }
 
     interface ICustomColorPicker extends ICustomControl {
-        component: "color-picker";
+        component: 'color-picker';
         defaultValue: number;
     }
 
     interface ICustomDropDownList extends ICustomControl {
-        component: "dropdown";
+        component: 'dropdown';
         defaultValue: string;
         options: valueOrfunc<ICustomControlOption>;
     }
 
     interface ICustomLink {
         type: string;
-        component: "link";
+        component: 'link';
         label: string;
         url: string;
     }
 
     interface ICustomMedia extends ICustomControl {
-        component: "media";
+        component: 'media';
         layoutRef: string;
     }
 
     interface ICustomRadioButton extends ICustomControl {
-        component: "radiobuttons";
+        component: 'radiobuttons';
         defaultValue: string;
         options: valueOrfunc<ICustomControlOption>;
     }
 
     interface ICustomSlider extends ICustomControl {
-        component: "slider";
+        component: 'slider';
         defaultValue: number;
         min: number;
         max: number;
@@ -2457,7 +2465,7 @@ declare namespace ExtensionAPI {
     }
 
     interface ICustomRangeSlider extends ICustomControl {
-        component: "slider";
+        component: 'slider';
         defaultValue: number[];
         min: number;
         max: number;
@@ -2465,19 +2473,19 @@ declare namespace ExtensionAPI {
     }
 
     interface ICustomSwitch {
-        component: "switch";
+        component: 'switch';
         defaultValue: boolean;
         options: valueOrfunc<ICustomControlOption>;
     }
 
     interface ICustomText {
-        type: "text";
-        component: "text";
+        type: 'text';
+        component: 'text';
         label: string;
     }
 
     interface ICustomTextArea extends ICustomControl {
-        component: "textarea";
+        component: 'textarea';
         rows: number;
         maxlength: number;
         defaultValue: string;
@@ -2486,8 +2494,8 @@ declare namespace ExtensionAPI {
     //#endregion
 
     interface IDefinition {
-        type: "items";
-        component: "accordion";
+        type: 'items';
+        component: 'accordion';
         items: IItems;
     }
 
@@ -2501,21 +2509,21 @@ declare namespace ExtensionAPI {
     }
 
     interface IAddOns {
-        uses: "addons";
+        uses: 'addons';
     }
 
     interface ISorting {
-        uses: "sorting";
+        uses: 'sorting';
     }
 
     interface IDimensions {
-        uses: "dimensions";
+        uses: 'dimensions';
         min?: number;
         max?: number;
     }
 
     interface IAppearance {
-        uses: "settings";
+        uses: 'settings';
         min?: number;
         max?: number;
         items: any;
@@ -2523,13 +2531,13 @@ declare namespace ExtensionAPI {
 
     // ?Das selbe wie Appearance?
     interface ISettings {
-        uses: "settings";
+        uses: 'settings';
         min?: number;
         max?: number;
     }
 
     interface IMeasures {
-        uses: "measures";
+        uses: 'measures';
         min?: number;
         max?: number;
     }
@@ -2537,7 +2545,7 @@ declare namespace ExtensionAPI {
     //#endregion
 }
 
-declare module "qlik" {
+declare module 'qlik' {
     const e: RootAPI.IRoot;
     export = e;
 }
@@ -2573,7 +2581,7 @@ interface IQVAngular {
     // provider(name: string, serviceProviderConstructor: ng.IServiceProviderClass): void;
 }
 
-declare module "qvangular" {
+declare module 'qvangular' {
     const e: IQVAngular;
     export = e;
 }
@@ -2610,12 +2618,12 @@ declare namespace enigmaJS {
          * @param event - function called if this event occures
          * @param func - function that is called
          */
-        on(event: "changed" | "closed", func: () => void): void;
+        on(event: 'changed' | 'closed', func: () => void): void;
 
         /**
          * manual emit an events
          * @param event - event that occures
          */
-        emit(event: "changed" | "closed"): void;
+        emit(event: 'changed' | 'closed'): void;
     }
 }

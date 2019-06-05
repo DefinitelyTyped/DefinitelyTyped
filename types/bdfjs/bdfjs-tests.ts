@@ -1,4 +1,4 @@
-import { parse, draw, trim, Font, Bitmap } from "bdfjs";
+import { parse, draw, trim, Font, Bitmap } from 'bdfjs';
 
 parse(); // $ExpectError
 parse(123); // $ExpectError

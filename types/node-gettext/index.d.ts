@@ -5,7 +5,7 @@
 // TypeScript Version: 2.2
 export = GetText;
 declare class GetText {
-    constructor(options?: { debug: boolean; });
+    constructor(options?: { debug: boolean });
     addTranslations(locale: string, domain: string, translations: object): void;
     dgettext(domain: string, msgid: string): string;
     dngettext(domain: string, msgid: string, msgidPlural: string, count: number): string;

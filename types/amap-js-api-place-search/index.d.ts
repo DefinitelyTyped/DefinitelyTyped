@@ -11,28 +11,40 @@ declare namespace AMap {
         interface EventMap {
             complete: Event<'complete', SearchResult>;
             error: Event<'error', { info: string }>;
-            selectChanged: Event<'selectChanged', {
-                selected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'];
-                lastSelected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'] | null;
-            }>;
+            selectChanged: Event<
+                'selectChanged',
+                {
+                    selected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'];
+                    lastSelected: SelectChangeEventData | EventMap['markerClick'] | EventMap['listElementClick'] | null;
+                }
+            >;
             listElementClick: SelectChangeEvent<'listElementClick', MouseEvent>;
             markerClick: SelectChangeEvent<'markerClick', Marker.EventMap['click']>;
             // internal
-            renderComplete: Event<'renderComplete', {
-                result: SelectChangeEventData[];
-                markers: Marker[];
-                listElements: HTMLElement[];
-            }>;
-            infoWindowClick: Event<'infoWindowClick', SelectChangeEventData & {
-                event: MouseEvent;
-                infoWindow: InfoWindow;
-                infoWindowContentDom: HTMLDivElement;
-            }>;
-            willClear: Event<'willClear', {
-                id: string;
-                index: number;
-                data: Poi[];
-            }>;
+            renderComplete: Event<
+                'renderComplete',
+                {
+                    result: SelectChangeEventData[];
+                    markers: Marker[];
+                    listElements: HTMLElement[];
+                }
+            >;
+            infoWindowClick: Event<
+                'infoWindowClick',
+                SelectChangeEventData & {
+                    event: MouseEvent;
+                    infoWindow: InfoWindow;
+                    infoWindowContentDom: HTMLDivElement;
+                }
+            >;
+            willClear: Event<
+                'willClear',
+                {
+                    id: string;
+                    index: number;
+                    data: Poi[];
+                }
+            >;
             markerDestoryed: Event<'markerDestoryed', SelectChangeEventData>; // typo in source code
             listElementDetroyed: Event<'listElementDetroyed', SelectChangeEventData>; // typo too
         }
@@ -59,9 +71,12 @@ declare namespace AMap {
              */
             data: Poi[];
         }
-        type SelectChangeEvent<N extends string, E> = Event<N, SelectChangeEventData & {
-            event: E;
-        }>;
+        type SelectChangeEvent<N extends string, E> = Event<
+            N,
+            SelectChangeEventData & {
+                event: E;
+            }
+        >;
         interface PoiPhoto {
             /**
              * 图片名称
@@ -473,49 +488,55 @@ declare namespace AMap {
              * @deprecated 是否有优惠信息
              */
             discount: boolean;
-        } & ({
-            indoor_map: true;
-            indoor_data: {
-                cpid: string;
-                floor: string;
-                truefloor: string;
-            };
-        } | {
-            indoor_map: false;
-        }) & {
-            /**
-             * @deprecated 团购信息
-             */
-            groupbuys?: Groupbuy[];
-            /**
-             * @deprecated 优惠信息
-             */
-            discounts?: Discount[];
-        } & ({
-            deep_type: 'CINEMA';
-            /**
-             * @deprecated 影院类深度信息
-             */
-            cinema: Cinema;
-        } | {
-            deep_type: 'DINING';
-            /**
-             * @deprecated 餐饮类深度信息
-             */
-            dining: Dining;
-        } | {
-            deep_type: 'SCENIC';
-            /**
-             * @deprecated 景点类深度信息
-             */
-            scenic: Scenic;
-        } | {
-            deep_type: 'HOTEL';
-            /**
-             * @deprecated 酒店类深度信息
-             */
-            hotel: Hotel;
-        });
+        } & (
+                | {
+                      indoor_map: true;
+                      indoor_data: {
+                          cpid: string;
+                          floor: string;
+                          truefloor: string;
+                      };
+                  }
+                | {
+                      indoor_map: false;
+                  }) & {
+                /**
+                 * @deprecated 团购信息
+                 */
+                groupbuys?: Groupbuy[];
+                /**
+                 * @deprecated 优惠信息
+                 */
+                discounts?: Discount[];
+            } & (
+                | {
+                      deep_type: 'CINEMA';
+                      /**
+                       * @deprecated 影院类深度信息
+                       */
+                      cinema: Cinema;
+                  }
+                | {
+                      deep_type: 'DINING';
+                      /**
+                       * @deprecated 餐饮类深度信息
+                       */
+                      dining: Dining;
+                  }
+                | {
+                      deep_type: 'SCENIC';
+                      /**
+                       * @deprecated 景点类深度信息
+                       */
+                      scenic: Scenic;
+                  }
+                | {
+                      deep_type: 'HOTEL';
+                      /**
+                       * @deprecated 酒店类深度信息
+                       */
+                      hotel: Hotel;
+                  });
         interface Options {
             /**
              * 兴趣点城市
@@ -723,12 +744,12 @@ declare namespace AMap {
          * 唤起高德地图客户端marker页
          * @param obj 唤起参数
          */
-        poiOnAMAP(obj: { location?: LocationValue; id: string; name?: string; }): void;
+        poiOnAMAP(obj: { location?: LocationValue; id: string; name?: string }): void;
         /**
          * 唤起高德地图客户端POI详情页
          * @param obj 唤起参数
          */
-        detailOnAMAP(obj: { location?: LocationValue; id: string; name?: string; }): void;
+        detailOnAMAP(obj: { location?: LocationValue; id: string; name?: string }): void;
 
         // internal
         open(): void;

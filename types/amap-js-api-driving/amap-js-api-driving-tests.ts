@@ -19,7 +19,7 @@ const driving = new AMap.Driving({
     number: 'NH1N11',
     isOutline: true,
     outlineColor: 'blue',
-    autoFitView: true
+    autoFitView: true,
 });
 
 // $ExpectType void
@@ -172,10 +172,7 @@ driving.search([{ keyword: 'start' }, { keyword: 'end' }], (status, result) => {
     }
 });
 
-driving.search([
-    { keyword: 'start', city: 'startCity' },
-    { keyword: 'end', city: 'endCity' }
-]);
+driving.search([{ keyword: 'start', city: 'startCity' }, { keyword: 'end', city: 'endCity' }]);
 
 // $ExpectType void
 driving.setPolicy();
@@ -208,19 +205,19 @@ driving.clear();
 // $ExpectType void
 driving.searchOnAMAP({
     origin: lnglat,
-    destination: lnglat
+    destination: lnglat,
 });
 // $ExpectType void
 driving.searchOnAMAP({
     origin: lnglatTuple,
-    destination: lnglatTuple
+    destination: lnglatTuple,
 });
 // $ExpectType void
 driving.searchOnAMAP({
     origin: lnglatTuple,
     originName: 'originName',
     destination: lnglatTuple,
-    destinationName: 'destinationName'
+    destinationName: 'destinationName',
 });
 
 // $ExpectType void

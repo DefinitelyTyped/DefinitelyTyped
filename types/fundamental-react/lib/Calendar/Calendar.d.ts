@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface CalendarBaseProps {
     /* Blocks dates that are in between the blocked dates. */

@@ -1,4 +1,3 @@
-
 import stackTrace = require('stack-trace');
 
 var currentStackTrace = stackTrace.get();

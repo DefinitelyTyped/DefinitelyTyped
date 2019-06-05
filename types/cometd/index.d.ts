@@ -278,7 +278,12 @@ export class CometD {
      * @param subscribeCallback a function to be invoked when the subscription is acknowledged
      * @return the subscription handle to be passed to `unsubscribe`
      */
-    subscribe(channel: string, callback: Callback, subscribeProps: object, subscribeCallback?: Listener): SubscriptionHandle;
+    subscribe(
+        channel: string,
+        callback: Callback,
+        subscribeProps: object,
+        subscribeCallback?: Listener
+    ): SubscriptionHandle;
 
     /**
      * Unsubscribes the subscription obtained with a call to `subscribe`.
@@ -410,7 +415,7 @@ export class CometD {
      *
      * @param level the log level string
      */
-    setLogLevel(level: "error" | "warn" | "info" | "debug"): void;
+    setLogLevel(level: 'error' | 'warn' | 'info' | 'debug'): void;
 
     /**
      * Registers an extension whose callbacks are called for every incoming message (that comes from
@@ -486,5 +491,10 @@ export class CometD {
      * @param isListener whether it was a listener
      * @param message the message received from the Bayeux server
      */
-    onListenerException: (exception: any, subscriptionHandle: SubscriptionHandle, isListener: boolean, message: string) => void;
+    onListenerException: (
+        exception: any,
+        subscriptionHandle: SubscriptionHandle,
+        isListener: boolean,
+        message: string
+    ) => void;
 }

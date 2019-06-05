@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ProcessImage from "react-imgpro";
+import ProcessImage from 'react-imgpro';
 
 class Test extends React.Component<any> {
     render() {
@@ -9,16 +9,16 @@ class Test extends React.Component<any> {
                 contain={{
                     width: 500,
                     height: 200,
-                    mode: "horizontal_right",
+                    mode: 'horizontal_right',
                 }}
                 customCdn="http://test.cdn"
                 storage={true}
                 scale={false}
-                onProcessFinish={() => console.log("onProcessFinish")}
+                onProcessFinish={() => console.log('onProcessFinish')}
             >
-                <div className="one"/>
-                <div className="two"/>
-                <div className="three"/>
+                <div className="one" />
+                <div className="two" />
+                <div className="three" />
             </ProcessImage>
         );
     }

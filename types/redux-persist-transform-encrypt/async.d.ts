@@ -1,4 +1,4 @@
-import { Transform } from "redux-persist";
+import { Transform } from 'redux-persist';
 
 export interface AsyncEncryptorConfig {
     secretKey: string;

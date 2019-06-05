@@ -41,9 +41,7 @@ mcgLayerSupportGroup = L.markerClusterGroup.layerSupport(markerClusterGroupOptio
 let map = L.map('foo');
 
 mcgLayerSupportGroup = mcgLayerSupportGroup.addTo(map);
-map = map
-    .addLayer(mcgLayerSupportGroup)
-    .removeLayer(mcgLayerSupportGroup);
+map = map.addLayer(mcgLayerSupportGroup).removeLayer(mcgLayerSupportGroup);
 
 const latLng: L.LatLng = L.latLng(10, 10);
 

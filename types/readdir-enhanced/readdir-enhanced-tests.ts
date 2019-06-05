@@ -5,13 +5,13 @@ import re = require('readdir-enhanced');
 const reFs: re.FileSystem = {
     stat: fs.stat,
     lstat: fs.lstat,
-    readdir: fs.readdir
+    readdir: fs.readdir,
 };
 
 const reOptions: re.Options = {
     basePath: '',
     fs: reFs,
-    sep: '/'
+    sep: '/',
 };
 
 reOptions.deep = true;
@@ -29,8 +29,8 @@ reOptions.filter = () => true;
 reOptions.filter = () => 0; // $ExpectError
 reOptions.filter = 1; // $ExpectError
 
-const callbackString: re.CallbackString = (err, result) => { };
-const callbackEntry: re.CallbackEntry = (err, result) => { };
+const callbackString: re.CallbackString = (err, result) => {};
+const callbackEntry: re.CallbackEntry = (err, result) => {};
 
 re('root', callbackString); // $ExpectType void
 re('root', reOptions, callbackString); // $ExpectType void

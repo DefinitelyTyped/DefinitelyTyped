@@ -1,8 +1,8 @@
 import image = require('gulp-image');
 
-image(false);                   // $ExpectError
+image(false); // $ExpectError
 
-image();                        // $ExpectType Transform
+image(); // $ExpectType Transform
 image({});
 image({
     pngquant: true,
@@ -14,7 +14,7 @@ image({
     gifsicle: true,
     svgo: true,
     concurrent: 10,
-    quiet: true // defaults to false
+    quiet: true, // defaults to false
 });
 image({
     optipng: ['-i 1', '-strip all', '-fix', '-o7', '-force'],
@@ -24,5 +24,5 @@ image({
     mozjpeg: ['-optimize', '-progressive'],
     guetzli: ['--quality', 85],
     gifsicle: ['--optimize'],
-    svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors']
+    svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors'],
 });

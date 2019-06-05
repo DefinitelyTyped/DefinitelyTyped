@@ -4,9 +4,7 @@ import InfiniteScroll = require('react-infinite-scroller');
 class Test1 extends React.Component {
     render() {
         return (
-            <InfiniteScroll
-                loadMore={(page) => {}}
-            >
+            <InfiniteScroll loadMore={page => {}}>
                 <div>Test 1</div>
             </InfiniteScroll>
         );
@@ -17,8 +15,8 @@ class Test2 extends React.Component {
     render() {
         return (
             <InfiniteScroll
-                loadMore={(page) => {}}
-                element='section'
+                loadMore={page => {}}
+                element="section"
                 hasMore
                 initialLoad={false}
                 isReverse
@@ -39,10 +37,7 @@ class Test3 extends React.Component {
     render() {
         return (
             <div ref={this.inputRef}>
-                <InfiniteScroll
-                  loadMore={(page) => {}}
-                  getScrollParent={() => this.inputRef.current}
-                >
+                <InfiniteScroll loadMore={page => {}} getScrollParent={() => this.inputRef.current}>
                     <div>Test 3</div>
                 </InfiniteScroll>
             </div>
@@ -52,8 +47,8 @@ class Test3 extends React.Component {
 
 class InfiniteScrollOverride extends InfiniteScroll {
     getParentElement(el: HTMLElement) {
-        if (document.getElementById("scroll-header")) {
-            return document.getElementById("scroll-header");
+        if (document.getElementById('scroll-header')) {
+            return document.getElementById('scroll-header');
         }
         return super.getParentElement(el);
     }

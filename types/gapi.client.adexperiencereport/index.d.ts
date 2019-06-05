@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Ad Experience Report API v1 */
-    function load(name: "adexperiencereport", version: "v1"): PromiseLike<void>;
-    function load(name: "adexperiencereport", version: "v1", callback: () => any): void;
+    function load(name: 'adexperiencereport', version: 'v1'): PromiseLike<void>;
+    function load(name: 'adexperiencereport', version: 'v1', callback: () => any): void;
 
     const sites: adexperiencereport.SitesResource;
 
@@ -53,7 +53,7 @@ declare namespace gapi.client {
             /** Gets a summary of the ad experience rating of a site. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -94,7 +94,7 @@ declare namespace gapi.client {
             /** Lists sites with Ad Experience Report statuses of "Failing" or "Warning". */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

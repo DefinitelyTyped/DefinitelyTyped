@@ -1,11 +1,11 @@
-import menubar = require("menubar");
+import menubar = require('menubar');
 
 var mb1 = menubar();
 
-mb1.on("ready", function ready () {
-    console.log("app is ready")
+mb1.on('ready', function ready() {
+    console.log('app is ready');
     // your app code here
-})
+});
 
 var mb2 = menubar({
     index: 'file://path/to/index.html',

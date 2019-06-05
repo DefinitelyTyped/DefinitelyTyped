@@ -1,5 +1,5 @@
-import Maybe from "../tsutils/Maybe";
-import { GraphQLError } from "../error";
+import Maybe from '../tsutils/Maybe';
+import { GraphQLError } from '../error';
 import {
     DocumentNode,
     OperationDefinitionNode,
@@ -7,18 +7,18 @@ import {
     SelectionSetNode,
     FragmentSpreadNode,
     FragmentDefinitionNode,
-} from "../language/ast";
-import { GraphQLSchema } from "../type/schema";
+} from '../language/ast';
+import { GraphQLSchema } from '../type/schema';
 import {
     GraphQLInputType,
     GraphQLOutputType,
     GraphQLCompositeType,
     GraphQLField,
     GraphQLArgument,
-} from "../type/definition";
-import { GraphQLDirective } from "../type/directives";
-import { TypeInfo } from "../utilities/TypeInfo";
-import { ASTVisitor } from "../language/visitor";
+} from '../type/definition';
+import { GraphQLDirective } from '../type/directives';
+import { TypeInfo } from '../utilities/TypeInfo';
+import { ASTVisitor } from '../language/visitor';
 
 type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
 type VariableUsage = {

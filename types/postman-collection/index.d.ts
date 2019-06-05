@@ -12,14 +12,20 @@ export interface PropertyBaseDefinition {
 export class PropertyBase<TDefinition extends {}> implements PropertyBaseDefinition {
     description?: string | DescriptionDefinition;
 
-    constructor(definition?: PropertyBaseDefinition | {info: PropertyBaseDefinition} | string);
+    constructor(definition?: PropertyBaseDefinition | { info: PropertyBaseDefinition } | string);
 
-    findInParents(property: string, customizer?: (item: PropertyBase<PropertyBaseDefinition>) => boolean): PropertyBase<PropertyBaseDefinition> ;
+    findInParents(
+        property: string,
+        customizer?: (item: PropertyBase<PropertyBaseDefinition>) => boolean
+    ): PropertyBase<PropertyBaseDefinition>;
 
-    findParentContaining(property: any, customizer: (item: PropertyBase<PropertyBaseDefinition>) => boolean): PropertyBase<PropertyBaseDefinition>;
+    findParentContaining(
+        property: any,
+        customizer: (item: PropertyBase<PropertyBaseDefinition>) => boolean
+    ): PropertyBase<PropertyBaseDefinition>;
 
     forEachParent(iterator: (item: any) => void): void;
-    forEachParent(options: {withRoot: boolean}, iterator: (item: any) => void): void;
+    forEachParent(options: { withRoot: boolean }, iterator: (item: any) => void): void;
 
     meta(): any;
 
@@ -47,11 +53,15 @@ export class Property<TDefinition extends {}> extends PropertyBase<TDefinition> 
     id: string;
     name: string;
 
-    constructor(definition?: TDefinition | {info: TDefinition, disabled: boolean});
+    constructor(definition?: TDefinition | { info: TDefinition; disabled: boolean });
 
     describe(content: string, type?: string): void;
 
-    toObjectResolved(scope: {variables: VariableList} | null, overrides: any[], options?: {ignoreOwnVariables: boolean}): TDefinition;
+    toObjectResolved(
+        scope: { variables: VariableList } | null,
+        overrides: any[],
+        options?: { ignoreOwnVariables: boolean }
+    ): TDefinition;
 
     static replaceSubstitutions(str: string, variables: VariableList | VariableList[]): string;
 
@@ -60,14 +70,14 @@ export class Property<TDefinition extends {}> extends PropertyBase<TDefinition> 
 
 export interface CertificateDefinition extends PropertyDefinition {
     matches?: string[] | UrlMatchPatternList;
-    key?: {src?: string} | string;
-    cert?: {src?: string} | string;
+    key?: { src?: string } | string;
+    cert?: { src?: string } | string;
     passphrase?: string;
 }
 
 export class Certificate extends Property<CertificateDefinition> implements CertificateDefinition {
-    cert: {src?: string};
-    key: {src?: string};
+    cert: { src?: string };
+    key: { src?: string };
     matches: UrlMatchPatternList;
     passphrase: string;
 
@@ -186,9 +196,13 @@ export class Collection extends ItemGroup<Request> {
 
     constructor(definition?: CollectionDefinition, environments?: any[]);
 
-    syncVariablesFrom(obj: {[key: string]: VariableDefinition}, track?: boolean, prune?: boolean): {created: string[], updated: string[], deleted: string[]} | undefined;
+    syncVariablesFrom(
+        obj: { [key: string]: VariableDefinition },
+        track?: boolean,
+        prune?: boolean
+    ): { created: string[]; updated: string[]; deleted: string[] } | undefined;
 
-    syncVariablesTo(obj?: {[key: string]: VariableDefinition}): {[key: string]: VariableDefinition};
+    syncVariablesTo(obj?: { [key: string]: VariableDefinition }): { [key: string]: VariableDefinition };
 
     toJSON(): CollectionDefinition;
 
@@ -206,13 +220,13 @@ export interface CookieDefinition {
     httpOnly?: boolean;
     hostOnly?: boolean;
     session?: boolean;
-    extensions?: Array<{key: string; value: string}>;
+    extensions?: Array<{ key: string; value: string }>;
 }
 
 export class Cookie extends PropertyBase<CookieDefinition> implements CookieDefinition {
     domain: string;
     expires: Date;
-    extensions?: Array<{key: string; value: string}>;
+    extensions?: Array<{ key: string; value: string }>;
     hostOnly?: boolean;
     httpOnly?: boolean;
     maxAge?: number;
@@ -231,7 +245,7 @@ export class Cookie extends PropertyBase<CookieDefinition> implements CookieDefi
 
     static parse(str: string): CookieDefinition;
 
-    static splitParam(param: string): {key: string, value: string | boolean };
+    static splitParam(param: string): { key: string; value: string | boolean };
 }
 
 export class CookieList extends PropertyList<Cookie> {
@@ -313,7 +327,7 @@ export class Header extends Property<HeaderDefinition> implements HeaderDefiniti
     key: string;
     value: string;
 
-    constructor(options: string | HeaderDefinition, name?: string)
+    constructor(options: string | HeaderDefinition, name?: string);
 
     toString(): string;
 
@@ -365,7 +379,7 @@ export class Item extends Property<ItemDefinition> {
 }
 
 export interface ProxyConfigDefinition extends PropertyDefinition {
-    match?: string | {pattern: string} | UrlMatchPattern;
+    match?: string | { pattern: string } | UrlMatchPattern;
     host?: string;
     port?: number;
     tunnel?: boolean;
@@ -418,7 +432,7 @@ export class QueryParam extends Property<QueryParamDefinition> implements QueryP
 
     toString(): string;
 
-    update(param: string | {key: string, value?: string}): void;
+    update(param: string | { key: string; value?: string }): void;
 
     valueOf(): string;
 
@@ -426,7 +440,7 @@ export class QueryParam extends Property<QueryParamDefinition> implements QueryP
 
     static parseSingle(param: string, idx: number, all: string[]): QueryParamDefinition;
 
-    static unparse(params: QueryParamDefinition[], options?: {encode?: boolean, ignoreDisabled?: boolean}): string;
+    static unparse(params: QueryParamDefinition[], options?: { encode?: boolean; ignoreDisabled?: boolean }): string;
 
     static unparseSingle(obj: QueryParamDefinition, encode: boolean): string;
 }
@@ -462,9 +476,9 @@ export class Request extends Property<RequestDefinition> implements RequestDefin
 
     forEachHeader(callback: (header: Header, context: Request) => void): void;
 
-    getHeaders(options?: {ignoreCase?: boolean, enabled?: boolean}): any;
+    getHeaders(options?: { ignoreCase?: boolean; enabled?: boolean }): any;
 
-    removeHeader(toRemove: string | Header, options?: {ignoreCase: boolean}): void;
+    removeHeader(toRemove: string | Header, options?: { ignoreCase: boolean }): void;
 
     removeQueryParams(params: string | string[] | QueryParamDefinition[] | QueryParamDefinition): void;
 
@@ -492,9 +506,15 @@ export class RequestAuth extends Property<RequestAuthDefinition> implements Requ
 
     parameters(): VariableList;
 
-    update(options: VariableList | Array<{key: string, value: string}> | {key: string, value: string}, type?: string): void;
+    update(
+        options: VariableList | Array<{ key: string; value: string }> | { key: string; value: string },
+        type?: string
+    ): void;
 
-    use(type: string, options: VariableList | Array<{key: string, value: string}> | {key: string, value: string}): void;
+    use(
+        type: string,
+        options: VariableList | Array<{ key: string; value: string }> | { key: string; value: string }
+    ): void;
 
     static isValidType(type: any): boolean;
 }
@@ -503,7 +523,7 @@ export interface RequestBodyDefinition extends PropertyBaseDefinition {
     mode: string;
     raw?: string;
     urlencoded?: QueryParamDefinition[] | PropertyList<QueryParam> | string;
-    file?: string | {src: string};
+    file?: string | { src: string };
     formdata?: FormParamDefinition[] | PropertyList<FormParam>;
 }
 
@@ -515,7 +535,7 @@ export class RequestBody extends PropertyBase<RequestBodyDefinition> implements 
         file: string;
     };
 
-    file?: {src: string};
+    file?: { src: string };
     formdata?: PropertyList<FormParam>;
     mode: string;
     raw?: string;
@@ -555,9 +575,9 @@ export class Response extends Property<ResponseDefinition> implements ResponseDe
 
     dataURI(): string;
 
-    details(): {name: string, detail: string, code: number, standardName: string} | undefined;
+    details(): { name: string; detail: string; code: number; standardName: string } | undefined;
 
-    encoding(): {format: string, source: string};
+    encoding(): { format: string; source: string };
 
     json(reviver?: any, strict?: boolean): any;
 
@@ -571,13 +591,16 @@ export class Response extends Property<ResponseDefinition> implements ResponseDe
 
     update(options: ResponseDefinition): void;
 
-    static createFromNode(response: {
-        body: string | Buffer | Uint8Array,
-        headers?: HeaderDefinition[],
-        statusCode: number,
-        statusMessage?: string,
-        elapsedTime: number
-    }, cookies: CookieDefinition[]): Response;
+    static createFromNode(
+        response: {
+            body: string | Buffer | Uint8Array;
+            headers?: HeaderDefinition[];
+            statusCode: number;
+            statusMessage?: string;
+            elapsedTime: number;
+        },
+        cookies: CookieDefinition[]
+    ): Response;
 
     static isResponse(obj: any): boolean;
 }
@@ -603,7 +626,7 @@ export class Script extends Property<ScriptDefinition> implements ScriptDefiniti
 }
 
 export interface UrlDefinition extends PropertyBaseDefinition {
-    auth?: {user: string, password: string};
+    auth?: { user: string; password: string };
     hash?: string;
     host?: string[] | string;
     path: string[] | string;
@@ -614,7 +637,7 @@ export interface UrlDefinition extends PropertyBaseDefinition {
 }
 
 export class Url extends PropertyBase<UrlDefinition> implements UrlDefinition {
-    auth?: {user: string, password: string};
+    auth?: { user: string; password: string };
     hash?: string;
     host?: string[];
     path: string[];
@@ -631,15 +654,15 @@ export class Url extends PropertyBase<UrlDefinition> implements UrlDefinition {
 
     getOAuth1BaseUrl(): string;
 
-    getPath(options?: {unresolved: boolean}): string;
+    getPath(options?: { unresolved: boolean }): string;
 
     getPathWithQuery(): string;
 
-    getQueryString(options?: {encode?: boolean, ignoredDisabled?: boolean}): string;
+    getQueryString(options?: { encode?: boolean; ignoredDisabled?: boolean }): string;
 
     getRaw(): string;
 
-    getRemote(options?: {forcePort: boolean}): string;
+    getRemote(options?: { forcePort: boolean }): string;
 
     removeQueryParams(params: QueryParamDefinition[] | QueryParamDefinition | string[] | string): void;
 
@@ -655,19 +678,25 @@ export class Url extends PropertyBase<UrlDefinition> implements UrlDefinition {
 export class UrlMatchPattern {
     pattern?: string;
 
-    constructor(options: string | {pattern: string});
+    constructor(options: string | { pattern: string });
 
-    createMatchPattern(): {protocols: string[], host: string, path: RegExp} | undefined;
+    createMatchPattern(): { protocols: string[]; host: string; path: RegExp } | undefined;
 
     getProtocols(): string[];
 
     globPatternToRegexp(pattern: string): RegExp;
 
-    matchAbsoluteHostPattern(matchRegexObject: {protocols: string[], host: string, path: RegExp}, remote: string): boolean;
+    matchAbsoluteHostPattern(
+        matchRegexObject: { protocols: string[]; host: string; path: RegExp },
+        remote: string
+    ): boolean;
 
-    matchAnyHost(matchRegexObject: {protocols: string[], host: string, path: RegExp}): boolean;
+    matchAnyHost(matchRegexObject: { protocols: string[]; host: string; path: RegExp }): boolean;
 
-    matchSuffixHostPattern(matchRegexObject: {protocols: string[], host: string, path: RegExp}, remote: string): boolean;
+    matchSuffixHostPattern(
+        matchRegexObject: { protocols: string[]; host: string; path: RegExp },
+        remote: string
+    ): boolean;
 
     test(urlStr: string): boolean;
 
@@ -677,11 +706,11 @@ export class UrlMatchPattern {
 
     testProtocol(protocol: string): boolean;
 
-    toJSON(): {pattern: string};
+    toJSON(): { pattern: string };
 
     toString(): string;
 
-    update(options: {pattern: string}): void;
+    update(options: { pattern: string }): void;
 
     static MATCH_ALL_URLS: string;
 
@@ -705,7 +734,7 @@ export class Variable extends Property<VariableDefinition> implements VariableDe
     type: string;
     value: any;
 
-    constructor(definition?: VariableDefinition | {[index: string]: VariableDefinition});
+    constructor(definition?: VariableDefinition | { [index: string]: VariableDefinition });
 
     cast(value: any): any;
 
@@ -731,8 +760,8 @@ export class Variable extends Property<VariableDefinition> implements VariableDe
         string: StringConstructor;
         boolean: BooleanConstructor;
         number: NumberConstructor;
-        json: {in: (val: any) => string, out: (val: string) => any};
-        any: {in: <T>(val: T) => T, out: <T>(val: T) => T};
+        json: { in: (val: any) => string; out: (val: string) => any };
+        any: { in: <T>(val: T) => T; out: <T>(val: T) => T };
     };
 }
 
@@ -743,9 +772,13 @@ export class VariableList extends PropertyList<Variable> {
 
     substitute<T>(obj: T, overrides?: VariableList, mutate?: boolean): T;
 
-    syncFromObject(obj: {[key: string]: VariableDefinition}, track?: boolean, prune?: boolean): {created: string[], updated: string[], deleted: string[]} | undefined;
+    syncFromObject(
+        obj: { [key: string]: VariableDefinition },
+        track?: boolean,
+        prune?: boolean
+    ): { created: string[]; updated: string[]; deleted: string[] } | undefined;
 
-    syncToObject(obj?: {[key: string]: VariableDefinition}): {[key: string]: VariableDefinition};
+    syncToObject(obj?: { [key: string]: VariableDefinition }): { [key: string]: VariableDefinition };
 
     static isVariableList(obj: any): boolean;
 }
@@ -757,7 +790,10 @@ export interface VariableScopeDefinition extends PropertyDefinition {
 export class VariableScope extends Property<VariableScopeDefinition> implements VariableScopeDefinition {
     values?: VariableDefinition[];
 
-    constructor(definition: VariableScopeDefinition | VariableList | VariableDefinition[], layers?: VariableList[] | VariableList);
+    constructor(
+        definition: VariableScopeDefinition | VariableList | VariableDefinition[],
+        layers?: VariableList[] | VariableList
+    );
 
     addLayer(list: VariableList): void;
 
@@ -769,9 +805,13 @@ export class VariableScope extends Property<VariableScopeDefinition> implements 
 
     set(key: string, value: any, type: string): void;
 
-    syncVariablesFrom(obj: {[key: string]: VariableDefinition}, track?: boolean, prune?: boolean): {created: string[], updated: string[], deleted: string[]} | undefined;
+    syncVariablesFrom(
+        obj: { [key: string]: VariableDefinition },
+        track?: boolean,
+        prune?: boolean
+    ): { created: string[]; updated: string[]; deleted: string[] } | undefined;
 
-    syncVariablesTo(obj?: {[key: string]: VariableDefinition}): {[key: string]: VariableDefinition};
+    syncVariablesTo(obj?: { [key: string]: VariableDefinition }): { [key: string]: VariableDefinition };
 
     toJSON(): any;
 
@@ -779,7 +819,7 @@ export class VariableScope extends Property<VariableScopeDefinition> implements 
 
     unset(key: string): void;
 
-    variables(): {[key: string]: VariableDefinition};
+    variables(): { [key: string]: VariableDefinition };
 
     static isVariableScope(obj: any): boolean;
 }

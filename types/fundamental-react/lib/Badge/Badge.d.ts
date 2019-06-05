@@ -1,5 +1,5 @@
-export type BadgeModifiers = "pill" | "filled";
-export type BadgeTypes = "success" | "warning" | "error";
+export type BadgeModifiers = 'pill' | 'filled';
+export type BadgeTypes = 'success' | 'warning' | 'error';
 
 export type BadgeProps = {
     className?: string;

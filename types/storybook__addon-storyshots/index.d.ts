@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 import { StoryObject } from '@storybook/react';
-import { Page, NavigationOptions, ScreenshotOptions } from "puppeteer";
+import { Page, NavigationOptions, ScreenshotOptions } from 'puppeteer';
 
 export type Test = (options: {
     story: StoryObject;
@@ -34,14 +34,14 @@ export interface StoryContext {
 export interface ImageSnapshotOptions {
     context: {
         kind: any;
-        story: string
+        story: string;
     };
     url: string;
 }
 
 export function imageSnapshot(options?: {
     storybookUrl?: string;
-    getMatchOptions?: (options: ImageSnapshotOptions) => { failureThreshold: number, failureThresholdType: 'percent' };
+    getMatchOptions?: (options: ImageSnapshotOptions) => { failureThreshold: number; failureThresholdType: 'percent' };
     getScreenshotOptions?: (options: ImageSnapshotOptions) => ScreenshotOptions;
     beforeScreenshot?: (page: Page, options: ImageSnapshotOptions) => Promise<void>;
     getGotoOptions?: (options: ImageSnapshotOptions) => NavigationOptions;

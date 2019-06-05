@@ -1,2 +1,2 @@
-import { circIn } from "./index";
+import { circIn } from './index';
 export = circIn;

@@ -9,7 +9,7 @@ namespace mathTests.simdTests {
         Uint8x16,
         Bool32x4,
         Bool16x8,
-        Bool8x16
+        Bool8x16,
     } = adone.math.simd;
 
     const a0 = Float32x4(0, 1, 2, 3);

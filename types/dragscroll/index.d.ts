@@ -2,4 +2,4 @@
 // Project: https://github.com/asvd/dragscroll#readme
 // Definitions by: Sean Kelly <https://github.com/spkellydev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export function reset(i ?: number, el ?: any): void;
+export function reset(i?: number, el?: any): void;

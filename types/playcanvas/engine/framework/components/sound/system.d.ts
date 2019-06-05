@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.SoundComponentSystem
      * @class Manages creation of {@link pc.SoundComponent}s.
@@ -13,7 +12,7 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class SoundComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application, manager: pc.SoundManager)
+        constructor(app: pc.Application, manager: pc.SoundManager);
 
         volume: number;
         context: AudioContext;

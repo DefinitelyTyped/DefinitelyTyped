@@ -7,7 +7,7 @@ wifi.connect('ssid', { password: 'pass', authMode: 'wpa_wpa2' }, err => {
 
 wifi.startAP('ssid', { password: 'pass', authMode: 'wpa_wpa2' }, err => {
     if (err) throw err;
-    console.log("created");
+    console.log('created');
 });
 
 digitalWrite(D2, false);

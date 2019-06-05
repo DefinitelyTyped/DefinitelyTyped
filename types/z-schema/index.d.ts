@@ -156,7 +156,13 @@ declare class Report {
      * @param schemaDescription - description from the schema used in the validation
      * Adds custom error to the errors array in the validation instance and sets valid to false if it is not already set as false
      */
-    addCustomError: (errorCode: string, errorMessage: string, params: string[], subReports: string, schemaDescription: string) => void;
+    addCustomError: (
+        errorCode: string,
+        errorMessage: string,
+        params: string[],
+        subReports: string,
+        schemaDescription: string
+    ) => void;
 }
 
 export = Validator;

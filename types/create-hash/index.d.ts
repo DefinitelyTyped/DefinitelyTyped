@@ -13,14 +13,5 @@ export = createHash;
 declare function createHash(algo: createHash.Algorithm): Hash;
 
 declare namespace createHash {
-    type Algorithm =
-        | 'md5'
-        | 'rmd160'
-        | 'ripemd160'
-        | 'sha'
-        | 'sha1'
-        | 'sha224'
-        | 'sha256'
-        | 'sha384'
-        | 'sha512';
+    type Algorithm = 'md5' | 'rmd160' | 'ripemd160' | 'sha' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 }

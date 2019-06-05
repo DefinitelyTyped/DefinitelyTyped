@@ -15,5 +15,5 @@ export interface Options {
 
 export class HttpLogger implements Logger {
     logSpan(span: model.Span): void;
-    constructor(options: Options)
+    constructor(options: Options);
 }

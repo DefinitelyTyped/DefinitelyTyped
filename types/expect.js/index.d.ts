@@ -220,8 +220,6 @@ declare namespace Expect {
     }
 }
 
-declare module "expect.js" {
-
+declare module 'expect.js' {
     export = expect;
-
 }

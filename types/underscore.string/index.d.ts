@@ -48,7 +48,6 @@ declare module 'underscore' {
      *   interface UnderscoreStatic extends UnderscoreStringStaticExports { }
      */
     export interface UnderscoreStringStaticExports {
-
         exports(): UnderscoreStringStaticExports;
 
         /**
@@ -581,7 +580,6 @@ declare module 'underscore' {
          * @param falseValues
          */
         toBoolean(str: string, trueValues?: any[], falseValues?: any[]): boolean;
-
     }
 }
 

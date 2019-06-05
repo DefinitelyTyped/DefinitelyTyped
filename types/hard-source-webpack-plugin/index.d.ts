@@ -33,7 +33,7 @@ interface Options {
 
 declare namespace hard_source_webpack_plugin {
     class ExcludeModulePlugin {
-        constructor(options: ExcludeModulePlugin.Option | ExcludeModulePlugin.Option[])
+        constructor(options: ExcludeModulePlugin.Option | ExcludeModulePlugin.Option[]);
         apply(compiler: webpack.Compiler): void;
     }
 
@@ -72,7 +72,7 @@ declare namespace hard_source_webpack_plugin {
     }
 
     class ParallelModulePlugin {
-        constructor(options: ParallelModulePlugin.Options)
+        constructor(options: ParallelModulePlugin.Options);
         apply(compiler: webpack.Compiler): void;
     }
 

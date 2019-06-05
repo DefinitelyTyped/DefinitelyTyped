@@ -8,14 +8,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<
-    ReactGridLayout.ReactGridLayoutProps
-> {}
+declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> {}
 
 declare namespace ReactGridLayout {
     interface Layout {
@@ -141,7 +139,7 @@ declare namespace ReactGridLayout {
         /**
          * Compaction type.
          */
-        compactType?: "vertical" | "horizontal" | null;
+        compactType?: 'vertical' | 'horizontal' | null;
 
         /**
          * This allows setting the initial width on the server side.
@@ -310,7 +308,5 @@ declare namespace ReactGridLayout {
         measureBeforeMount?: boolean;
     }
 
-    function WidthProvider<P>(
-        component: React.ComponentClass<P>
-    ): React.ComponentClass<P & WidthProviderProps>;
+    function WidthProvider<P>(component: React.ComponentClass<P>): React.ComponentClass<P & WidthProviderProps>;
 }

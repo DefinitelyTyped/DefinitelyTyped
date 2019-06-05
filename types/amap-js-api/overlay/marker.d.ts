@@ -12,7 +12,7 @@ declare namespace AMap {
             dragstart: MapsEvent<'dragstart', I>;
             dragging: MapsEvent<'dragging', I>;
             dragend: MapsEvent<'dragend', I>;
-            moving: Event<'moving', { passedPath: LngLat[]; }>;
+            moving: Event<'moving', { passedPath: LngLat[] }>;
             moveend: Event<'moveend'>;
             movealong: Event<'movealong'>;
             touchstart: MapsEvent<'touchstart', I>;
@@ -27,7 +27,16 @@ declare namespace AMap {
             direction?: LabelDirection;
         }
 
-        type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+        type Anchor =
+            | 'top-left'
+            | 'top-center'
+            | 'top-right'
+            | 'middle-left'
+            | 'center'
+            | 'middle-right'
+            | 'bottom-left'
+            | 'bottom-center'
+            | 'bottom-right';
 
         interface Options<ExtraData = any> extends Overlay.Options<ExtraData> {
             /**
@@ -124,7 +133,7 @@ declare namespace AMap {
          * 唤起高德地图客户端标注页
          * @param obj 唤起参数
          */
-        markOnAMAP(obj?: { name?: string, position?: LocationValue }): void;
+        markOnAMAP(obj?: { name?: string; position?: LocationValue }): void;
         /**
          * 获取锚点
          */
@@ -235,23 +244,14 @@ declare namespace AMap {
          * @param timingFunction 缓动函数
          * @param circleable 是否循环
          */
-        moveAlong(
-            path: LngLat[],
-            speed: number,
-            timingFunction?: (t: number) => number,
-            circleable?: boolean
-        ): void;
+        moveAlong(path: LngLat[], speed: number, timingFunction?: (t: number) => number, circleable?: boolean): void;
         /**
          * 以给定速度移动点标记到指定位置
          * @param lnglat 目标位置
          * @param speed 速度
          * @param timingFunction 缓动函数
          */
-        moveTo(
-            lnglat: LocationValue,
-            speed: number,
-            timingFunction?: (t: number) => number
-        ): void;
+        moveTo(lnglat: LocationValue, speed: number, timingFunction?: (t: number) => number): void;
         /**
          * 点标记停止动画
          */

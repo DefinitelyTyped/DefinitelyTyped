@@ -1,6 +1,6 @@
-import { GraphQLSchema } from "../type/schema";
-import { DocumentNode } from "../language/ast";
-import { GraphQLError } from "../error/GraphQLError";
+import { GraphQLSchema } from '../type/schema';
+import { DocumentNode } from '../language/ast';
+import { GraphQLError } from '../error/GraphQLError';
 
 /**
  * A validation rule which reports deprecated usages.

@@ -1,5 +1,3 @@
-
-
 import fromnow = require('fromnow');
 
 function dateOnly() {
@@ -12,24 +10,24 @@ function dateObjectOnly() {
 
 function max() {
     fromnow('2015-12-31', {
-        max: 12
+        max: 12,
     });
 }
 
 function suffix() {
     fromnow('2015-12-31', {
-        suffix: true
+        suffix: true,
     });
 }
 
 function and() {
     fromnow('2015-12-31', {
-        and: true
+        and: true,
     });
 }
 
 function zero() {
     fromnow('2015-12-31', {
-        zero: true
+        zero: true,
     });
 }

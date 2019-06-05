@@ -99,11 +99,11 @@ declare namespace BootstrapMenu {
         isEnabled?: (rowElement: BootstrapMenuRowElement) => boolean;
     }
 
-    type BootstrapMenuSource = "mouse" | "element";
+    type BootstrapMenuSource = 'mouse' | 'element';
 
-    type BootstrapMenuPosition = "aboveLeft" | "aboveRight" | "belowLeft" | "belowRight";
+    type BootstrapMenuPosition = 'aboveLeft' | 'aboveRight' | 'belowLeft' | 'belowRight';
 
-    type BootstrapMenuEvent = "click" | "right-click" | "hover";
+    type BootstrapMenuEvent = 'click' | 'right-click' | 'hover';
 
     type BootstrapMenuRowElement = any;
 }

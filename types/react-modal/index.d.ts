@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export = ReactModal;
 export as namespace ReactModal;
@@ -68,7 +68,7 @@ declare namespace ReactModal {
         onAfterClose?(): void;
 
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?(event: (React.MouseEvent | React.KeyboardEvent)): void;
+        onRequestClose?(event: React.MouseEvent | React.KeyboardEvent): void;
 
         /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
         closeTimeoutMS?: number;

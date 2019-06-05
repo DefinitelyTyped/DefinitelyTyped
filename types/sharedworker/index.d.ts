@@ -30,5 +30,5 @@ declare var SharedWorker: {
      * @param {string} stringUrl    Pathname to JavaScript file
      * @param {string} name         Name of the worker to execute
      */
-    new(stringUrl: string, name?: string): SharedWorker.SharedWorker;
+    new (stringUrl: string, name?: string): SharedWorker.SharedWorker;
 };

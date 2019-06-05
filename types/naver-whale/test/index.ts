@@ -2,7 +2,7 @@
 function ToolBarExample() {
     whale.browserAction.onClicked.addListener(() => {
         whale.tabs.create({
-            url: `http://news.naver.com/`
+            url: `http://news.naver.com/`,
         });
     });
 }
@@ -82,15 +82,15 @@ function SidebarExample() {
     });
 
     whale.sidebarAction.setTitle({
-        title: `새 제목`
+        title: `새 제목`,
     });
 
     whale.sidebarAction.setBadgeText({
-        text: `5`
+        text: `5`,
     });
 
     whale.sidebarAction.setBadgeBackgroundColor({
-        color: `#ff0000` //  RGBA 색상값 배열([255, 0, 0, 255]) 혹은 HEX 색상 표현 문자열(#FF0000).
+        color: `#ff0000`, //  RGBA 색상값 배열([255, 0, 0, 255]) 혹은 HEX 색상 표현 문자열(#FF0000).
     });
 }
 
@@ -98,21 +98,21 @@ function SidebarExample() {
 function SidebarExample2() {
     whale.sidebarAction.show({ url: `http://MYWEBSITE.com` });
     whale.sidebarAction.show({
-        url: whale.runtime.getURL(`index.html`)
+        url: whale.runtime.getURL(`index.html`),
     });
 }
 
 // https://developers.whale.naver.com/tutorials/downloads/
 function DownloadExample() {
     whale.downloads.download({
-        url: `http://example.org/example.zip`
+        url: `http://example.org/example.zip`,
     });
 
     whale.downloads.download(
         {
             url: `http://example.org/example.zip`,
             filename: `download.zip`,
-            saveAs: true
+            saveAs: true,
         },
         downloadId => {
             // 만약 'downloadId' 가 undefined 라면 오류가 발생했다는 뜻입니다.
@@ -125,8 +125,8 @@ function DownloadExample() {
 
     whale.downloads.search(
         {
-            orderBy: ["-startTime"],
-            limit: 5
+            orderBy: ['-startTime'],
+            limit: 5,
         },
         downloadedItems => {
             downloadedItems.forEach(item => {
@@ -175,22 +175,22 @@ whale.browserAction.onClicked.addListener(function() {
     whale.bookmarks.create(
         {
             title: `네이버 웨일`,
-            parentId: `1`
+            parentId: `1`,
         },
         function(newEntry) {
             whale.bookmarks.create({
-                title: "웨일 홈",
-                url: "http://whale.naver.com/",
-                parentId: newEntry.id
+                title: '웨일 홈',
+                url: 'http://whale.naver.com/',
+                parentId: newEntry.id,
             });
 
             whale.bookmarks.create({
-                title: "웨일 연구소",
-                url: "http://lab.whale.naver.com",
-                parentId: newEntry.id
+                title: '웨일 연구소',
+                url: 'http://lab.whale.naver.com',
+                parentId: newEntry.id,
             });
 
-            console.log("New Entry Added");
+            console.log('New Entry Added');
         }
     );
 });
@@ -198,14 +198,14 @@ whale.browserAction.onClicked.addListener(function() {
 // https://developers.whale.naver.com/tutorials/commands/
 whale.commands.onCommand.addListener(function(command) {
     if (command === `test`) {
-        alert("컨트롤 쉬프트 제이를 누르셨군요!");
+        alert('컨트롤 쉬프트 제이를 누르셨군요!');
     }
 });
 
 whale.commands.onCommand.addListener(function(command) {
     if (command === `open-popup`) {
         whale.browserAction.setPopup({
-            popup: whale.runtime.getManifest().browser_action!.default_popup!
+            popup: whale.runtime.getManifest().browser_action!.default_popup!,
         });
     }
 });
@@ -216,17 +216,17 @@ var count = 0;
 whale.browserAction.onClicked.addListener(function(tab) {
     whale.history.getVisits(
         {
-            url: tab.url!
+            url: tab.url!,
         },
         function(visitItem) {
             count = visitItem.length;
 
             whale.browserAction.setBadgeBackgroundColor({
-                color: `#ff0000`
+                color: `#ff0000`,
             });
 
             whale.browserAction.setBadgeText({
-                text: `${count}`
+                text: `${count}`,
             });
 
             console.log(`The user has visited ${tab.url} ${count} times`);
@@ -236,7 +236,7 @@ whale.browserAction.onClicked.addListener(function(tab) {
 
 whale.browserAction.onClicked.addListener(function(tab) {
     whale.history.deleteUrl({
-        url: tab.url!
+        url: tab.url!,
     });
 });
 
@@ -244,15 +244,13 @@ whale.browserAction.onClicked.addListener(function(tab) {
 whale.contextMenus.create({
     title: `%s 검색하기`,
     contexts: [`selection`],
-    onclick: () => {}
+    onclick: () => {},
 });
 
 function searchText(info) {
-    const myQuery = encodeURI(
-        `https://search.naver.com/search.naver?query=${info.selectionText}`
-    );
+    const myQuery = encodeURI(`https://search.naver.com/search.naver?query=${info.selectionText}`);
 
     whale.tabs.create({
-        url: myQuery
+        url: myQuery,
     });
 }

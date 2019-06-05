@@ -1,2 +1,2 @@
-import Hls = require("../index");
+import Hls = require('../index');
 export = Hls;

@@ -7,8 +7,8 @@
 import normalize = require('normalize-package-data');
 
 declare namespace ReadPkgUp {
-    function sync(options: Options & {normalize: false}): {path: string, pkg: {[k: string]: any}};
-    function sync(options?: Options): {path: string, pkg: Package};
+    function sync(options: Options & { normalize: false }): { path: string; pkg: { [k: string]: any } };
+    function sync(options?: Options): { path: string; pkg: Package };
 
     interface Options {
         /**
@@ -28,7 +28,9 @@ declare namespace ReadPkgUp {
     type Package = normalize.Package;
 }
 
-declare function ReadPkgUp(options: ReadPkgUp.Options & {normalize: false}): Promise<{path: string, pkg: {[k: string]: any}}>;
-declare function ReadPkgUp(options?: ReadPkgUp.Options): Promise<{path: string, pkg: normalize.Package}>;
+declare function ReadPkgUp(
+    options: ReadPkgUp.Options & { normalize: false }
+): Promise<{ path: string; pkg: { [k: string]: any } }>;
+declare function ReadPkgUp(options?: ReadPkgUp.Options): Promise<{ path: string; pkg: normalize.Package }>;
 
 export = ReadPkgUp;

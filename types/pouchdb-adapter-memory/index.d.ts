@@ -8,16 +8,15 @@
 
 declare namespace PouchDB {
     namespace MemoryAdapter {
-        interface MemoryAdapterConfiguration
-                extends Configuration.LocalDatabaseConfiguration {
+        interface MemoryAdapterConfiguration extends Configuration.LocalDatabaseConfiguration {
             adapter: 'memory';
         }
     }
 
     interface Static {
-        new<Content extends {}>(name: string | null,
-                                options: MemoryAdapter.MemoryAdapterConfiguration
-                               ): Database<Content>;
+        new <Content extends {}>(name: string | null, options: MemoryAdapter.MemoryAdapterConfiguration): Database<
+            Content
+        >;
     }
 }
 

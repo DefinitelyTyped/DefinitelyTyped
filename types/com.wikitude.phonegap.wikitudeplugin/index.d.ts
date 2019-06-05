@@ -49,13 +49,9 @@ interface WikitudePlugin {
 
     setErrorHandler(errorHandler: (message: string) => void): void;
 
-    setDeviceSensorsNeedCalibrationHandler(
-        startCalibrationHandler: (message: string) => void
-    ): void;
+    setDeviceSensorsNeedCalibrationHandler(startCalibrationHandler: (message: string) => void): void;
 
-    setDeviceSensorsFinishedCalibrationHandler(
-        finishedCalibrationHandler: (message: string) => void
-    ): void;
+    setDeviceSensorsFinishedCalibrationHandler(finishedCalibrationHandler: (message: string) => void): void;
 
     setBackButtonCallback(onBackButtonCallback: (message: string) => void): void;
 

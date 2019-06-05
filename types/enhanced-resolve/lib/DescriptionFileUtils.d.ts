@@ -7,9 +7,9 @@ export interface DescriptionFileData {
 }
 
 export interface LoadDescriptionFileResult {
-    content: DescriptionFileData
-    directory: string
-    path: string
+    content: DescriptionFileData;
+    directory: string;
+    path: string;
 }
 
 declare function loadDescriptionFile(

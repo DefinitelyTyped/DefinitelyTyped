@@ -1,4 +1,4 @@
-import nunit = require("gulp-nunit-runner");
+import nunit = require('gulp-nunit-runner');
 
 const stream = nunit({
     executable: 'c:/Program Files/NUnit/bin',
@@ -16,7 +16,7 @@ const stream = nunit({
         domain: 'None',
         framework: 'net-1.1',
         x86: true,
-        "dispose-runners": true,
+        'dispose-runners': true,
         timeout: 1000,
         seed: 5150,
         workers: 5,
@@ -43,6 +43,6 @@ const stream = nunit({
         nothread: true,
         basepath: 'src',
         privatebinpath: ['lib', 'bin'],
-        cleanup: true
-    }
+        cleanup: true,
+    },
 });

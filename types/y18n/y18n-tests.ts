@@ -1,11 +1,11 @@
-import y18n = require("y18n");
+import y18n = require('y18n');
 
 // Testing custom config
 new y18n({
     directory: '../locales',
     updateFiles: false,
     locale: 'en-AU',
-    fallbackToLanguage: false
+    fallbackToLanguage: false,
 });
 
 const Y18N = new y18n();

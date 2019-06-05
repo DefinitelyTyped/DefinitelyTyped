@@ -8,14 +8,7 @@ export = Hemera;
 export as namespace Hemera;
 
 declare namespace Hemera {
-    type LogLevel =
-        'fatal' |
-        'error' |
-        'warn' |
-        'info' |
-        'debug' |
-        'trace' |
-        'silent';
+    type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
 
     interface ErrioConfig {
         recursive?: boolean;
@@ -120,19 +113,19 @@ declare namespace Hemera {
     type AddHandler = (this: Hemera, request: Pattern, reply?: any) => void;
 
     type HemeraEvents =
-        'error' |
-        'clientPreRequest' |
-        'clientPostRequest' |
-        'serverPreHandler' |
-        'serverPreRequest' |
-        'serverPreResponse';
+        | 'error'
+        | 'clientPreRequest'
+        | 'clientPostRequest'
+        | 'serverPreHandler'
+        | 'serverPreRequest'
+        | 'serverPreResponse';
 
     type ExtensionType =
-        'onClientPreRequest' |
-        'onClientPostRequest' |
-        'onServerPreHandler' |
-        'onServerPreRequest' |
-        'onServerPreResponse';
+        | 'onClientPreRequest'
+        | 'onClientPostRequest'
+        | 'onServerPreHandler'
+        | 'onServerPreRequest'
+        | 'onServerPreResponse';
     type ExtensionHandler = (ctx: Hemera, request: any, response: any, next?: ExtensionNextHandler) => void;
     type ExtensionNextHandler = (error: Error) => void;
 
@@ -151,9 +144,7 @@ declare namespace Hemera {
         type: RequestType;
     }
 
-    type RequestType =
-        'pubsub' |
-        'request';
+    type RequestType = 'pubsub' | 'request';
 
     interface Trace {
         traceId: string;
@@ -165,17 +156,32 @@ declare namespace Hemera {
         duration: number;
     }
 
-    type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
+    type Types =
+        | 'any'
+        | 'alternatives'
+        | 'array'
+        | 'boolean'
+        | 'binary'
+        | 'date'
+        | 'function'
+        | 'lazy'
+        | 'number'
+        | 'object'
+        | 'string';
 
-    type LanguageOptions = string | boolean | null | {
-        [key: string]: LanguageOptions;
-    };
+    type LanguageOptions =
+        | string
+        | boolean
+        | null
+        | {
+              [key: string]: LanguageOptions;
+          };
 
     type LanguageRootOptions = {
         root?: string;
         key?: string;
-        messages?: { wrapArrays?: boolean; };
-    } & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions; };
+        messages?: { wrapArrays?: boolean };
+    } & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions };
 
     interface ValidationOptions {
         /**
@@ -332,7 +338,9 @@ declare namespace Hemera {
         context?: Context;
     }
 
-    type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
+    type ValidationErrorFunction = (
+        errors: ValidationErrorItem[]
+    ) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
 
     interface ValidationResult<T> {
         error: ValidationError;
@@ -345,7 +353,8 @@ declare namespace Hemera {
         [key: string]: SchemaLike | SchemaLike[];
     }
 
-    type Schema = AnySchema
+    type Schema =
+        | AnySchema
         | ArraySchema
         | AlternativesSchema
         | BinarySchema
@@ -1040,7 +1049,7 @@ declare namespace Hemera {
 
     interface Rules<P extends object = any> {
         name: string;
-        params?: ObjectSchema | {[key in keyof P]: SchemaLike; };
+        params?: ObjectSchema | { [key in keyof P]: SchemaLike };
         setup?(this: ExtensionBoundSchema, params: any): Schema | undefined;
         validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): any;
         description?: string | ((params: P) => string);
@@ -1078,7 +1087,12 @@ declare namespace Hemera {
         lazy(cb: () => Schema): AnySchema;
         validate<T>(value: T, schema: SchemaLike): ValidationResult<T>;
         validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
-        validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
+        validate<T, R>(
+            value: T,
+            schema: SchemaLike,
+            options: ValidationOptions,
+            callback: (err: ValidationError, value: T) => R
+        ): R;
         compile(schema: SchemaLike): Schema;
         assert(value: any, schema: SchemaLike, message?: string | Error): undefined;
         attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;

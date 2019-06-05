@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @private
      * @function
@@ -16,13 +15,13 @@ declare namespace pc {
      * @returns {String} A URI string
      */
     function createURI(options: {
-        scheme?: string,
-        authority?: string,
-        host?: string,
-        path?: string,
-        hostpath?: string,
-        query?: string,
-        fragment?: string
+        scheme?: string;
+        authority?: string;
+        host?: string;
+        path?: string;
+        hostpath?: string;
+        query?: string;
+        fragment?: string;
     }): string;
 
     /**
@@ -33,7 +32,7 @@ declare namespace pc {
      * @param {String} uri URI string
      */
     class URI {
-        constructor(uri: string)
+        constructor(uri: string);
 
         /**
          * @name pc.URI#scheme

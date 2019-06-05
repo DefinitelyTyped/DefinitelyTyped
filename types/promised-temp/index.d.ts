@@ -6,9 +6,7 @@
 /// <reference types="node" />
 
 import * as fs from 'fs';
-import { AffixOptions, AffixOptions as _A,
-         OpenFile, OpenFile as _O,
-         Stats, Stats as _S } from "temp";
+import { AffixOptions, AffixOptions as _A, OpenFile, OpenFile as _O, Stats, Stats as _S } from 'temp';
 
 interface TempStatic {
     dir: string;

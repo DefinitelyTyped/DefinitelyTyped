@@ -1,5 +1,5 @@
-import moment = require("moment");
-import * as momentPreciseRange from "moment-precise-range-plugin";
+import moment = require('moment');
+import * as momentPreciseRange from 'moment-precise-range-plugin';
 
 // Static methods
 const m1 = moment.utc();

@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { ColorPickerProps, ColorResult } from "../../..";
+import { Component } from 'react';
+import { ColorPickerProps, ColorResult } from '../../..';
 
 export interface TwitterPickerProps extends ColorPickerProps<TwitterPicker> {
     colors?: string[];

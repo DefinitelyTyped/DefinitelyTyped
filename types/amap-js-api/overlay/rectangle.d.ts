@@ -10,17 +10,20 @@ declare namespace AMap {
              */
             bounds?: Bounds;
         }
-        type GetOptionsResult<ExtraData = any> = Merge<Polygon.GetOptionsResult<ExtraData>, {
-            /**
-             * 路径节点数组
-             */
-            path: LngLat[];
-            /**
-             * 矩形的范围
-             */
-            bounds: Bounds;
-            texture: string;
-        }>;
+        type GetOptionsResult<ExtraData = any> = Merge<
+            Polygon.GetOptionsResult<ExtraData>,
+            {
+                /**
+                 * 路径节点数组
+                 */
+                path: LngLat[];
+                /**
+                 * 矩形的范围
+                 */
+                bounds: Bounds;
+                texture: string;
+            }
+        >;
     }
     class Rectangle<ExtraData = any> extends Polygon<ExtraData> {
         /**

@@ -1,7 +1,5 @@
 namespace adoneTests.pretty.time {
-    const {
-        time
-    } = adone.pretty;
+    const { time } = adone.pretty;
 
     let str: string;
 

@@ -3,7 +3,6 @@
 // Definitions by: Oliver Schneider <https://github.com/olsio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export declare function checkArgument(value: any, message?: string, ...formatArgs: any[]): void;
 export declare function checkState(value: any, message?: string, ...formatArgs: any[]): void;
 export declare function checkIsDef(value: any, message?: string, ...formatArgs: any[]): any;

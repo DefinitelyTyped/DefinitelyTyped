@@ -1,4 +1,4 @@
-import * as systeminformation from "systeminformation";
+import * as systeminformation from 'systeminformation';
 
 systeminformation.version(); // $ExpectType string
 systeminformation.time(); // $ExpectType TimeData
@@ -15,15 +15,14 @@ systeminformation.battery(); // $ExpectType Promise<BatteryData>
 systeminformation.graphics(); // $ExpectType Promise<GraphicsData>
 systeminformation.osInfo(); // $ExpectType Promise<OsData>
 
-systeminformation.versions()
-    .then((versions) => {
-        versions.kernel; // $ExpectType string
-        versions.node; // $ExpectType string
-        versions.npm; // $ExpectType string
-        versions.openssl; // $ExpectType string
-        versions.pm2; // $ExpectType string
-        versions.v8; // $ExpectType string
-    });
+systeminformation.versions().then(versions => {
+    versions.kernel; // $ExpectType string
+    versions.node; // $ExpectType string
+    versions.npm; // $ExpectType string
+    versions.openssl; // $ExpectType string
+    versions.pm2; // $ExpectType string
+    versions.v8; // $ExpectType string
+});
 
 systeminformation.shell(); // $ExpectType Promise<string>
 systeminformation.users(); // $ExpectType Promise<UserData[]>

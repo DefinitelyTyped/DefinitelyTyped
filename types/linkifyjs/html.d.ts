@@ -1,4 +1,4 @@
-import { LinkifyOptions } from "./index";
+import { LinkifyOptions } from './index';
 
 export function linkifyHtml(input: string, options?: LinkifyOptions): string;
 export default linkifyHtml;

@@ -22,7 +22,10 @@ import MDCTextFieldHelperTextFoundation from './foundation';
 
 export { MDCTextFieldHelperTextAdapter, MDCTextFieldHelperTextFoundation };
 
-export class MDCTextFieldHelperText extends MDCComponent<MDCTextFieldHelperTextAdapter, MDCTextFieldHelperTextFoundation> {
+export class MDCTextFieldHelperText extends MDCComponent<
+    MDCTextFieldHelperTextAdapter,
+    MDCTextFieldHelperTextFoundation
+> {
     static attachTo(root: Element): MDCTextFieldHelperText;
 
     readonly foundation: MDCTextFieldHelperTextFoundation;

@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -29,7 +29,7 @@ const collapsible = new materialize.Collapsible(elem, {
     onOpenStart(el) {
         // $ExpectType Element
         el;
-    }
+    },
 });
 
 // $ExpectType void
@@ -43,7 +43,7 @@ collapsible.el;
 // $ExpectType CollapsibleOptions
 collapsible.options;
 
-$(".whatever").collapsible();
-$(".whatever").collapsible("destroy");
-$(".whatever").collapsible("open", 1);
-$(".whatever").collapsible("close", 1);
+$('.whatever').collapsible();
+$('.whatever').collapsible('destroy');
+$('.whatever').collapsible('open', 1);
+$('.whatever').collapsible('close', 1);

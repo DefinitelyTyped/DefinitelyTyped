@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { isUndefined } from "lodash";
+import { isUndefined } from 'lodash';
 export = isUndefined;

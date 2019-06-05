@@ -6,7 +6,7 @@
 import normalize = require('normalize-package-data');
 
 declare namespace ReadPkg {
-    function sync(options: Options & {normalize: false}): {[k: string]: any};
+    function sync(options: Options & { normalize: false }): { [k: string]: any };
     function sync(options?: Options): normalize.Package;
 
     interface Options {
@@ -27,7 +27,7 @@ declare namespace ReadPkg {
     type Package = normalize.Package;
 }
 
-declare function ReadPkg(options: ReadPkg.Options & {normalize: false}): Promise<{[k: string]: any}>;
+declare function ReadPkg(options: ReadPkg.Options & { normalize: false }): Promise<{ [k: string]: any }>;
 declare function ReadPkg(options?: ReadPkg.Options): Promise<normalize.Package>;
 
 export = ReadPkg;

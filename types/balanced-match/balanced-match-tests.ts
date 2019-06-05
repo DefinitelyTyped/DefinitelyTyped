@@ -1,4 +1,4 @@
-import Balanced = require("balanced-match");
+import Balanced = require('balanced-match');
 
 const balanced = new Balanced();
 

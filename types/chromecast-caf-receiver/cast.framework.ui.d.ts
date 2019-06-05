@@ -1,40 +1,34 @@
-import { PlayerDataEventType } from "./cast.framework.ui";
-import { MediaMetadata } from "./cast.framework.messages";
+import { PlayerDataEventType } from './cast.framework.ui';
+import { MediaMetadata } from './cast.framework.messages';
 
-export as namespace ui
-export type ContentType = "video" | "audio" | "image";
+export as namespace ui;
+export type ContentType = 'video' | 'audio' | 'image';
 
-export type State =
-    | "launching"
-    | "idle"
-    | "loading"
-    | "buffering"
-    | "paused"
-    | "playing";
+export type State = 'launching' | 'idle' | 'loading' | 'buffering' | 'paused' | 'playing';
 
 export type PlayerDataEventType =
-    | "ANY_CHANGE"
-    | "STATE_CHANGED"
-    | "IS_SEEKING_CHANGED"
-    | "DURATION_CHANGED"
-    | "CURRENT_TIME_CHANGED"
-    | "METADATA_CHANGED"
-    | "TITLE_CHANGED"
-    | "SUBTITLE_CHANGED"
-    | "THUMBNAIL_URL_CHANGED"
-    | "NEXT_TITLE_CHANGED"
-    | "NEXT_SUBTITLE_CHANGED"
-    | "NEXT_THUMBNAIL_URL_CHANGED"
-    | "PRELOADING_NEXT_CHANGED"
-    | "CONTENT_TYPE_CHANGED"
-    | "IS_LIVE_CHANGED"
-    | "BREAK_PERCENTAGE_POSITIONS_CHANGED"
-    | "IS_PLAYING_BREAK_CHANGED"
-    | "IS_BREAK_SKIPPABLE_CHANGED"
-    | "WHEN_SKIPPABLE_CHANGED"
-    | "NUMBER_BREAK_CLIPS_CHANGED"
-    | "CURRENT_BREAK_CLIP_NUMBER_CHANGED"
-    | "DISPLAY_STATUS_CHANGED";
+    | 'ANY_CHANGE'
+    | 'STATE_CHANGED'
+    | 'IS_SEEKING_CHANGED'
+    | 'DURATION_CHANGED'
+    | 'CURRENT_TIME_CHANGED'
+    | 'METADATA_CHANGED'
+    | 'TITLE_CHANGED'
+    | 'SUBTITLE_CHANGED'
+    | 'THUMBNAIL_URL_CHANGED'
+    | 'NEXT_TITLE_CHANGED'
+    | 'NEXT_SUBTITLE_CHANGED'
+    | 'NEXT_THUMBNAIL_URL_CHANGED'
+    | 'PRELOADING_NEXT_CHANGED'
+    | 'CONTENT_TYPE_CHANGED'
+    | 'IS_LIVE_CHANGED'
+    | 'BREAK_PERCENTAGE_POSITIONS_CHANGED'
+    | 'IS_PLAYING_BREAK_CHANGED'
+    | 'IS_BREAK_SKIPPABLE_CHANGED'
+    | 'WHEN_SKIPPABLE_CHANGED'
+    | 'NUMBER_BREAK_CLIPS_CHANGED'
+    | 'CURRENT_BREAK_CLIP_NUMBER_CHANGED'
+    | 'DISPLAY_STATUS_CHANGED';
 
 /**
  * Player data changed event. Provides the changed field (type); and new value.
@@ -64,18 +58,12 @@ export class PlayerDataBinder {
     /**
      * Add listener to player data changes.
      */
-    addEventListener: (
-        type: PlayerDataEventType,
-        listener: PlayerDataChangedEventHandler
-    ) => void;
+    addEventListener: (type: PlayerDataEventType, listener: PlayerDataChangedEventHandler) => void;
 
     /**
      * Remove listener to player data changes.
      */
-    removeEventListener: (
-        type: PlayerDataEventType,
-        listener: PlayerDataChangedEventHandler
-    ) => void;
+    removeEventListener: (type: PlayerDataEventType, listener: PlayerDataChangedEventHandler) => void;
 }
 /**
  * Player data. Provide the player media and break state.

@@ -1,7 +1,7 @@
 import TagManager from 'react-gtm-module';
 
 TagManager.initialize({
-    gtmId: 'GTM-000000'
+    gtmId: 'GTM-000000',
 });
 
 TagManager.initialize({
@@ -10,10 +10,10 @@ TagManager.initialize({
     auth: '',
     preview: '',
     dataLayer: {},
-    dataLayerName: ''
+    dataLayerName: '',
 });
 
 TagManager.dataLayer({
     dataLayer: {},
-    dataLayerName: ''
+    dataLayerName: '',
 });

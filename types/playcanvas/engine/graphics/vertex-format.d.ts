@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.VertexFormat
      * @class A vertex format is a descriptor that defines the layout of vertex data inside
@@ -57,11 +56,14 @@ declare namespace pc {
      * @author Will Eastcott
      */
     class VertexFormat {
-        constructor(graphicsDevice: pc.GraphicsDevice, description: {
-            semantic: string,
-            components: number,
-            type: number,
-            normalize?: boolean
-        }[])
+        constructor(
+            graphicsDevice: pc.GraphicsDevice,
+            description: {
+                semantic: string;
+                components: number;
+                type: number;
+                normalize?: boolean;
+            }[]
+        );
     }
 }

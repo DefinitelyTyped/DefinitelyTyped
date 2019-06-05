@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ParticleSystemComponentSystem
      * @description Create a new ParticleSystemComponentSystem
@@ -8,6 +7,6 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class ParticleSystemComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
     }
 }

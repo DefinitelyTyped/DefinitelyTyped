@@ -19,9 +19,7 @@ declare namespace build {
 
     type Options = {
         [key: string]: Type | Option;
-    } & {
-        [K in 'stopEarly' | 'unknown' | '--']?: minimist.Opts[K];
-    };
+    } & { [K in 'stopEarly' | 'unknown' | '--']?: minimist.Opts[K] };
 }
 
 export = build;

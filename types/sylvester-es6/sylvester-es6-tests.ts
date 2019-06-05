@@ -1,19 +1,21 @@
-import { Vector,
-  Matrix,
-  Line,
-  Plane,
-  LinkedListNode,
-  LinkedList,
-  CircularLinkedList,
-  Vertex,
-  Polygon,
-  LineSegment,
-  PRECISION,
-  mht,
-  makeLookAt,
-  makeOrtho,
-  makePerspective,
-  makeFrustum } from "sylvester-es6";
+import {
+    Vector,
+    Matrix,
+    Line,
+    Plane,
+    LinkedListNode,
+    LinkedList,
+    CircularLinkedList,
+    Vertex,
+    Polygon,
+    LineSegment,
+    PRECISION,
+    mht,
+    makeLookAt,
+    makeOrtho,
+    makePerspective,
+    makeFrustum,
+} from 'sylvester-es6';
 
 // Vector
 const vector1 = new Vector([1, 2]);
@@ -349,7 +351,7 @@ const polygonTranslate1 = polygon2.translate([1, 2]);
 const polygonTranslate2 = polygon2.translate(vector1);
 const polygonRotate1 = polygon2.rotate(1, line1);
 const polygonScale = polygon2.scale(1, [1, 2]);
-polygon2.updateTrianglePlanes((plane) => plane);
+polygon2.updateTrianglePlanes(plane => plane);
 const polygonIsTriangle = polygon2.isTriangle();
 const polygonTrianglesForSurfaceIntegral = polygon2.trianglesForSurfaceIntegral();
 const polygonArea = polygon2.area();

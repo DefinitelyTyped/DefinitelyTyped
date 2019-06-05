@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @component
      * @name pc.ModelComponent
@@ -31,7 +30,7 @@ declare namespace pc {
      * @property {Number} batchGroupId Assign model to a specific batch group (see {@link pc.BatchGroup}). Default value is -1 (no group).
      */
     class ModelComponent extends pc.Component {
-        constructor(system: pc.ModelComponentSystem, entity: pc.Entity)
+        constructor(system: pc.ModelComponentSystem, entity: pc.Entity);
 
         type: string;
         asset: pc.Asset | number;
@@ -48,37 +47,37 @@ declare namespace pc {
         batchGroupId: number;
 
         /**
-        * @function
-        * @name pc.ModelComponent#hide
-        * @description Stop rendering model without removing it from the scene hierarchy.
-        * This method sets the {@link pc.MeshInstance#visible} property of every MeshInstance in the model to false
-        * Note, this does not remove the model or mesh instances from the scene hierarchy or draw call list.
-        * So the model component still incurs some CPU overhead.
-        * @example
-        *   this.timer = 0;
-        *   this.visible = true;
-        *   // ...
-        *   // blink model every 0.1 seconds
-        *   this.timer += dt;
-        *   if (this.timer > 0.1) {
-        *       if (!this.visible) {
-        *           this.entity.model.show();
-        *           this.visible = true;
-        *       } else {
-        *           this.entity.model.hide();
-        *           this.visible = false;
-        *       }
-        *       this.timer = 0;
-        *   }
-        */
+         * @function
+         * @name pc.ModelComponent#hide
+         * @description Stop rendering model without removing it from the scene hierarchy.
+         * This method sets the {@link pc.MeshInstance#visible} property of every MeshInstance in the model to false
+         * Note, this does not remove the model or mesh instances from the scene hierarchy or draw call list.
+         * So the model component still incurs some CPU overhead.
+         * @example
+         *   this.timer = 0;
+         *   this.visible = true;
+         *   // ...
+         *   // blink model every 0.1 seconds
+         *   this.timer += dt;
+         *   if (this.timer > 0.1) {
+         *       if (!this.visible) {
+         *           this.entity.model.show();
+         *           this.visible = true;
+         *       } else {
+         *           this.entity.model.hide();
+         *           this.visible = false;
+         *       }
+         *       this.timer = 0;
+         *   }
+         */
         hide(): void;
 
         /**
-        * @function
-        * @name pc.ModelComponent#show
-        * @description Enable rendering of the model if hidden using {@link pc.ModelComponent#hide}.
-        * This method sets all the {@link pc.MeshInstance#visible} property on all mesh instances to true.
-        */
+         * @function
+         * @name pc.ModelComponent#show
+         * @description Enable rendering of the model if hidden using {@link pc.ModelComponent#hide}.
+         * This method sets all the {@link pc.MeshInstance#visible} property on all mesh instances to true.
+         */
         show(): void;
     }
 }

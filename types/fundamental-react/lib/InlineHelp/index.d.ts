@@ -1,1 +1,1 @@
-export { default as InlineHelp } from "./InlineHelp";
+export { default as InlineHelp } from './InlineHelp';

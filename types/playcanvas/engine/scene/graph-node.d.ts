@@ -7,7 +7,7 @@ declare namespace pc {
      * @property {pc.Tags} tags Interface for tagging graph nodes. Tag based searches can be performed using the {@link pc.GraphNode#findByTag} function.
      */
     class GraphNode {
-        constructor(name?: string)
+        constructor(name?: string);
         name: string;
         tags: pc.Tags;
 
@@ -106,7 +106,7 @@ declare namespace pc {
          *     return node.model && node.name === 'head';
          * });
          */
-        findOne(attr: (node: pc.GraphNode) => boolean): pc.GraphNode
+        findOne(attr: (node: pc.GraphNode) => boolean): pc.GraphNode;
 
         /**
          * @function
@@ -130,7 +130,7 @@ declare namespace pc {
          * var meatEatingMammalsAndReptiles = node.findByTag([ "carnivore", "mammal" ], [ "carnivore", "reptile" ]);
          * // returns all assets that tagged by (`carnivore` AND `mammal`) OR (`carnivore` AND `reptile`)
          */
-        findByTag(...args: Array<string | string[]>): pc.GraphNode[]
+        findByTag(...args: Array<string | string[]>): pc.GraphNode[];
 
         /**
          * @function
@@ -281,7 +281,7 @@ declare namespace pc {
          * @example
          * var rotation = this.entity.getLocalRotation();
          */
-        getLocalRotation(): pc.Quat
+        getLocalRotation(): pc.Quat;
 
         /**
          * @function
@@ -366,7 +366,7 @@ declare namespace pc {
          * @param {pc.GraphNode} parent New parent to attach graph node to
          * @param {Number} index (optional) The child index where the child node should be placed.
          */
-        reparent(parent: pc.GraphNode, index?: number): void
+        reparent(parent: pc.GraphNode, index?: number): void;
 
         /**
          * @function
@@ -646,7 +646,6 @@ declare namespace pc {
          */
         private findByLabel(label: string, results: pc.GraphNode[]): pc.GraphNode[];
 
-
         /**
          * @function
          * @name pc.GraphNode#syncHierarchy
@@ -670,7 +669,7 @@ declare namespace pc {
          * // Specify position as elements
          * this.entity.lookAt(0, 0, 0);
          */
-        lookAt(target: pc.Vec3, up?: pc.Vec3): void
+        lookAt(target: pc.Vec3, up?: pc.Vec3): void;
 
         /**
          * @function
@@ -691,8 +690,8 @@ declare namespace pc {
          * // Look at 10, 10, 10 with an inverted up value
          * this.entity.lookAt(10, 10, 10, 0, -1, 0);
          */
-        lookAt(tx: number, ty: number, tz: number, ux: number, uy: number, uz: number): void
-        lookAt(tx: number, ty: number, tz: number): void
+        lookAt(tx: number, ty: number, tz: number, ux: number, uy: number, uz: number): void;
+        lookAt(tx: number, ty: number, tz: number): void;
 
         /**
          * @function

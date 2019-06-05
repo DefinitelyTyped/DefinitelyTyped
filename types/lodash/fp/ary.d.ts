@@ -1,2 +1,2 @@
-import { ary } from "../fp";
+import { ary } from '../fp';
 export = ary;

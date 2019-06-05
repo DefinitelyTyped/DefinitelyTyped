@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import OutsideClickHandler from "react-outside-click-handler";
+import OutsideClickHandler from 'react-outside-click-handler';
 
 const onClickOutside: (event: React.MouseEvent<any>) => void = () => {};
 

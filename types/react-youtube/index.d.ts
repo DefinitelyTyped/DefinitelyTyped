@@ -6,7 +6,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface PlayerVars {
     autoplay?: 0 | 1;
@@ -44,13 +44,13 @@ export interface YouTubeProps {
     containerClassName?: string;
     opts?: Options;
     onReady?(event: { target: any }): void;
-    onError?(event: { target: any, data: number }): void;
-    onPlay?(event: { target: any, data: number }): void;
-    onPause?(event: { target: any, data: number }): void;
-    onEnd?(event: { target: any, data: number }): void;
-    onStateChange?(event: { target: any, data: number }): void;
-    onPlaybackRateChange?(event: { target: any, data: number }): void;
-    onPlaybackQualityChange?(event: { target: any, data: string }): void;
+    onError?(event: { target: any; data: number }): void;
+    onPlay?(event: { target: any; data: number }): void;
+    onPause?(event: { target: any; data: number }): void;
+    onEnd?(event: { target: any; data: number }): void;
+    onStateChange?(event: { target: any; data: number }): void;
+    onPlaybackRateChange?(event: { target: any; data: number }): void;
+    onPlaybackQualityChange?(event: { target: any; data: string }): void;
 }
 
 export default class YouTube extends React.Component<YouTubeProps> {}

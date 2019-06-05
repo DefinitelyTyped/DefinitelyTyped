@@ -76,11 +76,7 @@ declare namespace colors {
             other: OtherPlatformsSymbols;
         };
 
-        define(
-            name: string,
-            codes: [number, number],
-            type: 'modifier' | 'color' | 'bg' | 'bright' | 'bgBright'
-        ): void;
+        define(name: string, codes: [number, number], type: 'modifier' | 'color' | 'bg' | 'bright' | 'bgBright'): void;
     }
 
     interface WindowsSymbols {

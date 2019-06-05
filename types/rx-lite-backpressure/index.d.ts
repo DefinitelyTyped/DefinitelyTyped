@@ -47,6 +47,6 @@ declare namespace Rx {
     }
 }
 
-declare module "rx-lite-backpressure" {
+declare module 'rx-lite-backpressure' {
     export = Rx;
 }

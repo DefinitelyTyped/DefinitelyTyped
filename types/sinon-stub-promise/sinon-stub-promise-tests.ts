@@ -8,14 +8,14 @@ function testResolve() {
     const stub = sinon
         .stub()
         .returnsPromise()
-        .resolves("test val");
+        .resolves('test val');
 }
 
 function testReject() {
     const stub = sinon
         .stub()
         .returnsPromise()
-        .rejects("test val");
+        .rejects('test val');
 }
 
 function testThenableThen() {

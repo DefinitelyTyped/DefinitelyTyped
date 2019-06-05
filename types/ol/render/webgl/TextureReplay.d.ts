@@ -21,7 +21,18 @@ export default class WebGLTextureReplay extends WebGLReplay {
     protected width: number;
     protected getTextures(opt_all?: boolean): WebGLTexture[];
     protected getHitDetectionTextures(): WebGLTexture[];
-    protected drawReplaySkipping(gl: WebGLRenderingContext, context: WebGLContext, skippedFeaturesHash: { [key: string]: boolean }, textures: WebGLTexture[], groupIndices: number[]): void;
+    protected drawReplaySkipping(
+        gl: WebGLRenderingContext,
+        context: WebGLContext,
+        skippedFeaturesHash: { [key: string]: boolean },
+        textures: WebGLTexture[],
+        groupIndices: number[]
+    ): void;
     protected drawCoordinates(flatCoordinates: number[], offset: number, end: number, stride: number): number;
-    protected createTextures(textures: WebGLTexture[], images: any[], texturePerImage: { [key: string]: WebGLTexture }, gl: WebGLRenderingContext): void;
+    protected createTextures(
+        textures: WebGLTexture[],
+        images: any[],
+        texturePerImage: { [key: string]: WebGLTexture },
+        gl: WebGLRenderingContext
+    ): void;
 }

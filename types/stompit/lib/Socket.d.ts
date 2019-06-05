@@ -1,7 +1,7 @@
-import { EventEmitter } from "events";
-import { Duplex, WritableOptions, Writable } from "stream";
+import { EventEmitter } from 'events';
+import { Duplex, WritableOptions, Writable } from 'stream';
 
-import OutgoingFrameStream = require("./OutgoingFrameStream");
+import OutgoingFrameStream = require('./OutgoingFrameStream');
 
 declare class Socket extends EventEmitter {
     constructor(transportSocket: Duplex, options: Socket.SocketOptions);

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.guid
      * @namespace
@@ -7,7 +6,6 @@ declare namespace pc {
      * GUIDs are used as the unique identifiers for Entities.
      */
     namespace guid {
-
         /**
          * @function
          * @name pc.guid.create

@@ -9,13 +9,13 @@ const opts: pkginfo.Options = {
 };
 
 pkginfo(opts, (error, data) => {
-  data;  // $ExpectType Data
+    data; // $ExpectType Data
 });
 
 const pkgs = ['dstructs-matrix', 'compute-stdev', 'compute-variance'];
 
 const get = pkginfo.factory({ packages: pkgs }, (error, data) => {
-  data;  // $ExpectType Data
+    data; // $ExpectType Data
 });
 
 get();

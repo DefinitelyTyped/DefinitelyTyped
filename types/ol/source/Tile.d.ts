@@ -47,11 +47,16 @@ export default class TileSource extends Source {
     canExpireCache(): boolean;
     getOpaque(projection: Projection): boolean;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
-    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: ((param0: Tile) => boolean | void)): boolean;
+    forEachLoadedTile(
+        projection: Projection,
+        z: number,
+        tileRange: TileRange,
+        callback: (param0: Tile) => boolean | void
+    ): boolean;
     useTile(z: number, x: number, y: number, projection: Projection): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

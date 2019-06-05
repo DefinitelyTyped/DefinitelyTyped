@@ -39,7 +39,7 @@ declare namespace archiver {
     type EntryDataFunction = (entry: EntryData) => false | EntryData;
 
     class ArchiverError extends Error {
-        code: string;       // Since archiver format support is modular, we cannot enumerate all possible error codes, as the modules can throw arbitrary ones.
+        code: string; // Since archiver format support is modular, we cannot enumerate all possible error codes, as the modules can throw arbitrary ones.
         data: any;
         path?: any;
 

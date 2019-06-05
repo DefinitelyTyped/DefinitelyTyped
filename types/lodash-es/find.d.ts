@@ -1,2 +1,2 @@
-import { find } from "lodash";
+import { find } from 'lodash';
 export default find;

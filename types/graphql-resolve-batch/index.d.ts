@@ -22,12 +22,7 @@ import { GraphQLResolveInfo } from 'graphql';
  * @template TContext The type of the current resolver context.
  * @param batchResolveFn A batch function to resolve all fields for the given sources in a single batch.
  */
-export function createBatchResolver<
-    TSource,
-    TReturn,
-    TArgs = any,
-    TContext = any
->(
+export function createBatchResolver<TSource, TReturn, TArgs = any, TContext = any>(
     batchResolveFn: BatchResolveFunction<TSource, TArgs, TContext, TReturn>
 ): ResolverFunction<TSource, TArgs, TContext, TReturn>;
 

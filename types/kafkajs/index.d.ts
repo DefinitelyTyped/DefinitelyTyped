@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as tls from "tls";
+import * as tls from 'tls';
 
 export class Kafka {
     constructor(options: KafkaOptions);
@@ -56,7 +56,7 @@ export enum CompressionTypes {
     GZIP = 1,
     Snappy = 2,
     LZ4 = 3,
-    ZSTD = 4
+    ZSTD = 4,
 }
 
 export const CompressionCodecs: { [key in CompressionTypes]: () => any };
@@ -68,7 +68,7 @@ export enum ResourceTypes {
     GROUP = 3,
     CLUSTER = 4,
     TRANSACTIONAL_ID = 5,
-    DELEGATION_TOKEN = 6
+    DELEGATION_TOKEN = 6,
 }
 
 export interface LoggerMessage {
@@ -109,7 +109,7 @@ export interface KafkaOptions {
 }
 
 export interface SASLOptions {
-    mechanism: "plain" | "scram-sha-256" | "scram-sha-512";
+    mechanism: 'plain' | 'scram-sha-256' | 'scram-sha-512';
     username: string;
     password: string;
 }
@@ -128,7 +128,7 @@ export enum logLevel {
     ERROR = 1,
     WARN = 2,
     INFO = 4,
-    DEBUG = 5
+    DEBUG = 5,
 }
 
 export interface Producer {
@@ -141,10 +141,7 @@ export interface Producer {
     transaction(): Promise<Transaction>;
 
     events: ProducerEvents;
-    on(
-        event: ProducerEvents[keyof ProducerEvents],
-        cb: (e: InstrumentationEvent) => void
-    ): () => Producer;
+    on(event: ProducerEvents[keyof ProducerEvents], cb: (e: InstrumentationEvent) => void): () => Producer;
 }
 
 export interface ProducerOptions {
@@ -205,7 +202,7 @@ export interface ProducerTopicMessage {
 export enum AcksBehaviour {
     All = -1,
     No = 0,
-    Leader = 1
+    Leader = 1,
 }
 
 export interface Transaction {
@@ -248,10 +245,7 @@ export interface Consumer {
     describeGroup(): Promise<GroupMetadata>;
 
     events: ConsumerEvents;
-    on(
-        event: ConsumerEvents[keyof ConsumerEvents],
-        cb: (e: InstrumentationEvent) => void
-    ): () => Consumer;
+    on(event: ConsumerEvents[keyof ConsumerEvents], cb: (e: InstrumentationEvent) => void): () => Consumer;
 }
 
 export interface ConsumerOptions {
@@ -283,9 +277,7 @@ export interface PartitionAssigner {
                 memberAssignment: Buffer;
             }>
         >;
-        protocol?: (options: {
-            topics: any /* TODO */;
-        }) => { name: string; metadata: Buffer };
+        protocol?: (options: { topics: any /* TODO */ }) => { name: string; metadata: Buffer };
     };
 }
 
@@ -329,9 +321,7 @@ export interface ConsumerEachBatchPayload {
     resolveOffset: (offset: number) => Promise<void>;
     heartbeat: () => Promise<void>;
     isRunning: () => boolean;
-    commitOffsetsIfNecessary: (
-        offsets?: OffsetsByTopicPartition
-    ) => Promise<void>;
+    commitOffsetsIfNecessary: (offsets?: OffsetsByTopicPartition) => Promise<void>;
     uncommittedOffsets: () => OffsetsByTopicPartition;
 }
 
@@ -377,26 +367,17 @@ export interface Admin {
 
     createTopics(options: AdminCreateTopicsOptions): Promise<void>;
     deleteTopics(options: AdminDeleteTopicsOptions): Promise<void>;
-    getTopicMetadata(options: {
-        topics?: string[];
-    }): Promise<{ topics: TopicMetadata[] }>;
+    getTopicMetadata(options: { topics?: string[] }): Promise<{ topics: TopicMetadata[] }>;
 
-    fetchOffsets(
-        options: AdminFetchOffsetsOptions
-    ): Promise<AdminTopicOffset[]>;
+    fetchOffsets(options: AdminFetchOffsetsOptions): Promise<AdminTopicOffset[]>;
     resetOffsets(options: AdminResetOffsetsOptions): Promise<void>;
     setOffsets(options: AdminSetOffsetsOptions): Promise<void>;
 
-    describeConfigs(
-        options: AdminDescribeConfigsOptions
-    ): Promise<AdminConfigDescription>;
+    describeConfigs(options: AdminDescribeConfigsOptions): Promise<AdminConfigDescription>;
     alterConfigs(options: AdminAlterConfigsOptions): Promise<void>;
 
     events: AdminEvents;
-    on(
-        event: AdminEvents[keyof AdminEvents],
-        cb: (e: InstrumentationEvent) => void
-    ): () => Admin;
+    on(event: AdminEvents[keyof AdminEvents], cb: (e: InstrumentationEvent) => void): () => Admin;
 }
 
 export interface AdminOptions {
@@ -532,33 +513,33 @@ export interface InstrumentationEvent {
 }
 
 export interface ConsumerEvents {
-    HEARTBEAT: "consumer.heartbeat";
-    COMMIT_OFFSETS: "consumer.commit_offsets";
-    GROUP_JOIN: "consumer.group_join";
-    FETCH: "consumer.fetch";
-    START_BATCH_PROCESS: "consumer.start_batch_process";
-    END_BATCH_PROCESS: "consumner.end_batch_process";
-    CONNECT: "consumer.connect";
-    DISCONNECT: "consumer.disconnect";
-    STOP: "consumer.stop";
-    CRASH: "consumer.crash";
-    REQUEST: "consumer.request";
-    REQUEST_TIMEOUT: "consumer.request_timeout";
-    REQUEST_QUEUE_SIZE: "consumer.request_queue_size";
+    HEARTBEAT: 'consumer.heartbeat';
+    COMMIT_OFFSETS: 'consumer.commit_offsets';
+    GROUP_JOIN: 'consumer.group_join';
+    FETCH: 'consumer.fetch';
+    START_BATCH_PROCESS: 'consumer.start_batch_process';
+    END_BATCH_PROCESS: 'consumner.end_batch_process';
+    CONNECT: 'consumer.connect';
+    DISCONNECT: 'consumer.disconnect';
+    STOP: 'consumer.stop';
+    CRASH: 'consumer.crash';
+    REQUEST: 'consumer.request';
+    REQUEST_TIMEOUT: 'consumer.request_timeout';
+    REQUEST_QUEUE_SIZE: 'consumer.request_queue_size';
 }
 
 export interface ProducerEvents {
-    CONNECT: "producer.connect";
-    DISCONNECT: "producer.disconnect";
-    REQUEST: "producer.request";
-    REQUEST_TIMEOUT: "producer.request_timeout";
-    REQUEST_QUEUE_SIZE: "producer.request_queue_size";
+    CONNECT: 'producer.connect';
+    DISCONNECT: 'producer.disconnect';
+    REQUEST: 'producer.request';
+    REQUEST_TIMEOUT: 'producer.request_timeout';
+    REQUEST_QUEUE_SIZE: 'producer.request_queue_size';
 }
 
 export interface AdminEvents {
-    CONNECT: "admin.connect";
-    DISCONNECT: "admin.disconnect";
-    REQUEST: "admin.request";
-    REQUEST_TIMEOUT: "admin.request_timeout";
-    REQUEST_QUEUE_SIZE: "admin.request_queue_size";
+    CONNECT: 'admin.connect';
+    DISCONNECT: 'admin.disconnect';
+    REQUEST: 'admin.request';
+    REQUEST_TIMEOUT: 'admin.request_timeout';
+    REQUEST_QUEUE_SIZE: 'admin.request_queue_size';
 }

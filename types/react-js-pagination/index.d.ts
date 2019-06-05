@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface ReactJsPaginationProps {
     totalItemsCount: number;
@@ -12,7 +12,7 @@ export interface ReactJsPaginationProps {
     activePage: number;
     itemsCountPerPage?: number;
     pageRangeDisplayed?: number;
-    prevPageText?: string| React.ReactElement;
+    prevPageText?: string | React.ReactElement;
     nextPageText?: string | React.ReactElement;
     lastPageText?: string | React.ReactElement;
     firstPageText?: string | React.ReactElement;

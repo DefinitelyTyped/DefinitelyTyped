@@ -10,8 +10,8 @@ export default class RBush<T> {
     constructor(opt_maxEntries?: number);
     getInExtent(extent: Extent): T[];
     clear(): void;
-    forEach<S>(callback: ((this: S, param1: T) => void), opt_this?: S): any;
-    forEachInExtent<S>(extent: Extent, callback: ((this: S, param1: T) => void), opt_this?: S): any;
+    forEach<S>(callback: (this: S, param1: T) => void, opt_this?: S): any;
+    forEachInExtent<S>(extent: Extent, callback: (this: S, param1: T) => void, opt_this?: S): any;
     getAll(): T[];
     getExtent(opt_extent?: Extent): Extent;
     concat(rbush: RBush<T>): void;

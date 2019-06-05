@@ -8,9 +8,9 @@
 import { Server } from 'http';
 
 declare namespace stoppable {
-  interface StoppableServer extends Server {
-    stop(callback?: (e: Error, gracefully: boolean) => void): void;
-  }
+    interface StoppableServer extends Server {
+        stop(callback?: (e: Error, gracefully: boolean) => void): void;
+    }
 }
 
 declare function stoppable(server: Server, grace?: number): stoppable.StoppableServer;

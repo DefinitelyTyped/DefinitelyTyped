@@ -1,10 +1,10 @@
-import * as fsutil from "socketcluster/fsutil";
-import SocketCluster = require("socketcluster");
-import { SCServer } from "socketcluster-server";
-import { ChildProcess } from "child_process";
-import path = require("path");
-import * as minimist from "minimist";
-import * as scHotReboot from "sc-hot-reboot";
+import * as fsutil from 'socketcluster/fsutil';
+import SocketCluster = require('socketcluster');
+import { SCServer } from 'socketcluster-server';
+import { ChildProcess } from 'child_process';
+import path = require('path');
+import * as minimist from 'minimist';
+import * as scHotReboot from 'sc-hot-reboot';
 
 ////////////////////////////////////////////////////
 /// SocketCluster tests
@@ -17,7 +17,7 @@ import * as scHotReboot from "sc-hot-reboot";
     sc = new SocketCluster(options);
     sc = SocketCluster.create(options);
 
-    sc.options = { environment: "prod" };
+    sc.options = { environment: 'prod' };
 
     sc.on(sc.EVENT_FAIL, err => {
         const error: Error = err;
@@ -67,17 +67,17 @@ import * as scHotReboot from "sc-hot-reboot";
         const childProcess: ChildProcess = workerClusterInfo.childProcess;
     });
 
-    sc.sendToWorker(123, "test");
-    sc.sendToWorker(222, "test 2", (err, responseData, workerId) => {
+    sc.sendToWorker(123, 'test');
+    sc.sendToWorker(222, 'test 2', (err, responseData, workerId) => {
         if (!err) {
             sc.log(`Received ${responseData} from ${workerId}`);
         }
     });
 
-    sc.sendToBroker(123, "test");
-    sc.sendToBroker(222, "test 2", (err, responseData) => {
+    sc.sendToBroker(123, 'test');
+    sc.sendToBroker(222, 'test 2', (err, responseData) => {
         if (!err) {
-            sc.colorText(`Received ${responseData} from broker`, "yellow");
+            sc.colorText(`Received ${responseData} from broker`, 'yellow');
         }
     });
 
@@ -94,17 +94,17 @@ import * as scHotReboot from "sc-hot-reboot";
     const workerControllerPath = argv.wc || process.env.SOCKETCLUSTER_WORKER_CONTROLLER;
     const brokerControllerPath = argv.bc || process.env.SOCKETCLUSTER_BROKER_CONTROLLER;
     const workerClusterControllerPath = argv.wcc || process.env.SOCKETCLUSTER_WORKERCLUSTER_CONTROLLER;
-    const environment = process.env.ENV || "dev";
+    const environment = process.env.ENV || 'dev';
 
     const options: SCServer.SCServerOptions = {
         workers: Number(argv.w) || Number(process.env.SOCKETCLUSTER_WORKERS) || 1,
         brokers: Number(argv.b) || Number(process.env.SOCKETCLUSTER_BROKERS) || 1,
         port: Number(argv.p) || Number(process.env.SOCKETCLUSTER_PORT) || 8000,
         // You can switch to 'sc-uws' for improved performance.
-        wsEngine: process.env.SOCKETCLUSTER_WS_ENGINE || "ws",
+        wsEngine: process.env.SOCKETCLUSTER_WS_ENGINE || 'ws',
         appName: argv.n || process.env.SOCKETCLUSTER_APP_NAME || null,
-        workerController: workerControllerPath || path.join(__dirname, "worker.js"),
-        brokerController: brokerControllerPath || path.join(__dirname, "broker.js"),
+        workerController: workerControllerPath || path.join(__dirname, 'worker.js'),
+        brokerController: brokerControllerPath || path.join(__dirname, 'broker.js'),
         workerClusterController: workerClusterControllerPath || null,
         socketChannelLimit: Number(process.env.SOCKETCLUSTER_SOCKET_CHANNEL_LIMIT) || 1000,
         clusterStateServerHost: argv.cssh || process.env.SCC_STATE_SERVER_HOST || null,
@@ -117,26 +117,35 @@ import * as scHotReboot from "sc-hot-reboot";
         clusterStateServerConnectTimeout: Number(process.env.SCC_STATE_SERVER_CONNECT_TIMEOUT) || null,
         clusterStateServerAckTimeout: Number(process.env.SCC_STATE_SERVER_ACK_TIMEOUT) || null,
         clusterStateServerReconnectRandomness: Number(process.env.SCC_STATE_SERVER_RECONNECT_RANDOMNESS) || null,
-        crashWorkerOnError: argv["auto-reboot"] !== false,
+        crashWorkerOnError: argv['auto-reboot'] !== false,
         // If using nodemon, set this to true, and make sure that environment is 'dev'.
         killMasterOnSignal: false,
-        environment
+        environment,
     };
 
     const socketCluster = new SocketCluster(options);
 
     socketCluster.on(socketCluster.EVENT_WORKER_CLUSTER_START, workerClusterInfo => {
-        console.log("   >> WorkerCluster PID:", workerClusterInfo.pid);
+        console.log('   >> WorkerCluster PID:', workerClusterInfo.pid);
     });
 
-    if (socketCluster.options.environment === "dev") {
+    if (socketCluster.options.environment === 'dev') {
         // This will cause SC workers to reboot when code changes anywhere in the app directory.
         // The second options argument here is passed directly to chokidar.
         // See https://github.com/paulmillr/chokidar#api for details.
         console.log(`   !! The sc-hot-reboot plugin is watching for code changes in the ${__dirname} directory`);
         scHotReboot.attach(socketCluster, {
             cwd: __dirname,
-            ignored: ["public", "node_modules", "README.md", "Dockerfile", "server.js", "broker.js", /[\/\\]\./, "*.log"]
+            ignored: [
+                'public',
+                'node_modules',
+                'README.md',
+                'Dockerfile',
+                'server.js',
+                'broker.js',
+                /[\/\\]\./,
+                '*.log',
+            ],
         });
     }
 }
@@ -146,9 +155,9 @@ import * as scHotReboot from "sc-hot-reboot";
 ////////////////////////////////////////////////////
 
 {
-    fsutil.fileExists("/path/to/folder", err => {});
-    fsutil.fileExists(Buffer.from(""), err => {});
+    fsutil.fileExists('/path/to/folder', err => {});
+    fsutil.fileExists(Buffer.from(''), err => {});
 
-    const pathPromise: Promise<void> = fsutil.waitForFile("/path/to/folder", 100, 0, 100);
-    const bufferPromise: Promise<void> = fsutil.waitForFile(Buffer.from(""), 0, 0, 0, "timeout");
+    const pathPromise: Promise<void> = fsutil.waitForFile('/path/to/folder', 100, 0, 100);
+    const bufferPromise: Promise<void> = fsutil.waitForFile(Buffer.from(''), 0, 0, 0, 'timeout');
 }

@@ -577,7 +577,13 @@ export function mixin(mixinName: string, mixinObject: TagMixin): void;
  * @param constructor The initialization function being called before
  * the tag expressions are calculated and before the tag is mounted
  */
-export function tag<T extends TagInterface = any>(tagName: string, html: string, css?: string, attrs?: string, constructor?: (this: T, opts?: TagOpts) => void): string;
+export function tag<T extends TagInterface = any>(
+    tagName: string,
+    html: string,
+    css?: string,
+    attrs?: string,
+    constructor?: (this: T, opts?: TagOpts) => void
+): string;
 
 /**
  * Create wrapper tag without template
@@ -587,7 +593,11 @@ export function tag<T extends TagInterface = any>(tagName: string, html: string,
  * the tag expressions are calculated and before the tag is mounted
  * @returns Tag name
  */
-export function tag<T extends TagInterface = any>(tagName: string, html: boolean, constructor: (this: T, opts?: TagOpts) => void): string;
+export function tag<T extends TagInterface = any>(
+    tagName: string,
+    html: boolean,
+    constructor: (this: T, opts?: TagOpts) => void
+): string;
 
 export interface TagOpts {
     [key: string]: any;

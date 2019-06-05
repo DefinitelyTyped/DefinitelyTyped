@@ -38,17 +38,9 @@ export function toJson(response: any): any;
 
 export namespace UnsplashApi {
     interface Photo {
-        listPhotos(
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        listPhotos(page?: number, perPage?: number, orderBy?: string): Promise<Response>;
 
-        listCuratedPhotos(
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        listCuratedPhotos(page?: number, perPage?: number, orderBy?: string): Promise<Response>;
 
         searchPhotos(
             query: string,
@@ -57,12 +49,7 @@ export namespace UnsplashApi {
             perPage: number
         ): Promise<Response>;
 
-        getPhoto(
-            id: string,
-            width?: number,
-            height?: number,
-            rectangle?: ReadonlyArray<number>
-        ): Promise<Response>;
+        getPhoto(id: string, width?: number, height?: number, rectangle?: ReadonlyArray<number>): Promise<Response>;
 
         getPhotoStats(id: string): Promise<Response>;
 
@@ -82,68 +69,31 @@ export namespace UnsplashApi {
 
         unlikePhoto(id: string): Promise<Response>;
 
-        downloadPhoto(photo: {
-            links: { download_location: string };
-        }): Promise<Response>;
+        downloadPhoto(photo: { links: { download_location: string } }): Promise<Response>;
     }
 
     interface Collections {
-        listCollections(
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        listCollections(page?: number, perPage?: number, orderBy?: string): Promise<Response>;
 
-        listCuratedCollections(
-            page?: number,
-            perPage?: number
-        ): Promise<Response>;
+        listCuratedCollections(page?: number, perPage?: number): Promise<Response>;
 
-        listFeaturedCollections(
-            page?: number,
-            perPage?: number
-        ): Promise<Response>;
+        listFeaturedCollections(page?: number, perPage?: number): Promise<Response>;
 
         getCollection(id: number): Promise<Response>;
 
-        getCollectionPhotos(
-            id: number,
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        getCollectionPhotos(id: number, page?: number, perPage?: number, orderBy?: string): Promise<Response>;
 
-        getCuratedCollectionPhotos(
-            id: number,
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        getCuratedCollectionPhotos(id: number, page?: number, perPage?: number, orderBy?: string): Promise<Response>;
 
-        createCollection(
-            title: string,
-            description?: string,
-            private?: boolean
-        ): Promise<Response>;
+        createCollection(title: string, description?: string, private?: boolean): Promise<Response>;
 
-        updateCollection(
-            id: number,
-            title?: string,
-            description?: string,
-            private?: boolean
-        ): Promise<Response>;
+        updateCollection(id: number, title?: string, description?: string, private?: boolean): Promise<Response>;
 
         deleteCollection(id: number): Promise<Response>;
 
-        addPhotoToCollection(
-            collectionId: number,
-            photoId: string
-        ): Promise<Response>;
+        addPhotoToCollection(collectionId: number, photoId: string): Promise<Response>;
 
-        removePhotoFromCollection(
-            collectionId: number,
-            photoId: string
-        ): Promise<Response>;
+        removePhotoFromCollection(collectionId: number, photoId: string): Promise<Response>;
 
         listRelatedCollections(collectionId: number): Promise<Response>;
     }
@@ -151,23 +101,11 @@ export namespace UnsplashApi {
     interface Search {
         all(keyword: string, page: number, per_page: number): Promise<Response>;
 
-        photos(
-            keyword: string,
-            page?: number,
-            per_page?: number
-        ): Promise<Response>;
+        photos(keyword: string, page?: number, per_page?: number): Promise<Response>;
 
-        users(
-            keyword: string,
-            page?: number,
-            per_page?: number
-        ): Promise<Response>;
+        users(keyword: string, page?: number, per_page?: number): Promise<Response>;
 
-        collections(
-            keyword: string,
-            page?: number,
-            per_page?: number
-        ): Promise<Response>;
+        collections(keyword: string, page?: number, per_page?: number): Promise<Response>;
     }
 
     interface Stats {
@@ -192,33 +130,13 @@ export namespace UnsplashApi {
     interface Users {
         profile(username: string): Promise<Response>;
 
-        statistics(
-            username: string,
-            resolution?: string,
-            quantity?: number
-        ): Promise<Response>;
+        statistics(username: string, resolution?: string, quantity?: number): Promise<Response>;
 
-        photos(
-            username: string,
-            page?: number,
-            perPage?: number,
-            orderBy?: string,
-            stats?: boolean
-        ): Promise<Response>;
+        photos(username: string, page?: number, perPage?: number, orderBy?: string, stats?: boolean): Promise<Response>;
 
-        likes(
-            username: string,
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        likes(username: string, page?: number, perPage?: number, orderBy?: string): Promise<Response>;
 
-        collections(
-            username: string,
-            page?: number,
-            perPage?: number,
-            orderBy?: string
-        ): Promise<Response>;
+        collections(username: string, page?: number, perPage?: number, orderBy?: string): Promise<Response>;
     }
 
     interface Categories {
@@ -226,11 +144,7 @@ export namespace UnsplashApi {
 
         category(id: any): Promise<Response>;
 
-        categoryPhotos(
-            id: any,
-            page?: number,
-            perPage?: number
-        ): Promise<Response>;
+        categoryPhotos(id: any, page?: number, perPage?: number): Promise<Response>;
     }
 
     interface Auth {

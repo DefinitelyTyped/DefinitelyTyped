@@ -1,6 +1,3 @@
+var query = 'SELECT * FROM Table';
 
-
-
-var query = "SELECT * FROM Table";
-
-CodeMirror.runMode(query, "text/x-sql", document.body);
+CodeMirror.runMode(query, 'text/x-sql', document.body);

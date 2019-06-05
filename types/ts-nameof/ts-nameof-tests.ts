@@ -24,12 +24,12 @@ nameof.full<TestClass>(t => t.prop); // $ExpectType string
 nameof.full<TestClass>(t => t.prop, 1); // $ExpectType string
 
 // reference type test
-const myObj = { test: "" };
+const myObj = { test: '' };
 nameof(myObj); // $ExpectType string
 nameof.full(myObj); // $ExpectType string
 
 // primitive type test
-const myStr = "";
+const myStr = '';
 nameof(myStr); // $ExpectType string
 nameof.full(myStr); // $ExpectType string
 

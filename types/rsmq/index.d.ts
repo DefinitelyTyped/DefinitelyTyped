@@ -5,19 +5,19 @@
 
 declare namespace RedisSMQ {
     interface CallbackT<R> {
-        (e?:Error, res?:R): void;
+        (e?: Error, res?: R): void;
     }
 
     interface Client {
-        createQueue(options:QueueOptions, cb:CallbackT<number>): void;
-        changeMessageVisibility(options:VisibilityOptions, cb:CallbackT<number>): void;
-        deleteMessage(options:MessageIdentifier, cb:CallbackT<number>): void;
-        deleteQueue(options:QueueIdentifier, cb:CallbackT<number>): void;
-        getQueueAttributes(options:QueueIdentifier, cb:CallbackT<QueueAttributes>): void;
-        listQueues(cb:CallbackT<string[]>): void;
-        receiveMessage(options:ReceiveOptions, cb:CallbackT<Message>): void;
-        sendMessage(options:NewMessage, cb:CallbackT<string>): void;
-        setQueueAttributes(options:QueueOptions, cb:CallbackT<QueueAttributes>): void;
+        createQueue(options: QueueOptions, cb: CallbackT<number>): void;
+        changeMessageVisibility(options: VisibilityOptions, cb: CallbackT<number>): void;
+        deleteMessage(options: MessageIdentifier, cb: CallbackT<number>): void;
+        deleteQueue(options: QueueIdentifier, cb: CallbackT<number>): void;
+        getQueueAttributes(options: QueueIdentifier, cb: CallbackT<QueueAttributes>): void;
+        listQueues(cb: CallbackT<string[]>): void;
+        receiveMessage(options: ReceiveOptions, cb: CallbackT<Message>): void;
+        sendMessage(options: NewMessage, cb: CallbackT<string>): void;
+        setQueueAttributes(options: QueueOptions, cb: CallbackT<QueueAttributes>): void;
         quit(): void;
     }
 
@@ -71,10 +71,10 @@ declare namespace RedisSMQ {
 import redis = require('redis');
 
 interface RedisSMQStatic {
-    new (options:ClientOptions): Client;
+    new (options: ClientOptions): Client;
 }
 
-interface Client extends RedisSMQ.Client{
+interface Client extends RedisSMQ.Client {
     redis: redis.RedisClient;
 }
 
@@ -88,4 +88,3 @@ interface ClientOptions {
 
 declare var RedisSMQ: RedisSMQStatic;
 export = RedisSMQ;
-

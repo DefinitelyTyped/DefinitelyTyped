@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from "webpack";
+import { Plugin } from 'webpack';
 
 export = ScriptExtHtmlWebpackPlugin;
 
@@ -12,23 +12,18 @@ declare class ScriptExtHtmlWebpackPlugin extends Plugin {
     constructor(options?: ScriptExtHtmlWebpackPlugin.Options);
 }
 
-type ScriptMatchingPatternBase =
-    | string
-    | RegExp
-    | ReadonlyArray<string | RegExp>;
+type ScriptMatchingPatternBase = string | RegExp | ReadonlyArray<string | RegExp>;
 
 interface ScriptMatchingPatternHash {
     test: ScriptMatchingPatternBase;
 }
 
-type ScriptMatchingPattern =
-    | ScriptMatchingPatternBase
-    | ScriptMatchingPatternHash;
+type ScriptMatchingPattern = ScriptMatchingPatternBase | ScriptMatchingPatternHash;
 
 type ScriptMatchingPatternPre =
     | ScriptMatchingPatternBase
     | ScriptMatchingPatternHash & {
-          chunks?: "initial" | "async" | "all";
+          chunks?: 'initial' | 'async' | 'all';
       };
 
 interface Custom {
@@ -58,7 +53,7 @@ declare namespace ScriptExtHtmlWebpackPlugin {
         /**
          * the default attribute to set - 'sync' actually results in no attribute (default: 'sync')
          */
-        defaultAttribute?: "sync" | "async" | "defer";
+        defaultAttribute?: 'sync' | 'async' | 'defer';
         /**
          * script names that should have a type="module" attribute (default: `[]`)
          */

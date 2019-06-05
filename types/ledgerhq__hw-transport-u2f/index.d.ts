@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import Transport from "@ledgerhq/hw-transport";
+import Transport from '@ledgerhq/hw-transport';
 
 declare class TransportU2F extends Transport {
     constructor();

@@ -8,13 +8,13 @@
 import { ChildProcess } from 'child_process';
 
 export interface Options {
-  port: number;
-  dir?: string;
-  heap?: string;
-  detached?: boolean;
-  stdio?: string;
-  cors?: string|string[];
-  sharedDb?: boolean;
+    port: number;
+    dir?: string;
+    heap?: string;
+    detached?: boolean;
+    stdio?: string;
+    cors?: string | string[];
+    sharedDb?: boolean;
 }
 
-export function launch(options?: Options|string, port?: number): ChildProcess;
+export function launch(options?: Options | string, port?: number): ChildProcess;

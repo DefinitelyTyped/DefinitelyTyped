@@ -1,4 +1,4 @@
-import { IntervalOptions } from "./IntervalOptions";
+import { IntervalOptions } from './IntervalOptions';
 
 /**
  * Provides options for range-controls.

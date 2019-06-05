@@ -6,7 +6,7 @@ declare namespace adone.system {
         /**
          * Returns uid by the given username
          */
-        function uid(username: string): { uid: number, gid: number };
+        function uid(username: string): { uid: number; gid: number };
 
         /**
          * Returns gid by the given groupname

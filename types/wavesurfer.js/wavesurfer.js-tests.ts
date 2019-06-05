@@ -1,25 +1,25 @@
-import * as WaveSurfer from "wavesurfer.js";
+import * as WaveSurfer from 'wavesurfer.js';
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
 // - create an instance
 const wavesurfer = WaveSurfer.create({
-    container: "#waveform",
-    waveColor: "violet",
-    progressColor: "purple"
+    container: '#waveform',
+    waveColor: 'violet',
+    progressColor: 'purple',
 });
 // -- subscribe to some events
-wavesurfer.on("ready", () => {
+wavesurfer.on('ready', () => {
     wavesurfer.play();
 });
 // -- load an audio file
-wavesurfer.load("audio/sample.wav");
+wavesurfer.load('audio/sample.wav');
 
 // - create an instance with "new"
 const wsNewed = new WaveSurfer({
-    container: "#waveform",
+    container: '#waveform',
     xhr: {
-        withCredentials: true
-    }
+        withCredentials: true,
+    },
 });
 wsNewed.init();
 // - clear the waveform
@@ -27,26 +27,28 @@ wsNewed.empty();
 
 // - create an instance with plugins
 class SamplePlugin {
-    constructor(params: object, ws: WaveSurfer) { }
+    constructor(params: object, ws: WaveSurfer) {}
     static create(params: object): WaveSurfer.PluginDefinition {
         return {
-            name: "samplePlugin",
+            name: 'samplePlugin',
             instance: SamplePlugin,
-            params
+            params,
         };
     }
-    init(): void { }
-    destroy(): void { }
-    foo(): void { console.log('foo'); }
+    init(): void {}
+    destroy(): void {}
+    foo(): void {
+        console.log('foo');
+    }
 }
 const wsWithPlugins = WaveSurfer.create({
-    container: "#waveform",
-    waveColor: "violet",
+    container: '#waveform',
+    waveColor: 'violet',
     plugins: [
         SamplePlugin.create({
-            container: "#waveform"
-        })
-    ]
+            container: '#waveform',
+        }),
+    ],
 });
 // - call plugin's method
 wsWithPlugins.samplePlugin.foo();

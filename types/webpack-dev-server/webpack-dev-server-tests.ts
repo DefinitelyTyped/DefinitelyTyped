@@ -6,7 +6,7 @@ const multipleCompiler = webpack([]);
 
 // basic example
 let server = new WebpackDevServer(compiler, {
-    publicPath: "/assets/"
+    publicPath: '/assets/',
 });
 server.listen(8080);
 
@@ -16,7 +16,7 @@ const config: WebpackDevServer.Configuration = {
     inline: true,
     // Toggle between the dev-server's two different modes --- inline (default, recommended for HMR) or iframe.
 
-    contentBase: "/path/to/directory",
+    contentBase: '/path/to/directory',
     // or: contentBase: "http://localhost/",
 
     public: 'public-host.ru',
@@ -43,7 +43,7 @@ const config: WebpackDevServer.Configuration = {
     // This is useful if you want to get rid of 'http://localhost:8080/' in script[src],
     // and has many other use cases (see https://github.com/webpack/webpack-dev-server/pull/127 ).
     proxy: {
-        "**": "http://localhost:9090"
+        '**': 'http://localhost:9090',
     },
 
     setup: (app: Application, server: WebpackDevServer) => {
@@ -55,8 +55,7 @@ const config: WebpackDevServer.Configuration = {
     },
 
     // pass [static options](http://expressjs.com/en/4x/api.html#express.static) to inner express server
-    staticOptions: {
-    },
+    staticOptions: {},
 
     stats: {
         assets: false,
@@ -67,28 +66,28 @@ const config: WebpackDevServer.Configuration = {
     quiet: false,
     noInfo: false,
     lazy: true,
-    filename: "bundle.js",
+    filename: 'bundle.js',
     watchOptions: {
         aggregateTimeout: 300,
-        poll: 1000
+        poll: 1000,
     },
     writeToDisk: true,
     // It's a required option.
-    publicPath: "/assets/",
-    headers: { "X-Custom-Header": "yes" }
+    publicPath: '/assets/',
+    headers: { 'X-Custom-Header': 'yes' },
 };
 
 const c2: WebpackDevServer.Configuration = {
     stats: false,
 };
 const c3: WebpackDevServer.Configuration = {
-    stats: "verbose",
+    stats: 'verbose',
 };
 const c4: WebpackDevServer.Configuration = {
     writeToDisk: (filePath: string) => true,
 };
 const c5: WebpackDevServer.Configuration = {
-    proxy: [{context: (pathname: string) => true}]
+    proxy: [{ context: (pathname: string) => true }],
 };
 const c6: WebpackDevServer.Configuration = {
     historyApiFallback: {
@@ -99,28 +98,28 @@ const c6: WebpackDevServer.Configuration = {
         rewrites: [
             {
                 from: /\/page/,
-                to: '/page.html'
+                to: '/page.html',
             },
             {
                 from: /^\/images\/.*$/,
-                to: (context) => '/assets/' + context.parsedUrl.pathname
-            }
+                to: context => '/assets/' + context.parsedUrl.pathname,
+            },
         ],
-        verbose: true
-    }
+        verbose: true,
+    },
 };
 
 // API example
 server = new WebpackDevServer(compiler, config);
-server.listen(8080, "localhost", () => { });
+server.listen(8080, 'localhost', () => {});
 
 // HTTPS example
 server = new WebpackDevServer(compiler, {
-    publicPath: "/assets/",
-    https: true
+    publicPath: '/assets/',
+    https: true,
 });
 
-server.listen(8080, "localhost", () => { });
+server.listen(8080, 'localhost', () => {});
 
 server.close();
 
@@ -131,22 +130,22 @@ const webpackConfig: webpack.Configuration = {
 
     target: 'node',
 
-    devServer: config
+    devServer: config,
 };
 
 WebpackDevServer.addDevServerEntrypoints(webpackConfig, {
-    publicPath: "/assets/",
-    https: true
+    publicPath: '/assets/',
+    https: true,
 });
 
 WebpackDevServer.addDevServerEntrypoints(
     [webpackConfig],
     {
-        publicPath: "/assets/",
-        https: true
+        publicPath: '/assets/',
+        https: true,
     },
     {
-        address: () => ({ port: 80 })
+        address: () => ({ port: 80 }),
     }
 );
 

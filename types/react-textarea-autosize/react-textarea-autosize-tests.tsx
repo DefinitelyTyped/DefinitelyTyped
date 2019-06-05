@@ -1,12 +1,12 @@
-import * as React from "react";
-import Textarea from "react-textarea-autosize";
+import * as React from 'react';
+import Textarea from 'react-textarea-autosize';
 
 class Test extends React.Component {
-    public ref: HTMLTextAreaElement
+    public ref: HTMLTextAreaElement;
 
     public inputRef = (ref: HTMLTextAreaElement) => {
-        this.ref = ref
-    }
+        this.ref = ref;
+    };
 
     public render() {
         return (
@@ -17,8 +17,9 @@ class Test extends React.Component {
                 value="test"
                 useCacheForDOMMeasurements
                 className="test"
-                inputRef={ this.inputRef }
-                id="test"/>
+                inputRef={this.inputRef}
+                id="test"
+            />
         );
     }
 }

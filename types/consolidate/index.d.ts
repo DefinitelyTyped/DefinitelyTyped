@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import Promise = require("bluebird");
+import Promise = require('bluebird');
 
 declare var cons: Consolidate;
 
@@ -16,8 +16,8 @@ export = cons;
 
 interface Consolidate {
     /**
-         * expose the instance of the engine
-   */
+     * expose the instance of the engine
+     */
     requires: Object;
 
     /**
@@ -64,13 +64,21 @@ interface Consolidate {
 interface RendererInterface {
     render(path: string, fn: (err: Error, html: string) => any): any;
 
-    render(path: string, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: string) => any): any;
+    render(
+        path: string,
+        options: { cache?: boolean; [otherOptions: string]: any },
+        fn: (err: Error, html: string) => any
+    ): any;
 
-    render(path: string, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<string>;
+    render(path: string, options?: { cache?: boolean; [otherOptions: string]: any }): Promise<string>;
 
     (path: string, fn: (err: Error, html: string) => any): any;
 
-    (path: string, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: string) => any): any;
+    (
+        path: string,
+        options: { cache?: boolean; [otherOptions: string]: any },
+        fn: (err: Error, html: string) => any
+    ): any;
 
-    (path: string, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<string>;
+    (path: string, options?: { cache?: boolean; [otherOptions: string]: any }): Promise<string>;
 }

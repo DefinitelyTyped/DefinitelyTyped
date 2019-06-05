@@ -1,4 +1,6 @@
-export default function getPaths(path: string): {
+export default function getPaths(
+    path: string
+): {
     paths: string[];
     seqments: string[];
 };

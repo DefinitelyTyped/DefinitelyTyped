@@ -6,7 +6,7 @@ import path = require('path');
 const PROTO_PATH = path.resolve(__dirname, '../protos/helloworld.proto');
 
 function errorLogger(err: Error, ctx: Mali.Context) {
-  console.log('Error on %s: %s', ctx.name, err.toString());
+    console.log('Error on %s: %s', ctx.name, err.toString());
 }
 
 const app = new Mali(PROTO_PATH);

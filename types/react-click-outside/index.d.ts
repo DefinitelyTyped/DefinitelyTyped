@@ -4,9 +4,9 @@
 //                 Roman Nuritdinov <https://github.com/Ky6uk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from "react";
+import * as React from 'react';
 
 declare function enhanceWithClickOutside<C extends React.ComponentClass<any>>(wrappedComponent: C): C;
 
-declare namespace enhanceWithClickOutside { }
+declare namespace enhanceWithClickOutside {}
 export = enhanceWithClickOutside;

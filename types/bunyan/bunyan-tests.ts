@@ -1,26 +1,26 @@
 import Logger = require('bunyan');
 
 const ringBufferOptions: Logger.RingBufferOptions = {
-    limit: 100
+    limit: 100,
 };
 const ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
-ringBuffer.write("hello");
+ringBuffer.write('hello');
 
 const rotatingFileStreamOptions: Logger.RotatingFileStreamOptions = {
-    period: "1d",
+    period: '1d',
     count: 10,
-    path: "path"
+    path: 'path',
 };
 const rotatingFileStream: Logger.RotatingFileStream = new Logger.RotatingFileStream(rotatingFileStreamOptions);
-rotatingFileStream.write("hello");
+rotatingFileStream.write('hello');
 
 let level: number;
-level = Logger.resolveLevel("trace");
-level = Logger.resolveLevel("debug");
-level = Logger.resolveLevel("info");
-level = Logger.resolveLevel("warn");
-level = Logger.resolveLevel("error");
-level = Logger.resolveLevel("fatal");
+level = Logger.resolveLevel('trace');
+level = Logger.resolveLevel('debug');
+level = Logger.resolveLevel('info');
+level = Logger.resolveLevel('warn');
+level = Logger.resolveLevel('error');
+level = Logger.resolveLevel('fatal');
 level = Logger.resolveLevel(Logger.TRACE);
 level = Logger.resolveLevel(Logger.DEBUG);
 level = Logger.resolveLevel(Logger.INFO);
@@ -31,38 +31,45 @@ level = Logger.resolveLevel(Logger.FATAL);
 const options: Logger.LoggerOptions = {
     name: 'test-logger',
     serializers: Logger.stdSerializers,
-    streams: [{
-        type: 'stream',
-        stream: process.stdout,
-        level: Logger.TRACE,
-        name: 'foo'
-    }, {
-        type: 'file',
-        path: '/tmp/test.log',
-        level: Logger.DEBUG,
-        closeOnExit: true
-    }, {
-        type: 'rotating-file',
-        path: '/tmp/test2.log',
-        level: Logger.INFO,
-        closeOnExit: false,
-        period: '1d',
-        count: 3
-    }, {
-        type: 'raw',
-        stream: process.stderr,
-        level: Logger.FATAL + 1, // disabled, as stderr explodes when given raw streams
-    }, {
-        type: 'raw',
-        stream: ringBuffer,
-        level: Logger.ERROR,
-        reemitErrorEvents: true
-    }, {
-        type: 'raw',
-        stream: rotatingFileStream,
-        level: Logger.ERROR,
-        reemitErrorEvents: true
-    }]
+    streams: [
+        {
+            type: 'stream',
+            stream: process.stdout,
+            level: Logger.TRACE,
+            name: 'foo',
+        },
+        {
+            type: 'file',
+            path: '/tmp/test.log',
+            level: Logger.DEBUG,
+            closeOnExit: true,
+        },
+        {
+            type: 'rotating-file',
+            path: '/tmp/test2.log',
+            level: Logger.INFO,
+            closeOnExit: false,
+            period: '1d',
+            count: 3,
+        },
+        {
+            type: 'raw',
+            stream: process.stderr,
+            level: Logger.FATAL + 1, // disabled, as stderr explodes when given raw streams
+        },
+        {
+            type: 'raw',
+            stream: ringBuffer,
+            level: Logger.ERROR,
+            reemitErrorEvents: true,
+        },
+        {
+            type: 'raw',
+            stream: rotatingFileStream,
+            level: Logger.ERROR,
+            reemitErrorEvents: true,
+        },
+    ],
 };
 
 const log = Logger.createLogger(options);
@@ -73,13 +80,11 @@ const customSerializer = (anything: any) => {
 
 log.addSerializers({ anything: customSerializer });
 log.addSerializers(Logger.stdSerializers);
-log.addSerializers(
-    {
-        err: Logger.stdSerializers.err,
-        req: Logger.stdSerializers.req,
-        res: Logger.stdSerializers.res
-    }
-);
+log.addSerializers({
+    err: Logger.stdSerializers.err,
+    req: Logger.stdSerializers.req,
+    res: Logger.stdSerializers.res,
+});
 
 const levels: number[] = log.levels();
 level = log.levels(0);
@@ -92,7 +97,7 @@ log.levels('foo', Logger.WARN);
 const buffer = new Buffer(0);
 const error = new Error('');
 const object = {
-    test: 123
+    test: 123,
 };
 
 log.trace();
@@ -128,7 +133,7 @@ log.fatal('Hello, %s', 'world!');
 
 const recursive: any = {
     hello: 'world',
-    whats: {}
+    whats: {},
 };
 recursive.whats['huh'] = recursive;
 

@@ -6,10 +6,7 @@
 
 import express = require('express');
 
-type CustomOrigin = (
-    requestOrigin: string | undefined,
-    callback: (err: Error | null, allow?: boolean) => void
-) => void;
+type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => void;
 
 declare namespace e {
     interface CorsOptions {
@@ -28,7 +25,5 @@ declare namespace e {
     ) => void;
 }
 
-declare function e(
-    options?: e.CorsOptions | e.CorsOptionsDelegate
-): express.RequestHandler;
+declare function e(options?: e.CorsOptions | e.CorsOptionsDelegate): express.RequestHandler;
 export = e;

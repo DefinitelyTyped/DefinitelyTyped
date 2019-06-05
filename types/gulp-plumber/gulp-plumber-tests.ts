@@ -8,21 +8,23 @@ gulp.src('./src/*.ext')
 
 //error handler function
 gulp.src('./src/*.ext')
-    .pipe(plumber((error) => {
-		console.log(error);
-	}))
+    .pipe(
+        plumber(error => {
+            console.log(error);
+        })
+    )
     .pipe(gulp.dest('./dist'));
-	
+
 gulp.src('./src/*.ext')
     .pipe(plumber({}))
     .pipe(gulp.dest('./dist'));
-    
+
 gulp.src('./src/*.ext')
     .pipe(plumber({ inherit: false }))
     .pipe(gulp.dest('./dist'));
-    
+
 gulp.src('./src/*.ext')
-    .pipe(plumber({ errorHandler: (error) => console.log(error) }))
+    .pipe(plumber({ errorHandler: error => console.log(error) }))
     .pipe(gulp.dest('./dist'));
 
 //plumber.stop()

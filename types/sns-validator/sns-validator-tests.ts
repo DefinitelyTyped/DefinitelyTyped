@@ -35,7 +35,7 @@ new SNSValidator().validate('invalid_message', (err, message) => {
 });
 
 // Test with an invalid JSON
-new SNSValidator().validate({...messageObject, Signature: "invalid_signature"}, (err, message) => {
+new SNSValidator().validate({ ...messageObject, Signature: 'invalid_signature' }, (err, message) => {
     const e = err; // $ExpectType Error | null
     const m = message; // $ExpectType object | undefined
 });

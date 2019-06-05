@@ -1,4 +1,4 @@
-import * as srp from "secure-random-password";
+import * as srp from 'secure-random-password';
 
 {
     srp.randomPassword();
@@ -13,7 +13,7 @@ import * as srp from "secure-random-password";
             srp.digits,
             srp.symbols,
             srp.fullSymbols,
-            srp.copyableSymbols
-        ]
+            srp.copyableSymbols,
+        ],
     });
 }

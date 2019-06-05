@@ -17,4 +17,4 @@ import { Plugin } from 'prosemirror-state';
  * @param options.color The color of the cursor. Defaults to `black`.
  * @param options.width The precise width of the cursor in pixels. Defaults to 1.
  */
-export function dropCursor(options?: { color?: string | null, width?: number | null }): Plugin;
+export function dropCursor(options?: { color?: string | null; width?: number | null }): Plugin;

@@ -17,55 +17,55 @@ declare namespace BootstrapGrowlIfightcrime {
         /**
          * Position: top or bottom
          */
-         from?: OffsetPositionType;
+        from?: OffsetPositionType;
 
         /**
          * Offset amount
          */
-         amount?: number;
-     }
+        amount?: number;
+    }
 
-     interface Options {
+    interface Options {
         /**
          * Which element to append to
          */
-         ele?: string;
+        ele?: string;
 
         /**
          * Values of (null, 'info', 'danger', 'success', 'warning') or another value
          */
-         type?: AlertType;
+        type?: AlertType;
 
         /**
          * Offset Options
          */
-         offset?: OffsetOption;
+        offset?: OffsetOption;
 
         /**
          * 'left', 'right', or 'center'
          */
-         align?: AlignType;
+        align?: AlignType;
 
         /**
          * Integer or 'auto'
          */
-         width?: number | 'auto';
+        width?: number | 'auto';
 
         /**
          * Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
          */
-         delay?: number;
+        delay?: number;
 
         /**
          *  If true then will display a cross to close the popup.
          */
-         allow_dismiss?: boolean;
+        allow_dismiss?: boolean;
 
         /**
          * Spacing between consecutively stacked growls.
          */
-         stackup_spacing?: number;
-     }
+        stackup_spacing?: number;
+    }
 }
 interface JQueryStatic {
     /**
@@ -74,5 +74,5 @@ interface JQueryStatic {
      * @param options should be an options object.
      * @returns The element.
      */
-     bootstrapGrowl: (message: string, options?: BootstrapGrowlIfightcrime.Options) => JQuery;
+    bootstrapGrowl: (message: string, options?: BootstrapGrowlIfightcrime.Options) => JQuery;
 }

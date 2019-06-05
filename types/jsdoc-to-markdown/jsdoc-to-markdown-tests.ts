@@ -1,16 +1,16 @@
-import { JsdocToMarkdown, StyleListFormat } from "jsdoc-to-markdown";
+import { JsdocToMarkdown, StyleListFormat } from 'jsdoc-to-markdown';
 
 const jsdoc2md = new JsdocToMarkdown();
 
 const JsdocDataOptions = {
-    files: "file.js"
+    files: 'file.js',
 };
 
 const RenderOptions = {
     data: [],
-    plugin: "",
-    helper: [""],
-    moduleIndexFormat: "table" as StyleListFormat
+    plugin: '',
+    helper: [''],
+    moduleIndexFormat: 'table' as StyleListFormat,
 };
 
 jsdoc2md.render(JsdocDataOptions);

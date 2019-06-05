@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @component
      * @name pc.AudioSourceComponent
@@ -20,7 +19,7 @@ declare namespace pc {
      * @property {Number} rollOffFactor The factor used in the falloff equation.
      */
     class AudioSourceComponent extends pc.Component {
-        constructor(system: pc.AudioSourceComponentSystem, entity: pc.Entity)
+        constructor(system: pc.AudioSourceComponentSystem, entity: pc.Entity);
 
         assets: pc.Asset[];
         activate: boolean;
@@ -32,7 +31,4 @@ declare namespace pc {
         maxDistance: number;
         rollOffFactor: number;
     }
-
-
-    
 }

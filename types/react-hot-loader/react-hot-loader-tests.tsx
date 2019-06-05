@@ -1,10 +1,10 @@
-import * as React from "react";
-import { AppContainer, hot, ReactComponent } from "react-hot-loader";
+import * as React from 'react';
+import { AppContainer, hot, ReactComponent } from 'react-hot-loader';
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-it("Using AppContainer", () => {
+it('Using AppContainer', () => {
     interface ErrorReporterProps {
         error: any;
     }
@@ -31,7 +31,7 @@ it("Using AppContainer", () => {
     }
 });
 
-it("Using hot", () => {
+it('Using hot', () => {
     interface Props {
         name: string;
     }

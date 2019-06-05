@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from "react";
+import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from 'react';
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
@@ -12,10 +12,10 @@ interface SizeOverrideHTMLProps<T> extends HTMLProps<T> {
     size?: any;
 }
 
-export type IconSize = "lg" | "2x" | "3x" | "4x" | "5x";
-export type IconRotation = "45" | "90" | "135" | "180" | "225" | "270" | "315";
-export type IconFlip = "horizontal" | "vertical";
-export type IconStackSize = "1x" | "2x";
+export type IconSize = 'lg' | '2x' | '3x' | '4x' | '5x';
+export type IconRotation = '45' | '90' | '135' | '180' | '225' | '270' | '315';
+export type IconFlip = 'horizontal' | 'vertical';
+export type IconStackSize = '1x' | '2x';
 
 type CustomComponent = string | ComponentClass<any> | StatelessComponent<any>;
 

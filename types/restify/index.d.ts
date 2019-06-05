@@ -859,7 +859,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string|object;
+    query?: string | object;
 
     /**
      * if true, `options.query`
@@ -1022,11 +1022,11 @@ export namespace bunyan {
     }
 
     const serializers: Logger.Serializers & {
-        err: Logger.Serializer,
-        req: Logger.Serializer,
-        res: Logger.Serializer,
-        client_req: Logger.Serializer,
-        client_res: Logger.Serializer
+        err: Logger.Serializer;
+        req: Logger.Serializer;
+        res: Logger.Serializer;
+        client_req: Logger.Serializer;
+        client_res: Logger.Serializer;
     };
 
     /** create a bunyan logger */
@@ -1451,7 +1451,7 @@ export namespace plugins {
         /**
          * The route obj that serviced the request
          */
-        route: Route,
+        route: Route
     ) => void;
 
     type TMetricsCallback = 'close' | 'aborted' | undefined;

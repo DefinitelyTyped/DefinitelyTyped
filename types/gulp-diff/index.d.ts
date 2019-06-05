@@ -14,19 +14,19 @@ import stream = require('stream');
 declare function gulp_diff(dest?: string): stream.Transform;
 
 declare namespace gulp_diff {
-  const diff: typeof gulp_diff;
+    const diff: typeof gulp_diff;
 
-  function reporter(opts?: ReporterOptions): stream.Transform;
-  interface ReporterOptions {
-    /**
-     * do not show diff information, defaults to `false`
-     */
-    quiet?: boolean;
-    /**
-     * emit an error on finding diffs, defaults to `false`
-     */
-    fail?: boolean;
-  }
+    function reporter(opts?: ReporterOptions): stream.Transform;
+    interface ReporterOptions {
+        /**
+         * do not show diff information, defaults to `false`
+         */
+        quiet?: boolean;
+        /**
+         * emit an error on finding diffs, defaults to `false`
+         */
+        fail?: boolean;
+    }
 }
 
 export = gulp_diff;

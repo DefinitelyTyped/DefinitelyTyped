@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.CameraComponentSystem
      * @class Used to add and remove {@link pc.CameraComponent}s from Entities. It also holds an
@@ -11,7 +10,7 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class CameraComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
 
         cameras: pc.CameraComponent[];
     }

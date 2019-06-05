@@ -1,4 +1,3 @@
-
 import nconf = require('nconf');
 
 var value: any;
@@ -15,9 +14,9 @@ var callback: (err: Error) => void;
 var fmt: nconf.IFormat;
 
 value = nconf.clear(str, callback);
-value = nconf.get (str, callback);
+value = nconf.get(str, callback);
 value = nconf.merge(str, value, callback);
-value = nconf.set (str, value, callback);
+value = nconf.set(str, value, callback);
 value = nconf.reset(callback);
 value = nconf.any([str], callback);
 
@@ -27,7 +26,7 @@ value = nconf.loadSources();
 value = nconf.save(value, callback);
 
 p = nconf.add(str);
-p = nconf.add(str, opts);;
+p = nconf.add(str, opts);
 
 p = nconf.argv();
 p = nconf.argv(opts);
@@ -42,7 +41,7 @@ p = nconf.file(str, fopts);
 p = nconf.file(fopts);
 p = nconf.file({
     format: fmt,
-    file: 'jsonFile.custom'
+    file: 'jsonFile.custom',
 });
 p = nconf.use(str);
 p = nconf.use(str, opts);
@@ -50,7 +49,7 @@ p = nconf.use(str, opts);
 p = nconf.defaults();
 p = nconf.defaults(opts);
 
-p = nconf.defaults({foo: 'bar'});
+p = nconf.defaults({ foo: 'bar' });
 
 nconf.init();
 nconf.init(opts);
@@ -83,8 +82,8 @@ valueArr = p.sources;
 
 value = p.clear(str, callback);
 value = p.get(str, callback);
-value = p.merge(str,value,callback);
-value = p.set(str,value,callback);
+value = p.merge(str, value, callback);
+value = p.set(str, value, callback);
 value = p.reset(callback);
 value = p.any([str], callback);
 
@@ -105,15 +104,15 @@ p = p.file(str, fopts);
 p = p.file(fopts);
 p = p.file({
     file: 'iniFile.ini',
-    format: nconf.formats.ini
+    format: nconf.formats.ini,
 });
 p = p.file({
     file: 'jsonFile.json',
-    format: nconf.formats.json
+    format: nconf.formats.json,
 });
 p = p.file({
     file: 'jsonFile.custom',
-    format: fmt
+    format: fmt,
 });
 p = p.use(str, opts);
 
@@ -126,7 +125,11 @@ store = p.create(str, opts);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-class CustomFmt implements nconf.IFormat  {
-    stringify(obj: any, replacer: any, spacing?: any): string { return ""; }
-    parse(str: string): any { return {} }
-};
+class CustomFmt implements nconf.IFormat {
+    stringify(obj: any, replacer: any, spacing?: any): string {
+        return '';
+    }
+    parse(str: string): any {
+        return {};
+    }
+}

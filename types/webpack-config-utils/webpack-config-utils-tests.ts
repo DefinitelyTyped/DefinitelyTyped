@@ -34,13 +34,13 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
             ifFoo, // $ExpectType IfUtilsFn
             ifBar, // $ExpectType IfUtilsFn
             ifNotFoo, // $ExpectType IfUtilsFn
-            ifNotBar // $ExpectType IfUtilsFn
+            ifNotBar, // $ExpectType IfUtilsFn
         } = utils;
     }
 
     {
         const {
-            ifProduction // $ExpectType IfUtilsFn
+            ifProduction, // $ExpectType IfUtilsFn
         } = getIfUtils('production');
 
         // $ExpectType "value" | "alternate"
@@ -87,12 +87,12 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
     const {
         a, // $ExpectType number
         b, // $ExpectType string
-        d // $ExpectType null
+        d, // $ExpectType null
     } = emptiedObject;
 
     {
         // $ExpectError
-        const {a, b, c, d} = emptiedObject;
+        const { a, b, c, d } = emptiedObject;
     }
 
     // $ExpectType number | null

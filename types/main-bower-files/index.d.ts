@@ -6,8 +6,6 @@
 
 /// <reference types="node" />
 
-
-
 interface IPaths {
     bowerDirectory?: string;
     bowerrc?: string;

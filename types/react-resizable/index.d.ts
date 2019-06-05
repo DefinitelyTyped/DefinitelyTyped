@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-export type Axis = "both" | "x" | "y" | "none";
+export type Axis = 'both' | 'x' | 'y' | 'none';
 
 export interface ResizableState {
     resizing: boolean;
@@ -46,10 +46,7 @@ export interface ResizableProps {
     draggableOpts?: any;
 }
 
-export class Resizable extends React.Component<
-    ResizableProps,
-    ResizableState
-> {}
+export class Resizable extends React.Component<ResizableProps, ResizableState> {}
 
 export interface ResizableBoxState {
     height: number;
@@ -58,7 +55,4 @@ export interface ResizableBoxState {
 
 export type ResizableBoxProps = ResizableProps;
 
-export class ResizableBox extends React.Component<
-    ResizableBoxProps,
-    ResizableBoxState
-> {}
+export class ResizableBox extends React.Component<ResizableBoxProps, ResizableBoxState> {}

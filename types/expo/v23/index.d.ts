@@ -12,7 +12,7 @@ import {
     ColorPropType,
     ImageURISource,
     NativeEventEmitter,
-    ImageRequireSource
+    ImageRequireSource,
 } from 'react-native';
 
 export type URISource = ImageURISource;
@@ -22,9 +22,11 @@ export type ResizeModeCover = 'cover';
 export type ResizeModeStretch = 'stretch';
 export type Orientation = 'portrait' | 'landscape';
 export type Axis = number;
-export interface HashMap { [key: string]: any; }
+export interface HashMap {
+    [key: string]: any;
+}
 export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
-export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
+export type BarCodeReadCallback = (params: { type: string; data: string }) => void;
 export type Md5 = string;
 
 /**
@@ -65,7 +67,7 @@ export interface AdMobBannerProperties extends ViewProps {
     adViewWillLeaveApplication?(): void;
 }
 
-export class AdMobBanner extends Component<AdMobBannerProperties> { }
+export class AdMobBanner extends Component<AdMobBannerProperties> {}
 
 export interface AdMobAppEvent {
     name: string;
@@ -74,7 +76,7 @@ export interface AdMobAppEvent {
 export interface PublisherBannerProperties extends AdMobBannerProperties {
     admobDispatchAppEvent?(event: AdMobAppEvent): void;
 }
-export class PublisherBanner extends Component<PublisherBannerProperties> { }
+export class PublisherBanner extends Component<PublisherBannerProperties> {}
 
 export type AdMobInterstitialEmptyEvent =
     | 'interstitialDidLoad'
@@ -106,10 +108,16 @@ export namespace AdMobRewarded {
     function setTestDeviceID(id: string): void;
     function requestAd(callback?: () => void): void;
     function showAd(callback?: (error: string) => void): void;
-    function addEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function addEventListener(
+        event: 'rewardedVideoDidRewardUser',
+        handler: (type: string, amount: number) => void
+    ): void;
     function addEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
     function addEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
-    function removeEventListener(event: 'rewardedVideoDidRewardUser', handler: (type: string, amount: number) => void): void;
+    function removeEventListener(
+        event: 'rewardedVideoDidRewardUser',
+        handler: (type: string, amount: number) => void
+    ): void;
     function removeEventListener(event: 'rewardedVideoDidFailToLoad', handler: (error: string) => void): void;
     function removeEventListener(event: AdMobRewardedEmptyEvent, handler: () => void): void;
     function removeAllListeners(): void;
@@ -132,7 +140,14 @@ export namespace Amplitude {
  * Asset
  */
 export class Asset {
-    constructor({ name, type, hash, uri, width, height }: {
+    constructor({
+        name,
+        type,
+        hash,
+        uri,
+        width,
+        height,
+    }: {
         name: string;
         type: string;
         hash: string;
@@ -150,7 +165,7 @@ export class Asset {
 
     downloading: boolean;
     downloaded: boolean;
-    downloadCallbacks: Array<{ resolve: () => any, reject: (e?: any) => any }>;
+    downloadCallbacks: Array<{ resolve: () => any; reject: (e?: any) => any }>;
 
     downloadAsync(): Promise<void>;
 
@@ -162,20 +177,28 @@ export class Asset {
  * AuthSession
  */
 export namespace AuthSession {
-    function startAsync(options: { authUrl: string; returnUrl: string; }): Promise<{
-        type: 'cancel';
-    } | {
-        type: 'dismissed';
-    } | {
-        type: 'success';
-        params: HashMap;
-        event: HashMap;
-    } | {
-        type: 'error';
-        params: HashMap;
-        errorCode: string;
-        event: HashMap;
-    }>;
+    function startAsync(options: {
+        authUrl: string;
+        returnUrl: string;
+    }): Promise<
+        | {
+              type: 'cancel';
+          }
+        | {
+              type: 'dismissed';
+          }
+        | {
+              type: 'success';
+              params: HashMap;
+              event: HashMap;
+          }
+        | {
+              type: 'error';
+              params: HashMap;
+              errorCode: string;
+              event: HashMap;
+          }
+    >;
     function dismiss(): void;
     function getRedirectUrl(): string;
 }
@@ -183,28 +206,30 @@ export namespace AuthSession {
 /**
  * AV
  */
-export type PlaybackStatus = {
-    isLoaded: false;
-    androidImplementation?: string;
-    error?: string;
-} | {
-    isLoaded: true;
-    androidImplementation?: string;
-    uri: string;
-    progressUpdateIntervalMillis: number;
-    durationMillis?: number;
-    positionMillis: number;
-    playableDurationMillis?: number;
-    shouldPlay: boolean;
-    isPlaying: boolean;
-    isBuffering: boolean;
-    rate: number;
-    shouldCorrectPitch: boolean;
-    volume: number;
-    isMuted: boolean;
-    isLooping: boolean;
-    didJustFinish: boolean;
-};
+export type PlaybackStatus =
+    | {
+          isLoaded: false;
+          androidImplementation?: string;
+          error?: string;
+      }
+    | {
+          isLoaded: true;
+          androidImplementation?: string;
+          uri: string;
+          progressUpdateIntervalMillis: number;
+          durationMillis?: number;
+          positionMillis: number;
+          playableDurationMillis?: number;
+          shouldPlay: boolean;
+          isPlaying: boolean;
+          isBuffering: boolean;
+          rate: number;
+          shouldCorrectPitch: boolean;
+          volume: number;
+          isMuted: boolean;
+          isLooping: boolean;
+          didJustFinish: boolean;
+      };
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
@@ -242,26 +267,29 @@ export namespace Audio {
     enum InterruptionModeIOS {
         INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS = 0,
         INTERRUPTION_MODE_IOS_DO_NOT_MIX = 1,
-        INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2
+        INTERRUPTION_MODE_IOS_DUCK_OTHERS = 2,
     }
 
     enum InterruptionModeAndroid {
         INTERRUPTION_MODE_ANDROID_DO_NOT_MIX = 1,
-        INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2
+        INTERRUPTION_MODE_ANDROID_DUCK_OTHERS = 2,
     }
 
-    type RecordingStatus = {
-        canRecord: false,
-        isDoneRecording: false
-    } | {
-        canRecord: true,
-        isRecording: boolean,
-        durationMillis: number
-    } | {
-        canRecord: false,
-        isDoneRecording: true,
-        durationMillis: number
-    };
+    type RecordingStatus =
+        | {
+              canRecord: false;
+              isDoneRecording: false;
+          }
+        | {
+              canRecord: true;
+              isRecording: boolean;
+              durationMillis: number;
+          }
+        | {
+              canRecord: false;
+              isDoneRecording: true;
+              durationMillis: number;
+          };
 
     interface AudioMode {
         playsInSilentModeIOS: boolean;
@@ -282,7 +310,7 @@ export namespace Audio {
             initialStatus?: PlaybackStatusToSet,
             onPlaybackStatusUpdate?: ((status: PlaybackStatus) => void) | null,
             downloadFirst?: boolean
-        ): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        ): Promise<{ sound: Sound; status: PlaybackStatus }>;
     }
 
     interface RecordingOptions {
@@ -322,7 +350,10 @@ export namespace Audio {
         pauseAsync(): Promise<RecordingStatus>;
         stopAndUnloadAsync(): Promise<RecordingStatus>;
         getURI(): string | undefined;
-        createNewLoadedSound(initialStatus: PlaybackStatusToSet, onPlaybackStatusUpdate: (status: PlaybackStatus) => void): Promise<{ sound: Sound, status: PlaybackStatus }>;
+        createNewLoadedSound(
+            initialStatus: PlaybackStatusToSet,
+            onPlaybackStatusUpdate: (status: PlaybackStatus) => void
+        ): Promise<{ sound: Sound; status: PlaybackStatus }>;
     }
 }
 
@@ -344,7 +375,7 @@ export enum FullscreenUpdateVariants {
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_PRESENT = 0,
     IOS_FULLSCREEN_UPDATE_PLAYER_DID_PRESENT = 1,
     IOS_FULLSCREEN_UPDATE_PLAYER_WILL_DISMISS = 2,
-    IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3
+    IOS_FULLSCREEN_UPDATE_PLAYER_DID_DISMISS = 3,
 }
 
 export interface FullscreenUpdateEvent {
@@ -409,7 +440,7 @@ export interface AppLoadingProperties {
     onError?: (error: Error) => void;
 }
 
-export class AppLoading extends Component<AppLoadingProperties> { }
+export class AppLoading extends Component<AppLoadingProperties> {}
 
 /**
  * BarCodeScanner
@@ -421,7 +452,7 @@ export interface BarCodeScannerProps extends ViewProps {
     onBarCodeRead?: BarCodeReadCallback;
 }
 
-export class BarCodeScanner extends Component<BarCodeScannerProps> { }
+export class BarCodeScanner extends Component<BarCodeScannerProps> {}
 
 /**
  * BlurView
@@ -430,7 +461,7 @@ export interface BlurViewProps extends ViewProps {
     tint: 'light' | 'default' | 'dark';
     intensity: number;
 }
-export class BlurView extends Component<BlurViewProps> { }
+export class BlurView extends Component<BlurViewProps> {}
 
 /**
  * Brightness
@@ -465,7 +496,7 @@ export interface RecordOptions {
 }
 export class CameraObject {
     takePictureAsync(options: TakePictureOptions): Promise<PictureResponse>;
-    recordAsync(options: RecordOptions): Promise<{ uri: string; }>;
+    recordAsync(options: RecordOptions): Promise<{ uri: string }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
@@ -532,70 +563,70 @@ export namespace Constants {
         platforms?: string[];
         githubUrl?: string;
         notification?: {
-            icon?: string,
-            color?: string,
-            androidMode?: 'default' | 'collapse',
-            androidCollapsedTitle?: string
+            icon?: string;
+            color?: string;
+            androidMode?: 'default' | 'collapse';
+            androidCollapsedTitle?: string;
         };
         loading?: {
-            icon?: string,
-            exponentIconColor?: 'white' | 'blue',
-            exponentIconGrayscale?: 1 | 0,
-            backgroundImage?: string,
-            backgroundColor?: string,
-            hideExponentText?: boolean
+            icon?: string;
+            exponentIconColor?: 'white' | 'blue';
+            exponentIconGrayscale?: 1 | 0;
+            backgroundImage?: string;
+            backgroundColor?: string;
+            hideExponentText?: boolean;
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
-            backgroundColor?: string
+            barStyle?: 'lignt-content' | 'dark-content';
+            backgroundColor?: string;
         };
         androidShowExponentNotificationInShellApp?: boolean;
         extra?: {
-            [propName: string]: any
+            [propName: string]: any;
         };
         rnCliPath?: any;
         entryPoint?: string;
         packagerOpts?: {
-            hostType?: string,
-            dev?: boolean,
-            strict?: boolean,
-            minify?: boolean,
-            urlType?: string,
-            urlRandomness?: string,
-            lanType?: string,
-            [propName: string]: any
+            hostType?: string;
+            dev?: boolean;
+            strict?: boolean;
+            minify?: boolean;
+            urlType?: string;
+            urlRandomness?: string;
+            lanType?: string;
+            [propName: string]: any;
         };
         ignoreNodeModulesValidation?: any;
         nodeModulesPath?: string;
         ios?: {
-            bundleIdentifier?: string,
-            buildNumber?: string,
+            bundleIdentifier?: string;
+            buildNumber?: string;
             config?: {
-                usesNonExemptEncryption?: boolean,
+                usesNonExemptEncryption?: boolean;
                 googleSignIn?: {
-                    reservedClientId: string
-                }
-            },
-            supportsTablet?: boolean,
-            infoPlist?: any
+                    reservedClientId: string;
+                };
+            };
+            supportsTablet?: boolean;
+            infoPlist?: any;
         };
         android?: {
-            package?: string,
-            versionCode?: string,
+            package?: string;
+            versionCode?: string;
             config?: {
                 fabric?: {
-                    apiKey: string,
-                    buildSecret: string
-                },
+                    apiKey: string;
+                    buildSecret: string;
+                };
                 googleMaps?: {
-                    apiKey: string
-                },
+                    apiKey: string;
+                };
                 googleSignIn?: {
-                    apiKey: string,
-                    certificateHash: string
-                }
-            }
+                    apiKey: string;
+                    certificateHash: string;
+                };
+            };
         };
         facebookScheme?: any;
         facebookAppId?: string;
@@ -654,10 +685,25 @@ export namespace Contacts {
     const DATES: Dates;
     const RELATIONSHIPS: Relationships;
 
-    type FieldType = PhoneNumbers | Emails | Addresses | Image | Thumbnail |
-        Note | Birthday | NonGregorianBirthday | NamePrefix | NameSuffix |
-        PhoneticFirstName | PhoneticMiddleName | PhoneticLastName | SocialProfiles |
-        InstantMessageAddresses | UrlAddresses | Dates | Relationships;
+    type FieldType =
+        | PhoneNumbers
+        | Emails
+        | Addresses
+        | Image
+        | Thumbnail
+        | Note
+        | Birthday
+        | NonGregorianBirthday
+        | NamePrefix
+        | NameSuffix
+        | PhoneticFirstName
+        | PhoneticMiddleName
+        | PhoneticLastName
+        | SocialProfiles
+        | InstantMessageAddresses
+        | UrlAddresses
+        | Dates
+        | Relationships;
 
     interface Options {
         pageSize?: number;
@@ -769,14 +815,16 @@ export namespace DocumentPicker {
     interface Options {
         type?: string;
     }
-    type Response = {
-        type: 'success';
-        uri: string;
-        name: string;
-        size: number;
-    } | {
-        type: 'cancel';
-    };
+    type Response =
+        | {
+              type: 'success';
+              uri: string;
+              name: string;
+              size: number;
+          }
+        | {
+              type: 'cancel';
+          };
 
     function getDocumentAsync(options?: Options): Promise<Response>;
 }
@@ -825,15 +873,17 @@ export namespace FacebookAds {
         setMediaCachePolicy(cachePolicy: MediaCachePolicy): void;
     }
 
-    function withNativeAd(component: Component<{
-        icon?: string;
-        coverImage?: string;
-        title?: string;
-        subtitle?: string;
-        description?: string;
-        callToActionText?: string;
-        socialContext?: string;
-    }>): Component<{ adsManager: NativeAdsManager }, { ad: any, canRequestAds: boolean }>;
+    function withNativeAd(
+        component: Component<{
+            icon?: string;
+            coverImage?: string;
+            title?: string;
+            subtitle?: string;
+            description?: string;
+            callToActionText?: string;
+            socialContext?: string;
+        }>
+    ): Component<{ adsManager: NativeAdsManager }, { ad: any; canRequestAds: boolean }>;
 
     /**
      * Banner View
@@ -847,7 +897,7 @@ export namespace FacebookAds {
         onError: () => void;
     }
 
-    class BannerView extends Component<BannerViewProps> { }
+    class BannerView extends Component<BannerViewProps> {}
 
     /**
      * Ad Settings
@@ -868,17 +918,19 @@ export namespace FacebookAds {
  * FileSystem
  */
 export namespace FileSystem {
-    type FileInfo = {
-        exists: true;
-        isDirectory: boolean;
-        uri: string;
-        size: number;
-        modificationTime: number;
-        md5?: Md5;
-    } | {
-        exists: false;
-        isDirectory: false;
-    };
+    type FileInfo =
+        | {
+              exists: true;
+              isDirectory: boolean;
+              uri: string;
+              size: number;
+              modificationTime: number;
+              md5?: Md5;
+          }
+        | {
+              exists: false;
+              isDirectory: false;
+          };
 
     interface DownloadResult {
         uri: string;
@@ -890,15 +942,15 @@ export namespace FileSystem {
     const documentDirectory: string;
     const cacheDirectory: string;
 
-    function getInfoAsync(fileUri: string, options?: { md5?: string, size?: boolean; }): Promise<FileInfo>;
+    function getInfoAsync(fileUri: string, options?: { md5?: string; size?: boolean }): Promise<FileInfo>;
     function readAsStringAsync(fileUri: string): Promise<string>;
     function writeAsStringAsync(fileUri: string, contents: string): Promise<void>;
-    function deleteAsync(fileUri: string, options?: { idempotent: boolean; }): Promise<void>;
-    function moveAsync(options: { from: string, to: string; }): Promise<void>;
-    function copyAsync(options: { from: string, to: string; }): Promise<void>;
+    function deleteAsync(fileUri: string, options?: { idempotent: boolean }): Promise<void>;
+    function moveAsync(options: { from: string; to: string }): Promise<void>;
+    function copyAsync(options: { from: string; to: string }): Promise<void>;
     function makeDirectoryAsync(dirUri: string, options?: { intermediates: boolean }): Promise<void>;
     function readDirectoryAsync(dirUri: string): Promise<string[]>;
-    function downloadAsync(uri: string, fileUri: string, options?: { md5?: boolean; }): Promise<DownloadResult>;
+    function downloadAsync(uri: string, fileUri: string, options?: { md5?: boolean }): Promise<DownloadResult>;
     function createDownloadResumable(
         uri: string,
         fileUri: string,
@@ -910,7 +962,7 @@ export namespace FileSystem {
     interface PauseResult {
         url: string;
         fileUri: string;
-        options: { md5: boolean; };
+        options: { md5: boolean };
         resumeData: string;
     }
 
@@ -946,7 +998,7 @@ export namespace FileSystem {
  * Fingerprint
  */
 export namespace Fingerprint {
-    type FingerprintAuthenticationResult = { success: true } | { success: false, error: string };
+    type FingerprintAuthenticationResult = { success: true } | { success: false; error: string };
 
     function hasHardwareAsync(): Promise<boolean>;
     function isEnrolledAsync(): Promise<boolean>;
@@ -973,7 +1025,7 @@ export interface GLViewProps extends ViewProps {
     onContextCreate(): void;
     msaaSamples: number;
 }
-export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
+export class GLView extends Component<GLViewProps, { msaaSamples: number }> {}
 
 /**
  * Google
@@ -989,23 +1041,25 @@ export namespace Google {
         scopes?: string[];
     }
 
-    type LogInResult = {
-        type: 'cancel';
-    } | {
-        type: 'success';
-        accessToken: string;
-        idToken?: string;
-        refreshToken?: string;
-        serverAuthCode?: string;
-        user: {
-            id: string;
-            name: string;
-            givenName: string;
-            familyName: string;
-            photoUrl?: string;
-            email?: string;
-        }
-    };
+    type LogInResult =
+        | {
+              type: 'cancel';
+          }
+        | {
+              type: 'success';
+              accessToken: string;
+              idToken?: string;
+              refreshToken?: string;
+              serverAuthCode?: string;
+              user: {
+                  id: string;
+                  name: string;
+                  givenName: string;
+                  familyName: string;
+                  photoUrl?: string;
+                  email?: string;
+              };
+          };
 
     function logInAsync(config: LogInConfig): Promise<LogInResult>;
 }
@@ -1159,7 +1213,7 @@ export interface LinearGradientProps {
     locations: number[];
 }
 
-export class LinearGradient extends Component<LinearGradientProps> { }
+export class LinearGradient extends Component<LinearGradientProps> {}
 
 /**
  * Location
@@ -1184,7 +1238,7 @@ export namespace Location {
     interface LocationData {
         coords: {
             heading: number;
-            speed: number
+            speed: number;
         } & Coords;
         timestamp: number;
     }
@@ -1254,7 +1308,7 @@ export namespace Notifications {
         body?: string;
         data?: any;
         ios?: {
-            sound?: boolean
+            sound?: boolean;
         };
         android?: {
             sound?: boolean;
@@ -1274,7 +1328,7 @@ export namespace Notifications {
     function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
     function scheduleLocalNotificationAsync(
         localNotification: LocalNotification,
-        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
+        schedulingOptions: { time: Date | number; repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
     ): Promise<LocalNotificationId>;
     function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
     function dismissAllNotificationsAsync(): Promise<void>;
@@ -1289,16 +1343,15 @@ export namespace Notifications {
  */
 export namespace Pedometer {
     function isAvailableAsync(): Promise<boolean>;
-    function getStepCountAsync(start: Date, end: Date): Promise<{ steps: number; }>;
-    function watchStepCount(callback: (params: { steps: number; }) => void): EventSubscription;
+    function getStepCountAsync(start: Date, end: Date): Promise<{ steps: number }>;
+    function watchStepCount(callback: (params: { steps: number }) => void): EventSubscription;
 }
 
 /**
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording';
+    type PermissionType = 'remoteNotifications' | 'location' | 'camera' | 'contacts' | 'audioRecording';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
     interface PermissionDetailsLocationIOS {
@@ -1366,10 +1419,7 @@ export namespace SecureStore {
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    function initialize(keys: { androidWriteKey: string; iosWriteKey: string }): void;
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
     function track(event: string): void;
@@ -1408,7 +1458,7 @@ export namespace SQLite {
     interface Database {
         transaction(
             callback: (transaction: Transaction) => any,
-            error?: (error: Error) => any,     // TODO def of error
+            error?: (error: Error) => any, // TODO def of error
             success?: () => any
         ): void;
     }
@@ -1433,13 +1483,15 @@ export namespace SQLite {
     }
 
     function openDatabase(
-        name: string | {
-            name: string,
-            version?: string,
-            description?: string,
-            size?: number,
-            callback?: () => any
-        },
+        name:
+            | string
+            | {
+                  name: string;
+                  version?: string;
+                  description?: string;
+                  size?: number;
+                  callback?: () => any;
+              },
         version?: string,
         description?: string,
         size?: number,
@@ -1469,20 +1521,20 @@ export interface SvgCommonProps {
     originY?: number;
 }
 
-export class Svg extends Component<{ width: number, heigth: number }> { }
-export class Rect extends Component<SvgCommonProps> { }
+export class Svg extends Component<{ width: number; heigth: number }> {}
+export class Rect extends Component<SvgCommonProps> {}
 
 export interface CircleProps extends SvgCommonProps {
     cx: Axis;
     cy: Axis;
 }
-export class Circle extends Component<CircleProps> { }
+export class Circle extends Component<CircleProps> {}
 
 export interface EllipseProps extends CircleProps {
     rx: Axis;
     ry: Axis;
 }
-export class Ellipse extends Component<SvgCommonProps> { }
+export class Ellipse extends Component<SvgCommonProps> {}
 
 export interface LineProps extends SvgCommonProps {
     x1: Axis;
@@ -1490,40 +1542,40 @@ export interface LineProps extends SvgCommonProps {
     x2: Axis;
     y2: Axis;
 }
-export class Line extends Component<LineProps> { }
+export class Line extends Component<LineProps> {}
 
 export interface PolyProps extends SvgCommonProps {
     points: string;
 }
-export class Polygon extends Component<PolyProps> { }
-export class Polyline extends Component<PolyProps> { }
+export class Polygon extends Component<PolyProps> {}
+export class Polyline extends Component<PolyProps> {}
 
 export interface PathLine extends SvgCommonProps {
     d: string;
 }
-export class Path extends Component<PolyProps> { }
+export class Path extends Component<PolyProps> {}
 
 export interface TextProps extends SvgCommonProps {
     textAnchor: string;
 }
-export class Text extends Component<TextProps> { }
-export class G extends Component<SvgCommonProps> { }
-export class Use extends Component<{ href: string, x: number, y: number }> { }
-export class Symbol extends Component<{ viewbox: string, widt: number, height: number }> { }
-export class Defs extends Component { }
-export class RadialGradient extends Component<SvgCommonProps> { }
+export class Text extends Component<TextProps> {}
+export class G extends Component<SvgCommonProps> {}
+export class Use extends Component<{ href: string; x: number; y: number }> {}
+export class Symbol extends Component<{ viewbox: string; widt: number; height: number }> {}
+export class Defs extends Component {}
+export class RadialGradient extends Component<SvgCommonProps> {}
 
 /**
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement),
+    view?: number | React.ReactElement,
     options?: {
-        width?: number,
-        height?: number,
-        format?: 'png' | 'jpg' | 'jpeg' | 'webm',
-        quality?: number,
-        result?: 'file' | 'base64' | 'data-uri',
+        width?: number;
+        height?: number;
+        format?: 'png' | 'jpg' | 'jpeg' | 'webm';
+        quality?: number;
+        result?: 'file' | 'base64' | 'data-uri';
     }
 ): Promise<string>;
 
@@ -1535,9 +1587,7 @@ export namespace Util {
     function getCurrentLocaleAsync(): Promise<string>;
     function getCurrentTimeZoneAsync(): Promise<string>;
     function reload(): void;
-    function addNewVersionListenerExperimental(listener: (event: {
-        manifest: object;
-    }) => void): { remove(): void; }; // Android only
+    function addNewVersionListenerExperimental(listener: (event: { manifest: object }) => void): { remove(): void }; // Android only
 }
 
 /**

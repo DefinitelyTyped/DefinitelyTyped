@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-
 /**
  Sets up file system-based routing in Express.
  @param {Object} app Express application object.

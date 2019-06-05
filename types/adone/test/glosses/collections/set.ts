@@ -1,15 +1,13 @@
 namespace adoneTests.collection.Set {
     const {
-        collection: {
-            Set
-        }
+        collection: { Set },
     } = adone;
 
-    new Set().add("a");
-    new Set().has("a");
-    new Set().delete("a");
-    new Set().get("a");
-    new Set().has("a") === true;
+    new Set().add('a');
+    new Set().has('a');
+    new Set().delete('a');
+    new Set().get('a');
+    new Set().has('a') === true;
     new Set().only();
     new Set().size === 5;
 

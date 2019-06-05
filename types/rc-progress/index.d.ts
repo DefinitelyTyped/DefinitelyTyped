@@ -7,36 +7,36 @@
 import * as React from 'react';
 
 export interface CommonProps {
-  className?: string;
-  percent?: number | string;
-  prefixCls?: string;
-  strokeColor?: string;
-  strokeLinecap?: 'butt' | 'square' | 'round';
-  strokeWidth?: number | string;
-  style?: React.CSSProperties[] | React.CSSProperties;
-  trailColor?: string;
-  trailWidth?: number | string;
+    className?: string;
+    percent?: number | string;
+    prefixCls?: string;
+    strokeColor?: string;
+    strokeLinecap?: 'butt' | 'square' | 'round';
+    strokeWidth?: number | string;
+    style?: React.CSSProperties[] | React.CSSProperties;
+    trailColor?: string;
+    trailWidth?: number | string;
 }
 
 export interface CircleProps extends CommonProps {
-  gapDegree?: number;
-  gapPosition?: 'top' | 'bottom' | 'left' | 'right';
+    gapDegree?: number;
+    gapPosition?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export class Circle extends React.Component<CircleProps> {
-  prevTimeStamp?: number;
+    prevTimeStamp?: number;
 
-  getPathStyles(): {
-    pathString: string;
-    trailPathStyle: React.CSSProperties[] | React.CSSProperties;
-    strokePathStyle: React.CSSProperties[] | React.CSSProperties;
-  };
+    getPathStyles(): {
+        pathString: string;
+        trailPathStyle: React.CSSProperties[] | React.CSSProperties;
+        strokePathStyle: React.CSSProperties[] | React.CSSProperties;
+    };
 }
 
 export interface LineProps extends CommonProps {
-  prevTimeStamp?: number;
+    prevTimeStamp?: number;
 }
 
 export class Line extends React.Component<LineProps> {
-  path?: SVGPathElement;
+    path?: SVGPathElement;
 }

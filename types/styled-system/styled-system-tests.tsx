@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
     alignContent,
     AlignContentProps,
@@ -139,7 +139,7 @@ import {
     styles,
     themeGet,
     Theme,
-} from "styled-system";
+} from 'styled-system';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
@@ -189,10 +189,10 @@ interface BoxProps
         WidthProps,
         ZIndexProps,
         VerticalAlignProps {
-            boxStyle?: string;
-        }
+    boxStyle?: string;
+}
 const Box: React.ComponentType<BoxProps> = styled`
-  border-radius: ${themeGet("radii.small", "4px")};
+  border-radius: ${themeGet('radii.small', '4px')};
   ${space}
   ${width}
   ${fontSize}
@@ -292,10 +292,7 @@ const Grid: React.ComponentType<GridComponentProps> = styled`
     ${gridTemplateColumns};
 `;
 
-interface ButtonProps
-    extends SpaceProps,
-        ButtonStyleProps,
-        TextColorProps {}
+interface ButtonProps extends SpaceProps, ButtonStyleProps, TextColorProps {}
 
 const TestButton: React.ComponentType<ButtonProps> = styled`
     ${buttonStyle}
@@ -303,9 +300,7 @@ const TestButton: React.ComponentType<ButtonProps> = styled`
     ${styles.textColor}
 `;
 
-interface SpacerProps
-    extends MarginProps,
-        PaddingProps {}
+interface SpacerProps extends MarginProps, PaddingProps {}
 
 const Spacer: React.ComponentType<SpacerProps> = styled`
     ${margin};
@@ -365,13 +360,11 @@ const test = () => (
         <Box m={2} />
         // sets margin value of `-1 * theme.space[2]`
         <Box m={-2} />
-        // sets a margin value of `16px` since it's greater than
-        `theme.space.length`
+        // sets a margin value of `16px` since it's greater than `theme.space.length`
         <Box m={16} />
         // sets margin `'auto'`
         <Box m="auto" />
-        // sets margin `8px` on all viewports and `16px` from the smallest
-        breakpoint and up
+        // sets margin `8px` on all viewports and `16px` from the smallest breakpoint and up
         <Box m={[1, 2]} />
         <Box m={{ sm: 1, md: 2 }} />
         // examples // width `50%`
@@ -380,8 +373,7 @@ const test = () => (
         <Box width={256} />
         // width `'2em'`
         <Box width="2em" />
-        // width `100%` on all viewports and `50%` from the smallest breakpoint
-        and up
+        // width `100%` on all viewports and `50%` from the smallest breakpoint and up
         <Box width={[1, 1 / 2]} />
         <Box width={{ sm: 1, md: 1 / 2 }} />
         // examples // font-size of `theme.fontSizes[3]`
@@ -390,14 +382,12 @@ const test = () => (
         <Text fontSize={32} />
         // font-size `'2em'`
         <Text fontSize="2em" />
-        // font-size `10px` on all viewports and `12px` from the smallest
-        breakpoint and up
+        // font-size `10px` on all viewports and `12px` from the smallest breakpoint and up
         <Text fontSize={[10, 12]} />
         <Text fontSize={{ sm: 10, md: 12 }} />
         // examples // picks the value defined in `theme.colors['blue']`
         <Box color="blue" />
-        // picks up a nested color value using dot notation //
-        `theme.colors['gray'][0]`
+        // picks up a nested color value using dot notation // `theme.colors['gray'][0]`
         <Box color="gray.0" />
         // raw CSS color value
         <Box color="#f00" />
@@ -405,8 +395,8 @@ const test = () => (
         <Text fontFamily="mono" />
         // textAlign (responsive)
         <Text textAlign="center" />
-        <Text textAlign={["center", "left"]} />
-        <Text textAlign={{ sm: "center", md: "left" }} />
+        <Text textAlign={['center', 'left']} />
+        <Text textAlign={{ sm: 'center', md: 'left' }} />
         // lineHeight
         <Text lineHeight="1.25" />
         // fontWeight
@@ -415,8 +405,8 @@ const test = () => (
         <Text letterSpacing="0.1em" />
         // display (responsive)
         <Box display="inline-block" />
-        <Box display={["block", "inline-block"]} />
-        <Box display={{ sm: "block", md: "inline-block" }} />
+        <Box display={['block', 'inline-block']} />
+        <Box display={{ sm: 'block', md: 'inline-block' }} />
         // maxWidth (responsive)
         <Box maxWidth={1024} />
         <Box maxWidth={[768, null, null, 1024]} />
@@ -443,82 +433,82 @@ const test = () => (
         <Box size={{ sm: 32, md: 48 }} />
         // alignItems (responsive)
         <Flex alignItems="center" />
-        <Flex alignItems={["center"]} />
-        <Flex alignItems={{ sm: "center" }} />
+        <Flex alignItems={['center']} />
+        <Flex alignItems={{ sm: 'center' }} />
         // alignContent (responsive)
         <Flex alignContent="center" />
-        <Flex alignContent={["center"]} />
-        <Flex alignContent={{ sm: "center" }} />
+        <Flex alignContent={['center']} />
+        <Flex alignContent={{ sm: 'center' }} />
         // justifyContent (responsive)
         <Flex justifyContent="center" />
-        <Flex justifyContent={["center"]} />
-        <Flex justifyContent={{ sm: "center" }} />
+        <Flex justifyContent={['center']} />
+        <Flex justifyContent={{ sm: 'center' }} />
         // flexWrap (responsive)
         <Flex flexWrap="wrap" />
-        <Flex flexWrap={["wrap"]} />
-        <Flex flexWrap={{ sm: "wrap" }} />
+        <Flex flexWrap={['wrap']} />
+        <Flex flexWrap={{ sm: 'wrap' }} />
         // flexBasis (responsive)
         <Flex flexBasis="auto" />
         // flexDirection (responsive)
         <Flex flexDirection="column" />
-        <Flex flexDirection={["column"]} />
-        <Flex flexDirection={{ sm: "column" }} />
+        <Flex flexDirection={['column']} />
+        <Flex flexDirection={{ sm: 'column' }} />
         // justifyItems
         <Flex justifyItems="baseline" />
-        <Flex justifyItems={["baseline", "center"]} />
-        <Flex justifyItems={{ sm: "baseline", md: "center" }} />
+        <Flex justifyItems={['baseline', 'center']} />
+        <Flex justifyItems={{ sm: 'baseline', md: 'center' }} />
         // gridGap
         <Grid gridGap="1px" />
-        <Grid gridGap={["1", "2"]} />
-        <Grid gridGap={{ sm: "1", md: "2" }} />
+        <Grid gridGap={['1', '2']} />
+        <Grid gridGap={{ sm: '1', md: '2' }} />
         // gridRowGap
         <Grid gridRowGap="1px" />
-        <Grid gridRowGap={["1", "2"]} />
-        <Grid gridRowGap={{ sm: "1", md: "2" }} />
+        <Grid gridRowGap={['1', '2']} />
+        <Grid gridRowGap={{ sm: '1', md: '2' }} />
         // gridColumnGap
         <Grid gridColumnGap="1px" />
-        <Grid gridColumnGap={["1", "2"]} />
-        <Grid gridColumnGap={{ sm: "1", md: "2" }} />
+        <Grid gridColumnGap={['1', '2']} />
+        <Grid gridColumnGap={{ sm: '1', md: '2' }} />
         // gridRow
         <Grid gridRow="auto" />
-        <Grid gridRow={["auto"]} />
-        <Grid gridRow={{ sm: "auto" }} />
+        <Grid gridRow={['auto']} />
+        <Grid gridRow={{ sm: 'auto' }} />
         // gridColumn
         <Grid gridColumn="auto" />
-        <Grid gridColumn={["auto"]} />
-        <Grid gridColumn={{ sm: "auto" }} />
+        <Grid gridColumn={['auto']} />
+        <Grid gridColumn={{ sm: 'auto' }} />
         // gridAutoFlow
         <Grid gridAutoFlow="auto" />
-        <Grid gridAutoFlow={["auto", "1fr"]} />
-        <Grid gridAutoFlow={{ sm: "auto", md: "1fr" }} />
+        <Grid gridAutoFlow={['auto', '1fr']} />
+        <Grid gridAutoFlow={{ sm: 'auto', md: '1fr' }} />
         // gridAutoRows
         <Grid gridAutoRows="auto" />
-        <Grid gridAutoRows={["auto", "1fr"]} />
-        <Grid gridAutoRows={{ sm: "auto", md: "1fr" }} />
+        <Grid gridAutoRows={['auto', '1fr']} />
+        <Grid gridAutoRows={{ sm: 'auto', md: '1fr' }} />
         // gridAutoColumns
         <Grid gridAutoColumns="auto" />
-        <Grid gridAutoColumns={["auto", "1fr"]} />
-        <Grid gridAutoColumns={{ sm: "auto", md: "1fr" }} />
+        <Grid gridAutoColumns={['auto', '1fr']} />
+        <Grid gridAutoColumns={{ sm: 'auto', md: '1fr' }} />
         // gridTemplateRows
         <Grid gridTemplateRows="auto" />
-        <Grid gridTemplateRows={["auto", "1fr"]} />
-        <Grid gridTemplateRows={{ sm: "auto", md: "1fr" }} />
+        <Grid gridTemplateRows={['auto', '1fr']} />
+        <Grid gridTemplateRows={{ sm: 'auto', md: '1fr' }} />
         // gridTemplateColumns
         <Grid gridTemplateColumns="auto" />
-        <Grid gridTemplateColumns={["auto", "1fr"]} />
-        <Grid gridTemplateColumns={{ sm: "auto", md: "1fr" }} />
+        <Grid gridTemplateColumns={['auto', '1fr']} />
+        <Grid gridTemplateColumns={{ sm: 'auto', md: '1fr' }} />
         // flex (responsive)
         <Box flex="1 1 auto" />
-        <Box flex={["1 1 auto"]} />
-        <Box flex={{ sm: "1 1 auto" }} />
+        <Box flex={['1 1 auto']} />
+        <Box flex={{ sm: '1 1 auto' }} />
         // justifySelf (responsive)
         <Box justifySelf="center" />
-        <Box justifySelf={["center"]} />
-        <Box justifySelf={{ sm: "center" }} />
+        <Box justifySelf={['center']} />
+        <Box justifySelf={{ sm: 'center' }} />
         // alignSelf (responsive)
         <Box alignSelf="center" />
-        <Box alignSelf={["center"]} />
-        <Box alignSelf={{ sm: "center" }} />
+        <Box alignSelf={['center']} />
+        <Box alignSelf={{ sm: 'center' }} />
         <Box border="1px solid" />
         <Box borderTop="1px solid" />
         <Box borderRight="1px solid" />
@@ -530,19 +520,14 @@ const test = () => (
         <Box borderRadius={4} />
         // position (responsive)
         <Box position="absolute" />
-        <Box position={["absolute"]} />
-        <Box position={{ sm: "absolute" }} />
+        <Box position={['absolute']} />
+        <Box position={{ sm: 'absolute' }} />
         // zIndex
         <Box zIndex={2} />
         // top, right, bottom, left (responsive)
         <Box top="0" right="0" bottom="0" left="0" />
-        <Box top={["0"]} right={["0"]} bottom={["0"]} left={["0"]} />
-        <Box
-            top={{ sm: "0" }}
-            right={{ sm: "0" }}
-            bottom={{ sm: "0" }}
-            left={{ sm: "0" }}
-        />
+        <Box top={['0']} right={['0']} bottom={['0']} left={['0']} />
+        <Box top={{ sm: '0' }} right={{ sm: '0' }} bottom={{ sm: '0' }} left={{ sm: '0' }} />
         // boxShadow
         <Box boxShadow={1} />
         // backgroundImage, backgroundSize, backgroundPosition, backgroundRepeat
@@ -561,14 +546,12 @@ const test = () => (
         <Box borderBottom="1px solid red" />
         <Box borderLeft="1px solid red" />
         // borders (responsive)
-        <Box border={["1px solid red", "2px solid red"]} />
-        <Box borderTop={["1px solid red", "2px solid red"]} />
-        <Box borderRight={["1px solid red", "2px solid red"]} />
-        <Box borderBottom={["1px solid red", "2px solid red"]} />
-        <Box borderLeft={["1px solid red", "2px solid red"]} />
-
+        <Box border={['1px solid red', '2px solid red']} />
+        <Box borderTop={['1px solid red', '2px solid red']} />
+        <Box borderRight={['1px solid red', '2px solid red']} />
+        <Box borderBottom={['1px solid red', '2px solid red']} />
+        <Box borderLeft={['1px solid red', '2px solid red']} />
         <TestButton variant="primary" m={2} color="tomato" />
-
         <Spacer m={[1, 2, 3]} p={[1, 2, 3]} />
         <Spacer ml={[1, 2, 3]} pl={[1, 2, 3]} />
         <Spacer mr={[1, 2, 3]} pr={[1, 2, 3]} />
@@ -591,28 +574,25 @@ export const themeA: Theme = {
     borders: ['1px solid red', '2px solid red'],
     borderStyles: {
         primary: {
-            border: '3px solid red'
+            border: '3px solid red',
         },
         disabled: {
-            border: '1px solid gray'
+            border: '1px solid gray',
         },
     },
     borderWidths: [0, 1, 3],
     buttons: {
         primary: {
-            color: 'blue'
+            color: 'blue',
         },
         danger: {
-            color: 'red'
-        }
+            color: 'red',
+        },
     },
     breakpoints: ['40em', '52em', '64em'],
     colors: {
         black: 'hsl(0, 0%, 0%)',
-        blacks: [
-          'hsla(0, 0%, 0%, .9)',
-          'hsla(0, 0%, 0%, .1)',
-        ]
+        blacks: ['hsla(0, 0%, 0%, .9)', 'hsla(0, 0%, 0%, .1)'],
     },
     colorStyles: {
         warning: {
@@ -641,10 +621,10 @@ export const themeA: Theme = {
     textStyles: {
         caps: {
             textTransform: 'uppercase',
-            letterSpacing: '0.2em'
-        }
+            letterSpacing: '0.2em',
+        },
     },
-    zIndeces: [-1, 0, 1, 9999]
+    zIndeces: [-1, 0, 1, 9999],
 };
 
 // Some properties can be formatted differently
@@ -675,13 +655,13 @@ const margins = mapProps(props => ({
     mr: is(props.mx) ? props.mx : props.mr,
 }))(
     compose(
-      margin,
-      marginTop,
-      marginBottom,
-      marginLeft,
-      marginRight
+        margin,
+        marginTop,
+        marginBottom,
+        marginLeft,
+        marginRight
     )
-  );
+);
 
 // Test that the style definition is correct.
 // https://github.com/styled-system/styled-system/blob/master/src/index.js#L62
@@ -691,13 +671,13 @@ const customFontSize = style({
     alias: 'fs',
     key: 'fontSizes',
     transformValue: (n, scale) => px(get(scale, n)),
-    scale: [8, 16, 32]
+    scale: [8, 16, 32],
 });
 
 const centerWithGenerics = style<boolean>({
     prop: 'center',
     cssProperty: 'justify-content',
-    transformValue: shouldCenter => shouldCenter ? 'center' : 'flex-start'
+    transformValue: shouldCenter => (shouldCenter ? 'center' : 'flex-start'),
 });
 
 const buttonSizes = {
@@ -709,7 +689,7 @@ const buttonSizes = {
 const buttonSizeWithGeneric = style<keyof typeof buttonSizes, typeof buttonSizes>({
     prop: 'size',
     cssProperty: 'font-size',
-    transformValue: (size, sizes) => sizes && sizes[size]
+    transformValue: (size, sizes) => sizes && sizes[size],
 });
 
 // All Style Functions contain `propTypes`

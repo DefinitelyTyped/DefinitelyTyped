@@ -6,26 +6,29 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface ReactTagsProps {
-    tags?: Array<{ id: string, text: string }>;
-    suggestions?: Array<{ id: string, text: string }>;
+    tags?: Array<{ id: string; text: string }>;
+    suggestions?: Array<{ id: string; text: string }>;
     delimiters?: number[];
     placeholder?: string;
     labelField?: string;
 
-    handleAddition: ((tag: {id: string, text: string}) => void);
-    handleDelete: ((i: number) => void);
-    handleDrag?: ((tag: { id: string; text: string; }, currPos: number, newPos: number) => void);
-    handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: Array<{ id: string, text: string }>) => Array<{ id: string, text: string }>);
-    handleTagClick?: ((i: number) => void);
+    handleAddition: (tag: { id: string; text: string }) => void;
+    handleDelete: (i: number) => void;
+    handleDrag?: (tag: { id: string; text: string }, currPos: number, newPos: number) => void;
+    handleFilterSuggestions?: (
+        textInputValue: string,
+        possibleSuggestionsArray: Array<{ id: string; text: string }>
+    ) => Array<{ id: string; text: string }>;
+    handleTagClick?: (i: number) => void;
 
     autofocus?: boolean;
     allowDeleteFromEmptyInput?: boolean;
-    handleInputChange?: ((value: string) => void);
-    handleInputFocus?: ((value: string) => void);
-    handleInputBlur?: ((textInputValue: string) => void);
+    handleInputChange?: (value: string) => void;
+    handleInputFocus?: (value: string) => void;
+    handleInputBlur?: (textInputValue: string) => void;
     minQueryLength?: number;
     removeComponent?: React.Component<any, any>;
     autocomplete?: boolean | 1;
@@ -40,18 +43,18 @@ export interface ReactTagsProps {
     allowDragDrop?: boolean;
 
     classNames?: {
-        tags?: string,
-        tagInput?: string,
-        tagInputField?: string,
-        selected?: string,
-        tag?: string,
-        remove?: string,
-        suggestions?: string,
-        activeSuggestion?: string
+        tags?: string;
+        tagInput?: string;
+        tagInputField?: string;
+        selected?: string;
+        tag?: string;
+        remove?: string;
+        suggestions?: string;
+        activeSuggestion?: string;
     };
 }
 
-export class WithContext extends React.Component<ReactTagsProps> { }
-export class WithOutContext extends React.Component<ReactTagsProps> { }
+export class WithContext extends React.Component<ReactTagsProps> {}
+export class WithOutContext extends React.Component<ReactTagsProps> {}
 
 export default WithContext;

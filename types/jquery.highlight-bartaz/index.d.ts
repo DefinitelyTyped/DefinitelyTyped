@@ -4,18 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 ///<reference types="jquery" />
 
 interface JQuery {
-	unhighlight(options?: {
-		element?: string,
-		className?: string
-	}): JQuery;
-	highlight(words: string | string[], options?: {
-		element?: string,
-		className?: string
-		caseSensitive?: boolean,
-		wordsOnly?: boolean
-	}): JQuery;
+    unhighlight(options?: { element?: string; className?: string }): JQuery;
+    highlight(
+        words: string | string[],
+        options?: {
+            element?: string;
+            className?: string;
+            caseSensitive?: boolean;
+            wordsOnly?: boolean;
+        }
+    ): JQuery;
 }

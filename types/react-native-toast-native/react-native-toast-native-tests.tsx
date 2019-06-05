@@ -11,7 +11,7 @@ class Test extends React.Component<any> {
             height: 140,
             borderRadius: 15,
             fontWeight: 'bold',
-            yOffset: 40
+            yOffset: 40,
         };
 
         Toast.show("I'm a toast!", Toast.SHORT, Toast.BOTTOM, style);
@@ -20,9 +20,8 @@ class Test extends React.Component<any> {
     render() {
         return (
             <View>
-                <Button
-                    onPress={() => this.showToast()}
-                    title="Show Toast" />
-            </View>);
+                <Button onPress={() => this.showToast()} title="Show Toast" />
+            </View>
+        );
     }
 }

@@ -1,8 +1,8 @@
-import { GraphQLError } from "../error";
-import { DocumentNode } from "../language/ast";
-import { GraphQLSchema } from "../type/schema";
-import { TypeInfo } from "../utilities/TypeInfo";
-import { ValidationRule, SDLValidationRule } from "./ValidationContext";
+import { GraphQLError } from '../error';
+import { DocumentNode } from '../language/ast';
+import { GraphQLSchema } from '../type/schema';
+import { TypeInfo } from '../utilities/TypeInfo';
+import { ValidationRule, SDLValidationRule } from './ValidationContext';
 
 /**
  * Implements the "Validation" section of the spec.

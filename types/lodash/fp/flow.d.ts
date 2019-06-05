@@ -1,2 +1,2 @@
-import { flow } from "../fp";
+import { flow } from '../fp';
 export = flow;

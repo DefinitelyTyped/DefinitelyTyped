@@ -1,4 +1,3 @@
-
 import keytar = require('keytar');
 
 let setResult: Promise<void>;
@@ -11,5 +10,5 @@ let password: Promise<string | null>;
 password = keytar.findPassword('keytar-tests');
 password = keytar.getPassword('keytar-tests', 'username');
 
-let credentials: Promise<Array<{ account: string, password: string }>>;
+let credentials: Promise<Array<{ account: string; password: string }>>;
 credentials = keytar.findCredentials('keytar-tests');

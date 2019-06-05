@@ -1,18 +1,17 @@
 /// <reference types="jquery" />
 
-
 import Q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
-Q().then(() => console.log("nothing"));
+Q().then(() => console.log('nothing'));
 
-var delay = function (delay: number) {
+var delay = function(delay: number) {
     var d = Q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;
 };
 
-Q.when(delay(1000), function (val: void) {
+Q.when(delay(1000), function(val: void) {
     console.log('Hello, World!');
     return;
 });
@@ -21,69 +20,65 @@ Q.when(delay(1000), function (val: void) {
 var otherPromise = Q.defer<string>().promise;
 Q.defer<string>().resolve(otherPromise);
 
-Q.timeout(Q(new Date()), 1000, "My dates never arrived. :(").then(d => d.toJSON());
+Q.timeout(Q(new Date()), 1000, 'My dates never arrived. :(').then(d => d.toJSON());
 
 Q.delay(Q(8), 1000).then(x => x.toExponential());
 Q.delay(8, 1000).then(x => x.toExponential());
-Q.delay(Q("asdf"), 1000).then(x => x.length);
-Q.delay("asdf", 1000).then(x => x.length);
+Q.delay(Q('asdf'), 1000).then(x => x.length);
+Q.delay('asdf', 1000).then(x => x.length);
 
 var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
 function eventually<T>(eventually: T) {
     return Q.delay(eventually, 1000);
-};
+}
 
 var x = Q.all([1, 2, 3].map(eventually));
-Q.when(x, function (x) {
+Q.when(x, function(x) {
     console.log(x);
 });
 
-Q.all([
-    eventually(10),
-    eventually(20)
-]).spread(function (x: number, y: number) {
+Q.all([eventually(10), eventually(20)]).spread(function(x: number, y: number) {
     console.log(x, y);
 });
 
-Q.all([
-    eventually(10),
-    eventually(20)
-]).then(function (results) {
+Q.all([eventually(10), eventually(20)]).then(function(results) {
     let [x, y] = results;
     console.log(x, y);
 });
 
+Q.fcall(function() {})
+    .then(function() {})
+    .then(function() {})
+    .then(function() {})
+    .then(
+        function(value4) {
+            // Do something with value4
+        },
+        function(error) {
+            // Handle any error from step1 through step4
+        }
+    )
+    .done();
 
-Q.fcall(function () { })
-    .then(function () { })
-    .then(function () { })
-    .then(function () { })
-    .then(function (value4) {
-        // Do something with value4
-    }, function (error) {
-        // Handle any error from step1 through step4
-    }).done();
-
-Q.allResolved([])
-.then(function (promises: Q.Promise<any>[]) {
-    promises.forEach(function (promise) {
+Q.allResolved([]).then(function(promises: Q.Promise<any>[]) {
+    promises.forEach(function(promise) {
         if (promise.isFulfilled()) {
             var value = promise.valueOf();
         } else {
             var exception = promise.valueOf().exception;
         }
-    })
+    });
 });
 
 Q(42)
-    .tap(() => "hello")
+    .tap(() => 'hello')
     .tap(x => {
         console.log(x);
     })
     .then(x => {
-        console.log("42 == " + x);
+        console.log('42 == ' + x);
     });
 
 declare var arrayPromise: Q.IPromise<number[]>;
@@ -113,41 +108,38 @@ Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
 
 Q.all<number>(myNums).then(nums => nums.map(Math.round));
 
-Q.fbind((dateString?: string) => new Date(dateString), "11/11/1991")().then(d => d.toLocaleDateString());
+Q.fbind((dateString?: string) => new Date(dateString), '11/11/1991')().then(d => d.toLocaleDateString());
 
-Q.when(8, num => num + "!");
-Q.when(Q(8), num => num + "!").then(str => str.split(','));
+Q.when(8, num => num + '!');
+Q.when(Q(8), num => num + '!').then(str => str.split(','));
 var voidPromise: Q.Promise<void> = Q.when();
 
 declare function saveToDisk(): Q.Promise<any>;
 declare function saveToCloud(): Q.Promise<any>;
-Q.allSettled([saveToDisk(), saveToCloud()]).spread(function (disk: any, cloud: any) {
-    console.log("saved to disk:", disk.state === "fulfilled");
-    console.log("saved to cloud:", cloud.state === "fulfilled");
+Q.allSettled([saveToDisk(), saveToCloud()])
+    .spread(function(disk: any, cloud: any) {
+        console.log('saved to disk:', disk.state === 'fulfilled');
+        console.log('saved to cloud:', cloud.state === 'fulfilled');
 
-    if (disk.state === "fulfilled") {
-        console.log("value was " + disk.value);
-    }
-    else if (disk.state === "rejected") {
-        console.log("rejected because " + disk.reason);
-    }
-}).done();
+        if (disk.state === 'fulfilled') {
+            console.log('value was ' + disk.value);
+        } else if (disk.state === 'rejected') {
+            console.log('rejected because ' + disk.reason);
+        }
+    })
+    .done();
 
 var nodeStyle = (input: string, cb: Function) => {
     cb(null, input);
 };
 
-Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {});
-Q.nfcall(nodeStyle, "foo").done((result: string) => {});
+Q.nfapply(nodeStyle, ['foo']).done((result: string) => {});
+Q.nfcall(nodeStyle, 'foo').done((result: string) => {});
 Q.denodeify(nodeStyle)('foo').done((result: string) => {});
 Q.nfbind(nodeStyle)('foo').done((result: string) => {});
 
-
 class Repo {
-    private readonly items: any[] = [
-        { name: 'Max', cute: false },
-        { name: 'Annie', cute: true }
-    ];
+    private readonly items: any[] = [{ name: 'Max', cute: false }, { name: 'Annie', cute: true }];
 
     find(options: any): Q.Promise<any[]> {
         var result = this.items;
@@ -163,12 +155,10 @@ class Repo {
 var kitty = new Repo();
 Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
 
-
 /*
  * Test: Can "rethrow" rejected promises
  */
 namespace TestCanRethrowRejectedPromises {
-
     interface Foo {
         a: number;
     }
@@ -181,11 +171,11 @@ namespace TestCanRethrowRejectedPromises {
 
     function bar(): Q.Promise<Foo> {
         return nestedBar()
-            .then((foo:Foo) => {
-                console.log("Lorem ipsum");
+            .then((foo: Foo) => {
+                console.log('Lorem ipsum');
             })
-            .fail((error) => {
-                console.log("Intermediate error handling");
+            .fail(error => {
+                console.log('Intermediate error handling');
 
                 /*
                  * Cannot do this, because:
@@ -194,28 +184,25 @@ namespace TestCanRethrowRejectedPromises {
                 //throw error;
 
                 return Q.reject<Foo>(error);
-            })
-        ;
+            });
     }
 
     bar()
         .finally(() => {
-            console.log("Cleanup")
+            console.log('Cleanup');
         })
-        .done()
-    ;
-
+        .done();
 }
 
 // test Q.Promise.all
 var y1 = Q().then(() => {
-    var s = Q("hello");
+    var s = Q('hello');
     var n = Q(1);
     return <[typeof s, typeof n]>[s, n];
 });
 
 var y2 = Q().then(() => {
-    var s = "hello";
+    var s = 'hello';
     var n = Q(1);
     return <[typeof s, typeof n]>[s, n];
 });

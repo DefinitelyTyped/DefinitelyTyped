@@ -22,8 +22,8 @@ export interface ReactNativePhotoViewProps {
     onLoad?: () => void;
     onLoadEnd?: () => void;
     onProgress?: (loaded: number, total: number) => void;
-    onTap?: (point: {x: number, y: number}, target?: React.ReactElement) => void;
-    onViewTap?: (point: {x: number, y: number}, target?: React.ReactElement) => void;
+    onTap?: (point: { x: number; y: number }, target?: React.ReactElement) => void;
+    onViewTap?: (point: { x: number; y: number }, target?: React.ReactElement) => void;
     onScale?: (scale: number, target?: React.ReactElement) => void;
 }
 

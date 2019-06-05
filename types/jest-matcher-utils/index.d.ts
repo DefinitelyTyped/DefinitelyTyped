@@ -21,25 +21,17 @@ export function highlightTrailingWhitespace(
 
 export function printReceived(object: any): string;
 export function printExpected(value: any): string;
-export function printWithType(
-  name: string,
-  received: any,
-  print: (value: any) => string
-): string;
+export function printWithType(name: string, received: any, print: (value: any) => string): string;
 
 export function ensureNoExpected(actual: any, matcherName?: string): void;
 export function ensureActualIsNumber(actual: any, matcherName?: string): void;
 export function ensureExpectedIsNumber(actual: any, matcherName?: string): void;
-export function ensureNumbers(
-  actual: any,
-  expected: any,
-  matcherName?: string
-): void;
+export function ensureNumbers(actual: any, expected: any, matcherName?: string): void;
 
 export function pluralize(word: string, count: number): string;
 export function matcherHint(
-  matcherName: string,
-  received?: string,
-  expected?: string,
-  options?: { secondArgument?: string; isDirectExpectCall?: boolean }
+    matcherName: string,
+    received?: string,
+    expected?: string,
+    options?: { secondArgument?: string; isDirectExpectCall?: boolean }
 ): string;

@@ -8,7 +8,7 @@ app.use(staticCache('.'));
 app.use(
     staticCache('.', {
         maxAge: 0,
-        filter: ['']
+        filter: [''],
     })
 );
 
@@ -19,7 +19,7 @@ app.use(
         '.',
         {
             maxAge: 0,
-            filter: path => !!path
+            filter: path => !!path,
         },
         files
     )
@@ -31,7 +31,7 @@ app.use(
     staticCache({
         dir: '.',
         maxAge: 0,
-        files
+        files,
     })
 );
 
@@ -39,7 +39,7 @@ app.use(
     staticCache(
         {
             dir: '.',
-            maxAge: 0
+            maxAge: 0,
         },
         files
     )

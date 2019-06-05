@@ -1,5 +1,5 @@
 /// <reference types="node"/>
-import ndn = require("ndn-js");
+import ndn = require('ndn-js');
 
 const DIGEST = new ndn.Blob(Buffer.alloc(32));
 
@@ -8,7 +8,7 @@ comp = new ndn.Name.Component([0x41]);
 comp = new ndn.Name.Component(new ArrayBuffer(4), ndn.ComponentType.GENERIC);
 comp = new ndn.Name.Component(Buffer.alloc(4), ndn.ComponentType.OTHER_CODE, 1000);
 comp = new ndn.Name.Component(new Uint8Array(4));
-comp = new ndn.Name.Component("A");
+comp = new ndn.Name.Component('A');
 comp = new ndn.Name.Component(new ndn.Blob());
 comp = new ndn.Name.Component(comp);
 
@@ -27,7 +27,7 @@ let s: string = comp.toEscapedString();
 
 comp = ndn.Name.Component.fromNumber(200);
 comp = ndn.Name.Component.fromNumber(200, ndn.ComponentType.OTHER_CODE, 1000);
-comp = ndn.Name.Component.fromNumberWithMarker(200, 0xFD);
+comp = ndn.Name.Component.fromNumberWithMarker(200, 0xfd);
 comp = ndn.Name.Component.fromSegment(0);
 comp = ndn.Name.Component.fromSegmentOffset(0);
 comp = ndn.Name.Component.fromSequenceNumber(1);
@@ -41,7 +41,7 @@ b = comp.isTimestamp();
 b = comp.isVersion();
 
 n = comp.toNumber();
-n = comp.toNumberWithMarker(0xFD);
+n = comp.toNumberWithMarker(0xfd);
 n = comp.toSegment();
 n = comp.toSegmentOffset();
 n = comp.toSequenceNumber();
@@ -49,19 +49,20 @@ n = comp.toTimestamp();
 n = comp.toVersion();
 
 let name = new ndn.Name();
-name = new ndn.Name([new ndn.Name.Component("A"), new Uint8Array(2)]);
-name = new ndn.Name("/A");
+name = new ndn.Name([new ndn.Name.Component('A'), new Uint8Array(2)]);
+name = new ndn.Name('/A');
 name = new ndn.Name(name);
 
-name = name.append(ndn.Name.Component.fromSegment(4))
-           .append("A", ndn.ComponentType.OTHER_CODE, 1000)
-           .appendImplicitSha256Digest(DIGEST)
-           .appendParametersSha256Digest(DIGEST)
-           .appendSegment(0)
-           .appendSegmentOffset(1)
-           .appendSequenceNumber(4)
-           .appendTimestamp(3)
-           .appendVersion(2);
+name = name
+    .append(ndn.Name.Component.fromSegment(4))
+    .append('A', ndn.ComponentType.OTHER_CODE, 1000)
+    .appendImplicitSha256Digest(DIGEST)
+    .appendParametersSha256Digest(DIGEST)
+    .appendSegment(0)
+    .appendSegmentOffset(1)
+    .appendSequenceNumber(4)
+    .appendTimestamp(3)
+    .appendVersion(2);
 
 name.clear();
 n = name.compare(name);
@@ -73,7 +74,7 @@ name = name.getPrefix(3);
 name = name.getSubName(1).getSubName(1, 4);
 name = name.getSuccessor();
 b = name.match(name);
-name.set("/B");
+name.set('/B');
 n = name.size();
 s = name.toUri();
 s = name.toUri(true);

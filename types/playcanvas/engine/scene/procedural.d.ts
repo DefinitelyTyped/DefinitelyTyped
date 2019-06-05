@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @function
      * @name pc.calculateNormals
@@ -59,14 +58,18 @@ declare namespace pc {
      *     });
      * @author Will Eastcott
      */
-    function createMesh(device: pc.GraphicsDevice, positions: number[], opts?: {
-        normals: number[],
-        tangents: number[],
-        colors: number[],
-        uvs: number[],
-        uvs1: number[],
-        indices: number[],
-    }): pc.Mesh;
+    function createMesh(
+        device: pc.GraphicsDevice,
+        positions: number[],
+        opts?: {
+            normals: number[];
+            tangents: number[];
+            colors: number[];
+            uvs: number[];
+            uvs1: number[];
+            indices: number[];
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -86,12 +89,15 @@ declare namespace pc {
      * @returns {pc.Mesh} A new torus-shaped mesh.
      * @author Will Eastcott
      */
-    function createTorus(device: pc.GraphicsDevice, opts?: {
-        tubeRadius: number,
-        ringRadius: number,
-        segments: number,
-        sides: number
-    }): pc.Mesh;
+    function createTorus(
+        device: pc.GraphicsDevice,
+        opts?: {
+            tubeRadius: number;
+            ringRadius: number;
+            segments: number;
+            sides: number;
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -111,12 +117,15 @@ declare namespace pc {
      * @returns {pc.Mesh} A new cylinder-shaped mesh.
      * @author Will Eastcott
      */
-    function createCylinder(device: pc.GraphicsDevice, opts?: {
-        radius: number,
-        height: number,
-        heightSegments: number,
-        capSegments: number,
-    }): pc.Mesh;
+    function createCylinder(
+        device: pc.GraphicsDevice,
+        opts?: {
+            radius: number;
+            height: number;
+            heightSegments: number;
+            capSegments: number;
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -136,12 +145,15 @@ declare namespace pc {
      * @returns {pc.Mesh} A new cylinder-shaped mesh.
      * @author Will Eastcott
      */
-    function createCapsule(device: pc.GraphicsDevice, opts?: {
-        radius: number,
-        height: number,
-        heightSegments: number,
-        sides: number
-    }): pc.Mesh;
+    function createCapsule(
+        device: pc.GraphicsDevice,
+        opts?: {
+            radius: number;
+            height: number;
+            heightSegments: number;
+            sides: number;
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -162,13 +174,16 @@ declare namespace pc {
      * @returns {pc.Mesh} A new cone-shaped mesh.
      * @author Will Eastcott
      */
-    function createCone(device: pc.GraphicsDevice, opts?: {
-        baseRadius: number,
-        peakRadius: number,
-        height: number,
-        heightSegments: number,
-        capSegments: number
-    }): pc.Mesh;
+    function createCone(
+        device: pc.GraphicsDevice,
+        opts?: {
+            baseRadius: number;
+            peakRadius: number;
+            height: number;
+            heightSegments: number;
+            capSegments: number;
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -186,10 +201,13 @@ declare namespace pc {
      * @returns {pc.Mesh} A new sphere-shaped mesh.
      * @author Will Eastcott
      */
-    function createSphere(device: pc.GraphicsDevice, opts?: {
-        radius: number,
-        segments: number
-    }): pc.Mesh;
+    function createSphere(
+        device: pc.GraphicsDevice,
+        opts?: {
+            radius: number;
+            segments: number;
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -209,11 +227,14 @@ declare namespace pc {
      * @returns {pc.Mesh} A new plane-shaped mesh.
      * @author Will Eastcott
      */
-    function createPlane(device: pc.GraphicsDevice, opts?: {
-        halfExtents: pc.Vec2,
-        widthSegments: number,
-        lenghtSegments: number
-    }): pc.Mesh;
+    function createPlane(
+        device: pc.GraphicsDevice,
+        opts?: {
+            halfExtents: pc.Vec2;
+            widthSegments: number;
+            lenghtSegments: number;
+        }
+    ): pc.Mesh;
 
     /**
      * @function
@@ -233,10 +254,13 @@ declare namespace pc {
      * @return {pc.Mesh} A new box-shaped mesh.
      * @author Will Eastcott
      */
-    function createBox(device: pc.GraphicsDevice, opts?: {
-        halfExtents: pc.Vec3,
-        widthSegments: number,
-        lengthSegments: number,
-        heightSegments: number
-    }): pc.Mesh;
+    function createBox(
+        device: pc.GraphicsDevice,
+        opts?: {
+            halfExtents: pc.Vec3;
+            widthSegments: number;
+            lengthSegments: number;
+            heightSegments: number;
+        }
+    ): pc.Mesh;
 }

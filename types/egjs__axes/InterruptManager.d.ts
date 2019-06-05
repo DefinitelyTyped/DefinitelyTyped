@@ -1,4 +1,4 @@
-import { AxesOption } from "./Axes";
+import { AxesOption } from './Axes';
 export declare class InterruptManager {
     private options;
     private _prevented;

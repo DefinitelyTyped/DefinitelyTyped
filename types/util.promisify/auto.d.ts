@@ -1,3 +1,3 @@
-import shim = require("./shim");
+import shim = require('./shim');
 
 export {};

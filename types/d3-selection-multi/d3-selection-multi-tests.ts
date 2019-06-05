@@ -25,7 +25,7 @@ selection = selection.attrs({
 // Function values
 selection = selection.attrs({
     foo: () => 1,
-    bar: (d) => d,
+    bar: d => d,
     baz: (d, i) => i !== 0,
     bat() {
         return this.href;
@@ -49,10 +49,13 @@ selection = selection.styles({
     color: 'red',
 });
 
-selection = selection.styles({
-    top: 0,
-    color: 'red',
-}, 'important');
+selection = selection.styles(
+    {
+        top: 0,
+        color: 'red',
+    },
+    'important'
+);
 
 // Function values
 selection = selection.styles({
@@ -60,10 +63,13 @@ selection = selection.styles({
     color: d => d,
 });
 
-selection = selection.styles({
-    top: (d, i) => i + 'px',
-    color: d => d,
-}, 'important');
+selection = selection.styles(
+    {
+        top: (d, i) => i + 'px',
+        color: d => d,
+    },
+    'important'
+);
 
 // Functions that return a map
 selection.styles(function(d) {
@@ -95,7 +101,9 @@ selection = selection.properties(function(d, i, g): {} | { href: string } {
     return that.href ? {} : { href: d };
 });
 
-let transition: Transition<HTMLAnchorElement, string, HTMLElement, undefined> = selectAll<HTMLAnchorElement, string>('a').transition();
+let transition: Transition<HTMLAnchorElement, string, HTMLElement, undefined> = selectAll<HTMLAnchorElement, string>(
+    'a'
+).transition();
 
 // Transition.attrs
 
@@ -109,7 +117,7 @@ transition = transition.attrs({
 // Function values
 transition = transition.attrs({
     foo: () => 1,
-    bar: (d) => d,
+    bar: d => d,
     baz: (d, i) => i !== 0,
     bat() {
         return this.href;
@@ -133,10 +141,13 @@ transition = transition.styles({
     color: 'red',
 });
 
-transition = transition.styles({
-    top: 0,
-    color: 'red',
-}, 'important');
+transition = transition.styles(
+    {
+        top: 0,
+        color: 'red',
+    },
+    'important'
+);
 
 // Function values
 transition = transition.styles({
@@ -144,10 +155,13 @@ transition = transition.styles({
     color: d => d,
 });
 
-transition = transition.styles({
-    top: (d, i) => i + 'px',
-    color: d => d,
-}, 'important');
+transition = transition.styles(
+    {
+        top: (d, i) => i + 'px',
+        color: d => d,
+    },
+    'important'
+);
 
 // Function that returns a map
 transition = transition.styles(function(d) {
@@ -190,7 +204,7 @@ valueMap = {
         const index: number = i;
         const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
         return d.filled;
-    }
+    },
 };
 
 // valueMap = { // fails, as an array is not a permissible value type

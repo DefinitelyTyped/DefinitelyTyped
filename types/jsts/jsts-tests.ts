@@ -1,5 +1,3 @@
-
-
 import * as jsts from 'jsts';
 
 var str: string;

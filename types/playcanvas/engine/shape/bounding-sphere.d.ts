@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.BoundingSphere
      * @class A bounding sphere is a volume for facilitating fast intersection testing.
@@ -11,7 +10,7 @@ declare namespace pc {
      * @param {Number} [radius] The radius of the bounding sphere. Defaults to 0.5.
      */
     class BoundingSphere {
-        constructor(center?: pc.Vec3, radius?: number)
+        constructor(center?: pc.Vec3, radius?: number);
 
         center: pc.Vec3;
         radius: number;

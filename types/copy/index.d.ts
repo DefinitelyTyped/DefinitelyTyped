@@ -71,7 +71,7 @@ declare function copy(
     patterns: string | File | string[] | File[],
     dir: string,
     options: copy.Options,
-    callback: copy.Callback,
+    callback: copy.Callback
 ): void;
 declare function copy(patterns: string | File | string[] | File[], dir: string, callback: copy.Callback): void;
 

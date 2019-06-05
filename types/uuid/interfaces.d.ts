@@ -10,7 +10,7 @@ export interface V1Options {
     nsecs?: number;
 }
 
-export type V4Options = {random: number[]} | {rng(): number[]};
+export type V4Options = { random: number[] } | { rng(): number[] };
 
 export type v1String = (options?: V1Options) => string;
 export type v1Buffer = <T extends OutputBuffer>(options: V1Options | null | undefined, buffer: T, offset?: number) => T;
@@ -21,5 +21,10 @@ export type v4Buffer = <T extends OutputBuffer>(options: V4Options | null | unde
 export type v4 = v4String & v4Buffer;
 
 export type v5String = (name: string | number[], namespace: string | number[]) => string;
-export type v5Buffer = <T extends OutputBuffer>(name: string | number[], namespace: string | number[], buffer: T, offset?: number) => T;
+export type v5Buffer = <T extends OutputBuffer>(
+    name: string | number[],
+    namespace: string | number[],
+    buffer: T,
+    offset?: number
+) => T;
 export type v5 = v5String & v5Buffer;

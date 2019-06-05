@@ -40,17 +40,17 @@ declare namespace adone {
 
         function random(len: number): string;
 
-        function detectNewLine(str: string): "\r\n" | "\n";
+        function detectNewLine(str: string): '\r\n' | '\n';
 
         namespace I {
             interface WordWrapOptions {
                 join?: boolean;
-                mode?: "soft" | "hard";
+                mode?: 'soft' | 'hard';
                 countAnsiEscapeCodes?: boolean;
             }
         }
 
-        function wordwrap(str: string, stop: number, options: I.WordWrapOptions & { join: false}): string[];
+        function wordwrap(str: string, stop: number, options: I.WordWrapOptions & { join: false }): string[];
         function wordwrap(str: string, stop: number, options?: I.WordWrapOptions): string;
 
         function stringDistance(strA: string, strB: string, memo?: number[][]): number;

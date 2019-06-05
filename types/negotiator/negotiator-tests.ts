@@ -8,7 +8,7 @@ const request = {
         'Accept-Language': 'en;q=0.8, es, pt',
         'Accept-Charset': 'utf-8, iso-8859-1;q=0.8, utf-7;q=0.2',
         'Accept-Encoding': 'gzip, compress;q=0.2, identity;q=0.5',
-    }
+    },
 };
 
 const negotiator = new Negotiator(request);

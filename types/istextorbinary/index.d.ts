@@ -24,16 +24,8 @@ export function isTextSync(filename: undefined, buffer: Buffer): boolean;
  * @param buffer forwarded to `isTextSync`
  * @param next accepts arguments: (error: Error, result: Boolean)
  */
-export function isText(
-    filename: string,
-    buffer: Buffer | undefined,
-    next: (err: null, result: boolean) => void
-): void;
-export function isText(
-    filename: undefined,
-    buffer: Buffer,
-    next: (err: null, result: boolean) => void
-): void;
+export function isText(filename: string, buffer: Buffer | undefined, next: (err: null, result: boolean) => void): void;
+export function isText(filename: undefined, buffer: Buffer, next: (err: null, result: boolean) => void): void;
 
 /**
  * Is Binary (Synchronous)
@@ -56,11 +48,7 @@ export function isBinary(
     buffer: Buffer | undefined,
     next: (err: null, result: boolean) => void
 ): void;
-export function isBinary(
-    filename: undefined,
-    buffer: Buffer,
-    next: (err: null, result: boolean) => void
-): void;
+export function isBinary(filename: undefined, buffer: Buffer, next: (err: null, result: boolean) => void): void;
 
 /**
  * Get the encoding of a buffer.

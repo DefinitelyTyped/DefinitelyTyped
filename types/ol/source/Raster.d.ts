@@ -8,7 +8,7 @@ import CanvasLayerRenderer from 'ol/renderer/canvas/Layer';
 import ImageSource from 'ol/source/Image';
 import Source from 'ol/source/Source';
 import TileSource from 'ol/source/Tile';
-export type Operation = ((param0: number[][] | ImageData[], param1: { [key: string]: any }) => number[] | ImageData);
+export type Operation = (param0: number[][] | ImageData[], param1: { [key: string]: any }) => number[] | ImageData;
 export interface Options {
     sources: any[];
     operation?: Operation;
@@ -19,9 +19,9 @@ export interface Options {
 export default class RasterSource extends ImageSource {
     constructor(options: Options);
     setOperation(operation: Operation, opt_lib?: { [key: string]: any }): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): EventsKey;
     once(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): EventsKey;
     un(type: 'afteroperations', listener: (evt: RasterSourceEvent) => void): void;

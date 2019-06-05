@@ -1,2 +1,2 @@
-import { isError } from "../fp";
+import { isError } from '../fp';
 export = isError;

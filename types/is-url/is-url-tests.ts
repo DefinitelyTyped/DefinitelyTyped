@@ -1,4 +1,3 @@
-
 import isUrl = require('is-url');
 
 var isValid0: boolean = isUrl('https://github.com/segmentio/is-url');

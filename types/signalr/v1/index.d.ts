@@ -4,11 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /// <reference types="jquery" />
 
 interface HubMethod {
-    (callback: (data: string) => void ): any;
+    (callback: (data: string) => void): any;
 }
 
 interface SignalREvents {
@@ -48,24 +47,23 @@ interface SignalR {
     changeState(connection: SignalR, expectedState: number, newState: number): boolean;
     isDisconnecting(connection: SignalR): boolean;
 
-   // createHubProxy(hubName: string): SignalR;
+    // createHubProxy(hubName: string): SignalR;
 
     start(): JQueryPromise<any>;
-    start(callback: () => void ): JQueryPromise<any>;
+    start(callback: () => void): JQueryPromise<any>;
     start(settings: ConnectionSettings): JQueryPromise<any>;
-    start(settings: ConnectionSettings, callback: () => void ): JQueryPromise<any>;
-
+    start(settings: ConnectionSettings, callback: () => void): JQueryPromise<any>;
 
     send(data: string): void;
     stop(async?: boolean, notifyServer?: boolean): void;
 
-    starting(handler: () => void ): SignalR;
-    received(handler: (data: any) => void ): SignalR;
-    error(handler: (error: Error) => void ): SignalR;
-    stateChanged(handler: (change: SignalRStateChange) => void ): SignalR;
-    disconnected(handler: () => void ): SignalR;
-    connectionSlow(handler: () => void ): SignalR;
-    sending(handler: () => void ): SignalR;
+    starting(handler: () => void): SignalR;
+    received(handler: (data: any) => void): SignalR;
+    error(handler: (error: Error) => void): SignalR;
+    stateChanged(handler: (change: SignalRStateChange) => void): SignalR;
+    disconnected(handler: () => void): SignalR;
+    connectionSlow(handler: () => void): SignalR;
+    sending(handler: () => void): SignalR;
     reconnecting(handler: () => void): SignalR;
     reconnected(handler: () => void): SignalR;
 }
@@ -77,8 +75,8 @@ interface HubProxy {
     hubName: string;
     init(connection: HubConnection, hubName: string): void;
     hasSubscriptions(): boolean;
-    on(eventName: string, callback: (...msg: any[]) => void ): HubProxy;
-    off(eventName: string, callback: (...msg: any[]) => void ): HubProxy;
+    on(eventName: string, callback: (...msg: any[]) => void): HubProxy;
+    off(eventName: string, callback: (...msg: any[]) => void): HubProxy;
     invoke(methodName: string, ...args: any[]): JQueryDeferred<any>;
 }
 
@@ -91,8 +89,8 @@ interface HubConnectionSettings {
 interface HubConnection extends SignalR {
     //(url?: string, queryString?: any, logging?: boolean): HubConnection;
     proxies: any;
-    transport: { name: string, supportsKeepAlive: () => boolean };
-    received(callback: (data: { Id: any; Method: any; Hub: any; State: any; Args: any; }) => void ): HubConnection;
+    transport: { name: string; supportsKeepAlive: () => boolean };
+    received(callback: (data: { Id: any; Method: any; Hub: any; State: any; Args: any }) => void): HubConnection;
     createHubProxy(hubName: string): HubProxy;
 }
 

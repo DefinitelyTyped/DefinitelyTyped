@@ -1,4 +1,4 @@
-import Maybe from "../tsutils/Maybe";
+import Maybe from '../tsutils/Maybe';
 import {
     DocumentNode,
     Location,
@@ -9,13 +9,13 @@ import {
     FieldDefinitionNode,
     InputValueDefinitionNode,
     EnumValueDefinitionNode,
-} from "../language/ast";
-import { GraphQLNamedType, GraphQLFieldConfig, GraphQLInputField, GraphQLEnumValueConfig } from "../type/definition";
-import { GraphQLDirective } from "../type/directives";
-import { Source } from "../language/source";
-import { GraphQLSchema, GraphQLSchemaValidationOptions } from "../type/schema";
-import { ParseOptions } from "../language/parser";
-import { dedentBlockStringValue } from "../language/blockString";
+} from '../language/ast';
+import { GraphQLNamedType, GraphQLFieldConfig, GraphQLInputField, GraphQLEnumValueConfig } from '../type/definition';
+import { GraphQLDirective } from '../type/directives';
+import { Source } from '../language/source';
+import { GraphQLSchema, GraphQLSchemaValidationOptions } from '../type/schema';
+import { ParseOptions } from '../language/parser';
+import { dedentBlockStringValue } from '../language/blockString';
 
 interface BuildSchemaOptions extends GraphQLSchemaValidationOptions {
     /**

@@ -4,10 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import mkdirp = require("mkdirp");
+import mkdirp = require('mkdirp');
 
-declare function mkdirpPromise(
-    path: string,
-    opts?: mkdirp.Mode | mkdirp.Options
-): Promise<mkdirp.Made>;
+declare function mkdirpPromise(path: string, opts?: mkdirp.Mode | mkdirp.Options): Promise<mkdirp.Made>;
 export = mkdirpPromise;

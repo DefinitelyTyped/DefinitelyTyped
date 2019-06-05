@@ -34,7 +34,7 @@ function test_modal() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).modal({
@@ -55,7 +55,7 @@ function test_modal() {
             useCSS: true,
             duration: {
                 show: 200,
-                hide: 300
+                hide: 300,
             },
             transition: 'fade',
             onShow() {
@@ -70,12 +70,12 @@ function test_modal() {
             selector: {
                 dimmable: '.dimmable',
                 dimmer: '.dimmer',
-                content: '.content'
+                content: '.content',
             },
             template: {
                 dimmer() {
                     return $();
-                }
+                },
             },
             className: {
                 active: 'active',
@@ -85,11 +85,11 @@ function test_modal() {
                 pageDimmer: 'pageDimmer',
                 hide: 'hide',
                 show: 'show',
-                transition: 'transition'
+                transition: 'transition',
             },
             error: {
-                method: 'method'
-            }
+                method: 'method',
+            },
         },
         transition: 'scale',
         duration: 400,
@@ -124,15 +124,15 @@ function test_modal() {
         selector: {
             close: 'close',
             approve: 'approve',
-            deny: 'deny'
+            deny: 'deny',
         },
         className: {
             active: 'active',
-            scrolling: 'scrolling'
+            scrolling: 'scrolling',
         },
         error: {
-            method: 'method'
-        }
+            method: 'method',
+        },
     });
     $(selector).modal(); // $ExpectType JQuery<HTMLElement>
 

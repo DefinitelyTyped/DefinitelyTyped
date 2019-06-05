@@ -1,2 +1,2 @@
-import { partition } from "../fp";
+import { partition } from '../fp';
 export = partition;

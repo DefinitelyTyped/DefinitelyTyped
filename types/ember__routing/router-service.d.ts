@@ -68,17 +68,8 @@ export default class RouterService extends Service {
      *                  mapping of query parameters
      */
     isActive(routeName: string, options?: { queryParams: object }): boolean;
-    isActive(
-        routeName: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): boolean;
-    isActive(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        options?: { queryParams: object }
-    ): boolean;
+    isActive(routeName: string, models: RouteModel, options?: { queryParams: object }): boolean;
+    isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): boolean;
     isActive(
         routeName: string,
         modelsA: RouteModel,
@@ -107,15 +98,8 @@ export default class RouterService extends Service {
      *                       containing a mapping of query parameters
      * @returns              the Transition object associated with this attempted transition
      */
-    replaceWith(
-        routeNameOrUrl: string,
-        options?: { queryParams: object }
-    ): Transition;
-    replaceWith(
-        routeNameOrUrl: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): Transition;
+    replaceWith(routeNameOrUrl: string, options?: { queryParams: object }): Transition;
+    replaceWith(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Transition;
     replaceWith(
         routeNameOrUrl: string,
         modelsA: RouteModel,
@@ -150,15 +134,8 @@ export default class RouterService extends Service {
      *                       containing a mapping of query parameters
      * @returns              the Transition object associated with this attempted transition
      */
-    transitionTo(
-        routeNameOrUrl: string,
-        options?: { queryParam: object }
-    ): Transition;
-    transitionTo(
-        routeNameOrUrl: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): Transition;
+    transitionTo(routeNameOrUrl: string, options?: { queryParam: object }): Transition;
+    transitionTo(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Transition;
     transitionTo(
         routeNameOrUrl: string,
         modelsA: RouteModel,
@@ -193,17 +170,8 @@ export default class RouterService extends Service {
      * @returns         the string representing the generated URL
      */
     urlFor(routeName: string, options?: { queryParams: object }): string;
-    urlFor(
-        routeName: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        options?: { queryParams: object }
-    ): string;
+    urlFor(routeName: string, models: RouteModel, options?: { queryParams: object }): string;
+    urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): string;
     urlFor(
         routeName: string,
         modelsA: RouteModel,
@@ -234,8 +202,5 @@ export default class RouterService extends Service {
      * @param name     the name of the event
      * @param callback the callback to execute
      */
-    on(
-        name: 'routeDidChange' | 'routeWillChange',
-        callback: (transition: Transition) => void
-    ): RouterService;
+    on(name: 'routeDidChange' | 'routeWillChange', callback: (transition: Transition) => void): RouterService;
 }

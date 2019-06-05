@@ -6,7 +6,7 @@ import stream = require('stream');
 let connection = mysql.createConnection({
     host: 'localhost',
     user: 'me',
-    password: 'test'
+    password: 'test',
 });
 
 connection.connect();
@@ -17,13 +17,12 @@ connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
     console.log('The solution is: ', rows[0].solution);
 });
 
-connection.end(err => {
-});
+connection.end(err => {});
 
 connection = mysql.createConnection({
     host: 'example.org',
     user: 'bob',
-    password: 'secret'
+    password: 'secret',
 });
 
 connection.connect(err => {
@@ -41,14 +40,14 @@ connection.query('SELECT 1', (err, rows) => {
 
 connection = mysql.createConnection({
     host: 'localhost',
-    ssl: 'Amazon RDS'
+    ssl: 'Amazon RDS',
 });
 
 connection = mysql.createConnection({
     host: 'localhost',
     ssl: {
-        ca: ''
-    }
+        ca: '',
+    },
 });
 
 connection = mysql.createConnection({
@@ -56,8 +55,8 @@ connection = mysql.createConnection({
     ssl: {
         // DO NOT DO THIS
         // set up your ca correctly to trust the connection
-        rejectUnauthorized: false
-    }
+        rejectUnauthorized: false,
+    },
 });
 
 connection.end(err => {
@@ -66,14 +65,14 @@ connection.end(err => {
 
 connection.destroy();
 
-connection.changeUser({user: 'john'}, err => {
+connection.changeUser({ user: 'john' }, err => {
     if (err) console.error('SHOULD BE ERROR');
 });
 
 connection = mysql.createConnection({
     host: 'localhost',
     user: 'me',
-    password: 'test'
+    password: 'test',
 });
 
 const userId = 'some user provided value';
@@ -85,13 +84,13 @@ connection.query('SELECT * FROM users WHERE id = ?', [userId], (err, results) =>
     // ...
 });
 
-const post = {id: 1, title: 'Hello MySQL'};
+const post = { id: 1, title: 'Hello MySQL' };
 const queryx = connection.query('INSERT INTO posts SET ?', post, (err, result) => {
     // Neat!
 });
 console.log(queryx.sql); // INSERT INTO posts SET `id` = 1, `title` = 'Hello MySQL'
 
-const queryStr = `SELECT * FROM posts WHERE title=${mysql.escape("Hello MySQL")}`;
+const queryStr = `SELECT * FROM posts WHERE title=${mysql.escape('Hello MySQL')}`;
 
 console.log(queryStr); // SELECT * FROM posts WHERE title='Hello MySQL'
 
@@ -115,7 +114,7 @@ const queryy = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'use
 
 console.log(queryy.sql); // SELECT `username`, `email` FROM `users` WHERE id = 1
 
-sql = "SELECT * FROM ?? WHERE ?? = ?";
+sql = 'SELECT * FROM ?? WHERE ?? = ?';
 const inserts = ['users', 'id', userId];
 sql = mysql.format(sql, inserts);
 
@@ -129,11 +128,13 @@ connection.config.queryFormat = function(query, values) {
     });
 };
 
-connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
+connection.query('UPDATE posts SET title = :title', { title: 'Hello MySQL' });
 
-const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});
+const s: stream.Readable = connection
+    .query('UPDATE posts SET title = :title', { title: 'Hello MySQL' })
+    .stream({ highWaterMark: 5 });
 
-connection.query('INSERT INTO posts SET ?', {title: 'test'}, (err, result) => {
+connection.query('INSERT INTO posts SET ?', { title: 'test' }, (err, result) => {
     if (err) throw err;
 
     console.log(result.insertId);
@@ -155,7 +156,7 @@ connection.destroy();
 connection = mysql.createConnection({
     host: 'localhost',
     user: 'me',
-    password: 'test'
+    password: 'test',
 });
 
 connection.connect(err => {
@@ -174,7 +175,7 @@ const poolConfig = {
     connectionLimit: 10,
     host: 'example.org',
     user: 'bob',
-    password: 'secret'
+    password: 'secret',
 };
 
 let pool = mysql.createPool(poolConfig);
@@ -188,7 +189,7 @@ pool.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
 pool = mysql.createPool({
     host: 'example.org',
     user: 'bob',
-    password: 'secret'
+    password: 'secret',
 });
 
 pool.getConnection((err, connection) => {
@@ -220,12 +221,10 @@ poolCluster.add('SLAVE1', poolConfig);
 poolCluster.add('SLAVE2', poolConfig);
 
 // Target Group : ALL(anonymous, MASTER, SLAVE1-2), Selector : round-robin(default)
-poolCluster.getConnection((err, connection) => {
-});
+poolCluster.getConnection((err, connection) => {});
 
 // Target Group : MASTER, Selector : round-robin
-poolCluster.getConnection('MASTER', (err, connection) => {
-});
+poolCluster.getConnection('MASTER', (err, connection) => {});
 
 // Target Group : SLAVE1-2, Selector : order
 // If can't connect to SLAVE1, return SLAVE2. (remove SLAVE1 in the cluster)
@@ -233,24 +232,20 @@ poolCluster.on('remove', nodeId => {
     console.log(`REMOVED NODE : ${nodeId}`); // nodeId = SLAVE1
 });
 
-poolCluster.getConnection('SLAVE*', 'ORDER', (err, connection) => {
-});
+poolCluster.getConnection('SLAVE*', 'ORDER', (err, connection) => {});
 
 // of namespace : of(pattern, selector)
-poolCluster.of('*').getConnection((err, connection) => {
-});
+poolCluster.of('*').getConnection((err, connection) => {});
 
 pool = poolCluster.of('SLAVE*', 'RANDOM');
-pool.getConnection((err, connection) => {
-});
-pool.getConnection((err, connection) => {
-});
+pool.getConnection((err, connection) => {});
+pool.getConnection((err, connection) => {});
 
 const poolClusterWithOptions = mysql.createPoolCluster({
     canRetry: true,
     removeNodeErrorCount: 3,
     restoreNodeTimeout: 1000,
-    defaultSelector: 'RR'
+    defaultSelector: 'RR',
 });
 
 // destroy
@@ -283,11 +278,12 @@ queryF
     });
 
 const writable = fs.createWriteStream('file.txt');
-connection.query('SELECT * FROM posts')
-    .stream({highWaterMark: 5})
+connection
+    .query('SELECT * FROM posts')
+    .stream({ highWaterMark: 5 })
     .pipe(writable);
 
-connection = mysql.createConnection({multipleStatements: true});
+connection = mysql.createConnection({ multipleStatements: true });
 
 connection.query('SELECT 1; SELECT 2', (err, results) => {
     if (err) throw err;
@@ -307,7 +303,7 @@ queryH
         // index refers to the statement this result belongs to (starts at 0)
     });
 
-const options = {sql: '...', nestTables: true};
+const options = { sql: '...', nestTables: true };
 
 connection.query(options, (err, results) => {
     /* results will be an array like this now:
@@ -358,7 +354,7 @@ connection.beginTransaction(err => {
 });
 
 // Kill query after 60s
-connection.query({sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000}, (err, rows: any) => {
+connection.query({ sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000 }, (err, rows: any) => {
     if (err && err.code === 'PROTOCOL_SEQUENCE_TIMEOUT') {
         throw new Error('too long to count table rows!');
     }
@@ -405,29 +401,26 @@ connection.on('error', err => {
 connection.query('USE name_of_db_that_does_not_exist');
 
 // I am Chuck Norris:
-connection.on('error', () => {
-});
+connection.on('error', () => {});
 
-connection = mysql.createConnection({typeCast: false});
+connection = mysql.createConnection({ typeCast: false });
 
-const query1 = connection.query({sql: '...', typeCast: false}, (err: Error, results: any) => {
-});
+const query1 = connection.query({ sql: '...', typeCast: false }, (err: Error, results: any) => {});
 
 connection.query({
     sql: '...',
     typeCast: (field, next: () => void) => {
         if (field.type === 'TINY' && field.length === 1) {
-            return (field.string() === '1'); // 1 = true, 0 = false
+            return field.string() === '1'; // 1 = true, 0 = false
         }
         next();
-    }
+    },
 });
 
-connection.query({sql: '...', values: ['test']}, (err: Error, results: any) => {
-});
+connection.query({ sql: '...', values: ['test'] }, (err: Error, results: any) => {});
 
-connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
-connection = mysql.createConnection({debug: true});
-connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
-connection = mysql.createConnection({dateStrings: ['DATE']});
-connection = mysql.createConnection({dateStrings: true});
+connection = mysql.createConnection('mysql://localhost/test?flags=-FOUND_ROWS');
+connection = mysql.createConnection({ debug: true });
+connection = mysql.createConnection({ debug: ['ComQueryPacket', 'RowDataPacket'] });
+connection = mysql.createConnection({ dateStrings: ['DATE'] });
+connection = mysql.createConnection({ dateStrings: true });

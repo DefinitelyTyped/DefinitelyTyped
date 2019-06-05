@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.Shader
      * @class A shader is a program that is responsible for rendering graphical primitives on a device's
@@ -45,12 +44,15 @@ declare namespace pc {
      * @author Will Eastcott
      */
     class Shader {
-        constructor(graphicsDevice: pc.GraphicsDevice, definition: { 
-            attributes: {},
-            vshader: string,
-            fshader: string,
-            useTransformFeedback: boolean
-        })
+        constructor(
+            graphicsDevice: pc.GraphicsDevice,
+            definition: {
+                attributes: {};
+                vshader: string;
+                fshader: string;
+                useTransformFeedback: boolean;
+            }
+        );
 
         /**
          * @function
@@ -58,7 +60,5 @@ declare namespace pc {
          * @description Frees resources associated with this shader.
          */
         destroy(): void;
-
-
     }
 }

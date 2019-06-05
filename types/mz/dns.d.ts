@@ -7,10 +7,14 @@
 
 /// <reference types="node" />
 
-import * as dns from "dns";
-export * from "dns";
+import * as dns from 'dns';
+export * from 'dns';
 
-export function lookup(domain: string, family: number, callback: (err: Error, address: string, family: number) => void): void;
+export function lookup(
+    domain: string,
+    family: number,
+    callback: (err: Error, address: string, family: number) => void
+): void;
 export function lookup(domain: string, callback: (err: Error, address: string, family: number) => void): void;
 export function lookup(domain: string, family?: number): Promise<[string, number]>;
 

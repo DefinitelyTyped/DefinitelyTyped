@@ -2,23 +2,23 @@ import { Configuration } from 'webpack';
 import * as SwPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
 
 let config: Configuration = {
-    plugins: [new SwPrecacheWebpackPlugin()]
+    plugins: [new SwPrecacheWebpackPlugin()],
 };
 
 config = {
     plugins: [
         new SwPrecacheWebpackPlugin({
-            filename: ''
-        })
-    ]
+            filename: '',
+        }),
+    ],
 };
 
 config = {
     plugins: [
         new SwPrecacheWebpackPlugin({
-            cacheId: ''
-        })
-    ]
+            cacheId: '',
+        }),
+    ],
 };
 
 config = {
@@ -26,11 +26,11 @@ config = {
         new SwPrecacheWebpackPlugin({
             importScripts: [
                 {
-                    chunkName: ''
-                }
-            ]
-        })
-    ]
+                    chunkName: '',
+                },
+            ],
+        }),
+    ],
 };
 
 export default config;

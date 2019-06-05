@@ -9,14 +9,8 @@ export interface Query {
     projectionExpression(data: any): Query;
     usingIndex(name: string): Query;
     consistentRead(read: boolean): Query;
-    addKeyCondition(condition: {
-        attributeNames: any;
-        attributeValues: any;
-    }): Query;
-    addFilterCondition(condition: {
-        attributeNames: any;
-        attributeValues: any;
-    }): Query;
+    addKeyCondition(condition: { attributeNames: any; attributeValues: any }): Query;
+    addFilterCondition(condition: { attributeNames: any; attributeValues: any }): Query;
     startKey(hashKey: string, rangeKey: string): Query;
     attributes(attrs: ReadonlyArray<string> | string): Query;
     ascending(): Query;

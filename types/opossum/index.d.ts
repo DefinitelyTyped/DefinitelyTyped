@@ -8,8 +8,8 @@
 // TypeScript Version: 2.8
 
 /// <reference types="node"/>
-import * as stream from "stream";
-import { EventEmitter } from "events";
+import * as stream from 'stream';
+import { EventEmitter } from 'events';
 
 export type Action = (...args: any[]) => any;
 
@@ -37,27 +37,24 @@ export class CircuitBreaker extends EventEmitter {
     enable(): void;
     fallback(func: Action | CircuitBreaker): this;
     fire(...args: any[]): Promise<any>;
-    healthCheck(
-        func: (...args: any[]) => Promise<any>,
-        interval?: number
-    ): void;
+    healthCheck(func: (...args: any[]) => Promise<any>, interval?: number): void;
     shutdown(): void;
 }
 
 export enum Event {
-    cacheHit = "cacheHit",
-    cacheMiss = "cacheMiss",
-    close = "close",
-    failure = "failure",
-    fallback = "fallback",
-    fire = "fire",
-    halfOpen = "halfOpen",
-    healthCheckFailed = "health-check-failed",
-    open = "open",
-    reject = "reject",
-    semaphoreLocked = "semaphore-locked",
-    success = "success",
-    timeout = "timeout"
+    cacheHit = 'cacheHit',
+    cacheMiss = 'cacheMiss',
+    close = 'close',
+    failure = 'failure',
+    fallback = 'fallback',
+    fire = 'fire',
+    halfOpen = 'halfOpen',
+    healthCheckFailed = 'health-check-failed',
+    open = 'open',
+    reject = 'reject',
+    semaphoreLocked = 'semaphore-locked',
+    success = 'success',
+    timeout = 'timeout',
 }
 
 export interface CircuitBreakerOptions {

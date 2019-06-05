@@ -1,4 +1,2 @@
-
-
-$("#form").serializeObject();
-$("#form").serializeJSON();
+$('#form').serializeObject();
+$('#form').serializeJSON();

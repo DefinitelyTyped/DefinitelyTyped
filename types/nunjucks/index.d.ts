@@ -22,7 +22,7 @@ export interface PrecompileOptions {
     env?: Environment;
     include?: string[];
     exclude?: string[];
-    wrapper?(templates: { name: string, template: string }, opts: PrecompileOptions): string;
+    wrapper?(templates: { name: string; template: string }, opts: PrecompileOptions): string;
 }
 
 export class Template {
@@ -42,17 +42,17 @@ export interface ConfigureOptions {
     watch?: boolean;
     noCache?: boolean;
     web?: {
-        useCache?: boolean,
-        async?: boolean
+        useCache?: boolean;
+        async?: boolean;
     };
     express?: object;
     tags?: {
-        blockStart?: string,
-        blockEnd?: string,
-        variableStart?: string,
-        variableEnd?: string,
-        commentStart?: string,
-        commentEnd?: string
+        blockStart?: string;
+        blockEnd?: string;
+        variableStart?: string;
+        variableEnd?: string;
+        commentStart?: string;
+        commentEnd?: string;
     };
 }
 

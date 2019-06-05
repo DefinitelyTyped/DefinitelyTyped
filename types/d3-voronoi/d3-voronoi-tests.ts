@@ -30,7 +30,7 @@ const testData: VoronoiTestDatum[] = [
     { x: 10, y: 20 },
     { x: 20, y: 20 },
     { x: 50, y: 40 },
-    { x: 30, y: 15 }
+    { x: 30, y: 15 },
 ];
 let testDatum: VoronoiTestDatum;
 

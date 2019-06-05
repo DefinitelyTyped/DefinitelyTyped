@@ -6,29 +6,27 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
+    export interface IDeviceOrientationHeading {
+        magneticHeading: number;
+        trueHeading?: number;
+        headingAccuracy?: number;
+        timestamp?: number;
+    }
 
-  export interface IDeviceOrientationHeading {
-      magneticHeading: number;
-      trueHeading?: number;
-      headingAccuracy?: number;
-      timestamp?: number;
-  }
+    export interface IDeviceOrientationWatchOptions {
+        frequency?: number;
+        filter?: number;
+    }
 
-  export interface IDeviceOrientationWatchOptions {
-      frequency?: number;
-      filter?: number;
-  }
+    export interface IDeviceOrientationWatchPromise extends ng.IPromise<IDeviceOrientationHeading> {
+        watchID: number;
+        cancel: () => void;
+        clearWatch: (watchId?: number) => void;
+    }
 
-  export interface IDeviceOrientationWatchPromise extends ng.IPromise<IDeviceOrientationHeading> {
-      watchID: number;
-      cancel: () => void;
-      clearWatch: (watchId?: number) => void;
-  }
-
-  export interface IDeviceOrientationService {
-      getCurrentHeading(): ng.IPromise<IDeviceOrientationHeading>;
-      watchHeading(options: IDeviceOrientationWatchOptions): IDeviceOrientationWatchPromise;
-      clearWatch(watchID: number): void;
-  }
-
+    export interface IDeviceOrientationService {
+        getCurrentHeading(): ng.IPromise<IDeviceOrientationHeading>;
+        watchHeading(options: IDeviceOrientationWatchOptions): IDeviceOrientationWatchPromise;
+        clearWatch(watchID: number): void;
+    }
 }

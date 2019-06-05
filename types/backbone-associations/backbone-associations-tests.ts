@@ -11,17 +11,17 @@ class EmployeeWithManager extends Backbone.AssociatedModel {
             {
                 type: Backbone.One, //nature of the relationship
                 key: 'manager', // attribute of Employee
-                relatedModel: 'Employee' //AssociatedModel for attribute key
-            }
+                relatedModel: 'Employee', //AssociatedModel for attribute key
+            },
         ];
     }
 
     defaults() {
         return {
             age: 0,
-            fname: "",
-            lname: "",
-            manager: null
+            fname: '',
+            lname: '',
+            manager: null,
         };
     }
 }
@@ -30,18 +30,18 @@ class EmployeeWithManager extends Backbone.AssociatedModel {
 class Location extends Backbone.AssociatedModel {
     defaults() {
         return {
-            add1: "",
+            add1: '',
             add2: null,
-            zip: "",
-            state: ""
+            zip: '',
+            state: '',
         };
     }
 }
 
 class Locations extends Backbone.Collection<Location> {
     comparator = (c: Backbone.Model) => {
-        return c.get("Number");
-    }
+        return c.get('Number');
+    };
 }
 
 class Project extends Backbone.AssociatedModel {
@@ -52,23 +52,23 @@ class Project extends Backbone.AssociatedModel {
                 type: Backbone.Many, //nature of the relation
                 key: 'locations', //attribute of Project
                 collectionType: Locations, //Collection to be used.
-                relatedModel: Location //Optional
-            }
+                relatedModel: Location, //Optional
+            },
         ];
     }
 
     defaults() {
         return {
-            name: "",
+            name: '',
             number: 0,
-            locations: []
-        }
+            locations: [],
+        };
     }
 }
 
 function reverseAssociationTest() {
-    var local = new Location({ state: "Hertfordshire" });
-    var project = new Project({ name: "The Old Pond Project" });
-    local.set("oddRelationTo", project);
+    var local = new Location({ state: 'Hertfordshire' });
+    var project = new Project({ name: 'The Old Pond Project' });
+    local.set('oddRelationTo', project);
     var parents = project.parents;
 }

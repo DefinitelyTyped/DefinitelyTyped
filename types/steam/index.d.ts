@@ -18,19 +18,19 @@ declare namespace Steam {
     }
 
     export enum EResult {
-        AccountLogonDenied
+        AccountLogonDenied,
     }
 
     export enum EPersonaState {
-        Online
+        Online,
     }
 
     export enum EChatEntryType {
-        ChatMsg
+        ChatMsg,
     }
 
     export enum EChatMemberStateChange {
-        Kicked
+        Kicked,
     }
 
     export class SteamClient extends NodeJS.EventEmitter {
@@ -61,4 +61,3 @@ declare namespace Steam {
         listenerCount(type: string): number;
     }
 }
-

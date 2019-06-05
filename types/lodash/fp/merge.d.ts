@@ -1,2 +1,2 @@
-import { merge } from "../fp";
+import { merge } from '../fp';
 export = merge;

@@ -46,6 +46,6 @@ interface TextDecoder {
     decode(input?: Uint8Array, options?: TextDecoderOptions): string;
 }
 
-declare module "text-encoding" {
+declare module 'text-encoding' {
     export = TextEncoding;
 }

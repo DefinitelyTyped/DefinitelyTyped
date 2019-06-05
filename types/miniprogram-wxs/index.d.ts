@@ -33,7 +33,7 @@ declare function getDate(
     hours?: number,
     minutes?: number,
     seconds?: number,
-    ms?: number,
+    ms?: number
 ): Date;
 
 declare interface DateConstructor {
@@ -41,7 +41,7 @@ declare interface DateConstructor {
      * wxs 中禁止使用new来构造 Date
      * 使用 `getDate` 代替
      */
-    new(...args: any): never;
+    new (...args: any): never;
 }
 
 declare interface RegExpConstructor {
@@ -49,7 +49,7 @@ declare interface RegExpConstructor {
      * wxs 中禁止使用new来构造 RegExp
      * 使用 `getRegExp` 代替
      */
-    new(...args: any): never;
+    new (...args: any): never;
 }
 /**
  * 方法用于在 console 窗口输出信息。它可以接受多个参数，将它们的结果连接起来输出。

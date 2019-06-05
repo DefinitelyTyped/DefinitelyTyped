@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export as namespace FixedDataTable;
 
@@ -30,7 +30,7 @@ export interface ColumnReorderEndEvent {
     reorderColumn: string;
 }
 
-export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => (string | React.ReactElement));
+export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => string | React.ReactElement);
 
 export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
@@ -391,8 +391,7 @@ export interface TableProps extends React.ClassAttributes<Table> {
     bufferRowCount?: number;
 }
 
-export class Table extends React.Component<TableProps> {
-}
+export class Table extends React.Component<TableProps> {}
 
 export interface ColumnHeaderProps {
     columnKey?: string;
@@ -570,8 +569,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
     pureRendering?: boolean;
 }
 
-export class Column extends React.Component<ColumnProps> {
-}
+export class Column extends React.Component<ColumnProps> {}
 
 export interface ColumnGroupHeaderProps {
     /* supplied from the groupHeaderHeight */
@@ -616,11 +614,10 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
      * You can also pass in a function that returns a react elemnt, with the
      * props object above passed in as the first parameter.
      */
-    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement));
+    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => string | React.ReactElement);
 }
 
-export class ColumnGroup extends React.Component<ColumnGroupProps> {
-}
+export class ColumnGroup extends React.Component<ColumnGroupProps> {}
 
 /**
  * Component that handles default cell layout and styling.
@@ -673,5 +670,4 @@ export interface CellProps extends React.HTMLAttributes<Cell> {
     rowIndex?: number;
 }
 
-export class Cell extends React.Component<CellProps> {
-}
+export class Cell extends React.Component<CellProps> {}

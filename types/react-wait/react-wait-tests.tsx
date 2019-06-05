@@ -4,22 +4,12 @@ const Spinner = () => <img src="https://a.com/spinner.gif" />;
 
 function A() {
     const { isWaiting } = useWait();
-    return (
-        <div>
-            {isWaiting('creating user')
-                ? 'Creating User...'
-                : 'Nothing happens'}
-        </div>
-    );
+    return <div>{isWaiting('creating user') ? 'Creating User...' : 'Nothing happens'}</div>;
 }
 
 function B() {
     const { anyWaiting } = useWait();
-    return (
-        <div>
-            {anyWaiting() ? 'Something happening on app...' : 'Nothing happens'}
-        </div>
-    );
+    return <div>{anyWaiting() ? 'Something happening on app...' : 'Nothing happens'}</div>;
 }
 
 function C() {

@@ -8,7 +8,7 @@ Vue.use(Auth, {
     redirect_uri: 'http://localhost:{port}/implicit/callback',
     scope: 'openid profile email',
     storage: 'cookie',
-    auto_renew: false
+    auto_renew: false,
 });
 
 Vue.use(Router);
@@ -20,13 +20,13 @@ const router = new Router({
             path: '/protected',
             component: {
                 name: 'protected',
-                template: '<div>Protected Route</div>'
+                template: '<div>Protected Route</div>',
             },
             meta: {
-                requiresAuth: true
-            }
+                requiresAuth: true,
+            },
         },
-    ]
+    ],
 });
 
 const redirectGuard = Vue.prototype.$auth.authRedirectGuard();

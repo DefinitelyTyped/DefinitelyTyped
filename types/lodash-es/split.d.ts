@@ -1,2 +1,2 @@
-import { split } from "lodash";
+import { split } from 'lodash';
 export default split;

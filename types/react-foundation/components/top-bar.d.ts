@@ -1,8 +1,7 @@
 /// <reference types="react" />
 import * as React from 'react';
 import { FlexboxPropTypes } from '../utils';
-export interface TopBarProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {
-}
+export interface TopBarProps extends FlexboxPropTypes, React.HTMLAttributes<HTMLDivElement> {}
 /**
  * Top bar component.
  * http://foundation.zurb.com/sites/docs/top-bar.html

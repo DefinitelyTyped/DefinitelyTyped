@@ -11,7 +11,7 @@
 /// <reference types="node" />
 
 import { ReadStream } from 'fs';
-import { ClientRequest } from "http";
+import { ClientRequest } from 'http';
 import { Url } from 'url';
 
 export = nock;
@@ -41,13 +41,19 @@ declare namespace nock {
 
     let back: NockBack;
 
-    interface POJO { [k: string]: any; }
-    type RequestBodyMatcher = string | Buffer | RegExp | POJO | { (body: any): boolean; };
-    interface RequestHeaderMatcher { [key: string]: string | RegExp | { (headerValue: string): boolean; }; }
+    interface POJO {
+        [k: string]: any;
+    }
+    type RequestBodyMatcher = string | Buffer | RegExp | POJO | { (body: any): boolean };
+    interface RequestHeaderMatcher {
+        [key: string]: string | RegExp | { (headerValue: string): boolean };
+    }
 
-    interface HttpHeaders { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; }
+    interface HttpHeaders {
+        [key: string]: string | string[] | { (req: any, res: any, body: string): any };
+    }
     type InterceptFunction = (
-        uri: string | RegExp | { (uri: string): boolean; },
+        uri: string | RegExp | { (uri: string): boolean },
         requestBody?: RequestBodyMatcher,
         interceptorOptions?: Options
     ) => Interceptor;
@@ -57,7 +63,7 @@ declare namespace nock {
     type ReplyCallbackResult = ReplyBody | [number, ReplyBody] | [number, ReplyBody, HttpHeaders];
     interface ReplyCallbackContext extends Interceptor {
         req: ClientRequest & {
-            headers: { [k: string]: string }
+            headers: { [k: string]: string };
         };
     }
 
@@ -72,14 +78,14 @@ declare namespace nock {
         options: InterceptFunction;
 
         intercept: (
-            uri: string | RegExp | { (uri: string): boolean; },
+            uri: string | RegExp | { (uri: string): boolean },
             method: string,
             requestBody?: RequestBodyMatcher,
             options?: Options
         ) => Interceptor;
 
         defaultReplyHeaders(headers: HttpHeaders): this;
-        matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
+        matchHeader(name: string, value: string | RegExp | { (value: string): boolean }): this;
         filteringPath(regex: RegExp, replace: string): this;
         filteringPath(fn: (path: string) => string): this;
         filteringRequestBody(regex: RegExp, replace: string): this;
@@ -99,23 +105,29 @@ declare namespace nock {
     }
 
     interface Interceptor {
-        query(params: boolean | string | { (queryObject: any): boolean; } | POJO): this;
+        query(params: boolean | string | { (queryObject: any): boolean } | POJO): this;
 
         // tslint (as of 5.16) is under the impression that the callback types can be unified,
         // however, doing so causes the params to lose their inherited types during use.
         /* tslint:disable:unified-signatures */
         reply(callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void): Scope;
         reply(callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult): Scope;
-        reply(responseCode: number, callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void): Scope;
-        reply(responseCode: number, callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult): Scope;
+        reply(
+            responseCode: number,
+            callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void
+        ): Scope;
+        reply(
+            responseCode: number,
+            callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult
+        ): Scope;
         reply(responseCode: number, body?: ReplyBody, headers?: HttpHeaders): Scope;
         /* tslint:enable:unified-signatures */
 
         replyWithError(errorMessage: string | POJO): Scope;
         replyWithFile(responseCode: number, fileName: string, headers?: HttpHeaders): Scope;
 
-        matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
-        basicAuth(options: { user: string; pass?: string; }): this;
+        matchHeader(name: string, value: string | RegExp | { (value: string): boolean }): this;
+        basicAuth(options: { user: string; pass?: string }): this;
 
         times(newCounter: number): this;
         once(): this;
@@ -123,7 +135,7 @@ declare namespace nock {
         thrice(): this;
         optionally(): this;
 
-        delay(opts: number | { head?: number; body?: number; }): this;
+        delay(opts: number | { head?: number; body?: number }): this;
         delayBody(timeMs: number): this;
         delayConnection(timeMs: number): this;
         getTotalDelay(): number;
@@ -134,7 +146,7 @@ declare namespace nock {
         allowUnmocked?: boolean;
         reqheaders?: RequestHeaderMatcher;
         badheaders?: string[];
-        filteringScope?: { (scope: string): boolean; };
+        filteringScope?: { (scope: string): boolean };
         encodedQueryParams?: boolean;
     }
 
@@ -175,7 +187,7 @@ declare namespace nock {
         options?: Options;
     }
 
-    type NockBackMode = "wild" | "dryrun" | "record" | "lockdown";
+    type NockBackMode = 'wild' | 'dryrun' | 'record' | 'lockdown';
 
     interface NockBack {
         fixtures: string;
@@ -183,7 +195,7 @@ declare namespace nock {
 
         (fixtureName: string, nockedFn: (nockDone: () => void) => void): void;
         (fixtureName: string, options: NockBackOptions, nockedFn: (nockDone: () => void) => void): void;
-        (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void, context: NockBackContext }>;
+        (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void; context: NockBackContext }>;
     }
 
     interface NockBackContext {

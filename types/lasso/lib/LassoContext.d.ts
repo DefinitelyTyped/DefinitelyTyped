@@ -5,17 +5,17 @@ import { DependencyRegistry } from './dependencies';
 import { writers } from '../index';
 
 export default class LassoContext extends EventEmitter {
-  constructor();
+    constructor();
 
-  LassoContext: boolean;
-  basePath?: string;
-  contentType?: string;
-  data?: any;
-  dependencyRegistry: DependencyRegistry;
-  flags: any[];
-  config: any;
-  writer: writers.Writer;
-  lasso: Lasso;
-  cache: any;
-  options: any;
+    LassoContext: boolean;
+    basePath?: string;
+    contentType?: string;
+    data?: any;
+    dependencyRegistry: DependencyRegistry;
+    flags: any[];
+    config: any;
+    writer: writers.Writer;
+    lasso: Lasso;
+    cache: any;
+    options: any;
 }

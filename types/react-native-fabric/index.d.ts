@@ -20,19 +20,22 @@ export namespace Answers {
         contentName: string,
         contentType: string,
         contentId: string,
-        customAttributes?: CustomAttributes): void;
+        customAttributes?: CustomAttributes
+    ): void;
     function logStartCheckout(
         totalPrice: number,
         count: number,
         currency: string,
-        customAttributes?: CustomAttributes): void;
+        customAttributes?: CustomAttributes
+    ): void;
     function logAddToCart(
         itemPrice: number,
         currency: string,
         itemName: string,
         itemType: string,
         itemId: string,
-        customAttributes?: CustomAttributes): void;
+        customAttributes?: CustomAttributes
+    ): void;
     function logPurchase(
         itemPrice: number,
         currency: string,
@@ -40,18 +43,21 @@ export namespace Answers {
         itemName: string,
         itemType: string,
         itemId: string,
-        customAttributes?: CustomAttributes): void;
+        customAttributes?: CustomAttributes
+    ): void;
     function logContentView(
         contentName: string,
         contentType: string,
         contentId: string,
-        customAttributes?: CustomAttributes): void;
+        customAttributes?: CustomAttributes
+    ): void;
     function logRating(
         rating: number,
         contentId: string,
         contentType: string,
         contentName: string,
-        customAttributes?: CustomAttributes): void;
+        customAttributes?: CustomAttributes
+    ): void;
 }
 
 export namespace Crashlytics {

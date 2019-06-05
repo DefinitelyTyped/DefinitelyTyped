@@ -34,12 +34,12 @@ export class CommandExecutor {}
  * Configuration options specific to the {@link Driver SafariDriver}.
  */
 export class Options extends webdriver.Capabilities {
-  /**
-   * Sets the logging preferences for the new session.
-   * @param {!./lib/logging.Preferences} prefs The logging preferences.
-   * @return {!Options} A self reference.
-   */
-  setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
+    /**
+     * Sets the logging preferences for the new session.
+     * @param {!./lib/logging.Preferences} prefs The logging preferences.
+     * @return {!Options} A self reference.
+     */
+    setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
 }
 
 /**
@@ -52,12 +52,12 @@ export class Options extends webdriver.Capabilities {
  *
  */
 export class Driver extends webdriver.WebDriver {
-  /**
-   * Creates a new Safari session.
-   *
-   * @param {(Options|Capabilities)=} opt_config The configuration
-   *     options for the new session.
-   * @return {!Driver} A new driver instance.
-   */
-  static createSession(opt_config?: Options|webdriver.Capabilities): Driver;
+    /**
+     * Creates a new Safari session.
+     *
+     * @param {(Options|Capabilities)=} opt_config The configuration
+     *     options for the new session.
+     * @return {!Driver} A new driver instance.
+     */
+    static createSession(opt_config?: Options | webdriver.Capabilities): Driver;
 }

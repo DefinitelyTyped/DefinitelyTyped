@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export default class Markdown extends React.Component<MarkdownProps> { }
+export default class Markdown extends React.Component<MarkdownProps> {}
 
 export interface MarkdownProps {
     options?: MarkdownOptions;
@@ -15,10 +15,14 @@ export interface MarkdownProps {
     children?: React.ReactNode;
 }
 
-export type ComponentOverride = string | React.ComponentClass | React.SFC | {
-    component: string | React.ComponentClass | React.SFC;
-    props?: any;
-};
+export type ComponentOverride =
+    | string
+    | React.ComponentClass
+    | React.SFC
+    | {
+          component: string | React.ComponentClass | React.SFC;
+          props?: any;
+      };
 
 export interface MarkdownOptions {
     /** Force all input strings to use block layout. */
@@ -72,7 +76,8 @@ export interface MarkdownOptions {
         // tslint:disable-next-line:no-null-undefined-union
         props?: React.Attributes & P | null,
         // tslint:disable-next-line:no-null-undefined-union
-        ...children: React.ReactNode[]) => React.ReactElement<P>;
+        ...children: React.ReactNode[]
+    ) => React.ReactElement<P>;
 
     /** Custom function to generate an HTML id from headings. */
     slugify?: (text: string) => string;

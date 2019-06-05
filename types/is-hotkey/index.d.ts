@@ -31,21 +31,11 @@ export function isHotkey(
     event?: KeyboardEvent
 ): boolean;
 
-export function isCodeHotkey(
-    hotkey: string | ReadonlyArray<string>
-): (event: KeyboardEvent) => boolean;
-export function isCodeHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isCodeHotkey(hotkey: string | ReadonlyArray<string>): (event: KeyboardEvent) => boolean;
+export function isCodeHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEvent): boolean;
 
-export function isKeyHotkey(
-    hotkey: string | ReadonlyArray<string>
-): (event: KeyboardEvent) => boolean;
-export function isKeyHotkey(
-    hotkey: string | ReadonlyArray<string>,
-    event: KeyboardEvent
-): boolean;
+export function isKeyHotkey(hotkey: string | ReadonlyArray<string>): (event: KeyboardEvent) => boolean;
+export function isKeyHotkey(hotkey: string | ReadonlyArray<string>, event: KeyboardEvent): boolean;
 
 /**
  * Parse.

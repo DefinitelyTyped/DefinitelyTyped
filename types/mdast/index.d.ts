@@ -10,27 +10,11 @@ export type AlignType = 'left' | 'right' | 'center' | null;
 
 export type ReferenceType = 'shortcut' | 'collapsed' | 'full';
 
-export type Content =
-    | TopLevelContent
-    | ListContent
-    | TableContent
-    | RowContent
-    | PhrasingContent;
+export type Content = TopLevelContent | ListContent | TableContent | RowContent | PhrasingContent;
 
-export type TopLevelContent =
-    | BlockContent
-    | FrontmatterContent
-    | DefinitionContent;
+export type TopLevelContent = BlockContent | FrontmatterContent | DefinitionContent;
 
-export type BlockContent =
-    | Paragraph
-    | Heading
-    | ThematicBreak
-    | Blockquote
-    | List
-    | Table
-    | HTML
-    | Code;
+export type BlockContent = Paragraph | Heading | ThematicBreak | Blockquote | List | Table | HTML | Code;
 
 export type FrontmatterContent = YAML;
 

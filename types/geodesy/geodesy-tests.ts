@@ -1,11 +1,12 @@
 import {
-  Mgrs,
-  Utm,
-  Dms,
-  Vector3d,
-  OsGridRef,
-  LatLonEllipsoidal as LatLon, LatLonSpherical,
-  LatLonVectors
+    Mgrs,
+    Utm,
+    Dms,
+    Vector3d,
+    OsGridRef,
+    LatLonEllipsoidal as LatLon,
+    LatLonSpherical,
+    LatLonVectors,
 } from 'geodesy';
 
 /**
@@ -109,7 +110,7 @@ mgrsGrid.toString(6);
  * OsGridRef
  */
 const gridref = new OsGridRef(651409, 313177);
-const osgrid = new OsGridRef(651409.903, 313177.270);
+const osgrid = new OsGridRef(651409.903, 313177.27);
 new OsGridRef(651409, 313177).toString();
 
 // Static Functions
@@ -135,9 +136,9 @@ point1.destinationPoint(7794, 300.7, 6371e3); // 51.5135°N, 000.0983°W
 
 const ctCurrent = new LatLonSpherical(53.2611, -0.7972);
 const ct1 = new LatLonSpherical(53.3206, -1.7297);
-const ct2 = new LatLonSpherical(53.1887,  0.1334);
-ctCurrent.crossTrackDistanceTo(ct1, ct2);  // -307.5 m
-ctCurrent.crossTrackDistanceTo(ct1, ct2, 6371e3);  // -307.5 m
+const ct2 = new LatLonSpherical(53.1887, 0.1334);
+ctCurrent.crossTrackDistanceTo(ct1, ct2); // -307.5 m
+ctCurrent.crossTrackDistanceTo(ct1, ct2, 6371e3); // -307.5 m
 
 point1.maxLatitude(156);
 
@@ -160,7 +161,7 @@ eq1.toString('d', 0);
 
 // Static functions
 const brng1 = 108.547;
-const brng2 =  32.435;
+const brng2 = 32.435;
 LatLonSpherical.intersection(point1, brng1, point2, brng2); // 50.9078°N, 004.5084°E
 LatLonSpherical.crossingParallels(point1, point2, 30);
 

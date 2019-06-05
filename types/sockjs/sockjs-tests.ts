@@ -23,7 +23,7 @@ serverOptions.websocket = true;
 serverOptions.jsessionid = true;
 serverOptions.jsessionid = () => true;
 
-serverOptions.log = (severity: string, message: string) => { };
+serverOptions.log = (severity: string, message: string) => {};
 serverOptions.heartbeat_delay = 25000;
 serverOptions.disconnect_delay = 5000;
 
@@ -39,5 +39,5 @@ server.on('connection', (conn: sockjs.Connection) => {
 // connection is a ReadWriteStream
 const connectionAsReadWrite: NodeJS.ReadWriteStream = connection;
 
-connection.on('data', (message: string) => { });
-connection.on('close', () => { });
+connection.on('data', (message: string) => {});
+connection.on('close', () => {});

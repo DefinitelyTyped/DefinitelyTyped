@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     // assign
 
     interface LoDashStatic {
@@ -31,10 +31,7 @@ declare module "../index" {
          * _.assign({ 'a': 1 }, new Foo, new Bar);
          * // => { 'a': 1, 'c': 3, 'e': 5 }
          */
-        assign<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
+        assign<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 
         /**
          * @see assign
@@ -74,19 +71,14 @@ declare module "../index" {
         /**
          * @see _.assign
          */
-        assign(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        assign(object: any, ...otherArgs: any[]): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.assign
          */
-        assign<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        assign<TSource>(source: TSource): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see assign
@@ -130,9 +122,7 @@ declare module "../index" {
         /**
          * @see _.assign
          */
-        assign<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        assign<TSource>(source: TSource): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see assign
@@ -202,10 +192,7 @@ declare module "../index" {
          * _.assignIn({ 'a': 1 }, new Foo, new Bar);
          * // => { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5 }
          */
-        assignIn<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
+        assignIn<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 
         /**
          * @see assignIn
@@ -245,19 +232,14 @@ declare module "../index" {
         /**
          * @see _.assignIn
          */
-        assignIn<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        assignIn<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.assignIn
          */
-        assignIn<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        assignIn<TSource>(source: TSource): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see assignIn
@@ -301,9 +283,7 @@ declare module "../index" {
         /**
          * @see _.assignIn
          */
-        assignIn<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        assignIn<TSource>(source: TSource): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see assignIn
@@ -420,20 +400,14 @@ declare module "../index" {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        assignInWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see assignInWith
@@ -480,10 +454,7 @@ declare module "../index" {
         /**
          * @see _.assignInWith
          */
-        assignInWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        assignInWith<TSource>(source: TSource, customizer: AssignCustomizer): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see assignInWith
@@ -553,11 +524,7 @@ declare module "../index" {
          * defaults({ 'a': 1 }, { 'b': 2 }, { 'a': 3 });
          * // => { 'a': 1, 'b': 2 }
          */
-        assignWith<TObject, TSource>(
-            object: TObject,
-            source: TSource,
-            customizer: AssignCustomizer
-        ): TObject & TSource;
+        assignWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
 
         /**
          * @see assignWith
@@ -600,20 +567,14 @@ declare module "../index" {
         /**
          * @see _.assignWith
          */
-        assignWith<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        assignWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.assignWith
          */
-        assignWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see assignWith
@@ -660,10 +621,7 @@ declare module "../index" {
         /**
          * @see _.assignWith
          */
-        assignWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        assignWith<TSource>(source: TSource, customizer: AssignCustomizer): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see assignWith
@@ -717,18 +675,12 @@ declare module "../index" {
          * @param props The property names or indexes of elements to pick, specified individually or in arrays.
          * @return Returns the new array of picked elements.
          */
-        at<T>(
-            object: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined,
-            ...props: PropertyPath[]
-        ): T[];
+        at<T>(object: List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined, ...props: PropertyPath[]): T[];
 
         /**
          * @see _.at
          */
-        at<T extends object>(
-            object: T | null | undefined,
-            ...props: Array<Many<keyof T>>
-        ): Array<T[keyof T]>;
+        at<T extends object>(object: T | null | undefined, ...props: Array<Many<keyof T>>): Array<T[keyof T]>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -778,10 +730,7 @@ declare module "../index" {
          * @param properties The properties to assign to the object.
          * @return Returns the new object.
          */
-        create<T extends object, U extends object>(
-            prototype: T,
-            properties?: U
-        ): T & U;
+        create<T extends object, U extends object>(prototype: T, properties?: U): T & U;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -812,10 +761,7 @@ declare module "../index" {
          * @param sources The source objects.
          * @return The destination object.
          */
-        defaults<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TSource & TObject;
+        defaults<TObject, TSource>(object: TObject, source: TSource): TSource & TObject;
 
         /**
          * @see _.defaults
@@ -855,19 +801,14 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults(
-            object: any,
-            ...sources: any[]
-        ): any;
+        defaults(object: any, ...sources: any[]): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TSource & TValue>;
+        defaults<TSource>(source: TSource): LoDashImplicitWrapper<TSource & TValue>;
 
         /**
          * @see _.defaults
@@ -911,9 +852,7 @@ declare module "../index" {
         /**
          * @see _.defaults
          */
-        defaults<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TSource & TValue>;
+        defaults<TSource>(source: TSource): LoDashExplicitWrapper<TSource & TValue>;
 
         /**
          * @see _.defaults
@@ -962,9 +901,7 @@ declare module "../index" {
          * @param sources The source objects.
          * @return Returns object.
          **/
-        defaultsDeep(
-            object: any,
-            ...sources: any[]): any;
+        defaultsDeep(object: any, ...sources: any[]): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -999,7 +936,9 @@ declare module "../index" {
         /**
          * @see _.toPairs
          */
-        entries<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
+        entries<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashImplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.toPairs
@@ -1011,7 +950,9 @@ declare module "../index" {
         /**
          * @see _.toPairs
          */
-        entries<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
+        entries<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashExplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.toPairs
@@ -1037,7 +978,9 @@ declare module "../index" {
         /**
          * @see _.entriesIn
          */
-        entriesIn<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
+        entriesIn<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashImplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.entriesIn
@@ -1049,7 +992,9 @@ declare module "../index" {
         /**
          * @see _.entriesIn
          */
-        entriesIn<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
+        entriesIn<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashExplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.entriesIn
@@ -1063,10 +1008,7 @@ declare module "../index" {
         /**
          * @see _.extend
          */
-        extend<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
+        extend<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 
         /**
          * @see _.extend
@@ -1106,19 +1048,14 @@ declare module "../index" {
         /**
          * @see _.extend
          */
-        extend<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        extend<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.extend
          */
-        extend<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        extend<TSource>(source: TSource): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.extend
@@ -1162,9 +1099,7 @@ declare module "../index" {
         /**
          * @see _.extend
          */
-        extend<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        extend<TSource>(source: TSource): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.extend
@@ -1210,11 +1145,7 @@ declare module "../index" {
         /**
          * @see _.extendWith
          */
-        extendWith<TObject, TSource>(
-            object: TObject,
-            source: TSource,
-            customizer: AssignCustomizer
-        ): TObject & TSource;
+        extendWith<TObject, TSource>(object: TObject, source: TSource, customizer: AssignCustomizer): TObject & TSource;
 
         /**
          * @see _.extendWith
@@ -1257,20 +1188,14 @@ declare module "../index" {
         /**
          * @see _.extendWith
          */
-        extendWith<TResult>(
-            object: any,
-            ...otherArgs: any[]
-        ): TResult;
+        extendWith<TResult>(object: any, ...otherArgs: any[]): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.extendWith
          */
-        extendWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.extendWith
@@ -1317,10 +1242,7 @@ declare module "../index" {
         /**
          * @see _.extendWith
          */
-        extendWith<TSource>(
-            source: TSource,
-            customizer: AssignCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        extendWith<TSource>(source: TSource, customizer: AssignCustomizer): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.extendWith
@@ -1374,10 +1296,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the key of the matched element, else undefined.
          */
-        findKey<T>(
-            object: T | null | undefined,
-            predicate?: ObjectIteratee<T>
-        ): string | undefined;
+        findKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1410,10 +1329,7 @@ declare module "../index" {
          * @param predicate The function invoked per iteration.
          * @return Returns the key of the matched element, else undefined.
          */
-        findLastKey<T>(
-            object: T | null | undefined,
-            predicate?: ObjectIteratee<T>
-        ): string | undefined;
+        findLastKey<T>(object: T | null | undefined, predicate?: ObjectIteratee<T>): string | undefined;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1448,28 +1364,19 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forIn<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
+        forIn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
 
         /**
          * @see _.forIn
          */
-        forIn<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forIn<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
 
     interface LoDashWrapper<TValue> {
         /**
          * @see _.forIn
          */
-        forIn<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forIn<T>(this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any>): this;
     }
 
     // forInRight
@@ -1482,28 +1389,19 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forInRight<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
+        forInRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
 
         /**
          * @see _.forInRight
          */
-        forInRight<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forInRight<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
 
     interface LoDashWrapper<TValue> {
         /**
          * @see _.forInRight
          */
-        forInRight<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forInRight<T>(this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any>): this;
     }
 
     // forOwn
@@ -1518,28 +1416,19 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forOwn<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
+        forOwn<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
 
         /**
          * @see _.forOwn
          */
-        forOwn<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forOwn<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
 
     interface LoDashWrapper<TValue> {
         /**
          * @see _.forOwn
          */
-        forOwn<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forOwn<T>(this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any>): this;
     }
 
     // forOwnRight
@@ -1552,28 +1441,19 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns object.
          */
-        forOwnRight<T>(
-            object: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
+        forOwnRight<T>(object: T, iteratee?: ObjectIterator<T, any>): T;
 
         /**
          * @see _.forOwnRight
          */
-        forOwnRight<T>(
-            object: T | null | undefined,
-            iteratee?: ObjectIterator<T, any>
-        ): T | null | undefined;
+        forOwnRight<T>(object: T | null | undefined, iteratee?: ObjectIterator<T, any>): T | null | undefined;
     }
 
     interface LoDashWrapper<TValue> {
         /**
          * @see _.forOwnRight
          */
-        forOwnRight<T>(
-            this: LoDashWrapper<T | null | undefined>,
-            iteratee?: ObjectIterator<T, any>
-        ): this;
+        forOwnRight<T>(this: LoDashWrapper<T | null | undefined>, iteratee?: ObjectIterator<T, any>): this;
     }
 
     // functions
@@ -1666,10 +1546,7 @@ declare module "../index" {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject,
-            path: TKey | [TKey]
-        ): TObject[TKey];
+        get<TObject extends object, TKey extends keyof TObject>(object: TObject, path: TKey | [TKey]): TObject[TKey];
 
         /**
          * @see _.get
@@ -1691,18 +1568,12 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<T>(
-            object: NumericDictionary<T>,
-            path: number
-        ): T;
+        get<T>(object: NumericDictionary<T>, path: number): T;
 
         /**
          * @see _.get
          */
-        get<T>(
-            object: NumericDictionary<T> | null | undefined,
-            path: number
-        ): T | undefined;
+        get<T>(object: NumericDictionary<T> | null | undefined, path: number): T | undefined;
 
         /**
          * @see _.get
@@ -1716,44 +1587,31 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TDefault>(
-            object: null | undefined,
-            path: PropertyPath,
-            defaultValue: TDefault
-        ): TDefault;
+        get<TDefault>(object: null | undefined, path: PropertyPath, defaultValue: TDefault): TDefault;
 
         /**
          * @see _.get
          */
-        get(
-            object: null | undefined,
-            path: PropertyPath
-        ): undefined;
+        get(object: null | undefined, path: PropertyPath): undefined;
 
         /**
          * @see _.get
          */
-        get(
-            object: any,
-            path: PropertyPath,
-            defaultValue?: any
-        ): any;
+        get(object: any, path: PropertyPath, defaultValue?: any): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.get
          */
-        get<TKey extends keyof TValue>(
-            path: TKey | [TKey]
-        ): TValue[TKey];
+        get<TKey extends keyof TValue>(path: TKey | [TKey]): TValue[TKey];
 
         /**
          * @see _.get
          */
         get<TObject extends object, TKey extends keyof TObject>(
             this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
+            path: TKey | [TKey]
         ): TObject[TKey] | undefined;
 
         /**
@@ -1768,18 +1626,12 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T>>,
-            path: number
-        ): T;
+        get<T>(this: LoDashImplicitWrapper<NumericDictionary<T>>, path: number): T;
 
         /**
          * @see _.get
          */
-        get<T>(
-            this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
-            path: number
-        ): T | undefined;
+        get<T>(this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>, path: number): T | undefined;
 
         /**
          * @see _.get
@@ -1802,34 +1654,26 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get(
-            this: LoDashImplicitWrapper<null | undefined>,
-            path: PropertyPath
-        ): undefined;
+        get(this: LoDashImplicitWrapper<null | undefined>, path: PropertyPath): undefined;
 
         /**
          * @see _.get
          */
-        get<TResult>(
-            path: PropertyPath,
-            defaultValue?: any
-        ): any;
+        get<TResult>(path: PropertyPath, defaultValue?: any): any;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.get
          */
-        get<TKey extends keyof TValue>(
-            path: TKey | [TKey]
-        ): LoDashExplicitWrapper<TValue[TKey]>;
+        get<TKey extends keyof TValue>(path: TKey | [TKey]): LoDashExplicitWrapper<TValue[TKey]>;
 
         /**
          * @see _.get
          */
         get<TObject extends object, TKey extends keyof TObject>(
             this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
+            path: TKey | [TKey]
         ): LoDashExplicitWrapper<TObject[TKey] | undefined>;
 
         /**
@@ -1844,10 +1688,7 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<T>(
-            this: LoDashExplicitWrapper<NumericDictionary<T>>,
-            path: number
-        ): LoDashExplicitWrapper<T>;
+        get<T>(this: LoDashExplicitWrapper<NumericDictionary<T>>, path: number): LoDashExplicitWrapper<T>;
 
         /**
          * @see _.get
@@ -1878,18 +1719,12 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get(
-            this: LoDashExplicitWrapper<null | undefined>,
-            path: PropertyPath
-        ): LoDashExplicitWrapper<undefined>;
+        get(this: LoDashExplicitWrapper<null | undefined>, path: PropertyPath): LoDashExplicitWrapper<undefined>;
 
         /**
          * @see _.get
          */
-        get(
-            path: PropertyPath,
-            defaultValue?: any
-        ): LoDashExplicitWrapper<any>;
+        get(path: PropertyPath, defaultValue?: any): LoDashExplicitWrapper<any>;
     }
 
     // has
@@ -1919,10 +1754,7 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
-        has<T>(
-            object: T,
-            path: PropertyPath
-        ): boolean;
+        has<T>(object: T, path: PropertyPath): boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1965,10 +1797,7 @@ declare module "../index" {
          * _.hasIn(object, 'b');
          * // => false
          */
-        hasIn<T>(
-            object: T,
-            path: PropertyPath
-        ): boolean;
+        hasIn<T>(object: T, path: PropertyPath): boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1996,9 +1825,7 @@ declare module "../index" {
          * @param multiValue Allow multiple values per key.
          * @return Returns the new inverted object.
          */
-        invert(
-            object: object
-        ): Dictionary<string>;
+        invert(object: object): Dictionary<string>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2081,33 +1908,26 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-        * Invokes the method at path of object.
-        * @param object The object to query.
-        * @param path The path of the method to invoke.
-        * @param args The arguments to invoke the method with.
-        **/
-        invoke(
-            object: any,
-            path: PropertyPath,
-            ...args: any[]): any;
+         * Invokes the method at path of object.
+         * @param object The object to query.
+         * @param path The path of the method to invoke.
+         * @param args The arguments to invoke the method with.
+         **/
+        invoke(object: any, path: PropertyPath, ...args: any[]): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
-        * @see _.invoke
-        **/
-        invoke(
-            path: PropertyPath,
-            ...args: any[]): any;
+         * @see _.invoke
+         **/
+        invoke(path: PropertyPath, ...args: any[]): any;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
-        * @see _.invoke
-        **/
-        invoke(
-            path: PropertyPath,
-            ...args: any[]): LoDashExplicitWrapper<any>;
+         * @see _.invoke
+         **/
+        invoke(path: PropertyPath, ...args: any[]): LoDashExplicitWrapper<any>;
     }
 
     // keys
@@ -2177,18 +1997,12 @@ declare module "../index" {
          * @param iteratee The function invoked per iteration.
          * @return Returns the new mapped object.
          */
-        mapKeys<T>(
-            object: List<T> | null | undefined,
-            iteratee?: ListIteratee<T>
-        ): Dictionary<T>;
+        mapKeys<T>(object: List<T> | null | undefined, iteratee?: ListIteratee<T>): Dictionary<T>;
 
         /**
          * @see _.mapKeys
          */
-        mapKeys<T extends object>(
-            object: T | null | undefined,
-            iteratee?: ObjectIteratee<T>
-        ): Dictionary<T[keyof T]>;
+        mapKeys<T extends object>(object: T | null | undefined, iteratee?: ObjectIteratee<T>): Dictionary<T[keyof T]>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2231,34 +2045,46 @@ declare module "../index" {
 
     interface LoDashStatic {
         /**
-        * Creates an object with the same keys as object and values generated by running each own
-        * enumerable property of object through iteratee. The iteratee function is
-        * invoked with three arguments: (value, key, object).
-        *
-        * @param object The object to iterate over.
-        * @param iteratee  The function invoked per iteration.
-        * @return Returns the new mapped object.
-        */
-        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
+         * Creates an object with the same keys as object and values generated by running each own
+         * enumerable property of object through iteratee. The iteratee function is
+         * invoked with three arguments: (value, key, object).
+         *
+         * @param object The object to iterate over.
+         * @param iteratee  The function invoked per iteration.
+         * @return Returns the new mapped object.
+         */
+        mapValues<TResult>(
+            obj: string | null | undefined,
+            callback: StringIterator<TResult>
+        ): NumericDictionary<TResult>;
 
         /**
          * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T, TResult>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, callback: DictionaryIterator<T, TResult>): Dictionary<TResult>;
+        mapValues<T, TResult>(
+            obj: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            callback: DictionaryIterator<T, TResult>
+        ): Dictionary<TResult>;
 
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
+        mapValues<T extends object, TResult>(
+            obj: T | null | undefined,
+            callback: ObjectIterator<T, TResult>
+        ): { [P in keyof T]: TResult };
 
         /**
          * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: object): Dictionary<boolean>;
+        mapValues<T>(
+            obj: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            iteratee: object
+        ): Dictionary<boolean>;
 
         /**
          * @see _.mapValues
@@ -2270,7 +2096,10 @@ declare module "../index" {
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T, TKey extends keyof T>(obj: Dictionary<T> | NumericDictionary<T> | null | undefined, iteratee: TKey): Dictionary<T[TKey]>;
+        mapValues<T, TKey extends keyof T>(
+            obj: Dictionary<T> | NumericDictionary<T> | null | undefined,
+            iteratee: TKey
+        ): Dictionary<T[TKey]>;
 
         /**
          * @see _.mapValues
@@ -2383,14 +2212,18 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues(this: LoDashImplicitWrapper<string | null | undefined>): LoDashImplicitWrapper<NumericDictionary<string>>;
+        mapValues(
+            this: LoDashImplicitWrapper<string | null | undefined>
+        ): LoDashImplicitWrapper<NumericDictionary<string>>;
 
         /**
          * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashImplicitWrapper<Dictionary<T>>;
+        mapValues<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>
+        ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.mapValues
@@ -2400,7 +2233,9 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<PartialObject<T>>;
+        mapValues<T extends object>(
+            this: LoDashImplicitWrapper<T | null | undefined>
+        ): LoDashImplicitWrapper<PartialObject<T>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -2479,14 +2314,18 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues(this: LoDashExplicitWrapper<string | null | undefined>): LoDashExplicitWrapper<NumericDictionary<string>>;
+        mapValues(
+            this: LoDashExplicitWrapper<string | null | undefined>
+        ): LoDashExplicitWrapper<NumericDictionary<string>>;
 
         /**
          * @see _.mapValues
          * TODO: This would be better if we had a separate overload for obj: NumericDictionary that returned a NumericDictionary,
          *       but TypeScript cannot select overload signatures based on number vs string index key type.
          */
-        mapValues<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>): LoDashExplicitWrapper<Dictionary<T>>;
+        mapValues<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | null | undefined>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.mapValues
@@ -2496,7 +2335,9 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<PartialObject<T>>;
+        mapValues<T extends object>(
+            this: LoDashExplicitWrapper<T | null | undefined>
+        ): LoDashExplicitWrapper<PartialObject<T>>;
     }
 
     // merge
@@ -2529,10 +2370,7 @@ declare module "../index" {
          * _.merge(users, ages);
          * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
          */
-        merge<TObject, TSource>(
-            object: TObject,
-            source: TSource
-        ): TObject & TSource;
+        merge<TObject, TSource>(object: TObject, source: TSource): TObject & TSource;
 
         /**
          * @see _.merge
@@ -2567,19 +2405,14 @@ declare module "../index" {
         /**
          * @see _.merge
          */
-        merge(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        merge(object: any, ...otherArgs: any[]): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.merge
          */
-        merge<TSource>(
-            source: TSource
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        merge<TSource>(source: TSource): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.merge
@@ -2611,18 +2444,14 @@ declare module "../index" {
         /**
          * @see _.merge
          */
-        merge(
-            ...otherArgs: any[]
-        ): LoDashImplicitWrapper<any>;
+        merge(...otherArgs: any[]): LoDashImplicitWrapper<any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.merge
          */
-        merge<TSource>(
-            source: TSource
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        merge<TSource>(source: TSource): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.merge
@@ -2654,14 +2483,14 @@ declare module "../index" {
         /**
          * @see _.merge
          */
-        merge(
-            ...otherArgs: any[]
-        ): LoDashExplicitWrapper<any>;
+        merge(...otherArgs: any[]): LoDashExplicitWrapper<any>;
     }
 
     // mergeWith
 
-    type MergeWithCustomizer = { bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any; }["bivariantHack"];
+    type MergeWithCustomizer = {
+        bivariantHack(value: any, srcValue: any, key: string, object: any, source: any): any;
+    }['bivariantHack'];
 
     interface LoDashStatic {
         /**
@@ -2739,20 +2568,14 @@ declare module "../index" {
         /**
          * @see _.mergeWith
          */
-        mergeWith(
-            object: any,
-            ...otherArgs: any[]
-        ): any;
+        mergeWith(object: any, ...otherArgs: any[]): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource>(
-            source: TSource,
-            customizer: MergeWithCustomizer
-        ): LoDashImplicitWrapper<TValue & TSource>;
+        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): LoDashImplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.mergeWith
@@ -2787,19 +2610,14 @@ declare module "../index" {
         /**
          * @see _.mergeWith
          */
-        mergeWith(
-            ...otherArgs: any[]
-        ): LoDashImplicitWrapper<any>;
+        mergeWith(...otherArgs: any[]): LoDashImplicitWrapper<any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.mergeWith
          */
-        mergeWith<TSource>(
-            source: TSource,
-            customizer: MergeWithCustomizer
-        ): LoDashExplicitWrapper<TValue & TSource>;
+        mergeWith<TSource>(source: TSource, customizer: MergeWithCustomizer): LoDashExplicitWrapper<TValue & TSource>;
 
         /**
          * @see _.mergeWith
@@ -2834,9 +2652,7 @@ declare module "../index" {
         /**
          * @see _.mergeWith
          */
-        mergeWith(
-            ...otherArgs: any[]
-        ): LoDashExplicitWrapper<any>;
+        mergeWith(...otherArgs: any[]): LoDashExplicitWrapper<any>;
     }
 
     // omit
@@ -2858,26 +2674,17 @@ declare module "../index" {
          * _.omit(object, ['a', 'c']);
          * // => { 'b': '2' }
          */
-        omit<T extends AnyKindOfDictionary>(
-            object: T | null | undefined,
-            ...paths: Array<Many<PropertyName>>
-        ): T;
+        omit<T extends AnyKindOfDictionary>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): T;
 
         /**
          * @see _.omit
          */
-        omit<T extends object, K extends keyof T>(
-            object: T | null | undefined,
-            ...paths: Array<Many<K>>
-        ): Omit<T, K>;
+        omit<T extends object, K extends keyof T>(object: T | null | undefined, ...paths: Array<Many<K>>): Omit<T, K>;
 
         /**
          * @see _.omit
          */
-        omit<T extends object>(
-            object: T | null | undefined,
-            ...paths: Array<Many<PropertyName>>
-        ): PartialObject<T>;
+        omit<T extends object>(object: T | null | undefined, ...paths: Array<Many<PropertyName>>): PartialObject<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -2951,10 +2758,7 @@ declare module "../index" {
          * _.omitBy(object, _.isNumber);
          * // => { 'b': '2' }
          */
-        omitBy<T>(
-            object: Dictionary<T> | null | undefined,
-            predicate?: ValueKeyIteratee<T>
-        ): Dictionary<T>;
+        omitBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
 
         /**
          * @see _.omitBy
@@ -3043,18 +2847,12 @@ declare module "../index" {
          * _.pick(object, ['a', 'c']);
          * // => { 'a': 1, 'c': 3 }
          */
-        pick<T extends object, U extends keyof T>(
-            object: T,
-             ...props: Array<Many<U>>
-        ): Pick<T, U>;
+        pick<T extends object, U extends keyof T>(object: T, ...props: Array<Many<U>>): Pick<T, U>;
 
         /**
          * @see _.pick
          */
-        pick<T>(
-            object: T | null | undefined,
-            ...props: PropertyPath[]
-        ): PartialDeep<T>;
+        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3127,10 +2925,7 @@ declare module "../index" {
         /**
          * @see _.pickBy
          */
-        pickBy<T>(
-            object: Dictionary<T> | null | undefined,
-            predicate?: ValueKeyIteratee<T>
-        ): Dictionary<T>;
+        pickBy<T>(object: Dictionary<T> | null | undefined, predicate?: ValueKeyIteratee<T>): Dictionary<T>;
 
         /**
          * @see _.pickBy
@@ -3248,7 +3043,7 @@ declare module "../index" {
         result<TResult>(
             object: any,
             path: PropertyPath,
-            defaultValue?: TResult|((...args: any[]) => TResult)
+            defaultValue?: TResult | ((...args: any[]) => TResult)
         ): TResult;
     }
 
@@ -3256,10 +3051,7 @@ declare module "../index" {
         /**
          * @see _.result
          */
-        result<TResult>(
-            path: PropertyPath,
-            defaultValue?: TResult|((...args: any[]) => TResult)
-        ): TResult;
+        result<TResult>(path: PropertyPath, defaultValue?: TResult | ((...args: any[]) => TResult)): TResult;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -3268,7 +3060,7 @@ declare module "../index" {
          */
         result<TResult>(
             path: PropertyPath,
-            defaultValue?: TResult|((...args: any[]) => TResult)
+            defaultValue?: TResult | ((...args: any[]) => TResult)
         ): LoDashExplicitWrapper<TResult>;
     }
 
@@ -3285,56 +3077,36 @@ declare module "../index" {
          * @param value The value to set.
          * @return Returns object.
          */
-        set<T extends object>(
-            object: T,
-            path: PropertyPath,
-            value: any
-        ): T;
+        set<T extends object>(object: T, path: PropertyPath, value: any): T;
 
         /**
          * @see _.set
          */
-        set<TResult>(
-            object: object,
-            path: PropertyPath,
-            value: any
-        ): TResult;
+        set<TResult>(object: object, path: PropertyPath, value: any): TResult;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.set
          */
-        set(
-            path: PropertyPath,
-            value: any
-        ): this;
+        set(path: PropertyPath, value: any): this;
 
         /**
          * @see _.set
          */
-        set<TResult>(
-            path: PropertyPath,
-            value: any
-        ): LoDashImplicitWrapper<TResult>;
+        set<TResult>(path: PropertyPath, value: any): LoDashImplicitWrapper<TResult>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.set
          */
-        set(
-            path: PropertyPath,
-            value: any
-        ): this;
+        set(path: PropertyPath, value: any): this;
 
         /**
          * @see _.set
          */
-        set<TResult>(
-            path: PropertyPath,
-            value: any
-        ): LoDashExplicitWrapper<TResult>;
+        set<TResult>(path: PropertyPath, value: any): LoDashExplicitWrapper<TResult>;
     }
 
     // setWith
@@ -3353,12 +3125,7 @@ declare module "../index" {
          * @param customizer The function to customize assigned values.
          * @return Returns object.
          */
-        setWith<T extends object>(
-            object: T,
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<T>
-        ): T;
+        setWith<T extends object>(object: T, path: PropertyPath, value: any, customizer?: SetWithCustomizer<T>): T;
 
         setWith<T extends object, TResult>(
             object: T,
@@ -3372,11 +3139,7 @@ declare module "../index" {
         /**
          * @see _.setWith
          */
-        setWith(
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
+        setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
 
         /**
          * @see _.setWith
@@ -3392,11 +3155,7 @@ declare module "../index" {
         /**
          * @see _.setWith
          */
-        setWith(
-            path: PropertyPath,
-            value: any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
+        setWith(path: PropertyPath, value: any, customizer?: SetWithCustomizer<TValue>): this;
 
         /**
          * @see _.setWith
@@ -3429,7 +3188,9 @@ declare module "../index" {
         /**
          * @see _.toPairs
          */
-        toPairs<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
+        toPairs<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashImplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.toPairs
@@ -3441,7 +3202,9 @@ declare module "../index" {
         /**
          * @see _.toPairs
          */
-        toPairs<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
+        toPairs<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashExplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.toPairs
@@ -3470,7 +3233,9 @@ declare module "../index" {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashImplicitWrapper<Array<[string, T]>>;
+        toPairsIn<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashImplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.toPairsIn
@@ -3482,7 +3247,9 @@ declare module "../index" {
         /**
          * @see _.toPairsIn
          */
-        toPairsIn<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>): LoDashExplicitWrapper<Array<[string, T]>>;
+        toPairsIn<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T>>
+        ): LoDashExplicitWrapper<Array<[string, T]>>;
 
         /**
          * @see _.toPairsIn
@@ -3540,16 +3307,12 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform(
-            object: any[],
-        ): any[];
+        transform(object: any[]): any[];
 
         /**
          * @see _.transform
          */
-        transform(
-            object: object,
-        ): Dictionary<any>;
+        transform(object: object): Dictionary<any>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3592,9 +3355,7 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform(
-            this: LoDashImplicitWrapper<any[]>,
-        ): LoDashImplicitWrapper<any[]>;
+        transform(this: LoDashImplicitWrapper<any[]>): LoDashImplicitWrapper<any[]>;
 
         /**
          * @see _.transform
@@ -3642,9 +3403,7 @@ declare module "../index" {
         /**
          * @see _.transform
          */
-        transform(
-            this: LoDashExplicitWrapper<any[]>,
-        ): LoDashExplicitWrapper<any[]>;
+        transform(this: LoDashExplicitWrapper<any[]>): LoDashExplicitWrapper<any[]>;
 
         /**
          * @see _.transform
@@ -3664,10 +3423,7 @@ declare module "../index" {
          * @param path The path of the property to unset.
          * @return Returns true if the property is deleted, else false.
          */
-        unset(
-            object: any,
-            path: PropertyPath
-        ): boolean;
+        unset(object: any, path: PropertyPath): boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -3696,31 +3452,21 @@ declare module "../index" {
          * @param updater The function to produce the updated value.
          * @return Returns object.
          */
-        update(
-            object: object,
-            path: PropertyPath,
-            updater: (value: any) => any
-        ): any;
+        update(object: object, path: PropertyPath, updater: (value: any) => any): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.update
          */
-        update(
-            path: PropertyPath,
-            updater: (value: any) => any
-        ): LoDashImplicitWrapper<any>;
+        update(path: PropertyPath, updater: (value: any) => any): LoDashImplicitWrapper<any>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.update
          */
-        update(
-            path: PropertyPath,
-            updater: (value: any) => any
-        ): LoDashExplicitWrapper<any>;
+        update(path: PropertyPath, updater: (value: any) => any): LoDashExplicitWrapper<any>;
     }
 
     // updateWith
@@ -3770,11 +3516,7 @@ declare module "../index" {
         /**
          * @see _.updateWith
          */
-        updateWith(
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
+        updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): this;
 
         /**
          * @see _.updateWith
@@ -3790,11 +3532,7 @@ declare module "../index" {
         /**
          * @see _.updateWith
          */
-        updateWith(
-            path: PropertyPath,
-            updater: (oldValue: any) => any,
-            customizer?: SetWithCustomizer<TValue>
-        ): this;
+        updateWith(path: PropertyPath, updater: (oldValue: any) => any, customizer?: SetWithCustomizer<TValue>): this;
 
         /**
          * @see _.updateWith
@@ -3832,12 +3570,16 @@ declare module "../index" {
         /**
          * @see _.values
          */
-        values<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        values<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.values
          */
-        values<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        values<T extends object>(
+            this: LoDashImplicitWrapper<T | null | undefined>
+        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
 
         /**
          * @see _.values
@@ -3849,12 +3591,16 @@ declare module "../index" {
         /**
          * @see _.values
          */
-        values<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        values<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.values
          */
-        values<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        values<T extends object>(
+            this: LoDashExplicitWrapper<T | null | undefined>
+        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
 
         /**
          * @see _.values
@@ -3871,7 +3617,7 @@ declare module "../index" {
          * @param object The object to query.
          * @return Returns the array of property values.
          */
-        valuesIn<T>(object: Dictionary<T>|NumericDictionary<T>|List<T> | null | undefined): T[];
+        valuesIn<T>(object: Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined): T[];
 
         /**
          * @see _.valuesIn
@@ -3883,23 +3629,31 @@ declare module "../index" {
         /**
          * @see _.valuesIn
          */
-        valuesIn<T>(this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
+        valuesIn<T>(
+            this: LoDashImplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.valuesIn
          */
-        valuesIn<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<Array<T[keyof T]>>;
+        valuesIn<T extends object>(
+            this: LoDashImplicitWrapper<T | null | undefined>
+        ): LoDashImplicitWrapper<Array<T[keyof T]>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.valuesIn
          */
-        valuesIn<T>(this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
+        valuesIn<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | NumericDictionary<T> | List<T> | null | undefined>
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.valuesIn
          */
-        valuesIn<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<Array<T[keyof T]>>;
+        valuesIn<T extends object>(
+            this: LoDashExplicitWrapper<T | null | undefined>
+        ): LoDashExplicitWrapper<Array<T[keyof T]>>;
     }
 }

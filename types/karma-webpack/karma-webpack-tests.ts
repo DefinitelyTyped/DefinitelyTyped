@@ -6,9 +6,9 @@ export default function(config: karma.Config): void {
         browsers: ['ChromeHeadless'],
         singleRun: true,
         frameworks: ['jasmine'],
-        preprocessors: {'src/index.spec.ts': ['webpack', 'sourcemap']},
-        webpack: {entry: 'test.js'},
-        webpackMiddleware: {noInfo: true},
-        reporters: ['spec']
+        preprocessors: { 'src/index.spec.ts': ['webpack', 'sourcemap'] },
+        webpack: { entry: 'test.js' },
+        webpackMiddleware: { noInfo: true },
+        reporters: ['spec'],
     });
 }

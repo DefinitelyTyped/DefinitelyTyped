@@ -1,4 +1,4 @@
-import { ABIDefinition } from "web3/eth/abi.d";
+import { ABIDefinition } from 'web3/eth/abi.d';
 
 export const OLD_ABI_STANDARD: ABIDefinition[] = [
     {
@@ -6,39 +6,42 @@ export const OLD_ABI_STANDARD: ABIDefinition[] = [
         payable: false,
         inputs: [
             {
-                name: "paramAddress",
-                type: "address"
-            }
+                name: 'paramAddress',
+                type: 'address',
+            },
         ],
-        name: "function1",
+        name: 'function1',
         outputs: [],
-        type: "function"
-    }, {
+        type: 'function',
+    },
+    {
         constant: true,
         payable: false,
         inputs: [],
-        name: "removeOwner",
+        name: 'removeOwner',
         outputs: [
             {
-                name: "paramAddress",
-                type: "address"
-            }
+                name: 'paramAddress',
+                type: 'address',
+            },
         ],
-        type: "function"
-    }, {
+        type: 'function',
+    },
+    {
         constant: false,
         payable: false,
         inputs: [],
-        name: "removeOwner",
+        name: 'removeOwner',
         outputs: [],
-        type: "function"
-    }, {
+        type: 'function',
+    },
+    {
         constant: false,
         payable: true,
         inputs: [],
-        name: "removeOwner",
+        name: 'removeOwner',
         outputs: [],
-        type: "function"
+        type: 'function',
     },
 ];
 
@@ -46,44 +49,47 @@ export const NEW_ABI_STANDARD: ABIDefinition[] = [
     {
         constant: true,
         payable: false,
-        stateMutability: "view",
+        stateMutability: 'view',
         inputs: [
             {
-                name: "paramAddress",
-                type: "address"
-            }
+                name: 'paramAddress',
+                type: 'address',
+            },
         ],
-        name: "function1",
+        name: 'function1',
         outputs: [],
-        type: "function"
-    }, {
+        type: 'function',
+    },
+    {
         constant: true,
         payable: false,
-        stateMutability: "pure",
+        stateMutability: 'pure',
         inputs: [],
-        name: "removeOwner",
+        name: 'removeOwner',
         outputs: [
             {
-                name: "paramAddress",
-                type: "address"
-            }
+                name: 'paramAddress',
+                type: 'address',
+            },
         ],
-        type: "function"
-    }, {
+        type: 'function',
+    },
+    {
         constant: false,
         payable: false,
-        stateMutability: "nonpayable",
+        stateMutability: 'nonpayable',
         inputs: [],
-        name: "removeOwner",
+        name: 'removeOwner',
         outputs: [],
-        type: "function"
-    }, {
+        type: 'function',
+    },
+    {
         constant: false,
         payable: true,
-        stateMutability: "payable",
+        stateMutability: 'payable',
         inputs: [],
-        name: "removeOwner",
+        name: 'removeOwner',
         outputs: [],
-        type: "function"
+        type: 'function',
     },
 ];

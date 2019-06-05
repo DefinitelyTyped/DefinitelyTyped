@@ -7,17 +7,17 @@
 import * as React from 'react';
 
 export interface ScrollableAnchorProps {
-  id: string;
-  children?: React.ReactNode;
+    id: string;
+    children?: React.ReactNode;
 }
 
 export interface ConfigureAnchorsOptions {
-  offset?: number;
-  scrollDuration?: number;
-  keepLastAnchorHash?: boolean;
+    offset?: number;
+    scrollDuration?: number;
+    keepLastAnchorHash?: boolean;
 }
 
-export default class ScrollableAnchor extends React.Component<ScrollableAnchorProps> { }
+export default class ScrollableAnchor extends React.Component<ScrollableAnchorProps> {}
 export function goToTop(): void;
 export function configureAnchors(options: ConfigureAnchorsOptions): void;
 export function goToAnchor(anchorId: string, saveHashUpdate?: boolean): void;

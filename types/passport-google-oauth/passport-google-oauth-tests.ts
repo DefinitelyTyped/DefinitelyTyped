@@ -7,13 +7,9 @@ import google = require('passport-google-oauth');
 
 // just some test model
 var User = {
-    findOrCreate(
-        id: string,
-        provider: string,
-        callback: (err: any, user: any) => void
-    ): void {
+    findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
         callback(null, { username: 'james' });
-    }
+    },
 };
 
 passport.use(
@@ -21,7 +17,7 @@ passport.use(
         {
             consumerKey: process.env.GOOGLE_CONSUMER_KEY,
             consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
-            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL
+            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL,
         },
         function(
             accessToken: string,
@@ -29,14 +25,10 @@ passport.use(
             profile: google.Profile,
             done: (error: any, user?: any, msg?: google.VerifyOptions) => void
         ) {
-            User.findOrCreate(profile.id, profile.provider, function(
-                err,
-                user
-            ) {
+            User.findOrCreate(profile.id, profile.provider, function(err, user) {
                 if (err) {
                     return done(err);
-                } else if (!user)
-                    return done(null, false, { message: 'not found user' });
+                } else if (!user) return done(null, false, { message: 'not found user' });
                 return done(null, user);
             });
         }
@@ -48,7 +40,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL
+            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL,
         },
         function(
             accessToken: string,
@@ -56,10 +48,7 @@ passport.use(
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) {
-            User.findOrCreate(profile.id, profile.provider, function(
-                err,
-                user
-            ) {
+            User.findOrCreate(profile.id, profile.provider, function(err, user) {
                 if (err) {
                     return done(err);
                 }
@@ -75,7 +64,7 @@ passport.use(
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL,
-            passReqToCallback: true
+            passReqToCallback: true,
         },
         function(
             req: express.Request,
@@ -84,10 +73,7 @@ passport.use(
             profile: google.Profile,
             done: (error: any, user?: any) => void
         ) {
-            User.findOrCreate(profile.id, profile.provider, function(
-                err,
-                user
-            ) {
+            User.findOrCreate(profile.id, profile.provider, function(err, user) {
                 if (err) {
                     return done(err);
                 }

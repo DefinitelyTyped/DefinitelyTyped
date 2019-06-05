@@ -6,13 +6,12 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
-
     export enum AndroidTheme {
         Traditional = 1,
         HoloDark = 2,
         HoloLight = 3,
         DeviceDefaultDark = 4,
-        DeviceDefaultLight = 5
+        DeviceDefaultLight = 5,
     }
 
     export interface DatePickerOptions {

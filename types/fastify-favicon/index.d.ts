@@ -6,9 +6,9 @@
 declare function defaultFaviconPlugin(): void;
 
 declare namespace defaultFaviconPlugin {
-  interface FastifyFaviconOptions {
-    path?: string;
-  }
+    interface FastifyFaviconOptions {
+        path?: string;
+    }
 }
 
 export = defaultFaviconPlugin;

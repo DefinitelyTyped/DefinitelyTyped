@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Stackdriver Monitoring API v3 */
-    function load(name: "monitoring", version: "v3"): PromiseLike<void>;
-    function load(name: "monitoring", version: "v3", callback: () => any): void;
+    function load(name: 'monitoring', version: 'v3'): PromiseLike<void>;
+    function load(name: 'monitoring', version: 'v3', callback: () => any): void;
 
     const projects: monitoring.ProjectsResource;
 
@@ -466,7 +466,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -499,7 +499,7 @@ declare namespace gapi.client {
             /** Lists the monitored resources that are members of a group. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -517,9 +517,9 @@ declare namespace gapi.client {
                  */
                 filter?: string;
                 /** Required. The end of the time interval. */
-                "interval.endTime"?: string;
+                'interval.endTime'?: string;
                 /** Optional. The beginning of the time interval. The default value for the start time is the end time. The start time must not be later than the end time. */
-                "interval.startTime"?: string;
+                'interval.startTime'?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The group whose members are listed. The format is "projects/{project_id_or_number}/groups/{group_id}". */
@@ -549,7 +549,7 @@ declare namespace gapi.client {
             /** Creates a new group. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -582,7 +582,7 @@ declare namespace gapi.client {
             /** Deletes an existing group. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -613,7 +613,7 @@ declare namespace gapi.client {
             /** Gets a single group. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -644,7 +644,7 @@ declare namespace gapi.client {
             /** Lists the existing groups. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -698,7 +698,7 @@ declare namespace gapi.client {
             /** Updates an existing group. You can change any group attributes except name. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -737,7 +737,7 @@ declare namespace gapi.client {
             /** Creates a new metric descriptor. User-created metric descriptors define custom metrics. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -768,7 +768,7 @@ declare namespace gapi.client {
             /** Deletes a metric descriptor. Only user-created custom metrics can be deleted. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -802,7 +802,7 @@ declare namespace gapi.client {
             /** Gets a single metric descriptor. This method does not require a Stackdriver account. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -836,7 +836,7 @@ declare namespace gapi.client {
             /** Lists metric descriptors that match a filter. This method does not require a Stackdriver account. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -882,7 +882,7 @@ declare namespace gapi.client {
             /** Gets a single monitored resource descriptor. This method does not require a Stackdriver account. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -916,7 +916,7 @@ declare namespace gapi.client {
             /** Lists monitored resource descriptors that match a filter. This method does not require a Stackdriver account. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -965,7 +965,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -996,7 +996,7 @@ declare namespace gapi.client {
             /** Lists time series that match a filter. This method does not require a Stackdriver account. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1004,14 +1004,14 @@ declare namespace gapi.client {
                  * series will contain data points only on the period boundaries. If perSeriesAligner is not specified or equals ALIGN_NONE, then this field is ignored.
                  * If perSeriesAligner is specified and does not equal ALIGN_NONE, then this field must be defined; otherwise an error is returned.
                  */
-                "aggregation.alignmentPeriod"?: string;
+                'aggregation.alignmentPeriod'?: string;
                 /**
                  * The approach to be used to combine time series. Not all reducer functions may be applied to all time series, depending on the metric type and the value
                  * type of the original time series. Reduction may change the metric type of value type of the time series.Time series data must be aligned in order to
                  * perform cross-time series reduction. If crossSeriesReducer is specified, then perSeriesAligner must be specified and not equal ALIGN_NONE and
                  * alignmentPeriod must be specified; otherwise, an error is returned.
                  */
-                "aggregation.crossSeriesReducer"?: string;
+                'aggregation.crossSeriesReducer'?: string;
                 /**
                  * The set of fields to preserve when crossSeriesReducer is specified. The groupByFields determine how the time series are partitioned into subsets prior
                  * to applying the aggregation function. Each subset contains time series that have the same value for each of the grouping fields. Each individual time
@@ -1020,14 +1020,14 @@ declare namespace gapi.client {
                  * is not specified and all the time series have the same resource type, then the time series are aggregated into a single output time series. If
                  * crossSeriesReducer is not defined, this field is ignored.
                  */
-                "aggregation.groupByFields"?: string;
+                'aggregation.groupByFields'?: string;
                 /**
                  * The approach to be used to align individual time series. Not all alignment functions may be applied to all time series, depending on the metric type
                  * and value type of the original time series. Alignment may change the metric type or the value type of the time series.Time series data must be aligned
                  * in order to perform cross-time series reduction. If crossSeriesReducer is specified, then perSeriesAligner must be specified and not equal ALIGN_NONE
                  * and alignmentPeriod must be specified; otherwise, an error is returned.
                  */
-                "aggregation.perSeriesAligner"?: string;
+                'aggregation.perSeriesAligner'?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth bearer token. */
@@ -1044,9 +1044,9 @@ declare namespace gapi.client {
                  */
                 filter?: string;
                 /** Required. The end of the time interval. */
-                "interval.endTime"?: string;
+                'interval.endTime'?: string;
                 /** Optional. The beginning of the time interval. The default value for the start time is the end time. The start time must not be later than the end time. */
-                "interval.startTime"?: string;
+                'interval.startTime'?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The project on which to execute the request. The format is "projects/{project_id_or_number}". */

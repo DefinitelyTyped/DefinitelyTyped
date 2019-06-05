@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ComponentClass, ReactNode } from "react";
-import * as CSS from "csstype";
+import { Component, ComponentClass, ReactNode } from 'react';
+import * as CSS from 'csstype';
 
 /** Placeholder type for UI box props */
 type UIBoxProp = string | number | boolean | null | undefined;
@@ -89,4 +89,7 @@ export function clearStyles(): void;
  * Utility function for filtering out props based on an array of keys.
  * Returns an { matchedProps, remainingProps } object.
  */
-export function splitProps(props: object, keys: ReadonlyArray<string>): { matchedProps: object; remainingProps: object };
+export function splitProps(
+    props: object,
+    keys: ReadonlyArray<string>
+): { matchedProps: object; remainingProps: object };

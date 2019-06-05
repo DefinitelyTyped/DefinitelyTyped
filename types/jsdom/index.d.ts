@@ -109,13 +109,13 @@ export type ConstructorOptions = Options & {
      * When the pretendToBeVisual option is set to true, jsdom will pretend that it is rendering and displaying
      * content.
      */
-    pretendToBeVisual?: boolean
+    pretendToBeVisual?: boolean;
     /**
      * The maximum size in code units for the separate storage areas used by localStorage and sessionStorage.
      * Attempts to store data larger than this limit will cause a DOMException to be thrown. By default, it is set
      * to 5,000,000 code units per origin, as inspired by the HTML specification.
      */
-    storageQuota?: number
+    storageQuota?: number;
 };
 
 export interface DOMWindow extends Window {
@@ -266,7 +266,18 @@ export interface DOMWindow extends Window {
     NodeFilter: typeof NodeFilter;
 }
 
-export type BinaryData = ArrayBuffer | DataView | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+export type BinaryData =
+    | ArrayBuffer
+    | DataView
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array;
 
 export class VirtualConsole extends EventEmitter {
     on<K extends keyof Console>(method: K, callback: Console[K]): this;
@@ -279,7 +290,7 @@ export interface VirtualConsoleSendToOptions {
     omitJSDOMErrors: boolean;
 }
 
-export class CookieJar extends tough.CookieJar { }
+export class CookieJar extends tough.CookieJar {}
 
 export const toughCookie: typeof tough;
 

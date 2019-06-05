@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Storage Transfer API v1 */
-    function load(name: "storagetransfer", version: "v1"): PromiseLike<void>;
-    function load(name: "storagetransfer", version: "v1", callback: () => any): void;
+    function load(name: 'storagetransfer', version: 'v1'): PromiseLike<void>;
+    function load(name: 'storagetransfer', version: 'v1', callback: () => any): void;
 
     const googleServiceAccounts: storagetransfer.GoogleServiceAccountsResource;
 
@@ -447,7 +447,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -484,7 +484,7 @@ declare namespace gapi.client {
             /** Creates a transfer job that runs periodically. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -513,7 +513,7 @@ declare namespace gapi.client {
             /** Gets a transfer job. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -552,7 +552,7 @@ declare namespace gapi.client {
             /** Lists transfer jobs. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -600,7 +600,7 @@ declare namespace gapi.client {
              */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -636,7 +636,7 @@ declare namespace gapi.client {
             /** Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation. */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -667,7 +667,7 @@ declare namespace gapi.client {
             /** This method is not supported and the server returns `UNIMPLEMENTED`. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -702,7 +702,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -744,7 +744,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -786,7 +786,7 @@ declare namespace gapi.client {
             /** Pauses a transfer operation. */
             pause(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -820,7 +820,7 @@ declare namespace gapi.client {
             /** Resumes a transfer operation that is paused. */
             resume(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

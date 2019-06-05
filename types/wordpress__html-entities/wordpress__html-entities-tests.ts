@@ -1,3 +1,3 @@
-import { decodeEntities } from "@wordpress/html-entities";
+import { decodeEntities } from '@wordpress/html-entities';
 
-decodeEntities("&aacute;"); // "á"
+decodeEntities('&aacute;'); // "á"

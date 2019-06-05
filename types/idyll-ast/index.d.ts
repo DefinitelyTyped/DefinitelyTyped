@@ -4,14 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    AST,
-    Node,
-    TreeNode,
-    PropValue,
-    Property,
-    PropType
-} from "idyll-compiler";
+import { AST, Node, TreeNode, PropValue, Property, PropType } from 'idyll-compiler';
 
 /**
  * appends a single node to the AST
@@ -24,11 +17,7 @@ export function appendNodes(ast: AST, nodes: AST): AST;
 /**
  * creates a node
  */
-export function createNode(
-    name: string,
-    props: Record<string, PropValue | PropValue[1]>,
-    children: Node[]
-): TreeNode;
+export function createNode(name: string, props: Record<string, PropValue | PropValue[1]>, children: Node[]): TreeNode;
 /**
  * gets all children of the node if there is any
  * returns an empty array if there is no child
@@ -55,10 +44,7 @@ export function getNodesByName(ast: AST, name: string): Node[];
  * filters and returns the same node where all children
  * satisfy the given filter
  */
-export function filterChildren(
-    node: Node,
-    filter: (child: Node) => boolean
-): Node;
+export function filterChildren(node: Node, filter: (child: Node) => boolean): Node;
 
 /**
  * filters every node in the AST and returns a new AST whose nodes
@@ -72,11 +58,7 @@ export function filterNodes(ast: AST, filter: (node: Node) => boolean): AST;
  *
  * Names are case-insensitive
  */
-export function modifyNodesByName(
-    ast: AST,
-    name: string,
-    modifier: (node: Node) => void
-): AST;
+export function modifyNodesByName(ast: AST, name: string, modifier: (node: Node) => void): AST;
 
 /**
  * gets the node's property value
@@ -115,21 +97,14 @@ export function removeNodesByName(ast: AST, name: string): AST;
  * is the property's value
  *
  */
-export function setProperty(
-    node: Node,
-    key: string,
-    value: PropValue | PropValue[1]
-): Node;
+export function setProperty(node: Node, key: string, value: PropValue | PropValue[1]): Node;
 
 /**
  * sets the properties of the node
  *
  * also see setProperty()
  */
-export function setProperties(
-    node: Node,
-    properties: Record<string, PropValue | PropValue[1]>
-): Node;
+export function setProperties(node: Node, properties: Record<string, PropValue | PropValue[1]>): Node;
 
 /**
  * removes the node's property which has the given key

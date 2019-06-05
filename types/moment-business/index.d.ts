@@ -3,7 +3,7 @@
 // Definitions by: Greg Sieranski <https://github.com/wonbyte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from "moment";
+import * as moment from 'moment';
 
 export function weekDays(startMoment: moment.Moment, endMoment: moment.Moment): number;
 export function weekendDays(startMoment: moment.Moment, endMoment: moment.Moment): number;

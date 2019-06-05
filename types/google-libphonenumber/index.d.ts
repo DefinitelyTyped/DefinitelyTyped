@@ -9,7 +9,7 @@ declare namespace libphonenumber {
         E164,
         INTERNATIONAL,
         NATIONAL,
-        RFC3966
+        RFC3966,
     }
 
     export enum PhoneNumberType {
@@ -24,7 +24,7 @@ declare namespace libphonenumber {
         PAGER = 8,
         UAN = 9,
         VOICEMAIL = 10,
-        UNKNOWN = -1
+        UNKNOWN = -1,
     }
 
     export module PhoneNumber {
@@ -98,7 +98,7 @@ declare namespace libphonenumber {
             IS_POSSIBLE,
             INVALID_COUNTRY_CODE,
             TOO_SHORT,
-            TOO_LONG
+            TOO_LONG,
         }
 
         export enum MatchType {
@@ -106,7 +106,7 @@ declare namespace libphonenumber {
             NO_MATCH,
             NOT_A_NUMBER,
             NSN_MATCH,
-            SHORT_NSN_MATCH
+            SHORT_NSN_MATCH,
         }
     }
 
@@ -117,18 +117,18 @@ declare namespace libphonenumber {
     }
 
     export class PhoneNumberUtil {
-        static getInstance(): PhoneNumberUtil
+        static getInstance(): PhoneNumberUtil;
         extractCountryCode(fullNumber: StringBuffer, nationalNumber: StringBuffer): number;
         format(phoneNumber: PhoneNumber, format: PhoneNumberFormat): string;
         formatOutOfCountryCallingNumber(phoneNumber: PhoneNumber, regionDialingFrom?: string): string;
         getNddPrefixForRegion(regionCode?: string, stripNonDigits?: boolean): string | undefined;
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
-        getCountryCodeForRegion(supportedRegion:string):string;
+        getCountryCodeForRegion(supportedRegion: string): string;
         getExampleNumber(regionCode: string): PhoneNumber;
         getExampleNumberForType(regionCode: string, type: PhoneNumberType): PhoneNumber;
         getRegionCodeForCountryCode(countryCallingCode: number): string;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
-        getSupportedRegions():string [];
+        getSupportedRegions(): string[];
         isAlphaNumber(number: string): boolean;
         isLeadingZeroPossible(countryCallingCode: number): boolean;
         isNANPACountry(regionCode?: string): boolean;
@@ -153,7 +153,6 @@ declare namespace libphonenumber {
         clear(): void;
     }
 }
-
 
 declare module 'google-libphonenumber' {
     export = libphonenumber;

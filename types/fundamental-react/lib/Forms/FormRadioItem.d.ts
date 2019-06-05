@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type FormRadioItemProps = {
     /* Set to **true** when radio input is checked and a controlled component. */

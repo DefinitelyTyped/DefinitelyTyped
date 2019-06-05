@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-declare module "gulp-angular-templatecache" {
+declare module 'gulp-angular-templatecache' {
     function templatecache(): NodeJS.ReadWriteStream;
     function templatecache(filename: string): NodeJS.ReadWriteStream;
     function templatecache(options: templatecache.Options): NodeJS.ReadWriteStream;

@@ -13,7 +13,7 @@ declare module 'angular' {
             setCmapDir(dir: string): void;
             setImageDir(dir: string): void;
             disableWorker(): void;
-            setVerbosity(verbosity: "errors" | "warnings" | "infos"): void;
+            setVerbosity(verbosity: 'errors' | 'warnings' | 'infos'): void;
         }
     }
 }

@@ -1,5 +1,5 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-requestlogtags-data
-import { Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from "hapi";
+import { Lifecycle, Request, ResponseToolkit, Server, ServerOptions, ServerRoute } from 'hapi';
 
 const options: ServerOptions = {
     port: 8000,
@@ -13,7 +13,7 @@ const handlerFn: Lifecycle.Method = (request, h) => {
 const serverRoute: ServerRoute = {
     path: '/',
     method: 'GET',
-    handler: handlerFn
+    handler: handlerFn,
 };
 
 const server = new Server(options);

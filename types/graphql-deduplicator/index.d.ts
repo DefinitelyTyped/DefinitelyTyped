@@ -4,10 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function deflate(response: object): {
+export function deflate(
+    response: object
+): {
     [key: string]: any;
 };
 
-export function inflate(response: object): {
+export function inflate(
+    response: object
+): {
     [key: string]: any;
 };

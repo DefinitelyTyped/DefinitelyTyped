@@ -36,15 +36,19 @@ declare module 'angular' {
              * see https://docs.angularjs.org/api/ngSanitize/filter/linky
              */
             interface ILinky {
-                (text: string, target?: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
+                (
+                    text: string,
+                    target?: string,
+                    attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })
+                ): string;
             }
         }
 
-	///////////////////////////////////////////////////////////////////////////////
-	// Extend angular $filter declarations to include filters from angular.sanitize module
-	///////////////////////////////////////////////////////////////////////////////
-	interface IFilterService {
-	    (name: 'linky'): angular.sanitize.filter.ILinky;
-	}
+        ///////////////////////////////////////////////////////////////////////////////
+        // Extend angular $filter declarations to include filters from angular.sanitize module
+        ///////////////////////////////////////////////////////////////////////////////
+        interface IFilterService {
+            (name: 'linky'): angular.sanitize.filter.ILinky;
+        }
     }
 }

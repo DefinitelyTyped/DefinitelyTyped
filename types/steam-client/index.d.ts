@@ -101,12 +101,12 @@ export type SendMessage = (
         /**
          * A value from EMsg
          */
-        msg: EMsg,
+        msg: EMsg;
 
         /**
          * A CMsgProtoBufHeader object if this message is protobuf-backed, otherwise header.proto is falsy.
          */
-        proto?: CMsgProtoBufHeader | false
+        proto?: CMsgProtoBufHeader | false;
     },
 
     /**
@@ -227,27 +227,27 @@ export interface CMsgClientLogonResponse {
 }
 
 export interface CMsgProtoBufHeader {
-	steamid?: string;
-	client_sessionid?: number;
-	routing_appid?: number;
-	jobid_source?: string;
-	jobid_target?: string;
-	target_job_name?: string;
-	seq_num?: number;
-	eresult?: number;
-	error_message?: string;
-	ip?: number;
-	auth_account_flags?: number;
-	token_source?: number;
-	admin_spoofing_user?: boolean;
-	transport_error?: number;
-	messageid?: string;
-	publisher_group_id?: number;
-	sysid?: number;
-	trace_tag?: string;
-	webapi_key_id?: number;
-	is_from_external_source?: boolean;
-	forward_to_sysid?: number[];
+    steamid?: string;
+    client_sessionid?: number;
+    routing_appid?: number;
+    jobid_source?: string;
+    jobid_target?: string;
+    target_job_name?: string;
+    seq_num?: number;
+    eresult?: number;
+    error_message?: string;
+    ip?: number;
+    auth_account_flags?: number;
+    token_source?: number;
+    admin_spoofing_user?: boolean;
+    transport_error?: number;
+    messageid?: string;
+    publisher_group_id?: number;
+    sysid?: number;
+    trace_tag?: string;
+    webapi_key_id?: number;
+    is_from_external_source?: boolean;
+    forward_to_sysid?: number[];
 }
 
 // Enums
@@ -2975,7 +2975,7 @@ export enum ERegionCode {
     Australia = 0x05,
     MiddleEast = 0x06,
     Africa = 0x07,
-    World = 0xFF,
+    World = 0xff,
 }
 
 export enum ECurrencyCode {

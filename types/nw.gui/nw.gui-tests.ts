@@ -2,8 +2,7 @@
 
 // Load native UI library
 // See docs: https://github.com/rogerwang/node-webkit/wiki/Shell
-import gui = require("nw.gui");
-
+import gui = require('nw.gui');
 
 /* WINDOW */
 
@@ -22,39 +21,37 @@ win.minimize();
 win.removeAllListeners('minimize');
 
 // Create a new window and get it
-var new_win = gui.Window.get(
-    window.open('https://github.com')
-);
+var new_win = gui.Window.get(window.open('https://github.com'));
 
 // And listen to new window's focus event
 new_win.on('focus', function() {
     console.log('New window is focused');
 });
 
-
 // Get the current window
 var win = gui.Window.get();
 
 // Create a new window and get it
-var new_win = gui.Window.get(
-    window.open('https://github.com')
-);
+var new_win = gui.Window.get(window.open('https://github.com'));
 
 // png as base64string
-win.capturePage(function(base64string: string) {
-    // do something with the base64string
-}, { format: 'png', datatype: 'raw' });
+win.capturePage(
+    function(base64string: string) {
+        // do something with the base64string
+    },
+    { format: 'png', datatype: 'raw' }
+);
 
 // png as node buffer
-win.capturePage(function(buffer: Buffer) {
-    // do something with the buffer
-}, { format: 'png', datatype: 'buffer' });
-
+win.capturePage(
+    function(buffer: Buffer) {
+        // do something with the buffer
+    },
+    { format: 'png', datatype: 'buffer' }
+);
 
 // Open a new window.
-var win = gui.Window.get(
-    window.open('popup.html')
-);
+var win = gui.Window.get(window.open('popup.html'));
 
 // Release the 'win' object here after the new window is closed.
 win.on('closed', function() {
@@ -67,13 +64,11 @@ gui.Window.get().on('close', function() {
     this.hide();
 
     // If the new window is still open then close it.
-    if (win != null)
-        win.close(true);
+    if (win != null) win.close(true);
 
     // After closing the new window, close the main window.
     this.close(true);
 });
-
 
 /* MENU */
 
@@ -97,15 +92,14 @@ for (var i = 0; i < menu.items.length; ++i) {
     console.log(menu.items[i]);
 }
 
-
 var win = gui.Window.get();
-var nativeMenuBar = new gui.Menu({ type: "menubar" });
-nativeMenuBar.createMacBuiltin("My App");
+var nativeMenuBar = new gui.Menu({ type: 'menubar' });
+nativeMenuBar.createMacBuiltin('My App');
 win.menu = nativeMenuBar;
 
-nativeMenuBar.createMacBuiltin("My App", {
+nativeMenuBar.createMacBuiltin('My App', {
     hideEdit: true,
-    hideWindow: true
+    hideWindow: true,
 });
 
 /* MENU ITEM */
@@ -117,9 +111,9 @@ itemc = new gui.MenuItem({ type: 'separator' });
 
 // Create a normal item with label and icon
 itemc = new gui.MenuItem({
-    type: "normal",
+    type: 'normal',
     label: "I'm a menu item",
-    icon: "img/icon.png"
+    icon: 'img/icon.png',
 });
 
 // Or you can omit the 'type' field for normal items
@@ -127,12 +121,12 @@ itemc = new gui.MenuItem({ label: 'Simple item' });
 
 // Bind a callback to item
 itemc = new gui.MenuItem({
-    label: "Click me",
+    label: 'Click me',
     click: function() {
         console.log("I'm clicked");
     },
-    key: "s",
-    modifiers: "ctrl-alt",
+    key: 's',
+    modifiers: 'ctrl-alt',
 });
 
 // You can have submenu!
@@ -144,8 +138,9 @@ itemc.submenu = submenu;
 
 // And everything can be changed at runtime
 itemc.label = 'New label';
-itemc.click = function() { console.log('New click callback'); };
-
+itemc.click = function() {
+    console.log('New click callback');
+};
 
 /* APP */
 
@@ -156,10 +151,9 @@ console.log(gui.App.argv);
 gui.App.quit();
 
 // Get the name field in manifest
-gui.App.manifest.name
+gui.App.manifest.name;
 
 gui.App.addOriginAccessWhitelistEntry('https://github.com/', 'app', 'myapp', true);
-
 
 /* CLIPBOARD */
 
@@ -176,7 +170,6 @@ clipboard.set('I love node-webkit :)', 'text');
 // And clear it!
 clipboard.clear();
 
-
 /* TRAY */
 
 // Create a tray icon
@@ -190,7 +183,6 @@ tray.menu = menu;
 // Remove the tray
 tray.remove();
 tray = null;
-
 
 /* SHELL */
 

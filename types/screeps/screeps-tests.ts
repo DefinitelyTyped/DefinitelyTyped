@@ -51,14 +51,14 @@ function keys<T>(o: T): Array<keyof T> {
 // Game.powerCreeps
 
 {
-    PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
+    PowerCreep.create('steve', POWER_CLASS.OPERATOR) === OK;
 
     for (const i in Game.powerCreeps) {
         const powerCreep = Game.powerCreeps[i];
 
         if (powerCreep.ticksToLive === undefined) {
             // Not spawned in world; spawn creep
-            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            const spawn = Game.getObjectById('powerSpawnID') as StructurePowerSpawn;
             powerCreep.spawn(spawn);
         } else {
             // Generate Ops
@@ -70,9 +70,13 @@ function keys<T>(o: T): Array<keyof T> {
                 Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
             } else {
                 // Boost resource
-                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const targetSource = Game.getObjectById('targetSourceID') as Source;
                 const sourceEffect = targetSource.effects.find(effect => effect.power === PWR_REGEN_SOURCE);
-                if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
+                if (
+                    !sourceEffect &&
+                    powerCreep.powers[PWR_REGEN_SOURCE] &&
+                    powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0
+                ) {
                     powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
                 }
             }
@@ -94,7 +98,7 @@ function keys<T>(o: T): Array<keyof T> {
 
     // Constant type checking
     POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
-    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
+    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === 'number';
 }
 
 // Game.spawns
@@ -112,11 +116,16 @@ function keys<T>(o: T): Array<keyof T> {
             const creepSpawn: StructureSpawn = creep.spawn;
 
             const cancelStatus: OK | ERR_NOT_OWNER = creep.cancel();
-            const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
+            const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([
+                TOP,
+                BOTTOM,
+                LEFT,
+                RIGHT,
+            ]);
         }
 
-        creep = new StructureSpawn.Spawning("");
-        creep = StructureSpawn.Spawning("");
+        creep = new StructureSpawn.Spawning('');
+        creep = StructureSpawn.Spawning('');
     }
 }
 
@@ -168,10 +177,10 @@ function keys<T>(o: T): Array<keyof T> {
 }
 
 {
-    if (Game.spawns["Spawn1"].energy === 0) {
+    if (Game.spawns['Spawn1'].energy === 0) {
         Game.notify(
-            "Spawn1 is out of energy",
-            180, // group these notifications for 3 hours
+            'Spawn1 is out of energy',
+            180 // group these notifications for 3 hours
         );
     }
 }
@@ -179,7 +188,7 @@ function keys<T>(o: T): Array<keyof T> {
 // Game.map.describeExits()
 
 {
-    const exits = Game.map.describeExits("W8N3");
+    const exits = Game.map.describeExits('W8N3');
     // tslint:disable-next-line:newline-per-chained-call
     keys(exits).map(exitKey => {
         const nextRoom = exits[exitKey];
@@ -225,7 +234,7 @@ function keys<T>(o: T): Array<keyof T> {
 {
     const route = Game.map.findRoute(creep.room, anotherRoomName, {
         routeCallback(roomName, fromRoomName) {
-            if (roomName === "W10S10") {
+            if (roomName === 'W10S10') {
                 // avoid this room
                 return Infinity;
             }
@@ -235,8 +244,8 @@ function keys<T>(o: T): Array<keyof T> {
 }
 
 {
-    const from = new RoomPosition(25, 25, "E1N1");
-    const to = new RoomPosition(25, 25, "E4N1");
+    const from = new RoomPosition(25, 25, 'E1N1');
+    const to = new RoomPosition(25, 25, 'E4N1');
 
     // Use `findRoute` to calculate a high-level plan for this path,
     // prioritizing highways and owned rooms
@@ -246,7 +255,8 @@ function keys<T>(o: T): Array<keyof T> {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
                 const isHighway = parseInt(parsed[1], 10) % 10 === 0 || parseInt(parsed[2], 10) % 10 === 0;
-                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
+                const isMyRoom =
+                    Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
                 if (isHighway || isMyRoom) {
                     return 1;
                 } else {
@@ -279,20 +289,20 @@ function keys<T>(o: T): Array<keyof T> {
 // Game.map.getRoomLinearDistance(roomName1, roomName2, [continuous])
 
 {
-    Game.map.getRoomLinearDistance("W1N1", "W4N2"); // 3
-    Game.map.getRoomLinearDistance("E65S55", "W65S55", false); // 131
-    Game.map.getRoomLinearDistance("E65S55", "W65S55", true); // 11
+    Game.map.getRoomLinearDistance('W1N1', 'W4N2'); // 3
+    Game.map.getRoomLinearDistance('E65S55', 'W65S55', false); // 131
+    Game.map.getRoomLinearDistance('E65S55', 'W65S55', true); // 11
 }
 
 // Game.map.getTerrainAt(x, y, roomName)
 // Game.map.getTerrainAt(pos)
 
 {
-    Game.map.getTerrainAt(25, 20, "W10N10");
+    Game.map.getTerrainAt(25, 20, 'W10N10');
 }
 
 {
-    Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
+    Game.map.getTerrainAt(new RoomPosition(25, 20, 'W10N10'));
 }
 
 // Game.map.isRoomAvailable(roomName)
@@ -307,7 +317,7 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     // Game.market.calcTransactionCost(amount, roomName1, roomName2)
-    const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
+    const cost = Game.market.calcTransactionCost(1000, 'W0N0', 'W10N5');
 
     // Game.market.cancelOrder(orderId)
     for (const id in Game.market.orders) {
@@ -315,13 +325,13 @@ function keys<T>(o: T): Array<keyof T> {
     }
 
     // Game.market.changeOrderPrice(orderId, newPrice)
-    Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
+    Game.market.changeOrderPrice('57bec1bf77f4d17c4c011960', 9.95);
 
     // Game.market.createOrder(type, resourceType, price, totalAmount, [roomName])
-    Game.market.createOrder(ORDER_SELL, RESOURCE_GHODIUM, 9.95, 10000, "W1N1");
+    Game.market.createOrder(ORDER_SELL, RESOURCE_GHODIUM, 9.95, 10000, 'W1N1');
 
     // Game.market.deal(orderId, amount, [yourRoomName])
-    Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
+    Game.market.deal('57cd2b12cda69a004ae223a3', 1000, 'W1N1');
 
     const amountToBuy = 2000;
     const maxTransferEnergyCost = 500;
@@ -329,32 +339,32 @@ function keys<T>(o: T): Array<keyof T> {
 
     for (const i of orders) {
         if (i.roomName) {
-            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, "W1N1", i.roomName);
+            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, 'W1N1', i.roomName);
 
             if (transferEnergyCost < maxTransferEnergyCost) {
-                Game.market.deal(i.id, amountToBuy, "W1N1");
+                Game.market.deal(i.id, amountToBuy, 'W1N1');
                 break;
             }
         }
     }
 
     // Game.market.extendOrder(orderId, addAmount)
-    Game.market.extendOrder("57bec1bf77f4d17c4c011960", 10000);
+    Game.market.extendOrder('57bec1bf77f4d17c4c011960', 10000);
 
     // Game.market.getAllOrders([filter])
     Game.market.getAllOrders();
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM });
 
-    const targetRoom = "W1N1";
+    const targetRoom = 'W1N1';
     Game.market.getAllOrders(
         currentOrder =>
             currentOrder.resourceType === RESOURCE_GHODIUM &&
             currentOrder.type === ORDER_SELL &&
-            Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500,
+            Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500
     );
 
     // Game.market.getOrderById(id)
-    const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+    const order = Game.market.getOrderById('55c34a6b5be41a0a6e80c123');
 
     // Subscription tokens
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
@@ -429,7 +439,7 @@ function keys<T>(o: T): Array<keyof T> {
 
     // RawMemory.foreignSegment
 
-    RawMemory.setActiveForeignSegment("player");
+    RawMemory.setActiveForeignSegment('player');
     // on the next tick
     const playerSegment = RawMemory.foreignSegment;
     // --> {"username": "player", "id": 40, "data": "Hello!"}
@@ -438,7 +448,7 @@ function keys<T>(o: T): Array<keyof T> {
 
     RawMemory.interShardSegment = JSON.stringify({
         creeps: {
-            Bob: { role: "claimer" },
+            Bob: { role: 'claimer' },
         },
     });
 
@@ -460,8 +470,8 @@ function keys<T>(o: T): Array<keyof T> {
     RawMemory.setActiveSegments([0, 3]);
 
     // RawMemory.setActiveForeignSegment(username, [id])
-    RawMemory.setActiveForeignSegment("player");
-    RawMemory.setActiveForeignSegment("player", 10);
+    RawMemory.setActiveForeignSegment('player');
+    RawMemory.setActiveForeignSegment('player', 10);
     RawMemory.setActiveForeignSegment(null);
 
     // RawMemory.setDefaultPublicSegment(id)
@@ -477,11 +487,11 @@ function keys<T>(o: T): Array<keyof T> {
 // InterShardMemory
 
 {
-    let localShardData = "";
+    let localShardData = '';
     InterShardMemory.setLocal(localShardData);
     localShardData = InterShardMemory.getLocal();
 
-    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
+    const remoteShardData: string = InterShardMemory.getRemote('shard2') || '';
 }
 
 // Find Overloads
@@ -607,11 +617,11 @@ function keys<T>(o: T): Array<keyof T> {
 
 // Advanced Structure types
 {
-    const owned = Game.getObjectById<AnyOwnedStructure>("blah");
+    const owned = Game.getObjectById<AnyOwnedStructure>('blah');
     const owner = owned!.owner.username;
     owned!.notifyWhenAttacked(false);
 
-    const unowned = Game.getObjectById<AnyStructure>("blah2")!;
+    const unowned = Game.getObjectById<AnyStructure>('blah2')!;
     const hp = unowned.hits / unowned.hitsMax;
 
     // test discriminated union
@@ -632,10 +642,13 @@ function keys<T>(o: T): Array<keyof T> {
 
     // test discriminated union using filter functions on find
     const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
-        filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
+        filter: s =>
+            (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
     })[0];
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-        filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
+        filter: s =>
+            (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) &&
+            s.energy < s.energyCapacity,
     });
 
     Game.rooms.myRoom
@@ -666,12 +679,12 @@ function keys<T>(o: T): Array<keyof T> {
 
     tombstone.id;
 
-    const creep = Game.creeps["dave"];
+    const creep = Game.creeps['dave'];
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
 {
-    if (Game.cpu.hasOwnProperty("getHeapStatistics")) {
+    if (Game.cpu.hasOwnProperty('getHeapStatistics')) {
         const heap = Game.cpu.getHeapStatistics!();
         heap.total_heap_size;
     }
@@ -682,7 +695,7 @@ function keys<T>(o: T): Array<keyof T> {
 {
     const portals = room.find<StructurePortal>(FIND_STRUCTURES, { filter: s => s.structureType === STRUCTURE_PORTAL });
     portals.forEach((p: StructurePortal) => {
-        const state = p.ticksToDecay === undefined ? "stable" : "unstable";
+        const state = p.ticksToDecay === undefined ? 'stable' : 'unstable';
         if (p.destination instanceof RoomPosition) {
             Game.notify(`Found ${state} inter-room portal to ${p.destination}`);
         } else {
@@ -695,23 +708,27 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     room.createConstructionSite(10, 10, STRUCTURE_EXTENSION);
-    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, "mySpawn");
+    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, 'mySpawn');
 
     const pos = new RoomPosition(10, 10, room.name);
     room.createConstructionSite(pos, STRUCTURE_EXTENSION);
-    room.createConstructionSite(pos, STRUCTURE_SPAWN, "mySpawn");
+    room.createConstructionSite(pos, STRUCTURE_SPAWN, 'mySpawn');
     pos.createConstructionSite(STRUCTURE_EXTENSION);
-    pos.createConstructionSite(STRUCTURE_SPAWN, "mySpawn");
+    pos.createConstructionSite(STRUCTURE_SPAWN, 'mySpawn');
 }
 
 // StructureLab
 
 {
-    const lab0 = Game.getObjectById<StructureLab>("lab0");
-    const lab1 = Game.getObjectById<StructureLab>("lab1");
-    const lab2 = Game.getObjectById<StructureLab>("lab2");
+    const lab0 = Game.getObjectById<StructureLab>('lab0');
+    const lab1 = Game.getObjectById<StructureLab>('lab1');
+    const lab2 = Game.getObjectById<StructureLab>('lab2');
     if (lab0 !== null && lab1 !== null && lab2 !== null) {
-        if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
+        if (
+            lab1.mineralAmount >= LAB_REACTION_AMOUNT &&
+            lab2.mineralAmount >= LAB_REACTION_AMOUNT &&
+            lab0.mineralType === null
+        ) {
             lab0.runReaction(lab1, lab2);
         }
     }
@@ -733,7 +750,7 @@ function keys<T>(o: T): Array<keyof T> {
 // Room.Terrain
 
 {
-    const room = Game.rooms[""];
+    const room = Game.rooms[''];
 
     const myTerrain = room.getTerrain();
 
@@ -748,5 +765,5 @@ function keys<T>(o: T): Array<keyof T> {
         /*wall*/
     }
 
-    const enemyTerrain = new Room.Terrain("W2N5");
+    const enemyTerrain = new Room.Terrain('W2N5');
 }

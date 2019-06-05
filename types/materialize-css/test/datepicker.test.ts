@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -19,7 +19,7 @@ const datePicker = new materialize.Datepicker(elem, {
         this;
         // $ExpectType Date
         date;
-    }
+    },
 });
 // $ExpectType void
 datePicker.open();
@@ -34,9 +34,9 @@ datePicker.el;
 // $ExpectType boolean
 datePicker.isOpen;
 
-$(".whatever").datepicker();
-$(".whatever").datepicker({ defaultDate: new Date() });
-$(".whatever").datepicker("open");
-$(".whatever").datepicker("destroy");
-$(".whatever").datepicker("setDate", new Date());
-$(".whatever").datepicker("gotoDate", new Date());
+$('.whatever').datepicker();
+$('.whatever').datepicker({ defaultDate: new Date() });
+$('.whatever').datepicker('open');
+$('.whatever').datepicker('destroy');
+$('.whatever').datepicker('setDate', new Date());
+$('.whatever').datepicker('gotoDate', new Date());

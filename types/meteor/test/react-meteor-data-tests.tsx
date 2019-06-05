@@ -10,9 +10,7 @@ interface DemoComponentData {
     result: string;
 }
 
-const DemoComponent: React.SFC<DemoComponentContainerProps & DemoComponentData> = (props) => (
-    <div>{props.data}</div>
-);
+const DemoComponent: React.SFC<DemoComponentContainerProps & DemoComponentData> = props => <div>{props.data}</div>;
 
 const DemoComponentContainer: React.ComponentClass<DemoComponentContainerProps> = withTracker<
     DemoComponentData,
@@ -22,6 +20,4 @@ const DemoComponentContainer: React.ComponentClass<DemoComponentContainerProps> 
     result: 'success',
 }))(DemoComponent);
 
-const RootComponent = () => (
-    <DemoComponentContainer status="ok" />
-);
+const RootComponent = () => <DemoComponentContainer status="ok" />;

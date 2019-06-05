@@ -1,2 +1,2 @@
-import { backOut } from "./index";
+import { backOut } from './index';
 export = backOut;

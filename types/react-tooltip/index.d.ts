@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-declare class ReactTooltip extends React.Component<ReactTooltip.Props> { }
+declare class ReactTooltip extends React.Component<ReactTooltip.Props> {}
 
 declare namespace ReactTooltip {
     /**
@@ -42,9 +42,9 @@ declare namespace ReactTooltip {
     type GetContentCallback = (dataTip: string) => React.ReactNode;
     type GetContent = GetContentCallback | [GetContentCallback, number];
 
-    type Place = "top" | "right" | "bottom" | "left";
-    type Type = "dark" | "success" | "warning" | "error" | "info" | "light";
-    type Effect = "float" | "solid";
+    type Place = 'top' | 'right' | 'bottom' | 'left';
+    type Type = 'dark' | 'success' | 'warning' | 'error' | 'info' | 'light';
+    type Effect = 'float' | 'solid';
     interface SanitizeHtmlParserOptions {
         decodeEntities?: boolean;
     }
@@ -102,7 +102,7 @@ declare namespace ReactTooltip {
         disable?: boolean;
         scrollHide?: boolean;
         resizeHide?: boolean;
-        wrapper?: "div" | "span";
+        wrapper?: 'div' | 'span';
         role?: string;
         class?: string;
         watchWindow?: boolean;

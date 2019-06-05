@@ -32,6 +32,6 @@ export namespace Object {
         TAG = 4,
         EXT2 = 5,
         OFS_DELTA = 6,
-        REF_DELTA = 7
+        REF_DELTA = 7,
     }
 }

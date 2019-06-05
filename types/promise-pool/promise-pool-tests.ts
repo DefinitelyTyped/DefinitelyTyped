@@ -1,18 +1,16 @@
-
-﻿import Q = require('q');
+import Q = require('q');
 import promisePool = require('promise-pool');
 
 var pool = new promisePool.Pool<number>((taskDataId, index) => {
-    return Q.delay(Math.floor(Math.random() * 5000)).then(function () {
+    return Q.delay(Math.floor(Math.random() * 5000)).then(function() {
         taskDataId == 0;
         index == 0;
     });
 }, 20);
 
-pool
-    .pause()
+pool.pause()
     .delay(5000)
-    .then(function () {
+    .then(function() {
         pool.resume();
     });
 
@@ -23,8 +21,7 @@ pool.retryIntervalMultiplier == 0;
 
 pool.add(0);
 
-pool
-    .start(onProgress)
+pool.start(onProgress)
     .then(result => {
         result.total == 0;
         return pool.reset();

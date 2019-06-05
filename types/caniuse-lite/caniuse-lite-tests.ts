@@ -1,6 +1,14 @@
 import {
-    agents, features, feature, Agent, Feature, PackedFeature, StatsByAgentID, SupportStatusByVersion, SupportStatus
-} from "caniuse-lite";
+    agents,
+    features,
+    feature,
+    Agent,
+    Feature,
+    PackedFeature,
+    StatsByAgentID,
+    SupportStatusByVersion,
+    SupportStatus,
+} from 'caniuse-lite';
 
 const chrome: Agent | undefined = agents.chrome;
 if (chrome !== undefined) {
@@ -36,9 +44,9 @@ const unpackedFeatures = Object.keys(features).map((id: string) => {
                 return {
                     version,
                     releaseDate: agent.release_date[version],
-                    [`feature_${id}`]: supportStatusByVersion[version]
+                    [`feature_${id}`]: supportStatusByVersion[version],
                 };
-            })
+            }),
         };
     });
 });

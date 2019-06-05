@@ -1,4 +1,4 @@
-import { PageConfig } from "./page";
+import { PageConfig } from './page';
 
 export interface AppConfig {
     appEvents?: string[];
@@ -11,7 +11,7 @@ export interface AppConstructor {
 }
 
 /* the supported add-ons */
-export type AddOn = "requestfix" | "promisify";
+export type AddOn = 'requestfix' | 'promisify';
 
 export default class app {
     config: {
@@ -20,8 +20,5 @@ export default class app {
     };
     $init(wepy: any, config: AppConfig): void;
     use(addonName: AddOn, ...args: any[]): void;
-    $initAPI(
-        wepy: any,
-        noPromiseAPI: string[] | { [name: string]: boolean }
-    ): void;
+    $initAPI(wepy: any, noPromiseAPI: string[] | { [name: string]: boolean }): void;
 }

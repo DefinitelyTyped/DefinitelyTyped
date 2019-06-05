@@ -9,7 +9,7 @@ export default class Collection<T> extends BaseObject {
     constructor(opt_array?: T[], opt_options?: Options);
     item(index: number): T;
     clear(): void;
-    forEach(f: ((param0: T, param1: number, param2: T[]) => void)): void;
+    forEach(f: (param0: T, param1: number, param2: T[]) => void): void;
     getArray(): T[];
     getLength(): number;
     insertAt(index: number, elem: T): void;
@@ -19,9 +19,9 @@ export default class Collection<T> extends BaseObject {
     remove(elem: T): T;
     removeAt(index: number): T;
     setAt(index: number, elem: T): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     once(type: 'add', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     un(type: 'add', listener: (evt: CollectionEvent<T>) => void): void;

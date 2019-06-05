@@ -22,14 +22,8 @@ declare const shimmer: {
         names: FieldName[],
         wrapper: (original: Nodule[FieldName]) => Nodule[FieldName]
     ): void;
-    unwrap<Nodule extends object>(
-        nodule: Nodule,
-        name: keyof Nodule
-    ): void;
-    massUnwrap<Nodule extends object>(
-        nodules: Nodule[],
-        names: Array<keyof Nodule>
-    ): void;
+    unwrap<Nodule extends object>(nodule: Nodule, name: keyof Nodule): void;
+    massUnwrap<Nodule extends object>(nodules: Nodule[], names: Array<keyof Nodule>): void;
 };
 
 export = shimmer;

@@ -1,2 +1,2 @@
-import { zipObjectDeep } from "../fp";
+import { zipObjectDeep } from '../fp';
 export = zipObjectDeep;

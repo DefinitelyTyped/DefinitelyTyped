@@ -1,2 +1,2 @@
-import { extendAllWith } from "../fp";
+import { extendAllWith } from '../fp';
 export = extendAllWith;

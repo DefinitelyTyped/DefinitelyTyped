@@ -4,6 +4,6 @@ import 'format-unicorn';
 let outputString: string;
 
 outputString = 'Hello, {name}; you have {favoriteNumber}'.formatUnicorn({
-  name: "kruncher",
-  favoriteNumber: 42
+    name: 'kruncher',
+    favoriteNumber: 42,
 });

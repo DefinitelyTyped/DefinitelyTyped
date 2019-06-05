@@ -6,10 +6,10 @@ import Document, {
     Main,
     NextScript,
     NextDocumentContext,
-    PageProps
-} from "next/document";
-import * as React from "react";
-import { DefaultQuery } from "next-server/router";
+    PageProps,
+} from 'next/document';
+import * as React from 'react';
+import { DefaultQuery } from 'next-server/router';
 
 interface WithUrlProps {
     url: string;
@@ -52,7 +52,7 @@ class MyDoc extends Document<WithUrlProps> {
         const enhanceComponent: Enhancer<PageProps, {}> = Component => props => <Component />;
         const { html, head } = renderPage({
             enhanceApp,
-            enhanceComponent
+            enhanceComponent,
         });
 
         const initialProps = await Document.getInitialProps(ctx);
@@ -100,12 +100,12 @@ class MyDoc extends Document<WithUrlProps> {
     }
 }
 
-const renderPage: NextDocumentContext["renderPage"] = enhancer => ({
+const renderPage: NextDocumentContext['renderPage'] = enhancer => ({
     buildManifest: {},
     chunks: { names: [], filenames: [] },
-    html: "",
+    html: '',
     head: [<React.Fragment />],
-    errorHtml: ""
+    errorHtml: '',
 });
 
 interface PageInitialProps extends PageProps {
@@ -119,25 +119,20 @@ interface ProcessedInitialProps {
 }
 
 const enhancerExplicit: Enhancer<PageProps, {}> = App => props => <App />;
-const enhancerInferred = (App: React.ComponentType<ProcessedInitialProps>) => ({
-    foo,
-    bar
-}: PageInitialProps) => <App fooLength={foo.length} bar={!!bar} />;
+const enhancerInferred = (App: React.ComponentType<ProcessedInitialProps>) => ({ foo, bar }: PageInitialProps) => (
+    <App fooLength={foo.length} bar={!!bar} />
+);
 const explicitEnhancerRenderResponse = renderPage(enhancerExplicit);
 const inferredEnhancerRenderResponse = renderPage(enhancerInferred);
 const defaultedTypesRenderResponse = renderPage(App => props => <App url={props.url} />);
-const defaultedTypesExtendedRenderResponse = renderPage(App => props => (
-    <App foo="bar" url={props.url} />
-));
+const defaultedTypesExtendedRenderResponse = renderPage(App => props => <App foo="bar" url={props.url} />);
 const explicitTypesRenderResponseOne = renderPage<PageProps, {}>(App => props => <App />);
-const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>(
-    App => ({ foo, bar }) => <App fooLength={foo.length} bar={!!bar} />
-);
+const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>(App => ({ foo, bar }) => (
+    <App fooLength={foo.length} bar={!!bar} />
+));
 
 class MyDocumentWithCustomContext extends Document<{ example: string }> {
-    static async getInitialProps(
-        ctx: NextDocumentContext<DefaultQuery, { customField: "custom value" }>
-    ) {
+    static async getInitialProps(ctx: NextDocumentContext<DefaultQuery, { customField: 'custom value' }>) {
         const initialProps = await Document.getInitialProps(ctx);
         const example = ctx.req ? ctx.req.customField : undefined;
         return { ...initialProps, example };

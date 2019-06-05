@@ -1,12 +1,20 @@
-import { ActionsSdkApp, ActionsSdkAppOptions, DialogflowApp, DialogflowAppOptions, AssistantApp,
-    Responses, Transactions } from 'actions-on-google';
+import {
+    ActionsSdkApp,
+    ActionsSdkAppOptions,
+    DialogflowApp,
+    DialogflowAppOptions,
+    AssistantApp,
+    Responses,
+    Transactions,
+} from 'actions-on-google';
 import express = require('express');
 
 function testActionsSdk(request: express.Request, response: express.Response) {
-    const app = new ActionsSdkApp({request, response});
+    const app = new ActionsSdkApp({ request, response });
     const actionMap = new Map();
     actionMap.set(app.StandardIntents.MAIN, () => {
-        const richResponse: Responses.RichResponse = app.buildRichResponse()
+        const richResponse: Responses.RichResponse = app
+            .buildRichResponse()
             .addSimpleResponse('Hello world')
             .addSuggestions(['foo', 'bar']);
         app.ask(richResponse);
@@ -15,14 +23,14 @@ function testActionsSdk(request: express.Request, response: express.Response) {
 }
 
 function testDialogflow(request: express.Request, response: express.Response) {
-    const app = new DialogflowApp({request, response});
+    const app = new DialogflowApp({ request, response });
     const actionMap = new Map();
     actionMap.set(app.StandardIntents.MAIN, () => {
         const order: Transactions.Order = app.buildOrder('foo');
         app.askForTransactionDecision(order, {
             type: app.Transactions.PaymentType.PAYMENT_CARD,
             displayName: 'VISA-1234',
-            deliveryAddressRequired: true
+            deliveryAddressRequired: true,
         });
     });
     app.handleRequest(actionMap);

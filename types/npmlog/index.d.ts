@@ -6,12 +6,12 @@
 // TypeScript Version: 2.4
 
 export enum LogLevels {
-    silly = "silly",
-    verbose = "verbose",
-    info = "info",
-    http = "http",
-    warn = "warn",
-    error = "error",
+    silly = 'silly',
+    verbose = 'verbose',
+    info = 'info',
+    http = 'http',
+    warn = 'warn',
+    error = 'error',
 }
 
 export interface StyleObject {

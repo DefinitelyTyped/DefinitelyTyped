@@ -43,9 +43,9 @@ export const DEFAULT_HEIGHT: number;
 
 /** Directional constants. Ordering is important! */
 export const DIRS: {
-    "4": Array<[number, number]>;
-    "6": Array<[number, number]>;
-    "8": Array<[number, number]>;
+    '4': Array<[number, number]>;
+    '6': Array<[number, number]>;
+    '8': Array<[number, number]>;
 };
 
 /** Cancel key. */
@@ -468,12 +468,12 @@ export interface CorridorOptions {
 export type FeatureOptions = RoomOptions | CorridorOptions;
 
 export namespace Map {
-    class Arena extends Map { }
-    class DividedMaze extends Map { }
+    class Arena extends Map {}
+    class DividedMaze extends Map {}
     class IceyMaze extends Map {
         constructor(width?: number, height?: number, regularity?: number);
     }
-    class EllerMaze extends Map { }
+    class EllerMaze extends Map {}
     class Cellular extends Map {
         constructor(width?: number, height?: number, options?: CellularOptions);
         randomize(probability: number): this;
@@ -557,8 +557,8 @@ export class FOV {
     compute(x: number, y: number, R: number, callback: FOVCallback): void;
 }
 export namespace FOV {
-    class DiscreteShadowcasting extends FOV { }
-    class PreciseShadowcasting extends FOV { }
+    class DiscreteShadowcasting extends FOV {}
+    class PreciseShadowcasting extends FOV {}
 
     class RecursiveShadowcasting extends FOV {
         compute180(x: number, y: number, R: number, dir: number, callback: FOVCallback): void;
@@ -573,13 +573,36 @@ export type ColorArray = [number, number, number];
 
 export namespace Color {
     function fromString(str: string): [number, number, number];
-    function add(color1: [number, number, number], ...colors2: Array<[number, number, number]>): [number, number, number];
-    function add_(color1: [number, number, number], ...colors2: Array<[number, number, number]>): [number, number, number];
-    function multiply(color1: [number, number, number], ...colors2: Array<[number, number, number]>): [number, number, number];
-    function multiply_(color1: [number, number, number], ...colors2: Array<[number, number, number]>): [number, number, number];
-    function interpolate(color1: [number, number, number], color2: [number, number, number], factor: number): [number, number, number];
-    function interpolateHSL(color1: [number, number, number], color2: [number, number, number], factor: number): [number, number, number];
-    function randomize(color: [number, number, number], diff: number | [number, number, number]): [number, number, number];
+    function add(
+        color1: [number, number, number],
+        ...colors2: Array<[number, number, number]>
+    ): [number, number, number];
+    function add_(
+        color1: [number, number, number],
+        ...colors2: Array<[number, number, number]>
+    ): [number, number, number];
+    function multiply(
+        color1: [number, number, number],
+        ...colors2: Array<[number, number, number]>
+    ): [number, number, number];
+    function multiply_(
+        color1: [number, number, number],
+        ...colors2: Array<[number, number, number]>
+    ): [number, number, number];
+    function interpolate(
+        color1: [number, number, number],
+        color2: [number, number, number],
+        factor: number
+    ): [number, number, number];
+    function interpolateHSL(
+        color1: [number, number, number],
+        color2: [number, number, number],
+        factor: number
+    ): [number, number, number];
+    function randomize(
+        color: [number, number, number],
+        diff: number | [number, number, number]
+    ): [number, number, number];
     function rgb2hsl(color: [number, number, number]): [number, number, number];
     function hsl2rgb(color: [number, number, number]): [number, number, number];
     function toRGB(color: [number, number, number]): string;
@@ -622,8 +645,8 @@ export class Path {
 }
 
 export namespace Path {
-    class Dijkstra extends Path { }
-    class AStar extends Path { }
+    class Dijkstra extends Path {}
+    class AStar extends Path {}
 }
 
 export interface Noise {
@@ -656,8 +679,8 @@ export class Scheduler {
 }
 
 export namespace Scheduler {
-    class Simple extends Scheduler { }
-    class Speed extends Scheduler { }
+    class Simple extends Scheduler {}
+    class Speed extends Scheduler {}
     class Action extends Scheduler {
         setDuration(time: number): Action;
     }

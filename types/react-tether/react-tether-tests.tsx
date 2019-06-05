@@ -1,7 +1,7 @@
-import TetherComponent from "react-tether";
-import * as React from "react";
+import TetherComponent from 'react-tether';
+import * as React from 'react';
 
-const ReactTetherAllOptions: JSX.Element =
+const ReactTetherAllOptions: JSX.Element = (
     <TetherComponent
         attachment="bottom middle"
         id="id123"
@@ -10,7 +10,7 @@ const ReactTetherAllOptions: JSX.Element =
         onRepositioned={() => {}}
         renderElementTag="div"
         renderElementTo=".container"
-    />;
+    />
+);
 
-const ReactTetherRequiredOptions: JSX.Element =
-    <TetherComponent attachment="bottom middle" />;
+const ReactTetherRequiredOptions: JSX.Element = <TetherComponent attachment="bottom middle" />;

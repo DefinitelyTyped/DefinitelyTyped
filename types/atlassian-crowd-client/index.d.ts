@@ -3,13 +3,13 @@
 // Definitions by: mtgto <https://github.com/mtgto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import CrowdApi = require("./api");
-import { Settings } from "./settings";
-import Attributes = require("./lib/models/attributes");
-import Group = require("./lib/models/group");
-import User = require("./lib/models/user");
-import Session = require("./lib/models/session");
-import ValidationFactors = require("./lib/models/validation-factors");
+import CrowdApi = require('./api');
+import { Settings } from './settings';
+import Attributes = require('./lib/models/attributes');
+import Group = require('./lib/models/group');
+import User = require('./lib/models/user');
+import Session = require('./lib/models/session');
+import ValidationFactors = require('./lib/models/validation-factors');
 
 export = CrowdClient;
 declare class CrowdClient extends CrowdApi {
@@ -59,7 +59,7 @@ declare class CrowdClient extends CrowdApi {
                 nested?: boolean,
                 startIndex?: number,
                 maxResults?: number,
-                expand?: boolean,
+                expand?: boolean
             ) => Promise<string[] | User[]>;
             add: (groupname: string, username: string) => Promise<void>;
             remove: (groupname: string, username: string) => Promise<void>;
@@ -85,13 +85,13 @@ declare class CrowdClient extends CrowdApi {
             restriction: string,
             expand?: boolean,
             startIndex?: number,
-            maxResults?: number,
+            maxResults?: number
         ) => Promise<string[] | User[]>;
         group: (
             restriction: string,
             expand?: boolean,
             startIndex?: number,
-            maxResults?: number,
+            maxResults?: number
         ) => Promise<string[] | Group[]>;
     };
     session: {
@@ -101,12 +101,12 @@ declare class CrowdClient extends CrowdApi {
             username: string,
             password: string,
             validationFactors?: ValidationFactors,
-            duration?: number,
+            duration?: number
         ) => Promise<Session>;
         createUnvalidated: (
             username: string,
             validationFactors?: ValidationFactors,
-            duration?: number,
+            duration?: number
         ) => Promise<Session>;
         remove: (token: string) => Promise<void>;
         removeAll: (username: string, exclude?: string) => Promise<void>;

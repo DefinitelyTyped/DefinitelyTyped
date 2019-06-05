@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     namespace lang {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/observable.html
@@ -19,7 +18,9 @@ declare namespace dojox {
          * @param onWrite See dojox.lang.makeObservable.onWrite
          * @param onInvoke See dojox.lang.makeObservable.onInvoke
          */
-        interface observable{(wrapped: Object, onRead: Function, onWrite: Function, onInvoke: Function): void}
+        interface observable {
+            (wrapped: Object, onRead: Function, onWrite: Function, onInvoke: Function): void;
+        }
         namespace oo {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/oo/Decorator.html
@@ -32,7 +33,9 @@ declare namespace dojox {
              * @param value a payload to be processed by the decorator.
              * @param decorator a function to handle the custom assignment, or an object with exec()method. The signature is:decorator(/String/ name, /Function/ newValue, /Function/ oldValue).
              */
-            interface Decorator{(value: Object, decorator?: Function): void}
+            interface Decorator {
+                (value: Object, decorator?: Function): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/oo/Decorator.html
              *
@@ -44,7 +47,9 @@ declare namespace dojox {
              * @param value a payload to be processed by the decorator.
              * @param decorator a function to handle the custom assignment, or an object with exec()method. The signature is:decorator(/String/ name, /Function/ newValue, /Function/ oldValue).
              */
-            interface Decorator{(value: Object, decorator?: Object): void}
+            interface Decorator {
+                (value: Object, decorator?: Object): void;
+            }
             namespace Decorator {
                 /**
                  * a function to handle the custom assignment, or an object with exec()
@@ -52,12 +57,12 @@ declare namespace dojox {
                  * decorator(/String/ name, /Function/ newValue, /Function/ oldValue).
                  *
                  */
-                var decorator: Function
+                var decorator: Function;
                 /**
                  * a payload to be processed by the decorator.
                  *
                  */
-                var value: Object
+                var value: Object;
             }
 
             /**
@@ -72,7 +77,9 @@ declare namespace dojox {
              * @param bag object to be filtered
              * @param filter a function to handle the name filtering,or an object with exec() method
              */
-            interface Filter{(bag: Object, filter: Function): void}
+            interface Filter {
+                (bag: Object, filter: Function): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/oo/Filter.html
              *
@@ -85,19 +92,21 @@ declare namespace dojox {
              * @param bag object to be filtered
              * @param filter a function to handle the name filtering,or an object with exec() method
              */
-            interface Filter{(bag: Object, filter: Object): void}
+            interface Filter {
+                (bag: Object, filter: Object): void;
+            }
             namespace Filter {
                 /**
                  * object to be filtered
                  *
                  */
-                var bag: Object
+                var bag: Object;
                 /**
                  * a function to handle the name filtering,
                  * or an object with exec() method
                  *
                  */
-                var filter: Function
+                var filter: Function;
             }
 
             /**
@@ -109,7 +118,9 @@ declare namespace dojox {
              * @param target target to receive new/updated properties
              * @param source source of properties, more than one source is allowed
              */
-            interface mixin{(target: Object, source: Object[]): void}
+            interface mixin {
+                (target: Object, source: Object[]): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/oo/rearrange.html
              *
@@ -120,7 +131,9 @@ declare namespace dojox {
              * @param bag the object to be processed
              * @param map the dictionary for renaming (false value indicates removal of the named property)
              */
-            interface rearrange{(bag: Object, map: Object): void}
+            interface rearrange {
+                (bag: Object, map: Object): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/oo/aop.html
              *
@@ -411,7 +424,9 @@ declare namespace dojox {
              * Returns an object, which can be used to count calls to methods.
              *
              */
-            interface counter{(): void}
+            interface counter {
+                (): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/cflow.html
              *
@@ -421,7 +436,9 @@ declare namespace dojox {
              * @param instance An instance to be matched. If null, any context will be examined.Otherwise the context should belong to this instance.
              * @param method       OptionalAn optional pattern to be matched against a method name. Can be a string,a RegExp object or an array of strings and RegExp objects.If it is omitted, any name will satisfy the criteria.
              */
-            interface cflow{(instance: Object, method?: String): void}
+            interface cflow {
+                (instance: Object, method?: String): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/cflow.html
              *
@@ -431,7 +448,9 @@ declare namespace dojox {
              * @param instance An instance to be matched. If null, any context will be examined.Otherwise the context should belong to this instance.
              * @param method       OptionalAn optional pattern to be matched against a method name. Can be a string,a RegExp object or an array of strings and RegExp objects.If it is omitted, any name will satisfy the criteria.
              */
-            interface cflow{(instance: Object, method?: RegExp): void}
+            interface cflow {
+                (instance: Object, method?: RegExp): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/cflow.html
              *
@@ -441,7 +460,9 @@ declare namespace dojox {
              * @param instance An instance to be matched. If null, any context will be examined.Otherwise the context should belong to this instance.
              * @param method       OptionalAn optional pattern to be matched against a method name. Can be a string,a RegExp object or an array of strings and RegExp objects.If it is omitted, any name will satisfy the criteria.
              */
-            interface cflow{(instance: Object, method?: any[]): void}
+            interface cflow {
+                (instance: Object, method?: any[]): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/memoizer.html
              *
@@ -449,7 +470,9 @@ declare namespace dojox {
              *
              * @param keyMaker       Optionalthe function, which takes method's arguments and returns a key,which can be used to index the result.
              */
-            interface memoizer{(keyMaker?: Function): void}
+            interface memoizer {
+                (keyMaker?: Function): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/memoizerGuard.html
              *
@@ -458,7 +481,9 @@ declare namespace dojox {
              *
              * @param method       OptionalOptional method's name to be guarded: only cache forthis method will be invalidated on call. Can be a stringor an array of method names. If omitted the whole cachewill be invalidated.
              */
-            interface memoizerGuard{(method?: String): void}
+            interface memoizerGuard {
+                (method?: String): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/memoizerGuard.html
              *
@@ -467,7 +492,9 @@ declare namespace dojox {
              *
              * @param method       OptionalOptional method's name to be guarded: only cache forthis method will be invalidated on call. Can be a stringor an array of method names. If omitted the whole cachewill be invalidated.
              */
-            interface memoizerGuard{(method?: any[]): void}
+            interface memoizerGuard {
+                (method?: any[]): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/profiler.html
              *
@@ -475,7 +502,9 @@ declare namespace dojox {
              *
              * @param title       OptionalThe optional name of the profile section.
              */
-            interface profiler{(title?: String): void}
+            interface profiler {
+                (title?: String): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/timer.html
              *
@@ -483,7 +512,9 @@ declare namespace dojox {
              *
              * @param name       OptionalThe optional unique name of the timer.
              */
-            interface timer{(name?: String): void}
+            interface timer {
+                (name?: String): void;
+            }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/aspect/tracer.html
              *
@@ -492,7 +523,9 @@ declare namespace dojox {
              *
              * @param grouping The flag to group output. If true, indents embedded console messages.
              */
-            interface tracer{(grouping: boolean): void}
+            interface tracer {
+                (grouping: boolean): void;
+            }
         }
 
         /**
@@ -6286,8 +6319,7 @@ declare namespace dojox {
              *
              *
              */
-            interface listcomp {
-            }
+            interface listcomp {}
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/lang/functional/object.html
              *
@@ -11969,14 +12001,10 @@ declare namespace dojox {
              *
              *
              */
-            interface zip {
-            }
-            namespace fold {
-            }
+            interface zip {}
+            namespace fold {}
 
-            namespace scan {
-            }
-
+            namespace scan {}
         }
 
         /**
@@ -12018,118 +12046,117 @@ declare namespace dojox {
             updateWithPattern(target: Object, source: Object, pattern: Object, conv: boolean): Object;
         }
     }
-
 }
 
-declare module "dojox/lang/observable" {
-    var exp: dojox.lang.observable
-    export=exp;
+declare module 'dojox/lang/observable' {
+    var exp: dojox.lang.observable;
+    export = exp;
 }
-declare module "dojox/lang/aspect" {
-    var exp: dojox.lang.aspect
-    export=exp;
+declare module 'dojox/lang/aspect' {
+    var exp: dojox.lang.aspect;
+    export = exp;
 }
-declare module "dojox/lang/aspect/memoizerGuard" {
-    var exp: dojox.lang.aspect.memoizerGuard
-    export=exp;
+declare module 'dojox/lang/aspect/memoizerGuard' {
+    var exp: dojox.lang.aspect.memoizerGuard;
+    export = exp;
 }
-declare module "dojox/lang/aspect/memoizer" {
-    var exp: dojox.lang.aspect.memoizer
-    export=exp;
+declare module 'dojox/lang/aspect/memoizer' {
+    var exp: dojox.lang.aspect.memoizer;
+    export = exp;
 }
-declare module "dojox/lang/aspect/counter" {
-    var exp: dojox.lang.aspect.counter
-    export=exp;
+declare module 'dojox/lang/aspect/counter' {
+    var exp: dojox.lang.aspect.counter;
+    export = exp;
 }
-declare module "dojox/lang/aspect/cflow" {
-    var exp: dojox.lang.aspect.cflow
-    export=exp;
+declare module 'dojox/lang/aspect/cflow' {
+    var exp: dojox.lang.aspect.cflow;
+    export = exp;
 }
-declare module "dojox/lang/aspect/timer" {
-    var exp: dojox.lang.aspect.timer
-    export=exp;
+declare module 'dojox/lang/aspect/timer' {
+    var exp: dojox.lang.aspect.timer;
+    export = exp;
 }
-declare module "dojox/lang/aspect/profiler" {
-    var exp: dojox.lang.aspect.profiler
-    export=exp;
+declare module 'dojox/lang/aspect/profiler' {
+    var exp: dojox.lang.aspect.profiler;
+    export = exp;
 }
-declare module "dojox/lang/aspect/tracer" {
-    var exp: dojox.lang.aspect.tracer
-    export=exp;
+declare module 'dojox/lang/aspect/tracer' {
+    var exp: dojox.lang.aspect.tracer;
+    export = exp;
 }
-declare module "dojox/lang/async" {
-    var exp: dojox.lang.async
-    export=exp;
+declare module 'dojox/lang/async' {
+    var exp: dojox.lang.async;
+    export = exp;
 }
-declare module "dojox/lang/async/event" {
-    var exp: dojox.lang.async.event
-    export=exp;
+declare module 'dojox/lang/async/event' {
+    var exp: dojox.lang.async.event;
+    export = exp;
 }
-declare module "dojox/lang/async/timeout" {
-    var exp: dojox.lang.async.timeout
-    export=exp;
+declare module 'dojox/lang/async/timeout' {
+    var exp: dojox.lang.async.timeout;
+    export = exp;
 }
-declare module "dojox/lang/async/topic" {
-    var exp: dojox.lang.async.topic
-    export=exp;
+declare module 'dojox/lang/async/topic' {
+    var exp: dojox.lang.async.topic;
+    export = exp;
 }
-declare module "dojox/lang/functional" {
-    var exp: dojox.lang.functional
-    export=exp;
+declare module 'dojox/lang/functional' {
+    var exp: dojox.lang.functional;
+    export = exp;
 }
-declare module "dojox/lang/functional/listcomp" {
-    var exp: dojox.lang.functional.listcomp
-    export=exp;
+declare module 'dojox/lang/functional/listcomp' {
+    var exp: dojox.lang.functional.listcomp;
+    export = exp;
 }
-declare module "dojox/lang/functional/object" {
-    var exp: dojox.lang.functional.objectInstance
-    export=exp;
+declare module 'dojox/lang/functional/object' {
+    var exp: dojox.lang.functional.objectInstance;
+    export = exp;
 }
-declare module "dojox/lang/functional/zip" {
-    var exp: dojox.lang.functional.zip
-    export=exp;
+declare module 'dojox/lang/functional/zip' {
+    var exp: dojox.lang.functional.zip;
+    export = exp;
 }
-declare module "dojox/lang/functional/array" {
-    var exp: dojox.lang.functional.array
-    export=exp;
+declare module 'dojox/lang/functional/array' {
+    var exp: dojox.lang.functional.array;
+    export = exp;
 }
-declare module "dojox/lang/functional/lambda" {
-    var exp: dojox.lang.functional.lambda
-    export=exp;
+declare module 'dojox/lang/functional/lambda' {
+    var exp: dojox.lang.functional.lambda;
+    export = exp;
 }
-declare module "dojox/lang/functional/reversed" {
-    var exp: dojox.lang.functional.reversed
-    export=exp;
+declare module 'dojox/lang/functional/reversed' {
+    var exp: dojox.lang.functional.reversed;
+    export = exp;
 }
-declare module "dojox/lang/functional/sequence" {
-    var exp: dojox.lang.functional.sequence
-    export=exp;
+declare module 'dojox/lang/functional/sequence' {
+    var exp: dojox.lang.functional.sequence;
+    export = exp;
 }
-declare module "dojox/lang/utils" {
-    var exp: dojox.lang.utils
-    export=exp;
+declare module 'dojox/lang/utils' {
+    var exp: dojox.lang.utils;
+    export = exp;
 }
-declare module "dojox/lang/oo/mixin" {
-    var exp: dojox.lang.oo.mixin
-    export=exp;
+declare module 'dojox/lang/oo/mixin' {
+    var exp: dojox.lang.oo.mixin;
+    export = exp;
 }
-declare module "dojox/lang/oo/Filter" {
-    var exp: dojox.lang.oo.Filter
-    export=exp;
+declare module 'dojox/lang/oo/Filter' {
+    var exp: dojox.lang.oo.Filter;
+    export = exp;
 }
-declare module "dojox/lang/oo/Decorator" {
-    var exp: dojox.lang.oo.Decorator
-    export=exp;
+declare module 'dojox/lang/oo/Decorator' {
+    var exp: dojox.lang.oo.Decorator;
+    export = exp;
 }
-declare module "dojox/lang/oo/rearrange" {
-    var exp: dojox.lang.oo.rearrange
-    export=exp;
+declare module 'dojox/lang/oo/rearrange' {
+    var exp: dojox.lang.oo.rearrange;
+    export = exp;
 }
-declare module "dojox/lang/oo/aop" {
-    var exp: dojox.lang.oo.aop
-    export=exp;
+declare module 'dojox/lang/oo/aop' {
+    var exp: dojox.lang.oo.aop;
+    export = exp;
 }
-declare module "dojox/lang/oo/general" {
-    var exp: dojox.lang.oo.general
-    export=exp;
+declare module 'dojox/lang/oo/general' {
+    var exp: dojox.lang.oo.general;
+    export = exp;
 }

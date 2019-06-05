@@ -1,2 +1,2 @@
-import { methodOf } from "./index";
+import { methodOf } from './index';
 export = methodOf;

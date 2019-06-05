@@ -6,7 +6,6 @@
 type EnvironmentVersionRange = number | string;
 
 interface IsStatic {
-
     //#region Type checks
 
     /**
@@ -612,11 +611,9 @@ interface IsStatic {
     dayLightSavingTime(value: Date): boolean;
 
     //#endregion
-
 }
 
 interface IsStaticApi {
-
     //#region Type checks
 
     /**
@@ -1281,7 +1278,6 @@ interface IsStaticApi {
 }
 
 interface Is extends IsStatic {
-
     not: IsStatic;
     any: IsStaticApi;
     all: IsStaticApi;

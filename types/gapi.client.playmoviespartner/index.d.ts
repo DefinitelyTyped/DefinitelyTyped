@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Play Movies Partner API v1 */
-    function load(name: "playmoviespartner", version: "v1"): PromiseLike<void>;
-    function load(name: "playmoviespartner", version: "v1", callback: () => any): void;
+    function load(name: 'playmoviespartner', version: 'v1'): PromiseLike<void>;
+    function load(name: 'playmoviespartner', version: 'v1', callback: () => any): void;
 
     const accounts: playmoviespartner.AccountsResource;
 
@@ -443,7 +443,7 @@ declare namespace gapi.client {
             /** Get an Avail given its avail group id and avail id. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** REQUIRED. See _General rules_ for more information about this field. */
@@ -481,7 +481,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** REQUIRED. See _General rules_ for more information about this field. */
@@ -549,7 +549,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** REQUIRED. See _General rules_ for more information about this field. */
@@ -587,7 +587,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** REQUIRED. See _General rules_ for more information about this field. */
@@ -644,7 +644,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** REQUIRED. See _General rules_ for more information about this field. */
@@ -686,7 +686,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** REQUIRED. See _General rules_ for more information about this field. */

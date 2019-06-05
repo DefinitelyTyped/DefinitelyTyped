@@ -7,7 +7,6 @@
 /// <reference types="jquery" />
 
 declare namespace IntlTelInput {
-
     interface Plugin {
         /**
          * Get all of the plugin's country data - either to re-use elsewhere
@@ -180,18 +179,18 @@ declare namespace IntlTelInput {
          * e.g. "FIXED_LINE" to set the number type to use for the placeholder.
          */
         placeholderNumberType?:
-        | "FIXED_LINE_OR_MOBILE"
-        | "FIXED_LINE"
-        | "MOBILE"
-        | "PAGER"
-        | "PERSONAL_NUMBER"
-        | "PREMIUM_RATE"
-        | "SHARED_COST"
-        | "TOLL_FREE"
-        | "UAN"
-        | "UNKNOWN"
-        | "VOICEMAIL"
-        | "VOIP";
+            | 'FIXED_LINE_OR_MOBILE'
+            | 'FIXED_LINE'
+            | 'MOBILE'
+            | 'PAGER'
+            | 'PERSONAL_NUMBER'
+            | 'PREMIUM_RATE'
+            | 'SHARED_COST'
+            | 'TOLL_FREE'
+            | 'UAN'
+            | 'UNKNOWN'
+            | 'VOICEMAIL'
+            | 'VOIP';
         /**
          * Specify the countries to appear at the top of the list.
          */
@@ -223,12 +222,11 @@ declare namespace IntlTelInput {
 }
 
 declare namespace intlTelInputUtils {
-
     const enum numberFormat {
         E164 = 0,
         INTERNATIONAL = 1,
         NATIONAL = 2,
-        RFC3966 = 3
+        RFC3966 = 3,
     }
 
     const enum numberType {
@@ -243,7 +241,7 @@ declare namespace intlTelInputUtils {
         PAGER = 8,
         UAN = 9,
         VOICEMAIL = 10,
-        UNKNOWN = -1
+        UNKNOWN = -1,
     }
 
     const enum validationError {
@@ -251,7 +249,7 @@ declare namespace intlTelInputUtils {
         INVALID_COUNTRY_CODE = 1,
         TOO_SHORT = 2,
         TOO_LONG = 3,
-        NOT_A_NUMBER = 4
+        NOT_A_NUMBER = 4,
     }
 }
 

@@ -15,7 +15,7 @@ declare function h(
     children?: ReadonlyArray<Element> | Element
 ): ReactElement;
 
-declare function h<P extends {[attr: string]: any}>(
+declare function h<P extends { [attr: string]: any }>(
     componentOrTag: ComponentClass<P> | StatelessComponent<P> | string,
     properties: P,
     children?: ReadonlyArray<Element> | Element

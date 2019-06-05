@@ -14,13 +14,13 @@ declare namespace Purdy {
     }
 
     interface Options {
-        depth?: number|null;
+        depth?: number | null;
         plain?: boolean;
         json?: boolean;
         path?: boolean;
         proto?: boolean;
         indent?: number;
-        align?: 'left'|'right';
+        align?: 'left' | 'right';
         arrayIndex?: boolean;
         pathPrefix?: string;
     }

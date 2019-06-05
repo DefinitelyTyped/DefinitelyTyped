@@ -19,11 +19,7 @@ declare function xml(
 ): xml.Element;
 
 declare namespace xml {
-    function x(
-        name: string,
-        attrs?: string | { [key: string]: any },
-        ...children: ElementChild[]
-    ): Element;
+    function x(name: string, attrs?: string | { [key: string]: any }, ...children: ElementChild[]): Element;
 
     const escapeXML: typeof escape.escapeXML;
     const unescapeXML: typeof escape.unescapeXML;

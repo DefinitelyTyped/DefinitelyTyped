@@ -4,16 +4,16 @@
  * Created by using code samples from https://github.com/LearnBoost/stylus/blob/master/docs/js.md.
  */
 
-import stylus = require("stylus");
+import stylus = require('stylus');
 
-const str = "This is a stylus test";
+const str = 'This is a stylus test';
 
 /**
  * Basic Usage
  */
 stylus.render(str, { filename: 'nesting.css' }, (err, css) => {
-  if (err) throw err;
-  console.log(css);
+    if (err) throw err;
+    console.log(css);
 });
 
 stylus(str)

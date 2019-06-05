@@ -1,61 +1,47 @@
-import fetch, {
-    Blob,
-    Headers,
-    Request,
-    RequestInit,
-    Response,
-    FetchError
-} from "node-fetch";
-import { Agent } from "http";
+import fetch, { Blob, Headers, Request, RequestInit, Response, FetchError } from 'node-fetch';
+import { Agent } from 'http';
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    headers.append('Content-Type', 'application/json');
     const requestOptions: RequestInit = {
         compress: true,
         follow: 10,
         headers,
-        method: "POST",
-        redirect: "manual",
+        method: 'POST',
+        redirect: 'manual',
         size: 100,
-        timeout: 5000
+        timeout: 5000,
     };
-    handlePromise(
-        fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions)
-    );
+    handlePromise(fetch('http://www.andlabs.net/html5/uCOR.php', requestOptions));
 }
 
 function test_fetchUrlWithHeadersObject() {
     const requestOptions: RequestInit = {
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
         },
-        method: "POST"
+        method: 'POST',
     };
-    handlePromise(
-        fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions)
-    );
+    handlePromise(fetch('http://www.andlabs.net/html5/uCOR.php', requestOptions));
 }
 
 function test_fetchUrl() {
-    handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php"));
+    handlePromise(fetch('http://www.andlabs.net/html5/uCOR.php'));
 }
 
 function test_fetchUrlArrayBuffer() {
-    handlePromise(fetch("http://www.andlabs.net/html5/uCOR.php"), true);
+    handlePromise(fetch('http://www.andlabs.net/html5/uCOR.php'), true);
 }
 
 function test_fetchUrlWithRequestObject() {
     const requestOptions: RequestInit = {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json',
+        },
     };
-    const request: Request = new Request(
-        "http://www.andlabs.net/html5/uCOR.php",
-        requestOptions
-    );
+    const request: Request = new Request('http://www.andlabs.net/html5/uCOR.php', requestOptions);
     const timeout: number = request.timeout;
     const size: number = request.size;
     const agent: Agent | undefined = request.agent;
@@ -65,19 +51,16 @@ function test_fetchUrlWithRequestObject() {
 }
 
 function test_globalFetchVar() {
-    fetch("http://test.com", {}).then(response => {
+    fetch('http://test.com', {}).then(response => {
         // for test only
     });
 }
 
-function handlePromise(
-    promise: Promise<Response>,
-    isArrayBuffer: boolean = false
-) {
+function handlePromise(promise: Promise<Response>, isArrayBuffer: boolean = false) {
     promise
         .then(
             (response): Promise<string | ArrayBuffer> => {
-                if (response.type === "basic") {
+                if (response.type === 'basic') {
                     // for test only
                 }
                 if (isArrayBuffer) {
@@ -94,7 +77,7 @@ function handlePromise(
 
 function test_headersRaw() {
     const headers = new Headers();
-    const myHeader = "foo";
+    const myHeader = 'foo';
     headers.raw()[myHeader]; // $ExpectType string[]
 }
 
@@ -104,19 +87,19 @@ function test_isRedirect() {
 }
 
 function test_FetchError() {
-    new FetchError("message", "type", "systemError");
-    new FetchError("message", "type");
+    new FetchError('message', 'type', 'systemError');
+    new FetchError('message', 'type');
 }
 
 function test_Blob() {
     new Blob();
-    new Blob(["beep", "boop"]);
-    new Blob(["beep", "boop"], { endings: "native" });
-    new Blob(["beep", "boop"], { type: "text/plain" });
+    new Blob(['beep', 'boop']);
+    new Blob(['beep', 'boop'], { endings: 'native' });
+    new Blob(['beep', 'boop'], { type: 'text/plain' });
 }
 
 function test_ResponseInit() {
-    fetch("http://test.com", {}).then(response => {
+    fetch('http://test.com', {}).then(response => {
         new Response(response.body);
         new Response(response.body, {
             url: response.url,
@@ -124,7 +107,7 @@ function test_ResponseInit() {
             status: response.status,
             statusText: response.statusText,
             headers: response.headers,
-            timeout: response.timeout
+            timeout: response.timeout,
         });
     });
 }

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { withAmp, useAmp } from "next-server/amp";
+import * as React from 'react';
+import { withAmp, useAmp } from 'next-server/amp';
 
 function HomePage() {
     return <p>Welcome to AMP + Next.js.</p>;
@@ -17,7 +17,9 @@ export function Image({ src, width, height }: any) {
 
     // The 'amp-img' element is not in the JSX namespace, so for now we
     // use `React.createElement()` to construct the amp-img element.
-    return isAmp ? React.createElement('amp-img', { src, width, height }) : (
+    return isAmp ? (
+        React.createElement('amp-img', { src, width, height })
+    ) : (
         <img src={src} width={width} height={height} />
     );
 }

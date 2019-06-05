@@ -65,6 +65,6 @@ declare namespace M {
 }
 
 interface JQuery {
-    formSelect(method: keyof Pick<M.FormSelect, "getSelectedValues" | "destroy">): JQuery;
+    formSelect(method: keyof Pick<M.FormSelect, 'getSelectedValues' | 'destroy'>): JQuery;
     formSelect(options?: Partial<M.FormSelectOptions>): JQuery;
 }

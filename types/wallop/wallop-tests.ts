@@ -10,5 +10,5 @@ slider.next(); // $ExpectType Wallop
 slider.previous(); // $ExpectType Wallop
 slider.reset(); // $ExpectType Wallop
 
-slider.on('change', () => { }); // $ExpectType Wallop
-slider.off('change', () => { }); // $ExpectType Wallop
+slider.on('change', () => {}); // $ExpectType Wallop
+slider.off('change', () => {}); // $ExpectType Wallop

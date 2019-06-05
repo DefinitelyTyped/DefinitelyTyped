@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Spectrum Database API v1explorer */
-    function load(name: "spectrum", version: "v1explorer"): PromiseLike<void>;
-    function load(name: "spectrum", version: "v1explorer", callback: () => any): void;
+    function load(name: 'spectrum', version: 'v1explorer'): PromiseLike<void>;
+    function load(name: 'spectrum', version: 'v1explorer', callback: () => any): void;
 
     const paws: spectrum.PawsResource;
 

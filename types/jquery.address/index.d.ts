@@ -13,26 +13,26 @@ interface JQueryAddressStatic {
      */
     bind(type: any, data: any, callback: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed whenever the address is changed. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed whenever the address is changed.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     change(callback: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed once when the address is initiated. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed once when the address is initiated.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     init(callback: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed when the address is changed from inside the page that uses the plugin. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed when the address is changed from inside the page that uses the plugin.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     internalChange(eventhandler: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed when the address is changed from the browser usually when entering the page or using the back and forward buttons. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed when the address is changed from the browser usually when entering the page or using the back and forward buttons.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     externalChange(eventhandler: Function): JQueryAddressStatic;
@@ -160,12 +160,12 @@ interface JQueryAddressStatic {
 
 interface JQueryAddress {
     /**
-     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms. 
+     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms.
      * Accepts an optional function parameter that allows custom processing of the deep link value.
      */
     (): JQuery;
     /**
-     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms. 
+     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms.
      * Accepts an optional function parameter that allows custom processing of the deep link value.
      */
     (fn: Function): JQuery;

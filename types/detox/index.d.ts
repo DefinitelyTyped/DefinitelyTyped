@@ -154,7 +154,7 @@ declare global {
              *     await expect(loopSwitch).toHaveValue('1');
              * }
              */
-            getPlatform(): "ios" | "android";
+            getPlatform(): 'ios' | 'android';
             /**
              * Simulate press back button (Android Only)
              */
@@ -354,7 +354,7 @@ declare global {
                 pixels: number,
                 direction: Direction,
                 startPositionX?: number,
-                startPositionY?: number,
+                startPositionY?: number
             ): Promise<Actions<R>>;
             /**
              * Scroll to edge.
@@ -372,11 +372,7 @@ declare global {
              * await element(by.id('scrollView')).swipe('down', 'fast');
              * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
              */
-            swipe(
-                direction: Direction,
-                speed?: Speed,
-                percentage?: number
-            ): Promise<Actions<R>>;
+            swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
             /**
              * (iOS Only) column - number of datepicker column (starts from 0) value - string value in setted column (must be correct)
              * @param column
@@ -385,15 +381,12 @@ declare global {
              * await element(by.type('UIPickerView')).setColumnToValue(1,"6");
              * await element(by.type('UIPickerView')).setColumnToValue(2,"34");
              */
-            setColumnToValue(
-                column: number,
-                value: string
-            ): Promise<Actions<R>>;
+            setColumnToValue(column: number, value: string): Promise<Actions<R>>;
         }
 
-        type Direction = "left" | "right" | "top" | "bottom" | "up" | "down";
-        type Orientation = "portrait" | "landscape";
-        type Speed = "fast" | "slow";
+        type Direction = 'left' | 'right' | 'top' | 'bottom' | 'up' | 'down';
+        type Orientation = 'portrait' | 'landscape';
+        type Speed = 'fast' | 'slow';
         interface LanguageAndLocale {
             language?: string;
             locale?: string;

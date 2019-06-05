@@ -13,7 +13,7 @@ minimist === freshlyLoaded; // false
 
 let alsofresh: any;
 // $ExpectType any
-const fresh = freshy('minimist', (fresh) => {
+const fresh = freshy('minimist', fresh => {
     alsofresh = require('minimist');
     fresh === alsofresh; // true
 });

@@ -3,4 +3,4 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from "aphrodite";
+export * from 'aphrodite';

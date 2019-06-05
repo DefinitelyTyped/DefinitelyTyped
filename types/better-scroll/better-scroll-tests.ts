@@ -46,7 +46,9 @@ BScroll1.scrollToElement('selectedElement', 250);
 BScroll1.scrollToElement(document.getElementById('selectedElement') as HTMLElement);
 BScroll1.scrollToElement(document.getElementById('selectedElement') as HTMLElement, 250);
 
-BScroll2.on('scrollStart', () => { console.log('scroll started'); });
+BScroll2.on('scrollStart', () => {
+    console.log('scroll started');
+});
 
 const BScroll9 = new BScroll(document.getElementById('wrapper') as HTMLElement);
 const BScroll10 = new BScroll(document.getElementById('wrapper') as HTMLElement, { freeScroll: true });

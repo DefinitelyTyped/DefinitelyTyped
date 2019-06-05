@@ -1,4 +1,4 @@
-import { WikidataLanguage } from "../type/language";
+import { WikidataLanguage } from '../type/language';
 
 export type WikidataLanguageBaseString = {
     [Key in WikidataLanguage]?: {

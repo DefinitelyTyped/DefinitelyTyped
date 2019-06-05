@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { match } from "react-router";
+import { match } from 'react-router';
 import * as React from 'react';
 import * as H from 'history';
 
@@ -28,12 +28,12 @@ export {
     match,
     matchPath,
     withRouter,
-    RouterChildContext
+    RouterChildContext,
 } from 'react-router';
 
 export interface BrowserRouterProps {
     basename?: string;
-    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
+    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
     forceRefresh?: boolean;
     keyLength?: number;
 }
@@ -41,7 +41,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, any> {}
 
 export interface HashRouterProps {
     basename?: string;
-    getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void);
+    getUserConfirmation?: (message: string, callback: (ok: boolean) => void) => void;
     hashType?: 'slash' | 'noslash' | 'hashbang';
 }
 export class HashRouter extends React.Component<HashRouterProps, any> {}

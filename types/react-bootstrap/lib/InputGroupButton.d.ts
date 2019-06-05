@@ -5,5 +5,5 @@ declare namespace InputGroupButton {
         bsClass?: string;
     }
 }
-declare class InputGroupButton extends React.Component<InputGroupButton.InputGroupButtonProps> { }
+declare class InputGroupButton extends React.Component<InputGroupButton.InputGroupButtonProps> {}
 export = InputGroupButton;

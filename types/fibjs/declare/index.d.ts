@@ -12,8 +12,6 @@
  *
  */
 
-
-
 /// <reference path="console.d.ts" />
 /// <reference path="coroutine.d.ts" />
 /// <reference path="global.d.ts" />
@@ -68,34 +66,32 @@ import _Process = require('process');
 
 type GlobalExportsType = any;
 interface ModuleType {
-	exports: GlobalExportsType;
+    exports: GlobalExportsType;
 }
 
 declare global {
-	var exports: GlobalExportsType;
-	const module: ModuleType;
+    var exports: GlobalExportsType;
+    const module: ModuleType;
 
-	const Buffer: typeof _Global.Buffer
-	const Int64: typeof _Global.Int64
-	/** const console: console; */
-	const process: typeof _Global.process
-	const Master: typeof _Global.Master
-	const global: typeof _Global.global
-	/** const run: null; */
-	const require: typeof _Global.require
-	const argv: typeof _Global.argv
-	const __filename: typeof _Global.__filename
-	const __dirname: typeof _Global.__dirname
-	/** const setTimeout: Timer; */
-	/** const clearTimeout: null; */
-	/** const setInterval: Timer; */
-	/** const clearInterval: null; */
-	const setHrInterval: typeof _Global.setHrInterval
-	const clearHrInterval: typeof _Global.clearHrInterval
-	/** const setImmediate: Timer; */
-	/** const clearImmediate: null; */
-	const GC: typeof _Global.GC
-	const repl: typeof _Global.repl
+    const Buffer: typeof _Global.Buffer;
+    const Int64: typeof _Global.Int64;
+    /** const console: console; */
+    const process: typeof _Global.process;
+    const Master: typeof _Global.Master;
+    const global: typeof _Global.global;
+    /** const run: null; */
+    const require: typeof _Global.require;
+    const argv: typeof _Global.argv;
+    const __filename: typeof _Global.__filename;
+    const __dirname: typeof _Global.__dirname;
+    /** const setTimeout: Timer; */
+    /** const clearTimeout: null; */
+    /** const setInterval: Timer; */
+    /** const clearInterval: null; */
+    const setHrInterval: typeof _Global.setHrInterval;
+    const clearHrInterval: typeof _Global.clearHrInterval;
+    /** const setImmediate: Timer; */
+    /** const clearImmediate: null; */
+    const GC: typeof _Global.GC;
+    const repl: typeof _Global.repl;
 } /** end of `declare global` */
-
-

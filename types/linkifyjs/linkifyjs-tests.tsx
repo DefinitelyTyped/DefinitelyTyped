@@ -1,13 +1,13 @@
-import * as React from "react";
-import linkifyHtml from "linkifyjs/html";
-import Linkify from "linkifyjs/react";
-import linkifyStr from "linkifyjs/string";
-import linkifyElement from "linkifyjs/element";
-import { LinkifyOptions } from "linkifyjs";
+import * as React from 'react';
+import linkifyHtml from 'linkifyjs/html';
+import Linkify from 'linkifyjs/react';
+import linkifyStr from 'linkifyjs/string';
+import linkifyElement from 'linkifyjs/element';
+import { LinkifyOptions } from 'linkifyjs';
 
 declare function describe(desc: string, f: () => void): void;
 
-describe("linkifyjs/html", () => {
+describe('linkifyjs/html', () => {
     /**
      * The following tests were taken directly from the documentation:
      * https://soapbox.github.io/linkifyjs/docs/options.html
@@ -15,100 +15,96 @@ describe("linkifyjs/html", () => {
 
     /* attributes */
 
-    linkifyHtml("github.com", {
+    linkifyHtml('github.com', {
         attributes: {
-            rel: "nofollow"
-        }
+            rel: 'nofollow',
+        },
     });
 
     /* className */
 
-    linkifyHtml("github.com", {
-        className: "new-link--url"
+    linkifyHtml('github.com', {
+        className: 'new-link--url',
     });
 
-    linkifyHtml("github.com", {
+    linkifyHtml('github.com', {
         className(href, type) {
-            return "new-link--" + type;
-        }
+            return 'new-link--' + type;
+        },
     });
 
-    linkifyHtml("github.com", {
+    linkifyHtml('github.com', {
         className: {
-            url: "new-link--url",
+            url: 'new-link--url',
             email(href: string) {
-                return "new-link--email";
-            }
-        }
+                return 'new-link--email';
+            },
+        },
     });
 
     /* events */
 
-    linkifyHtml("", {
+    linkifyHtml('', {
         events: {
             click(e) {
-                alert("Link clicked!");
+                alert('Link clicked!');
             },
             mouseover(e) {
-                alert("Link hovered!");
-            }
-        }
+                alert('Link hovered!');
+            },
+        },
     });
 
     /* defaultProtocol */
 
     /* format */
 
-    linkifyHtml("", {
+    linkifyHtml('', {
         format(value, type) {
-            if (type === "url" && value.length > 50) {
-                value = value.slice(0, 50) + "…";
+            if (type === 'url' && value.length > 50) {
+                value = value.slice(0, 50) + '…';
             }
             return value;
-        }
+        },
     });
 
-    linkifyHtml("", {
+    linkifyHtml('', {
         format: {
             url(value) {
-                return value.length > 50 ? value.slice(0, 50) + "…" : value;
-            }
-        }
+                return value.length > 50 ? value.slice(0, 50) + '…' : value;
+            },
+        },
     });
 
     /* formatHref */
 
-    linkifyHtml("This site is #rad", {
+    linkifyHtml('This site is #rad', {
         formatHref(href, type) {
-            if (type === "hashtag") {
-                href = "https://twitter.com/hashtag/" + href.substring(1);
+            if (type === 'hashtag') {
+                href = 'https://twitter.com/hashtag/' + href.substring(1);
             }
             return href;
-        }
+        },
     });
 
-    linkifyHtml("Hey @dhh, check out issue #23", {
+    linkifyHtml('Hey @dhh, check out issue #23', {
         formatHref: {
             mention(href) {
-                return "https://github.com" + href;
+                return 'https://github.com' + href;
             },
             ticket(href) {
-                return (
-                    "https://github.com/SoapBox/linkifyjs/issues/" +
-                    href.substring(1)
-                );
-            }
-        }
+                return 'https://github.com/SoapBox/linkifyjs/issues/' + href.substring(1);
+            },
+        },
     });
 
     /* ignoreTags */
 
     linkifyHtml(
         // tslint:disable-next-line:prefer-template
-        'Please ignore <script>var a = {}; a.com = "Hi";</script> \n' +
-        "but do <span>b.ca</span>",
+        'Please ignore <script>var a = {}; a.com = "Hi";</script> \n' + 'but do <span>b.ca</span>',
         {
-            ignoreTags: ["script", "style"]
+            ignoreTags: ['script', 'style'],
         }
     );
 
@@ -116,43 +112,43 @@ describe("linkifyjs/html", () => {
 
     /* tagName */
 
-    linkifyHtml("github.com", {
-        tagName: "span"
+    linkifyHtml('github.com', {
+        tagName: 'span',
     });
 
-    linkifyHtml("#swag", {
+    linkifyHtml('#swag', {
         tagName: {
-            hashtag: "span"
-        }
+            hashtag: 'span',
+        },
     });
 
     /* target */
 
-    linkifyHtml("github.com", {
-        target: "_parent"
+    linkifyHtml('github.com', {
+        target: '_parent',
     });
 
-    linkifyHtml("test-email@example.com", {
+    linkifyHtml('test-email@example.com', {
         target: {
-            url: "_parent",
-            email: null
-        }
+            url: '_parent',
+            email: null,
+        },
     });
 
     /* validate */
 
     // Don't linkify links that don't begin in a protocol
     // e.g., "http://google.com" will be linkified, but "google.com" will not.
-    linkifyHtml("www.google.com", {
+    linkifyHtml('www.google.com', {
         validate: {
             url(value) {
                 return /^(http|ftp)s?:\/\//.test(value);
-            }
-        }
+            },
+        },
     });
 });
 
-describe("linkifyjs/react", () => {
+describe('linkifyjs/react', () => {
     /**
      * The following tests were taken directly from the documentation:
      * https://soapbox.github.io/linkifyjs/docs/linkify-react.html
@@ -165,8 +161,7 @@ describe("linkifyjs/react", () => {
         const options = {
             /* … */
         };
-        const content =
-            "For help with GitHub.com, please email support@github.com";
+        const content = 'For help with GitHub.com, please email support@github.com';
         <Linkify tagName="p" options={options}>
             {content}
         </Linkify>;
@@ -175,14 +170,13 @@ describe("linkifyjs/react", () => {
     /* Events */
 
     {
-        const content =
-            "For help with GitHub.com, please email support@github.com";
+        const content = 'For help with GitHub.com, please email support@github.com';
         const linkProps = {
             onClick: (event: any) => {
-                if (!confirm("Are you sure you want to leave this page?")) {
+                if (!confirm('Are you sure you want to leave this page?')) {
                     event.preventDefault();
                 }
-            }
+            },
         };
         <Linkify options={{ attributes: linkProps }}>{content}</Linkify>;
     }
@@ -193,8 +187,7 @@ describe("linkifyjs/react", () => {
 
     /* Default values for all props */
     {
-        const content =
-            "For help with GitHub.com, please email support@github.com";
+        const content = 'For help with GitHub.com, please email support@github.com';
         <Linkify>
             <span>{content}</span>
         </Linkify>;
@@ -203,11 +196,10 @@ describe("linkifyjs/react", () => {
     /* Custom class name */
 
     {
-        const content =
-            "For help with GitHub.com, please email support@github.com";
+        const content = 'For help with GitHub.com, please email support@github.com';
         <Linkify
             options={{
-                className: "custom-class-name"
+                className: 'custom-class-name',
             }}
         >
             <span>{content}</span>
@@ -217,11 +209,10 @@ describe("linkifyjs/react", () => {
     /* Custom tag name */
 
     {
-        const content =
-            "For help with GitHub.com, please email support@github.com";
+        const content = 'For help with GitHub.com, please email support@github.com';
         <Linkify
             options={{
-                tagName: "p"
+                tagName: 'p',
             }}
         >
             <span>{content}</span>
@@ -229,7 +220,7 @@ describe("linkifyjs/react", () => {
     }
 });
 
-describe("linkifyjs/string", () => {
+describe('linkifyjs/string', () => {
     /**
      * The following tests were based on the documentation:
      * https://soapbox.github.io/linkifyjs/docs/linkify-string.html
@@ -240,7 +231,7 @@ describe("linkifyjs/string", () => {
     const result2: string = linkifyStr(str);
 });
 
-describe("linkifyjs/element", () => {
+describe('linkifyjs/element', () => {
     /**
      * The following tests were based on the documentation:
      * https://soapbox.github.io/linkifyjs/docs/linkify-element.html

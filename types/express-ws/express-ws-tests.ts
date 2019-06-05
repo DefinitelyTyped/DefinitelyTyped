@@ -13,8 +13,8 @@ expressWs(dummyApp, httpServer, {
     leaveRouterUntouched: false,
     // ws server options
     wsOptions: {
-        clientTracking: true
-    }
+        clientTracking: true,
+    },
 });
 
 const { app, getWss, applyTo } = expressWs(express());
@@ -28,7 +28,9 @@ applyTo(express.Router());
  * applyTo accepts router-like objects
  */
 applyTo({
-    get() { return this; }
+    get() {
+        return this;
+    },
 });
 
 /**
@@ -58,7 +60,9 @@ const router = express.Router();
 
 router.ws(
     '/:id',
-    (ws, req, next) => { next(); },
+    (ws, req, next) => {
+        next();
+    },
     (ws, req, next) => {
         ws.send(req.params.id);
 

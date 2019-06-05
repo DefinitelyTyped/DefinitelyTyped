@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { CoreOptions, RequestResponse } from "request";
-import { ReadStream } from "fs";
+import { CoreOptions, RequestResponse } from 'request';
+import { ReadStream } from 'fs';
 
 declare class JiraApi {
     private protocol: string;
@@ -193,7 +193,7 @@ declare class JiraApi {
         boardId: string,
         startAt?: number,
         maxResults?: number,
-        done?: "true" | "false"
+        done?: 'true' | 'false'
     ): Promise<JiraApi.JsonResponse>;
 
     getBoardIssuesForEpic(
@@ -222,7 +222,7 @@ declare class JiraApi {
         boardId: string,
         startAt?: number,
         maxResults?: number,
-        state?: "future" | "active" | "closed"
+        state?: 'future' | 'active' | 'closed'
     ): Promise<JiraApi.JsonResponse>;
 
     getBoardIssuesForSprint(
@@ -239,7 +239,7 @@ declare class JiraApi {
         boardId: string,
         startAt?: number,
         maxResults?: number,
-        released?: "true" | "false"
+        released?: 'true' | 'false'
     ): Promise<JiraApi.JsonResponse>;
 
     private makeRequestHeader(uri: string, options?: JiraApi.UriOptions);

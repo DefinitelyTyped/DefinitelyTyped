@@ -43,11 +43,30 @@ import Promise = require('bluebird');
 declare function orientjs(config: orientjs.ServerConfig): orientjs.Server;
 declare namespace orientjs {
     type Version = number | string;
-    type PropertyType = "Boolean" | "Integer" | "Short" | "Long" |
-        "Float" | "Double" | "DateTime" | "String" | "Binary" |
-        "Embedded" | "EmbeddedList" | "EmbeddedSet" | "EmbeddedMap" |
-        "Link" | "LinkList" | "LinkSet" | "LinkMap" | "Byte" |
-        "Transient" | "Date" | "Custom" | "Decimal" | "LinkBag";
+    type PropertyType =
+        | 'Boolean'
+        | 'Integer'
+        | 'Short'
+        | 'Long'
+        | 'Float'
+        | 'Double'
+        | 'DateTime'
+        | 'String'
+        | 'Binary'
+        | 'Embedded'
+        | 'EmbeddedList'
+        | 'EmbeddedSet'
+        | 'EmbeddedMap'
+        | 'Link'
+        | 'LinkList'
+        | 'LinkSet'
+        | 'LinkMap'
+        | 'Byte'
+        | 'Transient'
+        | 'Date'
+        | 'Custom'
+        | 'Decimal'
+        | 'LinkBag';
     enum DataTypes {
         Boolean = 0,
         Integer = 1,
@@ -71,7 +90,7 @@ declare namespace orientjs {
         Date = 19,
         Custom = 20,
         Decimal = 21,
-        LinkBag = 22
+        LinkBag = 22,
     }
 
     namespace errors {
@@ -83,8 +102,7 @@ declare namespace orientjs {
             message: string;
             date: any;
         }
-        class RequestError extends OperationError {
-        }
+        class RequestError extends OperationError {}
     }
 
     namespace Migration {
@@ -255,7 +273,7 @@ declare namespace orientjs {
         min?: number;
         max?: number;
         custom?: {
-            fields?: CustomField[]
+            fields?: CustomField[];
         };
     }
 
@@ -273,7 +291,7 @@ declare namespace orientjs {
         min?: number;
         max?: number;
         custom?: {
-            fields?: CustomField[]
+            fields?: CustomField[];
         };
     }
 
@@ -292,7 +310,7 @@ declare namespace orientjs {
         min?: number;
         max?: number;
         custom?: {
-            fields?: CustomField[]
+            fields?: CustomField[];
         };
 
         configure(config?: any): void;
@@ -322,10 +340,13 @@ declare namespace orientjs {
          * @promise {Object}           The updated property.
          */
         update(config: PropertyUpdateConfig, reload?: boolean): Promise<Property>;
-        drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
-        }): Promise<Class>;
+        drop(
+            name: string,
+            config?: {
+                ifexist?: boolean;
+                force?: boolean;
+            }
+        ): Promise<Class>;
         alter(name: string, setting?: any): Promise<Class>;
         rename(oldName: string, newName?: string): Promise<Property>;
     }
@@ -380,7 +401,13 @@ declare namespace orientjs {
          * @param  ifnotexist     The flag for the if not exist class
          * @promise {Object}                The created class object
          */
-        create(name: string, parentName?: string, cluster?: string, isAbstract?: boolean, ifnotexist?: boolean): Promise<Class>;
+        create(
+            name: string,
+            parentName?: string,
+            cluster?: string,
+            isAbstract?: boolean,
+            ifnotexist?: boolean
+        ): Promise<Class>;
         /**
          * Update the given class.
          *
@@ -402,10 +429,13 @@ declare namespace orientjs {
          * @param  config The config.
          * @promise {Db}         The database instance.
          */
-        drop(name: string, config?: {
-            ifexist?: boolean,
-            force?: boolean
-        }): Promise<Db>;
+        drop(
+            name: string,
+            config?: {
+                ifexist?: boolean;
+                force?: boolean;
+            }
+        ): Promise<Db>;
         /**
          * Get a class by name.
          *
@@ -474,7 +504,13 @@ declare namespace orientjs {
          * @param  cache     The cache number
          * @promise {Object}                The created sequence object
          */
-        create(name: string, type: "ORDERED" | "CACHED", start?: number, incerement?: number, cache?: number): Promise<Sequence>;
+        create(
+            name: string,
+            type: 'ORDERED' | 'CACHED',
+            start?: number,
+            incerement?: number,
+            cache?: number
+        ): Promise<Sequence>;
         /**
          * update a  sequence.
          *
@@ -498,8 +534,7 @@ declare namespace orientjs {
          * @param  config The config.
          * @promise {Db}         The database instance.
          */
-        drop(name: string, config?: {
-        }): Promise<Db>;
+        drop(name: string, config?: {}): Promise<Db>;
         /**
          * Get a sequence by name.
          *
@@ -518,8 +553,8 @@ declare namespace orientjs {
     }
 
     interface RecordMeta {
-        "@rid": RID;
-        "@version": Version;
+        '@rid': RID;
+        '@version': Version;
     }
 
     type ODocument = Record;
@@ -611,10 +646,19 @@ declare namespace orientjs {
         name: string;
         class?: string;
         properties?: string[];
-        type: "UNIQUE" | "NOTUNIQUE" | "FULLTEXT" | "DICTIONARY" | "UNIQUE_HASH_INDEX" | "NOTUNIQUE_HASH_INDEX" | "FULLTEXT_HASH_INDEX" | "DICTIONARY_HASH_INDEX" | "SPATIAL";
+        type:
+            | 'UNIQUE'
+            | 'NOTUNIQUE'
+            | 'FULLTEXT'
+            | 'DICTIONARY'
+            | 'UNIQUE_HASH_INDEX'
+            | 'NOTUNIQUE_HASH_INDEX'
+            | 'FULLTEXT_HASH_INDEX'
+            | 'DICTIONARY_HASH_INDEX'
+            | 'SPATIAL';
         keyType?: string;
         metadata?: any;
-        engine?: "LUCENE" | "COLA" | string;
+        engine?: 'LUCENE' | 'COLA' | string;
     }
 
     interface IndexEntry {
@@ -682,7 +726,13 @@ declare namespace orientjs {
         wait(waitLimit: number): Statement<T>;
         return(value: SqlExpression): Statement<T>;
         lucene(property: string | any, luceneQuery: string): Statement<T>;
-        near(latitudeProperty: string | any, longitudeProperty: string | number, longitude: number, latitude?: number, maxDistanceInKms?: number): Statement<T>;
+        near(
+            latitudeProperty: string | any,
+            longitudeProperty: string | number,
+            longitude: number,
+            latitude?: number,
+            maxDistanceInKms?: number
+        ): Statement<T>;
         within(latitudeProperty: string, longitudeProperty: string, box: number[]): Statement<T>;
         addParams(key: string, value: any): Statement<T>;
         addParams(value: any): Statement<T>;
@@ -691,7 +741,7 @@ declare namespace orientjs {
     }
 
     interface Query<T> {
-        transform<R>(transformer: (item: T|(T & Record)) => R): Query<R>;
+        transform<R>(transformer: (item: T | (T & Record)) => R): Query<R>;
         column(name: string): Query<T>;
         defaults(defaults: any): Query<T>;
         one<T>(params?: any): Promise<T>;
@@ -721,7 +771,7 @@ declare namespace orientjs {
         type?: string;
         storage?: string;
         token?: any;
-        transformers?: Array<((item: Record) => any)>;
+        transformers?: Array<(item: Record) => any>;
     }
 
     interface RawExpression {
@@ -751,12 +801,12 @@ declare namespace orientjs {
 
     interface QueryOptions {
         params?: any;
-        mode?: "s" | "a" | "l";
+        mode?: 's' | 'a' | 'l';
         fetchPlan?: any;
         limit?: number;
         token?: any;
         class?: string;
-        language?: "SQL" | "Javascript";
+        language?: 'SQL' | 'Javascript';
     }
 
     class Db extends events.EventEmitter {
@@ -764,8 +814,8 @@ declare namespace orientjs {
         forcePrepare: boolean;
         name: string;
         server: Server;
-        type: "graph" | "document";
-        storage: "plocal" | "memory";
+        type: 'graph' | 'document';
+        storage: 'plocal' | 'memory';
         username: string;
         password: string;
         token: any;
@@ -1094,13 +1144,7 @@ declare namespace orientjs {
     }
 
     class ODatabase extends Db {
-        constructor(config?: {
-            host: string,
-            port?: number,
-            username?: string,
-            password?: string,
-            name: string
-        });
+        constructor(config?: { host: string; port?: number; username?: string; password?: string; name: string });
     }
 
     interface ServerConfig {

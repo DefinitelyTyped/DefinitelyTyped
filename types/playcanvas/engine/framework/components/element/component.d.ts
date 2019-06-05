@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @enum pc.ELEMENTTYPE
      * @name pc.ELEMENTTYPE_GROUP
@@ -72,7 +71,7 @@ declare namespace pc {
      * @property {Number} batchGroupId Assign element to a specific batch group (see {@link pc.BatchGroup}). Default value is -1 (no group).
      */
     class ElementComponent extends pc.Component {
-        constructor(system: pc.ElementComponentSystem, entity: pc.Entity)
+        constructor(system: pc.ElementComponentSystem, entity: pc.Entity);
 
         type: string;
         screen: pc.Entity;

@@ -1,9 +1,21 @@
-Mousetrap.bindGlobal('4', function() { console.log('4'); });
-Mousetrap.bindGlobal("?", function() { console.log('show shortcuts!'); });
-Mousetrap.bindGlobal('esc', function() { console.log('escape'); }, 'keyup');
+Mousetrap.bindGlobal('4', function() {
+    console.log('4');
+});
+Mousetrap.bindGlobal('?', function() {
+    console.log('show shortcuts!');
+});
+Mousetrap.bindGlobal(
+    'esc',
+    function() {
+        console.log('escape');
+    },
+    'keyup'
+);
 
 // combinations
-Mousetrap.bindGlobal('command+shift+K', function() { console.log('command shift k'); });
+Mousetrap.bindGlobal('command+shift+K', function() {
+    console.log('command shift k');
+});
 
 // map multiple combinations to the same callback
 Mousetrap.bindGlobal(['command+k', 'ctrl+k'], function() {
@@ -15,8 +27,12 @@ Mousetrap.bindGlobal(['command+k', 'ctrl+k'], function() {
 });
 
 // gmail style sequences
-Mousetrap.bindGlobal('g i', function() { console.log('go to inbox'); });
-Mousetrap.bindGlobal('* a', function() { console.log('select all'); });
+Mousetrap.bindGlobal('g i', function() {
+    console.log('go to inbox');
+});
+Mousetrap.bindGlobal('* a', function() {
+    console.log('select all');
+});
 
 // konami code!
 Mousetrap.bindGlobal('up up down down left right left right b a enter', function() {
@@ -25,8 +41,9 @@ Mousetrap.bindGlobal('up up down down left right left right b a enter', function
 
 // Test that union types are accepted.
 const unionTypeKeys: string | string[] = ['a', 'b', 'c'];
-Mousetrap.bindGlobal(unionTypeKeys, function() { console.log('Union type test') });
-
+Mousetrap.bindGlobal(unionTypeKeys, function() {
+    console.log('Union type test');
+});
 
 Mousetrap.bindGlobal(['ctrl+s', 'meta+s'], (e, combo) => {
     if (e.preventDefault) {

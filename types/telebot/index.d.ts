@@ -79,12 +79,7 @@ declare class telebot {
 
     stop(message: string): void;
 
-    getUpdates(
-        offset: number,
-        limit: number,
-        timeout: number,
-        allowed_updates: string | string[]
-    ): void;
+    getUpdates(offset: number, limit: number, timeout: number, allowed_updates: string | string[]): void;
 
     receiveUpdates(updateList: any[]): Promise<any>;
 
@@ -96,17 +91,9 @@ declare class telebot {
 
     removeMod(name: string, fn: telebot.genericCb): boolean;
 
-    on(
-        types: string | string[] | RegExp,
-        fn: telebot.genericCb,
-        opt?: any
-    ): boolean;
+    on(types: string | string[] | RegExp, fn: telebot.genericCb, opt?: any): boolean;
 
-    event(
-        types: string | string[],
-        data: any,
-        self?: any
-    ): Promise<any>;
+    event(types: string | string[], data: any, self?: any): Promise<any>;
 
     cleanEvent(type: string): boolean;
 
@@ -155,10 +142,7 @@ declare class telebot {
         opt?: { notification?: boolean }
     ): any;
 
-    deleteMessage(
-        chat_id: number | string,
-        from_message_id: number
-    ): boolean;
+    deleteMessage(chat_id: number | string, from_message_id: number): boolean;
 
     sendPhoto(
         chat_id: number | string,
@@ -304,15 +288,9 @@ declare class telebot {
         }
     ): boolean | Error | any;
 
-    getGameHighScores(
-        user_id: number,
-        opt?: { chatId?: number; messageId?: number; inlineMessageId?: string }
-    ): any[];
+    getGameHighScores(user_id: number, opt?: { chatId?: number; messageId?: number; inlineMessageId?: string }): any[];
 
-    getUserProfilePhotos(
-        user_id: number,
-        opt?: { offset?: number; limit?: number }
-    ): any;
+    getUserProfilePhotos(user_id: number, opt?: { offset?: number; limit?: number }): any;
 
     getFile(file_id: string): any;
 
@@ -355,41 +333,47 @@ declare class telebot {
     unbanChatMember(chat_id: number | string, user_id: number): boolean;
 
     editMessageText(
-        config: {
-            chatId: number | string;
-            messageId: number;
-            inlineMsgId?: number;
-        }|{
-            chatId?: number | string;
-            messageId?: number;
-            inlineMsgId: number;
-        },
+        config:
+            | {
+                  chatId: number | string;
+                  messageId: number;
+                  inlineMsgId?: number;
+              }
+            | {
+                  chatId?: number | string;
+                  messageId?: number;
+                  inlineMsgId: number;
+              },
         text: string
     ): any | boolean;
 
     editMessageCaption(
-        config: {
-            chatId: number | string;
-            messageId: number;
-            inlineMsgId?: number;
-        }|{
-            chatId?: number | string;
-            messageId?: number;
-            inlineMsgId: number;
-        },
+        config:
+            | {
+                  chatId: number | string;
+                  messageId: number;
+                  inlineMsgId?: number;
+              }
+            | {
+                  chatId?: number | string;
+                  messageId?: number;
+                  inlineMsgId: number;
+              },
         caption: string
     ): any | boolean;
 
     editMessageReplyMarkup(
-        config: {
-            chatId: number | string;
-            messageId: number;
-            inlineMsgId?: number;
-        }|{
-            chatId?: number | string;
-            messageId?: number;
-            inlineMsgId: number;
-        },
+        config:
+            | {
+                  chatId: number | string;
+                  messageId: number;
+                  inlineMsgId?: number;
+              }
+            | {
+                  chatId?: number | string;
+                  messageId?: number;
+                  inlineMsgId: number;
+              },
         replyMarkup: any
     ): any | boolean;
 
@@ -409,18 +393,9 @@ declare class telebot {
         opt?: { shippingOptions?: any[]; errorMessage?: string }
     ): boolean;
 
-    answerPreCheckoutQuery(
-        pre_checkout_query_id: string,
-        ok: boolean,
-        opt?: { errorMessage?: string }
-    ): boolean;
+    answerPreCheckoutQuery(pre_checkout_query_id: string, ok: boolean, opt?: { errorMessage?: string }): boolean;
 
-    setWebhook(
-        url: string,
-        certificate?: any,
-        allowed_updates?: string[],
-        max_connections?: number
-    ): boolean;
+    setWebhook(url: string, certificate?: any, allowed_updates?: string[], max_connections?: number): boolean;
 
     getWebhookInfo(): any;
 

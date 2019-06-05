@@ -8,32 +8,32 @@ import eUtils = require('easy-xapi-utils');
 
 eXapi.init({
     jSend: {
-        partial: true
-    }
+        partial: true,
+    },
 });
 
 var xApi = eXapi.create({
     root: __dirname,
     log: {
         name: 'Log',
-        level: 'info'
+        level: 'info',
     },
     port: 3000,
     name: 'test',
-    mount: function (app) {
-        app.get('/', eUtils.isLoggedIn(), function (req, res) {
+    mount: function(app) {
+        app.get('/', eUtils.isLoggedIn(), function(req, res) {
             res.send('ok');
         });
-        app.get('/role', eUtils.isLoggedIn('admin'), function (req, res) {
+        app.get('/role', eUtils.isLoggedIn('admin'), function(req, res) {
             res.send('ok');
         });
-        app.get('/', eUtils.isLoggedOut(), function (req, res) {
+        app.get('/', eUtils.isLoggedOut(), function(req, res) {
             res.send('ok');
         });
-        app.get('/role', eUtils.hasRole('guest'), function (req, res) {
+        app.get('/role', eUtils.hasRole('guest'), function(req, res) {
             res.send('ok');
         });
-    }
+    },
 });
 
 xApi.listen();

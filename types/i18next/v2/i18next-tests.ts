@@ -1,4 +1,4 @@
-import i18n = require("i18next");
+import i18n = require('i18next');
 
 const translationOptions: i18n.TranslationOptions = {};
 
@@ -8,15 +8,15 @@ i18n.init({
         en: {
             translation: {
                 helloWorld: 'Hello, world!',
-                helloWorldInterpolated: 'Hello, {{name}}!'
-            }
+                helloWorldInterpolated: 'Hello, {{name}}!',
+            },
         },
         ru: {
             translation: {
                 helloWorld: 'Привет, мир!',
-                helloWorldInterpolated: 'Привет, {{name}}!'
-            }
-        }
+                helloWorldInterpolated: 'Привет, {{name}}!',
+            },
+        },
     },
     lng: 'en',
     fallbackLng: 'ru',
@@ -43,17 +43,16 @@ i18n.init({
     returnNull: false,
     returnEmptyString: false,
     returnObjects: false,
-    returnedObjectHandler: (key: string, value: string, options: any) => {
-    },
+    returnedObjectHandler: (key: string, value: string, options: any) => {},
     joinArrays: '\n',
     overloadTranslationOptionHandler: (args: any[]) => {
         return translationOptions;
     },
-    interpolation: { prefix: "foo-" },
+    interpolation: { prefix: 'foo-' },
     detection: null,
     backend: null,
     cache: null,
-    wait: false
+    wait: false,
 });
 
 i18n.init({
@@ -64,38 +63,38 @@ i18n.init({
     fallbackLng: {
         'de-CH': ['fr', 'it'],
         'zh-HANT': ['zh-HANS', 'en'],
-        default: ['en']
+        default: ['en'],
     },
 });
 
 i18n.t('helloWorld', {
     defaultValue: 'default',
-    count: 10
+    count: 10,
 });
 
 i18n.t('helloWorldInterpolated', {
     defaultValue: 'default',
     count: 10,
-    name: "world"
+    name: 'world',
 });
 
 i18n.t('helloSingleFallbackLng', {
-    fallbackLng: 'en'
+    fallbackLng: 'en',
 });
 
 i18n.t('helloMultiFallbackLng', {
-    fallbackLng: ['en', 'ru']
+    fallbackLng: ['en', 'ru'],
 });
 
 i18n.t('helloObjectFallbackLng', {
     fallbackLng: {
         'de-CH': ['fr', 'it'],
         'zh-HANT': ['zh-HANS', 'en'],
-        default: ['en']
+        default: ['en'],
     },
 });
 
-i18n.exists("helloWorld");
+i18n.exists('helloWorld');
 
 const options: i18n.Options = i18n.options;
 const currentLanguage: string = i18n.language;

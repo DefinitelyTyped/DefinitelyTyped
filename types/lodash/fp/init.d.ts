@@ -1,2 +1,2 @@
-import { init } from "../fp";
+import { init } from '../fp';
 export = init;

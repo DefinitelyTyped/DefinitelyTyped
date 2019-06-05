@@ -1,5 +1,5 @@
-import _ = require("../index");
-declare module "../index" {
+import _ = require('../index');
+declare module '../index' {
     // clamp
 
     interface LoDashStatic {
@@ -19,41 +19,24 @@ declare module "../index" {
          * _.clamp(10, -5, 5);
          * // => 5
          */
-        clamp(
-            number: number,
-            lower: number,
-            upper: number
-        ): number;
-        clamp(
-            number: number,
-            upper: number
-        ): number;
+        clamp(number: number, lower: number, upper: number): number;
+        clamp(number: number, upper: number): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.clamp
          */
-        clamp(
-            lower: number,
-            upper: number
-        ): number;
-        clamp(
-            upper: number
-        ): number;
+        clamp(lower: number, upper: number): number;
+        clamp(upper: number): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.clamp
          */
-        clamp(
-            lower: number,
-            upper: number
-        ): LoDashExplicitWrapper<number>;
-        clamp(
-            upper: number
-        ): LoDashExplicitWrapper<number>;
+        clamp(lower: number, upper: number): LoDashExplicitWrapper<number>;
+        clamp(upper: number): LoDashExplicitWrapper<number>;
     }
 
     // inRange
@@ -68,31 +51,21 @@ declare module "../index" {
          * @param end The end of the range.
          * @return Returns true if n is in the range, else false.
          */
-        inRange(
-            n: number,
-            start: number,
-            end?: number
-        ): boolean;
+        inRange(n: number, start: number, end?: number): boolean;
     }
 
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.inRange
          */
-        inRange(
-            start: number,
-            end?: number
-        ): boolean;
+        inRange(start: number, end?: number): boolean;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.inRange
          */
-        inRange(
-            start: number,
-            end?: number
-        ): LoDashExplicitWrapper<boolean>;
+        inRange(start: number, end?: number): LoDashExplicitWrapper<boolean>;
     }
 
     // random
@@ -108,26 +81,17 @@ declare module "../index" {
          * @param floating Specify returning a floating-point number.
          * @return Returns the random number.
          */
-        random(
-            floating?: boolean
-        ): number;
+        random(floating?: boolean): number;
 
         /**
          * @see _.random
          */
-        random(
-            max: number,
-            floating?: boolean
-        ): number;
+        random(max: number, floating?: boolean): number;
 
         /**
          * @see _.random
          */
-        random(
-            min: number,
-            max: number,
-            floating?: boolean
-        ): number;
+        random(min: number, max: number, floating?: boolean): number;
 
         /**
          * Produces a random number between min and max (inclusive). If only one argument is provided a number between
@@ -139,11 +103,7 @@ declare module "../index" {
          * @param guard Enables use as an iteratee for methods like _.map. You should not pass this parameter directly in your code.
          * @return Returns the random number.
          */
-        random(
-            min: number,
-            index: string | number,
-            guard: object
-        ): number;
+        random(min: number, index: string | number, guard: object): number;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -155,10 +115,7 @@ declare module "../index" {
         /**
          * @see _.random
          */
-        random(
-            max: number,
-            floating?: boolean
-        ): number;
+        random(max: number, floating?: boolean): number;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -170,9 +127,6 @@ declare module "../index" {
         /**
          * @see _.random
          */
-        random(
-            max: number,
-            floating?: boolean
-        ): LoDashExplicitWrapper<number>;
+        random(max: number, floating?: boolean): LoDashExplicitWrapper<number>;
     }
 }

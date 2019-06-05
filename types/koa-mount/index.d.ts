@@ -5,12 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import Koa = require("koa");
+import Koa = require('koa');
 
 declare function mount(app: Koa.Middleware | Koa): Koa.Middleware;
 
 declare function mount(prefix: string, app: Koa.Middleware | Koa): Koa.Middleware;
 
-declare namespace mount { }
+declare namespace mount {}
 
 export = mount;

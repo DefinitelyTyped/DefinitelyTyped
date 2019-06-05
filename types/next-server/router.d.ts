@@ -1,13 +1,13 @@
-import * as React from "react";
-import * as url from "url";
+import * as React from 'react';
+import * as url from 'url';
 
 type EventName =
-    | "routeChangeStart"
-    | "routeChangeComplete"
-    | "routeChangeError"
-    | "beforeHistoryChange"
-    | "hashChangeStart"
-    | "hashChangeComplete";
+    | 'routeChangeStart'
+    | 'routeChangeComplete'
+    | 'routeChangeError'
+    | 'beforeHistoryChange'
+    | 'hashChangeStart'
+    | 'hashChangeComplete';
 
 interface RouteChangeError {
     cancelled: boolean;
@@ -45,17 +45,9 @@ export interface RouterProps<Q = DefaultQuery> {
     back(): void;
     beforePopState(cb: PopStateCallback): boolean;
     prefetch(url: string): Promise<React.ComponentType<any>>;
-    push(
-        url: string | UrlLike,
-        as?: string | UrlLike,
-        options?: EventChangeOptions
-    ): Promise<boolean>;
+    push(url: string | UrlLike, as?: string | UrlLike, options?: EventChangeOptions): Promise<boolean>;
     reload(route: string): Promise<void>;
-    replace(
-        url: string | UrlLike,
-        as?: string | UrlLike,
-        options?: EventChangeOptions
-    ): Promise<boolean>;
+    replace(url: string | UrlLike, as?: string | UrlLike, options?: EventChangeOptions): Promise<boolean>;
 
     // events (deprecated soonish)
     onBeforeHistoryChange?(as: string): void;
@@ -93,7 +85,7 @@ export type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof
 // retain type inference if they wrap their component in withRouter
 // without defining props explicitly
 export function withRouter<T extends {}, Q = DefaultQuery>(
-  Component: React.ComponentType<T & WithRouterProps<Q>>
+    Component: React.ComponentType<T & WithRouterProps<Q>>
 ): React.ComponentType<Omit<T, keyof WithRouterProps<Q>>>;
 
 // tslint:disable-next-line no-unnecessary-generics

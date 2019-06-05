@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace IUAParser {
-
     export interface IBrowser {
         /**
          * Possible values :
@@ -138,7 +137,7 @@ declare namespace IUAParser {
     }
 }
 
-declare module "ua-parser-js" {
+declare module 'ua-parser-js' {
     export class UAParser {
         static VERSION: string;
         static BROWSER: IUAParser.BROWSER;

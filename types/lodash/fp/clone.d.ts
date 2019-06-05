@@ -1,2 +1,2 @@
-import { clone } from "../fp";
+import { clone } from '../fp';
 export = clone;

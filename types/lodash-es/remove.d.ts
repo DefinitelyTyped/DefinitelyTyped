@@ -1,2 +1,2 @@
-import { remove } from "lodash";
+import { remove } from 'lodash';
 export default remove;

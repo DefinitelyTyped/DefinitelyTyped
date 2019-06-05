@@ -53,12 +53,7 @@ export class Element {
 
     getChildren(name: string, xmlns?: string): Element[];
 
-    getChildByAttr(
-        attr: string,
-        val: any,
-        xmlns?: string,
-        recursive?: boolean
-    ): Element | undefined;
+    getChildByAttr(attr: string, val: any, xmlns?: string, recursive?: boolean): Element | undefined;
 
     getChildrenByAttr(attr: string, val: any, xmlns?: string, recursive?: boolean): Element[];
 

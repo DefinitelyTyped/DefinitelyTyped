@@ -5,7 +5,7 @@
 
 declare namespace LargeLocalStorageInterfaces {
     interface LargeLocalStorageService {
-        new(options: Options): LargeLocalStorageService;
+        new (options: Options): LargeLocalStorageService;
 
         initialized: Promise<number>;
 

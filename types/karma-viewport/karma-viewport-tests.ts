@@ -5,13 +5,13 @@ viewport.set(320);
 viewport.set(320, 480);
 
 // Set to 320px x 480px by breakpoints
-viewport.set("mobile");
+viewport.set('mobile');
 
 // Reset to 100% x 100%
 viewport.reset();
 
 // Load entire webpages for testing:
-viewport.load("/path/to/fixture.html", () => console.log('done'));
+viewport.load('/path/to/fixture.html', () => console.log('done'));
 
 // Run tests for mobile, tablet and screen
 viewport.each(name => {
@@ -19,17 +19,17 @@ viewport.each(name => {
 });
 
 // Run tests for tablet and screen
-viewport.from("tablet", name => {
+viewport.from('tablet', name => {
     // ...
 });
 
 // Run tests for mobile and tablet
-viewport.to("tablet", name => {
+viewport.to('tablet', name => {
     // ...
 });
 
 // Run tests for tablet and screen
-viewport.between("tablet", "screen", name => {
+viewport.between('tablet', 'screen', name => {
     // ...
 });
 

@@ -1,12 +1,12 @@
-import { CssClassConfig } from "../Icon/CssClassConfig";
-import { CssIconSet } from "../Icon/CssIconSet";
-import { ImageIcon } from "../Icon/ImageIcon";
-import { SvgCumulativeIconSet } from "../Icon/SvgCumulativeIconSet";
-import { SvgIcon } from "../Icon/SvgIcon";
-import { SvgIconSet } from "../Icon/SvgIconSet";
-import { UrlConfig } from "../Web/UrlConfig";
-import { IconLoadedEventHandler } from "./IconLoadedEventHandler";
-import { Injector } from "./Injector";
+import { CssClassConfig } from '../Icon/CssClassConfig';
+import { CssIconSet } from '../Icon/CssIconSet';
+import { ImageIcon } from '../Icon/ImageIcon';
+import { SvgCumulativeIconSet } from '../Icon/SvgCumulativeIconSet';
+import { SvgIcon } from '../Icon/SvgIcon';
+import { SvgIconSet } from '../Icon/SvgIconSet';
+import { UrlConfig } from '../Web/UrlConfig';
+import { IconLoadedEventHandler } from './IconLoadedEventHandler';
+import { Injector } from './Injector';
 
 /**
  * An object for configuring the `webicon`-module.
@@ -57,7 +57,7 @@ export interface PublicApi {
     /**
      * An alias of the `svgSet`-method.
      */
-    iconSet: this["svgSet"];
+    iconSet: this['svgSet'];
 
     /**
      * Adds a font icon-set.
@@ -101,7 +101,7 @@ export interface PublicApi {
     /**
      * An alias of the `alias`-method.
      */
-    sourceAlias: this["alias"];
+    sourceAlias: this['alias'];
 
     /**
      * Adds a default svg-set.
@@ -117,12 +117,12 @@ export interface PublicApi {
     /**
      * An alias of the `defaultSvgSetUrl`-method.
      */
-    defaultSvgSetUrl: this["defaultIconSetUrl"];
+    defaultSvgSetUrl: this['defaultIconSetUrl'];
 
     /**
      * An alias of the `defaultSvgSetUrl`-method.
      */
-    defaultSvgIconSetUrl: this["defaultIconSetUrl"];
+    defaultSvgIconSetUrl: this['defaultIconSetUrl'];
 
     /**
      * Sets a default icon-set.
@@ -135,7 +135,7 @@ export interface PublicApi {
     /**
      * An alias of the `defaultSource`-method.
      */
-    default: this["defaultSource"];
+    default: this['defaultSource'];
 
     /**
      * Sets the default icon-size for svg-icons.

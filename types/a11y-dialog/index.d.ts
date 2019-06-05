@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-type DialogEvents = "show" | "hide" | "destroy" | "create";
+type DialogEvents = 'show' | 'hide' | 'destroy' | 'create';
 declare class A11yDialog {
     constructor(el: Element | null, containers?: NodeList | Element | string | null);
     /**

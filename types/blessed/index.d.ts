@@ -8,23 +8,23 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
-import { Writable, Readable } from "stream";
-import * as stream from "stream";
-import * as child_process from "child_process";
+import { EventEmitter } from 'events';
+import { Writable, Readable } from 'stream';
+import * as stream from 'stream';
+import * as child_process from 'child_process';
 
 export interface IBlessedProgramOptions {
-  input?: Readable;
-  output?: Writable;
-  log?: string;
-  dump?: boolean;
-  zero?: boolean;
-  buffer?: boolean;
-  terminal?: string;
-  term?: string;
-  tput?: string;
-  debug?: boolean;
-  resizeTimeout?: boolean;
+    input?: Readable;
+    output?: Writable;
+    log?: string;
+    dump?: boolean;
+    zero?: boolean;
+    buffer?: boolean;
+    terminal?: string;
+    term?: string;
+    tput?: string;
+    debug?: boolean;
+    resizeTimeout?: boolean;
 }
 
 export class BlessedProgram extends EventEmitter {
@@ -66,11 +66,11 @@ export class BlessedProgram extends EventEmitter {
     listen(): void;
     destroy(): void;
 
-    key(key: string|string[], listener: Function): void;
-    onceKey(key: string|string[], listener: Function): void;
+    key(key: string | string[], listener: Function): void;
+    onceKey(key: string | string[], listener: Function): void;
 
-    unKey(key: string|string[], listener: Function): void;
-    removeKey(key: string|string[], listener: Function): void;
+    unKey(key: string | string[], listener: Function): void;
+    removeKey(key: string | string[], listener: Function): void;
 
     bindMouse(): void;
     enableGpm(): void;
@@ -440,11 +440,11 @@ export class BlessedProgram extends EventEmitter {
 
 export namespace Widgets {
     namespace Types {
-        type TTopLeft = string | number | "center";
+        type TTopLeft = string | number | 'center';
 
         type TPosition = string | number;
 
-        type TMouseAction = "mousedown" | "mouseup" | "mousemove";
+        type TMouseAction = 'mousedown' | 'mouseup' | 'mousemove';
 
         interface TStyle {
             type?: string;
@@ -457,7 +457,7 @@ export namespace Widgets {
             inverse?: boolean;
             invisible?: boolean;
             transparent?: boolean;
-            border?: "line" | "bg" | TBorder;
+            border?: 'line' | 'bg' | TBorder;
             hover?: boolean;
             focus?: boolean;
             label?: string;
@@ -469,7 +469,7 @@ export namespace Widgets {
             /**
              * Type of border (line or bg). bg by default.
              */
-            type?: "line" | "bg";
+            type?: 'line' | 'bg';
 
             /**
              * Character to use if bg type, default is space.
@@ -498,7 +498,7 @@ export namespace Widgets {
             /**
              * Shape of the cursor. Can be: block, underline, or line.
              */
-            shape: "block" | "underline" | "line";
+            shape: 'block' | 'underline' | 'line';
 
             /**
              * Whether the cursor blinks.
@@ -511,7 +511,7 @@ export namespace Widgets {
             color: string;
         }
 
-        type TAlign = "left" | "center" | "right";
+        type TAlign = 'left' | 'center' | 'right';
 
         interface ListbarCommand {
             key: string;
@@ -679,15 +679,15 @@ export namespace Widgets {
 
     type NodeEventType =
         /** Received when node is added to a parent. */
-        | "adopt"
+        | 'adopt'
         /** Received when node is removed from it's current parent. */
-        | "remove"
+        | 'remove'
         /** Received when node gains a new parent. */
-        | "reparent"
+        | 'reparent'
         /** Received when node is attached to the screen directly or somewhere in its ancestry. */
-        | "attach"
+        | 'attach'
         /** Received when node is detached from the screen directly or somewhere in its ancestry. */
-        | "detach";
+        | 'detach';
 
     abstract class Node extends EventEmitter implements IHasOptions<INodeOptions>, IDestroyable {
         constructor(options: INodeOptions);
@@ -807,49 +807,49 @@ export namespace Widgets {
          * Received when the terminal window focuses/blurs. Requires a terminal supporting the
          * focus protocol and focus needs to be passed to program.enableMouse().
          */
-        | "focus"
+        | 'focus'
         /**
          * Received when the terminal window focuses/blurs. Requires a terminal supporting the
          * focus protocol and focus needs to be passed to program.enableMouse().
          */
-        | "blur"
+        | 'blur'
         /**
          * Element was clicked (slightly smarter than mouseup).
          */
-        | "click"
-        | "element click"
-        | "element mouseover"
-        | "element mouseout"
-        | "element mouseup";
+        | 'click'
+        | 'element click'
+        | 'element mouseover'
+        | 'element mouseout'
+        | 'element mouseup';
 
     type NodeMouseEventType =
-        | "mouse"
-        | "mouseout"
-        | "mouseover"
-        | "mousedown"
-        | "mouseup"
-        | "mousewheel"
-        | "wheeldown"
-        | "wheelup"
-        | "mousemove";
+        | 'mouse'
+        | 'mouseout'
+        | 'mouseover'
+        | 'mousedown'
+        | 'mouseup'
+        | 'mousewheel'
+        | 'wheeldown'
+        | 'wheelup'
+        | 'mousemove';
 
     type NodeGenericEventType =
         /** Received on screen resize. */
-        | "resize"
+        | 'resize'
         /** Received before render. */
-        | "prerender"
+        | 'prerender'
         /** Received on render. */
-        | "render"
+        | 'render'
         /** Received when the screen is destroyed (only useful when using multiple screens). */
-        | "destroy"
+        | 'destroy'
         /** Received when the element is moved. */
-        | "move"
+        | 'move'
         /** Received when element is shown. */
-        | "show"
+        | 'show'
         /** Received when element becomes hidden. */
-        | "hide"
-        | "set content"
-        | "parsed content";
+        | 'hide'
+        | 'set content'
+        | 'parsed content';
 
     class NodeWithEvents extends Node {
         /**
@@ -872,10 +872,10 @@ export namespace Widgets {
         /** Received on mouse events. */
         on(event: NodeMouseEventType, callback: (arg: Events.IMouseEventArg) => void): this;
         /** Received on key events. */
-        on(event: "keypress", callback: (ch: string, key: Events.IKeyEventArg) => void): this;
+        on(event: 'keypress', callback: (ch: string, key: Events.IKeyEventArg) => void): this;
         on(event: NodeScreenEventType, callback: (arg: Screen) => void): this;
         /** Received when blessed notices something untoward (output is not a tty, terminfo not found, etc). */
-        on(event: "warning", callback: (text: string) => void): this;
+        on(event: 'warning', callback: (text: string) => void): this;
         on(event: NodeGenericEventType, callback: () => void): this;
     }
 
@@ -1521,7 +1521,7 @@ export namespace Widgets {
         /**
          * Type of border (line or bg). bg by default.
          */
-        type?: "line" | "bg";
+        type?: 'line' | 'bg';
 
         /**
          * Character to use if bg type, default is space.
@@ -1554,7 +1554,7 @@ export namespace Widgets {
         /**
          * Border object, see below.
          */
-        border?: Border | "line" | "bg";
+        border?: Border | 'line' | 'bg';
 
         /**
          * Element's text content.
@@ -1595,12 +1595,12 @@ export namespace Widgets {
         /**
          * Text alignment: left, center, or right.
          */
-        align?: "left" | "center" | "right";
+        align?: 'left' | 'center' | 'right';
 
         /**
          * Vertical text alignment: top, middle, or bottom.
          */
-        valign?: "top" | "middle" | "bottom";
+        valign?: 'top' | 'middle' | 'bottom';
 
         /**
          * Shrink/flex/grow to content and child elements. Width/height during render.
@@ -2146,7 +2146,7 @@ export namespace Widgets {
         /**
          * Received when the element is scrolled.
          */
-        on(event: "scroll", callback: () => void): this;
+        on(event: 'scroll', callback: () => void): this;
     }
 
     /**
@@ -2200,7 +2200,7 @@ export namespace Widgets {
         /**
          * Can be vertical or horizontal.
          */
-        orientation?: "vertical" | "horizontal";
+        orientation?: 'vertical' | 'horizontal';
 
         /**
          * Treated the same as a border object. (attributes can be contained in style).
@@ -2288,14 +2288,14 @@ export namespace Widgets {
 
     type ListElementEventType =
         /** List was canceled (when esc is pressed with the keys option). */
-        | "cancel"
+        | 'cancel'
         /** Either a select or a cancel event was received. */
-        | "action"
-        | "create item"
-        | "add item"
-        | "remove item"
-        | "insert item"
-        | "set items";
+        | 'action'
+        | 'create item'
+        | 'add item'
+        | 'remove item'
+        | 'insert item'
+        | 'set items';
 
     class ListElement extends BoxElement implements IHasOptions<ListOptions<ListElementStyle>> {
         constructor(opts: ListOptions<ListElementStyle>);
@@ -2407,9 +2407,9 @@ export namespace Widgets {
 
         on(event: string, listener: (...args: any[]) => void): this;
         /** Received when an item is selected. */
-        on(event: "select", callback: (item: BoxElement, index: number) => void): this;
+        on(event: 'select', callback: (item: BoxElement, index: number) => void): this;
         on(event: ListElementEventType, callback: () => void): this;
-        on(event: "select item", callback: (item: BlessedElement, index: number) => void): this;
+        on(event: 'select item', callback: (item: BlessedElement, index: number) => void): this;
     }
 
     interface FileManagerOptions extends ListOptions<ListElementStyle> {
@@ -2452,11 +2452,11 @@ export namespace Widgets {
 
         on(event: string, listener: (...args: any[]) => void): this;
         /** Received when an item is selected. */
-        on(event: "cd", callback: (file: string, cwd: string) => void): this;
+        on(event: 'cd', callback: (file: string, cwd: string) => void): this;
         /** Received when an item is selected. */
-        on(event: "file", callback: (file: string) => void): this;
-        on(event: "error", callback: (err: any, file: string) => void): this;
-        on(event: "refresh", callback: () => void): this;
+        on(event: 'file', callback: (file: string) => void): this;
+        on(event: 'error', callback: (err: any, file: string) => void): this;
+        on(event: 'refresh', callback: () => void): this;
     }
 
     interface StyleListTable extends ListElementStyle {
@@ -2600,7 +2600,7 @@ export namespace Widgets {
         selectTab(index: number): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "set items" | "remove item" | "select tab", callback: () => void): this;
+        on(event: 'set items' | 'remove item' | 'select tab', callback: () => void): this;
     }
 
     interface FormOptions extends BoxOptions {
@@ -2655,8 +2655,8 @@ export namespace Widgets {
 
         on(event: string, listener: (...args: any[]) => void): this;
         /** Form is submitted. Receives a data object. */
-        on(event: "submit", callback: (out: TFormData) => void): this;
-        on(event: "cancel" | "reset", callback: () => void): this;
+        on(event: 'submit', callback: (out: TFormData) => void): this;
+        on(event: 'cancel' | 'reset', callback: () => void): this;
     }
 
     interface InputOptions extends BoxOptions {}
@@ -2677,13 +2677,13 @@ export namespace Widgets {
 
     type TextareaElementEventType =
         /** Value is an error. */
-        | "error"
+        | 'error'
         /** Value is submitted (enter). */
-        | "submit"
+        | 'submit'
         /** Value is discared (escape). */
-        | "cancel"
+        | 'cancel'
         /** Either submit or cancel. */
-        | "action";
+        | 'action';
 
     class TextareaElement extends InputElement implements IHasOptions<TextareaOptions> {
         constructor(opts: TextareaOptions);
@@ -2810,7 +2810,7 @@ export namespace Widgets {
         press(): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "press", callback: () => void): this;
+        on(event: 'press', callback: () => void): this;
     }
 
     interface CheckboxOptions extends BoxOptions {
@@ -3023,7 +3023,7 @@ export namespace Widgets {
         reset(): void;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "reset" | "complete", callback: () => void): this;
+        on(event: 'reset' | 'complete', callback: () => void): this;
     }
 
     interface LogOptions extends ScrollableTextOptions {
@@ -3132,7 +3132,7 @@ export namespace Widgets {
         /**
          * can be line, underline, and block.
          */
-        cursor?: "line" | "underline" | "block";
+        cursor?: 'line' | 'underline' | 'block';
 
         terminal?: string;
 
@@ -3179,7 +3179,7 @@ export namespace Widgets {
          * path to w3mimgdisplay. if a proper w3mimgdisplay path is not given, blessed will search the
          * entire disk for the binary.
          */
-        type: "ansi" | "overlay" | "w3m";
+        type: 'ansi' | 'overlay' | 'w3m';
     }
 
     /**
@@ -3238,7 +3238,7 @@ export namespace Widgets {
          * precompile all bitmaps beforehand, which may be faster, but might also OOM
          * the process on large images. (Default: mem).
          */
-        optimization: "mem" | "cpu";
+        optimization: 'mem' | 'cpu';
     }
 
     /**
@@ -3373,7 +3373,7 @@ export namespace Widgets {
          * akin to inline-block. grid will create an automatic grid based on element dimensions. The grid cells'
          * width and height are always determined by the largest children in the layout.
          */
-        layout: "inline" | "inline-block" | "grid";
+        layout: 'inline' | 'inline-block' | 'grid';
     }
 
     class LayoutElement extends BlessedElement implements IHasOptions<LayoutOptions> {

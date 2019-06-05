@@ -9,7 +9,7 @@ declare class MersenneTwister {
      * constructs mt with a number
      * @params seed
      */
-    constructor(seed?: number|number[]);
+    constructor(seed?: number | number[]);
 
     /**
      * initializes mt with a number

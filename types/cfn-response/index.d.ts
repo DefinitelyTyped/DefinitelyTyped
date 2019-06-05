@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { CloudFormationCustomResourceEvent, Context } from "aws-lambda";
+import { CloudFormationCustomResourceEvent, Context } from 'aws-lambda';
 
-export type ResponseStatus = "SUCCESS" | "FAILED";
+export type ResponseStatus = 'SUCCESS' | 'FAILED';
 export const SUCCESS: ResponseStatus;
 export const FAILED: ResponseStatus;
 

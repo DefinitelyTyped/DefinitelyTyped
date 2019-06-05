@@ -90,12 +90,7 @@ export interface ApplyPatchOptions {
      *
      * @default strict equality
      */
-    compareLine?: (
-        lineNumber: number,
-        line: string,
-        operation: '-' | ' ',
-        patchContent: string
-    ) => boolean;
+    compareLine?: (lineNumber: number, line: string, operation: '-' | ' ', patchContent: string) => boolean;
 }
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
@@ -159,12 +154,7 @@ export class Diff {
 
     pushComponent(components: Change[], added: boolean, removed: boolean): void;
 
-    extractCommon(
-        basePath: BestPath,
-        newString: string,
-        oldString: string,
-        diagonalPath: number
-    ): number;
+    extractCommon(basePath: BestPath, newString: string, oldString: string, diagonalPath: number): number;
 
     equals(left: any, right: any): boolean;
 
@@ -183,11 +173,7 @@ export class Diff {
  * @returns A list of change objects.
  */
 export function diffChars(oldStr: string, newStr: string, options?: BaseOptions): Change[];
-export function diffChars(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
-): void;
+export function diffChars(oldStr: string, newStr: string, options: Callback | (BaseOptions & CallbackOptions)): void;
 
 /**
  * Diffs two blocks of text, comparing word by word, ignoring whitespace.
@@ -195,22 +181,14 @@ export function diffChars(
  * @returns A list of change objects.
  */
 export function diffWords(oldStr: string, newStr: string, options?: WordsOptions): Change[];
-export function diffWords(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
-): void;
+export function diffWords(oldStr: string, newStr: string, options: Callback | (WordsOptions & CallbackOptions)): void;
 
 /**
  * Diffs two blocks of text, comparing word by word, treating whitespace as significant.
  *
  * @returns A list of change objects.
  */
-export function diffWordsWithSpace(
-    oldStr: string,
-    newStr: string,
-    options?: WordsOptions
-): Change[];
+export function diffWordsWithSpace(oldStr: string, newStr: string, options?: WordsOptions): Change[];
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
@@ -223,11 +201,7 @@ export function diffWordsWithSpace(
  * @returns A list of change objects.
  */
 export function diffLines(oldStr: string, newStr: string, options?: LinesOptions): Change[];
-export function diffLines(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
-): void;
+export function diffLines(oldStr: string, newStr: string, options: Callback | (LinesOptions & CallbackOptions)): void;
 
 /**
  * Diffs two blocks of text, comparing line by line, ignoring leading and trailing whitespace.
@@ -259,11 +233,7 @@ export function diffSentences(
  * @returns A list of change objects.
  */
 export function diffCss(oldStr: string, newStr: string, options?: BaseOptions): Change[];
-export function diffCss(
-    oldStr: string,
-    newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
-): void;
+export function diffCss(oldStr: string, newStr: string, options: Callback | (BaseOptions & CallbackOptions)): void;
 
 /**
  * Diffs two JSON objects, comparing the fields defined on each. The order of fields, etc does not matter
@@ -271,11 +241,7 @@ export function diffCss(
  *
  * @returns A list of change objects.
  */
-export function diffJson(
-    oldObj: string | object,
-    newObj: string | object,
-    options?: JsonOptions
-): Change[];
+export function diffJson(oldObj: string | object, newObj: string | object, options?: JsonOptions): Change[];
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,

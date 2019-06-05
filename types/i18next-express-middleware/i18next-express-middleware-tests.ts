@@ -1,18 +1,18 @@
-import express = require("express");
-import * as i18next from "i18next";
-import middleware = require("i18next-express-middleware");
+import express = require('express');
+import * as i18next from 'i18next';
+import middleware = require('i18next-express-middleware');
 
 function requestObjectTest() {
     var i18nextOptions = {};
-    i18next
-        .use(middleware.LanguageDetector)
-        .init(i18nextOptions);
+    i18next.use(middleware.LanguageDetector).init(i18nextOptions);
 
     var app = express();
-    app.use(middleware.handle(i18next, {
-        ignoreRoutes: ["/foo"],
-        removeLngFromUrl: false
-    }));
+    app.use(
+        middleware.handle(i18next, {
+            ignoreRoutes: ['/foo'],
+            removeLngFromUrl: false,
+        })
+    );
 }
 
 function detectorOptionsTest() {
@@ -31,14 +31,12 @@ function detectorOptionsTest() {
 
         // optional expire and domain for set cookie
         cookieExpirationDate: new Date(),
-        cookieDomain: 'myDomain'
+        cookieDomain: 'myDomain',
     };
 
-    i18next
-        .use(middleware.LanguageDetector)
-        .init({
-            detection: options
-        });
+    i18next.use(middleware.LanguageDetector).init({
+        detection: options,
+    });
 
     var lngDetector = new middleware.LanguageDetector(null, options);
     lngDetector.init(options);

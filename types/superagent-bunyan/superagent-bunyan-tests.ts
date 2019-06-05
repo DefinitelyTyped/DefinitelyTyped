@@ -3,7 +3,7 @@ import * as bunyan from 'bunyan';
 
 import superagentLogger = require('superagent-bunyan');
 
-const logger = bunyan.createLogger({name: 'my_log'});
+const logger = bunyan.createLogger({ name: 'my_log' });
 
 logger.info('Hey!');
 

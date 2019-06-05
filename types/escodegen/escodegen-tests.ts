@@ -4,7 +4,7 @@ let emptyIndentOptions: escodegen.IndentOptions = {};
 let indentOptions: escodegen.IndentOptions = {
     style: ' ',
     base: 0,
-    adjustMultilineComment: true
+    adjustMultilineComment: true,
 };
 
 let emptyFormatOptions: escodegen.FormatOptions = {};
@@ -21,15 +21,15 @@ let formatOptions: escodegen.FormatOptions = {
     parentheses: true,
     semicolons: true,
     safeConcatenation: true,
-    preserveBlankLines: true
+    preserveBlankLines: true,
 };
 
 let emptyMozillaOptions: escodegen.MozillaOptions = {};
 let mozillaOptions: escodegen.MozillaOptions = {
     starlessGenerator: true,
     parenthesizedComprehensionBlock: true,
-    comprehensionExpressionStartsWithAssignment: true
-}
+    comprehensionExpressionStartsWithAssignment: true,
+};
 
 let emptyGenerateOptions: escodegen.GenerateOptions = {};
 let generateOptions: escodegen.GenerateOptions = {
@@ -37,14 +37,14 @@ let generateOptions: escodegen.GenerateOptions = {
     moz: mozillaOptions,
     parse: () => {},
     comment: true,
-    sourceMap: " ",
+    sourceMap: ' ',
     sourceMapWithCode: true,
-    sourceContent: " ",
-    sourceCode: " ",
-    sourceMapRoot: " ",
+    sourceContent: ' ',
+    sourceCode: ' ',
+    sourceMapRoot: ' ',
     directive: true,
-    file: " ",
-    verbatim: " "
+    file: ' ',
+    verbatim: ' ',
 };
 
 let precedence: escodegen.Precedence = escodegen.Precedence.Primary;

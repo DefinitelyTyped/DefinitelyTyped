@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import finder = require("find-package-json");
+import finder = require('find-package-json');
 
 const f = finder();
 const fDirname = finder(__dirname);

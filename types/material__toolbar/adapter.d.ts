@@ -37,7 +37,7 @@ export default interface MDCToolbarAdapter {
 
     getFirstRowElementOffsetHeight(): number;
 
-    notifyChange(evtData: {flexibleExpansionRatio: number}): void;
+    notifyChange(evtData: { flexibleExpansionRatio: number }): void;
 
     setStyle(property: string, value: string): void;
 

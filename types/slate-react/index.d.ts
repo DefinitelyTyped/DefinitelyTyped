@@ -30,10 +30,10 @@ import {
     RangeProperties,
     NodeProperties,
     Range,
-    Controller
-} from "slate";
-import * as Immutable from "immutable";
-import * as React from "react";
+    Controller,
+} from 'slate';
+import * as Immutable from 'immutable';
+import * as React from 'react';
 
 // Values prefixed with "data-..." (Used for spellchecking according to docs)
 export interface RenderAttributes {
@@ -52,14 +52,14 @@ export interface RenderMarkProps {
 }
 
 export interface RenderNodeProps {
-  attributes: RenderAttributes;
-  children: React.ReactNode;
-  editor: CoreEditor;
-  isFocused: boolean;
-  isSelected: boolean;
-  key: string;
-  parent: Node;
-  readOnly: boolean;
+    attributes: RenderAttributes;
+    children: React.ReactNode;
+    editor: CoreEditor;
+    isFocused: boolean;
+    isSelected: boolean;
+    key: string;
+    parent: Node;
+    readOnly: boolean;
 }
 
 export interface RenderBlockProps extends RenderNodeProps {
@@ -74,11 +74,7 @@ export interface RenderInlineProps extends RenderNodeProps {
     node: Inline;
 }
 
-export type EventHook = (
-    event: Event,
-    editor: CoreEditor,
-    next: () => any
-) => any;
+export type EventHook = (event: Event, editor: CoreEditor, next: () => any) => any;
 
 export interface Plugin {
     decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
@@ -87,7 +83,12 @@ export interface Plugin {
     renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
     renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
     renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
-    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
+    shouldNodeComponentUpdate?: (
+        previousProps: RenderNodeProps,
+        props: RenderNodeProps,
+        editor: CoreEditor,
+        next: () => any
+    ) => any;
 
     onBeforeInput?: EventHook;
     onBlur?: EventHook;
@@ -115,7 +116,7 @@ export interface BasicEditorProps {
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => any;
     placeholder?: any;
     plugins?: Plugin[];
     readOnly?: boolean;
@@ -379,13 +380,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     run: CoreEditor['run'];
 }
 
-export type SlateType =
-    | "fragment"
-    | "html"
-    | "node"
-    | "rich"
-    | "text"
-    | "files";
+export type SlateType = 'fragment' | 'html' | 'node' | 'rich' | 'text' | 'files';
 
 export function cloneFragment(event: Event | React.SyntheticEvent, editor: CoreEditor, callback?: () => void): void;
 export function findDOMNode(node: Node, win?: Window): Element;

@@ -1,6 +1,6 @@
-import * as globBase from "glob-base";
+import * as globBase from 'glob-base';
 
-const result = globBase("**/*.ts");
+const result = globBase('**/*.ts');
 
 const isGlob = result.isGlob;
 const glob = result.glob;

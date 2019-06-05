@@ -1,2 +1,2 @@
-import { isRegExp } from "../fp";
+import { isRegExp } from '../fp';
 export = isRegExp;

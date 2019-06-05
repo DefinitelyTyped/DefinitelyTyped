@@ -2,33 +2,31 @@
 
 function pseudos() {
     const $test = jQuery(document);
-    Sizzle.selectors.pseudos['fixed'] = (elem) => {
+    Sizzle.selectors.pseudos['fixed'] = elem => {
         // $test[0] = elem as HTMLElement;
         return $test.css('position') === 'fixed';
     };
 }
 
 function createPseudos_0() {
-    Sizzle.selectors.pseudos['not'] =
-        Sizzle.selectors.createPseudo((subSelector) => {
-            const matcher = Sizzle.compile(subSelector);
-            return (elem) => {
-                return !matcher(elem);
-            };
-        });
+    Sizzle.selectors.pseudos['not'] = Sizzle.selectors.createPseudo(subSelector => {
+        const matcher = Sizzle.compile(subSelector);
+        return elem => {
+            return !matcher(elem);
+        };
+    });
 }
 
 function createPseudos_1() {
     // An implementation of a case-insensitive contains pseudo
     // made for all versions of jQuery
-    (($) => {
+    ($ => {
         function icontains(elem: HTMLElement, text: string) {
             return (
-                    elem.textContent ||
-                    elem.innerText ||
-                    $(elem).text() ||
-                    ''
-                ).toLowerCase().indexOf((text || '').toLowerCase()) > -1;
+                (elem.textContent || elem.innerText || $(elem).text() || '')
+                    .toLowerCase()
+                    .indexOf((text || '').toLowerCase()) > -1
+            );
         }
 
         // $.expr.pseudos.icontains = $.expr.createPseudo(function(text) {

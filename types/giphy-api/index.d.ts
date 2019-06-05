@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-type Rating = "y" | "g" | "pg" | "pg-13" | "r";
-type Format = "html" | "json";
+type Rating = 'y' | 'g' | 'pg' | 'pg-13' | 'r';
+type Format = 'html' | 'json';
 
 interface BaseOptions {
     rating: Rating;
@@ -31,12 +31,12 @@ interface BaseImage {
 }
 
 interface BaseResponse {
-  pagination: { total_count: number; count: number; offset: number };
-  meta: {
-      status: number;
-      msg: string;
-      response_id: string;
-  };
+    pagination: { total_count: number; count: number; offset: number };
+    meta: {
+        status: number;
+        msg: string;
+        response_id: string;
+    };
 }
 
 type Callback<TResponse> = (err: Error, res: TResponse) => void;
@@ -135,7 +135,7 @@ declare namespace giphyApi {
             webp: string;
             webp_size: string;
         };
-        looping: { mp4: string; };
+        looping: { mp4: string };
         preview: {
             width: string;
             height: string;
@@ -177,11 +177,11 @@ declare namespace giphyApi {
     }
 
     interface MultiResponse extends BaseResponse {
-      data: GIFObject[];
+        data: GIFObject[];
     }
 
     interface SingleResponse extends BaseResponse {
-      data: GIFObject;
+        data: GIFObject;
     }
 }
 

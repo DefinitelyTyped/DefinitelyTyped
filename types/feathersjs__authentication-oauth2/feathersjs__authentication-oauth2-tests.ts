@@ -1,5 +1,8 @@
 import feathers, { Application } from '@feathersjs/feathers';
-import feathersAuthenticationOAuth2, { Verifier, FeathersAuthenticationOAuth2Options } from '@feathersjs/authentication-oauth2';
+import feathersAuthenticationOAuth2, {
+    Verifier,
+    FeathersAuthenticationOAuth2Options,
+} from '@feathersjs/authentication-oauth2';
 import { RequestHandler, Response, NextFunction } from 'express';
 import { Request } from 'express-serve-static-core';
 import { Strategy } from 'passport';
@@ -14,10 +17,10 @@ class CustomVerifier extends Verifier {
     }
 }
 
-const handler: RequestHandler = (req: Request, res: Response, next: NextFunction) => { };
+const handler: RequestHandler = (req: Request, res: Response, next: NextFunction) => {};
 
 class someStrategy extends Strategy {
-    something = "foo";
+    something = 'foo';
 }
 /**
  * Strongly Typed Verifier
@@ -36,30 +39,30 @@ interface VerifierOptions extends FeathersAuthenticationOAuth2Options {
 
 type IProfileType = GithubProfile | FacebookProfile;
 
-export default class TestVerifier extends Verifier<User, VerifierOptions, IProfileType> { }
+export default class TestVerifier extends Verifier<User, VerifierOptions, IProfileType> {}
 
 const testVerifier = new TestVerifier(app, {
-    name: "test",
+    name: 'test',
     foo: false,
-    successRedirect: "foo",
-    failureRedirect: "bar",
+    successRedirect: 'foo',
+    failureRedirect: 'bar',
     service: 'Users',
     Strategy: someStrategy,
     passReqToCallback: false,
-    session: false
+    session: false,
 });
 
 testVerifier._createEntity({
     profile: {
-        id: "",
-        displayName: "",
-        birthday: "",
-        _raw: "",
-        _json: "",
-        provider: ""
+        id: '',
+        displayName: '',
+        birthday: '',
+        _raw: '',
+        _json: '',
+        provider: '',
     },
-    accessToken: "",
-    refreshToken: ""
+    accessToken: '',
+    refreshToken: '',
 });
 
 /**
@@ -67,25 +70,25 @@ testVerifier._createEntity({
  */
 
 const coreOptions: FeathersAuthenticationOAuth2Options = {
-    name: "foo",
+    name: 'foo',
     Strategy: someStrategy,
-    successRedirect: "foo",
-    failureRedirect: "foo",
-    service: "foo",
+    successRedirect: 'foo',
+    failureRedirect: 'foo',
+    service: 'foo',
     passReqToCallback: true,
-    session: true
+    session: true,
 };
 
 const options: FeathersAuthenticationOAuth2Options<typeof TestVerifier> = {
     ...coreOptions,
-    idField: "foo",
-    path: "foo",
-    callbackPath: "foo",
-    callbackURL: "foo",
-    entity: "foo",
-    service: "foo",
+    idField: 'foo',
+    path: 'foo',
+    callbackPath: 'foo',
+    callbackURL: 'foo',
+    entity: 'foo',
+    service: 'foo',
     handler,
     errorHandler: handler,
     formatter: handler,
-    Verifier: TestVerifier
+    Verifier: TestVerifier,
 };

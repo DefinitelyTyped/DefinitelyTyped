@@ -1,3 +1,3 @@
-import * as dragscroll from "dragscroll";
+import * as dragscroll from 'dragscroll';
 
 dragscroll.reset();

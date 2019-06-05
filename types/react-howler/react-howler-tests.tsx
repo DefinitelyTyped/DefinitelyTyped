@@ -19,9 +19,7 @@ export class ReactHowlerTest extends React.Component {
                     mute={true}
                     onPlay={id => console.log('playing sound with id ', id)}
                     onLoad={() => console.log('sound loaded')}
-                    onLoadError={id =>
-                        console.log('error loading sound with id ', id)
-                    }
+                    onLoadError={id => console.log('error loading sound with id ', id)}
                     onEnd={() => console.log('sound ended')}
                     onPause={() => console.log('sound paused')}
                     onStop={id => console.log('sound with id paused', id)}

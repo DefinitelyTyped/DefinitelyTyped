@@ -1,2 +1,2 @@
-import { deburr } from "./index";
+import { deburr } from './index';
 export = deburr;

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.ElementComponentSystem
      * @class Manages creation of {@link pc.ElementComponent}s.
@@ -7,6 +6,6 @@ declare namespace pc {
      * @extends pc.ComponentSystem
      */
     class ElementComponentSystem extends pc.ComponentSystem {
-        constructor(app: pc.Application)
+        constructor(app: pc.Application);
     }
 }

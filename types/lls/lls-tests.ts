@@ -1,24 +1,22 @@
-
-
 import LargeLocalStorage = require('lls');
 
-var storage = new LargeLocalStorage({size: 75*1024*1024});
+var storage = new LargeLocalStorage({ size: 75 * 1024 * 1024 });
 storage.initialized.then(function(grantedCapacity) {
     // storage ready to be used.
 });
- 
+
 var desiredCapacity = 50 * 1024 * 1024; // 50MB
 var storage = new LargeLocalStorage({
     // desired capacity, in bytes.
     size: desiredCapacity,
 
-     // optional name for your LLS database. Defaults to lls.
+    // optional name for your LLS database. Defaults to lls.
     // This is the name given to the underlying
     // IndexedDB or WebSQL DB or FSAPI Folder.
     // LLS's with different names are independent.
-    name: 'myStorage'
+    name: 'myStorage',
 
-    // the following is an optional param 
+    // the following is an optional param
     // that is useful for debugging.
     // force LLS to use a specific storage implementation
     // forceProvider: 'IndexedDB' or 'WebSQL' or 'FilesystemAPI'
@@ -39,26 +37,25 @@ storage.getAllAttachments('exampleDoc').then(function(attachEntries) {
         } else if (a.type.indexOf('audio') == 0) {
             // play audio...
         } else {
-            
         }
-    })
+    });
 });
 
 storage.getAllAttachmentURLs('exampleDoc').then(function(urlEntries) {
     urlEntries.map(function(entry) {
         var url = entry.url;
-    })
+    });
 });
 
 storage.getAttachment('exampleDoc', 'examplePic').then(function(attachment) {
-   var url = URL.createObjectURL(attachment);
+    var url = URL.createObjectURL(attachment);
 });
 
 storage.getAttachmentURL('myDoc', 'myPic').then(function(url) {
-  var image = new Image();
-  image.src = url;
-  document.body.appendChild(image);
-  storage.revokeAttachmentURL(url);
+    var image = new Image();
+    image.src = url;
+    document.body.appendChild(image);
+    storage.revokeAttachmentURL(url);
 });
 
 // the initialized property will call you back with the capacity
@@ -94,14 +91,17 @@ storage.rm('exampleDoc').then(function() {
     alert('doc and all attachments were removed');
 });
 
-storage.rmAttachment('exampleDoc', 'someAttachment').then(function() {
-    alert('exampleDoc/someAttachment removed');
-}).catch(function(e) {
-    alert('Attachment removal failed: ' + e);
-});
+storage
+    .rmAttachment('exampleDoc', 'someAttachment')
+    .then(function() {
+        alert('exampleDoc/someAttachment removed');
+    })
+    .catch(function(e) {
+        alert('Attachment removal failed: ' + e);
+    });
 
 storage.setAttachment('myDoc', 'myPic', [1, 2, 3]).then(function() {
-   alert('Attachment written');
+    alert('Attachment written');
 });
 
 storage.setContents('exampleDoc', 'some data...').then(function() {

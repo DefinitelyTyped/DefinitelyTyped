@@ -5,7 +5,7 @@
 
 declare namespace clamp {
     interface ClampOptions {
-        clamp?: number|string;
+        clamp?: number | string;
         useNativeClamp?: boolean;
         splitOnChars?: string[];
         animate?: boolean;

@@ -24,7 +24,7 @@ export enum ImageDisplays {
      * and bottom of the image if the scaled image height is greater than the container height. This
      * is similar to "Zoom Mode" on a widescreen TV when playing a 4:3 video.
      */
-    CROPPED
+    CROPPED,
 }
 
 /**
@@ -42,7 +42,7 @@ export namespace MediaValues {
         /**
          * Audio stream.
          */
-        AUDIO
+        AUDIO,
     }
 
     /**
@@ -56,7 +56,7 @@ export namespace MediaValues {
         /**
          * Finished.
          */
-        FINISHED
+        FINISHED,
     }
 
     /**
@@ -70,7 +70,7 @@ export namespace MediaValues {
         /**
          * Large image.
          */
-        LARGE
+        LARGE,
     }
 }
 
@@ -125,8 +125,8 @@ export interface Button {
     title: string;
     /** Action to take when selected. */
     openUrlAction: {
-      /** String URL to open. */
-      url: string;
+        /** String URL to open. */
+        url: string;
     };
 }
 
@@ -406,12 +406,12 @@ export class BrowseCarousel {
      */
     items: BrowseItem[];
 
-     /**
-      * Adds a single item or list of items to the carousel.
-      *
-      * @param browseItems BrowseItems to add.
-      * @return Returns current constructed BrowseCarousel.
-      */
+    /**
+     * Adds a single item or list of items to the carousel.
+     *
+     * @param browseItems BrowseItems to add.
+     * @return Returns current constructed BrowseCarousel.
+     */
     addItems(browseItems: BrowseItem | BrowseItem[]): BrowseCarousel;
 
     /**

@@ -38,7 +38,7 @@ testLogger.warn('logging test');
 
 const logging = moduleLog.noConflict();
 
-logging.error("still pretty easy");
+logging.error('still pretty easy');
 
 // TODO: only works in a global environment
 // moduleLog.methodFactory = (methodName: string, level: number, loggerName :string) => {

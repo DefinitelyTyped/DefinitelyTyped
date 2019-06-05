@@ -1,2 +1,2 @@
-import { transform } from "lodash";
+import { transform } from 'lodash';
 export default transform;

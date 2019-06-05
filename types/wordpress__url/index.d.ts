@@ -14,14 +14,7 @@ export interface OutputArgObject {
 export interface InputArgsArray extends Array<InputArgsValue> {}
 export interface OutputArgArray extends Array<OutputArg> {}
 
-export type InputArgsValue =
-    | string
-    | number
-    | boolean
-    | InputArgsObject
-    | InputArgsArray
-    | null
-    | undefined;
+export type InputArgsValue = string | number | boolean | InputArgsObject | InputArgsArray | null | undefined;
 
 export type InputArgs = InputArgsObject;
 export type OutputArg = string | OutputArgObject | OutputArgArray;

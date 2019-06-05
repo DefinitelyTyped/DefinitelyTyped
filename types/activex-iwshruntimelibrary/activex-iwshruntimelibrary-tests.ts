@@ -27,19 +27,19 @@ const wshn = new ActiveXObject('WScript.Network');
 wshn.AddWindowsPrinterConnection('\\\\printserv\\DefaultPrinter');
 
 // https://msdn.microsoft.com/en-us/library/kxsdca3c(v=vs.84).aspx
-wshn.AddPrinterConnection("LPT1", "\\\\Server\\Print1");
+wshn.AddPrinterConnection('LPT1', '\\\\Server\\Print1');
 
 // https://msdn.microsoft.com/en-us/library/t9zt39at(v=vs.84).aspx
 // https://msdn.microsoft.com/en-us/library/zhds6k80(v=vs.84).aspx
 {
     const drives = wshn.EnumNetworkDrives();
     const printers = wshn.EnumPrinterConnections();
-    WScript.Echo("Network drive mappings:");
+    WScript.Echo('Network drive mappings:');
     for (let i = 0; i < drives.length; i += 2) {
         WScript.Echo(`Drive ${drives.Item(i)} = ${drives.Item(i + 1)}`);
     }
     WScript.Echo('');
-    WScript.Echo("Network printer mappings:");
+    WScript.Echo('Network printer mappings:');
     for (let i = 0; i < printers.length; i += 2) {
         WScript.Echo(`Port ${printers.Item(i)} = ${printers.Item(i + 1)}`);
     }
@@ -56,7 +56,7 @@ wshn.RemovePrinterConnection('\\\\PRN-CORP1\\B41-4523-A', true, true);
 
 // https://msdn.microsoft.com/en-us/library/2ccwwdct(v=vs.84).aspx
 {
-    const printerPath = "\\\\research\\library1";
+    const printerPath = '\\\\research\\library1';
     wshn.AddWindowsPrinterConnection(printerPath);
     wshn.SetDefaultPrinter(printerPath);
 }

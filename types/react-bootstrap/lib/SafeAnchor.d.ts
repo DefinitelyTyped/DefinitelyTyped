@@ -9,5 +9,5 @@ declare namespace SafeAnchor {
         componentClass?: React.ReactType;
     }
 }
-declare class SafeAnchor extends React.Component<SafeAnchor.SafeAnchorProps> { }
+declare class SafeAnchor extends React.Component<SafeAnchor.SafeAnchorProps> {}
 export = SafeAnchor;

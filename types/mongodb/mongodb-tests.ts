@@ -24,7 +24,11 @@ const options: mongodb.MongoClientOptions = {
     reconnectInterval: 123456,
     ssl: true,
     sslValidate: false,
-    checkServerIdentity: true ? true : (host, cert) => { return undefined; },
+    checkServerIdentity: true
+        ? true
+        : (host, cert) => {
+              return undefined;
+          },
     sslCA: ['str'],
     sslCRL: ['str'],
     sslCert: new Buffer(999),
@@ -51,27 +55,27 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         // Intentionally omitted type annotation from 'count'.
         // This way it requires a more accurate typedef which allows inferring that it's a number.
         collection.countDocuments((err: mongodb.MongoError, count) => {
-            console.log(format("count = %s", count));
+            console.log(format('count = %s', count));
         });
 
         collection.countDocuments().then((count: number) => {
-            console.log(format("count = %s", count));
+            console.log(format('count = %s', count));
         });
 
         collection.countDocuments({ foo: 1 }, (err: mongodb.MongoError, count: number) => {
-            console.log(format("count = %s", count));
+            console.log(format('count = %s', count));
         });
 
         collection.countDocuments({ foo: 1 }).then((count: number) => {
-            console.log(format("count = %s", count));
+            console.log(format('count = %s', count));
         });
 
         collection.countDocuments({ foo: 1 }, { limit: 10 }, (err: mongodb.MongoError, count: number) => {
-            console.log(format("count = %s", count));
+            console.log(format('count = %s', count));
         });
 
         collection.countDocuments({ foo: 1 }, { limit: 10 }).then((count: number) => {
-            console.log(format("count = %s", count));
+            console.log(format('count = %s', count));
         });
 
         // Locate all the entries using find
@@ -83,11 +87,11 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
 
         // Get some statistics
         collection.stats((err: mongodb.MongoError, stats: any) => {
-            console.log(stats.count + " documents");
+            console.log(stats.count + ' documents');
         });
 
         //
-        collection.stats().then((stats) => {
+        collection.stats().then(stats => {
             console.log(stats.wiredTiger.cache['bytes currently in the cache']);
         });
 
@@ -101,11 +105,11 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         cursor = cursor.addQueryModifier('', true);
         cursor = cursor.batchSize(1);
         cursor = cursor.comment('');
-        cursor = cursor.filter({a: 1});
+        cursor = cursor.filter({ a: 1 });
         cursor = cursor.hint({ age: 1 });
         cursor = cursor.hint('age_1');
         cursor = cursor.limit(1);
-        cursor = cursor.map((result) => {});
+        cursor = cursor.map(result => {});
         cursor = cursor.max({ age: 130 });
         cursor = cursor.min({ age: 18 });
         cursor = cursor.maxAwaitTimeMS(1);
@@ -128,10 +132,21 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
             color: string;
         }
         const cursor: mongodb.Cursor<Bag> = collection.find<Bag>({ color: 'black' });
-        cursor.toArray((err, r) => { r[0].cost; });
-        cursor.forEach((bag) => { bag.color; }, () => {});
-        collection.findOne({ color: 'white' }).then(b => { const _b: Bag = b; });
-        collection.findOne<Bag>({ color: 'white' }).then(b => { b.cost; });
+        cursor.toArray((err, r) => {
+            r[0].cost;
+        });
+        cursor.forEach(
+            bag => {
+                bag.color;
+            },
+            () => {}
+        );
+        collection.findOne({ color: 'white' }).then(b => {
+            const _b: Bag = b;
+        });
+        collection.findOne<Bag>({ color: 'white' }).then(b => {
+            b.cost;
+        });
     }
     {
         interface Payment {
@@ -141,8 +156,14 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
 
         collection.aggregate([{ $match: { bar: 1 } }, { $limit: 10 }]);
         collection.aggregate([{ $match: { bar: 1 } }]).limit(10);
-        collection.aggregate([]).match({ bar: 1 }).limit(10);
-        collection.aggregate().match({ bar: 1 }).limit(10);
+        collection
+            .aggregate([])
+            .match({ bar: 1 })
+            .limit(10);
+        collection
+            .aggregate()
+            .match({ bar: 1 })
+            .limit(10);
 
         collection.aggregate<Payment>(
             [{ $match: { bar: 1 } }],
@@ -151,18 +172,13 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
             }
         );
 
-        collection.aggregate<Payment>(
-            [],
-            (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
-                cursor.match({ bar: 1 }).limit(10);
-            }
-        );
+        collection.aggregate<Payment>([], (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
+            cursor.match({ bar: 1 }).limit(10);
+        });
 
-        collection.aggregate<Payment>(
-            (err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
-                cursor.match({ bar: 1 }).limit(10);
-            }
-        );
+        collection.aggregate<Payment>((err: mongodb.MongoError, cursor: mongodb.AggregationCursor<Payment>) => {
+            cursor.match({ bar: 1 }).limit(10);
+        });
 
         interface Employee {
             firstName: string;
@@ -174,23 +190,23 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
             fullName: string;
         }
 
-        const cursor1: mongodb.AggregationCursor<EmployeeName> = (
-          collection.aggregate<Employee>().project<EmployeeName>({
-            fullName: { $concat: ['$firstName', ' ', '$lastName'] },
-          })
-        );
+        const cursor1: mongodb.AggregationCursor<EmployeeName> = collection
+            .aggregate<Employee>()
+            .project<EmployeeName>({
+                fullName: { $concat: ['$firstName', ' ', '$lastName'] },
+            });
 
         interface DepartmentSummary {
             _id: string;
             count: number;
         }
 
-        const cursor2: mongodb.AggregationCursor<DepartmentSummary> = (
-          collection.aggregate<Employee>().group<DepartmentSummary>({
-            _id: '$department',
-            count: { $sum: 1 },
-          })
-        );
+        const cursor2: mongodb.AggregationCursor<DepartmentSummary> = collection
+            .aggregate<Employee>()
+            .group<DepartmentSummary>({
+                _id: '$department',
+                count: { $sum: 1 },
+            });
     }
 
     // test for new typings
@@ -211,8 +227,8 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
         ]);
         testCollection.find({
             numberField: {
-                $and: [{ $gt: 0, $lt: 100 }]
-            }
+                $and: [{ $gt: 0, $lt: 100 }],
+            },
         });
 
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
@@ -225,7 +241,7 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
                 },
                 $pull: {
                     fruitTags: 'Lemon',
-                }
+                },
             }
         );
     }
@@ -246,10 +262,7 @@ async function commitWithRetry(session: mongodb.ClientSession) {
         await session.commitTransaction();
         console.log('Transaction committed.');
     } catch (error) {
-        if (
-            error.errorLabels &&
-            error.errorLabels.indexOf('UnknownTransactionCommitResult') < 0
-        ) {
+        if (error.errorLabels && error.errorLabels.indexOf('UnknownTransactionCommitResult') < 0) {
             console.log('UnknownTransactionCommitResult, retrying commit operation...');
             await commitWithRetry(session);
         } else {
@@ -282,21 +295,17 @@ async function runTransactionWithRetry(
 async function updateEmployeeInfo(client: mongodb.MongoClient, session: mongodb.ClientSession) {
     session.startTransaction({
         readConcern: { level: 'snapshot' },
-        writeConcern: { w: 'majority' }
+        writeConcern: { w: 'majority' },
     });
 
     const employeesCollection = client.db('hr').collection('employees');
     const eventsCollection = client.db('reporting').collection('events');
 
-    await employeesCollection.updateOne(
-        { employee: 3 },
-        { $set: { status: 'Inactive' } },
-        { session }
-    );
+    await employeesCollection.updateOne({ employee: 3 }, { $set: { status: 'Inactive' } }, { session });
     await eventsCollection.insertOne(
         {
             employee: 3,
-            status: { new: 'Inactive', old: 'Active' }
+            status: { new: 'Inactive', old: 'Active' },
         },
         { session }
     );
@@ -315,16 +324,18 @@ async function transfer(client: mongodb.MongoClient, from: any, to: any, amount:
     session.startTransaction();
     try {
         const opts = { session, returnOriginal: false };
-        const A = await db.collection('Account').
-        findOneAndUpdate({ name: from }, { $inc: { balance: -amount } }, opts).
-        then(res => res.value);
+        const A = await db
+            .collection('Account')
+            .findOneAndUpdate({ name: from }, { $inc: { balance: -amount } }, opts)
+            .then(res => res.value);
         if (A.balance < 0) {
             // If A would have negative balance, fail and abort the transaction
             // `session.abortTransaction()` will undo the above `findOneAndUpdate()`
             throw new Error('Insufficient funds: ' + (A.balance + amount));
         }
 
-        const B = await db.collection('Account')
+        const B = await db
+            .collection('Account')
             .findOneAndUpdate({ name: to }, { $inc: { balance: amount } }, opts)
             .then(res => res.value);
 
@@ -340,11 +351,9 @@ async function transfer(client: mongodb.MongoClient, from: any, to: any, amount:
     }
 }
 
-mongodb.connect(connectionString).then((client) => {
+mongodb.connect(connectionString).then(client => {
     client.startSession();
-    client.withSession(session =>
-        runTransactionWithRetry(updateEmployeeInfo, client, session)
-    );
+    client.withSession(session => runTransactionWithRetry(updateEmployeeInfo, client, session));
 });
 
 // https://docs.mongodb.com/manual/core/map-reduce/
@@ -366,11 +375,11 @@ function testCollectionReduceFunction(_key: string, values: number[]): number {
     return values.reduce((a, v) => a + v, 0);
 }
 
-mongodb.connect(connectionString).then((client) => {
-    client.db("test").collection<ITestMapReduceSchema>('test-mapReduce-collection').mapReduce(
-        testCollectionMapFunction,
-        testCollectionReduceFunction
-    );
+mongodb.connect(connectionString).then(client => {
+    client
+        .db('test')
+        .collection<ITestMapReduceSchema>('test-mapReduce-collection')
+        .mapReduce(testCollectionMapFunction, testCollectionReduceFunction);
 });
 
 // Test other error classes

@@ -11,7 +11,7 @@ const geocoder = new AMap.Geocoder({
     radius: 10,
     lang: 'zh_cn',
     batch: true,
-    extensions: 'all'
+    extensions: 'all',
 });
 
 // $ExpectType void
@@ -64,7 +64,7 @@ geocoder.getLocation('address', (status, result) => {
 });
 
 // $ExpectType void
-geocoder.getLocation(['address', 'address'], () => { });
+geocoder.getLocation(['address', 'address'], () => {});
 
 // $ExpectType void
 geocoder.setCity();
@@ -222,6 +222,6 @@ geocoder.on('complete', (event: AMap.Geocoder.EventMap['complete']) => {
 });
 
 // $ExpectType void
-geocoder.getAddress(lnglatTuple, () => { });
+geocoder.getAddress(lnglatTuple, () => {});
 // $ExpectType void
-geocoder.getAddress([lnglatTuple, lnglatTuple], () => { });
+geocoder.getAddress([lnglatTuple, lnglatTuple], () => {});

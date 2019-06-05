@@ -33,10 +33,10 @@ SwaggerHapi.create(config, (err, middleware) => {
 
  =============================================== */
 
-import { Config, HapiMiddleware } from "swagger-node-runner";
+import { Config, HapiMiddleware } from 'swagger-node-runner';
 
 /** export interfaces */
-export { Config, HapiMiddleware } from "swagger-node-runner";
+export { Config, HapiMiddleware } from 'swagger-node-runner';
 
 /**
  * Create a new instance of a Hapi specific `SwaggerNodeRunner` middleware

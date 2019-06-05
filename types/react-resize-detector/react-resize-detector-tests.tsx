@@ -1,11 +1,9 @@
 // Adapted from example provided at https://github.com/maslianok/react-resize-detector
 
-import * as React from "react";
-import ReactResizeDetector, { withResizeDetector } from "react-resize-detector";
+import * as React from 'react';
+import ReactResizeDetector, { withResizeDetector } from 'react-resize-detector';
 
-const CustomComponent = ({ width, height }: any) => (
-    <div>{`${width}x${height}`}</div>
-);
+const CustomComponent = ({ width, height }: any) => <div>{`${width}x${height}`}</div>;
 
 class App extends React.PureComponent {
     constructor(props: {}) {
@@ -30,9 +28,7 @@ class App extends React.PureComponent {
                     nodeType="span"
                 />
                 <ReactResizeDetector handleWidth handleHeight>
-                    {({ width, height }: { width: number; height: number }) => (
-                        <div>{`${width}x${height}`}</div>
-                    )}
+                    {({ width, height }: { width: number; height: number }) => <div>{`${width}x${height}`}</div>}
                 </ReactResizeDetector>
                 <ReactResizeDetector handleWidth handleHeight>
                     <CustomComponent />
@@ -54,5 +50,5 @@ class App extends React.PureComponent {
     private readonly handleResize = (width: number, height: number) => {
         console.log(`width = ${width}`);
         console.log(`height = ${height}`);
-    }
+    };
 }

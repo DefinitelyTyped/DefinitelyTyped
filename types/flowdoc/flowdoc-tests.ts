@@ -85,7 +85,7 @@ page.backgroundColor = {
     r: 255,
     g: 255,
     b: 255,
-    a: 1
+    a: 1,
 };
 
 const hotspot: Flow.Layer = {
@@ -100,9 +100,11 @@ const hotspot: Flow.Layer = {
         h: 42,
         w: 370,
     },
-    connections: [{
-        nodeID: 'cjo45mq7500002a5p8n8u1bfz',
-    }],
+    connections: [
+        {
+            nodeID: 'cjo45mq7500002a5p8n8u1bfz',
+        },
+    ],
 };
 hotspot.type = TYPES.HOTSPOT;
 
@@ -111,5 +113,5 @@ screen.type = TYPES.SCREEN;
 screen.children.push(hotspot);
 screen.position = {
     x: 0,
-    y: 0
+    y: 0,
 };

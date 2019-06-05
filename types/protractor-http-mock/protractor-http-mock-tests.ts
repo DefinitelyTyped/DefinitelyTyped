@@ -1,9 +1,9 @@
-import mock = require("protractor-http-mock");
+import mock = require('protractor-http-mock');
 
 function TestConfig() {
     mock.config = {
-        rootDirectory: "root",
-        protractorConfig: "protractor.conf.js"
+        rootDirectory: 'root',
+        protractorConfig: 'protractor.conf.js',
     };
 }
 
@@ -11,31 +11,34 @@ function TestCtorOverloads() {
     let del: mock.requests.Delete<number> = {
         request: {
             path: 'path',
-            method: 'DELETE'
+            method: 'DELETE',
         },
         response: {
             status: 400,
-            data: 1
-        }
+            data: 1,
+        },
     };
     let put: mock.requests.Put<number> = {
         request: {
             path: 'path',
-            method: 'PUT'
+            method: 'PUT',
         },
         response: {
             status: 400,
-            data: 1
-        }
+            data: 1,
+        },
     };
     let plugin: mock.Plugin = {
-        match: (mockRequest: mock.requests.Delete<number>, requestConfig: mock.requests.AllRequests<number, number>) => {
+        match: (
+            mockRequest: mock.requests.Delete<number>,
+            requestConfig: mock.requests.AllRequests<number, number>
+        ) => {
             if (requestConfig.request.method && mockRequest.request.method) {
                 return true;
             }
 
             return false;
-        }
+        },
     };
 
     let noParam: mock.ProtractorHttpMock = mock();
@@ -58,7 +61,7 @@ function TestTeardown() {
 
 function TestRequestsMade() {
     let values: Array<mock.ReceivedRequest>;
-    mock.requestsMade().then(v => values = v);
+    mock.requestsMade().then(v => (values = v));
 }
 
 function TestClearRequests() {
@@ -71,31 +74,31 @@ function TestClearRequests() {
 function TestDynamicAdd() {
     let put: mock.requests.Put<number> = {
         request: {
-            path: "path",
-            method: "PUT"
+            path: 'path',
+            method: 'PUT',
         },
         response: {
             status: 400,
-            data: 1
-        }
+            data: 1,
+        },
     };
     let resolved: boolean;
-    mock.add([put]).then(r => resolved = r);
+    mock.add([put]).then(r => (resolved = r));
 }
 
 function TestDyanmicRemove() {
     let put: mock.requests.Put<number> = {
         request: {
-            path: "path",
-            method: "PUT"
+            path: 'path',
+            method: 'PUT',
         },
         response: {
             status: 400,
-            data: 1
-        }
+            data: 1,
+        },
     };
     let resolved: boolean;
-    mock.remove([put]).then(r => resolved = r);
+    mock.remove([put]).then(r => (resolved = r));
 }
 
 function TestGetRequestDefinitions() {
@@ -103,12 +106,12 @@ function TestGetRequestDefinitions() {
         request: {
             path: 'path',
             method: 'GET',
-            regex: true
+            regex: true,
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 
     let getParams: mock.requests.Get<number> = {
@@ -118,25 +121,25 @@ function TestGetRequestDefinitions() {
             regex: true,
             params: {
                 param1: 'param1',
-                param2: 2
-            }
+                param2: 2,
+            },
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 
     let post: mock.requests.Post<number> = {
         request: {
             path: 'path',
             method: 'POST',
-            regex: true
+            regex: true,
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 
     let getQueryString: mock.requests.Get<number> = {
@@ -146,13 +149,13 @@ function TestGetRequestDefinitions() {
             regex: true,
             queryString: {
                 query1: 'query1',
-                query2: 2
-            }
+                query2: 2,
+            },
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 
     let getHeaders: mock.requests.Get<number> = {
@@ -162,13 +165,13 @@ function TestGetRequestDefinitions() {
             regex: true,
             headers: {
                 head1: 'head1',
-                head2: 'head2'
-            }
+                head2: 'head2',
+            },
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 }
 
@@ -177,12 +180,12 @@ function TestPostRequestDefinitions() {
         request: {
             path: 'path',
             method: 'POST',
-            regex: true
+            regex: true,
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 
     let postData: mock.requests.PostData<number, string> = {
@@ -190,12 +193,12 @@ function TestPostRequestDefinitions() {
             path: 'path',
             method: 'POST',
             data: 'data',
-            regex: true
+            regex: true,
         },
         response: {
             data: 1,
-            status: 500
-        }
+            status: 500,
+        },
     };
 }
 
@@ -204,12 +207,12 @@ function TestHeadRequestDefinitions() {
         request: {
             path: 'path',
             method: 'HEAD',
-            regex: true
+            regex: true,
         },
         response: {
             status: 500,
-            data: 1
-        }
+            data: 1,
+        },
     };
 }
 
@@ -218,12 +221,12 @@ function TestDeleteRequestDefinitions() {
         request: {
             path: 'path',
             method: 'DELETE',
-            regex: true
+            regex: true,
         },
         response: {
             status: 500,
-            data: 1
-        }
+            data: 1,
+        },
     };
 }
 
@@ -232,12 +235,12 @@ function TestPutRequestDefinitions() {
         request: {
             path: 'path',
             method: 'PUT',
-            regex: true
+            regex: true,
         },
         response: {
             status: 500,
-            data: 1
-        }
+            data: 1,
+        },
     };
 }
 
@@ -246,12 +249,12 @@ function TestPatchRequestDefinitions() {
         request: {
             path: 'path',
             method: 'PATCH',
-            regex: true
+            regex: true,
         },
         response: {
             status: 500,
-            data: 1
-        }
+            data: 1,
+        },
     };
 }
 
@@ -260,43 +263,47 @@ function TestJsonpRequestDefinitions() {
         request: {
             path: 'path',
             method: 'JSONP',
-            regex: true
+            regex: true,
         },
         response: {
             status: 500,
-            data: 1
-        }
+            data: 1,
+        },
     };
 }
 
 function TestRuntimeMocks() {
-    mock.add([{
-        request: {
-            path: '/users',
-            method: 'GET',
-            params: {
-                name: 'Charlie'
-            }
+    mock.add([
+        {
+            request: {
+                path: '/users',
+                method: 'GET',
+                params: {
+                    name: 'Charlie',
+                },
+            },
+            response: {
+                data: {
+                    name: 'Override',
+                },
+            },
         },
-        response: {
-            data: {
-                name: 'Override'
-            }
-        }
-    }]);
+    ]);
 
-    mock.remove([{
-        request: {
-            path: '/users',
-            method: 'GET',
-            params: {
-                name: 'Charlie'
-            }
+    mock.remove([
+        {
+            request: {
+                path: '/users',
+                method: 'GET',
+                params: {
+                    name: 'Charlie',
+                },
+            },
+            response: {
+                data: {
+                    name: 'Override',
+                },
+            },
         },
-        response: {
-            data: {
-                name: 'Override'
-            }
-        }
-    }]);
+    ]);
 }

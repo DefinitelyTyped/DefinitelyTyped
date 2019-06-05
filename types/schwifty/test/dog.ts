@@ -1,12 +1,12 @@
-import * as Joi from "joi";
-import * as Schwifty from "schwifty";
+import * as Joi from 'joi';
+import * as Schwifty from 'schwifty';
 
 export default class Dog extends Schwifty.Model {
-    static tableName = "Dog";
+    static tableName = 'Dog';
 
     joiSchema: Joi.Schema = Joi.object({
         id: Joi.number(),
-        name: Joi.string()
+        name: Joi.string(),
     });
 
     id?: number;

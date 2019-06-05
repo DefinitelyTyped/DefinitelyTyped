@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Android Device Provisioning Partner API v1 */
-    function load(name: "androiddeviceprovisioning", version: "v1"): PromiseLike<void>;
-    function load(name: "androiddeviceprovisioning", version: "v1", callback: () => any): void;
+    function load(name: 'androiddeviceprovisioning', version: 'v1'): PromiseLike<void>;
+    function load(name: 'androiddeviceprovisioning', version: 'v1', callback: () => any): void;
 
     const operations: androiddeviceprovisioning.OperationsResource;
 
@@ -287,7 +287,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -325,7 +325,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -363,7 +363,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -396,7 +396,7 @@ declare namespace gapi.client {
             /** Claim the device identified by device identifier. */
             claim(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -427,7 +427,7 @@ declare namespace gapi.client {
             /** Claim devices asynchronously. */
             claimAsync(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -458,7 +458,7 @@ declare namespace gapi.client {
             /** Find devices by device identifier. */
             findByIdentifier(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -489,7 +489,7 @@ declare namespace gapi.client {
             /** Find devices by ownership. */
             findByOwner(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -520,7 +520,7 @@ declare namespace gapi.client {
             /** Get a device. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -551,7 +551,7 @@ declare namespace gapi.client {
             /** Update the metadata. */
             metadata(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -584,7 +584,7 @@ declare namespace gapi.client {
             /** Unclaim the device identified by the `device_id` or the `deviceIdentifier`. */
             unclaim(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -615,7 +615,7 @@ declare namespace gapi.client {
             /** Unclaim devices asynchronously. */
             unclaimAsync(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -646,7 +646,7 @@ declare namespace gapi.client {
             /** Set metadata in batch asynchronously. */
             updateMetadataAsync(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

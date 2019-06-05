@@ -11,8 +11,17 @@ export interface RawImageData<D extends Uint8Array> {
     height: number;
 }
 
-export function decode(jpegData: ArrayLike<number> | Iterable<number> | ArrayBuffer, useTypedArray: true): RawImageData<Uint8Array>;
-export function decode(jpegData: ArrayLike<number> | Iterable<number> | ArrayBuffer, useTypedArray?: false): RawImageData<Buffer>;
-export function decode(jpegData: ArrayLike<number> | Iterable<number> | ArrayBuffer, useTypedArray: boolean): RawImageData<Uint8Array | Buffer>;
+export function decode(
+    jpegData: ArrayLike<number> | Iterable<number> | ArrayBuffer,
+    useTypedArray: true
+): RawImageData<Uint8Array>;
+export function decode(
+    jpegData: ArrayLike<number> | Iterable<number> | ArrayBuffer,
+    useTypedArray?: false
+): RawImageData<Buffer>;
+export function decode(
+    jpegData: ArrayLike<number> | Iterable<number> | ArrayBuffer,
+    useTypedArray: boolean
+): RawImageData<Uint8Array | Buffer>;
 
 export function encode(imgData: RawImageData<Uint8Array | Buffer>, qu?: number): RawImageData<Buffer>;

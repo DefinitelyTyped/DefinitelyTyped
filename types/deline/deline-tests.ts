@@ -1,6 +1,6 @@
-import * as dl from "deline";
+import * as dl from 'deline';
 
-const moduleName = "deline";
+const moduleName = 'deline';
 
 dl.deline(`deline`); // $ExpectType string
 dl.deline(`module name: ${moduleName}`); // $ExpectType string

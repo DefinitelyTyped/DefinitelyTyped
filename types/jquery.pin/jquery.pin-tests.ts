@@ -1,7 +1,7 @@
-import { Options } from "jquery.pin";
+import { Options } from 'jquery.pin';
 
 // basic usage
-$(".pinned").pin();
+$('.pinned').pin();
 
 // with options
 const options: Options = {
@@ -10,8 +10,8 @@ const options: Options = {
     containerSelector: '.container',
     padding: {
         top: 10,
-        bottom: 10
-    }
+        bottom: 10,
+    },
 };
 
-$(".pinned").pin(options);
+$('.pinned').pin(options);

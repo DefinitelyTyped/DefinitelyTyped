@@ -1,4 +1,4 @@
-import isArray from "isarray";
+import isArray from 'isarray';
 
 isArray([]); // => true
 isArray({}); // => false

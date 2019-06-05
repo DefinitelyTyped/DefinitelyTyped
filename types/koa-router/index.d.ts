@@ -16,8 +16,7 @@
 
  =============================================== */
 
-
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
 declare namespace Router {
     export interface IRouterOptions {
@@ -59,15 +58,19 @@ declare namespace Router {
         _matchedRouteName: string | undefined;
     }
 
-    export type RouterContext<StateT = any, CustomT = {}> =
-        Koa.ParameterizedContext<StateT, CustomT & IRouterParamContext<StateT, CustomT>>;
+    export type RouterContext<StateT = any, CustomT = {}> = Koa.ParameterizedContext<
+        StateT,
+        CustomT & IRouterParamContext<StateT, CustomT>
+    >;
 
     // For backward compatibility IRouterContext needs to be an interface
     // But it's deprecated - please use `RouterContext` instead
     export interface IRouterContext extends RouterContext {}
 
-    export type IMiddleware<StateT = any, CustomT = {}> =
-        Koa.Middleware<StateT, CustomT & IRouterParamContext<StateT, CustomT>>
+    export type IMiddleware<StateT = any, CustomT = {}> = Koa.Middleware<
+        StateT,
+        CustomT & IRouterParamContext<StateT, CustomT>
+    >;
 
     export interface IParamMiddleware {
         (param: string, ctx: RouterContext, next: () => Promise<any>): any;
@@ -125,7 +128,12 @@ declare namespace Router {
         path: string;
 
         constructor(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: ILayerOptions);
-        constructor(path: string | RegExp, methods: string[], middleware: Array<Router.IMiddleware>, opts?: ILayerOptions);
+        constructor(
+            path: string | RegExp,
+            methods: string[],
+            middleware: Array<Router.IMiddleware>,
+            opts?: ILayerOptions
+        );
 
         /**
          * Returns whether request `path` matches route.
@@ -465,9 +473,7 @@ declare class Router<StateT = any, CustomT = {}> {
      * an `Allow` header containing the allowed methods, as well as responding
      * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
      */
-    allowedMethods(
-        options?: Router.IRouterAllowedMethodsOptions
-    ): Router.IMiddleware<StateT, CustomT>;
+    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Router.IMiddleware<StateT, CustomT>;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.

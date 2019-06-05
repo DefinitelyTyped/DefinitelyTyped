@@ -1,2 +1,2 @@
-import { quintInOut } from "./index";
+import { quintInOut } from './index';
 export = quintInOut;

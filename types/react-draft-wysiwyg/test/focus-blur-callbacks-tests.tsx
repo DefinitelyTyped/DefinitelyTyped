@@ -7,7 +7,7 @@ class FocusBlurCallbacks extends React.Component<any, any> {
         super(props);
 
         this.state = {
-            state: 'blurred'
+            state: 'blurred',
         };
     }
 
@@ -29,11 +29,10 @@ class FocusBlurCallbacks extends React.Component<any, any> {
         const { state } = this.state;
         return (
             <div>
-                <h3>State right now <span style={{ color: 'blue' }}>{state}</span></h3>
-                <Editor
-                    onBlur={this.onBlur}
-                    onFocus={this.onFocus}
-                />
+                <h3>
+                    State right now <span style={{ color: 'blue' }}>{state}</span>
+                </h3>
+                <Editor onBlur={this.onBlur} onFocus={this.onFocus} />
             </div>
         );
     }

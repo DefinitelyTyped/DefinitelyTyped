@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import DatePicker from "vue2-datepicker";
+import DatePicker from 'vue2-datepicker';
 
 new Vue({
     el: '#app',
     components: {
-        DatePicker
+        DatePicker,
     },
     template: `
         <date-picker
@@ -19,5 +19,5 @@ new Vue({
     `,
     data() {
         return { dateOfBirth: new Date() };
-    }
+    },
 });

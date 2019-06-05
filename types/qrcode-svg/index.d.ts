@@ -33,9 +33,7 @@ declare class QRCode {
      * @param  opt Set the container. Defaults to `{ container: "svg" }`.
      * @return The svg string.
      */
-    svg(opt?: {
-        container: "svg" | "g" | "none"
-    }): string;
+    svg(opt?: { container: 'svg' | 'g' | 'none' }): string;
     /**
      * Writes this QRCode to a file. Requires `fs`.
      * @param  file The filename to write to
@@ -53,7 +51,7 @@ declare namespace QRCode {
         /** The actual content of the QR code */
         content: string;
         /** Default is `"M"`. */
-        ecl?: "L" | "M" | "H" | "Q";
+        ecl?: 'L' | 'M' | 'H' | 'Q';
         /** Default is `256`. */
         height?: number;
         /** Default is `4`. */

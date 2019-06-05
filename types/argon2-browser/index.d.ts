@@ -26,6 +26,6 @@ export namespace argon2 {
 
     enum ArgonType {
         Argon2d = 0,
-        Argon2i = 1
+        Argon2i = 1,
     }
 }

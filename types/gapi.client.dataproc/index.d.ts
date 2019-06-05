@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Dataproc API v1 */
-    function load(name: "dataproc", version: "v1"): PromiseLike<void>;
-    function load(name: "dataproc", version: "v1", callback: () => any): void;
+    function load(name: 'dataproc', version: 'v1'): PromiseLike<void>;
+    function load(name: 'dataproc', version: 'v1', callback: () => any): void;
 
     const projects: dataproc.ProjectsResource;
 
@@ -593,7 +593,7 @@ declare namespace gapi.client {
             /** Creates a cluster in a project. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -626,7 +626,7 @@ declare namespace gapi.client {
             /** Deletes a cluster in a project. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -661,7 +661,7 @@ declare namespace gapi.client {
             /** Gets cluster diagnostic information. After the operation completes, the Operation.response field contains DiagnoseClusterOutputLocation. */
             diagnose(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -696,7 +696,7 @@ declare namespace gapi.client {
             /** Gets the resource representation for a cluster in a project. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -731,7 +731,7 @@ declare namespace gapi.client {
             /** Lists all regions/{region}/clusters in a project. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -777,7 +777,7 @@ declare namespace gapi.client {
             /** Updates a cluster in a project. */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -839,7 +839,7 @@ declare namespace gapi.client {
             /** Starts a job cancellation request. To access the job resource after cancellation, call regions/{region}/jobs.list or regions/{region}/jobs.get. */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -874,7 +874,7 @@ declare namespace gapi.client {
             /** Deletes the job from the project. If the job is active, the delete fails, and the response returns FAILED_PRECONDITION. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -909,7 +909,7 @@ declare namespace gapi.client {
             /** Gets the resource representation for a job in a project. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -944,7 +944,7 @@ declare namespace gapi.client {
             /** Lists regions/{region}/jobs in a project. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -992,7 +992,7 @@ declare namespace gapi.client {
             /** Updates a job in a project. */
             patch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1033,7 +1033,7 @@ declare namespace gapi.client {
             /** Submits a job to a cluster. */
             submit(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1073,7 +1073,7 @@ declare namespace gapi.client {
              */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1107,7 +1107,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1141,7 +1141,7 @@ declare namespace gapi.client {
              */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1178,7 +1178,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

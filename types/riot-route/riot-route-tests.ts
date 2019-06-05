@@ -2,16 +2,17 @@ import route = require('riot-route');
 import routeFromTag from 'riot-route/lib/tag';
 
 /* () */
-route((collection, id, action) => {
-});
+route((collection, id, action) => {});
 
-route('/fruit', (name) => {
+route('/fruit', name => {
     console.log('The list of fruits');
 });
 
 /* create() */
 const subRoute = route.create();
-subRoute('/fruit/apple', () => { /* */ });
+subRoute('/fruit/apple', () => {
+    /* */
+});
 
 /* () */
 route('customers/267393/edit');
@@ -41,14 +42,14 @@ route.base('#!');
 route.base(); // reset
 
 /* parser() */
-route.parser((path) => {
+route.parser(path => {
     const raw = path.slice(2).split('?');
     const uri = raw[0].split('/') as Array<string | { [name: string]: string }>;
     const qs = raw[1];
     const params: { [name: string]: string } = {};
 
     if (qs) {
-        qs.split('&').forEach((v) => {
+        qs.split('&').forEach(v => {
             const c = v.split('=');
             params[c[0]] = c[1];
         });

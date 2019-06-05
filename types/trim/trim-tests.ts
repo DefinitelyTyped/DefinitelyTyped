@@ -1,6 +1,6 @@
-import trim = require("trim");
+import trim = require('trim');
 
-var original: string = "  padded string  ";
+var original: string = '  padded string  ';
 
 trim(original);
 

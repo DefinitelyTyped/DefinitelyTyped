@@ -1,4 +1,4 @@
-import sha256 = require("sha256");
+import sha256 = require('sha256');
 
 const test1: string = sha256('message');
 const test2: number[] = sha256('message', { asBytes: true });

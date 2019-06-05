@@ -5,4 +5,4 @@
 
 declare function prettyBytes(bytes: number): string;
 export = prettyBytes;
-declare namespace prettyBytes { }
+declare namespace prettyBytes {}

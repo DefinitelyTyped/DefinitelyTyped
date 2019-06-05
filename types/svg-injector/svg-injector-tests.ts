@@ -1,4 +1,4 @@
-import svgInjector = require("svg-injector");
+import svgInjector = require('svg-injector');
 
 var SVGInjector: svgInjector.SVGInjector;
 
@@ -13,10 +13,10 @@ SVGInjector(document.querySelector('.inject-me'));
 SVGInjector(mySVGsToInject, {
     evalScripts: 'always',
     pngFallback: './path/to/images/',
-    each: eachCallback
+    each: eachCallback,
 });
-function eachCallback(element: SVGElement) { }
+function eachCallback(element: SVGElement) {}
 
 // Callback
 SVGInjector(mySVGsToInject, null, callback);
-function callback(count: number) { }
+function callback(count: number) {}

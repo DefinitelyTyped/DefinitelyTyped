@@ -36,7 +36,7 @@
 
  =============================================== */
 
-declare module "swagger-jsdoc" {
+declare module 'swagger-jsdoc' {
     function swaggerJSDoc(options?: any): any;
     export = swaggerJSDoc;
 }

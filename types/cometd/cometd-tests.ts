@@ -1,4 +1,4 @@
-import { CometD, Listener, Message, SubscriptionHandle } from "cometd";
+import { CometD, Listener, Message, SubscriptionHandle } from 'cometd';
 import TimeSyncExtension from 'cometd/TimeSyncExtension';
 import AckExtension from 'cometd/AckExtension';
 
@@ -7,31 +7,32 @@ const cometd = new CometD();
 // Configuring
 // ===========
 
-cometd.configure("http://localhost:8080/cometd");
+cometd.configure('http://localhost:8080/cometd');
 
 cometd.configure({
-    url: "http://localhost:8080/cometd"
+    url: 'http://localhost:8080/cometd',
 });
 
-cometd.registerExtension("ack", new AckExtension());
+cometd.registerExtension('ack', new AckExtension());
 
 const timesync = new TimeSyncExtension();
-cometd.registerExtension("timesync", timesync);
+cometd.registerExtension('timesync', timesync);
 
-const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
+const timeSyncSubscription = cometd.addListener('/foo/bar', () => {
     if (timesync.getNetworkLag() > 1000) {
-        cometd.publish("/mychannel", { timesyncStats: {
+        cometd.publish('/mychannel', {
+            timesyncStats: {
                 lag: timesync.getNetworkLag(),
                 serverTime: timesync.getServerTime(),
                 serverDate: timesync.getServerDate(),
                 timeOffset: timesync.getTimeOffset(),
-                timeOffsetSamples: timesync.getTimeOffsetSamples()
-            }
+                timeOffsetSamples: timesync.getTimeOffsetSamples(),
+            },
         });
     }
 });
 
-cometd.unregisterTransport("websocket");
+cometd.unregisterTransport('websocket');
 
 // Handshaking
 // ===========
@@ -43,10 +44,10 @@ cometd.handshake(handshakeReply => {
 });
 
 const additionalInfoHandshake = {
-    "com.acme.credentials": {
-        user: "cometd",
-        token: "xyzsecretabc"
-    }
+    'com.acme.credentials': {
+        user: 'cometd',
+        token: 'xyzsecretabc',
+    },
 };
 cometd.handshake(additionalInfoHandshake, handshakeReply => {
     if (handshakeReply.successful) {
@@ -54,13 +55,13 @@ cometd.handshake(additionalInfoHandshake, handshakeReply => {
     }
 });
 
-cometd.init("http://host1:8080/cometd");
+cometd.init('http://host1:8080/cometd');
 
 // Subscribing and Unsubscribing
 // =============================
 
 cometd.subscribe(
-    "/foo",
+    '/foo',
     message => {},
     subscribeReply => {
         if (subscribeReply.successful) {
@@ -70,24 +71,24 @@ cometd.subscribe(
 );
 
 const additionalInfoSubscribe = {
-    "com.acme.priority": 10
+    'com.acme.priority': 10,
 };
-cometd.subscribe("/foo", message => {}, additionalInfoSubscribe, subscribeReply => {
+cometd.subscribe('/foo', message => {}, additionalInfoSubscribe, subscribeReply => {
     if (subscribeReply.successful) {
         // The server successfully subscribed this client to the "/foo" channel.
     }
 });
 
-const subscription1 = cometd.addListener("/meta/connect", () => {});
-const subscription2 = cometd.subscribe("/foo/bar/", () => {});
+const subscription1 = cometd.addListener('/meta/connect', () => {});
+const subscription2 = cometd.subscribe('/foo/bar/', () => {});
 
 cometd.unsubscribe(subscription2);
 cometd.removeListener(subscription1);
 
-const subscription3 = cometd.subscribe("/foo/bar/", () => {});
+const subscription3 = cometd.subscribe('/foo/bar/', () => {});
 
 const additionalInfoUnsubscribe = {
-    "com.acme.discard": true
+    'com.acme.discard': true,
 };
 cometd.unsubscribe(subscription3, additionalInfoUnsubscribe, unsubscribeReply => {
     // Your logic here.
@@ -98,25 +99,25 @@ cometd.unsubscribe(subscription3, additionalInfoUnsubscribe, unsubscribeReply =>
 
 let _reportListener: SubscriptionHandle | undefined;
 
-cometd.addListener("/meta/handshake", message => {
+cometd.addListener('/meta/handshake', message => {
     // Only subscribe if the handshake is successful
     if (message.successful) {
         // Batch all subscriptions together
         cometd.batch(() => {
             // Correct to subscribe to broadcast channels
-            cometd.subscribe("/members", m => {});
+            cometd.subscribe('/members', m => {});
 
             // Correct to subscribe to service channels
-            cometd.subscribe("/service/status", m => {});
+            cometd.subscribe('/service/status', m => {});
 
             // Messy to add listeners after removal, prefer using cometd.subscribe(...)
             if (_reportListener) {
                 cometd.removeListener(_reportListener);
-                _reportListener = cometd.addListener("/service/report", m => {});
+                _reportListener = cometd.addListener('/service/report', m => {});
             }
 
             // Wrong to add listeners without removal
-            cometd.addListener("/service/notification", m => {});
+            cometd.addListener('/service/notification', m => {});
         });
     }
 });
@@ -128,28 +129,28 @@ let _subscription: SubscriptionHandle | undefined;
 
 class Controller {
     dynamicSubscribe = () => {
-        _subscription = cometd.subscribe("/dynamic", this.onEvent);
-    }
+        _subscription = cometd.subscribe('/dynamic', this.onEvent);
+    };
 
     onEvent = (message: Message) => {
         if (message.successful) {
             // Your logic here.
         }
-    }
+    };
 
     dynamicUnsubscribe = () => {
         if (_subscription) {
             cometd.unsubscribe(_subscription);
             _subscription = undefined;
         }
-    }
+    };
 }
 
-cometd.addListener("/meta/handshake", message => {
+cometd.addListener('/meta/handshake', message => {
     if (message.successful) {
         cometd.batch(() => {
             // Static subscription, no need to remember the subscription handle
-            cometd.subscribe("/static", () => {});
+            cometd.subscribe('/static', () => {});
 
             // Dynamic re-subscription
             if (_subscription) {
@@ -177,7 +178,7 @@ cometd.onListenerException = function(exception, subscriptionHandle, isListener,
 
 let _connected = false;
 
-cometd.addListener("/meta/connect", message => {
+cometd.addListener('/meta/connect', message => {
     if (cometd.isDisconnected()) {
         return;
     }
@@ -191,7 +192,7 @@ cometd.addListener("/meta/connect", message => {
     }
 });
 
-cometd.addListener("/meta/disconnect", message => {
+cometd.addListener('/meta/disconnect', message => {
     if (message.successful) {
         _connected = false;
     }
@@ -200,9 +201,9 @@ cometd.addListener("/meta/disconnect", message => {
 // Publishing
 // ==========
 
-cometd.publish("/mychannel", { mydata: { foo: "bar" } });
+cometd.publish('/mychannel', { mydata: { foo: 'bar' } });
 
-cometd.publish("/mychannel", { mydata: { foo: "bar" } }, publishAck => {
+cometd.publish('/mychannel', { mydata: { foo: 'bar' } }, publishAck => {
     if (publishAck.successful) {
         // The message reached the server
     }
@@ -222,7 +223,7 @@ view.setUint8(2, 0xba);
 view.setUint8(3, 0xbe);
 
 // Send it.
-cometd.publishBinary("/binary", view, true, { prolog: "java" });
+cometd.publishBinary('/binary', view, true, { prolog: 'java' });
 
 // Disconnecting
 // =============
@@ -234,7 +235,7 @@ cometd.disconnect(disconnectReply => {
 });
 
 const additionalInfoDisconnect = {
-    "com.acme.reset": false
+    'com.acme.reset': false,
 };
 cometd.disconnect(additionalInfoDisconnect, disconnectReply => {
     if (disconnectReply.successful) {
@@ -246,14 +247,14 @@ cometd.disconnect(additionalInfoDisconnect, disconnectReply => {
 // ================
 
 cometd.batch(() => {
-    cometd.publish("/channel1", { product: "foo" });
-    cometd.publish("/channel2", { notificationType: "all" });
-    cometd.publish("/channel3", { update: false });
+    cometd.publish('/channel1', { product: 'foo' });
+    cometd.publish('/channel2', { notificationType: 'all' });
+    cometd.publish('/channel3', { update: false });
 });
 
 // Alternatively, but not recommended:
 cometd.startBatch();
-cometd.publish("/channel1", { product: "foo" });
-cometd.publish("/channel2", { notificationType: "all" });
-cometd.publish("/channel3", { update: false });
+cometd.publish('/channel1', { product: 'foo' });
+cometd.publish('/channel2', { notificationType: 'all' });
+cometd.publish('/channel3', { update: false });
 cometd.endBatch();

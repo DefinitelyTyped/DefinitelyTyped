@@ -19,12 +19,7 @@ export interface Task<T = unknown> {
     result: Promise<T>;
 }
 
-export type State =
-    | 'cancelled'
-    | 'completed'
-    | 'fulfilled'
-    | 'pending'
-    | 'scheduled';
+export type State = 'cancelled' | 'completed' | 'fulfilled' | 'pending' | 'scheduled';
 
 export default TaskQueue;
 export as namespace TaskQueue;

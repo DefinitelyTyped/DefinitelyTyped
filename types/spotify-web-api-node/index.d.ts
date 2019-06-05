@@ -36,14 +36,28 @@ declare class SpotifyWebApi {
     getTrack(trackId: string, options: MarketOptions, callback: Callback<SpotifyApi.SingleTrackResponse>): void;
     getTrack(trackId: string, options?: MarketOptions): Promise<Response<SpotifyApi.SingleTrackResponse>>;
 
-    getTracks(trackIds: ReadonlyArray<string>, options: MarketOptions, callback: Callback<SpotifyApi.MultipleTracksResponse>): void;
-    getTracks(trackIds: ReadonlyArray<string>, options?: MarketOptions): Promise<Response<SpotifyApi.MultipleTracksResponse>>;
+    getTracks(
+        trackIds: ReadonlyArray<string>,
+        options: MarketOptions,
+        callback: Callback<SpotifyApi.MultipleTracksResponse>
+    ): void;
+    getTracks(
+        trackIds: ReadonlyArray<string>,
+        options?: MarketOptions
+    ): Promise<Response<SpotifyApi.MultipleTracksResponse>>;
 
     getAlbum(albumId: string, options: MarketOptions, callback: Callback<SpotifyApi.SingleAlbumResponse>): void;
     getAlbum(albumId: string, options?: MarketOptions): Promise<Response<SpotifyApi.SingleAlbumResponse>>;
 
-    getAlbums(albumIds: ReadonlyArray<string>, options: MarketOptions, callback: Callback<SpotifyApi.MultipleAlbumsResponse>): void;
-    getAlbums(albumIds: ReadonlyArray<string>, options?: MarketOptions): Promise<Response<SpotifyApi.MultipleAlbumsResponse>>;
+    getAlbums(
+        albumIds: ReadonlyArray<string>,
+        options: MarketOptions,
+        callback: Callback<SpotifyApi.MultipleAlbumsResponse>
+    ): void;
+    getAlbums(
+        albumIds: ReadonlyArray<string>,
+        options?: MarketOptions
+    ): Promise<Response<SpotifyApi.MultipleAlbumsResponse>>;
 
     getArtist(artistId: string, callback: Callback<SpotifyApi.SingleArtistResponse>): void;
     getArtist(artistId: string): Promise<Response<SpotifyApi.SingleArtistResponse>>;
@@ -51,8 +65,17 @@ declare class SpotifyWebApi {
     getArtists(artistIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.MultipleArtistsResponse>): void;
     getArtists(artistIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.MultipleArtistsResponse>>;
 
-    search(query: string, types: ReadonlyArray<SearchType>, options: SearchOptions, callback: Callback<SpotifyApi.SearchResponse>): void;
-    search(query: string, types: ReadonlyArray<SearchType>, options?: SearchOptions): Promise<Response<SpotifyApi.SearchResponse>>;
+    search(
+        query: string,
+        types: ReadonlyArray<SearchType>,
+        options: SearchOptions,
+        callback: Callback<SpotifyApi.SearchResponse>
+    ): void;
+    search(
+        query: string,
+        types: ReadonlyArray<SearchType>,
+        options?: SearchOptions
+    ): Promise<Response<SpotifyApi.SearchResponse>>;
 
     searchAlbums(query: string, options: SearchOptions, callback: Callback<SpotifyApi.SearchResponse>): void;
     searchAlbums(query: string, options?: SearchOptions): Promise<Response<SpotifyApi.SearchResponse>>;
@@ -66,13 +89,31 @@ declare class SpotifyWebApi {
     searchPlaylists(query: string, options: SearchOptions, callback: Callback<SpotifyApi.SearchResponse>): void;
     searchPlaylists(query: string, options?: SearchOptions): Promise<Response<SpotifyApi.SearchResponse>>;
 
-    getArtistAlbums(artistId: string, options: GetArtistAlbumsOptions, callback: Callback<SpotifyApi.ArtistsAlbumsResponse>): void;
-    getArtistAlbums(artistId: string, options?: GetArtistAlbumsOptions): Promise<Response<SpotifyApi.ArtistsAlbumsResponse>>;
+    getArtistAlbums(
+        artistId: string,
+        options: GetArtistAlbumsOptions,
+        callback: Callback<SpotifyApi.ArtistsAlbumsResponse>
+    ): void;
+    getArtistAlbums(
+        artistId: string,
+        options?: GetArtistAlbumsOptions
+    ): Promise<Response<SpotifyApi.ArtistsAlbumsResponse>>;
 
-    getAlbumTracks(albumId: string, options: PaginationMarketOptions, callback: Callback<SpotifyApi.AlbumTracksResponse>): void;
-    getAlbumTracks(albumId: string, options?: PaginationMarketOptions): Promise<Response<SpotifyApi.AlbumTracksResponse>>;
+    getAlbumTracks(
+        albumId: string,
+        options: PaginationMarketOptions,
+        callback: Callback<SpotifyApi.AlbumTracksResponse>
+    ): void;
+    getAlbumTracks(
+        albumId: string,
+        options?: PaginationMarketOptions
+    ): Promise<Response<SpotifyApi.AlbumTracksResponse>>;
 
-    getArtistTopTracks(artistId: string, country: string, callback: Callback<SpotifyApi.ArtistsTopTracksResponse>): void;
+    getArtistTopTracks(
+        artistId: string,
+        country: string,
+        callback: Callback<SpotifyApi.ArtistsTopTracksResponse>
+    ): void;
     getArtistTopTracks(artistId: string, country: string): Promise<Response<SpotifyApi.ArtistsTopTracksResponse>>;
 
     getArtistRelatedArtists(artistId: string, callback: Callback<SpotifyApi.ArtistsRelatedArtistsResponse>): void;
@@ -84,46 +125,136 @@ declare class SpotifyWebApi {
     getMe(callback: Callback<SpotifyApi.CurrentUsersProfileResponse>): void;
     getMe(): Promise<Response<SpotifyApi.CurrentUsersProfileResponse>>;
 
-    getUserPlaylists(userId: string, options: PaginationOptions, callback: Callback<SpotifyApi.ListOfUsersPlaylistsResponse>): void;
+    getUserPlaylists(
+        userId: string,
+        options: PaginationOptions,
+        callback: Callback<SpotifyApi.ListOfUsersPlaylistsResponse>
+    ): void;
     getUserPlaylists(options: PaginationOptions, callback: Callback<SpotifyApi.ListOfUsersPlaylistsResponse>): void;
-    getUserPlaylists(userId: string, options?: PaginationOptions): Promise<Response<SpotifyApi.ListOfUsersPlaylistsResponse>>;
+    getUserPlaylists(
+        userId: string,
+        options?: PaginationOptions
+    ): Promise<Response<SpotifyApi.ListOfUsersPlaylistsResponse>>;
     getUserPlaylists(options?: PaginationOptions): Promise<Response<SpotifyApi.ListOfUsersPlaylistsResponse>>;
 
-    getPlaylist(playlistId: string, options: GetPlaylistOptions, callback: Callback<SpotifyApi.SinglePlaylistResponse>): void;
+    getPlaylist(
+        playlistId: string,
+        options: GetPlaylistOptions,
+        callback: Callback<SpotifyApi.SinglePlaylistResponse>
+    ): void;
     getPlaylist(playlistId: string, options?: GetPlaylistOptions): Promise<Response<SpotifyApi.SinglePlaylistResponse>>;
 
-    getPlaylistTracks(playlistId: string, options: GetPlaylistTracksOptions, callback: Callback<SpotifyApi.PlaylistTrackResponse>): void;
-    getPlaylistTracks(playlistId: string, options?: GetPlaylistTracksOptions): Promise<Response<SpotifyApi.PlaylistTrackResponse>>;
+    getPlaylistTracks(
+        playlistId: string,
+        options: GetPlaylistTracksOptions,
+        callback: Callback<SpotifyApi.PlaylistTrackResponse>
+    ): void;
+    getPlaylistTracks(
+        playlistId: string,
+        options?: GetPlaylistTracksOptions
+    ): Promise<Response<SpotifyApi.PlaylistTrackResponse>>;
 
-    createPlaylist(userId: string, playlistName: string, options: PlaylistDetailsOptions, callback: Callback<SpotifyApi.CreatePlaylistResponse>): void;
-    createPlaylist(userId: string, playlistName: string, options?: PlaylistDetailsOptions): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
+    createPlaylist(
+        userId: string,
+        playlistName: string,
+        options: PlaylistDetailsOptions,
+        callback: Callback<SpotifyApi.CreatePlaylistResponse>
+    ): void;
+    createPlaylist(
+        userId: string,
+        playlistName: string,
+        options?: PlaylistDetailsOptions
+    ): Promise<Response<SpotifyApi.CreatePlaylistResponse>>;
 
-    followPlaylist(playlistId: string, options: PublicOptions, callback: Callback<SpotifyApi.FollowPlaylistReponse>): void;
+    followPlaylist(
+        playlistId: string,
+        options: PublicOptions,
+        callback: Callback<SpotifyApi.FollowPlaylistReponse>
+    ): void;
     followPlaylist(playlistId: string, options?: PublicOptions): Promise<Response<SpotifyApi.FollowPlaylistReponse>>;
 
     unfollowPlaylist(playlistId: string, callback: Callback<SpotifyApi.UnfollowPlaylistReponse>): void;
     unfollowPlaylist(playlistId: string): Promise<Response<SpotifyApi.UnfollowPlaylistReponse>>;
 
-    changePlaylistDetails(playlistId: string, options: ChangePlaylistOptions, callback: Callback<SpotifyApi.ChangePlaylistDetailsReponse>): void;
-    changePlaylistDetails(playlistId: string, options?: ChangePlaylistOptions): Promise<Response<SpotifyApi.ChangePlaylistDetailsReponse>>;
+    changePlaylistDetails(
+        playlistId: string,
+        options: ChangePlaylistOptions,
+        callback: Callback<SpotifyApi.ChangePlaylistDetailsReponse>
+    ): void;
+    changePlaylistDetails(
+        playlistId: string,
+        options?: ChangePlaylistOptions
+    ): Promise<Response<SpotifyApi.ChangePlaylistDetailsReponse>>;
 
-    uploadCustomPlaylistCoverImage(playlistId: string, base64URI: string, callback: Callback<SpotifyApi.UploadCustomPlaylistCoverImageReponse>): void;
-    uploadCustomPlaylistCoverImage(playlistId: string, base64URI: string): Promise<Response<SpotifyApi.UploadCustomPlaylistCoverImageReponse>>;
+    uploadCustomPlaylistCoverImage(
+        playlistId: string,
+        base64URI: string,
+        callback: Callback<SpotifyApi.UploadCustomPlaylistCoverImageReponse>
+    ): void;
+    uploadCustomPlaylistCoverImage(
+        playlistId: string,
+        base64URI: string
+    ): Promise<Response<SpotifyApi.UploadCustomPlaylistCoverImageReponse>>;
 
-    addTracksToPlaylist(playlistId: string, tracks: ReadonlyArray<string>, options: PositionOptions, callback: Callback<SpotifyApi.AddTracksToPlaylistResponse>): void;
-    addTracksToPlaylist(playlistId: string, tracks: ReadonlyArray<string>, options?: PositionOptions): Promise<Response<SpotifyApi.AddTracksToPlaylistResponse>>;
+    addTracksToPlaylist(
+        playlistId: string,
+        tracks: ReadonlyArray<string>,
+        options: PositionOptions,
+        callback: Callback<SpotifyApi.AddTracksToPlaylistResponse>
+    ): void;
+    addTracksToPlaylist(
+        playlistId: string,
+        tracks: ReadonlyArray<string>,
+        options?: PositionOptions
+    ): Promise<Response<SpotifyApi.AddTracksToPlaylistResponse>>;
 
-    removeTracksFromPlaylist(playlistId: string, tracks: ReadonlyArray<Track>, options: SnapshotOptions, callback: Callback<SpotifyApi.RemoveTracksFromPlaylistResponse>): void;
-    removeTracksFromPlaylist(playlistId: string, tracks: ReadonlyArray<Track>, options?: SnapshotOptions): Promise<Response<SpotifyApi.RemoveTracksFromPlaylistResponse>>;
+    removeTracksFromPlaylist(
+        playlistId: string,
+        tracks: ReadonlyArray<Track>,
+        options: SnapshotOptions,
+        callback: Callback<SpotifyApi.RemoveTracksFromPlaylistResponse>
+    ): void;
+    removeTracksFromPlaylist(
+        playlistId: string,
+        tracks: ReadonlyArray<Track>,
+        options?: SnapshotOptions
+    ): Promise<Response<SpotifyApi.RemoveTracksFromPlaylistResponse>>;
 
-    removeTracksFromPlaylistByPosition(playlistId: string, positions: ReadonlyArray<number>, snapshotId: string, callback: Callback<SpotifyApi.RemoveTracksFromPlaylistResponse>): void;
-    removeTracksFromPlaylistByPosition(playlistId: string, positions: ReadonlyArray<number>, snapshotId: string): Promise<Response<SpotifyApi.RemoveTracksFromPlaylistResponse>>;
+    removeTracksFromPlaylistByPosition(
+        playlistId: string,
+        positions: ReadonlyArray<number>,
+        snapshotId: string,
+        callback: Callback<SpotifyApi.RemoveTracksFromPlaylistResponse>
+    ): void;
+    removeTracksFromPlaylistByPosition(
+        playlistId: string,
+        positions: ReadonlyArray<number>,
+        snapshotId: string
+    ): Promise<Response<SpotifyApi.RemoveTracksFromPlaylistResponse>>;
 
-    replaceTracksInPlaylist(playlistId: string, uris: ReadonlyArray<string>, callback: Callback<SpotifyApi.ReplacePlaylistTracksResponse>): void;
-    replaceTracksInPlaylist(playlistId: string, uris: ReadonlyArray<string>): Promise<Response<SpotifyApi.ReplacePlaylistTracksResponse>>;
+    replaceTracksInPlaylist(
+        playlistId: string,
+        uris: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.ReplacePlaylistTracksResponse>
+    ): void;
+    replaceTracksInPlaylist(
+        playlistId: string,
+        uris: ReadonlyArray<string>
+    ): Promise<Response<SpotifyApi.ReplacePlaylistTracksResponse>>;
 
-    reorderTracksInPlaylist(playlistId: string, rangeStart: number, insertBefore: number, options: ReorderPlaylistTracksOptions, callback: Callback<SpotifyApi.ReorderPlaylistTracksResponse>): void;
-    reorderTracksInPlaylist(playlistId: string, rangeStart: number, insertBefore: number, options?: ReorderPlaylistTracksOptions): Promise<Response<SpotifyApi.ReorderPlaylistTracksResponse>>;
+    reorderTracksInPlaylist(
+        playlistId: string,
+        rangeStart: number,
+        insertBefore: number,
+        options: ReorderPlaylistTracksOptions,
+        callback: Callback<SpotifyApi.ReorderPlaylistTracksResponse>
+    ): void;
+    reorderTracksInPlaylist(
+        playlistId: string,
+        rangeStart: number,
+        insertBefore: number,
+        options?: ReorderPlaylistTracksOptions
+    ): Promise<Response<SpotifyApi.ReorderPlaylistTracksResponse>>;
 
     getAudioFeaturesForTrack(trackId: string, callback: Callback<SpotifyApi.AudioFeaturesResponse>): void;
     getAudioFeaturesForTrack(trackId: string): Promise<Response<SpotifyApi.AudioFeaturesResponse>>;
@@ -131,27 +262,48 @@ declare class SpotifyWebApi {
     getAudioAnalysisForTrack(trackId: string, callback: Callback<SpotifyApi.AudioAnalysisResponse>): void;
     getAudioAnalysisForTrack(trackId: string): Promise<Response<SpotifyApi.AudioAnalysisResponse>>;
 
-    getAudioFeaturesForTracks(trackIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.MultipleAudioFeaturesResponse>): void;
-    getAudioFeaturesForTracks(trackIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.MultipleAudioFeaturesResponse>>;
+    getAudioFeaturesForTracks(
+        trackIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.MultipleAudioFeaturesResponse>
+    ): void;
+    getAudioFeaturesForTracks(
+        trackIds: ReadonlyArray<string>
+    ): Promise<Response<SpotifyApi.MultipleAudioFeaturesResponse>>;
 
-    getRecommendations(options: GetRecommendationsOptions, callback: Callback<SpotifyApi.RecommendationsFromSeedsResponse>): void;
-    getRecommendations(options?: GetRecommendationsOptions): Promise<Response<SpotifyApi.RecommendationsFromSeedsResponse>>;
+    getRecommendations(
+        options: GetRecommendationsOptions,
+        callback: Callback<SpotifyApi.RecommendationsFromSeedsResponse>
+    ): void;
+    getRecommendations(
+        options?: GetRecommendationsOptions
+    ): Promise<Response<SpotifyApi.RecommendationsFromSeedsResponse>>;
 
     createAuthorizeURL(scopes: ReadonlyArray<string>, state: string, showDialog?: boolean): string;
 
     getMySavedTracks(options: PaginationMarketOptions, callback: Callback<SpotifyApi.UsersSavedTracksResponse>): void;
     getMySavedTracks(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.UsersSavedTracksResponse>>;
 
-    containsMySavedTracks(trackIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.CheckUsersSavedTracksResponse>): void;
+    containsMySavedTracks(
+        trackIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.CheckUsersSavedTracksResponse>
+    ): void;
     containsMySavedTracks(trackIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.CheckUsersSavedTracksResponse>>;
 
-    removeFromMySavedTracks(trackIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.RemoveUsersSavedTracksResponse>): void;
-    removeFromMySavedTracks(trackIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.RemoveUsersSavedTracksResponse>>;
+    removeFromMySavedTracks(
+        trackIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.RemoveUsersSavedTracksResponse>
+    ): void;
+    removeFromMySavedTracks(
+        trackIds: ReadonlyArray<string>
+    ): Promise<Response<SpotifyApi.RemoveUsersSavedTracksResponse>>;
 
     addToMySavedTracks(trackIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.SaveTracksForUserResponse>): void;
     addToMySavedTracks(trackIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.SaveTracksForUserResponse>>;
 
-    removeFromMySavedAlbums(albumIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.RemoveAlbumsForUserResponse>): void;
+    removeFromMySavedAlbums(
+        albumIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.RemoveAlbumsForUserResponse>
+    ): void;
     removeFromMySavedAlbums(albumIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.RemoveAlbumsForUserResponse>>;
 
     addToMySavedAlbums(albumIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.SaveAlbumsForUserResponse>): void;
@@ -160,7 +312,10 @@ declare class SpotifyWebApi {
     getMySavedAlbums(options: PaginationMarketOptions, callback: Callback<SpotifyApi.UsersSavedAlbumsResponse>): void;
     getMySavedAlbums(options?: PaginationMarketOptions): Promise<Response<SpotifyApi.UsersSavedAlbumsResponse>>;
 
-    containsMySavedAlbums(albumIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.CheckUserSavedAlbumsResponse>): void;
+    containsMySavedAlbums(
+        albumIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.CheckUserSavedAlbumsResponse>
+    ): void;
     containsMySavedAlbums(albumIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.CheckUserSavedAlbumsResponse>>;
 
     getMyTopArtists(options: GetTopOptions, callback: Callback<SpotifyApi.UsersTopArtistsResponse>): void;
@@ -169,8 +324,13 @@ declare class SpotifyWebApi {
     getMyTopTracks(options: GetTopOptions, callback: Callback<SpotifyApi.UsersTopTracksResponse>): void;
     getMyTopTracks(options?: GetTopOptions): Promise<Response<SpotifyApi.UsersTopTracksResponse>>;
 
-    getMyRecentlyPlayedTracks(options: BeforeOptions | AfterOptions, callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>): void;
-    getMyRecentlyPlayedTracks(options?: BeforeOptions | AfterOptions): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
+    getMyRecentlyPlayedTracks(
+        options: BeforeOptions | AfterOptions,
+        callback: Callback<SpotifyApi.UsersRecentlyPlayedTracksResponse>
+    ): void;
+    getMyRecentlyPlayedTracks(
+        options?: BeforeOptions | AfterOptions
+    ): Promise<Response<SpotifyApi.UsersRecentlyPlayedTracksResponse>>;
 
     getMyDevices(callback: Callback<SpotifyApi.UserDevicesResponse>): void;
     getMyDevices(): Promise<Response<SpotifyApi.UserDevicesResponse>>;
@@ -220,32 +380,65 @@ declare class SpotifyWebApi {
     unfollowArtists(artistIds: ReadonlyArray<string>, callback: Callback<void>): void;
     unfollowArtists(artistIds: ReadonlyArray<string>): Promise<Response<void>>;
 
-    isFollowingUsers(userIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.UserFollowsUsersOrArtistsResponse>): void;
+    isFollowingUsers(
+        userIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.UserFollowsUsersOrArtistsResponse>
+    ): void;
     isFollowingUsers(userIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.UserFollowsUsersOrArtistsResponse>>;
 
     getFollowedArtists(options: AfterOptions, callback: Callback<SpotifyApi.UsersFollowedArtistsResponse>): void;
     getFollowedArtists(options?: AfterOptions): Promise<Response<SpotifyApi.UsersFollowedArtistsResponse>>;
 
-    areFollowingPlaylist(userId: string, playlistId: string, followerIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.UsersFollowPlaylistReponse>): void;
-    areFollowingPlaylist(userId: string, playlistId: string, followerIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.UsersFollowPlaylistReponse>>;
+    areFollowingPlaylist(
+        userId: string,
+        playlistId: string,
+        followerIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.UsersFollowPlaylistReponse>
+    ): void;
+    areFollowingPlaylist(
+        userId: string,
+        playlistId: string,
+        followerIds: ReadonlyArray<string>
+    ): Promise<Response<SpotifyApi.UsersFollowPlaylistReponse>>;
 
-    isFollowingArtists(artistIds: ReadonlyArray<string>, callback: Callback<SpotifyApi.UserFollowsUsersOrArtistsResponse>): void;
-    isFollowingArtists(artistIds: ReadonlyArray<string>): Promise<Response<SpotifyApi.UserFollowsUsersOrArtistsResponse>>;
+    isFollowingArtists(
+        artistIds: ReadonlyArray<string>,
+        callback: Callback<SpotifyApi.UserFollowsUsersOrArtistsResponse>
+    ): void;
+    isFollowingArtists(
+        artistIds: ReadonlyArray<string>
+    ): Promise<Response<SpotifyApi.UserFollowsUsersOrArtistsResponse>>;
 
     getNewReleases(options: PaginationCountryOptions, callback: Callback<SpotifyApi.ListOfNewReleasesResponse>): void;
     getNewReleases(options?: PaginationCountryOptions): Promise<Response<SpotifyApi.ListOfNewReleasesResponse>>;
 
-    getFeaturedPlaylists(options: GetFeaturedPlaylistsOptions, callback: Callback<SpotifyApi.ListOfFeaturedPlaylistsResponse>): void;
-    getFeaturedPlaylists(options?: GetFeaturedPlaylistsOptions): Promise<Response<SpotifyApi.ListOfFeaturedPlaylistsResponse>>;
+    getFeaturedPlaylists(
+        options: GetFeaturedPlaylistsOptions,
+        callback: Callback<SpotifyApi.ListOfFeaturedPlaylistsResponse>
+    ): void;
+    getFeaturedPlaylists(
+        options?: GetFeaturedPlaylistsOptions
+    ): Promise<Response<SpotifyApi.ListOfFeaturedPlaylistsResponse>>;
 
     getCategories(options: PaginationLocaleOptions, callback: Callback<SpotifyApi.MultipleCategoriesResponse>): void;
     getCategories(options?: PaginationLocaleOptions): Promise<Response<SpotifyApi.MultipleCategoriesResponse>>;
 
-    getCategory(categoryId: string, options: LocaleOptions, callback: Callback<SpotifyApi.SingleCategoryResponse>): void;
+    getCategory(
+        categoryId: string,
+        options: LocaleOptions,
+        callback: Callback<SpotifyApi.SingleCategoryResponse>
+    ): void;
     getCategory(categoryId: string, options?: LocaleOptions): Promise<Response<SpotifyApi.SingleCategoryResponse>>;
 
-    getPlaylistsForCategory(categoryId: string, options: PaginationCountryOptions, callback: Callback<SpotifyApi.CategoryPlaylistsReponse>): void;
-    getPlaylistsForCategory(categoryId: string, options?: PaginationCountryOptions): Promise<Response<SpotifyApi.CategoryPlaylistsReponse>>;
+    getPlaylistsForCategory(
+        categoryId: string,
+        options: PaginationCountryOptions,
+        callback: Callback<SpotifyApi.CategoryPlaylistsReponse>
+    ): void;
+    getPlaylistsForCategory(
+        categoryId: string,
+        options?: PaginationCountryOptions
+    ): Promise<Response<SpotifyApi.CategoryPlaylistsReponse>>;
 
     clientCredentialsGrant(options: {}, callback: Callback<ClientCredentialsGrantResponse>): void;
     clientCredentialsGrant(options?: {}): Promise<Response<ClientCredentialsGrantResponse>>;

@@ -1,4 +1,4 @@
-import radix64 = require("radix64");
+import radix64 = require('radix64');
 
 const num: string = radix64.radix64(42);
 

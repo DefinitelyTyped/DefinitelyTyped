@@ -5,7 +5,7 @@
  */
 declare const end: <T extends Element = Element>(
     element: T,
-    handler: (event: { target: T, currentTarget: T }) => void,
+    handler: (event: { target: T; currentTarget: T }) => void,
     duration?: number
 ) => void;
 

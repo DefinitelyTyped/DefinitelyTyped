@@ -1,6 +1,6 @@
-import * as url from "url";
-import * as React from "react";
-import { UrlLike } from "./router";
+import * as url from 'url';
+import * as React from 'react';
+import { UrlLike } from './router';
 
 export interface LinkProps {
     prefetch?: boolean;

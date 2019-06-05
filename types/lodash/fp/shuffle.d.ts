@@ -1,2 +1,2 @@
-import { shuffle } from "../fp";
+import { shuffle } from '../fp';
 export = shuffle;

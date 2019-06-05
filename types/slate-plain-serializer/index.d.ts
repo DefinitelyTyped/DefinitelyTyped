@@ -13,8 +13,8 @@ export interface DeserializeOptions {
 }
 
 declare namespace Plain {
-  function deserialize(string: string, options?: DeserializeOptions): Value;
-  function serialize(value: Value): string;
+    function deserialize(string: string, options?: DeserializeOptions): Value;
+    function serialize(value: Value): string;
 }
 
 export default Plain;

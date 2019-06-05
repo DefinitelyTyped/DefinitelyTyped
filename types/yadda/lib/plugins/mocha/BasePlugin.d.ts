@@ -1,6 +1,6 @@
 /// <reference types="mocha" />
 
-import { Feature, Scenario } from "../..";
+import { Feature, Scenario } from '../..';
 
 declare global {
     function featureFile(file: string, iterator: (feature: Feature) => void): void;

@@ -1,5 +1,3 @@
-
-
 import pluralize = require('pluralize');
 
 pluralize('test'); //=> "tests"
@@ -24,8 +22,8 @@ pluralize.plural('paper'); //=> "papers"
 pluralize.addUncountableRule('paper');
 pluralize.plural('paper'); //=> "paper"
 
-pluralize.isPlural('test') //=> false
-pluralize.isSingular('test') //=> true
+pluralize.isPlural('test'); //=> false
+pluralize.isSingular('test'); //=> true
 
-pluralize.isPlural('tests') //=> true
-pluralize.isSingular('tests') //=> false
+pluralize.isPlural('tests'); //=> true
+pluralize.isSingular('tests'); //=> false

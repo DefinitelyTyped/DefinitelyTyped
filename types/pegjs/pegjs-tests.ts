@@ -9,10 +9,9 @@ import * as pegjs from 'pegjs';
     let pegparser: pegjs.Parser = pegjs.generate("start = ('a' / 'b')+");
 
     try {
-        let result: string = pegparser.parse("abba");
+        let result: string = pegparser.parse('abba');
     } catch (error) {
         if (error instanceof pegparser.SyntaxError) {
-            
         }
     }
 }
@@ -20,26 +19,26 @@ import * as pegjs from 'pegjs';
 {
     let parser = pegjs.generate("A = 'test'", {
         cache: true,
-        allowedStartRules: ["A"],
-        optimize: "speed",
-        plugins: []
-    })
+        allowedStartRules: ['A'],
+        optimize: 'speed',
+        plugins: [],
+    });
 }
 
 {
     let parser: pegjs.Parser = pegjs.generate('start = "a" { return options; }');
-    let parsed: any = parser.parse("a", {a: 42});
+    let parsed: any = parser.parse('a', { a: 42 });
 }
 
 try {
-    let source: string = pegjs.generate("A = 'test'", {output: "source"});
+    let source: string = pegjs.generate("A = 'test'", { output: 'source' });
 } catch (error) {
     if (error instanceof pegjs.GrammarError) {
         let e: pegjs.GrammarError = error;
     } else if (error instanceof pegjs.parser.SyntaxError) {
         let e: pegjs.parser.SyntaxError = error;
     }
-    
+
     let e: pegjs.PegjsError = error;
     console.log(e.expected[0].description);
     console.log(e.expected[0].type);

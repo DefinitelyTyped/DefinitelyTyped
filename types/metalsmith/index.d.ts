@@ -5,7 +5,7 @@
 // TypeScript Version: 3.1
 
 /// <reference types="node" />
-import { Stats } from "fs";
+import { Stats } from 'fs';
 interface Metalsmith {
     /**
      * Set the path of the `working` directory.
@@ -322,12 +322,12 @@ interface Metalsmith {
 declare function Metalsmith(directory: string): Metalsmith;
 
 declare namespace Metalsmith {
-    type Plugin = (files: Files, metalsmith: Metalsmith, callback: Callback)  => void;
+    type Plugin = (files: Files, metalsmith: Metalsmith, callback: Callback) => void;
     type Callback = (err: Error | null, files: Files, metalsmith: Metalsmith) => void;
     type Ignore = (path: string, stat: Stats) => void;
 
     interface Files {
-      [index: string]: any;
+        [index: string]: any;
     }
 }
 

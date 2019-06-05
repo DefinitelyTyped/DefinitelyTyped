@@ -38,10 +38,6 @@ interface Options<T> {
  * @param options - Some options to configure the sorter
  * @return the new sorted array
  */
-declare function matchSorter<T>(
-    items: ReadonlyArray<T>,
-    value: string,
-    options?: Options<T>
-): T[];
+declare function matchSorter<T>(items: ReadonlyArray<T>, value: string, options?: Options<T>): T[];
 
 export = matchSorter;

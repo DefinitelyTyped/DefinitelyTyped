@@ -335,7 +335,7 @@ declare namespace asana {
             auth: {
                 username: string;
                 password: string;
-            }
+            };
         }
 
         var OauthAuthenticator: OauthAuthenticatorStatic;
@@ -386,7 +386,7 @@ declare namespace asana {
              */
             headers: {
                 Authorization: string;
-            }
+            };
         }
 
         /**
@@ -517,8 +517,7 @@ declare namespace asana {
             error_description?: string;
         }
 
-        interface OauthError extends Error {
-        }
+        interface OauthError extends Error {}
 
         /**
          * Auto-detects the type of Oauth flow to use that's appropriate to the
@@ -544,8 +543,7 @@ declare namespace asana {
             new (options: any): RedirectFlow;
         }
 
-        interface RedirectFlow extends BaseBrowserFlow {
-        }
+        interface RedirectFlow extends BaseBrowserFlow {}
 
         var PopupFlow: PopupFlowStatic;
 
@@ -732,7 +730,6 @@ declare namespace asana {
             constructor(value: any);
         }
 
-
         class InvalidRequest extends AsanaError {
             /**
              * @param value
@@ -828,7 +825,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Attachments.Type>>;
+            findByTask(
+                task: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Attachments.Type>>;
         }
 
         interface EventsStatic {
@@ -870,7 +871,7 @@ declare namespace asana {
          * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Events extends Resource { }
+        interface Events extends Resource {}
 
         interface ProjectsStatic {
             /**
@@ -983,7 +984,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInWorkspace(workspace: number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            createInWorkspace(
+                workspace: number,
+                data: Projects.CreateParams,
+                dispatchOptions?: any
+            ): Promise<Projects.Type>;
 
             /**
              * * Creates a project shared with the given team.
@@ -1077,7 +1082,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByWorkspace(workspace: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
+            findByWorkspace(
+                workspace: number,
+                params?: Projects.FindByParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Returns the compact project records for all projects in the team.
@@ -1092,7 +1101,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTeam(team: number, params?: Projects.FindByParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
+            findByTeam(
+                team: number,
+                params?: Projects.FindByParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Returns compact records for all sections in the specified project.
@@ -1105,7 +1118,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            sections(project: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            sections(
+                project: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * Returns the compact task records for all tasks within the given project,
@@ -1135,7 +1152,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            addFollowers(project: number, data: Projects.FollowersParams, dispatchOptions?: any): Promise<Projects.Type>;
+            addFollowers(
+                project: number,
+                data: Projects.FollowersParams,
+                dispatchOptions?: any
+            ): Promise<Projects.Type>;
 
             /**
              * * Removes the specified list of users from following the project, this will not affect project membership status.
@@ -1150,7 +1171,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            removeFollowers(project: number, data: Projects.FollowersParams, dispatchOptions?: any): Promise<Projects.Type>;
+            removeFollowers(
+                project: number,
+                data: Projects.FollowersParams,
+                dispatchOptions?: any
+            ): Promise<Projects.Type>;
 
             /**
              * * Adds the specified list of users as members of the project. Returns the updated project record.
@@ -1229,7 +1254,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByTask(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Stories.Type>>;
+            findByTask(
+                task: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Stories.Type>>;
 
             /**
              * * Returns the full record for a single story.
@@ -1412,7 +1441,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByWorkspace(workspace: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tags.Type>>;
+            findByWorkspace(
+                workspace: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Tags.Type>>;
 
             /**
              * * Returns the compact task records for all tasks with the given tag.
@@ -1426,7 +1459,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            getTasksWithTag(tag: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            getTasksWithTag(
+                tag: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Tasks.Type>>;
         }
 
         interface TasksStatic {
@@ -1605,7 +1642,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByProject(projectId: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Tasks.Type>>;
+            findByProject(
+                projectId: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Tasks.Type>>;
 
             /**
              * * Returns the compact task records for all tasks with the given tag.
@@ -1678,7 +1719,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            projects(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Projects.Type>>;
+            projects(
+                task: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Projects.Type>>;
 
             /**
              * * Adds the task to the specified project, in the optional location
@@ -1803,7 +1848,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            stories(task: number, params?: PaginationParams, dispatchOptions?: any): Promise<ResourceList<Stories.Type>>;
+            stories(
+                task: number,
+                params?: PaginationParams,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Stories.Type>>;
 
             /**
              * * Adds a comment to a task. The comment will be authored by the
@@ -1871,7 +1920,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByOrganization(organization: number, params?: Params, dispatchOptions?: any): Promise<SimpleResourceList>;
+            findByOrganization(
+                organization: number,
+                params?: Params,
+                dispatchOptions?: any
+            ): Promise<SimpleResourceList>;
 
             /**
              * * Returns the compact records for all users that are members of the team.
@@ -1993,7 +2046,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            findByWorkspace(workspace: number, params?: Params, dispatchOptions?: any): Promise<ResourceList<Users.Type>>;
+            findByWorkspace(
+                workspace: number,
+                params?: Params,
+                dispatchOptions?: any
+            ): Promise<ResourceList<Users.Type>>;
 
             /**
              * * Returns the user records for all users in all workspaces and organizations
@@ -2249,7 +2306,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            typeahead(workspace: number, params?: Workspaces.TypeaheadParams, dispatchOptions?: any): Promise<SimpleResourceList>;
+            typeahead(
+                workspace: number,
+                params?: Workspaces.TypeaheadParams,
+                dispatchOptions?: any
+            ): Promise<SimpleResourceList>;
 
             /**
              * * The user can be referenced by their globally unique user ID or their email address.
@@ -2421,7 +2482,7 @@ declare namespace asana {
                 retryOnRateLimit: boolean;
                 requestTimeout: number;
                 _cachedVersionInfo: VersionInfo;
-            }
+            };
         }
 
         type SimpleResourceList = ResourceList<Resource>;

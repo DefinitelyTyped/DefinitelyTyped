@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Duplex } from "stream";
+import { Duplex } from 'stream';
 
 declare namespace favicons {
     interface Configuration {
@@ -29,9 +29,9 @@ declare namespace favicons {
         /** Theme color user for example in Android's task switcher @default "#fff" */
         theme_color: string;
         /** Preferred display mode: "fullscreen", "standalone", "minimal-ui" or "browser" @default "standalone" */
-        display: "fullscreen" | "standalone" | "minimal-ui" | "browser";
+        display: 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
         /** Default orientation: "any", "natural", "portrait" or "landscape" @default "any" */
-        orientation: "any" | "natural" | "portrait" | "landscape";
+        orientation: 'any' | 'natural' | 'portrait' | 'landscape';
         /** Start URL when launching the application from a device @default "/?homescreen=1" */
         start_url: string;
         /** Your application's version string @default "1.0" */
@@ -89,12 +89,9 @@ declare namespace favicons {
  */
 declare function favicons(
     source: string | Buffer | string[],
-    configuration?: Partial<favicons.Configuration>,
+    configuration?: Partial<favicons.Configuration>
 ): Promise<favicons.FavIconResponse>;
-declare function favicons(
-    source: string | Buffer | string[],
-    callback?: favicons.Callback
-): void;
+declare function favicons(source: string | Buffer | string[], callback?: favicons.Callback): void;
 declare function favicons(
     source: string | Buffer | string[],
     configuration?: Partial<favicons.Configuration>,

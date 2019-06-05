@@ -1,34 +1,34 @@
-import simpleUrlCache = require("simple-url-cache");
+import simpleUrlCache = require('simple-url-cache');
 
 const fileStorageConfig = {
     type: 'file',
-    dir: './cache'
+    dir: './cache',
 };
 
 const redisStorageConfig = {
     type: 'redis',
     host: '127.00.1',
-    port: 1234
-}
+    port: 1234,
+};
 
 const regexRules = {
     cacheMaxAge: [
         {
             regex: /.*/,
-            maxAge: 3600
-        }
+            maxAge: 3600,
+        },
     ],
     cacheAlways: [
         {
-            regex: /always/
-        }
+            regex: /always/,
+        },
     ],
     cacheNever: [
         {
-            regex: /never/
-        }
+            regex: /never/,
+        },
     ],
-    default: 'never'
+    default: 'never',
 };
 
 const cacheEngine1 = new simpleUrlCache.CacheEngine(fileStorageConfig, regexRules);
@@ -49,6 +49,3 @@ url2.isCached();
 url2.getUrl();
 url2.removeUrl();
 url2.destroy();
-
-
-

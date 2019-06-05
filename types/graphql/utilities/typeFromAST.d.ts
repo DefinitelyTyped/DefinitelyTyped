@@ -1,6 +1,6 @@
-import { TypeNode, NamedTypeNode, ListTypeNode, NonNullTypeNode } from "../language/ast";
-import { GraphQLType, GraphQLNullableType, GraphQLNamedType, GraphQLList, GraphQLNonNull } from "../type/definition";
-import { GraphQLSchema } from "../type/schema";
+import { TypeNode, NamedTypeNode, ListTypeNode, NonNullTypeNode } from '../language/ast';
+import { GraphQLType, GraphQLNullableType, GraphQLNamedType, GraphQLList, GraphQLNonNull } from '../type/definition';
+import { GraphQLSchema } from '../type/schema';
 
 /**
  * Given a Schema and an AST node describing a type, return a GraphQLType

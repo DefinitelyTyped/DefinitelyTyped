@@ -6,11 +6,21 @@
 export = GoogleImages;
 
 declare namespace GoogleImages {
-    type SearchImageSize = "icon" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "huge";
-    type SearchImageType = "clipart" | "face" | "lineart" | "news" | "photo";
-    type SearchDominantColor = "black" | "blue" | "brown" | "gray" | "green" | "pink" | "purple" | "teal" | "white" | "yellow";
-    type SearchColorType = "color" | "gray" | "mono";
-    type SearchSafe = "high" | "medium" | "off";
+    type SearchImageSize = 'icon' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'huge';
+    type SearchImageType = 'clipart' | 'face' | 'lineart' | 'news' | 'photo';
+    type SearchDominantColor =
+        | 'black'
+        | 'blue'
+        | 'brown'
+        | 'gray'
+        | 'green'
+        | 'pink'
+        | 'purple'
+        | 'teal'
+        | 'white'
+        | 'yellow';
+    type SearchColorType = 'color' | 'gray' | 'mono';
+    type SearchSafe = 'high' | 'medium' | 'off';
 
     interface SearchOptions {
         page?: number;
@@ -28,9 +38,9 @@ declare namespace GoogleImages {
         height: number;
         size: number;
         thumbnail: {
-            url: string,
-            width: number,
-            height: number
+            url: string;
+            width: number;
+            height: number;
         };
     }
 }

@@ -21,7 +21,7 @@ declare namespace crate {
         /**
          * Executes a parameterized sql statement.
          */
-        execute: (sql: string, args?: Array<string|number|Date>) => Promise<DBResultObject>;
+        execute: (sql: string, args?: Array<string | number | Date>) => Promise<DBResultObject>;
         /**
          * Inserts a row in table.
          */

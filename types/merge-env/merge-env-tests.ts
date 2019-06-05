@@ -1,3 +1,3 @@
-import mergeEnv = require("merge-env");
+import mergeEnv = require('merge-env');
 
 const mergedConfiguration = mergeEnv({}, {}, {});

@@ -8,10 +8,6 @@
 export = streamToString;
 
 declare function streamToString(stream: NodeJS.ReadableStream, cb?: Callback): Promise<string>;
-declare function streamToString(
-    stream: NodeJS.ReadableStream,
-    enc: string,
-    cb?: Callback
-): Promise<string>;
+declare function streamToString(stream: NodeJS.ReadableStream, enc: string, cb?: Callback): Promise<string>;
 
 type Callback = (error: Error | undefined, str: string) => void;

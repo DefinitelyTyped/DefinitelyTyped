@@ -1,5 +1,5 @@
-import { Flex, Item } from "react-flex";
-import * as React from "react";
+import { Flex, Item } from 'react-flex';
+import * as React from 'react';
 
 const ex1: JSX.Element = (
     <Flex row alignItems="center">
@@ -10,28 +10,20 @@ const ex1: JSX.Element = (
 
 const ex2: JSX.Element = (
     <Flex alignItems="start">
-        <Item flex={2}>
-            content here
-        </Item>
+        <Item flex={2}>content here</Item>
     </Flex>
 );
 
 const ex3: JSX.Element = (
     <Flex alignItems="flex-start">
-        <Item flex={"2"}>
-            content here
-        </Item>
+        <Item flex={'2'}>content here</Item>
     </Flex>
 );
 
 const ex4: JSX.Element = (
     <Flex column wrap={false}>
-        <Flex flex={false}>
-            Flex also supports the `flex` prop
-        </Flex>
-        <Flex flex={"flex"}>
-            Yup.
-        </Flex>
+        <Flex flex={false}>Flex also supports the `flex` prop</Flex>
+        <Flex flex={'flex'}>Yup.</Flex>
         <Item flex={3} />
         <Item flex={12} />
     </Flex>

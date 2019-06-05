@@ -1,6 +1,6 @@
-import MarkdownIt = require("..");
-import State = require("../rules_core/state_core");
-import Token = require("../token");
+import MarkdownIt = require('..');
+import State = require('../rules_core/state_core');
+import Token = require('../token');
 
 export = StateBlock;
 

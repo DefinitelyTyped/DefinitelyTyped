@@ -1,4 +1,4 @@
-declare module "constants" {
+declare module 'constants' {
     const E2BIG: number;
     const EACCES: number;
     const EADDRINUSE: number;

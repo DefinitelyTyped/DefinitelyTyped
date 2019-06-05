@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { TransitionProps } from "./Transition";
+import { Component } from 'react';
+import { TransitionProps } from './Transition';
 
 declare namespace CSSTransition {
     interface CSSTransitionClassNames {

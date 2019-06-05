@@ -8,5 +8,5 @@ declare namespace Glyphicon {
         bsClass?: string;
     }
 }
-declare class Glyphicon extends React.Component<Glyphicon.GlyphiconProps> { }
+declare class Glyphicon extends React.Component<Glyphicon.GlyphiconProps> {}
 export = Glyphicon;

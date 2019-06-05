@@ -1,2 +1,2 @@
-import { size } from "../fp";
+import { size } from '../fp';
 export = size;

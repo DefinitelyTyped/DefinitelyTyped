@@ -1,24 +1,24 @@
-import { check, Dialect, KEYWORDS } from "reserved-words";
+import { check, Dialect, KEYWORDS } from 'reserved-words';
 
-const dialect: Dialect = "es3";
-
-// $ExpectType boolean
-check("while");
+const dialect: Dialect = 'es3';
 
 // $ExpectType boolean
-check("while", "es6");
+check('while');
 
 // $ExpectType boolean
-check("while", "es6", true);
+check('while', 'es6');
 
 // $ExpectType boolean
-check("yield", 3);
+check('while', 'es6', true);
+
+// $ExpectType boolean
+check('yield', 3);
 
 // $ExpectError
-check("yield", 1);
+check('yield', 1);
 
 // $ExpectError
-check("yield", "es4");
+check('yield', 'es4');
 
 // $ExpectType true
-KEYWORDS["6-strict"]["break"];
+KEYWORDS['6-strict']['break'];

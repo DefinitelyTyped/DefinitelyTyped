@@ -1,5 +1,5 @@
-import stream = require("stream");
-import RStream = require("readable-stream");
+import stream = require('stream');
+import RStream = require('readable-stream');
 
 function testTypes() {
     const ANY: any = null;
@@ -23,28 +23,28 @@ function test() {
 
     const streamR = new RS_Readable({
         objectMode: true,
-        read(size) { },
-        destroy(error, cb) { }
+        read(size) {},
+        destroy(error, cb) {},
     });
 
-    streamR.once("end", () => {
+    streamR.once('end', () => {
         process.nextTick(() => {
-            streamR.emit("close");
+            streamR.emit('close');
         });
     });
 
     const row = null;
     const i = 0;
-    if (streamR.push(row)) streamR.emit("result", row, i);
-    else streamR.emit('error', new Error("a possible exception"));  // Pass on any errors
-    streamR.push(null);  // pushing null, indicating EOF
+    if (streamR.push(row)) streamR.emit('result', row, i);
+    else streamR.emit('error', new Error('a possible exception')); // Pass on any errors
+    streamR.push(null); // pushing null, indicating EOF
 
     const streamW = new RS_Writable({
-        write(chunk, enc, cb) { },
-        writev(chunks, cb) { },
-        destroy(error, cb) { },
-        final(cb) { }
+        write(chunk, enc, cb) {},
+        writev(chunks, cb) {},
+        destroy(error, cb) {},
+        final(cb) {},
     });
-    streamW.write(new Buffer("test"));
-    streamW.emit("finish");
+    streamW.write(new Buffer('test'));
+    streamW.emit('finish');
 }

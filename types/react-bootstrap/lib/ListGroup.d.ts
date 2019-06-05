@@ -8,5 +8,5 @@ declare namespace ListGroup {
         fill?: boolean;
     }
 }
-declare class ListGroup extends React.Component<ListGroup.ListGroupProps> { }
+declare class ListGroup extends React.Component<ListGroup.ListGroupProps> {}
 export = ListGroup;

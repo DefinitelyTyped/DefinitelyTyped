@@ -9,7 +9,7 @@ import {
     TypeDefinitionNode,
     TypeSystemExtensionNode,
     TypeExtensionNode,
-} from "./ast";
+} from './ast';
 
 export function isDefinitionNode(node: ASTNode): node is DefinitionNode;
 

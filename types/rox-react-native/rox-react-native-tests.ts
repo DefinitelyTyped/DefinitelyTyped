@@ -1,21 +1,21 @@
 import * as Rox from 'rox-react-native';
 
 const flags = {
-    superFlag: new Rox.Flag(false)
+    superFlag: new Rox.Flag(false),
 };
 
 const variants = {
-    superVariant: new Rox.Variant('value1', ['value1', 'value2'])
+    superVariant: new Rox.Variant('value1', ['value1', 'value2']),
 };
 
 const configurations = {
-    superConfiguration: new Rox.Configuration('☀️')
+    superConfiguration: new Rox.Configuration('☀️'),
 };
 
 // The register function should be called before the call to Rox.setup()
 Rox.register('default', { ...configurations, ...variants, ...flags });
 Rox.setup('ROLLOUT_IO_KEY', {
-    impressionHandler
+    impressionHandler,
 }).then(linkTargetGroupAttributes);
 
 function linkTargetGroupAttributes() {
@@ -24,10 +24,7 @@ function linkTargetGroupAttributes() {
     Rox.setCustomNumberProperty('aNumberProperty', 17);
 }
 
-function impressionHandler(
-    reporting: Rox.RoxReporting,
-    experiment?: Rox.RoxExperiment
-) {
+function impressionHandler(reporting: Rox.RoxReporting, experiment?: Rox.RoxExperiment) {
     // If there is no experiment it means that the user has not been enrolled
     // or that the reporting is not used yet
 }

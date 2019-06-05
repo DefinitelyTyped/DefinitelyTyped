@@ -30,8 +30,7 @@ declare namespace Chai {
         fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
     }
 
-    export interface AssertStatic extends Assert {
-    }
+    export interface AssertStatic extends Assert {}
 
     export interface AssertionStatic {
         (target: any, message?: string): Assertion;
@@ -54,8 +53,8 @@ declare namespace Chai {
     }
 
     interface ShouldThrow {
-        (actual: Function, expected?: string|RegExp, message?: string): void;
-        (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
+        (actual: Function, expected?: string | RegExp, message?: string): void;
+        (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
     }
 
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -173,9 +172,9 @@ declare namespace Chai {
     }
 
     interface Nested {
-      include: Include;
-      property: Property;
-      members: Members;
+        include: Include;
+        property: Property;
+        members: Members;
     }
 
     interface Deep {
@@ -235,12 +234,12 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: ReadonlyArray<any>|Object): Assertion;
+        (keys: ReadonlyArray<any> | Object): Assertion;
     }
 
     interface Throw {
-        (expected?: string|RegExp, message?: string): Assertion;
-        (constructor: Error|Function, expected?: string|RegExp, message?: string): Assertion;
+        (expected?: string | RegExp, message?: string): Assertion;
+        (constructor: Error | Function, expected?: string | RegExp, message?: string): Assertion;
     }
 
     interface RespondTo {
@@ -1001,7 +1000,7 @@ declare namespace Chai {
          * @param errType  Potential expected message match or error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, errType: RegExp|Function, message?: string): void;
+        throws(fn: Function, errType: RegExp | Function, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1569,7 +1568,11 @@ declare namespace Chai {
          * @param keys   Keys to check
          * @param message    Message to display on error.
          */
-        containsAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+        containsAllDeepKeys<T>(
+            object: T,
+            keys: Array<Object | string> | { [key: string]: any },
+            message?: string
+        ): void;
 
         /**
          * Asserts that `object` contains all of the `keys` provided.
@@ -1583,7 +1586,11 @@ declare namespace Chai {
          * @param keys   Keys to check
          * @param message    Message to display on error.
          */
-        doesNotHaveAnyDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+        doesNotHaveAnyDeepKeys<T>(
+            object: T,
+            keys: Array<Object | string> | { [key: string]: any },
+            message?: string
+        ): void;
 
         /**
          * Asserts that `object` contains all of the `keys` provided.
@@ -1597,7 +1604,11 @@ declare namespace Chai {
          * @param keys   Keys to check
          * @param message    Message to display on error.
          */
-        doesNotHaveAllDeepKeys<T>(object: T, keys: Array<Object | string> | { [key: string]: any }, message?: string): void;
+        doesNotHaveAllDeepKeys<T>(
+            object: T,
+            keys: Array<Object | string> | { [key: string]: any },
+            message?: string
+        ): void;
 
         /**
          * Asserts that object has a direct or inherited property named by property,
@@ -1699,7 +1710,7 @@ declare namespace Chai {
 
 declare const chai: Chai.ChaiStatic;
 
-declare module "chai" {
+declare module 'chai' {
     export = chai;
 }
 

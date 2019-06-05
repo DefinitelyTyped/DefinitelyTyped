@@ -63,7 +63,7 @@ initSqlJs().then(SQL => {
         (): void => {
             console.info('Iteration done.');
             dbAccessDone();
-        },
+        }
     );
 
     function dbAccessDone(): void {

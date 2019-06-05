@@ -56,9 +56,11 @@ export interface ExtendedLoaderContext {
     remainingRequest: string;
     currentRequest: string;
     previousRequest: string;
-    query: {
-        [key: string]: any;
-    } | string;
+    query:
+        | {
+              [key: string]: any;
+          }
+        | string;
     data: any;
 }
 
@@ -68,5 +70,3 @@ export function runLoaders(
     options: RunLoaderOption,
     callback: (err: NodeJS.ErrnoException | null, result: RunLoaderResult) => any
 ): void;
-
-

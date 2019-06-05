@@ -24,8 +24,8 @@ import {
     GraphQLUnionType,
     GraphQLEnumType,
     GraphQLScalarType,
-    Thunk
-} from "graphql";
+    Thunk,
+} from 'graphql';
 
 // connection/connection.js
 
@@ -83,9 +83,7 @@ export interface GraphQLConnectionDefinitions {
  * Returns a GraphQLObjectType for a connection with the given name,
  * and whose nodes are of the specified type.
  */
-export function connectionDefinitions(
-    config: ConnectionConfig
-): GraphQLConnectionDefinitions;
+export function connectionDefinitions(config: ConnectionConfig): GraphQLConnectionDefinitions;
 
 // connection/connectiontypes.js
 
@@ -142,10 +140,7 @@ export interface ArraySliceMetaInfo {
  * a connection object for use in GraphQL. It uses array offsets as pagination,
  * so pagination will only work if the array is static.
  */
-export function connectionFromArray<T>(
-    data: T[],
-    args: ConnectionArguments
-): Connection<T>;
+export function connectionFromArray<T>(data: T[], args: ConnectionArguments): Connection<T>;
 
 /**
  * A version of `connectionFromArray` that takes a promised array, and returns a
@@ -194,28 +189,18 @@ export function cursorToOffset(cursor: ConnectionCursor): number;
 /**
  * Return the cursor associated with an object in an array.
  */
-export function cursorForObjectInConnection<T>(
-    data: T[],
-    object: T
-): ConnectionCursor;
+export function cursorForObjectInConnection<T>(data: T[], object: T): ConnectionCursor;
 
 /**
  * Given an optional cursor and a default offset, returns the offset
  * to use; if the cursor contains a valid offset, that will be used,
  * otherwise it will be the default.
  */
-export function getOffsetWithDefault(
-    cursor?: ConnectionCursor | null,
-    defaultOffset?: number | null
-): number;
+export function getOffsetWithDefault(cursor?: ConnectionCursor | null, defaultOffset?: number | null): number;
 
 // mutation/mutation.js
 
-export type mutationFn = (
-    object: any,
-    ctx: any,
-    info: GraphQLResolveInfo
-) => Promise<any> | any;
+export type mutationFn = (object: any, ctx: any, info: GraphQLResolveInfo) => Promise<any> | any;
 
 /**
  * A description of a mutation consumable by mutationWithClientMutationId
@@ -244,9 +229,7 @@ export interface MutationConfig {
  * Returns a GraphQLFieldConfig for the mutation described by the
  * provided MutationConfig.
  */
-export function mutationWithClientMutationId(
-    config: MutationConfig
-): GraphQLFieldConfig<any, any>;
+export function mutationWithClientMutationId(config: MutationConfig): GraphQLFieldConfig<any, any>;
 
 // node/node.js
 
@@ -256,8 +239,7 @@ export interface GraphQLNodeDefinitions {
     nodesField: GraphQLFieldConfig<any, any>;
 }
 
-export type typeResolverFn = ((any: any) => GraphQLObjectType) |
-    ((any: any) => Promise<GraphQLObjectType>);
+export type typeResolverFn = ((any: any) => GraphQLObjectType) | ((any: any) => Promise<GraphQLObjectType>);
 
 /**
  * Given a function to map from an ID to an underlying object, and a function
@@ -270,7 +252,7 @@ export type typeResolverFn = ((any: any) => GraphQLObjectType) |
  * interface without a provided `resolveType` method.
  */
 export function nodeDefinitions<TContext>(
-    idFetcher: ((id: string, context: TContext, info: GraphQLResolveInfo) => any),
+    idFetcher: (id: string, context: TContext, info: GraphQLResolveInfo) => any,
     typeResolver?: GraphQLTypeResolver<any, TContext>
 ): GraphQLNodeDefinitions;
 
@@ -312,6 +294,4 @@ export interface PluralIdentifyingRootFieldConfig {
     description?: string;
 }
 
-export function pluralIdentifyingRootField(
-    config: PluralIdentifyingRootFieldConfig
-): GraphQLFieldConfig<any, any>;
+export function pluralIdentifyingRootField(config: PluralIdentifyingRootFieldConfig): GraphQLFieldConfig<any, any>;

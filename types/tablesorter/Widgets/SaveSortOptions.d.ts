@@ -1,4 +1,4 @@
-import { StorageType } from "../Storage/StorageType";
+import { StorageType } from '../Storage/StorageType';
 
 /**
  * Provides options for the `saveSort`-widget.

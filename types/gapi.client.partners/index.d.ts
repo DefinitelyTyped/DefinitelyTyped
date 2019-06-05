@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Partners API v2 */
-    function load(name: "partners", version: "v2"): PromiseLike<void>;
-    function load(name: "partners", version: "v2", callback: () => any): void;
+    function load(name: 'partners', version: 'v2'): PromiseLike<void>;
+    function load(name: 'partners', version: 'v2', callback: () => any): void;
 
     const analytics: partners.AnalyticsResource;
 
@@ -804,7 +804,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -846,27 +846,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -881,7 +881,7 @@ declare namespace gapi.client {
              */
             log(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -912,7 +912,7 @@ declare namespace gapi.client {
             /** Creates an advertiser lead for the given company ID. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -945,7 +945,7 @@ declare namespace gapi.client {
             /** Gets a company. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -987,27 +987,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1021,7 +1021,7 @@ declare namespace gapi.client {
             /** Lists companies. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /**
@@ -1053,7 +1053,7 @@ declare namespace gapi.client {
                  */
                 languageCodes?: string;
                 /** The 3-letter currency code defined in ISO 4217. */
-                "maxMonthlyBudget.currencyCode"?: string;
+                'maxMonthlyBudget.currencyCode'?: string;
                 /**
                  * Number of nano (10^-9) units of the amount.
                  * The value must be between -999,999,999 and +999,999,999 inclusive.
@@ -1062,14 +1062,14 @@ declare namespace gapi.client {
                  * If `units` is negative, `nanos` must be negative or zero.
                  * For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
                  */
-                "maxMonthlyBudget.nanos"?: number;
+                'maxMonthlyBudget.nanos'?: number;
                 /**
                  * The whole units of the amount.
                  * For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
                  */
-                "maxMonthlyBudget.units"?: string;
+                'maxMonthlyBudget.units'?: string;
                 /** The 3-letter currency code defined in ISO 4217. */
-                "minMonthlyBudget.currencyCode"?: string;
+                'minMonthlyBudget.currencyCode'?: string;
                 /**
                  * Number of nano (10^-9) units of the amount.
                  * The value must be between -999,999,999 and +999,999,999 inclusive.
@@ -1078,12 +1078,12 @@ declare namespace gapi.client {
                  * If `units` is negative, `nanos` must be negative or zero.
                  * For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
                  */
-                "minMonthlyBudget.nanos"?: number;
+                'minMonthlyBudget.nanos'?: number;
                 /**
                  * The whole units of the amount.
                  * For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
                  */
-                "minMonthlyBudget.units"?: string;
+                'minMonthlyBudget.units'?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /**
@@ -1112,27 +1112,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /**
                  * List of services that the returned agencies should provide. If this is
                  * not empty, any returned agency must have at least one of these services,
@@ -1166,7 +1166,7 @@ declare namespace gapi.client {
             /** Gets an Exam Token for a Partner's user to take an exam in the Exams System */
             getToken(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1190,27 +1190,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1224,7 +1224,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1263,27 +1263,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1294,7 +1294,7 @@ declare namespace gapi.client {
             /** Lists the Historical Offers for the current user (or user's entire company) */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1330,27 +1330,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1361,7 +1361,7 @@ declare namespace gapi.client {
             /** Lists the Offers available for the current user */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1383,27 +1383,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1415,7 +1415,7 @@ declare namespace gapi.client {
             /** Logs a user event. */
             log(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1446,7 +1446,7 @@ declare namespace gapi.client {
             /** Lists states for current user. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1468,27 +1468,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1499,7 +1499,7 @@ declare namespace gapi.client {
             /** Creates a user's company relation. Affiliates the user to a company. */
             createCompanyRelation(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1521,27 +1521,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1555,7 +1555,7 @@ declare namespace gapi.client {
             /** Deletes a user's company relation. Unaffiliaites the user from a company. */
             deleteCompanyRelation(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1577,27 +1577,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1611,7 +1611,7 @@ declare namespace gapi.client {
             /** Gets a user. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1633,27 +1633,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1672,7 +1672,7 @@ declare namespace gapi.client {
              */
             updateProfile(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1694,27 +1694,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1728,7 +1728,7 @@ declare namespace gapi.client {
              */
             getPartnersstatus(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1750,27 +1750,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -1782,7 +1782,7 @@ declare namespace gapi.client {
              */
             updateCompanies(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1804,27 +1804,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /**
                  * Standard field mask for the set of fields to be updated.
                  * Required with at least 1 value in FieldMask's paths.
@@ -1838,7 +1838,7 @@ declare namespace gapi.client {
             /** Updates the specified lead. */
             updateLeads(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1860,27 +1860,27 @@ declare namespace gapi.client {
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Experiment IDs the current request belongs to. */
-                "requestMetadata.experimentIds"?: string;
+                'requestMetadata.experimentIds'?: string;
                 /** Locale to use for the current request. */
-                "requestMetadata.locale"?: string;
+                'requestMetadata.locale'?: string;
                 /** Google Partners session ID. */
-                "requestMetadata.partnersSessionId"?: string;
+                'requestMetadata.partnersSessionId'?: string;
                 /**
                  * Identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSourceId"?: string;
+                'requestMetadata.trafficSource.trafficSourceId'?: string;
                 /**
                  * Second level identifier to indicate where the traffic comes from.
                  * An identifier has multiple letters created by a team which redirected the
                  * traffic to us.
                  */
-                "requestMetadata.trafficSource.trafficSubId"?: string;
+                'requestMetadata.trafficSource.trafficSubId'?: string;
                 /** IP address to use instead of the user's geo-located IP address. */
-                "requestMetadata.userOverrides.ipAddress"?: string;
+                'requestMetadata.userOverrides.ipAddress'?: string;
                 /** Logged-in user ID to impersonate instead of the user's ID. */
-                "requestMetadata.userOverrides.userId"?: string;
+                'requestMetadata.userOverrides.userId'?: string;
                 /**
                  * Standard field mask for the set of fields to be updated.
                  * Required with at least 1 value in FieldMask's paths.

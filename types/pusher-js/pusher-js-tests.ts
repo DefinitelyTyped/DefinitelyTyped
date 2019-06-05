@@ -1,5 +1,5 @@
 import Pusher = require('pusher-js');
-import { PresenceChannel } from "pusher-js";
+import { PresenceChannel } from 'pusher-js';
 
 var APP_KEY: string;
 var pusher: Pusher.Pusher;
@@ -15,7 +15,7 @@ var pusher: Pusher.Pusher;
 Pusher.logToConsole = true;
 Pusher.instances = [];
 
-Pusher.log = (msg) => {
+Pusher.log = msg => {
     console.log(msg);
 };
 
@@ -24,47 +24,47 @@ Pusher.log = (msg) => {
 //
 
 pusher = new Pusher(APP_KEY, {
-    authEndpoint: "http://example.com/pusher/auth"
+    authEndpoint: 'http://example.com/pusher/auth',
 });
 
-console.assert(!!Pusher.instances.length, "Pusher.instances not filling with new instances");
+console.assert(!!Pusher.instances.length, 'Pusher.instances not filling with new instances');
 
 pusher = new Pusher(APP_KEY, {
     auth: {
-        params: { foo: "bar" },
-        headers: { baz: "boo" }
-    }
+        params: { foo: 'bar' },
+        headers: { baz: 'boo' },
+    },
 });
 
 pusher = new Pusher(APP_KEY, {
     auth: {
-        params: { foo: "bar" },
-        headers: { "X-CSRF-Token": "SOME_CSRF_TOKEN" }
-    }
+        params: { foo: 'bar' },
+        headers: { 'X-CSRF-Token': 'SOME_CSRF_TOKEN' },
+    },
 });
 
 pusher = new Pusher(APP_KEY, {
     authorizer: function(channel, options) {
         return {
-        authorize: function(socketId, callback) {
-            // Do some ajax to get the auth information
-            var authInformation = {auth: "hash"};
-            callback(false, authInformation);
-        }
+            authorize: function(socketId, callback) {
+                // Do some ajax to get the auth information
+                var authInformation = { auth: 'hash' };
+                callback(false, authInformation);
+            },
         };
-    }
+    },
 });
 
-pusher = new Pusher(APP_KEY, { cluster: "eu" });
+pusher = new Pusher(APP_KEY, { cluster: 'eu' });
 
-pusher = new Pusher(APP_KEY, { enabledTransports: ["ws"] });
+pusher = new Pusher(APP_KEY, { enabledTransports: ['ws'] });
 
-pusher = new Pusher(APP_KEY, { disabledTransports: ["sockjs"] });
+pusher = new Pusher(APP_KEY, { disabledTransports: ['sockjs'] });
 
 // will only use WebSockets
 pusher = new Pusher(APP_KEY, {
-    enabledTransports: ["ws", "xhr_streaming"],
-    disabledTransports: ["xhr_streaming"]
+    enabledTransports: ['ws', 'xhr_streaming'],
+    disabledTransports: ['xhr_streaming'],
 });
 
 //
@@ -104,9 +104,13 @@ channel.bind('new-message', function(data) {
     console.log(data.message);
 });
 
-channel.bind('my-event', function() {
-    console.log(`hi ${this.name}`);
-}, { name: 'Pusher' });
+channel.bind(
+    'my-event',
+    function() {
+        console.log(`hi ${this.name}`);
+    },
+    { name: 'Pusher' }
+);
 
 channel.unbind('new-comment', console.log);
 
@@ -174,31 +178,33 @@ pusher = new Pusher(applicationKey, options);
 options = {
     forceTLS: true, // true/false
     auth: {
-        params: { // {key: value} pairs
+        params: {
+            // {key: value} pairs
             param1: 'value1',
-            param2: 'value2'
+            param2: 'value2',
         },
-        headers: { // {key: value} pairs
+        headers: {
+            // {key: value} pairs
             header1: 'value1',
-            header2: 'value2'
-        }
-    }
+            header2: 'value2',
+        },
+    },
 };
 
 pusher = new Pusher('app_key', {
     auth: {
         params: {
-            CSRFToken: 'some_csrf_token'
-        }
-    }
+            CSRFToken: 'some_csrf_token',
+        },
+    },
 });
 
 pusher = new Pusher('app_key', {
     auth: {
         headers: {
-            'X-CSRF-Token': 'some_csrf_token'
-        }
-    }
+            'X-CSRF-Token': 'some_csrf_token',
+        },
+    },
 });
 
 pusher = new Pusher('app_key', { cluster: 'eu' });
@@ -225,8 +231,12 @@ pusher.connection.bind('connected', function() {
 });
 
 pusher.connection.bind('connecting_in', function(delay: any) {
-    alert("I haven't been able to establish a connection for this feature.  " +
-        "I will try again in " + delay + " seconds.");
+    alert(
+        "I haven't been able to establish a connection for this feature.  " +
+            'I will try again in ' +
+            delay +
+            ' seconds.'
+    );
 });
 
 pusher.connection.bind('state_change', function(states: any) {
@@ -302,11 +312,9 @@ channel.bind(eventName, callback);
 
 pusher = new Pusher('APP_KEY');
 channel = pusher.subscribe('APPL');
-channel.bind('new-price',
-    function(data: any) {
-        // add new price into the APPL widget
-    }
-);
+channel.bind('new-price', function(data: any) {
+    // add new price into the APPL widget
+});
 
 var context = { title: 'Pusher' };
 var handler = function() {
@@ -342,8 +350,7 @@ channel.unbind('new-price', callback);
 
 // Pusher channel events
 
-channel.bind('pusher:subscription_succeeded', function() {
-});
+channel.bind('pusher:subscription_succeeded', function() {});
 
 pusher = new Pusher('APP_KEY');
 channel = pusher.subscribe('private-channel');
@@ -369,11 +376,11 @@ var state: any = {
     currentX: 0,
     currentY: 0,
     lastX: undefined,
-    lastY: undefined
+    lastY: undefined,
 };
 
-pusher = new Pusher("YOUR_APP_KEY");
-channel = pusher.subscribe("private-mousemoves");
+pusher = new Pusher('YOUR_APP_KEY');
+channel = pusher.subscribe('private-mousemoves');
 
 // this method should be bound as a 'mousemove' event listener
 document.body.addEventListener('mousemove', onMouseMove, false);
@@ -393,6 +400,6 @@ setInterval(function() {
         );
         outputEl.replaceChild(text, outputEl.firstChild);
 
-        channel.trigger("client-mouse-moved", {x: state.currentX, y: state.currentY});
+        channel.trigger('client-mouse-moved', { x: state.currentX, y: state.currentY });
     }
 }, 300); // send every 300 milliseconds if position has changed

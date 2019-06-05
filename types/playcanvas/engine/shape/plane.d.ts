@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @private
      * @name pc.Plane
@@ -9,7 +8,7 @@ declare namespace pc {
      * @param {pc.Vec3} [normal] Normal of the plane. The constructor takes a reference of this parameter.
      */
     class Plane {
-        constructor(point?: pc.Vec3, normal?: pc.Vec3)
+        constructor(point?: pc.Vec3, normal?: pc.Vec3);
 
         point: pc.Vec3;
         normal: pc.Vec3;

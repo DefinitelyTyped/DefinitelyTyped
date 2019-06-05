@@ -1,7 +1,7 @@
-import { Callback, EventLog, EventEmitter } from "../types";
-import { TransactionObject, BlockType } from "./types";
-import { ABIDefinition } from "./abi";
-import { Provider } from "../providers";
+import { Callback, EventLog, EventEmitter } from '../types';
+import { TransactionObject, BlockType } from './types';
+import { ABIDefinition } from './abi';
+import { Provider } from '../providers';
 
 interface CustomOptions {
     address?: string;
@@ -22,19 +22,12 @@ interface contractOptions {
 }
 
 export default class Contract {
-    constructor(
-        jsonInterface: any[],
-        address?: string,
-        options?: CustomOptions
-    );
+    constructor(jsonInterface: any[], address?: string, options?: CustomOptions);
     options: contractOptions;
     methods: {
         [fnName: string]: (...args: any[]) => TransactionObject<any>;
     };
-    deploy(options: {
-        data: string;
-        arguments: any[];
-    }): TransactionObject<Contract>;
+    deploy(options: { data: string; arguments: any[] }): TransactionObject<Contract>;
     events: {
         [eventName: string]: (
             options?: {

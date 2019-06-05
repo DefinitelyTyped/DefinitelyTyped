@@ -7,45 +7,51 @@
 /// <reference types="mongoose" />
 
 declare module 'mongoose' {
-  export interface PaginateOptions {
-    select?: Object | string;
-    sort?: Object | string;
-    populate?: Array<Object> | Array<string> | Object | string;
-    lean?: boolean;
-    leanWithId?: boolean;
-    offset?: number;
-    page?: number;
-    limit?: number;
-  }
+    export interface PaginateOptions {
+        select?: Object | string;
+        sort?: Object | string;
+        populate?: Array<Object> | Array<string> | Object | string;
+        lean?: boolean;
+        leanWithId?: boolean;
+        offset?: number;
+        page?: number;
+        limit?: number;
+    }
 
-  export interface PaginateResult<T> {
-    docs: Array<T>;
-    total: number;
-    limit: number;
-    page?: number;
-    pages?: number;
-    offset?: number;
-  }
+    export interface PaginateResult<T> {
+        docs: Array<T>;
+        total: number;
+        limit: number;
+        page?: number;
+        pages?: number;
+        offset?: number;
+    }
 
-  interface PaginateModel<T extends Document> extends Model<T> {
-    paginate(query?: Object, options?: PaginateOptions, callback?: (err: any, result: PaginateResult<T>) => void): Promise<PaginateResult<T>>;
-  }
+    interface PaginateModel<T extends Document> extends Model<T> {
+        paginate(
+            query?: Object,
+            options?: PaginateOptions,
+            callback?: (err: any, result: PaginateResult<T>) => void
+        ): Promise<PaginateResult<T>>;
+    }
 
-  export function model<T extends Document>(
-    name: string,
-    schema?: Schema,
-    collection?: string,
-    skipInit?: boolean): PaginateModel<T>;
+    export function model<T extends Document>(
+        name: string,
+        schema?: Schema,
+        collection?: string,
+        skipInit?: boolean
+    ): PaginateModel<T>;
 
-  export function model<T extends Document, U extends PaginateModel<T>>(
-    name: string,
-    schema?: Schema,
-    collection?: string,
-    skipInit?: boolean): U;
+    export function model<T extends Document, U extends PaginateModel<T>>(
+        name: string,
+        schema?: Schema,
+        collection?: string,
+        skipInit?: boolean
+    ): U;
 }
 
 declare module 'mongoose-paginate' {
-  import mongoose = require('mongoose');
-  var _: (schema: mongoose.Schema) => void;
-  export = _;
+    import mongoose = require('mongoose');
+    var _: (schema: mongoose.Schema) => void;
+    export = _;
 }

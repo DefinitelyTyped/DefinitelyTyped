@@ -1,5 +1,5 @@
-import { ValidationContext, SDLValidationContext } from "../ValidationContext";
-import { ASTVisitor } from "../../language/visitor";
+import { ValidationContext, SDLValidationContext } from '../ValidationContext';
+import { ASTVisitor } from '../../language/visitor';
 
 export function unknownArgMessage(
     argName: string,

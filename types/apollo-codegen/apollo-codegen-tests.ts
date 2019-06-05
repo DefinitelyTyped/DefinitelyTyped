@@ -1,30 +1,19 @@
-import {
-    downloadSchema,
-    generate,
-    introspectSchema,
-    printSchema
-} from "apollo-codegen";
+import { downloadSchema, generate, introspectSchema, printSchema } from 'apollo-codegen';
 
 async function main() {
-    await downloadSchema(
-        "http://example.com/graphql",
-        "schema.json",
-        {},
-        false,
-        "POST"
-    );
+    await downloadSchema('http://example.com/graphql', 'schema.json', {}, false, 'POST');
 
-    generate(["input.ts"], "schema.json", "types.ts", "", "typescript", "gql", "", {
+    generate(['input.ts'], 'schema.json', 'types.ts', '', 'typescript', 'gql', '', {
         passthroughCustomScalars: false,
-        customScalarsPrefix: "S",
+        customScalarsPrefix: 'S',
         addTypename: false,
-        namespace: "",
+        namespace: '',
         operationIdsPath: null,
         generateOperationIds: false,
-        mergeInFieldsFromFragmentSpreads: false
+        mergeInFieldsFromFragmentSpreads: false,
     });
 
-    await introspectSchema("schema.json", "schema.gql");
+    await introspectSchema('schema.json', 'schema.gql');
 
-    await printSchema("schema.in", "schema.out");
+    await printSchema('schema.in', 'schema.out');
 }

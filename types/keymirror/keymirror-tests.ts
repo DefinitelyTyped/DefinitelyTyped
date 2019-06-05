@@ -1,6 +1,6 @@
 import keyMirror = require('keymirror');
 
-const result = keyMirror({key1: null, key2: null});
+const result = keyMirror({ key1: null, key2: null });
 
 type Key = 'key1' | 'key2';
 

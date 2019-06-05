@@ -3,8 +3,19 @@ import WebGLBuffer from 'ol/webgl/Buffer';
 import WebGLFragment from 'ol/webgl/Fragment';
 import WebGLShader from 'ol/webgl/Shader';
 import WebGLVertex from 'ol/webgl/Vertex';
-export function createEmptyTexture(gl: WebGLRenderingContext, width: number, height: number, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
-export function createTexture(gl: WebGLRenderingContext, image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
+export function createEmptyTexture(
+    gl: WebGLRenderingContext,
+    width: number,
+    height: number,
+    opt_wrapS?: number,
+    opt_wrapT?: number
+): WebGLTexture;
+export function createTexture(
+    gl: WebGLRenderingContext,
+    image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement,
+    opt_wrapS?: number,
+    opt_wrapT?: number
+): WebGLTexture;
 export interface BufferCacheEntry {
     buf: WebGLBuffer;
     buffer: WebGLBuffer;

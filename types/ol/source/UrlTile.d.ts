@@ -37,9 +37,9 @@ export default class UrlTile extends TileSource {
     getUrls(): string[];
     getTileLoadFunction(): LoadFunction;
     setTileUrlFunction(tileUrlFunction: UrlFunction, key?: string): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;

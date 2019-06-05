@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import * as events from "events";
-import * as stream from "stream";
+import * as events from 'events';
+import * as stream from 'stream';
 
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
@@ -305,7 +305,7 @@ declare namespace Ffmpeg {
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;
         writeToStream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
-        pipe(stream?: stream.Writable, options?: { end?: boolean }): stream.Writable|stream.PassThrough;
+        pipe(stream?: stream.Writable, options?: { end?: boolean }): stream.Writable | stream.PassThrough;
         stream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
         takeScreenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnail(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
@@ -322,7 +322,12 @@ declare namespace Ffmpeg {
     function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
     function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
-    function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(
+        file: string,
+        index: number,
+        options: string[],
+        callback: (err: any, data: FfprobeData) => void
+    ): void;
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

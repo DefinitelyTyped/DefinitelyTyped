@@ -5,23 +5,15 @@
 // TypeScript Version: 2.3
 
 declare namespace BPMNModdle {
-    type AdHocOrdering = "Parallel" | "Sequential";
-    type AssociationDirection = "None" | "One" | "Both";
-    type ChoreographyLoopType =
-        | "None"
-        | "Standard"
-        | "MultiInstanceSequential"
-        | "MultiInstanceParallel";
-    type EventBasedGatewayType = "Parallel" | "Exclusive";
-    type GatewayDirection =
-        | "Unspecified"
-        | "Converging"
-        | "Diverging"
-        | "Mixed";
-    type ItemKind = "Physical" | "Information";
-    type MultiInstanceBehaviour = "None" | "One" | "All" | "Complex";
-    type ProcessType = "None" | "Public" | "Private";
-    type RelationshipDirection = "None" | "Forward" | "Backward" | "Both";
+    type AdHocOrdering = 'Parallel' | 'Sequential';
+    type AssociationDirection = 'None' | 'One' | 'Both';
+    type ChoreographyLoopType = 'None' | 'Standard' | 'MultiInstanceSequential' | 'MultiInstanceParallel';
+    type EventBasedGatewayType = 'Parallel' | 'Exclusive';
+    type GatewayDirection = 'Unspecified' | 'Converging' | 'Diverging' | 'Mixed';
+    type ItemKind = 'Physical' | 'Information';
+    type MultiInstanceBehaviour = 'None' | 'One' | 'All' | 'Complex';
+    type ProcessType = 'None' | 'Public' | 'Private';
+    type RelationshipDirection = 'None' | 'Forward' | 'Backward' | 'Both';
 
     interface TypeDerived {
         $type: ElementType;
@@ -96,7 +88,7 @@ declare namespace BPMNModdle {
     interface Monitoring extends BaseElement {}
 
     // tslint:disable-next-line:no-empty-interface
-   interface Performer extends ResourceRole {}
+    interface Performer extends ResourceRole {}
     interface Process extends FlowElementsContainer, CallableElement {
         processType: string;
         isClosed: boolean;
@@ -536,9 +528,7 @@ declare namespace BPMNModdle {
         calledChoreographyRef: Choreography;
         participantAssociations: ParticipantAssociation[];
     }
-    interface SubChoreography
-        extends ChoreographyActivity,
-            FlowElementsContainer {
+    interface SubChoreography extends ChoreographyActivity, FlowElementsContainer {
         artifacts: Artifact[];
     }
     interface ChoreographyTask extends ChoreographyActivity {
@@ -588,10 +578,7 @@ declare namespace BPMNModdle {
         implementation: string;
         operationRef: Operation;
     }
-    interface SubProcess
-        extends Activity,
-            FlowElementsContainer,
-            InteractionNode {
+    interface SubProcess extends Activity, FlowElementsContainer, InteractionNode {
         triggeredByEvent: boolean;
         artifacts: Artifact[];
     }
@@ -739,169 +726,169 @@ declare namespace BPMNModdle {
     interface ColoredEdge extends TypeDerived {}
 
     interface ElementTypes {
-        "bpmn:Interface": Interface;
-        "bpmn:Operation": Operation;
-        "bpmn:EndPoint": EndPoint;
-        "bpmn:Auditing": Auditing;
-        "bpmn:GlobalTask": GlobalTask;
-        "bpmn:Monitoring": Monitoring;
-        "bpmn:Performer": Performer;
-        "bpmn:Process": Process;
-        "bpmn:LaneSet": LaneSet;
-        "bpmn:Lane": Lane;
-        "bpmn:GlobalManualTask": GlobalManualTask;
-        "bpmn:ManualTask": ManualTask;
-        "bpmn:UserTask": UserTask;
-        "bpmn:Rendering": Rendering;
-        "bpmn:HumanPerformer": HumanPerformer;
-        "bpmn:PotentialOwner": PotentialOwner;
-        "bpmn:GlobalUserTask": GlobalUserTask;
-        "bpmn:Gateway": Gateway;
-        "bpmn:EventBasedGateway": EventBasedGateway;
-        "bpmn:ComplexGateway": ComplexGateway;
-        "bpmn:ExclusiveGateway": ExclusiveGateway;
-        "bpmn:InclusiveGateway": InclusiveGateway;
-        "bpmn:ParallelGateway": ParallelGateway;
-        "bpmn:RootElement": RootElement;
-        "bpmn:Relationship": Relationship;
-        "bpmn:BaseElement": BaseElement;
-        "bpmn:Extension": Extension;
-        "bpmn:ExtensionDefinition": ExtensionDefinition;
-        "bpmn:ExtensionAttributeDefinition": ExtensionAttributeDefinition;
-        "bpmn:ExtensionElements": ExtensionElements;
-        "bpmn:Documentation": Documentation;
-        "bpmn:Event": Event;
-        "bpmn:IntermediateCatchEvent": IntermediateCatchEvent;
-        "bpmn:IntermediateThrowEvent": IntermediateThrowEvent;
-        "bpmn:EndEvent": EndEvent;
-        "bpmn:StartEvent": StartEvent;
-        "bpmn:ThrowEvent": ThrowEvent;
-        "bpmn:CatchEvent": CatchEvent;
-        "bpmn:BoundaryEvent": BoundaryEvent;
-        "bpmn:EventDefinition": EventDefinition;
-        "bpmn:CancelEventDefinition": CancelEventDefinition;
-        "bpmn:ErrorEventDefinition": ErrorEventDefinition;
-        "bpmn:TerminateEventDefinition": TerminateEventDefinition;
-        "bpmn:EscalationEventDefinition": EscalationEventDefinition;
-        "bpmn:Escalation": Escalation;
-        "bpmn:CompensateEventDefinition": CompensateEventDefinition;
-        "bpmn:TimerEventDefinition": TimerEventDefinition;
-        "bpmn:LinkEventDefinition": LinkEventDefinition;
-        "bpmn:MessageEventDefinition": MessageEventDefinition;
-        "bpmn:ConditionalEventDefinition": ConditionalEventDefinition;
-        "bpmn:SignalEventDefinition": SignalEventDefinition;
-        "bpmn:Signal": Signal;
-        "bpmn:ImplicitThrowEvent": ImplicitThrowEvent;
-        "bpmn:DataState": DataState;
-        "bpmn:ItemAwareElement": ItemAwareElement;
-        "bpmn:DataAssociation": DataAssociation;
-        "bpmn:DataInput": DataInput;
-        "bpmn:DataOutput": DataOutput;
-        "bpmn:InputSet": InputSet;
-        "bpmn:OutputSet": OutputSet;
-        "bpmn:Property": Property;
-        "bpmn:DataInputAssociation": DataInputAssociation;
-        "bpmn:DataOutputAssociation": DataOutputAssociation;
-        "bpmn:InputOutputSpecification": InputOutputSpecification;
-        "bpmn:DataObject": DataObject;
-        "bpmn:InputOutputBinding": InputOutputBinding;
-        "bpmn:Assignment": Assignment;
-        "bpmn:DataStore": DataStore;
-        "bpmn:DataStoreReference": DataStoreReference;
-        "bpmn:DataObjectReference": DataObjectReference;
-        "bpmn:ConversationLink": ConversationLink;
-        "bpmn:ConversationAssociation": ConversationAssociation;
-        "bpmn:CallConversation": CallConversation;
-        "bpmn:Conversation": Conversation;
-        "bpmn:SubConversation": SubConversation;
-        "bpmn:ConversationNode": ConversationNode;
-        "bpmn:GlobalConversation": GlobalConversation;
-        "bpmn:PartnerEntity": PartnerEntity;
-        "bpmn:PartnerRole": PartnerRole;
-        "bpmn:CorrelationProperty": CorrelationProperty;
-        "bpmn:Error": ErrorElement;
-        "bpmn:CorrelationKey": CorrelationKey;
-        "bpmn:Expression": Expression;
-        "bpmn:FormalExpression": FormalExpression;
-        "bpmn:Message": Message;
-        "bpmn:ItemDefinition": ItemDefinition;
-        "bpmn:FlowElement": FlowElement;
-        "bpmn:SequenceFlow": SequenceFlow;
-        "bpmn:FlowElementsContainer": FlowElementsContainer;
-        "bpmn:CallableElement": CallableElement;
-        "bpmn:FlowNode": FlowNode;
-        "bpmn:CorrelationPropertyRetrievalExpression": CorrelationPropertyRetrievalExpression;
-        "bpmn:CorrelationPropertyBinding": CorrelationPropertyBinding;
-        "bpmn:Resource": Resource;
-        "bpmn:ResourceParameter": ResourceParameter;
-        "bpmn:CorrelationSubscription": CorrelationSubscription;
-        "bpmn:MessageFlow": MessageFlow;
-        "bpmn:MessageFlowAssociation": MessageFlowAssociation;
-        "bpmn:InteractionNode": InteractionNode;
-        "bpmn:Participant": Participant;
-        "bpmn:ParticipantAssociation": ParticipantAssociation;
-        "bpmn:ParticipantMultiplicity": ParticipantMultiplicity;
-        "bpmn:Collaboration": Collaboration;
-        "bpmn:ChoreographyActivity": ChoreographyActivity;
-        "bpmn:CallChoreography": CallChoreography;
-        "bpmn:SubChoreography": SubChoreography;
-        "bpmn:ChoreographyTask": ChoreographyTask;
-        "bpmn:Choreography": Choreography;
-        "bpmn:GlobalChoreographyTask": GlobalChoreographyTask;
-        "bpmn:TextAnnotation": TextAnnotation;
-        "bpmn:Group": Group;
-        "bpmn:Association": Association;
-        "bpmn:Category": Category;
-        "bpmn:Artifact": Artifact;
-        "bpmn:CategoryValue": CategoryValue;
-        "bpmn:Activity": Activity;
-        "bpmn:ServiceTask": ServiceTask;
-        "bpmn:SubProcess": SubProcess;
-        "bpmn:LoopCharacteristics": LoopCharacteristics;
-        "bpmn:MultiInstanceLoopCharacteristics": MultiInstanceLoopCharacteristics;
-        "bpmn:StandardLoopCharacteristics": StandardLoopCharacteristics;
-        "bpmn:CallActivity": CallActivity;
-        "bpmn:Task": Task;
-        "bpmn:SendTask": SendTask;
-        "bpmn:ReceiveTask": ReceiveTask;
-        "bpmn:ScriptTask": ScriptTask;
-        "bpmn:BusinessRuleTask": BusinessRuleTask;
-        "bpmn:AdHocSubProcess": AdHocSubProcess;
-        "bpmn:Transaction": Transaction;
-        "bpmn:GlobalScriptTask": GlobalScriptTask;
-        "bpmn:GlobalBusinessRuleTask": GlobalBusinessRuleTask;
-        "bpmn:ComplexBehaviorDefinition": ComplexBehaviorDefinition;
-        "bpmn:ResourceRole": ResourceRole;
-        "bpmn:ResourceParameterBinding": ResourceParameterBinding;
-        "bpmn:ResourceAssignmentExpression": ResourceAssignmentExpression;
-        "bpmn:Import": Import;
-        "bpmn:Definitions": Definitions;
-        "bpmndi:BPMNDiagram": BPMNDiagram;
-        "bpmndi:BPMNPlane": BPMNPlane;
-        "bpmndi:BPMNShape": BPMNShape;
-        "bpmndi:BPMNEdge": BPMNEdge;
-        "bpmndi:BPMNLabel": BPMNLabel;
-        "bpmndi:BPMNLabelStyle": BPMNLabelStyle;
-        "dc:boolean": boolean;
-        "dc:number": number;
-        "dc:Real": any;
-        "dc:string": string;
-        "dc:Font": Font;
-        "dc:Point": Point;
-        "dc:Bounds": Bounds;
-        "di:DiagramElement": DiagramElement;
-        "di:Node": Node;
-        "di:Edge": Edge;
-        "di:Diagram": Diagram;
-        "di:Shape": Shape;
-        "di:Plane": Plane;
-        "di:LabeledEdge": LabeledEdge;
-        "di:LabeledShape": LabeledShape;
-        "di:Label": Label;
-        "di:Style": Style;
-        "di:Extension": Extension;
-        "bioc:ColoredShape": ColoredShape;
-        "bioc:ColoredEdge": ColoredEdge;
+        'bpmn:Interface': Interface;
+        'bpmn:Operation': Operation;
+        'bpmn:EndPoint': EndPoint;
+        'bpmn:Auditing': Auditing;
+        'bpmn:GlobalTask': GlobalTask;
+        'bpmn:Monitoring': Monitoring;
+        'bpmn:Performer': Performer;
+        'bpmn:Process': Process;
+        'bpmn:LaneSet': LaneSet;
+        'bpmn:Lane': Lane;
+        'bpmn:GlobalManualTask': GlobalManualTask;
+        'bpmn:ManualTask': ManualTask;
+        'bpmn:UserTask': UserTask;
+        'bpmn:Rendering': Rendering;
+        'bpmn:HumanPerformer': HumanPerformer;
+        'bpmn:PotentialOwner': PotentialOwner;
+        'bpmn:GlobalUserTask': GlobalUserTask;
+        'bpmn:Gateway': Gateway;
+        'bpmn:EventBasedGateway': EventBasedGateway;
+        'bpmn:ComplexGateway': ComplexGateway;
+        'bpmn:ExclusiveGateway': ExclusiveGateway;
+        'bpmn:InclusiveGateway': InclusiveGateway;
+        'bpmn:ParallelGateway': ParallelGateway;
+        'bpmn:RootElement': RootElement;
+        'bpmn:Relationship': Relationship;
+        'bpmn:BaseElement': BaseElement;
+        'bpmn:Extension': Extension;
+        'bpmn:ExtensionDefinition': ExtensionDefinition;
+        'bpmn:ExtensionAttributeDefinition': ExtensionAttributeDefinition;
+        'bpmn:ExtensionElements': ExtensionElements;
+        'bpmn:Documentation': Documentation;
+        'bpmn:Event': Event;
+        'bpmn:IntermediateCatchEvent': IntermediateCatchEvent;
+        'bpmn:IntermediateThrowEvent': IntermediateThrowEvent;
+        'bpmn:EndEvent': EndEvent;
+        'bpmn:StartEvent': StartEvent;
+        'bpmn:ThrowEvent': ThrowEvent;
+        'bpmn:CatchEvent': CatchEvent;
+        'bpmn:BoundaryEvent': BoundaryEvent;
+        'bpmn:EventDefinition': EventDefinition;
+        'bpmn:CancelEventDefinition': CancelEventDefinition;
+        'bpmn:ErrorEventDefinition': ErrorEventDefinition;
+        'bpmn:TerminateEventDefinition': TerminateEventDefinition;
+        'bpmn:EscalationEventDefinition': EscalationEventDefinition;
+        'bpmn:Escalation': Escalation;
+        'bpmn:CompensateEventDefinition': CompensateEventDefinition;
+        'bpmn:TimerEventDefinition': TimerEventDefinition;
+        'bpmn:LinkEventDefinition': LinkEventDefinition;
+        'bpmn:MessageEventDefinition': MessageEventDefinition;
+        'bpmn:ConditionalEventDefinition': ConditionalEventDefinition;
+        'bpmn:SignalEventDefinition': SignalEventDefinition;
+        'bpmn:Signal': Signal;
+        'bpmn:ImplicitThrowEvent': ImplicitThrowEvent;
+        'bpmn:DataState': DataState;
+        'bpmn:ItemAwareElement': ItemAwareElement;
+        'bpmn:DataAssociation': DataAssociation;
+        'bpmn:DataInput': DataInput;
+        'bpmn:DataOutput': DataOutput;
+        'bpmn:InputSet': InputSet;
+        'bpmn:OutputSet': OutputSet;
+        'bpmn:Property': Property;
+        'bpmn:DataInputAssociation': DataInputAssociation;
+        'bpmn:DataOutputAssociation': DataOutputAssociation;
+        'bpmn:InputOutputSpecification': InputOutputSpecification;
+        'bpmn:DataObject': DataObject;
+        'bpmn:InputOutputBinding': InputOutputBinding;
+        'bpmn:Assignment': Assignment;
+        'bpmn:DataStore': DataStore;
+        'bpmn:DataStoreReference': DataStoreReference;
+        'bpmn:DataObjectReference': DataObjectReference;
+        'bpmn:ConversationLink': ConversationLink;
+        'bpmn:ConversationAssociation': ConversationAssociation;
+        'bpmn:CallConversation': CallConversation;
+        'bpmn:Conversation': Conversation;
+        'bpmn:SubConversation': SubConversation;
+        'bpmn:ConversationNode': ConversationNode;
+        'bpmn:GlobalConversation': GlobalConversation;
+        'bpmn:PartnerEntity': PartnerEntity;
+        'bpmn:PartnerRole': PartnerRole;
+        'bpmn:CorrelationProperty': CorrelationProperty;
+        'bpmn:Error': ErrorElement;
+        'bpmn:CorrelationKey': CorrelationKey;
+        'bpmn:Expression': Expression;
+        'bpmn:FormalExpression': FormalExpression;
+        'bpmn:Message': Message;
+        'bpmn:ItemDefinition': ItemDefinition;
+        'bpmn:FlowElement': FlowElement;
+        'bpmn:SequenceFlow': SequenceFlow;
+        'bpmn:FlowElementsContainer': FlowElementsContainer;
+        'bpmn:CallableElement': CallableElement;
+        'bpmn:FlowNode': FlowNode;
+        'bpmn:CorrelationPropertyRetrievalExpression': CorrelationPropertyRetrievalExpression;
+        'bpmn:CorrelationPropertyBinding': CorrelationPropertyBinding;
+        'bpmn:Resource': Resource;
+        'bpmn:ResourceParameter': ResourceParameter;
+        'bpmn:CorrelationSubscription': CorrelationSubscription;
+        'bpmn:MessageFlow': MessageFlow;
+        'bpmn:MessageFlowAssociation': MessageFlowAssociation;
+        'bpmn:InteractionNode': InteractionNode;
+        'bpmn:Participant': Participant;
+        'bpmn:ParticipantAssociation': ParticipantAssociation;
+        'bpmn:ParticipantMultiplicity': ParticipantMultiplicity;
+        'bpmn:Collaboration': Collaboration;
+        'bpmn:ChoreographyActivity': ChoreographyActivity;
+        'bpmn:CallChoreography': CallChoreography;
+        'bpmn:SubChoreography': SubChoreography;
+        'bpmn:ChoreographyTask': ChoreographyTask;
+        'bpmn:Choreography': Choreography;
+        'bpmn:GlobalChoreographyTask': GlobalChoreographyTask;
+        'bpmn:TextAnnotation': TextAnnotation;
+        'bpmn:Group': Group;
+        'bpmn:Association': Association;
+        'bpmn:Category': Category;
+        'bpmn:Artifact': Artifact;
+        'bpmn:CategoryValue': CategoryValue;
+        'bpmn:Activity': Activity;
+        'bpmn:ServiceTask': ServiceTask;
+        'bpmn:SubProcess': SubProcess;
+        'bpmn:LoopCharacteristics': LoopCharacteristics;
+        'bpmn:MultiInstanceLoopCharacteristics': MultiInstanceLoopCharacteristics;
+        'bpmn:StandardLoopCharacteristics': StandardLoopCharacteristics;
+        'bpmn:CallActivity': CallActivity;
+        'bpmn:Task': Task;
+        'bpmn:SendTask': SendTask;
+        'bpmn:ReceiveTask': ReceiveTask;
+        'bpmn:ScriptTask': ScriptTask;
+        'bpmn:BusinessRuleTask': BusinessRuleTask;
+        'bpmn:AdHocSubProcess': AdHocSubProcess;
+        'bpmn:Transaction': Transaction;
+        'bpmn:GlobalScriptTask': GlobalScriptTask;
+        'bpmn:GlobalBusinessRuleTask': GlobalBusinessRuleTask;
+        'bpmn:ComplexBehaviorDefinition': ComplexBehaviorDefinition;
+        'bpmn:ResourceRole': ResourceRole;
+        'bpmn:ResourceParameterBinding': ResourceParameterBinding;
+        'bpmn:ResourceAssignmentExpression': ResourceAssignmentExpression;
+        'bpmn:Import': Import;
+        'bpmn:Definitions': Definitions;
+        'bpmndi:BPMNDiagram': BPMNDiagram;
+        'bpmndi:BPMNPlane': BPMNPlane;
+        'bpmndi:BPMNShape': BPMNShape;
+        'bpmndi:BPMNEdge': BPMNEdge;
+        'bpmndi:BPMNLabel': BPMNLabel;
+        'bpmndi:BPMNLabelStyle': BPMNLabelStyle;
+        'dc:boolean': boolean;
+        'dc:number': number;
+        'dc:Real': any;
+        'dc:string': string;
+        'dc:Font': Font;
+        'dc:Point': Point;
+        'dc:Bounds': Bounds;
+        'di:DiagramElement': DiagramElement;
+        'di:Node': Node;
+        'di:Edge': Edge;
+        'di:Diagram': Diagram;
+        'di:Shape': Shape;
+        'di:Plane': Plane;
+        'di:LabeledEdge': LabeledEdge;
+        'di:LabeledShape': LabeledShape;
+        'di:Label': Label;
+        'di:Style': Style;
+        'di:Extension': Extension;
+        'bioc:ColoredShape': ColoredShape;
+        'bioc:ColoredEdge': ColoredEdge;
     }
 
     type ElementType = keyof ElementTypes;
@@ -914,11 +901,7 @@ declare namespace BPMNModdle {
         new (packages?: any, options?: Option): BPMNModdle;
     }
 
-    type ImportFn = (
-        err: Error,
-        definitions: Definitions,
-        parseContext: any
-    ) => void;
+    type ImportFn = (err: Error, definitions: Definitions, parseContext: any) => void;
 
     interface Moddle {
         /**
@@ -933,10 +916,7 @@ declare namespace BPMNModdle {
          * @param  attrs   a number of attributes to initialize the model instance with
          * @return model instance
          */
-        create<T = ElementTypes, K extends keyof T = keyof T>(
-            descriptor: K,
-            attrs?: any
-        ): T[K];
+        create<T = ElementTypes, K extends keyof T = keyof T>(descriptor: K, attrs?: any): T[K];
         create(descriptor: any, attrs?: any): BaseElement;
 
         /**
@@ -1056,12 +1036,7 @@ declare namespace BPMNModdle {
          * @param done
          * done callback
          */
-        fromXML(
-            xmlStr: string,
-            typeName: string,
-            options: Option,
-            done: ImportFn
-        ): void;
+        fromXML(xmlStr: string, typeName: string, options: Option, done: ImportFn): void;
     }
 }
 

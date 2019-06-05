@@ -4,20 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PromiseModule {
-    new(executor: (resolve: (value?: any) => void, reject: (reason?: any) => void) => void): any;
+    new (executor: (resolve: (value?: any) => void, reject: (reason?: any) => void) => void): any;
 }
 
 interface PifyOptions {
-    multiArgs?: boolean,
-    include?: Array<string | RegExp>,
-    exclude?: Array<string | RegExp>,
-    excludeMain?: boolean,
-    errorFirst?: boolean,
-    promiseModule?: PromiseModule
+    multiArgs?: boolean;
+    include?: Array<string | RegExp>;
+    exclude?: Array<string | RegExp>;
+    excludeMain?: boolean;
+    errorFirst?: boolean;
+    promiseModule?: PromiseModule;
 }
 
 declare function pify(input: Function, options?: PifyOptions): (...args: any[]) => Promise<any>;
 declare function pify(input: any, options?: PifyOptions): any;
 
-declare namespace pify { }
+declare namespace pify {}
 export = pify;

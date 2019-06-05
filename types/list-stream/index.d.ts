@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Duplex, DuplexOptions } from "stream";
+import { Duplex, DuplexOptions } from 'stream';
 
 interface ListStreamMethod {
     (callback?: (err: Error, data: any[]) => void): ListStream;
@@ -14,8 +14,8 @@ interface ListStreamMethod {
 }
 
 interface ListStreamConstructor extends ListStreamMethod {
-    new(callback?: (err: Error, data: any[]) => void): ListStream;
-    new(options?: DuplexOptions, callback?: (err: Error, data: any[]) => void): ListStream;
+    new (callback?: (err: Error, data: any[]) => void): ListStream;
+    new (options?: DuplexOptions, callback?: (err: Error, data: any[]) => void): ListStream;
 
     obj: ListStreamMethod;
 }

@@ -2,7 +2,9 @@ import * as sha from 'sha';
 import * as fs from 'fs';
 
 const algorithm = 'sha256';
-interface CustType { n: number; }
+interface CustType {
+    n: number;
+}
 const C: CustType = { n: 1 };
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +19,7 @@ sha.check('./file', '1a2b3c4d', {}, () => C); // $ExpectType void | CustType
 sha.check('./file', '1a2b3c4d', { algorithm }, () => C); // $ExpectType void | CustType
 sha.check('./file', '1a2b3c4d', { sha: true }, () => C); // $ExpectError
 // $ExpectType void | CustType
-sha.check('./file', '1a2b3c4d', (er) => {
+sha.check('./file', '1a2b3c4d', er => {
     if (er) {
         er; // $ExpectType Error
     } else {
@@ -26,7 +28,7 @@ sha.check('./file', '1a2b3c4d', (er) => {
     return C;
 });
 // $ExpectType void | CustType
-sha.check('./file', '1a2b3c4d', { algorithm }, (er) => {
+sha.check('./file', '1a2b3c4d', { algorithm }, er => {
     if (er) {
         er; // $ExpectType Error
     } else {

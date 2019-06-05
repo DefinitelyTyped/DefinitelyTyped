@@ -5,5 +5,5 @@ declare namespace NavbarToggle {
         onClick?: React.MouseEventHandler<any>;
     }
 }
-declare class NavbarToggle extends React.Component<NavbarToggle.NavbarToggleProps> { }
+declare class NavbarToggle extends React.Component<NavbarToggle.NavbarToggleProps> {}
 export = NavbarToggle;

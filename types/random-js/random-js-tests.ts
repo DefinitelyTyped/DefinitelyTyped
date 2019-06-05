@@ -107,7 +107,7 @@ date = random.date(new Date(), new Date());
 
 engine = Random.engines.mt19937().autoSeed();
 // create a distribution that will consistently produce integers within inclusive range [0, 99].
-const distribution: ((engine: Engine) => number) = Random.integer(0, 99);
+const distribution: (engine: Engine) => number = Random.integer(0, 99);
 // generate a number that is guaranteed to be within [0, 99] without any particular bias.
 function generateNaturalLessThan100(): number {
     return distribution(engine);
@@ -117,7 +117,7 @@ function generateNaturalLessThan100(): number {
 // using essentially Math.random()
 const engine2: Engine = Random.engines.nativeMath;
 // lower-case Hex string distribution
-const distribution2: ((engine: Engine, length: number) => string) = Random.hex(false);
+const distribution2: (engine: Engine, length: number) => string = Random.hex(false);
 // generate a 40-character hex string
 function generateSHA1(): string {
     return distribution2(engine2, 40);

@@ -145,7 +145,4 @@ export interface ModuleInfos {
  * Run the license check
  * @param opts specifies the path to the module to check dependencies of
  */
-export function init(
-    opts: InitOpts,
-    callback: (err: Error, ret: ModuleInfos) => void
-): void;
+export function init(opts: InitOpts, callback: (err: Error, ret: ModuleInfos) => void): void;

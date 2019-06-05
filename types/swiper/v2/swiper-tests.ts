@@ -10,7 +10,7 @@ function defaultDemo() {
         pagination: '.pagination',
         loop: true,
         grabCursor: true,
-        paginationClickable: true
+        paginationClickable: true,
     });
 
     $('.arrow-left').on('click', e => {
@@ -29,7 +29,7 @@ function verticalMode() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
-        mode: 'vertical'
+        mode: 'vertical',
     });
 }
 
@@ -37,11 +37,11 @@ function verticalMode() {
 function dynamicSlides() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
-        paginationClickable: true
+        paginationClickable: true,
     });
 
     function randomColor() {
-        const colors = ('blue red green orange pink').split(' ');
+        const colors = 'blue red green orange pink'.split(' ');
         return colors[Math.floor(Math.random() * colors.length)];
     }
 
@@ -49,25 +49,29 @@ function dynamicSlides() {
 
     $('.sdl-append').click(e => {
         e.preventDefault();
-        mySwiper.appendSlide('<div class="title">Slide ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide');
+        mySwiper.appendSlide(
+            '<div class="title">Slide ' + ++count + '</div>',
+            'swiper-slide ' + randomColor() + '-slide'
+        );
     });
 
     $('.sdl-prepend').click(e => {
         e.preventDefault();
-        mySwiper.prependSlide('<div class="title">Slide  ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide');
+        mySwiper.prependSlide(
+            '<div class="title">Slide  ' + ++count + '</div>',
+            'swiper-slide ' + randomColor() + '-slide'
+        );
     });
 
     $('.sdl-swap').click(e => {
         e.preventDefault();
-        mySwiper
-            .getFirstSlide()
-            .insertAfter(1);
+        mySwiper.getFirstSlide().insertAfter(1);
     });
 
     $('.sdl-insert').click(e => {
         e.preventDefault();
         mySwiper
-            .createSlide('<div class="title">Slide  ' + (++count) + '</div>', 'swiper-slide ' + randomColor() + '-slide')
+            .createSlide('<div class="title">Slide  ' + ++count + '</div>', 'swiper-slide ' + randomColor() + '-slide')
             .insertAfter(0);
     });
 
@@ -92,8 +96,8 @@ function scrollContainer() {
     const mySwiper = new Swiper('.swiper-container', {
         scrollContainer: true,
         scrollbar: {
-            container: '.swiper-scrollbar'
-        }
+            container: '.swiper-scrollbar',
+        },
     });
 }
 
@@ -103,7 +107,7 @@ function freeMode() {
         pagination: '.pagination',
         paginationClickable: true,
         freeMode: true,
-        freeModeFluid: true
+        freeModeFluid: true,
     });
 }
 
@@ -112,7 +116,7 @@ function carouselMode() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
-        slidesPerView: 3
+        slidesPerView: 3,
     });
 }
 
@@ -122,7 +126,7 @@ function carouselLoop() {
         pagination: '.pagination',
         paginationClickable: true,
         slidesPerView: 3,
-        loop: true
+        loop: true,
     });
 }
 
@@ -131,21 +135,21 @@ function nested() {
     const swiperParent = new Swiper('.swiper-parent', {
         pagination: '.pagination-parent',
         paginationClickable: true,
-        slidesPerView: 3
+        slidesPerView: 3,
     });
 
     const swiperNested1 = new Swiper('.swiper-nested-1', {
         mode: 'vertical',
         pagination: '.pagination-nested-1',
         paginationClickable: true,
-        slidesPerView: 2
+        slidesPerView: 2,
     });
 
     const swiperNested2 = new Swiper('.swiper-nested-2', {
         mode: 'vertical',
         pagination: '.pagination-nested-2',
         paginationClickable: true,
-        slidesPerView: 2
+        slidesPerView: 2,
     });
 }
 
@@ -155,14 +159,14 @@ function nestedLoop() {
         pagination: '.pagination-parent',
         paginationClickable: true,
         loop: true,
-        slidesPerView: 3
+        slidesPerView: 3,
     });
 
     const swiperNested1 = new Swiper('.swiper-nested', {
         mode: 'vertical',
         pagination: '.pagination-nested',
         paginationClickable: true,
-        slidesPerView: 2
+        slidesPerView: 2,
     });
 }
 
@@ -170,17 +174,17 @@ function nestedLoop() {
 function tabs() {
     const tabsSwiper = new Swiper('.swiper-container', {
         onlyExternal: true,
-        speed: 500
+        speed: 500,
     });
 
-    $(".tabs a").on('touchstart mousedown', e => {
+    $('.tabs a').on('touchstart mousedown', e => {
         e.preventDefault();
-        $(".tabs .active").removeClass('active');
+        $('.tabs .active').removeClass('active');
         $(this).addClass('active');
         tabsSwiper.swipeTo($(this).index());
     });
 
-    $(".tabs a").click(e => {
+    $('.tabs a').click(e => {
         e.preventDefault();
     });
 }
@@ -190,19 +194,21 @@ function tabsFeedback() {
     const tabsSwiper = new Swiper('.swiper-container', {
         speed: 500,
         onSlideChangeStart: () => {
-            $(".tabs .active").removeClass('active');
-            $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
-        }
+            $('.tabs .active').removeClass('active');
+            $('.tabs a')
+                .eq(tabsSwiper.activeIndex)
+                .addClass('active');
+        },
     });
 
-    $(".tabs a").on('touchstart mousedown', e => {
+    $('.tabs a').on('touchstart mousedown', e => {
         e.preventDefault();
-        $(".tabs .active").removeClass('active');
+        $('.tabs .active').removeClass('active');
         $(this).addClass('active');
         tabsSwiper.swipeTo($(this).index());
     });
 
-    $(".tabs a").click(e => {
+    $('.tabs a').click(e => {
         e.preventDefault();
     });
 }
@@ -212,7 +218,7 @@ function partialDisplay() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
-        slidesPerView: 'auto'
+        slidesPerView: 'auto',
     });
 }
 
@@ -221,7 +227,7 @@ function threshold() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
-        moveStartThreshold: 100
+        moveStartThreshold: 100,
     });
 }
 
@@ -230,7 +236,7 @@ function differentWidths() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
         paginationClickable: true,
-        slidesPerView: 'auto'
+        slidesPerView: 'auto',
     });
 }
 
@@ -240,7 +246,7 @@ function centeredSlides() {
         pagination: '.pagination',
         paginationClickable: true,
         centeredSlides: true,
-        slidesPerView: 'auto'
+        slidesPerView: 'auto',
     });
 }
 
@@ -251,7 +257,7 @@ function visibilityApi() {
         paginationClickable: true,
         centeredSlides: true,
         slidesPerView: 3,
-        watchActiveIndex: true
+        watchActiveIndex: true,
     });
 }
 
@@ -259,7 +265,7 @@ function visibilityApi() {
 function responsive() {
     const mySwiper = new Swiper('.swiper-container', {
         pagination: '.pagination',
-        paginationClickable: true
+        paginationClickable: true,
     });
 }
 
@@ -273,8 +279,8 @@ function demo1() {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: false,
-            draggable: false
-        }
+            draggable: false,
+        },
     });
 }
 
@@ -284,8 +290,8 @@ function demo2() {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: false,
-            draggable: true
-        }
+            draggable: true,
+        },
     });
 }
 
@@ -295,8 +301,8 @@ function demo3() {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: true,
-            draggable: true
-        }
+            draggable: true,
+        },
     });
 }
 
@@ -308,8 +314,8 @@ function demo4() {
             container: '.swiper-scrollbar',
             hide: false,
             draggable: true,
-            snapOnRelease: true
-        }
+            snapOnRelease: true,
+        },
     });
 }
 
@@ -322,7 +328,7 @@ function demo5() {
         scrollbar: {
             container: '.swiper-scrollbar',
             hide: true,
-            draggable: false
-        }
+            draggable: false,
+        },
     });
 }

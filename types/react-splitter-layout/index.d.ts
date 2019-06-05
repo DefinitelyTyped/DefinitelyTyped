@@ -4,12 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-export default class SplitterLayout extends React.PureComponent<SplitterLayoutProps> {
-}
+export default class SplitterLayout extends React.PureComponent<SplitterLayoutProps> {}
 
-export type TPrimaryIndex = 0|1;
+export type TPrimaryIndex = 0 | 1;
 
 export interface SplitterLayoutProps {
     /**

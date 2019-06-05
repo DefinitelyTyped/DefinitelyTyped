@@ -1,9 +1,9 @@
-import { InterruptManager } from "./InterruptManager";
-import { IInputType, IInputTypeObserver } from "./inputType/InputType";
-import { EventManager } from "./EventManager";
-import { AxisManager, Axis } from "./AxisManager";
-import { AnimationManager } from "./AnimationManager";
-import { AxesOption } from "./Axes";
+import { InterruptManager } from './InterruptManager';
+import { IInputType, IInputTypeObserver } from './inputType/InputType';
+import { EventManager } from './EventManager';
+import { AxisManager, Axis } from './AxisManager';
+import { AnimationManager } from './AnimationManager';
+import { AxesOption } from './Axes';
 export declare class InputObserver implements IInputTypeObserver {
     options: AxesOption;
     private itm;

@@ -1,4 +1,4 @@
-import * as nblas from "nblas";
+import * as nblas from 'nblas';
 
 const a = new Float32Array(0);
 const n = 1;

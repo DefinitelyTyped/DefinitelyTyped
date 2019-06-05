@@ -1,4 +1,4 @@
-import { NextComponentType } from "next";
+import { NextComponentType } from 'next';
 
 export interface WithAmpConfig {
     hybrid: boolean;

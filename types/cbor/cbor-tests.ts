@@ -40,10 +40,10 @@ class Bar {
         this.three = 3;
     }
 }
-const enc = new cbor.Encoder()
+const enc = new cbor.Encoder();
 enc.addSemanticType(Bar, (encoder, b) => {
     encoder.pushAny(b.three);
-})
+});
 
 class Foo {
     one: number;
@@ -51,12 +51,12 @@ class Foo {
 }
 const d3 = new cbor.Decoder({
     tags: {
-        64000: (val) => {
+        64000: val => {
             // check val to make sure it's an Array as expected, etc.
             const foo = new Foo();
             foo.one = val[0];
             foo.two = val[1];
             return foo;
-        }
-    }
-})
+        },
+    },
+});

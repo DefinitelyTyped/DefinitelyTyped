@@ -1,4 +1,4 @@
-import { Identifiable } from "./Identifiable";
+import { Identifiable } from './Identifiable';
 
 /**
  * Represents a map of identifiable objects.

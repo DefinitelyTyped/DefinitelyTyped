@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type FormMessageType = "error" | "warning" | "help";
+export type FormMessageType = 'error' | 'warning' | 'help';
 
 export type FormMessageProps = {
     className?: string;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement } from "react";
+import { ReactElement } from 'react';
 
 export interface Transform {
     (node: object, index: number, transform?: Transform): ReactElement | void | null;
@@ -16,11 +16,7 @@ export interface Options {
     preprocessNodes?(nodes: object[]): any;
 }
 
-export function convertNodeToElement(
-    node: object,
-    index: number,
-    transform: Transform,
-): ReactElement;
+export function convertNodeToElement(node: object, index: number, transform: Transform): ReactElement;
 
 export function processNodes(nodes: object[], transform: Transform): ReactElement[];
 

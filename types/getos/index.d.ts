@@ -11,14 +11,7 @@ declare namespace getos {
     type Os = OtherOs | LinuxOs;
 
     interface OtherOs {
-        os: 'aix'
-            | 'android'
-            | 'darwin'
-            | 'freebsd'
-            | 'openbsd'
-            | 'sunos'
-            | 'win32'
-            | 'cygwin';
+        os: 'aix' | 'android' | 'darwin' | 'freebsd' | 'openbsd' | 'sunos' | 'win32' | 'cygwin';
     }
 
     interface LinuxOs {

@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Kinetic {
-
     var Node: {
         new (config: ObjectOptionsConfig): INode;
-    }
+    };
 
     interface INode {
         cache(cacheConfig?: any): INode;
@@ -45,7 +44,7 @@ declare namespace Kinetic {
         isDraggable(): boolean;
         isDragging(): boolean;
         isListening(): boolean;
-        move(change:{x: number; y: number}): void;
+        move(change: { x: number; y: number }): void;
         moveDown(): void;
         moveTo(newContainer: IContainer): void;
         moveToBottom(): void;
@@ -114,7 +113,7 @@ declare namespace Kinetic {
 
     var Container: {
         new (config: any): IContainer;
-    }
+    };
 
     interface IContainer extends INode {
         add(child: INode): any;
@@ -130,7 +129,7 @@ declare namespace Kinetic {
 
     var Stage: {
         new (config: StageConfig): IStage;
-    }
+    };
 
     interface IStage extends IContainer {
         add(layer: ILayer): any;
@@ -157,7 +156,7 @@ declare namespace Kinetic {
 
     var Layer: {
         new (config?: LayerConfig): ILayer;
-    }
+    };
 
     interface ILayer extends IContainer {
         afterDraw(handler: () => any): any;
@@ -183,7 +182,7 @@ declare namespace Kinetic {
 
     var Shape: {
         new (config: any): IShape;
-    }
+    };
 
     interface IShape extends INode {
         applyLineJoin(): void;
@@ -212,7 +211,7 @@ declare namespace Kinetic {
 
     var Rect: {
         new (config: RectConfig): IRect;
-    }
+    };
 
     interface IRect extends IShape {
         getCornerRadius(): number;
@@ -225,8 +224,7 @@ declare namespace Kinetic {
 
     var Circle: {
         new (config: CircleConfig): ICircle;
-
-    }
+    };
 
     interface ICircle extends IShape {
         getRadius(): number;
@@ -235,7 +233,7 @@ declare namespace Kinetic {
 
     var Ellipse: {
         new (config: CircleConfig): IEllipse;
-    }
+    };
 
     interface IEllipse extends IShape {
         getRadius(): number;
@@ -244,14 +242,13 @@ declare namespace Kinetic {
 
     var Group: {
         new (config?: ObjectOptionsConfig): IGroup;
-    }
+    };
 
-    interface IGroup extends IContainer {
-    }
+    interface IGroup extends IContainer {}
 
     var Collection: {
         new (): ICollection;
-    }
+    };
 
     interface ICollection {
         apply(method: Function, val: any): any;
@@ -260,7 +257,7 @@ declare namespace Kinetic {
 
     var Image: {
         new (config?: ImageConfig): IImage;
-    }
+    };
 
     interface IImage extends IShape {
         applyFilter(config: any): any;
@@ -280,7 +277,7 @@ declare namespace Kinetic {
 
     var Line: {
         new (config: LineConfig): ILine;
-    }
+    };
 
     interface ILine extends IShape {
         getDashArray(): any;
@@ -294,7 +291,7 @@ declare namespace Kinetic {
     var Path: {
         new (config: PathConfig): IPath;
         parsePathData(data: string): any;
-    }
+    };
     interface IPath extends IShape {
         getData(): string;
         setData(SVG: string): any;
@@ -302,7 +299,7 @@ declare namespace Kinetic {
 
     var RegularPolygon: {
         new (config: RegularPolygonConfig): IRegularPolygon;
-    }
+    };
 
     interface IRegularPolygon extends IShape {
         getRadius(): number;
@@ -313,7 +310,7 @@ declare namespace Kinetic {
 
     var Sprite: {
         new (config: SpriteConfig): ISprite;
-    }
+    };
     interface ISprite extends IShape {
         afterFrame(index: number, func: () => any): any;
         getAnimation(): string;
@@ -328,7 +325,7 @@ declare namespace Kinetic {
 
     var Star: {
         new (config: StarConfig): IStar;
-    }
+    };
     interface IStar extends IShape {
         getInnerRadius(): number;
         getNumPoints(): number;
@@ -340,7 +337,7 @@ declare namespace Kinetic {
 
     var Text: {
         new (config: TextConfig): IText;
-    }
+    };
     interface IText extends IShape {
         getAlign(): string;
         getBoxHeight(): number;
@@ -376,7 +373,7 @@ declare namespace Kinetic {
 
     var TextPath: {
         new (config: any): ITextPath;
-    }
+    };
     interface ITextPath extends IShape {
         getFontFamily(): string;
         getFontSize(): number;
@@ -398,7 +395,7 @@ declare namespace Kinetic {
 
     var Animation: {
         new (...args: any[]): IAnimation;
-    }
+    };
     interface IAnimation extends IContainer {
         start(): any;
         stop(): any;

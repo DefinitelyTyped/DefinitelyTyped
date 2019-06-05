@@ -72,7 +72,7 @@ declare namespace echarts {
                  * This feature usually makes sense in value axis
                  * and time axis, where tiny points
                  * can be seeked automatically.
-                */
+                 */
                 snap?: boolean;
 
                 /**
@@ -369,7 +369,7 @@ declare namespace echarts {
                         params: object | object[],
                         element: HTMLElement,
                         rect: object,
-                        size: object,
+                        size: object
                     ): (number | string)[] | Obj;
                 }
             }
@@ -401,11 +401,7 @@ declare namespace echarts {
              * }
              */
             interface Formatter {
-                (
-                    params: Format | Format[],
-                    ticket: string,
-                    callback: (ticket: string, html: string) => void,
-                ): string;
+                (params: Format | Format[], ticket: string, callback: (ticket: string, html: string) => void): string;
             }
 
             interface Format {

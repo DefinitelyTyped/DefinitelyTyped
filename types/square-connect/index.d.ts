@@ -9109,7 +9109,9 @@ export class CatalogApi {
      * its child information including: all of its [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
      * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    batchRetrieveCatalogObjects(params: BatchRetrieveCatalogObjectsRequest): Promise<BatchRetrieveCatalogObjectsResponse>;
+    batchRetrieveCatalogObjects(
+        params: BatchRetrieveCatalogObjectsRequest
+    ): Promise<BatchRetrieveCatalogObjectsResponse>;
     /**
      * Creates or updates up to 10,000 target objects based on the provided list of objects. The target objects are grouped into
      * batches and each batch is inserted/updated in an all-or-nothing manner. If an object within a batch is malformed in some way,

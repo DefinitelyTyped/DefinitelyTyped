@@ -5,14 +5,14 @@ import * as moxios from 'moxios';
 
 declare const sinon: any;
 declare const describe: any;
-declare function it(testName: string, test: (done: () => void) => void|Promise<any>): void;
+declare function it(testName: string, test: (done: () => void) => void | Promise<any>): void;
 declare const beforeEach: any;
 declare const afterEach: any;
 
 const USER_FRED = {
     id: 12345,
     firstName: 'Fred',
-    lastName: 'Flintstone'
+    lastName: 'Flintstone',
 };
 
 describe('moxios', () => {
@@ -44,7 +44,7 @@ describe('moxios', () => {
             moxios.uninstall();
         });
 
-        it('should intercept requests', (done) => {
+        it('should intercept requests', done => {
             axios.get('/users/12345');
 
             moxios.wait(() => {
@@ -54,40 +54,44 @@ describe('moxios', () => {
             });
         });
 
-        it('should mock responses', (done) => {
+        it('should mock responses', done => {
             axios.get('/users/12345').then(onFulfilled);
 
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
-                request.respondWith({
-                    status: 200,
-                    response: USER_FRED
-                }).then(() => {
-                    const response = onFulfilled.getCall(0).args[0];
-                    equal(onFulfilled.called, true);
-                    equal(response.status, 200);
-                    deepEqual(response.data, USER_FRED);
-                    done();
-                });
+                request
+                    .respondWith({
+                        status: 200,
+                        response: USER_FRED,
+                    })
+                    .then(() => {
+                        const response = onFulfilled.getCall(0).args[0];
+                        equal(onFulfilled.called, true);
+                        equal(response.status, 200);
+                        deepEqual(response.data, USER_FRED);
+                        done();
+                    });
             });
         });
 
-        it('should mock responses Error', (done) => {
+        it('should mock responses Error', done => {
             axios.get('/users/12346').then(onFulfilled, onRejected);
 
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
-                request.respondWith({
-                    status: 404
-                }).then(() => {
-                    equal(onFulfilled.called, false);
-                    equal(onRejected.called, true);
-                    done();
-                });
+                request
+                    .respondWith({
+                        status: 404,
+                    })
+                    .then(() => {
+                        equal(onFulfilled.called, false);
+                        equal(onRejected.called, true);
+                        done();
+                    });
             });
         });
 
-        it('should mock one time', (done) => {
+        it('should mock one time', done => {
             moxios.uninstall();
 
             moxios.withMock(() => {
@@ -95,18 +99,20 @@ describe('moxios', () => {
 
                 moxios.wait(() => {
                     const request = moxios.requests.mostRecent();
-                    request.respondWith({
-                        status: 200,
-                        response: USER_FRED
-                    }).then(() => {
-                        equal(onFulfilled.called, true);
-                        done();
-                    });
+                    request
+                        .respondWith({
+                            status: 200,
+                            response: USER_FRED,
+                        })
+                        .then(() => {
+                            equal(onFulfilled.called, true);
+                            done();
+                        });
                 });
             });
         });
 
-        it('should timeout requests one time', (done) => {
+        it('should timeout requests one time', done => {
             moxios.uninstall();
 
             moxios.withMock(() => {
@@ -122,10 +128,10 @@ describe('moxios', () => {
             });
         });
 
-        it('should stub requests', (done) => {
+        it('should stub requests', done => {
             moxios.stubRequest('/users/12345', {
                 status: 200,
-                response: USER_FRED
+                response: USER_FRED,
             });
 
             axios.get('/users/12345').then(onFulfilled);
@@ -137,7 +143,7 @@ describe('moxios', () => {
             });
         });
 
-        it('should stub timeout', (done) => {
+        it('should stub timeout', done => {
             moxios.stubTimeout('/users/12345');
 
             axios.get('/users/12345').catch(onRejected);
@@ -149,10 +155,10 @@ describe('moxios', () => {
             });
         });
 
-        it('should stub requests RegExp', (done) => {
+        it('should stub requests RegExp', done => {
             moxios.stubRequest(/\/users\/\d*/, {
                 status: 200,
-                response: USER_FRED
+                response: USER_FRED,
             });
 
             axios.get('/users/12345').then(onFulfilled);
@@ -167,12 +173,12 @@ describe('moxios', () => {
         describe('stubs', () => {
             it('should track multiple stub requests', () => {
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12346', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 equal(moxios.stubs.count(), 2);
@@ -180,12 +186,12 @@ describe('moxios', () => {
 
             it('should find single stub by method', () => {
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12346', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 const request = moxios.stubs.get('PUT', '/users/12345');
@@ -195,21 +201,21 @@ describe('moxios', () => {
 
             it('should remove a single stub by method', () => {
                 moxios.stubOnce('PUT', '/users/12346', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12346', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12345', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 moxios.stubs.remove('PUT', '/users/12345');
@@ -218,12 +224,12 @@ describe('moxios', () => {
 
             it('should not find stub with invalid method', () => {
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12346', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 const request = moxios.stubs.get('GET', '/users/12345');
@@ -233,12 +239,12 @@ describe('moxios', () => {
 
             it('should not find request on invalid method', () => {
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12346', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 axios.put('/users/12346', USER_FRED);
@@ -247,18 +253,18 @@ describe('moxios', () => {
                 equal(request, undefined);
             });
 
-            it('should find request after multiple stubs using same URI', (done) => {
+            it('should find request after multiple stubs using same URI', done => {
                 moxios.stubOnce('POST', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12345', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 axios.put('/users/12345', USER_FRED).then(onFulfilled);
@@ -272,14 +278,14 @@ describe('moxios', () => {
                 });
             });
 
-            it('Should stub and find multiple requests by method', (done) => {
+            it('Should stub and find multiple requests by method', done => {
                 moxios.stubOnce('PUT', '/users/12345', {
-                    status: 204
+                    status: 204,
                 });
 
                 moxios.stubOnce('GET', '/users/12346', {
                     status: 200,
-                    response: USER_FRED
+                    response: USER_FRED,
                 });
 
                 axios.put('/users/12345', USER_FRED).then(onFulfilled);

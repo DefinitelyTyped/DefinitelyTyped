@@ -5,17 +5,11 @@
 
 /// <reference types="node" />
 
-import { Stats } from "fs";
+import { Stats } from 'fs';
 
 export interface WalkStats extends Stats {
     name: string;
-    type: "file"
-        | "directory"
-        | "symbolicLink"
-        | "blockDevice"
-        | "characterDevice"
-        | "FIFO"
-        | "socket";
+    type: 'file' | 'directory' | 'symbolicLink' | 'blockDevice' | 'characterDevice' | 'FIFO' | 'socket';
     error?: NodeJS.ErrnoException;
 }
 
@@ -39,27 +33,13 @@ export interface WalkOptions {
 
 export type WalkNext = () => void;
 
-export type WalkStatEventCallback = (
-    base: string,
-    names: WalkStats,
-    next: WalkNext) => void;
+export type WalkStatEventCallback = (base: string, names: WalkStats, next: WalkNext) => void;
 
-export type WalkStatArrayEventCallback = (
-    base: string,
-    names: WalkStats[],
-    next: WalkNext) => void;
+export type WalkStatArrayEventCallback = (base: string, names: WalkStats[], next: WalkNext) => void;
 
-export type WalkNamesEventCallback = (
-    base: string,
-    names: string[],
-    next: WalkNext) => void;
+export type WalkNamesEventCallback = (base: string, names: string[], next: WalkNext) => void;
 
-export type WalkStatArrayEvent
-    = 'files'
-    | 'directories'
-    | 'errors'
-    | 'nodeError'
-    | 'directoryError';
+export type WalkStatArrayEvent = 'files' | 'directories' | 'errors' | 'nodeError' | 'directoryError';
 
 export type WalkStatEvent = 'file' | 'directory';
 

@@ -1,2 +1,2 @@
-import { conforms } from "../fp";
+import { conforms } from '../fp';
 export = conforms;

@@ -8,9 +8,9 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import * as events from "events";
-import * as net from "net";
+import * as stream from 'stream';
+import * as events from 'events';
+import * as net from 'net';
 
 import {
     utils,
@@ -25,8 +25,8 @@ import {
     ReadFileOptions,
     ReadStreamOptions,
     WriteStreamOptions,
-    FileEntry
-} from "ssh2-streams";
+    FileEntry,
+} from 'ssh2-streams';
 
 export import SFTP_STATUS_CODE = SFTPStream.STATUS_CODE;
 export import SFTP_OPEN_MODE = SFTPStream.OPEN_MODE;
@@ -99,14 +99,17 @@ export interface ClientChannel extends Channel {
     /**
      * Emitted once the channel is completely closed on both the client and the server.
      */
-    on(event: "close", listener: () => void): this;
+    on(event: 'close', listener: () => void): this;
 
     /**
      * An `exit` event *may* (the SSH2 spec says it is optional) be emitted when the process
      * finishes. If the process finished normally, the process's return value is passed to
      * the `exit` callback.
      */
-    on(event: "exit", listener: (exitCode: number | null, signalName?: string, didCoreDump?: boolean, description?: string) => void): this;
+    on(
+        event: 'exit',
+        listener: (exitCode: number | null, signalName?: string, didCoreDump?: boolean, description?: string) => void
+    ): this;
 
     on(event: string | symbol, listener: Function): this;
 }
@@ -134,7 +137,7 @@ export interface ServerChannel extends Channel {
     /**
      * Emitted once the channel is completely closed on both the client and the server.
      */
-    on(event: "close", listener: () => void): this;
+    on(event: 'close', listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
 }
@@ -145,12 +148,12 @@ export class Client extends events.EventEmitter {
     /**
      * Emitted when a notice was sent by the server upon connection.
      */
-    on(event: "banner", listener: (message: string) => void): this;
+    on(event: 'banner', listener: (message: string) => void): this;
 
     /**
      * Emitted when authentication was successful.
      */
-    on(event: "ready", listener: () => void): this;
+    on(event: 'ready', listener: () => void): this;
 
     /**
      * Emitted when an incoming forwarded TCP connection is being requested.
@@ -158,7 +161,10 @@ export class Client extends events.EventEmitter {
      * Calling `accept()` accepts the connection and returns a `Channel` object.
      * Calling `reject()` rejects the connection and no further action is needed.
      */
-    on(event: "tcp connection", listener: (details: TcpConnectionDetails, accept: () => ClientChannel, reject: () => void) => void): this;
+    on(
+        event: 'tcp connection',
+        listener: (details: TcpConnectionDetails, accept: () => ClientChannel, reject: () => void) => void
+    ): this;
 
     /**
      * Emitted when an incoming X11 connection is being requested.
@@ -166,7 +172,7 @@ export class Client extends events.EventEmitter {
      * Calling `accept()` accepts the connection and returns a `Channel` object.
      * Calling `reject()` rejects the connection and no further action is needed.
      */
-    on(event: "x11", listener: (details: X11Details, accept: () => ClientChannel, reject: () => void) => void): this;
+    on(event: 'x11', listener: (details: X11Details, accept: () => ClientChannel, reject: () => void) => void): this;
 
     /**
      * Emitted when the server is asking for replies to the given `prompts` for keyboard-
@@ -180,7 +186,16 @@ export class Client extends events.EventEmitter {
      *
      * NOTE: It's possible for the server to come back and ask more questions.
      */
-    on(event: "keyboard-interactive", listener: (name: string, instructions: string, lang: string, prompts: Prompt[], finish: (responses: string[]) => void) => void): this;
+    on(
+        event: 'keyboard-interactive',
+        listener: (
+            name: string,
+            instructions: string,
+            lang: string,
+            prompts: Prompt[],
+            finish: (responses: string[]) => void
+        ) => void
+    ): this;
 
     /**
      * Emitted when the server has requested that the user's password be changed, if using
@@ -188,43 +203,46 @@ export class Client extends events.EventEmitter {
      *
      * Call `done` with the new password.
      */
-    on(event: "change password", listener: (message: string, lang: string, done: (password: string) => void) => void): this;
+    on(
+        event: 'change password',
+        listener: (message: string, lang: string, done: (password: string) => void) => void
+    ): this;
 
     /**
      * Emitted when more requests/data can be sent to the server (after a `Client` method
      * returned `false`).
      */
-    on(event: "continue", listener: () => void): this;
+    on(event: 'continue', listener: () => void): this;
 
     /**
      * Emitted when an error occurred.
      */
-    on(event: "error", listener: (err: Error & ClientErrorExtensions) => void): this;
+    on(event: 'error', listener: (err: Error & ClientErrorExtensions) => void): this;
 
     /**
      * Emitted when the socket was disconnected.
      */
-    on(event: "end", listener: () => void): this;
+    on(event: 'end', listener: () => void): this;
 
     /**
      * Emitted when the socket was closed.
      */
-    on(event: "close", listener: (hadError: boolean) => void): this;
+    on(event: 'close', listener: (hadError: boolean) => void): this;
 
     /**
      * Emitted when the socket has timed out.
      */
-    on(event: "timeout", listener: () => void): this;
+    on(event: 'timeout', listener: () => void): this;
 
     /**
      * Emitted when the socket has connected.
      */
-    on(event: "connect", listener: () => void): this;
+    on(event: 'connect', listener: () => void): this;
 
     /**
      * Emitted when the server responds with a greeting message.
      */
-    on(event: "greeting", listener: (greeting: string) => void): this;
+    on(event: 'greeting', listener: (greeting: string) => void): this;
 
     on(event: string | symbol, listener: Function): this;
 
@@ -270,7 +288,11 @@ export class Client extends events.EventEmitter {
      * @param options Options for the command.
      * @param callback The callback to execute when the channel has been created.
      */
-    shell(window: PseudoTtyOptions | false, options: ShellOptions, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    shell(
+        window: PseudoTtyOptions | false,
+        options: ShellOptions,
+        callback: (err: Error, channel: ClientChannel) => void
+    ): boolean;
 
     /**
      * Starts an interactive shell session on the server.
@@ -346,7 +368,13 @@ export class Client extends events.EventEmitter {
      * @param dstPort The destination port.
      * @param callback The callback that is invoked when the address is bound.
      */
-    forwardOut(srcIP: string, srcPort: number, dstIP: string, dstPort: number, callback: (err: Error, channel: ClientChannel) => void): boolean;
+    forwardOut(
+        srcIP: string,
+        srcPort: number,
+        dstIP: string,
+        dstPort: number,
+        callback: (err: Error, channel: ClientChannel) => void
+    ): boolean;
 
     /**
      * Starts an SFTP session.
@@ -420,7 +448,7 @@ export interface ConnectConfig {
     /** Only connect via resolved IPv6 address for `host`. */
     forceIPv6?: boolean;
     /** The host's key is hashed using this method and passed to `hostVerifier`. */
-    hostHash?: "md5" | "sha1";
+    hostHash?: 'md5' | 'sha1';
     /** Verifies a hexadecimal hash of the host's key. */
     hostVerifier?: (keyHash: string) => boolean;
     /** Username for authentication. */
@@ -528,22 +556,22 @@ export class Server extends events.EventEmitter {
     /**
      * Emitted when a new client has connected.
      */
-    on(event: "connection", listener: (client: Connection, info: ClientInfo) => void): this;
+    on(event: 'connection', listener: (client: Connection, info: ClientInfo) => void): this;
 
     /**
      * Emitted when an error occurs.
      */
-    on(event: "error", listener: (err: Error) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
 
     /**
      * Emitted when the server has been bound after calling `server.listen()`.
      */
-    on(event: "listening", listener: () => void): this;
+    on(event: 'listening', listener: () => void): this;
 
     /**
      * Emitted when the server closes. Note that if connections exist, this event is not emitted until all connections are ended.
      */
-    on(event: "close", listener: () => void): this;
+    on(event: 'close', listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
 
@@ -563,7 +591,10 @@ export class Server extends events.EventEmitter {
      * @param config Server configuration properties.
      * @param connectionListener if supplied, is added as a connection listener.
      */
-    static createServer(config: ServerConfig, connectionListener?: (client: Connection, info: ClientInfo) => void): Server;
+    static createServer(
+        config: ServerConfig,
+        connectionListener?: (client: Connection, info: ClientInfo) => void
+    ): Server;
 
     /**
      * Start a local socket server listening for connections on the given `path`.
@@ -690,7 +721,7 @@ export class Server extends events.EventEmitter {
      * Returns the bound address, the address family name, and port of the server as reported
      * by the operating system.
      */
-    address(): { port: number; family: string; address: string; };
+    address(): { port: number; family: string; address: string };
 
     /**
      * Asynchronously get the number of concurrent connections on the server.
@@ -729,7 +760,7 @@ export interface ServerConfig {
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
     algorithms?: Algorithms;
     /** A message that is sent to clients immediately upon connection, before handshaking begins. */
-    greeting?: string
+    greeting?: string;
     /** A message that is sent to clients once, right before authentication begins. */
     banner?: string;
     /** A custom server software name/version identifier. */
@@ -762,70 +793,100 @@ export interface Connection extends events.EventEmitter {
     /**
      * Emitted when the client has requested authentication.
      */
-    on(event: "authentication", listener: (authCtx: AuthContext) => void): this;
+    on(event: 'authentication', listener: (authCtx: AuthContext) => void): this;
 
     /**
      * Emitted when the client has been successfully authenticated.
      */
-    on(event: "ready", listener: () => void): this;
+    on(event: 'ready', listener: () => void): this;
 
     /**
      * Emitted when the client has requested a new session.
      * Sessions are used to start interactive shells, execute commands, request X11 forwarding, etc.
      */
-    on(event: "session", listener: (accept: () => Session, reject: () => boolean) => void): this;
+    on(event: 'session', listener: (accept: () => Session, reject: () => boolean) => void): this;
 
     /**
      * Emitted when the client has requested an outbound (TCP) connection.
      */
-    on(event: "tcpip", listener: (accept: () => ServerChannel, reject: () => boolean, info: TcpipRequestInfo) => void): this;
+    on(
+        event: 'tcpip',
+        listener: (accept: () => ServerChannel, reject: () => boolean, info: TcpipRequestInfo) => void
+    ): this;
 
     /**
      * Emitted when the client has requested a connection to a UNIX domain socket.
      */
-    on(event: "openssh.streamlocal", listener: (accept: () => ServerChannel, reject: () => boolean, info: SocketRequestInfo) => void): this;
+    on(
+        event: 'openssh.streamlocal',
+        listener: (accept: () => ServerChannel, reject: () => boolean, info: SocketRequestInfo) => void
+    ): this;
 
     /**
      * Emitted when the client has sent a global request for name.
      * If info.bindPort === 0, you should pass the chosen port to accept so that the client will know what port was bound.
      */
-    on(event: "request", listener: (accept: (chosenPort?: number) => void, reject: () => void, name: "tcpip-forward" | "cancel-tcpip-forward", info: TcpipBindInfo) => void): this;
+    on(
+        event: 'request',
+        listener: (
+            accept: (chosenPort?: number) => void,
+            reject: () => void,
+            name: 'tcpip-forward' | 'cancel-tcpip-forward',
+            info: TcpipBindInfo
+        ) => void
+    ): this;
 
     /**
      * Emitted when the client has sent a global request for name.
      */
-    on(event: "request", listener: (accept: () => void, reject: () => void, name: "streamlocal-forward@openssh.com" | "cancel-streamlocal-forward@openssh.com", info: SocketBindInfo) => void): this;
+    on(
+        event: 'request',
+        listener: (
+            accept: () => void,
+            reject: () => void,
+            name: 'streamlocal-forward@openssh.com' | 'cancel-streamlocal-forward@openssh.com',
+            info: SocketBindInfo
+        ) => void
+    ): this;
 
     /**
      * Emitted when the client has sent a global request for name.
      * If info.bindPort === 0, you should pass the chosen port to accept so that the client will know what port was bound.
      */
-    on(event: "request", listener: (accept: (chosenPort?: number) => void, reject: () => void, name: string, info: TcpipBindInfo | SocketBindInfo) => void): this;
+    on(
+        event: 'request',
+        listener: (
+            accept: (chosenPort?: number) => void,
+            reject: () => void,
+            name: string,
+            info: TcpipBindInfo | SocketBindInfo
+        ) => void
+    ): this;
 
     /**
      * Emitted when the client has finished rekeying (either client or server initiated).
      */
-    on(event: "rekey", listener: () => void): this;
+    on(event: 'rekey', listener: () => void): this;
 
     /**
      * Emitted when more requests/data can be sent to the client (after a Connection method returned false).
      */
-    on(event: "continue", listener: () => void): this;
+    on(event: 'continue', listener: () => void): this;
 
     /**
      * Emitted when an error occurrs.
      */
-    on(event: "error", listener: (err: Error) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
 
     /**
      * Emitted when the socket has disconnected.
      */
-    on(event: "end", listener: () => void): this;
+    on(event: 'end', listener: () => void): this;
 
     /**
      * Emitted when the client socket was closed.
      */
-    on(event: "close", listener: (hadError: boolean) => void): this;
+    on(event: 'close', listener: (hadError: boolean) => void): this;
 
     on(event: string | symbol, listener: Function): this;
 
@@ -854,7 +915,13 @@ export interface Connection extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    forwardOut(boundAddr: string, boundPort: number, remoteAddr: string, remotePort: number, callback: (err: Error, channel: ServerChannel) => void): boolean;
+    forwardOut(
+        boundAddr: string,
+        boundPort: number,
+        remoteAddr: string,
+        remotePort: number,
+        callback: (err: Error, channel: ServerChannel) => void
+    ): boolean;
 
     /**
      * Initiates a rekeying with the client.
@@ -904,14 +971,14 @@ export interface AuthContextBase extends events.EventEmitter {
     /**
      * Emitted when the client aborts the authentication request.
      */
-    on(event: "abort", listener: (err: Error) => void): this;
+    on(event: 'abort', listener: (err: Error) => void): this;
 
     on(event: string | symbol, listener: Function): this;
 }
 
 export interface KeyboardAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: "keyboard-interactive";
+    method: 'keyboard-interactive';
 
     /** A list of preferred authentication "sub-methods" sent by the client. */
     submethods: string[];
@@ -938,12 +1005,17 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param instructions Instructions for the client.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], title: string, instructions: string, callback: () => void): void;
+    prompt(
+        prompts: string | Prompt | (string | Prompt)[],
+        title: string,
+        instructions: string,
+        callback: () => void
+    ): void;
 }
 
 export interface PublicKeyAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: "publickey";
+    method: 'publickey';
     /** The public key sent by the client. */
     key: PublicKey;
     /** The signature to verify, or `undefined` if the client is only checking the validity of the key. */
@@ -963,7 +1035,7 @@ export interface PublicKey {
 
 export interface HostbasedAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: "hostbased";
+    method: 'hostbased';
     /** The public key sent by the client. */
     key: PublicKey;
     /** The signature to verify, or `undefined` if the client is only checking the validity of the key. */
@@ -980,17 +1052,22 @@ export interface HostbasedAuthContext extends AuthContextBase {
 
 export interface PasswordAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: "password";
+    method: 'password';
     /** The password sent by the client. */
     password: string;
 }
 
 export interface NoneAuthContext extends AuthContextBase {
     /** The method of authentication. */
-    method: "none";
+    method: 'none';
 }
 
-export type AuthContext = KeyboardAuthContext | PublicKeyAuthContext | HostbasedAuthContext | PasswordAuthContext | NoneAuthContext;
+export type AuthContext =
+    | KeyboardAuthContext
+    | PublicKeyAuthContext
+    | HostbasedAuthContext
+    | PasswordAuthContext
+    | NoneAuthContext;
 
 export interface TcpipRequestInfo {
     /** Source IP address of outgoing connection. */
@@ -1026,57 +1103,63 @@ export interface Session extends events.EventEmitter {
     /**
      * Emitted when the client requested allocation of a pseudo-TTY for this session.
      */
-    on(event: "pty", listener: (accept: () => boolean, reject: () => boolean, info: PseudoTtyInfo) => void): this;
+    on(event: 'pty', listener: (accept: () => boolean, reject: () => boolean, info: PseudoTtyInfo) => void): this;
 
     /**
      * Emitted when the client reported a change in window dimensions during this session.
      */
-    on(event: "window-change", listener: (accept: () => boolean, reject: () => boolean, info: WindowChangeInfo) => void): this;
+    on(
+        event: 'window-change',
+        listener: (accept: () => boolean, reject: () => boolean, info: WindowChangeInfo) => void
+    ): this;
 
     /**
      * Emitted when the client requested X11 forwarding.
      */
-    on(event: "x11", listener: (accept: () => boolean, reject: () => boolean, info: X11Info) => void): this;
+    on(event: 'x11', listener: (accept: () => boolean, reject: () => boolean, info: X11Info) => void): this;
 
     /**
      * Emitted when the client requested an environment variable to be set for this session.
      */
-    on(event: "env", listener: (accept: () => boolean, reject: () => boolean, info: SetEnvInfo) => void): this;
+    on(event: 'env', listener: (accept: () => boolean, reject: () => boolean, info: SetEnvInfo) => void): this;
 
     /**
      * Emitted when the client has sent a POSIX signal.
      */
-    on(event: "signal", listener: (accept: () => boolean, reject: () => boolean, info: SignalInfo) => void): this;
+    on(event: 'signal', listener: (accept: () => boolean, reject: () => boolean, info: SignalInfo) => void): this;
 
     /**
      * Emitted when the client has requested incoming ssh-agent requests be forwarded to them.
      */
-    on(event: "auth-agent", listener: (accept: () => boolean, reject: () => boolean) => void): this;
+    on(event: 'auth-agent', listener: (accept: () => boolean, reject: () => boolean) => void): this;
 
     /**
      * Emitted when the client has requested an interactive shell.
      */
-    on(event: "shell", listener: (accept: () => ServerChannel, reject: () => boolean) => void): this;
+    on(event: 'shell', listener: (accept: () => ServerChannel, reject: () => boolean) => void): this;
 
     /**
      * Emitted when the client has requested execution of a command string.
      */
-    on(event: "exec", listener: (accept: () => ServerChannel, reject: () => boolean, info: ExecInfo) => void): this;
+    on(event: 'exec', listener: (accept: () => ServerChannel, reject: () => boolean, info: ExecInfo) => void): this;
 
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: () => SFTPStream, reject: () => boolean) => void): this;
+    on(event: 'sftp', listener: (accept: () => SFTPStream, reject: () => boolean) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
      */
-    on(event: "subsystem", listener: (accept: () => ServerChannel, reject: () => boolean, info: SubsystemInfo) => void): this;
+    on(
+        event: 'subsystem',
+        listener: (accept: () => ServerChannel, reject: () => boolean, info: SubsystemInfo) => void
+    ): this;
 
     /**
      * Emitted when the session has closed.
      */
-    on(event: "close", listener: () => void): this;
+    on(event: 'close', listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
 }
@@ -1313,7 +1396,12 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    open(filename: string, mode: string, attributes: InputAttributes, callback: (err: any, handle: Buffer) => void): boolean;
+    open(
+        filename: string,
+        mode: string,
+        attributes: InputAttributes,
+        callback: (err: any, handle: Buffer) => void
+    ): boolean;
 
     /**
      * (Client-only)
@@ -1338,13 +1426,27 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    read(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: any, bytesRead: number, buffer: Buffer, position: number) => void): boolean;
+    read(
+        handle: Buffer,
+        buffer: Buffer,
+        offset: number,
+        length: number,
+        position: number,
+        callback: (err: any, bytesRead: number, buffer: Buffer, position: number) => void
+    ): boolean;
 
     /**
      * (Client-only)
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    write(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number, callback: (err: any) => void): boolean;
+    write(
+        handle: Buffer,
+        buffer: Buffer,
+        offset: number,
+        length: number,
+        position: number,
+        callback: (err: any) => void
+    ): boolean;
 
     /**
      * (Client-only)
@@ -1563,22 +1665,22 @@ export interface SFTPWrapper extends events.EventEmitter {
     /**
      * Emitted when an error occurred.
      */
-    on(event: "error", listener: (err: any) => void): this;
+    on(event: 'error', listener: (err: any) => void): this;
 
     /**
      * Emitted when the session has ended.
      */
-    on(event: "end", listener: () => void): this;
+    on(event: 'end', listener: () => void): this;
 
     /**
      * Emitted when the session has closed.
      */
-    on(event: "close", listener: () => void): this;
+    on(event: 'close', listener: () => void): this;
 
     /**
      * Emitted when more requests/data can be sent to the stream.
      */
-    on(event: "continue", listener: () => void): this;
+    on(event: 'continue', listener: () => void): this;
 
     on(event: string | symbol, listener: Function): this;
 }

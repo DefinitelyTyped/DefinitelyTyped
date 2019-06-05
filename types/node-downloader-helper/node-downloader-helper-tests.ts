@@ -7,20 +7,20 @@ dl.on('start', () => {
     console.log('Download started');
 
     if (!paused) {
-      paused = true;
-      dl.pause();
+        paused = true;
+        dl.pause();
     }
 });
 dl.on('download', () => {
     console.log('Downloading');
 });
-dl.on('progress', (stats) => {
+dl.on('progress', stats => {
     console.log(`${stats.progress}% downloaded`);
 });
 dl.on('end', () => {
     console.log('Download finished');
 });
-dl.on('error', (err) => {
+dl.on('error', err => {
     console.error(err);
 });
 dl.on('pause', () => {
@@ -34,7 +34,7 @@ dl.on('resume', () => {
 dl.on('stop', () => {
     console.log('Download stopped');
 });
-dl.on('stateChanged', (state) => {
+dl.on('stateChanged', state => {
     console.log(`State changed: ${state}`);
 });
 

@@ -1,4 +1,4 @@
-import ndn = require("ndn-js");
+import ndn = require('ndn-js');
 
 (nack: ndn.NetworkNack) => {
     const n: number = nack.getOtherReasonCode();

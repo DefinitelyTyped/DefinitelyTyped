@@ -1,42 +1,42 @@
-import parser = require("swagger-parser");
-import { Spec as Swagger } from "swagger-schema-official";
+import parser = require('swagger-parser');
+import { Spec as Swagger } from 'swagger-schema-official';
 
 const swaggerMock: Swagger = {
     swagger: '',
     info: {
         title: '',
-        version: ''
+        version: '',
     },
-    paths: { '': {} }
+    paths: { '': {} },
 };
 
 // Without callback which returns a promise
-parser.parse("test.yaml").then((file) => {
+parser.parse('test.yaml').then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.parse("test.yaml", {}).then((file) => {
+parser.parse('test.yaml', {}).then(file => {
     console.log(file);
 });
 
 // With callback
-parser.parse("test.yaml", {}, (err, file) => {
+parser.parse('test.yaml', {}, (err, file) => {
     console.log(file);
 });
 
 // With callback and no options
-parser.parse("test.yaml", (err, file) => {
+parser.parse('test.yaml', (err, file) => {
     console.log(file);
 });
 
 // Without callback which returns a promise
-parser.parse(swaggerMock).then((file) => {
+parser.parse(swaggerMock).then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.parse(swaggerMock, {}).then((file) => {
+parser.parse(swaggerMock, {}).then(file => {
     console.log(file);
 });
 
@@ -51,32 +51,32 @@ parser.parse(swaggerMock, (err, file) => {
 });
 
 // Without callback which returns a promise
-parser.dereference("test.yaml").then((file) => {
+parser.dereference('test.yaml').then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.dereference("test.yaml", {}).then((file) => {
+parser.dereference('test.yaml', {}).then(file => {
     console.log(file);
 });
 
 // With callback
-parser.dereference("test.yaml", {}, (err, file) => {
+parser.dereference('test.yaml', {}, (err, file) => {
     console.log(file);
 });
 
 // With callback and no options
-parser.dereference("test.yaml", (err, file) => {
+parser.dereference('test.yaml', (err, file) => {
     console.log(file);
 });
 
 // Without callback which returns a promise
-parser.dereference(swaggerMock).then((file) => {
+parser.dereference(swaggerMock).then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.dereference(swaggerMock, {}).then((file) => {
+parser.dereference(swaggerMock, {}).then(file => {
     console.log(file);
 });
 
@@ -91,32 +91,32 @@ parser.dereference(swaggerMock, (err, file) => {
 });
 
 // Without callback which returns a promise
-parser.bundle("test.yaml").then((file) => {
+parser.bundle('test.yaml').then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.bundle("test.yaml", {}).then((file) => {
+parser.bundle('test.yaml', {}).then(file => {
     console.log(file);
 });
 
 // With callback
-parser.bundle("test.yaml", {}, (err, file) => {
+parser.bundle('test.yaml', {}, (err, file) => {
     console.log(file);
 });
 
 // With callback and no options
-parser.bundle("test.yaml", (err, file) => {
+parser.bundle('test.yaml', (err, file) => {
     console.log(file);
 });
 
 // Without callback which returns a promise
-parser.bundle(swaggerMock).then((file) => {
+parser.bundle(swaggerMock).then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.bundle(swaggerMock, {}).then((file) => {
+parser.bundle(swaggerMock, {}).then(file => {
     console.log(file);
 });
 
@@ -131,32 +131,32 @@ parser.bundle(swaggerMock, (err, file) => {
 });
 
 // Without callback which returns a promise
-parser.resolve("test.yaml").then((file) => {
+parser.resolve('test.yaml').then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.resolve("test.yaml", {}).then((file) => {
+parser.resolve('test.yaml', {}).then(file => {
     console.log(file);
 });
 
 // With callback
-parser.resolve("test.yaml", {}, (err, file) => {
+parser.resolve('test.yaml', {}, (err, file) => {
     console.log(file);
 });
 
 // With callback and no options
-parser.resolve("test.yaml", (err, file) => {
+parser.resolve('test.yaml', (err, file) => {
     console.log(file);
 });
 
 // Without callback which returns a promise
-parser.resolve(swaggerMock).then((file) => {
+parser.resolve(swaggerMock).then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.resolve(swaggerMock, {}).then((file) => {
+parser.resolve(swaggerMock, {}).then(file => {
     console.log(file);
 });
 
@@ -171,32 +171,32 @@ parser.resolve(swaggerMock, (err, file) => {
 });
 
 // Without callback which returns a promise
-parser.validate("test.yaml").then((file) => {
+parser.validate('test.yaml').then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.validate("test.yaml", {}).then((file) => {
+parser.validate('test.yaml', {}).then(file => {
     console.log(file);
 });
 
 // With callback
-parser.validate("test.yaml", {}, (err, file) => {
+parser.validate('test.yaml', {}, (err, file) => {
     console.log(file);
 });
 
 // With callback and no options
-parser.validate("test.yaml", (err, file) => {
+parser.validate('test.yaml', (err, file) => {
     console.log(file);
 });
 
 // Without callback which returns a promise
-parser.validate(swaggerMock).then((file) => {
+parser.validate(swaggerMock).then(file => {
     console.log(file);
 });
 
 // with options but, Without callback which returns a promise
-parser.validate(swaggerMock, {}).then((file) => {
+parser.validate(swaggerMock, {}).then(file => {
     console.log(file);
 });
 

@@ -1,4 +1,4 @@
-import codeFrame, { codeFrameColumns } from "@babel/code-frame";
+import codeFrame, { codeFrameColumns } from '@babel/code-frame';
 
 const code = `
     const number = 1;
@@ -14,13 +14,5 @@ codeFrame(code, 5, 22, { forceColor: true });
 codeFrame(code, 2, 2, { highlightCode: true });
 
 codeFrameColumns(code, { start: { line: 5, column: 22 } });
-codeFrameColumns(
-    code,
-    { start: { line: 5, column: 22 } },
-    { forceColor: true }
-);
-codeFrameColumns(
-    code,
-    { start: { line: 2, column: 2 } },
-    { highlightCode: true }
-);
+codeFrameColumns(code, { start: { line: 5, column: 22 } }, { forceColor: true });
+codeFrameColumns(code, { start: { line: 2, column: 2 } }, { highlightCode: true });

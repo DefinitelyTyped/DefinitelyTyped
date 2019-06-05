@@ -55,7 +55,10 @@ declare namespace prettyFormat {
         print(value: any, serialize: Print, indent: Indent, options: Options, colors: Colors): string;
     }
 
-    const plugins: Record<'AsymmetricMatcher' | 'ConvertAnsi' | 'HTMLElement' | 'Immutable' | 'ReactElement' | 'ReactTestComponent', Plugin>;
+    const plugins: Record<
+        'AsymmetricMatcher' | 'ConvertAnsi' | 'HTMLElement' | 'Immutable' | 'ReactElement' | 'ReactTestComponent',
+        Plugin
+    >;
 
     type Print = (value: any) => string;
     type Indent = (value: string) => string;

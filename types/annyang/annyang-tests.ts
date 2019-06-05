@@ -15,8 +15,8 @@ function testAddComments() {
         return 'hello';
     };
 
-    const commands: CommandOption = {'hello :name': helloFunction, howdy: helloFunction};
-    const commands2: CommandOption = {hi: helloFunction};
+    const commands: CommandOption = { 'hello :name': helloFunction, howdy: helloFunction };
+    const commands2: CommandOption = { hi: helloFunction };
 
     annyang.addCommands(commands); // $ExpectType void
     annyang.addCommands(commands2); // $ExpectType void
@@ -26,7 +26,9 @@ function testAddComments() {
     annyang.removeCommands(['howdy', 'hi']); // $ExpectType void
 }
 
-const notConnected = () => { console.error('network connection error'); };
+const notConnected = () => {
+    console.error('network connection error');
+};
 
 function testAddCallback() {
     annyang.addCallback('error', () => console.error('There was an error!')); // $ExpectType void
@@ -42,8 +44,12 @@ function testAddCallback() {
 }
 
 function testRemoveCallback() {
-    const start = () => { console.log('start'); };
-    const end = () => { console.log('end'); };
+    const start = () => {
+        console.log('start');
+    };
+    const end = () => {
+        console.log('end');
+    };
 
     annyang.addCallback('start', start); // $ExpectType void
     annyang.addCallback('end', end); // $ExpectType void
@@ -61,9 +67,7 @@ function testTrigger() {
     annyang.trigger('Time for some thrilling heroics');
 
     // $ExpectType void
-    annyang.trigger(
-        ['Time for some thrilling heroics', 'Time for some thrilling aerobics']
-    );
+    annyang.trigger(['Time for some thrilling heroics', 'Time for some thrilling aerobics']);
 }
 
 function testIsListening() {

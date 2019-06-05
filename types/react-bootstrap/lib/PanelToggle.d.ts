@@ -6,5 +6,5 @@ declare namespace PanelToggle {
         componentClass?: string;
     }
 }
-declare class PanelToggle extends React.Component<PanelToggle.PanelToggleProps> { }
+declare class PanelToggle extends React.Component<PanelToggle.PanelToggleProps> {}
 export = PanelToggle;

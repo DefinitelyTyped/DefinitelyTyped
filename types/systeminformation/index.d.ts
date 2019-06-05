@@ -15,15 +15,23 @@ export function cpuFlags(cb?: (data: string) => any): Promise<string>;
 
 export function cpuCache(cb?: (data: Systeminformation.CpuCacheData) => any): Promise<Systeminformation.CpuCacheData>;
 
-export function cpuCurrentspeed(cb?: (data: Systeminformation.CpuCurrentSpeedData) => any): Promise<Systeminformation.CpuCurrentSpeedData>;
+export function cpuCurrentspeed(
+    cb?: (data: Systeminformation.CpuCurrentSpeedData) => any
+): Promise<Systeminformation.CpuCurrentSpeedData>;
 
-export function cpuTemperature(cb?: (data: Systeminformation.CpuTemperatureData) => any): Promise<Systeminformation.CpuTemperatureData>;
+export function cpuTemperature(
+    cb?: (data: Systeminformation.CpuTemperatureData) => any
+): Promise<Systeminformation.CpuTemperatureData>;
 
 export function mem(cb?: (data: Systeminformation.MemData) => any): Promise<Systeminformation.MemData>;
 
-export function memLayout(cb?: (data: Systeminformation.MemLayoutData) => any): Promise<Systeminformation.MemLayoutData>;
+export function memLayout(
+    cb?: (data: Systeminformation.MemLayoutData) => any
+): Promise<Systeminformation.MemLayoutData>;
 
-export function diskLayout(cb?: (data: Systeminformation.DiskLayoutData) => any): Promise<Systeminformation.DiskLayoutData>;
+export function diskLayout(
+    cb?: (data: Systeminformation.DiskLayoutData) => any
+): Promise<Systeminformation.DiskLayoutData>;
 
 export function battery(cb?: (data: Systeminformation.BatteryData) => any): Promise<Systeminformation.BatteryData>;
 
@@ -39,35 +47,60 @@ export function users(cb?: (data: Systeminformation.UserData[]) => any): Promise
 
 export function fsSize(cb?: (data: Systeminformation.FsSizeData[]) => any): Promise<Systeminformation.FsSizeData[]>;
 
-export function blockDevices(cb?: (data: Systeminformation.BlockDevicesData[]) => any): Promise<Systeminformation.BlockDevicesData[]>;
+export function blockDevices(
+    cb?: (data: Systeminformation.BlockDevicesData[]) => any
+): Promise<Systeminformation.BlockDevicesData[]>;
 
 export function fsStats(cb?: (data: Systeminformation.FsStatsData) => any): Promise<Systeminformation.FsStatsData>;
 
 export function disksIO(cb?: (data: Systeminformation.DisksIoData) => any): Promise<Systeminformation.DisksIoData>;
 
-export function networkInterfaces(cb ?: (data: Systeminformation.NetInterfacesData[]) => any): Promise<Systeminformation.NetInterfacesData[]>;
+export function networkInterfaces(
+    cb?: (data: Systeminformation.NetInterfacesData[]) => any
+): Promise<Systeminformation.NetInterfacesData[]>;
 
-export function networkInterfaceDefault(cb ?: (data: string) => any): Promise<string>;
+export function networkInterfaceDefault(cb?: (data: string) => any): Promise<string>;
 
-export function networkStats(iface?: string, cb?: (data: Systeminformation.NetStatsData) => any): Promise<Systeminformation.NetStatsData>;
+export function networkStats(
+    iface?: string,
+    cb?: (data: Systeminformation.NetStatsData) => any
+): Promise<Systeminformation.NetStatsData>;
 
-export function networkConnections(cb?: (data: Systeminformation.NetConnectionsData[]) => any): Promise<Systeminformation.NetConnectionsData[]>;
+export function networkConnections(
+    cb?: (data: Systeminformation.NetConnectionsData[]) => any
+): Promise<Systeminformation.NetConnectionsData[]>;
 
-export function inetChecksite(url: string, cb?: (data: Systeminformation.NetChecksiteData) => any): Promise<Systeminformation.NetChecksiteData>;
+export function inetChecksite(
+    url: string,
+    cb?: (data: Systeminformation.NetChecksiteData) => any
+): Promise<Systeminformation.NetChecksiteData>;
 
 export function inetLatency(host?: string, cb?: (data: number) => any): Promise<number>;
 
-export function currentLoad(cb?: (data: Systeminformation.CurrentLoadData) => any): Promise<Systeminformation.CurrentLoadData>;
+export function currentLoad(
+    cb?: (data: Systeminformation.CurrentLoadData) => any
+): Promise<Systeminformation.CurrentLoadData>;
 
 export function fullLoad(cb?: (data: number) => any): Promise<number>;
 
-export function processes(cb?: (data: Systeminformation.ProcessesData) => any): Promise<Systeminformation.ProcessesData>;
+export function processes(
+    cb?: (data: Systeminformation.ProcessesData) => any
+): Promise<Systeminformation.ProcessesData>;
 
-export function processLoad(processName: string, cb?: (data: Systeminformation.ProcessesProcessLoadData) => any): Promise<Systeminformation.ProcessesProcessLoadData>;
+export function processLoad(
+    processName: string,
+    cb?: (data: Systeminformation.ProcessesProcessLoadData) => any
+): Promise<Systeminformation.ProcessesProcessLoadData>;
 
-export function services(serviceName: string, cb?: (data: Systeminformation.ServicesData[]) => any): Promise<Systeminformation.ServicesData[]>;
+export function services(
+    serviceName: string,
+    cb?: (data: Systeminformation.ServicesData[]) => any
+): Promise<Systeminformation.ServicesData[]>;
 
-export function dockerContainers(all?: boolean, cb?: (data: Systeminformation.DockerContainerData[]) => any): Promise<Systeminformation.DockerContainerData[]>;
+export function dockerContainers(
+    all?: boolean,
+    cb?: (data: Systeminformation.DockerContainerData[]) => any
+): Promise<Systeminformation.DockerContainerData[]>;
 
 export function dockerContainerStats(id?: string, cb?: (data: any) => any): Promise<any>;
 
@@ -424,24 +457,24 @@ export namespace Systeminformation {
                 total_usage: number;
                 usage_in_kernelmode: number;
                 usage_in_usermode: number;
-            },
+            };
             throttling_data: {
                 periods: number;
                 throttled_periods: number;
                 throttled_time: number;
-            }
+            };
         };
         precpu_stats: {
             cpu_usage: {
                 total_usage: number;
                 usage_in_kernelmode: number;
                 usage_in_usermode: number;
-            },
+            };
             throttling_data: {
                 periods: number;
                 throttled_periods: number;
                 throttled_time: number;
-            }
+            };
         };
         memory_stats: {
             usage: number;
@@ -478,7 +511,7 @@ export namespace Systeminformation {
                 total_writeback: number;
                 unevictable: number;
                 writeback: number;
-            },
+            };
             limit: number;
         };
         networks: any;

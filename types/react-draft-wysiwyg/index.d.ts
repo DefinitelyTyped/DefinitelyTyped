@@ -67,7 +67,12 @@ export interface EditorProps {
     wrapperId?: number;
     customDecorators?: object[];
     editorRef?(ref: object): void;
-    handlePastedText?(text: string, html: string, editorState: EditorState, onChange: (editorState: EditorState) => void): boolean;
+    handlePastedText?(
+        text: string,
+        html: string,
+        editorState: EditorState,
+        onChange: (editorState: EditorState) => void
+    ): boolean;
 }
 
 export class Editor extends React.Component<EditorProps> {

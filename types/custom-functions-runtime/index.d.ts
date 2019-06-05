@@ -67,8 +67,7 @@ declare namespace CustomFunctions {
      * @beta
      * @deprecated Use `CancelableInvocation` instead.
      */
-    interface CancelableHandler extends CancelableInvocation {
-    }
+    interface CancelableHandler extends CancelableInvocation {}
 
     /**
      * @beta
@@ -90,6 +89,5 @@ declare namespace CustomFunctions {
      * @beta
      * @deprecated Use `StreamingInvocation<ResultType>` instead.
      */
-    interface StreamingHandler<ResultType> extends StreamingInvocation<ResultType> {
-    }
+    interface StreamingHandler<ResultType> extends StreamingInvocation<ResultType> {}
 }

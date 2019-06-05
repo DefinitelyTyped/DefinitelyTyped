@@ -7,4 +7,4 @@ export = isObject;
 
 declare function isObject(a: any): boolean;
 
-declare namespace isObject { }
+declare namespace isObject {}

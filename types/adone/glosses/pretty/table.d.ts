@@ -3,10 +3,10 @@ declare namespace adone.pretty {
         interface TableColumn {
             id: string;
             header?: string;
-            align?: "right" | "center" | "left";
+            align?: 'right' | 'center' | 'left';
             width?: string | number;
             maxWidth?: number | string;
-            wordwrap?: "soft" | "hard" | adone.text.I.WordWrapOptions;
+            wordwrap?: 'soft' | 'hard' | adone.text.I.WordWrapOptions;
             handle?: (item: object) => string;
             format?: string | ((val: any, item: object) => string);
             style?: string | ((val: any, str: string) => string);
@@ -15,8 +15,8 @@ declare namespace adone.pretty {
         type TableModel = TableColumn[];
 
         interface TableStyle {
-            "padding-left"?: number;
-            "padding-right"?: number;
+            'padding-left'?: number;
+            'padding-right'?: number;
             head?: string[];
             broder?: string[];
             compact?: boolean;

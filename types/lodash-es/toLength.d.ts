@@ -1,2 +1,2 @@
-import { toLength } from "lodash";
+import { toLength } from 'lodash';
 export default toLength;

@@ -14,7 +14,7 @@ export interface DailyApiRequests extends Limit {
     'Salesforce Marketing Cloud': Limit;
     'Salesforce for Android': Limit;
     'Salesforce for iOS': Limit;
-    'SalesforceA': Limit;
+    SalesforceA: Limit;
 }
 
 export interface LimitsInfo {

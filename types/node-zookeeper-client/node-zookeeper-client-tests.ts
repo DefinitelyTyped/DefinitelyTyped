@@ -1,4 +1,4 @@
-import * as zookeeper from "node-zookeeper-client";
+import * as zookeeper from 'node-zookeeper-client';
 
 {
     const client = zookeeper.createClient('localhost:2181');
@@ -30,11 +30,7 @@ function listChildren(client: zookeeper.Client, path: string) {
         },
         (error, children, stat) => {
             if (error) {
-                console.log(
-                    'Failed to list children of %s due to: %s.',
-                    path,
-                    error
-                );
+                console.log('Failed to list children of %s due to: %s.', path, error);
                 return;
             }
 
@@ -55,25 +51,17 @@ function listChildren(client: zookeeper.Client, path: string) {
     client.connect();
 }
 
-const client = zookeeper.createClient(
-    'localhost:2181/test',
-    { sessionTimeout: 10000 }
-);
+const client = zookeeper.createClient('localhost:2181/test', { sessionTimeout: 10000 });
 
 {
-    client.create(
-        '/test/demo',
-        new Buffer('data'),
-        zookeeper.CreateMode.EPHEMERAL,
-        (error: Error, path) => {
-            if (error) {
-                console.log(error.stack);
-                return;
-            }
-
-            console.log('Node: %s is created.', path);
+    client.create('/test/demo', new Buffer('data'), zookeeper.CreateMode.EPHEMERAL, (error: Error, path) => {
+        if (error) {
+            console.log(error.stack);
+            return;
         }
-    );
+
+        console.log('Node: %s is created.', path);
+    });
 }
 
 {
@@ -155,12 +143,7 @@ const client = zookeeper.createClient(
 {
     client.setACL(
         '/test/demo',
-        [
-            new zookeeper.ACL(
-                zookeeper.Permission.ADMIN,
-                new zookeeper.Id('ip', '127.0.0.1')
-            )
-        ],
+        [new zookeeper.ACL(zookeeper.Permission.ADMIN, new zookeeper.Id('ip', '127.0.0.1'))],
         (error: Error, stat) => {
             if (error) {
                 console.log(error.stack);
@@ -213,20 +196,17 @@ const client = zookeeper.createClient(
 
 {
     client.once('connected', () => {
-        client.transaction().
-            create('/txn').
-            create('/txn/1', new Buffer('transaction')).
-            setData('/txn/1', new Buffer('test'), -1).
-            check('/txn/1').
-            remove('/txn/1', -1).
-            remove('/txn').
-            commit((error, results) => {
+        client
+            .transaction()
+            .create('/txn')
+            .create('/txn/1', new Buffer('transaction'))
+            .setData('/txn/1', new Buffer('test'), -1)
+            .check('/txn/1')
+            .remove('/txn/1', -1)
+            .remove('/txn')
+            .commit((error, results) => {
                 if (error) {
-                    console.log(
-                        'Failed to execute the transaction: %s, results: %j',
-                        error,
-                        results
-                    );
+                    console.log('Failed to execute the transaction: %s, results: %j', error, results);
 
                     return;
                 }

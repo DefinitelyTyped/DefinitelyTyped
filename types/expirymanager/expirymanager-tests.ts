@@ -1,4 +1,4 @@
-import { ExpiryManager } from "expirymanager";
+import { ExpiryManager } from 'expirymanager';
 
 const expiryManager = new ExpiryManager();
 

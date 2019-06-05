@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import * as Koa from "koa";
+import * as Koa from 'koa';
 
 declare function cors(options?: cors.Options): Koa.Middleware;
 export = cors;

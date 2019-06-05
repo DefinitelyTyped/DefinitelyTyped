@@ -1,2 +1,2 @@
-import { reject } from "lodash";
+import { reject } from 'lodash';
 export default reject;

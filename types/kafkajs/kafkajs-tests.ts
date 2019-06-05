@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import * as fs from 'fs';
 
 import {
     Kafka,
@@ -9,15 +9,15 @@ import {
     CompressionCodecs,
     ResourceTypes,
     PartitionAssigner,
-    LoggerMessage
-} from "kafkajs";
+    LoggerMessage,
+} from 'kafkajs';
 
 const { MemberMetadata, MemberAssignment } = AssignerProtocol;
 const { roundRobin } = PartitionAssigners;
 
 // COMMON
-const host = "localhost";
-const topic = "topic-test";
+const host = 'localhost';
+const topic = 'topic-test';
 
 const logger = (loggerMessage: LoggerMessage): void => {
     console.log(`[${loggerMessage.namespace}] ${loggerMessage.log.message}`);
@@ -26,22 +26,22 @@ const logger = (loggerMessage: LoggerMessage): void => {
 const kafka = new Kafka({
     logLevel: logLevel.INFO,
     brokers: [`${host}:9094`, `${host}:9097`, `${host}:9100`],
-    clientId: "example-consumer",
+    clientId: 'example-consumer',
     ssl: {
-        servername: "localhost",
+        servername: 'localhost',
         rejectUnauthorized: false,
-        ca: [fs.readFileSync("./testHelpers/certs/cert-signed", "utf-8")]
+        ca: [fs.readFileSync('./testHelpers/certs/cert-signed', 'utf-8')],
     },
     sasl: {
-        mechanism: "plain",
-        username: "test",
-        password: "testtest"
+        mechanism: 'plain',
+        username: 'test',
+        password: 'testtest',
     },
-    logCreator: () => logger
+    logCreator: () => logger,
 });
 
 // CONSUMER
-const consumer = kafka.consumer({ groupId: "test-group" });
+const consumer = kafka.consumer({ groupId: 'test-group' });
 
 const runConsumer = async () => {
     await consumer.connect();
@@ -51,11 +51,9 @@ const runConsumer = async () => {
         //   console.log(batch)
         // },
         eachMessage: async ({ topic, partition, message }) => {
-            const prefix = `${topic}[${partition} | ${message.offset}] / ${
-                message.timestamp
-            }`;
+            const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`;
             console.log(`- ${prefix} ${message.key}#${message.value}`);
-        }
+        },
     });
     await consumer.disconnect();
 };
@@ -68,7 +66,7 @@ const producer = kafka.producer({ allowAutoTopicCreation: true });
 const getRandomNumber = () => Math.round(Math.random() * 1000);
 const createMessage = (num: number) => ({
     key: `key-${num}`,
-    value: `value-${num}-${new Date().toISOString()}`
+    value: `value-${num}-${new Date().toISOString()}`,
 });
 
 const sendMessage = () => {
@@ -78,7 +76,7 @@ const sendMessage = () => {
             compression: CompressionTypes.GZIP,
             messages: Array(getRandomNumber())
                 .fill(0)
-                .map(_ => createMessage(getRandomNumber()))
+                .map(_ => createMessage(getRandomNumber())),
         })
         .then(console.log)
         .catch(e => console.error(`[example/producer] ${e.message}`, e));
@@ -96,10 +94,14 @@ runProducer().catch(e => console.error(`[example/producer] ${e.message}`, e));
 const admin = kafka.admin({ retry: { retries: 10 } });
 
 const runAdmin = async () => {
-  await admin.connect();
-  const { topics } = await admin.getTopicMetadata({});
-  await admin.createTopics({ topics: [{ topic, numPartitions: 10, replicationFactor: 1}], timeout: 30000, waitForLeaders: true });
-  await admin.disconnect();
+    await admin.connect();
+    const { topics } = await admin.getTopicMetadata({});
+    await admin.createTopics({
+        topics: [{ topic, numPartitions: 10, replicationFactor: 1 }],
+        timeout: 30000,
+        waitForLeaders: true,
+    });
+    await admin.disconnect();
 };
 
 runAdmin().catch(e => console.error(`[example/admin] ${e.message}`, e));
@@ -107,9 +109,9 @@ runAdmin().catch(e => console.error(`[example/admin] ${e.message}`, e));
 // OTHERS
 async () => {
     await producer.send({
-        topic: "topic-name",
+        topic: 'topic-name',
         compression: CompressionTypes.GZIP,
-        messages: [{ key: "key1", value: "hello world!" }]
+        messages: [{ key: 'key1', value: 'hello world!' }],
     });
 };
 
@@ -119,10 +121,10 @@ CompressionCodecs[CompressionTypes.Snappy] = SnappyCodec;
 
 const myCustomAssignmentArray = [0];
 const assignment: { [key: number]: { [key: string]: number[] } } = {
-    0: { a: [0] }
+    0: { a: [0] },
 };
 const MyPartitionAssigner: PartitionAssigner = ({ cluster: any }) => ({
-    name: "MyPartitionAssigner",
+    name: 'MyPartitionAssigner',
     version: 1,
     async assign({ members, topics }) {
         // perform assignment
@@ -130,8 +132,8 @@ const MyPartitionAssigner: PartitionAssigner = ({ cluster: any }) => ({
             memberId,
             memberAssignment: MemberAssignment.encode({
                 version: this.version,
-                assignment: assignment[memberId]
-            })
+                assignment: assignment[memberId],
+            }),
         }));
     },
     protocol({ topics }) {
@@ -139,13 +141,13 @@ const MyPartitionAssigner: PartitionAssigner = ({ cluster: any }) => ({
             name: this.name,
             metadata: MemberMetadata.encode({
                 version: this.version,
-                topics
-            })
+                topics,
+            }),
         };
-    }
+    },
 });
 
 kafka.consumer({
-    groupId: "my-group",
-    partitionAssigners: [MyPartitionAssigner, roundRobin]
+    groupId: 'my-group',
+    partitionAssigners: [MyPartitionAssigner, roundRobin],
 });

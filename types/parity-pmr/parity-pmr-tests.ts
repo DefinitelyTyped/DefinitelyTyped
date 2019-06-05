@@ -1,8 +1,8 @@
-import { format, parse, PMRMessage } from "parity-pmr";
+import { format, parse, PMRMessage } from 'parity-pmr';
 
-const buffer = new Buffer("test");
+const buffer = new Buffer('test');
 const message: PMRMessage = {
-    messageType: 'E'
+    messageType: 'E',
 };
 
 // $ExpectType Buffer

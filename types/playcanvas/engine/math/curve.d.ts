@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @enum pc.CURVE
      * @name pc.CURVE_LINEAR
@@ -35,7 +34,7 @@ declare namespace pc {
      * @property {Number} length The number of keys in the curve. [read only]
      */
     class Curve {
-        constructor(data?: number[])
+        constructor(data?: number[]);
 
         length: number;
 

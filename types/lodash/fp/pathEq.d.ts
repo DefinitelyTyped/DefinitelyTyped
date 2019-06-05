@@ -1,2 +1,2 @@
-import { pathEq } from "../fp";
+import { pathEq } from '../fp';
 export = pathEq;

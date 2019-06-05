@@ -1,5 +1,3 @@
-
-
 // tests taken from https://github.com/chaijs/chai-jquery
 
 declare var $: ChaiJQueryStatic;
@@ -24,7 +22,9 @@ function test_css() {
 function test_data() {
     expect($('#foo')).to.have.data('toggle');
     expect($('#foo')).to.have.css('toggle', 'true');
-    expect($('body')).to.have.css('font-family').and.match(/sans-serif/);
+    expect($('body'))
+        .to.have.css('font-family')
+        .and.match(/sans-serif/);
 }
 
 function test_class() {

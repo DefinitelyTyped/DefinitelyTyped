@@ -24,7 +24,7 @@ const hasEmoji: boolean = emoji.hasEmoji('🍕');
 
 const stripped_emoji: string = emoji.strip('⚠️ 〰️ 〰️ low disk space');
 
-const replaced_emoji: string = emoji.replace('⚠️ 〰️ 〰️ low disk space', (emoji) => `${emoji.key}:`);
+const replaced_emoji: string = emoji.replace('⚠️ 〰️ 〰️ low disk space', emoji => `${emoji.key}:`);
 
 const replaced_emoji_with_string: string = emoji.replace('⚠️ 〰️ 〰️ low disk space', 'example');
 

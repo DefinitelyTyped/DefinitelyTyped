@@ -3,9 +3,6 @@
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function requireindex(
-    path: string,
-    basenames?: ReadonlyArray<string>,
-): {[filename: string]: any};
+declare function requireindex(path: string, basenames?: ReadonlyArray<string>): { [filename: string]: any };
 
 export = requireindex;

@@ -7,5 +7,5 @@ new Flexmonster({
     height: '550px',
     width: '100%',
     report: {},
-    toolbar: true
+    toolbar: true,
 });

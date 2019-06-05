@@ -8,14 +8,14 @@
 /**
  * Parses a string or buffer in the .env file format into an object.
  */
-export function parse(src: string | Buffer): {[name: string]: string};
+export function parse(src: string | Buffer): { [name: string]: string };
 
 /**
  * Loads `.env` into `process.env`.
  *
  * @return Object Object with the parsed keys and values, e.g., 'KEY=value' becomes { KEY: 'value' }
  */
-export function config(options?: DotenvOptions): {[name: string]: string} | false;
+export function config(options?: DotenvOptions): { [name: string]: string } | false;
 
 export interface DotenvOptions {
     /**

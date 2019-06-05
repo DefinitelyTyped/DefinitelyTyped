@@ -7,7 +7,7 @@ declare namespace pc {
      * the time first and value second).
      */
     class CurveSet {
-        constructor(curveKeys?: number[][])
+        constructor(curveKeys?: number[][]);
 
         /**
          * @function
@@ -37,7 +37,7 @@ declare namespace pc {
          * @description Returns a clone of the specified curve set object.
          * @returns {pc.CurveSet} A clone of the specified curve set
          */
-        clone(): pc.CurveSet
+        clone(): pc.CurveSet;
 
         /**
          * @readonly

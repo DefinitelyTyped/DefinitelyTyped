@@ -8,4 +8,3 @@ declare namespace typeName {}
 
 export = typeName;
 export as namespace typeName;
-  

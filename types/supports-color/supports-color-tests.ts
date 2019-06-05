@@ -1,4 +1,4 @@
-import { stdout, stderr } from "supports-color";
+import { stdout, stderr } from 'supports-color';
 
 if (stdout) {
     // Terminal standard output supports color

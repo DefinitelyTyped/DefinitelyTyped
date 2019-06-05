@@ -10,7 +10,6 @@ import { RequestHandler } from 'express';
 
 declare function expressEjsLayouts(): RequestHandler;
 
-declare namespace expressEjsLayouts {
-}
+declare namespace expressEjsLayouts {}
 
 export = expressEjsLayouts;

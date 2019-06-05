@@ -1,2 +1,2 @@
-import { assoc } from "../fp";
+import { assoc } from '../fp';
 export = assoc;

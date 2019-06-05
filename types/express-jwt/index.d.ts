@@ -14,13 +14,13 @@ export = jwt;
 
 declare function jwt(options: jwt.Options): jwt.RequestHandler;
 declare namespace jwt {
-    export type secretType = string | Buffer
+    export type secretType = string | Buffer;
     export type ErrorCode =
-        "revoked_token" |
-        "invalid_token" |
-        "credentials_bad_scheme" |
-        "credentials_bad_format" |
-        "credentials_required"
+        | 'revoked_token'
+        | 'invalid_token'
+        | 'credentials_bad_scheme'
+        | 'credentials_bad_format'
+        | 'credentials_required';
 
     export interface SecretCallbackLong {
         (req: express.Request, header: any, payload: any, done: (err: any, secret?: secretType) => void): void;
@@ -47,7 +47,7 @@ declare namespace jwt {
         unless: typeof unless;
     }
 
-    export class UnauthorizedError extends Error  {
+    export class UnauthorizedError extends Error {
         status: number;
         message: string;
         name: 'UnauthorizedError';

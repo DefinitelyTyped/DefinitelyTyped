@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import * as stream from "stream";
-import { EventEmitter } from "events";
+import * as stream from 'stream';
+import { EventEmitter } from 'events';
 
 /* Data Interfaces */
 /* https://github.com/rdfjs/representation-task-force/blob/master/interface-spec.md#data-interfaces */
@@ -30,7 +30,7 @@ export interface NamedNode {
     /**
      * Contains the constant "NamedNode".
      */
-    termType: "NamedNode";
+    termType: 'NamedNode';
     /**
      * The IRI of the named node (example: `http://example.org/resource`)
      */
@@ -50,7 +50,7 @@ export interface BlankNode {
     /**
      * Contains the constant "BlankNode".
      */
-    termType: "BlankNode";
+    termType: 'BlankNode';
     /**
      * Blank node name as a string, without any serialization specific prefixes,
      * e.g. when parsing,
@@ -73,7 +73,7 @@ export interface Literal {
     /**
      * Contains the constant "Literal".
      */
-    termType: "Literal";
+    termType: 'Literal';
     /**
      * The text value, unescaped, without language or type (example: Brad Pitt).
      */
@@ -104,7 +104,7 @@ export interface Variable {
     /**
      * Contains the constant "Variable".
      */
-    termType: "Variable";
+    termType: 'Variable';
     /**
      * The name of the variable *without* leading ? (example: a).
      */
@@ -125,11 +125,11 @@ export interface DefaultGraph {
     /**
      * Contains the constant "DefaultGraph".
      */
-    termType: "DefaultGraph";
+    termType: 'DefaultGraph';
     /**
      * Contains an empty string as constant value.
      */
-    value: "";
+    value: '';
 
     /**
      * @param other The term to compare with.
@@ -175,32 +175,32 @@ export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
  * An RDF quad, taking any Term in its positions, containing the subject, predicate, object and graph terms.
  */
 export interface BaseQuad {
-  /**
-   * The subject.
-   * @see Quad_Subject
-   */
-  subject: Term;
-  /**
-   * The predicate.
-   * @see Quad_Predicate
-   */
-  predicate: Term;
-  /**
-   * The object.
-   * @see Quad_Object
-   */
-  object: Term;
-  /**
-   * The named graph.
-   * @see Quad_Graph
-   */
-  graph: Term;
+    /**
+     * The subject.
+     * @see Quad_Subject
+     */
+    subject: Term;
+    /**
+     * The predicate.
+     * @see Quad_Predicate
+     */
+    predicate: Term;
+    /**
+     * The object.
+     * @see Quad_Object
+     */
+    object: Term;
+    /**
+     * The named graph.
+     * @see Quad_Graph
+     */
+    graph: Term;
 
-  /**
-   * @param other The term to compare with.
-   * @return True if and only if the argument is a) of the same type b) has all components equal.
-   */
-  equals(other: BaseQuad): boolean;
+    /**
+     * @param other The term to compare with.
+     * @return True if and only if the argument is a) of the same type b) has all components equal.
+     */
+    equals(other: BaseQuad): boolean;
 }
 
 /**
@@ -307,7 +307,12 @@ export interface DataFactory {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
+    quad<Q extends BaseQuad = Quad>(
+        subject: Q['subject'],
+        predicate: Q['predicate'],
+        object: Q['object'],
+        graph?: Q['graph']
+    ): Q;
 }
 
 /* Stream Interfaces */
@@ -409,8 +414,12 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
      * @param graph     The optional exact graph or graph regex to match.
      * @return The resulting event emitter.
      */
-    removeMatches(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
-        : EventEmitter;
+    removeMatches(
+        subject?: Term | RegExp,
+        predicate?: Term | RegExp,
+        object?: Term | RegExp,
+        graph?: Term | RegExp
+    ): EventEmitter;
 
     /**
      * Deletes the given named graph.

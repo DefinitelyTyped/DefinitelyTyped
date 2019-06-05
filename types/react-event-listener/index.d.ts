@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import React = require("react");
+import React = require('react');
 
 export interface EventOptions {
     /**
@@ -226,4 +226,4 @@ export interface EventListenerProps {
     target: Window | Document | string;
 }
 
-export default class EventListener extends React.Component<EventListenerProps> { }
+export default class EventListener extends React.Component<EventListenerProps> {}

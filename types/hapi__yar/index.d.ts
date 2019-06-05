@@ -6,13 +6,7 @@
 // TypeScript Version: 2.8
 // From https://github.com/hapijs/yar/blob/master/API.md
 
-import {
-    Server,
-    ServerOptionsCache,
-    Request,
-    Plugin,
-    CachePolicyOptions,
-} from '@hapi/hapi';
+import { Server, ServerOptionsCache, Request, Plugin, CachePolicyOptions } from '@hapi/hapi';
 import { PolicyOptions, Id } from '@hapi/catbox';
 declare namespace yar {
     interface YarOptions {

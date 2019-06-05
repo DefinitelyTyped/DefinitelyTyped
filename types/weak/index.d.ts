@@ -64,7 +64,7 @@ declare namespace weak {
      * Returns an Array that ref iterates through to invoke the GC callbacks. This utilizes node's EventEmitter#listeners() function and therefore returns a copy in node 0.10 and newer.
      * @param ref weak reference object
      */
-    function callbacks(ref: WeakRef<any>): Array<(() => void)>;
+    function callbacks(ref: WeakRef<any>): Array<() => void>;
 }
 
 export = weak;

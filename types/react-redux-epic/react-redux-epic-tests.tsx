@@ -22,5 +22,5 @@ const wrappedRootEpic = wrapRootEpic(rootEpic);
 renderToString(<div>Hello, world</div>, wrappedRootEpic).subscribe({
     next({ markup }) {
         // Done
-    }
+    },
 });

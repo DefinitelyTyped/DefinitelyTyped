@@ -14,17 +14,12 @@ export class RecognitionException extends Error {
     toString(): string;
 }
 
-export class LexerNoViableAltException extends RecognitionException {
-}
+export class LexerNoViableAltException extends RecognitionException {}
 
-export  class NoViableAltException extends RecognitionException {
-}
+export class NoViableAltException extends RecognitionException {}
 
-export class InputMismatchException extends RecognitionException {
-}
+export class InputMismatchException extends RecognitionException {}
 
-export class FailedPredicateException extends RecognitionException {
-}
+export class FailedPredicateException extends RecognitionException {}
 
-export class ParseCancellationException extends RecognitionException {
-}
+export class ParseCancellationException extends RecognitionException {}

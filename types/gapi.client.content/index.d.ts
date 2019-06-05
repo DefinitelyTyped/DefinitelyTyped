@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Content API for Shopping v2 */
-    function load(name: "content", version: "v2"): PromiseLike<void>;
-    function load(name: "content", version: "v2", callback: () => any): void;
+    function load(name: 'content', version: 'v2'): PromiseLike<void>;
+    function load(name: 'content', version: 'v2', callback: () => any): void;
 
     const accounts: content.AccountsResource;
 

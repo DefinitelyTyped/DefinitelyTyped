@@ -1,7 +1,7 @@
 import 'summernote';
 
 $('#testElement').summernote({
-  airMode: true
+    airMode: true,
 });
 
 $('#testElement').summernote('code', '<p> hello </p>');

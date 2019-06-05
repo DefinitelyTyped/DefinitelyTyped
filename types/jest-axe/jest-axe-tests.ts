@@ -1,4 +1,4 @@
-import { configureAxe, axe, toHaveNoViolations, JestAxe } from "jest-axe";
+import { configureAxe, axe, toHaveNoViolations, JestAxe } from 'jest-axe';
 
 expect.extend(toHaveNoViolations);
 
@@ -9,11 +9,11 @@ const newJestWithOptions: JestAxe = configureAxe({
     iframes: false,
     rules: {},
     runOnly: {
-        type: "rules",
+        type: 'rules',
     },
     selectors: false,
 });
 
 const sameJest: JestAxe = axe;
 
-expect("").toHaveNoViolations();
+expect('').toHaveNoViolations();

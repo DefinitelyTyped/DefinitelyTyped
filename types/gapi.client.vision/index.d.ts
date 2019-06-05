@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Cloud Vision API v1 */
-    function load(name: "vision", version: "v1"): PromiseLike<void>;
-    function load(name: "vision", version: "v1", callback: () => any): void;
+    function load(name: 'vision', version: 'v1'): PromiseLike<void>;
+    function load(name: 'vision', version: 'v1', callback: () => any): void;
 
     const images: vision.ImagesResource;
 
@@ -572,7 +572,7 @@ declare namespace gapi.client {
             /** Run image detection and annotation for a batch of images. */
             annotate(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

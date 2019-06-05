@@ -62,8 +62,7 @@ WScript.Quit();
                     s += '[vector of data]';
                 } else {
                     s += p.Value;
-                    if (p.SubType !== WIA.WiaSubType.UnspecifiedSubType
-                        && p.Value !== p.SubTypeDefault) {
+                    if (p.SubType !== WIA.WiaSubType.UnspecifiedSubType && p.Value !== p.SubTypeDefault) {
                         s += ` (Default = ${p.SubTypeDefault})`;
                     }
                 }
@@ -83,7 +82,9 @@ WScript.Quit();
                             s += ` [valid ${descr} include: ${items.join(',')}]`;
                             break;
                         case WIA.WiaSubType.RangeSubType:
-                            s += ` [valid values in the range from ${p.SubTypeMin} to ${p.SubTypeMax} in increments of ${p.SubTypeStep}]`;
+                            s += ` [valid values in the range from ${p.SubTypeMin} to ${
+                                p.SubTypeMax
+                            } in increments of ${p.SubTypeStep}]`;
                             break;
                     }
                 }
@@ -139,9 +140,10 @@ WScript.Quit();
         if (dev) {
             const actionEvent = WIA.WiaEventFlag.ActionEvent;
             for (const e of collectionToArray(dev.Events)) {
-                const msg = (e.Type & actionEvent) === actionEvent ?
-                    `${e.Name} is an Action event` :
-                    `${e.Name} is not an Action event`;
+                const msg =
+                    (e.Type & actionEvent) === actionEvent
+                        ? `${e.Name} is an Action event`
+                        : `${e.Name} is not an Action event`;
                 WScript.Echo(msg);
             }
         }
@@ -190,10 +192,18 @@ Frame count = ${img.FrameCount}}
 
         let arr: string[] = [];
 
-        if (img.IsIndexedPixelFormat) { arr.push('Pixel data contains palette indexes'); }
-        if (img.IsAlphaPixelFormat) { arr.push('Pixel data has alpha information'); }
-        if (img.IsExtendedPixelFormat) { arr.push('Pixel data has extended color information (16 bit/channel)'); }
-        if (img.IsAnimated) { arr.push('Image is animated'); }
+        if (img.IsIndexedPixelFormat) {
+            arr.push('Pixel data contains palette indexes');
+        }
+        if (img.IsAlphaPixelFormat) {
+            arr.push('Pixel data has alpha information');
+        }
+        if (img.IsExtendedPixelFormat) {
+            arr.push('Pixel data has extended color information (16 bit/channel)');
+        }
+        if (img.IsAnimated) {
+            arr.push('Image is animated');
+        }
 
         const propertyTests = [40091, 40092, 40093, 40094, 40095]
             .filter(n => img.Properties.Exists(n))
@@ -214,11 +224,7 @@ Frame count = ${img.FrameCount}}
     {
         const ip = new ActiveXObject('WIA.ImageProcess');
         for (const fi of collectionToArray(ip.FilterInfos)) {
-            const s = [
-                fi.Name,
-                new Array(51).join('='),
-                fi.Description
-            ].join('\n');
+            const s = [fi.Name, new Array(51).join('='), fi.Description].join('\n');
             WScript.Echo(s);
         }
     }
@@ -228,7 +234,9 @@ Frame count = ${img.FrameCount}}
         const ip = new ActiveXObject('WIA.ImageProcess');
 
         const stringValue = (v: any) => {
-            if (typeof v === 'string') { return `"${v}"`; }
+            if (typeof v === 'string') {
+                return `"${v}"`;
+            }
             return v;
         };
 
@@ -239,37 +247,47 @@ Frame count = ${img.FrameCount}}
                 `${filter.Name} (${filter.FilterID})`,
                 new Array(51).join('='),
                 filter.Description,
-                new Array(51).join('=')
-            ].map(line => line + '\n').join('');
+                new Array(51).join('='),
+            ]
+                .map(line => line + '\n')
+                .join('');
 
-            s += collectionToArray(filter.Properties).map(p => {
-                let contents: string;
+            s += collectionToArray(filter.Properties)
+                .map(p => {
+                    let contents: string;
 
-                switch (typeof p.Value) {
-                    // these case clauses replace the IsObject function in VB6/VBScript
-                    case 'boolean':
-                    case 'string':
-                    case 'number':
-                        contents = stringValue(p.Value);
-                    default:
-                        switch (p.SubType) {
-                            case WIA.WiaSubType.FlagSubType:
-                                contents = ` // [valid values formed by using the OR operator with the following bit flags: ${listValues(p.SubTypeValues)}]`;
-                                break;
-                            case WIA.WiaSubType.ListSubType:
-                                contents = ` // [valid values from the following list: ${listValues(p.SubTypeValues)}]`;
-                                break;
-                            case WIA.WiaSubType.RangeSubType:
-                                contents = ` // [valid values between ${p.SubTypeMin} and ${p.SubTypeMax}, with a step of ${p.SubTypeStep}]`;
-                                break;
-                            default:
-                                contents = '';
-                                break;
-                        }
-                }
+                    switch (typeof p.Value) {
+                        // these case clauses replace the IsObject function in VB6/VBScript
+                        case 'boolean':
+                        case 'string':
+                        case 'number':
+                            contents = stringValue(p.Value);
+                        default:
+                            switch (p.SubType) {
+                                case WIA.WiaSubType.FlagSubType:
+                                    contents = ` // [valid values formed by using the OR operator with the following bit flags: ${listValues(
+                                        p.SubTypeValues
+                                    )}]`;
+                                    break;
+                                case WIA.WiaSubType.ListSubType:
+                                    contents = ` // [valid values from the following list: ${listValues(
+                                        p.SubTypeValues
+                                    )}]`;
+                                    break;
+                                case WIA.WiaSubType.RangeSubType:
+                                    contents = ` // [valid values between ${p.SubTypeMin} and ${
+                                        p.SubTypeMax
+                                    }, with a step of ${p.SubTypeStep}]`;
+                                    break;
+                                default:
+                                    contents = '';
+                                    break;
+                            }
+                    }
 
-                return `ip.Filters(1).Properties("${p.Name}") = ${contents}`;
-            }).join('\n');
+                    return `ip.Filters(1).Properties("${p.Name}") = ${contents}`;
+                })
+                .join('\n');
 
             WScript.Echo(s);
         };
@@ -285,19 +303,31 @@ Frame count = ${img.FrameCount}}
     {
         const stringFormat = (fld: string) => {
             switch (fld) {
-                case WIA.FormatID.wiaFormatBMP: return 'BMP';
-                case WIA.FormatID.wiaFormatPNG: return 'PNG';
-                case WIA.FormatID.wiaFormatGIF: return 'GIF';
-                case WIA.FormatID.wiaFormatJPEG: return 'JPEG';
-                case WIA.FormatID.wiaFormatTIFF: return 'TIFF';
-                default: return 'Unknown';
+                case WIA.FormatID.wiaFormatBMP:
+                    return 'BMP';
+                case WIA.FormatID.wiaFormatPNG:
+                    return 'PNG';
+                case WIA.FormatID.wiaFormatGIF:
+                    return 'GIF';
+                case WIA.FormatID.wiaFormatJPEG:
+                    return 'JPEG';
+                case WIA.FormatID.wiaFormatTIFF:
+                    return 'TIFF';
+                default:
+                    return 'Unknown';
             }
         };
 
         const dev = cd.ShowSelectDevice();
-        const items = dev && cd.ShowSelectItems(dev, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
+        const items =
+            dev &&
+            cd.ShowSelectItems(dev, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
         if (items) {
-            WScript.Echo(collectionToArray(items(1).Formats).map(stringFormat).join(', '));
+            WScript.Echo(
+                collectionToArray(items(1).Formats)
+                    .map(stringFormat)
+                    .join(', ')
+            );
         }
     }
 
@@ -314,10 +344,12 @@ Frame count = ${img.FrameCount}}
         const dev = cd.ShowSelectDevice();
         if (dev) {
             for (const item of collectionToArray(dev.Items)) {
-                let s: string = item.Properties("Item Name").Value;
-                if (item.Properties.Exists("Item Time Stamp")) {
-                    const v: WIA.Vector = item.Properties("Item Time Stamp").Value;
-                    if (v.Count === 8) { s += ` (${v.Date})`; }
+                let s: string = item.Properties('Item Name').Value;
+                if (item.Properties.Exists('Item Time Stamp')) {
+                    const v: WIA.Vector = item.Properties('Item Time Stamp').Value;
+                    if (v.Count === 8) {
+                        s += ` (${v.Date})`;
+                    }
                 }
                 WScript.Echo(s);
             }
@@ -327,7 +359,9 @@ Frame count = ${img.FrameCount}}
     // Determine the number of items returned by ShowSelectItems
     {
         const dev = cd.ShowSelectDevice();
-        const items = dev && cd.ShowSelectItems(dev, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
+        const items =
+            dev &&
+            cd.ShowSelectItems(dev, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
         if (items) {
             WScript.Echo(`You selected ${items.Count} items`);
         }
@@ -346,7 +380,7 @@ Frame count = ${img.FrameCount}}
 
     // List all available devices by name and deviceid
     for (const di of collectionToArray(dm.DeviceInfos)) {
-        const name: string = di.Properties("Name").Value;
+        const name: string = di.Properties('Name').Value;
         WScript.Echo(`${name} (${di.DeviceID})`);
     }
 
@@ -372,7 +406,9 @@ Frame count = ${img.FrameCount}}
     // Enumerate the supported commands
     {
         const dev = cd.ShowSelectDevice();
-        const items = dev && cd.ShowSelectItems(dev, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
+        const items =
+            dev &&
+            cd.ShowSelectItems(dev, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
         if (items) {
             const msg = collectionToArray(items(1).Commands)
                 .map(c => `${c.Name}: ${c.Description}\n`)
@@ -400,7 +436,8 @@ Frame count = ${img.FrameCount}}
         Count(): number;
     }
 
-    interface WshArguments extends WshArgumentsBase {  // not sure if WshArguments takes a string as well, or only a number
+    interface WshArguments extends WshArgumentsBase {
+        // not sure if WshArguments takes a string as well, or only a number
         Named: WshArgumentsBase<string>;
         Unnamed: WshArgumentsBase<number>;
         ShowUsage(): void;
@@ -408,8 +445,7 @@ Frame count = ${img.FrameCount}}
 
     // Implement a windows script host script that runs automatically
     {
-        const args = collectionToArray(WScript.Arguments as WshArguments)
-            .map(arg => arg.toLowerCase());
+        const args = collectionToArray(WScript.Arguments as WshArguments).map(arg => arg.toLowerCase());
 
         switch (args.length) {
             case 1:
@@ -442,7 +478,9 @@ Frame count = ${img.FrameCount}}
                         // Uncomment the following lines to remove the picture from the camera after transfer
                         for (let i = 1; i < device.Items.Count; i++) {
                             const item2 = device.Items(i);
-                            if (item2.ItemID !== item.ItemID) { continue; }
+                            if (item2.ItemID !== item.ItemID) {
+                                continue;
+                            }
                             try {
                                 // some cameras don't support deleting a picture
                                 device.Items.Remove(i);
@@ -469,8 +507,8 @@ To unregister, type:
 
 Available device ids:
 ${collectionToArray(dm.DeviceInfos)
-                .map(device => `${device.DeviceID} '${device.Properties("Name").Value}'`)
-                .join('\n')}
+    .map(device => `${device.DeviceID} '${device.Properties('Name').Value}'`)
+    .join('\n')}
             `.trim();
 
         WScript.Echo(usage);
@@ -479,7 +517,9 @@ ${collectionToArray(dm.DeviceInfos)
     // Count the number of child items available for transfer
     {
         const device = cd.ShowSelectDevice();
-        const items = device && cd.ShowSelectItems(device, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
+        const items =
+            device &&
+            cd.ShowSelectItems(device, WIA.WiaImageIntent.UnspecifiedIntent, WIA.WiaImageBias.MaximizeQuality, true);
         const item = items && items(1);
         if (item) {
             const count = collectionToArray(item.Items).filter(childItem => {

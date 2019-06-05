@@ -15,9 +15,7 @@ export = buildOutputScript;
  * @param outputs An array of one or more output objects.
  * @returns A (hex string) P2PKH transaction output script.
  */
-declare function buildOutputScript(
-    outputs: [buildOutputScript.Output, ...buildOutputScript.Output[]]
-): string;
+declare function buildOutputScript(outputs: [buildOutputScript.Output, ...buildOutputScript.Output[]]): string;
 
 declare namespace buildOutputScript {
     interface Output {

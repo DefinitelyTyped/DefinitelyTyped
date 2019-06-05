@@ -1,2 +1,2 @@
-import { zip } from "../fp";
+import { zip } from '../fp';
 export = zip;

@@ -19,7 +19,7 @@ let badUserMappingOptions: KnockoutMappingOptions<User> = {
     copy: ['height'],
     mappedProperties: ['age', 'name'],
     deferEvaluation: false,
-    create: function (options: KnockoutMappingCreateOptions) { }, // $ExpectError
+    create: function(options: KnockoutMappingCreateOptions) {}, // $ExpectError
 };
 
 let userMappingOptions: KnockoutMappingOptions<User> = {
@@ -28,12 +28,12 @@ let userMappingOptions: KnockoutMappingOptions<User> = {
     copy: ['height'],
     mappedProperties: ['age', 'name'],
     deferEvaluation: false,
-    firstName: { create: function (options: KnockoutMappingCreateOptions) { } },
+    firstName: { create: function(options: KnockoutMappingCreateOptions) {} },
 };
 let badMapping = {
     ignof3efere: ['age'],
     inclfefeude: ['name'],
-}
+};
 
 // fromJS function with JS object
 
@@ -50,18 +50,18 @@ mapping.fromJS(untypedArrayObject); // $ExpectType KnockoutObservableArray<any>
 
 // fromJS function with JS array and primitives
 let inputNumber = 3;
-let inputString = "foo"
+let inputString = 'foo';
 let inputBoolean = true;
 let inputNumberArray = [3, 4, 67];
 
 mapping.fromJS(inputNumber); // $ExpectType KnockoutObservable<number>
-mapping.fromJS(inputString);  // $ExpectType KnockoutObservable<string>
-mapping.fromJS(inputBoolean);  // $ExpectType KnockoutObservable<boolean>
-let numberArrayViewModel = mapping.fromJS(inputNumberArray);  // $ExpectType KnockoutObservableArray<any>
+mapping.fromJS(inputString); // $ExpectType KnockoutObservable<string>
+mapping.fromJS(inputBoolean); // $ExpectType KnockoutObservable<boolean>
+let numberArrayViewModel = mapping.fromJS(inputNumberArray); // $ExpectType KnockoutObservableArray<any>
 
 // fromJSON function
 interface nameObject {
-    name: string
+    name: string;
 }
 
 let nameObjectInput: nameObject = { name: 'bar' };
@@ -96,10 +96,52 @@ mapping.toJSON(nameObjectInput, {}); // $ExpectType string
 mapping.toJSON<MappedUser>(mappedUserViewModel, userMappingOptions); // $ExpectType string
 
 // visitModel function
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, {});
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, { visitedObjects: null });
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, { parentName: 'parent' });
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, { ignore: ['age'] });
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, { copy: ['height'] });
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, { include: ['name'] });
-mapping.visitModel(nameObjectInput, function (x: any) { return x; }, { visitedObjects: null, parentName: 'parent', ignore: ['age'], copy: ['height'], include: ['name'] });
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    {}
+);
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    { visitedObjects: null }
+);
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    { parentName: 'parent' }
+);
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    { ignore: ['age'] }
+);
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    { copy: ['height'] }
+);
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    { include: ['name'] }
+);
+mapping.visitModel(
+    nameObjectInput,
+    function(x: any) {
+        return x;
+    },
+    { visitedObjects: null, parentName: 'parent', ignore: ['age'], copy: ['height'], include: ['name'] }
+);

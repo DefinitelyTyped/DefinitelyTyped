@@ -1,4 +1,4 @@
-declare module "meteor/browser-policy-common" {
+declare module 'meteor/browser-policy-common' {
     module BrowserPolicy {
         var framing: {
             disallow(): void;

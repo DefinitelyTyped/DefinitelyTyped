@@ -41,18 +41,18 @@ export interface LogTimers {
 }
 
 export type LogType =
-    | "assert"
-    | "count"
-    | "debug"
-    | "dir"
-    | "dirxml"
-    | "error"
-    | "group"
-    | "groupCollapsed"
-    | "info"
-    | "log"
-    | "time"
-    | "warn";
+    | 'assert'
+    | 'count'
+    | 'debug'
+    | 'dir'
+    | 'dirxml'
+    | 'error'
+    | 'group'
+    | 'groupCollapsed'
+    | 'info'
+    | 'log'
+    | 'time'
+    | 'warn';
 
 export type ConsoleBuffer = LogEntry[];
 
@@ -61,7 +61,7 @@ export interface Callsite {
     line: number;
 }
 
-export type Status = "passed" | "failed" | "skipped" | "pending";
+export type Status = 'passed' | 'failed' | 'skipped' | 'pending';
 
 export interface AssertionResult {
     ancestorTitles: string[];
@@ -141,7 +141,7 @@ export interface FileCoverage {
     toSummary: () => CoverageSummary;
 }
 
-export type SnapshotUpdateState = "all" | "new" | "none";
+export type SnapshotUpdateState = 'all' | 'new' | 'none';
 
 export interface RawFileCoverage {
     path: string;

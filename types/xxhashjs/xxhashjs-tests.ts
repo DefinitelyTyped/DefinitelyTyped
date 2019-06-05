@@ -1,7 +1,7 @@
 import * as XXH from 'xxhashjs';
 
 // Test data
-const seed = 0xABCD;
+const seed = 0xabcd;
 const stringData = 'abcd';
 const arrayBufferData = new ArrayBuffer(4);
 const bufferData = Buffer.from([1, 2, 3, 4]);
@@ -12,7 +12,9 @@ value32_1.toString();
 value32_1.toString(16);
 value32_1.toNumber();
 
-const value32_2 = XXH.h32(seed).update(stringData).digest();
+const value32_2 = XXH.h32(seed)
+    .update(stringData)
+    .digest();
 value32_2.toString();
 value32_2.toString(16);
 value32_2.toNumber();
@@ -23,7 +25,9 @@ value64_1.toString();
 value64_1.toString(16);
 value64_1.toNumber();
 
-const value64_2 = XXH.h64(seed).update(stringData).digest();
+const value64_2 = XXH.h64(seed)
+    .update(stringData)
+    .digest();
 value64_2.toString();
 value64_2.toString(16);
 value64_2.toNumber();

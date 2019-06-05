@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/timing.html
      *
@@ -12,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface timing {
-    }
+    interface timing {}
     namespace timing {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/timing/Sequence.html
@@ -82,7 +80,9 @@ declare namespace dojox {
          * @param context       OptionalThe namespace where the call originated.Defaults to global and anonymous functions
          * @param interval       OptionalPoll time to check conditional in Milliseconds
          */
-        interface doLater { (conditional: any, context?: Object, interval?: number): void }
+        interface doLater {
+            (conditional: any, context?: Object, interval?: number): void;
+        }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/timing/Streamer.html
          *
@@ -97,27 +97,26 @@ declare namespace dojox {
          * @param minimum the minimum number of elements in the internal queue.
          * @param initialData
          */
-        interface Streamer { (input: Function, output: Function, interval: number, minimum: number, initialData: any[]): void }
-        module _base {
+        interface Streamer {
+            (input: Function, output: Function, interval: number, minimum: number, initialData: any[]): void;
         }
-
+        module _base {}
     }
-
 }
 
-declare module "dojox/timing" {
-    var exp: dojox.timing
-    export=exp;
+declare module 'dojox/timing' {
+    var exp: dojox.timing;
+    export = exp;
 }
-declare module "dojox/timing/Sequence" {
-    var exp: dojox.timing.Sequence
-    export=exp;
+declare module 'dojox/timing/Sequence' {
+    var exp: dojox.timing.Sequence;
+    export = exp;
 }
-declare module "dojox/timing/doLater" {
-    var exp: dojox.timing.doLater
-    export=exp;
+declare module 'dojox/timing/doLater' {
+    var exp: dojox.timing.doLater;
+    export = exp;
 }
-declare module "dojox/timing/Streamer" {
-    var exp: dojox.timing.Streamer
-    export=exp;
+declare module 'dojox/timing/Streamer' {
+    var exp: dojox.timing.Streamer;
+    export = exp;
 }

@@ -5,7 +5,7 @@ import {
     beforeEach as importedBeforeEach,
     describe as importedDescribe,
     it as importedIt,
-    xit as importedXit
+    xit as importedXit,
 } from 'mocha';
 
 import LocalMocha = require('mocha');
@@ -731,10 +731,10 @@ function test_Context(ctx: LocalMocha.Context, runnable: LocalMocha.Runnable) {
     // $ExpectType Runnable | undefined
     ctx.test;
 
-    ctx["extended"] = any;
+    ctx['extended'] = any;
 
     // $ExpectType any
-    ctx["extended"];
+    ctx['extended'];
 
     ctx.enableTimeouts(boolean)
         .retries(number)
@@ -753,9 +753,9 @@ function test_reporter_string(localMocha: LocalMocha) {
 
 function test_reporter_function(localMocha: LocalMocha) {
     // $ExpectType BrowserMocha
-    mocha.reporter(class extends LocalMocha.reporters.Base { });
+    mocha.reporter(class extends LocalMocha.reporters.Base {});
 
-    const m: Mocha = localMocha.reporter(class extends LocalMocha.reporters.Base { });
+    const m: Mocha = localMocha.reporter(class extends LocalMocha.reporters.Base {});
 }
 
 function test_browser_mocha_setup_slow_option() {
@@ -790,7 +790,7 @@ function test_browser_mocha_setup_require_stringArray_option() {
 
 function test_browser_mocha_setup_reporter_function_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ reporter: class extends LocalMocha.reporters.Base { } });
+    mocha.setup({ reporter: class extends LocalMocha.reporters.Base {} });
 }
 
 function test_browser_mocha_setup_bail_option() {
@@ -805,7 +805,7 @@ function test_browser_mocha_setup_ignore_leaks_option() {
 
 function test_browser_mocha_setup_grep_string_option() {
     // $ExpectType BrowserMocha
-    mocha.setup({ grep: "describe" });
+    mocha.setup({ grep: 'describe' });
 }
 
 function test_browser_mocha_setup_grep_regex_option() {
@@ -829,7 +829,7 @@ function test_browser_mocha_setup_all_options() {
         bail: true,
         ignoreLeaks: true,
         grep: 'test',
-        require: ['ts-node/register'] // TODO: It doesn't appear this is actually supported. Should it be removed?
+        require: ['ts-node/register'], // TODO: It doesn't appear this is actually supported. Should it be removed?
     });
 }
 
@@ -854,7 +854,7 @@ function test_constructor_reporter_string_option() {
 }
 
 function test_constructor_reporter_function_option() {
-    const m: Mocha = new LocalMocha({ reporter: class extends LocalMocha.reporters.Base { } });
+    const m: Mocha = new LocalMocha({ reporter: class extends LocalMocha.reporters.Base {} });
 }
 
 function test_constructor_bail_option() {
@@ -866,7 +866,7 @@ function test_constructor_ignore_leaks_option() {
 }
 
 function test_constructor_grep_string_option() {
-    const m: Mocha = new LocalMocha({ grep: "describe" });
+    const m: Mocha = new LocalMocha({ grep: 'describe' });
 }
 
 function test_constructor_grep_regex_option() {
@@ -886,7 +886,7 @@ function test_constructor_all_options() {
         reporter: 'html',
         bail: true,
         ignoreLeaks: true,
-        grep: 'test'
+        grep: 'test',
     });
 }
 
@@ -895,7 +895,7 @@ function test_run(localMocha: LocalMocha) {
     mocha.run();
 
     // $ExpectType Runner
-    mocha.run((failures) => {
+    mocha.run(failures => {
         // $ExpectType number
         failures;
     });
@@ -904,7 +904,7 @@ function test_run(localMocha: LocalMocha) {
     localMocha.run();
 
     // $ExpectType Runner
-    localMocha.run((failures) => {
+    localMocha.run(failures => {
         // $ExpectType number
         failures;
     });
@@ -918,7 +918,7 @@ function test_chaining() {
     new LocalMocha({ slow: 25 })
         .growl()
         .reporter('html')
-        .reporter(class extends LocalMocha.reporters.Base { });
+        .reporter(class extends LocalMocha.reporters.Base {});
 }
 
 function test_require_constructor_empty() {
@@ -935,14 +935,15 @@ function test_require_constructor_allOptions() {
         ui: 'tdd',
         reporter: 'dot',
         timeout: 500,
-        bail: true
+        bail: true,
     });
 }
 
 function test_require_fluentParams() {
     const instance = new LocalMocha();
 
-    instance.bail(true)
+    instance
+        .bail(true)
         .bail()
         .addFile('foo.js')
         .reporter('dot')
@@ -995,13 +996,13 @@ function test_mochaRunner_properties(runner: LocalMocha.Runner, suite: LocalMoch
     runner.globals();
 
     // $ExpectType Runner
-    runner.globals(["hello", "world"]);
+    runner.globals(['hello', 'world']);
 
     // $ExpectType Runner
     runner.run();
 
     // $ExpectType Runner
-    runner.run((failures) => {
+    runner.run(failures => {
         // $ExpectType number
         failures;
     });
@@ -1035,55 +1036,55 @@ function test_base_reporter_properties(reporter: LocalMocha.reporters.Base) {
 
 function test_runner_events(runner: LocalMocha.Runner) {
     // $ExpectType Runner
-    runner.on("start", () => {});
+    runner.on('start', () => {});
 
     // $ExpectType Runner
-    runner.on("end", () => {});
+    runner.on('end', () => {});
 
     // $ExpectType Runner
-    runner.on("suite", (suite) => {
+    runner.on('suite', suite => {
         // $ExpectType Suite
         suite;
     });
 
     // $ExpectType Runner
-    runner.on("suite end", (suite) => {
+    runner.on('suite end', suite => {
         // $ExpectType Suite
         suite;
     });
 
     // $ExpectType Runner
-    runner.on("test", (test) => {
+    runner.on('test', test => {
         // $ExpectType Test
         test;
     });
 
     // $ExpectType Runner
-    runner.on("test end", (test) => {
+    runner.on('test end', test => {
         // $ExpectType Test
         test;
     });
 
     // $ExpectType Runner
-    runner.on("hook", (hook) => {
+    runner.on('hook', hook => {
         // $ExpectType Hook
         hook;
     });
 
     // $ExpectType Runner
-    runner.on("hook end", (hook) => {
+    runner.on('hook end', hook => {
         // $ExpectType Hook
         hook;
     });
 
     // $ExpectType Runner
-    runner.on("pass", (test) => {
+    runner.on('pass', test => {
         // $ExpectType Test
         test;
     });
 
     // $ExpectType Runner
-    runner.on("fail", (test, err) => {
+    runner.on('fail', (test, err) => {
         // $ExpectType Test
         test;
 
@@ -1092,7 +1093,7 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
-    runner.on("pending", (test) => {
+    runner.on('pending', test => {
         // $ExpectType Test
         test;
     });
@@ -1100,7 +1101,7 @@ function test_runner_events(runner: LocalMocha.Runner) {
 
 function test_runnable_events(runnable: LocalMocha.Runnable) {
     // $ExpectType Runnable
-    runnable.on("error", (error) => {
+    runnable.on('error', error => {
         // $ExpectType any
         error;
     });
@@ -1108,34 +1109,34 @@ function test_runnable_events(runnable: LocalMocha.Runnable) {
 
 function test_suite_events(suite: LocalMocha.Suite) {
     // $ExpectType Suite
-    suite.on("beforeAll", (hook) => {
+    suite.on('beforeAll', hook => {
         // $ExpectType Hook
         hook;
     });
 
     // $ExpectType Suite
-    suite.on("afterAll", (hook) => {
+    suite.on('afterAll', hook => {
         // $ExpectType Hook
         hook;
     });
 
     // $ExpectType Suite
-    suite.on("beforeEach", (hook) => {
+    suite.on('beforeEach', hook => {
         // $ExpectType Hook
         hook;
     });
 
     // $ExpectType Suite
-    suite.on("afterEach", (hook) => {
+    suite.on('afterEach', hook => {
         // $ExpectType Hook
         hook;
     });
 
     // $ExpectType Suite
-    suite.on("run", () => { });
+    suite.on('run', () => {});
 
     // $ExpectType Suite
-    suite.on("pre-require", (context, file, mocha) => {
+    suite.on('pre-require', (context, file, mocha) => {
         // $ExpectType MochaGlobals
         context;
         // $ExpectType string
@@ -1144,7 +1145,7 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
-    suite.on("require", (module, file, mocha) => {
+    suite.on('require', (module, file, mocha) => {
         // $ExpectType any
         module;
         // $ExpectType string
@@ -1153,7 +1154,7 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
-    suite.on("post-require", (context, file, mocha) => {
+    suite.on('post-require', (context, file, mocha) => {
         // $ExpectType MochaGlobals
         context;
         // $ExpectType string
@@ -1162,7 +1163,13 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 }
 
-function test_backcompat_Suite(suite: Mocha.Suite, iSuite: Mocha.ISuite, iSuiteContext: Mocha.ISuiteCallbackContext, iTest: Mocha.ITest, iContext: Mocha.IContext) {
+function test_backcompat_Suite(
+    suite: Mocha.Suite,
+    iSuite: Mocha.ISuite,
+    iSuiteContext: Mocha.ISuiteCallbackContext,
+    iTest: Mocha.ITest,
+    iContext: Mocha.IContext
+) {
     iSuite = suite;
     iSuiteContext = suite;
     suite.addTest(iTest);
@@ -1188,9 +1195,14 @@ function test_backcompat_Hook(hook: Mocha.Hook, iHook: Mocha.IHook) {
     iHook = hook;
 }
 
-function test_backcompat_Context(context: Mocha.Context, iContext: Mocha.IContext,
-    iHookContext: Mocha.IHookCallbackContext, iBeforeAfterContext: Mocha.IBeforeAndAfterContext,
-    iTestContext: Mocha.ITestCallbackContext, iRunnable: Mocha.IRunnable) {
+function test_backcompat_Context(
+    context: Mocha.Context,
+    iContext: Mocha.IContext,
+    iHookContext: Mocha.IHookCallbackContext,
+    iBeforeAfterContext: Mocha.IBeforeAndAfterContext,
+    iTestContext: Mocha.ITestCallbackContext,
+    iRunnable: Mocha.IRunnable
+) {
     iContext = context;
     iHookContext = context;
     iBeforeAfterContext = context;
@@ -1210,10 +1222,15 @@ function test_backcompat_Progress(iRunner: Mocha.IRunner) {
     new LocalMocha.reporters.Progress(iRunner);
 }
 
-import common = require("mocha/lib/interfaces/common");
+import common = require('mocha/lib/interfaces/common');
 
-function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGlobals, localMocha: Mocha,
-    fn: Mocha.Func | Mocha.AsyncFunc, test: Mocha.Test) {
+function test_interfaces_common(
+    suites: Mocha.Suite[],
+    context: Mocha.MochaGlobals,
+    localMocha: Mocha,
+    fn: Mocha.Func | Mocha.AsyncFunc,
+    test: Mocha.Test
+) {
     const funcs = common(suites, context, localMocha);
     // $ExpectType CommonFunctions
     funcs;
@@ -1247,7 +1264,7 @@ function test_interfaces_common(suites: Mocha.Suite[], context: Mocha.MochaGloba
 
 // mocha-typescript (https://www.npmjs.com/package/mocha-typescript/) augments
 // the mocha functions and enables them to work as test class decorators.
-declare module "mocha" {
+declare module 'mocha' {
     interface SuiteFunction {
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
@@ -1276,10 +1293,8 @@ class TestClass1 {
 }
 
 @suite.skip
-class TestClass2 {
-}
+class TestClass2 {}
 
 @suite.only
-class TestClass3 {
-}
+class TestClass3 {}
 // end of augmentations used by mocha-typescript

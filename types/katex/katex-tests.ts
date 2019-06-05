@@ -16,15 +16,15 @@ class KatexTest {
 
         const renderMathInElementOptions: RenderMathInElementOptions = {
             delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "\\[", right: "\\]", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
+                { left: '$$', right: '$$', display: true },
+                { left: '\\[', right: '\\]', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
             ],
             errorCallback(msg: string, err: Error): void {
                 console.error(msg, err);
                 //do something with this error
-            }
+            },
         };
         const container = document.createElement('div');
         container.innerText = 'LaTeX string $c = \\pm\\sqrt{a^2 + b^2}$';

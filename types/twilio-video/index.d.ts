@@ -101,12 +101,8 @@ export class LocalParticipant extends Participant {
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
 
     publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
-    publishTrack(
-        mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
-    ): Promise<LocalTrackPublication>;
-    publishTracks(
-        tracks: Array<LocalTrack | MediaStreamTrack>,
-    ): Promise<LocalTrackPublication[]>;
+    publishTrack(mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions): Promise<LocalTrackPublication>;
+    publishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
     unpublishTrack(track: LocalTrack | MediaStreamTrack): LocalTrackPublication;
     unpublishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): LocalTrackPublication[];

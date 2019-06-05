@@ -1,5 +1,5 @@
-import * as React from "react";
-import { IconSize } from "../Icon/Icon";
+import * as React from 'react';
+import { IconSize } from '../Icon/Icon';
 
 export type ShellbarProps = {
     /* Holds all product actions and links. */
@@ -8,9 +8,7 @@ export type ShellbarProps = {
         label?: string;
         glyph: string;
         notificationCount: number;
-        callback?: (
-            event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-        ) => void;
+        callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     }>;
     className?: string;
     /* For use with applications that utilize CoPilot. */
@@ -31,9 +29,7 @@ export type ShellbarProps = {
         noNotificationsBody?: React.ReactNode;
         notificationCount: number;
         label?: string;
-        callback?: (
-            event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-        ) => void;
+        callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     };
     /* Holds product titles and navigation. */
     productMenu?: Array<{
@@ -53,9 +49,7 @@ export type ShellbarProps = {
         url?: string;
         glyph: string;
         image: string;
-        callback?: (
-            event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-        ) => void;
+        callback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     }>;
     /* Displays the current application when no product menu is used. */
     productTitle?: string;

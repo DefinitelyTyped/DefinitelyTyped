@@ -9,7 +9,7 @@
 import { ThroughStream } from 'through';
 
 interface SplitOptions {
-    maxLength: number
+    maxLength: number;
 }
 
 declare function split(matcher?: any, mapper?: any, options?: SplitOptions): ThroughStream;

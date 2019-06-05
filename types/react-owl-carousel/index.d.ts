@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export type HandlerCallback = (...args: any[]) => void;
 
@@ -410,5 +410,4 @@ export interface Options {
     onPlayVideo?: HandlerCallback;
 }
 
-export default class OwlCarousel extends React.Component<Options, any> {
-}
+export default class OwlCarousel extends React.Component<Options, any> {}

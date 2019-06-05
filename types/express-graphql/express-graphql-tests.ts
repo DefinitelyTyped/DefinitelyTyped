@@ -1,15 +1,12 @@
-import express = require("express");
-import "express-session";
-import graphqlHTTP = require("express-graphql");
-import { buildSchema } from "graphql";
+import express = require('express');
+import 'express-session';
+import graphqlHTTP = require('express-graphql');
+import { buildSchema } from 'graphql';
 
 const app = express();
 const schema = buildSchema(`type Query { hello: String }`);
 
-const validationRules = [
-    () => ({ Field: () => false }),
-    () => ({ Variable: () => true }),
-];
+const validationRules = [() => ({ Field: () => false }), () => ({ Variable: () => true })];
 
 const graphqlOption: graphqlHTTP.OptionsData = {
     graphiql: true,
@@ -18,7 +15,7 @@ const graphqlOption: graphqlHTTP.OptionsData = {
         message: error.message,
     }),
     validationRules,
-    extensions: ({ document, variables, operationName, result }) => ({ key: "value", key2: "value" }),
+    extensions: ({ document, variables, operationName, result }) => ({ key: 'value', key2: 'value' }),
 };
 
 const graphqlOptionRequest = (request: express.Request): graphqlHTTP.OptionsData => ({
@@ -38,10 +35,10 @@ const graphqlOptionRequestAsync = async (request: express.Request): Promise<grap
     };
 };
 
-app.use("/graphql1", graphqlHTTP(graphqlOption));
+app.use('/graphql1', graphqlHTTP(graphqlOption));
 
-app.use("/graphql2", graphqlHTTP(graphqlOptionRequest));
+app.use('/graphql2', graphqlHTTP(graphqlOptionRequest));
 
-app.use("/graphqlasync", graphqlHTTP(graphqlOptionRequestAsync));
+app.use('/graphqlasync', graphqlHTTP(graphqlOptionRequestAsync));
 
-app.listen(8080, () => console.log("GraphQL Server running on localhost:8080"));
+app.listen(8080, () => console.log('GraphQL Server running on localhost:8080'));

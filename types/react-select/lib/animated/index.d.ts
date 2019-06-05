@@ -6,7 +6,9 @@ import { default as AnimatedPlaceholder, AnimatedPlaceholderProps } from './Plac
 import { default as AnimatedSingleValue, AnimatedSingleValueProps } from './SingleValue';
 import { default as AnimatedValueContainer, AnimatedValueContainerProps } from './ValueContainer';
 
-export function makeAnimated<OptionType>(externalComponents?: SelectComponentsConfig<OptionType>): SelectComponents<OptionType>;
+export function makeAnimated<OptionType>(
+    externalComponents?: SelectComponentsConfig<OptionType>
+): SelectComponents<OptionType>;
 
 export const Input: ComponentType<AnimatedInputProps>;
 export const MultiValue: ComponentType<AnimatedMultiValueProps<any>>;

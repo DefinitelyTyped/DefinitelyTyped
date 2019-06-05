@@ -5,5 +5,5 @@ declare namespace PageHeader {
         bsClass?: string;
     }
 }
-declare class PageHeader extends React.Component<PageHeader.PageHeaderProps> { }
+declare class PageHeader extends React.Component<PageHeader.PageHeaderProps> {}
 export = PageHeader;

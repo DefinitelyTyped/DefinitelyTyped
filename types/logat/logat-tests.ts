@@ -1,7 +1,6 @@
 import logat = require('logat');
 
-logat.on('LogConfigError', (err: any) => {
-});
+logat.on('LogConfigError', (err: any) => {});
 
 logat.error('This is error');
 logat.error(new Error('This is error instance'));
@@ -11,7 +10,7 @@ logat.info('This is info');
 logat.debug('This is debug');
 
 logat.setOptions({
-  logLevel: 4,
-  logMethod: 1
+    logLevel: 4,
+    logMethod: 1,
 });
 logat.getOptions();

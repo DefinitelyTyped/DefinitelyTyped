@@ -9,14 +9,14 @@ declare namespace SailsIOJS {
     export interface SDKInfo {
         version?: string;
         language?: string;
-        platform?: "browser" | "node";
+        platform?: 'browser' | 'node';
         versionString?: string;
     }
     export interface ClientSails {
         url?: string;
         autoConnect?: boolean;
         headers?: { [index: string]: string };
-        transports?: Array<"websocket" | "polling">;
+        transports?: Array<'websocket' | 'polling'>;
         rejectUnauthorized?: boolean;
         reconnection?: boolean;
         reconnectionAttempts?: number;
@@ -26,14 +26,14 @@ declare namespace SailsIOJS {
         query?: string;
         path?: string;
         // All logs are disabled when `io.sails.environment = 'production'`
-        environment?: "production" | string;
+        environment?: 'production' | string;
         connect(url?: string, config?: ConnectConfig): Socket;
         initialConnectionHeaders?: InitialConnectionHeaders;
         strict?: boolean;
         sdk?: SDKInfo;
     }
     export interface ConnectConfig {
-        initialConnectionHeaders?: InitialConnectionHeaders
+        initialConnectionHeaders?: InitialConnectionHeaders;
     }
     export interface InitialConnectionHeaders {
         nosession?: boolean;
@@ -42,7 +42,9 @@ declare namespace SailsIOJS {
         socket: Socket;
         sails: ClientSails;
     }
-    export interface Headers { [index: string]: string }
+    export interface Headers {
+        [index: string]: string;
+    }
     export interface RequestOptions {
         url: string;
         method?: string;
@@ -60,12 +62,12 @@ declare namespace SailsIOJS {
             body: any;
             headers: Headers;
             statusCode: number;
-        }
+        };
         pipe: () => Error;
     }
     export type RequestCallback = {
         (body: any, jwr: JWR): any;
-    }
+    };
     export type Data = Object;
     export interface Socket {
         get(url: string, data?: Data): void;
@@ -82,12 +84,12 @@ declare namespace SailsIOJS {
         delete(url: string, data: Data, cb: RequestCallback): void;
         request(options: RequestOptions, cb?: RequestCallback): void;
         on(event: string, cb: (...args: Array<any>) => any): Socket;
-        on(event: "connect", cb: () => any): Socket;
-        on(event: "disconnect", cb: () => any): Socket;
-        on(event: "reconnecting", cb: (numAttempts: number) => any): Socket;
-        on(event: "reconnect", cb: (transport: string, numAttempts: number) => any): Socket;
-        on(event: "error", cb: (err: any) => any): Socket;
-        off(event: string, cb: () => any): Socket
+        on(event: 'connect', cb: () => any): Socket;
+        on(event: 'disconnect', cb: () => any): Socket;
+        on(event: 'reconnecting', cb: (numAttempts: number) => any): Socket;
+        on(event: 'reconnect', cb: (transport: string, numAttempts: number) => any): Socket;
+        on(event: 'error', cb: (err: any) => any): Socket;
+        off(event: string, cb: () => any): Socket;
         removeAllListeners(): Socket;
         isConnecting(): boolean;
         isConnected(): boolean;

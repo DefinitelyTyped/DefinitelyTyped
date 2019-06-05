@@ -60,4 +60,4 @@ CurrencyObjects.NIO.name_plural; // $ExpectType string
 CurrencyObjects.NIO.rounding; // $ExpectType number
 CurrencyObjects.NIO.symbol; // $ExpectType string
 CurrencyObjects.NIO.symbol_native; // $ExpectType string
-CurrencyObjects['UAH'].code;  // $ExpectType string
+CurrencyObjects['UAH'].code; // $ExpectType string

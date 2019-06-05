@@ -70,7 +70,11 @@ declare namespace stringify {
 
     interface Stringifier extends NodeJS.ReadWriteStream {
         // Stringifier stream takes array of strings or Object, and optional encoding and callback
-        write(line: string[] | any, encoding?: string, cb?: (error: Error | undefined, output: string) => void): boolean;
+        write(
+            line: string[] | any,
+            encoding?: string,
+            cb?: (error: Error | undefined, output: string) => void
+        ): boolean;
 
         // repeat declarations from NodeJS.WritableStream to avoid compile error
         write(buffer: string | Buffer, cb?: (error: Error | undefined, output: string) => void): boolean;
@@ -85,7 +89,14 @@ declare function stringify(opts?: stringify.StringifyOpts): stringify.Stringifie
 /**
  * Callback version: string in --> callback with string out
  */
-declare function stringify(input: any[][] | Array<{}>, opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
-declare function stringify(input: any[][] | Array<{}>, callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(
+    input: any[][] | Array<{}>,
+    opts: stringify.StringifyOpts,
+    callback: (error: Error | undefined, output: string) => void
+): void;
+declare function stringify(
+    input: any[][] | Array<{}>,
+    callback: (error: Error | undefined, output: string) => void
+): void;
 
 export = stringify;

@@ -5,9 +5,9 @@
 
 // See docs https://codemirror.net/doc/manual.html#addon_matchtags
 
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
-declare module "codemirror" {
+declare module 'codemirror' {
     interface CommandActions {
         /**
          * You can bind a key to in order to jump to the tag matching the one under the cursor.

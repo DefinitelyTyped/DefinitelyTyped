@@ -1,5 +1,5 @@
-import moment = require("moment");
-import * as momentRange from "moment-range";
+import moment = require('moment');
+import * as momentRange from 'moment-range';
 
 const range: momentRange.DateRange = new momentRange.DateRange(new Date(2012, 0, 15), new Date(2012, 4, 23));
 
@@ -9,9 +9,15 @@ const extendedMoment = momentRange.extendMoment(moment);
 extendedMoment.add();
 extendedMoment().add();
 
-const range2: momentRange.DateRange = new momentRange.DateRange(moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD"));
-const range3: momentRange.DateRange = new momentRange.DateRange([moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD")]);
-const range4: momentRange.DateRange = new momentRange.DateRange("2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00");
+const range2: momentRange.DateRange = new momentRange.DateRange(
+    moment('2011-04-15', 'YYYY-MM-DD'),
+    moment('2011-11-27', 'YYYY-MM-DD')
+);
+const range3: momentRange.DateRange = new momentRange.DateRange([
+    moment('2011-04-15', 'YYYY-MM-DD'),
+    moment('2011-11-27', 'YYYY-MM-DD'),
+]);
+const range4: momentRange.DateRange = new momentRange.DateRange('2015-01-17T09:50:04+00:00/2015-04-17T08:29:55+00:00');
 
 const date: moment.Moment = moment('2012-05-15');
 
@@ -60,8 +66,8 @@ const it10: Iterable<moment.Moment> = range.reverseByRange(range, { exclusive: t
 const it11: Iterable<moment.Moment> = range.reverseByRange(range, { exclusive: false, step: 2 });
 
 const res23: momentRange.DateRange = range.add(range2);
-const res24: momentRange.DateRange = range.add(range2, {adjacent: true});
-const res25: momentRange.DateRange = range.add(range2, {adjacent: false});
+const res24: momentRange.DateRange = range.add(range2, { adjacent: true });
+const res25: momentRange.DateRange = range.add(range2, { adjacent: false });
 
 const res26: momentRange.DateRange[] = range.subtract(range2);
 
@@ -76,4 +82,7 @@ const res31: moment.Moment = range.end;
 
 const res32: boolean = extendedMoment.within(range);
 const res33: boolean = extendedMoment().within(range);
-const res34: momentRange.DateRange = extendedMoment().range(moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD"));
+const res34: momentRange.DateRange = extendedMoment().range(
+    moment('2011-04-15', 'YYYY-MM-DD'),
+    moment('2011-11-27', 'YYYY-MM-DD')
+);

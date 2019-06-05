@@ -8,4 +8,3 @@ let fmt = new GregorianCalendarFormat('yyyy-MM');
 
 let calAsStr = fmt.format(cal);
 console.log(calAsStr);
-

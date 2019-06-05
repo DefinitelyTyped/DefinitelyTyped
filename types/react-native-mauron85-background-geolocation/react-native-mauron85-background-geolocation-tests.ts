@@ -22,17 +22,17 @@ class BgTracking extends Component {
             stopOnStillActivity: false,
             url: 'http://192.168.81.15:3000/location',
             httpHeaders: {
-                'X-FOO': 'bar'
+                'X-FOO': 'bar',
             },
             // customize post properties
             postTemplate: {
                 lat: '@latitude',
                 lon: '@longitude',
-                foo: 'bar' // you can also add your own properties
-            }
+                foo: 'bar', // you can also add your own properties
+            },
         });
 
-        BackgroundGeolocation.on('location', (location) => {
+        BackgroundGeolocation.on('location', location => {
             // handle your locations here
             // to perform long running operation on iOS
             // you need to create background task
@@ -44,11 +44,11 @@ class BgTracking extends Component {
             });
         });
 
-        BackgroundGeolocation.on('stationary', (stationaryLocation) => {
+        BackgroundGeolocation.on('stationary', stationaryLocation => {
             // handle stationary locations here
         });
 
-        BackgroundGeolocation.on('error', (error) => {
+        BackgroundGeolocation.on('error', error => {
             console.log('[ERROR] BackgroundGeolocation error:', error);
         });
 
@@ -60,15 +60,22 @@ class BgTracking extends Component {
             console.log('[INFO] BackgroundGeolocation service has been stopped');
         });
 
-        BackgroundGeolocation.on('authorization', (status) => {
+        BackgroundGeolocation.on('authorization', status => {
             console.log('[INFO] BackgroundGeolocation authorization status: ' + status);
             if (status !== BackgroundGeolocation.AUTHORIZED) {
                 // we need to set delay or otherwise alert may not be shown
-                setTimeout(() =>
-                    Alert.alert('App requires location tracking permission', 'Would you like to open app settings?', [
-                        {text: 'Yes', onPress: () => BackgroundGeolocation.showAppSettings()},
-                        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'}
-                    ]), 1000);
+                setTimeout(
+                    () =>
+                        Alert.alert(
+                            'App requires location tracking permission',
+                            'Would you like to open app settings?',
+                            [
+                                { text: 'Yes', onPress: () => BackgroundGeolocation.showAppSettings() },
+                                { text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel' },
+                            ]
+                        ),
+                    1000
+                );
             }
         });
 

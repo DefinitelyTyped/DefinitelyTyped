@@ -3,9 +3,6 @@
 // Definitions by: Paolo Scanferla <https://github.com/pscanf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function readdirRecursive(
-    path: string,
-    filter?: (path: string) => boolean
-): string[];
+declare function readdirRecursive(path: string, filter?: (path: string) => boolean): string[];
 
 export = readdirRecursive;

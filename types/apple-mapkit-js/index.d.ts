@@ -12,7 +12,10 @@ declare namespace mapkit {
 
     function init(options: MapKitInitOptions): void;
 
-    function importGeoJSON(data: string | object, callback?: (error: Error, result: ItemCollection) => void | GeoJSONDelegate): ItemCollection | Error;
+    function importGeoJSON(
+        data: string | object,
+        callback?: (error: Error, result: ItemCollection) => void | GeoJSONDelegate
+    ): ItemCollection | Error;
 
     function addEventListener(type: string, listener: (type: string) => void, thisObject?: any): void;
 
@@ -48,8 +51,11 @@ declare namespace mapkit {
         enabled: boolean;
         selected: boolean;
 
-        constructor(coordinate: Coordinate,
-                    factory: (coordinate: Coordinate, options: AnnotationConstructorOptions) => Element, options?: AnnotationConstructorOptions);
+        constructor(
+            coordinate: Coordinate,
+            factory: (coordinate: Coordinate, options: AnnotationConstructorOptions) => Element,
+            options?: AnnotationConstructorOptions
+        );
 
         copy(): BoundingRegion;
 
@@ -111,7 +117,7 @@ declare namespace mapkit {
     }
 
     interface AnnotationCalloutDelegate {
-        calloutAnchorOffsetForAnnotation(annotation: Annotation, size: { width: number, height: number }): DOMPoint;
+        calloutAnchorOffsetForAnnotation(annotation: Annotation, size: { width: number; height: number }): DOMPoint;
 
         calloutShouldAppearForAnnotation(annotation: Annotation): boolean;
 
@@ -131,13 +137,13 @@ declare namespace mapkit {
     namespace Annotation {
         enum CollisionMode {
             Rectangle = 'rectangle',
-            Circle = 'circle'
+            Circle = 'circle',
         }
 
         enum DisplayPriority {
             Low = 250,
             High = 750,
-            Require = 1000
+            Require = 1000,
         }
     }
 
@@ -245,7 +251,7 @@ declare namespace mapkit {
     namespace Directions {
         enum Transport {
             Automobile = 'automobile',
-            Walking = 'walking'
+            Walking = 'walking',
         }
     }
 
@@ -263,7 +269,7 @@ declare namespace mapkit {
     enum FeatureVisibility {
         Adaptive = 'adaptive',
         Hidden = 'hidden',
-        Visible = 'visible'
+        Visible = 'visible',
     }
 
     class Geocoder {
@@ -274,7 +280,11 @@ declare namespace mapkit {
 
         lookup(place: string, callback: GeocoderLookupCallback, options?: GeocoderLookupOptions): number;
 
-        reverseLookup(coordinate: Coordinate, callback: GeocoderLookupCallback, options?: GeocoderReverseLookupOptions): number;
+        reverseLookup(
+            coordinate: Coordinate,
+            callback: GeocoderLookupCallback,
+            options?: GeocoderReverseLookupOptions
+        ): number;
 
         cancel(id: number): boolean;
     }
@@ -371,7 +381,10 @@ declare namespace mapkit {
 
         constructor(parent?: string | HTMLElement, options?: MapConstructorOptions);
 
-        showItems(items: ReadonlyArray<Annotation> | ReadonlyArray<Overlay>, options?: MapShowItemsOptions): Annotation[] | Overlay[];
+        showItems(
+            items: ReadonlyArray<Annotation> | ReadonlyArray<Overlay>,
+            options?: MapShowItemsOptions
+        ): Annotation[] | Overlay[];
 
         annotationsInMapRect(mapRect: MapRect): Annotation[];
 
@@ -421,7 +434,7 @@ declare namespace mapkit {
         ScrollEnd = 'scroll-end',
         ZoomStart = 'zoom-start',
         ZoomEnd = 'zoom-end',
-        MapTypeChange = 'map-type-change'
+        MapTypeChange = 'map-type-change',
     }
 
     enum AnnotationEvent {
@@ -429,12 +442,12 @@ declare namespace mapkit {
         Deselect = 'deselect',
         DragStart = 'drag-start',
         Dragging = 'dragging',
-        DragEnd = 'drag-end'
+        DragEnd = 'drag-end',
     }
 
     enum UserLocationEvent {
         UserLocationChange = 'user-location-change',
-        UserLocationError = 'user-location-error'
+        UserLocationError = 'user-location-error',
     }
 
     interface MapConstructorOptions {
@@ -475,13 +488,13 @@ declare namespace mapkit {
     namespace Map {
         enum ColorSchemes {
             Light = 'light',
-            Dark = 'dark'
+            Dark = 'dark',
         }
 
         enum MapTypes {
             Satellite = 'satellite',
             Hybrid = 'hybrid',
-            Standard = 'standard'
+            Standard = 'standard',
         }
     }
 
@@ -609,7 +622,11 @@ declare namespace mapkit {
     class Search {
         constructor(options?: SearchConstructorOptions);
 
-        search(query: string | SearchAutocompleteResult, callback: SearchCallback | SearchDelegate, options?: SearchOptions): number;
+        search(
+            query: string | SearchAutocompleteResult,
+            callback: SearchCallback | SearchDelegate,
+            options?: SearchOptions
+        ): number;
 
         autocomplete(query: string, callback: AutoCompleteCallback | SearchDelegate, options?: SearchOptions): number;
 

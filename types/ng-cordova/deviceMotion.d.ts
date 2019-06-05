@@ -6,8 +6,7 @@
 /// <reference types="angular" />
 
 declare namespace ngCordova {
-
-  export interface IDeviceMotionAcceleration {
+    export interface IDeviceMotionAcceleration {
         x: number;
         y: number;
         z: number;
@@ -29,5 +28,4 @@ declare namespace ngCordova {
         watchAcceleration(options: IDeviceMotionAccelerometerOptions): IDeviceMotionWatchPromise;
         clearWatch(watchId: number): void;
     }
-
 }

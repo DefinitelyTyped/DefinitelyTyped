@@ -4,52 +4,52 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Apple {
-  phone: boolean;
-  ipod: boolean;
-  tablet: boolean;
-  device: boolean;
+    phone: boolean;
+    ipod: boolean;
+    tablet: boolean;
+    device: boolean;
 }
 
 interface Android {
-  phone: boolean;
-  tablet: boolean;
-  device: boolean;
+    phone: boolean;
+    tablet: boolean;
+    device: boolean;
 }
 
 interface Amazon {
-  phone: boolean;
-  tablet: boolean;
-  device: boolean;
+    phone: boolean;
+    tablet: boolean;
+    device: boolean;
 }
 
 interface Windows {
-  phone: boolean;
-  tablet: boolean;
-  device: boolean;
+    phone: boolean;
+    tablet: boolean;
+    device: boolean;
 }
 
 interface Other {
-  blackberry_10: boolean;
-  blackberry: boolean;
-  opera: boolean;
-  firefox: boolean;
-  chrome: boolean;
-  device: boolean;
+    blackberry_10: boolean;
+    blackberry: boolean;
+    opera: boolean;
+    firefox: boolean;
+    chrome: boolean;
+    device: boolean;
 }
 
 interface IsMobile {
-  any: boolean;
-  phone: boolean;
-  tablet: boolean;
-  seven_inch: boolean;
+    any: boolean;
+    phone: boolean;
+    tablet: boolean;
+    seven_inch: boolean;
 
-  apple: Apple;
-  android: Android;
-  amazon: Amazon;
-  windows: Windows;
-  other: Other;
+    apple: Apple;
+    android: Android;
+    amazon: Amazon;
+    windows: Windows;
+    other: Other;
 
-  (userAgent?: string): IsMobile;
+    (userAgent?: string): IsMobile;
 }
 
 declare const isMobile: IsMobile;

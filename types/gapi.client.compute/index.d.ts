@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Compute Engine API v1 */
-    function load(name: "compute", version: "v1"): PromiseLike<void>;
-    function load(name: "compute", version: "v1", callback: () => any): void;
+    function load(name: 'compute', version: 'v1'): PromiseLike<void>;
+    function load(name: 'compute', version: 'v1', callback: () => any): void;
 
     const acceleratorTypes: compute.AcceleratorTypesResource;
 

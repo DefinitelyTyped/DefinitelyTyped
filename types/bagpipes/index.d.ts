@@ -18,7 +18,7 @@ export interface FittingContext {
  * Fitting types has pre-defined fittings `system` and `user`
  * but can be any any string for custom types like `swagger` or `node-machine`
  */
-export type FittingType = "system" | "user" | string;
+export type FittingType = 'system' | 'user' | string;
 
 export interface FittingDef {
     /**
@@ -47,9 +47,7 @@ export interface FittingDef {
  *
  * Will be called called when the `Pipe` it is contained it gets 'played'
  */
-export type Fitting = (
-    context: FittingContext,
-    next: {(err: Error | null | undefined, res?: any): void}) => void;
+export type Fitting = (context: FittingContext, next: { (err: Error | null | undefined, res?: any): void }) => void;
 
 /**
  * Fitting creation Function
@@ -144,7 +142,7 @@ export function create(pipesDefs: PipeDefMap, conf?: Config): Bagpipes;
 
 // Types for imports from `pipeworks` module
 
-export type Affinity = "hoist" | "sink";
+export type Affinity = 'hoist' | 'sink';
 
 /** PipeDef used in `pipeworks` module */
 export interface PipeworksOptions {

@@ -31,7 +31,7 @@ export function defaultTags(tagArray: string[]): void;
 export function defineFilter(name: string, callback: (str: string) => string): void;
 export function defineHelper(
     name: string,
-    callback: (args: string[], content: () => string, blocks: Blocks) => string,
+    callback: (args: string[], content: () => string, blocks: Blocks) => string
 ): void;
 export function defineNativeHelper(name: string, obj: NativeHelper): void;
 export function definePartial(name: string, str: string): void;

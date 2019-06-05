@@ -13,18 +13,20 @@
 
 declare namespace gapi.client {
     /** Load CustomSearch API v1 */
-    function load(name: "customsearch", version: "v1"): PromiseLike<void>;
-    function load(name: "customsearch", version: "v1", callback: () => any): void;
+    function load(name: 'customsearch', version: 'v1'): PromiseLike<void>;
+    function load(name: 'customsearch', version: 'v1', callback: () => any): void;
 
     const cse: customsearch.CseResource;
 
     namespace customsearch {
         interface Context {
-            facets?: Array<Array<{
-                anchor?: string;
-                label?: string;
-                label_with_op?: string;
-            }>>;
+            facets?: Array<
+                Array<{
+                    anchor?: string;
+                    label?: string;
+                    label_with_op?: string;
+                }>
+            >;
             title?: string;
         }
         interface Promotion {

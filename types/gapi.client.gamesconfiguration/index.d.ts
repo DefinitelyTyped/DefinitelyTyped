@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Play Game Services Publishing API v1configuration */
-    function load(name: "gamesconfiguration", version: "v1configuration"): PromiseLike<void>;
-    function load(name: "gamesconfiguration", version: "v1configuration", callback: () => any): void;
+    function load(name: 'gamesconfiguration', version: 'v1configuration'): PromiseLike<void>;
+    function load(name: 'gamesconfiguration', version: 'v1configuration', callback: () => any): void;
 
     const achievementConfigurations: gamesconfiguration.AchievementConfigurationsResource;
 

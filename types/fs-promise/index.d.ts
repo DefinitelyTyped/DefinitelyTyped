@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export * from "mz/fs";
+export * from 'mz/fs';
 
 export interface WriteOptions {
     encoding?: string;
@@ -35,7 +35,7 @@ export function emptyDir(dir: string): Promise<void>;
 export function ensureFile(file: string): Promise<void>;
 export function ensureDir(dir: string): Promise<void>;
 export function ensureLink(srcpath: string, dstpath: string): Promise<void>;
-export function ensureSymlink(srcpath: string, dstpath: string, type?: "dir" | "file" | "junction"): Promise<void>;
+export function ensureSymlink(srcpath: string, dstpath: string, type?: 'dir' | 'file' | 'junction'): Promise<void>;
 export function mkdirs(dir: string): Promise<void>;
 export function move(src: string, dst: string): Promise<void>;
 export function outputFile(file: string, data: string | Buffer, options?: WriteOptions): Promise<void>;
@@ -54,5 +54,5 @@ export {
     mkdirs as mkdirp,
     outputJson as outputJSON,
     readJson as readJSON,
-    writeJson as writeJSON
+    writeJson as writeJSON,
 };

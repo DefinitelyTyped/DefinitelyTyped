@@ -5,6 +5,5 @@
 
 /// <reference types="node" />
 
-
 declare function bufferEqual(actual: Buffer, expected: Buffer): boolean;
 export = bufferEqual;

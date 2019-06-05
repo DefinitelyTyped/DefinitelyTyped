@@ -5,14 +5,7 @@
 
 /// <reference types="node" />
 
-import {
-    Readable,
-    ReadableOptions,
-    WritableOptions,
-    Writable,
-    Duplex,
-    DuplexOptions
-} from "stream";
+import { Readable, ReadableOptions, WritableOptions, Writable, Duplex, DuplexOptions } from 'stream';
 
 export class ReadableMock extends Readable {
     constructor(source: ReadonlyArray<any>, opts?: ReadableOptions);

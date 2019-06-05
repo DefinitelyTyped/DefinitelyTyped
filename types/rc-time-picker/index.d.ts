@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as moment from "moment";
+import * as moment from 'moment';
 import * as React from 'react';
 
 interface TimePickerProps {
@@ -45,7 +45,7 @@ interface TimePickerProps {
 }
 
 declare class TimePicker extends React.Component<Partial<TimePickerProps>> {
-    constructor(props: Readonly<Partial<TimePickerProps>>)
+    constructor(props: Readonly<Partial<TimePickerProps>>);
 
     close(): void;
     isAM(): boolean;

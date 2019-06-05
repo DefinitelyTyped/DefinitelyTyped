@@ -6,7 +6,7 @@
 export = NeDBLoggerDataStore;
 export as namespace NedbLogger;
 
-declare namespace NeDBLoggerDataStore { }
+declare namespace NeDBLoggerDataStore {}
 declare class NeDBLoggerDataStore {
     constructor(path?: string | { filename: string });
 

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import Emitter = require("component-emitter");
-import { SCExchange, handlerFunction } from "sc-broker-cluster";
+import Emitter = require('component-emitter');
+import { SCExchange, handlerFunction } from 'sc-broker-cluster';
 
 export interface SCChannelOptions {
     waitForAuth?: boolean;
@@ -14,9 +14,9 @@ export interface SCChannelOptions {
 }
 
 export class SCChannel extends Emitter {
-    readonly PENDING: "pending";
-    readonly SUBSCRIBED: "subscribed";
-    readonly UNSUBSCRIBED: "unsubscribed";
+    readonly PENDING: 'pending';
+    readonly SUBSCRIBED: 'subscribed';
+    readonly UNSUBSCRIBED: 'unsubscribed';
 
     name: string;
     state: ChannelState;
@@ -27,7 +27,7 @@ export class SCChannel extends Emitter {
     constructor(name: string, client: SCExchange, options?: SCChannelOptions);
 
     setOptions(options?: SCChannelOptions): void;
-    getState(): "pending" | "subscribed" | "unsubscribed";
+    getState(): 'pending' | 'subscribed' | 'unsubscribed';
 
     subscribe(options?: any): void;
     unsubscribe(): void;
@@ -42,4 +42,4 @@ export class SCChannel extends Emitter {
     destroy(): void;
 }
 
-export type ChannelState = "pending" | "subscribed" | "unsubscribed";
+export type ChannelState = 'pending' | 'subscribed' | 'unsubscribed';

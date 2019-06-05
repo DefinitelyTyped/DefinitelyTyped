@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Compute Engine Instance Groups API v1beta2 */
-    function load(name: "resourceviews", version: "v1beta2"): PromiseLike<void>;
-    function load(name: "resourceviews", version: "v1beta2", callback: () => any): void;
+    function load(name: 'resourceviews', version: 'v1beta2'): PromiseLike<void>;
+    function load(name: 'resourceviews', version: 'v1beta2', callback: () => any): void;
 
     const zoneOperations: resourceviews.ZoneOperationsResource;
 

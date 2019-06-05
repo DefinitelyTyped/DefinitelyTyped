@@ -1,2 +1,2 @@
-import { default as createMemoryHistory } from "history/lib/createMemoryHistory";
+import { default as createMemoryHistory } from 'history/lib/createMemoryHistory';
 export default createMemoryHistory;

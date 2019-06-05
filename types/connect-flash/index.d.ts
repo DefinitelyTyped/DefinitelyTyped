@@ -14,7 +14,7 @@ declare namespace Express {
     }
 }
 
-declare module "connect-flash" {
+declare module 'connect-flash' {
     import express = require('express');
     interface IConnectFlashOptions {
         unsafe?: boolean;

@@ -123,5 +123,5 @@ interface JQuery {
      * @param eventName : always "page"
      * @param handler : A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(eventName: "page", handler: JqueryBootpag.PageEventHandler): JQuery;
+    on(eventName: 'page', handler: JqueryBootpag.PageEventHandler): JQuery;
 }

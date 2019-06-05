@@ -6,10 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Plugin,
-    Request,
-} from 'hapi';
+import { Plugin, Request } from 'hapi';
 
 declare namespace inert {
     type RequestHandler<T> = (request: Request) => T;
@@ -38,7 +35,7 @@ declare namespace inert {
         /**
          * lookupMap - an object which maps content encoding to expected file name extension. Defaults to `{ gzip: '.gz' }.
          */
-        lookupMap?: {[index: string]: string};
+        lookupMap?: { [index: string]: string };
         /**
          * etagMethod - specifies the method used to calculate the ETag header response. Available values:
          *  * 'hash' - SHA1 sum of the file contents, suitable for distributed deployments. Default value.

@@ -11,7 +11,7 @@ stream1.pipe(createWriteStream('combined.txt'));
 
 const stream2 = CombinedStream.create({
     maxDataSize: 1 << 32,
-    pauseStreams: false
+    pauseStreams: false,
 });
 
 stream1.destroy();

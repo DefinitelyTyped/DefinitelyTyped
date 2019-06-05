@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { SQS } from "aws-sdk";
+import { SQS } from 'aws-sdk';
 
 declare namespace Consumer {
     export type ConsumerDone = (error?: Error) => void;

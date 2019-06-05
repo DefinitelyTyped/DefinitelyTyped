@@ -56,12 +56,12 @@ declare namespace DineroFactory {
     }
 
     type RoundingMode =
-        | "HALF_ODD"
-        | "HALF_EVEN"
-        | "HALF_UP"
-        | "HALF_DOWN"
-        | "HALF_TOWARDS_ZERO"
-        | "HALF_AWAY_FROM_ZERO";
+        | 'HALF_ODD'
+        | 'HALF_EVEN'
+        | 'HALF_UP'
+        | 'HALF_DOWN'
+        | 'HALF_TOWARDS_ZERO'
+        | 'HALF_AWAY_FROM_ZERO';
 
     interface ExchangeRatesApiOptions {
         endpoint: string;

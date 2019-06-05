@@ -1,8 +1,6 @@
 namespace adoneTests.collection.LinkedList {
     const {
-        collection: {
-            LinkedList
-        }
+        collection: { LinkedList },
     } = adone;
 
     namespace creation {
@@ -11,15 +9,27 @@ namespace adoneTests.collection.LinkedList {
     }
 
     namespace properties {
-        { const a: boolean = new LinkedList().full; }
-        { const a: boolean = new LinkedList().empty; }
-        { const a: number = new LinkedList().maxLength; }
-        { const a: number = new LinkedList().length; }
-        { const a: boolean = new LinkedList().autoresize; }
+        {
+            const a: boolean = new LinkedList().full;
+        }
+        {
+            const a: boolean = new LinkedList().empty;
+        }
+        {
+            const a: number = new LinkedList().maxLength;
+        }
+        {
+            const a: number = new LinkedList().length;
+        }
+        {
+            const a: boolean = new LinkedList().autoresize;
+        }
     }
 
     namespace resize {
-        { const a: boolean = new LinkedList().resize(100).full; }
+        {
+            const a: boolean = new LinkedList().resize(100).full;
+        }
     }
 
     namespace push {
@@ -38,7 +48,7 @@ namespace adoneTests.collection.LinkedList {
     }
 
     namespace unshift {
-        const a = new LinkedList<string>().unshift("hello");
+        const a = new LinkedList<string>().unshift('hello');
         a.next;
         a.prev;
         const b: string = a.value;
@@ -46,7 +56,7 @@ namespace adoneTests.collection.LinkedList {
 
     namespace pushNode {
         const a = new LinkedList<string>();
-        const node = a.push("1230");
+        const node = a.push('1230');
         a.pushNode(node);
     }
 
@@ -58,7 +68,7 @@ namespace adoneTests.collection.LinkedList {
 
     namespace removeNode {
         const a = new LinkedList<string>();
-        const node = a.unshift("10");
+        const node = a.unshift('10');
         a.removeNode(node);
     }
 
@@ -95,7 +105,7 @@ namespace adoneTests.collection.LinkedList {
 
     namespace nextNode {
         const a = new LinkedList<string>();
-        const n1 = a.push("h");
+        const n1 = a.push('h');
         const n2 = a.nextNode(n1);
         n1.next;
         n1.prev;

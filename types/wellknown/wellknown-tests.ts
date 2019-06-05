@@ -1,7 +1,7 @@
 import * as wellknown from 'wellknown';
-wellknown.parse("POINT(1 2)");
+wellknown.parse('POINT(1 2)');
 const geoJson: {} = {
     coordinates: [1, 2],
-    type: "Point"
+    type: 'Point',
 };
 wellknown.stringify(geoJson);

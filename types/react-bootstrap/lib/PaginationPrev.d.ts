@@ -6,5 +6,5 @@ declare namespace PaginationPrev {
         disabled?: boolean;
     }
 }
-declare class PaginationPrev extends React.Component<PaginationPrev.PaginationPrevProps> { }
+declare class PaginationPrev extends React.Component<PaginationPrev.PaginationPrevProps> {}
 export = PaginationPrev;

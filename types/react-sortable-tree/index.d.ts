@@ -10,12 +10,7 @@
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';
-import {
-    ConnectDragSource,
-    ConnectDragPreview,
-    ConnectDropTarget,
-    DragSourceMonitor
-} from 'react-dnd';
+import { ConnectDragSource, ConnectDragPreview, ConnectDropTarget, DragSourceMonitor } from 'react-dnd';
 
 export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
@@ -44,7 +39,7 @@ export interface FullTree {
     treeData: TreeItem[];
 }
 
-export interface NodeData extends TreeNode, TreePath, TreeIndex { }
+export interface NodeData extends TreeNode, TreePath, TreeIndex {}
 
 export interface FlatDataItem extends TreeNode, TreePath {
     lowerSiblingsCounts: number[];

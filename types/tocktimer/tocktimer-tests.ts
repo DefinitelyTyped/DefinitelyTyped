@@ -13,7 +13,7 @@ opts = {
     },
     complete: () => {
         // Ding ding...time's up
-    }
+    },
 };
 
 // Create a tock instance

@@ -29,4 +29,4 @@ class ComponentWithBreakpoints extends React.Component<Props & hedron.Breakpoint
 const WithBreakpoints = hedron.withBreakpoints(ComponentWithBreakpoints);
 
 // breakpoints props is not needed
-<WithBreakpoints numeric={42} str='str' />;
+<WithBreakpoints numeric={42} str="str" />;

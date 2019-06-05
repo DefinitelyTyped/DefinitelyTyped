@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function valiDate(input: string): boolean;
-declare namespace valiDate { }
+declare namespace valiDate {}
 export = valiDate;

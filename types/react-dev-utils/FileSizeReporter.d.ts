@@ -23,5 +23,5 @@ export function printFileSizesAfterBuild(
     previousFileSizes: OpaqueFileSizes,
     buildFolder: string,
     maxBundleGzipSize?: number,
-    maxChunkGzipSize?: number,
+    maxChunkGzipSize?: number
 ): void;

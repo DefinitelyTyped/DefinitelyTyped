@@ -7,10 +7,10 @@ const compiler = webpack({});
 let webpackHotMiddlewareInstance = webpackHotMiddleware(compiler);
 
 webpackHotMiddlewareInstance = webpackHotMiddleware(compiler, {
-	log: console.log.bind(console),
-	path: '/__what',
-	heartbeat: 2000,
-	reload: false,
+    log: console.log.bind(console),
+    path: '/__what',
+    heartbeat: 2000,
+    reload: false,
 });
 
 const app = express();

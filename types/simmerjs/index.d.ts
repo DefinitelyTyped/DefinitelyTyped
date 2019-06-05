@@ -114,7 +114,7 @@ interface SimmerConstructor {
      * another custom function, such as your own tweaked version of jQuery, you
      * can do so by passing the third argument to the Simmer constructor.
      */
-    new(scope?: Scope, options?: Options, query?: QueryEngine): Simmer;
+    new (scope?: Scope, options?: Options, query?: QueryEngine): Simmer;
 
     /**
      * @param scope The context in which Simmer should query for elements.
@@ -155,7 +155,7 @@ declare global {
              * original value of window.Simmer which was there before loading the
              * Simmer.js script (if there was one)
              */
-            noConflict(): any
+            noConflict(): any;
         };
     }
 }

@@ -1,1 +1,1 @@
-angular-component-router.d.ts
+angular - component - router.d.ts;

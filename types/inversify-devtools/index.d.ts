@@ -3,10 +3,10 @@
 // Definitions by: inversify <https://github.com/inversify>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-import * as inversify from "inversify";
+import * as inversify from 'inversify';
 
 interface ConnectKernel extends Function {
-  (kernel: inversify.interfaces.Kernel): void;
+    (kernel: inversify.interfaces.Kernel): void;
 }
 
 export default function render(container: string): ConnectKernel;

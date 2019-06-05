@@ -6,7 +6,7 @@
 
 /// <reference types="node"/>
 
-import { Agent, RequestOptions, IncomingMessage, ClientRequest } from "http";
+import { Agent, RequestOptions, IncomingMessage, ClientRequest } from 'http';
 
 export type ScopeCallback = (scoped: ScopedClient) => void;
 export type RequestCallback = (err: any, request: ClientRequest) => void;
@@ -14,8 +14,8 @@ export type ResponseCallback = (cb?: (err: any, response: IncomingMessage, body:
 
 export interface Options extends RequestOptions {
     encoding?: string;
-    httpAgent?: Agent|boolean;
-    httpsAgent?: Agent|boolean;
+    httpAgent?: Agent | boolean;
+    httpsAgent?: Agent | boolean;
     query?: any;
     pathname?: string;
     slashes?: any;
@@ -33,7 +33,7 @@ export class ScopedClient {
     path(p: string): ScopedClient;
     query(key: any, value?: any): ScopedClient;
     host(h: string): ScopedClient;
-    port(p: string|number): ScopedClient;
+    port(p: string | number): ScopedClient;
     protocol(p: string): ScopedClient;
     encoding(e?: string): ScopedClient;
     timeout(time: any): ScopedClient;

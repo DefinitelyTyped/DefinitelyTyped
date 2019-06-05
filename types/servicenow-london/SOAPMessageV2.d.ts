@@ -17,12 +17,7 @@ declare namespace sn_ws {
         setSOAPAction(soapAction: string): void;
         setStringParameter(name: string, value: string): void;
         setStringParameterNoEscape(name: string, value: string): void;
-        setWSSecurity(
-            keystoreId: string,
-            keystoreAlias: string,
-            keystorePassword: string,
-            certificateId: string
-        ): void;
+        setWSSecurity(keystoreId: string, keystoreAlias: string, keystorePassword: string, certificateId: string): void;
         getRequestBody(): string;
         getEndpoint(): string;
         getRequestHeader(headerName: string): string;

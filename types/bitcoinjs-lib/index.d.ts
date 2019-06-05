@@ -56,7 +56,7 @@ export class Block {
 
     toHex(headersOnly?: boolean): string;
 
-    static calculateMerkleRoot(transactions: Transaction[] | Array<{ getHash(): Buffer; }>): Buffer;
+    static calculateMerkleRoot(transactions: Transaction[] | Array<{ getHash(): Buffer }>): Buffer;
 
     static calculateTarget(bits: number): Buffer;
 
@@ -80,13 +80,13 @@ export class ECPair {
 
     verify(hash: Buffer, signature: Buffer): boolean;
 
-    static fromPrivateKey(buffer: Buffer, options?: { compressed?: boolean, network?: Network }): ECPair;
+    static fromPrivateKey(buffer: Buffer, options?: { compressed?: boolean; network?: Network }): ECPair;
 
-    static fromPublicKey(buffer: Buffer, options?: { compressed?: boolean, network?: Network }): ECPair;
+    static fromPublicKey(buffer: Buffer, options?: { compressed?: boolean; network?: Network }): ECPair;
 
     static fromWIF(string: string, network?: Network): ECPair;
 
-    static makeRandom(options?: { compressed?: boolean, network?: Network, rng?: Rng }): ECPair;
+    static makeRandom(options?: { compressed?: boolean; network?: Network; rng?: Rng }): ECPair;
 }
 
 export type Rng = (size: number) => Buffer;
@@ -183,7 +183,14 @@ export class TransactionBuilder {
     setVersion(version: number): void;
 
     /** @since 3.0.0 */
-    sign(vin: number, keyPair: ECPair, redeemScript?: Buffer, hashType?: number, witnessValue?: number, witnessScript?: Buffer): void;
+    sign(
+        vin: number,
+        keyPair: ECPair,
+        redeemScript?: Buffer,
+        hashType?: number,
+        witnessValue?: number,
+        witnessScript?: Buffer
+    ): void;
 
     static fromTransaction(transaction: Transaction, network: Network): TransactionBuilder;
 }
@@ -315,10 +322,10 @@ export const opcodes: {
 };
 
 export namespace address {
-    function fromBase58Check(address: string): { hash: Buffer, version: number };
+    function fromBase58Check(address: string): { hash: Buffer; version: number };
 
     /** @since 3.2.0 */
-    function fromBech32(address: string): { data: Buffer, prefix: string, version: number };
+    function fromBech32(address: string): { data: Buffer; prefix: string; version: number };
 
     function fromOutputScript(output: Buffer, network?: Network): string;
 
@@ -343,12 +350,28 @@ export namespace crypto {
 }
 
 export namespace script {
-    function classifyInput(script: Buffer | Array<Buffer | number>, allowIncomplete?: boolean): "pubkeyhash" | "scripthash" | "multisig" | "pubkey" | "nonstandard";
+    function classifyInput(
+        script: Buffer | Array<Buffer | number>,
+        allowIncomplete?: boolean
+    ): 'pubkeyhash' | 'scripthash' | 'multisig' | 'pubkey' | 'nonstandard';
 
-    function classifyOutput(script: Buffer | Array<Buffer | number>): "witnesspubkeyhash" | "witnessscripthash" | "pubkeyhash"
-        | "scripthash" | "multisig" | "pubkey" | "witnesscommitment" | "nulldata" | "nonstandard";
+    function classifyOutput(
+        script: Buffer | Array<Buffer | number>
+    ):
+        | 'witnesspubkeyhash'
+        | 'witnessscripthash'
+        | 'pubkeyhash'
+        | 'scripthash'
+        | 'multisig'
+        | 'pubkey'
+        | 'witnesscommitment'
+        | 'nulldata'
+        | 'nonstandard';
 
-    function classifyWitness(script: Buffer | Array<Buffer | number>, allowIncomplete: boolean): "witnesspubkeyhash" | "witnessscripthash" | "nonstandard";
+    function classifyWitness(
+        script: Buffer | Array<Buffer | number>,
+        allowIncomplete: boolean
+    ): 'witnesspubkeyhash' | 'witnessscripthash' | 'nonstandard';
 
     function compile(chunks: Array<Buffer | number>): Buffer;
 
@@ -375,7 +398,7 @@ export namespace script {
     }
 
     namespace signature {
-        function decode(buffer: Buffer): { signature: Buffer, hashType: number };
+        function decode(buffer: Buffer): { signature: Buffer; hashType: number };
 
         function encode(signature: Buffer, hashType: number): Buffer;
     }
@@ -455,26 +478,105 @@ export namespace script {
 }
 
 export namespace payments {
-    function p2data(a: { network?: Network, output?: Buffer, data?: Buffer[] }, opts?: { validate?: boolean }):
-        { output: Buffer, data: Buffer[] };
+    function p2data(
+        a: { network?: Network; output?: Buffer; data?: Buffer[] },
+        opts?: { validate?: boolean }
+    ): { output: Buffer; data: Buffer[] };
 
-    function p2ms(a: { network?: Network, m?: number, n?: number, output?: Buffer, pubkeys?: Buffer[], signatures?: Buffer[], input?: Buffer }, opts?: { validate?: boolean }):
-        { output: Buffer, m: number, n: number, pubkeys: Buffer[], signatures: Buffer[], input: Buffer, witness: Buffer[] };
+    function p2ms(
+        a: {
+            network?: Network;
+            m?: number;
+            n?: number;
+            output?: Buffer;
+            pubkeys?: Buffer[];
+            signatures?: Buffer[];
+            input?: Buffer;
+        },
+        opts?: { validate?: boolean }
+    ): {
+        output: Buffer;
+        m: number;
+        n: number;
+        pubkeys: Buffer[];
+        signatures: Buffer[];
+        input: Buffer;
+        witness: Buffer[];
+    };
 
-    function p2pk(a: { input?: Buffer, network?: Network, output?: Buffer, pubkey?: Buffer, signature?: Buffer }, opts?: { validate?: boolean }):
-        { output: Buffer, pubkey: Buffer, signature: Buffer, input: Buffer, witness: Buffer[] };
+    function p2pk(
+        a: { input?: Buffer; network?: Network; output?: Buffer; pubkey?: Buffer; signature?: Buffer },
+        opts?: { validate?: boolean }
+    ): { output: Buffer; pubkey: Buffer; signature: Buffer; input: Buffer; witness: Buffer[] };
 
-    function p2pkh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, pubkey?: Buffer, signature?: Buffer }, opts?: { validate?: boolean }):
-        { address: string, hash: Buffer, output: Buffer, pubkey: Buffer, signature: Buffer, input: Buffer, witness: Buffer[] };
+    function p2pkh(
+        a: {
+            address?: string;
+            hash?: Buffer;
+            input?: Buffer;
+            network?: Network;
+            output?: Buffer;
+            pubkey?: Buffer;
+            signature?: Buffer;
+        },
+        opts?: { validate?: boolean }
+    ): {
+        address: string;
+        hash: Buffer;
+        output: Buffer;
+        pubkey: Buffer;
+        signature: Buffer;
+        input: Buffer;
+        witness: Buffer[];
+    };
 
-    function p2sh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, witness?: Buffer[], redeem?: Redeem }, opts?: { validate?: boolean }):
-        { address: string, hash: Buffer, output: Buffer, redeem: Redeem, input: Buffer, witness: Buffer[] };
+    function p2sh(
+        a: {
+            address?: string;
+            hash?: Buffer;
+            input?: Buffer;
+            network?: Network;
+            output?: Buffer;
+            witness?: Buffer[];
+            redeem?: Redeem;
+        },
+        opts?: { validate?: boolean }
+    ): { address: string; hash: Buffer; output: Buffer; redeem: Redeem; input: Buffer; witness: Buffer[] };
 
-    function p2wpkh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, pubkey?: Buffer, signature?: Buffer, witness?: Buffer[] },
-        opts?: { validate?: boolean }): { address: string, hash: Buffer, output: Buffer, pubkey: Buffer, signature: Buffer, input: Buffer, witness: Buffer[] };
+    function p2wpkh(
+        a: {
+            address?: string;
+            hash?: Buffer;
+            input?: Buffer;
+            network?: Network;
+            output?: Buffer;
+            pubkey?: Buffer;
+            signature?: Buffer;
+            witness?: Buffer[];
+        },
+        opts?: { validate?: boolean }
+    ): {
+        address: string;
+        hash: Buffer;
+        output: Buffer;
+        pubkey: Buffer;
+        signature: Buffer;
+        input: Buffer;
+        witness: Buffer[];
+    };
 
-    function p2wsh(a: { address?: string, hash?: Buffer, input?: Buffer, network?: Network, output?: Buffer, witness?: Buffer[], redeem?: Redeem }, opts?: { validate?: boolean }):
-        { address: string, hash: Buffer, output: Buffer, redeem: Redeem, input: Buffer, witness: Buffer[] };
+    function p2wsh(
+        a: {
+            address?: string;
+            hash?: Buffer;
+            input?: Buffer;
+            network?: Network;
+            output?: Buffer;
+            witness?: Buffer[];
+            redeem?: Redeem;
+        },
+        opts?: { validate?: boolean }
+    ): { address: string; hash: Buffer; output: Buffer; redeem: Redeem; input: Buffer; witness: Buffer[] };
 
     class Redeem {
         input?: Buffer;

@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.OrientedBox
      * @description Create a new oriented box.
@@ -9,7 +8,7 @@ declare namespace pc {
      * @param {pc.Vec3} [halfExtents] Half the distance across the box in each local axis. The constructor takes a reference of this parameter.
      */
     class OrientedBox {
-        constructor(worldTransform?: pc.Mat4, halfExtents?: pc.Vec3)
+        constructor(worldTransform?: pc.Mat4, halfExtents?: pc.Vec3);
 
         worldTransform: pc.Mat4;
 

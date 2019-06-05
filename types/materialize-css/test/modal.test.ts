@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -19,7 +19,7 @@ const modal = new materialize.Modal(elem, {
         this;
         // $ExpectType Element
         el;
-    }
+    },
 });
 // $ExpectType void
 modal.open();
@@ -32,7 +32,7 @@ modal.el;
 // $ExpectType boolean
 modal.isOpen;
 
-$(".whatever").modal();
-$(".whatever").modal({ inDuration: 200 });
-$(".whatever").modal("open");
-$(".whatever").modal("destroy");
+$('.whatever').modal();
+$('.whatever').modal({ inDuration: 200 });
+$('.whatever').modal('open');
+$('.whatever').modal('destroy');

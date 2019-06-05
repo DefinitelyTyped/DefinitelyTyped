@@ -17,19 +17,26 @@
 import { Validator } from 'prop-types';
 import * as React from 'react';
 
-export type DayPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
-export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
-export type SlotPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
+export type DayPropGetter = (date: Date) => { className?: string; style?: React.CSSProperties };
+export type EventPropGetter<T> = (
+    event: T,
+    start: stringOrDate,
+    end: stringOrDate,
+    isSelected: boolean
+) => { className?: string; style?: React.CSSProperties };
+export type SlotPropGetter = (date: Date) => { className?: string; style?: React.CSSProperties };
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
-export type Views = View[] | {
-    work_week?: boolean | React.SFC | React.Component,
-    day?: boolean | React.SFC | React.Component,
-    agenda?: boolean | React.SFC | React.Component,
-    month?: boolean | React.SFC | React.Component,
-    week?: boolean | React.SFC | React.Component
-};
+export type Views =
+    | View[]
+    | {
+          work_week?: boolean | React.SFC | React.Component;
+          day?: boolean | React.SFC | React.Component;
+          agenda?: boolean | React.SFC | React.Component;
+          month?: boolean | React.SFC | React.Component;
+          week?: boolean | React.SFC | React.Component;
+      };
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export interface Event {
@@ -247,7 +254,8 @@ export class DateLocalizer {
     format(value: FormatInput, format: string, culture: Culture): string;
 }
 
-export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object> extends React.Props<BigCalendar<TEvent, TResource>> {
+export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object>
+    extends React.Props<BigCalendar<TEvent, TResource>> {
     localizer: DateLocalizer;
 
     date?: stringOrDate;
@@ -257,11 +265,16 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
-    onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
+    onSelectSlot?: (slotInfo: {
+        start: stringOrDate;
+        end: stringOrDate;
+        slots: Date[] | string[];
+        action: 'select' | 'click' | 'doubleClick';
+    }) => void;
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
-    onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Array<Date | { start: stringOrDate, end: stringOrDate }>) => void;
+    onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
+    onRangeChange?: (range: Array<Date | { start: stringOrDate; end: stringOrDate }>) => void;
     selected?: any;
     views?: Views;
     drilldownView?: View | null;
@@ -269,7 +282,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     length?: number;
     toolbar?: boolean;
     popup?: boolean;
-    popupOffset?: number | { x: number, y: number };
+    popupOffset?: number | { x: number; y: number };
     selectable?: boolean | 'ignoreEvents';
     longPressThreshold?: number;
     step?: number;
@@ -312,11 +325,14 @@ export interface MoveOptions {
     today: Date;
 }
 
-export default class BigCalendar<TEvent extends Event = Event, TResource extends object = object> extends React.Component<BigCalendarProps<TEvent, TResource>> {
+export default class BigCalendar<
+    TEvent extends Event = Event,
+    TResource extends object = object
+> extends React.Component<BigCalendarProps<TEvent, TResource>> {
     components: {
-        dateCellWrapper: React.ComponentType,
-        dayWrapper: React.ComponentType,
-        eventWrapper: React.ComponentType<TEvent>,
+        dateCellWrapper: React.ComponentType;
+        dayWrapper: React.ComponentType;
+        eventWrapper: React.ComponentType<TEvent>;
     };
     /**
      * create DateLocalizer from globalize
@@ -330,10 +346,10 @@ export default class BigCalendar<TEvent extends Event = Event, TResource extends
      * action constants for Navigate
      */
     static Navigate: {
-        PREVIOUS: 'PREV',
-        NEXT: 'NEXT',
-        TODAY: 'TODAY',
-        DATE: 'DATE',
+        PREVIOUS: 'PREV';
+        NEXT: 'NEXT';
+        TODAY: 'TODAY';
+        DATE: 'DATE';
     };
     /**
      * action constants for View

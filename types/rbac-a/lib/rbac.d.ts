@@ -1,2 +1,2 @@
-import { RBAC } from "..";
+import { RBAC } from '..';
 export = RBAC;

@@ -1,13 +1,13 @@
-import { SizeableOptions } from "../Icon/Options/SizeableOptions";
-import { CssClassConfig } from "../Icon/CssClassConfig";
-import { AliasOptions } from "../Icon/Options/AliasOptions";
-import { CssIconSetOptions } from "../Icon/Options/CssIconSetOptions";
-import { ImageIconOptions } from "../Icon/Options/ImageIconOptions";
-import { SvgCumulativeIconSetOptions } from "../Icon/Options/SvgCumulativeIconSetOptions";
-import { SvgIconOptions } from "../Icon/Options/SvgIconOptions";
-import { SvgIconSetOptions } from "../Icon/Options/SvgIconSetOptions";
-import { Identifiable } from "./Identifiable";
-import { IdentityMap } from "./IdentityMap";
+import { SizeableOptions } from '../Icon/Options/SizeableOptions';
+import { CssClassConfig } from '../Icon/CssClassConfig';
+import { AliasOptions } from '../Icon/Options/AliasOptions';
+import { CssIconSetOptions } from '../Icon/Options/CssIconSetOptions';
+import { ImageIconOptions } from '../Icon/Options/ImageIconOptions';
+import { SvgCumulativeIconSetOptions } from '../Icon/Options/SvgCumulativeIconSetOptions';
+import { SvgIconOptions } from '../Icon/Options/SvgIconOptions';
+import { SvgIconSetOptions } from '../Icon/Options/SvgIconSetOptions';
+import { Identifiable } from './Identifiable';
+import { IdentityMap } from './IdentityMap';
 
 /**
  * Provides settings for the `webicon`-module.
@@ -21,7 +21,7 @@ export interface Config {
     /**
      * An alias of the `icons`-property.
      */
-    icon?: this["icons"];
+    icon?: this['icons'];
 
     /**
      * The svg-sets to provide.
@@ -31,17 +31,17 @@ export interface Config {
     /**
      * An alias of the `svgSets`-property.
      */
-    svgSet?: this["svgSets"];
+    svgSet?: this['svgSets'];
 
     /**
      * An alias of the `svgSets`-property.
      */
-    iconSet?: this["svgSets"];
+    iconSet?: this['svgSets'];
 
     /**
      * An alias of the `svgSets`-property.
      */
-    iconSets?: this["svgSets"];
+    iconSets?: this['svgSets'];
 
     /**
      * A set of icon-fonts to provide.
@@ -51,7 +51,7 @@ export interface Config {
     /**
      * An alias of the `fonts`-property.
      */
-    font?: this["fonts"];
+    font?: this['fonts'];
 
     /**
      * A set of sprite-icons to provide.
@@ -61,7 +61,7 @@ export interface Config {
     /**
      * An alias of the `sprites`-property.
      */
-    sprite?: this["sprites"];
+    sprite?: this['sprites'];
 
     /**
      * A set of alias-names for icon-sets.
@@ -71,7 +71,7 @@ export interface Config {
     /**
      * An alias of the `alias`-property.
      */
-    sourceAlias?: this["alias"];
+    sourceAlias?: this['alias'];
 
     /**
      * The default icon-set to provide.
@@ -81,12 +81,12 @@ export interface Config {
     /**
      * An alias of the `defaultIconSetUrl`-property.
      */
-    defaultSvgSetUrl?: this["defaultIconSetUrl"];
+    defaultSvgSetUrl?: this['defaultIconSetUrl'];
 
     /**
      * An alias of the `defaultIconSetUrl`-property.
      */
-    defaultSvgIconSetUrl?: this["defaultIconSetUrl"];
+    defaultSvgIconSetUrl?: this['defaultIconSetUrl'];
 
     /**
      * The default icon-set to use.
@@ -96,7 +96,7 @@ export interface Config {
     /**
      * An alias of the `defaultSource`-property.
      */
-    default?: this["defaultSource"];
+    default?: this['defaultSource'];
 
     /**
      * The default size for svg-icons.

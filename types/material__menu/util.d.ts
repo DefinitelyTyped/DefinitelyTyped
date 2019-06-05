@@ -17,7 +17,7 @@
 /**
  * Returns the name of the correct transform property to use on the current browser.
  */
-export function getTransformPropertyName(globalObj: Window, forceRefresh?: boolean): string|undefined;
+export function getTransformPropertyName(globalObj: Window, forceRefresh?: boolean): string | undefined;
 
 /**
  * Clamps a value between the minimum and the maximum, returning the clamped value.

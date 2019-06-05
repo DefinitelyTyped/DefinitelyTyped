@@ -19,7 +19,7 @@ import {
     Select,
     Tab,
     Tabs,
-    Textarea
+    Textarea,
 } from 'muicss/react';
 
 import Appbar2 from 'muicss/lib/react/appbar';
@@ -50,7 +50,7 @@ class Test extends React.Component {
                     <Row>
                         <Col md={3} xs={12}>
                             Link
-                            <Divider/>
+                            <Divider />
                             Link
                         </Col>
                         <Col md={4} xs={12}>
@@ -59,33 +59,17 @@ class Test extends React.Component {
                                     <Form>
                                         <legend>Test form</legend>
 
-                                        <Input label="Text input"
-                                               hint="Type something"
-                                               />
+                                        <Input label="Text input" hint="Type something" />
 
-                                        <Textarea label="Text area"
-                                                  hint="Type lots of something"
-                                                  />
+                                        <Textarea label="Text area" hint="Type lots of something" />
 
-                                        <Checkbox label="Check"
-                                                  value="whatever"
-                                                  defaultChecked={false}
-                                                  />
+                                        <Checkbox label="Check" value="whatever" defaultChecked={false} />
 
-                                        <Radio name="radios"
-                                               label="Radio 1"
-                                               value="r1"
-                                               />
+                                        <Radio name="radios" label="Radio 1" value="r1" />
 
-                                        <Radio name="radios"
-                                               label="Radio 2"
-                                               value="r2"
-                                               />
+                                        <Radio name="radios" label="Radio 2" value="r2" />
 
-                                        <Radio name="radios"
-                                               label="Radio 3"
-                                               value="r3"
-                                               />
+                                        <Radio name="radios" label="Radio 3" value="r3" />
 
                                         <Dropdown label="dropdown">
                                             <DropdownItem value={1}>One</DropdownItem>
@@ -103,11 +87,7 @@ class Test extends React.Component {
                                     </Form>
                                 </Tab>
                                 <Tab label="Two">
-
-                                    <Panel>
-                                        I'm inside a panel!
-                                    </Panel>
-
+                                    <Panel>I'm inside a panel!</Panel>
                                 </Tab>
                             </Tabs>
                         </Col>
@@ -128,7 +108,7 @@ class Test2 extends React.Component {
                     <Row2>
                         <Col2 md={3} xs={12}>
                             Link
-                            <Divider2/>
+                            <Divider2 />
                             Link
                         </Col2>
                         <Col2 md={4} xs={12}>
@@ -137,33 +117,17 @@ class Test2 extends React.Component {
                                     <Form2>
                                         <legend>Test form</legend>
 
-                                        <Input2 label="Text input"
-                                               hint="Type something"
-                                        />
+                                        <Input2 label="Text input" hint="Type something" />
 
-                                        <Textarea2 label="Text area"
-                                                  hint="Type lots of something"
-                                        />
+                                        <Textarea2 label="Text area" hint="Type lots of something" />
 
-                                        <Checkbox2 label="Check"
-                                                  value="whatever"
-                                                  defaultChecked={false}
-                                        />
+                                        <Checkbox2 label="Check" value="whatever" defaultChecked={false} />
 
-                                        <Radio2 name="radios"
-                                               label="Radio 1"
-                                               value="r1"
-                                        />
+                                        <Radio2 name="radios" label="Radio 1" value="r1" />
 
-                                        <Radio2 name="radios"
-                                               label="Radio 2"
-                                               value="r2"
-                                        />
+                                        <Radio2 name="radios" label="Radio 2" value="r2" />
 
-                                        <Radio2 name="radios"
-                                               label="Radio 3"
-                                               value="r3"
-                                        />
+                                        <Radio2 name="radios" label="Radio 3" value="r3" />
 
                                         <Dropdown2 label="dropdown">
                                             <DropdownItem2 value={1}>One</DropdownItem2>
@@ -181,11 +145,7 @@ class Test2 extends React.Component {
                                     </Form2>
                                 </Tab2>
                                 <Tab2 label="Two">
-
-                                    <Panel2>
-                                        I'm inside a panel!
-                                    </Panel2>
-
+                                    <Panel2>I'm inside a panel!</Panel2>
                                 </Tab2>
                             </Tabs2>
                         </Col2>

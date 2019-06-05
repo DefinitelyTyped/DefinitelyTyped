@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 declare const store: DS.Store;
 

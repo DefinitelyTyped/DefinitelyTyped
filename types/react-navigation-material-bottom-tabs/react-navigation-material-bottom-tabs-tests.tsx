@@ -8,22 +8,22 @@ const Tab2 = () => <View />;
 export default createMaterialBottomTabNavigator(
     {
         tab1: {
-            screen: Tab1
+            screen: Tab1,
         },
         tab2: {
-            screen: Tab2
-        }
+            screen: Tab2,
+        },
     },
     {
         activeTintColor: 'blue',
         inactiveTintColor: 'red',
         labeled: false,
         barStyle: {
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
         },
         shifting: false,
         initialRouteName: 'tab2',
         order: ['tab2', 'tab1'],
-        backBehavior: 'none'
+        backBehavior: 'none',
     }
 );

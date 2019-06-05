@@ -34,11 +34,7 @@ configuration = {
             // or any other compile-to-css language
             {
                 test: /\.less$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'style-loader',
-                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'style-loader'],
             },
             // You could also use other loaders the same way. I. e. the autoprefixer-loader
         ],

@@ -1,2 +1,2 @@
 let flowFactory: ng.flow.FlowFactory;
-flowFactory.create({} as any as flowjs.FlowOptions);
+flowFactory.create(({} as any) as flowjs.FlowOptions);

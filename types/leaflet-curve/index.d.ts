@@ -7,8 +7,8 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
-	/**
-	 * Drawing Bezier curves and other complex shapes.
-	 */
-	function curve(path: any[], options?: PathOptions): Path;
+    /**
+     * Drawing Bezier curves and other complex shapes.
+     */
+    function curve(path: any[], options?: PathOptions): Path;
 }

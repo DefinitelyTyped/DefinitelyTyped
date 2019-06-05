@@ -7,12 +7,12 @@
 
 /// <reference types="jest" />
 
-import { ElementHandle, Page, Dialog } from "puppeteer";
+import { ElementHandle, Page, Dialog } from 'puppeteer';
 
 /**
  * Interval at which pageFunctions may be executed.
  */
-type ExpectPolling = number | "mutation" | "raf";
+type ExpectPolling = number | 'mutation' | 'raf';
 
 /**
  * Configures how to poll for an element.
@@ -57,7 +57,7 @@ declare global {
             toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
             toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
             toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
-            toFillForm(selector: string, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
+            toFillForm(selector: string, value: { [key: string]: any }, options?: ExpectTimingActions): Promise<void>;
             toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
             toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<void>;
             toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;

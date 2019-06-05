@@ -495,12 +495,7 @@ declare namespace Onionoo {
          * `unrecommended` if none of the above conditions hold. Omitted if either the directory authorities did not
          * recommend versions, or the relay did not report which version it runs.
          */
-        version_status?:
-            | 'recommended'
-            | 'experimental'
-            | 'obsolete'
-            | 'new in series'
-            | 'unrecommended';
+        version_status?: 'recommended' | 'experimental' | 'obsolete' | 'new in series' | 'unrecommended';
         /**
          * Array of fingerprints of relays that are in an effective, mutual family relationship with this relay.
          * These relays are part of this relay's family and they consider this relay to be part of their family.
@@ -654,12 +649,7 @@ declare namespace Onionoo {
          * `unrecommended` if none of the above conditions hold. Omitted if either the directory authorities did not
          * recommend versions, or the bridge did not report which version it runs.
          */
-        version_status?:
-            | 'recommended'
-            | 'experimental'
-            | 'obsolete'
-            | 'new in series'
-            | 'unrecommended';
+        version_status?: 'recommended' | 'experimental' | 'obsolete' | 'new in series' | 'unrecommended';
         /**
          * Array of (pluggable) transport names supported by this bridge.
          */
@@ -682,16 +672,12 @@ declare namespace Onionoo {
          * graph history objects may contain null values if the node did not provide any bandwidth data or only data
          * for less than 20% of a given time period.
          */
-        write_history?: Partial<
-            Record<'3_days' | '1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        write_history?: Partial<Record<'3_days' | '1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
         /**
          * Object containing graph history objects with read bytes for different time periods. The specification
          * of graph history objects is similar to those in the `write_history` field.
          */
-        read_history?: Partial<
-            Record<'3_days' | '1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        read_history?: Partial<Record<'3_days' | '1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
     }
 
     interface RelayWeights {
@@ -718,34 +704,26 @@ declare namespace Onionoo {
          * Path selection depends on more factors, so that this probability can only be an approximation.
          * The specification of this history object is similar to that in the `consensus_weight_fraction` field above.
          */
-        guard_probability?: Partial<
-            Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        guard_probability?: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
         /**
          * History object containing the probability of this relay to be selected for the middle position.
          * This probability is calculated based on consensus weights, relay flags, and bandwidth weights in the consensus.
          * Path selection depends on more factors, so that this probability can only be an approximation.
          * The specification of this history object is similar to that in the `consensus_weight_fraction` field above.
          */
-        middle_probability?: Partial<
-            Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        middle_probability?: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
         /**
          * History object containing the probability of this relay to be selected for the exit position.
          * This probability is calculated based on consensus weights, relay flags, and bandwidth weights in the consensus.
          * Path selection depends on more factors, so that this probability can only be an approximation.
          * The specification of this history object is similar to that in the `consensus_weight_fraction` field above.
          */
-        exit_probability?: Partial<
-            Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        exit_probability?: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
         /**
          * History object containing the absolute consensus weight of this relay. The specification of this history
          * object is similar to that in the `consensus_weight_fraction` field above.
          */
-        consensus_weight?: Partial<
-            Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        consensus_weight?: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
     }
 
     interface BridgeClients {
@@ -780,18 +758,14 @@ declare namespace Onionoo {
          * Contained graph history objects may contain null values if less than 20% of network statuses have been
          * processed for a given time period.
          */
-        uptime?: Partial<
-            Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        uptime?: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
         /**
          * Object containing fractional times of this relay having relay flags assigned. Keys are flag names like
          * `Running` or `Exit`, values are objects similar to the uptime field above, again with keys like
          * `1_week` etc. If a relay never had a given relay flag assigned, no object is included for that flag.
          */
         flags?: {
-            [key: string]: Partial<
-                Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-            >;
+            [key: string]: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
         };
     }
 
@@ -804,9 +778,7 @@ declare namespace Onionoo {
          * Object containing uptime history objects for different time periods. The specification of uptime history
          * objects is similar to those in the `uptime` field of `RelayUptime`.
          */
-        uptime?: Partial<
-            Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>
-        >;
+        uptime?: Partial<Record<'1_week' | '1_month' | '6_months' | '1_year' | '5_years', Histogram>>;
     }
 
     interface Histogram {

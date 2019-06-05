@@ -3,9 +3,7 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace dojox {
-
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/analytics.html
      *
@@ -13,8 +11,7 @@ declare namespace dojox {
      * this module.
      *
      */
-    interface analytics {
-    }
+    interface analytics {}
     namespace analytics {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/analytics/Urchin.html
@@ -45,7 +42,7 @@ declare namespace dojox {
              * your GA urchin tracker account number. Overrides djConfig.urchin
              *
              */
-            "acct": string;
+            'acct': string;
             /**
              * Stub function to fire when urchin is complete
              * This function is executed when the tracker variable is
@@ -69,22 +66,19 @@ declare namespace dojox {
              *
              *
              */
-            interface consoleMessages {
-            }
+            interface consoleMessages {}
         }
-
     }
-
 }
-declare module "dojox/analytics" {
-    var exp: dojox.analytics
-    export=exp;
+declare module 'dojox/analytics' {
+    var exp: dojox.analytics;
+    export = exp;
 }
-declare module "dojox/analytics/Urchin" {
-    var exp: dojox.analytics.Urchin
-    export=exp;
+declare module 'dojox/analytics/Urchin' {
+    var exp: dojox.analytics.Urchin;
+    export = exp;
 }
-declare module "dojox/analytics/plugins/consoleMessages" {
-    var exp: dojox.analytics.plugins.consoleMessages
-    export=exp;
+declare module 'dojox/analytics/plugins/consoleMessages' {
+    var exp: dojox.analytics.plugins.consoleMessages;
+    export = exp;
 }

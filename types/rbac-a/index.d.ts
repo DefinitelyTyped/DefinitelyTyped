@@ -6,9 +6,7 @@
 
 /// <reference types="node"/>
 
-import {
-    EventEmitter,
-} from "events";
+import { EventEmitter } from 'events';
 
 export interface Roles {
     [_: string]: number | Roles;
@@ -83,7 +81,7 @@ export class AttributesManager {
 export class RBAC<P extends Provider, AM extends AttributesManager = AttributesManager> extends EventEmitter {
     readonly provider: P;
     readonly attributes: AM;
-    constructor(opts: { provider: P, attributes?: AM });
+    constructor(opts: { provider: P; attributes?: AM });
     /**
      * Check the user for the given permissions. The method will return
      * a Promise resolving with a number. If the user has sufficient
@@ -97,5 +95,5 @@ export class RBAC<P extends Provider, AM extends AttributesManager = AttributesM
 
 export const Providers: {
     /** Basic JSON permissions provider */
-    JsonProvider: { new(roles: object): Provider };
+    JsonProvider: { new (roles: object): Provider };
 };

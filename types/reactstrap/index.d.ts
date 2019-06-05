@@ -13,7 +13,7 @@
 // TypeScript Version: 2.9
 
 export interface CSSModule {
-  [className: string]: string;
+    [className: string]: string;
 }
 
 export { default as Alert } from './lib/Alert';
@@ -173,18 +173,18 @@ export { ToastHeaderProps } from './lib/ToastHeader';
 export { default as Tooltip } from './lib/Tooltip';
 export { TooltipProps } from './lib/Tooltip';
 export {
-  UncontrolledAlert,
-  UncontrolledButtonDropdown,
-  UncontrolledDropdown,
-  UncontrolledTooltip,
-  UncontrolledCollapse,
-  UncontrolledCarousel,
-  UncontrolledPopover,
-  UncontrolledButtonDropdownProps,
-  UncontrolledAlertProps,
-  UncontrolledDropdownProps,
-  UncontrolledTooltipProps,
-  UncontrolledCollapseProps,
-  UncontrolledCarouselProps,
-  UncontrolledPopoverProps
+    UncontrolledAlert,
+    UncontrolledButtonDropdown,
+    UncontrolledDropdown,
+    UncontrolledTooltip,
+    UncontrolledCollapse,
+    UncontrolledCarousel,
+    UncontrolledPopover,
+    UncontrolledButtonDropdownProps,
+    UncontrolledAlertProps,
+    UncontrolledDropdownProps,
+    UncontrolledTooltipProps,
+    UncontrolledCollapseProps,
+    UncontrolledCarouselProps,
+    UncontrolledPopoverProps,
 } from './lib/Uncontrolled';

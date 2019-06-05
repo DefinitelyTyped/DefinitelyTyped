@@ -18,11 +18,11 @@ declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFile
 declare function ExecuteOrDelayUntilEventNotified(func: (...args: any[]) => void, eventName: string): boolean;
 declare var Strings: any;
 declare const enum Sods {
-    missing =  1,
+    missing = 1,
     loading = 2,
     pending = 3,
     loaded = 4,
-    error = 5
+    error = 5,
 }
 interface Sod {
     url: string;
@@ -66,7 +66,7 @@ declare namespace SP {
         deleteVersions, // : 128,
         breakCheckout, // : 256,
         managePersonalViews, // : 512,
-        manageLists // : 2048
+        manageLists, // : 2048
     }
 
     class HtmlBuilder {
@@ -83,12 +83,15 @@ declare namespace SP {
 
     class ScriptHelpers {
         static disableWebpartSelection(context: SPClientTemplates.RenderContext): void;
-        static getDocumentQueryPairs(): { [index: string]: string; };
-        static getFieldFromSchema(schema: SPClientTemplates.ListSchema, fieldName: string): SPClientTemplates.FieldSchema;
+        static getDocumentQueryPairs(): { [index: string]: string };
+        static getFieldFromSchema(
+            schema: SPClientTemplates.ListSchema,
+            fieldName: string
+        ): SPClientTemplates.FieldSchema;
         static getLayoutsPageUrl(pageName: string, webServerRelativeUrl: string): string;
         static getListLevelPermissionMask(jsonItem: string): number;
         static getTextAreaElementValue(textAreaElement: HTMLTextAreaElement): string;
-        static getUrlQueryPairs(docUrl: string): { [index: string]: string; };
+        static getUrlQueryPairs(docUrl: string): { [index: string]: string };
         static getUserFieldProperty(item: ListItem, fieldName: string, propertyName: string): any;
         static hasPermission(listPermissionMask: number, listPermission: ListLevelPermissionMask): boolean;
         static newGuid(): SP.Guid;
@@ -121,7 +124,7 @@ declare namespace SP {
         static get_currentLanguage(): number;
         static get_pageItemId(): number;
         static get_pageListId(): string;
-        static get_webPermMasks(): { High: number; Low: number; };
+        static get_webPermMasks(): { High: number; Low: number };
         static get_currentCultureName(): string;
         static get_currentUICultureName(): string;
         static get_clientServerTimeDelta(): number;
@@ -132,7 +135,7 @@ declare namespace SP {
     class ContextPermissions {
         has(perm: number): boolean;
         hasPermissions(high: number, low: number): boolean;
-        fromJson(json: { High: number; Low: number; }): void;
+        fromJson(json: { High: number; Low: number }): void;
     }
 
     namespace ListOperation {
@@ -143,7 +146,7 @@ declare namespace SP {
         }
         namespace Selection {
             function selectListItem(iid: string, bSelect: boolean): void;
-            function getSelectedItems(): Array<{ id: number; fsObjType: FileSystemObjectType; }>;
+            function getSelectedItems(): Array<{ id: number; fsObjType: FileSystemObjectType }>;
             function getSelectedList(): string;
             function getSelectedView(): string;
             function navigateUp(viewId: string): void;
@@ -161,7 +164,7 @@ declare function RegisterModuleInit(scriptFileName: string, initFunc: () => void
 /** Provides access to url and query string parts.*/
 declare class JSRequest {
     /** Query string parts.*/
-    static QueryString: { [parameter: string]: string; };
+    static QueryString: { [parameter: string]: string };
 
     /** initializes class.*/
     static EnsureSetup(): void;
@@ -204,17 +207,17 @@ interface _spPageContextInfo {
     isSPO: boolean; // true
     isTenantDevSite: boolean; // true
     isWebWelcomePage: boolean; // true
-    layoutsUrl: string;  // "_layouts/15"
+    layoutsUrl: string; // "_layouts/15"
     listBaseTemplate: number; // 119
     listId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
-    listPermsMask: { High: number; Low: number; };
+    listPermsMask: { High: number; Low: number };
     listTitle: string; // "Site Pages"
     listUrl: string; // "/sites/site/list"
     maximumFileSize: number; // 15360
     openInClient: boolean; // true
-    pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    pageListId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     pageItemId: number;
-    pagePermsMask: { High: number; Low: number; };
+    pagePermsMask: { High: number; Low: number };
     pagePersonalizationScope: string; // 1
     PreviewFeaturesEnabled: boolean; // true
     preferUserTimeZone: boolean; // false
@@ -251,7 +254,7 @@ interface _spPageContextInfo {
     webId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     webLanguage: number; // 1049
     webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
-    webPermMasks: { High: number; Low: number; };
+    webPermMasks: { High: number; Low: number };
     webServerRelativeUrl: string; // "/SPTypeScript"
     webTemplate: string; // "17"
     webTitle: string; // "SPTypeScript"
@@ -276,7 +279,12 @@ declare function AddEvtHandler(element: HTMLElement, event: string, func: EventL
 declare function GetUrlKeyValue(key: string): string;
 
 declare class AjaxNavigate {
-    update(url: string, updateParts: { [name: string]: string | number }, fullNavigate: boolean, anchorName: string): void;
+    update(
+        url: string,
+        updateParts: { [name: string]: string | number },
+        fullNavigate: boolean,
+        anchorName: string
+    ): void;
     add_navigate(handler: (obj: any, eventArgs: any) => void): void;
     remove_navigate(handler: (obj: any, eventArgs: any) => void): void;
     submit(formToSubmit: HTMLFormElement): void;
@@ -422,7 +430,7 @@ declare namespace SP {
         noAppWeb,
         domainDoesNotMatch,
         noTrustedOrigins,
-        iFrameLoadError
+        iFrameLoadError,
     }
 
     class RequestExecutor {
@@ -432,13 +440,17 @@ declare namespace SP {
         get_iFrameSourceUrl(): string;
         set_iFrameSourceUrl(value: string): void;
         executeAsync(requestInfo: RequestInfo): void;
-        attemptLogin(returnUrl: string, success: (response: ResponseInfo) => void, error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void): void;
+        attemptLogin(
+            returnUrl: string,
+            success: (response: ResponseInfo) => void,
+            error?: (response: ResponseInfo, error: RequestExecutorErrors, statusText: string) => void
+        ): void;
     }
 
     interface RequestInfo {
         url: string;
         method?: string;
-        headers?: { [key: string]: string; };
+        headers?: { [key: string]: string };
         /** Can be string or bytearray depending on binaryStringRequestBody field */
         body?: string | Uint8Array;
         binaryStringRequestBody?: boolean;
@@ -456,7 +468,7 @@ declare namespace SP {
         statusText?: string;
         responseAvailable: boolean;
         allResponseHeaders?: string;
-        headers?: { [key: string]: string; };
+        headers?: { [key: string]: string };
         contentType?: string;
         /** Can be string or bytearray depending on request.binaryStringResponseBody field */
         body?: string | Uint8Array;
@@ -508,13 +520,29 @@ interface MQuery {
     proxy(fn: (...args: any[]) => any, context: any, ...args: any[]): (...args: any[]) => any;
     proxy(context: any, name: string, ...args: any[]): any;
 
-    every<T>(obj: T[] | MQueryResultSet<T>, fn: (elementOfArray: T, indexInArray?: number) => boolean, context?: any): boolean;
-    some<T>(obj: T[] | MQueryResultSet<T>, fn: (elementOfArray: T, indexInArray?: number) => boolean, context?: any): boolean;
+    every<T>(
+        obj: T[] | MQueryResultSet<T>,
+        fn: (elementOfArray: T, indexInArray?: number) => boolean,
+        context?: any
+    ): boolean;
+    some<T>(
+        obj: T[] | MQueryResultSet<T>,
+        fn: (elementOfArray: T, indexInArray?: number) => boolean,
+        context?: any
+    ): boolean;
 
     filter<T>(obj: T[], fn: (elementOfArray: T, indexInArray?: number) => boolean, context?: any): T[];
-    filter<T>(obj: MQueryResultSet<T>, fn: (elementOfArray: T, indexInArray?: number) => boolean, context?: any): MQueryResultSet<T>;
+    filter<T>(
+        obj: MQueryResultSet<T>,
+        fn: (elementOfArray: T, indexInArray?: number) => boolean,
+        context?: any
+    ): MQueryResultSet<T>;
 
-    forEach<T>(obj: T[] | MQueryResultSet<T>, fn: (elementOfArray: T, indexInArray?: number) => void, context?: any): void;
+    forEach<T>(
+        obj: T[] | MQueryResultSet<T>,
+        fn: (elementOfArray: T, indexInArray?: number) => void,
+        context?: any
+    ): void;
 
     map<T, U>(array: T[], callback: (elementOfArray: T, indexInArray?: number) => U): U[];
     map<T, U>(array: MQueryResultSet<T>, callback: (elementOfArray: T, indexInArray?: number) => U): MQueryResultSet<U>;
@@ -540,8 +568,8 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement> {
 
     find(selector: string): MQueryResultSetElements;
     closest(selector: string, context?: any): MQueryResultSetElements;
-    offset(): { left: number; top: number; };
-    offset(coordinates: { left: any; top: any; }): MQueryResultSetElements;
+    offset(): { left: number; top: number };
+    offset(coordinates: { left: any; top: any }): MQueryResultSetElements;
 
     filter(selector: string): MQueryResultSetElements;
     filter(fn: (elementOfArray: HTMLElement, indexInArray?: number) => boolean, context?: any): MQueryResultSetElements;
@@ -555,11 +583,11 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement> {
     parents(selector?: string): MQueryResultSetElements;
     parentsUntil(selectorOrElement?: string | HTMLElement, filter?: string): MQueryResultSetElements;
 
-    position(): { top: number; left: number; };
+    position(): { top: number; left: number };
 
     attr(attributeName: string): string;
     attr(attributeName: string, valueOrDelegate: any): MQueryResultSetElements;
-    attr(map: { [key: string]: any; }): MQueryResultSetElements;
+    attr(map: { [key: string]: any }): MQueryResultSetElements;
     // tslint:disable-next-line: unified-signatures
     attr(attributeName: string, func: (index: number, attr: any) => any): MQueryResultSetElements;
 
@@ -576,7 +604,7 @@ interface MQueryResultSetElements extends MQueryResultSet<HTMLElement> {
     first(): MQueryResultSetElements;
 
     data(key: string, value: any): MQueryResultSetElements;
-    data(obj: { [key: string]: any; }): MQueryResultSetElements;
+    data(obj: { [key: string]: any }): MQueryResultSetElements;
     data(key: string): any;
 
     removeData(key: string): MQueryResultSetElements;
@@ -675,7 +703,8 @@ declare class CalloutActionMenuEntry {
         wzISrc: string,
         wzIAlt: string,
         wzISeq: number,
-        wzDesc: string);
+        wzDesc: string
+    );
 }
 
 declare class CalloutActionMenu {
@@ -826,11 +855,11 @@ declare namespace SPClientTemplates {
         Invalid,
         File,
         Folder,
-        Web
+        Web,
     }
     enum ChoiceFormatType {
         Dropdown,
-        Radio
+        Radio,
     }
 
     enum ClientControlMode {
@@ -838,24 +867,24 @@ declare namespace SPClientTemplates {
         DisplayForm,
         EditForm,
         NewForm,
-        View
+        View,
     }
 
     enum RichTextMode {
         Compatible,
         FullHtml,
         HtmlAsXml,
-        ThemeHtml
+        ThemeHtml,
     }
     enum UrlFormatType {
         Hyperlink,
-        Image
+        Image,
     }
 
     enum DateTimeDisplayFormat {
         DateOnly,
         DateTime,
-        TimeOnly
+        TimeOnly,
     }
 
     enum DateTimeCalendarType {
@@ -874,11 +903,11 @@ declare namespace SPClientTemplates {
         KoreaJapanLunar,
         ChineseLunar,
         SakaEra,
-        UmAlQura
+        UmAlQura,
     }
     enum UserSelectionMode {
         PeopleOnly,
-        PeopleAndGroups
+        PeopleAndGroups,
     }
 
     /** Represents schema for a Choice field in list form or in list view in grid mode */
@@ -903,7 +932,7 @@ declare namespace SPClientTemplates {
             Only appears if Throttled property is true, i.e. the target lookup list is throttled. */
         MaxQueryResult: string;
         /** List of choices for this field. */
-        Choices: Array<{ LookupId: number; LookupValue: string; }>;
+        Choices: Array<{ LookupId: number; LookupValue: string }>;
         /** Number of choices. Appears only for Lookup field. */
         ChoiceCount: number;
 
@@ -1041,7 +1070,7 @@ declare namespace SPClientTemplates {
     }
     interface RenderContext_Form extends RenderContext {
         CurrentItem: Item;
-        FieldControlModes: { [fieldInternalName: string]: ClientControlMode; };
+        FieldControlModes: { [fieldInternalName: string]: ClientControlMode };
         FormContext: ClientFormContext;
         FormUniqueId: string;
         ListData: ListData_InForm;
@@ -1102,7 +1131,7 @@ declare namespace SPClientTemplates {
     interface ListSchema_InView extends ListSchema {
         /** Key-value object that represents all aggregations defined for the view.
             Key specifies the field internal name, and value specifies the type of the aggregation. */
-        Aggregate: { [name: string]: string; };
+        Aggregate: { [name: string]: string };
         /** Either "TRUE" or false (for grouping) */
         Collapse: string;
         /** Specifies whether to open items in a client application ("1") or in browser ("0"). */
@@ -1138,7 +1167,7 @@ declare namespace SPClientTemplates {
         ParentHierarchyDisplayField: string;
         PresenceAlt: string;
         /** Represents SPList.RootFolder.Properties. Exists only if SPList.FetchPropertyBagForListView property is set to true. */
-        PropertyBag: { [key: string]: string; };
+        PropertyBag: { [key: string]: string };
         /** Either "True" or "False" */
         RenderSaveAsNewViewButton: string;
         /** Either "True" or "False" */
@@ -1192,7 +1221,7 @@ declare namespace SPClientTemplates {
     interface RenderContext_InView extends RenderContext {
         AllowCreateFolder: boolean;
         AllowGridMode: boolean;
-        BasePermissions: { [PermissionName: string]: boolean; }; // SP.BasePermissions?
+        BasePermissions: { [PermissionName: string]: boolean }; // SP.BasePermissions?
         bInitialRender: boolean;
         CanShareLinkForNewDocument: boolean;
         CascadeDeleteWarningMessage: string;
@@ -1286,7 +1315,7 @@ declare namespace SPClientTemplates {
         /** If in grid mode (context.inGridMode == true), cast to FieldSchema_InForm, otherwise cast to FieldSchema_InView */
         CurrentFieldSchema: FieldSchema_InForm | FieldSchema_InView;
         CurrentFieldValue: any;
-        FieldControlsModes: { [fieldInternalName: string]: ClientControlMode; };
+        FieldControlsModes: { [fieldInternalName: string]: ClientControlMode };
         FormContext: ClientFormContext;
         FormUniqueId: string;
     }
@@ -1457,7 +1486,11 @@ declare namespace SPClientTemplates {
         static ParseLookupValue(valueStr: string): ClientLookupValue;
         static ParseMultiLookupValues(valueStr: string): ClientLookupValue[];
         /** Represents lookup values array in some strange format */
-        static BuildLookupValuesAsString(choiceArray: ClientLookupValue[], isMultiLookup: boolean, setGroupDesc: boolean): string;
+        static BuildLookupValuesAsString(
+            choiceArray: ClientLookupValue[],
+            isMultiLookup: boolean,
+            setGroupDesc: boolean
+        ): string;
         static ParseURLValue(value: string): ClientUrlValue;
         static GetFormContextForCurrentField(context: RenderContext_Form): ClientFormContext;
         /** Returns ";#" */
@@ -1503,7 +1536,10 @@ declare namespace SPClientTemplates {
 }
 
 declare function GenerateIID(renderCtx: SPClientTemplates.RenderContext_ItemInView): string;
-declare function GenerateIIDForListItem(renderCtx: SPClientTemplates.RenderContext_InView, listItem: SPClientTemplates.Item): string;
+declare function GenerateIIDForListItem(
+    renderCtx: SPClientTemplates.RenderContext_InView,
+    listItem: SPClientTemplates.Item
+): string;
 
 declare function SPFormControl_AppendValidationErrorMessage(nodeId: string, errorResult: any): void;
 declare function CoreRender(template: any, context: any): string;
@@ -1546,7 +1582,7 @@ declare namespace SPClientForms {
         Event_GetControlValueCallback, // : 4,
         Event_OnControlValidationError, // : 5,
         Event_RegisterControlValidator, // : 6,
-        Event_GetHasValueChangedCallback // : 7
+        Event_GetHasValueChangedCallback, // : 7
     }
 
     class ClientForm {
@@ -1566,8 +1602,18 @@ declare namespace SPClientForms {
 declare class SPMgr {
     NewGroup(listItem: { [name: string]: any }, fieldName: string): boolean;
     RenderHeader(renderCtx: SPClientTemplates.RenderContext, field: SPClientTemplates.FieldSchema): string;
-    RenderField(renderCtx: SPClientTemplates.RenderContext, field: SPClientTemplates.FieldSchema, listItem: { [name: string]: any }, listSchema: SPClientTemplates.ListSchema): string;
-    RenderFieldByName(renderCtx: SPClientTemplates.RenderContext, fieldName: string, listItem: { [name: string]: any }, listSchema: SPClientTemplates.ListSchema): string;
+    RenderField(
+        renderCtx: SPClientTemplates.RenderContext,
+        field: SPClientTemplates.FieldSchema,
+        listItem: { [name: string]: any },
+        listSchema: SPClientTemplates.ListSchema
+    ): string;
+    RenderFieldByName(
+        renderCtx: SPClientTemplates.RenderContext,
+        fieldName: string,
+        listItem: { [name: string]: any },
+        listSchema: SPClientTemplates.ListSchema
+    ): string;
 }
 
 declare var spMgr: SPMgr;
@@ -1604,7 +1650,7 @@ declare namespace SPAnimation {
         PositionY,
         Height,
         Width,
-        Opacity
+        Opacity,
     }
 
     enum ID {
@@ -1629,7 +1675,7 @@ declare namespace SPAnimation {
         Basic_StrikeThrough,
         SmallObject_SlideInFadeInBottom,
         SmallObject_SlideOutFadeOutBottom,
-        Basic_QuickSize
+        Basic_QuickSize,
     }
 
     class Settings {
@@ -1645,7 +1691,14 @@ declare namespace SPAnimation {
     }
 
     class Object {
-        constructor(animationID: ID, delay: number, element: HTMLElement | HTMLElement[], finalState: State, finishFunc?: (data: any) => void, data?: any);
+        constructor(
+            animationID: ID,
+            delay: number,
+            element: HTMLElement | HTMLElement[],
+            finalState: State,
+            finishFunc?: (data: any) => void,
+            data?: any
+        );
         RunAnimation(): void;
     }
 }
@@ -1654,21 +1707,75 @@ declare namespace SPAnimationUtility {
     class BasicAnimator {
         static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
         static FadeOut(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
-        static Move(element: HTMLElement, posX: number, posY: number, finishFunc?: (data: any) => void, data?: any): void;
-        static StrikeThrough(element: HTMLElement, strikeThroughWidth: number, finishFunc?: (data: any) => void, data?: any): void;
-        static Resize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void, data?: any): void;
-        static CommonResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: (data: any) => void, data: any, animationId: SPAnimation.ID): void;
-        static QuickResize(element: HTMLElement, newHeight: number, newWidth: number, finishFunc?: (data: any) => void, data?: any): void;
-        static ResizeContainerAndFillContent(element: HTMLElement, newHeight: number, newWidth: number, finishFunc: () => void, fAddToEnd: boolean): void;
-        static GetWindowScrollPosition(): { x: number; y: number; };
+        static Move(
+            element: HTMLElement,
+            posX: number,
+            posY: number,
+            finishFunc?: (data: any) => void,
+            data?: any
+        ): void;
+        static StrikeThrough(
+            element: HTMLElement,
+            strikeThroughWidth: number,
+            finishFunc?: (data: any) => void,
+            data?: any
+        ): void;
+        static Resize(
+            element: HTMLElement,
+            newHeight: number,
+            newWidth: number,
+            finishFunc?: (data: any) => void,
+            data?: any
+        ): void;
+        static CommonResize(
+            element: HTMLElement,
+            newHeight: number,
+            newWidth: number,
+            finishFunc: (data: any) => void,
+            data: any,
+            animationId: SPAnimation.ID
+        ): void;
+        static QuickResize(
+            element: HTMLElement,
+            newHeight: number,
+            newWidth: number,
+            finishFunc?: (data: any) => void,
+            data?: any
+        ): void;
+        static ResizeContainerAndFillContent(
+            element: HTMLElement,
+            newHeight: number,
+            newWidth: number,
+            finishFunc: () => void,
+            fAddToEnd: boolean
+        ): void;
+        static GetWindowScrollPosition(): { x: number; y: number };
         static GetLeftOffset(element: HTMLElement): number;
         static GetTopOffset(element: HTMLElement): number;
         static GetRightOffset(element: HTMLElement): number;
-        static PositionElement(element: HTMLElement, topValue: number, leftValue: number, heightValue: number, widthValue: number): void;
+        static PositionElement(
+            element: HTMLElement,
+            topValue: number,
+            leftValue: number,
+            heightValue: number,
+            widthValue: number
+        ): void;
         static PositionAbsolute(element: HTMLElement): void;
         static PositionRelative(element: HTMLElement): void;
-        static PositionRelativeExact(element: HTMLElement, topValue: number, leftValue: number, heightValue: number, widthValue: number): void;
-        static PositionAbsoluteExact(element: HTMLElement, topValue: number, leftValue: number, heightValue: number, widthValue: number): void;
+        static PositionRelativeExact(
+            element: HTMLElement,
+            topValue: number,
+            leftValue: number,
+            heightValue: number,
+            widthValue: number
+        ): void;
+        static PositionAbsoluteExact(
+            element: HTMLElement,
+            topValue: number,
+            leftValue: number,
+            heightValue: number,
+            widthValue: number
+        ): void;
         static IsPositioned(element: HTMLElement): boolean;
     }
 }
@@ -1807,7 +1914,13 @@ declare namespace SP {
         customFromJson(initValue: any): boolean;
     }
     class ClientObjectPropertyConditionalScope extends SP.ConditionalScopeBase {
-        constructor(clientObject: SP.ClientObject, propertyName: string, comparisonOperator: string, valueToCompare: any, allowAllActions?: boolean);
+        constructor(
+            clientObject: SP.ClientObject,
+            propertyName: string,
+            comparisonOperator: string,
+            valueToCompare: any,
+            allowAllActions?: boolean
+        );
     }
     // class ClientResult {
     //    get_value(): any;
@@ -1856,7 +1969,11 @@ declare namespace SP {
     }
     class ClientUtility {
         static urlPathEncodeForXmlHttpRequest(url: string): string;
-        static getOrCreateObjectPathForConstructor(context: SP.ClientRuntimeContext, typeId: string, args: any[]): SP.ObjectPath;
+        static getOrCreateObjectPathForConstructor(
+            context: SP.ClientRuntimeContext,
+            typeId: string,
+            args: any[]
+        ): SP.ObjectPath;
     }
     class XElement {
         get_name(): string;
@@ -1878,18 +1995,41 @@ declare namespace SP {
         constructor();
     }
     class DataConvert {
-        static writePropertiesToXml(writer: SP.XmlWriter, obj: any, propNames: string[], serializationContext: SP.SerializationContext): void;
+        static writePropertiesToXml(
+            writer: SP.XmlWriter,
+            obj: any,
+            propNames: string[],
+            serializationContext: SP.SerializationContext
+        ): void;
         static populateDictionaryFromObject(dict: any, parentNode: any): void;
         static fixupTypes(context: SP.ClientRuntimeContext, dict: any): void;
         static populateArray(context: SP.ClientRuntimeContext, dest: any, jsonArrayFromServer: any): void;
         static fixupType(context: SP.ClientRuntimeContext, obj: any): any;
-        static writeDictionaryToXml(writer: SP.XmlWriter, dict: any, topLevelElementTagName: string, keys: any, serializationContext: SP.SerializationContext): void;
-        static writeValueToXmlElement(writer: SP.XmlWriter, objValue: any, serializationContext: SP.SerializationContext): void;
+        static writeDictionaryToXml(
+            writer: SP.XmlWriter,
+            dict: any,
+            topLevelElementTagName: string,
+            keys: any,
+            serializationContext: SP.SerializationContext
+        ): void;
+        static writeValueToXmlElement(
+            writer: SP.XmlWriter,
+            objValue: any,
+            serializationContext: SP.SerializationContext
+        ): void;
         static invokeSetProperty(obj: any, propName: string, propValue: any): void;
         static invokeGetProperty(obj: any, propName: string): any;
         static specifyDateTimeKind(datetime: Date, kind: SP.DateTimeKind): void;
         static getDateTimeKind(datetime: Date): SP.DateTimeKind;
-        static createUnspecifiedDateTime(year: number, month: number, day: number, hour: number, minute: number, second: number, milliseconds: number): Date;
+        static createUnspecifiedDateTime(
+            year: number,
+            month: number,
+            day: number,
+            hour: number,
+            minute: number,
+            second: number,
+            milliseconds: number
+        ): Date;
         static createUtcDateTime(milliseconds: number): Date;
         static createLocalDateTime(milliseconds: number): Date;
     }
@@ -1914,8 +2054,19 @@ declare namespace SP {
         set_expectedContentType(value: string): void;
         post(body: string): void;
         get(): void;
-        static doPost(url: string, body: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void, failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
-        static doGet(url: string, expectedContentType: string, succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void, failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
+        static doPost(
+            url: string,
+            body: string,
+            expectedContentType: string,
+            succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void,
+            failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void
+        ): void;
+        static doGet(
+            url: string,
+            expectedContentType: string,
+            succeededHandler: (sender: any, args: SP.PageRequestSucceededEventArgs) => void,
+            failedHandler: (sender: any, args: SP.PageRequestFailedEventArgs) => void
+        ): void;
         add_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void): void;
         remove_succeeded(value: (sender: any, args: SP.PageRequestSucceededEventArgs) => void): void;
         add_failed(value: (sender: any, args: SP.PageRequestFailedEventArgs) => void): void;
@@ -2185,7 +2336,16 @@ declare namespace SP {
         get_request(): SP.ClientRequest;
     }
     class ClientRequestFailedEventArgs extends SP.ClientRequestEventArgs {
-        constructor(request: SP.ClientRequest, message: string, stackTrace: string, errorCode: number, errorValue: string, errorTypeName: string, errorDetails: any, errorTraceCorrelationId?: string);
+        constructor(
+            request: SP.ClientRequest,
+            message: string,
+            stackTrace: string,
+            errorCode: number,
+            errorValue: string,
+            errorTypeName: string,
+            errorDetails: any,
+            errorTraceCorrelationId?: string
+        );
         get_message(): string;
         get_stackTrace(): string;
         get_errorCode(): number;
@@ -2194,8 +2354,7 @@ declare namespace SP {
         get_errorDetails(): any;
         get_errorTraceCorrelationId(): string;
     }
-    class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {
-    }
+    class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {}
     class ClientRuntimeContext implements Sys.IDisposable {
         constructor(serverRelativeUrlOrFullUrl: string);
         get_url(): string;
@@ -2221,7 +2380,10 @@ declare namespace SP {
         remove_beginningRequest(value: (sender: any, args: SP.ClientRequestEventArgs) => void): void;
         get_requestTimeout(): number;
         set_requestTimeout(value: number): void;
-        executeQueryAsync(succeededCallback?: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void, failedCallback?: (sender: any, args: SP.ClientRequestFailedEventArgs) => void): void;
+        executeQueryAsync(
+            succeededCallback?: (sender: any, args: SP.ClientRequestSucceededEventArgs) => void,
+            failedCallback?: (sender: any, args: SP.ClientRequestFailedEventArgs) => void
+        ): void;
         get_staticObjects(): any;
         castTo(obj: SP.ClientObject, type: any): SP.ClientObject;
         addQuery(query: SP.ClientAction): void;
@@ -2463,7 +2625,14 @@ declare namespace SP {
         static traceApiLeave(): void;
     }
     class AccessRequests {
-        static changeRequestStatus(context: SP.ClientRuntimeContext, itemId: number, newStatus: number, convStr: string, permType: string, permissionLevel: number): void;
+        static changeRequestStatus(
+            context: SP.ClientRuntimeContext,
+            itemId: number,
+            newStatus: number,
+            convStr: string,
+            permType: string,
+            permissionLevel: number
+        ): void;
         static changeRequestStatusBulk(context: SP.ClientRuntimeContext, requestIds: number[], newStatus: number): void;
     }
     enum AddFieldOptions {
@@ -2486,7 +2655,11 @@ declare namespace SP {
     }
     class AppCatalog {
         static getAppInstances(context: SP.ClientRuntimeContext, web: SP.Web): SP.ClientObjectList<SP.AppInstance>;
-        static getDeveloperSiteAppInstancesByIds(context: SP.ClientRuntimeContext, site: SP.Site, appInstanceIds: SP.Guid[]): SP.ClientObjectList<SP.AppInstance>;
+        static getDeveloperSiteAppInstancesByIds(
+            context: SP.ClientRuntimeContext,
+            site: SP.Site,
+            appInstanceIds: SP.Guid[]
+        ): SP.ClientObjectList<SP.AppInstance>;
         static isAppSideloadingEnabled(context: SP.ClientRuntimeContext): SP.BooleanResult;
     }
     class AppContextSite extends SP.ClientObject {
@@ -2792,8 +2965,7 @@ declare namespace SP {
         get_typeId(): string;
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
     }
-    class ChangeSite extends SP.Change {
-    }
+    class ChangeSite extends SP.Change {}
     class ChangeToken extends SP.ClientValueObject {
         get_stringValue(): string;
         set_stringValue(value: string): void;
@@ -2850,8 +3022,7 @@ declare namespace SP {
         dropdown,
         radioButtons,
     }
-    class CompatibilityRange extends SP.ClientObject {
-    }
+    class CompatibilityRange extends SP.ClientObject {}
     class ContentType extends SP.ClientObject {
         get_description(): string;
         set_description(value: string): void;
@@ -2957,7 +3128,9 @@ declare namespace SP {
         itemAt(index: number): SP.EventReceiverDefinition;
         get_item(index: number): SP.EventReceiverDefinition;
         getById(eventReceiverId: SP.Guid): SP.EventReceiverDefinition;
-        add(eventReceiverCreationInformation: SP.EventReceiverDefinitionCreationInformation): SP.EventReceiverDefinition;
+        add(
+            eventReceiverCreationInformation: SP.EventReceiverDefinitionCreationInformation
+        ): SP.EventReceiverDefinition;
     }
     class EventReceiverDefinitionCreationInformation extends SP.ClientValueObject {
         get_receiverAssembly(): string;
@@ -3190,8 +3363,7 @@ declare namespace SP {
         get_friendlyDisplayFormat(): SP.DateTimeFieldFriendlyFormatType;
         set_friendlyDisplayFormat(value: SP.DateTimeFieldFriendlyFormatType): void;
     }
-    class FieldGeolocation extends SP.Field {
-    }
+    class FieldGeolocation extends SP.Field {}
     class FieldGeolocationValue extends SP.ClientValueObject {
         get_altitude(): number;
         set_altitude(value: number): void;
@@ -3205,8 +3377,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    class FieldGuid extends SP.Field {
-    }
+    class FieldGuid extends SP.Field {}
     class FieldLink extends SP.ClientObject {
         get_hidden(): boolean;
         set_hidden(value: boolean): void;
@@ -3627,7 +3798,7 @@ declare namespace SP {
         invalid,
         displayMode,
         editMode,
-        newMode
+        newMode,
     }
     /** Represents a list on a SharePoint Web site. */
     class List<T = any> extends SP.SecurableObject {
@@ -3968,7 +4139,10 @@ declare namespace SP {
         /** Sets the value of the field for the list item based on an implementation specific transformation of the value. */
         parseAndSetFieldValue(fieldInternalName: string, value: string): void;
         /** Validates form values specified for the list item. Errors are returned through hasException and errorMessage properties of the ListItemFormUpdateValue objects */
-        validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: boolean): SP.ListItemFormUpdateValue[];
+        validateUpdateListItem(
+            formValues: SP.ListItemFormUpdateValue[],
+            bNewDocumentUpdate: boolean
+        ): SP.ListItemFormUpdateValue[];
     }
     interface ListItemCollection<T = any> extends SP.ClientObjectCollection<ListItem<T>> {
         itemAt(index: number): SP.ListItem<T>;
@@ -4155,9 +4329,37 @@ declare namespace SP {
         get_isSharedWithSecurityGroup(): boolean;
         get_pendingAccessRequestsLink(): string;
         getSharedWithUsers(): SP.ClientObjectList<SP.ObjectSharingInformationUser>;
-        static getListItemSharingInformation(context: SP.ClientRuntimeContext, listID: SP.Guid, itemID: number, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
-        static getWebSharingInformation(context: SP.ClientRuntimeContext, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean): SP.ObjectSharingInformation;
-        static getObjectSharingInformation(context: SP.ClientRuntimeContext, securableObject: SP.SecurableObject, excludeCurrentUser: boolean, excludeSiteAdmin: boolean, excludeSecurityGroups: boolean, retrieveAnonymousLinks: boolean, retrieveUserInfoDetails: boolean, checkForAccessRequests: boolean, retrievePermissionLevels: boolean): SP.ObjectSharingInformation;
+        static getListItemSharingInformation(
+            context: SP.ClientRuntimeContext,
+            listID: SP.Guid,
+            itemID: number,
+            excludeCurrentUser: boolean,
+            excludeSiteAdmin: boolean,
+            excludeSecurityGroups: boolean,
+            retrieveAnonymousLinks: boolean,
+            retrieveUserInfoDetails: boolean,
+            checkForAccessRequests: boolean
+        ): SP.ObjectSharingInformation;
+        static getWebSharingInformation(
+            context: SP.ClientRuntimeContext,
+            excludeCurrentUser: boolean,
+            excludeSiteAdmin: boolean,
+            excludeSecurityGroups: boolean,
+            retrieveAnonymousLinks: boolean,
+            retrieveUserInfoDetails: boolean,
+            checkForAccessRequests: boolean
+        ): SP.ObjectSharingInformation;
+        static getObjectSharingInformation(
+            context: SP.ClientRuntimeContext,
+            securableObject: SP.SecurableObject,
+            excludeCurrentUser: boolean,
+            excludeSiteAdmin: boolean,
+            excludeSecurityGroups: boolean,
+            retrieveAnonymousLinks: boolean,
+            retrieveUserInfoDetails: boolean,
+            checkForAccessRequests: boolean,
+            retrievePermissionLevels: boolean
+        ): SP.ObjectSharingInformation;
     }
     class ObjectSharingInformationUser extends SP.ClientObject {
         get_customRoleNames(): string;
@@ -4336,12 +4538,50 @@ declare namespace SP {
         constructor();
     }
     class RelatedItemManager extends SP.ClientObject {
-        static getRelatedItems(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number): SP.RelatedItem[];
-        static getPageOneRelatedItems(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number): SP.RelatedItem[];
-        static addSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryAddReverseLink: boolean): void;
-        static addSingleLinkToUrl(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, TargetItemUrl: string, TryAddReverseLink: boolean): void;
-        static addSingleLinkFromUrl(context: SP.ClientRuntimeContext, SourceItemUrl: string, TargetListName: string, TargetItemID: number, TryAddReverseLink: boolean): void;
-        static deleteSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryDeleteReverseLink: boolean): void;
+        static getRelatedItems(
+            context: SP.ClientRuntimeContext,
+            SourceListName: string,
+            SourceItemID: number
+        ): SP.RelatedItem[];
+        static getPageOneRelatedItems(
+            context: SP.ClientRuntimeContext,
+            SourceListName: string,
+            SourceItemID: number
+        ): SP.RelatedItem[];
+        static addSingleLink(
+            context: SP.ClientRuntimeContext,
+            SourceListName: string,
+            SourceItemID: number,
+            SourceWebUrl: string,
+            TargetListName: string,
+            TargetItemID: number,
+            TargetWebUrl: string,
+            TryAddReverseLink: boolean
+        ): void;
+        static addSingleLinkToUrl(
+            context: SP.ClientRuntimeContext,
+            SourceListName: string,
+            SourceItemID: number,
+            TargetItemUrl: string,
+            TryAddReverseLink: boolean
+        ): void;
+        static addSingleLinkFromUrl(
+            context: SP.ClientRuntimeContext,
+            SourceItemUrl: string,
+            TargetListName: string,
+            TargetItemID: number,
+            TryAddReverseLink: boolean
+        ): void;
+        static deleteSingleLink(
+            context: SP.ClientRuntimeContext,
+            SourceListName: string,
+            SourceItemID: number,
+            SourceWebUrl: string,
+            TargetListName: string,
+            TargetItemID: number,
+            TargetWebUrl: string,
+            TryDeleteReverseLink: boolean
+        ): void;
     }
     enum RelationshipDeleteBehaviorType {
         none,
@@ -4479,8 +4719,7 @@ declare namespace SP {
         extendUpgradeReminderDate(): void;
         invalidate(): void;
     }
-    class SiteUrl extends SP.ClientObject {
-    }
+    class SiteUrl extends SP.ClientObject {}
     class SubwebQuery extends SP.ClientValueObject {
         get_configurationFilter(): number;
         set_configurationFilter(value: number): void;
@@ -4858,7 +5097,10 @@ declare namespace SP {
         doesUserHavePermissions(permissionMask: SP.BasePermissions): SP.BooleanResult;
         getUserEffectivePermissions(userName: string): SP.BasePermissions;
         mapToIcon(fileName: string, progId: string, size: SP.Utilities.IconSize): SP.StringResult;
-        registerPushNotificationSubscriber(deviceAppInstanceId: SP.Guid, serviceToken: string): SP.PushNotificationSubscriber;
+        registerPushNotificationSubscriber(
+            deviceAppInstanceId: SP.Guid,
+            serviceToken: string
+        ): SP.PushNotificationSubscriber;
         unregisterPushNotificationSubscriber(deviceAppInstanceId: SP.Guid): void;
         getPushNotificationSubscribersByArgs(customArgs: string): SP.PushNotificationSubscriberCollection;
         getPushNotificationSubscribersByUser(userName: string): SP.PushNotificationSubscriberCollection;
@@ -4879,11 +5121,19 @@ declare namespace SP {
         getSubwebsForCurrentUser(query: SP.SubwebQuery): SP.WebCollection;
         getAppInstanceById(appInstanceId: SP.Guid): SP.AppInstance;
         getAppInstancesByProductId(productId: SP.Guid): SP.ClientObjectList<SP.AppInstance>;
-        loadAndInstallAppInSpecifiedLocale(appPackageStream: SP.Base64EncodedByteArray, installationLocaleLCID: number): SP.AppInstance;
+        loadAndInstallAppInSpecifiedLocale(
+            appPackageStream: SP.Base64EncodedByteArray,
+            installationLocaleLCID: number
+        ): SP.AppInstance;
         loadApp(appPackageStream: SP.Base64EncodedByteArray, installationLocaleLCID: number): SP.AppInstance;
         loadAndInstallApp(appPackageStream: SP.Base64EncodedByteArray): SP.AppInstance;
         ensureUser(logonName: string): SP.User;
-        applyTheme(colorPaletteUrl: string, fontSchemeUrl: string, backgroundImageUrl: string, shareGenerated: boolean): void;
+        applyTheme(
+            colorPaletteUrl: string,
+            fontSchemeUrl: string,
+            backgroundImageUrl: string,
+            shareGenerated: boolean
+        ): void;
 
         /** Available after March 2015 CU for SharePoint 2013*/
         getList(url: string): List;
@@ -4986,7 +5236,10 @@ declare namespace SP {
                 constructor();
             }
             class DefaultFormsMenuBuilder {
-                static getDefaultFormsInformation(requestor: SP.Application.UI.DefaultFormsInformationRequestor, listId: SP.Guid): void;
+                static getDefaultFormsInformation(
+                    requestor: SP.Application.UI.DefaultFormsInformationRequestor,
+                    listId: SP.Guid
+                ): void;
             }
             class ViewSelectorMenuOptions {
                 showRepairView: boolean;
@@ -5033,7 +5286,10 @@ declare namespace SP {
                 static get_filterMenuItemsCallback(): (menuItems: any) => any;
                 static set_filterMenuItemsCallback(value: (menuItems: any) => any): void;
                 static showMenu(elem: HTMLElement, options: SP.Application.UI.ViewSelectorMenuOptions): void;
-                static getViewInformation(requestor: SP.Application.UI.ViewInformationRequestor, options: SP.Application.UI.ViewSelectorMenuOptions): void;
+                static getViewInformation(
+                    requestor: SP.Application.UI.ViewInformationRequestor,
+                    options: SP.Application.UI.ViewSelectorMenuOptions
+                ): void;
             }
             class MoreColorsPicker extends Sys.UI.Control {
                 constructor(e: HTMLElement);
@@ -5071,9 +5327,27 @@ declare namespace SP {
     namespace Analytics {
         class AnalyticsUsageEntry extends SP.ClientObject {
             static logAnalyticsEvent(context: SP.ClientRuntimeContext, eventTypeId: number, itemId: string): void;
-            static logAnalyticsEvent2(context: SP.ClientRuntimeContext, eventTypeId: number, itemId: string, rollupScopeId: SP.Guid, siteId: SP.Guid, userId: string): void;
-            static logAnalyticsAppEvent(context: SP.ClientRuntimeContext, appEventTypeId: SP.Guid, itemId: string): void;
-            static logAnalyticsAppEvent2(context: SP.ClientRuntimeContext, appEventTypeId: SP.Guid, itemId: string, rollupScopeId: SP.Guid, siteId: SP.Guid, userId: string): void;
+            static logAnalyticsEvent2(
+                context: SP.ClientRuntimeContext,
+                eventTypeId: number,
+                itemId: string,
+                rollupScopeId: SP.Guid,
+                siteId: SP.Guid,
+                userId: string
+            ): void;
+            static logAnalyticsAppEvent(
+                context: SP.ClientRuntimeContext,
+                appEventTypeId: SP.Guid,
+                itemId: string
+            ): void;
+            static logAnalyticsAppEvent2(
+                context: SP.ClientRuntimeContext,
+                appEventTypeId: SP.Guid,
+                itemId: string,
+                rollupScopeId: SP.Guid,
+                siteId: SP.Guid,
+                userId: string
+            ): void;
         }
         enum EventTypeId {
             none,
@@ -5183,7 +5457,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             get_queryTemplate: () => string;
             set_queryTemplate: (value: string) => void;
 
-            get_queryTemplateParameters: () => { [key: string]: boolean; };
+            get_queryTemplateParameters: () => { [key: string]: boolean };
 
             get_queryText: () => string;
             set_queryText: (value: string) => void;
@@ -5233,7 +5507,8 @@ declare namespace Microsoft.SharePoint.Client.Search {
                 fPreQuerySuggestions: boolean,
                 fHitHighlighting: boolean,
                 fCapitalizeFirstLetters: boolean,
-                fPrefixMatchAllTerms: boolean) => QuerySuggestionResults;
+                fPrefixMatchAllTerms: boolean
+            ) => QuerySuggestionResults;
         }
 
         /**Contains information about a keyword based search query.*/
@@ -5285,7 +5560,8 @@ declare namespace Microsoft.SharePoint.Client.Search {
                 immediacySourceId: string,
                 immediacyQueryString: string,
                 immediacyTitle: string,
-                immediacyUrl: string) => void;
+                immediacyUrl: string
+            ) => void;
             exportPopularQueries: (web: SP.Web, sourceId: SP.Guid) => SP.JsonObjectResult;
         }
 
@@ -5348,7 +5624,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             int32TYpe,
             booleanType,
             stringArrayType,
-            unSupportedType
+            unSupportedType,
         }
 
         class QueryPropertyValue extends SP.ClientValueObject {
@@ -5387,7 +5663,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             contentTypeIs,
             fileExtensionMatches,
             resultHasTag,
-            manualCondition
+            manualCondition,
         }
 
         class ReorderingRule extends SP.ClientValueObject {
@@ -5412,7 +5688,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
         enum SortDirection {
             ascending,
             descending,
-            fqlFormula
+            fqlFormula,
         }
         class Sort extends SP.ClientValueObject {
             get_direction: () => SortDirection;
@@ -5428,9 +5704,9 @@ declare namespace Microsoft.SharePoint.Client.Search {
             get_elapsedTime: () => number;
             set_elapsedTime: (value: number) => void;
 
-            get_properties: () => { [key: string]: any; };
+            get_properties: () => { [key: string]: any };
 
-            get_queryErrors: () => { [key: string]: WebControls.ControlMessage; };
+            get_queryErrors: () => { [key: string]: WebControls.ControlMessage };
 
             get_queryId: () => string;
 
@@ -5446,13 +5722,13 @@ declare namespace Microsoft.SharePoint.Client.Search {
 
             get_itemTemplateId: () => string;
 
-            get_properties: () => { [key: string]: any; };
+            get_properties: () => { [key: string]: any };
 
             get_queryId: () => string;
 
             get_queryRuleId: () => string;
 
-            get_resultRows: () => Array<{ [key: string]: any; }>;
+            get_resultRows: () => Array<{ [key: string]: any }>;
 
             get_resultTitle: () => string;
 
@@ -5580,7 +5856,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
         enum MessageLevel {
             information,
             warning,
-            error
+            error,
         }
     }
 
@@ -5589,14 +5865,15 @@ declare namespace Microsoft.SharePoint.Client.Search {
             constructor(context: SP.ClientContext, site: SP.Site);
             getCrawledUrls: (
                 getCountOnly: boolean,
-                maxRows: { High: number; Low: number; },
+                maxRows: { High: number; Low: number },
                 queryString: string,
                 isLike: boolean,
                 contentSourceID: number,
                 errorLevel: number,
                 errorID: number,
                 startDateTime: Date,
-                endDateTime: Date) => SP.JsonObjectResult;
+                endDateTime: Date
+            ) => SP.JsonObjectResult;
         }
 
         class SearchObjectOwner extends SP.ClientObject {
@@ -5607,7 +5884,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             spWeb,
             spSite,
             spSiteSubscription,
-            ssa
+            ssa,
         }
     }
 
@@ -5618,9 +5895,15 @@ declare namespace Microsoft.SharePoint.Client.Search {
 
             exportSearchConfiguration: (owningScope: Administration.SearchObjectOwner) => SP.JsonObjectResult;
 
-            importSearchConfiguration: (owningScope: Administration.SearchObjectOwner, searchConfiguration: string) => void;
+            importSearchConfiguration: (
+                owningScope: Administration.SearchObjectOwner,
+                searchConfiguration: string
+            ) => void;
 
-            deleteSearchConfiguration: (owningScope: Administration.SearchObjectOwner, searchConfiguration: string) => void;
+            deleteSearchConfiguration: (
+                owningScope: Administration.SearchObjectOwner,
+                searchConfiguration: string
+            ) => void;
         }
 
         class SearchConfigurationPortabilityPropertyNames {
@@ -5649,7 +5932,10 @@ declare namespace Microsoft.SharePoint.Client.Search {
         class UsageAnalytics extends SP.ClientObject {
             getAnalyticsItemData: <T = any>(eventType: number, listItem: SP.ListItem<T>) => AnalyticsItemData;
 
-            getAnalyticsItemDataForApplicationEventType: <T = any>(appEventType: SP.Guid, listItem: SP.ListItem<T>) => AnalyticsItemData;
+            getAnalyticsItemDataForApplicationEventType: <T = any>(
+                appEventType: SP.Guid,
+                listItem: SP.ListItem<T>
+            ) => AnalyticsItemData;
 
             deleteStandardEventUsageData: (eventType: number) => void;
 
@@ -5664,8 +5950,17 @@ declare namespace SP {
             getEntity(namespace: string, name: string): SP.BusinessData.Entity;
             getLobSystemProperty(lobSystemName: string, propertyName: string): SP.StringResult;
             setLobSystemProperty(lobSystemName: string, propertyName: string, propertyValue: string): void;
-            getLobSystemInstanceProperty(lobSystemName: string, lobSystemInstanceName: string, propertyName: string): SP.StringResult;
-            setLobSystemInstanceProperty(lobSystemName: string, lobSystemInstanceName: string, propertyName: string, propertyValue: string): void;
+            getLobSystemInstanceProperty(
+                lobSystemName: string,
+                lobSystemInstanceName: string,
+                propertyName: string
+            ): SP.StringResult;
+            setLobSystemInstanceProperty(
+                lobSystemName: string,
+                lobSystemInstanceName: string,
+                propertyName: string,
+                propertyValue: string
+            ): void;
             getConnectionId(lobSystemName: string, lobSystemInstanceName: string): SP.StringResult;
             setConnectionId(lobSystemName: string, lobSystemInstanceName: string, connectionId: string): void;
             getPermissibleConnections(): string[];
@@ -5682,18 +5977,59 @@ declare namespace SP {
             getFinderView(methodInstanceName: string): SP.BusinessData.EntityView;
             getSpecificFinderView(specificFinderName: string): SP.BusinessData.EntityView;
             getDefaultSpecificFinderView(): SP.BusinessData.EntityView;
-            findSpecificDefault(identity: SP.BusinessData.Runtime.EntityIdentity, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Runtime.EntityInstance;
-            findSpecific(identity: SP.BusinessData.Runtime.EntityIdentity, specificFinderName: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Runtime.EntityInstance;
-            findSpecificDefaultByBdcId(bdcIdentity: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Runtime.EntityInstance;
-            findSpecificByBdcId(bdcIdentity: string, specificFinderName: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Runtime.EntityInstance;
-            findFiltered(filterList: SP.BusinessData.Collections.FilterCollection, nameOfFinder: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Collections.EntityInstanceCollection;
-            findAssociated(entityInstance: SP.BusinessData.Runtime.EntityInstance, associationName: string, filterList: SP.BusinessData.Collections.FilterCollection, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Collections.EntityInstanceCollection;
+            findSpecificDefault(
+                identity: SP.BusinessData.Runtime.EntityIdentity,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Runtime.EntityInstance;
+            findSpecific(
+                identity: SP.BusinessData.Runtime.EntityIdentity,
+                specificFinderName: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Runtime.EntityInstance;
+            findSpecificDefaultByBdcId(
+                bdcIdentity: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Runtime.EntityInstance;
+            findSpecificByBdcId(
+                bdcIdentity: string,
+                specificFinderName: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Runtime.EntityInstance;
+            findFiltered(
+                filterList: SP.BusinessData.Collections.FilterCollection,
+                nameOfFinder: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Collections.EntityInstanceCollection;
+            findAssociated(
+                entityInstance: SP.BusinessData.Runtime.EntityInstance,
+                associationName: string,
+                filterList: SP.BusinessData.Collections.FilterCollection,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Collections.EntityInstanceCollection;
             getFilters(methodInstanceName: string): SP.BusinessData.Collections.FilterCollection;
-            execute(methodInstanceName: string, lobSystemInstance: SP.BusinessData.LobSystemInstance, inputParams: any[]): SP.BusinessData.MethodExecutionResult;
+            execute(
+                methodInstanceName: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance,
+                inputParams: any[]
+            ): SP.BusinessData.MethodExecutionResult;
             getAssociationView(associationName: string): SP.BusinessData.EntityView;
-            create(fieldValues: SP.BusinessData.Runtime.EntityFieldValueDictionary, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Runtime.EntityIdentity;
-            subscribe(eventType: SP.BusinessData.Runtime.EntityEventType, notificationCallback: SP.BusinessData.Runtime.NotificationCallback, onBehalfOfUser: string, subscriberName: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): SP.BusinessData.Runtime.Subscription;
-            unsubscribe(subscription: SP.BusinessData.Runtime.Subscription, onBehalfOfUser: string, unsubscriberName: string, lobSystemInstance: SP.BusinessData.LobSystemInstance): void;
+            create(
+                fieldValues: SP.BusinessData.Runtime.EntityFieldValueDictionary,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Runtime.EntityIdentity;
+            subscribe(
+                eventType: SP.BusinessData.Runtime.EntityEventType,
+                notificationCallback: SP.BusinessData.Runtime.NotificationCallback,
+                onBehalfOfUser: string,
+                subscriberName: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): SP.BusinessData.Runtime.Subscription;
+            unsubscribe(
+                subscription: SP.BusinessData.Runtime.Subscription,
+                onBehalfOfUser: string,
+                unsubscriberName: string,
+                lobSystemInstance: SP.BusinessData.LobSystemInstance
+            ): void;
         }
         class EntityField extends SP.ClientObject {
             get_containsLocalizedDisplayName(): boolean;
@@ -5735,7 +6071,8 @@ declare namespace SP {
         class MethodExecutionResult extends SP.ClientObject {
             get_returnParameterCollection(): SP.BusinessData.ReturnParameterCollection;
         }
-        interface ReturnParameterCollection extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityFieldValueDictionary> {
+        interface ReturnParameterCollection
+            extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityFieldValueDictionary> {
             itemAt(index: number): SP.BusinessData.Runtime.EntityFieldValueDictionary;
             get_item(index: number): SP.BusinessData.Runtime.EntityFieldValueDictionary;
         }
@@ -5762,7 +6099,8 @@ declare namespace SP {
                 itemAt(index: number): SP.BusinessData.EntityIdentifier;
                 get_item(index: number): SP.BusinessData.EntityIdentifier;
             }
-            interface EntityInstanceCollection extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityInstance> {
+            interface EntityInstanceCollection
+                extends SP.ClientObjectCollection<SP.BusinessData.Runtime.EntityInstance> {
                 itemAt(index: number): SP.BusinessData.Runtime.EntityInstance;
                 get_item(index: number): SP.BusinessData.Runtime.EntityInstance;
             }
@@ -5784,7 +6122,10 @@ declare namespace SP {
         namespace Infrastructure {
             class ExternalSubscriptionStore extends SP.ClientObject {
                 constructor(context: SP.ClientRuntimeContext, web: SP.Web);
-                static newObject(context: SP.ClientRuntimeContext, web: SP.Web): SP.BusinessData.Infrastructure.ExternalSubscriptionStore;
+                static newObject(
+                    context: SP.ClientRuntimeContext,
+                    web: SP.Web
+                ): SP.BusinessData.Infrastructure.ExternalSubscriptionStore;
                 indexStore(): void;
             }
         }
@@ -5812,7 +6153,10 @@ declare namespace SP {
                 get_item(fieldName: string): any;
                 constructor(context: SP.ClientRuntimeContext, identifierValues: any[]);
                 get_identifierCount(): number;
-                static newObject(context: SP.ClientRuntimeContext, identifierValues: any[]): SP.BusinessData.Runtime.EntityIdentity;
+                static newObject(
+                    context: SP.ClientRuntimeContext,
+                    identifierValues: any[]
+                ): SP.BusinessData.Runtime.EntityIdentity;
                 refreshLoad(): void;
             }
             class EntityInstance extends SP.ClientObject {
@@ -5835,13 +6179,20 @@ declare namespace SP {
                 get_notificationEndpoint(): string;
                 get_notificationForwarderType(): string;
                 set_notificationForwarderType(value: string): void;
-                static newObject(context: SP.ClientRuntimeContext, notificationEndpoint: string): SP.BusinessData.Runtime.NotificationCallback;
+                static newObject(
+                    context: SP.ClientRuntimeContext,
+                    notificationEndpoint: string
+                ): SP.BusinessData.Runtime.NotificationCallback;
             }
             class Subscription extends SP.ClientObject {
                 constructor(context: SP.ClientRuntimeContext, id: any, hash: string);
                 get_hash(): string;
                 get_iD(): any;
-                static newObject(context: SP.ClientRuntimeContext, id: any, hash: string): SP.BusinessData.Runtime.Subscription;
+                static newObject(
+                    context: SP.ClientRuntimeContext,
+                    id: any,
+                    hash: string
+                ): SP.BusinessData.Runtime.Subscription;
             }
         }
     }
@@ -5852,7 +6203,16 @@ declare namespace SP {
         class DocumentSharingManager {
             static getRoleDefinition(context: SP.ClientRuntimeContext, role: SP.Sharing.Role): SP.RoleDefinition;
             static isDocumentSharingEnabled(context: SP.ClientRuntimeContext, list: SP.List): SP.BooleanResult;
-            static updateDocumentSharingInfo(context: SP.ClientRuntimeContext, resourceAddress: string, userRoleAssignments: SP.Sharing.UserRoleAssignment[], validateExistingPermissions: boolean, additiveMode: boolean, sendServerManagedNotification: boolean, customMessage: string, includeAnonymousLinksInNotification: boolean): SP.Sharing.UserSharingResult[];
+            static updateDocumentSharingInfo(
+                context: SP.ClientRuntimeContext,
+                resourceAddress: string,
+                userRoleAssignments: SP.Sharing.UserRoleAssignment[],
+                validateExistingPermissions: boolean,
+                additiveMode: boolean,
+                sendServerManagedNotification: boolean,
+                customMessage: string,
+                includeAnonymousLinksInNotification: boolean
+            ): SP.Sharing.UserSharingResult[];
         }
         enum Role {
             none,
@@ -5890,7 +6250,7 @@ declare namespace SP {
             user,
             document,
             site,
-            tag
+            tag,
         }
         /** Specifies one or more actor types in a query to the server. */
         enum SocialActorTypes {
@@ -5901,20 +6261,20 @@ declare namespace SP {
             tags,
             /** The set excludes documents and sites that do not have feeds. */
             excludeContentWithoutFeeds,
-            all
+            all,
         }
         /** Specifies whether the action is to navigate to the attachment or to perform some action dependent on the context in which the attachment is presented to the user. */
         enum SocialAttachmentActionKind {
             /** This value specifies that the action is to navigate to the attachment. */
             navigate,
             /** This value specifies that the action is dependent on the context that the attachment is displayed to the user. */
-            adHocAction
+            adHocAction,
         }
 
         enum SocialAttachmentKind {
             image,
             video,
-            document
+            document,
         }
 
         /** Specifies whether the item being inserted is a user, document, site, tag, or link. */
@@ -5923,19 +6283,19 @@ declare namespace SP {
             document,
             site,
             tag,
-            link
+            link,
         }
 
         /** Specifies whether the overlay is a link or one or more actors. */
         enum SocialDataOverlayType {
             link,
-            actors
+            actors,
         }
 
         /** Specifies whether the sort order is by creation time or modification time. */
         enum SocialFeedSortOrder {
             byModifiedTime,
-            byCreatedTime
+            byCreatedTime,
         }
 
         /** Identifies the kind of post to be retrieved.  */
@@ -5944,7 +6304,7 @@ declare namespace SP {
             news,
             timeline,
             likes,
-            everyone
+            everyone,
         }
 
         // For some reasons this enum doesn't exist
@@ -5959,7 +6319,7 @@ declare namespace SP {
             This type provides information about whether the feed on the server contains additional threads that were not returned. */
         enum SocialFeedAttributes {
             none,
-            moreThreadsAvailable
+            moreThreadsAvailable,
         }
 
         /** Specifies attributes of the post, such as whether the current user can like or delete the post. */
@@ -5969,7 +6329,7 @@ declare namespace SP {
             canDelete,
             useAuthorImage,
             useSmallImage,
-            canFollowUp
+            canFollowUp,
         }
 
         /** Defines the type of item being specified in the SocialPostDefinitionDataItem.
@@ -5980,12 +6340,12 @@ declare namespace SP {
             document,
             site,
             tag,
-            link
+            link,
         }
 
         enum SocialPostType {
             root,
-            reply
+            reply,
         }
 
         /** Specifies a status or error code. */
@@ -6016,7 +6376,7 @@ declare namespace SP {
             /** This value specifies that the operation completed with recoverable errors and that the returned data is incomplete. */
             partialData,
             /** This value specifies that the operation failed because a required server feature was disabled by administrative action. */
-            featureDisabled
+            featureDisabled,
         }
 
         /** Specifies properties of the thread. */
@@ -6026,7 +6386,7 @@ declare namespace SP {
             canReply,
             canLock,
             isLocked,
-            replyLimitReached
+            replyLimitReached,
         }
 
         enum SocialThreadType {
@@ -6034,7 +6394,7 @@ declare namespace SP {
             likeReference,
             replyReference,
             mentionReference,
-            tagReference
+            tagReference,
         }
 
         /** Contains information about an actor retrieved from server. An actor is a user, document, site, or tag. */
@@ -6527,7 +6887,7 @@ declare namespace SP {
     namespace Taxonomy {
         enum StringMatchOption {
             startsWith,
-            exactMatch
+            exactMatch,
         }
 
         enum ChangeItemType {
@@ -6536,7 +6896,7 @@ declare namespace SP {
             termSet,
             group,
             termStore,
-            site
+            site,
         }
 
         enum ChangeOperationType {
@@ -6549,7 +6909,7 @@ declare namespace SP {
             pathChange,
             merge,
             importObject,
-            restore
+            restore,
         }
 
         class TaxonomySession extends SP.ClientObject {
@@ -6566,7 +6926,8 @@ declare namespace SP {
                 stringMatchOption: StringMatchOption,
                 resultCollectionSize: number,
                 trimUnavailable: boolean,
-                trimDeprecated: boolean): TermCollection;
+                trimDeprecated: boolean
+            ): TermCollection;
 
             getTermsInWorkingLocale(
                 termLabel: string,
@@ -6574,7 +6935,8 @@ declare namespace SP {
                 stringMatchOption: StringMatchOption,
                 resultCollectionSize: number,
                 trimUnavailable: boolean,
-                trimDeprecated: boolean): TermCollection;
+                trimDeprecated: boolean
+            ): TermCollection;
 
             getTermsWithCustomProperty(customPropertyName: string, trimUnavailable: boolean): TermCollection;
             getTermsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermCollection;
@@ -6627,7 +6989,9 @@ declare namespace SP {
             getTermsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermCollection;
 
             getTermSet(termSetId: SP.Guid): TermSet;
-            getTermSetsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermSetCollection;
+            getTermSetsWithCustomProperty(
+                customPropertyMatchInformation: CustomPropertyMatchInformation
+            ): TermSetCollection;
             rollbackAll(): void;
             updateCache(): void;
             getSiteCollectionGroup(currentSite: SP.Site, createIfMissing: boolean): TermGroup;
@@ -6661,11 +7025,13 @@ declare namespace SP {
             createTermSet(name: string, newTermSetId: SP.Guid, lcid: number): TermSet;
             exportObject(): SP.StringResult;
             getChanges(changeInformation: ChangeInformation): ChangedItemCollection;
-            getTermSetsWithCustomProperty(customPropertyMatchInformation: CustomPropertyMatchInformation): TermSetCollection;
+            getTermSetsWithCustomProperty(
+                customPropertyMatchInformation: CustomPropertyMatchInformation
+            ): TermSetCollection;
         }
 
         class TermSetItem extends TaxonomyItem {
-            get_customProperties(): { [key: string]: string; };
+            get_customProperties(): { [key: string]: string };
             get_customSortOrder(): string;
             set_customSortOrder(value: string): void;
             get_isAvailableForTagging(): boolean;
@@ -6673,9 +7039,8 @@ declare namespace SP {
             get_owner(): string;
             set_owner(value: string): void;
             get_terms(): TermCollection;
-            createTerm(name: string, lcid: number, newTermId: SP.Guid): Term;
-            /*getTerms(pagingLimit: number): TermCollection;*/ // Moved to descendants to void TypeScript errors
-            reuseTerm(sourceTerm: Term, reuseBranch: boolean): Term;
+            createTerm(name: string, lcid: number, newTermId: SP.Guid): Term; // Moved to descendants to void TypeScript errors
+            /*getTerms(pagingLimit: number): TermCollection;*/ reuseTerm(sourceTerm: Term, reuseBranch: boolean): Term;
             reuseTermWithPinning(sourceTerm: Term): Term;
             deleteCustomProperty(name: string): void;
             deleteAllCustomProperties(): void;
@@ -6729,7 +7094,7 @@ declare namespace SP {
             get_isRoot(): boolean;
             get_isSourceTerm(): boolean;
             get_labels(): LabelCollection;
-            get_localCustomProperties(): { [key: string]: string; };
+            get_localCustomProperties(): { [key: string]: string };
             get_mergedTermIds(): SP.Guid[];
             get_parent(): Term;
             get_pathOfTerm(): string;
@@ -6755,7 +7120,8 @@ declare namespace SP {
                 defaultLabelOnly: boolean,
                 stringMatchOption: StringMatchOption,
                 resultCollectionSize: number,
-                trimUnavailable: boolean): TermCollection;
+                trimUnavailable: boolean
+            ): TermCollection;
 
             merge(termToMerge: Term): void;
             move(newParnt: TermSetItem): void;
@@ -6848,8 +7214,7 @@ declare namespace SP {
             get_termSetId(): SP.Guid;
         }
 
-        class ChangedGroup extends ChangedItem {
-        }
+        class ChangedGroup extends ChangedItem {}
 
         class ChangedTerm extends ChangedItem {
             get_changedCustomProperties(): string[];
@@ -6901,7 +7266,10 @@ declare namespace SP {
             setFieldValueByTermCollection<T = any>(listItem: SP.ListItem<T>, terms: TermCollection, lcid: number): void;
             setFieldValueByCollection<T = any>(listItem: SP.ListItem<T>, terms: Term[], lcid: number): void;
             setFieldValueByValue<T = any>(listItem: SP.ListItem<T>, taxValue: TaxonomyFieldValue): void;
-            setFieldValueByValueCollection<T = any>(listItem: SP.ListItem<T>, taxValueCollection: TaxonomyFieldValueCollection): void;
+            setFieldValueByValueCollection<T = any>(
+                listItem: SP.ListItem<T>,
+                taxValueCollection: TaxonomyFieldValueCollection
+            ): void;
             getFieldValueAsHtml(value: TaxonomyFieldValue): SP.StringResult;
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
@@ -6931,7 +7299,12 @@ declare namespace SP {
 declare namespace SP {
     namespace DocumentSet {
         class DocumentSet extends ClientObject {
-            static create(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
+            static create(
+                context: ClientContext,
+                parentFolder: Folder,
+                name: string,
+                ctid: ContentTypeId
+            ): StringResult;
         }
     }
 
@@ -6966,9 +7339,25 @@ declare namespace SP {
         }
 
         class VideoSet extends DocumentSet.DocumentSet {
-            static createVideo(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
-            static uploadVideo(context: ClientContext, list: List, fileName: string, file: any[], overwriteIfExists: boolean, parentFolderPath: string): StringResult;
-            static getEmbedCode(context: ClientContext, videoPath: string, properties: EmbedCodeConfiguration): StringResult;
+            static createVideo(
+                context: ClientContext,
+                parentFolder: Folder,
+                name: string,
+                ctid: ContentTypeId
+            ): StringResult;
+            static uploadVideo(
+                context: ClientContext,
+                list: List,
+                fileName: string,
+                file: any[],
+                overwriteIfExists: boolean,
+                parentFolderPath: string
+            ): StringResult;
+            static getEmbedCode(
+                context: ClientContext,
+                videoPath: string,
+                properties: EmbedCodeConfiguration
+            ): StringResult;
             static migrateVideo<T = any>(context: ClientContext, videoFile: File): SP.ListItem<T>;
         }
     }
@@ -7003,8 +7392,16 @@ declare namespace SP {
             class CalendarSelector extends Sys.Component {
                 static instance(): SP.UI.ApplicationPages.CalendarSelector;
                 registerSelector(selector: SP.UI.ApplicationPages.ISelectorComponent): void;
-                getSelector(type: SP.UI.ApplicationPages.SelectorType, scopeKey: string): SP.UI.ApplicationPages.ISelectorComponent;
-                addHandler(scopeKey: string, people: boolean, resource: boolean, handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void): void;
+                getSelector(
+                    type: SP.UI.ApplicationPages.SelectorType,
+                    scopeKey: string
+                ): SP.UI.ApplicationPages.ISelectorComponent;
+                addHandler(
+                    scopeKey: string,
+                    people: boolean,
+                    resource: boolean,
+                    handler: (sender: any, selection: SP.UI.ApplicationPages.SelectorSelectionEventArgs) => void
+                ): void;
                 revertTo(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 removeEntity(scopeKey: string, ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 constructor();
@@ -7044,7 +7441,10 @@ declare namespace SP {
                 dailyGroup,
             }
             class CalendarInstanceRepository {
-                static registerInstance(instanceId: string, contoller: SP.UI.ApplicationPages.ICalendarController): void;
+                static registerInstance(
+                    instanceId: string,
+                    contoller: SP.UI.ApplicationPages.ICalendarController
+                ): void;
                 static lookupInstance(instanceId: string): SP.UI.ApplicationPages.ICalendarController;
                 static firstInstance(): SP.UI.ApplicationPages.ICalendarController;
             }
@@ -7100,12 +7500,30 @@ declare namespace SP {
                 constructor();
             }
             class ClientPeoplePickerWebServiceInterface {
-                static clientPeoplePickerSearchUser(context: SP.ClientRuntimeContext, queryParams: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): SP.StringResult;
-                static clientPeoplePickerResolveUser(context: SP.ClientRuntimeContext, queryParams: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters): SP.StringResult;
+                static clientPeoplePickerSearchUser(
+                    context: SP.ClientRuntimeContext,
+                    queryParams: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters
+                ): SP.StringResult;
+                static clientPeoplePickerResolveUser(
+                    context: SP.ClientRuntimeContext,
+                    queryParams: SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters
+                ): SP.StringResult;
             }
             class PeoplePickerWebServiceInterface {
-                static getSearchResultsByHierarchy(context: SP.ClientRuntimeContext, providerID: string, hierarchyNodeID: string, entityTypes: string, contextUrl: string): SP.StringResult;
-                static getSearchResults(context: SP.ClientRuntimeContext, searchPattern: string, providerID: string, hierarchyNodeID: string, entityTypes: string): SP.StringResult;
+                static getSearchResultsByHierarchy(
+                    context: SP.ClientRuntimeContext,
+                    providerID: string,
+                    hierarchyNodeID: string,
+                    entityTypes: string,
+                    contextUrl: string
+                ): SP.StringResult;
+                static getSearchResults(
+                    context: SP.ClientRuntimeContext,
+                    searchPattern: string,
+                    providerID: string,
+                    hierarchyNodeID: string,
+                    entityTypes: string
+                ): SP.StringResult;
             }
         }
     }
@@ -7114,10 +7532,34 @@ declare namespace SP {
 declare namespace SP {
     namespace UI {
         class PopoutMenu implements Sys.IDisposable {
-            constructor(launcherId: string, menuId: string, iconId: string, launcherOpenCssClass: string, textDirection: string, closeIconUrl: string, isClustered: boolean, closeIconOffsetLeft: number, closeIconOffsetTop: number, closeIconHeight: number, closeIconWidth: number);
+            constructor(
+                launcherId: string,
+                menuId: string,
+                iconId: string,
+                launcherOpenCssClass: string,
+                textDirection: string,
+                closeIconUrl: string,
+                isClustered: boolean,
+                closeIconOffsetLeft: number,
+                closeIconOffsetTop: number,
+                closeIconHeight: number,
+                closeIconWidth: number
+            );
             launchMenu(): void;
             closeMenu(): void;
-            static createPopoutMenuInstanceAndLaunch(anchorId: string, menuId: string, iconId: string, anchorOpenCss: string, textDirection: string, closeIconUrl: string, isClustered: boolean, x: number, y: number, height: number, width: number): void;
+            static createPopoutMenuInstanceAndLaunch(
+                anchorId: string,
+                menuId: string,
+                iconId: string,
+                anchorOpenCss: string,
+                textDirection: string,
+                closeIconUrl: string,
+                isClustered: boolean,
+                x: number,
+                y: number,
+                height: number,
+                width: number
+            ): void;
             static closeActivePopoutMenuInstance(): void;
             dispose(): void;
         }
@@ -7140,7 +7582,14 @@ declare namespace SP {
             function showLoadingNotification(bSticky: boolean): string;
 
             class Notification {
-                constructor(containerId: SPNotifications.ContainerID, strHtml: string, bSticky?: boolean, strTooltip?: string, onclickHandler?: () => void, extraData?: SPStatusNotificationData);
+                constructor(
+                    containerId: SPNotifications.ContainerID,
+                    strHtml: string,
+                    bSticky?: boolean,
+                    strTooltip?: string,
+                    onclickHandler?: () => void,
+                    extraData?: SPStatusNotificationData
+                );
                 get_id(): string;
                 Show(bNoAnimate: boolean): void;
                 Hide(bNoAnimate: boolean): void;
@@ -7169,11 +7618,33 @@ declare namespace SP {
         }
         class Menu {
             static create(id: string): SP.UI.Menu;
-            addMenuItem(text: string, actionScriptText: string, imageSourceUrl: string, imageAlternateText: string, sequenceNumber: number, description: string, id: string): HTMLElement;
+            addMenuItem(
+                text: string,
+                actionScriptText: string,
+                imageSourceUrl: string,
+                imageAlternateText: string,
+                sequenceNumber: number,
+                description: string,
+                id: string
+            ): HTMLElement;
             addSeparator(): void;
-            addSubMenu(text: string, imageSourceUrl: string, imageAlternateText: string, sequenceNumber: number, description: string, id: string): SP.UI.Menu;
+            addSubMenu(
+                text: string,
+                imageSourceUrl: string,
+                imageAlternateText: string,
+                sequenceNumber: number,
+                description: string,
+                id: string
+            ): SP.UI.Menu;
             show(relativeElement: HTMLElement, forceRefresh: boolean, flipTopLevelMenu: boolean, yOffset: number): void;
-            showFilterMenu(relativeElement: HTMLElement, forceRefresh: boolean, flipTopLevelMenu: boolean, yOffset: number, fShowClose: boolean, fShowCheckBoxes: boolean): void;
+            showFilterMenu(
+                relativeElement: HTMLElement,
+                forceRefresh: boolean,
+                flipTopLevelMenu: boolean,
+                yOffset: number,
+                fShowClose: boolean,
+                fShowCheckBoxes: boolean
+            ): void;
             hideIcons(): void;
             showIcons(): void;
         }
@@ -7191,7 +7662,7 @@ declare namespace SP {
             /** User closed dialog, cancelling the action */
             cancel,
             /** Dialog actions completed successfully */
-            OK
+            OK,
         }
         /** Callback which processes dialog result value after dialog is closed */
         type DialogReturnValueCallback = (dialogResult: DialogResult, returnValue: any) => void;
@@ -7290,18 +7761,42 @@ declare namespace SP {
                 @param url overrides options.url
                 @param callback overrides options.dialogResultValueCallback
                 @param args overrides options.args */
-            static commonModalDialogOpen(url: string, options: SP.UI.IDialogOptions, callback?: SP.UI.DialogReturnValueCallback, args?: any): void;
+            static commonModalDialogOpen(
+                url: string,
+                options: SP.UI.IDialogOptions,
+                callback?: SP.UI.DialogReturnValueCallback,
+                args?: any
+            ): void;
             /** Refresh the page if specified dialogResult equals to SP.UI.DialogResult.OK */
             static RefreshPage(dialogResult: SP.UI.DialogResult): void;
             /** Show page specified by the url in a modal dialog. If the dialog returns SP.UI.DialogResult.OK, the page is refreshed. */
             static ShowPopupDialog(url: string): void;
             /** Show modal dialog specified by url, callback, height and width. */
-            static OpenPopUpPage(url: string, callback: SP.UI.DialogReturnValueCallback, width?: number, height?: number): void;
+            static OpenPopUpPage(
+                url: string,
+                callback: SP.UI.DialogReturnValueCallback,
+                width?: number,
+                height?: number
+            ): void;
             /** Displays a wait/loading modal dialog with the specified title, message, height and width. Height and width are defined in pixels. Cancel/close button is not shown. */
-            static showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number): SP.UI.ModalDialog;
+            static showWaitScreenWithNoClose(
+                title: string,
+                message?: string,
+                height?: number,
+                width?: number
+            ): SP.UI.ModalDialog;
             /** Displays a wait/loading modal dialog with the specified title, message, height and width. Height and width are defined in pixels. Cancel button is shown. If user clicks it, the callbackFunc is called. */
-            static showWaitScreenSize(title: string, message?: string, callbackFunc?: SP.UI.DialogReturnValueCallback, height?: number, width?: number): SP.UI.ModalDialog;
-            static showPlatformFirstRunDialog(url: string, callbackFunc: SP.UI.DialogReturnValueCallback): SP.UI.ModalDialog;
+            static showWaitScreenSize(
+                title: string,
+                message?: string,
+                callbackFunc?: SP.UI.DialogReturnValueCallback,
+                height?: number,
+                width?: number
+            ): SP.UI.ModalDialog;
+            static showPlatformFirstRunDialog(
+                url: string,
+                callbackFunc: SP.UI.DialogReturnValueCallback
+            ): SP.UI.ModalDialog;
             static get_childDialog(): SP.UI.ModalDialog;
             /** Closes the dialog using the specified dialog result. */
             close(dialogResult: SP.UI.DialogResult): void;
@@ -7448,7 +7943,7 @@ declare namespace SP {
                 topHeaderVisible?: boolean;
             }
 
-            class NavigationOptions implements INavigationOptions { }
+            class NavigationOptions implements INavigationOptions {}
 
             // tslint:disable-next-line: interface-name
             interface ISettingsLink {
@@ -7522,7 +8017,7 @@ declare namespace SP {
             /** The metadata of an object was modified */
             metadata,
             /** Multiple operations were performed on an object */
-            all
+            all,
         }
 
         class HashTag extends ClientValueObject {
@@ -7551,7 +8046,7 @@ declare namespace SP {
             custom,
             organizationProfile,
             organizationMembership,
-            all
+            all,
         }
 
         /** Provides methods for operations related to people.
@@ -7561,7 +8056,11 @@ declare namespace SP {
             constructor(context: SP.ClientRuntimeContext);
             static getTrendingTags(context: SP.ClientRuntimeContext): HashTagCollection;
             /** Checks whether the first user is following the second user. */
-            static isFollowing(context: SP.ClientRuntimeContext, possibleFollowerAccountName: string, possibleFolloweeAccountName: string): SP.BooleanResult;
+            static isFollowing(
+                context: SP.ClientRuntimeContext,
+                possibleFollowerAccountName: string,
+                possibleFolloweeAccountName: string
+            ): SP.BooleanResult;
             /** Gets the URL of the edit profile page for the current user. */
             get_editProfileLink(): string;
             /** Gets a Boolean value that indicates whether the current user's People I'm Following list is public. */
@@ -7610,7 +8109,7 @@ declare namespace SP {
             storage,
             myTasksDashboard,
             education,
-            guest
+            guest,
         }
 
         /** Specifies an exception or status code for the state of a personal site instantiation. */
@@ -7632,14 +8131,14 @@ declare namespace SP {
             errorPartialCreate,
             errorPersonalSiteAlreadyExists,
             errorRootSiteNotPresent,
-            errorSelfServiceSiteCreateCallFailed
+            errorSelfServiceSiteCreateCallFailed,
         }
 
         enum SocialDataStoreExceptionCode {
             socialListNotFound,
             personalSiteNotFound,
             cannotCreatePersonalSite,
-            noSocialFeatures
+            noSocialFeatures,
         }
 
         /** Represents user properties. */
@@ -7672,7 +8171,7 @@ declare namespace SP {
                 The privacy settings affect which properties can be retrieved.
                 Multiple values are delimited by the vertical bar "|".
                 Null values are specified as empty strings. */
-            get_userProfileProperties(): { [name: string]: string; };
+            get_userProfileProperties(): { [name: string]: string };
             /** Specifies the URL for the person's profile. */
             get_userUrl(): string;
         }
@@ -7772,9 +8271,9 @@ declare namespace SP {
         /** Represents a followed content resource. */
         class FollowedItem extends SP.ClientValueObject {
             /** Additional metadata associated with this item */
-            get_data(): { [name: string]: any; };
+            get_data(): { [name: string]: any };
             /** Additional metadata associated with this item */
-            set_data(value: { [name: string]: any; }): { [name: string]: any; };
+            set_data(value: { [name: string]: any }): { [name: string]: any };
             /** Specifies the type of the file if this item is a file. Otherwise, this property is the empty string. */
             get_fileType(): string;
             /** Specifies the type of the file if this item is a file. Otherwise, this property is the empty string. */
@@ -7857,7 +8356,7 @@ declare namespace SP {
             unknown,
             document,
             site,
-            all
+            all,
         }
 
         enum FollowedContentExceptionType {
@@ -7869,7 +8368,7 @@ declare namespace SP {
             followLimitReached,
             untrustedSource,
             unsupportedSite,
-            internalError
+            internalError,
         }
 
         enum FollowedContentQueryOptions {
@@ -7879,19 +8378,19 @@ declare namespace SP {
             hidden,
             nonFeed,
             defaultOptions,
-            all
+            all,
         }
 
         enum FollowedStatus {
             followed,
             notFollowed,
-            notFollowable
+            notFollowable,
         }
 
         /** Contains additional data that can be attached to a FollowedItem object */
         class FollowedItemData extends SP.ClientObject {
             /** An unordered collection of key/value pairs for custom properties to be set on the item. */
-            get_properties(): { [name: string]: any; };
+            get_properties(): { [name: string]: any };
         }
 
         /** Returns information about a request to follow an item. */
@@ -7912,7 +8411,7 @@ declare namespace SP {
             /** The request encountered the maximum follow limit. */
             hitFollowLimit,
             /** The request failed. */
-            failed
+            failed,
         }
 
         /** Represents a set of user profile properties for a specified user. */
@@ -7942,26 +8441,92 @@ declare namespace SP {
             static get_layoutsLatestVersionUrl(): string;
             static getLayoutsPageUrl(pageName: string): string;
             static getImageUrl(imageName: string): string;
-            static createWikiPageInContextWeb(context: SP.ClientRuntimeContext, parameters: SP.Utilities.WikiPageCreationInformation): SP.File;
-            static localizeWebPartGallery(context: SP.ClientRuntimeContext, items: SP.ListItemCollection): SP.ClientObjectList<SP.ListItem>;
-            static getAppLicenseInformation(context: SP.ClientRuntimeContext, productId: SP.Guid): SP.AppLicenseCollection;
-            static importAppLicense(context: SP.ClientRuntimeContext, licenseTokenToImport: string, contentMarket: string, billingMarket: string, appName: string, iconUrl: string, providerName: string, appSubtype: number): void;
+            static createWikiPageInContextWeb(
+                context: SP.ClientRuntimeContext,
+                parameters: SP.Utilities.WikiPageCreationInformation
+            ): SP.File;
+            static localizeWebPartGallery(
+                context: SP.ClientRuntimeContext,
+                items: SP.ListItemCollection
+            ): SP.ClientObjectList<SP.ListItem>;
+            static getAppLicenseInformation(
+                context: SP.ClientRuntimeContext,
+                productId: SP.Guid
+            ): SP.AppLicenseCollection;
+            static importAppLicense(
+                context: SP.ClientRuntimeContext,
+                licenseTokenToImport: string,
+                contentMarket: string,
+                billingMarket: string,
+                appName: string,
+                iconUrl: string,
+                providerName: string,
+                appSubtype: number
+            ): void;
             static getAppLicenseDeploymentId(context: SP.ClientRuntimeContext): SP.GuidResult;
             static logCustomAppError(context: SP.ClientRuntimeContext, error: string): SP.IntResult;
-            static logCustomRemoteAppError(context: SP.ClientRuntimeContext, productId: SP.Guid, error: string): SP.IntResult;
-            static getLocalizedString(context: SP.ClientRuntimeContext, source: string, defaultResourceFile: string, language: number): SP.StringResult;
-            static createNewDiscussion<T>(context: SP.ClientRuntimeContext, list: SP.List, title: string): SP.ListItem<T>;
-            static createNewDiscussionReply<T>(context: SP.ClientRuntimeContext, parent: SP.ListItem<T>): SP.ListItem<T>;
+            static logCustomRemoteAppError(
+                context: SP.ClientRuntimeContext,
+                productId: SP.Guid,
+                error: string
+            ): SP.IntResult;
+            static getLocalizedString(
+                context: SP.ClientRuntimeContext,
+                source: string,
+                defaultResourceFile: string,
+                language: number
+            ): SP.StringResult;
+            static createNewDiscussion<T>(
+                context: SP.ClientRuntimeContext,
+                list: SP.List,
+                title: string
+            ): SP.ListItem<T>;
+            static createNewDiscussionReply<T>(
+                context: SP.ClientRuntimeContext,
+                parent: SP.ListItem<T>
+            ): SP.ListItem<T>;
             static markDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
             static unmarkDiscussionAsFeatured(context: SP.ClientRuntimeContext, listID: string, topicIDs: string): void;
-            static searchPrincipals(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, maxCount: number): SP.Utilities.PrincipalInfo[];
+            static searchPrincipals(
+                context: SP.ClientRuntimeContext,
+                web: SP.Web,
+                input: string,
+                scopes: SP.Utilities.PrincipalType,
+                sources: SP.Utilities.PrincipalSource,
+                usersContainer: SP.UserCollection,
+                maxCount: number
+            ): SP.Utilities.PrincipalInfo[];
             static getCurrentUserEmailAddresses(context: SP.ClientRuntimeContext): SP.StringResult;
             static createEmailBodyForInvitation(context: SP.ClientRuntimeContext, pageAddress: string): SP.StringResult;
-            static getPeoplePickerURL(context: SP.ClientRuntimeContext, web: SP.Web, fieldUser: SP.FieldUser): SP.StringResult;
-            static resolvePrincipal(context: SP.ClientRuntimeContext, web: SP.Web, input: string, scopes: SP.Utilities.PrincipalType, sources: SP.Utilities.PrincipalSource, usersContainer: SP.UserCollection, inputIsEmailOnly: boolean): SP.Utilities.PrincipalInfo;
-            static getLowerCaseString(context: SP.ClientRuntimeContext, sourceValue: string, lcid: number): SP.StringResult;
-            static formatDateTime(context: SP.ClientRuntimeContext, web: SP.Web, datetime: Date, format: SP.Utilities.DateTimeFormat): SP.StringResult;
-            static isUserLicensedForEntityInContext(context: SP.ClientRuntimeContext, licensableEntity: string): SP.BooleanResult;
+            static getPeoplePickerURL(
+                context: SP.ClientRuntimeContext,
+                web: SP.Web,
+                fieldUser: SP.FieldUser
+            ): SP.StringResult;
+            static resolvePrincipal(
+                context: SP.ClientRuntimeContext,
+                web: SP.Web,
+                input: string,
+                scopes: SP.Utilities.PrincipalType,
+                sources: SP.Utilities.PrincipalSource,
+                usersContainer: SP.UserCollection,
+                inputIsEmailOnly: boolean
+            ): SP.Utilities.PrincipalInfo;
+            static getLowerCaseString(
+                context: SP.ClientRuntimeContext,
+                sourceValue: string,
+                lcid: number
+            ): SP.StringResult;
+            static formatDateTime(
+                context: SP.ClientRuntimeContext,
+                web: SP.Web,
+                datetime: Date,
+                format: SP.Utilities.DateTimeFormat
+            ): SP.StringResult;
+            static isUserLicensedForEntityInContext(
+                context: SP.ClientRuntimeContext,
+                licensableEntity: string
+            ): SP.BooleanResult;
         }
         enum DateTimeFormat {
             dateTime,
@@ -8258,7 +8823,7 @@ declare namespace SP.WorkflowServices {
         terminated,
         completed,
         notSpecified,
-        invalid
+        invalid,
     }
 
     // TODO: comments, types
@@ -8267,7 +8832,13 @@ declare namespace SP.WorkflowServices {
         static getCurrent(context: SP.ClientRuntimeContext): InteropService;
         enableEvents(listId: SP.Guid, itemGuid: SP.Guid): void;
         disableEvents(listId: SP.Guid, itemGuid: SP.Guid): void;
-        startWorkflow(associationName: string, correlationId: SP.Guid, listId: SP.Guid, itemGuid: SP.Guid, workflowParameters: any): SP.GuidResult;
+        startWorkflow(
+            associationName: string,
+            correlationId: SP.Guid,
+            listId: SP.Guid,
+            itemGuid: SP.Guid,
+            workflowParameters: any
+        ): SP.GuidResult;
         cancelWorkflow(instanceId: SP.Guid): void;
     }
 
@@ -8295,7 +8866,7 @@ declare namespace SP.WorkflowServices {
         get_initiationUrl(): string;
         set_initiationUrl(value: string): string;
         /** Gets custom properties of the workflow definition */
-        get_properties(): { [propertyName: string]: any; };
+        get_properties(): { [propertyName: string]: any };
         /** true if the workflow definition has been published to the external workflow host; false if the workflow definition is only saved on the site  */
         get_published(): boolean;
         /** Determines whether to automatically generate an association form for this workflow.
@@ -8384,7 +8955,12 @@ declare namespace SP.WorkflowServices {
             @param packageDefaultFilename The default filename to choose for the new package.
             @param packageTitle The title of the package.
             @param packageDescription The description of the package. */
-        packageDefinition(definitionId: SP.Guid, packageDefaultFilename: string, packageTitle: string, packageDescription: string): SP.StringResult;
+        packageDefinition(
+            definitionId: SP.Guid,
+            packageDefaultFilename: string,
+            packageTitle: string,
+            packageDescription: string
+        ): SP.StringResult;
     }
 
     /** Represents an instance of a workflow association that performs on a list item the process that is defined in a workflow template */
@@ -8398,7 +8974,7 @@ declare namespace SP.WorkflowServices {
         /** Gets the Coordinated Universal Time (UTC) when the workflow instance state was last persisted */
         get_lastUpdated(): string;
         /** Specifies properties of this workflow instance */
-        get_properties(): { [name: string]: string; };
+        get_properties(): { [name: string]: string };
         /** Returns runtime status of the workflow instance */
         get_status(): WorkflowStatus;
         /** Specifies the custom status set by workflow authors. */
@@ -8424,13 +9000,17 @@ declare namespace SP.WorkflowServices {
         /** Starts a Workflow Manager Client 1.0 instance specified by the subscription and passes the supplied parameters.
             Returns GUID of the instance object.
             @param payload Object that contains name-value pairs of parameter names and values to pass into the workflow instance. */
-        startWorkflow(subscription: WorkflowSubscription, payload: { [name: string]: any; }): SP.GuidResult;
+        startWorkflow(subscription: WorkflowSubscription, payload: { [name: string]: any }): SP.GuidResult;
         /** Starts a Workflow Manager Client 1.0 instance specified by the subscription and passes the supplied parameters.
             Returns GUID of the instance object.
             @param subscription The subscription associated with the workflow instance.
             @param itemId The integer id of the list item on which to start the workflow instance.
             @param payload Object that contains name-value pairs of parameter names and values to pass into the workflow instance. */
-        startWorkflowOnListItem(subscription: WorkflowSubscription, itemId: number, payload: { [name: string]: any; }): SP.GuidResult;
+        startWorkflowOnListItem(
+            subscription: WorkflowSubscription,
+            itemId: number,
+            payload: { [name: string]: any }
+        ): SP.GuidResult;
         /** Gets workflow instance specified by the provided instance GUID */
         getInstance(instanceId: string): WorkflowInstance;
         /** Gets a workflow instance collection comprising the 100 most recent workflow instances started by a specified subscription.  */
@@ -8440,7 +9020,11 @@ declare namespace SP.WorkflowServices {
         /** Gets the list of instances for the specified list item. */
         enumerateInstancesForListItem(listId: string, itemId: number): WorkflowInstanceCollection;
         /** Gets the list of instances for the specified list item. */
-        enumerateInstancesForListItemWithOffset(listId: string, itemId: number, offset: number): WorkflowInstanceCollection;
+        enumerateInstancesForListItemWithOffset(
+            listId: string,
+            itemId: number,
+            offset: number
+        ): WorkflowInstanceCollection;
         /** Gets the list of instances for the current site. */
         enumerateInstancesForSite(): WorkflowInstanceCollection;
         /** Gets the list of instances for the current site. */
@@ -8586,7 +9170,11 @@ declare namespace SP {
 
         class PublishingPage extends ScheduledItem {
             static getPublishingPage(context: ClientContext, sourceListItem: ListItem): PublishingPage;
-            addFriendlyUrl(friendlyUrlSegment: string, editableParent: Navigation.NavigationTermSetItem, doAddToNavigation: boolean): StringResult;
+            addFriendlyUrl(
+                friendlyUrlSegment: string,
+                editableParent: Navigation.NavigationTermSetItem,
+                doAddToNavigation: boolean
+            ): StringResult;
         }
 
         class ScheduledItem extends ClientObject {
@@ -8679,8 +9267,17 @@ declare namespace SP {
             static install(context: ClientContext, site: Site, info: DesignPackageInfo, path: string): void;
             static uninstall(context: ClientContext, site: Site, info: DesignPackageInfo): void;
             static apply(context: ClientContext, site: Site, info: DesignPackageInfo): void;
-            static exportEnterprise(context: ClientContext, site: Site, includeSearchConfiguration: boolean): ClientResult<DesignPackageInfo>;
-            static exportSmallBusiness(context: ClientContext, site: Site, packageName: string, includeSearchConfiguration: boolean): ClientResult<DesignPackageInfo>;
+            static exportEnterprise(
+                context: ClientContext,
+                site: Site,
+                includeSearchConfiguration: boolean
+            ): ClientResult<DesignPackageInfo>;
+            static exportSmallBusiness(
+                context: ClientContext,
+                site: Site,
+                packageName: string,
+                includeSearchConfiguration: boolean
+            ): ClientResult<DesignPackageInfo>;
         }
 
         class DesignPackageInfo extends ClientValueObject {
@@ -8756,14 +9353,14 @@ declare namespace SP {
             enum NavigationLinkType {
                 root,
                 friendlyUrl,
-                simpleLink
+                simpleLink,
             }
 
             enum StandardNavigationSource {
                 unknown,
                 portalProvider,
                 taxonomyProvider,
-                inheritFromParentWeb
+                inheritFromParentWeb,
             }
 
             class NavigationTermSetItem extends ClientObject {
@@ -8793,8 +9390,7 @@ declare namespace SP {
                 getResolvedDisplayUrl(browserQueryString: string): StringResult;
             }
 
-            interface NavigationTermCollection extends ClientObjectCollection<NavigationTerm> {
-            }
+            interface NavigationTermCollection extends ClientObjectCollection<NavigationTerm> {}
 
             class NavigationTerm extends NavigationTermSetItem {
                 get_associatedFolderUrl(): string;
@@ -8852,8 +9448,17 @@ declare namespace SP {
 
                 deleteObject(): void;
 
-                static getAsResolvedByWeb(context: ClientContext, term: Taxonomy.Term, web: Web, siteMapProviderName: string): NavigationTerm;
-                static getAsResolvedByView(context: ClientContext, term: Taxonomy.Term, view: NavigationTermSetView): NavigationTerm;
+                static getAsResolvedByWeb(
+                    context: ClientContext,
+                    term: Taxonomy.Term,
+                    web: Web,
+                    siteMapProviderName: string
+                ): NavigationTerm;
+                static getAsResolvedByView(
+                    context: ClientContext,
+                    term: Taxonomy.Term,
+                    view: NavigationTermSetView
+                ): NavigationTerm;
             }
 
             class NavigationTermSet extends NavigationTermSetItem {
@@ -8877,8 +9482,17 @@ declare namespace SP {
 
                 findTermForUrl(url: string): NavigationTerm;
 
-                static getAsResolvedByWeb(context: ClientContext, termSet: Taxonomy.TermSet, web: Web, siteMapProviderName: string): NavigationTermSet;
-                static getAsResolvedByView(context: ClientContext, termSet: Taxonomy.TermSet, view: NavigationTermSetView): NavigationTermSet;
+                static getAsResolvedByWeb(
+                    context: ClientContext,
+                    termSet: Taxonomy.TermSet,
+                    web: Web,
+                    siteMapProviderName: string
+                ): NavigationTermSet;
+                static getAsResolvedByView(
+                    context: ClientContext,
+                    termSet: Taxonomy.TermSet,
+                    view: NavigationTermSetView
+                ): NavigationTermSet;
             }
 
             interface NavigationTermProviderNameCollection extends ClientObjectCollection<string> {
@@ -8916,12 +9530,26 @@ declare namespace SP {
 
             class TaxonomyNavigation {
                 static getWebNavigationSettings(context: ClientContext, web: Web): WebNavigationSettings;
-                static getTermSetForWeb(context: ClientContext, web: Web, siteMapProviderName: string, includeInheritedSettings: boolean): NavigationTermSet;
-                static setCrawlAsFriendlyUrlPage(context: ClientContext, navigationTerm: Taxonomy.Term, crawlAsFriendlyUrlPage: boolean): BooleanResult;
+                static getTermSetForWeb(
+                    context: ClientContext,
+                    web: Web,
+                    siteMapProviderName: string,
+                    includeInheritedSettings: boolean
+                ): NavigationTermSet;
+                static setCrawlAsFriendlyUrlPage(
+                    context: ClientContext,
+                    navigationTerm: Taxonomy.Term,
+                    crawlAsFriendlyUrlPage: boolean
+                ): BooleanResult;
                 static getNavigationLcidForWeb(context: ClientContext, web: Web): IntResult;
                 static flushSiteFromCache(context: ClientContext, site: Site): void;
                 static flushWebFromCache(context: ClientContext, web: Web): void;
-                static flushTermSetFromCache(context: ClientContext, webForPermissions: Web, termStoreId: Guid, termSetId: Guid): void;
+                static flushTermSetFromCache(
+                    context: ClientContext,
+                    webForPermissions: Web,
+                    termStoreId: Guid,
+                    termSetId: Guid
+                ): void;
             }
 
             class WebNavigationSettings extends ClientObject {
@@ -8960,7 +9588,7 @@ declare namespace SP {
         enum SPContainerType {
             site, // : 0,
             web, // : 1,
-            list // : 2
+            list, // : 2
         }
 
         class SPContainerId extends ClientObject {
@@ -9182,7 +9810,13 @@ declare namespace SP {
 
             deletePolicyRule(policyRuleId: any): void;
 
-            notifyUnifiedPolicySync(notificationId: any, syncSvcUrl: string, changeInfos: any, syncNow: boolean, fullSyncForTenant: boolean): void;
+            notifyUnifiedPolicySync(
+                notificationId: any,
+                syncSvcUrl: string,
+                changeInfos: any,
+                syncNow: boolean,
+                fullSyncForTenant: boolean
+            ): void;
 
             updatePolicyDefinition(policyDefinition: SPPolicyDefinition): void;
 
@@ -9219,7 +9853,7 @@ declare namespace SP {
             notStarted, // : 0,
             started, // : 1,
             complete, // : 2,
-            failed // : 3
+            failed, // : 3
         }
 
         class Case extends ClientObject {
@@ -9283,7 +9917,11 @@ declare class SPClientAutoFill {
     static GetAutoFillObjFromContainer(elmChild: HTMLElement): SPClientAutoFill;
     static GetAutoFillMenuItemFromOption(elmChild: HTMLElement): HTMLElement;
 
-    constructor(elmTextId: string, elmContainerId: string, fnPopulateAutoFill: (targetElement: HTMLInputElement) => void);
+    constructor(
+        elmTextId: string,
+        elmContainerId: string,
+        fnPopulateAutoFill: (targetElement: HTMLInputElement) => void
+    );
     TextElementId: string;
     AutoFillContainerId: string;
     AutoFillMenuId: string;
@@ -9296,7 +9934,10 @@ declare class SPClientAutoFill {
     FuncPopulateAutoFill: (targetElement: HTMLElement) => void;
     AllOptionData: { [key: string]: ISPClientAutoFillData };
 
-    PopulateAutoFill(jsonObjSuggestions: ISPClientAutoFillData[], fnOnAutoFillCloseFuncName: (elmTextId: string, objData: ISPClientAutoFillData) => void): void;
+    PopulateAutoFill(
+        jsonObjSuggestions: ISPClientAutoFillData[],
+        fnOnAutoFillCloseFuncName: (elmTextId: string, objData: ISPClientAutoFillData) => void
+    ): void;
     IsAutoFillOpen(): boolean;
     SetAutoFillHeight(): void;
     SelectAutoFillOption(elemOption: HTMLElement): void;
@@ -9334,16 +9975,31 @@ declare class SPClientPeoplePicker {
         [pickerIelementId: string]: SPClientPeoplePicker;
     };
 
-    static InitializeStandalonePeoplePicker(clientId: string, value: ISPClientPeoplePickerEntity[], schema: ISPClientPeoplePickerSchema): void;
+    static InitializeStandalonePeoplePicker(
+        clientId: string,
+        value: ISPClientPeoplePickerEntity[],
+        schema: ISPClientPeoplePickerSchema
+    ): void;
     static ParseUserKeyPaste(userKey: string): string;
     static GetTopLevelControl(elmChild: HTMLElement): HTMLElement;
     static AugmentEntity(entity: ISPClientPeoplePickerEntity): ISPClientPeoplePickerEntity;
-    static AugmentEntitySuggestions(pickerObj: SPClientPeoplePicker, allEntities: ISPClientPeoplePickerEntity[], mergeLocal?: boolean): ISPClientPeoplePickerEntity[];
+    static AugmentEntitySuggestions(
+        pickerObj: SPClientPeoplePicker,
+        allEntities: ISPClientPeoplePickerEntity[],
+        mergeLocal?: boolean
+    ): ISPClientPeoplePickerEntity[];
     static PickerObjectFromSubElement(elmSubElement: HTMLElement): SPClientPeoplePicker;
     static TestLocalMatch(strSearchLower: string, dataEntity: ISPClientPeoplePickerEntity): boolean;
     static BuildUnresolvedEntity(key: string, dispText: string): ISPClientPeoplePickerEntity;
-    static AddAutoFillMetaData(pickerObj: SPClientPeoplePicker, options: ISPClientPeoplePickerEntity[], numOpts: number): ISPClientPeoplePickerEntity[];
-    static BuildAutoFillMenuItems(pickerObj: SPClientPeoplePicker, options: ISPClientPeoplePickerEntity[]): ISPClientPeoplePickerEntity[];
+    static AddAutoFillMetaData(
+        pickerObj: SPClientPeoplePicker,
+        options: ISPClientPeoplePickerEntity[],
+        numOpts: number
+    ): ISPClientPeoplePickerEntity[];
+    static BuildAutoFillMenuItems(
+        pickerObj: SPClientPeoplePicker,
+        options: ISPClientPeoplePickerEntity[]
+    ): ISPClientPeoplePickerEntity[];
     static IsUserEntity(entity: ISPClientPeoplePickerEntity): boolean;
     static CreateSPPrincipalType(acctStr: string): number;
 
@@ -9398,7 +10054,12 @@ declare class SPClientPeoplePicker {
     AddUserKeys(userKeys: string, bSearch: boolean): void;
     BatchAddUserKeysOperation(allKeys: string[], numProcessed: number): void;
     ResolveAllUsers(fnContinuation: () => void): void;
-    ExecutePickerQuery(queryIds: string, onSuccess: (queryId: string, result: SP.StringResult) => void, onFailure: (queryId: string, result: SP.StringResult) => void, fnContinuation: () => void): void;
+    ExecutePickerQuery(
+        queryIds: string,
+        onSuccess: (queryId: string, result: SP.StringResult) => void,
+        onFailure: (queryId: string, result: SP.StringResult) => void,
+        fnContinuation: () => void
+    ): void;
     AddUnresolvedUserFromEditor(bRunQuery?: boolean): void;
     AddUnresolvedUser(unresolvedUserObj: ISPClientPeoplePickerEntity, bRunQuery?: boolean): void;
     UpdateUnresolvedUser(results: SP.StringResult, user: ISPClientPeoplePickerEntity): void;
@@ -9495,7 +10156,7 @@ declare class SPClientPeoplePickerMRU {
     static PPMRUDomLocalStoreKey: string; // = "ClientPeoplePickerMRU";
     static GetSPClientPeoplePickerMRU(): SPClientPeoplePickerMRU;
 
-    GetItems(strKey: string): { Key: string, [name: string]: any };
+    GetItems(strKey: string): { Key: string; [name: string]: any };
     SetItem<T extends { Key: string }>(strSearchTerm: string, objEntity: T): void;
     ResetCache(): void;
 }
@@ -9619,11 +10280,15 @@ declare namespace DOM {
     function AbsTop(el: HTMLElement): number;
     function CancelEvent(evt: Event): void;
     function GetElementsByName(nae: string): NodeList;
-    function GetEventCoords(evt: Event): { x: number; y: number; };
+    function GetEventCoords(evt: Event): { x: number; y: number };
     function GetEventSrcElement(evt: Event): HTMLElement;
     function GetInnerText(el: HTMLElement): string;
     function PreventDefaultNavigation(evt: Event): void;
-    function SetEvent(eventName: string, eventFunc: (eventName: string, fnContent: (evt: Event) => void, window?: Window) => void, el: HTMLElement): void;
+    function SetEvent(
+        eventName: string,
+        eventFunc: (eventName: string, fnContent: (evt: Event) => void, window?: Window) => void,
+        el: HTMLElement
+    ): void;
 }
 
 /** Available only in SharePoint Online*/
@@ -9684,7 +10349,12 @@ declare namespace Nav {
 
 /** Available only in SharePoint Online*/
 declare namespace URI_Encoding {
-    function encodeURIComponent(str: string, bAsUrl?: boolean, bForFilterQuery?: boolean, bForCallback?: boolean): string;
+    function encodeURIComponent(
+        str: string,
+        bAsUrl?: boolean,
+        bForFilterQuery?: boolean,
+        bForCallback?: boolean
+    ): string;
     function escapeUrlForCallback(str: string): string;
 }
 
@@ -9696,11 +10366,20 @@ interface ListItem {
 /** Available only in SharePoint Online*/
 declare namespace ListModule {
     namespace Util {
-        function createViewEditUrl(renderCtx: SPClientTemplates.RenderContext, listItem: ListItem, useEditFormUrl?: boolean, appendSource?: boolean): string;
+        function createViewEditUrl(
+            renderCtx: SPClientTemplates.RenderContext,
+            listItem: ListItem,
+            useEditFormUrl?: boolean,
+            appendSource?: boolean
+        ): string;
         function createItemPropertiesTitle(renderCtx: SPClientTemplates.RenderContext, listItem: ListItem): string;
         function clearSelectedItemsDict(context: any): void;
         function ctxInitItemState(context: any): void;
-        function getAttributeFromItemTable(itemTableParam: HTMLElement, strAttributeName: string, strAttributeOldName: string): string;
+        function getAttributeFromItemTable(
+            itemTableParam: HTMLElement,
+            strAttributeName: string,
+            strAttributeOldName: string
+        ): string;
         function getSelectedItemsDict(context: any): any;
         function removeOnlyPagingArgs(url: string): string;
         function removePagingArgs(url: string): string;
@@ -9721,60 +10400,60 @@ declare namespace SP {
         enum TextDirection {
             Default, // 0,
             RightToLeft, // 1,
-            LeftToRight // 2
+            LeftToRight, // 2
         }
 
         enum PaneId {
             MainGrid, // 0,
             PivotedGrid, // 1,
-            Gantt // 2
+            Gantt, // 2
         }
 
         enum PaneLayout {
             GridOnly, // 0,
             GridAndGantt, // 1,
-            GridAndPivotedGrid // 2
+            GridAndPivotedGrid, // 2
         }
         enum EditMode {
             ReadOnly, // 0,
             ReadWrite, // 1,
             ReadOnlyDefer, // 2,
             ReadWriteDefer, // 3,
-            Defer // 4
+            Defer, // 4
         }
 
         enum GanttDrawBarFlags {
             LeftLink, // 0x01,
-            RightLink // 0x02
+            RightLink, // 0x02
         }
         enum GanttBarDateType {
             Start, // 0,
-            End // 1
+            End, // 1
         }
 
         enum ValidationState {
             Valid, // 0,
             Pending, // 1,
-            Invalid // 2
+            Invalid, // 2
         }
 
         enum HierarchyMode {
             None, // 0,
             Standard, // 1,
-            Grouping // 2
+            Grouping, // 2
         }
 
         enum EditActorWriteType {
             Both, // 1,
             LocalizedOnly, // 2,
             DataOnly, // 3,
-            Either // 4
+            Either, // 4
         }
 
         enum EditActorReadType {
             Both, // 1,
             LocalizedOnly, // 2,
-            DataOnly // 3
+            DataOnly, // 3
         }
 
         enum EditActorUpdateType {
@@ -9785,7 +10464,7 @@ declare namespace SP {
         enum SortMode {
             Ascending, // 1,
             Descending, // -1,
-            None // 0
+            None, // 0
         }
 
         namespace RowHeaderStyleId {
@@ -9805,7 +10484,7 @@ declare namespace SP {
             CellError, // 40,
             Conflict, // 50,
             RowError, // 60,
-            NewRow // 90
+            NewRow, // 90
         }
 
         enum UpdateSerializeMode {
@@ -9813,13 +10492,13 @@ declare namespace SP {
             Default, // 1,
             PropDataOnly, // 2,
             PropLocalizedOnly, // 3,
-            PropBoth // 4
+            PropBoth, // 4
         }
 
         enum UpdateTrackingMode {
             PropData, // 2,
             PropLocalized, // 3,
-            PropBoth // 4
+            PropBoth, // 4
         }
 
         namespace UserAction {
@@ -9846,7 +10525,7 @@ declare namespace SP {
         enum SelectionTypeFlags {
             MultipleCellRanges,
             MultipleRowRanges,
-            MultipleColRanges
+            MultipleColRanges,
         }
 
         class JsGridControl {
@@ -9880,7 +10559,8 @@ declare namespace SP {
                 optInitTableViewParamsFnName?: any,
                 optInitTableViewParamsFnArgsObj?: any,
                 optInitGanttStylesFnName?: any,
-                optInitGanttStylesFnArgsObj?: any): void;
+                optInitGanttStylesFnArgsObj?: any
+            ): void;
             GetAllDataJson(fnOnFinished: any, optFnGetCellStyleID?: any): void;
             SetTableView(tableViewParams: any): void;
             SetRowView(rowViewParam: any): void;
@@ -9948,7 +10628,12 @@ declare namespace SP {
             DeleteRecords(recordKeys: any, optChangeKey?: any): any;
             IndentRecords(recordKeys: any, optChangeKey?: any): any;
             OutdentRecords(recordKeys: any, optChangeKey?: any): any;
-            ReorderRecords(beginRecordKey: number, endRecordKey: number, afterRecordKey: number, bSelectAfterwards: boolean): any;
+            ReorderRecords(
+                beginRecordKey: number,
+                endRecordKey: number,
+                afterRecordKey: number,
+                bSelectAfterwards: boolean
+            ): any;
             GetContiguousRowSelectionWithoutEntryRecords(): { begin: any; end: any; keys: any };
             CanMoveRecordsUpByOne(recordKeys: any): boolean;
             CanMoveRecordsDownByOne(recordKeys: any): boolean;
@@ -10060,11 +10745,19 @@ declare namespace SP {
                 If minId is specified, method searches for an error with first id which is greater than minId.
                 Scrolls to the Returns the id of the found record.
                 If there aren't any errors, that satisfy the conditions, method does nothing and returns null. */
-            ScrollToAndExpandNextError(minId?: number, fnFilter?: (recordKey: number, fieldKey: string, id: number) => boolean): any;
+            ScrollToAndExpandNextError(
+                minId?: number,
+                fnFilter?: (recordKey: number, fieldKey: string, id: number) => boolean
+            ): any;
             /** Same as ScrollToAndExpandNextError, but searches within the specified record.
                 recordKey should be not null, otherwise you'll get an exception.
                 bDontExpand controls whether the error tooltip will be shown (if bDontExpand=true, tooltip will not be shown). */
-            ScrollToAndExpandNextErrorOnRecord(minId?: number, recordKey?: number, fnFilter?: (recordKey: number, fieldKey: string, id: number) => boolean, bDontExpand?: boolean): any;
+            ScrollToAndExpandNextErrorOnRecord(
+                minId?: number,
+                recordKey?: number,
+                fnFilter?: (recordKey: number, fieldKey: string, id: number) => boolean,
+                bDontExpand?: boolean
+            ): any;
 
             GetFocusedItem(): any;
             SendKeyDownEvent(eventInfo: Sys.UI.DomEvent): any;
@@ -10073,10 +10766,24 @@ declare namespace SP {
 
             SelectRowRange(rowIdx1: number, rowIdx2: number, bAppend: boolean, optPaneId?: string): void;
             SelectColumnRange(colIdx1: number, colIdx2: number, bAppend: boolean, optPaneId?: string): void;
-            SelectCellRange(rowIdx1: number, rowIdx2: number, colIdx1: number, colIdx2: number, bAppend: boolean, optPaneId?: string): void;
+            SelectCellRange(
+                rowIdx1: number,
+                rowIdx2: number,
+                colIdx1: number,
+                colIdx2: number,
+                bAppend: boolean,
+                optPaneId?: string
+            ): void;
             SelectRowRangeByKey(rowKey1: any, rowKey2: any, bAppend: boolean, optPaneId?: string): void;
             SelectColumnRangeByKey(colKey1: any, colKey2: any, bAppend: boolean, optPaneId?: string): void;
-            SelectCellRangeByKey(recordKey1: string, recordKey2: string, colKey1: any, colKey2: any, bAppend: boolean, optPaneId?: string): void;
+            SelectCellRangeByKey(
+                recordKey1: string,
+                recordKey2: string,
+                colKey1: any,
+                colKey2: any,
+                bAppend: boolean,
+                optPaneId?: string
+            ): void;
 
             ChangeKeys(oldKey: any, newKey: any): void;
             GetSelectedRowRanges(optPaneId?: any): any;
@@ -10152,7 +10859,7 @@ declare namespace SP {
             OnPasteBegin,
             OnPasteEnd,
             OnBeginRedoDataUpdateChange,
-            OnBeginUndoDataUpdateChange
+            OnBeginUndoDataUpdateChange,
         }
 
         enum DelegateType {
@@ -10187,7 +10894,7 @@ declare namespace SP {
             AllowSelectionChange,
             GetFieldEditMode,
             GetFieldReadOnlyActiveState,
-            OnBeforeRecordReordered
+            OnBeforeRecordReordered,
         }
 
         enum ClickContext {
@@ -10196,11 +10903,17 @@ declare namespace SP {
             ColumnHeader,
             Cell,
             Gantt,
-            Other
+            Other,
         }
 
         class RowHeaderState {
-            constructor(id: string, img: SP.JsGrid.Image, priority: SP.JsGrid.RowHeaderStatePriorities, tooltip: string, fnOnClick: (eventInfo: Sys.UI.DomEvent, recordKey: number) => void);
+            constructor(
+                id: string,
+                img: SP.JsGrid.Image,
+                priority: SP.JsGrid.RowHeaderStatePriorities,
+                tooltip: string,
+                fnOnClick: (eventInfo: Sys.UI.DomEvent, recordKey: number) => void
+            );
             GetId(): string;
             GetImg(): SP.JsGrid.Image;
             GetPriority(): SP.JsGrid.RowHeaderStatePriorities;
@@ -10213,7 +10926,13 @@ declare namespace SP {
             /** optOuterCssNames and optImgCssNames are strings that contain css class names separated by spaces.
                 optImgCssNames are applied to the img tag.
                 if bIsClustered, image is rendered inside div, and optOuterCssNames are applied to the div. */
-            constructor(imgSrc: string, bIsClustered: boolean, optOuterCssNames: string, optImgCssNames: string, bIsAnimated: boolean);
+            constructor(
+                imgSrc: string,
+                bIsClustered: boolean,
+                optOuterCssNames: string,
+                optImgCssNames: string,
+                bIsAnimated: boolean
+            );
             imgSrc: string;
             bIsClustered: boolean;
             optOuterCssNames: string;
@@ -10224,7 +10943,7 @@ declare namespace SP {
             Render(altText: string, clickFn: (eventInfo: Sys.UI.DomEvent) => void, bHideTooltip: boolean): HTMLElement;
         }
         // tslint:disable-next-line: interface-name no-empty-interface
-        interface IEventArgs { }
+        interface IEventArgs {}
         namespace EventArgs {
             class OnEntryRecordAdded implements IEventArgs {
                 constructor(recordKey: number);
@@ -10256,14 +10975,27 @@ declare namespace SP {
                 bCancelled: boolean;
             }
             class Click implements IEventArgs {
-                constructor(eventInfo: Sys.UI.DomEvent, context: JsGrid.ClickContext, recordKey: number, fieldKey: string);
+                constructor(
+                    eventInfo: Sys.UI.DomEvent,
+                    context: JsGrid.ClickContext,
+                    recordKey: number,
+                    fieldKey: string
+                );
                 eventInfo: Sys.UI.DomEvent;
                 context: JsGrid.ClickContext;
                 recordKey: number;
                 fieldKey: string;
             }
             class PropertyChanged implements IEventArgs {
-                constructor(recordKey: number, fieldKey: string, oldProp: SP.JsGrid.Internal.PropertyUpdate, newProp: SP.JsGrid.Internal.PropertyUpdate, propType: SP.JsGrid.IPropertyType, changeKey: SP.JsGrid.IChangeKey, validationState: SP.JsGrid.ValidationState);
+                constructor(
+                    recordKey: number,
+                    fieldKey: string,
+                    oldProp: SP.JsGrid.Internal.PropertyUpdate,
+                    newProp: SP.JsGrid.Internal.PropertyUpdate,
+                    propType: SP.JsGrid.IPropertyType,
+                    changeKey: SP.JsGrid.IChangeKey,
+                    validationState: SP.JsGrid.ValidationState
+                );
                 recordKey: number;
                 fieldKey: string;
                 oldProp: SP.JsGrid.Internal.PropertyUpdate;
@@ -10291,7 +11023,14 @@ declare namespace SP {
                 bChecked: boolean;
             }
             class OnCellErrorStateChanged implements IEventArgs {
-                constructor(recordKey: number, fieldKey: string, bAddingError: boolean, bCellCurrentlyHasError: boolean, bCellHadError: boolean, errorId: number);
+                constructor(
+                    recordKey: number,
+                    fieldKey: string,
+                    bAddingError: boolean,
+                    bCellCurrentlyHasError: boolean,
+                    bCellHadError: boolean,
+                    errorId: number
+                );
                 recordKey: number;
                 fieldKey: string;
                 bAddingError: boolean;
@@ -10300,7 +11039,14 @@ declare namespace SP {
                 errorId: number;
             }
             class OnRowErrorStateChanged implements IEventArgs {
-                constructor(recordKey: number, bAddingError: boolean, bErrorCurrentlyInRow: boolean, bRowHadError: boolean, errorId: number, message: string);
+                constructor(
+                    recordKey: number,
+                    bAddingError: boolean,
+                    bErrorCurrentlyInRow: boolean,
+                    bRowHadError: boolean,
+                    errorId: number,
+                    message: string
+                );
                 recordKey: number;
                 bAddingError: boolean;
                 bErrorCurrentlyInRow: boolean;
@@ -10496,7 +11242,7 @@ declare namespace SP {
             UpdateGroupStylesFromCss(styleObject: IStyleType.Cell, prefix: string): void;
         }
         // tslint:disable-next-line: no-empty-interface interface-name
-        interface IStyleType { }
+        interface IStyleType {}
         namespace IStyleType {
             interface Splitter extends IStyleType {
                 outerBorderColor: any;
@@ -10609,11 +11355,20 @@ declare namespace SP {
 
             static SetRTL: (rtlObject: any) => void;
             static MakeJsGridStyleManager: () => IStyleManager;
-            static CreateStyleFromCss: (styleType: IStyleType, cssStyleName: string, optExistingStyle?: any, optClassId?: any) => any;
+            static CreateStyleFromCss: (
+                styleType: IStyleType,
+                cssStyleName: string,
+                optExistingStyle?: any,
+                optClassId?: any
+            ) => any;
             static CreateStyle: (styleType: IStyleType, styleProps: any) => any;
             static MergeCellStyles: (majorStyle: any, minorStyle: any) => any;
             static ApplyCellStyle: (td: HTMLTableCellElement, style: any) => void;
-            static ApplyRowHeaderStyle: (domObj: HTMLElement, style: any, fnGetHeaderSibling: (elem: HTMLElement, previousElem: boolean) => void) => void;
+            static ApplyRowHeaderStyle: (
+                domObj: HTMLElement,
+                style: any,
+                fnGetHeaderSibling: (elem: HTMLElement, previousElem: boolean) => void
+            ) => void;
             static ApplyCornerHeaderBorderStyle: (domObj: HTMLElement, colStyle: any, rowStyle: any) => void;
             static ApplyHeaderInnerBorderStyle: (domObj: HTMLElement, bIsRowHeader: any, headerObject: any) => void;
             static ApplyColumnContextMenuStyle: (domObj: HTMLElement, style: any) => void;
@@ -10626,7 +11381,7 @@ declare namespace SP {
             constructor(colInfoArray: any[]);
             GetColumnByKey(key: string): any;
             GetColumnArray(bVisibleOnly?: boolean): any[];
-            GetColumnMap(): { [key: string]: any; };
+            GetColumnMap(): { [key: string]: any };
             AppendColumn(colInfo: any): void;
             InsertColumnAt(idx: number, colInfo: any): void;
             RemoveColumn(key: string): void;
@@ -10668,7 +11423,12 @@ declare namespace SP {
             /** false by default */
             isFooter: boolean;
             /** determine whether the cells in this column should be clickable */
-            fnShouldLinkSingleValue: (record: IRecord, fieldKey: string, dataValue: any, localizedValue: any) => boolean;
+            fnShouldLinkSingleValue: (
+                record: IRecord,
+                fieldKey: string,
+                dataValue: any,
+                localizedValue: any
+            ) => boolean;
             /** if a particular cell is determined as clickable by fnShouldLinkSingleValue, this function will be called when the cell is clicked */
             fnSingleValueClicked: (record: IRecord, fieldKey: string, dataValue: any, localizedValue: any) => void;
             /** this is used when you need to make some of the cells in the column readonly, but at the same time keep others editable */
@@ -10741,12 +11501,32 @@ declare namespace SP {
         }
 
         class Property {
-            static MakeProperty(dataValue: any, localizedValue: string, bHasDataValue: boolean, bHasLocalizedValue: boolean, propType: any): IPropertyBase;
-            static MakePropertyFromGridField(gridField: any, dataValue: any, localizedVal: string, optPropType?: any): IPropertyBase;
+            static MakeProperty(
+                dataValue: any,
+                localizedValue: string,
+                bHasDataValue: boolean,
+                bHasLocalizedValue: boolean,
+                propType: any
+            ): IPropertyBase;
+            static MakePropertyFromGridField(
+                gridField: any,
+                dataValue: any,
+                localizedVal: string,
+                optPropType?: any
+            ): IPropertyBase;
         }
 
         class GridField {
-            constructor(key: string, hasDataValue: boolean, hasLocalizedValue: boolean, textDirection: TextDirection, defaultCellStyleId?: any, editMode?: EditMode, dateOnly?: boolean, csrInfo?: any);
+            constructor(
+                key: string,
+                hasDataValue: boolean,
+                hasLocalizedValue: boolean,
+                textDirection: TextDirection,
+                defaultCellStyleId?: any,
+                editMode?: EditMode,
+                dateOnly?: boolean,
+                csrInfo?: any
+            );
             key: string;
             hasDataValue: boolean;
             hasLocalizedValue: boolean;
@@ -10785,7 +11565,14 @@ declare namespace SP {
         // tslint:disable-next-line: interface-name
         interface IPropertyType {
             ID: string;
-            BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+            BeginValidateNormalizeConvert(
+                recordKey: number,
+                fieldKey: string,
+                newValue: any,
+                bIsLocalized: boolean,
+                fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                fnError: any
+            ): void;
         }
 
         // tslint:disable-next-line: interface-name
@@ -10804,7 +11591,11 @@ declare namespace SP {
             bMultiValue: boolean;
             separator: string;
             singleValuePropType: string;
-            GetSerializableMultiValuePropType(): { singleValuePropTypeID: string; separatorChar: string; bDelayInit: boolean; };
+            GetSerializableMultiValuePropType(): {
+                singleValuePropTypeID: string;
+                separatorChar: string;
+                bDelayInit: boolean;
+            };
             InitSingleValuePropType(): void;
             LocStrToLocStrArray(locStr: string): string[];
             LocStrArrayToLocStr(locStrArray: string[]): string;
@@ -10814,10 +11605,20 @@ declare namespace SP {
             /** Lookup property type factory, based on SP.JsGrid.PropertyType.LookupTable class.
                 displayCtrlName should be one of the following: SP.JsGrid.DisplayControl.Type.Image, SP.JsGrid.DisplayControl.Type.ImageText or SP.JsGrid.DisplayControl.Type.Text
              */
-            static RegisterNewLookupPropType(id: string, items: any[], displayCtrlName: string, bLimitToList: boolean): void;
+            static RegisterNewLookupPropType(
+                id: string,
+                items: any[],
+                displayCtrlName: string,
+                bLimitToList: boolean
+            ): void;
 
             /** Register a custom property type. */
-            static RegisterNewCustomPropType(propType: IPropertyType, displayCtrlName: string, editControlName: string, widgetControlNames: string[]): void;
+            static RegisterNewCustomPropType(
+                propType: IPropertyType,
+                displayCtrlName: string,
+                editControlName: string,
+                widgetControlNames: string[]
+            ): void;
 
             /** Register a custom property type, where display and edit controls, and also widgets, are derived from the specified parent property type. */
             static RegisterNewDerivedCustomPropType(propType: IPropertyType, baseTypeName: string): void;
@@ -10826,13 +11627,27 @@ declare namespace SP {
             class String implements IPropertyType {
                 constructor();
                 ID: string;
-                BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+                BeginValidateNormalizeConvert(
+                    recordKey: number,
+                    fieldKey: string,
+                    newValue: any,
+                    bIsLocalized: boolean,
+                    fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                    fnError: any
+                ): void;
                 toString(): string;
             }
             class LookupTable implements ILookupPropertyType {
                 constructor(items: any[], id: string, bLimitToList: boolean);
                 ID: string;
-                BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+                BeginValidateNormalizeConvert(
+                    recordKey: number,
+                    fieldKey: string,
+                    newValue: any,
+                    bIsLocalized: boolean,
+                    fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                    fnError: any
+                ): void;
                 GetItems(fnCallback: any): void;
                 DataToLocalized(dataValue: any): string;
                 LocalizedToData(localized: string): any;
@@ -10844,7 +11659,14 @@ declare namespace SP {
             class CheckBoxBoolean implements IPropertyType {
                 constructor();
                 ID: string;
-                BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+                BeginValidateNormalizeConvert(
+                    recordKey: number,
+                    fieldKey: string,
+                    newValue: any,
+                    bIsLocalized: boolean,
+                    fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                    fnError: any
+                ): void;
                 DataToLocalized(dataValue: any): string;
                 GetBool(dataValue: any): boolean;
                 toString(): string;
@@ -10852,25 +11674,50 @@ declare namespace SP {
             class DropDownBoolean implements IPropertyType {
                 constructor();
                 ID: string;
-                BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+                BeginValidateNormalizeConvert(
+                    recordKey: number,
+                    fieldKey: string,
+                    newValue: any,
+                    bIsLocalized: boolean,
+                    fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                    fnError: any
+                ): void;
                 DataToLocalized(dataValue: any): string;
                 GetBool(dataValue: any): boolean;
                 toString(): string;
             }
             class MultiValuePropType implements IMultiValuePropertyType {
                 ID: string;
-                BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+                BeginValidateNormalizeConvert(
+                    recordKey: number,
+                    fieldKey: string,
+                    newValue: any,
+                    bIsLocalized: boolean,
+                    fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                    fnError: any
+                ): void;
                 bMultiValue: boolean;
                 separator: string;
                 singleValuePropType: string;
-                GetSerializableMultiValuePropType(): { singleValuePropTypeID: string; separatorChar: string; bDelayInit: boolean; };
+                GetSerializableMultiValuePropType(): {
+                    singleValuePropTypeID: string;
+                    separatorChar: string;
+                    bDelayInit: boolean;
+                };
                 InitSingleValuePropType(): void;
                 LocStrToLocStrArray(locStr: string): string[];
                 LocStrArrayToLocStr(locStrArray: string[]): string;
             }
             class HyperLink implements IPropertyType {
                 ID: string;
-                BeginValidateNormalizeConvert(recordKey: number, fieldKey: string, newValue: any, bIsLocalized: boolean, fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void, fnError: any): void;
+                BeginValidateNormalizeConvert(
+                    recordKey: number,
+                    fieldKey: string,
+                    newValue: any,
+                    bIsLocalized: boolean,
+                    fnCallback: (args: { isValid: boolean; dataValue: any; normalizedLocValue: string }) => void,
+                    fnError: any
+                ): void;
                 bHyperlink: boolean;
                 DataToLocalized(dataValue: any): string;
                 GetAddress(dataValue: any): string;
@@ -10881,8 +11728,16 @@ declare namespace SP {
 
             class Utils {
                 static RegisterDisplayControl(name: string, singleton: any, requiredFunctionNames: string[]): void;
-                static RegisterEditControl(name: string, factory: (gridContext: IEditControlGridContext, gridTextInputElement: HTMLElement) => IEditControl, requiredFunctionNames: string[]): void;
-                static RegisterWidgetControl(name: string, factory: (ddContext: any) => IPropertyType, requiredFunctionNames: string[]): void;
+                static RegisterEditControl(
+                    name: string,
+                    factory: (gridContext: IEditControlGridContext, gridTextInputElement: HTMLElement) => IEditControl,
+                    requiredFunctionNames: string[]
+                ): void;
+                static RegisterWidgetControl(
+                    name: string,
+                    factory: (ddContext: any) => IPropertyType,
+                    requiredFunctionNames: string[]
+                ): void;
 
                 static UpdateDisplayControlForPropType(propTypeName: string, displayControlType: string): void;
             }
@@ -10899,13 +11754,30 @@ declare namespace SP {
 
         namespace Internal {
             class DiffTracker {
-                constructor(objBag: any, fnGetChange: (version: any, keys: any[], synchronized: boolean, includeInvalidPropUpdates: boolean) => any);
+                constructor(
+                    objBag: any,
+                    fnGetChange: (
+                        version: any,
+                        keys: any[],
+                        synchronized: boolean,
+                        includeInvalidPropUpdates: boolean
+                    ) => any
+                );
                 ExternalAPI: {
                     AnyChanges(): boolean;
                     ChangeKeySliceInfo(): any;
                     ChangeQuery(): any;
                     EventSliceInfo(): any;
-                    GetChanges(optStartEvent: any, optEndEvent: any, optRecordKeys: any, bFirstStartEvent: boolean, bStartInclusive: boolean, bEndInclusive: boolean, bIncludeInvalidPropUpdates: boolean, bLastEndEvent: boolean): any;
+                    GetChanges(
+                        optStartEvent: any,
+                        optEndEvent: any,
+                        optRecordKeys: any,
+                        bFirstStartEvent: boolean,
+                        bStartInclusive: boolean,
+                        bEndInclusive: boolean,
+                        bIncludeInvalidPropUpdates: boolean,
+                        bLastEndEvent: boolean
+                    ): any;
                     GetChangesAsJson(changeQuery: any, optfnPreProcessUpdateForSerialize?: any): string;
                     GetUniquePropertyChanges(changeQuery: any, optfnFilter?: any): any;
                     RegisterEvent(changeKey: IChangeKey, eventObject: any): void;
@@ -10932,7 +11804,7 @@ declare namespace SP {
             column: ColumnInfo;
             field: GridField;
             fieldKey: string;
-            cellExpandSpace: { left: number; top: number; fight: number; bottom: number; };
+            cellExpandSpace: { left: number; top: number; fight: number; bottom: number };
             SetCurrentValue(value: any): void;
         }
 
@@ -10948,8 +11820,7 @@ declare namespace SP {
             Hide(element: HTMLElement): void;
         }
 
-        namespace EditControl {
-        }
+        namespace EditControl {}
 
         // tslint:disable-next-line: interface-name
         interface IEditControl {
@@ -10972,7 +11843,10 @@ declare namespace SP {
         }
 
         class StaticDataSource {
-            constructor(jsGridData: IGridData, optFnGetPropType?: (recordKey: string, key: string, dataPropMap: { [name: string]: any }) => any);
+            constructor(
+                jsGridData: IGridData,
+                optFnGetPropType?: (recordKey: string, key: string, dataPropMap: { [name: string]: any }) => any
+            );
             AddColumn(gridField: SP.JsGrid.GridField, values: IValue[]): void;
             RemoveColumn(fieldKey: string): void;
             InitJsGridParams(optGridParams?: JsGridControl.Parameters): JsGridControl.Parameters;
@@ -11146,13 +12020,13 @@ declare namespace Srch {
         resultRendered,
         preLoad,
         load,
-        postLoad
+        postLoad,
     }
 
     enum MessageLevel {
         information,
         warning,
-        error
+        error,
     }
 
     enum UserActionType {
@@ -11161,13 +12035,13 @@ declare namespace Srch {
         pagePrev,
         refine,
         sort,
-        filterLanguage
+        filterLanguage,
     }
 
     enum DateTimeKind {
         unspecified,
         utc,
-        local
+        local,
     }
 
     class ClientControl extends Sys.UI.Control {
@@ -11181,8 +12055,8 @@ declare namespace Srch {
         /** returns next unique identifier for nested controls */
         get_nextUniqueId(): string;
         /** Gets the id of View display template that is used to render this control.
-          * Example: '~sitecollection/_catalogs/masterpage/Display Templates/Search/Control_SearchResults.js'
-          */
+         * Example: '~sitecollection/_catalogs/masterpage/Display Templates/Search/Control_SearchResults.js'
+         */
         get_renderTemplateId(): string;
         set_renderTemplateId(value: string): string;
         /** Returns true if control will load scripts defined by the serverTemplateScriptsToLoad field after control load. True by default. */
@@ -11210,7 +12084,13 @@ declare namespace Srch {
         loadServerTemplateScripts(): void;
         serverTemplateScriptsToLoad: any[];
         serverTemplateScriptsCallback(): void;
-        loadRenderTemplateScripts(scriptReferences: any, success: any, failure: any, timeout: any, loadStandAloneCustomScripts: any): boolean;
+        loadRenderTemplateScripts(
+            scriptReferences: any,
+            success: any,
+            failure: any,
+            timeout: any,
+            loadStandAloneCustomScripts: any
+        ): boolean;
         invokeAlternateRender(callback: any, container: any, ctx: any): any;
         invokeClientRenderer(node: any, ctx: any): any;
         processDataErrorMessages(dataErrorsList: any): any;
@@ -11394,7 +12274,12 @@ declare namespace Srch {
         static getExpanded(filterName: string): string;
         /** Save expanded state of the specified filter to cookie */
         static setExpanded(filterName: string, value: string): void;
-        static multiRefinerSpecifyOtherFilterValue(refinerName: string, clientControl: Refinement, useContains: boolean, useKQL: boolean): void;
+        static multiRefinerSpecifyOtherFilterValue(
+            refinerName: string,
+            clientControl: Refinement,
+            useContains: boolean,
+            useKQL: boolean
+        ): void;
 
         constructor(elem: Element);
 
@@ -11414,7 +12299,13 @@ declare namespace Srch {
         addRefinementFiltersWithOp(refiners: any[], op: string): void;
         removeRefinementFilter(filterName: string, filterToken: string): void;
         removeRefinementFiltersJSON(refinersJSON: string): void;
-        updateRefinementFilters(filterName: string, filterTokens: string[], op: string, useKQL: boolean, tokenToDisplayValueMap: any): void;
+        updateRefinementFilters(
+            filterName: string,
+            filterTokens: string[],
+            op: string,
+            useKQL: boolean,
+            tokenToDisplayValueMap: any
+        ): void;
         updateRefinersJSON(refinersJSON: string): void;
         updateRefiners(refiners: any[], op: string, useKQL: boolean, tokenToDisplayValueMap: any): void;
         removeRefinementCategory(rcs: any, filterName: string): void;
@@ -11525,9 +12416,9 @@ declare namespace Srch {
         /** Returns the current search term */
         get_currentTerm(): string;
         /** Sets the current search term.
-          * Does not update results or even re-render control automatically, only sets the value.
-          * You can call .renderControl() method to re-render control.
-          */
+         * Does not update results or even re-render control automatically, only sets the value.
+         * You can call .renderControl() method to re-render control.
+         */
         set_currentTerm(value: string): string;
 
         get_queryGroupNames(): string[];
@@ -11536,9 +12427,9 @@ declare namespace Srch {
         /** Gets the results page address, e.g. '~site/_layouts/15/osssearchresults.aspx?u={contexturl}' */
         get_resultsPageAddress(): string;
         /** Sets the results page address, e.g. '~site/_layouts/15/osssearchresults.aspx?u={contexturl}'
-          * Parameter u is used for setting the url filter for the search, so that only results within
-          * e.g. specified site are returned. Omit this parameter if you want to search everywhere.
-          */
+         * Parameter u is used for setting the url filter for the search, so that only results within
+         * e.g. specified site are returned. Omit this parameter if you want to search everywhere.
+         */
         set_resultsPageAddress(value: string): string;
 
         get_showAdvancedLink(): boolean;
@@ -11679,7 +12570,17 @@ declare namespace Srch {
         focus(): void;
         setBorder(focused: boolean): void;
 
-        activate(prompt: string, searchBoxInputId: string, searchBoxContainerId: string, navigationButtonId: string, suggestionsListId: string, navigationListId: string, searchBoxLinkId: string, searchBoxProgressClass: string, searchBoxPromptClass: string): void;
+        activate(
+            prompt: string,
+            searchBoxInputId: string,
+            searchBoxContainerId: string,
+            navigationButtonId: string,
+            suggestionsListId: string,
+            navigationListId: string,
+            searchBoxLinkId: string,
+            searchBoxProgressClass: string,
+            searchBoxPromptClass: string
+        ): void;
         activateDefaultNavigationBehavior(): void;
         activateDefaultQuerySuggestionBehavior(): void;
     }
@@ -11747,7 +12648,11 @@ declare namespace Srch {
         /** Same as $addHandler with safety checks */
         static addHandler(element: Element, eventName: string, handler: (instance: any, eventArgs: any) => void): void;
         /** Same as $removeHandler with safety checks */
-        static removeHandler(element: Element, eventName: string, handler: (instance: any, eventArgs: any) => void): void;
+        static removeHandler(
+            element: Element,
+            eventName: string,
+            handler: (instance: any, eventArgs: any) => void
+        ): void;
 
         /** Returns true if the specified element is a descendant of the container element */
         static isDescendant(element: Element, container: Element): boolean;
@@ -11819,19 +12724,33 @@ declare namespace Srch {
         /** Registers display template function in the system.
          *  @param name Identifier of the template. Usually template is registered twice: by URL and by name.
          *  @param template The display template. It can be either string, or function, that gets the CSR context object and returns HTML string
-          */
+         */
         static registerRenderTemplateByName(name: string, templateFunction: string | RenderFunction): void;
         /** Returns display template registered (can be either string or function) */
         static getRenderTemplateByName(name: string, renderCtx: any): string | RenderFunction;
 
-        static addRenderContextCallback(renderCtx: any, callbackType: any, callbackFunction: any, enforceUnique: any, templateFunction: any): void;
+        static addRenderContextCallback(
+            renderCtx: any,
+            callbackType: any,
+            callbackFunction: any,
+            enforceUnique: any,
+            templateFunction: any
+        ): void;
         static setItemRenderWrapper(renderCtx: any, itemRenderWrapperFunction: any, templateFunction: any): any;
         static logRenderingErrorMessageToContext(renderCtx: any, messageText: any, operationName: any): void;
         /** Gets the URL of template based on display template function or the rendering context */
         static getTemplateUrlFromFunctionOrRenderCtx(templateFunctionOrRenderCtx: any): string;
-        static createErrorObjectWithExecContext(messageText: any, operationName: any, templateFuncOrRenderCtx: any): any;
+        static createErrorObjectWithExecContext(
+            messageText: any,
+            operationName: any,
+            templateFuncOrRenderCtx: any
+        ): any;
         /** Returns the CSR template that was previously registered using 'registerRenderTemplateByName' based on CSR template level */
-        static resolveRenderTemplate(renderCtx: any, component: ClientControl, level: 'Item' | 'Group' | 'View' | 'Body'): string | RenderFunction;
+        static resolveRenderTemplate(
+            renderCtx: any,
+            component: ClientControl,
+            level: 'Item' | 'Group' | 'View' | 'Body'
+        ): string | RenderFunction;
 
         /** Returns formatted time string from seconds string, which contains a number that represents amount of seconds passed since 00:00:00 today */
         static getFormattedTimeFromSeconds(secondsStr: string): string;
@@ -11868,11 +12787,19 @@ declare namespace Srch {
         static trimTitle(title: string, maximumLengthInChars: number, numberOfTermsToUse: number): string;
         static extractReplyTitleFromSummary(hitHighlightedSummary: string, titleLength: number): string;
         static getTrimmedProcessedHHXMLString(value: string, cutOff: number): string;
-        static getMultipleHHXMLNodeValues(xmlDoc: XMLDocument, nodeName: string, numItems: number, rawDelimiter: string): string;
+        static getMultipleHHXMLNodeValues(
+            xmlDoc: XMLDocument,
+            nodeName: string,
+            numItems: number,
+            rawDelimiter: string
+        ): string;
         static getSingleHHXMLNodeValue(xmlDoc: XMLDocument, nodeName: string): string;
         static isTableTypeof(resultTable: any, tableTypeName: string): boolean;
         static isSubstrateTable(resultTable: any): boolean;
-        static getTableOfType(tableCollection: Microsoft.SharePoint.Client.Search.Query.ResultTableCollection, tableTypeName: string): Microsoft.SharePoint.Client.Search.Query.ResultTable;
+        static getTableOfType(
+            tableCollection: Microsoft.SharePoint.Client.Search.Query.ResultTableCollection,
+            tableTypeName: string
+        ): Microsoft.SharePoint.Client.Search.Query.ResultTable;
         static isFirstPromotedBlock(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
         static isFirstRankedBlock(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
         static isIntentTable(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
@@ -11892,7 +12819,13 @@ declare namespace Srch {
         static registerLoadedScripts(scripts: string[]): void;
 
         /** Returns HTML for collapsible refiner title */
-        static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string): string;
+        static collapsibleRefinerTitle(
+            propertyName: string,
+            idPrefix: string,
+            title: string,
+            iconClass: string,
+            customOnClick: string
+        ): string;
         /** Returns true if current page is osssearchresults.aspx */
         static isDefaultSiteSearchPage(): boolean;
         /** Replaces tokens {searchcenterurl}, {contexturl}, {resultsurl}, {defaultpageslistname}, {Locale} and others, and converts URL to server-relative */
@@ -11919,7 +12852,11 @@ declare namespace Srch {
         static selectText(text: string, el: Element): void;
 
         /** Renders datetime value in friendly format into element specified by targetElementID */
-        static renderFriendlyTimeIntervalString(dateTimeSinceUTC: Date, targetElementID: string, calendarType?: number): void;
+        static renderFriendlyTimeIntervalString(
+            dateTimeSinceUTC: Date,
+            targetElementID: string,
+            calendarType?: number
+        ): void;
         /** Returns human-friendly representation of the datetime value, e.g. "A few seconds ago"" */
         static getFriendlyTimeInterval(dateTimeSince: Date, calendarType: number): string;
         /** Gets calendar type according to the current regional settings */
@@ -11993,7 +12930,7 @@ declare namespace Srch {
         enum LoadScriptsProgress {
             loading,
             success,
-            failure
+            failure,
         }
     }
 

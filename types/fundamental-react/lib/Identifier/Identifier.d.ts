@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type IdentifierModifiers = "circle" | "transparent";
+export type IdentifierModifiers = 'circle' | 'transparent';
 
-export type IdentifierSizes = "xxs" | "xs" | "s" | "m" | "l" | "xl" | "xxl";
+export type IdentifierSizes = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 export type IdentifierProps = {
     /* Image URL. */

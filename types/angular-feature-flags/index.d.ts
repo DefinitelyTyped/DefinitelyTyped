@@ -38,11 +38,7 @@ declare module 'angular' {
         }
 
         export interface FeatureFlagsService {
-            set(
-                flagsPromise:
-                    | ng.IPromise<ReadonlyArray<FlagData>>
-                    | ng.IHttpPromise<ReadonlyArray<FlagData>>
-            ): void;
+            set(flagsPromise: ng.IPromise<ReadonlyArray<FlagData>> | ng.IHttpPromise<ReadonlyArray<FlagData>>): void;
         }
     }
 }

@@ -28,7 +28,7 @@ webpack().run((err, stats) => {
     }
 });
 
-webpack().run((err) => {
+webpack().run(err => {
     if (err) printBuildError(err);
 });
 

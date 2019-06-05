@@ -180,10 +180,9 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = undefined> =
-        T extends undefined ?
-            (ReadonlyArray<string> | {[methodName: string]: any}) :
-            (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any>});
+    type SpyObjMethodNames<T = undefined> = T extends undefined
+        ? (ReadonlyArray<string> | { [methodName: string]: any })
+        : (ReadonlyArray<keyof T> | { [P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any> });
 
     function clock(): Clock;
 
@@ -383,7 +382,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean, seed: string }): any;
+        new (options: { random: boolean; seed: string }): any;
         random: boolean;
         seed: string;
         sort<T>(items: T[]): T[];
@@ -421,8 +420,7 @@ declare namespace jasmine {
         append(value: any): void;
     }
 
-    interface StringPrettyPrinter extends PrettyPrinter {
-    }
+    interface StringPrettyPrinter extends PrettyPrinter {}
 
     interface Queue {
         new (env: any): any;
@@ -579,8 +577,7 @@ declare namespace jasmine {
         expected: string;
     }
 
-    interface PassedExpectation extends CustomReportExpectation {
-    }
+    interface PassedExpectation extends CustomReportExpectation {}
 
     interface CustomReporterResult {
         description: string;
@@ -706,9 +703,7 @@ declare namespace jasmine {
         withArgs(...args: any[]): Spy;
     }
 
-    type SpyObj<T> = T & {
-        [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k];
-    };
+    type SpyObj<T> = T & { [k in keyof T]: T[k] extends Function ? T[k] & Spy : T[k] };
 
     interface SpyAnd {
         identity: string;
@@ -815,7 +810,7 @@ declare namespace jasmine {
     var MAX_PRETTY_PRINT_DEPTH: number;
 }
 
-declare module "jasmine" {
+declare module 'jasmine' {
     class jasmine {
         constructor(options: any);
         jasmine: jasmine.Jasmine;

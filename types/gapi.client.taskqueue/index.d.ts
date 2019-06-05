@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load TaskQueue API v1beta2 */
-    function load(name: "taskqueue", version: "v1beta2"): PromiseLike<void>;
-    function load(name: "taskqueue", version: "v1beta2", callback: () => any): void;
+    function load(name: 'taskqueue', version: 'v1beta2'): PromiseLike<void>;
+    function load(name: 'taskqueue', version: 'v1beta2', callback: () => any): void;
 
     const taskqueues: taskqueue.TaskqueuesResource;
 

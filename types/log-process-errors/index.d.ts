@@ -13,7 +13,12 @@ declare namespace logProcessErrors {
     /**
      * Exception type.
      */
-    type ExceptionType = 'uncaughtException' | 'unhandledRejection' | 'rejectionHandled' | 'multipleResolves' | 'warning';
+    type ExceptionType =
+        | 'uncaughtException'
+        | 'unhandledRejection'
+        | 'rejectionHandled'
+        | 'multipleResolves'
+        | 'warning';
 
     /**
      * log-process-errors constructor options.

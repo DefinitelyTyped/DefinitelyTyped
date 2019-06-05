@@ -29,13 +29,13 @@ const CurrentUserEmailHelper = Ember.Helper.extend({
 import { helper } from '@ember/component/helper';
 
 function typedHelp(/*params, hash*/) {
-  return 'my type of help';
+    return 'my type of help';
 }
 
 export default helper(typedHelp);
 
 function arrayNumHelp(/*params, hash*/) {
-  return [1, 2, 3];
+    return [1, 2, 3];
 }
 
 helper(arrayNumHelp);

@@ -46,19 +46,37 @@ declare namespace multer {
             preservePath?: boolean;
         };
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void): void;
+        fileFilter?(
+            req: Express.Request,
+            file: Express.Multer.File,
+            callback: (error: Error | null, acceptFile: boolean) => void
+        ): void;
     }
 
     interface StorageEngine {
-        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Partial<Express.Multer.File>) => void): void;
+        _handleFile(
+            req: express.Request,
+            file: Express.Multer.File,
+            callback: (error?: any, info?: Partial<Express.Multer.File>) => void
+        ): void;
         _removeFile(req: express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
     }
 
     interface DiskStorageOptions {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
-        destination?: string | ((req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, destination: string) => void) => void);
+        destination?:
+            | string
+            | ((
+                  req: Express.Request,
+                  file: Express.Multer.File,
+                  callback: (error: Error | null, destination: string) => void
+              ) => void);
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
-        filename?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, filename: string) => void): void;
+        filename?(
+            req: Express.Request,
+            file: Express.Multer.File,
+            callback: (error: Error | null, filename: string) => void
+        ): void;
     }
 
     interface Instance {
@@ -93,9 +111,11 @@ declare global {
     namespace Express {
         interface Request {
             file: Multer.File;
-            files: {
-                [fieldname: string]: Multer.File[];
-            } | Multer.File[];
+            files:
+                | {
+                      [fieldname: string]: Multer.File[];
+                  }
+                | Multer.File[];
         }
 
         namespace Multer {

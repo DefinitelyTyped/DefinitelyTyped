@@ -1,7 +1,6 @@
-
 import jwt = require('jwt-simple');
 var payload = { foo: 'bar' };
-var secret:string = 'xxx';
+var secret: string = 'xxx';
 
 // encode
 var token = jwt.encode(payload, secret);

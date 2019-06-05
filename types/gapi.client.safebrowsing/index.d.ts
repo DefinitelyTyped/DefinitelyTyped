@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Safe Browsing API v4 */
-    function load(name: "safebrowsing", version: "v4"): PromiseLike<void>;
-    function load(name: "safebrowsing", version: "v4", callback: () => any): void;
+    function load(name: 'safebrowsing', version: 'v4'): PromiseLike<void>;
+    function load(name: 'safebrowsing', version: 'v4', callback: () => any): void;
 
     const encodedFullHashes: safebrowsing.EncodedFullHashesResource;
 
@@ -293,7 +293,7 @@ declare namespace gapi.client {
         interface EncodedFullHashesResource {
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -332,7 +332,7 @@ declare namespace gapi.client {
         interface EncodedUpdatesResource {
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -372,7 +372,7 @@ declare namespace gapi.client {
             /** Finds the full hashes that match the requested hash prefixes. */
             find(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -406,7 +406,7 @@ declare namespace gapi.client {
              */
             fetch(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -437,7 +437,7 @@ declare namespace gapi.client {
             /** Lists the Safe Browsing threat lists available for download. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -468,7 +468,7 @@ declare namespace gapi.client {
             /** Finds the threat entries that match the Safe Browsing lists. */
             find(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

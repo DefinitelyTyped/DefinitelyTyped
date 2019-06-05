@@ -11,10 +11,11 @@ import * as mongoose from 'mongoose';
 import * as mongodb from 'mongodb';
 import * as session from 'express-session';
 
-declare function connectMongo(connect: (options?: session.SessionOptions) => express.RequestHandler): connectMongo.MongoStoreFactory;
+declare function connectMongo(
+    connect: (options?: session.SessionOptions) => express.RequestHandler
+): connectMongo.MongoStoreFactory;
 
 declare namespace connectMongo {
-
     export interface DefaultOptions {
         /**
          * The hostname of the database you are connecting to.
@@ -100,7 +101,9 @@ declare namespace connectMongo {
     }
 
     export interface MongoStoreFactory {
-        new(options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
+        new (
+            options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions
+        ): MongoStore;
     }
 
     export class MongoStore extends session.Store {

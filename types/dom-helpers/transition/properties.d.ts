@@ -20,7 +20,7 @@ declare const _export: {
     animationDelay: string;
     animationEnd: string;
 
-    default: typeof _default,
+    default: typeof _default;
 };
 
 export = _export;

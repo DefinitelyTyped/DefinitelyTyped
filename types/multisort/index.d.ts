@@ -8,7 +8,7 @@
  * @param sortings Sort criterions.
  */
 declare function multisort<T>(
-    criterions: multisort.Criterion<T> | Array<multisort.Criterion<T>>,
+    criterions: multisort.Criterion<T> | Array<multisort.Criterion<T>>
 ): multisort.SortFunction<T>;
 
 /**
@@ -16,10 +16,7 @@ declare function multisort<T>(
  * @param toSort Array to sort.
  * @param sortings Sort criterions.
  */
-declare function multisort<T>(
-    toSort: T[],
-    criterions: multisort.Criterion<T> | Array<multisort.Criterion<T>>,
-): T[];
+declare function multisort<T>(toSort: T[], criterions: multisort.Criterion<T> | Array<multisort.Criterion<T>>): T[];
 
 declare namespace multisort {
     /**

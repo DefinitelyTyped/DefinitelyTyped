@@ -1,7 +1,7 @@
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
  */
-declare module "async_hooks" {
+declare module 'async_hooks' {
     /**
      * Returns the asyncId of the current execution context.
      */
@@ -69,20 +69,20 @@ declare module "async_hooks" {
     function createHook(options: HookCallbacks): AsyncHook;
 
     interface AsyncResourceOptions {
-      /**
-       * The ID of the execution context that created this async event.
-       * Default: `executionAsyncId()`
-       */
-      triggerAsyncId?: number;
+        /**
+         * The ID of the execution context that created this async event.
+         * Default: `executionAsyncId()`
+         */
+        triggerAsyncId?: number;
 
-      /**
-       * Disables automatic `emitDestroy` when the object is garbage collected.
-       * This usually does not need to be set (even if `emitDestroy` is called
-       * manually), unless the resource's `asyncId` is retrieved and the
-       * sensitive API's `emitDestroy` is called with it.
-       * Default: `false`
-       */
-      requireManualDestroy?: boolean;
+        /**
+         * Disables automatic `emitDestroy` when the object is garbage collected.
+         * This usually does not need to be set (even if `emitDestroy` is called
+         * manually), unless the resource's `asyncId` is retrieved and the
+         * sensitive API's `emitDestroy` is called with it.
+         * Default: `false`
+         */
+        requireManualDestroy?: boolean;
     }
 
     /**
@@ -99,7 +99,7 @@ declare module "async_hooks" {
          *   this async event (default: `executionAsyncId()`), or an
          *   AsyncResourceOptions object (since 9.3)
          */
-        constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
+        constructor(type: string, triggerAsyncId?: number | AsyncResourceOptions);
 
         /**
          * Call the provided function with the provided arguments in the
@@ -112,7 +112,11 @@ declare module "async_hooks" {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runInAsyncScope<This, Result>(fn: (this: This, ...args: any[]) => Result, thisArg?: This, ...args: any[]): Result;
+        runInAsyncScope<This, Result>(
+            fn: (this: This, ...args: any[]) => Result,
+            thisArg?: This,
+            ...args: any[]
+        ): Result;
 
         /**
          * Call AsyncHooks destroy callbacks.

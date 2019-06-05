@@ -6,8 +6,8 @@
 
 /// <reference types="redux" />
 
-declare module "redux-optimistic-ui" {
-    import { Reducer } from "redux";
+declare module 'redux-optimistic-ui' {
+    import { Reducer } from 'redux';
 
     /**
      * Enhanced state by redux-optimistic-ui
@@ -32,7 +32,6 @@ declare module "redux-optimistic-ui" {
      * Enhances and wraps your root reducer into optimistic state
      */
     export function optimistic<TState>(reducer: Reducer<TState>): Reducer<OptimisticState<TState>>;
-
 
     /**
      * Returns your current state or state if it wasn't enhanced yet
@@ -60,8 +59,8 @@ declare module "redux-optimistic-ui" {
                  * @type {number}
                  */
                 id: number;
-            }
-        }
+            };
+        };
     }
 
     /**

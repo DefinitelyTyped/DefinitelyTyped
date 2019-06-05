@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as koa from "koa";
+import * as koa from 'koa';
 
 export = Pug;
 
 /** main module */
 declare class Pug {
     locals: {
-      [key: string]: any;
+        [key: string]: any;
     };
     constructor(options?: Pug.PugOptions);
     use(app: koa): void;
@@ -32,7 +32,9 @@ declare namespace Pug {
     interface PugCtxOptions extends PugOptions {
         fromString: boolean;
     }
-    interface PugLocals { [str: string]: any; }
+    interface PugLocals {
+        [str: string]: any;
+    }
 }
 
 /** plugin */

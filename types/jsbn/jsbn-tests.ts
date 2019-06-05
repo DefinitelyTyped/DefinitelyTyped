@@ -1,8 +1,8 @@
-import {BigInteger} from 'jsbn';
+import { BigInteger } from 'jsbn';
 
 // constructor tests
-var x = new BigInteger("AABB", 16);
-x = new BigInteger("75643564363473453456342378564387956906736546456235345");
+var x = new BigInteger('AABB', 16);
+x = new BigInteger('75643564363473453456342378564387956906736546456235345');
 
 // method tests
 var isBigInteger: BigInteger;
@@ -14,7 +14,7 @@ var isByteArray: number[];
 
 x.copyTo(x);
 x.fromInt(0);
-x.fromString("CAFEBABE", 16);
+x.fromString('CAFEBABE', 16);
 x.clamp();
 isString = x.toString();
 isString = x.toString(16);
@@ -34,11 +34,11 @@ isBigInteger = x.mod(x);
 isNumber = x.invDigit();
 isBoolean = x.isEven();
 isBigInteger = x.exp(0, {
-    convert: (x) => x,
-    revert: (x) => x,
-    reduce: (x) => x,
-    mulTo: (x) => x,
-    sqrTo: (x) => x
+    convert: x => x,
+    revert: x => x,
+    reduce: x => x,
+    mulTo: x => x,
+    sqrTo: x => x,
 });
 isBigInteger = x.modPowInt(0, x);
 isBigInteger = x.clone();
@@ -48,7 +48,7 @@ isNumber = x.shortValue();
 isNumber = x.chunkSize(0);
 isNumber = x.signum();
 isString = x.toRadix(10);
-x.fromRadix("123", 10);
+x.fromRadix('123', 10);
 x.fromNumber(1);
 x.fromNumber(1, 2);
 x.fromNumber(1, 2, 3);

@@ -1,10 +1,8 @@
-import { MediaMetadata } from "chromecast-caf-receiver/cast.framework.messages";
+import { MediaMetadata } from 'chromecast-caf-receiver/cast.framework.messages';
 
 // The following test showcases how you can import individual types directly from the namespace:
 
-const mediaMetadata = new MediaMetadata(
-    cast.framework.messages.MetadataType.GENERIC
-);
+const mediaMetadata = new MediaMetadata(cast.framework.messages.MetadataType.GENERIC);
 mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
 
 // The following tests showcase how you can globally access 'cast' types using
@@ -12,23 +10,23 @@ mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
 // conforms exactly to the CAF documentation.
 
 // tslint:disable-next-line
-const breaksEvent = new cast.framework.events.BreaksEvent("BREAK_STARTED");
-breaksEvent.breakId = "some-break-id";
-breaksEvent.breakClipId = "some-break-clip-id";
+const breaksEvent = new cast.framework.events.BreaksEvent('BREAK_STARTED');
+breaksEvent.breakId = 'some-break-id';
+breaksEvent.breakClipId = 'some-break-clip-id';
 
 // tslint:disable-next-line
-const track = new cast.framework.messages.Track(1, "TEXT");
+const track = new cast.framework.messages.Track(1, 'TEXT');
 // tslint:disable-next-line
-const breakClip = new cast.framework.messages.BreakClip("id");
+const breakClip = new cast.framework.messages.BreakClip('id');
 // tslint:disable-next-line
-const adBreak = new cast.framework.messages.Break("id", ["id"], 1);
+const adBreak = new cast.framework.messages.Break('id', ['id'], 1);
 // tslint:disable-next-line
-const rEvent = new cast.framework.events.RequestEvent("BITRATE_CHANGED", {
-    requestId: 2
+const rEvent = new cast.framework.events.RequestEvent('BITRATE_CHANGED', {
+    requestId: 2,
 });
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
-pManager.addEventListener("STALLED", () => {});
+pManager.addEventListener('STALLED', () => {});
 pManager.addEventListener(cast.framework.events.category.CORE, () => {});
 pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
 pManager.addEventListener(cast.framework.events.category.FINE, () => {});
@@ -43,9 +41,7 @@ const items = qBase.fetchItems(1, 3, 4);
 // tslint:disable-next-line
 const breakSeekData = new cast.framework.breaks.BreakSeekData(0, 100, []);
 // tslint:disable-next-line
-const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(
-    adBreak
-);
+const breakClipLoadContext = new cast.framework.breaks.BreakClipLoadInterceptorContext(adBreak);
 // tslint:disable-next-line
 const breakManager: cast.framework.breaks.BreakManager = {
     getBreakById: () => adBreak,
@@ -56,7 +52,7 @@ const breakManager: cast.framework.breaks.BreakManager = {
     setBreakClipLoadInterceptor: () => {},
     setBreakSeekInterceptor: () => {},
     setPlayWatchedBreak: () => {},
-    setVastTrackingInterceptor: () => {}
+    setVastTrackingInterceptor: () => {},
 };
 
 // tslint:disable-next-line
@@ -66,26 +62,26 @@ const lrd: cast.framework.messages.LoadRequestData = {
     media: {
         tracks: [],
         textTrackStyle: {},
-        streamType: "BUFFERED",
+        streamType: 'BUFFERED',
         metadata: {
-            metadataType: cast.framework.messages.MetadataType.GENERIC
+            metadataType: cast.framework.messages.MetadataType.GENERIC,
         },
-        hlsSegmentFormat: "aac",
-        contentId: "id",
-        contentType: "type",
+        hlsSegmentFormat: 'aac',
+        contentId: 'id',
+        contentType: 'type',
         breakClips: [breakClip],
-        breaks: [adBreak]
+        breaks: [adBreak],
     },
-    queueData: {}
+    queueData: {},
 };
 
 // tslint:disable-next-line
 const appData: cast.framework.system.ApplicationData = {
-    id: () => "id",
-    launchingSenderId: () => "launch-id",
-    name: () => "name",
-    namespaces: () => ["namespace"],
-    sessionId: () => 1
+    id: () => 'id',
+    launchingSenderId: () => 'launch-id',
+    name: () => 'name',
+    namespaces: () => ['namespace'],
+    sessionId: () => 1,
 };
 
 // tslint:disable-next-line
@@ -94,7 +90,7 @@ const data = readyEvent.data;
 // tslint:disable-next-line
 const pData: cast.framework.ui.PlayerData = {
     breakPercentagePositions: [1],
-    contentType: "video",
+    contentType: 'video',
     currentBreakClipNumber: 2,
     currentTime: 1234,
     displayStatus: true,
@@ -104,22 +100,20 @@ const pData: cast.framework.ui.PlayerData = {
     isPlayingBreak: false,
     isSeeking: true,
     // tslint:disable-next-line
-    metadata: new cast.framework.messages.MediaMetadata(
-        cast.framework.messages.MetadataType.GENERIC
-    ),
-    nextSubtitle: "sub",
-    nextThumbnailUrl: "url",
-    nextTitle: "title",
+    metadata: new cast.framework.messages.MediaMetadata(cast.framework.messages.MetadataType.GENERIC),
+    nextSubtitle: 'sub',
+    nextThumbnailUrl: 'url',
+    nextTitle: 'title',
     numberBreakClips: 3,
     preloadingNext: false,
-    state: "paused",
-    thumbnailUrl: "url",
-    title: "title",
-    whenSkippable: 321
+    state: 'paused',
+    thumbnailUrl: 'url',
+    title: 'title',
+    whenSkippable: 321,
 };
 // tslint:disable-next-line
 const binder = new cast.framework.ui.PlayerDataBinder(pData);
-binder.addEventListener("ANY_CHANGE", e => {});
+binder.addEventListener('ANY_CHANGE', e => {});
 // tslint:disable-next-line
 const supportedCommands: number =
     cast.framework.messages.Command.ALL_BASIC_MEDIA |

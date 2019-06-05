@@ -18,8 +18,7 @@ slocket('/path/to/filename.lock')
         lock; // $ExpectType Lock
         lock.release();
     })
-    .catch(er => {
-    });
+    .catch(er => {});
 
 async function fooSingleFile() {
     const lock = await slocket('foo');

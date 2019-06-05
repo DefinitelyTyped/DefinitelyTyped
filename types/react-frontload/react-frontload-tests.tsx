@@ -18,10 +18,7 @@ const frontload = async (props: MainProps) => {
     });
 };
 
-const FrontloadedMain = frontloadConnect(
-    frontload,
-    { noServerRender: false, onMount: false, onUpdate: false },
-)(Main);
+const FrontloadedMain = frontloadConnect(frontload, { noServerRender: false, onMount: false, onUpdate: false })(Main);
 
 interface AppProps {
     renderCase: string;
@@ -37,6 +34,6 @@ const App = ({ renderCase }: AppProps) => {
 
 (async () => {
     const htmlString: string = await frontloadServerRender(dryRun =>
-        ReactDOMServer.renderToString(<App renderCase={dryRun ? 'Dry run true case' : 'Dry run false case'} />),
+        ReactDOMServer.renderToString(<App renderCase={dryRun ? 'Dry run true case' : 'Dry run false case'} />)
     );
 })();

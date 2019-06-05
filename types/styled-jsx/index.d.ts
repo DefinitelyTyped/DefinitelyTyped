@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import "react";
+import 'react';
 
-import * as css from "./css";
-import * as server from "./server";
+import * as css from './css';
+import * as server from './server';
 
-declare module "react" {
+declare module 'react' {
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         jsx?: boolean;
         global?: boolean;

@@ -58,7 +58,7 @@ wpi.wiringPiI2CClose(fd);
 fd = wpi.wiringPiSPIGetFd(2);
 fd = wpi.wiringPiSPISetup(2, 32000000);
 fd = wpi.wiringPiSPISetupMode(2, 32000000, 3);
-let buff: Buffer = new Buffer("spi data");
+let buff: Buffer = new Buffer('spi data');
 ret = wpi.wiringPiSPIDataRW(2, buff);
 console.log(buff.toString());
 wpi.wiringPiSPIClose(fd);

@@ -6,7 +6,10 @@ import * as http from 'selenium-webdriver/http';
 function TestFirefoxDriver() {
     let driver: firefox.Driver = firefox.Driver.createSession();
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox());
-    driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new http.Executor(new http.HttpClient('http://someurl')));
+    driver = firefox.Driver.createSession(
+        webdriver.Capabilities.firefox(),
+        new http.Executor(new http.HttpClient('http://someurl'))
+    );
     driver = firefox.Driver.createSession(webdriver.Capabilities.firefox(), new remote.DriverService('/dev/null', {}));
 
     let baseDriver: webdriver.WebDriver = driver;

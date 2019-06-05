@@ -21,9 +21,8 @@ stream = split(matcherRegex, options);
 stream = split(matcherRegex, JSON.parse, options);
 
 options = {
-  maxLength: 1000,
-  objectMode: true,
-  highWaterMark: 16,
-  encoding: 'utf8'
+    maxLength: 1000,
+    objectMode: true,
+    highWaterMark: 16,
+    encoding: 'utf8',
 };
-

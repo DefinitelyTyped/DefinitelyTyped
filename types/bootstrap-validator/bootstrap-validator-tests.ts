@@ -8,5 +8,5 @@ $('#myForm').validator({
     disable: false,
     focus: true,
     feedback: {},
-    custom: {}
+    custom: {},
 });

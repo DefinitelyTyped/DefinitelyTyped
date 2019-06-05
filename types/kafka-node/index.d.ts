@@ -11,15 +11,27 @@
 
 // # Classes
 export class Client {
-    constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
+    constructor(
+        connectionString: string,
+        clientId?: string,
+        options?: ZKOptions,
+        noBatchOptions?: AckBatchOptions,
+        sslOptions?: any
+    );
     close(cb?: () => void): void;
     loadMetadataForTopics(topics: string[], cb: (error: TopicsNotExistError | any, data: any) => any): void;
     topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
-    sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
+    sendOffsetCommitV2Request(
+        group: string,
+        generationId: number,
+        memberId: string,
+        commits: OffsetCommitRequest[],
+        cb: (error: any, data: any) => any
+    ): void;
     // Note: socket_error is currently KafkaClient only, and zkReconnect is currently Client only.
-    on(eventName: "brokersChanged" | "close" | "connect" | "ready" | "reconnect" | "zkReconnect", cb: () => any): this;
-    on(eventName: "error" | "socket_error", cb: (error: any) => any): this;
+    on(eventName: 'brokersChanged' | 'close' | 'connect' | 'ready' | 'reconnect' | 'zkReconnect', cb: () => any): this;
+    on(eventName: 'error' | 'socket_error', cb: (error: any) => any): this;
 }
 
 export class KafkaClient extends Client {
@@ -31,23 +43,26 @@ export class KafkaClient extends Client {
 
 export class Producer {
     constructor(client: Client, options?: ProducerOptions, customPartitioner?: CustomPartitioner);
-    on(eventName: "ready", cb: () => any): void;
-    on(eventName: "error", cb: (error: any) => any): void;
+    on(eventName: 'ready', cb: () => any): void;
+    on(eventName: 'error', cb: (error: any) => any): void;
     send(payloads: ProduceRequest[], cb: (error: any, data: any) => any): void;
     createTopics(topics: string[], async: boolean, cb: (error: any, data: any) => any): void;
     createTopics(topics: string[], cb: (error: any, data: any) => any): void;
     close(cb?: () => any): void;
 }
 
-export class HighLevelProducer extends Producer {
-}
+export class HighLevelProducer extends Producer {}
 
 export class Consumer {
     constructor(client: Client, fetchRequests: Array<OffsetFetchRequest | string>, options: ConsumerOptions);
     client: Client;
-    on(eventName: "message", cb: (message: Message) => any): void;
-    on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    addTopics(topics: string[] | Topic[], cb: (error: any, added: string[] | Topic[]) => any, fromOffset?: boolean): void;
+    on(eventName: 'message', cb: (message: Message) => any): void;
+    on(eventName: 'error' | 'offsetOutOfRange', cb: (error: any) => any): void;
+    addTopics(
+        topics: string[] | Topic[],
+        cb: (error: any, added: string[] | Topic[]) => any,
+        fromOffset?: boolean
+    ): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
     commit(force: boolean, cb: (error: any, data: any) => any): void;
@@ -63,9 +78,9 @@ export class Consumer {
 export class HighLevelConsumer {
     constructor(client: Client, payloads: Topic[], options: HighLevelConsumerOptions);
     client: Client;
-    on(eventName: "message", cb: (message: Message) => any): void;
-    on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    on(eventName: "rebalancing" | "rebalanced" | "connect", cb: () => any): void;
+    on(eventName: 'message', cb: (message: Message) => any): void;
+    on(eventName: 'error' | 'offsetOutOfRange', cb: (error: any) => any): void;
+    on(eventName: 'rebalancing' | 'rebalanced' | 'connect', cb: () => any): void;
     addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
@@ -87,8 +102,8 @@ export class ConsumerGroup extends HighLevelConsumer {
 
 export class Offset {
     constructor(client: Client);
-    on(eventName: "ready" | "connect", cb: () => any): void;
-    on(eventName: "error", cb: (error: any) => any): void;
+    on(eventName: 'ready' | 'connect', cb: () => any): void;
+    on(eventName: 'error', cb: (error: any) => any): void;
     fetch(payloads: OffsetRequest[], cb: (error: any, data: any) => any): void;
     commit(groupId: string, payloads: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
     fetchCommits(groupId: string, payloads: OffsetFetchRequest[], cb: (error: any, data: any) => any): void;
@@ -115,7 +130,7 @@ export interface Message {
     partition?: number;
     highWaterOffset?: number;
     key?: string;
-  }
+}
 
 export interface ProducerOptions {
     requireAcks?: number;
@@ -173,10 +188,10 @@ export interface ConsumerOptions {
 }
 
 export interface HighLevelConsumerOptions extends ConsumerOptions {
-  id?: string;
-  maxNumSegments?: number;
-  maxTickMessages?: number;
-  rebalanceRetry?: RetryOptions;
+    id?: string;
+    maxNumSegments?: number;
+    maxTickMessages?: number;
+    rebalanceRetry?: RetryOptions;
 }
 
 export interface CustomPartitionAssignmentProtocol {
@@ -195,9 +210,9 @@ export interface ConsumerGroupOptions {
     id?: string;
     groupId: string;
     sessionTimeout?: number;
-    protocol?: Array<"roundrobin" | "range" | CustomPartitionAssignmentProtocol>;
-    fromOffset?: "earliest" | "latest" | "none";
-    outOfRangeOffset?: "earliest" | "latest" | "none";
+    protocol?: Array<'roundrobin' | 'range' | CustomPartitionAssignmentProtocol>;
+    fromOffset?: 'earliest' | 'latest' | 'none';
+    outOfRangeOffset?: 'earliest' | 'latest' | 'none';
     migrateHLC?: boolean;
     migrateRolling?: boolean;
     autoCommit?: boolean;

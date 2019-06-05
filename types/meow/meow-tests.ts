@@ -5,13 +5,13 @@ const cli = meow('Help text', {
     flags: {
         unicorn: {
             type: 'boolean',
-            alias: 'u'
+            alias: 'u',
         },
         fooBar: {
             type: 'string',
-            default: 'foo'
-        }
-    }
+            default: 'foo',
+        },
+    },
 });
 
 const input: string = cli.input[0];
@@ -34,11 +34,11 @@ const cli3 = meow({
     flags: {
         unicorn: {
             type: 'boolean',
-            alias: 'u'
+            alias: 'u',
         },
         fooBar: {
             type: 'string',
-            default: 'foo'
-        }
-    }
+            default: 'foo',
+        },
+    },
 });

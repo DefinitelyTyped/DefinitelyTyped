@@ -6,7 +6,7 @@
 export = cliTruncate;
 
 declare function cliTruncate(
-  input: string,
-  columns: number,
-  options?: {position?: 'start' | 'middle' | 'end'},
+    input: string,
+    columns: number,
+    options?: { position?: 'start' | 'middle' | 'end' }
 ): string;

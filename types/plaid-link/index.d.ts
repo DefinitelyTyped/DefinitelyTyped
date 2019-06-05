@@ -31,10 +31,7 @@ export namespace Plaid {
         isWebView?: boolean;
     }
 
-    type OnSuccess = (
-        public_token: string,
-        metadata: OnSuccessMetaData
-    ) => void;
+    type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
     type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
     type OnEvent = (eventName: EventName, metadata: OnEventMetaData) => void;
     type OnLoad = () => void;
@@ -43,22 +40,19 @@ export namespace Plaid {
         open: () => void;
         institutions: Institution[];
     }
-    type Product = "transactions" | "auth" | "identity" | "income" | "assets";
-    type Environment = "development" | "sandbox" | "production";
-    type Language = "en" | "fr";
-    type VerificationStatus =
-        | "pending_automatic_verification"
-        | "pending_manual_verification"
-        | "manually_verified";
+    type Product = 'transactions' | 'auth' | 'identity' | 'income' | 'assets';
+    type Environment = 'development' | 'sandbox' | 'production';
+    type Language = 'en' | 'fr';
+    type VerificationStatus = 'pending_automatic_verification' | 'pending_manual_verification' | 'manually_verified';
     type EventName =
-        | "ERROR"
-        | "EXIT"
-        | "HANDOFF"
-        | "OPEN"
-        | "OPEN_MY_PLAID"
-        | "SEARCH_INSTITUTION"
-        | "SELECT_INSTITUTION"
-        | "TRANSITION_VIEW";
+        | 'ERROR'
+        | 'EXIT'
+        | 'HANDOFF'
+        | 'OPEN'
+        | 'OPEN_MY_PLAID'
+        | 'SEARCH_INSTITUTION'
+        | 'SELECT_INSTITUTION'
+        | 'TRANSITION_VIEW';
     interface User {
         legalName: string;
         emailAddress: string;

@@ -5,7 +5,7 @@ const withDefaultOptions: postcss.Transformer = nested();
 const withCustomOptions: postcss.Transformer = nested({
     bubble: ['phone'],
     unwrap: ['phone'],
-    preserveEmpty: true
+    preserveEmpty: true,
 });
 
 postcss().use(withDefaultOptions);

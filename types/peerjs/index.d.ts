@@ -6,8 +6,8 @@
 
 /// <reference types="webrtc" />
 
-declare namespace PeerJs{
-    interface PeerJSOption{
+declare namespace PeerJs {
+    interface PeerJSOption {
         key?: string;
         host?: string;
         port?: number;
@@ -17,22 +17,21 @@ declare namespace PeerJs{
         debug?: number;
     }
 
-    interface PeerConnectOption{
+    interface PeerConnectOption {
         label?: string;
         metadata?: any;
         serialization?: string;
         reliable?: boolean;
-
     }
 
-    interface DataConnection{
+    interface DataConnection {
         send(data: any): void;
         close(): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: 'data', cb: (data: any)=>void): void;
-        on(event: 'open', cb: ()=>void): void;
-        on(event: 'close', cb: ()=>void): void;
-        on(event: 'error', cb: (err: any)=>void): void;
+        on(event: string, cb: () => void): void;
+        on(event: 'data', cb: (data: any) => void): void;
+        on(event: 'open', cb: () => void): void;
+        on(event: 'close', cb: () => void): void;
+        on(event: 'error', cb: (err: any) => void): void;
         off(event: string, fn: Function, once?: boolean): void;
         dataChannel: RTCDataChannel;
         label: string;
@@ -46,13 +45,13 @@ declare namespace PeerJs{
         buffSize: number;
     }
 
-    interface MediaConnection{
+    interface MediaConnection {
         answer(stream?: any): void;
         close(): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: 'stream', cb: (stream: any)=>void): void;
-        on(event: 'close', cb: ()=>void): void;
-        on(event: 'error', cb: (err: any)=>void): void;
+        on(event: string, cb: () => void): void;
+        on(event: 'stream', cb: (stream: any) => void): void;
+        on(event: 'close', cb: () => void): void;
+        on(event: 'error', cb: (err: any) => void): void;
         off(event: string, fn: Function, once?: boolean): void;
         open: boolean;
         metadata: any;
@@ -67,12 +66,12 @@ declare namespace PeerJs{
         reliable: boolean;
     }
 
-    interface util{
+    interface util {
         browser: string;
         supports: utilSupportsObj;
     }
 
-    export interface Peer{
+    export interface Peer {
         /**
          *
          * @param id The brokering ID of the remote peer (their peer.id).
@@ -91,43 +90,43 @@ declare namespace PeerJs{
          * @param event Event name
          * @param cb Callback Function
          */
-        on(event: string, cb: ()=>void): void;
+        on(event: string, cb: () => void): void;
         /**
          * Emitted when a connection to the PeerServer is established.
          * @param event Event name
          * @param cb id is the brokering ID of the peer
          */
-        on(event: 'open', cb: (id: string)=>void): void;
+        on(event: 'open', cb: (id: string) => void): void;
         /**
          * Emitted when a new data connection is established from a remote peer.
          * @param event Event name
          * @param cb Callback Function
          */
-        on(event: 'connection', cb: (dataConnection: PeerJs.DataConnection)=>void): void;
+        on(event: 'connection', cb: (dataConnection: PeerJs.DataConnection) => void): void;
         /**
          * Emitted when a remote peer attempts to call you.
          * @param event Event name
          * @param cb Callback Function
          */
-        on(event: 'call', cb: (mediaConnection: PeerJs.MediaConnection)=>void): void;
+        on(event: 'call', cb: (mediaConnection: PeerJs.MediaConnection) => void): void;
         /**
          * Emitted when the peer is destroyed and can no longer accept or create any new connections.
          * @param event Event name
          * @param cb Callback Function
          */
-        on(event: 'close', cb: ()=>void): void;
+        on(event: 'close', cb: () => void): void;
         /**
          * Emitted when the peer is disconnected from the signalling server
          * @param event Event name
          * @param cb Callback Function
          */
-        on(event: 'disconnected', cb: ()=>void): void;
+        on(event: 'disconnected', cb: () => void): void;
         /**
          * Errors on the peer are almost always fatal and will destroy the peer.
          * @param event Event name
          * @param cb Callback Function
          */
-        on(event: 'error', cb: (err: any)=>void): void;
+        on(event: 'error', cb: (err: any) => void): void;
         /**
          * Remove event listeners.(EventEmitter3)
          * @param {String} event The event we want to remove.
@@ -159,7 +158,7 @@ declare namespace PeerJs{
          * Get a list of available peer IDs
          * @param callback
          */
-        listAllPeers(callback: (peerIds: Array<string>)=>void): void;
+        listAllPeers(callback: (peerIds: Array<string>) => void): void;
         /**
          * The brokering ID of this peer
          */

@@ -1,2 +1,2 @@
-import { drop } from "lodash";
+import { drop } from 'lodash';
 export default drop;

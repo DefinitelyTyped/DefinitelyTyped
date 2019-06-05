@@ -1,2 +1,2 @@
-import { invokeArgsMap } from "../fp";
+import { invokeArgsMap } from '../fp';
 export = invokeArgsMap;

@@ -12,7 +12,7 @@ class Test extends React.Component {
                 nextLabel={'next'}
                 breakLabel={'break-me'}
                 breakClassName={'break-class'}
-                onPageChange={(selectedItem: {selected: number}) => null}
+                onPageChange={(selectedItem: { selected: number }) => null}
                 initialPage={2}
                 forcePage={3}
                 disableInitialCallback={false}

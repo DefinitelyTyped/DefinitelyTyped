@@ -14,7 +14,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace loadingBar {
-
         interface ILoadingBarProvider {
             /**
              * Turn the spinner on or off
@@ -90,5 +89,4 @@ declare module 'angular' {
          */
         ignoreLoadingBar?: boolean;
     }
-
 }

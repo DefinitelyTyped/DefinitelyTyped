@@ -1,4 +1,4 @@
-import { SelectSource } from "./SelectSource";
+import { SelectSource } from './SelectSource';
 
 /**
  * Represents a valid select-source.

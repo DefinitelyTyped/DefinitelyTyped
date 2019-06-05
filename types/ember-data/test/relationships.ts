@@ -7,7 +7,7 @@ declare const store: DS.Store;
 
 const Person = DS.Model.extend({
     children: DS.hasMany('folder', { inverse: 'parent' }),
-    parent: DS.belongsTo('folder', { inverse: 'children' })
+    parent: DS.belongsTo('folder', { inverse: 'children' }),
 });
 
 // $ExpectType void
@@ -37,7 +37,7 @@ Person.eachTransformedAttribute((name, type) => {
 });
 
 const Polymorphic = DS.Model.extend({
-    paymentMethods: DS.hasMany('payment-method', { polymorphic: true })
+    paymentMethods: DS.hasMany('payment-method', { polymorphic: true }),
 });
 
 // $ExpectType void
@@ -65,7 +65,7 @@ Polymorphic.eachRelatedType(() => '');
 // $ExpectType void
 Polymorphic.eachRelatedType(() => '', {});
 // $ExpectType void
-Polymorphic.eachRelatedType((name) => {
+Polymorphic.eachRelatedType(name => {
     let s: string = name;
 });
 
@@ -94,7 +94,7 @@ declare module 'ember-data/types/registries/model' {
 }
 
 let blogPost = store.peekRecord('relational-post', 1);
-blogPost!.get('comments').then((comments) => {
+blogPost!.get('comments').then(comments => {
     // now we can work with the comments
     let author: string = comments.get('firstObject')!.get('author');
 });

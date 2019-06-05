@@ -7,6 +7,5 @@ Flipsnap('', {
     distance: 230,
     transitionDuration: 500,
     disableTouch: true,
-    disable3d: false
+    disable3d: false,
 });
-

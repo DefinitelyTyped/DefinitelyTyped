@@ -6,7 +6,9 @@ app.channel('abc').send({});
 
 // check if the non-augmented @feathersjs/feathers typings still work
 app.on('asd', () => {});
-app.service('asd').get(0).then(() => {});
+app.service('asd')
+    .get(0)
+    .then(() => {});
 
 app.channel('admins', 'users');
 

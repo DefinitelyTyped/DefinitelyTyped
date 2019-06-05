@@ -3,7 +3,7 @@
 // Definitions by: Vitor Fernandes <https://github.com/vfernandestoptal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 declare namespace GCStats {
     interface MemoryStatistics {

@@ -7,7 +7,7 @@ const opts: br.BrotliEncodeParams = {
     lgwin: 22,
     mode: 0,
     quality: 11,
-    size_hint: 0
+    size_hint: 0,
 };
 
 const onCompress = (err1: Error | null | undefined, compressed: Buffer) => {
@@ -20,13 +20,11 @@ br.compress(Buffer.from('foo', 'utf8'), onCompress);
 
 br.compress(Buffer.from('foo', 'utf8'), opts, onCompress);
 
-br
-    .compress(Buffer.from('foobar'))
-    .then(compressedData => {
-        br.decompress(compressedData).then(data => {
-            console.log(data.equals(Buffer.from('foobar')));
-        });
+br.compress(Buffer.from('foobar')).then(compressedData => {
+    br.decompress(compressedData).then(data => {
+        console.log(data.equals(Buffer.from('foobar')));
     });
+});
 
 const stream = br.compressStream();
 stream.flush();

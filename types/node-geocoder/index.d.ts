@@ -7,13 +7,24 @@
 
 declare namespace node_geocoder {
     type Providers =
-        'google' | 'here' | 'freegeoip' |
-        'datasciencetoolkit' | 'openstreetmap' |
-        'locationiq' | 'mapquest' | 'openmapquest' |
-        'agol' | 'tomtom' | 'nominatimmapquest' |
-        'opencage' | 'smartyStreet' | 'geocodio' |
-        'yandex' | 'teleport' | 'opendatafrance' |
-        'pickpoint';
+        | 'google'
+        | 'here'
+        | 'freegeoip'
+        | 'datasciencetoolkit'
+        | 'openstreetmap'
+        | 'locationiq'
+        | 'mapquest'
+        | 'openmapquest'
+        | 'agol'
+        | 'tomtom'
+        | 'nominatimmapquest'
+        | 'opencage'
+        | 'smartyStreet'
+        | 'geocodio'
+        | 'yandex'
+        | 'teleport'
+        | 'opendatafrance'
+        | 'pickpoint';
 
     interface Options {
         provider: Providers;

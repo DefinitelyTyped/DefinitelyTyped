@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -18,7 +18,7 @@ const taptarget = new materialize.TapTarget(elem, {
     onOpen(origin) {
         // $ExpectType Element
         origin;
-    }
+    },
 });
 
 // $ExpectType void
@@ -32,7 +32,7 @@ taptarget.el;
 // $ExpectType TapTargetOptions
 taptarget.options;
 
-$(".whatever").tapTarget();
-$(".whatever").tapTarget("destroy");
-$(".whatever").tapTarget("close");
-$(".whatever").tapTarget("open");
+$('.whatever').tapTarget();
+$('.whatever').tapTarget('destroy');
+$('.whatever').tapTarget('close');
+$('.whatever').tapTarget('open');

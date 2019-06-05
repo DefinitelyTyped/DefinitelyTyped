@@ -5,14 +5,12 @@ wx.config({
     timestamp: 123,
     nonceStr: '',
     signature: '',
-    jsApiList: ['']
+    jsApiList: [''],
 });
 
-wx.ready(() => {
-});
+wx.ready(() => {});
 
-wx.error((res: any) => {
-});
+wx.error((res: any) => {});
 
 wx.checkJsApi({
     jsApiList: [''],
@@ -22,44 +20,42 @@ wx.checkJsApi({
             res.errMsg.msg;
         }
     },
-    complete: () => {
-    }
+    complete: () => {},
 });
 
 wx.onMenuShareAppMessage({
     desc: '',
     title: '',
     link: '',
-    imgUrl: ''
+    imgUrl: '',
 });
 
 wx.onMenuShareTimeline({
     title: '',
-    link: ''
+    link: '',
 });
 
-wx.scanQRCode({
-});
+wx.scanQRCode({});
 
 wx.closeWindow();
 
 wx.downloadImage({
-    serverId: ''
+    serverId: '',
 });
 
 wx.addCard({
     cardList: [
         {
             cardId: '',
-            cardExt: ''
-        }
-    ]
+            cardExt: '',
+        },
+    ],
 });
 
 wx.chooseImage({
-    success: (res) => {
+    success: res => {
         res.localIds;
-    }
+    },
 });
 
 wx.chooseWXPay({
@@ -69,28 +65,28 @@ wx.chooseWXPay({
     paySign: '',
     success: () => {},
     cancel: () => {},
-    fail: () => {}
+    fail: () => {},
 });
 
 wx.getLocation({
-    success: (res) => {
+    success: res => {
         if (res) {
             res.accuracy;
             res.latitude;
             res.longitude;
             res.speed;
         }
-    }
+    },
 });
 
-wx.getNetworkType((res) => {
+wx.getNetworkType(res => {
     if (res) {
         res.networkType;
     }
 });
 
 wx.hideMenuItems({
-    menuList: []
+    menuList: [],
 });
 
 wx.hideAllNonBaseMenuItem();
@@ -98,18 +94,18 @@ wx.hideAllNonBaseMenuItem();
 wx.onMenuShareQQ({
     title: '',
     link: '',
-    desc: ''
+    desc: '',
 });
 
 wx.openLocation({
     name: '',
     latitude: 123.2,
-    longitude: -12.23
+    longitude: -12.23,
 });
 
 wx.openProductSpecificView({
     productId: '1',
-    viewType: 0
+    viewType: 0,
 });
 
 wx.chooseCard({
@@ -119,19 +115,19 @@ wx.chooseCard({
     cardSign: '',
     nonceStr: '',
     timestamp: 1,
-    signType: ''
+    signType: '',
 });
 
-wx.onVoiceRecordEnd((res) => {
+wx.onVoiceRecordEnd(res => {
     res.localId;
 });
 
-wx.onVoicePlayEnd((res) => {
+wx.onVoicePlayEnd(res => {
     res.localId;
 });
 
 wx.openProductSpecificView({
-    productId: ''
+    productId: '',
 });
 
 wx.updateAppMessageShareData({
@@ -139,12 +135,11 @@ wx.updateAppMessageShareData({
     desc: '',
     link: '',
     imgUrl: '',
-    success: () => {
-    }
+    success: () => {},
 });
 
 wx.updateTimelineShareData({
     title: '',
     link: '',
-    imgUrl: ''
+    imgUrl: '',
 });

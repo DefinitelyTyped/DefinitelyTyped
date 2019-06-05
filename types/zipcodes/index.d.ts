@@ -14,15 +14,15 @@ export interface ZipCode {
     country: string;
 }
 
-export function lookup(zip: string|number): ZipCode | undefined;
+export function lookup(zip: string | number): ZipCode | undefined;
 
 export function lookupByName(city: string, state: string): ZipCode[];
 
 export function lookupByState(state: string): ZipCode[];
 
-export function distance(zipA: string|number, zipB: string|number): number | null;
+export function distance(zipA: string | number, zipB: string | number): number | null;
 
-export function radius(zip: string|number, miles: number, full: boolean): string[] | ZipCode[];
+export function radius(zip: string | number, miles: number, full: boolean): string[] | ZipCode[];
 
 export function toMiles(kilos: number): number;
 

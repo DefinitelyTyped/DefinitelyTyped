@@ -16,14 +16,12 @@ declare namespace Httpi {
     }
 
     export interface HttpiFactory {
-
         (config: HttpiPayload): ng.IHttpPromise<{}>;
 
         resource(url: string): HttpiResource;
     }
 
     export class HttpiResource {
-
         constructor(http: ng.IHttpService, url: string);
 
         delete<T>(config: HttpiPayload): ng.IHttpPromise<T>;

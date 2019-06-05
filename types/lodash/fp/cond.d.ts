@@ -1,2 +1,2 @@
-import { cond } from "../fp";
+import { cond } from '../fp';
 export = cond;

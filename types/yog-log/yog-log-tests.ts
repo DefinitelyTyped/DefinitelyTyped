@@ -23,7 +23,7 @@ const log_str = log.getLogString('test');
 const param = log.getParams('test');
 const md5_tag = log.md5('test', 123);
 
-log.parseCustomLog({ test : 1});
+log.parseCustomLog({ test: 1 });
 
 const formater = log.parseFormat('test');
 
@@ -31,7 +31,7 @@ log.parseStackInfo(new Error());
 
 log.setParams('test', 'some');
 
-log.writeLog(0, { escape_msg : false, filename_suffix : '123', errno : 0 }, 'test');
+log.writeLog(0, { escape_msg: false, filename_suffix: '123', errno: 0 }, 'test');
 
 const middleware = yogLog({});
 

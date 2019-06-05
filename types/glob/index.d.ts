@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import events = require("events");
-import minimatch = require("minimatch");
+import events = require('events');
+import minimatch = require('minimatch');
 
 declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): void;
 declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
@@ -34,7 +34,7 @@ declare namespace G {
         silent?: boolean;
         strict?: boolean;
         cache?: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
-        statCache?: { [path: string]: false | { isDirectory(): boolean} | undefined };
+        statCache?: { [path: string]: false | { isDirectory(): boolean } | undefined };
         symlinks?: { [path: string]: boolean | undefined };
         realpathCache?: { [path: string]: string };
         sync?: boolean;
@@ -71,7 +71,7 @@ declare namespace G {
         options: IOptions;
         aborted: boolean;
         cache: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
-        statCache: { [path: string]: false | { isDirectory(): boolean; } | undefined };
+        statCache: { [path: string]: false | { isDirectory(): boolean } | undefined };
         symlinks: { [path: string]: boolean | undefined };
         realpathCache: { [path: string]: string };
         found: string[];

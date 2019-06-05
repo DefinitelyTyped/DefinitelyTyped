@@ -19,8 +19,12 @@ class WebSocketJSONStream extends Duplex {
             this.emit('close');
             this.emit('end');
         });
-	this.on('error', () => { ws.close(); });
-	this.on('end',   () => { ws.close(); });
+        this.on('error', () => {
+            ws.close();
+        });
+        this.on('end', () => {
+            ws.close();
+        });
     }
     _read(): void {}
     _write(msg: any, encoding: string, next: () => void): void {
@@ -31,7 +35,7 @@ class WebSocketJSONStream extends Duplex {
 
 const backend = new ShareDB();
 
-backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
+backend.addProjection('notes_minimal', 'notes', { title: true, creator: true, lastUpdateTime: true });
 
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterSubmit' | 'apply' | 'commit' | 'submit';
@@ -50,30 +54,17 @@ for (const action of submitRelatedActions) {
             request.options,
             request.snapshot,
             request.ops,
-            request.channels,
+            request.channels
         );
         callback();
     });
 }
 backend.use('connect', (context, callback) => {
-    console.log(
-        context.action,
-        context.agent,
-        context.backend,
-        context.stream,
-        context.req,
-    );
+    console.log(context.action, context.agent, context.backend, context.stream, context.req);
     callback();
 });
 backend.use('op', (context, callback) => {
-    console.log(
-        context.action,
-        context.agent,
-        context.backend,
-        context.collection,
-        context.id,
-        context.op,
-    );
+    console.log(context.action, context.agent, context.backend, context.collection, context.id, context.op);
     callback();
 });
 backend.use('query', (context, callback) => {
@@ -88,27 +79,16 @@ backend.use('query', (context, callback) => {
         context.channel,
         context.query,
         context.options,
-        context.snapshotProjection,
+        context.snapshotProjection
     );
     callback();
 });
 backend.use('receive', (context, callback) => {
-    console.log(
-        context.action,
-        context.agent,
-        context.backend,
-        context.data,
-    );
+    console.log(context.action, context.agent, context.backend, context.data);
     callback();
 });
 backend.use('reply', (context, callback) => {
-    console.log(
-        context.action,
-        context.agent,
-        context.backend,
-        context.request,
-        context.reply,
-    );
+    console.log(context.action, context.agent, context.backend, context.request, context.reply);
     callback();
 });
 backend.use('readSnapshots', (context, callback) => {
@@ -118,20 +98,22 @@ backend.use('readSnapshots', (context, callback) => {
         context.backend,
         context.collection,
         context.snapshots,
-        context.snapshotType,
+        context.snapshotType
     );
     callback();
 });
 
 const connection = backend.connect();
-const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
+const netRequest = {}; // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);
 const reboundConnection = backend.connect(backend.connect(), netRequest);
 
 const doc = connection.get('examples', 'counter');
 
-doc.fetch((err) => {
-    if (err) { throw err; }
+doc.fetch(err => {
+    if (err) {
+        throw err;
+    }
     if (doc.type === null) {
         doc.create({ numClicks: 0 }, startServer);
     } else {
@@ -145,8 +127,8 @@ function startServer() {
     // Connect any incoming WebSocket connection to ShareDB
     const wss = new WebSocket.Server({ server });
     wss.on('connection', (ws, req) => {
-      const stream = new WebSocketJSONStream(ws);
-      backend.listen(stream);
+        const stream = new WebSocketJSONStream(ws);
+        backend.listen(stream);
     });
 
     server.listen(8080);
@@ -162,7 +144,7 @@ function startClient(callback) {
     const connection = new ShareDBClient.Connection(socket);
     const doc = connection.get('examples', 'counter');
     doc.subscribe(() => {
-        doc.submitOp([{p: ['numClicks'], na: 1}]);
+        doc.submitOp([{ p: ['numClicks'], na: 1 }]);
         callback();
     });
 }

@@ -27,17 +27,13 @@ export function createServer(
     binaryMimeTypes?: string[]
 ): http.Server;
 
-export function proxy(
-    server: http.Server,
-    event: any,
-    context: lambda.Context,
-): http.Server;
+export function proxy(server: http.Server, event: any, context: lambda.Context): http.Server;
 
 export function proxy(
     server: http.Server,
     event: any,
     context: lambda.Context,
-    resolutionMode: 'CONTEXT_SUCCEED' | 'PROMISE',
+    resolutionMode: 'CONTEXT_SUCCEED' | 'PROMISE'
 ): ProxyResult;
 
 export function proxy(

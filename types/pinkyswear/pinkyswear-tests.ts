@@ -1,12 +1,13 @@
-
-
 var promise: PinkySwear.Promise = pinkySwear();
 
-promise.then(function(value) {
-    console.log("Success with value " + value + "1");
-}, function(value) {
-    console.log("Failure with value " + value + "!");
-});
+promise.then(
+    function(value) {
+        console.log('Success with value ' + value + '1');
+    },
+    function(value) {
+        console.log('Failure with value ' + value + '!');
+    }
+);
 
 promise(true, [42]);
 
@@ -14,11 +15,14 @@ promise(true, [42]);
 
 promise = pinkySwear();
 
-promise.then(function(...values: any[]) {
-    console.log("Success with value " + values.join(',') + "1");
-}, function(...values: any[]) {
-    console.log("Failure with value " + values.join(',') + "!");
-});
+promise.then(
+    function(...values: any[]) {
+        console.log('Success with value ' + values.join(',') + '1');
+    },
+    function(...values: any[]) {
+        console.log('Failure with value ' + values.join(',') + '!');
+    }
+);
 
 promise(false, [6, 6, 6]);
 

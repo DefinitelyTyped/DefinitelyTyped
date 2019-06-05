@@ -10,11 +10,11 @@ import * as winston from 'winston';
 import * as Transport from 'winston-transport';
 
 export interface FilterRequest extends Request {
-  [other: string]: any;
+    [other: string]: any;
 }
 
 export interface FilterResponse extends Response {
-  [other: string]: any;
+    [other: string]: any;
 }
 
 export type DynamicMetaFunction = (req: Request, res: Response, err: Error) => object;
@@ -25,37 +25,37 @@ export type RouteFilter = (req: Request, res: Response) => boolean;
 export type MessageTemplate = string | ((req: Request, res: Response) => string);
 
 export interface BaseLoggerOptions {
-  baseMeta?: object;
-  bodyBlacklist?: string[];
-  bodyWhitelist?: string[];
-  colorize?: boolean;
-  dynamicMeta?: DynamicMetaFunction;
-  expressFormat?: boolean;
-  format?: Format;
-  ignoreRoute?: RouteFilter;
-  ignoredRoutes?: string[];
-  level?: string | DynamicLevelFunction;
-  meta?: boolean;
-  metaField?: string;
-  msg?: MessageTemplate;
-  requestFilter?: RequestFilter;
-  requestWhitelist?: string[];
-  responseFilter?: ResponseFilter;
-  responseWhitelist?: string[];
-  skip?: RouteFilter;
-  statusLevels?: {
-    error?: string;
-    success?: string;
-    warn?: string;
-  };
+    baseMeta?: object;
+    bodyBlacklist?: string[];
+    bodyWhitelist?: string[];
+    colorize?: boolean;
+    dynamicMeta?: DynamicMetaFunction;
+    expressFormat?: boolean;
+    format?: Format;
+    ignoreRoute?: RouteFilter;
+    ignoredRoutes?: string[];
+    level?: string | DynamicLevelFunction;
+    meta?: boolean;
+    metaField?: string;
+    msg?: MessageTemplate;
+    requestFilter?: RequestFilter;
+    requestWhitelist?: string[];
+    responseFilter?: ResponseFilter;
+    responseWhitelist?: string[];
+    skip?: RouteFilter;
+    statusLevels?: {
+        error?: string;
+        success?: string;
+        warn?: string;
+    };
 }
 
 export interface LoggerOptionsWithTransports extends BaseLoggerOptions {
-  transports: Transport[];
+    transports: Transport[];
 }
 
 export interface LoggerOptionsWithWinstonInstance extends BaseLoggerOptions {
-  winstonInstance: winston.Logger;
+    winstonInstance: winston.Logger;
 }
 
 export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinstonInstance;
@@ -63,22 +63,22 @@ export type LoggerOptions = LoggerOptionsWithTransports | LoggerOptionsWithWinst
 export function logger(options: LoggerOptions): Handler;
 
 export interface BaseErrorLoggerOptions {
-  baseMeta?: object;
-  dynamicMeta?: DynamicMetaFunction;
-  format?: Format;
-  level?: string | DynamicLevelFunction;
-  metaField?: string;
-  msg?: MessageTemplate;
-  requestFilter?: RequestFilter;
-  requestWhitelist?: string[];
+    baseMeta?: object;
+    dynamicMeta?: DynamicMetaFunction;
+    format?: Format;
+    level?: string | DynamicLevelFunction;
+    metaField?: string;
+    msg?: MessageTemplate;
+    requestFilter?: RequestFilter;
+    requestWhitelist?: string[];
 }
 
 export interface ErrorLoggerOptionsWithTransports extends BaseErrorLoggerOptions {
-  transports: Transport[];
+    transports: Transport[];
 }
 
 export interface ErrorLoggerOptionsWithWinstonInstance extends BaseErrorLoggerOptions {
-  winstonInstance: winston.Logger;
+    winstonInstance: winston.Logger;
 }
 
 export type ErrorLoggerOptions = ErrorLoggerOptionsWithTransports | ErrorLoggerOptionsWithWinstonInstance;
@@ -102,9 +102,9 @@ export let defaultResponseFilter: ResponseFilter;
 export function defaultSkip(): boolean;
 
 export interface ExpressWinstonRequest extends Request {
-  _routeWhitelists: {
-    body: string[];
-    req: string[];
-    res: string[];
-  };
+    _routeWhitelists: {
+        body: string[];
+        req: string[];
+        res: string[];
+    };
 }

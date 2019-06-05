@@ -1,5 +1,4 @@
 declare namespace pc {
-
     /**
      * @name pc.BasicMaterial
      * @class A Basic material is for rendering unlit geometry, either using a constant color or a
@@ -22,7 +21,6 @@ declare namespace pc {
      * @author Will Eastcott
      */
     class BasicMaterial extends pc.Material {
-
         color: pc.Color;
         colorMap: pc.Texture;
 

@@ -1,2 +1,2 @@
-import { castArray } from "../fp";
+import { castArray } from '../fp';
 export = castArray;

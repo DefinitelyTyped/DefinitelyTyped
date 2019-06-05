@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Search Console API v3 */
-    function load(name: "webmasters", version: "v3"): PromiseLike<void>;
-    function load(name: "webmasters", version: "v3", callback: () => any): void;
+    function load(name: 'webmasters', version: 'v3'): PromiseLike<void>;
+    function load(name: 'webmasters', version: 'v3', callback: () => any): void;
 
     const searchanalytics: webmasters.SearchanalyticsResource;
 

@@ -11,34 +11,35 @@ export = NumericInput;
 
 declare namespace NumericInput {
     type BoundsFunctionProp = number | ((component: NumericInput) => number | undefined);
-    type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;  // via TS 2.8 manual
-    interface NumericInputProps extends Omit<
-        React.InputHTMLAttributes<HTMLInputElement>,
-        'min' | 'max' | 'step' | 'onChange' | 'defaultValue' | 'onInvalid' | 'style'
-    > {
+    type Omit<T, K> = Pick<T, Exclude<keyof T, K>>; // via TS 2.8 manual
+    interface NumericInputProps
+        extends Omit<
+            React.InputHTMLAttributes<HTMLInputElement>,
+            'min' | 'max' | 'step' | 'onChange' | 'defaultValue' | 'onInvalid' | 'style'
+        > {
         addLabelText?: string;
         componentClass?: string;
         defaultValue?: number | string;
-        format?: ((value: number | null) => string);
+        format?: (value: number | null) => string;
         max?: BoundsFunctionProp;
         min?: BoundsFunctionProp;
         mobile?: boolean | 'auto' | ((component: NumericInput) => boolean);
         noStyle?: boolean;
         noValidate?: boolean | string;
         onBlur?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
-        onChange?: ((value: number | null, stringValue: string, input: HTMLInputElement) => void);
+        onChange?: (value: number | null, stringValue: string, input: HTMLInputElement) => void;
         onFocus?: React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
         onInput?: React.FormEventHandler<HTMLInputElement>;
-        onInvalid?: ((error: string, value: number | null, stringValue: string) => void);
+        onInvalid?: (error: string, value: number | null, stringValue: string) => void;
         onKeyDown?: React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
         onSelect?: React.ReactEventHandler<HTMLInputElement>;
-        onValid?: ((value: number | null, stringValue: string) => void);
-        parse?: ((stringValue: string) => number | null);
+        onValid?: (value: number | null, stringValue: string) => void;
+        parse?: (stringValue: string) => number | null;
         precision?: number | ((component: NumericInput) => number | null | undefined);
         snap?: boolean;
         step?: number | ((component: NumericInput, direction: string) => number | undefined);
         strict?: boolean;
-        style?: {[key: string]: React.CSSProperties} | boolean;
+        style?: { [key: string]: React.CSSProperties } | boolean;
         value?: number | string;
     }
     // Exposed here for the function prop handlers that get the NumericInput instance as a parameter.

@@ -1,5 +1,5 @@
-import { StaticUrlDeclaration } from "./StaticUrlDeclaration";
-import { UrlDeclarationBase } from "./UrlDeclarationBase";
+import { StaticUrlDeclaration } from './StaticUrlDeclaration';
+import { UrlDeclarationBase } from './UrlDeclarationBase';
 
 /**
  * Represents a dynamically generated url.

@@ -56,12 +56,7 @@ declare class TeamSpeakChannelGroup extends Abstract {
      * @param - Whether the skip flag should be set. Defaults to 0.
      * @param - Whether the negate flag should be set. DEfaults to 0.
      */
-    addPerm(
-        perm: string | number,
-        value: number,
-        skip?: number,
-        negate?: number
-    ): Promise<any>;
+    addPerm(perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
 
     /**
      * Removes a set of specified permissions from the channel group. A permission can be specified by permid or permsid.

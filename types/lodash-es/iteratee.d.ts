@@ -1,2 +1,2 @@
-import { iteratee } from "lodash";
+import { iteratee } from 'lodash';
 export default iteratee;

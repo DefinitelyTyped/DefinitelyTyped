@@ -4,7 +4,7 @@ export {
     // GraphQL Schema definition
     GraphQLSchema,
     GraphQLSchemaConfig,
-} from "./schema";
+} from './schema';
 
 export {
     // Predicates
@@ -97,7 +97,7 @@ export {
     GraphQLScalarSerializer,
     GraphQLScalarValueParser,
     GraphQLScalarLiteralParser,
-} from "./definition";
+} from './definition';
 
 export {
     // Predicate
@@ -114,7 +114,7 @@ export {
     DEFAULT_DEPRECATION_REASON,
     // type
     GraphQLDirectiveConfig,
-} from "./directives";
+} from './directives';
 
 // Common built-in scalar instances.
 export {
@@ -125,7 +125,7 @@ export {
     GraphQLString,
     GraphQLBoolean,
     GraphQLID,
-} from "./scalars";
+} from './scalars';
 
 export {
     // "Enum" of Type Kinds
@@ -145,6 +145,6 @@ export {
     SchemaMetaFieldDef,
     TypeMetaFieldDef,
     TypeNameMetaFieldDef,
-} from "./introspection";
+} from './introspection';
 
-export { validateSchema, assertValidSchema } from "./validate";
+export { validateSchema, assertValidSchema } from './validate';

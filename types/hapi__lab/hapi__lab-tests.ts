@@ -1,91 +1,71 @@
-import { script, assertions } from "@hapi/lab";
+import { script, assertions } from '@hapi/lab';
 
 const { experiment, describe, suite, test, it, before, beforeEach, after, afterEach } = script();
 const expect = assertions.expect;
 const fail = assertions.fail;
 
 experiment('math', () => {
-
-    before((done) => {
-
+    before(done => {
         setTimeout(() => {
-
             done();
         }, 1000);
     });
 
-    beforeEach((done) => {
-
+    beforeEach(done => {
         done();
     });
 
-    test('returns true when 1 + 1 equals 2', (done) => {
-
+    test('returns true when 1 + 1 equals 2', done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 });
 
 experiment('math', () => {
-
     before(() => {
-
         return Promise.resolve();
     });
 
     test('returns true when 1 + 1 equals 2', () => {
-
-        return Promise.resolve()
-            .then((aValue) => {
-
-                const expectedValue = aValue;
-                expect(aValue).to.equal(expectedValue);
-            });
+        return Promise.resolve().then(aValue => {
+            const expectedValue = aValue;
+            expect(aValue).to.equal(expectedValue);
+        });
     });
 });
 
 experiment.only('with only experiment', () => {
-
-    test('this test will run', (done) => {
-
+    test('this test will run', done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 
-    test('another test that will run', (done) => {
-
+    test('another test that will run', done => {
         expect(true).to.equal(true);
         done();
     });
 });
 
 experiment('with only test', () => {
-
-    test.only('only this test will run', (done) => {
-
+    test.only('only this test will run', done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 
-    test('another test that will not be executed', (done) => {
-
+    test('another test that will not be executed', done => {
         done();
     });
 });
 
-test('attaches notes', (done) => {
-
+test('attaches notes', done => {
     expect(1 + 1).to.equal(2);
     done.note(`The current time is ${Date.now()}`);
     done();
 });
 
 test('cleanups after test', (done, onCleanup) => {
-
     if (onCleanup) {
-
-        onCleanup((next) => {
-
+        onCleanup(next => {
             return next();
         });
     }
@@ -95,75 +75,59 @@ test('cleanups after test', (done, onCleanup) => {
 });
 
 experiment('my plan', () => {
-
-    test('only a single assertion executes', { plan: 1 }, (done) => {
-
+    test('only a single assertion executes', { plan: 1 }, done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 });
 
 experiment('math', { timeout: 1000 }, () => {
-
-    before({ timeout: 500 }, (done) => {
-
+    before({ timeout: 500 }, done => {
         done();
     });
 
-    test('returns true when 1 + 1 equals 2', { parallel: true }, (done) => {
-
+    test('returns true when 1 + 1 equals 2', { parallel: true }, done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 });
 
 describe('math', () => {
-
-    before((done) => {
-
+    before(done => {
         done();
     });
 
-    after((done) => {
-
+    after(done => {
         done();
     });
 
-    afterEach((done) => {
-
+    afterEach(done => {
         done();
     });
 
-    it('returns true when 1 + 1 equals 2', (done) => {
-
+    it('returns true when 1 + 1 equals 2', done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 });
 
 suite('math', () => {
-
-    test('returns true when 1 + 1 equals 2', (done) => {
-
+    test('returns true when 1 + 1 equals 2', done => {
         expect(1 + 1).to.equal(2);
         done();
     });
 });
 
 describe('expectation', () => {
-
-    it('should be able to expect', (done) => {
-
+    it('should be able to expect', done => {
         expect(true).to.be.true();
 
         done();
     });
 
-    it('should be able to fail (This test should fail)', (done) => {
-
+    it('should be able to fail (This test should fail)', done => {
         fail('Should fail');
 
         done();
     });
-
 });

@@ -5,13 +5,10 @@
 
 /// <reference types="node" />
 
-
-
-import events = require("events");
-import tls = require("tls");
+import events = require('events');
+import tls = require('tls');
 
 declare namespace Client {
-
     /**
      * Options for Client#connect()
      */
@@ -62,7 +59,7 @@ declare namespace Client {
         /**
          * A single character denoting the entry type: 'd' for directory, '-' for file (or 'l' for symlink on **\*NIX only**).
          */
-        "type": string;
+        type: string;
         /**
          * The name of the entry
          */
@@ -79,17 +76,17 @@ declare namespace Client {
          * The various permissions for this entry **(*NIX only)**
          */
         rights?: {
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
+            /**
+             * An empty string or any combination of 'r', 'w', 'x'.
+             */
             user: string;
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
+            /**
+             * An empty string or any combination of 'r', 'w', 'x'.
+             */
             group: string;
-			/**
-			 * An empty string or any combination of 'r', 'w', 'x'.
-			 */
+            /**
+             * An empty string or any combination of 'r', 'w', 'x'.
+             */
             other: string;
         };
         /**
@@ -111,7 +108,6 @@ declare namespace Client {
     }
 }
 
-
 /**
  * FTP client.
  *
@@ -124,7 +120,6 @@ declare namespace Client {
  *                              a 'code' property that references the related 3-digit FTP response code.
  */
 declare class Client extends events.EventEmitter {
-
     /**
      * Creates and returns a new FTP client instance.
      */
@@ -150,7 +145,11 @@ declare class Client extends events.EventEmitter {
      * @param path defaults to the current working directory.
      * @param useCompression defaults to false.
      */
-    list(path: string, useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
+    list(
+        path: string,
+        useCompression: boolean,
+        callback: (error: Error, listing: Client.ListingElement[]) => void
+    ): void;
     list(path: string, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     list(useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     list(callback: (error: Error, listing: Client.ListingElement[]) => void): void;
@@ -167,7 +166,12 @@ declare class Client extends events.EventEmitter {
      * @param destPath
      * @param useCompression defaults to false.
      */
-    put(input: NodeJS.ReadableStream | Buffer | string, destPath: string, useCompression: boolean, callback: (error: Error) => void): void;
+    put(
+        input: NodeJS.ReadableStream | Buffer | string,
+        destPath: string,
+        useCompression: boolean,
+        callback: (error: Error) => void
+    ): void;
     put(input: NodeJS.ReadableStream | Buffer | string, destPath: string, callback: (error: Error) => void): void;
 
     /**
@@ -176,7 +180,12 @@ declare class Client extends events.EventEmitter {
      * @param destPath
      * @param useCompression defaults to false.
      */
-    append(input: NodeJS.ReadableStream | Buffer | string, destPath: string, useCompression: boolean, callback: (error: Error) => void): void;
+    append(
+        input: NodeJS.ReadableStream | Buffer | string,
+        destPath: string,
+        useCompression: boolean,
+        callback: (error: Error) => void
+    ): void;
     append(input: NodeJS.ReadableStream | Buffer | string, destPath: string, callback: (error: Error) => void): void;
 
     /**
@@ -233,7 +242,6 @@ declare class Client extends events.EventEmitter {
     mkdir(path: string, recursive: boolean, callback: (error: Error) => void): void;
     mkdir(path: string, callback: (error: Error) => void): void;
 
-
     /**
      * Optional "standard" commands (RFC 959)
      * Removes a directory, path, on the server. If recursive, this call will delete the contents of the directory if it is not empty
@@ -265,7 +273,11 @@ declare class Client extends events.EventEmitter {
      * This is useful for servers that do not handle characters like spaces and quotes in directory names well for the LIST command.
      * This function is "optional" because it relies on pwd() being available.
      */
-    listSafe(path: string, useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
+    listSafe(
+        path: string,
+        useCompression: boolean,
+        callback: (error: Error, listing: Client.ListingElement[]) => void
+    ): void;
     listSafe(path: string, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     listSafe(useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     listSafe(callback: (error: Error, listing: Client.ListingElement[]) => void): void;
@@ -287,7 +299,6 @@ declare class Client extends events.EventEmitter {
      * Sets the file byte offset for the next file transfer action (get/put) to byteOffset
      */
     restart(byteOffset: number, callback: (error: Error) => void): void;
-
 }
 
 export = Client;

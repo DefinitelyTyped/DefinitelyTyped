@@ -1,4 +1,4 @@
-import { PagerOutputProcessor } from "./PagerOutputProcessor";
+import { PagerOutputProcessor } from './PagerOutputProcessor';
 
 /**
  * Represents a part of table-data for the `pager`-widget.

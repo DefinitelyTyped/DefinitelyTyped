@@ -1,5 +1,5 @@
-import IdyllDocument, { IdyllDocumentProps } from "idyll-document";
-import { createElement, ReactElement } from "react";
+import IdyllDocument, { IdyllDocumentProps } from 'idyll-document';
+import { createElement, ReactElement } from 'react';
 
 const doc = createElement<IdyllDocumentProps>(IdyllDocument);
 

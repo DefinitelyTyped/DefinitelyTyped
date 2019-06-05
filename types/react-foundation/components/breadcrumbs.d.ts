@@ -9,8 +9,7 @@ import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
  * @returns {Object}
  */
 export declare const Breadcrumbs: React.StatelessComponent<BreadcrumbsProps>;
-export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes<HTMLUListElement> {
-}
+export interface BreadcrumbsProps extends GeneralPropTypes, React.HTMLAttributes<HTMLUListElement> {}
 /**
  * Breadcrumb item component.
  *

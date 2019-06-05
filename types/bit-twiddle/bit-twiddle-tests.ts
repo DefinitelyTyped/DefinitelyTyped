@@ -1,4 +1,4 @@
-import * as bitTwiddle from "bit-twiddle";
+import * as bitTwiddle from 'bit-twiddle';
 
 bitTwiddle.INT_BITS;
 bitTwiddle.INT_MAX;

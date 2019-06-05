@@ -3,7 +3,6 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import { RedisClient } from 'redis';
 
 interface LimiterOption {
@@ -53,6 +52,6 @@ declare class Limiter {
     get(fn: (err: any, info: LimiterInfo) => void): void;
 }
 
-declare namespace Limiter { }
+declare namespace Limiter {}
 
 export = Limiter;

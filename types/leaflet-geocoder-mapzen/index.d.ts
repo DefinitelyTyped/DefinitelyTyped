@@ -51,7 +51,7 @@ declare module 'leaflet' {
              *
              * Default value: null.
              */
-            layers?: string | any[] ;
+            layers?: string | any[];
 
             /**
              * An object of key-value pairs which will be serialized

@@ -15,5 +15,5 @@ const ap2: Transformer = autoprefixer({
     flexbox: true,
     grid: false,
     stats: {},
-    ignoreUnknownVersions: false
+    ignoreUnknownVersions: false,
 });

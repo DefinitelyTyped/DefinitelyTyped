@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type ToggleSize = "xs" | "s" | "m" | "l";
+export type ToggleSize = 'xs' | 's' | 'm' | 'l';
 
 export type ToggleProps = {
     checked?: boolean;

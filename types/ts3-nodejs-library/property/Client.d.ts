@@ -13,7 +13,7 @@ interface ClientListResponse {
 
 declare enum ClientType {
     CLIENT = 0,
-    QUERY = 1
+    QUERY = 1,
 }
 
 declare class TeamSpeakClient extends Abstract {
@@ -132,13 +132,7 @@ declare class TeamSpeakClient extends Abstract {
      * @param  - Bantime in Seconds, if left empty it will result in a permaban
      * @param- Ban Reason
      */
-    banAdd(
-        ip?: string,
-        name?: string,
-        uid?: string,
-        time?: number,
-        banreason?: string
-    ): Promise<any>;
+    banAdd(ip?: string, name?: string, uid?: string, time?: number, banreason?: string): Promise<any>;
 
     /**
      * creates a new ban with the clients uid
@@ -191,12 +185,7 @@ declare class TeamSpeakClient extends Abstract {
      * @param - Whether the skip flag should be set. Defaults to 0.
      * @param - Whether the negate flag should be set. Defaults to 0.
      */
-    addPerm(
-        perm: string | number,
-        value: number,
-        skip?: number,
-        negate?: number
-    ): Promise<any>;
+    addPerm(perm: string | number, value: number, skip?: number, negate?: number): Promise<any>;
 
     /**
      * Removes a set of specified permissions from a client. Multiple permissions can be removed at once. A permission can be specified by permid or permsid

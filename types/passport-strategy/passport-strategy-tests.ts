@@ -1,7 +1,5 @@
-
 import express = require('express');
 import passport = require('passport-strategy');
-
 
 export class Strategy extends passport.Strategy {
     constructor(options: any, verify?: Function) {

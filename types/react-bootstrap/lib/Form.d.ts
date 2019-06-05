@@ -8,5 +8,5 @@ declare namespace Form {
         inline?: boolean;
     }
 }
-declare class Form extends React.Component<Form.FormProps> { }
+declare class Form extends React.Component<Form.FormProps> {}
 export = Form;

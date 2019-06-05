@@ -7,18 +7,17 @@
 
 /** Other WebAssembly declarations, for compatibility with older versions of Typescript */
 declare namespace WebAssembly {
-    interface Module { }
+    interface Module {}
 }
 
 declare namespace Emscripten {
-    interface FileSystemType {
-    }
+    interface FileSystemType {}
 }
 
 declare namespace Module {
-    type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
+    type EnvironmentType = 'WEB' | 'NODE' | 'SHELL' | 'WORKER';
 
-    type WebAssemblyImports =  Array<{
+    type WebAssemblyImports = Array<{
         name: string;
         kind: string;
     }>;
@@ -33,9 +32,9 @@ declare namespace Module {
     function printErr(str: string): void;
     var arguments: string[];
     var environment: EnvironmentType;
-    var preInit: { ():  void }[];
-    var preRun: { ():  void }[];
-    var postRun: { ():  void }[];
+    var preInit: { (): void }[];
+    var preRun: { (): void }[];
+    var postRun: { (): void }[];
     var preinitializedWebGLContext: WebGLRenderingContext;
     var noInitialRun: boolean;
     var noExitRuntime: boolean;
@@ -84,7 +83,7 @@ declare namespace Module {
     var HEAP8: Int8Array;
     var HEAP16: Int16Array;
     var HEAP32: Int32Array;
-    var HEAPU8:  Uint8Array;
+    var HEAPU8: Uint8Array;
     var HEAPU16: Uint16Array;
     var HEAPU32: Uint32Array;
     var HEAPF32: Float32Array;
@@ -109,7 +108,6 @@ declare namespace Module {
 
     function addRunDependency(id: any): void;
     function removeRunDependency(id: any): void;
-
 
     var preloadedImages: any;
     var preloadedAudios: any;
@@ -162,7 +160,7 @@ declare namespace FS {
     // core
     //
     function syncfs(populate: boolean, callback: (e: any) => any): void;
-    function syncfs( callback: (e: any) => any, populate?: boolean): void;
+    function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
 
@@ -189,13 +187,28 @@ declare namespace FS {
     function close(stream: FSStream): void;
     function llseek(stream: FSStream, offset: number, whence: number): any;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
-    function write(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number, canOwn?: boolean): number;
+    function write(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position?: number,
+        canOwn?: boolean
+    ): number;
     function allocate(stream: FSStream, offset: number, length: number): void;
-    function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
+    function mmap(
+        stream: FSStream,
+        buffer: ArrayBufferView,
+        offset: number,
+        length: number,
+        position: number,
+        prot: number,
+        flags: number
+    ): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts?: {encoding: string; flags: string}): any;
-    function writeFile(path: string, data: ArrayBufferView, opts?: {encoding: string; flags: string}): void;
-    function writeFile(path: string, data: string, opts?: {encoding: string; flags: string}): void;
+    function readFile(path: string, opts?: { encoding: string; flags: string }): any;
+    function writeFile(path: string, data: ArrayBufferView, opts?: { encoding: string; flags: string }): void;
+    function writeFile(path: string, data: string, opts?: { encoding: string; flags: string }): void;
 
     //
     // module-level FS code
@@ -207,8 +220,28 @@ declare namespace FS {
     function createLazyFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
     function createLazyFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
 
-    function createPreloadedFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean, onload?: ()=> void, onerror?: ()=>void, dontCreateFile?:boolean, canOwn?: boolean): void;
-    function createPreloadedFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean, onload?: ()=> void, onerror?: ()=>void, dontCreateFile?:boolean, canOwn?: boolean): void;
+    function createPreloadedFile(
+        parent: string,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+        onload?: () => void,
+        onerror?: () => void,
+        dontCreateFile?: boolean,
+        canOwn?: boolean
+    ): void;
+    function createPreloadedFile(
+        parent: FSNode,
+        name: string,
+        url: string,
+        canRead: boolean,
+        canWrite: boolean,
+        onload?: () => void,
+        onerror?: () => void,
+        dontCreateFile?: boolean,
+        canOwn?: boolean
+    ): void;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;

@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { takeRightWhile } from "lodash";
+import { takeRightWhile } from 'lodash';
 export = takeRightWhile;

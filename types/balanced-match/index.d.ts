@@ -27,9 +27,9 @@ interface Output {
 }
 
 declare class Balanced {
-    balanced(a: string|RegExp, b: string|RegExp, str: string): Output|void;
+    balanced(a: string | RegExp, b: string | RegExp, str: string): Output | void;
 
-    range(a: string|RegExp, b: string|RegExp, str: string): Output|void;
+    range(a: string | RegExp, b: string | RegExp, str: string): Output | void;
 }
 
 export = Balanced;

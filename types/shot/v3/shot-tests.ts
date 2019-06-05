@@ -18,7 +18,7 @@ internals.main = () => {
 
     const server = Http.createServer(dispatch);
 
-    Shot.inject(dispatch, { method: 'get', url: '/', headers: { test: 'asd', test2: ['a', 'b'] } }, (res) => {
+    Shot.inject(dispatch, { method: 'get', url: '/', headers: { test: 'asd', test2: ['a', 'b'] } }, res => {
         console.log(res.payload);
     });
 };

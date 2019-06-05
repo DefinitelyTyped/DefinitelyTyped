@@ -1,4 +1,4 @@
-import { CreateHistory } from "history";
+import { CreateHistory } from 'history';
 
 declare const createHashHistory: CreateHistory<any, any>;
 

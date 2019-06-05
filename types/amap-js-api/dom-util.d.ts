@@ -57,7 +57,7 @@ declare namespace AMap {
          * @param deg 旋转角度
          * @param origin 旋转中心
          */
-        function rotate(dom: HTMLElement, deg: number, origin?: { x: number, y: number }): void;
+        function rotate(dom: HTMLElement, deg: number, origin?: { x: number; y: number }): void;
         /**
          * 给DOM元素删除一组样式，Object同样式表
          * @param dom DOM元素

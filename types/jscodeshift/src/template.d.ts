@@ -1,4 +1,4 @@
-import recast = require("recast");
+import recast = require('recast');
 
 export = template;
 

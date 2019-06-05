@@ -1,4 +1,4 @@
-import * as materialize from "materialize-css";
+import * as materialize from 'materialize-css';
 
 const elem = document.querySelector('.whatever')!;
 
@@ -14,7 +14,7 @@ new materialize.Tooltip(elem);
 // $ExpectType Tooltip
 const tooltip = new materialize.Tooltip(elem, {
     inDuration: 300,
-    position: "right"
+    position: 'right',
 });
 // $ExpectType void
 tooltip.open();
@@ -27,7 +27,7 @@ tooltip.el;
 // $ExpectType boolean
 tooltip.isOpen;
 
-$(".whatever").tooltip();
-$(".whatever").tooltip({ html: "<img/>" });
-$(".whatever").tooltip("open");
-$(".whatever").tooltip("destroy");
+$('.whatever').tooltip();
+$('.whatever').tooltip({ html: '<img/>' });
+$('.whatever').tooltip('open');
+$('.whatever').tooltip('destroy');

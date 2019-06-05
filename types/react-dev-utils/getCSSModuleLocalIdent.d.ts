@@ -12,7 +12,7 @@ declare function getCSSModuleLocalIdent(
     context: webpack.loader.LoaderContext,
     localIdentName: string,
     localName: string,
-    options: object,
+    options: object
 ): string;
 
 export = getCSSModuleLocalIdent;

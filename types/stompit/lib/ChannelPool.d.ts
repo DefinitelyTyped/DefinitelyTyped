@@ -1,7 +1,7 @@
-import { ChannelOptions } from "./Channel";
+import { ChannelOptions } from './Channel';
 
-import Channel = require("./Channel");
-import ConnectFailover = require("./ConnectFailover");
+import Channel = require('./Channel');
+import ConnectFailover = require('./ConnectFailover');
 
 declare class ChannelPool {
     constructor(connectFailover: ConnectFailover, options?: ChannelPool.ChannelPoolOptions);

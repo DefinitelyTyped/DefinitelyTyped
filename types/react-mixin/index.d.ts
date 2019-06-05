@@ -6,7 +6,6 @@
 
 /// <reference types="react" />
 
-
 import * as React from 'react';
 
 declare namespace reactMixin {

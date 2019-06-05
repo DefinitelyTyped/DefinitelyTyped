@@ -6,8 +6,6 @@
 
 import { ServerConfig } from 'next';
 
-declare function withSourceMaps(
-    nextConfig?: ServerConfig
-): ServerConfig;
+declare function withSourceMaps(nextConfig?: ServerConfig): ServerConfig;
 
 export = withSourceMaps;

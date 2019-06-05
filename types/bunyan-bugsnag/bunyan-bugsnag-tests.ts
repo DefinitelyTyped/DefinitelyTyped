@@ -12,16 +12,18 @@ const stream2 = bunyanBugsnag({
 const options: bunyanBugsnag.Options = {
     systemInfo: ['name', 'hostname', 'pid', 'req_id', 'level', 'time', 'v'],
     warningLevel: 30,
-    errorLevel: 20
+    errorLevel: 20,
 };
 
 const stream3 = bunyanBugsnag(options);
 
 const logger = bunyan.createLogger({
     name: 'appName',
-    streams: [{
-        type: 'raw',
-        level: 'warn',
-        stream: stream3
-    }]
+    streams: [
+        {
+            type: 'raw',
+            level: 'warn',
+            stream: stream3,
+        },
+    ],
 });

@@ -1,22 +1,22 @@
-import buildOptions = require("minimist-options");
-import minimist = require("minimist");
+import buildOptions = require('minimist-options');
+import minimist = require('minimist');
 
 const options = buildOptions({
     name: {
-        type: "string",
-        alias: "n",
-        default: "john"
+        type: 'string',
+        alias: 'n',
+        default: 'john',
     },
 
     force: {
-        type: "boolean",
-        alias: ["f", "o"],
-        default: false
+        type: 'boolean',
+        alias: ['f', 'o'],
+        default: false,
     },
 
-    published: "boolean",
+    published: 'boolean',
 
-    arguments: "string"
+    arguments: 'string',
 });
 
 const args = minimist(['--option', 'value', 'input'], options);

@@ -134,7 +134,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom
          */
         interface SeriesCustom {
-
             /**
              * @default
              * "custom"
@@ -331,7 +330,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem
              */
             renderItem?: {
-
                 /**
                  * Parameters of `renderItem`.
                  *
@@ -339,7 +337,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments
                  */
                 arguments?: {
-
                     /**
                      * The first parameter of `renderItem`, including:
                      *
@@ -371,7 +368,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.arguments.api
                      */
                     api?: {
-
                         /**
                          * Get value on the given dimension.
                          *
@@ -579,7 +575,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_group
                  */
                 return_group?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -933,7 +928,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path
                  */
                 return_path?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -1202,7 +1196,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.shape
                      */
                     shape?: {
-
                         /**
                          * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
                          * .
@@ -1332,7 +1325,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_path.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -1416,7 +1408,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image
                  */
                 return_image?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -1685,7 +1676,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_image.style
                      */
                     style?: {
-
                         /**
                          * Specify contant of the image, can be a URL, or
                          * [dataURI](https://tools.ietf.org/html/rfc2397)
@@ -1838,7 +1828,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text
                  */
                 return_text?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -2107,7 +2096,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_text.style
                      */
                     style?: {
-
                         /**
                          * Text content. `\n` can be used as a line break.
                          *
@@ -2287,7 +2275,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect
                  */
                 return_rect?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -2556,7 +2543,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.shape
                      */
                     shape?: {
-
                         /**
                          * The x value of the left-top corner of the element
                          * in the coordinate system of its parent.
@@ -2637,7 +2623,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_rect.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -2724,7 +2709,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle
                  */
                 return_circle?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -2993,7 +2977,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.shape
                      */
                     shape?: {
-
                         /**
                          * The x value of the center of the element in the coordinate
                          * system of its parent.
@@ -3048,7 +3031,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_circle.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -3135,7 +3117,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring
                  */
                 return_ring?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -3404,7 +3385,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.shape
                      */
                     shape?: {
-
                         /**
                          * The x value of the center of the element in the coordinate
                          * system of its parent.
@@ -3467,7 +3447,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_ring.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -3554,7 +3533,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector
                  */
                 return_sector?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -3823,7 +3801,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.shape
                      */
                     shape?: {
-
                         /**
                          * The x value of the center of the element in the coordinate
                          * system of its parent.
@@ -3914,7 +3891,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_sector.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -4001,7 +3977,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc
                  */
                 return_arc?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -4270,7 +4245,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.shape
                      */
                     shape?: {
-
                         /**
                          * The x value of the center of the element in the coordinate
                          * system of its parent.
@@ -4361,7 +4335,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_arc.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -4450,7 +4423,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon
                  */
                 return_polygon?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -4719,7 +4691,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.shape
                      */
                     shape?: {
-
                         /**
                          * A list of points, which defines the shape, like `[[22,
                          * 44], [44, 55], [11, 44], ...]`.
@@ -4784,7 +4755,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polygon.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -4871,7 +4841,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline
                  */
                 return_polyline?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -5140,7 +5109,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.shape
                      */
                     shape?: {
-
                         /**
                          * A list of points, which defines the shape, like `[[22,
                          * 44], [44, 55], [11, 44], ...]`.
@@ -5205,7 +5173,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_polyline.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -5294,7 +5261,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line
                  */
                 return_line?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -5563,7 +5529,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.shape
                      */
                     shape?: {
-
                         /**
                          * x value of the start point.
                          *
@@ -5636,7 +5601,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_line.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -5725,7 +5689,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve
                  */
                 return_bezierCurve?: {
-
                     /**
                      * Must be specified when define a graphic element at the
                      * first time.
@@ -5994,7 +5957,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.shape
                      */
                     shape?: {
-
                         /**
                          * x value of the start point.
                          *
@@ -6107,7 +6069,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.renderItem.return_bezierCurve.style
                      */
                     style?: {
-
                         /**
                          * Color filled in this element.
                          *
@@ -6196,7 +6157,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.itemStyle
              */
             itemStyle?: {
-
                 /**
                  * color. Color is taken from
                  * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
@@ -6299,12 +6259,10 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis
              */
             emphasis?: {
-
                 /**
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.emphasis.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -6657,10 +6615,9 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data
              */
-            data?: (
-                (void | string | number | SeriesCustom.DataObject)[]
-                | (void | string | number | SeriesCustom.DataObject)[][]
-            );
+            data?:
+                | (void | string | number | SeriesCustom.DataObject)[]
+                | (void | string | number | SeriesCustom.DataObject)[][];
 
             /**
              * `zlevel` value of all graghical elements in custom series.
@@ -6819,7 +6776,6 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip
              */
             tooltip?: {
-
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
@@ -7074,7 +7030,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.tooltip.textStyle
                  */
                 textStyle?: {
-
                     /**
                      * text color.
                      *
@@ -7271,7 +7226,6 @@ declare namespace echarts {
 
         namespace SeriesCustom {
             interface DataObject {
-
                 /**
                  * Name of data item.
                  *
@@ -7292,7 +7246,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.itemStyle
                  */
                 itemStyle?: {
-
                     /**
                      * color.
                      *
@@ -7393,12 +7346,10 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis
                  */
                 emphasis?: {
-
                     /**
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.emphasis.itemStyle
                      */
                     itemStyle?: {
-
                         /**
                          * color.
                          *
@@ -7505,7 +7456,6 @@ declare namespace echarts {
                  * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip
                  */
                 tooltip?: {
-
                     /**
                      * > **Notice：**series.data.tooltip only works when
                      * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
@@ -7755,7 +7705,6 @@ declare namespace echarts {
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-custom.data.tooltip.textStyle
                      */
                     textStyle?: {
-
                         /**
                          * text color.
                          *

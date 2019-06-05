@@ -19,9 +19,22 @@ export interface Cache {
     set<T>(key: string, value: T, options: CachingConfig): Promise<any>;
     set<T>(key: string, value: T, ttl: number): Promise<any>;
 
-    wrap<T>(key: string, wrapper: (callback: (error: any, result: T) => void) => void, options: CachingConfig, callback: (error: any, result: T) => void): void;
-    wrap<T>(key: string, wrapper: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void;
-    wrap<T>(key: string, wrapper: (callback: (error: any, result: T) => void) => any, options: CachingConfig): Promise<any>;
+    wrap<T>(
+        key: string,
+        wrapper: (callback: (error: any, result: T) => void) => void,
+        options: CachingConfig,
+        callback: (error: any, result: T) => void
+    ): void;
+    wrap<T>(
+        key: string,
+        wrapper: (callback: (error: any, result: T) => void) => void,
+        callback: (error: any, result: T) => void
+    ): void;
+    wrap<T>(
+        key: string,
+        wrapper: (callback: (error: any, result: T) => void) => any,
+        options: CachingConfig
+    ): Promise<any>;
     wrap<T>(key: string, wrapper: (callback: (error: any, result: T) => void) => void): Promise<any>;
 
     get<T>(key: string, callback: (error: any, result: T) => void): void;

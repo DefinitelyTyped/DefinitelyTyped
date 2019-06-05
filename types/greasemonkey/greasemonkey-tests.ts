@@ -110,7 +110,7 @@ GM.xmlHttpRequest({
     url: 'http://www.example.com/',
     onload(response) {
         alert(response.responseText);
-    }
+    },
 });
 
 // GET request
@@ -119,16 +119,13 @@ GM.xmlHttpRequest({
     url: 'http://www.example.net/',
     headers: {
         'User-Agent': 'Mozilla/5.0',
-        Accept: 'text/xml'
+        Accept: 'text/xml',
     },
     onload(response) {
         let responseXML = null;
 
         if (!response.responseXML) {
-            responseXML = new DOMParser().parseFromString(
-                response.responseText,
-                'text/xml'
-            );
+            responseXML = new DOMParser().parseFromString(response.responseText, 'text/xml');
         }
 
         console.log(
@@ -139,10 +136,10 @@ GM.xmlHttpRequest({
                 response.responseHeaders,
                 response.responseText,
                 response.finalUrl,
-                responseXML
+                responseXML,
             ].join('\n')
         );
-    }
+    },
 });
 
 // POST request
@@ -151,13 +148,13 @@ GM.xmlHttpRequest({
     url: 'http://www.example.net/login',
     data: 'username=johndoe&password=xyz123',
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
     },
     onload(response) {
         if (response.responseText.indexOf('Logged in as') > -1) {
             location.href = 'http://www.example.net/dashboard';
         }
-    }
+    },
 });
 
 // HEAD request
@@ -166,7 +163,7 @@ GM.xmlHttpRequest({
     method: 'HEAD',
     onload(response) {
         console.log(response.responseHeaders);
-    }
+    },
 });
 
 interface MyRequestContext {
@@ -194,10 +191,10 @@ GM.xmlHttpRequest({
         onabort: (response: GM.Response<MyRequestContext>) => {},
         onerror: (response: GM.Response<MyRequestContext>) => {},
         onload: (response: GM.Response<MyRequestContext>) => {},
-        onprogress: (response: GM.ProgressResponse<MyRequestContext>) => {}
+        onprogress: (response: GM.ProgressResponse<MyRequestContext>) => {},
     },
     url: 'http://example.com/',
-    user: 'guest'
+    user: 'guest',
 });
 
 // Response
@@ -220,5 +217,5 @@ GM.xmlHttpRequest({
         const lengthComputable: boolean = response.lengthComputable;
         const loaded: number = response.loaded;
         const total: number = response.total;
-    }
+    },
 });

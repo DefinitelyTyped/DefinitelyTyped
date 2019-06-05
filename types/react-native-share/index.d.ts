@@ -6,9 +6,7 @@
 
 declare namespace Share {
     function open(options: Options | MultipleOptions): Promise<OpenReturn>;
-    function shareSingle(
-        options: Options & { social: SupportedSocialApps }
-    ): Promise<ShareSingleReturn>;
+    function shareSingle(options: Options & { social: SupportedSocialApps }): Promise<ShareSingleReturn>;
 }
 
 export default Share;
@@ -45,11 +43,4 @@ interface MultipleOptions {
     showAppsToView?: boolean;
 }
 
-type SupportedSocialApps =
-    | "facebook"
-    | "pagesmanager"
-    | "twitter"
-    | "whatsapp"
-    | "instagram"
-    | "googleplus"
-    | "email";
+type SupportedSocialApps = 'facebook' | 'pagesmanager' | 'twitter' | 'whatsapp' | 'instagram' | 'googleplus' | 'email';

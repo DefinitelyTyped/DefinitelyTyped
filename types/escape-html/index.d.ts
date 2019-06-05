@@ -3,8 +3,7 @@
 // Definitions by: Elisée MAURER <https://github.com/elisee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function escapeHTML(text: string): string;
-declare namespace escapeHTML { }
+declare namespace escapeHTML {}
 
 export = escapeHTML;

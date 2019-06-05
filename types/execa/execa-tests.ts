@@ -93,7 +93,7 @@ async () => {
 async () => {
     const { stdout } = await execa('stdin', {
         input: 'hello',
-        stdio: [null, 'ignore', null]
+        stdio: [null, 'ignore', null],
     });
     assert(stdout === null);
 };
@@ -101,7 +101,7 @@ async () => {
 {
     const child = execa('stdin', {
         input: 'hello',
-        stdio: [null, 'ignore', null]
+        stdio: [null, 'ignore', null],
     });
 
     child.stdout!.setEncoding('utf8');
@@ -112,7 +112,7 @@ async () => {
 
 async () => {
     const { timedOut, code } = await execa('delay', ['3000', '22'], {
-        timeout: 9000
+        timeout: 9000,
     });
     assert(timedOut === true);
     assert(code === 22);
@@ -120,7 +120,7 @@ async () => {
 
 async () => {
     const { stdout } = await execa.shell('noop foo', {
-        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash'
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash',
     });
 
     assert(stdout === 'foo');
@@ -130,5 +130,5 @@ const args: ReadonlyArray<string> = ['bar'];
 const stdio: ReadonlyArray<'ignore'> = ['ignore'];
 execa('foo', args);
 execa('foo', args, {
-    stdio
+    stdio,
 });

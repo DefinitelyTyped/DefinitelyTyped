@@ -22,12 +22,11 @@ $('body').on('drag', '.drag', e => {
     e.preventDefault();
 });
 
-$('#menu').on('flick', function (e) {
+$('#menu').on('flick', function(e) {
     if ('horizontal' == e.orientation) {
         if (1 == e.direction) {
             $(this).addClass('is-opened');
-        }
-        else {
+        } else {
             $(this).removeClass('is-opened');
         }
     }

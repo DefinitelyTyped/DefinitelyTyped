@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var module: {
-	(filename: string, cb: (err: Error, hash: string) => void): void;
-	sync: (filename: string) => string;
+    (filename: string, cb: (err: Error, hash: string) => void): void;
+    sync: (filename: string) => string;
 };
 
 export = module;

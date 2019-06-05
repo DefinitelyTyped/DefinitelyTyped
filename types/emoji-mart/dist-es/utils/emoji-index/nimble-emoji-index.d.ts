@@ -1,4 +1,4 @@
-import { Data } from "../data";
+import { Data } from '../data';
 
 import { CategoryName } from '../shared-props';
 
@@ -33,7 +33,7 @@ export type EmojiData = BaseEmoji | CustomEmoji;
 export default class NimbleEmojiIndex {
     constructor(data: Data);
     search(query: ''): null;
-    search(query: string): EmojiData[]|null;
+    search(query: string): EmojiData[] | null;
     emojis: { [emoji: string]: EmojiData };
     /** Mapping of string to keyof emojis */
     emoticons: { [emoticon: string]: string };

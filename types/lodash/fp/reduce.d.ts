@@ -1,2 +1,2 @@
-import { reduce } from "../fp";
+import { reduce } from '../fp';
 export = reduce;

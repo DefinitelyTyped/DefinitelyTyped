@@ -21,24 +21,21 @@ const testDecorator = withTests({
             {
                 assertionResults: [
                     {
-                        ancestorTitles: [
-                            'TestComponent',
-                            'Basic'
-                        ],
+                        ancestorTitles: ['TestComponent', 'Basic'],
                         failureMessages: [],
                         fullName: 'TestComponent Basic should render without error',
                         location: null,
                         status: 'passed',
                         title: 'should render without error',
-                    }
+                    },
                 ],
                 endTime: 1533301381197,
                 message: '',
                 name: '/path/to/tests',
                 startTime: 1533301379074,
                 status: 'passed',
-                summary: ''
-            }
+                summary: '',
+            },
         ],
         wasInterrupted: false,
     },
@@ -46,8 +43,4 @@ const testDecorator = withTests({
 
 storiesOf('Test', module)
     .addDecorator(testDecorator('test'))
-    .add('test', () => (
-        <button>
-          Hello World!
-        </button>
-    ));
+    .add('test', () => <button>Hello World!</button>);

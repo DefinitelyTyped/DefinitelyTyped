@@ -1,4 +1,4 @@
-import * as microtime from "microtime";
+import * as microtime from 'microtime';
 
 const nowInteger: number = microtime.now();
 

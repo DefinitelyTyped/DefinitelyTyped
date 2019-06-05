@@ -1,14 +1,14 @@
-import NsApi = require("ns-api");
+import NsApi = require('ns-api');
 
 declare var console: { log(msg: any): string };
 
 const ns: NsApi = NsApi({
-    username: "",
-    password: "",
-    timeout: 1500
+    username: '',
+    password: '',
+    timeout: 1500,
 });
 
-ns.vertrektijden("", (err, data) => {
+ns.vertrektijden('', (err, data) => {
     if (err) {
         console.log(err);
     } else {
@@ -17,7 +17,7 @@ ns.vertrektijden("", (err, data) => {
 });
 
 // Get travel advise
-ns.reisadvies ({}, (err, data) => {
+ns.reisadvies({}, (err, data) => {
     if (err) {
         console.log(err);
     } else {
@@ -33,7 +33,7 @@ ns.prijzen({}, (err, data) => {
     }
 });
 
-ns.stations("code", (err, data) => {
+ns.stations('code', (err, data) => {
     if (err) {
         console.log(err);
     } else {

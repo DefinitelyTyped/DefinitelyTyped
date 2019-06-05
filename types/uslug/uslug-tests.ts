@@ -1,4 +1,4 @@
-import uslug = require("uslug");
+import uslug = require('uslug');
 
 uslug('Быстрее и лучше!'); // 'быстрее-и-лучше'
 uslug('汉语/漢語'); // '汉语漢語'

@@ -12,7 +12,7 @@ result = FNV.base64Url([1, 2, 3]);
 result = FNV.base36([1, 2, 3]);
 
 const fnv = new FNV();
-fnv.update([1, 2, 3]).update("abc");
+fnv.update([1, 2, 3]).update('abc');
 result = fnv.digest('hex');
 result = fnv.digest('base36');
 result = fnv.digest('base64');

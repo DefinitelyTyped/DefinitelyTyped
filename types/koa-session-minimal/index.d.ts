@@ -14,10 +14,10 @@
 
  =============================================== */
 
-import * as Koa from "koa";
-import * as cookies from "cookies";
+import * as Koa from 'koa';
+import * as cookies from 'cookies';
 
-declare module "koa" {
+declare module 'koa' {
     interface Context {
         session: any;
         sessionHandler: { regenerateId: () => void };
@@ -33,7 +33,7 @@ declare function session(opts?: {
     /**
      * cookie options
      */
-    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions };
+    cookie?: cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions };
 
     /**
      * session store

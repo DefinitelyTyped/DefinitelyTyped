@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { default as events } from "./events";
-import { default as query } from "./query";
-import * as style from "./style";
-import * as activeElement from "./activeElement";
-import * as ownerDocument from "./ownerDocument";
-import * as ownerWindow from "./ownerWindow";
-import * as requestAnimationFrame from "./util/requestAnimationFrame";
+import { default as events } from './events';
+import { default as query } from './query';
+import * as style from './style';
+import * as activeElement from './activeElement';
+import * as ownerDocument from './ownerDocument';
+import * as ownerWindow from './ownerWindow';
+import * as requestAnimationFrame from './util/requestAnimationFrame';
 
 declare const _default: typeof events &
     typeof query & {

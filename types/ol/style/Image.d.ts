@@ -18,14 +18,14 @@ export default class ImageStyle {
     getAnchor(): number[];
     getSize(): Size;
     getSnapToPixel(): boolean;
-    listenImageChange<T>(listener: ((this: T, param1: Event) => void), thisArg: T): EventsKey;
+    listenImageChange<T>(listener: (this: T, param1: Event) => void, thisArg: T): EventsKey;
     load(): void;
     setOpacity(opacity: number): void;
     setRotateWithView(rotateWithView: boolean): void;
     setRotation(rotation: number): void;
     setScale(scale: number): void;
     setSnapToPixel(snapToPixel: boolean): void;
-    unlistenImageChange<T>(listener: ((this: T, param1: Event) => void), thisArg: T): void;
+    unlistenImageChange<T>(listener: (this: T, param1: Event) => void, thisArg: T): void;
 }
 export interface Options {
     opacity: number;

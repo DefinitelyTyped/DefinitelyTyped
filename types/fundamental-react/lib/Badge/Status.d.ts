@@ -1,11 +1,4 @@
-export type StatusType =
-    | "success"
-    | "warning"
-    | "error"
-    | "available"
-    | "away"
-    | "busy"
-    | "offline";
+export type StatusType = 'success' | 'warning' | 'error' | 'available' | 'away' | 'busy' | 'offline';
 
 export type StatusProps = {
     className?: string;

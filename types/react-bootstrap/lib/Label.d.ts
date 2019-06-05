@@ -7,5 +7,5 @@ declare namespace Label {
         bsStyle?: string;
     }
 }
-declare class Label extends React.Component<Label.LabelProps> { }
+declare class Label extends React.Component<Label.LabelProps> {}
 export = Label;

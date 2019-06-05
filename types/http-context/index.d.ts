@@ -26,7 +26,7 @@ declare namespace HttpContext {
         href: string;
         method: string;
         path: string;
-        query: {[param: string]: string | string[]};
+        query: { [param: string]: string | string[] };
         querystring: string;
         search: string;
         host: string;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tinajs__tina-redux
 // TypeScript Version: 2.3
 
-import { Store, Dispatch } from "redux";
+import { Store, Dispatch } from 'redux';
 
 type MapStateToProps = (state: any) => any;
 type mapDispatchToProps = (dispatch: Dispatch) => any;

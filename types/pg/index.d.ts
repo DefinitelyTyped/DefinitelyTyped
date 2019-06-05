@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import events = require("events");
-import stream = require("stream");
-import pgTypes = require("pg-types");
+import events = require('events');
+import stream = require('stream');
+import pgTypes = require('pg-types');
 
 export interface ConnectionConfig {
     user?: string;
@@ -29,7 +29,7 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
-import { ConnectionOptions } from "tls";
+import { ConnectionOptions } from 'tls';
 
 export interface ClientConfig extends ConnectionConfig {
     ssl?: boolean | ConnectionOptions;
@@ -105,7 +105,7 @@ export interface BindConfig {
     portal?: string;
     statement?: string;
     binary?: string;
-    values?: Array<(Buffer | null | undefined | string)>;
+    values?: Array<Buffer | null | undefined | string>;
 }
 
 export interface ExecuteConfig {
@@ -161,8 +161,8 @@ export class Pool extends events.EventEmitter {
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
-    on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
-    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
+    on(event: 'error', listener: (err: Error, client: PoolClient) => void): this;
+    on(event: 'connect' | 'acquire' | 'remove', listener: (client: PoolClient) => void): this;
 }
 
 export class ClientBase extends events.EventEmitter {
@@ -188,11 +188,11 @@ export class ClientBase extends events.EventEmitter {
     escapeIdentifier(str: string): string;
     escapeLiteral(str: string): string;
 
-    on(event: "drain", listener: () => void): this;
-    on(event: "error" | "notice", listener: (err: Error) => void): this;
-    on(event: "notification", listener: (message: Notification) => void): this;
+    on(event: 'drain', listener: () => void): this;
+    on(event: 'error' | 'notice', listener: (err: Error) => void): this;
+    on(event: 'notification', listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
-    on(event: "end", listener: () => void): this;
+    on(event: 'end', listener: () => void): this;
 }
 
 export class Client extends ClientBase {
@@ -209,13 +209,13 @@ export interface PoolClient extends ClientBase {
 export class Query extends events.EventEmitter implements Submittable {
     constructor(queryTextOrConfig?: string | QueryConfig, values?: any[]);
     submit: (connection: Connection) => void;
-    on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "end", listener: (result: ResultBuilder) => void): this;
+    on(event: 'row', listener: (row: any, result?: ResultBuilder) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'end', listener: (result: ResultBuilder) => void): this;
 }
 
 export class Events extends events.EventEmitter {
-    on(event: "error", listener: (err: Error, client: Client) => void): this;
+    on(event: 'error', listener: (err: Error, client: Client) => void): this;
 }
 
 export const types: typeof pgTypes;

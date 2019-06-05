@@ -11,7 +11,7 @@ const observer = lozad('.lozad', {
     },
     loaded(el) {
         console.log('loaded element');
-    }
+    },
 });
 observer.observe();
 

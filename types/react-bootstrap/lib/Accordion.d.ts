@@ -13,7 +13,5 @@ declare namespace Accordion {
         header?: React.ReactNode;
     }
 }
-declare class Accordion extends React.Component<Accordion.AccordionProps> { }
+declare class Accordion extends React.Component<Accordion.AccordionProps> {}
 export = Accordion;
-
-

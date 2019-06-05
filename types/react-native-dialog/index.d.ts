@@ -6,14 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Ref, PureComponent, ReactNode } from "react";
-import {
-    ViewProps,
-    TextProps,
-    StyleProp,
-    TextInputProps,
-    ViewStyle
-} from "react-native";
+import { Ref, PureComponent, ReactNode } from 'react';
+import { ViewProps, TextProps, StyleProp, TextInputProps, ViewStyle } from 'react-native';
 
 interface ButtonProps {
     label: string;
@@ -60,19 +54,11 @@ interface DescriptionProps {
 }
 
 export namespace Dialog {
-    class Button extends PureComponent<
-        ButtonProps & ViewProps & TextProps
-    > {}
+    class Button extends PureComponent<ButtonProps & ViewProps & TextProps> {}
     class Container extends PureComponent<ContainerProps & ViewProps> {}
-    class Title extends PureComponent<
-        TitleProps & ViewProps & TextProps
-    > {}
-    class Input<T> extends PureComponent<
-        InputProps<T> & ViewProps & TextInputProps
-    > {}
-    class Description extends PureComponent<
-        DescriptionProps & ViewProps & TextProps
-    > {}
+    class Title extends PureComponent<TitleProps & ViewProps & TextProps> {}
+    class Input<T> extends PureComponent<InputProps<T> & ViewProps & TextInputProps> {}
+    class Description extends PureComponent<DescriptionProps & ViewProps & TextProps> {}
 }
 
 export default Dialog;

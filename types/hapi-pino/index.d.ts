@@ -6,19 +6,17 @@
 
 /// <reference types='node' />
 
-import {
-    Plugin,
-} from 'hapi';
+import { Plugin } from 'hapi';
 import * as pino from 'pino';
 
 declare module 'hapi' {
-interface Server {
-    logger: () => pino.Logger;
-}
+    interface Server {
+        logger: () => pino.Logger;
+    }
 
-interface Request {
-    logger: pino.Logger;
-}
+    interface Request {
+        logger: pino.Logger;
+    }
 }
 
 declare namespace HapiPino {
@@ -31,7 +29,7 @@ declare namespace HapiPino {
         prettyPrint?: boolean;
         levelTags?: { [key in LogLevels]: string };
         allTags?: LogLevels;
-        serializers?: { [key: string]: (param: any) => void};
+        serializers?: { [key: string]: (param: any) => void };
         instance?: pino.Logger;
         logEvents?: string[] | false | null;
         mergeHapiLogData?: boolean;

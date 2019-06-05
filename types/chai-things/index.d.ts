@@ -58,8 +58,8 @@ interface Array<T> {
     should: Chai.ArrayAssertion;
 }
 
-declare module "chai-things" {
+declare module 'chai-things' {
     function chaiThings(chai: any, utils: any): void;
-    namespace chaiThings { }
+    namespace chaiThings {}
     export = chaiThings;
 }

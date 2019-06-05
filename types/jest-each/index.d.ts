@@ -9,34 +9,34 @@ export default JestEach;
 declare function JestEach(parameters: any[][]): JestEach.ReturnType;
 
 declare namespace JestEach {
-	type SyncCallback = (...args: any[]) => void;
-	type AsyncCallback = () => void;
+    type SyncCallback = (...args: any[]) => void;
+    type AsyncCallback = () => void;
 
-	type TestCallback = SyncCallback | AsyncCallback;
+    type TestCallback = SyncCallback | AsyncCallback;
 
-	type TestFn = (name: string, fn: TestCallback) => void;
-	type DescribeFn = (name: string, fn: SyncCallback) => void;
+    type TestFn = (name: string, fn: TestCallback) => void;
+    type DescribeFn = (name: string, fn: SyncCallback) => void;
 
-	interface TestObj {
-		(name: string, fn: TestCallback): void;
-		only: TestFn;
-		skip: TestFn;
-	}
+    interface TestObj {
+        (name: string, fn: TestCallback): void;
+        only: TestFn;
+        skip: TestFn;
+    }
 
-	interface DescribeObj {
-		(name: string, fn: SyncCallback): void;
-		only: DescribeFn;
-		skip: DescribeFn;
-	}
+    interface DescribeObj {
+        (name: string, fn: SyncCallback): void;
+        only: DescribeFn;
+        skip: DescribeFn;
+    }
 
-	interface ReturnType {
-		test: TestObj;
-		it: TestObj;
-		fit: TestFn;
-		xit: TestFn;
-		xtest: TestFn;
-		describe: DescribeObj;
-		fdescribe: DescribeFn;
-		xdescribe: DescribeFn;
-	}
+    interface ReturnType {
+        test: TestObj;
+        it: TestObj;
+        fit: TestFn;
+        xit: TestFn;
+        xtest: TestFn;
+        describe: DescribeObj;
+        fdescribe: DescribeFn;
+        xdescribe: DescribeFn;
+    }
 }

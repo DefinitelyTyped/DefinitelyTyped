@@ -4,22 +4,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'javascript-obfuscator' {
-  export interface IOptions {
-    compact?: boolean;
-    debugProtection?: boolean;
-    debugProtectionInterval?: boolean;
-    disableConsoleOutput?: boolean;
-    encodeUnicodeLiterals?: boolean;
-    reservedNames?: string[];
-    rotateUnicodeArray?: boolean;
-    selfDefending?: boolean;
-    unicodeArray?: boolean;
-    unicodeArrayThreshold?: number;
-    wrapUnicodeArrayCalls?: boolean;
-    [id: string]: any;
-  }
+    export interface IOptions {
+        compact?: boolean;
+        debugProtection?: boolean;
+        debugProtectionInterval?: boolean;
+        disableConsoleOutput?: boolean;
+        encodeUnicodeLiterals?: boolean;
+        reservedNames?: string[];
+        rotateUnicodeArray?: boolean;
+        selfDefending?: boolean;
+        unicodeArray?: boolean;
+        unicodeArrayThreshold?: number;
+        wrapUnicodeArrayCalls?: boolean;
+        [id: string]: any;
+    }
 
-  export class JavaScriptObfuscator {
-    public static obfuscate (sourceCode: string, customOptions?: IOptions): string;
-  }
+    export class JavaScriptObfuscator {
+        public static obfuscate(sourceCode: string, customOptions?: IOptions): string;
+    }
 }

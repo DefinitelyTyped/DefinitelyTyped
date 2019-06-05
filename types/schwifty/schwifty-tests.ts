@@ -1,7 +1,7 @@
-import * as Hapi from "hapi";
-import * as Joi from "joi";
-import * as Schwifty from "schwifty";
-import DogModel from "./test/dog";
+import * as Hapi from 'hapi';
+import * as Joi from 'joi';
+import * as Schwifty from 'schwifty';
+import DogModel from './test/dog';
 
 (async () => {
     const server = new Hapi.Server({ port: 3000 });
@@ -11,13 +11,13 @@ import DogModel from "./test/dog";
         plugin: Schwifty.plugin,
         options: {
             knex: {
-                client: "sqlite3",
+                client: 'sqlite3',
                 useNullAsDefault: true,
                 connection: {
-                    filename: ":memory:"
-                }
-            }
-        }
+                    filename: ':memory:',
+                },
+            },
+        },
     });
 
     Schwifty.assertCompatible(DogModel, DogModel);
@@ -28,7 +28,7 @@ import DogModel from "./test/dog";
     await server.initialize();
     const Dog: typeof DogModel = server.models().Dog;
 
-    await Dog.query().insert({ name: "Guinness" });
+    await Dog.query().insert({ name: 'Guinness' });
 
     // ... then start the server!
 

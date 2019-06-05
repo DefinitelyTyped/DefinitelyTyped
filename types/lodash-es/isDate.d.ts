@@ -1,2 +1,2 @@
-import { isDate } from "lodash";
+import { isDate } from 'lodash';
 export default isDate;

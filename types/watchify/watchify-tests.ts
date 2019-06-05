@@ -1,8 +1,7 @@
-import browserify = require("browserify");
-import watchify = require("watchify");
+import browserify = require('browserify');
+import watchify = require('watchify');
 
 module WatchifyTest {
-
     export function setupWatchify(srcPath: string, opts?: watchify.Options) {
         // new syntax
         var bfyWatched = browserify(srcPath, {
@@ -12,7 +11,7 @@ module WatchifyTest {
         });
 
         var stream: NodeJS.ReadWriteStream;
-        bfyWatched.pipeline.get("deps").push(stream);
+        bfyWatched.pipeline.get('deps').push(stream);
 
         // old syntax
         var bfy = browserify(srcPath);
@@ -23,9 +22,8 @@ module WatchifyTest {
             poll: opts.poll || 0,
         });
 
-        bfy.pipeline.get('wrap').on("error", function () { });
+        bfy.pipeline.get('wrap').on('error', function() {});
     }
-
 }
 
 export = WatchifyTest;

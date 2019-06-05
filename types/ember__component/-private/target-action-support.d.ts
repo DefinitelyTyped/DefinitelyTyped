@@ -1,4 +1,4 @@
-import EmberObject from "@ember/object";
+import EmberObject from '@ember/object';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface TriggerActionOptions {

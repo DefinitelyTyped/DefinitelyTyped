@@ -17,7 +17,10 @@ export type StoryFunction = () => ComponentOptions<Vue> | string;
 export interface DecoratorParameters {
     [key: string]: any;
 }
-export type StoryDecorator = (story: () => ComponentOptions<Vue>, context: { kind: string, story: string }) => ComponentOptions<Vue> | null;
+export type StoryDecorator = (
+    story: () => ComponentOptions<Vue>,
+    context: { kind: string; story: string }
+) => ComponentOptions<Vue> | null;
 
 export interface Story {
     readonly kind: string;

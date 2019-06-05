@@ -1,20 +1,12 @@
-import express = require("express");
-import formidable = require("formidable");
+import express = require('express');
+import formidable = require('formidable');
 
-import { Options } from "./options";
-import { Reply } from "../reply";
+import { Options } from './options';
+import { Reply } from '../reply';
 
 export type BasicType = string | any[] | object | number;
 
-export type LogLevel =
-    | "emergency"
-    | "alert"
-    | "critical"
-    | "error"
-    | "warning"
-    | "notice"
-    | "info"
-    | "debug";
+export type LogLevel = 'emergency' | 'alert' | 'critical' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
 
 export type LogFn = (template: string, ...tokens: string[]) => void;
 

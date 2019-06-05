@@ -9,10 +9,7 @@ const options: depcheck.Options = {
         '*.js': depcheck.parser.es6,
         '*.jsx': depcheck.parser.jsx,
     },
-    detectors: [
-        depcheck.detector.requireCallExpression,
-        depcheck.detector.importDeclaration,
-    ],
+    detectors: [depcheck.detector.requireCallExpression, depcheck.detector.importDeclaration],
     specials: [depcheck.special.eslint, depcheck.special.webpack],
 };
 

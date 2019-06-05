@@ -11,7 +11,7 @@ export type RenderFunction = () => string | string[] | HTMLElement;
 export interface DecoratorParameters {
     [key: string]: any;
 }
-export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => string | null;
+export type StoryDecorator = (story: RenderFunction, context: { kind: string; story: string }) => string | null;
 
 export interface Story {
     readonly kind: string;

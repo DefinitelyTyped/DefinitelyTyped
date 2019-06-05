@@ -41,7 +41,7 @@ declare namespace M {
          * Show hours or minutes view on timepicker
          * @param view The name of the view you want to switch to, 'hours' or 'minutes'.
          */
-        showView(view: "hours" | "minutes"): void;
+        showView(view: 'hours' | 'minutes'): void;
     }
 
     interface TimepickerOptions {
@@ -130,7 +130,7 @@ declare namespace M {
 }
 
 interface JQuery {
-    timepicker(method: keyof Pick<M.Timepicker, "open" | "close" | "destroy">): JQuery;
-    timepicker(method: keyof Pick<M.Timepicker, "showView">, view: "hours" | "minutes"): JQuery;
+    timepicker(method: keyof Pick<M.Timepicker, 'open' | 'close' | 'destroy'>): JQuery;
+    timepicker(method: keyof Pick<M.Timepicker, 'showView'>, view: 'hours' | 'minutes'): JQuery;
     timepicker(options?: Partial<M.TimepickerOptions>): JQuery;
 }

@@ -4,23 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Component,
-    ReactNode,
-    ReactElement,
-    ComponentClass,
-    MouseEventHandler
-} from "react";
+import { Component, ReactNode, ReactElement, ComponentClass, MouseEventHandler } from 'react';
 
 export type ButtonAppearances =
-    | "default"
-    | "danger"
-    | "link"
-    | "primary"
-    | "subtle"
-    | "subtle-link"
-    | "warning"
-    | "help";
+    | 'default'
+    | 'danger'
+    | 'link'
+    | 'primary'
+    | 'subtle'
+    | 'subtle-link'
+    | 'warning'
+    | 'help';
 
 export interface ButtonProps {
     /** The base styling to apply to the button. */
@@ -67,9 +61,9 @@ export interface ButtonProps {
     readonly shouldFitContainer?: boolean;
 }
 
-export type ButtonType = "button" | "submit";
+export type ButtonType = 'button' | 'submit';
 
-export type ButtonSpacing = "compact" | "default" | "none";
+export type ButtonSpacing = 'compact' | 'default' | 'none';
 
 export interface ButtonState {
     readonly isActive: boolean;

@@ -56,7 +56,18 @@ export interface WorkerOptions {
     looping?: boolean;
 }
 
-export type WorkerEvent = 'start' | 'end' | 'cleaning_worker' | 'poll' | 'ping' | 'job' | 'reEnqueue' | 'success' | 'failure' | 'error' | 'pause';
+export type WorkerEvent =
+    | 'start'
+    | 'end'
+    | 'cleaning_worker'
+    | 'poll'
+    | 'ping'
+    | 'job'
+    | 'reEnqueue'
+    | 'success'
+    | 'failure'
+    | 'error'
+    | 'pause';
 
 export class Worker extends NodeJS.EventEmitter {
     constructor(options: WorkerOptions, jobs?: JobsHash);
@@ -96,7 +107,15 @@ export interface SchedulerOptions {
     masterLockTimeout?: number;
 }
 
-export type SchedulerEvent = 'start' | 'end' | 'poll' | 'master' | 'cleanStuckWorker' | 'error' | 'workingTimestamp' | 'transferredJob';
+export type SchedulerEvent =
+    | 'start'
+    | 'end'
+    | 'poll'
+    | 'master'
+    | 'cleanStuckWorker'
+    | 'error'
+    | 'workingTimestamp'
+    | 'transferredJob';
 
 export class Scheduler extends NodeJS.EventEmitter {
     constructor(options: SchedulerOptions, jobs?: JobsHash);

@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load YouTube Analytics API v1 */
-    function load(name: "youtubeanalytics", version: "v1"): PromiseLike<void>;
-    function load(name: "youtubeanalytics", version: "v1", callback: () => any): void;
+    function load(name: 'youtubeanalytics', version: 'v1'): PromiseLike<void>;
+    function load(name: 'youtubeanalytics', version: 'v1', callback: () => any): void;
 
     const groupItems: youtubeanalytics.GroupItemsResource;
 
@@ -327,7 +327,7 @@ declare namespace gapi.client {
                  */
                 dimensions?: string;
                 /** The end date for fetching YouTube Analytics data. The value should be in YYYY-MM-DD format. */
-                "end-date": string;
+                'end-date': string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /**
@@ -345,11 +345,11 @@ declare namespace gapi.client {
                  */
                 ids: string;
                 /** If set to true historical data (i.e. channel data from before the linking of the channel to the content owner) will be retrieved. */
-                "include-historical-channel-data"?: boolean;
+                'include-historical-channel-data'?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** The maximum number of rows to include in the response. */
-                "max-results"?: number;
+                'max-results'?: number;
                 /**
                  * A comma-separated list of YouTube Analytics metrics, such as views or likes,dislikes. See the Available Reports document for a list of the reports that
                  * you can retrieve and the metrics available in each report, and see the Metrics document for definitions of those metrics.
@@ -370,9 +370,9 @@ declare namespace gapi.client {
                  */
                 sort?: string;
                 /** The start date for fetching YouTube Analytics data. The value should be in YYYY-MM-DD format. */
-                "start-date": string;
+                'start-date': string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter (one-based, inclusive). */
-                "start-index"?: number;
+                'start-index'?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<ResultTable>;

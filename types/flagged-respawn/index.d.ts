@@ -7,11 +7,7 @@
 
 export = flaggedRespawn;
 
-declare function flaggedRespawn(
-    flags: string[],
-    argv: string[],
-    callback: flaggedRespawn.Callback
-): void;
+declare function flaggedRespawn(flags: string[], argv: string[], callback: flaggedRespawn.Callback): void;
 declare function flaggedRespawn(
     flags: string[],
     argv: string[],

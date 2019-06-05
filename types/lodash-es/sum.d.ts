@@ -1,2 +1,2 @@
-import { sum } from "lodash";
+import { sum } from 'lodash';
 export default sum;

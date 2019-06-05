@@ -38,24 +38,23 @@ koaWebpack({
         port: 0,
         reload: true,
         server: undefined,
-        stats: { context: process.cwd() }
-    }
-})
-    .then((middleware) => {
-        app.use(middleware);
+        stats: { context: process.cwd() },
+    },
+}).then(middleware => {
+    app.use(middleware);
 
-        // Accessing the underlying middleware
-        middleware.devMiddleware.close();
-        middleware.devMiddleware.invalidate();
-        middleware.devMiddleware.waitUntilValid();
-        middleware.devMiddleware.getFilenameFromUrl('/public/index.html');
-        middleware.devMiddleware.fileSystem;
-        middleware.hotClient.close();
-        middleware.hotClient.options;
-        middleware.hotClient.server;
+    // Accessing the underlying middleware
+    middleware.devMiddleware.close();
+    middleware.devMiddleware.invalidate();
+    middleware.devMiddleware.waitUntilValid();
+    middleware.devMiddleware.getFilenameFromUrl('/public/index.html');
+    middleware.devMiddleware.fileSystem;
+    middleware.hotClient.close();
+    middleware.hotClient.options;
+    middleware.hotClient.server;
 
-        // close the middleware
-        middleware.close(() => {
-            console.log('closed');
-        });
+    // close the middleware
+    middleware.close(() => {
+        console.log('closed');
     });
+});

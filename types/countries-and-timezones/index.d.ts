@@ -4,21 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Country {
-	id: string;
-	name: string;
-	timezones: string[];
+    id: string;
+    name: string;
+    timezones: string[];
 }
 
 export interface Timezone {
-	name: string;
-	utcOffset: number;
-	offsetStr: string;
-	countries: string[];
+    name: string;
+    utcOffset: number;
+    offsetStr: string;
+    countries: string[];
 }
 
-export function getAllCountries(): {[key: string]: Country};
+export function getAllCountries(): { [key: string]: Country };
 
-export function getAllTimezones(): {[key: string]: Timezone};
+export function getAllTimezones(): { [key: string]: Timezone };
 
 export function getCountriesForTimezone(timezoneId: string): Country[];
 

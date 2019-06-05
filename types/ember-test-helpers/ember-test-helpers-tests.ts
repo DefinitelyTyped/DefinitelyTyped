@@ -1,5 +1,5 @@
 /// <reference types="qunit" />
-import { ModuleCallbacks, TestContext, TestModule } from "ember-test-helpers";
+import { ModuleCallbacks, TestContext, TestModule } from 'ember-test-helpers';
 import wait from 'ember-test-helpers/wait';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
@@ -14,7 +14,7 @@ function moduleFor(name: string, description: string, callbacks: ModuleCallbacks
         },
         afterEach() {
             module.teardown();
-        }
+        },
     });
 }
 
@@ -33,7 +33,7 @@ QUnit.test('it sets up this.owner', function(this: TestContext, assert: Assert) 
     assert.equal(typeof owner.lookup, 'function', 'has expected lookup interface');
 
     if (hasEmberVersion(2, 12)) {
-      assert.equal(typeof owner.factoryFor, 'function', 'has expected factory interface');
+        assert.equal(typeof owner.factoryFor, 'function', 'has expected factory interface');
     }
 });
 

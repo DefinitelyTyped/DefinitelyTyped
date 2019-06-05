@@ -1,5 +1,3 @@
-
-
 import express = require('express');
 import partials = require('express-partials');
 

@@ -11,22 +11,22 @@ import request = require('request');
 import http = require('http');
 
 declare namespace requestretry {
-	type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
-	interface RetryRequestAPI extends request.RequestAPI<request.Request, RequestRetryOptions, request.RequiredUriUrl> {
-		RetryStrategies: {
-			'HttpError': RetryStrategy;
-			'HTTPOrNetworkError': RetryStrategy;
-			'NetworkError': RetryStrategy;
-		};
-	}
+    type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
+    interface RetryRequestAPI extends request.RequestAPI<request.Request, RequestRetryOptions, request.RequiredUriUrl> {
+        RetryStrategies: {
+            HttpError: RetryStrategy;
+            HTTPOrNetworkError: RetryStrategy;
+            NetworkError: RetryStrategy;
+        };
+    }
 
-	interface RequestRetryOptions extends request.CoreOptions {
-		maxAttempts?: number;
-		promiseFactory?(resolver: any): any;
-		retryDelay?: number;
-		retryStrategy?: RetryStrategy;
+    interface RequestRetryOptions extends request.CoreOptions {
+        maxAttempts?: number;
+        promiseFactory?(resolver: any): any;
+        retryDelay?: number;
+        retryStrategy?: RetryStrategy;
         fullResponse?: boolean;
-	}
+    }
 }
 
 declare let requestretry: requestretry.RetryRequestAPI;

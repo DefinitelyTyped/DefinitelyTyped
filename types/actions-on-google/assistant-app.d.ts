@@ -1,9 +1,30 @@
 import * as express from 'express';
 
-import { BasicCard, BrowseCarousel, BrowseItem, Carousel, ImageDisplays, List, MediaObject,
-         MediaResponse, MediaValues, OptionItem, RichResponse, SimpleResponse } from './response-builder';
-import { ActionPaymentTransactionConfig, Cart, GooglePaymentTransactionConfig, LineItem,
-         Location, Order, OrderUpdate, TransactionDecision, TransactionValues } from './transactions';
+import {
+    BasicCard,
+    BrowseCarousel,
+    BrowseItem,
+    Carousel,
+    ImageDisplays,
+    List,
+    MediaObject,
+    MediaResponse,
+    MediaValues,
+    OptionItem,
+    RichResponse,
+    SimpleResponse,
+} from './response-builder';
+import {
+    ActionPaymentTransactionConfig,
+    Cart,
+    GooglePaymentTransactionConfig,
+    LineItem,
+    Location,
+    Order,
+    OrderUpdate,
+    TransactionDecision,
+    TransactionValues,
+} from './transactions';
 
 //
 // Note: These enums are exported due to limitations with Typescript and this
@@ -52,7 +73,7 @@ export enum StandardIntents {
     /** App fires LINK intent to request user to open to link. */
     LINK,
     /** App receives MEDIA_STATUS intent when the MediaResponse status is updated from user. */
-    MEDIA_STATUS
+    MEDIA_STATUS,
 }
 
 /**
@@ -79,7 +100,7 @@ export enum SupportedPermissions {
     /**
      * Confirmation to receive proactive content at any time from the app.
      */
-    UPDATE
+    UPDATE,
 }
 
 /**
@@ -141,7 +162,7 @@ export enum BuiltInArgNames {
     /** Link request result argument. */
     LINK,
     /** MediaStatus value argument. */
-    MEDIA_STATUS
+    MEDIA_STATUS,
 }
 
 /**
@@ -195,7 +216,7 @@ export enum SurfaceCapabilities {
     /**
      * The ability to open a web URL
      */
-    WEB_BROWSER
+    WEB_BROWSER,
 }
 
 /**
@@ -219,7 +240,7 @@ export enum InputTypes {
     /**
      * Input given by keyboard (typed).
      */
-    KEYBOARD
+    KEYBOARD,
 }
 
 /**
@@ -243,7 +264,7 @@ export enum SignInStatus {
     /**
      * System or network error.
      */
-    ERROR
+    ERROR,
 }
 
 /**
@@ -255,14 +276,14 @@ export enum EntitlementSkuTypes {
     /** In app subscription */
     SUBSCRIPTION,
     /** Paid app. */
-    APP
+    APP,
 }
 
 /**
  * Possible update trigger time context frequencies.
  */
 export enum TimeContextFrequency {
-    DAILY
+    DAILY,
 }
 
 /**
@@ -789,7 +810,11 @@ export class AssistantApp {
      * @actionssdk
      * @dialogflow
      */
-    askForUpdatePermission(intent: string, intentArguments: IntentArgument[], dialogState?: object): express.Response | null;
+    askForUpdatePermission(
+        intent: string,
+        intentArguments: IntentArgument[],
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Checks whether user is in transactable state.
@@ -831,7 +856,10 @@ export class AssistantApp {
      * @actionssdk
      * @dialogflow
      */
-    askForTransactionRequirements(transactionConfig?: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig, dialogState?: object): express.Response | null;
+    askForTransactionRequirements(
+        transactionConfig?: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig,
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Asks user to confirm transaction information.
@@ -872,7 +900,11 @@ export class AssistantApp {
      * @return HTTP response
      * @dialogflow
      */
-    askForTransactionDecision(order: Order, transactionConfig: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig, dialogState?: object): express.Response | null;
+    askForTransactionDecision(
+        order: Order,
+        transactionConfig: ActionPaymentTransactionConfig | GooglePaymentTransactionConfig,
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Asks the Assistant to guide the user to grant a permission. For example,
@@ -1169,7 +1201,12 @@ export class AssistantApp {
      * @actionssdk
      * @dialogflow
      */
-    askForDateTime(initialPrompt?: string, datePrompt?: string, timePrompt?: string, dialogState?: object): express.Response | null;
+    askForDateTime(
+        initialPrompt?: string,
+        datePrompt?: string,
+        timePrompt?: string,
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Hands the user off to a web sign in flow. App sign in and OAuth credentials
@@ -1256,7 +1293,12 @@ export class AssistantApp {
      * @dialogflow
      * @actionssdk
      */
-    askForNewSurface(context: string, notificationTitle: string, capabilities: SurfaceCapabilities[], dialogState?: object): express.Response | null;
+    askForNewSurface(
+        context: string,
+        notificationTitle: string,
+        capabilities: SurfaceCapabilities[],
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Requests the user to register for daily updates.
@@ -1296,7 +1338,11 @@ export class AssistantApp {
      * @dialogflow
      * @actionssdk
      */
-    askToRegisterDailyUpdate(intent: string, intentArguments: IntentArgument[], dialogState?: object): express.Response | null;
+    askToRegisterDailyUpdate(
+        intent: string,
+        intentArguments: IntentArgument[],
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Requests the user to transfer to a linked out Android app intent. Using this feature
@@ -1362,7 +1408,14 @@ export class AssistantApp {
      * @dialogflow
      * @actionssdk
      */
-    askToDeepLink(prompt: string | SimpleResponse | null, destinationName: string, url: string, packageName: string, reason?: string | null, dialogState?: object): express.Response | null;
+    askToDeepLink(
+        prompt: string | SimpleResponse | null,
+        destinationName: string,
+        url: string,
+        packageName: string,
+        reason?: string | null,
+        dialogState?: object
+    ): express.Response | null;
 
     /**
      * Gets the {@link User} object.

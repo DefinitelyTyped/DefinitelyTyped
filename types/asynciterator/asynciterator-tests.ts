@@ -1,21 +1,31 @@
-import { ArrayIterator, AsyncIterator, BufferedIterator, ClonedIterator, EmptyIterator, IntegerIterator,
-  MultiTransformIterator, SingletonIterator, SimpleTransformIterator, TransformIterator } from "asynciterator";
+import {
+    ArrayIterator,
+    AsyncIterator,
+    BufferedIterator,
+    ClonedIterator,
+    EmptyIterator,
+    IntegerIterator,
+    MultiTransformIterator,
+    SingletonIterator,
+    SimpleTransformIterator,
+    TransformIterator,
+} from 'asynciterator';
 
 function test_asynciterator() {
     // We can't instantiate an abstract class.
-    const it1: AsyncIterator<number> = <any> {};
+    const it1: AsyncIterator<number> = <any>{};
     const read1: number = it1.read();
     it1.each((data: number) => console.log(data));
     it1.each((data: number) => console.log(data), {});
     it1.close();
 
-    const it2: AsyncIterator<string> = <any> {};
+    const it2: AsyncIterator<string> = <any>{};
     const read2: string = it2.read();
     it2.each((data: string) => console.log(data));
     it2.each((data: string) => console.log(data), {});
     it2.close();
 
-    const it3: AsyncIterator<AsyncIterator<string>> = <any> {};
+    const it3: AsyncIterator<AsyncIterator<string>> = <any>{};
     const read3: AsyncIterator<string> = it3.read();
     it3.each((data: AsyncIterator<string>) => data.each((data: string) => console.log(data)));
     it3.each((data: AsyncIterator<string>) => data.each((data: string) => console.log(data), {}), {});
@@ -31,9 +41,9 @@ function test_asynciterator() {
     const p2: string = it1.getProperty('name2');
     it1.getProperty('name1', (value: number) => console.log(value));
     it1.getProperty('name2', (value: string) => console.log(value));
-    const ps1: {[id: string]: any} = it1.getProperties();
+    const ps1: { [id: string]: any } = it1.getProperties();
     it1.setProperties({ name1: 1234, name2: 'someOtherValue' });
-    it1.copyProperties(it2, [ 'name1', 'name2' ]);
+    it1.copyProperties(it2, ['name1', 'name2']);
 
     const str: string = it1.toString();
 
@@ -111,11 +121,13 @@ function test_simpletransformiterator() {
     const it10: AsyncIterator<number> = new SimpleTransformIterator<string, number>({ limit: 2 });
     const it11: AsyncIterator<number> = new SimpleTransformIterator<string, number>({ prepend: [0, 1, 2] });
     const it12: AsyncIterator<number> = new SimpleTransformIterator<string, number>({ append: [0, 1, 2] });
-    const it13: AsyncIterator<number> = new SimpleTransformIterator<number, number>(
-      { filter: (val: number) => val > 10 });
+    const it13: AsyncIterator<number> = new SimpleTransformIterator<number, number>({
+        filter: (val: number) => val > 10,
+    });
     const it14: AsyncIterator<number> = new SimpleTransformIterator<number, number>({ map: (val: number) => val + 1 });
-    const it15: AsyncIterator<number> = new SimpleTransformIterator<number, number>(
-      { transform: (val: number, cb: (result: number) => void) => cb(val + 1) });
+    const it15: AsyncIterator<number> = new SimpleTransformIterator<number, number>({
+        transform: (val: number, cb: (result: number) => void) => cb(val + 1),
+    });
 }
 
 function test_multitransformiterator() {

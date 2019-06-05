@@ -1,4 +1,4 @@
-import { StorageType } from "./StorageType";
+import { StorageType } from './StorageType';
 
 /**
  * Provides settings for saving data to the storage.

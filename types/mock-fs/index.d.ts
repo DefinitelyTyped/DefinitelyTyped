@@ -5,8 +5,7 @@
 
 /// <reference types="node" />
 
-
-import nodefs = require("fs");
+import nodefs = require('fs');
 
 declare function mock(config?: mock.Config, options?: mock.Options): void;
 
@@ -48,9 +47,15 @@ declare namespace mock {
         path: string;
     }
 
-    class File { private _file: any; }
-    class Directory { private _directory: any; }
-    class Symlink { private _symlink: any; }
+    class File {
+        private _file: any;
+    }
+    class Directory {
+        private _directory: any;
+    }
+    class Symlink {
+        private _symlink: any;
+    }
 }
 
 export = mock;

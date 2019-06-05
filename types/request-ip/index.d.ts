@@ -15,7 +15,7 @@ interface RequestHeaders extends http.IncomingHttpHeaders {
     'x-cluster-client-ip'?: string;
     'x-forwarded'?: string;
     'forwarded-for'?: string;
-    'forwarded'?: string;
+    forwarded?: string;
 }
 
 interface Request {
@@ -23,14 +23,14 @@ interface Request {
     connection: {
         remoteAddress?: string;
         socket?: {
-            remoteAddress?: string
+            remoteAddress?: string;
         };
     };
     info?: {
-        remoteAddress?: string
+        remoteAddress?: string;
     };
     socket?: {
-        remoteAddress?: string
+        remoteAddress?: string;
     };
 }
 

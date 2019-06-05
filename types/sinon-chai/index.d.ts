@@ -12,9 +12,7 @@
 import * as Sinon from 'sinon';
 
 declare global {
-
     export namespace Chai {
-
         interface LanguageChains {
             always: Assertion;
         }
@@ -105,5 +103,5 @@ declare global {
 }
 
 declare function sinonChai(chai: any, utils: any): void;
-declare namespace sinonChai { }
+declare namespace sinonChai {}
 export = sinonChai;

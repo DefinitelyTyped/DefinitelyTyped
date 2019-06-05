@@ -28,9 +28,7 @@ declare namespace PIXI {
         options?: PIXI.RendererOptions,
         forceCanvas?: boolean
     ): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
-    function autoDetectRenderer(
-        options?: PIXI.RendererOptions
-    ): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+    function autoDetectRenderer(options?: PIXI.RendererOptions): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     const loader: PIXI.loaders.Loader;
 
     //////////////////////////////////////////////////////////////////////////////
@@ -91,9 +89,7 @@ declare namespace PIXI {
             protected children: AccessibleTarget[];
             protected isActive: boolean;
 
-            protected updateAccessibleObjects(
-                displayObject: DisplayObject
-            ): void;
+            protected updateAccessibleObjects(displayObject: DisplayObject): void;
             protected update(): void;
             protected capHitArea(hitArea: HitArea): void;
             protected addChild(displayObject: DisplayObject): void;
@@ -237,10 +233,7 @@ declare namespace PIXI {
         stop(): void;
         start(): void;
         render(): void;
-        destroy(
-            removeView?: boolean,
-            stageOptions?: StageOptions | boolean
-        ): void;
+        destroy(removeView?: boolean, stageOptions?: StageOptions | boolean): void;
         readonly view: HTMLCanvasElement;
     }
 
@@ -262,19 +255,8 @@ declare namespace PIXI {
         getRectangle(rect?: Rectangle): Rectangle;
         addPoint(point: Point): void;
         addQuad(vertices: ArrayLike<number>): Bounds | undefined;
-        addFrame(
-            transform: Transform,
-            x0: number,
-            y0: number,
-            x1: number,
-            y1: number
-        ): void;
-        addVertices(
-            transform: Transform,
-            vertices: ArrayLike<number>,
-            beginOffset: number,
-            endOffset: number
-        ): void;
+        addFrame(transform: Transform, x0: number, y0: number, x1: number, y1: number): void;
+        addVertices(transform: Transform, vertices: ArrayLike<number>, beginOffset: number, endOffset: number): void;
         addBounds(bounds: Bounds): void;
         addBoundsMask(bounds: Bounds, mask: Bounds): void;
         addBoundsArea(bounds: Bounds, area: Rectangle): void;
@@ -295,14 +277,9 @@ declare namespace PIXI {
         getChildIndex(child: DisplayObject): number;
         setChildIndex(child: DisplayObject, index: number): void;
         getChildAt<T extends DisplayObject = Container>(index: number): T;
-        removeChild<T extends DisplayObject = Container>(
-            child: DisplayObject
-        ): T;
+        removeChild<T extends DisplayObject = Container>(child: DisplayObject): T;
         removeChildAt<T extends DisplayObject = Container>(index: number): T;
-        removeChildren<T extends DisplayObject = Container>(
-            beginIndex?: number,
-            endIndex?: number
-        ): T[];
+        removeChildren<T extends DisplayObject = Container>(beginIndex?: number, endIndex?: number): T[];
         updateTransform(): void;
         calculateBounds(): void;
         protected _calculateBounds(): void;
@@ -315,27 +292,21 @@ declare namespace PIXI {
         destroy(options?: DestroyOptions | boolean): void;
 
         once(
-            event: interaction.InteractionEventTypes | "added" | "removed",
+            event: interaction.InteractionEventTypes | 'added' | 'removed',
             fn: (event: interaction.InteractionEvent) => void,
             context?: any
         ): this;
         once(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
         on(
-            event: interaction.InteractionEventTypes | "added" | "removed",
+            event: interaction.InteractionEventTypes | 'added' | 'removed',
             fn: (event: interaction.InteractionEvent) => void,
             context?: any
         ): this;
         on(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
-        off(
-            event: "added" | "removed" | string | symbol,
-            fn?: (...args: any[]) => any,
-            context?: any
-        ): this;
+        off(event: 'added' | 'removed' | string | symbol, fn?: (...args: any[]) => any, context?: any): this;
     }
     class DisplayObject extends utils.EventEmitter
-        implements
-            interaction.InteractiveTarget,
-            accessibility.AccessibleTarget {
+        implements interaction.InteractiveTarget, accessibility.AccessibleTarget {
         // begin extras.cacheAsBitmap
         protected _cacheAsBitmap: boolean;
         protected _cacheData: boolean;
@@ -343,9 +314,7 @@ declare namespace PIXI {
         protected _renderCachedWebGL(renderer: WebGLRenderer): void;
         protected _initCachedDisplayObject(renderer: WebGLRenderer): void;
         protected _renderCachedCanvas(renderer: CanvasRenderer): void;
-        protected _initCachedDisplayObjectCanvas(
-            renderer: CanvasRenderer
-        ): void;
+        protected _initCachedDisplayObjectCanvas(renderer: CanvasRenderer): void;
         protected _calculateCachedBounds(): Rectangle;
         protected _getCachedLocalBounds(): Rectangle;
         protected _destroyCachedDisplayObject(): void;
@@ -370,13 +339,7 @@ declare namespace PIXI {
         // begin interactive target
         interactive: boolean;
         interactiveChildren: boolean;
-        hitArea:
-            | PIXI.Rectangle
-            | PIXI.Circle
-            | PIXI.Ellipse
-            | PIXI.Polygon
-            | PIXI.RoundedRectangle
-            | PIXI.HitArea;
+        hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle | PIXI.HitArea;
         buttonMode: boolean;
         cursor: string;
         trackedPointers: { [key: number]: interaction.InteractionTrackingData };
@@ -421,20 +384,11 @@ declare namespace PIXI {
         //creates and returns a new point
         toGlobal(position: PointLike): Point;
         //modifies the x and y of the passed point and returns it
-        toGlobal<T extends PointLike>(
-            position: PointLike,
-            point?: T,
-            skipUpdate?: boolean
-        ): T;
+        toGlobal<T extends PointLike>(position: PointLike, point?: T, skipUpdate?: boolean): T;
         //creates and returns a new point
         toLocal(position: PointLike, from?: DisplayObject): Point;
         //modifies the x and y of the passed point and returns it
-        toLocal<T extends PointLike>(
-            position: PointLike,
-            from?: DisplayObject,
-            point?: T,
-            skipUpdate?: boolean
-        ): T;
+        toLocal<T extends PointLike>(position: PointLike, from?: DisplayObject, point?: T, skipUpdate?: boolean): T;
         renderWebGL(renderer: WebGLRenderer): void;
         renderCanvas(renderer: CanvasRenderer): void;
         setParent(container: Container): Container;
@@ -543,13 +497,7 @@ declare namespace PIXI {
             fillAlpha: number,
             fill: boolean,
             nativeLines: boolean,
-            shape:
-                | Circle
-                | Rectangle
-                | Ellipse
-                | Polygon
-                | RoundedRectangle
-                | any,
+            shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any,
             lineAlignment?: number
         );
         lineWidth: number;
@@ -562,25 +510,11 @@ declare namespace PIXI {
         fillAlpha: number;
         protected _fillTint: number;
         fill: boolean;
-        protected holes:
-            | Circle[]
-            | Rectangle[]
-            | Ellipse[]
-            | Polygon[]
-            | RoundedRectangle[]
-            | any[];
+        protected holes: Circle[] | Rectangle[] | Ellipse[] | Polygon[] | RoundedRectangle[] | any[];
         shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any;
         type?: number;
         clone(): GraphicsData;
-        addHole(
-            shape:
-                | Circle
-                | Rectangle
-                | Ellipse
-                | Polygon
-                | RoundedRectangle
-                | any
-        ): void;
+        addHole(shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any): void;
         destroy(options?: DestroyOptions | boolean): void;
     }
     class Graphics extends Container {
@@ -638,35 +572,12 @@ declare namespace PIXI {
             toY: number
         ): number;
         protected _segmentsCount(length: number): number;
-        lineStyle(
-            lineWidth?: number,
-            color?: number,
-            alpha?: number,
-            alignment?: number
-        ): Graphics;
+        lineStyle(lineWidth?: number, color?: number, alpha?: number, alignment?: number): Graphics;
         moveTo(x: number, y: number): Graphics;
         lineTo(x: number, y: number): Graphics;
-        quadraticCurveTo(
-            cpX: number,
-            cpY: number,
-            toX: number,
-            toY: number
-        ): Graphics;
-        bezierCurveTo(
-            cpX: number,
-            cpY: number,
-            cpX2: number,
-            cpY2: number,
-            toX: number,
-            toY: number
-        ): Graphics;
-        arcTo(
-            x1: number,
-            y1: number,
-            x2: number,
-            y2: number,
-            radius: number
-        ): Graphics;
+        quadraticCurveTo(cpX: number, cpY: number, toX: number, toY: number): Graphics;
+        bezierCurveTo(cpX: number, cpY: number, cpX2: number, cpY2: number, toX: number, toY: number): Graphics;
+        arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): Graphics;
         arc(
             cx: number,
             cy: number,
@@ -678,20 +589,9 @@ declare namespace PIXI {
         beginFill(color: number, alpha?: number): Graphics;
         endFill(): Graphics;
         drawRect(x: number, y: number, width: number, height: number): Graphics;
-        drawRoundedRect(
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            radius: number
-        ): Graphics;
+        drawRoundedRect(x: number, y: number, width: number, height: number, radius: number): Graphics;
         drawCircle(x: number, y: number, radius: number): Graphics;
-        drawEllipse(
-            x: number,
-            y: number,
-            width: number,
-            height: number
-        ): Graphics;
+        drawEllipse(x: number, y: number, width: number, height: number): Graphics;
         drawPolygon(path: number[] | Point[] | Polygon): Graphics;
         drawStar(
             x: number,
@@ -708,15 +608,7 @@ declare namespace PIXI {
         protected _renderSpriteRect(renderer: PIXI.SystemRenderer): void;
         containsPoint(point: Point): boolean;
         updateLocalBounds(): void;
-        drawShape(
-            shape:
-                | Circle
-                | Rectangle
-                | Ellipse
-                | Polygon
-                | RoundedRectangle
-                | any
-        ): GraphicsData;
+        drawShape(shape: Circle | Rectangle | Ellipse | Polygon | RoundedRectangle | any): GraphicsData;
         generateCanvasTexture(scaleMode?: number, resolution?: number): Texture;
         closePath(): Graphics;
         addHole(): Graphics;
@@ -726,11 +618,7 @@ declare namespace PIXI {
         constructor(renderer: SystemRenderer);
         render(graphics: Graphics): void;
         protected updateGraphicsTint(graphics: Graphics): void;
-        protected renderPolygon(
-            points: Point[],
-            close: boolean,
-            context: CanvasRenderingContext2D
-        ): void;
+        protected renderPolygon(points: Point[], close: boolean, context: CanvasRenderingContext2D): void;
         destroy(): void;
     }
     class GraphicsRenderer extends ObjectRenderer {
@@ -745,18 +633,10 @@ declare namespace PIXI {
         destroy(): void;
         render(graphics: Graphics): void;
         protected updateGraphics(graphics: PIXI.Graphics): void;
-        getWebGLData(
-            webGL: WebGLRenderingContext,
-            type: number,
-            nativeLines: number
-        ): WebGLGraphicsData;
+        getWebGLData(webGL: WebGLRenderingContext, type: number, nativeLines: number): WebGLGraphicsData;
     }
     class WebGLGraphicsData {
-        constructor(
-            gl: WebGLRenderingContext,
-            shader: glCore.GLShader,
-            attribsState: glCore.AttribState
-        );
+        constructor(gl: WebGLRenderingContext, shader: glCore.GLShader, attribsState: glCore.AttribState);
 
         gl: WebGLRenderingContext;
         color: number[];
@@ -800,22 +680,10 @@ declare namespace PIXI {
         function rotate180(rotation: number): number;
         function isVertical(rotation: number): boolean;
         function byDirection(dx: number, dy: number): number;
-        function matrixAppendRotationInv(
-            matrix: Matrix,
-            rotation: number,
-            tx: number,
-            ty: number
-        ): void;
+        function matrixAppendRotationInv(matrix: Matrix, rotation: number, tx: number, ty: number): void;
     }
     class Matrix {
-        constructor(
-            a?: number,
-            b?: number,
-            c?: number,
-            d?: number,
-            tx?: number,
-            ty?: number
-        );
+        constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
 
         a: number;
         b: number;
@@ -825,14 +693,7 @@ declare namespace PIXI {
         ty: number;
 
         fromArray(array: number[]): void;
-        set(
-            a: number,
-            b: number,
-            c: number,
-            d: number,
-            tx: number,
-            ty: number
-        ): Matrix;
+        set(a: number, b: number, c: number, d: number, tx: number, ty: number): Matrix;
         toArray(transpose?: boolean, out?: number[]): number[];
         apply(pos: Point, newPos?: Point): Point;
         applyInverse(pos: Point, newPos?: Point): Point;
@@ -896,12 +757,7 @@ declare namespace PIXI {
         getBounds(): Rectangle;
     }
     class Ellipse implements HitArea {
-        constructor(
-            x?: number,
-            y?: number,
-            halfWidth?: number,
-            halfHeight?: number
-        );
+        constructor(x?: number, y?: number, halfWidth?: number, halfHeight?: number);
 
         x: number;
         y: number;
@@ -953,13 +809,7 @@ declare namespace PIXI {
         enlarge(rectangle: Rectangle): void;
     }
     class RoundedRectangle implements HitArea {
-        constructor(
-            x?: number,
-            y?: number,
-            width?: number,
-            height?: number,
-            radius?: number
-        );
+        constructor(x?: number, y?: number, width?: number, height?: number, radius?: number);
 
         x: number;
         y: number;
@@ -1051,7 +901,7 @@ declare namespace PIXI {
         /**
          * Parameter passed to webgl context, set to "high-performance" for devices with dual graphics card
          */
-        powerPreference?: "high-performance";
+        powerPreference?: 'high-performance';
     }
     interface ApplicationOptions extends RendererOptions {
         /**
@@ -1078,12 +928,7 @@ declare namespace PIXI {
     interface RendererPlugins extends DefaultRendererPlugins {}
     class SystemRenderer extends utils.EventEmitter {
         constructor(system: string, options?: RendererOptions);
-        constructor(
-            system: string,
-            screenWidth?: number,
-            screenHeight?: number,
-            options?: RendererOptions
-        );
+        constructor(system: string, screenWidth?: number, screenHeight?: number, options?: RendererOptions);
 
         type: number;
         options: RendererOptions;
@@ -1119,29 +964,20 @@ declare namespace PIXI {
         extract: extract.CanvasExtract;
         prepare: prepare.CanvasPrepare;
     }
-    interface CanvasRendererPlugins
-        extends DefaultCanvasRendererPlugins,
-            RendererPlugins {}
+    interface CanvasRendererPlugins extends DefaultCanvasRendererPlugins, RendererPlugins {}
     class CanvasRenderer extends SystemRenderer {
         // plugintarget mixin start
         static __plugins: {
             [pluginName: string]: { new (renderer: CanvasRenderer): any };
         };
-        static registerPlugin(
-            pluginName: string,
-            ctor: { new (renderer: CanvasRenderer): any }
-        ): void;
+        static registerPlugin(pluginName: string, ctor: { new (renderer: CanvasRenderer): any }): void;
         plugins: any;
         initPlugins(): void;
         destroyPlugins(): void;
         // plugintarget mixin end
 
         constructor(options?: RendererOptions);
-        constructor(
-            screenWidth?: number,
-            screenHeight?: number,
-            options?: RendererOptions
-        );
+        constructor(screenWidth?: number, screenHeight?: number, options?: RendererOptions);
 
         protected _activeBlendMode: number;
         rootContext: CanvasRenderingContext2D;
@@ -1165,32 +1001,12 @@ declare namespace PIXI {
         clear(clearColor?: string): void;
         invalidateBlendMode(): void;
 
-        on(
-            event: "prerender" | "postrender",
-            fn: () => void,
-            context?: any
-        ): this;
-        once(
-            event: "prerender" | "postrender",
-            fn: () => void,
-            context?: any
-        ): this;
-        removeListener(
-            event: "prerender" | "postrender",
-            fn?: () => void,
-            context?: any
-        ): this;
-        removeAllListeners(event?: "prerender" | "postrender"): this;
-        off(
-            event: "prerender" | "postrender",
-            fn?: () => void,
-            context?: any
-        ): this;
-        addListener(
-            event: "prerender" | "postrender",
-            fn: () => void,
-            context?: any
-        ): this;
+        on(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
+        once(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
+        removeListener(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
+        removeAllListeners(event?: 'prerender' | 'postrender'): this;
+        off(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
+        addListener(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
     }
     class CanvasMaskManager {
         constructor(renderer: CanvasRenderer);
@@ -1220,30 +1036,21 @@ declare namespace PIXI {
         extract: extract.WebGLExtract;
         prepare: prepare.WebGLPrepare;
     }
-    interface WebGLRendererPlugins
-        extends DefaultWebGLRendererPlugins,
-            RendererPlugins {}
+    interface WebGLRendererPlugins extends DefaultWebGLRendererPlugins, RendererPlugins {}
     interface WebGLRendererOptions extends RendererOptions {}
     class WebGLRenderer extends SystemRenderer {
         // plugintarget mixin start
         static __plugins: {
             [pluginName: string]: { new (renderer: WebGLRenderer): any };
         };
-        static registerPlugin(
-            pluginName: string,
-            ctor: { new (renderer: WebGLRenderer): any }
-        ): void;
+        static registerPlugin(pluginName: string, ctor: { new (renderer: WebGLRenderer): any }): void;
         plugins: any;
         initPlugins(): void;
         destroyPlugins(): void;
         // plugintarget mixin end
 
         constructor(options?: WebGLRendererOptions);
-        constructor(
-            screenWidth?: number,
-            screenHeight?: number,
-            options?: WebGLRendererOptions
-        );
+        constructor(screenWidth?: number, screenHeight?: number, options?: WebGLRendererOptions);
 
         protected _contextOptions: {
             alpha: boolean;
@@ -1285,24 +1092,12 @@ declare namespace PIXI {
         setBlendMode(blendMode: number): void;
         clear(clearColor?: number): void;
         setTransform(matrix: Matrix): void;
-        clearRenderTexture(
-            renderTexture: RenderTexture,
-            clearColor?: number
-        ): WebGLRenderer;
-        bindRenderTexture(
-            renderTexture: RenderTexture,
-            transform: Matrix
-        ): WebGLRenderer;
+        clearRenderTexture(renderTexture: RenderTexture, clearColor?: number): WebGLRenderer;
+        bindRenderTexture(renderTexture: RenderTexture, transform: Matrix): WebGLRenderer;
         bindRenderTarget(renderTarget: RenderTarget): WebGLRenderer;
         bindShader(shader: Shader, autoProject?: boolean): WebGLRenderer;
-        bindTexture(
-            texture: Texture | BaseTexture,
-            location?: number,
-            forceLocation?: boolean
-        ): number;
-        unbindTexture(
-            texture: Texture | BaseTexture
-        ): WebGLRenderer | undefined;
+        bindTexture(texture: Texture | BaseTexture, location?: number, forceLocation?: boolean): number;
+        unbindTexture(texture: Texture | BaseTexture): WebGLRenderer | undefined;
         createVao(): glCore.VertexArrayObject;
         bindVao(vao: glCore.VertexArrayObject): WebGLRenderer;
         reset(): WebGLRenderer;
@@ -1310,59 +1105,17 @@ declare namespace PIXI {
         handleContextRestored: () => void;
         destroy(removeView?: boolean): void;
 
-        on(
-            event: "prerender" | "postrender",
-            fn: () => void,
-            context?: any
-        ): this;
-        on(
-            event: "context",
-            fn: (gl: WebGLRenderingContext) => void,
-            context?: any
-        ): this;
-        once(
-            event: "prerender" | "postrender",
-            fn: () => void,
-            context?: any
-        ): this;
-        once(
-            event: "context",
-            fn: (gl: WebGLRenderingContext) => void,
-            context?: any
-        ): this;
-        removeListener(
-            event: "prerender" | "postrender",
-            fn?: () => void,
-            context?: any
-        ): this;
-        removeListener(
-            event: "context",
-            fn?: (gl: WebGLRenderingContext) => void,
-            context?: any
-        ): this;
-        removeAllListeners(
-            event?: "prerender" | "postrender" | "context"
-        ): this;
-        off(
-            event: "prerender" | "postrender",
-            fn?: () => void,
-            context?: any
-        ): this;
-        off(
-            event: "context",
-            fn?: (gl: WebGLRenderingContext) => void,
-            context?: any
-        ): this;
-        addListener(
-            event: "prerender" | "postrender",
-            fn: () => void,
-            context?: any
-        ): this;
-        addListener(
-            event: "context",
-            fn: (gl: WebGLRenderingContext) => void,
-            context?: any
-        ): this;
+        on(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
+        on(event: 'context', fn: (gl: WebGLRenderingContext) => void, context?: any): this;
+        once(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
+        once(event: 'context', fn: (gl: WebGLRenderingContext) => void, context?: any): this;
+        removeListener(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
+        removeListener(event: 'context', fn?: (gl: WebGLRenderingContext) => void, context?: any): this;
+        removeAllListeners(event?: 'prerender' | 'postrender' | 'context'): this;
+        off(event: 'prerender' | 'postrender', fn?: () => void, context?: any): this;
+        off(event: 'context', fn?: (gl: WebGLRenderingContext) => void, context?: any): this;
+        addListener(event: 'prerender' | 'postrender', fn: () => void, context?: any): this;
+        addListener(event: 'context', fn: (gl: WebGLRenderingContext) => void, context?: any): this;
     }
     class WebGLState {
         constructor(gl: WebGLRenderingContext);
@@ -1481,10 +1234,7 @@ declare namespace PIXI {
         attachStencilBuffer(): void;
         setFrame(destinationFrame: Rectangle, sourceFrame: Rectangle): void;
         activate(): void;
-        calculateProjection(
-            destinationFrame: Rectangle,
-            sourceFrame: Rectangle
-        ): void;
+        calculateProjection(destinationFrame: Rectangle, sourceFrame: Rectangle): void;
         resize(width: number, height: number): void;
         destroy(): void;
     }
@@ -1558,10 +1308,7 @@ declare namespace PIXI {
         popSpriteMask(): void;
         pushStencilMask(maskData: Sprite | Graphics): void;
         popStencilMask(): void;
-        pushScissorMask(
-            target: RenderTarget,
-            maskData: Sprite | Graphics
-        ): void;
+        pushScissorMask(target: RenderTarget, maskData: Sprite | Graphics): void;
         popScissorMask(): void;
     }
     class StencilManager extends WebGLManager {
@@ -1593,11 +1340,7 @@ declare namespace PIXI {
     }
     type UniformDataMap<U> = { [K in keyof U]: UniformData<U[K]> };
     class Filter<U extends Object> {
-        constructor(
-            vertexSrc?: string,
-            fragmentSrc?: string,
-            uniformData?: UniformDataMap<U>
-        );
+        constructor(vertexSrc?: string, fragmentSrc?: string, uniformData?: UniformDataMap<U>);
 
         protected _blendMode: number;
         vertexSrc?: string;
@@ -1632,12 +1375,7 @@ declare namespace PIXI {
 
         maskSprite: Sprite;
         maskMatrix: Matrix;
-        apply(
-            filterManager: FilterManager,
-            input: RenderTarget,
-            output: RenderTarget,
-            clear?: boolean
-        ): void;
+        apply(filterManager: FilterManager, input: RenderTarget, output: RenderTarget, clear?: boolean): void;
     }
 
     // sprites
@@ -1679,20 +1417,10 @@ declare namespace PIXI {
         destroy(options?: DestroyOptions | boolean): void;
 
         static from(
-            source:
-                | number
-                | string
-                | BaseTexture
-                | HTMLImageElement
-                | HTMLCanvasElement
-                | HTMLVideoElement
+            source: number | string | BaseTexture | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement
         ): Sprite;
         static fromFrame(frameId: string): Sprite;
-        static fromImage(
-            imageId: string,
-            crossorigin?: boolean,
-            scaleMode?: number
-        ): Sprite;
+        static fromImage(imageId: string, crossorigin?: boolean, scaleMode?: number): Sprite;
     }
     class BatchBuffer {
         vertices: ArrayBuffer;
@@ -1734,25 +1462,10 @@ declare namespace PIXI {
         destroy(): void;
     }
     namespace CanvasTinter {
-        function getTintedTexture(
-            sprite: Sprite,
-            color: number
-        ): HTMLCanvasElement;
-        function tintWithMultiply(
-            texture: Texture,
-            color: number,
-            canvas: HTMLCanvasElement
-        ): void;
-        function tintWithOverlay(
-            texture: Texture,
-            color: number,
-            canvas: HTMLCanvasElement
-        ): void;
-        function tintWithPerPixel(
-            texture: Texture,
-            color: number,
-            canvas: HTMLCanvasElement
-        ): void;
+        function getTintedTexture(sprite: Sprite, color: number): HTMLCanvasElement;
+        function tintWithMultiply(texture: Texture, color: number, canvas: HTMLCanvasElement): void;
+        function tintWithOverlay(texture: Texture, color: number, canvas: HTMLCanvasElement): void;
+        function tintWithPerPixel(texture: Texture, color: number, canvas: HTMLCanvasElement): void;
         function roundColor(color: number): number;
 
         let cacheStepsPerColorChannel: number;
@@ -1771,13 +1484,7 @@ declare namespace PIXI {
         dropShadowBlur?: number;
         dropShadowColor?: string | number;
         dropShadowDistance?: number;
-        fill?:
-            | string
-            | string[]
-            | number
-            | number[]
-            | CanvasGradient
-            | CanvasPattern;
+        fill?: string | string[] | number | number[] | CanvasGradient | CanvasPattern;
         fillGradientType?: number;
         fillGradientStops?: number[];
         fontFamily?: string | string[];
@@ -1824,20 +1531,8 @@ declare namespace PIXI {
         dropShadowColor: string | number;
         protected _dropShadowDistance: number;
         dropShadowDistance: number;
-        protected _fill:
-            | string
-            | string[]
-            | number
-            | number[]
-            | CanvasGradient
-            | CanvasPattern;
-        fill:
-            | string
-            | string[]
-            | number
-            | number[]
-            | CanvasGradient
-            | CanvasPattern;
+        protected _fill: string | string[] | number | number[] | CanvasGradient | CanvasPattern;
+        fill: string | string[] | number | number[] | CanvasGradient | CanvasPattern;
         protected _fillGradientType: number;
         fillGradientType: number;
         protected _fillGradientStops: number[];
@@ -1913,29 +1608,11 @@ declare namespace PIXI {
             fontProperties: any
         );
 
-        static measureText(
-            text: string,
-            style: TextStyle,
-            wordWrap?: boolean,
-            canvas?: HTMLCanvasElement
-        ): TextMetrics;
-        static wordWrap(
-            text: string,
-            style: TextStyle,
-            canvas?: HTMLCanvasElement
-        ): string;
-        static wordWrap(
-            text: string,
-            style: TextStyle,
-            canvas?: HTMLCanvasElement
-        ): string;
+        static measureText(text: string, style: TextStyle, wordWrap?: boolean, canvas?: HTMLCanvasElement): TextMetrics;
+        static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;
+        static wordWrap(text: string, style: TextStyle, canvas?: HTMLCanvasElement): string;
         static addLine(line: string, newLine?: boolean): string;
-        static getFromCache(
-            key: string,
-            letterSpacing: number,
-            cache: any,
-            context: CanvasRenderingContext2D
-        ): number;
+        static getFromCache(key: string, letterSpacing: number, cache: any, context: CanvasRenderingContext2D): number;
         static collapseSpaces(whiteSpace?: string): boolean;
         static collapseNewlines(whiteSpace?: string): boolean;
         static trimRight(text?: string): string;
@@ -1959,11 +1636,7 @@ declare namespace PIXI {
         fontSize: number;
     }
     class Text extends Sprite {
-        constructor(
-            text?: string,
-            style?: TextStyleOptions,
-            canvas?: HTMLCanvasElement
-        );
+        constructor(text?: string, style?: TextStyleOptions, canvas?: HTMLCanvasElement);
 
         canvas: HTMLCanvasElement;
         context: CanvasRenderingContext2D;
@@ -1980,33 +1653,20 @@ declare namespace PIXI {
         text: string;
 
         protected updateText(respectDirty?: boolean): void;
-        protected drawLetterSpacing(
-            text: string,
-            x: number,
-            y: number,
-            isStroke?: boolean
-        ): void;
+        protected drawLetterSpacing(text: string, x: number, y: number, isStroke?: boolean): void;
         protected updateTexture(): void;
         renderWebGL(renderer: WebGLRenderer): void;
         protected _renderCanvas(renderer: CanvasRenderer): void;
         getLocalBounds(rect?: Rectangle): Rectangle;
         protected _calculateBounds(): void;
         protected _onStyleChange: () => void;
-        protected _generateFillStyle(
-            style: TextStyle,
-            lines: string[]
-        ): string | number | CanvasGradient;
+        protected _generateFillStyle(style: TextStyle, lines: string[]): string | number | CanvasGradient;
         destroy(options?: DestroyOptions | boolean): void;
         dirty: boolean;
     }
     // textures
     class BaseRenderTexture extends BaseTexture {
-        constructor(
-            width?: number,
-            height?: number,
-            scaleMode?: number,
-            resolution?: number
-        );
+        constructor(width?: number, height?: number, scaleMode?: number, resolution?: number);
 
         height: number;
         width: number;
@@ -2022,32 +1682,12 @@ declare namespace PIXI {
         resize(width: number, height: number): void;
         destroy(): void;
 
-        on(
-            event: "update",
-            fn: (baseRenderTexture: BaseRenderTexture) => void,
-            context?: any
-        ): this;
-        once(
-            event: "update",
-            fn: (baseRenderTexture: BaseRenderTexture) => void,
-            context?: any
-        ): this;
-        removeListener(
-            event: "update",
-            fn?: (baseRenderTexture: BaseRenderTexture) => void,
-            context?: any
-        ): this;
-        removeAllListeners(event?: "update"): this;
-        off(
-            event: "update",
-            fn?: (baseRenderTexture: BaseRenderTexture) => void,
-            context?: any
-        ): this;
-        addListener(
-            event: "update",
-            fn: (baseRenderTexture: BaseRenderTexture) => void,
-            context?: any
-        ): this;
+        on(event: 'update', fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        once(event: 'update', fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        removeListener(event: 'update', fn?: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        removeAllListeners(event?: 'update'): this;
+        off(event: 'update', fn?: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
+        addListener(event: 'update', fn: (baseRenderTexture: BaseRenderTexture) => void, context?: any): this;
     }
     class BaseTexture extends utils.EventEmitter {
         static from(
@@ -2096,9 +1736,7 @@ declare namespace PIXI {
         protected _loadSvgSourceUsingDataUri(dataUri: string): void;
         protected _loadSvgSourceUsingXhr(): void;
         protected _loadSvgSourceUsingString(svgString: string): void;
-        protected loadSource(
-            source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement
-        ): void;
+        protected loadSource(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void;
         protected _sourceLoaded(): void;
         destroy(): void;
         dispose(): void;
@@ -2110,39 +1748,33 @@ declare namespace PIXI {
             scaleMode?: number,
             sourceScale?: number
         ): BaseTexture;
-        static fromCanvas(
-            canvas: HTMLCanvasElement,
-            scaleMode?: number,
-            origin?: string
-        ): BaseTexture;
+        static fromCanvas(canvas: HTMLCanvasElement, scaleMode?: number, origin?: string): BaseTexture;
         static addToCache(baseTexture: BaseTexture, id: string): void;
         static removeFromCache(baseTexture: string | BaseTexture): BaseTexture;
 
         on(
-            event: "update" | "loaded" | "error" | "dispose",
+            event: 'update' | 'loaded' | 'error' | 'dispose',
             fn: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         once(
-            event: "update" | "loaded" | "error" | "dispose",
+            event: 'update' | 'loaded' | 'error' | 'dispose',
             fn: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         removeListener(
-            event: "update" | "loaded" | "error" | "dispose",
+            event: 'update' | 'loaded' | 'error' | 'dispose',
             fn?: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
-        removeAllListeners(
-            event?: "update" | "loaded" | "error" | "dispose"
-        ): this;
+        removeAllListeners(event?: 'update' | 'loaded' | 'error' | 'dispose'): this;
         off(
-            event: "update" | "loaded" | "error" | "dispose",
+            event: 'update' | 'loaded' | 'error' | 'dispose',
             fn?: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
         addListener(
-            event: "update" | "loaded" | "error" | "dispose",
+            event: 'update' | 'loaded' | 'error' | 'dispose',
             fn: (baseTexture: BaseTexture) => void,
             context?: any
         ): this;
@@ -2153,18 +1785,9 @@ declare namespace PIXI {
         protected legacyRenderer: any;
         valid: boolean;
 
-        resize(
-            width: number,
-            height: number,
-            doNotResizeBaseTexture?: boolean
-        ): void;
+        resize(width: number, height: number, doNotResizeBaseTexture?: boolean): void;
 
-        static create(
-            width?: number,
-            height?: number,
-            scaleMode?: number,
-            resolution?: number
-        ): RenderTexture;
+        static create(width?: number, height?: number, scaleMode?: number, resolution?: number): RenderTexture;
     }
     class Texture extends utils.EventEmitter {
         constructor(
@@ -2196,44 +1819,20 @@ declare namespace PIXI {
         clone(): Texture;
         _updateUvs(): void;
 
-        static fromImage(
-            imageUrl: string,
-            crossOrigin?: boolean,
-            scaleMode?: number,
-            sourceScale?: number
-        ): Texture;
+        static fromImage(imageUrl: string, crossOrigin?: boolean, scaleMode?: number, sourceScale?: number): Texture;
         static fromFrame(frameId: string): Texture;
-        static fromCanvas(
-            canvas: HTMLCanvasElement,
-            scaleMode?: number,
-            origin?: string
-        ): Texture;
+        static fromCanvas(canvas: HTMLCanvasElement, scaleMode?: number, origin?: string): Texture;
         static fromVideo(
             video: HTMLVideoElement | string,
             scaleMode?: number,
             crossorigin?: boolean,
             autoPlay?: boolean
         ): Texture;
-        static fromVideoUrl(
-            videoUrl: string,
-            scaleMode?: number,
-            crossorigin?: boolean,
-            autoPlay?: boolean
-        ): Texture;
+        static fromVideoUrl(videoUrl: string, scaleMode?: number, crossorigin?: boolean, autoPlay?: boolean): Texture;
         static from(
-            source:
-                | number
-                | string
-                | HTMLImageElement
-                | HTMLCanvasElement
-                | HTMLVideoElement
-                | BaseTexture
+            source: number | string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | BaseTexture
         ): Texture;
-        static fromLoader(
-            source: HTMLImageElement | HTMLCanvasElement,
-            imageUrl: string,
-            name?: string
-        ): Texture;
+        static fromLoader(source: HTMLImageElement | HTMLCanvasElement, imageUrl: string, name?: string): Texture;
         static addToCache(texture: Texture, id: string): void;
         static removeFromCache(texture: string | Texture): Texture;
 
@@ -2250,32 +1849,12 @@ declare namespace PIXI {
         static EMPTY: Texture;
         static WHITE: Texture;
 
-        on(
-            event: "update",
-            fn: (texture: Texture) => void,
-            context?: any
-        ): this;
-        once(
-            event: "update",
-            fn: (texture: Texture) => void,
-            context?: any
-        ): this;
-        removeListener(
-            event: "update",
-            fn?: (texture: Texture) => void,
-            context?: any
-        ): this;
-        removeAllListeners(event?: "update"): this;
-        off(
-            event: "update",
-            fn?: (texture: Texture) => void,
-            context?: any
-        ): this;
-        addListener(
-            event: "update",
-            fn: (texture: Texture) => void,
-            context?: any
-        ): this;
+        on(event: 'update', fn: (texture: Texture) => void, context?: any): this;
+        once(event: 'update', fn: (texture: Texture) => void, context?: any): this;
+        removeListener(event: 'update', fn?: (texture: Texture) => void, context?: any): this;
+        removeAllListeners(event?: 'update'): this;
+        off(event: 'update', fn?: (texture: Texture) => void, context?: any): this;
+        addListener(event: 'update', fn: (texture: Texture) => void, context?: any): this;
     }
     class TextureMatrix {
         constructor(texture: Texture, clampMargin?: number);
@@ -2306,21 +1885,13 @@ declare namespace PIXI {
 
         uvsUint32: Uint32Array;
 
-        protected set(
-            frame: Rectangle,
-            baseFrame: Rectangle,
-            rotate: number
-        ): void;
+        protected set(frame: Rectangle, baseFrame: Rectangle, rotate: number): void;
     }
 
     class Spritesheet {
         static BATCH_SIZE: number;
 
-        constructor(
-            baseTexture: BaseTexture,
-            data: any,
-            resolutionFilename?: string
-        );
+        constructor(baseTexture: BaseTexture, data: any, resolutionFilename?: string);
 
         baseTexture: BaseTexture;
         animations: { [key: string]: Texture[] };
@@ -2330,17 +1901,9 @@ declare namespace PIXI {
         protected _frames: any;
         protected _frameKeys: string;
         protected _batchIndex: number;
-        protected _callback: (
-            spriteSheet: this,
-            textures: { [key: string]: Texture }
-        ) => void;
+        protected _callback: (spriteSheet: this, textures: { [key: string]: Texture }) => void;
         protected _updateResolution(resolutionFilename: string): number;
-        parse(
-            callback: (
-                spriteSheet: this,
-                textures: { [key: string]: Texture }
-            ) => void
-        ): void;
+        parse(callback: (spriteSheet: this, textures: { [key: string]: Texture }) => void): void;
         protected _processFrames(initialFrameIndex: number): void;
         protected _parseComplete(): void;
         protected _processAnimations(): void;
@@ -2349,11 +1912,7 @@ declare namespace PIXI {
     }
 
     class VideoBaseTexture extends BaseTexture {
-        constructor(
-            source: HTMLVideoElement,
-            scaleMode?: number,
-            autoPlay?: boolean
-        );
+        constructor(source: HTMLVideoElement, scaleMode?: number, autoPlay?: boolean);
 
         autoUpdate: boolean;
         autoPlay: boolean;
@@ -2367,19 +1926,13 @@ declare namespace PIXI {
         protected _isSourcePlaying(): boolean;
         protected _isSourceReady(): boolean;
 
-        static fromVideo(
-            video: HTMLVideoElement,
-            scaleMode?: number,
-            autoPlay?: boolean
-        ): VideoBaseTexture;
+        static fromVideo(video: HTMLVideoElement, scaleMode?: number, autoPlay?: boolean): VideoBaseTexture;
         static fromUrl(
             videoSrc: string | any | string[] | any[],
             crossorigin?: boolean,
             autoPlay?: boolean
         ): VideoBaseTexture;
-        static fromUrls(
-            videoSrc: string | any | string[] | any[]
-        ): VideoBaseTexture;
+        static fromUrls(videoSrc: string | any | string[] | any[]): VideoBaseTexture;
 
         source: HTMLVideoElement;
         protected loadSource(source: HTMLVideoElement): void;
@@ -2391,12 +1944,7 @@ declare namespace PIXI {
         const shared: Ticker;
 
         class TickerListener {
-            constructor(
-                fn: (deltaTime: number) => void,
-                context?: any,
-                priority?: number,
-                once?: boolean
-            );
+            constructor(fn: (deltaTime: number) => void, context?: any, priority?: number, once?: boolean);
             fn: (deltaTime: number) => void;
             context: any;
             priority: number;
@@ -2426,16 +1974,8 @@ declare namespace PIXI {
             protected _cancelIfNeeded(): void;
             protected _startIfPossible(): void;
 
-            add(
-                fn: (deltaTime: number) => void,
-                context?: any,
-                priority?: number
-            ): Ticker;
-            addOnce(
-                fn: (deltaTime: number) => void,
-                context?: any,
-                priority?: number
-            ): Ticker;
+            add(fn: (deltaTime: number) => void, context?: any, priority?: number): Ticker;
+            addOnce(fn: (deltaTime: number) => void, context?: any, priority?: number): Ticker;
             remove(fn: (...args: any[]) => any, context?: any, priority?: number): Ticker;
             protected _addListener(listener: TickerListener): Ticker;
             readonly FPS: number;
@@ -2473,9 +2013,7 @@ declare namespace PIXI {
             image(target?: DisplayObject | RenderTexture): HTMLImageElement;
             base64(target?: DisplayObject | RenderTexture): string;
             canvas(target?: DisplayObject | RenderTexture): HTMLCanvasElement;
-            pixels(
-                renderTexture?: DisplayObject | RenderTexture
-            ): Uint8ClampedArray;
+            pixels(renderTexture?: DisplayObject | RenderTexture): Uint8ClampedArray;
 
             destroy(): void;
         }
@@ -2509,10 +2047,7 @@ declare namespace PIXI {
             tint?: number;
         }
         class BitmapText extends Container {
-            static registerFont(
-                xml: XMLDocument,
-                textures: Texture | Texture[] | { [key: string]: Texture }
-            ): any;
+            static registerFont(xml: XMLDocument, textures: Texture | Texture[] | { [key: string]: Texture }): any;
 
             constructor(text: string, style?: BitmapTextStyle);
 
@@ -2559,10 +2094,7 @@ declare namespace PIXI {
             time?: number;
         }
         class AnimatedSprite extends Sprite {
-            constructor(
-                textures: Texture[] | AnimatedSpriteTextureTimeObject[],
-                autoUpdate?: boolean
-            );
+            constructor(textures: Texture[] | AnimatedSpriteTextureTimeObject[], autoUpdate?: boolean);
 
             protected _autoUpdate: boolean;
             protected _textures: Texture[];
@@ -2629,26 +2161,13 @@ declare namespace PIXI {
             destroy(options?: DestroyOptions | boolean): void;
 
             static from(
-                source:
-                    | number
-                    | string
-                    | BaseTexture
-                    | HTMLCanvasElement
-                    | HTMLVideoElement,
+                source: number | string | BaseTexture | HTMLCanvasElement | HTMLVideoElement,
                 width?: number,
                 height?: number
             ): TilingSprite;
-            static fromFrame(
-                frameId: string,
-                width?: number,
-                height?: number
-            ): TilingSprite;
+            static fromFrame(frameId: string, width?: number, height?: number): TilingSprite;
             // if you remove the next line, the class will break. https://github.com/pixijs/pixi-typescript/issues/96
-            static fromImage(
-                imageId: string,
-                crossorigin?: boolean,
-                scaleMode?: number
-            ): Sprite;
+            static fromImage(imageId: string, crossorigin?: boolean, scaleMode?: number): Sprite;
             static fromImage(
                 imageId: string,
                 width?: number,
@@ -2674,12 +2193,7 @@ declare namespace PIXI {
     namespace filters {
         class FXAAFilter extends Filter<{}> {}
         class BlurFilter extends Filter<{}> {
-            constructor(
-                strength?: number,
-                quality?: number,
-                resolution?: number,
-                kernelSize?: number
-            );
+            constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
 
             blurXFilter: BlurXFilter;
             blurYFilter: BlurYFilter;
@@ -2696,12 +2210,7 @@ declare namespace PIXI {
             strength: number;
         }
         class BlurXFilter extends Filter<BlurXFilterUniforms> {
-            constructor(
-                strength?: number,
-                quality?: number,
-                resolution?: number,
-                kernelSize?: number
-            );
+            constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
 
             protected _quality: number;
 
@@ -2716,12 +2225,7 @@ declare namespace PIXI {
             strength: number;
         }
         class BlurYFilter extends Filter<BlurYFilterUniforms> {
-            constructor(
-                strength?: number,
-                quality?: number,
-                resolution?: number,
-                kernelSize?: number
-            );
+            constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
 
             protected _quality: number;
 
@@ -2811,13 +2315,7 @@ declare namespace PIXI {
         interface InteractiveTarget {
             interactive: boolean;
             interactiveChildren: boolean;
-            hitArea:
-                | PIXI.Rectangle
-                | PIXI.Circle
-                | PIXI.Ellipse
-                | PIXI.Polygon
-                | PIXI.RoundedRectangle
-                | PIXI.HitArea;
+            hitArea: PIXI.Rectangle | PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.RoundedRectangle | PIXI.HitArea;
             buttonMode: boolean;
             cursor: string;
             trackedPointers: { [key: number]: InteractionTrackingData };
@@ -2862,42 +2360,38 @@ declare namespace PIXI {
             readonly pointerID: number;
             copyEvent(event: Touch | MouseEvent | PointerEvent): void;
             reset(): void;
-            getLocalPosition(
-                displayObject: DisplayObject,
-                point?: Point,
-                globalPos?: Point
-            ): Point;
+            getLocalPosition(displayObject: DisplayObject, point?: Point, globalPos?: Point): Point;
         }
         type InteractionPointerEvents =
-            | "pointerdown"
-            | "pointercancel"
-            | "pointerup"
-            | "pointertap"
-            | "pointerupoutside"
-            | "pointermove"
-            | "pointerover"
-            | "pointerout";
+            | 'pointerdown'
+            | 'pointercancel'
+            | 'pointerup'
+            | 'pointertap'
+            | 'pointerupoutside'
+            | 'pointermove'
+            | 'pointerover'
+            | 'pointerout';
         type InteractionTouchEvents =
-            | "touchstart"
-            | "touchcancel"
-            | "touchend"
-            | "touchendoutside"
-            | "touchmove"
-            | "tap";
+            | 'touchstart'
+            | 'touchcancel'
+            | 'touchend'
+            | 'touchendoutside'
+            | 'touchmove'
+            | 'tap';
         type InteractionMouseEvents =
-            | "rightdown"
-            | "mousedown"
-            | "rightup"
-            | "mouseup"
-            | "rightclick"
-            | "click"
-            | "rightupoutside"
-            | "mouseupoutside"
-            | "mousemove"
-            | "mouseover"
-            | "mouseout"
-            | "mouseover";
-        type InteractionPixiEvents = "added" | "removed";
+            | 'rightdown'
+            | 'mousedown'
+            | 'rightup'
+            | 'mouseup'
+            | 'rightclick'
+            | 'click'
+            | 'rightupoutside'
+            | 'mouseupoutside'
+            | 'mousemove'
+            | 'mouseover'
+            | 'mouseout'
+            | 'mouseover';
+        type InteractionPixiEvents = 'added' | 'removed';
         type InteractionEventTypes =
             | InteractionPointerEvents
             | InteractionTouchEvents
@@ -2908,10 +2402,7 @@ declare namespace PIXI {
             interactionFrequency?: number;
         }
         class InteractionManager extends utils.EventEmitter {
-            constructor(
-                renderer: CanvasRenderer | WebGLRenderer | SystemRenderer,
-                options?: InteractionManagerOptions
-            );
+            constructor(renderer: CanvasRenderer | WebGLRenderer | SystemRenderer, options?: InteractionManagerOptions);
 
             renderer: SystemRenderer;
             autoPreventDefault: boolean;
@@ -2929,45 +2420,30 @@ declare namespace PIXI {
             protected onPointerUp: (event: PointerEvent) => void;
             protected processPointerUp: (
                 interactionEvent: InteractionEvent,
-                displayObject:
-                    | Container
-                    | PIXI.Sprite
-                    | PIXI.extras.TilingSprite,
+                displayObject: Container | PIXI.Sprite | PIXI.extras.TilingSprite,
                 hit: boolean
             ) => void;
             protected onPointerCancel: (event: PointerEvent) => void;
             protected processPointerCancel: (
                 interactionEvent: InteractionEvent,
-                displayObject:
-                    | PIXI.Container
-                    | PIXI.Sprite
-                    | PIXI.extras.TilingSprite
+                displayObject: PIXI.Container | PIXI.Sprite | PIXI.extras.TilingSprite
             ) => void;
             protected onPointerDown: (event: PointerEvent) => void;
             protected processPointerDown: (
                 interactionEvent: InteractionEvent,
-                displayObject:
-                    | PIXI.Container
-                    | PIXI.Sprite
-                    | PIXI.extras.TilingSprite,
+                displayObject: PIXI.Container | PIXI.Sprite | PIXI.extras.TilingSprite,
                 hit: boolean
             ) => void;
             protected onPointerMove: (event: PointerEvent) => void;
             protected processPointerMove: (
                 interactionEvent: InteractionEvent,
-                displayObject:
-                    | PIXI.Container
-                    | PIXI.Sprite
-                    | PIXI.extras.TilingSprite,
+                displayObject: PIXI.Container | PIXI.Sprite | PIXI.extras.TilingSprite,
                 hit: boolean
             ) => void;
             protected onPointerOut: (event: PointerEvent) => void;
             protected processPointerOverOut: (
                 interactionEvent: InteractionEvent,
-                displayObject:
-                    | PIXI.Container
-                    | PIXI.Sprite
-                    | PIXI.extras.TilingSprite,
+                displayObject: PIXI.Container | PIXI.Sprite | PIXI.extras.TilingSprite,
                 hit: boolean
             ) => void;
             protected onPointerOver: (event: PointerEvent) => void;
@@ -2980,10 +2456,7 @@ declare namespace PIXI {
             protected _tempPoint: Point;
             resolution: number;
             hitTest(globalPoint: Point, root?: Container): DisplayObject;
-            setTargetElement(
-                element: HTMLCanvasElement,
-                resolution?: number
-            ): void;
+            setTargetElement(element: HTMLCanvasElement, resolution?: number): void;
             protected addEvents(): void;
             protected removeEvents(): void;
             update(deltaTime?: number): void;
@@ -2996,10 +2469,7 @@ declare namespace PIXI {
             mapPositionToPoint(point: Point, x: number, y: number): void;
             protected processInteractive(
                 interactionEvent: InteractionEvent,
-                displayObject:
-                    | PIXI.Container
-                    | PIXI.Sprite
-                    | PIXI.extras.TilingSprite,
+                displayObject: PIXI.Container | PIXI.Sprite | PIXI.extras.TilingSprite,
                 func?: (...args: any[]) => any,
                 hitTest?: boolean,
                 interactive?: boolean
@@ -3009,20 +2479,14 @@ declare namespace PIXI {
                 cancelled: boolean,
                 func: (...args: any[]) => any
             ): void;
-            protected getInteractionDataForPointerId(
-                pointerId: number
-            ): InteractionData;
-            protected releaseInteractionDataForPointerId(
-                event: PointerEvent
-            ): void;
+            protected getInteractionDataForPointerId(pointerId: number): InteractionData;
+            protected releaseInteractionDataForPointerId(event: PointerEvent): void;
             protected configureInteractionEventForDOMEvent(
                 interactionEvent: InteractionEvent,
                 pointerEvent: PointerEvent,
                 interactionData: InteractionData
             ): InteractionEvent;
-            protected normalizeToPointerData(
-                event: TouchEvent | MouseEvent | PointerEvent
-            ): PointerEvent[];
+            protected normalizeToPointerData(event: TouchEvent | MouseEvent | PointerEvent): PointerEvent[];
             destroy(): void;
 
             // Deprecated
@@ -3101,23 +2565,11 @@ declare namespace PIXI {
             onComplete: MiniSignal<OnCompleteSignal>;
 
             add(name: string, url: string, callback?: OnCompleteSignal): this;
-            add(
-                name: string,
-                url: string,
-                options?: LoaderOptions,
-                callback?: OnCompleteSignal
-            ): this;
+            add(name: string, url: string, options?: LoaderOptions, callback?: OnCompleteSignal): this;
             add(url: string, callback?: OnCompleteSignal): this;
-            add(
-                url: string,
-                options?: LoaderOptions,
-                callback?: OnCompleteSignal
-            ): this;
+            add(url: string, options?: LoaderOptions, callback?: OnCompleteSignal): this;
             add(options: LoaderOptions, callback?: OnCompleteSignal): this;
-            add(
-                resources: Array<LoaderOptions | string>,
-                callback?: OnCompleteSignal
-            ): this;
+            add(resources: Array<LoaderOptions | string>, callback?: OnCompleteSignal): this;
             add(...params: any[]): this;
             pre(fn: (...params: any[]) => any): this;
             use(fn: (...params: any[]) => any): this;
@@ -3131,63 +2583,33 @@ declare namespace PIXI {
 
             // depreciation
 
+            on(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): this;
             on(
-                event: "complete",
-                fn: (loader: loaders.Loader, object: any) => void,
+                event: 'error',
+                fn: (error: Error, loader: loaders.Loader, resource: Resource) => void,
                 context?: any
             ): this;
             on(
-                event: "error",
-                fn: (
-                    error: Error,
-                    loader: loaders.Loader,
-                    resource: Resource
-                ) => void,
-                context?: any
-            ): this;
-            on(
-                event: "load" | "progress",
+                event: 'load' | 'progress',
                 fn: (loader: loaders.Loader, resource: Resource) => void,
                 context?: any
             ): this;
-            on(
-                event: "start",
-                fn: (loader: loaders.Loader) => void,
-                context?: any
-            ): this;
+            on(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): this;
 
+            once(event: 'complete', fn: (loader: loaders.Loader, object: any) => void, context?: any): this;
             once(
-                event: "complete",
-                fn: (loader: loaders.Loader, object: any) => void,
+                event: 'error',
+                fn: (error: Error, loader: loaders.Loader, resource: Resource) => void,
                 context?: any
             ): this;
             once(
-                event: "error",
-                fn: (
-                    error: Error,
-                    loader: loaders.Loader,
-                    resource: Resource
-                ) => void,
-                context?: any
-            ): this;
-            once(
-                event: "load" | "progress",
+                event: 'load' | 'progress',
                 fn: (loader: loaders.Loader, resource: Resource) => void,
                 context?: any
             ): this;
-            once(
-                event: "start",
-                fn: (loader: loaders.Loader) => void,
-                context?: any
-            ): this;
+            once(event: 'start', fn: (loader: loaders.Loader) => void, context?: any): this;
             off(
-                event:
-                    | "complete"
-                    | "error"
-                    | "load"
-                    | "progress"
-                    | "start"
-                    | string,
+                event: 'complete' | 'error' | 'load' | 'progress' | 'start' | string,
                 fn?: (...args: any[]) => any,
                 context?: any
             ): this;
@@ -3199,7 +2621,7 @@ declare namespace PIXI {
             NONE,
             DATA_URL,
             COMPLETE,
-            LOADING
+            LOADING,
         }
         enum TYPE {
             UNKNOWN,
@@ -3208,13 +2630,13 @@ declare namespace PIXI {
             IMAGE,
             AUDIO,
             VIDEO,
-            TEXT
+            TEXT,
         }
         enum LOAD_TYPE {
             XHR,
             IMAGE,
             AUDIO,
-            VIDEO
+            VIDEO,
         }
         enum XHR_RESPONSE_TYPE {
             DEFAULT,
@@ -3222,30 +2644,17 @@ declare namespace PIXI {
             BLOB,
             DOCUMENT,
             JSON,
-            TEXT
+            TEXT,
         }
         interface IMetadata {
-            loadElement?:
-                | HTMLImageElement
-                | HTMLAudioElement
-                | HTMLVideoElement;
+            loadElement?: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
             skipSource?: boolean;
             mimeType?: string | string[];
         }
         class Resource {
-            constructor(
-                name: string,
-                url: string | string[],
-                options?: LoaderOptions
-            );
-            static setExtensionLoadType(
-                extname: string,
-                loadType: LOAD_TYPE
-            ): void;
-            static setExtensionXhrType(
-                extname: string,
-                xhrType: XHR_RESPONSE_TYPE
-            ): void;
+            constructor(name: string, url: string | string[], options?: LoaderOptions);
+            static setExtensionLoadType(extname: string, loadType: LOAD_TYPE): void;
+            static setExtensionXhrType(extname: string, xhrType: XHR_RESPONSE_TYPE): void;
             readonly name: string;
             readonly url: string;
             readonly extension: string;
@@ -3340,12 +2749,7 @@ declare namespace PIXI {
             render(mesh: Mesh): void;
             protected _renderTriangleMesh(mesh: Mesh): void;
             protected _renderTriangles(mesh: Mesh): void;
-            protected _renderDrawTriangle(
-                mesh: Mesh,
-                index0: number,
-                index1: number,
-                index2: number
-            ): void;
+            protected _renderDrawTriangle(mesh: Mesh, index0: number, index1: number, index2: number): void;
             protected renderMeshFlat(mesh: Mesh): void;
 
             destroy(): void;
@@ -3359,11 +2763,7 @@ declare namespace PIXI {
         }
 
         class Plane extends Mesh {
-            constructor(
-                texture: Texture,
-                verticesX?: number,
-                verticesY?: number
-            );
+            constructor(texture: Texture, verticesX?: number, verticesY?: number);
             protected _ready: boolean;
             verticesX: number;
             verticesY: number;
@@ -3472,12 +2872,7 @@ declare namespace PIXI {
             destroy(options?: DestroyOptions | boolean): void;
         }
         class ParticleBuffer {
-            constructor(
-                gl: WebGLRenderingContext,
-                properties: any,
-                dynamicPropertyFlags: any[],
-                size: number
-            );
+            constructor(gl: WebGLRenderingContext, properties: any, dynamicPropertyFlags: any[], size: number);
 
             gl: WebGLRenderingContext;
             size: number;
@@ -3520,9 +2915,7 @@ declare namespace PIXI {
 
             start(): void;
             generateBuffers(container: ParticleContainer): ParticleBuffer[];
-            protected _generateOneMoreBuffer(
-                container: ParticleContainer
-            ): ParticleBuffer;
+            protected _generateOneMoreBuffer(container: ParticleContainer): ParticleBuffer;
             uploadVertices(
                 children: DisplayObject[],
                 startIndex: number,
@@ -3581,10 +2974,7 @@ declare namespace PIXI {
     //////////////////////////////////////////////////////////////////////////////
     namespace prepare {
         type AddHook = (item: any, queue: any[]) => boolean;
-        type UploadHook<UploadHookSource> = (
-            prepare: UploadHookSource,
-            item: any
-        ) => boolean;
+        type UploadHook<UploadHookSource> = (prepare: UploadHookSource, item: any) => boolean;
         abstract class BasePrepare<UploadHookSource> {
             constructor(renderer: SystemRenderer);
 
@@ -3600,33 +2990,16 @@ declare namespace PIXI {
 
             //tslint:disable-next-line:ban-types forbidden-types
             upload(
-                item:
-                    | Function
-                    | DisplayObject
-                    | Container
-                    | BaseTexture
-                    | Texture
-                    | Graphics
-                    | Text
-                    | any,
+                item: Function | DisplayObject | Container | BaseTexture | Texture | Graphics | Text | any,
                 done?: () => void
             ): void;
             protected tick(): void;
             protected prepareItems(): void;
             registerFindHook(addHook: AddHook): this;
             registerUploadHook(uploadHook: UploadHook<UploadHookSource>): this;
-            protected findMultipleBaseTextures(
-                item: PIXI.DisplayObject,
-                queue: any[]
-            ): boolean;
-            protected findBaseTexture(
-                item: PIXI.DisplayObject,
-                queue: any[]
-            ): boolean;
-            protected findTexture(
-                item: PIXI.DisplayObject,
-                queue: any[]
-            ): boolean;
+            protected findMultipleBaseTextures(item: PIXI.DisplayObject, queue: any[]): boolean;
+            protected findBaseTexture(item: PIXI.DisplayObject, queue: any[]): boolean;
+            protected findTexture(item: PIXI.DisplayObject, queue: any[]): boolean;
             add(
                 item:
                     | PIXI.DisplayObject
@@ -3705,10 +3078,7 @@ declare namespace PIXI {
              */
             failIfMajorPerformanceCaveat?: boolean;
         }
-        function createContext(
-            view: HTMLCanvasElement,
-            options?: ContextOptions
-        ): WebGLRenderingContext;
+        function createContext(view: HTMLCanvasElement, options?: ContextOptions): WebGLRenderingContext;
         function setVertexAttribArrays(
             gl: WebGLRenderingContext,
             attribs: Attrib[],
@@ -3729,11 +3099,7 @@ declare namespace PIXI {
             drawType: number;
             data: ArrayBuffer | ArrayBufferView | any;
 
-            upload(
-                data?: ArrayBuffer | ArrayBufferView | any,
-                offset?: number,
-                dontBind?: boolean
-            ): void;
+            upload(data?: ArrayBuffer | ArrayBufferView | any, offset?: number, dontBind?: boolean): void;
             bind(): void;
 
             static createVertexBuffer(
@@ -3756,11 +3122,7 @@ declare namespace PIXI {
             destroy(): void;
         }
         class GLFramebuffer {
-            constructor(
-                gl: WebGLRenderingContext,
-                width: number,
-                height: number
-            );
+            constructor(gl: WebGLRenderingContext, width: number, height: number);
 
             gl: WebGLRenderingContext;
             frameBuffer: WebGLFramebuffer;
@@ -3809,13 +3171,7 @@ declare namespace PIXI {
             destroy(): void;
         }
         class GLTexture {
-            constructor(
-                gl: WebGLRenderingContext,
-                width?: number,
-                height?: number,
-                format?: number,
-                type?: number
-            );
+            constructor(gl: WebGLRenderingContext, width?: number, height?: number, format?: number, type?: number);
 
             gl: WebGLRenderingContext;
             texture: WebGLTexture;
@@ -3826,18 +3182,8 @@ declare namespace PIXI {
             format: number;
             type: number;
 
-            upload(
-                source:
-                    | HTMLImageElement
-                    | ImageData
-                    | HTMLVideoElement
-                    | HTMLCanvasElement
-            ): void;
-            uploadData(
-                data: ArrayBuffer | ArrayBufferView,
-                width: number,
-                height: number
-            ): void;
+            upload(source: HTMLImageElement | ImageData | HTMLVideoElement | HTMLCanvasElement): void;
+            uploadData(data: ArrayBuffer | ArrayBufferView, width: number, height: number): void;
             bind(location?: number): void;
             unbind(): void;
             minFilter(linear: boolean): void;
@@ -3852,19 +3198,10 @@ declare namespace PIXI {
 
             static fromSource(
                 gl: WebGLRenderingContext,
-                source:
-                    | HTMLImageElement
-                    | ImageData
-                    | HTMLVideoElement
-                    | HTMLCanvasElement,
+                source: HTMLImageElement | ImageData | HTMLVideoElement | HTMLCanvasElement,
                 premultipleAlpha?: boolean
             ): GLTexture;
-            static fromData(
-                gl: WebGLRenderingContext,
-                data: number[],
-                width: number,
-                height: number
-            ): GLTexture;
+            static fromData(gl: WebGLRenderingContext, data: number[], width: number, height: number): GLTexture;
         }
         interface Attrib {
             attribute: {
@@ -3944,15 +3281,8 @@ declare namespace PIXI {
         function skipHello(): void;
         function isWebGLSupported(): boolean;
         function sign(n: number): number;
-        function removeItems<T>(
-            arr: T[],
-            startIdx: number,
-            removeCount: number
-        ): void;
-        function correctBlendMode(
-            blendMode: number,
-            premultiplied: boolean
-        ): number;
+        function removeItems<T>(arr: T[], startIdx: number, removeCount: number): void;
+        function correctBlendMode(blendMode: number, premultiplied: boolean): number;
         function clearTextureCache(): void;
         function destroyTextureCache(): void;
         function premultiplyTint(tint: number, alpha: number): number;
@@ -4081,12 +3411,7 @@ declare namespace PIXI {
              * @param {boolean} once Only remove one-time listeners.
              * @returns {EventEmitter} `this`.
              */
-            removeListener(
-                event: string | symbol,
-                fn?: (...args: any[]) => any,
-                context?: any,
-                once?: boolean
-            ): this;
+            removeListener(event: string | symbol, fn?: (...args: any[]) => any, context?: any, once?: boolean): this;
             /**
              * Remove all listeners, or those of the specified event.
              *
@@ -4097,20 +3422,11 @@ declare namespace PIXI {
             /**
              * Alias method for `removeListener`
              */
-            off(
-                event: string | symbol,
-                fn?: (...args: any[]) => any,
-                context?: any,
-                once?: boolean
-            ): this;
+            off(event: string | symbol, fn?: (...args: any[]) => any, context?: any, once?: boolean): this;
             /**
              * Alias method for `on`
              */
-            addListener(
-                event: string | symbol,
-                fn: (...args: any[]) => any,
-                context?: any
-            ): this;
+            addListener(event: string | symbol, fn: (...args: any[]) => any, context?: any): this;
             /**
              * This function doesn"t apply anymore.
              * @deprecated
@@ -4402,6 +3718,6 @@ declare namespace pixi {
 }
 
 //tslint:disable-next-line:no-single-declare-module
-declare module "pixi.js" {
+declare module 'pixi.js' {
     export = PIXI;
 }

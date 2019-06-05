@@ -6,7 +6,7 @@
 
 declare namespace Trouter {
     interface FindResult<T> {
-        params: { [k: string]: string; };
+        params: { [k: string]: string };
         handlers: T[];
     }
 

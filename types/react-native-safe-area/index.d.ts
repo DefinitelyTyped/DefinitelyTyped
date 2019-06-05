@@ -9,7 +9,12 @@
 import { EmitterSubscription } from 'react-native';
 
 // from `TypeDefinition.js`
-export interface SafeAreaInsets { top: number; left: number; bottom: number; right: number; }
+export interface SafeAreaInsets {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+}
 
 // from `SafeArea.[ios|android].js`
 declare namespace SafeArea {
@@ -44,5 +49,5 @@ export type Direction =
 export function withSafeArea(
     WrappedComponent: React.ComponentType<any>,
     applyTo?: 'margin' | 'padding' | 'absolutePosition' | 'contentInset',
-    direction?: Direction,
+    direction?: Direction
 ): React.ComponentType<any>;

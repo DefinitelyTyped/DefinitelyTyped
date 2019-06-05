@@ -10,5 +10,5 @@ render(
         <SingleSelect />
         <StatelessSelect />
     </div>,
-    container,
+    container
 );

@@ -1,11 +1,11 @@
 import rpl = require('run-parallel');
 
 const tasks: Array<rpl.Task<string>> = [
-    (callback) => () => callback(null, 'string'),
-    (callback) => () => callback(new Error('boom')),
+    callback => () => callback(null, 'string'),
+    callback => () => callback(new Error('boom')),
 
     // $ExpectError
-    (callback) => () => callback(null, 1)
+    callback => () => callback(null, 1),
 ];
 
 const justTaskCallback: rpl.TaskCallback<string> = (err, result) => {
@@ -33,11 +33,11 @@ rpl(tasks, (err, results) => {
 const results = rpl(tasks);
 
 const tasksObj: rpl.TaskObj<string> = {
-    one: (callback) => () => callback(null, 'string'),
-    two: (callback) => () => callback(new Error('boom')),
+    one: callback => () => callback(null, 'string'),
+    two: callback => () => callback(new Error('boom')),
 
     // $ExpectError
-    three: (callback) => () => callback(1)
+    three: callback => () => callback(1),
 };
 
 rpl(tasksObj, (err, results) => {

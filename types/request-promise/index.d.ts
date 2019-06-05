@@ -14,10 +14,10 @@ import Promise = require('bluebird');
 
 declare namespace requestPromise {
     interface RequestPromise extends request.Request {
-        then: Promise<any>["then"];
-        catch: Promise<any>["catch"];
-        finally: Promise<any>["finally"];
-        cancel: Promise<any>["cancel"];
+        then: Promise<any>['then'];
+        catch: Promise<any>['catch'];
+        finally: Promise<any>['finally'];
+        cancel: Promise<any>['cancel'];
         promise(): Promise<any>;
     }
 

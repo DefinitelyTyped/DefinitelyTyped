@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import RSVP from 'rsvp';
 import { run } from '@ember/runloop';
-import { assertType } from "./lib/assert";
+import { assertType } from './lib/assert';
 
 assertType<string[]>(Ember.run.queues);
 
@@ -31,7 +31,7 @@ function testBind() {
 
         setupEditor(editor: string) {
             this.set('editor', editor);
-        }
+        },
     });
 }
 
@@ -44,9 +44,13 @@ function testCancel() {
 
     run.cancel(runNext);
 
-    let runLater = run.later(myContext, function() {
-        // will not be executed
-    }, 500);
+    let runLater = run.later(
+        myContext,
+        function() {
+            // will not be executed
+        },
+        500
+    );
 
     run.cancel(runLater);
 
@@ -62,29 +66,42 @@ function testCancel() {
 
     run.cancel(runOnce);
 
-    let throttle = run.throttle(myContext, function() {
-        // will not be executed
-    }, 1, false);
+    let throttle = run.throttle(
+        myContext,
+        function() {
+            // will not be executed
+        },
+        1,
+        false
+    );
 
     run.cancel(throttle);
 
-    let debounce = run.debounce(myContext, function() {
-        // will not be executed
-    }, 1);
+    let debounce = run.debounce(
+        myContext,
+        function() {
+            // will not be executed
+        },
+        1
+    );
 
     run.cancel(debounce);
 
-    let debounceImmediate = run.debounce(myContext, function() {
-        // will be executed since we passed in true (immediate)
-    }, 100, true);
+    let debounceImmediate = run.debounce(
+        myContext,
+        function() {
+            // will be executed since we passed in true (immediate)
+        },
+        100,
+        true
+    );
 
     // the 100ms delay until this method can be called again will be canceled
     run.cancel(debounceImmediate);
 }
 
 function testDebounce() {
-    function runIt() {
-    }
+    function runIt() {}
 
     let myContext = { name: 'debounce' };
 
@@ -100,8 +117,8 @@ function testDebounce() {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
                 Ember.run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
-            }
-        }
+            },
+        },
     });
 }
 
@@ -133,9 +150,13 @@ function testJoin() {
 
 function testLater() {
     const myContext = {};
-    run.later(myContext, function() {
-        // code here will execute within a RunLoop in about 500ms with this == myContext
-    }, 500);
+    run.later(
+        myContext,
+        function() {
+            // code here will execute within a RunLoop in about 500ms with this == myContext
+        },
+        500
+    );
 }
 
 function testNext() {
@@ -152,8 +173,7 @@ function testOnce() {
             Ember.run.once(this, 'processFullName');
         },
 
-        processFullName() {
-        }
+        processFullName() {},
     });
 }
 
@@ -169,7 +189,7 @@ function testSchedule() {
                 // this will be executed in the 'actions' queue, after bindings have synced.
                 console.log('scheduled on actions queue');
             });
-        }
+        },
     });
 
     Ember.run.schedule('actions', () => {
@@ -194,8 +214,7 @@ function testScheduleOnce() {
 }
 
 function testThrottle() {
-    function runIt() {
-    }
+    function runIt() {}
 
     let myContext = { name: 'throttle' };
 

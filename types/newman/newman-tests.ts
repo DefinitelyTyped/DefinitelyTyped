@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 import {
     run,
     NewmanRun,
@@ -7,12 +7,9 @@ import {
     NewmanRunExecutionAssertionError,
     NewmanRunExecutionItem,
     NewmanRunFailure,
-    NewmanRunSummary
-} from "newman";
-import {
-    CollectionDefinition,
-    VariableScopeDefinition
-} from "postman-collection";
+    NewmanRunSummary,
+} from 'newman';
+import { CollectionDefinition, VariableScopeDefinition } from 'postman-collection';
 
 const collection: CollectionDefinition = {};
 const environment: VariableScopeDefinition = {};
@@ -23,7 +20,7 @@ run(
     {
         collection,
         environment,
-        globals
+        globals,
     },
     (err, summary: NewmanRunSummary) => {
         summary.run; // $ExpectType NewmanRun

@@ -6,8 +6,8 @@
 
 /// <reference types="passport"/>
 
-import { Strategy as PassportStrategy } from "passport-strategy";
-import express = require("express");
+import { Strategy as PassportStrategy } from 'passport-strategy';
+import express = require('express');
 
 interface IStrategyOptions {
     usernameField?: string;
@@ -37,18 +37,11 @@ interface VerifyFunctionWithRequest {
 }
 
 interface VerifyFunction {
-    (
-        username: string,
-        password: string,
-        done: (error: any, user?: any, options?: IVerifyOptions) => void
-    ): void;
+    (username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
 }
 
 declare class Strategy extends PassportStrategy {
-    constructor(
-        options: IStrategyOptionsWithRequest,
-        verify: VerifyFunctionWithRequest
-    );
+    constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: IStrategyOptions, verify: VerifyFunction);
     constructor(verify: VerifyFunction);
 

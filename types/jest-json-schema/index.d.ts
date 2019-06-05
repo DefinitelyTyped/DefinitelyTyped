@@ -5,7 +5,7 @@
 // TypeScript Version: 3.0
 
 /// <reference types="jest" />
-import * as ajv from "ajv";
+import * as ajv from 'ajv';
 
 declare global {
     namespace jest {

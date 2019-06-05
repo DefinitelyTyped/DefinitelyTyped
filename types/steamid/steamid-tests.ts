@@ -1,8 +1,8 @@
-import SteamID = require("steamid");
+import SteamID = require('steamid');
 
 let sid: SteamID;
 
-sid = new SteamID("76561198006409530");
+sid = new SteamID('76561198006409530');
 sid = SteamID.fromIndividualAccountID(46143802);
 
 sid.universe = SteamID.Universe.PUBLIC;

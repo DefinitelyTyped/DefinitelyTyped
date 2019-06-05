@@ -1,10 +1,10 @@
-import express = require("express");
-import resourcejs = require("resourcejs");
-import mongoose = require("mongoose");
+import express = require('express');
+import resourcejs = require('resourcejs');
+import mongoose = require('mongoose');
 
 const app = express();
-const route = "the-route";
-const resourceName = "the-resource-name";
+const route = 'the-route';
+const resourceName = 'the-resource-name';
 
 const schema = new mongoose.Schema({});
 const model = mongoose.model(resourceName, schema);
@@ -14,9 +14,9 @@ resourcejs(app, route, resourceName, model)
     .post({
         after(req: resourcejs.Request, res: resourcejs.Response, next: express.NextFunction) {
             res.resource.item = {
-                foo: "foo",
-                bar: "bar",
-                baz: "baz",
+                foo: 'foo',
+                bar: 'bar',
+                baz: 'baz',
             };
 
             next();

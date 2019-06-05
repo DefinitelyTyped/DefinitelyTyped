@@ -1,6 +1,6 @@
-import { extract, hasProvider, OembedData } from "oembed-parser";
+import { extract, hasProvider, OembedData } from 'oembed-parser';
 
-const url = "https://www.youtube.com/watch?v=8jPQjjsBbIc";
+const url = 'https://www.youtube.com/watch?v=8jPQjjsBbIc';
 
 extract(url).then(data => {
     const parsedData: OembedData = data;

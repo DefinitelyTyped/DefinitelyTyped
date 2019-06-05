@@ -7,14 +7,19 @@
 /// <reference types="express"/>
 /// <reference types="node"/>
 
-declare module "express-mung" {
-    import { Request, Response, RequestHandler } from "express";
+declare module 'express-mung' {
+    import { Request, Response, RequestHandler } from 'express';
 
     type Transform = (body: {}, request: Request, response: Response) => any;
     type TransformAsync = (body: {}, request: Request, response: Response) => PromiseLike<any>;
     type TransformHeader = (request: Request, response: Response) => any;
     type TransformHeaderAsync = (request: Request, response: Response) => PromiseLike<any>;
-    type TransformChunk = (chunk: string | Buffer, encoding: string | null, request: Request, response: Response) => string | Buffer;
+    type TransformChunk = (
+        chunk: string | Buffer,
+        encoding: string | null,
+        request: Request,
+        response: Response
+    ) => string | Buffer;
     type Options = { mungError: boolean };
 
     /**

@@ -1,4 +1,4 @@
-import { GraphQLInputType } from "../type/definition";
+import { GraphQLInputType } from '../type/definition';
 
 /**
  * Deprecated. Use coerceValue() directly for richer information.

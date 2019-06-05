@@ -96,7 +96,7 @@ declare namespace Six {
             type ssoFactory = (conf: ssoConf) => any;
 
             interface ssoConf {
-                whiteList: string|RegExp|string[]|whiteList;
+                whiteList: string | RegExp | string[] | whiteList;
                 ssoConf: ssoClientConf;
                 enableCache: boolean;
                 hasLoginCacheMaxAge: number;
@@ -124,7 +124,7 @@ declare namespace Six {
             type upmFactory = (conf: upmConf) => any;
 
             interface upmConf {
-                whiteList: string|RegExp|string[]|whiteList;
+                whiteList: string | RegExp | string[] | whiteList;
                 enableMock: boolean;
                 domain: string;
                 path: string;
@@ -139,7 +139,7 @@ declare namespace Six {
         namespace uac {
             type uacFactory = (conf: uacConf) => any;
             interface uacConf {
-                whiteList: string|RegExp|string[]|whiteList;
+                whiteList: string | RegExp | string[] | whiteList;
                 enableMock: boolean;
                 client_id: string;
                 client_secret: string;
@@ -173,7 +173,7 @@ declare namespace Six {
             debug(msg: string, ...restOfVar: any[]): void;
             info(msg: string, ...restOfVar: any[]): void;
             warn(msg: string, ...restOfVar: any[]): void;
-            error(msg: string|Error, ...restOfVar: any[]): void;
+            error(msg: string | Error, ...restOfVar: any[]): void;
         }
 
         type rpc = (config: object) => object;
@@ -191,7 +191,7 @@ declare namespace Six {
                 maxAge: number;
                 index: string;
                 gzip: boolean;
-                extensions: boolean|string[];
+                extensions: boolean | string[];
             }
         }
 
@@ -207,7 +207,7 @@ declare namespace Six {
         }
 
         namespace view {
-            type render = (name: string, runtimeConf?: runtimeConf|null, data?: object) => Promise<any>;
+            type render = (name: string, runtimeConf?: runtimeConf | null, data?: object) => Promise<any>;
 
             interface runtimeConf {
                 codeKey: string;

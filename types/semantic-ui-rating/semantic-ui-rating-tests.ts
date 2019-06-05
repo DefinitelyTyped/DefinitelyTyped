@@ -26,7 +26,7 @@ function test_rating() {
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).rating({
@@ -39,16 +39,16 @@ function test_rating() {
             value; // $ExpectType number
         },
         selector: {
-            icon: '.icon'
+            icon: '.icon',
         },
         className: {
             active: 'active',
             hover: 'hover',
-            loading: 'loading'
+            loading: 'loading',
         },
         error: {
-            action: 'action'
-        }
+            action: 'action',
+        },
     });
     $(selector).rating(); // $ExpectType JQuery<HTMLElement>
 

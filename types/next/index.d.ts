@@ -12,12 +12,12 @@
 
 /// <reference types="node" />
 
-import * as http from "http";
-import * as url from "url";
-import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from "next-server";
-import { NextConfig as NextServerConfig } from "next-server/next-config";
-import { Response as NodeResponse } from "node-fetch";
-import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
+import * as http from 'http';
+import * as url from 'url';
+import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from 'next-server';
+import { NextConfig as NextServerConfig } from 'next-server/next-config';
+import { Response as NodeResponse } from 'node-fetch';
+import { SingletonRouter, DefaultQuery, UrlLike } from './router';
 
 declare namespace next {
     // Moved to next-server
@@ -38,10 +38,7 @@ declare namespace next {
      *
      * @template Q Query object schema.
      */
-    interface NextContext<
-        Q extends DefaultQuery = DefaultQuery,
-        CustomReq = {}
-    > {
+    interface NextContext<Q extends DefaultQuery = DefaultQuery, CustomReq = {}> {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
@@ -68,10 +65,7 @@ declare namespace next {
             hotReloader: any;
         };
 
-        getHotReloader(
-            dir: string,
-            options: { quiet: boolean; config: NextConfig; buildId: string }
-        ): any;
+        getHotReloader(dir: string, options: { quiet: boolean; config: NextConfig; buildId: string }): any;
 
         addExportPathMapRoutes(): Promise<void>;
         getCompilationError(): Promise<any>;
@@ -124,8 +118,7 @@ declare namespace next {
      * @template IP Initial props returned from getInitialProps.
      * @template C Context passed to getInitialProps.
      */
-    type NextComponentClass<P = {}, IP = P, C = NextContext> = React.ComponentClass<P> &
-        NextStaticLifecycle<IP, C>;
+    type NextComponentClass<P = {}, IP = P, C = NextContext> = React.ComponentClass<P> & NextStaticLifecycle<IP, C>;
 
     /**
      * Next.js specific lifecycle methods.

@@ -2,44 +2,42 @@ import * as http from 'http';
 import * as https from 'https';
 
 import {
-  createConnection,
-  createServer,
-  createClient,
-  Multiplexer,
-  Thrift,
-  TBinaryProtocol,
-  TBufferedTransport,
-  TProtocol,
-  TTransport,
-  TTransportCallback,
-  Int64,
-  TMessage,
-  TStruct,
-  TField,
-  TSet,
-  TList,
-  TMap,
+    createConnection,
+    createServer,
+    createClient,
+    Multiplexer,
+    Thrift,
+    TBinaryProtocol,
+    TBufferedTransport,
+    TProtocol,
+    TTransport,
+    TTransportCallback,
+    Int64,
+    TMessage,
+    TStruct,
+    TField,
+    TSet,
+    TList,
+    TMap,
 } from 'thrift';
 
 interface MockServiceHandlers {
-  ping(): string;
+    ping(): string;
 }
 
-class MockProcessor {
-}
+class MockProcessor {}
 
-class MockClient {
-}
+class MockClient {}
 
 const mockServiceHandlers: MockServiceHandlers = {
-  ping(): string {
-    return 'ok';
-  }
+    ping(): string {
+        return 'ok';
+    },
 };
 
 const mockGeneratedService = {
-  Client: MockClient,
-  Processor: MockProcessor
+    Client: MockClient,
+    Processor: MockProcessor,
 };
 
 createServer<MockProcessor, MockServiceHandlers>(mockGeneratedService, mockServiceHandlers);
@@ -47,28 +45,28 @@ createServer<MockProcessor, MockServiceHandlers>(mockGeneratedService, mockServi
 const httpOptions: http.RequestOptions = {
     timeout: 10000,
     headers: {
-        'Content-Type': 'application/octet-stream'
-    }
+        'Content-Type': 'application/octet-stream',
+    },
 };
 
 const httpsOptions: https.RequestOptions = {
     timeout: 10000,
     headers: {
-        'Content-Type': 'application/octet-stream'
+        'Content-Type': 'application/octet-stream',
     },
-    secureProtocol: 'SSLv3_method'
+    secureProtocol: 'SSLv3_method',
 };
 
 const clientConnection = createConnection('0.0.0.0', 1234, {
     transport: TBufferedTransport,
     protocol: TBinaryProtocol,
-    nodeOptions: httpOptions
+    nodeOptions: httpOptions,
 });
 
 const secureConnection = createConnection('0.0.0.0', 1234, {
     transport: TBufferedTransport,
     protocol: TBinaryProtocol,
-    nodeOptions: httpsOptions
+    nodeOptions: httpsOptions,
 });
 
 createClient<MockClient>(mockGeneratedService, clientConnection);
@@ -153,4 +151,4 @@ const tTrans: TTransport = mockProtocol.getTransport();
 mockProtocol.skip(Thrift.Type.STRUCT);
 
 const multiplexer = new Multiplexer();
-multiplexer.createClient("mock-service", mockGeneratedService, clientConnection);
+multiplexer.createClient('mock-service', mockGeneratedService, clientConnection);

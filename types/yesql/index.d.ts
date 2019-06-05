@@ -7,14 +7,14 @@
 declare function readSqlFiles(
     dir: string,
     options?: {
-        pg?: boolean,
-        type?: 'pg' | 'mysql'
+        pg?: boolean;
+        type?: 'pg' | 'mysql';
     }
 ): string;
 
 declare namespace readSqlFiles {
-    function pg(query: string): (data: object) => {text: string, values: any[]};
-    function mysql(query: string): (data: object) => {sql: string, values: any[]};
+    function pg(query: string): (data: object) => { text: string; values: any[] };
+    function mysql(query: string): (data: object) => { sql: string; values: any[] };
 }
 
 export = readSqlFiles;

@@ -31,14 +31,20 @@ export interface CombinedActionType {
     _dummy: undefined;
 }
 
-export type ReducerMapValue<State, Payload> = Reducer<State, Payload> | ReducerNextThrow<State, Payload> | ReducerMap<State, Payload>;
+export type ReducerMapValue<State, Payload> =
+    | Reducer<State, Payload>
+    | ReducerNextThrow<State, Payload>
+    | ReducerMap<State, Payload>;
 
 export interface ReducerMap<State, Payload> {
     [actionType: string]: ReducerMapValue<State, Payload>;
 }
 
 export interface ReducerMapMeta<State, Payload, Meta> {
-    [actionType: string]: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta> | ReducerMapMeta<State, Payload, Meta>;
+    [actionType: string]:
+        | ReducerMeta<State, Payload, Meta>
+        | ReducerNextThrowMeta<State, Payload, Meta>
+        | ReducerMapMeta<State, Payload, Meta>;
 }
 
 export interface ReducerNextThrow<State, Payload> {
@@ -52,12 +58,12 @@ export interface ReducerNextThrowMeta<State, Payload, Meta> {
 }
 
 export type BaseActionFunctions<TAction> =
-    ActionFunction0<TAction> |
-    ActionFunction1<any, TAction> |
-    ActionFunction2<any, any, TAction> |
-    ActionFunction3<any, any, any, TAction> |
-    ActionFunction4<any, any, any, any, TAction> |
-    ActionFunctionAny<TAction>;
+    | ActionFunction0<TAction>
+    | ActionFunction1<any, TAction>
+    | ActionFunction2<any, any, TAction>
+    | ActionFunction3<any, any, any, TAction>
+    | ActionFunction4<any, any, any, any, TAction>
+    | ActionFunctionAny<TAction>;
 
 export type ActionFunctions<Payload> = BaseActionFunctions<Action<Payload>>;
 
@@ -69,7 +75,10 @@ export type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMet
 
 export type ReduxCompatibleReducer<State, Payload> = (state: State | undefined, action: Action<Payload>) => State;
 
-export type ReduxCompatibleReducerMeta<State, Payload, Meta> = (state: State | undefined, action: ActionMeta<Payload, Meta>) => State;
+export type ReduxCompatibleReducerMeta<State, Payload, Meta> = (
+    state: State | undefined,
+    action: ActionMeta<Payload, Meta>
+) => State;
 
 /** argument inferring borrowed from lodash definitions */
 export type ActionFunction0<R> = () => R;
@@ -80,9 +89,7 @@ export type ActionFunction4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4
 export type ActionFunctionAny<R> = (...args: any[]) => R;
 
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/createAction.js#L6
-export function createAction(
-    actionType: string
-): ActionFunctionAny<Action<any>>;
+export function createAction(actionType: string): ActionFunctionAny<Action<any>>;
 
 export function createAction<Payload>(
     actionType: string,
@@ -109,9 +116,7 @@ export function createAction<Payload, Arg1, Arg2, Arg3, Arg4>(
     payloadCreator: ActionFunction4<Arg1, Arg2, Arg3, Arg4, Payload>
 ): ActionFunction4<Arg1, Arg2, Arg3, Arg4, Action<Payload>>;
 
-export function createAction<Payload>(
-    actionType: string
-): ActionFunction1<Payload, Action<Payload>>;
+export function createAction<Payload>(actionType: string): ActionFunction1<Payload, Action<Payload>>;
 
 export function createAction<Meta>(
     actionType: string,
@@ -189,22 +194,22 @@ export function combineActions(...actionTypes: Array<ActionFunctions<any> | stri
 
 export interface ActionMap<Payload, Meta> {
     [actionType: string]:
-    ActionMap<Payload, Meta> |
-    ActionFunctionAny<Payload> |
-    [ActionFunctionAny<Payload>, ActionFunctionAny<Meta>] |
-    undefined;
+        | ActionMap<Payload, Meta>
+        | ActionFunctionAny<Payload>
+        | [ActionFunctionAny<Payload>, ActionFunctionAny<Meta>]
+        | undefined;
 }
 
 export function createActions<Payload>(
     actionMapOrIdentityAction: ActionMap<Payload, any> | string,
     ...identityActions: Array<string | Options>
 ): {
-    [actionName: string]: ActionFunctionAny<Action<Payload>>
+    [actionName: string]: ActionFunctionAny<Action<Payload>>;
 };
 
 export function createActions(
     actionMapOrIdentityAction: ActionMap<any, any> | string,
     ...identityActions: Array<string | Options>
 ): {
-    [actionName: string]: ActionFunctionAny<Action<any>>
+    [actionName: string]: ActionFunctionAny<Action<any>>;
 };

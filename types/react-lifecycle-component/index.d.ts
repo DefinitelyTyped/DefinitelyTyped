@@ -18,7 +18,7 @@ export interface Props<P = {}, S = {}> extends LifecycleStateProps<P, S>, Lifecy
 export class LifecycleComponent extends Component<Props<any, any>, any> {}
 
 export function applyLifecycle<P = {}, S = {}>(
-    component: ComponentClass<P, S>,
+    component: ComponentClass<P, S>
 ): ComponentClass<P & LifecycleDispatchProps<P, S>>;
 
 export const connectWithLifecycle: Connect;

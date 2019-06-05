@@ -6,7 +6,7 @@ const commandFactory = hystrixjs.commandFactory;
 const command = commandFactory
     .getOrCreate<string, string>('testCommand', 'testGroup')
     .circuitBreakerSleepWindowInMilliseconds(5000)
-    .errorHandler((error) => {
+    .errorHandler(error => {
         return false;
     })
     .timeout(3000)
@@ -19,15 +19,15 @@ const command = commandFactory
     .percentileWindowNumberOfBuckets(10)
     .percentileWindowLength(60)
     .circuitBreakerErrorThresholdPercentage(30)
-    .fallbackTo((error) => {
+    .fallbackTo(error => {
         return q.resolve('fallback');
     })
-    .run((args) => {
+    .run(args => {
         return q.resolve(args);
     })
     .build();
 
-command.execute('something').then((result) => {
+command.execute('something').then(result => {
     console.log(result);
 });
 
@@ -37,7 +37,7 @@ const metricsFactory = hystrixjs.metricsFactory;
 
 const metrics = metricsFactory.getOrCreate({
     commandKey: 'metricsKey',
-    commandGroup: 'metricsGroup'
+    commandGroup: 'metricsGroup',
 });
 metrics.markSuccess();
 metrics.markFailure();
@@ -47,7 +47,7 @@ metrics.incrementExecutionCount();
 metrics.decrementExecutionCount();
 metrics.getCurrentExecutionCount();
 metrics.addExecutionTime(3000);
-metrics.getRollingCount("FAILURE");
+metrics.getRollingCount('FAILURE');
 const healthcounts = metrics.getHealthCounts();
 console.log(healthcounts.totalCount);
 console.log(healthcounts.errorCount);
@@ -55,7 +55,7 @@ console.log(healthcounts.errorPercentage);
 
 metricsFactory.resetCache();
 
-metricsFactory.getAllMetrics().map((metrics) => {
+metricsFactory.getAllMetrics().map(metrics => {
     console.log(metrics.getCurrentExecutionCount());
 });
 
@@ -78,6 +78,6 @@ hystrixConfig.init({});
 
 const hystrixSSEStream = hystrixjs.hystrixSSEStream;
 
-hystrixSSEStream.toObservable().subscribe((result) => {
+hystrixSSEStream.toObservable().subscribe(result => {
     console.log(result);
 });

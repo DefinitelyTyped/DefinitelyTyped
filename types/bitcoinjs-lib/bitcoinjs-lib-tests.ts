@@ -6,7 +6,7 @@ function rng() {
 }
 
 // Generate a random bitcoin address
-const keyPair1 = bitcoin.ECPair.makeRandom({rng});
+const keyPair1 = bitcoin.ECPair.makeRandom({ rng });
 const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair1.publicKey });
 keyPair1.toWIF();
 
@@ -15,12 +15,12 @@ const hash = bitcoin.crypto.sha256(Buffer.from('correct horse battery staple', '
 const keyPair2 = bitcoin.ECPair.fromPrivateKey(hash);
 
 // Generate a random keypair for alternative networks
-const keyPair3 = bitcoin.ECPair.makeRandom({network: bitcoin.networks.testnet, rng});
+const keyPair3 = bitcoin.ECPair.makeRandom({ network: bitcoin.networks.testnet, rng });
 keyPair3.toWIF();
 bitcoin.payments.p2pkh({ pubkey: keyPair3.publicKey });
 const network = keyPair3.network;
 
-const keyPair4 = bitcoin.ECPair.makeRandom({network: bitcoin.networks.regtest, rng});
+const keyPair4 = bitcoin.ECPair.makeRandom({ network: bitcoin.networks.regtest, rng });
 keyPair4.toWIF();
 bitcoin.payments.p2pkh({ pubkey: keyPair4.publicKey });
 
@@ -38,7 +38,10 @@ tx.hashForWitnessV0(1, new Buffer('12345678901234567890123456789012'), 2, 3);
 const rsBase58Check = bitcoin.address.fromBase58Check(address);
 const rsBech32 = bitcoin.address.fromBech32(address);
 const rsOutputScript = bitcoin.address.fromOutputScript(new Buffer('12345678901234567890123456789012'));
-const rsOutputScriptWithNetwork = bitcoin.address.fromOutputScript(new Buffer('12345678901234567890123456789012'), network);
+const rsOutputScriptWithNetwork = bitcoin.address.fromOutputScript(
+    new Buffer('12345678901234567890123456789012'),
+    network
+);
 bitcoin.address.toBase58Check(rsBase58Check.hash, rsBase58Check.version);
 bitcoin.address.toBech32(rsBech32.data, rsBech32.version, rsBech32.prefix);
 bitcoin.address.toOutputScript(address);

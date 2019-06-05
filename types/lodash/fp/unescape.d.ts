@@ -1,2 +1,2 @@
-import { unescape } from "../fp";
+import { unescape } from '../fp';
 export = unescape;

@@ -6,13 +6,13 @@ let configuration: webpack.Configuration;
 configuration = {
     // The standard entry point and output config
     entry: {
-        posts: "./posts",
-        post: "./post",
-        about: "./about"
+        posts: './posts',
+        post: './post',
+        about: './about',
     },
     output: {
-        filename: "[name].js",
-        chunkFilename: "[id].js"
+        filename: '[name].js',
+        chunkFilename: '[id].js',
     },
     module: {
         rules: [
@@ -20,36 +20,34 @@ configuration = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader",
-                })
+                    fallback: 'style-loader',
+                    use: 'css-loader',
+                }),
             },
             // Optionally extract less files
             // or any other compile-to-css language
             {
                 test: /\.less$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: ["css-loader", "less-loader"],
-                })
-            }
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'less-loader'],
+                }),
+            },
             // You could also use other loaders the same way. I. e. the autoprefixer-loader
-        ]
+        ],
     },
     // Use the plugin to specify the resulting filename (and add needed behavior to the compiler)
-    plugins: [
-        new ExtractTextPlugin("[name].css")
-    ]
+    plugins: [new ExtractTextPlugin('[name].css')],
 };
 
 configuration = {
     // ...
     plugins: [
         new ExtractTextPlugin({
-            filename: "style.css",
+            filename: 'style.css',
             allChunks: true,
-        })
-    ]
+        }),
+    ],
 };
 
 configuration = {
@@ -59,15 +57,13 @@ configuration = {
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
-            }
-        ]
+                    fallback: 'style-loader',
+                    use: 'css-loader',
+                }),
+            },
+        ],
     },
-    plugins: [
-        new ExtractTextPlugin("styles.css")
-    ],
+    plugins: [new ExtractTextPlugin('styles.css')],
 };
 
 // multiple extract instances
@@ -80,10 +76,7 @@ configuration = {
         rules: [
             { test: /\.scss$/i, use: extractCSS.extract(['css', 'sass']) },
             { test: /\.less$/i, use: extractLESS.extract(['css', 'less']) },
-        ]
+        ],
     },
-    plugins: [
-        extractCSS,
-        extractLESS,
-    ],
+    plugins: [extractCSS, extractLESS],
 };

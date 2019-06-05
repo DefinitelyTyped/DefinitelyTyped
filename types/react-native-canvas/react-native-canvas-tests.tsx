@@ -1,10 +1,6 @@
-import * as React from "react";
-import { View } from "react-native";
-import Canvas, {
-    Image as CanvasImage,
-    Path2D,
-    ImageData
-} from "react-native-canvas";
+import * as React from 'react';
+import { View } from 'react-native';
+import Canvas, { Image as CanvasImage, Path2D, ImageData } from 'react-native-canvas';
 
 class CanvasTest extends React.Component {
     render() {
@@ -19,13 +15,13 @@ class CanvasTest extends React.Component {
         canvas.width = 100;
         canvas.height = 100;
 
-        const context = canvas.getContext("2d");
-        context.fillStyle = "purple";
+        const context = canvas.getContext('2d');
+        context.fillStyle = 'purple';
         context.fillRect(0, 0, 100, 100);
 
         const ellipse = new Path2D(canvas);
         ellipse.ellipse(50, 50, 25, 35, (45 * Math.PI) / 180, 0, 2 * Math.PI);
-        context.fillStyle = "purple";
+        context.fillStyle = 'purple';
         context.fill(ellipse);
 
         const image = new CanvasImage(canvas);
@@ -33,8 +29,8 @@ class CanvasTest extends React.Component {
         canvas.height = 100;
 
         image.src =
-            "https://upload.wikimedia.org/wikipedia/commons/6/63/Biho_Takashi._Bat_Before_the_Moon%2C_ca._1910.jpg";
-        image.addEventListener("load", () => {
+            'https://upload.wikimedia.org/wikipedia/commons/6/63/Biho_Takashi._Bat_Before_the_Moon%2C_ca._1910.jpg';
+        image.addEventListener('load', () => {
             context.drawImage(image, 0, 0, 100, 100);
         });
 
@@ -48,5 +44,5 @@ class CanvasTest extends React.Component {
         }
         const imgData = new ImageData(canvas, data, 100, 100);
         context.putImageData(imgData, 0, 0);
-    }
+    };
 }

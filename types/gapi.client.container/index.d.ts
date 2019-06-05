@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Container Engine API v1 */
-    function load(name: "container", version: "v1"): PromiseLike<void>;
-    function load(name: "container", version: "v1", callback: () => any): void;
+    function load(name: 'container', version: 'v1'): PromiseLike<void>;
+    function load(name: 'container', version: 'v1', callback: () => any): void;
 
     const projects: container.ProjectsResource;
 
@@ -890,7 +890,7 @@ declare namespace gapi.client {
             /** Sets the autoscaling settings of a specific node pool. */
             autoscaling(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -934,7 +934,7 @@ declare namespace gapi.client {
             /** Creates a node pool for a cluster. */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -976,7 +976,7 @@ declare namespace gapi.client {
             /** Deletes a node pool from a cluster. */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1020,7 +1020,7 @@ declare namespace gapi.client {
             /** Retrieves the node pool requested. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1064,7 +1064,7 @@ declare namespace gapi.client {
             /** Lists the node pools for a cluster. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1109,7 +1109,7 @@ declare namespace gapi.client {
              */
             rollback(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1153,7 +1153,7 @@ declare namespace gapi.client {
             /** Sets the NodeManagement options for a node pool. */
             setManagement(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1197,7 +1197,7 @@ declare namespace gapi.client {
             /** Sets the size of a specific node pool. */
             setSize(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1241,7 +1241,7 @@ declare namespace gapi.client {
             /** Updates the version and/or image type of a specific node pool. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1287,7 +1287,7 @@ declare namespace gapi.client {
             /** Sets the addons of a specific cluster. */
             addons(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1329,7 +1329,7 @@ declare namespace gapi.client {
             /** Completes master IP rotation. */
             completeIpRotation(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1385,7 +1385,7 @@ declare namespace gapi.client {
              */
             create(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1435,7 +1435,7 @@ declare namespace gapi.client {
              */
             delete(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1477,7 +1477,7 @@ declare namespace gapi.client {
             /** Gets the details of a specific cluster. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1519,7 +1519,7 @@ declare namespace gapi.client {
             /** Enables or disables the ABAC authorization mechanism on a cluster. */
             legacyAbac(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1564,7 +1564,7 @@ declare namespace gapi.client {
              */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1604,7 +1604,7 @@ declare namespace gapi.client {
             /** Sets the locations of a specific cluster. */
             locations(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1646,7 +1646,7 @@ declare namespace gapi.client {
             /** Sets the logging service of a specific cluster. */
             logging(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1688,7 +1688,7 @@ declare namespace gapi.client {
             /** Updates the master of a specific cluster. */
             master(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1730,7 +1730,7 @@ declare namespace gapi.client {
             /** Sets the monitoring service of a specific cluster. */
             monitoring(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1772,7 +1772,7 @@ declare namespace gapi.client {
             /** Sets labels on a cluster. */
             resourceLabels(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1814,7 +1814,7 @@ declare namespace gapi.client {
             /** Sets the maintenance policy for a cluster. */
             setMaintenancePolicy(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1860,7 +1860,7 @@ declare namespace gapi.client {
              */
             setMasterAuth(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1902,7 +1902,7 @@ declare namespace gapi.client {
             /** Enables/Disables Network Policy for a cluster. */
             setNetworkPolicy(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1944,7 +1944,7 @@ declare namespace gapi.client {
             /** Start master IP rotation. */
             startIpRotation(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -1986,7 +1986,7 @@ declare namespace gapi.client {
             /** Updates the settings of a specific cluster. */
             update(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2031,7 +2031,7 @@ declare namespace gapi.client {
             /** Cancels the specified operation. */
             cancel(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2072,7 +2072,7 @@ declare namespace gapi.client {
             /** Gets the specified operation. */
             get(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2114,7 +2114,7 @@ declare namespace gapi.client {
             /** Lists all operations in a project in a specific zone or all zones. */
             list(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */
@@ -2155,7 +2155,7 @@ declare namespace gapi.client {
             /** Returns configuration info about the Container Engine service. */
             getServerconfig(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

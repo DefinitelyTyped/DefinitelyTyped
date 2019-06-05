@@ -6,17 +6,25 @@
 declare namespace IntroJs {
     interface Step {
         intro: string;
-        element?: string|HTMLElement|Element;
-        position?: "top"|"left"|"right"|"bottom"|"bottom-left-aligned"|"bottom-middle-aligned"|"bottom-right-aligned"|"auto";
+        element?: string | HTMLElement | Element;
+        position?:
+            | 'top'
+            | 'left'
+            | 'right'
+            | 'bottom'
+            | 'bottom-left-aligned'
+            | 'bottom-middle-aligned'
+            | 'bottom-right-aligned'
+            | 'auto';
         tooltipClass?: string;
         highlightClass?: string;
-        scrollTo?: "off"|"tooltip"|"element";
+        scrollTo?: 'off' | 'tooltip' | 'element';
         disableInteraction?: boolean;
     }
 
     interface Hint {
         hint: string;
-        element?: string|HTMLElement|Element;
+        element?: string | HTMLElement | Element;
         hintPosition?: string;
     }
 
@@ -54,14 +62,14 @@ declare namespace IntroJs {
         exit(): IntroJs;
         clone(): IntroJs;
 
-        goToStepNumber(stepId: number): IntroJs
+        goToStepNumber(stepId: number): IntroJs;
         goToStep(step: number): IntroJs;
         nextStep(): IntroJs;
         previousStep(): IntroJs;
 
         refresh(): IntroJs;
 
-        setOption(option: string, value: string|number|boolean): IntroJs;
+        setOption(option: string, value: string | number | boolean): IntroJs;
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;

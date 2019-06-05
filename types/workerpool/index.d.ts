@@ -117,7 +117,7 @@ export function pool(options?: WorkerPoolOptions): WorkerPool;
  * Argument methods is optional can can be an object with functions available in the worker.
  * Registered functions will be available via the worker pool.
  */
-export function worker(methods?: {[k: string]: (...args: any[]) => any}): any;
+export function worker(methods?: { [k: string]: (...args: any[]) => any }): any;
 export const platform: 'node' | 'browser';
 export const isMainThread: boolean;
 export const cpus: number;

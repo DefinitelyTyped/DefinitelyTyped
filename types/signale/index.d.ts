@@ -10,22 +10,22 @@
 
 declare namespace signale {
     type DefaultMethods =
-        | "await"
-        | "complete"
-        | "error"
-        | "debug"
-        | "fatal"
-        | "fav"
-        | "info"
-        | "note"
-        | "pause"
-        | "pending"
-        | "star"
-        | "start"
-        | "success"
-        | "warn"
-        | "watch"
-        | "log";
+        | 'await'
+        | 'complete'
+        | 'error'
+        | 'debug'
+        | 'fatal'
+        | 'fav'
+        | 'info'
+        | 'note'
+        | 'pause'
+        | 'pending'
+        | 'star'
+        | 'start'
+        | 'success'
+        | 'warn'
+        | 'watch'
+        | 'log';
 
     interface CommandType {
         /** The icon corresponding to the logger. */
@@ -83,9 +83,7 @@ declare namespace signale {
     }
 
     interface SignaleConstructor {
-        new <TTypes extends string = DefaultMethods>(
-            options?: SignaleOptions<TTypes>
-        ): Signale<TTypes>;
+        new <TTypes extends string = DefaultMethods>(options?: SignaleOptions<TTypes>): Signale<TTypes>;
     }
 
     interface SignaleBase<TTypes extends string = DefaultMethods> {
@@ -118,10 +116,7 @@ declare namespace signale {
          * @param label Label corresponding to the timer, each timer has its own unique label.
          * @param span Total running time.
          */
-        timeEnd(
-            label?: string,
-            span?: number
-        ): { label: string; span?: number };
+        timeEnd(label?: string, span?: number): { label: string; span?: number };
     }
 
     type LoggerFunc = (message?: any, ...optionalArgs: any[]) => void;

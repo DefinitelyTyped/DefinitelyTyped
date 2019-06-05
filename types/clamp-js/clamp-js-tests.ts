@@ -16,7 +16,7 @@ const clampFromDefaults = clamp(lineElement, {
     splitOnChars: ['.', '-', '–', '—', ' '],
     animate: false,
     truncationChar: '…',
-    truncationHTML: null
+    truncationHTML: null,
 });
 const clampWithOptions = clamp(lineElement, {
     clamp: 1,
@@ -24,5 +24,5 @@ const clampWithOptions = clamp(lineElement, {
     splitOnChars: [','],
     animate: true,
     truncationChar: '--',
-    truncationHTML: '<span></span>'
+    truncationHTML: '<span></span>',
 });

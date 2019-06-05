@@ -13,7 +13,7 @@
 export {};
 
 export class Account {
-    constructor(accountId: string, sequence: string | number)
+    constructor(accountId: string, sequence: string | number);
     accountId(): string;
     sequenceNumber(): string;
     incrementSequenceNumber(): void;
@@ -24,11 +24,7 @@ export namespace AssetType {
     type credit4 = 'credit_alphanum4';
     type credit12 = 'credit_alphanum12';
 }
-export type AssetType =
-    | AssetType.native
-    | AssetType.credit4
-    | AssetType.credit12
-;
+export type AssetType = AssetType.native | AssetType.credit4 | AssetType.credit12;
 
 export class Asset {
     static native(): Asset;
@@ -59,7 +55,9 @@ export class Keypair {
     static fromPublicKey(publicKey: string): Keypair;
     static random(): Keypair;
 
-    constructor(keys: { type: KeypairType, secretKey: string, publicKey?: string } | { type: KeypairType, publicKey: string })
+    constructor(
+        keys: { type: KeypairType; secretKey: string; publicKey?: string } | { type: KeypairType; publicKey: string }
+    );
 
     readonly type: KeypairType;
     publicKey(): string;
@@ -85,13 +83,7 @@ export namespace MemoType {
     type Hash = typeof MemoHash;
     type Return = typeof MemoReturn;
 }
-export type MemoType =
-    | MemoType.None
-    | MemoType.ID
-    | MemoType.Text
-    | MemoType.Hash
-    | MemoType.Return
-;
+export type MemoType = MemoType.None | MemoType.ID | MemoType.Text | MemoType.Hash | MemoType.Return;
 export type MemoValue = null | string | Buffer;
 
 export class Memo<T extends MemoType = MemoType> {
@@ -103,18 +95,22 @@ export class Memo<T extends MemoType = MemoType> {
     static text(text: string): Memo<MemoType.Text>;
 
     constructor(type: MemoType.None, value?: null);
-    constructor(type: MemoType.Hash | MemoType.Return, value: Buffer)
-    constructor(type: MemoType.Hash | MemoType.Return | MemoType.ID | MemoType.Text, value: string)
-    constructor(type: T, value: MemoValue)
+    constructor(type: MemoType.Hash | MemoType.Return, value: Buffer);
+    constructor(type: MemoType.Hash | MemoType.Return | MemoType.ID | MemoType.Text, value: string);
+    constructor(type: T, value: MemoValue);
 
     type: T;
-    value:
-        T extends MemoType.None ? null :
-        T extends MemoType.ID ? string :
-        T extends MemoType.Text ? string | Buffer :  // github.com/stellar/js-stellar-base/issues/152
-        T extends MemoType.Hash ? Buffer :
-        T extends MemoType.Return ? Buffer :
-        MemoValue;
+    value: T extends MemoType.None
+        ? null
+        : T extends MemoType.ID
+        ? string
+        : T extends MemoType.Text
+        ? string | Buffer // github.com/stellar/js-stellar-base/issues/152
+        : T extends MemoType.Hash
+        ? Buffer
+        : T extends MemoType.Return
+        ? Buffer
+        : MemoValue;
 
     toXDRObject(): xdr.Memo;
 }
@@ -130,7 +126,7 @@ export class Network {
     static useTestNetwork(): void;
     static current(): Network;
 
-    constructor(passphrase: string)
+    constructor(passphrase: string);
 
     networkPassphrase(): string;
     networkId(): string;
@@ -144,11 +140,7 @@ export namespace AuthFlag {
     type revocable = typeof AuthRevocableFlag;
     type rmmutable = typeof AuthImmutableFlag;
 }
-export type AuthFlag =
-    | AuthFlag.required
-    | AuthFlag.revocable
-    | AuthFlag.rmmutable
-;
+export type AuthFlag = AuthFlag.required | AuthFlag.revocable | AuthFlag.rmmutable;
 
 export namespace Signer {
     interface Ed25519PublicKey {
@@ -164,11 +156,7 @@ export namespace Signer {
         weight: number | undefined;
     }
 }
-export type Signer =
-    | Signer.Ed25519PublicKey
-    | Signer.Sha256Hash
-    | Signer.PreAuthTx
-;
+export type Signer = Signer.Ed25519PublicKey | Signer.Sha256Hash | Signer.PreAuthTx;
 
 export namespace SignerOptions {
     interface Ed25519PublicKey {
@@ -184,11 +172,7 @@ export namespace SignerOptions {
         weight?: number | string;
     }
 }
-export type SignerOptions =
-    | SignerOptions.Ed25519PublicKey
-    | SignerOptions.Sha256Hash
-    | SignerOptions.PreAuthTx
-;
+export type SignerOptions = SignerOptions.Ed25519PublicKey | SignerOptions.Sha256Hash | SignerOptions.PreAuthTx;
 
 export namespace OperationType {
     type CreateAccount = 'createAccount';
@@ -216,8 +200,7 @@ export type OperationType =
     | OperationType.AccountMerge
     | OperationType.Inflation
     | OperationType.ManageData
-    | OperationType.BumpSequence
-;
+    | OperationType.BumpSequence;
 
 export namespace OperationOptions {
     interface BaseOptions {
@@ -248,7 +231,8 @@ export namespace OperationOptions {
     interface ManageOffer extends CreatePassiveOffer {
         offerId?: number | string;
     }
-    interface Inflation extends BaseOptions {  // tslint:disable-line
+    interface Inflation extends BaseOptions {
+        // tslint:disable-line
     }
     interface ManageData extends BaseOptions {
         name: string;
@@ -294,8 +278,7 @@ export type OperationOptions =
     | OperationOptions.AccountMerge
     | OperationOptions.Inflation
     | OperationOptions.ManageData
-    | OperationOptions.BumpSequence
-;
+    | OperationOptions.BumpSequence;
 
 export namespace Operation {
     interface BaseOperation<T extends OperationType = OperationType> {
@@ -335,8 +318,7 @@ export namespace Operation {
     }
     function createPassiveOffer(options: OperationOptions.CreatePassiveOffer): xdr.Operation<CreatePassiveOffer>;
 
-    interface Inflation extends BaseOperation<OperationType.Inflation> {
-    }
+    interface Inflation extends BaseOperation<OperationType.Inflation> {}
     function inflation(options: OperationOptions.Inflation): xdr.Operation<Inflation>;
 
     interface ManageData extends BaseOperation<OperationType.ManageData> {
@@ -380,13 +362,17 @@ export namespace Operation {
         medThreshold?: number;
         highThreshold?: number;
         homeDomain?: string;
-        signer:
-            T extends {ed25519PublicKey: any} ? Signer.Ed25519PublicKey :
-            T extends {sha256Hash: any} ? Signer.Sha256Hash :
-            T extends {preAuthTx: any} ? Signer.PreAuthTx :
-            never;
+        signer: T extends { ed25519PublicKey: any }
+            ? Signer.Ed25519PublicKey
+            : T extends { sha256Hash: any }
+            ? Signer.Sha256Hash
+            : T extends { preAuthTx: any }
+            ? Signer.PreAuthTx
+            : never;
     }
-    function setOptions<T extends SignerOptions = never>(options: OperationOptions.SetOptions<T>): xdr.Operation<SetOptions<T>>;
+    function setOptions<T extends SignerOptions = never>(
+        options: OperationOptions.SetOptions<T>
+    ): xdr.Operation<SetOptions<T>>;
 
     interface BumpSequence extends BaseOperation<OperationType.BumpSequence> {
         bumpTo: string;
@@ -396,7 +382,7 @@ export namespace Operation {
     function fromXDRObject<T extends Operation = Operation>(xdrOperation: xdr.Operation<T>): T;
 }
 export type Operation =
-    Operation.CreateAccount
+    | Operation.CreateAccount
     | Operation.Payment
     | Operation.PathPayment
     | Operation.CreatePassiveOffer
@@ -407,8 +393,7 @@ export type Operation =
     | Operation.AccountMerge
     | Operation.Inflation
     | Operation.ManageData
-    | Operation.BumpSequence
-;
+    | Operation.BumpSequence;
 
 export namespace StrKey {
     function encodeEd25519PublicKey(data: Buffer): string;
@@ -427,7 +412,7 @@ export namespace StrKey {
 }
 
 export class Transaction<TMemo extends Memo = Memo, TOps extends Operation[] = Operation[]> {
-    constructor(envelope: string | xdr.TransactionEnvelope)
+    constructor(envelope: string | xdr.TransactionEnvelope);
     hash(): Buffer;
     sign(...keypairs: Keypair[]): void;
     signatureBase(): Buffer;
@@ -445,7 +430,7 @@ export class Transaction<TMemo extends Memo = Memo, TOps extends Operation[] = O
 export const TimeoutInfinite = 0;
 
 export class TransactionBuilder {
-    constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions)
+    constructor(sourceAccount: Account, options?: TransactionBuilder.TransactionBuilderOptions);
     addOperation(operation: xdr.Operation): this;
     addMemo(memo: Memo): this;
     setTimeout(timeoutInSeconds: number): this;
@@ -456,15 +441,16 @@ export namespace TransactionBuilder {
     interface TransactionBuilderOptions {
         fee?: number;
         timebounds?: {
-            minTime?: number | string
-            maxTime?: number | string
+            minTime?: number | string;
+            maxTime?: number | string;
         };
         memo?: Memo;
     }
 }
 
 // Hidden namespace as hack to work around name collision.
-declare namespace xdrHidden {  // tslint:disable-line:strict-export-declare-modifiers
+declare namespace xdrHidden {
+    // tslint:disable-line:strict-export-declare-modifiers
     class Operation2<T extends Operation = Operation> extends xdr.XDRStruct {
         static fromXDR(xdr: Buffer): xdr.Operation;
     }
@@ -477,7 +463,7 @@ export namespace xdr {
         toXDR(base?: string): Buffer;
         toXDR(encoding: string): string;
     }
-    export import Operation = xdrHidden.Operation2;  // tslint:disable-line:strict-export-declare-modifiers
+    export import Operation = xdrHidden.Operation2; // tslint:disable-line:strict-export-declare-modifiers
     class Asset extends XDRStruct {
         static fromXDR(xdr: Buffer): Asset;
     }
@@ -490,7 +476,7 @@ export namespace xdr {
     class DecoratedSignature extends XDRStruct {
         static fromXDR(xdr: Buffer): DecoratedSignature;
 
-        constructor(keys: { hint: SignatureHint, signature: Signature })
+        constructor(keys: { hint: SignatureHint; signature: Signature });
 
         hint(): SignatureHint;
         signature(): Buffer;

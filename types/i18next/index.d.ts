@@ -19,16 +19,13 @@ declare namespace i18next {
     type FormatFunction = (value: any, format?: string, lng?: string) => string;
 
     /* tslint:disable-next-line:no-empty-interface */
-    interface DetectionPluginOptions {
-    }
+    interface DetectionPluginOptions {}
 
     /* tslint:disable-next-line:no-empty-interface */
-    interface BackendPluginOptions {
-    }
+    interface BackendPluginOptions {}
 
     /* tslint:disable-next-line:no-empty-interface */
-    interface CachePluginOptions {
-    }
+    interface CachePluginOptions {}
 
     interface InterpolationOptions {
         /**
@@ -197,7 +194,7 @@ declare namespace i18next {
          * 'languageOnly' --> 'en'
          * @default 'all'
          */
-        load?: "all" | "currentOnly" | "languageOnly";
+        load?: 'all' | 'currentOnly' | 'languageOnly';
 
         /**
          * array of languages to preload. Important on serverside to assert translations are loaded before rendering views.
@@ -247,7 +244,7 @@ declare namespace i18next {
         /**
          * @default 'fallback'
          */
-        saveMissingTo?: "current" | "all" | "fallback";
+        saveMissingTo?: 'current' | 'all' | 'fallback';
 
         /**
          * Used for custom missing key handling (needs saveMissing set to true!)
@@ -401,7 +398,8 @@ declare namespace i18next {
     }
 
     // Add an indexer to assure that interpolation arguments can be passed
-    type TranslationOptions<TCustomOptions extends object = object> = TranslationOptionsBase & TCustomOptions & { [key: string]: any };
+    type TranslationOptions<TCustomOptions extends object = object> = TranslationOptionsBase &
+        TCustomOptions & { [key: string]: any };
 
     interface TranslationOptionsBase {
         /**
@@ -464,8 +462,10 @@ declare namespace i18next {
 
     type Callback = (error: any, t: TranslationFunction) => void;
 
-    type TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> =
-        (key: TKeys | TKeys[], options?: TranslationOptions<TValues>) => TResult;
+    type TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> = (
+        key: TKeys | TKeys[],
+        options?: TranslationOptions<TValues>
+    ) => TResult;
 
     interface Resource {
         [language: string]: ResourceLanguage;
@@ -480,14 +480,14 @@ declare namespace i18next {
     }
 
     interface Services {
-      backendConnector: any;
-      i18nFormat: any;
-      interpolator: any;
-      languageDetector: any;
-      languageUtils: any;
-      logger: any;
-      pluralResolver: any;
-      resourceStore: Resource;
+        backendConnector: any;
+        i18nFormat: any;
+        interpolator: any;
+        languageDetector: any;
+        languageUtils: any;
+        logger: any;
+        pluralResolver: any;
+        resourceStore: Resource;
     }
 
     interface i18n {
@@ -573,7 +573,7 @@ declare namespace i18next {
         /**
          * Returns rtl or ltr depending on languages read direction.
          */
-        dir(lng?: string): "ltr" | "rtl";
+        dir(lng?: string): 'ltr' | 'rtl';
 
         /**
          * Exposes interpolation.format function added on init.
@@ -597,32 +597,32 @@ declare namespace i18next {
         /**
          * Gets fired after initialization.
          */
-        on(event: "initialized", callback: (options: InitOptions) => void): void;
+        on(event: 'initialized', callback: (options: InitOptions) => void): void;
 
         /**
          * Gets fired on loaded resources.
          */
-        on(event: "loaded", callback: (loaded: boolean) => void): void;
+        on(event: 'loaded', callback: (loaded: boolean) => void): void;
 
         /**
          * Gets fired if loading resources failed.
          */
-        on(event: "failedLoading", callback: (lng: string, ns: string, msg: string) => void): void;
+        on(event: 'failedLoading', callback: (lng: string, ns: string, msg: string) => void): void;
 
         /**
          * Gets fired on accessing a key not existing.
          */
-        on(event: "missingKey", callback: (lngs: string[], namespace: string, key: string, res: string) => void): void;
+        on(event: 'missingKey', callback: (lngs: string[], namespace: string, key: string, res: string) => void): void;
 
         /**
          * Gets fired when resources got added or removed.
          */
-        on(event: "added" | "removed", callback: (lng: string, ns: string) => void): void;
+        on(event: 'added' | 'removed', callback: (lng: string, ns: string) => void): void;
 
         /**
          * Gets fired when changeLanguage got called.
          */
-        on(event: "languageChanged", callback: (lng: string) => void): void;
+        on(event: 'languageChanged', callback: (lng: string) => void): void;
 
         /**
          * Event listener
@@ -642,7 +642,13 @@ declare namespace i18next {
         /**
          * Adds one key/value.
          */
-        addResource(lng: string, ns: string, key: string, value: string, options?: { keySeparator?: string, silent?: boolean }): void;
+        addResource(
+            lng: string,
+            ns: string,
+            key: string,
+            value: string,
+            options?: { keySeparator?: string; silent?: boolean }
+        ): void;
 
         /**
          * Adds multiple key/values.

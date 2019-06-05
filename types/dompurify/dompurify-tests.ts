@@ -1,5 +1,3 @@
-
-
 import dompurify = require('dompurify');
 
 dompurify.sanitize('<script>alert("hi")</script>');

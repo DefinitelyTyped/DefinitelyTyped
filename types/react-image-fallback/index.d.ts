@@ -4,16 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export default class ReactImageFallback extends React.Component<
-    ReactImageFallbackProps &
-    React.DetailedHTMLProps<
-    React.ImgHTMLAttributes<HTMLImageElement>,
-    HTMLImageElement
-    >,
+    ReactImageFallbackProps & React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
     any
-    > { }
+> {}
 
 export interface ReactImageFallbackProps {
     src: string;

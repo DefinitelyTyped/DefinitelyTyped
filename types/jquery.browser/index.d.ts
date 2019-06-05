@@ -35,7 +35,7 @@ export interface Matchs {
     iemobile?: boolean;
     msie?: boolean;
     msedge?: boolean;
-    uaMatch: ((ua?: string) => Matchs);
+    uaMatch: (ua?: string) => Matchs;
 }
 declare global {
     interface Window {

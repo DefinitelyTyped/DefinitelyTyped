@@ -14,16 +14,17 @@ declare namespace adone.templating {
                 noCache?: boolean;
             }
 
-            type ConfigureOptions = EnvironmentOptions & FileSystemLoaderOptions & {
-                tags?: {
-                    blockStart?: string,
-                    blockEnd?: string,
-                    variableStart?: string,
-                    variableEnd?: string,
-                    commentStart?: string,
-                    commentEnd?: string
+            type ConfigureOptions = EnvironmentOptions &
+                FileSystemLoaderOptions & {
+                    tags?: {
+                        blockStart?: string;
+                        blockEnd?: string;
+                        variableStart?: string;
+                        variableEnd?: string;
+                        commentStart?: string;
+                        commentEnd?: string;
+                    };
                 };
-            };
 
             interface PrecompileOptions {
                 name?: string;
@@ -32,7 +33,7 @@ declare namespace adone.templating {
                 env?: Environment;
                 include?: string[];
                 exclude?: string[];
-                wrapper?(templates: { name: string, template: string }, opts: PrecompileOptions): string;
+                wrapper?(templates: { name: string; template: string }, opts: PrecompileOptions): string;
             }
 
             interface Extension {

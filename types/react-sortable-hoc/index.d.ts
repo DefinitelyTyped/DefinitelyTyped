@@ -19,9 +19,9 @@ export interface SortStart {
 export type SortEvent = React.MouseEvent<any> | React.TouchEvent<any>;
 
 export type SortEventWithTag = SortEvent & {
-  target: {
-    tagName: string
-  }
+    target: {
+        tagName: string;
+    };
 };
 
 export type SortStartHandler = (sort: SortStart, event: SortEvent) => void;
@@ -78,9 +78,15 @@ export type WrappedComponentFactory<P> = (props: P) => JSX.Element;
 
 export type WrappedComponent<P> = React.ComponentClass<P> | WrappedComponentFactory<P>;
 
-export function SortableContainer<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P & SortableContainerProps>;
+export function SortableContainer<P>(
+    wrappedComponent: WrappedComponent<P>,
+    config?: Config
+): React.ComponentClass<P & SortableContainerProps>;
 
-export function SortableElement<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P & SortableElementProps>;
+export function SortableElement<P>(
+    wrappedComponent: WrappedComponent<P>,
+    config?: Config
+): React.ComponentClass<P & SortableElementProps>;
 
 export function SortableHandle<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<P>;
 

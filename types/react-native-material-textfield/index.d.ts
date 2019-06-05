@@ -6,13 +6,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import {
-    StyleProp,
-    TextInputProps,
-    TextStyle,
-    ViewStyle,
-    View
-} from 'react-native';
+import { StyleProp, TextInputProps, TextStyle, ViewStyle, View } from 'react-native';
 
 export interface TextFieldProps extends TextInputProps {
     animationDuration?: number;

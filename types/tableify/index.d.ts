@@ -17,7 +17,9 @@ declare namespace tableify {
         classes?: boolean;
         classPrefix?: string;
     }
-    function defaults(config: Config): {
+    function defaults(
+        config: Config
+    ): {
         <T extends Record<string, any>>(
             obj: T | ReadonlyArray<T>,
             columns?: ReadonlyArray<keyof T> | false,

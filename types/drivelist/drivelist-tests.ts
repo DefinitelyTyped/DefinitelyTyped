@@ -1,4 +1,4 @@
-import * as drivelist from "drivelist";
+import * as drivelist from 'drivelist';
 
 drivelist.list((error, drives) => {
     if (!error) {
@@ -23,7 +23,7 @@ drivelist.list((error, drives) => {
                 isCard,
                 isSCSI,
                 isUSB,
-                isUAS
+                isUAS,
             } = drive;
 
             enumerator; // $ExpectType string

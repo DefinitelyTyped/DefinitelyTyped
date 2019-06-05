@@ -1,5 +1,3 @@
-
-
 $('#scrollbar1').tinyscrollbar();
 $('#scrollbar2').tinyscrollbar({ axis: 'x' });
 $('#scrollbar3').tinyscrollbar({ size: 100 });
@@ -16,7 +14,7 @@ var oScroll6 = $('#scrollbar6');
 oScroll6.tinyscrollbar();
 
 //add a click event to a button
-$('#scrollbar6-anchor').click(function () {
+$('#scrollbar6-anchor').click(function() {
     oScroll6.tinyscrollbar_update(50);
     return false;
 });

@@ -20,12 +20,12 @@ sr = ScrollReveal();
 sr.reveal('.box', { duration: 2000 }, 50);
 
 //3.2
-var fooReveal  = {
-  delay    : 200,
-  distance : '90px',
-  easing   : 'ease-in-out',
-  rotate   : { z: 10 },
-  scale    : 1.1
+var fooReveal = {
+    delay: 200,
+    distance: '90px',
+    easing: 'ease-in-out',
+    rotate: { z: 10 },
+    scale: 1.1,
 };
 
 sr = ScrollReveal();
@@ -50,23 +50,22 @@ sr = ScrollReveal();
 sr.reveal('.foo', { container: fooContainer });
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
-  if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-    if (xmlhttp.status == 200) {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.status == 200) {
+            // Turn our response into HTML...
+            var content = document.createElement('div');
+            content.innerHTML = xmlhttp.responseText;
 
-      // Turn our response into HTML...
-      var content = document.createElement('div');
-      content.innerHTML = xmlhttp.responseText;
+            // Add each element to the DOM...
+            for (var i = 0; i < content.childNodes.length; i++) {
+                fooContainer.appendChild(content.childNodes[i]);
+            }
 
-      // Add each element to the DOM...
-      for (var i = 0; i < content.childNodes.length; i++) {
-        fooContainer.appendChild(content.childNodes[ i ]);
-      };
-
-      // Finally!
-      sr.sync();
+            // Finally!
+            sr.sync();
+        }
     }
-  }
-}
+};
 
 xmlhttp.open('GET', 'ajax.html', true);
 xmlhttp.send();

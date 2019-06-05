@@ -2,6 +2,6 @@
 import ReadWriteLock = require('rwlock');
 
 const lock = new ReadWriteLock();
-lock.readLock((release) => {
-  release();
+lock.readLock(release => {
+    release();
 });

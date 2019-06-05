@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Koa from "koa";
-import * as Redis from "redis";
+import * as Koa from 'koa';
+import * as Redis from 'redis';
 
 type onErrorCallback = (error: Error) => void;
 

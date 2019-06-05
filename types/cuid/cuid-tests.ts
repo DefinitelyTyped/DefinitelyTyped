@@ -1,4 +1,3 @@
-
 import cuid = require('cuid');
 
 var cuidResult: string = cuid();

@@ -184,9 +184,6 @@ interface Rpio {
      */
     i2cSetClockDivider(clockDivider: number): void;
 
-
-
-
     /**
      * Turn off the i²c interface and return the pins to GPIO.
      */
@@ -296,7 +293,6 @@ interface Rpio {
      */
     usleep(n: number): void;
 
-
     // Constants:
 
     HIGH: number;
@@ -329,13 +325,10 @@ interface Rpio {
     POLL_LOW: number;
     POLL_HIGH: number;
     POLL_BOTH: number;
-
 }
 
 declare namespace RPIO {
-
     interface Options {
-
         /**
          * There are two device nodes for GPIO access. The default is /dev/gpiomem which, when configured with gpio group access, allows users in that group to read/write directly to that device. This removes the need to run as root, but is limited to GPIO functions.
          * For non-GPIO functions (i²c, PWM, SPI) the /dev/mem device is required for full access to the Broadcom peripheral address range and the program needs to be executed as the root user (e.g. via sudo). If you do not explicitly call .init() when using those functions, the library will do it for you with gpiomem: false.
@@ -361,7 +354,7 @@ declare namespace RPIO {
          * gpio: use the Broadcom GPIOxx naming
          * physical: use the physical P01-P40 header layou
          */
-        mapping?: "gpio" | "physical";
+        mapping?: 'gpio' | 'physical';
     }
 
     interface CallbackFunction {

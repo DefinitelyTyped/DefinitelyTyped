@@ -1,9 +1,4 @@
-import {
-    subscribe,
-    unsubscribe,
-    listen,
-    UIEventCallback,
-} from 'subscribe-ui-event';
+import { subscribe, unsubscribe, listen, UIEventCallback } from 'subscribe-ui-event';
 
 const callback: UIEventCallback = (event, paylaod) => {
     const target = event.target;
@@ -19,6 +14,6 @@ unsubscribe('touchend', (event, paylaod) => {
 
 subscription.unsubscribe();
 
-const {remove} = listen(document, 'onclick', console.log);
+const { remove } = listen(document, 'onclick', console.log);
 
 remove();

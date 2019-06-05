@@ -1,7 +1,21 @@
 import {
     BadGateway,
-    BadRequest, Conflict, FeathersError, Forbidden, GeneralError, LengthRequired, MethodNotAllowed, NotAcceptable,
-    NotAuthenticated, NotFound, NotImplemented, PaymentError, Timeout, TooManyRequests, Unavailable, Unprocessable
+    BadRequest,
+    Conflict,
+    FeathersError,
+    Forbidden,
+    GeneralError,
+    LengthRequired,
+    MethodNotAllowed,
+    NotAcceptable,
+    NotAuthenticated,
+    NotFound,
+    NotImplemented,
+    PaymentError,
+    Timeout,
+    TooManyRequests,
+    Unavailable,
+    Unprocessable,
 } from '@feathersjs/errors';
 
 import * as errHandler from '@feathersjs/errors/handler';

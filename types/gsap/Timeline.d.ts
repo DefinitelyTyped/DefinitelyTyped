@@ -61,7 +61,12 @@ declare namespace gsap {
         fromTo(target: {}, duration: number, fromVars: {}, toVars: {}, position?: any): TimelineLite;
 
         /** Returns an array containing all the tweens and/or timelines nested in this timeline. */
-        getChildren(nested?: boolean, tweens?: boolean, timelines?: boolean, ignoreBeforeTime?: number): Array<Tween | Timeline>;
+        getChildren(
+            nested?: boolean,
+            tweens?: boolean,
+            timelines?: boolean,
+            ignoreBeforeTime?: number
+        ): Array<Tween | Timeline>;
 
         /** Returns the time associated with a particular label. */
         getLabelTime(label: string): number;

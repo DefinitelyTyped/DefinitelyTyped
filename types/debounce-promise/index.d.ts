@@ -17,10 +17,6 @@ declare function debounce<T extends (...args: any[]) => any>(
     func: T,
     wait?: number,
     options?: debounce.DebounceOptions
-): (
-    ...args: ArgumentsType<T>
-) => ReturnType<T> extends Promise<any>
-    ? ReturnType<T>
-    : Promise<ReturnType<T>>;
+): (...args: ArgumentsType<T>) => ReturnType<T> extends Promise<any> ? ReturnType<T> : Promise<ReturnType<T>>;
 
 export = debounce;

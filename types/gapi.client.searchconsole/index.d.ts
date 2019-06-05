@@ -13,8 +13,8 @@
 
 declare namespace gapi.client {
     /** Load Google Search Console URL Testing Tools API v1 */
-    function load(name: "searchconsole", version: "v1"): PromiseLike<void>;
-    function load(name: "searchconsole", version: "v1", callback: () => any): void;
+    function load(name: 'searchconsole', version: 'v1'): PromiseLike<void>;
+    function load(name: 'searchconsole', version: 'v1', callback: () => any): void;
 
     const urlTestingTools: searchconsole.UrlTestingToolsResource;
 
@@ -68,7 +68,7 @@ declare namespace gapi.client {
             /** Runs Mobile-Friendly Test for a given URL. */
             run(request: {
                 /** V1 error format. */
-                "$.xgafv"?: string;
+                '$.xgafv'?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** Data format for response. */

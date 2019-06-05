@@ -5,8 +5,7 @@
 
 /// <reference types="node"/>
 
-
-import events = require("events");
+import events = require('events');
 
 interface Tokenizer {
     tokenize(text: string): string[];
@@ -41,34 +40,39 @@ interface Stemmer {
 }
 declare var PorterStemmer: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerRu: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerEs: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerFa: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerFr: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerIt: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerNo: {
     stem(token: string): string;
-}
+};
 declare var PorterStemmerPt: {
     stem(token: string): string;
-}
+};
 declare var LancasterStemmer: {
     stem(token: string): string;
-}
+};
 
-interface BayesClassifierClassification { label: string, value: number }
-interface BayesClassifierCallback { (err: any, classifier: any): void }
+interface BayesClassifierClassification {
+    label: string;
+    value: number;
+}
+interface BayesClassifierCallback {
+    (err: any, classifier: any): void;
+}
 declare class BayesClassifier {
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
@@ -81,8 +85,13 @@ declare class BayesClassifier {
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
 }
 
-interface LogisticRegressionClassifierClassification { label: string, value: number }
-interface LogisticRegressionClassifierCallback { (err: any, classifier: any): void }
+interface LogisticRegressionClassifierClassification {
+    label: string;
+    value: number;
+}
+interface LogisticRegressionClassifierCallback {
+    (err: any, classifier: any): void;
+}
 declare class LogisticRegressionClassifier {
     events: events.EventEmitter;
     addDocument(text: string, stem: string): void;
@@ -118,7 +127,7 @@ declare class NounInflector {
 }
 declare var CountInflector: {
     nth(i: number): string;
-}
+};
 declare class PresentVerbInflector {
     pluralize(token: string): string;
     singularize(token: string): string;
@@ -130,7 +139,7 @@ declare var NGrams: {
     trigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string, n: number, startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string[], n: number, startSymbol?: string, endSymbol?: string): string[][];
-}
+};
 declare var NGramsZH: {
     bigrams(sequence: string, startSymbol?: string, endSymbol?: string): string[][];
     bigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
@@ -138,9 +147,11 @@ declare var NGramsZH: {
     trigrams(sequence: string[], startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string, n: number, startSymbol?: string, endSymbol?: string): string[][];
     ngrams(sequence: string[], n: number, startSymbol?: string, endSymbol?: string): string[][];
-}
+};
 
-interface TfIdfCallback { (i: number, measure: number): void }
+interface TfIdfCallback {
+    (i: number, measure: number): void;
+}
 interface TfIdfTerm {
     term: string;
     tfidf: number;
@@ -191,8 +202,12 @@ interface WordNetLookupResults {
     synonyms: string[];
     gloss: string;
 }
-interface WordNetLookupCallback { (results: WordNetLookupResults[]): void }
-interface WordNetGetCallback { (results: WordNetLookupResults): void }
+interface WordNetLookupCallback {
+    (results: WordNetLookupResults[]): void;
+}
+interface WordNetGetCallback {
+    (results: WordNetLookupResults): void;
+}
 declare class WordNet {
     constructor(filename?: string);
     lookup(word: string, callback: WordNetLookupCallback): void;

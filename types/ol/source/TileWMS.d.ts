@@ -32,12 +32,17 @@ export interface Options {
 }
 export default class TileWMS extends TileImage {
     constructor(opt_options?: Options);
-    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: { [key: string]: any }): string;
+    getGetFeatureInfoUrl(
+        coordinate: Coordinate,
+        resolution: number,
+        projection: ProjectionLike,
+        params: { [key: string]: any }
+    ): string;
     getParams(): { [key: string]: any };
     updateParams(params: { [key: string]: any }): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (param0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (param0: any) => void): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
