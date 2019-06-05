@@ -28,58 +28,58 @@ declare namespace stripe {
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
         redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
-        paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;        
+        paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
         createPaymentMethod(
-            type: paymentMethod.paymentMethodType, 
-            element: elements.Element, 
+            type: paymentMethod.paymentMethodType,
+            element: elements.Element,
             options?: CreatePaymentMethodOptions,
         ): Promise<PaymentMethodResponse>;
         retrievePaymentIntent(
             clientSecret: string,
         ): Promise<PaymentIntentResponse>;
         handleCardPayment(
-            clientSecret: string, 
-            element: elements.Element, 
+            clientSecret: string,
+            element: elements.Element,
             options?: HandleCardPaymentOptions,
         ): Promise<PaymentIntentResponse>;
         handleCardPayment(
-            clientSecret: string, 
+            clientSecret: string,
             options?: HandleCardPaymentWithoutElementsOptions,
         ): Promise<PaymentIntentResponse>;
         handleCardAction(
             clientSecret: string,
         ): Promise<PaymentIntentResponse>;
         confirmPaymentIntent(
-            clientSecret: string, 
-            element: elements.Element, 
+            clientSecret: string,
+            element: elements.Element,
             options?: ConfirmPaymentIntentOptions,
         ): Promise<PaymentIntentResponse>;
         confirmPaymentIntent(
-            clientSecret: string, 
+            clientSecret: string,
             options?: ConfirmPaymentIntentWithoutElementsOptions,
         ): Promise<PaymentIntentResponse>;
     }
-    
+
     type StripeRedirectResponse = never | {
         error: Error;
-    }
+    };
 
     type billingAddressCollectionType = 'required' | 'auto' | '';
-    interface StripeCheckoutOptions {	
-        items: StripeCheckoutItem[];	
-        successUrl: string;	
-        cancelUrl: string;	
-        clientReferenceId?: string;	
-        customerEmail?: string;	
-        billingAddressCollection?: billingAddressCollectionType;	
-        sessionId?: string;	
-        locale?: string;	
+    interface StripeCheckoutOptions {
+        items: StripeCheckoutItem[];
+        successUrl: string;
+        cancelUrl: string;
+        clientReferenceId?: string;
+        customerEmail?: string;
+        billingAddressCollection?: billingAddressCollectionType;
+        sessionId?: string;
+        locale?: string;
     }
 
-    interface StripeCheckoutItem {	
-        sku?: string;	
-        plan?: string;	
-        quantity: number;	
+    interface StripeCheckoutItem {
+        sku?: string;
+        plan?: string;
+        quantity: number;
     }
 
     interface StripeOptions {
@@ -215,7 +215,7 @@ declare namespace stripe {
     interface Error {
         /**
          * The type of error returned.
-         */        
+         */
         type: ErrorType;
 
         /**
@@ -224,14 +224,14 @@ declare namespace stripe {
         charge: string;
 
         /**
-         * For some errors that could be handled programmatically, 
+         * For some errors that could be handled programmatically,
          * a short string indicating the error code reported.
          */
         code?: string;
 
         /**
-         * For card errors resulting from a card issuer decline, 
-         * a short string indicating the card issuer’s reason for 
+         * For card errors resulting from a card issuer decline,
+         * a short string indicating the card issuer’s reason for
          * the decline if they provide one.
          */
         decline_code?: string;
@@ -242,33 +242,33 @@ declare namespace stripe {
         doc_url?: string;
 
         /**
-         * A human-readable message providing more details about the 
-         * error. For card errors, these messages can be shown to 
+         * A human-readable message providing more details about the
+         * error. For card errors, these messages can be shown to
          * your users.
          */
         message?: string;
 
         /**
-         * If the error is parameter-specific, the parameter related 
-         * to the error. For example, you can use this to display a 
+         * If the error is parameter-specific, the parameter related
+         * to the error. For example, you can use this to display a
          * message near the correct form field.
          */
         param?: string;
 
         /**
-         * The PaymentIntent object for errors returned on a request 
+         * The PaymentIntent object for errors returned on a request
          * involving a PaymentIntent.
          */
         payment_intent?: paymentIntents.PaymentIntent;
 
         /**
-         * The PaymentMethod object for errors returned on a 
+         * The PaymentMethod object for errors returned on a
          * request involving a PaymentMethod.
          */
         payment_method?: paymentMethod.PaymentMethod;
 
         /**
-         * The source object for errors returned on a request involving 
+         * The source object for errors returned on a request involving
          * a source.
          */
         source?: Source;
@@ -390,8 +390,8 @@ declare namespace stripe {
 
     interface CreatePaymentMethodOptions {
         /**
-         * Billing information associated with the PaymentMethod 
-         * that may be used or required by particular types of 
+         * Billing information associated with the PaymentMethod
+         * that may be used or required by particular types of
          * payment methods.
          */
         billing_details?: BillingDetails;
@@ -400,12 +400,12 @@ declare namespace stripe {
 
     interface HandleCardPaymentOptions {
         /**
-         * Use this parameter to supply additional data relevant to 
+         * Use this parameter to supply additional data relevant to
          * the payment method, such as billing details
          */
         payment_method_data?: {
             /**
-             * The billing details associated with the card. [Recommended] 
+             * The billing details associated with the card. [Recommended]
              */
             billing_details?: BillingDetails,
         };
@@ -418,8 +418,8 @@ declare namespace stripe {
          */
         receipt_email?: string;
         /**
-         * If the PaymentIntent is associated with a customer and this parameter 
-         * is set to true, the provided payment method will be attached to the 
+         * If the PaymentIntent is associated with a customer and this parameter
+         * is set to true, the provided payment method will be attached to the
          * customer. Default is false.
          */
         save_payment_method?: boolean;
@@ -428,22 +428,22 @@ declare namespace stripe {
     interface HandleCardPaymentWithoutElementsOptions extends HandleCardPaymentOptions {
         /**
          * Only one of payment_method_data and payment_method is required.
-         * Use payment_method to specify an existing PaymentMethod to use 
+         * Use payment_method to specify an existing PaymentMethod to use
          * for this payment.
          */
         payment_method?: string;
         /**
-         * Use this parameter to supply additional data relevant to 
+         * Use this parameter to supply additional data relevant to
          * the payment method, such as billing details
          */
         payment_method_data?: {
             /**
-             * The billing details associated with the card. [Recommended] 
+             * The billing details associated with the card. [Recommended]
              */
             billing_details?: BillingDetails,
             card?: {
                 /**
-                 * Converts the provided token into a PaymentMethod to 
+                 * Converts the provided token into a PaymentMethod to
                  * use for the payment.
                  */
                 token: string;
@@ -453,20 +453,20 @@ declare namespace stripe {
 
     interface ConfirmPaymentIntentOptions {
         /**
-         * A return_url may be supplied if you are not planning to use 
-         * stripe.handleCardPayment to complete the payment. If you are 
-         * handling next actions yourself, pass in a return_url. If the 
-         * subsequent action is redirect_to_url, this URL will be used 
+         * A return_url may be supplied if you are not planning to use
+         * stripe.handleCardPayment to complete the payment. If you are
+         * handling next actions yourself, pass in a return_url. If the
+         * subsequent action is redirect_to_url, this URL will be used
          * on the return path for the redirect.
          */
         return_url?: string;
         /**
-         * Use this parameter to supply additional data relevant to 
+         * Use this parameter to supply additional data relevant to
          * the payment method, such as billing details
          */
         payment_method_data?: {
             /**
-             * The billing details associated with the card. [Recommended] 
+             * The billing details associated with the card. [Recommended]
              */
             billing_details?: BillingDetails,
         };
@@ -479,8 +479,8 @@ declare namespace stripe {
          */
         receipt_email?: string;
         /**
-         * If the PaymentIntent is associated with a customer and this parameter 
-         * is set to true, the provided payment method will be attached to the 
+         * If the PaymentIntent is associated with a customer and this parameter
+         * is set to true, the provided payment method will be attached to the
          * customer. Default is false.
          */
         save_payment_method?: boolean;
@@ -489,22 +489,22 @@ declare namespace stripe {
     interface ConfirmPaymentIntentWithoutElementsOptions extends ConfirmPaymentIntentOptions {
         /**
          * Only one of payment_method_data and payment_method is required.
-         * Use payment_method to specify an existing PaymentMethod to use 
+         * Use payment_method to specify an existing PaymentMethod to use
          * for this payment.
          */
         payment_method?: string;
         /**
-         * Use this parameter to supply additional data relevant to 
+         * Use this parameter to supply additional data relevant to
          * the payment method, such as billing details
          */
         payment_method_data?: {
             /**
-             * The billing details associated with the card. [Recommended] 
+             * The billing details associated with the card. [Recommended]
              */
             billing_details?: BillingDetails,
             card?: {
                 /**
-                 * Converts the provided token into a PaymentMethod to 
+                 * Converts the provided token into a PaymentMethod to
                  * use for the payment.
                  */
                 token: string;
@@ -716,7 +716,6 @@ declare namespace stripe {
     }
 
     namespace paymentIntents {
-
         type PaymentIntentStatus =
         | 'requires_payment_method'
         | 'requires_confirmation'
@@ -726,11 +725,11 @@ declare namespace stripe {
         | 'canceled'
         | 'succeeded';
 
-        type PaymentIntentCancelationReason = 
+        type PaymentIntentCancelationReason =
         // User Provided:
-        | 'duplicate' 
-        | 'fraudulent' 
-        | 'requested_by_customer' 
+        | 'duplicate'
+        | 'fraudulent'
+        | 'requested_by_customer'
         | 'abandoned'
         // Generated by Stripe internally:
         | 'failed_invoice'
@@ -744,19 +743,19 @@ declare namespace stripe {
              */
             type: 'redirect_to_url';
             /**
-             * Contains instructions for authenticating a payment by 
+             * Contains instructions for authenticating a payment by
              * redirecting your customer to another page or application.
              */
-            redirect_to_url: { 
+            redirect_to_url: {
                 /**
-                 * If the customer does not exit their browser while 
-                 * authenticating, they will be redirected to this 
+                 * If the customer does not exit their browser while
+                 * authenticating, they will be redirected to this
                  * specified URL after completion.
                  */
-                return_url: string; 
+                return_url: string;
 
                 /**
-                 * The URL you must redirect your customer to in 
+                 * The URL you must redirect your customer to in
                  * order to authenticate the payment.
                  */
                 url: string;
@@ -769,9 +768,9 @@ declare namespace stripe {
              */
             type: 'use_stripe_sdk';
             /**
-             * When confirming a PaymentIntent with Stripe.js, 
-             * Stripe.js depends on the contents of this dictionary 
-             * to invoke authentication flows. The shape of the contents 
+             * When confirming a PaymentIntent with Stripe.js,
+             * Stripe.js depends on the contents of this dictionary
+             * to invoke authentication flows. The shape of the contents
              * is subject to change and is only intended to be used by Stripe.js.
              */
             use_stripe_sdk: any;
@@ -870,16 +869,15 @@ declare namespace stripe {
             last_payment_error: Error | null;
 
             /**
-             * Has the value true if the object exists in live mode or the value false 
+             * Has the value true if the object exists in live mode or the value false
              * if the object exists in test mode.
              */
             livemode: boolean;
 
-        
             metadata: Metadata;
 
             /**
-             * If present, this property tells you what actions you need to take in order 
+             * If present, this property tells you what actions you need to take in order
              * for your customer to fulfill a payment using the provided source.
              */
             next_action:
@@ -887,7 +885,7 @@ declare namespace stripe {
                 | PaymentIntentNextActionRedirectToUrl;
 
             /**
-             * The account (if any) for which the funds of the PaymentIntent are intended. 
+             * The account (if any) for which the funds of the PaymentIntent are intended.
              * See the PaymentIntents Connect usage guide for details.
              */
             on_behalf_of: string | null;
@@ -903,7 +901,7 @@ declare namespace stripe {
             receipt_email: string | null;
 
             /**
-             * ID of the review associated with this PaymentIntent, if any. 
+             * ID of the review associated with this PaymentIntent, if any.
              */
             review: string | null;
 
@@ -913,7 +911,7 @@ declare namespace stripe {
             shipping: ShippingDetails | null;
 
             /**
-             * Extra information about a PaymentIntent. This will appear on your 
+             * Extra information about a PaymentIntent. This will appear on your
              * customer’s statement when this PaymentIntent succeeds in creating a charge.
              */
             statement_descriptor: string | null;
@@ -928,7 +926,7 @@ declare namespace stripe {
              */
             transfer_data: {
                 /**
-                 * The account (if any) the payment will be attributed to for tax reporting, 
+                 * The account (if any) the payment will be attributed to for tax reporting,
                  * and where funds from the payment will be transferred to upon payment success.
                  */
                 destination: string;
@@ -945,7 +943,7 @@ declare namespace stripe {
              * Unique identifier for the object.
              */
             id: string;
-            
+
             /**
              * Value is 'charge'
              */
@@ -974,7 +972,7 @@ declare namespace stripe {
             application_fee: string | null;
 
             /**
-             * The amount of the application fee (if any) for the charge. See the Connect 
+             * The amount of the application fee (if any) for the charge. See the Connect
              * documentation for details.
              */
             application_fee_amount: number | null;
@@ -1054,11 +1052,11 @@ declare namespace stripe {
             invoice: string | null;
 
             /**
-             * Has the value true if the object exists in live mode or the value false if 
+             * Has the value true if the object exists in live mode or the value false if
              * the object exists in test mode.
              */
             livemode: boolean;
-            
+
             metadata: Metadata;
 
             /**
@@ -1179,7 +1177,6 @@ declare namespace stripe {
             transfer_group?: string | null;
         }
 
-
         interface Refund {
             /**
              * Unique identifier for the object.
@@ -1217,14 +1214,14 @@ declare namespace stripe {
             currency: string;
 
             /**
-             * An arbitrary string attached to the object. Often useful for 
+             * An arbitrary string attached to the object. Often useful for
              * displaying to users. (Available on non-card refunds only)
              */
             description?: string;
 
             /**
-             * If the refund failed, this balance transaction describes the 
-             * adjustment made on your account balance that reverses the 
+             * If the refund failed, this balance transaction describes the
+             * adjustment made on your account balance that reverses the
              * initial balance transaction.
              */
             failure_balance_transaction?: string;
@@ -1232,7 +1229,7 @@ declare namespace stripe {
             /**
              * If the refund failed, the reason for refund failure if known
              */
-            failure_reason?: 
+            failure_reason?:
             | 'lost_or_stolen_card'
             | 'expired_or_canceled_card'
             | 'unknown';
@@ -1245,28 +1242,28 @@ declare namespace stripe {
             reason: 'duplicate' | 'fraudulent' | 'requested_by_customer' | null;
 
             /**
-             * This is the transaction number that appears on email 
+             * This is the transaction number that appears on email
              * receipts sent for this refund.
              */
             receipt_number: string | null;
 
             /**
-             * The transfer reversal that is associated with the refund. 
-             * Only present if the charge came from another Stripe account. 
+             * The transfer reversal that is associated with the refund.
+             * Only present if the charge came from another Stripe account.
              * See the Connect documentation for details.
              */
             source_transfer_reversal: string | null;
 
             /**
-             * Status of the refund. For credit card refunds, this can be 
-             * pending, succeeded, or failed. For other types of refunds, 
+             * Status of the refund. For credit card refunds, this can be
+             * pending, succeeded, or failed. For other types of refunds,
              * it can be pending, succeeded, failed, or canceled. Refer to
              * our refunds documentation for more details.
              */
             status: 'pending' | 'succeeded' | 'failed' | 'canceled';
 
             /**
-             * If the accompanying transfer was reversed, the transfer reversal object. 
+             * If the accompanying transfer was reversed, the transfer reversal object.
              * Only applicable if the charge was created using the destination parameter.
              */
             transfer_reversal: string | null;
@@ -1288,7 +1285,7 @@ declare namespace stripe {
             object: 'payment_method';
 
             /**
-             * Billing information associated with the PaymentMethod that may be 
+             * Billing information associated with the PaymentMethod that may be
              * used or required by particular types of payment methods.
              */
             billing_details: BillingDetails;
@@ -1299,25 +1296,25 @@ declare namespace stripe {
             card?: PaymentMethodCard;
 
             /**
-             * If this is an card_present PaymentMethod, this hash contains details 
+             * If this is an card_present PaymentMethod, this hash contains details
              * about the Card Present payment method.
              */
             card_present?: any;
 
             /**
-             * Time at which the object was created. Measured in seconds since the 
+             * Time at which the object was created. Measured in seconds since the
              * Unix epoch.
              */
             created: number;
 
             /**
-             * The ID of the Customer to which this PaymentMethod is saved. 
+             * The ID of the Customer to which this PaymentMethod is saved.
              * This will not be set when the PaymentMethod has not been saved to a Customer.
              */
             customer: string | null;
 
             /**
-             * Has the value true if the object exists in live mode or the value 
+             * Has the value true if the object exists in live mode or the value
              * false if the object exists in test mode.
              */
             livemode: boolean;
@@ -1332,7 +1329,7 @@ declare namespace stripe {
             type: string;
         }
 
-        type paymentMethodCardBrand = 
+        type paymentMethodCardBrand =
         | 'amex'
         | 'diners'
         | 'discover'
@@ -1344,7 +1341,7 @@ declare namespace stripe {
 
         interface PaymentMethodCard {
             /**
-             * Card brand 
+             * Card brand
              * */
             brand: paymentMethodCardBrand;
 
@@ -1358,7 +1355,7 @@ declare namespace stripe {
             };
 
             /**
-             * Two-letter ISO code representing the country of the card. You 
+             * Two-letter ISO code representing the country of the card. You
              * could use this attribute to get a sense of the international
              * breakdown of cards you’ve collected.
              */
@@ -1375,8 +1372,8 @@ declare namespace stripe {
             exp_year: number;
 
             /**
-             * Uniquely identifies this particular card number. You can use 
-             * this attribute to check whether two customers who’ve signed 
+             * Uniquely identifies this particular card number. You can use
+             * this attribute to check whether two customers who’ve signed
              * up with you are using the same card number, for example.
              */
             fingerprint: string;
@@ -1398,7 +1395,7 @@ declare namespace stripe {
              * The last four digits of the card.
              */
             last4: string;
-          
+
             /**
              * Contains details on how this Card maybe be used for 3D Secure authentication.
              */
@@ -1407,16 +1404,16 @@ declare namespace stripe {
             };
 
             /**
-             * If this Card is part of a card wallet, this contains the details of 
+             * If this Card is part of a card wallet, this contains the details of
              * the card wallet.
              */
             wallet: {
-                type: 
-                | 'amex_express_checkout' 
-                | 'apple_pay' 
-                | 'google_pay' 
-                | 'masterpass' 
-                | 'samsung_pay' 
+                type:
+                | 'amex_express_checkout'
+                | 'apple_pay'
+                | 'google_pay'
+                | 'masterpass'
+                | 'samsung_pay'
                 | 'visa_checkout';
                 amex_express_checkout?: any;
                 apple_pay?: any;
@@ -1435,7 +1432,7 @@ declare namespace stripe {
             /**
              * The type of transaction-specific details of the payment method used in the payment
              */
-            type: 
+            type:
             | 'ach_credit_transfer'
             | 'ach_debit'
             | 'alipay'
@@ -1504,7 +1501,7 @@ declare namespace stripe {
         }
 
         interface IdealDetails {
-            bank: 
+            bank:
             | 'abn_amro'
             | 'asn_bank'
             | 'bunq'
@@ -1548,6 +1545,6 @@ declare namespace stripe {
             country: string;
             iban_last4: string;
             verified_name: string;
-        }        
+        }
     }
 }
