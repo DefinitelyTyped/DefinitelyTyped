@@ -716,8 +716,7 @@ declare namespace stripe {
     }
 
     namespace paymentIntents {
-        type PaymentIntentStatus =
-        | 'requires_payment_method'
+        type PaymentIntentStatus = 'requires_payment_method'
         | 'requires_confirmation'
         | 'requires_action'
         | 'processing'
@@ -725,9 +724,7 @@ declare namespace stripe {
         | 'canceled'
         | 'succeeded';
 
-        type PaymentIntentCancelationReason =
-        // User Provided:
-        | 'duplicate'
+        type PaymentIntentCancelationReason = 'duplicate'
         | 'fraudulent'
         | 'requested_by_customer'
         | 'abandoned'
@@ -1229,8 +1226,7 @@ declare namespace stripe {
             /**
              * If the refund failed, the reason for refund failure if known
              */
-            failure_reason?:
-            | 'lost_or_stolen_card'
+            failure_reason?: 'lost_or_stolen_card'
             | 'expired_or_canceled_card'
             | 'unknown';
 
@@ -1329,8 +1325,7 @@ declare namespace stripe {
             type: string;
         }
 
-        type paymentMethodCardBrand =
-        | 'amex'
+        type paymentMethodCardBrand = 'amex'
         | 'diners'
         | 'discover'
         | 'jcb'
@@ -1342,7 +1337,7 @@ declare namespace stripe {
         interface PaymentMethodCard {
             /**
              * Card brand
-             * */
+             */
             brand: paymentMethodCardBrand;
 
             /**
@@ -1408,8 +1403,7 @@ declare namespace stripe {
              * the card wallet.
              */
             wallet: {
-                type:
-                | 'amex_express_checkout'
+                type: 'amex_express_checkout'
                 | 'apple_pay'
                 | 'google_pay'
                 | 'masterpass'
@@ -1432,8 +1426,7 @@ declare namespace stripe {
             /**
              * The type of transaction-specific details of the payment method used in the payment
              */
-            type:
-            | 'ach_credit_transfer'
+            type: 'ach_credit_transfer'
             | 'ach_debit'
             | 'alipay'
             | 'bancontact'
@@ -1501,8 +1494,7 @@ declare namespace stripe {
         }
 
         interface IdealDetails {
-            bank:
-            | 'abn_amro'
+            bank: 'abn_amro'
             | 'asn_bank'
             | 'bunq'
             | 'handelsbanken'
