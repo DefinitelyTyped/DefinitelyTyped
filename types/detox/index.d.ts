@@ -350,7 +350,12 @@ declare global {
              * await element(by.id('scrollView')).scroll(100, 'down');
              * await element(by.id('scrollView')).scroll(100, 'up');
              */
-            scroll(pixels: number, direction: Direction): Promise<Actions<R>>;
+            scroll(
+                pixels: number,
+                direction: Direction,
+                startPositionX?: number,
+                startPositionY?: number,
+            ): Promise<Actions<R>>;
             /**
              * Scroll to edge.
              * @param edge
