@@ -191,7 +191,7 @@ describe("Stripe elements", () => {
             if (result.error) {
                 console.error(result.error.param);
             } else if (result.paymentMethod) {
-                console.log(result.paymentMethod.card && result.paymentMethod.card.number);
+                console.log(result.paymentMethod.card && result.paymentMethod.card.brand);
             }
         });
     });
@@ -246,7 +246,7 @@ describe("Stripe elements", () => {
             if (result.error) {
                 console.error(result.error.message);
             } else if (result.paymentIntent) {
-                console.log(result.paymentIntent.shipping.address);
+                console.log(result.paymentIntent.shipping && result.paymentIntent.shipping.address);
             }
         });
     });

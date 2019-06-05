@@ -8,6 +8,7 @@
 //                 Kamil Gałuszka <https://github.com/galuszkak>
 //                 Stefan Langeder <https://github.com/slangeder>
 //                 Marlos Borges <https://github.com/marlosin>
+//                 Thomas Marek <https://github.com/ttmarek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -26,6 +27,7 @@ declare namespace stripe {
         createSource(element: elements.Element, options?: {owner?: OwnerInfo}): Promise<SourceResponse>;
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
+        redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;        
         createPaymentMethod(
             type: paymentMethod.paymentMethodType, 
@@ -57,10 +59,33 @@ declare namespace stripe {
             options?: ConfirmPaymentIntentWithoutElementsOptions,
         ): Promise<PaymentIntentResponse>;
     }
+    
+    type StripeRedirectResponse = never | {
+        error: Error;
+    }
+
+    type billingAddressCollectionType = 'required' | 'auto' | '';
+    interface StripeCheckoutOptions {	
+        items: StripeCheckoutItem[];	
+        successUrl: string;	
+        cancelUrl: string;	
+        clientReferenceId?: string;	
+        customerEmail?: string;	
+        billingAddressCollection?: billingAddressCollectionType;	
+        sessionId?: string;	
+        locale?: string;	
+    }
+
+    interface StripeCheckoutItem {	
+        sku?: string;	
+        plan?: string;	
+        quantity: number;	
+    }
 
     interface StripeOptions {
       stripeAccount?: string;
       betas?: string[];
+      locale?: string;
     }
 
     interface TokenOptions {
@@ -340,7 +365,7 @@ declare namespace stripe {
     }
 
     interface BillingDetails {
-        address: BillingDetailsAddress | null;
+        address?: BillingDetailsAddress | null;
         email?: string | null;
         name?: string | null;
         phone?: string | null;
@@ -488,7 +513,7 @@ declare namespace stripe {
     }
 
     interface PaymentMethodResponse {
-        payment_method?: paymentMethod.PaymentMethod;
+        paymentMethod?: paymentMethod.PaymentMethod;
         error?: Error;
     }
 
