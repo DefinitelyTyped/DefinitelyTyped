@@ -1,5 +1,5 @@
 // Type definitions for @storybook/react-native 3.0
-// Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/app/react-native
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/app/react-native
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Anton Izmailov <https://github.com/wapgear>
 //                 Alec Hill <https://github.com/alechill>
