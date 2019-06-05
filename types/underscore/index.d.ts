@@ -6,6 +6,7 @@
 //                 Ard Timmerman <https://github.com/confususs>,
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
 //                 Florian Keller <https://github.com/ffflorian>
+//                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3713,6 +3714,11 @@ declare module _ {
         pick(
             object: any,
             ...keys: any[]): any;
+        pick(
+            object: any,
+            keys: any[]): any;
+        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
+        pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
 
         /**
         * @see _.pick
