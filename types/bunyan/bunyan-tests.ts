@@ -6,6 +6,14 @@ const ringBufferOptions: Logger.RingBufferOptions = {
 const ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
 ringBuffer.write("hello");
 
+const rotatingFileStreamOptions: Logger.RotatingFileStreamOptions = {
+    period: "1d",
+    count: 10,
+    path: "path"
+};
+const rotatingFileStream: Logger.RotatingFileStream = new Logger.RotatingFileStream(rotatingFileStreamOptions);
+rotatingFileStream.write("hello");
+
 let level: number;
 level = Logger.resolveLevel("trace");
 level = Logger.resolveLevel("debug");
@@ -47,6 +55,11 @@ const options: Logger.LoggerOptions = {
     }, {
         type: 'raw',
         stream: ringBuffer,
+        level: Logger.ERROR,
+        reemitErrorEvents: true
+    }, {
+        type: 'raw',
+        stream: rotatingFileStream,
         level: Logger.ERROR,
         reemitErrorEvents: true
     }]

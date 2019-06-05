@@ -22,8 +22,8 @@ const balloonLayout = ymaps.templateLayoutFactory.createClass(
 	"<div class=\"map-marker-balloon\"></div>",
 	{
 		build(this: ymaps.ILayout): void {
-			(<ymaps.layout.templateBased.Base> (<any> this.constructor).superclass).build.call(this);
-			this.getParentElement().children.item(0).children.item(0).appendChild((<any> this.getData()).properties.get("balloonContent"));
+			((this.constructor as any).superclass as ymaps.layout.templateBased.Base).build.call(this);
+			this.getParentElement().children.item(0)!.children.item(0)!.appendChild((this.getData() as any).properties.get("balloonContent"));
 		}
 	}
 );
@@ -52,6 +52,12 @@ mapMarker.events.add("click", (event: ymaps.Event) => {
 
 map.geoObjects.add(mapMarker);
 
-map.setCenter((<ymaps.IPointGeometry> mapMarker.geometry).getCoordinates() || [55.76, 37.64]);
+map.setCenter((mapMarker.geometry as ymaps.IPointGeometry).getCoordinates() || [55.76, 37.64]);
+
+map.layers.each((layer) => {
+	if (layer.getBrightness) {
+		layer.getBrightness();
+    }
+});
 
 map.setZoom(13);

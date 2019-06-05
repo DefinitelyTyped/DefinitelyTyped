@@ -6,7 +6,7 @@
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.5
 
 /// <reference types="microsoft-ajax" />
 
@@ -106,34 +106,29 @@ declare namespace SP {
         static resizeImageToSquareLength(imgElement: HTMLImageElement, squareLength: number): void;
     }
 
-    interface PageContextInfo {
-        new(): PageContextInfoInstance;
-        get_siteServerRelativeUrl(): string;
-        get_webServerRelativeUrl(): string;
-        get_webAbsoluteUrl(): string;
-        get_serverRequestPath(): string;
-        get_siteAbsoluteUrl(): string;
-        get_webTitle(): string;
-        get_tenantAppVersion(): string;
-        get_isAppWeb(): boolean;
-        get_webLogoUrl(): string;
-        get_webLanguage(): number;
-        get_currentLanguage(): number;
-        get_pageItemId(): number;
-        get_pageListId(): string;
-        get_webPermMasks(): { High: number; Low: number; };
-        get_currentCultureName(): string;
-        get_currentUICultureName(): string;
-        get_clientServerTimeDelta(): number;
-        get_userLoginName(): string;
-        get_webTemplate(): string;
+    class PageContextInfo {
+        constructor();
+        static get_siteServerRelativeUrl(): string;
+        static get_webServerRelativeUrl(): string;
+        static get_webAbsoluteUrl(): string;
+        static get_serverRequestPath(): string;
+        static get_siteAbsoluteUrl(): string;
+        static get_webTitle(): string;
+        static get_tenantAppVersion(): string;
+        static get_isAppWeb(): boolean;
+        static get_webLogoUrl(): string;
+        static get_webLanguage(): number;
+        static get_currentLanguage(): number;
+        static get_pageItemId(): number;
+        static get_pageListId(): string;
+        static get_webPermMasks(): { High: number; Low: number; };
+        static get_currentCultureName(): string;
+        static get_currentUICultureName(): string;
+        static get_clientServerTimeDelta(): number;
+        static get_userLoginName(): string;
+        static get_webTemplate(): string;
+        static get_pagePersonalizationScope(): string;
     }
-
-    interface PageContextInfoInstance {
-        get_pagePersonalizationScope(): string;
-    }
-    let PageContextInfo: PageContextInfo;
-
     class ContextPermissions {
         has(perm: number): boolean;
         hasPermissions(high: number, low: number): boolean;
@@ -1401,10 +1396,10 @@ declare namespace SPClientTemplates {
         /** Template overrides */
         Templates?: TemplateOverrides;
 
-        /** �allbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called before rendering starts. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPreRender?: RenderCallback | RenderCallback[];
 
-        /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
+        /** Callbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: RenderCallback | RenderCallback[];
 
         /** View style (SPView.StyleID) for which the templates should be applied.
@@ -2139,7 +2134,8 @@ declare namespace SP {
         constructor();
     }
     /** Provides a base class for a collection of objects on a remote client. */
-    interface ClientObjectCollection<T> extends SP.ClientObject, IEnumerable<T> {
+    class ClientObjectCollection<T> extends SP.ClientObject implements IEnumerable<T> {
+        constructor();
         get_areItemsAvailable(): boolean;
         /** Gets the data for all of the items in the collection. */
         retrieveItems(): SP.ClientObjectPrototype;
@@ -2152,20 +2148,11 @@ declare namespace SP {
         getItemAtIndex(index: number): T;
         fromJson(obj: any): void;
     }
-    interface ClientObjectCollectionConstructor {
-        new<T>(): ClientObjectCollection<T>;
-    }
-    let ClientObjectCollection: ClientObjectCollectionConstructor;
-
-    interface ClientObjectList<T> extends SP.ClientObjectCollection<T> {
-        new(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
+    class ClientObjectList<T> extends SP.ClientObjectCollection<T> {
+        constructor(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any);
         fromJson(initValue: any): void;
         customFromJson(initValue: any): boolean;
     }
-    interface ClientObjectListConstructor {
-        new<T>(context: SP.ClientRuntimeContext, objectPath: SP.ObjectPath, childItemType: any): ClientObjectList<T>;
-    }
-    let ClientObjectList: ClientObjectListConstructor;
     class ClientObjectPrototype {
         retrieve(propertyNames?: string[]): void;
         retrieveObject(propertyName: string): SP.ClientObjectPrototype;
@@ -2209,8 +2196,8 @@ declare namespace SP {
     }
     class ClientRequestSucceededEventArgs extends SP.ClientRequestEventArgs {
     }
-    interface ClientRuntimeContext extends Sys.IDisposable {
-        new(serverRelativeUrlOrFullUrl: string);
+    class ClientRuntimeContext implements Sys.IDisposable {
+        constructor(serverRelativeUrlOrFullUrl: string);
         get_url(): string;
         get_viaUrl(): string;
         set_viaUrl(value: string): void;
@@ -2447,16 +2434,13 @@ declare namespace SP {
         assemblyVersion: string;
         wssMajorVersion: string;
     }
-    interface ClientContext extends SP.ClientRuntimeContext {
+    class ClientContext extends SP.ClientRuntimeContext {
+        constructor(serverRelativeUrlOrFullUrl?: string);
         get_web(): SP.Web;
         get_site(): SP.Site;
         get_serverVersion(): string;
+        static get_current(): SP.ClientContext;
     }
-    interface ClientContextConstructor {
-        new(serverRelativeUrlOrFullUrl?: string): ClientContext;
-        get_current(): SP.ClientContext;
-    }
-    let ClientContext: ClientContextConstructor;
     enum ULSTraceLevel {
         verbose,
     }
@@ -3655,7 +3639,7 @@ declare namespace SP {
         get_baseTemplate(): number;
         /** Gets base type for the list. */
         get_baseType(): SP.BaseType;
-        /** Gets a value that specifies the override of the web application�s BrowserFileHandling property at the list level. */
+        /** Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. */
         get_browserFileHandling(): SP.BrowserFileHandling;
         /** Gets the content types that are associated with the list. */
         get_contentTypes(): SP.ContentTypeCollection;
@@ -4402,18 +4386,15 @@ declare namespace SP {
         update(): void;
         deleteObject(): void;
     }
-    interface RoleDefinitionBindingCollectionConstructor {
-        new(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
-        newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
-    }
-    interface RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+    class RoleDefinitionBindingCollection extends SP.ClientObjectCollection<RoleDefinition> {
+        constructor(context: SP.ClientRuntimeContext);
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
         add(roleDefinition: SP.RoleDefinition): void;
         remove(roleDefinition: SP.RoleDefinition): void;
         removeAll(): void;
+        static newObject(context: SP.ClientRuntimeContext): SP.RoleDefinitionBindingCollection;
     }
-    let RoleDefinitionBindingCollection: RoleDefinitionBindingCollectionConstructor;
     interface RoleDefinitionCollection extends SP.ClientObjectCollection<RoleDefinition> {
         itemAt(index: number): SP.RoleDefinition;
         get_item(index: number): SP.RoleDefinition;
@@ -5308,17 +5289,14 @@ declare namespace Microsoft.SharePoint.Client.Search {
             exportPopularQueries: (web: SP.Web, sourceId: SP.Guid) => SP.JsonObjectResult;
         }
 
-        interface StringCollection extends SP.ClientObjectCollection<string> {
-            itemAt: (index: number) => string;
-            get_item: (index: number) => string;
-            get_childItemType: () => typeof String;
-            add: (property: string) => void;
-            clear: () => void;
+        class StringCollection extends SP.ClientObjectCollection<string> {
+            constructor(context: SP.ClientContext);
+            itemAt(index: number): string;
+            get_item(index: number): string;
+            get_childItemType(): typeof String;
+            add(property: string): void;
+            clear(): void;
         }
-        interface StringCollectionConstructor {
-            new(context: SP.ClientContext): StringCollection;
-        }
-        let StringCollection: StringCollectionConstructor;
 
         class QueryPersonalizationData extends SP.ClientObject {
             // It's really empty;
@@ -5393,11 +5371,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
             static queryPropertyValueToObject: (val: QueryPropertyValue) => any;
         }
         interface ReorderingRuleCollection extends SP.ClientObjectCollection<ReorderingRule> {
-            itemAt: (index: number) => ReorderingRule;
-            get_item: (index: number) => ReorderingRule;
-            get_childItemType: () => typeof ReorderingRule;
-            add: (property: ReorderingRule) => void;
-            clear: () => void;
+            itemAt(index: number): ReorderingRule;
+            get_item(index: number): ReorderingRule;
+            get_childItemType(): typeof ReorderingRule;
+            add(property: ReorderingRule): void;
+            clear(): void;
         }
 
         enum ReorderingRuleMatchType {
@@ -5424,11 +5402,11 @@ declare namespace Microsoft.SharePoint.Client.Search {
         }
 
         interface SortCollection extends SP.ClientObjectCollection<Sort> {
-            itemAt: (index: number) => Sort;
-            get_item: (index: number) => Sort;
-            get_childItemType: () => typeof Sort;
-            add: (strProperty: string, sortDirection: SortDirection) => void;
-            clear: () => void;
+            itemAt(index: number): Sort;
+            get_item(index: number): Sort;
+            get_childItemType(): typeof Sort;
+            add(strProperty: string, sortDirection: SortDirection): void;
+            clear(): void;
         }
 
         enum SortDirection {
@@ -6167,10 +6145,10 @@ declare namespace SP {
             get_name(): string;
             /** Provides the attachment name. */
             set_name(value: string): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             get_previewUri(): string;
-            /** Specifies the URI of the attachment�s preview thumbnail.
+            /** Specifies the URI of the attachment's preview thumbnail.
                 This property is only present if the AttachmentKind is Document or Video. */
             set_previewUri(value: string): string;
             /** Provides the attachment URI. */
@@ -6928,15 +6906,12 @@ declare namespace SP {
             getValidatedString(value: TaxonomyFieldValue): SP.StringResult;
         }
 
-        interface TaxonomyFieldValueCollection extends SP.ClientObjectCollection<TaxonomyFieldValue> {
+        class TaxonomyFieldValueCollection extends SP.ClientObjectCollection<TaxonomyFieldValue> {
+            constructor(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field);
             itemAt(index: number): TaxonomyFieldValue;
             get_item(index: number): TaxonomyFieldValue;
             populateFromLabelGuidPairs(text: string): void;
         }
-        interface TaxonomyFieldValueCollectionConstructor {
-            new(context: SP.ClientContext, fieldValue: string, creatingField: SP.Field): TaxonomyFieldValueCollection;
-        }
-        let TaxonomyFieldValueCollection: TaxonomyFieldValueCollectionConstructor;
 
         class TaxonomyFieldValue extends SP.ClientValueObject {
             get_label(): string;
@@ -7581,7 +7556,7 @@ declare namespace SP {
 
         /** Provides methods for operations related to people.
             Note: The SocialFollowingManager object is the recommended object for performing Following People and Following Content tasks.
-            However, PeopleManager provides some methods that SocialFollowingManager doesn�t. */
+            However, PeopleManager provides some methods that SocialFollowingManager doesn't. */
         class PeopleManager extends SP.ClientObject {
             constructor(context: SP.ClientRuntimeContext);
             static getTrendingTags(context: SP.ClientRuntimeContext): HashTagCollection;
@@ -8353,7 +8328,7 @@ declare namespace SP.WorkflowServices {
         get_xaml(): string;
         /** XAML definition of the workflow */
         set_xaml(value: string): string;
-        /** This method adds a key-value pair (propertyName, value) to the workflow definition object�s property bag.  */
+        /** This method adds a key-value pair (propertyName, value) to the workflow definition object's property bag.  */
         setProperty(propertyName: string, value: string): void;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;

@@ -26,8 +26,7 @@ function officialExamples() {
 function advancedOptions() {
     const parser = new SparqlJs.Parser(
         {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
-        'http://example.com',
-        {collapseGroups: true}
+        'http://example.com'
     );
     const generator = new SparqlJs.Generator({allPrefixes: false});
 }
@@ -119,6 +118,52 @@ function basicQueries() {
                     args: [foo, bar],
                 }
             }
+        ],
+    };
+}
+
+/**
+ * Update query structure
+ */
+function updateQueries() {
+    const bgp: SparqlJs.BgpPattern = {
+        type: 'bgp',
+        triples: [],
+    };
+
+    const update: SparqlJs.Update = {
+        type: 'update',
+        prefixes: {
+            rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+        },
+        updates: [
+            {
+                updateType: 'insertdelete',
+                graph: 'http://example.com/foo',
+                insert: [bgp],
+                delete: [bgp],
+                where: [],
+            },
+            {
+                type: 'copy',
+                silent: true,
+                source: {
+                    type: 'graph',
+                    name: 'http://example.com/foo',
+                },
+                destination: {
+                    type: 'graph',
+                    default: true,
+                },
+            },
+            {
+                type: 'clear',
+                silent: false,
+                graph: {
+                    type: 'graph',
+                    all: true,
+                },
+            },
         ],
     };
 }

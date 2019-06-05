@@ -7,7 +7,7 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component<{x: string}> { }
 
 describe('ReactDOM', () => {
     it('render', () => {
@@ -30,6 +30,8 @@ describe('ReactDOM', () => {
         const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
+        ReactDOM.findDOMNode(null);
+        ReactDOM.findDOMNode(undefined);
     });
 
     it('createPortal', () => {
@@ -42,7 +44,14 @@ describe('ReactDOM', () => {
             }
         }
 
-        ReactDOM.createPortal(React.createElement('div'), portalTarget);
+        ReactDOM.createPortal(<div />, document.createElement('div'));
+        ReactDOM.createPortal(<div />, document.createElement('div'), null);
+        ReactDOM.createPortal(<div />, document.createElement('div'), 'key');
+
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'));
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), null);
+        ReactDOM.createPortal(React.createElement('div'), document.createElement('div'), 'key');
+
         ReactDOM.render(<ClassComponent />, rootElement);
     });
 });
@@ -169,6 +178,25 @@ describe('React dom test utils', () => {
             const component = React.createElement(TestComponent);
             const shallowRenderer = ReactTestUtils.createRenderer();
             shallowRenderer.getRenderOutput();
+        });
+    });
+
+    describe('act', () => {
+        it('accepts a sync callback that is void', () => {
+            ReactTestUtils.act(() => {});
+        });
+        it('rejects an async callback even if void', () => {
+            // $ExpectError
+            ReactTestUtils.act(async () => {});
+        });
+        it('rejects a callback that returns null', () => {
+            // $ExpectError
+            ReactTestUtils.act(() => null);
+        });
+        it('returns a Promise-like that errors out on use', () => {
+            const result = ReactTestUtils.act(() => {});
+            // $ExpectError
+            Promise.resolve(result);
         });
     });
 });

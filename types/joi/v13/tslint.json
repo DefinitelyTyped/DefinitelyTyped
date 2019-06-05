@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "ban-types": false,
+        "no-empty-interface": false,
+        "no-self-import": false,
+        "unified-signatures": false
+    }
+}

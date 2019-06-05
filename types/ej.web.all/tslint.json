@@ -37,6 +37,7 @@
     "radix": false,
     "prefer-for-of": false,
     "one-line": false,
-    "no-unnecessary-type-assertion": false
+    "no-unnecessary-type-assertion": false,
+    "no-angle-bracket-type-assertion": false
   }
 }

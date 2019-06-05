@@ -29,18 +29,19 @@ export type InputType =
   | 'color';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  [key: string]: any;
   type?: InputType;
   bsSize?: 'lg' | 'sm';
   state?: string;
   valid?: boolean;
   invalid?: boolean;
   tag?: React.ReactType;
-  innerRef?: string | ((instance: HTMLInputElement) => any);
+  innerRef?: React.Ref<HTMLInputElement>;
   plaintext?: boolean;
   addon?: boolean;
   className?: string;
   cssModule?: CSSModule;
 }
 
-declare class Input extends React.Component<InputProps> {}
+declare class Input<T> extends React.Component<InputProps> {}
 export default Input;

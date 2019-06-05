@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -27,12 +27,10 @@ import { MDCSelectionControl } from 'material__selection-control';
 import MDCCheckboxFoundation from './foundation';
 import { MDCRipple } from 'material__ripple';
 
-export {MDCCheckboxAdapter, MDCCheckboxFoundation};
+export { MDCCheckboxAdapter, MDCCheckboxFoundation };
 
 export class MDCCheckbox extends MDCComponent<MDCCheckboxAdapter, MDCCheckboxFoundation> implements MDCSelectionControl {
     static attachTo(root: Element): MDCCheckbox;
-
-    getDefaultFoundation(): MDCCheckboxFoundation;
 
     readonly ripple: MDCRipple;
 
@@ -43,6 +41,4 @@ export class MDCCheckbox extends MDCComponent<MDCCheckboxAdapter, MDCCheckboxFou
     disabled: boolean;
 
     value: string;
-
-    destroy(): void;
 }

@@ -1,4 +1,4 @@
-import compile from "idyll-compiler";
+import compile = require("idyll-compiler");
 
 // Dummy log
 const log = (msg: string) => {};

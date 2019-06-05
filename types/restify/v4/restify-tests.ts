@@ -285,11 +285,11 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     restify.auditLogger({ log: () => { } })(req, res, route, err);
 });
 
-(<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
+(restify as any).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
 
-(<any> restify).defaultResponseHeaders = false;
+(restify as any).defaultResponseHeaders = false;
 
 // RESTIFY Client Tests
 

@@ -1,13 +1,31 @@
-// Type definitions for expo 26.0
-// Project: https://github.com/expo/expo-sdk
+// Type definitions for expo 32.0
+// Project: https://github.com/expo/expo/tree/master/packages/expo
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
 //                 Jan Aagaard <https://github.com/janaagaard75>
 //                 Sergio Sánchez <https://github.com/ssanchezmarc>
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
+//                 Moshe Feuchtwanger <https://github.com/moshfeu>
+//                 Michael Prokopchuk <https://github.com/prokopcm>
+//                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
+//                 Martin Olsson <https://github.com/mo>
+//                 Levan Basharuli <https://github.com/levansuper>
+//                 Pavel Ihm <https://github.com/ihmpavel>
+//                 Bartosz Dotryw <https://github.com/burtek>
+//                 Jason Killian <https://github.com/jkillian>
+//                 Satyajit Sahoo <https://github.com/satya164>
+//                 Vinit Sood <https://github.com/vinitsood>
+//                 Mattias Sämskar <https://github.com/mattiassamskar>
+//                 Julian Hundeloh <https://github.com/jaulz>
+//                 Matevz Poljanc <https://github.com/matevzpoljanc>
+//                 Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
+
+export * from 'react-native-maps';
+export { default as MapView } from 'react-native-maps';
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -15,6 +33,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -23,8 +42,7 @@ import {
 } from 'react-native';
 
 export type Axis = number;
-export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
+export type BarCodeScannedCallback = (result: { type: string; data: string; }) => void;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -34,6 +52,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -186,6 +205,9 @@ export interface AppLoadingProps {
 
     /** If `startAsync` throws an error, it is caught and passed into the function provided to `onError`. */
     onError?: (error: Error) => void;
+
+    /**  Whether to hide the native splash screen as soon as you unmount the AppLoading component. */
+    autoHideSplash?: boolean;
 }
 
 /**
@@ -398,6 +420,9 @@ export namespace Audio {
 
         /** an enum selecting how your experience’s audio should interact with the audio from other apps on Android: */
         interruptionModeAndroid: InterruptionModeAndroid;
+
+        /** Boolean selecting if your experience’s audio should route to earpiece on Android: */
+        playThroughEarpieceAndroid: boolean;
     }
 
     function setIsEnabledAsync(value: boolean): Promise<void>;
@@ -414,7 +439,7 @@ export namespace Audio {
          * - `sound`: The newly created and loaded Sound object.
          * - `status`: The PlaybackStatus of the Sound object. See the AV documentation for further information.
          */
-        static create(
+        static createAsync(
             /**
              * The source of the sound. The following forms are supported:
              *
@@ -547,14 +572,16 @@ export type PlaybackStatus = {
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
-    positionMillis?: number;
-    shouldPlay?: boolean;
-    rate?: FloatFromZeroToOne;
-    shouldCorrectPitch?: boolean;
-    volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
     isLooping?: boolean;
+    isMuted?: boolean;
+    positionMillis?: number;
+    progressUpdateIntervalMillis?: number;
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+    rate?: number;
+    shouldCorrectPitch?: boolean;
+    shouldPlay?: boolean;
+    /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+    volume?: number;
 }
 
 export type PlaybackSource = RequireSource | { uri: string } | Asset;
@@ -667,7 +694,6 @@ export class PlaybackObject {
     setRateAsync(
         /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
         rate: number,
-
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
     ): Promise<PlaybackStatus>;
@@ -696,6 +722,24 @@ export class PlaybackObject {
 }
 // #endregion
 
+// #region BackgroundFetch
+/**
+ * BackgroundFetch
+ */
+export namespace BackgroundFetch {
+    function getStatusAsync(): Promise<Status>;
+    function registerTaskAsync(taskName: string): Promise<void>;
+    function unregisterTaskAsync(taskName: string): Promise<void>;
+    function setMinimumIntervalAsync(minimumInterval: number): Promise<void>;
+
+    enum Status {
+        Restricted = 1,
+        Denied = 2,
+        Available = 3
+    }
+}
+// #endregion
+
 // #region BarCodeScanner
 /**
  * BarCodeScanner
@@ -704,7 +748,7 @@ export interface BarCodeScannerProps extends ViewProps {
     type?: 'front' | 'back';
     torchMode?: 'on' | 'off';
     barCodeTypes?: string[];
-    onBarCodeRead?: BarCodeReadCallback;
+    onBarCodeScanned?: BarCodeScannedCallback;
 }
 
 export class BarCodeScanner extends Component<BarCodeScannerProps> {
@@ -729,13 +773,32 @@ export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
- * Brightness
+ * An API to get and set screen brightness.
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
-    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    /** Sets screen brightness. */
+    function setBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
+
+    /**
+     * Gets screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current screen brightness.
+     */
+    function getBrightnessAsync(): Promise<number>;
+
+    /**
+     * Gets global system screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current system screen brightness.
+     */
+    function getSystemBrightnessAsync(): Promise<number>;
+
+    /** Sets global system screen brightness, requires `WRITE_SETTINGS` permissions on Android. */
+    function setSystemBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
 }
 
 // #region Camera
@@ -743,7 +806,10 @@ export namespace Brightness {
  * Camera
  */
 export interface PictureOptions {
-    quality?: number;
+  quality?: number;
+  base64?: boolean;
+  exif?: boolean;
+  onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -761,37 +827,63 @@ export interface RecordingOptions {
 }
 
 export class CameraObject {
-    takePictureAsync(options: PictureOptions): Promise<PictureResponse>;
+    takePictureAsync(options?: PictureOptions): Promise<PictureResponse>;
     recordAsync(options: RecordingOptions): Promise<{ uri: string; }>;
     stopRecording(): void;
     getSupportedRatiosAsync(): Promise<string[]>; // Android only
 }
 
 export interface CameraProps extends ViewProps {
-    zoom?: FloatFromZeroToOne;
+    zoom?: number;
     ratio?: string;
-    focusDepth?: FloatFromZeroToOne;
-    type?: string | number;
+    /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
+    focusDepth?: number;
+    type?: number | string;
     onCameraReady?: () => void;
-    onBarCodeRead?: BarCodeReadCallback;
-    faceDetectionMode?: number;
-    flashMode?: string | number;
-    barCodeTypes?: Array<string | number>;
-    whiteBalance?: string | number;
-    faceDetectionLandmarks?: number;
-    autoFocus?: string | number | boolean;
-    faceDetectionClassifications?: number;
-    onMountError?: () => void;
+    useCamera2Api?: boolean;
+    flashMode?: number | string;
+    whiteBalance?: number | string;
+    autoFocus?: string | boolean | number;
+    pictureSize?: string;
+    videoStabilizationMode?: number;
+    onMountError?: (error: { message: string }) => void;
+    barCodeScannerSettings?: { barCodeTypes?: Array<string | number>; };
+    onBarCodeScanned?: BarCodeScannedCallback;
+    faceDetectorSettings?: {
+        mode?: number;
+        runClassifications?: number;
+        detectLandmarks?: number;
+    };
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
     ref?: Ref<CameraObject>;
 }
 
 export interface CameraConstants {
-    readonly Type: string;
-    readonly FlashMode: string;
-    readonly AutoFocus: string;
-    readonly WhiteBalance: string;
-    readonly VideoQuality: string;
+    readonly Type: {
+        back: string;
+        front: string;
+    };
+    readonly FlashMode: {
+        on: string;
+        off: string;
+        auto: string;
+        torch: string;
+    };
+    readonly AutoFocus: {
+        on: string;
+        off: string;
+    };
+    readonly WhiteBalance: {
+        auto: string;
+        sunny: string;
+        cloudy: string;
+        shadow: string;
+        fluorescent: string;
+        incandescent: string;
+    };
+    readonly VideoQuality: {
+        [videoQuality: string]: number;
+    };
     readonly BarCodeType: {
         aztec: string;
         codabar: string;
@@ -827,6 +919,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -877,7 +970,7 @@ export namespace Constants {
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
+            barStyle?: 'light-content' | 'dark-content',
             backgroundColor?: string
         };
         androidShowExponentNotificationInShellApp?: boolean;
@@ -941,156 +1034,487 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**
  * Contacts
  */
 export namespace Contacts {
-    type PhoneNumbers = 'phoneNumbers';
-    type Emails = 'emails';
-    type Addresses = 'addresses';
-    type Image = 'image';
-    type Thumbnail = 'thumbnail';
-    type Note = 'note';
-    type Birthday = 'birthday';
-    type NonGregorianBirthday = 'nonGregorianBirthday';
-    type NamePrefix = 'namePrefix';
-    type NameSuffix = 'nameSuffix';
-    type PhoneticFirstName = 'phoneticFirstName';
-    type PhoneticMiddleName = 'phoneticMiddleName';
-    type PhoneticLastName = 'phoneticLastName';
-    type SocialProfiles = 'socialProfiles';
-    type InstantMessageAddresses = 'instantMessageAddresses';
-    type UrlAddresses = 'urlAddresses';
-    type Dates = 'dates';
-    type Relationships = 'relationships';
+    // Constants
 
-    const PHONE_NUMBERS: PhoneNumbers;
-    const EMAILS: Emails;
-    const ADDRESSES: Addresses;
-    const IMAGE: Image;
-    const THUMBNAIL: Thumbnail;
-    const NOTE: Note;
-    const BIRTHDAY: Birthday;
-    const NON_GREGORIAN_BIRTHDAY: NonGregorianBirthday;
-    const NAME_PREFIX: NamePrefix;
-    const NAME_SUFFIX: NameSuffix;
-    const PHONETIC_FIRST_NAME: PhoneticFirstName;
-    const PHONETIC_MIDDLE_NAME: PhoneticMiddleName;
-    const PHONETIC_LAST_NAME: PhoneticLastName;
-    const SOCIAL_PROFILES: SocialProfiles;
-    const IM_ADDRESSES: InstantMessageAddresses;
-    const URLS: UrlAddresses;
-    const DATES: Dates;
-    const RELATIONSHIPS: Relationships;
+    namespace Fields {
+        type ID = 'id';
+        type Name = 'name';
+        type FirstName = 'firstName';
+        type MiddleName = 'middleName';
+        type LastName = 'lastName';
+        type NamePrefix = 'namePrefix';
+        type NameSuffix = 'nameSuffix';
+        type PhoneticFirstName = 'phoneticFirstName';
+        type PhoneticMiddleName = 'phoneticMiddleName';
+        type PhoneticLastName = 'phoneticLastName';
+        type Birthday = 'birthday';
+        type Emails = 'emails';
+        type PhoneNumbers = 'phoneNumbers';
+        type Addresses = 'addresses';
+        type InstantMessageAddresses = 'instantMessageAddresses';
+        type UrlAddresses = 'urlAddresses';
+        type Company = 'company';
+        type JobTitle = 'jobTitle';
+        type Department = 'department';
+        type ImageAvailable = 'imageAvailable';
+        type Image = 'image';
+        type Note = 'note';
+        type Dates = 'dates';
+        type Relationships = 'relationships';
+        type Nickname = 'nickname';
+        type RawImage = 'rawImage';
+        type MaidenName = 'maidenName';
+        type ContactType = 'contactType';
+        type SocialProfiles = 'socialProfiles';
+        type NonGregorianBirthday = 'nonGregorianBirthday';
 
-    type FieldType = PhoneNumbers | Emails | Addresses | Image | Thumbnail |
-        Note | Birthday | NonGregorianBirthday | NamePrefix | NameSuffix |
-        PhoneticFirstName | PhoneticMiddleName | PhoneticLastName | SocialProfiles |
-        InstantMessageAddresses | UrlAddresses | Dates | Relationships;
-
-    interface Options {
-        pageSize?: number;
-        pageOffset?: number;
-        fields?: FieldType[];
+        const ID: ID;
+        const Name: Name;
+        const FirstName: FirstName;
+        const MiddleName: MiddleName;
+        const LastName: LastName;
+        const NamePrefix: NamePrefix;
+        const NameSuffix: NameSuffix;
+        const PhoneticFirstName: PhoneticFirstName;
+        const PhoneticMiddleName: PhoneticMiddleName;
+        const PhoneticLastName: PhoneticLastName;
+        const Birthday: Birthday;
+        const Emails: Emails;
+        const PhoneNumbers: PhoneNumbers;
+        const Addresses: Addresses;
+        const InstantMessageAddresses: InstantMessageAddresses;
+        const UrlAddresses: UrlAddresses;
+        const Company: Company;
+        const JobTitle: JobTitle;
+        const Department: Department;
+        const ImageAvailable: ImageAvailable;
+        const Image: Image;
+        const Note: Note;
+        const Dates: Dates;
+        const Relationships: Relationships;
+        const Nickname: Nickname;
+        const RawImage: RawImage;
+        const MaidenName: MaidenName;
+        const ContactType: ContactType;
+        const SocialProfiles: SocialProfiles;
+        const NonGregorianBirthday: NonGregorianBirthday;
     }
 
+    type Field =
+        | Fields.ID
+        | Fields.Name
+        | Fields.FirstName
+        | Fields.MiddleName
+        | Fields.LastName
+        | Fields.NamePrefix
+        | Fields.NameSuffix
+        | Fields.PhoneticFirstName
+        | Fields.PhoneticMiddleName
+        | Fields.PhoneticLastName
+        | Fields.Birthday
+        | Fields.Emails
+        | Fields.PhoneNumbers
+        | Fields.Addresses
+        | Fields.InstantMessageAddresses
+        | Fields.UrlAddresses
+        | Fields.Company
+        | Fields.JobTitle
+        | Fields.Department
+        | Fields.ImageAvailable
+        | Fields.Image
+        | Fields.Note
+        | Fields.Dates
+        | Fields.Relationships
+        | Fields.Nickname
+        | Fields.RawImage
+        | Fields.MaidenName
+        | Fields.ContactType
+        | Fields.SocialProfiles
+        | Fields.NonGregorianBirthday;
+
+    namespace FormTypes {
+        type New = 'new';
+        type Unknown = 'unknown';
+        type Default = 'default';
+
+        const New: New;
+        const Unknown: Unknown;
+        const Default: Default;
+    }
+
+    type FormType = FormTypes.New | FormTypes.Unknown | FormTypes.Default;
+
+    /**
+     * iOS Only
+     */
+    namespace ContactTypes {
+        type Person = 'person';
+        type Company = 'company';
+
+        const Person: Person;
+        const Company: Company;
+    }
+
+    type ContactType = ContactTypes.Person | ContactTypes.Company;
+
+    namespace SortTypes {
+        type FirstName = 'firstName';
+        type LastName = 'lastName';
+        type UserDefault = 'userDefault';
+
+        const FirstName: FirstName;
+        const LastName: LastName;
+        const UserDefault: UserDefault;
+    }
+
+    type SortType = SortTypes.FirstName | SortTypes.LastName | SortTypes.UserDefault;
+
+    /**
+     * iOS Only
+     */
+    namespace ContainerTypes {
+        type Local = 'local';
+        type Exchange = 'exchange';
+        type CardDAV = 'cardDAV';
+        type Unassigned = 'unassigned';
+
+        const Local: Local;
+        const Exchange: Exchange;
+        const CardDAV: CardDAV;
+        const Unassigned: Unassigned;
+    }
+
+    type ContainerType = ContainerTypes.Local | ContainerTypes.Exchange | ContainerTypes.CardDAV | ContainerTypes.Unassigned;
+
+    namespace CalendarFormats {
+        type Gregorian = 'gregorian';
+        type Chinese = 'chinese';
+        type Hebrew = 'hebrew';
+        type Islamic = 'islamic';
+
+        const Gregorian: Gregorian;
+        const Chinese: Chinese;
+        const Hebrew: Hebrew;
+        const Islamic: Islamic;
+    }
+
+    type CalendarFormat = CalendarFormats.Gregorian | CalendarFormats.Chinese | CalendarFormats.Hebrew | CalendarFormats.Islamic;
+
+    // Types
+
+    /**
+     * A set of fields that define information about a single entity.
+     */
     interface Contact {
         id: string;
-        contactType: string;
         name: string;
         firstName?: string;
         middleName?: string;
         lastName?: string;
-        previousLastName?: string;
+        maidenName?: string;
         namePrefix?: string;
         nameSuffix?: string;
         nickname?: string;
         phoneticFirstName?: string;
         phoneticMiddleName?: string;
         phoneticLastName?: string;
-        emails?: Array<{
-            email?: string;
-            primary?: boolean;
-            label: string;
-            id: string;
-        }>;
-        phoneNumbers?: Array<{
-            number?: string;
-            primary?: boolean;
-            digits?: string;
-            countryCode?: string;
-            label: string;
-            id: string;
-        }>;
-        addresses?: Array<{
-            street?: string;
-            city?: string;
-            country?: string;
-            region?: string;
-            neighborhood?: string;
-            postalCode?: string;
-            poBox?: string;
-            isoCountryCode?: string;
-            label: string;
-            id: string;
-        }>;
-        socialProfiles?: Array<{
-            service?: string;
-            localizedProfile?: string;
-            url?: string;
-            username?: string;
-            userId?: string;
-            label: string;
-            id: string;
-        }>;
-        instantMessageAddresses?: Array<{
-            service?: string;
-            username?: string;
-            localizedService?: string;
-            label: string;
-            id: string;
-        }>;
-        urls?: {
-            label: string;
-            url?: string;
-            id: string;
-        };
         company?: string;
         jobTitle?: string;
         department?: string;
-        imageAvailable?: boolean;
-        image?: {
-            uri?: string;
-        };
-        thumbnail?: {
-            uri?: string;
-        };
         note?: string;
-        dates?: Array<{
-            day?: number;
-            month?: number;
-            year?: number;
-            id: string;
-            label: string;
-        }>;
-        relationships?: Array<{
-            label: string;
-            name?: string;
-            id: string;
-        }>;
+        imageAvailable?: boolean;
+        image?: Image;
+        rawImage?: Image;
+        contactType: ContactType;
+        birthday?: ContactDate;
+        dates?: ContactDate[];
+        relationships?: Relationship[];
+        emails?: Email[];
+        phoneNumbers?: PhoneNumber[];
+        addresses?: Address[];
+        instantMessageAddresses?: InstantMessageAddress[];
+        urlAddresses?: UrlAddress[];
+        /**
+         * iOS only
+         */
+        nonGregorianBirthday?: ContactDate;
+        /**
+         * iOS only
+         */
+        socialProfiles?: SocialProfile[];
     }
 
-    interface Response {
+    interface ContactDate {
+        day: number;
+        month: number;
+        year: number;
+        format: CalendarFormat;
+        id: string;
+        label: string;
+    }
+
+    interface Relationship {
+        name: string;
+        id: string;
+        label: string;
+    }
+
+    interface Email {
+        email: string;
+        isPrimary: boolean;
+        id: string;
+        label: string;
+    }
+
+    interface PhoneNumber {
+        number: string;
+        isPrimary: boolean;
+        digits: string;
+        countryCode: string;
+        id: string;
+        label: string;
+    }
+
+    interface Address {
+        street: string;
+        city: string;
+        country: string;
+        region: string;
+        neighborhood: string;
+        postalCode: string;
+        poBox: string;
+        isoCountryCode: string;
+        id: string;
+        label: string;
+    }
+
+    /**
+     * iOS only
+     */
+    interface SocialProfile {
+        service: string;
+        username: string;
+        localizedProfile: string;
+        url: string;
+        userId: string;
+        id: string;
+        label: string;
+    }
+
+    interface InstantMessageAddress {
+        service: string;
+        username: string;
+        localizedProfile: string;
+        id: string;
+        label: string;
+    }
+
+    interface UrlAddress {
+        url: string;
+        id: string;
+        label: string;
+    }
+
+    /**
+     * Information regarding thumbnail images
+     */
+    interface Image {
+        uri: string;
+        /**
+         * iOS only
+         * In Android you can get dimensions using `ReactNative.Image.getSize`
+         */
+        width?: number;
+        /**
+         * iOS only
+         * In Android you can get dimensions using `ReactNative.Image.getSize`
+         */
+        height?: number;
+        /**
+         * Avoid using Base 64 in React Native
+         * iOS only
+         */
+        base64?: string;
+    }
+
+    /**
+     * A parent to contacts. A contact can belong to multiple groups.
+     * iOS Only
+     */
+    interface Group {
+        id: string;
+        name: string;
+    }
+
+    /**
+     * A parent to contacts and groups.
+     * iOS Only
+     */
+    interface Container {
+        id: string;
+        name: string;
+    }
+
+    /**
+     * Denotes the functionality of a native contact form
+     */
+    interface FormOptions {
+        displayedPropertyKeys?: Field[];
+        message?: string;
+        alternateName?: string;
+        cancelButtonTitle?: string;
+        groupId?: string;
+        allowsEditing?: boolean;
+        allowsActions?: boolean;
+        shouldShowLinkedContacts?: boolean;
+        isNew?: boolean;
+        preventAnimation?: boolean;
+    }
+
+    /**
+     * Used to query contacts from the user's device
+     */
+    interface ContactQuery {
+        fields?: Field[];
+        pageSize?: number;
+        pageOffset?: number;
+        id?: string;
+        /** Android Only */
+        sort?: SortType;
+        /** iOS Only */
+        name?: string;
+        /** iOS Only */
+        groupId?: string;
+        /** iOS Only */
+        containerID?: string;
+        /** iOS Only */
+        rawContacts?: boolean;
+    }
+
+    interface ContactResponse {
         data: Contact[];
-        total: number;
+        /**
+         * This will be true if there are more contacts to retrieve beyond what is returned
+         */
         hasNextPage: boolean;
+        /**
+         * `true` if there are previous contacts that weren't retrieved due to `pageOffset`
+         */
         hasPreviousPage: boolean;
     }
 
-    function getContactsAsync(options: Options): Promise<Response>;
-    function getContactByIdAsync(options: { id?: string; fields?: FieldType[] }): Promise<Contact>;
+    /**
+     * Used to query native contact groups.
+     * iOS Only
+     */
+    interface GroupQuery {
+        groupName?: string;
+        groupId?: string;
+        containerId?: string;
+    }
+
+    /**
+     * Used to query native contact containers.
+     * iOS Only
+     */
+    interface ContainerQuery {
+        contactId?: string;
+        groupId?: string;
+        containerId?: string;
+    }
+
+    // Methods
+
+    /**
+     * Return a list of contacts that fit a given criteria. You can get all of the contacts by passing no criteria.
+     */
+    function getContactsAsync(contactQuery?: ContactQuery): Promise<ContactResponse>;
+    /**
+     * Returns a contact matching the input id. Used for gathering precise data about a contact.
+     */
+    function getContactByIdAsync(contactId: string, fields?: Field[]): Promise<Contact>;
+
+    // iOS Only - temporary
+    /**
+     * Creates a new contact and adds it to the system.
+     * iOS Only - temporary
+     */
+    function addContactAsync(contact: Contact, containerId?: string): Promise<string>;
+    /**
+     * Mutate the information of an existing contact.
+     * iOS Only - temporary
+     */
+    function updateContactAsync(contact: Contact): Promise<string>;
+    /**
+     * Delete a contact from the system.
+     * iOS Only - temporary
+     */
+    function removeContactAsync(contactId: string): Promise<void>;
+    /**
+     * Query a set of contacts and write them to a local uri that can be used for sharing with `ReactNative.Share`.
+     * iOS Only - temporary
+     */
+    function writeContactToFileAsync(contactQuery: ContactQuery): Promise<string>;
+
+    // iOS Only
+    /**
+     * Present a native form for manipulating contacts.
+     * iOS Only
+     */
+    function presentFormAsync(contactId: string, contact?: Contact, formOptions?: FormOptions): Promise<void>;
+    /**
+     * Add a group to a container.
+     * iOS Only
+     */
+    function addExistingGroupToContainerAsync(groupId: string, containerId: string): Promise<void>;
+    /**
+     * Create a group with a name, and add it to a container. If the container is undefined, the default container will be targeted.
+     * iOS Only
+     */
+    function createGroupAsync(groupName: string, containerId?: string): Promise<string>;
+    /**
+     * Change the name of an existing group.
+     * iOS Only
+     */
+    function updateGroupNameAsync(groupName: string, groupId: string): Promise<void>;
+    /**
+     * Delete a group from the device.
+     * iOS Only
+     */
+    function removeGroupAsync(groupId: string): Promise<void>;
+    /**
+     * Add a contact as a member to a group. A contact can be a member of multiple groups.
+     * iOS Only
+     */
+    function addExistingContactToGroupAsync(contactId: string, groupId: string): Promise<void>;
+    /**
+     * Remove a contact's membership from a given group. This will not delete the contact.
+     * iOS Only
+     */
+    function removeContactFromGroupAsync(contactId: string, groupId: string): Promise<void>;
+    /**
+     * Query and return a list of system groups.
+     * iOS Only
+     */
+    function getGroupsAsync(query: GroupQuery): Promise<Group[]>;
+    /**
+     * Get the default container's ID.
+     * iOS Only
+     */
+    function getDefaultContainerIdAsync(): Promise<string>;
+    /**
+     * Query a list of system containers.
+     * iOS Only
+     */
+    function getContainersAsync(containerQuery: ContainerQuery): Promise<Container[]>;
 }
 
 /**
@@ -1157,15 +1581,62 @@ export namespace FacebookAds {
         setMediaCachePolicy(cachePolicy: MediaCachePolicy): void;
     }
 
-    function withNativeAd(component: Component<{
-        icon?: string;
-        coverImage?: string;
-        title?: string;
-        subtitle?: string;
-        description?: string;
-        callToActionText?: string;
+    interface NativeAd {
+        /**
+         * The headline the advertiser entered when they created their ad. This is usually the ad's main
+         * title.
+         */
+        headline?: string;
+
+        /**
+         * The link description which is additional information that the advertiser may have entered
+         */
+        linkDescription?: string;
+
+        /**
+         * The name of the Facebook Page or mobile app that represents the business running the ad
+         */
+        advertiserName?: string;
+
+        /**
+         * The ad's social context, such as, "Over half a million users"
+         */
         socialContext?: string;
-    }>): Component<{ adsManager: NativeAdsManager }, { ad: any, canRequestAds: boolean }>;
+
+        /**
+         * The call-to-action phrase of the ad, such as, "Install Now"
+         */
+        callToActionText?: string;
+
+        /**
+         * The body text, truncated to 90 characters, that contains the text the advertiser entered when
+         * they created their ad to tell people what the ad promotes
+         */
+        bodyText?: string;
+
+        /**
+         * The word "ad", translated into the viewer's language
+         */
+        adTranslation?: string;
+
+        /**
+         * The word "promoted", translated into the viewer's language
+         */
+        promotedTranslation?: string;
+
+        /**
+         * The word "sponsored", translated into the viewer's language
+         */
+        sponsoredTranslation?: string;
+    }
+
+    function withNativeAd<P>(component: Component<P & { nativeAd: NativeAd }>): Component<
+        {
+            adsManager: NativeAdsManager,
+            onAdLoaded?: ((ad: NativeAd) => void) | null;
+        } & P,
+        { ad: NativeAd | null, canRequestAds: boolean }
+    >;
 
     /**
      * Banner View
@@ -1180,6 +1651,16 @@ export namespace FacebookAds {
     }
 
     class BannerView extends Component<BannerViewProps> { }
+
+    type AdTriggerViewProps<P> = {
+        renderInteractiveComponent?: (props: P) => React.ReactElement<P>;
+    } & P;
+
+    class AdTriggerView<P> extends Component<AdTriggerViewProps<P>> { }
+
+    class AdIconView extends Component { }
+
+    class AdMediaView extends Component { }
 
     /**
      * Ad Settings
@@ -1274,6 +1755,8 @@ export namespace FaceDetector {
  * FileSystem
  */
 export namespace FileSystem {
+    type EncodingType = "utf8" | "base64";
+
     type FileInfo = {
         exists: true;
         isDirectory: boolean;
@@ -1286,6 +1769,16 @@ export namespace FileSystem {
         isDirectory: false;
     };
 
+    interface ReadingOptions {
+        encoding?: EncodingType;
+        position?: number;
+        length?: number;
+    }
+
+    interface WritingOptions {
+        encoding?: EncodingType;
+    }
+
     interface DownloadResult {
         uri: string;
         status: number;
@@ -1297,8 +1790,8 @@ export namespace FileSystem {
     const cacheDirectory: string;
 
     function getInfoAsync(fileUri: string, options?: { md5?: string, size?: boolean; }): Promise<FileInfo>;
-    function readAsStringAsync(fileUri: string): Promise<string>;
-    function writeAsStringAsync(fileUri: string, contents: string): Promise<void>;
+    function readAsStringAsync(fileUri: string, options?: ReadingOptions): Promise<string>;
+    function writeAsStringAsync(fileUri: string, contents: string, options?: WritingOptions): Promise<void>;
     function deleteAsync(fileUri: string, options?: { idempotent: boolean; }): Promise<void>;
     function moveAsync(options: { from: string, to: string; }): Promise<void>;
     function copyAsync(options: { from: string, to: string; }): Promise<void>;
@@ -1349,8 +1842,8 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace Fingerprint {
-    type FingerprintAuthenticationResult = {
+export namespace LocalAuthentication {
+    type LocalAuthenticationResult = {
         success: true
     } | {
         success: false,
@@ -1359,10 +1852,18 @@ export namespace Fingerprint {
         error: string
     };
 
-    /** Determine whether the Fingerprint scanner is available on the device. */
+    interface AuthenticationTypeType {
+        FINGERPRINT: number;
+        FACIAL_RECOGNITION: number;
+    }
+
+    /** Determine the auhentication types supported on the device. */
+    function supportedAuthenticationTypesAsync(): Promise<AuthenticationTypeType[]>;
+
+    /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
 
-    /** Determine whether the device has saved fingerprints to use for authentication. */
+    /** Determine whether the device has saved fingerprints or facial data to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
 
     /**
@@ -1370,7 +1871,7 @@ export namespace Fingerprint {
      *
      * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
      */
-    function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
+    function authenticateAsync(promptMessageIOS?: string): Promise<LocalAuthenticationResult>;
 
     /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
@@ -1389,12 +1890,24 @@ export namespace Font {
 }
 
 // #region GLView
+export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
+    endFrameEXP(): void;
+}
+
 /**
- * GLView
+ * A View that acts as an OpenGL ES render target. On mounting, an OpenGL ES
+ * context is created. Its drawing buffer is presented as the contents of
+ * the View every frame.
  */
 export interface GLViewProps extends ViewProps {
-    onContextCreate(): void;
-    msaaSamples: number;
+    /**
+     * A function that will be called when the OpenGL ES context is created.
+     * Passes an object with a WebGLRenderingContext interface as an argument.
+     */
+    onContextCreate(gl: ExpoWebGLRenderingContext): void;
+
+    /** Number of MSAA samples to use on iOS. Defaults to 4. Ignored on Android. */
+    msaaSamples?: number;
 }
 
 export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
@@ -1457,6 +1970,29 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
+    type Action = Resize | Rotate | Flip | Crop;
+
+    interface Resize {
+        resize: { width?: number, height?: number };
+    }
+
+    interface Rotate {
+        rotate: number;
+    }
+
+    interface Flip {
+        flip: { vertical?: boolean; horizontal?: boolean };
+    }
+
+    interface Crop {
+        crop: {
+            originX: number;
+            originY: number;
+            width: number;
+            height: number;
+        };
+    }
+
     interface ImageResult {
         uri: string;
         width: number;
@@ -1466,25 +2002,12 @@ export namespace ImageManipulator {
 
     interface SaveOptions {
         base64?: boolean;
-        compress?: FloatFromZeroToOne;
+        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+        compress?: number;
         format?: 'jpeg' | 'png';
     }
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
-
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
-
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1520,14 +2043,22 @@ export namespace ImagePicker {
         mediaTypes?: keyof _MediaTypeOptions;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchImageLibraryAsync(options?: ImageLibraryOptions): Promise<ImageResult>;
 
     interface CameraOptions {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
+    /**
+     * require Permissions.CAMERA_ROLL
+     */
     function launchCameraAsync(options?: CameraOptions): Promise<ImageResult>;
 }
 
@@ -1643,13 +2174,29 @@ export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
 
 /**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
+
+/**
  * Location
  */
 export namespace Location {
     interface LocationOptions {
-        enableHighAccuracy?: boolean;
+        accuracy: number;
         timeInterval?: number;
         distanceInterval?: number;
+        timeout?: number;
     }
 
     interface LocationProps {
@@ -1692,6 +2239,22 @@ export namespace Location {
         name: string;
     }
 
+    interface LocationTaskOptions {
+        accuracy?: number;
+        timeInterval: number;
+        distanceInterval: number;
+        showsBackgroundLocationIndicator?: boolean;
+    }
+
+    interface Region {
+        identifier?: string;
+        latitude: number;
+        longitude: number;
+        radius: number;
+        notifyOnEnter?: boolean;
+        notifyOnExit?: boolean;
+    }
+
     type LocationCallback = (data: LocationData) => void;
 
     function getCurrentPositionAsync(options: LocationOptions): Promise<LocationData>;
@@ -1701,7 +2264,47 @@ export namespace Location {
     function watchHeadingAsync(callback: (status: HeadingStatus) => void): EventSubscription;
     function geocodeAsync(address: string): Promise<Coords>;
     function reverseGeocodeAsync(location: LocationProps): Promise<GeocodeData[]>;
+    function requestPermissionsAsync(): Promise<void>;
+    function hasServicesEnabledAsync(): Promise<boolean>;
+    function startLocationUpdatesAsync(taskName: string, options: LocationTaskOptions): Promise<void>;
+    function stopLocationUpdatesAsync(taskName: string): Promise<void>;
+    function hasStartedLocationUpdatesAsync(taskName: string): Promise<boolean>;
+    function startGeofencingAsync(taskName: string, regions: Region[]): Promise<void>;
+    function stopGeofencingAsync(taskName: string): Promise<void>;
+    function hasStartedGeofencingAsync(taskName: string): Promise<boolean>;
     function setApiKey(key: string): void;
+
+    enum Accuracy  {
+        Lowest = 1,
+        Low = 2,
+        Balanced = 3,
+        High = 4,
+        Highest = 5,
+        BestForNavigation = 6
+    }
+}
+
+/**
+ * Localization
+ */
+export namespace Localization {
+    const locale: string;
+    const locales: string[];
+    const country: string | undefined;
+    const isoCurrencyCodes: string[] | undefined;
+    const timezone: string;
+    const isRTL: boolean;
+
+    interface LocalizationData {
+        locale: string;
+        locales: string[];
+        country?: string;
+        isoCurrencyCodes?: string[];
+        timezone: string;
+        isRTL: boolean;
+    }
+
+    function getLocalizationAsync(): Promise<LocalizationData>;
 }
 
 /**
@@ -1738,29 +2341,72 @@ export namespace Notifications {
             sound?: boolean
         };
         android?: {
-            sound?: boolean;
+            channelId?: string;
             icon?: string;
             color?: string;
-            priority?: 'min' | 'low' | 'high' | 'max';
             sticky?: boolean;
-            vibrate?: boolean | number[];
-            link?: string;
         };
     }
 
     type LocalNotificationId = string | number;
 
-    function addListener(listener: (notification: Notification) => any): EventSubscription;
+    interface Channel {
+        name: string;
+        description?: string;
+        priority?: string;
+        sound?: boolean;
+        vibrate?: boolean | number[];
+        badge?: boolean;
+    }
+
+    interface ActionType {
+        actionId: string;
+        buttonTitle: string;
+        isDestructive?: boolean;
+        isAuthenticationRequired?: boolean;
+        textInput?: {
+          submitButtonTitle: string;
+          placeholder: string;
+        };
+    }
+
+    function createCategoryAsync(categoryId: string, actions: ActionType[]): Promise<void>;
+    function deleteCategoryAsync(categoryId: string): Promise<void>;
     function getExpoPushTokenAsync(): Promise<string>;
-    function presentLocalNotificationAsync(localNotification: LocalNotification): Promise<LocalNotificationId>;
-    function scheduleLocalNotificationAsync(
-        localNotification: LocalNotification,
-        schedulingOptions: { time: Date | number, repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year' }
+    function getDevicePushTokenAsync(config: {
+        gcmSenderId?: string;
+    }): Promise<{ type: string; data: string }>;
+    function createChannelAndroidAsync(id: string, channel: Channel): Promise<void>;
+    function deleteChannelAndroidAsync(id: string): Promise<void>;
+
+    /* Shows a notification instantly */
+    function presentLocalNotificationAsync(
+        notification: LocalNotification
     ): Promise<LocalNotificationId>;
-    function dismissNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
+
+    /** Schedule a notification at a later date */
+    function scheduleLocalNotificationAsync(
+        notification: LocalNotification,
+        options?: {
+          time?: Date | number;
+          repeat?: 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+          intervalMs?: number;
+        }
+    ): Promise<LocalNotificationId>;
+
+    /** Dismiss currently shown notification with ID (Android only) */
+    function dismissNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
+
+    /** Dismiss all currently shown notifications (Android only) */
     function dismissAllNotificationsAsync(): Promise<void>;
-    function cancelScheduledNotificationAsync(localNotificationId: LocalNotificationId): Promise<void>;
+
+    /** Cancel scheduled notification notification with ID */
+    function cancelScheduledNotificationAsync(notificationId: LocalNotificationId): Promise<void>;
+
+    /** Cancel all scheduled notifications */
     function cancelAllScheduledNotificationsAsync(): Promise<void>;
+
+    function addListener(listener: (notification: Notification) => any): EventSubscription;
     function getBadgeNumberAsync(): Promise<number>;
     function setBadgeNumberAsync(number: number): Promise<void>;
 }
@@ -1778,8 +2424,9 @@ export namespace Pedometer {
  * Permissions
  */
 export namespace Permissions {
-    type PermissionType = 'remoteNotifications' | 'location' |
-        'camera' | 'contacts' | 'audioRecording' | 'calendar';
+    type PermissionType = 'audioRecording' | 'calendar' |
+    'cameraRoll' | 'camera' | 'contacts' | 'location' | 'reminders' |
+    'notifications' | 'systemBrightness' | 'userFacingNotifications' | 'SMS';
     type PermissionStatus = 'undetermined' | 'granted' | 'denied';
     type PermissionExpires = 'never';
 
@@ -1791,27 +2438,38 @@ export namespace Permissions {
         scope: 'fine' | 'coarse' | 'none';
     }
 
-    interface PermissionResponse {
+    interface SinglePermissionResponse {
         status: PermissionStatus;
         expires: PermissionExpires;
         ios?: PermissionDetailsLocationIOS;
         android?: PermissionDetailsLocationAndroid;
     }
 
-    function getAsync(type: PermissionType): Promise<PermissionResponse>;
-    function askAsync(type: PermissionType): Promise<PermissionResponse>;
+    interface PermissionResponse {
+        status: PermissionStatus;
+        expires: PermissionExpires;
+        permissions: {
+            [key in PermissionType]: SinglePermissionResponse
+        };
+    }
 
-    type RemoteNotificationPermission = 'remoteNotifications';
+    function getAsync(...permissionTypes: PermissionType[]): Promise<PermissionResponse>;
+    function askAsync(...permissionTypes: PermissionType[]): Promise<PermissionResponse>;
 
-    const CAMERA: 'camera';
-    const CAMERA_ROLL: 'cameraRoll';
     const AUDIO_RECORDING: 'audioRecording';
-    const LOCATION: 'location';
-    const REMOTE_NOTIFICATIONS: RemoteNotificationPermission;
-    const NOTIFICATIONS: RemoteNotificationPermission;
-    const CONTACTS: 'contacts';
-    const SYSTEM_BRIGHTNESS: 'systemBrightness';
     const CALENDAR: 'calendar';
+    const CAMERA_ROLL: 'cameraRoll';
+    const CAMERA: 'camera';
+    const CONTACTS: 'contacts';
+    const LOCATION: 'location';
+    const NOTIFICATIONS: 'notifications';
+    const REMINDERS: 'reminders';
+    const SYSTEM_BRIGHTNESS: 'systemBrightness';
+    const USER_FACING_NOTIFICATIONS: 'userFacingNotifications';
+    /**
+     * Will be removed in SDK 32
+     */
+    const SMS: 'SMS';
 }
 
 /**
@@ -1836,7 +2494,11 @@ export namespace ScreenOrientation {
 
     const Orientation: Orientations;
 
+    /** Deprecated in favour of ScreenOrientation.allowAsync. */
     function allow(orientation: keyof Orientations): void;
+
+    /** Allow a screen orientation. You can call this function multiple times with multiple orientations to allow multiple orientations. */
+    function allowAsync(orientation: keyof Orientations): void;
 }
 
 /**
@@ -1845,30 +2507,53 @@ export namespace ScreenOrientation {
 export namespace SecureStore {
     interface SecureStoreOptions {
         keychainService?: string;
+    }
+
+    interface SecureStoreSetOptions extends SecureStoreOptions {
         keychainAccessible?: number;
     }
 
-    function setItemAsync(key: string, value: string, options?: SecureStoreOptions): Promise<void>;
+    function setItemAsync(key: string, value: string, options?: SecureStoreSetOptions): Promise<void>;
     function getItemAsync(key: string, options?: SecureStoreOptions): Promise<string | null>;
     function deleteItemAsync(key: string, options?: SecureStoreOptions): Promise<void>;
+
+    const WHEN_UNLOCKED: number;
+    const AFTER_FIRST_UNLOCK: number;
+    const ALWAYS: number;
+    const WHEN_UNLOCKED_THIS_DEVICE_ONLY: number;
+    const WHEN_PASSCODE_SET_THIS_DEVICE_ONLY: number;
+    const AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY: number;
+    const ALWAYS_THIS_DEVICE_ONLY: number;
 }
 
 /**
  * Segment
  */
 export namespace Segment {
-    function initialize(keys: {
-        androidWriteKey: string;
-        iosWriteKey: string;
-    }): void;
+    interface SegmentOptions {
+        androidWriteKey?: string;
+        iosWriteKey?: string;
+    }
+
+    function initialize(options: SegmentOptions): void;
+
     function identify(userId: string): void;
     function identifyWithTraits(userId: string, traits: object): void;
-    function track(event: string): void;
+    function group(groupId: string): void;
+    function groupWithTraits(groupId: string, traits: object): void;
     function reset(): void;
-    function trackWithProperties(event: string, properties: object): void;
+
+    function alias(newId: string, options?: object): Promise<boolean>;
+
     function screen(screenName: string): void;
     function screenWithProperties(screenName: string, properties: object): void;
+    function track(event: string): void;
+    function trackWithProperties(event: string, properties: object): void;
+
     function flush(): void;
+
+    function getEnabledAsync(): Promise<boolean>;
+    function setEnabledAsync(enabled: boolean): Promise<void>;
 }
 
 /**
@@ -1882,7 +2567,7 @@ export namespace Speech {
         onStart?: () => void;
         onStopped?: () => void;
         onDone?: () => void;
-        onError?: (error: string) => void;
+        onError?: (error: Error) => void;
     }
 
     function speak(text: string, options?: SpeechOptions): void;
@@ -1894,6 +2579,14 @@ export namespace Speech {
 
     /** Available on iOS only */
     function resume(): void;
+}
+
+/**
+ * SplashScreen
+ */
+export namespace SplashScreen {
+    function hide(): void;
+    function preventAutoHide(): void;
 }
 
 /**
@@ -1921,7 +2614,7 @@ export namespace SQLite {
 
     interface ResultSet {
         insertId: number;
-        rowAffected: number;
+        rowsAffected: number;
         rows: {
             length: number;
             item: (index: number) => any;
@@ -1948,140 +2641,30 @@ export namespace SQLite {
 /**
  * Svg
  */
-export interface SvgCommonProps {
-    fill?: string;
-    fillOpacity?: number | string;
-    fillRule?: 'nonzero' | 'evenodd';
-    opacity?: number | string;
-    stroke?: string;
-    strokeWidth?: number | string;
-    strokeOpacity?: number | string;
-    strokeLinecap?: string;
-    strokeLineJoin?: string;
-    strokeDasharray?: any[];
-    strokeDashoffset?: any;
-    x?: number | string;
-    y?: number | string;
-    rotate?: number | string;
-    rotation?: number | string;
-    scale?: number | string;
-    origin?: number | string;
-    originX?: number | string;
-    originY?: number | string;
-    id?: string;
-    disabled?: boolean;
-    onPress?: () => any;
-    onPressIn?: () => any;
-    onPressOut?: () => any;
-    onLongPress?: () => any;
-    delayPressIn?: number;
-    delayPressOut?: number;
-    delayLongPress?: number;
-}
+import * as RNSvg from 'react-native-svg';
 
-export interface SvgRectProps extends SvgCommonProps {
-    width: number | string;
-    height: number | string;
-}
-
-export interface SvgCircleProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    r: number | string;
-}
-
-export interface SvgEllipseProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-}
-
-export interface SvgLineProps extends SvgCommonProps {
-    x1: number | string;
-    y1: number | string;
-    x2: number | string;
-    y2: number | string;
-}
-
-export interface SvgPolyProps extends SvgCommonProps {
-    points: string;
-}
-
-export interface SvgPathProps extends SvgCommonProps {
-    d: string;
-}
-
-export interface SvgTextProps extends SvgCommonProps {
-    textAnchor?: string;
-    fontSize?: number | string;
-    fontWeight?: string;
-}
-
-export interface SvgTSpanProps extends SvgTextProps {
-    dx?: string;
-    dy?: string;
-}
-
-export interface SvgTextPathProps extends SvgCommonProps {
-    href?: string;
-    startOffset?: string;
-}
-
-export interface SvgUseProps extends SvgCommonProps {
-    href: string;
-    x: number | string;
-    y: number | string;
-}
-
-export interface SvgSymbolProps extends SvgCommonProps {
-    viewBox: string;
-    width: number | string;
-    height: number | string;
-}
-
-export interface SvgLinearGradientProps extends SvgCommonProps {
-    x1: number | string;
-    x2: number | string;
-    y1: number | string;
-    y2: number | string;
-}
-
-export interface SvgRadialGradientProps extends SvgCommonProps {
-    cx: number | string;
-    cy: number | string;
-    rx: number | string;
-    ry: number | string;
-    fx: number | string;
-    fy: number | string;
-    gradientUnits?: string;
-}
-
-export interface SvgStopProps extends SvgCommonProps {
-    offset?: string;
-    stopColor?: string;
-    stopOpacity?: string;
-}
-
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
-    static Circle: ComponentClass<SvgCircleProps>;
-    static ClipPath: ComponentClass<SvgCommonProps>;
-    static Defs: ComponentClass;
-    static Ellipse: ComponentClass<SvgEllipseProps>;
-    static G: ComponentClass<SvgCommonProps>;
-    static Line: ComponentClass<SvgLineProps>;
-    static LinearGradient: ComponentClass<SvgLinearGradientProps>;
-    static Path: ComponentClass<SvgPathProps>;
-    static Polygon: ComponentClass<SvgPolyProps>;
-    static Polyline: ComponentClass<SvgPolyProps>;
-    static RadialGradient: ComponentClass<SvgRadialGradientProps>;
-    static Rect: ComponentClass<SvgRectProps>;
-    static Stop: ComponentClass<SvgStopProps>;
-    static Symbol: ComponentClass<SvgSymbolProps>;
-    static Text: ComponentClass<SvgTextProps>;
-    static TextPath: ComponentClass<SvgTextPathProps>;
-    static TSpan: ComponentClass<SvgTSpanProps>;
-    static Use: ComponentClass<SvgUseProps>;
+export class Svg extends RNSvg.Svg {
+    static Circle: typeof RNSvg.Circle;
+    static ClipPath: typeof RNSvg.ClipPath;
+    static Defs: typeof RNSvg.Defs;
+    static Ellipse: typeof RNSvg.Ellipse;
+    static G: typeof RNSvg.G;
+    static Image: typeof RNSvg.Image;
+    static Line: typeof RNSvg.Line;
+    static LinearGradient: typeof RNSvg.LinearGradient;
+    static Mask: typeof RNSvg.Mask;
+    static Path: typeof RNSvg.Path;
+    static Pattern: typeof RNSvg.Pattern;
+    static Polygon: typeof RNSvg.Polygon;
+    static Polyline: typeof RNSvg.Polyline;
+    static RadialGradient: typeof RNSvg.RadialGradient;
+    static Rect: typeof RNSvg.Rect;
+    static Stop: typeof RNSvg.Stop;
+    static Symbol: typeof RNSvg.Symbol;
+    static Text: typeof RNSvg.Text;
+    static TextPath: typeof RNSvg.TextPath;
+    static TSpan: typeof RNSvg.TSpan;
+    static Use: typeof RNSvg.Use;
 }
 // #endregion
 
@@ -2089,13 +2672,14 @@ export class Svg extends Component<{ width: number, height: number, viewBox?: st
  * Take Snapshot
  */
 export function takeSnapshotAsync(
-    view?: (number | React.ReactElement<any>),
+    node: number | React.ReactElement | React.RefObject<any>,
     options?: {
-        width?: number,
-        height?: number,
-        format?: 'png' | 'jpg' | 'jpeg' | 'webm',
-        quality?: number,
-        result?: 'file' | 'base64' | 'data-uri',
+        width?: number;
+        height?: number;
+        format: 'png' | 'jpg' | 'raw' | 'webm';
+        quality: number;
+        snapshotContentContainer: boolean;
+        result: "tmpfile" | "base64" | "data-uri" | "zip-base64";
     }
 ): Promise<string>;
 
@@ -2178,6 +2762,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {
@@ -2199,9 +2784,20 @@ export class Video extends Component<VideoProps, VideoState> {
  * Web Browser
  */
 export namespace WebBrowser {
-    function openBrowserAsync(url: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<{ type: 'cancelled' | 'dismissed' }>;
-    function dismissBrowser(): Promise<{ type: 'dismissed' }>;
+    interface BrowserResult {
+        type: 'cancel' | 'dismiss';
+    }
+
+    interface RedirectResult {
+        type: 'success';
+        url: string;
+    }
+
+    type AuthSessionResult = RedirectResult | BrowserResult;
+
+    function openBrowserAsync(url: string): Promise<BrowserResult>;
+    function openAuthSessionAsync(url: string, redirectUrl?: string): Promise<RedirectResult | BrowserResult>;
+    function dismissBrowser(): void;
 }
 
 // #region Calendar
@@ -2247,7 +2843,7 @@ export namespace Calendar {
         /** Name for the account that owns this calendar */
         ownerAccount?: string; // Android
 
-        /** Time zone for the calendar	 */
+        /** Time zone for the calendar */
         timeZone?: string; // Android
 
         /** Alarm methods that this calendar supports */
@@ -2290,7 +2886,7 @@ export namespace Calendar {
         /** Visible name of the event */
         title?: string;
 
-        /** Location field of the event	 */
+        /** Location field of the event */
         location?: string;
 
         /** Date when the event record was created */
@@ -2318,10 +2914,10 @@ export namespace Calendar {
         recurrenceRule?: RecurrenceRule;
 
         /** Date object or string representing the time when the event starts */
-        startDate?: string;
+        startDate?: string | Date;
 
         /** Date object or string representing the time when the event ends */
-        endDate?: string;
+        endDate?: string | Date;
 
         /** For recurring events, the start date for the first (original) instance of the event */
         originalStartDate?: string; // iOS
@@ -2726,7 +3322,7 @@ export namespace Calendar {
 }
 // #endregion
 
-// #region Calendar
+// #region MailComposer
 /**
  * An API to compose mails using OS specific UI.
  */
@@ -2759,5 +3355,284 @@ export namespace MailComposer {
         /** A map defining the data to fill the mail */
         options: ComposeOptions
     ): Promise<{ status: 'sent' | 'saved' | 'cancelled' }>;
+}
+// #endregion
+
+export namespace Updates {
+    namespace EventType {
+        /** A new update is available and has started downloading. */
+        type DownloadStart = 'downloadStart';
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        type DownloadProgress = 'downloadProgress';
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        type DownloadFinished = 'downloadFinished';
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        type NoUpdateAvailable = 'noUpdateAvailable';
+        /** An error occurred trying to fetch the latest update. */
+        type Error = 'error';
+
+        /** A new update is available and has started downloading. */
+        const DOWNLOAD_STARTED: DownloadStart;
+        /** A new update is currently being downloaded and will be stored in the device's cache. */
+        const DOWNLOAD_PROGRESS: DownloadProgress;
+        /** A new update has finished downloading and is now stored in the device's cache. */
+        const DOWNLOAD_FINISHED: DownloadFinished;
+        /** No updates are available, and the most up-to-date bundle of this experience is already running. */
+        const NO_UPDATE_AVAILABLE: NoUpdateAvailable;
+        /** An error occurred trying to fetch the latest update. */
+        const ERROR: Error;
+    }
+
+    interface UpdateCheck {
+        /** True if an update is available, false if you're already running the most up-to-date JS bundle. */
+        isAvailable: boolean;
+        /** If `isAvailable` is true, the manifest of the available update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+    }
+
+    interface UpdateBundle {
+        /** True if the fetched bundle is new (i.e. a different version that the what's currently running). */
+        isNew: boolean;
+        /** Manifest of the fetched update. */
+        manifest: Constants.Manifest;
+    }
+
+    /** An object that is passed into each event listener when a new version is available. */
+    interface UpdateEvent {
+        /** Type of the event */
+        type: EventType.DownloadStart
+            | EventType.DownloadProgress
+            | EventType.DownloadFinished
+            | EventType.NoUpdateAvailable
+            | EventType.Error;
+        /** If `type === Expo.Updates.EventType.DOWNLOAD_FINISHED`, the manifest of the newly downloaded update. Undefined otherwise. */
+        manifest?: Constants.Manifest;
+        /** If `type === Expo.Updates.EventType.ERROR`, the error message. Undefined otherwise. */
+        message?: string;
+    }
+
+    /** An optional params object passed to fetchUpdateAsync. */
+    interface FetchUpdateAsyncParams {
+        eventListener: UpdateEventListener;
+    }
+
+    type UpdateEventListener = (event: UpdateEvent) => any;
+
+    /**
+     * Invokes a callback when updates-related events occur,
+     * either on the initial app load or as a result of a call to `Expo.Updates.fetchUpdateAsync`.
+     */
+    function addListener(listener: UpdateEventListener): EventSubscription;
+
+    /**
+     * Check if a new published version of your project is available.
+     * Does not actually download the update.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function checkForUpdateAsync(): Promise<UpdateCheck>;
+
+    /**
+     * Downloads the most recent published version of your experience to the device's local cache.
+     * Rejects if `updates.enabled` is `false` in app.json.
+     */
+    function fetchUpdateAsync(params?: FetchUpdateAsyncParams): Promise<UpdateBundle>;
+
+    /**
+     * Immediately reloads the current experience.
+     * This will use your app.json updates configuration to fetch and load the newest available JS supported by the device's Expo environment.
+     * This is useful for triggering an update of your experience if you have published a new version.
+     */
+    function reload(): void;
+
+    /**
+     * Immediately reloads the current experience using the most recent cached version.
+     * This is useful for triggering an update of your experience if you have published and already downloaded a new version.
+     */
+    function reloadFromCache(): void;
+}
+
+// #region MediaLibrary
+/**
+ * https://docs.expo.io/versions/latest/sdk/media-library
+ * Provides access to user's media library
+ * Requires Permissions.CAMERA_ROLL permissions.
+ */
+
+export namespace MediaLibrary {
+  /**
+   * Creates an asset from existing file. The most common use case is to save a picture taken by Camera.
+   */
+  function createAssetAsync(localUri: string): Promise<Asset>;
+
+  /**
+   * Fetches a page of assets matching the provided criteria.
+   */
+  function getAssetsAsync(options: GetAssetsOptions): Promise<GetAssetsResult>;
+
+  /**
+   * Provides more informations about an asset, including GPS location, local URI and EXIF metadata.
+   */
+  function getAssetInfoAsync(asset: string | Asset): Promise<Asset>;
+
+  /**
+   * Deletes assets from the library. On iOS it deletes assets from all albums they belong to, while on Android it keeps all copies of them
+   * (album is strictly connected to the asset). Also, there is additional dialog on iOS that requires user to confirm this action.
+   */
+  function deleteAssetsAsync(asset: string[] | Asset[]): Promise<boolean>;
+
+  /**
+   * Queries for user-created albums in media gallery.
+   */
+  function getAlbumsAsync(): Promise<Album[]>;
+
+  /**
+   * Queries for an album with a specific name.
+   */
+  function getAlbumAsync(albumName: string): Promise<Album>;
+
+  /**
+   * Creates an album with given name and initial asset.
+   * The asset parameter is required on Android, since it's not possible to create empty album on this platform.
+   */
+  function createAlbumAsync(albumName: string, asset: string | Asset): Promise<Album>;
+
+  /**
+   * Adds array of assets to the album.
+   * On Android, by default it copies assets from the current album to provided one, however it's also possible to move them by passing false as copyAssets argument.
+   * In case they're copied you should keep in mind that getAssetsAsync will return duplicated assets.
+   */
+  function addAssetsToAlbumAsync(assets: Asset[], album: string | Album, copyAssets?: boolean /* default true */): Promise<boolean>;
+
+  /**
+   * Removes given assets from album.
+   * On Android, album will be automatically deleted if there are no more assets inside.
+   */
+  function removeAssetsFromAlbumAsync(assets: Asset[], album: string | Album): Promise<boolean>;
+
+  /**
+   * Available on iOS only. Fetches a list of moments, which is a group of assets taken around the same place and time.
+   */
+  function getMomentsAsync(): Promise<Album[]>;
+
+  enum MediaType {
+    audio = 'audio',
+    photo = 'photo',
+    video = 'video',
+    unknow = 'unknow'
+  }
+
+  enum SortBy {
+    default = 'default',
+    id = 'id',
+    creationTime = 'creationTime',
+    modificationTime = 'modificationTime',
+    mediaType = 'mediaType',
+    width = 'width',
+    height = 'height',
+    duration = 'duration'
+  }
+
+  // region Asset
+  interface AssetAndroid {
+    albumId?: string;
+  }
+
+  interface AssetIos {
+    mediaSubtypes?: MediaType[];
+    // *
+    orientation: number;
+    // *
+    isFavorite: boolean;
+  }
+
+  interface Asset extends AssetAndroid, AssetIos {
+    id: string;
+    filename: string;
+    uri: string;
+    mediaType: string;
+    width: number;
+    height: number;
+    creationTime: number;
+    modificationTime: number;
+    duration: number;
+    // *
+    localUri?: string;
+    // *
+    location?: Location.LocationProps;
+    // *
+    exif?: object;
+  }
+
+  /**
+   * These fields can be obtained only by calling getAssetInfoAsync method
+   */
+  //#endregion
+
+  // #region Album
+  interface AlbumIos {
+    type?: string;
+    // *
+    startTime: number;
+    // *
+    endTime: number;
+    // *
+    approximateLocation?: Location.LocationProps;
+    // *
+    locationNames?: string[];
+  }
+
+  /**
+   * These fields apply only to albums whose type is moment
+   */
+
+  interface Album extends AlbumIos {
+    id: string;
+    title: string;
+    assetCount: number;
+  }
+  // #endregion
+
+  interface GetAssetsOptions {
+    first?: number;
+    after?: string;
+    album?: string | Album;
+    sortBy?: SortBy;
+    mediaType?: MediaType;
+  }
+
+  interface GetAssetsResult {
+    assets: Asset[];
+    endCursor: string;
+    hasNextPage: boolean;
+    totalCount: number;
+  }
+}
+// #endregion
+
+// #region Haptic
+/**
+ * https://docs.expo.io/versions/latest/sdk/haptic
+ * Provides haptic feedback for iOS 10+ devices using the Taptic Engine.
+ * If this is used in Android the device will use ReactNative.Vibrate instead, it's best to just avoid this.
+ */
+export namespace Haptic {
+  /**
+   * Used to let a user know when a selection change has been registered
+   */
+  function selection(): void;
+  function notification(notificationType?: NotificationType): void;
+  function impact(impactStyles?: ImpactStyles): void;
+
+  enum ImpactStyles {
+    Light = 'light',
+    Medium = 'medium',
+    Heavy = 'heavy'
+  }
+
+  enum NotificationType {
+    Success = 'success',
+    Warning = 'warning',
+    Error = 'error'
+  }
 }
 // #endregion

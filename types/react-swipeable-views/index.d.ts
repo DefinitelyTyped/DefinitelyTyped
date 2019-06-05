@@ -1,9 +1,9 @@
-// Type definitions for react-swipeable-views 0.12
+// Type definitions for react-swipeable-views 0.13
 // Project: https://github.com/oliviertassinari/react-swipeable-views
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -29,6 +29,10 @@ export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
     axis?: AxisType;
     containerStyle?: React.CSSProperties;
     disabled?: boolean;
+    /*
+     * This is the config used to disable lazy loading, if true it will render all the views in first rendering.
+     */
+    disableLazyLoading?: boolean;
     enableMouseEvents?: boolean;
     hysteresis?: number;
     ignoreNativeScroll?: boolean;

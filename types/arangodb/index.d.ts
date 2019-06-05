@@ -1,8 +1,8 @@
-// Type definitions for ArangoDB 3.4
+// Type definitions for non-npm package ArangoDB 3.5
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
@@ -89,8 +89,9 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo1" | "geo2";
+    type IndexType = "hash" | "skiplist" | "fulltext" | "geo";
     type ViewType = "arangosearch";
+    type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
         | "ERROR_NO_ERROR"
         | "ERROR_FAILED"
@@ -463,12 +464,29 @@ declare namespace ArangoDB {
         replicationFactor?: number;
     }
 
+    interface CreateCollectionOptions {
+        waitForSync?: boolean;
+        journalSize?: number;
+        isVolatile?: boolean;
+        isSystem?: boolean;
+        keyOptions?: {
+            type?: KeyGeneratorType;
+            allowUserKeys?: boolean;
+            increment?: number;
+            offset?: number;
+        };
+        numberOfShards?: number;
+        shardKeys?: string[];
+        replicationFactor?: number;
+    }
+
     interface CollectionProperties {
         waitForSync: boolean;
         journalSize: number;
+        isSystem: boolean;
         isVolatile: boolean;
         keyOptions?: {
-            type: string;
+            type: KeyGeneratorType;
             allowUserKeys: boolean;
             increment?: number;
             offset?: number;
@@ -488,7 +506,7 @@ declare namespace ArangoDB {
 
     interface IndexDescription<T> {
         type: IndexType;
-        fields: ReadonlyArray<keyof T>;
+        fields: ReadonlyArray<keyof T | string>;
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
@@ -496,8 +514,9 @@ declare namespace ArangoDB {
 
     interface Index<T extends object = any> {
         id: string;
+        name: string;
         type: IndexType;
-        fields: Array<keyof T>;
+        fields: Array<keyof T | string>;
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
@@ -519,6 +538,8 @@ declare namespace ArangoDB {
     }
 
     type DocumentLike = ObjectWithId | ObjectWithKey;
+
+    type Patch<T> = { [K in keyof T]?: T[K] | Patch<T[K]> };
 
     interface DocumentMetadata {
         _key: string;
@@ -572,6 +593,7 @@ declare namespace ArangoDB {
         keepNull?: boolean;
         waitForSync?: boolean;
         limit?: number;
+        mergeObjects?: boolean;
     }
 
     interface RemoveOptions {
@@ -598,11 +620,13 @@ declare namespace ArangoDB {
 
     interface Collection<T extends object = any> {
         // Collection
+        name(): string;
         checksum(
             withRevisions?: boolean,
             withData?: boolean
         ): CollectionChecksum;
         count(): number;
+        documentId(documentKey: string): string;
         drop(options?: { isSystem?: boolean }): void;
         figures(): CollectionFigures;
         load(): void;
@@ -633,6 +657,7 @@ declare namespace ArangoDB {
         ): Array<Document<T>>;
         exists(name: string): boolean;
         firstExample(example: Partial<Document<T>>): Document<T> | null;
+        getResponsibleShard(document: DocumentLike): string;
         insert(data: DocumentData<T>, options?: InsertOptions): InsertResult<T>;
         insert(
             array: ReadonlyArray<DocumentData<T>>,
@@ -706,24 +731,24 @@ declare namespace ArangoDB {
         ): InsertResult<T>;
         update(
             selector: string | DocumentLike,
-            data: Partial<Document<T>>,
+            data: Patch<Document<T>>,
             options?: UpdateOptions
         ): UpdateResult<T>;
         update(
             selectors: ReadonlyArray<string | DocumentLike>,
-            data: ReadonlyArray<Partial<Document<T>>>,
+            data: ReadonlyArray<Patch<Document<T>>>,
             options?: UpdateOptions
         ): Array<UpdateResult<T>>;
         updateByExample(
             example: Partial<Document<T>>,
-            newValue: Partial<Document<T>>,
+            newValue: Patch<Document<T>>,
             keepNull?: boolean,
             waitForSync?: boolean,
             limit?: number
         ): number;
         updateByExample(
             example: Partial<Document<T>>,
-            newValue: Partial<Document<T>>,
+            newValue: Patch<Document<T>>,
             options?: UpdateByExampleOptions
         ): number;
     }
@@ -743,6 +768,10 @@ declare namespace ArangoDB {
         query: string;
         bindVars?: object;
         options?: QueryOptions;
+    }
+
+    interface AqlLiteral {
+        toAQL: () => string;
     }
 
     interface Cursor<T = any> {
@@ -812,11 +841,60 @@ declare namespace ArangoDB {
 
     // Views
 
-    interface View {
-        // TODO
-        [key: string]: any;
+    interface ArangoSearchView {
+        _dbName: string;
+        _id: string;
+        name(): string;
+        type(): ViewType;
+        rename(newName: string): void;
+        properties(
+            newProperties?: ArangoSearchViewPropertiesOptions
+        ): ArangoSearchViewProperties;
     }
-    type ViewProperties = object; // TODO
+
+    type ArangoSearchViewConsolidationType =
+        | "bytes"
+        | "bytes_accum"
+        | "count"
+        | "fill";
+
+    interface ArangoSearchViewCollectionLink {
+        analyzers?: string[];
+        fields?: { [key: string]: ArangoSearchViewCollectionLink | undefined };
+        includeAllFields?: boolean;
+        trackListPositions?: boolean;
+        storeValues?: "none" | "id";
+    }
+
+    interface ArangoSearchViewProperties {
+        id: string;
+        name: string;
+        type: "arangosearch";
+
+        cleanupIntervalStep: number;
+        consolidationIntervalMsec: number;
+        consolidationPolicy: {
+            type: ArangoSearchViewConsolidationType;
+            segmentThreshold: number;
+            threshold: number;
+        };
+        links: {
+            [key: string]: ArangoSearchViewCollectionLink | undefined;
+        };
+    }
+
+    interface ArangoSearchViewPropertiesOptions {
+        cleanupIntervalStep?: number;
+        consolidationIntervalMsec?: number;
+        consolidationPolicy?: {
+            type?: ArangoSearchViewConsolidationType;
+            segmentThreshold?: number;
+            threshold?: number;
+        };
+        links?: {
+            [key: string]: ArangoSearchViewCollectionLink | undefined;
+        };
+    }
 
     // Global
 
@@ -862,22 +940,23 @@ declare namespace ArangoDB {
         // Collection
         _collection(name: string): Collection;
         _collections(): Collection[];
-        _create(name: string, properties?: CollectionProperties): Collection;
+        _create(name: string, properties?: CreateCollectionOptions): Collection;
         _createDocumentCollection(
             name: string,
-            properties?: CollectionProperties
+            properties?: CreateCollectionOptions
         ): Collection;
         _createEdgeCollection(
             name: string,
-            properties?: CollectionProperties
+            properties?: CreateCollectionOptions
         ): Collection;
         _drop(name: string): void;
         _truncate(name: string): void;
 
         // AQL
         _createStatement(query: Query | string): Statement;
+        _query(query: Query, options?: QueryOptions): Cursor;
         _query(
-            query: Query | string,
+            query: string,
             bindVars?: object,
             options?: QueryOptions
         ): Cursor;
@@ -898,13 +977,13 @@ declare namespace ArangoDB {
         ): DocumentMetadata;
 
         // Views
-        _view(name: string): View | null;
-        _views(): View[];
+        _view(name: string): ArangoSearchView | null;
+        _views(): ArangoSearchView[];
         _createView(
             name: string,
             type: ViewType,
-            properties: ViewProperties
-        ): View;
+            properties: ArangoSearchViewPropertiesOptions
+        ): ArangoSearchView;
         _dropView(name: string): void;
 
         // Global
@@ -930,9 +1009,27 @@ declare namespace Foxx {
         set?: (res: Response, sid: string) => void;
         clear?: (res: Response) => void;
     }
+    interface CollectionSessionStorage extends SessionStorage {
+        new: () => Session;
+        save: (session: Session) => Session;
+        clear: (session: Session) => boolean;
+        prune: () => string[];
+    }
+    interface SessionsMiddleware extends DelegateMiddleware {
+        storage: SessionStorage;
+        transport: SessionTransport[];
+    }
 
-    type Middleware = (req: Request, res: Response, next: NextFunction) => void;
-    type Handler = ((req: Request, res: Response) => void);
+    type SimpleMiddleware = (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ) => void;
+    interface DelegateMiddleware {
+        register: (endpoint: Endpoint) => SimpleMiddleware;
+    }
+    type Middleware = SimpleMiddleware | DelegateMiddleware;
+    type Handler = (req: Request, res: Response) => void;
     type NextFunction = () => void;
 
     interface ValidationResult<T> {
@@ -1070,6 +1167,10 @@ declare namespace Foxx {
     interface Request {
         arangoUser: string | null;
         arangoVersion: number;
+        auth: null | {
+            bearer?: string;
+            basic?: { username?: string; password?: string };
+        };
         baseUrl: string;
         body: any;
         context: Context;
@@ -1214,97 +1315,97 @@ declare namespace Foxx {
 
     function route(handler: Handler, name?: string): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
-        middleware8: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
+        middleware8: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
     function route(
-        pathOrMiddleware: string | Middleware,
-        middleware1: Middleware,
-        middleware2: Middleware,
-        middleware3: Middleware,
-        middleware4: Middleware,
-        middleware5: Middleware,
-        middleware6: Middleware,
-        middleware7: Middleware,
-        middleware8: Middleware,
-        middleware9: Middleware,
+        pathOrMiddleware: string | SimpleMiddleware,
+        middleware1: SimpleMiddleware,
+        middleware2: SimpleMiddleware,
+        middleware3: SimpleMiddleware,
+        middleware4: SimpleMiddleware,
+        middleware5: SimpleMiddleware,
+        middleware6: SimpleMiddleware,
+        middleware7: SimpleMiddleware,
+        middleware8: SimpleMiddleware,
+        middleware9: SimpleMiddleware,
         handler: Handler,
         name?: string
     ): Endpoint;
@@ -1327,6 +1428,13 @@ declare namespace Foxx {
 
 declare module "@arangodb" {
     function aql(strings: TemplateStringsArray, ...args: any[]): ArangoDB.Query;
+    namespace aql {
+        function literal(value: any): ArangoDB.AqlLiteral;
+    }
+    function query(
+        strings: TemplateStringsArray,
+        ...args: any[]
+    ): ArangoDB.Cursor;
     function time(): number;
     const db: ArangoDB.Database & {
         [key: string]: ArangoDB.Collection | undefined;
@@ -1341,8 +1449,87 @@ declare module "@arangodb/foxx/router" {
     export = createRouter;
 }
 
+declare module "@arangodb/foxx/queues" {
+    interface QueueItem {
+        name: string;
+        mount: string;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        schema?: Foxx.Schema;
+        preprocess?: (data: any) => any;
+    }
+
+    interface Script {
+        name: string;
+        mount: string;
+    }
+
+    type JobCallback = (
+        result: any,
+        jobData: any,
+        job: ArangoDB.Document<Job>
+    ) => void;
+
+    interface Job {
+        status: string;
+        queue: string;
+        type: Script;
+        failures: object[];
+        runs: number;
+        data: any;
+        created: number;
+        modified: number;
+        delayUntil: number;
+        maxFailures: number;
+        repeatDelay: number;
+        repeatTimes: number;
+        repeatUntil: number;
+        success?: string;
+        failure?: string;
+        runFailures: number;
+        abort(): void;
+    }
+
+    interface JobOptions {
+        success?: JobCallback;
+        failure?: JobCallback;
+        delayUntil?: number | Date;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        repeatTimes?: number;
+        repeatUntil?: number | Date;
+        repeatDelay?: number;
+    }
+
+    interface Queue {
+        push(item: QueueItem, data: any, opts?: JobOptions): void;
+        get(jobId: string): ArangoDB.Document<Job>;
+        delete(jobId: string): boolean;
+        pending(script?: Script): string[];
+        progress(script?: Script): string[];
+        complete(script?: Script): string[];
+        failed(script?: Script): string[];
+        all(script?: Script): string[];
+    }
+
+    function createQueue(name: string, maxWorkers?: number): Queue;
+    function deleteQueue(name: string): boolean;
+    function get(name: string): Queue;
+
+    export {
+        createQueue as create,
+        deleteQueue as delete,
+        get,
+        JobOptions,
+        Job,
+        Queue,
+        QueueItem,
+        Script
+    };
+}
+
 declare module "@arangodb/foxx/graphql" {
-    import { GraphQLSchema, formatError } from "graphql";
+    import { formatError, GraphQLSchema } from "graphql";
     type GraphQLModule = object;
     type GraphQLFormatErrorFunction = typeof formatError;
     interface GraphQLOptions {
@@ -1362,10 +1549,6 @@ declare module "@arangodb/foxx/graphql" {
 }
 
 declare module "@arangodb/foxx/sessions" {
-    interface SessionsMiddleware extends Foxx.Middleware {
-        storage: Foxx.SessionStorage;
-        transport: Foxx.SessionTransport[];
-    }
     interface SessionsOptions {
         storage: Foxx.SessionStorage | string | ArangoDB.Collection;
         transport:
@@ -1375,7 +1558,9 @@ declare module "@arangodb/foxx/sessions" {
             | "header";
         autoCreate?: boolean;
     }
-    function sessionsMiddleware(options: SessionsOptions): Foxx.Middleware;
+    function sessionsMiddleware(
+        options: SessionsOptions
+    ): Foxx.SessionsMiddleware;
     export = sessionsMiddleware;
 }
 
@@ -1386,14 +1571,11 @@ declare module "@arangodb/foxx/sessions/storages/collection" {
         pruneExpired?: boolean;
         autoUpdate?: boolean;
     }
-    interface CollectionStorage extends Foxx.SessionStorage {
-        prune: () => string[];
-    }
     function collectionStorage(
         options:
             | CollectionStorageOptions
             | CollectionStorageOptions["collection"]
-    ): CollectionStorage;
+    ): Foxx.CollectionSessionStorage;
     export = collectionStorage;
 }
 
@@ -1604,7 +1786,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;

@@ -6,10 +6,7 @@ interface StateI {
 }
 
 class Example extends React.Component<{}, StateI> {
-    constructor(props: {}) {
-        super(props);
-        this.state = {tags: []};
-    }
+    state = {tags: []};
 
     handleChange(tags: string[]) {
         this.setState({tags});

@@ -6,9 +6,14 @@ export class ReactTooltipTest extends React.PureComponent {
     componentDidMount() {
         ReactTooltip.rebuild();
     }
-
+    options: ReactTooltip.SanitizeHtmlOptions = {
+        parser: {
+            decodeEntities: false
+        }
+    };
+    msgString = "<i>Tooltip With &lt;Entity&gt;</i>";
     render() {
-        const getContent: ReactTooltip.GetContent = [() => Math.floor(Math.random() * 100), 30];
+        const getContent: ReactTooltip.GetContent = [dataTip => Math.floor(Math.random() * 100), 30];
 
         return <div>
             <a data-tip data-for="happyFace"> d(`･∀･)b </a>
@@ -53,8 +58,8 @@ export class ReactTooltipTest extends React.PureComponent {
             <a data-for="getContent" data-tip>=( •̀д•́)</a>
             <ReactTooltip id="getContent" getContent={getContent} />
 
-            <a data-for="overTime" data-tip>=( •̀д•́)</a>
-            <ReactTooltip id="overTime" wrapper="span" getContent={[() => new Date().toISOString(), 1000]} />
+            <a data-for="overTime" data-tip="3/14/1592">=( •̀д•́)</a>
+            <ReactTooltip id="overTime" wrapper="span" getContent={[dateString => new Date(dateString).toISOString(), 1000]} />
 
             <a data-tip data-for="happyFace"> d(`･∀･)b </a>
             <ReactTooltip
@@ -105,6 +110,9 @@ export class ReactTooltipTest extends React.PureComponent {
             <ReactTooltip id="hide-on-click" />
 
             <CommonTooltipComponent data-tip="my tooltip" />
+
+            <a data-tip={this.msgString} data-for="SanitizeHTMLOptions"> Sanitize HTML Options </a>
+            <ReactTooltip sanitizeHtmlOptions = {this.options} id="SanitizeHTMLOptions" html={true} type="light" />
         </div>;
     }
 }

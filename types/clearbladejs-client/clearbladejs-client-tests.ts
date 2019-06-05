@@ -3,7 +3,7 @@
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-let genericCallback = (error: boolean, response: Resp) => {};
+let genericCallback = (error: boolean, response: CbClient.Resp) => {};
 
 ///////////////////////////////////////
 // ClearBlade object API invocations
@@ -65,12 +65,12 @@ coll1.count(query1.query, genericCallback);
 ///////////////////////////////////////
 query1.addSortToQuery(
     query1,
-    QuerySortDirections.QUERY_SORT_ASCENDING,
+    CbClient.QuerySortDirections.QUERY_SORT_ASCENDING,
     "column1"
 );
 query1.addFilterToQuery(
     query1,
-    QueryConditions.QUERY_GREATERTHAN,
+    CbClient.QueryConditions.QUERY_GREATERTHAN,
     "key",
     "value"
 );

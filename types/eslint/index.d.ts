@@ -136,7 +136,7 @@ export class SourceCode {
 
     isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): ESTree.SourceLocation;
+    getLocFromIndex(index: number): ESTree.Position;
 
     getIndexFromLoc(location: ESTree.Position): number;
 
@@ -241,7 +241,10 @@ export namespace Rule {
         meta?: RuleMetaData;
     }
 
-    interface RuleListener {
+    type NodeTypes = ESTree.Node['type'];
+    type NodeListener = { [T in NodeTypes]?: (node: ESTree.Node) => void };
+
+    interface RuleListener extends NodeListener {
         onCodePathStart?(codePath: CodePath, node: ESTree.Node): void;
 
         onCodePathEnd?(codePath: CodePath, node: ESTree.Node): void;
@@ -468,7 +471,7 @@ export class CLIEngine {
 
     isPathIgnored(filePath: string): boolean;
 
-    getFormatter(format: string): CLIEngine.Formatter;
+    getFormatter(format?: string): CLIEngine.Formatter;
 
     getRules(): Map<string, Rule.RuleModule>;
 
@@ -480,7 +483,7 @@ export class CLIEngine {
 export namespace CLIEngine {
     class Options {
         allowInlineConfig?: boolean;
-        baseConfig?: boolean;
+        baseConfig?: false | { [name: string]: any };
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;
@@ -537,7 +540,7 @@ export class RuleTester {
         name: string,
         rule: Rule.RuleModule,
         tests: {
-            valid?: RuleTester.ValidTestCase[];
+            valid?: Array<string | RuleTester.ValidTestCase>;
             invalid?: RuleTester.InvalidTestCase[];
         },
     ): void;

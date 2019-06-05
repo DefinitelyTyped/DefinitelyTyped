@@ -1,12 +1,12 @@
-// Type definitions for D3JS d3-format module 1.2
-// Project: https://github.com/d3/d3-format/
+// Type definitions for D3JS d3-format module 1.3
+// Project: https://github.com/d3/d3-format/, https://d3js.org/d3-format
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//             Alex Ford <https://github.com/gustavderdrache>
-//             Boris Yankov <https://github.com/borisyankov>
-//             denisname <https://github.com/denisname>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.0
 
 /**
  * Specification of locale to use when creating a new FormatLocaleObject
@@ -125,6 +125,11 @@ export interface FormatSpecifier {
      */
     precision: number | undefined;
     /**
+     * The '~' option trims insignificant trailing zeros across all format types.
+     * This is most commonly used in conjunction with types 'r', 'e', 's' and '%'.
+     */
+    trim: boolean;
+    /**
      * The available type values are:
      *
      * 'e' - exponent notation.
@@ -140,9 +145,9 @@ export interface FormatSpecifier {
      * 'x' - hexadecimal notation, using lower-case letters, rounded to integer.
      * 'X' - hexadecimal notation, using upper-case letters, rounded to integer.
      * 'c' - converts the integer to the corresponding unicode character before printing.
-     * '' (none) - like g, but trim insignificant trailing zeros.
      *
-     * The type 'n' is also supported as shorthand for ',g'. For the 'g', 'n' and '' (none) types,
+     * The type '' (none) is also supported as shorthand for '~g' (with a default precision of 12 instead of 6), and
+     * the type 'n' is shorthand for ',g'. For the 'g', 'n' and '' (none) types,
      * decimal notation is used if the resulting string would have precision or fewer digits; otherwise, exponent notation is used.
      */
     type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n';
@@ -175,7 +180,7 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  *
  * Uses the current default locale.
  *
- * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][~][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A Specifier string.
@@ -191,7 +196,7 @@ export function format(specifier: string): (n: number | { valueOf(): number }) =
  *
  * Uses the current default locale.
  *
- * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][~][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A Specifier string.
@@ -204,7 +209,7 @@ export function formatPrefix(specifier: string, value: number): (n: number | { v
  * Parses the specified specifier, returning an object with exposed fields that correspond to the
  * format specification mini-language and a toString method that reconstructs the specifier.
  *
- * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][~][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A specifier string.

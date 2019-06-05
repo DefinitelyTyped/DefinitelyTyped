@@ -670,6 +670,37 @@ declare class router extends events.EventEmitter {
 
 }
 
+declare class w3cwebsocket {
+    static CONNECTING: number;
+    static OPEN: number;
+    static CLOSING: number;
+    static CLOSED: number;
+
+    url: string;
+    readyState: number;
+    protocol?: string;
+    extensions: IExtension[];
+    bufferedAmount: number;
+
+    binaryType: "arraybuffer";
+
+    CONNECTING: number;
+    OPEN: number;
+    CLOSING: number;
+    CLOSED: number;
+
+    onopen: () => void;
+    onerror: (error: Error) => void;
+    onclose: () => void;
+    onmessage: (message: any) => void;
+
+    constructor(url: string, protocols?: string | string[], origin?: string, headers?: any[], requestOptions?: object, clientConfig?: IClientConfig);
+
+    send(data: Buffer): void;
+    send(data: IStringified): void;
+    close(code?: number, reason?: string): void;
+}
+
 export declare var version: string;
 export declare var constants: {
     DEBUG: boolean;

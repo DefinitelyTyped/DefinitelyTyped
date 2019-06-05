@@ -1,11 +1,26 @@
-// Type definitions for @feathersjs/errors 3.2
-// Project: http://feathersjs.com/
+// Type definitions for @feathersjs/errors 3.3
+// Project: https://feathersjs.com
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
+//                 RazzM13 <https://github.com/RazzM13>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 // TypeScript Version: 2.2
 
+export interface FeathersErrorJSON {
+    readonly name: string;
+    readonly message: string;
+    readonly code: number;
+    readonly className: string;
+    readonly data: any;
+    readonly errors: any;
+}
+
 export class FeathersError extends Error {
-    constructor(msg: string | Error, name: string, code: number, className: string, data: any)
+    readonly code: number;
+    readonly className: string;
+    readonly data: any;
+    readonly errors: any;
+    constructor(msg: string | Error, name: string, code: number, className: string, data: any);
+    toJSON(): FeathersErrorJSON;
 }
 
 export class BadRequest extends FeathersError {

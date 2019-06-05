@@ -2,20 +2,37 @@
 // Project: https://github.com/clauderic/react-infinite-calendar
 // Definitions by: Christian Chown <https://github.com/christianchown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
+export type DateType = Date | string | number;
+
+export enum EVENT_TYPE {
+    START = 1,
+    HOVER,
+    END
+}
+
+export interface RangedSelection {
+    eventType: EVENT_TYPE;
+    start: Date;
+    end: Date;
+}
+
+export type RangedSelectFunction = (rangedDate: RangedSelection) => void;
+export type DateSelectFunction = (date: Date) => void;
+
 export interface ReactInfiniteCalendarProps {
-    selected?: Date | boolean;
-    width?: number | 'auto';
+    selected?: DateType | false | { start: DateType; end: DateType };
+    width?: number | 'auto' | '100%';
     height?: number | 'auto';
-    min?: Date;
-    max?: Date;
-    minDate?: Date;
-    maxDate?: Date;
+    min?: DateType;
+    max?: DateType;
+    minDate?: DateType;
+    maxDate?: DateType;
     disabledDays?: Array<0 | 1 | 2 | 3 | 4 | 5 | 6>;
-    disabledDates?: Date[];
+    disabledDates?: DateType[];
     display?: 'days' | 'years';
     displayOptions?: {
         hideYearsOnSelect?: boolean;
@@ -55,12 +72,22 @@ export interface ReactInfiniteCalendarProps {
         weekdayColor?: string;
     };
     className?: string;
-    onSelect?: (date: string) => void;
+    onSelect?: DateSelectFunction | RangedSelectFunction;
     onScroll?: (scrollTop: number) => void;
     onScrollEnd?: (scrollTop: number) => void;
     rowHeight?: number;
     autoFocus?: boolean;
     tabIndex?: number;
+    Component?: CalendarClass;
 }
+
+export class Calendar extends React.Component<ReactInfiniteCalendarProps> {}
+export type CalendarClass = React.ComponentClass<ReactInfiniteCalendarProps>;
+
+export function withRange(component: CalendarClass): CalendarClass;
+export function withDateSelection(component: CalendarClass): CalendarClass;
+export function withMultipleDates(component: CalendarClass): CalendarClass;
+export function withKeyboardSupport(component: CalendarClass): CalendarClass;
+export function defaultMultipleDateInterpolation(component: CalendarClass): CalendarClass;
 
 export default class ReactInfiniteCalendar extends React.Component<ReactInfiniteCalendarProps> {}

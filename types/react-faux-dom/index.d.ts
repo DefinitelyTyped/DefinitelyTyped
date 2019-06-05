@@ -3,8 +3,9 @@
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
 //                 Cleve Littlefield <https://github.com/cleverguy25>
 //                 Michał Kostrzyński <https://github.com/deviousm>
+//                 Hanai <https://github.com/hanai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -13,7 +14,7 @@ export class Element extends HTMLElement {
 
     constructor(nodeName: string, parentNode?: Element);
 
-    toReact(): React.ReactElement<any>;
+    toReact(): React.ReactElement;
 }
 
 export const defaultView: {
@@ -34,4 +35,4 @@ export interface ReactFauxDomProps {
     isAnimatingFauxDOM(): boolean;
 }
 
-export function withFauxDOM<P>(WrappedComponent: any): React.ClassicComponentClass<P & ReactFauxDomProps>;
+export function withFauxDOM<P>(WrappedComponent: React.ComponentClass<P>): React.ComponentClass<Pick<P, Exclude<keyof P, keyof ReactFauxDomProps>>>;

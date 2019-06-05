@@ -22,11 +22,11 @@ declare namespace Moon {
     }
 
     interface MoonConstructor {
-        new <Props extends string, Data, Methods>(options?: ConstructorOptions<Props, Data, Methods>): Instance<Data & Methods & Record<Props, any>>;
+        new <Props extends string = never, Data = {}, Methods = {}>(options?: ConstructorOptions<Props, Data, Methods>): Instance<Data & Methods & Record<Props, any>>;
     }
 
     interface MoonStatic extends MoonConstructor {
-        component<Props extends string, Data, Methods>(name: string, options: ComponentOptions<Props, Data, Methods>): MoonConstructor;
+        component<Props extends string = never, Data = {}, Methods = {}>(name: string, options: ComponentOptions<Props, Data, Methods>): MoonConstructor;
         config: MoonConfig;
         use(plugin: object): void;
         compile(template: string): void;

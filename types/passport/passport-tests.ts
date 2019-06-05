@@ -67,13 +67,17 @@ passport.use(new TestStrategy())
     .framework(newFramework);
 
 const app = express();
-app.configure(() => {
-    app.use(passport.initialize());
-    app.use(passport.session());
-});
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+    (req, res) => {
+        res.redirect('/');
+    });
+
+app.post('/login',
+    passport.authorize('local', { failureRedirect: '/login', failureFlash: true }),
     (req, res) => {
         res.redirect('/');
     });

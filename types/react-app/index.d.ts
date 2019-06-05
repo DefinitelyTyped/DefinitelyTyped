@@ -2,7 +2,7 @@
 // Project: https://github.com/kriasoft/react-app#readme
 // Definitions by: Prakarsh Pandey <https://github.com/prakarshpandey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

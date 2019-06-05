@@ -61,10 +61,11 @@ client.send('destination');
 client.send('destination', {});
 client.send('destination', {}, 'body');
 
-client.subscribe('destination', (message) => { });
-client.subscribe('destination', (message) => { }, {});
+let subscription = client.subscribe('destination', (message) => { });
+subscription = client.subscribe('destination', (message) => { }, {});
+subscription.unsubscribe();
 
-client.unsubscribe();
+client.unsubscribe(subscription.id);
 
 client.begin('transaction');
 
@@ -80,8 +81,8 @@ let message: Stomp.Message = {
     headers: {},
     body: 'body',
 
-    ack({}) { },
-    nack({}) { }
+    ack(headers: {}) { },
+    nack(headers: {}) { }
 }
 
 message.ack();

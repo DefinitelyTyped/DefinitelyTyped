@@ -15,6 +15,9 @@
         "paths": {
             "@storybook/addon-options": [
                 "storybook__addon-options"
+            ],
+            "@storybook/react": [
+                "storybook__react"
             ]
         },
         "types": [],

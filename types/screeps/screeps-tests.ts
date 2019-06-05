@@ -12,6 +12,7 @@
 const creep: Creep = Game.creeps.sampleCreep;
 const room: Room = Game.rooms.W10S10;
 const flag: Flag = Game.flags.Flag1;
+const powerCreep: PowerCreep = Game.powerCreeps.samplePowerCreep;
 const spawn: StructureSpawn = Game.spawns.Spawn1;
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 
@@ -22,6 +23,15 @@ const anotherRoomName: Room = Game.rooms.W10S11;
 interface CreepMemory {
     sourceId: string;
     lastHits: number;
+}
+
+// Typescript always uses 'string' as the type of a key inside 'for in' loops.
+// In case of objects with a restricted set of properties (e.g. ResourceConstant as key in StoreDefinition)
+// the type of the key should be narrowed down in order to prevent casting (key as ResourceConstant).
+// This helper function provides strongly typed keys for such objects.
+// See discussion (https://github.com/Microsoft/TypeScript/pull/12253) why Object.keys does not return typed keys.
+function keys<T>(o: T): Array<keyof T> {
+    return Object.keys(o) as Array<keyof T>;
 }
 
 // Game.creeps
@@ -36,6 +46,55 @@ interface CreepMemory {
 
 {
     creep.moveTo(Game.flags.Flag1);
+}
+
+// Game.powerCreeps
+
+{
+    PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
+
+    for (const i in Game.powerCreeps) {
+        const powerCreep = Game.powerCreeps[i];
+
+        if (powerCreep.ticksToLive === undefined) {
+            // Not spawned in world; spawn creep
+            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            powerCreep.spawn(spawn);
+        } else {
+            // Generate Ops
+            if (
+                powerCreep.powers[PWR_GENERATE_OPS] &&
+                powerCreep.powers[PWR_GENERATE_OPS].cooldown === 0 &&
+                (powerCreep.carry.ops || 0) < 10
+            ) {
+                Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
+            } else {
+                // Boost resource
+                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const sourceEffect = targetSource.effects.find(effect => effect.power === PWR_REGEN_SOURCE);
+                if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
+                    powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
+                }
+            }
+        }
+
+        // AnyCreep type checks
+        creep.attack(powerCreep);
+        creep.heal(powerCreep);
+        creep.rangedAttack(powerCreep);
+        creep.rangedHeal(powerCreep);
+        creep.transfer(powerCreep, RESOURCE_ENERGY);
+        powerCreep.transfer(creep, RESOURCE_ENERGY);
+
+        // Upgrading
+        powerCreep.upgrade(PWR_GENERATE_OPS);
+    }
+
+    const myPowaCreeps = Game.rooms.sim.find(FIND_MY_POWER_CREEPS);
+
+    // Constant type checking
+    POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
+    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
 }
 
 // Game.spawns
@@ -95,7 +154,7 @@ interface CreepMemory {
 // Game.getObjectById(id)
 
 {
-    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES).id;
+    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES)!.id;
     const source = Game.getObjectById<Source>(creep.memory.sourceId);
 }
 
@@ -112,7 +171,7 @@ interface CreepMemory {
     if (Game.spawns["Spawn1"].energy === 0) {
         Game.notify(
             "Spawn1 is out of energy",
-            180  // group these notifications for 3 hours
+            180, // group these notifications for 3 hours
         );
     }
 }
@@ -121,6 +180,13 @@ interface CreepMemory {
 
 {
     const exits = Game.map.describeExits("W8N3");
+    // tslint:disable-next-line:newline-per-chained-call
+    keys(exits).map(exitKey => {
+        const nextRoom = exits[exitKey];
+        const exitDir = +exitKey as ExitConstant;
+        const exitPos = creep.pos.findClosestByRange(exitDir);
+        return { nextRoom, exitPos };
+    });
 }
 
 // Game.map.findExit()
@@ -128,8 +194,12 @@ interface CreepMemory {
 {
     if (creep.room !== anotherRoomName) {
         const exitDir = Game.map.findExit(creep.room, anotherRoomName);
-        const exit = creep.pos.findClosestByRange(exitDir as FindConstant);
-        creep.moveTo(exit);
+        if (exitDir !== ERR_NO_PATH && exitDir !== ERR_INVALID_ARGS) {
+            const exit = creep.pos.findClosestByRange(exitDir);
+            if (exit !== null) {
+                creep.moveTo(exit);
+            }
+        }
     } else {
         // go to some place in another room
     }
@@ -146,7 +216,9 @@ interface CreepMemory {
 
     if (route !== ERR_NO_PATH && route.length > 0) {
         const exit = creep.pos.findClosestByRange(route[0].exit);
-        creep.moveTo(exit);
+        if (exit !== null) {
+            creep.moveTo(exit);
+        }
     }
 }
 
@@ -158,7 +230,7 @@ interface CreepMemory {
                 return Infinity;
             }
             return 1;
-        }
+        },
     });
 }
 
@@ -173,11 +245,8 @@ interface CreepMemory {
         routeCallback(roomName) {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
-                const isHighway = (parseInt(parsed[1], 10) % 10 === 0) ||
-                (parseInt(parsed[2], 10) % 10 === 0);
-                const isMyRoom = Game.rooms[roomName] &&
-                Game.rooms[roomName].controller &&
-                Game.rooms[roomName].controller!.my;
+                const isHighway = parseInt(parsed[1], 10) % 10 === 0 || parseInt(parsed[2], 10) % 10 === 0;
+                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
                 if (isHighway || isMyRoom) {
                     return 1;
                 } else {
@@ -186,24 +255,24 @@ interface CreepMemory {
             } else {
                 return 2.5;
             }
-        }
+        },
     });
 
     if (route !== ERR_NO_PATH) {
-        route.forEach((info) => {
+        route.forEach(info => {
             allowedRooms[info.room] = true;
         });
     }
 
     // Invoke PathFinder, allowing access only to rooms from `findRoute`
     const ret = PathFinder.search(from, [to], {
-        roomCallback: (roomName) => {
+        roomCallback: roomName => {
             if (allowedRooms[roomName] === undefined) {
                 return false;
             } else {
                 return true;
             }
-        }
+        },
     });
 }
 
@@ -277,12 +346,19 @@ interface CreepMemory {
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM });
 
     const targetRoom = "W1N1";
-    Game.market.getAllOrders((currentOrder) => currentOrder.resourceType === RESOURCE_GHODIUM &&
-        currentOrder.type === ORDER_SELL &&
-        Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500);
+    Game.market.getAllOrders(
+        currentOrder =>
+            currentOrder.resourceType === RESOURCE_GHODIUM &&
+            currentOrder.type === ORDER_SELL &&
+            Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500,
+    );
 
     // Game.market.getOrderById(id)
     const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+
+    // Subscription tokens
+    Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
+    Game.market.createOrder(ORDER_BUY, SUBSCRIPTION_TOKEN, 10000000, 1);
 }
 
 // PathFinder
@@ -290,54 +366,52 @@ interface CreepMemory {
 {
     const pfCreep = Game.creeps.John;
 
-    const goals = pfCreep.room.find(FIND_SOURCES)
-        .map((source) => {
-            // We can't actually walk on sources-- set `range` to 1
-            // so we path next to it.
-            return { pos: source.pos, range: 1 };
-        });
+    // tslint:disable-next-line:newline-per-chained-call
+    const goals = pfCreep.room.find(FIND_SOURCES).map(source => {
+        // We can't actually walk on sources-- set `range` to 1
+        // so we path next to it.
+        return { pos: source.pos, range: 1 };
+    });
 
-    const ret = PathFinder.search(
-        pfCreep.pos, goals,
-        {
-            // We need to set the defaults costs higher so that we
-            // can set the road cost lower in `roomCallback`
-            plainCost: 2,
-            swampCost: 10,
+    const ret = PathFinder.search(pfCreep.pos, goals, {
+        // We need to set the defaults costs higher so that we
+        // can set the road cost lower in `roomCallback`
+        plainCost: 2,
+        swampCost: 10,
 
-            roomCallback(roomName) {
-                const curRoom = Game.rooms[roomName];
-                // In this example `room` will always exist, but since
-                // PathFinder supports searches which span multiple rooms
-                // you should be careful!
-                if (!curRoom) {
-                    return false;
+        roomCallback(roomName) {
+            const curRoom = Game.rooms[roomName];
+            // In this example `room` will always exist, but since
+            // PathFinder supports searches which span multiple rooms
+            // you should be careful!
+            if (!curRoom) {
+                return false;
+            }
+            const costs = new PathFinder.CostMatrix();
+
+            // tslint:disable-next-line:newline-per-chained-call
+            curRoom.find(FIND_STRUCTURES).forEach(struct => {
+                if (struct.structureType === STRUCTURE_ROAD) {
+                    // Favor roads over plain tiles
+                    costs.set(struct.pos.x, struct.pos.y, 1);
+                } else if (
+                    struct.structureType !== STRUCTURE_CONTAINER &&
+                    (struct.structureType !== STRUCTURE_RAMPART || !(struct as OwnedStructure).my)
+                ) {
+                    // Can't walk through non-walkable buildings
+                    costs.set(struct.pos.x, struct.pos.y, 0xff);
                 }
-                const costs = new PathFinder.CostMatrix();
+            });
 
-                curRoom.find(FIND_STRUCTURES)
-                    .forEach((struct) => {
-                        if (struct.structureType === STRUCTURE_ROAD) {
-                            // Favor roads over plain tiles
-                            costs.set(struct.pos.x, struct.pos.y, 1);
-                        } else if (struct.structureType !== STRUCTURE_CONTAINER &&
-                            (struct.structureType !== STRUCTURE_RAMPART ||
-                                !(struct as OwnedStructure).my)) {
-                            // Can't walk through non-walkable buildings
-                            costs.set(struct.pos.x, struct.pos.y, 0xff);
-                        }
-                    });
+            // Avoid creeps in the room
+            // tslint:disable-next-line:newline-per-chained-call
+            curRoom.find(FIND_CREEPS).forEach(thisCreep => {
+                costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
+            });
 
-                // Avoid creeps in the room
-                curRoom.find(FIND_CREEPS)
-                    .forEach((thisCreep) => {
-                        costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
-                    });
-
-                return costs;
-            },
-        }
-    );
+            return costs;
+        },
+    });
 
     const pos = ret.path[0];
     pfCreep.move(pfCreep.pos.getDirectionTo(pos));
@@ -364,8 +438,8 @@ interface CreepMemory {
 
     RawMemory.interShardSegment = JSON.stringify({
         creeps: {
-            Bob: {role: "claimer"}
-        }
+            Bob: { role: "claimer" },
+        },
     });
 
     // on another shard
@@ -400,6 +474,16 @@ interface CreepMemory {
     RawMemory.setPublicSegments([]);
 }
 
+// InterShardMemory
+
+{
+    let localShardData = "";
+    InterShardMemory.setLocal(localShardData);
+    localShardData = InterShardMemory.getLocal();
+
+    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
+}
+
 // Find Overloads
 
 {
@@ -428,11 +512,14 @@ interface CreepMemory {
     creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
-        filter: (structure) => {
-            return (structure.structureType === STRUCTURE_TOWER);
-        }
+        filter: structure => {
+            return structure.structureType === STRUCTURE_TOWER;
+        },
     });
     towers[0].attack(creeps[0]);
+    towers[0].attack(creeps[0] as AnyCreep);
+    towers[0].attack(powerCreep);
+    towers[0].heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -440,33 +527,37 @@ interface CreepMemory {
 {
     // Should have type Creep
     const hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-
-    creep.say(hostileCreep.name);
+    if (hostileCreep !== null) {
+        creep.say(hostileCreep.name);
+    }
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
-        filter: (structure) => {
+        filter: structure => {
             return structure.structureType === STRUCTURE_TOWER;
-        }
+        },
     });
-
-    tower.attack(creep);
+    if (tower !== null) {
+        tower.attack(creep);
+        tower.attack(powerCreep);
+    }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
-        filter: (structure) => {
+        filter: structure => {
             return structure.structureType === STRUCTURE_RAMPART;
-        }
+        },
     });
-
-    rampart.isPublic;
+    if (rampart !== null) {
+        rampart.isPublic;
+    }
 
     // Should have type Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
     hostileCreeps[0].saying;
 
     const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
-        filter: (structure) => {
+        filter: structure => {
             return structure.structureType === STRUCTURE_LAB;
-        }
+        },
     });
 
     labs[0].boostCreep(creep);
@@ -475,6 +566,18 @@ interface CreepMemory {
 // LookAt Finds
 
 {
+    const matrix = room.lookAtArea(10, 10, 20, 20, false);
+    for (const y in matrix) {
+        const row = matrix[y];
+        for (const x in row) {
+            const pos = new RoomPosition(+x, +y, room.name);
+            const objects = row[x];
+            if (objects.length > 0) {
+                objects.map(o => o.type);
+            }
+        }
+    }
+
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
     nukes[0].launchRoomName;
@@ -493,6 +596,15 @@ interface CreepMemory {
     creeps[0].creep.move(TOP);
 }
 
+// StoreDefinition
+
+{
+    for (const resourceType of keys(creep.carry)) {
+        const amount = creep.carry[resourceType];
+        creep.drop(resourceType, amount);
+    }
+}
+
 // Advanced Structure types
 {
     const owned = Game.getObjectById<AnyOwnedStructure>("blah");
@@ -506,24 +618,31 @@ interface CreepMemory {
     switch (unowned.structureType) {
         case STRUCTURE_TOWER:
             unowned.heal(Game.creeps.myCreep);
-        break;
+            break;
         case STRUCTURE_CONTAINER:
         case STRUCTURE_STORAGE:
         case STRUCTURE_TERMINAL:
             const energyPercent = unowned.store.energy / unowned.storeCapacity;
-        break;
+            break;
         case STRUCTURE_WALL:
         case STRUCTURE_RAMPART:
             const wallHp = unowned.hits / unowned.hitsMax;
-        break;
+            break;
     }
 
     // test discriminated union using filter functions on find
-    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, (s) => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0)[0];
-    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
+    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
+        filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
+    })[0];
+    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+        filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
+    });
 
-    Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART)
-        .forEach((r) => r.notifyWhenAttacked(false));
+    Game.rooms.myRoom
+        .find(FIND_MY_STRUCTURES, {
+            filter: s => s.structureType === STRUCTURE_RAMPART,
+        })
+        .forEach(r => r.notifyWhenAttacked(false));
 }
 
 {
@@ -535,22 +654,99 @@ interface CreepMemory {
     BOOSTS[creep.body[0].type];
 }
 
+// Tombstones
+
 {
     const tombstone = room.find(FIND_TOMBSTONES)[0];
 
-    tombstone.creep.my;
+    (tombstone.creep as PowerCreep).spawnCooldownTime;
+    (tombstone.creep as Creep).my;
 
     tombstone.store.energy;
 
     tombstone.id;
 
-    const creep = Game.creeps['dave'];
+    const creep = Game.creeps["dave"];
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
 {
-    if (Game.cpu.hasOwnProperty('getHeapStatistics')) {
+    if (Game.cpu.hasOwnProperty("getHeapStatistics")) {
         const heap = Game.cpu.getHeapStatistics!();
         heap.total_heap_size;
     }
+}
+
+// StructurePortal
+
+{
+    const portals = room.find<StructurePortal>(FIND_STRUCTURES, { filter: s => s.structureType === STRUCTURE_PORTAL });
+    portals.forEach((p: StructurePortal) => {
+        const state = p.ticksToDecay === undefined ? "stable" : "unstable";
+        if (p.destination instanceof RoomPosition) {
+            Game.notify(`Found ${state} inter-room portal to ${p.destination}`);
+        } else {
+            Game.notify(`Found ${state} inter-shard portal to ${p.destination.shard} ${p.destination.room}`);
+        }
+    });
+}
+
+// ConstructionSite
+
+{
+    room.createConstructionSite(10, 10, STRUCTURE_EXTENSION);
+    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, "mySpawn");
+
+    const pos = new RoomPosition(10, 10, room.name);
+    room.createConstructionSite(pos, STRUCTURE_EXTENSION);
+    room.createConstructionSite(pos, STRUCTURE_SPAWN, "mySpawn");
+    pos.createConstructionSite(STRUCTURE_EXTENSION);
+    pos.createConstructionSite(STRUCTURE_SPAWN, "mySpawn");
+}
+
+// StructureLab
+
+{
+    const lab0 = Game.getObjectById<StructureLab>("lab0");
+    const lab1 = Game.getObjectById<StructureLab>("lab1");
+    const lab2 = Game.getObjectById<StructureLab>("lab2");
+    if (lab0 !== null && lab1 !== null && lab2 !== null) {
+        if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
+            lab0.runReaction(lab1, lab2);
+        }
+    }
+}
+
+// Room event log
+
+{
+    room.getEventLog();
+    room.getEventLog(true);
+
+    const events = room.getEventLog();
+
+    const event = events[0] as EventItem<EVENT_ATTACK>;
+
+    event.data.attackType;
+}
+
+// Room.Terrain
+
+{
+    const room = Game.rooms[""];
+
+    const myTerrain = room.getTerrain();
+
+    const ret = myTerrain.get(5, 5);
+    if (ret === 0) {
+        /*plain*/
+    }
+    if (ret === TERRAIN_MASK_SWAMP) {
+        /*swamp*/
+    }
+    if (ret === TERRAIN_MASK_WALL) {
+        /*wall*/
+    }
+
+    const enemyTerrain = new Room.Terrain("W2N5");
 }

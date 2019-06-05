@@ -1,5 +1,4 @@
 import * as React from "react";
-import { DropdownMenu } from "react-bootstrap";
 import DatePicker = require("react-bootstrap-date-picker");
 
 const Custom: React.StatelessComponent = () => {

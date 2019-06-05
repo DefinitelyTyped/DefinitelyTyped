@@ -118,7 +118,7 @@ async function main() {
         "    interface LoDashFp {",
         ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
         "        __: lodash.__;",
-        "        placehodler: lodash.__;",
+        "        placeholder: lodash.__;",
         "    }",
         "}",
         "",
@@ -153,6 +153,7 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
     for (const filePath of filePaths) {
         const definitions = await parseFile(filePath, commonTypes);
         for (const definition of definitions) {
+            definition.overloads = definition.overloads.filter(o => !o.params.some(p => p.includes('StringIterator')));
             if (definition.overloads.every(o => o.params.length <= 1 && (o.returnType === "typeof _" || o.returnType === "LoDashStatic"))) {
                 // Our convert technique doesn't work well on "typeof _" functions (or at least runInContext)
                 // Plus, if there are 0-1 parameters, there's nothing to curry anyways.
@@ -174,15 +175,14 @@ async function processDefinitions(filePaths: string[], commonTypes: string[]): P
                     } else if (args.length > 4 || definition.name === "flow" || definition.name === "flowRight") {
                         // Arity wasn't fixed by convert()
                         isFixed = false;
-                    } else {
-                        // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
-                        // So we have to hard-code it.
-                        const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
-                            "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
-                            "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
-                        if (unchangedOrders.includes(definition.name))
-                            args = _.sortBy(args as number[][], (a: number[]) => a[0]);
                     }
+                    // For some reason, convert() doesn't seems to tell us which functions have unchanged argument order.
+                    // So we have to hard-code it.
+                    const unchangedOrders = ["add", "assign", "assignIn", "bind", "bindKey", "concat", "difference", "divide", "eq",
+                        "gt", "gte", "isEqual", "lt", "lte", "matchesProperty", "merge", "multiply", "overArgs", "partial", "partialRight",
+                        "propertyOf", "random", "range", "rangeRight", "subtract", "zip", "zipObject", "zipObjectDeep"];
+                    if (unchangedOrders.includes(definition.name))
+                        args = _.sortBy(args, a => typeof a === "number" ? a : a[0]);
 
                     return () => curryDefinition(definition, _.flatten(args), spreadIndex, isFixed);
                 };
@@ -324,6 +324,12 @@ function parseDefinitions(definitionString: string, startIndex: number, endIndex
                 .map(o => _.trim(o, ","))
                 .filter(o => !!o);
             overload.returnType = overloadString.substring(paramEndIndex + 2).trim();
+            // Special case for unset: the return type should be the input type, not bolean. See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25361
+            if (name === "unset") {
+                overload.typeParams = [{ name: "T" }];
+                overload.params[0] = overload.params[0].replace(/\bany\b/, "T");
+                overload.returnType = "T";
+            }
             currentDefinition.overloads.push(overload);
         } else {
             // This overload actually points to an interface. Try to find said interface and get the overloads from there.
@@ -433,25 +439,33 @@ function curryDefinition(definition: Definition, paramOrder: number[], spreadInd
         // Spread/rest parameters could be in any of the following formats:
         // 1. The rest parameter is at spreadIndex, and it is the last parameter.
         // 2. The rest parameter is immediately after spreadIndex, e.g. assign(object, ...sources[]). In this case, convert it to assignAll(...object[])
-        // 3. The rest parameter is not the last parameter, e.g. assignWith(object, ...sources[], customizer)
+        // 3. The overload defines no rest parameters, e.g. mergeAll(T1, T2, T3)
+        // 4. The rest parameter is not the last parameter, e.g. assignWith(object, ...sources[], customizer)
         if (spreadIndex === arity - 1) {
-            // cases 1-2
             for (let i = 0; i < overloads.length; ++i) {
                 const overload = overloads[i];
                 if (overload.params.length === arity && overload.params[spreadIndex] && overload.params[spreadIndex].startsWith("...")) {
+                    // case 1
                     overload.params[spreadIndex] = overload.params[spreadIndex].replace("...", "");
                 } else if (overload.params.length === arity + 1 && overload.params[spreadIndex + 1] && overload.params[spreadIndex + 1].startsWith("...")) {
+                    // case 2
                     overload.params.splice(spreadIndex + 1, 1);
                     const parts = overload.params[spreadIndex].split(":").map(_.trim);
                     parts[1] = `ReadonlyArray<${parts[1]}>`;
                     overload.params[spreadIndex] = `${parts[0]}: ${parts[1]}`;
+                } else if (overload.params.length >= arity && overload.params[spreadIndex] && !overload.params.some(p => p.startsWith("..."))) {
+                    // case 3
+                    const paramName = getParamName(overload.params[spreadIndex]);
+                    const spreadParamTypes = overload.params.slice(spreadIndex).map(getParamType);
+                    overload.params = overload.params.slice(0, spreadIndex);
+                    overload.params.push(`${paramName}: [${spreadParamTypes.join(", ")}]`);
                 } else {
                     _.pull(overloads, overload);
                     --i;
                 }
             }
         } else {
-            // case 3
+            // case 4
             const overload = overloads[0];
             overloads = [{
                 jsdoc: overload.jsdoc,

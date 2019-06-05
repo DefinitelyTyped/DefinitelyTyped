@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MDCLinearProgressAdapter {
+export default interface MDCLinearProgressAdapter {
     addClass(className: string): void;
 
     getPrimaryBar(): Element;

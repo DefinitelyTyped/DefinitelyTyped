@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "log4js": "^3.0.0"
+    }
+}

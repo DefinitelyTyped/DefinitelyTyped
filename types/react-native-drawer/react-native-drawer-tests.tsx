@@ -8,12 +8,9 @@ import {
 import Drawer from 'react-native-drawer';
 
 class DrawerTest extends React.Component<{}, {open: boolean}> {
-    constructor(props: {}) {
-      super(props);
-      this.state = {
+    state = {
         open: true
-      };
-    }
+    };
 
     render() {
         return (

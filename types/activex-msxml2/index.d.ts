@@ -1,8 +1,10 @@
-// Type definitions for Microsoft XML, v6.0 - MSXML2 6.0
+// Type definitions for non-npm package Microsoft XML, v6.0 - MSXML2 6.0
 // Project: https://msdn.microsoft.com/en-us/library/ms763742.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
+
+/// <reference types="activex-interop" />
 
 declare namespace MSXML2 {
     /** Schema Object Model Content Types */
@@ -2775,7 +2777,6 @@ declare namespace MSXML2 {
 interface ActiveXObject {
     on(obj: MSXML2.DOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.DOMDocument60, parameter: {}) => void): void;
     on(obj: MSXML2.FreeThreadedDOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

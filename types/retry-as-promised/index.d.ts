@@ -2,7 +2,7 @@
 // Project: https://github.com/mickhansen/retry-as-promised
 // Definitions by: Florian Oellerich <https://github.com/Raigen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import Promise = require('bluebird');
 

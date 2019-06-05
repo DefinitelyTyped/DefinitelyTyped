@@ -1,13 +1,15 @@
 import * as babel from "babel-core";
 
-// Example from https://github.com/babel/babel/tree/master/packages/babel-core
+// Slightly modified example from https://github.com/babel/babel/tree/master/packages/babel-core
 const code = `class Example {}`;
 const result = babel.transform(code, { /* options */ });
 result.code; // Generated code
 result.map; // Sourcemap
 result.ast; // AST
+result.ignored;
+result.metadata;
 
-// Examples from http://babeljs.io/docs/usage/api/
+// Slightly modified examples from http://babeljs.io/docs/usage/api/
 const options: babel.TransformOptions = {
     plugins: [
         "es2015-arrow-functions",
@@ -24,6 +26,8 @@ babel.transformFile("filename.js", options, (err, result) => {
     result.code;
     result.map;
     result.ast;
+    result.ignored;
+    result.metadata;
 });
 
 babel.transformFileSync("filename.js", options).code;

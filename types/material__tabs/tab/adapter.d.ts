@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MDCTabAdapter {
+export default interface MDCTabAdapter {
     addClass(className: string): void;
 
     removeClass(className: string): void;

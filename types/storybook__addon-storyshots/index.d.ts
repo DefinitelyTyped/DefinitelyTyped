@@ -1,20 +1,26 @@
-// Type definitions for @storybook/addon-storyshots 3.4
-// Project: https://github.com/storybooks/storybook/tree/master/addons/storyshots
+// Type definitions for @storybook/addon-storyshots 4.0
+// Project: https://github.com/storybooks/storybook/tree/master/addons/storyshots, https://github.com/storybooks/storybook/tree/master/addons/storyshots/storyshots-core
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 import * as React from 'react';
 import { StoryObject } from '@storybook/react';
-import { Page } from "puppeteer";
+import { Page, NavigationOptions, ScreenshotOptions } from "puppeteer";
 
 export type Test = (options: {
     story: StoryObject;
     context: StoryContext;
-    renderShallowTree: any;
-    renderTree: any;
+    renderShallowTree: RenderTree;
+    renderTree: RenderTree;
     snapshotFileName: string;
-}) => void | undefined | Promise<void>;
+}) => undefined | void | Promise<void>;
+
+export type RenderTree = (
+    story: StoryObject,
+    context: StoryContext,
+    options?: SnapshotOptions
+) => undefined | void | Promise<void>;
 
 export interface SnapshotOptions {
     createNodeMock?: (element: any) => any;
@@ -34,9 +40,12 @@ export interface ImageSnapshotOptions {
 }
 
 export function imageSnapshot(options?: {
-    storybookUrl: string;
-    getMatchOptions: (options: ImageSnapshotOptions) => { failureThreshold: number, failureThresholdType: 'percent' };
-    beforeScreenshot: (page: Page, options: ImageSnapshotOptions) => Promise<void>;
+    storybookUrl?: string;
+    getMatchOptions?: (options: ImageSnapshotOptions) => { failureThreshold: number, failureThresholdType: 'percent' };
+    getScreenshotOptions?: (options: ImageSnapshotOptions) => ScreenshotOptions;
+    beforeScreenshot?: (page: Page, options: ImageSnapshotOptions) => Promise<void>;
+    getGotoOptions?: (options: ImageSnapshotOptions) => NavigationOptions;
+    chromeExecutablePath?: string;
 }): Test;
 
 export function multiSnapshotWithOptions(options: SnapshotOptions): Test;
@@ -49,12 +58,21 @@ export function snapshotWithOptions(options: SnapshotOptions): Test;
 
 export const renderOnly: Test;
 
+export function renderWithOptions(options?: SnapshotOptions): Test;
+
 export function getSnapshotFileName(context: StoryContext): string;
 
-export default function initStoryshots(options: {
+// tslint:disable-next-line no-unnecessary-generics
+export default function initStoryshots<Rendered>(options: InitOptions<Rendered>): void;
+
+export interface InitOptions<Rendered = any> {
     configPath?: string;
-    framework?: string;
-    integrityOptions?: {};
     suite?: string;
+    storyKindRegex?: RegExp;
+    storyNameRegex?: RegExp;
+    framework?: string;
     test?: Test;
-}): void;
+    renderer?: (node: JSX.Element) => Rendered;
+    serializer?: (rendered: Rendered) => any;
+    integrityOptions?: {};
+}

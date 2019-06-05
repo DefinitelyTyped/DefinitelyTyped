@@ -2,13 +2,13 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
 import * as React from "react";
 
-declare function ReactHelmet(): ReactHelmet.HelmetComponent;
+declare class ReactHelmet extends React.Component<ReactHelmet.HelmetProps> {}
 
 declare namespace ReactHelmet {
     function peek(): ReactHelmet.HelmetData;
@@ -41,8 +41,6 @@ declare namespace ReactHelmet {
         toString(): string;
         toComponent(): React.Component<any>;
     }
-
-    class HelmetComponent extends React.Component<HelmetProps> {}
 }
 
 export = ReactHelmet;

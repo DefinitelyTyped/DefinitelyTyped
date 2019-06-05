@@ -1,6 +1,8 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
+  [key: string]: any;
   row?: boolean;
   check?: boolean;
   inline?: boolean;
@@ -10,5 +12,5 @@ export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
   cssModule?: CSSModule;
 }
 
-declare const FormGroup: React.StatelessComponent<FormGroupProps>;
+declare class FormGroup<T = {[key: string]: any}> extends React.Component<FormGroupProps> {}
 export default FormGroup;

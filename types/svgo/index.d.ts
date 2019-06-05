@@ -2,6 +2,7 @@
 // Project: https://github.com/svg/svgo
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 Gilad Gray <https://github.com/giladgray>
+//                 Aankhen <https://github.com/Aankhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -177,140 +178,6 @@ interface PluginRemoveScriptElement {
     removeScriptElement: boolean | object;
 }
 
-type PluginConfig =
-    | PluginCleanupAttrs
-    | PluginRemoveDoctype
-    | PluginRemoveXMLProcInst
-    | PluginRemoveComments
-    | PluginRemoveMetadata
-    | PluginRemoveTitle
-    | PluginRemoveDesc
-    | PluginRemoveUselessDefs
-    | PluginRemoveXMLNS
-    | PluginRemoveEditorsNSData
-    | PluginRemoveEmptyAttrs
-    | PluginRemoveHiddenElems
-    | PluginRemoveEmptyText
-    | PluginRemoveEmptyContainers
-    | PluginRemoveViewBox
-    | PluginCleanupEnableBackground
-    | PluginMinifyStyles
-    | PluginConvertStyleToAttrs
-    | PluginConvertColors
-    | PluginConvertPathData
-    | PluginConvertTransform
-    | PluginRemoveUnknownsAndDefaults
-    | PluginRemoveNonInheritableGroupAttrs
-    | PluginRemoveUselessStrokeAndFill
-    | PluginRemoveUnusedNS
-    | PluginCleanupIDs
-    | PluginCleanupNumericValues
-    | PluginCleanupListOfValues
-    | PluginMoveElemsAttrsToGroup
-    | PluginMoveGroupAttrsToElems
-    | PluginCollapseGroups
-    | PluginRemoveRasterImages
-    | PluginMergePaths
-    | PluginConvertShapeToPath
-    | PluginSortAttrs
-    | PluginTransformsWithOnePath
-    | PluginRemoveDimensions
-    | PluginRemoveAttrs
-    | PluginRemoveElementsByAttr
-    | PluginAddClassesToSVGElement
-    | PluginAddAttributesToSVGElement
-    | PluginRemoveStyleElement
-    | PluginRemoveScriptElement;
-
-interface Js2SvgOptions {
-    /** @default '<!DOCTYPE' */
-    doctypeStart?: string;
-    /** @default '>' */
-    doctypeEnd?: string;
-    /** @default '<?' */
-    procInstStart?: string;
-    /** @default '?>' */
-    procInstEnd?: string;
-    /** @default '<' */
-    tagOpenStart?: string;
-    /** @default '>' */
-    tagOpenEnd?: string;
-    /** @default '</' */
-    tagCloseStart?: string;
-    /** @default '>' */
-    tagCloseEnd?: string;
-    /** @default '<' */
-    tagShortStart?: string;
-    /** @default '/>' */
-    tagShortEnd?: string;
-    /** @default '="' */
-    attrStart?: string;
-    /** @default '"' */
-    attrEnd?: string;
-    /** @default '<!--' */
-    commentStart?: string;
-    /** @default '-->' */
-    commentEnd?: string;
-    /** @default '<![CDATA[' */
-    cdataStart?: string;
-    /** @default ']]>' */
-    cdataEnd?: string;
-    /** @default '' */
-    textStart?: string;
-    /** @default '' */
-    textEnd?: string;
-    /** @default 4 */
-    indent?: number;
-    /** @default /[&'"<>]/g */
-    regEntities?: RegExp;
-    /** @default /[&"<>]/g */
-    regValEntities?: RegExp;
-    /** @default encodeEntity */
-    encodeEntity?: (char?: string) => string;
-    /** @default false */
-    pretty?: boolean;
-    /** @default true */
-    useShortTags?: boolean;
-}
-
-interface Svg2JsOptions {
-    /** @default true */
-    strict?: boolean;
-    /** @default false */
-    trim?: boolean;
-    /** @default true */
-    normalize?: boolean;
-    /** @default true */
-    lowercase?: boolean;
-    /** @default true */
-    xmlns?: boolean;
-    /** @default true */
-    position?: boolean;
-}
-
-interface Options {
-    /** Output as Data URI string. */
-    datauri?: "base64" | "enc" | "unenc";
-
-    /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
-    floatPrecision?: number;
-
-    /** Use full set of plugins. */
-    full?: boolean;
-
-    /** Options for rendering optimized SVG from AST. */
-    js2svg?: Js2SvgOptions;
-
-    /**
-     * Individual plugin configurations.
-     * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
-     */
-    plugins?: PluginConfig[];
-
-    /** Options for parsing original SVG into AST. */
-    svg2js?: Svg2JsOptions;
-}
-
 interface SvgInfo {
     path?: string;
 }
@@ -321,8 +188,144 @@ interface OptimizedSvg {
 }
 
 declare class SVGO {
-    constructor(options?: Options);
+    constructor(options?: SVGO.Options);
     optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
+}
+
+declare namespace SVGO {
+    type PluginConfig =
+        | PluginCleanupAttrs
+        | PluginRemoveDoctype
+        | PluginRemoveXMLProcInst
+        | PluginRemoveComments
+        | PluginRemoveMetadata
+        | PluginRemoveTitle
+        | PluginRemoveDesc
+        | PluginRemoveUselessDefs
+        | PluginRemoveXMLNS
+        | PluginRemoveEditorsNSData
+        | PluginRemoveEmptyAttrs
+        | PluginRemoveHiddenElems
+        | PluginRemoveEmptyText
+        | PluginRemoveEmptyContainers
+        | PluginRemoveViewBox
+        | PluginCleanupEnableBackground
+        | PluginMinifyStyles
+        | PluginConvertStyleToAttrs
+        | PluginConvertColors
+        | PluginConvertPathData
+        | PluginConvertTransform
+        | PluginRemoveUnknownsAndDefaults
+        | PluginRemoveNonInheritableGroupAttrs
+        | PluginRemoveUselessStrokeAndFill
+        | PluginRemoveUnusedNS
+        | PluginCleanupIDs
+        | PluginCleanupNumericValues
+        | PluginCleanupListOfValues
+        | PluginMoveElemsAttrsToGroup
+        | PluginMoveGroupAttrsToElems
+        | PluginCollapseGroups
+        | PluginRemoveRasterImages
+        | PluginMergePaths
+        | PluginConvertShapeToPath
+        | PluginSortAttrs
+        | PluginTransformsWithOnePath
+        | PluginRemoveDimensions
+        | PluginRemoveAttrs
+        | PluginRemoveElementsByAttr
+        | PluginAddClassesToSVGElement
+        | PluginAddAttributesToSVGElement
+        | PluginRemoveStyleElement
+        | PluginRemoveScriptElement;
+
+    interface Js2SvgOptions {
+        /** @default '<!DOCTYPE' */
+        doctypeStart?: string;
+        /** @default '>' */
+        doctypeEnd?: string;
+        /** @default '<?' */
+        procInstStart?: string;
+        /** @default '?>' */
+        procInstEnd?: string;
+        /** @default '<' */
+        tagOpenStart?: string;
+        /** @default '>' */
+        tagOpenEnd?: string;
+        /** @default '</' */
+        tagCloseStart?: string;
+        /** @default '>' */
+        tagCloseEnd?: string;
+        /** @default '<' */
+        tagShortStart?: string;
+        /** @default '/>' */
+        tagShortEnd?: string;
+        /** @default '="' */
+        attrStart?: string;
+        /** @default '"' */
+        attrEnd?: string;
+        /** @default '<!--' */
+        commentStart?: string;
+        /** @default '-->' */
+        commentEnd?: string;
+        /** @default '<![CDATA[' */
+        cdataStart?: string;
+        /** @default ']]>' */
+        cdataEnd?: string;
+        /** @default '' */
+        textStart?: string;
+        /** @default '' */
+        textEnd?: string;
+        /** @default 4 */
+        indent?: number;
+        /** @default /[&'"<>]/g */
+        regEntities?: RegExp;
+        /** @default /[&"<>]/g */
+        regValEntities?: RegExp;
+        /** @default encodeEntity */
+        encodeEntity?: (char?: string) => string;
+        /** @default false */
+        pretty?: boolean;
+        /** @default true */
+        useShortTags?: boolean;
+    }
+
+    interface Svg2JsOptions {
+        /** @default true */
+        strict?: boolean;
+        /** @default false */
+        trim?: boolean;
+        /** @default true */
+        normalize?: boolean;
+        /** @default true */
+        lowercase?: boolean;
+        /** @default true */
+        xmlns?: boolean;
+        /** @default true */
+        position?: boolean;
+    }
+
+    interface Options {
+        /** Output as Data URI string. */
+        datauri?: "base64" | "enc" | "unenc";
+
+        /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
+        floatPrecision?: number;
+
+        /** Use full set of plugins. */
+        full?: boolean;
+
+        /** Options for rendering optimized SVG from AST. */
+        js2svg?: Js2SvgOptions;
+
+        /**
+         * Individual plugin configurations.
+         * For specific options, see plugin source in https://github.com/svg/svgo/tree/master/plugins.
+         */
+        plugins?: PluginConfig[];
+
+        /** Options for parsing original SVG into AST. */
+        svg2js?: Svg2JsOptions;
+    }
 }
 
 export = SVGO;

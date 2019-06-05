@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
-// Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Type definitions for Material Components Web 0.35
+// Project: https://material.io/components/, https://github.com/material-components/material-components-web
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -21,18 +21,15 @@
  */
 
 import { MDCComponent } from 'material__base';
-import { MDCSnackbarAdapter } from './adapter';
-import { MDCSnackbarFoundation, MDCSnackbarData } from './foundation';
-import { getCorrectEventName } from 'material__animation';
+import MDCSnackbarAdapter from './adapter';
+import MDCSnackbarFoundation, { MDCSnackbarData } from './foundation';
 
-export {MDCSnackbarAdapter, MDCSnackbarFoundation};
+export { MDCSnackbarAdapter, MDCSnackbarFoundation };
 
 export class MDCSnackbar extends MDCComponent<MDCSnackbarAdapter, MDCSnackbarFoundation> {
-  static attachTo(root: Element): MDCSnackbar;
+    static attachTo(root: Element): MDCSnackbar;
 
-  show(data: MDCSnackbarData): void;
+    show(data: MDCSnackbarData): void;
 
-  getDefaultFoundation(): MDCSnackbarFoundation;
-
-  dismissesOnAction: boolean;
+    dismissesOnAction: boolean;
 }

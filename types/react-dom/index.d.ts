@@ -1,12 +1,13 @@
-// Type definitions for React (react-dom) 16.0
+// Type definitions for React (react-dom) 16.8
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
 //                 Microsoft <https://microsoft.com>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 export as namespace ReactDOM;
 
@@ -16,10 +17,10 @@ import {
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
-export function findDOMNode(instance: ReactInstance): Element | null | Text;
+export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element): boolean;
 
-export function createPortal(children: ReactNode, container: Element): ReactPortal;
+export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;
@@ -86,15 +87,8 @@ export interface Renderer {
     ): Component<P, ComponentState> | Element | void;
 
     (
-        element: Array<ReactElement<any>>,
+        element: ReactElement[],
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
-
-    (
-        parentComponent: Component<any> | Array<Component<any>>,
-        element: SFCElement<any>,
-        container: Element,
-        callback?: () => void
-    ): void;
 }

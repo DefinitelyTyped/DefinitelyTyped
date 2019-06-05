@@ -2,6 +2,7 @@
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * @module braintree-web/american-express
@@ -359,7 +360,8 @@ declare namespace braintree {
      * });
      * @static
      */
-    create: (options: { authorization: string }, callback: callback) => void;
+    create(options: { authorization: string }): Promise<Client>;
+    create(options: { authorization: string }, callback: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -439,7 +441,8 @@ declare namespace braintree {
      * @param {callback} callback The second argument, `data`, is the {@link DataCollector} instance.
      * @returns {void}
      */
-    create: (options: { client: Client, kount: boolean, paypal: boolean }, callback: callback) => void;
+    create(options: { client: Client, kount: boolean, paypal: boolean }): Promise<DataCollector>;
+    create(options: { client: Client, kount: boolean, paypal: boolean }, callback: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -469,6 +472,18 @@ declare namespace braintree {
   }
 }
 
+interface HostedFieldsFieldMaskInput {
+    /**
+     * The character to use when masking the input.
+     * @default '•'
+     */
+    character?: string;
+    /**
+     * Only applicable for the credit card field. Whether or not to show the last 4 digits of the card when masking.
+     */
+    showLastFour?: boolean;
+}
+
 /** @module braintree-web/hosted-fields */
 declare namespace braintree {
   /**
@@ -480,13 +495,20 @@ declare namespace braintree {
    * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field.
    * @property {object|boolean} [select] If truthy, this field becomes a `<select>` dropdown list. This can only be used for `expirationMonth` and `expirationYear` fields.
    * @property {string[]} [select.options] An array of 12 strings, one per month. This can only be used for the `expirationMonth` field. For example, the array can look like `['01 - January', '02 - February', ...]`.
+   * @property {boolean | HostedFieldsFieldMaskInput} [maskInput] Enable or disable input masking when input is not focused. If set to `true` instead of an object, the defaults for the `maskInput` parameters will be used.
    */
   interface HostedFieldsField {
     selector: string;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
+    maskInput?: boolean | HostedFieldsFieldMaskInput;
     select?: boolean | { options: string[] };
+    maxCardLength?: number;
+    maxlength?: number;
+    minlength?: number;
+    prefill?: string;
+    rejectUnsupportedCards?: boolean;
   }
 
   /**
@@ -591,18 +613,15 @@ declare namespace braintree {
    * @property {?HostedFields~hostedFieldsFieldData} fields.expirationYear {@link HostedFields~hostedFieldsFieldData|hostedFieldsFieldData} for the expiration year field, if it is present.
    * @property {?HostedFields~hostedFieldsFieldData} fields.postalCode {@link HostedFields~hostedFieldsFieldData|hostedFieldsFieldData} for the postal code field, if it is present.
    */
-  interface HostedFieldsFieldDataFields {
-    number: HostedFieldsHostedFieldsFieldData;
-    cvv: HostedFieldsHostedFieldsFieldData;
-    expirationDate: HostedFieldsHostedFieldsFieldData;
-    expirationMonth: HostedFieldsHostedFieldsFieldData;
-    expirationYear: HostedFieldsHostedFieldsFieldData;
-    postalCode: HostedFieldsHostedFieldsFieldData;
-  }
+  type HostedFieldsHostedFieldsFieldName = 'number' | 'cvv' | 'expirationDate' | 'expirationMonth' | 'expirationYear' | 'postalCode';
+
+  type HostedFieldsFieldDataFields = {
+      [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
+  };
 
   interface HostedFieldsStateObject {
     cards: HostedFieldsHostedFieldsCard[];
-    emittedBy: string;
+    emittedBy: HostedFieldsHostedFieldsFieldName;
     fields: HostedFieldsFieldDataFields;
   }
 
@@ -666,7 +685,8 @@ declare namespace braintree {
      *   }
      * }, callback);
      */
-    create: (options: { client: Client, fields: HostedFieldFieldOptions, styles: any }, callback: callback) => void;
+     create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }): Promise<HostedFields>;
+     create(options: { client: Client, fields: HostedFieldFieldOptions, styles: any }, callback: callback): void;
 
 
     /**
@@ -726,7 +746,7 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
-    on(event: string, handler: ((event: any) => any)): void;
+    on(event: string, handler: ((event: HostedFieldsStateObject) => void)): void;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/hosted-fields.create|create}
@@ -785,7 +805,9 @@ declare namespace braintree {
      * });
      * @returns {void}
      */
-    tokenize(options?: { vault: boolean }, callback?: callback): void;
+      tokenize(options?: { vault?: boolean, cardholderName?: string, billingAddress?: any }): Promise<HostedFieldsTokenizePayload>;
+      tokenize(options: { vault?: boolean, cardholderName?: string, billingAddress?: any }, callback: callback): void;
+      tokenize(callback: callback): void;
 
     /**
      * Add a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.
@@ -1138,7 +1160,8 @@ declare namespace braintree {
      *   client: client
      * }, callback);
      */
-    create: (options: { client: Client }, callback: callback) => void;
+    create(options: { client: Client }): Promise<ThreeDSecure>;
+    create(options: { client: Client }, callback: callback): void;
 
     /**
      * @description The current version of the SDK, i.e. `3.0.2`.
@@ -1207,6 +1230,7 @@ declare namespace braintree {
      *   }
      * });
      */
+    verifyCard(options: { nonce: string, amount: number, addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void, removeFrame?: () => void }): Promise<ThreeDSecureVerifyPayload>;
     verifyCard(options: { nonce: string, amount: number, addFrame: (err?: BraintreeError, iframe?: HTMLIFrameElement) => void, removeFrame: () => void }, callback: callback): void;
 
     /**
@@ -1751,3 +1775,4 @@ declare namespace braintree {
 
 export = braintree;
 export as namespace braintree;
+

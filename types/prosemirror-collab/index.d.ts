@@ -47,7 +47,7 @@ export function sendableSteps<S extends Schema = any>(
   steps: Array<Step<S>>;
   clientID: number | string;
   origins: Array<Transaction<S>>;
-} | null | void;
+} | null | undefined;
 /**
  * Get the version up to which the collab plugin has synced with the
  * central authority.

@@ -110,7 +110,6 @@ declare namespace CrossFilter {
     }
 }
 
-declare var crossfilter: CrossFilter.CrossFilterStatic;
 declare module "crossfilter" {
     var crossfilter: CrossFilter.CrossFilterStatic;
     export = crossfilter;    	

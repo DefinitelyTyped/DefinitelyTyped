@@ -8,15 +8,31 @@ export as namespace CryptoJS;
 
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
-	interface Cipher {
-		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
-		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
+
+	interface Base {
+		create(): any;
 	}
-	interface CipherAlgorythm {
-		createEncryptor(secretPassphrase: string, option?: CipherOption): Encriptor;
+
+	interface BufferedBlockAlgorithm extends Base {}
+
+	interface Hasher extends BufferedBlockAlgorithm {
+		update(messageUpdate: WordArray|string): Hasher;
+	}
+
+	interface Cipher extends BufferedBlockAlgorithm {
+		createEncryptor(secretPassphrase: string, option?: CipherOption): Encryptor;
 		createDecryptor(secretPassphrase: string, option?: CipherOption): Decryptor;
 	}
-	interface Encriptor {
+
+	interface BlockCipher extends Cipher {}
+
+	interface StreamCipher extends Cipher {}
+
+	interface CipherHelper {
+		encrypt(message: string | LibWordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
+	}
+	interface Encryptor {
 		process(messagePart: string): string;
 		finalize(): string;
 	}
@@ -87,23 +103,32 @@ declare namespace CryptoJS {
 		HmacRIPEMD160(message: string | LibWordArray, ...options: any[]): WordArray;
 		PBKDF2(message: string | LibWordArray, key?: string | WordArray, ...options: any[]): WordArray;
 		PBKDF2(message: string | LibWordArray, ...options: any[]): WordArray;
-		AES: Cipher;
-		DES: Cipher;
-		TripleDES: Cipher;
-		RC4: Cipher;
-		RC4Drop: Cipher;
-		Rabbit: Cipher;
-		RabbitLegacy: Cipher;
-		EvpKDF: Cipher;
+		AES: CipherHelper;
+		DES: CipherHelper;
+		TripleDES: CipherHelper;
+		RC4: CipherHelper;
+		RC4Drop: CipherHelper;
+		Rabbit: CipherHelper;
+		RabbitLegacy: CipherHelper;
+		EvpKDF: CipherHelper;
 		algo: {
-			AES: CipherAlgorythm;
-			DES: CipherAlgorythm;
-			TrippleDES: CipherAlgorythm;
-			RC4: CipherAlgorythm;
-			RC4Drop: CipherAlgorythm;
-			Rabbit: CipherAlgorythm;
-			RabbitLegacy: CipherAlgorythm;
-			EvpKDF: CipherAlgorythm;
+			AES: BlockCipher;
+			DES: BlockCipher;
+			TripleDES: BlockCipher;
+			RC4: StreamCipher;
+			RC4Drop: StreamCipher;
+			Rabbit: StreamCipher;
+			RabbitLegacy: StreamCipher;
+			EvpKDF: Base;
+			HMAC: Base;
+			PBKDF2: Base;
+			SHA1: Hasher;
+			SHA3: Hasher;
+			SHA256: Hasher;
+			SHA384: Hasher;
+			SHA512: Hasher;
+			MD5: Hasher;
+			RIPEMD160: Hasher;
 		};
 		format: {
 			OpenSSL: any;
@@ -120,6 +145,7 @@ declare namespace CryptoJS {
 		lib: {
 			WordArray: {
 				create: (v: any) => LibWordArray;
+				random: (v: number) => string;
 			};
 		};
 		mode: {

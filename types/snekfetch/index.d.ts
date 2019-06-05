@@ -1,6 +1,6 @@
-// Type definitions for snekfetch 3.6
-// Project: https://github.com/GusCaplan/snekfetch
-// Definitions by: Iker Pérez Brunelli <https://github.com/DarkerTV>
+// Type definitions for snekfetch 4.0
+// Project: https://github.com/GusCaplan/snekfetch, https://snekfetch.js.org
+// Definitions by: Iker Pérez Brunelli <https://github.com/ANekoIsFineToo>
 //                 Shayne Hartford <https://github.com/ShayBox>
 //                 Yukine <https://github.com/Dev-Yukine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,19 +8,23 @@
 
 /// <reference types="node" />
 
-import { ClientRequest } from 'http';
+import { ClientRequest, Agent } from 'http';
 import { Readable } from 'stream';
 
 declare namespace Snekfetch {
     interface SnekfetchOptions {
         headers?: { [key: string]: any };
-        data?: any;
+        data?: object | string | Buffer;
+        agent?: Agent | boolean;
+        qs?: object;
+        query?: object | string;
+        redirect?: boolean;
     }
 
-    interface Result {
+    interface SnekfetchResponse {
         request: ClientRequest;
-        body: Buffer;
-        text: string;
+        body: string | object | Buffer;
+        raw: Buffer;
         ok: boolean;
         headers: { [key: string]: any };
         status: number;
@@ -37,7 +41,6 @@ declare namespace Snekfetch {
         | 'HEAD'
         | 'LINK'
         | 'LOCK'
-        | 'M-SEARCH'
         | 'MERGE'
         | 'MKACTIVITY'
         | 'MKCALENDAR'
@@ -54,13 +57,13 @@ declare namespace Snekfetch {
         | 'REBIND'
         | 'REPORT'
         | 'SEARCH'
+        | 'SOURCE'
         | 'SUBSCRIBE'
         | 'TRACE'
         | 'UNBIND'
         | 'UNLINK'
         | 'UNLOCK'
-        | 'UNSUBSCRIBE'
-        | 'BREW';
+        | 'UNSUBSCRIBE';
 }
 
 declare class Snekfetch extends Readable {
@@ -69,7 +72,7 @@ declare class Snekfetch extends Readable {
 
     data: any;
     request: ClientRequest;
-    readonly response: Snekfetch.Result | null;
+    readonly response: Snekfetch.SnekfetchResponse | null;
 
     constructor(method: Snekfetch.methods, url: string, opts?: Snekfetch.SnekfetchOptions);
 
@@ -83,7 +86,6 @@ declare class Snekfetch extends Readable {
     static head(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static link(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static lock(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
-    static msearch(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static merge(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static mkactivity(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static mkcalendar(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
@@ -100,29 +102,29 @@ declare class Snekfetch extends Readable {
     static rebind(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static report(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static search(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
+    static source(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static subscribe(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static trace(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unbind(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unlink(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unlock(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
     static unsubscribe(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
-    static brew(url: string, opts?: Snekfetch.SnekfetchOptions): Snekfetch;
 
-    query(name: string | { [key: string]: string | string[] }, value?: string): Snekfetch;
+    query(name: string | { [key: string]: any }, value?: string): Snekfetch;
 
-    set(name: string | { [key: string]: string | string[] }, value?: string | string[]): Snekfetch;
+    set(name: string | { [key: string]: any }, value?: string): Snekfetch;
 
     attach(name: string, data: string | object | Buffer, filename?: string): Snekfetch;
 
-    send(data?: string|Buffer|object): Snekfetch;
+    send(data?: string | Buffer | object): Snekfetch;
 
-    then(): Promise<Snekfetch.Result>;
-    then<T>(resolver: (res: Snekfetch.Result) => T, rejector?: (err: Error) => any): Promise<T>;
+    then(): Promise<Snekfetch.SnekfetchResponse>;
+    then<T>(resolver: (res: Snekfetch.SnekfetchResponse) => T, rejector?: (err: Error) => any): Promise<T>;
 
-    catch(rejector: (err: Error) => any): Promise<Snekfetch.Result>;
+    catch(rejector: (err: Error) => any): Promise<Snekfetch.SnekfetchResponse>;
 
-    end(): Promise<Snekfetch.Result>;
-    end<T>(cb: (err: Error | null, res: Snekfetch.Result | Error | null) => T): Promise<T>;
+    end(): Promise<Snekfetch.SnekfetchResponse>;
+    end<T>(cb: (err: Error | null, res: Snekfetch.SnekfetchResponse | Error | null) => T): Promise<T>;
 }
 
 export = Snekfetch;

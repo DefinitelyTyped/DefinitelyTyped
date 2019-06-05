@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { MDCFoundation } from 'material__base';
+import MDCFoundation from 'material__base/foundation';
 import { cssClasses, strings, numbers } from './constants';
-import { MDCSnackbarAdapter } from './adapter';
+import MDCSnackbarAdapter from './adapter';
 
 export interface MDCSnackbarData {
     message: string;
@@ -27,18 +27,18 @@ export interface MDCSnackbarData {
     timeout?: number;
 }
 
-export class MDCSnackbarFoundation extends MDCFoundation<MDCSnackbarAdapter> {
-  static readonly cssClasses: cssClasses;
+export default class MDCSnackbarFoundation extends MDCFoundation<MDCSnackbarAdapter> {
+    static readonly cssClasses: cssClasses;
 
-  static readonly strings: strings;
+    static readonly strings: strings;
 
-  static readonly defaultAdapter: MDCSnackbarAdapter;
+    static readonly defaultAdapter: MDCSnackbarAdapter;
 
-  readonly active: boolean;
+    readonly active: boolean;
 
-  dismissesOnAction(): boolean;
+    dismissesOnAction(): boolean;
 
-  setDismissOnAction(dismissOnAction: boolean): void;
+    setDismissOnAction(dismissOnAction: boolean): void;
 
-  show(data: MDCSnackbarData): void;
+    show(data: MDCSnackbarData): void;
 }

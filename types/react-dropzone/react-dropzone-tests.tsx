@@ -14,9 +14,11 @@ class Test extends React.Component {
 
   handleDropFiles = (accepted: File[], rejected: File[], event: DragEvent<HTMLDivElement>) => {};
 
-  handleDefault = (e: SyntheticEvent<HTMLDivElement>) => {}
+  handleDefault = (e: SyntheticEvent<HTMLDivElement>) => {};
 
-  handleFileDialog = () => {}
+  handleFileDialog = () => {};
+
+  accept: string | ReadonlyArray<string> = ["*.png", "application/pdf"];
 
   render() {
     return (
@@ -47,7 +49,7 @@ class Test extends React.Component {
           disableClick
           disabled
           multiple={false}
-          accept="*.png"
+          accept={this.accept}
           name="dropzone"
           inputProps={{ id : "dropzone" }}
         />

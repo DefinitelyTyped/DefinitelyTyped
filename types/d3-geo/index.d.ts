@@ -1,10 +1,10 @@
-// Type definitions for D3JS d3-geo module 1.10
-// Project: https://github.com/d3/d3-geo/
-// Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Type definitions for D3JS d3-geo module 1.11
+// Project: https://github.com/d3/d3-geo/, https://d3js.org/d3-geo
+// Definitions by: Hugues Stefanski <https://github.com/ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 1.10.0
+// Last module patch version validated against: 1.11.3
 
 import * as GeoJSON from 'geojson';
 
@@ -976,7 +976,7 @@ export interface GeoConicProjection extends GeoProjection {
 export interface GeoContext {
     /**
      * Adds an arc to the path with center point (x, y) and radius r starting at startAngle and ending at endAngle.
-     * The arc is drawn in clockwise directio by default.
+     * The arc is drawn in clockwise direction by default.
      *
      * @param x x-coordinate of arc center point.
      * @param y y-coordinate of arc center point.
@@ -1046,7 +1046,7 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * IMPORTANT: If the rendering context of the geoPath generator is null,
      * then the geoPath is returned as an SVG path data string.
      *
-     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interation (e.g., click or mouseover).
+     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interaction (e.g., click or mouseover).
      * Canvas rendering (see path.context) is typically faster than SVG, but requires more effort to implement styling and interaction.
      *
      * The first generic type of the GeoPath generator used, must correspond to the "this" context bound to the function upon invocation.
@@ -1075,7 +1075,7 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * IMPORTANT: If the geoPath generator has been configured with a rendering context,
      * then the geoPath is rendered to this context as a sequence of path method calls and this function returns void.
      *
-     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interation (e.g., click or mouseover).
+     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interaction (e.g., click or mouseover).
      * Canvas rendering (see path.context) is typically faster than SVG, but requires more effort to implement styling and interaction.
      *
      * The first generic type of the GeoPath generator used, must correspond to the "this" context bound to the function upon invocation.
@@ -1345,10 +1345,21 @@ export function geoOrthographicRaw(): GeoRawProjection;
  * The stereographic projection.
  */
 export function geoStereographic(): GeoProjection;
+
 /**
  * The raw stereographic projection.
  */
 export function geoStereographicRaw(): GeoRawProjection;
+
+/**
+ * The Equal Eartch projection, by Bojan Šavrič et al., 2018.
+ */
+export function geoEqualEarth(): GeoProjection;
+
+/**
+ * The raw Equal Earth projection, by Bojan Šavrič et al., 2018.
+ */
+export function geoEqualEarthRaw(): GeoRawProjection;
 
 // Composite Projections ---------------------------------------------------
 
@@ -1502,9 +1513,14 @@ export function geoTransform<T extends GeoTransformPrototype>(methods: T): { str
 // geoIdentity() =================================================================
 
 /**
+ * @deprecated Misspelled name. Use GeoIdentityTransform.
+ */
+export type GeoIdentityTranform = GeoIdentityTransform;
+
+/**
  * Geo Identity Transform
  */
-export interface GeoIdentityTranform extends GeoStreamWrapper {
+export interface GeoIdentityTransform extends GeoStreamWrapper {
     /**
      * Returns the current viewport clip extent which defaults to null.
      */
@@ -1667,7 +1683,7 @@ export interface GeoIdentityTranform extends GeoStreamWrapper {
 /**
  * Returns the identity transform which can be used to scale, translate and clip planar geometry.
  */
-export function geoIdentity(): GeoIdentityTranform;
+export function geoIdentity(): GeoIdentityTransform;
 
 // ----------------------------------------------------------------------
 // Clipping Functions

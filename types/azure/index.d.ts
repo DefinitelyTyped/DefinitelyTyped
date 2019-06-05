@@ -159,13 +159,13 @@ export declare class BlobService extends StorageServiceClient {
     //#region Service Methods
 
     /**
-    * Gets the properties of a storage account�s Blob service, including Azure Storage Analytics.
+    * Gets the properties of a storage account's Blob service, including Azure Storage Analytics.
     */
     getServiceProperties(callback: StorageServicePropertiesCallback): void;
     getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
     /**
-    * Sets the properties of a storage account�s Blob service, including Azure Storage Analytics.
+    * Sets the properties of a storage account's Blob service, including Azure Storage Analytics.
     * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
     */
     setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
@@ -256,7 +256,7 @@ export declare class BlobService extends StorageServiceClient {
     setBlobProperties(container: string, blob: string, options: SetBlobPropertiesOptions, callback: StorageCallback<BlobResult>): void;
 
     /**
-     * Sets user-defined metadata for the specified blob or snapshot as one or more name-value pairs 
+     * Sets user-defined metadata for the specified blob or snapshot as one or more name-value pairs
      * It does not return or modify the content of the blob.
      */
     setBlobMetadata(container: string, blob: string, metadata: StorageMetadata, callback: StorageCallback<BlobResult>): void;
@@ -288,9 +288,9 @@ export declare class BlobService extends StorageServiceClient {
 
     /**
      * Marks the specified blob or snapshot for deletion. The blob is later deleted during garbage collection.
-     * If a blob has snapshots, you must delete them when deleting the blob. Using the deleteSnapshots option, you can choose either to delete both the blob and its snapshots, 
+     * If a blob has snapshots, you must delete them when deleting the blob. Using the deleteSnapshots option, you can choose either to delete both the blob and its snapshots,
      * or to delete only the snapshots but not the blob itself. If the blob has snapshots, you must include the deleteSnapshots option or the blob service will return an error
-     * and nothing will be deleted. 
+     * and nothing will be deleted.
      * If you are deleting a specific snapshot using the snapshotId option, the deleteSnapshots option must NOT be included.
      */
     deleteBlob(container: string, blob: string, callback: StorageCallback<boolean>): void;
@@ -445,8 +445,8 @@ export declare class BlobService extends StorageServiceClient {
     //#region Lease Methods
 
     /**
-     * Acquires a new lease. 
-     * If container and blob are specified, acquires a blob lease. 
+     * Acquires a new lease.
+     * If container and blob are specified, acquires a blob lease.
      * Otherwise, if only container is specified and blob is null, acquires a container lease.
      */
     acquireLease(container: string, blob: string, callback: StorageCallback<LeaseResult>): void;
@@ -521,13 +521,13 @@ export declare class QueueService extends StorageServiceClient {
     //#region Service Methods
 
     /**
-    * Gets the properties of a storage account�s Blob service, including Azure Storage Analytics.
+    * Gets the properties of a storage account's Blob service, including Azure Storage Analytics.
     */
     getServiceProperties(callback: StorageServicePropertiesCallback): void;
     getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
     /**
-    * Sets the properties of a storage account�s Blob service, including Azure Storage Analytics.
+    * Sets the properties of a storage account's Blob service, including Azure Storage Analytics.
     * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
     */
     setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
@@ -684,7 +684,7 @@ interface RoleEnvironmentInterface extends events.EventEmitter {
 
     /**
      * Indicates whether the role instance is running in the Microsoft Azure
-     * environment.  It is good practice to enclose any code that uses 
+     * environment.  It is good practice to enclose any code that uses
      * service runtime in the isAvailable callback.
      */
     isAvailable(callback: SimpleCallback<boolean>): void;
@@ -702,7 +702,7 @@ interface RoleEnvironmentInterface extends events.EventEmitter {
 
     /**
      * Retrieves the settings in the service configuration file.
-     * 
+     *
      * A role's configuration settings are defined in the service definition file.
      * Values for configuration settings are set in the service configuration file.
      * For more information on configuration settings, see the [Service Definition Schema](http://msdn.microsoft.com/en-us/library/windowsazure/ee758711.aspx)
@@ -719,10 +719,10 @@ interface RoleEnvironmentInterface extends events.EventEmitter {
 
     /**
      * Requests that the current role instance be stopped and restarted.
-     * 
+     *
      * Before the role instance is recycled, the Microsoft Azure load balancer takes the role instance out of rotation.
      * This ensures that no new requests are routed to the instance while it is restarting.
-     * 
+     *
      * A call to `RequestRecycle` initiates the normal shutdown cycle. Microsoft Azure raises the
      * `Stopping` event and calls the `OnStop` method so that you can run the necessary code to
      * prepare the instance to be recycled.
@@ -731,7 +731,7 @@ interface RoleEnvironmentInterface extends events.EventEmitter {
 
     /**
      * Sets the status of the role instance.
-     * 
+     *
      * An instance may indicate that it is in one of two states: Ready or Busy. If an instance's state is Ready, it is
      * prepared to receive requests from the load balancer. If the instance's state is Busy, it will not receive
      * requests from the load balancer.

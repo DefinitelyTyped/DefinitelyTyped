@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface MSDDialogAdapter {
+export default interface MDCDialogAdapter {
     addClass(className: string): void;
 
     removeClass(className: string): void;
@@ -50,6 +50,4 @@ export interface MSDDialogAdapter {
     untrapFocusOnSurface(): void;
 
     isDialog(el: Element): boolean;
-
-    layoutFooterRipples(): void;
 }

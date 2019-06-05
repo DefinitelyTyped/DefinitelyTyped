@@ -3,11 +3,16 @@ import Vue from "vue";
 import { Store } from "vuex";
 
 // load vuex i18n module
-import vuexI18n from "vuex-i18n";
+import vuexI18n, { i18nState } from "vuex-i18n";
+
+// declare interface for store's root state
+interface RootState {
+    i18n: i18nState;
+}
 
 // initialize the vuex store using the vuex module. note that you can change the
-//  name of the module if you wish
-const store = new Store({});
+// name of the module if you wish
+const store = new Store<RootState>({});
 
 // initialize the internationalization plugin on the vue instance. note that
 // the store must be passed to the plugin. the plugin will then generate some
@@ -23,7 +28,10 @@ Vue.use(vuexI18n.plugin, store);
 // structured as object trees and will automatically be flattened by the the
 // plugin
 const translationsEn = {
-  content: "This is some {type} content"
+  content: "This is some {type} content",
+  tree: {
+    nested: "This is nested content"
+  }
 };
 
 // translations can be kept in separate files for each language
@@ -39,3 +47,5 @@ Vue.i18n.add("de", translationsDe);
 
 // set the start locale to use
 Vue.i18n.set("en");
+
+Vue.i18n.translateIn("en", "tree.nested");

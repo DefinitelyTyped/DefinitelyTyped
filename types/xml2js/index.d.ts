@@ -5,14 +5,16 @@
 //                 Christopher Currens <https://github.com/ccurrens>
 //                 Edward Hinkle <https://github.com/edwardhinkle>
 //                 Behind The Math <https://github.com/BehindTheMath>
+//                 Claas Ahlrichs <https://github.com/claasahl>
+//                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 import { EventEmitter } from 'events';
 import * as processors from './lib/processors';
 
-export function parseString(xml: convertableToString, callback: (err: any, result: any) => void): void;
-export function parseString(xml: convertableToString, options: OptionsV2, callback: (err: any, result: any) => void): void;
+export function parseString(xml: convertableToString, callback: (err: Error, result: any) => void): void;
+export function parseString(xml: convertableToString, options: OptionsV2, callback: (err: Error, result: any) => void): void;
 
 export const defaults: {
     '0.1': Options;
@@ -34,7 +36,7 @@ export interface Options {
     async?: boolean;
     attrkey?: string;
     attrNameProcessors?: Array<(name: string) => any>;
-    attrValueProcessors?: Array<(name: string) => any>;
+    attrValueProcessors?: Array<(value: string, name: string) => any>;
     charkey?: string;
     charsAsChildren?: boolean;
     childkey?: string;
@@ -52,7 +54,7 @@ export interface Options {
     tagNameProcessors?: Array<(name: string) => any>;
     trim?: boolean;
     validator?: Function;
-    valueProcessors?: Array<(name: string) => any>;
+    valueProcessors?: Array<(value: string, name: string) => any>;
     xmlns?: boolean;
 }
 

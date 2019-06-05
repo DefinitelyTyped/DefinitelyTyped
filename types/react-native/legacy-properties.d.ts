@@ -1,5 +1,4 @@
 import {
-    LayoutProps,
     TextProps,
     TextPropsIOS,
     TextPropsAndroid,
@@ -52,7 +51,6 @@ import {
     VirtualizedListProps,
     SectionListProps,
     ListViewProps,
-    MapViewProps,
     MaskedViewIOSProps,
     ModalProps,
     TouchableWithoutFeedbackProps,
@@ -67,7 +65,7 @@ import {
     StatusBarPropsIOS,
     StatusBarPropsAndroid,
     SwitchProps,
-    SwitchPropsIOS
+    SwitchPropsIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -76,9 +74,6 @@ declare module "react-native" {
      * They have been renamed to *Props to match React Native documentation
      * The following lines ensure compatibility with *Properties and should be removed in the future
      */
-
-    /** @deprecated Use LayoutProps */
-    export type LayoutProperties = LayoutProps;
 
     /** @deprecated Use TextProps */
     export type TextProperties = TextProps;
@@ -235,9 +230,6 @@ declare module "react-native" {
 
     /** @deprecated Use ListViewProps */
     export type ListViewProperties = ListViewProps;
-
-    /** @deprecated Use MapViewProps */
-    export type MapViewProperties = MapViewProps;
 
     /** @deprecated Use MaskedViewIOSProps */
     export type MaskedViewIOSProperties = MaskedViewIOSProps;

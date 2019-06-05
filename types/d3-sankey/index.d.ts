@@ -1,9 +1,10 @@
-// Type definitions for D3JS d3-sankey module 0.7
+// Type definitions for D3JS d3-sankey module 0.11
 // Project: https://github.com/d3/d3-sankey/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-// Last module patch version validated against: 0.7.1
+// Last module patch version validated against: 0.11
 
 import { Link } from 'd3-shape';
 
@@ -333,9 +334,21 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
     /**
      * Set the number of relaxation iterations when generating the layout and return this Sankey layout generator.
      *
-     * @param iterations Number of relaxation iterations, which defaluts to 32.
+     * @param iterations Number of relaxation iterations, which defaults to 32.
      */
     iterations(iterations: number): this;
+
+    /**
+     * Returns the node comparison function which defaults to undefined.
+     */
+    nodeSort(): ((a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number) | undefined;
+
+    /**
+     * Set the node comparison function and return this Sankey layout generator.
+     *
+     * @param compare Node comparison function.
+     */
+    nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number): this;
 }
 
 /**
@@ -365,7 +378,7 @@ export function sankey<N extends SankeyExtraProperties, L extends SankeyExtraPro
  * Get a Sankey layout generator.
  *
  * The nodes/links accessors need to be configured to work with the data type of the first argument passed
- * in when invoking the Sankey lyout generator.
+ * in when invoking the Sankey layout generator.
  *
  * The first generic corresponds to the data type of the first argument passed in when invoking the Sankey layout generator,
  * and its nodes/links accessors.

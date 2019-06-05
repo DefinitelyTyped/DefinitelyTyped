@@ -1,24 +1,24 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type Direction = 
+export type Direction =
   | "up"
   | "down"
   | "left"
-  | "right"
+  | "right";
 
-export interface UncontrolledProps extends React.HTMLAttributes<HTMLElement> {
+export interface UncontrolledDropdownProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
   cssModule?: CSSModule;
   nav?: boolean;
   inNavbar?: boolean;
-}
-export interface UncontrolledDropdownProps extends UncontrolledProps {
-  /* intentionally blank */
+  setActiveFromChild?: boolean;
 }
 
-export interface Props extends UncontrolledProps {
+export interface DropdownProps extends UncontrolledDropdownProps {
   disabled?: boolean;
   direction?: Direction;
   group?: boolean;
@@ -26,9 +26,6 @@ export interface Props extends UncontrolledProps {
   tag?: React.ReactType;
   addonType?: boolean | 'prepend' | 'append';
 }
-export interface DropdownProps extends Props {
-  /* intentionally blank */
-}
 
-declare const Dropdown: React.StatelessComponent<DropdownProps>;
+declare class Dropdown<T = {[key: string]: any}> extends React.Component<DropdownProps> {}
 export default Dropdown;

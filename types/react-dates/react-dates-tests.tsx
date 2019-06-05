@@ -1,10 +1,11 @@
-import * as React from "react";
-import moment = require("moment");
+import * as React from 'react';
+import moment = require('moment');
 
 import {
         SingleDatePicker,
         DateRangePicker,
         DayPickerRangeController,
+        DayPickerSingleDateController,
         isInclusivelyAfterDay,
         isInclusivelyBeforeDay,
         isNextDay,
@@ -74,9 +75,11 @@ class DateRangePickerMinimumTest extends React.Component {
     render() {
         return <DateRangePicker
                     startDate={moment()}
+                    startDateId='startDateId'
                     endDate={moment()}
-                    onDatesChange={(arg)=> {}}
+                    endDateId='endDateId'
                     focusedInput="startDate"
+                    onDatesChange={(arg) => {}}
                     onFocusChange={(arg) => {}}
                      />
     }
@@ -121,6 +124,7 @@ class DateRangePickerFullTest extends React.Component {
                     orientation="horizontal"
                     monthFormat="MM"
                     renderDayContents={day => day.toString()}
+                    onClose={(final:any) =>{}}
                     />
     }
 }
@@ -137,16 +141,16 @@ class DayPickerRangeControllerMinimumTest extends React.Component {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
+class DayPickerSingleDateControllerMinimumTest extends React.Component {
+    render() {
+         return <DayPickerSingleDateController
+                date={moment()}
+                onDateChange={(arg)=> {}}
+                focused={true}
+                onFocusChange={(arg) => {}}
+            />
+    }
+}
 
 const isInclusivelyAfterDayResult: boolean = isInclusivelyAfterDay(moment(),moment());
 const isInclusivelyBeforeDayResult: boolean = isInclusivelyBeforeDay(moment(),moment());

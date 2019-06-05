@@ -109,7 +109,7 @@ function test_swipey() {
         var canvas = <HTMLCanvasElement>$('canvas')[0];
         var context = canvas.getContext('2d');
         var iOS = (/iphone|ipad/i).test(navigator.userAgent);
-        var pointers = new Map<string, any>();
+        var pointers = new Map();
         // handle resizing / rotating of the viewport
         var width, height;
         $(window).bind(viewporter.ACTIVE ? 'viewportchange' : 'resize', function () {

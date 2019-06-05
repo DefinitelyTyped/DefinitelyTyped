@@ -1,4 +1,4 @@
-// Type definitions for Naver Maps JavaScript API 3.0
+// Type definitions for non-npm package Naver Maps JavaScript API 3.0
 // Project: https://navermaps.github.io/maps.js
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -39,7 +39,7 @@ declare namespace naver.maps {
    */
    interface MapEventListener {
      eventName: string;
-     listener: () => any;
+     listener: (event: any) => any;
      listenerId: string;
      target: any;
    }
@@ -657,7 +657,7 @@ declare namespace naver.maps {
     layers: any;
     mapTypes: any;
     mapSystemProjection: any;
-    constructor(mapDiv: string, mapOptions?: MapOptions);
+    constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
     addPane(name: string, elementOrIndex: HTMLElement | number): void;
     destory(): void;
     fitBounds(bounds: any, margin?: any): void;
@@ -1303,14 +1303,14 @@ declare namespace naver.maps {
 
   function Event(): void;
   namespace Event {
-    function addDOMListener(element: HTMLElement, eventName: string, listener: () => any): void;
-    function addListener(target: any, eventName: string, listener: () => any): MapEventListener;
+    function addDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
+    function addListener(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
     function clearInstanceListeners(target: any): void;
     function clearListeners(target: any, fromEventName: string): void;
     function forward(source: any, fromEventName: string, target: any, toEventName: string): MapEventListener;
     function hasListener(target: any, eventName: string): boolean;
-    function once(target: any, eventName: string, listener: () => any): MapEventListener;
-    function removeDOMListener(element: HTMLElement, eventName: string, listener: () => any): void;
+    function once(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
+    function removeDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
     function removeDOMListener(listeners: DOMEventListener | DOMEventListener[]): void;
     function removeListener(listeners: MapEventListener | MapEventListener[]): void;
     function resumeDispatch(target: any, eventName: string): void;

@@ -42,7 +42,7 @@ export class InputRule<S extends Schema = any> {
         match: string[],
         start: number,
         end: number
-      ) => Transaction<S> | null | void)
+      ) => Transaction<S> | null)
   );
 }
 /**
@@ -81,7 +81,7 @@ export function undoInputRule<S extends Schema = any>(
 export function wrappingInputRule<S extends Schema = any>(
   regexp: RegExp,
   nodeType: NodeType<S>,
-  getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | void),
+  getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | undefined),
   joinPredicate?: (p1: string[], p2: ProsemirrorNode<S>) => boolean
 ): InputRule<S>;
 /**
@@ -95,7 +95,7 @@ export function wrappingInputRule<S extends Schema = any>(
 export function textblockTypeInputRule<S extends Schema = any>(
   regexp: RegExp,
   nodeType: NodeType<S>,
-  getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | void)
+  getAttrs?: { [key: string]: any } | ((p: string[]) => { [key: string]: any } | null | undefined)
 ): InputRule<S>;
 /**
  * Converts double dashes to an emdash.

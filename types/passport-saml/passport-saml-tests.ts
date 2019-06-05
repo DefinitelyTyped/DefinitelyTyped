@@ -1,10 +1,12 @@
 import express = require('express');
 import passport = require('passport');
 import SamlStrategy = require('passport-saml');
+import MultiSamlStrategy = require('passport-saml/multiSamlStrategy');
 import fs = require('fs');
 
 const samlStrategy = new SamlStrategy.Strategy(
 	{
+		name: 'samlCustomName',
 		path: '/login/callback',
 		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
 		issuer: 'passport-saml',
@@ -29,6 +31,44 @@ const samlStrategy = new SamlStrategy.Strategy(
 );
 
 passport.use(samlStrategy);
-passport.authenticate('saml', {failureRedirect: '/', failureFlash: true});
+passport.authenticate('samlCustomName', {failureRedirect: '/', failureFlash: true});
 
-const metadata = samlStrategy.generateServiceProviderMetadata("decryptionCert");
+const decryptMetadata: string = samlStrategy.generateServiceProviderMetadata("decryptionCert");
+const signMetadata: string = samlStrategy.generateServiceProviderMetadata(null, "signingCert");
+const metadata: string = samlStrategy.generateServiceProviderMetadata("decryptionCert", "signingCert");
+
+const multiSamlStrategy = new MultiSamlStrategy(
+	{
+		name: 'samlCustomName',
+		path: '/login/callback',
+		entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+		issuer: 'passport-saml',
+        getSamlOptions(req: express.Request, callback: MultiSamlStrategy.SamlOptionsCallback) {
+            callback(null, {
+                name: 'samlCustomName',
+                path: '/login/callback2',
+                entryPoint: 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+                issuer: 'passport-saml',
+			});
+			callback(new Error("SAML Options Error"));
+        }
+	},
+	(profile: {}, done: (err: Error | null, user?: {}, info?: {}) => void) => {
+		const user = {};
+		done(null, user);
+		done(new Error("Verify Request Error"));
+	}
+);
+
+const req: express.Request = {} as any as express.Request;
+
+const multiDecryptionMetadata: never = multiSamlStrategy.generateServiceProviderMetadata("decryptionCert");
+const multiSigningMetadata: never = multiSamlStrategy.generateServiceProviderMetadata(null, "signingCert");
+const multiMetadata: never = multiSamlStrategy.generateServiceProviderMetadata("decryptionCert", "signingCert");
+
+const multiDecryptionMetadataAsync: string = multiSamlStrategy.generateServiceProviderMetadata(req, "decryptionCert", null, () => '');
+const multiSigningMetadataAsync: string = multiSamlStrategy.generateServiceProviderMetadata(req, null, "signingCert", () => '');
+const multiMetadataAsync: string = multiSamlStrategy.generateServiceProviderMetadata(req, "decryptionCert", "signingCert", () => '');
+
+passport.use(multiSamlStrategy);
+passport.authenticate('samlCustomName', {failureRedirect: '/', failureFlash: true});

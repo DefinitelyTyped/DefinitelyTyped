@@ -1,31 +1,111 @@
-// Type definitions for ansi-colors 1.0
+// Type definitions for ansi-colors 3.2
 // Project: https://github.com/doowb/ansi-colors
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-export function bgblack(s: string): string;
-export function bgblue(s: string): string;
-export function bgcyan(s: string): string;
-export function bggreen(s: string): string;
-export function bgmagenta(s: string): string;
-export function bgred(s: string): string;
-export function bgwhite(s: string): string;
-export function bgyellow(s: string): string;
-export function black(s: string): string;
-export function blue(s: string): string;
-export function bold(s: string): string;
-export function cyan(s: string): string;
-export function dim(s: string): string;
-export function gray(s: string): string;
-export function green(s: string): string;
-export function grey(s: string): string;
-export function hidden(s: string): string;
-export function inverse(s: string): string;
-export function italic(s: string): string;
-export function magenta(s: string): string;
-export function red(s: string): string;
-export function reset(s: string): string;
-export function strikethrough(s: string): string;
-export function underline(s: string): string;
-export function white(s: string): string;
-export function yellow(s: string): string;
+export = colors;
+
+declare const colors: colors.Colors;
+
+declare namespace colors {
+    type ColorFn = ((text: string) => string) & Colors;
+
+    interface Colors {
+        enabled: boolean;
+        visible: boolean;
+
+        reset: ColorFn;
+        bold: ColorFn;
+        dim: ColorFn;
+        italic: ColorFn;
+        underline: ColorFn;
+        inverse: ColorFn;
+        hidden: ColorFn;
+        strikethrough: ColorFn;
+
+        black: ColorFn;
+        red: ColorFn;
+        green: ColorFn;
+        yellow: ColorFn;
+        blue: ColorFn;
+        magenta: ColorFn;
+        cyan: ColorFn;
+        white: ColorFn;
+        gray: ColorFn;
+        grey: ColorFn;
+
+        bgBlack: ColorFn;
+        bgRed: ColorFn;
+        bgGreen: ColorFn;
+        bgYellow: ColorFn;
+        bgBlue: ColorFn;
+        bgMagenta: ColorFn;
+        bgCyan: ColorFn;
+        bgWhite: ColorFn;
+
+        blackBright: ColorFn;
+        redBright: ColorFn;
+        greenBright: ColorFn;
+        yellowBright: ColorFn;
+        blueBright: ColorFn;
+        magentaBright: ColorFn;
+        cyanBright: ColorFn;
+        whiteBright: ColorFn;
+
+        bgBlackBright: ColorFn;
+        bgRedBright: ColorFn;
+        bgGreenBright: ColorFn;
+        bgYellowBright: ColorFn;
+        bgBlueBright: ColorFn;
+        bgMagentaBright: ColorFn;
+        bgCyanBright: ColorFn;
+        bgWhiteBright: ColorFn;
+
+        hasColor(text: string): boolean;
+        hasAnsi(text: string): boolean;
+        unstyle(text: string): string;
+        stripColor(text: string): string;
+        none(text: string): string;
+        clear(text: string): string;
+        noop(text: string): string;
+
+        symbols: Symbols & {
+            windows: WindowsSymbols;
+            other: OtherPlatformsSymbols;
+        };
+
+        define(
+            name: string,
+            codes: [number, number],
+            type: 'modifier' | 'color' | 'bg' | 'bright' | 'bgBright'
+        ): void;
+    }
+
+    interface WindowsSymbols {
+        bullet: string;
+        check: string;
+        cross: string;
+        ellipsis: string;
+        heart: string;
+        info: string;
+        line: string;
+        middot: string;
+        minus: string;
+        plus: string;
+        question: string;
+        questionSmall: string;
+        pointer: string;
+        pointerSmall: string;
+        warning: string;
+    }
+
+    interface ExtendedSymbols {
+        ballotCross: string;
+        questionFull: string;
+    }
+
+    type Symbols = WindowsSymbols & Partial<ExtendedSymbols>;
+    type OtherPlatformsSymbols = WindowsSymbols & ExtendedSymbols;
+}

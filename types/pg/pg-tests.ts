@@ -9,6 +9,7 @@ const client = new Client({
   port: 5334,
   user: 'database-user',
   password: 'secretpassword!!',
+  keepAlive: true,
 });
 client.connect(err => {
     if (err) {
@@ -125,6 +126,7 @@ const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  keepAlive: false,
 });
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {

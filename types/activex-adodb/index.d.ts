@@ -1,8 +1,10 @@
-// Type definitions for Microsoft ActiveX Data Objects 6.0 Library - ADODB 6.1
+// Type definitions for non-npm package Microsoft ActiveX Data Objects 6.0 Library - ADODB 6.1
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
+
+/// <reference types="activex-interop" />
 
 declare namespace ADODB {
     const enum ADCPROP_ASYNCTHREADPRIORITY_ENUM {
@@ -1094,7 +1096,6 @@ declare namespace ADODB {
 }
 
 interface ActiveXObject {
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
     on(obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {readonly TransactionLevel: number, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
     on(obj: ADODB.Connection, event: 'CommitTransComplete' | 'ConnectComplete' | 'InfoMessage' | 'RollbackTransComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
     on(obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;

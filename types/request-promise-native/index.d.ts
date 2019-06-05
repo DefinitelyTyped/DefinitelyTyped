@@ -9,10 +9,10 @@ import request = require('request');
 import http = require('http');
 
 declare namespace requestPromise {
-    interface RequestPromise extends request.Request {
-        then: Promise<any>["then"];
-        catch: Promise<any>["catch"];
-        promise(): Promise<any>;
+    interface RequestPromise<T = any> extends request.Request {
+        then: Promise<T>["then"];
+        catch: Promise<T>["catch"];
+        promise(): Promise<T>;
     }
 
     interface RequestPromiseOptions extends request.CoreOptions {
@@ -22,11 +22,12 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean;
     }
 
+    type RequestPromiseAPI = request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
     type FullResponse = request.Response;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 }
 
-declare const requestPromise: request.RequestAPI<requestPromise.RequestPromise, requestPromise.RequestPromiseOptions, request.RequiredUriUrl>;
+declare const requestPromise: requestPromise.RequestPromiseAPI;
 export = requestPromise;

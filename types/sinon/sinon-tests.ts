@@ -1,317 +1,495 @@
 import sinon = require("sinon");
 
-function once(fn: Function) {
-    let called = false;
-    let returnValue: any;
-
-    return function(this: any) {
-        if (!called) {
-            called = true;
-            returnValue = fn.apply(this, arguments);
-        }
-        return returnValue;
-    };
-}
-
-function testOne() {
-    const callback = sinon.spy();
-    const proxy = once(callback);
-    proxy();
-    if (callback.calledOnce) { console.log("test1 calledOnce success"); } else { console.log("test1 calledOnce failure"); }
-}
-
-function testTwo() {
-    const callback = sinon.spy(() => { });
-    const proxy = once(callback);
-    proxy();
-    proxy();
-    if (callback.calledOnce) { console.log("test2 calledOnce success"); } else { console.log("test2 calledOnce failure"); }
-}
-
-function testThree() {
-    const obj = { thisObj: true };
-    const callback = sinon.spy<any>({}, "method");
-    const proxy = once(callback);
-    proxy.call(obj, callback, 1, 2, 3);
-    if (callback.calledOn(obj)) { console.log("test3 calledOn success"); } else { console.log("test3 calledOn failure"); }
-    if (callback.calledWith(callback, 1, 2, 3)) { console.log("test3 calledWith success"); } else { console.log("test3 calledWith failure"); }
-}
-
-function testFour() {
-    const callback = sinon.stub().returns(42);
-    const proxy = once(callback);
-    const val = proxy.apply(callback, [1, 2, 3]);
-    if (val === 42) { console.log("test4 returns success"); } else { console.log("test4 returns failure"); }
-}
-
-function testFive() {
-    const callback = sinon.stub().returnsArg(1);
-    const proxy = once(callback);
-    const val = proxy.apply(callback, [1, 2, 3]);
-    if (val === 2) { console.log("test5 returnsArg success"); } else { console.log("test5 returnsArg failure"); }
-}
-
-const objectUnderTest: any = {
-    process: (obj: any) => {
-        // It doesn't really matter what's here because the stub is going to replace this function
-        return obj.success(99);
-    }
-};
-
-function testSix() {
-    const stub = sinon.stub(objectUnderTest, "process").yieldsTo("success");
-    objectUnderTest.process({
-        success: () => { console.log("test6 yieldsTo success"); },
-        failure: () => { console.log("test6 yieldsTo failure"); }
-    });
-    stub.restore();
-}
-
-function testSeven() {
-    const obj = { functionToTest: () => { } };
-    const mockObj = sinon.mock(obj);
-    obj.functionToTest();
-    mockObj.expects('functionToTest').once();
-}
-
-function testEight() {
-    sinon.match.typeOf("object").and(sinon.match.has("pages"));
-}
-
-function testNine() {
-    const callback = sinon.stub().returns(42);
-    callback({ x: 5, y: 5 });
-    callback.calledWithMatch({ x: 5 });
-    callback.alwaysCalledWithMatch({ y: 5 });
-    callback.neverCalledWithMatch({ x: 6 });
-    callback.notCalledWithMatch({ x: 6 });
-    callback.calledOnceWith({ x: 5, y: 5 });
-    callback.calledOnceWithExactly({ x: 5, y: 5 });
-    sinon.assert.calledWithMatch(callback, { x: 5 });
-    sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
-    sinon.assert.neverCalledWithMatch(callback, { x: 6 });
-
-    callback.call("this", "that");
-    callback.throws("Error");
-    try {
-        callback(15);
-    } catch (e) { }
-    sinon.assert.calledWith(callback.firstCall, { x: 5, y: 5});
-    sinon.assert.calledWithExactly(callback.firstCall, { x: 5, y: 5 });
-    sinon.assert.calledWithMatch(callback.firstCall, { x: 5 });
-    sinon.assert.calledOn(callback.secondCall, "this");
-    sinon.assert.threw(callback.thirdCall);
-    sinon.assert.threw(callback.thirdCall, "Error");
-    new (callback as any)();
-    sinon.assert.calledWithNew(callback);
-    sinon.assert.calledWithNew(callback.getCall(4));
-}
-
-function testAssert() {
-    sinon.assert.match(1, 1 + 1);
-    sinon.assert.match("abc", "abc");
-    sinon.assert.match({ a: 1 }, { b: 2, c: "abc" });
-}
-
 function testSandbox() {
-    const config = {
-        injectInto: null,
-        properties: ["spy", "stub", "mock", "clock", "server", "requests"],
-        useFakeServer: true,
+    const obj = {};
+
+    sinon.createSandbox({
+        injectInto: obj,
+        properties: ['spy', 'stub'],
         useFakeTimers: true,
-    };
-
-    let sandbox = sinon.sandbox.create();
-    sandbox = sinon.sandbox.create(config);
-    sandbox = sinon.sandbox.create(sinon.defaultConfig);
-
-    sandbox = sinon.createSandbox();
-    sandbox = sinon.createSandbox(config);
-    sandbox = sinon.createSandbox(sinon.defaultConfig);
-
-    sandbox = sandbox.usingPromise(Promise);
-
-    sandbox.assert.notCalled(sinon.spy());
-
-    if (sandbox.spy().called) {
-        sandbox.stub(objectUnderTest, "process").yieldsTo("success");
-        sandbox.mock(objectUnderTest).expects("process").once();
-    }
-    sandbox.useFakeTimers();
-    sandbox.useFakeTimers({
-        now: 1,
-        toFake: ['Date']
+        useFakeServer: true
     });
-    sandbox.useFakeXMLHttpRequest();
-    sandbox.useFakeServer();
-    sandbox.restore();
-    sandbox.reset();
-    sandbox.resetHistory();
-    sandbox.resetBehavior();
-    sandbox.verify();
-    sandbox.verifyAndRestore();
-    sandbox.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
-    sandbox.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
-}
+    sinon.createSandbox({
+        injectInto: null
+    });
+    sinon.createSandbox({
+        useFakeTimers: {
+            now: 1000,
+            shouldAdvanceTime: false
+        },
+        useFakeServer: sinon.fakeServer.create()
+    });
+    sinon.createSandbox(sinon.defaultConfig);
+    sinon.sandbox.create();
+    sinon.sandbox.create(sinon.defaultConfig);
 
-function testPromises() {
-    let resolveStub = sinon.stub().resolves();
-    resolveStub = sinon.stub().resolves(10);
-    const rejectStub1 = sinon.stub().rejects();
-    let rejectsStub2 = sinon.stub().rejects(new Error('Specified error'));
-    rejectsStub2 = sinon.stub().rejects("TypeError");
-}
+    const sb = sinon.createSandbox();
 
-function testMatchInvoke() {
-    const stub = sinon.stub();
-    stub(123);
-    stub.calledWithMatch(sinon.match(123));
-    stub.calledWithMatch(sinon.match((value: any) => value === 123));
-    stub.calledWithMatch(sinon.match((value: any) => value === 123, "Must be 123"));
-}
+    sb.assert.pass('foo');
+    sb.clock.tick(1000);
+    sb.spy();
+    sb.stub();
+    sb.mock(obj);
 
-function testSymbolMatch() {
-    const stub = sinon.stub();
-    stub(Symbol('TestSymbol'));
-    stub.calledWithMatch(sinon.match.symbol);
-}
+    sb.useFakeTimers();
+    sb.useFakeTimers(1000);
+    sb.useFakeTimers(new Date());
+    sb.useFakeTimers({
+        now: 1000
+    });
 
-function testResetHistory() {
-    sinon.stub().resetHistory();
-    sinon.spy().resetHistory();
-}
+    const xhr = sb.useFakeXMLHttpRequest();
+    xhr.useFilters = true;
+    xhr.restore();
 
-function testUsingPromises() {
-    const stub: sinon.SinonStub = sinon.stub().usingPromise(Promise);
-}
+    const server = sb.useFakeServer();
+    server.respondWith('foo');
 
-function testArrayMatchers() {
-    const stub = sinon.stub();
-    stub([{ a: 'b' }]);
-    stub.calledWithMatch(sinon.match.array);
-    stub.calledWithMatch(sinon.match.array.deepEquals([{ a: 'b' }]));
-    stub.calledWithMatch(sinon.match.array.startsWith([{ a: 'b' }]));
-    stub.calledWithMatch(sinon.match.array.deepEquals([{ a: 'b' }]));
-    stub.calledWithMatch(sinon.match.array.contains([{ a: 'b' }]));
-}
+    sb.restore();
+    sb.reset();
+    sb.resetHistory();
+    sb.resetBehavior();
+    sb.usingPromise(Promise);
+    sb.verify();
+    sb.verifyAndRestore();
 
-function testMapMatcher() {
-    const stub = sinon.stub();
-    stub(new Map([['a', true], ['b', false]]));
-    stub.calledWithMatch(sinon.match.map);
-    stub.calledWithMatch(sinon.match.map.deepEquals(new Map([['a', true], ['b', false]])));
-    stub.calledWithMatch(sinon.match.map.contains(new Map([['a', true]])));
-}
-
-function testSetMatcher() {
-    const stub = sinon.stub();
-    stub(new Set(['a', true]));
-    stub.calledWithMatch(sinon.match.set);
-    stub.calledWithMatch(sinon.match.set.deepEquals(new Set(['a', true])));
-    stub.calledWithMatch(sinon.match.set.contains(new Set([true])));
-}
-
-function testGetterStub() {
-    const myObj = {
-        prop: 'foo'
+    const replaceMe = {
+        prop: 5,
+        method() { return 6; },
+        get getter() { return 7; },
+        get setter() { return true; },
+        set setter(val) { }
     };
 
-    const stub = sinon.stub(myObj, 'prop').get(() => 'bar');
-    stub.restore();
-}
+    sb.replace(replaceMe, 'prop', 10);
+    sb.replace(replaceMe, 'method', sb.spy());
+    sb.replaceGetter(replaceMe, 'getter', () => 14);
+    sb.replaceSetter(replaceMe, 'setter', (v) => { });
 
-function testSetterStub() {
-    const myObj = {
-        prop: 'foo',
-        prop2: 'bar'
+    const cls = class {
+        foo() { }
+        bar: number;
+    };
+    const PrivateFoo = class {
+        private constructor() { }
+        foo() { }
+        bar: number;
+        static create() {
+            return new PrivateFoo();
+        }
     };
 
-    const stub = sinon.stub(myObj, 'prop').set((val: string) => myObj.prop2 = val);
-    stub.restore();
-}
-
-function testValueStub() {
-    const myObj = {
-        prop: 'foo'
-    };
-
-    const stub = sinon.stub(myObj, 'prop').value('bar');
-    stub.restore();
-}
-
-function testThrowsStub() {
-    sinon.stub().throws(new Error('foo'));
-    sinon.stub().throwsException(new Error('foo'));
-    sinon.stub().throws('foo');
-    sinon.stub().throwsException('foo');
-}
-
-function testSpy() {
-    const otherSpy = sinon.spy();
-    sinon.spy().calledAfter(otherSpy);
-    sinon.spy().calledBefore(otherSpy);
-    sinon.spy().calledImmediatelyAfter(otherSpy);
-    sinon.spy().calledImmediatelyBefore(otherSpy);
+    const stubInstance = sb.createStubInstance(cls);
+    const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
+    stubInstance.foo.calledWith('foo');
+    privateFooStubbedInstance.foo.calledWith('foo');
+    const clsFoo: sinon.SinonStub = stubInstance.foo;
+    const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
+    const clsBar: number = stubInstance.bar;
+    const privateFooBar: number = privateFooStubbedInstance.bar;
+    sb.createStubInstance(cls, {
+        bar: 1
+    });
 }
 
 function testFakeServer() {
+    let s = sinon.fakeServer.create();
+    s = sinon.fakeServerWithClock.create();
+
     sinon.fakeServer.create({
         autoRespond: true,
         autoRespondAfter: 3,
         fakeHTTPMethods: true,
         respondImmediately: false
     });
+
+    sinon.fakeServer.create({
+        autoRespond: true,
+        autoRespondAfter: 3
+    });
 }
 
-function testStubObject() {
-    const myObj = {
-        setStatus() {},
-        json() {}
+function testXHR() {
+    const xhr = new sinon.FakeXMLHttpRequest();
+    const headers = xhr.getAllResponseHeaders();
+    const header = xhr.getResponseHeader('foo');
+
+    xhr.setResponseHeaders({ 'Content-Type': 'text/html' });
+    xhr.setResponseBody('foo');
+    xhr.respond(200, { 'Content-Type': 'foo' }, 'bar');
+    xhr.error();
+
+    sinon.FakeXMLHttpRequest.useFilters = true;
+    sinon.FakeXMLHttpRequest.addFilter((method, url, async, user, pass) => true);
+    sinon.FakeXMLHttpRequest.onCreate = (xhr) => { };
+    sinon.FakeXMLHttpRequest.restore();
+}
+
+function testClock() {
+    let clock = sinon.clock.create(1000);
+    clock = sinon.clock.create(new Date());
+
+    let now = 0;
+    now = clock.now;
+
+    const fn = () => { };
+
+    clock.setTimeout(fn, 0);
+    clock.setTimeout(fn, 0, 'a', 'b');
+    clock.setInterval(fn, 0);
+    clock.setInterval(fn, 0, 'a', 'b');
+    clock.setImmediate(fn);
+    clock.setImmediate(fn, 'a', 'b');
+    clock.requestAnimationFrame(fn);
+
+    let timer = clock.setTimeout(fn, 0);
+    clock.clearTimeout(timer);
+    timer = clock.setInterval(fn, 0);
+    clock.clearInterval(timer);
+    timer = clock.setImmediate(fn);
+    clock.clearImmediate(timer);
+
+    const animTimer = clock.requestAnimationFrame(fn);
+    clock.cancelAnimationFrame(animTimer);
+
+    clock.nextTick(fn);
+    clock.tick(1);
+    clock.tick('00:10');
+    clock.next();
+    clock.runAll();
+    clock.runToLast();
+    clock.reset();
+    clock.runMicrotasks();
+    clock.runToFrame();
+    clock.restore();
+    clock.uninstall();
+    clock.setSystemTime(1000);
+    clock.setSystemTime(new Date());
+}
+
+function testExpectation() {
+    const obj = {};
+
+    let ex = sinon.expectation.create();
+    ex = sinon.expectation.create('some name');
+
+    ex.atLeast(5).atMost(10);
+    ex.never();
+    ex.once();
+    ex.twice();
+    ex.thrice();
+    ex.exactly(5);
+    ex.withArgs('a', 'b');
+    ex.withExactArgs('a', 'b');
+    ex.on(obj);
+    ex.verify();
+    ex.restore();
+}
+
+function testMatch() {
+    const obj = {};
+    const fn = () => { };
+
+    sinon.match(5).test(5);
+    sinon.match('str').test('foo');
+    sinon.match(/foo/).test('foo');
+    sinon.match({ a: 5, b: 6 }).test({});
+    sinon.match((v) => true).test('foo');
+    sinon.match((v) => true, 'some message').test('foo');
+    sinon.match.any.test('foo');
+    sinon.match.defined.test('foo');
+    sinon.match.truthy.test('foo');
+    sinon.match.falsy.test('foo');
+    sinon.match.bool.test('foo');
+    sinon.match.number.test('foo');
+    sinon.match.string.test('foo');
+    sinon.match.object.test('foo');
+    sinon.match.func.test(fn);
+    sinon.match.map.test(new Map([['a', 1], ['b', 2]]));
+    sinon.match.set.test(new Set([1, 2, 3]));
+    sinon.match.array.test([1, 2, 3]);
+    sinon.match.regexp.test('foo');
+    sinon.match.date.test('foo');
+    sinon.match.symbol.test('foo');
+    sinon.match.in([1, 2, 3]).test(1);
+    sinon.match.same(obj);
+    sinon.match.typeOf('string').test('foo');
+    sinon.match.instanceOf(fn).test('foo');
+    sinon.match.has('prop').test(obj);
+    sinon.match.has('prop', 123).test(obj);
+    sinon.match.hasOwn('prop').test(obj);
+    sinon.match.hasOwn('prop', 123).test(obj);
+    sinon.match.hasNested('prop.foo.bar').test(obj);
+    sinon.match.hasNested('prop.foo.bar', 123).test(obj);
+    sinon.match.every(sinon.match.number).test([1, 2, 'three']);
+    sinon.match.some(sinon.match.number).test([1, 2, 'three']);
+    sinon.match.array.deepEquals([{ a: 'b' }]).test([]);
+    sinon.match.array.startsWith([{ a: 'b' }]).test([]);
+    sinon.match.array.deepEquals([{ a: 'b' }]).test([]);
+    sinon.match.array.contains([{ a: 'b' }]).test([]);
+    sinon.match.map.deepEquals(new Map([['a', true], ['b', false]])).test(new Map());
+    sinon.match.map.contains(new Map([['a', true]])).test(new Map());
+}
+
+function testFake() {
+    const fn = () => { };
+    let fake = sinon.fake();
+
+    fake = sinon.fake(() => true);
+    fake = sinon.fake.returns(5);
+    fake = sinon.fake.throws('foo');
+    fake = sinon.fake.throws(new Error('foo'));
+    fake = sinon.fake.resolves('foo');
+    fake = sinon.fake.rejects('foo');
+    fake = sinon.fake.yields(1, 2, fn);
+    fake = sinon.fake.yieldsAsync(1, 2, fn);
+
+    fake.calledWith('foo');
+}
+
+function testAssert() {
+    const spy = sinon.spy();
+    const spyTwo = sinon.spy();
+    const obj = {};
+
+    sinon.assert.fail();
+    sinon.assert.fail('foo');
+    sinon.assert.pass('foo');
+    sinon.assert.notCalled(spy);
+    sinon.assert.called(spy);
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledTwice(spy);
+    sinon.assert.calledThrice(spy);
+    sinon.assert.callCount(spy, 3);
+    sinon.assert.callOrder(spy, spyTwo);
+    sinon.assert.calledOn(spy, obj);
+    sinon.assert.calledOn(spy.firstCall, obj);
+    sinon.assert.alwaysCalledOn(spy, obj);
+    sinon.assert.alwaysCalledWith(spy, 'a', 'b', 'c');
+    sinon.assert.neverCalledWith(spy, 'a', 'b', 'c');
+    sinon.assert.calledWithExactly(spy, 'a', 'b', 'c');
+    sinon.assert.alwaysCalledWithExactly(spy, 'a', 'b', 'c');
+    sinon.assert.calledWithMatch(spy, 'a', 'b', 'c');
+    sinon.assert.calledWithMatch(spy.firstCall, 'a', 'b', 'c');
+    sinon.assert.alwaysCalledWithMatch(spy, 'a', 'b', 'c');
+    sinon.assert.neverCalledWithMatch(spy, 'a', 'b', 'c');
+    sinon.assert.calledWithNew(spy);
+    sinon.assert.calledWithNew(spy.firstCall);
+    sinon.assert.threw(spy);
+    sinon.assert.threw(spy.firstCall);
+    sinon.assert.threw(spy, 'foo error');
+    sinon.assert.threw(spy.firstCall, 'foo error');
+    sinon.assert.threw(spy, new Error('foo'));
+    sinon.assert.threw(spy.firstCall, new Error('foo'));
+    sinon.assert.alwaysThrew(spy);
+    sinon.assert.alwaysThrew(spy, 'foo error');
+    sinon.assert.alwaysThrew(spy, new Error('foo'));
+    sinon.assert.match('a', 'b');
+    sinon.assert.match(1, 1 + 1);
+    sinon.assert.match({ a: 1 }, { b: 2, c: 'abc' });
+    sinon.assert.expose(obj);
+    sinon.assert.expose(obj, { prefix: 'blah' });
+    sinon.assert.expose(obj, { includeFail: true });
+}
+
+function testTypedSpy() {
+    const cls = class {
+        foo(a: number, b: string): number {
+            return 3;
+        }
     };
-    const stub = sinon.stub(myObj);
-    stub.setStatus.returns(stub);
-    stub.json.callCount;
+
+    const instance = new cls();
+    const spy = sinon.spy(instance, 'foo');
+
+    spy.calledWith(5, 'x');
+    spy.calledWith(sinon.match(5), 'x');
+    spy.calledWithExactly(5, 'x');
+    spy.calledWithExactly(5, sinon.match('x'));
+    spy.calledOnceWith(5, 'x');
+    spy.calledOnceWith(sinon.match(5), 'x');
+    spy.notCalledWith(5, 'x');
+    spy.notCalledWith(sinon.match(5), 'x');
+    spy.returned(5);
+    spy.returned(sinon.match(5));
+
+    spy.withArgs(sinon.match(5), 'x').calledWith(5, 'x');
+    spy.alwaysCalledWith(sinon.match(5), 'x');
+    spy.alwaysCalledWith(5, 'x');
+    spy.alwaysCalledWithExactly(sinon.match(5), 'x');
+    spy.alwaysCalledWithExactly(5, 'x');
+    spy.neverCalledWith(sinon.match(5), 'x');
+    spy.neverCalledWith(5, 'x');
+
+    const stub = sinon.stub(instance, 'foo');
+
+    stub.withArgs(5, 'x').returns(3);
+    stub.withArgs(sinon.match(5), 'x').returns(5);
 }
 
-testOne();
-testTwo();
-testThree();
-testFour();
-testFive();
-testSix();
-testSeven();
-testEight();
-testNine();
-testPromises();
-testSandbox();
-testSpy();
-testSymbolMatch();
-testResetHistory();
-testUsingPromises();
-testGetterStub();
-testSetterStub();
-testValueStub();
-testThrowsStub();
-testFakeServer();
+function testSpy() {
+    const fn = () => { };
+    const obj = class {
+        foo() { }
+        set bar(val: number) { }
+        get bar() { return 0; }
+    };
+    const instance = new obj();
 
-const clock = sinon.useFakeTimers();
-clock.setSystemTime(1000);
-clock.setSystemTime(new Date());
+    let spy = sinon.spy();
+    const spyTwo = sinon.spy().named('spyTwo');
 
-class TestCreateStubInstance {
-    someTestMethod(testArg: string) { }
+    spy = sinon.spy(fn);
+    spy = sinon.spy(instance, 'foo');
+    spy = sinon.spy(instance, 'bar', ['set', 'get']);
+
+    let count = 0;
+    count = spy.callCount;
+
+    let called = false;
+    called = spy.called;
+    called = spy.notCalled;
+    called = spy.calledOnce;
+    called = spy.calledTwice;
+    called = spy.calledThrice;
+
+    let arr: any[] = [];
+    arr = spy.thisValues;
+    arr = spy.args;
+    arr = spy.exceptions;
+    arr = spy.returnValues;
+
+    spy('a', 'b');
+    spy(1, 2);
+    spy(true);
+
+    spy.calledBefore(spyTwo);
+    spy.calledAfter(spyTwo);
+    spy.calledImmediatelyBefore(spyTwo);
+    spy.calledImmediatelyAfter(spyTwo);
+    spy.calledWithNew();
+    spy.withArgs('a', 1).calledBefore(spyTwo);
+    spy.alwaysCalledOn(instance);
+    spy.alwaysCalledWith('a', 1);
+    spy.alwaysCalledWith('a');
+    spy.alwaysCalledWithExactly('a', 1);
+    spy.alwaysCalledWithMatch('foo');
+    spy.neverCalledWith('b', 2);
+    spy.neverCalledWith('b');
+    spy.neverCalledWithMatch('foo', 'bar');
+    spy.alwaysThrew();
+    spy.alwaysThrew('foo');
+    spy.alwaysThrew(new Error('foo'));
+    spy.alwaysReturned('foo');
+    spy.invokeCallback('a', 'b');
+    spy.calledOn(instance);
+    spy.calledWith('a', 2);
+    spy.calledWithExactly('a', 2);
+    spy.calledOnceWith('a', 2);
+    spy.calledOnceWithExactly('a', 2);
+    spy.calledWithMatch('bar', 2);
+    spy.notCalledWith('a', 2);
+    spy.notCalledWithMatch('a', 2);
+    spy.returned(true);
+    spy.returned('foo');
+    spy.returned(2);
+    spy.threw();
+    spy.threw('foo');
+    spy.threw(new Error('foo'));
+    spy.callArg(1);
+    spy.callArgOn(1, instance);
+    spy.callArgOn(1, instance, 'a', 2);
+    spy.callArgWith(1, 'a', 2);
+    spy.callArgOnWith(1, instance, 'a', 2);
+    spy.yield('a', 2);
+    spy.yieldOn(instance, 'a', 2);
+    spy.yieldTo('prop', 'a', 2);
+    spy.yieldToOn('prop', instance, 'a', 2);
+
+    let call = spy.firstCall;
+    call = spy.secondCall;
+    call = spy.thirdCall;
+    call = spy.lastCall;
+    call = spy.getCall(1);
+    call = spy.getCalls()[0];
+
+    call.calledBefore(call);
+    call.calledAfter(call);
+    call.calledWithNew();
+
+    spy.resetHistory();
+    spy.restore();
 }
 
-sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
-sinon.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
+function testStub() {
+    const obj = class {
+        foo() { }
+    };
+    const instance = new obj();
 
-function testGetCalls() {
-    const double = sinon.spy((a: number) => a * 2);
-    double(2);
-    double(4);
-    double.getCall(0).args.length === 1;
-    const secondCall = double.getCalls().find(call => call.args[0] === 4);
-    if (secondCall) {
-        secondCall.returnValue === 8;
-    }
+    let stub = sinon.stub();
+    stub = sinon.stub(instance, 'foo').named('namedStub');
+
+    const spy: sinon.SinonSpy = stub;
+
+    sinon.stub(instance);
+
+    stub.reset();
+    stub.resetBehavior();
+    stub.usingPromise(Promise);
+
+    stub.returns(true);
+    stub.returns(5);
+    stub.returns('foo');
+    stub.returnsArg(1);
+    stub.returnsThis();
+    stub.resolves();
+    stub.resolves('foo');
+    stub.resolvesArg(1);
+    stub.resolvesThis();
+    stub.throws();
+    stub.throws('err');
+    stub.throws(new Error('err'));
+    stub.throwsArg(1);
+    stub.throwsException('err');
+    stub.throwsException(new Error('err'));
+    stub.rejects();
+    stub.rejects('TypeError');
+    stub.rejects(1234);
+    stub.callsArg(1);
+    stub.callThrough();
+    stub.callsArgOn(1, instance);
+    stub.callsArgWith(1, 'a', 2);
+    stub.callsArgAsync(1);
+    stub.callsArgOnAsync(1, instance);
+    stub.callsArgWithAsync(1, 'a', 2);
+    stub.callsArgOnWithAsync(1, instance, 'a', 2);
+    stub.callsFake((s1, s2, s3) => { });
+    stub.callsFake(() => { });
+    stub.get(() => true);
+    stub.set((v) => { });
+    stub.onCall(1).returns(true);
+    stub.onFirstCall().resolves('foo');
+    stub.onSecondCall().resolves('foo');
+    stub.onThirdCall().resolves('foo');
+    stub.value('foo');
+    stub.yields('a', 2);
+    stub.yieldsOn(instance, 'a', 2);
+    stub.yieldsRight('a', 2);
+    stub.yieldsTo('foo', 'a', 2);
+    stub.yieldsToOn('foo', instance, 'a', 2);
+    stub.yieldsAsync('a', 2);
+    stub.yieldsOnAsync(instance, 'a', 2);
+    stub.yieldsToAsync('foo', 'a', 2);
+    stub.yieldsToOnAsync('foo', instance, 'a', 2);
+    stub.withArgs('a', 2).returns(true);
+}
+
+function testMock() {
+    const obj = {};
+    const mock = sinon.mock(obj);
+
+    mock.expects('method').atLeast(2).atMost(5);
+    mock.restore();
+    mock.verify();
 }
