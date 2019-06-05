@@ -3582,6 +3582,7 @@ declare namespace google.maps {
                 data: MVCArray<LatLng | WeightedLocation> | LatLng[] | WeightedLocation[]
             ): void;
             setMap(map: Map | null): void;
+            setOptions(options: HeatmapLayerOptions): void;
         }
 
         interface HeatmapLayerOptions {
