@@ -3711,14 +3711,13 @@ declare module _ {
         * @keys The key/value pairs to keep on `object`.
         * @return Copy of `object` with only the `keys` properties.
         **/
+        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
         pick(
             object: any,
             ...keys: any[]): any;
         pick(
             object: any,
             keys: any[]): any;
-        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
-        pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
 
         /**
         * @see _.pick
