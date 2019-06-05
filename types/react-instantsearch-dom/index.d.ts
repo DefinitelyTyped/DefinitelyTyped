@@ -55,6 +55,8 @@ interface CommonWidgetProps {
 }
 
 export interface InstantSearchProps {
+  apiKey?: string;
+  appId?: string;
   indexName: string;
   searchClient: any;
 
