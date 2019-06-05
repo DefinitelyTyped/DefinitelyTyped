@@ -2803,7 +2803,7 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
             ? Defaultize<P, D>
             : P;
 
-declare global {
+namespace React {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
         interface Element extends React.ReactElement<any, any> { }
