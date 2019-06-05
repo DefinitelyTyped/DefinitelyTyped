@@ -733,7 +733,6 @@ declare namespace stripe {
         | 'void_invoice'
         | 'automatic';
 
-
         interface PaymentIntentNextActionRedirectToUrl {
             /**
              * Type of the next action to perform
@@ -877,9 +876,7 @@ declare namespace stripe {
              * If present, this property tells you what actions you need to take in order
              * for your customer to fulfill a payment using the provided source.
              */
-            next_action:
-                | PaymentIntentNextActionUseStripeSdk
-                | PaymentIntentNextActionRedirectToUrl;
+            next_action: PaymentIntentNextActionUseStripeSdk | PaymentIntentNextActionRedirectToUrl;
 
             /**
              * The account (if any) for which the funds of the PaymentIntent are intended.
