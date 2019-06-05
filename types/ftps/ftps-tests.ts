@@ -1,4 +1,4 @@
-import * as FTP from 'ftps';
+import FTP = require('ftps');
 
 const options: FTP.FTPOptions = {
     host: '',
