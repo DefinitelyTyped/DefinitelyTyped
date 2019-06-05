@@ -261,6 +261,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
         listS = fs.readdirSync('path', undefined);
         const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
         const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = fs.readdirSync('path', { encoding: 'utf8', withFileTypes: true });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
@@ -272,6 +273,23 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
 
         fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
     }
+
+    async function testPromisify() {
+        const rd = util.promisify(fs.readdir);
+        let listS: string[];
+        listS = await rd('path');
+        listS = await rd('path', 'utf8');
+        listS = await rd('path', null);
+        listS = await rd('path', undefined);
+        listS = await rd('path', { encoding: 'utf8' });
+        listS = await rd('path', { encoding: null });
+        listS = await rd('path', { encoding: null, withFileTypes: false });
+        listS = await rd('path', { encoding: 'utf8', withFileTypes: false });
+        const listDir: fs.Dirent[] = await rd('path', { withFileTypes: true });
+        const listDir2: Buffer[] = await rd('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = await rd('path', { encoding: 'utf8', withFileTypes: true });
+    }
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);

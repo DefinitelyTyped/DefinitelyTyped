@@ -14,6 +14,15 @@ declare namespace connect {
     type AgentCallback = (agent: Agent) => void;
 
     /**
+     *
+     * A callback to receive agent details
+     *
+     * @param agent An Agent object containing information about the currently
+     * signed-in agent.
+     */
+    type MuteCallback = (muteState: MuteState) => void;
+
+    /**
      * Register a callback to receive agent details
      *
      * @param callback A callback that will receive an {Agent} instance
@@ -223,6 +232,10 @@ declare namespace connect {
        queueARN?: string;
     }
 
+    interface MuteState {
+        muted: boolean;
+    }
+
     interface Agent {
         /**
          * Subscribe a method to be called whenever Contact information is about to be updated.
@@ -273,7 +286,7 @@ declare namespace connect {
          *
          * @param callback A callback to receive updates on agent mute state
          */
-        onMuteToggle(callback: AgentCallback): void;
+        onMuteToggle(callback: MuteCallback): void;
 
         /**
          * Get the agent's current AgentState object indicating their availability state type.

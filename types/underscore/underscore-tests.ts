@@ -340,7 +340,26 @@ _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
 _.extendOwn({ name: 'moe'}, { age: 50 });
 _.assign({ name: 'moe'}, { age: 50 });
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
+
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age').age = 5;
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']).age = 5;
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => {
+    return key === 'name' || key === 'age';
+}).age = 5;
+
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').age = 5;
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).age = 5;
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
+    return key === 'name' || key === 'age';
+}).age = 5;
+
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').value().age = 5;
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).value().age = 5;
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
+    return key === 'name' || key === 'age';
+}).value().age = 5;
+
+
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
@@ -496,8 +515,6 @@ template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
 _.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
-
-_(['test', 'test']).pick(['test2', 'test2']);
 
 //////////////// Chain Tests
 function chain_tests() {

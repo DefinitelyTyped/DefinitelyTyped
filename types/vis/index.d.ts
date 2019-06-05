@@ -107,8 +107,10 @@ export interface DataGroup {
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
-  nestedGroups?: number[];
+  nestedGroups?: IdType[];
   subgroupStack?: SubGroupStackOptions | boolean;
+  visible?: boolean;
+  showNested?: boolean;
 }
 
 export interface DataGroupOptions {

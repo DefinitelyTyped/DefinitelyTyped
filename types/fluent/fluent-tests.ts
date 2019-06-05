@@ -38,7 +38,7 @@ bundle1.addResource(a);
 bundle2.getMessage('foo');
 
 // FluentBundle format examples:
-const errors2: any[] = [];
+const errors2: Array<string | Error> = [];
 bundle1.addMessages('hello = Hello, { $name }!');
 const hello = bundle2.getMessage('hello');
 bundle3.format(hello, { name: 'Jane' }, errors2);

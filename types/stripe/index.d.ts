@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.26
+// Type definitions for stripe 6.30
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -22,6 +22,7 @@
 //                 Gokul Chandrasekaran <https://github.com/gokulchandra>
 //                 Jamie Davies <https://github.com/viralpickaxe>
 //                 Christopher Eck <https://github.com/chrisleck>
+//                 Josiah <https://github.com/spacetag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -2495,6 +2496,24 @@ declare namespace Stripe {
             customer: string | customers.ICustomer;
 
             /**
+             * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_email: string;
+
+            /**
+             * The customer’s name. Until the invoice is finalized, this field will equal customer.name.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_name: string;
+
+            /**
+             * The customer’s phone number. Until the invoice is finalized, this field will equal customer.phone.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_phone: string;
+
+            /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             date: number;
@@ -3014,6 +3033,11 @@ declare namespace Stripe {
              * will retrieve the next upcoming invoice from among the customer’s subscriptions.
              */
             subscription?: string;
+
+            /**
+             * The identifier of the customer whose upcoming invoice you’d like to retrieve. REQUIRED IF SUBSCRIPTION UNSET
+             */
+            customer?: string;
 
             /**
              * If set, the invoice returned will preview updating the subscription given to this plan, or creating a new subscription to this plan
@@ -6053,6 +6077,14 @@ declare namespace Stripe {
              * the anchor date. If false, the anchor period will be free (similar to a trial).
              */
             prorate?: boolean;
+
+            /**
+             * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription on creation. This can be set
+             * to false when used with services like Avalara that need to augment an invoice before the subscription is paid.
+             *
+             * Using this flag requires contacting Stripe support in order to have the account whitelisted.
+             */
+            pay_immediately?: boolean;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
@@ -6576,6 +6608,10 @@ declare namespace Stripe {
             usage?: ISource["usage"];
             ideal?: {
                 bank?: string;
+            };
+            sepa_debit?: {
+                ideal?: string;
+                iban?: string;
             };
         }
 
@@ -8120,7 +8156,9 @@ declare namespace Stripe {
              * @returns Returns an invoice if a valid customer ID was provided. Throws an error otherwise.
              *
              * @param id The identifier of the customer whose upcoming invoice you'd like to retrieve.
+             * @param data Filtering options
              */
+            retrieveUpcoming(data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
