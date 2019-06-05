@@ -58,7 +58,7 @@ export interface InstantSearchProps {
   apiKey?: string;
   appId?: string;
   indexName: string;
-  searchClient: any;
+  searchClient?: any;
 
   createURL?: (...args: any[]) => any;
   searchState?: any;
