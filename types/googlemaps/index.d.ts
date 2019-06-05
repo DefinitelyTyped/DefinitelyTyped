@@ -3116,6 +3116,7 @@ declare namespace google.maps {
             getPlace(): PlaceResult;
             setBounds(bounds: LatLngBounds | LatLngBoundsLiteral): void;
             setComponentRestrictions(restrictions: ComponentRestrictions): void;
+            setFields(fields: Array<string> | undefined): void;
             setTypes(types: string[]): void;
         }
 
