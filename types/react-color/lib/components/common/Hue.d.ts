@@ -1,11 +1,8 @@
-import { Component, ComponentType } from "react";
-import { CustomPickerInjectedProps } from "../../..";
+import { Component } from "react";
+import { CustomPickerProps } from "../../..";
 
-export interface HueProps extends CustomPickerInjectedProps {
+export interface HueProps extends CustomPickerProps<Hue> {
     direction?: "horizontal" | "vertical";
-    pointer?: ComponentType;
-    radius?: string;
-    shadow?: string;
 }
 
 export default class Hue extends Component<HueProps> {}

@@ -1,26 +1,11 @@
-import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
+import { Component } from "react";
+import { ColorPickerProps, ColorResult } from "../../..";
 
-export interface BlockPickerDefaultStyles {
-    card?: CSSProperties;
-    head?: CSSProperties;
-    body?: CSSProperties;
-    label?: CSSProperties;
-    triangle?: CSSProperties;
-    input?: CSSProperties;
-}
-
-export interface BlockPickerStyles {
-    default?: BlockPickerDefaultStyles;
-}
-
-export interface BlockPickerProps extends CustomPickerProps {
-    onSwatchHover?: (color: ColorState, event: MouseEvent) => void;
+export interface BlockPickerProps extends ColorPickerProps<BlockPicker> {
     colors?: string[];
     width?: string;
-    triangle?: "hide" | "top";
-    styles?: BlockPickerStyles;
-    className?: string;
+    triangle?: 'hide' | 'top';
+    onSwatchHover?(color: ColorResult, event: MouseEvent): void;
 }
 
 export default class BlockPicker extends Component<BlockPickerProps> {}

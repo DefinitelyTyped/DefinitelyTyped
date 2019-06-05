@@ -1,5 +1,5 @@
 import { Component, CSSProperties } from "react";
-import { RenderersProps, CustomPickerProps } from "../../..";
+import { ColorPickerProps } from "../../..";
 
 export interface ChromePickerDefaultStyles {
     picker?: CSSProperties;
@@ -29,11 +29,9 @@ export interface ChromePickerStyles {
     disableAlpha?: ChromePickerDisableAlphaStyles;
 }
 
-export interface ChromePickerProps extends RenderersProps, CustomPickerProps {
-    width?: string;
+export interface ChromePickerProps extends ColorPickerProps<ChromePicker> {
     disableAlpha?: boolean;
     styles?: ChromePickerStyles;
-    className?: string;
 }
 
 export default class ChromePicker extends Component<ChromePickerProps> {}

@@ -1,13 +1,9 @@
-import { Component, ComponentType } from "react";
-import { RenderersProps, CustomPickerProps } from "../../..";
+import { Component } from "react";
+import { ColorPickerProps } from "../../..";
 
-export interface AlphaPickerProps extends RenderersProps, CustomPickerProps {
-    width?: string;
+export interface AlphaPickerProps extends ColorPickerProps<AlphaPicker> {
     height?: string;
-    direction?: "horizontal" | "vertical";
-    style?: any;
-    pointer?: ComponentType;
-    className?: string;
+    width?: string;
 }
 
 export default class AlphaPicker extends Component<AlphaPickerProps> {}
