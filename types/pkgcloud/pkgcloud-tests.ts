@@ -19,6 +19,13 @@ pkgcloud.storage.createClient({
 	storageAccessKey: 'AABDEF==',
 });
 
+// Google
+pkgcloud.storage.createClient({
+	provider: 'google',
+	keyFilename: 'path/to/keyFile.json',
+	projectId: 'projectId'
+});
+
 // Upload a File
 {
 	const client = pkgcloud.storage.createClient({
