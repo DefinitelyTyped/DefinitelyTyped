@@ -2576,7 +2576,7 @@ declare namespace d3 {
             tickPadding(): number;
             tickPadding(padding: number): Axis;
 
-            tickFormat(): (t: any) => string;
+            tickFormat(): (t: any , index ?: number) => string;
             tickFormat(format: (t: any) => string): Axis;
             tickFormat(format: string): Axis;
         }
