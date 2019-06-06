@@ -21,3 +21,18 @@ class App extends React.Component {
 withNProgress()(App);
 withNProgress(300)(App);
 withNProgress(300, { trickle: false })(App);
+
+class AppWithProps extends React.Component<{title: string}> {
+    render() {
+        return (
+            <div>
+                <title>{this.props.title}</title>
+            </div>
+        );
+    }
+}
+
+// $ExpectType ComponentType<{ title: string; }>
+withNProgress()(AppWithProps);
+// $ExpectType ComponentType<{}>
+withNProgress()(App);
