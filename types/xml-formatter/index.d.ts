@@ -31,7 +31,7 @@ declare function Format(xml: string, option?: Format.Options): string;
  *~ be declared in here, as this example shows.
  */
 declare namespace Format {
-    export interface Options {
+    interface Options {
         debug?: boolean;
         indetation?: string;
         stripComments?: boolean;
