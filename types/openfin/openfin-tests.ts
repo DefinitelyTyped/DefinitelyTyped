@@ -893,12 +893,12 @@ function test_window() {
     });
 }
 
-async function test_external_window() {
-    // wrap
-    const externalWin = await fin.ExternalWindow.wrap({uuid: 'uuid', name: 'name'});
+function test_external_window() {
+    // wrapSync
+    const externalWin = fin.ExternalWindow.wrapSync({uuid: 'uuid', name: 'name'});
 
     // getCurrent
-    await fin.System.getFocusedExternalWindow();
+    fin.System.getFocusedExternalWindow();
 
     // getAllExternalWindows
     fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
