@@ -207,7 +207,9 @@ b.fill('a').fill('b');
 {
     const b = Buffer.from('asd');
     let res: Buffer = b.reverse();
+    res = b.subarray();
     res = b.subarray(1);
+    res = b.subarray(1, 2);
 }
 
 // Buffer module, transcode function
