@@ -90,3 +90,35 @@ proxy('www.google.com', {
 const proxyOptions: proxy.ProxyOptions = {};
 
 app.use('/proxy/:port', proxy((req) => 'localhost:' + req.params.port));
+
+proxy("www.google.com", {
+    filter: (req, res) => {
+        return req.method == "GET";
+    }
+});
+
+proxy("www.google.com", {
+    memoizeHost: true
+});
+
+proxy("www.google.com", {
+    skipToNextHandlerFilter: proxyRes => {
+        return proxyRes.statusCode === 404;
+    }
+});
+
+proxy("www.google.com", {
+    https: true
+});
+
+proxy("www.google.com", {
+    reqAsBuffer: true
+});
+
+proxy("httpbin.org", {
+    reqBodyEncoding: null
+});
+
+proxy("httpbin.org", {
+    timeout: 2000
+});
