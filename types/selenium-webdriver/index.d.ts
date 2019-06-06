@@ -1475,7 +1475,7 @@ export class Executor {
    *     '/path/:variable/segment'.
    */
   defineCommand(name: string, method: string, path: string): void;
-  
+
   /**
    * Executes the given {@code command}. If there is an error executing the
    * command, the provided callback will be invoked with the offending error.
