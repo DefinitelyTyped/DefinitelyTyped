@@ -1,6 +1,6 @@
-// Type definitions for xml-formatter x.x
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: My Self <https://github.com/me>
+// Type definitions for xml-formatter 1.1
+// Project: https://github.com/chrisbottin/xml-formatter/ (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Definitions by: Joachim Holwech <https://github.com/holwech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ Note that ES6 modules cannot directly export callable functions.
@@ -31,10 +31,10 @@ declare function Format(xml: string, option?: Format.Options): string;
  *~ be declared in here, as this example shows.
  */
 declare namespace Format {
-  export interface Options {
-    debug?: boolean;
-    indetation?: string;
-    stripComments?: boolean;
-    collapseContent?: boolean;
-  }
+    export interface Options {
+        debug?: boolean;
+        indetation?: string;
+        stripComments?: boolean;
+        collapseContent?: boolean;
+    }
 }
