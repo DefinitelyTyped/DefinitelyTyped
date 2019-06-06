@@ -646,7 +646,7 @@ declare namespace Office {
      */
     interface Error {
         /**
-         * Gets the numeric code of the error.
+         * Gets the numeric code of the error. For a list of error codes, see {@link https://docs.microsoft.com/office/dev/add-ins/reference/javascript-api-for-office-error-codes | JavaScript API for Office error codes}.
          */
         code: number;
         /**
