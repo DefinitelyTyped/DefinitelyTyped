@@ -3636,7 +3636,7 @@ declare namespace Cesium {
         static VERTEX_FORMAT: VertexFormat;
         constructor(options?: { translucent?: boolean; material?: Material; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
     }
-        
+    
     class PostProcessStage {
         readonly clearColor: Color;
         enabled: boolean;
@@ -3662,7 +3662,7 @@ declare namespace Cesium {
         destroy(): void;
         isDestroyed(): boolean;
     }
-        
+      
     class PostProcessStageCollection {
         readonly fxaa: PostProcessStage;
         readonly length: number;
