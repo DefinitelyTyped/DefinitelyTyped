@@ -56,6 +56,13 @@ type ReactDefaultizedProps<C, P> = C extends { defaultProps: infer D; }
     ? Defaultize<P, D>
     : P;
 
+// Omit props from P that are also contained in O. Follows similar logic to Defaultize
+type OmitOverlapping<P, O> = P extends any
+    ? string extends keyof P
+        ? P
+        : Pick<P, Exclude<keyof P, keyof O>>
+    : never;
+
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -67,9 +74,12 @@ export type StyledComponentProps<
     A extends keyof any
 > = WithOptionalTheme<
     Omit<
-        ReactDefaultizedProps<
-            C,
-            React.ComponentPropsWithRef<C>
+        OmitOverlapping<
+            ReactDefaultizedProps<
+                C,
+                React.ComponentPropsWithRef<C>
+            >,
+            O
         > & O,
         A
     > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,

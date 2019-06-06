@@ -1056,3 +1056,31 @@ function unionTest() {
     <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
+
+// when a styled component defines props that overlap with its wrapped component,
+// the types conflicting props should probably be replaced by the type in the
+// wrapped component.
+function overlappedProps() {
+    type ArrayOrInstance<T> = T | T[];
+
+    interface Props {
+        color: ArrayOrInstance<string>;
+    }
+
+    function resolve<T>(rv: ArrayOrInstance<T>): T {
+        // simplified
+        if (Array.isArray(rv) && rv.length) {
+            return rv[0];
+        }
+        throw new Error("don't care");
+    }
+
+    const Box = styled.div`
+        color: ${(p: Props) => resolve(p.color)}
+    `;
+
+    const Wrapped = styled(Box)``;
+
+    // color prop type should not be merged with div's
+    <Wrapped color={["red"]}>This has children</Wrapped>;
+}
