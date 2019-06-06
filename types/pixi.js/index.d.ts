@@ -3059,8 +3059,8 @@ declare namespace PIXI {
         interface LoaderOptions {
             crossOrigin?: string | boolean;
             timeout?: number;
-            loadType?: LOAD_TYPE;
-            xhrType?: XHR_RESPONSE_TYPE;
+            loadType?: number;
+            xhrType?: number;
             onComplete?: OnCompleteSignal;
             callback?: OnCompleteSignal;
             metadata?: IMetadata;
@@ -3195,35 +3195,6 @@ declare namespace PIXI {
         interface TextureDictionary {
             [index: string]: PIXI.Texture;
         }
-        enum STATUS_FLAGS {
-            NONE,
-            DATA_URL,
-            COMPLETE,
-            LOADING
-        }
-        enum TYPE {
-            UNKNOWN,
-            JSON,
-            XML,
-            IMAGE,
-            AUDIO,
-            VIDEO,
-            TEXT
-        }
-        enum LOAD_TYPE {
-            XHR,
-            IMAGE,
-            AUDIO,
-            VIDEO
-        }
-        enum XHR_RESPONSE_TYPE {
-            DEFAULT,
-            BUFFER,
-            BLOB,
-            DOCUMENT,
-            JSON,
-            TEXT
-        }
         interface IMetadata {
             loadElement?:
                 | HTMLImageElement
@@ -3238,13 +3209,42 @@ declare namespace PIXI {
                 url: string | string[],
                 options?: LoaderOptions
             );
+            static STATUS_FLAGS: {
+                NONE: number,
+                DATA_URL: number,
+                COMPLETE: number,
+                LOADING: number
+            }
+            static TYPE: {
+                UNKNOWN: number,
+                JSON: number,
+                XML: number,
+                IMAGE: number,
+                AUDIO: number,
+                VIDEO: number,
+                TEXT: number
+            }
+            static LOAD_TYPE: {
+                XHR: number,
+                IMAGE: number,
+                AUDIO: number,
+                VIDEO: number
+            }
+            static XHR_RESPONSE_TYPE: {
+                DEFAULT: number,
+                BUFFER: number,
+                BLOB: number,
+                DOCUMENT: number,
+                JSON: number,
+                TEXT: number
+            }
             static setExtensionLoadType(
                 extname: string,
-                loadType: LOAD_TYPE
+                loadType: number
             ): void;
             static setExtensionXhrType(
                 extname: string,
-                xhrType: XHR_RESPONSE_TYPE
+                xhrType: number
             ): void;
             readonly name: string;
             readonly url: string;
@@ -3252,13 +3252,13 @@ declare namespace PIXI {
             data: any;
             crossOrigin: string;
             timeout: number;
-            loadType: LOAD_TYPE;
+            loadType: number;
             xhrType: string;
             metadata: IMetadata;
             readonly error: Error;
             readonly xhr: XMLHttpRequest;
             readonly children: Resource[];
-            readonly type: TYPE;
+            readonly type: number;
             readonly progressChunk: number;
             onStart: MiniSignal<OnStartSignal>;
             onProgress: MiniSignal<OnProgressSignal>;
