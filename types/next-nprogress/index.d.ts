@@ -7,7 +7,7 @@
 import { NProgressOptions } from 'nprogress';
 import { Component, ComponentType } from 'react';
 
-export default function withNProgress<P extends object>(
+export default function withNProgress(
     delayMs?: number,
     options?: Partial<NProgressOptions>
-): (Page: ComponentType<P>) => ComponentType<P>;
+): <P extends object>(Page: ComponentType<P>) => ComponentType<P>;
