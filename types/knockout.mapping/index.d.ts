@@ -13,6 +13,7 @@ export as namespace mapping;
 declare var self: KnockoutMapping;
 export = self;
 
+
 declare global {
 
     type Primitives = string | number | boolean;

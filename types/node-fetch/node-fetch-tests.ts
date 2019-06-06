@@ -50,6 +50,21 @@ function test_fetchUrlWithRequestObject() {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
+        },
+        signal: {
+            aborted: false,
+
+            addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean,
+                once?: boolean,
+                passive?: boolean
+            }) => undefined,
+
+            removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+                capture?: boolean
+            }) => undefined,
+
+            dispatchEvent: (event: any) => false
         }
     };
     const request: Request = new Request(
@@ -117,9 +132,7 @@ function test_Blob() {
 
 function test_ResponseInit() {
     fetch("http://test.com", {}).then(response => {
-        new Response(response.body, {
-            url: response.url,
-        });
+        new Response(response.body);
         new Response(response.body, {
             url: response.url,
             size: response.size,

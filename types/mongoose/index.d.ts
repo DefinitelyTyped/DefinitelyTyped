@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5
+// Type definitions for Mongoose 5.5.1
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -24,6 +24,7 @@
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
+//                 Grimmer Kang <https://github.com/grimmer0125>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -93,6 +94,8 @@ declare module "mongoose" {
   export var STATES: ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
+  /** An array containing all connections associated with this Mongoose instance. */
+  export var connections: Connection[];
   /** Models registred on the default mongoose connection. */
   export var models: { [index: string]: Model<any> };
   /** The node-mongodb-native driver Mongoose uses. */
@@ -1935,9 +1938,9 @@ declare module "mongoose" {
      * Documents returned from queries with the lean option enabled are plain
      * javascript objects, not MongooseDocuments. They have no save method,
      * getters/setters or other Mongoose magic applied.
-     * @param bool defaults to true
+     * @param {Boolean|Object} bool defaults to true
      */
-    lean(bool?: boolean): Query<any> & QueryHelpers;
+    lean(bool?: boolean | object): Query<any> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -1967,6 +1970,9 @@ declare module "mongoose" {
     maxscan(val: number): this;
     /** Specifies the maxScan option. Cannot be used with distinct() */
     maxScan(val: number): this;
+
+    /** Specifies the maxTimeMS options. */
+    maxTimeMS(val: number): this;
 
     /**
      * Merges another Query or conditions object into this one.
@@ -2057,7 +2063,7 @@ declare module "mongoose" {
      */
     populate(path: string | any, select?: string | any, model?: any,
       match?: any, options?: any): this;
-    populate(options: ModelPopulateOptions | ModelPopulateOptions[]): this;
+    populate(options: QueryPopulateOptions | QueryPopulateOptions[]): this;
 
     /**
      * Determines the MongoDB nodes from which to read.
@@ -3230,9 +3236,9 @@ declare module "mongoose" {
     model<T extends Document>(name: string): Model<T>;
 
     /** Override whether mongoose thinks this doc is deleted or not */
-    isDeleted(isDeleted: boolean): void;
+    $isDeleted(isDeleted: boolean): void;
     /** whether mongoose thinks this doc is deleted. */
-    isDeleted(): boolean;
+    $isDeleted(): boolean;
 
     /**
      * Removes this document from the db.
@@ -3304,7 +3310,7 @@ declare module "mongoose" {
     session?: ClientSession | null;
   }
 
-  interface ModelPopulateOptions {
+  interface QueryPopulateOptions {
     /** space delimited path(s) to populate */
     path: string;
     /** optional fields to select */
@@ -3316,7 +3322,12 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: any;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[];
+    populate?: QueryPopulateOptions | QueryPopulateOptions[];
+  }
+
+  interface ModelPopulateOptions extends QueryPopulateOptions {
+    /** optional, if true Mongoose will always set path to an array. Inferred from schema by default */
+    justOne?: boolean;
   }
 
   interface ModelUpdateOptions extends ModelOptions {

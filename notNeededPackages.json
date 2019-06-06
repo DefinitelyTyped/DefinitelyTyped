@@ -583,6 +583,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "csv-parse",
+            "typingsPackageName": "csv-parse",
+            "sourceRepoURL": "https://github.com/adaltas/node-csv-parse",
+            "asOfVersion": "1.2.2"
+        },
+        {
             "libraryName": "cycled",
             "typingsPackageName": "cycled",
             "sourceRepoURL": "https://github.com/sindresorhus/cycled",
@@ -1225,6 +1231,12 @@
             "asOfVersion": "0.35.0"
         },
         {
+            "libraryName": "hapi-auth-jwt2",
+            "typingsPackageName": "hapi-auth-jwt2",
+            "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
+            "asOfVersion": "8.6.1"
+        },
+        {
             "libraryName": "hard-rejection",
             "typingsPackageName": "hard-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/hard-rejection",
@@ -1355,6 +1367,24 @@
             "typingsPackageName": "internal-ip",
             "sourceRepoURL": "https://github.com/sindresorhus/internal-ip",
             "asOfVersion": "4.1.0"
+        },
+        {
+            "libraryName": "intl-locales-supported",
+            "typingsPackageName": "intl-locales-supported",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "intl-messageformat",
+            "typingsPackageName": "intl-messageformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "intl-relativeformat",
+            "typingsPackageName": "intl-relativeformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.1"
         },
         {
             "libraryName": "into-stream",
