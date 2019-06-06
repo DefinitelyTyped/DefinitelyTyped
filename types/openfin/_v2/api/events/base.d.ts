@@ -20,4 +20,3 @@ export interface BaseEventMap {
 }
 
 export interface ExternalWindowEvent<Topic, Type> extends BaseEvent<Topic, Type>, Identity {}
-

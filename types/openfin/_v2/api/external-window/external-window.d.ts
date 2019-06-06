@@ -1,7 +1,6 @@
 import { _Window } from '../window/window';
-import { AnchorType } from '../../shapes';
+import { AnchorType, Bounds } from '../../shapes';
 import { Base, EmitterBase } from '../base';
-import { Bounds } from '../../shapes';
 import { ExternalWindowEvents } from '../events/externalWindow';
 import { GroupWindowIdentity, Identity } from '../../identity';
 import Transport from '../../transport/transport';

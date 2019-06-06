@@ -57,6 +57,6 @@ export interface Bounds {
   bottom?: number;
 }
 
-export type RGB = { red: number, blue: number, green: number };
+export interface RGB { red: number, blue: number, green: number };
 
-export type ContextMenuSettings = {enable?: boolean, devtools?: boolean, reload?: boolean};
+export interface ContextMenuSettings { enable?: boolean, devtools?: boolean, reload?: boolean };

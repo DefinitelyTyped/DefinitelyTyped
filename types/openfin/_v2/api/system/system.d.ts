@@ -522,7 +522,7 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array.<Identity>}
      * @tutorial System.getAllExternalApplications
      */
-    public getAllExternalApplications(): Promise<Array<Identity>>;
+    getAllExternalApplications(): Promise<Array<Identity>>;
 
     /**
      * Retrieves an array of objects representing information about currently
@@ -530,7 +530,7 @@ export default class System extends EmitterBase<SystemEvents> {
      * @return {Promise.Array.<Identity>}
      * @experimental
      */
-    public getAllExternalWindows(): Promise<Array<Identity>>;
+    getAllExternalWindows(): Promise<Array<Identity>>;
 
     /**
      * Retrieves the command line argument string that started OpenFin Runtime.
@@ -768,13 +768,6 @@ export default class System extends EmitterBase<SystemEvents> {
     * @tutorial System.downloadPreloadScripts
     */
     downloadPreloadScripts(scripts: Array<DownloadPreloadOption>): Promise<Array<DownloadPreloadInfo>>;
-
-    /**
-     * Retrieves an array of data (name, ids, bounds) for all application windows.
-     * @return {Promise.Array.<Identity>}
-     * @tutorial System.getAllExternalApplications
-     */
-    getAllExternalApplications(): Promise<Array<Identity>>;
 
     /**
      * Retrieves app asset information.

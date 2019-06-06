@@ -901,7 +901,7 @@ async function test_external_window() {
     await fin.System.getFocusedExternalWindow();
 
     // getAllExternalWindows
-    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid )));
+    fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
 
     // addEventListener
     externalWin.addListener('some-event', event => console.log(event.message));
@@ -909,9 +909,8 @@ async function test_external_window() {
     // removeEventListener
     externalWin.removeListener('some-event', () => {});
 
-    //getInfo
+    // getInfo
     externalWin.getInfo().then(console.log);
-
 }
 
 function test_frame() {
