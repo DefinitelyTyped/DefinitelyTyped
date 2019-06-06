@@ -1,4 +1,4 @@
-// Type definitions for react-color 3.0
+// Type definitions for react-color 2.17
 // Project: https://github.com/casesandberg/react-color/, http://casesandberg.github.io/react-color
 // Definitions by:  Karol Janyst <https://github.com/LKay>,
 //                  Marks Polakovs <https://github.com/markspolakovs>,
@@ -12,11 +12,17 @@
 
 import { ComponentClass, ClassAttributes, StatelessComponent, ReactNode } from "react";
 
+export interface HEXColor {
+    hex: string;
+    source?: string;
+}
+
 export interface HSLColor {
     a?: number;
     h: number;
     l: number;
     s: number;
+    source?: string;
 }
 
 export interface RGBColor {
@@ -24,29 +30,34 @@ export interface RGBColor {
     b: number;
     g: number;
     r: number;
+    source?: string;
 }
 
-export type Color = string | HSLColor | RGBColor;
+export interface HSVColor {
+    a?: number;
+    h: number;
+    s: number;
+    v: number;
+    source?: string;
+}
 
-export interface ColorResult {
+export type Color = HEXColor | HSLColor | RGBColor | HSVColor;
+
+export interface ColorState {
     hex: string;
     hsl: HSLColor;
+    hsv: HSVColor;
     rgb: RGBColor;
+    oldHue: number;
+    source: string;
 }
 
-export type ColorChangeHandler = (color: ColorResult) => void;
-
-export interface ColorPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    onChange?: ColorChangeHandler;
-    onChangeComplete?: ColorChangeHandler;
+export interface RenderersProps {
+    renderers?: {
+        canvas: any;
+    };
 }
-
-export interface CustomPickerProps<A> extends ClassAttributes<A> {
-    color?: Color;
-    pointer?: ReactNode;
-    onChange: ColorChangeHandler;
-}
+export type ColorChangeHandler = (color: Color) => void;
 
 export { default as AlphaPicker, AlphaPickerProps } from "./lib/components/alpha/Alpha";
 export { default as BlockPicker, BlockPickerProps } from "./lib/components/block/Block";
@@ -65,4 +76,8 @@ export { default as SketchPicker, SketchPickerProps } from "./lib/components/ske
 export { default as SliderPicker, SliderPickerProps } from "./lib/components/slider/Slider";
 export { default as SwatchesPicker, SwatchesPickerProps } from "./lib/components/swatches/Swatches";
 export { default as TwitterPicker, TwitterPickerProps } from "./lib/components/twitter/Twitter";
-export { default as CustomPicker, InjectedColorProps } from "./lib/components/common/ColorWrap";
+export {
+    default as CustomPicker,
+    CustomPickerInjectedProps,
+    CustomPickerProps
+} from "./lib/components/common/ColorWrap";
