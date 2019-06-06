@@ -19,7 +19,10 @@ pkgcloud.storage.createClient({
 	storageAccessKey: 'AABDEF==',
 });
 
-// Google
+/**
+ * Google
+ * See https://github.com/pkgcloud/pkgcloud/blob/master/docs/providers/google.md#using-storage
+ */
 pkgcloud.storage.createClient({
 	provider: 'google',
 	keyFilename: 'path/to/keyFile.json',
