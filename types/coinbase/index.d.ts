@@ -600,7 +600,7 @@ export class Account implements Resource {
      * Lists account’s transactions.
      * Scope: wallet:transactions:read
      */
-    getTransactions(cb: (error: Error | null, result: Transaction[]) => void): void;
+    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
 
     /**
      * Show an individual transaction for an account

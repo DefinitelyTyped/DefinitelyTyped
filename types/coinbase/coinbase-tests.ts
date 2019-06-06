@@ -37,7 +37,7 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getTransaction("abcdef", (error: Error | null, deposit: coinbase.Transaction): void => undefined);
 
-    account.getTransactions((error: Error | null, deposit: coinbase.Transaction[]): void => undefined);
+    account.getTransactions({}, (error: Error | null, deposit: coinbase.Transaction[]): void => undefined);
 
     account.getWithdrawal("abcdef", (error: Error | null, deposit: coinbase.Withdrawal): void => undefined);
 
