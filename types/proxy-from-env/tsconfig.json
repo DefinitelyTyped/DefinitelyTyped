@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "intl-locales-supported-tests.ts"
+        "proxy-from-env-tests.ts"
     ]
 }

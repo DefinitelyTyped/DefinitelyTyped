@@ -6577,6 +6577,10 @@ declare namespace Stripe {
             ideal?: {
                 bank?: string;
             };
+            sepa_debit?: {
+                ideal?: string;
+                iban?: string;
+            };
         }
 
         interface ISourceUpdateOptions extends IDataOptionsWithMetadata {

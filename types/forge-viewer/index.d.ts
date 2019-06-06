@@ -926,6 +926,8 @@ declare namespace Autodesk {
                 constructor(thecanvas: any, theapi: any);
 
                 visibilityManager: VisibilityManager;
+                scene: THREE.Scene;
+                camera: UnifiedCamera;
 
                 addOverlay(overlayName: string, mesh: any): void;
                 clientToViewport(clientX: number, clientY: number): THREE.Vector3;
@@ -941,6 +943,7 @@ declare namespace Autodesk {
                 matman(): any;
                 getMaterials(): any;
                 getScreenShotProgressive(w: number, h: number, onFinished?: () => void, options?: any): any;
+                getCanvasBoundingClientRect(): ClientRect | DOMRect;
 
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
@@ -1213,6 +1216,7 @@ declare namespace Autodesk {
             constructor(id: string, options?: object);
 
             Event: ControlEventArgs;
+            icon: HTMLDivElement;
 
             getState(): Button.State;
             onClick: (event: Event) => void;
