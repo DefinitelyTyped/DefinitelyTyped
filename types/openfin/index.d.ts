@@ -4,10 +4,11 @@
 //                 Ricardo de Pena <https://github.com/rdepena>
 //                 Roma <https://github.com/whyn07m3>
 //                 Li Cui <https://github.com/licui3936>
+//                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-// based on v11.69.43.1
+// based on v12.69.43.1
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
