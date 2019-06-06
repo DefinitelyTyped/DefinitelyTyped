@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "buffer": ">=5.2.1",
+        "events": ">=3.0.0",
+        "stream": ">=0.0.2"
+    }
+}
