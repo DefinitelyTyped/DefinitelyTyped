@@ -3,6 +3,7 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Matthias Jobst <https://github.com/MatthiasJobst>
+//                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Latest patch version of module validated against: 3.5.17
