@@ -6,7 +6,7 @@
 //                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Latest patch version of module validated against: 3.5.17
+// Latest patch version of module validated against: 3.5.18
 
 export = d3;
 export as namespace d3;
