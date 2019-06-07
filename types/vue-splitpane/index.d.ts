@@ -8,7 +8,7 @@ import { VueConstructor } from 'vue'
 export interface SplitpaneProps {
   minPercent: number
   defaultPercent: number
-  split: string[] // = ['vertical', 'horizontal']
+  split: string // = ['vertical', 'horizontal']
   className: string
 }
 
