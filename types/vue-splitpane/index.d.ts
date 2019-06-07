@@ -18,7 +18,7 @@ export interface SplitpaneProps {
 export interface SplitpaneData {
   active: boolean;
   hasMoved: boolean;
-  height: any; // null number
+  height: any; // null number string
   percent: number;
   type: string;
   resizeType: string;
