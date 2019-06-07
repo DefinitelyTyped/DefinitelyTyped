@@ -5,7 +5,7 @@ new Vue({
   el: '#app',
   data: {},
   components: {
-    'vue-tel-input': splitPane,
+    'split-pane': splitPane,
   },
   template: `<split-pane v-on:resize="resize" :min-percent='20' :default-percent='30' split="vertical">
     <template slot="paneL">
