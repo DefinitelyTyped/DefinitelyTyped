@@ -47,4 +47,3 @@ export interface SplitpaneConstructor extends VueConstructor {
   methods: SplitpaneMethods;
   computed: SplitpaneComputed;
 }
- 
