@@ -3016,6 +3016,11 @@ declare namespace Stripe {
             subscription?: string;
 
             /**
+             * The identifier of the customer whose upcoming invoice you’d like to retrieve. REQUIRED IF SUBSCRIPTION UNSET
+             */
+            customer?: string;
+
+            /**
              * If set, the invoice returned will preview updating the subscription given to this plan, or creating a new subscription to this plan
              * if no subscription is given.
              */
@@ -8124,7 +8129,9 @@ declare namespace Stripe {
              * @returns Returns an invoice if a valid customer ID was provided. Throws an error otherwise.
              *
              * @param id The identifier of the customer whose upcoming invoice you'd like to retrieve.
+             * @param data Filtering options
              */
+            retrieveUpcoming(data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
