@@ -219,10 +219,19 @@ export interface WhenOptionsBuilderFunction<T> {
     (v1: any, v2: any, v3: any, v4: any, schema: T): T;
 }
 
-export type WhenOptionsBuilderObjectIs = any | ((...values: any[]) => boolean);
+export type WhenOptionsBuilderObjectIs = 
+    | ((...values: any[]) => boolean)
+    | any[]
+    | boolean
+    | number
+    | null
+    | object
+    | string
+    | undefined;
+
 export type WhenOptionsBuilderObject =
     | { is: WhenOptionsBuilderObjectIs; then?: any; otherwise: any }
-    | { is: WhenOptionsBuilderObjectIs; then: any; otherwise?: any }
+    | { is: WhenOptionsBuilderObjectIs; then: any; otherwise?: any };
 
 export type WhenOptions<T> =
     | WhenOptionsBuilderFunction<T>
