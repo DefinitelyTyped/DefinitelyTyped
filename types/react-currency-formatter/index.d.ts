@@ -14,7 +14,7 @@ interface CurrencyFormatterProps {
 	pattern?: string;
 	decimal?: string;
 	group?: string;
-    symbol?: string;
+	symbol?: string;
 }
 
 declare const reactCurrencyFormatter: React.ComponentClass<CurrencyFormatterProps>;
