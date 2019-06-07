@@ -221,17 +221,15 @@ export interface WhenOptionsBuilderFunction<T> {
 
 export type WhenOptionsBuilderObjectIs =
     | ((...values: any[]) => boolean)
-    | any[]
     | boolean
     | number
     | null
     | object
-    | string
-    | undefined;
+    | string;
 
 export type WhenOptionsBuilderObject =
-    | { is: WhenOptionsBuilderObjectIs; then?: any; otherwise: any }
-    | { is: WhenOptionsBuilderObjectIs; then: any; otherwise?: any };
+    | { is: WhenOptionsBuilderObjectIs; then: any; otherwise: any }
+    | object;
 
 export type WhenOptions<T> =
     | WhenOptionsBuilderFunction<T>
