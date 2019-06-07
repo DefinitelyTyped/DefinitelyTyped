@@ -219,7 +219,7 @@ export interface WhenOptionsBuilderFunction<T> {
     (v1: any, v2: any, v3: any, v4: any, schema: T): T;
 }
 
-export type WhenOptionsBuilderObjectIs = 
+export type WhenOptionsBuilderObjectIs =
     | ((...values: any[]) => boolean)
     | any[]
     | boolean
