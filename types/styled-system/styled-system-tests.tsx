@@ -480,7 +480,10 @@ const customFontSize = style({
 const customFontStyles = system({
     fontWeight: {
         property: "fontWeight",
+        properties: ["fontWeight"],
         scale: "fontWeights",
+        defaultScale: [200, 400, 600],
+        transform: (n, scale) => get(scale, n),
     },
     letterSpacing: true,
 });
