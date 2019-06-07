@@ -1,37 +1,14 @@
 import * as React from "react";
 import {
-    alignContent,
-    AlignContentProps,
-    alignItems,
-    AlignItemsProps,
-    alignSelf,
-    AlignSelfProps,
+    compose,
+    system,
+    get,
     background,
-    backgroundColor,
-    BackgroundColorProps,
-    backgroundImage,
-    BackgroundImageProps,
-    backgroundPosition,
-    BackgroundPositionProps,
     BackgroundProps,
-    backgroundRepeat,
-    BackgroundRepeatProps,
-    backgroundSize,
-    BackgroundSizeProps,
     border,
-    borderBottom,
-    borderColor,
-    BorderColorProps,
-    borderLeft,
     BorderProps,
-    borderRadius,
-    BorderRadiusProps,
-    borderRight,
     borders,
     BordersProps,
-    borderTop,
-    bottom,
-    BottomProps,
     boxShadow,
     BoxShadowProps,
     buttonStyle,
@@ -40,115 +17,31 @@ import {
     ColorProps,
     colorStyle,
     ColorStyleProps,
-    compose,
     display,
-    DisplayProps,
-    flex,
-    flexBasis,
-    FlexBasisProps,
-    flexDirection,
-    FlexDirectionProps,
-    FlexProps,
-    flexWrap,
-    FlexWrapProps,
-    fontFamily,
-    FontFamilyProps,
-    fontSize,
-    FontSizeProps,
-    fontWeight,
-    FontWeightProps,
-    get,
-    gridAutoColumns,
-    GridAutoColumnsProps,
-    gridAutoFlow,
-    GridAutoFlowProps,
-    gridAutoRows,
-    GridAutoRowsProps,
-    gridColumn,
-    gridColumnGap,
-    GridColumnGapProps,
-    GridColumnProps,
-    gridGap,
-    GridGapProps,
-    gridRow,
-    gridRowGap,
-    GridRowGapProps,
-    GridRowProps,
-    gridTemplateColumns,
-    GridTemplateColumnsProps,
-    gridTemplateRows,
-    GridTemplateRowsProps,
-    height,
-    HeightProps,
-    is,
-    justifyContent,
-    JustifyContentProps,
-    justifyItems,
-    JustifyItemsProps,
-    justifySelf,
-    JustifySelfProps,
-    left,
-    LeftProps,
-    letterSpacing,
-    LetterSpacingProps,
-    lineHeight,
-    LineHeightProps,
-    mapProps,
     margin,
-    marginBottom,
-    marginLeft,
     MarginProps,
-    marginRight,
-    marginTop,
-    maxHeight,
-    MaxHeightProps,
-    maxWidth,
-    MaxWidthProps,
-    minHeight,
-    MinHeightProps,
-    minWidth,
-    MinWidthProps,
     padding,
     PaddingProps,
     position,
     PositionProps,
-    right,
-    RightProps,
-    size,
-    SizeProps,
     space,
     SpaceProps,
     style,
-    textAlign,
-    TextAlignProps,
-    TextColorProps,
-    textStyle,
-    TextStyleProps,
-    top,
-    TopProps,
     variant,
-    VariantArgs,
-    verticalAlign,
-    VerticalAlignProps,
-    width,
-    WidthProps,
-    zIndex,
-    ZIndexProps,
-    px,
-    createMediaQuery,
     styles,
-    themeGet,
     Theme,
+    layout,
+    LayoutProps,
+    typography,
+    TypographyProps,
+    flexbox,
+    FlexboxProps,
+    grid,
+    GridProps,
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
 declare const styled: (...props: any[]) => React.ComponentType;
-
-const breakpoints = [480, 960];
-
-const breakpointsPx = breakpoints.map(px);
-
-const mediaQueries = breakpoints.map(createMediaQuery);
 
 const boxStyle = variant({
     prop: 'boxStyle',
@@ -156,161 +49,60 @@ const boxStyle = variant({
 });
 
 interface BoxProps
-    extends AlignSelfProps,
-        BackgroundColorProps,
-        BackgroundImageProps,
-        BackgroundPositionProps,
+    extends SpaceProps,
+        LayoutProps,
+        FlexboxProps,
+        PositionProps,
         BackgroundProps,
-        BackgroundRepeatProps,
-        BackgroundSizeProps,
-        BorderColorProps,
         BorderProps,
         BordersProps,
-        BottomProps,
         BoxShadowProps,
-        ColorProps,
+        TypographyProps,
         ColorStyleProps,
-        DisplayProps,
-        FlexProps,
-        FontSizeProps,
-        HeightProps,
-        JustifySelfProps,
-        LeftProps,
-        MaxHeightProps,
-        MaxWidthProps,
-        MinHeightProps,
-        MinWidthProps,
-        PositionProps,
-        RightProps,
-        SizeProps,
-        SpaceProps,
-        TextStyleProps,
-        TopProps,
-        WidthProps,
-        ZIndexProps,
-        VerticalAlignProps {
+        ColorProps {
             boxStyle?: string;
         }
-const Box: React.ComponentType<BoxProps> = styled`
-  border-radius: ${themeGet("radii.small", "4px")};
-  ${space}
-  ${width}
-  ${fontSize}
-  ${color}
-  ${display}
-  ${background}
-  ${maxWidth}
-  ${minWidth}
-  ${height}
-  ${maxHeight}
-  ${minHeight}
-  ${size}
-  ${borderColor}
-  ${flex}
-  ${justifySelf}
-  ${alignSelf}
-  ${borders}
-  ${position}
-  ${zIndex}
-  ${top}
-  ${bottom}
-  ${left}
-  ${right}
-  ${boxShadow}
-  ${backgroundImage}
-  ${backgroundPosition}
-  ${backgroundRepeat}
-  ${backgroundSize}
-  ${alignContent}
-  ${alignItems}
-  ${backgroundColor}
-  ${backgroundImage}
-  ${textStyle}
-  ${colorStyle}
-  ${verticalAlign}
-`;
+
+const boxStyles = compose(
+    space,
+    layout,
+    typography,
+    flexbox,
+    border,
+    background,
+    color,
+    display,
+    background,
+    borders,
+    position,
+    boxShadow,
+    colorStyle,
+    boxStyle,
+);
+
+const Box: React.ComponentType<BoxProps> = styled(boxStyles);
 
 Box.defaultProps = {
     boxStyle: 'normal',
 };
 
-interface TextProps
-    extends FontSizeProps,
-        FontFamilyProps,
-        TextAlignProps,
-        LineHeightProps,
-        FontWeightProps,
-        LetterSpacingProps {}
-const Text: React.ComponentType<TextProps> = styled`
-    ${fontSize};
-    ${fontFamily};
-    ${textAlign};
-    ${lineHeight};
-    ${fontWeight};
-    ${letterSpacing};
-`;
-
-interface FlexComponentProps
-    extends AlignItemsProps,
-        AlignContentProps,
-        JustifyContentProps,
-        FlexWrapProps,
-        FlexBasisProps,
-        FlexDirectionProps,
-        JustifyItemsProps {}
-const Flex: React.ComponentType<FlexComponentProps> = styled`
-    ${alignItems};
-    ${alignContent};
-    ${justifyContent};
-    ${flexWrap};
-    ${flexBasis};
-    ${flexDirection};
-    ${justifyItems};
-`;
-
-interface GridComponentProps
-    extends GridGapProps,
-        GridRowGapProps,
-        GridColumnGapProps,
-        GridRowProps,
-        GridColumnProps,
-        GridAutoFlowProps,
-        GridAutoColumnsProps,
-        GridAutoRowsProps,
-        GridTemplateRowsProps,
-        GridTemplateColumnsProps {}
-const Grid: React.ComponentType<GridComponentProps> = styled`
-    ${gridGap};
-    ${gridRowGap};
-    ${gridColumnGap};
-    ${gridRow};
-    ${gridColumn};
-    ${gridAutoFlow};
-    ${gridAutoRows};
-    ${gridAutoColumns};
-    ${gridTemplateRows};
-    ${gridTemplateColumns};
-`;
+const Text: React.ComponentType<TypographyProps> = styled(typography);
+const Flex: React.ComponentType<FlexboxProps> = styled(flexbox);
+const Grid: React.ComponentType<GridProps> = styled(grid);
 
 interface ButtonProps
     extends SpaceProps,
         ButtonStyleProps,
-        TextColorProps {}
+        ColorProps {}
 
-const TestButton: React.ComponentType<ButtonProps> = styled`
-    ${buttonStyle}
-    ${space}
-    ${styles.textColor}
-`;
+const testButtonStyles = compose(buttonStyle, space, styles.textColor);
+const TestButton: React.ComponentType<ButtonProps> = styled(testButtonStyles);
 
 interface SpacerProps
     extends MarginProps,
         PaddingProps {}
 
-const Spacer: React.ComponentType<SpacerProps> = styled`
-    ${margin};
-    ${padding};
-`;
+const Spacer: React.ComponentType<SpacerProps> = styled(compose(margin, padding));
 
 const test = () => (
     <div>
@@ -347,6 +139,8 @@ const test = () => (
         <Box marginRight={[1, 2, 3]} />
         <Box marginTop={[1, 2, 3]} />
         <Box marginBottom={[1, 2, 3]} />
+        <Box marginX={[1, 2, 3]} />
+        <Box marginY={[1, 2, 3]} />
         // responsive padding
         <Box p={[1, 2, 3]} />
         <Box pl={[1, 2, 3]} />
@@ -360,6 +154,8 @@ const test = () => (
         <Box paddingRight={[1, 2, 3]} />
         <Box paddingTop={[1, 2, 3]} />
         <Box paddingBottom={[1, 2, 3]} />
+        <Box paddingX={[1, 2, 3]} />
+        <Box paddingY={[1, 2, 3]} />
         <Box p={{ sm: 1, md: 2, lg: 3 }} />
         // examples (margin prop) // sets margin value of `theme.space[2]`
         <Box m={2} />
@@ -560,13 +356,16 @@ const test = () => (
         <Box borderRight="1px solid red" />
         <Box borderBottom="1px solid red" />
         <Box borderLeft="1px solid red" />
+        <Box borderX="1px solid red" />
+        <Box borderY="1px solid red" />
         // borders (responsive)
         <Box border={["1px solid red", "2px solid red"]} />
         <Box borderTop={["1px solid red", "2px solid red"]} />
         <Box borderRight={["1px solid red", "2px solid red"]} />
         <Box borderBottom={["1px solid red", "2px solid red"]} />
         <Box borderLeft={["1px solid red", "2px solid red"]} />
-
+        <Box borderX={["1px solid red", "2px solid red"]} />
+        <Box borderY={["1px solid red", "2px solid red"]} />
         <TestButton variant="primary" m={2} color="tomato" />
 
         <Spacer m={[1, 2, 3]} p={[1, 2, 3]} />
@@ -665,33 +464,25 @@ export const themeC: Theme = {
     },
 };
 
-// Test that the mapProps definition is correct.
-// https://github.com/styled-system/styled-system/blob/master/src/index.js#L149
-const margins = mapProps(props => ({
-    ...props,
-    mt: is(props.my) ? props.my : props.mt,
-    mb: is(props.my) ? props.my : props.mb,
-    ml: is(props.mx) ? props.mx : props.ml,
-    mr: is(props.mx) ? props.mx : props.mr,
-}))(
-    compose(
-      margin,
-      marginTop,
-      marginBottom,
-      marginLeft,
-      marginRight
-    )
-  );
-
 // Test that the style definition is correct.
-// https://github.com/styled-system/styled-system/blob/master/src/index.js#L62
+// https://github.com/styled-system/styled-system/blob/master/packages/styled-system/src/index.js#L108
 const customFontSize = style({
     prop: 'fontSize',
     cssProperty: 'fontSize',
     alias: 'fs',
     key: 'fontSizes',
-    transformValue: (n, scale) => px(get(scale, n)),
+    transformValue: (n, scale) => `${(get(scale, n))}px`,
     scale: [8, 16, 32]
+});
+
+// Test that the system definition is correct.
+// https://github.com/styled-system/styled-system/blob/master/packages/core/src/index.js#L131
+const customFontStyles = system({
+    fontWeight: {
+        property: "fontWeight",
+        scale: "fontWeights",
+    },
+    letterSpacing: true,
 });
 
 const centerWithGenerics = style<boolean>({
@@ -711,68 +502,3 @@ const buttonSizeWithGeneric = style<keyof typeof buttonSizes, typeof buttonSizes
     cssProperty: 'font-size',
     transformValue: (size, sizes) => sizes && sizes[size]
 });
-
-// All Style Functions contain `propTypes`
-export const alignContentPropTypes = alignContent.propTypes;
-export const alignItemsPropTypes = alignItems.propTypes;
-export const alignSelfPropTypes = alignSelf.propTypes;
-export const backgroundPropTypes = background.propTypes;
-export const backgroundColorPropTypes = backgroundColor.propTypes;
-export const backgroundImagePropTypes = backgroundImage.propTypes;
-export const backgroundPositionPropTypes = backgroundPosition.propTypes;
-export const backgroundRepeatPropTypes = backgroundRepeat.propTypes;
-export const backgroundSizePropTypes = backgroundSize.propTypes;
-export const borderPropTypes = border.propTypes;
-export const borderBottomPropTypes = borderBottom.propTypes;
-export const borderColorPropTypes = borderColor.propTypes;
-export const borderLeftPropTypes = borderLeft.propTypes;
-export const borderRadiusPropTypes = borderRadius.propTypes;
-export const borderRightPropTypes = borderRight.propTypes;
-export const bordersPropTypes = borders.propTypes;
-export const borderTopPropTypes = borderTop.propTypes;
-export const bottomPropTypes = bottom.propTypes;
-export const boxShadowPropTypes = boxShadow.propTypes;
-export const buttonStylePropTypes = buttonStyle.propTypes;
-export const colorPropTypes = color.propTypes;
-export const colorStylePropTypes = colorStyle.propTypes;
-export const displayPropTypes = display.propTypes;
-export const flexPropTypes = flex.propTypes;
-export const flexBasisPropTypes = flexBasis.propTypes;
-export const flexDirectionPropTypes = flexDirection.propTypes;
-export const flexWrapPropTypes = flexWrap.propTypes;
-export const fontFamilyPropTypes = fontFamily.propTypes;
-export const fontSizePropTypes = fontSize.propTypes;
-export const fontWeightPropTypes = fontWeight.propTypes;
-export const gridAutoColumnsPropTypes = gridAutoColumns.propTypes;
-export const gridAutoFlowPropTypes = gridAutoFlow.propTypes;
-export const gridAutoRowsPropTypes = gridAutoRows.propTypes;
-export const gridColumnPropTypes = gridColumn.propTypes;
-export const gridColumnGapPropTypes = gridColumnGap.propTypes;
-export const gridGapPropTypes = gridGap.propTypes;
-export const gridRowPropTypes = gridRow.propTypes;
-export const gridRowGapPropTypes = gridRowGap.propTypes;
-export const gridTemplateColumnsPropTypes = gridTemplateColumns.propTypes;
-export const gridTemplateRowsPropTypes = gridTemplateRows.propTypes;
-export const heightPropTypes = height.propTypes;
-export const justifyContentPropTypes = justifyContent.propTypes;
-export const justifyItemsPropTypes = justifyItems.propTypes;
-export const justifySelfPropTypes = justifySelf.propTypes;
-export const leftPropTypes = left.propTypes;
-export const letterSpacingPropTypes = letterSpacing.propTypes;
-export const lineHeightPropTypes = lineHeight.propTypes;
-export const marginPropTypes = margin.propTypes;
-export const maxHeightPropTypes = maxHeight.propTypes;
-export const maxWidthPropTypes = maxWidth.propTypes;
-export const minHeightPropTypes = minHeight.propTypes;
-export const minWidthPropTypes = minWidth.propTypes;
-export const paddingPropTypes = padding.propTypes;
-export const positionPropTypes = position.propTypes;
-export const rightPropTypes = right.propTypes;
-export const sizePropTypes = size.propTypes;
-export const spacePropTypes = space.propTypes;
-export const textAlignPropTypes = textAlign.propTypes;
-export const textStylePropTypes = textStyle.propTypes;
-export const topPropTypes = top.propTypes;
-export const verticalAlignPropTypes = verticalAlign.propTypes;
-export const widthPropTypes = width.propTypes;
-export const zIndexPropTypes = zIndex.propTypes;
