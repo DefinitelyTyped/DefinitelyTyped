@@ -18,7 +18,7 @@ export interface IOIDCStrategyOption extends IBaseStrategyOption {
 }
 
 export interface IOIDCStrategyOptionWithRequest extends IOIDCStrategyOption {
-    passReqToCallback: true;
+    passReqToCallback: boolean;
 }
 
 export interface IProfile {
