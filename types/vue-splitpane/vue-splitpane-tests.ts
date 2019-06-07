@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import splitPane from 'vue-splitpane'
+import Vue from 'vue';
+import splitPane from 'vue-splitpane';
 
 new Vue({
   el: '#app',
