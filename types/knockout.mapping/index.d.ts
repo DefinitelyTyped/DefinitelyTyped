@@ -29,13 +29,8 @@ declare global {
                         MappedType<T[P]>;
     };
 
+    // Could not get his to return any when T is any. It returns a Union type of the possible values.
     type KnockoutObservableArrayType<T> = T extends Primitives ? KnockoutObservableArray<T> : KnockoutObservableArray<KnockoutObservableType<T>>;
-
-    // This is not working. It behaves as the old one. Test after solve problems with other stuff.
-    // type KnockoutObservableArrayType<T> =
-    //     T extends Primitives ? KnockoutObservableArray<T> :
-    //     T extends object ? KnockoutObservableArray<KnockoutObservableType<T>> :
-    //     KnockoutObservableArray<any>
 
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions
 
@@ -78,16 +73,16 @@ declare global {
         isMapped(viewModel: any): boolean;
 
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates an observable array view model. Objects on the source array are also converted to observables. Primitive types and arrays are not. 
          * If 'target' is supplied, instead, target's observable properties are updated.
-         * @param source Plain JavaScript object to be mapped.
+         * @param source Array to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
         fromJS<T>(source: T[], options?: KnockoutMappingOptions<T[]>, target?: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
          * Updates target's observable properties with those of the sources.
-         * @param source Plain JavaScript object to be mapped.
+         * @param source Array to be mapped.
          * @param target View model object previosly mapped to be updated.
          */
         fromJS<T>(source: T[], target: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
