@@ -15,4 +15,4 @@ new Vue({
       B
     </template>
   </split-pane>`,
-})
+});
