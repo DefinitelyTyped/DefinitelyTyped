@@ -99,6 +99,8 @@ let numberArrayInput = [3, 4, 67]
 mapping.fromJS(userArrayInput) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userArrayInput, {}) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userArrayInput, {}, userArrayInput) // $ExpectError
+
+// Could not solve this issue. Could not get his to return any when T is any. It returns a Union type of the possible values.
 mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any> | KnockoutObservableArray<KnockoutObservableType<any>>
 
 let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType KnockoutObservableArray<number>
@@ -127,6 +129,11 @@ mapping.fromJSON(userInputJSON, userMappingOptions, mappedUserViewModel) // $Exp
 
 mapping.toJS<User>(mappedUserViewModel) // $ExpectType User
 mapping.toJS<User>(mappedUserViewModel, {}) // $ExpectType User
+
+// Here the method isn't typed literally, it has implicit type. Unfortunatly the typing fails to properly type object properties that are object themselves.
+// Could not solve this issue.
+let unmmapedUser: User = mapping.toJS(mappedUserViewModel) // $ExpectError
+
 mapping.toJS<number>(mappedUserViewModel) // $ExpectError
 mapping.toJS<User>(stringInput) // $ExpectError
 
@@ -135,8 +142,6 @@ mapping.toJS(mappedNumberArrayViewModel) // $ExpectType number[]
 mapping.toJS(untypedObject) // $ExpectType any
 mapping.toJS(ko.observableArray(untypedArrayObject)) // $ExpectType any[]
 
-// implicit type doesn't work for objects with properties that are objects. $ExpectError not working also, so commented out the rule
-// let unmmapedUser: User = mapping.toJS(mappedUserViewModel) 
 
 ////////////////////////////////
 // toJSON function
