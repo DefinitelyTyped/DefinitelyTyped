@@ -128,7 +128,7 @@ export interface PluginPackage {
  *
  * The type T is the type of the plugin options.
  */
-export interface PluginBase<T, ServerApplicationState, RequestApplicationState> {
+export interface PluginBase<T, ServerApplicationState = any, RequestApplicationState = any> {
     /**
      * (required) the registration function with the signature async function(server, options) where:
      * * server - the server object with a plugin-specific server.realm.
@@ -3129,7 +3129,7 @@ export interface ServerRegisterOptions {
  *
  * The type parameter T is the type of the plugin configuration options.
  */
-export interface ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState> extends ServerRegisterOptions {
+export interface ServerRegisterPluginObject<T, ServerApplicationState = any, RequestApplicationState = any> extends ServerRegisterOptions {
     /**
      * a plugin object.
      */
@@ -3140,7 +3140,7 @@ export interface ServerRegisterPluginObject<T, ServerApplicationState, RequestAp
     options?: T;
 }
 
-export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z, ServerApplicationState, RequestApplicationState>
+export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z, ServerApplicationState = any, RequestApplicationState = any>
     extends Array<ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState>
     | ServerRegisterPluginObject<U, ServerApplicationState, RequestApplicationState>
     | ServerRegisterPluginObject<V, ServerApplicationState, RequestApplicationState>
@@ -3861,7 +3861,7 @@ export class Server<ServerApplicationState = any, RequestApplicationState = any>
     register<T>(plugin: ServerRegisterPluginObject<T, ServerApplicationState, RequestApplicationState>, options?: ServerRegisterOptions): Promise<void>;
     /* tslint:disable-next-line:no-unnecessary-generics */
     register<T, U, V, W, X, Y, Z>(plugins: ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z, ServerApplicationState, RequestApplicationState>, options?: ServerRegisterOptions): Promise<void>;
-    register(plugins: Array<ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState, any>>, options?: ServerRegisterOptions): Promise<void>;
+    register(plugins: Array<ServerRegisterPluginObject<ServerApplicationState, RequestApplicationState>>, options?: ServerRegisterOptions): Promise<void>;
     /* tslint:disable-next-line:unified-signatures */
     register(plugins: Plugin<ServerApplicationState, RequestApplicationState> | Array<Plugin<ServerApplicationState, RequestApplicationState>>, options?: ServerRegisterOptions): Promise<void>;
 
