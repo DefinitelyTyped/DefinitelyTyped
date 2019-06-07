@@ -273,7 +273,7 @@ export interface ArrowProps {
     inverted?: boolean;
     label?: React.ReactNode;
 }
-export function Arrow(props: ArrowProps): React.ReactElement;
+export function Arrow(props: ArrowProps): React.ReactElement<any>;
 
 export interface BadgeProps extends React.ComponentPropsWithRef<'span'> {
     accentColor?: string;
@@ -284,7 +284,7 @@ export interface CloseProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     className?: string;
 }
-export function Close(props: CloseProps): React.ReactElement;
+export function Close(props: CloseProps): React.ReactElement<any>;
 
 export interface ControlsProps extends React.ComponentPropsWithRef<'div'> {}
 export const Controls: React.FC<ControlsProps>;
