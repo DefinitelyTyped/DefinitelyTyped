@@ -987,7 +987,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    batch(params: { body: fhir.Bundle & { type: "batch" }, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "batch-response" };
+    batch(params: { body: fhir.Bundle & { type: "batch" }, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "batch-response" }>;
 
     /**
      * Submit a set of actions to perform independently as a transaction.
@@ -1054,7 +1054,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    transaction(params: { body: fhir.Bundle & { type: "transaction" }, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "transaction-response" };
+    transaction(params: { body: fhir.Bundle & { type: "transaction" }, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "transaction-response" }>;
 
     /**
      * Return the next page of results.
@@ -1070,7 +1070,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    nextPage<T extends string>(params: { bundle: fhir.Bundle & {type: T}, options?: Options }, headers?: Headers): Promise<fhir.Bundle> & {type: T};
+    nextPage<T extends string>(params: { bundle: fhir.Bundle & {type: T}, options?: Options }, headers?: Headers): Promise<fhir.Bundle & {type: T}>;
 
     /**
      * Return the previous page of results.
@@ -1086,7 +1086,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    prevPage<T extends string>(params: { bundle: fhir.Bundle & {type: T}, options?: Options }, headers?: Headers): Promise<fhir.Bundle> & {type: T};
+    prevPage<T extends string>(params: { bundle: fhir.Bundle & {type: T}, options?: Options }, headers?: Headers): Promise<fhir.Bundle & {type: T}>;
 
     /**
      * Search for a FHIR resource, with or without compartments, or the entire
@@ -1124,7 +1124,7 @@ declare class Client {
      *
      * @throws {Error} if neither searchParams nor resourceType are supplied
      */
-    search(params: { resourceType: ResourceType, compartment?: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
+    search(params: { resourceType: ResourceType, compartment?: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "searchset" }>;
 
     /**
      * Search for a FHIR resource.
@@ -1156,7 +1156,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    resourceSearch(params: { resourceType: ResourceType, searchParams: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
+    resourceSearch(params: { resourceType: ResourceType, searchParams: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "searchset" }>;
 
     /**
      * Search across all FHIR resource types in the system.
@@ -1183,7 +1183,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    systemSearch(params: { searchParams: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
+    systemSearch(params: { searchParams: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "searchset" }>;
 
     /**
      * Search for FHIR resources within a compartment.
@@ -1221,7 +1221,7 @@ declare class Client {
      */
     compartmentSearch(params:
         { resourceType: ResourceType, compartment: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }):
-        Promise<fhir.Bundle> & { type: "searchset" };
+        Promise<fhir.Bundle & { type: "searchset" }>;
 
     /**
      * Retrieve the change history for a FHIR resource id, a resource type or the
@@ -1249,7 +1249,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    history(params?: { resourceType?: ResourceType, id?: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    history(params?: { resourceType?: ResourceType, id?: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "history" }>;
 
     /**
      * Retrieve the change history for a particular resource FHIR id.
@@ -1276,7 +1276,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    resourceHistory(params: { resourceType: ResourceType, id: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    resourceHistory(params: { resourceType: ResourceType, id: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "history" }>;
 
     /**
      * Retrieve the change history for a particular resource type.
@@ -1302,7 +1302,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    typeHistory(params: { resourceType: ResourceType, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    typeHistory(params: { resourceType: ResourceType, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "history" }>;
 
     /**
      * Retrieve the change history for all resources.
@@ -1326,7 +1326,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    systemHistory(params?: { headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    systemHistory(params?: { headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "history" }>;
 }
 
 export = Client;
