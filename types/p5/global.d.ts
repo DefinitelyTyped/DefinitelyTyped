@@ -5419,8 +5419,8 @@ declare global {
    *   @return the random number
    */
   function randomGaussian(
-    mean: number,
-    sd: number
+    mean?: number,
+    sd?: number
   ): number;
 
   /**
