@@ -24,7 +24,7 @@ declare global {
             apiVersion?: string;
             allowUnauthorizedSsl?: boolean;
             noRetryIfRateLimited?: boolean;
-            requestTimeout: number;
+            requestTimeout?: number;
         }
 
         interface Base {
