@@ -12,7 +12,7 @@
 /// <reference types="node" />
 
 import { Agent } from "http";
-import { URLSearchParams } from "url";
+import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
 
 export class Request extends Body {
@@ -26,7 +26,7 @@ export class Request extends Body {
     url: string;
 
     // node-fetch extensions to the whatwg/fetch spec
-    agent?: Agent;
+    agent?: Agent | ((parsedUrl: URL) => Agent);
     compress: boolean;
     counter: number;
     follow: number;
