@@ -32,11 +32,19 @@ client.create({
 
 client.update({
     resourceType: "Basic",
-    id: "12354",
+    id: "abc122312341",
     body: {
-        aField: "it is"
+        code: {
+            text: "Offer"
+        },
+        identifier: [
+            {
+                url: "https://foo",
+                value: "1235"
+            }
+        ]
     }
-}).then(() => {
+}).then((basic: fhir.Basic) => {
 });
 
 client.delete({
@@ -98,8 +106,8 @@ client.patch({
     id: "12354",
     JSONPatch
 }).then(results => {
-    if (results && results.total) {
-        return results.total + 1;
+    if (results && results.id) {
+        return results.id.substring(1);
     }
 });
 
