@@ -2,11 +2,133 @@
 // Project: https://github.com/Vermonster/fhir-kit-client
 // Definitions by: Matthew Morrissette <https://github.com/yinzara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="fhir" />
 import { Options, Headers } from "request";
 import { OpPatch } from "json-patch";
+
+type KnownResourceType = 'Account' |
+    'ActivityDefinition' |
+    'AdverseEvent' |
+    'AllergyIntolerance' |
+    'Appointment' |
+    'AppointmentResponse' |
+    'AuditEvent' |
+    'Basic' |
+    'Binary' |
+    'BodySite' |
+    'Bundle' |
+    'CapabilityStatement' |
+    'CarePlan' |
+    'CareTeam' |
+    'ChargeItem' |
+    'Claim' |
+    'ClaimResponse' |
+    'ClinicalImpression' |
+    'CodeSystem' |
+    'Communication' |
+    'CommunicationRequest' |
+    'CompartmentDefinition' |
+    'Composition' |
+    'ConceptMap' |
+    'Condition' |
+    'Consent' |
+    'Contract' |
+    'Coverage' |
+    'DataElement' |
+    'DetectedIssue' |
+    'Device' |
+    'DeviceComponent' |
+    'DeviceMetric' |
+    'DeviceRequest' |
+    'DeviceUseStatement' |
+    'DiagnosticReport' |
+    'DocumentManifest' |
+    'DocumentReference' |
+    'EligibilityRequest' |
+    'EligibilityResponse' |
+    'Encounter' |
+    'Endpoint' |
+    'EnrollmentRequest' |
+    'EnrollmentResponse' |
+    'EpisodeOfCare' |
+    'ExpansionProfile' |
+    'ExplanationOfBenefit' |
+    'FamilyMemberHistory' |
+    'Flag' |
+    'Goal' |
+    'GraphDefinition' |
+    'Group' |
+    'GuidanceResponse' |
+    'HealthcareService' |
+    'ImagingManifest' |
+    'ImagingStudy' |
+    'Immunization' |
+    'ImmunizationRecommendation' |
+    'ImplementationGuide' |
+    'Library' |
+    'Linkage' |
+    'List' |
+    'Location' |
+    'Measure' |
+    'MeasureReport' |
+    'Media' |
+    'Medication' |
+    'MedicationAdministration' |
+    'MedicationDispense' |
+    'MedicationRequest' |
+    'MedicationStatement' |
+    'MessageDefinition' |
+    'MessageHeader' |
+    'NamingSystem' |
+    'NutritionOrder' |
+    'Observation' |
+    'OperationDefinition' |
+    'OperationOutcome' |
+    'Organization' |
+    'Parameters' |
+    'Patient' |
+    'PaymentNotice' |
+    'PaymentReconciliation' |
+    'Person' |
+    'PlanDefinition' |
+    'Practitioner' |
+    'PractitionerRole' |
+    'Procedure' |
+    'ProcedureRequest' |
+    'ProcessRequest' |
+    'ProcessResponse' |
+    'Provenance' |
+    'Questionnaire' |
+    'QuestionnaireResponse' |
+    'ReferralRequest' |
+    'RelatedPerson' |
+    'RequestGroup' |
+    'ResearchStudy' |
+    'ResearchSubject' |
+    'RiskAssessment' |
+    'Schedule' |
+    'SearchParameter' |
+    'Sequence' |
+    'ServiceDefinition' |
+    'Slot' |
+    'Specimen' |
+    'StructureDefinition' |
+    'StructureMap' |
+    'Subscription' |
+    'Substance' |
+    'SupplyDelivery' |
+    'SupplyRequest' |
+    'Task' |
+    'TestReport' |
+    'TestScript' |
+    'ValueSet' |
+    'VisionPrescription';
+
+type ResourceType = string;
+
+type CustomResourceType = Exclude<ResourceType, KnownResourceType>;
 
 interface SmartAuthMetadata {
     authorizeUrl?: string;
@@ -299,7 +421,7 @@ declare class Client {
     vread(params: { resourceType: "TestScript", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     vread(params: { resourceType: "ValueSet", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     vread(params: { resourceType: "VisionPrescription", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    vread(params: { resourceType: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.ResourceBase & Response>;
+    vread(params: { resourceType: CustomResourceType, version: string, headers?: Headers, options?: Options }): Promise<fhir.ResourceBase & Response>;
 
     /**
      * Create a resource.
@@ -455,7 +577,7 @@ declare class Client {
     create(params: { resourceType: "TestScript", body: fhir.TestScript, headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     create(params: { resourceType: "ValueSet", body: fhir.ValueSet, headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     create(params: { resourceType: "VisionPrescription", body: fhir.VisionPrescription, headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    create<T extends fhir.ResourceBase & Body>(params: { resourceType: string, body: T, headers?: Headers, options?: Options }): Promise<T>;
+    create<T extends fhir.ResourceBase & Body>(params: { resourceType: CustomResourceType, body: T, headers?: Headers, options?: Options }): Promise<T>;
 
     /**
      * Delete a resource by FHIR id.
@@ -483,7 +605,7 @@ declare class Client {
      *
      * @return {Promise<Object>} Operation Outcome FHIR resource
      */
-    delete(params: { resourceType: string, id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome>;
+    delete(params: { resourceType: ResourceType, id: string, headers?: Headers, options?: Options }): Promise<fhir.OperationOutcome>;
 
     /**
      * Update a resource by FHIR id.
@@ -642,7 +764,7 @@ declare class Client {
     update(params: { resourceType: "TestScript", id: string, body: fhir.TestScript, headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     update(params: { resourceType: "ValueSet", id: string, body: fhir.ValueSet, headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     update(params: { resourceType: "VisionPrescription", id: string, body: fhir.VisionPrescription, headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    update<T extends fhir.ResourceBase & Body>(params: { resourceType: string, id: string, body: T, headers?: Headers, options?: Options }): Promise<T>;
+    update<T extends fhir.ResourceBase & Body>(params: { resourceType: CustomResourceType, id: string, body: T, headers?: Headers, options?: Options }): Promise<T>;
 
     /**
      * Patch a resource by FHIR id.
@@ -803,7 +925,7 @@ declare class Client {
     patch(params: { resourceType: "TestScript", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     patch(params: { resourceType: "ValueSet", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     patch(params: { resourceType: "VisionPrescription", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    patch(params: { resourceType: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.ResourceBase & Response>;
+    patch(params: { resourceType: CustomResourceType, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.ResourceBase & Response>;
 
     /**
      * Submit a set of actions to perform independently as a batch.
@@ -1002,7 +1124,7 @@ declare class Client {
      *
      * @throws {Error} if neither searchParams nor resourceType are supplied
      */
-    search(params: { resourceType: string, compartment?: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
+    search(params: { resourceType: ResourceType, compartment?: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
 
     /**
      * Search for a FHIR resource.
@@ -1034,7 +1156,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    resourceSearch(params: { resourceType: string, searchParams: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
+    resourceSearch(params: { resourceType: ResourceType, searchParams: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "searchset" };
 
     /**
      * Search across all FHIR resource types in the system.
@@ -1098,7 +1220,7 @@ declare class Client {
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
     compartmentSearch(params:
-        { resourceType: string, compartment: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }):
+        { resourceType: ResourceType, compartment: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }):
         Promise<fhir.Bundle> & { type: "searchset" };
 
     /**
@@ -1127,7 +1249,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    history(params?: { resourceType?: string, id?: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    history(params?: { resourceType?: ResourceType, id?: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
 
     /**
      * Retrieve the change history for a particular resource FHIR id.
@@ -1154,7 +1276,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    resourceHistory(params: { resourceType: string, id: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    resourceHistory(params: { resourceType: ResourceType, id: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
 
     /**
      * Retrieve the change history for a particular resource type.
@@ -1180,7 +1302,7 @@ declare class Client {
      *
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
-    typeHistory(params: { resourceType: string, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
+    typeHistory(params: { resourceType: ResourceType, headers?: Headers, options?: Options }): Promise<fhir.Bundle> & { type: "history" };
 
     /**
      * Retrieve the change history for all resources.
