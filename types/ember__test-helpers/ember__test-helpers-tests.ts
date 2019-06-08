@@ -56,6 +56,8 @@ test('DOM interactions', async () => {
     await triggerEvent(window, 'custom-event');
     await triggerEvent(document, 'custom-event');
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
+    await triggerKeyEvent(window, 'keydown', 'Enter', { ctrlKey: true });
+    await triggerKeyEvent(document, 'keydown', 'Enter', { ctrlKey: true });
     await fillIn(messageElement, 'content');
     await typeIn(messageElement, 'content');
 
