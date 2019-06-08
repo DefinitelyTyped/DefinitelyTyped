@@ -58,11 +58,21 @@ client.batch({
         type: "batch",
         total: 1234
     }
+}).then(r => {
+    if (r.type === "batch-response") {
+        console.log("unhuh!");
+    } else {
+        // should never happen
+    }
 });
 
 client.transaction({
     body: {
         type: "transaction"
+    }
+}).then(r => {
+    if (r.type === "transaction-response") {
+        console.log("yup!");
     }
 });
 
