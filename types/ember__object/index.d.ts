@@ -1,4 +1,4 @@
-// Type definitions for non-npm package @ember/object 3.1
+// Type definitions for non-npm package @ember/object 3.2
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fobject
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
