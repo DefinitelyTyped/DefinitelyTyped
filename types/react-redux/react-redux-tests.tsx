@@ -25,6 +25,7 @@ import {
     useDispatch,
     useSelector,
     useStore,
+    TypedUseSelectorHook,
 } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -1366,6 +1367,19 @@ function testUseSelector() {
     useSelector(() => 1, compare);
     const compare2 = (_l: number, _r: string) => true;
     useSelector(() => 1, compare2); // $ExpectError
+
+    interface RootState {
+        property: string;
+    }
+
+    const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+     // $ExpectType string
+    const r = useTypedSelector(state => {
+        // $ExpectType RootState
+        state;
+        return state.property;
+    });
 }
 
 function testUseStore() {

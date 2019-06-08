@@ -515,6 +515,10 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
  * that allows you to customize the way the selected state is compared to determine
  * whether the component needs to be re-rendered.
  *
+ * If you do not want to have to specify the root state type for whenever you use
+ * this hook with an inline selector you can use the `TypedUseSelectorHook` interface
+ * to create a version of this hook that is properly typed for your root state.
+ *
  * @param selector the selector function
  * @param equalityFn the function that will be used to determine equality
  *
@@ -535,6 +539,26 @@ export function useSelector<TState, TSelected>(
     selector: (state: TState) => TSelected,
     equalityFn?: (left: TSelected, right: TSelected) => boolean
 ): TSelected;
+
+/**
+ * This interface allows you to easily create a hook that is properly typed for your
+ * store's root state.
+ *
+ * @example
+ *
+ * interface RootState {
+ *   property: string;
+ * }
+ *
+ * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+ *
+ */
+export interface TypedUseSelectorHook<TState> {
+    <TSelected>(
+        selector: (state: TState) => TSelected,
+        equalityFn?: (left: TSelected, right: TSelected) => boolean
+    ): TSelected;
+}
 
 /**
  * A hook to access the redux store.
