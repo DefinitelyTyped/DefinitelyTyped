@@ -786,7 +786,7 @@ function populationPyramid() {
         .scale(y)
         .orient("right")
         .tickSize(-width)
-        .tickFormat(function (d,i) { console.log(i); return Math.round(d / 1e6) + "M"; } );
+        .tickFormat(function (d, i) { console.log(i); return Math.round(d / 1e6) + "M"; } );
 
     // An SVG element with a bottom-right origin.
     var svg = d3.select("body").append("svg")
