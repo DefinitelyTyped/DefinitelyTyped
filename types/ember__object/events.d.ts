@@ -3,32 +3,26 @@ import { ObserverMethod } from '@ember/object/-private/types';
 /**
  * Add an event listener
  */
-export function addListener<Context, Target>(
-    obj: Context,
-    key: keyof Context,
-    target: Target,
-    method: ObserverMethod<Target, Context>,
+export function addListener(
+    obj: object,
+    eventName: string,
+    target: object | Function | null,
+    method?: Function | string,
     once?: boolean
-): void;
-export function addListener<Context>(
-    obj: Context,
-    key: keyof Context,
-    method: ObserverMethod<Context, Context>
-): void;
+): void
+
 /**
  * Remove an event listener
+ *
+ * Arguments should match those passed to `addListener`.
  */
-export function removeListener<Context, Target>(
-    obj: Context,
-    key: keyof Context,
-    target: Target,
-    method: ObserverMethod<Target, Context>
-): any;
-export function removeListener<Context>(
-    obj: Context,
-    key: keyof Context,
-    method: ObserverMethod<Context, Context>
-): any;
+export function removeListener(
+    obj: object,
+    eventName: string,
+    target: object | null,
+    method?: Function | string
+): void
+
 /**
  * Send an event. The execution of suspended listeners
  * is skipped, and once listeners are removed. A listener without
