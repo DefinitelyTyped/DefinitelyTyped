@@ -3,8 +3,6 @@
 // Definitions by: David Uzumeri <https://github.com/daviduzumeri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace jsum;
-
 /**
  * Creates hash of given JSON object.
  *
