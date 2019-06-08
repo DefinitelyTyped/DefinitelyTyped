@@ -354,7 +354,7 @@ interface DictConstructor {
     values<T>(object: Dict<T>): IterableIterator<T>;
     keys<T>(object: Dict<T>): IterableIterator<PropertyKey>;
     entries<T>(object: Dict<T>): IterableIterator<[PropertyKey, T]>;
-    has<T>(obj: Dict<T>, key: PropertyKey): boolean;
+    has<T>(object: Dict<T>, key: PropertyKey): boolean;
     get<T>(object: Dict<T>, key: PropertyKey): T | undefined;
     set<T>(object: Dict<T>, key: PropertyKey, value: T): Dict<T>;
     forEach<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => void, thisArg?: any): void;
