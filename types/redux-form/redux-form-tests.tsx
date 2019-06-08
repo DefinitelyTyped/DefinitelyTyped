@@ -160,7 +160,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.StatelessComponent = ({
+const MyArrayField: React.StatelessComponent<WrappedFieldArrayProps> = ({
     children
 }) => null;
 
@@ -169,20 +169,19 @@ const MyArrayField: React.StatelessComponent = ({
 interface MyFieldValue {
     num: number;
 }
+
 interface MyFieldArrayCustomProps {
     foo: string;
+    bar: number;
 }
 
-const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps> = ({
+const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
     children,
-    foo
+    fields,
+    foo,
+    bar
 }) => null;
 
-type MyFieldArrayProps = MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>;
-const MyFieldArray: React.StatelessComponent<MyFieldArrayProps> = ({
-    children,
-    fields
-}) => null;
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
@@ -329,10 +328,22 @@ const Test = reduxForm<TestFormData>({
                                 component={ MyArrayField }
                             />
 
+                            {/* Passing child props via explicit props arg (TS-preferable)*/}
+                            <FieldArrayCustom
+                                name="field10"
+                                component={ MyCustomArrayField }
+                                props={{
+                                    foo: 'bar',
+                                    bar: 123
+                                }}
+                            />
+
+                            {/* Passing child props via extra props passed to parent */}
                             <FieldArrayCustom
                                 name="field10"
                                 component={ MyCustomArrayField }
                                 foo="bar"
+                                bar={23}
                             />
                         </FormSection>
                     </FormCustom>
@@ -465,4 +476,42 @@ class TestFormComponent2 extends React.Component<TestFormComponentProps & Inject
         handleSubmit((values) => ({ foo: ['string'], _error: [] }));
         return null;
     }
+}
+
+function TestInjectedFormPropsWithType(props: InjectedFormProps<{ foo: string; }>) {
+    props.asyncValidating === 'foo';
+    props.asyncValidating === true;
+    props.asyncValidating === false;
+    props.autofill('foo', '');
+    props.blur('foo', '');
+    props.change('foo', '');
+    props.clearAsyncError('foo');
+    props.touch('foo');
+    props.untouch('foo');
+    props.asyncValidating === 'baz'; // $ExpectError
+    props.autofill('foo', 1); // $ExpectError
+    props.blur('foo', 1); // $ExpectError
+    props.change('foo', 1); // $ExpectError
+    props.autofill('baz', ''); // $ExpectError
+    props.blur('baz', ''); // $ExpectError
+    props.change('baz', ''); // $ExpectError
+    props.clearAsyncError('baz'); // $ExpectError
+    props.touch('baz'); // $ExpectError
+    props.untouch('baz'); // $ExpectError
+
+    return null;
+}
+
+function TestInjectedFormPropsWithoutType(props: InjectedFormProps) {
+    props.asyncValidating === 'foo';
+    props.asyncValidating === true;
+    props.asyncValidating === false;
+    props.autofill('foo', '');
+    props.blur('foo', '');
+    props.change('foo', '');
+    props.clearAsyncError('foo');
+    props.touch('foo');
+    props.untouch('foo');
+
+    return null;
 }

@@ -13,6 +13,7 @@
 
 import { Agent } from "http";
 import { URLSearchParams } from "url";
+import { AbortSignal } from "./externals";
 
 export class Request extends Body {
     constructor(input: string | { href: string } | Request, init?: RequestInit);
@@ -42,6 +43,7 @@ export interface RequestInit {
     headers?: HeadersInit;
     method?: string;
     redirect?: RequestRedirect;
+    signal?: AbortSignal | null;
 
     // node-fetch extensions
     agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
