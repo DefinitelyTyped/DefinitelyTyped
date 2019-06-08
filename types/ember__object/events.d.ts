@@ -1,5 +1,7 @@
 import { ObserverMethod } from '@ember/object/-private/types';
 
+export {};
+
 type Callback = () => void;
 
 /**
