@@ -94,7 +94,7 @@ declare module '@ember/test-helpers/dom/blur' {
 declare module '@ember/test-helpers/dom/trigger-event' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target, eventType: string, options?: object): Promise<void>;
+    export default function(target: Target | Window, eventType: string, options?: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/trigger-key-event' {
