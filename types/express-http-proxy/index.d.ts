@@ -5,7 +5,7 @@
 //                  Gabriel Fournier <https://github.com/carboneater>
 //                  Niek van Bennekom <https://github.com/niekvb>
 //                  John L. Singleton <https://github.com/jsinglet>
-//                  Linday Wardell <https://github.com/lindsaykwardell>
+//                  Lindsay Wardell <https://github.com/lindsaykwardell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
