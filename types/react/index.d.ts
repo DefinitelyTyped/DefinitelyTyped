@@ -2027,6 +2027,7 @@ declare namespace React {
         playsinline?: boolean;
         preload?: string;
         src?: string;
+        disableRemotePlayback?: boolean;
     }
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
