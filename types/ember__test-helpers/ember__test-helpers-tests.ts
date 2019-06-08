@@ -53,6 +53,8 @@ test('DOM interactions', async () => {
     await focus(messageElement);
     await blur(messageElement);
     await triggerEvent(messageElement, 'custom-event');
+    await triggerEvent(window, 'custom-event');
+    await triggerEvent(document, 'custom-event');
     await triggerKeyEvent(messageElement, 'keydown', 'Enter', { ctrlKey: true });
     await fillIn(messageElement, 'content');
     await typeIn(messageElement, 'content');

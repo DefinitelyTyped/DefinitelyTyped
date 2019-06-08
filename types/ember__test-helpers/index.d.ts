@@ -94,7 +94,7 @@ declare module '@ember/test-helpers/dom/blur' {
 declare module '@ember/test-helpers/dom/trigger-event' {
     import { Target } from '@ember/test-helpers';
 
-    export default function(target: Target | Window, eventType: string, options?: object): Promise<void>;
+    export default function(target: Target | Window | Document, eventType: string, options?: object): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/trigger-key-event' {
@@ -109,7 +109,7 @@ declare module '@ember/test-helpers/dom/trigger-key-event' {
         metaKey?: boolean;
     }
 
-    export default function(target: Target, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
+    export default function(target: Target | Window | Document, eventType: KeyEvent, key: number | string, modifiers?: KeyModifiers): Promise<void>;
 }
 
 declare module '@ember/test-helpers/dom/fill-in' {
