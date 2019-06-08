@@ -97,10 +97,8 @@ const o3 = Ember.Object.extend({
 });
 // removeListener
 Ember.addListener(o2, 'create', () => {});
-Ember.addListener({}, 'create', () => {}); // $ExpectError
 // removeObserver
 Ember.removeObserver(o2, 'create', () => {});
-Ember.removeObserver({}, 'create', () => {}); // $ExpectError
 // runInDebug
 Ember.runInDebug(() => {});
 // sendEvent
