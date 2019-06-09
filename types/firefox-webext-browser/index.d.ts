@@ -105,7 +105,7 @@ declare namespace browser._manifest {
 
     /** Represents a WebExtension manifest.json file */
     interface WebExtensionManifest {
-        experiment_apis?: experiments.ExperimentAPI;
+        experiment_apis?: { [key: string]: experiments.ExperimentAPI };
         /** A list of protocol handler definitions. */
         protocol_handlers?: ProtocolHandler[];
         default_locale?: string;
@@ -199,18 +199,20 @@ declare namespace browser._manifest {
             };
         };
         commands?: {
-            suggested_key?: {
-                default?: KeyName;
-                mac?: KeyName;
-                linux?: KeyName;
-                windows?: KeyName;
-                chromeos?: string;
-                android?: string;
-                ios?: string;
-                /** @deprecated Unknown platform name */
-                additionalProperties?: string;
-            };
-            description?: string;
+            [key: string]: {
+                suggested_key?: {
+                    default?: KeyName;
+                    mac?: KeyName;
+                    linux?: KeyName;
+                    windows?: KeyName;
+                    chromeos?: string;
+                    android?: string;
+                    ios?: string;
+                    /** @deprecated Unknown platform name */
+                    additionalProperties?: string;
+                };
+                description?: string;
+            }
         };
         devtools_page?: ExtensionURL;
         omnibox?: {
@@ -441,7 +443,7 @@ declare namespace browser._manifest {
     } | {
         name: ExtensionID;
         description: string;
-        data: any;
+        data: { [key: string]: any };
         type: "storage";
     };
 
@@ -449,9 +451,9 @@ declare namespace browser._manifest {
 
     interface ThemeExperiment {
         stylesheet?: ExtensionURL;
-        images?: string;
-        colors?: string;
-        properties?: string;
+        images?: { [key: string]: string };
+        colors?: { [key: string]: string };
+        properties?: { [key: string]: string };
     }
 
     interface ThemeType {
@@ -2388,7 +2390,7 @@ declare namespace browser.notifications {
     function clear(notificationId: string): Promise<boolean | undefined>;
 
     /** Retrieves all the notifications. */
-    function getAll(): Promise<CreateNotificationOptions>;
+    function getAll(): Promise<{ [key: string]: CreateNotificationOptions }>;
 
     /**
      * Retrieves whether the user has enabled notifications from this app or extension.
@@ -3147,7 +3149,7 @@ declare namespace browser.storage {
          *     description of the object). An empty list or object will return an empty result object. Pass in `null`
          *     to get the entire contents of storage.
          */
-        get(keys?: string | string[] | object): Promise<any>;
+        get(keys?: string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
 
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
@@ -3166,7 +3168,7 @@ declare namespace browser.storage {
          *     `"function"` will typically serialize to `{}`, with the exception of `Array` (serializes as expected),
          *     `Date`, and `Regex` (serialize using their `String` representation).
          */
-        set(items: any): Promise<void>;
+        set(items: { [key: string]: any }): Promise<void>;
 
         /**
          * Removes one or more items from storage.
@@ -3197,7 +3199,7 @@ declare namespace browser.storage {
      * @param changes Object mapping each key that changed to its corresponding `storage.StorageChange` for that item.
      * @param areaName The name of the storage area (`"sync"`, `"local"` or `"managed"`) the changes are for.
      */
-    const onChanged: WebExtEvent<(changes: StorageChange, areaName: string) => void>;
+    const onChanged: WebExtEvent<(changes: { [key: string]: StorageChange }, areaName: string) => void>;
 }
 
 /**
@@ -3256,13 +3258,13 @@ declare namespace browser.telemetry {
      * @param message The data payload for the ping.
      * @param options Options object.
      */
-    function submitPing(type: string, message: any, options: {
+    function submitPing(type: string, message: { [key: string]: any }, options: {
         /** True if the ping should contain the client id. */
         addClientId?: boolean;
         /** True if the ping should contain the environment data. */
         addEnvironment?: boolean;
         /** Set to override the environment data. */
-        overrideEnvironment?: any;
+        overrideEnvironment?: { [key: string]: any };
         /** If true, send the ping using the PingSender. */
         usePingSender?: boolean;
     }): Promise<any>;
@@ -3282,7 +3284,7 @@ declare namespace browser.telemetry {
      * @param name The scalar name
      * @param value The value to set the scalar to
      */
-    function scalarSet(name: string, value: string | boolean | number | object): Promise<any>;
+    function scalarSet(name: string, value: string | boolean | number | { [key: string]: any }): Promise<any>;
 
     /**
      * Sets the scalar to the maximum of the current and the passed value
@@ -3299,7 +3301,7 @@ declare namespace browser.telemetry {
      * @param [value] An optional string value to record.
      * @param [extra] An optional object of the form (string -> string). It should only contain registered extra keys.
      */
-    function recordEvent(category: string, method: string, object: string, value?: number, extra?: string): Promise<any>;
+    function recordEvent(category: string, method: string, object: string, value?: number, extra?: { [key: string]: string }): Promise<any>;
 
     /**
      * Register new scalars to record them from addons. See nsITelemetry.idl for more details.
@@ -3307,7 +3309,7 @@ declare namespace browser.telemetry {
      * @param data An object that contains registration data for multiple scalars. Each property name is the scalar
      *     name, and the corresponding property value is an object of ScalarData type.
      */
-    function registerScalars(category: string, data: ScalarData): Promise<any>;
+    function registerScalars(category: string, data: { [key: string]: ScalarData }): Promise<any>;
 
     /**
      * Register new events to record them from addons. See nsITelemetry.idl for more details.
@@ -3315,7 +3317,7 @@ declare namespace browser.telemetry {
      * @param data An object that contains registration data for 1+ events. Each property name is the category name,
      *     and the corresponding property value is an object of EventData type.
      */
-    function registerEvents(category: string, data: EventData): Promise<any>;
+    function registerEvents(category: string, data: { [key: string]: EventData }): Promise<any>;
 
     /**
      * Enable recording of events in a category. Events default to recording disabled. This allows to toggle recording
@@ -5306,7 +5308,7 @@ declare namespace browser.devtools.inspectedWindow {
          *     be persisted; false if this is a minor change sent in progress of the user editing the resource.
          * @deprecated Unsupported on Firefox at this time.
          */
-        setContent?(content: string, commit: boolean): Promise<any>;
+        setContent?(content: string, commit: boolean): Promise<{ [key: string]: any } | undefined>;
     }
 
     /* devtools.inspectedWindow properties */
@@ -5419,7 +5421,7 @@ declare namespace browser.devtools.network {
 
     /* devtools.network functions */
     /** Returns HAR log that contains all known network requests. */
-    function getHAR(): Promise<any>;
+    function getHAR(): Promise<{ [key: string]: any }>;
 
     /* devtools.network events */
     /**
@@ -6915,7 +6917,7 @@ declare namespace browser.sidebarAction {
          * size `scale` * 19 will be selected. Initially only scales 1 and 2 will be supported. At least one image must
          * be specified. Note that 'details.path = foo' is equivalent to 'details.imageData = {'19': foo}'
          */
-        path?: string;
+        path?: string | { [key: string]: string };
         /** Sets the sidebar icon for the tab specified by tabId. Automatically resets when the tab is closed. */
         tabId?: number;
         /** Sets the sidebar icon for the window specified by windowId. */

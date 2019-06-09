@@ -3,6 +3,7 @@
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
 //                 Alex Bjørlig <https://github.com/dauledk>
+//                 Dan Rumney <https://github.com/dancrumb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -41,7 +42,7 @@ export interface AppMetadata {
   [propName: string]: any
 }
 
-export interface UserData {
+export interface UserData<A = AppMetadata, U=UserMetadata> {
   email?: string;
   username?: string;
   email_verified?: boolean;
@@ -52,8 +53,8 @@ export interface UserData {
   given_name?: string;
   family_name?: string;
   name?: string;
-  user_metadata?: UserMetadata;
-  app_metadata?: AppMetadata;
+  user_metadata?: U;
+  app_metadata?: A;
 }
 
 export interface CreateUserData extends UserData {
@@ -108,6 +109,69 @@ export interface Rule {
    * The rule's order in relation to other rules. A rule with a lower order than another rule executes first.
    */
   order?: number;
+}
+
+export interface Role {
+    id?: string;
+    name?: string;
+    description?: string;
+}
+
+export interface GetRolesData {
+    name_filter?: string;
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRolesDataPaged extends GetRolesData {
+    include_totals: boolean;
+}
+
+export interface RolePage extends Page {
+    roles: Role[];
+}
+
+export interface CreateRoleData {
+    name: string;
+    description?: string;
+}
+
+export interface UpdateRoleData {
+    name?: string;
+    description?: string;
+}
+
+export interface RolesData {
+    roles: string[];
+}
+
+export interface Permission {
+    resource_server_identifier?: string;
+    permission_name?: string;
+    resource_server_name?: string;
+    description?: string;
+}
+
+export interface PermissionsData {
+    permissions: PermissionData[]
+}
+
+export interface PermissionData {
+    resource_server_identifier: string;
+    permission_name: string;
+}
+
+export interface GetRoleUsersData extends ObjectWithId {
+    per_page?: number;
+    page?: number;
+}
+
+export interface GetRoleUsersDataPaged extends GetRoleUsersData {
+    include_totals: boolean;
+}
+
+export interface PermissionPage extends Page {
+    permissions: Permission[];
 }
 
 export interface Client {
@@ -327,7 +391,7 @@ export interface CreateConnection extends UpdateConnection {
   strategy: Strategy;
 }
 
-export interface User {
+export interface User<A=AppMetadata, U=UserMetadata> {
   email?: string;
   email_verified?: boolean;
   username?: string;
@@ -337,8 +401,8 @@ export interface User {
   created_at?: string;
   updated_at?: string;
   identities?: Identity[];
-  app_metadata?: AppMetadata;
-  user_metadata?: UserMetadata;
+  app_metadata: A;
+  user_metadata: U;
   picture?: string;
   name?: string;
   nickname?: string;
@@ -358,8 +422,26 @@ export interface Page {
   total: number;
 }
 
-export interface UserPage extends Page {
-  users: User[];
+export interface UserPage<A=AppMetadata, U=UserMetadata> extends Page {
+  users: User<A, U>[];
+}
+
+export interface GetUserRolesData extends ObjectWithId  {
+    page?: number;
+    per_page?: number;
+}
+
+export interface GetUserRolesDataPaged extends GetUserRolesData {
+    include_totals: boolean;
+}
+
+export interface GetUserPermissionsData extends ObjectWithId {
+    page?: number;
+    per_page?: number;
+}
+
+export interface GetUserPermissionsDataPaged extends GetUserPermissionsData {
+    include_totals: boolean;
 }
 
 export interface Identity {
@@ -704,7 +786,7 @@ export class AuthenticationClient {
 }
 
 
-export class ManagementClient {
+export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   constructor(options: ManagementClientOptions);
 
   getClientInfo(): ClientInfo;
@@ -759,17 +841,52 @@ export class ManagementClient {
 
 
   // Device Keys
-  getDeviceCredentials(): Promise<User>;
+  getDeviceCredentials(): Promise<User<A, U>>;
   getDeviceCredentials(cb: (err: Error, data: any) => void): void;
 
-  createDevicePublicKey(data: Data): Promise<User>;
+  createDevicePublicKey(data: Data): Promise<User<A, U>>;
   createDevicePublicKey(data: Data, cb: (err: Error, data: any) => void): void;
 
-  deleteDeviceCredential(params: ClientParams): Promise<User>;
+  deleteDeviceCredential(params: ClientParams): Promise<User<A, U>>;
   deleteDeviceCredential(params: ClientParams, cb: (err: Error, data: any) => void): void;
 
+  // Roles
+  getRoles(): Promise<Role[]>;
+  getRoles(cb: (err: Error, roles: Role[]) => void): void;
+  getRoles(params: GetRolesData): Promise<Role[]>;
+  getRoles(params: GetRolesData, cb: (err: Error, roles: Role[]) => void): void;
+  getRoles(params: GetRolesDataPaged): Promise<RolePage>;
+  getRoles(params: GetRolesDataPaged, cb: (err: Error, rolePage: RolePage) => void): void;
 
-  // Rules
+  createRole(data: CreateRoleData): Promise<Role>;
+  createRole(data: CreateRoleData, cb: (err: Error, role: Role) => void): void;
+
+  getRole(params: ObjectWithId): Promise<Role>;
+  getRole(params: ObjectWithId, cb: (err: Error, role: Role) => void): void;
+
+  deleteRole(params: ObjectWithId): Promise<void>;
+  deleteRole(params: ObjectWithId, cb: (err: Error) => void): void;
+
+  updateRole(params: ObjectWithId, data: UpdateRoleData): Promise<Role>;
+  updateRole(params: ObjectWithId, data: UpdateRoleData, cb: (err: Error, role: Role) => void): void;
+
+  getPermissionsInRole(params: ObjectWithId): Promise<Permission[]>;
+  getPermissionsInRole(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+
+  removePermissionsFromRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  removePermissionsFromRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  addPermissionsInRole(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  addPermissionsInRole(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
+  getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
+  getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage<A, U>>;
+  getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+
+    // Rules
   getRules(): Promise<Rule[]>;
   getRules(cb: (err: Error, rules: Rule[]) => void): void;
 
@@ -787,36 +904,36 @@ export class ManagementClient {
 
 
   // Users
-  getUsers(params: GetUsersDataPaged): Promise<UserPage>;
-  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage) => void): void;
-  getUsers(params?: GetUsersData): Promise<User[]>;
-  getUsers(cb: (err: Error, users: User[]) => void): void;
-  getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
+  getUsers(params: GetUsersDataPaged): Promise<UserPage<A, U>>;
+  getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
+  getUsers(params?: GetUsersData): Promise<User<A, U>[]>;
+  getUsers(cb: (err: Error, users: User<A, U>[]) => void): void;
+  getUsers(params?: GetUsersData, cb?: (err: Error, users: User<A, U>[]) => void): void;
 
-  getUser(params: ObjectWithId): Promise<User>;
-  getUser(params: ObjectWithId, cb?: (err: Error, user: User) => void): void;
+  getUser(params: ObjectWithId): Promise<User<A, U>>;
+  getUser(params: ObjectWithId, cb?: (err: Error, user: User<A, U>) => void): void;
 
-  getUsersByEmail(email: string): Promise<User[]>;
-  getUsersByEmail(email: string, cb?: (err: Error, users: User[]) => void): void;
+  getUsersByEmail(email: string): Promise<User<A, U>[]>;
+  getUsersByEmail(email: string, cb?: (err: Error, users: User<A, U>[]) => void): void;
 
-  createUser(data: CreateUserData): Promise<User>;
-  createUser(data: CreateUserData, cb: (err: Error, user: User) => void): void;
+  createUser(data: CreateUserData): Promise<User<A, U>>;
+  createUser(data: CreateUserData, cb: (err: Error, user: User<A, U>) => void): void;
 
-  updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User>;
-  updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User) => void): void;
+  updateUser(params: ObjectWithId, data: UpdateUserData): Promise<User<A, U>>;
+  updateUser(params: ObjectWithId, data: UpdateUserData, cb: (err: Error, data: User<A, U>) => void): void;
 
-  updateUserMetadata(params: ObjectWithId, data: UserMetadata): Promise<User>;
-  updateUserMetadata(params: ObjectWithId, data: UserMetadata, cb: (err: Error, data: User) => void): void;
+  updateUserMetadata(params: ObjectWithId, data: U): Promise<User<A, U>>;
+  updateUserMetadata(params: ObjectWithId, data: U, cb: (err: Error, data: User<A, U>) => void): void;
 
   // Should be removed from auth0 also. Doesn't exist in api.
-  deleteAllUsers(): Promise<User>;
+  deleteAllUsers(): Promise<User<A, U>>;
   deleteAllUsers(cb: (err: Error, data: any) => void): void;
 
   deleteUser(params: ObjectWithId): Promise<void>;
   deleteUser(params: ObjectWithId, cb?: (err: Error) => void): void;
 
-  updateAppMetadata(params: ObjectWithId, data: AppMetadata): Promise<User>;
-  updateAppMetadata(params: ObjectWithId, data: AppMetadata, cb: (err: Error, data: User) => void): void;
+  updateAppMetadata(params: ObjectWithId, data: A): Promise<User<A, U>>;
+  updateAppMetadata(params: ObjectWithId, data: A, cb: (err: Error, data: User<A, U>) => void): void;
 
   deleteUserMultifactor(params: DeleteMultifactorParams): Promise<void>;
   deleteUserMultifactor(params: DeleteMultifactorParams, cb: (err: Error) => void): void;
@@ -827,6 +944,34 @@ export class ManagementClient {
   linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
   linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
+  // User roles
+  getUserRoles(params: ObjectWithId): Promise<Role[]>;
+  getUserRoles(params: ObjectWithId, cb: (err: Error, roles: Role[]) => void): void;
+  getUserRoles(params: GetUserRolesData): Promise<Role[]>;
+  getUserRoles(params: GetUserRolesData, cb: (err: Error, roles: Role[]) => void): void;
+  getUserRoles(params: GetUserRolesDataPaged): Promise<RolePage>;
+  getUserRoles(params: GetUserRolesDataPaged, cb: (err: Error, rolePage: RolePage) => void): void;
+
+  removeRolesFromUser(params: ObjectWithId, data: RolesData): Promise<void>;
+  removeRolesFromUser(params: ObjectWithId, data: RolesData, cb: (err: Error) => void): void
+
+  // The lowercase 't' is like this in the auth0 sdk
+  assignRolestoUser(params: ObjectWithId, data: RolesData): Promise<void>;
+  assignRolestoUser(params: ObjectWithId, data: RolesData, cb: (err: Error) => void): void;
+
+  // User permissions
+  getUserPermissions(params: ObjectWithId): Promise<Permission[]>;
+  getUserPermissions(params: ObjectWithId, cb: (err: Error, permissions: Permission[]) => void): void;
+  getUserPermissions(params: GetUserPermissionsData): Promise<Permission[]>;
+  getUserPermissions(params: GetUserPermissionsData, cb: (err: Error, permissions: Permission[]) => void): void;
+  getUserPermissions(params: GetUserPermissionsDataPaged): Promise<PermissionPage>;
+  getUserPermissions(params: GetUserPermissionsDataPaged, cb: (err: Error, permissionPage: PermissionPage) => void): void;
+
+  removePermissionsFromUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  removePermissionsFromUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
+
+  assignPermissionsToUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
+  assignPermissionsToUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
   // Tokens
   getBlacklistedTokens(): Promise<any>;
@@ -912,7 +1057,7 @@ export class ManagementClient {
 }
 
 
-export class DatabaseAuthenticator {
+export class DatabaseAuthenticator<A=AppMetadata, U=UserMetadata> {
   constructor(options: DatabaseClientOptions, oauth: OAuthAuthenticator);
 
   changePassword(data: ResetPasswordOptions): Promise<any>;
@@ -924,7 +1069,7 @@ export class DatabaseAuthenticator {
   signIn(data: SignInOptions): Promise<SignInToken>;
   signIn(data: SignInOptions, cb: (err: Error, data: SignInToken) => void): void;
 
-  signUp(data: CreateUserData): Promise<User>;
+  signUp(data: CreateUserData): Promise<User<A, U>>;
   signIn(data: CreateUserData, cb: (err: Error, data: User) => void): void;
 
 }
@@ -961,11 +1106,11 @@ export class TokenManager {
 
 }
 
-export class UsersManager {
+export class UsersManager<A=AppMetadata, U=UserMetadata> {
   constructor(options: UsersOptions);
 
-  getInfo(accessToken: string): Promise<User>;
-  getInfo(accessToken: string, cb: (err: Error, user: User) => void): void;
+  getInfo(accessToken: string): Promise<User<A, U>>;
+  getInfo(accessToken: string, cb: (err: Error, user: User<A, U>) => void): void;
 
   impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
   impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;

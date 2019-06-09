@@ -7,6 +7,11 @@ const options: openpgp.KeyOptions = {
     userIds: [{
         name: 'Jon Smith',
         email: 'jon.smith@example.org',
+    }, {
+        email: 'jon.smith@example.org',
+    }, {
+        name: 'Jon Smith',
+    }, {
     }],
     passphrase: 'super long and hard to guess secret'
 };
@@ -156,7 +161,7 @@ openpgp.initWorker({
         armor: false,
         detached: false,
     }).then(s => s.message/* as openpgp.message.Message*/);
-    
+
     const verifyOptions: openpgp.VerifyOptions = {
         message,
         signature,
@@ -167,6 +172,12 @@ openpgp.initWorker({
 
     return verified.signatures[0].valid;
 })();
+
+(async () => {
+    const publicKey = (await openpgp.key.readArmored(spubkey));
+
+    return publicKey.keys[0].primaryKey.getFingerprint()/* as string*/
+})
 
 // Open PGP Tests
 

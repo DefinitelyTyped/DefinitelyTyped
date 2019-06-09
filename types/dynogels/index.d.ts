@@ -246,8 +246,8 @@ export interface ModelConfiguration {
     hashKey: string;
     rangeKey?: string;
     timestamps?: boolean;
-    createdAt?: boolean;
-    updatedAt?: string;
+    createdAt?: boolean | string;
+    updatedAt?: boolean | string;
     schema?: SchemaType;
     validation?: joi.ValidationOptions;
     tableName?: string | tableResolve;

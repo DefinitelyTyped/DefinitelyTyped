@@ -1,6 +1,7 @@
 // Type definitions for airtable 0.5
 // Project: https://github.com/airtable/airtable.js
 // Definitions by: Brandon Valosek <https://github.com/bvalosek>
+//                 Max Chehab <https://github.com/maxchehab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -8,12 +9,22 @@ export = Airtable;
 
 declare global {
     class Airtable {
+        constructor(options?: Airtable.AirtableOptions);
         base(appId: string): Airtable.Base;
     }
 
     namespace Airtable {
         interface FieldSet {
-            [ key: string ]: undefined | string | ReadonlyArray<Attachment>;
+            [key: string]: undefined | string | ReadonlyArray<Attachment>;
+        }
+
+        interface AirtableOptions {
+            apiKey?: string;
+            endpointUrl?: string;
+            apiVersion?: string;
+            allowUnauthorizedSsl?: boolean;
+            noRetryIfRateLimited?: boolean;
+            requestTimeout?: number;
         }
 
         interface Base {

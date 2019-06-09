@@ -78,6 +78,17 @@ stripe.charges.create({
     charge.refunds.list().then((refund) => {
     });
 });
+stripe.charges.create({
+    amount: 400,
+    currency: "gbp",
+    source: "tok_17wV94BoqMA9o2xkhlAd3ALf", // obtained with Stripe.js
+    description: "Charge for test@example.com",
+    transfer_data: {
+        destination: "acct_17wV8KBoqMA9o2xk"
+    }
+}, (err, charge) => {
+    // asynchronously called
+});
 
 stripe.charges.retrieve("ch_15fvyXEe31JkLCeQOo0SwFk9", (err, charge) => {
     // asynchronously called
@@ -226,6 +237,8 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) =>
 // ##################################################################################
 
 stripe.customers.create({
+    name: 'John Doe',
+    phone: '15551234567',
     description: 'Customer for test@example.com',
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
     metadata: { test: "123", test2: 123 } // IOptionsMetadata test
@@ -260,8 +273,16 @@ stripe.customers.create({
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then((subscription) => { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then((confirmation) => { });
 
-    // IMetadata tests:
     const str = '123';
+    // IAddress tests:
+    customer.address.line1 === str;
+    customer.address.line2 === str;
+    customer.address.city === str;
+    customer.address.postal_code === str;
+    customer.address.state === str;
+    customer.address.country === str;
+
+    // IMetadata tests:
     customer.metadata["test"] === str;
     customer.metadata.test1 === str;
 
@@ -282,6 +303,27 @@ stripe.customers.create({
     };
     metadata = {};
     metadata = null;
+});
+
+// With address
+stripe.customers.create({
+    name: 'John Doe',
+    address: {
+        line1: '96 Road Drive',
+        country: 'United Kingdom'
+    }
+}, (err, customer) => {
+    // asynchronously called
+});
+stripe.customers.create({
+    name: 'John Doe',
+    address: {
+        line1: '96 Road Drive',
+        line2: 'Something',
+        city: 'London'
+    }
+}, (err, customer) => {
+    // asynchronously called
 });
 
 stripe.customers.create({
@@ -330,10 +372,15 @@ stripe.customers.retrieve("cus_5rfJKDJkuxzh5Q").then((customer) => {
 });
 
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
-    description: "Customer for test@example.com"
+    name: 'John Doe',
+    phone: '15551234567',
+    description: "Customer for test@example.com",
+    address: {
+        line1: '2 New Road',
+    }
 }, (err, customer) => {
     // asynchronously called
-    });
+});
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
     description: "Customer for test@example.com"
 }).then((customer) => {
@@ -644,6 +691,23 @@ stripe.accounts.create({
     // asynchronously called
     }
 );
+stripe.accounts.create({
+    type: "custom",
+    business_type: "individual",
+    individual: {
+        first_name: "John",
+        last_name: "Smith",
+        email: "test@example.com",
+        dob: {
+            day: 1,
+            month: 1,
+            year: 1970
+        },
+    }
+}).then((customer) => {
+    // asynchronously called
+    }
+);
 
 stripe.accounts.retrieve(
     "acct_17wV8KBoqMA9o2xk",
@@ -660,7 +724,9 @@ stripe.accounts.retrieve(
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        support_phone: "555-867-5309"
+        business_profile: {
+            support_phone: "555-867-5309"
+        }
     },
     (err, account) => {
         // asynchronously called
@@ -668,7 +734,9 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 );
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        support_phone: "555-867-5309"
+        business_profile: {
+            support_phone: "555-867-5309"
+        }
     }).then(
     (account) => {
         // asynchronously called
@@ -677,7 +745,11 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        payout_statement_descriptor: "From Stripe"
+        settings: {
+            payouts: {
+                statement_descriptor: "From Stripe"
+            }
+        }
     }).then(
     (account) => {
         // asynchronously called
@@ -686,11 +758,15 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
 
 stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     {
-        payout_schedule: {
-            delay_days: 5,
-            interval: "monthly",
-            monthly_anchor: 4,
-            weekly_anchor: "monday"
+        settings: {
+            payouts: {
+                schedule: {
+                    delay_days: 5,
+                    interval: "monthly",
+                    monthly_anchor: 4,
+                    weekly_anchor: "monday"
+                }
+            }
         }
     }).then(
     (account) => {
@@ -1110,6 +1186,14 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb").then((invoice) => {
 });
 
 stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { source: "source_id" }).then((invoice) => {
+    // asynchronously called
+});
+
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { paid_out_of_band: true }).then((invoice) => {
+    // asynchronously called
+});
+
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { forgive: true }).then((invoice) => {
     // asynchronously called
 });
 

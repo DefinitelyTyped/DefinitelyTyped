@@ -1,4 +1,4 @@
-// Type definitions for slate-react 0.21
+// Type definitions for slate-react 0.22
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -58,9 +58,20 @@ export interface RenderNodeProps {
   isFocused: boolean;
   isSelected: boolean;
   key: string;
-  node: Block | Inline;
   parent: Node;
   readOnly: boolean;
+}
+
+export interface RenderBlockProps extends RenderNodeProps {
+    node: Block;
+}
+
+export interface RenderDocumentProps extends RenderNodeProps {
+    node: Document;
+}
+
+export interface RenderInlineProps extends RenderNodeProps {
+    node: Inline;
 }
 
 export type EventHook = (
@@ -73,7 +84,9 @@ export interface Plugin {
     decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
     renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
     renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
-    renderNode?: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
+    renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
+    renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
+    renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
     shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
 
     onBeforeInput?: EventHook;

@@ -404,7 +404,7 @@ declare namespace GoogleAppsScript {
       }
       export interface Status {
         code?: number;
-        details?: Object[];
+        details?: object[];
         message?: string;
       }
       export interface Tagline {

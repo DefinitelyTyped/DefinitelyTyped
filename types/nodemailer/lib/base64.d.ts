@@ -13,10 +13,10 @@ export interface EncoderOptions extends TransformOptions {
 }
 
 export class Encoder extends Transform {
-    options: TransformOptions;
+    options: EncoderOptions;
 
     inputBytes: number;
     outputBytes: number;
 
-    constructor(options?: TransformOptions);
+    constructor(options?: EncoderOptions);
 }

@@ -9,7 +9,7 @@
 //                 Francis Gulotta <https://github.com/reconbot>
 //                 Alex Petty <https://github.com/pettyalex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /* =================== USAGE ===================
     import * as Redis from "ioredis";

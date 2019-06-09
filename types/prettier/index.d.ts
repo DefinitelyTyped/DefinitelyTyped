@@ -282,7 +282,7 @@ export interface SupportOption {
     oppositeDescription?: string;
     default: SupportOptionValue;
     range?: SupportOptionRange;
-    choices?: SupportOptionChoice;
+    choices?: SupportOptionChoice[];
 }
 
 export interface SupportOptionRedirect {
