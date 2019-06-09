@@ -1,4 +1,4 @@
-// Type definitions for offscreencanvas 2019.6
+// Type definitions for non-npm package offscreencanvas-browser 2019.6
 // Project: https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 //                        Oleg Varaksin <https://github.com/ova2>
