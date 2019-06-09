@@ -95,10 +95,11 @@ const schema2: SchemaProperties = {
 };
 
 const pluginCommandName = 'plugin_command';
-const pluginQueryName = 'plugin_query';
 const pluginCommandFunc: CommandFunc = (editor: Editor, ...args: any[]) => editor;
-const pluginQueryFunc: QueryFunc = (editor: Editor, ...args: any[]) => {};
+
+const pluginQueryName = 'plugin_query';
 const pluginQueryResult = 1000;
+const pluginQueryFunc: QueryFunc = (editor: Editor, ...args: any[]) => pluginQueryResult;
 
 const plugin: Plugin = {
     normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
