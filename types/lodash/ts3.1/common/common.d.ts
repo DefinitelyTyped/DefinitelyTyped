@@ -210,7 +210,7 @@ declare module "../index" {
     interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }
     type NotVoid = unknown;
-    type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;
+    type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;
@@ -258,8 +258,8 @@ declare module "../index" {
         cancel(): void;
         flush(): void;
     }
-    type PartialDeep<T> = {
-        [P in keyof T]?: PartialDeep<T[P]>;
+    type PartialShallow<T> = {
+        [P in keyof T]?: T[P] extends object ? object : T[P]
     };
     // For backwards compatibility
     type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;

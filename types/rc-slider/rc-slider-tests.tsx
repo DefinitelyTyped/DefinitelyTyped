@@ -44,6 +44,7 @@ ReactDOM.render(
         style={{backgroundColor: 'plum'}}
         dotStyle={{backgroundColor: 'antiquewhite'}}
         activeDotStyle={{backgroundColor: 'antiquewhite'}}
+        reverse={true}
     />,
     document.querySelector('.another-app')
 );

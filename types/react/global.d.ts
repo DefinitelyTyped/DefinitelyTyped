@@ -75,6 +75,7 @@ interface HTMLTableDataCellElement extends HTMLElement { }
 interface HTMLTableHeaderCellElement extends HTMLElement { }
 interface HTMLTableRowElement extends HTMLElement { }
 interface HTMLTableSectionElement extends HTMLElement { }
+interface HTMLTemplateElement extends HTMLElement { }
 interface HTMLTextAreaElement extends HTMLElement { }
 interface HTMLTitleElement extends HTMLElement { }
 interface HTMLTrackElement extends HTMLElement { }

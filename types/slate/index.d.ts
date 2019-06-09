@@ -42,6 +42,7 @@ export interface Rules {
     marks?: Array<{
         type: string | ((type: string) => boolean)
     }>;
+    next?: ObjectAndType | ObjectAndType[];
     nodes?: Array<{
         min?: number;
         max?: number;
@@ -50,6 +51,7 @@ export interface Rules {
     normalize?: (editor: Editor, error: SlateError) => void;
     parent?: ObjectAndType | ObjectAndType[];
     text?: RegExp | ((text: string) => boolean);
+    previous?: ObjectAndType | ObjectAndType[];
 }
 
 export interface SchemaProperties {

@@ -52,9 +52,16 @@ export interface AzureProviderOptions {
     location?: string;
 }
 
+export interface GoogleProviderOptions {
+    provider: 'google';
+    keyFilename: string;
+    projectId: string;
+}
+
 export type ProviderOptions = BaseProviderOptions & Partial<
     | AmazonProviderOptions
     | AzureProviderOptions
+    | GoogleProviderOptions
 >;
 
 /**

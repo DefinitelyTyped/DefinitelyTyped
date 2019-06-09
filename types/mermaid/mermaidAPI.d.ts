@@ -1,5 +1,5 @@
 declare namespace mermaidAPI {
-    type Theme = "default" | "forest" | "dark" | "netural";
+    type Theme = "default" | "forest" | "dark" | "neutral";
 
     enum LogLevel {
         Debug = 1,

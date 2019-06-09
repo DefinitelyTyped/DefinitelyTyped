@@ -590,11 +590,11 @@ declare namespace GoogleAppsScript {
         snippet?: string;
         startTime?: string;
         status?: string;
-        trafficCoverage?: Number;
+        trafficCoverage?: number;
         updated?: string;
         variations?: Analytics.Schema.ExperimentVariations[];
         webPropertyId?: string;
-        winnerConfidenceLevel?: Number;
+        winnerConfidenceLevel?: number;
         winnerFound?: boolean;
       }
       export interface ExperimentParentLink {
@@ -605,7 +605,7 @@ declare namespace GoogleAppsScript {
         name?: string;
         status?: string;
         url?: string;
-        weight?: Number;
+        weight?: number;
         won?: boolean;
       }
       export interface Experiments {
@@ -706,7 +706,7 @@ declare namespace GoogleAppsScript {
         previousLink?: string;
         profileInfo?: Analytics.Schema.GaDataProfileInfo;
         query?: Analytics.Schema.GaDataQuery;
-        rows?: String[][];
+        rows?: string[][];
         sampleSize?: string;
         sampleSpace?: string;
         selfLink?: string;
@@ -769,7 +769,7 @@ declare namespace GoogleAppsScript {
         type?: string;
         updated?: string;
         urlDestinationDetails?: Analytics.Schema.GoalUrlDestinationDetails;
-        value?: Number;
+        value?: number;
         visitNumPagesDetails?: Analytics.Schema.GoalVisitNumPagesDetails;
         visitTimeOnSiteDetails?: Analytics.Schema.GoalVisitTimeOnSiteDetails;
         webPropertyId?: string;
@@ -989,7 +989,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
         profileInfo?: RealtimeDataProfileInfo;
         query?: RealtimeDataQuery;
-        rows?: String[][];
+        rows?: string[][];
         selfLink?: string;
         totalResults?: number;
         totalsForAllResults?: object;
