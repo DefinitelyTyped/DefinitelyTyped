@@ -1,6 +1,6 @@
 // Type definitions for react-sizes 2.0
 // Project: https://github.com/renatorib/react-sizes#readme
-// Definitions by: {@janKir,@micahstubbs} <https://github.com/janKir> <https://github.com/micahstubbs>
+// Definitions by: janKir <https://github.com/janKir>, Micah Stubbs <https://github.com/micahstubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // adapted from https://github.com/renatorib/react-sizes/issues/13#issuecomment-483725124
 
