@@ -19,9 +19,11 @@ declare namespace ObjectHash {
 		ignoreUnknown?: boolean;
 		replacer?: (value: any) => any;
 		respectFunctionProperties?: boolean;
-		respectFunctionNames?: boolean;
+        respectFunctionNames?: boolean;
+        respectType?: boolean;
 		unorderedArrays?: boolean;
-		unorderedSets?: boolean;
+        unorderedSets?: boolean;
+        unorderedObjects?: boolean;
 		excludeKeys?: (key: string) => boolean;
 	}
 
