@@ -1245,6 +1245,10 @@ export interface NodeSpec {
    * to a string representation for debugging (e.g. in error messages).
    */
   toDebugString?: ((node: ProsemirrorNode) => string) | null;
+  /**
+   * Allow specifying arbitrary fields on a NodeSpec.
+   */
+  [key: string]: any;
 }
 export interface MarkSpec {
   /**
@@ -1293,6 +1297,10 @@ export interface MarkSpec {
    * `mark` field in the rules is implied.
    */
   parseDOM?: ParseRule[] | null;
+  /**
+   * Allow specifying arbitrary fields on a MarkSpec.
+   */
+  [key: string]: any;
 }
 /**
  * Used to [define](#model.NodeSpec.attrs) attributes on nodes or
