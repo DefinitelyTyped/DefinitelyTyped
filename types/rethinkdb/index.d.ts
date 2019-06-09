@@ -541,7 +541,7 @@ declare module "rethinkdb" {
                 end: number,
                 str: string
             }>
-        }>;
+        }> | Expression<boolean>;
 
         and(b: boolean | Expression<boolean>): Expression<boolean>;
         or(b: boolean | Expression<boolean>): Expression<boolean>;
