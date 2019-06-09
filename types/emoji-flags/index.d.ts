@@ -5,7 +5,7 @@
 
 export as namespace emojiFlags;
 
-interface CountryData {
+export interface CountryData {
     code: string;
     emoji: string;
     name: string;
