@@ -3,6 +3,10 @@
 // Definitions by: Michael Zabka <https://github.com/misak113>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
+import stream = require("stream");
+
 import HashStatic = ObjectHash.HashStatic;
 export = HashStatic;
 export as namespace objectHash;
@@ -27,6 +31,8 @@ declare namespace ObjectHash {
 		keys(object: any): string;
 		MD5(object: any): string;
 		keysMD5(object: any): string;
+		writeToStream(value: any, stream: stream.PassThrough): void;
+		writeToStream(value: any, options: IOptions, stream: stream.PassThrough): void;
 	}
 
 	export var HashStatic: Hash;
