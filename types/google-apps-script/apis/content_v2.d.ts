@@ -925,7 +925,7 @@ declare namespace GoogleAppsScript {
       export interface LoyaltyPoints {
         name?: string;
         pointsValue?: string;
-        ratio?: Number;
+        ratio?: number;
       }
       export interface MerchantOrderReturn {
         creationDate?: string;
@@ -1671,7 +1671,7 @@ declare namespace GoogleAppsScript {
         displayAdsLink?: string;
         displayAdsSimilarIds?: string[];
         displayAdsTitle?: string;
-        displayAdsValue?: Number;
+        displayAdsValue?: number;
         energyEfficiencyClass?: string;
         expirationDate?: string;
         gender?: string;
@@ -1746,11 +1746,11 @@ declare namespace GoogleAppsScript {
       }
       export interface ProductShippingDimension {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
       export interface ProductShippingWeight {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
       export interface ProductStatus {
         creationDate?: string;
@@ -1796,7 +1796,7 @@ declare namespace GoogleAppsScript {
         country?: string;
         locationId?: string;
         postalCode?: string;
-        rate?: Number;
+        rate?: number;
         region?: string;
         taxShip?: boolean;
       }
@@ -1806,7 +1806,7 @@ declare namespace GoogleAppsScript {
       }
       export interface ProductUnitPricingMeasure {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
       export interface ProductsCustomBatchRequest {
         entries?: Content.Schema.ProductsCustomBatchRequestEntry[];

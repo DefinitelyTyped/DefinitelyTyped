@@ -8,6 +8,7 @@
 //                 Stack Builders <https://github.com/stackbuilders>
 //                 Esteban Ibarra <https://github.com/ibarrae>
 //                 Dominic Lee <https://github.com/dominictwlee>
+//                 Dave Vedder <https://github.com/veddermatic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1770,6 +1771,11 @@ declare module "victory" {
      * @example ["dogs", "cats", "mice"]
      */
     categories?: CategoryPropType;
+    /**
+     * The color prop is an optional prop that defines a single color to be applied to the
+     * children of VictoryGroup. The color prop will override colors specified via colorScale.
+     */
+    color?: string;
     /**
      * The colorScale prop is an optional prop that defines the color scale the chart's bars
      * will be created on. This prop should be given as an array of CSS colors, or as a string

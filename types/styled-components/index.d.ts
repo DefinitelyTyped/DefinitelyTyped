@@ -510,6 +510,7 @@ export class StyleSheetManager extends React.Component<
 // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
     | string
+    | CSSObject
     | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

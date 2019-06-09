@@ -7,7 +7,7 @@ declare module "../index" {
     type Many<T> = T | ReadonlyArray<T>;
     type ImpChain<T> =
         T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
-        T extends null | undefined ? Primitive<T> :
+        T extends null | undefined ? never :
         T extends string | null | undefined ? String :
         T extends (...args: any) => any ? Function<T> :
         T extends List<infer U> | null | undefined ? Collection<U> :
@@ -15,7 +15,7 @@ declare module "../index" {
         Primitive<T>;
     type ExpChain<T> =
         T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
-        T extends null | undefined ? PrimitiveChain<T> :
+        T extends null | undefined ? never :
         T extends string ? StringChain :
         T extends string | null | undefined ? StringNullableChain :
         T extends (...args: any) => any ? FunctionChain<T> :
@@ -193,7 +193,7 @@ declare module "../index" {
     }
     interface Object<T> extends LoDashImplicitWrapper<T> {
     }
-    interface Collection<T> extends LoDashImplicitWrapper<List<T>> {
+    interface Collection<T> extends LoDashImplicitWrapper<T[]> {
     }
     interface Primitive<T> extends LoDashImplicitWrapper<T> {
     }
@@ -205,14 +205,12 @@ declare module "../index" {
     }
     interface ObjectChain<T> extends LoDashExplicitWrapper<T> {
     }
-    interface CollectionChain<T> extends LoDashExplicitWrapper<List<T>> {
-    }
-    interface CollectionNullableChain<T> extends LoDashExplicitWrapper<List<T> | undefined> {
+    interface CollectionChain<T> extends LoDashExplicitWrapper<T[]> {
     }
     interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }
     type NotVoid = unknown;
-    type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialDeep<T>;
+    type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;
@@ -260,8 +258,8 @@ declare module "../index" {
         cancel(): void;
         flush(): void;
     }
-    type PartialDeep<T> = {
-        [P in keyof T]?: PartialDeep<T[P]>;
+    type PartialShallow<T> = {
+        [P in keyof T]?: T[P] extends object ? object : T[P]
     };
     // For backwards compatibility
     type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
