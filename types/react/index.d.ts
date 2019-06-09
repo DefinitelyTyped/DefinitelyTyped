@@ -74,7 +74,9 @@ declare namespace React {
 
     type JSXElementConstructor<P> =
         | ((props: P) => ReactElement | null)
-        | (new (props: P) => Component<P, any>);
+        | (new (props: P) => Component<P, any>)
+        | DRFC<P>
+        | (new (props: P) => DRPureComponent<P, any>);
 
     type Key = string | number;
 
@@ -469,7 +471,7 @@ declare namespace React {
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
 
-    class DRPureComponent<P = {}, S = {}, SS = any> extends React.PureComponent<DR<P>, DR<S>, SS> { }
+    class DRPureComponent<P = {}, S = {}, SS = any> extends PureComponent<DeepReadonly<P>, DeepReadonly<S>, SS> { }
 
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
@@ -510,8 +512,8 @@ declare namespace React {
         defaultProps?: Partial<P>;
         displayName?: string;
     }
-                     
-    type DRFC<T= {}> = FC<DeepReadonly<T>>
+
+    type DRFC<T= {}> = FC<DeepReadonly<T>>;
 
     interface RefForwardingComponent<T, P = {}> {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
@@ -3011,36 +3013,33 @@ declare global {
             view: React.SVGProps<SVGViewElement>;
         }
     }
-     
-    
+
     type DeepReadonly<T> =
         T extends  AnyFunction | Primitive ? T :
-        T extends ReadonlyArray<infer R> ? IDRArray<R> :
-        T extends ReadonlyMap<infer K, infer V> ? IDRMap<K, V> :
-        T extends ReadonlySet<infer ItemType>? ReadonlySetDeep<ItemType>:
+        T extends ReadonlyArray<infer R> ? DRArray<R> :
+        T extends ReadonlyMap<infer K, infer V> ? DRMap<K, V> :
+        T extends ReadonlySet<infer ItemType>? DRSet<ItemType>:
         T extends object ? DRObject<T> :
-        T
-    
-    interface IDRArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
-    
+        T;
+
+    interface DRArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+
     type DRObject<T> = {
         readonly [P in keyof T]: DeepReadonly<T[P]>;
-    }
-    
-    interface IDRMap<K, V> extends ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>> {}
-    
-    interface ReadonlySetDeep<ItemType>
+    };
+
+    interface DRMap<K, V> extends ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>> {}
+
+    interface DRSet<ItemType>
         extends ReadonlySet<DeepReadonly<ItemType>> {}
-    
+
     type Primitive =
         | null
         | undefined
         | string
         | number
         | boolean
-        | symbol
-        | bigint
+        | symbol;
 
-    type AnyFunction = (...args: any[]) => any
-    
+    type AnyFunction = (...args: any[]) => any;
 }
