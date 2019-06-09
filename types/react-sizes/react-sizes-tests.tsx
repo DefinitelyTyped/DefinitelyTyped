@@ -2,7 +2,7 @@ import * as React from "react";
 import { withSizes, Sizes } from "react-sizes";
 
 interface TestProps {
-    foo: string;
+    foo?: string;
 }
 
 type TestInnerProps = TestProps & Sizes;
