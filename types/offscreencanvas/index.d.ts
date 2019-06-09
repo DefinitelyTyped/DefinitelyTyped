@@ -15,8 +15,7 @@ interface HTMLCanvasElement extends HTMLElement {
 // https://html.spec.whatwg.org/multipage/canvas.html#offscreencanvasrenderingcontext2d
 interface OffscreenCanvasRenderingContext2D extends CanvasState, CanvasTransform, CanvasCompositing,
     CanvasImageSmoothing, CanvasFillStrokeStyles, CanvasShadowStyles, CanvasFilters, CanvasRect, CanvasDrawPath,
-    CanvasUserInterface, CanvasText, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles,
-    CanvasTextDrawingStyles, CanvasPath {
+    CanvasText, CanvasDrawImage, CanvasImageData, CanvasPathDrawingStyles, CanvasTextDrawingStyles, CanvasPath {
     readonly canvas: OffscreenCanvas;
 }
 
