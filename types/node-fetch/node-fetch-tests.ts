@@ -73,7 +73,7 @@ function test_fetchUrlWithRequestObject() {
     );
     const timeout: number = request.timeout;
     const size: number = request.size;
-    const agent: Agent | undefined = request.agent;
+    const agent: Agent | ((parsedUrl: string) => Agent) | undefined = request.agent;
     const protocol: string = request.protocol;
 
     handlePromise(fetch(request));
