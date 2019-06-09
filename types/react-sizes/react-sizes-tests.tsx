@@ -12,7 +12,7 @@ interface TestInnerProps {
     Sizes;
 }
 
-const mapSizesToProps = ({ width, height }: Sizes) => ({
+const mapSizesToProps = ({ width, height }: Sizes): TestProps => ({
     foo: 'foo',
     width,
     height,
