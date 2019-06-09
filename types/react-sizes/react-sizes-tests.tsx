@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { withSizes, Sizes } from 'react-sizes';
 
-interface TestProps {
+type TestProps = {
     foo: string;
     width: number;
     height: number;
-}
+};
 
 interface TestInnerProps {
     TestProps;
