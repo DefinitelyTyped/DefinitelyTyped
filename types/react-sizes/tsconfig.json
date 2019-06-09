@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-sizes-tests.ts"
+        "react-sizes-tests.tsx"
     ]
 }
