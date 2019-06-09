@@ -96,6 +96,8 @@ const schema2: SchemaProperties = {
 
 const pluginCommandName = 'plugin_command';
 const pluginQueryName = 'plugin_query';
+const pluginCommandFunc: CommandFunc = (editor: Editor, ...args: any[]) => editor;
+const pluginQueryFunc: QueryFunc = (editor: Editor, ...args: any[]) => {};
 const pluginQueryResult = 1000;
 
 const plugin: Plugin = {
@@ -121,7 +123,9 @@ const mark = Mark.create("bold");
 const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
 
 editor.command(pluginCommandName, 1);
+editor.command(pluginCommandFunc, 1);
 editor.query(pluginQueryName, 1);
+editor.query(pluginQueryFunc, 1);
 
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
