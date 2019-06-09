@@ -21,37 +21,12 @@ declare namespace ObjectHash {
 		excludeKeys?: (key: string) => boolean;
 	}
 
-	interface HashTableItem {
-		value: any;
-		count: number;
-	}
-
-	interface HashTableItemWithKey extends HashTableItem {
-		hash: string;
-	}
-
-	export interface HashTable {
-		add(...values: any[]): HashTable;
-		remove(...values: any[]): HashTable;
-		hasKey(key: string): boolean;
-		getValue(key: string): any;
-		getCount(key: string): number;
-		table(): { [key: string]: HashTableItem };
-		toArray(): HashTableItemWithKey[];
-		reset(): HashTable;
-	}
-
-	export interface HashTableStatic {
-		(options?: IOptions): HashTable;
-	}
-
 	export interface Hash {
 		(object: any, options?: IOptions): string;
 		sha1(object: any): string;
 		keys(object: any): string;
 		MD5(object: any): string;
 		keysMD5(object: any): string;
-		HashTable: HashTableStatic;
 	}
 
 	export var HashStatic: Hash;
