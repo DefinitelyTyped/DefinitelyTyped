@@ -5,7 +5,10 @@ interface TestProps {
     foo?: string;
 }
 
-type TestInnerProps = TestProps & Sizes;
+interface TestInnerProps {
+    TestProps,
+    Sizes
+} 
 
 const mapSizesToProps = ({ width, height }: Sizes) => ({
     width,
@@ -17,7 +20,7 @@ const TestComponent: React.ComponentType<TestInnerProps> = ({
     width,
     height
 }) => {
-    foo; // $ExpectType string
+    foo; // $ExpectType string | undefined
     width; // $ExpectType number
     height; // $ExpectType number
     return (
