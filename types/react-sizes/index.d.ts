@@ -9,7 +9,7 @@ export interface Sizes {
     height: number;
 }
 
-type mapSizesToProps<SP extends object> = (sizes: Sizes) => SP;
+export type mapSizesToProps<SP extends object> = (sizes: Sizes) => SP;
 
 export function withSizes<SP extends object, P extends SP>(
     mapSizesToProps: mapSizesToProps<SP>
