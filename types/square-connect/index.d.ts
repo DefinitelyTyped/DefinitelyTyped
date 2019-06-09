@@ -1,6 +1,7 @@
 // Type definitions for square-connect 2.20190410
 // Project: https://docs.connect.squareup.com/
 // Definitions by: Dmitri Dimitrioglo <https://github.com/ddimitrioglo>
+//                 Richard Moot <https://github.com/mootrichard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -9084,6 +9085,33 @@ export namespace WorkweekConfig {
     }
 }
 
+export class ApiClient {
+    /**
+     * The base URL against which to resolve every API call's (relative) path.
+     */
+    basePath: string;
+    /**
+     * The authentication methods to be included for all API calls.
+     */
+    authentications: Record<string, any>;
+    /**
+     * The default HTTP headers to be included for all API calls.
+     */
+    defaultHeaders: Record<string, string>;
+    /**
+     * The default HTTP timeout for all API calls.
+     */
+    timeout: number;
+    /**
+     * If set to false an additional timestamp parameter is added to all API GET calls to prevent browser caching.
+     */
+    cache: boolean;
+    /**
+     * If set to true, the client will save the cookies from each server response, and return them in the next request.
+     */
+    enableCookies: boolean;
+}
+
 export class ApplePayApi {
     /**
      * Activates a domain for use with Web Apple Pay and Square.
@@ -9235,8 +9263,63 @@ export class OrdersApi {
     createOrder(params: CreateOrderRequest): Promise<CreateOrderResponse>;
 }
 
+export class EmployeesApi {
+    /**
+     * Gets a list of `Employee` objects for a business.
+     */
+    listEmployees(params: ListEmployeesRequest): Promise<ListEmployeesResponse>;
+
+    /**
+     * Gets an `Employee` by Square-assigned employee `ID` (UUID).
+     */
+    retrieveEmployee(id: string): Promise<RetrieveEmployeeResponse>;
+}
+
+export class InventoryApi {
+    /**
+     * Applies adjustments and counts to the provided item quantities.
+     * On success: returns the current calculated counts for all objects referenced in the request.
+     * On failure: returns a list of related errors.
+     */
+    batchChangeInventory(params: BatchChangeInventoryRequest): Promise<BatchChangeInventoryResponse>;
+    /**
+     * Returns historical physical counts and adjustments based on the provided filter criteria.
+     * Results are paginated and sorted in ascending order according their `occurred_at` timestamp (oldest first).
+     * BatchRetrieveInventoryChanges is a catch-all query endpoint for queries that cannot be handled by other, simpler endpoints.
+     */
+    batchRetrieveInventoryChanges(params: BatchRetrieveInventoryChangesRequest): Promise<BatchRetrieveInventoryChangesResponse>;
+    /**
+     * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the requested [Location](#type-location)s.
+     * Results are paginated and sorted in descending order according to their `calculated_at` timestamp (newest first).
+     * When `updated_after` is specified, only counts that have changed since that time (based on the server timestamp for
+     * the most recent change) are returned. This allows clients to perform a "sync" operation, for example in response to
+     * receiving a Webhook notification.
+     */
+    batchRetrieveInventoryCounts(params: BatchRetrieveInventoryCountsRequest): Promise<BatchRetrieveInventoryCountsResponse>;
+    /**
+     * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided `adjustment_id`.
+     */
+    retrieveInventoryAdjustment(...args: Array<any>): Promise<RetrieveInventoryAdjustmentResponse>;
+    /**
+     * Returns a set of physical counts and inventory adjustments for the provided [CatalogObject](#type-catalogobject) at the
+     * requested [Location](#type-location)s. Results are paginated and sorted in descending order according to their
+     * `occurred_at` timestamp (newest first). There are no limits on how far back the caller can page.
+     * This endpoint is useful when displaying recent changes for a specific item. For more sophisticated queries,
+     * use a batch endpoint.
+     */
+    retrieveInventoryChanges(...args: Array<any>): Promise<RetrieveInventoryChangesResponse>;
+    /**
+     * Retrieves the current calculated stock count for a given [CatalogObject](#type-catalogobject) at a given set
+     * of [Location](#type-location)s. Responses are paginated and unsorted. For more sophisticated queries, use a batch endpoint.
+     */
+    retrieveInventoryCount(...args: Array<any>): Promise<RetrieveInventoryCountResponse>;
+    /**
+     * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount) object with the provided `physical_count_id`.
+     */
+    retrieveInventoryPhysicalCount(...args: Array<any>): Promise<RetrieveInventoryPhysicalCountResponse>;
+}
+
 // TBU...
-export class EmployeesApi {}
 export class LaborApi {}
 export class MobileAuthorizationApi {}
 export class OAuthApi {}
