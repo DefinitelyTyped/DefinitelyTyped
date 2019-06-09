@@ -469,6 +469,8 @@ declare namespace React {
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
 
+    class DRPureComponent<P = {}, S = {}, SS = any> extends React.PureComponent<DR<P>, DR<S>, SS> { }
+
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
@@ -3011,8 +3013,6 @@ declare global {
     }
      
     
-    type DR<T> = DeepReadonly<T>
-    
     type DeepReadonly<T> =
         T extends  AnyFunction | Primitive ? T :
         T extends ReadonlyArray<infer R> ? IDRArray<R> :
@@ -3031,16 +3031,15 @@ declare global {
     
     interface ReadonlySetDeep<ItemType>
         extends ReadonlySet<DeepReadonly<ItemType>> {}
-
     
-    export type Primitive =
-    | null
-    | undefined
-    | string
-    | number
-    | boolean
-    | symbol
-    | bigint
+    type Primitive =
+        | null
+        | undefined
+        | string
+        | number
+        | boolean
+        | symbol
+        | bigint
 
     type AnyFunction = (...args: any[]) => any
     
