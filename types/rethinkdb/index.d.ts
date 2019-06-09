@@ -4,6 +4,7 @@
 //                 Adrian Farmadin <https://github.com/AdrianFarmadin>
 //                 Pusztai Tibor <https://github.com/kondi>
 //                 Keiichiro Amemiya <https://github.com/hoishin>
+//                 Beeno Tung <https://github.com/beenotung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -526,6 +527,21 @@ declare module "rethinkdb" {
         merge(query: Expression<Object>): Expression<Object>;
         append(prop: string): Expression<Object>;
         contains(prop: string): Expression<boolean>;
+
+        /**
+         * for filter, will be used as Expression<boolean>
+         * for selector, will be used as projector
+         */
+        match(regexp: string): Expression<{
+            start: number,
+            end: number,
+            str: string,
+            groups: Array<{
+                start: number,
+                end: number,
+                str: string
+            }>
+        }>;
 
         and(b: boolean | Expression<boolean>): Expression<boolean>;
         or(b: boolean | Expression<boolean>): Expression<boolean>;
