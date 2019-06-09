@@ -5,7 +5,7 @@
 
 export as namespace emojiFlags;
 
-interface ICountryData {
+interface CountryData {
     code: string;
     emoji: string;
     name: string;
@@ -13,509 +13,509 @@ interface ICountryData {
     unicode: string;
 }
 
-export const AD: ICountryData;
+export const AD: CountryData;
 
-export const AE: ICountryData;
+export const AE: CountryData;
 
-export const AF: ICountryData;
+export const AF: CountryData;
 
-export const AG: ICountryData;
+export const AG: CountryData;
 
-export const AI: ICountryData;
+export const AI: CountryData;
 
-export const AL: ICountryData;
+export const AL: CountryData;
 
-export const AM: ICountryData;
+export const AM: CountryData;
 
-export const AO: ICountryData;
+export const AO: CountryData;
 
-export const AQ: ICountryData;
+export const AQ: CountryData;
 
-export const AR: ICountryData;
+export const AR: CountryData;
 
-export const AS: ICountryData;
+export const AS: CountryData;
 
-export const AT: ICountryData;
+export const AT: CountryData;
 
-export const AU: ICountryData;
+export const AU: CountryData;
 
-export const AW: ICountryData;
+export const AW: CountryData;
 
-export const AX: ICountryData;
+export const AX: CountryData;
 
-export const AZ: ICountryData;
+export const AZ: CountryData;
 
-export const BA: ICountryData;
+export const BA: CountryData;
 
-export const BB: ICountryData;
+export const BB: CountryData;
 
-export const BD: ICountryData;
+export const BD: CountryData;
 
-export const BE: ICountryData;
+export const BE: CountryData;
 
-export const BF: ICountryData;
+export const BF: CountryData;
 
-export const BG: ICountryData;
+export const BG: CountryData;
 
-export const BH: ICountryData;
+export const BH: CountryData;
 
-export const BI: ICountryData;
+export const BI: CountryData;
 
-export const BJ: ICountryData;
+export const BJ: CountryData;
 
-export const BL: ICountryData;
+export const BL: CountryData;
 
-export const BM: ICountryData;
+export const BM: CountryData;
 
-export const BN: ICountryData;
+export const BN: CountryData;
 
-export const BO: ICountryData;
+export const BO: CountryData;
 
-export const BQ: ICountryData;
+export const BQ: CountryData;
 
-export const BR: ICountryData;
+export const BR: CountryData;
 
-export const BS: ICountryData;
+export const BS: CountryData;
 
-export const BT: ICountryData;
+export const BT: CountryData;
 
-export const BV: ICountryData;
+export const BV: CountryData;
 
-export const BW: ICountryData;
+export const BW: CountryData;
 
-export const BY: ICountryData;
+export const BY: CountryData;
 
-export const BZ: ICountryData;
+export const BZ: CountryData;
 
-export const CA: ICountryData;
+export const CA: CountryData;
 
-export const CC: ICountryData;
+export const CC: CountryData;
 
-export const CD: ICountryData;
+export const CD: CountryData;
 
-export const CF: ICountryData;
+export const CF: CountryData;
 
-export const CG: ICountryData;
+export const CG: CountryData;
 
-export const CH: ICountryData;
+export const CH: CountryData;
 
-export const CI: ICountryData;
+export const CI: CountryData;
 
-export const CK: ICountryData;
+export const CK: CountryData;
 
-export const CL: ICountryData;
+export const CL: CountryData;
 
-export const CM: ICountryData;
+export const CM: CountryData;
 
-export const CN: ICountryData;
+export const CN: CountryData;
 
-export const CO: ICountryData;
+export const CO: CountryData;
 
-export const CR: ICountryData;
+export const CR: CountryData;
 
-export const CU: ICountryData;
+export const CU: CountryData;
 
-export const CV: ICountryData;
+export const CV: CountryData;
 
-export const CW: ICountryData;
+export const CW: CountryData;
 
-export const CX: ICountryData;
+export const CX: CountryData;
 
-export const CY: ICountryData;
+export const CY: CountryData;
 
-export const CZ: ICountryData;
+export const CZ: CountryData;
 
-export const DE: ICountryData;
+export const DE: CountryData;
 
-export const DJ: ICountryData;
+export const DJ: CountryData;
 
-export const DK: ICountryData;
+export const DK: CountryData;
 
-export const DM: ICountryData;
+export const DM: CountryData;
 
-export const DO: ICountryData;
+export const DO: CountryData;
 
-export const DZ: ICountryData;
+export const DZ: CountryData;
 
-export const EC: ICountryData;
+export const EC: CountryData;
 
-export const EE: ICountryData;
+export const EE: CountryData;
 
-export const EG: ICountryData;
+export const EG: CountryData;
 
-export const EH: ICountryData;
+export const EH: CountryData;
 
-export const ER: ICountryData;
+export const ER: CountryData;
 
-export const ES: ICountryData;
+export const ES: CountryData;
 
-export const ET: ICountryData;
+export const ET: CountryData;
 
-export const EU: ICountryData;
+export const EU: CountryData;
 
-export const FI: ICountryData;
+export const FI: CountryData;
 
-export const FJ: ICountryData;
+export const FJ: CountryData;
 
-export const FK: ICountryData;
+export const FK: CountryData;
 
-export const FM: ICountryData;
+export const FM: CountryData;
 
-export const FO: ICountryData;
+export const FO: CountryData;
 
-export const FR: ICountryData;
+export const FR: CountryData;
 
-export const GA: ICountryData;
+export const GA: CountryData;
 
-export const GB: ICountryData;
+export const GB: CountryData;
 
-export const GD: ICountryData;
+export const GD: CountryData;
 
-export const GE: ICountryData;
+export const GE: CountryData;
 
-export const GF: ICountryData;
+export const GF: CountryData;
 
-export const GG: ICountryData;
+export const GG: CountryData;
 
-export const GH: ICountryData;
+export const GH: CountryData;
 
-export const GI: ICountryData;
+export const GI: CountryData;
 
-export const GL: ICountryData;
+export const GL: CountryData;
 
-export const GM: ICountryData;
+export const GM: CountryData;
 
-export const GN: ICountryData;
+export const GN: CountryData;
 
-export const GP: ICountryData;
+export const GP: CountryData;
 
-export const GQ: ICountryData;
+export const GQ: CountryData;
 
-export const GR: ICountryData;
+export const GR: CountryData;
 
-export const GS: ICountryData;
+export const GS: CountryData;
 
-export const GT: ICountryData;
+export const GT: CountryData;
 
-export const GU: ICountryData;
+export const GU: CountryData;
 
-export const GW: ICountryData;
+export const GW: CountryData;
 
-export const GY: ICountryData;
+export const GY: CountryData;
 
-export const HK: ICountryData;
+export const HK: CountryData;
 
-export const HM: ICountryData;
+export const HM: CountryData;
 
-export const HN: ICountryData;
+export const HN: CountryData;
 
-export const HR: ICountryData;
+export const HR: CountryData;
 
-export const HT: ICountryData;
+export const HT: CountryData;
 
-export const HU: ICountryData;
+export const HU: CountryData;
 
-export const ID: ICountryData;
+export const ID: CountryData;
 
-export const IE: ICountryData;
+export const IE: CountryData;
 
-export const IL: ICountryData;
+export const IL: CountryData;
 
-export const IM: ICountryData;
+export const IM: CountryData;
 
-export const IN: ICountryData;
+export const IN: CountryData;
 
-export const IO: ICountryData;
+export const IO: CountryData;
 
-export const IQ: ICountryData;
+export const IQ: CountryData;
 
-export const IR: ICountryData;
+export const IR: CountryData;
 
-export const IS: ICountryData;
+export const IS: CountryData;
 
-export const IT: ICountryData;
+export const IT: CountryData;
 
-export const JE: ICountryData;
+export const JE: CountryData;
 
-export const JM: ICountryData;
+export const JM: CountryData;
 
-export const JO: ICountryData;
+export const JO: CountryData;
 
-export const JP: ICountryData;
+export const JP: CountryData;
 
-export const KE: ICountryData;
+export const KE: CountryData;
 
-export const KG: ICountryData;
+export const KG: CountryData;
 
-export const KH: ICountryData;
+export const KH: CountryData;
 
-export const KI: ICountryData;
+export const KI: CountryData;
 
-export const KM: ICountryData;
+export const KM: CountryData;
 
-export const KN: ICountryData;
+export const KN: CountryData;
 
-export const KP: ICountryData;
+export const KP: CountryData;
 
-export const KR: ICountryData;
+export const KR: CountryData;
 
-export const KW: ICountryData;
+export const KW: CountryData;
 
-export const KY: ICountryData;
+export const KY: CountryData;
 
-export const KZ: ICountryData;
+export const KZ: CountryData;
 
-export const LA: ICountryData;
+export const LA: CountryData;
 
-export const LB: ICountryData;
+export const LB: CountryData;
 
-export const LC: ICountryData;
+export const LC: CountryData;
 
-export const LI: ICountryData;
+export const LI: CountryData;
 
-export const LK: ICountryData;
+export const LK: CountryData;
 
-export const LR: ICountryData;
+export const LR: CountryData;
 
-export const LS: ICountryData;
+export const LS: CountryData;
 
-export const LT: ICountryData;
+export const LT: CountryData;
 
-export const LU: ICountryData;
+export const LU: CountryData;
 
-export const LV: ICountryData;
+export const LV: CountryData;
 
-export const LY: ICountryData;
+export const LY: CountryData;
 
-export const MA: ICountryData;
+export const MA: CountryData;
 
-export const MC: ICountryData;
+export const MC: CountryData;
 
-export const MD: ICountryData;
+export const MD: CountryData;
 
-export const ME: ICountryData;
+export const ME: CountryData;
 
-export const MF: ICountryData;
+export const MF: CountryData;
 
-export const MG: ICountryData;
+export const MG: CountryData;
 
-export const MH: ICountryData;
+export const MH: CountryData;
 
-export const MK: ICountryData;
+export const MK: CountryData;
 
-export const ML: ICountryData;
+export const ML: CountryData;
 
-export const MM: ICountryData;
+export const MM: CountryData;
 
-export const MN: ICountryData;
+export const MN: CountryData;
 
-export const MO: ICountryData;
+export const MO: CountryData;
 
-export const MP: ICountryData;
+export const MP: CountryData;
 
-export const MQ: ICountryData;
+export const MQ: CountryData;
 
-export const MR: ICountryData;
+export const MR: CountryData;
 
-export const MS: ICountryData;
+export const MS: CountryData;
 
-export const MT: ICountryData;
+export const MT: CountryData;
 
-export const MU: ICountryData;
+export const MU: CountryData;
 
-export const MV: ICountryData;
+export const MV: CountryData;
 
-export const MW: ICountryData;
+export const MW: CountryData;
 
-export const MX: ICountryData;
+export const MX: CountryData;
 
-export const MY: ICountryData;
+export const MY: CountryData;
 
-export const MZ: ICountryData;
+export const MZ: CountryData;
 
-export const NA: ICountryData;
+export const NA: CountryData;
 
-export const NC: ICountryData;
+export const NC: CountryData;
 
-export const NE: ICountryData;
+export const NE: CountryData;
 
-export const NF: ICountryData;
+export const NF: CountryData;
 
-export const NG: ICountryData;
+export const NG: CountryData;
 
-export const NI: ICountryData;
+export const NI: CountryData;
 
-export const NL: ICountryData;
+export const NL: CountryData;
 
-export const NO: ICountryData;
+export const NO: CountryData;
 
-export const NP: ICountryData;
+export const NP: CountryData;
 
-export const NR: ICountryData;
+export const NR: CountryData;
 
-export const NU: ICountryData;
+export const NU: CountryData;
 
-export const NZ: ICountryData;
+export const NZ: CountryData;
 
-export const OM: ICountryData;
+export const OM: CountryData;
 
-export const PA: ICountryData;
+export const PA: CountryData;
 
-export const PE: ICountryData;
+export const PE: CountryData;
 
-export const PF: ICountryData;
+export const PF: CountryData;
 
-export const PG: ICountryData;
+export const PG: CountryData;
 
-export const PH: ICountryData;
+export const PH: CountryData;
 
-export const PK: ICountryData;
+export const PK: CountryData;
 
-export const PL: ICountryData;
+export const PL: CountryData;
 
-export const PM: ICountryData;
+export const PM: CountryData;
 
-export const PN: ICountryData;
+export const PN: CountryData;
 
-export const PR: ICountryData;
+export const PR: CountryData;
 
-export const PS: ICountryData;
+export const PS: CountryData;
 
-export const PT: ICountryData;
+export const PT: CountryData;
 
-export const PW: ICountryData;
+export const PW: CountryData;
 
-export const PY: ICountryData;
+export const PY: CountryData;
 
-export const QA: ICountryData;
+export const QA: CountryData;
 
-export const RE: ICountryData;
+export const RE: CountryData;
 
-export const RO: ICountryData;
+export const RO: CountryData;
 
-export const RS: ICountryData;
+export const RS: CountryData;
 
-export const RU: ICountryData;
+export const RU: CountryData;
 
-export const RW: ICountryData;
+export const RW: CountryData;
 
-export const SA: ICountryData;
+export const SA: CountryData;
 
-export const SB: ICountryData;
+export const SB: CountryData;
 
-export const SC: ICountryData;
+export const SC: CountryData;
 
-export const SD: ICountryData;
+export const SD: CountryData;
 
-export const SE: ICountryData;
+export const SE: CountryData;
 
-export const SG: ICountryData;
+export const SG: CountryData;
 
-export const SH: ICountryData;
+export const SH: CountryData;
 
-export const SI: ICountryData;
+export const SI: CountryData;
 
-export const SJ: ICountryData;
+export const SJ: CountryData;
 
-export const SK: ICountryData;
+export const SK: CountryData;
 
-export const SL: ICountryData;
+export const SL: CountryData;
 
-export const SM: ICountryData;
+export const SM: CountryData;
 
-export const SN: ICountryData;
+export const SN: CountryData;
 
-export const SO: ICountryData;
+export const SO: CountryData;
 
-export const SR: ICountryData;
+export const SR: CountryData;
 
-export const SS: ICountryData;
+export const SS: CountryData;
 
-export const ST: ICountryData;
+export const ST: CountryData;
 
-export const SV: ICountryData;
+export const SV: CountryData;
 
-export const SX: ICountryData;
+export const SX: CountryData;
 
-export const SY: ICountryData;
+export const SY: CountryData;
 
-export const SZ: ICountryData;
+export const SZ: CountryData;
 
-export const TC: ICountryData;
+export const TC: CountryData;
 
-export const TD: ICountryData;
+export const TD: CountryData;
 
-export const TF: ICountryData;
+export const TF: CountryData;
 
-export const TG: ICountryData;
+export const TG: CountryData;
 
-export const TH: ICountryData;
+export const TH: CountryData;
 
-export const TJ: ICountryData;
+export const TJ: CountryData;
 
-export const TK: ICountryData;
+export const TK: CountryData;
 
-export const TL: ICountryData;
+export const TL: CountryData;
 
-export const TM: ICountryData;
+export const TM: CountryData;
 
-export const TN: ICountryData;
+export const TN: CountryData;
 
-export const TO: ICountryData;
+export const TO: CountryData;
 
-export const TR: ICountryData;
+export const TR: CountryData;
 
-export const TT: ICountryData;
+export const TT: CountryData;
 
-export const TV: ICountryData;
+export const TV: CountryData;
 
-export const TW: ICountryData;
+export const TW: CountryData;
 
-export const TZ: ICountryData;
+export const TZ: CountryData;
 
-export const UA: ICountryData;
+export const UA: CountryData;
 
-export const UG: ICountryData;
+export const UG: CountryData;
 
-export const UM: ICountryData;
+export const UM: CountryData;
 
-export const US: ICountryData;
+export const US: CountryData;
 
-export const UY: ICountryData;
+export const UY: CountryData;
 
-export const UZ: ICountryData;
+export const UZ: CountryData;
 
-export const VA: ICountryData;
+export const VA: CountryData;
 
-export const VC: ICountryData;
+export const VC: CountryData;
 
-export const VE: ICountryData;
+export const VE: CountryData;
 
-export const VG: ICountryData;
+export const VG: CountryData;
 
-export const VI: ICountryData;
+export const VI: CountryData;
 
-export const VN: ICountryData;
+export const VN: CountryData;
 
-export const VU: ICountryData;
+export const VU: CountryData;
 
-export const WF: ICountryData;
+export const WF: CountryData;
 
-export const WS: ICountryData;
+export const WS: CountryData;
 
-export const YE: ICountryData;
+export const YE: CountryData;
 
-export const YT: ICountryData;
+export const YT: CountryData;
 
-export const ZA: ICountryData;
+export const ZA: CountryData;
 
-export const ZM: ICountryData;
+export const ZM: CountryData;
 
-export const ZW: ICountryData;
+export const ZW: CountryData;
 
 export const codes: string[];
 
-export const data: ICountryData[];
+export const data: CountryData[];
 
 export const emojis: string[];
 
@@ -523,4 +523,4 @@ export const names: string[];
 
 export const unicodes: string[];
 
-export function countryCode(countryCode: string): ICountryData;
+export function countryCode(countryCode: string): CountryData;
