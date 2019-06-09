@@ -2,7 +2,7 @@
 // Project: https://github.com/renatorib/react-sizes#readme
 // Definitions by: janKir <https://github.com/janKir>, Micah Stubbs <https://github.com/micahstubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// adapted from https://github.com/renatorib/react-sizes/issues/13#issuecomment-483725124
+// TypeScript Version: 3.5
 
 export interface Sizes {
     width: number;
