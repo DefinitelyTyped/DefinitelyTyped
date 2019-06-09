@@ -17,6 +17,31 @@ client.customHeaders = {
     }
 };
 
+export class OperationOutcomeError extends Error {
+    readonly outcome: fhir.OperationOutcome;
+
+    constructor(outcome: fhir.OperationOutcome) {
+        super(outcome.issue && outcome.issue.length > 1 && outcome.issue[0].diagnostics || "Unknown Operation result error");
+        this.outcome = outcome;
+    }
+}
+
+function rejectOnOperationOutcome<ResultType extends fhir.ResourceBase>(promise: fhir.OperationOutcome | ResultType | Promise<fhir.OperationOutcome | ResultType>): Promise<ResultType> {
+    if (promise instanceof Promise) {
+        return promise.then(result => {
+            if ('issue' in result) {
+                throw new OperationOutcomeError(result);
+            } else {
+                return result;
+            }
+        });
+    } else if ('issue' in promise) {
+        throw new OperationOutcomeError(promise);
+    } else {
+        return Promise.resolve(promise);
+    }
+}
+
 const url: string = client.baseUrl;
 url.endsWith("foo");
 const headers: Headers = client.customHeaders;
@@ -29,7 +54,7 @@ client.create({
             text: "Jim Bean"
         }]
     }
-}).then((p: fhir.Patient) => {
+}).then(rejectOnOperationOutcome).then((p: fhir.Patient) => {
     if (p.name && p.name.length !== 0 && p.name[0].text) {
         console.log(p.name[0].text);
     }
@@ -44,12 +69,12 @@ client.update({
         },
         identifier: [
             {
-                url: "https://foo",
+                system: "https://foo",
                 value: "1235"
             }
         ]
     }
-}).then((basic: fhir.Basic) => {
+}).then(rejectOnOperationOutcome).then((basic: fhir.Basic) => {
 });
 
 client.update({
@@ -58,10 +83,8 @@ client.update({
     body: {
         status: "completed"
     }
-}).then((r: fhir.QuestionnaireResponse) => {
-    if (r.author && r.author.id) {
-        r.author.id.substring(1);
-    }
+}).then(rejectOnOperationOutcome)
+.then((r: fhir.QuestionnaireResponse) => {
 });
 
 client.delete({
@@ -76,7 +99,7 @@ client.batch({
         type: "batch",
         total: 1234
     }
-}).then(r => {
+}).then(rejectOnOperationOutcome).then(r => {
     if (r.type === "batch-response") {
         console.log("unhuh!");
     } else {
@@ -88,7 +111,7 @@ client.transaction({
     body: {
         type: "transaction"
     }
-}).then(r => {
+}).then(rejectOnOperationOutcome).then(r => {
     if (r.type === "transaction-response") {
         console.log("yup!");
     }
@@ -119,6 +142,7 @@ client.resolve({
 });
 
 client.capabilityStatement()
+    .then(rejectOnOperationOutcome)
     .then((cs: fhir.CapabilityStatement) => {
         if (cs.software) {
             const software: fhir.CapabilityStatementSoftware = cs.software;
@@ -172,15 +196,16 @@ client.resourceSearch({
     searchParams: {
         foo: "bar"
     }
-});
+}).then(rejectOnOperationOutcome);
 
 client.systemSearch({
     searchParams: {
         identifier: "12356"
     }
-});
+}).then(rejectOnOperationOutcome);
 
 client.systemHistory()
+    .then(rejectOnOperationOutcome)
     .then(history => {
         if (history) {
             const type: string = history.type;
@@ -197,7 +222,7 @@ client.history()
 
 client.typeHistory({
     resourceType: "Hospital"
-}).then(history => {
+}).then(rejectOnOperationOutcome).then(history => {
     if (history.total !== undefined) {
         const total: number = history.total + 1;
         console.log(`${total}`);
