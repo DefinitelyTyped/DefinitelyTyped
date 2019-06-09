@@ -1,6 +1,6 @@
-// Type definitions for object-hash v1.2.0
+// Type definitions for object-hash v1.3.1
 // Project: https://github.com/puleos/object-hash
-// Definitions by: Michael Zabka <https://github.com/misak113>
+// Definitions by: Michael Zabka <https://github.com/misak113>, Artur Diniz <https://github.com/artdiniz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
