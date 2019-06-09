@@ -25,9 +25,14 @@ headers["foo"] = "bar";
 client.create({
     resourceType: "Patient",
     body: {
-        name: "foo"
+        name: [{
+            text: "Jim Bean"
+        }]
     }
-}).then(() => {
+}).then((p: fhir.Patient) => {
+    if (p.name && p.name.length !== 0 && p.name[0].text) {
+        console.log(p.name[0].text);
+    }
 });
 
 client.update({
@@ -47,10 +52,23 @@ client.update({
 }).then((basic: fhir.Basic) => {
 });
 
+client.update({
+    resourceType: "QuestionnaireResponse",
+    id: "1235",
+    body: {
+        status: "completed"
+    }
+}).then((r: fhir.QuestionnaireResponse) => {
+    if (r.author && r.author.id) {
+        r.author.id.substring(1);
+    }
+});
+
 client.delete({
     resourceType: "Basic",
     id: "1235"
-}).then(() => {
+}).then((o: fhir.OperationOutcome) => {
+    console.log(o.issue);
 });
 
 client.batch({
@@ -77,11 +95,23 @@ client.transaction({
 });
 
 client.resolve({
-    reference: "Basic/1234",
+    reference: "#1234",
     context: {
-        abcd: 123
+        contained: [ {
+                resourceType: "Patient",
+                id: "1235"
+            }
+        ]
     }
-}).then(entity => {
+}).then((entity) => {
+    switch (entity.resourceType) {
+        case "Patient":
+            const patient: fhir.Patient = entity as fhir.Patient;
+            if (patient.name) {
+                console.log(patient.name[0].text);
+            }
+            break;
+    }
     if (entity.id !== undefined) {
         const id: string = entity.id;
         id.substring(1);
@@ -160,7 +190,7 @@ client.systemHistory()
 
 client.history()
     .then(history => {
-        if (history && history.resourceType) {
+        if (history.resourceType) {
             history.resourceType.substring(1);
         }
     });
@@ -168,7 +198,7 @@ client.history()
 client.typeHistory({
     resourceType: "Hospital"
 }).then(history => {
-    if (history && history.total !== undefined) {
+    if (history.total !== undefined) {
         const total: number = history.total + 1;
         console.log(`${total}`);
     }

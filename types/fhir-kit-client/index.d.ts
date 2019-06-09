@@ -137,16 +137,19 @@ interface SmartAuthMetadata {
     manageUrl?: string;
 }
 
-interface Response {
+interface CustomResource extends fhir.ResourceBase {
     [key: string]: any;
 }
 
-interface Body {
-    [key: string]: any;
-}
+type FhirResource = CustomResource | fhir.Resource;
 
 interface SearchParams {
-    [key: string]: any;
+    [key: string]: string|number|boolean;
+}
+
+interface Compartment  {
+    id: string;
+    resourceType: string;
 }
 
 declare class Client {
@@ -203,7 +206,7 @@ declare class Client {
      *
      * @param {Object} params - The request parameters.
      * @param {String} params.reference - FHIR reference
-     * @param {Object} [params.context] - Optional bundle or FHIR resource
+     * @param {Object} [params.context] - Optional bundle with 'entry' array or FHIR resource with 'contained' array (if 'params.reference' starts with '#')
      * @param {Object} [params.headers] - DEPRECATED Optional custom headers to
      *   add to the request
      * @param {Object} [params.options] - Optional options object
@@ -214,9 +217,9 @@ declare class Client {
      */
     resolve(params: {
         reference: string
-        context?: fhir.Bundle | fhir.ResourceBase & Body
+        context?: fhir.Bundle | fhir.DomainResource
         options?: Options
-    }): Promise<fhir.ResourceBase & Response>;
+    }): Promise<FhirResource>;
 
     /**
      * Obtain the SMART OAuth URLs from the Capability Statement
@@ -243,10 +246,10 @@ declare class Client {
      * @return {Promise<Object>} contains the following SMART URIs: authorizeUrl,
      *   tokenUrl, registerUrl, manageUrl
      */
-    smartAuthMetadata(params?: { headers?: Headers, options?: Options }): Promise<SmartAuthMetadata & Response>;
+    smartAuthMetadata(params?: { headers?: Headers, options?: Options }): Promise<SmartAuthMetadata>;
 
     /**
-     * Get the capability statement.
+     * Get the default capability statement.
      *
      * @async
      *
@@ -421,7 +424,7 @@ declare class Client {
     vread(params: { resourceType: "TestScript", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     vread(params: { resourceType: "ValueSet", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     vread(params: { resourceType: "VisionPrescription", id: string, version: string, headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    vread(params: { resourceType: CustomResourceType, version: string, headers?: Headers, options?: Options }): Promise<fhir.ResourceBase & Response>;
+    vread(params: { resourceType: CustomResourceType, id: string, version: string, headers?: Headers, options?: Options }): Promise<CustomResource>;
 
     /**
      * Create a resource.
@@ -577,7 +580,7 @@ declare class Client {
     create(params: { resourceType: "TestScript", body: fhir.TestScript, headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     create(params: { resourceType: "ValueSet", body: fhir.ValueSet, headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     create(params: { resourceType: "VisionPrescription", body: fhir.VisionPrescription, headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    create<T extends fhir.ResourceBase & Body>(params: { resourceType: CustomResourceType, body: T, headers?: Headers, options?: Options }): Promise<T>;
+    create<T extends CustomResource>(params: { resourceType: CustomResourceType, body: T, headers?: Headers, options?: Options }): Promise<T>;
 
     /**
      * Delete a resource by FHIR id.
@@ -764,7 +767,7 @@ declare class Client {
     update(params: { resourceType: "TestScript", id: string, body: fhir.TestScript, headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     update(params: { resourceType: "ValueSet", id: string, body: fhir.ValueSet, headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     update(params: { resourceType: "VisionPrescription", id: string, body: fhir.VisionPrescription, headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    update<T extends fhir.ResourceBase & Body>(params: { resourceType: CustomResourceType, id: string, body: T, headers?: Headers, options?: Options }): Promise<T>;
+    update<T extends CustomResource>(params: { resourceType: CustomResourceType, id: string, body: T, headers?: Headers, options?: Options }): Promise<T>;
 
     /**
      * Patch a resource by FHIR id.
@@ -925,7 +928,7 @@ declare class Client {
     patch(params: { resourceType: "TestScript", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.TestScript>;
     patch(params: { resourceType: "ValueSet", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.ValueSet>;
     patch(params: { resourceType: "VisionPrescription", id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.VisionPrescription>;
-    patch(params: { resourceType: CustomResourceType, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<fhir.ResourceBase & Response>;
+    patch(params: { resourceType: CustomResourceType, id: string, JSONPatch: OpPatch[], headers?: Headers, options?: Options }): Promise<CustomResource>;
 
     /**
      * Submit a set of actions to perform independently as a batch.
@@ -1124,7 +1127,7 @@ declare class Client {
      *
      * @throws {Error} if neither searchParams nor resourceType are supplied
      */
-    search(params: { resourceType: ResourceType, compartment?: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "searchset" }>;
+    search(params: { resourceType: ResourceType, compartment?: Compartment, searchParams?: SearchParams, headers?: Headers, options?: Options }): Promise<fhir.Bundle & { type: "searchset" }>;
 
     /**
      * Search for a FHIR resource.
@@ -1220,8 +1223,8 @@ declare class Client {
      * @return {Promise<Object>} FHIR resources in a FHIR fhir.Bundle structure.
      */
     compartmentSearch(params:
-        { resourceType: ResourceType, compartment: fhir.ResourceBase, searchParams?: SearchParams, headers?: Headers, options?: Options }):
-        Promise<fhir.Bundle & { type: "searchset" }>;
+        { resourceType: ResourceType, compartment: Compartment, searchParams?: SearchParams, headers?: Headers, options?: Options }):
+        Promise<fhir.Bundle & { type: "searchset" }> ;
 
     /**
      * Retrieve the change history for a FHIR resource id, a resource type or the
