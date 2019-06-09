@@ -1,3 +1,4 @@
+// Definitions by: MJAbadilla <https://github.com/mjmaix> 
 type IosDeviceType =
   | 'i386'
   | 'x86_64'
