@@ -1,16 +1,16 @@
-import { ConnectionStatus, DuplexConnection, Frame } from 'rsocket-types';
-import { ISubject, ISubscriber, ISubscription } from 'rsocket-types';
-import { Encoders } from 'rsocket-core';
+/// <reference types="node" />
+
+import { ConnectionStatus, DuplexConnection, Frame, ISubject, ISubscriber, ISubscription, CONNECTION_STATUS } from 'rsocket-types';
 
 import * as net from 'net';
 import * as tls from 'tls';
-import {Flowable} from 'rsocket-flowable';
+import { Flowable } from 'rsocket-flowable';
 import {
+  Encoders,
   createBuffer,
   deserializeFrames,
   serializeFrameWithLength,
 } from 'rsocket-core';
-import {CONNECTION_STATUS} from 'rsocket-types';
 
 /**
  * A TCP transport client for use in node environments.
@@ -24,34 +24,34 @@ export class RSocketTcpConnection implements DuplexConnection {
   _status: ConnectionStatus;
   _statusSubscribers: Set<ISubject<ConnectionStatus>>;
 
-  constructor(socket?: net.Socket, encoders?: Encoders<any>)
+  constructor(socket?: net.Socket, encoders?: Encoders<any>);
 
-  close(): void
+  close(): void;
 
-  connect(): void
+  connect(): void;
 
-  setupSocket(socket: net.Socket): void
+  setupSocket(socket: net.Socket): void;
 
-  connectionStatus(): Flowable<ConnectionStatus>
+  connectionStatus(): Flowable<ConnectionStatus>;
 
-  receive(): Flowable<Frame>
+  receive(): Flowable<Frame>;
 
-  sendOne(frame: Frame): void
-  send(frames: Flowable<Frame>): void
+  sendOne(frame: Frame): void;
+  send(frames: Flowable<Frame>): void;
 
-  getConnectionState(): ConnectionStatus
+  getConnectionState(): ConnectionStatus;
 
-  setConnectionStatus(status: ConnectionStatus): void
+  setConnectionStatus(status: ConnectionStatus): void;
 
-  _close(error?: Error): void
+  _close(error?: Error): void;
 
-  _handleError(error?: Error | null | undefined): void
+  _handleError(error?: Error): void;
 
-  _handleData(chunk: Buffer): void
+  _handleData(chunk: Buffer): void;
 
-  _readFrames(chunk: Buffer): Array<Frame>
+  _readFrames(chunk: Buffer): Frame[];
 
-  _writeFrame(frame: Frame): void
+  _writeFrame(frame: Frame): void;
 }
 
 /**
@@ -60,20 +60,20 @@ export class RSocketTcpConnection implements DuplexConnection {
 export class RSocketTcpClient extends RSocketTcpConnection {
   _options: net.TcpSocketConnectOpts;
 
-  constructor(options: net.TcpSocketConnectOpts, encoders?: Encoders<any>)
+  constructor(options: net.TcpSocketConnectOpts, encoders?: Encoders<any>);
 
-  connect(): void
+  connect(): void;
 }
 
 /**
  * A TLS transport client for use in node environments.
  */
 export class RSocketTlsClient extends RSocketTcpConnection {
-  _options: tls.ConnectionOptions
+  _options: tls.ConnectionOptions;
 
-  constructor(options: tls.ConnectionOptions, encoders?: Encoders<any>)
+  constructor(options: tls.ConnectionOptions, encoders?: Encoders<any>);
 
-  connect(): void
+  connect(): void;
 
-  _handleOpened(): void
+  _handleOpened(): void;
 }

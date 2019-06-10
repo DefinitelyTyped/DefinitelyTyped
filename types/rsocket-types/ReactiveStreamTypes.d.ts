@@ -11,21 +11,22 @@
  * The subscriber can use `request(n)` to pull additional values from the
  * stream.
  */
-export declare interface IPublisher<T> {
+
+export interface IPublisher<T> {
     subscribe: (subscriber?: Partial<ISubscriber<T>>) => void;
     map: <R>(fn: (data: T) => R) => IPublisher<R>;
 }
 /**
  * An underlying source of values for a Publisher.
  */
-export declare interface ISubscription {
+export interface ISubscription {
     cancel: () => void;
     request: (n: number) => void;
 }
 /**
  * A handler for values provided by a Publisher.
  */
-export declare interface ISubscriber<T> {
+export interface ISubscriber<T> {
     onComplete: () => void;
     onError: (error: Error) => void;
     onNext: (value: T) => void;
@@ -34,7 +35,7 @@ export declare interface ISubscriber<T> {
 /**
  * Similar to Subscriber, but without onSubscribe.
  */
-export declare interface ISubject<T> {
+export interface ISubject<T> {
     onComplete: () => void;
     onError: (error: Error) => void;
     onNext: (value: T) => void;

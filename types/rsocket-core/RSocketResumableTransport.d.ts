@@ -1,7 +1,6 @@
-import { ConnectionStatus, DuplexConnection, Frame, SetupFrame } from 'rsocket-types';
-import { ISubject, ISubscription } from 'rsocket-types';
+import { ConnectionStatus, DuplexConnection, Frame, SetupFrame, ISubject, ISubscription, CONNECTION_STATUS } from 'rsocket-types';
 
-import {Flowable} from 'rsocket-flowable';
+import { Flowable } from 'rsocket-flowable';
 import {
   createErrorFromFrame,
   isResumePositionFrameType,
@@ -9,12 +8,11 @@ import {
   FLAGS,
   FRAME_TYPES,
 } from './RSocketFrame';
-import {CONNECTION_STATUS} from 'rsocket-types';
 
-export declare type Options = {
-  bufferSize: number,
-  resumeToken: string
-};
+export interface Options {
+  bufferSize: number;
+  resumeToken: string;
+}
 
 /**
  * NOTE: This implementation conforms to an upcoming version of the RSocket protocol
@@ -82,42 +80,42 @@ export default class RSocketResumableTransport implements DuplexConnection {
   _currentConnection: DuplexConnection | null | undefined;
   _statusSubscription: ISubscription | null | undefined;
   _receiveSubscription: ISubscription | null | undefined;
-  _pendingFrames: Array<Frame>;
+  _pendingFrames: Frame[];
   _receivers: Set<ISubject<Frame>>;
   _resumeToken: string;
   _senders: Set<ISubscription>;
-  _sentFrames: Array<Frame>;
-  _setupFrame: SetupFrame | null | undefined;
+  _sentFrames: Frame[];
+  _setupFrame?: SetupFrame;
   _source: () => DuplexConnection;
   _status: ConnectionStatus;
   _statusSubscribers: Set<ISubject<ConnectionStatus>>;
 
   constructor(source: () => DuplexConnection, options: Options)
 
-  close(): void
-  connect(): void
-  connectionStatus(): Flowable<ConnectionStatus>
+  close(): void;
+  connect(): void;
+  connectionStatus(): Flowable<ConnectionStatus>;
 
-  receive(): Flowable<Frame>
+  receive(): Flowable<Frame>;
 
-  sendOne(frame: Frame): void
+  sendOne(frame: Frame): void;
 
-  send(frames: Flowable<Frame>): void
+  send(frames: Flowable<Frame>): void;
 
-  _close(error?: Error): void
+  _close(error?: Error): void;
 
-  _disconnect(): void
+  _disconnect(): void;
 
-  _handleConnected(connection: DuplexConnection): void
+  _handleConnected(connection: DuplexConnection): void;
 
-  _handleResume(connection: DuplexConnection): void
+  _handleResume(connection: DuplexConnection): void;
 
-  _isTerminated(): boolean
+  _isTerminated(): boolean;
 
-  _setConnectionStatus(status: ConnectionStatus): void
-  _receiveFrame(frame: Frame): void
+  _setConnectionStatus(status: ConnectionStatus): void;
+  _receiveFrame(frame: Frame): void;
 
-  _flushFrames(): void
+  _flushFrames(): void;
 
-  _writeFrame(frame: Frame): void
+  _writeFrame(frame: Frame): void;
 }

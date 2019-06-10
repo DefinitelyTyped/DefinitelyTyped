@@ -1,9 +1,9 @@
- /// <reference types="node" />
+/// <reference types="node" />
 
 import { ConnectionStatus, DuplexConnection, Payload, ReactiveSocket, SetupFrame, Responder } from 'rsocket-types';
 import { PayloadSerializers } from './RSocketSerialization';
 import { Flowable, Single } from 'rsocket-flowable';
-export declare type ClientConfig<D, M> = {
+export interface ClientConfig<D, M> {
     serializers?: PayloadSerializers<D, M>;
     setup: {
         dataMimeType: string;
@@ -13,7 +13,7 @@ export declare type ClientConfig<D, M> = {
     };
     transport: DuplexConnection;
     responder?: Responder<D, M>;
-};
+}
 
 /**
  * RSocketClient: A client in an RSocket connection that will communicates with
@@ -35,10 +35,7 @@ export default class RSocketClient<D, M> {
     connect(): Single<ReactiveSocket<D, M>>;
 }
 
-/**
- * @private
- */
-declare class RSocketClientSocket<D, M> implements ReactiveSocket<D, M> {
+export class RSocketClientSocket<D, M> implements ReactiveSocket<D, M> {
     _machine: ReactiveSocket<D, M>;
     constructor(config: ClientConfig<D, M>, connection: DuplexConnection);
     fireAndForget(payload: Payload<D, M>): undefined;

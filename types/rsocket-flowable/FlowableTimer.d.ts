@@ -10,4 +10,4 @@ import Flowable from './Flowable';
  * and means that overlapping `request` calls (ie calling again before
  * the previous values have been vended) behaves consistently.
  */
-export declare function every(ms: number): Flowable<number>;
+export function every(ms: number): Flowable<number>;

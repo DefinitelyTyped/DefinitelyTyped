@@ -12,7 +12,7 @@ export default class FlowableProcessor<T, R> implements IPublisher<R>, ISubscrib
     onError(error: Error): void;
     onComplete(): void;
     subscribe(subscriber?: Partial<ISubscriber<R>>): void;
-    map<S>(fn: (a: R) => S): this;
+    map<S>(fn: (a: R) => S): IPublisher<S>;
     request(n: number): void;
     cancel(): void;
 }

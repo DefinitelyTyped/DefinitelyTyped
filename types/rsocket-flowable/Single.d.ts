@@ -1,5 +1,5 @@
-export declare type Source<T> = (subject: IFutureSubject<T>) => undefined;
-export declare type CancelCallback = () => undefined;
+export type Source<T> = (subject: IFutureSubject<T>) => undefined;
+export type CancelCallback = () => undefined;
 
 export interface IFutureSubscriber<T> {
     onComplete: (value: T) => undefined;
@@ -47,7 +47,7 @@ export interface IFutureSubject<T> {
 export default class Single<T> {
     _source: Source<T>;
     static of<U>(value: U): Single<U>;
-    static error<U>(error: Error): Single<U>;
+    static error(error: Error): Single<{}>;
     constructor(source: Source<T>);
     subscribe(partialSubscriber?: Partial<IFutureSubscriber<T>>): void;
     flatMap<R>(fn: (data: T) => Single<R>): Single<R>;
