@@ -50,9 +50,10 @@ export interface styleFn {
 export interface CustomStyleDefinition {
     /** The CSS property to use in the returned style object (overridden by `properties` if present). */
     property?: string;
-    /** an array of multiple properties (e.g. `['marginLeft', 'marginRight']`) to which this style's value will be
-      * assigned (overrides `property` when present).
-      */
+    /**
+     * An array of multiple properties (e.g. `['marginLeft', 'marginRight']`) to which this style's value will be
+     * assigned (overrides `property` when present).
+     */
     properties?: string[];
     /** A string referencing a key in the `theme` object. */
     scale?: string;
