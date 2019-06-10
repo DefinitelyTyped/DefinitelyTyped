@@ -2923,6 +2923,13 @@ declare module "mongoose" {
      */
     discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
 
+    /**
+     * Adds a discriminator type.
+     * @param name discriminator model name
+     * @param schema discriminator model schema
+     */
+    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
     distinct(field: string, conditions: any,
