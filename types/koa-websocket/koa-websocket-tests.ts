@@ -21,8 +21,11 @@ app.ws.use(async (ctx, next) => {
 
 app.listen(3000);
 
-type MyState = { persist: string }
-const typedApp = websocket(new Koa<MyState>())
+interface MyState {
+    persist: string;
+}
+
+const typedApp = websocket(new Koa<MyState>());
 
 typedApp.ws.use(async (ctx, next) => {
     ctx.websocket.on('message', (message) => {
@@ -38,4 +41,4 @@ typedApp.ws.use(async (ctx, next) => {
     });
     ctx.websocket.send('Hello world');
     await next();
-})
+});
