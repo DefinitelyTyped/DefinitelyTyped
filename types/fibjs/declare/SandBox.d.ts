@@ -34,7 +34,20 @@ declare class Class_SandBox extends Class__object {
 	 * @type Object
 	 */
 	
-	global: Object
+	global: object
+	
+	/**
+	 * class prop 
+	 *
+	 * 
+	 * @brief 查询沙箱中现存的所有模块的字典对象
+	 * 
+	 * 
+	 * @readonly
+	 * @type Object
+	 */
+	
+	modules: object
 	
 	
 	
@@ -46,7 +59,7 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(mods: Object);
+	constructor(mods: object);
 
 	/**
 	 * 
@@ -57,7 +70,7 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(mods: Object, require: Function);
+	constructor(mods: object, require: Function);
 
 	/**
 	 * 
@@ -68,7 +81,7 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(mods: Object, global: Object);
+	constructor(mods: object, global: object);
 
 	/**
 	 * 
@@ -80,7 +93,7 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 * 
 	 */
-	constructor(mods: Object, require: Function, global: Object);
+	constructor(mods: object, require: Function, global: object);
 
 	/**
 	 * 
@@ -101,7 +114,7 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 * 
 	 */
-	add(mods: Object): void;
+	add(mods: object): void;
 
 	/**
 	 * 
@@ -127,6 +140,17 @@ declare class Class_SandBox extends Class__object {
 
 	/**
 	 * 
+	 * @brief 从沙箱中检测基础模块是否存在
+	 * @param id 指定要检测的模块名称，此路径与当前运行脚本无关，必须为绝对路径或者模块名
+	 * @return 是否存在
+	 * 
+	 * 
+	 * 
+	 */
+	has(id: string): boolean;
+
+	/**
+	 * 
 	 * @brief 复制当前沙箱，新沙箱包含当前沙箱的模块，以及相同的名称和 require 函数
 	 * @return 复制的新沙箱
 	 * 
@@ -134,6 +158,22 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 */
 	clone(): Class_SandBox;
+
+	/**
+	 * 
+	 * @brief 冻结当前沙箱，冻结后的沙箱，对 global 所做的修改将被忽略
+	 * 
+	 * 
+	 */
+	freeze(): void;
+
+	/**
+	 * 
+	 * @brief 重新加载沙箱内的模块，此操作只会重新初始化模块，复位模块内的变量，不更新模块代码
+	 * 
+	 * 
+	 */
+	refresh(): void;
 
 	/**
 	 * 
@@ -169,6 +209,44 @@ declare class Class_SandBox extends Class__object {
 	 * 
 	 */
 	require(id: string, base: string): any;
+
+	/**
+	 * 
+	 * @brief 对指定的 extname 添加 compiler, extname 不可为系统内置扩展名 (包括 {'.js', '.json', '.jsc', '.wasm'}), compiler 需返回有效的 javascript 脚本.
+	 * 
+	 * ```JavaScript
+	 * var vm = require('vm');
+	 * var sbox = new vm.SandBox({
+	 * });
+	 * 
+	 * // 编译 typescript 脚本为 js 并加载
+	 * sbox.setModuleCompiler('.ts', tsCompiler);
+	 * var mod_ts = sbox.require('./a.ts');
+	 * 
+	 * // 编译 coffee 脚本为 js 并加载
+	 * sbox.setModuleCompiler('.coffee', cafeCompiler);
+	 * var mod_coffee = sbox.require('./a.coffee');
+	 * 
+	 * // 编译 jsx 脚本为 js 并加载
+	 * sbox.setModuleCompiler('.jsx', reactCompiler);
+	 * var mod_react = sbox.require('./a.jsx');
+	 * 
+	 * // 编译 yml 脚本为自定义的内容(如 API 集合) 并加载
+	 * sbox.setModuleCompiler('.yml', yaml2Rest)
+	 * sbox.setModuleCompiler('.yaml', yaml2Rest)
+	 * 
+	 * // 编译 markdown 为自定义的内容(如 html 字符串或 XmlDocument 对象) 并加载
+	 * sbox.setModuleCompiler('.md', mdCompiler)
+	 * sbox.setModuleCompiler('.markdown', mdCompiler)
+	 * ```
+	 * 
+	 * @param extname 指定的 extname, 必须以 '.' 开头, 且为非系统内置扩展名
+	 * @param compiler 编译回调函数, 所有带 extname 的文件仅会 require 一次. 该回调函数格式为 `compiler(buf, requireInfo)`, buf 为读取到的文件 Buffer, requireInfo 结构为 `{filename: string}`.
+	 * 
+	 * 
+	 * 
+	 */
+	setModuleCompiler(extname: string, compiler: Function): void;
 
 } /** endof class */
 

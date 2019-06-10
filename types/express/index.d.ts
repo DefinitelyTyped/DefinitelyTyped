@@ -1,4 +1,4 @@
-// Type definitions for Express 4.16
+// Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,6 +29,25 @@ declare namespace e {
      * @since 4.16.0
      */
     var json: typeof bodyParser.json;
+
+    /**
+     * This is a built-in middleware function in Express. It parses incoming requests with Buffer payloads and is based on body-parser.
+     * @since 4.17.0
+     */
+    var raw: typeof bodyParser.raw;
+
+    /**
+     * This is a built-in middleware function in Express. It parses incoming requests with text payloads and is based on body-parser.
+     * @since 4.17.0
+     */
+    var text: typeof bodyParser.text;
+
+    /**
+     * These are the exposed prototypes.
+     */
+    var application: Application;
+    var request: Request;
+    var response: Response;
 
     /**
      * This is a built-in middleware function in Express. It serves static files and is based on serve-static.

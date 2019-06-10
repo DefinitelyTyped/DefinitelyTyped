@@ -1,0 +1,12 @@
+export const ArrayTokenSymbol: unique symbol;
+export const AssignmentListTokenSymbol: unique symbol;
+export const BooleanExpressionTokenSymbol: unique symbol;
+export const ComparisonPredicateTokenSymbol: unique symbol;
+export const IdentifierListTokenSymbol: unique symbol;
+export const IdentifierTokenSymbol: unique symbol;
+export const RawSqlTokenSymbol: unique symbol;
+export const SqlTokenSymbol: unique symbol;
+export const ValueListTokenSymbol: unique symbol;
+export const TupleTokenSymbol: unique symbol;
+export const TupleListTokenSymbol: unique symbol;
+export const UnnestTokenSymbol: unique symbol;

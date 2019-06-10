@@ -136,10 +136,10 @@ declare namespace SinonChrome.browsingData {
 
 declare namespace SinonChrome.contentSettings {
     interface StubbedContentSetting {
-      clear: SinonChromeStub;
-      get: SinonChromeStub;
-      getResourceIdentifiers: SinonChromeStub;
-      set: SinonChromeStub;
+        clear: SinonChromeStub;
+        get: SinonChromeStub;
+        getResourceIdentifiers: SinonChromeStub;
+        set: SinonChromeStub;
     }
 
     export var cookies: StubbedContentSetting;
@@ -362,10 +362,10 @@ declare namespace SinonChrome.plugins {
             message: string;
             description?: string;
             placeholders?: {
-              [key: string]: {
-                content: string;
-                example?: string;
-              };
+                [key: string]: {
+                    content: string;
+                    example?: string;
+                };
             };
         };
     }
@@ -406,9 +406,9 @@ declare namespace SinonChrome.privacy {
         translationServiceEnabled: SinonChrome.types.StubbedChromeSetting;
     };
     export var website: {
-      hyperlinkAuditingEnabled: SinonChrome.types.StubbedChromeSetting;
-      referrersEnabled: SinonChrome.types.StubbedChromeSetting;
-      thirdPartyCookiesAllowed: SinonChrome.types.StubbedChromeSetting;
+        hyperlinkAuditingEnabled: SinonChrome.types.StubbedChromeSetting;
+        referrersEnabled: SinonChrome.types.StubbedChromeSetting;
+        thirdPartyCookiesAllowed: SinonChrome.types.StubbedChromeSetting;
     };
 }
 
@@ -462,11 +462,11 @@ declare namespace SinonChrome.sessions {
 
 declare namespace SinonChrome.storage {
     interface StubbedStorageArea {
-      clear: SinonChromeStub;
-      get: SinonChromeStub;
-      getBytesInUse: SinonChromeStub;
-      remove: SinonChromeStub;
-      set: SinonChromeStub;
+        clear: SinonChromeStub;
+        get: SinonChromeStub;
+        getBytesInUse: SinonChromeStub;
+        remove: SinonChromeStub;
+        set: SinonChromeStub;
     }
 
     export var local: StubbedStorageArea;

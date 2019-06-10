@@ -1,19 +1,28 @@
-// Type definitions for react-jsonschema-form 1.0.0
+// Type definitions for react-jsonschema-form 1.3
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
-//                 Jon Surrell <https://github.com/sirreal>
 //                 Ivan Jiang <https://github.com/iplus26>
-//                 Kurt Preston <https://github.com/KurtPreston>
 //                 Philippe Bourdages <https://github.com/phbou72>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Sylvain Thénault <https://github.com/sthenault>
+//                 Sebastian Busch <https://github.com/sbusch>
+//                 Mehdi Lahlou <https://github.com/medfreeman>
+//                 Saad Tazi <https://github.com/saadtazi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
+
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
     import { JSONSchema6 } from "json-schema";
 
+    type ErrorSchema = {
+        [k: string]: ErrorSchema
+    };
+
     export interface FormProps<T> {
         schema: JSONSchema6;
+        disabled?: boolean;
         uiSchema?: UiSchema;
         formData?: T;
         formContext?: any;
@@ -24,7 +33,7 @@ declare module "react-jsonschema-form" {
         showErrorList?: boolean;
         ErrorList?: React.StatelessComponent<ErrorListProps>;
         validate?: (formData: T, errors: FormValidation) => FormValidation;
-        onChange?: (e: IChangeEvent<T>) => any;
+        onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
         onSubmit?: (e: ISubmitEvent<T>) => any;
         liveValidate?: boolean;
@@ -67,7 +76,12 @@ declare module "react-jsonschema-form" {
         [key: string]: FieldId;
     };
 
-    export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
+    export interface WidgetProps extends Pick<
+        React.HTMLAttributes<HTMLElement>,
+        Exclude<
+            keyof React.HTMLAttributes<HTMLElement>,
+            "onBlur"|"onFocus">
+    > {
         id: string;
         schema: JSONSchema6;
         value: any;
@@ -78,19 +92,22 @@ declare module "react-jsonschema-form" {
         onChange: (value: any) => void;
         options: object;
         formContext: any;
+        onBlur: (id: string, value: boolean | number | string | null) => void;
+        onFocus: (id: string, value: boolean | number | string | null) => void;
+        label: string;
     }
 
     export type Widget =
         | React.StatelessComponent<WidgetProps>
         | React.ComponentClass<WidgetProps>;
 
-    export interface FieldProps extends React.HTMLAttributes<HTMLElement> {
+    export interface FieldProps<T = any> extends React.HTMLAttributes<HTMLElement> {
         schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
-        formData: any;
-        errorSchema: object;
-        onChange: (value: any) => void;
+        formData: T;
+        errorSchema: ErrorSchema;
+        onChange: (e: IChangeEvent<T> | any, es?: ErrorSchema) => any;
         registry: {
             fields: { [name: string]: Field };
             widgets: { [name: string]: Widget };
@@ -114,12 +131,12 @@ declare module "react-jsonschema-form" {
         id: string;
         classNames: string;
         label: string;
-        description: React.ReactElement<any>;
+        description: React.ReactElement;
         rawDescription: string;
-        children: React.ReactElement<any>;
-        errors: React.ReactElement<any>;
+        children: React.ReactElement;
+        errors: React.ReactElement;
         rawErrors: string[];
-        help: React.ReactElement<any>;
+        help: React.ReactElement;
         rawHelp: string;
         hidden: boolean;
         required: boolean;
@@ -133,14 +150,14 @@ declare module "react-jsonschema-form" {
     };
 
     export type ArrayFieldTemplateProps = {
-        DescriptionField: object;
-        TitleField: object;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         canAdd: boolean;
         className: string;
         disabled: boolean;
         idSchema: IdSchema;
         items: {
-            children: React.ReactElement<any>;
+            children: React.ReactElement;
             className: string;
             disabled: boolean;
             hasMoveDown: boolean;
@@ -166,12 +183,12 @@ declare module "react-jsonschema-form" {
     };
 
     export type ObjectFieldTemplateProps = {
-        DescriptionField: object;
-        TitleField: object;
+        DescriptionField: React.StatelessComponent<{ id: string, description: string | React.ReactElement }>;
+        TitleField: React.StatelessComponent<{ id: string, title: string, required: boolean }>;
         title: string;
         description: string;
         properties: {
-            content: React.ReactElement<any>;
+            content: React.ReactElement;
             name: string;
             disabled: boolean;
             readonly: boolean;
@@ -227,4 +244,33 @@ declare module "react-jsonschema-form" {
     type FormSubmit<T> = {
         formData: T;
     };
+}
+
+declare module "react-jsonschema-form/lib/utils" {
+    import { JSONSchema6, JSONSchema6Definition } from "json-schema";
+    import { FieldProps } from "react-jsonschema-form";
+
+    export interface IRangeSpec {
+        min?: number;
+        max?: number;
+        step?: number;
+    }
+
+    export function rangeSpec(schema: JSONSchema6): IRangeSpec;
+
+    export function resolveSchema(
+        schema: JSONSchema6Definition,
+        definitions: FieldProps["registry"]["definitions"],
+        formData: object
+      ): JSONSchema6;
+}
+
+declare module "react-jsonschema-form/lib/validate" {
+    import { JSONSchema6Definition } from "json-schema";
+    import { AjvError } from "react-jsonschema-form";
+
+    export default function validateFormData<T>(
+        formData: T,
+        schema: JSONSchema6Definition
+    ): AjvError[];
 }

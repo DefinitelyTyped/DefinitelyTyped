@@ -380,7 +380,7 @@ declare module "os" {
 		 * 
 		 * 
 		 */
-		export function userInfo(options?: Object/** = v8::Object::New(isolate)*/): Object;
+		export function userInfo(options?: object/** = v8::Object::New(isolate)*/): object;
 	
 		/**
 		 * 
@@ -390,7 +390,7 @@ declare module "os" {
 		 * 
 		 * 
 		 */
-		export function networkInterfaces(): Object;
+		export function networkInterfaces(): object;
 	
 		/**
 		 * 
@@ -470,7 +470,7 @@ declare module "os" {
 		 * 
 		 * 
 		 */
-		export function memoryUsage(): Object;
+		export function memoryUsage(): object;
 	
 	} /** end of `module os` */
 	export = os

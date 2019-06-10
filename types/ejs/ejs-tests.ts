@@ -29,6 +29,9 @@ result = ejs.render(template, data, options);
 result = ejs.renderFile(fileName, SimpleCallback);
 result = ejs.renderFile(fileName, data, SimpleCallback);
 result = ejs.renderFile(fileName, data, options, SimpleCallback);
+asyncResult = ejs.renderFile(fileName);
+asyncResult = ejs.renderFile(fileName, data);
+asyncResult = ejs.renderFile(fileName, data, options);
 
 ejsFunction = ejs.compile('');
 ejsFunction = ejs.compile(read(fileName, "utf8"));

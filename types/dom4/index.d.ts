@@ -60,11 +60,11 @@ interface Element extends ParentNode {
     matches(selectors: string): boolean;
 }
 
-interface Elements extends ElementTraversal, ParentNode, Array<Element> {
+interface Elements extends ParentNode, Array<Element> {
 }
 
-interface Document extends ElementTraversal, ParentNode {
+interface Document extends ParentNode {
 }
 
-interface DocumentFragment extends ElementTraversal, ParentNode {
+interface DocumentFragment extends ParentNode {
 }

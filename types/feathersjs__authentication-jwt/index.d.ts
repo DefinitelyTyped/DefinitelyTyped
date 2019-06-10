@@ -1,8 +1,8 @@
 // Type definitions for @feathersjs/authentication-jwt 1.0
-// Project: http://feathersjs.com/
+// Project: https://feathersjs.com
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Application } from '@feathersjs/feathers';
 import { Request } from 'express';
@@ -52,9 +52,9 @@ export class Verifier {
     verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;
 }
 
-export type JwtFromRequestFunction = (req: Request) => string;
+export type JwtFromRequestFunction = (req: Request) => string | null;
 
-export const ExtractJWT: {
+export const ExtractJwt: {
     fromHeader(header_name: string): JwtFromRequestFunction;
     fromBodyField(field_name: string): JwtFromRequestFunction;
     fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;

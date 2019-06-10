@@ -1,13 +1,15 @@
-// Type definitions for Umzug v2.1.0
+// Type definitions for Umzug v2.2.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Troy McKinnon <https://github.com/trodi>
+//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import { EventEmitter } from 'events';
 import Sequelize = require("sequelize");
+import MongoDB = require("mongodb");
 
 declare namespace umzug {
 
@@ -39,7 +41,7 @@ declare namespace umzug {
          * See https://github.com/sequelize/umzug/tree/master/test/fixtures
          * for examples.
          */
-        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+        customResolver?(path: string): { up: () => PromiseLike<any>, down?: () => PromiseLike<any> };
 
     }
 
@@ -116,6 +118,27 @@ declare namespace umzug {
 
     }
 
+    interface MongoDBStorageOptions extends Storage {
+
+        /**
+         * The MongoDB database connection instance.
+         */
+        connection?: MongoDB.Db;
+
+        /**
+         * The to be used Mongo collection cursor.
+         * Defaults to collection created from collectionName attribute.
+         */
+        collection?: MongoDB.Collection;
+
+        /**
+         * The name of the collection used by the connection.
+         * Defaults to 'migrations'
+         */
+        collectionName?: string;
+
+    }
+
     interface ExecuteOptions {
         migrations?: Array<string>;
         method?: string;
@@ -125,12 +148,12 @@ declare namespace umzug {
         /**
          * The storage.
          */
-        storage?: "json" | "sequelize" | Storage;
+        storage?: "json" | "sequelize" | "mongodb" | Storage;
 
         /**
          * The options for the storage.
          */
-        storageOptions?: JSONStorageOptions | SequelizeStorageOptions | Object;
+        storageOptions?: JSONStorageOptions | SequelizeStorageOptions | MongoDBStorageOptions | Object;
 
         /**
          * The logging function.

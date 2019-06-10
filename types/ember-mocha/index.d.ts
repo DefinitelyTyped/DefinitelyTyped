@@ -1,8 +1,10 @@
-// Type definitions for ember-mocha 0.12
+// Type definitions for ember-mocha 0.14
 // Project: https://github.com/emberjs/ember-mocha#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Simon Ihmig <https://github.com/simonihmig>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import { TestContext, ModuleCallbacks } from "ember-test-helpers";
 import Ember from 'ember';
@@ -36,6 +38,17 @@ declare module 'ember-mocha' {
         (callbacks: ModuleCallbacks): void;
     }
 
+    interface TestHooks {
+        beforeEach: mochaBeforeEach;
+        afterEach: mochaAfterEach;
+    }
+
+    interface SetupOptions {
+        resolver: Ember.Resolver;
+    }
+
+    type NewSetupTest = (options?: SetupOptions) => TestHooks;
+
     /** @deprecated Use setupTest instead */
     export const describeModule: ContextDefinition;
 
@@ -45,10 +58,13 @@ declare module 'ember-mocha' {
     /** @deprecated Use setupModelTest instead */
     export const describeModel: ContextDefinition;
 
-    export const setupTest: SetupTest;
+    export const setupTest: NewSetupTest & SetupTest;
     export const setupAcceptanceTest: SetupTest;
     export const setupComponentTest: SetupTest;
     export const setupModelTest: SetupTest;
+
+    export const setupRenderingTest: NewSetupTest;
+    export const setupApplicationTest: NewSetupTest;
 
     export const it: typeof mochaIt;
 

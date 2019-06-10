@@ -1272,7 +1272,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	bind(type: string, fn: (e: Event) => void ): ZeptoCollection;
+	bind(type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* Attach an event handler that is only triggered when the event originated from a node that matches a selector.
@@ -1282,7 +1282,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	delegate(selector: string, type: string, fn: (e: Event) => void ): ZeptoCollection;
+	delegate(selector: string, type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* Detach event handler added by live.
@@ -1291,7 +1291,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	die(type: string, fn: (e: Event) => void ): ZeptoCollection;
+	die(type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.die
@@ -1307,7 +1307,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	live(type: string, fn: (e: Event) => void ): ZeptoCollection;
+	live(type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* Detach event handlers added with on. To detach a specific event handler, the same function must be passed that was used for on(). Otherwise, just calling this method with an event type with detach all handlers of that type. When called without arguments, it detaches all event handlers registered on current elements.
@@ -1316,12 +1316,12 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	off(type: string, selector: string, fn: (e: Event) => boolean): ZeptoCollection;
+	off(type: string, selector: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.off
 	**/
-	off(type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	off(type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.off
@@ -1347,12 +1347,12 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	on(type: string, selector: string, fn: (e: Event) => boolean): ZeptoCollection;
+	on(type: string, selector: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.on
 	**/
-	on(type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	on(type: string, fn: ZeptoEventHandler): ZeptoCollection;
 	// todo: v0.9 will introduce string literals
 	//on(type: 'ajaxStart', fn: ZeptoAjaxStartEvent): ZeptoCollection;
 	//on(type: 'ajaxBeforeSend', fn: ZeptoAjaxBeforeSendEvent): ZeptoCollection;
@@ -1374,7 +1374,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	one(type: string, fn: (e: Event) => void ): ZeptoCollection;
+	one(type: string, fn: ZeptoEventHandler ): ZeptoCollection;
 
 	/**
 	* @see ZeptoCollection.one
@@ -1406,7 +1406,7 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	unbind(type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	unbind(type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* Detach event handler added with delegate.
@@ -1416,76 +1416,76 @@ interface ZeptoCollection {
 	* @param fn
 	* @return
 	**/
-	undelegate(selector: string, type: string, fn: (e: Event) => boolean): ZeptoCollection;
+	undelegate(selector: string, type: string, fn: ZeptoEventHandler): ZeptoCollection;
 
     focusin(): ZeptoCollection;
-    focusin(fn: (e: Event) => any): ZeptoCollection;
+    focusin(fn: ZeptoEventHandler): ZeptoCollection;
 
     focusout(): ZeptoCollection;
-    focusout(fn: (e: Event) => any): ZeptoCollection;
+    focusout(fn: ZeptoEventHandler): ZeptoCollection;
 
     load(): ZeptoCollection;
-    load(fn: (e: Event) => any): ZeptoCollection;
+    load(fn: ZeptoEventHandler): ZeptoCollection;
 
     resize(): ZeptoCollection;
-    resize(fn: (e: Event) => any): ZeptoCollection;
+    resize(fn: ZeptoEventHandler): ZeptoCollection;
 
     scroll(): ZeptoCollection;
-    scroll(fn: (e: Event) => any): ZeptoCollection;
+    scroll(fn: ZeptoEventHandler): ZeptoCollection;
 
     unload(): ZeptoCollection;
-    unload(fn: (e: Event) => any): ZeptoCollection;
+    unload(fn: ZeptoEventHandler): ZeptoCollection;
 
     click(): ZeptoCollection;
-    click(fn: (e: Event) => any): ZeptoCollection;
+    click(fn: ZeptoEventHandler): ZeptoCollection;
 
     dblclick(): ZeptoCollection;
-    dblclick(fn: (e: Event) => any): ZeptoCollection;
+    dblclick(fn: ZeptoEventHandler): ZeptoCollection;
 
     mousedown(): ZeptoCollection;
-    mousedown(fn: (e: Event) => any): ZeptoCollection;
+    mousedown(fn: ZeptoEventHandler): ZeptoCollection;
 
     mouseup(): ZeptoCollection;
-    mouseup(fn: (e: Event) => any): ZeptoCollection;
+    mouseup(fn: ZeptoEventHandler): ZeptoCollection;
 
     mousemove(): ZeptoCollection;
-    mousemove(fn: (e: Event) => any): ZeptoCollection;
+    mousemove(fn: ZeptoEventHandler): ZeptoCollection;
 
     mouseover(): ZeptoCollection;
-    mouseover(fn: (e: Event) => any): ZeptoCollection;
+    mouseover(fn: ZeptoEventHandler): ZeptoCollection;
 
     mouseout(): ZeptoCollection;
-    mouseout(fn: (e: Event) => any): ZeptoCollection;
+    mouseout(fn: ZeptoEventHandler): ZeptoCollection;
 
     mouseenter(): ZeptoCollection;
-    mouseenter(fn: (e: Event) => any): ZeptoCollection;
+    mouseenter(fn: ZeptoEventHandler): ZeptoCollection;
 
     mouseleave(): ZeptoCollection;
-    mouseleave(fn: (e: Event) => any): ZeptoCollection;
+    mouseleave(fn: ZeptoEventHandler): ZeptoCollection;
 
     change(): ZeptoCollection;
-    change(fn: (e: Event) => any): ZeptoCollection;
+    change(fn: ZeptoEventHandler): ZeptoCollection;
 
     select(): ZeptoCollection;
-    select(fn: (e: Event) => any): ZeptoCollection;
+    select(fn: ZeptoEventHandler): ZeptoCollection;
 
     keydown(): ZeptoCollection;
-    keydown(fn: (e: Event) => any): ZeptoCollection;
+    keydown(fn: ZeptoEventHandler): ZeptoCollection;
 
     keypress(): ZeptoCollection;
-    keypress(fn: (e: Event) => any): ZeptoCollection;
+    keypress(fn: ZeptoEventHandler): ZeptoCollection;
 
     keyup(): ZeptoCollection;
-    keyup(fn: (e: Event) => any): ZeptoCollection;
+    keyup(fn: ZeptoEventHandler): ZeptoCollection;
 
     error(): ZeptoCollection;
-    error(fn: (e: Event) => any): ZeptoCollection;
+    error(fn: ZeptoEventHandler): ZeptoCollection;
 
     focus(): ZeptoCollection;
-    focus(fn: (e: Event) => any): ZeptoCollection;
+    focus(fn: ZeptoEventHandler): ZeptoCollection;
 
     blur(): ZeptoCollection;
-    blur(fn: (e: Event) => any): ZeptoCollection;
+    blur(fn: ZeptoEventHandler): ZeptoCollection;
 
 	/**
 	* Ajax
@@ -1659,8 +1659,10 @@ interface ZeptoCoordinates extends ZeptoPosition {
 }
 
 interface ZeptoEventHandlers {
-	[key: string]: Function;
+	[key: string]: ZeptoEventHandler;
 }
-
+interface ZeptoEventHandler {
+	(e: Event, ...args: any[]): any;
+}
 declare var Zepto: (fn: ($: ZeptoStatic) => void) => void;
 declare var $: ZeptoStatic;

@@ -43,7 +43,7 @@ declare namespace M {
         previousMonth: string;
         nextMonth: string;
         months: string[];
-        monthsShort: string;
+        monthsShort: string[];
         weekdays: string[];
         weekdaysShort: string[];
         weekdaysAbbrev: string[];

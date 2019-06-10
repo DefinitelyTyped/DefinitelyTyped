@@ -43,7 +43,7 @@ declare namespace KoaPassport {
         session(options?: { pauseStream: boolean; }): Middleware;
 
         authenticate(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
-        authenticate(strategy: string | string[], options: passport.AuthenticateOptions, callback?: (...args: any[]) => any): Middleware;
+        authenticate(strategy: string | string[], options: passport.AuthenticateOptions | object, callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): Middleware;
 

@@ -391,7 +391,7 @@ declare module "console" {
 		 * 
 		 * 
 		 */
-		export function add(cfg: Object): void;
+		export function add(cfg: object): void;
 	
 		/**
 		 * 

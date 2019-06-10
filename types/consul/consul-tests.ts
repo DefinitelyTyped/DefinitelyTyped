@@ -511,6 +511,7 @@ consul = new Consul();
 // Consul.Health
 {
 	let health: Consul.Health = consul.health;
+	let name: string;
 
 	health = new HealthStatic(consul);
 	consul = health.consul;

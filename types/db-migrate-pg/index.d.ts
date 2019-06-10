@@ -2,7 +2,7 @@
 // Project: https://github.com/db-migrate/pg
 // Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import * as pg from "pg";
 import * as DbMigrateBase from "db-migrate-base";

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
+export interface CollapseProps extends React.HTMLProps<HTMLElement> {
+  [key: string]: any;
   isOpen?: boolean;
   classNames?: string;
   cssModule?: CSSModule;
@@ -18,7 +19,17 @@ export type CollapseProps<T = {}> = React.HTMLProps<HTMLElement> & {
   onExit?: () => void;
   onExiting?: () => void;
   onExited?: () => void;
-} & T;
+}
 
-declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps<T>> {}
+export interface UncontrolledCollapseProps extends React.HTMLProps<HTMLElement> {
+  [key: string]: any;
+  isOpen?: boolean;
+  className?: string;
+  cssModule?: CSSModule;
+  tag?: React.ReactType;
+  navbar?: boolean;
+  toggle?: () => void;
+}
+
+declare class Collapse<T = {[key: string]: any}> extends React.Component<CollapseProps> {}
 export default Collapse;

@@ -56,11 +56,112 @@ configuration = {
 };
 
 configuration = {
+    entry: () => ({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    })
+};
+
+configuration = {
     entry: () => new Promise((resolve) => resolve('./demo'))
 };
 
 configuration = {
     entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    }))
+};
+
+//
+// https://webpack.js.org/configuration/externals/
+//
+configuration = {
+    externals : {
+        react: 'react'
+    },
+};
+
+configuration = {
+    externals : {
+        lodash : {
+            commonjs: 'lodash',
+            amd: 'lodash',
+            root: '_' // indicates global variable
+        }
+      },
+};
+
+configuration = {
+    externals : {
+        subtract : {
+            root: ['math', 'subtract']
+        }
+    }
+};
+
+configuration = {
+    externals: [
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line */
+        function(context, request, callback) {
+          if (/^yourregex$/.test(request)) {
+            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+            /* tslint:disable-next-line */
+            return callback(null, 'commonjs ' + request);
+          }
+          callback({}, {});
+        }
+      ]
+};
+
+configuration = {
+    externals: [
+        {
+            // String
+            react: 'react',
+            // Object
+            lodash : {
+                commonjs: 'lodash',
+                amd: 'lodash',
+                root: '_' // indicates global variable
+            },
+            // Array
+            subtract: ['./math', 'subtract']
+            },
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            function(context, request, callback) {
+              if (/^yourregex$/.test(request)) {
+                // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+              }
+              callback({}, {});
+            },
+            // Regex
+            /^(jquery|\$)$/i
+    ]
+};
+
+configuration = {
+    externals: [
+        "add",
+        {
+            subtract: {
+                root: "subtract",
+                commonjs2: "./subtract",
+                commonjs: ["./math", "subtract"],
+                amd: "subtract"
+            }
+        }
+    ]
 };
 
 //
@@ -158,12 +259,34 @@ declare const require: any;
 declare const path: any;
 configuration = {
     plugins: [
-        function(this: webpack.Compiler) {
-            this.plugin("done", stats => {
-                require("fs").writeFileSync(
-                    path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.toJson()));
+        function apply(this: webpack.Compiler) {
+            const prevTimestamps = new Map<string, number>();
+            const startTime = Date.now();
+
+            this.hooks.emit.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                for (const filepath in compilation.fileTimestamps.keys()) {
+                    const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+                    const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
+                    if (prevTimestamp < newTimestamp) {
+                        this.inputFileSystem.readFileSync(filepath).toString('utf-8');
+                    }
+                }
             });
+
+            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
+              });
+
+            this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
+                this.outputFileSystem.writeFile(
+                    path.join(__dirname, "...", "stats.json"),
+                    JSON.stringify(stats.getStats().toJson()),
+                    callback
+                );
+            });
+
+            this.hooks.beforeRun.tap("SomePlugin", (compiler: webpack.Compiler) => {});
+            this.hooks.run.tap("SomePlugin", (compiler: webpack.Compiler) => {});
         }
     ]
 };
@@ -326,6 +449,11 @@ plugin = new webpack.HashedModuleIdsPlugin({
     hashDigest: 'hex',
     hashDigestLength: 20
 });
+plugin = new webpack.SingleEntryPlugin(
+    '/home',
+    './main.js',
+    'main'
+);
 
 //
 // http://webpack.github.io/docs/node.js-api.html
@@ -597,11 +725,16 @@ configuration = {
     mode: "production",
     optimization: {
         splitChunks: {
+            minSize: 30000,
+            maxSize: 50000,
             cacheGroups: {
+                default: false,
                 vendor: {
                     chunks: "initial",
                     test: "node_modules",
                     name: "vendor",
+                    minSize: 30000,
+                    maxSize: 50000,
                     enforce: true
                 }
             }
@@ -762,3 +895,11 @@ profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
 configuration = {
     plugins: [profiling]
 };
+
+compiler.hooks.done.tap('foo', stats => {
+  if (stats.startTime === undefined || stats.endTime === undefined) {
+    throw new Error('Well, this is odd');
+  }
+
+  console.log(`Compiled in ${stats.endTime - stats.startTime}ms`);
+});

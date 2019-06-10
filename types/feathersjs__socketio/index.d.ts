@@ -1,8 +1,8 @@
 // Type definitions for @feathersjs/socketio 3.0
-// Project: http://feathersjs.com/
+// Project: https://feathersjs.com
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="feathersjs__socket-commons"/>
 import SocketIO = require("socket.io");

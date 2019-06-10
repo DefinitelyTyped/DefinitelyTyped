@@ -11,8 +11,26 @@ const moment = MomentRange.extendMoment(Moment);
 
 type AppProps = ReactDateRangePicker.Props;
 
+const CustomSFCPaginationArrow: React.SFC<ReactDateRangePicker.PaginationArrowProps> = (props) => {
+    return (
+        <div onClick={ props.onTrigger }>
+        { (props.direction === 'next') ? '<' : '>' }
+        </div>
+    );
+};
+
+class CustomComponentClassPaginationArrow extends React.Component<ReactDateRangePicker.PaginationArrowProps> {
+    render() {
+        return (
+            <div onClick={ this.props.onTrigger }>
+            { (this.props.direction === 'next') ? '<' : '>' }
+            </div>
+        );
+    }
+}
+
 class App extends React.Component<AppProps, any> {
-    handleSelect(value: AppProps, states: any): void {
+    handleSelect(value: ReactDateRangePicker.OnSelectCallbackParam, states: any): void {
         this.setState({ value, states });
     }
 
@@ -38,7 +56,7 @@ class App extends React.Component<AppProps, any> {
 }
 
 class DateSinglePicker extends React.Component<AppProps, any> {
-    handleSelect(value: AppProps) {
+    handleSelect(value: ReactDateRangePicker.OnSelectCallbackParam) {
         this.setState({ value });
     }
 
@@ -149,6 +167,18 @@ export class Main extends React.Component {
                             numberOfCalendars={2}
                             selectionType="single"
                             minimumDate={new Date()}
+                        />
+                    </div>
+                    <div className="example">
+                        <h4>With custom SFC paginationArrowComponent</h4>
+                        <DateSinglePicker
+                            paginationArrowComponent={ CustomSFCPaginationArrow }
+                        />
+                    </div>
+                    <div className="example">
+                        <h4>With custom ComponentClass paginationArrowComponent</h4>
+                        <DateSinglePicker
+                            paginationArrowComponent={ CustomComponentClassPaginationArrow }
                         />
                     </div>
                 </div>

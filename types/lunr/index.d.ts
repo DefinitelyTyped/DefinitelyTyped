@@ -1,6 +1,6 @@
-// Type definitions for lunr.js 2.1
-// Project: https://github.com/olivernn/lunr.js
-// Definitions by: Sean Tan <https://github.com/seantanly>
+// Type definitions for lunr.js 2.3
+// Project: https://github.com/olivernn/lunr.js, http://lunrjs.com
+// Definitions by: Sean Tan <https://github.com/seantanly>, Andrés Pérez <https://github.com/hokiegeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -127,9 +127,14 @@ declare namespace lunr {
          * All fields should be added before adding documents to the index. Adding fields after
          * a document has been indexed will have no effect on already indexed documents.
          *
+         * Fields can be boosted at build time. This allows terms within that field to have more
+         * importance when ranking search results. Use a field boost to specify that matches
+         * within one field are more important than other fields.
+         *
          * @param field - The name of a field to index in all documents.
+         * @param attributes - Optional attributes associated with this field.
          */
-        field(field: string): void;
+        field(field: string, attributes?: object): void;
 
         /**
          * A parameter to tune the amount of field length normalisation that is applied when
@@ -160,9 +165,13 @@ declare namespace lunr {
          * it should have all fields defined for indexing, though null or undefined values will not
          * cause errors.
          *
+         * Entire documents can be boosted at build time. Applying a boost to a document indicates that
+         * this document should rank higher in search results than other documents.
+         *
          * @param doc - The document to add to the index.
+         * @param attributes - Optional attributes associated with this document.
          */
-        add(doc: object): void;
+        add(doc: object, attributes?: object): void;
 
         /**
          * Builds the index, creating an instance of lunr.Index.
@@ -238,7 +247,6 @@ declare namespace lunr {
          * A query builder callback provides a query object to be used to express
          * the query to perform on the index.
          *
-         * @callback lunr.Index~queryBuilder
          * @param query - The query object to build up.
          */
         type QueryBuilder = (this: Query, query: Query) => void;
@@ -527,6 +535,24 @@ declare namespace lunr {
     }
 
     namespace Query {
+        /**
+         * Constants for indicating what kind of presence a term must have in matching documents.
+         */
+        enum presence {
+            /**
+             * Term's presence in a document is optional, this is the default value.
+             */
+            OPTIONAL = 1,
+            /**
+             * Term's presence in a document is required, documents that do not contain this term will not be returned.
+             */
+            REQUIRED = 2,
+            /**
+             * Term's presence in a document is prohibited, documents that do contain this term will not be returned.
+             */
+            PROHIBITED = 3
+        }
+
         enum wildcard {
             NONE = 0,
             LEADING = 1 << 0,
@@ -590,6 +616,12 @@ declare namespace lunr {
          * Adds a term to the current query, under the covers this will create a {@link lunr.Query~Clause}
          * to the list of clauses that make up this query.
          *
+         * The term is used as is, i.e. no tokenization will be performed by this method. Instead conversion
+         * to a token or token-like string should be done before calling this method.
+         *
+         * The term will be converted to a string by calling `toString`. Multiple terms can be passed as an
+         * array, each term in the array will share the same options.
+         *
          * @param term - The term to add to the query.
          * @param [options] - Any additional properties to add to the query clause.
          * @see lunr.Query#clause
@@ -603,7 +635,7 @@ declare namespace lunr {
          *   wildcard: lunr.Query.wildcard.TRAILING
          * })
          */
-        term(term: string, options: object): Query;
+        term(term: string | string[] | Token | Token[], options: object): Query;
     }
 
     class QueryParseError extends Error {
@@ -658,7 +690,6 @@ declare namespace lunr {
          * A token update function is used when updating or optionally
          * when cloning a token.
          *
-         * @callback lunr.Token~updateFunction
          * @param str - The string representation of the token.
          * @param metadata - All metadata associated with this token.
          */

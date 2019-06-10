@@ -1,4 +1,4 @@
-// Type definitions for meow 4.x
+// Type definitions for meow 5.x
 // Project: https://github.com/sindresorhus/meow
 // Definitions by: KnisterPeter <https://github.com/KnisterPeter>
 //                 Lindsey Smith <https://github.com/praxxis>
@@ -26,6 +26,11 @@ declare namespace meow {
         flags?: buildOptions.Options;
         autoHelp?: boolean;
         autoVersion?: boolean;
+        /**
+         * Caution: Explicitly specifying undefined for booleanDefault
+         * has different meaning from omitting key itself.
+         */
+        booleanDefault?: boolean | null;
     }
 
     interface Result {

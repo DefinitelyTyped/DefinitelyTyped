@@ -2,7 +2,7 @@
 // Project: https://github.com/chenglou/react-radio-group
 // Definitions by: Jason Unger <https://github.com/jsonunger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

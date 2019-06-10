@@ -2,6 +2,7 @@ import * as nodemailer from 'nodemailer';
 
 import addressparser = require('nodemailer/lib/addressparser');
 import base64 = require('nodemailer/lib/base64');
+import DKIM = require('nodemailer/lib/dkim');
 import fetch = require('nodemailer/lib/fetch');
 import Cookies = require('nodemailer/lib/fetch/cookies');
 import JSONTransport = require('nodemailer/lib/json-transport');
@@ -123,7 +124,7 @@ function message_attachments_test() {
         attachments: [
             {   // utf-8 string as an attachment
                 filename: 'text1.txt',
-                content: 'hello world!'
+                content: 'hello world!',
             },
             {   // binary buffer as an attachment
                 filename: 'text2.txt',
@@ -138,12 +139,15 @@ function message_attachments_test() {
             },
             {   // stream as an attachment
                 filename: 'text4.txt',
-                content: fs.createReadStream('file.txt')
+                content: fs.createReadStream('file.txt'),
+                contentTransferEncoding: 'quoted-printable'
             },
             {   // define custom content type for the attachment
                 filename: 'text.bin',
                 content: 'hello world!',
-                contentType: 'text/plain'
+                contentType: 'text/plain',
+                contentTransferEncoding: '7bit',
+                contentDisposition: 'attachment'
             },
             {   // use URL as an attachment
                 filename: 'license.txt',
@@ -152,10 +156,13 @@ function message_attachments_test() {
             {   // encoded string as an attachment
                 filename: 'text1.txt',
                 content: 'aGVsbG8gd29ybGQh',
-                encoding: 'base64'
+                encoding: 'base64',
+                contentTransferEncoding: 'base64'
             },
             {   // data uri as an attachment
-                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ='
+                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ=',
+                contentDisposition: 'inline',
+                contentTransferEncoding: false
             },
             {
                 // use pregenerated MIME node
@@ -622,8 +629,8 @@ function oauth2_2lo_test() {
         auth: {
             type: 'OAuth2',
             user: 'user@example.com',
-            serviceClient: '113600000000000000000',
-            privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
+            clientId: '113600000000000000000',
+            clientSecret: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
             accessToken: 'ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x',
             expires: 1484314697598
         }
@@ -1053,7 +1060,8 @@ function dkim_specific_header_key_test() {
 
 function smtp_connection_test() {
     const connection = new SMTPConnection();
-    connection.connect(() => {
+    connection.connect((err) => {
+        if (err) throw err;
         connection.login({ user: 'user', pass: 'pass' }, (err) => {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
@@ -1095,11 +1103,33 @@ function mailcomposer_build_test() {
 
 // addressparser
 
+function isAddress(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Address {
+    return (addressOrGroup as addressparser.Address).address !== undefined;
+}
+
+function isGroup(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Group {
+    return (addressOrGroup as addressparser.Group).group !== undefined;
+}
+
 function addressparser_test() {
     const input = 'andris@tr.ee';
-    const result = addressparser(input);
-    const address: string = result[0].address;
-    const name: string = result[0].name;
+    const results: addressparser.AddressOrGroup[] = addressparser(input);
+    const firstResult = results[0];
+    if (isAddress(firstResult)) {
+        const address: string = firstResult.address;
+        const name: string = firstResult.name;
+    } else if (isGroup(firstResult)) {
+        const group: addressparser.AddressOrGroup[] = firstResult.group;
+        const name: string = firstResult.name;
+    }
+}
+
+function addressparser_flatten_test() {
+    const input = 'andris@tr.ee';
+    const results = addressparser(input, { flatten: true });
+    const firstResult = results[0];
+    const address: string = firstResult.address;
+    const name: string = firstResult.name;
 }
 
 // base64
@@ -1108,6 +1138,28 @@ function base64_test() {
     base64.encode('abcd= ÕÄÖÜ');
 
     base64.encode(new Buffer([0x00, 0x01, 0x02, 0x20, 0x03]));
+}
+
+// dkim
+
+function dkim_test_options() {
+    const dkim = new DKIM({
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    const stream = dkim.sign('Message');
+    stream.pipe(process.stdout);
+}
+
+function dkim_test_extra_options() {
+    const dkim = new DKIM();
+    const stream = dkim.sign('Message', {
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    stream.pipe(process.stdout);
 }
 
 // fetch

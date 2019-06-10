@@ -1,16 +1,18 @@
-// Type definitions for snoowrap 1.16
+// Type definitions for snoowrap 1.15
 // Project: https://github.com/not-an-aardvark/snoowrap
 // Definitions by: Vito Samson <https://github.com/vitosamson>
 //                 TheAppleFreak <https://github.com/TheAppleFreak>
+//                 Willy Liu <https://github.com/willwull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { CoreOptions as RequestOptions } from 'request';
+import { Options as RequestOptions } from 'request';
 
 import {
   Comment as _Comment,
   Listing as _Listing,
   ListingOptions,
+  SortedListingOptions,
   LiveThread as _LiveThread,
   LiveThreadSettings,
   MultiReddit as _MultiReddit,
@@ -30,7 +32,7 @@ export = Snoowrap;
 
 declare class Snoowrap {
   static getAuthUrl(options: Snoowrap.AuthUrlOptions): string;
-  static fromAuthCode(options: Snoowrap.AuthCodeOptions): Snoowrap;
+  static fromAuthCode(options: Snoowrap.AuthCodeOptions): Promise<Snoowrap>;
   static noConflict(): typeof Snoowrap;
 
   accessToken: string;
@@ -57,38 +59,38 @@ declare class Snoowrap {
   getBlockedUsers(): Promise<_RedditUser[]>;
   getCaptchaImage(identifier: string): Promise<string>;
   getComment(commentId: string): _Comment;
-  getContributorSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
-  getControversial(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
-  getDefaultSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
+  getContributorSubreddits(options?: ListingOptions): Promise<_Listing<_Subreddit>>;
+  getControversial(subredditName?: string, options?: SortedListingOptions): Promise<_Listing<_Submission>>;
+  getDefaultSubreddits(options?: ListingOptions): Promise<_Listing<_Subreddit>>;
   getFriends(): Promise<_RedditUser[]>;
-  getGoldSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
-  getHot(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
-  getInbox(options?: { filter?: string }): _Listing<_PrivateMessage | _Comment>;
+  getGoldSubreddits(options?: ListingOptions): Promise<_Listing<_Subreddit>>;
+  getHot(subredditName?: string, options?: ListingOptions): Promise<_Listing<_Submission>>;
+  getInbox(options?: { filter?: string }): Promise<_Listing<_PrivateMessage | _Comment>>;
   getKarma(): Promise<Array<{ sr: _Subreddit; comment_karma: number; link_karma: number; }>>;
   getLivethread(threadId: string): _LiveThread;
   getMe(): _RedditUser;
   getMessage(messageId: string): _PrivateMessage;
-  getModeratedSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
-  getModmail(options?: ListingOptions): _Listing<_PrivateMessage>;
+  getModeratedSubreddits(options?: ListingOptions): Promise<_Listing<_Subreddit>>;
+  getModmail(options?: ListingOptions): Promise<_Listing<_PrivateMessage>>;
   getMyMultireddits(): Promise<_MultiReddit[]>;
   getMyTrophies(): Promise<Snoowrap.Trophy[]>;
-  getNew(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
+  getNew(subredditName?: string, options?: ListingOptions): Promise<_Listing<_Submission>>;
   getNewCaptchaIdentifier(): Promise<string>;
-  getNewComments(subredditName?: string, options?: ListingOptions): _Listing<_Comment>;
-  getNewSubreddits(options?: ListingOptions): _Listing<_Subreddit>;
+  getNewComments(subredditName?: string, options?: ListingOptions): Promise<_Listing<_Comment>>;
+  getNewSubreddits(options?: ListingOptions): Promise<_Listing<_Subreddit>>;
   getOauthScopeList(): Promise<{ [key: string]: { description: string; id: string; name: string } }>;
-  getPopularSubreddit(options?: ListingOptions): _Listing<_Subreddit>;
+  getPopularSubreddit(options?: ListingOptions): Promise<_Listing<_Subreddit>>;
   getPreferences(): Promise<any>;
-  getRandomSubmission(subredditName?: string): _Submission;
-  getRising(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
+  getRandomSubmission(subredditName?: string): Promise<_Submission>;
+  getRising(subredditName?: string, options?: ListingOptions): Promise<_Listing<_Submission>>;
   getSavedCategories(): Promise<any[]>;
-  getSentMessages(options?: ListingOptions): _Listing<_PrivateMessage>;
+  getSentMessages(options?: ListingOptions): Promise<_Listing<_PrivateMessage>>;
   getStickiedLivethread(): Promise<_LiveThread | undefined>;
   getSubmission(submissionId: string): _Submission;
   getSubreddit(displayName: string): _Subreddit;
   getSubscriptions(options?: ListingOptions): _Listing<_Subreddit>;
-  getTop(subredditName?: string, options?: ListingOptions): _Listing<_Submission>;
-  getUnreadMessages(options?: ListingOptions): _Listing<_PrivateMessage>;
+  getTop(subredditName?: string, options?: SortedListingOptions): Promise<_Listing<_Submission>>;
+  getUnreadMessages(options?: ListingOptions): Promise<_Listing<_PrivateMessage>>;
   getUser(name: string): _RedditUser;
   markAsVisited(links: _Submission[]): Promise<void>;
   markMessagesAsRead(messages: _PrivateMessage[] | string[]): Promise<void>;
@@ -97,10 +99,10 @@ declare class Snoowrap {
   rawRequest(options: RequestOptions): Promise<any>;
   readAllMessages(): Promise<void>;
   revokeRefreshToken(): Promise<void>;
-  search(options: Snoowrap.SearchOptions): _Listing<_Submission>;
+  search(options: Snoowrap.SearchOptions): Promise<_Listing<_Submission>>;
   searchSubredditNames(options: { query: string; exact?: boolean; includeNsfw?: boolean; }): Promise<string[]>;
-  searchSubreddits(options: ListingOptions & { query: string }): _Listing<_Subreddit>;
-  searchSubredditTopics(options: { filter: string; }): Promise<_Subreddit[]>;
+  searchSubreddits(options: ListingOptions & { query: string }): Promise<_Listing<_Subreddit>>;
+  searchSubredditTopics(options: { query: string; }): Promise<_Subreddit[]>;
   submitLink(options: Snoowrap.SubmitLinkOptions): Promise<_Submission>;
   submitSelfpost(options: Snoowrap.SubmitSelfPostOptions): Promise<_Submission>;
   unauthenticatedRequest(options: RequestOptions): Promise<any>; // options: https://www.npmjs.com/package/request

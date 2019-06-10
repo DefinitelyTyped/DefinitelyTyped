@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "insert-css-tests.ts"
+    ]
+}

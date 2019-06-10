@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/customLocale.d.ts",
         "yup-tests.ts"
     ]
 }

@@ -2,7 +2,7 @@
 // Project: https://bitbucket.org/atlassian/atlaskit-mk-2/
 // Definitions by: Jimmy Luong <https://github.com/dijimsta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import {
     Component,
@@ -42,9 +42,9 @@ export interface ButtonProps {
     /** Provides a url for buttons being used as a link. */
     readonly href?: string;
     /** Places an icon within the button, after the button's text. */
-    readonly iconAfter?: ReactElement<any>;
+    readonly iconAfter?: ReactElement;
     /** Places an icon within the button, before the button's text. */
-    readonly iconBefore?: ReactElement<any>;
+    readonly iconBefore?: ReactElement;
     /** Pass a reference on to the styled component */
     readonly innerRef?: (instance: any) => void;
     /** Provide a unique id to the button. */

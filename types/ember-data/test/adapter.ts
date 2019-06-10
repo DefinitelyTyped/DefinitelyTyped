@@ -60,8 +60,8 @@ const UseAjaxOptionsWithOptionalThirdParams = DS.JSONAPIAdapter.extend({
     }
 });
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'rootModel': any;
         'super-user': any;
     }

@@ -358,7 +358,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 
     const contacts: InboxSDK.Common.Contact[] = threadRowView.getContacts();
 
-    threadRowView.on('destroyed', () => console.log());
+    threadRowView.on('destroy', () => console.log());
 
     const destroyed: boolean = threadRowView.destroyed;
   });
@@ -377,6 +377,8 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       iconUrl: 'http://url.com',
     });
 
+    const isActive: boolean = contentPanel.isActive();
+    contentPanel.open();
     contentPanel.remove();
     const destroyed: boolean = contentPanel.destroyed;
     contentPanel.on('destroy', () => console.log());
@@ -571,6 +573,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   sdk.Router.createLink('1234', {p1: 1, 0: 1}).toLowerCase();
   sdk.Router.goto('1234', {p1: 1, 0: 1});
+  sdk.Router.goto(sdk.Router.NativeRouteIDs.ALL_MAIL, {p1: 1, 0: 1});
 
   const unregister1 = sdk.Router.handleCustomRoute('1234', customRouteView => {
     customRouteView.getParams();
@@ -591,7 +594,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 
   unregister2();
 
-  const unregister3 = sdk.Router.handleListRoute('ALL_MAIL', listRouteView => {
+  const unregister3 = sdk.Router.handleListRoute(sdk.Router.NativeListRouteIDs.DRAFTS, listRouteView => {
     const sectionDescriptor: SectionDescriptor = {
       contentElement: new HTMLElement(),
       footerLinkText: 'text',
@@ -704,7 +707,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   });
 
   modalView.close();
-  modalView.on('destroyed', () => {
+  modalView.on('destroy', () => {
   });
   const destroyed: boolean = modalView.destroyed;
 
@@ -728,7 +731,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const minimized: boolean = moleView.getMinimized();
   moleView.setMinimized(true);
   moleView.setTitle('title');
-  moleView.on('destroyed', () => {
+  moleView.on('destroy', () => {
   });
   moleView.on('minimize', () => {
   });
@@ -745,7 +748,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   drawerView.close();
   drawerView.disassociateComposeView();
   const destroyed1: boolean = drawerView.destroyed;
-  drawerView.on('destroyed', () => {
+  drawerView.on('destroy', () => {
   });
   drawerView.on('slideAnimationDone', () => {
   });

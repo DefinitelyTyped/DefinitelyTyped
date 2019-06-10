@@ -2,7 +2,7 @@
 // Project: https://github.com/n4kz/react-native-indicators#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
 import { Animated, EasingFunction } from 'react-native';
@@ -15,9 +15,21 @@ export interface BaseIndicatorProps {
 
     /**
      * Animation duration in ms
-     * @default1200
+     * @default 1200
      */
     animationDuration?: number;
+
+    /**
+     * Animation toggle
+     * @default true
+     */
+    animating?: boolean;
+
+    /**
+     * Animation is interaction
+     * @default true
+     */
+    interaction?: boolean;
 }
 
 export interface UIActivityIndicatorProps extends BaseIndicatorProps {

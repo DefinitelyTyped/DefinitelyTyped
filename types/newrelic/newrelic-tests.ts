@@ -14,7 +14,9 @@ newrelic.setDispatcher("foo", "42"); // $ExpectType void
 newrelic.setControllerName("foo", "GET"); // $ExpectType void
 
 newrelic.addCustomAttribute("foo", "bar"); // $ExpectType void
+newrelic.addCustomAttribute("foo", 42); // $ExpectType void
 newrelic.addCustomAttributes({ foo: "bar", baz: "bang" }); // $ExpectType void
+newrelic.addCustomAttributes({ foo: "bar", baz: 42 }); // $ExpectType void
 
 newrelic.setIgnoreTransaction(true); // $ExpectType void
 
@@ -102,3 +104,5 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, (err) => {
 newrelic.shutdown((err) => {
     const error: Error | undefined = err;
 });
+
+newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined

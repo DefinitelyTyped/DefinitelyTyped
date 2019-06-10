@@ -238,7 +238,7 @@ declare module "dgram" {
 		 * 
 		 * 
 		 */
-		export function createSocket(opts: Object): Class_DgramSocket;
+		export function createSocket(opts: object): Class_DgramSocket;
 	
 		/**
 		 * 
@@ -260,7 +260,7 @@ declare module "dgram" {
 		 * 
 		 * 
 		 */
-		export function createSocket(opts: Object, callback: Function): Class_DgramSocket;
+		export function createSocket(opts: object, callback: Function): Class_DgramSocket;
 	
 		/**
 		 * 

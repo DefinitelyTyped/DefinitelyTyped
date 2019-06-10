@@ -1,4 +1,4 @@
-// Type definitions for InboxSDK 2.0
+// Type definitions for non-npm package InboxSDK 2.0
 // Project: https://www.inboxsdk.com/
 // Definitions by: Raphaël Doursenaud <https://github.com/rdoursenaud>
 //                 Amiram Korach <https://github.com/amiram>
@@ -306,7 +306,7 @@ declare namespace InboxSDK {
 
       getContacts(): Common.Contact[];
 
-      on(name: 'destroyed', cb: () => void): void;
+      on(name: 'destroy', cb: () => void): void;
 
       destroyed: boolean;
     }
@@ -451,6 +451,10 @@ declare namespace InboxSDK {
     type MessageViewViewStates = 'HIDDEN' | 'COLLAPSED' | 'EXPANDED';
 
     interface ContentPanelView {
+      isActive(): boolean;
+
+      open(): void;
+
       remove(): void;
 
       on(name: 'destroy' | 'activate' | 'deactivate', cb: () => void): void;
@@ -657,6 +661,9 @@ declare namespace InboxSDK {
       handleCustomListRoute(routeID: string, handler: (offset: number, max: number) => CustomListDescriptor | Promise<CustomListDescriptor>): () => void;
 
       getCurrentRouteView(): RouteView;
+
+      NativeListRouteIDs: typeof NativeListRouteIDs;
+      NativeRouteIDs: typeof NativeRouteIDs;
     }
 
     interface CustomListDescriptor {
@@ -754,43 +761,45 @@ declare namespace InboxSDK {
       onClick?: () => void;
     }
 
-    type NativeRouteIDs =
-      'INBOX' |
-      'ALL_MAIL' |
-      'SENT' |
-      'STARRED' |
-      'DRAFTS' |
-      'SNOOZED' |
-      'DONE' |
-      'REMINDERS' |
-      'LABEL' |
-      'TRASH' |
-      'SPAM' |
-      'IMPORTANT' |
-      'SEARCH' |
-      'THREAD' |
-      'CHATS' |
-      'CHAT' |
-      'CONTACTS' |
-      'CONTACT' |
-      'SETTINGS' |
-      'ANY_LIST';
+    enum NativeRouteIDs {
+        INBOX,
+        ALL_MAIL,
+        SENT,
+        STARRED,
+        DRAFTS,
+        SNOOZED,
+        DONE,
+        REMINDERS,
+        LABEL,
+        TRASH,
+        SPAM,
+        IMPORTANT,
+        SEARCH,
+        THREAD,
+        CHATS,
+        CHAT,
+        CONTACTS,
+        CONTACT,
+        SETTINGS,
+        ANY_LIST
+    }
 
-    type NativeListRouteIDs =
-      'INBOX'
-      | 'ALL_MAIL'
-      | 'SENT'
-      | 'STARRED'
-      | 'DRAFTS'
-      | 'SNOOZED'
-      | 'DONE'
-      | 'REMINDERS'
-      | 'LABEL'
-      | 'TRASH'
-      | 'SPAM'
-      | 'IMPORTANT'
-      | 'SEARCH'
-      | 'ANY_LIST';
+    enum NativeListRouteIDs {
+        INBOX,
+        ALL_MAIL,
+        SENT,
+        STARRED,
+        DRAFTS,
+        SNOOZED,
+        DONE,
+        REMINDERS,
+        LABEL,
+        TRASH,
+        SPAM,
+        IMPORTANT,
+        SEARCH,
+        ANY_LIST
+    }
   }
 
   export namespace NavMenu {
@@ -909,7 +918,7 @@ declare namespace InboxSDK {
     interface ModalView {
       close(): void;
 
-      on(name: 'destroyed', cb: () => void): void;
+      on(name: 'destroy', cb: () => void): void;
 
       destroyed: boolean;
     }
@@ -923,7 +932,7 @@ declare namespace InboxSDK {
 
       getMinimized(): boolean;
 
-      on(name: 'destroyed' | 'minimize' | 'restore', cb: () => void): void;
+      on(name: 'destroy' | 'minimize' | 'restore', cb: () => void): void;
 
       destroyed: boolean;
     }
@@ -935,7 +944,7 @@ declare namespace InboxSDK {
 
       disassociateComposeView(): void;
 
-      on(name: 'destroyed' | 'slideAnimationDone' | 'closing', cb: () => void): void;
+      on(name: 'destroy' | 'slideAnimationDone' | 'closing', cb: () => void): void;
 
       destroyed: boolean;
     }

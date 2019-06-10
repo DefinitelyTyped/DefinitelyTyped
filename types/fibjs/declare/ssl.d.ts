@@ -196,7 +196,7 @@
 
 /** module Or Internal Object */
 /**
-	* @brief ssl/tls 模块
+	* @brief ssl/tls 模块，模块别名：tls
 	* @detail 
 	*/
 declare module "ssl" {

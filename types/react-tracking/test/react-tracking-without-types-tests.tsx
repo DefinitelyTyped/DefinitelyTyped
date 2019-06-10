@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Track, track, TrackingProp } from 'react-tracking';
+import { Track, track, TrackingProp, useTracking } from 'react-tracking';
 
 function customEventReporter(data: { page?: string }) {}
 
@@ -12,6 +12,11 @@ class ClassPage extends React.Component<any> {
     @track({ event: "Clicked" })
     handleClick() {
     // ... other stuff
+    }
+
+    @track((_props, _state, [e]) => ({ event: `drag started at ${e.screenX}x${e.screenY}` }))
+    handleDrag(event: any) {
+        // no-op
     }
 
     // Only need to cast this to `any` because the settings for this project is to disallow implicit `any`.
@@ -50,3 +55,13 @@ class Test extends React.Component<any, null> {
         );
     }
 }
+
+const App = track()(({ foo }: { foo: string }) => {
+    const tracking = useTracking();
+    return <div onClick={() => {
+        tracking.trackEvent({
+            page: 'Home',
+            foo
+        });
+    }}/>;
+});

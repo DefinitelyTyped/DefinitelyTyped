@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { MarkdownIt } from 'markdown-it';
+import MarkdownIt = require('markdown-it');
 import { Node as ProsemirrorNode, Schema } from 'prosemirror-model';
 
 /**

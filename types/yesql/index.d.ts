@@ -13,8 +13,8 @@ declare function readSqlFiles(
 ): string;
 
 declare namespace readSqlFiles {
-    function pg(query: string): (data: object) => string;
-    function mysql(query: string): (data: object) => string;
+    function pg(query: string): (data: object) => {text: string, values: any[]};
+    function mysql(query: string): (data: object) => {sql: string, values: any[]};
 }
 
 export = readSqlFiles;

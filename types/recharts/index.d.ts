@@ -1,17 +1,22 @@
-// Type definitions for Recharts 1.0
-// Project: http://recharts.org/
-// Definitions by: Maarten Mulders <https://github.com/mthmulders>
-//                 Raphael Mueller <https://github.com/rapmue>
+// Type definitions for Recharts 1.1
+// Project: http://recharts.org/, https://github.com/recharts/recharts
+// Definitions by: Raphael Mueller <https://github.com/rapmue>
 //                 Roy Xue <https://github.com/royxue>
 //                 Zheyang Song <https://github.com/ZheyangSong>
 //                 Rich Baird <https://github.com/richbai90>
 //                 Dan Torberg <https://github.com/caspeco-dan>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 Jamie Saunders <https://github.com/jrsaunde>
+//                 Harry Cruse <https://github.com/crusectrl>
+//                 Andrew Palugniok <https://github.com/apalugniok>
+//                 Robert Stigsson <https://github.com/RobertStigsson>
+//                 Kosaku Kurino <https://github.com/kousaku-maron>
+//                 Leon Ng <https://github.com/iflp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
+import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
@@ -24,7 +29,7 @@ export type TooltipFormatter = (value: string | number | Array<string | number>,
                                 entry: TooltipPayload, index: number) => React.ReactNode;
 export type ItemSorter<T> = (a: T, b: T) => number;
 export type ContentRenderer<P> = (props: P) => React.ReactNode;
-export type DataKey = string | number | ((dataObject: any) => number | [number, number]);
+export type DataKey = string | number | ((dataObject: any) => string | number | [number, number] | null);
 
 export type IconType = 'plainline' | 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'plainline';
 export type LegendType = IconType | 'none';
@@ -41,6 +46,7 @@ export type StackOffsetType = 'sign' | 'expand' | 'none' | 'wiggle' | 'silhouett
 export type LineType =
     'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' |
     'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory;
+export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
 
 export type PickedCSSStyleDeclarationKeys =
@@ -123,6 +129,7 @@ export interface PresentationAttributes<X = number, Y = number> extends Pick<CSS
     colorInterpolation: string;
     colorProfile: string;
     colorRendering: string;
+    fill: string;
     fillOpacity: number | string;
     fontSize: number | string;
     fontSizeAdjust: number | string;
@@ -163,9 +170,9 @@ export interface AreaProps extends EventAttributes, Partial<PresentationAttribut
     stackId?: string | number;
     legendType?: LegendType;
     connectNulls?: boolean;
-    activeDot?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
-    dot?: boolean | object | React.ReactElement<any> | ContentRenderer<DotProps>;
-    label?: boolean | object | ContentRenderer<any> | React.ReactElement<any>;
+    activeDot?: boolean | object | React.ReactElement | ContentRenderer<any>;
+    dot?: boolean | object | React.ReactElement | ContentRenderer<DotProps>;
+    label?: boolean | object | ContentRenderer<any> | React.ReactElement;
     hide?: boolean;
     layout?: LayoutType;
     baseLine?: number | any[];
@@ -193,6 +200,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
     fill?: string;
+    radius?: number | number[];
     layout?: LayoutType;
     xAxisId?: string | number;
     yAxisId?: string | number;
@@ -206,10 +214,11 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     minPointSize?: number;
     maxBarSize?: number;
     hide?: boolean;
-    shape?: React.ReactElement<any> | ContentRenderer<RectangleProps>;
+    shape?: React.ReactElement | ContentRenderer<RectangleProps>;
     data?: BarData[];
+    background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
-    label?: boolean | Label | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
 }
 
 export class Bar extends React.Component<BarProps> { }
@@ -249,7 +258,7 @@ export interface CartesianAxisProps extends EventAttributes, Partial<Presentatio
     height?: number;
     orientation?: 'top' | 'bottom' | 'left' | 'right';
     viewBox?: ViewBox;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any>;
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
     axisLine?: boolean | object;
     tickLine?: boolean | object;
     mirror?: boolean;
@@ -275,8 +284,8 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
     y?: number;
     width?: number;
     height?: number;
-    horizontal?: object | React.ReactElement<any> | ContentRenderer<LineProps & CartesianGridProps> | boolean;
-    vertical?: object | React.ReactElement<any> | ContentRenderer<LineProps & CartesianGridProps> | boolean;
+    horizontal?: object | React.ReactElement | ContentRenderer<LineProps & CartesianGridProps> | boolean;
+    vertical?: object | React.ReactElement | ContentRenderer<LineProps & CartesianGridProps> | boolean;
     horizontalPoints?: number[];
     verticalPoints?: number[];
     horizontalCoordinatesGenerator?: CoordinatesGenerator;
@@ -292,8 +301,9 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
-// NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
-export type CellProps = Partial<PresentationAttributes>;
+export interface CellProps extends Partial<PresentationAttributes> {
+    onClick?: RechartsFunction;
+}
 
 export class Cell extends React.Component<CellProps> { }
 
@@ -359,12 +369,13 @@ export interface LegendPayload {
     value: any;
     id: any;
     type: LegendType;
+    color?: string;
 }
 
 export type BBoxUpdateCallback = (box: { width: number; height: number; }) => void;
 
 export interface LegendProps {
-    content?: React.ReactElement<any> | ContentRenderer<LegendProps>;
+    content?: React.ReactElement | ContentRenderer<LegendProps>;
     wrapperStyle?: object;
     chartWidth?: number;
     chartHeight?: number;
@@ -399,14 +410,15 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     layout?: LayoutType;
     connectNulls?: boolean;
     hide?: boolean;
-    activeDot?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
-    dot?: object | React.ReactElement<any> | ContentRenderer<DotProps> | boolean;
+    activeDot?: object | React.ReactElement | ContentRenderer<any> | boolean;
+    dot?: object | React.ReactElement | ContentRenderer<DotProps> | boolean;
     top?: number;
     left?: number;
     width?: number;
     height?: number;
+    data?: object[];
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
-    label?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
+    label?: boolean | object | React.ReactElement | ContentRenderer<any>;
     points?: Point[];
 }
 
@@ -424,6 +436,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     cy?: number | string;
     startAngle?: number;
     endAngle?: number;
+    midAngle?: number;
     paddingAngle?: number;
     innerRadius?: number | string;
     outerRadius?: number | string;
@@ -436,12 +449,24 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     maxRadius?: number;
     sectors?: object[];
     hide?: boolean;
-    labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement<any> | boolean;
+    labelLine?: object | ContentRenderer<LineProps & any> | React.ReactElement | boolean;
     label?: {
         offsetRadius: number;
-    } | React.ReactElement<any> | ContentRenderer<any> | boolean;
-    activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
+    } | React.ReactElement | ContentRenderer<PieLabelRenderProps> | boolean;
+    activeShape?: object | ContentRenderer<any> | React.ReactElement;
     activeIndex?: number | number[];
+    blendStroke?: boolean;
+}
+
+export interface PieLabelRenderProps extends PieProps {
+    name: string;
+    percent?: number;
+    stroke: string;
+    index?: number;
+    textAnchor: string;
+    x: number;
+    y: number;
+    [key: string]: any;
 }
 
 export class Pie extends React.Component<PieProps> { }
@@ -475,11 +500,11 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     axisLine?: boolean | object;
     axisLineType?: 'polygon' | 'circle';
     tickLine?: boolean | object;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any>;
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
     ticks?: PolarAngleAxisTick[];
     stroke?: string;
     orientation?: 'inner' | 'outer';
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -514,10 +539,10 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     ticks?: PolarRadiusAxisTick[];
     orientation?: "left" | "right" | "middle";
     axisLine?: boolean | object;
-    tick?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
+    tick?: boolean | object | React.ReactElement | ContentRenderer<any>;
     stroke?: string;
-    tickFormatter: TickFormatterFunction;
-    domain?: PolarRadiusAxisDomain[];
+    tickFormatter?: TickFormatterFunction;
+    domain?: [PolarRadiusAxisDomain, PolarRadiusAxisDomain];
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
 }
@@ -551,10 +576,10 @@ export interface RadarProps extends EventAttributes, Partial<PresentationAttribu
     className?: string;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     points?: RadarPoint[];
-    shape?: React.ReactElement<any> | ContentRenderer<RadarProps>;
-    activeDot?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
-    dot?: object | React.ReactElement<any> | ContentRenderer<DotProps> | boolean;
-    label?: object | React.ReactElement<any> | ContentRenderer<any> | boolean;
+    shape?: React.ReactElement | ContentRenderer<RadarProps>;
+    activeDot?: object | React.ReactElement | ContentRenderer<any> | boolean;
+    dot?: object | React.ReactElement | ContentRenderer<DotProps> | boolean;
+    label?: object | React.ReactElement | ContentRenderer<any> | boolean;
     legendType?: LegendType;
     hide?: boolean;
 }
@@ -586,15 +611,15 @@ export interface RadialBarProps extends EventAttributes, Partial<PresentationAtt
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     angleAxisId?: string | number;
     radiusAxisId?: string | number;
-    shape?: ContentRenderer<any> | React.ReactElement<any>;
-    activeShape?: object | ContentRenderer<any> | React.ReactElement<any>;
+    shape?: ContentRenderer<any> | React.ReactElement;
+    activeShape?: object | ContentRenderer<any> | React.ReactElement;
     cornerRadius?: number | string;
     minPointSize?: number;
     maxBarSize?: number;
     data?: RadialBarData[];
     legendType?: LegendType;
-    label?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
-    background?: boolean | React.ReactElement<any> | ContentRenderer<any> | object;
+    label?: boolean | React.ReactElement | ContentRenderer<any> | object;
+    background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     hide?: boolean;
 }
 
@@ -629,13 +654,14 @@ export interface ReferenceAreaProps extends Partial<PresentationAttributes> {
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x1?: number | string;
     x2?: number | string;
     y1?: number | string;
     y2?: number | string;
     xAxisId?: string | number;
     yAxisId?: string | number;
-    shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement<any>;
+    shape?: ContentRenderer<ReferenceAreaProps & RectangleProps> | React.ReactElement;
 }
 
 export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
@@ -652,6 +678,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
     yAxis?: ReferenceDotAxisConfiguration;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
     xAxisId?: string | number;
@@ -660,7 +687,7 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
         EventAttributes
         & Partial<PresentationAttributes<number | string, number | string>>
         & { cx: number; cy: number; }
-    > | React.ReactElement<any>;
+    > | React.ReactElement;
 }
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
@@ -672,15 +699,17 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     yAxis?: object;
     isFront?: boolean;
     alwaysShow?: boolean;
+    ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
+    label?: string | number | ContentRenderer<any> | React.ReactElement;
     xAxisId?: string | number;
     yAxisId?: string | number;
     shape?: ContentRenderer<
         EventAttributes
         & Partial<PresentationAttributes<number | string, number | string>>
         & { x1: number; y1: number; x2: number; y2: number; }
-    > | React.ReactElement<any>;
+    > | React.ReactElement;
 }
 
 export class ReferenceLine extends React.Component<ReferenceLineProps> { }
@@ -716,13 +745,13 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     xAxisId?: string | number;
     yAxisId?: string | number;
     zAxisId?: string | number;
-    line?: boolean | object | RechartsFunction | React.ReactElement<any>;
+    line?: boolean | object | RechartsFunction | React.ReactElement;
     lineType?: 'joint' | 'fitting';
     lineJointType?: LineType;
     legendType?: LegendType;
     activeIndex?: number;
-    activeShape?: object | RechartsFunction | React.ReactElement<any>;
-    shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement<any> | ContentRenderer<any>;
+    activeShape?: object | RechartsFunction | React.ReactElement;
+    shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
     data?: object[];
@@ -755,6 +784,8 @@ export interface TextProps extends Partial<PresentationAttributes> {
     textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
     verticalAnchor?: 'start' | 'middle' | 'end';
     style?: object;
+    capHeight?: string;
+    lineHeight?: string;
 }
 
 export class Text extends React.Component<TextProps> { }
@@ -788,10 +819,11 @@ export interface TooltipPayload {
     fill?: string;
     dataKey?: DataKey;
     formatter?: TooltipFormatter;
+    payload?: any;
 }
 
 export interface TooltipProps extends Animatable {
-    content?: React.ReactElement<any> | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+    content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
     active?: boolean;
     separator?: string;
@@ -800,7 +832,7 @@ export interface TooltipProps extends Animatable {
     itemStyle?: object;
     labelStyle?: object;
     wrapperStyle?: object;
-    cursor?: boolean | object | React.ReactElement<any> | React.StatelessComponent<any>;
+    cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;
@@ -819,7 +851,7 @@ export interface TreemapProps extends EventAttributes, Animatable {
     data?: any[];
     style?: object;
     aspectRatio?: number;
-    content?: React.ReactElement<any> | ContentRenderer<any>;
+    content?: React.ReactElement | ContentRenderer<any>;
     fill?: string;
     stroke?: string;
     className?: string;
@@ -832,7 +864,7 @@ export class Treemap extends React.Component<TreemapProps> { }
 
 export class Label extends React.Component<LabelProps> { }
 
-export interface LabelProps {
+export interface LabelProps extends Partial<PresentationAttributes> {
     angle?: number;
     viewBox?: ViewBox | PolarViewBox;
     formatter?: LabelFormatter;
@@ -841,7 +873,7 @@ export interface LabelProps {
     position?: PositionType;
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
-    content?: React.ReactElement<any> | ContentRenderer<any>;
+    content?: React.ReactElement | ContentRenderer<any>;
 }
 
 export class LabelList extends React.Component<LabelListProps> { }
@@ -851,7 +883,7 @@ export interface LabelListProps {
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
-    content?: React.ReactElement<any> | ContentRenderer<Label>;
+    content?: React.ReactElement | ContentRenderer<LabelProps>;
     data?: number;
     dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
@@ -881,7 +913,7 @@ export interface XAxisProps extends EventAttributes {
     unit?: string | number;
     // The unique id of x-axis
     xAxisId?: string | number;
-    domain?: AxisDomain[];
+    domain?: [AxisDomain, AxisDomain];
     // The key of data displayed in the axis
     dataKey?: DataKey;
     // The width of axis which is usually calculated internally
@@ -902,7 +934,7 @@ export interface XAxisProps extends EventAttributes {
     padding?: XPadding;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any>;
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
     axisLine?: boolean | object;
     tickLine?: boolean | object;
     minTickGap?: number;
@@ -910,9 +942,12 @@ export interface XAxisProps extends EventAttributes {
     // The margin between tick line and the label
     tickMargin?: number;
     interval?: AxisInterval;
+    textAnchor?: string;
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/XAxis
     label?: string | number | Label | LabelProps;
+    allowDuplicatedCategory?: boolean;
+    stroke?: string;
 }
 
 export class XAxis extends React.Component<XAxisProps> { }
@@ -932,7 +967,7 @@ export interface YAxisProps extends EventAttributes {
     unit?: string | number;
     // The unique id of y-axis
     yAxisId?: string | number;
-    domain?: AxisDomain[];
+    domain?: [AxisDomain, AxisDomain];
     // The key of data displayed in the axis
     dataKey?: DataKey;
     // Ticks can be any type when the axis is the type of category
@@ -953,7 +988,7 @@ export interface YAxisProps extends EventAttributes {
     padding?: YPadding;
     allowDataOverflow?: boolean;
     scale?: ScaleType | RechartsFunction;
-    tick?: boolean | ContentRenderer<any> | object | React.ReactElement<any>;
+    tick?: boolean | ContentRenderer<any> | object | React.ReactElement;
     axisLine?: boolean | object;
     tickLine?: boolean | object;
     minTickGap?: number;
@@ -964,6 +999,7 @@ export interface YAxisProps extends EventAttributes {
     reversed?: boolean;
     // see label section at http://recharts.org/#/en-US/api/YAxis
     label?: string | number | Label | LabelProps;
+    stroke?: string;
 }
 
 export class YAxis extends React.Component<YAxisProps> { }
@@ -984,3 +1020,25 @@ export interface ZAxisProps {
 }
 
 export class ZAxis extends React.Component<ZAxisProps> { }
+
+export interface SurfaceProps {
+    width?: number;
+    height?: number;
+    viewBox?: ViewBox;
+    className?: string;
+    style?: object;
+    children?: React.ReactNode[] | React.ReactNode;
+}
+
+export class Surface extends React.Component<SurfaceProps> { }
+
+export interface SymbolsProps extends Partial<PresentationAttributes> {
+    className?: string;
+    type?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye';
+    cx?: number;
+    cy?: number;
+    size?: number;
+    sizeType?: 'area' | 'diameter';
+}
+
+export class Symbols extends React.Component<SymbolsProps> { }

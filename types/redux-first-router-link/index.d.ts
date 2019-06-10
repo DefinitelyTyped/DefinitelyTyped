@@ -2,7 +2,7 @@
 // Project: https://github.com/faceyspacey/redux-first-router-link#readme
 // Definitions by: janb87 <https://github.com/janb87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import { Location } from 'redux-first-router';

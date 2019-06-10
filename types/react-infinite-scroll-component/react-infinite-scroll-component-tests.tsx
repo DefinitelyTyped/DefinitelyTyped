@@ -10,6 +10,7 @@ const props: InfiniteScroll.InfiniteScrollProps = {
     dataLength: 4,
     hasMore: true,
     endMessage: 'The end.',
+    loader: <h3>Loading...</h3>,
     next: () => null,
 };
 

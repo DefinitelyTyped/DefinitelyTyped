@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, Store, Dispatch } from "redux";
 import promiseMiddleware from "redux-promise-middleware";
 
 declare var rootReducer: (state: any, action: any) => any;
-declare var Promise: any;
 declare var doSomethingAsyncAndReturnPromise: any;
 declare var someActionCreator: any;
 
@@ -38,6 +37,8 @@ const actionCreator2 = () => ({
     promise: Promise.resolve((action: string, dispatch: Dispatch<any>, getState: Function) => {
       dispatch({ type: "SECEOND_ACTION_TYPE", payload: "..." });
       dispatch(someActionCreator());
+      dispatch({ type: "CHAINED_ACTION", payload: Promise.resolve("...") })
+        .then(({ type, value }) => {})
     })
    }
 });

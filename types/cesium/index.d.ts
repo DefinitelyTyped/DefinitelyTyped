@@ -1,10 +1,11 @@
-// Type definitions for cesium 1.46
+// Type definitions for cesium 1.54
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
 //                 Jared Szechy <https://github.com/szechyjs>
+//                 Radek Goláň jr. <https://github.com/golyalpha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 // tslint:disable-next-line:export-just-namespace
 export = Cesium;
@@ -260,6 +261,7 @@ declare namespace Cesium {
         toString(): string;
         static fromRadians(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
         static fromDegrees(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
+        static toCartesian(cartographic: Cartographic, ellipsoid?: Ellipsoid, result?: Cartesian3): Cartesian3;
         static clone(cartographic: Cartographic, result?: Cartographic): Cartographic;
         static equals(left?: Cartographic, right?: Cartographic): boolean;
         static equalsEpsilon(left: Cartographic, right: Cartographic, epsilon: number): boolean;
@@ -311,7 +313,7 @@ declare namespace Cesium {
         clockRange: ClockRange;
         canAnimate: boolean;
         shouldAnimate: boolean;
-        onTick: Event;
+        onTick: Event<[Clock]>;
         constructor(options: {
             startTime?: JulianDate;
             stopTime?: JulianDate;
@@ -703,11 +705,11 @@ declare namespace Cesium {
         constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid });
     }
 
-    class Event {
+    class Event<T extends any[] = any[]> {
         numberOfListeners: number;
-        addEventListener(listener: () => void, scope?: any): Event.RemoveCallback;
-        removeEventListener(listener: () => void, scope?: any): boolean;
-        raiseEvent(...args: any[]): void;
+        addEventListener(listener: (...args: T) => void, scope?: any): Event.RemoveCallback;
+        removeEventListener(listener: (...args: T) => void, scope?: any): boolean;
+        raiseEvent(...args: T): void;
     }
 
     namespace Event {
@@ -794,6 +796,22 @@ declare namespace Cesium {
         second: number;
         millisecond: number;
         isLeapSecond: boolean;
+    }
+
+    class HeadingPitchRoll {
+        heading: number;
+        pitch: number;
+        roll: number;
+        constructor(heading?: number, pitch?: number, roll?: number);
+        static clone(headingPitchRoll: HeadingPitchRoll, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static equals(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined): boolean;
+        static equalsEpsilon(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        static fromDegrees(heading: number, pitch: number, roll: number, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static fromQuaternion(quaternion: Quaternion, result?: HeadingPitchRoll): HeadingPitchRoll;
+        clone(result?: HeadingPitchRoll): HeadingPitchRoll;
+        equals(right: HeadingPitchRoll | null | undefined): boolean;
+        equalsEpsilon(right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        toString(): string;
     }
 
     class HeightmapTerrainData {
@@ -958,6 +976,7 @@ declare namespace Cesium {
         static fromArray(array: number[], startingIndex?: number, result?: Matrix3): Matrix3;
         static fromColumnMajorArray(values: number[], result?: Matrix3): Matrix3;
         static fromRowMajorArray(values: number[], result?: Matrix3): Matrix3;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Matrix3): Matrix3;
         static fromQuaternion(quaternion: Quaternion): Matrix3;
         static fromScale(scale: Cartesian3, result?: Matrix3): Matrix3;
         static fromUniformScale(scale: number, result?: Matrix3): Matrix3;
@@ -1235,7 +1254,7 @@ declare namespace Cesium {
         toString(): string;
         static fromAxisAngle(axis: Cartesian3, angle: number, result?: Quaternion): Quaternion;
         static fromRotationMatrix(matrix: Matrix3, result?: Quaternion): Quaternion;
-        static fromHeadingPitchRoll(heading: number, pitch: number, roll: number, result: Quaternion): Quaternion;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Quaternion): Quaternion;
         static pack(value: Quaternion, array: number[], startingIndex?: number): number[];
         static unpack(array: number[], startingIndex?: number, result?: Quaternion): Quaternion;
         static convertPackedArrayForInterpolation(packedArray: number[], startingIndex?: number, lastIndex?: number, result?: number[]): void;
@@ -1373,10 +1392,29 @@ declare namespace Cesium {
         constructor(message?: string);
     }
 
+    interface ScreenSpaceEventMap {
+        [ScreenSpaceEventType.LEFT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_DOUBLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
+        [ScreenSpaceEventType.WHEEL]: number;
+        [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+    }
+
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(action: () => void, type: number, modifier?: number): void;
-        getInputAction(type: number, modifier?: number): () => void;
+        setInputAction<K extends keyof ScreenSpaceEventMap>(action: (event: ScreenSpaceEventMap[K]) => void, type: K, modifier?: number): void;
+        setInputAction(action: () => void, type: ScreenSpaceEventType, modifier?: number): void;
+        getInputAction<K extends keyof ScreenSpaceEventMap>(type: K, modifier?: number): (event: ScreenSpaceEventMap[K]) => void;
+        getInputAction(type: ScreenSpaceEventType, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
@@ -1410,6 +1448,9 @@ declare namespace Cesium {
     }
 
     class Spherical {
+        clock: number;
+        cone: number;
+        magnitude: number;
         constructor(clock?: number, cone?: number, magnitude?: number);
         equals(other: Spherical): boolean;
         clone(result?: Spherical): Spherical;
@@ -1494,7 +1535,7 @@ declare namespace Cesium {
         retry: boolean;
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
-        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event,
+        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
                             message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
                             errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
@@ -1544,7 +1585,7 @@ declare namespace Cesium {
     }
 
     class TimeIntervalCollection {
-        readonly changedEvent: Event;
+        readonly changedEvent: Event<[TimeIntervalCollection]>;
         readonly start: JulianDate;
         readonly isStartIncluded: boolean;
         readonly stop: JulianDate;
@@ -1934,15 +1975,15 @@ declare namespace Cesium {
         semiMinorAxis: Property;
         rotation: Property;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
-        outline: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fill: boolean;
+        outline: boolean;
+        outlineColor: Color;
+        outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
             semiMajorAxis?: number;
@@ -1950,11 +1991,11 @@ declare namespace Cesium {
             height?: Property;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fill?: boolean;
+            material?: MaterialProperty | Color
+            outline?: boolean;
+            outlineColor?: Color;
+            outlineWidth?: number;
             numberOfVerticalLines?: Property;
             rotation?: Property;
             stRotation?: Property;
@@ -2206,11 +2247,11 @@ declare namespace Cesium {
     class LabelGraphics {
         definitionChanged: Event;
         text: Property;
-        font: Property;
+        font: string;
         style: Property;
-        fillColor: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fillColor: Color;
+        outlineColor: Color;
+        outlineWidth: number;
         horizontalOrigin: Property;
         verticalOrigin: Property;
         eyeOffset: Property;
@@ -2221,11 +2262,11 @@ declare namespace Cesium {
         pixelOffsetScaleByDistance: Property;
         constructor(options?: {
             text?: Property;
-            font?: Property;
+            font?: string;
             style?: Property;
-            fillColor?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fillColor?: Color;
+            outlineColor?: Color;
+            outlineWidth?: number;
             show?: Property;
             scale?: Property;
             horizontalOrigin?: Property;
@@ -2361,16 +2402,16 @@ declare namespace Cesium {
     class PolygonGraphics {
         definitionChanged: Event;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         positions: Property;
         hierarchy: Property;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
+        fill: boolean;
         outline: Property;
-        outlineColor: Property;
+        outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
         constructor(options?: {
@@ -2378,10 +2419,10 @@ declare namespace Cesium {
             height?: number;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
+            fill?: boolean;
+            material?: MaterialProperty | Color;
             outline?: boolean;
-            outlineColor?: Property;
+            outlineColor?: Color;
             outlineWidth?: number;
             stRotation?: Property;
             granularity?: Property;
@@ -2396,16 +2437,24 @@ declare namespace Cesium {
         constructor(color?: Property);
     }
 
-    class PolylineGeometryUpdater extends GeometryUpdater {
-        readonly depthFailMaterialProperty: MaterialProperty;
-        readonly distanceDisplayConditionProperty: Property;
-        constructor(entity: Entity, scene: Scene);
-    }
-
     class PolylineGlowMaterialProperty extends MaterialProperty {
         color: Color;
         glowPower: Property;
         constructor(options?: { color?: Property; glowPower?: Property });
+    }
+
+    class PolylineDashMaterialProperty extends MaterialProperty {
+        color: Color;
+        gapColor: Color;
+        dashLength: Property;
+        dashPattern: Property;
+        constructor(options?: {color?: Color; gapColor?: Color; dashLength?: Property; dashPattern?: Property});
+    }
+
+    class PolylineGeometryUpdater extends GeometryUpdater {
+        readonly depthFailMaterialProperty: MaterialProperty;
+        readonly distanceDisplayConditionProperty: Property;
+        constructor(entity: Entity, scene: Scene);
     }
 
     class PolylineGraphics {
@@ -2416,7 +2465,14 @@ declare namespace Cesium {
         width: number;
         followSurface: Property;
         granularity: Property;
-        constructor(options?: { positions?: Cartesian3[]; followSurface?: Property; width?: number; show?: Property; material?: MaterialProperty; granularity?: Property });
+        constructor(options?: {
+            positions?: Cartesian3[];
+            followSurface?: Property;
+            width?: number;
+            show?: Property;
+            material?: MaterialProperty;
+            granularity?: Property
+        });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
     }
@@ -2806,7 +2862,7 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: any;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
             duration?: number;
             complete?: Camera.FlightCompleteCallback;
             cancel?: Camera.FlightCancelledCallback;
@@ -2815,7 +2871,8 @@ declare namespace Cesium {
             pitchAdjustHeight?: number;
             flyOverLongitude?: number;
             flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction
+            easingFunction?: EasingFunction,
+            convert?: boolean,
         }): void;
         flyToBoundingSphere(boundingSphere: BoundingSphere, options?: {
             duration?: number;
@@ -2853,7 +2910,12 @@ declare namespace Cesium {
         rotateLeft(angle?: number): void;
         rotateRight(angle?: number): void;
         rotateUp(angle?: number): void;
-        setView(options: {destination?: Cartesian3 | Rectangle; orientation?: any; endTransform?: Matrix4}): void;
+        setView(options: {
+            destination?: Cartesian3 | Rectangle;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
+            endTransform?: Matrix4,
+            convert?: boolean,
+        }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
         twistLeft(amount?: number): void;
@@ -3009,6 +3071,7 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         imageryLayers: ImageryLayerCollection;
         baseColor: Color;
+        cartographicLimitRectangle: Rectangle;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
@@ -3114,6 +3177,15 @@ declare namespace Cesium {
         range: number;
         constructor(heading?: number, pitch?: number, range?: number);
         static clone(hpr: HeadingPitchRange, result?: HeadingPitchRange): HeadingPitchRange;
+    }
+
+    // tslint:disable-next-line:no-unnecessary-class
+    class Cesium3DTileset {
+      constructor(Cesium3DTilesetItem: {
+        url: string;
+        maximumScreenSpaceError: number;
+        maximumNumberOfLoadedTiles: number;
+      })
     }
 
     class ImageryLayer {
@@ -3592,7 +3664,7 @@ declare namespace Cesium {
             cull?: boolean;
             asynchronous?: boolean;
             debugShowBoundingVolume?: boolean;
-            shadows: ShadowMode
+            shadows?: ShadowMode
         });
         destroy(): void;
         getGeometryInstanceAttributes(id: any): any;
@@ -4361,8 +4433,8 @@ declare namespace Cesium {
         allowDataSourcesToSuspendAnimation: boolean;
         trackedEntity: Entity;
         selectedEntity: Entity;
-        readonly trackedEntityChanged: Event;
-        readonly selectedEntityChanged: Event;
+        readonly trackedEntityChanged: Event<[Entity?]>;
+        readonly selectedEntityChanged: Event<[Entity?]>;
         readonly shadowMap: ShadowMap;
         readonly vrButton: VRButton;
         shadows: boolean;
@@ -4489,6 +4561,8 @@ declare namespace Cesium {
     }
 
     function sampleTerrain(terrainProvider: TerrainProvider, level: number, positions: Cartographic[]): Promise<Cartographic[]>;
+
+    function sampleTerrainMostDetailed(terrainProvider: TerrainProvider, positions: Cartographic[]): Promise<Cartographic[]>;
 
     function subdivideArray(array: any[], numberOfArrays: number): undefined;
 
@@ -4817,23 +4891,21 @@ declare namespace Cesium {
     }
 
     enum ScreenSpaceEventType {
-        LEFT_DOWN,
-        LEFT_UP,
-        LEFT_CLICK,
-        LEFT_DOUBLE_CLICK,
-        RIGHT_DOWN,
-        RIGHT_UP,
-        RIGHT_CLICK,
-        RIGHT_DOUBLE_CLICK,
-        MIDDLE_DOWN,
-        MIDDLE_UP,
-        MIDDLE_CLICK,
-        MIDDLE_DOUBLE_CLICK,
-        MOUSE_MOVE,
-        WHEEL,
-        PINCH_START,
-        PINCH_END,
-        PINCH_MOVE,
+        LEFT_DOWN = 0,
+        LEFT_UP = 1,
+        LEFT_CLICK = 2,
+        LEFT_DOUBLE_CLICK = 3,
+        RIGHT_DOWN = 5,
+        RIGHT_UP = 6,
+        RIGHT_CLICK = 7,
+        MIDDLE_DOWN = 10,
+        MIDDLE_UP = 11,
+        MIDDLE_CLICK = 12,
+        MOUSE_MOVE = 15,
+        WHEEL = 16,
+        PINCH_START = 17,
+        PINCH_END = 18,
+        PINCH_MOVE = 19,
     }
 
     namespace Simon1994PlanetaryPositions {
@@ -4879,13 +4951,15 @@ declare namespace Cesium {
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollToFixedFrame(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollQuaternion(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Quaternion): Quaternion;
+        function headingPitchRollToFixedFrame(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: Matrix4): Matrix4;
+        function headingPitchRollQuaternion(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame,
+                                            result?: Quaternion): Quaternion;
         function computeTemeToPseudoFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function preloadIcrfFixed(timeInterval: TimeInterval): Promise<void>;
         function computeIcrfToFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function computeFixedToIcrfMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function pointToWindowCoordinates(modelViewProjectionMatrix: Matrix4, viewportTransformation: Matrix4, point: Cartesian3, result?: Cartesian2): Cartesian2;
+        type LocalFrameToFixedFrame = (origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4) => Matrix4;
     }
 
     namespace TridiagonalSystemSolver {

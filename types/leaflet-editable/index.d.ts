@@ -1,5 +1,5 @@
 // Type definitions for Leaflet.Editable 0.7
-// Project: https://github.com/yohanboniface/Leaflet.Editable
+// Project: https://github.com/leaflet/leaflet.editable
 // Definitions by: Dominic Alie <https://github.com/dalie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -124,6 +124,11 @@ declare module 'leaflet' {
          * When you need to stop any ongoing drawing, without needing to know which editor is active.
          */
         stopDrawing(): void;
+
+        /**
+         * When you need to commit any ongoing drawing, without needing to know which editor is active.
+         */
+        commitDrawing(): void;
     }
 
     let Editable: EditableStatic;

@@ -230,10 +230,10 @@ declare namespace SqlBricks {
   interface UpdateStatement extends Statement {
     values(...values: any[]): UpdateStatement
     set(...values: any[]): UpdateStatement
-    where(column?: string | null, value?: any): SelectStatement
-    where(...whereExpr: WhereExpression[]): SelectStatement
-    and(column?: string | null, value?: any): SelectStatement
-    and(...whereExpr: WhereExpression[]): SelectStatement
+    where(column?: string | null, value?: any): UpdateStatement
+    where(...whereExpr: WhereExpression[]): UpdateStatement
+    and(column?: string | null, value?: any): UpdateStatement
+    and(...whereExpr: WhereExpression[]): UpdateStatement
   }
 
   /**

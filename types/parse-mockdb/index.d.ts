@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="parse" />
-
 declare namespace ParseMockDB {
     function mockDB(): void;
     function unMockDB(): void;
@@ -18,5 +16,6 @@ declare namespace ParseMockDB {
 }
 
 declare module "parse-mockdb" {
+    import * as Parse from 'parse'
     export = ParseMockDB;
 }

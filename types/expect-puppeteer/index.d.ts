@@ -1,9 +1,9 @@
-// Type definitions for expect-puppeteer 2.2
+// Type definitions for expect-puppeteer 3.3
 // Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
@@ -57,6 +57,7 @@ declare global {
             toClick(selector: string, options?: ExpectToClickOptions): Promise<void>;
             toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
             toFill(selector: string, value: string, options?: ExpectTimingActions): Promise<void>;
+            toFillForm(selector: string, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
             toMatch(selector: string, options?: ExpectTimingActions): Promise<void>;
             toMatchElement(selector: string, options?: ExpectToClickOptions): Promise<void>;
             toSelect(selector: string, valueOrText: string, options?: ExpectTimingActions): Promise<void>;

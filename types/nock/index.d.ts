@@ -1,5 +1,5 @@
-// Type definitions for nock v9.3.3
-// Project: https://github.com/node-nock/nock
+// Type definitions for nock 10.0
+// Project: https://github.com/nock/nock
 // Definitions by: bonnici <https://github.com/bonnici>
 //                 Horiuchi_H <https://github.com/horiuchi>
 //                 afharo <https://github.com/afharo>
@@ -10,6 +10,8 @@
 
 /// <reference types="node" />
 
+import { ReadStream } from 'fs';
+import { ClientRequest } from "http";
 import { Url } from 'url';
 
 export = nock;
@@ -17,38 +19,49 @@ export = nock;
 declare function nock(basePath: string | RegExp | Url, options?: nock.Options): nock.Scope;
 
 declare namespace nock {
-    export function cleanAll(): void;
+    function cleanAll(): void;
 
-    export function activate(): void;
-    export function isActive(): boolean;
-    export function isDone(): boolean;
-    export function pendingMocks(): string[];
-    export function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
-    export function disableNetConnect(): void;
-    export function enableNetConnect(matcher?: string | RegExp): void;
+    function activate(): void;
+    function isActive(): boolean;
+    function isDone(): boolean;
+    function pendingMocks(): string[];
+    function activeMocks(): string[];
+    function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
+    function disableNetConnect(): void;
+    function enableNetConnect(matcher?: string | RegExp): void;
 
-    export function load(path: string): Scope[];
-    export function loadDefs(path: string): NockDefinition[];
-    export function define(defs: NockDefinition[]): Scope[];
+    function load(path: string): Scope[];
+    function loadDefs(path: string): NockDefinition[];
+    function define(defs: NockDefinition[]): Scope[];
 
-    export var emitter: NodeJS.EventEmitter;
+    let emitter: NodeJS.EventEmitter;
 
-    export var recorder: Recorder;
-    export function restore(): void;
+    let recorder: Recorder;
+    function restore(): void;
 
-    export var back: NockBack;
+    let back: NockBack;
 
-    type HttpHeaders = { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; };
+    interface POJO { [k: string]: any; }
+    type RequestBodyMatcher = string | Buffer | RegExp | POJO | { (body: any): boolean; };
+    interface RequestHeaderMatcher { [key: string]: string | RegExp | { (headerValue: string): boolean; }; }
+
+    interface HttpHeaders { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; }
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
-        requestBody?: string | RegExp | { (body: any): boolean; } | any,
+        requestBody?: RequestBodyMatcher,
         interceptorOptions?: Options
     ) => Interceptor;
-    export type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
-    type ReplyCallbackResult = string | [number, string | any] | [number, string | any, HttpHeaders] | any;
 
+    type ReplyBody = string | Buffer | ReadStream | POJO;
+    type ReplyCallback = (err: any, result: ReplyCallbackResult) => void;
+    type ReplyCallbackResult = ReplyBody | [number, ReplyBody] | [number, ReplyBody, HttpHeaders];
+    interface ReplyCallbackContext extends Interceptor {
+        req: ClientRequest & {
+            headers: { [k: string]: string }
+        };
+    }
 
-    export interface Scope extends NodeJS.EventEmitter {
+    interface Scope extends NodeJS.EventEmitter {
         get: InterceptFunction;
         post: InterceptFunction;
         put: InterceptFunction;
@@ -61,10 +74,9 @@ declare namespace nock {
         intercept: (
             uri: string | RegExp | { (uri: string): boolean; },
             method: string,
-            requestBody?: string | RegExp | { (body: any): boolean; } | any,
+            requestBody?: RequestBodyMatcher,
             options?: Options
         ) => Interceptor;
-
 
         defaultReplyHeaders(headers: HttpHeaders): this;
         matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
@@ -73,7 +85,7 @@ declare namespace nock {
         filteringRequestBody(regex: RegExp, replace: string): this;
         filteringRequestBody(fn: (body: string) => string): this;
 
-        log(out: () => void): this;
+        log(out: (message: any, ...optionalParams: any[]) => void): this;
         persist(flag?: boolean): this;
         shouldPersist(): boolean;
         replyContentLength(): this;
@@ -83,17 +95,26 @@ declare namespace nock {
         isDone(): boolean;
         restore(): void;
         pendingMocks(): string[];
+        activeMocks(): string[];
     }
 
-    export interface Interceptor {
-        query(params: boolean | { (querObject: any): boolean; } | any): this;
+    interface Interceptor {
+        query(params: boolean | string | { (queryObject: any): boolean; } | POJO): this;
 
-        reply(responseCode: number, body?: string | any, headers?: HttpHeaders): Scope;
-        reply(responseCode: number, callback: (uri: string, body: string, cb?: ReplyCallback) => ReplyCallbackResult, headers?: HttpHeaders): Scope;
-        reply(callback: (uri: string, body: string, cb?: ReplyCallback) => ReplyCallbackResult, headers?: HttpHeaders): Scope;
-        replyWithError(errorMessage: string | any): Scope;
+        // tslint (as of 5.16) is under the impression that the callback types can be unified,
+        // however, doing so causes the params to lose their inherited types during use.
+        /* tslint:disable:unified-signatures */
+        reply(callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void): Scope;
+        reply(callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult): Scope;
+        reply(responseCode: number, callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody, cb: ReplyCallback) => void): Scope;
+        reply(responseCode: number, callback: (this: ReplyCallbackContext, uri: string, body: ReplyBody) => ReplyCallbackResult): Scope;
+        reply(responseCode: number, body?: ReplyBody, headers?: HttpHeaders): Scope;
+        /* tslint:enable:unified-signatures */
+
+        replyWithError(errorMessage: string | POJO): Scope;
         replyWithFile(responseCode: number, fileName: string, headers?: HttpHeaders): Scope;
 
+        matchHeader(name: string, value: string | RegExp | { (value: string): boolean; }): this;
         basicAuth(options: { user: string; pass?: string; }): this;
 
         times(newCounter: number): this;
@@ -109,14 +130,15 @@ declare namespace nock {
         socketDelay(timeMs: number): this;
     }
 
-    export interface Options {
+    interface Options {
         allowUnmocked?: boolean;
-        reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
+        reqheaders?: RequestHeaderMatcher;
         badheaders?: string[];
         filteringScope?: { (scope: string): boolean; };
+        encodedQueryParams?: boolean;
     }
 
-    export interface RequestOptions {
+    interface RequestOptions {
         proto?: string;
         _https_?: boolean;
         hostname?: string;
@@ -126,13 +148,13 @@ declare namespace nock {
         path?: string;
     }
 
-    export interface Recorder {
+    interface Recorder {
         rec(options?: boolean | RecorderOptions): void;
         clear(): void;
         play(): string[] | NockDefinition[];
     }
 
-    export interface RecorderOptions {
+    interface RecorderOptions {
         dont_print?: boolean;
         output_objects?: boolean;
         enable_reqheaders_recording?: boolean;
@@ -140,22 +162,22 @@ declare namespace nock {
         use_separator?: boolean;
     }
 
-    export interface NockDefinition {
+    interface NockDefinition {
         scope: string;
         port?: number | string;
         method?: string;
         path: string;
-        body?: string | any;
+        body?: RequestBodyMatcher;
         status?: number;
-        response?: string | any;
+        response?: ReplyBody;
         headers?: HttpHeaders;
-        reqheaders?: { [key: string]: string | RegExp | { (headerValue: string): boolean; }; };
+        reqheaders?: RequestHeaderMatcher;
         options?: Options;
     }
 
-    export type NockBackMode = "wild" | "dryrun" | "record" | "lockdown";
+    type NockBackMode = "wild" | "dryrun" | "record" | "lockdown";
 
-    export interface NockBack {
+    interface NockBack {
         fixtures: string;
         setMode(mode: NockBackMode): void;
 
@@ -164,13 +186,13 @@ declare namespace nock {
         (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void, context: NockBackContext }>;
     }
 
-    export interface NockBackContext {
-      scopes: Scope[];
-      assertScopesFinished(): void;
-      isLoaded: boolean;
+    interface NockBackContext {
+        scopes: Scope[];
+        assertScopesFinished(): void;
+        isLoaded: boolean;
     }
 
-    export interface NockBackOptions {
+    interface NockBackOptions {
         before?: (def: NockDefinition) => void;
         after?: (scope: Scope) => void;
         afterRecord?: (defs: NockDefinition[]) => NockDefinition[];

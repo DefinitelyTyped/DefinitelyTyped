@@ -2,7 +2,7 @@
 // Project: https://github.com/bokuweb/react-sortable-pane
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

@@ -2,9 +2,9 @@
 // Project: https://github.com/oliviertassinari/react-event-listener
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
-import * as React from "react";
+import React = require("react");
 
 export interface EventOptions {
     /**
@@ -125,8 +125,8 @@ export interface EventListenerProps {
     onMouseOverCapture?(ev: MouseEvent): any;
     onMouseUp?(ev: MouseEvent): any;
     onMouseUpCapture?(ev: MouseEvent): any;
-    onMouseWheel?(ev: MouseWheelEvent): any;
-    onMouseWheelCapture?(ev: MouseWheelEvent): any;
+    onMouseWheel?(ev: WheelEvent): any;
+    onMouseWheelCapture?(ev: WheelEvent): any;
     onMsGestureChange?(ev: MSGestureEvent): any;
     onMsGestureChangeCapture?(ev: MSGestureEvent): any;
     onMsGestureDoubleTap?(ev: MSGestureEvent): any;
@@ -193,6 +193,8 @@ export interface EventListenerProps {
     onSeekingCapture?(ev: Event): any;
     onSelect?(ev: UIEvent): any;
     onSelectCapture?(ev: UIEvent): any;
+    onSelectionChange?(ev: Event): any;
+    onSelectionChangeCapture?(ev: Event): any;
     onStalled?(ev: Event): any;
     onStalledCapture?(ev: Event): any;
     onStorage?(ev: StorageEvent): any;

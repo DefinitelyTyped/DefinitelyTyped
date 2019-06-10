@@ -419,3 +419,14 @@ myApp.controller('StickyController', ($scope: TestScope, $mdSticky: ng.material.
     $mdSticky($scope, stickyElement);
     $mdSticky($scope, stickyElement, cloneStickyElement);
 });
+
+function mdUtil($mdUtil: ng.material.IUtilService) {
+    // $ExpectType void
+    $mdUtil.enableScrolling();
+
+    // $ExpectType () => void
+    $mdUtil.debounce(() => {});
+
+    // $ExpectType () => string
+    $mdUtil.debounce((): string => "");
+}

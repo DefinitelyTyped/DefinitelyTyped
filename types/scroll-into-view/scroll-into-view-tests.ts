@@ -13,7 +13,9 @@ scrollIntoView(someElement, {
     },
     align: {
         top: 0,
-        left: 1
+        left: 1,
+        topOffset: 20,
+        leftOffset: 20
     }
 });
 

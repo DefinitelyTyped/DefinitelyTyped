@@ -1599,6 +1599,7 @@ function test_slider() {
     $(".selector").slider({ step: 5 });
     $(".selector").slider({ value: 10 });
     $(".selector").slider({ values: [10, 25] });
+    $(".selector").slider({ classes: { "ui-slider": "custom", "ui-slider-handle": "custom-handle" } } );
 }
 
 
@@ -1861,6 +1862,7 @@ function test_ui() {
     $("aDialog").keypress(function (e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
+    $(".selector").jQuery.ui.selectmenu({ disabled: true });
 }
 
 function test_widget() {
