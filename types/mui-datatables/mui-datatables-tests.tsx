@@ -1,4 +1,4 @@
-import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels } from 'mui-datatables';
+import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, SelectableRows } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends MUIDataTableOptions {
@@ -17,7 +17,7 @@ const MuiCustomTable: React.FC<Props> = (props) => {
     const TableOptions: MUIDataTableOptions = {
         filterType: 'checkbox',
         responsive: 'scroll',
-        selectableRows: false,
+        selectableRows: 'none',
         elevation: 0,
         rowsPerPageOptions: [5, 10, 20, 25, 50, 100],
         downloadOptions: {
