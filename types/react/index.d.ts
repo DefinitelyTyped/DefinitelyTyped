@@ -513,7 +513,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    type DRFC<T= {}> = FC<DeepReadonly<T>>;
+    type DRFC<P= {}> = FC<DeepReadonly<P>>;
 
     interface RefForwardingComponent<T, P = {}> {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
