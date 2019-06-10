@@ -10,6 +10,7 @@
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Jack Allen <https://github.com/jackall3n>
 //                 Benjamin Evenson <https://github.com/benjiro>
+//                 Han Jeon <https://github.com/hanstar17>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -1434,8 +1435,8 @@ export class Editor implements Controller {
     redo(): Editor;
     undo(): Editor;
     snapshotSelection(): Editor;
-    command(name: string, ...args: any[]): Editor;
-    query(query: string, ...args: any[]): any;
+    command(name: string | CommandFunc, ...args: any[]): Editor;
+    query(query: string | QueryFunc, ...args: any[]): any;
     registerCommand(command: string): Editor;
     registerQuery(query: string): Editor;
     applyOperation(operation: Operation): Editor;
