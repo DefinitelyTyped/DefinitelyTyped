@@ -486,10 +486,10 @@ declare namespace IORedis {
 
         pipeline(commands?: string[][]): Pipeline;
 
-        scanStream(options?: ScanStreamOption): Readable
-        sscanStream(key: KeyType, options?: ScanStreamOption): Readable
-        hscanStream(key: KeyType, options?: ScanStreamOption): Readable
-        zscanStream(key: KeyType, options?: ScanStreamOption): Readable
+        scanStream(options?: ScanStreamOption): Readable;
+        sscanStream(key: KeyType, options?: ScanStreamOption): Readable;
+        hscanStream(key: KeyType, options?: ScanStreamOption): Readable;
+        zscanStream(key: KeyType, options?: ScanStreamOption): Readable;
 
         xack(key: KeyType, group: string, ...ids: string[]): any;
 
