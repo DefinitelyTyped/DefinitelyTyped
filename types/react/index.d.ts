@@ -2809,6 +2809,35 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
             ? Defaultize<P, D>
             : P;
 
+type DeepReadonly<T> =
+    T extends  AnyFunction | Primitive ? T :
+    T extends ReadonlyArray<infer R> ? DRArray<R> :
+    T extends ReadonlyMap<infer K, infer V> ? DRMap<K, V> :
+    T extends ReadonlySet<infer ItemType>? DRSet<ItemType>:
+    T extends object ? DRObject<T> :
+    T;
+
+interface DRArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+
+type DRObject<T> = {
+    readonly [P in keyof T]: DeepReadonly<T[P]>;
+};
+
+interface DRMap<K, V> extends ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>> {}
+
+interface DRSet<ItemType>
+    extends ReadonlySet<DeepReadonly<ItemType>> {}
+
+type Primitive =
+    | null
+    | undefined
+    | string
+    | number
+    | boolean
+    | symbol;
+
+type AnyFunction = (...args: any[]) => any;
+
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
@@ -3013,33 +3042,4 @@ declare global {
             view: React.SVGProps<SVGViewElement>;
         }
     }
-
-    type DeepReadonly<T> =
-        T extends  AnyFunction | Primitive ? T :
-        T extends ReadonlyArray<infer R> ? DRArray<R> :
-        T extends ReadonlyMap<infer K, infer V> ? DRMap<K, V> :
-        T extends ReadonlySet<infer ItemType>? DRSet<ItemType>:
-        T extends object ? DRObject<T> :
-        T;
-
-    interface DRArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
-
-    type DRObject<T> = {
-        readonly [P in keyof T]: DeepReadonly<T[P]>;
-    };
-
-    interface DRMap<K, V> extends ReadonlyMap<DeepReadonly<K>, DeepReadonly<V>> {}
-
-    interface DRSet<ItemType>
-        extends ReadonlySet<DeepReadonly<ItemType>> {}
-
-    type Primitive =
-        | null
-        | undefined
-        | string
-        | number
-        | boolean
-        | symbol;
-
-    type AnyFunction = (...args: any[]) => any;
 }
