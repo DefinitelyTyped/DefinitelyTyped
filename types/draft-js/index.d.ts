@@ -82,11 +82,11 @@ declare namespace Draft {
 
                 // Provide a map of inline style names corresponding to CSS style objects
                 // that will be rendered for matching ranges.
-                customStyleMap?: any;
+                customStyleMap?: Object;
 
                 // Provide a function that will construct CSS style objects given inline
                 // style names.
-                customStyleFn?: (style: DraftInlineStyle) => Object;
+                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => Object;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
