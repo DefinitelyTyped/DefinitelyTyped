@@ -22,6 +22,7 @@ import {
   DraftEntityType,
   convertFromHTML,
   convertToRaw,
+  DraftDecorator,
   CompositeDecorator,
 } from 'draft-js';
 

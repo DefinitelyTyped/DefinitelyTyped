@@ -11,6 +11,7 @@
 //                 Pablo Varela <https://github.com/pablopunk>
 //                 Claudio Procida <https://github.com/claudiopro>
 //                 Kevin Hawkinson <https://github.com/khawkinson>
+//                 Munif Tanjim <https://github.com/MunifTanjim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -304,7 +305,7 @@ declare namespace Draft {
             /**
              * The list of default valid block types.
              */
-            type DraftBlockType = (
+            type CoreDraftBlockType = (
                 "unstyled" |
                 "paragraph" |
                 "header-one" |
@@ -319,6 +320,10 @@ declare namespace Draft {
                 "code-block" |
                 "atomic"
             );
+
+            type CustomBlockType = string;
+
+            type DraftBlockType = CoreDraftBlockType | CustomBlockType;
 
             /**
              * A type that allows us to avoid passing boolean arguments
@@ -960,6 +965,7 @@ import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
+import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
 import EntityInstance = Draft.Model.Entity.DraftEntityInstance;
@@ -1012,6 +1018,7 @@ export {
     EditorState,
     EditorChangeType,
 
+    DraftDecorator,
     CompositeDecorator,
     Entity,
     EntityInstance,
