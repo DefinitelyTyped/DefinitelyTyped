@@ -7,7 +7,6 @@
 //                 Abraham White <https://github.com/whiteabelincoln>
 //                 Borys Kupar <https://github.com/borys-kupar>
 //                 Andrés Catalán <https://github.com/catalandres>
-//                 Yariv Brosh <https://github.com/ybro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
