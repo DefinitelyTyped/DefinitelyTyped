@@ -6,6 +6,7 @@
 // TypeScript Version: 2.8
 
 import { Browser, Page, BrowserContext } from 'puppeteer';
+import { JestEnvironment } from '@jest/environment';
 
 interface JestPuppeteer {
     /**
@@ -40,4 +41,8 @@ declare global {
     const jestPuppeteer: JestPuppeteer;
 }
 
-export {};
+export { setup } from './setup';
+export { teardown } from './teardown';
+
+declare class PuppeteerEnvironment extends JestEnvironment {}
+export default PuppeteerEnvironment;

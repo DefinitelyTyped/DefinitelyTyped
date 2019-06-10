@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "setup.d.ts",
+        "teardown.d.ts",
         "jest-environment-puppeteer-tests.ts"
     ]
 }
