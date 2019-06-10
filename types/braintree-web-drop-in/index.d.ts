@@ -9,7 +9,7 @@ USAGE:
 import * as dropin from "braintree-web-drop-in"
 
 NOTE:
-Some objects, such as as the payload returned from Dropin.requestPaymentMethod, can have various shapes. Review Braintree's documentation for more information about any types not covered in this file.
+Some objects, such as as the payload returned from Dropin.requestPaymentMethod, can have various shapes. Review Braintree's documentation for more information about any types not covered in this file:
 https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-web-drop-in.html
 */
 
