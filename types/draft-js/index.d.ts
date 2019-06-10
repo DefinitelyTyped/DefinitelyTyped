@@ -144,7 +144,7 @@ declare namespace Draft {
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string, editorState: EditorState): DraftHandleValue,
+                handleBeforeInput?(chars: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue,
 
                 handlePastedText?(text: string, html: string|undefined, editorState: EditorState): DraftHandleValue,
 
