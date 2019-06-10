@@ -261,6 +261,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
         listS = fs.readdirSync('path', undefined);
         const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
         const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
+        const listDir3: fs.Dirent[] = fs.readdirSync('path', { encoding: 'utf8', withFileTypes: true });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
