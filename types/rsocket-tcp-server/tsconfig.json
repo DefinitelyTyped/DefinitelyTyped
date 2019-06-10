@@ -13,7 +13,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": ["node", "net", "events"],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

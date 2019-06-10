@@ -20,9 +20,9 @@ export declare type ServerOptions = {
  */
 export default class RSocketWebSocketServer implements TransportServer {
     _emitter: EventEmitter;
-    _encoders: Encoders<any> | null | undefined;
+    _encoders?: Encoders<any>;
     _options: ServerOptions;
-    constructor(options: ServerOptions, encoders?: Encoders<any> | null | undefined);
+    constructor(options: ServerOptions, encoders?: Encoders<any>);
     start(): Flowable<DuplexConnection>;
     stop(): undefined;
 }

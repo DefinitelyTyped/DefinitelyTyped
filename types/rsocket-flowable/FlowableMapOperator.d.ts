@@ -7,10 +7,10 @@ import { ISubscriber, ISubscription } from 'rsocket-types';
 export default class FlowableMapOperator<T, R> implements ISubscriber<T> {
     _fn: (t: T) => R;
     _subscriber: ISubscriber<R>;
-    _subscription: ISubscription | null | undefined;
+    _subscription?: ISubscription;
     constructor(subscriber: ISubscriber<R>, fn: (t: T) => R);
-    onComplete(): undefined;
-    onError(error: Error): undefined;
-    onNext(t: T): undefined;
-    onSubscribe(subscription: ISubscription): undefined;
+    onComplete(): void;
+    onError(error: Error): void;
+    onNext(t: T): void;
+    onSubscribe(subscription: ISubscription): void;
 }

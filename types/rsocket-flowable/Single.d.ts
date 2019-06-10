@@ -49,12 +49,12 @@ export default class Single<T> {
     static of<U>(value: U): Single<U>;
     static error<U>(error: Error): Single<U>;
     constructor(source: Source<T>);
-    subscribe(partialSubscriber?: Partial<IFutureSubscriber<T>>): undefined;
+    subscribe(partialSubscriber?: Partial<IFutureSubscriber<T>>): void;
     flatMap<R>(fn: (data: T) => Single<R>): Single<R>;
     /**
      * Return a new Single that resolves to the value of this Single applied to
      * the given mapping function.
      */
     map<R>(fn: (data: T) => R): Single<R>;
-    then(successFn?: (data: T) => undefined, errorFn?: (error: Error) => undefined): undefined;
+    then(successFn?: (data: T) => void, errorFn?: (error: Error) => void): void;
 }

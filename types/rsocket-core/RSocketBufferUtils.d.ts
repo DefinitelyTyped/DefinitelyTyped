@@ -1,4 +1,6 @@
-export declare type Encoding = "ascii" | "base64" | "hex" | "utf8";
+ /// <reference types="node" />
+
+ export declare type Encoding = "ascii" | "base64" | "hex" | "utf8";
 
 /**
  * Mimimum value that would overflow bitwise operators (2^32).

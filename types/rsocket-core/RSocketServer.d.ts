@@ -21,7 +21,7 @@ import {createServerMachine} from './RSocketMachine';
 
 export declare interface TransportServer {
   start: () => Flowable<DuplexConnection>;
-  stop: () => undefined;
+  stop: () => void;
 }
 
 export declare type ServerConfig<D, M> = {
@@ -56,8 +56,8 @@ export default class RSocketServer<D, M> {
 }
 
 declare class SubscriberSwapper<T> implements ISubscriber<T> {
-  _target: Partial<ISubscriber<T>> | null | undefined;
-  _subscription: ISubscription | null | undefined;
+  _target?: Partial<ISubscriber<T>>;
+  _subscription?: ISubscription
 
   constructor(target?: Partial<ISubscriber<T>>)
 

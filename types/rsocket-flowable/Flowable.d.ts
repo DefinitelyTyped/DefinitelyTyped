@@ -10,7 +10,7 @@ export default class Flowable<T> implements IPublisher<T> {
     static error<U>(error: Error): Flowable<U>;
     static never<U>(): Flowable<U>;
     constructor(source: Source<T>, max?: number);
-    subscribe(subscriberOrCallback?: Partial<ISubscriber<T>> | ((a: T) => undefined)): undefined;
+    subscribe(subscriberOrCallback?: Partial<ISubscriber<T>> | ((a: T) => void)): void;
     lift<R>(onSubscribeLift: (subscriber: ISubscriber<R>) => ISubscriber<T>): Flowable<R>;
     map<R>(fn: (data: T) => R): Flowable<R>;
     take(toTake: number): Flowable<T>;

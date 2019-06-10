@@ -7,8 +7,8 @@ export default class FlowableRequestOperator<T> implements ISubscriber<T> {
     _subscriber: ISubscriber<T>;
     _toRequest: number;
     constructor(subscriber: ISubscriber<T>, toRequest: number);
-    onComplete(): undefined;
-    onError(error: Error): undefined;
-    onNext(t: T): undefined;
-    onSubscribe(subscription: ISubscription): undefined;
+    onComplete(): void;
+    onError(error: Error): void;
+    onNext(t: T): void;
+    onSubscribe(subscription: ISubscription): void;
 }

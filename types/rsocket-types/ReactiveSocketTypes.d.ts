@@ -1,4 +1,6 @@
-import {Flowable, Single} from 'rsocket-flowable';
+ /// <reference types="node" />
+
+ import {Flowable, Single} from 'rsocket-flowable';
 
 export declare interface Responder<D, M> {
   /**
@@ -125,11 +127,11 @@ export declare interface DuplexConnection {
  * - ERROR: when the connection has been closed for any other reason.
  */
 export declare type ConnectionStatus =
-  | {kind: 'NOT_CONNECTED'}
-  | {kind: 'CONNECTING'}
-  | {kind: 'CONNECTED'}
-  | {kind: 'CLOSED'}
-  | {kind: 'ERROR', error: Error};
+  {kind: 'NOT_CONNECTED'} |
+  {kind: 'CONNECTING'} |
+  {kind: 'CONNECTED'} |
+  {kind: 'CLOSED'} |
+  {kind: 'ERROR', error: Error};
 
 export declare const CONNECTION_STATUS: ConnectionStatus
 
@@ -147,20 +149,20 @@ export declare type Payload<D, M> = {
 };
 
 export declare type Frame =
-  | CancelFrame
-  | ErrorFrame
-  | KeepAliveFrame
-  | LeaseFrame
-  | PayloadFrame
-  | RequestChannelFrame
-  | RequestFnfFrame
-  | RequestNFrame
-  | RequestResponseFrame
-  | RequestStreamFrame
-  | ResumeFrame
-  | ResumeOkFrame
-  | SetupFrame
-  | UnsupportedFrame;
+  CancelFrame |
+  ErrorFrame |
+  KeepAliveFrame |
+  LeaseFrame |
+  PayloadFrame |
+  RequestChannelFrame |
+  RequestFnfFrame |
+  RequestNFrame |
+  RequestResponseFrame |
+  RequestStreamFrame |
+  ResumeFrame |
+  ResumeOkFrame |
+  SetupFrame |
+  UnsupportedFrame;
 
 export declare type FrameWithData = {
   data?: Encodable,

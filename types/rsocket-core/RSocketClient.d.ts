@@ -1,3 +1,5 @@
+ /// <reference types="node" />
+
 import { ConnectionStatus, DuplexConnection, Payload, ReactiveSocket, SetupFrame, Responder } from 'rsocket-types';
 import { PayloadSerializers } from './RSocketSerialization';
 import { Flowable, Single } from 'rsocket-flowable';
@@ -12,6 +14,7 @@ export declare type ClientConfig<D, M> = {
     transport: DuplexConnection;
     responder?: Responder<D, M>;
 };
+
 /**
  * RSocketClient: A client in an RSocket connection that will communicates with
  * the peer via the given transport client. Provides methods for establishing a
@@ -31,6 +34,7 @@ export default class RSocketClient<D, M> {
     close(): undefined;
     connect(): Single<ReactiveSocket<D, M>>;
 }
+
 /**
  * @private
  */
@@ -46,4 +50,3 @@ declare class RSocketClientSocket<D, M> implements ReactiveSocket<D, M> {
     connectionStatus(): Flowable<ConnectionStatus>;
     _buildSetupFrame(config: ClientConfig<D, M>): SetupFrame;
 }
-export {};

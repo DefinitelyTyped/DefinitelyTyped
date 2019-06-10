@@ -6,12 +6,12 @@ import { ISubscriber, ISubscription } from 'rsocket-types';
  */
 export default class FlowableTakeOperator<T> implements ISubscriber<T> {
     _subscriber: ISubscriber<T>;
-    _subscription: ISubscription | null | undefined;
+    _subscription?: ISubscription;
     _toTake: number;
     constructor(subscriber: ISubscriber<T>, toTake: number);
-    onComplete(): undefined;
-    onError(error: Error): undefined;
-    onNext(t: T): undefined;
-    onSubscribe(subscription: ISubscription): undefined;
-    _cancelAndComplete(): undefined;
+    onComplete(): void;
+    onError(error: Error): void;
+    onNext(t: T): void;
+    onSubscribe(subscription: ISubscription): void;
+    _cancelAndComplete(): void;
 }

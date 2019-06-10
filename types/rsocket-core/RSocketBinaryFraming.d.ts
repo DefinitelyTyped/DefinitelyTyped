@@ -1,4 +1,6 @@
-import {
+ /// <reference types="node" />
+
+ import {
   CancelFrame,
   ErrorFrame,
   Frame,
