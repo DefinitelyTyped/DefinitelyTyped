@@ -483,6 +483,7 @@ declare namespace stripe {
             '::placeholder'?: StyleOptions;
             '::selection'?: StyleOptions;
             ':-webkit-autofill'?: StyleOptions;
+            ':disabled'?: StyleOptions;
             '::-ms-clear'?: StyleOptions;
         }
 
