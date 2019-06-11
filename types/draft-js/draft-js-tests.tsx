@@ -99,9 +99,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         return getDefaultKeyBinding(e);
     }
 
-    handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number) => {
-        console.log(command, eventTimeStamp)
-
+    handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number) => {        
         if (command === SPLIT_HEADER_BLOCK) {
             this.onChange(this.splitHeaderToNewBlock());
             return 'handled';
