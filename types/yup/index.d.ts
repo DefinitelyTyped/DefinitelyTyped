@@ -74,8 +74,8 @@ export interface Schema<T> {
     default(): T;
     nullable(isNullable?: true): Schema<T | null>;
     nullable(isNullable: false): Schema<Exclude<T, null>>;
-    required(message?: TestOptionsMessage): this;
-    notRequired(): this;
+    required(message?: TestOptionsMessage): Schema<Exclude<T, undefined>>;
+    notRequired(): Schema<T | undefined>;
     typeError(message?: TestOptionsMessage): this;
     oneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
     notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
@@ -101,14 +101,17 @@ export interface MixedSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface MixedSchema extends Schema<any> {}
+export interface MixedSchema<T = any> extends Schema<T> {
+    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
+    notRequired(): MixedSchema<T | undefined>;
+}
 
 export interface StringSchemaConstructor {
     (): StringSchema;
     new (): StringSchema;
 }
 
-export interface StringSchema<T extends string | null = string>
+export interface StringSchema<T extends string | null | undefined = string>
     extends Schema<T> {
     length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
@@ -127,6 +130,8 @@ export interface StringSchema<T extends string | null = string>
     uppercase(message?: TestOptionsMessage): StringSchema<T>;
     nullable(isNullable?: true): StringSchema<T | null>;
     nullable(isNullable: false): StringSchema<Exclude<T, null>>;
+    required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
+    notRequired(): StringSchema<T | undefined>;
 }
 
 export interface NumberSchemaConstructor {
@@ -134,7 +139,7 @@ export interface NumberSchemaConstructor {
     new (): NumberSchema;
 }
 
-export interface NumberSchema<T extends number | null = number>
+export interface NumberSchema<T extends number | null | undefined = number>
     extends Schema<T> {
     min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
@@ -153,6 +158,8 @@ export interface NumberSchema<T extends number | null = number>
     round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema<T>;
     nullable(isNullable?: true): NumberSchema<T | null>;
     nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
+    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
+    notRequired(): NumberSchema<T | undefined>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -161,10 +168,14 @@ export interface BooleanSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface BooleanSchema<T extends boolean | null = boolean>
+export interface BooleanSchema<T extends boolean | null | undefined = boolean>
     extends Schema<T> {
     nullable(isNullable?: true): BooleanSchema<T | null>;
     nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
+    required(
+        message?: TestOptionsMessage
+    ): BooleanSchema<Exclude<T, undefined>>;
+    notRequired(): BooleanSchema<T | undefined>;
 }
 
 export interface DateSchemaConstructor {
@@ -172,7 +183,8 @@ export interface DateSchemaConstructor {
     new (): DateSchema;
 }
 
-export interface DateSchema<T extends Date | null = Date> extends Schema<T> {
+export interface DateSchema<T extends Date | null | undefined = Date>
+    extends Schema<T> {
     min(
         limit: Date | string | Ref,
         message?: TestOptionsMessage
@@ -183,6 +195,8 @@ export interface DateSchema<T extends Date | null = Date> extends Schema<T> {
     ): DateSchema<T>;
     nullable(isNullable?: true): DateSchema<T | null>;
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
+    required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
+    notRequired(): DateSchema<T | undefined>;
 }
 
 export interface ArraySchemaConstructor {
@@ -198,6 +212,8 @@ export interface ArraySchema<T> extends Schema<T[]> {
     compact(
         rejector?: (value: T, index: number, array: T[]) => boolean
     ): ArraySchema<T>;
+    required(message?: TestOptionsMessage): this;
+    notRequired(): this;
 }
 
 export type ObjectSchemaDefinition<T extends object> = {

@@ -153,7 +153,7 @@ mixed.nullable();
 mixed.required();
 mixed.required("Foo");
 mixed.required(() => "Foo");
-mixed.notRequired(); // $ExpectType MixedSchema
+mixed.notRequired(); // $ExpectType MixedSchema<any>
 mixed.typeError("type error");
 mixed.typeError(() => "type error");
 mixed.oneOf(["hello", "world"], "message");
@@ -168,7 +168,7 @@ mixed.when("isBig", {
 mixed.when(["isBig", "isSpecial"], {
     is: (isBig, isSpecial) => isBig && isSpecial,
     then: yup.number().min(5),
-    otherwise: yup.number().min(0),
+    otherwise: yup.number().min(0)
 });
 mixed
     .when("isBig", {
@@ -610,18 +610,28 @@ const personSchema = yup.object({
     email: yup
         .string()
         .nullable()
+        .notRequired()
         .email(),
     birthDate: yup
         .date()
         .nullable()
+        .notRequired()
         .min(new Date(1900, 0, 1)),
     canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
-    isAlive: yup.boolean().nullable(),
+    isAlive: yup
+        .boolean()
+        .nullable()
+        .notRequired(),
     mustBeAString: yup
         .string()
         .nullable(true)
-        .nullable(false),
-    children: yup.array(yup.string()).nullable()
+        .nullable(false)
+        .notRequired()
+        .required(),
+    children: yup
+        .array(yup.string())
+        .nullable()
+        .notRequired()
 });
 
 type Person = ReturnType<typeof personSchema.cast>;
@@ -647,11 +657,17 @@ const person: Person = {
 };
 
 person.email = "some@email.com";
+person.email = undefined;
 person.birthDate = new Date();
 person.isAlive = true;
+person.isAlive = undefined;
 person.children = ["1", "2", "3"];
 
 // $ExpectError
 person.firstName = null;
 // $ExpectError
+person.firstName = undefined;
+// $ExpectError
 person.mustBeAString = null;
+// $ExpectError
+person.mustBeAString = undefined;
