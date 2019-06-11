@@ -1,6 +1,5 @@
 import ReactTimeago, { Unit, Suffix } from "react-timeago";
 import * as React from "react";
-import { Text } from "react-native";
 
 const ReactTimeagoRequiredOptions: JSX.Element = (
     <ReactTimeago date={new Date()} />
@@ -28,6 +27,14 @@ const ReactTimeagoAllOptions: JSX.Element = (
         formatter={customFormatter}
     />
 );
+
+// inspired by react-native
+class Text extends React.Component<{
+    style?: {}[];
+    numberOfLines?: number;
+    ellipsizeMode?: "head" | "middle" | "tail" | "clip";
+    allowFontScaling?: boolean;
+}> {}
 
 const ReactTimeagoCustomComponent: JSX.Element = (
     <ReactTimeago<typeof Text>
