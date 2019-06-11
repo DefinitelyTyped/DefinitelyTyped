@@ -248,11 +248,7 @@ stripe.checkout.sessions.create({
         quantity: 1
     }],
 }, (err, session) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(session.id);
-    }
+    // asynchronously called
 });
 
 //#endregion

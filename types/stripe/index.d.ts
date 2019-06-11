@@ -7250,6 +7250,7 @@ declare namespace Stripe {
 
         class Sessions extends StripeResource {
             create(data: checkouts.sessions.ICheckoutCreationOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
+            retrieve(data: string, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
         }
 
         class Charges extends StripeResource {
