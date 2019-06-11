@@ -95,7 +95,7 @@ declare namespace Autosuggest {
             key: string;
             className: string;
             ref: any;
-            role: string;
+            role?: string;
         };
         children: React.ReactNode;
         query: string;
