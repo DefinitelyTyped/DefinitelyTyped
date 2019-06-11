@@ -6,7 +6,7 @@ format(testXml);
 
 const options: format.Options = {
     collapseContent: true,
-    indetation: '   ',
+    indentation: '   ',
     stripComments: true,
     debug: true,
 };
