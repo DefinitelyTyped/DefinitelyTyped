@@ -212,8 +212,8 @@ export interface ArraySchema<T> extends Schema<T[]> {
     compact(
         rejector?: (value: T, index: number, array: T[]) => boolean
     ): ArraySchema<T>;
-    required(message?: TestOptionsMessage): this;
-    notRequired(): this;
+    required(message?: TestOptionsMessage): ArraySchema<T>;
+    notRequired(): ArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object> = {
