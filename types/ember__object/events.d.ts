@@ -1,17 +1,13 @@
 import { ObserverMethod } from '@ember/object/-private/types';
 
-export {};
-
-type Callback = () => void;
-
 /**
  * Add an event listener
  */
 export function addListener(
     obj: object,
     eventName: string,
-    target: object | Callback | null,
-    method?: Callback | string,
+    target: object | Function | null,
+    method?: Function | string,
     once?: boolean
 ): void;
 
@@ -24,7 +20,7 @@ export function removeListener(
     obj: object,
     eventName: string,
     target: object | null,
-    method?: Callback | string
+    method?: Function | string
 ): void;
 
 /**
