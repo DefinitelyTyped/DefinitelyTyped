@@ -22,6 +22,7 @@
 //                 Gokul Chandrasekaran <https://github.com/gokulchandra>
 //                 Jamie Davies <https://github.com/viralpickaxe>
 //                 Christopher Eck <https://github.com/chrisleck>
+//                 Joshua Feltimo <https://github.com/opticalgenesis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1744,6 +1745,78 @@ declare namespace Stripe {
 
     namespace checkouts {
         namespace sessions {
+            interface ICheckoutSession {
+                /**
+                 * Unique ID for checkout session to pass to `redirectToCheckout` in Stripe.js
+                 */
+                id: string;
+
+                /**
+                 * String of object type. Is always 'checkout.session'
+                 */
+                object: string;
+
+                /**
+                 * Whether or not billing address was collected
+                 */
+                billing_address_collection?: string;
+
+                /**
+                 * URL the customer will be redirected to upon cancellation
+                 */
+                cancel_url: string;
+
+                /**
+                 * Unique reference to session
+                 */
+                client_reference_id?: string;
+
+                /**
+                 * ID of customer
+                 */
+                customer?: string;
+
+                /**
+                 * Email address of customer
+                 */
+                customer_email?: string;
+
+                /**
+                 * The line items purchased
+                 */
+                display_items: ICheckoutLineItems[];
+
+                /**
+                 * If the object is in live mode or not
+                 */
+                livemode: boolean;
+
+                /**
+                 * Language tag of the checkout session
+                 */
+                locale?: string;
+
+                /**
+                 * ID of payment intent created
+                 */
+                payment_intent?: string;
+
+                /**
+                 * Array of accepted payment methods
+                 */
+                payment_method_types?: string[];
+
+                /**
+                 * ID of subscription if one was created
+                 */
+                subscription?: string;
+
+                /**
+                 * URL to redirect to upon success
+                 */
+                success_url: string;
+            }
+
             interface ICheckoutCreationOptions {
                 /**
                  * The URL to return the customer to if they cancel payment
@@ -1762,8 +1835,8 @@ declare namespace Stripe {
                 success_url: string;
 
                 /**
-                 * Whether to collect shipping info. 
-                 * If 'required', info will always be collected. 
+                 * Whether to collect shipping info.
+                 * If 'required', info will always be collected.
                  * When 'auto' or not specified, info will be collected when required
                  */
                 billing_address_collection?: 'required' | 'auto';
@@ -7175,7 +7248,9 @@ declare namespace Stripe {
             sessions: Sessions;
         }
 
-        class Sessions extends StripeResource {}
+        class Sessions extends StripeResource {
+            create(data: checkouts.sessions.ICheckoutCreationOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
+        }
 
         class Charges extends StripeResource {
             /**
