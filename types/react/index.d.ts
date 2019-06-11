@@ -469,6 +469,8 @@ declare namespace React {
         };
     }
 
+    class DRComponent<P = {}, S = {}, SS = any> extends Component<DeepReadonly<P>, DeepReadonly<S>, SS> { }
+
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
 
     class DRPureComponent<P = {}, S = {}, SS = any> extends PureComponent<DeepReadonly<P>, DeepReadonly<S>, SS> { }
