@@ -1,6 +1,6 @@
 import format = require("xml-formatter");
 
-const testXml = '<text><test><test><text>';
+const testXml = '<text><test></test></text>';
 
 format(testXml);
 
