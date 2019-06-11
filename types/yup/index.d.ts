@@ -240,21 +240,32 @@ export type TransformFunction<T> = (
     originalValue: any
 ) => any;
 
-export interface WhenOptionsBuilder<T> {
+export interface WhenOptionsBuilderFunction<T> {
     (value: any, schema: T): T;
     (v1: any, v2: any, schema: T): T;
     (v1: any, v2: any, v3: any, schema: T): T;
     (v1: any, v2: any, v3: any, v4: any, schema: T): T;
 }
 
-export type WhenOptions<T> =
-    | WhenOptionsBuilder<T>
+export type WhenOptionsBuilderObjectIs =
+    | ((...values: any[]) => boolean)
+    | boolean
+    | number
+    | null
+    | object
+    | string;
+
+export type WhenOptionsBuilderObject =
     | {
-          is: boolean | ((...values: any[]) => boolean);
-          then: any;
-          otherwise: any;
+        is: WhenOptionsBuilderObjectIs;
+        then: any;
+        otherwise: any
       }
     | object;
+
+export type WhenOptions<T> =
+    | WhenOptionsBuilderFunction<T>
+    | WhenOptionsBuilderObject;
 
 export interface TestContext {
     path: string;
