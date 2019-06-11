@@ -18,6 +18,7 @@ declare module "stream" {
         }
 
         class Readable extends Stream implements NodeJS.ReadableStream {
+            static from(iterable: Iterable<any> | AsyncIterable<any>, opts?: ReadableOptions): NodeJS.ReadableStream;
             readable: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;

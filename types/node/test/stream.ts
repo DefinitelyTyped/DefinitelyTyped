@@ -192,3 +192,17 @@ function stream_readable_pipe_test() {
     z.close();
     rs.close();
 }
+
+async function readable_from() {
+    const list = [ 1, 2, 3 ];
+    const asyncList = (async function *() { yield *list; }());
+
+    const readableSync = Readable.from(list);
+    const readableAsync = Readable.from(asyncList);
+
+    let i = 0;
+    readableSync.on('data', n => assert(n === list[i++]));
+
+    let j = 0;
+    readableAsync.on('data', n => assert(n === list[j++]));
+}
