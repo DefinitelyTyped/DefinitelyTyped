@@ -14,7 +14,6 @@
 
 // TODO figure out curry arguments
 // TODO create more overloads for nested data, like streams-of-streams or streams-of-array-of-streams etc
-// TODO use externalised Thenable
 // TODO use externalised Readable/Writable (not node's)
 
 /**
@@ -83,8 +82,8 @@ interface HighlandStatic {
 	<R>(eventName: string, xs: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
-	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
-	<R>(xs: Highland.Thenable<R>): Highland.Stream<R>;
+	<R>(xs: PromiseLike<Highland.Stream<R>>): Highland.Stream<R>;
+	<R>(xs: PromiseLike<R>): Highland.Stream<R>;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
@@ -380,12 +379,6 @@ interface HighlandStatic {
 
 declare namespace Highland {
 
-	interface Thenable<R> {
-		then<U>(onFulfilled: (value: R) => Thenable<U>,  onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected?: (error: any) => U): Thenable<U>;
-		then<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Thenable<U>): Thenable<U>;
-		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): Thenable<U>;
-	}
 	// hacky unique
 	// TODO do we need this?
 	interface Nil {
