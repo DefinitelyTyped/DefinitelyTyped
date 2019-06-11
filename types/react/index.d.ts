@@ -76,7 +76,7 @@ declare namespace React {
         | ((props: P) => ReactElement | null)
         | (new (props: P) => Component<P, any>)
         | DRFC<P>
-        | (new (props: DeepReadonly<P>) => DRPureComponent<P, any>);
+        | (new (props: DeepReadonly<P>) => DRComponent<P, any>);
 
     type Key = string | number;
 
