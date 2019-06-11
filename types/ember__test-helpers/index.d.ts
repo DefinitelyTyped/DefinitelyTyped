@@ -1,4 +1,4 @@
-// Type definitions for @ember/test-helpers 0.8
+// Type definitions for @ember/test-helpers 1.1
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
