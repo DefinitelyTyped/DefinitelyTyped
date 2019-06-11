@@ -32,7 +32,7 @@ export class FluentBundle {
     hasMessage(source: string): boolean;
     addMessages(source: string): string[];
     getMessage(id: string): FluentNode[];
-    format(message: FluentNode[], args?: object, errors?: string[]): string;
+    format(message: FluentNode[], args?: object, errors?: Array<string | Error>): string;
     addResource(res: FluentResource): string[];
 }
 
