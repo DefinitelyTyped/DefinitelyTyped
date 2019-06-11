@@ -8156,6 +8156,7 @@ declare namespace SP {
         class WebPartDefinition extends SP.ClientObject {
             get_id(): SP.Guid;
             get_webPart(): SP.WebParts.WebPart;
+            get_zoneId(): string;
             saveWebPartChanges(): void;
             closeWebPart(): void;
             openWebPart(): void;
