@@ -30,7 +30,7 @@ const ReactTimeagoAllOptions: JSX.Element = (
 
 // inspired by react-native
 class Text extends React.Component<{
-    style?: {}[];
+    style?: Array<{}>;
     numberOfLines?: number;
     ellipsizeMode?: "head" | "middle" | "tail" | "clip";
     allowFontScaling?: boolean;
