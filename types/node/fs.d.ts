@@ -888,7 +888,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
          */
-        function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
+        function __promisify__(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
