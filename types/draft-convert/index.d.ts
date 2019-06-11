@@ -12,7 +12,7 @@ declare module 'draft-convert' {
     DraftBlockType,
     DraftInlineStyleType,
     Entity,
-    EntityInstance,
+    RawDraftEntity
   } from 'draft-js';
   import { ReactNode } from 'react';
 
@@ -24,7 +24,7 @@ declare module 'draft-convert' {
     blockToHTML?: (block: ContentBlock) => Tag;
 
     // Entity styling:
-    entityToHTML?: (entity: EntityInstance, originalText: string) => Tag;
+    entityToHTML?: (entity: RawDraftEntity, originalText: string) => Tag;
   }
 
   type EntityKey = string;
