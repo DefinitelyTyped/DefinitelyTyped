@@ -3,6 +3,7 @@ connect.core.initCCP(elem, { ccpUrl: "" }); // $ExpectType void
 
 // Types for below tests
 let agentCallback: connect.AgentCallback = () => {};
+let muteCallback: connect.MuteCallback = () => {};
 let agentConfiguration: connect.AgentConfiguration;
 let successFailOptions: connect.SuccessFailOptions;
 let agentState: connect.AgentState;
@@ -20,7 +21,7 @@ connect.agent(agent => {
     agent.onOffline(agentCallback); // $ExpectType: void
     agent.onError(agentCallback); // $ExpectType: void
     agent.onAfterCallWork(agentCallback); // $ExpectType: void
-    agent.onMuteToggle(agentCallback); // $ExpectType: void
+    agent.onMuteToggle(muteCallback); // $ExpectType: void
     agent.getState(); // $ExpectType: AgentState
     agent.getStateDuration(); // $ExpectType: number
     agent.getContacts(""); // $ExpectType: connect.Contact[]

@@ -4282,7 +4282,7 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
 export interface SectionBase<ItemT> {
-    data: ItemT[];
+    data: ReadonlyArray<ItemT>;
 
     key?: string;
 
@@ -4427,7 +4427,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * An array of objects with data for each section.
      */
-    sections: SectionListData<ItemT>[];
+    sections: ReadonlyArray<SectionListData<ItemT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
