@@ -2,6 +2,7 @@
 // Project: https://github.com/d3/d3-require
 // Definitions by: Kindy Lin <https://github.com/kindy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Last module version validated against: 1.2.2
 
@@ -26,8 +27,7 @@ export interface require {
 export type resolver = (name: string, base?: string) => Promise<string>;
 export type requireFrom = (resolver: resolver) => require;
 
-declare class RequireError extends Error {
-}
+export class RequireError extends Error {}
 
 /**
  * Loads modules from jsDelivr.

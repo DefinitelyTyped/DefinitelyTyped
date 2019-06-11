@@ -1,4 +1,4 @@
-import {require as d3Require, requireFrom} from 'd3-require';
+import { require as d3Require, requireFrom } from 'd3-require';
 
 d3Require('abc').then(x => null);
 
