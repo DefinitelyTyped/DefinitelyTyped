@@ -294,7 +294,7 @@ interface KnockoutObservableStatic {
  * casting an observable to this type expresses the intention that this observable shouldn't be mutated.
  */
 interface KnockoutReadonlyObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
-    (): T;
+    <T>(): T;
 
     /**
      * Returns the current value of the computed observable without creating a dependency.
