@@ -375,19 +375,38 @@ declare namespace Dockerode {
     MacAddress: string;
   }
 
-  // not complete definition of network inspection
-  // info which is returned by list / inspect
+  // Information returned from inspecting a network
   interface NetworkInspectInfo {
-    Id: string;
     Name: string;
-    Driver: string;
+    Id: string;
     Created: string;
     Scope: string;
+    Driver: string;
     EnableIPv6: boolean;
+    IPAM?: IPAM;
     Internal: boolean;
     Attachable: boolean;
     Ingress: boolean;
+    Containers?: { [id: string]: NetworkContainer };
+    Options?: { [key: string]: string };
+    Labels?: { [key: string]: string };
   }
+
+  interface NetworkContainer {
+    Name: string;
+    EndpointID: string;
+    MacAddress: string;
+    Ipv4Address: string;
+    IPv6Address: string;
+  }
+
+  /* tslint:disable:interface-name */
+  interface IPAM {
+    Driver: string;
+    Config?: { [key: string]: string };
+    Options?: Array<{ [key: string]: string }>;
+  }
+  /* tslint:enable:interface-name */
 
   interface VolumeInspectInfo {
     Name: string;
