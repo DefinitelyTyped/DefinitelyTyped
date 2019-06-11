@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "little-loader" {
-  function load(
-    module: string,
-    callBack: (err: string) => void,
-    context: any
-  ): void;
+    function load(
+        module: string,
+        callBack: (err: string) => void,
+        context: any
+    ): void;
 
-  export default load;
+    export default load;
 }
