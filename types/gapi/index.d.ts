@@ -238,6 +238,11 @@ declare namespace gapi.client {
      */
     export function setApiKey(apiKey: string): void;
     /**
+     * Retrieves the OAuth 2.0 token for the application.
+     * @return The OAuth 2.0 token.
+     */
+    export function getToken(): GoogleApiOAuth2TokenObject;
+    /**
      * Sets the authentication token to use in requests.
      * @param token The token to set.
      *
