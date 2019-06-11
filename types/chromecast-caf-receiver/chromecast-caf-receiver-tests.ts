@@ -2,8 +2,10 @@ import { MediaMetadata } from "chromecast-caf-receiver/cast.framework.messages";
 
 // The following test showcases how you can import individual types directly from the namespace:
 
-const mediaMetadata = new MediaMetadata("GENERIC");
-mediaMetadata.metadataType = "TV_SHOW";
+const mediaMetadata = new MediaMetadata(
+    cast.framework.messages.MetadataType.GENERIC
+);
+mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
 
 // The following tests showcase how you can globally access 'cast' types using
 // the nested namespace style. This is the preferred method as it
@@ -65,7 +67,9 @@ const lrd: cast.framework.messages.LoadRequestData = {
         tracks: [],
         textTrackStyle: {},
         streamType: "BUFFERED",
-        metadata: { metadataType: "GENERIC" },
+        metadata: {
+            metadataType: cast.framework.messages.MetadataType.GENERIC
+        },
         hlsSegmentFormat: "aac",
         contentId: "id",
         contentType: "type",
@@ -100,7 +104,9 @@ const pData: cast.framework.ui.PlayerData = {
     isPlayingBreak: false,
     isSeeking: true,
     // tslint:disable-next-line
-    metadata: new cast.framework.messages.MediaMetadata("GENERIC"),
+    metadata: new cast.framework.messages.MediaMetadata(
+        cast.framework.messages.MetadataType.GENERIC
+    ),
     nextSubtitle: "sub",
     nextThumbnailUrl: "url",
     nextTitle: "title",

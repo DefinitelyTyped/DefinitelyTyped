@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 1.18.2
+// Type definitions for sanitize-html 1.20.1
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
@@ -7,6 +7,7 @@
 //                 Will Gibson <https://github.com/WillGibson>
 //                 A penguin <https://github.com/sirMerr>
 //                 Johan Davidsson <https://github.com/johandavidson>
+//                 Jianrong Yu <https://github.com/YuJianrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import {Options} from "htmlparser2";
@@ -47,11 +48,13 @@ declare namespace sanitize {
     allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
     allowedClasses?: { [index: string]: string[] } | boolean;
     allowedIframeHostnames?: string[];
+    allowIframeRelativeUrls?: boolean;
     allowedSchemes?: string[] | boolean;
     allowedSchemesByTag?: { [index: string]: string[] } | boolean;
     allowedSchemesAppliedToAttributes?: string[];
     allowProtocolRelative?: boolean;
     allowedTags?: string[] | boolean;
+    textFilter?: (text: string) => string; 
     exclusiveFilter?: (frame: IFrame) => boolean;
     nonTextTags?: string[];
     selfClosing?: string[];

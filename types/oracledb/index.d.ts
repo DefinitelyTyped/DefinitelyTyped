@@ -1634,7 +1634,7 @@ declare namespace OracleDB {
          * @default true
          * @since 2.3
          */
-        homogenous?: boolean;
+        homogeneous?: boolean;
         /**
          * The password of the database user used by connections in the pool. A password is also necessary if a proxy user is specified at pool creation.
          * If homogeneous is false, then the password may be omitted at pool creation but given in subsequent pool.getConnection() calls.
@@ -1882,7 +1882,7 @@ declare namespace OracleDB {
          *
          * Different values of numRows may alter the time needed for fetching data from Oracle Database.
          * The value of fetchArraySize has no effect on getRows() performance or internal buffering.
-         * 
+         *
          * @param numRows The number of rows to fetch
          */
         getRows(numRows: number): Promise<(Record<string, any> | any[])[]>;

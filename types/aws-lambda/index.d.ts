@@ -28,6 +28,7 @@
 //                 Loïk Gaonac'h <https://github.com/loikg>
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
+//                 Juan Carbonel <https://github.com/juancarbonel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -258,6 +259,7 @@ export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
     | "PreSignUp_SignUp"
+    | "PreSignUp_ExternalProvider"
     | "PostConfirmation_ConfirmSignUp"
     | "PreAuthentication_Authentication"
     | "PostAuthentication_Authentication"

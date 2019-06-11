@@ -10,6 +10,7 @@
 //                 Yusuke Sato <https://github.com/sat0yu>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Desmond Koh <https://github.com/deskoh>
+//                 Maurice de Beijer <https://github.com/mauricedb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -71,7 +72,8 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value: any): this;
     default(): T;
-    nullable(isNullable?: boolean): this;
+    nullable(isNullable?: true): Schema<T | null>;
+    nullable(isNullable: false): Schema<Exclude<T, null>>;
     required(message?: TestOptionsMessage): this;
     notRequired(): this;
     typeError(message?: TestOptionsMessage): this;
@@ -106,22 +108,25 @@ export interface StringSchemaConstructor {
     new (): StringSchema;
 }
 
-export interface StringSchema extends Schema<string> {
-    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
-    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
-    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema;
+export interface StringSchema<T extends string | null = string>
+    extends Schema<T> {
+    length(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
+    min(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage): StringSchema<T>;
     matches(
         regex: RegExp,
         messageOrOptions?:
             | TestOptionsMessage
             | { message?: TestOptionsMessage; excludeEmptyString?: boolean }
-    ): StringSchema;
-    email(message?: TestOptionsMessage): StringSchema;
-    url(message?: TestOptionsMessage): StringSchema;
-    ensure(): StringSchema;
-    trim(message?: TestOptionsMessage): StringSchema;
-    lowercase(message?: TestOptionsMessage): StringSchema;
-    uppercase(message?: TestOptionsMessage): StringSchema;
+    ): StringSchema<T>;
+    email(message?: TestOptionsMessage): StringSchema<T>;
+    url(message?: TestOptionsMessage): StringSchema<T>;
+    ensure(): StringSchema<T>;
+    trim(message?: TestOptionsMessage): StringSchema<T>;
+    lowercase(message?: TestOptionsMessage): StringSchema<T>;
+    uppercase(message?: TestOptionsMessage): StringSchema<T>;
+    nullable(isNullable?: true): StringSchema<T | null>;
+    nullable(isNullable: false): StringSchema<Exclude<T, null>>;
 }
 
 export interface NumberSchemaConstructor {
@@ -129,16 +134,25 @@ export interface NumberSchemaConstructor {
     new (): NumberSchema;
 }
 
-export interface NumberSchema extends Schema<number> {
-    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    lessThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    moreThan(limit: number | Ref, message?: TestOptionsMessage): NumberSchema;
-    positive(message?: TestOptionsMessage): NumberSchema;
-    negative(message?: TestOptionsMessage): NumberSchema;
-    integer(message?: TestOptionsMessage): NumberSchema;
-    truncate(): NumberSchema;
-    round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema;
+export interface NumberSchema<T extends number | null = number>
+    extends Schema<T> {
+    min(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
+    max(limit: number | Ref, message?: TestOptionsMessage): NumberSchema<T>;
+    lessThan(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NumberSchema<T>;
+    moreThan(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NumberSchema<T>;
+    positive(message?: TestOptionsMessage): NumberSchema<T>;
+    negative(message?: TestOptionsMessage): NumberSchema<T>;
+    integer(message?: TestOptionsMessage): NumberSchema<T>;
+    truncate(): NumberSchema<T>;
+    round(type: "floor" | "ceil" | "trunc" | "round"): NumberSchema<T>;
+    nullable(isNullable?: true): NumberSchema<T | null>;
+    nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
 }
 
 export interface BooleanSchemaConstructor {
@@ -147,16 +161,28 @@ export interface BooleanSchemaConstructor {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface BooleanSchema extends Schema<boolean> {}
+export interface BooleanSchema<T extends boolean | null = boolean>
+    extends Schema<T> {
+    nullable(isNullable?: true): BooleanSchema<T | null>;
+    nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
+}
 
 export interface DateSchemaConstructor {
     (): DateSchema;
     new (): DateSchema;
 }
 
-export interface DateSchema extends Schema<Date> {
-    min(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
-    max(limit: Date | string | Ref, message?: TestOptionsMessage): DateSchema;
+export interface DateSchema<T extends Date | null = Date> extends Schema<T> {
+    min(
+        limit: Date | string | Ref,
+        message?: TestOptionsMessage
+    ): DateSchema<T>;
+    max(
+        limit: Date | string | Ref,
+        message?: TestOptionsMessage
+    ): DateSchema<T>;
+    nullable(isNullable?: true): DateSchema<T | null>;
+    nullable(isNullable: false): DateSchema<Exclude<T, null>>;
 }
 
 export interface ArraySchemaConstructor {
@@ -169,7 +195,9 @@ export interface ArraySchema<T> extends Schema<T[]> {
     min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     max(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
     ensure(): ArraySchema<T>;
-    compact(rejector?: (value: T, index: number, array: T[]) => boolean): ArraySchema<T>;
+    compact(
+        rejector?: (value: T, index: number, array: T[]) => boolean
+    ): ArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object> = {
@@ -206,11 +234,11 @@ export interface ObjectSchema<T extends object> extends Schema<T> {
     constantCase(): ObjectSchema<T>;
 }
 
-export type TransformFunction<T> = ((
+export type TransformFunction<T> = (
     this: T,
     value: any,
     originalValue: any
-) => any);
+) => any;
 
 export interface WhenOptionsBuilder<T> {
     (value: any, schema: T): T;
@@ -221,7 +249,11 @@ export interface WhenOptionsBuilder<T> {
 
 export type WhenOptions<T> =
     | WhenOptionsBuilder<T>
-    | { is: boolean | ((...values: any[]) => boolean); then: any; otherwise: any }
+    | {
+          is: boolean | ((...values: any[]) => boolean);
+          then: any;
+          otherwise: any;
+      }
     | object;
 
 export interface TestContext {
@@ -230,7 +262,10 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string }) => ValidationError;
+    createError: (params?: {
+        path?: string;
+        message?: string;
+    }) => ValidationError;
 }
 
 export interface ValidateOptions {
@@ -297,7 +332,7 @@ export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<{ name: string, params: object }>;
+    tests: Array<{ name: string; params: object }>;
     fields: object;
 }
 
@@ -371,18 +406,16 @@ export class Ref {
 export interface Lazy extends Schema<any> {}
 
 export interface FormatErrorParams {
-  path: string;
-  type: string;
-  value?: any;
-  originalValue?: any;
+    path: string;
+    type: string;
+    value?: any;
+    originalValue?: any;
 }
 
-export type LocaleValue =
-    | string
-    | ((params: FormatErrorParams) => string);
+export type LocaleValue = string | ((params: FormatErrorParams) => string);
 
 export interface LocaleObject {
-    mixed?: { [key in keyof MixedSchema]?: string; } & { notType?: LocaleValue };
+    mixed?: { [key in keyof MixedSchema]?: string } & { notType?: LocaleValue };
     string?: { [key in keyof StringSchema]?: string };
     number?: { [key in keyof NumberSchema]?: string };
     boolean?: { [key in keyof BooleanSchema]?: string };

@@ -6574,6 +6574,13 @@ declare namespace Stripe {
             statement_descriptor?: string;
             token?: string;
             usage?: ISource["usage"];
+            ideal?: {
+                bank?: string;
+            };
+            sepa_debit?: {
+                ideal?: string;
+                iban?: string;
+            };
         }
 
         interface ISourceUpdateOptions extends IDataOptionsWithMetadata {
