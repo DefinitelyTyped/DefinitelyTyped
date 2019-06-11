@@ -14,6 +14,9 @@
  *
  * Other methods of the AgoraRTC object check for system requirements and set up error logging.
  */
+export = AgoraRTC;
+export as namespace AgoraRTC;
+    
 declare namespace AgoraRTC {
     /**
      * Gets the Sources for Screen-sharing
