@@ -4,9 +4,18 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 // TypeScript Version: 2.8
 
-/// <reference types="feathersjs__socket-commons"/>
-import SocketIO = require("socket.io");
+/// <reference types="node" />
 
-export default function feathersSocketIO(callback?: (io: SocketIO.Server) => void): () => void;
-export default function feathersSocketIO(options: number | SocketIO.ServerOptions, callback?: (io: SocketIO.Server) => void): () => void;
-export default function feathersSocketIO(port: number, options?: SocketIO.ServerOptions, callback?: (io: SocketIO.Server) => void): () => void;
+import * as http from 'http';
+import * as io from 'socket.io';
+
+declare const socketio: FeathersSocketIO;
+export = socketio;
+
+interface FeathersSocketIO {
+  (callback?: (io: io.Server) => void): () => void;
+  (options: number | io.ServerOptions, callback?: (io: io.Server) => void): () => void;
+  (port: number, options?: io.ServerOptions, callback?: (io: io.Server) => void): () => void;
+  readonly SOCKET_KEY: unique symbol;
+  default: FeathersSocketIO;
+}
