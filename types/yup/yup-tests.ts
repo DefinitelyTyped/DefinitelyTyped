@@ -662,6 +662,7 @@ person.birthDate = new Date();
 person.isAlive = true;
 person.isAlive = undefined;
 person.children = ["1", "2", "3"];
+person.children = undefined;
 
 // $ExpectError
 person.firstName = null;
