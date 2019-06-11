@@ -74,12 +74,12 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-  <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
+    <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
 	<R>(xs: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
 	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: NodeJS.ReadableStream): Highland.Stream<R>;
+	<R>(xs: NodeJS.ReadableStream, of?: Highland.OnFinished): Highland.Stream<R>;
 	<R>(eventName: string, xs: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
@@ -1368,7 +1368,13 @@ declare namespace Highland {
 		end: boolean
 	}
 
-	type MappingHint = number | string[] | Function;
+    type MappingHint = number | string[] | Function;
+
+    interface CleanupObject {
+        onDestroy?: Function;
+        continueOnError?: boolean;
+    }
+    type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 
 declare var highland:HighlandStatic;
