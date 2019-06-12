@@ -7,6 +7,7 @@
 //                 Andrew Leedham <https://github.com/AndrewLeedham>
 //                 Jason Li <https://github.com/JasonLi914>
 //                 Brandon Wilson <https://github.com/wilsonianb>
+//                 Steve Faulkner <https://github.com/southpolesteve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
