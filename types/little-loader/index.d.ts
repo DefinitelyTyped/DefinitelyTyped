@@ -6,7 +6,7 @@
 declare function loader(
     module: string,
     callBack: (err: string) => void,
-    context: any
+    context?: any
 ): void;
 
 export = loader;
