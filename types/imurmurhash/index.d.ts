@@ -3,13 +3,15 @@
 // Definitions by: Jiayu Liu <jimexist@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface IMurmurHash3 {
-    result(): number;
+declare module "imurmurhash" {
+    interface MurmurHash3 {
+        result(): number;
 
-    reset(seed?: number): IMurmurHash3;
+        reset(seed?: number): MurmurHash3;
 
-    hash(value: string): IMurmurHash3;
+        hash(value: string): MurmurHash3;
+    }
+    function MurmurHash(text?: string, seed?: number): MurmurHash3;
+
+    export = MurmurHash;
 }
-
-/*~ You can declare properties of the module using const, let, or var */
-export default function MurmurHash3(text?: string, seed?: number): IMurmurHash3;
