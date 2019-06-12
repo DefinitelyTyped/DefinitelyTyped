@@ -502,6 +502,7 @@ function testStub() {
 
     const promiseStub = sinon.stub(instance, 'promiseFunc');
     promiseStub.resolves('test');
+    promiseStub.resolves(123); // $ExpectError
 
     const promiseUnresolvableReturn =
         sinon.stub(instance, 'unresolvableReturnFunc');
