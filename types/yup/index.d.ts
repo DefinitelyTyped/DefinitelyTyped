@@ -451,3 +451,18 @@ export interface LocaleObject {
     array?: { [key in keyof ArraySchema<any>]?: string };
     object?: { [key in keyof ObjectSchema<any>]?: string };
 }
+
+export type InferType<T> = T extends Schema<infer P>
+    ? InnerInferType<P>
+    : never;
+
+// Shut off automatic exporting after this statement
+export {};
+
+type KeyOfUndefined<T> = {
+    [P in keyof T]-?: undefined extends T[P] ? P : never
+}[keyof T];
+
+type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
+type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
+type InnerInferType<T> = NotRequiredProps<T> & RequiredProps<T>;

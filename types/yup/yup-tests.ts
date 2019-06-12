@@ -634,17 +634,23 @@ const personSchema = yup.object({
         .notRequired()
 });
 
-type Person = ReturnType<typeof personSchema.cast>;
+type Person = yup.InferType<typeof personSchema>;
 // Equivalent to:
 // type Person = {
 //     firstName: string;
-//     email: string | null;
-//     birthDate: Date | null;
+//     email?: string | null | undefined;
+//     birthDate?: Date | null | undefined;
 //     canBeNull: string | null;
-//     isAlive: boolean | null;
+//     isAlive: boolean | null | undefined;
 //     mustBeAString: string;
-//     children: string[] | null;
+//     children?: string[] | null | undefined;
 // }
+
+const minimalPerson: Person = {
+    firstName: "",
+    canBeNull: null,
+    mustBeAString: ""
+};
 
 const person: Person = {
     firstName: "",
