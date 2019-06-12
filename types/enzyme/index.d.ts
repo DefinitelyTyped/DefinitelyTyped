@@ -93,6 +93,14 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     hasClass(className: string | RegExp): boolean;
 
     /**
+     * Invokes a function prop.
+     * @param invokePropName The function prop to call.
+     * @param ...args The argments to the invokePropName function
+     * @returns The value of the function.
+     */
+    invoke<K extends keyof P>(invokePropName: K): P[K];
+
+    /**
      * Returns whether or not the current node matches a provided selector.
      */
     is(selector: EnzymeSelector): boolean;
