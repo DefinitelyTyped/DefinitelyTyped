@@ -748,7 +748,7 @@ export interface Config {
 		height: number;
 		width: number;
 	}>;
-    
+
 	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
