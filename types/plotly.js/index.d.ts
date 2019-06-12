@@ -740,6 +740,15 @@ export interface Edits {
 }
 
 export interface Config {
+	/** override the defaults for the toImageButton */
+	toImageButtonOptions: Partial<{
+		filename: string;
+		scale: number;
+		format: 'png' | 'svg' | 'jpeg' | 'webp';
+		height: number;
+		width: number;
+	}>;
+
 	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
