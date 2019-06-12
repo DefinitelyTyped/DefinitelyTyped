@@ -3,8 +3,10 @@
 // Definitions by: Chris Drackett <https://github.com/chrisdrackett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function load(
-    module: string,
-    callBack: (err: string) => void,
-    context: any
-): void;
+declare function load(
+  module: string,
+  callBack: (err: string) => void,
+  context: any,
+): void
+
+export default load
