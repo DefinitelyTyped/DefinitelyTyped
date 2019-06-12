@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.26
+// Type definitions for stripe 6.30
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -3033,6 +3033,11 @@ declare namespace Stripe {
              * will retrieve the next upcoming invoice from among the customer’s subscriptions.
              */
             subscription?: string;
+
+            /**
+             * The identifier of the customer whose upcoming invoice you’d like to retrieve. REQUIRED IF SUBSCRIPTION UNSET
+             */
+            customer?: string;
 
             /**
              * If set, the invoice returned will preview updating the subscription given to this plan, or creating a new subscription to this plan
@@ -8151,7 +8156,9 @@ declare namespace Stripe {
              * @returns Returns an invoice if a valid customer ID was provided. Throws an error otherwise.
              *
              * @param id The identifier of the customer whose upcoming invoice you'd like to retrieve.
+             * @param data Filtering options
              */
+            retrieveUpcoming(data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
