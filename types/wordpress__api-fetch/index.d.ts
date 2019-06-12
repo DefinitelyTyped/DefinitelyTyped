@@ -33,7 +33,7 @@ export type Middleware = (
     next: (options: APIFetchOptions) => Promise<any>
 ) => Promise<any>;
 
-export namespace apiFetch {
+declare namespace apiFetch {
     function use(middleware: Middleware): void;
     /**
      * The `api-fetch` package uses `window.fetch` for making the requests but you
@@ -60,9 +60,7 @@ export namespace apiFetch {
     const fetchAllMiddleware: Middleware;
 }
 
-// NOTE: this is actually not exported as a named export but I'm not aware of
-// any other way to make this work.
-export function apiFetch(options: APIFetchOptions & { parse: false }): Promise<Response>; // prettier-ignore
-export function apiFetch<T = unknown>(options: APIFetchOptions): Promise<T>; // tslint:disable-line no-unnecessary-generics
+declare function apiFetch(options: APIFetchOptions & { parse: false }): Promise<Response>; // prettier-ignore
+declare function apiFetch<T = unknown>(options: APIFetchOptions): Promise<T>; // tslint:disable-line no-unnecessary-generics
 
 export default apiFetch;
