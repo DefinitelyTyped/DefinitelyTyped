@@ -17,7 +17,6 @@ declare const promiseNodeify: {
     ): Promise<T> | undefined;
 
     nodeifyThis<T>(
-        promise: Promise<T>,
         callback: (error: Error | undefined, value: T | undefined) => any
     ): Promise<T> | undefined;
 };

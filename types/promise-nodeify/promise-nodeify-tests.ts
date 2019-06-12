@@ -5,4 +5,4 @@ const callback = () => {};
 
 promiseNodeify(promise, callback);
 promiseNodeify.delegated(promise, callback);
-promiseNodeify.nodeifyThis(promise, callback);
+promiseNodeify.nodeifyThis(callback);
