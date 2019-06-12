@@ -6053,6 +6053,14 @@ declare namespace Stripe {
              * the anchor date. If false, the anchor period will be free (similar to a trial).
              */
             prorate?: boolean;
+
+            /**
+             * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription on creation. This can be set
+             * to false when used with services like Avalara that need to augment an invoice before the subscription is paid.
+             *
+             * Using this flag requires contacting Stripe support in order to have the account whitelisted.
+             */
+            pay_immediately?: boolean;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
