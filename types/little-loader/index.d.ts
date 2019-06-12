@@ -1,4 +1,4 @@
-// Type definitions for little-loader
+// Type definitions for little-loader 0.2
 // Project: https://github.com/walmartlabs/little-loader
 // Definitions by: Chris Drackett <https://github.com/chrisdrackett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@ declare module 'little-loader' {
     module: string,
     callBack: (err: string) => void,
     context: any,
-  ): void
+  ): void;
 
-  export default load
+  export default load;
 }
