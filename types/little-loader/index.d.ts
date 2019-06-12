@@ -3,7 +3,7 @@
 // Definitions by: Chris Drackett <https://github.com/chrisdrackett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function load(
+export default function load(
     module: string,
     callBack: (err: string) => void,
     context: any
