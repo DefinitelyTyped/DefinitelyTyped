@@ -3,12 +3,10 @@
 // Definitions by: Chris Drackett <https://github.com/chrisdrackett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'little-loader' {
-  function load(
+declare function load(
     module: string,
     callBack: (err: string) => void,
     context: any,
-  ): void;
+): void;
 
-  export default load;
-}
+export default load;
