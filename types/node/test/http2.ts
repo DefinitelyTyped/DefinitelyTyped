@@ -143,6 +143,7 @@ import { URL } from 'url';
     const bufferSize: number = http2Stream.bufferSize;
     const closed: boolean = http2Stream.closed;
     const destroyed: boolean = http2Stream.destroyed;
+    const id: number | undefined = http2Stream.id;
     const pending: boolean = http2Stream.pending;
 
     http2Stream.priority({

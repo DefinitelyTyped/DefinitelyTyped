@@ -337,9 +337,9 @@ declare var log: Log;
 // #############################################################################################
 
 interface Dict<T> {
-    [key: string]: T;
-    [key: number]: T;
-    // [key: symbol]: T;
+    [key: string]: T | undefined;
+    [key: number]: T | undefined;
+    // [key: symbol]: T | undefined;
 }
 
 interface DictConstructor {
@@ -350,12 +350,12 @@ interface DictConstructor {
     <T>(value?: Dict<T>): Dict<T>;
     (value?: any): Dict<any>;
 
-    isDict(value: any): boolean;
+    isDict(value: any): value is Dict<any>;
     values<T>(object: Dict<T>): IterableIterator<T>;
     keys<T>(object: Dict<T>): IterableIterator<PropertyKey>;
     entries<T>(object: Dict<T>): IterableIterator<[PropertyKey, T]>;
     has<T>(object: Dict<T>, key: PropertyKey): boolean;
-    get<T>(object: Dict<T>, key: PropertyKey): T;
+    get<T>(object: Dict<T>, key: PropertyKey): T | undefined;
     set<T>(object: Dict<T>, key: PropertyKey, value: T): Dict<T>;
     forEach<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => void, thisArg?: any): void;
     map<T, U>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => U, thisArg?: any): Dict<U>;
@@ -363,7 +363,7 @@ interface DictConstructor {
     filter<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): Dict<T>;
     some<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): boolean;
     every<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): boolean;
-    find<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): T;
+    find<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): T | undefined;
     findKey<T>(object: Dict<T>, callbackfn: (value: T, key: PropertyKey, dict: Dict<T>) => boolean, thisArg?: any): PropertyKey;
     keyOf<T>(object: Dict<T>, value: T): PropertyKey;
     includes<T>(object: Dict<T>, value: T): boolean;

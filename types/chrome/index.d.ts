@@ -2154,10 +2154,17 @@ declare namespace chrome.downloads {
     }
 
     export interface DownloadDelta {
+        /** The id of the DownloadItem that changed. */
+        id: number;
         /** Optional. The change in danger, if any.  */
         danger?: StringDelta;
         /** Optional. The change in url, if any.  */
         url?: StringDelta;
+        /**
+         * Optional. The change in finalUrl, if any.
+         * @since Since Chrome 54.
+         */
+        finalUrl: StringDelta;
         /** Optional. The change in totalBytes, if any.  */
         totalBytes?: DoubleDelta;
         /** Optional. The change in filename, if any.  */
@@ -2171,13 +2178,11 @@ declare namespace chrome.downloads {
         /** Optional. The change in fileSize, if any.  */
         fileSize?: DoubleDelta;
         /** Optional. The change in startTime, if any.  */
-        startTime?: DoubleDelta;
+        startTime?: StringDelta;
         /** Optional. The change in error, if any.  */
         error?: StringDelta;
         /** Optional. The change in endTime, if any.  */
-        endTime?: DoubleDelta;
-        /** The id of the DownloadItem that changed. */
-        id: number;
+        endTime?: StringDelta;
         /** Optional. The change in canResume, if any.  */
         canResume?: BooleanDelta;
         /** Optional. The change in exists, if any.  */
@@ -2205,8 +2210,13 @@ declare namespace chrome.downloads {
         bytesReceived: number;
         /** Indication of whether this download is thought to be safe or known to be suspicious. */
         danger: string;
-        /** Absolute URL. */
+        /** The absolute URL that this download initiated from, before any redirects. */
         url: string;
+        /**
+         * The absolute URL that this download is being made from, after all redirects.
+         * @since Since Chrome 54.
+         */
+        finalUrl: string;
         /** Number of bytes in the whole file, without considering file compression, or -1 if unknown. */
         totalBytes: number;
         /** Absolute local path. */
@@ -2254,8 +2264,8 @@ declare namespace chrome.downloads {
         orderBy?: string[];
         /** Optional. Limits results to DownloadItem whose url matches the given regular expression.  */
         urlRegex?: string;
-        /** Optional. Limits results to DownloadItem that ended before the given ms since the epoch.  */
-        endedBefore?: number;
+        /** Optional. Limits results to DownloadItem that ended before the time in ISO 8601 format.  */
+        endedBefore?: string;
         /** Optional. Limits results to DownloadItem whose totalBytes is greater than the given integer.  */
         totalBytesGreater?: number;
         /** Optional. Indication of whether this download is thought to be safe or known to be suspicious.  */
@@ -2274,30 +2284,30 @@ declare namespace chrome.downloads {
         id?: number;
         /** Optional. Number of bytes received so far from the host, without considering file compression.  */
         bytesReceived?: number;
-        /** Optional. Limits results to DownloadItem that ended after the given ms since the epoch.  */
-        endedAfter?: number;
+        /** Optional. Limits results to DownloadItem that ended after the time in ISO 8601 format.  */
+        endedAfter?: string;
         /** Optional. Absolute local path.  */
         filename?: string;
         /** Optional. Indicates whether the download is progressing, interrupted, or complete.  */
         state?: string;
-        /** Optional. Limits results to DownloadItem that started after the given ms since the epoch.  */
-        startedAfter?: number;
+        /** Optional. Limits results to DownloadItem that started after the time in ISO 8601 format.  */
+        startedAfter?: string;
         /** Optional. The file's MIME type.  */
         mime?: string;
         /** Optional. Number of bytes in the whole file post-decompression, or -1 if unknown.  */
         fileSize?: number;
         /** Optional. The time when the download began in ISO 8601 format.  */
-        startTime?: number;
+        startTime?: string;
         /** Optional. Absolute URL.  */
         url?: string;
-        /** Optional. Limits results to DownloadItem that started before the given ms since the epoch.  */
-        startedBefore?: number;
+        /** Optional. Limits results to DownloadItem that started before the time in ISO 8601 format.  */
+        startedBefore?: string;
         /** Optional. The maximum number of matching DownloadItem returned. Defaults to 1000. Set to 0 in order to return all matching DownloadItem. See search for how to page through results.  */
         limit?: number;
         /** Optional. Why a download was interrupted.  */
         error?: number;
         /** Optional. The time when the download ended in ISO 8601 format.  */
-        endTime?: number;
+        endTime?: string;
         /** Optional. Whether the downloaded file exists;  */
         exists?: boolean;
     }

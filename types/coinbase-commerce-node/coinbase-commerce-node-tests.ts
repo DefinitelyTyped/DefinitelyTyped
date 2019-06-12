@@ -6,13 +6,13 @@ import {
     Client,
     EventResource,
     CreateCharge,
+    Webhook,
     resources as Resource
 } from 'coinbase-commerce-node';
 
 const Checkout = Resource.Checkout;
 const Charge = Resource.Charge;
 const Event = Resource.Event;
-const Webhook = Resource.Webhook;
 
 /**
  * Initialize client.
@@ -260,6 +260,30 @@ Checkout.all({}).then((list) => {
  * @link https://commerce.coinbase.com/docs/api/#event-resource
  */
 const eventResponseExample: EventResource = {
+    id: '24934862-d980-46cb-9402-43c81b0cdba6',
+    resource: 'event',
+    type: 'charge:created',
+    api_version: '2018-03-22',
+    created_at: '2017-01-31T20:49:02Z',
+    data: chargeResponseExample,
+};
+
+/**
+ * Event resource with Checkout data.
+ */
+const eventCheckoutResponseExample: EventResource<CheckoutResource> = {
+    id: '24934862-d980-46cb-9402-43c81b0cdba6',
+    resource: 'event',
+    type: 'charge:created',
+    api_version: '2018-03-22',
+    created_at: '2017-01-31T20:49:02Z',
+    data: checkoutResponseExample,
+};
+
+/**
+ * Event resource with Charge data.
+ */
+const eventChargeResponseExample: EventResource<ChargeResource> = {
     id: '24934862-d980-46cb-9402-43c81b0cdba6',
     resource: 'event',
     type: 'charge:created',

@@ -404,7 +404,7 @@ export class Table extends PureComponent<TableProps> {
             (params: RowMouseEventHandlerParams) => void
         >;
         onRowsRendered: Requireable<
-            (params: RowMouseEventHandlerParams) => void
+            (params: IndexRange & OverscanIndexRange) => void
         >;
         onScroll: Requireable<(params: ScrollEventData) => void>;
         overscanRowCount: Validator<number>;
@@ -441,7 +441,7 @@ export class Table extends PureComponent<TableProps> {
         onScroll: () => null;
         overscanRowCount: 10;
         rowRenderer: TableRowRenderer;
-        headerRowRenderer: TableHeaderRenderer;
+        headerRowRenderer: TableHeaderRowRenderer;
         rowStyle: {};
         scrollToAlignment: "auto";
         scrollToIndex: -1;

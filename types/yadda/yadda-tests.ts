@@ -8,10 +8,10 @@ const English = Yadda.localisation.English;
 
 {
     const library = new Yadda.Library()
-        .define('A synchronous step', () => {
+        .define("A synchronous step", () => {
             // Code goes here
         })
-        .define('An asynchronous step', (next: (err?: Error) => void) => {
+        .define("An asynchronous step", (next: (err?: Error) => void) => {
             // Code goes here
             next();
         });
@@ -21,7 +21,7 @@ const English = Yadda.localisation.English;
 
 {
     const library = new Yadda.Library()
-        .define('[Ss]etup a new user', () => {
+        .define("[Ss]etup a new user", () => {
             // Code goes here
         })
         .define(/[Ss]etup a new user/, () => {
@@ -33,7 +33,7 @@ const English = Yadda.localisation.English;
 
 {
     const library = Yadda.localisation.English.library()
-        .given('a user called (\\w+)', (name: string) => {
+        .given("a user called (\\w+)", (name: string) => {
             // Code goes here
         });
 
@@ -42,7 +42,7 @@ const English = Yadda.localisation.English;
 
 {
     const library = Yadda.localisation.English.library()
-        .given('a user called $name', (name: string) => {
+        .given("a user called $name", (name: string) => {
             // Code goes here
         });
 
@@ -52,10 +52,10 @@ const English = Yadda.localisation.English;
 {
     const converter = Yadda.converters.pass_through;
     const dictionary = new Yadda.Dictionary()
-        .define('csv', /([^\u0000]*)/, converter);
+        .define("csv", /([^\u0000]*)/, converter);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given('some csv\n$csv', (csv: string) => {
+        .given("some csv\n$csv", (csv: string) => {
             // Code goes here
         });
 
@@ -64,7 +64,7 @@ const English = Yadda.localisation.English;
 
 {
     const library = Yadda.localisation.English.library()
-        .given(['$name has $num book', '$name has $num books'], (name: string, number_of_books: string) => {
+        .given(["$name has $num book", "$name has $num books"], (name: string, number_of_books: string) => {
             // Code goes here
         });
 
@@ -73,14 +73,14 @@ const English = Yadda.localisation.English;
 
 {
     const library = new Yadda.Library()
-        .define('Some step');
+        .define("Some step");
 
     Yadda.createInstance(library);
 }
 
 {
     const library = Yadda.localisation.English.library()
-        .given('a user called $name', (name: string) => {
+        .given("a user called $name", (name: string) => {
             // Code goes here
         });
 
@@ -89,7 +89,7 @@ const English = Yadda.localisation.English;
 
 {
     const library = Yadda.localisation.English.library()
-        .given('a user called $name', (name: string, next: (err?: Error) => void) => {
+        .given("a user called $name", (name: string, next: (err?: Error) => void) => {
             // Code goes here
             next();
         });
@@ -99,7 +99,7 @@ const English = Yadda.localisation.English;
 
 {
     const library = Yadda.localisation.English.library()
-        .given('a user called $name', (name: string) => {
+        .given("a user called $name", (name: string) => {
             return new Promise((resolve, reject) => {
                 // Code goes here
             });
@@ -110,10 +110,10 @@ const English = Yadda.localisation.English;
 
 {
     const dictionary = new Yadda.Dictionary()
-        .define('gender', /(male|female)/);
+        .define("gender", /(male|female)/);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given('A $gender user', (gender: string) => {
+        .given("A $gender user", (gender: string) => {
             // Code goes here
         });
 
@@ -122,12 +122,12 @@ const English = Yadda.localisation.English;
 
 {
     const dictionary = new Yadda.Dictionary()
-        .define('address', '$street, $postcode')
-        .define('street', /(\d+) (\w+)/)
-        .define('postcode', /((GIR &0AA)|((([A-PR-UWYZ][A-HK-Y]?[0-9][0-9]?)|(([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRV-Y]))) &[0-9][ABD-HJLNP-UW-Z]{2}))/);
+        .define("address", "$street, $postcode")
+        .define("street", /(\d+) (\w+)/)
+        .define("postcode", /((GIR &0AA)|((([A-PR-UWYZ][A-HK-Y]?[0-9][0-9]?)|(([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRV-Y]))) &[0-9][ABD-HJLNP-UW-Z]{2}))/);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given('An $address', (number: string, street: string, postcode: string) => {
+        .given("An $address", (number: string, street: string, postcode: string) => {
             // Code goes here
         });
 
@@ -136,10 +136,10 @@ const English = Yadda.localisation.English;
 
 {
     const dictionary = new Yadda.Dictionary()
-        .define('num', /(\d+)/, Yadda.converters.integer);
+        .define("num", /(\d+)/, Yadda.converters.integer);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given('A whole number $num', (number: string) => {
+        .given("A whole number $num", (number: string) => {
             // Number will be an integer rather than a string
         });
 
@@ -152,11 +152,11 @@ function quantity_converter(amount: string, units: string, cb: (err: Error | nul
 
 {
     const dictionary = new Yadda.Dictionary()
-        .define('quantity', /(\d+) (\w+)/, quantity_converter);
+        .define("quantity", /(\d+) (\w+)/, quantity_converter);
 
     const library = Yadda.localisation.English.library(dictionary)
-        .given('a delay of $quantity', (quantity: string) => {
-            // quantity will be an object with two fields 'amount' and 'units'
+        .given("a delay of $quantity", (quantity: string) => {
+            // quantity will be an object with two fields "amount" and "units"
         });
 
     Yadda.createInstance(library);
@@ -171,7 +171,7 @@ class Wall {
         this.bottles++;
     }
     printStatus(): void {
-        console.log('There are %s bottles on the wall', this.bottles);
+        console.log("There are %s bottles on the wall", this.bottles);
     }
 }
 
@@ -193,14 +193,14 @@ const bottlesLibrary = English.library()
 
 {
     const library = Yadda.localisation.Pirate.library()
-        .giveth('some text 1', () => {})
-        .given('some text 2', () => {})
+        .giveth("some text 1", () => {})
+        .given("some text 2", () => {})
 
-        .whence('some text 3', () => {})
-        .when('some text 4', () => {})
+        .whence("some text 3", () => {})
+        .when("some text 4", () => {})
 
-        .thence('some text 5', () => {})
-        .then('some text 6', () => {});
+        .thence("some text 5", () => {})
+        .then("some text 6", () => {});
 
     Yadda.createInstance(library);
 }
@@ -235,15 +235,21 @@ function login(user: string) {
 
 {
     const library = Yadda.localisation.English.library()
-        .given('a user called $name', function(name) {
+        .given("a user called $name", function(name) {
             this.ctx[name] = name;
         })
-        .when('$name logs in', function(name) {
+        .when("$name logs in", function(name) {
             const user = this.ctx[name];
             login(user);
         });
 
-    Yadda.createInstance(library, { ctx: {} });
+    const scenario_context: Yadda.Context.Properties = {
+        ctx: {}
+    };
+
+    Yadda.createInstance(library, scenario_context);
+
+    Yadda.createInstance(library, new Yadda.Context(scenario_context));
 }
 
 {

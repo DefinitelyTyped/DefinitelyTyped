@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Track, track, TrackingProp } from 'react-tracking';
+import { Track, track, TrackingProp, useTracking } from 'react-tracking';
 
 function customEventReporter(data: { page?: string }) {}
 
@@ -55,3 +55,13 @@ class Test extends React.Component<any, null> {
         );
     }
 }
+
+const App = track()(({ foo }: { foo: string }) => {
+    const tracking = useTracking();
+    return <div onClick={() => {
+        tracking.trackEvent({
+            page: 'Home',
+            foo
+        });
+    }}/>;
+});

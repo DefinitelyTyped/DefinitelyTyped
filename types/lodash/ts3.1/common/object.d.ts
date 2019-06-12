@@ -1125,6 +1125,10 @@ declare module "../index" {
         /**
          * @see _.get
          */
+        get<TKey extends keyof T>(path: TKey | [TKey], defaultValue: never[]): T[TKey] extends any[] ? ExpChain<Exclude<T[TKey], undefined>> : ExpChain<Exclude<T[TKey], undefined> | never[]>;
+        /**
+         * @see _.get
+         */
         get<TKey extends keyof T, TDefault>(path: TKey | [TKey], defaultValue: TDefault): ExpChain<Exclude<T[TKey], undefined> | TDefault>;
         /**
          * @see _.get
@@ -1898,7 +1902,7 @@ declare module "../index" {
         /**
          * @see _.pick
          */
-        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialDeep<T>;
+        pick<T>(object: T | null | undefined, ...props: PropertyPath[]): PartialObject<T>;
     }
     interface Object<T> {
         /**

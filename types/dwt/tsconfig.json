@@ -7,7 +7,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -18,15 +18,14 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "addon.ocr.d.ts",
+        "dwt-tests.ts",
+        "index.d.ts",
+        "Dynamsoft.d.ts",
+		"addon.ocr.d.ts",
         "addon.ocrp.d.ts",
         "addon.pdf.d.ts",
         "addon.webcam.d.ts",
         "dbr.d.ts",
-        "dwt-tests.ts",
-        "dwt.d.ts",
-        "index.d.ts",
-        "Dynamsoft.d.ts",
-        "mbc.d.ts"
+		"mbc.d.ts"
     ]
 }

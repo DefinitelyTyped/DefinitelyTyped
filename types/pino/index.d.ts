@@ -260,6 +260,10 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * The key in the JSON object to use for timestamp display. Default: "time".
+         */
+        timestampKey?: string;
+        /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
         colorize?: boolean;

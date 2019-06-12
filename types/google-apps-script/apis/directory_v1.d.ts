@@ -357,7 +357,7 @@ declare namespace GoogleAppsScript {
         primaryEmail?: string;
       }
       export interface Aliases {
-        aliases?: Object[];
+        aliases?: any[];
         etag?: string;
         kind?: string;
       }
@@ -405,8 +405,8 @@ declare namespace GoogleAppsScript {
         sublocality?: string;
       }
       export interface BuildingCoordinates {
-        latitude?: Number;
-        longitude?: Number;
+        latitude?: number;
+        longitude?: number;
       }
       export interface Buildings {
         buildings?: AdminDirectory.Schema.Building[];
@@ -802,8 +802,8 @@ declare namespace GoogleAppsScript {
         readAccessType?: string;
       }
       export interface SchemaFieldSpecNumericIndexingSpec {
-        maxValue?: Number;
-        minValue?: Number;
+        maxValue?: number;
+        minValue?: number;
       }
       export interface Schemas {
         etag?: string;

@@ -11,6 +11,7 @@
 //                  Diamond Lewis <https://github.com/dplewis>
 //                  Jong Eun Lee <https://github.com/yomybaby>
 //                  Julien Quere <https://github.com/jlnquere>
+//                  Yago Tomé <https://github.com/yagotome>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -295,7 +296,7 @@ declare namespace Parse {
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON(json: any, override: boolean): any;
+        static fromJSON(json: any, override?: boolean): Object;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -305,10 +306,10 @@ declare namespace Parse {
         static unPinAllObjectsWithName(name: string): Promise<void>;
         static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        add(attr: string, item: any): this | boolean;
-        addAll(attr: string, items: any[]): this | boolean;
-        addAllUnique(attr: string, items: any[]): this | boolean;
-        addUnique(attr: string, item: any): this | boolean;
+        add(attr: string, item: any): this | false;
+        addAll(attr: string, items: any[]): this | false;
+        addAllUnique(attr: string, items: any[]): this | false;
+        addUnique(attr: string, item: any): this | false;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
@@ -337,15 +338,15 @@ declare namespace Parse {
         previous(attr: string): any;
         previousAttributes(): any;
         relation(attr: string): Relation<this, Object>;
-        remove(attr: string, item: any): this | boolean;
-        removeAll(attr: string, items: any): this | boolean;
+        remove(attr: string, item: any): this | false;
+        removeAll(attr: string, items: any): this | false;
         revert(): void;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): boolean;
-        set(attrs: object, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        set(key: string, value: any, options?: Object.SetOptions): this | false;
+        set(attrs: object, options?: Object.SetOptions): this | false;
+        setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
         toPointer(): Pointer;
         unPin(): Promise<void>;
         unPinWithName(name: string): Promise<void>;

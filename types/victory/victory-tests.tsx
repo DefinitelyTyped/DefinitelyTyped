@@ -494,7 +494,7 @@ test = (
 
 // VictoryGroup test
 test = (
-  <VictoryGroup offset={40}>
+  <VictoryGroup color="#46c85e" offset={40}>
     <VictoryBar
       data={[{ x: "a", y: 2 }, { x: "b", y: 3 }, { x: "c", y: 5 }]}
     />

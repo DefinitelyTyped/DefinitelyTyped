@@ -89,6 +89,8 @@ import {
     Keyboard,
     NetInfo,
     PermissionsAndroid,
+    Platform,
+    PushNotificationIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -699,10 +701,17 @@ class WebViewTest extends React.Component {
 
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
-            uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png",
-        });
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
+
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log("Image is not in cache");
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        })
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -908,4 +917,39 @@ const PermissionsAndroidTest = () => {
                 break;
         }
     })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
 }

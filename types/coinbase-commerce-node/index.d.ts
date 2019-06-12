@@ -45,12 +45,12 @@ type FiatCurrency = 'USD' | 'GBP' | 'EUR' | string;
 /**
  * Crypto currency.
  */
-type CryptoCurrency = 'BTC' | 'ETH' | 'BCH' | 'LTC';
+type CryptoCurrency = 'BTC' | 'ETH' | 'BCH' | 'LTC' | 'USDC';
 
 /**
  * Full crypto currency name.
  */
-type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin';
+type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin' | 'usdc';
 
 /**
  * Pricing type.
@@ -66,7 +66,7 @@ type Timestamp = string;
 /**
  * Payment status.
  */
-type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED';
+type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED' | 'CANCELED';
 
 /**
  * Crypto pricing object.
@@ -394,7 +394,7 @@ interface CheckoutResource extends BaseCheckout {
  *
  * @link
  */
-interface EventResource {
+interface EventResource<T = ChargeResource | CheckoutResource> {
     /**
      * Event UUID.
      */
@@ -408,7 +408,7 @@ interface EventResource {
     /**
      * Event type.
      */
-    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending';
+    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending' | 'charge:resolved';
 
     /**
      * Event creation time.
@@ -424,7 +424,7 @@ interface EventResource {
      * Event Payload.
      * Resource of the associated object at the time of the event.
      */
-    data: ChargeResource | CheckoutResource;
+    data: T;
 }
 
 /**
@@ -575,29 +575,29 @@ export namespace resources {
         static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>;
     }
 
-    /**
-     * Webhook class.
-     *
-     * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
-     */
-    namespace Webhook {
-        /**
-         * Verify a signature header.
-         *
-         * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
-         */
-        function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
-    }
-
     export {
-        Webhook,
         Event,
         Charge,
         Checkout,
     };
 }
 
+/**
+ * Webhook class.
+ *
+ * @link https://github.com/coinbase/coinbase-commerce-node#webhooks
+ */
+declare namespace Webhook {
+    /**
+     * Verify a signature header.
+     *
+     * @link https://github.com/coinbase/coinbase-commerce-node#verify-signature-header
+     */
+    function verifySigHeader(rawBody: string, signature: string, sharedSecret: string): void;
+}
+
 export {
+    Webhook,
     Pagination,
     ChargeResource,
     CheckoutResource,

@@ -18,6 +18,7 @@ describe("Test", () => {
         await element(by.id("element")).replaceText("text");
         await element(by.id("element")).tap();
         await element(by.id("element")).scroll(50, "down");
+        await element(by.id("element")).scroll(50, "down", 0.5, 0.5);
         await element(by.id("scrollView")).scrollTo("bottom");
         await expect(element(by.id("element")).atIndex(0)).toNotExist();
         await element(by.id("scrollView")).swipe("down", "fast");
