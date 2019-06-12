@@ -74,13 +74,10 @@ export type StyledComponentProps<
     A extends keyof any
 > = WithOptionalTheme<
     Omit<
-        OmitOverlapping<
-            ReactDefaultizedProps<
-                C,
-                React.ComponentPropsWithRef<C>
-            >,
-            O
-        > & O,
+        ReactDefaultizedProps<
+            C,
+            OmitOverlapping<React.ComponentPropsWithRef<C>, O> & O
+        >,
         A
     > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
     T
