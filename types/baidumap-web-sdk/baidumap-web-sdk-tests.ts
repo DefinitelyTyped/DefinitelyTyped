@@ -1,7 +1,7 @@
 import "./index";
 
 class TestFixture {
-	// document: http://lbsyun.baidu.com/index.php?title=jspopular
+	// document: http://lbsyun.baidu.com/index.php?title=jspopular3.0
 	createMap(container: string | HTMLElement) {
 		navigator.geolocation.getCurrentPosition((position: Position) => {
 			const point = new BMap.Point(position.coords.longitude, position.coords.latitude);
