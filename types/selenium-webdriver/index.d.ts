@@ -15,7 +15,8 @@ import * as edge from './edge';
 import * as firefox from './firefox';
 import * as ie from './ie';
 import { By, ByHash } from './lib/by';
-import { Command, ICommandName, Name } from './lib/command';
+import * as command from './lib/command';
+import * as http from './http';
 import { Actions, Button, Key, Origin } from './lib/input';
 import { promise } from './lib/promise';
 import * as until from './lib/until';
@@ -1457,39 +1458,6 @@ export class Capabilities {
 }
 
 /**
- * Handles the execution of WebDriver {@link Command commands}.
- * @interface
- */
-export class Executor {
-  /**
-   * Defines a new command for use with this executor. When a command is sent,
-   * the {@code path} will be preprocessed using the command's parameters; any
-   * path segments prefixed with ':' will be replaced by the parameter of the
-   * same name. For example, given '/person/:name' and the parameters
-   * '{name: 'Bob'}', the final command path will be '/person/Bob'.
-   *
-   * @param {string} name The command name.
-   * @param {string} method The HTTP method to use when sending this command.
-   * @param {string} path The path to send the command to, relative to
-   *     the WebDriver server's command root and of the form
-   *     '/path/:variable/segment'.
-   */
-  defineCommand(name: string, method: string, path: string): void;
-
-  /**
-   * Executes the given {@code command}. If there is an error executing the
-   * command, the provided callback will be invoked with the offending error.
-   * Otherwise, the callback will be invoked with a null Error and non-null
-   * response object.
-   *
-   * @param {!Command} command The command to execute.
-   * @return {!Promise<?>} A promise that will be fulfilled with
-   *     the command result.
-   */
-  execute(command: Command): Promise<any>;
-}
-
-/**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
  */
 export class Listener {
@@ -2088,7 +2056,7 @@ export class WebDriver {
    * @param {!command.Executor} executor The executor to use when sending
    *     commands to the browser.
    */
-  constructor(session: Session|Promise<Session>, executor: Executor);
+  constructor(session: Session|Promise<Session>, executor: http.Executor);
 
   // endregion
 
@@ -2169,7 +2137,7 @@ export class WebDriver {
    *     with the command result.
    * @template T
    */
-  execute<T>(command: Command, description?: string): Promise<T>;
+  execute<T>(command: command.Command, description?: string): Promise<T>;
 
   /**
    * Sets the {@linkplain input.FileDetector file detector} that should be
@@ -2178,7 +2146,7 @@ export class WebDriver {
    */
   setFileDetector(detector: FileDetector): void;
 
-  getExecutor(): Executor;
+  getExecutor(): command.Executor;
 
   /**
    * @return {!Promise.<!Session>} A promise for this
