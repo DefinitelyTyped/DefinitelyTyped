@@ -43,3 +43,5 @@ export const require: require;
  * Like `requireFrom(name => ('https://unpkg.com/'+name))`
  */
 export const requireFrom: requireFrom;
+
+export as namespace d3;
