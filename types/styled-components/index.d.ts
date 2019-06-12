@@ -63,6 +63,11 @@ type OmitOverlapping<P, O> = P extends any
         : Pick<P, Exclude<keyof P, keyof O>>
     : never;
 
+type MergedComponentPropsWithRef<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    O extends object
+> = OmitOverlapping<StyledComponentPropsWithRef<C>, O> & O;
+
 export type StyledComponentProps<
     // The Component from whose props are derived
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -76,10 +81,10 @@ export type StyledComponentProps<
     Omit<
         ReactDefaultizedProps<
             C,
-            OmitOverlapping<React.ComponentPropsWithRef<C>, O> & O
+            MergedComponentPropsWithRef<C, O>
         >,
         A
-    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+    > & Partial<Pick<MergedComponentPropsWithRef<C, O>, A>>,
     T
 > & WithChildrenIfReactComponentClass<C>;
 
@@ -227,11 +232,11 @@ export interface ThemedStyledFunctionBase<
             | TemplateStringsArray
             | CSSObject
             | InterpolationFunction<
-                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
+                  ThemedStyledProps<MergedComponentPropsWithRef<C, O>, T>
               >,
         ...rest: Array<
             Interpolation<
-                ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
+                ThemedStyledProps<MergedComponentPropsWithRef<C, O>, T>
             >
         >
     ): StyledComponent<C, T, O, A>;
@@ -240,15 +245,19 @@ export interface ThemedStyledFunctionBase<
             | TemplateStringsArray
             | CSSObject
             | InterpolationFunction<
-                  ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
+                ThemedStyledProps<OmitOverlapping<MergedComponentPropsWithRef<C, O>, U> & U, T>
               >,
         ...rest: Array<
             Interpolation<
-                ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
+                ThemedStyledProps<OmitOverlapping<MergedComponentPropsWithRef<C, O>, U> & U, T>
             >
         >
     ): StyledComponent<C, T, O & U, A>;
 }
+
+// When accepting attrs, ensure the types of existing props do not get changed
+type MergeNewAttrs<O, NewA> =
+    O & Pick<NewA, Exclude<keyof NewA, keyof O>>;
 
 export interface ThemedStyledFunction<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -260,23 +269,23 @@ export interface ThemedStyledFunction<
     // My head already hurts enough so maybe later...
     attrs<
         U,
-        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
+        NewA extends Partial<OmitOverlapping<MergedComponentPropsWithRef<C, O>, U> & U> & {
             [others: string]: any;
         } = {}
     >(
-        attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
+        attrs: Attrs<OmitOverlapping<MergedComponentPropsWithRef<C, O>, U> & U, NewA, T>
+    ): ThemedStyledFunction<C, T, MergeNewAttrs<O, NewA>, A | keyof NewA>;
     // Only this overload is deprecated
     // tslint:disable:unified-signatures
     /** @deprecated Prefer using the new single function style, to be removed in v5 */
     attrs<
         U,
-        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
+        NewA extends Partial<OmitOverlapping<MergedComponentPropsWithRef<C, O>, U> & U> & {
             [others: string]: any;
         } = {}
     >(
-        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
+        attrs: DeprecatedAttrs<OmitOverlapping<MergedComponentPropsWithRef<C, O>, U> & U, NewA, T>
+    ): ThemedStyledFunction<C, T, MergeNewAttrs<O, NewA>, A | keyof NewA>;
     // tslint:enable:unified-signatures
 }
 

@@ -1083,4 +1083,19 @@ function overlappedProps() {
 
     // color prop type should not be merged with div's
     <Wrapped color={["red"]}>This has children</Wrapped>;
+
+    // color should be required
+    <Wrapped>No color!</Wrapped>; // $ExpectError
+
+    // color should accept array
+    const WrappedDefaulted = styled(Box).attrs({color: ["blue"]})``;
+
+    // should not allow attrs to change type of prop
+    const WrappedDefaultedErr = styled(Box).attrs({color: 123})``; // $ExpectError
+
+    // should allow defaulted prop
+    <WrappedDefaulted>No color!</WrappedDefaulted>;
+
+    // should allow array prop
+    <WrappedDefaulted color={["green"]}>Color!</WrappedDefaulted>;
 }
