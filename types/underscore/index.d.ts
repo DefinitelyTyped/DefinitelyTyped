@@ -88,10 +88,6 @@ declare module _ {
         (element: T, key: string, list: Dictionary<T>): TResult;
     }
 
-    interface FullObjectIterator<T, TResult, K extends keyof T = keyof T> {
-        (value: T[K], key: K, object: T): TResult;
-    }
-
     type IterateePropertyShorthand = string | number;
 
     type IterateeMatcherShorthand<T> = Dictionary<T>;
@@ -3717,7 +3713,7 @@ declare module _ {
         **/
         pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
         pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
-        pick<T, K extends keyof T>(obj: T, predicate: FullObjectIterator<T, boolean>): Pick<T, K>;
+        pick<T, K extends keyof T>(obj: T, predicate: ObjectIterator<T[K], boolean>): Pick<T, K>;
 
         /**
         * @see _.pick
