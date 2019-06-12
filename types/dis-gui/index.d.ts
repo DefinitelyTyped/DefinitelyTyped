@@ -1,6 +1,8 @@
 import * as React from 'react';
+import * as CSS from "csstype";
+
 type GUIProps = Partial<{
-    style : React.CSSProperties,
+    style : CSS.Properties<string | number>,
     expanded : boolean,
     alwaysOpen : boolean,
     className : string
