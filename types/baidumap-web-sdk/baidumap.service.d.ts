@@ -347,6 +347,12 @@ declare namespace BMap {
         constructor()
         get(name: string, callback: (result: string[]) => void): void
     }
+    class Convertor {
+        translate(points: Point[], from: number, to: number, callback: (result: {
+            points: Point[],
+            status: number
+        }) => void): void;
+    }
     interface TransitRoutePlan {
         getNumLines(): number
         getLine(i: number): Line
