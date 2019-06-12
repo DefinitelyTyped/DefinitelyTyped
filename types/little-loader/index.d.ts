@@ -3,8 +3,10 @@
 // Definitions by: Chris Drackett <https://github.com/chrisdrackett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function load(
+declare function loader(
     module: string,
     callBack: (err: string) => void,
-    context: any,
+    context: any
 ): void;
+
+export = loader;
