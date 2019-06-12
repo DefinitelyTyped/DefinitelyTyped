@@ -48,6 +48,21 @@ interface HighlandStatic {
 	 * it with the Highland API. Reading from the resulting Highland Stream will
 	 * begin piping the data from the Node Stream to the Highland Stream.
 	 *
+     * A stream constructed in this way relies on Readable#pipe to end the
+     * Highland Stream once there is no more data. Not all Readable Streams do this.
+     * For example, IncomingMessage will only emit close when the client aborts
+     * communications and will not properly call end. In this case, you can provide
+     * an optional onFinished function with the signature onFinished(readable, callback)
+     * as the second argument.
+     *
+     * This function will be passed the Readable and a callback that should called
+     * when the Readable ends. If the Readable ended from an error, the error should
+     * be passed as the first argument to the callback. onFinished should bind to
+     * whatever listener is necessary to detect the Readable's completion. If the
+     * callback is called multiple times, only the first invocation counts. If the
+     * callback is called after the Readable has already ended (e.g., the pipe method
+     * already called end), it will be ignored.
+     *
 	 * **EventEmitter / jQuery Elements -** Pass in both an event name and an
 	 * event emitter as the two arguments to the constructor and the first
 	 * argument emitted to the event handler will be written to the new Stream.
@@ -73,7 +88,7 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-    <R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
+	<R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(xs: R[]): Highland.Stream<R>;
 	<R>(xs: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
@@ -619,7 +634,7 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).drop(2) // => 3, 4
 		 */
-        drop(n: number): Stream<R>;
+		drop(n: number): Stream<R>;
 
 		/**
 		 * Extracts errors from a Stream and applies them to an error handler
