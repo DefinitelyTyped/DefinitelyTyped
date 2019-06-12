@@ -98,6 +98,7 @@ export function useSelect<T>(
     deps?: readonly any[]
 ): T;
 export function useDispatch(storeName: string): DispatcherMap;
+export function useDispatch(): typeof dispatch;
 
 //
 // React HOCs

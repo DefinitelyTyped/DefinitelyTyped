@@ -29,8 +29,13 @@ const HookComponent = () => {
         select("core/block-editor").isTyping<boolean>()
     );
     const { resetBlocks } = data.useDispatch("core/block-editor");
+    const dispatch = data.useDispatch();
     return (
-        <button disabled={isTyping} onClick={resetBlocks}>
+        <button
+            disabled={isTyping}
+            onClick={resetBlocks}
+            onBlur={() => dispatch("core/data").resetBlocks()}
+        >
             Reset
         </button>
     );
