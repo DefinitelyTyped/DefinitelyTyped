@@ -18,7 +18,7 @@ export interface ValidationRule {
     $pending(): boolean
 }
 
-export type CustomRule = (value: any, parentVm?: any) => boolean
+export type CustomRule = (value: any, parentVm?: any) => boolean | Promise<boolean>
 
 export interface Helpers {
     withParams(params: Params, rule: CustomRule | ValidationRule): ValidationRule
