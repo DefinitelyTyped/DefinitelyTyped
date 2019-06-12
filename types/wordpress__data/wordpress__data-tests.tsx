@@ -23,3 +23,15 @@ data.registerStore<FooBar>("foo", {
         setFoo: (text: "foo") => ({ type: "SET_FOO", text })
     }
 });
+
+const HookComponent = () => {
+    const isTyping = data.useSelect(select =>
+        select("core/block-editor").isTyping<boolean>()
+    );
+    const { resetBlocks } = data.useDispatch("core/block-editor");
+    return (
+        <button disabled={isTyping} onClick={resetBlocks}>
+            Reset
+        </button>
+    );
+};
