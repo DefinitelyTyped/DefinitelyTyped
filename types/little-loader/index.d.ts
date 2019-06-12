@@ -8,5 +8,3 @@ declare function load(
     callBack: (err: string) => void,
     context: any,
 ): void;
-
-export default load;
