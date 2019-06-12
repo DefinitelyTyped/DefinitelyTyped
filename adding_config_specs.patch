@@ -1,0 +1,13 @@
+diff --git a/types/enzyme/enzyme-tests.tsx b/types/enzyme/enzyme-tests.tsx
+index 4ffb88ffb9..a88d88164f 100644
+--- a/types/enzyme/enzyme-tests.tsx
++++ b/types/enzyme/enzyme-tests.tsx
+@@ -16,7 +16,7 @@ import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, Sta
+ interface MyComponentProps {
+     stringProp: string;
+     numberProp: number;
+-    functionProp(...args: string[]): boolean;
++    functionProp(...args: ReadonlyArray<string>): boolean;
+ }
+ 
+ interface AnotherComponentProps {

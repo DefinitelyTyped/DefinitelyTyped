@@ -157,17 +157,17 @@ function ShallowWrapperTest() {
 
     function test_invoke() {
         let is_bool: boolean;
-        is_bool = shallowWrapper.invoke('functionProp')() // no args
-        is_bool = shallowWrapper.invoke('functionProp')('hello') // 1 arg
-        is_bool = shallowWrapper.invoke('functionProp')('hello', 'goodbye') // 2 arg
+        is_bool = shallowWrapper.invoke('functionProp')(); // no args
+        is_bool = shallowWrapper.invoke('functionProp')('hello'); // 1 arg
+        is_bool = shallowWrapper.invoke('functionProp')('hello', 'goodbye'); // 2 arg
         // $ExpectError
-        is_bool = shallowWrapper.invoke('functionProp')(null) // wrong arg type
+        is_bool = shallowWrapper.invoke('functionProp')(null); // wrong arg type
         // $ExpectError
-        is_bool = shallowWrapper.invoke('functionProp')(1) // wrong arg type
+        is_bool = shallowWrapper.invoke('functionProp')(1); // wrong arg type
         // $ExpectError
-        const is_not_bool: number = shallowWrapper.invoke('functionProp')() // wrong return type
+        const is_not_bool: number = shallowWrapper.invoke('functionProp')(); // wrong return type
         // $ExpectError
-        is_bool = shallowWrapper.invoke('stringProp')();
+        is_bool = shallowWrapper.invoke('stringProp')(); // wrong prop type
     }
 
     function test_findWhere() {
@@ -418,7 +418,7 @@ function ShallowWrapperTest() {
         const wrapper = shallow<MyComponent>(<MyComponent stringProp="value" numberProp={1} functionProp={() => true}/>);
             wrapper.instance().handleEcho('it works');
 
-        const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1} functionProp={() => true/>);
+        const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1} functionProp={() => true} />);
             wrapperPropsOnly.setProps({stringProp: 'new value'});
         // $ExpectError
         wrapperPropsOnly.instance().handleEcho;
@@ -498,10 +498,17 @@ function ShallowWrapperTest() {
         let anyWrapper: ShallowWrapper;
         anyWrapper = new ShallowWrapper(<MyComponent stringProp="1" numberProp={1} functionProp={() => true}/>);
         shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true}/>);
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>([<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, <MyComponent stringProp="1" numberProp={1} functionProp={() => true}/>]);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>([
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />,
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true}/>
+        ]);
         shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true}/>, shallowWrapper);
         shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, undefined, { lifecycleExperimental: true });
-        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, shallowWrapper, { lifecycleExperimental: true });
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />,
+            shallowWrapper,
+            { lifecycleExperimental: true }
+        );
     }
 
     function test_renderProp() {
@@ -658,17 +665,18 @@ function ReactWrapperTest() {
 
     function test_invoke() {
         let is_bool: boolean;
-        is_bool = reactWrapper.invoke('functionProp')() // no args
-        is_bool = reactWrapper.invoke('functionProp')('hello') // 1 arg
-        is_bool = reactWrapper.invoke('functionProp')('hello', 'goodbye') // 2 arg
+        is_bool = reactWrapper.invoke('functionProp')(); // no args
+        is_bool = reactWrapper.invoke('functionProp')('hello'); // 1 arg
+        is_bool = reactWrapper.invoke('functionProp')('hello', 'goodbye'); // 2 arg
         // $ExpectError
-        is_bool = reactWrapper.invoke('functionProp')(null) // wrong arg type
+        is_bool = reactWrapper.invoke('functionProp')(null); // wrong arg type
         // $ExpectError
-        is_bool = reactWrapper.invoke('functionProp')(1) // wrong arg type
+        is_bool = reactWrapper.invoke('functionProp')(1); // wrong arg type
         // $ExpectError
-        const is_not_bool: number = reactWrapper.invoke('functionProp')() // wrong return type
+        const is_not_bool: number = reactWrapper.invoke('functionProp')(); // wrong return type
+        // $ExpectError
+        is_bool = shallowWrapper.invoke('stringProp')(); // wrong prop type
     }
-
 
     function test_is() {
         boolVal = reactWrapper.is('.some-class');
@@ -909,10 +917,24 @@ function ReactWrapperTest() {
         let anyWrapper: ReactWrapper;
         anyWrapper = new ReactWrapper(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />);
         reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>([<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />]);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, reactWrapper);
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, undefined, { attachTo: document.createElement('div') });
-        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent stringProp="1" numberProp={1} functionProp={() => true} />, reactWrapper, { attachTo: document.createElement('div') });
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>([
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />,
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />
+        ]);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />,
+            reactWrapper
+        );
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />,
+            undefined,
+            { attachTo: document.createElement('div') }
+        );
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(
+            <MyComponent stringProp="1" numberProp={1} functionProp={() => true} />,
+            reactWrapper,
+            { attachTo: document.createElement('div') }
+        );
     }
 
     function test_component_type() {
