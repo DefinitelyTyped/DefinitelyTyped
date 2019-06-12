@@ -22,6 +22,7 @@
 //                 Gokul Chandrasekaran <https://github.com/gokulchandra>
 //                 Jamie Davies <https://github.com/viralpickaxe>
 //                 Christopher Eck <https://github.com/chrisleck>
+//                 Josiah <https://github.com/spacetag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -2493,6 +2494,24 @@ declare namespace Stripe {
             custom_fields: ICustomField[];
 
             customer: string | customers.ICustomer;
+
+            /**
+             * The customer’s email. Until the invoice is finalized, this field will equal customer.email.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_email: string;
+
+            /**
+             * The customer’s name. Until the invoice is finalized, this field will equal customer.name.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_name: string;
+
+            /**
+             * The customer’s phone number. Until the invoice is finalized, this field will equal customer.phone.
+             * Once the invoice is finalized, this field will no longer be updated.
+             */
+            customer_phone: string;
 
             /**
              * Time at which the object was created. Measured in seconds since the Unix epoch.
