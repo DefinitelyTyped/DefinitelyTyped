@@ -48,3 +48,5 @@ for (const [id, message] of bundle1.messages) {
   bundle1.getMessage(id);
   bundle1.format(message);
 }
+
+Array.isArray(bundle4.locales);
