@@ -34,7 +34,13 @@ export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
 }
 
 export declare class Accelerometer {
-    constructor(option: AccelerometerGeneralOption | AccelerometerAnalogOption | AccelerometerMPU6050Option | AccelerometerMMA7361Option);
+    constructor(
+        option:
+            | AccelerometerGeneralOption
+            | AccelerometerAnalogOption
+            | AccelerometerMPU6050Option
+            | AccelerometerMMA7361Option
+    );
 
     id: string;
     zeroV: number;
@@ -120,13 +126,18 @@ export declare class Board {
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
-    pinMode(pin: number, mode: number): void;
-    analogWrite(pin: number, value: number): void;
-    analogRead(pin: number, cb: (item: number) => void): void;
-    digitalWrite(pin: number, value: number): void;
-    digitalRead(pin: number, cb: (item: number) => void): void;
-    servoWrite(pin: number, angle: number): void;
-    shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
+    pinMode(pin: number | string, mode: number): void;
+    analogWrite(pin: number | string, value: number): void;
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    servoWrite(pin: number | string, angle: number): void;
+    shiftOut(
+        dataPin: Pin,
+        clockPin: Pin,
+        isBigEndian: boolean,
+        value: number
+    ): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
     samplingInterval(ms: number): void;
@@ -166,7 +177,13 @@ export declare class Compass {
     constructor(option: CompassOption);
 
     readonly heading: number;
-    readonly bearing: { name: string, abbr: string, low: number, high: number, heading: number };
+    readonly bearing: {
+        name: string;
+        abbr: string;
+        low: number;
+        high: number;
+        heading: number;
+    };
 
     on(event: string, cb: () => void): this;
     on(event: "change", cb: () => void): this;
@@ -199,11 +216,35 @@ export declare class ESC {
 export declare class Fn {
     static constrain(value: number, lower: number, upper: number): number;
     static inRange(value: number, lower: number, upper: number): boolean;
-    static map(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
-    static fmap(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
+    static map(
+        value: number,
+        fromLow: number,
+        fromHigh: number,
+        toLow: number,
+        toHigh: number
+    ): number;
+    static fmap(
+        value: number,
+        fromLow: number,
+        fromHigh: number,
+        toLow: number,
+        toHigh: number
+    ): number;
     static range(lower: number, upper: number, tick: number): Array<number>;
-    static scale(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
-    static fscale(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
+    static scale(
+        value: number,
+        fromLow: number,
+        fromHigh: number,
+        toLow: number,
+        toHigh: number
+    ): number;
+    static fscale(
+        value: number,
+        fromLow: number,
+        fromHigh: number,
+        toLow: number,
+        toHigh: number
+    ): number;
     static sum(values: Array<number>): number;
     static toFixed(number: number, digits: number): number;
     static uid(): string;
@@ -232,7 +273,9 @@ export interface GyroMPU6050Option extends GyroGeneralOption {
 }
 
 export declare class Gyro {
-    constructor(option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option);
+    constructor(
+        option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option
+    );
 
     id: string;
     pins: Array<string>;
@@ -281,7 +324,7 @@ export declare class IMU {
     constructor(option: IMUGeneralOption | IMUMPU6050Option);
 
     readonly accelerometer: Accelerometer;
-    readonly compass: Compass
+    readonly compass: Compass;
     readonly gyro: Gyro;
     readonly orientation: Orientiation;
     readonly thermometer: Thermometer;
@@ -293,7 +336,6 @@ export declare class IMU {
 }
 
 export declare module IR {
-
     export interface ArrayOption {
         pins: Array<number> | Array<string>;
         emitter: number | string;
@@ -412,7 +454,6 @@ export declare class Led {
 }
 
 export declare module Led {
-
     export interface DigitsOption {
         pins: any;
         devices?: number;
@@ -519,7 +560,7 @@ export interface MotorPins {
     pwm: number;
     dir: number;
     cdir?: number;
-    brake?:number;
+    brake?: number;
 }
 
 export interface MotorOption {
@@ -704,8 +745,8 @@ export declare class Sensor {
 
     scaleTo(low: number, high: number): number;
     fscaleTo(low: number, high: number): number;
-    scaleTo(range: Array<number>): number
-    fscaleTo(range: Array<number>): number
+    scaleTo(range: Array<number>): number;
+    fscaleTo(range: Array<number>): number;
     booleanAt(barrier: number): boolean;
     within(range: Array<number>, cb: () => void): void;
     on(event: string, cb: () => void): this;
