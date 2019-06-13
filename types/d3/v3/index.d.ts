@@ -3,6 +3,7 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Matthias Jobst <https://github.com/MatthiasJobst>
+//                 Mihai Cherej <https://github.com/cronco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Latest patch version of module validated against: 3.5.17
@@ -235,7 +236,7 @@ declare namespace d3 {
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert 
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert
             insert(name: string, before?: string): Update<Datum>;
 
             /**
@@ -3075,7 +3076,7 @@ declare namespace d3 {
 
             interface Node {
                 parent?: Node;
-                children?: number;
+                children?: Node[];
                 value?: number;
                 depth?: number;
                 x?: number;
