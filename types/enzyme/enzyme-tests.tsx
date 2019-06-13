@@ -8,7 +8,8 @@ import {
     configure,
     EnzymeAdapter,
     ShallowRendererProps,
-    ComponentClass as EnzymeComponentClass
+  ComponentClass as EnzymeComponentClass,
+  CommonWrapper
 } from "enzyme";
 import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
@@ -71,6 +72,17 @@ const MyStatelessComponent = (props: StatelessProps) => <span />;
 const AnotherStatelessComponent = (props: AnotherStatelessProps) => <span />;
 
 const ComponentType = toComponentType(MyComponent);
+
+const CommonWrapperHelper = {
+    test_invoke: (wrapper: CommonWrapper<MyComponentProps, any, any>) => {
+        // should only accept the names of props that are functions
+        let is_matching_function: MyComponentProps['functionProp'] = wrapper.invoke('functionProp');
+        // $ExpectError
+        is_matching_function = wrapper.invoke('stringProp'); // should not accept non-function prop
+        // $ExpectError
+        const is_not_matching_function: () => string = wrapper.invoke('functionProp'); // should return matching function type
+    },
+};
 
 // Enzyme.configure
 function configureTest() {
@@ -156,18 +168,7 @@ function ShallowWrapperTest() {
     }
 
     function test_invoke() {
-        let is_bool: boolean;
-        is_bool = shallowWrapper.invoke('functionProp')(); // no args
-        is_bool = shallowWrapper.invoke('functionProp')('hello'); // 1 arg
-        is_bool = shallowWrapper.invoke('functionProp')('hello', 'goodbye'); // 2 arg
-        // $ExpectError
-        is_bool = shallowWrapper.invoke('functionProp')(null); // wrong arg type
-        // $ExpectError
-        is_bool = shallowWrapper.invoke('functionProp')(1); // wrong arg type
-        // $ExpectError
-        const is_not_bool: number = shallowWrapper.invoke('functionProp')(); // wrong return type
-        // $ExpectError
-        is_bool = shallowWrapper.invoke('stringProp')(); // wrong prop type
+        CommonWrapperHelper.test_invoke(shallowWrapper);
     }
 
     function test_findWhere() {
@@ -664,18 +665,7 @@ function ReactWrapperTest() {
     }
 
     function test_invoke() {
-        let is_bool: boolean;
-        is_bool = reactWrapper.invoke('functionProp')(); // no args
-        is_bool = reactWrapper.invoke('functionProp')('hello'); // 1 arg
-        is_bool = reactWrapper.invoke('functionProp')('hello', 'goodbye'); // 2 arg
-        // $ExpectError
-        is_bool = reactWrapper.invoke('functionProp')(null); // wrong arg type
-        // $ExpectError
-        is_bool = reactWrapper.invoke('functionProp')(1); // wrong arg type
-        // $ExpectError
-        const is_not_bool: number = reactWrapper.invoke('functionProp')(); // wrong return type
-        // $ExpectError
-        is_bool = shallowWrapper.invoke('stringProp')(); // wrong prop type
+        CommonWrapperHelper.test_invoke(reactWrapper);
     }
 
     function test_is() {

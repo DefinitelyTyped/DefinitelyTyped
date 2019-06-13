@@ -47,6 +47,7 @@ export type ComponentType<Props> = ComponentClass<Props> | StatelessComponent<Pr
 export interface EnzymePropSelector {
     [key: string]: any;
 }
+
 export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<any> | EnzymePropSelector;
 
 export type Intercepter<T> = (intercepter: T) => void;
@@ -98,7 +99,9 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * @param ...args The argments to the invokePropName function
      * @returns The value of the function.
      */
-    invoke<K extends keyof P>(invokePropName: K): P[K];
+    invoke<K extends NonNullable<{
+        [K in keyof P]: P[K] extends () => void ? K : never
+    }[keyof P]>>(invokePropName: K): P[K];
 
     /**
      * Returns whether or not the current node matches a provided selector.
