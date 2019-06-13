@@ -100,7 +100,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * @returns The value of the function.
      */
     invoke<K extends NonNullable<{
-        [K in keyof P]: P[K] extends () => void ? K : never
+        [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never
     }[keyof P]>>(invokePropName: K): P[K];
 
     /**
