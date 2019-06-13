@@ -15,5 +15,9 @@
         "paths": {
             "@wordpress/*": ["wordpress__*"]
         }
-    }
+    },
+    "files": [
+        "./index.d.ts",
+        "./wordpress__components-tests.tsx"
+    ]
 }
