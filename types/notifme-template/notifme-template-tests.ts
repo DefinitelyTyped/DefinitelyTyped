@@ -1,4 +1,4 @@
-import factory, {RendererType, RendererFunction, TemplateType} from 'notifme-template';
+import factory, { RendererType, RendererFunction, TemplateType } from 'notifme-template';
 
 const renderer: RendererType = (r: string, p: object) => r;
 
