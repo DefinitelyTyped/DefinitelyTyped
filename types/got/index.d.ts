@@ -150,7 +150,7 @@ declare namespace got {
     /**
      * @param options Unnormalized request options.
      */
-    type InitHook<Options> = (options: Options) => any;
+    type InitHook<Options> = (options: Options) => void;
 
     /**
      * @param options Normalized request options.
