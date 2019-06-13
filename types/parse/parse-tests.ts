@@ -1,15 +1,38 @@
-class GameScore extends Parse.Object {
+// Interfaces below define the "database model structure"
+// of the parse objects. These can be provided as a generic
+// to Parse.Object.
+interface TeamModel {
+    city: string;
+}
 
+interface GameScoreModel {
+    arrayKey: number[];
+    score: number;
+    playerName: string;
+    playerAge: number;
+    wins: number;
+    hometown: string;
+    place: string;
+    cheatMode: boolean;
+    level: string;
+    difficult: number;
+    skills: string[];
+}
+
+class Team extends Parse.Object<TeamModel> {
     constructor(options?: any) {
+        super("Team", options);
+    }
+}
 
+class GameScore extends Parse.Object<GameScoreModel> {
+    constructor(options?: any) {
         super("GameScore", options);
     }
 }
 
 class Game extends Parse.Object {
-
     constructor(options?: any) {
-
         super("Game", options);
     }
 }
@@ -34,6 +57,11 @@ function test_object() {
         success(g: Game) { }
     });
 
+    // Validate a partial set of data
+    game.validate({
+        score: '123'
+    });
+
     // Create a new instance of that class.
     const gameScore = new GameScore();
 
@@ -55,10 +83,11 @@ function test_object() {
     gameScore.increment("score");
     gameScore.addUnique("skills", "flying");
     gameScore.addUnique("skills", "kungfu");
+    gameScore.add("skills", "dancing");
     gameScore.addAll("skills", ["kungfu"]);
     gameScore.addAllUnique("skills", ["kungfu"]);
-    gameScore.remove('skills', 'flying');
-    gameScore.removeAll('skills', ["kungFu"]);
+    gameScore.remove("skills", "flying");
+    gameScore.removeAll("skills", ["kungFu", "dancing"]);
     game.set("gameScore", gameScore);
 
     const gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
@@ -111,10 +140,13 @@ function test_query() {
     // Finds objects that have the score set
     query.exists("score");
 
+    const teamQuery = new Parse.Query(Team);
+
     // Finds objects that don't have the score set
     query.doesNotExist("score");
-    query.matchesKeyInQuery("hometown", "city", query);
-    query.doesNotMatchKeyInQuery("hometown", "city", query);
+    query.matchesQuery("hometown", teamQuery);
+    query.matchesKeyInQuery("hometown", "city", teamQuery);
+    query.doesNotMatchKeyInQuery("hometown", "city", teamQuery);
     query.select("score", "playerName");
 
     // Find objects where the array in arrayKey contains 2.
@@ -124,8 +156,8 @@ function test_query() {
     query.containsAll("arrayKey", [2, 3, 4]);
     query.containsAllStartingWith("arrayKey", [2, 3, 4]);
 
-    query.startsWith("name", "Big Daddy's");
-    query.equalTo("score", gameScore);
+    query.startsWith("playerName", "Big Daddy's");
+    query.equalTo("score", 1);
     query.exists("score");
     query.include("score");
     query.include(["score.team"]);
@@ -133,13 +165,13 @@ function test_query() {
     query.sortByTextScore();
     // Find objects that match the aggregation pipeline
     query.aggregate({
-        group:{
+        group: {
             objectId: '$name'
         }
     });
 
     // Find objects with distinct key
-    query.distinct('name');
+    query.distinct("playerName");
 
     const testQuery = Parse.Query.or(query, query);
 }
@@ -148,11 +180,11 @@ async function test_query_promise() {
     // Test promise with a query
     const findQuery = new Parse.Query('Test');
     findQuery.find()
-    .then(() => {
-        // success
-    }).catch(() => {
-        // error
-    });
+        .then(() => {
+            // success
+        }).catch(() => {
+            // error
+        });
 
     const getQuery = new Parse.Query('Test');
     try {
@@ -375,7 +407,7 @@ function test_cloud_functions() {
     });
 
     Parse.Cloud.afterSave('MyCustomClass', (request: Parse.Cloud.AfterSaveRequest) => {
-        if(!request.context) {
+        if (!request.context) {
             throw new Error('Request context should be defined')
         }
         // result
@@ -393,22 +425,22 @@ function test_cloud_functions() {
     const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
 
     Parse.Cloud.beforeSave('MyCustomClass', async (request: Parse.Cloud.BeforeSaveRequest) => {
-        
-            if (request.object.isNew()) {
-                if (!request.object.has('immutable')) throw new Error('Field immutable is required')
-            } else {
-                const original = request.original;
-                if (original == null) { // When the object is not new, request.original must be defined
-                    throw new Parse.Error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
-                }
 
-                if (original.get('immutable') !== request.object.get('immutable')) {
-                    throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
-                }
+        if (request.object.isNew()) {
+            if (!request.object.has('immutable')) throw new Error('Field immutable is required')
+        } else {
+            const original = request.original;
+            if (original == null) { // When the object is not new, request.original must be defined
+                throw new Parse.Error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
             }
-            if(!request.context) {
-                throw new Error('Request context should be defined')
+
+            if (original.get('immutable') !== request.object.get('immutable')) {
+                throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
             }
+        }
+        if (!request.context) {
+            throw new Error('Request context should be defined')
+        }
     });
 
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
@@ -550,8 +582,8 @@ function test_serverURL() {
     Parse.serverURL = 'http://localhost:1337/parse';
 }
 function test_polygon() {
-    const point = new Parse.GeoPoint(1,2);
-    const polygon1 = new Parse.Polygon([[0,0], [1,0], [1,1], [0,1]]);
+    const point = new Parse.GeoPoint(1, 2);
+    const polygon1 = new Parse.Polygon([[0, 0], [1, 0], [1, 1], [0, 1]]);
     const polygon2 = new Parse.Polygon([point, point, point]);
     polygon1.equals(polygon2);
     polygon1.containsPoint(point);
