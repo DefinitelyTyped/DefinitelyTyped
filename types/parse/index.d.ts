@@ -308,7 +308,7 @@ declare namespace Parse {
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON<T>(this: { new(): T }, json: any, override: boolean): T;
+        static fromJSON<T>(this: { new(): T }, json: any, override?: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
