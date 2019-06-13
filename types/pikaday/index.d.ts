@@ -1,8 +1,9 @@
-// Type definitions for pikaday 1.7
+// Type definitions for pikaday 1.8
 // Project: https://github.com/dbushell/Pikaday, https://pikaday.com
 // Definitions by: Rudolph Gottesheim <https://github.com/MidnightDesign>
 //                 Åke Wivänge <https://github.com/wake42>
 //                 Istvan Mezo <https://github.com/mezoistvan>
+//                 PikachuEXE <https://github.com/PikachuEXE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
