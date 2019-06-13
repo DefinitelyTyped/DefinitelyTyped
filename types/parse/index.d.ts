@@ -11,6 +11,7 @@
 //                  Diamond Lewis <https://github.com/dplewis>
 //                  Jong Eun Lee <https://github.com/yomybaby>
 //                  Julien Quere <https://github.com/jlnquere>
+//                  Dirk Groenen <https://github.com/dirkgroenen>
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,6 +20,11 @@
 /// <reference types="node" />
 
 declare namespace Parse {
+
+    // Helper types for extracting an extended generic type from an
+    // (Parse.)Object or Array.
+    type Unarray<T> = T extends Array<infer U> ? U : T;
+    type Unobject<X> = X extends Object<infer U> ? U : X;
 
     let applicationId: string;
     let javaScriptKey: string | undefined;
@@ -277,17 +283,18 @@ declare namespace Parse {
      * @param {Object} attributes The initial set of data to store in the object.
      * @param {Object} options The options for this object instance.
      * @see Parse.Object.extend
+     * @typedef K   represents the interface for attributes
      *
      * @class
      *
      * Creates a new model with defined attributes.
      */
-    class Object extends BaseObject {
+    class Object<K = any> extends BaseObject {
 
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        attributes: any;
+        attributes: K;
         cid: string;
         changed: boolean;
         className: string;
@@ -301,7 +308,7 @@ declare namespace Parse {
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON(json: any, override?: boolean): Object;
+        static fromJSON(json: any, override: boolean): any;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -311,52 +318,52 @@ declare namespace Parse {
         static unPinAllObjectsWithName(name: string): Promise<void>;
         static unPinAllWithName(name: string, objects: Object[]): Promise<void>;
 
-        add(attr: string, item: any): this | false;
-        addAll(attr: string, items: any[]): this | false;
-        addAllUnique(attr: string, items: any[]): this | false;
-        addUnique(attr: string, item: any): this | false;
+        add<P extends keyof K>(attr: P, item: Unarray<K[P]>): this | boolean;
+        addAll<P extends keyof K>(attr: P, items: K[P]): this | boolean;
+        addAllUnique<P extends keyof K>(attr: P, items: K[P]): this | boolean;
+        addUnique<P extends keyof K>(attr: P, item: Unarray<K[P]>): this | boolean;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
-        dirty(attr?: string): boolean;
+        dirty<P extends keyof K>(attr?: P): boolean;
         dirtyKeys(): string[];
         equals(other: any): boolean;
-        escape(attr: string): string;
+        escape<P extends keyof K>(attr: P): string;
         existed(): boolean;
         fetch(options?: Object.FetchOptions): Promise<this>;
         fetchFromLocalDatastore(): Promise<this> | void;
-        fetchWithInclude(keys: string | Array<string | Array<string>>, options?: RequestOptions): Promise<this>;
-        get(attr: string): any | undefined;
+        fetchWithInclude<P extends keyof K>(keys: P | Array<P | Array<P>>, options?: RequestOptions): Promise<this>;
+        get<P extends keyof K>(attr: P): K[P] | undefined;
         getACL(): ACL | undefined;
-        has(attr: string): boolean;
-        hasChanged(attr: string): boolean;
-        increment(attr: string, amount?: number): any;
+        has<P extends keyof K>(attr: P): boolean;
+        hasChanged<P extends keyof K>(attr: P): boolean;
+        increment<P extends keyof K>(attr: P, amount?: number): any;
         initialize(): void;
         isNew(): boolean;
         isPinned(): Promise<boolean>;
         isValid(): boolean;
-        op(attr: string): any;
+        op<P extends keyof K>(attr: P): any;
         pin(): Promise<void>;
         pinWithName(name: string): Promise<void>;
-        previous(attr: string): any;
+        previous<P extends keyof K>(attr: P): any;
         previousAttributes(): any;
-        relation(attr: string): Relation<this, Object>;
-        remove(attr: string, item: any): this | false;
-        removeAll(attr: string, items: any): this | false;
+        relation<P extends keyof K>(attr: P): Relation<this, Object>;
+        remove<P extends keyof K>(attr: P, item: Unarray<K[P]>): this | boolean;
+        removeAll<P extends keyof K>(attr: P, items: K[P]): this | boolean;
         revert(): void;
-        save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
-        save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
-        save(attrs: object, options?: Object.SaveOptions): Promise<this>;
-        set(key: string, value: any, options?: Object.SetOptions): this | false;
-        set(attrs: object, options?: Object.SetOptions): this | false;
-        setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
+        save(attrs?: Partial<K> | null, options?: Object.SaveOptions): Promise<this>;
+        save<P extends keyof K>(key: P, value: K[P], options?: Object.SaveOptions): Promise<this>;
+        save(attrs: Partial<K>, options?: Object.SaveOptions): Promise<this>;
+        set<P extends keyof K>(key: P, value: K[P] | Parse.Object<K[P]>, options?: Object.SetOptions): boolean;
+        set(attrs: Partial<K>, options?: Object.SetOptions): boolean;
+        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         toPointer(): Pointer;
         unPin(): Promise<void>;
         unPinWithName(name: string): Promise<void>;
-        unset(attr: string, options?: any): any;
-        validate(attrs: any, options?: SuccessFailureOptions): boolean;
+        unset<P extends keyof K>(attr: P, options?: any): any;
+        validate(attrs: Partial<K>, options?: SuccessFailureOptions): boolean;
     }
 
     namespace Object {
@@ -458,9 +465,9 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query<T extends Object = Object> extends BaseObject {
+    class Query<T = Object, K extends Unobject<T> = any> extends BaseObject {
 
-        objectClass: any;
+        objectClass: K;
         className: string;
 
         constructor(objectClass: string);
@@ -471,62 +478,62 @@ declare namespace Parse {
         static nor<U extends Object>(...args: Query<U>[]): Query<U>;
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        addAscending(key: string): Query<T>;
-        addAscending(key: string[]): Query<T>;
-        addDescending(key: string): Query<T>;
-        addDescending(key: string[]): Query<T>;
-        ascending(key: string): Query<T>;
-        ascending(key: string[]): Query<T>;
+        addAscending<P extends keyof K>(key: P): Query<T>;
+        addAscending<P extends keyof K>(key: P[]): Query<T>;
+        addDescending<P extends keyof K>(key: P): Query<T>;
+        addDescending<P extends keyof K>(key: P[]): Query<T>;
+        ascending<P extends keyof K>(key: P): Query<T>;
+        ascending<P extends keyof K>(key: P[]): Query<T>;
         aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
-        containedBy(key: string, values: any[]): Query<T>;
-        containedIn(key: string, values: any[]): Query<T>;
-        contains(key: string, substring: string): Query<T>;
-        containsAll(key: string, values: any[]): Query<T>;
-        containsAllStartingWith(key: string, values: any[]): Query<T>;
+        containedBy<P extends keyof K>(key: P, values: K[P][]): Query<T>;
+        containedIn<P extends keyof K>(key: P, values: K[P][]): Query<T>;
+        contains<P extends keyof K>(key: P, substring: string): Query<T>;
+        containsAll<P extends keyof K>(key: P, values: Unarray<K[P]>[]): Query<T>;
+        containsAllStartingWith<P extends keyof K>(key: P, values: Unarray<K[P]>[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
-        descending(key: string): Query<T>;
-        descending(key: string[]): Query<T>;
-        doesNotExist(key: string): Query<T>;
-        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
-        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        distinct<V = any>(key: string): Promise<V>;
+        descending<P extends keyof K>(key: P): Query<T>;
+        descending<P extends keyof K>(key: P[]): Query<T>;
+        doesNotExist<P extends keyof K>(key: P): Query<T>;
+        doesNotMatchKeyInQuery<O extends Object, P extends keyof K, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
+        doesNotMatchQuery<U extends Object, P extends keyof K>(key: P, query: Query<U>): Query<T>;
+        distinct<P extends keyof K>(key: P): Query<T>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith(key: string, suffix: string): Query<T>;
-        equalTo(key: string, value: any): Query<T>;
-        exists(key: string): Query<T>;
+        endsWith<P extends keyof K>(key: P, suffix: string): Query<T>;
+        equalTo<P extends keyof K>(key: P, value: Unarray<K[P]>): Query<T>;
+        exists<P extends keyof K>(key: P): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromLocalDatastore(): void;
         fromPin(): void;
         fromPinWithName(name: string): void;
-        fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
+        fullText<P extends keyof K>(key: P, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
-        greaterThan(key: string, value: any): Query<T>;
-        greaterThanOrEqualTo(key: string, value: any): Query<T>;
-        include(key: string): Query<T>;
+        greaterThan<P extends keyof K>(key: P, value: K[P]): Query<T>;
+        greaterThanOrEqualTo<P extends keyof K>(key: P, value: K[P]): Query<T>;
+        include<P extends keyof K>(key: P): Query<T>;
         include(keys: string[]): Query<T>;
         includeAll(): Query<T>;
-        lessThan(key: string, value: any): Query<T>;
-        lessThanOrEqualTo(key: string, value: any): Query<T>;
+        lessThan<P extends keyof K>(key: P, value: K[P]): Query<T>;
+        lessThanOrEqualTo<P extends keyof K>(key: P, value: K[P]): Query<T>;
         limit(n: number): Query<T>;
-        matches(key: string, regex: RegExp, modifiers: any): Query<T>;
-        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
-        matchesQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
-        near(key: string, point: GeoPoint): Query<T>;
-        notContainedIn(key: string, values: any[]): Query<T>;
-        notEqualTo(key: string, value: any): Query<T>;
-        polygonContains(key: string, point: GeoPoint): Query<T>;
-        select(...keys: string[]): Query<T>;
+        matches<P extends keyof K>(key: P, regex: RegExp, modifiers: any): Query<T>;
+        matchesKeyInQuery<O extends Object, P extends keyof K, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
+        matchesQuery<U extends Object, P extends keyof K>(key: P, query: Query<U>): Query<T>;
+        near<P extends keyof K>(key: P, point: GeoPoint): Query<T>;
+        notContainedIn<P extends keyof K>(key: P, values: any[]): Query<T>;
+        notEqualTo<P extends keyof K>(key: P, value: K[P]): Query<T>;
+        polygonContains<P extends keyof K>(key: P, point: GeoPoint): Query<T>;
+        select<P extends keyof K>(...keys: P[]): Query<T>;
         skip(n: number): Query<T>;
         sortByTextScore(): this;
-        startsWith(key: string, prefix: string): Query<T>;
+        startsWith<P extends keyof K>(key: P, prefix: string): Query<T>;
         subscribe(): LiveQuerySubscription;
         withJSON(json: any): this;
-        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
-        withinPolygon(key: string, points: GeoPoint[]): Query<T>;
-        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinGeoBox<P extends keyof K>(key: P, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
+        withinKilometers<P extends keyof K>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
+        withinMiles<P extends keyof K>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
+        withinPolygon<P extends keyof K>(key: P, points: GeoPoint[]): Query<T>;
+        withinRadians<P extends keyof K>(key: P, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
     namespace Query {
@@ -660,13 +667,13 @@ subscription.on('close', () => {});
         setName(name: string, options?: SuccessFailureOptions): any;
     }
 
-    class Config extends Object {
+    class Config<K = any> extends Object<K> {
         static get(options?: SuccessFailureOptions): Promise<Config>;
         static current(): Config;
         static save(attr: any): Promise<Config>;
 
-        get(attr: string): any;
-        escape(attr: string): any;
+        get<P extends keyof K>(attr: P): K[P];
+        escape<P extends keyof K>(attr: P): string;
     }
 
     class Session extends Object {
