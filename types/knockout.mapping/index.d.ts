@@ -29,7 +29,7 @@ declare global {
                         MappedType<T[P]>;
     };
 
-    // Could not get his to return any when T is any. It returns a Union type of the possible values.
+    // Could not get this to return any when T is any. It returns a Union type of the possible values.
     type KnockoutObservableArrayType<T> = T extends Primitives ? KnockoutObservableArray<T> : KnockoutObservableArray<KnockoutObservableType<T>>;
 
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions
