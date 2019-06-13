@@ -75,12 +75,12 @@ const ComponentType = toComponentType(MyComponent);
 
 const CommonWrapperHelper = {
     test_invoke: (wrapper: CommonWrapper<MyComponentProps, any, any>) => {
-        // should only accept the names of props that are functions
-        let is_matching_function: MyComponentProps['functionProp'] = wrapper.invoke('functionProp');
-        // $ExpectError
-        is_matching_function = wrapper.invoke('stringProp'); // should not accept non-function prop
-        // $ExpectError
-        const is_not_matching_function: () => string = wrapper.invoke('functionProp'); // should return matching function type
+        // should accept the names of props that are functions
+        // should return type mapped to that prop key
+        wrapper.invoke('functionProp'); // $ExpectType (...args: string[]) => boolean
+        wrapper.invoke(undefined); // $ExpectError
+        wrapper.invoke(null); // $ExpectError
+        wrapper.invoke('stringProp'); // $ExpectError
     },
 };
 
