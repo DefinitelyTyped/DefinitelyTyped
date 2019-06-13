@@ -41,7 +41,7 @@ export interface Header extends BaseSchema {
 
 // ----------------------------- Parameter -----------------------------------
 
-export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array';
+export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object';
 
 export type BaseParameter = {
   name: string;
@@ -82,7 +82,6 @@ export type ParameterCollectionFormat = 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi
 export type QueryParameter = BaseFormatContrainedParameter &
   BaseSchema & {
     in: 'query';
-    type: ParameterType;
     allowEmptyValue?: boolean;
     collectionFormat?: ParameterCollectionFormat;
   };
@@ -90,14 +89,12 @@ export type QueryParameter = BaseFormatContrainedParameter &
 export type PathParameter = BaseFormatContrainedParameter &
   BaseSchema & {
     in: 'path';
-    type: ParameterType;
     required: true;
   };
 
 export type HeaderParameter = BaseFormatContrainedParameter &
   BaseSchema & {
     in: 'header';
-    type: ParameterType;
   };
 
 export type FormDataParameter = BaseFormatContrainedParameter &
@@ -154,6 +151,7 @@ export interface Response {
 
 // ------------------------------ Schema -------------------------------------
 export type BaseSchema = {
+  type?: ParameterType;
   format?: string;
   title?: string;
   description?: string;
@@ -172,7 +170,7 @@ export type BaseSchema = {
   maxProperties?: number;
   minProperties?: number;
   enum?: Array<any[] | boolean | number | null | object | string>;
-  items?: Schema;
+  items?: Schema | Schema[];
 };
 
 export interface Schema extends BaseSchema {
