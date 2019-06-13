@@ -11,11 +11,11 @@
 //                  Diamond Lewis <https://github.com/dplewis>
 //                  Jong Eun Lee <https://github.com/yomybaby>
 //                  Julien Quere <https://github.com/jlnquere>
-//                  Dirk Groenen <https://github.com/dirkgroenen>
 //                  Yago Tomé <https://github.com/yagotome>
 //                  Thibault MOCELLIN <https://github.com/tybi>
+//                  Dirk Groenen <https://github.com/dirkgroenen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
@@ -302,13 +302,13 @@ declare namespace Parse {
         constructor(className?: string, options?: any);
         constructor(attributes?: string[], options?: any);
 
-        static createWithoutData<T extends Object>(id: string): T;
-        static destroyAll<T extends Object>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
+        static createWithoutData<T extends Object>(this: { new(): T }, id: string): T;
+        static destroyAll<T extends Object>(this: { new(): T }, list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static extend(className: string | { className: string }, protoProps?: any, classProps?: any): any;
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON(json: any, override: boolean): any;
+        static fromJSON<T>(this: { new(): T }, json: any, override: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -465,9 +465,9 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query<T = Object, K extends Unobject<T> = any> extends BaseObject {
+    class Query<T = Object, K extends Unobject<T> = Unobject<T>> extends BaseObject {
 
-        objectClass: K;
+        objectClass: T;
         className: string;
 
         constructor(objectClass: string);

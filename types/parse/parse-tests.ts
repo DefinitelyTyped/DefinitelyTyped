@@ -91,11 +91,13 @@ function test_object() {
     game.set("gameScore", gameScore);
 
     const gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
+    const scoreCopy = GameScore.fromJSON(JSON.parse(JSON.stringify(gameScore)), true);
 
     const object = new Parse.Object('TestObject');
     object.equals(gameScore);
     object.fetchWithInclude(['key1', 'key2']);
 
+    const abc = GameScore.createWithoutData('abc123');
 }
 
 function test_query() {
