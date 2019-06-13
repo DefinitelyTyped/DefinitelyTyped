@@ -24,20 +24,14 @@
     "devDependencies": {
         "dtslint": "latest",
         "husky": ">=1",
-        "lint-staged": ">=8",
+        "precise-commits": "^1.0.2",
         "prettier": "^1.17.1",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
     "dependencies": {},
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "precise-commits"
         }
-    },
-    "lint-staged": {
-        "*.(d.ts|ts)": [
-            "prettier --write",
-            "git add"
-        ]
     }
 }
