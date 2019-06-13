@@ -678,3 +678,22 @@ person.firstName = undefined;
 person.mustBeAString = null;
 // $ExpectError
 person.mustBeAString = undefined;
+
+const castPerson = personSchema.cast({});
+castPerson.firstName = "";
+// $ExpectError
+castPerson.firstName = null;
+// $ExpectError
+castPerson.firstName = undefined;
+castPerson.email = "some@email.com";
+castPerson.email = null;
+castPerson.email = undefined;
+castPerson.birthDate = new Date();
+castPerson.birthDate = null;
+castPerson.birthDate = undefined;
+castPerson.isAlive = true;
+castPerson.isAlive = null;
+castPerson.isAlive = undefined;
+castPerson.children = ["1", "2", "3"];
+castPerson.children = null;
+castPerson.children = undefined;

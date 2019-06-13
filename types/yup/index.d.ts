@@ -204,6 +204,67 @@ export interface ArraySchemaConstructor {
     new (): ArraySchema<{}>;
 }
 
+interface NotRequiredNullableArraySchema<T>
+    extends Schema<T[] | null | undefined> {
+    of<U>(type: Schema<U>): NotRequiredNullableArraySchema<U>;
+    min(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NotRequiredNullableArraySchema<T>;
+    max(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NotRequiredNullableArraySchema<T>;
+    ensure(): NotRequiredNullableArraySchema<T>;
+    compact(
+        rejector?: (value: T, index: number, array: T[]) => boolean
+    ): NotRequiredNullableArraySchema<T>;
+    nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
+    nullable(isNullable: false): NotRequiredArraySchema<T>;
+    required(message?: TestOptionsMessage): NullableArraySchema<T>;
+    notRequired(): NotRequiredNullableArraySchema<T>;
+}
+
+interface NullableArraySchema<T> extends Schema<T[] | null> {
+    of<U>(type: Schema<U>): NullableArraySchema<U>;
+    min(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NullableArraySchema<T>;
+    max(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NullableArraySchema<T>;
+    ensure(): NullableArraySchema<T>;
+    compact(
+        rejector?: (value: T, index: number, array: T[]) => boolean
+    ): NullableArraySchema<T>;
+    nullable(isNullable?: true): NullableArraySchema<T>;
+    nullable(isNullable: false): ArraySchema<T>;
+    required(message?: TestOptionsMessage): NullableArraySchema<T>;
+    notRequired(): NotRequiredNullableArraySchema<T>;
+}
+
+interface NotRequiredArraySchema<T> extends Schema<T[] | undefined> {
+    of<U>(type: Schema<U>): NotRequiredArraySchema<U>;
+    min(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NotRequiredArraySchema<T>;
+    max(
+        limit: number | Ref,
+        message?: TestOptionsMessage
+    ): NotRequiredArraySchema<T>;
+    ensure(): NotRequiredArraySchema<T>;
+    compact(
+        rejector?: (value: T, index: number, array: T[]) => boolean
+    ): NotRequiredArraySchema<T>;
+    nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
+    nullable(isNullable: false): NotRequiredArraySchema<T>;
+    required(message?: TestOptionsMessage): ArraySchema<T>;
+    notRequired(): NotRequiredArraySchema<T>;
+}
+
 export interface ArraySchema<T> extends Schema<T[]> {
     of<U>(type: Schema<U>): ArraySchema<U>;
     min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
@@ -212,8 +273,10 @@ export interface ArraySchema<T> extends Schema<T[]> {
     compact(
         rejector?: (value: T, index: number, array: T[]) => boolean
     ): ArraySchema<T>;
+    nullable(isNullable?: true): NullableArraySchema<T>;
+    nullable(isNullable: false): ArraySchema<T>;
     required(message?: TestOptionsMessage): ArraySchema<T>;
-    notRequired(): ArraySchema<T>;
+    notRequired(): NotRequiredArraySchema<T>;
 }
 
 export type ObjectSchemaDefinition<T extends object> = {
@@ -273,9 +336,9 @@ export type WhenOptionsBuilderObjectIs =
 
 export type WhenOptionsBuilderObject =
     | {
-        is: WhenOptionsBuilderObjectIs;
-        then: any;
-        otherwise: any
+          is: WhenOptionsBuilderObjectIs;
+          then: any;
+          otherwise: any;
       }
     | object;
 
