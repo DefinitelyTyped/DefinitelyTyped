@@ -3,6 +3,7 @@ import * as chrome from 'selenium-webdriver/chrome';
 import * as edge from 'selenium-webdriver/edge';
 import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
+import { Command } from 'selenium-webdriver/lib/command';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -390,12 +391,20 @@ function TestWebDriver() {
     let executor: http.Executor = new http.Executor(httpClient);
     let driver: webdriver.WebDriver = new webdriver.WebDriver(session, executor);
     driver = new webdriver.WebDriver(sessionPromise, executor);
+    let cmdExecutor = driver.getExecutor();
 
     let voidPromise: Promise<void>;
     let stringPromise: Promise<string>;
     let webElementPromise: webdriver.WebElementPromise;
 
     voidPromise = driver.close();
+
+    // executeCommand
+    cmdExecutor.defineCommand('SEND_COMMAND', 'POST', `/session/${session.getId()}/chromium/send_command`);
+    const cmd = new Command('SEND_COMMAND')
+        .setParameter('cmd', 'Page.setDownloadBehavior')
+        .setParameter('params', {behavior: 'allow', downloadPath: './'});
+    voidPromise = driver.execute(cmd);
 
     // executeAsyncScript
     stringPromise = driver.executeAsyncScript<string>('function(){}');
