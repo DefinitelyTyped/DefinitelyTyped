@@ -47,7 +47,6 @@ export type ComponentType<Props> = ComponentClass<Props> | StatelessComponent<Pr
 export interface EnzymePropSelector {
     [key: string]: any;
 }
-
 export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<any> | EnzymePropSelector;
 
 export type Intercepter<T> = (intercepter: T) => void;
