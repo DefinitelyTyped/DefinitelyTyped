@@ -85,6 +85,7 @@
         "popover/index.d.ts",
         "tooltip/index.d.ts",
         "payment-card/index.d.ts",
-        "phone-input/index.d.ts"
+        "phone-input/index.d.ts",
+        "tabs/index.d.ts"
     ]
 }
