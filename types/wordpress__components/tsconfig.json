@@ -17,7 +17,7 @@
         }
     },
     "files": [
-        "./index.d.ts",
-        "./wordpress__components-tests.tsx"
+        "index.d.ts",
+        "wordpress__components-tests.tsx"
     ]
 }
