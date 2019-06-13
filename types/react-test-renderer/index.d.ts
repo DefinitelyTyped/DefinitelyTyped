@@ -17,8 +17,9 @@ import { ReactElement, ReactType } from "react";
 export interface ReactTestRendererJSON {
     type: string;
     props: { [propName: string]: any };
-    children: null | ReactTestRendererJSON[];
+    children: null | ReactTestRendererNode[];
 }
+export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
     nodeType: "component" | "host";
     instance: any;
