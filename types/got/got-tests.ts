@@ -347,7 +347,11 @@ got('example.com', {
             options => {
                 options.baseUrl = 'https://google.com';
             }
-        ],
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
         beforeRequest: [
             options => {
                 options.headers!['x-foo'] = 'bar';
