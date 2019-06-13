@@ -35,6 +35,7 @@ export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
 
 export declare class Accelerometer {
     constructor(
+        // TypeScript Version: 2.1
         option:
             | AccelerometerGeneralOption
             | AccelerometerAnalogOption
