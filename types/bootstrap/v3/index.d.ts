@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap 3.3
+// Type definitions for Bootstrap 3.4
 // Project: http://twitter.github.com/bootstrap/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
@@ -193,6 +193,25 @@ interface TooltipOptions {
      * @default {selector: 'body', padding: 0}
      */
     viewport?: string | BootstrapViewport;
+
+    /**
+     * Enable or disable the sanitization. If activated 'template', 'content' and 'title' options will be sanitized.
+     *
+     * @default true
+     */
+    sanitize?: boolean;
+
+    /**
+     * Object which contains allowed attributes and tags.
+     */
+    whiteList?: {[key: string]: string[]};
+
+    /**
+     * Here you can supply your own sanitize function. This can be useful if you prefer to use a dedicated library to perform sanitization.
+     *
+     * @default null
+     */
+    sanitizeFn?: null | ((input: string) => string);
 }
 
 interface PopoverOptions extends TooltipOptions {
@@ -490,7 +509,4 @@ interface TransitionEventNames {
 
 interface JQuerySupport {
     transition: boolean | TransitionEventNames;
-}
-
-declare module "bootstrap" {
 }
