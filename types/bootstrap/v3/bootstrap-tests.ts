@@ -329,7 +329,7 @@ $(".affix").affix({
     offset: {
         top: 100,
         bottom() {
-            const that = this as BootstrapOffset;
+            const that = this as Bootstrap.Offset;
             return (that.bottom = $(".footer").outerHeight(true)!);
         },
     }
@@ -355,4 +355,4 @@ $(".item").emulateTransitionEnd(2000);
 
 $.support.transition = false;
 
-console.log(($.support.transition as TransitionEventNames).end === "transitionend");
+console.log(($.support.transition as Bootstrap.TransitionEventNames).end === "transitionend");
