@@ -1164,21 +1164,15 @@ export function compile(schema: SchemaLike): Schema;
 
 /**
  * Validates a value against a schema and throws if validation fails.
- *
- * @param value - the value to validate.
- * @param schema - the schema object.
- * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
-export function assert(value: any, schema: SchemaLike, message?: string | Error): void;
+export function assert(value: any, schema: SchemaLike, param?: string | Error | ValidationOptions): void;
+export function assert(value: any, schema: SchemaLike, message?: string, options?: ValidationOptions): void;
 
 /**
- * Validates a value against a schema, returns valid object, and throws if validation fails where:
- *
- * @param value - the value to validate.
- * @param schema - the schema object.
- * @param message - optional message string prefix added in front of the error message. may also be an Error object.
+ * Validates a value against a schema, returns valid object, and throws if validation fails.
  */
-export function attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
+export function attempt<T>(value: T, schema: SchemaLike, param?: string | Error | ValidationOptions): T;
+export function attempt<T>(value: T, schema: SchemaLike, message?: string | Error, options?: ValidationOptions): T;
 
 /**
  * Generates a reference to the value of the named key.
