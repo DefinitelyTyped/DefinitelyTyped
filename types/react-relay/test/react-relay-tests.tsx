@@ -21,7 +21,7 @@ import {
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
-    return fetch('/graphql');
+    return fetch('/graphql').then(response => response.json());
 }
 const network = Network.create(fetchQuery);
 const source = new RecordSource();
@@ -76,7 +76,7 @@ const MyEmptyQueryRenderer = () => (
     <QueryRenderer
         environment={modernEnvironment}
         // NOTE: let's intentionally leave out `query`
-        // query={undefined}
+        query={undefined}
         variables={{}}
         render={({ error, props }) => {
             if (error) {
@@ -161,7 +161,7 @@ const Story = (() => {
                 }
             `,
         },
-        graphql.experimental`
+        graphql`
             query StoryRefetchQuery($id: ID!) {
                 story(id: $id) {
                     ...Story_story
@@ -211,7 +211,7 @@ const Feed = (() => {
         ignoreMe?: {};
     }
 
-    const FeedStoryEdges: React.SFC<{ edges: FeedStory_edges }> = ({ edges }) => (
+    const FeedStoryEdges: React.FC<{ edges: FeedStory_edges; relay: RelayProp }> = ({ edges }) => (
         <div>{edges.map(({ publishedAt }) => publishedAt).join(', ')}</div>
     );
 
@@ -223,7 +223,7 @@ const Feed = (() => {
         `,
     });
 
-    const FeedStories: React.SFC<Props> = ({ feed, onStoryLike, relay }) => {
+    const FeedStories: React.FC<Props> = ({ feed, onStoryLike, relay }) => {
         // TODO: Getting env here for no good reason other than needing to test it works.
         //       If you have a good relavant example, please update!
         relay.environment;
@@ -492,12 +492,17 @@ requestSubscription(
         updater: store => {
             // Get the notification
             const rootField = store.getRootField('markReadNotification');
-            const notification = !!rootField && rootField.getLinkedRecord('notification');
+            const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
             // Add it to a connection
             const viewer = store.getRoot().getLinkedRecord('viewer');
-            const notifications = ConnectionHandler.getConnection(viewer, 'notifications');
-            const edge = ConnectionHandler.createEdge(store, notifications, notification, '<TypeOfNotificationsEdge>');
-            ConnectionHandler.insertEdgeAfter(notifications, edge);
+            const notifications = ConnectionHandler.getConnection(viewer!, 'notifications');
+            const edge = ConnectionHandler.createEdge(
+                store,
+                notifications!,
+                notification!,
+                '<TypeOfNotificationsEdge>'
+            );
+            ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
     }
 );
