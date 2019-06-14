@@ -141,7 +141,7 @@ export interface IProcedureResult<T> extends IResult<T> {
 }
 export interface IRecordSet<T> extends Array<T> {
     columns: IColumnMetadata;
-    toTable(): Table;
+    toTable(name?: string): Table;
 }
 
 type IIsolationLevel = number;
