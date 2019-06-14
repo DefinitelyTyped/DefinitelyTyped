@@ -1,6 +1,7 @@
 // Type definitions for pkgcloud 1.7
 // Project: https://github.com/pkgcloud/pkgcloud#readme
 // Definitions by: Daniel Friesen <https://github.com/dantman>
+//                 Adam Smith <https://github.com/ScriptSmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -58,10 +59,22 @@ export interface GoogleProviderOptions {
     projectId: string;
 }
 
+export interface OpenstackProviderOptions {
+    provider: 'openstack';
+    username: string;
+    password: string;
+    authUrl: string;
+    region?: string;
+    tenantId?: string;
+    version?: string;
+    keystoneAuthVersion?: string;
+}
+
 export type ProviderOptions = BaseProviderOptions & Partial<
     | AmazonProviderOptions
     | AzureProviderOptions
     | GoogleProviderOptions
+    | OpenstackProviderOptions
 >;
 
 /**
