@@ -6229,6 +6229,22 @@ declare namespace Stripe {
              * Quantity for this item.
              */
             quantity?: number;
+
+            /**
+             * Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period.
+             */
+            billing_thresholds?: {
+                /**
+                 * Usage threshold that triggers the subscription to create an invoice
+                 */
+                usage_gte: number;
+            };
+
+            /**
+             * A set of key/value pairs that you can attach to an object. It can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
         }
 
         interface ISubscriptionUpdateItem {
