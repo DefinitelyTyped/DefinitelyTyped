@@ -262,7 +262,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Array<Date> | { start: stringOrDate, end: stringOrDate }) => void;
+    onRangeChange?: (range: Date[] | { start: stringOrDate, end: stringOrDate }) => void;
     selected?: any;
     views?: Views;
     drilldownView?: View | null;
