@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as RelayRuntimeTypes from "relay-runtime";
+import * as React from 'react';
+import * as RelayRuntimeTypes from 'relay-runtime';
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -19,7 +19,7 @@ export interface RelayQuery {
 export interface FragmentResolver {
     dispose(): void;
     resolve(
-        fragment: RelayQuery["Fragment"],
+        fragment: RelayQuery['Fragment'],
         dataIDs: RelayRuntimeTypes.DataID | RelayRuntimeTypes.DataID[]
     ): StoreReaderData | StoreReaderData[] | undefined | null;
 }
@@ -29,18 +29,18 @@ export interface RelayEnvironmentInterface {
         querySet: RelayRuntimeTypes.RelayQuerySet,
         onReadyStateChange: RelayRuntimeTypes.ReadyStateChangeCallback
     ): RelayRuntimeTypes.Abortable;
-    getFragmentResolver(fragment: RelayQuery["Fragment"], onNext: () => void): FragmentResolver;
+    getFragmentResolver(fragment: RelayQuery['Fragment'], onNext: () => void): FragmentResolver;
     getStoreData(): RelayStoreData;
     primeCache(
         querySet: RelayRuntimeTypes.RelayQuerySet,
         onReadyStateChange: RelayRuntimeTypes.ReadyStateChangeCallback
     ): RelayRuntimeTypes.Abortable;
     read(
-        node: RelayQuery["Node"],
+        node: RelayQuery['Node'],
         dataID: RelayRuntimeTypes.DataID,
         options?: StoreReaderOptions
     ): StoreReaderData | void;
-    readQuery(root: RelayQuery["Root"], options?: StoreReaderOptions): StoreReaderData[] | void;
+    readQuery(root: RelayQuery['Root'], options?: StoreReaderOptions): StoreReaderData[] | void;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -50,7 +50,7 @@ export type ClientMutationID = string;
 
 /** Fragments are a hash of functions */
 export interface Fragments {
-    [query: string]: ((variables?: RelayVariables) => string);
+    [query: string]: (variables?: RelayVariables) => string;
 }
 
 export interface CreateContainerOpts {
@@ -65,7 +65,7 @@ export interface RelayVariables {
 
 /** add static getFragment method to the component constructor */
 export interface RelayContainerClass<T> extends React.ComponentClass<T> {
-    getFragment: ((q: string, v?: RelayVariables) => string);
+    getFragment: (q: string, v?: RelayVariables) => string;
 }
 
 export interface RelayQueryRequestResolve {
@@ -73,12 +73,12 @@ export interface RelayQueryRequestResolve {
 }
 
 export type RelayMutationStatus =
-    | "UNCOMMITTED" // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
-    | "COMMIT_QUEUED" // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
-    | "COLLISION_COMMIT_FAILED" // Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue,
+    | 'UNCOMMITTED' // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
+    | 'COMMIT_QUEUED' // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
+    | 'COLLISION_COMMIT_FAILED' // Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue,
     // including this one, have been failed. Transaction can be recommitted or rolled back.
-    | "COMMITTING" // Transaction is waiting for the server to respond.
-    | "COMMIT_FAILED";
+    | 'COMMITTING' // Transaction is waiting for the server to respond.
+    | 'COMMIT_FAILED';
 
 export class RelayMutationTransaction {
     applyOptimistic(): RelayMutationTransaction;
@@ -187,27 +187,25 @@ export interface RenderStateConfig {
 export type RenderCallback = (renderState: RenderStateConfig) => any;
 
 export type ReadyStateEvent =
-    | "ABORT"
-    | "CACHE_RESTORED_REQUIRED"
-    | "CACHE_RESTORE_FAILED"
-    | "CACHE_RESTORE_START"
-    | "NETWORK_QUERY_ERROR"
-    | "NETWORK_QUERY_RECEIVED_ALL"
-    | "NETWORK_QUERY_RECEIVED_REQUIRED"
-    | "NETWORK_QUERY_START"
-    | "STORE_FOUND_ALL"
-    | "STORE_FOUND_REQUIRED";
+    | 'ABORT'
+    | 'CACHE_RESTORED_REQUIRED'
+    | 'CACHE_RESTORE_FAILED'
+    | 'CACHE_RESTORE_START'
+    | 'NETWORK_QUERY_ERROR'
+    | 'NETWORK_QUERY_RECEIVED_ALL'
+    | 'NETWORK_QUERY_RECEIVED_REQUIRED'
+    | 'NETWORK_QUERY_START'
+    | 'STORE_FOUND_ALL'
+    | 'STORE_FOUND_REQUIRED';
 
-export type OnReadyStateChange = (
-    readyState: {
-        ready: boolean;
-        done: boolean;
-        stale: boolean;
-        error?: Error;
-        events: ReadyStateEvent[];
-        aborted: boolean;
-    }
-) => void;
+export type OnReadyStateChange = (readyState: {
+    ready: boolean;
+    done: boolean;
+    stale: boolean;
+    error?: Error;
+    events: ReadyStateEvent[];
+    aborted: boolean;
+}) => void;
 
 export interface RelayProp<V = any> {
     readonly route: { name: string }; // incomplete, also has params and queries

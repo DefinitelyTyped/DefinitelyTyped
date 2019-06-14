@@ -1,12 +1,12 @@
-export { QueryRenderer, fetchQuery, graphql } from "./index";
+export { QueryRenderer, fetchQuery, graphql } from './index';
 import {
     ConnectionConfig,
     RelayPaginationProp as RelayModernPaginationProp,
     RelayRefetchProp as RelayModernRefetchProp,
-} from "./index";
-export { ConcreteFragment, ConcreteRequest, ConcreteBatchRequest } from "relay-runtime";
-import * as RelayRuntimeTypes from "relay-runtime";
-import { RelayEnvironmentInterface } from "./classic";
+} from './index';
+export { ConcreteFragment, ConcreteRequest, ConcreteBatchRequest } from 'relay-runtime';
+import * as RelayRuntimeTypes from 'relay-runtime';
+import { RelayEnvironmentInterface } from './classic';
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
