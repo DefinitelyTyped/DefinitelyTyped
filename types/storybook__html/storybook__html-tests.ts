@@ -33,6 +33,11 @@ storiesOf<AnyAddon>('withAnyAddon', module)
     .addWithSideEffect('more', () => "<div></div>")
     .add('another story', () => "<div></div>")
     .add('to Storybook as Array', () => ["<div></div>", "<div></div>"])
+    .add('storybook with dom', () => {
+        const button = document.createElement('button');
+        button.innerText = '😀 😎 👍 💯';
+        return button;
+    })
     .add('and a story with additional parameters', () => "<div></div>", parameters)
     .addWithSideEffect('even more', () => "<div></div>");
 

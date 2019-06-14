@@ -491,6 +491,7 @@ function testStub() {
         foo(arg: string): number { return 1; }
         promiseFunc() { return Promise.resolve('foo'); }
         promiseLikeFunc() { return Promise.resolve('foo') as PromiseLike<string>; }
+        unresolvableReturnFunc(): any { return Promise.resolve(); }
         fooDeep(arg: { s: string }): void { return undefined; }
     };
     const instance = new obj();
@@ -501,6 +502,11 @@ function testStub() {
 
     const promiseStub = sinon.stub(instance, 'promiseFunc');
     promiseStub.resolves('test');
+    promiseStub.resolves(123); // $ExpectError
+
+    const promiseUnresolvableReturn =
+        sinon.stub(instance, 'unresolvableReturnFunc');
+    promiseUnresolvableReturn.resolves(['anything', 123, true]);
 
     const promiseLikeStub = sinon.stub(instance, 'promiseLikeFunc');
     promiseLikeStub.resolves('test');

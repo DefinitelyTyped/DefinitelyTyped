@@ -196,12 +196,14 @@ export type QueueType =
     | "LIVE_TV"
     | "MOVIE";
 
-export type MetadataType =
-    | "GENERIC"
-    | "MOVIE"
-    | "TV_SHOW"
-    | "MUSIC_TRACK"
-    | "PHOTO";
+export enum MetadataType {
+    GENERIC = 0,
+    MOVIE = 1,
+    TV_SHOW = 2,
+    MUSIC_TRACK = 3,
+    PHOTO = 4,
+    AUDIOBOOK_CHAPTER = 5
+}
 
 /**
  * RefreshCredentials request data.

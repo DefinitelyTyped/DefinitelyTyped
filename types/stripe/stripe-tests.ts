@@ -480,6 +480,14 @@ stripe.customers.createSource(
     }
 );
 
+stripe.customers.createSubscription(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        items: [{plan: "some_plan", quantity: 2}],
+        pay_immediately: false
+    }
+);
+
 stripe.customers.retrieveCard(
     "cus_5rfJKDJkuxzh5Q",
     "card_15fvyXEe31JkLCeQ9KMktP5S",
