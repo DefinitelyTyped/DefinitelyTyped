@@ -2,6 +2,7 @@
 // Project: https://github.com/NeverBounce/NeverBounceApi-NodeJS
 // Definitions by: George Novitskiy <https://github.com/georgenov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export class NeverBounce {
     constructor(config: Config);
