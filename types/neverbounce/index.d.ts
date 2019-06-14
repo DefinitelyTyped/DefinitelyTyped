@@ -1,0 +1,144 @@
+// Type definitions for neverbounce 4.2
+// Project: https://github.com/NeverBounce/NeverBounceApi-NodeJS
+// Definitions by: George Novitskiy <https://github.com/georgenov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export class NeverBounce {
+    constructor(config: Config);
+
+    getConfig(): Config;
+
+    getRequestOpts(opts: ConfigOptions): ConfigOptions;
+
+    setApiKey(key: string): void;
+
+    setHost(host: string): void;
+
+    errors: Errors;
+
+    account: Account;
+
+    jobs: Jobs;
+
+    poe: Poe;
+
+    single: Single;
+
+    static defaultConfig: Config;
+
+    static job: {
+        inputType: {
+            remote: string;
+            supplied: string;
+        };
+        status: {
+            complete: string;
+            failed: string;
+            parsing: string;
+            queued: string;
+            running: string;
+            under_review: string;
+            uploading: string;
+            waiting: string;
+            waiting_analyzed: string;
+        };
+    };
+
+    static result: {
+        "0": string;
+        "1": string;
+        "2": string;
+        "3": string;
+        "4": string;
+        catchall: number;
+        disposable: number;
+        flags: {
+            academic_host: string;
+            accepts_all: string;
+            bad_dns: string;
+            bad_syntax: string;
+            connect_fails: string;
+            contains_alias: string;
+            contains_subdomain: string;
+            disposable_email: string;
+            free_email_host: string;
+            government_host: string;
+            has_dns: string;
+            has_dns_mx: string;
+            international_host: string;
+            military_host: string;
+            profanity: string;
+            role_account: string;
+            smtp_connectable: string;
+            spamtrap_network: string;
+            spelling_mistake: string;
+            squatter_host: string;
+            temporary_dns_error: string;
+        };
+        invalid: number;
+        unknown: number;
+        valid: number;
+    };
+}
+
+export class Errors extends Error {
+    constructor(type: string, message: string);
+
+    static _lut: {
+        general_failure: string,
+        auth_failure: string,
+        bad_referrer: string,
+        throttle_triggered: string,
+    };
+
+    static AuthError: string;
+    static BadReferrerError: string;
+    static GeneralError: string;
+    static ThrottleError: string;
+}
+
+export class Account {
+    info(): Promise<Response>;
+}
+
+export class Jobs {
+    search(query: any): Promise<Response>;
+
+    create(input: any, inputLocation: any, fileName: any, runSample?: any, autoParse?: any, autoStart?: any): Promise<Response>;
+
+    parse(jobId: number, autoStart?: any): Promise<Response>;
+
+    start(jobId: number, runSample?: any): Promise<Response>;
+
+    status(jobId: number): Promise<Response>;
+
+    results(jobId: number, query: any): Promise<Response>;
+
+    download(jobId: number): Promise<Response>;
+}
+
+export class Poe {
+    confirm(email: string, result: any, confirmationToken: any, transactionId: any): Promise<Response>;
+}
+
+export class Single {
+    check(email: string, addressInfo: any, creditsInfo: any, timeout: any): Promise<Response>;
+}
+
+export interface Config {
+    apiKey?: any;
+    opts?: ConfigOptions;
+    timeout?: number;
+}
+
+export interface ConfigOptions {
+    acceptedType?: string;
+    headers?: {
+        "Content-Type"?: string;
+        "User-Agent"?: string;
+    };
+    host?: string;
+    port?: number;
+}
+
+export type Response = any;
