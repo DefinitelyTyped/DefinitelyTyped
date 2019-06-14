@@ -122,6 +122,12 @@ export interface IColumnMetadata {
         length: number;
         type: (() => ISqlType) | ISqlType;
         udt?: any;
+        scale?: number;
+        precision?: number;
+        nullable: boolean;
+        caseSensitive: boolean;
+        identity: boolean;
+        readOnly: boolean;
     }
 }
 export interface IResult<T> {
