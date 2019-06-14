@@ -3,4 +3,6 @@
 // Definitions by: Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function(length: number): string;
+export default function(length: number, callback?: Callback): string;
+
+export type Callback = (err: Error | null, result?: string) => void;
