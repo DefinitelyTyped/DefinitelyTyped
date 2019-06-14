@@ -17,8 +17,14 @@ class TestAffix extends React.Component {
     }
 }
 
-function renderOverlayContent({ props }: OverlayRenderProps) {
-    return <div {...props}>Popover content</div>;
+function renderOverlayContent({ props, arrowProps }: OverlayRenderProps) {
+    return (
+        <div ref={props.ref} {...props}>
+            <div ref={arrowProps.ref}>
+                Popover content
+            </div>
+        </div>
+    );
 }
 
 class TestOverlay extends React.Component<{}, { open: boolean }> {
