@@ -118,11 +118,11 @@ export class Jobs {
 }
 
 export class Poe {
-    confirm(email: string, result: any, confirmationToken: any, transactionId: any): Promise<Response>;
+    confirm(email: string, result: string, confirmationToken: string, transactionId: string): Promise<Response>;
 }
 
 export class Single {
-    check(email: string, addressInfo: any, creditsInfo: any, timeout: any): Promise<Response>;
+    check(email: string, addressInfo?: boolean, creditsInfo?: boolean, timeout?: any): Promise<Response>;
 }
 
 export interface Config {
@@ -141,4 +141,4 @@ export interface ConfigOptions {
     port?: number;
 }
 
-export type Response = any;
+export type Response = object;
