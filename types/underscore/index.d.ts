@@ -4280,9 +4280,9 @@ declare module _ {
         contains(value: T, fromIndex?: number): boolean;
 
         /**
-        * Alias for 'contains'.
-        * @see contains
-        **/
+         * Alias for 'contains'.
+         * @see contains
+         **/
         include(value: T, fromIndex?: number): boolean;
 
         /**
@@ -5377,7 +5377,7 @@ declare module _ {
         size(): _ChainSingle<number>;
 
         /*********
-        * Arrays*
+        * Arrays *
         **********/
 
         /**
@@ -5579,9 +5579,9 @@ declare module _ {
         range(): _Chain<T>;
 
         /**
-        * Wrapped type `any[][]`.
-        * @see _.chunk
-        **/
+         * Wrapped type `any[][]`.
+         * @see _.chunk
+         **/
         chunk(): _Chain<T>;
 
         /* ***********
@@ -5648,9 +5648,9 @@ declare module _ {
         once(): _Chain<T>;
 
         /**
-        * Wrapped type `Function`.
-        * @see _.once
-        **/
+         * Wrapped type `Function`.
+         * @see _.once
+         **/
         restArgs(startIndex?: number): _Chain<T>;
 
         /**
@@ -5685,7 +5685,7 @@ declare module _ {
 
         /********* *
          * Objects *
-         ********** */
+        ********** */
 
         /**
         * Wrapped type `object`.
@@ -5769,9 +5769,9 @@ declare module _ {
         defaults(...defaults: any[]): _Chain<T>;
 
         /**
-        * Wrapped type `any`.
-        * @see _.create
-        **/
+         * Wrapped type `any`.
+         * @see _.create
+         **/
         create(props?: Object): _Chain<T>;
 
         /**
@@ -5799,9 +5799,9 @@ declare module _ {
         matches(): _Chain<T>;
 
         /**
-        * Wrapped type `any[]`.
-        * @see _.matcher
-        **/
+         * Wrapped type `any[]`.
+         * @see _.matcher
+         **/
         matcher(): _Chain<T>;
 
         /**
@@ -5932,7 +5932,7 @@ declare module _ {
 
         /********* *
          * Utility *
-         ********** */
+        ********** */
 
         /**
         * Wrapped type `any`.
@@ -6012,8 +6012,8 @@ declare module _ {
         template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
 
         /************* *
-         * Array proxy *
-         ************** */
+        * Array proxy *
+        ************** */
 
         /**
         * Returns a new array comprised of the array on which it is called
@@ -6094,7 +6094,7 @@ declare module _ {
 
         /********** *
          * Chaining *
-         *********** */
+        *********** */
 
         /**
         * Wrapped type `any`.
