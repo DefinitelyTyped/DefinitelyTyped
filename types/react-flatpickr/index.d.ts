@@ -5,8 +5,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from "react";
+import { Component, ReactElement } from "react";
 import flatpickr from "flatpickr";
+
+export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 export interface DateTimePickerProps {
     defaultValue?: string;
@@ -21,6 +23,7 @@ export interface DateTimePickerProps {
     onDayCreate?: flatpickr.Options.Hook;
     value?: string | Date | number | ReadonlyArray<string | Date | number>;
     className?: string;
+    render?: (props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement) => void) => ReactElement<any>
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}

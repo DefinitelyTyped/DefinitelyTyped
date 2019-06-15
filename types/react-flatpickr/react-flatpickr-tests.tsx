@@ -42,3 +42,6 @@ const valueDateArrayElement = (
 const valueNumberArrayElement = (
     <DatePicker value={[1543516477474, 1544549477474]} />
 );
+const customRender = (
+    <DatePicker render={({value}, ref) => <input ref={ref} value={value ? value.toString() : ''} />} />
+);
