@@ -7,3 +7,4 @@ insert_final_newline = true
 
 [{*.json,*.yml,*.ts,*.tsx,*.md}]
 indent_style = space
+

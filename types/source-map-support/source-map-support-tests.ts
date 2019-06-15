@@ -41,3 +41,5 @@ p = sms.mapSourcePosition(p);
 
 let u: sms.UrlAndMap | null;
 u = retrieveSourceMap("foo");
+
+sms.resetRetrieveHandlers();

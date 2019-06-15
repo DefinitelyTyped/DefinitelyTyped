@@ -26,7 +26,7 @@ import MDCFormFieldFoundation from './foundation';
 import MDCFormFieldAdapter from './adapter';
 import { MDCSelectionControl } from 'material__selection-control';
 
-export {MDCFormFieldAdapter, MDCFormFieldFoundation};
+export { MDCFormFieldAdapter, MDCFormFieldFoundation };
 
 export class MDCFormField extends MDCComponent<MDCFormFieldAdapter, MDCFormFieldFoundation> {
     static attachTo(root: Element): MDCFormField;

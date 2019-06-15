@@ -18,6 +18,9 @@ const Memory: EnginePrototypeOrObject = {
 
 const client = new Client<string>(Memory, { partition: 'cache' });
 
+client.start().then(() => {});
+client.stop().then(() => {});
+
 const cache = new Policy({
     expiresIn: 5000,
 }, client, 'cache');

@@ -66,7 +66,7 @@ declare namespace echarts {
                 show?: boolean;
                 backgroundColor?: string;
                 dataBackground?: object;
-                fillColor?: string;
+                fillerColor?: string;
                 borderColor?: string;
                 handleIcon?: string;
                 handleSize?: number;

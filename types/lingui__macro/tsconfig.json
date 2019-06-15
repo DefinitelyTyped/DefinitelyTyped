@@ -20,6 +20,9 @@
         "paths": {
             "@lingui/macro": [
                 "lingui__macro"
+            ],
+            "@lingui/core": [
+                "lingui__core"
             ]
         }
     },

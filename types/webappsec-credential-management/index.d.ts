@@ -42,7 +42,7 @@ interface CMRequestInit {
     referrer?: string;
     referrerPolicy?: string;
     mode?: string;
-    credentials?: PasswordCredential|string;
+    credentials?: PasswordCredential|FederatedCredential|string;
     cache?: string;
     redirect?: string;
     integrity?: string;

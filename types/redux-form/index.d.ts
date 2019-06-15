@@ -1,4 +1,4 @@
-// Type definitions for redux-form 7.5
+// Type definitions for redux-form 8.1
 // Project: https://github.com/erikras/redux-form, https://redux-form.com
 // Definitions by: Carson Full <https://github.com/carsonf>
 //                 Daniel Lytkin <https://github.com/aikoven>
@@ -7,18 +7,22 @@
 //                 Alex Young <https://github.com/alsiola>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
+//                 Matt Davis <https://github.com/m-b-davis>
 //                 Ethan Resnick <https://github.com/ethanresnick>
 //                 Tim de Koning <https://github.com/reggino>
 //                 Maddi Joyce <https://github.com/maddijoyce>
 //                 Kamil Wojcik <https://github.com/smifun>
 //                 Mohamed Shaaban <https://github.com/mshaaban088>
 //                 Ethan Setnik <https://github.com/esetnik>
+//                 Walter Barbagallo <https://github.com/bwlt>
+//                 Kota Marusue <https://github.com/mrsekut>
+//                 Andrew Luca <https://github.com/iamandrewluca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import {
-  ComponentClass,
-  StatelessComponent,
-  ReactElement
+    ComponentClass,
+    StatelessComponent,
+    ReactElement
 } from "react";
 
 export type FieldType = "Field" | "FieldArray";

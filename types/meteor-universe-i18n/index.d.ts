@@ -65,6 +65,7 @@ declare module "meteor/universe:i18n" {
 
         // events
         function onChangeLocale(callback: (locale: string) => void): void;
+        function offChangeLocale(callback: (locale: string) => void): void;
     }
 
     interface ReactComponentProps {

@@ -79,6 +79,7 @@ export class Decoration {
     pos: number,
     toDOM: ((view: EditorView, getPos: () => number) => Node) | Node,
     spec?: {
+      [key: string]: any;
       side?: number | null;
       marks?: Mark[] | null;
       stopEvent?: ((event: Event) => boolean) | null;
@@ -127,6 +128,11 @@ export interface DecorationAttrs {
    * this type (and the other attributes are applied to this element).
    */
   nodeName?: string | null;
+  /**
+   * Specify additional attrs that will be mapped directly to the
+   * target node's DOM attributes.
+   */
+  [key: string]: string | null | undefined;
 }
 /**
  * A collection of [decorations](#view.Decoration), organized in

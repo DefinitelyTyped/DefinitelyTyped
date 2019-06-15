@@ -17,7 +17,7 @@ import {
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
-export function findDOMNode(instance: ReactInstance): Element | null | Text;
+export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element): boolean;
 
 export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
@@ -91,11 +91,4 @@ export interface Renderer {
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
-
-    (
-        parentComponent: Component<any> | Array<Component<any>>,
-        element: SFCElement<any>,
-        container: Element,
-        callback?: () => void
-    ): void;
 }

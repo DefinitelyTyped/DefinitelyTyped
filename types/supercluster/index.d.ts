@@ -9,79 +9,119 @@ import * as GeoJSON from 'geojson';
 
 export as namespace supercluster;
 
-export interface Options<P, C> {
-    /**
-     * Minimum zoom level at which clusters are generated.
-     *
-     * @default 0
-     */
-    minZoom?: number;
+declare namespace Supercluster {
+    interface Options<P, C> {
+        /**
+         * Minimum zoom level at which clusters are generated.
+         *
+         * @default 0
+         */
+        minZoom?: number;
+
+        /**
+         * Maximum zoom level at which clusters are generated.
+         *
+         * @default 16
+         */
+        maxZoom?: number;
+
+        /**
+         * Cluster radius, in pixels.
+         *
+         * @default 40
+         */
+        radius?: number;
+
+        /**
+         * (Tiles) Tile extent. Radius is calculated relative to this value.
+         *
+         * @default 512
+         */
+        extent?: number;
+
+        /**
+         * Size of the KD-tree leaf node. Affects performance.
+         *
+         * @default 64
+         */
+        nodeSize?: number;
+
+        /**
+         * Whether timing info should be logged.
+         *
+         * @default false
+         */
+        log?: boolean;
+
+        /**
+         * A function that returns cluster properties corresponding to a single point.
+         *
+         * @example
+         * (props) => ({sum: props.myValue})
+         */
+        map?: (props: P) => C;
+
+        /**
+         * A reduce function that merges properties of two clusters into one.
+         *
+         * @example
+         * (accumulated, props) => { accumulated.sum += props.sum; }
+         */
+        reduce?: (accumulated: C, props: Readonly<C>) => void;
+    }
 
     /**
-     * Maximum zoom level at which clusters are generated.
-     *
-     * @default 16
+     * Default properties type, allowing any properties.
+     * Try to avoid this for better typesafety by using proper types.
      */
-    maxZoom?: number;
+    interface AnyProps {
+        [name: string]: any;
+    }
 
     /**
-     * Cluster radius, in pixels.
-     *
-     * @default 40
+     * [GeoJSON Feature](https://tools.ietf.org/html/rfc7946#section-3.2),
+     * with the geometry being a
+     * [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2).
      */
-    radius?: number;
+    type PointFeature<P> = GeoJSON.Feature<GeoJSON.Point, P>;
 
-    /**
-     * (Tiles) Tile extent. Radius is calculated relative to this value.
-     *
-     * @default 512
-     */
-    extent?: number;
+    interface ClusterProperties {
+        /**
+         * Always `true` to indicate that the Feature is a Cluster and not
+         * an individual point.
+         */
+        cluster: true;
+        /** Cluster ID */
+        cluster_id: number;
+        /** Number of points in the cluster. */
+        point_count: number;
+        /**
+         * Abbreviated number of points in the cluster as string if the number
+         * is 1000 or greater (e.g. `1.3k` if the number is 1298).
+         *
+         * For less than 1000 points it is the same value as `point_count`.
+         */
+        point_count_abbreviated: string | number;
+    }
 
-    /**
-     * Size of the KD-tree leaf node. Affects performance.
-     *
-     * @default 64
-     */
-    nodeSize?: number;
+    type ClusterFeature<C> = PointFeature<ClusterProperties & C>;
 
-    /**
-     * Whether timing info should be logged.
-     *
-     * @default false
-     */
-    log?: boolean;
+    interface TileFeature<C, P> {
+        type: 1;
+        geometry: Array<[number, number]>;
+        tags: (ClusterProperties & C) | P;
+    }
 
-    /**
-     * A function that returns cluster properties corresponding to a single point.
-     *
-     * @example
-     * (props) => ({sum: props.myValue})
-     */
-    map?: (props: P) => C;
-
-    /**
-     * A reduce function that merges properties of two clusters into one.
-     *
-     * @example
-     * (accumulated, props) => { accumulated.sum += props.sum; }
-     */
-    reduce?: (accumulated: C, props: Readonly<C>) => void;
-}
-
-/**
- * Default properties type, allowing any properties.
- * Try to avoid this for better typesafety by using proper types.
- */
-export interface AnyProps {
-    [name: string]: any;
+    interface Tile<C, P> {
+        features: Array<TileFeature<C, P>>;
+    }
 }
 
 /**
  * A very fast geospatial point clustering library for browsers and Node.
  */
-export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps, C extends GeoJSON.GeoJsonProperties = AnyProps> {
-    constructor(options?: Options<P, C>);
+declare class Supercluster<P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps, C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps> {
+    constructor(options?: Supercluster.Options<P, C>);
 
     /**
      * Loads an array of GeoJSON Feature objects. Each feature's geometry
@@ -89,7 +129,7 @@ export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps
      *
      * @param points Array of GeoJSON Features, the geometries being GeoJSON Points.
      */
-    load(points: Array<PointFeature<P>>): Supercluster<P, C>;
+    load(points: Array<Supercluster.PointFeature<P>>): Supercluster<P, C>;
 
     /**
      * Returns an array of clusters and points as `GeoJSON.Feature` objects
@@ -98,14 +138,14 @@ export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps
      * @param bbox Bounding box (`[westLng, southLat, eastLng, northLat]`).
      * @param zoom Zoom level.
      */
-    getClusters(bbox: GeoJSON.BBox, zoom: number): Array<ClusterFeature<C> | PointFeature<P>>;
+    getClusters(bbox: GeoJSON.BBox, zoom: number): Array<Supercluster.ClusterFeature<C> | Supercluster.PointFeature<P>>;
 
     /**
      * For a given zoom and x/y coordinates, returns a
      * [geojson-vt](https://github.com/mapbox/geojson-vt)-compatible JSON
      * tile object with cluster any point features.
      */
-    getTile(zoom: number, x: number, y: number): Tile<C, P> | null;
+    getTile(zoom: number, x: number, y: number): Supercluster.Tile<C, P> | null;
 
     /**
      * Returns the children of a cluster (on the next zoom level).
@@ -113,7 +153,7 @@ export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps
      * @param clusterId Cluster ID (`cluster_id` value from feature properties).
      * @throws {Error} If `clusterId` does not exist.
      */
-    getChildren(clusterId: number): Array<ClusterFeature<C> | PointFeature<P>>;
+    getChildren(clusterId: number): Array<Supercluster.ClusterFeature<C> | Supercluster.PointFeature<P>>;
 
     /**
      * Returns all the points of a cluster (with pagination support).
@@ -122,7 +162,7 @@ export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps
      * @param limit The number of points to return (set to `Infinity` for all points).
      * @param offset The amount of points to skip (for pagination).
      */
-    getLeaves(clusterId: number, limit?: number, offset?: number): Array<ClusterFeature<C> | PointFeature<P>>; // Cluster[];
+    getLeaves(clusterId: number, limit?: number, offset?: number): Array<Supercluster.ClusterFeature<C> | Supercluster.PointFeature<P>>; // Cluster[];
 
     /**
      * Returns the zoom level on which the cluster expands into several
@@ -132,41 +172,4 @@ export default class Supercluster<P extends GeoJSON.GeoJsonProperties = AnyProps
      */
     getClusterExpansionZoom(clusterId: number): number;
 }
-
-/**
- * [GeoJSON Feature](https://tools.ietf.org/html/rfc7946#section-3.2),
- * with the geometry being a
- * [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2).
- */
-export type PointFeature<P> = GeoJSON.Feature<GeoJSON.Point, P>;
-
-export interface ClusterProperties {
-    /**
-     * Always `true` to indicate that the Feature is a Cluster and not
-     * an individual point.
-     */
-    cluster: true;
-    /** Cluster ID */
-    cluster_id: number;
-    /** Number of points in the cluster. */
-    point_count: number;
-    /**
-     * Abbreviated number of points in the cluster as string if the number
-     * is 1000 or greater (e.g. `1.3k` if the number is 1298).
-     *
-     * For less than 1000 points it is the same value as `point_count`.
-     */
-    point_count_abbreviated: string | number;
-}
-
-export type ClusterFeature<C> = PointFeature<ClusterProperties & C>;
-
-export interface TileFeature<C, P> {
-    type: 1;
-    geometry: Array<[number, number]>;
-    tags: (ClusterProperties & C) | P;
-}
-
-export interface Tile<C, P> {
-    features: Array<TileFeature<C, P>>;
-}
+export = Supercluster;

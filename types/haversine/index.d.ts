@@ -14,6 +14,11 @@ declare namespace haversine {
         lat: number;
     }
 
+    interface CoordinateLatLng {
+        lat: number;
+        lng: number;
+    }
+
     type LatLonTuple = [number, number];
 
     interface GeoJSON {
@@ -22,7 +27,7 @@ declare namespace haversine {
         };
     }
 
-    type Coordinate = (CoordinateLongitudeLatitude | CoordinateLonLat | LatLonTuple | GeoJSON);
+    type Coordinate = (CoordinateLongitudeLatitude | CoordinateLonLat | CoordinateLatLng | LatLonTuple | GeoJSON);
 
     interface Options {
         /**
@@ -36,7 +41,7 @@ declare namespace haversine {
         /**
          * Format of coordinate arguments.
          */
-        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | 'geojson';
+        format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | '{lat,lng}' | 'geojson';
     }
 }
 

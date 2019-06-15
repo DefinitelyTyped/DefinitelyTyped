@@ -91,6 +91,7 @@ logstderr.error('on stderr instead of stdout');
 log.useLevelLabels = true;
 log.info('lol');
 log.level === 'info';
+const isEnabled: boolean = log.isLevelEnabled('info');
 
 const extremeDest = pino.extreme();
 const logExtreme = pino(extremeDest);
@@ -132,6 +133,7 @@ const pretty = pino({
 		errorProps: '',
 		levelFirst: false,
 		messageKey: 'msg',
+		timestampKey: "timestamp",
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}

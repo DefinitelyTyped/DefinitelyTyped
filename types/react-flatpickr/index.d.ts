@@ -2,15 +2,16 @@
 // Project: https://github.com/coderhaoxin/react-flatpickr
 // Definitions by: begincalendar <https://github.com/begincalendar>
 //                 snaveevans <https://github.com/snaveevans>
+//                 rigothedev <https://github.com/rigothedev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Component, ReactElement } from "react";
 import flatpickr from "flatpickr";
 
-export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export interface DateTimePickerProps {
+export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'value'> {
     defaultValue?: string;
     options?: flatpickr.Options.Options;
     onChange?: flatpickr.Options.Hook;

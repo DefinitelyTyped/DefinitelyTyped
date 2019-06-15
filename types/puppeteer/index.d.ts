@@ -4,6 +4,7 @@
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Serban Ghita <https://github.com/SerbanGhita>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -30,6 +31,8 @@ export interface JSONObject {
   [key: string]: Serializable;
 }
 export type SerializableOrJSHandle = Serializable | JSHandle;
+
+export type Platform = "mac" | "win32" | "win64" | "linux";
 
 /** Defines `$eval` and `$$eval` for Page, Frame and ElementHandle. */
 export interface Evalable {
@@ -550,7 +553,7 @@ export type LayoutDimension = string | number;
 export type PDFFormat =
   | "Letter"
   | "Legal"
-  | "Tabload"
+  | "Tabloid"
   | "Ledger"
   | "A0"
   | "A1"
@@ -1071,6 +1074,19 @@ export interface RemoteInfo {
     port: number;
 }
 
+export interface SecurityDetails {
+    /** A string with the name of issuer of the certificate. (e.g. "Let's Encrypt Authority X3"). */
+    issuer(): string;
+    /** String with the security protocol (e.g. TLS 1.2). */
+    protocol(): string;
+    /** Name of the subject to which the certificate was issued to (e.g. "www.example.com"). */
+    subjectName(): string;
+    /** Timestamp stating the start of validity of the certificate. */
+    validFrom(): number;
+    /** Timestamp stating the end of validity of the certificate. */
+    validTo(): number;
+}
+
 /** Response class represents responses which are received by page. */
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
@@ -1092,6 +1108,8 @@ export interface Response {
   ok(): boolean;
   /** Returns remote connection info */
   remoteAddress(): RemoteInfo;
+  /** Returns an object with security details associated with the response. */
+  securityDetails(): SecurityDetails | null;
   /** A matching Request object. */
   request(): Request;
   /** Contains the status code of the response (e.g., 200 for a success). */
@@ -2187,6 +2205,40 @@ export interface CoverageEntry {
   ranges: Array<{start: number, end: number}>;
 }
 
+/** BrowserFetcher can download and manage different versions of Chromium. */
+export interface BrowserFetcher {
+  /** The method initiates a HEAD request to check if the revision is available. */
+  canDownload(revision: string): Promise<boolean>;
+  /** The method initiates a GET request to download the revision from the host. */
+  download(revision: string, progressCallback?: (downloadBytes: number, totalBytes: number) => void): Promise<RevisionInfo>;
+  localRevisions(): Promise<string[]>;
+  platform(): Platform;
+  remove(revision: string): Promise<void>;
+  revisionInfo(revision: string): RevisionInfo;
+}
+
+export interface RevisionInfo {
+  /** The revision the info was created from */
+  revision: string;
+  /** Path to the extracted revision folder */
+  folderPath: string;
+  /** Path to the revision executable */
+  executablePath: string;
+  /** URL this revision can be downloaded from */
+  url: string;
+  /** whether the revision is locally available on disk */
+  local: boolean;
+}
+
+export interface FetcherOptions {
+  /** A download host to be used. Defaults to `https://storage.googleapis.com`. */
+  host?: string;
+  /** A path for the downloads folder. Defaults to `<root>/.local-chromium`, where `<root>` is puppeteer's package root. */
+  path?: string;
+  /** Possible values are: `mac`, `win32`, `win64`, `linux`. Defaults to the current platform. */
+  platform?: Platform;
+}
+
 /** Attaches Puppeteer to an existing Chromium instance */
 export function connect(options?: ConnectOptions): Promise<Browser>;
 /** The default flags that Chromium will be launched with */
@@ -2195,3 +2247,5 @@ export function defaultArgs(options?: ChromeArgOptions): string[];
 export function executablePath(): string;
 /** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */
 export function launch(options?: LaunchOptions): Promise<Browser>;
+/** This methods attaches Puppeteer to an existing Chromium instance. */
+export function createBrowserFetcher(options?: FetcherOptions): BrowserFetcher;

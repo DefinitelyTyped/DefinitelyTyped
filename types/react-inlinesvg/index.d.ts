@@ -31,6 +31,7 @@ export interface Props {
     uniquifyIDs?: boolean;
     onError?(error: RequestError | InlineSVGError): void;
     onLoad?(src: URL | string, isCached: boolean): void;
+    processSVG?(svgText: string): string;
     supportTest?(): void;
     wrapper?(): ReactNode;
 }

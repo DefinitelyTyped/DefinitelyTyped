@@ -13,7 +13,8 @@ import {
     TestOptions,
     ValidateOptions,
     NumberSchema,
-    TestContext
+    TestContext,
+    LocaleObject
 } from "yup";
 
 // reach function
@@ -148,6 +149,7 @@ mixed.default({ number: 5 });
 mixed.default(() => ({ number: 5 }));
 mixed.default();
 mixed.nullable(true);
+mixed.nullable();
 mixed.required();
 mixed.required("Foo");
 mixed.required(() => "Foo");
@@ -162,6 +164,11 @@ mixed.when("isBig", {
     is: value => true,
     then: yup.number().min(5),
     otherwise: yup.number().min(0)
+});
+mixed.when(["isBig", "isSpecial"], {
+    is: (isBig, isSpecial) => isBig && isSpecial,
+    then: yup.number().min(5),
+    otherwise: yup.number().min(0),
 });
 mixed
     .when("isBig", {
@@ -207,7 +214,7 @@ const testContext = function(this: TestContext) {
     // $ExpectType ValidationError
     this.createError({ message: "1" });
     // $ExpectType ValidationError
-    this.createError({ path: "1"});
+    this.createError({ path: "1" });
     // $ExpectType ValidationError
     this.createError();
     return true;
@@ -286,11 +293,13 @@ yup.object()
     });
 
 // String schema
-const strSchema = yup.string(); // $ExpectType StringSchema
+const strSchema = yup.string(); // $ExpectType StringSchema<string>
 strSchema.isValid("hello"); // => true
 strSchema.required();
 strSchema.required("req");
 strSchema.required(() => "req");
+strSchema.length(5, "message");
+strSchema.length(5, () => "message");
 strSchema.min(5, "message");
 strSchema.min(5, () => "message");
 strSchema.max(5, "message");
@@ -316,7 +325,7 @@ strSchema.uppercase("upper");
 strSchema.uppercase(() => "upper");
 
 // Number schema
-const numSchema = yup.number(); // $ExpectType NumberSchema
+const numSchema = yup.number(); // $ExpectType NumberSchema<number>
 numSchema.isValid(10); // => true
 numSchema.min(5);
 numSchema.min(5, "message");
@@ -380,7 +389,9 @@ arrSchema.min(5, "min");
 arrSchema.min(5, () => "min");
 arrSchema.compact((value, index, array) => value === array[index]);
 
-yup.array(); // $ExpectType ArraySchema<{}>
+const arr = yup.array();
+const top = (<T>(x?: T): T => x!)();
+const validArr: yup.ArraySchema<typeof top> = arr;
 yup.array(yup.string()); // $ExpectType ArraySchema<string>
 yup.array().of(yup.string()); // $ExpectType ArraySchema<string>
 
@@ -417,7 +428,7 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"],
+    tests: [{ name: "test1", params: {} }, { name: "test2", params: {} }],
     fields: { key: "value" }
 };
 
@@ -447,6 +458,38 @@ const validateOptions: ValidateOptions = {
     }
 };
 
+const localeNotType1: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: "message"
+    }
+};
+const localeNotType2: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: () => "message"
+    }
+};
+const localeNotType3: LocaleObject = {
+    mixed: {
+        required: "message",
+        notType: _ref => {
+            const isCast: boolean =
+                _ref.originalValue != null && _ref.originalValue !== _ref.value;
+            const finalPartOfTheMessage = isCast
+                ? ` (cast from the value '${_ref.originalValue}').`
+                : ".";
+
+            return (
+                `${_ref.path} must be a '${_ref.type}'` +
+                ` but the final value was: '${
+                    _ref.value
+                }'${finalPartOfTheMessage}`
+            );
+        }
+    }
+};
+
 yup.setLocale({
     number: { max: "Max message", min: "Min message" },
     string: { email: "String message" }
@@ -465,8 +508,8 @@ interface SubInterface {
 
 // $ExpectType ObjectSchema<MyInterface>
 const typedSchema = yup.object<MyInterface>({
-    stringField: yup.string().required(), // $ExpectType StringSchema
-    numberField: yup.number().required(), // $ExpectType NumberSchema
+    stringField: yup.string().required(), // $ExpectType StringSchema<string>
+    numberField: yup.number().required(), // $ExpectType NumberSchema<number>
     subFields: yup
         .object({
             testField: yup.string().required()
@@ -561,3 +604,54 @@ yup.object<MyInterface>({
         .required(),
     arrayField: yup.array(yup.string()).required()
 });
+
+const personSchema = yup.object({
+    firstName: yup.string(), // $ExpectType StringSchema<string>
+    email: yup
+        .string()
+        .nullable()
+        .email(),
+    birthDate: yup
+        .date()
+        .nullable()
+        .min(new Date(1900, 0, 1)),
+    canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
+    isAlive: yup.boolean().nullable(),
+    mustBeAString: yup
+        .string()
+        .nullable(true)
+        .nullable(false),
+    children: yup.array(yup.string()).nullable()
+});
+
+type Person = ReturnType<typeof personSchema.cast>;
+// Equivalent to:
+// type Person = {
+//     firstName: string;
+//     email: string | null;
+//     birthDate: Date | null;
+//     canBeNull: string | null;
+//     isAlive: boolean | null;
+//     mustBeAString: string;
+//     children: string[] | null;
+// }
+
+const person: Person = {
+    firstName: "",
+    email: null,
+    birthDate: null,
+    canBeNull: null,
+    isAlive: null,
+    mustBeAString: "",
+    children: null
+};
+
+person.email = "some@email.com";
+person.birthDate = new Date();
+person.isAlive = true;
+person.children = ["1", "2", "3"];
+
+// $ExpectError
+person.firstName = null;
+// $ExpectError
+person.mustBeAString = null;

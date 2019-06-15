@@ -1,10 +1,11 @@
 // Type definitions for mini-css-extract-plugin 0.2
 // Project: https://github.com/webpack-contrib/mini-css-extract-plugin
 // Definitions by: JounQin <https://github.com/JounQin>
+//                 Katsuya Hino <https://github.com/dobogo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Loader, Plugin } from 'webpack';
+import { Plugin } from 'webpack';
 
 /**
  * Lightweight CSS extraction webpack plugin
@@ -13,7 +14,7 @@ import { Loader, Plugin } from 'webpack';
  */
 declare class MiniCssExtractPlugin extends Plugin {
     /** webpack loader used always at the end of loaders list */
-    static loader: Loader;
+    static loader: string;
 
     constructor(options?: MiniCssExtractPlugin.PluginOptions);
 }

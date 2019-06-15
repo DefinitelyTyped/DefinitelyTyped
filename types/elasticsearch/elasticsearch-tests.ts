@@ -235,6 +235,15 @@ client.mget({
   // ...
 });
 
+client.mget({
+  routing: "myroute",
+  body: {
+    ids: [1, 2, 3]
+  }
+}, (error, response) => {
+  // ...
+});
+
 client.search({
   index: 'myindex',
   q: 'title:test'

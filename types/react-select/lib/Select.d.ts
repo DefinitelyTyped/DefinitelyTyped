@@ -50,7 +50,9 @@ export interface FormatOptionLabelMeta<OptionType> {
   selectValue: ValueType<OptionType>;
 }
 
-export interface Props<OptionType = { label: string; value: string }> {
+export type SelectComponentsProps = { [key in string]: any };
+
+export interface Props<OptionType = { label: string; value: string }> extends SelectComponentsProps {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -314,7 +316,7 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
     selectProps: Readonly<{
         children?: React.ReactNode;
     }> & Readonly<Props<OptionType>>;
-};
+  };
 
   getNextFocusedValue(nextSelectValue: OptionsType<OptionType>): OptionType;
 

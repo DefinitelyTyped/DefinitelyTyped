@@ -197,3 +197,11 @@ Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' ma
     </fetch>`).then((response) => {
         console.log("Query Returned : " + response.entities.length);
     });
+
+// Demonstrate add/removeTabStateChange
+const contextHandler = (context: Xrm.Page.EventContext) => {
+    context.getEventSource();
+};
+
+Xrm.Page.ui.tabs.get("tabName").addTabStateChange(contextHandler);
+Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);

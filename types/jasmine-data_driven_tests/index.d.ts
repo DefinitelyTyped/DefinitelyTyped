@@ -6,6 +6,8 @@
 
 declare var all: JasmineDataDrivenTest;
 declare var xall: JasmineDataDrivenTest;
+declare var using: JasmineDataDrivenTest;
+declare var xusing: JasmineDataDrivenTest;
 
 interface JasmineDataDrivenTest {
     <T, U, V, W, X, Y, Z>(
@@ -34,6 +36,6 @@ interface JasmineDataDrivenTest {
         assertion: (arg0: T, arg1: U, done: () => void) => void): void;
     <T>(
         description: string,
-        dataset: T[],
+        dataset: T[] | Array<[T]>,
         assertion: (value: T, done: () => void) => void): void;
 }

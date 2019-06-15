@@ -260,6 +260,10 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * The key in the JSON object to use for timestamp display. Default: "time".
+         */
+        timestampKey?: string;
+        /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
         colorize?: boolean;
@@ -280,6 +284,10 @@ declare namespace P {
          * Specify a search pattern according to {@link http://jmespath.org|jmespath}
          */
         search?: string;
+        /**
+         * Ignore one or several keys. Example: "time,hostname"
+         */
+        ignore?: string;
     }
 
     type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace';
@@ -444,6 +452,11 @@ declare namespace P {
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.
          */
         flush(): void;
+
+        /**
+         * A utility method for determining if a given log level will write to the destination.
+         */
+        isLevelEnabled(level: LevelWithSilent | string): boolean;
     }
 
     type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;

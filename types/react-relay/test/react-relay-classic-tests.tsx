@@ -1,7 +1,7 @@
-import * as React from "react";
-import * as Relay from "react-relay/classic";
+import * as React from 'react';
+import * as Relay from 'react-relay/classic';
 
-import { CompatContainer } from "./react-relay-compat-tests";
+import { CompatContainer } from './react-relay-compat-tests';
 
 interface Props {
     text: string;
@@ -25,13 +25,13 @@ export default class AddTweetMutation extends Relay.Mutation<Props, {}> {
     getConfigs() {
         return [
             {
-                type: "RANGE_ADD",
-                parentName: "user",
+                type: 'RANGE_ADD',
+                parentName: 'user',
                 parentID: this.props.userId,
-                connectionName: "tweets",
-                edgeName: "tweetEdge",
+                connectionName: 'tweets',
+                edgeName: 'tweetEdge',
                 rangeBehaviors: {
-                    "": "append",
+                    '': 'append',
                 },
             },
         ];
@@ -63,7 +63,7 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
         artwork: () => Relay.QL`
             fragment on Artwork {
                 title
-                ${CompatContainer.getFragment("whatever")}
+                ${CompatContainer.getFragment('whatever')}
             }
         `,
     },
@@ -72,13 +72,13 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
 class StubbedArtwork extends React.Component {
     render() {
         const props = {
-            artwork: { title: "CHAMPAGNE FORMICA FLAG" },
+            artwork: { title: 'CHAMPAGNE FORMICA FLAG' },
             relay: {
                 route: {
-                    name: "champagne",
+                    name: 'champagne',
                 },
                 variables: {
-                    artworkID: "champagne-formica-flag",
+                    artworkID: 'champagne-formica-flag',
                 },
                 setVariables: () => {},
                 forceFetch: () => {},

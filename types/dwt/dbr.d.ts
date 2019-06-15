@@ -1,3 +1,15 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
 interface RunTimeSetting {
     mAntiDamageLevel: number;
     mBarcodeFormatIds: number;
@@ -30,18 +42,13 @@ interface dbrEnv {
     onAutoConnectServiceError(status: any): void;
 }
 
+interface TaskQueue {
+	push(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    unshift(task: (bLoadingWhenPush: boolean) => void, context?: any, args?: []): void;
+    next(): void;
+}
+
 declare namespace dynamsoft {
-    let TaskQueue: TaskQueue;
-    let dbrEnv: dbrEnv;
-    /**dbrMasterPage20170526 */
-    let dcp: {
-        ifCheck64bitServiceFirst: boolean;
-    };
-    /**dwtDbrDemo20170613 */
-    let initOrder: any;
-    let lib: any;
-    let managerEnv: any;
-    let navInfo: any;
     namespace BarcodeReader {
         /** Barcode Formats */
         enum EnumBarcodeFormat {
@@ -104,10 +111,12 @@ declare namespace dynamsoft {
             DBR_RESERVEDINFO_NOT_MATCHED = -10040,
             DBR_DBRERR_AZTEC_LICENSE_INVALID = -10041
         }
+		
         enum EnumConflictMode {
             ECM_Ignore = 1,
             ECM_Overwrite = 2
         }
+		
         enum EnumImagePixelFormat {
             IPF_Binary = 0,
             IPF_BinaryInverted = 1,
@@ -118,27 +127,35 @@ declare namespace dynamsoft {
             IPF_RGB_888 = 6,
             IPF_ARGB_8888 = 7
         }
+		
         enum EnumResultType {
             EDT_CandidateText = 2,
             EDT_PartialText = 3,
             EDT_RawText = 1,
             EDT_StandardText = 0
         }
+		
         enum EnumTerminateStage {
             ETS_Localized = 1,
             ETS_Prelocalized = 0,
             ETS_Recognized = 2
         }
-    }
-
+	}
+	
     class BarcodeReader {
+        /**
+         * Constructs a new KPainter
+         */
+        constructor(dbrKey?: string);
+
         static BarcodeReaderException(): any;
         static initServiceConnection(): Promise<any>;
         static name: string;
         static length: number;
         static version: string;
+		
         // appendTplStringToRuntimeSettings(b, d):
-        /**
+        /** 
          * Read barcode from the source image.
          * @method BarcodeReader#decode
          * @param {string} source specifies the image to read on
@@ -169,7 +186,8 @@ declare namespace dynamsoft {
         // ie6-9 does not support '.catch(function(ex){...})'
         if(ex){alert(ex.message||ex);}
     });
-    ```    
+    ```
+     
          */
         decode(source: string): Promise<any>;
 
@@ -184,9 +202,17 @@ declare namespace dynamsoft {
         outputSettingsToString(): any;
         resetRuntimeSettings(): void;
         updateRuntimeSettings(setting: RunTimeSetting): void;
-        /**
-         * Constructs a new barcode reader
-         */
-        constructor(dbrKey?: string);
     }
+	
+    let TaskQueue: TaskQueue;
+    let dbrEnv: dbrEnv;
+    /**dbrMasterPage20170526 */
+    let dcp: {
+        ifCheck64bitServiceFirst: boolean;
+    };
+    /**dwtDbrDemo20170613 */
+    let initOrder: any;
+    let lib: any;
+    let managerEnv: any;
+    let navInfo: any;
 }

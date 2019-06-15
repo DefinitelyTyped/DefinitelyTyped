@@ -9,10 +9,13 @@
 import { Plugin } from 'rollup';
 import { TransformOptions } from 'buble';
 
-export interface Options extends TransformOptions {
-    // Every files will be parsed by default, but you can specify which files to include or exclude
-    include?: Array<string | RegExp> | string | RegExp | null;
-    exclude?: Array<string | RegExp> | string | RegExp | null;
+declare namespace buble {
+    interface Options extends TransformOptions {
+        // Every files will be parsed by default, but you can specify which files to include or exclude
+        include?: Array<string | RegExp> | string | RegExp | null;
+        exclude?: Array<string | RegExp> | string | RegExp | null;
+    }
 }
 
-export default function buble(options?: Options): Plugin;
+export = buble;
+declare function buble(options?: buble.Options): Plugin;

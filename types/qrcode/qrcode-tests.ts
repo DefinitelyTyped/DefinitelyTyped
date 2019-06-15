@@ -21,12 +21,14 @@ QRCode.toDataURL('some text', { version: 2 }, (err, url) => {
 
 QRCode.toDataURL([
     { data: 'ABCDEFG', mode: 'alphanumeric' },
-    { data: '0123456', mode: 'numeric' }
+    { data: '0123456', mode: 'numeric' },
+    { data: '\x87\x90', mode: 'kanji' },
+    { data: 'abc\ndef?', mode: 'byte' }
 ], (err, url) => {
     console.log(url);
 });
 
-QRCode.toCanvas('text', { errorCorrectionLevel: 'H' }, (err, canvas) => {
+QRCode.toCanvas('text', { errorCorrectionLevel: 'H', width: 300 }, (err, canvas) => {
     if (err) throw err;
 });
 

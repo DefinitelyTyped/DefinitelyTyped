@@ -6,7 +6,7 @@ import {
     TextSelection,
     Transaction,
 } from 'prosemirror-state';
-import pm, { TaggedProsemirrorNode } from 'prosemirror-test-builder';
+import pm = require('prosemirror-test-builder');
 
 export type DispatchFunction = (tr: Transaction) => void;
 export type CommandFunction = (
@@ -14,7 +14,7 @@ export type CommandFunction = (
     dispatch?: DispatchFunction,
 ) => boolean;
 
-function selectionFor(docNode: TaggedProsemirrorNode) {
+function selectionFor(docNode: pm.TaggedProsemirrorNode) {
     const aTag = docNode.tag.a;
     if (aTag != null) {
         const $aTag = docNode.resolve(aTag);
@@ -32,20 +32,20 @@ function selectionFor(docNode: TaggedProsemirrorNode) {
     return Selection.atStart(docNode);
 }
 
-function createState(d: TaggedProsemirrorNode) {
+function createState(d: pm.TaggedProsemirrorNode) {
     return EditorState.create({ doc: d, selection: selectionFor(d) });
 }
 
 export function apply(
-    docNode: TaggedProsemirrorNode,
+    docNode: pm.TaggedProsemirrorNode,
     command: CommandFunction,
-    result?: TaggedProsemirrorNode,
-): [boolean, TaggedProsemirrorNode] {
+    result?: pm.TaggedProsemirrorNode,
+): [boolean, pm.TaggedProsemirrorNode] {
     let state = createState(docNode);
     command(state, tr => (state = state.apply(tr)));
 
     if (!pm.eq(state.doc, result || docNode)) {
-        return [false, state.doc as TaggedProsemirrorNode];
+        return [false, state.doc as pm.TaggedProsemirrorNode];
     }
 
     if (result && result.tag.a != null) {
@@ -54,7 +54,7 @@ export function apply(
             result || docNode,
         ];
     }
-    return [true, state.doc as TaggedProsemirrorNode];
+    return [true, state.doc as pm.TaggedProsemirrorNode];
 }
 
 const { p, doc, builders } = pm;

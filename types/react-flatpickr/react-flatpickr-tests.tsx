@@ -45,3 +45,5 @@ const valueNumberArrayElement = (
 const customRender = (
     <DatePicker render={({value}, ref) => <input ref={ref} value={value ? value.toString() : ''} />} />
 );
+
+const extraInputPropertiesElement = <DatePicker placeholder="Enter a date..." id="datepicker-1" />;

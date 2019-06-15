@@ -262,7 +262,7 @@ import { createInstantSearch } from "react-instantsearch-core";
 
 () => {
   const App = () => (
-    <InstantSearch appId="" apiKey="" indexName="first">
+    <InstantSearch indexName="first" searchClient={{}}>
       <SearchBox />
       <AllResults>
         <div>
@@ -374,9 +374,8 @@ import { createInstantSearch } from "react-instantsearch-core";
 
   const App = () => (
     <InstantSearch
-      appId="..."
-      apiKey="..."
       indexName="..."
+      searchClient={{}}
     >
       <SearchBox defaultRefinement="hi" />
       <Hoodies />

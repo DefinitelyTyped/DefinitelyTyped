@@ -15,6 +15,10 @@ import {
 } from "server/reply";
 
 server([
+    get("/log", ctx => {
+        ctx.log.info("Logged message");
+        return status(200).send("Look at the console.");
+    }),
     get("/", ctx => "Hello, World!"),
     post("/", ctx => console.log(ctx.data)),
     del("/", ctx => ({ ok: true })),

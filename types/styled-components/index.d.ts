@@ -5,6 +5,8 @@
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Jessica Franco <https://github.com/Jessidhia>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 David Ruisinger <https://github.com/flavordaaave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -212,6 +214,7 @@ export interface ThemedStyledFunctionBase<
     O extends object = {},
     A extends keyof any = never
 > {
+    (first: TemplateStringsArray): StyledComponent<C, T, O, A>;
     (
         first:
             | TemplateStringsArray
@@ -507,6 +510,7 @@ export class StyleSheetManager extends React.Component<
 // ONLY string literals and inline invocations of css`` are supported, anything else crashes the plugin
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
     | string
+    | CSSObject
     | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

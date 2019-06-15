@@ -803,3 +803,9 @@ const sfc: React.SFC<any> = Memoized2;
 // this $ExpectError is failing on TypeScript@next
 // // $ExpectError Property '$$typeof' is missing in type
 // const specialSfc2: React.SpecialSFC = props => null;
+
+const propsWithChildren: React.PropsWithChildren<Props> = {
+    hello: "world",
+    foo: 42,
+    children: functionComponent,
+};

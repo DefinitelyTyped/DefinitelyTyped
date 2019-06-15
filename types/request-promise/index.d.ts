@@ -5,7 +5,7 @@
 //                 Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import request = require('request');
 import http = require('http');
@@ -28,10 +28,11 @@ declare namespace requestPromise {
         resolveWithFullResponse?: boolean;
     }
 
+    type RequestPromiseAPI = request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
     type OptionsWithUri = request.UriOptions & RequestPromiseOptions;
     type OptionsWithUrl = request.UrlOptions & RequestPromiseOptions;
     type Options = OptionsWithUri | OptionsWithUrl;
 }
 
-declare var requestPromise: request.RequestAPI<requestPromise.RequestPromise, requestPromise.RequestPromiseOptions, request.RequiredUriUrl>;
+declare const requestPromise: requestPromise.RequestPromiseAPI;
 export = requestPromise;

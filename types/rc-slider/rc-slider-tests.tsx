@@ -15,6 +15,7 @@ ReactDOM.render(
         className="bottom"
         vertical={true}
         offset={10}
+        tabIndex={-1}
     />,
     document.querySelector('.another-app')
 );
@@ -43,6 +44,7 @@ ReactDOM.render(
         style={{backgroundColor: 'plum'}}
         dotStyle={{backgroundColor: 'antiquewhite'}}
         activeDotStyle={{backgroundColor: 'antiquewhite'}}
+        reverse={true}
     />,
     document.querySelector('.another-app')
 );

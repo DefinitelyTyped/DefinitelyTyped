@@ -900,7 +900,7 @@ declare global {
             q?: boolean;
             addID?: boolean;
             limit?: number;
-            ignoreNull: boolean;
+            ignoreNull?: boolean;
             sessionId?: any;
             aggregate?: "minmax" | "min" | "max" | "average" | "total" | "count" | "none";
         }
@@ -1026,8 +1026,10 @@ declare global {
             /**
              * Terminates the adapter execution but does not disable the adapter
              * @param reason (optional) A message to print into the log prior to termination
+             * @param exitCode (optional) The exit code to use for termination
              */
-            terminate(reason?: string): never;
+            terminate(reason?: string, exitCode?: number): never;
+            terminate(exitCode: number): never;
 
             /** Restarts the adapter */
             restart(): never;
@@ -1342,13 +1344,25 @@ declare global {
             // subscriptions
 
             /** Subscribe to changes of objects in this instance */
-            subscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeObjects(pattern: string, callback?: ErrorCallback): void;
+            subscribeObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of objects in this instance */
+            subscribeObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Subscribe to changes of objects (which might not belong to this adapter) */
-            subscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            subscribeForeignObjects(pattern: string, callback?: ErrorCallback): void;
+            subscribeForeignObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Subscribe to changes of objects (which might not belong to this adapter) */
+            subscribeForeignObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Unsubscribe from changes of objects in this instance */
-            unsubscribeObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeObjects(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Unsubscribe from changes of objects in this instance */
+            unsubscribeObjectsAsync(pattern: string, options?: unknown): Promise<void>;
             /** Unsubscribe from changes of objects (which might not belong to this adapter) */
-            unsubscribeForeignObjects(pattern: string, options?: unknown, callback?: ErrorCallback): void;
+            unsubscribeForeignObjects(pattern: string, callback?: ErrorCallback): void;
+            unsubscribeForeignObjects(pattern: string, options: unknown, callback?: ErrorCallback): void;
+            /** Unsubscribe from changes of objects (which might not belong to this adapter) */
+            unsubscribeForeignObjectsAsync(pattern: string, options?: unknown): Promise<void>;
 
             /** Subscribe to changes of states in this instance */
             subscribeStates(pattern: string, callback?: ErrorCallback): void;
@@ -1627,11 +1641,11 @@ declare global {
             removeAllListeners(event?: "ready" | "unload" | "stateChange" | "objectChange" | "message"): this;
         } // end interface Adapter
 
-        type ReadyHandler = () => void;
-        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void;
-        type StateChangeHandler = (id: string, obj: State | null | undefined) => void;
-        type MessageHandler = (obj: Message) => void;
-        type UnloadHandler = (callback: EmptyCallback) => void;
+        type ReadyHandler = () => void | Promise<void>;
+        type ObjectChangeHandler = (id: string, obj: ioBroker.Object | null | undefined) => void | Promise<void>;
+        type StateChangeHandler = (id: string, obj: State | null | undefined) => void | Promise<void>;
+        type MessageHandler = (obj: Message) => void | Promise<void>;
+        type UnloadHandler = (callback: EmptyCallback) => void | Promise<void>;
 
         type EmptyCallback = () => void;
         type ErrorCallback = (err?: string) => void;
@@ -1682,7 +1696,8 @@ declare global {
         type SetStateCallback = (err: string | null, id?: string) => void;
         type SetStateChangedCallback = (err: string | null, id: string, notChanged: boolean) => void;
         type DeleteStateCallback = (err: string | null, id?: string) => void;
-        type GetHistoryCallback = (err: string | null, result: Array<(State & { id?: string })>, step: number, sessionId?: string) => void;
+        type GetHistoryResult = Array<(State & { id?: string })>;
+        type GetHistoryCallback = (err: string | null, result: GetHistoryResult, step: number, sessionId?: string) => void;
 
         /** Contains the return values of readDir */
         interface ReadDirResult {

@@ -462,7 +462,7 @@ describe('FakeRequest', () => {
 
 	it('ticks the jasmine clock on timeout', () => {
 		const clock = { tick: jasmine.createSpy('tick') };
-		spyOn(jasmine, 'clock').and.returnValue(clock);
+		spyOn(jasmine, 'clock').and.returnValue(clock as any);
 
 		const request = new this.FakeRequest();
 		request.open();
@@ -523,9 +523,9 @@ describe('FakeRequest', () => {
 		request.open();
 		request.send('foo=bar&baz=quux');
 
-		this.parserInstance.and.returnValue('parsed');
+		this.parserInstance.and.returnValue({data: 'parsed'});
 
-		expect(request.data()).toBe('parsed');
+		expect(request.data()).toEqual({data: 'parsed'});
 	});
 
 	it('skips parsing if no data was sent', () => {
@@ -772,7 +772,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 		error = jasmine.createSpy("onFailure");
 		complete = jasmine.createSpy("onComplete");
 
-		onreadystatechange = () => {
+		onreadystatechange = function() {
 			if (this.readyState === (this.DONE || 4)) { // IE 8 doesn't support DONE
 				if (this.status === 200) {
 					success(this.responseText, this.textStatus, this);

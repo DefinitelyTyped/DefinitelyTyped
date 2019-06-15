@@ -31,6 +31,6 @@ export class HID {
     resume(): void;
     on(event: string, handler: (value: any) => void): void;
     write(values: number[]): number;
-    setDriverType(type: string): void;
 }
 export function devices(): Device[];
+export function setDriverType(type: 'hidraw' | 'libusb'): void;
