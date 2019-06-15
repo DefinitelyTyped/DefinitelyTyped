@@ -376,9 +376,9 @@ declare global {
          * When using scrollspy in conjunction with adding or removing of elements from the DOM, you'll need to call the refresh, see example.
          * @example
     ```javascript
-    $('[data-spy="scroll"]').each(function () {
+$('[data-spy="scroll"]').each(function () {
     var $spy = $(this).scrollspy('refresh')
-    })
+})
     ```
         */
     // tslint:enable:jsdoc-format
