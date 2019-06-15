@@ -4280,9 +4280,9 @@ declare module _ {
         contains(value: T, fromIndex?: number): boolean;
 
         /**
-         * Alias for 'contains'.
-         * @see contains
-         **/
+        * Alias for 'contains'.
+        * @see contains
+        **/
         include(value: T, fromIndex?: number): boolean;
 
         /**
@@ -5246,9 +5246,9 @@ declare module _ {
         include(value: T, fromIndex?: number): _ChainSingle<boolean>;
 
         /**
-        * Alias for 'contains'.
-        * @see contains
-        **/
+         * Alias for 'contains'.
+         * @see contains
+         **/
         includes(value: T, fromIndex?: number): _ChainSingle<boolean>;
 
         /**
