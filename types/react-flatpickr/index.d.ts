@@ -25,7 +25,7 @@ export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'va
     onDayCreate?: flatpickr.Options.Hook;
     value?: string | Date | number | ReadonlyArray<string | Date | number>;
     className?: string;
-    render?: (props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement) => void) => ReactElement<any>
+    render?: (props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement) => void) => ReactElement;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}
