@@ -3,6 +3,7 @@
 // Definitions by: begincalendar <https://github.com/begincalendar>
 //                 snaveevans <https://github.com/snaveevans>
 //                 rigothedev <https://github.com/rigothedev>
+//                 doniyor2109 <https://github.com/doniyor2109>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
