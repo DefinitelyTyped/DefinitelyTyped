@@ -104,7 +104,7 @@ declare module _ {
         cancel(): void;
     }
 
-    type TypeOfDictionary<A> = A extends _.Dictionary<infer T> ? T : never;
+    type TypeOfDictionary<T> = T extends _.Dictionary<infer V> ? V : never;
 
     interface UnderscoreStatic {
         /**
