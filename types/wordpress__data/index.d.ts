@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/data 4.5
+// Type definitions for @wordpress/data 4.6
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -97,6 +97,8 @@ export function useSelect<T>(
     mapSelect: (s: typeof select) => T,
     deps?: readonly any[]
 ): T;
+export function useDispatch(storeName: string): DispatcherMap;
+export function useDispatch(): typeof dispatch;
 
 //
 // React HOCs

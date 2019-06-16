@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": ["es6", "dom"],
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -15,5 +16,5 @@
             "@wordpress/data": ["wordpress__data"]
         }
     },
-    "files": ["index.d.ts", "wordpress__data-tests.ts"]
+    "files": ["index.d.ts", "wordpress__data-tests.tsx"]
 }
