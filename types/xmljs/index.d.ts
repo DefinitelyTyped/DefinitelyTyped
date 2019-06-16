@@ -22,7 +22,7 @@ export as namespace XmlParser;
  */
 export = XmlParser;
 
-interface IParserParameters {
+interface ParserParameters {
     /**
      * Whenever or not to use a strict parser
      */
@@ -55,7 +55,7 @@ interface IParserParameters {
 
 /*~ Write your module's methods and properties in this class */
 declare class XmlParser {
-    constructor(oPar: IParserParameters);
+    constructor(oPar: ParserParameters);
     /**
      * Parses a xml string
      * @param xml  XML string to parse
