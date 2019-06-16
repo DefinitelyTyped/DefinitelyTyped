@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "jsx": "preserve",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@wordpress/compose": ["wordpress__compose"],
+            "@wordpress/element": ["wordpress__element"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "higher-order/if-condition/index.d.ts",
+        "higher-order/pure/index.d.ts",
+        "higher-order/with-global-events/index.d.ts",
+        "higher-order/with-instance-id/index.d.ts",
+        "higher-order/with-safe-timeout/index.d.ts",
+        "higher-order/with-state/index.d.ts",
+        "hooks/use-media-query/index.d.ts",
+        "hooks/use-reduced-motion/index.d.ts",
+        "utils/create-higher-order-component/index.d.ts",
+        "wordpress__compose-tests.tsx"
+    ]
+}
