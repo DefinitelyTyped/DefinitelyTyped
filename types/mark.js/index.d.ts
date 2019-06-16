@@ -13,8 +13,8 @@ declare namespace Mark {
     type MarkAccuracy = 'partially' | 'complementary' | 'exactly';
 
     interface MarkAccuracyObject {
-        value: MarkAccuracy,
-        limiters?: string[]
+        value: MarkAccuracy;
+        limiters?: string[];
     }
 
     interface MarkOptions {
