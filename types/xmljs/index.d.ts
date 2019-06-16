@@ -26,46 +26,43 @@ interface IParserParameters {
     /**
      * Whenever or not to use a strict parser
      */
-    strict: boolean;
+    strict?: boolean;
     /**
      * Do not trimtext and comment nodes
      */
-    noTrim: boolean;
+    noTrim?: boolean;
     /**
      * Do not normalize whitespaces in text
      */
-    noNormalizeWhitespaces: boolean;
+    noNormalizeWhitespaces?: boolean;
     /**
      * Turn the tagsNames to lowercase
      */
-    lowercaseTagnames: boolean;
+    lowercaseTagnames?: boolean;
     /**
      * Disables xml namespaces
      */
-    noNamespaces: boolean;
+    noNamespaces?: boolean;
     /**
      * Disable position tracing of sax
      */
-    noTracing: boolean;
+    noTracing?: boolean;
     /**
      * Allow only predefined entities
      */
-    strictEntities: boolean;
+    strictEntities?: boolean;
 }
 
 /*~ Write your module's methods and properties in this class */
 declare class XmlParser {
-    constructor(oPar: Partial<IParserParameters>);
+    constructor(oPar: IParserParameters);
     /**
      * Parses a xml string
      * @param xml  XML string to parse
      * @param cb Callback function with error and the result (an Node)
      * @returns whenever or not there where any errors
      */
-    parseString(
-        xml: string,
-        cb: (err: null | Error[], xmlNode: Node) => void
-    ): boolean;
+    parseString(xml: string, cb: (err: null | Error[], xmlNode: Node) => void): boolean;
     errors: Error[];
 
     /**
