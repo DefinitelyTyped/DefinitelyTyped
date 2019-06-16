@@ -12,6 +12,7 @@
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
 //                 Mark Nelissen <https://github.com/marknelissen>
+//                 Eric Kenney <https://github.com/KenneyE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -261,7 +262,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Array<Date | { start: stringOrDate, end: stringOrDate }>) => void;
+    onRangeChange?: (range: Date[] | { start: stringOrDate, end: stringOrDate }) => void;
     selected?: any;
     views?: Views;
     drilldownView?: View | null;
