@@ -279,7 +279,7 @@ export class Address {
     readonly hashBuffer: Buffer;
     readonly network: Networks.Network;
     readonly type: string;
-    
+
     constructor(data: Buffer | Uint8Array | string | object, network?: Networks.Network, type?: string);
 
     static isValid(input: string, network?: Networks.Network, payToPublicKeyHash?: string | Buffer): boolean;
