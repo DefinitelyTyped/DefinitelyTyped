@@ -28,6 +28,7 @@ export class FluentResource extends Map {
 
 export class FluentBundle {
     constructor(locales: string | string[], options?: FluentBundleContructorOptions);
+    locales: string[];
     messages: IterableIterator<[string, FluentNode[]]>;
     hasMessage(source: string): boolean;
     addMessages(source: string): string[];
