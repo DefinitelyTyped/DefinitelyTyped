@@ -1,4 +1,4 @@
-// Type definitions for Marionette 3.3
+// Type definitions for Marionette 4.0
 // Project: https://github.com/marionettejs/, https://marionettejs.com
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
 //                 Natan Vivo <https://github.com/nvivo>,
@@ -8,7 +8,7 @@
 //                 J. Joe Koullas <https://github.com/jjoekoullas>
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 import * as JQuery from 'jquery';
