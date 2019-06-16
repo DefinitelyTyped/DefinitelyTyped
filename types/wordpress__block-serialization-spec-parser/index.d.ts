@@ -9,7 +9,7 @@ export interface Block {
     attrs: Record<string, any>;
     innerBlocks: readonly Block[];
     innerHTML: string;
-    innerContent: string[];
+    innerContent: readonly string[];
 }
 
-export function parse(rawHtml: string): Block[];
+export function parse(rawHtml: string): readonly Block[];
