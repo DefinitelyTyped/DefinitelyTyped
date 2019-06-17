@@ -3,6 +3,7 @@
 // Definitions by: Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function(length: number, callback?: Callback): string;
+declare function uid2(length: number): string;
+declare function uid2(length: number, callback: (err: Error | null, result?: string) => void): void;
 
-export type Callback = (err: Error | null, result?: string) => void;
+export default uid2;
