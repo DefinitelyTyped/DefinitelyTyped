@@ -20,7 +20,10 @@ export namespace ReactStripeElements {
 	type TokenResponse = stripe.TokenResponse;
 	type SourceResponse = stripe.SourceResponse;
 	type SourceOptions = stripe.SourceOptions;
-	type HTMLStripeElement = stripe.elements.Element;
+  type HTMLStripeElement = stripe.elements.Element;
+  type PaymentMethodType = stripe.paymentMethodType;
+  type PaymentMethodIncomplete = stripe.StripePaymentMethodIncomplete;
+  type PaymentMethodResponse = stripe.StripePaymentMethodResponse;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
@@ -35,7 +38,8 @@ export namespace ReactStripeElements {
 	}
 	type StripeProviderProps = { apiKey: string; stripe?: never; } & StripeProviderOptions | { apiKey?: never; stripe: stripe.Stripe | null; } & StripeProviderOptions;
 
-	interface StripeProps {
+  interface StripeProps {
+    createPaymentMethod(type: PaymentMethodType, data: PaymentMethodIncomplete): Promise<PaymentMethodResponse>;
 		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
 		paymentRequest: stripe.Stripe['paymentRequest'];
