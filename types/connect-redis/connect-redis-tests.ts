@@ -1,5 +1,6 @@
 import connectRedis = require("connect-redis");
 import session = require("express-session");
+import ioredis = require("ioredis");
 
 let RedisStore = connectRedis(session);
 const store = new RedisStore({
@@ -11,3 +12,7 @@ const store = new RedisStore({
 		return 60;
 	}
 });
+store.client; // $ExpectType RedisClient
+
+const store2 = new RedisStore({client: new ioredis()})
+store2.client; // $ExpectType Redis

@@ -3,14 +3,16 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 //				   Seth Butler <https://github.com/sbutler2901>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /// <reference types="express" />
 /// <reference types="express-session" />
+/// <reference types="ioredis" />
 /// <reference types="redis" />
 
 declare module "connect-redis" {
     import * as express from "express";
+    import * as ioredis from "ioredis";
     import * as session from "express-session";
     import * as redis from "redis";
 
@@ -18,12 +20,14 @@ declare module "connect-redis" {
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
     namespace s {
-        interface RedisStore extends session.Store {
-            new (options: RedisStoreOptions): RedisStore;
-            client: redis.RedisClient;
+        type RedisClient = redis.RedisClient | ioredis.Redis;
+
+        interface RedisStore<T extends RedisClient = redis.RedisClient> extends session.Store {
+            new <T extends RedisClient = redis.RedisClient>(options: RedisStoreOptions<T>): RedisStore<T>;
+            client: T;
         }
-        interface RedisStoreOptions {
-            client?: redis.RedisClient;
+        interface RedisStoreOptions<T extends RedisClient> {
+            client?: T;
             host?: string;
             port?: number;
             socket?: string;
