@@ -38,6 +38,10 @@ declare namespace Draft {
 
             type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
 
+            type DraftStyleMap = {
+                [styleName: string]: React.CSSProperties
+            };
+
             type EditorCommand = DraftEditorCommand | string;
 
             /**
@@ -82,11 +86,11 @@ declare namespace Draft {
 
                 // Provide a map of inline style names corresponding to CSS style objects
                 // that will be rendered for matching ranges.
-                customStyleMap?: Object;
+                customStyleMap?: DraftStyleMap;
 
                 // Provide a function that will construct CSS style objects given inline
                 // style names.
-                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => Object;
+                customStyleFn?: (style: DraftInlineStyle, block: ContentBlock) => DraftStyleMap;
 
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
@@ -444,7 +448,7 @@ declare namespace Draft {
             interface DraftDecorator {
                 strategy: (block: ContentBlock, callback: (start: number, end: number) => void, contentState: ContentState) => void;
                 component: Function;
-                props?: Object;
+                props?: object;
             }
 
             /**
@@ -1010,6 +1014,7 @@ import DraftEntityType = Draft.Model.Constants.DraftEntityType;
 import DraftRemovalDirection = Draft.Model.Constants.DraftRemovalDirection;
 import DraftHandleValue = Draft.Model.Constants.DraftHandleValue;
 import DraftInsertionType = Draft.Model.Constants.DraftInsertionType;
+import DraftStyleMap = Draft.Component.Base.DraftStyleMap;
 
 export {
     Editor,
@@ -1063,4 +1068,5 @@ export {
     DraftRemovalDirection,
     DraftHandleValue,
     DraftInsertionType,
+    DraftStyleMap
 };
