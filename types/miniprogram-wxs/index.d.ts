@@ -42,3 +42,16 @@ declare function getDate(
 declare const console: {
     log(message?: any, ...optionalParams: any[]): void;
 };
+
+interface Module {
+    /**
+     * 导出内容
+     */
+    exports: any;
+}
+
+/**
+ * 模块
+ */
+declare const module: Module;
+
