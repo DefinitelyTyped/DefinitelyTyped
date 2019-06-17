@@ -132,4 +132,6 @@ export type ObserverMethod<Target, Sender> =
           key: string,
           value: any,
           rev: number
-      ) => void);
+    ) => void);
+
+export type Callback = (...args: any[]) => any;
