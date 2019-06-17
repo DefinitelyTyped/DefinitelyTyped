@@ -394,7 +394,7 @@ _.isObject(1);
 
 _.property('name')(moe);
 _.property(['name'])(moe);
-
+_.property(['luckyNumbers', 2])(moe)
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);
 _.isArguments([1, 2, 3]);
