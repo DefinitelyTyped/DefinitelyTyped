@@ -4,6 +4,11 @@ const client = new LdapJS({ url: 'ldap://anyserver:389' });
 
 const dn = 'cn=foo, o=example';
 
+interface LdapObject {
+    cn: string;
+    ou: string;
+}
+
 (async () => {
     await client.add(dn, { cn: 'foo' });
 
@@ -26,7 +31,8 @@ const dn = 'cn=foo, o=example';
         attributes: ['dn', 'sn', 'cn'],
     };
 
-    await client.search(dn, options);
+    const searchResult = await client.search<LdapObject>(dn, options);
+    type resultType = typeof searchResult;
 
     await client.unbind();
 
