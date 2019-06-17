@@ -3,8 +3,6 @@
 // Definitions by: Joachim Holwech <https://github.com/holwech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace xmlFormatter;
-
 export = Format;
 
 declare function Format(xml: string, option?: Format.Options): string;
