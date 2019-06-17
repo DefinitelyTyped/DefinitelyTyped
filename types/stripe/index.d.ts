@@ -3434,7 +3434,7 @@ declare namespace Stripe {
              */
             selected_shipping_method?: string;
 
-            status: OrderStatus;
+            status?: OrderStatus;
         }
 
         interface IOrderPayOptions extends IDataOptionsWithMetadata {
