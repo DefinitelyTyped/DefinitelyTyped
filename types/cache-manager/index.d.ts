@@ -4,7 +4,11 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 export interface CachingConfig {
-    ttl: number;
+    ttl: number | TtlFunction;
+}
+
+export interface TtlFunction {
+    (result: any): number;
 }
 
 export interface StoreConfig extends CachingConfig {
