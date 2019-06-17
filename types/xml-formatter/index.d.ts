@@ -5,7 +5,7 @@
 
 export = Format;
 
-declare function Format(xml: string, option?: Format.Options): string;
+declare function Format(xml: string, options?: Format.Options): string;
 
 declare namespace Format {
     interface Options {
