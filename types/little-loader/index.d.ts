@@ -3,10 +3,21 @@
 // Definitions by: Chris Drackett <https://github.com/chrisdrackett>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function loader(
+interface Options<T> {
+    context?: T;
+    setup?: (this: T, script: any) => void;
+    callback?: (this: T, err: string) => void;
+}
+
+declare function loader<T>(
     module: string,
-    callBack: (err: string) => void,
-    context?: any
+    callback?: (this: T, err: string) => void,
+    context?: T
+): void;
+
+declare function loader<T>(
+    module: string,
+    options?: Options<T>
 ): void;
 
 export = loader;
