@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.1
+// Type definitions for react-stripe-elements 1.2
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
