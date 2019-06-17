@@ -1098,6 +1098,7 @@ declare namespace NodeJS {
 
     // compatibility with older typings
     interface Timer {
+        hasRef(): boolean;
         ref(): this;
         refresh(): this;
         unref(): this;
