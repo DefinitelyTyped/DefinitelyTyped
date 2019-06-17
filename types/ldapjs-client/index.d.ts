@@ -2,6 +2,7 @@
 // Project: https://github.com/zont/ldapjs-client#readme
 // Definitions by: Valerio Coltrè <https://github.com/colthreepv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export class Filter {
     matches(obj: any): boolean;
