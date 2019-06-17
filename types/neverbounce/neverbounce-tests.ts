@@ -1,4 +1,4 @@
-import { NeverBounce } from "neverbounce";
+import NeverBounce = require('neverbounce');
 
 const Client = new NeverBounce({});
 
