@@ -115,7 +115,7 @@ declare module _ {
         <T>(value: _.List<T>): Underscore<T, _.List<T>>;
         <T>(value: Array<T>): Underscore<T, Array<T>>;
         <T extends TypeOfDictionary<V>, V extends _.Dictionary<any> = _.Dictionary<T>>(value: V): Underscore<T, V>;
-        <T>(value: T): Underscore<T, T>;
+        <T>(value: T): Underscore<T>;
 
         /* *************
         * Collections *
