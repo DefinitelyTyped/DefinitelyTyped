@@ -627,17 +627,34 @@ import Module = require("module");
 
 {
     {
-        const immediate = timers.setImmediate(() => { console.log("immediate"); }).unref().ref();
+        const immediate = timers
+            .setImmediate(() => {
+                console.log('immediate');
+            })
+            .unref()
+            .ref();
         const b: boolean = immediate.hasRef();
         timers.clearImmediate(immediate);
     }
     {
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20).unref().ref().refresh();
+        const timeout = timers
+            .setInterval(() => {
+                console.log('interval');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
     }
     {
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20).unref().ref().refresh();
+        const timeout = timers
+            .setTimeout(() => {
+                console.log('timeout');
+            }, 20)
+            .unref()
+            .ref()
+            .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
