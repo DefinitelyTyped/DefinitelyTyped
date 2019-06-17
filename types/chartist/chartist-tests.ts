@@ -139,20 +139,27 @@ var chart = new Chartist.Pie('.ct-chart', {
     showLabel: false
 });
 
-chart.on('draw', (data: any) => {
-    if (data.type === 'slice') {
+// Pie charts don't take an array of series
+var chart = new Chartist.Pie('.ct-chart', {
+    // $ExpectError
+    series: [[10, 20, 50, 20, 5, 50, 15]],
+    labels: [1, 2, 3, 4, 5, 6, 7],
+});
+
+chart.on('draw', event => {
+    if (event.type === 'slice') {
         // Get the total path length in order to use for dash array animation
-        var pathLength = data.element._node.getTotalLength();
+        var pathLength = event.element._node.getTotalLength();
 
         // Set a dasharray that matches the path length as prerequisite to animate dashoffset
-        data.element.attr({
+        event.element.attr({
             'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
         });
 
         // Create animation definition while also assigning an ID to the animation for later sync usage
         var animationDefinition: Chartist.IChartistAnimations = {
             'stroke-dashoffset': {
-                id: 'anim' + data.index,
+                id: 'anim' + event.index,
                 dur: 1000,
                 from: -pathLength + 'px',
                 to: '0px',
@@ -163,18 +170,18 @@ chart.on('draw', (data: any) => {
         };
 
         // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
-        if (data.index !== 0) {
-            animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+        if (event.index !== 0) {
+            animationDefinition['stroke-dashoffset'].begin = 'anim' + (event.index - 1) + '.end';
         }
 
         // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
-        data.element.attr({
+        event.element.attr({
             'stroke-dashoffset': -pathLength + 'px'
         });
 
         // We can't use guided mode as the animations need to rely on setting begin manually
         // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
-        data.element.animate(animationDefinition, false);
+        event.element.animate(animationDefinition, false);
     }
 });
 
@@ -326,27 +333,27 @@ var chart2 = new Chartist.Line('.ct-chart', {
 });
 
 // Listening for draw events that get emitted by the Chartist chart
-chart2.on('draw', (data: any) => {
+chart2.on('draw', event => {
     // If the draw event was triggered from drawing a point on the line chart
-    if (data.type === 'point') {
+    if (event.type === 'point') {
         // We are creating a new path SVG element that draws a triangle around the point coordinates
         var triangle = new Chartist.Svg('path', {
             d: ['M',
-                data.x,
-                data.y - 15,
+                event.x,
+                event.y - 15,
                 'L',
-                data.x - 15,
-                data.y + 8,
+                event.x - 15,
+                event.y + 8,
                 'L',
-                data.x + 15,
-                data.y + 8,
+                event.x + 15,
+                event.y + 8,
                 'z'].join(' '),
             style: 'fill-opacity: 1'
         }, 'ct-area');
 
         triangle.attr({ style: 'fill-opacity: .5' });
-        // With data.element we get the Chartist SVG wrapper and we can replace the original point drawn by Chartist with our newly created triangle
-        data.element.replace(triangle);
+        // With event.element we get the Chartist SVG wrapper and we can replace the original point drawn by Chartist with our newly created triangle
+        event.element.replace(triangle);
     }
 });
 
@@ -367,14 +374,14 @@ var biPolarChart = new Chartist.Bar('.ct-chart', {
 });
 
 // Listen for draw events on the bar chart
-biPolarChart.on('draw', (data: any) => {
+biPolarChart.on('draw', event => {
     // If this draw event is of type bar we can use the data to create additional content
-    if (data.type === 'bar') {
+    if (event.type === 'bar') {
         // We use the group element of the current series to append a simple circle with the bar peek coordinates and a circle radius that is depending on the value
-        data.group.append(new Chartist.Svg('circle', {
-            cx: data.x2,
-            cy: data.y2,
-            r: Math.abs(Chartist.getMultiValue(data.value)) * 2 + 5
+        event.group.append(new Chartist.Svg('circle', {
+            cx: event.x2,
+            cy: event.y2,
+            r: Math.abs(Chartist.getMultiValue(event.value)) * 2 + 5
         }, 'ct-slice-pie'));
     }
 });
@@ -460,33 +467,6 @@ var overlappingBarsResponsiveOptions: Array<Chartist.IResponsiveOptionTuple<Char
 
 new Chartist.Bar('.ct-chart', overlappingBarsData, overlappingBarsOptions, overlappingBarsResponsiveOptions);
 
-new Chartist.Candle('.ct-chart', {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    series: [
-        [5, 4, 3, 7],
-        [3, 2, 9, 5],
-        [5, 4, 3, 7],
-        [3, 2, 9, 5],
-        [5, 4, 3, 7],
-        [3, 2, 9, 5],
-        [3, 2, 9, 5]
-    ]
-}, {
-    axisX: {
-        labelOffset: {
-            x: -10,
-            y: 0
-        }
-    },
-    axisY: {
-        showGrid: false,
-        labelInterpolationFnc: function (value: any) {
-            return value + 12000;
-        }
-    }
-});
-
-
 // Create a simple bar chart and line chart with two dimensional arrays
 new Chartist.Bar('.ct-chart', {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -510,7 +490,7 @@ new Chartist.Bar('.ct-chart', {
             {value: 1}
         ]
     ]
-}, {})
+}, {});
 
 new Chartist.Line('.ct-chart', {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -534,7 +514,7 @@ new Chartist.Line('.ct-chart', {
             {value: 1}
         ]
     ]
-}, {})
+}, {});
 
 new Chartist.Line('.ct-chart', {
     labels: [new Date(143134652600), new Date(143384652600)],
@@ -563,4 +543,247 @@ new Chartist.Line('.ct-chart', {
           ]
         }
       ]
-}, {})
+}, {});
+
+var path: string = Chartist.Svg.Path.join(
+    [
+        new Chartist.Svg.Path()
+            .move(5, 5)
+            .line(10, 10)
+            .curve(10, 10, 0, 0, -5, 5, false, { curvy: 'indeed' })
+            .scale(10, 10)
+            .transform(function(pathElement, paramName, pathElementIndex, paramIndex, pathElements) {
+                if (pathElement.command === 'm') {
+                    pathElement.x += 1;
+                    pathElement.y -= 2;
+                } else if (pathElement.command === 'a') {
+                    pathElement.lAf = pathElement.rx = pathElement.xAr = 500;
+                }
+            }),
+        new Chartist.Svg.Path(),
+    ],
+    true,
+    {
+        accuracy: 3,
+    }
+).stringify();
+
+// --- Chartist.extend()
+
+var extend1: string = Chartist.extend({ a: 1 }, { a: 'one' }).a;
+
+// Expect:
+//     Type 'string' is not assignable to type 'number'
+// $ExpectError
+var extend2: number = Chartist.extend({ a: 1 }, { a: 'one' }).a;
+
+var extend3: string = Chartist.extend({ a: 1 }, { a: 0 as any }).a;
+
+var extend4: number = Chartist.extend({ a: 1 }, {}).a;
+
+// Note: This behavior of Chartist.extend() differs from Object.assign()
+var extend5: undefined = Chartist.extend({ a: 1 }, { a: undefined }).a;
+
+// Expect:
+//     Type 'number' is not assignable to type 'string'
+// $ExpectError
+var extend6: string = Chartist.extend({ a: 1 }, { a: {} }).a;
+
+// Expect:
+//     Argument of type '"hi"' is not assignable to parameter of type 'object'
+// $ExpectError
+Chartist.extend({ a: 1, b: 2 }, "hi").toLowerCase(); // extend7
+
+// Pass
+var extend8: number = Chartist.extend({ a: 1, b: 2 }, [1, 2, 3])[0];
+
+// Expect:
+//     Type 'number' is not assignable to type 'string'
+// $ExpectError
+var extend9: string = Chartist.extend({ a: 1, b: 2 }, [1, 2, 3])[0];
+
+var extend10: { a: { b: { c: string; d: number } }; e: number } = Chartist.extend(
+    { a: { b: { c: 'hi' } } },
+    { a: { b: { d: 1 } }, e: 2 }
+);
+
+// --- Plugin API
+
+Chartist.plugins = Chartist.plugins || {};
+
+Chartist.plugins.fakePlugin = function(options) {
+    return function(chart: Chartist.IChartistBase<any, any>) {};
+};
+
+Chartist.plugins.someOtherPlugin(123)(
+    new Chartist.Bar(
+        '.bar',
+        {
+            series: [],
+            labels: [],
+        },
+        {
+            plugins: [Chartist.plugins.superCharts()],
+        }
+    )
+);
+
+// -- SVG API
+
+var svgNode: SVGGElement = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+var chartistSvgGroup: Chartist.IChartistSvg<SVGGElement> = new Chartist.Svg(svgNode);
+var charistSvgLine: Chartist.IChartistSvg<SVGLineElement> | null = chartistSvgGroup.querySelector('line');
+
+// --- Axis API
+
+var customStepAxisX: Chartist.IChartistStepAxis<Chartist.ChartistAxisUnitX> = {
+    units: {pos: "x", len: "width", dir: "horizontal", rectStart: "x1", rectEnd: "x2", rectOffset: "y2"},
+    counterUnits: {pos: "y", len: "height", dir: "vertical", rectStart: "y2", rectEnd: "y1", rectOffset: "x1"},
+    chartRect: {
+        padding: {top: 12, right: 16, bottom: 0, left: 0},
+        y2: 12,
+        y1: 120,
+        x1: 40,
+        x2: 746,
+        width: () => 0,
+        height: () => 0,
+    },
+    axisLength: 706,
+    gridOffset: 12,
+    ticks: ["Jul '18", "Aug '18", "Sep '18", "Oct '18", "Nov '18", "Dec '18", "Jan '19", "Feb '19", "Mar '19", "Apr '19", "May '19"],
+    options: {
+        offset: 30,
+        position: "end",
+        labelOffset: {x: 0, y: 0},
+        showLabel: true,
+        showGrid: true,
+        ticks: ["Jul '18", "Aug '18", "Sep '18", "Oct '18", "Nov '18", "Dec '18", "Jan '19", "Feb '19", "Mar '19", "Apr '19", "May '19"],
+        stretch: false,
+    },
+    stepLength: 64.18181818181819,
+    projectValue: (a: number) => a,
+};
+
+var axisX: Chartist.IChartistAxis<Chartist.ChartistAxisUnitX> = customStepAxisX;
+
+// $ExpectError
+var invalidAxisY: Chartist.IChartistAxis<Chartist.ChartistAxisUnitY> = axisX;
+
+var customAutoScaleAxisY: Chartist.IChartistAutoScaleAxis<Chartist.ChartistAxisUnitY> = {
+    bounds: {
+        high: 1194,
+        low: 0,
+        valueRange: 1194,
+        oom: 3,
+        step: 500,
+        min: 0,
+        max: 1500,
+        range: 1500,
+        numberOfSteps: 2,
+        values: [0, 500, 1000, 1500],
+    },
+    range: { min: 0, max: 1500 },
+    units: { pos: 'y', len: 'height', dir: 'vertical', rectStart: 'y2', rectEnd: 'y1', rectOffset: 'x1' },
+    counterUnits: { pos: 'x', len: 'width', dir: 'horizontal', rectStart: 'x1', rectEnd: 'x2', rectOffset: 'y2' },
+    chartRect: {
+        padding: { top: 12, right: 16, bottom: 0, left: 0 },
+        y2: 12,
+        y1: 120,
+        x1: 40,
+        x2: 746,
+        width: () => 0,
+        height: () => 0,
+    },
+    axisLength: 108,
+    gridOffset: 40,
+    ticks: [0, 500, 1000, 1500],
+    options: {
+        offset: 40,
+        position: 'start',
+        labelOffset: { x: 0, y: 0 },
+        showLabel: true,
+        showGrid: true,
+        scaleMinSpace: 20,
+        onlyInteger: true,
+        low: 0,
+    },
+    projectValue: (a: number) => a,
+};
+
+// Draw
+
+var gridDraw: Chartist.IChartistGridDrawEvent = {
+    type: 'grid',
+    axis: customStepAxisX,
+    index: 0,
+    group: chartistSvgGroup,
+    element: charistSvgLine!,
+    x1: 40,
+    x2: 40,
+    y1: 12,
+    y2: 120,
+};
+
+var chartistSvgText: Chartist.IChartistSvg<SVGTextElement> = 0 as any;
+
+var labelDraw: Chartist.IChartistLabelDrawEvent = {
+    type: 'label',
+    axis: customStepAxisX,
+    index: 0,
+    group: chartistSvgGroup,
+    element: chartistSvgText,
+    text: "Jul '18",
+    x: 40,
+    y: 125,
+    width: 64.18181818181819,
+    height: 20,
+};
+
+var pointDraw: Chartist.IChartistPointDrawEvent = {
+    type: 'point',
+    value: { y: 1194 },
+    index: 0,
+    series: {
+        value: [1194, 365, 4, 2, 2, 1, 1, 1, 0, 0, 2],
+        className: 'Chart-whiteSeries-781',
+    },
+    seriesIndex: 0,
+    axisX: customStepAxisX,
+    axisY: customAutoScaleAxisY,
+    group: chartistSvgGroup,
+    element: charistSvgLine!,
+    x: 40,
+    y: 34.032,
+};
+
+// --- Ensure our properties are available on instances, and not static scopes.
+
+new Chartist.Bar(0 as any, 0 as any, 0 as any, 0 as any).container;
+// $ExpectError
+Chartist.Bar.container;
+
+new Chartist.Line(0 as any, 0 as any, 0 as any, 0 as any).container;
+// $ExpectError
+Chartist.Line.container;
+
+new Chartist.Pie(0 as any, 0 as any, 0 as any, 0 as any).container;
+// $ExpectError
+Chartist.Pie.container;
+
+new Chartist.AutoScaleAxis(0 as any, 0 as any, 0 as any).chartRect;
+// $ExpectError
+Chartist.AutoScaleAxis.chartRect;
+
+new Chartist.FixedScaleAxis(0 as any, 0 as any, 0 as any).chartRect;
+// $ExpectError
+Chartist.FixedScaleAxis.chartRect;
+
+new Chartist.StepAxis(0 as any, 0 as any, 0 as any).chartRect;
+// $ExpectError
+Chartist.StepAxis.chartRect;
+
+new Chartist.Svg('g')._node;
+// $ExpectError
+Chartist.Svg._node;
+// $ExpectError
+Chartist.Svg.querySelector('line');
