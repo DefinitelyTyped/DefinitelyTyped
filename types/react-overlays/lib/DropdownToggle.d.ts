@@ -10,7 +10,7 @@ declare namespace DropdownToggle {
         show: boolean;
         toggle(show: boolean): void;
         props: {
-            ref: (popperNode: HTMLElement|null) => void;
+            ref: (popperNode: HTMLElement | null) => void;
             'aria-haspopup': true;
             'aria-expanded': boolean;
         };
