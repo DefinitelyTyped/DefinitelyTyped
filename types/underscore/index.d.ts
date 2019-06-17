@@ -4115,7 +4115,7 @@ declare module _ {
         chain<T extends {}>(obj: T): _Chain<T>;
     }
 
-    interface Underscore<T, V> {
+    interface Underscore<T, V = T> {
 
         /* *************
         * Collections *
