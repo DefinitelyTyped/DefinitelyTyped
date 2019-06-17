@@ -1,4 +1,4 @@
-// Type definitions for Backbone 2.0
+// Type definitions for Backbone 1.4
 // Project: http://backbonejs.org/
 //          https://github.com/jashkenas/backbone
 // Definitions by: Boris Yankov <https://github.com/borisyankov>

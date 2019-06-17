@@ -1,4 +1,4 @@
-// Type definitions for web3 2.0
+// Type definitions for web3 1.0
 // Project: https://github.com/ethereum/web3.js
 // Definitions by: Simon Jentzsch <https://github.com/simon-jentzsch>
 //                 Nitzan Tomer <https://github.com/nitzantomer>

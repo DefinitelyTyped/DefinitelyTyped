@@ -1,4 +1,4 @@
-// Type definitions for Backbone.LayoutManager 1.0.0
+// Type definitions for Backbone.LayoutManager 0.9
 // Project: http://layoutmanager.org/
 // Definitions by: He Jiang <https://github.com/hejiang2000>
 // Definitions: https://github.com/hejiang2000/DefinitelyTyped

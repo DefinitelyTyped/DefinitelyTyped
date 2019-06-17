@@ -1,4 +1,4 @@
-// Type definitions for Backbone.Radio v1.0.0
+// Type definitions for Backbone.Radio 0.8
 // Project: https://github.com/marionettejs/backbone.radio
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>

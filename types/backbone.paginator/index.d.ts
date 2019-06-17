@@ -1,4 +1,4 @@
-// Type definitions for backbone.paginator 3.0.0
+// Type definitions for backbone.paginator 2.0
 // Project: https://github.com/backbone-paginator/backbone.paginator
 // Definitions by: Nyamazing <https://github.com/Nyamazing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

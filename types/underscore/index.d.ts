@@ -1,4 +1,4 @@
-// Type definitions for Underscore 2.0
+// Type definitions for Underscore 1.9
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>,
 //                 Josh Baldwin <https://github.com/jbaldwin>,

@@ -1,4 +1,4 @@
-// Type definitions for Backbone-associations 0.7.0
+// Type definitions for Backbone-associations 0.6
 // Project: http://dhruvaray.github.io/backbone-associations
 // Definitions by: Craig Brett <https://github.com/craigbrett17>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
