@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { CSSProperties } from 'react';
 import * as ReactDOM from 'react-dom';
 import Cropper, { Area, Location, Size } from 'react-easy-crop';
 
@@ -16,9 +15,9 @@ interface State {
   zoomSpeed?: number;
   crossOrigin?: string;
   style?: {
-    containerStyle: CSSProperties, 
-    imageStyle: CSSProperties,
-    cropAreaStyle: CSSProperties
+    containerStyle: React.CSSProperties,
+    imageStyle: React.CSSProperties,
+    cropAreaStyle: React.CSSProperties
   };
   classes?: {
     containerClassName: string,
@@ -26,7 +25,7 @@ interface State {
     cropAreaClassName: string
   };
   restrictPosition?: boolean;
-  initialCroppedAreaPixels?: Area
+  initialCroppedAreaPixels?: Area;
 }
 
 class App extends React.Component<{}, State> {
@@ -63,7 +62,7 @@ class App extends React.Component<{}, State> {
           y: 10
       }
     };
-  }  
+  }
 
   onCropChange = (crop: Location) => {
     console.log(`onCropChange: { x: ${crop.x}, y: ${crop.y} }`);
@@ -111,7 +110,7 @@ class App extends React.Component<{}, State> {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
