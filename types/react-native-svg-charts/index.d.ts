@@ -57,7 +57,7 @@ export interface ChartProps<T> {
     yMin?: number;
     yMax?: number;
     xMin?: number;
-    xMin?: number;
+    xMax?: number;
 }
 
 // Line Chart
