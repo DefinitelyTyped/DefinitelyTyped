@@ -1,6 +1,6 @@
 // Type definitions for ldapjs-client 0.1.1
 // Project: https://github.com/zont/ldapjs-client#readme
-// Definitions by: colthreepv <https://github.com/me>
+// Definitions by: Valerio Coltrè <https://github.com/colthreepv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export declare class Filter {
@@ -23,10 +23,16 @@ export interface SearchOptions {
     timeLimit: number;
     typesOnly: boolean;
 }
-
 export type PartialSearchOptions = Partial<SearchOptions>
 
-export interface LdapClient {
+export interface ClientOptions {
+    url: string;
+    tlsOptions?: Object;
+    timeout?: number;
+}
+
+export class LdapClient {
+    constructor(options: ClientOptions);
 
     /**
      * Adds an entry to the LDAP server.
@@ -37,7 +43,7 @@ export interface LdapClient {
      * @param entry object containing ldap item properties
      * @returns {Promise<any>} response from the LDAP server
      */
-    add(dn: string, entry: object): Promise<any>
+    add(dn: string, entry: object): Promise<any>;
 
     /**
      * Performs a simple authentication against the server.
@@ -46,7 +52,7 @@ export interface LdapClient {
      * @param password the userPassword associated with name.
      * @returns {Promise<any>} response from the LDAP server
      */
-    bind(dn: string, password: string): Promise<any>
+    bind(dn: string, password: string): Promise<any>;
 
     /**
      * Deletes an entry from the LDAP server.
@@ -54,7 +60,7 @@ export interface LdapClient {
      * @param dn the DN of the entry to delete.
      * @returns {Promise<any>} response from the LDAP server
      */
-    del(dn: string): Promise<any>
+    del(dn: string): Promise<any>;
 
     /**
      * Disconnect from the LDAP server and do not allow reconnection.
@@ -65,7 +71,7 @@ export interface LdapClient {
      *
      * Calling destroy will prevent any further reconnection from occurring.
      */
-    destroy(): Promise<void>
+    destroy(): Promise<void>;
 
     /**
      * Performs an LDAP modify against the server.
@@ -74,7 +80,7 @@ export interface LdapClient {
      * @param change update to perform (can be [Change]).
      * @returns {Promise<any>} response from the LDAP server
      */
-    modify(dn: string, change: Change): Promise<any>
+    modify(dn: string, change: Change): Promise<any>;
 
     /**
      * Performs an LDAP modifyDN against the server.
@@ -83,7 +89,7 @@ export interface LdapClient {
      * @param {String} newName the new DN to move this entry to.
      * @returns {Promise<any>} response from the LDAP server
      */
-    modifyDN(dn: string, newName: string): Promise<any>
+    modifyDN(dn: string, newName: string): Promise<any>;
 
     /**
      * Performs an LDAP search against the server.
@@ -93,20 +99,14 @@ export interface LdapClient {
      * @param {PartialSearchOptions} options parameters
      * @returns {Promise<T[]>} response from the LDAP server
      */
-    search<T extends any>(base: string, options: PartialSearchOptions): Promise<T[]>
+    search<T extends any>(base: string, options: PartialSearchOptions): Promise<T[]>;
 
     /**
      * Unbinds this client from the LDAP server.
      *
      * @returns {Promise<any>} response from the LDAP server
      */
-    unbind(): Promise<any>
+    unbind(): Promise<any>;
 }
 
-export interface ClientOptions {
-    url: string;
-    tlsOptions?: Object;
-    timeout?: number;
-}
-
-export default function createClient(options: ClientOptions): LdapClient;
+export default LdapClient;
