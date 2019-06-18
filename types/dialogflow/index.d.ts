@@ -868,7 +868,7 @@ export interface Context {
 }
 
 export interface ContextParameter {
-  [key: string]: Value;
+  [key: string]: any;
 }
 
 export type Value =
