@@ -868,7 +868,39 @@ export interface Context {
 }
 
 export interface ContextParameter {
-  [key: string]: any;
+    fields: {[key: string]: ContextParameterField}
+}
+
+export type ContextParameterField = NullValue | StringValue | NumberValue | BoolValue | StructValue | ListValue
+
+export type StringValue = {
+    stringValue: string
+    kind: "stringValue"
+}
+
+export type NullValue = {
+    nullValue: null
+    kind: "nullValue"
+}
+
+export type NumberValue = {
+    numberValue: number
+    kind: "numberValue"
+}
+
+export type BoolValue = {
+    boolValue: boolean
+    kind: "boolValue"
+}
+
+export type StructValue = {
+    structValue: any
+    kind: "structValue"
+}
+
+export type ListValue = {
+    listValue: string[]
+    kind: "listValue"
 }
 
 export type Value =
