@@ -132,8 +132,8 @@ interface GeneratedNodeMap {
 
 export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
 
-export function createFragmentContainer<Props extends { relay?: RelayProp }>(
-    Component: React.ComponentType<Props>,
+export function createFragmentContainer<Props>(
+    Component: React.ComponentType<Props & { relay?: RelayProp }>,
     fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap
 ): React.ComponentType<ContainerProps<Props>>;
 
@@ -156,22 +156,22 @@ export interface ConnectionConfig<Props = object> {
     query: GraphQLTaggedNode;
 }
 
-export function createPaginationContainer<
-    Props extends {
-        relay: RelayPaginationProp;
-    }
->(
-    Component: React.ComponentType<Props>,
+export function createPaginationContainer<Props>(
+    Component: React.ComponentType<
+        Props & {
+            relay: RelayPaginationProp;
+        }
+    >,
     fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<Props>
 ): React.ComponentType<ContainerProps<Props>>;
 
-export function createRefetchContainer<
-    Props extends {
-        relay: RelayRefetchProp;
-    }
->(
-    Component: React.ComponentType<Props>,
+export function createRefetchContainer<Props>(
+    Component: React.ComponentType<
+        Props & {
+            relay: RelayRefetchProp;
+        }
+    >,
     fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: GraphQLTaggedNode
 ): React.ComponentType<ContainerProps<Props>>;
