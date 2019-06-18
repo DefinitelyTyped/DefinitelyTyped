@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "dom-monkeypatch.d.ts",
         "eventsource-tests.ts",
         "lib/eventsource-polyfill/index.d.ts"
     ]
