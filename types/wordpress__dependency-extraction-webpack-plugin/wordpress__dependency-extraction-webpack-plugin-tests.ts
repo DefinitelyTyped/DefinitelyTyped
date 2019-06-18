@@ -1,9 +1,9 @@
-import DependencyExtractionPlugin from "@wordpress/dependency-extraction-webpack-plugin";
+import DependencyExtractionPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 new DependencyExtractionPlugin();
 
 new DependencyExtractionPlugin({
-    useDefaults: false
+    useDefaults: false,
 });
 
 new DependencyExtractionPlugin({
