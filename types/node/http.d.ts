@@ -65,7 +65,7 @@ declare module "http" {
 
     // outgoing headers allows numbers (as they are converted internally to strings)
     interface OutgoingHttpHeaders {
-        [header: string]: number | string | string[] | undefined;
+        [header: string]: number | string | string[];
     }
 
     interface ClientRequestArgs {
@@ -134,7 +134,7 @@ declare module "http" {
         setTimeout(msecs: number, callback?: () => void): this;
         setHeader(name: string, value: number | string | string[]): void;
         getHeader(name: string): number | string | string[] | undefined;
-        getHeaders(): OutgoingHttpHeaders;
+        getHeaders(): Partial<OutgoingHttpHeaders>;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
