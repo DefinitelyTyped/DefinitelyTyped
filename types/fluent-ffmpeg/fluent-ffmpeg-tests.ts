@@ -23,6 +23,11 @@ ffmpeg('/path/to/file.avi')
     .preset('divx')
     .size('640x480');
 
+// get arguments
+ffmpeg('/path/to/file.avi')
+
+    ._getArguments();
+
 // ComplexFilter
 ffmpeg('/path/to/file.avi')
 
