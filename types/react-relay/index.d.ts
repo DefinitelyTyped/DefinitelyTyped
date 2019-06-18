@@ -10,10 +10,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-// Prettified with:
-// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
-//   types/{react-relay,relay-runtime}/{,*}/*.ts*
-
 import * as React from 'react';
 import {
     Environment,

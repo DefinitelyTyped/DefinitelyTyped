@@ -6,10 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-// Prettified with:
-// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
-//   types/{react-relay,relay-runtime}/{,*}/*.ts*
-
 // ./handlers/connection/RelayConnectionHandler
 export interface ConnectionMetadata {
     path: ReadonlyArray<string> | null | undefined;
