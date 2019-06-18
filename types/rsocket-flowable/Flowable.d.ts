@@ -4,8 +4,6 @@ export type Source<T> = (subscriber: ISubscriber<T>) => void;
  * Implements the ReactiveStream `Publisher` interface with Rx-style operators.
  */
 export default class Flowable<T> implements IPublisher<T> {
-    _max: number;
-    _source: Source<T>;
     static just<U>(...values: U[]): Flowable<U>;
     static error(error: Error): Flowable<{}>;
     static never(): Flowable<{}>;
@@ -14,5 +12,4 @@ export default class Flowable<T> implements IPublisher<T> {
     lift<R>(onSubscribeLift: (subscriber: ISubscriber<R>) => ISubscriber<T>): Flowable<R>;
     map<R>(fn: (data: T) => R): Flowable<R>;
     take(toTake: number): Flowable<T>;
-    _wrapCallback(callback: (a: T) => undefined): Partial<ISubscriber<T>>;
 }

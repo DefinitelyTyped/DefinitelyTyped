@@ -26,17 +26,12 @@ export interface ClientConfig<D, M> {
  * - metadataPush()
  */
 export default class RSocketClient<D, M> {
-    _cancel: () => undefined | null | undefined;
-    _config: ClientConfig<D, M>;
-    _connection: Single<ReactiveSocket<D, M>> | null | undefined;
-    _socket: RSocketClientSocket<D, M> | null | undefined;
     constructor(config: ClientConfig<D, M>);
     close(): undefined;
     connect(): Single<ReactiveSocket<D, M>>;
 }
 
 export class RSocketClientSocket<D, M> implements ReactiveSocket<D, M> {
-    _machine: ReactiveSocket<D, M>;
     constructor(config: ClientConfig<D, M>, connection: DuplexConnection);
     fireAndForget(payload: Payload<D, M>): undefined;
     requestResponse(payload: Payload<D, M>): Single<Payload<D, M>>;
@@ -45,5 +40,4 @@ export class RSocketClientSocket<D, M> implements ReactiveSocket<D, M> {
     metadataPush(payload: Payload<D, M>): Single<undefined>;
     close(): undefined;
     connectionStatus(): Flowable<ConnectionStatus>;
-    _buildSetupFrame(config: ClientConfig<D, M>): SetupFrame;
 }

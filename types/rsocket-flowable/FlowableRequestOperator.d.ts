@@ -4,8 +4,6 @@ import { ISubscriber, ISubscription } from 'rsocket-types';
  * being subscribed.
  */
 export default class FlowableRequestOperator<T> implements ISubscriber<T> {
-    _subscriber: ISubscriber<T>;
-    _toRequest: number;
     constructor(subscriber: ISubscriber<T>, toRequest: number);
     onComplete(): void;
     onError(error: Error): void;

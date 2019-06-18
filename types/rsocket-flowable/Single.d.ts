@@ -45,7 +45,6 @@ export interface IFutureSubject<T> {
  * ```
  */
 export default class Single<T> {
-    _source: Source<T>;
     static of<U>(value: U): Single<U>;
     static error(error: Error): Single<{}>;
     constructor(source: Source<T>);

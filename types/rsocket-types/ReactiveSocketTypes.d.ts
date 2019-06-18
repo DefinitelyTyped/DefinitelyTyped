@@ -34,16 +34,6 @@ export interface Responder<D, M> {
   metadataPush(payload: Payload<D, M>): Single<void>;
 }
 
-export interface PartialResponder<D, M> {
-  readonly fireAndForget?: (payload: Payload<D, M>) => void;
-  readonly requestResponse?: (payload: Payload<D, M>) => Single<Payload<D, M>>;
-  readonly requestStream?: (payload: Payload<D, M>) => Flowable<Payload<D, M>>;
-  readonly requestChannel?: (
-    payloads: Flowable<Payload<D, M>>
-  ) => Flowable<Payload<D, M>>;
-  readonly metadataPush?: (payload: Payload<D, M>) => Single<void>;
-}
-
 /**
  * A contract providing different interaction models per the [ReactiveSocket protocol]
  * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).

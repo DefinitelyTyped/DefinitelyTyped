@@ -5,13 +5,9 @@ import { ISubscriber, ISubscription } from 'rsocket-types';
  * subscription when the requested number of items has been reached.
  */
 export default class FlowableTakeOperator<T> implements ISubscriber<T> {
-    _subscriber: ISubscriber<T>;
-    _subscription?: ISubscription;
-    _toTake: number;
     constructor(subscriber: ISubscriber<T>, toTake: number);
     onComplete(): void;
     onError(error: Error): void;
     onNext(t: T): void;
     onSubscribe(subscription: ISubscription): void;
-    _cancelAndComplete(): void;
 }

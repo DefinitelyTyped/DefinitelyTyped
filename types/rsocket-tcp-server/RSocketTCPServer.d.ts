@@ -17,9 +17,6 @@ export interface ServerOptions {
  * //FIXME: Inconsistent casing between TCPServer and TcpClient matches library
  */
 export default class RSocketTCPServer implements TransportServer {
-    _emitter: EventEmitter;
-    _encoders?: Encoders<any>;
-    _options: ServerOptions;
     constructor(options: ServerOptions, encoders?: Encoders<any>);
     start(): Flowable<DuplexConnection>;
     stop(): undefined;

@@ -3,8 +3,8 @@ import {
   Frame,
   FrameWithData,
   Payload,
+  Responder,
   ReactiveSocket,
-  PartialResponder,
   ISubscription,
   ISubscriber
 } from 'rsocket-types';
@@ -25,7 +25,7 @@ export interface TransportServer {
 }
 
 export interface ServerConfig<D, M> {
-  getRequestHandler: (socket: ReactiveSocket<D, M>, payload: Payload<D, M>) => PartialResponder<D, M>;
+  getRequestHandler: (socket: ReactiveSocket<D, M>, payload: Payload<D, M>) => Partial<Responder<D, M>>;
   serializers?: PayloadSerializers<D, M>;
   transport: TransportServer;
 }
@@ -35,33 +35,14 @@ export interface ServerConfig<D, M> {
  * from peers via the given transport server.
  */
 export default class RSocketServer<D, M> {
-  _config: ServerConfig<D, M>;
-  _connections: Set<ReactiveSocket<D, M>>;
-  _started: boolean;
-  _subscription: ISubscription | null | undefined;
-
   constructor(config: ServerConfig<D, M>);
   start(): void;
-
   stop(): void;
-
-  _handleTransportComplete: () => void;
-
-  _handleTransportError: (error: Error) => void;
-
-  _handleTransportConnection: (connection: DuplexConnection) => void;
-
-  _getSerializers: () => PayloadSerializers<D, M>;
 }
 
 export class SubscriberSwapper<T> implements ISubscriber<T> {
-  _target?: Partial<ISubscriber<T>>;
-  _subscription?: ISubscription;
-
   constructor(target?: Partial<ISubscriber<T>>);
-
   swap(next: Partial<ISubscriber<T>>): ISubscriber<T>;
-
   onComplete(): void;
   onError(error: Error): void;
   onNext(value: T): void;

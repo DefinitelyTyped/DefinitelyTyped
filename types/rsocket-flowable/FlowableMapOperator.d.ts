@@ -5,9 +5,6 @@ import { ISubscriber, ISubscription } from 'rsocket-types';
  * `Subscriber`.
  */
 export default class FlowableMapOperator<T, R> implements ISubscriber<T> {
-    _fn: (t: T) => R;
-    _subscriber: ISubscriber<R>;
-    _subscription?: ISubscription;
     constructor(subscriber: ISubscriber<R>, fn: (t: T) => R);
     onComplete(): void;
     onError(error: Error): void;

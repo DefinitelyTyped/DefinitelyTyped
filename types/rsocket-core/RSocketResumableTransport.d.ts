@@ -72,50 +72,11 @@ export interface Options {
  * have failed and the connection is set to the ERROR status.
  */
 export default class RSocketResumableTransport implements DuplexConnection {
-  _bufferSize: number;
-  _position: {
-    client: number // earliest client frame still buffered,
-    server: number // latest server frame received
-  };
-  _currentConnection: DuplexConnection | null | undefined;
-  _statusSubscription: ISubscription | null | undefined;
-  _receiveSubscription: ISubscription | null | undefined;
-  _pendingFrames: Frame[];
-  _receivers: Set<ISubject<Frame>>;
-  _resumeToken: string;
-  _senders: Set<ISubscription>;
-  _sentFrames: Frame[];
-  _setupFrame?: SetupFrame;
-  _source: () => DuplexConnection;
-  _status: ConnectionStatus;
-  _statusSubscribers: Set<ISubject<ConnectionStatus>>;
-
   constructor(source: () => DuplexConnection, options: Options)
-
   close(): void;
   connect(): void;
   connectionStatus(): Flowable<ConnectionStatus>;
-
   receive(): Flowable<Frame>;
-
   sendOne(frame: Frame): void;
-
   send(frames: Flowable<Frame>): void;
-
-  _close(error?: Error): void;
-
-  _disconnect(): void;
-
-  _handleConnected(connection: DuplexConnection): void;
-
-  _handleResume(connection: DuplexConnection): void;
-
-  _isTerminated(): boolean;
-
-  _setConnectionStatus(status: ConnectionStatus): void;
-  _receiveFrame(frame: Frame): void;
-
-  _flushFrames(): void;
-
-  _writeFrame(frame: Frame): void;
 }
