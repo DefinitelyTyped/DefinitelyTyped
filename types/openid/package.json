@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "openid": "^2.0.6"
+  }
+}
