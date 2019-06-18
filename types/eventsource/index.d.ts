@@ -5,7 +5,7 @@
 //                 Pedro Gámez <https://github.com/snakedrak>
 //                 Akuukis <https://github.com/Akuukis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // eventsource uses DOM dependencies which are absent in browserless envoronment like node.js.
 // to avoid compiler errors this monkey patch is used. See more details in:

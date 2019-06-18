@@ -19,7 +19,8 @@
     "files": [
         "index.d.ts",
         "dom-monkeypatch.d.ts",
-        "eventsource-tests.ts",
+        "test/eventsource-dom.test.ts",
+        "test/eventsource-nodejs.test.ts",
         "lib/eventsource-polyfill/index.d.ts"
     ]
 }
