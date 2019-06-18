@@ -72,10 +72,6 @@ export interface Schema<T> {
     withMutation(fn: (current: this) => void): void;
     default(value: any): this;
     default(): T;
-    nullable(isNullable?: true): Schema<T | null>;
-    nullable(isNullable: false): Schema<Exclude<T, null>>;
-    required(message?: TestOptionsMessage): Schema<Exclude<T, undefined>>;
-    notRequired(): Schema<T | undefined>;
     typeError(message?: TestOptionsMessage): this;
     oneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
     notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
@@ -102,6 +98,8 @@ export interface MixedSchemaConstructor {
 
 // tslint:disable-next-line:no-empty-interface
 export interface MixedSchema<T = any> extends Schema<T> {
+    nullable(isNullable?: true): MixedSchema<T | null>;
+    nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
     required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
 }
@@ -204,82 +202,49 @@ export interface ArraySchemaConstructor {
     new (): ArraySchema<{}>;
 }
 
-interface NotRequiredNullableArraySchema<T>
-    extends Schema<T[] | null | undefined> {
+interface BasicArraySchema<T extends any[] | null | undefined>
+    extends Schema<T> {
+    min(limit: number | Ref, message?: TestOptionsMessage): this;
+    max(limit: number | Ref, message?: TestOptionsMessage): this;
+    ensure(): this;
+    compact(rejector?: (value: T, index: number, array: T[]) => boolean): this;
+}
+
+export interface NotRequiredNullableArraySchema<T>
+    extends BasicArraySchema<T[] | null | undefined> {
     of<U>(type: Schema<U>): NotRequiredNullableArraySchema<U>;
-    min(
-        limit: number | Ref,
-        message?: TestOptionsMessage
-    ): NotRequiredNullableArraySchema<T>;
-    max(
-        limit: number | Ref,
-        message?: TestOptionsMessage
-    ): NotRequiredNullableArraySchema<T>;
-    ensure(): NotRequiredNullableArraySchema<T>;
-    compact(
-        rejector?: (value: T, index: number, array: T[]) => boolean
-    ): NotRequiredNullableArraySchema<T>;
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
     required(message?: TestOptionsMessage): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
 }
 
-interface NullableArraySchema<T> extends Schema<T[] | null> {
+export interface NullableArraySchema<T> extends BasicArraySchema<T[] | null> {
     of<U>(type: Schema<U>): NullableArraySchema<U>;
-    min(
-        limit: number | Ref,
-        message?: TestOptionsMessage
-    ): NullableArraySchema<T>;
-    max(
-        limit: number | Ref,
-        message?: TestOptionsMessage
-    ): NullableArraySchema<T>;
-    ensure(): NullableArraySchema<T>;
-    compact(
-        rejector?: (value: T, index: number, array: T[]) => boolean
-    ): NullableArraySchema<T>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false): ArraySchema<T>;
     required(message?: TestOptionsMessage): NullableArraySchema<T>;
     notRequired(): NotRequiredNullableArraySchema<T>;
 }
 
-interface NotRequiredArraySchema<T> extends Schema<T[] | undefined> {
+export interface NotRequiredArraySchema<T>
+    extends BasicArraySchema<T[] | undefined> {
     of<U>(type: Schema<U>): NotRequiredArraySchema<U>;
-    min(
-        limit: number | Ref,
-        message?: TestOptionsMessage
-    ): NotRequiredArraySchema<T>;
-    max(
-        limit: number | Ref,
-        message?: TestOptionsMessage
-    ): NotRequiredArraySchema<T>;
-    ensure(): NotRequiredArraySchema<T>;
-    compact(
-        rejector?: (value: T, index: number, array: T[]) => boolean
-    ): NotRequiredArraySchema<T>;
     nullable(isNullable?: true): NotRequiredNullableArraySchema<T>;
     nullable(isNullable: false): NotRequiredArraySchema<T>;
     required(message?: TestOptionsMessage): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
 }
 
-export interface ArraySchema<T> extends Schema<T[]> {
+export interface ArraySchema<T> extends BasicArraySchema<T[]> {
     of<U>(type: Schema<U>): ArraySchema<U>;
-    min(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
-    max(limit: number | Ref, message?: TestOptionsMessage): ArraySchema<T>;
-    ensure(): ArraySchema<T>;
-    compact(
-        rejector?: (value: T, index: number, array: T[]) => boolean
-    ): ArraySchema<T>;
     nullable(isNullable?: true): NullableArraySchema<T>;
     nullable(isNullable: false): ArraySchema<T>;
     required(message?: TestOptionsMessage): ArraySchema<T>;
     notRequired(): NotRequiredArraySchema<T>;
 }
 
-export type ObjectSchemaDefinition<T extends object> = {
+export type ObjectSchemaDefinition<T extends object | null | undefined> = {
     [field in keyof T]: Schema<T[field]> | Ref
 };
 
@@ -288,7 +253,7 @@ export type ObjectSchemaDefinition<T extends object> = {
  * This is conducive to the functionality of
  * [yup's `object.shape()` method](https://www.npmjs.com/package/yup#objectshapefields-object-nosortedges-arraystring-string-schema).
  */
-export type Shape<T extends object, U extends object> = {
+export type Shape<T extends object | null | undefined, U extends object> = {
     [P in keyof T]: P extends keyof U ? U[P] : T[P]
 } &
     U;
@@ -298,7 +263,8 @@ export interface ObjectSchemaConstructor {
     new (): ObjectSchema<{}>;
 }
 
-export interface ObjectSchema<T extends object> extends Schema<T> {
+export interface ObjectSchema<T extends object | null | undefined = object>
+    extends Schema<T> {
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>
@@ -311,6 +277,10 @@ export interface ObjectSchema<T extends object> extends Schema<T> {
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
+    nullable(isNullable?: true): ObjectSchema<T | null>;
+    nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
+    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
+    notRequired(): ObjectSchema<T | undefined>;
 }
 
 export type TransformFunction<T> = (

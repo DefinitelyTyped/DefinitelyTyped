@@ -632,6 +632,7 @@ const personSchema = yup.object({
         .array(yup.string())
         .nullable()
         .notRequired()
+        .min(1)
 });
 
 type Person = yup.InferType<typeof personSchema>;
