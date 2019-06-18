@@ -132,7 +132,7 @@ interface GeneratedNodeMap {
 
 export type ContainerProps<Props> = MappedFragmentProps<Pick<Props, Exclude<keyof Props, 'relay'>>>;
 
-export function createFragmentContainer<Props extends { relay: RelayProp }>(
+export function createFragmentContainer<Props extends { relay?: RelayProp }>(
     Component: React.ComponentType<Props>,
     fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap
 ): React.ComponentType<ContainerProps<Props>>;

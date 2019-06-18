@@ -314,6 +314,14 @@ const Feed = (() => {
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} relay={relayProp} />;
     }
 
+    function doesNotRequireTheRelayPropInPropsInterface() {
+        const FunctionComponent: React.FC<{}> = () => null;
+        createFragmentContainer(FunctionComponent, {});
+
+        class ClassComponent extends React.Component<{}> {}
+        createFragmentContainer(ClassComponent, {});
+    }
+
     function requiresTheCorrectRelayPropTypeInPropsInterface() {
         class ClassComponent1 extends React.Component<{ relay: RelayRefetchProp }> {}
         // $ExpectError
