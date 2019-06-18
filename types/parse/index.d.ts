@@ -12,6 +12,7 @@
 //                  Jong Eun Lee <https://github.com/yomybaby>
 //                  Julien Quere <https://github.com/jlnquere>
 //                  Yago Tomé <https://github.com/yagotome>
+//                  Thibault MOCELLIN <https://github.com/tybi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -103,6 +104,10 @@ declare namespace Parse {
         toJSON(): any;
     }
 
+    interface AuthData {
+        [key: string]: any
+    }
+    
     class BaseObject implements IBaseObject {
         toJSON(): any;
     }
@@ -681,7 +686,6 @@ subscription.on('close', () => {});
      * uniqueness.</p>
      */
     class User extends Object {
-
         static allowCustomUserClass(isAllowed: boolean): void;
         static become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
         static current(): User | undefined;
@@ -707,6 +711,9 @@ subscription.on('close', () => {});
 
         setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
+
+        linkWith(user: User, authData: AuthData, options: FullOptions): Promise<User>;
+        _linkWith(provider: any, options: { authData?: AuthData }, saveOpts?: FullOptions): Promise<User>;
     }
 
 
