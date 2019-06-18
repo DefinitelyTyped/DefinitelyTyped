@@ -1,27 +1,19 @@
-// Type definitions for react-native-modal-filter-picker 1.3
+// Type definitions for react-native-modal-filter-picker 1.3.4
 // Project: https://github.com/hiddentao/react-native-modal-filter-picker#readme
 // Definitions by: Chang Yanwei <https://github.com/ywchang>
 //                 Cheng Gibson <https://github.com/nossbigg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import {
-    StyleProp,
-    ViewStyle,
-    TextStyle,
-    ListView,
-    KeyboardAvoidingView,
-    ModalProps,
-    ListViewProps
-} from "react-native";
+  import React from 'react';
+  import { StyleProp, ViewStyle, TextStyle, KeyboardAvoidingView, ModalProps, ListViewProps } from 'react-native';
 
-export interface ModalFilterPickerOption {
+  export interface ModalFilterPickerOption {
     label: string;
     key: string;
-}
+  }
 
-export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
+  export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     options: T[];
     onSelect: (key: string) => void;
     onCancel: () => void;
@@ -39,7 +31,7 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     renderOption?: (option: T, isSelected: boolean) => JSX.Element;
     renderList?: () => JSX.Element;
     renderCancelButton?: () => JSX.Element;
-    keyboardShouldPersistTaps?: "never" | "always" | "handle";
+    keyboardShouldPersistTaps?: 'never' | 'always' | 'handle';
     autoFocus?: boolean;
 
     // styling props
@@ -52,10 +44,11 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     cancelButtonTextStyle?: StyleProp<TextStyle>;
     titleTextStyle?: StyleProp<TextStyle>;
     optionTextStyle?: StyleProp<TextStyle>;
-}
+    selectedOptionTextStyle?: StyleProp<TextStyle>;
+  }
 
-declare class ModalFilterPicker<
-    T extends ModalFilterPickerOption
-> extends React.Component<ModalFilterPickerProps<T>> {}
+  declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<
+    ModalFilterPickerProps<T>
+  > {}
 
-export default ModalFilterPicker;
+  export default ModalFilterPicker;
