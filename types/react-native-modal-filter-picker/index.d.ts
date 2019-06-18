@@ -5,15 +5,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-  import React from 'react';
-  import { StyleProp, ViewStyle, TextStyle, KeyboardAvoidingView, ModalProps, ListViewProps } from 'react-native';
+import * as React from 'react';
+import { StyleProp, ViewStyle, TextStyle, KeyboardAvoidingView, ModalProps, ListViewProps } from 'react-native';
 
-  export interface ModalFilterPickerOption {
+export interface ModalFilterPickerOption {
     label: string;
     key: string;
-  }
+}
 
-  export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
+export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     options: T[];
     onSelect: (key: string) => void;
     onCancel: () => void;
@@ -45,10 +45,10 @@
     titleTextStyle?: StyleProp<TextStyle>;
     optionTextStyle?: StyleProp<TextStyle>;
     selectedOptionTextStyle?: StyleProp<TextStyle>;
-  }
+}
 
-  declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<
-    ModalFilterPickerProps<T>
-  > {}
+declare class ModalFilterPicker<T extends ModalFilterPickerOption> extends React.Component<
+ModalFilterPickerProps<T>
+> {}
 
-  export default ModalFilterPicker;
+export default ModalFilterPicker;
