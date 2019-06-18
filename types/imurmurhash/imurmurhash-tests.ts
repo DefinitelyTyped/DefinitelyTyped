@@ -12,3 +12,5 @@ const hash2 = MurmurHash3("test");
 const hash3 = MurmurHash3("test", 123);
 
 hash2.result() + hash3.result();
+
+const another = new MurmurHash3();

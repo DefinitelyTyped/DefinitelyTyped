@@ -12,6 +12,9 @@ interface MurmurHash3 {
     hash(value: string): MurmurHash3;
 }
 
-declare function MurmurHash(text?: string, seed?: number): MurmurHash3;
+declare var MurmurHash: {
+    (text?: string, seed?: number): MurmurHash3;
+    new (text?: string, seed?: number): MurmurHash3;
+};
 
 export = MurmurHash;
