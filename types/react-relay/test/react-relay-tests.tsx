@@ -1,4 +1,5 @@
 // tslint:disable:interface-over-type-literal
+// tslint:disable:use-default-type-parameter
 
 import * as React from 'react';
 import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
@@ -21,7 +22,7 @@ import {
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
 function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
-    return fetch('/graphql');
+    return fetch('/graphql').then(response => response.json());
 }
 const network = Network.create(fetchQuery);
 const source = new RecordSource();
@@ -76,7 +77,7 @@ const MyEmptyQueryRenderer = () => (
     <QueryRenderer
         environment={modernEnvironment}
         // NOTE: let's intentionally leave out `query`
-        // query={undefined}
+        query={undefined}
         variables={{}}
         render={({ error, props }) => {
             if (error) {
@@ -161,7 +162,7 @@ const Story = (() => {
                 }
             `,
         },
-        graphql.experimental`
+        graphql`
             query StoryRefetchQuery($id: ID!) {
                 story(id: $id) {
                     ...Story_story
@@ -170,10 +171,56 @@ const Story = (() => {
         `
     );
 
-    function doesNotRequireRelayPropToBeProvided() {
+    function requiresTheRightProps() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
         const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
         <StoryRefetchContainer story={story} onLike={onLike} />;
+    }
+
+    function requiresTheCorrectFragmentRef() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        // $ExpectError
+        <StoryRefetchContainer story={feed} onLike={onLike} />;
+    }
+
+    function doesNotRequireRelayPropToBeProvidedByParent() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const relayProp: RelayRefetchProp = {} as any;
+        // $ExpectError
+        <StoryRefetchContainer story={story} onLike={onLike} relay={relayProp} />;
+    }
+
+    function requiresTheRelayPropInPropsInterface() {
+        // FIXME: This should throw a type error, but doesn't
+        // const FunctionComponent: React.FC<{}> = () => null;
+        // // $ExpectError
+        // createRefetchContainer(FunctionComponent, { story: graphql`` }, graphql``);
+
+        class ClassComponent extends React.Component<{}> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent, { story: graphql`` }, graphql``);
+    }
+
+    function requiresTheCorrectRelayPropTypeInPropsInterface() {
+        class ClassComponent1 extends React.Component<{ relay: RelayProp }> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent1, { story: graphql`` }, graphql``);
+
+        class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent2, { story: graphql`` }, graphql``);
+
+        class ClassComponent3 extends React.Component<{ relay: undefined }> {}
+        // $ExpectError
+        createRefetchContainer(ClassComponent3, { story: graphql`` }, graphql``);
+    }
+
+    function canTakeComponentRef() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        <StoryRefetchContainer story={story} onLike={onLike} componentRef={ref => console.log(ref)} />;
     }
 
     return StoryRefetchContainer;
@@ -211,7 +258,7 @@ const Feed = (() => {
         ignoreMe?: {};
     }
 
-    const FeedStoryEdges: React.SFC<{ edges: FeedStory_edges }> = ({ edges }) => (
+    const FeedStoryEdges: React.FC<{ edges: FeedStory_edges; relay: RelayProp }> = ({ edges }) => (
         <div>{edges.map(({ publishedAt }) => publishedAt).join(', ')}</div>
     );
 
@@ -223,7 +270,7 @@ const Feed = (() => {
         `,
     });
 
-    const FeedStories: React.SFC<Props> = ({ feed, onStoryLike, relay }) => {
+    const FeedStories: React.FC<Props> = ({ feed, onStoryLike, relay }) => {
         // TODO: Getting env here for no good reason other than needing to test it works.
         //       If you have a good relavant example, please update!
         relay.environment;
@@ -252,10 +299,49 @@ const Feed = (() => {
         `,
     });
 
-    function doesNotRequireRelayPropToBeProvided() {
+    function requiresTheRightProps() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
         const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} />;
+    }
+
+    function requiresTheCorrectFragmentRef() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        // $ExpectError
+        <FeedFragmentContainer feed={story} onStoryLike={onStoryLike} />;
+    }
+
+    function doesNotRequireRelayPropToBeProvidedByParent() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const relayProp: RelayProp = {} as any;
+        // $ExpectError
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} relay={relayProp} />;
+    }
+
+    function doesNotRequireTheRelayPropInPropsInterface() {
+        const FunctionComponent: React.FC<{}> = () => null;
+        createFragmentContainer(FunctionComponent, {});
+
+        class ClassComponent extends React.Component<{}> {}
+        createFragmentContainer(ClassComponent, {});
+    }
+
+    function requiresTheCorrectRelayPropTypeInPropsInterface() {
+        class ClassComponent1 extends React.Component<{ relay: RelayRefetchProp }> {}
+        // $ExpectError
+        createFragmentContainer(ClassComponent1, {});
+
+        class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
+        // $ExpectError
+        createFragmentContainer(ClassComponent2, {});
+    }
+
+    function canTakeComponentRef() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={ref => console.log(ref)} />;
     }
 
     return FeedFragmentContainer;
@@ -361,9 +447,52 @@ type UserFeed_user = {
         }
     );
 
-    function doesNotRequireRelayPropToBeProvided() {
+    function requiresTheRightProps() {
         const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} />;
+    }
+
+    function requiresTheCorrectFragmentRef() {
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        // $ExpectError
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={story} />;
+    }
+
+    function doesNotRequireRelayPropToBeProvidedByParent() {
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const relayProp: RelayPaginationProp = {} as any;
+        // $ExpectError
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} relay={relayProp} />;
+    }
+
+    function requiresTheRelayPropInPropsInterface() {
+        // FIXME: This should throw a type error, but doesn't
+        // const FunctionComponent: React.FC<{}> = () => null;
+        // // $ExpectError
+        // createPaginationContainer(FunctionComponent, {}, {} as any);
+
+        class ClassComponent extends React.Component<{}> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent, {}, {} as any);
+    }
+
+    function requiresTheCorrectRelayPropTypeInPropsInterface() {
+        class ClassComponent1 extends React.Component<{ relay: RelayProp }> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent1, {}, {} as any);
+
+        class ClassComponent2 extends React.Component<{ relay: RelayRefetchProp }> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent2, {}, {} as any);
+
+        class ClassComponent3 extends React.Component<{ relay: undefined }> {}
+        // $ExpectError
+        createPaginationContainer(ClassComponent3, {}, {} as any);
+    }
+
+    function canTakeComponentRef() {
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={ref => console.log(ref)} />;
     }
 };
 
@@ -492,12 +621,17 @@ requestSubscription(
         updater: store => {
             // Get the notification
             const rootField = store.getRootField('markReadNotification');
-            const notification = !!rootField && rootField.getLinkedRecord('notification');
+            const notification = !!rootField ? rootField.getLinkedRecord('notification') : null;
             // Add it to a connection
             const viewer = store.getRoot().getLinkedRecord('viewer');
-            const notifications = ConnectionHandler.getConnection(viewer, 'notifications');
-            const edge = ConnectionHandler.createEdge(store, notifications, notification, '<TypeOfNotificationsEdge>');
-            ConnectionHandler.insertEdgeAfter(notifications, edge);
+            const notifications = ConnectionHandler.getConnection(viewer!, 'notifications');
+            const edge = ConnectionHandler.createEdge(
+                store,
+                notifications!,
+                notification!,
+                '<TypeOfNotificationsEdge>'
+            );
+            ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
     }
 );

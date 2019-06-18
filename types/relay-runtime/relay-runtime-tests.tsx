@@ -5,7 +5,6 @@ import {
     Store,
     ConnectionHandler,
     ViewerHandler,
-    RecordSourceInspector,
     commitLocalUpdate,
     QueryResponseCache,
     ROOT_ID,
@@ -65,7 +64,7 @@ function handlerProvider(handle: any) {
 // Source
 // ~~~~~~~~~~~~~~~~~~~~~
 
-const inspector = new RecordSourceInspector(source);
+store.publish(source);
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate
