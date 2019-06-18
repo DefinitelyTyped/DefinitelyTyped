@@ -1,5 +1,8 @@
+/// <reference lib="DOM" />
 declare var $: (arg?: any) => JQuery;
 
+// Scope it so doesn't name conflict with other tests.
+{
 URI();
 URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');
 URI({
@@ -114,6 +117,10 @@ URI('http://user:pass@example.org:80/foo/bar.html').equals(
 const template = URITemplate('/items/{?page,count}');
 template.parse() === template;
 
+const test = <T>(a: T, b: T): boolean => {
+    return a === b;
+};
+
 /*
 Tests for hasSearch(), hasQuery()
 From: http://medialize.github.io/URI.js/docs.html#search-has
@@ -196,12 +203,9 @@ URI.build({
 Tests for URI.parse()
 From: https://medialize.github.io/URI.js/docs.html#static-parse
 */
-let parts = URI.parse('mailto:mail@example.org');
+const parts = URI.parse('mailto:mail@example.org');
 parts.path === "mail@example.org";
 parts.preventInvalidHostname = false;
 parts.protocol === "mailto";
 parts.urn === true;
-
-function test<T>(a: T, b: T): boolean {
-    return a === b;
 }
