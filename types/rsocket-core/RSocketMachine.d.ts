@@ -36,17 +36,11 @@ import { PayloadSerializers, IdentitySerializers } from './RSocketSerialization'
 export type Role = 'CLIENT' | 'SERVER';
 
 export class ResponderWrapper<D, M> implements Responder<D, M> {
-
   constructor(responder: Partial<Responder<D, M>>)
-
   setResponder(responder: Partial<Responder<D, M>>): void;
-
   fireAndForget(payload: Payload<D, M>): void;
-
   requestResponse(payload: Payload<D, M>): Single<Payload<D, M>>;
-
   requestStream(payload: Payload<D, M>): Flowable<Payload<D, M>>;
-
   requestChannel(payloads: Flowable<Payload<D, M>>): Flowable<Payload<D, M>>;
   metadataPush(payload: Payload<D, M>): Single<void>;
 }
