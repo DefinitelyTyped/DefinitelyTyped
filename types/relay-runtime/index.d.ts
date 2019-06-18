@@ -1,4 +1,4 @@
-// Type definitions for relay-runtime 4.0
+// Type definitions for relay-runtime 5.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
@@ -317,6 +317,8 @@ export type MissingFieldHandler =
               store: ReadonlyRecordSourceProxy
           ) => ReadonlyArray<DataID | null | undefined> | null | undefined;
       };
+
+export const RelayDefaultMissingFieldHandlers: ReadonlyArray<MissingFieldHandler>;
 
 export interface OperationLoader {
     get(reference: unknown): NormalizationSplitOperation | null | undefined;
@@ -1107,6 +1109,8 @@ export function getStorageKey(
     field: NormalizationField | NormalizationHandle | ReaderField,
     variables: Variables
 ): string;
+export function getModuleComponentKey(documentName: string): string;
+export function getModuleOperationKey(documentName: string): string;
 
 // Declarative mutation API
 // ./mutations/RelayDeclarativeMutationConfig
@@ -1159,8 +1163,8 @@ export { RelayConnectionHandler as ConnectionHandler };
 
 // ./handlers/viewer/RelayViewerHandler
 interface RelayViewerHandler {
-    readonly VIEWER_ID: string;
-    update(store: RecordSourceProxy, payload: HandleFieldPayload): void;
+    readonly VIEWER_ID: DataID;
+    readonly VIEWER_TYPE: 'Viewer';
 }
 declare const RelayViewerHandler: RelayViewerHandler;
 export { RelayViewerHandler as ViewerHandler };
@@ -1238,7 +1242,10 @@ export const RelayProfiler: RelayProfiler;
 // Internal API
 export function deepFreeze<T extends object>(value: T): T;
 
-export const RelayFeatureFlags: {
-    MERGE_FETCH_AND_FRAGMENT_VARS: boolean;
-    PREFER_FRAGMENT_OWNER_OVER_CONTEXT: boolean;
-};
+// ./utils/RelayFeatureFlags
+
+interface FeatureFlags {
+    ENABLE_VARIABLE_CONNECTION_KEY: boolean;
+}
+
+export const RelayFeatureFlags: FeatureFlags;

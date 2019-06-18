@@ -54,8 +54,9 @@ function handlerProvider(handle: any) {
         // Augment (or remove from) this list:
         case 'connection':
             return ConnectionHandler;
-        case 'viewer':
-            return ViewerHandler;
+        // case 'viewer':
+        //     // ViewerHandler is special-cased and does not have an `update` method
+        //     return ViewerHandler;
     }
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
