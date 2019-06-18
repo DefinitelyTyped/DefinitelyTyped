@@ -217,6 +217,12 @@ const Story = (() => {
         createRefetchContainer(ClassComponent3, { story: graphql`` }, graphql``);
     }
 
+    function canTakeComponentRef() {
+        const onLike = (id: string) => console.log(`Liked story #${id}`);
+        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        <StoryRefetchContainer story={story} onLike={onLike} componentRef={ref => console.log(ref)} />;
+    }
+
     return StoryRefetchContainer;
 })();
 
@@ -330,6 +336,12 @@ const Feed = (() => {
         class ClassComponent2 extends React.Component<{ relay: RelayPaginationProp }> {}
         // $ExpectError
         createFragmentContainer(ClassComponent2, {});
+    }
+
+    function canTakeComponentRef() {
+        const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
+        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={ref => console.log(ref)} />;
     }
 
     return FeedFragmentContainer;
@@ -476,6 +488,11 @@ type UserFeed_user = {
         class ClassComponent3 extends React.Component<{ relay: undefined }> {}
         // $ExpectError
         createPaginationContainer(ClassComponent3, {}, {} as any);
+    }
+
+    function canTakeComponentRef() {
+        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={ref => console.log(ref)} />;
     }
 };
 
