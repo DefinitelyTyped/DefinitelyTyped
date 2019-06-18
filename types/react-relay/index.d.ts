@@ -30,9 +30,11 @@ import {
 // ./ReactRelayTypes
 export interface RelayProp {
     environment: Environment;
+    refetch: undefined; // ensures no RelayRefetchProp is used with a fragment container
+    hasMore: undefined; // ensures no RelayPaginationProp is used with a fragment container
 }
 
-export interface RelayRefetchProp extends RelayProp {
+export interface RelayRefetchProp {
     environment: Environment;
     refetch: (
         refetchVariables: Variables | ((fragmentVariables: Variables) => Variables),
@@ -40,6 +42,7 @@ export interface RelayRefetchProp extends RelayProp {
         observerOrCallback?: ObserverOrCallback | null,
         options?: RefetchOptions
     ) => Disposable;
+    hasMore: undefined; // ensures no RelayPaginationProp is used with a refetch container
 }
 export interface RefetchOptions {
     force?: boolean;
@@ -62,6 +65,7 @@ export interface RelayPaginationProp {
         observerOrCallback?: ObserverOrCallback | null,
         refetchVariables?: Variables | null
     ) => Disposable | null | undefined;
+    refetch: undefined; // ensures no RelayRefetchProp is used with a pagination container
 }
 
 export interface _RefType<T> {
