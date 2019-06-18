@@ -2,6 +2,7 @@
 // Project: https://github.com/miskun/targz#readme
 // Definitions by: Alexander Curtis <https://github.com/alexandercurtis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.6
 
 declare module 'targz' {
     import * as tar from 'tar-fs';
