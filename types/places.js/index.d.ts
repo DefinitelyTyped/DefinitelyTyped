@@ -14,7 +14,8 @@ export = places;
 declare function places(options: places.PlacesStaticOptions): places.PlacesAutocomplete;
 
 declare namespace places {
-    enum PlaceType {
+    // tslint:disable-next-line:no-const-enum
+    const enum PlaceType {
         Country = "country",
         City = "city",
         Address = "address",
@@ -236,7 +237,7 @@ declare namespace places {
         computeQueryParams?: algoliasearch.QueryParameters;
     }
 
-    class PlacesAutocomplete extends EventEmitter {
+    interface PlacesAutocomplete extends EventEmitter {
         /**
          * Fired when suggestion selected in the dropdown or hint was validated.
          * @remarks
