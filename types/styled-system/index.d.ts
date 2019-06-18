@@ -21,7 +21,13 @@ import * as CSS from "csstype";
 
 export function get(obj: any, ...paths: Array<string | number>): any;
 
-export type Scale = object | Array<string | number>;
+export type ObjectOrArray<T> = T[] | { [K: string]: T | ObjectOrArray<T> };
+
+export type Scale = ObjectOrArray<number | string>;
+
+export type TLengthStyledSystem = string | 0 | number;
+
+export type ResponsiveValue<T> = T | Array<T | null> | { [key: string]: T };
 
 // Preserved to support v4 shim:
 // https://github.com/styled-system/styled-system/blob/master/packages/styled-system/src/index.js#L108
@@ -45,47 +51,44 @@ export function style<N = string | number, S = Scale>(
 
 export interface styleFn {
     (...args: any[]): any;
+    config?: object;
+    propNames?: string[];
+    cache?: object;
 }
 
-export interface CustomStyleDefinition {
+export interface ConfigStyle {
     /** The CSS property to use in the returned style object (overridden by `properties` if present). */
-    property?: string;
+    property?: keyof CSS.Properties;
     /**
      * An array of multiple properties (e.g. `['marginLeft', 'marginRight']`) to which this style's value will be
      * assigned (overrides `property` when present).
      */
-    properties?: string[];
+    properties?: Array<keyof CSS.Properties>;
     /** A string referencing a key in the `theme` object. */
     scale?: string;
     /** A fallback scale object for when there isn't one defined in the `theme` object. */
-    defaultScale?: any[];
+    defaultScale?: Scale;
     /** A function to transform the raw value based on the scale. */
     transform?: (value: any, scale?: Scale) => any;
 }
 
-export interface CustomStyleDefinitions {
+export interface Config {
     /** Property name exposed for use in components */
-    [customStyleName: string]: CustomStyleDefinition | boolean;
+    [customStyleName: string]: ConfigStyle | boolean;
 }
 
 export function compose(...parsers: styleFn[]): styleFn;
-export function system(styleDefinitions: CustomStyleDefinitions): styleFn;
+export function system(styleDefinitions: Config): styleFn;
 
 export interface VariantArgs {
     key?: string;
-    // Defaults to "variant"
+    /** Component prop, defaults to "variant" */
     prop?: string;
+    /** theme key for variant definitions */
+    scale?: string;
 }
 
 export function variant(props: VariantArgs): (...args: any[]) => any;
-
-export type TLengthStyledSystem = string | 0 | number;
-export type ResponsiveValue<T> =
-    | T
-    | Array<T | null>
-    | {
-          [key: string]: T;
-      };
 
 /**
  * Converts shorthand or longhand margin and padding props to margin and padding CSS declarations
@@ -174,12 +177,9 @@ export interface MarginProps
         | "mx"
     > {}
 export interface MarginTopProps extends Pick<SpaceProps, "mt" | "marginTop"> {}
-export interface MarginBottomProps
-    extends Pick<SpaceProps, "mb" | "marginBottom"> {}
-export interface MarginLeftProps
-    extends Pick<SpaceProps, "ml" | "marginLeft"> {}
-export interface MarginRightProps
-    extends Pick<SpaceProps, "mr" | "marginRight"> {}
+export interface MarginBottomProps extends Pick<SpaceProps, "mb" | "marginBottom"> {}
+export interface MarginLeftProps extends Pick<SpaceProps, "ml" | "marginLeft"> {}
+export interface MarginRightProps extends Pick<SpaceProps, "mr" | "marginRight"> {}
 
 export const margin: styleFn;
 export const marginTop: styleFn;
@@ -203,14 +203,10 @@ export interface PaddingProps
         | "py"
         | "px"
     > {}
-export interface PaddingTopProps
-    extends Pick<SpaceProps, "pt" | "paddingTop"> {}
-export interface PaddingBottomProps
-    extends Pick<SpaceProps, "pb" | "paddingBottom"> {}
-export interface PaddingLeftProps
-    extends Pick<SpaceProps, "pl" | "paddingLeft"> {}
-export interface PaddingRightProps
-    extends Pick<SpaceProps, "pr" | "paddingRight"> {}
+export interface PaddingTopProps extends Pick<SpaceProps, "pt" | "paddingTop"> {}
+export interface PaddingBottomProps extends Pick<SpaceProps, "pb" | "paddingBottom"> {}
+export interface PaddingLeftProps extends Pick<SpaceProps, "pl" | "paddingLeft"> {}
+export interface PaddingRightProps extends Pick<SpaceProps, "pr" | "paddingRight"> {}
 
 export const padding: styleFn;
 export const paddingTop: styleFn;
@@ -218,40 +214,26 @@ export const paddingBottom: styleFn;
 export const paddingLeft: styleFn;
 export const paddingRight: styleFn;
 
-export type ObjectOrArray<T> =
-    | T[]
-    | {
-          [K: string]: T | ObjectOrArray<T>;
-      };
-
-export interface BaseTheme {
+export interface Theme {
     breakpoints?: string[] | number[] | object;
-    colors?: ObjectOrArray<CSS.ColorProperty>;
-    fontSizes?: ObjectOrArray<CSS.FontSizeProperty<number>>;
+    mediaQueries?: { [size: string]: string };
     space?: ObjectOrArray<number | string>;
-}
-
-export interface Theme extends BaseTheme {
+    fontSizes?: ObjectOrArray<CSS.FontSizeProperty<number>>;
+    colors?: ObjectOrArray<CSS.ColorProperty>;
+    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
+    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
+    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
+    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
+    sizes?: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
     borders?: ObjectOrArray<CSS.BorderProperty<{}>>;
     borderStyles?: ObjectOrArray<CSS.BorderProperty<{}>>;
     borderWidths?: ObjectOrArray<CSS.BorderWidthProperty<{}>>;
-    buttons?: ObjectOrArray<CSS.StandardProperties>;
-    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
-    fontWeights?: ObjectOrArray<CSS.FontWeightProperty>;
-    fonts?: ObjectOrArray<CSS.FontFamilyProperty>;
-    heights?: ObjectOrArray<CSS.HeightProperty<{}>>;
-    letterSpacings?: ObjectOrArray<CSS.LetterSpacingProperty<{}>>;
-    lineHeights?: ObjectOrArray<CSS.LineHeightProperty<{}>>;
-    maxHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
-    maxWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
-    minHeights?: ObjectOrArray<CSS.HeightProperty<{}>>;
-    minWidths?: ObjectOrArray<CSS.WidthProperty<{}>>;
-    opacity?: ObjectOrArray<CSS.GlobalsNumber>;
     radii?: ObjectOrArray<CSS.BorderRadiusProperty<{}>>;
     shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
-    sizes?: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
+    zIndices?: ObjectOrArray<CSS.ZIndexProperty>;
+    buttons?: ObjectOrArray<CSS.StandardProperties>;
+    colorStyles?: ObjectOrArray<CSS.StandardProperties>;
     textStyles?: ObjectOrArray<CSS.StandardProperties>;
-    zIndeces?: ObjectOrArray<CSS.ZIndexProperty>;
 }
 
 /**

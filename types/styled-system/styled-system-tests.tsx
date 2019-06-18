@@ -196,7 +196,7 @@ const test = () => (
         `theme.colors['gray'][0]`
         <Box color="gray.0" />
         // raw CSS color value
-        <Box color="#f00" />
+        <Box color="#00f" />
         // fontFamily
         <Text fontFamily="mono" />
         // textAlign (responsive)
@@ -425,14 +425,8 @@ export const themeA: Theme = {
     },
     fontWeights: [100, 400, 700],
     fontSizes: [12, 14, 16],
-    heights: [0, '50vh', '100vh'],
     letterSpacings: [-1, 1, 3],
     lineHeights: [1, 1.25, 2],
-    maxHeights: ['50vh', '100vh'],
-    maxWidths: ['50%', '100%'],
-    minHeights: ['50vh', '100vh'],
-    minWidths: ['50%', '100%'],
-    opacity: [0, 0.25, 0.5, 0.75],
     radii: [0, 3, 9],
     shadows: ['1 1 3px -1 gray', '1 2 6px -1 gray'],
     sizes: [0, '33%', '50%', '100%'],
@@ -443,7 +437,13 @@ export const themeA: Theme = {
             letterSpacing: '0.2em'
         }
     },
-    zIndeces: [-1, 0, 1, 9999]
+    zIndices: [-1, 0, 1, 9999]
+};
+
+themeA.mediaQueries = {
+    small: '@media screen and (min-width: 32em)',
+    medium: '@media screen and (min-width: 64em)',
+    large: '@media screen and (min-width: 96em)',
 };
 
 // Some properties can be formatted differently
@@ -505,3 +505,6 @@ const buttonSizeWithGeneric = style<keyof typeof buttonSizes, typeof buttonSizes
     cssProperty: 'font-size',
     transformValue: (size, sizes) => sizes && sizes[size]
 });
+
+// Test that we can read `propNames` from `styleFn`
+const spacePropNames = space.propNames;
