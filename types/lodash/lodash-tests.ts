@@ -5254,6 +5254,23 @@ fp.now(); // $ExpectType number
     _({}).invert(); // $ExpectType LoDashImplicitWrapper<Dictionary<string>>
     _.chain({}).invert(); // $ExpectType LoDashExplicitWrapper<Dictionary<string>>
     fp.invert({}); // $ExpectType Dictionary<string>
+
+    const abxy: {
+        readonly a: 'x',
+        readonly b: 'y',
+    } = {
+        a: 'x',
+        b: 'y',
+    };
+    _.invert(abxy);  // $ExpectType { readonly x: "a", readonly y: "b" }
+    _(abxy).invert().value();  // $ExpectType { readonly x: "a", readonly y: "b" }
+    _.chain(abxy).invert().value();  // $ExpectType { readonly x: "a", readonly y: "b" }
+    fp.invert(abxy);  // $ExpectType { readonly x: "a", readonly y: "b" }
+
+    _.invert({
+        a: 'x',
+        b: 'y',
+    });  // $ExpectType Dictionary<"a" | "b">
 }
 
 // _.invertBy
