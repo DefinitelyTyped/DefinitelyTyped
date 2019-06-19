@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface InputEventInit extends UIEventInit {
-    data?: string | null | undefined;
+    data?: string | null;
     isComposing?: boolean;
 }
 
