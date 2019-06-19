@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 4.1
+// Type definitions for react-map-gl 5.0
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -193,7 +193,8 @@ export type EasingFunction = (t: number) => number;
 export enum TRANSITION_EVENTS {
     BREAK = 1,
     SNAP_TO_END = 2,
-    IGNORE = 3
+    IGNORE = 3,
+    UPDATE = 4
 }
 
 export class TransitionInterpolator {}
