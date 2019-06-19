@@ -9,7 +9,7 @@ export interface I18nProviderProps {
     i18n?: I18n;
     defaultRender?: ReactNode;
     locales?: string | string[];
-    missing?: string | Function;
+    missing?: string | ((language: string, id: string) => string);
 }
 
 export default class I18nProvider extends Component<I18nProviderProps> { }
