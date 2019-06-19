@@ -1082,9 +1082,9 @@ declare namespace NodeJS {
 
     interface Timer {
         hasRef(): boolean;
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
