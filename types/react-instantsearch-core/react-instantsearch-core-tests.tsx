@@ -299,14 +299,15 @@ import {
 };
 
 () => {
-  const MyCurrentRefinements = ({refine, items, query}: CurrentRefinementsProvided) =>
-    <>
-      {items.map((refinement) => (
-        <div key={refinement.id} onClick={() => refine(refinement.value) }>
-          <label>{refinement.label}</label>
-        </div>
-      ))}
-    </>;
+  const MyCurrentRefinements = ({ refine, items, query }: CurrentRefinementsProvided) => (
+      <>
+          {items.map(refinement => (
+              <div key={refinement.id} onClick={() => refine(refinement)}>
+                  <label>{refinement.label}</label>
+              </div>
+          ))}
+      </>
+  );
 
   const ConnectedCurrentRefinements = connectCurrentRefinements(MyCurrentRefinements);
 
@@ -314,34 +315,18 @@ import {
 };
 
 () => {
-  function renderRefinement(
-    label: string,
-    value: Refinement['value'],
-    refine: CurrentRefinementsProvided['refine'],
-  ) {
-    return <button className="badge badge-secondary" onClick={() => refine(value)}>
-        {label}
-      </button>;
+  function renderRefinement(label: string, value: Refinement, refine: CurrentRefinementsProvided['refine']) {
+      return (
+          <button className="badge badge-secondary" onClick={() => refine(value)}>
+              {label}
+          </button>
+      );
   }
 
   const MyCurrentRefinements = connectCurrentRefinements(({refine, items, query}: CurrentRefinementsProvided) => {
     return <>
         {items.map((refinement) => {
-          let str: string = refinement.currentRefinement; // $ExpectError
-          /*
-           * When existing several refinements for the same atribute name, then you get a
-           * nested items object that contains a label and a value function to use to remove a single filter.
-           * https://community.algolia.com/react-instantsearch/connectors/connectCurrentRefinements.html
-           */
-          if ('items' in refinement) {
-            str = refinement.currentRefinement; // $ExpectError
-            return <>
-              {refinement.items.map((i) => renderRefinement(i.label, i.value, refine))}
-            </>;
-          }
-
-          console.log(refinement.items); // $ExpectError
-          return renderRefinement(refinement.currentRefinement, refinement.value, refine);
+          return renderRefinement(refinement.label, refinement, refine);
         })}
       </>;
   });
