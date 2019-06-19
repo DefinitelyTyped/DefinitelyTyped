@@ -270,7 +270,7 @@ export type EventManager = any;
 
 export interface MapContextProps {
     viewport?: WebMercatorViewport;
-    map: MapboxGL.Map;
+    map?: MapboxGL.Map;
     mapContainer: HTMLElement | null;
     onViewStateChange?: ViewStateChangeHandler;
     onViewportChange?: ViewportChangeHandler;
