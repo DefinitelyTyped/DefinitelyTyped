@@ -1,4 +1,5 @@
 import * as data from '@wordpress/data';
+import { NamedFormatConfiguration } from '@wordpress/rich-text';
 
 data.select('core/block-editor').isTyping<boolean>();
 data.dispatch('core/block-editor').resetBlocks('');
@@ -34,3 +35,22 @@ const HookComponent = () => {
         </button>
     );
 };
+
+//
+// `dispatch` overload tests
+//
+data.dispatch('core/rich-text').addFormatTypes({
+    className: null,
+    edit: () => null,
+    name: 'my/foo',
+    tagName: 'a',
+    title: 'foo',
+});
+data.dispatch('core/rich-text').removeFormatTypes('my/foo');
+data.dispatch('core/rich-text').removeFormatTypes(['my/foo', 'my/bar']);
+
+//
+// `select` overload tests
+//
+data.select('core/rich-text').getFormatTypes(); // $ExpectType NamedFormatConfiguration[]
+data.select('core/rich-text').getFormatTypeForBareElement('a'); // $ExpectType NamedFormatConfiguration | undefined
