@@ -103,3 +103,8 @@ function doPost(e: GoogleAppsScript.Events.DoPost) {
 function doGet(e: GoogleAppsScript.Events.DoGet) {
   const params: object = e.parameters;
 }
+
+// Base Service
+function createFileFromBlob(blob: GoogleAppsScript.Base.Blob){
+  const file: GoogleAppsScript.Drive.File = DriveApp.createFile(blob);
+}
