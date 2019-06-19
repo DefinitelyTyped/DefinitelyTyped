@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export = React.__Addons.update;
+export default React.__Addons.update;
 
 declare module 'react' {
     interface UpdateSpecCommand {
@@ -32,4 +32,3 @@ declare module 'react' {
         export function update(value: {}, spec: UpdateSpec): any;
     }
 }
-
