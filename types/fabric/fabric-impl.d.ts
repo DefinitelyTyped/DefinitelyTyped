@@ -1387,6 +1387,13 @@ export class StaticCanvas {
 	 */
 	toDatalessJSON(propertiesToInclude?: string[]): string;
 
+    /**
+     * Returns JSON representation of canvas
+     * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+     * @return {String} JSON string
+     */
+    toJSON(propertiesToInclude?: string[]): string;
+
 	/**
 	 * Returns object representation of canvas
 	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
