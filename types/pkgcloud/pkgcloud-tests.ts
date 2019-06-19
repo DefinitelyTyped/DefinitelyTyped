@@ -29,6 +29,14 @@ pkgcloud.storage.createClient({
 	projectId: 'projectId'
 });
 
+// Openstack
+pkgcloud.storage.createClient({
+	provider: 'openstack',
+	authUrl: 'http://example.com',
+	username: 'username',
+	password: 'password'
+});
+
 // Upload a File
 {
 	const client = pkgcloud.storage.createClient({
