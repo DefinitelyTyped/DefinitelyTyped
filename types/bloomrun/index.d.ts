@@ -3,7 +3,7 @@
 // Definitions by: Ilham Khabibullin <https://github.com/ilhamkhabibullin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Algo = (a: PatternSet | any, b: PatternSet | any) => number
+type Algo = (a: PatternSet, b: PatternSet) => number
 type Pattern = { [key: string]: any }
 
 type onlyPatterns = (current: PatternSet) => Pattern
