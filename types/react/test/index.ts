@@ -10,7 +10,7 @@ import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
-import update = require("react-addons-update");
+import update from 'react-addons-update';
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
 
