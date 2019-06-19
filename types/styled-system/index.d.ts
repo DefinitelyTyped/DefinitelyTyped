@@ -79,6 +79,8 @@ export interface Config {
 
 export function compose(...parsers: styleFn[]): styleFn;
 export function system(styleDefinitions: Config): styleFn;
+export function createParser(config: ConfigStyle): styleFn;
+export function createStyleFunction(args: ConfigStyle): styleFn;
 
 export interface VariantArgs {
     key?: string;
