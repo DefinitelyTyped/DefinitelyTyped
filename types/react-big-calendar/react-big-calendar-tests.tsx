@@ -16,16 +16,16 @@ class CalendarEvent {
     title: string;
     allDay: boolean;
     start: Date;
-    end: Date;
+    endDate: Date;
     desc: string;
     resourceId?: string;
     tooltip?: string;
 
-    constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
+    constructor(_title: string, _start: Date, _endDate: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
         this.allDay = _allDay || false;
         this.start = _start;
-        this.end = _end;
+        this.endDate = _endDate;
         this.desc = _desc || '';
         this.resourceId = _resourceId;
     }
@@ -113,85 +113,87 @@ class CalendarResource {
     class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
-              <MyCalendar {...this.props}
-              date={new Date()}
-              getNow={() => new Date()}
-              view={'day'}
-              events={getEvents()}
-              onNavigate={(newDate: Date, view: View, action: Navigate) => { }}
-              onView={(view: View) => { }}
-              onSelectSlot={(slotInfo) => {
-                  const start = slotInfo.start;
-                  const end = slotInfo.end;
-                  const slots = slotInfo.slots;
-              }}
-              onSelectEvent={(event) => { }}
-              onSelecting={(slotInfo) => {
-                  const start = slotInfo.start;
-                  const end = slotInfo.end;
-                  return true;
-              }}
-              views={['day']}
-              toolbar={true}
-              popup={true}
-              popupOffset={20}
-              onShowMore={(events, date) => {
-                  console.log('onShowMore fired, events: %O, date: %O', events, date);
-              }}
-              selectable={true}
-              step={20}
-              rtl={true}
-              eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
-              titleAccessor={'title'}
-              tooltipAccessor={'tooltip'}
-              allDayAccessor={(event: CalendarEvent) => !!event.allDay}
-              startAccessor={'start'}
-              endAccessor={(event: CalendarEvent) => event.end || event.start}
-              min={new Date()}
-              max={new Date()}
-              scrollToTime={new Date()}
-              formats={{
-                  dateFormat: "h a",
-                  agendaDateFormat: (date: Date, culture?: string, localizer?: object) => "some-format",
-                  dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => "some-format"
-              }}
-              messages={{
-                date: 'Date',
-                time: 'Time',
-                event: 'Event',
-                allDay: 'All Day',
-                week: 'Week',
-                work_week: 'Work Week',
-                day: 'Day',
-                month: 'Month',
-                previous: 'Back',
-                next: 'Next',
-                yesterday: 'Yesterday',
-                tomorrow: 'Tomorrow',
-                today: 'Today',
-                agenda: 'Agenda',
-                noEventsInRange: 'There are no events in this range.',
-                showMore: total => `+${total} more`,
-              }}
-              timeslots={24}
-              defaultView={'month'}
-              className={'my-calendar'}
-              elementProps={{ id: 'myCalendar' }}
-              components={{
-                  event: Event,
-                  agenda: {
-                      event: EventAgenda
-                  },
-                  toolbar: Toolbar,
-                  eventWrapper: EventWrapper,
-              }}
-              dayPropGetter={customDayPropGetter}
-              slotPropGetter={customSlotPropGetter}
-              defaultDate={new Date()}
-              resources={getResources()}
-              resourceAccessor={event => event.resourceId}
-              resourceIdAccessor={resource => resource.id}
-              resourceTitleAccessor={resource => resource.title} />
+                <MyCalendar
+                    {...this.props}
+                    date={new Date()}
+                    getNow={() => new Date()}
+                    view={'day'}
+                    events={getEvents()}
+                    onNavigate={(newDate: Date, view: View, action: Navigate) => {}}
+                    onView={(view: View) => {}}
+                    onSelectSlot={slotInfo => {
+                        const start = slotInfo.start;
+                        const end = slotInfo.end;
+                        const slots = slotInfo.slots;
+                    }}
+                    onSelectEvent={event => {}}
+                    onSelecting={slotInfo => {
+                        const start = slotInfo.start;
+                        const end = slotInfo.end;
+                        return true;
+                    }}
+                    views={['day']}
+                    toolbar={true}
+                    popup={true}
+                    popupOffset={20}
+                    onShowMore={(events, date) => {
+                        console.log('onShowMore fired, events: %O, date: %O', events, date);
+                    }}
+                    selectable={true}
+                    step={20}
+                    rtl={true}
+                    eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
+                    titleAccessor={'title'}
+                    tooltipAccessor={'tooltip'}
+                    allDayAccessor={(event: CalendarEvent) => !!event.allDay}
+                    startAccessor={'start'}
+                    endAccessor={(event: CalendarEvent) => event.endDate || event.start}
+                    min={new Date()}
+                    max={new Date()}
+                    scrollToTime={new Date()}
+                    formats={{
+                        dateFormat: 'h a',
+                        agendaDateFormat: (date: Date, culture?: string, localizer?: object) => 'some-format',
+                        dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => 'some-format',
+                    }}
+                    messages={{
+                        date: 'Date',
+                        time: 'Time',
+                        event: 'Event',
+                        allDay: 'All Day',
+                        week: 'Week',
+                        work_week: 'Work Week',
+                        day: 'Day',
+                        month: 'Month',
+                        previous: 'Back',
+                        next: 'Next',
+                        yesterday: 'Yesterday',
+                        tomorrow: 'Tomorrow',
+                        today: 'Today',
+                        agenda: 'Agenda',
+                        noEventsInRange: 'There are no events in this range.',
+                        showMore: total => `+${total} more`,
+                    }}
+                    timeslots={24}
+                    defaultView={'month'}
+                    className={'my-calendar'}
+                    elementProps={{ id: 'myCalendar' }}
+                    components={{
+                        event: Event,
+                        agenda: {
+                            event: EventAgenda,
+                        },
+                        toolbar: Toolbar,
+                        eventWrapper: EventWrapper,
+                    }}
+                    dayPropGetter={customDayPropGetter}
+                    slotPropGetter={customSlotPropGetter}
+                    defaultDate={new Date()}
+                    resources={getResources()}
+                    resourceAccessor={event => event.resourceId}
+                    resourceIdAccessor={resource => resource.id}
+                    resourceTitleAccessor={resource => resource.title}
+                />
             );
         }
     }
