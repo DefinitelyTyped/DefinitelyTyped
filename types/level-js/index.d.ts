@@ -6,22 +6,23 @@
 
 import { AbstractLevelDOWN, AbstractOptions } from 'abstract-leveldown';
 
-export interface Level extends AbstractLevelDOWN {
-    readonly location: string;
-    readonly prefix: string;
-    readonly version: string | number;
-    destroy(location: string, cb: (err: Error | undefined) => void): void;
-    destroy(location: string, prefix: string, cb: (err: Error | undefined) => void): void;
+interface Level extends AbstractLevelDOWN {
+  readonly location: string;
+  readonly prefix: string;
+  readonly version: string | number;
+  destroy(location: string, cb: (err: Error | undefined) => void): void;
+  destroy(location: string, prefix: string, cb: (err: Error | undefined) => void): void;
 }
 
-export interface LevelOptions {
-    readonly prefix?: string;
-    readonly version?: string | number;
+interface LevelOptions {
+  readonly prefix?: string;
+  readonly version?: string | number;
 }
 
-export interface LevelConstructor {
-    new (location: string, options?: LevelOptions): Level;
-    (location: string, options?: LevelOptions): Level;
+interface LevelConstructor {
+  new (location: string, options?: LevelOptions): Level;
+  (location: string, options?: LevelOptions): Level;
 }
 
-export const Level: LevelConstructor;
+declare const Level: LevelConstructor;
+export = Level;
