@@ -6104,9 +6104,9 @@ declare namespace Stripe {
 
             /**
              * The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that
-             * particular subscription.
+             * particular subscription.  Passing null will remove any coupon previously applied to a subscription.
              */
-            coupon?: string;
+            coupon?: string | null;
 
             /**
              * @deprecated Use items property instead.
