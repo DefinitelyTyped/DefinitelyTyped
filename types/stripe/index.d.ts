@@ -4137,7 +4137,7 @@ declare namespace Stripe {
             /**
              * The ID of the payment method used to pay
              */
-            payment_method: string;
+            payment_method?: string;
 
             /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
