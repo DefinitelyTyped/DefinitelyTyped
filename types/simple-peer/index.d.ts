@@ -40,6 +40,7 @@ declare namespace SimplePeer {
     type SimplePeerData = string | Buffer | TypedArray | ArrayBuffer | Blob;
 
     interface SignalData {
+        type?: RTCSdpType;
         sdp?: any;
         candidate?: any;
     }
