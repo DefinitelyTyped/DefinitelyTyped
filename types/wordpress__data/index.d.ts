@@ -2,7 +2,7 @@
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 3.5
 
 import { ComponentType, Consumer, Provider, useContext } from 'react';
 import { AnyAction as Action, combineReducers, Reducer } from 'redux';
