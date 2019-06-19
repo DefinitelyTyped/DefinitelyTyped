@@ -227,7 +227,7 @@ export interface CurrentRefinementsExposed {
 
 export interface CurrentRefinementsProvided {
   /** a function to remove a single filter */
-  refine: (refinement: RefinementValue | RefinementValue[]) => void;
+  refine: (refinement: Refinement | Refinement[]) => void;
   /**
    * all the filters, the value is to pass to the refine function for removing all currentrefinements,
    * label is for the display. When existing several refinements for the same atribute name, then you
