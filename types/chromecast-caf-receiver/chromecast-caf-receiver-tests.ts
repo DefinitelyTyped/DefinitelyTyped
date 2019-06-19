@@ -87,28 +87,28 @@ const appData: cast.framework.system.ApplicationData = {
 const readyEvent = new cast.framework.system.ReadyEvent(appData);
 const data = readyEvent.data;
 // tslint:disable-next-line
-const pData: cast.framework.ui.PlayerData = {
-    breakPercentagePositions: [1],
-    currentBreakClipNumber: 2,
-    currentTime: 1234,
-    displayStatus: true,
-    duration: 222,
-    isBreakSkippable: false,
-    isLive: true,
-    isPlayingBreak: false,
-    isSeeking: true,
-    // tslint:disable-next-line
-    metadata: new cast.framework.messages.MediaMetadata(cast.framework.messages.MetadataType.GENERIC),
-    nextSubtitle: 'sub',
-    nextThumbnailUrl: 'url',
-    nextTitle: 'title',
-    numberBreakClips: 3,
-    preloadingNext: false,
-    state: 'paused',
-    thumbnailUrl: 'url',
-    title: 'title',
-    whenSkippable: 321,
-};
+const pData = new cast.framework.ui.PlayerData();
+pData.breakPercentagePositions = [1];
+pData.currentBreakClipNumber = 2;
+pData.currentTime = 1234;
+pData.displayStatus = true;
+pData.duration = 222;
+pData.isBreakSkippable = false;
+pData.isLive = true;
+pData.isPlayingBreak = false;
+pData.isSeeking = true;
+// tslint=disable-next-lin;
+pData.metadata = new cast.framework.messages.MediaMetadata(cast.framework.messages.MetadataType.GENERIC);
+pData.nextSubtitle = 'sub';
+pData.nextThumbnailUrl = 'url';
+pData.nextTitle = 'title';
+pData.numberBreakClips = 3;
+pData.preloadingNext = false;
+pData.state = 'paused';
+pData.thumbnailUrl = 'url';
+pData.title = 'title';
+pData.whenSkippable = 321;
+
 // tslint:disable-next-line
 const playerDataBinderWithPlayerData = new cast.framework.ui.PlayerDataBinder(pData);
 const binder = new cast.framework.ui.PlayerDataBinder({});
