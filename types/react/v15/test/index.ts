@@ -9,7 +9,7 @@ import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import shallowCompare = require("react-addons-shallow-compare");
 import * as TestUtils from "react-addons-test-utils";
 import TransitionGroup = require("react-addons-transition-group");
-import update = require("react-addons-update");
+import update from 'react-addons-update';
 
 // NOTE: forward declarations for tests
 declare function setInterval(...args: any[]): any;
