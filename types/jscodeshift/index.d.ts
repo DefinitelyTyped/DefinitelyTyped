@@ -5,7 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-/// <reference path="./src/testUtils.d.ts" />
 import core = require("./src/core");
 
 export = core;
