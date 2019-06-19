@@ -220,7 +220,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     maxPitch?: number;
     minPitch?: number;
     onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler
+    onViewportChange?: ViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
     transitionDuration?: number;
     transitionInterpolator?: TransitionInterpolator;
@@ -312,7 +312,7 @@ export class Popup extends BaseControl<PopupProps, HTMLDivElement> {}
 
 export interface NavigationControlProps extends BaseControlProps {
     className?: string;
-    onViewStateChange?: ViewStateChangeHandler
+    onViewStateChange?: ViewStateChangeHandler;
     onViewportChange?: ViewportChangeHandler;
     showCompass?: boolean;
     showZoom?: boolean;
@@ -351,7 +351,7 @@ export interface DraggableControlProps extends BaseControlProps {
     onDragStart?: (event: DragEvent) => void;
 }
 
-export class DraggableControl extends BaseControl<DraggableControlProps, HTMLDivElement> {}
+export class DraggableControl<T extends DraggableControlProps> extends BaseControl<T, HTMLDivElement> {}
 
 export interface MarkerProps extends DraggableControlProps {
     className?: string;
