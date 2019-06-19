@@ -13,8 +13,15 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/data": ["wordpress__data"]
+            "@wordpress/element": ["wordpress__element"],
+            "@wordpress/data": ["wordpress__data"],
+            "@wordpress/rich-text": ["wordpress__rich-text"]
         }
     },
-    "files": ["index.d.ts", "wordpress__data-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "stores/rich-text/actions.d.ts",
+        "stores/rich-text/selectors.d.ts",
+        "wordpress__data-tests.tsx"
+    ]
 }
