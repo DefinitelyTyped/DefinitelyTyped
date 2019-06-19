@@ -31,7 +31,7 @@ export declare class Queue extends events.EventEmitter {
     setupTimer(): void;
     checkJobPromotion(ms: number): void;
     checkActiveJobTtl(ttlOptions: Object): void;
-    watchStuckJobs(ms: number): void;
+    watchStuckJobs(ms?: number): void;
     setting(name: string, fn: Function): Queue;
     process(type: string, fn?: ProcessCallback): void;
     process(type: string, n: number, fn?: ProcessCallback): void;
