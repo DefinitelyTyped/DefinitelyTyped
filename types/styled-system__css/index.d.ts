@@ -2,10 +2,17 @@
 // Project: https://github.com/styled-system/styled-system
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import * as CSS from 'csstype';
 
+/**
+ * Omit exists in TypeScript >= v3.5, we're putting this here so typings can be
+ * used with earlier versions of TypeScript.
+ */
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+export {};
 
 /**
  * The `css` function accepts arrays as values for mobile-first responsive styles.
