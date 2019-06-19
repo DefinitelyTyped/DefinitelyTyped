@@ -89,7 +89,6 @@ const data = readyEvent.data;
 // tslint:disable-next-line
 const pData: cast.framework.ui.PlayerData = {
     breakPercentagePositions: [1],
-    contentType: 'video',
     currentBreakClipNumber: 2,
     currentTime: 1234,
     displayStatus: true,

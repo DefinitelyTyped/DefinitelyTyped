@@ -277,7 +277,7 @@ export class PlayerData {
     queueData?: QueueData;
 
     /**
-     *Indicate the section duration in seconds.
+     * Indicate the section duration in seconds.
      */
     sectionDuration?: number;
 
@@ -290,11 +290,6 @@ export class PlayerData {
      * Current player state.
      */
     state: State;
-
-    /**
-     * The commands supported by this player.
-     */
-    supportedMediaCommands: number;
 
     /**
      * Content thumbnail url.
