@@ -25,3 +25,4 @@ export interface LevelConstructor {
 }
 
 export const Level: LevelConstructor;
+export default Level;
