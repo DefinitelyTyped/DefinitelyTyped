@@ -682,10 +682,28 @@ export interface LineOptions {
 }
 
 export interface RegionOptions {
+    /**
+     * The axis on which `start` and `end` values lie.
+     */
     axis?: "x" | "y" | "y2";
+    /**
+     * The point on the axis at which to start the region. If not provided, will
+     * use the start edge of the axis.
+     */
     start?: string | number | Date;
+    /**
+     * The point on the axis at which to end the region. If not provided, will
+     * use the end edge of the axis.
+     */
     end?: string | number | Date;
+    /**
+     * An optional class to apply to the region, which can be used for styling
+     * or targeting.
+     */
     class?: string;
+    /**
+     * Control the opacity of the region area.
+     */
     opacity?: number;
 }
 
