@@ -3211,6 +3211,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "ui-box",
+            "typingsPackageName": "ui-box",
+            "sourceRepoURL": "https://github.com/segmentio/ui-box",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "uk.co.workingedge.phonegap.plugin.istablet",
             "typingsPackageName": "uk.co.workingedge.phonegap.plugin.istablet",
             "sourceRepoURL": "https://github.com/dpa99c/phonegap-istablet",
