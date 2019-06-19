@@ -3,6 +3,7 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski>
 //                 Rodrigo Saboya <https://github.com/saboya>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Geoff Goodman <https://github.com/ggoodman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -28,7 +29,7 @@ interface RequestOptions {
     maxBytes?: number;
     rejectUnauthorized?: boolean;
     downstreamRes?: any;
-    agent?: WreckObject["agents"] | false;
+    agent?: http.Agent | false;
     secureProtocol?: string;
     ciphers?: string;
     events?: boolean;
