@@ -1,40 +1,51 @@
-import { PlayerDataEventType } from "./cast.framework.ui";
-import { MediaMetadata } from "./cast.framework.messages";
+import { MediaMetadata } from './cast.framework.messages';
 
-export as namespace ui
-export type ContentType = "video" | "audio" | "image";
+export as namespace ui;
+export type ContentType = 'video' | 'audio' | 'image';
 
-export type State =
-    | "launching"
-    | "idle"
-    | "loading"
-    | "buffering"
-    | "paused"
-    | "playing";
+export type State = 'launching' | 'idle' | 'loading' | 'buffering' | 'paused' | 'playing';
 
-export type PlayerDataEventType =
-    | "ANY_CHANGE"
-    | "STATE_CHANGED"
-    | "IS_SEEKING_CHANGED"
-    | "DURATION_CHANGED"
-    | "CURRENT_TIME_CHANGED"
-    | "METADATA_CHANGED"
-    | "TITLE_CHANGED"
-    | "SUBTITLE_CHANGED"
-    | "THUMBNAIL_URL_CHANGED"
-    | "NEXT_TITLE_CHANGED"
-    | "NEXT_SUBTITLE_CHANGED"
-    | "NEXT_THUMBNAIL_URL_CHANGED"
-    | "PRELOADING_NEXT_CHANGED"
-    | "CONTENT_TYPE_CHANGED"
-    | "IS_LIVE_CHANGED"
-    | "BREAK_PERCENTAGE_POSITIONS_CHANGED"
-    | "IS_PLAYING_BREAK_CHANGED"
-    | "IS_BREAK_SKIPPABLE_CHANGED"
-    | "WHEN_SKIPPABLE_CHANGED"
-    | "NUMBER_BREAK_CLIPS_CHANGED"
-    | "CURRENT_BREAK_CLIP_NUMBER_CHANGED"
-    | "DISPLAY_STATUS_CHANGED";
+export enum PlayerDataEventType {
+    ACTIVE_TRACK_IDS_CHANGED = 'activeTrackIdsChanged',
+    ANY_CHANGE = '*',
+    APPLICATION_DATA_CHANGED = 'applicationDataChanged',
+    BREAK_PERCENTAGE_POSITIONS_CHANGED = 'breakPercentagePositionsChanged',
+    BREAK_TITLE_CHANGED = 'breakTitleChanged',
+    CONTENT_TYPE_CHANGED = 'contentTypeChanged',
+    CURRENT_BREAK_CLIP_NUMBER_CHANGED = 'currentBreakClipNumberChanged',
+    CURRENT_TIME_CHANGED = 'currentTimeChanged',
+    CUSTOM_STATE_CHANGED = 'customStateChanged',
+    DISPLAY_STATUS_CHANGED = 'displayStatusChanged',
+    DISPLAY_TYPE_CHANGED = 'displayTypeChanged',
+    DURATION_CHANGED = 'durationChanged',
+    IS_AT_LIVE_EDGE_CHANGED = 'isAtLiveEdgeChanged',
+    IS_BREAK_SKIPPABLE_CHANGED = 'isBreakSkippableChanged',
+    IS_LIVE_CHANGED = 'isLiveChanged',
+    IS_PLAYING_BREAK_CHANGED = 'isPlayingBreakChanged',
+    IS_SEEKING_CHANGED = 'isSeekingChanged',
+    LIVE_SEEKABLE_RANGE_CHANGED = 'liveSeekableRangeChanged',
+    MEDIA_CATEGORY_CHANGED = 'mediaCategoryChanged',
+    MEDIA_CHANGED = 'mediaChanged',
+    MEDIA_SESSION_ID_CHANGED = 'mediaSessionIdChanged',
+    MEDIA_START_ABSOLUTE_TIME_CHANGED = 'mediaStartAbsoluteTimeChanged',
+    METADATA_CHANGED = 'metadataChanged',
+    NEXT_SUBTITLE_CHANGED = 'nextSubtitleChanged',
+    NEXT_THUMBNAIL_URL_CHANGED = 'nextThumbnailUrlChanged',
+    NEXT_TITLE_CHANGED = 'nextTitleChanged',
+    NUMBER_BREAK_CLIPS_CHANGED = 'numberBreakClipsChanged',
+    PLAYBACK_RATE_CHANGED = 'playbackRateChanged',
+    PRELOADING_NEXT_CHANGED = 'preloadingNextChanged',
+    PRESENTATION_CHANGED = 'presentationChanged',
+    QUEUE_DATA_CHANGED = 'queueDataChanged',
+    SECTION_DURATION_CHANGED = 'sectionDurationChanged',
+    SECTION_START_TIME_IN_MEDIA_CHANGED = 'sectionStartTimeInMediaChanged',
+    STATE_CHANGED = 'stateChanged',
+    SUBTITLE_CHANGED = 'subtitleChanged',
+    SUPPORTED_MEDIA_COMMANDS_CHANGED = 'supportedMediaCommandsChanged',
+    THUMBNAIL_URL_CHANGED = 'thumbnailUrlChanged',
+    TITLE_CHANGED = 'titleChanged',
+    WHEN_SKIPPABLE_CHANGED = 'whenSkippableChanged',
+}
 
 /**
  * Player data changed event. Provides the changed field (type); and new value.
@@ -59,28 +70,24 @@ export class PlayerDataChangedEvent {
  * The player data will be updated to reflect correctly the current player state without firing any change event.
  */
 export class PlayerDataBinder {
-    constructor(playerData: PlayerData);
+    constructor(playerData: object | PlayerData);
 
     /**
      * Add listener to player data changes.
      */
-    addEventListener: (
-        type: PlayerDataEventType,
-        listener: PlayerDataChangedEventHandler
-    ) => void;
+    addEventListener: (type: PlayerDataEventType, listener: PlayerDataChangedEventHandler) => void;
 
     /**
      * Remove listener to player data changes.
      */
-    removeEventListener: (
-        type: PlayerDataEventType,
-        listener: PlayerDataChangedEventHandler
-    ) => void;
+    removeEventListener: (type: PlayerDataEventType, listener: PlayerDataChangedEventHandler) => void;
 }
 /**
  * Player data. Provide the player media and break state.
  */
-export interface PlayerData {
+export class PlayerData {
+    constructor();
+
     /**
      * Array of breaks positions in percentage.
      */
