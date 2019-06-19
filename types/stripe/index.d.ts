@@ -4135,6 +4135,11 @@ declare namespace Stripe {
             currency: string;
 
             /**
+             * The ID of the payment method used to pay
+             */
+            payment_method: string;
+
+            /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
             payment_method_types: string[];
@@ -4155,7 +4160,7 @@ declare namespace Stripe {
             confirm?: boolean;
 
             /**
-             * Whether to use the publishable key automatic method, or the secret key manula method
+             * Whether to use the publishable key automatic method, or the secret key manual method
              */
             confirmation_method?: 'automatic' | 'manual';
 
