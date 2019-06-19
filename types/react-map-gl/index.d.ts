@@ -74,7 +74,7 @@ export interface QueryRenderedFeaturesParams {
     filter?: any[];
 }
 
-export class StaticMap extends React.Component<StaticMapProps> {
+export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
@@ -258,7 +258,7 @@ export interface InteractiveMapProps extends StaticMapProps {
     controller?: MapController;
 }
 
-export class InteractiveMap extends React.Component<InteractiveMapProps> {
+export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
     queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
