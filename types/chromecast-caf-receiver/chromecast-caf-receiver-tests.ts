@@ -60,24 +60,23 @@ const breakManager: cast.framework.breaks.BreakManager = {
 };
 
 // tslint:disable-next-line
-const lrd: cast.framework.messages.LoadRequestData = {
-    requestId: 1,
-    activeTrackIds: [1, 2],
-    media: {
-        tracks: [],
-        textTrackStyle: {},
-        streamType: "BUFFERED",
-        metadata: {
-            metadataType: cast.framework.messages.MetadataType.GENERIC
-        },
-        hlsSegmentFormat: "aac",
-        contentId: "id",
-        contentType: "type",
-        breakClips: [breakClip],
-        breaks: [adBreak]
+const lrd = new cast.framework.messages.LoadRequestData();
+lrd.requestId = 1;
+lrd.activeTrackIds = [1, 2];
+lrd.media = {
+    tracks: [],
+    textTrackStyle: {},
+    streamType: "BUFFERED",
+    metadata: {
+        metadataType: cast.framework.messages.MetadataType.GENERIC
     },
-    queueData: {}
+    hlsSegmentFormat: "aac",
+    contentId: "id",
+    contentType: "type",
+    breakClips: [breakClip],
+    breaks: [adBreak]
 };
+lrd.queueData = {};
 
 // tslint:disable-next-line
 const appData: cast.framework.system.ApplicationData = {

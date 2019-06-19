@@ -68,15 +68,15 @@ export interface RegisteredField {
     type: "Field" | "FieldArray";
 }
 
-export interface InjectedFormProps<FormData = any, P = {}, ErrorType = string> {
+export interface InjectedFormProps<FormData = {}, P = {}, ErrorType = string> {
     anyTouched: boolean;
     array: InjectedArrayProps;
     asyncValidate(): void;
-    asyncValidating: keyof FormData | boolean;
-    autofill<F extends keyof FormData>(field: F, value: FormData[F]): void;
-    blur<F extends keyof FormData>(field: F, value: FormData[F]): void;
-    change<F extends keyof FormData>(field: F, value: FormData[F]): void;
-    clearAsyncError(field: keyof FormData): void;
+    asyncValidating: string | boolean;
+    autofill(field: string, value: any): void;
+    blur(field: string, value: any): void;
+    change(field: string, value: any): void;
+    clearAsyncError(field: string): void;
     destroy(): void;
     dirty: boolean;
     error: ErrorType;
@@ -91,8 +91,8 @@ export interface InjectedFormProps<FormData = any, P = {}, ErrorType = string> {
     submitFailed: boolean;
     submitSucceeded: boolean;
     submitting: boolean;
-    touch(...field: Array<keyof FormData>): void;
-    untouch(...field: Array<keyof FormData>): void;
+    touch(...field: string[]): void;
+    untouch(...field: string[]): void;
     valid: boolean;
     warning: any;
     registeredFields: { [name: string]: RegisteredField };

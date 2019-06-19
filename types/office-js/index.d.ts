@@ -580,6 +580,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          *
          * **Namespaces**:
@@ -614,6 +615,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         roamingSettings: Office.RoamingSettings;
@@ -644,7 +646,7 @@ declare namespace Office {
      */
     interface Error {
         /**
-         * Gets the numeric code of the error.
+         * Gets the numeric code of the error. For a list of error codes, see {@link https://docs.microsoft.com/office/dev/add-ins/reference/javascript-api-for-office-error-codes | JavaScript API for Office error codes}.
          */
         code: number;
         /**
@@ -665,6 +667,7 @@ declare namespace Office {
          * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
@@ -692,6 +695,7 @@ declare namespace Office {
              * @remarks
              * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+             * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
              * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter.
@@ -15014,7 +15018,7 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          *                 The token is provided as a string in the `asyncResult.value` property.
          *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         * @param userContext - Optional. Any state data that is passed to the asynchronous method.|
+         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
         getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
@@ -29973,7 +29977,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the Excel PivotHierarchy.
+     * Represents a single pivot hierarchy within a PivotTable.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30577,7 +30581,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * A collection of PivotField objects within a PivotHierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30588,14 +30592,14 @@ declare namespace Excel {
         readonly items: Excel.PivotField[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of pivot fields in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotField by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
@@ -30604,11 +30608,11 @@ declare namespace Excel {
         getItem(name: string): Excel.PivotField;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotField by name. If the PivotField does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotField;
         /**
@@ -30637,7 +30641,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the Excel PivotField.
+     * Represents a single pivot field within a PivotHierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30646,7 +30650,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the PivotFields associated with the PivotField.
+         * Returns the PivotItems that comprise with the PivotField.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -30761,7 +30765,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the Pivot Items related to their parent PivotField.
+     * Represents a collection of all the PivotItem objects related to their parent PivotField.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30772,14 +30776,14 @@ declare namespace Excel {
         readonly items: Excel.PivotItem[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of pivot items in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotItem by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
@@ -30788,11 +30792,11 @@ declare namespace Excel {
         getItem(name: string): Excel.PivotItem;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotItem by name. If the PivotItem does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotItem;
         /**

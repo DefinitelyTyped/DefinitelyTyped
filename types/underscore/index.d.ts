@@ -6,6 +6,7 @@
 //                 Ard Timmerman <https://github.com/confususs>,
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>,
 //                 Florian Keller <https://github.com/ffflorian>
+//                 Regev Brody <https://github.com/regevbr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3710,9 +3711,9 @@ declare module _ {
         * @keys The key/value pairs to keep on `object`.
         * @return Copy of `object` with only the `keys` properties.
         **/
-        pick(
-            object: any,
-            ...keys: any[]): any;
+        pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
+        pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>;
+        pick<T, K extends keyof T>(obj: T, predicate: ObjectIterator<T[K], boolean>): Pick<T, K>;
 
         /**
         * @see _.pick
@@ -3764,7 +3765,7 @@ declare module _ {
         * @param prototype The prototype that the returned object will inherit from.
         * @param props Additional props added to the returned object.
         **/
-        create(prototype: any, props?: Object): any;
+        create(prototype: any, props?: object): any;
 
         /**
         * Create a shallow-copied clone of the object.
@@ -3812,14 +3813,14 @@ declare module _ {
         * @param key Property of the object.
         * @return Function which accept an object an returns the value of key in that object.
         **/
-        property(key: string | string[]): (object: Object) => any;
+        property(key: string | number | Array<string | number>): (object: object) => any;
 
         /**
         * Returns a function that will itself return the value of a object key property.
         * @param key The object to get the property value from.
         * @return Function which accept a key property in `object` and returns its value.
         **/
-        propertyOf(object: Object): (key: string | string[]) => any;
+        propertyOf(object: object): (key: string | number | Array<string | number>) => any;
 
         /**
         * Performs an optimized deep comparison between the two objects,
@@ -4043,7 +4044,7 @@ declare module _ {
         **/
         iteratee(value: string): Function;
         iteratee(value: Function, context?: any): Function;
-        iteratee(value: Object): Function;
+        iteratee(value: object): Function;
 
         /**
         * Generate a globally-unique id for client-side models or DOM elements that need one.
@@ -4810,7 +4811,7 @@ declare module _ {
         * Wrapped type `any`.
         * @see _.create
         **/
-        create(props?: Object): any;
+        create(props?: object): any;
 
         /**
         * Wrapped type `any[]`.
@@ -4846,7 +4847,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.property
         **/
-        property(): (object: Object) => any;
+        property(): (object: object) => any;
 
         /**
         * Wrapped type `object`.
@@ -5776,7 +5777,7 @@ declare module _ {
          * Wrapped type `any`.
          * @see _.create
          **/
-        create(props?: Object): _Chain<T>;
+        create(props?: object): _Chain<T>;
 
         /**
         * Wrapped type `any[]`.

@@ -149,6 +149,8 @@ const VisitorStateTest: Visitor<SomeVisitorState> = {
     }
 };
 
+traverse(ast, VisitorStateTest, undefined, { someState: "test" });
+
 const VisitorAliasTest: Visitor = {
     Function() {},
     Expression() {},

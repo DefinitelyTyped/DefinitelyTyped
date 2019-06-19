@@ -6,5 +6,5 @@
 
 import { GraphQLScalarType } from "graphql";
 
-declare const GraphQLJSON: GraphQLScalarType;
-export = GraphQLJSON;
+declare const GraphQLUUID: GraphQLScalarType;
+export = GraphQLUUID;

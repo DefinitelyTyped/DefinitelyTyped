@@ -3056,6 +3056,9 @@ declare namespace Cesium {
     }
 
     class Globe {
+        atmosphereBrightnessShift: number;
+        atmosphereSaturationShift: number;
+        atmosphereHueShift: number;
         terrainProvider: TerrainProvider;
         northPoleColor: Cartesian3;
         southPoleColor: Cartesian3;
@@ -3634,6 +3637,45 @@ declare namespace Cesium {
         constructor(options?: { translucent?: boolean; material?: Material; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
     }
 
+    class PostProcessStage {
+        readonly clearColor: Color;
+        enabled: boolean;
+        readonly forcePowerOfTwo: boolean;
+        readonly fragmentShader: string;
+        readonly name: string;
+        readonly pixelFormat: PixelFormat;
+        readonly ready: boolean;
+        readonly scissorRectangle: BoundingRectangle;
+        selected: any[];
+        readonly textureScale: number;
+        readonly uniforms: object;
+        constructor(options?: {
+            fragmentShader: string;
+            uniforms?: object;
+            textureScale?: number;
+            forcePowerOfTwo?: boolean;
+            pixelFormat?: PixelFormat;
+            clearColor?: Color;
+            scissorRectangle?: BoundingRectangle;
+            name?: string;
+        });
+        destroy(): void;
+        isDestroyed(): boolean;
+    }
+
+    class PostProcessStageCollection {
+        readonly fxaa: PostProcessStage;
+        readonly length: number;
+        readonly ready: boolean;
+        add(stage: PostProcessStage): PostProcessStage;
+        contains(stage: PostProcessStage): boolean;
+        destroy(): void;
+        get(index: number): PostProcessStage;
+        isDestroyed(): boolean;
+        remove(stage: PostProcessStage): boolean;
+        removeAll(): void;
+    }
+
     class Primitive {
         readonly allowPicking: boolean;
         appearance: Appearance;
@@ -3741,6 +3783,8 @@ declare namespace Cesium {
         fxaa: boolean;
         globe: Globe;
         readonly groundPrimitives: PrimitiveCollection;
+        highDynamicRange: boolean;
+        highDynamicRangeSupported: boolean;
         readonly id: string;
         readonly imageryLayers: ImageryLayerCollection;
         imagerySplitPosition: number;
@@ -3755,7 +3799,7 @@ declare namespace Cesium {
         maximumRenderTimeChange: number;
         minimumDisableDepthTestDistance: number;
         mode: SceneMode;
-        moon: Moon;
+        moon?: Moon;
         morphComplete: Event;
         morphStart: Event;
         morphTime: number;
@@ -3763,6 +3807,7 @@ declare namespace Cesium {
         readonly orderIndependentTranslucency: boolean;
         readonly pickPositionSupported: boolean;
         pickTranslucentDepth: boolean;
+        postProcessStages: PostProcessStageCollection;
         readonly postRender: Event;
         readonly preRender: Event;
         readonly preUpdate: Event;
@@ -3773,9 +3818,9 @@ declare namespace Cesium {
         readonly scene3DOnly: boolean;
         readonly screenSpaceCameraController: ScreenSpaceCameraController;
         shadowMap: ShadowMap;
-        skyAtmosphere: SkyAtmosphere;
-        skyBox: SkyBox;
-        sun: Sun;
+        skyAtmosphere?: SkyAtmosphere;
+        skyBox?: SkyBox;
+        sun?: Sun;
         sunBloom: boolean;
         terrainExaggeration: number;
         terrainProvider: TerrainProvider;
@@ -3846,6 +3891,9 @@ declare namespace Cesium {
     class SkyAtmosphere {
         show: boolean;
         ellipsoid: Ellipsoid;
+        saturationShift: number;
+        hueShift: number;
+        brightnessShift: number;
         constructor(ellipsoid?: Ellipsoid);
         isDestroyed(): boolean;
         destroy(): void;

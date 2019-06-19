@@ -216,6 +216,12 @@ export interface HtmlRenderingOptions extends XmlRenderingOptions {
      *  if true, source position information for block-level elements will be rendered in the data-sourcepos attribute (for HTML) or the sourcepos attribute (for XML).
      */
     sourcepos?: boolean;
+
+    /**
+     * A raw string to be used for a softbreak.
+     * For example, `{ softbreak: "<br/>" }` treats a softbreak as `<br/>`.
+     */
+    softbreak?: string;
 }
 
 export interface XmlRenderingOptions {

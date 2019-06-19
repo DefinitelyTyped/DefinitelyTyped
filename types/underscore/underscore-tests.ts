@@ -340,7 +340,13 @@ _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
 _.extendOwn({ name: 'moe'}, { age: 50 });
 _.assign({ name: 'moe'}, { age: 50 });
-_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
+
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age').age = 5;
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']).age = 5;
+_.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => {
+    return key === 'name' || key === 'age';
+}).age = 5;
+
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
@@ -388,7 +394,7 @@ _.isObject(1);
 
 _.property('name')(moe);
 _.property(['name'])(moe);
-
+_.property(['luckyNumbers', 2])(moe)
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);
 _.isArguments([1, 2, 3]);

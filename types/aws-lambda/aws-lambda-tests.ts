@@ -413,6 +413,7 @@ authResponse = {
 // CognitoUserPoolEvent
 num = cognitoUserPoolEvent.version;
 cognitoUserPoolEvent.triggerSource === "PreSignUp_SignUp";
+cognitoUserPoolEvent.triggerSource === "PreSignUp_ExternalProvider";
 cognitoUserPoolEvent.triggerSource === "PostConfirmation_ConfirmSignUp";
 cognitoUserPoolEvent.triggerSource === "PreAuthentication_Authentication";
 cognitoUserPoolEvent.triggerSource === "PostAuthentication_Authentication";
