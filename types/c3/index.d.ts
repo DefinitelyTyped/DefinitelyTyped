@@ -682,7 +682,7 @@ export interface LineOptions {
 }
 
 export interface RegionOptions {
-    axis?: string;
+    axis?: "x" | "y" | "y2";
     start?: string | number | Date;
     end?: string | number | Date;
     class?: string;
