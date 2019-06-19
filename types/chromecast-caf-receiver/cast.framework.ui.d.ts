@@ -1,4 +1,11 @@
-import { MediaMetadata } from './cast.framework.messages';
+import {
+    MediaMetadata,
+    LiveSeekableRange,
+    MediaInformation,
+    MediaCategory,
+    QueueData,
+} from './cast.framework.messages';
+import { CastReceiverContext } from './cast.framework';
 
 export as namespace ui;
 export type ContentType = 'video' | 'audio' | 'image';
@@ -48,6 +55,33 @@ export enum PlayerDataEventType {
 }
 
 /**
+ * Data about running application or remote controlled application.
+ */
+export class ApplicationData {
+    constructor(name: string, iconUrl: string, groupName?: string, isRemoteControl?: boolean);
+
+    /**
+     * Name of audio group for running app.
+     */
+    groupName: string;
+
+    /**
+     * Application icon URL
+     */
+    iconUrl: string;
+
+    /**
+     * Whether the application is running as a remote control to another playback receiver;
+     */
+    isRemoteControl: boolean;
+
+    /**
+     * Application name.
+     */
+    name: string;
+}
+
+/**
  * Player data changed event. Provides the changed field (type); and new value.
  */
 export class PlayerDataChangedEvent {
@@ -89,14 +123,24 @@ export class PlayerData {
     constructor();
 
     /**
+     * Active track ids of current media.
+     */
+    activeTrackIds: number[];
+
+    /**
+     * Application data.
+     */
+    applicationData?: ApplicationData;
+
+    /**
      * Array of breaks positions in percentage.
      */
     breakPercentagePositions: number[];
 
     /**
-     * Content Type.
+     * Title of the current playing break;
      */
-    contentType: ContentType;
+    breakTitle: string;
 
     /**
      * The number of the current playing break clip in the break.
@@ -107,6 +151,13 @@ export class PlayerData {
      * Media current position in seconds; or break current position if playing break.
      */
     currentTime: number;
+
+    /**
+     * User custom state, Should be used to separate playback and UI logic, to allow
+     * same UI code to run in a remote control. The state can be set by calling
+     * cast.framework.PlayerManager#sendCustomState
+     */
+    customState?: object;
 
     /**
      * Whether the player metadata (ie: title; currentTime) should be displayed.
@@ -124,9 +175,19 @@ export class PlayerData {
     displayStatus: boolean;
 
     /**
+     * Property to differentiate between different screen types. TV is default.
+     */
+    displayType: string;
+
+    /**
      * Media duration in seconds; Or break duration if playing break.
      */
     duration: number;
+
+    /**
+     * Indicate if the media stream is playing at live edge.
+     */
+    isAtLiveEdge: boolean;
 
     /**
      * Indicate break clip can be skipped.
@@ -149,9 +210,36 @@ export class PlayerData {
     isSeeking: boolean;
 
     /**
+     * Indicate the seekable range of the content if it is a live stream.
+     */
+    liveSeekableRange?: LiveSeekableRange;
+
+    /**
+     * Current media information.
+     */
+    media?: MediaInformation;
+
+    /**
+     * The media category (video, audio, or image).
+     */
+    mediaCategory?: MediaCategory;
+
+    /**
+     * Unique id for media session. It is updated when a new load request is received.
+     */
+    mediaSessionId: number;
+
+    /**
+     * Indicates absolute time (Epoch time in seconds) for live streams. For live event
+     * it would be the time the event started, otherwise it will be start of the
+     * seekable range when the streaming started.
+     */
+    mediaStartAbsoluteTime?: number;
+
+    /**
      * Media metadata.
      */
-    metadata: MediaMetadata;
+    metadata?: MediaMetadata | object;
 
     /**
      * Next Item subtitle.
@@ -174,14 +262,39 @@ export class PlayerData {
     numberBreakClips: number;
 
     /**
+     * Media playback rate.
+     */
+    playbackRate: number;
+
+    /**
      * Flag to show/hide next item metadata.
      */
     preloadingNext: boolean;
 
     /**
+     * Queue data.
+     */
+    queueData?: QueueData;
+
+    /**
+     *Indicate the section duration in seconds.
+     */
+    sectionDuration?: number;
+
+    /**
+     * Indicate the section start time, in media time in seconds.
+     */
+    sectionStartTimeInMedia?: number;
+
+    /**
      * Current player state.
      */
     state: State;
+
+    /**
+     * The commands supported by this player.
+     */
+    supportedMediaCommands: number;
 
     /**
      * Content thumbnail url.
