@@ -3,12 +3,12 @@
 // Definitions by: Ilham Khabibullin <https://github.com/ilhamkhabibullin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Algo = (a: { weight: number } | any, b: { weight: number } | any) => number
+type Algo = (a: PatternSet | any, b: PatternSet | any) => number
 type Pattern = { [key: string]: any }
 
-type onlyPatterns = (current) => Pattern
+type onlyPatterns = (current: PatternSet) => Pattern
 
-type patternsAndPayloads = (current) => {
+type patternsAndPayloads = (current: PatternSet) => {
     pattern: Pattern,
     payload: any
 }
@@ -48,7 +48,8 @@ declare namespace bloomrun {
         parent: Bloomrun
         pattern: Pattern
         buckets: Array<Bucket>
-        visited: Set<any> | any
+        bucket: Bucket
+        visited: Set<PatternSet> | Bucket
         i: number
         k: number
         regexpBucket: Bucket
@@ -62,12 +63,12 @@ declare namespace bloomrun {
     interface Bucket {
         constructor(parent: Bloomrun): Bucket
     
-        data: any[]
+        data: PatternSet[]
         _algo: Algo
         weight: number
         _isDeep: boolean
     
-        add: (set) => Bucket
+        add: (set: PatternSet) => Bucket
         remove: (pattern: Pattern, payload: any) => boolean
         forEach: (func: <T>(currentValue: T, index?: number, array?: Array<T>) => any, that: Bloomrun) => Bucket
     }
