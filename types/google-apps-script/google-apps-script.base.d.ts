@@ -317,9 +317,9 @@ declare namespace GoogleAppsScript {
       warn(): void;
       warn(formatOrObject: object, ...values: object[]): void;
     }
-    /**
+    /** 
      * Apps Script has a non-standard Date Class
-     *
+     * 
      * @see https://github.com/microsoft/TypeScript/blob/master/lib/lib.es5.d.ts
      * Enables basic storage and retrieval of dates and times.
      */
