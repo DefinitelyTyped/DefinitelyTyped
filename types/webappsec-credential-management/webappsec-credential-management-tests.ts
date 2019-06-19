@@ -164,7 +164,7 @@ function passwordPostSignInConfirmation() {
             const c = new PasswordCredential(formElem);
             fetch(formElem.action, { method: 'POST', credentials: c }).then(r => {
                 if (r.status === 200) {
-                    navigator.credentials!.store(c);
+                    navigator.credentials.store(c);
                 }
             });
         }

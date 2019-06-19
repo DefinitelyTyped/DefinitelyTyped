@@ -9,6 +9,12 @@ import { HttpOptions } from "apollo-link-http-common";
 
 export { ReactNativeFile } from "extract-files";
 
+declare global {
+    interface GlobalFetch {
+        fetch: WindowOrWorkerGlobalScope['fetch'];
+    }
+}
+
 /**
  * `createUploadLink` options match `createHttpLink` options
  * @param linkOptions `HttpOptions`
