@@ -201,6 +201,14 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // make sure the generic argument does reject actual potentially undefined inputs
     // $ExpectError
     React.useState<number>(undefined)[0];
+    // When state is a function type, it must be returned from a function,
+    // not provided directly.
+    // $ExpectError
+    React.useState<(() => boolean)>(() => true)[1](() => false);
+    // Returning a function for state is fine
+    React.useState<(() => boolean)>(() => true)[1](() => () => false);
+    // As is returning non-function members of a union
+    React.useState<(() => boolean) | number>(() => true)[1](() => 42);
 
     // useReducer convenience overload
 
