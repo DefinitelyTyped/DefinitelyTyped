@@ -1,38 +1,31 @@
-// Type definitions for wouter 2.0
+// Type definitions for wouter 1.2
 // Project: https://github.com/molefrog/wouter#readme
 // Definitions by: Tolkunov Alexander <https://github.com/StrayFromThePath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    FunctionComponent,
-    ComponentType,
-    ReactElement,
-    ReactNode
-} from "react";
+import * as React from 'react';
 
 export type Params = { [paramName: string]: string } | null;
 export type Path = string;
 export type PushCallback = (to: string) => void;
-export type LocationTuple = [Path, PushCallback];
 export type Match = [boolean, Params];
-export type MatcherFn = (pattern: string, path: Path) => Match;
 
 export interface RouteProps {
-    children?: ((params: Params) => ReactNode) | ReactNode;
+    children?: ((params: Params) => React.ReactNode) | React.ReactNode;
     path: Path;
-    component?: ComponentType<any>;
+    component?: React.ComponentType<any>;
     match?: boolean;
 }
-export const Route: FunctionComponent<RouteProps>;
+export const Route: React.FunctionComponent<RouteProps>;
 
 export interface LinkProps {
     to?: string;
     href?: string;
-    children: ReactElement;
+    children: React.ReactElement;
     onClick?: () => void;
 }
-export const Link: FunctionComponent<LinkProps>;
+export const Link: React.FunctionComponent<LinkProps>;
 
 export interface RedirectProps {
     to?: string;
@@ -42,22 +35,24 @@ export const Redirect: React.FunctionComponent<RedirectProps>;
 
 export interface SwitchProps {
     location?: string;
-    children: Array<ReactElement<RouteProps>>;
+    children: Array<React.ReactElement<RouteProps>>;
 }
-export const Switch: FunctionComponent<SwitchProps>;
+export const Switch: React.FunctionComponent<SwitchProps>;
+
+export interface History {
+    path: () => Path;
+    push: PushCallback;
+    subscribe: (cb: PushCallback) => () => void;
+}
 
 export interface RouterProps {
-    hook: () => LocationTuple;
-    matcher: MatcherFn;
+    history: History;
+    matcher: (pattern: string, path: Path) => Match;
 }
-export const Router: FunctionComponent<
-    Partial<RouterProps> & {
-        children: ReactElement | ReactElement[];
-    }
->;
+export const Router: React.FunctionComponent<Partial<RouterProps>>;
 
 export function useRouter(): RouterProps;
 
 export function useRoute(pattern: string): Match;
 
-export function useLocation(): LocationTuple;
+export function useLocation(): [Path, PushCallback];

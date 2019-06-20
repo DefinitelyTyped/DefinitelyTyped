@@ -8,22 +8,23 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "wouter": [
+                "wouter/v1"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "strictFunctionTypes": true,
-        "allowSyntheticDefaultImports": true
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",
-        "use-location.d.ts",
-        "static-location.d.ts",
-        "matcher.d.ts",
         "wouter-tests.tsx"
     ]
 }
