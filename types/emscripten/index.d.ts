@@ -62,7 +62,7 @@ declare namespace Module {
     var Runtime: any;
 
     function ccall(ident: string, returnType: ValueType | null, argTypes: ValueType[], args: TypeCompatibleWithC[], opts?: CCallOpts): any;
-    function cwrap(ident: string, returnType: ValueType | null, argTypes: ValueType[], opts?: CCallOpts): (...any[]) => any;
+    function cwrap(ident: string, returnType: ValueType | null, argTypes: ValueType[], opts?: CCallOpts): (...args: any[]) => any;
 
     function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     function getValue(ptr: number, type: string, noSafe?: boolean): number;

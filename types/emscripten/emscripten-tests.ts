@@ -32,7 +32,7 @@ function ModuleTest(): void {
     Module.ccall('my_function', null, ['number'], [buf]);
     Module.ccall('my_function', null, ['number'], [buf], {async: true});
     Module.cwrap('my_function', 'string', ['number', 'boolean', 'array']);
-    Module.ccall('my_function', null, ['number']);
+    Module.cwrap('my_function', null, ['number']);
     Module.cwrap('my_function', 'string', ['number', 'boolean', 'array'], {async: true});
     Module._free(buf);
     Module.destroy({});
