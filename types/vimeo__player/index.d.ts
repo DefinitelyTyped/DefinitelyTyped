@@ -1,4 +1,4 @@
-// Type definitions for @vimeo/player 2.7.0
+// Type definitions for @vimeo/player 2.8.0
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
@@ -54,6 +54,7 @@ export class Player {
     getPaused(): VimeoPromise<boolean, Error>;
     getPlayed(): VimeoPromise<boolean, Error>;
     getSeekable(): VimeoPromise<boolean, Error>;
+    getSeeking(): VimeoPromise<boolean, Error>;
     getPlaybackRate(): VimeoPromise<number, Error>;
     setPlaybackRate(playbackRate: number): VimeoPromise<number, RangeError | Error>;
     getTextTracks(): VimeoPromise<VimeoTextTrack[], Error>;

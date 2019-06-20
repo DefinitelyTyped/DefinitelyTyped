@@ -397,6 +397,12 @@ player.setVolume(0.5).then((volume) => {
     }
 });
 
+player.getSeeking().then((seeking) => {
+    // seeking = whether the player is seeking or not
+}).catch(function(error) {
+    // an error occurred
+});
+
 player.getBuffered().then((buffered) => {
     // buffered = an array of the buffered video time ranges.
 }).catch(function(error) {
