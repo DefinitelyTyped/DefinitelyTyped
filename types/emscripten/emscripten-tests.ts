@@ -6,6 +6,7 @@ function ModuleTest(): void {
     Module.logReadFiles = false;
     Module.filePackagePrefixURL = "http://www.example.org/";
     Module.preinitializedWebGLContext = new WebGLRenderingContext();
+    Module.onRuntimeInitialized = () => console.log('init');
 
     let package: ArrayBuffer = Module.getPreloadedPackage("package-name", 100);
     let exports: Emscripten.WebAssemblyExports = Module.instantiateWasm(
@@ -29,12 +30,19 @@ function ModuleTest(): void {
     Module.HEAPU8.set(myTypedArray, buf);
     Module.ccall('my_function', 'number', ['number'], [buf]);
     Module.ccall('my_function', null, ['number'], [buf]);
+    Module.ccall('my_function', null, ['number'], [buf], {async: true});
+    Module.cwrap('my_function', 'string', ['number', 'boolean', 'array']);
+    Module.ccall('my_function', null, ['number']);
+    Module.cwrap('my_function', 'string', ['number', 'boolean', 'array'], {async: true});
     Module._free(buf);
     Module.destroy({});
 }
 
 /// FS
 function FSTest(): void {
+    FS.init(() => null, _ => null, _ => null);
+    FS.init(null, null, null);
+
     FS.mkdir('/working');
     FS.mount(NODEFS, { root: '.' }, '/working');
 
