@@ -120,12 +120,12 @@ export declare class Board {
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
-    pinMode(pin: number, mode: number): void;
-    analogWrite(pin: number, value: number): void;
-    analogRead(pin: number, cb: (item: number) => void): void;
-    digitalWrite(pin: number, value: number): void;
-    digitalRead(pin: number, cb: (item: number) => void): void;
-    servoWrite(pin: number, angle: number): void;
+    pinMode(pin: number | string, mode: number): void;
+    analogWrite(pin: number | string, value: number): void;
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    servoWrite(pin: number | string, angle: number): void;
     shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
