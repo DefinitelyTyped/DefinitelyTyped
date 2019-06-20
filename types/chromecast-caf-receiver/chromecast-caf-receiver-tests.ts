@@ -2,8 +2,10 @@ import { MediaMetadata } from "chromecast-caf-receiver/cast.framework.messages";
 
 // The following test showcases how you can import individual types directly from the namespace:
 
-const mediaMetadata = new MediaMetadata("GENERIC");
-mediaMetadata.metadataType = "TV_SHOW";
+const mediaMetadata = new MediaMetadata(
+    cast.framework.messages.MetadataType.GENERIC
+);
+mediaMetadata.metadataType = cast.framework.messages.MetadataType.TV_SHOW;
 
 // The following tests showcase how you can globally access 'cast' types using
 // the nested namespace style. This is the preferred method as it
@@ -27,6 +29,10 @@ const rEvent = new cast.framework.events.RequestEvent("BITRATE_CHANGED", {
 // tslint:disable-next-line
 const pManager = new cast.framework.PlayerManager();
 pManager.addEventListener("STALLED", () => {});
+pManager.addEventListener(cast.framework.events.category.CORE, () => {});
+pManager.addEventListener(cast.framework.events.category.DEBUG, () => {});
+pManager.addEventListener(cast.framework.events.category.FINE, () => {});
+pManager.addEventListener(cast.framework.events.category.REQUEST, () => {});
 // tslint:disable-next-line
 const ttManager = new cast.framework.TextTracksManager();
 // tslint:disable-next-line
@@ -54,22 +60,23 @@ const breakManager: cast.framework.breaks.BreakManager = {
 };
 
 // tslint:disable-next-line
-const lrd: cast.framework.messages.LoadRequestData = {
-    requestId: 1,
-    activeTrackIds: [1, 2],
-    media: {
-        tracks: [],
-        textTrackStyle: {},
-        streamType: "BUFFERED",
-        metadata: { metadataType: "GENERIC" },
-        hlsSegmentFormat: "AAC",
-        contentId: "id",
-        contentType: "type",
-        breakClips: [breakClip],
-        breaks: [adBreak]
+const lrd = new cast.framework.messages.LoadRequestData();
+lrd.requestId = 1;
+lrd.activeTrackIds = [1, 2];
+lrd.media = {
+    tracks: [],
+    textTrackStyle: {},
+    streamType: "BUFFERED",
+    metadata: {
+        metadataType: cast.framework.messages.MetadataType.GENERIC
     },
-    queueData: {}
+    hlsSegmentFormat: "aac",
+    contentId: "id",
+    contentType: "type",
+    breakClips: [breakClip],
+    breaks: [adBreak]
 };
+lrd.queueData = {};
 
 // tslint:disable-next-line
 const appData: cast.framework.system.ApplicationData = {
@@ -96,7 +103,9 @@ const pData: cast.framework.ui.PlayerData = {
     isPlayingBreak: false,
     isSeeking: true,
     // tslint:disable-next-line
-    metadata: new cast.framework.messages.MediaMetadata("GENERIC"),
+    metadata: new cast.framework.messages.MediaMetadata(
+        cast.framework.messages.MetadataType.GENERIC
+    ),
     nextSubtitle: "sub",
     nextThumbnailUrl: "url",
     nextTitle: "title",
@@ -110,3 +119,8 @@ const pData: cast.framework.ui.PlayerData = {
 // tslint:disable-next-line
 const binder = new cast.framework.ui.PlayerDataBinder(pData);
 binder.addEventListener("ANY_CHANGE", e => {});
+// tslint:disable-next-line
+const supportedCommands: number =
+    cast.framework.messages.Command.ALL_BASIC_MEDIA |
+    cast.framework.messages.Command.QUEUE_NEXT |
+    cast.framework.messages.Command.QUEUE_PREV;

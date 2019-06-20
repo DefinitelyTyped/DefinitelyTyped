@@ -2747,12 +2747,12 @@ declare namespace _ {
         <T extends object, U extends keyof T>(props: lodash.Many<U>, object: T): Pick<T, U>;
         (props: lodash.PropertyPath): LodashPick2x1;
         <T>(props: lodash.__, object: T | null | undefined): LodashPick2x2<T>;
-        <T>(props: lodash.PropertyPath, object: T | null | undefined): lodash.PartialDeep<T>;
+        <T>(props: lodash.PropertyPath, object: T | null | undefined): lodash.PartialObject<T>;
     }
     type LodashPick1x1<T, U extends keyof T> = (object: T) => Pick<T, U>;
     type LodashPick1x2<T> = <U extends keyof T>(props: lodash.Many<U>) => Pick<T, U>;
-    type LodashPick2x1 = <T>(object: T | null | undefined) => lodash.PartialDeep<T>;
-    type LodashPick2x2<T> = (props: lodash.PropertyPath) => lodash.PartialDeep<T>;
+    type LodashPick2x1 = <T>(object: T | null | undefined) => lodash.PartialObject<T>;
+    type LodashPick2x2<T> = (props: lodash.PropertyPath) => lodash.PartialObject<T>;
     interface LodashPickBy {
         <T, S extends T>(predicate: lodash.ValueKeyIterateeTypeGuard<T, S>): LodashPickBy1x1<T, S>;
         <T>(predicate: lodash.__, object: lodash.Dictionary<T> | null | undefined): LodashPickBy1x2<T>;

@@ -45,7 +45,7 @@ declare global {
       destroy(callback: (err: any) => void): void;
       reload(callback: (err: any) => void): void;
       save(callback: (err: any) => void): void;
-      touch(callback: (err: any) => void): void;
+      touch(): void;
       cookie: SessionCookie;
     }
   }

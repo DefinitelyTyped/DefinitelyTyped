@@ -580,6 +580,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          *
          * **Namespaces**:
@@ -614,6 +615,7 @@ declare namespace Office {
          * @remarks
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         roamingSettings: Office.RoamingSettings;
@@ -644,7 +646,7 @@ declare namespace Office {
      */
     interface Error {
         /**
-         * Gets the numeric code of the error.
+         * Gets the numeric code of the error. For a list of error codes, see {@link https://docs.microsoft.com/office/dev/add-ins/reference/javascript-api-for-office-error-codes | JavaScript API for Office error codes}.
          */
         code: number;
         /**
@@ -665,6 +667,7 @@ declare namespace Office {
          * See {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/add-in-commands-requirement-sets | Add-in commands requirement sets} for more support information.
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+         * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
         interface Event {
@@ -692,16 +695,26 @@ declare namespace Office {
              * @remarks
              * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
+             * 
              * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
              * 
-             * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter)
+             * Mailbox 1.3 does not have the `options` parameter while Mailbox Preview does have support for `options` parameter.
              * 
-             * @param options Optional. An object literal that contains one or more of the following properties.
-             *        allowEvent: A boolean value. When the completed method is used to signal completion of an event handler, 
-             *                    this value indicates of the handled event should continue execution or be canceled. 
-             *                    For example, an add-in that handles the ItemSend event can set allowEvent = false to cancel sending of the message.
+             * @param options Optional. An object that specifies behavior options for when the event is completed.
              */
-            completed(options?: { allowEvent: boolean }): void;
+            completed(options?: EventCompletedOptions): void;
+        }
+
+        /**
+         * Specifies the behavior for when the event is completed.
+         */
+        interface EventCompletedOptions {
+            /**
+             * A boolean value. When the completed method is used to signal completion of an event handler, 
+             * this value indicates of the handled event should continue execution or be canceled. 
+             * For example, an add-in that handles the `ItemSend` event can set `allowEvent = false` to cancel sending of the message.
+             */
+            allowEvent: boolean;
         }
 
         /**
@@ -10545,7 +10558,8 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -10582,7 +10596,8 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -12221,7 +12236,8 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -12261,7 +12277,8 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -13525,7 +13542,8 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -13564,7 +13582,8 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Mac Outlook does not support saveAsync on a meeting in compose mode. Calling saveAsync on a meeting in Mac Outlook will return an error.
+         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -14999,7 +15018,7 @@ declare namespace Office {
          *                 type Office.AsyncResult.
          *                 The token is provided as a string in the `asyncResult.value` property.
          *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
-         * @param userContext - Optional. Any state data that is passed to the asynchronous method.|
+         * @param userContext - Optional. Any state data that is passed to the asynchronous method.
          */
         getUserIdentityTokenAsync(callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
@@ -19215,8 +19234,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param text String to find.
-         * @param criteria Additional Criteria.
+         * @param text The string to find.
+         * @param criteria Additional search criteria, including whether the search needs to match the entire cell or be case sensitive.
          * @returns A RangeArea object, comprising one or more rectangular ranges, that matches the search criteria. If no cells meet this criteria, an ItemNotFound error will be thrown.
          */
         findAll(text: string, criteria: Excel.WorksheetSearchCriteria): Excel.RangeAreas;
@@ -19226,8 +19245,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param text String to find.
-         * @param criteria Additional Criteria.
+         * @param text The string to find.
+         * @param criteria Additional search criteria, including whether the search needs to match the entire cell or be case sensitive.
          * @returns A RangeArea object, comprising one or more rectangular ranges, that matches the search criteria. If there are no matches, this function will return a null object.
          */
         findAllOrNullObject(text: string, criteria: Excel.WorksheetSearchCriteria): Excel.RangeAreas;
@@ -20169,8 +20188,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param text String to find.
-         * @param criteria Additional Criteria.
+         * @param text The string to find.
+         * @param criteria Additional search criteria, including the search direction and whether the search needs to match the entire cell or be case sensitive.
          * @returns The Range which matched the search criteria.
          */
         find(text: string, criteria: Excel.SearchCriteria): Excel.Range;
@@ -20182,8 +20201,8 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.9]
          *
-         * @param text String to find.
-         * @param criteria Additional Criteria.
+         * @param text The string to find.
+         * @param criteria Additional search criteria, including the search direction and whether the search needs to match the entire cell or be case sensitive.
          * @returns The Range which matched the search criteria.
          */
         findOrNullObject(text: string, criteria: Excel.SearchCriteria): Excel.Range;
@@ -21002,7 +21021,7 @@ declare namespace Excel {
     interface SearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21031,7 +21050,7 @@ declare namespace Excel {
     interface WorksheetSearchCriteria {
         /**
          *
-         * Specifies whether the match needs to be complete or partial. Default is false (partial).
+         * Specifies whether the match needs to be complete or partial. A complete match matches the entire contents of the cell. Default is false (partial).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -29958,7 +29977,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the Excel PivotHierarchy.
+     * Represents a single pivot hierarchy within a PivotTable.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30562,7 +30581,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     * A collection of PivotField objects within a PivotHierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30573,14 +30592,14 @@ declare namespace Excel {
         readonly items: Excel.PivotField[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of pivot fields in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotField by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
@@ -30589,11 +30608,11 @@ declare namespace Excel {
         getItem(name: string): Excel.PivotField;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotField by name. If the PivotField does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotField to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotField;
         /**
@@ -30622,7 +30641,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents the Excel PivotField.
+     * Represents a single pivot field within a PivotHierarchy.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30631,7 +30650,7 @@ declare namespace Excel {
         context: RequestContext; 
         /**
          *
-         * Returns the PivotFields associated with the PivotField.
+         * Returns the PivotItems that comprise with the PivotField.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -30746,7 +30765,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Represents a collection of all the Pivot Items related to their parent PivotField.
+     * Represents a collection of all the PivotItem objects related to their parent PivotField.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -30757,14 +30776,14 @@ declare namespace Excel {
         readonly items: Excel.PivotItem[];
         /**
          *
-         * Gets the number of pivot hierarchies in the collection.
+         * Gets the number of pivot items in the collection.
          *
          * [Api set: ExcelApi 1.8]
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
          *
-         * Gets a PivotHierarchy by its name or id.
+         * Gets a PivotItem by its name or id.
          *
          * [Api set: ExcelApi 1.8]
          *
@@ -30773,11 +30792,11 @@ declare namespace Excel {
         getItem(name: string): Excel.PivotItem;
         /**
          *
-         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         * Gets a PivotItem by name. If the PivotItem does not exist, will return a null object.
          *
          * [Api set: ExcelApi 1.8]
          *
-         * @param name Name of the PivotHierarchy to be retrieved.
+         * @param name Name of the PivotItem to be retrieved.
          */
         getItemOrNullObject(name: string): Excel.PivotItem;
         /**

@@ -111,10 +111,10 @@ declare namespace GoogleAppsScript {
       }
       export interface BqmlIterationResult {
         durationMs?: string;
-        evalLoss?: Number;
+        evalLoss?: number;
         index?: number;
-        learnRate?: Number;
-        trainingLoss?: Number;
+        learnRate?: number;
+        trainingLoss?: number;
       }
       export interface BqmlTrainingRun {
         iterationResults?: Bigquery.Schema.BqmlIterationResult[];
@@ -124,13 +124,13 @@ declare namespace GoogleAppsScript {
       }
       export interface BqmlTrainingRunTrainingOptions {
         earlyStop?: boolean;
-        l1Reg?: Number;
-        l2Reg?: Number;
-        learnRate?: Number;
+        l1Reg?: number;
+        l2Reg?: number;
+        learnRate?: number;
         learnRateStrategy?: string;
-        lineSearchInitLearnRate?: Number;
+        lineSearchInitLearnRate?: number;
         maxIteration?: string;
-        minRelProgress?: Number;
+        minRelProgress?: number;
         warmStart?: boolean;
       }
       export interface Clustering {
@@ -205,8 +205,8 @@ declare namespace GoogleAppsScript {
         completedParallelInputs?: string;
         computeMsAvg?: string;
         computeMsMax?: string;
-        computeRatioAvg?: Number;
-        computeRatioMax?: Number;
+        computeRatioAvg?: number;
+        computeRatioMax?: number;
         endMs?: string;
         id?: string;
         inputStages?: string[];
@@ -214,8 +214,8 @@ declare namespace GoogleAppsScript {
         parallelInputs?: string;
         readMsAvg?: string;
         readMsMax?: string;
-        readRatioAvg?: Number;
-        readRatioMax?: Number;
+        readRatioAvg?: number;
+        readRatioMax?: number;
         recordsRead?: string;
         recordsWritten?: string;
         shuffleOutputBytes?: string;
@@ -225,12 +225,12 @@ declare namespace GoogleAppsScript {
         steps?: Bigquery.Schema.ExplainQueryStep[];
         waitMsAvg?: string;
         waitMsMax?: string;
-        waitRatioAvg?: Number;
-        waitRatioMax?: Number;
+        waitRatioAvg?: number;
+        waitRatioMax?: number;
         writeMsAvg?: string;
         writeMsMax?: string;
-        writeRatioAvg?: Number;
-        writeRatioMax?: Number;
+        writeRatioAvg?: number;
+        writeRatioMax?: number;
       }
       export interface ExplainQueryStep {
         kind?: string;
@@ -389,7 +389,7 @@ declare namespace GoogleAppsScript {
         projectId?: string;
       }
       export interface JobStatistics {
-        completionRatio?: Number;
+        completionRatio?: number;
         creationTime?: string;
         endTime?: string;
         extract?: Bigquery.Schema.JobStatistics4;

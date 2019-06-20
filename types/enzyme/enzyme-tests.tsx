@@ -382,11 +382,13 @@ function ShallowWrapperTest() {
     }
 
     function test_setState() {
+        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' });
         shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' }, () => console.log('state updated'));
     }
 
     function test_setProps() {
         shallowWrapper = shallowWrapper.setProps({ stringProp: 'foo' });
+        shallowWrapper = shallowWrapper.setProps({ stringProp: 'foo' }, () => console.log('props update'));
     }
 
     function test_setContext() {
@@ -782,10 +784,12 @@ function ReactWrapperTest() {
 
     function test_setState() {
         reactWrapper = reactWrapper.setState({ stateProperty: 'state' });
+        reactWrapper = reactWrapper.setState({ stateProperty: 'state' }, () => console.log('state set'));
     }
 
     function test_setProps() {
-        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => { });
+        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' });
+        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => console.log('props set'));
     }
 
     function test_setContext() {

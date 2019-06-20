@@ -343,6 +343,15 @@ got('http://todomvc.com', { timeout: 1 }).catch((err) => err instanceof got.Time
 // Test hooks.
 got('example.com', {
     hooks: {
+        init: [
+            options => {
+                options.baseUrl = 'https://google.com';
+            }
+        ]
+    }
+});
+got('example.com', {
+    hooks: {
         beforeRequest: [
             options => {
                 options.headers!['x-foo'] = 'bar';

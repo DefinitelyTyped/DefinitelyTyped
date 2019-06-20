@@ -858,7 +858,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdir(path: PathLike, options: { withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
+    function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace readdir {
@@ -888,7 +888,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
          */
-        function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
+        function __promisify__(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
@@ -913,11 +913,11 @@ declare module "fs" {
     function readdirSync(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): string[] | Buffer[];
 
     /**
-     * Asynchronous readdir(3) - read a directory.
+     * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdirSync(path: PathLike, options: { withFileTypes: true }): Dirent[];
+    function readdirSync(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Dirent[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.

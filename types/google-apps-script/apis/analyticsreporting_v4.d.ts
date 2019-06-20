@@ -109,7 +109,7 @@ declare namespace GoogleAppsScript {
         goalPreviousStep1?: string;
         goalPreviousStep2?: string;
         goalPreviousStep3?: string;
-        goalValue?: Number;
+        goalValue?: number;
       }
       export interface GoalSetData {
         goals?: Analyticsreporting.Schema.GoalData[];
@@ -169,7 +169,7 @@ declare namespace GoogleAppsScript {
         values?: string[];
       }
       export interface ProductData {
-        itemRevenue?: Number;
+        itemRevenue?: number;
         productName?: string;
         productQuantity?: string;
         productSku?: string;
@@ -233,7 +233,7 @@ declare namespace GoogleAppsScript {
       }
       export interface SearchUserActivityResponse {
         nextPageToken?: string;
-        sampleRate?: Number;
+        sampleRate?: number;
         sessions?: Analyticsreporting.Schema.UserActivitySession[];
         totalRows?: number;
       }
@@ -282,9 +282,9 @@ declare namespace GoogleAppsScript {
       }
       export interface TransactionData {
         transactionId?: string;
-        transactionRevenue?: Number;
-        transactionShipping?: Number;
-        transactionTax?: Number;
+        transactionRevenue?: number;
+        transactionShipping?: number;
+        transactionTax?: number;
       }
       export interface User {
         type?: string;

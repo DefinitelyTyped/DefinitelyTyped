@@ -2,7 +2,7 @@
 // Project: https://github.com/SitePen/dts-generator#readme
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import ts = require('typescript');
 import Bluebird = require('bluebird');

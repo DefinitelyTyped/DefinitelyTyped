@@ -1,6 +1,6 @@
 import { Event, DetailedErrorCode } from "./cast.framework.events";
 
-export as namespace messages
+export as namespace messages;
 export type UserAction =
     | "LIKE"
     | "DISLIKE"
@@ -51,16 +51,27 @@ export type TextTrackEdgeType =
     | "RAISED"
     | "DEPRESSED";
 
-export type Command =
-    | "PAUSE"
-    | "SEEK"
-    | "STREAM_VOLUME"
-    | "STREAM_MUTE"
-    | "ALL_BASIC_MEDIA"
-    | "QUEUE_NEXT"
-    | "QUEUE_PREV"
-    | "QUEUE_SHUFFLE"
-    | "SKIP_AD";
+export namespace Command {
+    const ALL_BASIC_MEDIA: number;
+    const DISLIKE: number;
+    const EDIT_TRACKS: number;
+    const FOLLOW: number;
+    const LIKE: number;
+    const PAUSE: number;
+    const PLAYBACK_RATE: number;
+    const QUEUE_NEXT: number;
+    const QUEUE_PREV: number;
+    const QUEUE_REPEAT: number;
+    const QUEUE_REPEAT_ALL: number;
+    const QUEUE_REPEAT_ONE: number;
+    const QUEUE_SHUFFLE: number;
+    const SEEK: number;
+    const SKIP_AD: number;
+    const STREAM_MUTE: number;
+    const STREAM_TRANSFER: number;
+    const STREAM_VOLUME: number;
+    const UNFOLLOW: number;
+}
 
 export type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
 
@@ -109,9 +120,16 @@ export type RepeatMode =
 
 export type IdleReason = "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
 
-export type HlsSegmentFormat = "AAC" | "AC3" | "MP3" | "TS" | "TS_AAC";
+export type HlsSegmentFormat =
+    | "aac"
+    | "ac3"
+    | "e_ac3"
+    | "fmp4"
+    | "mp3"
+    | "ts"
+    | "ts_aac";
 
-export type HdrType = "SDR" | "HDR" | "DV";
+export type HdrType = "sdr" | "hdr" | "dv";
 
 export type PlayStringId =
     | "FREE_TRIAL_ABOUT_TO_EXPIRE"
@@ -178,24 +196,28 @@ export type QueueType =
     | "LIVE_TV"
     | "MOVIE";
 
-export type MetadataType =
-    | "GENERIC"
-    | "MOVIE"
-    | "TV_SHOW"
-    | "MUSIC_TRACK"
-    | "PHOTO";
+export enum MetadataType {
+    GENERIC = 0,
+    MOVIE = 1,
+    TV_SHOW = 2,
+    MUSIC_TRACK = 3,
+    PHOTO = 4,
+    AUDIOBOOK_CHAPTER = 5
+}
 
 /**
  * RefreshCredentials request data.
  */
-export interface RefreshCredentialsRequestData {
+export class RefreshCredentialsRequestData {
     [key: string]: any;
 }
 
 /**
  * Media event SET_VOLUME request data.
  */
-export interface VolumeRequestData extends RequestData {
+export class VolumeRequestData extends RequestData {
+    constructor();
+
     /**
      * The media stream volume
      */
@@ -205,7 +227,7 @@ export interface VolumeRequestData extends RequestData {
 /**
  * Represents the volume of a media session stream.
  */
-export interface Volume {
+export class Volume {
     /**
      * Value from 0 to 1 that represents the current stream volume level.
      */
@@ -233,7 +255,7 @@ export class VideoInformation {
 /**
  * VAST ad request configuration.
  */
-export interface VastAdsRequest {
+export class VastAdsRequest {
     /**
      * Specifies a VAST document to be used as the ads response instead of making a
      * request via an ad tag url.
@@ -251,7 +273,7 @@ export interface VastAdsRequest {
 /**
  * UserAction request data.
  */
-export interface UserActionRequestData {
+export class UserActionRequestData {
     /**
      * Optional request source.
      * It contain the assistent query that initiate the request.
@@ -272,7 +294,7 @@ export interface UserActionRequestData {
 /**
  * A TV episode media description.
  */
-export interface TvShowMediaMetadata {
+export class TvShowMediaMetadata {
     /**
      * TV episode number. A positive integer.
      */
@@ -380,7 +402,7 @@ export class Track {
 /**
  * Describes style information for a text track.
  */
-export interface TextTrackStyle {
+export class TextTrackStyle {
     /**
      * The background 32 bit RGBA color. The alpha channel should be used for transparent backgrounds.
      */
@@ -443,7 +465,9 @@ export interface TextTrackStyle {
 /**
  * Media event playback rate request data.
  */
-export interface SetPlaybackRateRequestData extends RequestData {
+export class SetPlaybackRateRequestData extends RequestData {
+    constructor();
+
     /**
      * New playback rate (>0).
      */
@@ -461,7 +485,7 @@ export interface SetPlaybackRateRequestData extends RequestData {
 /**
  * SetCredentials request data.
  */
-export interface SetCredentialsRequestData {
+export class SetCredentialsRequestData extends RequestData {
     /**
      * Credentials to use by receiver.
      */
@@ -482,7 +506,9 @@ export interface SetCredentialsRequestData {
 /**
  * Media event SEEK request data.
  */
-export interface SeekRequestData extends RequestData {
+export class SeekRequestData extends RequestData {
+    constructor();
+
     /**
      * Seconds since beginning of content.
      */
@@ -544,7 +570,7 @@ export class RequestData {
 /**
  * Media event UPDATE queue request data.
  */
-export interface QueueUpdateRequestData {
+export class QueueUpdateRequestData extends RequestData {
     /**
      * ID of the current media Item after the deletion
      * (if not provided; the currentItem value will be the same as before the deletion;
@@ -833,7 +859,7 @@ export class QueueInsertRequestData extends RequestData {
 /**
  * Represents a data message containing the full list of queue ids.
  */
-export interface QueueIds {
+export class QueueIds {
     /**
      * List of queue item ids.
      */
@@ -910,7 +936,7 @@ export class QueueData {
 /**
  * Represents a queue change message; such as insert; remove; and update.
  */
-export interface QueueChange {
+export class QueueChange {
     /**
      * The actual queue change type.
      */
@@ -943,7 +969,7 @@ export interface QueueChange {
 /**
  * Media event PRELOAD request data.
  */
-export class PreloadRequestData implements LoadRequestData {
+export class PreloadRequestData extends LoadRequestData {
     /**
      * Array of trackIds that are active. If the array is not provided;
      *  the default tracks will be active.
@@ -1009,7 +1035,7 @@ export class PreloadRequestData implements LoadRequestData {
  * Media event PRECACHE request data. (Some fields of the load request;
  * like autoplay and queueData; are ignored).
  */
-export class PrecacheRequestData implements LoadRequestData {
+export class PrecacheRequestData extends LoadRequestData {
     /**
      * Array of trackIds that are active. If the array is not provided;
      * the default tracks will be active.
@@ -1091,7 +1117,7 @@ export class PlayStringRequestData {
 /**
  * A photo media description.
  */
-export interface PhotoMediaMetadata {
+export class PhotoMediaMetadata {
     /**
      * Name of the photographer.
      */
@@ -1141,7 +1167,7 @@ export interface PhotoMediaMetadata {
 /**
  * A music track media description.
  */
-export interface MusicTrackMediaMetadata {
+export class MusicTrackMediaMetadata {
     /**
      * Album artist name.
      */
@@ -1207,7 +1233,7 @@ export interface MusicTrackMediaMetadata {
 /**
  * A movie media description.
  */
-export interface MovieMediaMetadata {
+export class MovieMediaMetadata {
     /**
      * Content images. Examples would include cover art or a thumbnail of the
      * currently playing media.
@@ -1242,7 +1268,7 @@ export interface MovieMediaMetadata {
 /**
  * Represents the status of a media session.
  */
-export interface MediaStatus {
+export class MediaStatus {
     /**
      * List of IDs corresponding to the active tracks.
      */
@@ -1366,7 +1392,7 @@ export class MediaMetadata {
 /**
  * Represents the media information.
  */
-export interface MediaInformation {
+export class MediaInformation {
     /**
      * Partial list of break clips that includes current break clip that receiver
      * is playing or ones that receiver will play shortly after; instead of sending
@@ -1420,12 +1446,12 @@ export interface MediaInformation {
      * The media metadata.
      */
     metadata?:
-    | MediaMetadata
-    | GenericMediaMetadata
-    | MovieMediaMetadata
-    | MusicTrackMediaMetadata
-    | PhotoMediaMetadata
-    | TvShowMediaMetadata;
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata;
 
     /**
      * The stream type.
@@ -1452,7 +1478,9 @@ export interface MediaInformation {
 /**
  * Media event LOAD request data.
  */
-export interface LoadRequestData extends RequestData {
+export class LoadRequestData extends RequestData {
+    constructor();
+
     /**
      * Array of trackIds that are active. If the array is not provided; the
      * default tracks will be active.
@@ -1505,7 +1533,7 @@ export interface LoadRequestData extends RequestData {
 /**
  * LoadByEntity request data.
  */
-export interface LoadByEntityRequestData {
+export class LoadByEntityRequestData {
     /**
      * Content entity information; typically represented by a stringified JSON object
      */
@@ -1551,7 +1579,7 @@ export class LiveSeekableRange {
 /**
  * Represents a data message containing item information for each requested ids.
  */
-export interface ItemsInfo {
+export class ItemsInfo {
     /**
      * List of changed itemIds.
      */
@@ -1588,7 +1616,9 @@ export class Image {
     width?: number;
 }
 /** Media event GET_STATUS request data. */
-export interface GetStatusRequestData extends RequestData {
+export class GetStatusRequestData extends RequestData {
+    constructor();
+
     /**
      * The options of a GET_STATUS request.
      */
@@ -1609,7 +1639,9 @@ export class GetItemsInfoRequestData extends RequestData {
 /**
  * A generic media description.
  */
-export interface GenericMediaMetadata extends MediaMetadata {
+export class GenericMediaMetadata extends MediaMetadata {
+    constructor();
+
     /**
      * Content images. Examples would include cover art or a thumbnail of the
      * currently playing media.
@@ -1640,7 +1672,7 @@ export interface GenericMediaMetadata extends MediaMetadata {
 /**
  * Focus state change message.
  */
-export interface FocusStateRequestData {
+export class FocusStateRequestData {
     /**
      * The focus state of the app.
      */
@@ -1671,10 +1703,7 @@ export class FetchItemsRequestData extends RequestData {
  * Extended media status information
  */
 export class ExtendedMediaStatus {
-    constructor(
-        playerState: MediaInformation,
-        opt_media?: MediaInformation
-    );
+    constructor(playerState: MediaInformation, opt_media?: MediaInformation);
 
     media: MediaInformation;
 
@@ -1716,7 +1745,9 @@ export class ErrorData {
 }
 
 /**  Media event EDIT_TRACKS_INFO request data. */
-export interface EditTracksInfoRequestData extends RequestData {
+export class EditTracksInfoRequestData extends RequestData {
+    constructor();
+
     /**
      * Array of the Track trackIds that should be active.
      * If it is not provided; the active tracks will not change.
@@ -1752,7 +1783,9 @@ export interface EditTracksInfoRequestData extends RequestData {
  * Media event EDIT_AUDIO_TRACKS request data. If language is not provided;
  * the default audio track for the media will be enabled.
  */
-export interface EditAudioTracksRequestData extends RequestData {
+export class EditAudioTracksRequestData extends RequestData {
+    constructor();
+
     /**
      * Indicates that the provided language was not explicit user request;
      * but rather inferred from used language in voice query.
@@ -1764,7 +1797,7 @@ export interface EditAudioTracksRequestData extends RequestData {
 }
 
 /** DisplayStatus request data. */
-export interface DisplayStatusRequestData {
+export class DisplayStatusRequestData {
     /**
      * Optional request source. It contain the assistent query that initiate the request.
      */
@@ -1772,7 +1805,7 @@ export interface DisplayStatusRequestData {
 }
 
 /** CustomCommand request data. */
-export interface CustomCommandRequestData {
+export class CustomCommandRequestData {
     /**
      * Custom Data; typically represented by a stringified JSON object.
      */

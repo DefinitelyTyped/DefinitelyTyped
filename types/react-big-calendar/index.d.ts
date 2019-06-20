@@ -11,6 +11,8 @@
 //                 Tomas Hubelbauer <https://github.com/TomasHubelbauer>
 //                 Lucas Silva Souza <https://github.com/lksilva>
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
+//                 Mark Nelissen <https://github.com/marknelissen>
+//                 Eric Kenney <https://github.com/KenneyE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -33,9 +35,9 @@ export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export interface Event {
     allDay?: boolean;
-    title: string;
-    start: Date;
-    end: Date;
+    title?: string;
+    start?: Date;
+    end?: Date;
     resource?: any;
 }
 export interface DateRange {
@@ -131,7 +133,7 @@ export interface ResourceHeaderProps {
     resource: object;
 }
 
-export interface Components<TEvent extends Event = Event> {
+export interface Components<TEvent extends object = Event> {
     event?: React.ComponentType<EventProps<TEvent>>;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>>;
     eventContainerWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -177,12 +179,12 @@ export interface ToolbarProps {
     children?: React.ReactNode;
 }
 
-export interface EventProps<TEvent extends Event = Event> {
+export interface EventProps<TEvent extends object = Event> {
     event: TEvent;
     title: string;
 }
 
-export interface EventWrapperProps<TEvent extends Event = Event> {
+export interface EventWrapperProps<TEvent extends object = Event> {
     // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
     style?: React.CSSProperties & { xOffset: number };
     className: string;
@@ -246,7 +248,8 @@ export class DateLocalizer {
     format(value: FormatInput, format: string, culture: Culture): string;
 }
 
-export interface BigCalendarProps<TEvent extends Event = Event, TResource extends object = object> extends React.Props<BigCalendar<TEvent, TResource>> {
+export interface BigCalendarProps<TEvent extends object = Event, TResource extends object = object>
+    extends React.Props<BigCalendar<TEvent, TResource>> {
     localizer: DateLocalizer;
 
     date?: stringOrDate;
@@ -256,11 +259,16 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
-    onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
+    onSelectSlot?: (slotInfo: {
+        start: stringOrDate;
+        end: stringOrDate;
+        slots: Date[] | string[];
+        action: 'select' | 'click' | 'doubleClick';
+    }) => void;
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
-    onSelecting?: (range: { start: stringOrDate, end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Array<Date | { start: stringOrDate, end: stringOrDate }>) => void;
+    onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
+    onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }) => void;
     selected?: any;
     views?: Views;
     drilldownView?: View | null;
@@ -268,7 +276,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     length?: number;
     toolbar?: boolean;
     popup?: boolean;
-    popupOffset?: number | { x: number, y: number };
+    popupOffset?: number | { x: number; y: number };
     selectable?: boolean | 'ignoreEvents';
     longPressThreshold?: number;
     step?: number;
@@ -298,6 +306,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     defaultDate?: Date;
     className?: string;
     elementProps?: React.HTMLAttributes<HTMLElement>;
+    onShowMore?: (events: TEvent[], date: Date) => void;
 }
 
 export interface ViewStatic {
@@ -310,11 +319,14 @@ export interface MoveOptions {
     today: Date;
 }
 
-export default class BigCalendar<TEvent extends Event = Event, TResource extends object = object> extends React.Component<BigCalendarProps<TEvent, TResource>> {
+export default class BigCalendar<
+    TEvent extends object = Event,
+    TResource extends object = object
+> extends React.Component<BigCalendarProps<TEvent, TResource>> {
     components: {
-        dateCellWrapper: React.ComponentType,
-        dayWrapper: React.ComponentType,
-        eventWrapper: React.ComponentType<TEvent>,
+        dateCellWrapper: React.ComponentType;
+        dayWrapper: React.ComponentType;
+        eventWrapper: React.ComponentType<TEvent>;
     };
     /**
      * create DateLocalizer from globalize
@@ -328,10 +340,10 @@ export default class BigCalendar<TEvent extends Event = Event, TResource extends
      * action constants for Navigate
      */
     static Navigate: {
-        PREVIOUS: 'PREV',
-        NEXT: 'NEXT',
-        TODAY: 'TODAY',
-        DATE: 'DATE',
+        PREVIOUS: 'PREV';
+        NEXT: 'NEXT';
+        TODAY: 'TODAY';
+        DATE: 'DATE';
     };
     /**
      * action constants for View

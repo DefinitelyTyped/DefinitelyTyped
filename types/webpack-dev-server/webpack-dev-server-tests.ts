@@ -90,6 +90,25 @@ const c4: WebpackDevServer.Configuration = {
 const c5: WebpackDevServer.Configuration = {
     proxy: [{context: (pathname: string) => true}]
 };
+const c6: WebpackDevServer.Configuration = {
+    historyApiFallback: {
+        disableDotRule: true,
+        htmlAcceptHeaders: ['text/html'],
+        index: '/app/',
+        logger: () => {},
+        rewrites: [
+            {
+                from: /\/page/,
+                to: '/page.html'
+            },
+            {
+                from: /^\/images\/.*$/,
+                to: (context) => '/assets/' + context.parsedUrl.pathname
+            }
+        ],
+        verbose: true
+    }
+};
 
 // API example
 server = new WebpackDevServer(compiler, config);

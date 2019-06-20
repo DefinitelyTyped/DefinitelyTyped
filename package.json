@@ -23,7 +23,15 @@
     },
     "devDependencies": {
         "dtslint": "latest",
+        "husky": ">=1",
+        "precise-commits": "^1.0.2",
+        "prettier": "^1.17.1",
         "types-publisher": "github:Microsoft/types-publisher#production"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "precise-commits"
+        }
+    }
 }

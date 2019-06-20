@@ -1342,7 +1342,7 @@ declare module "../index" {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialDeep<T>>, orders?: Many<boolean|"asc"|"desc">): Collection<T>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): Collection<T>;
     }
     interface Object<T> {
         /**
@@ -1354,7 +1354,7 @@ declare module "../index" {
         /**
          * @see _.orderBy
          */
-        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialDeep<T>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T>;
+        orderBy(iteratees?: Many<ListIterator<T, NotVoid> | PropertyName | PartialShallow<T>>, orders?: Many<boolean|"asc"|"desc">): CollectionChain<T>;
     }
     interface ObjectChain<T> {
         /**

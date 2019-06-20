@@ -1,3 +1,28 @@
-import * as ol from 'openlayers';
-
-export default ol.control.Rotate;
+import Control from 'ol/control/Control';
+import { EventsKey } from 'ol/events';
+import Event from 'ol/events/Event';
+import MapEvent from 'ol/MapEvent';
+import { ObjectEvent } from 'ol/Object';
+export function render(mapEvent: MapEvent): void;
+export interface Options {
+    className?: string;
+    label?: string | HTMLElement;
+    tipLabel?: string;
+    duration?: number;
+    autoHide?: boolean;
+    render?: ((param0: MapEvent) => void);
+    resetNorth?: (() => void);
+    target?: HTMLElement | string;
+}
+export default class Rotate extends Control {
+    constructor(opt_options?: Options);
+    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: 'change', listener: (evt: Event) => void): EventsKey;
+    once(type: 'change', listener: (evt: Event) => void): EventsKey;
+    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
+    once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
+    un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+}
