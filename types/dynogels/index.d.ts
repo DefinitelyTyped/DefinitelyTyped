@@ -259,8 +259,15 @@ export interface Document {
     [key: string]: any;
 }
 
+export interface ConsumedCapacity {
+    CapacityUnits: number;
+    TableName: string;
+}
+
 export interface DocumentCollection {
     Items: Document[];
     Count: number;
     ScannedCount: number;
+    ConsumedCapacity: ConsumedCapacity;
+    LastEvaluatedKey?: any;
 }
