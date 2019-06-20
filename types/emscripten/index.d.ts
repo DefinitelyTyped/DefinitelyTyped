@@ -210,7 +210,11 @@ declare namespace FS {
     //
     function cwd(): string;
     function chdir(path: string): void;
-    function init(input: () => number, output: (c: number) => any, error: (c: number) => any): void;
+    function init(
+        input: null | (() => number | null),
+        output: null | ((c: number) => any),
+        error: null | ((c: number) => any),
+    ): void;
 
     function createLazyFile(parent: string, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
     function createLazyFile(parent: FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
