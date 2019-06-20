@@ -2,6 +2,7 @@
 // Project: http://kripken.github.io/emscripten-site/index.html
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
+//                 rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
