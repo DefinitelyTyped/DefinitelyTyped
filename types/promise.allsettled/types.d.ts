@@ -1,11 +1,11 @@
 export interface PromiseResolution<T> {
-	status: 'fulfilled';
-	value: T;
+    status: 'fulfilled';
+    value: T;
 }
 
 export interface PromiseRejection<E> {
-	status: 'rejected';
-	reason: E;
+    status: 'rejected';
+    reason: E;
 }
 
 export type PromiseResult<T, E> = PromiseResolution<T> | PromiseRejection<E>;
