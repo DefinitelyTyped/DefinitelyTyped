@@ -62,7 +62,7 @@ declare interface EmscriptenModule {
     Runtime: any;
 
     ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
-    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...any[]) => any;
+    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
 
     setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     getValue(ptr: number, type: string, noSafe?: boolean): number;
