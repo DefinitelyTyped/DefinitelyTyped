@@ -1991,7 +1991,7 @@ declare module "../index" {
     type InvertAllValues<T extends Record<PropertyKey, PropertyKey>> = {
         [P in keyof T]: { key: P, value: T[P] }
     }[keyof T]
-    type InvertResult<T extends Record<PropertyKey, PropertyKey>> = {} & {
+    type InvertResult<T extends Record<PropertyKey, PropertyKey>> = {
         [P in InvertAllValues<T>['value']]: Extract<InvertAllValues<T>, { value: P }>['key']
     }
 
