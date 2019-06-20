@@ -68,3 +68,7 @@ db.createReadStream()
     .on('end', () => {
       console.log('Stream closed');
     });
+
+db.iterator();
+db.iterator({keys: true, values: false, keyAsBuffer: false, keyEncoding: "foo"});
+db.iterator<string>({gte: "ABC", lte: "YXZ"});

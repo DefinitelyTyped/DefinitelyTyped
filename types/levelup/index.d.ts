@@ -1,4 +1,4 @@
-// Type definitions for levelup 3.1
+// Type definitions for levelup 4.0
 // Project: https://github.com/Level/levelup
 // Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
 //                 Daniel Byrne <https://github.com/danwbyrne>
@@ -8,7 +8,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions } from 'abstract-leveldown';
+import { AbstractLevelDOWN, AbstractIteratorOptions, AbstractBatch, ErrorCallback, AbstractOptions, ErrorValueCallback, AbstractGetOptions, AbstractIterator } from 'abstract-leveldown';
 
 type LevelUpPut<K, V, O> =
     ((key: K, value: V, callback: ErrorCallback) => void) &
@@ -45,6 +45,9 @@ type InferDBDel<DB> =
     LevelUpDel<K, O> :
     LevelUpDel<any, AbstractOptions>;
 
+type InferKey<DB> = DB extends AbstractLevelDOWN<infer K> ? K : any;
+type InferValue<DB> = DB extends AbstractLevelDOWN<any, infer V> ? V : any;
+
 export interface LevelUp<DB = AbstractLevelDOWN> extends EventEmitter {
     open(): Promise<void>;
     open(callback?: ErrorCallback): void;
@@ -67,6 +70,9 @@ export interface LevelUp<DB = AbstractLevelDOWN> extends EventEmitter {
     createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
     createKeyStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
     createValueStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
+
+    // tslint:disable-next-line no-unnecessary-generics
+    iterator<K = InferKey<DB>, V = InferValue<DB>>(options?: AbstractIteratorOptions<K>): AbstractIterator<K, V>;
 
     /*
     emitted when a new value is 'put'
