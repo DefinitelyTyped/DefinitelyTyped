@@ -1,4 +1,4 @@
-// Type definitions for Emscripten
+// Type definitions for Emscripten 1.38.33
 // Project: http://kripken.github.io/emscripten-site/index.html
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
