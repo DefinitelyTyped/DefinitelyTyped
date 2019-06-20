@@ -92,3 +92,21 @@ function FSTest(): void {
 
     var lookup = FS.lookupPath("path", { parent: true });
 }
+
+/// String conversions
+function StringConv(): void {
+    let s: string = '';
+    let p: number = 0;
+
+    const nullptr = 0;
+    s = UTF8ToString(nullptr);
+    s = UTF8ToString(nullptr, 42);
+    s = UTF16ToString(nullptr);
+    s = UTF32ToString(nullptr);
+    stringToUTF8(s, p);
+    stringToUTF8(s, p, 42);
+    stringToUTF16(s, p);
+    stringToUTF16(s, p, 42);
+    stringToUTF32(s, p);
+    stringToUTF32(s, p, 42);
+}

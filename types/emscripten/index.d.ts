@@ -76,13 +76,6 @@ declare namespace Module {
     function allocate(slab: any, types: string, allocator: number, ptr: number): number;
     function allocate(slab: any, types: string[], allocator: number, ptr: number): number;
 
-    function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
-    function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
-    function UTF16ToString(ptr: number): string;
-    function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
-    function UTF32ToString(ptr: number): string;
-    function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
-
     // USE_TYPED_ARRAYS == 1
     var HEAP: Int32Array;
     var IHEAP: Int32Array;
@@ -225,6 +218,13 @@ declare namespace FS {
 declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
+
+declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
+declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function UTF16ToString(ptr: number): string;
+declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function UTF32ToString(ptr: number): string;
+declare function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
 
 interface Math {
     imul(a: number, b: number): number;
