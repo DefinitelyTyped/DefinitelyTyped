@@ -42,6 +42,8 @@ declare namespace TagsInput {
         readonly tag: Tag;
     }
 
+    type RenderLayout = (tagComponent: React.Component[], inputComponent: React.Component) => React.ReactChild;
+
     interface ReactTagsInputProps extends React.Props<TagsInput> {
         value: Tag[];
         onChange: (tags: Tag[], changed: Tag[], changedIndexes: number[]) => void;
@@ -65,7 +67,7 @@ declare namespace TagsInput {
         tagDisplayProp?: string | null;
         renderTag?: (props: RenderTagProps) => React.ReactNode;
         renderInput?: (props: RenderInputProps) => React.ReactNode;
-        renderLayout?: (tagComponents: React.Component[], inputComponent: React.Component) => React.ReactChild;
+        renderLayout?: RenderLayout;
         preventSubmit?: boolean;
     }
 }
