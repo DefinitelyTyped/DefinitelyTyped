@@ -76,13 +76,6 @@ declare interface EmscriptenModule {
     allocate(slab: any, types: string, allocator: number, ptr: number): number;
     allocate(slab: any, types: string[], allocator: number, ptr: number): number;
 
-    Pointer_stringify(ptr: number, length?: number): string;
-    UTF8ToString(ptr: number, length?: number): string;
-    UTF16ToString(ptr: number): string;
-    stringToUTF16(str: string, outPtr: number): void;
-    UTF32ToString(ptr: number): string;
-    stringToUTF32(str: string, outPtr: number): void;
-
     // USE_TYPED_ARRAYS == 1
     HEAP: Int32Array;
     IHEAP: Int32Array;
@@ -230,6 +223,13 @@ declare namespace FS {
 declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
+
+declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
+declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function UTF16ToString(ptr: number): string;
+declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function UTF32ToString(ptr: number): string;
+declare function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
 
 interface Math {
     imul(a: number, b: number): number;
