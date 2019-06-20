@@ -97,7 +97,7 @@ const routeOptionSecure: RouteOptionsSecureObject = {
     noSniff: true,
     xframe: "deny",
     hsts: {
-        includeSubdomains: true,
+        includeSubDomains: true,
         maxAge: 1111,
         preload: false,
     },

@@ -1,6 +1,9 @@
-// Type definitions for Jest 16.0.0
+// Type definitions for Jest 16.0
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>
+// Definitions by: Asana (https://asana.com)
+//                 Ivo Stratev <https://github.com/NoHomey>
+//                 jwbay <https://github.com/jwbay>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var beforeAll: jest.Lifecycle;
@@ -40,7 +43,7 @@ declare namespace jest {
     /** Disables automatic mocking in the module loader. */
     function disableAutomock(): typeof jest;
     /** Mocks a module with an auto-mocked version when it is being required. */
-    function doMock(moduleName: string): typeof jest;
+    function doMock(moduleName: string, factory?: () => any, options?: MockOptions): typeof jest;
     /** Indicates that the module system should never return a mocked version of the specified module from require() (e.g. that it should always return the real module). */
     function dontMock(moduleName: string): typeof jest;
     /** Enables automatic mocking in the module loader. */
@@ -52,7 +55,7 @@ declare namespace jest {
     /** Returns whether the given function is a mock function. */
     function isMockFunction(fn: any): fn is Mock<any>;
     /** Mocks a module with an auto-mocked version when it is being required. */
-    function mock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
+    function mock(moduleName: string, factory?: () => any, options?: MockOptions): typeof jest;
     /** Resets the module registry - the cache of all required modules. This is useful to isolate modules where local state might conflict between tests. */
     function resetModuleRegistry(): typeof jest;
     /** Resets the module registry - the cache of all required modules. This is useful to isolate modules where local state might conflict between tests. */

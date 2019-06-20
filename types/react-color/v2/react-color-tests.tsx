@@ -79,6 +79,7 @@ const CustomComponent: React.ComponentType<CustomProps> = (props: CustomProps) =
 };
 const Custom = CustomPicker(CustomComponent);
 
+const stringColor = '#000000';
 const color = { hex: "#000000" };
 const colors = ["#000", "#333"];
 
@@ -277,3 +278,5 @@ render(
     />,
     document.getElementById("main")
 );
+
+render(<GithubPicker color={stringColor} />, document.getElementById('main'));

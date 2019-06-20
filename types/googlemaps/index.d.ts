@@ -2587,7 +2587,7 @@ declare namespace google.maps {
     class StreetViewService {
         getPanorama(
             request: StreetViewLocationRequest | StreetViewPanoRequest,
-            cb: (data: StreetViewPanoramaData, status: StreetViewStatus) => void
+            cb: (data: StreetViewPanoramaData | null, status: StreetViewStatus) => void
         ): void;
         getPanoramaById(
             pano: string,

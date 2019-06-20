@@ -171,20 +171,17 @@ const argPropertyTypeRestrictionsOnCreate = () => {
      * Properties associated to relational fields may be supplied with:
      *
      * - a primitive type matching id type of relation target
-     * - a Ref type derived from relation target
      * - Model/SessionBoundModel instance matching relation target
-     * - a map containing {Idkey:IdType} entry, where IdKey/IdType are compatible with relation target id key:type signature
      *
      * In case of MutableQuerySets/many-to-many relationships, an array of union of above-mentioned types is accepted
      */
     const authorModel = Person.create({ id: 'A1', firstName: 'A1', lastName: 'A1' });
     const publisherModel = Publisher.create({ name: 'P1' });
     Book.create({ title: 'B1', publisher: publisherModel, authors: [authorModel] });
-    Book.create({ title: 'B1', publisher: publisherModel.ref, authors: [authorModel.ref] });
     Book.create({
         title: 'B1',
-        publisher: { index: publisherModel.index },
-        authors: [{ id: authorModel.id }, 'A1', authorModel, authorModel.ref]
+        publisher: publisherModel.index ,
+        authors: [authorModel, 'A1', authorModel, authorModel.ref.id]
     });
 
     /** Id types are verified to match relation target */
@@ -223,13 +220,8 @@ const argPropertyTypeRestrictionsOnUpsert = () => {
      */
     const authorModel = Person.upsert({ id: 'A1', firstName: 'A1', lastName: 'A1' });
     const publisherModel = Publisher.upsert({ name: 'P1', index: 1 });
+    Book.upsert({ title: 'B1', publisher: 1, authors: [authorModel] });
     Book.upsert({ title: 'B1', publisher: publisherModel, authors: [authorModel] });
-    Book.upsert({ title: 'B1', publisher: publisherModel.ref, authors: [authorModel.ref] });
-    Book.upsert({
-        title: 'B1',
-        publisher: { index: publisherModel.index },
-        authors: [{ id: authorModel.id }, 'A1', authorModel, authorModel.ref]
-    });
 
     /** Id types are verified to match relation target */
     Book.create({ title: 'B1', publisher: authorModel }); // $ExpectError

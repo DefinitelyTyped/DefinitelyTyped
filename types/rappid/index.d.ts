@@ -2,7 +2,7 @@
 // Project: http://jointjs.com/about-rappid
 // Definitions by: Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as joint from 'jointjs';
 import * as Backbone from "backbone";

@@ -93,8 +93,9 @@ declare namespace Autosuggest {
         containerProps: {
             id: string;
             key: string;
+            className: string;
             ref: any;
-            style: any;
+            role: string;
         };
         children: React.ReactNode;
         query: string;

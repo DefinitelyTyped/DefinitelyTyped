@@ -34,7 +34,7 @@ toMarkdown(`
     {
       filter(node) {
         return node.nodeName === 'SPAN'
-               && /italic/i.test(node.style.fontStyle!);
+               && /italic/i.test(node.style.fontStyle || "");
       },
       replacement(innerHTML) {
         return `*${innerHTML}*`;
@@ -43,7 +43,7 @@ toMarkdown(`
     {
       filter(node) {
         return node.nodeName === 'SPAN'
-               && /italic/i.test(node.style.fontStyle!);
+               && /italic/i.test(node.style.fontStyle || "");
       },
       replacement(innerHTML, node) {
         return `${innerHTML}(node: \`${node.nodeName}\`)`;

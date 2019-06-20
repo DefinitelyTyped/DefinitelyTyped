@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "es5.d.ts",
         "miniprogram-wxs-tests.ts"
     ]
 }

@@ -6,6 +6,7 @@
 //                 Juliën Hanssens <https://github.com/hanssens>
 //                 Johns Gresham <https://github.com/jgresham>
 //                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
+//                 Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -7509,7 +7510,7 @@ declare namespace Highcharts {
          * Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
-        addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
+        addPoint(options: number | [number, number] | [number, number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
         /**
          * Read only. The chart that the series belongs to.
          * @since 1.2.0

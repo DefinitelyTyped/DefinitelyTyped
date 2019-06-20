@@ -71,7 +71,7 @@ flowChunkParams = chunksArray[0].getParams();
 num = chunksArray[0].startByte;
 bool = flowFile.paused;
 bool = flowFile.error;
-num = flowFile.progress(true);
+num = flowFile.progress();
 flowFile.pause();
 flowFile.resume();
 flowFile.cancel();
