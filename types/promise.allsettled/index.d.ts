@@ -2,6 +2,7 @@
 // Project: https://github.com/ljharb/promise.allsettled#readme
 // Definitions by: Martin Jurča <https://github.com/jurca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 import implementation = require('./implementation');
 import getPolyfill = require('./polyfill');
@@ -17,16 +18,16 @@ type ExportedImplementationType = typeof implementation & {
     getPolyfill: typeof getPolyfill,
     implementation: typeof implementation,
     shim: typeof shim,
-}
+};
 
-declare const exportedImplementation: ExportedImplementationType
+declare const exportedImplementation: ExportedImplementationType;
 
-export = exportedImplementation
+export = exportedImplementation;
 
 // This seems to be the only way to export these types here without colliding with the "export =" syntax.
 declare namespace exportedImplementation {
-    export type PromiseRejection<E> = PromiseRejectionType<E>
-    export type PromiseResolution<T> = PromiseResolutionType<T>
-    export type PromiseResult<T, E> = PromiseResultType<T, E>
-    export type PromiseResultTuple<T extends [unknown, ...unknown[]]> = PromiseResultTupleType<T>
+    type PromiseRejection<E> = PromiseRejectionType<E>;
+    type PromiseResolution<T> = PromiseResolutionType<T>;
+    type PromiseResult<T, E> = PromiseResultType<T, E>;
+    type PromiseResultTuple<T extends [unknown, ...unknown[]]> = PromiseResultTupleType<T>;
 }

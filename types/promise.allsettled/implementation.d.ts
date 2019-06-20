@@ -1,4 +1,4 @@
-import {PromiseRejection, PromiseResolution, PromiseResult} from './types';
+import { PromiseRejection, PromiseResolution, PromiseResult } from './types';
 
 type PromiseTuple<T extends [unknown, ...unknown[]]> = {[P in keyof T]: Promise<T[P]>};
 type PromiseResultTuple<T extends [unknown, ...unknown[]]> = {[P in keyof T]: PromiseResult<T[P], unknown>};
