@@ -572,6 +572,13 @@ function chain_tests() {
     let valuePerYear: number[] = _.chain(yearObject)
         .values()
         .value()
+
+    const arr1: string[] = ['z', 'x', 'y'], query = 'z';
+    let arr2: string[] = ['a', 'b', 'c'];
+    arr2 = _.chain(arr1)
+        .union(arr2)
+        .without(query)
+        .value();
 }
 
 var obj: { [k: string] : number } = {

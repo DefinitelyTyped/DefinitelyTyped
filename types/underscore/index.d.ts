@@ -5462,7 +5462,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.without
         **/
-        without(...values: T[]): _Chain<T>;
+        without(...values: T[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5474,7 +5474,7 @@ declare module _ {
         * Wrapped type `any[][]`.
         * @see _.union
         **/
-        union(...arrays: _.List<T>[]): _Chain<T>;
+        union(...arrays: _.List<T>[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.
