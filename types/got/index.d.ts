@@ -120,6 +120,7 @@ declare namespace got {
     };
 
     interface GotExtend {
+        (options: GotOptions<string | null>): GotInstance;
         (options: GotJSONOptions): GotInstance<GotJSONFn>;
         (options: GotFormOptions<string>): GotInstance<GotFormFn<string>>;
         (options: GotFormOptions<null>): GotInstance<GotFormFn<null>>;

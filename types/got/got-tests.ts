@@ -264,6 +264,10 @@ got('http://todomvc.com', { cookieJar: new tough.CookieJar() });
 // Test extension
 got.extend({ method: 'POST' })('/example');
 got.extend({ method: 'POST' }).extend({ headers: {} }).stream('/example');
+got.extend({ timeout: 100 })('/example', { body: {}, json: true });
+got.extend({ timeout: 100 })('/example', { body: { foo: 'bar' }, json: true });
+got.extend({ timeout: 100 })('/example', { body: {}, form: true });
+got.extend({ timeout: 100 })('/example', { body: { foo: 'bar' }, form: true });
 
 // JSON options:
 // $ExpectType Promise<any>
