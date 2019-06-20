@@ -397,6 +397,24 @@ player.setVolume(0.5).then((volume) => {
     }
 });
 
+player.getBuffered().then((buffered) => {
+    // buffered = an array of the buffered video time ranges.
+}).catch(function(error) {
+    // an error occurred
+});
+
+player.getPlayed().then((played) => {
+    // played = array values of the played video time ranges.
+}).catch((error) => {
+    // an error occurred
+});
+
+player.getSeekable().then((seekable) => {
+    // seekable = array values of the seekable video time ranges.
+}).catch(function(error) {
+    // an error occurred
+});
+
 // EVENTS
 
 player.on('play', (data) => {
@@ -483,6 +501,10 @@ player.on('bufferstart', (data) => {
 player.on('bufferend', (data) => {
    // no associated data with this event
 });
+
+player.on('seeking', (data) => {
+    // no associated data with this event
+ });
 
 player.on('error', (data) => {
     // data is an object containing properties specific to that event
