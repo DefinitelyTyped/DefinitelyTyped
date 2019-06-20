@@ -44,6 +44,7 @@ declare namespace Module {
     var logReadFiles: boolean;
     var filePackagePrefixURL: string;
     var wasmBinary: ArrayBuffer;
+    var onRuntimeInitialized: () => void;
 
     function destroy(object: object): void;
     function getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
