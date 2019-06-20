@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-    createTheme, LightThemePrimitives, mergeOverrides, BaseProvider
+    createTheme, LightThemePrimitives, mergeOverrides, BaseProvider, styled
 } from 'baseui';
 import { Block } from 'baseui/block';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
@@ -40,7 +40,7 @@ import { Notification } from 'baseui/notification';
 import { Pagination, StatefulPagination } from 'baseui/pagination';
 import { Popover, StatefulPopover } from 'baseui/popover';
 import { ProgressBar } from 'baseui/progress-bar';
-import { NumberedStep, ProgressSteps, Step } from 'baseui/progress-steps';
+import { NumberedStep, ProgressSteps, Step, StyledProgressSteps, StyleProps as ProgressStepsStyleProps } from 'baseui/progress-steps';
 import { Radio, RadioGroup, StatefulRadioGroup } from 'baseui/radio';
 import { StarRating, EmoticonRating } from 'baseui/rating';
 import { StatefulSelect, Select } from 'baseui/select';
@@ -80,6 +80,19 @@ createTheme({primary: 'red'}, {}); // $ExpectError
 mergeOverrides({style: {}}, {props: {}});
 mergeOverrides({style: {}}, 'hello'); // $ExpectError
 mergeOverrides({style: {}}, {name: 'override'}); // $ExpectError
+
+styled(StyledProgressSteps, { marginTop: '10px' });
+styled(StyledProgressSteps, { marginTop: null }); // $ExpectError
+styled(StyledProgressSteps, ({ $theme }) => ({ marginTop: '10px' }));
+const StyledAnchor = styled('a', { marginTop: '10px' });
+const NewStyledProgressSteps = styled<ProgressStepsStyleProps, typeof StyledProgressSteps>(
+    StyledProgressSteps,
+    ({ $theme, $disabled }) => ({ marginTop: '10px' })
+);
+
+<StyledAnchor href="url" />;
+<NewStyledProgressSteps $disabled="string" />; // $ExpectError
+<NewStyledProgressSteps $disabled={false} />;
 
 <BaseProvider theme={newTheme}></BaseProvider>; // $ExpectError
 
