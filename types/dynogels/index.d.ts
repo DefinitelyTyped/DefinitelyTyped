@@ -200,7 +200,7 @@ export interface Query {
     consistentRead(read: boolean): Query;
     addKeyCondition(condition: any): Query;
     addFilterCondition(condition: any): Query;
-    startKey(hashKey: any, rangeKey: any): Query;
+    startKey(hashKey: any, rangeKey?: any): Query;
     attributes(attrs: any): Query;
     ascending(): Query;
     descending(): Query;
