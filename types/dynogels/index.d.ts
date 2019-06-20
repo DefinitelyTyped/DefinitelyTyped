@@ -210,7 +210,7 @@ export interface Query {
     where(keyName: string): QueryWhereChain;
     filter(keyName: string): QueryFilterChain;
     exec(): stream.Readable;
-    exec(callback: (err: Error, data: DocumentCollection | any) => void): void;
+    exec(callback: (err: Error, data: any) => void): void;
 }
 
 export interface ScanWhereChain extends ExtendedChain<Scan> {
@@ -232,7 +232,7 @@ export interface Scan {
     expressionAttributeValues(data: any): Scan;
     projectionExpression(data: any): Scan;
     exec(): stream.Readable;
-    exec(callback: (err: Error, data: DocumentCollection | any) => void): void;
+    exec(callback: (err: Error, data: any) => void): void;
     loadAll(): Scan;
 }
 
