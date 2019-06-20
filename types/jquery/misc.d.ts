@@ -677,6 +677,7 @@ declare namespace JQuery {
             'setRequestHeader' | 'status' | 'statusText'>,
         Partial<Pick<XMLHttpRequest, 'responseXML'>> {
         responseJSON?: any;
+        abort(statusText?: string): void;
 
         /**
          * Determine the current state of a Deferred object.
