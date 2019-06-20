@@ -1,8 +1,10 @@
 // Type definitions for Mapbox GL JS v0.51.0
 // Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
+// Definitions by: Dominik Bruderer <https://github.com/dobrud>
+//                 Patrick Reames <https://github.com/patrickr>
+//                 Karl-Aksel Puulmann <https://github.com/macobo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="geojson" />
 
@@ -20,7 +22,33 @@ declare namespace mapboxgl {
     type LngLatLike = LngLat | { lng: number; lat: number; } | { lon: number; lat: number; } | [number, number];
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number];
     type PointLike = Point | [number, number];
-    type Expression = any[];
+
+    type ExpressionName =
+        // Types
+        | 'array' | 'boolean' | 'collator' | 'format' | 'literal' | 'number' | 'object' | 'string'
+        | 'to-boolean' | 'to-color' | 'to-number' | 'to-string' | 'typeof'
+        // Feature data
+        | 'feature-state' | 'geometry-type' | 'id' | 'line-progress' | 'properties'
+        // Lookup
+        | 'at' | 'get' | 'has' | 'length'
+        // Decision
+        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        // Ramps, scales, curves
+        | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
+        // Variable binding
+        | 'let' | 'var'
+        // String
+        | 'concat' | 'downcase' | 'is-supported-script' | 'resolved-locale' | 'upcase'
+        // Color
+        | 'rgb' | 'rgba'
+        // Math
+        | '-' | '*' | '/' | '%' | '^' | '+' | 'abs' | 'acos' | 'asin' | 'atan' | 'ceil' | 'cos' | 'e'
+        | 'floor' | 'ln' | 'ln2' | 'log10' | 'log2' | 'max' | 'min' | 'pi' | 'round' | 'sin' | 'sqrt' | 'tan'
+        // Zoom, Heatmap
+        | 'zoom' | 'heatmap-density';
+
+    type Expression = [ExpressionName, ...any[]]
+
     type Anchor = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
     /**
@@ -73,7 +101,7 @@ declare namespace mapboxgl {
 
         isStyleLoaded(): boolean;
 
-        addSource(id: string, source: VectorSource | RasterSource | RasterDemSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
+        addSource(id: string, source: AnySourceData): this;
 
         isSourceLoaded(id: string): boolean;
 
@@ -81,7 +109,7 @@ declare namespace mapboxgl {
 
         removeSource(id: string): this;
 
-        getSource(id: string): VectorSource | RasterSource | RasterDemSource | GeoJSONSource | ImageSource | VideoSource;
+        getSource(id: string): AnySourceImpl;
 
         addImage(name: string, image: HTMLImageElement | ArrayBufferView | { width: number, height: number, data: Uint8Array | Uint8ClampedArray } | ImageData, options?: { pixelRatio?: number, sdf?: boolean }): this;
 
@@ -179,7 +207,7 @@ declare namespace mapboxgl {
 
         jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
-        easeTo(options: mapboxgl.CameraOptions & mapboxgl.AnimationOptions & {delayEndEvents?: number}, eventData?: mapboxgl.EventData): this;
+        easeTo(options: mapboxgl.EaseToOptions, eventData?: mapboxgl.EventData): this;
 
         flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): this;
 
@@ -626,7 +654,7 @@ declare namespace mapboxgl {
         name?: string;
         pitch?: number;
         light?: Light;
-        sources?: any;
+        sources?: Sources;
         sprite?: string;
         transition?: Transition;
         version: number;
@@ -647,6 +675,14 @@ declare namespace mapboxgl {
         'intensity'?: number;
         'intensity-transition'?: Transition;
     }
+
+    export interface Sources {
+        [sourceName: string]: AnySourceData;
+    }
+
+    export type AnySourceData = GeoJSONSourceRaw | VideoSourceRaw | ImageSourceRaw | CanvasSourceRaw | VectorSource | RasterSource | RasterDemSource
+
+    export type AnySourceImpl = GeoJSONSource | VideoSource | ImageSource | CanvasSource | VectorSource | RasterSource | RasterDemSource
 
     export interface Source {
         type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
@@ -699,10 +735,11 @@ declare namespace mapboxgl {
     /**
      * VideoSource
      */
-    export interface VideoSource extends VideoSourceOptions {
+    export interface VideoSourceRaw extends Source, VideoSourceOptions {
+        type: 'video';
     }
 
-    export class VideoSource implements Source {
+    export class VideoSource implements VideoSourceRaw {
         type: 'video';
 
         constructor(options?: mapboxgl.VideoSourceOptions);
@@ -721,10 +758,11 @@ declare namespace mapboxgl {
     /**
      * ImageSource
      */
-    export interface ImageSource extends ImageSourceOptions {
+    export interface ImageSourceRaw extends Source, ImageSourceOptions {
+        type: 'image';
     }
 
-    export class ImageSource implements Source {
+    export class ImageSource implements ImageSourceRaw {
         type: 'image';
 
         constructor(options?: mapboxgl.ImageSourceOptions);
@@ -741,7 +779,11 @@ declare namespace mapboxgl {
     /**
      * CanvasSource
      */
-    export class CanvasSource implements Source, CanvasSourceOptions {
+    export interface CanvasSourceRaw extends Source, CanvasSourceOptions {
+        type: 'canvas';
+    }
+
+    export class CanvasSource implements CanvasSourceRaw {
         type: 'canvas';
 
         coordinates: number[][];
@@ -927,6 +969,35 @@ declare namespace mapboxgl {
         angleWithSep(x: number, y: number): number;
 
         static convert(a: PointLike): Point;
+    }
+
+    /**
+     * MercatorCoordinate
+     */
+    export class MercatorCoordinate {
+        /** The x component of the position. */
+        x: number;
+
+        /** The y component of the position. */
+        y: number;
+
+        /**
+         * The z component of the position.
+         *
+         * @default 0
+         */
+        z?: number;
+
+        constructor(x: number, y: number, z?: number);
+
+        /** Returns the altitude in meters of the coordinate. */
+        toAltitude(): number;
+
+        /** Returns the LngLat for the coordinate. */
+        toLngLat(): LngLat;
+
+        /** Project a LngLat to a MercatorCoordinate. */
+        static fromLngLat(lngLatLike: LngLatLike, altitude?: number): MercatorCoordinate;
     }
 
     /**
@@ -1151,6 +1222,13 @@ declare namespace mapboxgl {
         maxDuration?: number;
     }
 
+    /**
+     * EaseToOptions
+     */
+    export interface EaseToOptions extends AnimationOptions, CameraOptions {
+        delayEndEvents?: number;
+    }
+
     export interface FitBoundsOptions extends mapboxgl.FlyToOptions {
         linear?: boolean;
         padding?: number | mapboxgl.PaddingOptions;
@@ -1246,7 +1324,7 @@ declare namespace mapboxgl {
         metadata?: any;
         ref?: string;
 
-        source?: string | VectorSource | RasterSource | RasterDemSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
+        source?: string | AnySourceData;
 
         'source-layer'?: string;
 
@@ -1361,7 +1439,7 @@ declare namespace mapboxgl {
         'symbol-spacing'?: number | Expression;
         'symbol-avoid-edges'?: boolean;
         'symbol-z-order'?: 'viewport-y' | 'source';
-        'icon-allow-overlap'?: boolean | StyleFunction;
+        'icon-allow-overlap'?: boolean | StyleFunction | Expression;
         'icon-ignore-placement'?: boolean;
         'icon-optional'?: boolean;
         'icon-rotation-alignment'?: 'map' | 'viewport' | 'auto';
@@ -1377,7 +1455,7 @@ declare namespace mapboxgl {
         'icon-pitch-alignment'?: 'map' | 'viewport' | 'auto';
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto';
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto';
-        'text-field'?: string | StyleFunction;
+        'text-field'?: string | StyleFunction | Expression;
         'text-font'?: string | string[];
         'text-size'?: number | StyleFunction | Expression;
         'text-max-width'?: number | Expression;

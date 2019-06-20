@@ -1,4 +1,4 @@
-// Type definitions for @loadable/component 5.2
+// Type definitions for @loadable/component 5.9
 // Project: https://github.com/smooth-code/loadable-components
 // Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,15 +14,20 @@ export type DefaultComponent<P> = React.ComponentType<P> | DefaultImportedCompon
 
 export interface Options {
 	fallback?: JSX.Element;
+	ssr?: boolean;
 }
 
-export type LoadableComponent<T> = React.ComponentType<T & { fallback?: JSX.Element }>;
+export interface LoadableReadyOptions {
+  namespace?: string;
+}
+
+export type LoadableComponent<T> = React.ComponentType<T & { fallback?: JSX.Element }> & { preload(props?: T): void };
 export type LoadableLibrary<TModule> = React.ComponentType<{
 	fallback?: JSX.Element;
 	children?: (module: TModule) => React.ReactNode;
 	ref?: React.Ref<TModule>;
 }> &
-	TModule;
+	TModule & { preload(props?: object): void };
 
 declare function lib<T>(
 	loadFn: (props: object) => Promise<T>,
@@ -44,4 +49,4 @@ export namespace lazy {
 
 export function lazy<T>(loadFn: (props: T) => Promise<DefaultComponent<T>>): LoadableComponent<T>;
 
-export function loadableReady(done?: () => any): Promise<void>;
+export function loadableReady(done?: () => any, options?: LoadableReadyOptions): Promise<void>;

@@ -3,7 +3,7 @@ import { Secret } from "jsonwebtoken";
 import { ServerOptions } from "https";
 import { IncomingMessage, Server } from "http";
 import { SCAuthEngine } from "sc-auth";
-import { SCExchange } from "sc-broker-cluster";
+import { SCExchange, Client } from "sc-broker-cluster";
 import WebSocket = require("ws");
 
 import SCServerSocket = require("./scserversocket");
@@ -18,6 +18,7 @@ declare class SCServer extends EventEmitter {
     readonly MIDDLEWARE_EMIT: "emit";
 
     options: SCServer.SCServerOptions;
+    brokerEngine: Client;
     exchange: SCExchange;
 
     clients: {
@@ -58,7 +59,10 @@ declare class SCServer extends EventEmitter {
     removeMiddleware(type: "emit", middlewareFn: (req: SCServer.EmitRequest, next: SCServer.nextMiddlewareFunction) => void): void;
 
     setAuthEngine(authEngine: SCAuthEngine): void;
+    auth: SCAuthEngine;
+
     setCodecEngine(codecEngine: SCServer.SCCodecEngine): void;
+    codec: SCServer.SCCodecEngine;
 
     close(cb?: (err?: Error) => void): void;
 
@@ -348,7 +352,7 @@ declare namespace SCServer {
 
     interface SCCodecEngine {
         decode: (input: any) => any;
-        ncode: (object: any) => any;
+        encode: (object: any) => any;
     }
 
     interface VerifyHandshakeInfo {

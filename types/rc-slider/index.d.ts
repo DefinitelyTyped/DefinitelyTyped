@@ -1,21 +1,24 @@
 // Type definitions for rc-slider 8.6
-// Project: https://github.com/react-component/slider
+// Project: http://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
 //                 Alexander Mattoni <https://github.com/mattoni>
 //                 Austin Turner <https://github.com/paustint>
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Deanna Veale <https://github.com/Deanna2>
+//                 Nick Maddren <https://github.com/nicholasmaddren>
+//                 Roman Nevolin <https://github.com/nulladdict>
+//                 Mojtaba Izadmehr <https://github.com/m-izadmehr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import { RCTooltip } from 'rc-tooltip';
+import { RCTooltip } from "rc-tooltip";
 
 export interface Marks {
     [number: number]:
-    | JSX.Element
-    | string
-    | { style: any; label: string | JSX.Element };
+        | JSX.Element
+        | string
+        | { style: any; label: string | JSX.Element };
 }
 
 export interface CommonApiProps {
@@ -111,6 +114,12 @@ export interface CommonApiProps {
      * The style used for the active dots.
      */
     activeDotStyle?: React.CSSProperties;
+    /**
+     * Reverse the direction of the slider.
+     * From Left to Right To Right to Left
+     * @default false
+     */
+    reverse?: boolean;
 }
 
 export interface SliderProps extends CommonApiProps {
@@ -135,6 +144,11 @@ export interface SliderProps extends CommonApiProps {
      * Set current value of slider.
      */
     value?: number;
+    /**
+     * Set the tabIndex of the slider handle.
+     * @default 0
+     */
+    tabIndex?: number;
 }
 
 export interface RangeProps extends CommonApiProps {
@@ -162,6 +176,11 @@ export interface RangeProps extends CommonApiProps {
      * Set current positions of handles.
      */
     value?: number[];
+    /**
+     * Set the tabIndex of each handle.
+     * @default [0,0]
+     */
+    tabIndex?: number[];
     /**
      * Determine how many ranges to render, and multiple handles will be rendered (number + 1).
      *  @default 1
@@ -193,6 +212,11 @@ export interface HandleProps extends CommonApiProps {
      * Styling option offset
      */
     offset: number;
+   /**
+    * Set the tabIndex of the slider handle.
+    * @default 0
+    */
+    tabIndex?: number;
 }
 
 export interface WithTooltipProps {
@@ -200,9 +224,13 @@ export interface WithTooltipProps {
     tipProps?: Partial<RCTooltip.Props>;
 }
 
-export default class Slider extends React.Component<SliderProps> { }
-export class Range extends React.Component<RangeProps> { }
-export class Handle extends React.Component<HandleProps> { }
+export default class Slider extends React.Component<SliderProps> {}
+export class Range extends React.Component<RangeProps> {}
+export class Handle extends React.Component<HandleProps> {}
 
-export function createSliderWithTooltip(slider: typeof Slider): new() => React.Component<WithTooltipProps & SliderProps>;
-export function createSliderWithTooltip(range: typeof Range): new() => React.Component<WithTooltipProps & RangeProps>;
+export function createSliderWithTooltip(
+    slider: typeof Slider
+): new () => React.Component<WithTooltipProps & SliderProps>;
+export function createSliderWithTooltip(
+    range: typeof Range
+): new () => React.Component<WithTooltipProps & RangeProps>;

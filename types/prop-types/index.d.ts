@@ -1,7 +1,8 @@
-// Type definitions for prop-types 15.5
-// Project: https://github.com/reactjs/prop-types
+// Type definitions for prop-types 15.7
+// Project: https://github.com/reactjs/prop-types, https://facebook.github.io/react
 // Definitions by: DovydasNavickas <https://github.com/DovydasNavickas>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -62,8 +63,9 @@ export const string: Requireable<string>;
 export const node: Requireable<ReactNodeLike>;
 export const element: Requireable<ReactElementLike>;
 export const symbol: Requireable<symbol>;
+export const elementType: Requireable<ReactComponentLike>;
 export function instanceOf<T>(expectedClass: new (...args: any[]) => T): Requireable<T>;
-export function oneOf<T>(types: T[]): Requireable<T>;
+export function oneOf<T>(types: ReadonlyArray<T>): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
@@ -77,7 +79,12 @@ export function exact<P extends ValidationMap<any>>(type: P): Requireable<Requir
  * @param typeSpecs Map of name to a ReactPropType
  * @param values Runtime values that need to be type-checked
  * @param location e.g. "prop", "context", "child context"
- * @param componentName Name of the component for error messages.
- * @param getStack Returns the component stack.
+ * @param componentName Name of the component for error messages
+ * @param getStack Returns the component stack
  */
 export function checkPropTypes(typeSpecs: any, values: any, location: string, componentName: string, getStack?: () => any): void;
+
+/**
+ * Only available if NODE_ENV=production
+ */
+export function resetWarningCache(): void;

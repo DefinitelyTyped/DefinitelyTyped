@@ -1,11 +1,12 @@
 // Type definitions for react-autosuggest 9.3
-// Project: http://react-autosuggest.js.org/
+// Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
 //                 Robert Essig <https://github.com/robessog>
 //                 Terry Bayne <https://github.com/tbayne>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Kevin Ross <https://github.com/rosskevin>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -92,8 +93,9 @@ declare namespace Autosuggest {
         containerProps: {
             id: string;
             key: string;
+            className: string;
             ref: any;
-            style: any;
+            role: string;
         };
         children: React.ReactNode;
         query: string;
@@ -191,7 +193,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: TSuggestion[];
+        suggestions: ReadonlyArray<TSuggestion>;
         /**
          * Use your imagination to style the Autosuggest.
          */

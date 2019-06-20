@@ -895,3 +895,23 @@ profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
 configuration = {
     plugins: [profiling]
 };
+
+compiler.hooks.done.tap('foo', stats => {
+  if (stats.startTime === undefined || stats.endTime === undefined) {
+    throw new Error('Well, this is odd');
+  }
+
+  console.log(`Compiled in ${stats.endTime - stats.startTime}ms`);
+});
+
+const multiCompiler = webpack([{}, {}]);
+
+multiCompiler.hooks.done.tap('foo', ({ stats: multiStats, hash }) => {
+    const stats = multiStats[0];
+
+    if (stats.startTime === undefined || stats.endTime === undefined) {
+        throw new Error('Well, this is odd');
+    }
+
+    console.log(`Compiled in ${stats.endTime - stats.startTime}ms`, hash);
+});

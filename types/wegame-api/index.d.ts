@@ -1,4 +1,4 @@
-// Type definitions for wegame 2.3
+// Type definitions for non-npm package wegame 2.6
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -131,7 +131,7 @@ declare class FileSystemManager {
      * @throws dirPath 不是目录
      * @throws 指定的 filePath 路径没有读权限
      */
-    readdirSync(dirPath: string): string[];
+    readdirSync(dirPath: string): ReadonlyArray<string>;
 
     /**
      * 创建目录
@@ -360,7 +360,7 @@ declare class UserGameData {
     /**
      * 用户的托管 KV 数据列表
      */
-    KVDataList: KVData[];
+    KVDataList: ReadonlyArray<KVData>;
 }
 
 declare class CreatedButton {
@@ -368,6 +368,11 @@ declare class CreatedButton {
     text: string;
     image: string;
     style: wx.types.ButtonStyle;
+    show(): void;
+    hide(): void;
+    onTap(callback: (res?: any) => void): void;   // res参数会被具体按钮的API定义覆盖为具体信息
+    offTap(callback: (res?: any) => void): void;
+    destroy(): void;
 }
 declare class UserInfoButton extends CreatedButton {
     onTap(callback: (res: {
@@ -395,11 +400,19 @@ declare class UserInfoButton extends CreatedButton {
     }) => void): void;
 }
 declare class OpenSettingButton extends CreatedButton {
+    onTap(callback: () => void): void;
+    offTap(callback: () => void): void;
 }
 declare class GameClubButton extends CreatedButton {
     icon: wx.types.GameClubButtonIcon;
+    onTap(callback: (res: {
+        errMsg: string;
+    }) => void): void;
 }
 declare class FeedbackButton extends CreatedButton {
+    onTap(callback: (res: {
+        errMsg: string;
+    }) => void): void;
 }
 
 declare class OpenDataContext {
@@ -1029,7 +1042,7 @@ declare namespace wx {
 
         interface ReaddirParams {
             dirPath: string;
-            success?: (res: { files: string[] }) => void;
+            success?: (res: { files: ReadonlyArray<string> }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1251,24 +1264,36 @@ declare namespace wx {
              */
             identifier: number;
             /**
-             * 触点相对于屏幕左边沿的 X 坐标。
+             * 触点相对于整体页面的 X 轴距离。
              */
-            screenX: number;
+            pageX: number;
             /**
-             * 触点相对于屏幕左边沿的 Y 坐标。
+             * 触点相对于整体页面的 Y 轴距离。
              */
-            screenY: number;
+            pageY: number;
+            /**
+             * 触点相对于游戏窗口的 X 轴距离。
+             */
+            clientX: number;
+            /**
+             * 触点相对于游戏窗口的 Y 轴距离。
+             */
+            clientY: number;
         }
 
         interface TouchData {
             /**
+             * 当前事件的类型
+             */
+            type: string;
+            /**
              * 当前所有触摸点的列表
              */
-            touches: Touch[];
+            touches: ReadonlyArray<Touch>;
             /**
              * 触发此次事件的触摸点列表
              */
-            changedTouches: Touch[];
+            changedTouches: ReadonlyArray<Touch>;
             /**
              * 事件触发时的时间戳
              */
@@ -1452,7 +1477,7 @@ declare namespace wx {
              * 显示用户信息的语言
              */
             lang?: "en" | "zh_CN" | "zh_TW";
-            success?: (res: { data: UserInfo[] }) => void;
+            success?: (res: { data: ReadonlyArray<UserInfo> }) => void;
             fail?: () => void;
             complete?: () => void;
         }
@@ -1472,23 +1497,23 @@ declare namespace wx {
 
         type ButtonType = "text" | "image";
         interface ButtonStyle {
-            left: number;
-            top: number;
-            width: number;
-            height: number;
+            left?: number;
+            top?: number;
+            width?: number;
+            height?: number;
             /**
              * 格式#ff0000
              */
-            backgroundColor: string;
+            backgroundColor?: string;
             /**
              * 格式#ff0000
              */
-            borderColor: string;
-            borderWidth: number;
-            borderRadius: number;
-            textAlign: "left" | "center" | "right";
-            fontSize: number;
-            lineHeight: number;
+            borderColor?: string;
+            borderWidth?: number;
+            borderRadius?: number;
+            textAlign?: "left" | "center" | "right";
+            fontSize?: number;
+            lineHeight?: number;
         }
 
         type GameClubButtonIcon = "green" | "white" | "dark" | "light";
@@ -1553,7 +1578,7 @@ declare namespace wx {
             /**
              * 当前 storage 中所有的 key
              */
-            keys: string[];
+            keys: ReadonlyArray<string>;
             /**
              * 当前占用的空间大小, 单位 KB
              */
@@ -1942,7 +1967,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { data: UserGameData[] }) => void,
+        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;
@@ -1954,7 +1979,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { KVDataList: KVData[] }) => void,
+        success?: (res: { KVDataList: ReadonlyArray<KVData> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;
@@ -1977,7 +2002,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { data: UserGameData[] }) => void,
+        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;
@@ -2061,7 +2086,7 @@ declare namespace wx {
         /**
          * 按钮的样式
          */
-        style: types.ButtonStyle,
+        style?: types.ButtonStyle,
         /**
          * 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
          */
@@ -2089,7 +2114,7 @@ declare namespace wx {
         /**
          * 按钮的样式
          */
-        style: types.ButtonStyle
+        style?: types.ButtonStyle
     }): OpenSettingButton;
     /**
      * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
@@ -2138,7 +2163,7 @@ declare namespace wx {
         type: types.ButtonType,
         text?: string,
         image?: string,
-        style: types.ButtonStyle,
+        style?: types.ButtonStyle,
         /**
          * 游戏圈按钮的图标，仅当 object.type 参数为 image 时有效
          */
@@ -2153,7 +2178,7 @@ declare namespace wx {
         type: types.ButtonType,
         text?: string,
         image?: string,
-        style: types.ButtonStyle
+        style?: types.ButtonStyle
     }): FeedbackButton;
 
     // --客服消息
@@ -2595,7 +2620,7 @@ declare namespace wx {
         /**
          * 音频输入源，每一项对应一种音频输入源
          */
-        audioSources: types.AudioSourceType[]
+        audioSources: ReadonlyArray<types.AudioSourceType>
     }>): void;
 
     // --录音
@@ -2615,7 +2640,7 @@ declare namespace wx {
          * 选择图片的来源
          */
         sourceType: ['album'] | ['camera'] | ['album', 'camera'],
-        success?: (res: { tempFilePaths: string[], tempFiles: ImageFile[] }) => void,
+        success?: (res: { tempFilePaths: ReadonlyArray<string>, tempFiles: ReadonlyArray<ImageFile> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;

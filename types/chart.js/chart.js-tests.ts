@@ -5,7 +5,7 @@ import { Chart, ChartData, Point } from "chart.js";
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {
     }
 };
 
@@ -59,7 +59,8 @@ const chart: Chart = new Chart(ctx, {
                         borderDash: [5, 15],
                         borderDashOffset: 2,
                         zeroLineBorderDash: [5, 15],
-                        zeroLineBorderDashOffset: 2
+                        zeroLineBorderDashOffset: 2,
+                        lineWidth: [1, 2, 3]
                     }
                 }
             ]
@@ -78,7 +79,7 @@ const chart: Chart = new Chart(ctx, {
         }
     }
 });
-chart.update();
+chart.update({duration: 500, lazy: false, easing: 'linear'});
 
 console.log(chart.getDatasetMeta(0));
 
@@ -115,7 +116,9 @@ const scaleOptions: Chart.RadialLinearScale = {
     lineArc: false,
     display: false,
     scaleLabel: {
-        display: false
+        display: false,
+        lineHeight: 1,
+        padding: 0,
     },
 };
 const radarChartOptions: Chart.RadialChartOptions = {

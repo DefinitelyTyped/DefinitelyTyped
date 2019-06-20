@@ -1,8 +1,9 @@
-// Type definitions for react-router-config 1.1
-// Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+// Type definitions for react-router-config 5.0
+// Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config, https://github.com/reacttraining/react-router
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Phoenix He <https://github.com/NullMDR>
+//                 Mathieu TUDISCO <https://github.com/mathieutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -15,12 +16,15 @@ export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?
 }
 
 export interface RouteConfig {
+    key?: React.Key;
     location?: Location;
     component?: React.ComponentType<RouteConfigComponentProps<any>> | React.ComponentType;
     path?: string;
     exact?: boolean;
     strict?: boolean;
     routes?: RouteConfig[];
+    render?: (props: RouteConfigComponentProps<any>) => React.ReactNode;
+    [propName: string]: any;
 }
 
 export interface MatchedRoute<Params extends { [K in keyof Params]?: string }> {

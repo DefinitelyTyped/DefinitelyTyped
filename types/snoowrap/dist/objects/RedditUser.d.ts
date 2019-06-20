@@ -100,18 +100,18 @@ export default class RedditUser extends RedditContent<RedditUser> {
 
   assignFlair(options: any): Promise<this>;
   friend(options: any): Promise<this>;
-  getComments(options?: any): Listing<Comment>;
-  getDownvotedContent(options?: any): Listing<Comment | Submission>;
+  getComments(options?: any): Promise<Listing<Comment>>;
+  getDownvotedContent(options?: any): Promise<Listing<Comment | Submission>>;
   getFriendInformation(): Promise<any>;
-  getGildedContent(options?: any): Listing<Comment | Submission>;
-  getHiddenContent(options?: any): Listing<Comment | Submission>;
+  getGildedContent(options?: any): Promise<Listing<Comment | Submission>>;
+  getHiddenContent(options?: any): Promise<Listing<Comment | Submission>>;
   getMultireddit(name: string): MultiReddit;
   getMultireddits(): Promise<MultiReddit[]>;
-  getOverview(options?: any): Listing<Comment | Submission>;
-  getSavedContent(options?: any): Listing<Comment | Submission>;
-  getSubmissions(options?: any): Listing<Submission>;
+  getOverview(options?: any): Promise<Listing<Comment | Submission>>;
+  getSavedContent(options?: any): Promise<Listing<Comment | Submission>>;
+  getSubmissions(options?: any): Promise<Listing<Submission>>;
   getTrophies(): Promise<any>;
-  getUpvotedContent(options?: any): Listing<Comment | Submission>;
+  getUpvotedContent(options?: any): Promise<Listing<Comment | Submission>>;
   giveGold(months: string): Promise<any>;
   unfriend(): Promise<any>;
 }

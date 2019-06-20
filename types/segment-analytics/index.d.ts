@@ -21,6 +21,14 @@ declare namespace SegmentAnalytics {
     /* Configure Segment with write key */
     load(writeKey: string): void;
 
+    /* Configure Segment with write key & integration management.
+
+       The load method can also be modified to take a second argument,
+       an object with an integrations dictionary, which used to load
+       only the integrations that are marked as enabled with the boolean value true.
+       works in version 4.1.0 or higher */
+   load(writeKey: string, options?: SegmentOpts): void;
+
     /* The identify method is how you tie one of your users and their actions
        to a recognizable userId and traits. */
     identify(userId: string, traits?: Object, options?: SegmentOpts,

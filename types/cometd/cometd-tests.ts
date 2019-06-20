@@ -1,4 +1,6 @@
 import { CometD, Listener, Message, SubscriptionHandle } from "cometd";
+import TimeSyncExtension from 'cometd/TimeSyncExtension';
+import AckExtension from 'cometd/AckExtension';
 
 const cometd = new CometD();
 
@@ -11,7 +13,23 @@ cometd.configure({
     url: "http://localhost:8080/cometd"
 });
 
-cometd.registerExtension("ack", { incoming: () => {}, outgoing: () => {} });
+cometd.registerExtension("ack", new AckExtension());
+
+const timesync = new TimeSyncExtension();
+cometd.registerExtension("timesync", timesync);
+
+const timeSyncSubscription = cometd.addListener("/foo/bar", () => {
+    if (timesync.getNetworkLag() > 1000) {
+        cometd.publish("/mychannel", { timesyncStats: {
+                lag: timesync.getNetworkLag(),
+                serverTime: timesync.getServerTime(),
+                serverDate: timesync.getServerDate(),
+                timeOffset: timesync.getTimeOffset(),
+                timeOffsetSamples: timesync.getTimeOffsetSamples()
+            }
+        });
+    }
+});
 
 cometd.unregisterTransport("websocket");
 

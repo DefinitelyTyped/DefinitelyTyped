@@ -1908,6 +1908,12 @@ declare module "pkijs/src/RelativeDistinguishedNames" {
         fromSchema(schema: any): void;
         toSchema(): any;
         toJSON(): any;
+        /**
+         * Compare two RDN values, or RDN with ArrayBuffer value
+         * @param {(RelativeDistinguishedNames|ArrayBuffer)} compareTo The value compare to current
+         * @returns {boolean}
+         */
+        isEqual(compareTo: RelativeDistinguishedNames|ArrayBuffer): boolean;
     }
 
 }

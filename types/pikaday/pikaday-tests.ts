@@ -14,15 +14,15 @@ new Pikaday({field: $('#datepicker')[0]});
             console.log(date.toISOString());
         }
     });
-    field.parentNode.insertBefore(picker.el, field.nextSibling);
+    field.parentNode!.insertBefore(picker.el, field.nextSibling);
 })();
 
 (() => {
     const picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'D MMM YYYY',
-        onSelect: () => {
-            console.log(this.getMoment().format('Do MMMM YYYY'));
+        onSelect() {
+            console.log(this.getMoment()!.format('Do MMMM YYYY'));
         }
     });
 
@@ -30,6 +30,9 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.toString('YYYY-MM-DD');
     picker.getDate();
     picker.setDate('2015-01-01');
+    picker.setDate('2015-01-01', true);
+    picker.setDate(null);
+    picker.setDate(null, true);
     picker.getMoment();
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'));
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'), true);
@@ -41,12 +44,17 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.gotoYear(2015);
     picker.setMinDate(new Date());
     picker.setMaxDate(new Date());
+    picker.setMinDate(null);
+    picker.setMaxDate(null);
     picker.setStartRange(new Date());
+    picker.setStartRange(null);
     picker.setEndRange(new Date());
+    picker.setEndRange(null);
     picker.isVisible();
     picker.show();
     picker.adjustPosition();
     picker.hide();
+    picker.clear();
     picker.destroy();
 })();
 
@@ -108,3 +116,7 @@ new Pikaday({field: $('#datepicker')[0]});
         toString: (date, format) => '2017-08-23'
     });
 })();
+
+new Pikaday({
+    parse: (date) => null
+});

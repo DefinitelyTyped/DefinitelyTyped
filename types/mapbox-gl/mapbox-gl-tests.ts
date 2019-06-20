@@ -50,7 +50,8 @@ map.on('load', function(){
 		"type": "symbol",
 		"source": "data",
 		"layout": {
-			"icon-image": "marker-15"
+			"icon-image": "marker-15",
+			"text-field": ['get', 'property']
 		}
 	});
 
@@ -406,6 +407,7 @@ attributionControl.on('click', () => {});
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
 declare var lnglatboundslike: mapboxgl.LngLatBoundsLike;
+declare var mercatorcoordinate: mapboxgl.MercatorCoordinate;
 declare var pointlike: mapboxgl.PointLike;
 
 function expectType<T>(value: T) { /* let the compiler handle things */ }
@@ -458,6 +460,17 @@ expectType<mapboxgl.PointLike>([0, 0]);
 
 new mapboxgl.Point(0, 0);
 expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
+
+/*
+ * MercatorCoordinate
+ */
+
+new mapboxgl.MercatorCoordinate(0, 0);
+new mapboxgl.MercatorCoordinate(0, 0, 0);
+expectType<number>(mercatorcoordinate.toAltitude());
+expectType<mapboxgl.LngLat>(mercatorcoordinate.toLngLat());
+expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike));
+expectType<mapboxgl.MercatorCoordinate>(mapboxgl.MercatorCoordinate.fromLngLat(lnglatlike, 0));
 
 /*
  * TransformRequestFunction
@@ -788,3 +801,14 @@ expectType<mapboxgl.Map>(map.on('touchcancel', 'text', (ev) => {
 	expectType<mapboxgl.MapLayerTouchEvent>(ev);
 	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
 }));
+
+/*
+ * Expression
+ */
+expectType<mapboxgl.Expression>(['id']);
+expectType<mapboxgl.Expression>(['get', 'property']);
+expectType<mapboxgl.Expression>([
+	'format',
+	['concat', ['get', 'name'], '\n'], {},
+	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
+]);

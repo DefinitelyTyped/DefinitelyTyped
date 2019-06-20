@@ -196,3 +196,6 @@ requestCaptureStream.toString();
 const asStream: stream.Stream = requestCaptureStream;
 
 const logger2: Logger = restify.bunyan.createLogger("horse");
+
+server.router.render("a-route-name", {});
+server.router.render("a-route-name", {}, {});

@@ -8,7 +8,7 @@ const input = 'const answer = () => 42;';
 
     console.log(output.code);
     console.log(output.map.toString());
-    console.log(output.map.toUrl);
+    console.log(output.map.toUrl());
 })();
 
 // Transform for Chrome & Firefox

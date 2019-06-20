@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "react-dnd": "^5.0.0"
+    "react-dnd": "5 || 6 || 7"
   }
 }

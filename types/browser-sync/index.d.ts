@@ -1,13 +1,13 @@
-// Type definitions for browser-sync
+// Type definitions for browser-sync 2.26
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>,
 //                 Joe Skeen <https://github.com/joeskeen>
 //                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 //                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
+//                 Yuma Hashimoto <https://github.com/yuma84>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="chokidar"/>
 /// <reference types="node" />
 /// <reference types="serve-static" />
 
@@ -455,7 +455,7 @@ declare namespace browserSync {
          * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
          * depending on your use-case.
          */
-        (config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
+        (config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
         /**
          *
          */
@@ -489,7 +489,7 @@ declare namespace browserSync {
          * Start the Browsersync service. This will launch a server, proxy or start the snippet mode
          * depending on your use-case.
          */
-        init(config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
+        init(config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
         /**
          * This method will close any running server, stop file watching & exit the current process.
          */

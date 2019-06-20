@@ -1,6 +1,8 @@
-// Type definitions for detox 9.0
+// Type definitions for detox 12.8
 // Project: https://github.com/wix/detox
-// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>, Steve Chun <https://github.com/stevechun>
+// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
+//                 Steve Chun <https://github.com/stevechun>
+//                 Hammad Jutt <https://github.com/hammadj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
@@ -42,6 +44,16 @@ declare global {
              */
             cleanup(): Promise<void>;
         }
+
+        // Detox exports all methods from detox global and all of the global constants.
+        interface DetoxExport extends Detox {
+            device: Device;
+            element: Element;
+            waitFor: WaitFor;
+            expect: Expect<Expect<any>>;
+            by: Matchers;
+        }
+
         interface Device {
             /**
              * Launch the app
@@ -338,7 +350,12 @@ declare global {
              * await element(by.id('scrollView')).scroll(100, 'down');
              * await element(by.id('scrollView')).scroll(100, 'up');
              */
-            scroll(pixels: number, direction: Direction): Promise<Actions<R>>;
+            scroll(
+                pixels: number,
+                direction: Direction,
+                startPositionX?: number,
+                startPositionY?: number,
+            ): Promise<Actions<R>>;
             /**
              * Scroll to edge.
              * @param edge
@@ -434,4 +451,6 @@ declare global {
     }
 }
 
-export { by, detox, device, element, expect, waitFor };
+declare const detoxExport: Detox.DetoxExport;
+
+export = detoxExport;

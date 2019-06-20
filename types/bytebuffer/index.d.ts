@@ -127,7 +127,7 @@ declare class ByteBuffer
      * Calculates the number of UTF8 characters of a string.JavaScript itself uses UTF- 16, so that a string's length property does not reflect its actual UTF8 size if it contains code points larger than 0xFFFF.
      */
     static calculateUTF8Chars( str: string ): number;
-    
+
     /**
      * Calculates the number of UTF8 bytes of a string. This is an alias of ByteBuffer#calculateUTF8Bytes.
      */
@@ -573,6 +573,11 @@ declare class ByteBuffer
      * Writes an 8bit signed integer.
      */
     writeInt8( value: number, offset?: number ): ByteBuffer;
+
+    /**
+     * Write a 64bit signed integer. This is an alias of ByteBuffer#writeInt64.
+     */
+     writeLong( value: number | Long, offset?: number ): ByteBuffer;
 
     /**
      * Writes a 16bit signed integer. This is an alias of ByteBuffer#writeInt16.

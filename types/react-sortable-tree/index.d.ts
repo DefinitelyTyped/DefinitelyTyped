@@ -1,5 +1,5 @@
 // Type definitions for react-sortable-tree 0.3
-// Project: https://fritz-c.github.io/react-sortable-tree
+// Project: https://frontend-collective.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
 //                 Kevin Perrine <https://github.com/kevinsperrine>

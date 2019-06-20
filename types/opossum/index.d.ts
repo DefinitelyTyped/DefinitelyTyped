@@ -1,5 +1,5 @@
-// Type definitions for opossum 1.9
-// Project: https://github.com/nodeshift/opossum
+// Type definitions for opossum 1.10
+// Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
 // Definitions by: Quinn Langille <https://github.com/quinnlangille>
 //                 Willy Zhang <https://github.com/merufm>
 //                 Lance Ball <https://github.com/lance>
@@ -23,6 +23,7 @@ export class CircuitBreaker extends EventEmitter {
     readonly closed: boolean;
     readonly opened: boolean;
     readonly halfOpen: boolean;
+    readonly isShutdown: boolean;
     readonly status: Status;
     readonly stats: Stats;
     readonly hystrixStats: HystrixStats;
@@ -40,6 +41,7 @@ export class CircuitBreaker extends EventEmitter {
         func: (...args: any[]) => Promise<any>,
         interval?: number
     ): void;
+    shutdown(): void;
 }
 
 export enum Event {
