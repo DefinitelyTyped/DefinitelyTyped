@@ -14,6 +14,8 @@ declare namespace Emscripten {
     interface FileSystemType {
     }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
+    type ValueType = "number" | "string" | "array" | "boolean";
+    type TypeCompatibleWithC = number | string | Array<any> | boolean;
 
     type WebAssemblyImports =  Array<{
         name: string;
@@ -54,8 +56,8 @@ declare interface EmscriptenModule {
 
     Runtime: any;
 
-    ccall(ident: string, returnType: string | null, argTypes: string[], args: any[]): any;
-    cwrap(ident: string, returnType: string | null, argTypes: string[]): any;
+    ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[]): any;
+    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[]): (...any[]) => any;
 
     setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     getValue(ptr: number, type: string, noSafe?: boolean): number;
