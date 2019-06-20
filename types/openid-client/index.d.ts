@@ -39,6 +39,7 @@ export interface AuthorizationUrlParameters {
 
     readonly response_mode?: string;
     readonly nonce?: string;
+    readonly prompt?: string;
     readonly resource?: string;
     readonly code_challenge?: string;
     readonly code_challenge_method?: string;
@@ -69,6 +70,14 @@ export class Client {
         readonly max_age?: number;
     }): Promise<TokenSet>;
 
+    oauthCallback(redirectUri: string, parameters: {}, checks?: {
+        readonly response_type?: string;
+        readonly state?: string;
+        readonly nonce?: string;
+        readonly code_verifier?: string;
+        readonly max_age?: number;
+    }): Promise<TokenSet>;
+
     userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
 
     grant(body: {
@@ -78,6 +87,8 @@ export class Client {
 
     introspect(token: string, tokenTypeHint?: string, extras?: { readonly introspectBody?: {} }):
         Promise<{ readonly [name: string]: {} | null | undefined }>;
+
+    refresh(refreshToken: string | TokenSet): Promise<TokenSet>;
 }
 
 export class TokenSet {
@@ -85,6 +96,8 @@ export class TokenSet {
     readonly token_type?: string;
     readonly id_token?: string;
     readonly refresh_token?: string;
+    readonly expires_at?: number;
+    readonly scope?: string;
 
     expired(): boolean;
 
