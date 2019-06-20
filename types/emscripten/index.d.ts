@@ -27,6 +27,10 @@ declare namespace Emscripten {
         name: string;
         kind: string;
     }>;
+
+    interface CCallOpts {
+        async?: boolean;
+    }
 }
 
 declare interface EmscriptenModule {
@@ -57,8 +61,8 @@ declare interface EmscriptenModule {
 
     Runtime: any;
 
-    ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[]): any;
-    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[]): (...any[]) => any;
+    ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
+    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...any[]) => any;
 
     setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     getValue(ptr: number, type: string, noSafe?: boolean): number;
