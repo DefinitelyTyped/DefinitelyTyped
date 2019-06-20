@@ -173,7 +173,7 @@ export class SemVer {
     patch: number;
     version: string;
     build: ReadonlyArray<string>;
-    prerelease: ReadonlyArray<string>;
+    prerelease: ReadonlyArray<string | number>;
 
     compare(other: string | SemVer): 1 | 0 | -1;
     compareMain(other: string | SemVer): 1 | 0 | -1;
