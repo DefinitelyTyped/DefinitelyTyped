@@ -137,3 +137,8 @@ import * as ImportUsingES6Syntax from 'form-data';
     const form = new FormData();
     form.getLength((err: Error, length: number): void => {});
 })();
+
+(() => {
+    const form = new FormData();
+    form.getBuffer();
+})();
