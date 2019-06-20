@@ -104,6 +104,9 @@ export class AmplitudeClient {
     logRevenueV2(revenue_obj: Revenue): LogReturn;
     logRevenue(pric: number, quantity: number, product: string): LogReturn;
     logEventWithTimestamp(event: string, data?: any, timestamp?: number, callback?: Callback): LogReturn;
+
+    Identify: typeof Identify
+    Revenue: typeof Revenue
 }
 
 // Proxy methods that get executed on the default AmplitudeClient instance (not all client methods are proxied)

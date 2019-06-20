@@ -107,6 +107,9 @@ module Amplitude.Tests {
         revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setEventProperties({ 'city': 'San Francisco' });
         revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setQuantity(5);
         revenue = new amplitude.Revenue().setProductId('productIdentifier').setPrice(10.99).setRevenueType('purchase');
+
+        identify = new client.Identify()
+        revenue = new client.Revenue()
     }
 
 }
