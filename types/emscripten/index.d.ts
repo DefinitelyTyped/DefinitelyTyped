@@ -31,6 +31,10 @@ declare namespace Module {
         kind: string;
     }>;
 
+    interface CCallOpts {
+        async?: boolean;
+    }
+
     function print(str: string): void;
     function printErr(str: string): void;
     var arguments: string[];
@@ -57,8 +61,8 @@ declare namespace Module {
 
     var Runtime: any;
 
-    function ccall(ident: string, returnType: ValueType | null, argTypes: ValueType[], args: TypeCompatibleWithC[]): any;
-    function cwrap(ident: string, returnType: ValueType | null, argTypes: ValueType[]): (...any[]) => any;
+    function ccall(ident: string, returnType: ValueType | null, argTypes: ValueType[], args: TypeCompatibleWithC[], opts?: CCallOpts): any;
+    function cwrap(ident: string, returnType: ValueType | null, argTypes: ValueType[], opts?: CCallOpts): (...any[]) => any;
 
     function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
     function getValue(ptr: number, type: string, noSafe?: boolean): number;
