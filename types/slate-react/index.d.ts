@@ -111,8 +111,8 @@ export interface Plugin extends CorePlugin {
     onSelect?: EventHook;
 }
 
-export type Plugins = Plugin | NestedPlugins;
-export interface NestedPlugins extends Array<Plugins> {}
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
 
 export interface BasicEditorProps {
     value: Value;
