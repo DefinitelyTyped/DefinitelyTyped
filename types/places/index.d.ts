@@ -6,7 +6,7 @@
 
 import {EventEmitter} from 'events';
 
-declare namespace algoliaPlaces {
+declare namespace places {
 
     function version(): string;
 
@@ -37,11 +37,10 @@ declare namespace algoliaPlaces {
         message: string;
     }
 
-    export function places(options: PlacesOptions): EventEmitter;
 }
 
-declare function algoliaPlaces(
-    options: algoliaPlaces.PlacesOptions
+declare function places(
+    options: places.PlacesOptions
 ): EventEmitter;
 
-export = algoliaPlaces;
+export = places;
