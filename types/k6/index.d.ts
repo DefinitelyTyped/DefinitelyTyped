@@ -8,8 +8,8 @@
 export type bytes = any;
 
 declare global {
-  function open(filePath: string): string;
-  function open(filePath: string, mode: 'b'): bytes;
+    function open(filePath: string): string;
+    function open(filePath: string, mode: 'b'): bytes;
 }
 
 export function check<T>(val: T, sets: { [key: string]: (val: T) => boolean }, tags?: object): boolean;

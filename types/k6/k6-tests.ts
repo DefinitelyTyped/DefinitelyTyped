@@ -13,12 +13,12 @@ function test1() {
 const binFile1 = open("/path/to/file.bin", "b");
 
 export default function test2() {
-  const data = {
-    field: "this is a standard form field",
-    file: http.file(binFile1, "test.bin")
-  };
-  const res = http.post("https://example.com/upload", data);
-  sleep(3);
+    const data = {
+        field: "this is a standard form field",
+        file: http.file(binFile1, "test.bin")
+    };
+    const res = http.post("https://example.com/upload", data);
+    sleep(3);
 }
 
 function test3() {
@@ -32,26 +32,26 @@ function test3() {
 function test4() {
     const res = http.get("https://loadimpact.com");
     check(res, {
-      "status code MUST be 200": (res) => res.status === 200,
+        "status code MUST be 200": (res) => res.status === 200,
     }) || fail("status code was *not* 200");
 }
 
 function test5() {
-    group("my user scenario", () => {
-      group("front page", () => {
+group("my user scenario", () => {
+    group("front page", () => {
         const res = http.get("https://loadimpact.com");
         check(res, {
-          "status code is 200": (res) => res.status === 200,
+            "status code is 200": (res) => res.status === 200,
         });
-      });
-      group("features page", () => {
+    });
+    group("features page", () => {
         const res = http.get("https://loadimpact.com/features");
         check(res, {
-          "status code is 200": (res) => res.status === 200,
-          "h1 message is correct": (res) => res.html("h1").text().startsWith("Simple yet realistic load testing"),
+            "status code is 200": (res) => res.status === 200,
+            "h1 message is correct": (res) => res.html("h1").text().startsWith("Simple yet realistic load testing"),
         });
-      });
     });
+});
 }
 
 function test6() {
@@ -61,54 +61,54 @@ function test6() {
 }
 
 function httpTest1() {
-  const responses = http.batch([
-    "http://test.loadimpact.com",
-    "http://test.loadimpact.com/style.css",
-    "http://test.loadimpact.com/images/logo.png",
-  ]);
-  check(responses[0], {
-    "main page status was 200": res => res.status === 200,
-  });
+    const responses = http.batch([
+        "http://test.loadimpact.com",
+        "http://test.loadimpact.com/style.css",
+        "http://test.loadimpact.com/images/logo.png",
+    ]);
+    check(responses[0], {
+        "main page status was 200": res => res.status === 200,
+    });
 }
 
 function httpTest2() {
-  const req1 = {
-    method: "GET",
-    url: "http://httpbin.org/get",
-  };
-  const req2 = {
-    method: "GET",
-    url: "http://test.loadimpact.com",
-  };
-  const req3 = {
-    method: "POST",
-    url: "http://httpbin.org/post",
-    body: {
-      hello: "world!",
+    const req1 = {
+        method: "GET",
+        url: "http://httpbin.org/get",
+    };
+    const req2 = {
+        method: "GET",
+        url: "http://test.loadimpact.com",
+    };
+    const req3 = {
+        method: "POST",
+        url: "http://httpbin.org/post",
+        body: {
+        hello: "world!",
     },
     params: { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-  };
-  const responses = http.batch([req1, req2, req3]);
-  // httpbin.org should return our POST data in the response body, so
-  // we check the third response object to see that the POST worked.
-  check(responses[2], {
-    "form data OK": (res) => JSON.parse(res.body)["form"]["hello"] === "world!",
-  });
+    };
+    const responses = http.batch([req1, req2, req3]);
+    // httpbin.org should return our POST data in the response body, so
+    // we check the third response object to see that the POST worked.
+    check(responses[2], {
+        "form data OK": (res) => JSON.parse(res.body)["form"]["hello"] === "world!",
+    });
 }
 
 const binFile = open("/path/to/file.bin", "b");
 
 function httpTest3() {
-  const data = {
-    field: "this is a standard form field",
-    file: http.file(binFile, "test.bin")
-  };
-  const res = http.post("https://example.com/upload", data);
-  sleep(3);
+    const data = {
+        field: "this is a standard form field",
+        file: http.file(binFile, "test.bin")
+    };
+    const res = http.post("https://example.com/upload", data);
+    sleep(3);
 }
 
 function httpTest4() {
-  return http.get("https://loadimpact.com");
+    return http.get("https://loadimpact.com");
 }
 
 function httpTest5() {
@@ -182,10 +182,10 @@ function httpTest9() {
 			console.log(`${p} : ${res.headers[p]}`);
 		}
 	}
-  check(res, {
-    "status is 200": (r) => r.status === 200,
-    "caption is correct": (r) => r.html("h1").text() === "Example Domain",
-  });
+    check(res, {
+        "status is 200": (r) => r.status === 200,
+        "caption is correct": (r) => r.html("h1").text() === "Example Domain",
+    });
 }
 
 function httpTest10() {
