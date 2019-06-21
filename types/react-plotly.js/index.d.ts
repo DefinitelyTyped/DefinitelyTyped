@@ -102,5 +102,3 @@ export interface PlotParams {
 
 export default class Plot extends React.PureComponent<PlotParams> {
 }
-
-export * from './factory';
