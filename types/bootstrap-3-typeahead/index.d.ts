@@ -66,7 +66,7 @@ declare namespace Bootstrap3Typeahead {
         /**
          * Call back function to execute after selected an item
          */
-        afterSelect?: (item: string) => void;
+        afterSelect?: (item: any) => void;
 
         /**
          * Adds a delay between lookups
