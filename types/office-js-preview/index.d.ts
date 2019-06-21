@@ -24371,7 +24371,7 @@ declare namespace Excel {
         ignoreBlanks: boolean;
         /**
          *
-         * Prompt when users select a cell.
+         * Prompt when users select a cell. The prompt's properties must be set together as a JSON object (not individually like other navigational properties).
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -33084,7 +33084,7 @@ declare namespace Excel {
         barDirection: Excel.ConditionalDataBarDirection | "Context" | "LeftToRight" | "RightToLeft";
         /**
          *
-         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar. The rule's properties must be set together as a JSON object (not individually like other navigational properties).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -33098,7 +33098,7 @@ declare namespace Excel {
         showDataBarOnly: boolean;
         /**
          *
-         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar. The rule's properties must be set together as a JSON object (not individually like other navigational properties).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -35594,7 +35594,7 @@ declare namespace Excel {
         topMargin: number;
         /**
          *
-         * Gets or sets the worksheet's print zoom options.
+         * Gets or sets the worksheet's print zoom options. The zoom option's properties must be set together as a JSON object (not individually like other navigational properties).
          *
          * [Api set: ExcelApi 1.9]
          */
