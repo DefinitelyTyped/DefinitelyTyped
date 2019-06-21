@@ -5,7 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-export type bytes = any;
+export type byte = number; // [0,256)
+export type bytes = byte[];
 
 declare global {
     function open(filePath: string): string;
