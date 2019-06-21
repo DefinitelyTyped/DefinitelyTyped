@@ -1,19 +1,13 @@
 import * as places from "places";
-import {
-    PlacesOptions,
-    AutompleteOptions,
-    Places,
-    Error
-} from 'places';
 import { EventEmitter } from "../events";
 
-const options: PlacesOptions = {
+const options: places.PlacesOptions = {
     appId: 'your app Id',
     apiKey: 'your api key',
     container: '<input type=\"search\" id=\"address\">'
 };
 
-const autompleteOptions: AutompleteOptions = {
+const autompleteOptions: places.AutompleteOptions = {
     autoselect: true,
     hint: true,
     cssClasses: {
@@ -23,14 +17,14 @@ const autompleteOptions: AutompleteOptions = {
     debug: true,
 };
 
-const placesObject: Places = {
+const placesObject: places.Places = {
     rawAnswer: 'raw',
     query: 'query',
     suggestion: 'suggestion',
     suggestionIndex: 'suggestionIndex'
 };
 
-const error: Error = {
+const error: places.Error = {
     message: 'message'
 };
 
