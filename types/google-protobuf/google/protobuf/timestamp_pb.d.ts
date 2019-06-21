@@ -10,6 +10,9 @@ export class Timestamp extends jspb.Message {
   getNanos(): number;
   setNanos(value: number): void;
 
+  toDate(): Date;
+  fromDate(date: Date): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Timestamp.AsObject;
   static toObject(includeInstance: boolean, msg: Timestamp): Timestamp.AsObject;
