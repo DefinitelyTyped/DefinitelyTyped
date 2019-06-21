@@ -1,5 +1,5 @@
 // Type definitions for k6 1.0
-// Project: https://github.com/loadimpact/k6#readme
+// Project: https://docs.k6.io/docs
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
