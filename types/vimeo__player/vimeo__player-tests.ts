@@ -509,7 +509,10 @@ player.on('bufferend', (data) => {
 });
 
 player.on('seeking', (data) => {
-    // no associated data with this event
+    // data is an object containing properties specific to that event
+    console.log(data.duration); // 61.857
+    console.log(data.percent);  // 0.485
+    console.log(data.seconds);  // 30
  });
 
 player.on('error', (data) => {

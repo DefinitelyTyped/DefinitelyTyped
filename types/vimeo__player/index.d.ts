@@ -4,7 +4,7 @@
 //                 Felix Albert <f.albert.work@icloud.com>
 //                 Tim Chen <https://github.com/timc13>
 //                 Terry Mun <https://github.com/terrymun>
-//                 Coskun Deniz <https://github.com/denizcoskun>
+//                 Coskun Deniz <deniz@tassomai.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type CallbackFunction = (...args: any[]) => any;
@@ -44,7 +44,7 @@ export class Player {
     addCuePoint(time: number, data: VimeoCuePointData): VimeoPromise<string, UnsupportedError | RangeError | Error>;
     removeCuePoint(id: string): VimeoPromise<string, UnsupportedError | InvalidCuePoint | Error>;
     getCuePoints(): VimeoPromise<VimeoCuePoint[], UnsupportedError | Error>;
-    getBuffered(): VimeoPromise<number, Error>;
+    getBuffered(): VimeoPromise<[number, number][], Error>;
     getCurrentTime(): VimeoPromise<number, Error>;
     setCurrentTime(seconds: number): VimeoPromise<number, RangeError | Error>;
     getDuration(): VimeoPromise<number, Error>;
@@ -52,8 +52,8 @@ export class Player {
     getLoop(): VimeoPromise<boolean, Error>;
     setLoop(loop: boolean): VimeoPromise<boolean, Error>;
     getPaused(): VimeoPromise<boolean, Error>;
-    getPlayed(): VimeoPromise<boolean, Error>;
-    getSeekable(): VimeoPromise<boolean, Error>;
+    getPlayed(): VimeoPromise<[number, number][], Error>;
+    getSeekable(): VimeoPromise<[number, number][], Error>;
     getSeeking(): VimeoPromise<boolean, Error>;
     getPlaybackRate(): VimeoPromise<number, Error>;
     setPlaybackRate(playbackRate: number): VimeoPromise<number, RangeError | Error>;
