@@ -143,6 +143,12 @@ function test_fromURL() {
     JSDOM.fromURL('https://example.com/', options).then(dom => {
         console.log(dom.serialize());
     });
+
+    function pretendToBeVisual() {
+        JSDOM.fromURL("https://github.com", {
+            pretendToBeVisual: true
+        });
+    }
 }
 
 function test_fromFile() {
