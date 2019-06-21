@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 declare namespace places {
-
     function version(): string;
 
     interface PlacesOptions {
@@ -36,7 +35,6 @@ declare namespace places {
     interface Error {
         message: string;
     }
-
 }
 
 declare function places(
