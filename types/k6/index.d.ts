@@ -3,7 +3,7 @@
 // Definitions by: MajorBreakfast <https://github.com/MajorBreakfast>
 //                 Book Moons <https://github.com/bookmoons>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.4
 
 export type bytes = any;
 
