@@ -28,4 +28,4 @@ const error: places.Error = {
     message: 'message'
 };
 
-// const event : EventEmitter = places(options);
+const algoliaplaces : EventEmitter = places(options);
