@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: api.proto
+
 import * as jspb from "../../index";
 import * as google_protobuf_source_context_pb from "./source_context_pb";
 import * as google_protobuf_type_pb from "./type_pb";
@@ -9,12 +12,12 @@ export class Api extends jspb.Message {
   clearMethodsList(): void;
   getMethodsList(): Array<Method>;
   setMethodsList(value: Array<Method>): void;
-  addMethods(value?: Method, index?: number): void;
+  addMethods(value?: Method, index?: number): Method;
 
   clearOptionsList(): void;
   getOptionsList(): Array<google_protobuf_type_pb.Option>;
   setOptionsList(value: Array<google_protobuf_type_pb.Option>): void;
-  addOptions(value?: google_protobuf_type_pb.Option, index?: number): void;
+  addOptions(value?: google_protobuf_type_pb.Option, index?: number): google_protobuf_type_pb.Option;
 
   getVersion(): string;
   setVersion(value: string): void;
@@ -27,7 +30,7 @@ export class Api extends jspb.Message {
   clearMixinsList(): void;
   getMixinsList(): Array<Mixin>;
   setMixinsList(value: Array<Mixin>): void;
-  addMixins(value?: Mixin, index?: number): void;
+  addMixins(value?: Mixin, index?: number): Mixin;
 
   getSyntax(): google_protobuf_type_pb.Syntax;
   setSyntax(value: google_protobuf_type_pb.Syntax): void;
@@ -73,7 +76,7 @@ export class Method extends jspb.Message {
   clearOptionsList(): void;
   getOptionsList(): Array<google_protobuf_type_pb.Option>;
   setOptionsList(value: Array<google_protobuf_type_pb.Option>): void;
-  addOptions(value?: google_protobuf_type_pb.Option, index?: number): void;
+  addOptions(value?: google_protobuf_type_pb.Option, index?: number): google_protobuf_type_pb.Option;
 
   getSyntax(): google_protobuf_type_pb.Syntax;
   setSyntax(value: google_protobuf_type_pb.Syntax): void;

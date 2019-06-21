@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: any.proto
+
 import * as jspb from "../../index";
 
 export class Any extends jspb.Message {
@@ -8,10 +11,6 @@ export class Any extends jspb.Message {
   getValue_asU8(): Uint8Array;
   getValue_asB64(): string;
   setValue(value: Uint8Array | string): void;
-
-  getTypeName(): string;
-  pack(serialized: Uint8Array, name: string, typeUrlPrefix?: string): void;
-  unpack<T extends jspb.Message>(deserialize: (packed: Uint8Array) => T, name: string): T | null;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Any.AsObject;
