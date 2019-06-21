@@ -6,6 +6,10 @@ import * as jspb from "../../index";
 export class Struct extends jspb.Message {
   getFieldsMap(): jspb.Map<string, Value>;
   clearFieldsMap(): void;
+
+  toJavaScript(): {[key: string]: JavaScriptValue};
+  static fromJavaScript(value: {[key: string]: JavaScriptValue}): Struct;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Struct.AsObject;
   static toObject(includeInstance: boolean, msg: Struct): Struct.AsObject;
@@ -54,6 +58,10 @@ export class Value extends jspb.Message {
   setListValue(value?: ListValue): void;
 
   getKindCase(): Value.KindCase;
+
+  toJavaScript(): JavaScriptValue;
+  static fromJavaScript(value: JavaScriptValue): Value;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Value.AsObject;
   static toObject(includeInstance: boolean, msg: Value): Value.AsObject;
@@ -91,6 +99,9 @@ export class ListValue extends jspb.Message {
   setValuesList(value: Array<Value>): void;
   addValues(value?: Value, index?: number): Value;
 
+  toJavaScript(): Array<JavaScriptValue>;
+  static fromJavaScript(value: Array<JavaScriptValue>): ListValue;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListValue.AsObject;
   static toObject(includeInstance: boolean, msg: ListValue): ListValue.AsObject;
@@ -111,3 +122,4 @@ export enum NullValue {
   NULL_VALUE = 0,
 }
 
+export type JavaScriptValue = null | number | string | boolean | Array<any> | {};
