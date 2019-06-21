@@ -1131,9 +1131,12 @@ export interface Plugin {
     schema?: SchemaProperties;
 }
 
+export type Plugins = Plugin | Plugin[] | PluginStack;
+export interface PluginStack extends Array<Plugins> {}
+
 export interface EditorProperties {
     onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: Plugin[];
+    plugins?: PluginStack;
     readOnly?: boolean;
     value?: Value;
 }
