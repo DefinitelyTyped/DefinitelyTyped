@@ -176,23 +176,23 @@ interface IToSVGOptions {
 	/**
 	 * If true xml tag is not included
 	 */
-	suppressPreamble: boolean;
+	suppressPreamble?: boolean;
 	/**
 	 * SVG viewbox object
 	 */
-	viewBox: IViewBox;
+	viewBox?: IViewBox;
 	/**
 	 * Encoding of SVG output
 	 */
-	encoding: string;
+	encoding?: string;
 	/**
 	 * desired width of svg with or without units
 	 */
-	width: number;
+	width?: number;
 	/**
 	 * desired height of svg with or without units
 	 */
-	height: number;
+	height?: number;
 }
 
 interface IViewBox {
