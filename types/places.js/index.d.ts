@@ -1,11 +1,13 @@
-// Type definitions for algolia places 1.16.4
+// Type definitions for algolia places 1.16
 // Project: https://github.com/algolia/places
 // Definitions by: Ghizlane LOTFI <https://github.com/ghizlanelotfi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
+import {EventEmitter} from 'events';
 
 declare module 'places.js' {
-    import {EventEmitter} from 'events';
+
     export default function places(options: IPlacesOptions): EventEmitter;
 
     export function version(): string;
