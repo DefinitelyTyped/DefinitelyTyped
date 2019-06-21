@@ -1135,7 +1135,7 @@ export type Plugins = Plugin | Plugin[] | PluginStack;
 export interface PluginStack extends Array<Plugins> {}
 
 export interface EditorProperties {
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
     plugins?: PluginStack;
     readOnly?: boolean;
     value?: Value;
