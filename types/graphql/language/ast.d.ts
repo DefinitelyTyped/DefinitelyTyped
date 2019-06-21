@@ -491,6 +491,7 @@ export interface DirectiveDefinitionNode {
     readonly description?: StringValueNode;
     readonly name: NameNode;
     readonly arguments?: ReadonlyArray<InputValueDefinitionNode>;
+    readonly repeatable: boolean;
     readonly locations: ReadonlyArray<NameNode>;
 }
 
