@@ -31,7 +31,6 @@ declare namespace algoliaPlaces {
         query: any;
         suggestion: any;
         suggestionIndex: any;
-
     }
 
     interface Error {
