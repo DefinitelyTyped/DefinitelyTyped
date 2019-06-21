@@ -4,21 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 declare module 'places.js' {
 
-    export default function places(options: IPlacesOptions): EventEmitter;
+    export default function places(options: PlacesOptions): EventEmitter;
 
-    export function version(): string;
+    function version(): string;
 
-    interface IPlacesOptions {
+    interface PlacesOptions {
         appId: string;
         apiKey: string;
         container: string | HTMLInputElement | NodeList | Element;
     }
 
-    interface IAutompleteOptions {
+    interface AutompleteOptions {
         autoselect: boolean;
         hint: boolean;
         cssClasses: {
@@ -28,7 +28,7 @@ declare module 'places.js' {
         debug: boolean;
     }
 
-    export interface Places {
+    interface Places {
         rawAnswer: any;
         query: any;
         suggestion: any;
@@ -36,7 +36,7 @@ declare module 'places.js' {
 
     }
 
-    interface IError {
+    interface Error {
         message: string;
     }
 }
