@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 
-declare module 'places.js' {
-
-    export default function places(options: PlacesOptions): EventEmitter;
+declare namespace algoliaPlaces {
 
     function version(): string;
 
@@ -39,4 +37,12 @@ declare module 'places.js' {
     interface Error {
         message: string;
     }
+
+    export function places(options: PlacesOptions): EventEmitter;
 }
+
+declare function algoliaPlaces(
+    options: algoliaPlaces.PlacesOptions
+): EventEmitter;
+
+export = algoliaPlaces;
