@@ -9,6 +9,7 @@ const op: semver.Operator = '';
 declare const arr: any[];
 declare const exp: RegExp;
 let strArr: ReadonlyArray<string> | null;
+let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
 let versionsArr: Array<string | semver.SemVer>;
@@ -84,7 +85,8 @@ num = ver.minor;
 num = ver.patch;
 str = ver.version;
 strArr = ver.build;
-strArr = ver.prerelease;
+strNumArr = ver.prerelease;
+ver.prerelease = strNumArr;
 
 comparatorResult = ver.compare(ver);
 comparatorResult = ver.compareMain(ver);
