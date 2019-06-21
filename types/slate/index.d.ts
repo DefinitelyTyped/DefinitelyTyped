@@ -1131,8 +1131,8 @@ export interface Plugin {
     schema?: SchemaProperties;
 }
 
-export type Plugins = Plugin | NestedPlugins;
-export interface NestedPlugins extends Array<Plugins> {}
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
 
 export interface EditorProperties {
     onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
