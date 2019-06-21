@@ -1,5 +1,5 @@
 import * as places from "places";
-import { EventEmitter } from "../events";
+import { EventEmitter } from "events";
 
 const options: places.PlacesOptions = {
     appId: 'your app Id',
@@ -28,4 +28,4 @@ const error: places.Error = {
     message: 'message'
 };
 
-const algoliaplaces : EventEmitter = places(options);
+const algoliaplaces: EventEmitter = places(options);
