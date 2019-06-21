@@ -111,8 +111,8 @@ export interface Plugin extends CorePlugin {
     onSelect?: EventHook;
 }
 
-export type Plugins = Plugin | Plugin[] | PluginStack;
-export interface PluginStack extends Array<Plugins> {}
+export type Plugins = Plugin | NestedPlugins;
+export interface NestedPlugins extends Array<Plugins> {}
 
 export interface BasicEditorProps {
     value: Value;
@@ -121,7 +121,7 @@ export interface BasicEditorProps {
     className?: string;
     onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => any;
     placeholder?: any;
-    plugins?: PluginStack;
+    plugins?: Plugins;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;
