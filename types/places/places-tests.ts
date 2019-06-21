@@ -1,12 +1,19 @@
-import * as places from 'places';
+import * as places from "places";
+import {
+    PlacesOptions,
+    AutompleteOptions,
+    Places,
+    Error
+} from 'places';
+import { EventEmitter } from "../events";
 
-const options: places.Options = {
+const options: PlacesOptions = {
     appId: 'your app Id',
     apiKey: 'your api key',
     container: '<input type=\"search\" id=\"address\">'
 };
 
-const autompleteOptions: places.AutompleteOptions = {
+const autompleteOptions: AutompleteOptions = {
     autoselect: true,
     hint: true,
     cssClasses: {
@@ -16,15 +23,15 @@ const autompleteOptions: places.AutompleteOptions = {
     debug: true,
 };
 
-const places: places.Places = {
+const placesObject: Places = {
     rawAnswer: 'raw',
     query: 'query',
     suggestion: 'suggestion',
     suggestionIndex: 'suggestionIndex'
 };
 
-const error: places.Error = {
+const error: Error = {
     message: 'message'
 };
 
-let algoliaPlaces : places.Options = places(options);
+// const event : EventEmitter = places(options);
