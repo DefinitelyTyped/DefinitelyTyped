@@ -1,8 +1,8 @@
 import { bytes } from '.';
 
 // Available without importing
-// Only available in init context
 declare global {
+    // Init context only
     function open(filePath: string): string;
     function open(filePath: string, mode: 'b'): bytes;
 }
