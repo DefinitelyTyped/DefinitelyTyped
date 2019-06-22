@@ -2,19 +2,12 @@ import { bytes } from '.';
 
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: Response };
 export function batch(requests: ReadonlyArray<Request>): Response[];
-
 export function del(url: string, body?: string | object, params?: RequestParams): Response;
-
 export function get(url: string, params?: RequestParams): Response;
-
 export function options(url: string, body?: string | object, params?: RequestParams): Response;
-
 export function patch(url: string, body?: string | object, params?: RequestParams): Response;
-
 export function post(url: string, body?: string | object, params?: RequestParams): Response;
-
 export function put(url: string, body?: string | object, params?: RequestParams): Response;
-
 export function request(method: string, url: string, body?: string | object, params?: RequestParams): Response;
 
 export interface RequestParams {
