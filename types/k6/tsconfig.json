@@ -21,6 +21,7 @@
         "crypto.d.ts",
         "http.d.ts",
         "index.d.ts",
+        "init.d.ts",
         "k6-tests.ts"
     ]
 }

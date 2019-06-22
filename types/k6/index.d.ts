@@ -8,13 +8,6 @@
 export type byte = number; // [0,256)
 export type bytes = byte[];
 
-// Only available in init context
-// Available without importing
-declare global {
-    function open(filePath: string): string;
-    function open(filePath: string, mode: 'b'): bytes;
-}
-
 export function check<T>(val: T, sets: { [key: string]: (val: T) => boolean }, tags?: object): boolean;
 export function fail(err?: string): never;
 export function group<T>(name: string, fn: () => T): T;
