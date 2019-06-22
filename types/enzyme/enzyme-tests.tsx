@@ -205,6 +205,7 @@ function ShallowWrapperTest() {
         }
 
         const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
+        const diveWrapper2 = shallowWrapper.dive<MyComponent>({ context: { foobar: 'barfoo' } });
     }
 
     function test_hostNodes() {
