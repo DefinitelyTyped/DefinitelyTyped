@@ -6,9 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import Koa = require('koa');
+import Koa = require("koa");
 
-declare function mount(app: Koa.Middleware | Koa): Koa.Middleware;
+declare function mount<StateT = any, CustomT = {}>(
+  app: Koa.Middleware<StateT, CustomT> | Koa<StateT, CustomT>
+): Koa.Middleware<StateT, CustomT>;
 
 declare function mount<StateT = any, CustomT = {}>(
   prefix: string,
