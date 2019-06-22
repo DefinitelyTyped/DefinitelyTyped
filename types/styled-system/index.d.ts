@@ -824,7 +824,7 @@ export interface GridProps
         GridAutoRowsProps,
         GridTemplateColumnsProps,
         GridTemplateRowsProps,
-        GridTemplatesAreasProps,
+        GridTemplateAreasProps,
         GridAreaProps {}
 
 export const grid: styleFn;
