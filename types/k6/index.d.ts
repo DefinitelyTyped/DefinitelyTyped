@@ -17,7 +17,7 @@ declare global {
 
 export function check<T>(val: T, sets: { [key: string]: (val: T) => boolean }, tags?: object): boolean;
 
-export function fail(err?: string): undefined;
+export function fail(err?: string): never;
 
 export function group<T>(name: string, fn: () => T): T;
 
