@@ -574,6 +574,7 @@ export interface RadarPoint {
 
 export interface RadarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
     className?: string;
+    name?: string;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     points?: RadarPoint[];
     shape?: React.ReactElement | ContentRenderer<RadarProps>;
