@@ -15,6 +15,6 @@ declare function mount<StateT = any, CustomT = {}>(
   app: Koa.Middleware<StateT, CustomT> | Koa<StateT, CustomT>
 ): Koa.Middleware<StateT, CustomT>;
 
-declare namespace mount { };
+declare namespace mount { }
 
 export = mount;
