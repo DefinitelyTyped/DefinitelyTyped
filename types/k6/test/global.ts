@@ -30,3 +30,7 @@ console.warn(); // $ExpectError
 console.warn(7);
 console.warn('peppermint');
 console.warn('peppermint', {}, true);
+
+// state
+__VU = 9; // $ExpectError
+__VU; // $ExpectType number
