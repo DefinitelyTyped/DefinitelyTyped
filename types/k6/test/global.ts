@@ -36,3 +36,7 @@ __VU = 9; // $ExpectError
 __VU; // $ExpectType number
 __ITER = 9; // $ExpectError
 __ITER; // $ExpectType number
+
+// environment
+__ENV = 5; // $ExpectError
+__ENV; // $ExpectType object

@@ -8,6 +8,9 @@ declare global {
     function open(filePath: string): string;
     function open(filePath: string, mode: 'b'): bytes;
 
+    // Init context and VU body
+    const __ENV: object;
+
     // VU body only
     let console: Console;
     const __VU: number; // Changes across VUs
