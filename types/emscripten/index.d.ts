@@ -227,10 +227,14 @@ declare var IDBFS: Emscripten.FileSystemType;
 
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function lengthBytesUTF8(str: string): number;
+declare function allocateUTF8(str: string): number;
 declare function UTF16ToString(ptr: number): string;
 declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function lengthBytesUTF16(str: string): number;
 declare function UTF32ToString(ptr: number): string;
 declare function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
+declare function lengthBytesUTF32(str: string): number;
 
 interface Math {
     imul(a: number, b: number): number;

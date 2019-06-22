@@ -103,10 +103,15 @@ function StringConv(): void {
     s = UTF8ToString(nullptr, 42);
     s = UTF16ToString(nullptr);
     s = UTF32ToString(nullptr);
+    let i1: number = lengthBytesUTF8(s);
+    let i2: number = lengthBytesUTF16(s);
+    let i3: number = lengthBytesUTF32(s);
     stringToUTF8(s, p);
     stringToUTF8(s, p, 42);
     stringToUTF16(s, p);
     stringToUTF16(s, p, 42);
     stringToUTF32(s, p);
     stringToUTF32(s, p, 42);
+    p = allocateUTF8(s);
+    Module._free(p);
 }
