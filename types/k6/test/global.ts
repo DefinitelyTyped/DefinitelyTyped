@@ -1,4 +1,3 @@
-import 'k6/global'; // Preloaded in production
 import { bytes } from 'k6';
 
 // open
