@@ -1,9 +1,7 @@
 import { ComponentType, ReactNode } from "@wordpress/element";
+import { Value } from '@wordpress/rich-text';
 
 declare namespace Autocomplete {
-    // FIXME: use `@wordpress/rich-text` value when it becomes available
-    type Value = any;
-
     /**
      * There are currently two supported actions:
      *   - `insert-at-caret` (default): Insert the `value` into the text.
@@ -112,13 +110,9 @@ declare namespace Autocomplete {
         listBoxId: string;
     }
 
-    // FIXME: below uses a reference to `Value` which is going to be defined
-    // in `@wordpress/rich-text`, so come back later and change this to
-    // that when that happens.
     interface Props<T> {
         children(props: RenderProps): JSX.Element | null;
         completers: ReadonlyArray<Completer<T>>;
-        // FIXME: Are these props even exposed externally?
         onChange?(value: Value): void;
         onReplace?(value: Value): void;
         record?: Value;

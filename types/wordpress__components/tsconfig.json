@@ -14,7 +14,8 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@wordpress/components": ["wordpress__components"],
-            "@wordpress/element": ["wordpress__element"]
+            "@wordpress/element": ["wordpress__element"],
+            "@wordpress/rich-text": ["wordpress__rich-text"]
         }
     },
     "files": [
