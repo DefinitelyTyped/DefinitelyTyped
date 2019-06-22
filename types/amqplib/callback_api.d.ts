@@ -71,3 +71,4 @@ export const credentials: {
 export function connect(callback: (err: any, connection: Connection) => void): void;
 export function connect(url: string, callback: (err: any, connection: Connection) => void): void;
 export function connect(url: string, socketOptions: any, callback: (err: any, connection: Connection) => void): void;
+export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;
