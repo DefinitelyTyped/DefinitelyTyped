@@ -11,6 +11,7 @@ declare global {
     // VU body only
     let console: Console;
     const __VU: number; // Changes across VUs
+    const __ITER: number; // Changes across iterations
 }
 
 interface Console {

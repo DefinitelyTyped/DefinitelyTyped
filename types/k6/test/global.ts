@@ -34,3 +34,5 @@ console.warn('peppermint', {}, true);
 // state
 __VU = 9; // $ExpectError
 __VU; // $ExpectType number
+__ITER = 9; // $ExpectError
+__ITER; // $ExpectType number
