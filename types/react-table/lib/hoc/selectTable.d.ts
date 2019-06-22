@@ -36,7 +36,7 @@ export interface SelectTableAdditionalProps {
      * Default: checkbox
      */
     selectType?: SelectType;
-
+    selectWidth?: number;
     SelectInputComponent?: ComponentType<SelectInputComponentProps>;
     SelectAllInputComponent?: ComponentType<SelectAllInputComponentProps>;
 }
