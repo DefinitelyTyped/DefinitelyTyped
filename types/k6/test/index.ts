@@ -1,5 +1,6 @@
-import { check } from 'k6';
+import { check, fail, group } from 'k6';
 
+// check
 check(); // $ExpectError
 check(null, {}); // $ExpectType boolean
 check(null, {}, {}); // $ExpectType boolean
@@ -19,3 +20,9 @@ check({}, {
 check(null, {}, 5); // $ExpectError
 check(null, {}, { session: 'abc123' });
 check(null, {}, {}, 5); // $ExpectError
+
+// fail
+fail();
+fail(5); // $ExpectError
+fail('drowned in cinnamon');
+fail('drowned in cinnamon', 5); // $ExpectError
