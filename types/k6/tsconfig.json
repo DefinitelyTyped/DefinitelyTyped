@@ -19,6 +19,7 @@
         "http.d.ts",
         "index.d.ts",
         "k6-tests.ts",
-        "test/global.ts"
+        "test/global.ts",
+        "test/index.ts"
     ]
 }
