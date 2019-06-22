@@ -69,7 +69,7 @@ declare namespace Page {
         from: 'backbutton' | 'navigateBack';
     }
 
-    interface NavigationBarSearchInputChangedOption {
+    interface NavigationBarSearchInputEvent {
         /**
          * 搜索输入框输入内容
          */
@@ -166,18 +166,16 @@ declare namespace Page {
         onBackPress?(options: BackPressOption): any;
         /**
          * 监听原生标题栏搜索输入框输入内容变化事件
-         * @param options tab 点击参数
-         * @return 返回 `true` 时阻止页面返回
          */
-        onNavigationBarSearchInputChanged?(options: NavigationBarSearchInputChangedOption): any;
+        onNavigationBarSearchInputChanged?(event: NavigationBarSearchInputEvent): void;
         /**
          * 监听原生标题栏搜索输入框搜索事件，用户点击软键盘上的“搜索”按钮时触发。
          */
-        onNavigationBarSearchInputConfirmed?(): any;
+        onNavigationBarSearchInputConfirmed?(event: NavigationBarSearchInputEvent): void;
         /**
          * 监听原生标题栏搜索输入框点击事件
          */
-        onNavigationBarSearchInputClicked?(): any;
+        onNavigationBarSearchInputClicked?(): void;
     }
 
     type PageConstructor = <T extends AnyObject & PageInstance>(
