@@ -9,6 +9,7 @@ export function patch(url: string, body?: string | object, params?: RequestParam
 export function post(url: string, body?: string | object, params?: RequestParams): Response;
 export function put(url: string, body?: string | object, params?: RequestParams): Response;
 export function request(method: string, url: string, body?: string | object, params?: RequestParams): Response;
+export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 
 export interface RequestParams {
     auth?: string;
@@ -76,8 +77,6 @@ export interface Response {
         params?: RequestParams;
     }) => Response;
 }
-
-export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 
 export interface FileData {
     data: string | bytes;
