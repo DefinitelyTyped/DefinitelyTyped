@@ -15,6 +15,7 @@ export type BinaryEncoding = 'binary';
 
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: BinaryEncoding): bytes;
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: StringEncoding): string;
+export function md4(input: string, outputEncoding: BinaryEncoding): bytes;
 export function md4(input: string, outputEncoding: StringEncoding): string;
 export function md5(input: string, outputEncoding: StringEncoding): string;
 export function sha1(input: string, outputEncoding: StringEncoding): string;
