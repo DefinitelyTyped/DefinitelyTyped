@@ -29,6 +29,7 @@ export function sha512(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha512(input: string, outputEncoding: StringEncoding): string;
 export function sha512_224(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha512_224(input: string, outputEncoding: StringEncoding): string;
+export function sha512_256(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha512_256(input: string, outputEncoding: StringEncoding): string;
 export function ripemd160(input: string, outputEncoding: StringEncoding): string;
 export function createHash(algorithm: string): Hasher;
