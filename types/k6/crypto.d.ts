@@ -13,6 +13,11 @@ export type Algorithm =
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 export type BinaryEncoding = 'binary';
 
+export interface Hasher {
+    update: (input: string) => void;
+    digest: (outputEncoding: StringEncoding) => string;
+}
+
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: BinaryEncoding): bytes;
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: StringEncoding): string;
 export function md4(input: string, outputEncoding: BinaryEncoding): bytes;
@@ -35,8 +40,3 @@ export function ripemd160(input: string, outputEncoding: BinaryEncoding): bytes;
 export function ripemd160(input: string, outputEncoding: StringEncoding): string;
 export function createHash(algorithm: string): Hasher;
 export function createHMAC(algorithm: string, secret: string): Hasher;
-
-export interface Hasher {
-    update: (input: string) => void;
-    digest: (outputEncoding: StringEncoding) => string;
-}
