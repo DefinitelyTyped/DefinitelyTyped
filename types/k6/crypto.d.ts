@@ -1,24 +1,5 @@
 import { bytes } from '.';
 
-export type Algorithm =
-    | 'md4'
-    | 'md5'
-    | 'sha1'
-    | 'sha256'
-    | 'sha384'
-    | 'sha512'
-    | 'sha512_224'
-    | 'sha512_256'
-    | 'ripemd160';
-export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
-export type BinaryEncoding = 'binary';
-
-export interface Hasher {
-    update(input: string): void;
-    digest(outputEncoding: BinaryEncoding): bytes;
-    digest(outputEncoding: StringEncoding): string;
-}
-
 export function randomBytes(size: number): bytes;
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: BinaryEncoding): bytes;
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: StringEncoding): string;
@@ -42,3 +23,22 @@ export function ripemd160(input: string, outputEncoding: BinaryEncoding): bytes;
 export function ripemd160(input: string, outputEncoding: StringEncoding): string;
 export function createHash(algorithm: Algorithm): Hasher;
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
+
+export type Algorithm =
+    | 'md4'
+    | 'md5'
+    | 'sha1'
+    | 'sha256'
+    | 'sha384'
+    | 'sha512'
+    | 'sha512_224'
+    | 'sha512_256'
+    | 'ripemd160';
+export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+export type BinaryEncoding = 'binary';
+
+export interface Hasher {
+    update(input: string): void;
+    digest(outputEncoding: BinaryEncoding): bytes;
+    digest(outputEncoding: StringEncoding): string;
+}
