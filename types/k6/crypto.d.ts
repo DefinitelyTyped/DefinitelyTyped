@@ -37,7 +37,8 @@ export type Algorithm =
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 export type BinaryEncoding = 'binary';
 
-export interface Hasher {
+export class Hasher {
+    private __brand;
     update(input: string): void;
     digest(outputEncoding: BinaryEncoding): bytes;
     digest(outputEncoding: StringEncoding): string;
