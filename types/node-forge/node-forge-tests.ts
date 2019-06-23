@@ -10,6 +10,7 @@ let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
+forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
