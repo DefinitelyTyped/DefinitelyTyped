@@ -12,6 +12,7 @@ import {
     sha512_256,
     ripemd160,
     createHash,
+    createHMAC,
 } from 'k6/crypto';
 
 let binary: bytes;
@@ -119,3 +120,24 @@ createHash(5); // $ExpectError
 createHash('bad-algorithm'); // $ExpectError
 hasher = createHash('sha512');
 createHash('sha512', 5); // $ExpectError
+
+// createHMAC
+createHMAC(); // $ExpectError
+createHMAC(5); // $ExpectError
+createHMAC('bad-algorithm'); // $ExpectError
+createHMAC('sha256'); // $ExpectError
+createHMAC('sha256', 5); // $ExpectError
+hasher = createHMAC('sha256', 'secret');
+createHMAC('sha256', 'secret', 5); // $ExpectError
+
+// Hasher
+hasher = createHash('md4');
+hasher.update(); // $ExpectError
+hasher.update(5); // $ExpectError
+hasher.update('data'); // $ExpectType void
+hasher.digest(); // $ExpectError
+hasher.digest(5); // $ExpectError
+hasher.digest('bad-encoding'); // $ExpectError
+hasher.digest('hex'); // $ExpectType string
+binary = hasher.digest('binary');
+hasher.digest('hex', 5); // $ExpectError
