@@ -1,6 +1,7 @@
 import { bytes } from 'k6';
 import {
     Hasher,
+    randomBytes,
     hmac,
     md4,
     md5,
@@ -17,6 +18,12 @@ import {
 
 let binary: bytes;
 let hasher: Hasher;
+
+// randomBytes
+randomBytes(); // $ExpectError
+randomBytes('turmeric'); // $ExpectError
+binary = randomBytes(100);
+randomBytes(100, 5); // $ExpectError
 
 // hmac
 hmac(); // $ExpectError

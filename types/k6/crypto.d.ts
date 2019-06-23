@@ -19,6 +19,7 @@ export interface Hasher {
     digest(outputEncoding: StringEncoding): string;
 }
 
+export function randomBytes(size: number): bytes;
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: BinaryEncoding): bytes;
 export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: StringEncoding): string;
 export function md4(input: string, outputEncoding: BinaryEncoding): bytes;
