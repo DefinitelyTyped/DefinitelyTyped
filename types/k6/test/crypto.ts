@@ -1,5 +1,5 @@
 import { bytes } from 'k6';
-import { hmac, md4, md5, sha1 } from 'k6/crypto';
+import { hmac, md4, md5, sha1, sha256 } from 'k6/crypto';
 
 let binary: bytes;
 
@@ -44,3 +44,12 @@ sha1('data', 5); // $ExpectError
 sha1('data', 'hex'); // $ExpectType string
 binary = sha1('data', 'binary');
 sha1('data', 'hex', 5); // $ExpectError
+
+// sha256
+sha256(); // $ExpectError
+sha256(5); // $ExpectError
+sha256('data'); // $ExpectError
+sha256('data', 5); // $ExpectError
+sha256('data', 'hex'); // $ExpectType string
+binary = sha256('data', 'binary');
+sha256('data', 'hex', 5); // $ExpectError
