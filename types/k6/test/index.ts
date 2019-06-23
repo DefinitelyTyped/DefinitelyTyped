@@ -26,3 +26,12 @@ fail();
 fail(5); // $ExpectError
 fail('drowned in cinnamon');
 fail('drowned in cinnamon', 5); // $ExpectError
+
+// group
+group(); // $ExpectError
+group('member section'); // $ExpectError
+group('member section', 5); // $ExpectError
+group(5, () => {}); // $ExpectError
+group('member section', () => true); // $ExpectType boolean
+group('member section', () => 7); // $ExpectType number
+group('member section', () => {}, 5); // $ExpectError
