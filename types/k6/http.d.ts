@@ -10,6 +10,7 @@ export function post(url: string, body?: string | object, params?: RequestParams
 export function put(url: string, body?: string | object, params?: RequestParams): Response;
 export function request(method: string, url: string, body?: string | object, params?: RequestParams): Response;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+export function cookieJar(): CookieJar;
 
 export interface RequestParams {
     auth?: string;
@@ -83,3 +84,5 @@ export interface FileData {
     filename?: string;
     content_type?: string;
 }
+
+export interface CookieJar {} // tslint:disable-line:no-empty-interface
