@@ -38,5 +38,5 @@ export function sha512_256(input: string, outputEncoding: BinaryEncoding): bytes
 export function sha512_256(input: string, outputEncoding: StringEncoding): string;
 export function ripemd160(input: string, outputEncoding: BinaryEncoding): bytes;
 export function ripemd160(input: string, outputEncoding: StringEncoding): string;
-export function createHash(algorithm: string): Hasher;
+export function createHash(algorithm: Algorithm): Hasher;
 export function createHMAC(algorithm: string, secret: string): Hasher;

@@ -1,7 +1,21 @@
 import { bytes } from 'k6';
-import { hmac, md4, md5, sha1, sha256, sha384, sha512, sha512_224, sha512_256, ripemd160 } from 'k6/crypto';
+import {
+    Hasher,
+    hmac,
+    md4,
+    md5,
+    sha1,
+    sha256,
+    sha384,
+    sha512,
+    sha512_224,
+    sha512_256,
+    ripemd160,
+    createHash,
+} from 'k6/crypto';
 
 let binary: bytes;
+let hasher: Hasher;
 
 // hmac
 hmac(); // $ExpectError
@@ -98,3 +112,10 @@ ripemd160('data', 5); // $ExpectError
 ripemd160('data', 'hex'); // $ExpectType string
 binary = ripemd160('data', 'binary');
 ripemd160('data', 'hex', 5); // $ExpectError
+
+// createHash
+createHash(); // $ExpectError
+createHash(5); // $ExpectError
+createHash('bad-algorithm'); // $ExpectError
+hasher = createHash('sha512');
+createHash('sha512', 5); // $ExpectError
