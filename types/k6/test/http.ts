@@ -1,10 +1,18 @@
-import { CookieJar, cookieJar } from 'k6/http';
+import { CookieJar, CookieJarCookies, cookieJar } from 'k6/http';
 
+let cookies: CookieJarCookies;
 let jar: CookieJar;
 
 // cookieJar
 jar = cookieJar();
 cookieJar(5); // $ExpectError
+
+// CookieJar.cookiesForURL
+jar = cookieJar();
+jar.cookiesForURL(); // $ExpectError
+jar.cookiesForURL(5); // $ExpectError
+cookies = jar.cookiesForURL('example.com');
+jar.cookiesForURL('example.com', 5); // $ExpectError
 
 // CookieJar.set
 jar = cookieJar();

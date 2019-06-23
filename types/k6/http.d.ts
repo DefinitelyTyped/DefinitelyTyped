@@ -85,6 +85,14 @@ export interface FileData {
     content_type?: string;
 }
 
+// CookieJar
+export interface CookieJar {
+    cookiesForURL(url: string): CookieJarCookies;
+    set(name: string, value: string, options?: CookieOptions | null): void;
+}
+export interface CookieJarCookies {
+    [name: string]: string[];
+}
 export interface CookieOptions {
     domain?: string;
     path?: string;
@@ -92,8 +100,4 @@ export interface CookieOptions {
     max_age?: number;
     secure?: boolean;
     http_only?: boolean;
-}
-
-export interface CookieJar {
-    set(name: string, value: string, options?: CookieOptions | null): void;
 }
