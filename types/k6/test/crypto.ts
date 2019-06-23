@@ -1,5 +1,5 @@
 import { bytes } from 'k6';
-import { hmac, md4 } from 'k6/crypto';
+import { hmac, md4, md5 } from 'k6/crypto';
 
 let binary: bytes;
 
@@ -26,3 +26,12 @@ md4('data', 5); // $ExpectError
 md4('data', 'hex'); // $ExpectType string
 binary = md4('data', 'binary');
 md4('data', 'hex', 5); // $ExpectError
+
+// md5
+md5(); // $ExpectError
+md5(5); // $ExpectError
+md5('data'); // $ExpectError
+md5('data', 5); // $ExpectError
+md5('data', 'hex'); // $ExpectType string
+binary = md5('data', 'binary');
+md5('data', 'hex', 5); // $ExpectError
