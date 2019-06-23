@@ -1,9 +1,13 @@
-// Type definitions for splitpanes 1.4.2
+// Type definitions for splitpanes 1.0
 // Project: https://github.com/antoniandre/splitpanes
 // Definitions by: teenhe <https://github.com/noonhorse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
+
 import { VueConstructor } from 'vue';
+
+export default splitpanes;
+export const splitpanes: splitpanesConstructor;
 
 export interface positionTypes {
   x: number;
@@ -81,6 +85,3 @@ export interface splitpanesConstructor extends VueConstructor {
   render: (createEl: any) => any;
 }
 
-export const splitpanes: splitpanesConstructor;
-
-export default splitpanes;
