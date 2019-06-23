@@ -4,6 +4,7 @@
 //                 Bartosz Dotryw <https://github.com/burtek>
 //                 David Kevork <https://github.com/davidkevork>
 //                 Joshua R. <https://github.com/JoshuaScript>
+//                 Marcelo Cardoso <https://github.com/marcelovicentegc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -97,7 +98,12 @@ declare namespace InfiniteScroll {
         initialScrollY?: number;
 
         /**
-         * Set a scroll y position for the component to render with.
+         * Set any custom class you want
+         */
+        className?: string;
+
+        /**
+         * Set any style which you want to override.
          */
         style?: any;
 
