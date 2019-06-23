@@ -86,7 +86,8 @@ export interface FileData {
 }
 
 // CookieJar
-export interface CookieJar {
+export class CookieJar {
+    private __brand;
     cookiesForURL(url: string): CookieJarCookies;
     set(name: string, value: string, options?: CookieOptions | null): void;
 }
