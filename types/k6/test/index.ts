@@ -1,4 +1,4 @@
-import { check, fail, group } from 'k6';
+import { check, fail, group, sleep } from 'k6';
 
 // check
 check(); // $ExpectError
@@ -35,3 +35,9 @@ group(5, () => {}); // $ExpectError
 group('member section', () => true); // $ExpectType boolean
 group('member section', () => 7); // $ExpectType number
 group('member section', () => {}, 5); // $ExpectError
+
+// sleep
+sleep(); // $ExpectError
+sleep('forever'); // $ExpectError
+sleep(7000); // $ExpectType void
+sleep(7000, 5); // $ExpectError
