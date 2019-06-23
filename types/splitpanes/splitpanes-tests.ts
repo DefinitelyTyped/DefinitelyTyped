@@ -1,17 +1,17 @@
 import Vue from 'vue';
-import splitpanes from 'splitpanes';
+import splitPanes from 'splitpanes';
 new Vue({
   el: '#app',
   data: {},
   components: {
-    'splitpanes': splitpanes,
+    'split-panes': splitPanes,
   },
-  template: `<splitpanes class="default-theme" horizontal @resize="horizontalResize($event)" :dblClickSplitter="false" :push-other-panes="false">
+  template: `<split-panes class="default-theme" horizontal @resize="horizontalResize($event)" :dblClickSplitter="false" :push-other-panes="false">
     <span splitpanes-min="2" splitpanes-size="35" splitpanes-max="85">
         A
      </span>
     <span splitpanes-min="2" splitpanes-size="65" splitpanes-max="85">
         B
      </span>
-  </splitpanes>`,
+  </split-panes>`,
 });

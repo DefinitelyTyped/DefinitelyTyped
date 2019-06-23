@@ -84,4 +84,3 @@ export interface splitpanesConstructor extends VueConstructor {
   beforeUpdate: () => void;
   render: (createEl: any) => any;
 }
-
