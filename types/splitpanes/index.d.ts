@@ -1,13 +1,12 @@
-// Type definitions for splitpanes 1.0
+// Type definitions for splitPanes 1.0
 // Project: https://github.com/antoniandre/splitpanes
 // Definitions by: teenhe <https://github.com/noonhorse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-
 import { VueConstructor } from 'vue';
 
-export default splitpanes;
-export const splitpanes: splitpanesConstructor;
+export default splitPanes;
+export const splitPanes: splitPanesConstructor;
 
 export interface positionTypes {
   x: number;
@@ -29,14 +28,14 @@ export interface splitterTapsTypes {
   timeoutId: null | object;
 }
 
-export interface splitpanesProps {
+export interface splitPanesProps {
   watchSlots: boolean; // 是否监控插槽 false
   horizontal: boolean; // 是否水平 false
   pushOtherPanes: boolean; // 支持添加 true
   dblClickSplitter: boolean; // 双击分离 true
 }
 
-export interface splitpanesData {
+export interface splitPanesData {
   container: containerTypes;
   slotsCount: number;
   vnodes: any[];
@@ -48,11 +47,11 @@ export interface splitpanesData {
   slotsCopy: string;
 }
 
-export interface splitpanesWatch {
+export interface splitPanesWatch {
   defaultPercent: (val: any) => void;
 }
 
-export interface splitpanesMethods {
+export interface splitPanesMethods {
   bindEvents: () => void;
   onMouseDown: (e: Event, splitterIndex: number) => void;
   onMouseMove: (e: Event) => void;
@@ -69,16 +68,16 @@ export interface splitpanesMethods {
   findNextExpandedPane: (splitterIndex: number) => object;
 }
 
-export interface splitpanesComputed {
+export interface splitPanesComputed {
   defaultWidth: () => number;
 }
 
-export interface splitpanesConstructor extends VueConstructor {
-  props: splitpanesProps;
-  data: () => splitpanesData;
-  watch: splitpanesWatch;
-  methods: splitpanesMethods;
-  computed: splitpanesComputed;
+export interface splitPanesConstructor extends VueConstructor {
+  props: splitPanesProps;
+  data: () => splitPanesData;
+  watch: splitPanesWatch;
+  methods: splitPanesMethods;
+  computed: splitPanesComputed;
   mounted: () => void;
   beforeDestroy: () => void;
   beforeUpdate: () => void;
