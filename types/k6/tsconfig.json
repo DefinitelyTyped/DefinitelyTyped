@@ -15,10 +15,12 @@
     },
     "files": [
         "crypto.d.ts",
+        "encoding.d.ts",
         "global.d.ts",
         "http.d.ts",
         "index.d.ts",
         "k6-tests.ts",
+        "test/encoding.ts",
         "test/global.ts",
         "test/index.ts"
     ]
