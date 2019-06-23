@@ -1,6 +1,20 @@
-export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+import { bytes } from '.';
 
-export function hmac(algorithm: string, secret: string, data: string, outputEncoding: StringEncoding): string;
+export type Algorithm =
+    | 'md4'
+    | 'md5'
+    | 'sha1'
+    | 'sha256'
+    | 'sha384'
+    | 'sha512'
+    | 'sha512_224'
+    | 'sha512_256'
+    | 'ripemd160';
+export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+export type BinaryEncoding = 'binary';
+
+export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: BinaryEncoding): bytes;
+export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: StringEncoding): string;
 export function md4(input: string, outputEncoding: StringEncoding): string;
 export function md5(input: string, outputEncoding: StringEncoding): string;
 export function sha1(input: string, outputEncoding: StringEncoding): string;
