@@ -5,6 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
+export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
+export function fail(err?: string): never;
+export function group<T>(name: string, fn: () => T): T;
+export function sleep(t: number): void;
+
 export type byte = number; // [0,256)
 export type bytes = byte[];
 export interface Checker<T> {
@@ -13,8 +18,3 @@ export interface Checker<T> {
 export interface Checkers<T> {
     [description: string]: Checker<T>;
 }
-
-export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
-export function fail(err?: string): never;
-export function group<T>(name: string, fn: () => T): T;
-export function sleep(t: number): void;
