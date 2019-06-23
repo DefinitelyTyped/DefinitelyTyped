@@ -7,6 +7,7 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
+//                 Sota Ohara <https://github.com/sottar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -202,9 +203,7 @@ export interface StyledComponentBase<
         O & StyledComponentInnerOtherProps<WithC>,
         A | StyledComponentInnerAttrs<WithC>
     >;
-    withComponent<
-        WithC extends keyof JSX.IntrinsicElements | React.ComponentType<any>
-    >(
+    withComponent<WithC extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
         component: WithC
     ): StyledComponent<WithC, T, O, A>;
 }
