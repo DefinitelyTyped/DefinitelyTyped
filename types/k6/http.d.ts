@@ -85,4 +85,15 @@ export interface FileData {
     content_type?: string;
 }
 
-export interface CookieJar {} // tslint:disable-line:no-empty-interface
+export interface CookieOptions {
+    domain?: string;
+    path?: string;
+    expires?: string;
+    max_age?: number;
+    secure?: boolean;
+    http_only?: boolean;
+}
+
+export interface CookieJar {
+    set(name: string, value: string, options?: CookieOptions | null): void;
+}
