@@ -1,5 +1,5 @@
 import { bytes } from 'k6';
-import { hmac, md4, md5, sha1, sha256 } from 'k6/crypto';
+import { hmac, md4, md5, sha1, sha256, sha384 } from 'k6/crypto';
 
 let binary: bytes;
 
@@ -32,7 +32,7 @@ md5(); // $ExpectError
 md5(5); // $ExpectError
 md5('data'); // $ExpectError
 md5('data', 5); // $ExpectError
-md5('data', 'hex'); // $ExpectType string
+md5('data', 'base64'); // $ExpectType string
 binary = md5('data', 'binary');
 md5('data', 'hex', 5); // $ExpectError
 
@@ -41,7 +41,7 @@ sha1(); // $ExpectError
 sha1(5); // $ExpectError
 sha1('data'); // $ExpectError
 sha1('data', 5); // $ExpectError
-sha1('data', 'hex'); // $ExpectType string
+sha1('data', 'base64url'); // $ExpectType string
 binary = sha1('data', 'binary');
 sha1('data', 'hex', 5); // $ExpectError
 
@@ -50,6 +50,15 @@ sha256(); // $ExpectError
 sha256(5); // $ExpectError
 sha256('data'); // $ExpectError
 sha256('data', 5); // $ExpectError
-sha256('data', 'hex'); // $ExpectType string
+sha256('data', 'base64rawurl'); // $ExpectType string
 binary = sha256('data', 'binary');
 sha256('data', 'hex', 5); // $ExpectError
+
+// sha384
+sha384(); // $ExpectError
+sha384(5); // $ExpectError
+sha384('data'); // $ExpectError
+sha384('data', 5); // $ExpectError
+sha384('data', 'hex'); // $ExpectType string
+binary = sha384('data', 'binary');
+sha384('data', 'hex', 5); // $ExpectError

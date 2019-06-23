@@ -23,6 +23,7 @@ export function sha1(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha1(input: string, outputEncoding: StringEncoding): string;
 export function sha256(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha256(input: string, outputEncoding: StringEncoding): string;
+export function sha384(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha384(input: string, outputEncoding: StringEncoding): string;
 export function sha512(input: string, outputEncoding: StringEncoding): string;
 export function sha512_224(input: string, outputEncoding: StringEncoding): string;
