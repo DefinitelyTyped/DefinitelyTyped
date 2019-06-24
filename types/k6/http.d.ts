@@ -30,9 +30,10 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 // Response
 export interface Response<RT extends ResponseType> {
     body: ResponseBody<RT>;
-    cookies: object;
+    cookies: { [name: string]: ResponseCookie[] };
     error: string;
-    headers: { [key: string]: string };
+    error_code: number;
+    headers: { [name: string]: string };
     ocsp: {
         produced_at: number;
         this_update: number;
@@ -46,8 +47,8 @@ export interface Response<RT extends ResponseType> {
     remote_port: number;
     request: {
         body: string;
-        cookies: object;
-        headers: object;
+        cookies: { [name: string]: RequestCookie[] };
+        headers: { [name: string]: string[] };
         method: string;
         url: string;
     };
@@ -81,6 +82,21 @@ export type ResponseBody<RT extends ResponseType> =
     RT extends 'none' ? null :
     RT extends 'text' ? string :
     never;
+export interface RequestCookie {
+    name: string;
+    value: string;
+    replace: boolean;
+}
+export interface ResponseCookie {
+    name: string;
+    value: string;
+    domain: string;
+    path: string;
+    httpOnly: boolean;
+    secure: boolean;
+    maxAge: number;
+    expires: number;
+}
 
 export type Request = string | RequestObj;
 export interface RequestObj {
