@@ -26,6 +26,7 @@ export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" |
 export type EventCallback = (data: any) => any;
 
 export type VimeoTimeRange = [number, number];
+export type VimeoVideoQuality = "4K" | "2K" | "1080p" | "720p" | "540p" | "360p" | "240p";
 
 export class Player {
     constructor(element: HTMLIFrameElement|HTMLElement|string, options?: Options);
@@ -96,6 +97,8 @@ export interface Options {
     background?: boolean;
     byline?: boolean;
     color?: string;
+    controls?: boolean;
+    dnt?: boolean;
     height?: number;
     loop?: boolean;
     maxheight?: number;
@@ -105,6 +108,8 @@ export interface Options {
     portrait?: boolean;
     responsive?: boolean;
     speed?: boolean;
+    quality?: VimeoVideoQuality;
+    texttrack?: string;
     title?: boolean;
     transparent?: boolean;
     width?: number;
