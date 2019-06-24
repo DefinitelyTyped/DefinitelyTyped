@@ -8,9 +8,7 @@
 
 declare namespace PouchDB {
     namespace AdapterCordovaSqlite {
-        interface Configuration
-                extends Configuration.LocalDatabaseConfiguration {
-
+        interface Configuration extends Configuration.LocalDatabaseConfiguration {
             /**
              * Location of database e.g. 'Default'.
              */
