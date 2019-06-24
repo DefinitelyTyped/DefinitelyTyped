@@ -1,3 +1,3 @@
-export class Selection {
+export abstract class Selection {
     protected __brand: never;
 }

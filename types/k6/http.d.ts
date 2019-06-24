@@ -42,7 +42,7 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
 export function cookieJar(): CookieJar;
 
 // Params
-export class Params {
+export abstract class Params {
     auth?: AuthMethod;
     cookies?: { [name: string]: ParamsCookieValue };
     headers?: { [name: string]: string };
@@ -52,7 +52,7 @@ export class Params {
     timeout?: number;
     responseType?: ResponseType;
 }
-export class GenericParams<RT extends ResponseType | undefined> extends Params {
+export abstract class GenericParams<RT extends ResponseType | undefined> extends Params {
     responseType?: RT;
 }
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
@@ -94,58 +94,58 @@ export type BatchResponses<Q> = {
 };
 
 // Response
-export class Response {
-           body: ResponseBody;
-           cookies: { [name: string]: ResponseCookie[] };
-           error: string;
-           error_code: number;
-           headers: { [name: string]: string };
-           ocsp: {
-               produced_at: number;
-               this_update: number;
-               next_update: number;
-               revocation_reason: string;
-               revoked_at: number;
-               status: string;
-           };
-           proto: string;
-           remote_ip: string;
-           remote_port: number;
-           request: {
-               body: string;
-               cookies: { [name: string]: RequestCookie[] };
-               headers: { [name: string]: string[] };
-               method: string;
-               url: string;
-           };
-           status: number;
-           timings: {
-               blocked: number;
-               looking_up: number;
-               connecting: number;
-               tls_handshaking: number;
-               sending: number;
-               waiting: number;
-               receiving: number;
-               duration: number;
-           };
-           tls_cipher_suite: string;
-           tls_version: string;
-           url: string;
-           clickLink<RT extends ResponseType | undefined>(args?: {
-               selector?: string;
-               params?: GenericParams<RT> | null;
-           }): RefinedResponse<RT>;
-           html(selector?: string): Selection;
-           json(selector?: string): JSON | undefined;
-           submitForm<RT extends ResponseType | undefined>(args?: {
-               formSelector?: string;
-               fields?: { [name: string]: string };
-               submitSelector?: string;
-               params?: GenericParams<RT> | null;
-           }): RefinedResponse<RT>;
-       }
-export class RefinedResponse<RT extends ResponseType | undefined> extends Response {
+export abstract class Response {
+    body: ResponseBody;
+    cookies: { [name: string]: ResponseCookie[] };
+    error: string;
+    error_code: number;
+    headers: { [name: string]: string };
+    ocsp: {
+        produced_at: number;
+        this_update: number;
+        next_update: number;
+        revocation_reason: string;
+        revoked_at: number;
+        status: string;
+    };
+    proto: string;
+    remote_ip: string;
+    remote_port: number;
+    request: {
+        body: string;
+        cookies: { [name: string]: RequestCookie[] };
+        headers: { [name: string]: string[] };
+        method: string;
+        url: string;
+    };
+    status: number;
+    timings: {
+        blocked: number;
+        looking_up: number;
+        connecting: number;
+        tls_handshaking: number;
+        sending: number;
+        waiting: number;
+        receiving: number;
+        duration: number;
+    };
+    tls_cipher_suite: string;
+    tls_version: string;
+    url: string;
+    clickLink<RT extends ResponseType | undefined>(args?: {
+        selector?: string;
+        params?: GenericParams<RT> | null;
+    }): RefinedResponse<RT>;
+    html(selector?: string): Selection;
+    json(selector?: string): JSON | undefined;
+    submitForm<RT extends ResponseType | undefined>(args?: {
+        formSelector?: string;
+        fields?: { [name: string]: string };
+        submitSelector?: string;
+        params?: GenericParams<RT> | null;
+    }): RefinedResponse<RT>;
+}
+export abstract class RefinedResponse<RT extends ResponseType | undefined> extends Response {
     body: RefinedResponseBody<RT>;
 }
 export type ResponseBody = string | bytes | null;
@@ -175,19 +175,19 @@ export interface ResponseCookie {
 }
 
 // FileData
-export class FileData {
-           protected __brand: never;
-           data: string | bytes;
-           filename?: string;
-           content_type?: string;
-       }
+export abstract class FileData {
+    protected __brand: never;
+    data: string | bytes;
+    filename?: string;
+    content_type?: string;
+}
 
 // CookieJar
-export class CookieJar {
-           protected __brand: never;
-           cookiesForURL(url: string): CookieJarCookies;
-           set(name: string, value: string, options?: CookieOptions | null): void;
-       }
+export abstract class CookieJar {
+    protected __brand: never;
+    cookiesForURL(url: string): CookieJarCookies;
+    set(name: string, value: string, options?: CookieOptions | null): void;
+}
 export interface CookieJarCookies {
     [name: string]: string[];
 }
