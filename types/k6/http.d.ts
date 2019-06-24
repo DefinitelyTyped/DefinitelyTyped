@@ -76,12 +76,12 @@ export class Response {
            }): RefinedResponse<RT>;
            html(selector?: string): Selection;
            json(selector?: string): JSON | undefined;
-           submitForm: (params?: {
+           submitForm<RT extends ResponseType>(args?: {
                formSelector?: string;
-               fields?: object;
+               fields?: { [name: string]: string };
                submitSelector?: string;
-               params?: LegacyParams;
-           }) => LegacyResponse;
+               params?: GenericParams<RT>;
+           }): RefinedResponse<RT>;
        }
 export class RefinedResponse<RT extends ResponseType> extends Response {
     body: RefinedResponseBody<RT>;

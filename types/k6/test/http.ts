@@ -48,6 +48,22 @@ response.json(5); // $ExpectError
 json = response.json('user.name');
 response.json('user.name', 5); // $ExpectError
 
+// Response.submitForm
+response = get('example.com');
+responseDefault = response.submitForm();
+response.submitForm(5); // $ExpectError
+responseDefault = response.submitForm({});
+responseText = response.submitForm({
+    formSelector: 'div.input form',
+    fields: {
+        title: 'How to train your dragon',
+        body: 'This post shares my years of experience training dragons.'
+    },
+    submitSelector: 'div.input form button.submit',
+    params: { responseType: 'text' }
+});
+response.submitForm({}, 5); // $ExpectError
+
 // cookieJar
 jar = cookieJar();
 cookieJar(5); // $ExpectError
