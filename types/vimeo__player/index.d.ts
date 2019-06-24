@@ -25,6 +25,8 @@ export type EventName = "play" | "pause" | "ended" | "timeupdate" | "progress" |
                         "cuechange" | "cuepoint" | "volumechange" | "playbackratechange" | "bufferstart" | "bufferend" | "error" | "loaded" |  string;
 export type EventCallback = (data: any) => any;
 
+export type VimeoTimeRange = [number, number];
+
 export class Player {
     constructor(element: HTMLIFrameElement|HTMLElement|string, options?: Options);
 
@@ -44,7 +46,7 @@ export class Player {
     addCuePoint(time: number, data: VimeoCuePointData): VimeoPromise<string, UnsupportedError | RangeError | Error>;
     removeCuePoint(id: string): VimeoPromise<string, UnsupportedError | InvalidCuePoint | Error>;
     getCuePoints(): VimeoPromise<VimeoCuePoint[], UnsupportedError | Error>;
-    getBuffered(): VimeoPromise<Array<[number, number]>, Error>;
+    getBuffered(): VimeoPromise<Array<VimeoTimeRange>, Error>;
     getCurrentTime(): VimeoPromise<number, Error>;
     setCurrentTime(seconds: number): VimeoPromise<number, RangeError | Error>;
     getDuration(): VimeoPromise<number, Error>;
@@ -52,8 +54,8 @@ export class Player {
     getLoop(): VimeoPromise<boolean, Error>;
     setLoop(loop: boolean): VimeoPromise<boolean, Error>;
     getPaused(): VimeoPromise<boolean, Error>;
-    getPlayed(): VimeoPromise<Array<[number, number]>, Error>;
-    getSeekable(): VimeoPromise<Array<[number, number]>, Error>;
+    getPlayed(): VimeoPromise<Array<VimeoTimeRange>, Error>;
+    getSeekable(): VimeoPromise<Array<VimeoTimeRange>, Error>;
     getSeeking(): VimeoPromise<boolean, Error>;
     getPlaybackRate(): VimeoPromise<number, Error>;
     setPlaybackRate(playbackRate: number): VimeoPromise<number, RangeError | Error>;
