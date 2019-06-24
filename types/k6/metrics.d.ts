@@ -13,3 +13,6 @@ export class Gauge extends Metric {
 export class Rate extends Metric {
     protected __brand: never;
 }
+export class Trend extends Metric {
+    protected __brand: never;
+}

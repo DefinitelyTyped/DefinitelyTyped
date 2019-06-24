@@ -1,9 +1,10 @@
-import { Counter, Gauge, Metric, Rate } from 'k6/metrics';
+import { Counter, Gauge, Metric, Rate, Trend } from 'k6/metrics';
 
 let metric: Metric;
 let counter: Counter;
 let gauge: Gauge;
 let rate: Rate;
+let trend: Trend;
 
 // Counter
 new Counter(); // $ExpectError
@@ -27,4 +28,12 @@ rate = new Rate('rate');
 new Rate('rate', 5); // $ExpectError
 rate = new Rate('rate', true);
 metric = new Rate('rate');
-counter = new Rate('rate'); // $ExpectError
+trend = new Rate('rate'); // $ExpectError
+
+// Trend
+new Trend(); // $ExpectError
+trend = new Trend('trend');
+new Trend('trend', 5); // $ExpectError
+trend = new Trend('trend', true);
+metric = new Trend('trend');
+counter = new Trend('trend'); // $ExpectError
