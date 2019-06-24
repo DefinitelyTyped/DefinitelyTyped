@@ -73,9 +73,7 @@ export class Client {
     oauthCallback(redirectUri: string, parameters: {}, checks?: {
         readonly response_type?: string;
         readonly state?: string;
-        readonly nonce?: string;
         readonly code_verifier?: string;
-        readonly max_age?: number;
     }): Promise<TokenSet>;
 
     userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
