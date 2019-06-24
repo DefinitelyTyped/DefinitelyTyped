@@ -7,7 +7,11 @@ export function del(url: string, body?: string | object, params?: LegacyParams):
 export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT> | null): RefinedResponse<RT>;
 export function options(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function patch(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
-export function post(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
+export function post<RT extends ResponseType>(
+    url: string,
+    body?: RequestBody | null,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
 export function put(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function request(method: string, url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
@@ -30,6 +34,12 @@ export class GenericParams<RT extends ResponseType> extends Params {
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
 export type ResponseType = 'binary' | 'none' | 'text';
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
+
+// RequestBody
+export type RequestBody = string | StructuredRequestBody;
+export interface StructuredRequestBody {
+    [name: string]: string;
+}
 
 // Response
 export class Response {

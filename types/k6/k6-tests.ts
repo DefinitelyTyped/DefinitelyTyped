@@ -12,15 +12,6 @@ function test1() {
 
 const binFile1 = open('/path/to/file.bin', 'b');
 
-export default function test2() {
-    const data = {
-        field: 'this is a standard form field',
-        file: http.file(binFile1, 'test.bin'),
-    };
-    const res = http.post('https://example.com/upload', data);
-    sleep(3);
-}
-
 function httpTest1() {
     const responses = http.batch([
         'http://test.loadimpact.com',
@@ -58,15 +49,6 @@ function httpTest2() {
 }
 
 const binFile = open('/path/to/file.bin', 'b');
-
-function httpTest3() {
-    const data = {
-        field: 'this is a standard form field',
-        file: http.file(binFile, 'test.bin'),
-    };
-    const res = http.post('https://example.com/upload', data);
-    sleep(3);
-}
 
 function httpTest7() {
     const url1 = 'https://api.loadimpact.com/v3/account/me';

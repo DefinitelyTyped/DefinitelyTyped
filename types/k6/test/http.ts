@@ -1,6 +1,6 @@
 import { JSON } from 'k6';
 import { Selection } from 'k6/html';
-import { CookieJar, CookieJarCookies, RefinedResponse, Response, ResponseType, get, cookieJar } from 'k6/http';
+import { CookieJar, CookieJarCookies, RefinedResponse, Response, ResponseType, get, post, cookieJar } from 'k6/http';
 
 const address = 'http://example.com';
 
@@ -24,6 +24,17 @@ responseBinary = get(address, { responseType: 'binary' });
 responseNone = get(address, { responseType: 'none' });
 responseText = get(address, { responseType: 'text' });
 get(address, {}, 5); // $ExpectError
+
+// post
+post(); // $ExpectError
+post(5); // $ExpectError
+responseDefault = post(address);
+post(address, 5); // $ExpectError
+responseDefault = post(address, {});
+responseDefault = post(address, { query: 'kittens' });
+post(address, {}, 5); // $ExpectError
+responseNone = post(address, null, { responseType: 'none' });
+post(address, {}, {}, 5); // $ExpectError
 
 // Response.clickLink
 response = get(address);
