@@ -1,14 +1,15 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import TileImage from 'ol/source/TileImage';
-import { LoadFunction } from 'ol/Tile';
-import { TileCoord } from 'ol/tilecoord';
-import TileGrid from 'ol/tilegrid/TileGrid';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import { LoadFunction } from '../Tile';
+import { TileCoord } from '../tilecoord';
+import TileGrid from '../tilegrid/TileGrid';
+import { AttributionLike } from './Source';
+import { TileSourceEvent } from './Tile';
+import TileImage from './TileImage';
+
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
@@ -25,8 +26,8 @@ export interface Options {
 }
 export default class TileArcGISRest extends TileImage {
     constructor(opt_options?: Options);
-    getParams(): { [key: string]: any };
-    updateParams(params: { [key: string]: any }): void;
+    getParams(): any;
+    updateParams(params: any): void;
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
     once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
     un(type: string | string[], listener: ((param0: any) => void)): void;

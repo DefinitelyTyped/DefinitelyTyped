@@ -1,14 +1,15 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import ImageCanvas from 'ol/ImageCanvas';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { Size } from 'ol/size';
-import ImageSource from 'ol/source/Image';
-import { AttributionLike } from 'ol/source/Source';
-import State from 'ol/source/State';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import ImageCanvas from '../ImageCanvas';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import { Size } from '../size';
+import ImageSource from './Image';
+import { AttributionLike } from './Source';
+import State from './State';
+
 export type FunctionType = ((this: ImageCanvas, param1: Extent, param2: number, param3: number, param4: Size, param5: Projection) => HTMLCanvasElement);
 export default class ImageCanvasSource extends ImageSource {
     constructor(opt_options?: Options);

@@ -1,9 +1,10 @@
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import Interaction from 'ol/interaction/Interaction';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
+import { ObjectEvent } from '../Object';
+import Interaction from './Interaction';
+
 export default class KeyboardZoom extends Interaction {
     constructor(opt_options?: Options);
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];

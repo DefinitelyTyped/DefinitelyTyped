@@ -1,4 +1,5 @@
-import Circle from 'ol/geom/Circle';
+import Circle from './geom/Circle';
+
 export function add(coordinate: Coordinate, delta: Coordinate): Coordinate;
 export function closestOnCircle(coordinate: Coordinate, circle: Circle): Coordinate;
 export function closestOnSegment(coordinate: Coordinate, segment: Coordinate[]): Coordinate;

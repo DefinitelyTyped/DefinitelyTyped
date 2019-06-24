@@ -1,19 +1,20 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Polygon from 'ol/geom/Polygon';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
+import { Coordinate } from './coordinate';
+import { EventsKey } from './events';
+import Event from './events/Event';
+import Polygon from './geom/Polygon';
+import BaseObject, { ObjectEvent } from './Object';
+import { ProjectionLike } from './proj';
+import Projection from './proj/Projection';
+
 export default class Geolocation extends BaseObject {
     constructor(opt_options?: Options);
-    getProjection(): Projection;
     getAccuracy(): number;
+    getAccuracyGeometry(): Polygon;
     getAltitude(): number;
     getAltitudeAccuracy(): number;
     getHeading(): number;
     getPosition(): Coordinate;
-    getAccuracyGeometry(): Polygon;
+    getProjection(): Projection;
     getSpeed(): number;
     getTracking(): boolean;
     getTrackingOptions(): PositionOptions;

@@ -1,6 +1,7 @@
-import { Extent } from 'ol/extent';
-import WebGLTextureReplay from 'ol/render/webgl/TextureReplay';
-import AtlasManager from 'ol/style/AtlasManager';
+import { Extent } from '../../extent';
+import AtlasManager from '../../style/AtlasManager';
+import WebGLTextureReplay from './TextureReplay';
+
 export interface GlyphAtlas {
     atlas: AtlasManager;
     width: { [key: string]: number };

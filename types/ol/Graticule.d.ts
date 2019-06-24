@@ -1,8 +1,9 @@
-import LineString from 'ol/geom/LineString';
-import Point from 'ol/geom/Point';
-import PluggableMap from 'ol/PluggableMap';
-import Stroke from 'ol/style/Stroke';
-import Text from 'ol/style/Text';
+import LineString from './geom/LineString';
+import Point from './geom/Point';
+import PluggableMap from './PluggableMap';
+import Stroke from './style/Stroke';
+import Text from './style/Text';
+
 export default class Graticule {
     constructor(opt_options?: Options);
     getMap(): PluggableMap;

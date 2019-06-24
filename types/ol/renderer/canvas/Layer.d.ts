@@ -1,11 +1,12 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Layer, { State } from 'ol/layer/Layer';
-import { FrameState } from 'ol/PluggableMap';
-import LayerRenderer from 'ol/renderer/Layer';
-import { Transform } from 'ol/transform';
+import { Coordinate } from '../../coordinate';
+import { EventsKey } from '../../events';
+import Event from '../../events/Event';
+import { Extent } from '../../extent';
+import Layer, { State } from '../../layer/Layer';
+import { FrameState } from '../../PluggableMap';
+import { Transform } from '../../transform';
+import LayerRenderer from '../Layer';
+
 export default class CanvasLayerRenderer extends LayerRenderer {
     constructor(layer: Layer);
     protected renderedResolution: number;

@@ -1,7 +1,8 @@
-import Control from 'ol/control/Control';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import Control from './Control';
+
 export default class FullScreen extends Control {
     constructor(opt_options?: Options);
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];

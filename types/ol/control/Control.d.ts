@@ -1,8 +1,9 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import MapEvent from 'ol/MapEvent';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import PluggableMap from 'ol/PluggableMap';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import MapEvent from '../MapEvent';
+import BaseObject, { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
+
 export default class Control extends BaseObject {
     constructor(options: Options);
     protected element: HTMLElement;

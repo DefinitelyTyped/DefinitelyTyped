@@ -1,1 +1,1 @@
-import Projection from 'ol/proj/Projection';
+import Projection from './Projection';

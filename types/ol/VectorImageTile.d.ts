@@ -1,14 +1,15 @@
-import Event from 'ol/events/Event';
-import FeatureFormat from 'ol/format/Feature';
-import Layer from 'ol/layer/Layer';
-import Projection from 'ol/proj/Projection';
-import { OrderFunction } from 'ol/render';
-import VectorTile_1 from 'ol/source/VectorTile';
-import Tile, { LoadFunction, UrlFunction } from 'ol/Tile';
-import { TileCoord } from 'ol/tilecoord';
-import TileGrid from 'ol/tilegrid/TileGrid';
-import TileState from 'ol/TileState';
-import VectorTile from 'ol/VectorTile';
+import Event from './events/Event';
+import FeatureFormat from './format/Feature';
+import Layer from './layer/Layer';
+import Projection from './proj/Projection';
+import { OrderFunction } from './render';
+import VectorTile_1 from './source/VectorTile';
+import Tile, { LoadFunction, UrlFunction } from './Tile';
+import { TileCoord } from './tilecoord';
+import TileGrid from './tilegrid/TileGrid';
+import TileState from './TileState';
+import VectorTile from './VectorTile';
+
 export function defaultLoadFunction(tile: VectorTile, url: string): void;
 export interface ReplayState {
     dirty: boolean;

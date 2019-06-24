@@ -1,4 +1,5 @@
-import PointerEventHandler from 'ol/pointer/PointerEventHandler';
+import PointerEventHandler from './PointerEventHandler';
+
 export default class EventSource {
     constructor(dispatcher: PointerEventHandler, mapping: { [key: string]: any });
     getEvents(): string[];

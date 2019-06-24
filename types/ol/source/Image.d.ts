@@ -1,13 +1,14 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import ImageWrapper from 'ol/Image';
-import ImageBase from 'ol/ImageBase';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import Source, { AttributionLike } from 'ol/source/Source';
-import State from 'ol/source/State';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import ImageWrapper from '../Image';
+import ImageBase from '../ImageBase';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import Source, { AttributionLike } from './Source';
+import State from './State';
+
 export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;
 export default class ImageSource extends Source {
     constructor(options: Options);

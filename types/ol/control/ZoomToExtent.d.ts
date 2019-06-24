@@ -1,8 +1,9 @@
-import Control from 'ol/control/Control';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { ObjectEvent } from '../Object';
+import Control from './Control';
+
 export interface Options {
     className?: string;
     target?: HTMLElement | string;

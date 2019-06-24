@@ -1,5 +1,6 @@
-import { TRUE, FALSE } from 'ol/functions';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
+import { TRUE, FALSE } from '../functions';
+import MapBrowserEvent from '../MapBrowserEvent';
+
 export function altKeyOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 export function altShiftKeysOnly(mapBrowserEvent: MapBrowserEvent): boolean;
 export const always: typeof TRUE;

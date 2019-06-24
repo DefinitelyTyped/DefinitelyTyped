@@ -1,10 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import { ObjectEvent } from 'ol/Object';
-import { AttributionLike } from 'ol/source/Source';
-import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Feature from '../Feature';
+import Point from '../geom/Point';
+import { ObjectEvent } from '../Object';
+import { AttributionLike } from './Source';
+import VectorSource, { VectorSourceEvent } from './Vector';
+
 export default class Cluster extends VectorSource {
     constructor(options: Options);
     protected distance: number;

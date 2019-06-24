@@ -1,8 +1,9 @@
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import Interaction from 'ol/interaction/Interaction';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import Interaction from './Interaction';
+
 export enum Mode {
     TRACKPAD = 'trackpad',
     WHEEL = 'wheel',

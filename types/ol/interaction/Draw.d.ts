@@ -1,16 +1,17 @@
-import Collection from 'ol/Collection';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import GeometryType from 'ol/geom/GeometryType';
-import SimpleGeometry from 'ol/geom/SimpleGeometry';
-import PointerInteraction from 'ol/interaction/Pointer';
-import VectorLayer from 'ol/layer/Vector';
-import { ObjectEvent } from 'ol/Object';
-import VectorSource from 'ol/source/Vector';
-import { StyleFunction, StyleLike } from 'ol/style/Style';
+import Collection from '../Collection';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import Feature from '../Feature';
+import GeometryType from '../geom/GeometryType';
+import SimpleGeometry from '../geom/SimpleGeometry';
+import VectorLayer from '../layer/Vector';
+import { ObjectEvent } from '../Object';
+import VectorSource from '../source/Vector';
+import { StyleFunction, StyleLike } from '../style/Style';
+import PointerInteraction from './Pointer';
+
 export function createBox(): GeometryFunction;
 export function createRegularPolygon(opt_sides?: number, opt_angle?: number): GeometryFunction;
 export default class Draw extends PointerInteraction {

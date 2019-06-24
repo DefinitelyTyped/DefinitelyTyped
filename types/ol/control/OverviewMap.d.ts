@@ -1,12 +1,13 @@
-import Collection from 'ol/Collection';
-import Control from 'ol/control/Control';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Layer from 'ol/layer/Layer';
-import MapEvent from 'ol/MapEvent';
-import { ObjectEvent } from 'ol/Object';
-import PluggableMap from 'ol/PluggableMap';
-import View from 'ol/View';
+import Collection from '../Collection';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Layer from '../layer/Layer';
+import MapEvent from '../MapEvent';
+import { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
+import View from '../View';
+import Control from './Control';
+
 export function render(mapEvent: MapEvent): void;
 export interface Options {
     className?: string;

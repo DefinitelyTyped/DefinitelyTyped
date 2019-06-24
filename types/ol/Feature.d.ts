@@ -1,9 +1,10 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Geometry from 'ol/geom/Geometry';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import RenderFeature from 'ol/render/Feature';
-import Style, { StyleFunction, StyleLike } from 'ol/style/Style';
+import { EventsKey } from './events';
+import Event from './events/Event';
+import Geometry from './geom/Geometry';
+import BaseObject, { ObjectEvent } from './Object';
+import RenderFeature from './render/Feature';
+import Style, { StyleFunction, StyleLike } from './style/Style';
+
 export function createStyleFunction(obj: StyleFunction | Style[] | Style): StyleFunction;
 export default class Feature extends BaseObject {
     constructor(opt_geometryOrProperties?: Geometry | { [key: string]: any });

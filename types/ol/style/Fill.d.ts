@@ -1,5 +1,6 @@
-import { Color } from 'ol/color';
-import { ColorLike } from 'ol/colorlike';
+import { Color } from '../color';
+import { ColorLike } from '../colorlike';
+
 export default class Fill {
     constructor(opt_options?: Options);
     clone(): Fill;

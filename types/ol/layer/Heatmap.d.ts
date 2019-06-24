@@ -1,12 +1,13 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Feature from 'ol/Feature';
-import VectorLayer from 'ol/layer/Vector';
-import VectorRenderType from 'ol/layer/VectorRenderType';
-import { ObjectEvent } from 'ol/Object';
-import RenderEvent from 'ol/render/Event';
-import VectorSource from 'ol/source/Vector';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import Feature from '../Feature';
+import { ObjectEvent } from '../Object';
+import RenderEvent from '../render/Event';
+import VectorSource from '../source/Vector';
+import VectorLayer from './Vector';
+import VectorRenderType from './VectorRenderType';
+
 export default class Heatmap extends VectorLayer {
     constructor(opt_options?: Options);
     getBlur(): number;

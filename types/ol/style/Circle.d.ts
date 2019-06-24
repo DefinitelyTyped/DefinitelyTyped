@@ -1,7 +1,8 @@
-import AtlasManager from 'ol/style/AtlasManager';
-import Fill from 'ol/style/Fill';
-import RegularShape from 'ol/style/RegularShape';
-import Stroke from 'ol/style/Stroke';
+import AtlasManager from './AtlasManager';
+import Fill from './Fill';
+import RegularShape from './RegularShape';
+import Stroke from './Stroke';
+
 export default class CircleStyle extends RegularShape {
     constructor(opt_options?: Options);
     setRadius(radius: number): void;

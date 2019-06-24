@@ -1,7 +1,8 @@
-import { Coordinate } from 'ol/coordinate';
-import { Extent } from 'ol/extent';
-import Projection from 'ol/proj/Projection';
-import Units from 'ol/proj/Units';
+import { Coordinate } from './coordinate';
+import { Extent } from './extent';
+import Projection from './proj/Projection';
+import Units from './proj/Units';
+
 export function addCommon(): void;
 export function addCoordinateTransforms(source: ProjectionLike, destination: ProjectionLike, forward: ((param0: Coordinate) => Coordinate), inverse: ((param0: Coordinate) => Coordinate)): void;
 export function addEquivalentProjections(projections: Projection[]): void;

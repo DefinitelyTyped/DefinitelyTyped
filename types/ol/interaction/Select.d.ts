@@ -1,14 +1,15 @@
-import Collection from 'ol/Collection';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import Feature, { FeatureLike } from 'ol/Feature';
-import Interaction from 'ol/interaction/Interaction';
-import Layer from 'ol/layer/Layer';
-import VectorLayer from 'ol/layer/Vector';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { ObjectEvent } from 'ol/Object';
-import { StyleFunction, StyleLike } from 'ol/style/Style';
+import Collection from '../Collection';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import Feature, { FeatureLike } from '../Feature';
+import Layer from '../layer/Layer';
+import VectorLayer from '../layer/Vector';
+import MapBrowserEvent from '../MapBrowserEvent';
+import { ObjectEvent } from '../Object';
+import { StyleFunction, StyleLike } from '../style/Style';
+import Interaction from './Interaction';
+
 export type FilterFunction = ((param0: FeatureLike, param1: Layer) => boolean);
 export interface Options {
     addCondition?: Condition;

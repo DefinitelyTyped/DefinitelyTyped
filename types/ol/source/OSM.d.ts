@@ -1,10 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import XYZ from 'ol/source/XYZ';
-import { LoadFunction } from 'ol/Tile';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import { LoadFunction } from '../Tile';
+import { AttributionLike } from './Source';
+import { TileSourceEvent } from './Tile';
+import XYZ from './XYZ';
+
 export const ATTRIBUTION: string;
 export interface Options {
     attributions?: AttributionLike;

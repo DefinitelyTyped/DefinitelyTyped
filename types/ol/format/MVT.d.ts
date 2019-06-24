@@ -1,6 +1,7 @@
-import { FeatureClass } from 'ol/Feature';
-import FeatureFormat from 'ol/format/Feature';
-import GeometryType from 'ol/geom/GeometryType';
+import { FeatureClass } from '../Feature';
+import GeometryType from '../geom/GeometryType';
+import FeatureFormat from './Feature';
+
 export default class MVT extends FeatureFormat {
     constructor(opt_options?: Options);
     setLayers(layers: string[]): void;

@@ -1,13 +1,14 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import { ObjectEvent } from 'ol/Object';
-import TileSource from 'ol/source/Tile';
-import { Config } from 'ol/source/TileJSON';
-import Tile from 'ol/Tile';
-import { TileCoord } from 'ol/tilecoord';
-import TileState from 'ol/TileState';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { ObjectEvent } from '../Object';
+import Tile from '../Tile';
+import { TileCoord } from '../tilecoord';
+import TileState from '../TileState';
+import TileSource from './Tile';
+import { Config } from './TileJSON';
+
 export class CustomTile extends Tile {
     constructor(tileCoord: TileCoord, state: TileState, src: string, extent: Extent, preemptive: boolean, jsonp: boolean);
     forDataAtCoordinate<T>(coordinate: Coordinate, callback: ((this: T, param1: any) => void), opt_this?: T, opt_request?: boolean): void;
@@ -39,5 +40,5 @@ export default class UTFGrid extends TileSource {
 export interface UTFGridJSON {
     grid: string[];
     keys: string[];
-    data?: { [key: string]: { [key: string]: any } };
+    data?: { [key: string]: object };
 }

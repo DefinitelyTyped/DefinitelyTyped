@@ -1,10 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import { FrameState } from 'ol/PluggableMap';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import State from 'ol/source/State';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import BaseObject, { ObjectEvent } from '../Object';
+import { FrameState } from '../PluggableMap';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import State from './State';
+
 export type Attribution = ((param0: FrameState) => string | string[]);
 export type AttributionLike = string | string[] | Attribution;
 export interface Options {

@@ -1,21 +1,22 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Layer, { State } from 'ol/layer/Layer';
-import LayerType from 'ol/LayerType';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import State_1 from 'ol/source/State';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import LayerType from '../LayerType';
+import BaseObject, { ObjectEvent } from '../Object';
+import State_1 from '../source/State';
+import Layer, { State } from './Layer';
+
 export default class BaseLayer extends BaseObject {
     constructor(options: Options);
-    getType(): LayerType;
     getExtent(): Extent;
+    getLayersArray(opt_array?: Layer[]): Layer[];
     getLayerState(): State;
     getLayerStatesArray(opt_states?: State[]): State[];
     getMaxResolution(): number;
     getMinResolution(): number;
     getOpacity(): number;
     getSourceState(): State_1;
-    getLayersArray(opt_array?: Layer[]): Layer[];
+    getType(): LayerType;
     getVisible(): boolean;
     getZIndex(): number;
     setExtent(extent: Extent): void;

@@ -1,7 +1,8 @@
-import { Coordinate } from 'ol/coordinate';
-import { Extent } from 'ol/extent';
-import Units from 'ol/proj/Units';
-import TileGrid from 'ol/tilegrid/TileGrid';
+import { Coordinate } from '../coordinate';
+import { Extent } from '../extent';
+import TileGrid from '../tilegrid/TileGrid';
+import Units from './Units';
+
 export interface Options {
     code: string;
     units?: Units | string;
@@ -14,14 +15,14 @@ export interface Options {
 }
 export default class Projection {
     constructor(options: Options);
-    getUnits(): Units;
     canWrapX(): boolean;
+    getAxisOrientation(): string;
     getCode(): string;
     getDefaultTileGrid(): TileGrid;
     getExtent(): Extent;
     getMetersPerUnit(): number;
     getPointResolutionFunc(): ((param0: number, param1: Coordinate) => number);
-    getAxisOrientation(): string;
+    getUnits(): Units;
     getWorldExtent(): Extent;
     isGlobal(): boolean;
     setDefaultTileGrid(tileGrid: TileGrid): void;

@@ -1,8 +1,9 @@
-import Control from 'ol/control/Control';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import MapEvent from 'ol/MapEvent';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import MapEvent from '../MapEvent';
+import { ObjectEvent } from '../Object';
+import Control from './Control';
+
 export function render(mapEvent: MapEvent): void;
 export default class Attribution extends Control {
     constructor(opt_options?: Options);

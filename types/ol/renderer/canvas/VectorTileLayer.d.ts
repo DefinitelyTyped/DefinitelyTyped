@@ -1,12 +1,13 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { FeatureLike } from 'ol/Feature';
-import Layer from 'ol/layer/Layer';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import CanvasReplayGroup from 'ol/render/canvas/ReplayGroup';
-import CanvasTileLayerRenderer from 'ol/renderer/canvas/TileLayer';
-import MapRenderer from 'ol/renderer/Map';
-import Style from 'ol/style/Style';
+import { EventsKey } from '../../events';
+import Event from '../../events/Event';
+import { FeatureLike } from '../../Feature';
+import Layer from '../../layer/Layer';
+import VectorTileLayer from '../../layer/VectorTile';
+import CanvasReplayGroup from '../../render/canvas/ReplayGroup';
+import Style from '../../style/Style';
+import MapRenderer from '../Map';
+import CanvasTileLayerRenderer from './TileLayer';
+
 export default class CanvasVectorTileLayerRenderer extends CanvasTileLayerRenderer {
     constructor(layer: VectorTileLayer);
     create(mapRenderer: MapRenderer, layer: Layer): CanvasVectorTileLayerRenderer;

@@ -1,17 +1,18 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import { FeatureLike } from 'ol/Feature';
-import ImageBase from 'ol/ImageBase';
-import Layer from 'ol/layer/Layer';
-import Observable from 'ol/Observable';
-import { FrameState } from 'ol/PluggableMap';
-import Projection from 'ol/proj/Projection';
-import TileSource from 'ol/source/Tile';
-import Tile from 'ol/Tile';
-import TileGrid from 'ol/tilegrid/TileGrid';
-import TileRange from 'ol/TileRange';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { FeatureLike } from '../Feature';
+import ImageBase from '../ImageBase';
+import Layer from '../layer/Layer';
+import Observable from '../Observable';
+import { FrameState } from '../PluggableMap';
+import Projection from '../proj/Projection';
+import TileSource from '../source/Tile';
+import Tile from '../Tile';
+import TileGrid from '../tilegrid/TileGrid';
+import TileRange from '../TileRange';
+
 export default class LayerRenderer extends Observable {
     constructor(layer: Layer);
     protected createLoadedTileFinder(source: TileSource, projection: Projection, tiles: { [key: number]: { [key: string]: Tile } }): ((param0: number, param1: TileRange) => boolean);
