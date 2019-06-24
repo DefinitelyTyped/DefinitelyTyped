@@ -1583,6 +1583,7 @@ declare namespace webpack {
             module?: boolean;
             moduleFilenameTemplate?: string;
             noSources?: boolean;
+            publicPath?: string;
             sourceRoot?: null | string;
             test?: Condition | Condition[];
         }
