@@ -25,7 +25,11 @@ export function post<RT extends ResponseType>(
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function put(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
+export function put<RT extends ResponseType>(
+    url: string,
+    body?: RequestBody | null,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
 export function request(method: string, url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 export function cookieJar(): CookieJar;

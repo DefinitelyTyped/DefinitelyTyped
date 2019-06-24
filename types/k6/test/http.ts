@@ -11,6 +11,7 @@ import {
     options,
     patch,
     post,
+    put,
     cookieJar,
 } from 'k6/http';
 
@@ -84,6 +85,18 @@ responseDefault = post(address, { query: 'kittens' });
 post(address, {}, 5); // $ExpectError
 responseNone = post(address, null, { responseType: 'none' });
 post(address, {}, {}, 5); // $ExpectError
+
+// put
+put(); // $ExpectError
+put(5); // $ExpectError
+responseDefault = put(address);
+put(address, 5); // $ExpectError
+responseDefault = put(address, 'cat in box');
+responseDefault = put(address, {});
+responseDefault = put(address, { box: 'cat' });
+put(address, {}, 5); // $ExpectError
+responseText = put(address, null, { responseType: 'text' });
+put(address, {}, {}, 5); // $ExpectError
 
 // Response.clickLink
 response = get(address);
