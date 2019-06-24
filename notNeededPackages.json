@@ -1885,6 +1885,12 @@
             "asOfVersion": "2.3.5"
         },
         {
+            "libraryName": "loglevel",
+            "typingsPackageName": "loglevel",
+            "sourceRepoURL": "https://github.com/pimterry/loglevel/",
+            "asOfVersion": "1.6.2"
+        },
+        {
             "libraryName": "loud-rejection",
             "typingsPackageName": "loud-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/loud-rejection",
