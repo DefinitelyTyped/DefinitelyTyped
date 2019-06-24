@@ -47,8 +47,9 @@ declare class Complex {
     constructor(x: number, y: number);
     constructor(x: Complex);
 
-    // the parts of the number
+    // the real part of this complex number
     re: number;
+    // the imaginary part of this complex number
     im: number;
 
     /**
