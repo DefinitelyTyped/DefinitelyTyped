@@ -1,10 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import MapEvent from 'ol/MapEvent';
-import { ObjectEvent } from 'ol/Object';
-import PluggableMap, { MapOptions } from 'ol/PluggableMap';
-import RenderEvent from 'ol/render/Event';
+import { EventsKey } from './events';
+import Event from './events/Event';
+import MapBrowserEvent from './MapBrowserEvent';
+import MapEvent from './MapEvent';
+import { ObjectEvent } from './Object';
+import PluggableMap, { MapOptions } from './PluggableMap';
+import RenderEvent from './render/Event';
+
 export default class WebGLMap extends PluggableMap {
     constructor(options: MapOptions);
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];

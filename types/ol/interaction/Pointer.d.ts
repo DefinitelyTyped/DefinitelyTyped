@@ -1,11 +1,12 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Interaction from 'ol/interaction/Interaction';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import MapBrowserPointerEvent from 'ol/MapBrowserPointerEvent';
-import { ObjectEvent } from 'ol/Object';
-import { Pixel } from 'ol/pixel';
-import PointerEvent from 'ol/pointer/PointerEvent';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
+import MapBrowserPointerEvent from '../MapBrowserPointerEvent';
+import { ObjectEvent } from '../Object';
+import { Pixel } from '../pixel';
+import PointerEvent from '../pointer/PointerEvent';
+import Interaction from './Interaction';
+
 export function centroid(pointerEvents: PointerEvent[]): Pixel;
 export interface Options {
     handleDownEvent?: ((param0: MapBrowserPointerEvent) => boolean);

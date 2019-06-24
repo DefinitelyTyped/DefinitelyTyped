@@ -1,5 +1,6 @@
-import TextFeature from 'ol/format/TextFeature';
-import GeometryLayout from 'ol/geom/GeometryLayout';
+import GeometryLayout from '../geom/GeometryLayout';
+import TextFeature from './TextFeature';
+
 export function decodeDeltas(encoded: string, stride: number, opt_factor?: number): number[];
 export function decodeFloats(encoded: string, opt_factor?: number): number[];
 export function decodeSignedIntegers(encoded: string): number[];

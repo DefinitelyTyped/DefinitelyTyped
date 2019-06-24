@@ -1,6 +1,7 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Observable from 'ol/Observable';
+import { EventsKey } from './events';
+import Event from './events/Event';
+import Observable from './Observable';
+
 export function getChangeEventType(key: string): string;
 export class ObjectEvent extends Event {
     constructor();

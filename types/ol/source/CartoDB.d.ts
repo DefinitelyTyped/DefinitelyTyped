@@ -1,15 +1,16 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import XYZ from 'ol/source/XYZ';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import { AttributionLike } from './Source';
+import { TileSourceEvent } from './Tile';
+import XYZ from './XYZ';
+
 export default class CartoDB extends XYZ {
     constructor(options: Options);
-    getConfig(): { [key: string]: any };
-    setConfig(config: { [key: string]: any }): void;
-    updateConfig(config: { [key: string]: any }): void;
+    getConfig(): any;
+    setConfig(config: any): void;
+    updateConfig(config: any): void;
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
     once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
     un(type: string | string[], listener: ((param0: any) => void)): void;
@@ -31,7 +32,7 @@ export default class CartoDB extends XYZ {
 }
 export interface CartoDBLayerInfo {
     layergroupid: string;
-    cdn_url: { [key: string]: any };
+    cdn_url: any;
 }
 export interface Options {
     attributions?: AttributionLike;
@@ -41,7 +42,7 @@ export interface Options {
     maxZoom?: number;
     minZoom?: number;
     wrapX?: boolean;
-    config?: { [key: string]: any };
+    config?: any;
     map?: string;
     account: string;
 }

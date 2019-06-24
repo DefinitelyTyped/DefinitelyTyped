@@ -1,10 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { ObjectEvent } from 'ol/Object';
-import { AttributionLike } from 'ol/source/Source';
-import { TileSourceEvent } from 'ol/source/Tile';
-import TileImage from 'ol/source/TileImage';
-import { LoadFunction } from 'ol/Tile';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import { LoadFunction } from '../Tile';
+import { AttributionLike } from './Source';
+import { TileSourceEvent } from './Tile';
+import TileImage from './TileImage';
+
 export interface Config {
     name?: string;
     description?: string;

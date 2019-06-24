@@ -1,7 +1,8 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import PointerInteraction from 'ol/interaction/Pointer';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import PointerInteraction from './Pointer';
+
 export interface Options {
     duration?: number;
     constrainResolution?: boolean;

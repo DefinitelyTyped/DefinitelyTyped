@@ -1,7 +1,7 @@
 export function createElementNS(namespaceURI: string, qualifiedName: string): Element;
 export function getAllTextContent(node: Node, normalizeWhitespace: boolean): string;
 export function getAttributeNS(node: Element, namespaceURI: string, name: string): string;
-export function isDocument(object: { [key: string]: any }): boolean;
+export function isDocument(object: any): boolean;
 export function makeArrayExtender<T>(valueReader: ((this: T, param1: Node, param2: any[]) => any[]), opt_this?: T): Parser;
 export function makeArrayPusher<T>(valueReader: ((this: T, param1: Element, param2: any[]) => void), opt_this?: T): Parser;
 export function makeArraySerializer<T, V>(nodeWriter: ((this: T, param1: Element, param2: V, param3: any[]) => void), opt_this?: T): Serializer;

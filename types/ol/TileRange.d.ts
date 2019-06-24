@@ -1,5 +1,6 @@
-import { Size } from 'ol/size';
-import { TileCoord } from 'ol/tilecoord';
+import { Size } from './size';
+import { TileCoord } from './tilecoord';
+
 export function createOrUpdate(minX: number, maxX: number, minY: number, maxY: number, tileRange?: TileRange): TileRange;
 export default class TileRange {
     constructor(minX: number, maxX: number, minY: number, maxY: number);

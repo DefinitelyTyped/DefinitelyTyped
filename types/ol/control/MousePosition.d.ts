@@ -1,11 +1,12 @@
-import Control from 'ol/control/Control';
-import { CoordinateFormat } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import MapEvent from 'ol/MapEvent';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
+import { CoordinateFormat } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import MapEvent from '../MapEvent';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import Control from './Control';
+
 export function render(mapEvent: MapEvent): void;
 export default class MousePosition extends Control {
     constructor(opt_options?: Options);

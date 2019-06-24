@@ -1,12 +1,13 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import { LoadFunction } from 'ol/Image';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import { Size } from 'ol/size';
-import ImageSource from 'ol/source/Image';
-import { AttributionLike } from 'ol/source/Source';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { LoadFunction } from '../Image';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import { Size } from '../size';
+import ImageSource from './Image';
+import { AttributionLike } from './Source';
+
 export interface Options {
     attributions?: AttributionLike;
     crossOrigin?: string;

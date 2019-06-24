@@ -1,10 +1,11 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import GeometryLayout from 'ol/geom/GeometryLayout';
-import Point from 'ol/geom/Point';
-import SimpleGeometry from 'ol/geom/SimpleGeometry';
-import { ObjectEvent } from 'ol/Object';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import GeometryLayout from './GeometryLayout';
+import Point from './Point';
+import SimpleGeometry from './SimpleGeometry';
+
 export default class MultiPoint extends SimpleGeometry {
     constructor(coordinates: Coordinate[] | number[], opt_layout?: GeometryLayout);
     appendPoint(point: Point): void;

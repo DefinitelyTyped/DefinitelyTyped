@@ -1,13 +1,14 @@
-import Collection, { CollectionEvent } from 'ol/Collection';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import PointerInteraction from 'ol/interaction/Pointer';
-import { ObjectEvent } from 'ol/Object';
-import { Pixel } from 'ol/pixel';
-import PluggableMap from 'ol/PluggableMap';
-import VectorSource, { VectorSourceEvent } from 'ol/source/Vector';
+import Collection, { CollectionEvent } from '../Collection';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Feature from '../Feature';
+import { ObjectEvent } from '../Object';
+import { Pixel } from '../pixel';
+import PluggableMap from '../PluggableMap';
+import VectorSource, { VectorSourceEvent } from '../source/Vector';
+import PointerInteraction from './Pointer';
+
 export interface Options {
     features?: Collection<Feature>;
     edge?: boolean;

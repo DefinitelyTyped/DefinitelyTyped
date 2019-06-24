@@ -1,10 +1,11 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import PluggableMap from 'ol/PluggableMap';
-import View from 'ol/View';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import MapBrowserEvent from '../MapBrowserEvent';
+import BaseObject, { ObjectEvent } from '../Object';
+import PluggableMap from '../PluggableMap';
+import View from '../View';
+
 export function pan(view: View, delta: Coordinate, opt_duration?: number): void;
 export function rotate(view: View, rotation: number, opt_anchor?: Coordinate, opt_duration?: number): void;
 export function rotateWithoutConstraints(view: View, rotation: number, opt_anchor?: Coordinate, opt_duration?: number): void;

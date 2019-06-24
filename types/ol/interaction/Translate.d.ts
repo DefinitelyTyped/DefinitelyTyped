@@ -1,11 +1,12 @@
-import Collection from 'ol/Collection';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Feature from 'ol/Feature';
-import PointerInteraction from 'ol/interaction/Pointer';
-import Layer from 'ol/layer/Layer';
-import { ObjectEvent } from 'ol/Object';
+import Collection from '../Collection';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Feature from '../Feature';
+import Layer from '../layer/Layer';
+import { ObjectEvent } from '../Object';
+import PointerInteraction from './Pointer';
+
 export class TranslateEvent extends Event {
     constructor();
     features: Collection<Feature>;

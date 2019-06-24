@@ -1,10 +1,11 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import GeometryLayout from 'ol/geom/GeometryLayout';
-import MultiPoint from 'ol/geom/MultiPoint';
-import Polygon from 'ol/geom/Polygon';
-import SimpleGeometry from 'ol/geom/SimpleGeometry';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import GeometryLayout from './GeometryLayout';
+import MultiPoint from './MultiPoint';
+import Polygon from './Polygon';
+import SimpleGeometry from './SimpleGeometry';
+
 export default class MultiPolygon extends SimpleGeometry {
     constructor(coordinates: any[] | number[], opt_layout?: GeometryLayout, opt_endss?: number[][]);
     appendPolygon(polygon: Polygon): void;

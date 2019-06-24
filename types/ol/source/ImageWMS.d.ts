@@ -1,21 +1,22 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { LoadFunction } from 'ol/Image';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import ImageSource, { ImageSourceEvent } from 'ol/source/Image';
-import { AttributionLike } from 'ol/source/Source';
-import WMSServerType from 'ol/source/WMSServerType';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { LoadFunction } from '../Image';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import ImageSource, { ImageSourceEvent } from './Image';
+import { AttributionLike } from './Source';
+import WMSServerType from './WMSServerType';
+
 export default class ImageWMS extends ImageSource {
     constructor(opt_options?: Options);
-    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: { [key: string]: any }): string;
+    getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
     getImageLoadFunction(): LoadFunction;
-    getParams(): { [key: string]: any };
+    getParams(): any;
     getUrl(): string;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
     setUrl(url: string): void;
-    updateParams(params: { [key: string]: any }): void;
+    updateParams(params: any): void;
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
     once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
     un(type: string | string[], listener: ((param0: any) => void)): void;

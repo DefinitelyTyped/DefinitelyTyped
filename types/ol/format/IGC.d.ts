@@ -1,4 +1,5 @@
-import TextFeature from 'ol/format/TextFeature';
+import TextFeature from './TextFeature';
+
 export default class IGC extends TextFeature {
     constructor(opt_options?: Options);
 }

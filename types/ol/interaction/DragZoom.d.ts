@@ -1,8 +1,9 @@
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import DragBox, { DragBoxEvent } from 'ol/interaction/DragBox';
-import { ObjectEvent } from 'ol/Object';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import { ObjectEvent } from '../Object';
+import DragBox, { DragBoxEvent } from './DragBox';
+
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];

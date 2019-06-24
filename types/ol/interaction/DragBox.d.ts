@@ -1,12 +1,13 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import Polygon from 'ol/geom/Polygon';
-import PointerInteraction from 'ol/interaction/Pointer';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { ObjectEvent } from 'ol/Object';
-import { Pixel } from 'ol/pixel';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import Polygon from '../geom/Polygon';
+import MapBrowserEvent from '../MapBrowserEvent';
+import { ObjectEvent } from '../Object';
+import { Pixel } from '../pixel';
+import PointerInteraction from './Pointer';
+
 export default class DragBox extends PointerInteraction {
     constructor(opt_options?: Options);
     defaultBoxEndCondition(mapBrowserEvent: MapBrowserEvent, startPixel: Pixel, endPixel: Pixel): boolean;

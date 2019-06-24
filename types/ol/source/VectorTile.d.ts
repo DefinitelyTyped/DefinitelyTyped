@@ -1,17 +1,18 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import FeatureFormat from 'ol/format/Feature';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import { Size } from 'ol/size';
-import { AttributionLike } from 'ol/source/Source';
-import State from 'ol/source/State';
-import { TileSourceEvent } from 'ol/source/Tile';
-import UrlTile from 'ol/source/UrlTile';
-import { LoadFunction, UrlFunction } from 'ol/Tile';
-import TileGrid from 'ol/tilegrid/TileGrid';
-import VectorTile_1 from 'ol/VectorTile';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import FeatureFormat from '../format/Feature';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import { Size } from '../size';
+import { LoadFunction, UrlFunction } from '../Tile';
+import TileGrid from '../tilegrid/TileGrid';
+import VectorTile_1 from '../VectorTile';
+import { AttributionLike } from './Source';
+import State from './State';
+import { TileSourceEvent } from './Tile';
+import UrlTile from './UrlTile';
+
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;

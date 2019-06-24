@@ -1,9 +1,10 @@
-import Collection from 'ol/Collection';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import BaseLayer from 'ol/layer/Base';
-import { ObjectEvent } from 'ol/Object';
+import Collection from '../Collection';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { ObjectEvent } from '../Object';
+import BaseLayer from './Base';
+
 export default class LayerGroup extends BaseLayer {
     constructor(opt_options?: Options);
     getLayers(): Collection<BaseLayer>;

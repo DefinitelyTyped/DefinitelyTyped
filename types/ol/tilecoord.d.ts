@@ -1,4 +1,5 @@
-import TileGrid from 'ol/tilegrid/TileGrid';
+import TileGrid from './tilegrid/TileGrid';
+
 export function createOrUpdate(z: number, x: number, y: number, opt_tileCoord?: TileCoord): TileCoord;
 export function fromKey(key: string): TileCoord;
 export function getKey(tileCoord: TileCoord): string;

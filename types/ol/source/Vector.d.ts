@@ -1,14 +1,15 @@
-import Collection from 'ol/Collection';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Feature from 'ol/Feature';
-import { FeatureLoader, FeatureUrlFunction } from 'ol/featureloader';
-import FeatureFormat from 'ol/format/Feature';
-import { ObjectEvent } from 'ol/Object';
-import Projection from 'ol/proj/Projection';
-import Source, { AttributionLike } from 'ol/source/Source';
+import Collection from '../Collection';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import Feature from '../Feature';
+import { FeatureLoader, FeatureUrlFunction } from '../featureloader';
+import FeatureFormat from '../format/Feature';
+import { ObjectEvent } from '../Object';
+import Projection from '../proj/Projection';
+import Source, { AttributionLike } from './Source';
+
 export class VectorSourceEvent extends Event {
     constructor();
     feature: Feature;
@@ -27,10 +28,11 @@ export interface Options {
 }
 export default class VectorSource extends Source {
     constructor(opt_options?: Options);
-    protected addFeaturesInternal(features: Feature[]): void;
     protected addFeatureInternal(feature: Feature): void;
+    protected addFeaturesInternal(features: Feature[]): void;
     protected removeFeatureInternal(feature: Feature): void;
-    getFeaturesAtCoordinate(coordinate: Coordinate): Feature[];
+    addFeature(feature: Feature): void;
+    addFeatures(features: Feature[]): void;
     clear(opt_fast?: boolean): void;
     forEachFeature<T>(callback: ((param0: Feature) => T)): T;
     forEachFeatureAtCoordinateDirect<T>(coordinate: Coordinate, callback: ((param0: Feature) => T)): T;
@@ -40,7 +42,7 @@ export default class VectorSource extends Source {
     getExtent(opt_extent?: Extent): Extent;
     getFeatureById(id: string | number): Feature;
     getFeatures(): Feature[];
-    addFeatures(features: Feature[]): void;
+    getFeaturesAtCoordinate(coordinate: Coordinate): Feature[];
     getFeaturesCollection(): Collection<Feature>;
     getFeaturesInExtent(extent: Extent): Feature[];
     getFormat(): FeatureFormat;
@@ -50,7 +52,6 @@ export default class VectorSource extends Source {
     isEmpty(): boolean;
     loadFeatures(extent: Extent, resolution: number, projection: Projection): void;
     removeFeature(feature: Feature): void;
-    addFeature(feature: Feature): void;
     removeLoadedExtent(extent: Extent): void;
     setLoader(loader: FeatureLoader): void;
     on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];

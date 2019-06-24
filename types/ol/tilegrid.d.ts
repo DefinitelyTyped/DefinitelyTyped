@@ -1,10 +1,11 @@
-import { Extent } from 'ol/extent';
-import Corner from 'ol/extent/Corner';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { Size } from 'ol/size';
-import { TileCoord } from 'ol/tilecoord';
-import TileGrid from 'ol/tilegrid/TileGrid';
+import { Extent } from './extent';
+import Corner from './extent/Corner';
+import { ProjectionLike } from './proj';
+import Projection from './proj/Projection';
+import { Size } from './size';
+import { TileCoord } from './tilecoord';
+import TileGrid from './tilegrid/TileGrid';
+
 export function createForExtent(extent: Extent, opt_maxZoom?: number, opt_tileSize?: number | Size, opt_corner?: Corner): TileGrid;
 export function createForProjection(projection: ProjectionLike, opt_maxZoom?: number, opt_tileSize?: number | Size, opt_corner?: Corner): TileGrid;
 export function createXYZ(opt_options?: XYZOptions): TileGrid;

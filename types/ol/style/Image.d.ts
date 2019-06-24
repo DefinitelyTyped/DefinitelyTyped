@@ -1,11 +1,12 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import ImageState from 'ol/ImageState';
-import { Size } from 'ol/size';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import ImageState from '../ImageState';
+import { Size } from '../size';
+
 export default class ImageStyle {
     constructor(options: Options);
-    getScale(): number;
     clone(): ImageStyle;
+    getAnchor(): number[];
     getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
     getHitDetectionImageSize(): Size;
     getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
@@ -15,7 +16,7 @@ export default class ImageStyle {
     getOrigin(): number[];
     getRotateWithView(): boolean;
     getRotation(): number;
-    getAnchor(): number[];
+    getScale(): number;
     getSize(): Size;
     getSnapToPixel(): boolean;
     listenImageChange<T>(listener: ((this: T, param1: Event) => void), thisArg: T): EventsKey;

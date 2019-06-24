@@ -1,8 +1,9 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Layer from 'ol/layer/Layer';
-import CanvasLayerRenderer from 'ol/renderer/canvas/Layer';
-import { Transform } from 'ol/transform';
+import { EventsKey } from '../../events';
+import Event from '../../events/Event';
+import Layer from '../../layer/Layer';
+import { Transform } from '../../transform';
+import CanvasLayerRenderer from './Layer';
+
 export default class IntermediateCanvasRenderer extends CanvasLayerRenderer {
     constructor(layer: Layer);
     protected coordinateToCanvasPixelTransform: Transform;

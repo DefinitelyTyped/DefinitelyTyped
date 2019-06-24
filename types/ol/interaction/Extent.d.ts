@@ -1,10 +1,11 @@
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import PointerInteraction from 'ol/interaction/Pointer';
-import { ObjectEvent } from 'ol/Object';
-import { StyleFunction, StyleLike } from 'ol/style/Style';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import { ObjectEvent } from '../Object';
+import { StyleFunction, StyleLike } from '../style/Style';
+import PointerInteraction from './Pointer';
+
 export default class ExtentInteraction extends PointerInteraction {
     constructor(opt_options?: Options);
     getExtent(): Extent;

@@ -1,5 +1,6 @@
-import { Extent } from 'ol/extent';
-import ImageBase from 'ol/ImageBase';
+import { Extent } from './extent';
+import ImageBase from './ImageBase';
+
 export default class ImageCanvas extends ImageBase {
     constructor(extent: Extent, resolution: number, pixelRatio: number, canvas: HTMLCanvasElement, opt_loader?: Loader);
     getError(): Error;

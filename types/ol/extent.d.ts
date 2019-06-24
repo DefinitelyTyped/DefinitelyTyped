@@ -1,8 +1,9 @@
-import { Coordinate } from 'ol/coordinate';
-import Corner from 'ol/extent/Corner';
-import Relationship from 'ol/extent/Relationship';
-import { TransformFunction } from 'ol/proj';
-import { Size } from 'ol/size';
+import { Coordinate } from './coordinate';
+import Corner from './extent/Corner';
+import Relationship from './extent/Relationship';
+import { TransformFunction } from './proj';
+import { Size } from './size';
+
 export function applyTransform(extent: Extent, transformFn: TransformFunction, opt_extent?: Extent): Extent;
 export function boundingExtent(coordinates: Coordinate[]): Extent;
 export function buffer(extent: Extent, value: number, opt_extent?: Extent): Extent;
