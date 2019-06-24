@@ -27,9 +27,9 @@ declare namespace PouchDB {
             /**
              * Enable autocompation of database.
              */
-            auto_compaction?: boolean
+            auto_compaction?: boolean;
 
-            adapter: 'cordova-sqlite';            
+            adapter: 'cordova-sqlite';
         }
     }
 

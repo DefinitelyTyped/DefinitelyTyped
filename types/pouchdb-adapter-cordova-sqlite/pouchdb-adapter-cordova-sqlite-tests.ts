@@ -6,7 +6,7 @@ function testConstructor() {
     db = new PouchDB('location', {
         adapter: 'cordova-sqlite',
         location: 'default'
-    });    
+    });
     db = new PouchDB('ioslocation', {
         adapter: 'cordova-sqlite',
         iosDatabaseLocation: 'default'
