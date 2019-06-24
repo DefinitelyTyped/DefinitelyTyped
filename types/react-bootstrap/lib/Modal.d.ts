@@ -28,7 +28,8 @@ declare namespace Modal {
         enforceFocus?: boolean;
         keyboard?: boolean;
         onBackdropClick?: (node: HTMLElement) => any;
-        onEscapeKeyUp?: (node: HTMLElement) => any;
+        onEscapeKeyDown?: (node: HTMLElement) => any;
+        onEscapeKeyUp?: (node: HTMLElement) => any; // deprecated, use onEscapeKeyDown
         onShow?: (node: HTMLElement) => any;
         show?: boolean;
         transition?: React.ReactElement;
