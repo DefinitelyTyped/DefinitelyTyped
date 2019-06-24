@@ -545,6 +545,7 @@
 declare let R: R.Static;
 
 declare namespace R {
+    import ValueOfRecord = Tools.ValueOfRecord;
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type CommonKeys<T1, T2> = keyof T1 & keyof T2;
@@ -892,6 +893,11 @@ declare namespace R {
          * of the same structure, by mapping each property to the result of calling its associated function with
          * the supplied arguments.
          */
+        applySpec<Obj extends Record<string, (...args: any[]) => any>>(
+            obj: Obj
+        ): (
+            ...args: Parameters<ValueOfRecord<Obj>>
+        ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
         applySpec<T>(obj: any): (...args: any[]) => T;
 
         /**
