@@ -10,3 +10,6 @@ export class Counter extends Metric {
 export class Gauge extends Metric {
     protected __brand: never;
 }
+export class Rate extends Metric {
+    protected __brand: never;
+}
