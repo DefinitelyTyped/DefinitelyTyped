@@ -7,11 +7,6 @@
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
-    namespace Core {
-        interface DatabaseInfo {
-        }
-    }
-
     namespace AdapterCordovaSqlite {
         interface Configuration
                 extends Configuration.LocalDatabaseConfiguration {
