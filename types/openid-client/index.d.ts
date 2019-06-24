@@ -16,7 +16,7 @@ export interface IssuerMetadata {
     readonly authorization_endpoint?: string;
     readonly userinfo_endpoint?: string;
     readonly token_endpoint?: string;
-    readonly jwks_uri: string;
+    readonly jwks_uri?: string;
     readonly revocation_endpoint?: string;
     readonly introspection_endpoint?: string;
     readonly end_session_endpoint?: string;
