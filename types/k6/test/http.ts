@@ -2,6 +2,8 @@ import { JSON } from 'k6';
 import { Selection } from 'k6/html';
 import { CookieJar, CookieJarCookies, RefinedResponse, Response, ResponseType, get, cookieJar } from 'k6/http';
 
+const address = 'http://example.com';
+
 let response: Response;
 let responseDefault: RefinedResponse<ResponseType>;
 let responseBinary: RefinedResponse<'binary'>;
@@ -15,16 +17,16 @@ let jar: CookieJar;
 // get
 get(); // $ExpectError
 get(5); // $ExpectError
-responseDefault = get('example.com');
-get('example.com', 5); // $ExpectError
-responseDefault = get('example.com', {});
-responseBinary = get('example.com', { responseType: 'binary' });
-responseNone = get('example.com', { responseType: 'none' });
-responseText = get('example.com', { responseType: 'text' });
-get('example.com', {}, 5); // $ExpectError
+responseDefault = get(address);
+get(address, 5); // $ExpectError
+responseDefault = get(address, {});
+responseBinary = get(address, { responseType: 'binary' });
+responseNone = get(address, { responseType: 'none' });
+responseText = get(address, { responseType: 'text' });
+get(address, {}, 5); // $ExpectError
 
 // Response.clickLink
-response = get('example.com');
+response = get(address);
 responseDefault = response.clickLink();
 response.clickLink(5); // $ExpectError
 responseDefault = response.clickLink({});
@@ -35,21 +37,21 @@ responseBinary = response.clickLink({
 response.clickLink({}, 5); // $ExpectError
 
 // Response.html
-response = get('example.com');
+response = get(address);
 html = response.html();
 response.html(5); // $ExpectError
 html = response.html('div span.item');
 response.html('div span.item', 5); // $ExpectError
 
 // Response.json
-response = get('example.com');
+response = get(address);
 json = response.json();
 response.json(5); // $ExpectError
 json = response.json('user.name');
 response.json('user.name', 5); // $ExpectError
 
 // Response.submitForm
-response = get('example.com');
+response = get(address);
 responseDefault = response.submitForm();
 response.submitForm(5); // $ExpectError
 responseDefault = response.submitForm({});
@@ -72,8 +74,8 @@ cookieJar(5); // $ExpectError
 jar = cookieJar();
 jar.cookiesForURL(); // $ExpectError
 jar.cookiesForURL(5); // $ExpectError
-cookies = jar.cookiesForURL('example.com');
-jar.cookiesForURL('example.com', 5); // $ExpectError
+cookies = jar.cookiesForURL(address);
+jar.cookiesForURL(address, 5); // $ExpectError
 
 // CookieJar.set
 jar = cookieJar();
@@ -88,11 +90,11 @@ jar.set('session', 'abc123', { badoption: true }); // $ExpectError
 jar.set('session', 'abc123', { domain: 'example.com' }); // $ExpectType void
 // $ExpectType void
 jar.set('session', 'abc123', {
-    domain: 'example.com',
+    domain: address,
     path: '/index.html',
     expires: '2019-06-23T18:04:45Z',
     max_age: 10,
     secure: true,
-    http_only: true
+    http_only: true,
 });
 jar.set('session', 'abc123', {}, 5); // $ExpectError
