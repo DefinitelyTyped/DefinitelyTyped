@@ -1,6 +1,7 @@
 import { bytes, JSON } from '.';
 import { Selection } from './html';
 
+// Generics refine response to provide body with the correct type
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
 export function del<RT extends ResponseType>(
