@@ -17,6 +17,7 @@
         "crypto.d.ts",
         "encoding.d.ts",
         "global.d.ts",
+        "html.d.ts",
         "http.d.ts",
         "index.d.ts",
         "k6-tests.ts",

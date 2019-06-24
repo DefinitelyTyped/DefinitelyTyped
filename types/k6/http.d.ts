@@ -1,4 +1,5 @@
 import { bytes, JSON } from '.';
+import { Selection } from './html';
 
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
@@ -32,53 +33,56 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
 // Response
 export class Response {
-    body: ResponseBody;
-    cookies: { [name: string]: ResponseCookie[] };
-    error: string;
-    error_code: number;
-    headers: { [name: string]: string };
-    ocsp: {
-        produced_at: number;
-        this_update: number;
-        next_update: number;
-        revocation_reason: string;
-        revoked_at: number;
-        status: string;
-    };
-    proto: string;
-    remote_ip: string;
-    remote_port: number;
-    request: {
-        body: string;
-        cookies: { [name: string]: RequestCookie[] };
-        headers: { [name: string]: string[] };
-        method: string;
-        url: string;
-    };
-    status: number;
-    timings: {
-        blocked: number;
-        looking_up: number;
-        connecting: number;
-        tls_handshaking: number;
-        sending: number;
-        waiting: number;
-        receiving: number;
-        duration: number;
-    };
-    tls_cipher_suite: string;
-    tls_version: string;
-    url: string;
-    clickLink: (params?: { selector?: string; params?: LegacyParams }) => LegacyResponse;
-    html: (selector?: string) => any;
-    json(selector?: string): JSON | undefined;
-    submitForm: (params?: {
-        formSelector?: string;
-        fields?: object;
-        submitSelector?: string;
-        params?: LegacyParams;
-    }) => LegacyResponse;
-}
+           body: ResponseBody;
+           cookies: { [name: string]: ResponseCookie[] };
+           error: string;
+           error_code: number;
+           headers: { [name: string]: string };
+           ocsp: {
+               produced_at: number;
+               this_update: number;
+               next_update: number;
+               revocation_reason: string;
+               revoked_at: number;
+               status: string;
+           };
+           proto: string;
+           remote_ip: string;
+           remote_port: number;
+           request: {
+               body: string;
+               cookies: { [name: string]: RequestCookie[] };
+               headers: { [name: string]: string[] };
+               method: string;
+               url: string;
+           };
+           status: number;
+           timings: {
+               blocked: number;
+               looking_up: number;
+               connecting: number;
+               tls_handshaking: number;
+               sending: number;
+               waiting: number;
+               receiving: number;
+               duration: number;
+           };
+           tls_cipher_suite: string;
+           tls_version: string;
+           url: string;
+           clickLink<RT extends ResponseType>(args?: {
+               selector?: string;
+               params?: GenericParams<RT>;
+           }): RefinedResponse<RT>;
+           html(selector?: string): Selection;
+           json(selector?: string): JSON | undefined;
+           submitForm: (params?: {
+               formSelector?: string;
+               fields?: object;
+               submitSelector?: string;
+               params?: LegacyParams;
+           }) => LegacyResponse;
+       }
 export class RefinedResponse<RT extends ResponseType> extends Response {
     body: RefinedResponseBody<RT>;
 }
