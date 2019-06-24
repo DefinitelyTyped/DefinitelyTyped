@@ -45,6 +45,11 @@ declare class Complex {
     static EPSILON: number;
 
     constructor(x: number, y: number);
+    constructor(x: Complex);
+
+    // the parts of the number
+    re: number;
+    im: number;
 
     /**
      * Returns the complex sign, defined as the complex number
@@ -56,26 +61,31 @@ declare class Complex {
      * Adds another complex number.
      */
     add(a: number, b: number): Complex;
+    add(a: Complex): Complex;
 
     /**
      * Subtracts another complex number.
      */
     sub(a: number, b: number): Complex;
+    sub(a: Complex): Complex;
 
     /**
      * Multiplies the number with another complex number.
      */
     mul(a: number, b: number): Complex;
+    mul(a: Complex): Complex;
 
     /**
      * Divides the number by another complex number.
      */
     div(a: number, b: number): Complex;
+    div(a: Complex): Complex;
 
     /**
      * Returns the number raised to the complex exponent.
      */
     pow(a: number, b: number): Complex;
+    pow(a: Complex): Complex;
 
     /**
      * Returns the complex square root of the number.
@@ -137,6 +147,7 @@ declare class Complex {
      * if both numbers are infinite they are considered not equal.
      */
     equals(a: number, b: number): boolean;
+    equals(a: Complex): boolean;
 
     /**
      * Checks if the given number is not a number.
