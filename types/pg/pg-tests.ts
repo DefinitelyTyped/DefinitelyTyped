@@ -170,6 +170,10 @@ pool.query({ text: 'SELECT $1::text as name' }, ['brianc'])
   .then((res) => console.log(res.rows[0].name))
   .catch(err => console.error('Error executing query', err.stack));
 
+pool.query<DataModel>("SELECT 'string' as column1, NOW() as column2", [], (error, res) => {
+    console.log(res.rows[0].column2);
+});
+
 pool.end(() => {
   console.log('pool has ended');
 });
@@ -179,6 +183,10 @@ pool.end().then(() => console.log('pool has ended'));
 (async () => {
   const client = await pool.connect();
   await client.query('SELECT NOW()');
+
+  const clientResult = await client.query<DataModel>("SELECT 'string' as column1, NOW() as column2");
+  console.log(clientResult.rows[0].column1);
+
   client.release();
 })();
 
@@ -186,3 +194,8 @@ pool.end().then(() => console.log('pool has ended'));
 // client config object tested above
 let c = new Client(); // empty constructor allowed
 c = new Client('connectionString'); // connection string allowed
+
+interface DataModel {
+  column1: string;
+  column2: Date;
+}

@@ -1,7 +1,9 @@
 // Type definitions for pg 7.4
 // Project: http://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
+//                 Osman Yavuz <https://github.com/eMuonTau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -77,12 +79,12 @@ export interface QueryResultBase {
     fields: FieldDef[];
 }
 
-export interface QueryResult extends QueryResultBase {
-    rows: any[];
+export interface QueryResult<T> extends QueryResultBase {
+    rows: T[];
 }
 
-export interface QueryArrayResult extends QueryResultBase {
-    rows: any[][];
+export interface QueryArrayResult<T> extends QueryResultBase {
+    rows: T[][];
 }
 
 export interface Notification {
@@ -91,7 +93,7 @@ export interface Notification {
     payload?: string;
 }
 
-export interface ResultBuilder extends QueryResult {
+export interface ResultBuilder extends QueryResult<any> {
     addRow(row: any): void;
 }
 
@@ -154,12 +156,12 @@ export class Pool extends events.EventEmitter {
     end(callback: () => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
-    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
-    query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query<T = any>(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult<T>>;
+    query<T = any>(queryConfig: QueryConfig): Promise<QueryResult<T>>;
+    query<T = any>(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult<T>>;
+    query<T = any>(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult<T>) => void): Query;
+    query<T = any>(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult<T>) => void): Query;
+    query<T = any>(queryText: string, values: any[], callback: (err: Error, result: QueryResult<T>) => void): Query;
 
     on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
     on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
@@ -172,12 +174,12 @@ export class ClientBase extends events.EventEmitter {
     connect(callback: (err: Error) => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
-    query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
-    query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
-    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
-    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
+    query<T = any>(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult<T>>;
+    query<T = any>(queryConfig: QueryConfig): Promise<QueryResult<T>>;
+    query<T = any>(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult<T>>;
+    query<T = any>(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult<T>) => void): Query;
+    query<T = any>(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult<T>) => void): Query;
+    query<T = any>(queryText: string, values: any[], callback: (err: Error, result: QueryResult<T>) => void): Query;
 
     copyFrom(queryText: string): stream.Writable;
     copyTo(queryText: string): stream.Readable;
