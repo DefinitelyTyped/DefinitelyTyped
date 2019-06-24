@@ -15,7 +15,11 @@ export function options<RT extends ResponseType>(
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function patch(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
+export function patch<RT extends ResponseType>(
+    url: string,
+    body?: RequestBody | null,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
 export function post<RT extends ResponseType>(
     url: string,
     body?: RequestBody | null,

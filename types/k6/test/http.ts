@@ -9,6 +9,7 @@ import {
     del,
     get,
     options,
+    patch,
     post,
     cookieJar,
 } from 'k6/http';
@@ -59,6 +60,18 @@ responseDefault = options(address, { theme: 'forest' });
 options(address, {}, 5); // $ExpectError
 responseNone = options(address, {}, { responseType: 'none' });
 options(address, {}, {}, 5); // $ExpectError
+
+// patch
+patch(); // $ExpectError
+patch(5); // $ExpectError
+responseDefault = patch(address);
+patch(address, 5); // $ExpectError
+responseDefault = patch(address, 'a life of contrasts and patchwork');
+responseDefault = patch(address, {});
+responseDefault = patch(address, { weaponOfChoice: 'pen' });
+patch(address, {}, 5); // $ExpectError
+responseBinary = patch(address, {}, { responseType: 'binary' });
+patch(address, {}, {}, 5); // $ExpectError
 
 // post
 post(); // $ExpectError
