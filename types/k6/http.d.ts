@@ -2,8 +2,6 @@ import { bytes, JSON } from '.';
 import { Selection } from './html';
 
 // Generics refine response to expose body with correct type
-export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
-export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
 export function del<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
@@ -39,6 +37,7 @@ export function request<RT extends ResponseType | undefined>(
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
+export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 export function cookieJar(): CookieJar;
 
@@ -65,6 +64,34 @@ export type RequestBody = string | StructuredRequestBody;
 export interface StructuredRequestBody {
     [name: string]: string;
 }
+
+// BatchRequest
+export type BatchRequest = string | ArrayBatchRequest | ObjectBatchRequest;
+export type ArrayBatchRequest = [ string, string, (RequestBody | null)?, (Params | null)? ];
+export interface ObjectBatchRequest {
+    method: string;
+    url: string;
+    body?: RequestBody | null;
+    params?: Params | null;
+}
+export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
+
+// GenericBatchRequest
+export type GenericBatchRequest<RT extends ResponseType | undefined> = string | ArrayGenericBatchRequest<RT> | ObjectGenericBatchRequest<RT>;
+export type ArrayGenericBatchRequest<RT extends ResponseType | undefined> = [ string, string, (RequestBody | null)?, (GenericParams<RT> | null)? ];
+export interface ObjectGenericBatchRequest<RT extends ResponseType | undefined> {
+    method: string;
+    url: string;
+    body?: RequestBody | null;
+    params?: GenericParams<RT> | null;
+}
+
+// BatchResponses
+export type BatchResponses<Q> = {
+    [K in keyof Q]: Q[K] extends GenericBatchRequest<infer RT>
+        ? RefinedResponse<RT>
+        : never;
+};
 
 // Response
 export class Response {
@@ -145,73 +172,6 @@ export interface ResponseCookie {
     secure: boolean;
     maxAge: number;
     expires: number;
-}
-
-export type Request = string | RequestObj;
-export interface RequestObj {
-    url: string;
-    method?: string;
-    body?: string | object;
-    params?: LegacyParams;
-}
-
-// Legacy
-export interface LegacyParams {
-    auth?: string;
-    cookies?: object;
-    headers?: object;
-    jar?: CookieJar;
-    redirects?: number;
-    tags?: object;
-    timeout?: number;
-    responseType?: string;
-}
-export interface LegacyResponse {
-    body: string;
-    cookies: object;
-    error: string;
-    headers: { [key: string]: string };
-    ocsp: {
-        produced_at: number;
-        this_update: number;
-        next_update: number;
-        revocation_reason: string;
-        revoked_at: number;
-        status: string;
-    };
-    proto: string;
-    remote_ip: string;
-    remote_port: number;
-    request: {
-        body: string;
-        cookies: object;
-        headers: object;
-        method: string;
-        url: string;
-    };
-    status: number;
-    timings: {
-        blocked: number;
-        looking_up: number;
-        connecting: number;
-        tls_handshaking: number;
-        sending: number;
-        waiting: number;
-        receiving: number;
-        duration: number;
-    };
-    tls_cipher_suite: string;
-    tls_version: string;
-    url: string;
-    clickLink: (params?: { selector?: string; params?: LegacyParams }) => LegacyResponse;
-    html: (selector?: string) => any;
-    json: () => any;
-    submitForm: (params?: {
-        formSelector?: string;
-        fields?: object;
-        submitSelector?: string;
-        params?: LegacyParams;
-    }) => LegacyResponse;
 }
 
 export interface FileData {

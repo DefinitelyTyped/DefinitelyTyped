@@ -13,6 +13,7 @@ import {
     post,
     put,
     request,
+    batch,
     cookieJar,
 } from 'k6/http';
 
@@ -23,6 +24,16 @@ let responseDefault: RefinedResponse<undefined>;
 let responseBinary: RefinedResponse<'binary'>;
 let responseNone: RefinedResponse<'none'>;
 let responseText: RefinedResponse<'text'>;
+let responsesArray: Response[];
+let responsesArrayDefault: Array<RefinedResponse<undefined>>;
+let responsesArrayBinary: Array<RefinedResponse<'binary'>>;
+let responsesArrayNone: Array<RefinedResponse<'none'>>;
+let responsesArrayText: Array<RefinedResponse<'text'>>;
+let responsesMap: { [name: string]: Response };
+let responsesMapDefault: { [name: string]: RefinedResponse<undefined> };
+let responsesMapBinary: { [name: string]: RefinedResponse<'binary'> };
+let responsesMapNone: { [name: string]: RefinedResponse<'none'> };
+let responsesMapText: { [name: string]: RefinedResponse<'text'> };
 let html: Selection;
 let json: JSON | undefined;
 let cookies: CookieJarCookies;
@@ -112,6 +123,120 @@ responseDefault = request('post', address, { query: 'quokka' });
 request('post', address, {}, 5); // $ExpectError
 responseBinary = request('post', address, {}, { responseType: 'binary' });
 request('post', address, {}, {}, 5); // $ExpectError
+
+// batch
+batch(); // $ExpectError
+batch(5); // $ExpectError
+batch([ address ], 5); // $ExpectError
+
+// batch(Array)
+responsesArray = batch([]);
+responsesArrayDefault = batch([ address ]);
+responsesArrayDefault = batch([ address, address, address ]);
+responsesArrayDefault = batch([
+    [ 'GET', address ],
+    [ 'POST', address, 'hello' ],
+    [ 'POST', address, { title: 'Hello' }, {} ]
+]);
+responsesArrayBinary = batch([
+    [ 'GET', address, null, { responseType: 'binary' } ],
+    [ 'GET', address, null, { responseType: 'binary' } ],
+    [ 'GET', address, null, { responseType: 'binary' } ]
+]);
+responsesArrayNone = batch([
+    [ 'GET', address, null, { responseType: 'none' } ],
+    [ 'GET', address, null, { responseType: 'none' } ],
+    [ 'GET', address, null, { responseType: 'none' } ]
+]);
+responsesArrayText = batch([
+    [ 'GET', address, null, { responseType: 'text' } ],
+    [ 'GET', address, null, { responseType: 'text' } ],
+    [ 'GET', address, null, { responseType: 'text' } ]
+]);
+/*
+Incorrectly passes due to https://github.com/microsoft/TypeScript/issues/32070
+This is an obscure pattern that probably won't happen in practice.
+To be enabled when the ability becomes available.
+
+/// $ExpectError
+responsesArrayText = batch([
+    [ 'GET', address, null, { responseType: 'binary' } ],
+    [ 'GET', address, null, { responseType: 'none' } ],
+    [ 'GET', address, null, { responseType: 'text' } ]
+]);
+*/
+responsesArray = batch([
+    [ 'GET', address, null, { responseType: 'binary' } ],
+    [ 'GET', address, null, { responseType: 'none' } ],
+    [ 'GET', address, null, { responseType: 'text' } ]
+]);
+responsesArrayDefault = batch([ { method: 'GET', url: address } ]);
+responsesArrayDefault = batch([
+    { method: 'GET', url: address },
+    { method: 'GET', url: address },
+    { method: 'GET', url: address }
+]);
+responsesArrayBinary = batch([
+    { method: 'GET', url: address, params: { responseType: 'binary' } },
+    { method: 'GET', url: address, params: { responseType: 'binary' } },
+    { method: 'GET', url: address, params: { responseType: 'binary' } }
+]);
+responsesArray = batch([
+    { method: 'GET', url: address, params: { responseType: 'binary' } },
+    { method: 'GET', url: address, params: { responseType: 'none' } },
+    { method: 'GET', url: address, params: { responseType: 'text' } }
+]);
+
+// batch(object)
+responsesMap = batch({});
+responsesMapDefault = batch({ home: address });
+responsesMapDefault = batch({
+    home: address,
+    about: address,
+    forum: address
+});
+responsesMapBinary = batch({
+    home: [ 'GET', address, null, { responseType: 'binary' } ],
+    about: [ 'GET', address, null, { responseType: 'binary' } ],
+    forum: [ 'GET', address, null, { responseType: 'binary' } ]
+});
+responsesMapNone = batch({
+    home: [ 'GET', address, null, { responseType: 'none' } ],
+    about: [ 'GET', address, null, { responseType: 'none' } ],
+    forum: [ 'GET', address, null, { responseType: 'none' } ]
+});
+responsesMapText = batch({
+    home: [ 'GET', address, null, { responseType: 'text' } ],
+    about: [ 'GET', address, null, { responseType: 'text' } ],
+    forum: [ 'GET', address, null, { responseType: 'text' } ]
+});
+// $ExpectError
+responsesMapBinary = batch({
+    home: [ 'GET', address, null, { responseType: 'binary' } ],
+    about: [ 'GET', address, null, { responseType: 'none' } ],
+    forum: [ 'GET', address, null, { responseType: 'text' } ]
+});
+responsesMap = batch({
+    home: [ 'GET', address, null, { responseType: 'binary' } ],
+    about: [ 'GET', address, null, { responseType: 'none' } ],
+    forum: [ 'GET', address, null, { responseType: 'text' } ]
+});
+responsesMapDefault = batch({ home: { method: 'GET', url: address } });
+responsesMapDefault = batch({
+    home: { method: 'GET', url: address },
+    about: { method: 'GET', url: address },
+    forum: { method: 'GET', url: address }
+});
+responsesMapText = batch({
+    home: { method: 'GET', url: address, params: { responseType: 'text' } },
+    about: { method: 'GET', url: address, params: { responseType: 'text' } },
+    forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+});
+responsesMap = batch({
+    home: { method: 'GET', url: address, params: { responseType: 'binary' } },
+    about: { method: 'GET', url: address, params: { responseType: 'none' } },
+    forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+});
 
 // Response.clickLink
 response = get(address);
