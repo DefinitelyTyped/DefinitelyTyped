@@ -80,7 +80,7 @@ export class LdapClient {
      * Note that the defaults for options are a 'base' search.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    search<T extends any>(base: string, options: PartialSearchOptions): Promise<T[]>;
+    search(base: string, options: PartialSearchOptions): Promise<unknown[]>;
 
     /**
      * Unbinds this client from the LDAP server.

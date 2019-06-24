@@ -31,7 +31,7 @@ interface LdapObject {
         attributes: ['dn', 'sn', 'cn'],
     };
 
-    const searchResult = await client.search<LdapObject>(dn, options);
+    const searchResult = await client.search(dn, options) as LdapObject[];
     type resultType = typeof searchResult;
 
     await client.unbind();
