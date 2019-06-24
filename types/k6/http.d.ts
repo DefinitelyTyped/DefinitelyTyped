@@ -3,7 +3,11 @@ import { Selection } from './html';
 
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
-export function del(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
+export function del<RT extends ResponseType>(
+    url: string,
+    body?: RequestBody | null,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
 export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT> | null): RefinedResponse<RT>;
 export function options(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function patch(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;

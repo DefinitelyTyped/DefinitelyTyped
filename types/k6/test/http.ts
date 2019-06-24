@@ -1,6 +1,16 @@
 import { JSON } from 'k6';
 import { Selection } from 'k6/html';
-import { CookieJar, CookieJarCookies, RefinedResponse, Response, ResponseType, get, post, cookieJar } from 'k6/http';
+import {
+    CookieJar,
+    CookieJarCookies,
+    RefinedResponse,
+    Response,
+    ResponseType,
+    del,
+    get,
+    post,
+    cookieJar,
+} from 'k6/http';
 
 const address = 'http://example.com';
 
@@ -13,6 +23,18 @@ let html: Selection;
 let json: JSON | undefined;
 let cookies: CookieJarCookies;
 let jar: CookieJar;
+
+// del
+del(); // $ExpectError
+del(5); // $ExpectError
+responseDefault = del(address);
+del(address, 5); // $ExpectError
+responseDefault = del(address, 'skadoosh');
+responseDefault = del(address, {});
+responseDefault = del(address, { item: '576' });
+del(address, {}, 5); // $ExpectError
+responseBinary = del(address, null, { responseType: 'binary' });
+del(address, {}, {}, 5); // $ExpectError
 
 // get
 get(); // $ExpectError
@@ -30,6 +52,7 @@ post(); // $ExpectError
 post(5); // $ExpectError
 responseDefault = post(address);
 post(address, 5); // $ExpectError
+responseDefault = post(address, 'hello in cyberspace');
 responseDefault = post(address, {});
 responseDefault = post(address, { query: 'kittens' });
 post(address, {}, 5); // $ExpectError
