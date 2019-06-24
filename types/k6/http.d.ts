@@ -9,7 +9,11 @@ export function del<RT extends ResponseType>(
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
 export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT> | null): RefinedResponse<RT>;
-export function options(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
+export function options<RT extends ResponseType>(
+    url: string,
+    body?: RequestBody | null,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
 export function patch(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function post<RT extends ResponseType>(
     url: string,

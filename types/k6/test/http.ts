@@ -8,6 +8,7 @@ import {
     ResponseType,
     del,
     get,
+    options,
     post,
     cookieJar,
 } from 'k6/http';
@@ -46,6 +47,18 @@ responseBinary = get(address, { responseType: 'binary' });
 responseNone = get(address, { responseType: 'none' });
 responseText = get(address, { responseType: 'text' });
 get(address, {}, 5); // $ExpectError
+
+// options
+options(); // $ExpectError
+options(5); // $ExpectError
+responseDefault = options(address);
+options(address, 5); // $ExpectError
+responseDefault = options(address, 'choices choices');
+responseDefault = options(address, {});
+responseDefault = options(address, { theme: 'forest' });
+options(address, {}, 5); // $ExpectError
+responseNone = options(address, {}, { responseType: 'none' });
+options(address, {}, {}, 5); // $ExpectError
 
 // post
 post(); // $ExpectError
