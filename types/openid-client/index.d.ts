@@ -81,11 +81,11 @@ export class Client {
 
     endSessionUrl(parameters?: EndSessionUrlParameters): string;
 
-    callbackParams(input: string | IncomingMessage): object;
+    callbackParams(input: string | IncomingMessage): {};
 
     callback(
         redirectUri: string,
-        parameters: object,
+        parameters: {},
         checks?: {
             readonly response_type?: string;
             readonly state?: string;
