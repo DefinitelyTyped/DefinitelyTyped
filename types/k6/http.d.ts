@@ -33,7 +33,12 @@ export function put<RT extends ResponseType | undefined>(
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function request(method: string, url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
+export function request<RT extends ResponseType | undefined>(
+    method: string,
+    url: string,
+    body?: RequestBody | null,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 export function cookieJar(): CookieJar;
 

@@ -12,6 +12,7 @@ import {
     patch,
     post,
     put,
+    request,
     cookieJar,
 } from 'k6/http';
 
@@ -97,6 +98,20 @@ responseDefault = put(address, { box: 'cat' });
 put(address, {}, 5); // $ExpectError
 responseText = put(address, null, { responseType: 'text' });
 put(address, {}, {}, 5); // $ExpectError
+
+// request
+request(); // $ExpectError
+request(5); // $ExpectError
+request('get'); // $ExpectError
+request('get', 5); // $ExpectError
+responseDefault = request('get', address);
+request('post', address, 5); // $ExpectError
+responseDefault = request('post', address, 'welcome to the internet');
+responseDefault = request('post', address, {});
+responseDefault = request('post', address, { query: 'quokka' });
+request('post', address, {}, 5); // $ExpectError
+responseBinary = request('post', address, {}, { responseType: 'binary' });
+request('post', address, {}, {}, 5); // $ExpectError
 
 // Response.clickLink
 response = get(address);
