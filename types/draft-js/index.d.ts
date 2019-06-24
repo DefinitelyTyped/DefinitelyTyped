@@ -13,7 +13,7 @@
 //                 Kevin Hawkinson <https://github.com/khawkinson>
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
