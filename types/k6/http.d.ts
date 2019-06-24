@@ -4,7 +4,7 @@ import { Selection } from './html';
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
 export function del(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
-export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT>): RefinedResponse<RT>;
+export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT> | null): RefinedResponse<RT>;
 export function options(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function patch(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function post(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
@@ -72,7 +72,7 @@ export class Response {
            url: string;
            clickLink<RT extends ResponseType>(args?: {
                selector?: string;
-               params?: GenericParams<RT>;
+               params?: GenericParams<RT> | null;
            }): RefinedResponse<RT>;
            html(selector?: string): Selection;
            json(selector?: string): JSON | undefined;
@@ -80,7 +80,7 @@ export class Response {
                formSelector?: string;
                fields?: { [name: string]: string };
                submitSelector?: string;
-               params?: GenericParams<RT>;
+               params?: GenericParams<RT> | null;
            }): RefinedResponse<RT>;
        }
 export class RefinedResponse<RT extends ResponseType> extends Response {
