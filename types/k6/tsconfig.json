@@ -20,10 +20,12 @@
         "html.d.ts",
         "http.d.ts",
         "index.d.ts",
+        "metrics.d.ts",
         "test/crypto.ts",
         "test/encoding.ts",
         "test/global.ts",
         "test/http.ts",
-        "test/index.ts"
+        "test/index.ts",
+        "test/metrics.ts"
     ]
 }
