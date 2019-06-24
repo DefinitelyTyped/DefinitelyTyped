@@ -7,3 +7,6 @@ export abstract class Metric {
 export class Counter extends Metric {
     protected __brand: never;
 }
+export class Gauge extends Metric {
+    protected __brand: never;
+}
