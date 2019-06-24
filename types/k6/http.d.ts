@@ -176,18 +176,18 @@ export interface ResponseCookie {
 
 // FileData
 export class FileData {
-    protected __brand: never;
-    data: string | bytes;
-    filename?: string;
-    content_type?: string;
-}
+           protected __brand: never;
+           data: string | bytes;
+           filename?: string;
+           content_type?: string;
+       }
 
 // CookieJar
 export class CookieJar {
-    protected __brand: never;
-    cookiesForURL(url: string): CookieJarCookies;
-    set(name: string, value: string, options?: CookieOptions | null): void;
-}
+           protected __brand: never;
+           cookiesForURL(url: string): CookieJarCookies;
+           set(name: string, value: string, options?: CookieOptions | null): void;
+       }
 export interface CookieJarCookies {
     [name: string]: string[];
 }
