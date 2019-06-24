@@ -9,8 +9,6 @@
 declare namespace PouchDB {
     namespace Core {
         interface DatabaseInfo {
-            sqlite_plugin?: boolean;
-            websql_encoding?: 'UTF-8' | 'UTF-16';
         }
     }
 
@@ -31,7 +29,7 @@ declare namespace PouchDB {
             /**
              * Version of android database to use.
              */
-            androidDatabaseImplementation?: string;
+            androidDatabaseImplementation?: number;
 
             /**
              * Enable autocompation of database.
