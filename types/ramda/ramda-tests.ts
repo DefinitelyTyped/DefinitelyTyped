@@ -1611,6 +1611,7 @@ type Pair = KeyValuePair<string, number>;
 () => {
     type ABC = Record<string, string>;
     const b: ABC = R.compose(R.assoc, R.toString)(3)("c", {1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
+    const c: ABC = R.compose(R.assoc, R.toString)(3)("c")({1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
 };
 
 () => {

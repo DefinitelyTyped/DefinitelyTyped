@@ -785,6 +785,11 @@ declare namespace R {
         { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
         { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
+    interface AssocPartialOne<K extends keyof any> {
+        <T>(val: T): <U>(obj: U) => Record<K, T> & U;
+        <T, U>(val: T, obj: U): Record<K, T> & U;
+    }
+
     interface Static {
         /**
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
@@ -914,7 +919,7 @@ declare namespace R {
         assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
-        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
+        assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
