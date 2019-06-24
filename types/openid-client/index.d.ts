@@ -95,7 +95,7 @@ export class Client {
         }
     ): Promise<TokenSet>;
 
-    userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: any }>;
+    userinfo(accessToken: string | TokenSet): Promise<{ readonly [name: string]: {} | null | undefined }>;
 
     grant(body: {
         readonly grant_type: 'authorization_code' | 'client_credentials' | 'password' | 'refresh_token' | string;
@@ -106,7 +106,7 @@ export class Client {
         token: string,
         tokenTypeHint?: string,
         extras?: { readonly introspectBody?: object }
-    ): Promise<{ readonly [name: string]: any }>;
+    ): Promise<{ readonly [name: string]: {} | null | undefined }>;
 }
 
 export class TokenSet {
@@ -117,7 +117,7 @@ export class TokenSet {
 
     expired(): boolean;
 
-    claims(): { readonly [name: string]: any };
+    claims(): { readonly [name: string]: {} | null | undefined };
 }
 
 export namespace generators {
