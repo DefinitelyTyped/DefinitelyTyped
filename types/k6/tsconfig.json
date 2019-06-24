@@ -20,7 +20,6 @@
         "html.d.ts",
         "http.d.ts",
         "index.d.ts",
-        "k6-tests.ts",
         "test/crypto.ts",
         "test/encoding.ts",
         "test/global.ts",
