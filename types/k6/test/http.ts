@@ -18,7 +18,7 @@ import {
 const address = 'http://example.com';
 
 let response: Response;
-let responseDefault: RefinedResponse<ResponseType>;
+let responseDefault: RefinedResponse<undefined>;
 let responseBinary: RefinedResponse<'binary'>;
 let responseNone: RefinedResponse<'none'>;
 let responseText: RefinedResponse<'text'>;

@@ -4,28 +4,31 @@ import { Selection } from './html';
 // Generics refine response to expose body with the correct type
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
-export function del<RT extends ResponseType>(
+export function del<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT> | null): RefinedResponse<RT>;
-export function options<RT extends ResponseType>(
+export function get<RT extends ResponseType | undefined>(
+    url: string,
+    params?: GenericParams<RT> | null
+): RefinedResponse<RT>;
+export function options<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function patch<RT extends ResponseType>(
+export function patch<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function post<RT extends ResponseType>(
+export function post<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
 ): RefinedResponse<RT>;
-export function put<RT extends ResponseType>(
+export function put<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: GenericParams<RT> | null
@@ -45,7 +48,7 @@ export class Params {
     timeout?: number;
     responseType?: ResponseType;
 }
-export class GenericParams<RT extends ResponseType> extends Params {
+export class GenericParams<RT extends ResponseType | undefined> extends Params {
     responseType?: RT;
 }
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
@@ -97,31 +100,31 @@ export class Response {
            tls_cipher_suite: string;
            tls_version: string;
            url: string;
-           clickLink<RT extends ResponseType>(args?: {
+           clickLink<RT extends ResponseType | undefined>(args?: {
                selector?: string;
                params?: GenericParams<RT> | null;
            }): RefinedResponse<RT>;
            html(selector?: string): Selection;
            json(selector?: string): JSON | undefined;
-           submitForm<RT extends ResponseType>(args?: {
+           submitForm<RT extends ResponseType | undefined>(args?: {
                formSelector?: string;
                fields?: { [name: string]: string };
                submitSelector?: string;
                params?: GenericParams<RT> | null;
            }): RefinedResponse<RT>;
        }
-export class RefinedResponse<RT extends ResponseType> extends Response {
+export class RefinedResponse<RT extends ResponseType | undefined> extends Response {
     body: RefinedResponseBody<RT>;
 }
 export type ResponseBody = string | bytes | null;
-export type RefinedResponseBody<RT extends ResponseType> = RT extends ResponseType
-    ? string | null // Default body type is conditional on program options
-    : RT extends 'binary'
+export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
     ? bytes
     : RT extends 'none'
     ? null
     : RT extends 'text'
     ? string
+    : RT extends undefined
+    ? string | null // Default body type conditional on program options
     : never;
 export interface RequestCookie {
     name: string;
