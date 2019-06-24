@@ -960,7 +960,7 @@ declare namespace R {
          */
         chain<T, U>(fn: (n: T) => ReadonlyArray<U>, list: ReadonlyArray<T>): U[];
         chain<T, U>(fn: (n: T) => ReadonlyArray<U>): (list: ReadonlyArray<T>) => U[];
-        chain<X0,X1,R>(fn:(x0:X0,x1:X1)=>R,fn1:(x1:X1)=>X0):(x1:X1)=>R
+        chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
         /**
          * Restricts a number to be within a range.
