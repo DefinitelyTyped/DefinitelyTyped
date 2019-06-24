@@ -1,4 +1,4 @@
-import { bytes } from '.';
+import { bytes, JSON } from '.';
 
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
@@ -71,7 +71,7 @@ export class Response {
     url: string;
     clickLink: (params?: { selector?: string; params?: LegacyParams }) => LegacyResponse;
     html: (selector?: string) => any;
-    json: () => any;
+    json(selector?: string): JSON | undefined;
     submitForm: (params?: {
         formSelector?: string;
         fields?: object;
@@ -84,7 +84,7 @@ export class RefinedResponse<RT extends ResponseType> extends Response {
 }
 export type ResponseBody = string | bytes | null;
 export type RefinedResponseBody<RT extends ResponseType> = RT extends ResponseType
-    ? string | null // Default conditional on options
+    ? string | null // Default body type is conditional on program options
     : RT extends 'binary'
     ? bytes
     : RT extends 'none'

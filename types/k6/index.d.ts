@@ -23,11 +23,26 @@ export function fail(err?: string): never;
 export function group<T>(name: string, fn: () => T): T;
 export function sleep(t: number): void;
 
-export type byte = number; // [0,256)
-export type bytes = byte[];
 export interface Checker<T> {
     (val: T): boolean;
 }
 export interface Checkers<T> {
     [description: string]: Checker<T>;
+}
+
+// Common types
+export type byte = number; // [0,256)
+export type bytes = byte[];
+
+// JavaScript value representable with JSON
+export type JSON =
+    | null
+    | boolean
+    | number
+    | string
+    | JSONArray
+    | JSONObject;
+export interface JSONArray extends Array<JSON> {}
+export interface JSONObject {
+    [key: string]: JSON;
 }

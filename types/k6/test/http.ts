@@ -1,9 +1,12 @@
-import { CookieJar, CookieJarCookies, RefinedResponse, ResponseType, get, cookieJar } from 'k6/http';
+import { JSON } from 'k6';
+import { CookieJar, CookieJarCookies, RefinedResponse, Response, ResponseType, get, cookieJar } from 'k6/http';
 
+let response: Response;
 let responseDefault: RefinedResponse<ResponseType>;
 let responseBinary: RefinedResponse<'binary'>;
 let responseNone: RefinedResponse<'none'>;
 let responseText: RefinedResponse<'text'>;
+let json: JSON | undefined;
 let cookies: CookieJarCookies;
 let jar: CookieJar;
 
@@ -17,6 +20,13 @@ responseBinary = get('example.com', { responseType: 'binary' });
 responseNone = get('example.com', { responseType: 'none' });
 responseText = get('example.com', { responseType: 'text' });
 get('example.com', {}, 5); // $ExpectError
+
+// Response.json
+response = get('example.com');
+json = response.json();
+response.json(5); // $ExpectError
+json = response.json('user.name');
+response.json('user.name', 5); // $ExpectError
 
 // cookieJar
 jar = cookieJar();
