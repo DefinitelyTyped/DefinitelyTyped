@@ -21,49 +21,6 @@ export default function test2() {
     sleep(3);
 }
 
-function test3() {
-    const res = http.get('http://httpbin.org');
-    check(res, {
-        'response code was 200': res => res.status === 200,
-        'body size was 1234 bytes': res => res.body.length === 1234,
-    });
-}
-
-function test4() {
-    const res = http.get('https://loadimpact.com');
-    check(res, {
-        'status code MUST be 200': res => res.status === 200,
-    }) || fail('status code was *not* 200');
-}
-
-function test5() {
-    group('my user scenario', () => {
-        group('front page', () => {
-            const res = http.get('https://loadimpact.com');
-            check(res, {
-                'status code is 200': res => res.status === 200,
-            });
-        });
-        group('features page', () => {
-            const res = http.get('https://loadimpact.com/features');
-            check(res, {
-                'status code is 200': res => res.status === 200,
-                'h1 message is correct': res =>
-                    res
-                        .html('h1')
-                        .text()
-                        .startsWith('Simple yet realistic load testing'),
-            });
-        });
-    });
-}
-
-function test6() {
-    http.get('https://loadimpact.com');
-    sleep(Math.random() * 30);
-    http.get('https://loadimpact.com/features');
-}
-
 function httpTest1() {
     const responses = http.batch([
         'http://test.loadimpact.com',
@@ -111,47 +68,6 @@ function httpTest3() {
     sleep(3);
 }
 
-function httpTest4() {
-    return http.get('https://loadimpact.com');
-}
-
-function httpTest5() {
-    const options = { maxRedirects: 10 };
-
-    const baseURL = 'https://dev-li-david.pantheonsite.io';
-
-    // Fetch the login page, with the login HTML form
-    const res1 = http.get(baseURL + '/user/login');
-
-    // Extract hidden value needed to POST form
-    const formBuildID = (res1.body.match('name="form_build_id" value="(.*)"') || [])[1];
-    // Create an Object containing the form data
-    const formdata = {
-        name: 'testuser1',
-        pass: 'testuser1',
-        form_build_id: formBuildID,
-        form_id: 'user_login',
-        op: 'Log in',
-    };
-    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-    // Send login request
-    const res2 = http.post(baseURL + '/user/login', formdata, { headers });
-    // Verify that we ended up on the user page
-    check(res2, {
-        'login succeeded': res2 => res2.url === `${baseURL}/users/testuser1`,
-    }) || fail('login failed');
-}
-
-function httpTest6() {
-    const params = {
-        cookies: { my_cookie: 'value' },
-        headers: { 'X-MyHeader': 'k6test' },
-        redirects: 5,
-        tags: { k6test: 'yes' },
-    };
-    http.get('https://loadimpact.com', params);
-}
-
 function httpTest7() {
     const url1 = 'https://api.loadimpact.com/v3/account/me';
     const url2 = 'http://httpbin.org/get';
@@ -162,45 +78,4 @@ function httpTest7() {
     };
 
     http.batch([{ method: 'GET', url: url1, params: { headers: requestHeaders } }, { method: 'GET', url: url2 }]);
-}
-
-function httpTest8() {
-    // Passing username and password as part of URL plus the auth option will authenticate using HTTP Digest authentication
-    const res = http.get('http://user:passwd@httpbin.org/digest-auth/auth/user/passwd', { auth: 'digest' });
-
-    // Verify response
-    check(res, {
-        'status is 200': r => r.status === 200,
-        'is authenticated': r => r.json().authenticated === true,
-        'is correct user': r => r.json().user === 'user',
-    });
-}
-
-function httpTest9() {
-    const res = http.get('https://loadimpact.com');
-    for (const p in res.headers) {
-        if (res.headers.hasOwnProperty(p)) {
-            console.log(`${p} : ${res.headers[p]}`);
-        }
-    }
-    check(res, {
-        'status is 200': r => r.status === 200,
-        'caption is correct': r => r.html('h1').text() === 'Example Domain',
-    });
-}
-
-function httpTest10() {
-    // Request page with links
-    let res = http.get('https://httpbin.org/links/10/0');
-
-    // Now, click the 4th link on the page
-    res = res.clickLink({ selector: 'a:nth-child(4)' });
-}
-
-function httpTest11() {
-    // Request page containing a form
-    let res = http.get('https://httpbin.org/forms/post');
-
-    // Now, submit form setting/overriding some fields of the form
-    res = res.submitForm({ fields: { custname: 'test', extradata: 'test2' }, submitSelector: 'mySubmit' });
 }
