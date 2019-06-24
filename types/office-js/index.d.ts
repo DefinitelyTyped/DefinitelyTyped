@@ -23150,7 +23150,8 @@ declare namespace Excel {
         ignoreBlanks: boolean;
         /**
          *
-         * Prompt when users select a cell.
+         * Prompt when users select a cell. 
+         * The `DataValidationPrompt` object must be set as a JSON object (use `x.prompt = {...}` instead of `x.prompt.message = ...`).
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -31842,7 +31843,8 @@ declare namespace Excel {
         barDirection: Excel.ConditionalDataBarDirection | "Context" | "LeftToRight" | "RightToLeft";
         /**
          *
-         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar. 
+         * The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31856,7 +31858,8 @@ declare namespace Excel {
         showDataBarOnly: boolean;
         /**
          *
-         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar. 
+         * The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -33621,6 +33624,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet's print zoom options.
+         * The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
          *
          * [Api set: ExcelApi 1.9]
          */
