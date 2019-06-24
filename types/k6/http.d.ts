@@ -3,7 +3,7 @@ import { bytes } from '.';
 export function batch(requests: ReadonlyArray<Request>): { [key: string]: LegacyResponse };
 export function batch(requests: ReadonlyArray<Request>): LegacyResponse[];
 export function del(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
-export function get<RT extends ResponseType>(url: string, params?: Params<RT>): Response<RT>;
+export function get<RT extends ResponseType>(url: string, params?: GenericParams<RT>): RefinedResponse<RT>;
 export function options(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function patch(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
 export function post(url: string, body?: string | object, params?: LegacyParams): LegacyResponse;
@@ -13,7 +13,7 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
 export function cookieJar(): CookieJar;
 
 // Params
-export interface Params<RT extends ResponseType> {
+export class Params {
     auth?: AuthMethod;
     cookies?: { [name: string]: ParamsCookieValue };
     headers?: { [name: string]: string };
@@ -21,6 +21,9 @@ export interface Params<RT extends ResponseType> {
     redirects?: number;
     tags?: { [name: string]: string };
     timeout?: number;
+    responseType?: ResponseType;
+}
+export class GenericParams<RT extends ResponseType> extends Params {
     responseType?: RT;
 }
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
@@ -28,8 +31,8 @@ export type ResponseType = 'binary' | 'none' | 'text';
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
 // Response
-export interface Response<RT extends ResponseType> {
-    body: ResponseBody<RT>;
+export class Response {
+    body: ResponseBody;
     cookies: { [name: string]: ResponseCookie[] };
     error: string;
     error_code: number;
@@ -76,12 +79,19 @@ export interface Response<RT extends ResponseType> {
         params?: LegacyParams;
     }) => LegacyResponse;
 }
-export type ResponseBody<RT extends ResponseType> =
-    RT extends ResponseType ? string | null : // Default conditional on options
-    RT extends 'binary' ? bytes :
-    RT extends 'none' ? null :
-    RT extends 'text' ? string :
-    never;
+export class RefinedResponse<RT extends ResponseType> extends Response {
+    body: RefinedResponseBody<RT>;
+}
+export type ResponseBody = string | bytes | null;
+export type RefinedResponseBody<RT extends ResponseType> = RT extends ResponseType
+    ? string | null // Default conditional on options
+    : RT extends 'binary'
+    ? bytes
+    : RT extends 'none'
+    ? null
+    : RT extends 'text'
+    ? string
+    : never;
 export interface RequestCookie {
     name: string;
     value: string;

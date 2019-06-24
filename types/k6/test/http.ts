@@ -1,9 +1,9 @@
-import { CookieJar, CookieJarCookies, Response, ResponseType, get, cookieJar } from 'k6/http';
+import { CookieJar, CookieJarCookies, RefinedResponse, ResponseType, get, cookieJar } from 'k6/http';
 
-let responseDefault: Response<ResponseType>;
-let responseBinary: Response<'binary'>;
-let responseNone: Response<'none'>;
-let responseText: Response<'text'>;
+let responseDefault: RefinedResponse<ResponseType>;
+let responseBinary: RefinedResponse<'binary'>;
+let responseNone: RefinedResponse<'none'>;
+let responseText: RefinedResponse<'text'>;
 let cookies: CookieJarCookies;
 let jar: CookieJar;
 
