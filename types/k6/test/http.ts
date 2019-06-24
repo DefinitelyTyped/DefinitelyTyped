@@ -3,6 +3,7 @@ import { Selection } from 'k6/html';
 import {
     CookieJar,
     CookieJarCookies,
+    FileData,
     RefinedResponse,
     Response,
     ResponseType,
@@ -14,6 +15,7 @@ import {
     put,
     request,
     batch,
+    file,
     cookieJar,
 } from 'k6/http';
 
@@ -34,6 +36,7 @@ let responsesMapDefault: { [name: string]: RefinedResponse<undefined> };
 let responsesMapBinary: { [name: string]: RefinedResponse<'binary'> };
 let responsesMapNone: { [name: string]: RefinedResponse<'none'> };
 let responsesMapText: { [name: string]: RefinedResponse<'text'> };
+let fileData: FileData;
 let html: Selection;
 let json: JSON | undefined;
 let cookies: CookieJarCookies;
@@ -236,6 +239,23 @@ responsesMap = batch({
     home: { method: 'GET', url: address, params: { responseType: 'binary' } },
     about: { method: 'GET', url: address, params: { responseType: 'none' } },
     forum: { method: 'GET', url: address, params: { responseType: 'text' } }
+});
+
+// file
+file(); // $ExpectError
+file(5); // $ExpectError
+fileData = file('important data');
+fileData = file([ 1, 2, 3 ]);
+file('', 5); // $ExpectError
+fileData = file('important data', 'data.txt');
+file('important data', 'data.txt', 5); // $ExpectError
+fileData = file('important data', 'data.txt', 'text/plain');
+file('important data', 'data.txt', 'text/plain', 5); // $ExpectError
+post(address, {
+    recipient: 'research-lab-XIII',
+    data: file('important data', 'data.txt'),
+    summary: file('short digest', 'summary.txt'),
+    analysis: file('thorough analysis', 'analysis.txt')
 });
 
 // Response.clickLink

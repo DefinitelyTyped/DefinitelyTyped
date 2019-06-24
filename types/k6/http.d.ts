@@ -62,7 +62,7 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 // RequestBody
 export type RequestBody = string | StructuredRequestBody;
 export interface StructuredRequestBody {
-    [name: string]: string;
+    [name: string]: string | FileData;
 }
 
 // BatchRequest
@@ -174,7 +174,9 @@ export interface ResponseCookie {
     expires: number;
 }
 
-export interface FileData {
+// FileData
+export class FileData {
+    private __brand;
     data: string | bytes;
     filename?: string;
     content_type?: string;
