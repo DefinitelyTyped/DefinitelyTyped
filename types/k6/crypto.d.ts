@@ -38,7 +38,7 @@ export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 export type BinaryEncoding = 'binary';
 
 export class Hasher {
-    private __brand;
+    protected __brand: never;
     update(input: string): void;
     digest(outputEncoding: BinaryEncoding): bytes;
     digest(outputEncoding: StringEncoding): string;

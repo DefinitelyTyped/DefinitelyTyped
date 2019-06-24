@@ -1,3 +1,3 @@
 export class Selection {
-    private __brand;
+    protected __brand: never;
 }

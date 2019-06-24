@@ -11,8 +11,8 @@
  * The object passed back to k6 must be an actual instance created on the
  * golang side. Duck typed objects are not safe.
  *
- * Each class includes a private property __brand. The brand breaks duck typing
- * for noninstances with an identical public shape.
+ * Each class includes a protected property __brand: never. The brand breaks
+ * duck typing for noninstances with an identical public shape.
  *
  * This follows the pattern used in the TypeScript compiler:
  * https://github.com/Microsoft/TypeScript/blob/7b48a182c05ea4dea81bab73ecbbe9e013a79e99/src/compiler/types.ts#L693-L698
