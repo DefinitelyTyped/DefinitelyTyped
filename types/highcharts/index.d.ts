@@ -1008,7 +1008,7 @@ declare namespace Highcharts {
          */
         gridLineWidth?: number;
         /**
-         * Polar charts only. Whether the grid lines should draw as a polygon with straight lines between categories, or as circles. 
+         * Polar charts only. Whether the grid lines should draw as a polygon with straight lines between categories, or as circles.
          * @default undefined
          */
         gridLineInterpolation?: string;
