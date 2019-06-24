@@ -23,7 +23,7 @@ responseNone = get('example.com', { responseType: 'none' });
 responseText = get('example.com', { responseType: 'text' });
 get('example.com', {}, 5); // $ExpectError
 
-// Response.html
+// Response.clickLink
 response = get('example.com');
 responseDefault = response.clickLink();
 response.clickLink(5); // $ExpectError
