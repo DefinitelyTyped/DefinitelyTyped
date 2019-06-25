@@ -116,6 +116,15 @@ export abstract class Element {
     textContent(): string;
     toString(): string;
 }
+export abstract class ButtonElement extends FormFieldElement {
+    protected __brand: never;
+    value(): string;
+}
+export abstract class CanvasElement extends Element {
+    protected __brand: never;
+    height(): number;
+    width(): number;
+}
 export abstract class FormElement extends Element {
     protected __brand: never;
     elements(): Element[];

@@ -1,5 +1,7 @@
 import {
     Attribute,
+    ButtonElement,
+    CanvasElement,
     Element,
     FormElement,
     FormFieldElement,
@@ -133,6 +135,17 @@ possibleElement = element.querySelector('.item');
 elements = element.querySelectorAll('.item');
 element.textContent(); // $ExpectType string
 element.toString(); // $ExpectType string
+
+// ButtonElement
+declare function makeButtonElement(): ButtonElement;
+const button: ButtonElement = makeButtonElement();
+button.value(); // $ExpectType string
+
+// CanvasElement
+declare function makeCanvasElement(): CanvasElement;
+const canvas: CanvasElement = makeCanvasElement();
+canvas.height(); // $ExpectType number
+canvas.width(); // $ExpectType number
 
 // FormElement
 declare function makeFormElement(): FormElement;
