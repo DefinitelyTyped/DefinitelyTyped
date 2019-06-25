@@ -25,4 +25,4 @@ export function transform(coordinate: Coordinate, source: ProjectionLike, destin
 export function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 export function transformWithProjections(point: Coordinate, sourceProjection: Projection, destinationProjection: Projection): Coordinate;
 export type ProjectionLike = Projection | string;
-export type TransformFunction = ((param0: number[], param1: number[], param2: number) => number[]);
+export type TransformFunction = ((input: number[], opt_output?: number[], opt_dimension?: number) => number[]);
