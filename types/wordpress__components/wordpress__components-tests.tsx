@@ -498,7 +498,14 @@ const kbshortcuts = {
     help="The type of the current user"
     selected="a"
     options={[{ label: 'Author', value: 'a' }, { label: 'Editor', value: 'e' }]}
-    onChange={value => console.log(value.toUpperCase())}
+    onChange={value => value && console.log(value.toUpperCase())}
+/>;
+<C.RadioControl
+    label="User type"
+    help="The type of the current user"
+    selected={{ foo: 'bar' }}
+    options={[{ label: 'Author', value: { foo: 'bar' } }, { label: 'Editor', value: { foo: 'baz' } }]}
+    onChange={value => value && console.log(value.foo)}
 />;
 
 //
