@@ -1,9 +1,10 @@
-// Type definitions for zendesk-chat x.x
+// Type definitions for non-npm package zendesk-chat-browser 1.81
 // Project: https://api.zopim.com/web-sdk/#introduction
 // Definitions by: David Copley <https://github.com/davidcopley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-declare interface Window {
+interface Window {
     zChat?: ZChat;
 }
 
@@ -11,16 +12,14 @@ declare interface Window {
  * Version 1.8.1 - 2019-03-12
  * https://api.zopim.com/web-sdk/#api-reference
  */
-
-
-type initProps = {
-    account_key: string,
+interface initProps {
+    account_key: string;
     authentication?: {
         jwt_fn?: (callback: (jwt: string) => void) => void;
     };
 }
 
-export interface ZChat {
+interface ZChat {
     init(initProps: initProps): void;
 
     getAccountStatus(): 'online' | 'offline' | 'away';
@@ -76,7 +75,7 @@ export interface ZChat {
 
     addTags(tags: string[], callback?: (err: Error) => void): void;
 
-    removeTags(tags: string[], callback?: (err: Error) => void): void;
+    removeTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
 
     sendTyping(is_typing: boolean): void;
 
@@ -93,17 +92,14 @@ export interface ZChat {
     on(event_name: EventName, handler: (event_data?: EventData) => void): void;
 
     un(event_name: EventName, handler: (event_data?: EventData) => void): void;
-
 }
 
-
 declare namespace ChatEvent {
-
-    type BaseChatEventData = {
-        nick: string,
-        display_name: string,
-        time_stamp: number,
-    };
+    interface BaseChatEventData {
+        nick: string;
+        display_name: string;
+        time_stamp: number;
+    }
 
     type ChatEventData =
         BaseChatEventData & {
@@ -131,35 +127,35 @@ declare namespace ChatEvent {
         new_comment?: string,
     };
 
-    type Action = {
-        type: 'QUICK_REPLY_ACTION' | 'LINK_ACTION',
-        value: string,
-    };
+    interface Action {
+        type: 'QUICK_REPLY_ACTION' | 'LINK_ACTION';
+        value: string;
+    }
 
-    type Button = {
-        text: string,
-        action: Action,
-    };
+    interface Button {
+        text: string;
+        action: Action;
+    }
 
-    type Panel = {
-        heading: string,
-        paragraph?: string,
-        image_url: string,
-        action: Action,
-    };
+    interface Panel {
+        heading: string;
+        paragraph?: string;
+        image_url: string;
+        action: Action;
+    }
 
-    type PanelTemplate = {
-        type: 'PANEL_TEMPLATE',
-        panel: Panel,
-        buttons: Button[],
-    };
+    interface PanelTemplate {
+        type: 'PANEL_TEMPLATE';
+        panel: Panel;
+        buttons: Button[];
+    }
 
-    type ListItem = {
-        heading: string,
-        paragraph: string,
-        image_url?: string,
-        action: Action,
-    };
+    interface ListItem {
+        heading: string;
+        paragraph: string;
+        image_url?: string;
+        action: Action;
+    }
 
     type StructuredMessage = {
         type: 'QUICK_REPLIES',
@@ -188,30 +184,30 @@ type SendFileErrorMessage =
     | 'INTERNAL_ERROR'
     | 'UNKNOWN_ERROR';
 
-type VisitorInfo = {
-    display_name: string,
-    email: string,
-    phone: string,
-};
+interface VisitorInfo {
+    display_name: string;
+    email: string;
+    phone: string;
+}
 
-type Department = {
-    id: number,
-    name: string,
-    status: 'online' | 'offline',
-};
+interface Department {
+    id: number;
+    name: string;
+    status: 'online' | 'offline';
+}
 
-type Attachment = {
-    metadata?: AttachmentMetadata,
-    mime_type: string,
-    name: string,
-    size: number,
-    url: string,
-};
+interface Attachment {
+    metadata?: AttachmentMetadata;
+    mime_type: string;
+    name: string;
+    size: number;
+    url: string;
+}
 
-type AttachmentMetadata = {
-    width: number,
-    height: number,
-};
+interface AttachmentMetadata {
+    width: number;
+    height: number;
+}
 
 type EventName =
     'account_status'
@@ -244,4 +240,3 @@ type EventData = ChatEvent.ChatEventData
     | 'connecting'
     | 'connected'
     | 'closed';
-

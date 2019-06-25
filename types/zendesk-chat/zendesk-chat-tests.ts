@@ -1,14 +1,3 @@
-import {
-    ChatEvent,
-    Department,
-    EventData,
-    EventName,
-    initProps,
-    SendFileErrorMessage,
-    VisitorInfo,
-    ZChat
-} from 'zendesk-chat';
-
 class ZChatImpl implements ZChat {
     addTags(tags: string[], callback?: (err: Error) => void): void {
     }
@@ -113,6 +102,7 @@ const fakeFile = new File(['foo'], 'foo.txt', {
     type: 'text/plain',
 });
 const zChat = new ZChatImpl();
+
 zChat.addTags(['tag1', 'tag2']);
 zChat.clearVisitorDefaultDepartment(fakeCallback);
 zChat.getAccountStatus();
@@ -127,7 +117,7 @@ zChat.getVisitorInfo();
 zChat.init({account_key: 'fake_account_key'});
 zChat.isChatting();
 zChat.removeTags(['tag1', 'tag2']);
-zChat.sendChatComment('fake_comment',fakeCallback);
+zChat.sendChatComment('fake_comment', fakeCallback);
 zChat.sendChatMsg('fake_message', fakeCallback);
 zChat.sendChatRating('good', fakeCallback);
 zChat.sendFile(fakeFile,
