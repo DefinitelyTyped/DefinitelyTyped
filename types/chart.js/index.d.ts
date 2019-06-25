@@ -122,6 +122,8 @@ declare namespace Chart {
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
+    type TooltipPositionType = 'average' | 'nearest';
+
     type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
 
     type Easing = 'linear' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' |
@@ -313,7 +315,7 @@ declare namespace Chart {
         callbacks?: ChartTooltipCallback;
         filter?(item: ChartTooltipItem, data: ChartData): boolean;
         itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
-        position?: string;
+        position?: TooltipPositionType;
         caretPadding?: number;
         displayColors?: boolean;
         borderColor?: ChartColor;
