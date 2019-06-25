@@ -125,6 +125,10 @@ export abstract class CanvasElement extends Element {
     height(): number;
     width(): number;
 }
+export abstract class DataListElement extends Element {
+    protected __brand: never;
+    options(): OptionElement[];
+}
 export abstract class FormElement extends Element {
     protected __brand: never;
     elements(): Element[];

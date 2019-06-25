@@ -2,6 +2,7 @@ import {
     Attribute,
     ButtonElement,
     CanvasElement,
+    DataListElement,
     Element,
     FormElement,
     FormFieldElement,
@@ -34,6 +35,7 @@ let attributesMap: { [name: string]: Attribute };
 let possibleType: NodeType | undefined;
 let possibleForm: FormElement | undefined;
 let labels: LabelElement[];
+let options: OptionElement[];
 
 // parseHTML
 parseHTML(); // $ExpectError
@@ -147,6 +149,11 @@ declare function makeCanvasElement(): CanvasElement;
 const canvas: CanvasElement = makeCanvasElement();
 canvas.height(); // $ExpectType number
 canvas.width(); // $ExpectType number
+
+// DataListElement
+declare function makeDataListElement(): DataListElement;
+const dataList: DataListElement = makeDataListElement();
+options = dataList.options();
 
 // FormElement
 declare function makeFormElement(): FormElement;
