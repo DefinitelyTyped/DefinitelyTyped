@@ -166,6 +166,15 @@ export abstract class MediaElement extends Element {
     protected __brand: never;
     textTracks(): Element[];
 }
+export abstract class OptionElement extends Element {
+    protected __brand: never;
+    disabled(): boolean;
+    form(): FormElement | undefined;
+    index(): number;
+    label(): string;
+    text(): string;
+    value(): string;
+}
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;

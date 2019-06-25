@@ -10,6 +10,7 @@ import {
     LabelElement,
     MediaElement,
     NodeType,
+    OptionElement,
     Selection,
     TableCellElement,
     TableSectionElement,
@@ -192,6 +193,16 @@ possibleForm = label.form();
 declare function makeMediaElement(): MediaElement;
 const media: MediaElement = makeMediaElement();
 elements = media.textTracks();
+
+// OptionElement
+declare function makeOptionElement(): OptionElement;
+const option: OptionElement = makeOptionElement();
+option.disabled(); // $ExpectType boolean
+possibleForm = option.form();
+option.index(); // $ExpectType number
+option.label(); // $ExpectType string
+option.text(); // $ExpectType string
+option.value(); // $ExpectType string
 
 // TableCellElement
 declare function makeTableCellElement(): TableCellElement;
