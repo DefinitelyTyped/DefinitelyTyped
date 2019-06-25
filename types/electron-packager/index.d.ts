@@ -5,6 +5,7 @@
 //                 John Kleinschmidt <https://github.com/jkleinsc>
 //                 Brendan Forster <https://github.com/shiftkey>
 //                 Mark Lee <https://github.com/malept>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -57,9 +58,19 @@ declare namespace electronPackager {
     }
 
     interface ElectronOsXSignOptions {
-        identity?: string;
         entitlements?: string;
         "entitlements-inherit"?: string;
+        "gatekeeper-assess"?: boolean;
+        // see https://github.com/electron-userland/electron-packager/blob/92d09bba34599283a794fd6f24b88470f0cb1074/src/mac.js#L359
+        identity?: string | true;
+        "identity-validation"?: boolean;
+        ignore?: string;
+        keychain?: string;
+        "pre-auto-entitlements"?: boolean;
+        "pre-embed-provisioning-profile"?: boolean;
+        "provisioning-profile"?: string;
+        requirements?: string;
+        type?: string;
     }
 
     /**
