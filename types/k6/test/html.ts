@@ -32,6 +32,7 @@ import {
     TableRowElement,
     TableSectionElement,
     TextAreaElement,
+    TitleElement,
     parseHTML,
 } from 'k6/html';
 
@@ -350,3 +351,8 @@ const textArea: TextAreaElement = makeTextAreaElement();
 possibleForm = textArea.form();
 labels = textArea.labels();
 textArea.length(); // $ExpectType number
+
+// TitleElement
+declare function makeTitleElement(): TitleElement;
+const title: TitleElement = makeTitleElement();
+title.text(); // $ExpectType string

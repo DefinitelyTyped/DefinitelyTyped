@@ -282,3 +282,7 @@ export abstract class TextAreaElement extends Element {
     labels(): LabelElement[];
     length(): number;
 }
+export abstract class TitleElement extends Element {
+    protected __brand: never;
+    text(): string;
+}
