@@ -116,3 +116,18 @@ export abstract class Element {
     textContent(): string;
     toString(): string;
 }
+export abstract class HrefElement extends Element {
+    protected __brand: never;
+    hash(): string;
+    host(): string;
+    hostname(): string;
+    origin(): string;
+    password(): string;
+    pathname(): string;
+    protocol(): string;
+    post(): string;
+    relList(): string[];
+    search(): string;
+    text(): string;
+    username(): string;
+}

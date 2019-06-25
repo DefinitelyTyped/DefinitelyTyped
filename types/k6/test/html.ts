@@ -1,4 +1,4 @@
-import { Attribute, Element, FormValue, NodeType, Selection, parseHTML } from 'k6/html';
+import { Attribute, Element, HrefElement, FormValue, NodeType, Selection, parseHTML } from 'k6/html';
 
 const handler = (index: number, element: Element) => {};
 const tester = (index: number, element: Element) => true;
@@ -117,3 +117,19 @@ possibleElement = element.querySelector('.item');
 elements = element.querySelectorAll('.item');
 element.textContent(); // $ExpectType string
 element.toString(); // $ExpectType string
+
+// HrefElement
+declare function makeHrefElement(): HrefElement;
+const href: HrefElement = makeHrefElement();
+href.hash(); // $ExpectType string
+href.host(); // $ExpectType string
+href.hostname(); // $ExpectType string
+href.origin(); // $ExpectType string
+href.password(); // $ExpectType string
+href.pathname(); // $ExpectType string
+href.protocol(); // $ExpectType string
+href.post(); // $ExpectType string
+href.relList(); // $ExpectType string[]
+href.search(); // $ExpectType string
+href.text(); // $ExpectType string
+href.username(); // $ExpectType string
