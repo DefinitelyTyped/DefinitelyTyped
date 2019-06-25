@@ -21,6 +21,7 @@ import {
     ObjectElement,
     OptionElement,
     OutputElement,
+    ProgressElement,
     Selection,
     TableCellElement,
     TableSectionElement,
@@ -272,6 +273,14 @@ output.defaultValue(); // $ExpectValue string
 possibleForm = output.form();
 labels = output.labels();
 output.value(); // $ExpectType string
+
+// ProgressElement
+declare function makeProgressElement(): ProgressElement;
+const progress: ProgressElement = makeProgressElement();
+labels = progress.labels();
+progress.max(); // $ExpectType number
+progress.position(); // $ExpectType number
+progress.value(); // $ExpectType number
 
 // TableCellElement
 declare function makeTableCellElement(): TableCellElement;

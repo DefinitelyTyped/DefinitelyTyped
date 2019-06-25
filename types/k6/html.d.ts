@@ -223,6 +223,13 @@ export abstract class OutputElement extends Element {
     labels(): LabelElement[];
     value(): string;
 }
+export abstract class ProgressElement extends Element {
+    protected __brand: never;
+    labels(): LabelElement[];
+    max(): number;
+    position(): number;
+    value(): number;
+}
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;
