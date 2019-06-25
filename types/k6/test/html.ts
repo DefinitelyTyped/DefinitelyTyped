@@ -1,4 +1,4 @@
-import { Attribute, Element, HrefElement, FormValue, NodeType, Selection, parseHTML } from 'k6/html';
+import { Attribute, Element, HrefElement, FormValue, MediaElement, NodeType, Selection, parseHTML } from 'k6/html';
 
 const handler = (index: number, element: Element) => {};
 const tester = (index: number, element: Element) => true;
@@ -133,3 +133,8 @@ href.relList(); // $ExpectType string[]
 href.search(); // $ExpectType string
 href.text(); // $ExpectType string
 href.username(); // $ExpectType string
+
+// MediaElement
+declare function makeMediaElement(): MediaElement;
+const media: MediaElement = makeMediaElement();
+elements = media.textTracks();
