@@ -1,12 +1,10 @@
 class ZChatImpl implements ZChat {
-    addTags(tags: string[], callback?: (err: Error) => void): void {
-    }
+    addTags(tags: string[], callback?: (err: Error) => void): void {}
 
-    clearVisitorDefaultDepartment(callback?: (err: Error) => void): void {
-    }
+    clearVisitorDefaultDepartment(callback?: (err: Error) => void): void {}
 
-    getAccountStatus(): "online" | "offline" | "away" {
-        return "online";
+    getAccountStatus(): 'online' | 'offline' | 'away' {
+        return 'online';
     }
 
     getAllDepartments(): Department[] {
@@ -21,8 +19,8 @@ class ZChatImpl implements ZChat {
         return [];
     }
 
-    getConnectionStatus(): "connected" | "connecting" | "closed" {
-        return "connected";
+    getConnectionStatus(): 'connected' | 'connecting' | 'closed' {
+        return 'connected';
     }
 
     getDepartment(id: number): Department {
@@ -53,48 +51,44 @@ class ZChatImpl implements ZChat {
         };
     }
 
-    init(initProps: InitProps): void {
-    }
+    init(initProps: InitProps): void {}
 
     isChatting(): boolean {
         return false;
     }
 
-    removeTags(tags: string[], callback?: (err: Error) => void): void {
-    }
+    removeTags(tags: string[], callback?: (err: Error) => void): void {}
 
-    sendChatComment(comment: string, callback?: (err: Error) => void): void {
-    }
+    sendChatComment(comment: string, callback?: (err: Error) => void): void {}
 
-    sendChatMsg(msg: string, callback?: (err: Error) => void): void {
-    }
+    sendChatMsg(msg: string, callback?: (err: Error) => void): void {}
 
-    sendChatRating(rating: "good" | "bad" | undefined, callback?: (err: Error) => void): void {
-    }
+    sendChatRating(rating: 'good' | 'bad' | undefined, callback?: (err: Error) => void): void {}
 
-    sendFile(file: File, callback?: (err: SendFileErrorMessage, data: { mime_type: string; name: string; size: number; url: string }) => void): void {
-    }
+    sendFile(
+        file: File,
+        callback?: (
+            err: SendFileErrorMessage,
+            data: { mime_type: string; name: string; size: number; url: string }
+        ) => void
+    ): void {}
 
-    sendOfflineMsg(options: { name: string; email: string; phone?: string; message: string; department?: number }, callback: (err: Error) => void): void {
-    }
+    sendOfflineMsg(
+        options: { name: string; email: string; phone?: string; message: string; department?: number },
+        callback: (err: Error) => void
+    ): void {}
 
-    sendTyping(is_typing: boolean): void {
-    }
+    sendTyping(is_typing: boolean): void {}
 
-    sendVisitorPath(options: { title: string; url: string }, callback?: (err: Error) => void): void {
-    }
+    sendVisitorPath(options: { title: string; url: string }, callback?: (err: Error) => void): void {}
 
-    setVisitorDefaultDepartment(id: number, callback?: (err: Error) => void): void {
-    }
+    setVisitorDefaultDepartment(id: number, callback?: (err: Error) => void): void {}
 
-    setVisitorInfo(options: Partial<VisitorInfo>, callback?: (err: Error) => void): void {
-    }
+    setVisitorInfo(options: Partial<VisitorInfo>, callback?: (err: Error) => void): void {}
 
-    on(event_name: EventName, handler: (event_data?: EventData) => void): void {
-    }
+    on(event_name: EventName, handler: (event_data?: EventData) => void): void {}
 
-    un(event_name: EventName, handler: (event_data?: EventData) => void): void {
-    }
+    un(event_name: EventName, handler: (event_data?: EventData) => void): void {}
 }
 
 const fakeCallback = (err: Error) => 0;
