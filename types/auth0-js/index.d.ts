@@ -747,6 +747,8 @@ export interface ParseHashOptions {
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
+    __enableIdPInitiatedLogin?:boolean;
+
 }
 
 export interface RenewAuthOptions {
