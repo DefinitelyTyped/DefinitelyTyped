@@ -20,6 +20,7 @@ import {
     NodeType,
     ObjectElement,
     OptionElement,
+    OutputElement,
     Selection,
     TableCellElement,
     TableSectionElement,
@@ -263,6 +264,14 @@ option.index(); // $ExpectType number
 option.label(); // $ExpectType string
 option.text(); // $ExpectType string
 option.value(); // $ExpectType string
+
+// OutputElement
+declare function makeOutputElement(): OutputElement;
+const output: OutputElement = makeOutputElement();
+output.defaultValue(); // $ExpectValue string
+possibleForm = output.form();
+labels = output.labels();
+output.value(); // $ExpectType string
 
 // TableCellElement
 declare function makeTableCellElement(): TableCellElement;

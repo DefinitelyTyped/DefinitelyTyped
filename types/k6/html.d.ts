@@ -216,6 +216,13 @@ export abstract class OptionElement extends Element {
     text(): string;
     value(): string;
 }
+export abstract class OutputElement extends Element {
+    protected __brand: never;
+    defaultValue(): string;
+    form(): FormElement | undefined;
+    labels(): LabelElement[];
+    value(): string;
+}
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;
