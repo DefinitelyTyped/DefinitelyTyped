@@ -2,6 +2,13 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { useBeforeunload, Beforeunload } from 'react-beforeunload';
 
+function AppWithNoopHook() {
+    useBeforeunload();
+
+    return <h1>AppWithDialogBoxHook</h1>;
+}
+
+
 function AppWithDialogBoxHook() {
     useBeforeunload(event => event.preventDefault());
 
