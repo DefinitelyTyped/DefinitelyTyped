@@ -22,6 +22,7 @@ export interface Response {
 // Socket
 export abstract class Socket {
     protected __brand: never;
+    close(code?: number): void;
     on<ET extends EventType>(event: ET, handler: EventHandler<ET>): void;
     ping(): void;
     send(data: string): void;

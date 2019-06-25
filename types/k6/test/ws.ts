@@ -21,6 +21,14 @@ response = connect(address, {
 connect(address, executor, 5); // $ExpectError
 connect(address, {}, executor, 5); // $ExpectError
 
+// Socket.close
+connect(address, (socket: Socket) => {
+    socket.close(); // $ExpectType void
+    socket.close('not-a-close-code'); // $ExpectError
+    socket.close(7); // $ExpectType void
+    socket.close(7, 5); // $ExpectError
+});
+
 // Socket.on
 connect(address, (socket: Socket) => {
     socket.on(); // $ExpectError
