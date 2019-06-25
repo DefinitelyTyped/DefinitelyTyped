@@ -136,7 +136,7 @@ function test_properties() {
 function test_list_ports_promise() {
     const ports = SerialPort
         .list()
-        .then((ports: any) => {})
+        .then((ports: SerialPort.PortInfo[]) => {})
         .catch((err: Error) => {});
 }
 
