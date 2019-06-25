@@ -12,8 +12,8 @@ export * from './api';
 export { withBlockContentContext } from './block-content-provider';
 
 declare module '@wordpress/data' {
-    function dispatch(key: 'core/blocks'): typeof import('./stores/actions');
-    function select(key: 'core/blocks'): typeof import('./stores/selectors');
+    function dispatch(key: 'core/blocks'): typeof import('./store/actions');
+    function select(key: 'core/blocks'): typeof import('./store/selectors');
 }
 
 export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';

@@ -35,8 +35,8 @@
         "api/validation.d.ts",
         "block-content-provider.d.ts",
         "index.d.ts",
-        "stores/actions.d.ts",
-        "stores/selectors.d.ts",
+        "store/actions.d.ts",
+        "store/selectors.d.ts",
         "wordpress__blocks-tests.tsx"
     ]
 }
