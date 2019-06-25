@@ -199,6 +199,10 @@ export abstract class MediaElement extends Element {
     protected __brand: never;
     textTracks(): Element[];
 }
+export abstract class MeterElement extends Element {
+    protected __brand: never;
+    labels(): LabelElement[];
+}
 export abstract class OptionElement extends Element {
     protected __brand: never;
     disabled(): boolean;

@@ -16,6 +16,7 @@ import {
     LinkElement,
     MapElement,
     MediaElement,
+    MeterElement,
     NodeType,
     OptionElement,
     Selection,
@@ -241,6 +242,11 @@ elements = map.images();
 declare function makeMediaElement(): MediaElement;
 const media: MediaElement = makeMediaElement();
 elements = media.textTracks();
+
+// MeterElement
+declare function makeMeterElement(): MeterElement;
+const meter: MeterElement = makeMeterElement();
+labels = meter.labels();
 
 // OptionElement
 declare function makeOptionElement(): OptionElement;
