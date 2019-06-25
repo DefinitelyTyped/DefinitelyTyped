@@ -1,4 +1,4 @@
-import * as pnp from './index';
+import * as pnp from 'pnpapi';
 
 const information = pnp.getPackageInformation(pnp.topLevel);
 
