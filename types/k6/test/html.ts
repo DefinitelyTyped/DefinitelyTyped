@@ -12,6 +12,7 @@ import {
     InputElement,
     KeygenElement,
     LabelElement,
+    LegendElement,
     MediaElement,
     NodeType,
     OptionElement,
@@ -217,6 +218,11 @@ declare function makeLabelElement(): LabelElement;
 const label: LabelElement = makeLabelElement();
 possibleElement = label.control();
 possibleForm = label.form();
+
+// LegendElement
+declare function makeLegendElement(): LegendElement;
+const legend: LegendElement = makeLegendElement();
+possibleForm = legend.form();
 
 // MediaElement
 declare function makeMediaElement(): MediaElement;

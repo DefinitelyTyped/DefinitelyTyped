@@ -182,6 +182,10 @@ export abstract class LabelElement extends Element {
     control(): Element | undefined;
     form(): FormElement | undefined;
 }
+export abstract class LegendElement extends Element {
+    protected __brand: never;
+    form(): FormElement | undefined;
+}
 export abstract class MediaElement extends Element {
     protected __brand: never;
     textTracks(): Element[];
