@@ -42,3 +42,11 @@ connect(address, (socket: Socket) => {
     socket.on('pong', () => {});
     socket.on('open', () => {}, 5); // $ExpectError
 });
+
+// Socket.send
+connect(address, (socket: Socket) => {
+    socket.send(); // $ExpectError
+    socket.send(5); // $ExpectError
+    socket.send('super secret information'); // $ExpectType void
+    socket.send('super secret information', 5); // $ExpectError
+});
