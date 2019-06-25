@@ -14,6 +14,7 @@ import {
     LabelElement,
     LegendElement,
     LinkElement,
+    MapElement,
     MediaElement,
     NodeType,
     OptionElement,
@@ -229,6 +230,12 @@ possibleForm = legend.form();
 declare function makeLinkElement(): LinkElement;
 const link: LinkElement = makeLinkElement();
 link.relList(); // $ExpectType string[]
+
+// MapElement
+declare function makeMapElement(): MapElement;
+const map: MapElement = makeMapElement();
+elements = map.areas();
+elements = map.images();
 
 // MediaElement
 declare function makeMediaElement(): MediaElement;
