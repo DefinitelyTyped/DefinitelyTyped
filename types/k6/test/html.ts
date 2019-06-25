@@ -4,6 +4,7 @@ import {
     CanvasElement,
     DataListElement,
     Element,
+    FieldSetElement,
     FormElement,
     FormFieldElement,
     HrefElement,
@@ -154,6 +155,14 @@ canvas.width(); // $ExpectType number
 declare function makeDataListElement(): DataListElement;
 const dataList: DataListElement = makeDataListElement();
 options = dataList.options();
+
+// FieldSetElement
+declare function makeFieldSetElement(): FieldSetElement;
+const fieldSet: FieldSetElement = makeFieldSetElement();
+elements = fieldSet.elements();
+possibleForm = fieldSet.form();
+fieldSet.type(); // $ExpectType string
+fieldSet.validity(); // $ExpectType undefined
 
 // FormElement
 declare function makeFormElement(): FormElement;

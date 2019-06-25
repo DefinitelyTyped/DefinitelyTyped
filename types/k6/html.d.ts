@@ -129,6 +129,13 @@ export abstract class DataListElement extends Element {
     protected __brand: never;
     options(): OptionElement[];
 }
+export abstract class FieldSetElement extends Element {
+    protected __brand: never;
+    elements(): Element[];
+    form(): FormElement | undefined;
+    type(): string;
+    validity(): undefined;
+}
 export abstract class FormElement extends Element {
     protected __brand: never;
     elements(): Element[];
