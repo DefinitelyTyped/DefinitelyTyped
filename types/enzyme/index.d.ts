@@ -20,7 +20,6 @@ import {
     Component,
     AllHTMLAttributes as ReactHTMLAttributes,
     SVGAttributes as ReactSVGAttributes,
-    ComponentType,
 } from 'react';
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
@@ -618,7 +617,7 @@ export interface ShallowRendererProps {
      * See https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html
      * Note: wrappingComponent must render its children.
      */
-    wrappingComponent?: ComponentType;
+    wrappingComponent?: ComponentType<any>;
     /**
      * Initial props to pass to the wrappingComponent if it is specified.
      */
