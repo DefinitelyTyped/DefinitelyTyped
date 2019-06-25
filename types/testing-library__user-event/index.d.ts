@@ -3,17 +3,21 @@
 // Definitions by: Wu Haotian <https://github.com/whtsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface UserOpts {
+export interface IUserOptions {
     allAtOnce?: boolean;
     delay?: number;
 }
+
+type TargetElement = Element | Window;
+
 declare const userEvent: {
-    click: (element: Element | Window) => void;
-    dblClick: (element: Element | Window) => void;
+    click: (element: TargetElement) => void;
+    dblClick: (element: TargetElement) => void;
+    selectOptions: (element: TargetElement, values: string | string[]) => void;
     type: (
-        element: Element | Window,
+        element: TargetElement,
         text: string,
-        userOpts?: UserOpts
+        userOpts?: IUserOptions
     ) => Promise<void>;
 };
 
