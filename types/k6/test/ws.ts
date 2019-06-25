@@ -1,7 +1,8 @@
-import { Response, Socket, connect } from 'k6/ws';
+import { Response, Socket, WebSocketError, connect } from 'k6/ws';
 
 const address = 'http://example.com';
 const executor = (socket: Socket) => {};
+const badHandler = (bad: never) => {};
 
 let response: Response;
 
@@ -19,3 +20,25 @@ response = connect(address, {
 }, executor);
 connect(address, executor, 5); // $ExpectError
 connect(address, {}, executor, 5); // $ExpectError
+
+// Socket.on
+connect(address, (socket: Socket) => {
+    socket.on(); // $ExpectError
+    socket.on(5); // $ExpectError
+    socket.on('not-an-event'); // $ExpectError
+    socket.on('message'); // $ExpectError
+    socket.on('message', 5); // $ExpectError
+    socket.on('close', badHandler); // $ExpectError
+    socket.on('close', (code: number) => {});
+    socket.on('error', badHandler); // $ExpectError
+    socket.on('error', (error: WebSocketError) => {});
+    socket.on('message', badHandler); // $ExpectError
+    socket.on('message', (message: string) => {});
+    socket.on('open', badHandler); // $ExpectError
+    socket.on('open', () => {});
+    socket.on('ping', badHandler); // $ExpectError
+    socket.on('ping', () => {});
+    socket.on('pong', badHandler); // $ExpectError
+    socket.on('pong', () => {});
+    socket.on('open', () => {}, 5); // $ExpectError
+});
