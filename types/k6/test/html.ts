@@ -27,6 +27,7 @@ import {
     Selection,
     StyleElement,
     TableCellElement,
+    TableColElement,
     TableElement,
     TableRowElement,
     TableSectionElement,
@@ -315,6 +316,11 @@ style.type(); // $ExpectType string
 declare function makeTableCellElement(): TableCellElement;
 const cell: TableCellElement = makeTableCellElement();
 cell.cellIndex(); // $ExpectType number
+
+// TableColElement
+declare function makeTableColElement(): TableColElement;
+const col: TableColElement = makeTableColElement();
+col.span(); // $ExpectType number
 
 // TableElement
 declare function makeTableElement(): TableElement;

@@ -254,6 +254,10 @@ export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;
 }
+export abstract class TableColElement extends Element {
+    protected __brand: never;
+    span(): number;
+}
 export abstract class TableElement extends Element {
     protected __brand: never;
     caption(): Element | undefined;
