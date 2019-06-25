@@ -25,6 +25,7 @@ import {
     ScriptElement,
     SelectElement,
     Selection,
+    StyleElement,
     TableCellElement,
     TableSectionElement,
     parseHTML,
@@ -301,6 +302,11 @@ options = select.selectedOptions();
 select.size(); // $ExpectType number
 select.type(); // $ExpectType string
 select.value(); // $ExpectType string
+
+// StyleElement
+declare function makeStyleElement(): StyleElement;
+const style: StyleElement = makeStyleElement();
+style.type(); // $ExpectType string
 
 // TableCellElement
 declare function makeTableCellElement(): TableCellElement;

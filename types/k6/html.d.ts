@@ -246,6 +246,10 @@ export abstract class SelectElement extends Element {
     type(): string;
     value(): string;
 }
+export abstract class StyleElement extends Element {
+    protected __brand: never;
+    type(): string;
+}
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;
