@@ -26,6 +26,7 @@ export abstract class Socket {
     on<ET extends EventType>(event: ET, handler: EventHandler<ET>): void;
     ping(): void;
     send(data: string): void;
+    setInterval(handler: TimerHandler, interval: number): void;
     setTimeout(handler: TimerHandler, delay: number): void;
 }
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';

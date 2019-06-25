@@ -66,6 +66,16 @@ connect(address, (socket: Socket) => {
     socket.send('super secret information', 5); // $ExpectError
 });
 
+// Socket.setInterval
+connect(address, (socket: Socket) => {
+    socket.setInterval(); // $ExpectError
+    socket.setInterval(5); // $ExpectError
+    socket.setInterval(handler); // $ExpectError
+    socket.setInterval(handler, 'not-a-duration'); // $ExpectError
+    socket.setInterval(handler, 7); // $ExpectType void
+    socket.setInterval(handler, 7, 5); // $ExpectError
+});
+
 // Socket.setTimeout
 connect(address, (socket: Socket) => {
     socket.setTimeout(); // $ExpectError
