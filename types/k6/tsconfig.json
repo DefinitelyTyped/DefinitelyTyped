@@ -21,11 +21,13 @@
         "http.d.ts",
         "index.d.ts",
         "metrics.d.ts",
+        "ws.d.ts",
         "test/crypto.ts",
         "test/encoding.ts",
         "test/global.ts",
         "test/http.ts",
         "test/index.ts",
-        "test/metrics.ts"
+        "test/metrics.ts",
+        "test/ws.ts"
     ]
 }
