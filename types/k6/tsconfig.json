@@ -21,6 +21,7 @@
         "http.d.ts",
         "index.d.ts",
         "metrics.d.ts",
+        "options.d.ts",
         "ws.d.ts",
         "test/crypto.ts",
         "test/encoding.ts",
