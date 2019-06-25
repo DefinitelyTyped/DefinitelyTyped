@@ -122,6 +122,17 @@ export abstract class FormElement extends Element {
     length(): number;
     method(): string;
 }
+export abstract class FormFieldElement extends Element {
+    protected __brand: never;
+    form(): FormElement | undefined;
+    formAction(): string;
+    formEnctype(): string;
+    formMethod(): string;
+    formNoValidate(): boolean;
+    formTarget(): string;
+    labels(): LabelElement[];
+    name(): string;
+}
 export abstract class HrefElement extends Element {
     protected __brand: never;
     hash(): string;

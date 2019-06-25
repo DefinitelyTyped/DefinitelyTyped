@@ -2,6 +2,7 @@ import {
     Attribute,
     Element,
     FormElement,
+    FormFieldElement,
     HrefElement,
     FormValue,
     LabelElement,
@@ -27,6 +28,7 @@ let possibleAttribute: Attribute | undefined;
 let attributesMap: { [name: string]: Attribute };
 let possibleType: NodeType | undefined;
 let possibleForm: FormElement | undefined;
+let labels: LabelElement[];
 
 // parseHTML
 parseHTML(); // $ExpectError
@@ -136,6 +138,18 @@ const form: FormElement = makeFormElement();
 elements = form.elements();
 form.length(); // $ExpectType number
 form.method(); // $ExpectType string
+
+// FormFieldElement
+declare function makeFormFieldElement(): FormFieldElement;
+const field: FormFieldElement = makeFormFieldElement();
+possibleForm = field.form();
+field.formAction(); // $ExpectType string
+field.formEnctype(); // $ExpectType string
+field.formMethod(); // $ExpectType string
+field.formNoValidate(); // $ExpectType boolean
+field.formTarget(); // $ExpectType string
+labels = field.labels();
+field.name(); // $ExpectType string
 
 // HrefElement
 declare function makeHrefElement(): HrefElement;
