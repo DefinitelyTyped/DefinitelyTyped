@@ -3,7 +3,7 @@ import Projection from './proj/Projection';
 import { TileCoord } from './tilecoord';
 import TileState from './TileState';
 
-export type LoadFunction = ((param0: Tile, param1: string) => void);
+export type LoadFunction = ((p0: Tile, p1: string) => void);
 export interface Options {
     transition?: number;
 }
@@ -22,4 +22,4 @@ export default class Tile extends Target {
     refreshInterimChain(): void;
     setState(state: TileState): void;
 }
-export type UrlFunction = ((param0: TileCoord, param1: number, param2: Projection) => string);
+export type UrlFunction = ((p0: TileCoord, p1: number, p2: Projection) => string);

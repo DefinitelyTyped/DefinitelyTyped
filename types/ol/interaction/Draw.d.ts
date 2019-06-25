@@ -20,9 +20,9 @@ export default class Draw extends PointerInteraction {
     finishDrawing(): void;
     getOverlay(): VectorLayer;
     removeLastPoint(): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -47,7 +47,7 @@ export enum DrawEventType {
     DRAWSTART = 'drawstart',
     DRAWEND = 'drawend',
 }
-export type GeometryFunction = ((param0: SketchCoordType, param1: SimpleGeometry) => SimpleGeometry);
+export type GeometryFunction = ((p0: SketchCoordType, p1?: SimpleGeometry) => SimpleGeometry);
 export type LineCoordType = Coordinate[];
 export interface Options {
     type: GeometryType;

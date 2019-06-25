@@ -6,5 +6,5 @@ import VectorTile from './VectorTile';
 
 export function loadFeaturesXhr(url: string | FeatureUrlFunction, format: FeatureFormat, success: (() => void) | (() => void), failure: ((this: VectorSource) => void) | (() => void)): FeatureLoader;
 export function xhr(url: string | FeatureUrlFunction, format: FeatureFormat): FeatureLoader;
-export type FeatureLoader = ((this: VectorSource | VectorTile, param1: Extent, param2: number, param3: Projection) => void);
-export type FeatureUrlFunction = ((param0: Extent, param1: number, param2: Projection) => string);
+export type FeatureLoader = ((this: VectorSource | VectorTile, p1: Extent, p2: number, p3: Projection) => void);
+export type FeatureUrlFunction = ((p0: Extent, p1: number, p2: Projection) => string);

@@ -6,9 +6,9 @@ import DragBox, { DragBoxEvent } from './DragBox';
 
 export default class DragZoom extends DragBox {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     once(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): EventsKey;
     un(type: 'boxdrag', listener: (evt: DragBoxEvent) => void): void;

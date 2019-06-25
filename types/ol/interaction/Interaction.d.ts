@@ -19,9 +19,9 @@ export default class Interaction extends BaseObject {
     handleEvent(mapBrowserEvent: MapBrowserEvent): boolean;
     setActive(active: boolean): void;
     setMap(map: PluggableMap): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
@@ -33,5 +33,5 @@ export default class Interaction extends BaseObject {
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
 export interface InteractionOptions {
-    handleEvent: ((param0: MapBrowserEvent) => boolean);
+    handleEvent: ((p0: MapBrowserEvent) => boolean);
 }

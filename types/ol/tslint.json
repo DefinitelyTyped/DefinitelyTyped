@@ -6,6 +6,8 @@
         "max-line-length": false,
         "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
+        "prefer-template": false,
+        "strict-comparisons": false,
         "unified-signatures": false
     }
 }
