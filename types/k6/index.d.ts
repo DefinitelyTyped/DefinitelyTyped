@@ -18,6 +18,8 @@
  * https://github.com/Microsoft/TypeScript/blob/7b48a182c05ea4dea81bab73ecbbe9e013a79e99/src/compiler/types.ts#L693-L698
  */
 
+import './global'; // Type global environment
+
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 export function fail(err?: string): never;
 export function group<T>(name: string, fn: () => T): T;
