@@ -5256,21 +5256,25 @@ fp.now(); // $ExpectType number
     fp.invert({}); // $ExpectType {}
 
     const abxy: {
-        readonly a: 'x',
-        readonly b: 'y',
+        readonly a: 'x';
+        readonly b: 'y';
     } = {
         a: 'x',
         b: 'y',
     };
-    _.invert(abxy);  // $ExpectType { x: "a", y: "b" }
-    _(abxy).invert().value();  // $ExpectType { x: "a", y: "b" }
-    _.chain(abxy).invert().value();  // $ExpectType { x: "a", y: "b" }
-    fp.invert(abxy);  // $ExpectType { x: "a", y: "b" }
+    _.invert(abxy); // $ExpectType { x: "a", y: "b" }
+    _(abxy)
+        .invert()
+        .value(); // $ExpectType { x: "a", y: "b" }
+    _.chain(abxy)
+        .invert()
+        .value(); // $ExpectType { x: "a", y: "b" }
+    fp.invert(abxy); // $ExpectType { x: "a", y: "b" }
 
     _.invert({
         a: 'x',
         b: 'y',
-    });  // $ExpectType Dictionary<"a" | "b">
+    }); // $ExpectType Dictionary<"a" | "b">
 }
 
 // _.invertBy
