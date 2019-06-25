@@ -234,6 +234,18 @@ export abstract class ScriptElement extends Element {
     protected __brand: never;
     text(): string;
 }
+export abstract class SelectElement extends Element {
+    protected __brand: never;
+    form(): FormElement | undefined;
+    labels(): LabelElement[];
+    length(): number;
+    options(): OptionElement[];
+    selectedIndex(): number;
+    selectedOptions(): OptionElement[];
+    size(): number;
+    type(): string;
+    value(): string;
+}
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;

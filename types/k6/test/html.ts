@@ -23,6 +23,7 @@ import {
     OutputElement,
     ProgressElement,
     ScriptElement,
+    SelectElement,
     Selection,
     TableCellElement,
     TableSectionElement,
@@ -287,6 +288,19 @@ progress.value(); // $ExpectType number
 declare function makeScriptElement(): ScriptElement;
 const script: ScriptElement = makeScriptElement();
 script.text(); // $ExpectType string
+
+// SelectElement
+declare function makeSelectElement(): SelectElement;
+const select: SelectElement = makeSelectElement();
+possibleForm = select.form();
+labels = select.labels();
+select.length(); // $ExpectType number
+options = select.options();
+select.selectedIndex(); // $ExpectType number
+options = select.selectedOptions();
+select.size(); // $ExpectType number
+select.type(); // $ExpectType string
+select.value(); // $ExpectType string
 
 // TableCellElement
 declare function makeTableCellElement(): TableCellElement;
