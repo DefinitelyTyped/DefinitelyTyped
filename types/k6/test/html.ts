@@ -27,6 +27,7 @@ import {
     Selection,
     StyleElement,
     TableCellElement,
+    TableElement,
     TableSectionElement,
     parseHTML,
 } from 'k6/html';
@@ -312,6 +313,15 @@ style.type(); // $ExpectType string
 declare function makeTableCellElement(): TableCellElement;
 const cell: TableCellElement = makeTableCellElement();
 cell.cellIndex(); // $ExpectType number
+
+// TableElement
+declare function makeTableElement(): TableElement;
+const table: TableElement = makeTableElement();
+possibleElement = table.caption();
+elements = table.rows();
+elements = table.tBodies();
+possibleElement = table.tFoot();
+possibleElement = table.tHead();
 
 // TableSectionElement
 declare function makeTableSectionElement(): TableSectionElement;
