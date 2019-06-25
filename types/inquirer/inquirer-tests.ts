@@ -1,4 +1,3 @@
-import chalkPipe = require("chalk-pipe");
 import * as inquirer from "inquirer";
 import { from as rxjsFrom, Observable, Observer } from "rxjs";
 
@@ -287,7 +286,7 @@ main();
                 name: "fav_color",
                 message: "What's your favorite color",
                 transformer: function(color, _answers, flags) {
-                    const text = chalkPipe(color)(color);
+                    const text = color;
                     if (flags.isFinal) {
                         return text + "!";
                     }
