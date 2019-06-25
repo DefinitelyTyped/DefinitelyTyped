@@ -1,3 +1,8 @@
-import classNames = require('./index');
+import { ClassNamesFn } from './types';
 
-export function bind(styles: Record<string, string>): typeof classNames;
+interface ClassNamesBind extends ClassNamesFn {
+    bind(styles: Record<string, string>): ClassNamesFn;
+}
+declare const classNamesBind: ClassNamesBind;
+
+export = classNamesBind;
