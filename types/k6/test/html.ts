@@ -7,9 +7,10 @@ import {
     FieldSetElement,
     FormElement,
     FormFieldElement,
+    FormValue,
     HrefElement,
     InputElement,
-    FormValue,
+    KeygenElement,
     LabelElement,
     MediaElement,
     NodeType,
@@ -204,6 +205,12 @@ href.username(); // $ExpectType string
 declare function makeInputElement(): InputElement;
 const input: InputElement = makeInputElement();
 possibleForm = input.form();
+
+// KeygenElement
+declare function makeKeygenElement(): KeygenElement;
+const keygen: KeygenElement = makeKeygenElement();
+possibleForm = keygen.form();
+labels = keygen.labels();
 
 // LabelElement
 declare function makeLabelElement(): LabelElement;

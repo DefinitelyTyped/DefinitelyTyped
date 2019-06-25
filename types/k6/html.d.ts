@@ -172,6 +172,11 @@ export abstract class InputElement extends FormFieldElement {
     protected __brand: never;
     form(): FormElement | undefined;
 }
+export abstract class KeygenElement extends Element {
+    protected __brand: never;
+    form(): FormElement | undefined;
+    labels(): LabelElement[];
+}
 export abstract class LabelElement extends Element {
     protected __brand: never;
     control(): Element | undefined;
