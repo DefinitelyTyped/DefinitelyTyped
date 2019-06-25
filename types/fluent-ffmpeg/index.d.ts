@@ -1,6 +1,9 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
+//                 DingWeizhe <https://github.com/DingWeizhe>
+//                 Mounir Abid <https://github.com/mabidina>
+//                 Doyoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,7 +14,7 @@ import * as stream from "stream";
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
         error(...data: any[]): void;
-        warning(...data: any[]): void;
+        warn(...data: any[]): void;
         info(...data: any[]): void;
         debug(...data: any[]): void;
     }
@@ -29,8 +32,8 @@ declare namespace Ffmpeg {
 
     interface FilterSpecification {
         filter: string;
-        inputs: string | string[];
-        outputs: string | string[];
+        inputs?: string | string[];
+        outputs?: string | string[];
         options?: any | string | any[];
     }
 
@@ -109,6 +112,19 @@ declare namespace Ffmpeg {
         filter: string;
         options: string | string[] | {};
     }
+
+    // static methods
+    function setFfmpegPath(path: string): FfmpegCommand;
+    function setFfprobePath(path: string): FfmpegCommand;
+    function setFlvtoolPath(path: string): FfmpegCommand;
+    function availableFilters(callback: FiltersCallback): void;
+    function getAvailableFilters(callback: FiltersCallback): void;
+    function availableCodecs(callback: CodecsCallback): void;
+    function getAvailableCodecs(callback: CodecsCallback): void;
+    function availableEncoders(callback: EncodersCallback): void;
+    function getAvailableEncoders(callback: EncodersCallback): void;
+    function availableFormats(callback: FormatsCallback): void;
+    function getAvailableFormats(callback: FormatsCallback): void;
 
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
@@ -256,8 +272,8 @@ declare namespace Ffmpeg {
         outputOption(...options: string[]): FfmpegCommand;
         outputOptions(options: string[]): FfmpegCommand;
         outputOptions(...options: string[]): FfmpegCommand;
-        filterGraph(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
-        complexFilter(spec: string | FilterSpecification[], map: string[]): FfmpegCommand;
+        filterGraph(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
+        complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map: string[]): FfmpegCommand;
 
         // options/misc
         usingPreset(proset: string | GetPreset): FfmpegCommand;
@@ -266,6 +282,7 @@ declare namespace Ffmpeg {
         // processor
         renice(niceness: number): FfmpegCommand;
         kill(signal: string): FfmpegCommand;
+        _getArguments(): string[];
 
         // capabilities
         setFfmpegPath(path: string): FfmpegCommand;
@@ -290,7 +307,7 @@ declare namespace Ffmpeg {
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;
         writeToStream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
-        pipe(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
+        pipe(stream?: stream.Writable, options?: { end?: boolean }): stream.Writable|stream.PassThrough;
         stream(stream: stream.Writable, options?: { end?: boolean }): stream.Writable;
         takeScreenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         thumbnail(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;

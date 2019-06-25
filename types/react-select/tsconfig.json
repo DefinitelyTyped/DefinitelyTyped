@@ -96,9 +96,11 @@
         "test/examples/CustomValueContainer.tsx",
         "test/examples/Experimental.tsx",
         "test/examples/MenuPortal.tsx",
+        "test/examples/OnMenuOpen.tsx",
         "test/examples/OnSelectResetsInput.tsx",
         "test/examples/Popout.tsx",
         "test/examples/StyledMulti.tsx",
-        "test/examples/StyledSingle.tsx"
+        "test/examples/StyledSingle.tsx",
+        "test/examples/Theme.tsx"
     ]
 }

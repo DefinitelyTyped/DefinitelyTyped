@@ -1,4 +1,4 @@
-// Type definitions for wegame 1.1
+// Type definitions for non-npm package wegame 2.6
 // Project: https://developers.weixin.qq.com/minigame/dev/index.html
 // Definitions by: J.C <https://github.com/jcyuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,7 +59,7 @@ declare class Canvas {
      * @param contextType 上下文类型
      * @param contextAttributes webgl 上下文属性，仅当 contextType 为 webgl 时有效
      */
-    getContext(contextType: "2d" | "webgl", contextAttributes: wx.types.RenderingContextConfig): WxRenderingContext | WxWebGLRenderingContext;
+    getContext(contextType: "2d" | "webgl", contextAttributes?: wx.types.RenderingContextConfig): WxRenderingContext | WxWebGLRenderingContext;
     /**
      * 把画布上的绘制内容以一个 data URI 的格式返回
      */
@@ -131,7 +131,7 @@ declare class FileSystemManager {
      * @throws dirPath 不是目录
      * @throws 指定的 filePath 路径没有读权限
      */
-    readdirSync(dirPath: string): string[];
+    readdirSync(dirPath: string): ReadonlyArray<string>;
 
     /**
      * 创建目录
@@ -242,7 +242,7 @@ declare class FileSystemManager {
     getFileInfo(param: wx.types.FileinfoParams): void;
 
     /**
-     * 删除该小程序下已保存的本地缓存文件
+     * 删除该小程序下已保存的本地缓存文件（新版本应使用unlink）
      */
     removeSavedFile(param: wx.types.RemovefileParams): void;
 
@@ -360,7 +360,7 @@ declare class UserGameData {
     /**
      * 用户的托管 KV 数据列表
      */
-    KVDataList: KVData[];
+    KVDataList: ReadonlyArray<KVData>;
 }
 
 declare class CreatedButton {
@@ -368,6 +368,11 @@ declare class CreatedButton {
     text: string;
     image: string;
     style: wx.types.ButtonStyle;
+    show(): void;
+    hide(): void;
+    onTap(callback: (res?: any) => void): void;   // res参数会被具体按钮的API定义覆盖为具体信息
+    offTap(callback: (res?: any) => void): void;
+    destroy(): void;
 }
 declare class UserInfoButton extends CreatedButton {
     onTap(callback: (res: {
@@ -395,16 +400,24 @@ declare class UserInfoButton extends CreatedButton {
     }) => void): void;
 }
 declare class OpenSettingButton extends CreatedButton {
+    onTap(callback: () => void): void;
+    offTap(callback: () => void): void;
 }
 declare class GameClubButton extends CreatedButton {
     icon: wx.types.GameClubButtonIcon;
+    onTap(callback: (res: {
+        errMsg: string;
+    }) => void): void;
 }
 declare class FeedbackButton extends CreatedButton {
+    onTap(callback: (res: {
+        errMsg: string;
+    }) => void): void;
 }
 
 declare class OpenDataContext {
     /**
-     * 开放数据域和主域共享的 sharedCanvas
+     * 开放数据域和主域共享的 sharedCanvas，注意在开放数据域内时getContext只能使用2d模式
      */
     canvas: Canvas;
     /**
@@ -1029,7 +1042,7 @@ declare namespace wx {
 
         interface ReaddirParams {
             dirPath: string;
-            success?: (res: { files: string[] }) => void;
+            success?: (res: { files: ReadonlyArray<string> }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1042,7 +1055,7 @@ declare namespace wx {
             complete?: () => void;
         }
 
-        type FileContentEncoding = "ascii" | "base64" | "binary" | "hex" | "ucs2/ucs-2/utf16le/utf-16le" | "utf-8/utf8" | "latin1";
+        type FileContentEncoding = "ascii" | "base64" | "binary" | "hex" | "ucs2" | "ucs-2" | "utf16le" | "utf-16le" | "utf-8" | "utf8" | "latin1";
 
         interface ReadfileParams {
             filePath: string;
@@ -1079,12 +1092,12 @@ declare namespace wx {
             zipFilePath: string;
             targetPath: string;
             success?: () => void;
-            fail?: () => void;
+            fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 
         interface AccessfileParams {
-            filePath: string;
+            path: string;
             success?: () => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
@@ -1108,7 +1121,7 @@ declare namespace wx {
 
         interface FileinfoParams {
             filePath: string;
-            success?: (res: { size: number }) => void;
+            success?: (res: { size: number, digest: string }) => void;
             fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
@@ -1153,6 +1166,7 @@ declare namespace wx {
             width: number;
             height: number;
             onload: () => void;
+            onerror: (e?: any) => void;
         }
 
         // --启动参数
@@ -1250,24 +1264,36 @@ declare namespace wx {
              */
             identifier: number;
             /**
-             * 触点相对于屏幕左边沿的 X 坐标。
+             * 触点相对于整体页面的 X 轴距离。
              */
-            screenX: number;
+            pageX: number;
             /**
-             * 触点相对于屏幕左边沿的 Y 坐标。
+             * 触点相对于整体页面的 Y 轴距离。
              */
-            screenY: number;
+            pageY: number;
+            /**
+             * 触点相对于游戏窗口的 X 轴距离。
+             */
+            clientX: number;
+            /**
+             * 触点相对于游戏窗口的 Y 轴距离。
+             */
+            clientY: number;
         }
 
         interface TouchData {
             /**
+             * 当前事件的类型
+             */
+            type: string;
+            /**
              * 当前所有触摸点的列表
              */
-            touches: Touch[];
+            touches: ReadonlyArray<Touch>;
             /**
              * 触发此次事件的触摸点列表
              */
-            changedTouches: Touch[];
+            changedTouches: ReadonlyArray<Touch>;
             /**
              * 事件触发时的时间戳
              */
@@ -1318,12 +1344,19 @@ declare namespace wx {
         interface DownfileParams {
             url: string;
             /**
+             * 在指定filePath之后success回调中将不会有res.tempFilePath路径值，下载的文件会直接写入filePath指定的路径（有写入权限的情况下，根目录请使用wx.env.USER_DATA_PATH，路径文件夹必须存在，否则写入失败）
+             */
+            filePath?: string;
+            /**
              * 	HTTP 请求的 Header，Header 中不能设置 Referer
              */
-            header: { [key: string]: string };
-            filePath: string;
+            header?: { [key: string]: string };
+            /**
+             * res.tempFilePath 临时文件路径。如果没传入 filePath 指定文件存储路径，则下载后的文件会存储到一个临时文件
+             * res.statusCode 开发者服务器返回的 HTTP 状态码
+             */
             success?: (res: { tempFilePath: string, statusCode: number }) => void;
-            fail?: () => void;
+            fail?: (res: { errMsg: string }) => void;
             complete?: () => void;
         }
 
@@ -1355,7 +1388,7 @@ declare namespace wx {
             /**
              * res.data usually can be string or ArrayBuffer
              */
-            success?: (res: { data: any, statusCode: number, header: { [key: string]: string } }) => void;
+            success?: (res: { data: any, statusCode: number, header?: { [key: string]: string } }) => void;
             fail?: () => void;
             complete?: () => void;
         }
@@ -1389,7 +1422,7 @@ declare namespace wx {
             complete?: () => void;
         }
 
-        type SocketOpenCallback = (res: { header: { [key: string]: string } }) => void;
+        type SocketOpenCallback = (res: { header?: { [key: string]: string } }) => void;
         type SocketMessageCallback = (res: { data: string | ArrayBuffer }) => void;
         type SocketErrorCallback = (res: { errMsg: string }) => void;
 
@@ -1444,7 +1477,7 @@ declare namespace wx {
              * 显示用户信息的语言
              */
             lang?: "en" | "zh_CN" | "zh_TW";
-            success?: (res: { data: UserInfo[] }) => void;
+            success?: (res: { data: ReadonlyArray<UserInfo> }) => void;
             fail?: () => void;
             complete?: () => void;
         }
@@ -1464,23 +1497,23 @@ declare namespace wx {
 
         type ButtonType = "text" | "image";
         interface ButtonStyle {
-            left: number;
-            top: number;
-            width: number;
-            height: number;
+            left?: number;
+            top?: number;
+            width?: number;
+            height?: number;
             /**
              * 格式#ff0000
              */
-            backgroundColor: string;
+            backgroundColor?: string;
             /**
              * 格式#ff0000
              */
-            borderColor: string;
-            borderWidth: number;
-            borderRadius: number;
-            textAlign: "left" | "center" | "right";
-            fontSize: number;
-            lineHeight: number;
+            borderColor?: string;
+            borderWidth?: number;
+            borderRadius?: number;
+            textAlign?: "left" | "center" | "right";
+            fontSize?: number;
+            lineHeight?: number;
         }
 
         type GameClubButtonIcon = "green" | "white" | "dark" | "light";
@@ -1545,7 +1578,7 @@ declare namespace wx {
             /**
              * 当前 storage 中所有的 key
              */
-            keys: string[];
+            keys: ReadonlyArray<string>;
             /**
              * 当前占用的空间大小, 单位 KB
              */
@@ -1566,7 +1599,7 @@ declare namespace wx {
              */
             imageUrl?: string;
             /**
-             * 查询字符串，必须是 key1=val1&key2=val2 的格式。从这条转发消息进入后，可通过 wx.onLaunch() 或 wx.onShow 获取启动参数中的 query。
+             * 查询字符串，必须是 key1=val1&key2=val2 的格式。从这条转发消息进入后，可通过 wx.getLaunchOptionsSync() 或 wx.onShow 获取启动参数中的 query。
              */
             query?: string;
         }
@@ -1802,6 +1835,16 @@ declare namespace wx {
     // --文件系统
     function getFileSystemManager(): FileSystemManager;
 
+    /**
+     * 系统环境变量
+     */
+    const env: {
+        /**
+         * 用户下载数据根目录
+         */
+        USER_DATA_PATH: string
+    };
+
     // --位置
     /**
      * 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用；当用户点击“显示在聊天顶部”时，此接口可继续调用。
@@ -1924,7 +1967,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { data: UserGameData[] }) => void,
+        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;
@@ -1936,7 +1979,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { KVDataList: KVData[] }) => void,
+        success?: (res: { KVDataList: ReadonlyArray<KVData> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;
@@ -1959,7 +2002,7 @@ declare namespace wx {
          * 要拉取的 key 列表
          */
         keyList: string[],
-        success?: (res: { data: UserGameData[] }) => void,
+        success?: (res: { data: ReadonlyArray<UserGameData> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;
@@ -2043,7 +2086,7 @@ declare namespace wx {
         /**
          * 按钮的样式
          */
-        style: types.ButtonStyle,
+        style?: types.ButtonStyle,
         /**
          * 是否带上登录态信息。当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。
          */
@@ -2071,7 +2114,7 @@ declare namespace wx {
         /**
          * 按钮的样式
          */
-        style: types.ButtonStyle
+        style?: types.ButtonStyle
     }): OpenSettingButton;
     /**
      * 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。
@@ -2120,7 +2163,7 @@ declare namespace wx {
         type: types.ButtonType,
         text?: string,
         image?: string,
-        style: types.ButtonStyle,
+        style?: types.ButtonStyle,
         /**
          * 游戏圈按钮的图标，仅当 object.type 参数为 image 时有效
          */
@@ -2135,7 +2178,7 @@ declare namespace wx {
         type: types.ButtonType,
         text?: string,
         image?: string,
-        style: types.ButtonStyle
+        style?: types.ButtonStyle
     }): FeedbackButton;
 
     // --客服消息
@@ -2208,15 +2251,15 @@ declare namespace wx {
     /**
      * 监听用户点击右上角菜单的“转发”按钮时触发的事件
      */
-    function onShareAppMessage(cb: (data: types.ShareOption) => void): void;
+    function onShareAppMessage(cb: () => types.ShareOption): void;
     /**
      * 取消监听用户点击右上角菜单的“转发”按钮时触发的事件
      */
-    function offShareAppMessage(cb: (data: types.ShareOption) => void): void;
+    function offShareAppMessage(cb: () => types.ShareOption): void;
     /**
      * 显示当前页面的转发按钮
      */
-    function showShareMenu(param: {
+    function showShareMenu(param?: {
         /**
          * 是否使用带 shareTicket 的转发
          */
@@ -2577,7 +2620,7 @@ declare namespace wx {
         /**
          * 音频输入源，每一项对应一种音频输入源
          */
-        audioSources: types.AudioSourceType[]
+        audioSources: ReadonlyArray<types.AudioSourceType>
     }>): void;
 
     // --录音
@@ -2597,7 +2640,7 @@ declare namespace wx {
          * 选择图片的来源
          */
         sourceType: ['album'] | ['camera'] | ['album', 'camera'],
-        success?: (res: { tempFilePaths: string[], tempFiles: ImageFile[] }) => void,
+        success?: (res: { tempFilePaths: ReadonlyArray<string>, tempFiles: ReadonlyArray<ImageFile> }) => void,
         fail?: () => void,
         complete?: () => void
     }): void;

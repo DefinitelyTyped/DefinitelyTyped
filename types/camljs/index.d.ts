@@ -1,8 +1,8 @@
 // Type definitions for camljs
-// Project: http://camljs.codeplex.com
-// Definitions by: Andrey Markeev <http://markeev.com>
+// Project: https://github.com/andrei-markeev/camljs
+// Definitions by: Andrey Markeev <https://github.com/andrei-markeev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.7
 
 declare class CamlBuilder {
     constructor();
@@ -10,25 +10,43 @@ declare class CamlBuilder {
     Where(): CamlBuilder.IFieldExpression;
     /** Generate <View> tag for SP.CamlQuery
         @param viewFields If omitted, default view fields are requested; otherwise, only values for the fields with the specified internal names are returned.
-                          Specifying view fields is a good practice, as it decreases traffic between server and client. */
-    View(viewFields?: string[]): CamlBuilder.IView;
+                          Specifying view fields is a good practice, as it decreases traffic between server and client.
+                          Additionally you can specify aggregated fields, e.g. { count: "<field name>" }, { sum: "<field name>" }, etc.. */
+    View(viewFields?: CamlBuilder.ViewField[]): CamlBuilder.IView;
     /** Generate <ViewFields> tag for SPServices */
     ViewFields(viewFields: string[]): CamlBuilder.IFinalizableToString;
     /** Use for:
         1. SPServices CAMLQuery attribute
         2. Creating partial expressions
         3. In conjunction with Any & All clauses
-         */
+    */
     static Expression(): CamlBuilder.IFieldExpression;
     static FromXml(xml: string): CamlBuilder.IRawQuery;
 }
-declare namespace CamlBuilder {
-    interface IView extends IJoinable, IFinalizable {
+declare module CamlBuilder {
+    type Aggregation = {
+        count: string;
+    } | {
+        sum: string;
+    } | {
+        avg: string;
+    } | {
+        max: string;
+    } | {
+        min: string;
+    } | {
+        stdev: string;
+    } | {
+        var: string;
+    };
+    type ViewField = string | Aggregation;
+    interface IView extends IFinalizable {
+        /** Define query */
         Query(): IQuery;
+        /** Define maximum amount of returned records */
         RowLimit(limit: number, paged?: boolean): IView;
+        /** Define view scope */
         Scope(scope: ViewScope): IView;
-    }
-    interface IJoinable {
         /** Join the list you're querying with another list.
             Joins are only allowed through a lookup field relation.
             @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
@@ -40,22 +58,39 @@ declare namespace CamlBuilder {
             @alias alias for the joined list */
         LeftJoin(lookupFieldInternalName: string, alias: string): IJoin;
     }
+    interface IJoinable {
+        /** Join the list you're querying with another list.
+            Joins are only allowed through a lookup field relation.
+            @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
+            @param alias Alias for the joined list
+            @param fromList (optional) List where the lookup column resides - use it only for nested joins */
+        InnerJoin(lookupFieldInternalName: string, alias: string, fromList?: string): IJoin;
+        /** Join the list you're querying with another list.
+            Joins are only allowed through a lookup field relation.
+            @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
+            @param alias Alias for the joined list
+            @param fromList (optional) List where the lookup column resides - use it only for nested joins */
+        LeftJoin(lookupFieldInternalName: string, alias: string, fromList?: string): IJoin;
+    }
     interface IJoin extends IJoinable {
         /** Select projected field for using in the main Query body
             @param remoteFieldAlias By this alias, the field can be used in the main Query body. */
         Select(remoteFieldInternalName: string, remoteFieldAlias: string): IProjectableView;
     }
-    interface IProjectableView extends IView {
+    interface IProjectableView extends IJoinable {
+        /** Define query */
+        Query(): IQuery;
+        /** Define maximum amount of returned records */
+        RowLimit(limit: number, paged?: boolean): IView;
+        /** Define view scope */
+        Scope(scope: ViewScope): IView;
         /** Select projected field for using in the main Query body
             @param remoteFieldAlias By this alias, the field can be used in the main Query body. */
         Select(remoteFieldInternalName: string, remoteFieldAlias: string): IProjectableView;
     }
     enum ViewScope {
-        /**  */
         Recursive = 0,
-        /**  */
         RecursiveAll = 1,
-        /**  */
         FilesOnly = 2,
     }
     interface IQuery extends IGroupable {
@@ -85,8 +120,9 @@ declare namespace CamlBuilder {
     }
     interface IGroupable extends ISortable {
         /** Adds GroupBy clause to the query.
-            @param collapse If true, only information about the groups is retrieved, otherwise items are also retrieved. */
-        GroupBy(fieldInternalName: any): IGroupedQuery;
+            @param collapse If true, only information about the groups is retrieved, otherwise items are also retrieved.
+            @param groupLimit Return only first N groups */
+        GroupBy(fieldInternalName: any, collapse?: boolean, groupLimit?: number): IGroupedQuery;
     }
     interface IExpression extends IGroupable {
         /** Adds And clause to the query. */
@@ -113,6 +149,12 @@ declare namespace CamlBuilder {
         Any(conditions: IExpression[]): IExpression;
         /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is Text */
         TextField(internalName: string): ITextFieldExpression;
+        /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is ContentTypeId */
+        ContentTypeIdField(internalName?: string): ITextFieldExpression;
+        /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is Choice */
+        ChoiceField(internalName: string): ITextFieldExpression;
+        /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is Computed */
+        ComputedField(internalName: string): ITextFieldExpression;
         /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is Boolean */
         BooleanField(internalName: string): IBooleanFieldExpression;
         /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is URL */
@@ -360,7 +402,7 @@ declare namespace CamlBuilder {
         Year = 4,
     }
     class Internal {
-        static createView(viewFields?: string[]): IView;
+        static createView(viewFields?: ViewField[]): IView;
         static createViewFields(viewFields: string[]): IFinalizableToString;
         static createWhere(): IFieldExpression;
         static createExpression(): IFieldExpression;
@@ -401,3 +443,4 @@ declare namespace CamlBuilder {
         };
     }
 }
+export = CamlBuilder;

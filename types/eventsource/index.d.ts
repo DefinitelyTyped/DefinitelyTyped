@@ -1,7 +1,8 @@
-// Type definitions for eventsource 1.0
+// Type definitions for eventsource 1.1
 // Project: http://github.com/EventSource/eventsource
 // Definitions by: Scott Lee Davis <https://github.com/scottleedavis>
 //                 Ali Afroozeh <https://github.com/afroozeh>
+//                 Pedro Gámez <https://github.com/snakedrak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,9 +19,9 @@ declare class EventSource {
   readonly url: string;
   readonly readyState: number;
   readonly withCredentials: boolean;
-  onopen: EventListener;
-  onmessage: EventListener;
-  onerror: EventListener;
+  onopen: (evt: MessageEvent) => any;
+  onmessage: (evt: MessageEvent) => any;
+  onerror: (evt: MessageEvent) => any;
   addEventListener(type: string, listener: EventListener): void;
   dispatchEvent(evt: Event): boolean;
   removeEventListener(type: string, listener?: EventListener): void;
@@ -28,7 +29,7 @@ declare class EventSource {
 }
 
 declare namespace EventSource {
-  enum ReadyState {CONNECTING = 0, OPEN = 1, CLOSED = 2}
+  enum ReadyState { CONNECTING = 0, OPEN = 1, CLOSED = 2 }
 
   interface EventSourceInitDict {
     withCredentials?: boolean;

@@ -46,7 +46,7 @@ declare class Class_MongoDB extends Class__object {
 	 * 
 	 * 
 	 */
-	runCommand(cmd: Object): Object;
+	runCommand(cmd: object): object;
 
 	/**
 	 * 
@@ -58,7 +58,7 @@ declare class Class_MongoDB extends Class__object {
 	 * 
 	 * 
 	 */
-	runCommand(cmd: string, arg: any): Object;
+	runCommand(cmd: string, arg: any): object;
 
 	/**
 	 * 

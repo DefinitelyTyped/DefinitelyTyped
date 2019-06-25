@@ -27,7 +27,7 @@ interface Random {
     sample<T>(population: T[], sampleSize: number): T[];
     die(sideCount: number): number;
     dice(sideCount: number, dieCount: number): number[];
-    uuid4(engine: Random.Engine): string;
+    uuid4(engine?: Random.Engine): string;
     string(engine: Random.Engine, length: number): string;
     string(length?: number, pool?: string): string;
     hex(length?: number, upperCase?: boolean): string;

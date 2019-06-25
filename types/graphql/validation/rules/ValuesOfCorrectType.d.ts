@@ -1,4 +1,4 @@
-import ValidationContext from "../ValidationContext";
+import { ValidationContext } from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
 
 export function badValueMessage(typeName: string, valueName: string, message?: string): string;

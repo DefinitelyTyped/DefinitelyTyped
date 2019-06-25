@@ -1,7 +1,3 @@
-import BigNumber = require("bn.js");
-import * as us from "underscore";
-import PromiEvent from "./promiEvent";
-import { ABIDefinition } from "./eth/abi";
 export type Callback<T> = (error: Error, result: T) => void;
 
 export interface EventEmitter {
@@ -40,7 +36,7 @@ export interface TransactionReceipt {
     events?: {
         [eventName: string]: EventLog;
     };
-    status: string;
+    status: boolean;
 }
 
 export interface EncodedTransaction {
@@ -85,5 +81,12 @@ export interface Subscribe<T> {
     on(type: "error", handler: (data: Error) => void): void;
 }
 
-export class Shh {} // TODO: Type
+export interface Shh {
+    generateSymKeyFromPassword(password: string): Promise<string>;
+    generateSymKeyFromPassword(
+        password: string,
+        callback: Callback<string>
+    ): void;
+    // TODO: type every method
+}
 export class Bzz {} // TODO: Type

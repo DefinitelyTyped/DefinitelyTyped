@@ -1,8 +1,9 @@
-// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.3
+// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.3
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
+//                 Joao Peixoto <https://github.com/Hartimer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.7
 
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
@@ -41,7 +42,7 @@ interface CMRequestInit {
     referrer?: string;
     referrerPolicy?: string;
     mode?: string;
-    credentials?: PasswordCredential|string;
+    credentials?: PasswordCredential|FederatedCredential|string;
     cache?: string;
     redirect?: string;
     integrity?: string;
@@ -56,7 +57,7 @@ interface CMRequestInit {
  * interface.
  */
 interface Navigator {
-    credentials?: CredentialsContainer;
+    readonly credentials: CredentialsContainer;
 }
 
 /**
@@ -72,7 +73,7 @@ interface CredentialsContainer {
      *     return.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get}
      */
-    get(options?: CredentialRequestOptions): Promise<Credential|null>;
+    get(options?: CredentialRequestOptions): Promise<CredentialType|null>;
 
     /**
      * Ask the credential manager to store a {@link Credential} for the user.
@@ -81,14 +82,14 @@ interface CredentialsContainer {
      *
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-store}
      */
-    store(credential: Credential): Promise<Credential>;
+    store(credential: CredentialType): Promise<CredentialType>;
 
     /**
      * Create a {@link Credential} asynchronously.
      *
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-create}
      */
-    create(options: CredentialCreationOptions): Promise<Credential|null>;
+    create(options: CredentialCreationOptions): Promise<CredentialType|null>;
 
     /**
      * Ask the credential manager to require user mediation before returning
@@ -125,7 +126,7 @@ interface CredentialData {
     id: string;
 }
 
-type Credential = PasswordCredential|FederatedCredential|PublicKeyCredential;
+type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -279,11 +280,6 @@ declare class FederatedCredential extends SiteBoundCredential {
 }
 
 /**
- * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#enumdef-credentialmediationrequirement}
- */
-type CredentialMediationRequirement = 'silent'|'optional'|'required';
-
-/**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
  */
 interface CredentialRequestOptions {
@@ -311,12 +307,17 @@ interface CredentialRequestOptions {
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: CredentialMediationRequirement;
+    mediation?: 'silent' | 'optional' | 'required';
 
     /**
      * This property specifies options for requesting a public-key signature.
      */
     publicKey?: PublicKeyCredentialRequestOptions;
+
+    /**
+     * This property lets the developer abort an ongoing get() operation.
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -345,6 +346,10 @@ interface CredentialCreationOptions {
      * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
      */
     publicKey?: PublicKeyCredentialCreationOptions;
+    /**
+     * @see {@link https://w3c.github.io/webappsec-credential-management/#dom-credentialrequestoptions-signal}
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -382,9 +387,9 @@ type UserVerificationRequirement = "required" | "preferred" | "discouraged";
  */
 interface PublicKeyCredentialRequestOptions {
     challenge: BufferSource;
-    timeout: number;
-    rpId: string;
-    allowCredentials: PublicKeyCredentialDescriptor[];
+    timeout?: number;
+    rpId?: string;
+    allowCredentials?: PublicKeyCredentialDescriptor[];
     userVerification?: UserVerificationRequirement;
     extensions?: any;
 }
@@ -484,7 +489,7 @@ interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
 interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
-    readonly userHandle: ArrayBuffer;
+    readonly userHandle: ArrayBuffer | null;
 }
 
 /**

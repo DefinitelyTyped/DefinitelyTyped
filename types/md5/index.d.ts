@@ -11,7 +11,7 @@
  * @param {(string | Buffer)} message - a string or buffer to hash
  * @returns {string} the resultant MD5 hash of the given message
  */
-declare function md5(message: string | Buffer): string;
+declare function md5(message: string | Buffer | Array<number>): string;
 
 declare namespace md5 {}
 

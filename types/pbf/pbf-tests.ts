@@ -2,6 +2,7 @@ import Pbf = require('pbf');
 
 const pbf = new Pbf(new Uint8Array(1));
 new Pbf();
+new Pbf(new ArrayBuffer(8));
 pbf.buf;
 pbf.pos;
 pbf.type;

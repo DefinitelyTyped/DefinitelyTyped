@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Provider } from "ethereum-protocol";
+import { Provider } from 'ethereum-protocol';
 export interface GanacheOpts {
     verbose?: boolean;
     logger?: {
@@ -15,5 +15,7 @@ export interface GanacheOpts {
     networkId?: number;
     mnemonic?: string;
     gasLimit?: number;
+    vmErrorsOnRPCResponse?: boolean;
+    db_path?: string;
 }
 export function provider(opts: GanacheOpts): Provider;

@@ -25,7 +25,7 @@ export interface Options {
     sourceDir?: string;
     watch?: boolean;
     watchIgnoreDotFiles?: boolean;
-    watchIgnorePatters?: string[];
+    watchIgnorePatterns?: string[];
     watchDirectory?: string;
     spawnWith?: SpawnWith;
     env?: NodeJS.ProcessEnv;

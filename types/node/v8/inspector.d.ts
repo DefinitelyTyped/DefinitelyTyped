@@ -244,7 +244,7 @@ declare module "inspector" {
          */
         export interface CallArgument {
             /**
-             * Primitive value.
+             * Primitive value or serializable javascript object.
              */
             value?: any;
             /**
@@ -416,7 +416,7 @@ declare module "inspector" {
              */
             userGesture?: boolean;
             /**
-             * Whether execution should wait for promise to be resolved. If the result of evaluation is not a Promise, it's considered to be an error.
+             * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
              */
             awaitPromise?: boolean;
         }
@@ -468,7 +468,7 @@ declare module "inspector" {
              */
             userGesture?: boolean;
             /**
-             * Whether execution should wait for promise to be resolved. If the result of evaluation is not a Promise, it's considered to be an error.
+             * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
              */
             awaitPromise?: boolean;
         }
@@ -561,9 +561,16 @@ declare module "inspector" {
              */
             generatePreview?: boolean;
             /**
-             * Whether execution should wait for promise to be resolved. If the result of evaluation is not a Promise, it's considered to be an error.
+             * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
              */
             awaitPromise?: boolean;
+        }
+
+        export interface QueryObjectsParameterType {
+            /**
+             * Identifier of the prototype to return objects for.
+             */
+            prototypeObjectId: Runtime.RemoteObjectId;
         }
 
         export interface EvaluateReturnType {
@@ -634,6 +641,13 @@ declare module "inspector" {
              * Exception details.
              */
             exceptionDetails?: Runtime.ExceptionDetails;
+        }
+
+        export interface QueryObjectsReturnType {
+            /**
+             * Array with objects.
+             */
+            objects: Runtime.RemoteObject;
         }
 
         export interface ExecutionContextCreatedEventDataType {
@@ -1476,6 +1490,10 @@ declare module "inspector" {
              * Collect accurate call counts beyond simple 'covered' or 'not covered'.
              */
             callCount?: boolean;
+            /**
+             * Collect block-based coverage.
+             */
+            detailed?: boolean;
         }
 
         export interface StopReturnType {
@@ -1749,6 +1767,12 @@ declare module "inspector" {
          */
         post(method: "Runtime.runScript", params?: Runtime.RunScriptParameterType, callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
         post(method: "Runtime.runScript", callback?: (err: Error | null, params: Runtime.RunScriptReturnType) => void): void;
+
+        /**
+         * @experimental
+         */
+        post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType, callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
+        post(method: "Runtime.queryObjects", callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
         /**
          * Enables debugger for the given page. Clients should not assume that the debugging has been enabled until the result for this command is received.
          */
@@ -2482,7 +2506,7 @@ declare module "inspector" {
     export function close(): void;
 
     /**
-     * Return the URL of the active inspector, or undefined if there is none.
+     * Return the URL of the active inspector, or `undefined` if there is none.
      */
-    export function url(): string;
+    export function url(): string | undefined;
 }

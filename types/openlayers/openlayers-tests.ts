@@ -175,7 +175,7 @@ loadingStrategy = ol.loadingstrategy.tile(tilegrid);
 // ol.geom.Circle
 //
 booleanValue = circle.intersectsExtent(extent);
-circle = <ol.geom.Circle> circle.transform(projectionLike, projectionLike);
+circle = circle.transform(projectionLike, projectionLike) as ol.geom.Circle;
 
 //
 //
@@ -418,6 +418,14 @@ feature.setStyle(styleArray);
 feature.setStyle(featureStyleFunction);
 feature.setStyle(styleFunction);
 feature.setProperties(object);
+const nullStyleFunction = (feature: (ol.Feature|ol.render.Feature), resolution: number): null => {
+    return null;
+};
+const nullFeatureStyleFunction = (resolution: number): null => {
+  return null;
+};
+feature.setStyle(nullStyleFunction);
+feature.setStyle(nullFeatureStyleFunction);
 
 //
 // ol.View
@@ -572,6 +580,10 @@ const vectorLayer: ol.layer.Vector = new ol.layer.Vector({
     source: new ol.source.Vector(),
     zIndex: -1
 });
+
+vectorLayer.setStyle(nullStyleFunction);
+vectorLayer.setStyle(null);
+vectorLayer.setStyle(undefined);
 
 //
 // ol.layer.VectorTile
@@ -990,20 +1002,24 @@ let draw: ol.interaction.Draw = new ol.interaction.Draw({
     geometryName: stringValue,
     condition: ol.events.condition.never,
     freehandCondition: ol.events.condition.never,
-    wrapX: booleanValue
+    wrapX: booleanValue,
+    stopClick: booleanValue
 });
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleArray
+    style: styleArray,
+    stopClick: booleanValue
 });
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleFunction
+    style: styleFunction,
+    stopClick: booleanValue
 });
 const styleFunctionAsStyle = (feature: ol.Feature, resolution: number): ol.style.Style => style;
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleFunctionAsStyle
+    style: styleFunctionAsStyle,
+    stopClick: booleanValue
 });
 ol.interaction.Draw.createBox();
 ol.interaction.Draw.createRegularPolygon();
@@ -1017,8 +1033,21 @@ ol.interaction.defaults({
 const styleFunctionAsArray = (feature: ol.Feature, resolution: number): ol.style.Style[] => styleArray;
 draw = new ol.interaction.Draw({
     type: "Point",
-    style: styleFunctionAsArray
+    style: styleFunctionAsArray,
+    stopClick: booleanValue
 });
+
+const itExtent = new ol.interaction.Extent({
+    extent: [10, 10, 20 , 20],
+    boxStyle: style,
+    pixelTolerance: 10,
+    pointerStyle: style,
+    wrapX: true
+});
+
+itExtent.setMap(map);
+itExtent.getExtent();
+itExtent.setExtent([20, 20, 30, 30]);
 
 const dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,

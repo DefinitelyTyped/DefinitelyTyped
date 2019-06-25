@@ -13,6 +13,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "d3": [ "d3/v3" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -20,6 +23,7 @@
     },
     "files": [
         "index.d.ts",
+        "factory.d.ts",
         "react-plotly.js-tests.tsx"
     ]
 }

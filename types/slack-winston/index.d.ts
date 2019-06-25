@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as winston from 'winston';
+import Transport = require("winston-transport");
 
-export interface SlackTransportOptions extends winston.WinstonModuleTransportOptions {
+export interface SlackTransportOptions extends Transport.TransportStreamOptions {
   domain: string;
   token: string;
   webhook_url: string;
@@ -18,6 +18,6 @@ export interface SlackTransportOptions extends winston.WinstonModuleTransportOpt
   queueDelay?: number;
 }
 
-export class Slack extends winston.Transport implements winston.TransportInstance {
+export class Slack extends Transport {
   constructor(options?: SlackTransportOptions);
 }

@@ -25,6 +25,7 @@ declare namespace BPMNModdle {
 
     interface TypeDerived {
         $type: ElementType;
+        $parent: TypeDerived;
     }
     interface BaseElement extends TypeDerived {
         /**

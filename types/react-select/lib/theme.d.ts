@@ -1,3 +1,4 @@
+import { Theme } from './types';
 export const borderRadius: number;
 
 export const colors: {
@@ -51,3 +52,7 @@ export const spacing: {
   /* The amount of space between the control and menu */
   menuGutter: number,
 };
+
+export const defaultTheme: Theme;
+
+export type ThemeConfig = Theme | ((theme: Theme) => Theme);

@@ -1,5 +1,5 @@
 import winston = require('winston');
-import { SyslogTransportOptions } from 'winston-syslog';
+import { Syslog, SyslogTransportOptions } from 'winston-syslog';
 
 const str = "";
 const bool  = true;
@@ -16,20 +16,15 @@ const syslogOptions: SyslogTransportOptions = {
     localhost: str,
     type: str,
     app_name: str,
-    eol: str,
-    json: bool,
-    colorize: bool,
-    colors: str,
-    prettyPrint: bool,
-    showLevel: bool,
-    label: str,
-    depth: num,
+    eol: str
 };
 
-winston.add(winston.transports.Syslog, syslogOptions);
+const syslogTransport = new Syslog(syslogOptions);
 
-const logger: winston.LoggerInstance = new (winston.Logger)({
+winston.add(syslogTransport);
+
+const logger: winston.Logger = winston.createLogger({
   transports: [
-    new (winston.transports.Syslog)(syslogOptions),
+    syslogTransport
   ]
 });

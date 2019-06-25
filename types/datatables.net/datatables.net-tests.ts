@@ -578,7 +578,7 @@ $('#example tbody').on('click', 'td', () => {
 
 const cell_invalidate_1 = cell.invalidate();
 const cell_invalidate_2 = cell.invalidate("data");
-$('#example tbody').on('click', 'td', () => {
+$('#example tbody').on('click', 'td', function()  {
     this.innerHTML = (parseInt(this.innerHTML, 10) + 1).toString();
     dt.cell(this).invalidate().draw();
 });
@@ -615,7 +615,7 @@ dt.columns('.select-filter').eq(0).each((colIdx: any) => {
     // Create the select list and search operation
     const select = $('<select />')
         .appendTo(
-        dt.column(colIdx).footer()
+            dt.column(colIdx).footer()
         )
         .on('change', () => {
             dt
@@ -656,8 +656,8 @@ $('#listData').html(
 const columns_dataSrc = columns.dataSrc();
 // alert('Data source: ' + dt.columns([0, 1]).dataSrc().join(' '));
 
-const columns_footer = columns.footer();
-const columns_header = columns.header();
+const columns_footer: HTMLElement = columns.footer();
+const columns_header: HTMLElement = columns.header();
 let columns_indexes = columns.indexes();
 columns_indexes = columns.indexes("visibile");
 const columns_nodes = columns.nodes();
@@ -674,7 +674,7 @@ columns_search_set = columns.search("string", true);
 columns_search_set = columns.search("string", true, false);
 columns_search_set = columns.search("string", true, false, true);
 
-const columns_visible_get = columns.visible();
+const columns_visible_get: boolean = columns.visible();
 let columns_visible_set = columns.visible(false);
 columns_visible_set = columns.visible(false, true);
 // Hide a column
@@ -690,8 +690,8 @@ column = dt.column("selector", modifier);
 dt.column(0).visible(false);
 
 $('#example tbody').on('click', 'td', () => {
-    const visIdx = $(this).index();
-    const dataIdx = dt.column.index('fromVisible', visIdx);
+    const visIdx: number = $(this).index();
+    const dataIdx: number = dt.column.index('fromVisible', visIdx);
     alert('Column data index:');
 });
 
@@ -699,7 +699,7 @@ const column_cache = column.cache("order");
 // Create the select list and search operation
 const select = $('<select />')
     .appendTo(
-    dt.column(0).footer()
+        dt.column(0).footer()
     )
     .on('change', () => {
         dt
@@ -735,7 +735,7 @@ $('#example').on('click', 'tbody td', () => {
     alert('Data source: ' + dt.column(idx).dataSrc());
 });
 
-const column_footer = column.footer();
+const column_footer: HTMLElement = column.footer();
 const column_p = dt.column(0);
 // $(column.footer()).html(
 //    column_p
@@ -745,15 +745,15 @@ const column_p = dt.column(0);
 //    })
 //    );
 
-const column_header = column.header();
+const column_header: HTMLElement = column.header();
 $('#example tbody').on('click', 'td', function() {
     const idx = dt.cell(this).index().column;
-    const title = dt.column(idx).header();
+    const title: HTMLElement = dt.column(idx).header();
 
     alert('Column title clicked on: ' + $(title).html());
 });
 
-let column_index = column.index();
+let column_index: number = column.index();
 column_index = column.index("visibile");
 dt.column(0).visible(false);
 
@@ -762,18 +762,16 @@ alert(idx); // will show 0
 
 dt.column('0:visible').order('asc');
 
-const column_nodes = column.nodes();
-dt.column(-1)
-    .nodes();
-// .to$()      // Convert to a jQuery object
-// .addClass('ready');
+const column_nodes: DataTables.Api = column.nodes();
+column_nodes.to$()      // Convert to a jQuery object
+            .addClass('ready');
 
 const column_search_get = column.search();
 let column_search_set = column.search("string");
 column_search_set = column.search("string", true);
 column_search_set = column.search("string", true, false);
 column_search_set = column.search("string", true, false, true);
-$('#column3_search').on('keyup', () => {
+$('#column3_search').on('keyup', function() {
     dt
         .columns(3)
         .search((this as HTMLInputElement).value)
@@ -784,7 +782,7 @@ dt.columns('.select-filter').eq(0).each((colIdx: any) => {
     // Create the select list and search operation
     const select = $('<select />')
         .appendTo(
-        dt.column(colIdx).footer()
+            dt.column(colIdx).footer()
         )
         .on('change', function() {
             dt

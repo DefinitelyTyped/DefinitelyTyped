@@ -1,9 +1,13 @@
 // Type definitions for DOM Purify
 // Project: https://github.com/cure53/DOMPurify
-// Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>
+// Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>, FlowCrypt <https://github.com/FlowCrypt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace DOMPurify;
+
+export declare let version: string;
+export declare let removed: any[];
+export declare let isSupported: boolean;
 
 export declare function sanitize(source: string | Node): string;
 export declare function sanitize(source: string | Node, config: Config & { RETURN_DOM_FRAGMENT?: false; RETURN_DOM?: false; }): string;
@@ -13,6 +17,12 @@ export declare function sanitize(source: string | Node, config: Config): string 
 export declare function addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void): void;
 export declare function addHook(hook: 'uponSanitizeAttribute', cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => void): void;
 export declare function addHook(hook: HookName, cb: (currentNode: Element, data: HookEvent, config: Config) => void): void;
+export declare function setConfig(cfg: Config): void;
+export declare function clearConfig(): void;
+export declare function isValidAttribute(tag: string, attr: string, value: string): boolean;
+export declare function removeHook(entryPoint: HookName): void;
+export declare function removeHooks(entryPoint: HookName): void;
+export declare function removeAllHooks(): void;
 
 interface Config {
     ADD_ATTR?: string[];
@@ -30,6 +40,11 @@ interface Config {
     SAFE_FOR_JQUERY?: boolean;
     SANITIZE_DOM?: boolean;
     WHOLE_DOCUMENT?: boolean;
+    ALLOWED_URI_REGEXP?: RegExp;
+    SAFE_FOR_TEMPLATES?: boolean;
+    ALLOW_UNKNOWN_PROTOCOLS?: boolean;
+    USE_PROFILES?: false | {mathMl?: boolean, svg?: boolean, svgFilters?: boolean, html?: boolean};
+    IN_PLACE?: boolean;
 }
 
 type HookName

@@ -62,7 +62,7 @@ export interface Styles {
   option?: styleFn;
   placeholder?: styleFn;
   singleValue?: styleFn;
-  valueContainer: styleFn;
+  valueContainer?: styleFn;
 }
 export type StylesConfig = Partial<Styles>;
 export type GetStyles = (a: string, b: Props) => CSSProperties;

@@ -31,19 +31,48 @@ tld.getPublicSuffix('fr.google.com'); // returns `com`
 tld.getPublicSuffix('google.co.uk'); // returns `co.uk`
 tld.getPublicSuffix('s3.amazonaws.com'); // returns `s3.amazonaws.com`
 
-tld.isValid('google.com'); // returns `true`
-tld.isValid('.google.com'); // returns `false`
-tld.isValid('my.fake.domain'); // returns `true`
-tld.isValid('localhost'); // returns `false`
-tld.isValid('https://user:password@example.co.uk:8080/some/path?and&query#hash'); // returns `true`
+tld.isValidHostname('google.com'); // returns `true`
+tld.isValidHostname('.google.com'); // returns `false`
+tld.isValidHostname('my.fake.domain'); // returns `true`
+tld.isValidHostname('localhost'); // returns `false`
+tld.isValidHostname('https://user:password@example.co.uk:8080/some/path?and&query#hash'); // returns `true`
 
-// You'll need to use this import syntax to set valid hosts
-import tld2 = require('tldjs');
+tld.extractHostname('https://www.npmjs.com/package/tldjs') // returns 'www.npmjs.com'
 
-tld2.getDomain('localhost');           // returns null
-tld2.getSubdomain('vhost.localhost');  // returns null
+tld.parse('https://spark-public.s3.amazonaws.com/dataanalysis/loansData.csv');
+// { hostname: 'spark-public.s3.amazonaws.com',
+//   isValid: true,
+//   isIp: false,
+//   tldExists: true,
+//   publicSuffix: 's3.amazonaws.com',
+//   domain: 'spark-public.s3.amazonaws.com',
+//   subdomain: ''
+// }
 
-tld2.validHosts = ['localhost'];
+tld.parse('gopher://domain.unknown/');
+// { hostname: 'domain.unknown',
+//   isValid: true,
+//   isIp: false,
+//   tldExists: false,
+//   publicSuffix: 'unknown',
+//   domain: 'domain.unknown',
+//   subdomain: ''
+// }
+
+tld.parse('https://192.168.0.0')
+// { hostname: '192.168.0.0',
+//   isValid: true,
+//   isIp: true,
+//   tldExists: false,
+//   publicSuffix: null,
+//   domain: null,
+//   subdomain: null
+// }
+
+tld.getDomain('localhost');           // returns null
+tld.getSubdomain('vhost.localhost');  // returns null
+
+const tld2 = tld.fromUserSettings({ validHosts: ['localhost'] });
 
 tld2.getDomain('localhost');           // returns 'localhost'
 tld2.getSubdomain('vhost.localhost');  // returns 'vhost'

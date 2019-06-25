@@ -1,13 +1,10 @@
+import * as baseX from 'base-x';
 
-import * as basex from 'base-x';
+const BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+const bs58 = baseX(BASE58);
 
-let bs16 = basex('0123456789ABCDEF');
+const decoded = bs58.decode('5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr');
+decoded; // $ExpectType Buffer
+bs58.decodeUnsafe('5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr'); // $ExpectType Buffer | undefined
 
-{
-	let encoded: string;
-
-	encoded = bs16.encode([255]);
-	encoded = bs16.encode({0: 255, length: 1});
-}
-
-let decoded: number[] = bs16.decode('FF');
+bs58.encode(decoded); // $ExpectType string

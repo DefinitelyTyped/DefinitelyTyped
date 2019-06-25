@@ -245,6 +245,9 @@ Q.try(() => {
 })
 	.catch((error) => console.error("Couldn't sync to the cloud", error));
 
+// ensure Q.Promise is compatible with PromiseLike
+const p7: PromiseLike<void> = Q.Promise<void>((resolve) => resolve());
+
 // thenReject, returning a Promise of the same type as the Promise it is called on
 function thenRejectSameType(arg: any): Q.Promise<number> {
 	if (!arg) {

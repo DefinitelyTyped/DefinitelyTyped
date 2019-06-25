@@ -5,6 +5,7 @@
         "array-type": false,
         "ban-types": false,
         "dt-header": false,
+        "npm-naming": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -17,6 +18,7 @@
         "space-before-function-paren": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
-        "whitespace": false
+        "whitespace": false,
+        "no-trailing-whitespace": false
     }
 }

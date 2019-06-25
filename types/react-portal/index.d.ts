@@ -25,7 +25,7 @@ export interface PortalWithStateProps extends React.Props<any> {
     children: (params: PortalFunctionParams) => React.ReactNode;
     node?: Element | null;
     defaultOpen?: boolean;
-    openByClickOn?: React.ReactElement<any>;
+    openByClickOn?: React.ReactElement;
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     onOpen?(): void;

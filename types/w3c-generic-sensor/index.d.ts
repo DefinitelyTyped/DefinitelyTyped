@@ -1,12 +1,10 @@
-// Type definitions for W3C Generic Sensor API 1.0
+// Type definitions for non-npm package W3C Generic Sensor API 1.0
 // Project: https://www.w3.org/TR/generic-sensor/
 // Definitions by: Kenneth Rohde Christiansen <https://github.com/kenchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 // Explainer: https://www.w3.org/TR/motion-sensors/
-
-/// <reference types="geometry-dom" />
 
 declare class SensorErrorEvent extends Event {
     constructor(type: string, errorEventInitDict: SensorErrorEventInit);
@@ -82,7 +80,7 @@ declare class UncalibratedMagnetometer extends Sensor {
 
 // Orientation Sensor: https://www.w3.org/TR/orientation-sensor/
 
-type RotationMatrixType = Float32Array | Float64Array | GeometryDom.DOMMatrix;
+type RotationMatrixType = Float32Array | Float64Array | DOMMatrix;
 
 declare class OrientationSensor extends Sensor {
     readonly quaternion?: number[];

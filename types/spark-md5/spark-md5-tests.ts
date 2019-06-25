@@ -11,8 +11,7 @@ let hexHash = spark.end();
 let rawHash = spark.end(true);
 
 const sparkArr = new SparkMD5.ArrayBuffer();
-sparkArr.append('Hi');
-sparkArr.append(' there');
+sparkArr.append(new ArrayBuffer(8));
 hexHash = sparkArr.end();
 rawHash = sparkArr.end(true);
 

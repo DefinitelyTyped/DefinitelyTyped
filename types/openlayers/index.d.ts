@@ -1,14 +1,14 @@
 // Type definitions for OpenLayers 4.6
-// Project: http://openlayers.org/
+// Project: https://openlayers.org
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
-//                 Junyoung Clare Jang <https://github.com/ailrun>
 //                 Alexandre Melard <https://github.com/mylen>
 //                 Chad Johnston <https://github.com/iamthechad>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Yair Tawil <https://github.com/yairtawil>
 //                 Pierre Marchand <https://github.com/pierremarc>
 //                 Hauke Stieler <https://github.com/hauke96>
+//                 Guillaume Beraudo <https://github.com/gberaudo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -1715,7 +1715,7 @@ export class Feature extends Object {
      * representing the current style of this feature.
      * @api stable
      */
-    getStyleFunction(): (ol.FeatureStyleFunction);
+    getStyleFunction(): (ol.FeatureStyleFunction | undefined);
 
     /**
      * Set the default geometry for the feature.  This will update the property
@@ -5348,6 +5348,75 @@ export namespace interaction {
         static createRegularPolygon(opt_sides?: number, opt_angle?: number): ol.DrawGeometryFunctionType;
     }
 
+    namespace Extent {
+        /**
+         * @classdesc
+         * Events emitted by {@link ol.interaction.Extent} instances are instances of
+         * this type.
+         *
+         * @param extent the new extent
+         */
+        class Event extends events.Event {
+            /**
+             * @classdesc
+             * Events emitted by {@link ol.interaction.Extent} instances are instances of
+             * this type.
+             *
+             * @param type Type.
+             * @param feature The feature drawn.
+             */
+            constructor(type: ExtentEventType, extent: ol.Extent);
+
+            /**
+             * The current extent.
+             * @api stable
+             */
+            extent: ol.Extent;
+        }
+    }
+
+    type ExtentEventType = string;
+
+    /**
+     * @classdesc
+     * Allows the user to draw a vector box by clicking and dragging on the map.
+     * Once drawn, the vector box can be modified by dragging its vertices or edges.
+     * This interaction is only supported for mouse devices.
+     *
+     * @fires ol.interaction.Extent.Event
+     * @param options Options.
+     * @api stable
+     */
+    class Extent extends Pointer {
+        /**
+         * @fires ol.interaction.Extent.Event
+         * @param options Options.
+         * @api stable
+         */
+        constructor(options: olx.interaction.ExtentOptions);
+
+        /**
+         * @inheritDoc
+         */
+        setMap(map: ol.Map): void;
+
+        /**
+         * Returns the current drawn extent in the view projection
+         *
+         * @return Drawn extent in the view projection.
+         * @api
+         */
+        getExtent(): ol.Extent;
+
+        /**
+         * Manually sets the drawn extent, using the view projection.
+         *
+         * @param extent Extent
+         * @api
+         */
+        setExtent(extent: ol.Extent): void;
+    }
+
     /**
      * Set of interactions included in maps by default. Specific interactions can be
      * excluded by setting the appropriate option to false in the constructor
@@ -6412,7 +6481,7 @@ export namespace layer {
          * @return Layer style function.
          * @api stable
          */
-        getStyleFunction(): (ol.StyleFunction);
+        getStyleFunction(): (ol.StyleFunction | undefined);
 
         /**
          * Set the style for features.  This can be a single style object, an array
@@ -6424,7 +6493,7 @@ export namespace layer {
          * @param style Layer style.
          * @api stable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction | null)): void;
+        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction | null | undefined)): void;
     }
 
     /**
@@ -8472,7 +8541,7 @@ export namespace source {
          * @return Layer style function.
          * @api stable
          */
-        getStyleFunction(): (ol.StyleFunction);
+        getStyleFunction(): (ol.StyleFunction | undefined);
 
         /**
          * Set the style for features.  This can be a single style object, an array
@@ -8484,7 +8553,7 @@ export namespace source {
          * @param style Layer style.
          * @api stable
          */
-        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction)): void;
+        setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction | null | undefined)): void;
     }
 
     /**
@@ -10831,7 +10900,7 @@ export type FeatureLoader = (extent: ol.Extent, resolution: number, proj: ol.pro
  * {@link ol.Feature} to be styled.
  *
  */
-export type FeatureStyleFunction = (resolution: number) => (ol.style.Style | ol.style.Style[]);
+export type FeatureStyleFunction = (resolution: number) => (ol.style.Style | ol.style.Style[] | null);
 
 /**
  * {@link ol.source.Vector} sources use a function of this type to get the url
@@ -10981,7 +11050,7 @@ export interface StyleImageOptions {
  * or an array of them. This way e.g. a vector layer can be styled.
  *
  */
-export type StyleFunction = (feature: (ol.Feature | ol.render.Feature), resolution: number) => (ol.style.Style | ol.style.Style[]);
+export type StyleFunction = (feature: (ol.Feature | ol.render.Feature), resolution: number) => (ol.style.Style | ol.style.Style[] | null);
 
 /**
  * A function that takes an {@link ol.Feature} as argument and returns an
@@ -11785,6 +11854,15 @@ export namespace olx {
             freehandCondition?: ol.EventsConditionType;
             freehand?: boolean;
             wrapX?: boolean;
+            stopClick?: boolean;
+        }
+
+        interface ExtentOptions {
+            extent?: ol.Extent;
+            boxStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            pixelTolerance?: number;
+            pointerStyle?: (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+            wrapX?: boolean;
         }
 
         interface TranslateOptions {
@@ -12493,6 +12571,7 @@ export namespace olx {
         renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
         view?: ol.View;
+        moveTolerance?: number;
     }
 
     /**

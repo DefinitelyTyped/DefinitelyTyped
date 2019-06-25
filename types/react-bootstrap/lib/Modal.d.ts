@@ -19,6 +19,7 @@ declare namespace Modal {
         backdropStyle?: any;
         backdropTransitionTimeout?: number;
         bsSize?: Sizes;
+        bsClass?: string;
         container?: any; // TODO: Add more specific type
         containerClassName?: string;
         dialogClassName?: string;
@@ -30,7 +31,7 @@ declare namespace Modal {
         onEscapeKeyUp?: (node: HTMLElement) => any;
         onShow?: (node: HTMLElement) => any;
         show?: boolean;
-        transition?: React.ReactElement<any>;
+        transition?: React.ReactElement;
     }
 }
 declare class Modal extends React.Component<Modal.ModalProps> {

@@ -1,7 +1,8 @@
-// Type definitions for rdflib 0.17
-// Project: https://github.com/linkeddata/rdflib.js
+// Type definitions for rdflib 0.20
+// Project: http://github.com/linkeddata/rdflib.js
 // Definitions by: Cénotélie <https://github.com/cenotelie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 // Acknowledgements: This work has been financed by Logilab SA, FRANCE, logilab.fr
 
 /**
@@ -739,6 +740,10 @@ export class IndexedFormula extends Formula {
      */
     length: number;
     /**
+     * An UpdateManager initialised to this store
+     */
+    updater?: UpdateManager;
+    /**
      * Creates a new formula
      * @param features The list of features to support
      */
@@ -756,11 +761,11 @@ export class IndexedFormula extends Formula {
      * @param justOne Whether to only get one statement
      */
     statementsMatching(
-        subj: Node,
-        pred: Node,
-        obj: Node,
-        why: Node,
-        justOne: boolean
+        subj: Node | null,
+        pred: Node | null,
+        obj: Node | null,
+        why: Node | null,
+        justOne?: boolean
     ): Statement[];
     /**
      * Adds all the statements to this formula
@@ -821,6 +826,10 @@ export class IndexedFormula extends Formula {
      * @param uri The URI to look for
      */
     mentionsURI(uri: string): boolean;
+    /**
+     * Dictionary of namespace prefixes
+     */
+    namespaces: {[key: string]: string};
     /**
      * Existentials are BNodes - something exists without naming
      * @param uri An URI
@@ -1019,6 +1028,46 @@ export interface Handler {
     response: any;
     dom: any;
 }
+export interface FetchOptions {
+    fetch?: typeof fetch;
+    /**
+     * The resource which referred to this (for tracking bad links).
+     */
+    referringTerm?: NamedNode;
+    /**
+     * Provided content type (for writes).
+     */
+    contentType?: string;
+    /**
+     * Override the incoming header to force the data to be treated as this content-type (for reads).
+     */
+    forceContentType?: string;
+    /**
+     * Load the data even if loaded before. Also sets the `Cache-Control:` header to `no-cache`.
+     */
+    force?: boolean;
+    /**
+     * Original uri to preserve through proxying etc (`xhr.original`).
+     */
+    baseUri?: Node | string;
+    /**
+     * Whether this request is a retry via a proxy (generally done from an error handler).
+     */
+    proxyUsed?: boolean;
+    /**
+     * Flag for XHR/CORS etc
+     */
+    withCredentials?: boolean;
+    /**
+     * Before we parse new data, clear old, but only on status 200 responses.
+     */
+    clearPreviousData?: boolean;
+    /**
+     * Prevents the addition of various metadata triples (about the fetch request) to the store.
+     */
+    noMeta?: boolean;
+    noRDFa?: boolean;
+}
 /**
  * Responsible for fetching RDF data
  */
@@ -1043,6 +1092,11 @@ export class Fetcher {
     static CONTENT_TYPE_BY_EXT: {
         [ext: string]: string;
     };
+    /**
+     * Loads a web resource or resources into the store.
+     * @param uri Resource to load, provided either as a NamedNode object or a plain URL. If multiple resources are passed as an array, they will be fetched in parallel.
+     */
+    load: (uri: NamedNode[] | string[] | NamedNode | string, options?: FetchOptions) => Promise<Response>;
 }
 /**
  * Gets a node for the specified input
@@ -1087,9 +1141,9 @@ export function lit(val: string, lang: string, dt: NamedNode): Literal;
  * @param graph The containing graph
  */
 export function st(
-    subject: Node,
+    subject: Node | Date | string,
     predicate: Node,
-    object: Node,
+    object: Node | Date | string,
     graph: Node
 ): Statement;
 /**
@@ -1167,3 +1221,43 @@ export function parse(
  * Get the next available unique identifier
  */
 export let NextId: number;
+
+/**
+ * The update manager is a helper object for a store.
+ * Just as a Fetcher provides the store with the ability to read and write, the Update Manager provides functionality for making small patches in real time,
+ * and also looking out for concurrent updates from other agents.
+ */
+export class UpdateManager {
+    /**
+     * @param store The quadstore to store data and metadata. Created if not passed.
+     */
+    constructor(store?: IndexedFormula)
+
+    /**
+     * This is suitable for an initial creation of a document.
+     * @param document
+     * @param data
+     * @param contentType
+     * @param callback
+     */
+    put(
+        document: Node,
+        data: string | Statement[],
+        contentType: string,
+        callback: (uri: string, ok: boolean, errorMessage: string, response?: unknown) => void,
+    ): Promise<void>;
+
+    /**
+     * This high-level function updates the local store iff the web is changed successfully.
+     * Deletions, insertions may be undefined or single statements or lists or formulae (may contain bnodes which can be indirectly identified by a where clause).
+     * The `why` property of each statement must be the same and give the web document to be updated.
+     * @param statementsToDelete Statement or statements to be deleted.
+     * @param statementsToAdd Statement or statements to be inserted.
+     * @param callback
+     */
+    update(
+        statementsToDelete: Statement[],
+        statementsToAdd: Statement[],
+        callback: (uri: string | undefined, success: boolean, errorBody?: string) => void
+    ): void;
+}

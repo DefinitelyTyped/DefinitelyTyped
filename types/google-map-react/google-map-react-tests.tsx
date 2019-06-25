@@ -13,6 +13,17 @@ const options: MapOptions = {
             featureType: "administrative",
             elementType: "all",
             stylers: [ {saturation: "-100"} ]
+        },
+        {
+            featureType: "administrative.neighborhood",
+            stylers: [ {visibility: "off" } ]
+        },
+        {
+            elementType: "labels.text.stroke",
+            stylers: [ {color: "#242f3e"} ]
+        },
+        {
+            stylers: [ {color: "#fcfffd"} ]
         }
     ],
 };

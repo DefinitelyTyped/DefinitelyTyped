@@ -3,6 +3,7 @@
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /**
  * Webpack module API - variables and global functions available inside modules
@@ -32,7 +33,7 @@ declare namespace __WebpackModuleApi {
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
         ensure(paths: string[], callback: (require: NodeRequire) => void, errorCallback?: (error: any) => void, chunkName?: string): void;
-        context(path: string, deep?: boolean, filter?: RegExp): RequireContext;
+        context(path: string, deep?: boolean, filter?: RegExp, mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once"): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          *
@@ -68,19 +69,66 @@ declare namespace __WebpackModuleApi {
     }
     type ModuleId = string|number;
 
+    interface HotNotifierInfo {
+        type:
+          | 'self-declined'
+          | 'declined'
+          | 'unaccepted'
+          | 'accepted'
+          | 'disposed'
+          | 'accept-errored'
+          | 'self-accept-errored'
+          | 'self-accept-error-handler-errored';
+        /**
+         * The module in question.
+         */
+        moduleId: number;
+        /**
+         * For errors: the module id owning the accept handler.
+         */
+        dependencyId?: number;
+        /**
+         * For declined/accepted/unaccepted: the chain from where the update was propagated.
+         */
+        chain?: number[];
+        /**
+         * For declined: the module id of the declining parent
+         */
+        parentId?: number;
+        /**
+         * For accepted: the modules that are outdated and will be disposed
+         */
+        outdatedModules?: number[];
+        /**
+         * For accepted: The location of accept handlers that will handle the update
+         */
+        outdatedDependencies?: {
+          [dependencyId: number]: number[];
+        };
+        /**
+         * For errors: the thrown error
+         */
+        error?: Error;
+        /**
+         * For self-accept-error-handler-errored: the error thrown by the module
+         * before the error handler tried to handle it.
+         */
+        originalError?: Error;
+      }
+
     interface Hot {
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependencies
          * @param callback
          */
-        accept(dependencies: string[], callback: (updatedDependencies: ModuleId[]) => void): void;
+        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
          * @param callback
          */
-        accept(dependency: string, callback: () => void): void;
+        accept(dependency: string, callback?: () => void): void;
         /**
          * Accept code updates for this module without notification of parents.
          * This should only be used if the module doesn’t export anything.
@@ -180,6 +228,34 @@ declare namespace __WebpackModuleApi {
          * If true the update process continues even if some modules are not accepted (and would bubble to the entry point).
          */
         ignoreUnaccepted?: boolean;
+        /**
+         * Ignore changes made to declined modules.
+         */
+        ignoreDeclined?: boolean;
+        /**
+         *  Ignore errors throw in accept handlers, error handlers and while reevaluating module.
+         */
+        ignoreErrored?: boolean;
+        /**
+         * Notifier for declined modules.
+         */
+        onDeclined?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for unaccepted modules.
+         */
+        onUnaccepted?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for accepted modules.
+         */
+        onAccepted?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for disposed modules.
+         */
+        onDisposed?: (info: HotNotifierInfo) => void;
+        /**
+         * Notifier for errors.
+         */
+        onErrored?: (info: HotNotifierInfo) => void;
         /**
          * Indicates that apply() is automatically called by check function
          */

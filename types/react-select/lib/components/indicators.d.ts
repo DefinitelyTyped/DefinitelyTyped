@@ -16,7 +16,7 @@ export function DownChevron(props: any): any; // TODO svg type
 
 export type IndicatorProps<OptionType> = CommonProps<OptionType> & {
   /** The children to be rendered inside the indicator. */
-  children: ElementType<any>,
+  children: ElementType,
   /** Props that will be passed on to the children. */
   innerProps: any,
   /** The focused state of the select. */

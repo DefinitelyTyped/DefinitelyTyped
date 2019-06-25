@@ -1,8 +1,7 @@
-import ValidationContext from "../ValidationContext";
+import { ValidationContext } from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
-import { GraphQLType } from "../../type/definition";
 
-export function badVarPosMessage(varName: string, varType: GraphQLType, expectedType: GraphQLType): string;
+export function badVarPosMessage(varName: string, varType: string, expectedType: string): string;
 
 /**
  * Variables passed to field arguments conform to type

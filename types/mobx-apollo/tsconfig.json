@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "esnext.asynciterable"
         ],
         "target": "es5",
         "noImplicitAny": true,

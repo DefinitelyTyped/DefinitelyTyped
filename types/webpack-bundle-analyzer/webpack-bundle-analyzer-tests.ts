@@ -19,6 +19,11 @@ const config: webpack.Configuration = {
             statsOptions: {
                 source: false
             },
+            excludeAssets: [
+                'foo',
+                /foo/,
+                assetName => assetName.indexOf('foo') !== -1
+            ],
             logLevel: 'info'
         })
     ]

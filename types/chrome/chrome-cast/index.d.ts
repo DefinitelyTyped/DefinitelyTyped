@@ -1,6 +1,7 @@
 // Type definitions for Chrome Cast application development
 // Project: https://developers.google.com/cast/
 // Definitions by: Thomas Stig Jacobsen <https://github.com/eXeDK>
+//                 Stefan Ullinger <https://github.com/stefanullinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ////////////////////
@@ -194,7 +195,15 @@ declare namespace chrome.cast {
         errorCallback: (error: chrome.cast.Error) => void
     ): void
 
-    export interface ApiConfig {
+    /**
+     * @param {string} escaped A string to unescape.
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.unescape
+     */
+    export function unescape(
+        escaped: string
+    ): string
+
+    export class ApiConfig {
         /**
          * @param {!chrome.cast.SessionRequest} sessionRequest
          * @param {function(!chrome.cast.Session)} sessionListener
@@ -205,13 +214,13 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ApiConfig
          */
-        new(
+        constructor(
             sessionRequest: chrome.cast.SessionRequest,
             sessionListener: (session: chrome.cast.Session) => void,
             receiverListener: (receiverAvailability: chrome.cast.ReceiverAvailability) => void,
             autoJoinPolicy?: chrome.cast.AutoJoinPolicy,
             defaultActionPolicy?: chrome.cast.DefaultActionPolicy
-        ): ApiConfig;
+        );
 
         sessionRequest: chrome.cast.SessionRequest;
         sessionListener: (session: chrome.cast.Session) => void;
@@ -220,7 +229,7 @@ declare namespace chrome.cast {
         defaultActionPolicy: chrome.cast.DefaultActionPolicy;
     }
 
-    export interface Error {
+    export class Error {
         /**
          * @param {!chrome.cast.ErrorCode} code
          * @param {string=} opt_description
@@ -228,11 +237,11 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Error
          */
-        new(
+        constructor(
             code: chrome.cast.ErrorCode,
             description?: string,
             details?: Object
-        ): Error;
+        );
 
         code: chrome.cast.ErrorCode;
         description?: string;
@@ -253,22 +262,22 @@ declare namespace chrome.cast {
         width?: number;
     }
 
-    export interface SenderApplication {
+    export class SenderApplication {
         /**
          * @param {!chrome.cast.SenderPlatform} platform
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SenderApplication
          */
-        new(
+        constructor(
             platform: chrome.cast.SenderPlatform
-        ): SenderApplication;
+        );
 
         platform: chrome.cast.SenderPlatform;
         url?: string;
         packageId?: string;
     }
 
-    export interface SessionRequest {
+    export class SessionRequest {
         /**
          * @param {string} appId
          * @param {!Array<chrome.cast.Capability>=} opt_capabilities
@@ -276,11 +285,11 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.SessionRequest
          */
-        new(
+        constructor(
             appId: string,
             capabilities?: Array<chrome.cast.Capability>,
             timeout?: number
-        ): SessionRequest;
+        );
 
         appId: string;
         capabilities: Array<chrome.cast.Capability>;
@@ -288,7 +297,7 @@ declare namespace chrome.cast {
         language?: string;
     }
 
-    export interface Session {
+    export class Session {
         /**
          * @param {string} sessionId
          * @param {string} appId
@@ -298,13 +307,13 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Session
          */
-        new(
+        constructor(
             sessionId: string,
             appId: string,
             displayName: string,
             appImages: Array<chrome.cast.Image>,
             receiver: chrome.cast.Receiver
-        ): Session;
+        );
 
         sessionId: string;
         appId: string;
@@ -438,7 +447,7 @@ declare namespace chrome.cast {
         ): void
     }
 
-    export interface Receiver {
+    export class Receiver {
         /**
          * @param {string} label
          * @param {string} friendlyName
@@ -447,12 +456,12 @@ declare namespace chrome.cast {
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Receiver
          */
-        new(
+        constructor(
             label: string,
             friendlyName: string,
             capabilities?: Array<chrome.cast.Capability>,
             volume?: chrome.cast.Volume
-        ): Receiver;
+        );
 
         label: string;
         friendlyName: string;
@@ -462,33 +471,33 @@ declare namespace chrome.cast {
         displayStatus: chrome.cast.ReceiverDisplayStatus;
     }
 
-    export interface ReceiverDisplayStatus {
+    export class ReceiverDisplayStatus {
         /**
          * @param {string} statusText
          * @param {!Array<chrome.cast.Image>} appImages
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.ReceiverDisplayStatus
          */
-        new(
+        constructor(
             statusText: string,
             appImages: Array<chrome.cast.Image>
-        ): ReceiverDisplayStatus;
+        );
 
         statusText: string;
         appImages: Array<chrome.cast.Image>;
     }
 
-    export interface Volume {
+    export class Volume {
         /**
          * @param {?number=} opt_level
          * @param {?boolean=} opt_muted
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.Volume
          */
-        new(
+        constructor(
             level?: number,
             muted?: boolean
-        ): Volume;
+        );
 
         level?: number;
         muted?: boolean;
@@ -574,15 +583,15 @@ declare namespace chrome.cast.media {
         ALL_AND_SHUFFLE = "REPEAT_ALL_AND_SHUFFLE"
     }
 
-    export interface QueueItem {
+    export class QueueItem {
         /**
          * @param {!chrome.cast.media.MediaInfo} mediaInfo
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueItem
          */
-        new(
+        constructor(
             mediaInfo: chrome.cast.media.MediaInfo
-        ): QueueItem;
+        );
 
         activeTrackIds: Array<Number>;
         autoplay: boolean;
@@ -593,15 +602,15 @@ declare namespace chrome.cast.media {
         startTime: number;
     }
 
-    export interface QueueLoadRequest {
+    export class QueueLoadRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>} items
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueLoadRequest
          */
-        new(
+        constructor(
             items: Array<chrome.cast.media.QueueItem>
-        ): QueueLoadRequest;
+        );
 
         customData: Object;
         items: Array<chrome.cast.media.QueueItem>;
@@ -609,59 +618,59 @@ declare namespace chrome.cast.media {
         startIndex: number;
     }
 
-    export interface QueueInsertItemsRequest {
+    export class QueueInsertItemsRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>}
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueInsertItemsRequest
          */
-        new(
+        constructor(
             itemsToInsert: Array<chrome.cast.media.QueueItem>
-        ): QueueInsertItemsRequest;
+        );
 
         customData: Object;
         insertBefore: number;
         items: Array<chrome.cast.media.QueueItem>;
     }
 
-    export interface QueueRemoveItemsRequest {
+    export class QueueRemoveItemsRequest {
         /**
          * @param {!Array<number>}
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueRemoveItemsRequest
          */
-        new(
+        constructor(
             itemIdsToRemove: Array<number>
-        ): QueueRemoveItemsRequest;
+        );
 
         customData: Object;
         itemIds: Array<number>;
     }
 
-    export interface QueueReorderItemsRequest {
+    export class QueueReorderItemsRequest {
         /**
          * @param {!Array<number>}
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueReorderItemsRequest
          */
-        new(
+        constructor(
             itemIdsToReorder: Array<number>
-        ): QueueReorderItemsRequest;
+        );
 
         customData: Object;
         insertBefore: number;
         itemIds: Array<number>;
     }
 
-    export interface QueueUpdateItemsRequest {
+    export class QueueUpdateItemsRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>}
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.QueueUpdateItemsRequest
          */
-        new(
+        constructor(
             itemsToUpdate: Array<chrome.cast.media.QueueItem>
-        ): QueueUpdateItemsRequest;
+        );
 
         customData: Object;
         item: Array<chrome.cast.media.QueueItem>;
@@ -736,67 +745,67 @@ declare namespace chrome.cast.media {
         ITALIC = "ITALIC"
     }
 
-    export interface GetStatusRequest {
+    export class GetStatusRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.GetStatusRequest
          */
-        new(): GetStatusRequest;
+        constructor();
 
         customData: Object;
     }
 
-    export interface PauseRequest {
+    export class PauseRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PauseRequest
          */
-        new(): PauseRequest;
+        constructor();
 
         customData: Object;
     }
 
-    export interface PlayRequest {
+    export class PlayRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PlayRequest
          */
-        new(): PlayRequest;
+        constructor();
 
         customData: Object;
     }
 
-    export interface SeekRequest {
+    export class SeekRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.SeekRequest
          */
-        new(): SeekRequest;
+        constructor();
 
         currentTime: number;
         resumeState: chrome.cast.media.ResumeState;
         customData: Object;
     }
 
-    export interface StopRequest {
+    export class StopRequest {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.StopRequest
          */
-        new(): StopRequest;
+        constructor();
 
         customData: Object;
     }
 
-    export interface VolumeRequest {
+    export class VolumeRequest {
         /**
          * @param {!chrome.cast.Volume} volume
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.VolumeRequest
          */
-        new(
+        constructor(
             volume: chrome.cast.Volume
-        ): VolumeRequest;
+        );
 
         volume: chrome.cast.Volume;
         customData: Object;
@@ -819,17 +828,17 @@ declare namespace chrome.cast.media {
         media: chrome.cast.media.MediaInfo;
     }
 
-    export interface EditTracksInfoRequest {
+    export class EditTracksInfoRequest {
         /**
          * @param {Array<number>=} opt_activeTrackIds
          * @param {chrome.cast.media.TextTrackStyle=} opt_textTrackStyle
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.EditTracksInfoRequest
          */
-        new(
+        constructor(
             activeTrackIds?: Array<number>,
             textTrackStyle?: chrome.cast.media.TextTrackStyle
-        ): EditTracksInfoRequest;
+        );
 
         activeTrackIds: Array<number>;
         textTrackStyle: chrome.cast.media.TextTrackStyle;
@@ -847,12 +856,12 @@ declare namespace chrome.cast.media {
         type: chrome.cast.media.MetadataType;
     }
 
-    export interface MovieMediaMetadata {
+    export class MovieMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MovieMediaMetadata
          */
-        new(): MovieMediaMetadata;
+        constructor();
 
         images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
@@ -866,12 +875,12 @@ declare namespace chrome.cast.media {
         type: chrome.cast.media.MetadataType;
     }
 
-    export interface TvShowMediaMetadata {
+    export class TvShowMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TvShowMediaMetadata
          */
-        new(): TvShowMediaMetadata;
+        constructor();
 
         metadataType: chrome.cast.media.MetadataType;
         seriesTitle: string;
@@ -893,12 +902,12 @@ declare namespace chrome.cast.media {
         releaseYear: number;
     }
 
-    export interface MusicTrackMediaMetadata {
+    export class MusicTrackMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MusicTrackMediaMetadata
          */
-        new(): MusicTrackMediaMetadata;
+        constructor();
 
         metadataType: chrome.cast.media.MetadataType;
         albumName: string;
@@ -920,12 +929,12 @@ declare namespace chrome.cast.media {
         releaseYear: number;
     }
 
-    export interface PhotoMediaMetadata {
+    export class PhotoMediaMetadata {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.PhotoMediaMetadata
          */
-        new(): PhotoMediaMetadata;
+        constructor();
 
         metadataType: chrome.cast.media.MetadataType;
         title: string;
@@ -964,17 +973,17 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    export interface Media {
+    export class Media {
         /**
          * @param {string} sessionId
          * @param {number} mediaSessionId
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.Media
          */
-        new(
+        constructor(
             sessionId: string,
             mediaSessionId: number
-        ): Media;
+        );
 
         activeTrackIds: Array<number>;
         currentItemId: number;
@@ -1210,17 +1219,17 @@ declare namespace chrome.cast.media {
 
     }
 
-    export interface Track {
+    export class Track {
         /**
          * @param {number} trackId
          * @param {!chrome.cast.media.TrackType} trackType
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.Track
          */
-        new(
+        constructor(
             trackId: number,
             trackType: chrome.cast.media.TrackType
-        ): Track;
+        );
 
         trackId: number;
         trackContentId: string;
@@ -1232,12 +1241,12 @@ declare namespace chrome.cast.media {
         customData: Object;
     }
 
-    export interface TextTrackStyle {
+    export class TextTrackStyle {
         /**
          * @constructor
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TextTrackStyle
          */
-        new(): TextTrackStyle;
+        constructor();
 
         foregroundColor: string;
         backgroundColor: string;

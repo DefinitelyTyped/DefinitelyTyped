@@ -1,6 +1,7 @@
-// Type definitions for prettier 1.13
-// Project: https://github.com/prettier/prettier
+// Type definitions for prettier 1.16
+// Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>
+//                 Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -21,7 +22,9 @@ export interface FastPath<T = any> {
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
-    | 'babylon'
+    | 'babylon' // deprecated
+    | 'babel'
+    | 'babel-flow'
     | 'flow'
     | 'typescript'
     | 'postcss' // deprecated
@@ -33,7 +36,11 @@ export type BuiltInParserName =
     | 'json-stringify'
     | 'graphql'
     | 'markdown'
-    | 'vue';
+    | 'vue'
+    | 'html'
+    | 'angular'
+    | 'mdx'
+    | 'yaml';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -47,6 +54,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * Use single quotes instead of double quotes.
      */
     singleQuote: boolean;
+    /**
+     * Use single quotes in JSX.
+     */
+    jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
      */
@@ -104,6 +115,14 @@ export interface RequiredOptions extends doc.printer.Options {
      * The plugin API is in a beta state.
      */
     plugins: Array<string | Plugin>;
+    /**
+     * How to handle whitespaces in HTML.
+     */
+    htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
+    /**
+     * Which end of line characters to apply.
+     */
+    endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -113,9 +132,9 @@ export interface ParserOptions extends RequiredOptions {
 }
 
 export interface Plugin {
-    languages: SupportLanguage[];
-    parsers: { [parserName: string]: Parser };
-    printers: { [astFormat: string]: Printer };
+    languages?: SupportLanguage[];
+    parsers?: { [parserName: string]: Parser };
+    printers?: { [astFormat: string]: Printer };
     options?: SupportOption[];
     defaultOptions?: Partial<RequiredOptions>;
 }
@@ -240,7 +259,7 @@ export function clearConfigCache(): void;
 export interface SupportLanguage {
     name: string;
     since?: string;
-    parsers: string[];
+    parsers: BuiltInParserName[] | string[];
     group?: string;
     tmScope: string;
     aceMode: string;
@@ -263,7 +282,7 @@ export interface SupportOption {
     oppositeDescription?: string;
     default: SupportOptionValue;
     range?: SupportOptionRange;
-    choices?: SupportOptionChoice;
+    choices?: SupportOptionChoice[];
 }
 
 export interface SupportOptionRedirect {

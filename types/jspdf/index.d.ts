@@ -1,6 +1,9 @@
-// Type definitions for jsPDF v1.1.135
+// Type definitions for jsPDF 1.3
 // Project: https://github.com/MrRio/jsPDF
 // Definitions by: Amber Schühmacher <https://github.com/amberjs>
+//                 Kevin Gonnord <https://github.com/lleios>
+//                 Jackie Weng <https://github.com/jemerald>
+//                 Frank Brullo <https://github.com/frankbrullo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'jspdf' {
@@ -32,7 +35,9 @@ declare module 'jspdf' {
             'scaleFactor':number;
             'pageSize': {
                 width:number;
+                getWidth: () => number;
                 height:number;
+                getHeight: () => number;
             };
             'output'(type:any, options:any):any;
             'getNumberOfPages'():number;
@@ -42,7 +47,7 @@ declare module 'jspdf' {
             'getPageInfo'(pageNumberOneBased:number):any;
             'getCurrentPageInfo'():any;
         };
-        addPage(sizes?: number[]):jsPDF;
+        addPage(format?: string | number[], orientation?: 'p'|'portrait'|'l'|'landscape'): jsPDF;
         setPage(n:number):jsPDF;
         insertPage(beforePage:number):jsPDF;
         movePage(targetPage:number, beforePage:number):jsPDF;
@@ -72,7 +77,8 @@ declare module 'jspdf' {
         setLineCap(style:string|number):jsPDF;
         setLineJoin(style:string|number):jsPDF;
         output(type?:string, options?:any):any;
-        save(filename:string):jsPDF;
+        save(filename:string): void;
+        save(filename:string, options: {returnPromise: boolean}): Promise<any>;
 
         /**
          * jsPDF plugins below:
@@ -90,6 +96,7 @@ declare module 'jspdf' {
          *  - split_text_to_size
          *  - SVG
          *  - total_pages
+         *  - vfs
          */
 
         // jsPDF plugin: addHTML
@@ -179,7 +186,7 @@ declare module 'jspdf' {
             stroke():void;
             fill():void;
             translate(x:number, y:number):void;
-            measureText(text:string):number;
+            measureText(text:string):{ width: number };
         };
 
         // jsPDF plugin: fromHTML
@@ -201,8 +208,13 @@ declare module 'jspdf' {
 
         // jsPDF plugin: total_pages
         putTotalPages(pageExpression:string):jsPDF;
+
+        // jsPDF plugin: vfs
+        existsFileInVFS(filename:string):boolean;
+        addFileToVFS(filename:string, filecontent:string):jsPDF;
+        getFileFromVFS(filename:string):string;
     }
-    
+
     namespace jsPDF {}
 
     export = jsPDF;

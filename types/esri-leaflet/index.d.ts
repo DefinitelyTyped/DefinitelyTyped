@@ -44,6 +44,7 @@ declare module 'leaflet' {
             | 'GrayLabels'
             | 'DarkGrayLabels'
             | 'ImageryLabels'
+            | 'ImageryClarity'
             | 'ImageryTransportation'
             | 'ShadedReliefLabels'
             | 'TerrainLabels';

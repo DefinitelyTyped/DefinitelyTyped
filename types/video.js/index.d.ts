@@ -1,5 +1,5 @@
 // Type definitions for Video.js 7.2
-// Project: https://github.com/videojs/video.js
+// Project: https://github.com/videojs/video.js, https://videojs.com
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
@@ -8,6 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Mei Qingguang <https://github.com/meikidd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,7 +33,7 @@
  * @return A player instance
  */
 declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-export = videojs;
+export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
@@ -2628,7 +2629,8 @@ declare namespace videojs {
 		 *         the listener function; otherwise, _all_ listeners bound to the
 		 *         event type(s) will be removed.
 		 */
-		off(targetOrType?: string | string[], typeOrListener?: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		off(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		off(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2653,7 +2655,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		on(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		on(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		on(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2678,7 +2681,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		one(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		one(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		one(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Fire an event on this evented object, causing its listeners to be called.
@@ -3709,6 +3713,21 @@ declare namespace videojs {
 		new (player: Player, options?: ComponentOptions): MouseTimeDisplay
 	};
 
+	enum ReadyState {
+		HaveNothing = 0,
+		HaveMetadata = 1,
+		HaveCurrentData = 2,
+		HaveFutureData = 3,
+		HaveEnoughData = 4
+	}
+
+	enum NetworkState {
+		Empty = 0,
+		Idle = 1,
+		Loading = 2,
+		NoSource = 3
+	}
+
 	/**
 	 * An instance of the `Player` class is created when any of the Video.js setup methods
 	 * are used to initialize a video.
@@ -3763,6 +3782,18 @@ declare namespace videojs {
 		autoplay(value?: boolean | string): void;
 
 		autoplay(): boolean | string;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		textTracks(): TextTrackList;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		remoteTextTracks(): TextTrackList;
 
 		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
@@ -4217,7 +4248,7 @@ declare namespace videojs {
 		 */
 		loop(value?: boolean): void;
 
-		loop(): string;
+		loop(): boolean;
 
 		/**
 		 * Get the current muted state, or turn mute on or off
@@ -4232,6 +4263,13 @@ declare namespace videojs {
 		muted(muted: boolean): void;
 
 		muted(): boolean;
+
+		/**
+		 * Returns the current state of network activity for the element
+		 *
+		 * @return The current network state
+		 */
+		networkState(): NetworkState;
 
 		/**
 		 * Pause the video playback
@@ -4327,6 +4365,12 @@ declare namespace videojs {
 		preload(value?: boolean): string;
 
 		/**
+		 * Returns a value that expresses the current state of the element
+		 * with respect to rendering the current playback position.
+		 */
+		readyState(): ReadyState;
+
+		/**
 		 * Calculates how much time is left in the video. Not part
 		 * of the native video API.
 		 *
@@ -4364,7 +4408,7 @@ declare namespace videojs {
 		 *
 		 * @fires Player#fullscreenchange
 		 */
-		requestFullScreen(): Player;
+		requestFullscreen(): Player;
 
 		/**
 		 * Report user activity
@@ -4379,6 +4423,20 @@ declare namespace videojs {
 		 * and calls `reset` on the tech`.
 		 */
 		reset(): void;
+
+		/**
+		 * Returns whether or not the player is in the "seeking" state.
+		 *
+		 * @return boolean True if the player is in the seeking state, false if not.
+		 */
+		seeking(): boolean;
+
+		/**
+		 * Returns the TimeRanges of the media that are currently available for seeking to.
+		 *
+		 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
+		 */
+		 seekable(): TimeRanges;
 
 		/**
 		 * Select source based on tech-order or source-order
@@ -4579,10 +4637,12 @@ declare namespace videojs {
 		fluid?: boolean;
 		height?: number;
 		html5?: any;
+		inactivityTimeout?: number;
 		language?: string;
 		languages?: { [code: string]: LanguageTranslations };
 		loop?: boolean;
 		muted?: boolean;
+		nativeControlsForTouch?: boolean;
 		notSupportedMessage?: string;
 		playbackRates?: number[];
 		plugins?: any;

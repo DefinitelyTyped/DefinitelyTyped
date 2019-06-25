@@ -1,11 +1,14 @@
-// Type definitions for listr 0.13
+// Type definitions for listr 0.14
 // Project: https://github.com/samverschueren/listr#readme
 // Definitions by: Dusan Radovanovic <https://github.com/durad>
+//                 Vladislav Polyakov <https://github.com/polRk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
 import * as stream from "stream";
+import { Observable } from "rxjs";
 
 declare namespace Listr {
     interface ListrRenderer {
@@ -24,9 +27,9 @@ declare namespace Listr {
     interface ListrTask {
         title: string;
         output?: string;
-        task: (ctx: any, task: ListrTaskWrapper) => void | string | Promise<any> | stream.Readable | Listr;
-        skip?: (ctx: any, task: ListrTaskWrapper) => boolean | Promise<boolean> | string | void;
-        enabled?: (ctx: any, task: ListrTaskWrapper) => boolean | Promise<boolean>;
+        task: (ctx: any, task: ListrTaskWrapper) => void | string | Promise<any> | stream.Readable | Listr | Observable<any>;
+        skip?: (ctx: any, task: ListrTaskWrapper) => boolean | Promise<boolean> | string | void | Observable<boolean>;
+        enabled?: (ctx: any, task: ListrTaskWrapper) => boolean | Promise<boolean> | Observable<boolean>;
     }
 
     interface ListrTaskWrapper {

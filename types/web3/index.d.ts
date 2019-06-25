@@ -15,12 +15,16 @@
 //                 Levin Keller <https://github.com/levino>
 //                 Dmitry Radkovskiy <https://github.com/zlumer>
 //                 Konstantin Melnikov <https://github.com/archangel-irk>
+//                 Asgeir Sognefest <https://github.com/sogasg>
+//                 Donam Kim <https://github.com/donamk>
+//                 Doug Kent <https://github.com/dkent600>
+//                 Daniel Zhou <https://github.com/nerddan>
+//                 Alex Kvak <https://github.com/alexkvak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-import BigNumber = require("bn.js");
+// TypeScript Version: 2.8
+
 import Providers, { Provider } from "./providers";
-import Contract from "./eth/contract";
-import { Callback, Bzz, Shh } from "./types";
+import { Bzz, Shh } from "./types";
 import { BatchRequest, Net, Personal } from "./eth/types";
 import Utils from "./utils";
 import Eth from "./eth/index";
@@ -43,7 +47,7 @@ declare class Web3 {
     bzz: Bzz;
     currentProvider: Provider;
     eth: Eth;
-    ssh: Shh;
+    shh: Shh;
     givenProvider: Provider;
     providers: Providers;
     setProvider(provider: Provider): void;

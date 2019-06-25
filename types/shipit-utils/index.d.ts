@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import shipit = require("shipit");
+import shipit = require("shipit-cli");
 
 export type GruntOrShipit = typeof shipit | {};
 export type EmptyCallback = () => void;

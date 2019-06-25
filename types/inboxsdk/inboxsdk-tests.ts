@@ -377,6 +377,8 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
       iconUrl: 'http://url.com',
     });
 
+    const isActive: boolean = contentPanel.isActive();
+    contentPanel.open();
     contentPanel.remove();
     const destroyed: boolean = contentPanel.destroyed;
     contentPanel.on('destroy', () => console.log());
@@ -571,6 +573,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   sdk.Router.createLink('1234', {p1: 1, 0: 1}).toLowerCase();
   sdk.Router.goto('1234', {p1: 1, 0: 1});
+  sdk.Router.goto(sdk.Router.NativeRouteIDs.ALL_MAIL, {p1: 1, 0: 1});
 
   const unregister1 = sdk.Router.handleCustomRoute('1234', customRouteView => {
     customRouteView.getParams();
@@ -591,7 +594,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 
   unregister2();
 
-  const unregister3 = sdk.Router.handleListRoute('ALL_MAIL', listRouteView => {
+  const unregister3 = sdk.Router.handleListRoute(sdk.Router.NativeListRouteIDs.DRAFTS, listRouteView => {
     const sectionDescriptor: SectionDescriptor = {
       contentElement: new HTMLElement(),
       footerLinkText: 'text',

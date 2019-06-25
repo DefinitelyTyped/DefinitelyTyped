@@ -371,7 +371,7 @@ function renderCartItems() {
 /* Update Total Cart Pricing
 ============================================================ */
 function updateTotalCartPricing() {
-    $('.cart .pricing').text(formatAsMoney(cart.subtotal));
+    $('.cart .pricing').text(formatAsMoney(cart.subtotalPrice));
 }
 
 /* Format amount as currency
