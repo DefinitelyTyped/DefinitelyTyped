@@ -53,7 +53,7 @@ class ZChatImpl implements ZChat {
         };
     }
 
-    init(initProps: initProps): void {
+    init(initProps: InitProps): void {
     }
 
     isChatting(): boolean {

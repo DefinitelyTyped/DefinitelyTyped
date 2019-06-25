@@ -8,11 +8,7 @@ interface Window {
     zChat?: ZChat;
 }
 
-/**
- * Version 1.8.1 - 2019-03-12
- * https://api.zopim.com/web-sdk/#api-reference
- */
-interface initProps {
+interface InitProps {
     account_key: string;
     authentication?: {
         jwt_fn?: (callback: (jwt: string) => void) => void;
@@ -20,7 +16,7 @@ interface initProps {
 }
 
 interface ZChat {
-    init(initProps: initProps): void;
+    init(initProps: InitProps): void;
 
     getAccountStatus(): 'online' | 'offline' | 'away';
 
