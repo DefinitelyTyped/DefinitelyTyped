@@ -26,6 +26,7 @@ export abstract class Socket {
     on<ET extends EventType>(event: ET, handler: EventHandler<ET>): void;
     ping(): void;
     send(data: string): void;
+    setTimeout(handler: TimerHandler, delay: number): void;
 }
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
 export type EventHandler<ET extends EventType> = ET extends 'close'
@@ -41,6 +42,9 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
     : ET extends 'pong'
     ? () => void
     : never;
+export interface TimerHandler {
+    (): void;
+}
 
 // Error
 export abstract class WebSocketError {

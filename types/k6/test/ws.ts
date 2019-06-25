@@ -3,6 +3,7 @@ import { Response, Socket, WebSocketError, connect } from 'k6/ws';
 const address = 'http://example.com';
 const executor = (socket: Socket) => {};
 const badHandler = (bad: never) => {};
+const handler = () => {};
 
 let response: Response;
 
@@ -63,4 +64,14 @@ connect(address, (socket: Socket) => {
     socket.send(5); // $ExpectError
     socket.send('super secret information'); // $ExpectType void
     socket.send('super secret information', 5); // $ExpectError
+});
+
+// Socket.setTimeout
+connect(address, (socket: Socket) => {
+    socket.setTimeout(); // $ExpectError
+    socket.setTimeout(5); // $ExpectError
+    socket.setTimeout(handler); // $ExpectError
+    socket.setTimeout(handler, 'not-a-duration'); // $ExpectError
+    socket.setTimeout(handler, 7); // $ExpectType void
+    socket.setTimeout(handler, 7, 5); // $ExpectError
 });
