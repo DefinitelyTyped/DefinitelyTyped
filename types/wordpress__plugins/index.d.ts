@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
+import { Dashicon } from '@wordpress/components';
 import { ComponentType } from '@wordpress/element';
 
 export interface PluginSettings {
-    // TODO: if we ever create a package for @wordpress/dashicons, add it here instead of `string`.
     /**
      * An icon to be shown in the UI. It can be a slug of the Dashicon, or an
      * element (or function returning an element) if you choose to render your
      * own SVG.
      */
-    icon: string | ComponentType;
+    icon: Dashicon.Icon | ComponentType;
     /**
      * A component containing the UI elements to be rendered.
      */

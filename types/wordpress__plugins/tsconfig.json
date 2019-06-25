@@ -13,6 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
+            "@wordpress/components": ["wordpress__components"],
             "@wordpress/element": ["wordpress__element"],
             "@wordpress/plugins": ["wordpress__plugins"]
         }

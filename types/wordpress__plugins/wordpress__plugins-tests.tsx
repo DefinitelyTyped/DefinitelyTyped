@@ -1,4 +1,3 @@
-import * as WPElement from '@wordpress/element';
 import * as plugins from '@wordpress/plugins';
 
 plugins.registerPlugin('my-plugin', {
