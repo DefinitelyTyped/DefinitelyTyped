@@ -9,6 +9,7 @@ import {
     MediaElement,
     NodeType,
     Selection,
+    TableSectionElement,
     parseHTML,
 } from 'k6/html';
 
@@ -177,3 +178,8 @@ possibleForm = label.form();
 declare function makeMediaElement(): MediaElement;
 const media: MediaElement = makeMediaElement();
 elements = media.textTracks();
+
+// TableSectionElement
+declare function makeTableSectionElement(): TableSectionElement;
+const section: TableSectionElement = makeTableSectionElement();
+elements = section.rows();
