@@ -110,18 +110,18 @@ const typedQuery = async () => {
   await pool.query(getFooBarQuery(10));
 
   // $ExpectType string
-  await pool.oneFirst(getFooQuery(10));
+  await pool.oneFirst<string>(getFooQuery(10));
 
   // $ExpectType FooBar
   await pool.one(getFooBarQuery(10));
 
   // $ExpectType string | null
-  await pool.maybeOneFirst(getFooQuery(10));
+  await pool.maybeOneFirst<string>(getFooQuery(10));
 
   // $ExpectType FooBar | null
   await pool.maybeOne(getFooBarQuery(10));
 
-  // $ExpectType FooBar[]
+  // $ExpectType ReadonlyArray<FooBar>
   await pool.any(getFooBarQuery(10));
 };
 
