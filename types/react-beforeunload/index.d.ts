@@ -6,9 +6,9 @@
 
 import * as React from 'react';
 
-export function useBeforeunload(handler?: (arg?: Event) => string | void): void;
+export function useBeforeunload(handler?: (arg: Event) => string | void): void;
 
 export const Beforeunload: React.FC<{
     children?: React.ReactNode;
-    onBeforeunload: (arg?: Event) => string | void;
+    onBeforeunload: (arg: Event) => string | void;
 }>;
