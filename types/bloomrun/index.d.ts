@@ -3,46 +3,71 @@
 // Definitions by: Ilham Khabibullin <https://github.com/ilhamkhabibullin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Algo = (a: PatternSet, b: PatternSet) => number
-type Pattern = { [key: string]: any }
+type Algo = (a: bloomrun.PatternSet, b: bloomrun.PatternSet) => number
+type onlyPatterns = (current: bloomrun.PatternSet) => bloomrun.Pattern
+type patternsAndPayloads = (current: bloomrun.PatternSet) => bloomrun.PatternAndPayload
 
-type onlyPatterns = (current: PatternSet) => Pattern
 
-type patternsAndPayloads = (current: PatternSet) => {
-    pattern: Pattern,
-    payload: any
-}
-
-interface PatternSet {
-    constructor(pattern: Pattern, payload: any, isDeep: boolean): PatternSet
-    pattern: Pattern | any
-    payload: Pattern | any
-    weight: number
-}
+type DefaultResult = any | null
 
 declare namespace bloomrun {
 
+
+    interface Pattern { 
+        [key: string]: string | RegExp 
+    }
+    interface PatternAndPayload {
+        pattern: Pattern,
+        payload: any
+    }
+    interface PatternSet {
+        constructor(
+            pattern: Pattern,
+            payload: any,
+            isDeep: boolean
+        ): PatternSet
+    
+        pattern: Pattern
+        payload: Pattern | any
+        weight: number
+    }
+    
+
     interface Bloomrun {
-        constructor(opts: { indexing: 'insertion' | 'depth' }): Bloomrun
+        constructor(
+            opts: { indexing: 'insertion' | 'depth' }
+        ): Bloomrun
 
         _isDeep: boolean
         _buckets: Array<bloomrun.Bucket>
         _regexBucket: bloomrun.Bucket
-        _defaultResult: null | any
-        _tree: any
+        _defaultResult: DefaultResult
+        _tree: { [key: string]: { [key: string]: Bucket } }
         _algo: Algo
 
-        default: (payload: any) => void
-        add: (pattern: Pattern, payload: any) => Bloomrun
+        add: (pattern: Pattern, payload?: any) => Bloomrun
         remove: (pattern: Pattern, payload?: any) => Bloomrun
-        lookup: (pattern: Pattern, opts: { patterns: boolean }) => any
-        list: (pattern: Pattern, opts?: { patterns: boolean, payload: boolean }) => Array<any>
-        iterator: (obj: any | null, opts: { patterns: boolean, payload: boolean }) => bloomrun.Iterator
-        [Symbol.iterator]: () => any
+        lookup: (pattern: Pattern, opts?: { patterns: boolean }) => 
+            | Pattern
+            | PatternAndPayload
+            | DefaultResult
+        iterator: (obj: Pattern, opts?: { patterns: boolean, payload: boolean }) => bloomrun.Iterator
+        list: (pattern: Pattern, opts?: { patterns: boolean, payload: boolean }) => Array<
+            | Pattern
+            | PatternAndPayload
+            | { default: true, payload: DefaultResult }
+            | DefaultResult
+            >
+        default: (payload: DefaultResult) => void
+        [Symbol.iterator]: () => Pattern | PatternAndPayload
     }
-    
+
     interface Iterator {
-        constructor(parent: Bloomrun, obj: Pattern, asMatch: onlyPatterns | patternsAndPayloads): Iterator
+        constructor(
+            parent: Bloomrun,
+            obj: Pattern,
+            asMatch: onlyPatterns | patternsAndPayloads
+        ): Iterator
 
         _asMatch: onlyPatterns | patternsAndPayloads
         parent: Bloomrun
@@ -54,24 +79,30 @@ declare namespace bloomrun {
         k: number
         regexpBucket: Bucket
     
-        nextBucket: () => void
-        one: () => any
-        next: () => any
-        [Symbol.iterator]: () => any
+        nextBucket: () => Bucket
+        one: () => Pattern | PatternAndPayload
+        next: () => Pattern | PatternAndPayload
+        [Symbol.iterator]: () => Pattern | PatternAndPayload
     }
     
     interface Bucket {
-        constructor(parent: Bloomrun): Bucket
-    
+        constructor(
+            parent: Bloomrun
+        ): Bucket
+
         data: PatternSet[]
         _algo: Algo
         weight: number
         _isDeep: boolean
-    
+
         add: (set: PatternSet) => Bucket
         remove: (pattern: Pattern, payload: any) => boolean
-        forEach: (func: <T>(currentValue: T, index?: number, array?: Array<T>) => any, that: Bloomrun) => Bucket
+
+        forEach: (
+            func: <T>(currentValue: T, index?: number, array?: Array<T>) => any,
+            that: Bloomrun
+        ) => Bucket
     }
 }
 
-export default function Bloomrun (opts: { indexing: 'insertion' | 'depth' }): bloomrun.Bloomrun
+export default function Bloomrun (opts?: { indexing: 'insertion' | 'depth' }): bloomrun.Bloomrun
