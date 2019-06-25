@@ -1,4 +1,4 @@
-import userEvent, { UserOpts } from "user-event";
+import userEvent, { UserOpts } from "./";
 
 userEvent.click(document.body); // $ExpectType void
 userEvent.dblClick(window); // $ExpectType void
