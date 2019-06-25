@@ -18,6 +18,7 @@ import {
     MediaElement,
     MeterElement,
     NodeType,
+    ObjectElement,
     OptionElement,
     Selection,
     TableCellElement,
@@ -247,6 +248,11 @@ elements = media.textTracks();
 declare function makeMeterElement(): MeterElement;
 const meter: MeterElement = makeMeterElement();
 labels = meter.labels();
+
+// ObjectElement
+declare function makeObjectElement(): ObjectElement;
+const object: ObjectElement = makeObjectElement();
+possibleForm = object.form();
 
 // OptionElement
 declare function makeOptionElement(): OptionElement;

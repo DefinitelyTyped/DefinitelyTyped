@@ -203,6 +203,10 @@ export abstract class MeterElement extends Element {
     protected __brand: never;
     labels(): LabelElement[];
 }
+export abstract class ObjectElement extends Element {
+    protected __brand: never;
+    form(): FormElement | undefined;
+}
 export abstract class OptionElement extends Element {
     protected __brand: never;
     disabled(): boolean;
