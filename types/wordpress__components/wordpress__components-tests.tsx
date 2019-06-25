@@ -676,7 +676,7 @@ const kbshortcuts = {
 <C.Toolbar
     isCollapsed
     icon="wordpress-alt"
-    label="Testing array of 'control sets'"
+    title="Testing array of 'control sets'"
     controls={[
         [
             {

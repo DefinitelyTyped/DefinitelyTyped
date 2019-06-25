@@ -6,7 +6,7 @@ import ToolbarButton from '../toolbar-button';
 declare namespace Toolbar {
     interface Props
         extends Omit<HTMLProps<HTMLDivElement>, 'controls' | 'label'>,
-            Pick<DropdownMenu.Props, 'icon' | 'label'> {
+            Partial<Pick<DropdownMenu.Props, 'icon' | 'label'>> {
         /**
          * Class to set on the container div.
          */
