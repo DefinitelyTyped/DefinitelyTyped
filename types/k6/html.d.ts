@@ -52,7 +52,67 @@ export interface Mapper {
     (index: number, element: Element): unknown;
 }
 
+// Attribute
+export abstract class Attribute {
+    protected __brand: never;
+    name: string;
+    ownerElement: Element;
+    value: string;
+    localName(): string;
+    namespaceURI(): string;
+    prefix(): string;
+}
+
+// NodeType
+export enum NodeType {
+    ElementNode = 1,
+    TextNode = 3,
+    CommentNode = 8,
+    DocumentNode = 9,
+    DoctypeNode = 10,
+}
+
 // Element
 export abstract class Element {
     protected __brand: never;
+    attributes(): { [name: string]: Attribute };
+    childElementCount(): number;
+    childNodes(): Element[];
+    children(): Element[];
+    classList(): string[];
+    className(): string | undefined;
+    contains(element: Element): boolean;
+    firstChild(): Element | undefined;
+    firstElementChild(): Element | undefined;
+    getAttribute(name: string): string | undefined;
+    getAttributeNode(name: string): Attribute | undefined;
+    getElementsByClassName(name: string): Element[];
+    getElementsByTagName(name: string): Element[];
+    hasAttribute(name: string): boolean;
+    hasAttributes(): boolean;
+    hasChildNodes(): boolean;
+    id(): string;
+    innerHTML(): string | undefined;
+    isDefaultNamespace(): boolean;
+    isEqualNode(element: Element): boolean;
+    isSameNode(element: Element): boolean;
+    lang(): string | undefined;
+    lastChild(): Element | undefined;
+    lastElementChild(): Element | undefined;
+    matches(selector: string): boolean;
+    namespaceURI(): string;
+    nextElementSibling(): Element | undefined;
+    nextSibling(): Element | undefined;
+    nodeName(): string;
+    nodeType(): NodeType | undefined;
+    nodeValue(): string | undefined;
+    ownerDocument(): Element | undefined;
+    parentElement(): Element | undefined;
+    parentNode(): Element | undefined;
+    previousElementSibling(): Element | undefined;
+    previousSibling(): Element | undefined;
+    querySelector(selector: string): Element | undefined;
+    querySelectorAll(selector: string): Element[];
+    textContent(): string;
+    toString(): string;
 }
