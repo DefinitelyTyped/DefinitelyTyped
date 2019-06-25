@@ -1,6 +1,8 @@
 import classNames = require('classnames');
 import * as classNames2 from 'classnames';
 import * as cn from 'classnames/bind';
+import classNamesDedupe = require('classnames/dedupe');
+import * as classNamesDedupe2 from 'classnames/dedupe';
 
 classNames2('foo', 'bar'); // => 'foo bar'
 
@@ -44,3 +46,7 @@ cx(true || 'foo');
 
 // export of classnames/bind can be used the same as normal classnames
 cn(null, 'bar', undefined, 1, ['foo', 'bar', { baz: true }], '');
+
+// classnames/dedupe has same usage as normal classnames
+classNamesDedupe('foo', { bar: true, duck: false }, 'baz', { quux: true }); // => 'foo bar baz quux'
+classNamesDedupe2('foo', { bar: true, duck: false }, 'baz', { quux: true }); // => 'foo bar baz quux'

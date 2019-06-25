@@ -9,3 +9,5 @@ export interface ClassDictionary {
 export type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
 
 export type ClassNamesFn = (...classes: ClassValue[]) => string;
+
+export type ClassNamesExport = ClassNamesFn & { default: ClassNamesFn };

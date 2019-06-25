@@ -10,9 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ClassValue, ClassNamesFn } from './types';
-
-type ClassNamesExport = ClassNamesFn & { default: ClassNamesFn };
+import { ClassValue, ClassNamesExport } from './types';
 
 declare const classNames: ClassNamesExport;
 
