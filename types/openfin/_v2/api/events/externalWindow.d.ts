@@ -1,5 +1,4 @@
 import { ExternalWindowEvent, BaseEventMap } from './base';
-
 export interface ExternalWindowEventMapping<Topic = string, Type = string> extends BaseEventMap {
     'begin-user-bounds-changing': ExternalWindowEvent<Topic, Type>;
     'blurred': ExternalWindowEvent<Topic, Type>;
@@ -20,7 +19,6 @@ export interface ExternalWindowEventMapping<Topic = string, Type = string> exten
     'user-movement-disabled': ExternalWindowEvent<Topic, Type>;
     'user-movement-enabled': ExternalWindowEvent<Topic, Type>;
 }
-
-export type ExternalWindowEvents = {
+export declare type ExternalWindowEvents = {
     [Type in keyof ExternalWindowEventMapping]: ExternalWindowEventMapping<'external-window', Type>[Type];
 };

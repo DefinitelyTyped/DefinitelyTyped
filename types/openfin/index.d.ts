@@ -83,7 +83,6 @@ declare namespace fin {
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
     type WindowInfo = import('./_v2/api/window/window').WindowInfo;
-
     const desktop: OpenFinDesktop;
 
     interface OpenFinDesktop {

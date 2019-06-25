@@ -2,9 +2,8 @@ import { _Window } from '../window/window';
 import { AnchorType, Bounds } from '../../shapes';
 import { Base, EmitterBase } from '../base';
 import { ExternalWindowEvents } from '../events/externalWindow';
-import { GroupWindowIdentity, Identity } from '../../identity';
+import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
-
 /**
  * @lends ExternalWindow
  */
@@ -18,10 +17,13 @@ export default class ExternalWindowModule extends Base {
      * @experimental
      */
     wrap(identity: Identity): Promise<ExternalWindow>;
-
     /**
      * Synchronously returns an external window object that represents an
      * existing external window.
+     * This method is intended for debugging / experimentation only and should not be
+     * used in production. It will not handle errors gracefully in cases such as an attempt
+     * to wrap a non-existent window.
+     * Use `ExternalWindow.wrap` instead.
      * @param { Identity } identity
      * @return {ExternalWindow}
      * @static
@@ -29,7 +31,6 @@ export default class ExternalWindowModule extends Base {
      */
     wrapSync(identity: Identity): ExternalWindow;
 }
-
 /**
  * @classdesc An ExternalWindow object representing an adopted native window
  * on the system. Allows the developer to call actions on external windows as
@@ -38,98 +39,20 @@ export default class ExternalWindowModule extends Base {
  * @hideconstructor
  */
 export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
+    identity: Identity;
     constructor(wire: Transport, identity: Identity);
-    /**
-     * Adds a listener to the end of the listeners array for the specified event.
-     * @param { string | symbol } eventType  - The type of the event.
-     * @param { Function } listener - Called whenever an event of the specified type occurs.
-     * @param { SubOptions } [options] - Option to support event timestamps.
-     * @return {Promise.<this>}
-     * @function addListener
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
-    /**
-     * Adds a listener to the end of the listeners array for the specified event.
-     * @param { string | symbol } eventType  - The type of the event.
-     * @param { Function } listener - Called whenever an event of the specified type occurs.
-     * @param { SubOptions } [options] - Option to support event timestamps.
-     * @return {Promise.<this>}
-     * @function on
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
-    /**
-     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
-     * @param { string | symbol } eventType  - The type of the event.
-     * @param { Function } listener - The callback function.
-     * @param { SubOptions } [options] - Option to support event timestamps.
-     * @return {Promise.<this>}
-     * @function once
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
-    /**
-     * Adds a listener to the beginning of the listeners array for the specified event.
-     * @param { string | symbol } eventType  - The type of the event.
-     * @param { Function } listener - The callback function.
-     * @param { SubOptions } [options] - Option to support event timestamps.
-     * @return {Promise.<this>}
-     * @function prependListener
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
-    /**
-     * Adds a one time listener for the event. The listener is invoked only the first time the event is fired, after which it is removed.
-     * The listener is added to the beginning of the listeners array.
-     * @param { string | symbol } eventType  - The type of the event.
-     * @param { Function } listener - The callback function.
-     * @param { SubOptions } [options] - Option to support event timestamps.
-     * @return {Promise.<this>}
-     * @function prependOnceListener
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
-    /**
-     * Remove a listener from the listener array for the specified event.
-     * Caution: Calling this method changes the array indices in the listener array behind the listener.
-     * @param { string | symbol } eventType  - The type of the event.
-     * @param { Function } listener - The callback function.
-     * @param { SubOptions } [options] - Option to support event timestamps.
-     * @return {Promise.<this>}
-     * @function removeListener
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
-    /**
-     * Removes all listeners, or those of the specified event.
-     * @param { string | symbol } [eventType]  - The type of the event.
-     * @return {Promise.<this>}
-     * @function removeAllListeners
-     * @memberof ExternalWindow
-     * @instance
-     * @tutorial Window.EventEmitter
-     */
     /**
      * Brings the external window to the front of the window stack.
      * @return {Promise.<void>}
      * @experimental
      */
     bringToFront(): Promise<void>;
-
     /**
      * Closes the external window.
      * @return {Promise.<void>}
      * @experimental
     */
     close(): Promise<void>;
-
     /**
      * Prevents a user from changing an external window's size/position
      * when using the window's frame.
@@ -137,7 +60,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     disableUserMovement(): Promise<void>;
-
     /**
      * Re-enables user changes to an external window's size/position
      * when using the window's frame.
@@ -145,14 +67,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     enableUserMovement(): Promise<void>;
-
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
      * @return {Promise.<void>}
      * @experimental
      */
     flash(): Promise<void>;
-
     /**
      * Gives focus to the external window.
      * @return {Promise.<void>}
@@ -160,14 +80,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     focus(): Promise<void>;
-
     /**
      * Gets the current bounds (top, left, etc.) of the external window.
      * @return {Promise.<Bounds>}
      * @experimental
     */
     getBounds(): Promise<Bounds>;
-
     /**
      * Retrieves an array containing wrapped external windows that are grouped
      * with this external window. If a window is not in a group an empty array
@@ -176,21 +94,18 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     getGroup(): Promise<Array<ExternalWindow | _Window>>;
-
     /**
      * Gets an information object for the window.
      * @return {Promise.<any>}
      * @experimental
      */
     getInfo(): Promise<any>;
-
     /**
      * Gets an external window's options.
      * @return {Promise.<any>}
      * @experimental
      */
     getOptions(): Promise<any>;
-
     /**
      * Gets the current state ("minimized", "maximized", or "restored") of
      * the external window.
@@ -198,21 +113,18 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     getState(): Promise<string>;
-
     /**
      * Hides the external window.
      * @return {Promise.<void>}
      * @experimental
      */
     hide(): Promise<void>;
-
     /**
      * Determines if the external window is currently showing.
      * @return {Promise.<boolean>}
      * @experimental
      */
     isShowing(): Promise<boolean>;
-
     /**
      * Joins the same window group as the specified window.
      * @param { _Window | ExternalWindow } target The window whose group is to be joined
@@ -220,7 +132,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     joinGroup(target: ExternalWindow | _Window): Promise<void>;
-
     /**
      * Leaves the current window group so that the window can be moved
      * independently of those in the group.
@@ -228,14 +139,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     leaveGroup(): Promise<void>;
-
     /**
      * Maximizes the external window.
      * @return {Promise.<void>}
      * @experimental
      */
     maximize(): Promise<void>;
-
     /**
      * Merges the instance's window group with the same window group as the specified window
      * @param { _Window | ExternalWindow } target The window whose group is to be merged with
@@ -243,14 +152,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     mergeGroups(target: ExternalWindow | _Window): Promise<void>;
-
     /**
      * Minimizes the external window.
      * @return {Promise.<void>}
      * @experimental
      */
     minimize(): Promise<void>;
-
     /**
      * Moves the external window by a specified amount.
      * @param { number } deltaLeft The change in the left position of the window
@@ -259,7 +166,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     moveBy(deltaLeft: number, deltaTop: number): Promise<void>;
-
     /**
      * Moves the external window to a specified location.
      * @param { number } left The left position of the window
@@ -268,7 +174,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     moveTo(left: number, top: number): Promise<void>;
-
     /**
      * Resizes the external window by a specified amount.
      * @param { number } deltaWidth The change in the width of the window
@@ -280,7 +185,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType): Promise<void>;
-
     /**
      * Resizes the external window to the specified dimensions.
      * @param { number } width The change in the width of the window
@@ -292,14 +196,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     resizeTo(width: number, height: number, anchor: AnchorType): Promise<void>;
-
     /**
      * Restores the external window to its normal state (i.e. unminimized, unmaximized).
      * @return {Promise.<void>}
      * @experimental
      */
     restore(): Promise<void>;
-
     /**
      * Will bring the external window to the front of the entire stack and
      * give it focus.
@@ -307,7 +209,6 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     setAsForeground(): Promise<void>;
-
     /**
      * Sets the external window's size and position.
      * @property { Bounds } bounds
@@ -315,14 +216,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     setBounds(bounds: Bounds): Promise<void>;
-
     /**
      * Shows the external window if it is hidden.
      * @return {Promise.<void>}
      * @experimental
      */
     show(): Promise<void>;
-
     /**
      * Shows the external window, if it is hidden, at the specified location.
      * If the toggle parameter is set to true, the external window will
@@ -333,14 +232,12 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @experimental
      */
     showAt(left: number, top: number): Promise<void>;
-
     /**
      * Stops the taskbar icon from flashing.
      * @return {Promise.<void>}
      * @experimental
      */
     stopFlashing(): Promise<void>;
-
     /**
      * Updates the external window using the passed options
      * @param {*} options Changes an external window's options

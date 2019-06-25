@@ -902,7 +902,6 @@ function test_external_window() {
 
     // getAllExternalWindows
     fin.System.getAllExternalWindows().then(exWins => exWins.forEach(exWin => console.log(exWin.uuid)));
-
     // addEventListener
     externalWin.addListener('some-event', event => console.log(event.message));
 
