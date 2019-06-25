@@ -221,15 +221,15 @@ export type QueryResultRowType<ColumnName extends string = string> = {
     [name in ColumnName]: QueryResultRowColumnType;
 };
 
-export type QueryAnyFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<Array<T[keyof T]>>;
-export type QueryAnyFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[]>;
-export type QueryFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<QueryResultType<T>>;
-export type QueryManyFirstFunctionType = QueryAnyFirstFunctionType;
+export type QueryAnyFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<ReadonlyArray<T>>;
+export type QueryAnyFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<ReadonlyArray<T>>;
 export type QueryManyFunctionType = QueryAnyFunctionType;
-export type QueryMaybeOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[keyof T] | null>;
+export type QueryManyFirstFunctionType = QueryAnyFirstFunctionType;
 export type QueryMaybeOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T | null>;
-export type QueryOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T[keyof T]>;
+export type QueryMaybeOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T | null>;
 export type QueryOneFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T>;
+export type QueryOneFirstFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<T>;
+export type QueryFunctionType = <T>(...args: QueryMethodParams<T>) => Promise<QueryResultType<T>>;
 
 export interface CommonQueryMethodsType {
     any: QueryAnyFunctionType;
