@@ -1,3 +1,4 @@
+import { dispatch, select } from '@wordpress/data';
 import * as RT from '@wordpress/rich-text';
 
 const VALUE: RT.Value = {
@@ -162,3 +163,22 @@ RT.toggleFormat(VALUE, FORMAT);
 // unregisterFormatType
 //
 RT.unregisterFormatType('foo');
+
+//
+// store
+//
+dispatch('core/rich-text').addFormatTypes({
+    className: null,
+    edit: () => null,
+    name: 'my/foo',
+    tagName: 'a',
+    title: 'foo',
+});
+dispatch('core/rich-text').removeFormatTypes('my/foo');
+dispatch('core/rich-text').removeFormatTypes(['my/foo', 'my/bar']);
+
+// $ExpectType NamedFormatConfiguration[]
+select('core/rich-text').getFormatTypes();
+
+// $ExpectType NamedFormatConfiguration | undefined
+select('core/rich-text').getFormatTypeForBareElement('a');
