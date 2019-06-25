@@ -1,8 +1,4 @@
-import {
-    ComponentType,
-    KeyboardEventHandler,
-    ReactNode
-} from "@wordpress/element";
+import { ComponentType, KeyboardEventHandler, ReactNode } from '@wordpress/element';
 
 declare namespace TabbableContainer {
     interface Props {

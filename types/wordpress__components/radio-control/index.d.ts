@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 import BaseControl from '../base-control';
 
@@ -8,12 +8,12 @@ declare namespace RadioControl {
         /**
          * The value property of the currently selected option.
          */
-        selected?: Option["value"];
+        selected?: Option['value'];
         /**
          * A function that receives the value of the new option that is being
          * selected as input.
          */
-        onChange(value: Option["value"]): void;
+        onChange(value: Option['value']): void;
     }
     interface Option {
         /**

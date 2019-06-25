@@ -1,8 +1,4 @@
-import {
-    ComponentType,
-    FocusEventHandler,
-    MouseEventHandler
-} from "@wordpress/element";
+import { ComponentType, FocusEventHandler, MouseEventHandler } from '@wordpress/element';
 
 declare namespace FormTokenField {
     interface Props {
@@ -81,7 +77,7 @@ declare namespace FormTokenField {
               /**
                * Applies styles to token.
                */
-              status?: "error" | "validating" | "success";
+              status?: 'error' | 'validating' | 'success';
               /**
                * Adds a title to the token.
                */

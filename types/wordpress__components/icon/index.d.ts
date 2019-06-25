@@ -1,11 +1,6 @@
-import {
-    ComponentType,
-    SVGProps,
-    ReactComponentElement,
-    ReactDOM
-} from "@wordpress/element";
+import { ComponentType, SVGProps, ReactComponentElement, ReactDOM } from '@wordpress/element';
 
-import Dashicon from "../dashicon";
+import Dashicon from '../dashicon';
 
 declare namespace Icon {
     type IconType<P> = Dashicon.Icon | ComponentType<P> | JSX.Element;

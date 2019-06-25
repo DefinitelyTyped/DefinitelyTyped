@@ -1,7 +1,7 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
-import Popover from "../popover";
-import Shortcut from "../shortcut";
+import Popover from '../popover';
+import Shortcut from '../shortcut';
 
 declare namespace Tooltip {
     interface Props {

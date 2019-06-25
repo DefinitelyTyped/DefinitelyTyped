@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
-import IconButton from "../icon-button";
+import IconButton from '../icon-button';
 
 declare namespace MenuItem {
     interface Props extends Partial<IconButton.Props> {

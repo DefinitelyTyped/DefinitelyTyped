@@ -1,28 +1,22 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
 declare namespace Animate {
     interface BaseProps {
-        type: "appear" | "slide-in";
+        type: 'appear' | 'slide-in';
         children(props: { className: string }): ReactNode;
     }
 
     interface AppearProps extends BaseProps {
-        type: "appear";
+        type: 'appear';
         options?: {
-            origin?:
-                | "top"
-                | "top left"
-                | "top right"
-                | "bottom"
-                | "bottom left"
-                | "bottom right";
+            origin?: 'top' | 'top left' | 'top right' | 'bottom' | 'bottom left' | 'bottom right';
         };
     }
 
     interface SlideInProps extends BaseProps {
-        type: "slide-in";
+        type: 'slide-in';
         options?: {
-            origin?: "left";
+            origin?: 'left';
         };
     }
 

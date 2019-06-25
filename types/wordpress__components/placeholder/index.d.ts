@@ -1,6 +1,6 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
-import Icon from "../icon";
+import Icon from '../icon';
 
 declare namespace Placeholder {
     interface Props extends HTMLProps<HTMLDivElement> {
