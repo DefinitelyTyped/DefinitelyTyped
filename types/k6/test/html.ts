@@ -13,6 +13,7 @@ import {
     KeygenElement,
     LabelElement,
     LegendElement,
+    LinkElement,
     MediaElement,
     NodeType,
     OptionElement,
@@ -223,6 +224,11 @@ possibleForm = label.form();
 declare function makeLegendElement(): LegendElement;
 const legend: LegendElement = makeLegendElement();
 possibleForm = legend.form();
+
+// LinkElement
+declare function makeLinkElement(): LinkElement;
+const link: LinkElement = makeLinkElement();
+link.relList(); // $ExpectType string[]
 
 // MediaElement
 declare function makeMediaElement(): MediaElement;
