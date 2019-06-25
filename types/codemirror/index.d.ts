@@ -1456,7 +1456,7 @@ declare namespace CodeMirror {
      * linter.
      */
     interface LintOptions extends LintStateOptions {
-        getAnnotations: Linter | AsyncLinter;
+        getAnnotations?: Linter | AsyncLinter;
     }
 
     /**
