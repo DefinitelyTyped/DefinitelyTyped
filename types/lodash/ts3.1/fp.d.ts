@@ -1718,7 +1718,7 @@ declare namespace _ {
     }
     type LodashIntersectionWith1x5<T1> = (array: lodash.List<T1> | null | undefined) => T1[];
     type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => T1[];
-    type LodashInvert = (object: object) => lodash.Dictionary<string>;
+    type LodashInvert = <T extends Record<PropertyKey, PropertyKey>>(object: T) => lodash.InvertResult<T>;
     interface LodashInvertBy {
         <T>(interatee: lodash.ValueIteratee<T>): LodashInvertBy1x1<T>;
         <T>(interatee: lodash.__, object:  lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashInvertBy1x2<T>;
@@ -1831,7 +1831,6 @@ declare namespace _ {
     }
     interface LodashIsArrayLikeObject {
         <T extends { __lodashAnyHack: any }>(value: T): boolean;
-        // tslint:disable-next-line:ban-types (type guard doesn't seem to work correctly without the lodash.Function type)
         (value: ((...args: any[]) => any) | lodash.FunctionBase | string | boolean | number | null | undefined): value is never;
         (value: any): value is object & { length: number };
     }
@@ -2032,40 +2031,36 @@ declare namespace _ {
     type LodashMapKeys2x1 = <T extends object>(object: T | null | undefined) => lodash.Dictionary<T[keyof T]>;
     type LodashMapKeys2x2<T> = (iteratee: lodash.ValueIteratee<string>) => lodash.Dictionary<T[keyof T]>;
     interface LodashMapValues {
-        <T, TResult>(callback: (value: T) => TResult): LodashMapValues1x1<T, TResult>;
-        <T>(callbackOrIterateeOrIterateeOrIteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues1x2<T>;
-        <T, TResult>(callback: (value: T) => TResult, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<TResult>;
-        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues2x1<T, TResult>;
-        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues2x2<T>;
+        <T extends object, TResult>(callback: (value: T[keyof T]) => TResult): LodashMapValues1x1<T, TResult>;
+        <T extends object>(callbackOrIterateeOrIteratee: lodash.__, obj: T | null | undefined): LodashMapValues1x2<T>;
         <T extends object, TResult>(callback: (value: T[keyof T]) => TResult, obj: T | null | undefined): { [P in keyof T]: TResult };
-        (iteratee: object): LodashMapValues3x1;
+        (iteratee: object): LodashMapValues2x1;
+        <T>(iteratee: lodash.__, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashMapValues2x2;
         <T>(iteratee: object, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(iteratee: object, obj: T | null | undefined): { [P in keyof T]: boolean };
-        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues5x1<T, TKey>;
+        <T, TKey extends keyof T>(iteratee: TKey): LodashMapValues4x1<T, TKey>;
         <T, TKey extends keyof T>(iteratee: TKey, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<T[TKey]>;
-        (iteratee: string): LodashMapValues6x1;
+        (iteratee: string): LodashMapValues5x1;
         <T>(iteratee: string, obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(iteratee: string, obj: T | null | undefined): { [P in keyof T]: any };
     }
-    type LodashMapValues1x1<T, TResult> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<TResult>;
+    type LodashMapValues1x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
     interface LodashMapValues1x2<T> {
-        <TResult>(callback: (value: T) => TResult): lodash.Dictionary<TResult>;
-        (iteratee: object): lodash.Dictionary<boolean>;
-        <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
-        (iteratee: string): lodash.Dictionary<any>;
-    }
-    type LodashMapValues2x1<T, TResult> = (obj: T | null | undefined) => { [P in keyof T]: TResult };
-    interface LodashMapValues2x2<T> {
         <TResult>(callback: (value: T[keyof T]) => TResult): { [P in keyof T]: TResult };
         (iteratee: object): { [P in keyof T]: boolean };
         (iteratee: string): { [P in keyof T]: any };
     }
-    interface LodashMapValues3x1 {
+    interface LodashMapValues2x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<boolean>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: boolean };
     }
-    type LodashMapValues5x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
-    interface LodashMapValues6x1 {
+    interface LodashMapValues2x2 {
+        (iteratee: object): lodash.Dictionary<boolean>;
+        <TKey extends keyof T>(iteratee: TKey): lodash.Dictionary<T[TKey]>;
+        (iteratee: string): lodash.Dictionary<any>;
+    }
+    type LodashMapValues4x1<T, TKey extends keyof T> = (obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined) => lodash.Dictionary<T[TKey]>;
+    interface LodashMapValues5x1 {
         <T>(obj: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): lodash.Dictionary<any>;
         <T extends object>(obj: T | null | undefined): { [P in keyof T]: any };
     }
@@ -2604,15 +2599,21 @@ declare namespace _ {
     type LodashPartialRight27x1 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
     type LodashPartialRight27x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashPartition {
-        <T>(callback: lodash.ValueIteratee<T>): LodashPartition1x1<T>;
+        <T, U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>): LodashPartition1x1<T, U>;
         <T>(callback: lodash.__, collection: lodash.List<T> | null | undefined): LodashPartition1x2<T>;
+        <T, U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>, collection: lodash.List<T> | null | undefined): [U[], Array<Exclude<T, U>>];
+        <T>(callback: lodash.ValueIteratee<T>): LodashPartition2x1<T>;
         <T>(callback: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): [T[], T[]];
-        <T extends object>(callback: lodash.__, collection: T | null | undefined): LodashPartition2x2<T>;
+        <T extends object>(callback: lodash.__, collection: T | null | undefined): LodashPartition3x2<T>;
         <T extends object>(callback: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
-    type LodashPartition1x1<T> = (collection: lodash.List<T> | object | null | undefined) => [T[], T[]];
-    type LodashPartition1x2<T> = (callback: lodash.ValueIteratee<T>) => [T[], T[]];
-    type LodashPartition2x2<T> = (callback: lodash.ValueIteratee<T[keyof T]>) => [Array<T[keyof T]>, Array<T[keyof T]>];
+    type LodashPartition1x1<T, U> = (collection: lodash.List<T> | null | undefined) => [U[], Array<Exclude<T, U>>];
+    interface LodashPartition1x2<T> {
+        <U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>): [U[], Array<Exclude<T, U>>];
+        (callback: lodash.ValueIteratee<T>): [T[], T[]];
+    }
+    type LodashPartition2x1<T> = (collection: lodash.List<T> | object | null | undefined) => [T[], T[]];
+    type LodashPartition3x2<T> = (callback: lodash.ValueIteratee<T[keyof T]>) => [Array<T[keyof T]>, Array<T[keyof T]>];
     interface LodashPath {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashPath1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashPath1x2<TObject>;

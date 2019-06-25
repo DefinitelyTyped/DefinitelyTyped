@@ -1988,12 +1988,17 @@ declare module "../index" {
     // invert
 
     // helpers
-    type InvertAllValues<T extends Record<PropertyKey, PropertyKey>> = {
-        [P in keyof T]: { key: P, value: T[P] }
-    }[keyof T]
-    type InvertResult<T extends Record<PropertyKey, PropertyKey>> = {
-        [P in InvertAllValues<T>['value']]: Extract<InvertAllValues<T>, { value: P }>['key']
-    }
+    type Keyify<T> = T extends PropertyKey ? T : string;
+    type Stringify<T> = T extends string ? T : string;
+    type KeyValues<T> = {
+        [P in keyof T]: {
+            key: Stringify<P>,
+            value: Keyify<T[P]>,
+        }
+    }[keyof T];
+    type InvertResult<T> = {} & {
+        [P in Keyify<T[keyof T]>]: Extract<KeyValues<T>, { value: P }>['key']
+    };
 
     interface LoDashStatic {
         /**

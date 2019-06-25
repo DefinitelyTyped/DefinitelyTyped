@@ -1789,7 +1789,7 @@ declare namespace _ {
     }
     type LodashIntersectionWith1x5<T1> = (array: lodash.List<T1> | null | undefined) => T1[];
     type LodashIntersectionWith1x6<T1, T2> = (comparator: lodash.Comparator2<T1, T2>) => T1[];
-    type LodashInvert = (object: object) => lodash.Dictionary<string>;
+    type LodashInvert = <T extends Record<PropertyKey, PropertyKey>>(object: T) => lodash.InvertResult<T>;
     interface LodashInvertBy {
         <T>(interatee: lodash.ValueIteratee<T>): LodashInvertBy1x1<T>;
         <T>(interatee: lodash.__, object: lodash.List<T> | lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): LodashInvertBy1x2<T>;
