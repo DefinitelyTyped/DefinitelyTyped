@@ -1,4 +1,14 @@
-import { Attribute, Element, HrefElement, FormValue, MediaElement, NodeType, Selection, parseHTML } from 'k6/html';
+import {
+    Attribute,
+    Element,
+    FormElement,
+    HrefElement,
+    FormValue,
+    MediaElement,
+    NodeType,
+    Selection,
+    parseHTML,
+} from 'k6/html';
 
 const handler = (index: number, element: Element) => {};
 const tester = (index: number, element: Element) => true;
@@ -117,6 +127,13 @@ possibleElement = element.querySelector('.item');
 elements = element.querySelectorAll('.item');
 element.textContent(); // $ExpectType string
 element.toString(); // $ExpectType string
+
+// FormElement
+declare function makeFormElement(): FormElement;
+const form: FormElement = makeFormElement();
+elements = form.elements();
+form.length(); // $ExpectType number
+form.method(); // $ExpectType string
 
 // HrefElement
 declare function makeHrefElement(): HrefElement;

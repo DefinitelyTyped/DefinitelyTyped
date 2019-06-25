@@ -116,6 +116,12 @@ export abstract class Element {
     textContent(): string;
     toString(): string;
 }
+export abstract class FormElement extends Element {
+    protected __brand: never;
+    elements(): Element[];
+    length(): number;
+    method(): string;
+}
 export abstract class HrefElement extends Element {
     protected __brand: never;
     hash(): string;
