@@ -43,6 +43,12 @@ connect(address, (socket: Socket) => {
     socket.on('open', () => {}, 5); // $ExpectError
 });
 
+// Socket.ping
+connect(address, (socket: Socket) => {
+    socket.ping(); // $ExpectType void
+    socket.ping(5); // $ExpectError
+});
+
 // Socket.send
 connect(address, (socket: Socket) => {
     socket.send(); // $ExpectError

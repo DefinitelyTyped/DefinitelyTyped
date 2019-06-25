@@ -23,6 +23,7 @@ export interface Response {
 export abstract class Socket {
     protected __brand: never;
     on<ET extends EventType>(event: ET, handler: EventHandler<ET>): void;
+    ping(): void;
     send(data: string): void;
 }
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
