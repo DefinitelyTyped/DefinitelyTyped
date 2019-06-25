@@ -31,6 +31,7 @@ import {
     TableElement,
     TableRowElement,
     TableSectionElement,
+    TextAreaElement,
     parseHTML,
 } from 'k6/html';
 
@@ -342,3 +343,10 @@ row.sectionRowIndex(); // $ExpectType number
 declare function makeTableSectionElement(): TableSectionElement;
 const section: TableSectionElement = makeTableSectionElement();
 elements = section.rows();
+
+// TextAreaElement
+declare function makeTextAreaElement(): TextAreaElement;
+const textArea: TextAreaElement = makeTextAreaElement();
+possibleForm = textArea.form();
+labels = textArea.labels();
+textArea.length(); // $ExpectType number

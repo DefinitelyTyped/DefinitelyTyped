@@ -276,3 +276,9 @@ export abstract class TableSectionElement extends Element {
     protected __brand: never;
     rows(): Element[];
 }
+export abstract class TextAreaElement extends Element {
+    protected __brand: never;
+    form(): FormElement | undefined;
+    labels(): LabelElement[];
+    length(): number;
+}
