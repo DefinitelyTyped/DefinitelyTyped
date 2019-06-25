@@ -22,6 +22,7 @@ import {
     OptionElement,
     OutputElement,
     ProgressElement,
+    ScriptElement,
     Selection,
     TableCellElement,
     TableSectionElement,
@@ -281,6 +282,11 @@ labels = progress.labels();
 progress.max(); // $ExpectType number
 progress.position(); // $ExpectType number
 progress.value(); // $ExpectType number
+
+// ScriptElement
+declare function makeScriptElement(): ScriptElement;
+const script: ScriptElement = makeScriptElement();
+script.text(); // $ExpectType string
 
 // TableCellElement
 declare function makeTableCellElement(): TableCellElement;

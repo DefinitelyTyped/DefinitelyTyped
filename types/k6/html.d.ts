@@ -230,6 +230,10 @@ export abstract class ProgressElement extends Element {
     position(): number;
     value(): number;
 }
+export abstract class ScriptElement extends Element {
+    protected __brand: never;
+    text(): string;
+}
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;
