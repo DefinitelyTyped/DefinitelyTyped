@@ -1446,7 +1446,7 @@ declare namespace CodeMirror {
      * initialization of the CodeMirror instance.
      */
     interface LintStateOptions {
-        async: boolean;
+        async?: boolean;
         hasGutters: boolean;
         onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
     }
