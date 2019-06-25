@@ -352,6 +352,15 @@ arrSchema.min(5, 'min');
 arrSchema.min(5, () => 'min');
 arrSchema.compact((value, index, array) => value === array[index]);
 
+const arrOfObjSchema = yup.array().of(
+    yup.object().shape({
+        field: yup.number()
+    })
+);
+arrOfObjSchema.compact((value, index, array) => {
+    return value.field > 10 && array[index].field > 10;
+});
+
 const arr = yup.array();
 const top = (<T>(x?: T): T => x!)();
 const validArr: yup.ArraySchema<typeof top> = arr;
