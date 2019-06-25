@@ -8,7 +8,6 @@ function AppWithNoopHook() {
     return <h1>AppWithDialogBoxHook</h1>;
 }
 
-
 function AppWithDialogBoxHook() {
     useBeforeunload(event => event.preventDefault());
 
