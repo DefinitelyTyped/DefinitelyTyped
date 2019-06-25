@@ -133,4 +133,14 @@ zChat.sendChatRating('good', fakeCallback);
 zChat.sendFile(fakeFile,
     (err: SendFileErrorMessage, data: { mime_type: string; name: string; size: number; url: string }) => 0);
 zChat.sendOfflineMsg({name: 'fake_name', email: 'fake_email', message: 'fake_message'}, fakeCallback);
-
+zChat.sendTyping(true);
+zChat.sendVisitorPath({title: 'fake_title', url: 'fake_url'}, fakeCallback);
+zChat.setVisitorDefaultDepartment(1, fakeCallback);
+zChat.setVisitorInfo({
+    display_name: 'fake_name',
+    email: 'fake_email',
+    phone: 'fake_phone',
+});
+const fakeHandler = (event_data?: EventData) => 0;
+zChat.on("account_status", fakeHandler);
+zChat.un("account_status", fakeHandler);
