@@ -8,6 +8,7 @@ import {
     FormElement,
     FormFieldElement,
     HrefElement,
+    InputElement,
     FormValue,
     LabelElement,
     MediaElement,
@@ -198,6 +199,11 @@ href.relList(); // $ExpectType string[]
 href.search(); // $ExpectType string
 href.text(); // $ExpectType string
 href.username(); // $ExpectType string
+
+// InputElement
+declare function makeInputElement(): InputElement;
+const input: InputElement = makeInputElement();
+possibleForm = input.form();
 
 // LabelElement
 declare function makeLabelElement(): LabelElement;

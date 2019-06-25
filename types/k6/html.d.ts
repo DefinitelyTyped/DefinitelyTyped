@@ -168,6 +168,10 @@ export abstract class HrefElement extends Element {
     text(): string;
     username(): string;
 }
+export abstract class InputElement extends FormFieldElement {
+    protected __brand: never;
+    form(): FormElement | undefined;
+}
 export abstract class LabelElement extends Element {
     protected __brand: never;
     control(): Element | undefined;
