@@ -9,6 +9,7 @@ import {
     MediaElement,
     NodeType,
     Selection,
+    TableCellElement,
     TableSectionElement,
     parseHTML,
 } from 'k6/html';
@@ -178,6 +179,11 @@ possibleForm = label.form();
 declare function makeMediaElement(): MediaElement;
 const media: MediaElement = makeMediaElement();
 elements = media.textTracks();
+
+// TableCellElement
+declare function makeTableCellElement(): TableCellElement;
+const cell: TableCellElement = makeTableCellElement();
+cell.cellIndex(); // $ExpectType number
 
 // TableSectionElement
 declare function makeTableSectionElement(): TableSectionElement;
