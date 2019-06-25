@@ -56,9 +56,9 @@ export class Message {
 }
 
 /* marshal takes an object and returns its serialized to string form, equivalent to the Go's `neffos.Marshal`.
-   It can be used on `emit` methods.   
+   It can be used on `emit` methods.
    See `Message.unmarshal` method too. */
-export function marshal(obj: any): string
+export function marshal(obj: any): string;
 
 /* The Room describes a connected connection to a room,
    emits messages with the `Message.Room` filled to the specific room
@@ -107,13 +107,13 @@ export class NSConn {
    See examples for more. */
 export type MessageHandlerFunc = (c: NSConn, msg: Message) => Error;
 
-export type Events = Map<string, MessageHandlerFunc>
+export type Events = Map<string, MessageHandlerFunc>;
 export type Namespaces = Map<string, Events>;
 
 /* This is the prefix that Options.header function is set to a url parameter's key in order to serve to parse it as header.
  The server's `URLParamAsHeaderPrefix` must match.
  Note that on the Nodejs side this is entirely optional, nodejs and go client support custom headers without url parameters parsing. */
-export const URLParamAsHeaderPrefix = "X-Websocket-Header-"
+export const URLParamAsHeaderPrefix = "X-Websocket-Header-";
 
 export interface Headers {
   [key: string]: any;
@@ -123,7 +123,7 @@ export interface Headers {
 export interface Options {
   headers?: Headers;
   protocols?: string[];
-  reconnnect?:number;
+  reconnnect?: number;
 }
 
 /* The dial function returns a neffos client, a new `Conn` instance.
@@ -159,7 +159,8 @@ export interface Options {
     nsConn.emit("chat", "Hello from client side!");
     See https://github.com/kataras/neffos.js/tree/master/_examples for more.
 */
-export function dial(endpoint: string, connHandler: any, options?: Options | any): Promise<Conn>;
+export function dial(endpoint: string, connHandler: any, options?: Options): Promise<Conn>;
+export function dial(endpoint: string, connHandler: any, options: any): Promise<Conn>;
 
 export const ErrInvalidPayload: Error;
 export const ErrBadNamespace: Error;
