@@ -42,7 +42,7 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
 export function cookieJar(): CookieJar;
 
 // Params
-export abstract class Params {
+export interface Params {
     auth?: AuthMethod;
     cookies?: { [name: string]: ParamsCookieValue };
     headers?: { [name: string]: string };
@@ -52,7 +52,7 @@ export abstract class Params {
     timeout?: number;
     responseType?: ResponseType;
 }
-export abstract class GenericParams<RT extends ResponseType | undefined> extends Params {
+export interface GenericParams<RT extends ResponseType | undefined> extends Params {
     responseType?: RT;
 }
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
@@ -94,7 +94,7 @@ export type BatchResponses<Q> = {
 };
 
 // Response
-export abstract class Response {
+export interface Response {
     body: ResponseBody;
     cookies: { [name: string]: ResponseCookie[] };
     error: string;
@@ -145,7 +145,7 @@ export abstract class Response {
         params?: GenericParams<RT> | null;
     }): RefinedResponse<RT>;
 }
-export abstract class RefinedResponse<RT extends ResponseType | undefined> extends Response {
+export interface RefinedResponse<RT extends ResponseType | undefined> extends Response {
     body: RefinedResponseBody<RT>;
 }
 export type ResponseBody = string | bytes | null;
