@@ -255,7 +255,7 @@ interface MyCompleteOption {
 //
 // form-file-upload
 //
-<C.FormFileUpload accept="image/*" onChange={() => console.log('new image')}>
+<C.FormFileUpload accept="image/*" icon="welcome-learn-more" onChange={() => console.log('new image')}>
     Upload
 </C.FormFileUpload>;
 <C.FormFileUpload

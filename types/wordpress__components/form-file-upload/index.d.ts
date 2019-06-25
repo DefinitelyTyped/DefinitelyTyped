@@ -20,7 +20,7 @@ declare namespace FormFileUpload {
          */
         onChange: ChangeEventHandler<HTMLInputElement>;
     }
-    interface IconButtonProps extends BaseProps, Partial<Omit<IconButton.Props, 'onChange' | 'icon'>> {
+    interface IconButtonProps extends BaseProps, Partial<Omit<IconButton.Props, 'onChange'>> {
         render?: never;
     }
     interface RenderProps extends BaseProps {
