@@ -116,6 +116,18 @@ export abstract class Element {
     textContent(): string;
     toString(): string;
 }
+export abstract class AnchorElement extends HrefElement {
+    protected __brand: never;
+}
+export abstract class AreaElement extends HrefElement {
+    protected __brand: never;
+}
+export abstract class AudioElement extends MediaElement {
+    protected __brand: never;
+}
+export abstract class BaseElement extends Element {
+    protected __brand: never;
+}
 export abstract class ButtonElement extends FormFieldElement {
     protected __brand: never;
     value(): string;
@@ -125,9 +137,18 @@ export abstract class CanvasElement extends Element {
     height(): number;
     width(): number;
 }
+export abstract class DataElement extends Element {
+    protected __brand: never;
+}
 export abstract class DataListElement extends Element {
     protected __brand: never;
     options(): OptionElement[];
+}
+export abstract class DelElement extends ModElement {
+    protected __brand: never;
+}
+export abstract class EmbedElement extends Element {
+    protected __brand: never;
 }
 export abstract class FieldSetElement extends Element {
     protected __brand: never;
@@ -168,9 +189,18 @@ export abstract class HrefElement extends Element {
     text(): string;
     username(): string;
 }
+export abstract class IFrameElement extends Element {
+    protected __brand: never;
+}
+export abstract class ImageElement extends Element {
+    protected __brand: never;
+}
 export abstract class InputElement extends FormFieldElement {
     protected __brand: never;
     form(): FormElement | undefined;
+}
+export abstract class InsElement extends ModElement {
+    protected __brand: never;
 }
 export abstract class KeygenElement extends Element {
     protected __brand: never;
@@ -186,6 +216,9 @@ export abstract class LegendElement extends Element {
     protected __brand: never;
     form(): FormElement | undefined;
 }
+export abstract class LiElement extends Element {
+    protected __brand: never;
+}
 export abstract class LinkElement extends Element {
     protected __brand: never;
     relList(): string[];
@@ -199,13 +232,25 @@ export abstract class MediaElement extends Element {
     protected __brand: never;
     textTracks(): Element[];
 }
+export abstract class MetaElement extends Element {
+    protected __brand: never;
+}
 export abstract class MeterElement extends Element {
     protected __brand: never;
     labels(): LabelElement[];
 }
+export abstract class ModElement extends Element {
+    protected __brand: never;
+}
 export abstract class ObjectElement extends Element {
     protected __brand: never;
     form(): FormElement | undefined;
+}
+export abstract class OListElement extends Element {
+    protected __brand: never;
+}
+export abstract class OptGroupElement extends Element {
+    protected __brand: never;
 }
 export abstract class OptionElement extends Element {
     protected __brand: never;
@@ -223,12 +268,21 @@ export abstract class OutputElement extends Element {
     labels(): LabelElement[];
     value(): string;
 }
+export abstract class ParamElement extends Element {
+    protected __brand: never;
+}
+export abstract class PreElement extends Element {
+    protected __brand: never;
+}
 export abstract class ProgressElement extends Element {
     protected __brand: never;
     labels(): LabelElement[];
     max(): number;
     position(): number;
     value(): number;
+}
+export abstract class QuoteElement extends Element {
+    protected __brand: never;
 }
 export abstract class ScriptElement extends Element {
     protected __brand: never;
@@ -246,9 +300,15 @@ export abstract class SelectElement extends Element {
     type(): string;
     value(): string;
 }
+export abstract class SourceElement extends Element {
+    protected __brand: never;
+}
 export abstract class StyleElement extends Element {
     protected __brand: never;
     type(): string;
+}
+export abstract class TableBodyElement extends TableSectionElement {
+    protected __brand: never;
 }
 export abstract class TableCellElement extends Element {
     protected __brand: never;
@@ -258,6 +318,9 @@ export abstract class TableColElement extends Element {
     protected __brand: never;
     span(): number;
 }
+export abstract class TableDataCellElement extends TableCellElement {
+    protected __brand: never;
+}
 export abstract class TableElement extends Element {
     protected __brand: never;
     caption(): Element | undefined;
@@ -265,6 +328,15 @@ export abstract class TableElement extends Element {
     tBodies(): Element[];
     tFoot(): Element | undefined;
     tHead(): Element | undefined;
+}
+export abstract class TableFootElement extends TableSectionElement {
+    protected __brand: never;
+}
+export abstract class TableHeadElement extends TableSectionElement {
+    protected __brand: never;
+}
+export abstract class TableHeaderCellElement extends TableCellElement {
+    protected __brand: never;
 }
 export abstract class TableRowElement extends Element {
     protected __brand: never;
@@ -282,7 +354,19 @@ export abstract class TextAreaElement extends Element {
     labels(): LabelElement[];
     length(): number;
 }
+export abstract class TimeElement extends Element {
+    protected __brand: never;
+}
 export abstract class TitleElement extends Element {
     protected __brand: never;
     text(): string;
+}
+export abstract class TrackElement extends Element {
+    protected __brand: never;
+}
+export abstract class UListElement extends Element {
+    protected __brand: never;
+}
+export abstract class VideoElement extends MediaElement {
+    protected __brand: never;
 }
