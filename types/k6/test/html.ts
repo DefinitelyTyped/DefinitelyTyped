@@ -28,6 +28,7 @@ import {
     StyleElement,
     TableCellElement,
     TableElement,
+    TableRowElement,
     TableSectionElement,
     parseHTML,
 } from 'k6/html';
@@ -50,6 +51,7 @@ let possibleType: NodeType | undefined;
 let possibleForm: FormElement | undefined;
 let labels: LabelElement[];
 let options: OptionElement[];
+let cells: TableCellElement[];
 
 // parseHTML
 parseHTML(); // $ExpectError
@@ -322,6 +324,13 @@ elements = table.rows();
 elements = table.tBodies();
 possibleElement = table.tFoot();
 possibleElement = table.tHead();
+
+// TableRowElement
+declare function makeTableRowElement(): TableRowElement;
+const row: TableRowElement = makeTableRowElement();
+cells = row.cells();
+row.rowIndex(); // $ExpectType number
+row.sectionRowIndex(); // $ExpectType number
 
 // TableSectionElement
 declare function makeTableSectionElement(): TableSectionElement;

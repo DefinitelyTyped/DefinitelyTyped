@@ -262,6 +262,12 @@ export abstract class TableElement extends Element {
     tFoot(): Element | undefined;
     tHead(): Element | undefined;
 }
+export abstract class TableRowElement extends Element {
+    protected __brand: never;
+    cells(): TableCellElement[];
+    rowIndex(): number;
+    sectionRowIndex(): number;
+}
 export abstract class TableSectionElement extends Element {
     protected __brand: never;
     rows(): Element[];
