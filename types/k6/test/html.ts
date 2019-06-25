@@ -4,6 +4,7 @@ import {
     FormElement,
     HrefElement,
     FormValue,
+    LabelElement,
     MediaElement,
     NodeType,
     Selection,
@@ -25,6 +26,7 @@ let attribute: Attribute;
 let possibleAttribute: Attribute | undefined;
 let attributesMap: { [name: string]: Attribute };
 let possibleType: NodeType | undefined;
+let possibleForm: FormElement | undefined;
 
 // parseHTML
 parseHTML(); // $ExpectError
@@ -150,6 +152,12 @@ href.relList(); // $ExpectType string[]
 href.search(); // $ExpectType string
 href.text(); // $ExpectType string
 href.username(); // $ExpectType string
+
+// LabelElement
+declare function makeLabelElement(): LabelElement;
+const label: LabelElement = makeLabelElement();
+possibleElement = label.control();
+possibleForm = label.form();
 
 // MediaElement
 declare function makeMediaElement(): MediaElement;

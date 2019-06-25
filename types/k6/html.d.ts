@@ -137,6 +137,11 @@ export abstract class HrefElement extends Element {
     text(): string;
     username(): string;
 }
+export abstract class LabelElement extends Element {
+    protected __brand: never;
+    control(): Element | undefined;
+    form(): FormElement | undefined;
+}
 export abstract class MediaElement extends Element {
     protected __brand: never;
     textTracks(): Element[];
