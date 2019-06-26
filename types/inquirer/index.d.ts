@@ -20,6 +20,7 @@ import { PromptModuleBase } from "./PromptModuleBase";
 import { Prompts } from "./Prompts";
 import { Separator } from "./Poll/Separator";
 import { ChoiceBase } from './Poll/ChoiceBase';
+import { KeyUnion } from "./System/KeyUnion";
 
 declare namespace inquirer {
     export type Questions<A extends Answers = Answers> =
@@ -90,7 +91,7 @@ declare namespace inquirer {
          * The name to use when storing the answer in the answers hash.
          * If the name contains periods, it will define a path in the answers hash.
          */
-        name?: string;
+        name?: KeyUnion<A>;
         /**
          * The question to print. If defined as a function, the first parameter will be
          * the current inquirer session answers.
