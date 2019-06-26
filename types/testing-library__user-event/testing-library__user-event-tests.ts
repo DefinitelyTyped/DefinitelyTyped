@@ -1,6 +1,7 @@
 import userEvent, { UserOpts } from '@testing-library/user-event';
 
 
+
 userEvent.click(document.body); // $ExpectType void
 userEvent.dblClick(window); // $ExpectType void
 userEvent.selectOptions(window, 'test'); // $ExpectType void

@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
+
+
 export interface UserOpts {
     allAtOnce?: boolean;
     delay?: number;
