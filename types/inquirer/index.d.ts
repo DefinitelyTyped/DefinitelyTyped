@@ -26,12 +26,6 @@ import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 
 declare namespace inquirer {
-    export type Questions<A extends Answers = Answers> =
-        | poll.DistinctQuestion<A>
-        | poll.DistinctQuestion<A>[]
-        | ReadonlyArray<poll.DistinctQuestion<A>>
-        | Observable<poll.DistinctQuestion<A>>;
-
     export interface Answers extends Record<string, any> { }
 
     export interface StreamOptions {
@@ -40,7 +34,7 @@ declare namespace inquirer {
     }
 
     export interface PromptModule extends PromptModuleBase {
-        <A>(questions: Questions<A>): Promise<A> & { ui: ui.PromptUI };
+        <A>(questions: poll.Questions<A>): Promise<A> & { ui: ui.PromptUI };
         /**
          * Register a prompt type
          * @param name Prompt type name
@@ -172,7 +166,7 @@ declare namespace inquirer {
 
         export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
 
-        export type DistinctQuestion<A extends Answers = Answers> = (
+        export type DistinctQuestion<A extends Answers = Answers> =
             ListQuestion<A> |
             RawListQuestion<A> |
             ExpandQuestion<A> |
@@ -181,8 +175,12 @@ declare namespace inquirer {
             InputQuestion<A> |
             NumberQuestion<A> |
             PasswordQuestion<A> |
-            EditorQuestion<A>
-        )
+            EditorQuestion<A>;
+
+        export type Questions<A extends Answers = Answers> =
+            | DistinctQuestion<A>
+            | ReadonlyArray<poll.DistinctQuestion<A>>
+            | Observable<poll.DistinctQuestion<A>>;
     }
 
     /**
@@ -245,7 +243,7 @@ declare namespace inquirer {
         export interface PromptUI extends BaseUI {
             process: Observable<Answer>;
             new(prompts: Prompts, opt: StreamOptions): PromptUI;
-            run<A>(questions: Questions<A>): Promise<A>;
+            run<A>(questions: poll.Questions<A>): Promise<A>;
             /**
              * Once all prompt are over
              */
