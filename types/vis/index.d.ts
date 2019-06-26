@@ -1206,11 +1206,11 @@ export class Network {
   getBaseEdge(clusteredEdgeId: IdType): IdType;
 
   /**
-   * For the given clusteredEdgeId, this method will return all the original 
-   * base edge id's provided in data.edges. 
+   * For the given clusteredEdgeId, this method will return all the original
+   * base edge id's provided in data.edges.
    * For a non-clustered (i.e. 'base') edge, clusteredEdgeId is returned.
-   * Only the base edge id's are returned. 
-   * All clustered edges id's under clusteredEdgeId are skipped, 
+   * Only the base edge id's are returned.
+   * All clustered edges id's under clusteredEdgeId are skipped,
    * but scanned recursively to return their base id's.
    */
   getBaseEdges(clusteredEdgeId: IdType): IdType[];
