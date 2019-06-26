@@ -810,10 +810,6 @@ declare namespace React {
     type Dispatch<A> = (value: A) => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
-    // types used to try and prevent the compiler from reducing S
-    // to a supertype common with the second argument to useReducer()
-    type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
-    type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
@@ -860,14 +856,14 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
-    // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
-    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be ommitted.
+    // overload where "I" may be a subset of "S"; used to provide autocompletion.
+    // If "I" matches "S" exactly then the last overload will allow initializer to be ommitted.
     // the last overload effectively behaves as if the identity function (x => x) is the initializer.
-    function useReducer<R extends Reducer<any, any>, I>(
-        reducer: R,
-        initializerArg: I & ReducerState<R>,
-        initializer: (arg: I & ReducerState<R>) => ReducerState<R>
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+    function useReducer<S, A, I>(
+        reducer: Reducer<S, A>,
+        initializerArg: I & S,
+        initializer: (arg: I & S) => S
+    ): [S, Dispatch<A>];
     /**
      * An alternative to `useState`.
      *
@@ -878,12 +874,12 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
-    // overload for free "I"; all goes as long as initializer converts it into "ReducerState<R>".
-    function useReducer<R extends Reducer<any, any>, I>(
-        reducer: R,
+    // overload for free "I"; all goes as long as initializer converts it into "S".
+    function useReducer<S, A, I>(
+        reducer: Reducer<S, A>,
         initializerArg: I,
-        initializer: (arg: I) => ReducerState<R>
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+        initializer: (arg: I) => S,
+    ): [S, Dispatch<A>];
     /**
      * An alternative to `useState`.
      *
@@ -897,18 +893,11 @@ declare namespace React {
 
     // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
     // The Flow types do have an overload for 3-ary invocation with undefined initializer.
-
-    // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
-    // supertype between the reducer's return type and the initialState (or the initializer's return type),
-    // which would prevent autocompletion from ever working.
-
-    // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
-    // in older versions, or a regression in newer versions of the typescript completion service.
-    function useReducer<R extends Reducer<any, any>>(
-        reducer: R,
-        initialState: ReducerState<R>,
+    function useReducer<S, A>(
+        reducer: Reducer<S, A>,
+        initialState: S,
         initializer?: undefined
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+    ): [S, Dispatch<A>];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
