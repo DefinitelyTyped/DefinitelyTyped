@@ -62,7 +62,7 @@ export declare class ScreenManager {
      * @returns
      * The width of the screen.
      */
-    public normalizedCliWidth(): number;
+    protected normalizedCliWidth(): number;
 
     /**
      * Splits the `text` into multiple lines with the specified max `width`.
@@ -73,7 +73,7 @@ export declare class ScreenManager {
      * @param width
      * The max width of each line.
      */
-    breakLines(text: string, width: number): string[];
+    protected breakLines(text: string, width: number): string[];
 
     /**
      * Adds line-breaks to the specified `text` with the specified max `width`.
@@ -84,5 +84,5 @@ export declare class ScreenManager {
      * @param width
      * The max width of each line.
      */
-    forceLineReturn(text: string, width: number): string;
+    protected forceLineReturn(text: string, width: number): string;
 }
