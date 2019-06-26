@@ -862,6 +862,10 @@ declare namespace R {
          */
         ap<T, U>(fns: Array<((a: T) => U)>, vs: ReadonlyArray<T>): U[];
         ap<T, U>(fns: Array<((a: T) => U)>): (vs: ReadonlyArray<T>) => U[];
+        ap<X0, X1, R>(
+            fn: (x1: X1, x0: X0) => R,
+            fn1: (x1: X1) => X0
+        ): (x1: X1) => R;
 
         /**
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
