@@ -467,6 +467,13 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     renderProp<PropName extends keyof P>(
         prop: PropName
     ): (...params: Parameters<P[PropName]>) => ShallowWrapper<any, never>;
+
+    /** 
+     * If a wrappingComponent was passed in options, 
+     * this methods returns a ShallowWrapper around the rendered wrappingComponent. 
+     * This ShallowWrapper can be used to update the wrappingComponent's props and state
+     */
+    getWrappingComponent: () => ShallowWrapper;
 }
 
 // tslint:disable-next-line no-empty-interface
