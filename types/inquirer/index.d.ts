@@ -23,10 +23,10 @@ import { ChoiceBase } from './Poll/ChoiceBase';
 
 declare namespace inquirer {
     export type Questions<A extends Answers = Answers> =
-        | Question<A>
-        | Question<A>[]
-        | ReadonlyArray<Question<A>>
-        | Observable<Question<A>>;
+        | DistinctQuestion<A>
+        | DistinctQuestion<A>[]
+        | ReadonlyArray<DistinctQuestion<A>>
+        | Observable<DistinctQuestion<A>>;
 
     export interface Answers extends Record<string, any> { }
 
@@ -149,7 +149,7 @@ declare namespace inquirer {
         pageSize?: number;
     }
 
-    export type Question<A extends Answers = Answers> = (
+    export type DistinctQuestion<A extends Answers = Answers> = (
         ListQuestion<A> |
         RawListQuestion<A> |
         ExpandQuestion<A> |
@@ -256,7 +256,7 @@ declare namespace inquirer {
          * @interface Base
          */
         export interface Base {
-            new <A>(question: Question<A>, rl: ReadlineInterface, answers: A): Base;
+            new <A>(question: DistinctQuestion<A>, rl: ReadlineInterface, answers: A): Base;
             /**
              * Start the Inquiry session and manage output value filtering
              *
@@ -304,10 +304,10 @@ declare namespace inquirer {
              * Once all prompt are over
              */
             onCompletion(): void;
-            processQuestion<A>(question: Question<A>): Observable<Question<A>>;
-            fetchAnswer<A>(question: Question<A>): Observable<Question<A>>;
-            setDefaultType<A>(question: Question<A>): Observable<Question<A>>;
-            filterIfRunnable<A>(question: Question<A>): Observable<Question<A>>;
+            processQuestion<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
+            fetchAnswer<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
+            setDefaultType<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
+            filterIfRunnable<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
         }
 
         /**
