@@ -5262,14 +5262,14 @@ fp.now(); // $ExpectType number
         a: 'x',
         b: 'y',
     };
-    _.invert(abxy); // $ExpectType { x: "a", y: "b" }
+    _.invert(abxy); // $ExpectType { x: "a" | "b", y: "a" | "b" }
     _(abxy)
         .invert()
-        .value(); // $ExpectType { x: "a", y: "b" }
+        .value(); // $ExpectType { x: "a" | "b", y: "a" | "b" }
     _.chain(abxy)
         .invert()
-        .value(); // $ExpectType { x: "a", y: "b" }
-    fp.invert(abxy); // $ExpectType { x: "a", y: "b" }
+        .value(); // $ExpectType { x: "a" | "b", y: "a" | "b" }
+    fp.invert(abxy); // $ExpectType { x: "a" | "b", y: "a" | "b" }
 
     _.invert({
         a: 'x',

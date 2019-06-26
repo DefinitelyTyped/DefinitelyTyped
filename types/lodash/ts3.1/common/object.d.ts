@@ -1226,14 +1226,8 @@ declare module "../index" {
     // helpers for invert
     type Keyify<T> = T extends PropertyKey ? T : string;
     type Stringify<T> = T extends string ? T : string;
-    type KeyValues<T> = {
-        [P in keyof T]: {
-            key: Stringify<P>,
-            value: Keyify<T[P]>,
-        }
-    }[keyof T];
     type InvertResult<T> = {} & {
-        [P in Keyify<T[keyof T]>]: Extract<KeyValues<T>, { value: P }>['key']
+        [P in Keyify<T[keyof T]>]: Stringify<keyof T>;
     };
 
     interface LoDashStatic {
