@@ -19,9 +19,12 @@ import { Interface as ReadlineInterface } from 'readline';
 import { PromptModuleBase } from "./PromptModuleBase";
 import { Prompts } from "./Prompts";
 import { Separator } from "./Poll/Separator";
+import { ChoiceBase } from './Poll/ChoiceBase';
 
 declare namespace inquirer {
+
     export type ChoiceType<A> = string | poll.ChoiceOptions<A> | Separator;
+
     export type Questions<A extends Answers = Answers> =
         | Question<A>
         | Question<A>[]
@@ -60,10 +63,9 @@ declare namespace inquirer {
     }
 
     export namespace poll {
-        export interface ChoiceOptions<A> {
+        export interface ChoiceOptions<A = Answers> extends ChoiceBase {
             name?: string;
             value?: any;
-            type?: string;
             short?: string;
             extra?: any;
             key?: string;
@@ -357,6 +359,7 @@ declare namespace inquirer {
         export interface Choice<A> {
             new (str: string): Choice<A>;
             new (separator: Separator): Choice<A>;
+
             new (option: poll.ChoiceOptions<A>): Choice<A>;
         }
 
@@ -369,6 +372,7 @@ declare namespace inquirer {
         export interface Choices<A> {
             new (
                 choices: ReadonlyArray<string | Separator | poll.ChoiceOptions<A>>,
+
                 answers?: A
             ): Choices<A>;
             choices: ReadonlyArray<Choice<A>>;

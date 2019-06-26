@@ -1,9 +1,19 @@
+import inquirer = require("inquirer");
+import { ChoiceBase } from "./ChoiceBase";
+
 /**
  * Represents a choice-item separator.
  */
-export class Separator {
-    type: string;
-    line: string;
+export class Separator implements ChoiceBase {
+    /**
+     * Gets the type of the choice.
+     */
+    public readonly type: "separator";
+
+    /**
+     * Gets or sets the text of the separator.
+     */
+    public line: string;
 
     /**
      * Initializes a new instance of the `Separator` class.
