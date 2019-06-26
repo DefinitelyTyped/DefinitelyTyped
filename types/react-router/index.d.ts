@@ -133,7 +133,7 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(pathn
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean | undefined }): string;
 
 export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
-  ? { wrappedComponentRef?: (ref: InstanceType<C> | null) => any }
+  ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
   : {};
 
 export interface WithRouterStatics<C extends React.ComponentType<any>> {
