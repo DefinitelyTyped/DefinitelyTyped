@@ -114,6 +114,11 @@ declare namespace inquirer {
          */
         suffix?: string;
         /**
+         * Receive the user input and return the filtered value to be used inside the program.
+         * The value returned will be added to the _Answers_ hash.
+         */
+        filter?(input: string): any | Promise<any>;
+        /**
          * Receive the current user answers hash and should return `true` or `false` depending
          * on whether or not this question should be asked. The value can also be a simple boolean.
          */
@@ -130,11 +135,6 @@ declare namespace inquirer {
          * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
          */
         choices?: DynamicQuestionProperty<A, ReadonlyArray<poll.DistinctChoice>>;
-        /**
-         * Receive the user input and return the filtered value to be used inside the program.
-         * The value returned will be added to the _Answers_ hash.
-         */
-        filter?(input: string): any | Promise<any>;
         /**
          * Receive the user input, answers hash and option flags, and return a transformed value
          * to display to the user. The transformation only impacts what is shown while editing.
@@ -161,12 +161,12 @@ declare namespace inquirer {
     )
 
     export interface ListQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
+        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'list'
     }
 
     export interface RawListQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
+        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'rawlist'
     }
 
@@ -176,7 +176,7 @@ declare namespace inquirer {
     }
 
     export interface CheckboxQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
+        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'checkbox'
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
@@ -191,7 +191,7 @@ declare namespace inquirer {
     }
 
     export interface InputQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
+        Pick<QuestionOptions<A>, | 'transformer'> {
         type?: 'input'
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
@@ -202,7 +202,7 @@ declare namespace inquirer {
     }
 
     export interface NumberQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
+        Pick<QuestionOptions<A>, 'transformer'> {
         type: 'number'
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
@@ -212,8 +212,7 @@ declare namespace inquirer {
         validate?(input: number, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    export interface PasswordQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
+    export interface PasswordQuestion<A> extends QuestionCommon<A> {
         type: 'password'
         /**
          * Hides the user input.
@@ -227,8 +226,7 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    export interface EditorQuestion<A> extends QuestionCommon<A>,
-        Pick<QuestionOptions<A>, 'filter'> {
+    export interface EditorQuestion<A> extends QuestionCommon<A> {
         type: 'editor'
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
