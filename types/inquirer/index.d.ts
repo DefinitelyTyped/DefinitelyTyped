@@ -69,7 +69,8 @@ declare namespace inquirer {
 
     export namespace poll {
         export interface Answers extends Record<string, any> { }
-        export interface Question<A> {
+        export interface Question<A = Answers> {
+            type?: string;
             /**
              * The name to use when storing the answer in the answers hash.
              * If the name contains periods, it will define a path in the answers hash.
