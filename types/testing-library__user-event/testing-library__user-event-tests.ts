@@ -1,4 +1,6 @@
-import userEvent, { UserOpts } from '@testing-library/user-event';
+import userEvent, { UserOpts } from 'user-event';
+
+
 
 
 
