@@ -18,20 +18,20 @@ import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
 
 declare namespace inquirer {
-    type Prompts = { [name: string]: prompts.Base };
-    type ChoiceType<A> = string | objects.ChoiceOption<A> | objects.Separator;
-    type Questions<A extends Answers = Answers> =
+    export type Prompts = { [name: string]: prompts.Base };
+    export type ChoiceType<A> = string | objects.ChoiceOption<A> | objects.Separator;
+    export type Questions<A extends Answers = Answers> =
         | Question<A>
         | Question<A>[]
         | ReadonlyArray<Question<A>>
         | Observable<Question<A>>;
-    type Answers = Record<string, any>
-    type StreamOptions = {
+    export type Answers = Record<string, any>
+    export type StreamOptions = {
         input?: NodeJS.ReadStream,
         output?: NodeJS.WriteStream,
     };
 
-    interface Inquirer {
+    export interface Inquirer {
         restoreDefaultPrompts(): void;
         /**
          * Expose helper functions on the top level for easiest usage by common users
@@ -58,7 +58,7 @@ declare namespace inquirer {
         };
     }
 
-    interface PromptModule {
+    export interface PromptModule {
         <A>(questions: Questions<A>): Promise<A> & { ui: ui.PromptUI };
         /**
          * Register a prompt type
@@ -72,7 +72,7 @@ declare namespace inquirer {
         restoreDefaultPrompts(): void;
     }
 
-    interface QuestionCommon<A> {
+    export interface QuestionCommon<A> {
         /**
          * The name to use when storing the answer in the answers hash.
          * If the name contains periods, it will define a path in the answers hash.
@@ -105,7 +105,7 @@ declare namespace inquirer {
         when?: boolean | ((answers: A) => boolean | Promise<boolean>);
     }
 
-    interface QuestionOptions<A> {
+    export interface QuestionOptions<A> {
         /**
          * Choices array or a function returning a choices array. If defined as a function,
          * the first parameter will be the current inquirer session answers. Array values can
@@ -136,7 +136,7 @@ declare namespace inquirer {
         pageSize?: number;
     }
 
-    type Question<A extends Answers = Answers> = (
+    export type Question<A extends Answers = Answers> = (
         ListQuestion<A> |
         RawListQuestion<A> |
         ExpandQuestion<A> |
@@ -148,22 +148,22 @@ declare namespace inquirer {
         EditorQuestion<A>
     )
 
-    interface ListQuestion<A> extends QuestionCommon<A>,
+    export interface ListQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
         type: 'list'
     }
 
-    interface RawListQuestion<A> extends QuestionCommon<A>,
+    export interface RawListQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
         type: 'rawlist'
     }
 
-    interface ExpandQuestion<A> extends QuestionCommon<A>,
+    export interface ExpandQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'expand'
     }
 
-    interface CheckboxQuestion<A> extends QuestionCommon<A>,
+    export interface CheckboxQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'filter' | 'pageSize'> {
         type: 'checkbox'
         /**
@@ -174,11 +174,11 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface ConfirmQuestion<A> extends QuestionCommon<A>, QuestionOptions<A> {
+    export interface ConfirmQuestion<A> extends QuestionCommon<A>, QuestionOptions<A> {
         type: 'confirm'
     }
 
-    interface InputQuestion<A> extends QuestionCommon<A>,
+    export interface InputQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
         type?: 'input'
         /**
@@ -189,7 +189,7 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface NumberQuestion<A> extends QuestionCommon<A>,
+    export interface NumberQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
         type: 'number'
         /**
@@ -200,7 +200,7 @@ declare namespace inquirer {
         validate?(input: number, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface PasswordQuestion<A> extends QuestionCommon<A>,
+    export interface PasswordQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'filter' | 'transformer'> {
         type: 'password'
         /**
@@ -215,7 +215,7 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    interface EditorQuestion<A> extends QuestionCommon<A>,
+    export interface EditorQuestion<A> extends QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'filter'> {
         type: 'editor'
         /**
@@ -230,12 +230,12 @@ declare namespace inquirer {
      * Corresponding to the answer object creation in:
      * https://github.com/SBoudrias/Inquirer.js/blob/ff075f587ef78504f0eae4ee5ca0656432429026/packages/inquirer/lib/ui/prompt.js#L88
      */
-    interface Answer {
+    export interface Answer {
         name: string,
         answer: any,
     }
 
-    namespace prompts {
+    export namespace prompts {
         /**
          * Base prompt implementation
          * Should be extended by prompt types.
@@ -262,12 +262,12 @@ declare namespace inquirer {
         }
     }
 
-    namespace ui {
+    export namespace ui {
 
         /**
          * Base interface class other can inherits from
          */
-        interface BaseUI {
+        export interface BaseUI {
             rl: ReadlineInterface;
             new(opt: StreamOptions): BaseUI;
             /**
@@ -283,7 +283,7 @@ declare namespace inquirer {
         /**
          * Base interface class other can inherits from
          */
-        interface PromptUI extends BaseUI {
+        export interface PromptUI extends BaseUI {
             process: Observable<Answer>;
             new(prompts: Prompts, opt: StreamOptions): PromptUI;
             run<A>(questions: Questions<A>): Promise<A>;
@@ -300,7 +300,7 @@ declare namespace inquirer {
         /**
          * Sticky bottom bar user interface
          */
-        interface BottomBar extends BaseUI {
+        export interface BottomBar extends BaseUI {
             new(opt?: StreamOptions & { bottomBar?: string }): BottomBar;
             /**
              * Render the prompt to screen
@@ -336,7 +336,7 @@ declare namespace inquirer {
 
     }
 
-    namespace objects {
+    export namespace objects {
         /**
          * Choice object
          * Normalize input as choice object
@@ -344,13 +344,13 @@ declare namespace inquirer {
          * @param {String|Object} val  Choice value. If an object is passed, it should contains
          *                             at least one of `value` or `name` property
          */
-        interface Choice<A> {
+        export interface Choice<A> {
             new (str: string): Choice<A>;
             new (separator: Separator): Choice<A>;
             new (option: ChoiceOption<A>): Choice<A>;
         }
 
-        interface ChoiceOption<A> {
+        export interface ChoiceOption<A> {
             name?: string;
             value?: any;
             type?: string;
@@ -367,7 +367,7 @@ declare namespace inquirer {
          * @constructor
          * @param choices  All `choice` to keep in the collection
          */
-        interface Choices<A> {
+        export interface Choices<A> {
             new (
                 choices: ReadonlyArray<string | Separator | ChoiceOption<A>>,
                 answers?: A
@@ -403,7 +403,7 @@ declare namespace inquirer {
             forEach<T>(application: (choice: Choice<A>) => T): T[];
         }
 
-        interface SeparatorStatic {
+        export interface SeparatorStatic {
             /**
              * @param line Separation line content (facultative)
              */
@@ -422,7 +422,7 @@ declare namespace inquirer {
          * @constructor
          * @param {String} line   Separation line content (facultative)
          */
-        interface Separator {
+        export interface Separator {
             type: string;
             line: string;
             /**
