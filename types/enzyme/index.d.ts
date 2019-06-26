@@ -15,7 +15,13 @@
 // TypeScript Version: 3.1
 
 /// <reference types="cheerio" />
-import { ReactElement, Component, ComponentType as ReactComponentType, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
+import {
+    ReactElement,
+    Component,
+    ComponentType as ReactComponentType,
+    AllHTMLAttributes as ReactHTMLAttributes,
+    SVGAttributes as ReactSVGAttributes,
+} from 'react';
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
@@ -577,7 +583,7 @@ export interface ShallowRendererProps {
      * Context to be passed into the component
      */
     context?: {};
-     /**
+    /**
      *  A component that will render as a parent of the node. It can be used to provide
      *  context to the node, among other things. Note: wrappingComponent must render its children
      */

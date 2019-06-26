@@ -153,7 +153,7 @@ function ShallowWrapperTest() {
 
         shallow(<MyComponent stringProp="1" numberProp={1} />, {
             context: {
-                test: "a",
+                test: 'a',
             },
             lifecycleExperimental: true,
             disableLifecycleMethods: true,
@@ -579,10 +579,10 @@ function ReactWrapperTest() {
             );
         }
 
-        mount(<MyComponent stringProp='1' numberProp={1} />, {
+        mount(<MyComponent stringProp="1" numberProp={1} />, {
             attachTo: document.getElementById('test'),
             context: {
-                a: "b"
+                a: 'b',
             },
             wrappingComponent: MyProvider,
             wrappingComponentProps: { foo: 'bar' },
