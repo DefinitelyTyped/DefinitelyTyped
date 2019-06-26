@@ -6,9 +6,11 @@
 
 import * as React from 'react';
 
-export function useBeforeunload(handler?: (arg: Event) => string | void): void;
+export type UseBeforeunloadHandler = (arg: Event) => string | void;
+
+export function useBeforeunload(handler?: UseBeforeunloadHandler): void;
 
 export const Beforeunload: React.FC<{
     children?: React.ReactNode;
-    onBeforeunload: (arg: Event) => string | void;
+    onBeforeunload: UseBeforeunloadHandler;
 }>;
