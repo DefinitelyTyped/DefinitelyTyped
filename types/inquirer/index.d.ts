@@ -21,7 +21,7 @@ import { Prompts } from "./Prompts";
 import { Separator } from "./Poll/Separator";
 
 declare namespace inquirer {
-    export type ChoiceType<A> = string | objects.ChoiceOption<A> | Separator;
+    export type ChoiceType<A> = string | poll.ChoiceOption<A> | Separator;
     export type Questions<A extends Answers = Answers> =
         | Question<A>
         | Question<A>[]
@@ -57,6 +57,19 @@ declare namespace inquirer {
             BottomBar: ui.BottomBar;
             Prompt: ui.PromptUI;
         };
+    }
+
+    export namespace poll {
+        export interface ChoiceOption<A> {
+            name?: string;
+            value?: any;
+            type?: string;
+            short?: string;
+            extra?: any;
+            key?: string;
+            checked?: boolean;
+            disabled?: string | (<A>(answers: A) => any);
+        }
     }
 
     export interface PromptModule extends PromptModuleBase {
@@ -344,18 +357,7 @@ declare namespace inquirer {
         export interface Choice<A> {
             new (str: string): Choice<A>;
             new (separator: Separator): Choice<A>;
-            new (option: ChoiceOption<A>): Choice<A>;
-        }
-
-        export interface ChoiceOption<A> {
-            name?: string;
-            value?: any;
-            type?: string;
-            short?: string;
-            extra?: any;
-            key?: string;
-            checked?: boolean;
-            disabled?: string | (<A>(answers: A) => any);
+            new (option: poll.ChoiceOption<A>): Choice<A>;
         }
 
         /**
@@ -366,7 +368,7 @@ declare namespace inquirer {
          */
         export interface Choices<A> {
             new (
-                choices: ReadonlyArray<string | Separator | ChoiceOption<A>>,
+                choices: ReadonlyArray<string | Separator | poll.ChoiceOption<A>>,
                 answers?: A
             ): Choices<A>;
             choices: ReadonlyArray<Choice<A>>;
