@@ -16,6 +16,7 @@
 import { ThroughStream } from 'through';
 import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
+import { PromptModuleBase } from "./PromptModuleBase";
 
 declare namespace inquirer {
     export type Prompts = { [name: string]: prompts.Base };
@@ -31,14 +32,13 @@ declare namespace inquirer {
         output?: NodeJS.WriteStream,
     };
 
-    export interface Inquirer {
-        restoreDefaultPrompts(): void;
+    export interface Inquirer extends PromptModuleBase {
         /**
-         * Expose helper functions on the top level for easiest usage by common users
-         * @param name
-         * @param prompt
+         * Register a prompt type
+         * @param name Prompt type name
+         * @param prompt Prompt constructor
          */
-        registerPrompt(name: string, prompt: PromptModule): void;
+        registerPrompt(name: string, prompt: inquirer.prompts.Base): PromptModule;
         /**
          * Create a new self-contained prompt module.
          * @param opt Object specifying input and output streams for the prompt
@@ -58,18 +58,14 @@ declare namespace inquirer {
         };
     }
 
-    export interface PromptModule {
+    export interface PromptModule extends PromptModuleBase {
         <A>(questions: Questions<A>): Promise<A> & { ui: ui.PromptUI };
         /**
          * Register a prompt type
          * @param name Prompt type name
          * @param prompt Prompt constructor
          */
-        registerPrompt(name: string, prompt: prompts.Base): PromptModule;
-        /**
-         * Register the defaults provider prompts
-         */
-        restoreDefaultPrompts(): void;
+        registerPrompt(name: string, prompt: prompts.Base): this;
     }
 
     export interface QuestionCommon<A> {
