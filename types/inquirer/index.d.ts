@@ -21,6 +21,7 @@ import { Prompts } from "./Prompts";
 import { Separator } from "./Poll/Separator";
 import { ChoiceBase } from './Poll/ChoiceBase';
 import { KeyUnion } from "./System/KeyUnion";
+import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
 
 declare namespace inquirer {
     export type Questions<A extends Answers = Answers> =
@@ -80,7 +81,7 @@ declare namespace inquirer {
             extra?: any;
             key?: string;
             checked?: boolean;
-            disabled?: string | (<A>(answers: A) => any);
+            disabled?: DynamicQuestionProperty<A, boolean | string>;
         }
 
         export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
@@ -97,13 +98,13 @@ declare namespace inquirer {
          * the current inquirer session answers.
          * Defaults to the value of `name` (followed by a colon).
          */
-        message?: string | ((answers: A) => string);
+        message?: DynamicQuestionProperty<A, string>;
         /**
          * Default value(s) to use if nothing is entered, or a function that returns
          * the default value(s). If defined as a function, the first parameter will be
          * the current inquirer session answers.
          */
-        default?: string | number | boolean | any[] | ((answers: A) => any) | ((answers: A) => Promise<any>);
+        default?: DynamicQuestionProperty<A, any>;
         /**
          * Change the default _prefix_ message.
          */
@@ -116,7 +117,7 @@ declare namespace inquirer {
          * Receive the current user answers hash and should return `true` or `false` depending
          * on whether or not this question should be asked. The value can also be a simple boolean.
          */
-        when?: boolean | ((answers: A) => boolean | Promise<boolean>);
+        when?: DynamicQuestionProperty<A, boolean>;
     }
 
     export interface QuestionOptions<A> {
@@ -128,10 +129,7 @@ declare namespace inquirer {
          * properties. The choices array can also contain
          * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
          */
-        choices?:
-        | ReadonlyArray<poll.DistinctChoice<A>>
-        | ((answers: A) => ReadonlyArray<poll.DistinctChoice<A>>)
-        | ((answers: A) => Promise<ReadonlyArray<poll.DistinctChoice<A>>>);
+        choices?: DynamicQuestionProperty<A, ReadonlyArray<poll.DistinctChoice>>;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the _Answers_ hash.
