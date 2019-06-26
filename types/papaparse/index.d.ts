@@ -24,7 +24,7 @@ export function parse(file: File, config?: ParseConfig): ParseResult;
 
 export function parse(stream: NodeJS.ReadableStream, config?: ParseConfig): ParseResult;
 
-export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): NodeJS.ReadWriteStream;
+export function parse(stream: NODE_STREAM_INPUT_TYPE, config?: ParseConfig): NodeJS.ReadWriteStream;
 
 /**
  * Unparses javascript data objects and returns a csv string
@@ -55,6 +55,7 @@ export const WORKERS_SUPPORTED: boolean;
 export let SCRIPT_PATH: string;
 
 // When passed to Papa Parse a Readable stream is returned.
+declare type NODE_STREAM_INPUT_TYPE = 1;
 export const NODE_STREAM_INPUT = 1;
 
 /**
