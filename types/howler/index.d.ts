@@ -79,10 +79,8 @@ interface Howl {
 
     seek(seek?: number, id?: number): this | number;
     
-    loop(): boolean;
-    loop(id: number): boolean;
-    loop(loop: boolean): this;
-    loop(loop: boolean, id: number): this;
+    loop(id?: number): boolean;
+    loop(loop: boolean, id?: number): this;
     
     playing(id?: number): boolean;
     duration(id?: number): number;
