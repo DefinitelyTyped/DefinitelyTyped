@@ -18,9 +18,10 @@ import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
 import { PromptModuleBase } from "./PromptModuleBase";
 import { Prompts } from "./Prompts";
+import { Separator } from "./Poll/Separator";
 
 declare namespace inquirer {
-    export type ChoiceType<A> = string | objects.ChoiceOption<A> | objects.Separator;
+    export type ChoiceType<A> = string | objects.ChoiceOption<A> | Separator;
     export type Questions<A extends Answers = Answers> =
         | Question<A>
         | Question<A>[]
@@ -51,7 +52,7 @@ declare namespace inquirer {
          */
         prompt: PromptModule;
         prompts: Prompts;
-        Separator: objects.SeparatorStatic;
+        Separator: typeof Separator;
         ui: {
             BottomBar: ui.BottomBar;
             Prompt: ui.PromptUI;
@@ -397,35 +398,6 @@ declare namespace inquirer {
              */
             pluck(propertyName: string): any[];
             forEach<T>(application: (choice: Choice<A>) => T): T[];
-        }
-
-        export interface SeparatorStatic {
-            /**
-             * @param line Separation line content (facultative)
-             */
-            new (line?: string): Separator;
-            /**
-             * Helper function returning false if object is a separator
-             * @param obj object to test against
-             * @return `false` if object is a separator
-             */
-            exclude(obj: any): boolean;
-        }
-
-        /**
-         * Separator object
-         * Used to space/separate choices group
-         * @constructor
-         * @param {String} line   Separation line content (facultative)
-         */
-        export interface Separator {
-            type: string;
-            line: string;
-            /**
-             * Stringify separator
-             * @return {String} the separator display string
-             */
-            toString(): string;
         }
     }
 }
