@@ -22,13 +22,15 @@ import { Separator } from "./Poll/Separator";
 import { ChoiceBase } from './Poll/ChoiceBase';
 import { KeyUnion } from "./System/KeyUnion";
 import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
+import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
+import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 
 declare namespace inquirer {
     export type Questions<A extends Answers = Answers> =
-        | DistinctQuestion<A>
-        | DistinctQuestion<A>[]
-        | ReadonlyArray<DistinctQuestion<A>>
-        | Observable<DistinctQuestion<A>>;
+        | poll.DistinctQuestion<A>
+        | poll.DistinctQuestion<A>[]
+        | ReadonlyArray<poll.DistinctQuestion<A>>
+        | Observable<poll.DistinctQuestion<A>>;
 
     export interface Answers extends Record<string, any> { }
 
@@ -110,6 +112,52 @@ declare namespace inquirer {
              * on whether or not this question should be asked. The value can also be a simple boolean.
              */
             when?: DynamicQuestionProperty<A, boolean>;
+            /**
+             * Receive the user input and answers hash. Should return `true` if the value is valid,
+             * and an error message (`String`) otherwise. If `false` is returned, a default error
+             * message is provided.
+             */
+            validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
+        }
+
+        export interface InputQuestion<A> extends InputQuestionBase<A> {
+            type?: 'input';
+        }
+
+        export interface NumberQuestion<A> extends InputQuestionBase<A> {
+            type: 'number';
+        }
+
+        export interface PasswordQuestion<A> extends InputQuestionBase<A> {
+            type: 'password'
+            /**
+             * Hides the user input.
+             */
+            mask?: string;
+        }
+
+        export interface ListQuestion<A> extends ListQuestionBase<A> {
+            type: 'list'
+        }
+    
+        export interface RawListQuestion<A> extends ListQuestionBase<A> {
+            type: 'rawlist'
+        }
+    
+        export interface ExpandQuestion<A> extends ListQuestionBase<A> {
+            type: 'expand'
+        }
+    
+        export interface CheckboxQuestion<A> extends ListQuestionBase<A> {
+            type: 'checkbox';
+        }
+    
+        export interface ConfirmQuestion<A> extends poll.Question<A> {
+            type: 'confirm'
+        }
+    
+        export interface EditorQuestion<A> extends poll.Question<A> {
+            type: 'editor';
         }
 
         export interface ChoiceOptions<A = Answers> extends ChoiceBase {
@@ -123,117 +171,18 @@ declare namespace inquirer {
         }
 
         export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
-    }
 
-    export interface QuestionOptions<A> {
-        /**
-         * Choices array or a function returning a choices array. If defined as a function,
-         * the first parameter will be the current inquirer session answers. Array values can
-         * be simple `numbers`, `strings`, or `objects` containing a `name` (to display in list),
-         * a `value` (to save in the answers hash) and a `short` (to display after selection)
-         * properties. The choices array can also contain
-         * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
-         */
-        choices?: DynamicQuestionProperty<A, ReadonlyArray<poll.DistinctChoice>>;
-        /**
-         * Receive the user input, answers hash and option flags, and return a transformed value
-         * to display to the user. The transformation only impacts what is shown while editing.
-         * It does not modify the answers hash.
-         */
-        transformer?(input: string, answers: A, flags: any): string | Promise<string>;
-        /**
-         * Change the number of lines that will be rendered when using `list`, `rawList`,
-         * `expand` or `checkbox`.
-         */
-        pageSize?: number;
-    }
-
-    export type DistinctQuestion<A extends Answers = Answers> = (
-        ListQuestion<A> |
-        RawListQuestion<A> |
-        ExpandQuestion<A> |
-        CheckboxQuestion<A> |
-        ConfirmQuestion<A> |
-        InputQuestion<A> |
-        NumberQuestion<A> |
-        PasswordQuestion<A> |
-        EditorQuestion<A>
-    )
-
-    export interface ListQuestion<A> extends poll.Question<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
-        type: 'list'
-    }
-
-    export interface RawListQuestion<A> extends poll.Question<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
-        type: 'rawlist'
-    }
-
-    export interface ExpandQuestion<A> extends poll.Question<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
-        type: 'expand'
-    }
-
-    export interface CheckboxQuestion<A> extends poll.Question<A>,
-        Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
-        type: 'checkbox'
-        /**
-         * Receive the user input and answers hash. Should return `true` if the value is valid,
-         * and an error message (`String`) otherwise. If `false` is returned, a default error
-         * message is provided.
-         */
-        validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
-    }
-
-    export interface ConfirmQuestion<A> extends poll.Question<A>, QuestionOptions<A> {
-        type: 'confirm'
-    }
-
-    export interface InputQuestion<A> extends poll.Question<A>,
-        Pick<QuestionOptions<A>, | 'transformer'> {
-        type?: 'input'
-        /**
-         * Receive the user input and answers hash. Should return `true` if the value is valid,
-         * and an error message (`String`) otherwise. If `false` is returned, a default error
-         * message is provided.
-         */
-        validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
-    }
-
-    export interface NumberQuestion<A> extends poll.Question<A>,
-        Pick<QuestionOptions<A>, 'transformer'> {
-        type: 'number'
-        /**
-         * Receive the user input and answers hash. Should return `true` if the value is valid,
-         * and an error message (`String`) otherwise. If `false` is returned, a default error
-         * message is provided.
-         */
-        validate?(input: number, answers?: A): boolean | string | Promise<boolean | string>;
-    }
-
-    export interface PasswordQuestion<A> extends poll.Question<A> {
-        type: 'password'
-        /**
-         * Hides the user input.
-         */
-        mask?: string;
-        /**
-         * Receive the user input and answers hash. Should return `true` if the value is valid,
-         * and an error message (`String`) otherwise. If `false` is returned, a default error
-         * message is provided.
-         */
-        validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
-    }
-
-    export interface EditorQuestion<A> extends poll.Question<A> {
-        type: 'editor'
-        /**
-         * Receive the user input and answers hash. Should return `true` if the value is valid,
-         * and an error message (`String`) otherwise. If `false` is returned, a default error
-         * message is provided.
-         */
-        validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
+        export type DistinctQuestion<A extends Answers = Answers> = (
+            ListQuestion<A> |
+            RawListQuestion<A> |
+            ExpandQuestion<A> |
+            CheckboxQuestion<A> |
+            ConfirmQuestion<A> |
+            InputQuestion<A> |
+            NumberQuestion<A> |
+            PasswordQuestion<A> |
+            EditorQuestion<A>
+        )
     }
 
     /**
@@ -253,7 +202,7 @@ declare namespace inquirer {
          * @interface Base
          */
         export interface Base {
-            new <A>(question: DistinctQuestion<A>, rl: ReadlineInterface, answers: A): Base;
+            new <A>(question: poll.DistinctQuestion<A>, rl: ReadlineInterface, answers: A): Base;
             /**
              * Start the Inquiry session and manage output value filtering
              *
@@ -301,10 +250,10 @@ declare namespace inquirer {
              * Once all prompt are over
              */
             onCompletion(): void;
-            processQuestion<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
-            fetchAnswer<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
-            setDefaultType<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
-            filterIfRunnable<A>(question: DistinctQuestion<A>): Observable<DistinctQuestion<A>>;
+            processQuestion<A>(question: poll.DistinctQuestion<A>): Observable<poll.DistinctQuestion<A>>;
+            fetchAnswer<A>(question: poll.DistinctQuestion<A>): Observable<poll.DistinctQuestion<A>>;
+            setDefaultType<A>(question: poll.DistinctQuestion<A>): Observable<poll.DistinctQuestion<A>>;
+            filterIfRunnable<A>(question: poll.DistinctQuestion<A>): Observable<poll.DistinctQuestion<A>>;
         }
 
         /**
