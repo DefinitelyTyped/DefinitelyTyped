@@ -9,8 +9,6 @@ import {
     BorderProps,
     borders,
     BordersProps,
-    boxShadow,
-    BoxShadowProps,
     buttonStyle,
     ButtonStyleProps,
     color,
@@ -38,6 +36,8 @@ import {
     FlexboxProps,
     grid,
     GridProps,
+    shadows,
+    ShadowsProps,
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -56,7 +56,7 @@ interface BoxProps
         BackgroundProps,
         BorderProps,
         BordersProps,
-        BoxShadowProps,
+        ShadowsProps,
         TypographyProps,
         ColorStyleProps,
         ColorProps {
@@ -75,7 +75,7 @@ const boxStyles = compose(
     background,
     borders,
     position,
-    boxShadow,
+    shadows,
     colorStyle,
     boxStyle,
 );
@@ -180,6 +180,10 @@ const test = () => (
         and up
         <Box width={[1, 1 / 2]} />
         <Box width={{ sm: 1, md: 1 / 2 }} />
+        <Box boxShadow="1px 1px 1px black" />
+        <Box boxShadow={{ sm: "1px 1px 1px black", md: "2px 2px 2px black" }} />
+        <Box textShadow="1px 1px 1px black" />
+        <Box textShadow={{ sm: "1px 1px 1px black", md: "2px 2px 2px black" }} />
         // examples // font-size of `theme.fontSizes[3]`
         <Text fontSize={3} />
         // font-size `32px`

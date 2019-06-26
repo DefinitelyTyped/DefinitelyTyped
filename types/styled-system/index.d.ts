@@ -984,9 +984,8 @@ export const border: styleFn;
 
 export interface BoxShadowProps {
     /**
-     * The box-shadow CSS property adds shadow effects around an element's frame. You can set multiple effects
-     * separated by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread
-     * radii, and color.
+     * The box-shadow CSS property adds shadow effects around an element's frame. You can set multiple effects separated
+     * by commas. A box shadow is described by X and Y offsets relative to the element, blur and spread radii and color.
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
      */
@@ -994,6 +993,24 @@ export interface BoxShadowProps {
 }
 
 export const boxShadow: styleFn;
+
+export interface TextShadowProps {
+    /**
+     * The `text-shadow` CSS property adds shadows to text. It accepts a comma-separated list of shadows to be applied
+     * to the text and any of its `decorations`. Each shadow is described by some combination of X and Y offsets from
+     * the element, blur radius, and color.
+     *
+     * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow)
+     */
+    textShadow?: ResponsiveValue<CSS.TextShadowProperty | number>;
+}
+
+export const textShadow: styleFn;
+
+export interface ShadowsProps
+    extends BoxShadowProps, TextShadowProps {}
+
+export const shadows: styleFn;
 
 export interface OpacityProps {
     /**
