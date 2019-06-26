@@ -12,6 +12,12 @@ import {
 } from "enzyme";
 import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
 
+interface WrappingComponentProps {
+    children?: ReactNode;
+    stringProp?: string;
+    numberProp?: number;
+}
+
 // Help classes/interfaces
 interface MyComponentProps {
     stringProp: string;
@@ -135,12 +141,24 @@ function ShallowWrapperTest() {
     }
 
     function test_shallow_options() {
+        function MyProvider(props: WrappingComponentProps) {
+            const { children } = props;
+
+            return (
+                <div>
+                    <div>{children}</div>
+                </div>
+            );
+        }
+
         shallow(<MyComponent stringProp="1" numberProp={1} />, {
             context: {
                 test: "a",
             },
             lifecycleExperimental: true,
-            disableLifecycleMethods: true
+            disableLifecycleMethods: true,
+            wrappingComponent: MyProvider,
+            wrappingComponentProps: { foo: 'bar' },
         });
     }
 
@@ -551,11 +569,23 @@ function ReactWrapperTest() {
     function test_mount() {
         reactWrapper = reactWrapper.mount();
 
+        function MyProvider(props: WrappingComponentProps) {
+            const { children } = props;
+
+            return (
+                <div>
+                    <div>{children}</div>
+                </div>
+            );
+        }
+
         mount(<MyComponent stringProp='1' numberProp={1} />, {
             attachTo: document.getElementById('test'),
             context: {
                 a: "b"
-            }
+            },
+            wrappingComponent: MyProvider,
+            wrappingComponentProps: { foo: 'bar' },
         });
     }
 

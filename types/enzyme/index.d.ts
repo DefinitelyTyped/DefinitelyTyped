@@ -15,7 +15,7 @@
 // TypeScript Version: 3.1
 
 /// <reference types="cheerio" />
-import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
+import { ReactElement, Component, ComponentType as ReactComponentType, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
@@ -577,6 +577,21 @@ export interface ShallowRendererProps {
      * Context to be passed into the component
      */
     context?: {};
+     /**
+     *  A component that will render as a parent of the node. It can be used to provide
+     *  context to the node, among other things. Note: wrappingComponent must render its children
+     */
+    wrappingComponent?: ReactComponentType;
+    /**
+     * Initial props to pass to the wrappingComponent if it is specified.
+     */
+    wrappingComponentProps?: {};
+    /**
+     * If set to true, when rendering Suspense enzyme will replace all the lazy components in children
+     * with fallback element prop. Otherwise it won't handle fallback of lazy component.
+     * Default to true.
+     */
+    suspenseFallback?: boolean;
 }
 
 export interface MountRendererProps {
@@ -592,6 +607,15 @@ export interface MountRendererProps {
      * Merged contextTypes for all children of the wrapper
      */
     childContextTypes?: {};
+    /**
+     *  A component that will render as a parent of the node. It can be used to provide
+     *  context to the node, among other things. Note: wrappingComponent must render its children
+     */
+    wrappingComponent?: ReactComponentType;
+    /**
+     * Initial props to pass to the wrappingComponent if it is specified.
+     */
+    wrappingComponentProps?: {};
 }
 
 /**
