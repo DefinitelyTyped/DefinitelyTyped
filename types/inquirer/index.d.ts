@@ -134,13 +134,13 @@ declare namespace inquirer {
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the _Answers_ hash.
          */
-        filter?(input: string): any;
+        filter?(input: string): any | Promise<any>;
         /**
          * Receive the user input, answers hash and option flags, and return a transformed value
          * to display to the user. The transformation only impacts what is shown while editing.
          * It does not modify the answers hash.
          */
-        transformer?(input: string, answers: A, flags: any): string;
+        transformer?(input: string, answers: A, flags: any): string | Promise<string>;
         /**
          * Change the number of lines that will be rendered when using `list`, `rawList`,
          * `expand` or `checkbox`.
