@@ -21,7 +21,7 @@ import { Prompts } from "./Prompts";
 import { Separator } from "./Poll/Separator";
 
 declare namespace inquirer {
-    export type ChoiceType<A> = string | poll.ChoiceOption<A> | Separator;
+    export type ChoiceType<A> = string | poll.ChoiceOptions<A> | Separator;
     export type Questions<A extends Answers = Answers> =
         | Question<A>
         | Question<A>[]
@@ -60,7 +60,7 @@ declare namespace inquirer {
     }
 
     export namespace poll {
-        export interface ChoiceOption<A> {
+        export interface ChoiceOptions<A> {
             name?: string;
             value?: any;
             type?: string;
@@ -357,7 +357,7 @@ declare namespace inquirer {
         export interface Choice<A> {
             new (str: string): Choice<A>;
             new (separator: Separator): Choice<A>;
-            new (option: poll.ChoiceOption<A>): Choice<A>;
+            new (option: poll.ChoiceOptions<A>): Choice<A>;
         }
 
         /**
@@ -368,7 +368,7 @@ declare namespace inquirer {
          */
         export interface Choices<A> {
             new (
-                choices: ReadonlyArray<string | Separator | poll.ChoiceOption<A>>,
+                choices: ReadonlyArray<string | Separator | poll.ChoiceOptions<A>>,
                 answers?: A
             ): Choices<A>;
             choices: ReadonlyArray<Choice<A>>;
