@@ -34,7 +34,7 @@ declare namespace inquirer {
     }
 
     export interface PromptModule extends PromptModuleBase {
-        <A>(questions: poll.Questions<A>): Promise<A> & { ui: ui.PromptUI };
+        <A>(questions: poll.QuestionCollection<A>): Promise<A> & { ui: ui.PromptUI };
         /**
          * Register a prompt type
          * @param name Prompt type name
@@ -177,7 +177,7 @@ declare namespace inquirer {
             PasswordQuestion<A> |
             EditorQuestion<A>;
 
-        export type Questions<A extends Answers = Answers> =
+        export type QuestionCollection<A extends Answers = Answers> =
             | DistinctQuestion<A>
             | ReadonlyArray<poll.DistinctQuestion<A>>
             | Observable<poll.DistinctQuestion<A>>;
@@ -243,7 +243,7 @@ declare namespace inquirer {
         export interface PromptUI extends BaseUI {
             process: Observable<Answer>;
             new(prompts: Prompts, opt: StreamOptions): PromptUI;
-            run<A>(questions: poll.Questions<A>): Promise<A>;
+            run<A>(questions: poll.QuestionCollection<A>): Promise<A>;
             /**
              * Once all prompt are over
              */
