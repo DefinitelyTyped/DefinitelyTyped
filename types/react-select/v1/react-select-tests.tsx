@@ -1,7 +1,7 @@
 import * as React from "react";
 import ReactSelect, * as ReactSelectModule from "react-select";
-import defaultMenuRenderer from 'react-select/lib/utils/defaultMenuRenderer';
-import DefaultOptionComponent from 'react-select/lib/Option';
+import defaultMenuRenderer from 'react-select/src/utils/defaultMenuRenderer';
+import DefaultOptionComponent from 'react-select/src/Option';
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
