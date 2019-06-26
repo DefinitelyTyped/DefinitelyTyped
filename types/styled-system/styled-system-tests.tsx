@@ -303,6 +303,10 @@ const test = () => (
         <Grid gridTemplateColumns="auto" />
         <Grid gridTemplateColumns={["auto", "1fr"]} />
         <Grid gridTemplateColumns={{ sm: "auto", md: "1fr" }} />
+        // gridTemplateAreas
+        <Grid gridTemplateAreas="a a a" />
+        <Grid gridTemplateAreas={["a a a", "b b b"]} />
+        <Grid gridTemplateAreas={{ sm: "a a a", md: "b b b"}} />
         // flex (responsive)
         <Box flex="1 1 auto" />
         <Box flex={["1 1 auto"]} />

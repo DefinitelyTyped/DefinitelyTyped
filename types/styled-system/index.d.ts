@@ -783,7 +783,7 @@ export interface GridTemplateRowsProps<TLength = TLengthStyledSystem> {
 
 export const gridTemplateRows: styleFn;
 
-export interface GridTemplatesAreasProps {
+export interface GridTemplateAreasProps {
     /**
      * The grid-template-areas CSS property specifies named grid areas.
      *
