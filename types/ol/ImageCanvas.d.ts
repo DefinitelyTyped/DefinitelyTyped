@@ -7,4 +7,4 @@ export default class ImageCanvas extends ImageBase {
     getImage(): HTMLCanvasElement;
     getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
 }
-export type Loader = ((param0: (() => void)) => void);
+export type Loader = ((p0: (() => void)) => void);

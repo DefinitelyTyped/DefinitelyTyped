@@ -18,4 +18,4 @@ export interface EventsKey {
     target: EventTargetLike;
     type: string;
 }
-export type ListenerFunction = ((param0: Event | Event) => void | boolean);
+export type ListenerFunction = ((p0: Event | Event) => void | boolean);

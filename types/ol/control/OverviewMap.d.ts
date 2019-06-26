@@ -16,7 +16,7 @@ export interface Options {
     collapsible?: boolean;
     label?: string | HTMLElement;
     layers?: Layer[] | Collection<Layer>;
-    render?: ((param0: MapEvent) => void);
+    render?: ((p0: MapEvent) => void);
     target?: HTMLElement | string;
     tipLabel?: string;
     view?: View;
@@ -28,9 +28,9 @@ export default class OverviewMap extends Control {
     getOverviewMap(): PluggableMap;
     setCollapsed(collapsed: boolean): void;
     setCollapsible(collapsible: boolean): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
