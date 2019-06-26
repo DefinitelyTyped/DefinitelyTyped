@@ -74,6 +74,44 @@ declare namespace inquirer {
     }
 
     export namespace poll {
+        export interface QuestionCommon<A> {
+            /**
+             * The name to use when storing the answer in the answers hash.
+             * If the name contains periods, it will define a path in the answers hash.
+             */
+            name?: KeyUnion<A>;
+            /**
+             * The question to print. If defined as a function, the first parameter will be
+             * the current inquirer session answers.
+             * Defaults to the value of `name` (followed by a colon).
+             */
+            message?: DynamicQuestionProperty<A, string>;
+            /**
+             * Default value(s) to use if nothing is entered, or a function that returns
+             * the default value(s). If defined as a function, the first parameter will be
+             * the current inquirer session answers.
+             */
+            default?: DynamicQuestionProperty<A, any>;
+            /**
+             * Change the default _prefix_ message.
+             */
+            prefix?: string;
+            /**
+             * Change the default _suffix_ message.
+             */
+            suffix?: string;
+            /**
+             * Receive the user input and return the filtered value to be used inside the program.
+             * The value returned will be added to the _Answers_ hash.
+             */
+            filter?(input: string): any | Promise<any>;
+            /**
+             * Receive the current user answers hash and should return `true` or `false` depending
+             * on whether or not this question should be asked. The value can also be a simple boolean.
+             */
+            when?: DynamicQuestionProperty<A, boolean>;
+        }
+
         export interface ChoiceOptions<A = Answers> extends ChoiceBase {
             name?: string;
             value?: any;
@@ -85,44 +123,6 @@ declare namespace inquirer {
         }
 
         export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
-    }
-
-    export interface QuestionCommon<A> {
-        /**
-         * The name to use when storing the answer in the answers hash.
-         * If the name contains periods, it will define a path in the answers hash.
-         */
-        name?: KeyUnion<A>;
-        /**
-         * The question to print. If defined as a function, the first parameter will be
-         * the current inquirer session answers.
-         * Defaults to the value of `name` (followed by a colon).
-         */
-        message?: DynamicQuestionProperty<A, string>;
-        /**
-         * Default value(s) to use if nothing is entered, or a function that returns
-         * the default value(s). If defined as a function, the first parameter will be
-         * the current inquirer session answers.
-         */
-        default?: DynamicQuestionProperty<A, any>;
-        /**
-         * Change the default _prefix_ message.
-         */
-        prefix?: string;
-        /**
-         * Change the default _suffix_ message.
-         */
-        suffix?: string;
-        /**
-         * Receive the user input and return the filtered value to be used inside the program.
-         * The value returned will be added to the _Answers_ hash.
-         */
-        filter?(input: string): any | Promise<any>;
-        /**
-         * Receive the current user answers hash and should return `true` or `false` depending
-         * on whether or not this question should be asked. The value can also be a simple boolean.
-         */
-        when?: DynamicQuestionProperty<A, boolean>;
     }
 
     export interface QuestionOptions<A> {
@@ -160,22 +160,22 @@ declare namespace inquirer {
         EditorQuestion<A>
     )
 
-    export interface ListQuestion<A> extends QuestionCommon<A>,
+    export interface ListQuestion<A> extends poll.QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'list'
     }
 
-    export interface RawListQuestion<A> extends QuestionCommon<A>,
+    export interface RawListQuestion<A> extends poll.QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'rawlist'
     }
 
-    export interface ExpandQuestion<A> extends QuestionCommon<A>,
+    export interface ExpandQuestion<A> extends poll.QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'expand'
     }
 
-    export interface CheckboxQuestion<A> extends QuestionCommon<A>,
+    export interface CheckboxQuestion<A> extends poll.QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'choices' | 'pageSize'> {
         type: 'checkbox'
         /**
@@ -186,11 +186,11 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    export interface ConfirmQuestion<A> extends QuestionCommon<A>, QuestionOptions<A> {
+    export interface ConfirmQuestion<A> extends poll.QuestionCommon<A>, QuestionOptions<A> {
         type: 'confirm'
     }
 
-    export interface InputQuestion<A> extends QuestionCommon<A>,
+    export interface InputQuestion<A> extends poll.QuestionCommon<A>,
         Pick<QuestionOptions<A>, | 'transformer'> {
         type?: 'input'
         /**
@@ -201,7 +201,7 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    export interface NumberQuestion<A> extends QuestionCommon<A>,
+    export interface NumberQuestion<A> extends poll.QuestionCommon<A>,
         Pick<QuestionOptions<A>, 'transformer'> {
         type: 'number'
         /**
@@ -212,7 +212,7 @@ declare namespace inquirer {
         validate?(input: number, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    export interface PasswordQuestion<A> extends QuestionCommon<A> {
+    export interface PasswordQuestion<A> extends poll.QuestionCommon<A> {
         type: 'password'
         /**
          * Hides the user input.
@@ -226,7 +226,7 @@ declare namespace inquirer {
         validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
     }
 
-    export interface EditorQuestion<A> extends QuestionCommon<A> {
+    export interface EditorQuestion<A> extends poll.QuestionCommon<A> {
         type: 'editor'
         /**
          * Receive the user input and answers hash. Should return `true` if the value is valid,
