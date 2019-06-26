@@ -28,7 +28,7 @@ declare namespace bloomrun {
         ): PatternSet
     
         pattern: Pattern
-        payload: Pattern | any
+        payload: any
         weight: number
     }
     
