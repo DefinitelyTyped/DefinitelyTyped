@@ -3,11 +3,6 @@
 // Definitions by: Wu Haotian <https://github.com/whtsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
-
-
 export interface UserOpts {
     allAtOnce?: boolean;
     delay?: number;
