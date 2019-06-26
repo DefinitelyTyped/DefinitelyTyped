@@ -29,7 +29,10 @@ declare namespace Modal {
         keyboard?: boolean;
         onBackdropClick?: (node: HTMLElement) => any;
         onEscapeKeyDown?: (node: HTMLElement) => any;
-        onEscapeKeyUp?: (node: HTMLElement) => any; // deprecated, use onEscapeKeyDown
+        /**
+         * @deprecated since Sept 25, 2017, use onEscapeKeyDown instead
+         **/
+        onEscapeKeyUp?: (node: HTMLElement) => any;
         onShow?: (node: HTMLElement) => any;
         show?: boolean;
         transition?: React.ReactElement;
