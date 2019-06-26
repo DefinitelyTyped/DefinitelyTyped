@@ -1,6 +1,6 @@
-import { ChangeEventHandler, ComponentType } from "@wordpress/element";
+import { ChangeEventHandler, ComponentType } from '@wordpress/element';
 
-import IconButton from "../icon-button";
+import IconButton from '../icon-button';
 
 declare namespace FormFileUpload {
     interface BaseProps {
@@ -20,9 +20,7 @@ declare namespace FormFileUpload {
          */
         onChange: ChangeEventHandler<HTMLInputElement>;
     }
-    interface IconButtonProps
-        extends BaseProps,
-            Partial<Omit<IconButton.Props, "onChange" | "icon">> {
+    interface IconButtonProps extends BaseProps, Partial<Omit<IconButton.Props, 'onChange'>> {
         render?: never;
     }
     interface RenderProps extends BaseProps {

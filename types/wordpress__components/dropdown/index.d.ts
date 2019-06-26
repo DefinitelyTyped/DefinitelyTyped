@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
 import Popover from '../popover';
 
@@ -41,7 +41,7 @@ declare namespace Dropdown {
          *
          * @defaultValue "firstElement"
          */
-        focusOnMount?: "firstElement" | "container" | false;
+        focusOnMount?: 'firstElement' | 'container' | false;
         renderToggle(props: RenderProps): JSX.Element;
         renderContent(props: RenderProps): JSX.Element;
     }

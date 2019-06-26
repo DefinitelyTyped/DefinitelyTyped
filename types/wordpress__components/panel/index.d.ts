@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "@wordpress/element";
+import { ComponentType, ReactNode } from '@wordpress/element';
 
 declare namespace Panel {
     interface Props {

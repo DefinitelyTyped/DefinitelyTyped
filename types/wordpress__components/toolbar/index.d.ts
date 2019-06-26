@@ -1,12 +1,12 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
-import DropdownMenu from "../dropdown-menu";
+import DropdownMenu from '../dropdown-menu';
 import ToolbarButton from '../toolbar-button';
 
 declare namespace Toolbar {
     interface Props
-        extends Omit<HTMLProps<HTMLDivElement>, "controls" | "label">,
-            Pick<DropdownMenu.Props, "icon" | "label"> {
+        extends Omit<HTMLProps<HTMLDivElement>, 'controls' | 'label'>,
+            Partial<Pick<DropdownMenu.Props, 'icon' | 'label'>> {
         /**
          * Class to set on the container div.
          */

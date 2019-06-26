@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 declare namespace TabPanel {
     interface Tab {
@@ -46,7 +46,7 @@ declare namespace TabPanel {
          * The orientation of the tablist.
          * @defaultValue "horizontal"
          */
-        orientation?: "horizontal" | "vertical";
+        orientation?: 'horizontal' | 'vertical';
         tabs: readonly Tab[];
         /**
          * The function called when a tab has been selected. It is passed the

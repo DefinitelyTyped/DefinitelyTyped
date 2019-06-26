@@ -1,5 +1,5 @@
-import { ComponentType } from "@wordpress/element";
-import Button from "../button";
+import { ComponentType } from '@wordpress/element';
+import Button from '../button';
 
 declare namespace ClipboardButton {
     interface Props extends Button.ButtonProps {

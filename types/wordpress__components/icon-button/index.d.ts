@@ -1,8 +1,8 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
-import Button from "../button";
-import Dashicon from "../dashicon";
-import Popover from "../popover";
+import Button from '../button';
+import Dashicon from '../dashicon';
+import Popover from '../popover';
 import Shortcut from '../shortcut';
 
 declare namespace IconButton {

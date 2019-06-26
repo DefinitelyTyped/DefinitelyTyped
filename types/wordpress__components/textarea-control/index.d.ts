@@ -1,13 +1,10 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
-import BaseControl from "../base-control";
+import BaseControl from '../base-control';
 
 declare namespace TextareaControl {
     interface Props
-        extends Omit<
-                HTMLProps<HTMLTextAreaElement>,
-                keyof BaseControl.ControlProps | "onChange"
-            >,
+        extends Omit<HTMLProps<HTMLTextAreaElement>, keyof BaseControl.ControlProps | 'onChange'>,
             BaseControl.ControlProps {
         /**
          * The number of rows the textarea should contain.
