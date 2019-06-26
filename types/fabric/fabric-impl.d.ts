@@ -6,6 +6,7 @@ export as namespace fabric;
 export const isLikelyNode: boolean;
 export const isTouchSupported: boolean;
 export const version: string;
+export let textureSize: number;
 
 /////////////////////////////////////////////////////////////
 // fabric Functions
@@ -175,23 +176,23 @@ interface IToSVGOptions {
 	/**
 	 * If true xml tag is not included
 	 */
-	suppressPreamble: boolean;
+	suppressPreamble?: boolean;
 	/**
 	 * SVG viewbox object
 	 */
-	viewBox: IViewBox;
+	viewBox?: IViewBox;
 	/**
 	 * Encoding of SVG output
 	 */
-	encoding: string;
+	encoding?: string;
 	/**
 	 * desired width of svg with or without units
 	 */
-	width: number;
+	width?: number;
 	/**
 	 * desired height of svg with or without units
 	 */
-	height: number;
+	height?: number;
 }
 
 interface IViewBox {
@@ -614,7 +615,7 @@ export class Intersection {
 }
 
 interface IPatternOptions {
-	/**
+    /**
 	 * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat)
 	 */
 	repeat?: string;
@@ -645,7 +646,12 @@ interface IPatternOptions {
 }
 export interface Pattern extends IPatternOptions { }
 export class Pattern {
-	constructor(options?: IPatternOptions);
+    /**
+     * Unique identifier
+     */
+    id: number;
+
+    constructor(options?: IPatternOptions);
 	/**
 	 * Returns object representation of a pattern
 	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -876,6 +882,14 @@ interface IShadowOptions {
 	 * Indicates whether toObject should include default values
 	 */
 	includeDefaultValues?: boolean;
+    /**
+     * When `false`, the shadow will scale with the object.
+     * When `true`, the shadow's offsetX, offsetY, and blur will not be affected by the object's scale.
+     * default to false
+     * @type Boolean
+     * @default
+     */
+    nonScaling?: boolean;
 }
 export interface Shadow extends IShadowOptions { }
 export class Shadow {
@@ -1373,6 +1387,13 @@ export class StaticCanvas {
 	 */
 	toDatalessJSON(propertiesToInclude?: string[]): string;
 
+    /**
+     * Returns JSON representation of canvas
+     * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+     * @return {String} JSON string
+     */
+    toJSON(propertiesToInclude?: string[]): string;
+
 	/**
 	 * Returns object representation of canvas
 	 * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
@@ -1580,6 +1601,11 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * <b>Backwards incompatibility note:</b> This property replaces "centerTransform" (Boolean).
 	 */
 	centeredRotation?: boolean;
+
+    /**
+     * Color of object's fill
+     */
+    fill?: string | Pattern;
 
 	/**
 	 * Indicates which key enable centered Transform
@@ -3220,7 +3246,7 @@ export class Object {
 	 * @param [options] Object with additional `stateProperties` array to include when saving state
 	 * @return thisArg
 	 */
-	saveState(options?: { stateProperties: any[] }): Object;
+	saveState(options?: { stateProperties?: any[], propertySet?: string }): Object;
 	/**
 	 * Setups state of an object
 	 * @param {Object} [options] Object with additional `stateProperties` array to include when saving state
@@ -3638,6 +3664,12 @@ export class Object {
 	 */
 	_renderPaintInOrder(ctx: CanvasRenderingContext2D): void;
     /**
+     * Returns the instance of the control visibility set for this object.
+     * @private
+     * @returns {Object}
+     */
+    _getControlsVisibility(): { tl: boolean, tr: boolean, br: boolean, bl: boolean, ml: boolean, mt: boolean, mr: boolean, mb: boolean, mtr: boolean };
+    /**
      * Creates fabric Object instance
      * @param {string} Class name
      * @param {fabric.Object} Original object
@@ -3922,6 +3954,12 @@ export class Text extends Object {
      */
     _textLines: string[][];
     /**
+     * List of unwrapped grapheme lines in text object
+     * @private
+     * @type Array<string>
+     */
+    _unwrappedTextLines: string[][];
+    /**
      * Use this regular expression to filter for whitespaces that is not a new line.
      * Mostly used when text is 'justify' aligned.
      * @private
@@ -3951,7 +3989,12 @@ export class Text extends Object {
      * @private
      * @type Number
      */
-    _fontSizeFraction:number;
+    _fontSizeFraction: number;
+    /**
+     * @private
+     * @type boolean
+     */
+    __skipDimension: boolean;
 	/**
 	 * Constructor
 	 * @param text Text string
@@ -4151,6 +4194,19 @@ export class Text extends Object {
      */
     _getStyleDeclaration(lineIndex: number, charIndex: number): any;
     /**
+     * Generate an object that translates the style object so that it is
+     * broken up by visual lines (new lines and automatic wrapping).
+     * The original text styles object is broken up by actual lines (new lines only),
+     * which is only sufficient for Text / IText
+     * @private
+     */
+    _generateStyleMap(textInfo: { _unwrappedLines: string[], lines: string[], graphemeText: string[], graphemeLines: string[] }): Array<{ line: number; offset: number }>;
+    /**
+     * @private
+     * Gets the width of character spacing
+     */
+    _getWidthOfCharSpacing(): number;
+    /**
      * measure and return the width of a single character.
      * possibly overridden to accommodate different measure logic or
      * to hook some external lib for character measurement
@@ -4173,6 +4229,34 @@ export class Text extends Object {
      * @param {Number} charOffset
      */
     _renderChars(method: string, ctx: CanvasRenderingContext2D, line: string, left: number, top: number, lineIndex: number): void;
+    /**
+     * @private
+     * @param {String} method
+     * @param {CanvasRenderingContext2D} ctx Context to render on
+     * @param {Number} lineIndex
+     * @param {Number} charIndex
+     * @param {String} _char
+     * @param {Number} left Left coordinate
+     * @param {Number} top Top coordinate
+     * @param {Number} lineHeight Height of the line
+     */
+    _renderChar(method: string, ctx: CanvasRenderingContext2D, lineIndex: number, charIndex: number, _char: string, left: number, top: number): void;
+    /**
+     * @private
+     */
+    _clearCache(): void;
+    /**
+     * Divides text into lines of text and lines of graphemes.
+     * @private
+     * @returns {Object} Lines and text in the text
+     */
+    _splitText(): { _unwrappedLines: string[], lines: string[], graphemeText: string[], graphemeLines: string[] };
+    /**
+     * @private
+     * @param {Object} prevStyle
+     * @param {Object} thisStyle
+     */
+    _hasStyleChanged(prevStyle: any, thisStyle: any): boolean;
 }
 interface ITextOptions extends TextOptions {
 	/**
@@ -4828,6 +4912,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IColorMatrix
 	};
+    Contrast: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { contrast?: number; }): IContrastFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IContrastFilter
+    };
 	Convolute: {
 		new(options?: {
 			opaque?: boolean,
@@ -4947,6 +5043,18 @@ interface IAllFilters {
 		 */
 		fromObject(object: any): IResizeFilter
 	};
+    Saturation: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { saturation?: number; }): ISaturationFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): ISaturationFilter
+    };
 	Sepia2: {
 		new(options?: any): ISepia2Filter;
 		/**
@@ -4996,6 +5104,9 @@ interface IBaseFilter {
 	toJSON(): string;
 }
 interface IBlendColorFilter extends IBaseFilter {
+    color?: string;
+    mode?: string;
+    alpha?: number;
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
@@ -5017,11 +5128,19 @@ interface IBrightnessFilter extends IBaseFilter {
 	applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IColorMatrix extends IBaseFilter {
+    matrix?: number[];
 	/**
 	 * Applies filter to canvas element
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IContrastFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface IConvoluteFilter extends IBaseFilter {
 	/**
@@ -5111,6 +5230,13 @@ interface IResizeFilter extends IBaseFilter {
 	 * @param canvasEl Canvas element to apply filter to
 	 */
 	applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface ISaturationFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface ISepiaFilter extends IBaseFilter {
 	/**
@@ -5710,6 +5836,13 @@ interface IUtilMisc {
 	 */
 	qrDecompose(a: number[]): { angle: number, scaleX: number, scaleY: number, skewX: number, skewY: number, translateX: number, translateY: number };
 
+    /**
+     * Extract Object transform values
+     * @param  {fabric.Object} target object to read from
+     * @return {Object} Components of transform
+     */
+    saveObjectTransform(target: Object): { scaleX: number, scaleY: number, skewX: number, skewY: number, angle: number, left: number, flipX: boolean, flipY: boolean, top: number };
+
 	/**
 	 * Creates a transform matrix with the specified scale and skew
 	 */
@@ -5756,7 +5889,7 @@ export interface FilterBackend {
 	clearWebGLCaches(): void;
 
 }
-export let filterBackend: FilterBackend;
+export let filterBackend: FilterBackend | undefined;
 export interface Canvas2dFilterBackend extends FilterBackend { }
 export class Canvas2dFilterBackend {
 	constructor();

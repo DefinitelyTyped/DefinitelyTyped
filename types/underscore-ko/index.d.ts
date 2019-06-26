@@ -2,7 +2,7 @@
 // Project: https://github.com/kamranayub/UnderscoreKO
 // Definitions by: Maurits Elbers <https://github.com/MagicMau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="knockout" />
 

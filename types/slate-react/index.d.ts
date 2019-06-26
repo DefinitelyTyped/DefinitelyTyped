@@ -30,7 +30,8 @@ import {
     RangeProperties,
     NodeProperties,
     Range,
-    Controller
+    Controller,
+    Plugin as CorePlugin
 } from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
@@ -80,7 +81,7 @@ export type EventHook = (
     next: () => any
 ) => any;
 
-export interface Plugin {
+export interface Plugin extends CorePlugin {
     decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
     renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
     renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;

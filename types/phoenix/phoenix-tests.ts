@@ -45,7 +45,7 @@ function test_presence() {
 
   let presenceState = {};
 
-  const logState = (state: Object) => {
+  const logState = (state: object) => {
     Presence.list(state, (id: string) => id).forEach(console.log);
   };
 

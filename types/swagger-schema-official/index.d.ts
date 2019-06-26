@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
-// Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>, Mauri Edo <https://github.com/mauriedo>
+// Project: https://swagger.io/specification/
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>, Mauri Edo <https://github.com/mauriedo>, Vincenzo Chianese <https://github.com/XVincentX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -39,9 +39,12 @@ export interface Header extends BaseSchema {
 }
 
 // ----------------------------- Parameter -----------------------------------
+
+export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'file';
+
 export interface BaseParameter {
   name: string;
-  in: string;
+  in: 'body' | 'query' | 'path' | 'header' | 'formData' | 'body';
   required?: boolean;
   description?: string;
 }
@@ -53,25 +56,26 @@ export interface BodyParameter extends BaseParameter {
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
   in: 'query';
-  type: string;
+  type: ParameterType;
   allowEmptyValue?: boolean;
+  collectionFormat?: 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi';
 }
 
 export interface PathParameter extends BaseParameter, BaseSchema {
   in: 'path';
-  type: string;
+  type: ParameterType;
   required: boolean;
 }
 
 export interface HeaderParameter extends BaseParameter, BaseSchema {
   in: 'header';
-  type: string;
+  type: ParameterType;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
   in: 'formData';
-  type: string;
-  collectionFormat?: string;
+  type: ParameterType;
+  collectionFormat?: 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi';
   allowEmptyValue?: boolean;
 }
 
@@ -182,40 +186,38 @@ export interface BasicAuthenticationSecurity extends BaseSecurity {
 export interface ApiKeySecurity extends BaseSecurity {
   type: 'apiKey';
   name: string;
-  in: string;
+  in: 'query' | 'header';
 }
 
-export interface BaseOAuthSecuirty extends BaseSecurity {
+export interface BaseOAuthSecurity extends BaseSecurity {
   type: 'oauth2';
   flow: 'accessCode' | 'application' | 'implicit' | 'password';
+  scopes?: OAuthScope;
 }
 
-export interface OAuth2ImplicitSecurity extends BaseOAuthSecuirty {
+export interface OAuth2ImplicitSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'implicit';
   authorizationUrl: string;
 }
 
-export interface OAuth2PasswordSecurity extends BaseOAuthSecuirty {
+export interface OAuth2PasswordSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'password';
   tokenUrl: string;
-  scopes?: OAuthScope[];
 }
 
-export interface OAuth2ApplicationSecurity extends BaseOAuthSecuirty {
+export interface OAuth2ApplicationSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'application';
   tokenUrl: string;
-  scopes?: OAuthScope[];
 }
 
-export interface OAuth2AccessCodeSecurity extends BaseOAuthSecuirty {
+export interface OAuth2AccessCodeSecurity extends BaseOAuthSecurity {
   type: 'oauth2';
   flow: 'accessCode';
   tokenUrl: string;
   authorizationUrl: string;
-  scopes?: OAuthScope[];
 }
 
 export interface OAuthScope {

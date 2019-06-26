@@ -178,117 +178,6 @@ interface PluginRemoveScriptElement {
     removeScriptElement: boolean | object;
 }
 
-type PluginConfig =
-    | PluginCleanupAttrs
-    | PluginRemoveDoctype
-    | PluginRemoveXMLProcInst
-    | PluginRemoveComments
-    | PluginRemoveMetadata
-    | PluginRemoveTitle
-    | PluginRemoveDesc
-    | PluginRemoveUselessDefs
-    | PluginRemoveXMLNS
-    | PluginRemoveEditorsNSData
-    | PluginRemoveEmptyAttrs
-    | PluginRemoveHiddenElems
-    | PluginRemoveEmptyText
-    | PluginRemoveEmptyContainers
-    | PluginRemoveViewBox
-    | PluginCleanupEnableBackground
-    | PluginMinifyStyles
-    | PluginConvertStyleToAttrs
-    | PluginConvertColors
-    | PluginConvertPathData
-    | PluginConvertTransform
-    | PluginRemoveUnknownsAndDefaults
-    | PluginRemoveNonInheritableGroupAttrs
-    | PluginRemoveUselessStrokeAndFill
-    | PluginRemoveUnusedNS
-    | PluginCleanupIDs
-    | PluginCleanupNumericValues
-    | PluginCleanupListOfValues
-    | PluginMoveElemsAttrsToGroup
-    | PluginMoveGroupAttrsToElems
-    | PluginCollapseGroups
-    | PluginRemoveRasterImages
-    | PluginMergePaths
-    | PluginConvertShapeToPath
-    | PluginSortAttrs
-    | PluginTransformsWithOnePath
-    | PluginRemoveDimensions
-    | PluginRemoveAttrs
-    | PluginRemoveElementsByAttr
-    | PluginAddClassesToSVGElement
-    | PluginAddAttributesToSVGElement
-    | PluginRemoveStyleElement
-    | PluginRemoveScriptElement;
-
-interface Js2SvgOptions {
-    /** @default '<!DOCTYPE' */
-    doctypeStart?: string;
-    /** @default '>' */
-    doctypeEnd?: string;
-    /** @default '<?' */
-    procInstStart?: string;
-    /** @default '?>' */
-    procInstEnd?: string;
-    /** @default '<' */
-    tagOpenStart?: string;
-    /** @default '>' */
-    tagOpenEnd?: string;
-    /** @default '</' */
-    tagCloseStart?: string;
-    /** @default '>' */
-    tagCloseEnd?: string;
-    /** @default '<' */
-    tagShortStart?: string;
-    /** @default '/>' */
-    tagShortEnd?: string;
-    /** @default '="' */
-    attrStart?: string;
-    /** @default '"' */
-    attrEnd?: string;
-    /** @default '<!--' */
-    commentStart?: string;
-    /** @default '-->' */
-    commentEnd?: string;
-    /** @default '<![CDATA[' */
-    cdataStart?: string;
-    /** @default ']]>' */
-    cdataEnd?: string;
-    /** @default '' */
-    textStart?: string;
-    /** @default '' */
-    textEnd?: string;
-    /** @default 4 */
-    indent?: number;
-    /** @default /[&'"<>]/g */
-    regEntities?: RegExp;
-    /** @default /[&"<>]/g */
-    regValEntities?: RegExp;
-    /** @default encodeEntity */
-    encodeEntity?: (char?: string) => string;
-    /** @default false */
-    pretty?: boolean;
-    /** @default true */
-    useShortTags?: boolean;
-}
-
-interface Svg2JsOptions {
-    /** @default true */
-    strict?: boolean;
-    /** @default false */
-    trim?: boolean;
-    /** @default true */
-    normalize?: boolean;
-    /** @default true */
-    lowercase?: boolean;
-    /** @default true */
-    xmlns?: boolean;
-    /** @default true */
-    position?: boolean;
-}
-
 interface SvgInfo {
     path?: string;
 }
@@ -304,6 +193,117 @@ declare class SVGO {
 }
 
 declare namespace SVGO {
+    type PluginConfig =
+        | PluginCleanupAttrs
+        | PluginRemoveDoctype
+        | PluginRemoveXMLProcInst
+        | PluginRemoveComments
+        | PluginRemoveMetadata
+        | PluginRemoveTitle
+        | PluginRemoveDesc
+        | PluginRemoveUselessDefs
+        | PluginRemoveXMLNS
+        | PluginRemoveEditorsNSData
+        | PluginRemoveEmptyAttrs
+        | PluginRemoveHiddenElems
+        | PluginRemoveEmptyText
+        | PluginRemoveEmptyContainers
+        | PluginRemoveViewBox
+        | PluginCleanupEnableBackground
+        | PluginMinifyStyles
+        | PluginConvertStyleToAttrs
+        | PluginConvertColors
+        | PluginConvertPathData
+        | PluginConvertTransform
+        | PluginRemoveUnknownsAndDefaults
+        | PluginRemoveNonInheritableGroupAttrs
+        | PluginRemoveUselessStrokeAndFill
+        | PluginRemoveUnusedNS
+        | PluginCleanupIDs
+        | PluginCleanupNumericValues
+        | PluginCleanupListOfValues
+        | PluginMoveElemsAttrsToGroup
+        | PluginMoveGroupAttrsToElems
+        | PluginCollapseGroups
+        | PluginRemoveRasterImages
+        | PluginMergePaths
+        | PluginConvertShapeToPath
+        | PluginSortAttrs
+        | PluginTransformsWithOnePath
+        | PluginRemoveDimensions
+        | PluginRemoveAttrs
+        | PluginRemoveElementsByAttr
+        | PluginAddClassesToSVGElement
+        | PluginAddAttributesToSVGElement
+        | PluginRemoveStyleElement
+        | PluginRemoveScriptElement;
+
+    interface Js2SvgOptions {
+        /** @default '<!DOCTYPE' */
+        doctypeStart?: string;
+        /** @default '>' */
+        doctypeEnd?: string;
+        /** @default '<?' */
+        procInstStart?: string;
+        /** @default '?>' */
+        procInstEnd?: string;
+        /** @default '<' */
+        tagOpenStart?: string;
+        /** @default '>' */
+        tagOpenEnd?: string;
+        /** @default '</' */
+        tagCloseStart?: string;
+        /** @default '>' */
+        tagCloseEnd?: string;
+        /** @default '<' */
+        tagShortStart?: string;
+        /** @default '/>' */
+        tagShortEnd?: string;
+        /** @default '="' */
+        attrStart?: string;
+        /** @default '"' */
+        attrEnd?: string;
+        /** @default '<!--' */
+        commentStart?: string;
+        /** @default '-->' */
+        commentEnd?: string;
+        /** @default '<![CDATA[' */
+        cdataStart?: string;
+        /** @default ']]>' */
+        cdataEnd?: string;
+        /** @default '' */
+        textStart?: string;
+        /** @default '' */
+        textEnd?: string;
+        /** @default 4 */
+        indent?: number;
+        /** @default /[&'"<>]/g */
+        regEntities?: RegExp;
+        /** @default /[&"<>]/g */
+        regValEntities?: RegExp;
+        /** @default encodeEntity */
+        encodeEntity?: (char?: string) => string;
+        /** @default false */
+        pretty?: boolean;
+        /** @default true */
+        useShortTags?: boolean;
+    }
+
+    interface Svg2JsOptions {
+        /** @default true */
+        strict?: boolean;
+        /** @default false */
+        trim?: boolean;
+        /** @default true */
+        normalize?: boolean;
+        /** @default true */
+        lowercase?: boolean;
+        /** @default true */
+        xmlns?: boolean;
+        /** @default true */
+        position?: boolean;
+    }
+
     interface Options {
         /** Output as Data URI string. */
         datauri?: "base64" | "enc" | "unenc";

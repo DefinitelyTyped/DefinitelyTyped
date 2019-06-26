@@ -398,7 +398,7 @@ declare class Router<StateT = any, CustomT = {}> {
     ): Router<StateT & T, CustomT & U>;
 
     /**
-     * HTTP path method
+     * HTTP patch method
      */
     patch(
         name: string,

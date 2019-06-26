@@ -5,7 +5,7 @@ import { Chart, ChartData, Point } from "chart.js";
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {
     }
 };
 
@@ -79,7 +79,7 @@ const chart: Chart = new Chart(ctx, {
         }
     }
 });
-chart.update();
+chart.update({duration: 500, lazy: false, easing: 'linear'});
 
 console.log(chart.getDatasetMeta(0));
 

@@ -1020,6 +1020,19 @@ declare namespace webpack {
             afterResolvers: SyncHook<Compiler>;
             entryOption: SyncBailHook;
         }
+
+        interface MultiStats {
+            stats: Stats[];
+            hash: string;
+        }
+
+        interface MultiCompilerHooks {
+            done: SyncHook<MultiStats>;
+            invalid: SyncHook<string, Date>;
+            run: AsyncSeriesHook<Compiler>;
+            watchClose: SyncHook;
+            watchRun: AsyncSeriesHook<Compiler>;
+        }
     }
     // tslint:disable-next-line:interface-name
     interface ICompiler {
@@ -1117,6 +1130,7 @@ declare namespace webpack {
 
     abstract class MultiCompiler extends Tapable implements ICompiler {
         compilers: Compiler[];
+        hooks: compilation.MultiCompilerHooks;
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -1569,6 +1583,7 @@ declare namespace webpack {
             module?: boolean;
             moduleFilenameTemplate?: string;
             noSources?: boolean;
+            publicPath?: string;
             sourceRoot?: null | string;
             test?: Condition | Condition[];
         }

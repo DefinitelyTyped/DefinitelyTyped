@@ -244,8 +244,24 @@ interface Buffer extends Uint8Array {
     equals(otherBuffer: Uint8Array): boolean;
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-    slice(start?: number, end?: number): Buffer;
-    subarray(begin: number, end?: number): Buffer;
+    /**
+     * Returns a new `Buffer` that references **the same memory as the original**, but offset and cropped by the start and end indices.
+     *
+     * This method is incompatible with `Uint8Array#slice()`, which returns a copy of the original memory.
+     *
+     * @param begin Where the new `Buffer` will start. Default: `0`.
+     * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
+     */
+    slice(begin?: number, end?: number): Buffer;
+    /**
+     * Returns a new `Buffer` that references **the same memory as the original**, but offset and cropped by the start and end indices.
+     *
+     * This method is compatible with `Uint8Array#subarray()`.
+     *
+     * @param begin Where the new `Buffer` will start. Default: `0`.
+     * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
+     */
+    subarray(begin?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
@@ -1080,22 +1096,26 @@ declare namespace NodeJS {
         v8debug?: any;
     }
 
+    // compatibility with older typings
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {

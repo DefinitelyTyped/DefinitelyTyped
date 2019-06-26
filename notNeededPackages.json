@@ -1369,6 +1369,24 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "intl-locales-supported",
+            "typingsPackageName": "intl-locales-supported",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "1.0.6"
+        },
+        {
+            "libraryName": "intl-messageformat",
+            "typingsPackageName": "intl-messageformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "intl-relativeformat",
+            "typingsPackageName": "intl-relativeformat",
+            "sourceRepoURL": "https://github.com/formatjs/formatjs",
+            "asOfVersion": "3.0.1"
+        },
+        {
             "libraryName": "into-stream",
             "typingsPackageName": "into-stream",
             "sourceRepoURL": "https://github.com/sindresorhus/into-stream",
@@ -1865,6 +1883,12 @@
             "typingsPackageName": "log4js",
             "sourceRepoURL": "https://github.com/nomiddlename/log4js-node",
             "asOfVersion": "2.3.5"
+        },
+        {
+            "libraryName": "loglevel",
+            "typingsPackageName": "loglevel",
+            "sourceRepoURL": "https://github.com/pimterry/loglevel/",
+            "asOfVersion": "1.6.2"
         },
         {
             "libraryName": "loud-rejection",
@@ -3190,6 +3214,12 @@
             "libraryName": "TypeScript",
             "typingsPackageName": "typescript-services",
             "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "ui-box",
+            "typingsPackageName": "ui-box",
+            "sourceRepoURL": "https://github.com/segmentio/ui-box",
             "asOfVersion": "2.0.0"
         },
         {

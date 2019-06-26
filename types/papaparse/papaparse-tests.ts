@@ -33,25 +33,27 @@ Papa.parse("3,3,3", {
     dynamicTyping: (field: string | number): boolean => /headerName/i.test(field.toString())
 });
 
-Papa.parse("3,3,3", {
-    dynamicTyping: {'headerName': true}
+Papa.parse('3,3,3', {
+    dynamicTyping: { headerName: true },
 });
 
-Papa.parse("3,3,3", {
-    dynamicTyping: {5: true}
+Papa.parse('3,3,3', {
+    dynamicTyping: { 5: true },
 });
 
 var file = new File(null, null, null);
 
 Papa.parse(file, {
-    transform: function(value, field) {
-
-    },
-    complete: function (a, b) {
+    transform: function(value, field) {},
+    complete: function(a, b) {
         a.meta.fields;
         b.name;
-    }
+    },
 });
+
+// .pipe to make sure it returns a stream
+Papa.parse(Papa.NODE_STREAM_INPUT, {
+}).pipe
 
 const readable = new Readable()
 const rows = [

@@ -16,6 +16,7 @@ export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
+    accessType?: 'offline' | 'online';
     authorizationURL?: string;
     callbackURL?: string;
     clientID: string;

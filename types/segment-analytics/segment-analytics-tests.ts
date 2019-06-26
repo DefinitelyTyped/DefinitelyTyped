@@ -28,6 +28,9 @@ var testCb = function() {};
 
 function test_load() {
   analytics.load("YOUR_WRITE_KEY");
+
+  // With options
+  analytics.load('writekey', { integrations: { All: false, 'Google Analytics': true, 'Segment.io': true } })
 }
 
 function test_identify() {
