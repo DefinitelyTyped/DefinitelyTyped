@@ -812,3 +812,4 @@ expectType<mapboxgl.Expression>([
 	['concat', ['get', 'name'], '\n'], {},
 	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
 ]);
+expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
