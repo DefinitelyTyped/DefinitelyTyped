@@ -33,6 +33,16 @@ declare namespace inquirer {
         output?: NodeJS.WriteStream,
     };
 
+    export interface PromptModule extends PromptModuleBase {
+        <A>(questions: Questions<A>): Promise<A> & { ui: ui.PromptUI };
+        /**
+         * Register a prompt type
+         * @param name Prompt type name
+         * @param prompt Prompt constructor
+         */
+        registerPrompt(name: string, prompt: prompts.Base): this;
+    }
+
     export interface Inquirer extends PromptModuleBase {
         /**
          * Register a prompt type
@@ -71,16 +81,6 @@ declare namespace inquirer {
         }
 
         export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
-    }
-
-    export interface PromptModule extends PromptModuleBase {
-        <A>(questions: Questions<A>): Promise<A> & { ui: ui.PromptUI };
-        /**
-         * Register a prompt type
-         * @param name Prompt type name
-         * @param prompt Prompt constructor
-         */
-        registerPrompt(name: string, prompt: prompts.Base): this;
     }
 
     export interface QuestionCommon<A> {
