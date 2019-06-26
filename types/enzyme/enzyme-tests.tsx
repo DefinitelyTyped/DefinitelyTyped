@@ -509,7 +509,7 @@ function ShallowWrapperTest() {
                 </MyContext.Provider>
               );
         }
-        let shallowWrapper = shallow<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />, {
+        const shallowWrapper = shallow<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />, {
             wrappingComponent: MyProvider,
         });
         const provider = shallowWrapper.getWrappingComponent();
