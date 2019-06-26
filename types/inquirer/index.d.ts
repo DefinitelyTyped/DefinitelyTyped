@@ -70,7 +70,7 @@ declare namespace inquirer {
             disabled?: string | (<A>(answers: A) => any);
         }
 
-        export type ChoiceType<A> = string | ChoiceOptions<A> | Separator;
+        export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
     }
 
     export interface PromptModule extends PromptModuleBase {
@@ -126,9 +126,9 @@ declare namespace inquirer {
          * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
          */
         choices?:
-        | ReadonlyArray<poll.ChoiceType<A>>
-        | ((answers: A) => ReadonlyArray<poll.ChoiceType<A>>)
-        | ((answers: A) => Promise<ReadonlyArray<poll.ChoiceType<A>>>);
+        | ReadonlyArray<poll.DistinctChoice<A>>
+        | ((answers: A) => ReadonlyArray<poll.DistinctChoice<A>>)
+        | ((answers: A) => Promise<ReadonlyArray<poll.DistinctChoice<A>>>);
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the _Answers_ hash.
