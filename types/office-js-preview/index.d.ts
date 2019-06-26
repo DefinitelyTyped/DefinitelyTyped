@@ -9744,10 +9744,13 @@ declare namespace Office {
     }
 
     /**
-     * The InternetHeaders object represents properties that are preserved after the message item leaves Exchange and is converted to a MIME message. 
-     * These properties are stored as x-headers in the MIME message.
+     * The InternetHeaders object represents custom internet headers that are preserved after the message item leaves Exchange and is converted to a MIME message. 
+     * These headers are stored as x-headers in the MIME message.
      * 
      * InternetHeaders are stored as key/value pairs on a per-item basis.
+     * 
+     * **Note**: This object is intended for you to set and get your custom headers on a message item.
+     * However, while you may also get headers that were not set through the API, that is not guaranteed.
      *
      * [Api set: Mailbox Preview]
      *
@@ -9762,7 +9765,9 @@ declare namespace Office {
     interface InternetHeaders {
         /**
          * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
+         * 
+         * **Note**: You may also include names of headers that were not set through the API but it is not guaranteed that their values will be returned.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9783,7 +9788,9 @@ declare namespace Office {
         getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
+         * 
+         * **Note**: You may also include names of headers that were not set through the API but it is not guaranteed that their values will be returned.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9802,6 +9809,8 @@ declare namespace Office {
         getAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         * 
+         * **Note**: You may also include names of headers that were not set through the API but it is not guaranteed that such entries will be removed.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9823,6 +9832,8 @@ declare namespace Office {
         /**
          * Given an array of internet header names, this method removes the specified headers from the internet header collection.
          *
+         * **Note**: You may also include names of headers that were not set through the API but it is not guaranteed that such entries will be removed.
+         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9843,6 +9854,9 @@ declare namespace Office {
          * 
          * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
          * the new value.
+         *
+         * **Note**: You may also include names of headers that were not originally set through the API
+         * but it is not guaranteed that their values will be updated.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9867,6 +9881,9 @@ declare namespace Office {
          * 
          * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
          * the new value.
+         *
+         * **Note**: You may also include names of headers that were not originally set through the API
+         * but it is not guaranteed that their values will be updated.
          *
          * [Api set: Mailbox Preview]
          *
@@ -13192,7 +13209,7 @@ declare namespace Office {
          */
         from: From;
         /**
-         * Sets the internet headers of a message.
+         * Gets or sets the custom internet headers of a message.
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
          *
@@ -14142,7 +14159,7 @@ declare namespace Office {
          */
         from: EmailAddressDetails;
         /**
-         * Gets the internet headers of a message.
+         * Gets or sets the custom internet headers of a message.
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
          *
