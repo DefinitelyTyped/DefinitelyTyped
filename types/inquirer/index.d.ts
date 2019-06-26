@@ -25,6 +25,8 @@ import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
 import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 import { ScreenManager } from "./System/ScreenManager";
+import { Prompt } from "./Prompts/Prompt";
+import { LiteralUnion } from './System/LiteralUnion';
 
 declare namespace inquirer {
     export interface StreamOptions {
@@ -39,7 +41,7 @@ declare namespace inquirer {
          * @param name Prompt type name
          * @param prompt Prompt constructor
          */
-        registerPrompt(name: string, prompt: prompts.Base): this;
+        registerPrompt(name: string, prompt: Prompt): this;
     }
 
     export interface Inquirer extends PromptModuleBase {
@@ -48,7 +50,7 @@ declare namespace inquirer {
          * @param name Prompt type name
          * @param prompt Prompt constructor
          */
-        registerPrompt(name: string, prompt: inquirer.prompts.Base): PromptModule;
+        registerPrompt(name: string, prompt: Prompt): PromptModule;
         /**
          * Create a new self-contained prompt module.
          * @param opt Object specifying input and output streams for the prompt
@@ -69,7 +71,7 @@ declare namespace inquirer {
     }
 
     export namespace poll {
-        export interface Answers extends Record<string, any> { }
+        export interface Answers extends Record<string, any> {}
         export interface Question<A = Answers> {
             type?: string;
             /**
@@ -186,28 +188,23 @@ declare namespace inquirer {
 
     export namespace prompts {
         /**
-         * Base prompt implementation
-         * Should be extended by prompt types.
-         *
-         * @interface Base
+         * Represents the state of a prompt.
          */
-        export interface Base {
-            new <A>(question: poll.DistinctQuestion<A>, rl: ReadlineInterface, answers: A): Base;
+        export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+
+        /**
+         * Represents the result of a submit-event.
+         */
+        export interface SubmitEventResult {
             /**
-             * Start the Inquiry session and manage output value filtering
-             *
-             * @returns {Promise<any>}
-             * @memberof Base
+             * An object representing a successful result.
              */
-            run(): Promise<any>;
+            success: any;
+
             /**
-             * Called when the UI closes. Override to do any specific cleanup necessary
+             * An object representing an error.
              */
-            close(): void;
-            /**
-             * Generate the prompt question string
-             */
-            getQuestion(): string;
+            error: any;
         }
     }
 
@@ -355,6 +352,10 @@ declare namespace inquirer {
 
 declare module "inquirer/lib/utils/screen-manager" {
     export = ScreenManager;
+}
+
+declare module "inquirer/lib/prompts/base" {
+    export = Prompt;
 }
 
 declare var inquirer: inquirer.Inquirer;
