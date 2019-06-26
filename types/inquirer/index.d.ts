@@ -24,6 +24,7 @@ import { KeyUnion } from "./System/KeyUnion";
 import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
 import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
+import { ScreenManager } from "./System/ScreenManager";
 
 declare namespace inquirer {
     export interface StreamOptions {
@@ -350,6 +351,10 @@ declare namespace inquirer {
             forEach<T>(application: (choice: Choice<A>) => T): T[];
         }
     }
+}
+
+declare module "inquirer/lib/utils/screen-manager" {
+    export = ScreenManager;
 }
 
 declare var inquirer: inquirer.Inquirer;
