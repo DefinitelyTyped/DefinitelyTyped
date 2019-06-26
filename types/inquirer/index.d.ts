@@ -17,9 +17,9 @@ import { ThroughStream } from 'through';
 import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
 import { PromptModuleBase } from "./PromptModuleBase";
+import { Prompts } from "./Prompts";
 
 declare namespace inquirer {
-    export type Prompts = { [name: string]: prompts.Base };
     export type ChoiceType<A> = string | objects.ChoiceOption<A> | objects.Separator;
     export type Questions<A extends Answers = Answers> =
         | Question<A>
