@@ -23,7 +23,7 @@
         "animated/index.d.ts",
         "async/index.d.ts",
         "async-creatable/index.d.ts",
-        "base-creatable/index.d.ts",
+        "base/index.d.ts",
         "creatable/index.d.ts",
         "src/animated/Input.d.ts",
         "src/animated/MultiValue.d.ts",
