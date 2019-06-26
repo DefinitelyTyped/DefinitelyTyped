@@ -122,7 +122,7 @@ declare namespace Chart {
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
-    type TooltipPositionType = 'average' | 'nearest';
+    type TooltipPositionType = 'average' | 'nearest' | string;
 
     type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
 
