@@ -26,8 +26,6 @@ import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 
 declare namespace inquirer {
-    export interface Answers extends Record<string, any> { }
-
     export interface StreamOptions {
         input?: NodeJS.ReadStream,
         output?: NodeJS.WriteStream,
@@ -70,6 +68,7 @@ declare namespace inquirer {
     }
 
     export namespace poll {
+        export interface Answers extends Record<string, any> { }
         export interface Question<A> {
             /**
              * The name to use when storing the answer in the answers hash.
@@ -133,23 +132,23 @@ declare namespace inquirer {
         export interface ListQuestion<A> extends ListQuestionBase<A> {
             type: 'list'
         }
-    
+
         export interface RawListQuestion<A> extends ListQuestionBase<A> {
             type: 'rawlist'
         }
-    
+
         export interface ExpandQuestion<A> extends ListQuestionBase<A> {
             type: 'expand'
         }
-    
+
         export interface CheckboxQuestion<A> extends ListQuestionBase<A> {
             type: 'checkbox';
         }
-    
+
         export interface ConfirmQuestion<A> extends poll.Question<A> {
             type: 'confirm'
         }
-    
+
         export interface EditorQuestion<A> extends poll.Question<A> {
             type: 'editor';
         }
@@ -183,15 +182,6 @@ declare namespace inquirer {
             | Observable<poll.DistinctQuestion<A>>;
     }
 
-    /**
-     * Corresponding to the answer object creation in:
-     * https://github.com/SBoudrias/Inquirer.js/blob/ff075f587ef78504f0eae4ee5ca0656432429026/packages/inquirer/lib/ui/prompt.js#L88
-     */
-    export interface Answer {
-        name: string,
-        answer: any,
-    }
-
     export namespace prompts {
         /**
          * Base prompt implementation
@@ -220,6 +210,14 @@ declare namespace inquirer {
     }
 
     export namespace ui {
+        /**
+         * Corresponding to the answer object creation in:
+         * https://github.com/SBoudrias/Inquirer.js/blob/ff075f587ef78504f0eae4ee5ca0656432429026/packages/inquirer/lib/ui/prompt.js#L88
+         */
+        export interface Answer {
+            name: string,
+            answer: any,
+        }
 
         /**
          * Base interface class other can inherits from
@@ -354,5 +352,4 @@ declare namespace inquirer {
 }
 
 declare var inquirer: inquirer.Inquirer;
-
 export = inquirer;
