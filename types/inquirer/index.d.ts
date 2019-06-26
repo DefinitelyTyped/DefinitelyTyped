@@ -27,11 +27,13 @@ declare namespace inquirer {
         | Question<A>[]
         | ReadonlyArray<Question<A>>
         | Observable<Question<A>>;
-    export type Answers = Record<string, any>
-    export type StreamOptions = {
+
+    export interface Answers extends Record<string, any> { }
+
+    export interface StreamOptions {
         input?: NodeJS.ReadStream,
         output?: NodeJS.WriteStream,
-    };
+    }
 
     export interface PromptModule extends PromptModuleBase {
         <A>(questions: Questions<A>): Promise<A> & { ui: ui.PromptUI };
@@ -253,7 +255,7 @@ declare namespace inquirer {
          *
          * @interface Base
          */
-        interface Base {
+        export interface Base {
             new <A>(question: Question<A>, rl: ReadlineInterface, answers: A): Base;
             /**
              * Start the Inquiry session and manage output value filtering
@@ -356,10 +358,10 @@ declare namespace inquirer {
          *                             at least one of `value` or `name` property
          */
         export interface Choice<A> {
-            new (str: string): Choice<A>;
-            new (separator: Separator): Choice<A>;
+            new(str: string): Choice<A>;
+            new(separator: Separator): Choice<A>;
 
-            new (option: poll.ChoiceOptions<A>): Choice<A>;
+            new(option: poll.ChoiceOptions<A>): Choice<A>;
         }
 
         /**
@@ -369,7 +371,7 @@ declare namespace inquirer {
          * @param choices  All `choice` to keep in the collection
          */
         export interface Choices<A> {
-            new (
+            new(
                 choices: ReadonlyArray<string | Separator | poll.ChoiceOptions<A>>,
 
                 answers?: A
