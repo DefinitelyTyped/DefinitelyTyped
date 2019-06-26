@@ -1,6 +1,7 @@
 // Type definitions for domhandler 2.4
 // Project: https://github.com/fb55/DomHandler#readme
 // Definitions by: Johan Davidsson <https://github.com/johandavidson>
+//                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DomHandlerOptions {
@@ -56,23 +57,23 @@ export interface Node extends DomElement {
 export class DomHandler {
     constructor(callback: (error: any, dom: DomElement[]) => any, options?: DomHandlerOptions);
 
-    onparserinit(parser: any): void;
+    onparserinit?(parser: any): void;
 
     /***
      * Resets the handler back to starting state
      */
-    onreset(): void;
+    onreset?(): void;
 
     /***
      * Signals the handler that parsing is done
      */
-    onend(): void;
-    onerror(error: Error): void;
-    onclosetag(): void;
-    onopentag(name: string, attribs: {[s: string]: string}): void;
-    ontext(data: string): void;
-    oncomment(data: string): void;
-    oncdatastart(): void;
-    oncommentend(): void;
-    onprocessinginstruction(name: string, data: string): void;
+    onend?(): void;
+    onerror?(error: Error): void;
+    onclosetag?(): void;
+    onopentag?(name: string, attribs: {[s: string]: string}): void;
+    ontext?(data: string): void;
+    oncomment?(data: string): void;
+    oncdatastart?(): void;
+    oncommentend?(): void;
+    onprocessinginstruction?(name: string, data: string): void;
 }
