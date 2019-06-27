@@ -1,4 +1,4 @@
-// Type definitions for rc-tree 2.1.0
+// Type definitions for rc-tree 2.1
 // Project: http://github.com/react-component/tree
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 //                 Methuselah96 <https://github.com/Methuselah96>
@@ -267,7 +267,7 @@ export interface TreeProps {
     /**
      * the data to be rendered
      */
-    treeData: [];
+    treeData?: [];
 }
 
 export default class Tree extends Component<TreeProps> { }
