@@ -5,6 +5,24 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+// generic list tests
+// ##################################################################################
+stripe.balance.listTransactions().then(items => {
+    items; // $ExpectType IList<IBalanceTransaction>
+});
+stripe.balance.listTransactions().autoPagingEach(async item => {
+    item; // $ExpectType IBalanceTransaction
+});
+stripe.balance.listTransactions().autoPagingToArray({}); // $ExpectError
+stripe.balance.listTransactions().autoPagingToArray({limit: 1}).then(items => {
+    items; // $ExpectType IBalanceTransaction[]
+});
+async function testAutoPaging() {
+    for await (const item of stripe.balance.listTransactions()) {
+        item; // $ExpectType IBalanceTransaction
+    }
+}
+
 //#region Balance tests
 // ##################################################################################
 
