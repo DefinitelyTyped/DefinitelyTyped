@@ -20,7 +20,7 @@ interface GoogleApiOAuth2TokenObject {
      * The duration, in seconds, the token is valid for. Only present in successful responses
      */
     expires_in: string;
-    session_state: GoogleApiOAuth2TokenSessionState;
+    session_state?: GoogleApiOAuth2TokenSessionState;
     /**
      * The Google API scopes related to this token
      */
