@@ -3,4 +3,9 @@
 // Definitions by: Alec Brunelle <https://github.com/aleccool213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {};
+export default function preprocessor(options?: any): (file: any) => Promise<string>;
+
+/**
+ * @returns NodeJS.ReadableStream
+ */
+export function transform(file: any): any;
