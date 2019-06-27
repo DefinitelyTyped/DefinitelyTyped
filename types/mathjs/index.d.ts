@@ -319,7 +319,7 @@ declare namespace math {
          * @param scope Scope to read/write variables
          * @returns The result of the expression
          */
-        eval(
+        evaluate(
             expr: MathExpression | MathExpression[] | Matrix,
             scope?: object
         ): any;
