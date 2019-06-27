@@ -34,12 +34,11 @@ declare module 'moment' {
         endOf(unit: IUnitOfTime): Moment;
 
         add(amount: string | number, unit: IUnitOfTime): Moment;
-
         subtract(amount: string | number, unit: IUnitOfTime): Moment;
 
         iYear(y: number): Moment;
         iYear(): number;
-        iMonth(M: number | string): Moment;
+        iMonth(m: number | string): Moment;
         iMonth(): number;
         iDate(d: number): Moment;
         iDate(): number;
@@ -49,5 +48,6 @@ declare module 'moment' {
         iWeekYear(): number;
         iDayOfYear(d: number): Moment;
         iDayOfYear(): number;
+        iDaysInMonth(): number;
     }
 }

@@ -38,6 +38,8 @@ m.subtract('1', 'iYear');
 m.subtract('2', 'iMonth');
 m.subtract('3', 'day');
 
+m.iDaysInMonth();
+
 moment.iDaysInMonth(1410, 8);
 moment.iConvert.toHijri(2019, 6, 25);
 moment.iConvert.toGregorian(1440, 10, 22);
