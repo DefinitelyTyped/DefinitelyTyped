@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export type UseBeforeunloadHandler = (arg: Event) => string | void;
+export type UseBeforeUnloadHandler = ((arg: Event) => string | undefined) | ((arg: Event) => void);
 
 export function useBeforeunload(handler?: UseBeforeunloadHandler): void;
 
