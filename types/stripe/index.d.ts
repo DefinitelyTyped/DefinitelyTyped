@@ -805,13 +805,13 @@ declare namespace Stripe {
             last_name?: string;
 
             /**
-             * The Kana varation of the individual’s last name (Japan only).
+             * The Kana variation of the individual’s last name (Japan only).
              * This can be unset by updating the value to null and then saving.
              */
             last_name_kana?: string;
 
             /**
-             * The Kanji varation of the individual’s last name (Japan only).
+             * The Kanji variation of the individual’s last name (Japan only).
              * This can be unset by updating the value to null and then saving.
              */
             last_name_kanji?: string;
@@ -2274,7 +2274,7 @@ declare namespace Stripe {
             access_activity_log?: string;
 
             /**
-             * The billing addess provided by the customer.
+             * The billing address provided by the customer.
              */
             billing_address?: string;
 
@@ -7193,8 +7193,8 @@ declare namespace Stripe {
              * By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details
              * about a specific refund stored on the application fee.
              */
-            retreiveRefund(feeId: string, refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            retreiveRefund(feeId: string, refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieveRefund(feeId: string, refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieveRefund(feeId: string, refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left
@@ -7342,7 +7342,7 @@ declare namespace Stripe {
 
             /**
              * Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-             * This request accepts only the description, metadata, receipt_emailand fraud_details as arguments.
+             * This request accepts only the description, metadata, receipt_email and fraud_details as arguments.
              *
              * @param id The identifier of the charge to be updated
              * @param data An object containing the updated properties.
