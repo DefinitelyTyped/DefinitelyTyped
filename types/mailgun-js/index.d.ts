@@ -3,7 +3,7 @@
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -55,6 +55,11 @@ declare namespace Mailgun {
     interface MailgunExport {
         new (options: ConstructorParams): Mailgun;
         (options: ConstructorParams): Mailgun;
+    }
+
+    interface MailgunRequest {
+        (resource: string, data: any, callback: (error: Error, response: any) => void): void;
+        (resource: string, data: any): Promise<any>;
     }
 
     namespace messages {
@@ -194,6 +199,12 @@ declare namespace Mailgun {
         validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
         validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
         validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
+
+        // Generic requests
+        get: MailgunRequest;
+        post: MailgunRequest;
+        put: MailgunRequest;
+        delete: MailgunRequest;
     }
 
     interface Lists {

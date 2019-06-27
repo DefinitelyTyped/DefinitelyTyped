@@ -76,3 +76,20 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
         local_part: "foo"
     }
 };
+
+// Generic requests
+mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error, body) => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(body);
+    }
+});
+
+mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] })
+    .then(body => {
+        console.log(body);
+    })
+    .catch(err => {
+        console.error(err);
+    });
