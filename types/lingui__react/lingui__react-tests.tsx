@@ -53,7 +53,7 @@ const App = () => {
                     <span aria-label={i18n.t('ageId')`${age} years old`}>Attributes</span>
                 )}
             </I18nComponent>
-            <Trans>Name {name} in <code>Trans</code>.</Trans>
+            <Trans description="Comment for translators">Name {name} in <code>Trans</code>.</Trans>
             <Trans id="transId">Name {name} in <code>Trans</code> with <code>id</code>.</Trans>
             <Plural id="msg.plural"
                     value={numBooks}

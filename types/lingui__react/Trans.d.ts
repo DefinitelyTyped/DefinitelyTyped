@@ -3,6 +3,7 @@ import { RenderProps } from './Render';
 
 export interface TransPropsWithoutI18n extends RenderProps {
     id?: string;
+    description?: string;
     defaults?: string;
     values?: object;
     formats?: object;
