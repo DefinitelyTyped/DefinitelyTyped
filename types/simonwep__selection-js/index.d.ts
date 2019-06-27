@@ -95,3 +95,4 @@ declare class Selection {
 }
 
 export = Selection;
+export as namespace Selection;
