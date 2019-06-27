@@ -1,7 +1,6 @@
 // Type definitions for rc-tree 2.1.0
 // Project: http://github.com/react-component/tree
-// Definitions by:
-//                 John Reilly <https://github.com/johnnyreilly>
+// Definitions by: John Reilly <https://github.com/johnnyreilly>
 //                 Methuselah96 <https://github.com/Methuselah96>
 //                 Mike Viens <https://github.com/mviens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
