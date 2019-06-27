@@ -364,7 +364,7 @@ declare namespace Bull {
      * A boolean which, if true, removes the job when it successfully completes.
      * Default behavior is to keep the job in the completed set.
      */
-    removeOnComplete?: boolean;
+    removeOnComplete?: boolean | number;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts
