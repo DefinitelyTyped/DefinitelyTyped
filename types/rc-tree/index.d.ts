@@ -4,7 +4,7 @@
 //                 Methuselah96 <https://github.com/Methuselah96>
 //                 Mike Viens <https://github.com/mviens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Component } from "react";
 
