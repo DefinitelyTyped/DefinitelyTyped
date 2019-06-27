@@ -190,6 +190,7 @@ declare module "child_process" {
         maxBuffer?: number;
         killSignal?: string;
         windowsVerbatimArguments?: boolean;
+        shell?: boolean | string;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
