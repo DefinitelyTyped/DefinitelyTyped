@@ -76,7 +76,7 @@ declare namespace Mailgun {
             inline?: AttachmentData | ReadonlyArray<AttachmentData>;
 
             // Mailgun options
-            'o:tag'?: string[];
+            'o:tag'?: string | string[];
             'o:deliverytime'?: string;
             'o:dkim'?: 'yes' | 'no' | boolean;
             'o:tracking'?: 'yes' | 'no' | boolean;
