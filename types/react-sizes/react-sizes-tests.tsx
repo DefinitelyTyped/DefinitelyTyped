@@ -5,11 +5,6 @@ interface TestProps {
     foo: string;
     width: number;
     height: number;
-};
-
-interface TestInnerProps {
-    TestProps;
-    Sizes;
 }
 
 const mapSizesToProps = ({ width, height }: Sizes): TestProps => ({
