@@ -24,5 +24,6 @@ declare module 'restify' {
 
   interface Response {
     setCookie(key: string, val: string, options?: CookieOptions): void;
+    clearCookie(key: string, options?:CookieOptions): void;
   }
 }
