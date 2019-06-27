@@ -52,6 +52,7 @@ declare namespace proxy {
         reqAsBuffer?: boolean;
         reqBodyEncoding?: string | null;
         timeout?: number;
+        proxyReqBodyDecorator?: (bodyContent: any, srcReq: Request) => any;
     }
 }
 
