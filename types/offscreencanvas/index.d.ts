@@ -31,13 +31,13 @@ interface OffscreenCanvas extends EventTarget {
     width: number;
     height: number;
 
-    getContext(contextId: '2d', contextAttributes?: CanvasRenderingContext2DSettings): OffscreenCanvasRenderingContext2D | null;
+    getContext(contextId: "2d", contextAttributes?: CanvasRenderingContext2DSettings): OffscreenCanvasRenderingContext2D | null;
 
-    getContext(contextId: 'bitmaprenderer', contextAttributes?: WebGLContextAttributes): ImageBitmapRenderingContext | null;
+    getContext(contextId: "bitmaprenderer", contextAttributes?: WebGLContextAttributes): ImageBitmapRenderingContext | null;
 
-    getContext(contextId: 'webgl', contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: "webgl", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
 
-    getContext(contextId: 'webgl2', contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
+    getContext(contextId: "webgl2", contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
 
     convertToBlob(options?: { type?: string, quality?: number }): Promise<Blob>;
 
@@ -73,7 +73,7 @@ interface MessagePort extends EventTarget {
 }
 
 interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole,
-    GlobalEventHandlers, IDBEnvironment, WindowBase64, GlobalFetch, WindowOrWorkerGlobalScope, WindowEventHandlers {
+    GlobalEventHandlers, IDBEnvironment, WindowBase64, WindowOrWorkerGlobalScope, WindowEventHandlers {
     postMessage(message: any, targetOrigin: string, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
