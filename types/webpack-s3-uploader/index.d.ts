@@ -11,9 +11,8 @@ import { Plugin } from 'webpack';
 declare namespace WebpackS3Uploader {
     type InclusionRule = RegExp | ((path: string) => boolean);
 
-    interface S3UploadOptions extends S3.PutObjectRequest {
+    interface S3UploadOptions extends Omit<S3.PutObjectRequest, "Key"> {
         Bucket: string;
-        Key?: never;
     }
 
     interface Options {
@@ -24,6 +23,9 @@ declare namespace WebpackS3Uploader {
         basePath?: string;
         progress?: boolean;
     }
+
+    // For compatibility with TypeScript < 3.5.
+    type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 }
 
 declare class WebpackS3Uploader extends Plugin {
