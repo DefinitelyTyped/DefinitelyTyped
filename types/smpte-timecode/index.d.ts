@@ -2,7 +2,8 @@
 // Project: https://github.com/CrystalComputerCorp/smpte-timecode
 // Definitions by: DoYoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+
+/// <reference types="node" />
 
 declare const Timecode: {
   (timecode?: Timecode.TIMECODE, frameRate?: Timecode.FRAMERATE, dropFrame?: boolean): Timecode.TimecodeInstance;
