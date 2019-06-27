@@ -11,8 +11,8 @@ export interface Sizes {
 
 export type mapSizesToProps<SP extends object> = (sizes: Sizes) => SP;
 
-export function withSizes<SP extends object, P extends SP>(
+export function WithSizes<SP extends object, P extends SP>(
     mapSizesToProps: mapSizesToProps<SP>
 ): (component: React.ComponentType<P>) => React.ComponentType<P>;
 
-export as namespace withSizes;
+export as namespace WithSizes;
