@@ -1,6 +1,9 @@
-// Type definitions for rc-tree 1.11
+// Type definitions for rc-tree 2.1.0
 // Project: http://github.com/react-component/tree
-// Definitions by: John Reilly <https://github.com/johnnyreilly>, Methuselah96 <https://github.com/Methuselah96>
+// Definitions by:
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Methuselah96 <https://github.com/Methuselah96>
+//                 Mike Viens <https://github.com/mviens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -195,6 +198,10 @@ export interface TreeProps {
      */
     icon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element);
     /**
+     * customize icon for node's expand/collapse indicator. When you pass component, whose render will receive full TreeNode props as component props
+     */
+    switcherIcon?: JSX.Element | ((props: InternalTreeNodeProps) => JSX.Element);
+    /**
      * Controlled selected treeNodes(After setting, defaultSelectedKeys will not work)
      */
     selectedKeys?: string[];
@@ -258,6 +265,10 @@ export interface TreeProps {
      * it execs when fire the tree's dragend event
      */
     onDragEnd?: (props: OnDragEndData) => void;
+    /**
+     * the data to be rendered
+     */
+    treeData: [];
 }
 
 export default class Tree extends Component<TreeProps> { }
