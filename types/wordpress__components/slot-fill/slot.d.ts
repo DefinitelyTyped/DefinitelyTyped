@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 declare namespace Slot {
     interface Props {
@@ -13,9 +13,7 @@ declare namespace Slot {
          * `Fill`s as a param. It allows to perform additional processing and
          * wrap `fills` conditionally.
          */
-        children?(
-            fills: ReadonlyArray<readonly JSX.Element[]>
-        ): JSX.Element | null;
+        children?(fills: ReadonlyArray<readonly JSX.Element[]>): JSX.Element | null;
         /**
          * Changes event bubbling behavior.
          *

@@ -14,16 +14,16 @@ export class TranslateEvent extends Event {
 }
 export interface Options {
     features?: Collection<Feature>;
-    layers?: Layer[] | ((param0: Layer) => boolean);
+    layers?: Layer[] | ((p0: Layer) => boolean);
     hitTolerance?: number;
 }
 export default class Translate extends PointerInteraction {
     constructor(opt_options?: Options);
     getHitTolerance(): number;
     setHitTolerance(hitTolerance: number): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

@@ -14,7 +14,7 @@ export default class CanvasReplayGroup extends ReplayGroup {
     constructor(tolerance: number, maxExtent: Extent, resolution: number, pixelRatio: number, overlaps: boolean, declutterTree: any, opt_renderBuffer?: number);
     clip(context: CanvasRenderingContext2D, transform: Transform): void;
     finish(): void;
-    forEachFeatureAtCoordinate<T>(coordinate: Coordinate, resolution: number, rotation: number, hitTolerance: number, skippedFeaturesHash: { [key: string]: boolean }, callback: ((param0: Feature | RenderFeature) => T), declutterReplays: { [key: string]: DeclutterGroup }): T;
+    forEachFeatureAtCoordinate<T>(coordinate: Coordinate, resolution: number, rotation: number, hitTolerance: number, skippedFeaturesHash: { [key: string]: boolean }, callback: ((p0: Feature | RenderFeature) => T), declutterReplays: { [key: string]: DeclutterGroup }): T;
     getClipCoords(transform: Transform): number[];
     getReplays(): { [key: string]: { [key in ReplayType]: CanvasReplay } };
     hasReplays(replays: ReplayType[]): boolean;

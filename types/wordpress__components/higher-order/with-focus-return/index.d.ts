@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 export interface WFROptions {
     onFocusReturn?(): boolean | void;

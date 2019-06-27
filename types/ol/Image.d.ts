@@ -7,4 +7,4 @@ export default class ImageWrapper extends ImageBase {
     protected state: ImageState;
     setImage(image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement): void;
 }
-export type LoadFunction = ((param0: ImageWrapper, param1: string) => void);
+export type LoadFunction = ((p0: ImageWrapper, p1: string) => void);

@@ -28,6 +28,7 @@
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 //                 Brekk Bockrath <https://github.com/brekk>
+//                 Jituan Lin <https://github.com/jituanlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -861,6 +862,10 @@ declare namespace R {
          */
         ap<T, U>(fns: Array<((a: T) => U)>, vs: ReadonlyArray<T>): U[];
         ap<T, U>(fns: Array<((a: T) => U)>): (vs: ReadonlyArray<T>) => U[];
+        ap<X0, X1, R>(
+            fn: (x1: X1, x0: X0) => R,
+            fn1: (x1: X1) => X0
+        ): (x1: X1) => R;
 
         /**
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
@@ -964,6 +969,7 @@ declare namespace R {
          */
         chain<T, U>(fn: (n: T) => ReadonlyArray<U>, list: ReadonlyArray<T>): U[];
         chain<T, U>(fn: (n: T) => ReadonlyArray<U>): (list: ReadonlyArray<T>) => U[];
+        chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
         /**
          * Restricts a number to be within a range.

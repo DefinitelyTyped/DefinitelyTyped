@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps, ReactNode } from "@wordpress/element";
+import { ComponentType, HTMLProps, ReactNode } from '@wordpress/element';
 
 declare namespace Popover {
     interface Props extends HTMLProps<HTMLDivElement> {
@@ -35,7 +35,7 @@ declare namespace Popover {
          *
          * @defaultValue "firstElement"
          */
-        focusOnMount?: "firstElement" | "container" | false;
+        focusOnMount?: 'firstElement' | 'container' | false;
         /**
          * Set this to customize the text that is shown in popover's header
          * when it is fullscreen on mobile.
@@ -57,9 +57,7 @@ declare namespace Popover {
          * Function that should return a `DOMRect` of where to position the
          * popover.
          */
-        getAnchorRect?(
-            currentAnchorElement: HTMLSpanElement | null
-        ): DOMRect | ClientRect | undefined;
+        getAnchorRect?(currentAnchorElement: HTMLSpanElement | null): DOMRect | ClientRect | undefined;
         /**
          * A callback invoked when the popover should be closed.
          */
@@ -77,15 +75,15 @@ declare namespace Popover {
      * node. Specify y- and x-axis as a space-separated string.
      */
     type Position =
-        | "top left"
-        | "top right"
-        | "top center"
-        | "middle left"
-        | "middle right"
-        | "middle center"
-        | "bottom left"
-        | "bottom right"
-        | "bottom center";
+        | 'top left'
+        | 'top right'
+        | 'top center'
+        | 'middle left'
+        | 'middle right'
+        | 'middle center'
+        | 'bottom left'
+        | 'bottom right'
+        | 'bottom center';
 }
 declare const Popover: ComponentType<Popover.Props>;
 

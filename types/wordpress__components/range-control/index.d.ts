@@ -1,14 +1,11 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
-import BaseControl from "../base-control";
-import Dashicon from "../dashicon";
+import BaseControl from '../base-control';
+import Dashicon from '../dashicon';
 
 declare namespace RangeControl {
     interface Props
-        extends Omit<
-                HTMLProps<HTMLInputElement>,
-                keyof BaseControl.ControlProps | "onChange"
-            >,
+        extends Omit<HTMLProps<HTMLInputElement>, keyof BaseControl.ControlProps | 'onChange'>,
             BaseControl.ControlProps {
         /**
          * If this property is added, a `DashIcon` component will be rendered

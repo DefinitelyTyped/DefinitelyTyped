@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { ComponentType } from "@wordpress/element";
+import { Dashicon } from '@wordpress/components';
+import { ComponentType } from '@wordpress/element';
 
 export interface PluginSettings {
-    // TODO: if we ever create a package for @wordpress/dashicons, add it here instead of `string`.
     /**
      * An icon to be shown in the UI. It can be a slug of the Dashicon, or an
      * element (or function returning an element) if you choose to render your
      * own SVG.
      */
-    icon: string | ComponentType;
+    icon: Dashicon.Icon | ComponentType;
     /**
      * A component containing the UI elements to be rendered.
      */
@@ -28,7 +28,7 @@ export interface Plugin extends PluginSettings {
     name: string;
 }
 
-export type PluginContext = Omit<Plugin, "render">;
+export type PluginContext = Omit<Plugin, 'render'>;
 
 /**
  * A component that renders all plugin fills in a hidden div.
@@ -54,10 +54,7 @@ export function getPlugins(): Plugin[];
  * @param settings - The settings for this plugin.
  * @returns The final plugin settings object.
  */
-export function registerPlugin(
-    name: string,
-    settings: PluginSettings
-): PluginSettings;
+export function registerPlugin(name: string, settings: PluginSettings): PluginSettings;
 
 /**
  * Unregisters a plugin by name.

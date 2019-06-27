@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 // prettier-ignore
 export default function withConstrainedTabbing<T>(wrapped: T):

@@ -1,7 +1,7 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
-import Dashicon from "../dashicon";
-import Dropdown from "../dropdown";
+import Dashicon from '../dashicon';
+import Dropdown from '../dropdown';
 import Popover from '../popover';
 
 declare namespace DropdownMenu {

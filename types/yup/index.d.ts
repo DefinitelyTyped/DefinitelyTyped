@@ -210,7 +210,13 @@ interface BasicArraySchema<T extends any[] | null | undefined>
     min(limit: number | Ref, message?: TestOptionsMessage): this;
     max(limit: number | Ref, message?: TestOptionsMessage): this;
     ensure(): this;
-    compact(rejector?: (value: T, index: number, array: T[]) => boolean): this;
+    compact(
+        rejector?: (
+            value: InferredArrayType<T>,
+            index: number,
+            array: Array<InferredArrayType<T>>
+        ) => boolean
+    ): this;
 }
 
 export interface NotRequiredNullableArraySchema<T>
@@ -506,3 +512,4 @@ type KeyOfUndefined<T> = {
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
 type InnerInferType<T> = NotRequiredProps<T> & RequiredProps<T>;
+type InferredArrayType<T> = T extends Array<infer U> ? U : T;

@@ -1,13 +1,10 @@
-import { ComponentType, HTMLProps } from "@wordpress/element";
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
-import BaseControl from "../base-control";
+import BaseControl from '../base-control';
 
 declare namespace TextControl {
     interface Props
-        extends Omit<
-                HTMLProps<HTMLInputElement>,
-                keyof BaseControl.ControlProps | "onChange"
-            >,
+        extends Omit<HTMLProps<HTMLInputElement>, keyof BaseControl.ControlProps | 'onChange'>,
             BaseControl.ControlProps {
         /**
          * The current value of the input.

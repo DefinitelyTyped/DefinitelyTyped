@@ -1,4 +1,4 @@
-import { ComponentType } from "@wordpress/element";
+import { ComponentType } from '@wordpress/element';
 
 declare namespace ColorPicker {
     interface Props {
@@ -9,12 +9,7 @@ declare namespace ColorPicker {
         /**
          * Function to be called when color value changes.
          */
-        onChangeComplete(value: {
-            hex: string;
-            hsl: string;
-            hsv: string;
-            rgb: string;
-        }): void;
+        onChangeComplete(value: { hex: string; hsl: string; hsv: string; rgb: string }): void;
         /**
          * Should alpha be disabled?
          */

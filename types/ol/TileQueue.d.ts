@@ -3,7 +3,7 @@ import Event from './events/Event';
 import PriorityQueue from './structs/PriorityQueue';
 import Tile from './Tile';
 
-export type PriorityFunction = ((param0: Tile, param1: string, param2: Coordinate, param3: number) => number);
+export type PriorityFunction = ((p0: Tile, p1: string, p2: Coordinate, p3: number) => number);
 export default class TileQueue extends PriorityQueue<any> {
     constructor(tilePriorityFunction: PriorityFunction, tileChangeCallback: (() => void));
     protected handleTileChange(event: Event): void;

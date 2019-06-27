@@ -1,8 +1,4 @@
-import {
-    ComponentType,
-    MouseEventHandler,
-    ReactNode
-} from "@wordpress/element";
+import { ComponentType, MouseEventHandler, ReactNode } from '@wordpress/element';
 
 declare namespace Notice {
     interface Props {
@@ -20,7 +16,7 @@ declare namespace Notice {
          * @defaultValue true
          */
         isDismissible?: boolean;
-        status?: "success" | "warning" | "error";
+        status?: 'success' | 'warning' | 'error';
         /**
          * Function called when dismissing the notice.
          */

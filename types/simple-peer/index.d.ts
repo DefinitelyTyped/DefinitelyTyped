@@ -40,6 +40,7 @@ declare namespace SimplePeer {
     type SimplePeerData = string | Buffer | TypedArray | ArrayBuffer | Blob;
 
     interface SignalData {
+        type?: "offer" | "pranswer" | "answer" | "rollback";
         sdp?: any;
         candidate?: any;
     }
