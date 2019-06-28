@@ -1,5 +1,5 @@
 import * as React from "react";
-import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema, withTheme } from "react-jsonschema-form";
+import Form, { UiSchema, ErrorListProps, WidgetProps, ErrorSchema, withTheme } from 'react-jsonschema-form';
 import { JSONSchema6 } from "json-schema";
 
 // example taken from the react-jsonschema-form playground:
@@ -128,7 +128,7 @@ export const FuncExample = (props: FuncExampleProps) => {
             ErrorList={ErrorListExample}
             onChange={(formData, errorSchema) => {
                 onChange(formData);
-                errorSchema && onError(errorSchema)
+                errorSchema && onError(errorSchema);
             }}
         />
     );
@@ -166,4 +166,4 @@ export const withThemeExample = () => {
     });
 
     return <Form schema={schema} />;
-}
+};

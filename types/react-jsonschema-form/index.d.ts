@@ -246,9 +246,9 @@ declare module "react-jsonschema-form" {
         formData: T;
     };
 
-    export function withTheme<T>(themeProps: Omit<FormProps<T>, "schema">):
-        React.ComponentClass<FormProps<T>> |
-        React.StatelessComponent<FormProps<T>>;
+    export function withTheme<T>(
+        themeProps: Omit<FormProps<T>, 'schema'>
+    ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
 }
 
 declare module "react-jsonschema-form/lib/utils" {
