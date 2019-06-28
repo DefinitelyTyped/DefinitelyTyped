@@ -52,3 +52,7 @@ export const StyledLoadingSpinnerContainer: StyletronComponent<any>;
 export class Button extends React.Component<ButtonProps> {
   internalOnClick(...args: any): void;
 }
+
+export const KIND: KIND;
+export const SHAPE: SHAPE;
+export const SIZE: SIZE;

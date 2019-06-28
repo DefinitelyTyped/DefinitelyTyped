@@ -2,6 +2,10 @@
 import * as React from 'react';
 import { StyletronComponent } from 'styletron-react';
 
+export interface STATE_TYPE {
+    change: 'CHANGE';
+}
+
 export type StateReducer = (
   stateType: string,
   nextState: State,
@@ -117,3 +121,5 @@ export const StyledDescription: StyletronComponent<any>;
 export const StyledRadioMarkInner: StyletronComponent<any>;
 export const StyledRadioMarkOuter: StyletronComponent<any>;
 export const StyledRadioGroupRoot: StyletronComponent<any>;
+
+export const STATE_TYPE: STATE_TYPE;

@@ -298,3 +298,6 @@ export const StyledDropdownContainer: StyletronComponent<any>;
 export const StyledDropdown: StyletronComponent<any>;
 export const StyledDropdownListItem: StyletronComponent<any>;
 export const StyledOptionContent: StyletronComponent<any>;
+
+export const TYPE: TYPE;
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;
