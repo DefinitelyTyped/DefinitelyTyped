@@ -1,5 +1,5 @@
 import { PathLike, WriteStream } from 'fs';
-import stream from 'stream';
+import stream = require('stream');
 
 import { ParquetSchema } from './schema';
 import { RowBufferInterface } from './rowBuffer.interface';
@@ -76,7 +76,7 @@ export class ParquetWriter {
 
     appendRow(row: RowInterface): Promise<void>;
 
-    close(callback?: Function): Promise<void>;
+    close(callback?: () => void): Promise<void>;
 
     setMetadata(key: boolean | number | string, value: boolean | number | string): void;
 
@@ -96,12 +96,12 @@ export class ParquetEnvelopeWriter {
 
     rowCount: number;
 
-    rowGroups: {
+    rowGroups: Array<{
         columns: any;
         total_byte_size: number;
         num_rows: number;
         sorting_columns: null | string[];
-    }[];
+    }>;
 
     pageSize: number;
 
@@ -176,7 +176,9 @@ export class ParquetTransformer extends stream.Transform {
               }
     );
 
-    _transform(row: RowInterface, encoding: string | null | undefined, callback: Function): void;
+    _transform(row: RowInterface,
+      encoding: string | null | undefined,
+      callback: () => void): void;
 
-    _flush(callback: Function): void;
+    _flush(callback: () => void): void;
 }

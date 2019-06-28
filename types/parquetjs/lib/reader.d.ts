@@ -1,11 +1,11 @@
-import Int64 from 'node-int64';
+import Int64 = require('node-int64');
 
 import { ParquetSchema } from './schema';
 import { MetadataInterface, MetadataRowGroupsInterface } from './metadata.interface';
 import { RowBufferInterface } from './rowBuffer.interface';
 import { RowInterface } from './row.interface';
 
-declare class ParquetCursor {
+export class ParquetCursor {
     metadata: MetadataInterface;
 
     envelopeReader: ParquetEnvelopeReader;

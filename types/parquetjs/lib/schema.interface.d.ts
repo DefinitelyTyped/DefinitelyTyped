@@ -1,12 +1,12 @@
 export interface SchemaInterface {
-    [key: string]: SingleFieldInterface | NestedFieldsInterface
+    [key: string]: SingleFieldInterface | NestedFieldsInterface;
 }
 
-interface SingleFieldInterface {
-    type: string,
+export interface SingleFieldInterface {
+    type: string;
 }
 
-interface NestedFieldsInterface {
-    repeated: boolean,
-    fields: SchemaInterface,
+export interface NestedFieldsInterface {
+    repeated: boolean;
+    fields: SchemaInterface;
 }
