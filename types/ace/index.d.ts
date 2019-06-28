@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AceAjax {
-
+ 
+    define(module: string, dept: any, callback: any); 
+    
     export interface Delta {
         action: string;
         range: Range;
