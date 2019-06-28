@@ -1,4 +1,4 @@
-import LdapJS from 'ldapjs-client';
+import LdapJS = require('ldapjs-client');
 
 const client = new LdapJS({ url: 'ldap://anyserver:389' });
 

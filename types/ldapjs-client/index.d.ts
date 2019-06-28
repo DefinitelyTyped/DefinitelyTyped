@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-export class Filter {
+declare class Filter {
     matches(obj: any): boolean;
     type: string;
 }
 
-export interface Change {
+interface Change {
     operation: string;
     modification: {
         [key: string]: any;
     };
 }
 
-export interface SearchOptions {
+interface SearchOptions {
     scope: string;
     filter: string | Filter;
     attributes: string[];
@@ -24,15 +24,15 @@ export interface SearchOptions {
     timeLimit: number;
     typesOnly: boolean;
 }
-export type PartialSearchOptions = Partial<SearchOptions>;
+type PartialSearchOptions = Partial<SearchOptions>;
 
-export interface ClientOptions {
+interface ClientOptions {
     url: string;
     tlsOptions?: object;
     timeout?: number;
 }
 
-export class LdapClient {
+declare class LdapClient {
     constructor(options: ClientOptions);
 
     /**
@@ -89,4 +89,4 @@ export class LdapClient {
     unbind(): Promise<any>;
 }
 
-export default LdapClient;
+export = LdapClient;
