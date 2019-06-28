@@ -7,6 +7,7 @@
 /// <reference types="node"/>
 
 import { PathLike } from 'fs';
+import { type } from 'os';
 
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
@@ -15,12 +16,53 @@ export type ZendeskCallback<TResponse, TResult> = (
 ) => void;
 
 export interface Client {
+    accountsettings: unknown;
+    activitystream: unknown;
     attachments: Attachments.Methods;
+    brand: unknown;
+    categories: unknown;
+    customagentroles: unknown;
+    dynamiccontent: unknown;
+    forums: unknown;
+    forumsubscriptions: unknown;
+    groupmemberships: unknown;
+    groups: unknown;
+    helpers: unknown;
+    imports: unknown;
+    installations: unknown;
+    jobstatuses: JobStatuses.Methods;
+    locales: unknown;
     macros: Macros.Methods;
+    oauthtokens: unknown;
+    organizationfields: unknown;
+    organizationmemberships: unknown;
+    organizations: unknown;
+    policies: unknown;
     requests: Requests.Methods;
+    satisfactionratings: unknown;
+    search: unknown;
+    sessions: unknown;
+    sharingagreement: unknown;
+    suspendedtickets: unknown;
+    tags: unknown;
+    targets: unknown;
+    ticketaudits: unknown;
+    ticketevents: unknown;
+    ticketexport: unknown;
+    ticketfields: unknown;
+    ticketforms: unknown;
+    ticketimport: unknown;
+    ticketmetrics: unknown;
     tickets: Tickets.Methods;
+    topiccomments: unknown;
+    topics: unknown;
+    topicsubscriptions: unknown;
+    topicvotes: unknown;
+    triggers: unknown;
+    userfields: Users.Fields.Methods;
     useridentities: Users.Identities.Methods;
     users: Users.Methods;
+    views: unknown;
 }
 
 export interface ClientOptions {
@@ -62,6 +104,42 @@ export namespace Attachments {
 
     interface Model extends Photo {
         thumbnails: ReadonlyArray<Photo>;
+    }
+}
+
+/**
+ * @see {@link https://developer.zendesk.com/rest_api/docs/support/job_statuses|Zendesk Job Statuses}
+ */
+export namespace JobStatuses {
+    interface Methods {
+        show(jobStatusId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        watch(
+            jobStatusId: ZendeskID,
+            interval: number,
+            maxAttempts: number,
+            cb: ZendeskCallback<unknown, unknown>
+        ): unknown;
+    }
+
+    type Status = 'queued' | 'working' | 'failed' | 'completed' | 'killed';
+
+    interface Result extends PersistableModel {
+        readonly action: string;
+        readonly success: boolean;
+        readonly status: string;
+    }
+
+    interface ResponseModel extends PersistableModel {
+        readonly url?: string | null;
+        readonly total?: number;
+        readonly progress?: number;
+        readonly status?: Status;
+        readonly message?: string | null;
+        readonly results?: ReadonlyArray<Result>;
+    }
+
+    interface ResponsePayload {
+        readonly job_status: ResponseModel;
     }
 }
 
@@ -114,11 +192,35 @@ export namespace Organizations {
  */
 export namespace Requests {
     interface Methods {
-        create(request: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        /** Listing Requests */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listOpen(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listSolved(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listCCD(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByUser(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByOrganization(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Viewing Requests */
         getRequest(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
-        listComments(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Comments.ListPayload;
-        requestAll(httpMethod: string, fields: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Creating Requests */
+        create(request: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Updating Requests */
         update(requestId: ZendeskID, request: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Listing Comments */
+        listComments(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Comments.ListPayload;
+
+        /** Get Comment */
+        getComment(
+            requestId: ZendeskID,
+            commentId: ZendeskID,
+            cb: ZendeskCallback<unknown, unknown>
+        ): Comments.ResponsePayload;
+
+        /** Inherited */
+        requestAll(httpMethod: string, fields: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
     }
 
     /**
@@ -129,7 +231,7 @@ export namespace Requests {
         subject: string;
         comment: Comments.CreateModel;
         priority?: Tickets.Priority | null; // Anonymous requests can set priority, Authenticated requests cannot
-        type?: Tickets.Type | null; // Anonymous requests can set type, Authenticated requests cannot
+        type?: Tickets.TicketType | null; // Anonymous requests can set type, Authenticated requests cannot
         custom_fields?: Tickets.Field[] | null;
         fields?: Tickets.Field[] | null;
         due_at?: string | null; // Anonymous requests can set due date as long as type == task. Authenticated requests cannot
@@ -156,7 +258,7 @@ export namespace Requests {
         readonly description: string;
         readonly status: Tickets.Status;
         readonly priority: Tickets.Priority | null;
-        readonly type: Tickets.Type | null;
+        readonly type: Tickets.TicketType | null;
         readonly custom_fields: Tickets.Field[] | null;
         readonly fields: Tickets.Field[] | null;
         readonly organization_id: ZendeskID | null;
@@ -213,10 +315,9 @@ export namespace Requests {
             uploads?: ReadonlyArray<string>;
         }
 
-        // TODO: support VoiceComment model @jgeth 2019-01-22
         interface ResponseModel extends TemporalModel {
             readonly url: string;
-            readonly type: Type;
+            readonly type: RequestType;
             readonly request_id: number;
             readonly body: string;
             readonly html_body: string;
@@ -228,10 +329,7 @@ export namespace Requests {
             readonly metadata?: Tickets.Comments.Metadata;
         }
 
-        enum Type {
-            Comment = 'Comment',
-            VoiceComment = 'VoiceComment',
-        }
+        type RequestType = 'Comment' | 'VoiceComment';
 
         namespace CommentsUsers {
             interface ResponseModel extends PersistableModel {
@@ -247,6 +345,10 @@ export namespace Requests {
             users: ReadonlyArray<CommentsUsers.ResponseModel>;
             organizations: ReadonlyArray<Tickets.Comments.Organizations.ResponseModel>;
         }
+
+        interface ResponsePayload {
+            readonly comment: ResponseModel;
+        }
     }
 }
 
@@ -255,8 +357,56 @@ export namespace Requests {
  */
 export namespace Tickets {
     interface Methods {
+        /** Listing Tickets */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listAssigned(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByOrganization(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByUserRequested(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByUserCCD(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listWithFilter(type: string, value: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listRecent(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listCollaborators(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Users.ListPayload;
+        listIncidents(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listMetrics(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Metrics.ResponsePayload;
+
+        /** Viewing Tickets */
+        show(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        showMany(ticketIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Creating Tickets */
         create(ticket: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        createMany(tickets: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+
+        /** Updating Tickets */
         update(ticketId: ZendeskID, ticket: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        updateMany(tickets: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+
+        /** Deleting Tickets */
+        delete(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+        deleteMany(ticketIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): unknown;
+
+        /** Merging Tickets */
+        merge(
+            ticketId: ZendeskID,
+            mergingTickets: MergePayload,
+            cb: ZendeskCallback<unknown, unknown>
+        ): JobStatuses.ResponsePayload;
+
+        /** Ticket Exports */
+        export(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
+        exportSample(startTime: number, options: unknown): unknown;
+        incremental(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
+        incrementalInclude(startTime: number, include: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+        incrementalSample(startTime: number, cb: ZendeskCallback<unknown, unknown>): unknown;
+
+        /** Listing Comments */
+        getComments(requestId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): Comments.ListPayload;
+
+        /** Listing Audits */
+        exportAudit(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): AuditsListPayload;
+
+        /** Adding Tags */
+        addTags(ticketId: ZendeskID, tags: ReadonlyArray<string>, cb: ZendeskCallback<unknown, unknown>): TagsPayload;
     }
 
     /**
@@ -265,7 +415,7 @@ export namespace Tickets {
     interface CreateModel {
         comment: Requests.Comments.CreateModel;
         external_id?: string | null;
-        type?: Type | null;
+        type?: TicketType | null;
         subject?: string | null;
         raw_subject?: string | null;
         priority?: Priority | null;
@@ -307,7 +457,7 @@ export namespace Tickets {
         additional_collaborators?: ReadonlyArray<any> | null;
         followers?: ReadonlyArray<Follower> | null;
         email_ccs?: ReadonlyArray<EmailCC> | null;
-        type?: Type | null;
+        type?: TicketType | null;
         priority?: Priority | null;
         status?: Status | null;
         tags?: ReadonlyArray<string> | null;
@@ -328,7 +478,7 @@ export namespace Tickets {
     interface ResponseModel extends AuditableModel {
         readonly url: string;
         readonly external_id: string | null;
-        readonly type: Type | null;
+        readonly type: TicketType | null;
         readonly subject: string | null;
         readonly raw_subject: string | null;
         readonly description: string;
@@ -389,40 +539,18 @@ export namespace Tickets {
         action: string;
     }
 
-    enum Priority {
-        Urgent = 'urgent',
-        High = 'high',
-        Normal = 'normal',
-        Low = 'low',
-    }
+    type Priority = 'urgent' | 'high' | 'normal' | 'low';
 
-    enum Status {
-        New = 'new',
-        Open = 'open',
-        Pending = 'pending',
-        Hold = 'hold',
-        Solved = 'solved',
-        Closed = 'closed',
-    }
+    type Status = 'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed';
 
-    enum Type {
-        Problem = 'problem',
-        Incident = 'incident',
-        Question = 'question',
-        Task = 'task',
-    }
+    type TicketType = 'problem' | 'incident' | 'question' | 'task';
 
     interface Via {
         channel: ViaChannel;
         source: ViaSource;
     }
 
-    enum ViaChannel {
-        Web = 'web',
-        Mobile = 'mobile',
-        Rule = 'rule',
-        System = 'system',
-    }
+    type ViaChannel = 'api' | 'web' | 'mobile' | 'rule' | 'system';
 
     interface ViaSource {
         to: object;
@@ -434,13 +562,39 @@ export namespace Tickets {
         readonly ticket: CreateModel;
     }
 
+    interface CreateManyPayload {
+        readonly tickets: ReadonlyArray<CreateModel>;
+    }
+
     interface UpdatePayload {
         readonly ticket: UpdateModel;
+    }
+
+    interface UpdateManyPayload {
+        readonly tickets: ReadonlyArray<UpdateModel>;
+    }
+
+    interface MergePayload {
+        readonly ids: ReadonlyArray<ZendeskID>;
+        readonly target_comment?: string | null;
+        readonly source_comment?: string | null;
+    }
+
+    interface AuditsListPayload extends PaginablePayload {
+        readonly audits: ReadonlyArray<Audit>;
+    }
+
+    interface TagsPayload {
+        readonly tags: ReadonlyArray<string>;
     }
 
     interface ResponsePayload {
         readonly ticket: ResponseModel;
         readonly audit: Audit;
+    }
+
+    interface ListPayload extends PaginablePayload {
+        readonly tickets: ReadonlyArray<ResponseModel>;
     }
 
     namespace Comments {
@@ -456,8 +610,6 @@ export namespace Tickets {
 
         interface ListPayload extends PaginablePayload {
             comments: ReadonlyArray<ResponseModel>;
-            users: ReadonlyArray<CommentsUsers.ResponseModel>;
-            organizations: ReadonlyArray<Organizations.ResponseModel>;
         }
 
         namespace CommentsUsers {
@@ -472,6 +624,41 @@ export namespace Tickets {
             }
         }
     }
+
+    namespace Metrics {
+        interface MinutesObject {
+            calendar: number;
+            business: number;
+        }
+
+        interface ResponseModel extends AuditableModel {
+            readonly ticket_id?: ZendeskID;
+            readonly url?: string;
+            readonly group_stations?: number;
+            readonly assignee_stations?: number;
+            readonly reopens?: number;
+            readonly replies?: number;
+            readonly assignee_updated_at?: string | null;
+            readonly requester_updated_at?: string | null;
+            readonly initially_assigned_at?: string | null;
+            readonly assigned_at?: string | null;
+            readonly solved_at?: string | null;
+            readonly latest_comment_added_at?: string | null;
+            readonly first_resolution_time_in_minutes?: MinutesObject;
+            readonly reply_time_in_minutes?: MinutesObject;
+            readonly full_resolution_time_in_minutes?: MinutesObject;
+            readonly agent_wait_time_in_minutes?: MinutesObject;
+            readonly requester_wait_time_in_minutes?: MinutesObject;
+        }
+
+        interface ResponsePayload {
+            readonly ticket_metric: ResponseModel;
+        }
+
+        interface ListPayload {
+            readonly ticket_metrics: ReadonlyArray<ResponseModel>;
+        }
+    }
 }
 
 /**
@@ -479,15 +666,67 @@ export namespace Tickets {
  */
 export namespace Users {
     interface Methods {
+        /** User Auth */
+        auth(cb: ZendeskCallback<unknown, unknown>): unknown;
+
+        /** Listing Users */
+        list(cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByGroup(groupId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        listByOrganization(organizationId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Showing Users */
+        show(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        showMany(userIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Creating Users */
+        create(user: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        createMany(users: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
         createOrUpdate(user: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        createOrUpdateMany(
+            users: CreateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>
+        ): JobStatuses.ResponsePayload;
+
+        /** Updating Users */
+        update(userId: ZendeskID, user: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        updateMany(
+            userIds: UpdateIdPayload,
+            users: UpdateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>
+        ): JobStatuses.ResponsePayload;
+
+        /** Suspending Users */
+        suspend(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        unsuspend(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Deleting Users */
+        delete(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+
+        /** Searching Users */
+        search(params: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+
+        /** Getting own User */
+        me(cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Merging Users */
+        merge(userId: ZendeskID, targetUserId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+        /** Changing User Password */
+        password(
+            userId: ZendeskID,
+            oldPassword: string,
+            newPassword: string,
+            cb: ZendeskCallback<unknown, unknown>
+        ): unknown;
+
+        /** Users Export */
+        incrementalInclude(startTime: number, include: unknown, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        incremental(startTime: number, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        incrementalSample(startTime: number, cb: ZendeskCallback<unknown, unknown>): ListPayload;
     }
 
-    /**
-     * @see {@link https://developer.zendesk.com/rest_api/docs/support/users#create-user|Zendesk Users Create}
-     */
-    interface CreateModel {
+    interface BaseModel {
         email?: string | null;
-        name: string;
         alias?: string | null;
         custom_role_id?: number | null;
         details?: string | null;
@@ -509,6 +748,20 @@ export namespace Users {
         time_zone?: string | null;
         user_fields?: object | null;
         verified?: boolean | null;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/users#create-user|Zendesk Users Create}
+     */
+    interface CreateModel extends BaseModel {
+        name: string;
+    }
+
+    /**
+     * @see {@link https://developer.zendesk.com/rest_api/docs/support/users#update-user|Zendesk Users Update}
+     */
+    interface UpdateModel extends BaseModel {
+        name?: string;
     }
 
     /**
@@ -551,67 +804,83 @@ export namespace Users {
         readonly report_csv: boolean;
     }
 
+    type UpdateIdPayload =
+        | string
+        | ReadonlyArray<ZendeskID>
+        | { ids: ReadonlyArray<ZendeskID> }
+        | { external_ids: ReadonlyArray<ZendeskID> };
+
     interface CreatePayload {
         user: CreateModel;
+    }
+
+    interface CreateManyPayload {
+        users: ReadonlyArray<CreateModel>;
+    }
+
+    interface UpdatePayload {
+        user: UpdateModel;
+    }
+
+    interface UpdateManyPayload {
+        users: ReadonlyArray<UpdateModel>;
     }
 
     interface ResponsePayload {
         user: ResponseModel;
     }
 
-    enum Role {
-        Admin = 'admin',
-        Agent = 'agent',
-        EndUser = 'end-user',
+    interface ListPayload extends PaginablePayload {
+        users: ReadonlyArray<ResponseModel>;
     }
 
-    // Defines an agent type
-    enum RoleType {
-        Custom = 0,
-        Light = 1,
-        Chat = 2,
-    }
+    type Role = 'admin' | 'agent' | 'end-user';
 
-    enum TicketRestriction {
-        Assigned = 'assigned',
-        Groups = 'groups',
-        Organization = 'organization',
-        Requested = 'requested',
-    }
+    /**
+     * Defines an agent type
+     * 0 - Custom
+     * 1 - Light
+     * 2 - Chat
+     */
+    type RoleType = 0 | 1 | 2;
+
+    type TicketRestriction = 'assigned' | 'groups' | 'organization' | 'requested';
 
     /**
      * @see {@link https://developer.zendesk.com/rest_api/docs/support/user_identities|Zendesk User Identities}
      */
     namespace Identities {
         interface Methods {
-            create(userID: ZendeskID, userIDentity: UpdateModel, cb: ZendeskCallback<unknown, unknown>): ResponseModel;
-            list(userID: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ReadonlyArray<ResponseModel>;
-            makePrimary(
-                userID: ZendeskID,
-                userIDentityID: ZendeskID,
-                cb: ZendeskCallback<unknown, unknown>
-            ): ReadonlyArray<ResponseModel>;
-            update(
-                userID: ZendeskID,
-                userIDentityID: ZendeskID,
-                userIDentity: UpdateModel,
-                cb: ZendeskCallback<unknown, unknown>
-            ): ResponseModel;
-        }
+            /** Listing Identities */
+            list(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
 
-        interface ResponseModel extends AuditableModel {
-            readonly url: string;
-            readonly user_id: ZendeskID;
-            readonly type: Type;
-            readonly value: string;
-            readonly verified: boolean;
-            readonly primary: boolean;
-            readonly undeliverable_count: number;
-            readonly deliverable_state: DeliverableState;
+            /** Viewing Identities */
+            show(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+
+            /** Creating Identities */
+            create(userId: ZendeskID, identity: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponseModel;
+
+            /** Updating Identities */
+            update(
+                userId: ZendeskID,
+                identityId: ZendeskID,
+                identity: UpdatePayload,
+                cb: ZendeskCallback<unknown, unknown>
+            ): ResponsePayload;
+            makePrimary(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ListPayload;
+            verify(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+            requestVerification(
+                userId: ZendeskID,
+                identityId: ZendeskID,
+                cb: ZendeskCallback<unknown, unknown>
+            ): unknown;
+
+            /** Deleting Identities */
+            delete(userId: ZendeskID, identityId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
         }
 
         interface CreateModel {
-            type: Type;
+            type: IdentityType;
             value: string;
             verified?: boolean;
             primary?: boolean;
@@ -622,18 +891,45 @@ export namespace Users {
             verified?: boolean;
         }
 
-        enum Type {
-            AgentForwarding = 'agent_forwarding',
-            Email = 'email',
-            Facebook = 'facebook',
-            Google = 'google',
-            PhoneNumber = 'phone_number',
-            SDK = 'sdk',
+        interface ResponseModel extends AuditableModel {
+            readonly url: string;
+            readonly user_id: ZendeskID;
+            readonly type: IdentityType;
+            readonly value: string;
+            readonly verified: boolean;
+            readonly primary: boolean;
+            readonly undeliverable_count: number;
+            readonly deliverable_state: DeliverableState;
         }
 
-        enum DeliverableState {
-            Deliverable = 'deliverable',
-            Undeliverable = 'undeliverable',
+        interface CreatePayload {
+            readonly identity: CreateModel;
+        }
+
+        interface UpdatePayload {
+            readonly identity: UpdateModel;
+        }
+
+        interface ListPayload extends PaginablePayload {
+            readonly identities: ReadonlyArray<ResponseModel>;
+        }
+
+        interface ResponsePayload {
+            readonly identity: ResponseModel;
+        }
+
+        type IdentityType = 'agent_forwarding' | 'email' | 'facebook' | 'google' | 'phone_number' | 'sdk';
+
+        type DeliverableState = 'deliverable' | 'undeliverable';
+    }
+
+    namespace Fields {
+        interface Methods {
+            list(cb: ZendeskCallback<unknown, unknown>): unknown;
+            show(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
+            create(field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            update(fieldId: ZendeskID, field: unknown, cb: ZendeskCallback<unknown, unknown>): unknown;
+            delete(fieldId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
         }
     }
 }
