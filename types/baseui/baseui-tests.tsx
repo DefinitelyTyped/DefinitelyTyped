@@ -7,7 +7,7 @@ import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Accordion, Panel, StatefulPanel } from 'baseui/accordion';
 import { Avatar } from 'baseui/avatar';
 import { Breadcrumbs } from 'baseui/breadcrumbs';
-import { Button } from 'baseui/button';
+import { Button, KIND } from 'baseui/button';
 import { ButtonGroup, StatefulButtonGroup } from 'baseui/button-group';
 import { Card, StyledBody } from 'baseui/card';
 import { Checkbox, StatefulCheckbox } from 'baseui/checkbox';

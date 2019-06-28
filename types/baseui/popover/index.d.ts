@@ -167,3 +167,13 @@ export const StyledArrow: StyletronComponent<any>;
 export const StyledBody: StyletronComponent<any>;
 export const StyledInner: StyletronComponent<any>;
 export const StyledPadding: StyletronComponent<any>;
+
+export const ACCESSIBILITY_TYPE: ACCESSIBILITY_TYPE;
+export const PLACEMENT: PLACEMENT;
+export const TRIGGER_TYPE: TRIGGER_TYPE;
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;
+export const POPOVER_MARGIN: 8;
+export const ARROW_SIZE: 6;
+export const ANIMATE_IN_TIME: ANIMATE_IN_TIME;
+export const ANIMATE_OUT_TIME: ANIMATE_OUT_TIME;
+export const ARROW_WIDTH: number;
