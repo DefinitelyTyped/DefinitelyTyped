@@ -3421,4 +3421,3 @@ module WaitingPopupComponent {
     });
 
 }
-
