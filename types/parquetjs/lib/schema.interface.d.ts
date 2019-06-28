@@ -4,6 +4,9 @@ export interface SchemaInterface {
 
 export interface SingleFieldInterface {
     type: string;
+    encoding?: string;
+    bitWidth?: number;
+    optional?: boolean;
 }
 
 export interface NestedFieldsInterface {

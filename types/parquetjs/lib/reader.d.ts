@@ -37,7 +37,7 @@ export class ParquetReader {
 
     schema: ParquetSchema;
 
-    static openFile(filePath: string): ParquetReader | never;
+    static openFile(filePath: string): Promise<ParquetReader>;
 
     constructor(metadata: MetadataInterface, envelopeReader: ParquetEnvelopeReader);
 
@@ -51,7 +51,7 @@ export class ParquetReader {
         [key: string]: string;
     };
 
-    close(): void;
+    close(): Promise<void>;
 }
 
 export class ParquetEnvelopeReader {
