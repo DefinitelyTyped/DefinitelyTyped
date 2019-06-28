@@ -387,6 +387,14 @@ export class Router {
     defaultRoute(req: Request, res: Response, next: Next): void;
 
     /**
+     * takes an object of route params and query params, and 'renders' a URL.
+     * @param    routeName the route name
+     * @param    params    an object of route params
+     * @param    query     an object of query params
+     */
+    render(routeName: string, params: object, query?: object): string;
+
+    /**
      * toString() serialization.
      */
     toString(): string;
@@ -1263,7 +1271,7 @@ export namespace plugins {
     interface JsonBodyParserOptions {
         mapParams?: boolean;
         overrideParams?: boolean;
-        reviver?: (key: any, value: any) => any;
+        reviver?(key: any, value: any): any;
         bodyReader?: boolean;
     }
 

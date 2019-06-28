@@ -33,13 +33,40 @@ interface Car {
 }
 
 const opts: json2csv.Options<Car> = {
-    fields: [{
-        label: 'Car Name',
-        value: 'car'
-    }, {
-        label: 'Price USD',
-        value: 'price'
-    }]
+    fields: [
+        // Supports pathname -> pathvalue
+        'simplepath', // equivalent to {value:'simplepath'}
+        'path.to.value', // also equivalent to {value:'path.to.value'}
+
+        // Supports label -> simple path
+        {
+        label: 'some label', // (optional, column will be labeled 'path.to.something' if not defined)
+        value: 'path.to.something', // data.path.to.something
+        default: 'NULL' // default if value is not found (optional, overrides `defaultValue` for column)
+        },
+
+        // Supports label -> derived value
+        {
+        label: 'some label', // Soptional, column will be labeled with the function name or empty if the function is anonymous)
+        value: (row: Car, field: json2csv.FieldValueCallbackInfo) => {
+            if (field) {
+                return (row as any)[field.label].toLowerCase() || field.default;
+            }
+        },
+        default: 'NULL', // default if value function returns null or undefined
+        },
+
+        // Supports label -> derived value
+        {
+        value: (row: Car) => row.car
+        },
+
+        // Supports label -> derived value
+        {
+        value: (row: Car) => `"${row.car}"`,
+        stringify: false // This flag signals if the resulting string should be quoted (stringified) or not (optional, default: true)
+        },
+    ]
 };
 
 const data = [{
@@ -129,10 +156,10 @@ class ParserExt extends Parser<ExampleObj> {
         s = this.processRow({ str: '', num: 1, obj: {} });
         s = this.processCell({}, { label: 'test', default: 'test2', value: 'field' });
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
-        this.getValue({}, { label: 'test' });
-        this.getValue({ str: '', num: 1, obj: {} }, { label: 'test' });
+        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
+        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object) => 'string' });
+        this.getValue({}, { value: 'test' });
+        this.getValue({ str: '', num: 1, obj: {} }, { value: 'test' });
         s = this.processValue(undefined, true);
         s = this.processValue(null, true);
         s = this.processValue(1, true);
@@ -163,10 +190,10 @@ class TransformExt extends Transform<ExampleObj> {
         s = this.processRow({ str: '', num: 1, obj: {} });
         s = this.processCell({}, { label: 'test', default: 'test2', value: 'field' });
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
-        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
-        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
-        this.getValue({}, { label: 'test' });
-        this.getValue({ str: '', num: 1, obj: {} }, { label: 'test' });
+        s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: json2csv.FieldValueCallbackInfo) => 'string' });
+        s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object) => 'string' });
+        this.getValue({}, { value: 'test' });
+        this.getValue({ str: '', num: 1, obj: {} }, { value: 'test' });
         s = this.processValue(undefined, true);
         s = this.processValue(null, true);
         s = this.processValue(1, true);

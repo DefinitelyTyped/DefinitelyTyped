@@ -694,6 +694,24 @@ const customFontSize = style({
     scale: [8, 16, 32]
 });
 
+const centerWithGenerics = style<boolean>({
+    prop: 'center',
+    cssProperty: 'justify-content',
+    transformValue: shouldCenter => shouldCenter ? 'center' : 'flex-start'
+});
+
+const buttonSizes = {
+    sm: '8px',
+    md: '12px',
+    lg: '24px',
+};
+
+const buttonSizeWithGeneric = style<keyof typeof buttonSizes, typeof buttonSizes>({
+    prop: 'size',
+    cssProperty: 'font-size',
+    transformValue: (size, sizes) => sizes && sizes[size]
+});
+
 // All Style Functions contain `propTypes`
 export const alignContentPropTypes = alignContent.propTypes;
 export const alignItemsPropTypes = alignItems.propTypes;

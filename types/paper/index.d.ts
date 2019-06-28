@@ -74,7 +74,7 @@ declare module paper {
         /**
          * Same as `exportJSON({ asString: false })`.
          */
-        toJSON(): string;
+        toJSON(): object | any[];
     }
 
     /**

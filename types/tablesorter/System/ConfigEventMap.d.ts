@@ -1,14 +1,13 @@
 /**
  * Represents an event which uses the `TablesorterConfigurationStore` for processing.
  */
-export enum ConfigEventMap {
+export type ConfigEventMap =
     /**
      * Indicates the `filterInit`-event.
      */
-    "filterInit",
+    "filterInit" |
 
     /**
      * Indicates the `filterEnd`-event.
      */
-    "filterEnd"
-}
+    "filterEnd";

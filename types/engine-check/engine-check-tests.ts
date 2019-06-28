@@ -1,9 +1,10 @@
 import * as engineCheck from "engine-check";
 
-const options: engineCheck.EngineCheckOptions = {
+const options: engineCheck.Options = {
     searchRoot: "/",
     silent: true,
     debug: true
 };
-engineCheck.checkVersion({});
-engineCheck.checkVersion(options);
+engineCheck();
+engineCheck({});
+engineCheck(options);

@@ -45,7 +45,7 @@ interface Exphbs {
 }
 
 interface ExpressHandlebars {
-  (options?: ExphbsOptions): Function;
+  (options?: ExphbsOptions): (...args: any[]) => any;
   create (options?: ExphbsOptions): Exphbs;
 }
 

@@ -316,7 +316,7 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
     selectProps: Readonly<{
         children?: React.ReactNode;
     }> & Readonly<Props<OptionType>>;
-};
+  };
 
   getNextFocusedValue(nextSelectValue: OptionsType<OptionType>): OptionType;
 

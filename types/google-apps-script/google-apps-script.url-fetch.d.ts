@@ -16,13 +16,13 @@ declare namespace GoogleAppsScript {
      * UrlFetchApp
      */
     export interface HTTPResponse {
-      getAllHeaders(): Object;
+      getAllHeaders(): object;
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getContent(): Byte[];
       getContentText(): string;
       getContentText(charset: string): string;
-      getHeaders(): Object;
+      getHeaders(): object;
       getResponseCode(): Integer;
     }
 
@@ -36,7 +36,7 @@ declare namespace GoogleAppsScript {
       /**
        * a JavaScript key/value map of HTTP headers for the request
        */
-      headers?: Object;
+      headers?: object;
 
       /**
        * the HTTP method for the request: get, delete, patch, post, or put. The default is get.
@@ -104,8 +104,8 @@ declare namespace GoogleAppsScript {
      */
     export interface UrlFetchApp {
       fetch(url: string, params?: URLFetchRequestOptions): HTTPResponse;
-      fetchAll(requests: Object[]): HTTPResponse[];
-      getRequest(url: string, params?: URLFetchRequestOptions): Object;
+      fetchAll(requests: any[]): HTTPResponse[];
+      getRequest(url: string, params?: URLFetchRequestOptions): any;
     }
 
   }

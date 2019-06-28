@@ -1,59 +1,58 @@
 /**
  * Defines a theme.
  */
-export enum CoreTheme {
+export type CoreTheme =
     /**
      * Indicates the `Default`-theme.
      */
-    Default = "default",
+    "default" |
 
     /**
      * Indicates the `Bootstrap`-theme.
      */
-    Bootstrap = "bootstrap",
+    "bootstrap" |
 
     /**
      * Indicates the `Dropbox`-theme.
      */
-    Dropbox = "dropbox",
+    "dropbox" |
 
     /**
      * Indicates the `jQuery UI`-theme.
      */
-    JUI = "jui",
+    "jui" |
 
     /**
      * Indicates the `Metro Dark`-theme.
      */
-    MetroDark = "metro-dark",
+    "metro-dark" |
 
     /**
      * Indicates the `Blackice`-theme.
      */
-    Blackice = "blackice",
+    "blackice" |
 
     /**
      * Indicates the `Blue`-theme.
      */
-    Blue = "blue",
+    "blue" |
 
     /**
      * Indicates the `Dark`-theme.
      */
-    Dark = "dark",
+    "dark" |
 
     /**
      * Indicates the `Green`-theme.
      */
-    Green = "green",
+    "green" |
 
     /**
      * Indicates the `Grey`-theme.
      */
-    Grey = "grey",
+    "grey" |
 
     /**
      * Indicates the `Ice`-theme.
      */
-    Ice = "ice"
-}
+    "ice";

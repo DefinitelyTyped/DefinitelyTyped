@@ -10,6 +10,7 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 Mateusz Sokoła <https://github.com/mateuszsokola>
+//                 Braiden Cutforth <https://github.com/braidencutforth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -254,7 +255,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      */
-    setProps<K extends keyof P>(props: Pick<P, K>): this;
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 
     /**
      * A method that sets the context of the root component, and re-renders. Useful for when you are wanting to
@@ -415,7 +416,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Shallow render the one non-DOM child of the current wrapper, and return a wrapper around the result.
      * NOTE: can only be called on wrapper of a single non-DOM component element node.
      */
+    dive<C2 extends Component, P2 = C2['props'], S2 = C2['state']>(options?: ShallowRendererProps): ShallowWrapper<P2, S2, C2>;
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
+    dive<P2, S2, C2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2, C2>;
 
     /**
      * Strips out all the not host-nodes from the list of nodes
@@ -557,18 +560,6 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
-
-    /**
-     * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
-     * how the component behaves over time with changing props. Calling this, for instance, will call the
-     * componentWillReceiveProps lifecycle method.
-     *
-     * Similar to setState, this method accepts a props object and will merge it in with the already existing props.
-     * Returns itself.
-     *
-     * NOTE: can only be called on a wrapper instance that is also the root instance.
-     */
-    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 }
 
 export interface ShallowRendererProps {

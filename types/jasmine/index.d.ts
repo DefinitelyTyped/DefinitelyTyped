@@ -11,6 +11,7 @@
 //                 Yaroslav Admin <https://github.com/devoto13>
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Peter Safranek <https://github.com/pe8ter>
+//                 Moshe Kolodny <https://github.com/kolodny>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts

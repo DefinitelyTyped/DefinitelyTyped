@@ -1,14 +1,13 @@
 /**
  * Represents a match-type.
  */
-export enum MatchType {
+export type MatchType =
     /**
      * Indicates an exact match.
      */
-    Exact = "exact",
+    "exact" |
 
     /**
      * Indicates a wildcard-match.
      */
-    Wildcard = "match"
-}
+    "match";

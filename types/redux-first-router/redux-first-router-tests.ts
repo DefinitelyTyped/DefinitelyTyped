@@ -70,7 +70,7 @@ const { reducer, middleware, enhancer, initialDispatch, thunk } = connectRoutes(
     initialEntries: [],
     querySerializer: {
         stringify: queryString => {
-            queryString; // $ExpectType object
+            queryString; // $ExpectType Params
             return '';
         },
         parse: params => {

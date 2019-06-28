@@ -291,6 +291,7 @@ declare namespace Flexmonster {
         validateFormulas?: boolean;
         showFieldListSearch?: boolean;
         strictDataTypes?: boolean;
+        caseSensitiveMembers?: boolean;
     }
 
     interface PrintOptions {
@@ -359,6 +360,7 @@ declare namespace Flexmonster {
         useCustomizeCellForData?: boolean;
         excelExportAll?: boolean;
         requestHeader?: object;
+        fontUrl?: string;
     }
 
     interface Hierarchy {
@@ -528,6 +530,7 @@ declare namespace Flexmonster {
         handler?: (() => void) | string;
         submenu?: ContextMenuItem[];
         isSelected?: boolean;
+        class?: string;
     }
 
     interface ChartData {

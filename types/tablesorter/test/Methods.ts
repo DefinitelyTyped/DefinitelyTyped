@@ -15,19 +15,19 @@ export class TestMethods<T extends HTMLElement> {
     /**
      * A set of sort-definitions for testing.
      */
-    protected sorting: ReadonlyArray<SortDefinition> = [[0, SortDefinitionOrder.Ascending], [1, 0]];
+    protected sorting: ReadonlyArray<SortDefinition> = [[0, 1], [1, 0]];
 
     /**
      * A set of relative sort-definitions for testing.
      */
-    protected relativeSorting: ReadonlyArray<RelativeSortDefinition> = [[0, RelativeSorting.Opposite], [1, RelativeSorting.Same]];
+    protected relativeSorting: ReadonlyArray<RelativeSortDefinition> = [[0, "o"], [1, "s"]];
 
     /**
      * A set of mixed sort-definitions for testing.
      */
     protected mixedSorting: ReadonlyArray<SortDefinition | RelativeSortDefinition> = [
-        [0, SortDefinitionOrder.Descending],
-        [1, RelativeSorting.Opposite]];
+        [0, "d"],
+        [1, "o"]];
 
     /**
      * A trigger-callback for testing.
@@ -53,7 +53,7 @@ export class TestMethods<T extends HTMLElement> {
             group: "",
             id: "",
             page: "",
-            storageType: StorageType.Cookie,
+            storageType: "c",
             url: ""
         };
 
@@ -161,9 +161,9 @@ export class TestMethods<T extends HTMLElement> {
         $.tablesorter.getData($(), config.headers[0], "sorter");
         // $ExpectType string | boolean | undefined
         $.tablesorter.getData($()[0], config.headers[0], "sorter");
-        // $ExpectType StringSorting | undefined
+        // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined
         $.tablesorter.getData($(), config.headers[0], "string");
-        // $ExpectType StringSorting | undefined
+        // $ExpectType "top" | "bottom" | "zero" | "min" | "max" | undefined
         $.tablesorter.getData($()[0], config.headers[0], "string");
 
         // $ExpectType string[]

@@ -27,11 +27,67 @@ declare namespace stripe {
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
+        createPaymentMethod(type: paymentMethodType, element: elements.Element, data?: StripePaymentMethodIncomplete): Promise<StripePaymentMethodResponse>;
+        redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
+        retrievePaymentIntent(clientSecret: string): Promise<paymentIntent.PaymentIntentResponse>;
+        handleCardPayment(clientSecret: string, element: elements.Element, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
+        handleCardPayment(clientSecret: string, data?: paymentIntent.CardPaymentData): Promise<paymentIntent.PaymentIntentResponse>;
+        handleCardAction(clientSecret: string): Promise<paymentIntent.PaymentIntentResponse>;
+        confirmPaymentIntent(clientSecret: string, element: elements.Element, data: paymentIntent.PaymentIntentConfirmationData): Promise<paymentIntent.PaymentIntentResponse>;
+        confirmPaymentIntent(clientSecret: string, data: paymentIntent.PaymentIntentConfirmationData): Promise<paymentIntent.PaymentIntentResponse>;
+    }
+
+    type StripeRedirectResponse = never | {
+        error: Error;
+    };
+
+    interface StripePaymentMethodResponse {
+        paymentMethod?: StripePaymentMethod;
+        error?: Error;
+    }
+
+    type paymentMethodType = 'card' | 'card_present';
+    interface StripePaymentMethod extends StripePaymentMethodIncomplete {
+        id: string;
+        type: paymentMethodType;
+    }
+
+    interface StripePaymentMethodIncomplete {
+        type?: paymentMethodType;
+        billing_details?: OwnerInfo;
+        card?: StripePaymentMethodCard;
+        metadata?: any;
+    }
+
+    type billingAddressCollectionType = 'required' | 'auto' | '';
+    interface StripeCheckoutOptions {
+        items: StripeCheckoutItem[];
+        successUrl: string;
+        cancelUrl: string;
+        clientReferenceId?: string;
+        customerEmail?: string;
+        billingAddressCollection?: billingAddressCollectionType;
+        sessionId?: string;
+        locale?: string;
+    }
+
+    interface StripeCheckoutItem {
+        sku?: string;
+        plan?: string;
+        quantity: number;
+    }
+
+    interface StripePaymentMethodCard {
+        exp_month: number;
+        exp_year: number;
+        number: string;
+        cvc?: string;
     }
 
     interface StripeOptions {
-      stripeAccount?: string;
-      betas?: string[];
+        stripeAccount?: string;
+        betas?: string[];
+        locale?: string;
     }
 
     interface TokenOptions {
@@ -210,6 +266,67 @@ declare namespace stripe {
         client_secret: string;
     }
 
+    namespace paymentIntent {
+        interface PaymentIntentResponse {
+            paymentIntent?: StripePaymentIntent;
+            error?: Error;
+        }
+
+        type paymentIntentStatus = 'requires_payment_method' | 'requires_confirmation' | 'requires_action' | 'processing' | 'requires_capture' | 'canceled' | 'succeeded';
+        interface StripePaymentIntent {
+            id: string;
+            object: 'payment_intent';
+            amount: number;
+            canceled_at: number;
+            client_secret: string;
+            created: number;
+            currency: string;
+            description: string;
+            livemode: boolean;
+            next_action: NextAction;
+            payment_method: string;
+            receipt_email: string;
+            shipping: ShippingInformation;
+            status: paymentIntentStatus;
+        }
+
+        type nextActionType = 'redirect_to_url' | 'use_stripe_sdk';
+        interface NextAction {
+            redirect_to_url: RedirectOptions;
+            type: nextActionType;
+        }
+
+        interface RedirectOptions {
+            return_url: string;
+            url: string;
+        }
+
+        interface ShippingInformation {
+            address: OwnerAddress;
+            carrier: string;
+            name: string;
+            phone: string;
+            tracking_number: string;
+        }
+
+        interface CardPaymentData {
+            payment_method?: string;
+            payment_method_data?: PaymentMethodData;
+            shipping?: ShippingInformation;
+            receipt_email?: string;
+            save_payment_method?: boolean;
+        }
+
+        interface PaymentMethodData {
+            billing_details?: OwnerInfo;
+            card?: {[token: string]: string};
+        }
+
+        interface PaymentIntentConfirmationData extends CardPaymentData {
+            return_url?: string;
+        }
+    }
+
     // Container for all payment request related types
     namespace paymentRequest {
         interface DisplayItem {
@@ -366,6 +483,7 @@ declare namespace stripe {
             '::placeholder'?: StyleOptions;
             '::selection'?: StyleOptions;
             ':-webkit-autofill'?: StyleOptions;
+            ':disabled'?: StyleOptions;
             '::-ms-clear'?: StyleOptions;
         }
 
