@@ -10,7 +10,7 @@ export class ParquetSchema {
 
     constructor(schema: SchemaInterface);
 
-    findField(path: string | string[]): FieldInterface;
+    findField(path: string | string[] | string[][]): FieldInterface;
 
     findFieldBranch(path: string | string[]): FieldInterface[];
 }

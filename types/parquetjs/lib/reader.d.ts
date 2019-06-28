@@ -12,7 +12,7 @@ export class ParquetCursor {
 
     schema: ParquetSchema;
 
-    columnList: string[][];
+    columnList: string[][] | string[];
 
     rowGroup: RowInterface[];
 
@@ -22,7 +22,7 @@ export class ParquetCursor {
         metadata: MetadataInterface,
         envelopeReader: ParquetEnvelopeReader,
         schema: ParquetSchema,
-        columnList: string[][]
+        columnList: string[][] | string[]
     );
 
     next(): Promise<RowInterface>;
@@ -41,7 +41,7 @@ export class ParquetReader {
 
     constructor(metadata: MetadataInterface, envelopeReader: ParquetEnvelopeReader);
 
-    getCursor(columnList?: string[]): ParquetCursor;
+    getCursor(columnList?: string[][] | string[]): ParquetCursor;
 
     getRowCount(): Int64;
 
@@ -74,7 +74,7 @@ export class ParquetEnvelopeReader {
     readRowGroup(
         schema: ParquetSchema,
         rowGroup: MetadataRowGroupsInterface,
-        columnList: string[][]
+        columnList: string[][] | string[]
     ): RowBufferInterface;
 
     readColumnChunk(schema: ParquetSchema, colChunk: object): void;
