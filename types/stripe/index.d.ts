@@ -2909,6 +2909,16 @@ declare namespace Stripe {
             tax_percent?: number;
         }
 
+        interface IInvoiceFinalizeOptions extends IDataOptions {
+            /**
+             * Controls whether Stripe will perform
+             * [automatic collection](https://stripe.com/docs/billing/invoices/workflow/#auto_advance)
+             * of the invoice. When `false`, the invoice’s state will not automatically advance
+             * without an explicit action.
+             */
+            auto_advance: boolean;
+        }
+
         interface IInvoicePayOptions extends IDataOptionsWithMetadata {
             /**
              * A payment source to be charged. The source must be the ID of a source
@@ -8019,6 +8029,21 @@ declare namespace Stripe {
              */
             update(id: string, data: invoices.IInvoiceUpdateOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             update(id: string, data: invoices.IInvoiceUpdateOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+
+            /**
+             * Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if
+             * you’d like to finalize a draft invoice manually, you can do so using this method.
+             *
+             * @returns Returns the invoice object.
+             *
+             * @param id The ID of the invoice to pay.
+             * @param data Additional arguments.
+             */
+            finalizeInvoice(id: string, data: invoices.IInvoiceFinalizeOptions, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, data: invoices.IInvoiceFinalizeOptions, response: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, data: invoices.IInvoiceFinalizeOptions): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+            finalizeInvoice(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
 
             /**
              * Stripe automatically creates and then attempts to pay invoices for customers on subscriptions. We'll also retry unpaid

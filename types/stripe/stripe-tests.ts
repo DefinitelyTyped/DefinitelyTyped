@@ -1197,6 +1197,14 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { forgive: true }).then((invo
     // asynchronously called
 });
 
+stripe.invoices.finalizeInvoice("in_15fvyXEe31JkLCeQH7QbgZZb").then(invoice => {
+    invoice; // $ExpectType IInvoice
+});
+
+stripe.invoices.finalizeInvoice("in_15fvyXEe31JkLCeQH7QbgZZb", { auto_advance: true }).then(invoice => {
+    invoice; // $ExpectType IInvoice
+});
+
 stripe.invoices.list(
     { customer: "cus_5rfJKDJkuxzh5Q", limit: 3 },
     (err, invoices) => {
