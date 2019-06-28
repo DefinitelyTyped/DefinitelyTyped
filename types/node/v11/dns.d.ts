@@ -242,7 +242,7 @@ declare module "dns" {
     }
 
     function reverse(ip: string, callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void): void;
-    function setServers(servers: string[]): void;
+    function setServers(servers: ReadonlyArray<string>): void;
     function getServers(): string[];
 
     // Error codes
@@ -293,11 +293,11 @@ declare module "dns" {
     namespace promises {
         function getServers(): string[];
 
-        function lookup(hostname: string, family: number): Promise<{ address: string, family: number }>;
-        function lookup(hostname: string, options: LookupOneOptions): Promise<{ address: string, family: number }>;
-        function lookup(hostname: string, options: LookupAllOptions): Promise<{ addresses: LookupAddress[] }>;
-        function lookup(hostname: string, options: LookupOptions): Promise<{ address: string | LookupAddress[], family: number }>;
-        function lookup(hostname: string): Promise<{ address: string, family: number }>;
+        function lookup(hostname: string, family: number): Promise<LookupAddress>;
+        function lookup(hostname: string, options: LookupOneOptions): Promise<LookupAddress>;
+        function lookup(hostname: string, options: LookupAllOptions): Promise<LookupAddress[]>;
+        function lookup(hostname: string, options: LookupOptions): Promise<LookupAddress | LookupAddress[]>;
+        function lookup(hostname: string): Promise<LookupAddress>;
 
         function lookupService(address: string, port: number): Promise<{ hostname: string, service: string }>;
 
@@ -343,6 +343,24 @@ declare module "dns" {
 
         function reverse(ip: string): Promise<string[]>;
 
-        function setServers(servers: string[]): void;
+        function setServers(servers: ReadonlyArray<string>): void;
+
+        class Resolver {
+            getServers: typeof getServers;
+            resolve: typeof resolve;
+            resolve4: typeof resolve4;
+            resolve6: typeof resolve6;
+            resolveAny: typeof resolveAny;
+            resolveCname: typeof resolveCname;
+            resolveMx: typeof resolveMx;
+            resolveNaptr: typeof resolveNaptr;
+            resolveNs: typeof resolveNs;
+            resolvePtr: typeof resolvePtr;
+            resolveSoa: typeof resolveSoa;
+            resolveSrv: typeof resolveSrv;
+            resolveTxt: typeof resolveTxt;
+            reverse: typeof reverse;
+            setServers: typeof setServers;
+        }
     }
 }
