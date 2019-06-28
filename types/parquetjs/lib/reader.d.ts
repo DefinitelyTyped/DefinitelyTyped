@@ -1,0 +1,83 @@
+import Int64 from 'node-int64';
+
+import { ParquetSchema } from './schema';
+import { MetadataInterface, MetadataRowGroupsInterface } from './metadata.interface';
+import { RowBufferInterface } from './rowBuffer.interface';
+import { RowInterface } from './row.interface';
+
+declare class ParquetCursor {
+    metadata: MetadataInterface;
+
+    envelopeReader: ParquetEnvelopeReader;
+
+    schema: ParquetSchema;
+
+    columnList: string[][];
+
+    rowGroup: RowInterface[];
+
+    rowGroupIndex: number;
+
+    constructor(metadata: MetadataInterface,
+        envelopeReader: ParquetEnvelopeReader,
+        schema: ParquetSchema,
+        columnList: string[][]);
+
+    next(): Promise<RowInterface>;
+
+    rewind(): void;
+}
+
+export class ParquetReader {
+    metadata: MetadataInterface;
+
+    envelopeReader: ParquetEnvelopeReader;
+
+    schema: ParquetSchema;
+
+    static openFile(filePath: string): ParquetReader|never;
+
+    constructor(metadata: MetadataInterface,
+        envelopeReader: ParquetEnvelopeReader);
+
+    getCursor(columnList?: string[]): ParquetCursor;
+
+    getRowCount(): Int64;
+
+    getSchema(): ParquetSchema;
+
+    getMetadata(): {
+        [key: string]: string
+    };
+
+    close(): void;
+}
+
+export class ParquetEnvelopeReader {
+    read: (fd: number,
+        position: number,
+        length: number) => Promise<Buffer|Error>;
+
+    close: (fd: number) => Promise<Error>;
+
+    fileSize: number;
+
+    constructor(readFn: (fd: number,
+        position: number,
+        length: number) => Promise<Buffer|Error>,
+        closeFn: (fd: number) => Promise<Error>,
+        fileSize: number);
+
+    static openFile(filePath: string): ParquetReader;
+
+    readHeader(): never;
+
+    readRowGroup(schema: ParquetSchema,
+        rowGroup: MetadataRowGroupsInterface,
+        columnList: string[][]): RowBufferInterface;
+
+    readColumnChunk(schema: ParquetSchema,
+        colChunk: object): void;
+
+    readFooter(): MetadataInterface;
+}
