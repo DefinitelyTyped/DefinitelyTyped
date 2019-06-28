@@ -170,7 +170,7 @@ export interface Props {
   /**
    * Fired during resize event to determine whether the event handler should be called / return boolean
    */
-  shouldHandleResizeEvent?: (e: any) => boolean
+  shouldHandleResizeEvent?: (e: any) => boolean;
 }
 
 export default class ReactAliceCarousel extends React.PureComponent<Props> {}
