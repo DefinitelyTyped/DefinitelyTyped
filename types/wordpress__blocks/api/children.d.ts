@@ -30,7 +30,7 @@ declare namespace children {
      *
      * @param selector - DOM selector.
      */
-    function matcher(selector: string): (domNode: ParentNode) => ReactChild[];
+    function matcher(selector: string): (domNode: Node & ParentNode) => ReactChild[];
 
     /**
      * Given a block node, returns its HTML string representation.

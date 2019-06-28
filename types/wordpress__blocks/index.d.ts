@@ -392,6 +392,7 @@ export interface TransformShortcode<T extends Record<string, any>> {
     type: 'shortcode';
     tag: string;
     attributes?: any; // fix this if I ever need it.
+    // FIXME: This needs a transform() property
 }
 
 export type Transform<T extends Record<string, any> = Record<string, any>> =
