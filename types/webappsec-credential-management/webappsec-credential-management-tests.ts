@@ -314,7 +314,7 @@ function webauthnRegister() {
             timeout: 5000,
             attestation: "direct",
             authenticatorSelection: {
-                requireUserVerification: "preferred",
+                userVerification: "preferred",
                 requireResidentKey: false,
                 authenticatorAttachment: "platform"
             },
