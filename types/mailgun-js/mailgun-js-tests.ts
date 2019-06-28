@@ -78,18 +78,5 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
 };
 
 // Generic requests
-mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error, body) => {
-    if (error) {
-        console.error(error);
-    } else {
-        console.log(body);
-    }
-});
-
-mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] })
-    .then(body => {
-        console.log(body);
-    })
-    .catch(err => {
-        console.error(err);
-    });
+mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => { });
+const response: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
