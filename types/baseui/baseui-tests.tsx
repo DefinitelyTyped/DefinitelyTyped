@@ -7,7 +7,7 @@ import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Accordion, Panel, StatefulPanel } from 'baseui/accordion';
 import { Avatar } from 'baseui/avatar';
 import { Breadcrumbs } from 'baseui/breadcrumbs';
-import { Button, KIND } from 'baseui/button';
+import { Button, KIND as BUTTON_KIND, SHAPE as BUTTON_SHAPE, SIZE as BUTTON_SIZE } from 'baseui/button';
 import { ButtonGroup, StatefulButtonGroup } from 'baseui/button-group';
 import { Card, StyledBody } from 'baseui/card';
 import { Checkbox, StatefulCheckbox } from 'baseui/checkbox';
@@ -19,6 +19,7 @@ import {
     HeaderNavigation,
     StyledNavigationItem as NavigationItem,
     StyledNavigationList as NavigationList,
+    ALIGN as NAV_ALIGN,
 } from 'baseui/header-navigation';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import ArrowUp from 'baseui/icon/arrow-up';
@@ -57,10 +58,10 @@ import {
     StyledAction,
     Table,
 } from 'baseui/table';
-import { Tab, Tabs, StatefulTabs } from 'baseui/tabs';
-import { Tag } from 'baseui/tag';
+import { Tab, Tabs, StatefulTabs, ORIENTATION as TAB_ORIENTATION } from 'baseui/tabs';
+import { Tag, KIND as TAG_KIND, VARIANT as TAG_VARIANT } from 'baseui/tag';
 import { StatefulTextarea as Textarea } from 'baseui/textarea';
-import { ToasterContainer, Toast } from 'baseui/toast';
+import { ToasterContainer, Toast, KIND as TOAST_KIND } from 'baseui/toast';
 import { StatefulTooltip } from 'baseui/tooltip';
 import {
     Label1,
@@ -71,7 +72,7 @@ import {
     Paragraph2,
 } from 'baseui/typography';
 import { PaymentCard, StatefulPaymentCard } from 'baseui/payment-card';
-import { PhoneInput, StatefulPhoneInput } from 'baseui/phone-input';
+import { PhoneInput, StatefulPhoneInput, COUNTRIES } from 'baseui/phone-input';
 
 // Base API
 const newTheme = createTheme({...LightThemePrimitives}, {}); // $ExpectType Theme
@@ -128,6 +129,9 @@ const NewStyledProgressSteps = styled<ProgressStepsStyleProps, typeof StyledProg
 // Button
 <Button>Click Me</Button>;
 <Button kind='secondary'>Click Me</Button>;
+<Button kind={BUTTON_KIND.minimal} shape={BUTTON_SHAPE.default} size={BUTTON_SIZE.default}>
+    Click Me
+</Button>;
 <Button kind='invalid'>Click Me</Button>; // $ExpectError
 <Button isLoading>Click Me</Button>;
 <Button isLoading='nope'>Click Me</Button>; // $ExpectError
@@ -338,7 +342,7 @@ const NewStyledProgressSteps = styled<ProgressStepsStyleProps, typeof StyledProg
             <Button>Get started</Button>
         </NavigationItem>
     </NavigationList>
-    <NavigationList $align={'right'}>
+    <NavigationList $align={NAV_ALIGN.right}>
         <NavigationItem>
             <Button>Get started</Button>
         </NavigationItem>
@@ -933,9 +937,22 @@ const COLUMNS = ['Name', 'Age', 'Address'];
     <Tab title="Tab Link 2">Tab 2 content</Tab>
     <Tab title="Tab Link 3">Tab 3 content</Tab>
 </StatefulTabs>;
+<StatefulTabs orientation={TAB_ORIENTATION.vertical} initialState={{ activeKey: '2' }}>
+    <Tab title="Tab Link 1">Tab 1 content</Tab>
+    <Tab title="Tab Link 2">Tab 2 content</Tab>
+    <Tab title="Tab Link 3">Tab 3 content</Tab>
+</StatefulTabs>;
 <StatefulTabs
     orientation={'up'} // $ExpectError
     initialState={{activeKey: '2'}}
+>
+    <Tab title="Tab Link 1">Tab 1 content</Tab>
+    <Tab title="Tab Link 2">Tab 2 content</Tab>
+    <Tab title="Tab Link 3">Tab 3 content</Tab>
+</StatefulTabs>;
+<StatefulTabs
+    orientation={TAB_ORIENTATION.vertical} // $ExpectError
+    initialState={{ activeKey: '2' }}
 >
     <Tab title="Tab Link 1">Tab 1 content</Tab>
     <Tab title="Tab Link 2">Tab 2 content</Tab>
@@ -957,6 +974,9 @@ const COLUMNS = ['Name', 'Age', 'Address'];
 <Tag>default</Tag>;
 <Tag>long text inside the tag</Tag>;
 <Tag variant={'solid'} kind={'neutral'}>
+    With kind
+</Tag>;
+<Tag variant={TAG_VARIANT.solid} kind={TAG_KIND.neutral}>
     With kind
 </Tag>;
 <Tag disabled variant={'solid'} kind={'neutral'}>
@@ -986,6 +1006,7 @@ const COLUMNS = ['Name', 'Age', 'Address'];
 <Toast kind={'positive'}>Positive notification</Toast>;
 <Toast kind={'warning'}>Warning notification</Toast>;
 <Toast kind={'negative'}>Negative notification</Toast>;
+<Toast kind={TOAST_KIND.negative}>Negative notification</Toast>;
 <Toast kind={'burnt'}>Negative notification</Toast>; // $ExpectError
 
 // Tooltip
@@ -1043,6 +1064,7 @@ const COLUMNS = ['Name', 'Age', 'Address'];
 <StatefulPhoneInput
     initialState={{ country: 'Brazil' }} // $ExpectError
 />;
+<StatefulPhoneInput initialState={{ country: COUNTRIES.BR }} />;
 <PhoneInput
     text={''}
     country={{label: 'Andorra', id: 'AD', dialCode: '+376'}}
