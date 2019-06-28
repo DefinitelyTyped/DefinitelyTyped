@@ -17,57 +17,68 @@ export class ParquetWriter {
     closed: boolean;
 
     userMetadata: {
-        [key: string]: string
+        [key: string]: string;
     };
 
-    static openFile(schema: ParquetSchema,
+    static openFile(
+        schema: ParquetSchema,
         path: PathLike,
-        opts?: string | {
-            flags?: string;
-            encoding?: string;
-            fd?: number;
-            mode?: number;
-            autoClose?: boolean;
-            start?: number;
-            rowGroupSize?: number;
-            bitWidth?: number;
-            disableEnvelope?: boolean;
-        }): Promise<ParquetWriter>;
+        opts?:
+            | string
+            | {
+                  flags?: string;
+                  encoding?: string;
+                  fd?: number;
+                  mode?: number;
+                  autoClose?: boolean;
+                  start?: number;
+                  rowGroupSize?: number;
+                  bitWidth?: number;
+                  disableEnvelope?: boolean;
+              }
+    ): Promise<ParquetWriter>;
 
-    static openStream(schema: ParquetSchema,
+    static openStream(
+        schema: ParquetSchema,
         outputStream: WriteStream,
-        opts?: string | {
-            flags?: string;
-            encoding?: string;
-            fd?: number;
-            mode?: number;
-            autoClose?: boolean;
-            start?: number;
-            rowGroupSize?: number;
-            bitWidth?: number;
-            disableEnvelope?: boolean;
-        }): Promise<ParquetWriter>;
+        opts?:
+            | string
+            | {
+                  flags?: string;
+                  encoding?: string;
+                  fd?: number;
+                  mode?: number;
+                  autoClose?: boolean;
+                  start?: number;
+                  rowGroupSize?: number;
+                  bitWidth?: number;
+                  disableEnvelope?: boolean;
+              }
+    ): Promise<ParquetWriter>;
 
-    constructor(schema: ParquetSchema,
+    constructor(
+        schema: ParquetSchema,
         envelopeWriter: ParquetEnvelopeWriter,
-        opts?: string | {
-            flags?: string;
-            encoding?: string;
-            fd?: number;
-            mode?: number;
-            autoClose?: boolean;
-            start?: number;
-            rowGroupSize?: number;
-            bitWidth?: number;
-            disableEnvelope?: boolean;
-        });
+        opts?:
+            | string
+            | {
+                  flags?: string;
+                  encoding?: string;
+                  fd?: number;
+                  mode?: number;
+                  autoClose?: boolean;
+                  start?: number;
+                  rowGroupSize?: number;
+                  bitWidth?: number;
+                  disableEnvelope?: boolean;
+              }
+    );
 
     appendRow(row: RowInterface): Promise<void>;
 
     close(callback?: Function): Promise<void>;
 
-    setMetadata(key: boolean|number|string,
-        value: boolean|number|string): void;
+    setMetadata(key: boolean | number | string, value: boolean | number | string): void;
 
     setRowGroupSize(cnt: number): void;
 
@@ -86,45 +97,53 @@ export class ParquetEnvelopeWriter {
     rowCount: number;
 
     rowGroups: {
-        columns: any,
-        total_byte_size: number,
-        num_rows: number,
-        sorting_columns: null|string[]
+        columns: any;
+        total_byte_size: number;
+        num_rows: number;
+        sorting_columns: null | string[];
     }[];
 
     pageSize: number;
 
     useDataPageV2: boolean;
 
-    static openStream(schema: ParquetSchema,
+    static openStream(
+        schema: ParquetSchema,
         outputStream: WriteStream,
-        opts?: string | {
-            flags?: string;
-            encoding?: string;
-            fd?: number;
-            mode?: number;
-            autoClose?: boolean;
-            start?: number;
-            rowGroupSize?: number;
-            bitWidth?: number;
-            disableEnvelope?: boolean;
-        }): Promise<ParquetEnvelopeWriter>;
+        opts?:
+            | string
+            | {
+                  flags?: string;
+                  encoding?: string;
+                  fd?: number;
+                  mode?: number;
+                  autoClose?: boolean;
+                  start?: number;
+                  rowGroupSize?: number;
+                  bitWidth?: number;
+                  disableEnvelope?: boolean;
+              }
+    ): Promise<ParquetEnvelopeWriter>;
 
-    constructor(schema: ParquetSchema,
+    constructor(
+        schema: ParquetSchema,
         writeFn: (buf: Buffer) => Promise<void>,
         closeFn: () => Promise<void>,
         fileOffset: number,
-        opts?: string | {
-            flags?: string;
-            encoding?: string;
-            fd?: number;
-            mode?: number;
-            autoClose?: boolean;
-            start?: number;
-            rowGroupSize?: number;
-            bitWidth?: number;
-            disableEnvelope?: boolean;
-        });
+        opts?:
+            | string
+            | {
+                  flags?: string;
+                  encoding?: string;
+                  fd?: number;
+                  mode?: number;
+                  autoClose?: boolean;
+                  start?: number;
+                  rowGroupSize?: number;
+                  bitWidth?: number;
+                  disableEnvelope?: boolean;
+              }
+    );
 
     writeSection(buf: Buffer): Promise<void>;
 
@@ -132,9 +151,7 @@ export class ParquetEnvelopeWriter {
 
     writeRowGroup(records: RowBufferInterface): Promise<void>;
 
-    writeFooter(userMetadata: {
-        [key: string]: string
-    }): Promise<void>;
+    writeFooter(userMetadata: { [key: string]: string }): Promise<void>;
 
     setPageSize(cnt: number): void;
 }
@@ -142,22 +159,24 @@ export class ParquetEnvelopeWriter {
 export class ParquetTransformer extends stream.Transform {
     writer: ParquetWriter;
 
-    constructor(schema: ParquetSchema,
-        opts?: string | {
-            flags?: string;
-            encoding?: string;
-            fd?: number;
-            mode?: number;
-            autoClose?: boolean;
-            start?: number;
-            rowGroupSize?: number;
-            bitWidth?: number;
-            disableEnvelope?: boolean;
-        });
+    constructor(
+        schema: ParquetSchema,
+        opts?:
+            | string
+            | {
+                  flags?: string;
+                  encoding?: string;
+                  fd?: number;
+                  mode?: number;
+                  autoClose?: boolean;
+                  start?: number;
+                  rowGroupSize?: number;
+                  bitWidth?: number;
+                  disableEnvelope?: boolean;
+              }
+    );
 
-    _transform(row: RowInterface,
-        encoding: string|null|undefined,
-        callback: Function): void;
+    _transform(row: RowInterface, encoding: string | null | undefined, callback: Function): void;
 
     _flush(callback: Function): void;
 }

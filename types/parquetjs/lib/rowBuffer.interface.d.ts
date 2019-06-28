@@ -1,11 +1,11 @@
 export interface RowBufferInterface {
-    rowCount: number,
+    rowCount: number;
     columnData: {
         [key: string]: {
-            dlevels: number[],
-            rlevels: number[],
-            values: Buffer[],
-            count: number
-        }
-    }
+            dlevels: number[];
+            rlevels: number[];
+            values: Buffer[];
+            count: number;
+        };
+    };
 }

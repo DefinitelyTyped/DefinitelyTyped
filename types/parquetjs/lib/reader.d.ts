@@ -18,10 +18,12 @@ declare class ParquetCursor {
 
     rowGroupIndex: number;
 
-    constructor(metadata: MetadataInterface,
+    constructor(
+        metadata: MetadataInterface,
         envelopeReader: ParquetEnvelopeReader,
         schema: ParquetSchema,
-        columnList: string[][]);
+        columnList: string[][]
+    );
 
     next(): Promise<RowInterface>;
 
@@ -35,10 +37,9 @@ export class ParquetReader {
 
     schema: ParquetSchema;
 
-    static openFile(filePath: string): ParquetReader|never;
+    static openFile(filePath: string): ParquetReader | never;
 
-    constructor(metadata: MetadataInterface,
-        envelopeReader: ParquetEnvelopeReader);
+    constructor(metadata: MetadataInterface, envelopeReader: ParquetEnvelopeReader);
 
     getCursor(columnList?: string[]): ParquetCursor;
 
@@ -47,37 +48,36 @@ export class ParquetReader {
     getSchema(): ParquetSchema;
 
     getMetadata(): {
-        [key: string]: string
+        [key: string]: string;
     };
 
     close(): void;
 }
 
 export class ParquetEnvelopeReader {
-    read: (fd: number,
-        position: number,
-        length: number) => Promise<Buffer|Error>;
+    read: (fd: number, position: number, length: number) => Promise<Buffer | Error>;
 
     close: (fd: number) => Promise<Error>;
 
     fileSize: number;
 
-    constructor(readFn: (fd: number,
-        position: number,
-        length: number) => Promise<Buffer|Error>,
+    constructor(
+        readFn: (fd: number, position: number, length: number) => Promise<Buffer | Error>,
         closeFn: (fd: number) => Promise<Error>,
-        fileSize: number);
+        fileSize: number
+    );
 
     static openFile(filePath: string): ParquetReader;
 
     readHeader(): never;
 
-    readRowGroup(schema: ParquetSchema,
+    readRowGroup(
+        schema: ParquetSchema,
         rowGroup: MetadataRowGroupsInterface,
-        columnList: string[][]): RowBufferInterface;
+        columnList: string[][]
+    ): RowBufferInterface;
 
-    readColumnChunk(schema: ParquetSchema,
-        colChunk: object): void;
+    readColumnChunk(schema: ParquetSchema, colChunk: object): void;
 
     readFooter(): MetadataInterface;
 }
