@@ -209,6 +209,12 @@ _(stooges)
 	.indexBy('age')
 	.value()['40'].age;
 
+
+let pensioners: string[] = _.chain(stooges)
+    .filter(p => p.age >= 60)
+    .map(p => p.name)
+    .value();
+
 _.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
 
 _.shuffle([1, 2, 3, 4, 5, 6]);
