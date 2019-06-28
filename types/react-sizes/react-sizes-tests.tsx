@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withSizes, Sizes } from 'react-sizes';
+import { WithSizes, Sizes } from 'react-sizes';
 
 interface TestProps {
     foo: string;
@@ -26,4 +26,4 @@ const TestComponent: React.ComponentType<TestProps> = ({ foo, width, height }) =
     );
 };
 
-withSizes(mapSizesToProps)(TestComponent); // $ExpectType ComponentType<TestProps>
+WithSizes(mapSizesToProps)(TestComponent); // $ExpectType ComponentType<TestProps>
