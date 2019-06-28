@@ -209,10 +209,26 @@ _(stooges)
 	.indexBy('age')
 	.value()['40'].age;
 
-
 let pensioners: string[] = _.chain(stooges)
     .filter(p => p.age >= 60)
     .map(p => p.name)
+    .value();
+
+var usersData: _.Dictionary<{ age: number; name: string }> = {
+    'user id': { name: 'moe', age: 40 },
+    'other user Id': { name: 'larry', age: 50 },
+    'fake id': { name: 'curly', age: 60 },
+};
+
+let youngPeopleId: string[] = _.chain(usersData)
+    .filter(p => p.age < 60)
+    .map((p, k: string) => k)
+    .value();
+
+let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
+    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+        return { id: k, ...p };
+    })
     .value();
 
 _.countBy([1, 2, 3, 4, 5], (num) => (num % 2 == 0) ? 'even' : 'odd');
