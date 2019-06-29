@@ -1,4 +1,4 @@
-// Type definitions for mailgun-js 0.22.0
+// Type definitions for mailgun-js 0.22
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
