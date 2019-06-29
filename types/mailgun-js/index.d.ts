@@ -4,7 +4,7 @@
 //                 Andi Pätzold <https://github.com/andipaetzold>
 //                 Jiri Balcar <https://github.com/JiriBalcar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
