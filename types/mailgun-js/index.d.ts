@@ -1,11 +1,14 @@
-// Type definitions for mailgun-js 0.16
+// Type definitions for mailgun-js 0.22.0
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Jiri Balcar <https://github.com/JiriBalcar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
+
+import * as FormData from 'form-data';
 
 declare const Mailgun: Mailgun.MailgunExport;
 export = Mailgun;
@@ -28,6 +31,20 @@ declare namespace Mailgun {
                   interval: number;
               };
         proxy?: string;
+        testMode?: boolean;
+        testModeLogger?: (httpOptions: LoggerHttpOptions, payload: string, form: FormData) => void;
+    }
+
+    interface LoggerHttpOptions {
+        hostname: string;
+        port: number;
+        protocol: string;
+        path: string;
+        method: string;
+        headers: any;
+        auth: string;
+        agent: false;
+        timeout: number;
     }
 
     interface Error {
@@ -88,7 +105,7 @@ declare namespace Mailgun {
         }
 
         interface BatchData extends SendData {
-            "recipient-variables"?: BatchSendRecipientVars;
+            'recipient-variables'?: BatchSendRecipientVars;
         }
 
         interface BatchSendRecipientVars {
@@ -119,24 +136,15 @@ declare namespace Mailgun {
         }
 
         interface Members {
-            create(
-                data: MemberCreateData,
-                callback?: (err: Error, data: any) => void
-            ): Promise<any>;
+            create(data: MemberCreateData, callback?: (err: Error, data: any) => void): Promise<any>;
 
-            add(
-                data: MemberCreateData[],
-                callback?: (err: Error, data: any) => void
-            ): Promise<any>;
+            add(data: MemberCreateData[], callback?: (err: Error, data: any) => void): Promise<any>;
 
             list(callback?: (err: Error, data: any) => void): Promise<any>;
         }
 
         interface Member {
-            update(
-                data: MemberUpdateData,
-                callback?: (err: Error, data: any) => void
-            ): Promise<any>;
+            update(data: MemberUpdateData, callback?: (err: Error, data: any) => void): Promise<any>;
         }
     }
 
@@ -150,11 +158,11 @@ declare namespace Mailgun {
 
         interface ValidationOptionsPublic {
             api_key?: string;
-            mailbox_verification?: boolean | "true" | "false";
+            mailbox_verification?: boolean | 'true' | 'false';
         }
 
         interface ValidationOptionsPrivate {
-            mailbox_verification?: boolean | "true" | "false";
+            mailbox_verification?: boolean | 'true' | 'false';
         }
 
         interface ValidateResponse {
@@ -163,7 +171,7 @@ declare namespace Mailgun {
             is_disposable_address: boolean;
             is_role_address: boolean;
             is_valid: boolean;
-            mailbox_verification: "true" | "false" | "unknown" | null;
+            mailbox_verification: 'true' | 'false' | 'unknown' | null;
             parts: {
                 display_name: string | null;
                 domain: string;
@@ -176,24 +184,42 @@ declare namespace Mailgun {
         messages(): Messages;
         lists(list: string): Lists;
         Attachment: new (params: AttachmentParams) => Attachment;
-        validateWebhook(
-            bodyTimestamp: number,
-            bodyToken: string,
-            bodySignature: string
-        ): boolean;
+        validateWebhook(bodyTimestamp: number, bodyToken: string, bodySignature: string): boolean;
 
         parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
         validate(address: string, callback: validation.ValidationCallback): void;
-        validate(address: string, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        validate(
+            address: string,
+            opts: validation.ValidationOptionsPublic,
+            callback: validation.ValidationCallback
+        ): void;
         // tslint:disable-next-line unified-signatures
         validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
-        validate(address: string, isPrivate: false, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
-        validate(address: string, isPrivate: true, opts: validation.ValidationOptionsPrivate, callback: validation.ValidationCallback): void;
+        validate(
+            address: string,
+            isPrivate: false,
+            opts: validation.ValidationOptionsPublic,
+            callback: validation.ValidationCallback
+        ): void;
+        validate(
+            address: string,
+            isPrivate: true,
+            opts: validation.ValidationOptionsPrivate,
+            callback: validation.ValidationCallback
+        ): void;
 
         validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
-        validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
-        validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            isPrivate: false,
+            opts?: validation.ValidationOptionsPublic
+        ): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            isPrivate: true,
+            opts?: validation.ValidationOptionsPrivate
+        ): Promise<validation.ValidateResponse>;
     }
 
     interface Lists {
