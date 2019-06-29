@@ -8,6 +8,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+// Compatability with node.js
+// tslint:disable-next-line:no-empty-interface
+interface HTMLElement { }
+
 declare namespace uri {
     interface URI {
         absoluteTo(path: string | URI): URI;
