@@ -73,7 +73,7 @@ export interface Schema<T> {
     default(value: any): this;
     default(): T;
     typeError(message?: TestOptionsMessage): this;
-    oneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
+    oneOf(arrayOfValues: T[], message?: TestOptionsMessage): this;
     notOneOf(arrayOfValues: any[], message?: TestOptionsMessage): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
     test(
@@ -92,8 +92,10 @@ export interface Schema<T> {
 }
 
 export interface MixedSchemaConstructor {
-    (): MixedSchema;
-    new (options?: { type?: string; [key: string]: any }): MixedSchema;
+    // tslint:disable-next-line:no-unnecessary-generics
+    <T = any>(): MixedSchema<T>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    new <T = any>(options?: { type?: string; [key: string]: any }): MixedSchema<T>;
 }
 
 export interface MixedSchema<T = any> extends Schema<T> {

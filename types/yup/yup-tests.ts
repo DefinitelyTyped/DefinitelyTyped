@@ -572,8 +572,16 @@ yup.object<MyInterface>({
     arrayField: yup.array(yup.string()).required(),
 });
 
+enum Gender {
+    Male = 'Male',
+    Female = 'Female',
+}
+
 const personSchema = yup.object({
     firstName: yup.string(), // $ExpectType StringSchema<string>
+    gender: yup
+        .mixed<Gender>()
+        .oneOf([Gender.Male, Gender.Female]),
     email: yup
         .string()
         .nullable()
@@ -606,6 +614,7 @@ type Person = yup.InferType<typeof personSchema>;
 // Equivalent to:
 // type Person = {
 //     firstName: string;
+//     gender: Gender;
 //     email?: string | null | undefined;
 //     birthDate?: Date | null | undefined;
 //     canBeNull: string | null;
@@ -616,12 +625,14 @@ type Person = yup.InferType<typeof personSchema>;
 
 const minimalPerson: Person = {
     firstName: '',
+    gender: Gender.Female,
     canBeNull: null,
     mustBeAString: '',
 };
 
 const person: Person = {
     firstName: '',
+    gender: Gender.Male,
     email: null,
     birthDate: null,
     canBeNull: null,
@@ -638,6 +649,8 @@ person.isAlive = undefined;
 person.children = ['1', '2', '3'];
 person.children = undefined;
 
+// $ExpectError
+person.gender = 1;
 // $ExpectError
 person.firstName = null;
 // $ExpectError
