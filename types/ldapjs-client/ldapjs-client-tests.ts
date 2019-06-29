@@ -1,6 +1,10 @@
 import LdapJS = require('ldapjs-client');
 
-const client = new LdapJS({ url: 'ldap://anyserver:389' });
+const clientOptions: LdapJS.ClientOptions = {
+    url: 'ldap://anyserver:389',
+};
+
+const client = new LdapJS(clientOptions);
 
 const dn = 'cn=foo, o=example';
 
@@ -15,8 +19,8 @@ interface LdapObject {
     await client.bind(dn, 'pazzvord');
     await client.del(dn);
 
-    const change = {
-        operation: 'add', // add, delete, replace
+    const change: LdapJS.Change = {
+        operation: 'add',
         modification: {
             pets: ['cat', 'dog'],
         },
@@ -25,7 +29,7 @@ interface LdapObject {
     await client.modify(dn, change);
     await client.modifyDN(dn, 'cn=baz, o=example');
 
-    const options = {
+    const options: LdapJS.SearchOptions = {
         filter: '(&(l=Seattle)(email=*@foo.com))',
         scope: 'sub',
         attributes: ['dn', 'sn', 'cn'],

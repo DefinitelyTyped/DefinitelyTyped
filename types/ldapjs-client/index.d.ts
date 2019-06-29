@@ -4,36 +4,32 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare class Filter {
-    matches(obj: any): boolean;
-    type: string;
-}
+declare namespace LdapClient {
+    interface Change {
+        operation: 'add' | 'delete' | 'replace';
+        modification: {
+            [key: string]: any;
+        };
+    }
 
-interface Change {
-    operation: string;
-    modification: {
-        [key: string]: any;
-    };
-}
+    interface SearchOptions {
+        scope?: string;
+        filter?: string;
+        attributes?: string[];
+        sizeLimit?: number;
+        timeLimit?: number;
+        typesOnly?: boolean;
+    }
 
-interface SearchOptions {
-    scope: string;
-    filter: string | Filter;
-    attributes: string[];
-    sizeLimit: number;
-    timeLimit: number;
-    typesOnly: boolean;
-}
-type PartialSearchOptions = Partial<SearchOptions>;
-
-interface ClientOptions {
-    url: string;
-    tlsOptions?: object;
-    timeout?: number;
+    interface ClientOptions {
+        url: string;
+        tlsOptions?: object;
+        timeout?: number;
+    }
 }
 
 declare class LdapClient {
-    constructor(options: ClientOptions);
+    constructor(options: LdapClient.ClientOptions);
 
     /**
      * Adds an entry to the LDAP server.
@@ -67,7 +63,7 @@ declare class LdapClient {
      * @param dn the DN of the entry to modify.
      * @param change update to perform (can be [Change]).
      */
-    modify(dn: string, change: Change): Promise<any>;
+    modify(dn: string, change: LdapClient.Change): Promise<any>;
 
     /**
      * Performs an LDAP modifyDN against the server.
@@ -80,7 +76,7 @@ declare class LdapClient {
      * Note that the defaults for options are a 'base' search.
      */
     // tslint:disable-next-line: no-unnecessary-generics
-    search(base: string, options: PartialSearchOptions): Promise<unknown[]>;
+    search(base: string, options: LdapClient.SearchOptions): Promise<unknown[]>;
 
     /**
      * Unbinds this client from the LDAP server.
