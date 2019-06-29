@@ -24,11 +24,11 @@ interface MousetrapStatic {
 
 interface MousetrapInstance {
     stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => boolean;
-    bind(keys: string|string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
-    unbind(keys: string|string[], action?: string): void;
-    trigger(keys: string, action?: string): void;
+    bind(keys: string|string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): this;
+    unbind(keys: string|string[], action?: string): this;
+    trigger(keys: string, action?: string): this;
     handleKey(character: string, modifiers: string[], e: ExtendedKeyboardEvent): void;
-    reset(): void;
+    reset(): this;
 }
 
 declare var Mousetrap: MousetrapStatic;
