@@ -1,5 +1,6 @@
-import { Coordinate } from 'ol/coordinate';
-import { Pixel } from 'ol/pixel';
+import { Coordinate } from './coordinate';
+import { Pixel } from './pixel';
+
 export function apply(transform: Transform, coordinate: Coordinate | Pixel): Coordinate | Pixel;
 export function compose(transform: Transform, dx1: number, dy1: number, sx: number, sy: number, angle: number, dx2: number, dy2: number): Transform;
 export function create(): Transform;

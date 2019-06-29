@@ -10,17 +10,18 @@ import {
     Point,
     Polygon
 } from 'geojson';
-import { ReadOptions, WriteOptions } from 'ol/format/Feature';
-import JSONFeature from 'ol/format/JSONFeature';
-import Geometry_1 from 'ol/geom/Geometry';
-import GeometryCollection_1 from 'ol/geom/GeometryCollection';
-import LineString_1 from 'ol/geom/LineString';
-import MultiLineString_1 from 'ol/geom/MultiLineString';
-import MultiPoint_1 from 'ol/geom/MultiPoint';
-import MultiPolygon_1 from 'ol/geom/MultiPolygon';
-import Point_1 from 'ol/geom/Point';
-import Polygon_1 from 'ol/geom/Polygon';
-import { ProjectionLike } from 'ol/proj';
+import Geometry_1 from '../geom/Geometry';
+import GeometryCollection_1 from '../geom/GeometryCollection';
+import LineString_1 from '../geom/LineString';
+import MultiLineString_1 from '../geom/MultiLineString';
+import MultiPoint_1 from '../geom/MultiPoint';
+import MultiPolygon_1 from '../geom/MultiPolygon';
+import Point_1 from '../geom/Point';
+import Polygon_1 from '../geom/Polygon';
+import { ProjectionLike } from '../proj';
+import { ReadOptions, WriteOptions } from './Feature';
+import JSONFeature from './JSONFeature';
+
 export default class GeoJSON extends JSONFeature {
     constructor(opt_options?: Options);
 }

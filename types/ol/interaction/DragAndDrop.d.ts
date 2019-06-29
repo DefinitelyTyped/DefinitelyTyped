@@ -1,17 +1,18 @@
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import Feature, { FeatureLike } from 'ol/Feature';
-import FeatureFormat from 'ol/format/Feature';
-import Interaction from 'ol/interaction/Interaction';
-import { ObjectEvent } from 'ol/Object';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import VectorSource from 'ol/source/Vector';
+import { EventsKey } from '../events';
+import Event from '../events/Event';
+import Feature, { FeatureLike } from '../Feature';
+import FeatureFormat from '../format/Feature';
+import { ObjectEvent } from '../Object';
+import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
+import VectorSource from '../source/Vector';
+import Interaction from './Interaction';
+
 export default class DragAndDrop extends Interaction {
     constructor(opt_options?: Options);
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): EventsKey;
     once(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): EventsKey;
     un(type: 'addfeatures', listener: (evt: DragAndDropEvent) => void): void;

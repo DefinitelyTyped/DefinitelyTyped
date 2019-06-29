@@ -426,7 +426,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Shallow render the one non-DOM child of the current wrapper, and return a wrapper around the result.
      * NOTE: can only be called on wrapper of a single non-DOM component element node.
      */
+    dive<C2 extends Component, P2 = C2['props'], S2 = C2['state']>(options?: ShallowRendererProps): ShallowWrapper<P2, S2, C2>;
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
+    dive<P2, S2, C2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2, C2>;
 
     /**
      * Strips out all the not host-nodes from the list of nodes

@@ -3,7 +3,7 @@ import { customers } from 'stripe';
 
 const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
-stripe.setApiVersion('2017-04-06');
+stripe.setApiVersion('2019-05-16');
 
 //#region Balance tests
 // ##################################################################################
@@ -228,6 +228,26 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9', (err, refunds) =>
     // asynchronously called
 });
 stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then((refunds) => {
+    // asynchronously called
+});
+
+//#endregion
+
+//#region Checkout tests
+// ##################################################################################
+
+stripe.checkout.sessions.create({
+    success_url: 'https://example.com/success',
+    cancel_url: 'https://example.com/cancel',
+    payment_method_types: ['card'],
+    line_items: [{
+        name: 'Test',
+        description: 'Test',
+        amount: 100,
+        currency: 'gpb',
+        quantity: 1
+    }],
+}, (err, session) => {
     // asynchronously called
 });
 
@@ -477,6 +497,14 @@ stripe.customers.createSource(
     { source: "btok_8E264Lxsbyvj3E" }).then((bankAcc: Stripe.IBankAccount) => {
         // asynchronously called
         bankAcc.bank_name;
+    }
+);
+
+stripe.customers.createSubscription(
+    "cus_5rfJKDJkuxzh5Q",
+    {
+        items: [{plan: "some_plan", quantity: 2}],
+        pay_immediately: false
     }
 );
 
@@ -936,6 +964,9 @@ stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk", "http://localhost:3000"
 
 //#region Application Fees tests
 // ##################################################################################
+stripe.applicationFees.retrieveRefund("fee_1Eq2auEELBA7Bnp1FpeuNccq", "fr_1Eq2auEELBA7Bnp1sNrbVAO9").then(refund => {
+    refund; // $ExpectType IApplicationFeeRefund
+});
 
 //#endregion
 

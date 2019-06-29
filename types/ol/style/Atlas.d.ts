@@ -1,6 +1,6 @@
 export default class Atlas {
     constructor(size: number, space: number);
-    add(id: string, width: number, height: number, renderCallback: ((param0: CanvasRenderingContext2D, param1: number, param2: number) => void), opt_this?: { [key: string]: any }): AtlasInfo;
+    add(id: string, width: number, height: number, renderCallback: ((p0: CanvasRenderingContext2D, p1: number, p2: number) => void), opt_this?: any): AtlasInfo;
     get(id: string): AtlasInfo;
 }
 export interface AtlasBlock {

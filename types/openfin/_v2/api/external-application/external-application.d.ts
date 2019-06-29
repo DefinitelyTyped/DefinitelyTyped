@@ -27,9 +27,9 @@ export default class ExternalApplicationModule extends Base {
     wrapSync(uuid: string): ExternalApplication;
 }
 /**
- * @classdesc An ExternalApplication object representing an application. Allows
- * the developer to create, execute, show and close an external application as
- * well as listen to <a href="tutorial-ExternalApplication.EventEmitter.html">application events</a>.
+ * @classdesc An ExternalApplication object representing native language adapter connections to the runtime. Allows
+ * the developer to listen to <a href="tutorial-ExternalApplication.EventEmitter.html">application events.</a>
+ * Discovery of connections is provided by <a href="tutorial-System.getAllExternalApplications.html">getAllExternalApplications.</a>
  * @class
  * @hideconstructor
  */

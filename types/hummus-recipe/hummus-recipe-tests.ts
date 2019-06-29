@@ -18,8 +18,7 @@ newDoc
     .endPDF();
 
 // $ExpectError
-newDoc
-    .createPage("A4")
+newDoc.createPage("A5")
     .text("Memento Mori", 100, 100)
     .endPage()
     .endPDF();

@@ -666,6 +666,32 @@ var panorama = new google.maps.StreetViewPanorama(document.createElement('div'),
 // MVCObject method on StreetViewPanorama
 var panoramaEvent = panorama.addListener('pano_changed', () => {});
 
+/***** StreetViewService *****/
+var street_view_service = new google.maps.StreetViewService();
+street_view_service.getPanorama({
+    location: new google.maps.LatLng(37.782551, -122.445368),
+    radius: 50
+}, (data, status) => {
+    if (status === google.maps.StreetViewStatus.OK) {
+        const location_pano = (data == null || data.location == null) ? null : data.location.pano
+        if (location_pano == null) {
+            // Not good
+            return;
+        }
+
+        const new_panorama = new google.maps.StreetViewPanorama(document.createElement('div'), panoramaOptions);
+        new_panorama.setPano(location_pano);
+        new_panorama.setPov({
+            heading:  0,
+            pitch:    0
+        });
+    }
+    else {
+        // Not good
+        return;
+    }
+})
+
 /***** MVCArray *****/
 
 // MVCArray should be generic
