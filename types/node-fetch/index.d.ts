@@ -8,6 +8,7 @@
 //                 Jason Li <https://github.com/JasonLi914>
 //                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
+//                 Xmader <https://github.com/Xmader>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -206,4 +207,4 @@ declare namespace fetch {
     function isRedirect(code: number): boolean;
 }
 
-export default fetch;
+export = fetch;
