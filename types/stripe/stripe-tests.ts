@@ -964,6 +964,9 @@ stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk", "http://localhost:3000"
 
 //#region Application Fees tests
 // ##################################################################################
+stripe.applicationFees.retrieveRefund("fee_1Eq2auEELBA7Bnp1FpeuNccq", "fr_1Eq2auEELBA7Bnp1sNrbVAO9").then(refund => {
+    refund; // $ExpectType IApplicationFeeRefund
+});
 
 //#endregion
 
