@@ -1,26 +1,37 @@
 // Type definitions for double-ended-queue 2.1
 // Project: https://github.com/petkaantonov/deque
 // Definitions by: Dmitry <https://github.com/dsagal>
+//                 Dmitry Parzhitsky <https://github.com/parzh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Deque<T> {
+interface Deque<Item> {
     readonly length: number;
-    push(...items: T[]): number;
-    unshift(...items: T[]): number;
-    pop(): T|undefined;
-    shift(): T|undefined;
-    toArray(): T[];
-    peekBack(): T|undefined;
-    peekFront(): T|undefined;
-    get(index: number): T|undefined;
+    push(...items: Item[]): number;
+    enqueue(...items: Item[]): number;
+    insertBack(...items: Item[]): number;
+    unshift(...items: Item[]): number;
+    insertFront(...items: Item[]): number;
+    pop(): Item | undefined;
+    removeBack(): Item | undefined;
+    shift(): Item | undefined;
+    removeFront(): Item | undefined;
+    dequeue(): Item | undefined;
+    toArray(): Item[];
+    toJSON(): Item[];
+    peekBack(): Item | undefined;
+    peekFront(): Item | undefined;
+    get(index: number): Item | undefined;
     isEmpty(): boolean;
     clear(): void;
 }
 
+// tslint:disable:no-unnecessary-generics unified-signatures
+
 declare const Deque: {
     prototype: Deque<any>;
-    new <T>(items?: ReadonlyArray<T>): Deque<T>;
-    new <T>(capacity: number): Deque<T>;  // tslint:disable-line:no-unnecessary-generics
+    new <Item>(): Deque<Item>;
+    new <Item>(items: ReadonlyArray<Item>): Deque<Item>;
+    new <Item>(capacity: number): Deque<Item>;
 };
 
 export = Deque;
