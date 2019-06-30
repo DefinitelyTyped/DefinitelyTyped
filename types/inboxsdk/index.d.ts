@@ -898,12 +898,12 @@ declare namespace InboxSDK {
     }
 
     interface NavItemIconUrlDescriptor extends NavItemDescriptorBase {
-      iconUrl: string;
+      iconUrl?: string;
       iconClass?: string;
     }
 
     interface NavItemIconHtmlDescriptor extends NavItemDescriptorBase {
-      iconElement: HTMLElement;
+      iconElement?: HTMLElement;
     }
 
     type NavItemDescriptor = NavItemIconUrlDescriptor | NavItemIconHtmlDescriptor;
