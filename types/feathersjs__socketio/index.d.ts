@@ -5,9 +5,6 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 // TypeScript Version: 2.8
 
-/// <reference types="node" />
-
-import * as http from 'http';
 import * as io from 'socket.io';
 
 declare const socketio: FeathersSocketIO;
