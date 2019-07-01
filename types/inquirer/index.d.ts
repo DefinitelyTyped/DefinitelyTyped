@@ -222,18 +222,53 @@ declare namespace inquirer {
         export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
 
         /**
-         * Represents the result of a submit-event.
+         * Provides data about the state of a prompt.
          */
-        export interface SubmitEventResult {
+        export interface PromptStateData {
             /**
-             * An object representing a successful result.
+             * Either a string which describes the error of the prompt or a boolean indicating whether the prompt-value is valid.
              */
-            success: any;
+            isValid: string | boolean;
+        }
+
+        /**
+         * Provides data about the successful state of a prompt.
+         */
+        export interface SuccessfulPromptStateData<T = any> extends PromptStateData {
+            /**
+             * @inheritdoc
+             */
+            isValid: true;
+
+            /**
+             * The value of the prompt.
+             */
+            value: T;
+        }
+
+        /**
+         * Provides data about the failed state of a prompt.
+         */
+        export interface FailedPromptStateData extends PromptStateData {
+            /**
+             * @inheritdoc
+             */
+            isValid: false | string;
+        }
+
+        /**
+         * Provides pipes for handling events of a prompt.
+         */
+        export interface PromptEventPipes<T = any> {
+            /**
+             * A pypeline for succesful inputs.
+             */
+            success: Observable<SuccessfulPromptStateData<T>>;
 
             /**
              * An object representing an error.
              */
-            error: any;
+            error: Observable<FailedPromptStateData>;
         }
     }
 

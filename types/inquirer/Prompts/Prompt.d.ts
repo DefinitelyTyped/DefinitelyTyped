@@ -78,7 +78,7 @@ export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answ
      * @param submit
      * The submit-event flow.
      */
-    protected handleSubmitEvents(submit: Observable<any>): inquirer.prompts.SubmitEventResult;
+    protected handleSubmitEvents<T>(submit: Observable<T>): inquirer.prompts.PromptEventPipes<T>;
 
     /**
      * Generates the question-string.
