@@ -1294,8 +1294,8 @@ declare namespace OracleDB {
          * It should be an array or an object, depending on the structure of the binds parameter.
          */
         bindDefs?:
-            | Record<string, BindDefinition>
-            | BindDefinition[];
+        | Record<string, BindDefinition>
+        | BindDefinition[];
         /**
          * When true, this optional property enables output of the number of rows affected by each input data record.
          * It can only be set true for INSERT, UPDATE, DELETE or MERGE statements.
@@ -1634,7 +1634,7 @@ declare namespace OracleDB {
          * @default true
          * @since 2.3
          */
-        homogenous?: boolean;
+        homogeneous?: boolean;
         /**
          * The password of the database user used by connections in the pool. A password is also necessary if a proxy user is specified at pool creation.
          * If homogeneous is false, then the password may be omitted at pool creation but given in subsequent pool.getConnection() calls.
@@ -1715,8 +1715,8 @@ declare namespace OracleDB {
          * @since 3.1
          */
         sessionCallback?:
-            | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
+        | string
+        | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -1752,8 +1752,8 @@ declare namespace OracleDB {
          * then outBinds is returned as an object. If there are no OUT or IN OUT binds, the value is undefined.
          */
         outBinds:
-            | Record<string, any>
-            | any[];
+        | Record<string, any>
+        | any[];
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -1882,7 +1882,7 @@ declare namespace OracleDB {
          *
          * Different values of numRows may alter the time needed for fetching data from Oracle Database.
          * The value of fetchArraySize has no effect on getRows() performance or internal buffering.
-         * 
+         *
          * @param numRows The number of rows to fetch
          */
         getRows(numRows: number): Promise<(Record<string, any> | any[])[]>;

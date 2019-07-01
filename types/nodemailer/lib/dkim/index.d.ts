@@ -35,11 +35,11 @@ declare namespace DKIM {
 
 declare class DKIM {
     options: DKIM.Options;
-    keys: Array<string | { key: string; passphrase: string }>;
+    keys: DKIM.SingleKeyOptions[];
 
-    constructor(options: DKIM.Options);
+    constructor(options?: DKIM.Options);
 
-    sign(input: string | Buffer | Readable, extraOptions: DKIM.Options): PassThrough;
+    sign(input: string | Buffer | Readable, extraOptions?: DKIM.Options): PassThrough;
 }
 
 export = DKIM;

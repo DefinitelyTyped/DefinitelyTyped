@@ -1,5 +1,6 @@
 import { WindowEvent, BaseEventMap, ApplicationEvent } from './base';
 import { WindowAlertRequestedEvent, WindowAuthRequestedEvent, WindowEndLoadEvent, PropagatedWindowEvents } from './window';
+import { Bounds } from '../../shapes';
 export interface CrashedEvent {
     reason: 'normal-termination' | 'abnormal-termination' | 'killed' | 'crashed' | 'still-running' | 'launch-failed' | 'out-of-memory';
 }
@@ -8,6 +9,7 @@ export interface RunRequestedEvent<Topic, Type> extends ApplicationEvent<Topic, 
 }
 export interface TrayIconClicked<Topic, Type> extends ApplicationEvent<Topic, Type> {
     button: 0 | 1 | 2;
+    bounds: Bounds;
     x: number;
     y: number;
     monitorInfo: any;

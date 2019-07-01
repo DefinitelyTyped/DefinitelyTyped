@@ -10,20 +10,20 @@ type lineTagPropsFunction = (
     lineNumber: number
 ) => React.DOMAttributes<HTMLElement>;
 
-interface SyntaxHighlighterProps {
-    language?: string;
-    style?: any;
-    customStyle?: any;
-    lineProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>;
-    codeTagProps?: React.DOMAttributes<HTMLElement>;
-    useInlineStyles?: boolean;
-    showLineNumbers?: boolean;
-    startingLineNumber?: number;
-    lineNumberStyle?: any;
-    [spread: string]: any;
-}
-
 declare module "react-syntax-highlighter" {
+    export interface SyntaxHighlighterProps {
+        language?: string;
+        style?: any;
+        customStyle?: any;
+        lineProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>;
+        codeTagProps?: React.DOMAttributes<HTMLElement>;
+        useInlineStyles?: boolean;
+        showLineNumbers?: boolean;
+        startingLineNumber?: number;
+        lineNumberStyle?: any;
+        [spread: string]: any;
+    }
+
     export { default } from "react-syntax-highlighter/default-highlight";
     export {
         default as LightAsync
@@ -44,6 +44,7 @@ declare module "react-syntax-highlighter" {
 
 declare module "react-syntax-highlighter/default-highlight" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {}
@@ -51,6 +52,7 @@ declare module "react-syntax-highlighter/default-highlight" {
 
 declare module "react-syntax-highlighter/light-async" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {
@@ -60,6 +62,7 @@ declare module "react-syntax-highlighter/light-async" {
 
 declare module "react-syntax-highlighter/light" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {
@@ -69,6 +72,7 @@ declare module "react-syntax-highlighter/light" {
 
 declare module "react-syntax-highlighter/prism-async-light" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {
@@ -78,6 +82,7 @@ declare module "react-syntax-highlighter/prism-async-light" {
 
 declare module "react-syntax-highlighter/prism-async" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {}
@@ -85,6 +90,7 @@ declare module "react-syntax-highlighter/prism-async" {
 
 declare module "react-syntax-highlighter/prism-light" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {
@@ -94,6 +100,7 @@ declare module "react-syntax-highlighter/prism-light" {
 
 declare module "react-syntax-highlighter/prism" {
     import * as React from "react";
+    import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
     export default class SyntaxHighlighter extends React.Component<
         SyntaxHighlighterProps
     > {}

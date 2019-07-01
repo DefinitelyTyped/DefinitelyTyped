@@ -1,4 +1,4 @@
-// Type definitions for fs-extra 7.0
+// Type definitions for fs-extra 8.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,

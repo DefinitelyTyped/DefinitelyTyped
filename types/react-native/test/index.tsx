@@ -90,6 +90,8 @@ import {
     NetInfo,
     PermissionsAndroid,
     Platform,
+    ProgressBarAndroid,
+    PushNotificationIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -700,10 +702,17 @@ class WebViewTest extends React.Component {
 
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
-            uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png",
-        });
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
+
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log("Image is not in cache");
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        })
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -928,3 +937,30 @@ const PlatformTest = () => {
             return Platform.isTV ? 40 : 44;
     }
 };
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
+};
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
+}

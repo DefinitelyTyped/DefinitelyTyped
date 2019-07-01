@@ -537,6 +537,12 @@ export class CastReceiverOptions {
     customNamespaces?: any;
 
     /**
+     * If true, the receiver will not set an idle timeout to close receiver if there is no activity.
+     * Should only be used for non media apps.
+     */
+    disableIdleTimeout?: boolean;
+
+    /**
      * Sender id used for local requests. Default value is 'local'.
      */
     localSenderId?: string;

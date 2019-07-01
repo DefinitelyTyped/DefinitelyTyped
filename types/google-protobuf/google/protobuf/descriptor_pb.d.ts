@@ -1,10 +1,13 @@
+// package: google.protobuf
+// file: descriptor.proto
+
 import * as jspb from "../../index";
 
 export class FileDescriptorSet extends jspb.Message {
   clearFileList(): void;
   getFileList(): Array<FileDescriptorProto>;
   setFileList(value: Array<FileDescriptorProto>): void;
-  addFile(value?: FileDescriptorProto, index?: number): void;
+  addFile(value?: FileDescriptorProto, index?: number): FileDescriptorProto;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FileDescriptorSet.AsObject;
@@ -25,62 +28,62 @@ export namespace FileDescriptorSet {
 export class FileDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   hasPackage(): boolean;
   clearPackage(): void;
-  getPackage(): string;
+  getPackage(): string | undefined;
   setPackage(value: string): void;
 
   clearDependencyList(): void;
   getDependencyList(): Array<string>;
   setDependencyList(value: Array<string>): void;
-  addDependency(value: string, index?: number): void;
+  addDependency(value: string, index?: number): string;
 
   clearPublicDependencyList(): void;
   getPublicDependencyList(): Array<number>;
   setPublicDependencyList(value: Array<number>): void;
-  addPublicDependency(value: number, index?: number): void;
+  addPublicDependency(value: number, index?: number): number;
 
   clearWeakDependencyList(): void;
   getWeakDependencyList(): Array<number>;
   setWeakDependencyList(value: Array<number>): void;
-  addWeakDependency(value: number, index?: number): void;
+  addWeakDependency(value: number, index?: number): number;
 
   clearMessageTypeList(): void;
   getMessageTypeList(): Array<DescriptorProto>;
   setMessageTypeList(value: Array<DescriptorProto>): void;
-  addMessageType(value?: DescriptorProto, index?: number): void;
+  addMessageType(value?: DescriptorProto, index?: number): DescriptorProto;
 
   clearEnumTypeList(): void;
   getEnumTypeList(): Array<EnumDescriptorProto>;
   setEnumTypeList(value: Array<EnumDescriptorProto>): void;
-  addEnumType(value?: EnumDescriptorProto, index?: number): void;
+  addEnumType(value?: EnumDescriptorProto, index?: number): EnumDescriptorProto;
 
   clearServiceList(): void;
   getServiceList(): Array<ServiceDescriptorProto>;
   setServiceList(value: Array<ServiceDescriptorProto>): void;
-  addService(value?: ServiceDescriptorProto, index?: number): void;
+  addService(value?: ServiceDescriptorProto, index?: number): ServiceDescriptorProto;
 
   clearExtensionList(): void;
   getExtensionList(): Array<FieldDescriptorProto>;
   setExtensionList(value: Array<FieldDescriptorProto>): void;
-  addExtension(value?: FieldDescriptorProto, index?: number): void;
+  addExtension(value?: FieldDescriptorProto, index?: number): FieldDescriptorProto;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): FileOptions;
+  getOptions(): FileOptions | undefined;
   setOptions(value?: FileOptions): void;
 
   hasSourceCodeInfo(): boolean;
   clearSourceCodeInfo(): void;
-  getSourceCodeInfo(): SourceCodeInfo;
+  getSourceCodeInfo(): SourceCodeInfo | undefined;
   setSourceCodeInfo(value?: SourceCodeInfo): void;
 
   hasSyntax(): boolean;
   clearSyntax(): void;
-  getSyntax(): string;
+  getSyntax(): string | undefined;
   setSyntax(value: string): void;
 
   serializeBinary(): Uint8Array;
@@ -96,7 +99,7 @@ export class FileDescriptorProto extends jspb.Message {
 export namespace FileDescriptorProto {
   export type AsObject = {
     name?: string,
-    package?: string,
+    pb_package?: string,
     dependencyList: Array<string>,
     publicDependencyList: Array<number>,
     weakDependencyList: Array<number>,
@@ -104,8 +107,8 @@ export namespace FileDescriptorProto {
     enumTypeList: Array<EnumDescriptorProto.AsObject>,
     serviceList: Array<ServiceDescriptorProto.AsObject>,
     extensionList: Array<FieldDescriptorProto.AsObject>,
-    options: FileOptions.AsObject,
-    sourceCodeInfo: SourceCodeInfo.AsObject,
+    options?: FileOptions.AsObject,
+    sourceCodeInfo?: SourceCodeInfo.AsObject,
     syntax?: string,
   }
 }
@@ -113,53 +116,53 @@ export namespace FileDescriptorProto {
 export class DescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   clearFieldList(): void;
   getFieldList(): Array<FieldDescriptorProto>;
   setFieldList(value: Array<FieldDescriptorProto>): void;
-  addField(value?: FieldDescriptorProto, index?: number): void;
+  addField(value?: FieldDescriptorProto, index?: number): FieldDescriptorProto;
 
   clearExtensionList(): void;
   getExtensionList(): Array<FieldDescriptorProto>;
   setExtensionList(value: Array<FieldDescriptorProto>): void;
-  addExtension(value?: FieldDescriptorProto, index?: number): void;
+  addExtension(value?: FieldDescriptorProto, index?: number): FieldDescriptorProto;
 
   clearNestedTypeList(): void;
   getNestedTypeList(): Array<DescriptorProto>;
   setNestedTypeList(value: Array<DescriptorProto>): void;
-  addNestedType(value?: DescriptorProto, index?: number): void;
+  addNestedType(value?: DescriptorProto, index?: number): DescriptorProto;
 
   clearEnumTypeList(): void;
   getEnumTypeList(): Array<EnumDescriptorProto>;
   setEnumTypeList(value: Array<EnumDescriptorProto>): void;
-  addEnumType(value?: EnumDescriptorProto, index?: number): void;
+  addEnumType(value?: EnumDescriptorProto, index?: number): EnumDescriptorProto;
 
   clearExtensionRangeList(): void;
   getExtensionRangeList(): Array<DescriptorProto.ExtensionRange>;
   setExtensionRangeList(value: Array<DescriptorProto.ExtensionRange>): void;
-  addExtensionRange(value?: DescriptorProto.ExtensionRange, index?: number): void;
+  addExtensionRange(value?: DescriptorProto.ExtensionRange, index?: number): DescriptorProto.ExtensionRange;
 
   clearOneofDeclList(): void;
   getOneofDeclList(): Array<OneofDescriptorProto>;
   setOneofDeclList(value: Array<OneofDescriptorProto>): void;
-  addOneofDecl(value?: OneofDescriptorProto, index?: number): void;
+  addOneofDecl(value?: OneofDescriptorProto, index?: number): OneofDescriptorProto;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): MessageOptions;
+  getOptions(): MessageOptions | undefined;
   setOptions(value?: MessageOptions): void;
 
   clearReservedRangeList(): void;
   getReservedRangeList(): Array<DescriptorProto.ReservedRange>;
   setReservedRangeList(value: Array<DescriptorProto.ReservedRange>): void;
-  addReservedRange(value?: DescriptorProto.ReservedRange, index?: number): void;
+  addReservedRange(value?: DescriptorProto.ReservedRange, index?: number): DescriptorProto.ReservedRange;
 
   clearReservedNameList(): void;
   getReservedNameList(): Array<string>;
   setReservedNameList(value: Array<string>): void;
-  addReservedName(value: string, index?: number): void;
+  addReservedName(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): DescriptorProto.AsObject;
@@ -180,7 +183,7 @@ export namespace DescriptorProto {
     enumTypeList: Array<EnumDescriptorProto.AsObject>,
     extensionRangeList: Array<ExtensionRange.AsObject>,
     oneofDeclList: Array<OneofDescriptorProto.AsObject>,
-    options: MessageOptions.AsObject,
+    options?: MessageOptions.AsObject,
     reservedRangeList: Array<ReservedRange.AsObject>,
     reservedNameList: Array<string>,
   }
@@ -188,13 +191,18 @@ export namespace DescriptorProto {
   export class ExtensionRange extends jspb.Message {
     hasStart(): boolean;
     clearStart(): void;
-    getStart(): number;
+    getStart(): number | undefined;
     setStart(value: number): void;
 
     hasEnd(): boolean;
     clearEnd(): void;
-    getEnd(): number;
+    getEnd(): number | undefined;
     setEnd(value: number): void;
+
+    hasOptions(): boolean;
+    clearOptions(): void;
+    getOptions(): ExtensionRangeOptions | undefined;
+    setOptions(value?: ExtensionRangeOptions): void;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ExtensionRange.AsObject;
@@ -210,18 +218,19 @@ export namespace DescriptorProto {
     export type AsObject = {
       start?: number,
       end?: number,
+      options?: ExtensionRangeOptions.AsObject,
     }
   }
 
   export class ReservedRange extends jspb.Message {
     hasStart(): boolean;
     clearStart(): void;
-    getStart(): number;
+    getStart(): number | undefined;
     setStart(value: number): void;
 
     hasEnd(): boolean;
     clearEnd(): void;
-    getEnd(): number;
+    getEnd(): number | undefined;
     setEnd(value: number): void;
 
     serializeBinary(): Uint8Array;
@@ -242,55 +251,77 @@ export namespace DescriptorProto {
   }
 }
 
+export class ExtensionRangeOptions extends jspb.Message {
+  clearUninterpretedOptionList(): void;
+  getUninterpretedOptionList(): Array<UninterpretedOption>;
+  setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ExtensionRangeOptions.AsObject;
+  static toObject(includeInstance: boolean, msg: ExtensionRangeOptions): ExtensionRangeOptions.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ExtensionRangeOptions, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ExtensionRangeOptions;
+  static deserializeBinaryFromReader(message: ExtensionRangeOptions, reader: jspb.BinaryReader): ExtensionRangeOptions;
+}
+
+export namespace ExtensionRangeOptions {
+  export type AsObject = {
+    uninterpretedOptionList: Array<UninterpretedOption.AsObject>,
+  }
+}
+
 export class FieldDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   hasNumber(): boolean;
   clearNumber(): void;
-  getNumber(): number;
+  getNumber(): number | undefined;
   setNumber(value: number): void;
 
   hasLabel(): boolean;
   clearLabel(): void;
-  getLabel(): FieldDescriptorProto.Label;
+  getLabel(): FieldDescriptorProto.Label | undefined;
   setLabel(value: FieldDescriptorProto.Label): void;
 
   hasType(): boolean;
   clearType(): void;
-  getType(): FieldDescriptorProto.Type;
+  getType(): FieldDescriptorProto.Type | undefined;
   setType(value: FieldDescriptorProto.Type): void;
 
   hasTypeName(): boolean;
   clearTypeName(): void;
-  getTypeName(): string;
+  getTypeName(): string | undefined;
   setTypeName(value: string): void;
 
   hasExtendee(): boolean;
   clearExtendee(): void;
-  getExtendee(): string;
+  getExtendee(): string | undefined;
   setExtendee(value: string): void;
 
   hasDefaultValue(): boolean;
   clearDefaultValue(): void;
-  getDefaultValue(): string;
+  getDefaultValue(): string | undefined;
   setDefaultValue(value: string): void;
 
   hasOneofIndex(): boolean;
   clearOneofIndex(): void;
-  getOneofIndex(): number;
+  getOneofIndex(): number | undefined;
   setOneofIndex(value: number): void;
 
   hasJsonName(): boolean;
   clearJsonName(): void;
-  getJsonName(): string;
+  getJsonName(): string | undefined;
   setJsonName(value: string): void;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): FieldOptions;
+  getOptions(): FieldOptions | undefined;
   setOptions(value?: FieldOptions): void;
 
   serializeBinary(): Uint8Array;
@@ -314,7 +345,7 @@ export namespace FieldDescriptorProto {
     defaultValue?: string,
     oneofIndex?: number,
     jsonName?: string,
-    options: FieldOptions.AsObject,
+    options?: FieldOptions.AsObject,
   }
 
   export enum Type {
@@ -348,12 +379,12 @@ export namespace FieldDescriptorProto {
 export class OneofDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): OneofOptions;
+  getOptions(): OneofOptions | undefined;
   setOptions(value?: OneofOptions): void;
 
   serializeBinary(): Uint8Array;
@@ -369,25 +400,35 @@ export class OneofDescriptorProto extends jspb.Message {
 export namespace OneofDescriptorProto {
   export type AsObject = {
     name?: string,
-    options: OneofOptions.AsObject,
+    options?: OneofOptions.AsObject,
   }
 }
 
 export class EnumDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   clearValueList(): void;
   getValueList(): Array<EnumValueDescriptorProto>;
   setValueList(value: Array<EnumValueDescriptorProto>): void;
-  addValue(value?: EnumValueDescriptorProto, index?: number): void;
+  addValue(value?: EnumValueDescriptorProto, index?: number): EnumValueDescriptorProto;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): EnumOptions;
+  getOptions(): EnumOptions | undefined;
   setOptions(value?: EnumOptions): void;
+
+  clearReservedRangeList(): void;
+  getReservedRangeList(): Array<EnumDescriptorProto.EnumReservedRange>;
+  setReservedRangeList(value: Array<EnumDescriptorProto.EnumReservedRange>): void;
+  addReservedRange(value?: EnumDescriptorProto.EnumReservedRange, index?: number): EnumDescriptorProto.EnumReservedRange;
+
+  clearReservedNameList(): void;
+  getReservedNameList(): Array<string>;
+  setReservedNameList(value: Array<string>): void;
+  addReservedName(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EnumDescriptorProto.AsObject;
@@ -403,24 +444,54 @@ export namespace EnumDescriptorProto {
   export type AsObject = {
     name?: string,
     valueList: Array<EnumValueDescriptorProto.AsObject>,
-    options: EnumOptions.AsObject,
+    options?: EnumOptions.AsObject,
+    reservedRangeList: Array<EnumReservedRange.AsObject>,
+    reservedNameList: Array<string>,
+  }
+
+  export class EnumReservedRange extends jspb.Message {
+    hasStart(): boolean;
+    clearStart(): void;
+    getStart(): number | undefined;
+    setStart(value: number): void;
+
+    hasEnd(): boolean;
+    clearEnd(): void;
+    getEnd(): number | undefined;
+    setEnd(value: number): void;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): EnumReservedRange.AsObject;
+    static toObject(includeInstance: boolean, msg: EnumReservedRange): EnumReservedRange.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: EnumReservedRange, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): EnumReservedRange;
+    static deserializeBinaryFromReader(message: EnumReservedRange, reader: jspb.BinaryReader): EnumReservedRange;
+  }
+
+  export namespace EnumReservedRange {
+    export type AsObject = {
+      start?: number,
+      end?: number,
+    }
   }
 }
 
 export class EnumValueDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   hasNumber(): boolean;
   clearNumber(): void;
-  getNumber(): number;
+  getNumber(): number | undefined;
   setNumber(value: number): void;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): EnumValueOptions;
+  getOptions(): EnumValueOptions | undefined;
   setOptions(value?: EnumValueOptions): void;
 
   serializeBinary(): Uint8Array;
@@ -437,24 +508,24 @@ export namespace EnumValueDescriptorProto {
   export type AsObject = {
     name?: string,
     number?: number,
-    options: EnumValueOptions.AsObject,
+    options?: EnumValueOptions.AsObject,
   }
 }
 
 export class ServiceDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   clearMethodList(): void;
   getMethodList(): Array<MethodDescriptorProto>;
   setMethodList(value: Array<MethodDescriptorProto>): void;
-  addMethod(value?: MethodDescriptorProto, index?: number): void;
+  addMethod(value?: MethodDescriptorProto, index?: number): MethodDescriptorProto;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): ServiceOptions;
+  getOptions(): ServiceOptions | undefined;
   setOptions(value?: ServiceOptions): void;
 
   serializeBinary(): Uint8Array;
@@ -471,39 +542,39 @@ export namespace ServiceDescriptorProto {
   export type AsObject = {
     name?: string,
     methodList: Array<MethodDescriptorProto.AsObject>,
-    options: ServiceOptions.AsObject,
+    options?: ServiceOptions.AsObject,
   }
 }
 
 export class MethodDescriptorProto extends jspb.Message {
   hasName(): boolean;
   clearName(): void;
-  getName(): string;
+  getName(): string | undefined;
   setName(value: string): void;
 
   hasInputType(): boolean;
   clearInputType(): void;
-  getInputType(): string;
+  getInputType(): string | undefined;
   setInputType(value: string): void;
 
   hasOutputType(): boolean;
   clearOutputType(): void;
-  getOutputType(): string;
+  getOutputType(): string | undefined;
   setOutputType(value: string): void;
 
   hasOptions(): boolean;
   clearOptions(): void;
-  getOptions(): MethodOptions;
+  getOptions(): MethodOptions | undefined;
   setOptions(value?: MethodOptions): void;
 
   hasClientStreaming(): boolean;
   clearClientStreaming(): void;
-  getClientStreaming(): boolean;
+  getClientStreaming(): boolean | undefined;
   setClientStreaming(value: boolean): void;
 
   hasServerStreaming(): boolean;
   clearServerStreaming(): void;
-  getServerStreaming(): boolean;
+  getServerStreaming(): boolean | undefined;
   setServerStreaming(value: boolean): void;
 
   serializeBinary(): Uint8Array;
@@ -521,7 +592,7 @@ export namespace MethodDescriptorProto {
     name?: string,
     inputType?: string,
     outputType?: string,
-    options: MethodOptions.AsObject,
+    options?: MethodOptions.AsObject,
     clientStreaming?: boolean,
     serverStreaming?: boolean,
   }
@@ -530,83 +601,108 @@ export namespace MethodDescriptorProto {
 export class FileOptions extends jspb.Message {
   hasJavaPackage(): boolean;
   clearJavaPackage(): void;
-  getJavaPackage(): string;
+  getJavaPackage(): string | undefined;
   setJavaPackage(value: string): void;
 
   hasJavaOuterClassname(): boolean;
   clearJavaOuterClassname(): void;
-  getJavaOuterClassname(): string;
+  getJavaOuterClassname(): string | undefined;
   setJavaOuterClassname(value: string): void;
 
   hasJavaMultipleFiles(): boolean;
   clearJavaMultipleFiles(): void;
-  getJavaMultipleFiles(): boolean;
+  getJavaMultipleFiles(): boolean | undefined;
   setJavaMultipleFiles(value: boolean): void;
 
   hasJavaGenerateEqualsAndHash(): boolean;
   clearJavaGenerateEqualsAndHash(): void;
-  getJavaGenerateEqualsAndHash(): boolean;
+  getJavaGenerateEqualsAndHash(): boolean | undefined;
   setJavaGenerateEqualsAndHash(value: boolean): void;
 
   hasJavaStringCheckUtf8(): boolean;
   clearJavaStringCheckUtf8(): void;
-  getJavaStringCheckUtf8(): boolean;
+  getJavaStringCheckUtf8(): boolean | undefined;
   setJavaStringCheckUtf8(value: boolean): void;
 
   hasOptimizeFor(): boolean;
   clearOptimizeFor(): void;
-  getOptimizeFor(): FileOptions.OptimizeMode;
+  getOptimizeFor(): FileOptions.OptimizeMode | undefined;
   setOptimizeFor(value: FileOptions.OptimizeMode): void;
 
   hasGoPackage(): boolean;
   clearGoPackage(): void;
-  getGoPackage(): string;
+  getGoPackage(): string | undefined;
   setGoPackage(value: string): void;
 
   hasCcGenericServices(): boolean;
   clearCcGenericServices(): void;
-  getCcGenericServices(): boolean;
+  getCcGenericServices(): boolean | undefined;
   setCcGenericServices(value: boolean): void;
 
   hasJavaGenericServices(): boolean;
   clearJavaGenericServices(): void;
-  getJavaGenericServices(): boolean;
+  getJavaGenericServices(): boolean | undefined;
   setJavaGenericServices(value: boolean): void;
 
   hasPyGenericServices(): boolean;
   clearPyGenericServices(): void;
-  getPyGenericServices(): boolean;
+  getPyGenericServices(): boolean | undefined;
   setPyGenericServices(value: boolean): void;
+
+  hasPhpGenericServices(): boolean;
+  clearPhpGenericServices(): void;
+  getPhpGenericServices(): boolean | undefined;
+  setPhpGenericServices(value: boolean): void;
 
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   hasCcEnableArenas(): boolean;
   clearCcEnableArenas(): void;
-  getCcEnableArenas(): boolean;
+  getCcEnableArenas(): boolean | undefined;
   setCcEnableArenas(value: boolean): void;
 
   hasObjcClassPrefix(): boolean;
   clearObjcClassPrefix(): void;
-  getObjcClassPrefix(): string;
+  getObjcClassPrefix(): string | undefined;
   setObjcClassPrefix(value: string): void;
 
   hasCsharpNamespace(): boolean;
   clearCsharpNamespace(): void;
-  getCsharpNamespace(): string;
+  getCsharpNamespace(): string | undefined;
   setCsharpNamespace(value: string): void;
 
   hasSwiftPrefix(): boolean;
   clearSwiftPrefix(): void;
-  getSwiftPrefix(): string;
+  getSwiftPrefix(): string | undefined;
   setSwiftPrefix(value: string): void;
+
+  hasPhpClassPrefix(): boolean;
+  clearPhpClassPrefix(): void;
+  getPhpClassPrefix(): string | undefined;
+  setPhpClassPrefix(value: string): void;
+
+  hasPhpNamespace(): boolean;
+  clearPhpNamespace(): void;
+  getPhpNamespace(): string | undefined;
+  setPhpNamespace(value: string): void;
+
+  hasPhpMetadataNamespace(): boolean;
+  clearPhpMetadataNamespace(): void;
+  getPhpMetadataNamespace(): string | undefined;
+  setPhpMetadataNamespace(value: string): void;
+
+  hasRubyPackage(): boolean;
+  clearRubyPackage(): void;
+  getRubyPackage(): string | undefined;
+  setRubyPackage(value: string): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FileOptions.AsObject;
@@ -630,11 +726,16 @@ export namespace FileOptions {
     ccGenericServices?: boolean,
     javaGenericServices?: boolean,
     pyGenericServices?: boolean,
+    phpGenericServices?: boolean,
     deprecated?: boolean,
     ccEnableArenas?: boolean,
     objcClassPrefix?: string,
     csharpNamespace?: string,
     swiftPrefix?: string,
+    phpClassPrefix?: string,
+    phpNamespace?: string,
+    phpMetadataNamespace?: string,
+    rubyPackage?: string,
     uninterpretedOptionList: Array<UninterpretedOption.AsObject>,
   }
 
@@ -648,28 +749,28 @@ export namespace FileOptions {
 export class MessageOptions extends jspb.Message {
   hasMessageSetWireFormat(): boolean;
   clearMessageSetWireFormat(): void;
-  getMessageSetWireFormat(): boolean;
+  getMessageSetWireFormat(): boolean | undefined;
   setMessageSetWireFormat(value: boolean): void;
 
   hasNoStandardDescriptorAccessor(): boolean;
   clearNoStandardDescriptorAccessor(): void;
-  getNoStandardDescriptorAccessor(): boolean;
+  getNoStandardDescriptorAccessor(): boolean | undefined;
   setNoStandardDescriptorAccessor(value: boolean): void;
 
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   hasMapEntry(): boolean;
   clearMapEntry(): void;
-  getMapEntry(): boolean;
+  getMapEntry(): boolean | undefined;
   setMapEntry(value: boolean): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MessageOptions.AsObject;
@@ -694,38 +795,38 @@ export namespace MessageOptions {
 export class FieldOptions extends jspb.Message {
   hasCtype(): boolean;
   clearCtype(): void;
-  getCtype(): FieldOptions.CType;
+  getCtype(): FieldOptions.CType | undefined;
   setCtype(value: FieldOptions.CType): void;
 
   hasPacked(): boolean;
   clearPacked(): void;
-  getPacked(): boolean;
+  getPacked(): boolean | undefined;
   setPacked(value: boolean): void;
 
   hasJstype(): boolean;
   clearJstype(): void;
-  getJstype(): FieldOptions.JSType;
+  getJstype(): FieldOptions.JSType | undefined;
   setJstype(value: FieldOptions.JSType): void;
 
   hasLazy(): boolean;
   clearLazy(): void;
-  getLazy(): boolean;
+  getLazy(): boolean | undefined;
   setLazy(value: boolean): void;
 
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   hasWeak(): boolean;
   clearWeak(): void;
-  getWeak(): boolean;
+  getWeak(): boolean | undefined;
   setWeak(value: boolean): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FieldOptions.AsObject;
@@ -765,7 +866,7 @@ export class OneofOptions extends jspb.Message {
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OneofOptions.AsObject;
@@ -786,18 +887,18 @@ export namespace OneofOptions {
 export class EnumOptions extends jspb.Message {
   hasAllowAlias(): boolean;
   clearAllowAlias(): void;
-  getAllowAlias(): boolean;
+  getAllowAlias(): boolean | undefined;
   setAllowAlias(value: boolean): void;
 
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EnumOptions.AsObject;
@@ -820,13 +921,13 @@ export namespace EnumOptions {
 export class EnumValueOptions extends jspb.Message {
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EnumValueOptions.AsObject;
@@ -848,13 +949,13 @@ export namespace EnumValueOptions {
 export class ServiceOptions extends jspb.Message {
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ServiceOptions.AsObject;
@@ -876,18 +977,18 @@ export namespace ServiceOptions {
 export class MethodOptions extends jspb.Message {
   hasDeprecated(): boolean;
   clearDeprecated(): void;
-  getDeprecated(): boolean;
+  getDeprecated(): boolean | undefined;
   setDeprecated(value: boolean): void;
 
   hasIdempotencyLevel(): boolean;
   clearIdempotencyLevel(): void;
-  getIdempotencyLevel(): MethodOptions.IdempotencyLevel;
+  getIdempotencyLevel(): MethodOptions.IdempotencyLevel | undefined;
   setIdempotencyLevel(value: MethodOptions.IdempotencyLevel): void;
 
   clearUninterpretedOptionList(): void;
   getUninterpretedOptionList(): Array<UninterpretedOption>;
   setUninterpretedOptionList(value: Array<UninterpretedOption>): void;
-  addUninterpretedOption(value?: UninterpretedOption, index?: number): void;
+  addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MethodOptions.AsObject;
@@ -917,26 +1018,26 @@ export class UninterpretedOption extends jspb.Message {
   clearNameList(): void;
   getNameList(): Array<UninterpretedOption.NamePart>;
   setNameList(value: Array<UninterpretedOption.NamePart>): void;
-  addName(value?: UninterpretedOption.NamePart, index?: number): void;
+  addName(value?: UninterpretedOption.NamePart, index?: number): UninterpretedOption.NamePart;
 
   hasIdentifierValue(): boolean;
   clearIdentifierValue(): void;
-  getIdentifierValue(): string;
+  getIdentifierValue(): string | undefined;
   setIdentifierValue(value: string): void;
 
   hasPositiveIntValue(): boolean;
   clearPositiveIntValue(): void;
-  getPositiveIntValue(): number;
+  getPositiveIntValue(): number | undefined;
   setPositiveIntValue(value: number): void;
 
   hasNegativeIntValue(): boolean;
   clearNegativeIntValue(): void;
-  getNegativeIntValue(): number;
+  getNegativeIntValue(): number | undefined;
   setNegativeIntValue(value: number): void;
 
   hasDoubleValue(): boolean;
   clearDoubleValue(): void;
-  getDoubleValue(): number;
+  getDoubleValue(): number | undefined;
   setDoubleValue(value: number): void;
 
   hasStringValue(): boolean;
@@ -948,7 +1049,7 @@ export class UninterpretedOption extends jspb.Message {
 
   hasAggregateValue(): boolean;
   clearAggregateValue(): void;
-  getAggregateValue(): string;
+  getAggregateValue(): string | undefined;
   setAggregateValue(value: string): void;
 
   serializeBinary(): Uint8Array;
@@ -975,12 +1076,12 @@ export namespace UninterpretedOption {
   export class NamePart extends jspb.Message {
     hasNamePart(): boolean;
     clearNamePart(): void;
-    getNamePart(): string;
+    getNamePart(): string | undefined;
     setNamePart(value: string): void;
 
     hasIsExtension(): boolean;
     clearIsExtension(): void;
-    getIsExtension(): boolean;
+    getIsExtension(): boolean | undefined;
     setIsExtension(value: boolean): void;
 
     serializeBinary(): Uint8Array;
@@ -1005,7 +1106,7 @@ export class SourceCodeInfo extends jspb.Message {
   clearLocationList(): void;
   getLocationList(): Array<SourceCodeInfo.Location>;
   setLocationList(value: Array<SourceCodeInfo.Location>): void;
-  addLocation(value?: SourceCodeInfo.Location, index?: number): void;
+  addLocation(value?: SourceCodeInfo.Location, index?: number): SourceCodeInfo.Location;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SourceCodeInfo.AsObject;
@@ -1026,27 +1127,27 @@ export namespace SourceCodeInfo {
     clearPathList(): void;
     getPathList(): Array<number>;
     setPathList(value: Array<number>): void;
-    addPath(value: number, index?: number): void;
+    addPath(value: number, index?: number): number;
 
     clearSpanList(): void;
     getSpanList(): Array<number>;
     setSpanList(value: Array<number>): void;
-    addSpan(value: number, index?: number): void;
+    addSpan(value: number, index?: number): number;
 
     hasLeadingComments(): boolean;
     clearLeadingComments(): void;
-    getLeadingComments(): string;
+    getLeadingComments(): string | undefined;
     setLeadingComments(value: string): void;
 
     hasTrailingComments(): boolean;
     clearTrailingComments(): void;
-    getTrailingComments(): string;
+    getTrailingComments(): string | undefined;
     setTrailingComments(value: string): void;
 
     clearLeadingDetachedCommentsList(): void;
     getLeadingDetachedCommentsList(): Array<string>;
     setLeadingDetachedCommentsList(value: Array<string>): void;
-    addLeadingDetachedComments(value: string, index?: number): void;
+    addLeadingDetachedComments(value: string, index?: number): string;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): Location.AsObject;
@@ -1073,7 +1174,7 @@ export class GeneratedCodeInfo extends jspb.Message {
   clearAnnotationList(): void;
   getAnnotationList(): Array<GeneratedCodeInfo.Annotation>;
   setAnnotationList(value: Array<GeneratedCodeInfo.Annotation>): void;
-  addAnnotation(value?: GeneratedCodeInfo.Annotation, index?: number): void;
+  addAnnotation(value?: GeneratedCodeInfo.Annotation, index?: number): GeneratedCodeInfo.Annotation;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GeneratedCodeInfo.AsObject;
@@ -1094,21 +1195,21 @@ export namespace GeneratedCodeInfo {
     clearPathList(): void;
     getPathList(): Array<number>;
     setPathList(value: Array<number>): void;
-    addPath(value: number, index?: number): void;
+    addPath(value: number, index?: number): number;
 
     hasSourceFile(): boolean;
     clearSourceFile(): void;
-    getSourceFile(): string;
+    getSourceFile(): string | undefined;
     setSourceFile(value: string): void;
 
     hasBegin(): boolean;
     clearBegin(): void;
-    getBegin(): number;
+    getBegin(): number | undefined;
     setBegin(value: number): void;
 
     hasEnd(): boolean;
     clearEnd(): void;
-    getEnd(): number;
+    getEnd(): number | undefined;
     setEnd(value: number): void;
 
     serializeBinary(): Uint8Array;
