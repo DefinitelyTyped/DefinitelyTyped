@@ -306,7 +306,7 @@ declare namespace math {
 
         /**
          * Parse and compile an expression. Returns a an object with a function
-         * eval([scope]) to evaluate the compiled expression.
+         * evaluate([scope]) to evaluate the compiled expression.
          * @param expr The expression to be compiled
          * @returns An object with the compiled expression
          */
@@ -2744,14 +2744,14 @@ declare namespace math {
         cloneDeep(): MathNode;
         /**
          * Compile an expression into optimized JavaScript code. compile returns
-         * an object with a function eval([scope]) to evaluate. Example:
+         * an object with a function evaluate([scope]) to evaluate. Example:
          */
         compile(): EvalFunction;
         /**
          * Compile and eval an expression, this is the equivalent of doing
-         * node.compile().eval(scope). Example:
+         * node.compile().evaluate(scope). Example:
          */
-        eval(expr?: any): any;
+        evaluate(expr?: any): any;
         /**
          * Test whether this node equals an other node. Does a deep comparison
          * of the values of both nodes.
@@ -2896,7 +2896,7 @@ declare namespace math {
     }
 
     interface Parser {
-        eval(expr: string): any;
+        evaluate(expr: string): any;
         get(variable: string): any;
         getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
@@ -3096,7 +3096,7 @@ declare namespace math {
 
         /**
          * Parse and compile an expression. Returns a an object with a function
-         * eval([scope]) to evaluate the compiled expression.
+         * evaluate([scope]) to evaluate the compiled expression.
          */
         compile(): MathJsChain;
 
@@ -3104,7 +3104,7 @@ declare namespace math {
          * Evaluate an expression.
          * @param scope Scope to read/write variables
          */
-        eval(scope?: object): MathJsChain;
+        evaluate(scope?: object): MathJsChain;
 
         /**
          * Retrieve help on a function or data type. Help files are retrieved
@@ -3114,7 +3114,7 @@ declare namespace math {
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
-         * invoking node.eval();
+         * invoking node.evaluate();
          * @param options Available options: nodes - a set of custome nodes
          */
         parse(options?: any): MathJsChain;

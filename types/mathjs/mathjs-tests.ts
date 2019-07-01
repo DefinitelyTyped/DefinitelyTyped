@@ -137,17 +137,13 @@ Expressions examples
 
 	// evaluate multiple expressions at once
 	{
-		math.evaluate([
-			'f = 3',
-			'g = 4',
-			'f * g'
-		]);
+		math.evaluate(['f = 3', 'g = 4', 'f * g']);
 	}
 
 	// scope can contain both variables and functions
 	{
 		const scope = { hello: (name: string) => `hello, ${name}!` };
-		math.evaluate('hello("hero")', scope);   // "hello, hero!"
+		math.evaluate('hello("hero")', scope); // "hello, hero!"
 	}
 
 	// define a function as an expression
@@ -180,10 +176,10 @@ Expressions examples
 
 	// get and set variables and functions
 	{
-        parser.eval('x = 7 / 2');               // 3.5
-     	parser.eval('x + 3');                   // 6.5
-        parser.eval('f(x, y) = x^y');           // f(x, y)
-        parser.eval('f(2, 3)');                 // 8
+		parser.evaluate('x = 7 / 2');               // 3.5
+		parser.evaluate('x + 3');                   // 6.5
+		parser.evaluate('f(x, y) = x^y');           // f(x, y)
+		parser.evaluate('f(2, 3)');                 // 8
 
 		const x = parser.get('x');
 		const f = parser.get('f');
