@@ -426,5 +426,9 @@ declare module "inquirer/lib/prompts/base" {
     export = Prompt;
 }
 
+declare module "inquirer/lib/prompts/checkbnox" {
+    export = CheckboxPrompt;
+}
+
 declare var inquirer: inquirer.Inquirer;
 export = inquirer;
