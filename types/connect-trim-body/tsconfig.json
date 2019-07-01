@@ -14,13 +14,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "dom-monkeypatch.d.ts",
-        "test/eventsource-dom.test.ts",
-        "test/eventsource-nodejs.test.ts",
-        "lib/eventsource-polyfill/index.d.ts"
+        "connect-trim-body-tests.ts"
     ]
 }

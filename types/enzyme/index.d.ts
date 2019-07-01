@@ -1,4 +1,4 @@
-// Type definitions for Enzyme 3.9
+// Type definitions for Enzyme 3.10
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
@@ -91,6 +91,16 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * Returns whether or not the current node has a className prop including the passed in class name.
      */
     hasClass(className: string | RegExp): boolean;
+
+    /**
+     * Invokes a function prop.
+     * @param invokePropName The function prop to call.
+     * @param ...args The argments to the invokePropName function
+     * @returns The value of the function.
+     */
+    invoke<K extends NonNullable<{
+        [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never
+    }[keyof P]>>(invokePropName: K): P[K];
 
     /**
      * Returns whether or not the current node matches a provided selector.
