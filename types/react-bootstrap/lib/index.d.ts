@@ -230,6 +230,8 @@ export {
     FormProps,
     FormControl,
     FormControlProps,
+    FormControlStatic,
+    FormControlStaticProps,
     FormGroup,
     FormGroupProps,
     Glyphicon,
