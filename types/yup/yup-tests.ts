@@ -679,6 +679,11 @@ castPerson.children = ['1', '2', '3'];
 castPerson.children = null;
 castPerson.children = undefined;
 
+const loginSchema = yup.object({
+    password: yup.string(),
+    confirmPassword: yup.string().nullable().oneOf([yup.ref("password"), null]),
+});
+
 function wrapper<T>(b: false, msx: MixedSchema<T>): MixedSchema<T>;
 function wrapper<T>(b: true, msx: MixedSchema<T>): MixedSchema<T | null>;
 
