@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-/// <reference lib="dom"/>
+// <reference lib="dom"/>
 
 interface PDFPromise<T> {
     isResolved(): boolean;
