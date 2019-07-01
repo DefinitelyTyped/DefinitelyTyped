@@ -685,3 +685,4 @@ declare namespace i18next {
 
 declare const i18next: i18next.i18n;
 export = i18next;
+export as namespace i18next;
