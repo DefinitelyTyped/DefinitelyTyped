@@ -221,13 +221,31 @@ var usersData: _.Dictionary<{ age: number; name: string }> = {
 };
 
 let youngPeopleId: string[] = _.chain(usersData)
-    .filter(p => p.age < 60)
     .map((p, k: string) => k)
     .value();
 
 let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
     .map<{ age: number; name: string; id: string }>((p, k: string) => {
         return { id: k, ...p };
+    })
+    .value();
+
+// Test map function with _ChainOfArrays<>
+let usersTable_2: { age: number; name: string; id: string }[][] = _.chain(usersData)
+    .map<{ age: number; name: string; id: string }>((p, k: string) => {
+        return [{ id: k, ...p }];
+    })
+    .value();
+
+let usersTable_3: { score: number; fullName: string; login: string }[][] = _.chain(usersTable)
+    .map<{ score: number; fullName: string; login: string }>(p => {
+        return [
+            {
+                login: p.id,
+                fullName: p.name,
+                score: p.age,
+            },
+        ];
     })
     .value();
 
