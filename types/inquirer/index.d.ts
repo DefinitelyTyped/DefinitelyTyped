@@ -188,6 +188,24 @@ declare namespace inquirer {
 
     export namespace prompts {
         /**
+         * Represents a prompt.
+         */
+        export interface PromptBase {
+            /**
+             * Gets or sets a string which represents the state of the prompt.
+             */
+            status: PromptState;
+
+            /**
+             * Runs the prompt.
+             *
+             * @returns
+             * The result of the prompt.
+             */
+            run(): Promise<any>;
+        }
+
+        /**
          * Represents the state of a prompt.
          */
         export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;

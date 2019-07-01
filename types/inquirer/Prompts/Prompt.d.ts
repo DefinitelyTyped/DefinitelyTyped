@@ -1,37 +1,36 @@
 import inquirer = require("..");
 import { Interface as ReadLineInterface } from "readline";
-import { IPrompt } from "./IPrompt";
 import { ScreenManager } from "../System/ScreenManager";
 import { Observable } from "rxjs";
 
 /**
  * Represents a prompt.
  */
-export declare class Prompt<TAnswers = inquirer.poll.Answers, TOptions = inquirer.poll.Question<TAnswers>> {
+export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
+    /**
+     * @inheritdoc
+     */
+    public status: inquirer.prompts.PromptState;
+
     /**
      * Gets or sets an object which contains the answers.
      */
-    public answers: TAnswers;
+    protected answers: inquirer.poll.Answers;
 
     /**
      * Gets or sets the options of the prompt.
      */
-    public opt: TOptions;
+    protected opt: TOptions;
 
     /**
      * Gets or sets an object for performing read from and write to the console.
      */
-    public rl: ReadLineInterface;
+    protected rl: ReadLineInterface;
 
     /**
      * Gets or sets an object for managing the console-screen.
      */
-    public screen: ScreenManager;
-
-    /**
-     * Gets or sets a string which represents the state of the prompt.
-     */
-    public status: inquirer.prompts.PromptState;
+    protected screen: ScreenManager;
 
     /**
      * Initializes a new instance of the `Prompt<T>` class.
@@ -45,13 +44,10 @@ export declare class Prompt<TAnswers = inquirer.poll.Answers, TOptions = inquire
      * @param answers
      * The answer-object.
      */
-    constructor(question: TOptions, readLine: ReadLineInterface, answers: TAnswers);
+    public constructor(question: TOptions, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
 
     /**
-     * Runs the prompt.
-     *
-     * @returns
-     * The result of the prompt.
+     * @inheritdoc
      */
     public run(): Promise<any>;
 
