@@ -8,7 +8,6 @@ import PluggableMap from '../PluggableMap';
 import View from '../View';
 import Control from './Control';
 
-export function render(mapEvent: MapEvent): void;
 export interface Options {
     className?: string;
     collapsed?: boolean;
@@ -38,3 +37,4 @@ export default class OverviewMap extends Control {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+export function render(mapEvent: MapEvent): void;

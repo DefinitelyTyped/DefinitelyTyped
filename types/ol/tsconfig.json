@@ -368,6 +368,7 @@
         "webgl/Shader.d.ts",
         "webgl/Vertex.d.ts",
         "WebGLMap.d.ts",
-        "xml.d.ts"
+        "xml.d.ts",
+        "ol-tests.ts"
     ]
 }

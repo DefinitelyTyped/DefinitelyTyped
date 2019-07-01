@@ -1,13 +1,13 @@
 import TextFeature from './TextFeature';
 
-export default class IGC extends TextFeature {
-    constructor(opt_options?: Options);
+export interface Options {
+    altitudeMode?: IGCZ | string;
 }
 export enum IGCZ {
     BAROMETRIC = 'barometric',
     GPS = 'gps',
     NONE = 'none',
 }
-export interface Options {
-    altitudeMode?: IGCZ | string;
+export default class IGC extends TextFeature {
+    constructor(opt_options?: Options);
 }

@@ -4,7 +4,7 @@ import Feature from '../../Feature';
 import Geometry from '../../geom/Geometry';
 import SimpleGeometry from '../../geom/SimpleGeometry';
 import { Transform } from '../../transform';
-import { FillStrokeState, DeclutterGroup } from '../canvas';
+import { DeclutterGroup, FillStrokeState } from '../canvas';
 import RenderFeature from '../Feature';
 import VectorContext from '../VectorContext';
 
@@ -38,6 +38,6 @@ export default class CanvasReplay extends VectorContext {
     replayImage_(context: CanvasRenderingContext2D, x: number, y: number, image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, anchorX: number, anchorY: number, declutterGroup: DeclutterGroup, height: number, opacity: number, originX: number, originY: number, rotation: number, scale: number, snapToPixel: boolean, width: number, padding: number[], fillInstruction: any[], strokeInstruction: any[]): void;
     replayTextBackground_(context: CanvasRenderingContext2D, p1: Coordinate, p2: Coordinate, p3: Coordinate, p4: Coordinate, fillInstruction: any[], strokeInstruction: any[]): void;
     reverseHitDetectionInstructions(): void;
-    updateFillStyle(state: FillStrokeState, createFill: ((this: CanvasReplay, p1: FillStrokeState, p2: Geometry | RenderFeature) => any[]), geometry: Geometry | RenderFeature): void;
-    updateStrokeStyle(state: FillStrokeState, applyStroke: ((this: CanvasReplay, p1: FillStrokeState) => void)): void;
+    updateFillStyle(state: FillStrokeState, createFill: ((this: CanvasReplay, p0: FillStrokeState, p1: (Geometry | RenderFeature)) => any[]), geometry: Geometry | RenderFeature): void;
+    updateStrokeStyle(state: FillStrokeState, applyStroke: ((this: CanvasReplay, p0: FillStrokeState) => void)): void;
 }

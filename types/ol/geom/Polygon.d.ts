@@ -9,10 +9,6 @@ import LinearRing from './LinearRing';
 import Point from './Point';
 import SimpleGeometry from './SimpleGeometry';
 
-export function circular(center: Coordinate, radius: number, opt_n?: number, opt_sphereRadius?: number): Polygon;
-export function fromCircle(circle: Circle, opt_sides?: number, opt_angle?: number): Polygon;
-export function fromExtent(extent: Extent): Polygon;
-export function makeRegular(polygon: Polygon, center: Coordinate, radius: number, opt_angle?: number): void;
 export default class Polygon extends SimpleGeometry {
     constructor(coordinates: Coordinate[][] | number[], opt_layout?: GeometryLayout, opt_ends?: number[]);
     appendLinearRing(linearRing: LinearRing): void;
@@ -34,3 +30,7 @@ export default class Polygon extends SimpleGeometry {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+export function circular(center: Coordinate, radius: number, opt_n?: number, opt_sphereRadius?: number): Polygon;
+export function fromCircle(circle: Circle, opt_sides?: number, opt_angle?: number): Polygon;
+export function fromExtent(extent: Extent): Polygon;
+export function makeRegular(polygon: Polygon, center: Coordinate, radius: number, opt_angle?: number): void;

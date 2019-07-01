@@ -9,7 +9,17 @@ import Projection from '../proj/Projection';
 import Source, { AttributionLike } from './Source';
 import State from './State';
 
-export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;
+export interface Options {
+    attributions?: AttributionLike;
+    projection?: ProjectionLike;
+    resolutions?: number[];
+    state?: State;
+}
+export enum ImageSourceEventType {
+    IMAGELOADSTART = 'imageloadstart',
+    IMAGELOADEND = 'imageloadend',
+    IMAGELOADERROR = 'imageloaderror',
+}
 export default class ImageSource extends Source {
     constructor(options: Options);
     protected findNearestResolution(resolution: number): number;
@@ -30,14 +40,4 @@ export class ImageSourceEvent extends Event {
     constructor(type: string, image: ImageWrapper);
     image: ImageWrapper;
 }
-export enum ImageSourceEventType {
-    IMAGELOADSTART = 'imageloadstart',
-    IMAGELOADEND = 'imageloadend',
-    IMAGELOADERROR = 'imageloaderror',
-}
-export interface Options {
-    attributions?: AttributionLike;
-    projection?: ProjectionLike;
-    resolutions?: number[];
-    state?: State;
-}
+export function defaultImageLoadFunction(image: ImageWrapper, src: string): void;

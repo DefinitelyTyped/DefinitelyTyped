@@ -8,15 +8,11 @@ import BaseObject, { ObjectEvent } from './Object';
 import { Pixel } from './pixel';
 import { ProjectionLike } from './proj';
 import Projection from './proj/Projection';
-import { Type as Type_2 } from './resolutionconstraint';
-import { Type as Type_1 } from './rotationconstraint';
+import { Type as Type_1 } from './resolutionconstraint';
+import { Type as Type_2 } from './rotationconstraint';
 import { Size } from './size';
 import ViewHint from './ViewHint';
 
-export function createCenterConstraint(options: ViewOptions): Type;
-export function createResolutionConstraint(options: ViewOptions): any;
-export function createRotationConstraint(options: ViewOptions): Type_1;
-export function isNoopAnimation(animation: Animation): boolean;
 export interface Animation {
     sourceCenter?: Coordinate;
     targetCenter?: Coordinate;
@@ -42,8 +38,8 @@ export interface AnimationOptions {
 }
 export interface Constraints {
     center: Type;
-    resolution: Type_2;
-    rotation: Type_1;
+    resolution: Type_1;
+    rotation: Type_2;
 }
 export interface FitOptions {
     size?: Size;
@@ -62,6 +58,22 @@ export interface State {
     resolution: number;
     rotation: number;
     zoom: number;
+}
+export interface ViewOptions {
+    center?: Coordinate;
+    constrainRotation?: boolean | number;
+    enableRotation?: boolean;
+    extent?: Extent;
+    maxResolution?: number;
+    minResolution?: number;
+    maxZoom?: number;
+    minZoom?: number;
+    projection?: ProjectionLike;
+    resolution?: number;
+    resolutions?: number[];
+    rotation?: number;
+    zoom?: number;
+    zoomFactor?: number;
 }
 export default class View extends BaseObject {
     constructor(opt_options?: ViewOptions);
@@ -126,19 +138,7 @@ export default class View extends BaseObject {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export interface ViewOptions {
-    center?: Coordinate;
-    constrainRotation?: boolean | number;
-    enableRotation?: boolean;
-    extent?: Extent;
-    maxResolution?: number;
-    minResolution?: number;
-    maxZoom?: number;
-    minZoom?: number;
-    projection?: ProjectionLike;
-    resolution?: number;
-    resolutions?: number[];
-    rotation?: number;
-    zoom?: number;
-    zoomFactor?: number;
-}
+export function createCenterConstraint(options: ViewOptions): Type;
+export function createResolutionConstraint(options: ViewOptions): any;
+export function createRotationConstraint(options: ViewOptions): Type_2;
+export function isNoopAnimation(animation: Animation): boolean;

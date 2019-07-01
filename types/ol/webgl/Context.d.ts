@@ -4,8 +4,6 @@ import WebGLFragment from './Fragment';
 import WebGLShader from './Shader';
 import WebGLVertex from './Vertex';
 
-export function createEmptyTexture(gl: WebGLRenderingContext, width: number, height: number, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
-export function createTexture(gl: WebGLRenderingContext, image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
 export interface BufferCacheEntry {
     buf: WebGLBuffer;
     buffer: WebGLBuffer;
@@ -23,3 +21,5 @@ export default class WebGLContext extends Disposable {
     handleWebGLContextRestored(): void;
     useProgram(program: WebGLProgram): boolean;
 }
+export function createEmptyTexture(gl: WebGLRenderingContext, width: number, height: number, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
+export function createTexture(gl: WebGLRenderingContext, image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;

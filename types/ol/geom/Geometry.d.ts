@@ -3,7 +3,7 @@ import { EventsKey } from '../events';
 import Event from '../events/Event';
 import { Extent } from '../extent';
 import BaseObject, { ObjectEvent } from '../Object';
-import { TransformFunction, ProjectionLike } from '../proj';
+import { ProjectionLike, TransformFunction } from '../proj';
 import GeometryType from './GeometryType';
 
 export default class Geometry extends BaseObject {

@@ -4,6 +4,13 @@ import Event from '../events/Event';
 import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
+export interface Options {
+    condition?: Condition;
+    duration?: number;
+    timeout?: number;
+    constrainResolution?: boolean;
+    useAnchor?: boolean;
+}
 export enum Mode {
     TRACKPAD = 'trackpad',
     WHEEL = 'wheel',
@@ -23,11 +30,4 @@ export default class MouseWheelZoom extends Interaction {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    condition?: Condition;
-    duration?: number;
-    timeout?: number;
-    constrainResolution?: boolean;
-    useAnchor?: boolean;
 }
