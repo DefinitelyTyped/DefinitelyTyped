@@ -72,7 +72,7 @@ declare namespace inquirer {
 
     export namespace poll {
         export interface Answers extends Record<string, any> {}
-        export interface Question<A = Answers> {
+        export interface Question<A extends Answers = Answers> {
             type?: string;
             /**
              * The name to use when storing the answer in the answers hash.
@@ -157,7 +157,7 @@ declare namespace inquirer {
             type: 'editor';
         }
 
-        export interface ChoiceOptions<A = Answers> extends ChoiceBase {
+        export interface ChoiceOptions<A extends Answers = Answers> extends ChoiceBase {
             name?: string;
             value?: any;
             short?: string;
@@ -167,7 +167,7 @@ declare namespace inquirer {
             disabled?: DynamicQuestionProperty<A, boolean | string>;
         }
 
-        export type DistinctChoice<A = Answers> = string | ChoiceOptions<A> | Separator;
+        export type DistinctChoice<A extends Answers = Answers> = string | ChoiceOptions<A> | Separator;
 
         export type DistinctQuestion<A extends Answers = Answers> =
             ListQuestion<A> |
