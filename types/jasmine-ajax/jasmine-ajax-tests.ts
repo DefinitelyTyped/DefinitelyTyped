@@ -523,9 +523,9 @@ describe('FakeRequest', () => {
 		request.open();
 		request.send('foo=bar&baz=quux');
 
-		this.parserInstance.and.returnValue('parsed');
+		this.parserInstance.and.returnValue({data: 'parsed'});
 
-		expect(request.data()).toBe('parsed');
+		expect(request.data()).toEqual({data: 'parsed'});
 	});
 
 	it('skips parsing if no data was sent', () => {

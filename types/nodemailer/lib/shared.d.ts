@@ -27,7 +27,7 @@ export interface ResolveHostnameValue {
   _cached?: true;
 }
 
-export function resolveHostname(options: ResolveHostnameValue, callback: (err: Error | null, value: ResolveHostnameValue) => void): void;
+export function resolveHostname(options: ResolveHostnameOptions | null | undefined, callback: (err: Error | null, value: ResolveHostnameValue) => void): void;
 
 /** Parses connection url to a structured configuration object */
 export function parseConnectionUrl(url: string): SMTPConnection.Options;

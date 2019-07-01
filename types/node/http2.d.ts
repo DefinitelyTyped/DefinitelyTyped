@@ -71,6 +71,7 @@ declare module "http2" {
          * indicating that no additional data should be received and the readable side of the Http2Stream will be closed.
          */
         readonly endAfterHeaders: boolean;
+        readonly id?: number;
         readonly pending: boolean;
         readonly rstCode: number;
         readonly sentHeaders: OutgoingHttpHeaders;

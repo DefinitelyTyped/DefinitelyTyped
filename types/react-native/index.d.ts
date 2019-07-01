@@ -9,7 +9,6 @@
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
@@ -21,6 +20,7 @@
 //                 Wojciech Tyczynski <https://github.com/tykus160>
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
+//                 Mike Martin <https://github.com/mcmar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -3300,6 +3300,11 @@ export interface ProgressBarAndroidProps extends ViewProps {
     progress?: number;
 
     /**
+     * Whether to show the ProgressBar (true, the default) or hide it (false).
+     */
+    animating?: boolean;
+
+    /**
      * Color of the progress bar.
      */
     color?: string;
@@ -3992,7 +3997,7 @@ export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
     static abortPrefetch?(requestId: number): void;
-    static queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    static queryCache?(urls: string[]): Promise<{[url: string]: "memory" | "disk" | "disk/memory"}>;
 
     /**
      * @see https://facebook.github.io/react-native/docs/image.html#resolveassetsource
@@ -4013,7 +4018,7 @@ export class ImageBackground extends ImageBackgroundBase {
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     prefetch(url: string): any;
     abortPrefetch?(requestId: number): void;
-    queryCache?(urls: string[]): Promise<Map<string, "memory" | "disk">>;
+    queryCache?(urls: string[]): Promise<{[url: string]: "memory" | "disk" | "disk/memory"}>;
 }
 
 export interface ViewToken {
@@ -4282,7 +4287,7 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
 export interface SectionBase<ItemT> {
-    data: ItemT[];
+    data: ReadonlyArray<ItemT>;
 
     key?: string;
 
@@ -4427,7 +4432,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * An array of objects with data for each section.
      */
-    sections: SectionListData<ItemT>[];
+    sections: ReadonlyArray<SectionListData<ItemT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -5315,7 +5320,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): T;
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T | NamedStyles<T>): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -7876,13 +7881,16 @@ type PresentLocalNotificationDetails = {
 };
 
 type ScheduleLocalNotificationDetails = {
-    fireDate: Date;
-    alertBody: string;
-    alertAction: string;
-    soundName?: string;
-    category?: string;
-    userInfo?: Object;
+    alertAction?: string;
+    alertBody?: string;
+    alertTitle?: string
     applicationIconBadgeNumber?: number;
+    category?: string;
+    fireDate?: number | string;
+    isSilent?: boolean;
+    repeatInterval?: 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute';
+    soundName?: string;
+    userInfo?: Object;
 };
 
 export type PushNotificationEventName = "notification" | "localNotification" | "register" | "registrationError";

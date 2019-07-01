@@ -28,6 +28,7 @@
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 //                 Brekk Bockrath <https://github.com/brekk>
+//                 Jituan Lin <https://github.com/jituanlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -785,6 +786,11 @@ declare namespace R {
         { [K in Exclude<keyof Primary, CommonPropsThatAreObjects<Primary, Secondary>>]: Primary[K] } &
         { [K in Exclude<keyof Secondary, CommonKeys<Primary, Secondary>>]: Secondary[K] };
 
+    interface AssocPartialOne<K extends keyof any> {
+        <T>(val: T): <U>(obj: U) => Record<K, T> & U;
+        <T, U>(val: T, obj: U): Record<K, T> & U;
+    }
+
     interface Static {
         /**
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
@@ -856,6 +862,10 @@ declare namespace R {
          */
         ap<T, U>(fns: Array<((a: T) => U)>, vs: ReadonlyArray<T>): U[];
         ap<T, U>(fns: Array<((a: T) => U)>): (vs: ReadonlyArray<T>) => U[];
+        ap<X0, X1, R>(
+            fn: (x1: X1, x0: X0) => R,
+            fn1: (x1: X1) => X0
+        ): (x1: X1) => R;
 
         /**
          * Returns a new list, composed of n-tuples of consecutive elements If n is greater than the length of the list,
@@ -914,7 +924,7 @@ declare namespace R {
         assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & U;
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
-        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
+        assoc<K extends string>(prop: K): AssocPartialOne<K>;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
@@ -959,6 +969,7 @@ declare namespace R {
          */
         chain<T, U>(fn: (n: T) => ReadonlyArray<U>, list: ReadonlyArray<T>): U[];
         chain<T, U>(fn: (n: T) => ReadonlyArray<U>): (list: ReadonlyArray<T>) => U[];
+        chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
         /**
          * Restricts a number to be within a range.
@@ -3131,6 +3142,8 @@ declare namespace R {
         // TODO: Dictionary<T> as a return value is to specific, any seems to loose
         zipObj<T>(keys: ReadonlyArray<string>, values: ReadonlyArray<T>): { [index: string]: T };
         zipObj(keys: ReadonlyArray<string>): <T>(values: ReadonlyArray<T>) => { [index: string]: T };
+        zipObj<T>(keys: ReadonlyArray<number>, values: ReadonlyArray<T>): { [index: number]: T };
+        zipObj(keys: ReadonlyArray<number>): <T>(values: ReadonlyArray<T>) => { [index: number]: T };
 
         /**
          * Creates a new list out of the two supplied by applying the function to each

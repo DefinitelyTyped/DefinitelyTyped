@@ -8,4 +8,4 @@ logger.info(''); // $ExpectType void
 logger.warn(''); // $ExpectType void
 logger.error(''); // $ExpectType void
 logger.fatal(''); // $ExpectType void
-new logger.Logger({}); // $ExpectType LoggerConfig
+new logger.Logger({}); // $ExpectType Logger

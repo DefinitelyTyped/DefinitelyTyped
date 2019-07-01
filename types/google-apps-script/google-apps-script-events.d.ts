@@ -1,6 +1,7 @@
 // Type definitions for Google Apps Script 2019-04-02
 // Project: https://developers.google.com/apps-script/
 // Definitions by: grant <https://github.com/grant/>
+//                 oshliaer <https://github.com/oshliaer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.script.d.ts" />
@@ -18,6 +19,21 @@ declare namespace GoogleAppsScript {
       authMode: Script.AuthMode,
       triggerUid: string,
       user: Base.User,
+    }
+
+    interface AppsScriptHttpRequestEvent {
+      parameter: object,
+      contextPath: string,
+      contentLength: number,
+      queryString: string,
+      parameters: object,
+    }
+
+    interface AppsScriptHttpRequestEventPostData {
+      length: number;
+      type: string;
+      contents: string;
+      name: string;
     }
 
     // External interfaces
@@ -62,6 +78,12 @@ declare namespace GoogleAppsScript {
 
     export interface AddonOnInstall {
       authMode: Script.AuthMode,
+    }
+
+    export interface DoGet extends AppsScriptHttpRequestEvent {}
+
+    export interface DoPost extends AppsScriptHttpRequestEvent {
+      postData: AppsScriptHttpRequestEventPostData,
     }
   }
 }

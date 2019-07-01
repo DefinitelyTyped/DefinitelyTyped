@@ -1,6 +1,7 @@
 // Type definitions for react-aria-modal 2.12
 // Project: https://github.com/davidtheclark/react-aria-modal#readme
 // Definitions by: forabi <https://github.com/forabi>
+//                 dkrk <https://github.com/grgr-dkrk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -165,6 +166,12 @@ export interface AriaModalProps {
     onExit(): any;
 }
 
-export default class AriaModal extends React.PureComponent<AriaModalProps> {
+/**
+ * This difinition is for require one parameter of 'titleId' or 'title' (and not both) on AriaModal props.
+ */
+export type RequiredAriaTypes<T = Pick<AriaModalProps, 'titleId'>, U = Pick<AriaModalProps, 'titleText'>> =
+    { [K in keyof T]-? : T[K] } & { [P in keyof U]: never} | { [X in keyof T]: never } & { [Y in keyof U]-?: U[Y]};
+
+export default class AriaModal extends React.PureComponent<AriaModalProps & RequiredAriaTypes> {
     static renderTo(node: HTMLElement | string): void;
 }

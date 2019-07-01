@@ -27,7 +27,7 @@ declare namespace GoogleAppsScript {
      *     constraint.setCoefficient('x', 2);
      */
     export interface LinearOptimizationConstraint {
-      setCoefficient(variableName: string, coefficient: Number): LinearOptimizationConstraint;
+      setCoefficient(variableName: string, coefficient: number): LinearOptimizationConstraint;
     }
 
     /**
@@ -83,17 +83,17 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface LinearOptimizationEngine {
-      addConstraint(lowerBound: Number, upperBound: Number): LinearOptimizationConstraint;
-      addConstraints(lowerBounds: Number[], upperBounds: Number[], variableNames: string[][], coefficients: Number[][]): LinearOptimizationEngine;
-      addVariable(name: string, lowerBound: Number, upperBound: Number): LinearOptimizationEngine;
-      addVariable(name: string, lowerBound: Number, upperBound: Number, type: VariableType): LinearOptimizationEngine;
-      addVariable(name: string, lowerBound: Number, upperBound: Number, type: VariableType, objectiveCoefficient: Number): LinearOptimizationEngine;
-      addVariables(names: string[], lowerBounds: Number[], upperBounds: Number[], types: VariableType[], objectiveCoefficients: Number[]): LinearOptimizationEngine;
+      addConstraint(lowerBound: number, upperBound: number): LinearOptimizationConstraint;
+      addConstraints(lowerBounds: number[], upperBounds: number[], variableNames: string[][], coefficients: number[][]): LinearOptimizationEngine;
+      addVariable(name: string, lowerBound: number, upperBound: number): LinearOptimizationEngine;
+      addVariable(name: string, lowerBound: number, upperBound: number, type: VariableType): LinearOptimizationEngine;
+      addVariable(name: string, lowerBound: number, upperBound: number, type: VariableType, objectiveCoefficient: number): LinearOptimizationEngine;
+      addVariables(names: string[], lowerBounds: number[], upperBounds: number[], types: VariableType[], objectiveCoefficients: number[]): LinearOptimizationEngine;
       setMaximization(): LinearOptimizationEngine;
       setMinimization(): LinearOptimizationEngine;
-      setObjectiveCoefficient(variableName: string, coefficient: Number): LinearOptimizationEngine;
+      setObjectiveCoefficient(variableName: string, coefficient: number): LinearOptimizationEngine;
       solve(): LinearOptimizationSolution;
-      solve(seconds: Number): LinearOptimizationSolution;
+      solve(seconds: number): LinearOptimizationSolution;
     }
 
     /**
@@ -207,9 +207,9 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface LinearOptimizationSolution {
-      getObjectiveValue(): Number;
+      getObjectiveValue(): number;
       getStatus(): Status;
-      getVariableValue(variableName: string): Number;
+      getVariableValue(variableName: string): number;
       isValid(): boolean;
     }
 

@@ -644,7 +644,7 @@ export const themeA: Theme = {
             letterSpacing: '0.2em'
         }
     },
-    zIndeces: [-1, 0, 1, 9999]
+    zIndices: [-1, 0, 1, 9999]
 };
 
 // Some properties can be formatted differently

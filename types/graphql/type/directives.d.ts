@@ -16,6 +16,7 @@ export class GraphQLDirective {
     name: string;
     description: Maybe<string>;
     locations: DirectiveLocationEnum[];
+    isRepeatable: boolean;
     args: GraphQLArgument[];
     astNode: Maybe<DirectiveDefinitionNode>;
 
@@ -31,6 +32,7 @@ export interface GraphQLDirectiveConfig {
     description?: Maybe<string>;
     locations: DirectiveLocationEnum[];
     args?: Maybe<GraphQLFieldConfigArgumentMap>;
+    isRepeatable?: Maybe<boolean>;
     astNode?: Maybe<DirectiveDefinitionNode>;
 }
 

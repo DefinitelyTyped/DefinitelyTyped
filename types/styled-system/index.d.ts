@@ -184,7 +184,7 @@ export interface Theme extends BaseTheme {
     shadows?: ObjectOrArray<CSS.BoxShadowProperty>;
     sizes?: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
     textStyles?: ObjectOrArray<CSS.StandardProperties>;
-    zIndeces?: ObjectOrArray<CSS.ZIndexProperty>;
+    zIndices?: ObjectOrArray<CSS.ZIndexProperty>;
 }
 
 /**
