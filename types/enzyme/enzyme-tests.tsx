@@ -40,6 +40,11 @@ interface MyRenderPropProps {
     children: (params: string) => ReactNode;
 }
 
+interface MyProviderProps {
+    children: ReactElement | ReactElement[];
+    value: string;
+}
+
 function toComponentType<T>(Component: ComponentClass<T> | StatelessComponent<T>): ComponentClass<T> | StatelessComponent<T> {
   return Component;
 }
@@ -528,6 +533,23 @@ function ShallowWrapperTest() {
     function test_renderProp() {
         let shallowWrapper = new ShallowWrapper<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />);
         shallowWrapper = shallowWrapper.renderProp('children')('test');
+    }
+
+    function test_getWrappingComponent() {
+        const MyContext = React.createContext('test');
+        function MyProvider(props: MyProviderProps) {
+            const { children, value } = props;
+            return (
+                <MyContext.Provider value={value}>
+                    {children}
+                </MyContext.Provider>
+              );
+        }
+        const shallowWrapper = shallow<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />, {
+            wrappingComponent: MyProvider,
+        });
+        const provider = shallowWrapper.getWrappingComponent();
+        provider.setProps({ value: 'test new' });
     }
 }
 
