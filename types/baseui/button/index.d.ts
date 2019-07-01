@@ -10,9 +10,9 @@ export interface KIND {
 }
 
 export interface SIZE {
+  compact: 'compact';
   default: 'default';
-  round: 'round';
-  square: 'square';
+  large: 'large';
 }
 
 export interface SHAPE {
