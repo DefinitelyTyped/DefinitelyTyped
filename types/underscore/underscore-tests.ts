@@ -231,13 +231,13 @@ let usersTable: { age: number; name: string; id: string }[] = _.chain(usersData)
     .value();
 
 // Test map function with _ChainOfArrays<>
-let usersTable_2: { age: number; name: string; id: string }[][] = _.chain(usersData)
+let usersTable_2 /*: { age: number; name: string; id: string }[][]*/ = _.chain(usersData)
     .map<{ age: number; name: string; id: string }>((p, k: string) => {
         return [{ id: k, ...p }];
     })
     .value();
 
-let usersTable_3: { score: number; fullName: string; login: string }[][] = _.chain(usersTable)
+let usersTable_3 /*: { score: number; fullName: string; login: string }[][]*/ = _.chain(usersTable)
     .map<{ score: number; fullName: string; login: string }>(p => {
         return [
             {
