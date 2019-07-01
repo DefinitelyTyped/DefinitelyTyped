@@ -17,6 +17,7 @@
 //                 Adrián Caballero <https://github.com/adripanico>
 //                 wertzui <https://github.com/wertzui>
 //                 Martin Trobäck <https://github.com/lekoaf>
+//                 Adithya Sreyaj<https://github.com/adisreyaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
