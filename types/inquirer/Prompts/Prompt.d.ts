@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 /**
  * Represents a prompt.
  */
-export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
+export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answers>, TAnswer = any> implements inquirer.prompts.PromptBase {
     /**
      * @inheritdoc
      */
@@ -49,7 +49,7 @@ export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answ
     /**
      * @inheritdoc
      */
-    public run(): Promise<any>;
+    public run(): Promise<TAnswer>;
 
     /**
      * Runs the prompt.
@@ -57,7 +57,7 @@ export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answ
      * @param callback
      * The callback for resolving the result.
      */
-    protected _run(callback: (value: any) => void): void;
+    protected _run(callback: (value: TAnswer) => void): void;
 
     /**
      * Throws an error for a missing param.
