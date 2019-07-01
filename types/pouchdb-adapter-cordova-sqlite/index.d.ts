@@ -1,4 +1,4 @@
-// Type definitions for pouchdb-adapter-sqlite 2.0.0
+// Type definitions for pouchdb-adapter-sqlite 1.0
 // Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb, https://github.com/pouchdb-community/pouchdb-adapter-cordova-sqlite
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>, Matthew Paul <https://github.com/coffeymatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
