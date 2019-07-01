@@ -1,11 +1,14 @@
-// Type definitions for mailgun-js 0.16
+// Type definitions for mailgun-js 0.22
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
 //                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Jiri Balcar <https://github.com/JiriBalcar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
+
+import * as FormData from 'form-data';
 
 declare const Mailgun: Mailgun.MailgunExport;
 export = Mailgun;
@@ -28,6 +31,20 @@ declare namespace Mailgun {
                   interval: number;
               };
         proxy?: string;
+        testMode?: boolean;
+        testModeLogger?: (httpOptions: LoggerHttpOptions, payload: string, form: FormData) => void;
+    }
+
+    interface LoggerHttpOptions {
+        hostname: string;
+        port: number;
+        protocol: string;
+        path: string;
+        method: string;
+        headers: any;
+        auth: string;
+        agent: false;
+        timeout: number;
     }
 
     interface Error {
@@ -88,7 +105,7 @@ declare namespace Mailgun {
         }
 
         interface BatchData extends SendData {
-            "recipient-variables"?: BatchSendRecipientVars;
+            'recipient-variables'?: BatchSendRecipientVars;
         }
 
         interface BatchSendRecipientVars {

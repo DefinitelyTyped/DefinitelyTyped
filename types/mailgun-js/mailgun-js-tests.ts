@@ -1,6 +1,8 @@
 import * as mailgunFactory from "mailgun-js";
 import mailgunFactory2 = require('mailgun-js');
 
+import * as FormData from 'form-data';
+
 const mailgun = new mailgunFactory({
     apiKey: "auth.api_key",
     domain: "auth.domain"
@@ -9,6 +11,17 @@ const mailgun = new mailgunFactory({
 const mailgun2 = new mailgunFactory2({
     apiKey: "auth.api_key",
     domain: "auth.domain"
+});
+
+const logger = (httpOptions: mailgunFactory.LoggerHttpOptions, payload: string, form: FormData) => {};
+
+const mailgun3 = new mailgunFactory2({
+    apiKey: 'auth.api_key',
+    domain: 'auth.domain',
+
+    testMode: true,
+
+    testModeLogger: logger,
 });
 
 mailgun.messages().send(
