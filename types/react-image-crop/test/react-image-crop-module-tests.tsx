@@ -41,8 +41,10 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 50,
+                    unit: "px",
                 },
-                image,
+                image.width,
+                image.height,
             ),
         });
     }
@@ -75,8 +77,10 @@ class CompleteTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 20,
+                    unit: "px",
                 },
-                image,
+                image.width,
+                image.height,
             ),
         });
     }

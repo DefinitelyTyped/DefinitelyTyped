@@ -10,11 +10,12 @@ import {
     Position,
     SpatialReferenceWkid
 } from 'arcgis-rest-api';
-import { ReadOptions, WriteOptions } from 'ol/format/Feature';
-import JSONFeature from 'ol/format/JSONFeature';
-import Geometry_1 from 'ol/geom/Geometry';
-import GeometryLayout from 'ol/geom/GeometryLayout';
-import SimpleGeometry from 'ol/geom/SimpleGeometry';
+import Geometry_1 from '../geom/Geometry';
+import GeometryLayout from '../geom/GeometryLayout';
+import SimpleGeometry from '../geom/SimpleGeometry';
+import { ReadOptions, WriteOptions } from './Feature';
+import JSONFeature from './JSONFeature';
+
 export default class EsriJSON extends JSONFeature {
     constructor(opt_options?: Options);
 }

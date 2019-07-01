@@ -1,6 +1,7 @@
-import { Coordinate } from 'ol/coordinate';
-import Geometry from 'ol/geom/Geometry';
-import { ProjectionLike } from 'ol/proj';
+import { Coordinate } from './coordinate';
+import Geometry from './geom/Geometry';
+import { ProjectionLike } from './proj';
+
 export function getArea(geometry: Geometry, opt_options?: SphereMetricOptions): number;
 export function getDistance(c1: any[], c2: any[], opt_radius?: number): number;
 export function getLength(geometry: Geometry, opt_options?: SphereMetricOptions): number;

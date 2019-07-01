@@ -47,7 +47,7 @@ export interface RequestInit {
     signal?: AbortSignal | null;
 
     // node-fetch extensions
-    agent?: Agent; // =null http.Agent instance, allows custom proxy, certificate etc.
+    agent?: Agent | ((parsedUrl: URL) => Agent); // =null http.Agent instance, allows custom proxy, certificate etc.
     compress?: boolean; // =true support gzip/deflate content encoding. false to disable
     follow?: number; // =20 maximum redirect count. 0 to not follow redirect
     size?: number; // =0 maximum response body size in bytes. 0 to disable

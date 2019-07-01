@@ -22,6 +22,7 @@
 //                 Gokul Chandrasekaran <https://github.com/gokulchandra>
 //                 Jamie Davies <https://github.com/viralpickaxe>
 //                 Christopher Eck <https://github.com/chrisleck>
+//                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -53,6 +54,7 @@ declare class Stripe {
     accounts: Stripe.resources.Accounts;
     balance: Stripe.resources.Balance;
     charges: Stripe.resources.Charges;
+    checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
     customers: Stripe.resources.Customers;
     disputes: Stripe.resources.Disputes;
@@ -803,13 +805,13 @@ declare namespace Stripe {
             last_name?: string;
 
             /**
-             * The Kana varation of the individual’s last name (Japan only).
+             * The Kana variation of the individual’s last name (Japan only).
              * This can be unset by updating the value to null and then saving.
              */
             last_name_kana?: string;
 
             /**
-             * The Kanji varation of the individual’s last name (Japan only).
+             * The Kanji variation of the individual’s last name (Japan only).
              * This can be unset by updating the value to null and then saving.
              */
             last_name_kanji?: string;
@@ -1742,6 +1744,176 @@ declare namespace Stripe {
         }
     }
 
+    namespace checkouts {
+        namespace sessions {
+            interface ICheckoutSession {
+                /**
+                 * Unique ID for checkout session to pass to `redirectToCheckout` in Stripe.js
+                 */
+                id: string;
+
+                /**
+                 * String of object type. Is always 'checkout.session'
+                 */
+                object: string;
+
+                /**
+                 * Whether or not billing address was collected
+                 */
+                billing_address_collection?: string;
+
+                /**
+                 * URL the customer will be redirected to upon cancellation
+                 */
+                cancel_url: string;
+
+                /**
+                 * Unique reference to session
+                 */
+                client_reference_id?: string;
+
+                /**
+                 * ID of customer
+                 */
+                customer?: string;
+
+                /**
+                 * Email address of customer
+                 */
+                customer_email?: string;
+
+                /**
+                 * The line items purchased
+                 */
+                display_items: ICheckoutLineItems[];
+
+                /**
+                 * If the object is in live mode or not
+                 */
+                livemode: boolean;
+
+                /**
+                 * Language tag of the checkout session
+                 */
+                locale?: string;
+
+                /**
+                 * ID of payment intent created
+                 */
+                payment_intent?: string;
+
+                /**
+                 * Array of accepted payment methods
+                 */
+                payment_method_types?: string[];
+
+                /**
+                 * ID of subscription if one was created
+                 */
+                subscription?: string;
+
+                /**
+                 * URL to redirect to upon success
+                 */
+                success_url: string;
+            }
+
+            interface ICheckoutCreationOptions {
+                /**
+                 * The URL to return the customer to if they cancel payment
+                 */
+                cancel_url: string;
+
+                /**
+                 * A list of accepted payment types.
+                 * 'card' is currently the only supported options
+                 */
+                payment_method_types: string[];
+
+                /**
+                 * The url to return to upon successful payment
+                 */
+                success_url: string;
+
+                /**
+                 * Whether to collect shipping info.
+                 * If 'required', info will always be collected.
+                 * When 'auto' or not specified, info will be collected when required
+                 */
+                billing_address_collection?: 'required' | 'auto';
+
+                /**
+                 * An optional unique ID to associate with the checkout
+                 */
+
+                client_reference_id?: string;
+
+                /**
+                 * Must be used with @param line_items
+                 * ID of existing customer to use
+                 */
+                customer?: string;
+
+                /**
+                 * Email of the customer
+                 */
+                customer_email?: string;
+
+                /**
+                 * A list of items the customer is purchasing. One-time.
+                 */
+                line_items?: ICheckoutLineItems[];
+
+                /**
+                 * Language to use. If 'auto' or not specified, browser default is used
+                 */
+                locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'nb' | 'nl' | 'pl' | 'pt' | 'sv' | 'zh';
+
+                /**
+                 * Details for creation of payment intent
+                 */
+                payment_intent_data?: paymentIntents.IPaymentIntentCaptureOptions;
+
+                /**
+                 * Use instead of @param line_items when using a subscription
+                 */
+                subscription_data?: subscriptions.ISubscription;
+            }
+
+            interface ICheckoutLineItems {
+                /**
+                 * Amount to be collected per unit of item
+                 */
+                amount: number;
+
+                /**
+                 * Currency to collect payment in
+                 */
+                currency: string;
+
+                /**
+                 * The name of the item
+                 */
+                name: string;
+
+                /**
+                 * The amount of item being purchased
+                 */
+                quantity: number;
+
+                /**
+                 * An optional description for the item
+                 */
+                description?: string;
+
+                /**
+                 * A list of images for the item
+                 */
+                images?: string[];
+            }
+        }
+    }
+
     namespace customers {
         /**
          * Customer objects allow you to perform recurring charges and track multiple charges that are associated
@@ -2102,7 +2274,7 @@ declare namespace Stripe {
             access_activity_log?: string;
 
             /**
-             * The billing addess provided by the customer.
+             * The billing address provided by the customer.
              */
             billing_address?: string;
 
@@ -3434,7 +3606,7 @@ declare namespace Stripe {
              */
             selected_shipping_method?: string;
 
-            status: OrderStatus;
+            status?: OrderStatus;
         }
 
         interface IOrderPayOptions extends IDataOptionsWithMetadata {
@@ -3963,6 +4135,11 @@ declare namespace Stripe {
             currency: string;
 
             /**
+             * The ID of the payment method used to pay
+             */
+            payment_method?: string;
+
+            /**
              * The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
              */
             payment_method_types: string[];
@@ -3981,6 +4158,11 @@ declare namespace Stripe {
              * Attempt to confirm this PaymentIntent immediately. If the payment method attached is a card, a return_url must be provided in case additional authentication is required.
              */
             confirm?: boolean;
+
+            /**
+             * Whether to use the publishable key automatic method, or the secret key manual method
+             */
+            confirmation_method?: 'automatic' | 'manual';
 
             /**
              * ID of the customer this PaymentIntent is for if one exists.
@@ -4024,11 +4206,6 @@ declare namespace Stripe {
              * Shipping information for this PaymentIntent.
              */
             shipping?: IShippingInformation;
-
-            /**
-             * ID of the Source object to attach to this PaymentIntent.
-             */
-            source?: string;
 
             /**
              * Extra information about a PaymentIntent. This will appear on your customer’s statement when this PaymentIntent succeeds in creating a charge.
@@ -6104,9 +6281,9 @@ declare namespace Stripe {
 
             /**
              * The code of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that
-             * particular subscription.
+             * particular subscription.  Passing null will remove any coupon previously applied to a subscription.
              */
-            coupon?: string;
+            coupon?: string | null;
 
             /**
              * @deprecated Use items property instead.
@@ -6229,6 +6406,22 @@ declare namespace Stripe {
              * Quantity for this item.
              */
             quantity?: number;
+
+            /**
+             * Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period.
+             */
+            billing_thresholds?: {
+                /**
+                 * Usage threshold that triggers the subscription to create an invoice
+                 */
+                usage_gte: number;
+            };
+
+            /**
+             * A set of key/value pairs that you can attach to an object. It can be useful for storing
+             * additional information about the object in a structured format.
+             */
+            metadata?: IOptionsMetadata;
         }
 
         interface ISubscriptionUpdateItem {
@@ -7000,8 +7193,8 @@ declare namespace Stripe {
              * By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details
              * about a specific refund stored on the application fee.
              */
-            retreiveRefund(feeId: string, refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
-            retreiveRefund(feeId: string, refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieveRefund(feeId: string, refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieveRefund(feeId: string, refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
 
             /**
              * Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left
@@ -7108,6 +7301,15 @@ declare namespace Stripe {
             getMetadata(): void; // TODO: Implement placeholder method
         }
 
+        class Checkout extends StripeResource {
+            sessions: Sessions;
+        }
+
+        class Sessions extends StripeResource {
+            create(data: checkouts.sessions.ICheckoutCreationOptions, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
+            retrieve(data: string, response?: IResponseFn<checkouts.sessions.ICheckoutSession>): Promise<checkouts.sessions.ICheckoutSession>;
+        }
+
         class Charges extends StripeResource {
             /**
              * To charge a credit card, you create a charge object. If your API key is in test mode, the supplied card won't actually be charged, though
@@ -7140,7 +7342,7 @@ declare namespace Stripe {
 
             /**
              * Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-             * This request accepts only the description, metadata, receipt_emailand fraud_details as arguments.
+             * This request accepts only the description, metadata, receipt_email and fraud_details as arguments.
              *
              * @param id The identifier of the charge to be updated
              * @param data An object containing the updated properties.

@@ -1420,6 +1420,7 @@ declare namespace jest {
         runTestsByPath?: boolean;
         scriptPreprocessor?: string;
         setupFiles?: Path[];
+        setupFilesAfterEnv?: Path[];
         setupTestFrameworkScriptFile?: Path;
         silent?: boolean;
         skipFilter?: boolean;

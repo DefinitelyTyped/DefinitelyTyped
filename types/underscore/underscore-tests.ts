@@ -347,6 +347,19 @@ _.pick({ name: 'moe', age: 50, userid: 'moe1' }, (value, key) => {
     return key === 'name' || key === 'age';
 }).age = 5;
 
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').age = 5;
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).age = 5;
+_({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
+    return key === 'name' || key === 'age';
+}).age = 5;
+
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick('name', 'age').value().age = 5;
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick(['name', 'age']).value().age = 5;
+_.chain({ name: 'moe', age: 50, userid: 'moe1' }).pick((value, key) => {
+    return key === 'name' || key === 'age';
+}).value().age = 5;
+
+
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
@@ -394,7 +407,7 @@ _.isObject(1);
 
 _.property('name')(moe);
 _.property(['name'])(moe);
-
+_.property(['luckyNumbers', 2])(moe)
 
 // (() => { return _.isArguments(arguments); })(1, 2, 3);
 _.isArguments([1, 2, 3]);
@@ -503,8 +516,6 @@ _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 
 
 _.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
-_(['test', 'test']).pick(['test2', 'test2']);
-
 //////////////// Chain Tests
 function chain_tests() {
 	// https://typescript.codeplex.com/workitem/1960
@@ -561,6 +572,13 @@ function chain_tests() {
     let valuePerYear: number[] = _.chain(yearObject)
         .values()
         .value()
+
+    const arr1: string[] = ['z', 'x', 'y'], query = 'z';
+    let arr2: string[] = ['a', 'b', 'c'];
+    arr2 = _.chain(arr1)
+        .union(arr2)
+        .without(query)
+        .value();
 }
 
 var obj: { [k: string] : number } = {

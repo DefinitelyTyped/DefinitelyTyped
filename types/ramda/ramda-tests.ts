@@ -723,6 +723,11 @@ R.times(i, 5);
 
     R.chain(duplicate, [1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
     R.chain(duplicate)([1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
+    const result1: number[] = R.chain<number, number[], number[]>(R.append, R.head)([
+        1,
+        2,
+        3
+    ]); // => [1, 2, 3, 1]
 };
 
 () => {
@@ -1611,6 +1616,7 @@ type Pair = KeyValuePair<string, number>;
 () => {
     type ABC = Record<string, string>;
     const b: ABC = R.compose(R.assoc, R.toString)(3)("c", {1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
+    const c: ABC = R.compose(R.assoc, R.toString)(3)("c")({1: "a", 2: "b"}); // => {1: "a", 2: "b", 3: "c"}
 };
 
 () => {
@@ -2197,6 +2203,7 @@ class Rectangle {
 () => {
     const x: number[] = R.ap([R.multiply(2), R.add(3)], [1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
     const y: number[] = R.ap([R.multiply(2), R.add(3)])([1, 2, 3]); // => [2, 4, 6, 4, 5, 6]
+    const z: string = R.ap<string, string, string>(R.concat, R.toUpper)('Ramda'); // => 'RamdaRAMDA'
 };
 
 () => {

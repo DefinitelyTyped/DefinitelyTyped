@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "jsx": "preserve",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@wordpress/blocks": ["wordpress__blocks"],
+            "@wordpress/components": ["wordpress__components"],
+            "@wordpress/data": ["wordpress__data"],
+            "@wordpress/element": ["wordpress__element"],
+            "@wordpress/rich-text": ["wordpress__rich-text"]
+        }
+    },
+    "files": [
+        "api/categories.d.ts",
+        "api/children.d.ts",
+        "api/factory.d.ts",
+        "api/index.d.ts",
+        "api/node.d.ts",
+        "api/parser.d.ts",
+        "api/raw-handling.d.ts",
+        "api/registration.d.ts",
+        "api/serializer.d.ts",
+        "api/templates.d.ts",
+        "api/utils.d.ts",
+        "api/validation.d.ts",
+        "block-content-provider.d.ts",
+        "index.d.ts",
+        "store/actions.d.ts",
+        "store/selectors.d.ts",
+        "wordpress__blocks-tests.tsx"
+    ]
+}

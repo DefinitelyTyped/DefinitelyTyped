@@ -176,23 +176,23 @@ interface IToSVGOptions {
 	/**
 	 * If true xml tag is not included
 	 */
-	suppressPreamble: boolean;
+	suppressPreamble?: boolean;
 	/**
 	 * SVG viewbox object
 	 */
-	viewBox: IViewBox;
+	viewBox?: IViewBox;
 	/**
 	 * Encoding of SVG output
 	 */
-	encoding: string;
+	encoding?: string;
 	/**
 	 * desired width of svg with or without units
 	 */
-	width: number;
+	width?: number;
 	/**
 	 * desired height of svg with or without units
 	 */
-	height: number;
+	height?: number;
 }
 
 interface IViewBox {
@@ -1386,6 +1386,13 @@ export class StaticCanvas {
 	 * @return {String} json string
 	 */
 	toDatalessJSON(propertiesToInclude?: string[]): string;
+
+    /**
+     * Returns JSON representation of canvas
+     * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
+     * @return {String} JSON string
+     */
+    toJSON(propertiesToInclude?: string[]): string;
 
 	/**
 	 * Returns object representation of canvas

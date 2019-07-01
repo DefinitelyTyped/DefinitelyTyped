@@ -510,8 +510,8 @@ let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
 	...cameraOpts,
 }
 
-expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike));
-expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
+expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike));
+expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
 
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));
@@ -812,3 +812,4 @@ expectType<mapboxgl.Expression>([
 	['concat', ['get', 'name'], '\n'], {},
 	['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }]
 ]);
+expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);

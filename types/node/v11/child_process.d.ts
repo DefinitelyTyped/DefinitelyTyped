@@ -310,8 +310,8 @@ declare module "child_process" {
         output: string[];
         stdout: T;
         stderr: T;
-        status: number;
-        signal: string;
+        status: number | null;
+        signal: string | null;
         error?: Error;
     }
     function spawnSync(command: string): SpawnSyncReturns<Buffer>;

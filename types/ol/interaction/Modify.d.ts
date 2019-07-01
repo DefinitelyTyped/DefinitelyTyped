@@ -1,17 +1,18 @@
-import Collection from 'ol/Collection';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import { Condition } from 'ol/events/condition';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import Feature from 'ol/Feature';
-import SimpleGeometry from 'ol/geom/SimpleGeometry';
-import PointerInteraction from 'ol/interaction/Pointer';
-import VectorLayer from 'ol/layer/Vector';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import { ObjectEvent } from 'ol/Object';
-import VectorSource from 'ol/source/Vector';
-import { StyleFunction, StyleLike } from 'ol/style/Style';
+import Collection from '../Collection';
+import { Coordinate } from '../coordinate';
+import { EventsKey } from '../events';
+import { Condition } from '../events/condition';
+import Event from '../events/Event';
+import { Extent } from '../extent';
+import Feature from '../Feature';
+import SimpleGeometry from '../geom/SimpleGeometry';
+import VectorLayer from '../layer/Vector';
+import MapBrowserEvent from '../MapBrowserEvent';
+import { ObjectEvent } from '../Object';
+import VectorSource from '../source/Vector';
+import { StyleFunction, StyleLike } from '../style/Style';
+import PointerInteraction from './Pointer';
+
 export class ModifyEvent extends Event {
     constructor();
     features: Collection<Feature>;
@@ -21,9 +22,9 @@ export default class Modify extends PointerInteraction {
     constructor(options: Options);
     getOverlay(): VectorLayer;
     removePoint(): boolean;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

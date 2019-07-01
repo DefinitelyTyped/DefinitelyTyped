@@ -507,6 +507,14 @@ test = (
   </VictoryGroup>
 );
 
+test = (
+  <VictoryGroup color="#46c85e" offset={40} data={commonData2}>
+    <VictoryBar />
+    <VictoryBar />
+    <VictoryBar />
+  </VictoryGroup>
+);
+
 // VictoryLine test
 test = (
   <VictoryLine

@@ -1,19 +1,20 @@
-import { Type } from 'ol/centerconstraint';
-import { Coordinate } from 'ol/coordinate';
-import { EventsKey } from 'ol/events';
-import Event from 'ol/events/Event';
-import { Extent } from 'ol/extent';
-import SimpleGeometry from 'ol/geom/SimpleGeometry';
-import BaseObject, { ObjectEvent } from 'ol/Object';
-import { Pixel } from 'ol/pixel';
-import { ProjectionLike } from 'ol/proj';
-import Projection from 'ol/proj/Projection';
-import { Type as Type_2 } from 'ol/resolutionconstraint';
-import { Type as Type_1 } from 'ol/rotationconstraint';
-import { Size } from 'ol/size';
-import ViewHint from 'ol/ViewHint';
+import { Type } from './centerconstraint';
+import { Coordinate } from './coordinate';
+import { EventsKey } from './events';
+import Event from './events/Event';
+import { Extent } from './extent';
+import SimpleGeometry from './geom/SimpleGeometry';
+import BaseObject, { ObjectEvent } from './Object';
+import { Pixel } from './pixel';
+import { ProjectionLike } from './proj';
+import Projection from './proj/Projection';
+import { Type as Type_2 } from './resolutionconstraint';
+import { Type as Type_1 } from './rotationconstraint';
+import { Size } from './size';
+import ViewHint from './ViewHint';
+
 export function createCenterConstraint(options: ViewOptions): Type;
-export function createResolutionConstraint(options: ViewOptions): { [key: string]: any };
+export function createResolutionConstraint(options: ViewOptions): any;
 export function createRotationConstraint(options: ViewOptions): Type_1;
 export function isNoopAnimation(animation: Animation): boolean;
 export interface Animation {
@@ -27,8 +28,8 @@ export interface Animation {
     start: number;
     duration: number;
     complete: boolean;
-    easing: ((param0: number) => number);
-    callback: ((param0: boolean) => void);
+    easing: ((p0: number) => number);
+    callback: ((p0: boolean) => void);
 }
 export interface AnimationOptions {
     center?: Coordinate;
@@ -37,7 +38,7 @@ export interface AnimationOptions {
     rotation?: number;
     anchor?: Coordinate;
     duration?: number;
-    easing?: ((param0: number) => number);
+    easing?: ((p0: number) => number);
 }
 export interface Constraints {
     center: Type;
@@ -52,8 +53,8 @@ export interface FitOptions {
     minResolution?: number;
     maxZoom?: number;
     duration?: number;
-    easing?: ((param0: number) => number);
-    callback?: ((param0: boolean) => void);
+    easing?: ((p0: number) => number);
+    callback?: ((p0: boolean) => void);
 }
 export interface State {
     center: Coordinate;
@@ -64,8 +65,8 @@ export interface State {
 }
 export default class View extends BaseObject {
     constructor(opt_options?: ViewOptions);
-    getResolution(): number;
-    animate(...var_args: (AnimationOptions | ((param0: boolean) => void))[]): void;
+    animate(...var_args: (AnimationOptions | ((p0: boolean) => void))[]): void;
+    applyOptions_(options: ViewOptions): void;
     calculateCenterRotate(rotation: number, anchor: Coordinate): Coordinate;
     calculateCenterZoom(resolution: number, anchor: Coordinate): Coordinate;
     calculateExtent(opt_size?: Size): Extent;
@@ -85,15 +86,15 @@ export default class View extends BaseObject {
     getMinResolution(): number;
     getMinZoom(): number;
     getProjection(): Projection;
-    applyOptions_(options: ViewOptions): void;
+    getResolution(): number;
     getResolutionForExtent(extent: Extent, opt_size?: Size): number;
-    getResolutionForValueFunction(opt_power?: number): ((param0: number) => number);
+    getResolutionForValueFunction(opt_power?: number): ((p0: number) => number);
     getResolutionForZoom(zoom: number): number;
     getResolutions(): number[];
     getRotation(): number;
     getState(pixelRatio: number): State;
     getUpdatedOptions_(newOptions: ViewOptions): ViewOptions;
-    getValueForResolutionFunction(opt_power?: number): ((param0: number) => number);
+    getValueForResolutionFunction(opt_power?: number): ((p0: number) => number);
     getZoom(): number;
     getZoomForResolution(resolution: number): number;
     isDef(): boolean;
@@ -106,9 +107,9 @@ export default class View extends BaseObject {
     setRotation(rotation: number): void;
     setZoom(zoom: number): void;
     updateAnimations_(): void;
-    on(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((param0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((param0: any) => void)): void;
+    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
+    un(type: string | string[], listener: ((p0: any) => void)): void;
     on(type: 'change', listener: (evt: Event) => void): EventsKey;
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;

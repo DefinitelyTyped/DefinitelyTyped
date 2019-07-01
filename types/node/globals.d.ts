@@ -1096,22 +1096,26 @@ declare namespace NodeJS {
         v8debug?: any;
     }
 
+    // compatibility with older typings
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {
