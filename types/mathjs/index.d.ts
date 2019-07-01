@@ -1,9 +1,10 @@
-// Type definitions for mathjs 5.0
+// Type definitions for mathjs 6.0
 // Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
 //                  Pawel Krol <https://github.com/pawkrol>
+//                  Charlee Li <https://github.com/charlee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -26,6 +27,9 @@ declare namespace math {
     type MathExpression = string | string[] | MathArray | Matrix;
 
     interface MathJsStatic {
+        create: (factories: any, config: ConfigOptions) => MathJsStatic;
+        all: any;
+
         e: number;
         pi: number;
         i: number;
@@ -319,7 +323,7 @@ declare namespace math {
          * @param scope Scope to read/write variables
          * @returns The result of the expression
          */
-        eval(
+        evaluate(
             expr: MathExpression | MathExpression[] | Matrix,
             scope?: object
         ): any;
@@ -334,7 +338,7 @@ declare namespace math {
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
-         * invoking node.eval();
+         * invoking node.evaluate();
          * @param expr Expression to be parsed
          * @param options Available options: nodes - a set of custome nodes
          * @returns A node
@@ -2053,7 +2057,7 @@ declare namespace math {
         /**
          * Compute the standard deviation of a matrix or a list with values. The
          * standard deviations is defined as the square root of the variance:
-         * std(A) = sqrt(var(A)). In case of a (multi dimensional) array or
+         * std(A) = sqrt(variance(A)). In case of a (multi dimensional) array or
          * matrix, the standard deviation over all elements will be calculated.
          * Optionally, the type of normalization can be specified as second
          * parameter. The parameter normalization can be one of the following
@@ -2099,7 +2103,7 @@ declare namespace math {
          * @param args A single matrix or multiple scalar values
          * @returns The variance
          */
-        var(...args: Array<number | BigNumber | Fraction>): any;
+        variance(...args: Array<number | BigNumber | Fraction>): any;
         /**
          * @param array A single matrix
          * @param normalization normalization Determines how to normalize the
@@ -2107,7 +2111,7 @@ declare namespace math {
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        var(
+        variance(
             array: MathArray | Matrix,
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
         ): any;
@@ -2571,7 +2575,7 @@ declare namespace math {
          * case, non-primitive types are upper-camel-case. For example ‘number’,
          * ‘string’, ‘Array’, ‘Date’.
          */
-        typeof(x: any): string;
+        typeOf(x: any): string;
 
         /**
          * Import functions from an object or a module
@@ -2700,7 +2704,7 @@ declare namespace math {
     interface Index {} // tslint:disable-line no-empty-interface
 
     interface EvalFunction {
-        eval(scope?: any): any;
+        evaluate(scope?: any): any;
     }
 
     interface MathNode {
@@ -4242,7 +4246,7 @@ declare namespace math {
         /**
          * Compute the standard deviation of a matrix or a list with values. The
          * standard deviations is defined as the square root of the variance:
-         * std(A) = sqrt(var(A)). In case of a (multi dimensional) array or
+         * std(A) = sqrt(variance(A)). In case of a (multi dimensional) array or
          * matrix, the standard deviation over all elements will be calculated.
          * Optionally, the type of normalization can be specified as second
          * parameter. The parameter normalization can be one of the following
@@ -4276,13 +4280,13 @@ declare namespace math {
          * is divided by n 'biased' The sum of squared errors is divided by (n +
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
-         * math.var(...).
+         * math.variance(...).
          * @param normalization normalization Determines how to normalize the
          * variance. Choose ‘unbiased’ (default), ‘uncorrected’, or ‘biased’.
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        var(
+        variance(
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
         ): MathJsChain;
 
