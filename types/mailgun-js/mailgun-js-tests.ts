@@ -13,13 +13,7 @@ const mailgun2 = new mailgunFactory2({
     domain: "auth.domain"
 });
 
-const logger = (httpOptions: mailgunFactory.LoggerHttpOptions, payload: string, form: FormData) => {
-    const { method, path } = httpOptions;
-    const hasPayload = !!payload;
-    const hasForm = !!form;
-
-    console.log;
-};
+const logger = (httpOptions: mailgunFactory.LoggerHttpOptions, payload: string, form: FormData) => {};
 
 const mailgun3 = new mailgunFactory2({
     apiKey: 'auth.api_key',
