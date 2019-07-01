@@ -2,12 +2,10 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-// Last Update  : 20-7-2017
-// Compatible with Orientdb >= 2.2.15 and orientjs >= 2.2.x features .
+// TypeScript Version: 3.2
+// Last Update  : 17-4-2019
+// Compatible with Orientdb >= 2.2.x and orientjs <= 3.0.x features.
 // Developed with love in www.nowcando.com
-//
 
 /// <reference types="node" />
 
@@ -634,7 +632,7 @@ declare namespace orientjs {
         add(idx: IndexEntry | IndexEntry[]): Promise<Index[]>;
         set(key: string, value: string | RID): Promise<Index>;
         delete(name: string): Promise<Index>;
-        select(): Statement;
+        select(): Statement<any>;
         list(refresh?: boolean): Promise<Index[]>;
         create(config: IndexConfig | IndexConfig[]): Promise<Index>;
         drop(name: string): Promise<Db>;
@@ -642,58 +640,58 @@ declare namespace orientjs {
         cacheData(indices: any[]): Promise<Db>;
     }
     type SqlExpression = string | RawExpression | SqlFunction;
-    interface Statement extends Query<any> {
-        select(param?: string | string[]): Statement;
-        traverse(param?: string | string[]): Statement;
-        strategy(param?: string): Statement;
-        insert(param?: string | string[]): Statement;
-        update(param?: string | string[]): Statement;
-        delete(param?: string | string[]): Statement;
-        into(param?: string): Statement;
-        create(paramtype?: string, paramname?: string): Statement;
-        from(param?: string | any): Statement;
-        to(param?: any): Statement;
-        set(param?: any): Statement;
-        content(param?: any): Statement;
-        increment(property?: string, value?: any): Statement;
-        add(property: string, value: any): Statement;
-        remove(property: string, value: any): Statement;
-        put(property: string, keysValues: any): Statement;
-        upsert(condition?: any, params?: any, comparisonOperator?: string): Statement;
-        where(params: any): Statement;
-        while(param: any): Statement;
-        containsText(param: any): Statement;
-        and(param: any): Statement;
-        or(param: any): Statement;
-        group(param: any): Statement;
-        order(param: any): Statement;
-        skip(value: number): Statement;
-        offset(value?: number): Statement;
-        limit(value: number): Statement;
-        fetch(param?: any): Statement;
-        let(name: string, value: string | Statement): Statement;
-        lock(param: any): Statement;
+    interface Statement<T> extends Query<T> {
+        select(param?: string | string[]): Statement<T>;
+        traverse(param?: string | string[]): Statement<T>;
+        strategy(param?: string): Statement<T>;
+        insert(param?: string | string[]): Statement<T>;
+        update(param?: string | string[]): Statement<T>;
+        delete(param?: string | string[]): Statement<T>;
+        into(param?: string): Statement<T>;
+        create(paramtype?: string, paramname?: string): Statement<T>;
+        from(param?: string | any): Statement<T>;
+        to(param?: any): Statement<T>;
+        set(param?: any): Statement<T>;
+        content(param?: any): Statement<T>;
+        increment(property?: string, value?: any): Statement<T>;
+        add(property: string, value: any): Statement<T>;
+        remove(property: string, value: any): Statement<T>;
+        put(property: string, keysValues: any): Statement<T>;
+        upsert(condition?: any, params?: any, comparisonOperator?: string): Statement<T>;
+        where(params: any): Statement<T>;
+        while(param: any): Statement<T>;
+        containsText(param: any): Statement<T>;
+        and(param: any): Statement<T>;
+        or(param: any): Statement<T>;
+        group(param: any): Statement<T>;
+        order(param: any): Statement<T>;
+        skip(value: number): Statement<T>;
+        offset(value?: number): Statement<T>;
+        limit(value: number): Statement<T>;
+        fetch(param?: any): Statement<T>;
+        let(name: string, value: string | Statement<T>): Statement<T>;
+        lock(param: any): Statement<T>;
 
-        if(condition: SqlExpression, statements: Statement[]): Statement;
-        if(condition: SqlExpression, ...statements: Statement[]): Statement;
-        rollback(param?: any): Statement;
-        sleep(ms?: number): Statement;
+        if(condition: SqlExpression, statements: Array<Statement<T>>): Statement<T>;
+        if(condition: SqlExpression, ...statements: Array<Statement<T>>): Statement<T>;
+        rollback(param?: any): Statement<T>;
+        sleep(ms?: number): Statement<T>;
 
-        commit(retryLimit?: number): Statement;
-        retry(retryLimit?: number): Statement;
-        wait(waitLimit: number): Statement;
-        return(value: SqlExpression): Statement;
-        lucene(property: string | any, luceneQuery: string): Statement;
-        near(latitudeProperty: string | any, longitudeProperty: string | number, longitude: number, latitude?: number, maxDistanceInKms?: number): Statement;
-        within(latitudeProperty: string, longitudeProperty: string, box: number[]): Statement;
-        addParams(key: string, value: any): Statement;
-        addParams(value: any): Statement;
-        token(value: any): Statement;
+        commit(retryLimit?: number): Statement<T>;
+        retry(retryLimit?: number): Statement<T>;
+        wait(waitLimit: number): Statement<T>;
+        return(value: SqlExpression): Statement<T>;
+        lucene(property: string | any, luceneQuery: string): Statement<T>;
+        near(latitudeProperty: string | any, longitudeProperty: string | number, longitude: number, latitude?: number, maxDistanceInKms?: number): Statement<T>;
+        within(latitudeProperty: string, longitudeProperty: string, box: number[]): Statement<T>;
+        addParams(key: string, value: any): Statement<T>;
+        addParams(value: any): Statement<T>;
+        token(value: any): Statement<T>;
         buildStatement(): string;
     }
 
     interface Query<T> {
-        transform<T>(transformer: (item: Record) => T): Query<T>;
+        transform<R>(transformer: (item: T|(T & Record)) => R): Query<R>;
         column(name: string): Query<T>;
         defaults(defaults: any): Query<T>;
         one<T>(params?: any): Promise<T>;
@@ -883,7 +881,7 @@ declare namespace orientjs {
          *
          * @return The query instance.
          */
-        createQuery(): Statement;
+        createQuery<T>(): Statement<T>;
         /**
          * Create a raw expression.
          *
@@ -903,57 +901,58 @@ declare namespace orientjs {
          *
          * @return The query instance.
          */
-        create(params?: any): Statement;
-        create(paramtype: string, paramname: string): Statement;
+        create<T>(params?: any): Statement<T>;
+        create<T>(paramtype: string, paramname: string): Statement<T>;
         /**
          * Create a select query.
          *
          * @return The query instance.
          */
-        select(params?: any): Statement;
+        select<T>(params?: any): Statement<T>;
         /**
          * Create a traverse query.
          *
          * @return The query instance.
          */
-        traverse(params?: any): Statement;
+        traverse<T>(params?: any): Statement<T>;
         /**
          * Create an insert query.
          *
          * @return The query instance.
          */
-        insert(params?: any): Statement;
+        insert<T>(params?: any): Statement<T>;
         /**
          * Create an update query.
          *
          * @return The query instance.
          */
-        update(params?: any): Statement;
+        update<T>(params?: any): Statement<T>;
         /**
          * Create a delete query.
          *
          * @return The query instance.
          */
-        delete(params?: any): Statement;
+        delete<T>(params?: any): Statement<T>;
         /**
          * Create a transactional query.
          *
          * @return The query instance.
          */
-        let(params?: any): Statement;
-        let(name: string, value: string | Statement): Statement;
+        let<T>(params?: any): Statement<T>;
+        let<T>(name: string, value: string | Statement<T>): Statement<T>;
+
         /**
          * Create a transactional query with if.
          *
          * @return The query instance.
          */
-        if(condition: SqlExpression, statements: Statement[]): Statement;
+        if<T>(condition: SqlExpression, statements: Array<Statement<T>>): Statement<T>;
         /**
          * Create a transactional query with if.
          *
          * @return The query instance.
          */
-        if(condition: SqlExpression, ...statements: Statement[]): Statement;
+        if<T>(condition: SqlExpression, ...statements: Array<Statement<T>>): Statement<T>;
         /**
          * Escape the given input.
          *

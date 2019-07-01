@@ -51,7 +51,8 @@ import {
     SecureStore,
     SplashScreen,
     Svg,
-    Updates
+    Updates,
+    WebBrowser
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -166,6 +167,7 @@ Audio.setAudioModeAsync({
     interruptionModeIOS: 2,
     interruptionModeAndroid: 1,
     allowsRecordingIOS: true,
+    playThroughEarpieceAndroid: true,
 });
 Audio.setIsEnabledAsync(true);
 
@@ -593,7 +595,7 @@ const allSecureStoreKeychainAccessibleValues: number[] = [
         </Svg.Defs>
         <Svg.G transform="translate(0, 0)" y={20}>
             <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
-                <Svg.TextPath href="#path" startOffset="-10%">
+                <Svg.TextPath href="#path" startOffset="-10%" midLine="smooth">
                     We go up and down,
                     <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
                 </Svg.TextPath>
@@ -607,7 +609,7 @@ const allSecureStoreKeychainAccessibleValues: number[] = [
         </Svg.G>
         <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
         <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
-        <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
+        <Svg.Symbol id="symbol" viewBox="0 0 150 110">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
         </Svg.Symbol>
@@ -1300,4 +1302,20 @@ async () => {
 // #region SplashScreen
 SplashScreen.hide();
 SplashScreen.preventAutoHide();
+// #endregion
+
+// #region WebBrowser
+async () => {
+    const result1 = await WebBrowser.openBrowserAsync('https://google.com');
+    result1.type;
+
+    const result2 = await WebBrowser.openAuthSessionAsync('https://google.com', 'https://example.com');
+    if (result2.type === 'success') {
+        result2.url;
+    } else {
+        result2.type;
+    }
+
+    WebBrowser.dismissBrowser();
+};
 // #endregion

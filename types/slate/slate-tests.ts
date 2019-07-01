@@ -1,4 +1,23 @@
-import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, SchemaProperties } from "slate";
+import {
+    Block,
+    Value,
+    Data,
+    BlockJSON,
+    Document,
+    Editor,
+    KeyUtils,
+    Range,
+    PathUtils,
+    Point,
+    Inline,
+    Mark,
+    SchemaProperties,
+    Plugin,
+    Node,
+    Command,
+    Query,
+    Decoration
+} from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -31,11 +50,83 @@ const doc = Document.fromJSON({
 	nodes: [node]
 });
 
-const editor = new Editor({ value });
+const schema: SchemaProperties = {
+    document: {
+        nodes: [
+            {
+                match: [
+                    { type: 'block-quote' },
+                    { type: 'heading-one' },
+                    { type: 'heading-two' },
+                    { type: 'image' },
+                    { type: 'paragraph' },
+                    { type: 'bulleted-list' },
+                    { type: 'numbered-list' },
+                    { type: 'list-item' },
+                ],
+            },
+        ],
+        last: { type: 'paragraph' },
+        normalize: (editor: Editor, { code, node }: any) => {
+            switch (code) {
+                case 'last_child_type_invalid': {
+                    const paragraph = Block.create('paragraph');
+                    return editor.insertNodeByKey(node.key, node.nodes.size, paragraph);
+                }
+            }
+        },
+        marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }],
+        text: /^Test$/
+    },
+    blocks: {
+        image: {
+            isVoid: true,
+            marks: [{ type: 'bold' }, { type: t => ['bold', 'underline'].indexOf(t) !== -1 }]
+        },
+    },
+};
+
+const schema2: SchemaProperties = {
+    document: {
+        text(text) {
+            return true;
+        }
+    }
+};
+
+const pluginCommandName = 'plugin_command';
+const pluginCommandFunc = (editor: Editor, ...args: any[]) => editor;
+
+const pluginQueryName = 'plugin_query';
+const pluginQueryResult = 1000;
+const pluginQueryFunc = (editor: Editor, ...args: any[]) => pluginQueryResult;
+
+const plugin: Plugin = {
+    normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
+    onChange: (editor: Editor, next: () => void) => next(),
+    onCommand: (command: Command, editor: Editor, next: () => void) => next(),
+    onConstruct: (editor: Editor, next: () => void) => next(),
+    onQuery: (query: Query, editor: Editor, next: () => void) => next(),
+    validateNode: (node: Node, editor: Editor, next: () => void) => next(),
+
+    commands: { [pluginCommandName]: (editor: Editor, ...args: any[]) => editor },
+    queries: { [pluginQueryName]: (editor: Editor, ...args: any[]) => pluginQueryResult },
+    schema: {...schema},
+};
+
+const plugins = [plugin, [plugin, [plugin]]];
+
+const editor = new Editor({ value, plugins });
 const point = Point.create({ key: "a", offset: 0 });
 const range = Range.create({ anchor: point, focus: point });
 const inline = Inline.create("text");
 const mark = Mark.create("bold");
+const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
+
+editor.command(pluginCommandName, 1);
+editor.command(pluginCommandFunc, 1);
+editor.query(pluginQueryName, 1);
+editor.query(pluginQueryFunc, 1);
 
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
@@ -238,6 +329,7 @@ editor
 .replaceNodeByKey("a", inline)
 .replaceNodeByPath("a", inline)
 .select(range)
+.setDecorations(decorations)
 .setBlocks("paragraph")
 .setBlocksAtRange(range, "paragraph")
 .setInlines("paragraph")
@@ -282,41 +374,131 @@ editor
 .wrapNodeByKey("a", inline)
 .wrapNodeByPath("a", inline)
 .wrapText("a", "b")
-.wrapTextAtRange(range, "a");
+.wrapTextAtRange(range, "a")
+.applyOperation({
+    type: "insert_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    marks: [Mark.create({type: 'test_mark'})],
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    data: Data.create({})
+})
+.applyOperation({
+    type: "add_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    mark: Mark.create({type: 'test_mark'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    mark: Mark.create({type: 'test_mark'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_mark",
+    path: 'a',
+    offset: 0,
+    length: 1,
+    properties: {type: 'test_mark'},
+    newProperties: {type: 'new_test_mark'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "insert_node",
+    path: 'a',
+    node: Block.create({type: 'block'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "merge_node",
+    path: 'a',
+    position: 0,
+    properties: {type: 'node'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "move_node",
+    path: 'a',
+    newPath: 'a',
+    data: Data.create({})
+})
+.applyOperation({
+    type: "remove_node",
+    path: 'a',
+    node: Block.create({type: 'block'}),
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_node",
+    path: 'a',
+    properties: {type: 'node'},
+    newProperties: {type: 'new_node'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "split_node",
+    path: 'a',
+    position: 0,
+    target: 1,
+    properties: {type: 'block'},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_selection",
+    properties: {},
+    newProperties: {},
+    data: Data.create({})
+})
+.applyOperation({
+    type: "set_value",
+    properties: {},
+    newProperties: {},
+    data: Data.create({})
+});
 
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
 
-const schema: SchemaProperties = {
-    document: {
-        nodes: [
-            {
-                match: [
-                    { type: 'block-quote' },
-                    { type: 'heading-one' },
-                    { type: 'heading-two' },
-                    { type: 'image' },
-                    { type: 'paragraph' },
-                    { type: 'bulleted-list' },
-                    { type: 'numbered-list' },
-                    { type: 'list-item' },
-                ],
-            },
-        ],
-        last: { type: 'paragraph' },
-        normalize: (editor: Editor, { code, node }: any) => {
-            switch (code) {
-                case 'last_child_type_invalid': {
-                    const paragraph = Block.create('paragraph');
-                    return editor.insertNodeByKey(node.key, node.nodes.size, paragraph);
-                }
-            }
-        },
-    },
-    blocks: {
-        image: {
-            isVoid: true,
-        },
-    },
-};
+const pathA = PathUtils.create([0, 1, 2, 3]);
+const pathB = PathUtils.create([1, 2, 3, 4]);
+
+PathUtils.compare(pathA, pathB);
+PathUtils.crop(pathA, pathB, 1);
+PathUtils.decrement(pathA, 1, 2);
+PathUtils.getAncestors(pathA);
+PathUtils.increment(pathA, 1, 2);
+PathUtils.isAbove(pathA, pathB);
+PathUtils.isAfter(pathA, pathB);
+PathUtils.isBefore(pathA, pathB);
+PathUtils.isEqual(pathA, pathB);
+PathUtils.isOlder(pathA, pathB);
+PathUtils.isPath("path");
+PathUtils.isSibling(pathA, pathB);
+PathUtils.isYounger(pathA, pathB);
+PathUtils.lift(pathA);
+PathUtils.drop(pathA);
+PathUtils.max(pathA, pathB);
+PathUtils.min(pathA, pathB);
+PathUtils.relate(pathA, pathB);
+
+PathUtils.transform(pathA, {
+    type: "insert_text",
+    path: 'a',
+    offset: 0,
+    text: 'text',
+    marks: [Mark.create({type: 'test_mark'})],
+    data: Data.create({})
+});

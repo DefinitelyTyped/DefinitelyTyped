@@ -138,3 +138,8 @@ nodeInstalledClock.uninstall();
 // Clocks should be typed to have unbound method signatures that can be passed around
 const { clearTimeout } = browserClock;
 clearTimeout(0);
+
+// TClock of InstalledClock<TClock> is optional.
+let installedClock: lolex.InstalledClock;
+installedClock = nodeInstalledClock;
+installedClock = browserInstalledClock;

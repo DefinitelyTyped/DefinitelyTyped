@@ -408,12 +408,14 @@ import {
   }
   const ConnectedCustomHighlight2 = connectHighlight(CustomHighlight2);
 
-  connectHits<MyDoc>(({ hits }) => (
+  const ConnectedStatelessHits = connectHits<MyDoc>(({ hits }) => (
     <p>
       <CustomHighlight attribute="name" hit={hits[0]} />
       <ConnectedCustomHighlight2 attribute="name" hit={hits[1]} limit={7} />
     </p>
   ));
+
+  <ConnectedStatelessHits />;
 };
 
 // https://github.com/algolia/react-instantsearch/blob/master/examples/autocomplete/src/App-Mentions.js

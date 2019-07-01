@@ -15,7 +15,7 @@ export as namespace topojson;
 // TopoJSON Server
 // ---------------------------------------------------------------
 
-export function topology(objects: {[k: string]: GeoJSON.GeoJsonObject}, quantization?: number): TopoJSON.Topology;
+export * from 'topojson-server';
 
 // ---------------------------------------------------------------
 // TopoJSON Simplify

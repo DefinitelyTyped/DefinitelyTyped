@@ -4,6 +4,7 @@
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
 //                 Roni Karilkar <https://github.com/ronikar>
+//                 Sandra Frischmuth <https://github.com/sanfrisc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1392,7 +1393,7 @@ export class Map extends Evented {
     fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
-    panBy(offset: PointExpression): this;
+    panBy(offset: PointExpression, options?: PanOptions): this;
     setMaxBounds(bounds: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;

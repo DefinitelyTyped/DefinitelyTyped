@@ -16,6 +16,10 @@ declare namespace AMap {
     }
 
     class MarkerShape extends EventEmitter {
+        /**
+         * Marker点击范围
+         * @param options 选项
+         */
         constructor(options: MarkerShape.Options);
     }
 }

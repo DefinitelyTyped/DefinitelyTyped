@@ -14,7 +14,8 @@
             "../"
         ],
         "paths": {
-            "@rebass/grid": ["rebass__grid"]
+            "@rebass/grid": ["rebass__grid"],
+            "@rebass/grid/emotion": ["rebass__grid/emotion"]
         },
         "types": [],
         "noEmit": true,
@@ -23,6 +24,7 @@
     },
     "files": [
         "index.d.ts",
+        "emotion.d.ts",
         "rebass__grid-tests.tsx"
     ]
 }

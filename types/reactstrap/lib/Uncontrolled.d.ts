@@ -8,13 +8,13 @@ import { UncontrolledCollapseProps       } from './Collapse';
 import { UncontrolledCarouselProps       } from './Carousel';
 import { UncontrolledPopoverProps        } from './Popover';
 
-export class UncontrolledAlert<T = {}> extends React.Component<UncontrolledAlertProps<T>> {}
-export class UncontrolledButtonDropdown<T = {}> extends React.Component<UncontrolledButtonDropdownProps<T>> {}
-export class UncontrolledDropdown<T = {}> extends React.Component<UncontrolledDropdownProps<T>> {}
-export class UncontrolledTooltip<T = {}> extends React.Component<UncontrolledTooltipProps<T>> {}
-export class UncontrolledCollapse<T = {}> extends React.Component<UncontrolledCollapseProps<T>> {}
-export class UncontrolledCarousel<T = {}> extends React.Component<UncontrolledCarouselProps<T>> {}
-export class UncontrolledPopover<T = {}> extends React.Component<UncontrolledPopoverProps<T>> {}
+export class UncontrolledAlert<T = {}> extends React.Component<UncontrolledAlertProps> {}
+export class UncontrolledButtonDropdown<T = {}> extends React.Component<UncontrolledButtonDropdownProps> {}
+export class UncontrolledDropdown<T = {}> extends React.Component<UncontrolledDropdownProps> {}
+export class UncontrolledTooltip<T = {}> extends React.Component<UncontrolledTooltipProps> {}
+export class UncontrolledCollapse<T = {}> extends React.Component<UncontrolledCollapseProps> {}
+export class UncontrolledCarousel<T = {}> extends React.Component<UncontrolledCarouselProps> {}
+export class UncontrolledPopover<T = {}> extends React.Component<UncontrolledPopoverProps> {}
 
 export { UncontrolledAlertProps          } from './Alert';
 export { UncontrolledButtonDropdownProps } from './ButtonDropdown';

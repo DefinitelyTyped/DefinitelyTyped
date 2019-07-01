@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.27
+// Type definitions for ArcGIS API for JavaScript 3.28
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -3477,19 +3477,19 @@ declare module "esri/basemaps" {
   var basemaps: {
     /** The Light Gray Canvas basemap is designed to be used as a neutral background map for overlaying and emphasizing other map layers. */
     gray: any;
-    /** The World Imagery map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery with Labels map is a detailed imagery map layer and labels that is designed to be used as a basemap for various maps and applications: https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer   https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer */
     hybrid: any;
     /** The Ocean Basemap is designed to be used as a basemap by marine GIS professionals and as a reference map by anyone interested in ocean data. */
     oceans: any;
     /** The OpenStreetMap is a community map layer that is designed to be used as a basemap for various maps and applications. */
     osm: any;
-    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications. */
+    /** The World Imagery map is a detailed imagery map layer that is designed to be used as a basemap for various maps and applications:  https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer. */
     satellite: any;
-    /** The Streets basemap presents a multiscale street map for the world. */
+    /** The Streets basemap presents a multiscale street map for the world: https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer. */
     streets: any;
     /** The Terrain with Labels basemap is designed to be used to overlay and emphasize other thematic map layers. */
     terrain: any;
-    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings. */
+    /** The Topographic map includes boundaries, cities, water features, physiographic features, parks, landmarks, transportation, and buildings: https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer */
     topo: any;
   };
   export = basemaps;
@@ -9228,8 +9228,9 @@ declare module "esri/lang" {
      * @param data The data object used in the substitution.
      * @param template The template used for the substitution.
      * @param first When true, returns only the first property found in the data object.
+     * @param format The format object used in the substitution.
      */
-    substitute(data: any, template?: string, first?: boolean): string;
+    substitute(data: any, template?: string, first?: boolean, format?: any): string;
     /**
      * Iterates through the argument array and searches for the identifier to which the argument value matches.
      * @param array The argument array for testing.
@@ -10000,6 +10001,8 @@ declare module "esri/layers/FeatureLayer" {
     displayField: string;
     /** Indicates the field names for the editor fields. */
     editFieldsInfo: any;
+    /** Applicable to ArcGIS Online hosted feature services. */
+    editingInfo: any;
     /** The array of fields in the layer. */
     fields: Field[];
     /** The full extent of the layer. */
@@ -10054,6 +10057,8 @@ declare module "esri/layers/FeatureLayer" {
     supportsAttachmentsByUploadId: boolean;
     /** When true, the layer supports the Calculate REST operation when updating features. */
     supportsCalculate: boolean;
+    /** If true, the layer supports a user-defined field description. */
+    supportsFieldDescription: boolean;
     /** When true, the layer supports statistical functions in query operations. */
     supportsStatistics: boolean;
     /** When true, the layer is suspended. */
@@ -10468,6 +10473,8 @@ declare module "esri/layers/Field" {
   class Field {
     /** The alias name for the field. */
     alias: string;
+    /** A string that describes the default value set for a field. */
+    defaultValue: string;
     /** Domain associated with the field. */
     domain: Domain;
     /** Indicates whether the field is editable. */
@@ -14069,6 +14076,108 @@ declare module "esri/request" {
     setRequestPreCallback(callbackFunction: Function): void;
   };
   export = request;
+}
+
+declare module "esri/styles/basic" {
+  /** This module contains a collection of themes suitable for basic visualization of features i.e. */
+  var basic: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = basic;
+}
+
+declare module "esri/styles/choropleth" {
+  /** This module contains a collection of themes suitable for unclassed and classed choropleth mapping. */
+  var choropleth: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = choropleth;
+}
+
+declare module "esri/styles/heatmap" {
+  /** This module contains a collection of themes suitable for visualizing features using a heatmap. */
+  var heatmap: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = heatmap;
+}
+
+declare module "esri/styles/relationship" {
+  /** This module contains a collection of color schemes suitable for creating relationship (or bivariate choropleth) visualizations. */
+  var relationship: {
+    /**
+     * Returns themes available for the given basemap.
+     * @param basemap Specifies the basemap name if you only want themes applicable to a specific basemap, for example: streets, gray, topo,  terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap: string): any[];
+    /**
+     * Returns the primary and secondary color schemes for the given theme, basemap, and geometry type.
+     * @param params See the params Object Specifications table below for a description of the method parameters.
+     */
+    getSchemes(params: any): any;
+  };
+  export = relationship;
+}
+
+declare module "esri/styles/size" {
+  /** This module contains a collection of themes useful for visualizing points and lines by varying their size to show data. */
+  var size: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = size;
+}
+
+declare module "esri/styles/type" {
+  /** This module contains a collection of themes suitable for visualizing features by their type. */
+  var type: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = type;
 }
 
 declare module "esri/support/expressionUtils" {

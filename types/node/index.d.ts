@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 11.11
+// Type definitions for non-npm package Node.js 12.0
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -91,5 +91,9 @@ declare module "util" {
     }
     namespace promisify {
         const custom: symbol;
+    }
+    namespace types {
+        function isBigInt64Array(value: any): boolean;
+        function isBigUint64Array(value: any): boolean;
     }
 }

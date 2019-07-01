@@ -1,13 +1,14 @@
 // Usage: node generate-inspector [tag]
 // [tag] corresponds to a tag name in the node-core repository.
+// By default, uses the current Node version.
 
 import { execSync } from "child_process";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import * as https from "https";
+
 import * as schema from "./devtools-protocol-schema";
 import { generateSubstituteArgs } from "./generate-substitute-args";
 import { substitute, trimRight } from "./utils";
-import { string } from "parsimmon";
 
 const httpsGet = (url: string) => new Promise<string>((resolve, reject) => {
     https.get(url, res => {

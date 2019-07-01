@@ -21,6 +21,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
@@ -86,6 +87,11 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
+    NetInfo,
+    PermissionsAndroid,
+    Platform,
+    ProgressBarAndroid,
+    PushNotificationIOS,
 } from "react-native";
 
 declare module "react-native" {
@@ -177,10 +183,14 @@ const textStyle: StyleProp<TextStyle> = {
 const imageStyle: StyleProp<ImageStyle> = {
     resizeMode: "contain",
 };
+const fontVariantStyle: StyleProp<TextStyle> = {
+    fontVariant: ['tabular-nums']
+}
 
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
 const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
+const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
 const s = StyleSheet.create({
     shouldWork: {
@@ -534,6 +544,16 @@ class MaskedViewTest extends React.Component {
     }
 }
 
+const CheckboxTest = () => (
+    <CheckBox
+        testID="testId"
+        disabled={false}
+        onChange={value => { console.log(value); }}
+        onValueChange={value => { console.log(value); }}
+        value={true}
+    />
+);
+
 class InputAccessoryViewTest extends React.Component {
     render() {
         const uniqueID = "foobar";
@@ -626,6 +646,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
                 <TextInput
                     ref={input => (this.username = input)}
                     textContentType="username"
+                    autoCompleteType="username"
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
                 />
@@ -648,7 +669,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
 
                 <TextInput multiline onContentSizeChange={this.handleOnContentSizeChange} />
 
-                <TextInput contextMenuHidden={true} />
+                <TextInput contextMenuHidden={true} textAlignVertical="top"/>
             </View>
         );
     }
@@ -681,10 +702,17 @@ class WebViewTest extends React.Component {
 
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const image: ImageResolvedAssetSource = Image.resolveAssetSource({
-            uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png",
-        });
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
+
+        Image.queryCache([uri]).then(({ [uri]: status }) => {
+            if (status === undefined) {
+                console.log("Image is not in cache");
+            } else {
+                console.log(`Image is in ${status} cache`);
+            }
+        })
     }
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -839,7 +867,7 @@ const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Te
 const ShareTest = () => {
     Share.share(
         { title: "title", message: "message" },
-        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red" }
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red", subject: "Email subject" }
     );
     Share.share({ title: "title", url: "url" });
     Share.share({ message: "message" }).then(result => {
@@ -853,4 +881,86 @@ const ShareTest = () => {
 const KeyboardTest = () => {
     const subscriber = Keyboard.addListener("keyboardDidHide", (event) => {event});
     subscriber.remove();
+}
+
+const NetInfoTest = () => {
+    const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
+    subscription.remove();
+}
+
+const PermissionsAndroidTest = () => {
+    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+        switch (result) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+
+    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(results => {
+        switch (results['android.permission.CAMERA']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+        switch (results['android.permission.ACCESS_FINE_LOCATION']) {
+            case 'granted':
+                break;
+            case 'denied':
+                break;
+            case 'never_ask_again':
+                break;
+        }
+    })
+}
+
+// Platform
+const PlatformTest = () => {
+    switch (Platform.OS) {
+        case 'ios':
+            if (!Platform.isPad) {
+                return 32;
+            } else {
+                return 44;
+            }
+        case 'android':
+        case 'macos':
+        case 'windows':
+            return Platform.isTV ? 64 : 56;
+        default:
+            return Platform.isTV ? 40 : 44;
+    }
+};
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
+};
+
+// Push notification
+const PushNotificationTest = () => {
+    PushNotificationIOS.scheduleLocalNotification({
+        alertAction: 'view',
+        alertBody: 'Look at me!',
+        alertTitle: 'Hello!',
+        applicationIconBadgeNumber: 999,
+        category: 'engagement',
+        fireDate: (new Date()).toISOString(),
+        isSilent: false,
+        repeatInterval: 'minute',
+        userInfo: {
+            abc: 123,
+        },
+    });
 }

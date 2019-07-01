@@ -110,8 +110,11 @@ interface SketchMSImageDataReference {
 type SketchMSPointString = string;
 interface SketchMSPath {
   _class: 'path' | 'shapePath' | 'rectangle' | 'oval' | 'triangle';
-  isClosed?: boolean;
+  isClosed: boolean;
+  frame: SketchMSRect;
   points: SketchMSCurvePoint[];
+  style: SketchMSStyle;
+  layers: SketchMSPath[];
 }
 interface SketchMSCurvePoint {
   _class: 'curvePoint';
@@ -381,8 +384,6 @@ interface SketchMSSymbolMaster {
   attributedString: SketchMSAttributedString;
   name: string;
   layers: SketchMSLayer[];
-  points: SketchMSPath;
-  isClosed?: boolean;
   isVisible: boolean;
   nameIsFixed: boolean;
   grid: SketchMSSimpleGrid;

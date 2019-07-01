@@ -1,9 +1,9 @@
-// Type definitions for workbox-webpack-plugin 3.6
+// Type definitions for workbox-webpack-plugin 4.1
 // Project: https://github.com/GoogleChrome/workbox/blob/master/packages/workbox-webpack-plugin, https://github.com/googlechrome/workbox
 // Definitions by: Kevin Groat <https://github.com/kgroat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type ChacheStrategy = 'cacheFirst' | 'cacheOnly' | 'networkFirst' | 'networkOnly' | 'staleWhileRevalidate';
+export type ChacheStrategy = 'CacheFirst' | 'CacheOnly' | 'NetworkFirst' | 'NetworkOnly' | 'StaleWhileRevalidate';
 
 export interface ManifestEntry {
 	revision: string;

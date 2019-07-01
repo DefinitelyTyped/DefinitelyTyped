@@ -45,7 +45,7 @@ interface Console {
     /**
      * The `console.groupCollapsed()` function is an alias for {@link console.group()}.
      */
-    groupCollapsed(): void;
+    groupCollapsed(...label: any[]): void;
     /**
      * Decreases indentation of subsequent lines by two spaces.
      */
@@ -233,19 +233,35 @@ declare var module: NodeModule;
 declare var exports: any;
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
     constructor: typeof Buffer;
-    write(string: string, encoding?: string): number;
-    write(string: string, offset: number, encoding?: string): number;
-    write(string: string, offset: number, length: number, encoding?: string): number;
+    write(string: string, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, encoding?: BufferEncoding): number;
+    write(string: string, offset: number, length: number, encoding?: BufferEncoding): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: number[] };
     equals(otherBuffer: Uint8Array): boolean;
     compare(otherBuffer: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
-    slice(start?: number, end?: number): Buffer;
-    subarray(begin: number, end?: number): Buffer;
+    /**
+     * Returns a new `Buffer` that references **the same memory as the original**, but offset and cropped by the start and end indices.
+     *
+     * This method is incompatible with `Uint8Array#slice()`, which returns a copy of the original memory.
+     *
+     * @param begin Where the new `Buffer` will start. Default: `0`.
+     * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
+     */
+    slice(begin?: number, end?: number): Buffer;
+    /**
+     * Returns a new `Buffer` that references **the same memory as the original**, but offset and cropped by the start and end indices.
+     *
+     * This method is compatible with `Uint8Array#subarray()`.
+     *
+     * @param begin Where the new `Buffer` will start. Default: `0`.
+     * @param end Where the new `Buffer` will end (not inclusive). Default: `buf.length`.
+     */
+    subarray(begin?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number): number;
     writeUIntBE(value: number, offset: number, byteLength: number): number;
     writeIntLE(value: number, offset: number, byteLength: number): number;
@@ -287,10 +303,10 @@ interface Buffer extends Uint8Array {
     writeDoubleLE(value: number, offset: number): number;
     writeDoubleBE(value: number, offset: number): number;
     fill(value: any, offset?: number, end?: number): this;
-    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
-    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: string): number;
+    indexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
+    lastIndexOf(value: string | number | Uint8Array, byteOffset?: number, encoding?: BufferEncoding): number;
     entries(): IterableIterator<[number, number]>;
-    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
     keys(): IterableIterator<number>;
     values(): IterableIterator<number>;
 }
@@ -308,7 +324,7 @@ declare const Buffer: {
      * @param encoding encoding to use, optional.  Default is 'utf8'
      * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
      */
-    new(str: string, encoding?: string): Buffer;
+    new(str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
@@ -367,7 +383,7 @@ declare const Buffer: {
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
      */
-    from(str: string, encoding?: string): Buffer;
+    from(str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Creates a new Buffer using the passed {data}
      * @param values to create a new Buffer
@@ -385,7 +401,7 @@ declare const Buffer: {
      *
      * @param encoding string to test.
      */
-    isEncoding(encoding: string): boolean | undefined;
+    isEncoding(encoding: string): encoding is BufferEncoding
     /**
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
@@ -393,7 +409,7 @@ declare const Buffer: {
      * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: string): number;
+    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -418,7 +434,7 @@ declare const Buffer: {
      *    If parameter is omitted, buffer will be filled with zeros.
      * @param encoding encoding used for call to buf.fill while initalizing
      */
-    alloc(size: number, fill?: string | Buffer | number, encoding?: string): Buffer;
+    alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
      * of the newly created Buffer are unknown and may contain sensitive data.
@@ -603,8 +619,7 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: string | Buffer | Uint8Array): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
@@ -734,6 +749,71 @@ declare namespace NodeJS {
         (time?: [number, number]): [number, number];
     }
 
+    interface ProcessReport {
+        /**
+         * Directory where the report is written.
+         * working directory of the Node.js process.
+         * @default '' indicating that reports are written to the current
+         */
+        directory: string;
+
+        /**
+         * Filename where the report is written.
+         * The default value is the empty string.
+         * @default '' the output filename will be comprised of a timestamp,
+         * PID, and sequence number.
+         */
+        filename: string;
+
+        /**
+         * Returns a JSON-formatted diagnostic report for the running process.
+         * The report's JavaScript stack trace is taken from err, if present.
+         */
+        getReport(err?: Error): string;
+
+        /**
+         * If true, a diagnostic report is generated on fatal errors,
+         * such as out of memory errors or failed C++ assertions.
+         * @default false
+         */
+        reportOnFatalError: boolean;
+
+        /**
+         * If true, a diagnostic report is generated when the process
+         * receives the signal specified by process.report.signal.
+         * @defaul false
+         */
+        reportOnSignal: boolean;
+
+        /**
+         * If true, a diagnostic report is generated on uncaught exception.
+         * @default false
+         */
+        reportOnUncaughtException: boolean;
+
+        /**
+         * The signal used to trigger the creation of a diagnostic report.
+         * @default 'SIGUSR2'
+         */
+        signal: Signals;
+
+        /**
+         * Writes a diagnostic report to a file. If filename is not provided, the default filename
+         * includes the date, time, PID, and a sequence number.
+         * The report's JavaScript stack trace is taken from err, if present.
+         *
+         * @param fileName Name of the file where the report is written.
+         * This should be a relative path, that will be appended to the directory specified in
+         * `process.report.directory`, or the current working directory of the Node.js process,
+         * if unspecified.
+         * @param error A custom error used for reporting the JavaScript stack.
+         * @return Filename of the generated report.
+         */
+        writeReport(fileName?: string): string;
+        writeReport(error?: Error): string;
+        writeReport(fileName?: string, err?: Error): string;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -827,7 +907,7 @@ declare namespace NodeJS {
         domain: Domain;
 
         // Worker
-        send?(message: any, sendHandle?: any): void;
+        send?(message: any, sendHandle?: any, options?: { swallowErrors?: boolean}, callback?: (error: Error | null) => void): boolean;
         disconnect(): void;
         connected: boolean;
 
@@ -837,6 +917,11 @@ declare namespace NodeJS {
          * environment variable.
          */
         allowedNodeEnvironmentFlags: ReadonlySet<string>;
+
+        /**
+         * Only available with `--experimental-report`
+         */
+        report?: ProcessReport;
 
         /**
          * EventEmitter
@@ -1011,22 +1096,26 @@ declare namespace NodeJS {
         v8debug?: any;
     }
 
+    // compatibility with older typings
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {

@@ -466,7 +466,7 @@ declare namespace ymaps {
 
 			add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
 
-			each(callback: (control: IControl) => void, context: object): this;
+			each(callback: (control: IControl) => void, context?: object): this;
 
 			get(index: number | string): IControl | null;
 
@@ -1385,6 +1385,8 @@ declare namespace ymaps {
 
 				add(object: object): this;
 
+				each(callback: (layer: ILayer) => void, context?: object): void;
+
 				getIterator(): IIterator;
 
 				remove(object: object): this;
@@ -1523,7 +1525,7 @@ declare namespace ymaps {
 
 			add(child: IGeoObject, index?: number): this;
 
-			each(callback: (object: IGeoObject) => void, context: object): void;
+			each(callback: (object: IGeoObject) => void, context?: object): void;
 
 			get(index: number): IGeoObject;
 
@@ -2532,7 +2534,7 @@ declare namespace ymaps {
 
 		add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context: object): void;
+		each(callback: (object: IGeoObject) => void, context?: object): void;
 
 		get(index: number): IGeoObject;
 
@@ -3116,7 +3118,7 @@ declare namespace ymaps {
 	interface IGeoObjectCollection extends ICustomizable, IEventEmitter, IParentOnMap {
 		add(child: IGeoObject, index?: number): this;
 
-		each(callback: (object: IGeoObject) => void, context: object): void;
+		each(callback: (object: IGeoObject) => void, context?: object): void;
 
 		get(index: number): IGeoObject;
 
@@ -3588,3 +3590,6 @@ declare namespace ymaps {
     	removeAll(): Monitor;
 	}
 }
+
+export = ymaps;
+export as namespace ymaps;

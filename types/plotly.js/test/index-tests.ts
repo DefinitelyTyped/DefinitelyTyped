@@ -96,14 +96,16 @@ const graphDiv = '#test';
 					{ target: 'y', func: 'avg' },
 					{ target: 'marker.size', func: 'sum' }
 				]
-			}]
+			}],
+		width: 2
 	} as PlotData;
 	const trace2 = {
 		yaxis: 'y2',
 		x: unpack(testrows, 'lifeExp'),
 		name: 'x density',
 		marker: { color: 'rgb(102,0,0)' },
-		type: 'histogram'
+		type: 'histogram',
+		width: [2]
 	} as PlotData;
 	const trace3 = {
 		xaxis: 'x2',

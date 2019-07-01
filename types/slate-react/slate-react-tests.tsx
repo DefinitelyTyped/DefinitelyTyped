@@ -1,15 +1,24 @@
-import { Editor, Plugin, EditorProps, RenderNodeProps } from "slate-react";
-import { Value, Editor as Controller, Operation, Point, Range, Inline, Mark, Document } from "slate";
+import { Editor, Plugin, EditorProps, RenderBlockProps, RenderInlineProps } from "slate-react";
+import { Value, Editor as Controller, Operation, Point, Range, Inline, Mark, Document, Decoration } from "slate";
 import * as React from "react";
 import * as Immutable from "immutable";
 
 class MyPlugin implements Plugin {
-    renderNode(props: RenderNodeProps, editor: Controller, next: () => void) {
+    renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
                 case "block":
                     return <div id="slate-block-test"/>;
+                default:
+                    return undefined;
+            }
+        }
+    }
+    renderInline(props: RenderInlineProps, editor: Controller, next: () => void) {
+        const { node } = props;
+        if (node) {
+            switch (node.object) {
                 case "inline":
                     return <span id="slate-inline-test">Hello world</span>;
                 default:
@@ -23,6 +32,7 @@ class MyPlugin implements Plugin {
 }
 
 const myPlugin = new MyPlugin();
+const plugins = [myPlugin, [myPlugin, [myPlugin]]];
 
 interface MyEditorState {
     value: Value;
@@ -38,10 +48,15 @@ class MyEditor extends React.Component<EditorProps, MyEditorState> {
         };
     }
     render() {
-        return <Editor
-            value={this.state.value}
-            renderNode={ myPlugin.renderNode }
-            onChange={ myPlugin.onChange }/>;
+        return (
+            <Editor
+                plugins={plugins}
+                value={this.state.value}
+                renderBlock={myPlugin.renderBlock}
+                renderInline={myPlugin.renderInline}
+                onChange={myPlugin.onChange}
+            />
+        );
     }
 }
 
@@ -50,6 +65,8 @@ const point = Point.create({ key: "a", offset: 0 });
 const range = Range.create({ anchor: point, focus: point });
 const inline = Inline.create("text");
 const mark = Mark.create("bold");
+const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
+
 const doc = Document.fromJSON({
 	object: "document",
 	data: {},
@@ -248,6 +265,7 @@ editor
 .replaceNodeByKey("a", inline)
 .replaceNodeByPath("a", inline)
 .select(range)
+.setDecorations(decorations)
 .setBlocks("paragraph")
 .setBlocksAtRange(range, "paragraph")
 .setInlines("paragraph")

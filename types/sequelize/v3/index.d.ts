@@ -6,7 +6,7 @@
 //                 Nick Mueller <https://github.com/morpheusxaut>
 //                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 

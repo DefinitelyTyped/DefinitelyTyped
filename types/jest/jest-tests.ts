@@ -463,22 +463,22 @@ class TestMocked {
 const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
-// $ExpectType Mock<Promise<Type1>, [Type1]>
+// $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
 mocked.test1.mockResolvedValueOnce({ a: 1 });
-// $ExpectType Mock<Promise<Type1>, [Type1]>
+// $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
-// $ExpectType Mock<Promise<Type1>, [Promise<Type1>]>
+// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue({ a: 1 });
 mocked.test2.mockResolvedValueOnce({ a: 1 });
-// $ExpectType Mock<Promise<Type1>, [Promise<Type1>]>
+// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
 mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
-// $ExpectType Mock<Promise<Type2>, [Promise<Type1>]>
+// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue({ b: 1 });
 mocked.test3.mockResolvedValueOnce({ b: 1 });
-// $ExpectType Mock<Promise<Type2>, [Promise<Type1>]>
+// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
 mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
 mocked.test3.mockRejectedValue(new Error());
@@ -830,6 +830,8 @@ describe("", () => {
         expect({ abc: "def" }).toMatchObject({ abc: "def" });
         expect({}).toMatchObject([{}, {}]);
         expect({ abc: "def" }).toMatchObject([{ abc: "def" }, { invalid: "property" }]);
+        expect({abc: "def"}).toMatchObject<{abc: string}>({abc: "def"});
+        expect([{abc: 'def'}, {abc: 'def'}]).toMatchObject<[{abc: string}, {abc: string}]>([{abc: 'def'}, {abc: 'def'}]);
 
         expect({}).toMatchSnapshot();
         expect({}).toMatchSnapshot("snapshotName");

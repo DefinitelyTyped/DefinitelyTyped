@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2019-02-27
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,7 +89,7 @@ declare namespace GoogleAppsScript {
       getBackground(): string;
       getBold(): boolean;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getFontColor(): string;
       getItalic(): boolean;
       getStrikethrough(): boolean;
@@ -155,27 +155,27 @@ declare namespace GoogleAppsScript {
       setUnderline(underline: boolean): ConditionalFormatRuleBuilder;
       whenCellEmpty(): ConditionalFormatRuleBuilder;
       whenCellNotEmpty(): ConditionalFormatRuleBuilder;
-      whenDateAfter(date: Date): ConditionalFormatRuleBuilder;
+      whenDateAfter(date: Base.Date): ConditionalFormatRuleBuilder;
       whenDateAfter(date: RelativeDate): ConditionalFormatRuleBuilder;
-      whenDateBefore(date: Date): ConditionalFormatRuleBuilder;
+      whenDateBefore(date: Base.Date): ConditionalFormatRuleBuilder;
       whenDateBefore(date: RelativeDate): ConditionalFormatRuleBuilder;
-      whenDateEqualTo(date: Date): ConditionalFormatRuleBuilder;
+      whenDateEqualTo(date: Base.Date): ConditionalFormatRuleBuilder;
       whenDateEqualTo(date: RelativeDate): ConditionalFormatRuleBuilder;
       whenFormulaSatisfied(formula: string): ConditionalFormatRuleBuilder;
-      whenNumberBetween(start: Number, end: Number): ConditionalFormatRuleBuilder;
-      whenNumberEqualTo(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberGreaterThan(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberGreaterThanOrEqualTo(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberLessThan(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberLessThanOrEqualTo(number: Number): ConditionalFormatRuleBuilder;
-      whenNumberNotBetween(start: Number, end: Number): ConditionalFormatRuleBuilder;
-      whenNumberNotEqualTo(number: Number): ConditionalFormatRuleBuilder;
+      whenNumberBetween(start: number, end: number): ConditionalFormatRuleBuilder;
+      whenNumberEqualTo(number: number): ConditionalFormatRuleBuilder;
+      whenNumberGreaterThan(number: number): ConditionalFormatRuleBuilder;
+      whenNumberGreaterThanOrEqualTo(number: number): ConditionalFormatRuleBuilder;
+      whenNumberLessThan(number: number): ConditionalFormatRuleBuilder;
+      whenNumberLessThanOrEqualTo(number: number): ConditionalFormatRuleBuilder;
+      whenNumberNotBetween(start: number, end: number): ConditionalFormatRuleBuilder;
+      whenNumberNotEqualTo(number: number): ConditionalFormatRuleBuilder;
       whenTextContains(text: string): ConditionalFormatRuleBuilder;
       whenTextDoesNotContain(text: string): ConditionalFormatRuleBuilder;
       whenTextEndsWith(text: string): ConditionalFormatRuleBuilder;
       whenTextEqualTo(text: string): ConditionalFormatRuleBuilder;
       whenTextStartsWith(text: string): ConditionalFormatRuleBuilder;
-      withCriteria(criteria: BooleanCriteria, args: Object[]): ConditionalFormatRuleBuilder;
+      withCriteria(criteria: BooleanCriteria, args: any[]): ConditionalFormatRuleBuilder;
     }
 
     /**
@@ -213,7 +213,7 @@ declare namespace GoogleAppsScript {
       getErrorCode(): DataExecutionErrorCode;
       getErrorMessage(): string;
       getExecutionState(): DataExecutionState;
-      getLastRefreshedTime(): Date;
+      getLastRefreshedTime(): Base.Date;
       isTruncated(): boolean;
     }
 
@@ -363,7 +363,7 @@ declare namespace GoogleAppsScript {
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHelpText(): string;
     }
 
@@ -381,25 +381,28 @@ declare namespace GoogleAppsScript {
       copy(): DataValidationBuilder;
       getAllowInvalid(): boolean;
       getCriteriaType(): DataValidationCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHelpText(): string;
+      requireCheckbox(): DataValidationBuilder;
+      requireCheckbox(checkedValue: any): DataValidationBuilder;
+      requireCheckbox(checkedValue: any, uncheckedValue: any): DataValidationBuilder;
       requireDate(): DataValidationBuilder;
-      requireDateAfter(date: Date): DataValidationBuilder;
-      requireDateBefore(date: Date): DataValidationBuilder;
-      requireDateBetween(start: Date, end: Date): DataValidationBuilder;
-      requireDateEqualTo(date: Date): DataValidationBuilder;
-      requireDateNotBetween(start: Date, end: Date): DataValidationBuilder;
-      requireDateOnOrAfter(date: Date): DataValidationBuilder;
-      requireDateOnOrBefore(date: Date): DataValidationBuilder;
+      requireDateAfter(date: Base.Date): DataValidationBuilder;
+      requireDateBefore(date: Base.Date): DataValidationBuilder;
+      requireDateBetween(start: Base.Date, end: Base.Date): DataValidationBuilder;
+      requireDateEqualTo(date: Base.Date): DataValidationBuilder;
+      requireDateNotBetween(start: Base.Date, end: Base.Date): DataValidationBuilder;
+      requireDateOnOrAfter(date: Base.Date): DataValidationBuilder;
+      requireDateOnOrBefore(date: Base.Date): DataValidationBuilder;
       requireFormulaSatisfied(formula: string): DataValidationBuilder;
-      requireNumberBetween(start: Number, end: Number): DataValidationBuilder;
-      requireNumberEqualTo(number: Number): DataValidationBuilder;
-      requireNumberGreaterThan(number: Number): DataValidationBuilder;
-      requireNumberGreaterThanOrEqualTo(number: Number): DataValidationBuilder;
-      requireNumberLessThan(number: Number): DataValidationBuilder;
-      requireNumberLessThanOrEqualTo(number: Number): DataValidationBuilder;
-      requireNumberNotBetween(start: Number, end: Number): DataValidationBuilder;
-      requireNumberNotEqualTo(number: Number): DataValidationBuilder;
+      requireNumberBetween(start: number, end: number): DataValidationBuilder;
+      requireNumberEqualTo(number: number): DataValidationBuilder;
+      requireNumberGreaterThan(number: number): DataValidationBuilder;
+      requireNumberGreaterThanOrEqualTo(number: number): DataValidationBuilder;
+      requireNumberLessThan(number: number): DataValidationBuilder;
+      requireNumberLessThanOrEqualTo(number: number): DataValidationBuilder;
+      requireNumberNotBetween(start: number, end: number): DataValidationBuilder;
+      requireNumberNotEqualTo(number: number): DataValidationBuilder;
       requireTextContains(text: string): DataValidationBuilder;
       requireTextDoesNotContain(text: string): DataValidationBuilder;
       requireTextEqualTo(text: string): DataValidationBuilder;
@@ -411,7 +414,7 @@ declare namespace GoogleAppsScript {
       requireValueInRange(range: Range, showDropdown: boolean): DataValidationBuilder;
       setAllowInvalid(allowInvalidData: boolean): DataValidationBuilder;
       setHelpText(helpText: string): DataValidationBuilder;
-      withCriteria(criteria: DataValidationCriteria, args: Object[]): DataValidationBuilder;
+      withCriteria(criteria: DataValidationCriteria, args: any[]): DataValidationBuilder;
     }
 
     /**
@@ -527,6 +530,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -540,10 +544,10 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedAreaChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedAreaChartBuilder;
+      setRange(start: number, end: number): EmbeddedAreaChartBuilder;
       setStacked(): EmbeddedAreaChartBuilder;
       setTitle(chartTitle: string): EmbeddedAreaChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedAreaChartBuilder;
@@ -573,6 +577,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -587,9 +592,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedBarChartBuilder;
+      setRange(start: number, end: number): EmbeddedBarChartBuilder;
       setStacked(): EmbeddedBarChartBuilder;
       setTitle(chartTitle: string): EmbeddedBarChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedBarChartBuilder;
@@ -633,6 +638,7 @@ declare namespace GoogleAppsScript {
     export interface EmbeddedChart {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
+      getChartId(): Integer;
       getContainerInfo(): ContainerInfo;
       getHiddenDimensionStrategy(): Charts.ChartHiddenDimensionStrategy;
       getId(): string;
@@ -673,6 +679,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -681,7 +688,7 @@ declare namespace GoogleAppsScript {
       setHiddenDimensionStrategy(strategy: Charts.ChartHiddenDimensionStrategy): EmbeddedChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
     }
@@ -702,6 +709,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -715,9 +723,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedColumnChartBuilder;
+      setRange(start: number, end: number): EmbeddedColumnChartBuilder;
       setStacked(): EmbeddedColumnChartBuilder;
       setTitle(chartTitle: string): EmbeddedColumnChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedColumnChartBuilder;
@@ -746,6 +754,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -759,9 +768,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedComboChartBuilder;
+      setRange(start: number, end: number): EmbeddedComboChartBuilder;
       setStacked(): EmbeddedComboChartBuilder;
       setTitle(chartTitle: string): EmbeddedComboChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
@@ -791,6 +800,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -804,9 +814,9 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedHistogramChartBuilder;
+      setRange(start: number, end: number): EmbeddedHistogramChartBuilder;
       setStacked(): EmbeddedHistogramChartBuilder;
       setTitle(chartTitle: string): EmbeddedHistogramChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
@@ -836,6 +846,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -850,10 +861,10 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedLineChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedLineChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
-      setRange(start: Number, end: Number): EmbeddedLineChartBuilder;
+      setRange(start: number, end: number): EmbeddedLineChartBuilder;
       setTitle(chartTitle: string): EmbeddedLineChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedLineChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
@@ -882,6 +893,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -896,7 +908,7 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTitle(chartTitle: string): EmbeddedPieChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedPieChartBuilder;
@@ -919,6 +931,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       getChartType(): Charts.ChartType;
       getContainer(): ContainerInfo;
       getRanges(): Range[];
@@ -931,19 +944,19 @@ declare namespace GoogleAppsScript {
       setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPointStyle(style: Charts.PointStyle): EmbeddedScatterChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTitle(chartTitle: string): EmbeddedScatterChartBuilder;
       setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
       setXAxisLogScale(): EmbeddedScatterChartBuilder;
-      setXAxisRange(start: Number, end: Number): EmbeddedScatterChartBuilder;
+      setXAxisRange(start: number, end: number): EmbeddedScatterChartBuilder;
       setXAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setXAxisTitle(title: string): EmbeddedScatterChartBuilder;
       setXAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setYAxisLogScale(): EmbeddedScatterChartBuilder;
-      setYAxisRange(start: Number, end: Number): EmbeddedScatterChartBuilder;
+      setYAxisRange(start: number, end: number): EmbeddedScatterChartBuilder;
       setYAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
       setYAxisTitle(title: string): EmbeddedScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedScatterChartBuilder;
@@ -964,6 +977,7 @@ declare namespace GoogleAppsScript {
       asScatterChart(): EmbeddedScatterChartBuilder;
       asTableChart(): EmbeddedTableChartBuilder;
       build(): EmbeddedChart;
+      clearRanges(): EmbeddedChartBuilder;
       enablePaging(enablePaging: boolean): EmbeddedTableChartBuilder;
       enablePaging(pageSize: Integer): EmbeddedTableChartBuilder;
       enablePaging(pageSize: Integer, startPage: Integer): EmbeddedTableChartBuilder;
@@ -980,7 +994,7 @@ declare namespace GoogleAppsScript {
       setInitialSortingDescending(column: Integer): EmbeddedTableChartBuilder;
       setMergeStrategy(mergeStrategy: Charts.ChartMergeStrategy): EmbeddedChartBuilder;
       setNumHeaders(headers: Integer): EmbeddedChartBuilder;
-      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setOption(option: string, value: any): EmbeddedChartBuilder;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
       setTransposeRowsAndColumns(transpose: boolean): EmbeddedChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): EmbeddedTableChartBuilder;
@@ -1005,7 +1019,7 @@ declare namespace GoogleAppsScript {
     export interface FilterCriteria {
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHiddenValues(): string[];
       getVisibleValues(): string[];
     }
@@ -1017,34 +1031,34 @@ declare namespace GoogleAppsScript {
       build(): FilterCriteria;
       copy(): FilterCriteriaBuilder;
       getCriteriaType(): BooleanCriteria;
-      getCriteriaValues(): Object[];
+      getCriteriaValues(): any[];
       getHiddenValues(): string[];
       getVisibleValues(): string[];
       setHiddenValues(values: string[]): FilterCriteriaBuilder;
       setVisibleValues(values: string[]): FilterCriteriaBuilder;
       whenCellEmpty(): FilterCriteriaBuilder;
       whenCellNotEmpty(): FilterCriteriaBuilder;
-      whenDateAfter(date: Date): FilterCriteriaBuilder;
+      whenDateAfter(date: Base.Date): FilterCriteriaBuilder;
       whenDateAfter(date: RelativeDate): FilterCriteriaBuilder;
-      whenDateBefore(date: Date): FilterCriteriaBuilder;
+      whenDateBefore(date: Base.Date): FilterCriteriaBuilder;
       whenDateBefore(date: RelativeDate): FilterCriteriaBuilder;
-      whenDateEqualTo(date: Date): FilterCriteriaBuilder;
+      whenDateEqualTo(date: Base.Date): FilterCriteriaBuilder;
       whenDateEqualTo(date: RelativeDate): FilterCriteriaBuilder;
       whenFormulaSatisfied(formula: string): FilterCriteriaBuilder;
-      whenNumberBetween(start: Number, end: Number): FilterCriteriaBuilder;
-      whenNumberEqualTo(number: Number): FilterCriteriaBuilder;
-      whenNumberGreaterThan(number: Number): FilterCriteriaBuilder;
-      whenNumberGreaterThanOrEqualTo(number: Number): FilterCriteriaBuilder;
-      whenNumberLessThan(number: Number): FilterCriteriaBuilder;
-      whenNumberLessThanOrEqualTo(number: Number): FilterCriteriaBuilder;
-      whenNumberNotBetween(start: Number, end: Number): FilterCriteriaBuilder;
-      whenNumberNotEqualTo(number: Number): FilterCriteriaBuilder;
+      whenNumberBetween(start: number, end: number): FilterCriteriaBuilder;
+      whenNumberEqualTo(number: number): FilterCriteriaBuilder;
+      whenNumberGreaterThan(number: number): FilterCriteriaBuilder;
+      whenNumberGreaterThanOrEqualTo(number: number): FilterCriteriaBuilder;
+      whenNumberLessThan(number: number): FilterCriteriaBuilder;
+      whenNumberLessThanOrEqualTo(number: number): FilterCriteriaBuilder;
+      whenNumberNotBetween(start: number, end: number): FilterCriteriaBuilder;
+      whenNumberNotEqualTo(number: number): FilterCriteriaBuilder;
       whenTextContains(text: string): FilterCriteriaBuilder;
       whenTextDoesNotContain(text: string): FilterCriteriaBuilder;
       whenTextEndsWith(text: string): FilterCriteriaBuilder;
       whenTextEqualTo(text: string): FilterCriteriaBuilder;
       whenTextStartsWith(text: string): FilterCriteriaBuilder;
-      withCriteria(criteria: BooleanCriteria, args: Object[]): FilterCriteriaBuilder;
+      withCriteria(criteria: BooleanCriteria, args: any[]): FilterCriteriaBuilder;
     }
 
     /**
@@ -1188,7 +1202,7 @@ declare namespace GoogleAppsScript {
      * Access and modify pivot table breakout groups.
      */
     export interface PivotGroup {
-      addManualGroupingRule(groupName: string, groupMembers: Object[]): PivotGroup;
+      addManualGroupingRule(groupName: string, groupMembers: any[]): PivotGroup;
       areLabelsRepeated(): boolean;
       clearGroupingRule(): PivotGroup;
       clearSort(): PivotGroup;
@@ -1207,7 +1221,7 @@ declare namespace GoogleAppsScript {
       showRepeatedLabels(): PivotGroup;
       showTotals(showTotals: boolean): PivotGroup;
       sortAscending(): PivotGroup;
-      sortBy(value: PivotValue, oppositeGroupValues: Object[]): PivotGroup;
+      sortBy(value: PivotValue, oppositeGroupValues: any[]): PivotGroup;
       sortDescending(): PivotGroup;
       totalsAreShown(): boolean;
     }
@@ -1367,8 +1381,9 @@ declare namespace GoogleAppsScript {
       autoFillToNeighbor(series: AutoFillSeries): void;
       breakApart(): Range;
       canEdit(): boolean;
+      check(): Range;
       clear(): Range;
-      clear(options: Object): Range;
+      clear(options: any): Range;
       clearContent(): Range;
       clearDataValidations(): Range;
       clearFormat(): Range;
@@ -1378,12 +1393,13 @@ declare namespace GoogleAppsScript {
       copyFormatToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyTo(destination: Range): void;
       copyTo(destination: Range, copyPasteType: CopyPasteType, transposed: boolean): void;
-      copyTo(destination: Range, options: Object): void;
+      copyTo(destination: Range, options: any): void;
       copyValuesToRange(gridId: Integer, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
       createFilter(): Filter;
       createPivotTable(sourceData: Range): PivotTable;
+      createTextFinder(findText: string): TextFinder;
       deleteCells(shiftDimension: Dimension): void;
       expandGroups(): Range;
       getA1Notation(): string;
@@ -1392,6 +1408,8 @@ declare namespace GoogleAppsScript {
       getBandings(): Banding[];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getDataRegion(): Range;
+      getDataRegion(dimension: Dimension): Range;
       getDataSourceTables(): DataSourceTable[];
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
@@ -1443,8 +1461,8 @@ declare namespace GoogleAppsScript {
       getTextRotations(): TextRotation[][];
       getTextStyle(): TextStyle;
       getTextStyles(): TextStyle[][];
-      getValue(): Object;
-      getValues(): Object[][];
+      getValue(): any;
+      getValues(): any[][];
       getVerticalAlignment(): string;
       getVerticalAlignments(): string[][];
       getWidth(): Integer;
@@ -1453,7 +1471,11 @@ declare namespace GoogleAppsScript {
       getWrapStrategy(): WrapStrategy;
       getWraps(): boolean[][];
       insertCells(shiftDimension: Dimension): Range;
+      insertCheckboxes(): Range;
+      insertCheckboxes(checkedValue: any): Range;
+      insertCheckboxes(checkedValue: any, uncheckedValue: any): Range;
       isBlank(): boolean;
+      isChecked(): boolean;
       isEndColumnBounded(): boolean;
       isEndRowBounded(): boolean;
       isPartOfMerge(): boolean;
@@ -1468,6 +1490,7 @@ declare namespace GoogleAppsScript {
       offset(rowOffset: Integer, columnOffset: Integer, numRows: Integer, numColumns: Integer): Range;
       protect(): Protection;
       randomize(): Range;
+      removeCheckboxes(): Range;
       setBackground(color: string): Range;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
       setBackgrounds(color: string[][]): Range;
@@ -1476,27 +1499,27 @@ declare namespace GoogleAppsScript {
       setDataValidation(rule: DataValidation): Range;
       setDataValidations(rules: DataValidation[][]): Range;
       setFontColor(color: string): Range;
-      setFontColors(colors: Object[][]): Range;
-      setFontFamilies(fontFamilies: Object[][]): Range;
+      setFontColors(colors: any[][]): Range;
+      setFontFamilies(fontFamilies: any[][]): Range;
       setFontFamily(fontFamily: string): Range;
       setFontLine(fontLine: string): Range;
-      setFontLines(fontLines: Object[][]): Range;
+      setFontLines(fontLines: any[][]): Range;
       setFontSize(size: Integer): Range;
-      setFontSizes(sizes: Object[][]): Range;
+      setFontSizes(sizes: any[][]): Range;
       setFontStyle(fontStyle: string): Range;
-      setFontStyles(fontStyles: Object[][]): Range;
+      setFontStyles(fontStyles: any[][]): Range;
       setFontWeight(fontWeight: string): Range;
-      setFontWeights(fontWeights: Object[][]): Range;
+      setFontWeights(fontWeights: any[][]): Range;
       setFormula(formula: string): Range;
       setFormulaR1C1(formula: string): Range;
       setFormulas(formulas: string[][]): Range;
       setFormulasR1C1(formulas: string[][]): Range;
       setHorizontalAlignment(alignment: string): Range;
-      setHorizontalAlignments(alignments: Object[][]): Range;
+      setHorizontalAlignments(alignments: any[][]): Range;
       setNote(note: string): Range;
-      setNotes(notes: Object[][]): Range;
+      setNotes(notes: any[][]): Range;
       setNumberFormat(numberFormat: string): Range;
-      setNumberFormats(numberFormats: Object[][]): Range;
+      setNumberFormats(numberFormats: any[][]): Range;
       setRichTextValue(value: RichTextValue): Range;
       setRichTextValues(values: RichTextValue[][]): Range;
       setShowHyperlink(showHyperlink: boolean): Range;
@@ -1507,21 +1530,22 @@ declare namespace GoogleAppsScript {
       setTextRotations(rotations: TextRotation[][]): Range;
       setTextStyle(style: TextStyle): Range;
       setTextStyles(styles: TextStyle[][]): Range;
-      setValue(value: Object): Range;
-      setValues(values: Object[][]): Range;
+      setValue(value: any): Range;
+      setValues(values: any[][]): Range;
       setVerticalAlignment(alignment: string): Range;
-      setVerticalAlignments(alignments: Object[][]): Range;
+      setVerticalAlignments(alignments: any[][]): Range;
       setVerticalText(isVertical: boolean): Range;
       setWrap(isWrapEnabled: boolean): Range;
       setWrapStrategies(strategies: WrapStrategy[][]): Range;
       setWrapStrategy(strategy: WrapStrategy): Range;
-      setWraps(isWrapEnabled: Object[][]): Range;
+      setWraps(isWrapEnabled: any[][]): Range;
       shiftColumnGroupDepth(delta: Integer): Range;
       shiftRowGroupDepth(delta: Integer): Range;
-      sort(sortSpecObj: Object): Range;
+      sort(sortSpecObj: any): Range;
       splitTextToColumns(): void;
       splitTextToColumns(delimiter: string): void;
       splitTextToColumns(delimiter: TextToColumnsDelimiter): void;
+      uncheck(): Range;
     }
 
     /**
@@ -1531,13 +1555,18 @@ declare namespace GoogleAppsScript {
     export interface RangeList {
       activate(): RangeList;
       breakApart(): RangeList;
+      check(): RangeList;
       clear(): RangeList;
-      clear(options: Object): RangeList;
+      clear(options: any): RangeList;
       clearContent(): RangeList;
       clearDataValidations(): RangeList;
       clearFormat(): RangeList;
       clearNote(): RangeList;
       getRanges(): Range[];
+      insertCheckboxes(): RangeList;
+      insertCheckboxes(checkedValue: any): RangeList;
+      insertCheckboxes(checkedValue: any, uncheckedValue: any): RangeList;
+      removeCheckboxes(): RangeList;
       setBackground(color: string): RangeList;
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): RangeList;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): RangeList;
@@ -1556,12 +1585,18 @@ declare namespace GoogleAppsScript {
       setShowHyperlink(showHyperlink: boolean): RangeList;
       setTextDirection(direction: TextDirection): RangeList;
       setTextRotation(degrees: Integer): RangeList;
-      setValue(value: Object): RangeList;
+      setValue(value: any): RangeList;
       setVerticalAlignment(alignment: string): RangeList;
       setVerticalText(isVertical: boolean): RangeList;
       setWrap(isWrapEnabled: boolean): RangeList;
       setWrapStrategy(strategy: WrapStrategy): RangeList;
+      uncheck(): RangeList;
     }
+
+    /**
+     * An enumeration representing the possible intervals used in spreadsheet recalculation.
+     */
+    export enum RecalculationInterval { ON_CHANGE, MINUTE, HOUR }
 
     /**
      * An enumeration representing the relative date options for calculating a value to be used in
@@ -1637,12 +1672,12 @@ declare namespace GoogleAppsScript {
       addDeveloperMetadata(key: string, visibility: DeveloperMetadataVisibility): Sheet;
       addDeveloperMetadata(key: string, value: string): Sheet;
       addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
-      appendRow(rowContents: Object[]): Sheet;
+      appendRow(rowContents: any[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
       autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
       clear(): Sheet;
-      clear(options: Object): Sheet;
+      clear(options: any): Sheet;
       clearConditionalFormatRules(): void;
       clearContents(): Sheet;
       clearFormats(): Sheet;
@@ -1651,6 +1686,7 @@ declare namespace GoogleAppsScript {
       collapseAllRowGroups(): Sheet;
       copyTo(spreadsheet: Spreadsheet): Sheet;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
+      createTextFinder(findText: string): TextFinder;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
       deleteRow(rowPosition: Integer): Sheet;
@@ -1700,8 +1736,9 @@ declare namespace GoogleAppsScript {
       getSelection(): Selection;
       getSheetId(): Integer;
       getSheetName(): string;
-      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
+      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
       getTabColor(): string;
+      getType(): SheetType;
       hasHiddenGridlines(): boolean;
       hideColumn(column: Range): void;
       hideColumns(columnIndex: Integer): void;
@@ -1770,6 +1807,11 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * The different types of sheets that can exist in a spreadsheet.
+     */
+    export enum SheetType { GRID, any }
+
+    /**
      * Access and modify Google Sheets files. Common operations are adding new sheets and adding
      * collaborators.
      */
@@ -1781,14 +1823,15 @@ declare namespace GoogleAppsScript {
       addEditor(emailAddress: string): Spreadsheet;
       addEditor(user: Base.User): Spreadsheet;
       addEditors(emailAddresses: string[]): Spreadsheet;
-      addMenu(name: string, subMenus: Object[]): void;
+      addMenu(name: string, subMenus: any[]): void;
       addViewer(emailAddress: string): Spreadsheet;
       addViewer(user: Base.User): Spreadsheet;
       addViewers(emailAddresses: string[]): Spreadsheet;
-      appendRow(rowContents: Object[]): Sheet;
+      appendRow(rowContents: any[]): Sheet;
       autoResizeColumn(columnPosition: Integer): Sheet;
       copy(name: string): Spreadsheet;
       createDeveloperMetadataFinder(): DeveloperMetadataFinder;
+      createTextFinder(findText: string): TextFinder;
       deleteActiveSheet(): Sheet;
       deleteColumn(columnPosition: Integer): Sheet;
       deleteColumns(columnPosition: Integer, howMany: Integer): void;
@@ -1814,8 +1857,10 @@ declare namespace GoogleAppsScript {
       getFrozenRows(): Integer;
       getId(): string;
       getImages(): OverGridImage[];
+      getIterativeCalculationConvergenceThreshold(): Number;
       getLastColumn(): Integer;
       getLastRow(): Integer;
+      getMaxIterativeCalculationCycles(): Integer;
       getName(): string;
       getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
@@ -1824,12 +1869,13 @@ declare namespace GoogleAppsScript {
       getRange(a1Notation: string): Range;
       getRangeByName(name: string): Range;
       getRangeList(a1Notations: string[]): RangeList;
+      getRecalculationInterval(): RecalculationInterval;
       getRowHeight(rowPosition: Integer): Integer;
       getSelection(): Selection;
       getSheetByName(name: string): Sheet;
       getSheetId(): Integer;
       getSheetName(): string;
-      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
+      getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
       getSheets(): Sheet[];
       getSpreadsheetLocale(): string;
       getSpreadsheetTimeZone(): string;
@@ -1851,17 +1897,19 @@ declare namespace GoogleAppsScript {
       insertRowsBefore(beforePosition: Integer, howMany: Integer): Sheet;
       insertSheet(): Sheet;
       insertSheet(sheetIndex: Integer): Sheet;
-      insertSheet(sheetIndex: Integer, options: Object): Sheet;
-      insertSheet(options: Object): Sheet;
+      insertSheet(sheetIndex: Integer, options: any): Sheet;
+      insertSheet(options: any): Sheet;
       insertSheet(sheetName: string): Sheet;
       insertSheet(sheetName: string, sheetIndex: Integer): Sheet;
-      insertSheet(sheetName: string, sheetIndex: Integer, options: Object): Sheet;
-      insertSheet(sheetName: string, options: Object): Sheet;
+      insertSheet(sheetName: string, sheetIndex: Integer, options: any): Sheet;
+      insertSheet(sheetName: string, options: any): Sheet;
       insertSheetWithDataSourceTable(spec: DataSourceSpec): Sheet;
       isColumnHiddenByUser(columnPosition: Integer): boolean;
+      isIterativeCalculationEnabled(): boolean;
       isRowHiddenByFilter(rowPosition: Integer): boolean;
       isRowHiddenByUser(rowPosition: Integer): boolean;
       moveActiveSheet(pos: Integer): void;
+      moveChartToanySheet(chart: EmbeddedChart): Sheet;
       removeEditor(emailAddress: string): Spreadsheet;
       removeEditor(user: Base.User): Spreadsheet;
       removeMenu(name: string): void;
@@ -1880,19 +1928,23 @@ declare namespace GoogleAppsScript {
       setCurrentCell(cell: Range): Range;
       setFrozenColumns(columns: Integer): void;
       setFrozenRows(rows: Integer): void;
+      setIterativeCalculationConvergenceThreshold(minThreshold: Number): Spreadsheet;
+      setIterativeCalculationEnabled(isEnabled: boolean): Spreadsheet;
+      setMaxIterativeCalculationCycles(maxIterations: Integer): Spreadsheet;
       setNamedRange(name: string, range: Range): void;
+      setRecalculationInterval(recalculationInterval: RecalculationInterval): Spreadsheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setSpreadsheetLocale(locale: string): void;
       setSpreadsheetTimeZone(timezone: string): void;
-      show(userInterface: Object): void;
+      show(userInterface: any): void;
       sort(columnPosition: Integer): Sheet;
       sort(columnPosition: Integer, ascending: boolean): Sheet;
       toast(msg: string): void;
       toast(msg: string, title: string): void;
-      toast(msg: string, title: string, timeoutSeconds: Number): void;
+      toast(msg: string, title: string, timeoutSeconds: number): void;
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
-      updateMenu(name: string, subMenus: Object[]): void;
+      updateMenu(name: string, subMenus: any[]): void;
       getSheetProtection(): PageProtection;
       isAnonymousView(): boolean;
       isAnonymousWrite(): boolean;
@@ -1923,7 +1975,9 @@ declare namespace GoogleAppsScript {
       PivotTableSummarizeFunction: typeof PivotTableSummarizeFunction;
       PivotValueDisplayType: typeof PivotValueDisplayType;
       ProtectionType: typeof ProtectionType;
+      RecalculationInterval: typeof RecalculationInterval;
       RelativeDate: typeof RelativeDate;
+      SheetType: typeof SheetType;
       TextDirection: typeof TextDirection;
       TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
       WrapStrategy: typeof WrapStrategy;
@@ -1961,6 +2015,24 @@ declare namespace GoogleAppsScript {
      * An enumerations of text directions.
      */
     export enum TextDirection { LEFT_TO_RIGHT, RIGHT_TO_LEFT }
+
+    /**
+     * Find or replace text within a range, sheet or spreadsheet. Can also specify search options.
+     */
+    export interface TextFinder {
+      findAll(): Range[];
+      findNext(): Range;
+      findPrevious(): Range;
+      getCurrentMatch(): Range;
+      ignoreDiacritics(ignoreDiacritics: boolean): TextFinder;
+      matchCase(matchCase: boolean): TextFinder;
+      matchEntireCell(matchEntireCell: boolean): TextFinder;
+      matchFormulaText(matchFormulaText: boolean): TextFinder;
+      replaceAllWith(replaceText: string): Integer;
+      replaceWith(replaceText: string): Integer;
+      startFrom(startRange: Range): TextFinder;
+      useRegularExpression(useRegEx: boolean): TextFinder;
+    }
 
     /**
      * Access the text rotation settings for a cell.

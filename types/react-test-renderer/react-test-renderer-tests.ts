@@ -48,7 +48,7 @@ function testInstance(inst: ReactTestInstance) {
     testInstance(inst.findByProps({ prop1: "p" }));
     testInstance(inst.findByType("a"));
     testInstance(inst.findByType(TestComponent));
-    inst.findAll(n => n.type === "t", { deep: true }).map(testInstance);
+    inst.findAll(n => n.type === "div", { deep: true }).map(testInstance);
     inst.findAllByProps({ prop1: "p" }, { deep: true }).map(testInstance);
     inst.findAllByType("a", { deep: true }).map(testInstance);
     inst.findAllByType(TestComponent, { deep: true }).map(testInstance);

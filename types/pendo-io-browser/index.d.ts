@@ -10,15 +10,13 @@ declare namespace pendo {
         account?: Account;
     }
 
-    type Metadata = Record<string, string | number | undefined>;
-
-    interface Visitor extends Metadata {
-        id: string;
+    interface Metadata {
+        [key: string]: string | number | boolean | Date | string[] | number[];
     }
 
-    interface Account extends Metadata {
-        id?: string;
-    }
+    type Visitor = { id: string; } & Metadata;
+
+    type Account = { id?: string; } & Metadata;
 
     interface InitOptions extends Identity {
         apiKey?: string;
@@ -49,7 +47,7 @@ declare namespace pendo {
         identify(identity: Identity): void;
         isReady(): boolean;
         flushNow(): Promise<any>;
-        updateOptions(visitorMetadata: Metadata): void;
+        updateOptions(options: Identity): void;
         getVersion(): string;
         getVisitorId(): string;
         getAccountId(): string;
@@ -120,7 +118,7 @@ declare namespace pendo {
         attributes: {
             type: string;
             device: { desktop: boolean; mobile: boolean; type: "desktop" | "mobile" };
-            badge: any;
+            badge: any; // TODO
             priority: number;
             launcher: { keywords: string[] };
         };

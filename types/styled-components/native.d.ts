@@ -89,10 +89,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ListView,
     T
   >;
-  MapView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.MapView,
-    T
-  >;
   Modal: ReactNativeThemedStyledFunction<
     typeof ReactNative.Modal,
     T

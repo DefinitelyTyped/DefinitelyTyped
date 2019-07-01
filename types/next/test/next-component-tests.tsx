@@ -130,3 +130,21 @@ withBasic(ClassNext);
 
 // P template inferred as <TestProps & WithExampleProps>
 withBasic(withExample(NextWithExample));
+
+class ClassNextWithCustomReq extends React.Component<NextComponentProps> {
+    static async getInitialProps(
+        ctx: NextContext<DefaultQuery, { customField: "custom value" }>
+    ) {
+        const example = ctx.req ? ctx.req.customField : undefined;
+        return { example };
+    }
+
+    render() {
+        return (
+            <div>
+                I'm a class component with a custom field in the request!{" "}
+                {this.props.example}
+            </div>
+        );
+    }
+}

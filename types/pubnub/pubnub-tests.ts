@@ -113,4 +113,5 @@ const mySecret = {
   message: 'Hi!',
 };
 pubnub.decrypt(mySecret, undefined, cryptoOptions);
+pubnub.decrypt('mySecretString', undefined, cryptoOptions);
 pubnub.encrypt('egrah5rwgrehwqh5eh3hwfwef', undefined, cryptoOptions);

@@ -1,6 +1,7 @@
 // Type definitions for react-tag-autocomplete 5.6
 // Project: https://github.com/i-like-robots/react-tags#readme
 // Definitions by: James Lismore <https://github.com/jlismore>
+//                 Rahul Sagore <https://github.com/Rahul-Sagore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -81,6 +82,10 @@ export interface ReactTagsProps {
      * Optional event handler when the input changes. Receives the current input value.
      */
     handleInputChange?: (input: string) => void;
+    /**
+     * Optional validation function that determines if tag should be added to tags. Receives a tag object. Should return a boolean.
+     */
+    handleValidate?: (tag: Tag) => boolean;
     /**
      * An object containing additional attributes that will be applied to the underlying <input /> field.
      */

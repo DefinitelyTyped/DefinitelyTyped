@@ -142,6 +142,7 @@ export interface Hunk {
     newStart: number;
     newLines: number;
     lines: string[];
+    linedelimiters: string[];
 }
 
 export interface BestPath {

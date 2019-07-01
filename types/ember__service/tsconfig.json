@@ -10,6 +10,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "experimentalDecorators": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -25,6 +26,7 @@
     },
     "files": [
         "index.d.ts",
-        "ember__service-tests.ts"
+        "test/main.ts",
+        "test/octane.ts"
     ]
 }

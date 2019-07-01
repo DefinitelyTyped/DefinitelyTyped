@@ -419,3 +419,17 @@ export type PaginationProperties = PaginationProps & React.Props<PaginationStati
 export class Pagination extends React.Component<PaginationProperties> { }
 
 export default class Carousel<T> extends React.Component<CarouselProperties<T>> { }
+
+/**
+ * Get scroll interpolator's input range from an array of slide indexes
+ * Indexes are relative to the current active slide (index 0)
+ * For example, using [3, 2, 1, 0, -1] will return:
+ * [
+ *     (index - 3) * sizeRef, // active + 3
+ *     (index - 2) * sizeRef, // active + 2
+ *     (index - 1) * sizeRef, // active + 1
+ *     index * sizeRef, // active
+ *     (index + 1) * sizeRef // active - 1
+ * ]
+ */
+export function getInputRangeFromIndexes(range: number[], index: number, carouselProps: CarouselProps<any>): number[];

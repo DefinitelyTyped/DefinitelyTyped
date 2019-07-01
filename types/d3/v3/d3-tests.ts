@@ -1805,7 +1805,7 @@ namespace forceCollapsable2 {
             .attr("y1", function (d) { return (d.source as Node).y; } )
             .attr("x2", function (d) { return (d.target as Node).x; } )
             .attr("y2", function (d) { return (d.target as Node).y; } );
-        
+
         node.attr("cx", function (d) { return d.x; } )
             .attr("cy", function (d) { return d.y; } );
     }
@@ -2750,4 +2750,33 @@ class BrushAxisTest {
             .x(colorScale) // Color scale
             .y(d3.scale.pow());
     }
+}
+
+interface NodeWithText extends d3.layout.partition.Node { t: string; children?: NodeWithText[]; }
+function testPartition(data: Array<NodeWithText>) {
+        var width = 1000;
+        var height = 1000;
+
+        var div = d3.select('#partition').style('width', width)
+            .style('height', height).style('position', 'relative');
+        var partition = d3.layout.partition().size([width, height]);
+
+        const root: NodeWithText = { t: 'root', children: data};
+        var nodes = partition.nodes(root);
+        div.selectAll('.node').data(nodes).enter()
+            .append('div')
+            .style('position', 'absolute')
+            .style('left', function (d) { return d.x })
+            .style('top', function (d) { return d.y })
+            .style('width', function (d) { return d.dx })
+            .style('height', function (d) { return d.dy })
+            .style('border', '1px solid black')
+            .style('background-color', function (d: NodeWithText) {
+                if (d.t === 'root') {
+                    return 'blue'
+                } else {
+                    return 'red';
+                }
+            })
+            .text(function (d: NodeWithText) { return d.t; });
 }

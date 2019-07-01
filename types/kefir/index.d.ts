@@ -1,4 +1,4 @@
-// Type definitions for Kefir 3.8.0
+// Type definitions for Kefir 3.8.1
 // Project: http://rpominov.github.io/kefir/
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Piotr Hitori Bosak <https://github.com/HitoriSensei>
@@ -119,7 +119,7 @@ export class Observable<T, S> {
     sampledBy(otherObs: Observable<any, any>): Observable<T, S>;
     sampledBy<U, W>(otherObs: Observable<U, any>, combinator: (a: T, b: U) => W): Observable<W, S>;
     skipUntilBy<U, V>(otherObs: Observable<U, V>): Observable<U, V>;
-    takeUntilBy<U, V>(otherObs: Observable<U, V>): Observable<U, V>;
+    takeUntilBy<U, V>(otherObs: Observable<U, V>): Observable<T, S>;
     bufferBy<U, V>(otherObs: Observable<U, V>, options?: { flushOnEnd: boolean }): Observable<T[], S>;
     bufferWhileBy<U>(otherObs: Observable<boolean, U>, options?: { flushOnEnd?: boolean, flushOnChange?: boolean }): Observable<T[], S>;
     awaiting<U, V>(otherObs: Observable<U, V>): Observable<boolean, S>;
@@ -162,7 +162,7 @@ export function sequentially<T>(interval: number, values: T[]): Stream<T, never>
 export function fromPoll<T>(interval: number, fn: () => T): Stream<T, never>;
 export function withInterval<T, S>(interval: number, handler: (emitter: Emitter<T, S>) => void): Stream<T, S>;
 export function fromCallback<T>(fn: (callback: (value: T) => void) => void): Stream<T, never>;
-export function fromNodeCallback<T, S>(fn: (callback: (error: S, result: T) => void) => void): Stream<T, S>;
+export function fromNodeCallback<T, S>(fn: (callback: (error: S | null, result: T) => void) => void): Stream<T, S>;
 export function fromEvents<T, S>(target: EventTarget | NodeJS.EventEmitter | { on: Function, off: Function }, eventName: string, transform?: (value: T) => S): Stream<T, S>;
 export function stream<T, S>(subscribe: (emitter: Emitter<T, S>) => Function | void): Stream<T, S>;
 export function fromESObservable<T, S>(observable: any): Stream<T, S>

@@ -1,7 +1,32 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, AnyAction, ActionCreator, createStore, bindActionCreators, ActionCreatorsMapObject, Reducer } from 'redux';
-import { Connect, connect, Provider, DispatchProp, MapStateToProps, Options, ReactReduxContext, ReactReduxContextValue, Selector } from 'react-redux';
+import {
+    Store,
+    Dispatch,
+    AnyAction,
+    ActionCreator,
+    createStore,
+    bindActionCreators,
+    ActionCreatorsMapObject,
+    Reducer,
+} from 'redux';
+import {
+    Connect,
+    connect,
+    Provider,
+    DispatchProp,
+    MapStateToProps,
+    Options,
+    ReactReduxContext,
+    ReactReduxContextValue,
+    Selector,
+    shallowEqual,
+    MapDispatchToProps,
+    useDispatch,
+    useSelector,
+    useStore,
+    TypedUseSelectorHook,
+} from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -82,9 +107,34 @@ function MapDispatch() {
 
     class TestComponent extends React.Component<OwnProps & DispatchProps> { }
 
-    const mapDispatchToProps = () => ({
-        onClick: () => { }
-    });
+    const mapDispatchToProps = ({ onClick: () => { } });
+
+    const TestNull = connect(
+        null,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyNull = <TestNull foo='bar' />;
+
+    const TestUndefined = connect(
+        undefined,
+        mapDispatchToProps,
+    )(TestComponent);
+
+    const verifyUndefined = <TestUndefined foo='bar' />;
+}
+
+function MapDispatchUnion() {
+    interface OwnProps { foo: string; }
+    interface DispatchProps { onClick: () => void; }
+
+    class TestComponent extends React.Component<OwnProps & DispatchProps> { }
+
+    // We deliberately cast the right-hand side to `any` because otherwise
+    // TypeScript would maintain the literal value, when we deliberately want to
+    // test the union type here (as per the annotation). See
+    // https://github.com/Microsoft/TypeScript/issues/30310#issuecomment-472218182.
+    const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = {} as any;
 
     const TestNull = connect(
         null,
@@ -1248,4 +1298,105 @@ function TestSelector() {
     notSimpleSelect(state, ownProps);
     simpleSelect(state, ownProps); // $ExpectError
     notSimpleSelect(state); // $ExpectError
+}
+
+function testShallowEqual() {
+    shallowEqual(); // $ExpectError
+    shallowEqual('a'); // $ExpectError
+    shallowEqual('a', 'a');
+    shallowEqual({ test: 'test' }, { test: 'test' });
+    shallowEqual({ test: 'test' }, 'a');
+    const x: boolean = shallowEqual('a', 'a');
+}
+
+function testUseDispatch() {
+    const actionCreator = (selected: boolean) => ({
+        type: "ACTION_CREATOR",
+        payload: selected,
+    });
+    const thunkActionCreator = (selected: boolean) => {
+        return (dispatch: Dispatch) => {
+            return dispatch(actionCreator(selected));
+        };
+    };
+
+    const dispatch = useDispatch();
+    dispatch(actionCreator(true));
+    dispatch(thunkActionCreator(true));
+    dispatch(true);
+
+    type ThunkAction<TReturnType> = (dispatch: Dispatch) => TReturnType;
+    type ThunkDispatch = <TReturnType>(action: ThunkAction<TReturnType>) => TReturnType;
+    // tslint:disable-next-line:no-unnecessary-callback-wrapper (required for the generic parameter)
+    const useThunkDispatch = () => useDispatch<ThunkDispatch>();
+    const thunkDispatch = useThunkDispatch();
+    const result: ReturnType<typeof actionCreator> = thunkDispatch(thunkActionCreator(true));
+}
+
+function testUseSelector() {
+    interface State {
+        counter: number;
+        active: string;
+    }
+
+    const selector = (state: State) => {
+        return {
+            counter: state.counter,
+            active: state.active,
+        };
+    };
+    const { counter, active } = useSelector(selector);
+    counter === 1;
+    counter === "321"; // $ExpectError
+    active === "hi";
+    active === {}; // $ExpectError
+
+    const { extraneous } = useSelector(selector); // $ExpectError
+    useSelector(selector);
+
+    useSelector(selector, 'a'); // $ExpectError
+    useSelector(selector, (l, r) => l === r);
+    useSelector(selector, (l, r) => {
+        // $ExpectType { counter: number; active: string; }
+        l;
+        return l === r;
+    });
+
+    useSelector(selector, shallowEqual);
+    const compare = (_l: number, _r: number) => true;
+    useSelector(() => 1, compare);
+    const compare2 = (_l: number, _r: string) => true;
+    useSelector(() => 1, compare2); // $ExpectError
+
+    interface RootState {
+        property: string;
+    }
+
+    const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+     // $ExpectType string
+    const r = useTypedSelector(state => {
+        // $ExpectType RootState
+        state;
+        return state.property;
+    });
+}
+
+function testUseStore() {
+    interface TypedState {
+        counter: number;
+        active: boolean;
+    }
+    interface TypedAction {
+        type: "SET_STATE";
+    }
+
+    const untypedStore = useStore();
+    const state = untypedStore.getState();
+    state.things.stuff.anything; // any by default
+
+    const typedStore = useStore<TypedState, TypedAction>();
+    const typedState = typedStore.getState();
+    typedState.counter;
+    typedState.things.stuff; // $ExpectError
 }

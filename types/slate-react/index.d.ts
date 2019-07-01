@@ -1,4 +1,4 @@
-// Type definitions for slate-react 0.21
+// Type definitions for slate-react 0.22
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -9,6 +9,7 @@
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -29,7 +30,8 @@ import {
     RangeProperties,
     NodeProperties,
     Range,
-    Controller
+    Controller,
+    Plugin as CorePlugin
 } from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
@@ -57,9 +59,20 @@ export interface RenderNodeProps {
   isFocused: boolean;
   isSelected: boolean;
   key: string;
-  node: Block | Inline;
   parent: Node;
   readOnly: boolean;
+}
+
+export interface RenderBlockProps extends RenderNodeProps {
+    node: Block;
+}
+
+export interface RenderDocumentProps extends RenderNodeProps {
+    node: Document;
+}
+
+export interface RenderInlineProps extends RenderNodeProps {
+    node: Inline;
 }
 
 export type EventHook = (
@@ -68,11 +81,13 @@ export type EventHook = (
     next: () => any
 ) => any;
 
-export interface Plugin {
+export interface Plugin extends CorePlugin {
     decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
     renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
     renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
-    renderNode?: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
+    renderBlock?: (props: RenderBlockProps, editor: CoreEditor, next: () => any) => any;
+    renderDocument?: (props: RenderDocumentProps, editor: CoreEditor, next: () => any) => any;
+    renderInline?: (props: RenderInlineProps, editor: CoreEditor, next: () => any) => any;
     shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
 
     onBeforeInput?: EventHook;
@@ -96,14 +111,17 @@ export interface Plugin {
     onSelect?: EventHook;
 }
 
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
+
 export interface BasicEditorProps {
     value: Value;
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => any;
     placeholder?: any;
-    plugins?: Plugin[];
+    plugins?: Plugins;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;
@@ -331,6 +349,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     replaceNodeByPath: CoreEditor['replaceNodeByPath'];
     removeTextByKey: CoreEditor['removeTextByKey'];
     removeTextByPath: CoreEditor['removeTextByPath'];
+    setDecorations: CoreEditor['setDecorations'];
     setMarkByKey: CoreEditor['setMarkByKey'];
     setMarksByPath: CoreEditor['setMarksByPath'];
     setNodeByKey: CoreEditor['setNodeByKey'];

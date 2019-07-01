@@ -1,10 +1,11 @@
 // Type definitions for cookie-session 2.0
 // Project: https://github.com/expressjs/cookie-session
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
+// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>, Jason Cordial <https://github.com/btomw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.9
 
 /// <reference types="express" />
+/// <reference types="keygrip" />
 
 declare namespace Express {
     interface Request extends CookieSessionInterfaces.CookieSessionRequest {}
@@ -20,7 +21,7 @@ declare namespace CookieSessionInterfaces {
         /**
          * The list of keys to use to sign & verify cookie values. Set cookies are always signed with keys[0], while the other keys are valid for verification, allowing for key rotation.
          */
-        keys?: Array<string>;
+        keys?: Array<string> | import('keygrip');
 
         /**
          * A string which will be used as single key if keys is not provided.

@@ -413,6 +413,7 @@ authResponse = {
 // CognitoUserPoolEvent
 num = cognitoUserPoolEvent.version;
 cognitoUserPoolEvent.triggerSource === "PreSignUp_SignUp";
+cognitoUserPoolEvent.triggerSource === "PreSignUp_ExternalProvider";
 cognitoUserPoolEvent.triggerSource === "PostConfirmation_ConfirmSignUp";
 cognitoUserPoolEvent.triggerSource === "PreAuthentication_Authentication";
 cognitoUserPoolEvent.triggerSource === "PostAuthentication_Authentication";
@@ -544,7 +545,7 @@ str = cloudwatchLogsDecodedData.logEvents[0].extractedFields!["example"];
 
 /* ClientContext */
 clientContextClient = clientCtx.client;
-anyObj = clientCtx.custom;
+anyObj = clientCtx.Custom;
 clientContextEnv = clientCtx.env;
 
 /* ClientContextEnv */
@@ -1018,6 +1019,11 @@ const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWS
 };
 
 const cloudFrontResponseHandler: AWSLambda.CloudFrontResponseHandler = (event: AWSLambda.CloudFrontResponseEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontResponseCallback) => { };
+
+const cloudFrontHeaders: AWSLambda.CloudFrontHeaders = {
+    'content-type': [{ value: 'text/plain' }],
+    'x-foo-bar': [{ key: 'X-Foo-Bar', value: 'example' }]
+};
 
 const customAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };
 

@@ -451,6 +451,10 @@ declare namespace InboxSDK {
     type MessageViewViewStates = 'HIDDEN' | 'COLLAPSED' | 'EXPANDED';
 
     interface ContentPanelView {
+      isActive(): boolean;
+
+      open(): void;
+
       remove(): void;
 
       on(name: 'destroy' | 'activate' | 'deactivate', cb: () => void): void;

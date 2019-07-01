@@ -1,4 +1,4 @@
-// Type definitions for Ignite UI 18.2
+// Type definitions for Ignite UI 19.1
 // Project: https://github.com/IgniteUI/ignite-ui
 // Definitions by: Ignite UI <https://github.com/IgniteUI>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15855,21 +15855,6 @@ interface IgDataChartSeries {
 	yAxisAnnoationFormatLabel?: any;
 
 	/**
-	 * Sets or gets a function which allows you to decide upon the label that gets used for an automatically created callout.
-	 */
-	calloutLabelUpdating?: any;
-
-	/**
-	 * Sets or gets a function which allows you to decide upon the content that gets used for an automatically created callout.
-	 */
-	calloutContentUpdating?: any;
-
-	/**
-	 * Sets or gets a function which allows you to decide upon the series that gets used for a data bound callout.
-	 */
-	calloutSeriesSelecting?: any;
-
-	/**
 	 * Gets or sets the precision to use displaying values for interpolated crosshair positions.
 	 */
 	axisAnnotationInterpolatedValuePrecision?: number;
@@ -15883,6 +15868,21 @@ interface IgDataChartSeries {
 	 * Gets or sets the precision to use displaying values for interpolated crosshair positions.
 	 */
 	yAxisAnnotationInterpolatedValuePrecision?: number;
+
+	/**
+	 * Sets or gets a function which lets you modify or provide the content for an automatically created callout.
+	 */
+	calloutContentUpdating?: any;
+
+	/**
+	 * Sets or gets a function which lets you modify or provide the associated series for a data source provided callout.
+	 */
+	calloutSeriesSelecting?: any;
+
+	/**
+	 * Sets or gets a function which lets you modify or provide the label for an automatically created callout.
+	 */
+	calloutLabelUpdating?: any;
 
 	/**
 	 * Option for IgDataChartSeries
@@ -56177,19 +56177,19 @@ interface IgGridHidingMethods {
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets shown(optional)
 	 */
 	showColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets hidden(optional)
 	 */
 	hideColumn(column: Object, callback?: Function): void;
 
@@ -63140,9 +63140,6 @@ interface IgGridModalDialog {
 
 	/**
 	 * Event fired before the modal dialog is closed.
-	 * The handler function takes arguments evt and ui.
-	 * Use ui.owner to get the reference to the igGridModalDialog widget.
-	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
 	 */
 	modalDialogClosing?: ModalDialogClosingEvent;
 
@@ -63644,17 +63641,11 @@ interface JQuery {
 
 	/**
 	 * Event fired before the modal dialog is closed.
-	 * The handler function takes arguments evt and ui.
-	 * Use ui.owner to get the reference to the igGridModalDialog widget.
-	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
 	 */
 	igGridModalDialog(optionLiteral: 'option', optionName: "modalDialogClosing"): ModalDialogClosingEvent;
 
 	/**
 	 * Event fired before the modal dialog is closed.
-	 * The handler function takes arguments evt and ui.
-	 * Use ui.owner to get the reference to the igGridModalDialog widget.
-	 * Use ui.modalDialog to get the reference to the igGridModalDialog element
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -74083,7 +74074,7 @@ interface IgNotifierMethods {
 	/**
 	 * Returns true if the notification is currently visible
 	 */
-	isVisible(): void;
+	isVisible(): boolean;
 
 	/**
 	 * Destroys the widget.
@@ -74149,7 +74140,7 @@ interface JQuery {
 interface JQuery {
 	igNotifier(methodName: "changeLocale"): void;
 	igNotifier(methodName: "notify", state: Object, message?: string): void;
-	igNotifier(methodName: "isVisible"): void;
+	igNotifier(methodName: "isVisible"): boolean;
 	igNotifier(methodName: "destroy"): void;
 	igNotifier(methodName: "id"): string;
 	igNotifier(methodName: "container"): Object;
@@ -83498,19 +83489,19 @@ interface IgSchedulerWeekViewSettings {
 	 * Gets/Sets the week view display mode (whether to show all days or just working days).
 	 *
 	 */
-	weekViewDisplayMode?: number;
+	weekViewDisplayMode?: string;
 
 	/**
 	 * Gets/Sets whether to display all hours or just working hours.
 	 *
 	 */
-	workingHoursDisplayMode?: number;
+	workingHoursDisplayMode?: string;
 
 	/**
 	 * Gets/Sets the time slots duration. 5, 6, 10, 15, 30 and 60 minutes are supported.
 	 *
 	 */
-	timeSlotInterval?: number;
+	timeSlotInterval?: string;
 
 	/**
 	 * Option for IgSchedulerWeekViewSettings
@@ -83523,7 +83514,7 @@ interface IgSchedulerDayViewSettings {
 	 * Gets/Sets the time slots duration. 5, 6, 10, 15, 30 and 60 minutes are supported.
 	 *
 	 */
-	timeSlotInterval?: number;
+	timeSlotInterval?: string;
 
 	/**
 	 * Gets/Sets the number of days are visible at a time in the day view. 1 to 7 days are supported.
@@ -83535,7 +83526,7 @@ interface IgSchedulerDayViewSettings {
 	 * Gets/Sets whether to display all hours or just working hours.
 	 *
 	 */
-	workingHoursDisplayMode?: number;
+	workingHoursDisplayMode?: string;
 
 	/**
 	 * Option for IgSchedulerDayViewSettings
@@ -100486,19 +100477,19 @@ interface IgTreeGridHidingMethods {
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column(s) is shown(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets shown(optional)
 	 */
 	showColumn(column: Object, callback?: Function): void;
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous, which means that it returns immediately, and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
-	 * @param column An identifier for the column. If a number is provided it will be used as a column index else if a strings is provided it will be used as a column key.
-	 * @param callback Specifies a custom function to be called when the column is hidden(optional)
+	 * @param column An identifier for the column. If a number is provided it will be used as a column index; else if a string is provided, it will be used as a column key.
+	 * @param callback Specifies a custom function to be called after the column gets hidden(optional)
 	 */
 	hideColumn(column: Object, callback?: Function): void;
 
@@ -114951,7 +114942,7 @@ interface IgniteUIStatic {
     loader(resources: string, callback: Function): IgLoader;
     loader(): IgLoader;
     OlapUtilities: any;
-    formatter(val: Date|number|string, type: string, format: string, notTemplate?: boolean, enableUTCDates?: boolean, dateOffset?: any, displayStyle?: string, labelText?: string, tabIndex?: string|number, reg?: any): string;
+    formatter(val: number|string|Date, type: string, format: string, notTemplate?: boolean, enableUTCDates?: boolean, dateOffset?: any, displayStyle?: string, labelText?: string, tabIndex?: string|number, reg?: any): string;
 }
 
 interface JQueryStatic {

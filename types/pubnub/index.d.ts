@@ -116,7 +116,7 @@ declare class Pubnub {
   ): any;
 
   decrypt(
-    data: object,
+    data: string | object,
     customCipherKey?: string,
     options?: Pubnub.CryptoParameters
   ): any;

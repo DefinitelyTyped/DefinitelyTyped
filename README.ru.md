@@ -346,8 +346,6 @@ GitHub не [поддерживает](http://stackoverflow.com/questions/564617
 
 Авторские права на файлы определений принадлежат каждому участнику, указанному в начале каждого файла определения.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-47495295-4/borisyankov/DefinitelyTyped)](https://github.com/igrigorik/ga-beacon)
-
 [![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13) В среднем пакеты публикуются на npm менее чем за 10000 секунд?
 
 [![Build Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14) Был ли typescript-bot активным на DefinitelyTyped в последние два часа?

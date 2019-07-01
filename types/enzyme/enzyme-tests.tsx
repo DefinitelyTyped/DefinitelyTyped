@@ -91,6 +91,7 @@ function ShallowWrapperTest() {
     let reactElement: ReactElement;
     let reactElements: ReactElement[];
     let domElement: Element;
+    let buttonElement: HTMLButtonElement;
     let boolVal: boolean;
     let stringVal: string;
     let numOrStringVal: number | string | undefined;
@@ -204,6 +205,7 @@ function ShallowWrapperTest() {
         }
 
         const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' } });
+        const diveWrapper2 = shallowWrapper.dive<MyComponent>({ context: { foobar: 'barfoo' } });
     }
 
     function test_hostNodes() {
@@ -317,6 +319,7 @@ function ShallowWrapperTest() {
 
     function test_getDOMNode() {
         domElement = shallowWrapper.getDOMNode();
+        buttonElement = shallowWrapper.getDOMNode<HTMLButtonElement>();
     }
 
     function test_at() {
@@ -380,11 +383,13 @@ function ShallowWrapperTest() {
     }
 
     function test_setState() {
+        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' });
         shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' }, () => console.log('state updated'));
     }
 
     function test_setProps() {
         shallowWrapper = shallowWrapper.setProps({ stringProp: 'foo' });
+        shallowWrapper = shallowWrapper.setProps({ stringProp: 'foo' }, () => console.log('props update'));
     }
 
     function test_setContext() {
@@ -498,6 +503,7 @@ function ReactWrapperTest() {
     let reactElement: ReactElement;
     let reactElements: ReactElement[];
     let domElement: Element;
+    let buttonElement: HTMLButtonElement;
     let boolVal: boolean;
     let stringVal: string;
     let elementWrapper: ReactWrapper<HTMLAttributes<{}>>;
@@ -718,6 +724,7 @@ function ReactWrapperTest() {
 
     function test_getDOMNode() {
         domElement = reactWrapper.getDOMNode();
+        buttonElement = reactWrapper.getDOMNode<HTMLButtonElement>();
     }
 
     function test_at() {
@@ -778,10 +785,12 @@ function ReactWrapperTest() {
 
     function test_setState() {
         reactWrapper = reactWrapper.setState({ stateProperty: 'state' });
+        reactWrapper = reactWrapper.setState({ stateProperty: 'state' }, () => console.log('state set'));
     }
 
     function test_setProps() {
-        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => { });
+        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' });
+        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => console.log('props set'));
     }
 
     function test_setContext() {

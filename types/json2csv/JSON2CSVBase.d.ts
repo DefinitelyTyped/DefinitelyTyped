@@ -1,12 +1,24 @@
 export declare namespace json2csv {
-    export interface FieldValueCallback<T> {
-        (row: T, field: string): string;
+    export interface FieldValueCallbackInfo {
+        label: string;
+        default?: string;
+    }
+
+    export type FieldValueCallback<T> = FieldValueCallbackWithoutField<T> | FieldValueCallbackWithField<T>;
+
+    export interface FieldValueCallbackWithoutField<T> {
+        (row: T): any;
+    }
+
+    export interface FieldValueCallbackWithField<T> {
+        (row: T, field: FieldValueCallbackInfo): any;
     }
 
     export interface FieldInfo<T> {
-        label: string;
+        label?: string;
         default?: string;
-        value?: string | FieldValueCallback<T>;
+        value: string | FieldValueCallback<T>;
+        stringify?: boolean;
     }
 
     export interface Options<T> {

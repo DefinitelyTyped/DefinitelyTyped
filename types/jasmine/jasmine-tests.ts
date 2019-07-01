@@ -176,10 +176,8 @@ describe("Included matchers:", () => {
     it("async matchers", async () => {
         const badness = new Error("badness");
         await expectAsync(Promise.resolve()).toBeResolved();
-        await expectAsync(Promise.resolve()).toBeResolved("good job");
         await expectAsync(Promise.resolve(true)).toBeResolvedTo(true);
         await expectAsync(Promise.reject(badness)).toBeRejected();
-        await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
         await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
     });

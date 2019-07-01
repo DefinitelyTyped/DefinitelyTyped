@@ -110,6 +110,7 @@ const Test: React.StatelessComponent = () => {
                 classNames={ {
                     appear: "fade-appear",
                     appearActive: "fade-active-appear",
+                    appearDone: "fade-done-appear",
                     enter: "fade-enter",
                     enterActive: "fade-active-enter",
                     enterDone: "fade-done-enter",
@@ -118,6 +119,10 @@ const Test: React.StatelessComponent = () => {
                     exitDone: "fade-done-exit",
                 } }
             >
+                <div>{ "test" }</div>
+            </CSSTransition>
+
+            <CSSTransition timeout={ 100 }>
                 <div>{ "test" }</div>
             </CSSTransition>
         </TransitionGroup>

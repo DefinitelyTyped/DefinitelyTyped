@@ -22,12 +22,21 @@ console.log(coll2 === coll);
 const users = coll as ArangoDB.Collection<User>;
 const admin = users.firstExample({ username: "admin" })!;
 users.update(admin, { password: md5("hunter2") });
-console.logLines("user", admin._key, admin.username);
+console.logLines("user", users.documentId(admin._key), admin.username);
 
 db._query(aql`
     FOR u IN ${users}
     RETURN u
 `);
+
+db._query(
+    aql`
+        FOR u IN ${users}
+        LIMIT 0, 10
+        RETURN u
+    `,
+    { fullCount: true }
+);
 
 interface Banana {
     color: string;
@@ -89,6 +98,18 @@ router.use(
         transport: cookieTransport({ secret: "banana", algorithm: "sha256" })
     })
 );
+
+router.use((req, res, next) => {
+    if (!req.auth || !req.auth.basic) {
+        res.throw(401);
+    } else if (
+        req.auth.basic.username !== "admin" ||
+        req.auth.basic.password !== "hunter2"
+    ) {
+        res.throw(403);
+    }
+    next();
+});
 
 console.log(
     query`
