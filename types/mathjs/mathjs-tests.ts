@@ -1,10 +1,12 @@
 // Import needed for mathjs.import functionality (declaring/extending module)
-import * as math from 'mathjs';
+import { create, all } from 'mathjs';
 
 /*
 Basic usage examples
 */
 {
+	const math = create(all, {});
+
 	// functions and constants
 	math.round(math.e, 3);
 	math.atan2(3, -3) / math.pi;
@@ -15,7 +17,7 @@ Basic usage examples
 	math.add(math.pow(math.sin(angle), 2), math.pow(math.cos(angle), 2));
 
 	// expressions
-	math.eval('1.2 * (2 + 4.5)');
+	math.evaluate('1.2 * (2 + 4.5)');
 
 	// chained operations
 	const a = math.chain(3)
@@ -35,7 +37,7 @@ Bignumbers examples
 */
 {
 	// configure the default type of numbers as BigNumbers
-	math.config({
+	const math = create(all, {
 		number: 'BigNumber',
 		precision: 20,
 	});
@@ -50,6 +52,7 @@ Bignumbers examples
 Chaining examples
 */
 {
+	const math = create(all, {});
 	const a = math.chain(3)
 		.add(4)
 		.multiply(2)
@@ -84,6 +87,7 @@ Chaining examples
 Complex numbers examples
 */
 {
+	const math = create(all, {});
 	const a = math.complex(2, 3);
 	// create a complex number by providing a string with real and complex parts
 	const b = math.complex('3 - 7i');
@@ -125,14 +129,15 @@ Complex numbers examples
 Expressions examples
 */
 {
+	const math = create(all, {});
 	// evaluate expressions
 	{
-		math.eval('sqrt(3^2 + 4^2)');
+		math.evaluate('sqrt(3^2 + 4^2)');
 	}
 
 	// evaluate multiple expressions at once
 	{
-		math.eval([
+		math.evaluate([
 			'f = 3',
 			'g = 4',
 			'f * g'
@@ -142,7 +147,7 @@ Expressions examples
 	// scope can contain both variables and functions
 	{
 		const scope = { hello: (name: string) => `hello, ${name}!` };
-		math.eval('hello("hero")', scope);   // "hello, hero!"
+		math.evaluate('hello("hero")', scope);   // "hello, hero!"
 	}
 
 	// define a function as an expression
@@ -151,7 +156,7 @@ Expressions examples
 			a: 3,
 			b: 4,
 		};
-		const f = math.eval('f(x) = x ^ a', scope);
+		const f = math.evaluate('f(x) = x ^ a', scope);
 		f(2);
 		scope.f(2);
 	}
@@ -168,7 +173,7 @@ Expressions examples
 		// provide a scope for the variable assignment
 		const code2 = math.compile('a = a + 3');
 		const scope = { a: 7 };
-		code2.eval(scope);
+		code2.evaluate(scope);
 	}
 	// 4. using a parser
 	const parser = math.parser();
@@ -198,7 +203,7 @@ Fractions examples
 */
 {
 	// configure the default type of numbers as Fractions
-	math.config({
+	const math = create(all, {
 		number: 'Fraction',
 	});
 
@@ -217,6 +222,8 @@ Fractions examples
 Matrices examples
 */
 {
+	const math = create(all, {});
+
 	// create matrices and arrays. a matrix is just a wrapper around an Array,
 	// providing some handy utilities.
 	const a: math.Matrix = math.matrix([1, 4, 9, 16, 25]);
@@ -293,6 +300,8 @@ Matrices examples
 Sparse matrices examples
 */
 {
+	const math = create(all, {});
+
 	// create a sparse matrix
 	const a = math.identity(1000, 1000, 'sparse');
 
@@ -308,6 +317,8 @@ Sparse matrices examples
 Units examples
 */
 {
+	const math = create(all, {});
+
 	// units can be created by providing a value and unit name, or by providing
 	// a string with a valued unit.
 	const a = math.unit(45, 'cm'); // 450 mm
@@ -355,7 +366,7 @@ Units examples
 	math.number(b, 'cm');
 
 	// the expression parser supports units too
-	math.eval('2 inch to cm');
+	math.evaluate('2 inch to cm');
 
 	// units can be converted to SI
 	math.unit('1 inch').toSI();
@@ -368,6 +379,8 @@ Units examples
 Expression tree examples
 */
 {
+	const math = create(all, {});
+
 	// Filter an expression tree
 	const node: math.MathNode = math.parse('x^2 + x/4 + 3*y');
 	const filtered: math.MathNode[] = node.filter((node: math.MathNode) => node.isSymbolNode && node.name === 'x');
@@ -394,6 +407,8 @@ Expression tree examples
 JSON serialization/deserialization
 */
 {
+	const math = create(all, {});
+
 	const data = {
 		bigNumber: math.bignumber('1.5')
 	};
@@ -414,6 +429,7 @@ declare module 'mathjs' {
 }
 
 {
+	const math = create(all, {});
     const testFun = () => 5;
 
     math.import({
