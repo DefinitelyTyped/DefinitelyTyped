@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.30
+// Type definitions for stripe 6.31
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -25,6 +25,7 @@
 //                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
 //                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -194,6 +195,12 @@ declare namespace Stripe {
              * This field is null unless business_type is set to individual.
              */
             individual?: IIndividual;
+
+             /**
+              * External accounts (bank accounts and debit cards) currently
+              * attached to this account
+              */
+            external_accounts: IList<cards.ICard | bankAccounts.IBankAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {

@@ -765,6 +765,9 @@ stripe.accounts.retrieve(
     "acct_17wV8KBoqMA9o2xk").then(
     (account) => {
         // asynchronously called
+
+        // account should have external_accounts property
+        const externalAccounts: Stripe.IList<Stripe.cards.ICard | Stripe.bankAccounts.IBankAccount> = account.external_accounts;
     }
 );
 
