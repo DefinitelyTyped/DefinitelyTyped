@@ -155,7 +155,7 @@ export type BaseSchema = {
   format?: string;
   title?: string;
   description?: string;
-  default?: any[] | boolean | number | null | object | string;
+  default?: any;
   multipleOf?: number;
   maximum?: number;
   exclusiveMaximum?: boolean;
@@ -169,7 +169,7 @@ export type BaseSchema = {
   uniqueItems?: boolean;
   maxProperties?: number;
   minProperties?: number;
-  enum?: Array<any[] | boolean | number | null | object | string>;
+  enum?: any[];
   items?: Schema | Schema[];
 };
 
