@@ -18497,7 +18497,7 @@ declare namespace Excel {
         changeType: Excel.DataChangeType | "Unknown" | "RangeEdited" | "RowInserted" | "RowDeleted" | "ColumnInserted" | "ColumnDeleted" | "CellInserted" | "CellDeleted";
         /**
          *
-         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on single cell. If the Changed event is triggered on multiple cells, this property can not be retrieved.
+         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on a single cell. If the Changed event is triggered on multiple cells, this property cannot be retrieved.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18590,7 +18590,7 @@ declare namespace Excel {
     }
     /**
      *
-     * Provides information about the worksheet format change event.
+     * Provides information about the worksheet row hidden change event.
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
      * @beta
@@ -18606,7 +18606,7 @@ declare namespace Excel {
         address: string;
         /**
          *
-         * Gets the change type that represents how the Changed event is triggered. See Excel.DataChangeType for details.
+         * Gets the change type that represents how the Changed event is triggered. See Excel.RowHiddenChangeType for details.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -18688,7 +18688,7 @@ declare namespace Excel {
         worksheetId: string;
         /**
          *
-         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on single cell. If the Changed event is triggered on multiple cells, this property can not be retrieved.
+         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on a single cell. If the Changed event is triggered on multiple cells, this property cannot be retrieved.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -21268,7 +21268,7 @@ declare namespace Excel {
          *
          * Represents if ALL the cells would be saved as an array formula
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36360,7 +36360,7 @@ declare namespace Excel {
         getItemAt(index: number): Excel.Comment;
         /**
          *
-         * Gets the comment from the specific cell.
+         * Gets the comment from the specified cell.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -40196,13 +40196,13 @@ declare namespace Excel {
     enum RowHiddenChangeType {
         /**
          *
-         * Unhidden represents the hidden state of row is Unhidden.
+         * Unhidden indicates the row is not hidden.
          *
          */
         unhidden = "Unhidden",
         /**
          *
-         * Hidden represents the hidden state of row is hidden.
+         * Unhidden indicates the row is not hidden.
          *
          */
         hidden = "Hidden"
@@ -40382,7 +40382,7 @@ declare namespace Excel {
         worksheetSingleClicked = "WorksheetSingleClicked",
         /**
          *
-         * WorksheetRowHiddenChanged represents the type of event registered on worksheet, and occurs when there is a row hidden changed.
+         * WorksheetRowHiddenChanged represents the type of event registered on worksheet, and occurs when a row's hidden state is changed.
          *
          */
         worksheetRowHiddenChanged = "WorksheetRowHiddenChanged"
@@ -50453,7 +50453,7 @@ declare namespace Excel {
              *
              * Represents if ALL the cells would be saved as an array formula
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -56541,7 +56541,7 @@ declare namespace Excel {
              *
              * Represents if ALL the cells would be saved as an array formula
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63868,7 +63868,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and would not be
+            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
