@@ -97,7 +97,7 @@ map.panToBounds(
     }
 );
 
-map.getProjection() // $ExpectType Projection | null;
+map.getProjection() // $ExpectType Projection | null
 
 /***** Data *****/
 
