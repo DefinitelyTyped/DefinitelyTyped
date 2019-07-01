@@ -9744,10 +9744,12 @@ declare namespace Office {
     }
 
     /**
-     * The InternetHeaders object represents properties that are preserved after the message item leaves Exchange and is converted to a MIME message. 
-     * These properties are stored as x-headers in the MIME message.
+     * The InternetHeaders object represents custom internet headers that are preserved after the message item leaves Exchange and is converted to a MIME message. 
+     * These headers are stored as x-headers in the MIME message.
      * 
      * InternetHeaders are stored as key/value pairs on a per-item basis.
+     * 
+     * **Note**: This object is intended for you to set and get your custom headers on a message item.
      *
      * [Api set: Mailbox Preview]
      *
@@ -9762,7 +9764,9 @@ declare namespace Office {
     interface InternetHeaders {
         /**
          * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
+         * 
+         * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9783,7 +9787,9 @@ declare namespace Office {
         getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
-         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results.
+         * 
+         * **Note**: This method is intended to return the values of the custom headers you set using the `setAsync` method.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9802,6 +9808,8 @@ declare namespace Office {
         getAsync(names: string[], callback?: (asyncResult: Office.AsyncResult<InternetHeaders>) => void): void;
         /**
          * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         * 
+         * **Note**: This method is intended to remove the custom headers you set using the `setAsync` method.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9823,6 +9831,8 @@ declare namespace Office {
         /**
          * Given an array of internet header names, this method removes the specified headers from the internet header collection.
          *
+         * **Note**: This method is intended to remove your custom headers you set using the `setAsync` method.
+         *
          * [Api set: Mailbox Preview]
          *
          * @remarks
@@ -9841,8 +9851,10 @@ declare namespace Office {
         /**
          * Sets the specified internet headers to the specified values.
          * 
-         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * The setAsync method creates a new header if the specified header doesn't already exist; otherwise, the existing value is replaced with 
          * the new value.
+         *
+         * **Note**: This method is intended to set the values of your custom headers.
          *
          * [Api set: Mailbox Preview]
          *
@@ -9865,8 +9877,10 @@ declare namespace Office {
         /**
          * Sets the specified internet headers to the specified values.
          * 
-         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * The setAsync method creates a new header if the specified header doesn't already exist; otherwise, the existing value is replaced with 
          * the new value.
+         *
+         * **Note**: This method is intended to set the values of your custom headers.
          *
          * [Api set: Mailbox Preview]
          *
@@ -10169,7 +10183,7 @@ declare namespace Office {
          * Gets the id of the series that an instance belongs to.
          * 
          * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -11234,7 +11248,7 @@ declare namespace Office {
          * Gets the id of the series that an instance belongs to.
          * 
          * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. Before making REST API calls using this value, it 
@@ -11762,7 +11776,7 @@ declare namespace Office {
          * Gets the id of the series that an instance belongs to.
          * 
          * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -13192,7 +13206,7 @@ declare namespace Office {
          */
         from: From;
         /**
-         * Sets the internet headers of a message.
+         * Gets or sets the custom internet headers of a message.
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
          *
@@ -13238,7 +13252,7 @@ declare namespace Office {
          * Gets the id of the series that an instance belongs to.
          * 
          * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -14142,7 +14156,7 @@ declare namespace Office {
          */
         from: EmailAddressDetails;
         /**
-         * Gets the internet headers of a message.
+         * Gets or sets the custom internet headers of a message.
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
          *
@@ -14296,7 +14310,7 @@ declare namespace Office {
          * Gets the id of the series that an instance belongs to.
          * 
          * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
