@@ -427,7 +427,7 @@ declare module "inquirer/lib/prompts/base" {
     export = Prompt;
 }
 
-declare module "inquirer/lib/prompts/checkbnox" {
+declare module "inquirer/lib/prompts/checkbox" {
     export = CheckboxPrompt;
 }
 
