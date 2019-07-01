@@ -475,6 +475,7 @@ declare namespace Chart {
         stepSize?: number;
         suggestedMax?: number;
         suggestedMin?: number;
+        precision?:number;
     }
 
     interface AngleLineOptions {
