@@ -57,7 +57,7 @@ export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answ
      * @param callback
      * The callback for resolving the result.
      */
-    protected _run(callback: (value: any) => any): void;
+    protected _run(callback: (value: any) => void): void;
 
     /**
      * Throws an error for a missing param.
