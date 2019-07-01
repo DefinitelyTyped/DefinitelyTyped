@@ -97,6 +97,8 @@ map.panToBounds(
     }
 );
 
+map.getProjection() // $ExpectType Projection | null;
+
 /***** Data *****/
 
 new google.maps.Data();
