@@ -50,7 +50,7 @@ declare namespace inquirer {
          * @param name Prompt type name
          * @param prompt Prompt constructor
          */
-        registerPrompt(name: string, prompt: Prompt): PromptModule;
+        registerPrompt(name: string, prompt: prompts.PromptConstructor): PromptModule;
         /**
          * Create a new self-contained prompt module.
          * @param opt Object specifying input and output streams for the prompt
@@ -187,6 +187,16 @@ declare namespace inquirer {
     }
 
     export namespace prompts {
+        /**
+         * Provides the functionality to initialize new prompts.
+         */
+        export interface PromptConstructor {
+            /**
+             * Initializes a new instance of a prompt.
+             */
+            new (question: poll.Question<poll.Answers>, readLine: ReadlineInterface, answers: poll.Answers): PromptBase;
+        }
+
         /**
          * Represents a prompt.
          */
