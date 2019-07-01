@@ -12,7 +12,7 @@
 //                 Desmond Koh <https://github.com/deskoh>
 //                 Maurice de Beijer <https://github.com/mauricedb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 export function reach<T>(
     schema: Schema<T>,
@@ -296,6 +296,8 @@ export interface ObjectSchema<T extends object | null | undefined = object>
     nullable(isNullable?: boolean): ObjectSchema<T>;
     required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
     notRequired(): ObjectSchema<T | undefined>;
+    concat(schema: this): this;
+    concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
 }
 
 export type TransformFunction<T> = (
