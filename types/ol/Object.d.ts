@@ -2,12 +2,6 @@ import { EventsKey } from './events';
 import Event from './events/Event';
 import Observable from './Observable';
 
-export function getChangeEventType(key: string): string;
-export class ObjectEvent extends Event {
-    constructor();
-    key: string;
-    oldValue: any;
-}
 export default class BaseObject extends Observable {
     constructor(opt_values?: { [key: string]: any });
     get(key: string): any;
@@ -27,3 +21,9 @@ export default class BaseObject extends Observable {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+export class ObjectEvent extends Event {
+    constructor();
+    key: string;
+    oldValue: any;
+}
+export function getChangeEventType(key: string): string;

@@ -9,9 +9,9 @@ import ImageSource from './Image';
 import Source from './Source';
 import TileSource from './Tile';
 
-export type Operation = ((p0: number[][] | ImageData[], p1: object) => number[] | ImageData);
+export type Operation = ((p0: (number[][] | ImageData[]), p1: object) => (number[] | ImageData));
 export interface Options {
-    sources: any[];
+    sources: (Source | Layer)[];
     operation?: Operation;
     lib?: any;
     threads?: number;

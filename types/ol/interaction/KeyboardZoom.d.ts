@@ -5,6 +5,11 @@ import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
 import Interaction from './Interaction';
 
+export interface Options {
+    duration?: number;
+    condition?: Condition;
+    delta?: number;
+}
 export default class KeyboardZoom extends Interaction {
     constructor(opt_options?: Options);
     on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
@@ -19,9 +24,4 @@ export default class KeyboardZoom extends Interaction {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    duration?: number;
-    condition?: Condition;
-    delta?: number;
 }

@@ -4,6 +4,10 @@ import Event from '../events/Event';
 import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
+export interface Options {
+    condition?: Condition;
+    duration?: number;
+}
 export default class DragRotate extends PointerInteraction {
     constructor(opt_options?: Options);
     on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
@@ -18,8 +22,4 @@ export default class DragRotate extends PointerInteraction {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    condition?: Condition;
-    duration?: number;
 }

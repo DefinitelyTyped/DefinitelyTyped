@@ -16,20 +16,17 @@ import SimpleGeometry from '../geom/SimpleGeometry';
 import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
 
-export default class EsriJSON extends JSONFeature {
-    constructor(opt_options?: Options);
-}
 export type EsriJSONFeature = Feature;
 export type EsriJSONFeatureSet = FeatureSet;
 export type EsriJSONGeometry = Geometry;
 export type EsriJSONHasZM = HasZM;
-export type EsriJSONMultipoint = Multipoint;
 export interface EsriJSONMultiPolygon {
     rings: number[][][][];
     hasM?: boolean;
     hasZ?: boolean;
     spatialReference?: EsriJSONSpatialReferenceWkid;
 }
+export type EsriJSONMultipoint = Multipoint;
 export type EsriJSONPoint = Point;
 export type EsriJSONPolygon = Polygon;
 export type EsriJSONPolyline = Polyline;
@@ -37,4 +34,7 @@ export type EsriJSONPosition = Position;
 export type EsriJSONSpatialReferenceWkid = SpatialReferenceWkid;
 export interface Options {
     geometryName?: string;
+}
+export default class EsriJSON extends JSONFeature {
+    constructor(opt_options?: Options);
 }
