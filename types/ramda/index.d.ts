@@ -28,6 +28,7 @@
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 //                 Brekk Bockrath <https://github.com/brekk>
+//                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
@@ -1161,13 +1162,13 @@ declare namespace R {
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          */
-        construct(fn: (...a: any[]) => any): (...a: any[]) => any;
+        construct<A extends any[], T>(constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: A) => T;
 
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          * The arity of the function returned is specified to allow using variadic constructor functions.
          */
-        constructN(n: number, fn: (...a: any[]) => any): (...a: any[]) => any;
+        constructN<A extends any[], T>(n: number, constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: Partial<A>) => T;
 
         /**
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
@@ -1492,8 +1493,9 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: ReadonlyArray<T>): T | undefined;
-        head(list: string): string;
+        head(str: string): string;
+        head(list: []): undefined;
+        head<T extends any>(list: ReadonlyArray<T>): T;
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1668,7 +1670,11 @@ declare namespace R {
         /**
          * Applies a list of functions to a list of values.
          */
-        juxt<T, U>(fns: Array<(...args: T[]) => U>): (...args: T[]) => U[];
+        juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+        juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
+        juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
+        juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
+        juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
 
         /**
          * Returns a list containing the names of all the enumerable own
@@ -1686,8 +1692,9 @@ declare namespace R {
         /**
          * Returns the last element from a list.
          */
-        last<T>(list: ReadonlyArray<T>): T | undefined;
-        last(list: string): string;
+        last(str: string): string;
+        last(list: []): undefined;
+        last<T extends any>(list: ReadonlyArray<T>): T;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
@@ -2804,8 +2811,8 @@ declare namespace R {
         /**
          * Returns all but the first element of a list or string.
          */
-        tail<T>(list: ReadonlyArray<T>): T[];
         tail(list: string): string;
+        tail<T extends any>(list: ReadonlyArray<T>): T[];
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
