@@ -6,7 +6,7 @@ import { Paginator } from "../System/Paginator";
 /**
  * Represents a prompt which can be provides a set of choices to check.
  */
-export class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>, any[]> {
+export class CheckboxPrompt<T = any[]> extends Prompt<inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>, T> {
     /**
      * Gets or sets the index of the currently focused choice.
      */
@@ -45,7 +45,7 @@ export class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquir
      * @param state
      * An object which contains state-data.
      */
-    protected onEnd(state: inquirer.prompts.SuccessfulPromptStateData<any[]>): void;
+    protected onEnd(state: inquirer.prompts.SuccessfulPromptStateData<T>): void;
 
     /**
      * Handles the `error`-event of the prompt.
@@ -61,7 +61,7 @@ export class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquir
      * @returns
      * The current value of the prompt.
      */
-    protected getCurrentValue(): any[];
+    protected getCurrentValue(): T;
 
     /**
      * Handles the `UpdKey`-event of the prompt.
