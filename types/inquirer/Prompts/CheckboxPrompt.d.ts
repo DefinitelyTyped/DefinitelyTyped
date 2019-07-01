@@ -4,7 +4,7 @@ import { Interface as ReadLineInterface } from "readline";
 import { Paginator } from "../System/Paginator";
 
 /**
- * Represents a prompt which can be provides a set of choices to check.
+ * Represents a prompt which provides a set of choices to check.
  */
 export class CheckboxPrompt<T = any[]> extends Prompt<inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>, T> {
     /**
