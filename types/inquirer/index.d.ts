@@ -27,6 +27,7 @@ import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 import { ScreenManager } from "./System/ScreenManager";
 import { Prompt } from "./Prompts/Prompt";
 import { CheckboxPrompt } from "./Prompts/CheckboxPrompt";
+import { ConfirmPrompt } from "./Prompts/ConfirmPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
 
@@ -429,6 +430,10 @@ declare module "inquirer/lib/prompts/base" {
 
 declare module "inquirer/lib/prompts/checkbox" {
     export = CheckboxPrompt;
+}
+
+declare module "inquirer/lib/prompts/confirm" {
+    export = ConfirmPrompt;
 }
 
 declare var inquirer: inquirer.Inquirer;
