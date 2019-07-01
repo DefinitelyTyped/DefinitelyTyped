@@ -26,6 +26,7 @@ import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 import { ScreenManager } from "./System/ScreenManager";
 import { Prompt } from "./Prompts/Prompt";
+import { CheckboxPrompt } from "./Prompts/CheckboxPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
 
