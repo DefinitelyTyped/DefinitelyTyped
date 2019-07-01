@@ -556,13 +556,10 @@ declare namespace R {
 
     type Path = ReadonlyArray<(number | string)>;
 
+    type KeyValueTuple<K, V> = [K, V];
+
     interface Functor<T> {
         map<U>(fn: (t: T) => U): Functor<U>;
-    }
-
-    interface KeyValuePair<K, V> extends Array<K | V> {
-        0: K;
-        1: V;
     }
 
     interface ArrayLike {
@@ -1428,8 +1425,8 @@ declare namespace R {
         /**
          * Creates a new object out of a list key-value pairs.
          */
-        fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
-        fromPairs<V>(pairs: Array<KeyValuePair<number, V>>): { [index: number]: V };
+        fromPairs<V>(pairs: Array<KeyValueTuple<string, V>>): { [index: string]: V };
+        fromPairs<V>(pairs: Array<KeyValueTuple<number, V>>): { [index: number]: V };
 
         /**
          * Splits a list into sublists stored in an object, based on the result of
@@ -3126,17 +3123,15 @@ declare namespace R {
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
          */
-        xprod<K, V>(as: ReadonlyArray<K>, bs: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
-        xprod<K>(as: ReadonlyArray<K>): <V>(bs: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
+        xprod<K, V>(as: ReadonlyArray<K>, bs: ReadonlyArray<V>): Array<KeyValueTuple<K, V>>;
+        xprod<K>(as: ReadonlyArray<K>): <V>(bs: ReadonlyArray<V>) => Array<KeyValueTuple<K, V>>;
 
         /**
          * Creates a new list out of the two supplied by pairing up equally-positioned items from
          * both lists. Note: `zip` is equivalent to `zipWith(function(a, b) { return [a, b] })`.
          */
-        zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<[K, V]>;
-        zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<[K, V]>;
-        zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValuePair<K, V>>;
-        zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValuePair<K, V>>;
+        zip<K, V>(list1: ReadonlyArray<K>, list2: ReadonlyArray<V>): Array<KeyValueTuple<K, V>>;
+        zip<K>(list1: ReadonlyArray<K>): <V>(list2: ReadonlyArray<V>) => Array<KeyValueTuple<K, V>>;
 
         /**
          * Creates a new object out of a list of keys and a list of values.
