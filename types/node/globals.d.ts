@@ -619,13 +619,14 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string | Buffer | Uint8Array): void;
+        unshift(chunk: string | Buffer | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
     interface WritableStream extends EventEmitter {
         writable: boolean;
+        writableFinished: boolean;
         write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error | null) => void): boolean;
         end(cb?: () => void): void;
@@ -814,6 +815,25 @@ declare namespace NodeJS {
         writeReport(fileName?: string, err?: Error): string;
     }
 
+    interface ResourceUsage {
+        fsRead: number;
+        fsWrite: number;
+        involuntaryContextSwitches: number;
+        ipcReceived: number;
+        ipcSent: number;
+        majorPageFault: number;
+        maxRSS: number;
+        minorPageFault: number;
+        sharedMemorySize: number;
+        signalsCount: number;
+        swappedOut: number;
+        systemCPUTime: number;
+        unsharedDataSize: number;
+        unsharedStackSize: number;
+        userCPUTime: number;
+        voluntaryContextSwitches: number;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -922,6 +942,8 @@ declare namespace NodeJS {
          * Only available with `--experimental-report`
          */
         report?: ProcessReport;
+
+        resourceUsage(): ResourceUsage;
 
         /**
          * EventEmitter

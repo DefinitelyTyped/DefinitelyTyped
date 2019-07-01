@@ -56,6 +56,9 @@ async function testPromisify() {
     r = await execFile("npm", ["-v"], { encoding: 'buffer' });
     r = await execFile("npm", { encoding: 'utf-8' });
     r = await execFile("npm", { encoding: 'buffer' });
+
+    const prom: childProcess.PromiseWithChild<{ stdout: string, stderr: string }> = execFile('test');
+    prom.child;
 }
 
 {
