@@ -1,4 +1,4 @@
-import resolve from '.';
+import resolve from 'resolve-protobuf-schema';
 
 // resolve.sync(path) sync version of resolve
 resolve.sync('./test.proto');
