@@ -79,7 +79,7 @@ export interface TransitionProps extends TransitionActions {
      * - enter defaults to `0`
      * - exit defaults to `0`
      */
-    timeout: number | { enter?: number, exit?: number };
+    timeout: number | { appear?: number, enter?: number, exit?: number };
 
     /**
      * Add a custom transition end trigger. Called with the transitioning DOM

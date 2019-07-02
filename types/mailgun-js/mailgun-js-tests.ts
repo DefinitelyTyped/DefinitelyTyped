@@ -1,6 +1,8 @@
 import * as mailgunFactory from "mailgun-js";
 import mailgunFactory2 = require('mailgun-js');
 
+import * as FormData from 'form-data';
+
 const mailgun = new mailgunFactory({
     apiKey: "auth.api_key",
     domain: "auth.domain"
@@ -9,6 +11,17 @@ const mailgun = new mailgunFactory({
 const mailgun2 = new mailgunFactory2({
     apiKey: "auth.api_key",
     domain: "auth.domain"
+});
+
+const logger = (httpOptions: mailgunFactory.LoggerHttpOptions, payload: string, form: FormData) => {};
+
+const mailgun3 = new mailgunFactory2({
+    apiKey: 'auth.api_key',
+    domain: 'auth.domain',
+
+    testMode: true,
+
+    testModeLogger: logger,
 });
 
 mailgun.messages().send(
@@ -37,6 +50,21 @@ const exampleSendData: mailgunFactory.messages.SendData = {
   };
 
 mailgun.messages().send(exampleSendData, (err, body) => {});
+
+const arraySendData: mailgunFactory.messages.SendData = {
+    to: ["someone@email.com", "else@email.com"],
+    cc: ["cc1@email.com", "cc2@email.com"],
+    bcc: ["bcc1@email.com", "bcc2@email.com"],
+    attachment: [
+        new mailgun.Attachment({
+            data: "filepath",
+            filename: "my_custom_name.png"
+        })
+    ],
+    "o:tag": ["cats", "rainbows"],
+  };
+
+mailgun.messages().send(arraySendData, (err, body) => {});
 
 let validationResultPromise: Promise<mailgunFactory.validation.ValidateResponse>;
 validationResultPromise = mailgun.validate("foo@mailgun.net");

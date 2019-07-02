@@ -78,7 +78,7 @@ export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     readonly lazy?: boolean;
     readonly showIntermediate?: boolean;
     readonly style?: CSSProperties;
-    readonly imgStyle?: object;
+    readonly imgStyle?: CSSProperties;
 }
 export interface ImageState {
     readonly load: string;

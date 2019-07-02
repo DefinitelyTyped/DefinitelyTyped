@@ -90,6 +90,7 @@ import {
     NetInfo,
     PermissionsAndroid,
     Platform,
+    ProgressBarAndroid,
     PushNotificationIOS,
 } from "react-native";
 
@@ -935,6 +936,16 @@ const PlatformTest = () => {
         default:
             return Platform.isTV ? 40 : 44;
     }
+};
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
 };
 
 // Push notification

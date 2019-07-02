@@ -317,11 +317,16 @@ export interface CreateOptions {
     h?: boolean;
 
     /**
-     * uppress pax extended headers. Note that this means that long paths and
+     * Suppress pax extended headers. Note that this means that long paths and
      * linkpaths will be truncated, and large or negative numeric values
      * may be interpreted incorrectly.
      */
     noPax?: boolean;
+
+    /**
+     * A path portion to prefix onto the entries in the archive.
+     */
+    prefix?: string;
 }
 
 export interface ExtractOptions {

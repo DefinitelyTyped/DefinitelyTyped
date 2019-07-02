@@ -1,6 +1,6 @@
-import { Size } from 'ol/size';
-import { TileCoord } from 'ol/tilecoord';
-export function createOrUpdate(minX: number, maxX: number, minY: number, maxY: number, tileRange?: TileRange): TileRange;
+import { Size } from './size';
+import { TileCoord } from './tilecoord';
+
 export default class TileRange {
     constructor(minX: number, maxX: number, minY: number, maxY: number);
     contains(tileCoord: TileCoord): boolean;
@@ -13,3 +13,4 @@ export default class TileRange {
     getWidth(): number;
     intersects(tileRange: TileRange): boolean;
 }
+export function createOrUpdate(minX: number, maxX: number, minY: number, maxY: number, tileRange?: TileRange): TileRange;

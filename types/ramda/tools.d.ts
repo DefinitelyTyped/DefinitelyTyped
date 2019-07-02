@@ -79,6 +79,8 @@ declare namespace Tools {
 
     type Append<E, T extends any[]> =
         Concat<T, [E]>;
+
+    type ValueOfRecord<R> = R extends Record<any, infer T> ? T : never;
 }
 
 declare namespace Curry {

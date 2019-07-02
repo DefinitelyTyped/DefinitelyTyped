@@ -2,7 +2,6 @@ import { ModelTableOpts, TableOpts } from './db';
 import { IdAttribute } from './db/Table';
 import { AttributeWithDefault, FieldSpecMap, ForeignKey, ManyToMany, OneToOne } from './fields';
 import { Optional, OptionalKeys, Overwrite, PickByValue } from './helpers';
-import { IdOrModelLike, ModelField } from './index';
 import QuerySet, { LookupSpec, MutableQuerySet, SortIteratee, SortOrder } from './QuerySet';
 import { OrmSession } from './Session';
 
@@ -50,10 +49,9 @@ export interface ModelFieldMap {
 /**
  * A Model-derived mapped type for supplying relations and alike.
  *
- * Either a primitive type matching Model's identifier type or a map containing an {IdAttribute: IdType} pair,
- * where IdAttribute and IdType match respective Model property key and type
+ * Either a primitive type matching Model's identifier type or an object implementing a `{ getId(): IdType<M> }` interface
  */
-export type IdOrModelLike<M extends Model> = IdType<M> | IdEntry<M>;
+export type IdOrModelLike<M extends Model> = IdType<M> | {getId(): IdType<M>; };
 
 /**
  * The heart of an ORM, the data model.
@@ -300,7 +298,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      * Gets the id value of the current instance by looking up the id attribute.
      * @return The id value of the current instance.
      */
-    getId(): string | number;
+    getId<Id extends Fields[IdAttribute<MClass>] = Fields[IdAttribute<MClass>]>(): Id extends undefined ? number: Id;
 
     /**
      * @return A string representation of this {@link Model} instance.
@@ -327,7 +325,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      * @param  propertyName - name of the property to set
      * @param value - value assigned to the property
      */
-    set<K extends string>(propertyName: K, value: RefPropOrSimple<InstanceType<MClass>, K>): void;
+    set<K extends string>(propertyName: K, value: RefPropOrSimple<this, K>): void;
 
     /**
      * Assigns multiple fields and corresponding values to this {@link Model} instance.
@@ -361,7 +359,7 @@ export class AnyModel extends Model {}
  * Relations can be provided in a flexible manner for both many-to-many and foreign key associations
  * @see {@link IdOrModelLike}
  */
-export type UpsertProps<M extends Model> = Overwrite<Partial<CreateProps<M>>, Required<IdEntry<M>>>;
+export type UpsertProps<M extends Model> = Overwrite<Partial<CreateProps<M>>, {[K in IdKey<M>]-?: IdType<M>}>;
 
 /**
  * {@link Model#update} argument type
@@ -400,11 +398,6 @@ export type IdType<M extends Model> = IdKey<M> extends infer U
             : never
         : number
     : number;
-
-/**
- * A single entry map representing IdKey: IdType property of supplied {@link Model}.
- */
-export type IdEntry<M extends Model> = { [K in IdKey<M>]: IdType<M> };
 
 /**
  * Type of {@link Model.ref} / database entry for a particular Model type

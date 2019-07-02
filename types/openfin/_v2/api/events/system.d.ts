@@ -13,6 +13,10 @@ export interface SessionChangedEvent<Topic, Type> extends BaseEvent<Topic, Type>
 export interface SystemEventMapping<Topic = string, Type = string> extends BaseEventMap {
     'application-created': ApplicationEvent<Topic, Type>;
     'desktop-icon-clicked': ApplicationEvent<Topic, Type>;
+    'external-window-closed': BaseEvent<Topic, Type>;
+    'external-window-created': BaseEvent<Topic, Type>;
+    'external-window-hidden': BaseEvent<Topic, Type>;
+    'external-window-shown': BaseEvent<Topic, Type>;
     'idle-state-changed': IdleEvent<Topic, Type>;
     'monitor-info-changed': MonitorEvent<Topic, Type>;
     'session-changed': SessionChangedEvent<Topic, Type>;
