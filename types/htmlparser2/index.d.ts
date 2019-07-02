@@ -5,6 +5,7 @@
 //                 Johan Davidsson <https://github.com/johandavidson>
 //		   GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 ///<reference types="node"/>
 ///<reference types="domhandler"/>
