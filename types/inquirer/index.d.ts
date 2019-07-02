@@ -28,6 +28,7 @@ import { ScreenManager } from "./System/ScreenManager";
 import { Prompt } from "./Prompts/Prompt";
 import { CheckboxPrompt } from "./Prompts/CheckboxPrompt";
 import { ConfirmPrompt } from "./Prompts/ConfirmPrompt";
+import { EditorPrompt } from "./Prompts/EditorPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
 
@@ -434,6 +435,10 @@ declare module "inquirer/lib/prompts/checkbox" {
 
 declare module "inquirer/lib/prompts/confirm" {
     export = ConfirmPrompt;
+}
+
+declare module "inquirer/lib/prompts/editor" {
+    export = EditorPrompt;
 }
 
 declare var inquirer: inquirer.Inquirer;
