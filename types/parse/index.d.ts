@@ -496,7 +496,7 @@ declare namespace Parse {
         doesNotExist<P extends keyof K>(key: P): Query<T>;
         doesNotMatchKeyInQuery<O extends Object, P extends keyof K, Q extends keyof Unobject<O>>(key: P, queryKey: Q, query: Query<O>): Query<T>;
         doesNotMatchQuery<U extends Object, P extends keyof K>(key: P, query: Query<U>): Query<T>;
-        distinct<P extends keyof K>(key: P): Query<T>;
+        distinct<P extends keyof K>(key: P): Promise<Array<K[P]>>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
         endsWith<P extends keyof K>(key: P, suffix: string): Query<T>;
         equalTo<P extends keyof K>(key: P, value: Unarray<K[P]>): Query<T>;
