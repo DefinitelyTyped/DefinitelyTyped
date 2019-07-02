@@ -558,13 +558,10 @@ declare namespace R {
 
     type Path = ReadonlyArray<(number | string)>;
 
+    type KeyValuePair<K, V> = [K, V];
+
     interface Functor<T> {
         map<U>(fn: (t: T) => U): Functor<U>;
-    }
-
-    interface KeyValuePair<K, V> extends Array<K | V> {
-        0: K;
-        1: V;
     }
 
     interface ArrayLike {
