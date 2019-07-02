@@ -11,6 +11,7 @@
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 Mateusz Sokoła <https://github.com/mateuszsokola>
 //                 Braiden Cutforth <https://github.com/braidencutforth>
+//                 Erick Zhao <https://github.com/erickzhao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
