@@ -300,7 +300,10 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * Returns an html-like string of the wrapper for debugging purposes. Useful to print out to the console when
      * tests are not passing when you expect them to.
      */
-    debug(): string;
+    debug(options?: {
+        ignoreProps?: boolean, // Whether props should be omitted in the resulting string. Props are included by default.
+        verbose?: boolean // Whether arrays and objects passed as props should be verbosely printed.
+    }): string;
 
     /**
      * Returns the name of the current node of the wrapper.
