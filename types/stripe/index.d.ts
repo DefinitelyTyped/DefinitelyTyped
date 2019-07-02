@@ -4076,9 +4076,9 @@ declare namespace Stripe {
              */
             status:
                 | 'requires_payment_method'
+                | 'requires_confirmation'
                 | 'requires_action'
                 | 'processing'
-                | 'requires_authorization'
                 | 'requires_capture'
                 | 'canceled'
                 | 'succeeded';
