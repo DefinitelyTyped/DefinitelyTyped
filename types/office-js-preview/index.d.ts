@@ -21268,7 +21268,7 @@ declare namespace Excel {
          *
          * Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
+            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -40202,7 +40202,7 @@ declare namespace Excel {
         unhidden = "Unhidden",
         /**
          *
-         * Unhidden indicates the row is not hidden.
+         * Hidden indicates the row is hidden.
          *
          */
         hidden = "Hidden"
@@ -50453,7 +50453,7 @@ declare namespace Excel {
              *
              * Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
+            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -56541,7 +56541,7 @@ declare namespace Excel {
              *
              * Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
+            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
@@ -63868,7 +63868,7 @@ declare namespace Excel {
              *
              * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
-            Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
+            Returns null if there is a mixture of cells that would and would not be saved as an array formula.
              *
              * [Api set: ExcelApi BETA (PREVIEW ONLY)]
              * @beta
