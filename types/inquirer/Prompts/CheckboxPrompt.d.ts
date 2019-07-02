@@ -45,7 +45,7 @@ export class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquir
      * @param state
      * An object which contains state-data.
      */
-    protected onEnd(state: inquirer.prompts.SuccessfulPromptStateData<any>): void;
+    protected onEnd(state: inquirer.prompts.SuccessfulPromptStateData): void;
 
     /**
      * Handles the `error`-event of the prompt.
