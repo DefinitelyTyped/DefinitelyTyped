@@ -62,68 +62,68 @@ export declare class WritableStream extends Writable {
 }
 
 export declare class Parser {
-    constructor(handler: Partial<DomHandler>, options?: ParserOptions);
+           constructor(handler: Partial<DomHandler>, options?: ParserOptions);
 
-    /***
-     * Parses a chunk of data and calls the corresponding callbacks.
-     * @param input
-     */
-    write(input: string): void;
+           /***
+            * Parses a chunk of data and calls the corresponding callbacks.
+            * @param input
+            */
+           write(input: string): void;
 
-    /***
-     * alias for backwards compat
-     */
-    parseChunk(chunk: string): void;
+           /***
+            * alias for backwards compat
+            */
+           parseChunk(chunk: string): void;
 
-    /***
-     * Parses the end of the buffer and clears the stack, calls onend.
-     */
-    end(): void;
+           /***
+            * Parses the end of the buffer and clears the stack, calls onend.
+            */
+           end(): void;
 
-    /***
-     * Parses the end of the buffer and clears the stack, calls onend.
-     */
-    end(chunk: string): void;
+           /***
+            * Parses the end of the buffer and clears the stack, calls onend.
+            */
+           end(chunk: string): void;
 
-    /***
-     * alias for backwards compat
-     */
-    done(): void;
+           /***
+            * alias for backwards compat
+            */
+           done(): void;
 
-    /***
-     * Pauses the parser
-     */
-    pause(): void;
+           /***
+            * Pauses the parser
+            */
+           pause(): void;
 
-    /***
-     * Resumes the parser
-     */
-    resume(): void;
+           /***
+            * Resumes the parser
+            */
+           resume(): void;
 
-    /***
-     * Resets the parser, parses the data & calls end.
-     * @param input
-     */
-    parseComplete(input: string): void;
+           /***
+            * Resets the parser, parses the data & calls end.
+            * @param input
+            */
+           parseComplete(input: string): void;
 
-    /***
-     * Resets buffer & stack, calls onreset.
-     */
-    reset(): void;
+           /***
+            * Resets buffer & stack, calls onreset.
+            */
+           reset(): void;
 
-    ontext(data: any): void;
-    onopentagname(name: string): void;
-    onopentagend(): void;
-    onclosetag(name: string): void;
-    onselfclosingtag(): void;
-    onattribname(name: string): void;
-    onattribend(): void;
-    ondeclaration(): void;
-    onprocessinginstruction(value: string): void;
-    oncomment(value: string): void;
-    oncdata(value: string): void;
-    onerror(err: Error): void;
-    onend(): void;
-}
+           ontext(data: any): void;
+           onopentagname(name: string): void;
+           onopentagend(): void;
+           onclosetag(name: string): void;
+           onselfclosingtag(): void;
+           onattribname(name: string): void;
+           onattribend(): void;
+           ondeclaration(): void;
+           onprocessinginstruction(value: string): void;
+           oncomment(value: string): void;
+           oncdata(value: string): void;
+           onerror(err: Error): void;
+           onend(): void;
+       }
 
 export { DomUtils }
