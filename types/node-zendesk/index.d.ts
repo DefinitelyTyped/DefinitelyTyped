@@ -7,7 +7,6 @@
 /// <reference types="node"/>
 
 import { PathLike } from 'fs';
-import { type } from 'os';
 
 export type ZendeskCallback<TResponse, TResult> = (
     error: Error | undefined,
