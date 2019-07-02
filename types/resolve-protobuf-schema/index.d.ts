@@ -5,7 +5,6 @@
 
 import { Schema } from 'protocol-buffers-schema/types';
 
-
 declare namespace ResolveProtobufSchema {
     function sync(file: string): Schema;
 }
