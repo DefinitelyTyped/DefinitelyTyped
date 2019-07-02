@@ -2099,7 +2099,7 @@ declare namespace math {
          * is divided by n 'biased' The sum of squared errors is divided by (n +
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
-         * math.var(...).
+         * math.variance(...).
          * @param args A single matrix or multiple scalar values
          * @returns The variance
          */
@@ -4562,7 +4562,7 @@ declare namespace math {
         /**
          * Determine the type of a variable.
          */
-        typeof(): MathJsChain;
+        typeOf(): MathJsChain;
     }
 
     interface ImportOptions {

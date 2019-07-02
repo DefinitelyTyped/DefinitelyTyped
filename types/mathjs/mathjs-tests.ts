@@ -446,4 +446,15 @@ Renamed functions from v5 => v6
 	math.typeOf(1);
 	math.variance([1, 2, 3, 4]);
 	math.evaluate('1 + 2');
+
+	// chained operations
+	math.chain(3)
+		.typeOf()
+		.done();
+	math.chain([1, 2, 3])
+		.variance()
+		.done();
+	math.chain('1 + 2')
+		.evaluate()
+		.done();
 }
