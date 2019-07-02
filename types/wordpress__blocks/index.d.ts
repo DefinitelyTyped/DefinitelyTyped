@@ -145,7 +145,7 @@ export interface BlockInstance<T extends Record<string, any> = { [k: string]: an
     /**
      * Array of inner blocks, if the block has any.
      */
-    readonly innerBlocks: readonly BlockInstance[];
+    readonly innerBlocks: BlockInstance[];
     /**
      * Indicates whether or not the block is valid.
      */
