@@ -5,7 +5,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * Represents a prompt which provides a message to confirm.
  */
-export class ConfirmPrompt<T = boolean> extends Prompt<inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>, T> {
+export class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>> {
     /**
      * Initializes a new instance of the `CheckboxPrompt<T>` class.
      *
