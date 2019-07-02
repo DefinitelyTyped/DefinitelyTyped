@@ -437,3 +437,13 @@ declare module 'mathjs' {
 
     const a = math.value * 2;
 }
+
+/*
+Renamed functions from v5 => v6
+ */
+{
+	const math = create(all, {});
+	math.typeOf(1);
+	math.variance([1, 2, 3, 4]);
+	math.evaluate('1 + 2');
+}
