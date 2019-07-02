@@ -1,5 +1,3 @@
-
-
 import dompurify = require('dompurify');
 
 dompurify.sanitize('<script>alert("hi")</script>');
@@ -60,3 +58,12 @@ str = dompurify.sanitize(dirty, { SANITIZE_DOM: false });
 
 // discard an element's content when the element is removed (default is true)
 str = dompurify.sanitize(dirty, { KEEP_CONTENT: false });
+
+// test createDOMPurify factory that accepts custom window (very helpful for nodejs)
+const createDOMPurify = dompurify;
+const customDOMPurify = createDOMPurify();
+customDOMPurify.sanitize(dirty);
+
+const customWindow = {} as Window;
+const customDOMPurifyWithCustomWindow = createDOMPurify(customWindow);
+customDOMPurifyWithCustomWindow.sanitize(dirty);
