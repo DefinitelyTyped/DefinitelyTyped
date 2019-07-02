@@ -74,6 +74,11 @@ declare namespace Mailgun {
         (options: ConstructorParams): Mailgun;
     }
 
+    interface MailgunRequest {
+        (resource: string, data: any, callback: (error: Error, response: any) => void): void;
+        (resource: string, data: any): Promise<any>;
+    }
+
     namespace messages {
         interface SendData {
             from?: string;
@@ -88,7 +93,7 @@ declare namespace Mailgun {
             inline?: AttachmentData | ReadonlyArray<AttachmentData>;
 
             // Mailgun options
-            'o:tag'?: string[];
+            'o:tag'?: string | string[];
             'o:deliverytime'?: string;
             'o:dkim'?: 'yes' | 'no' | boolean;
             'o:tracking'?: 'yes' | 'no' | boolean;
@@ -211,6 +216,12 @@ declare namespace Mailgun {
         validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
         validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
         validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
+
+        // Generic requests
+        get: MailgunRequest;
+        post: MailgunRequest;
+        put: MailgunRequest;
+        delete: MailgunRequest;
     }
 
     interface Lists {

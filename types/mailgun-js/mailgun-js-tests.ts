@@ -89,3 +89,7 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
         local_part: "foo"
     }
 };
+
+// Generic requests
+mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => { });
+const response: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });
