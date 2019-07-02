@@ -21266,7 +21266,7 @@ declare namespace Excel {
         readonly rowIndex: number;
         /**
          *
-         * Represents if ALL the cells would be saved as an array formula
+         * Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
             Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
          *
@@ -50451,7 +50451,7 @@ declare namespace Excel {
             rowIndex?: number;
             /**
              *
-             * Represents if ALL the cells would be saved as an array formula
+             * Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
             Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
              *
@@ -56539,7 +56539,7 @@ declare namespace Excel {
             rowIndex?: boolean;
             /**
              *
-             * Represents if ALL the cells would be saved as an array formula
+             * Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
             Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
              *
@@ -63866,7 +63866,7 @@ declare namespace Excel {
             rowIndex?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula
+             * For EACH ITEM in the collection: Represents if ALL the cells would be saved as an array formula.
             Returns true if ALL cells would be saved as an array, or false if ALL cells would NOT be saved as an array formula.
             Returns null if there are cells both which would be saved as an array formula and cells that would not be saved an as such.
              *
