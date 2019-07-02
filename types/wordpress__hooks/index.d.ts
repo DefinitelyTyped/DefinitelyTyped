@@ -20,21 +20,6 @@ export type HookMap<T extends (...args: any[]) => any> = {
 } & Record<string, Array<Hook<T>> | undefined>;
 
 /**
- * Adds the hook to the appropriate hooks container.
- *
- * @param hookName - Name of hook to add
- * @param namespace - The unique namespace identifying the callback in the form `vendor/plugin/function`.
- * @param callback - Function to call when the hook is run
- * @param [priority=10] - Priority of this hook.
- */
-export type AddHook<T extends (...args: any[]) => any> = (
-    hookName: string,
-    namespace: string,
-    callback: T,
-    priority?: number
-) => void;
-
-/**
  * Removes the specified callback (or all callbacks) from the hook with a
  * given hookName and namespace.
  *
@@ -90,8 +75,36 @@ export type DoingHook = (hookName?: string) => boolean;
  */
 export type DidHook = (hookName: string) => number;
 
-export const addAction: AddHook<ActionCallback>;
-export const addFilter: AddHook<(...args: any[]) => any>;
+/**
+ * Adds the hook to the appropriate hooks container.
+ *
+ * @param hookName - Name of hook to add.
+ * @param namespace - The unique namespace identifying the callback in the form `vendor/plugin/function`.
+ * @param callback - Function to call when the hook is run.
+ * @param [priority=10] - Priority of this hook.
+ */
+export function addAction(
+    hookName: string,
+    namespace: string,
+    callback: (...args: any[]) => void,
+    priority?: number
+): void;
+
+/**
+ * Adds the hook to the appropriate hooks container.
+ *
+ * @param hookName - Name of hook to add.
+ * @param namespace - The unique namespace identifying the callback in the form `vendor/plugin/function`.
+ * @param callback - Function to call when the hook is run.
+ * @param [priority=10] - Priority of this hook.
+ */
+export function addFilter<T>(
+    hookName: string,
+    namespace: string,
+    callback: (firstArg: T, ...rest: any[]) => T,
+    priority?: number
+): void;
+
 export const removeAction: RemoveHook;
 export const removeFilter: RemoveHook;
 export const hasAction: HasHook;

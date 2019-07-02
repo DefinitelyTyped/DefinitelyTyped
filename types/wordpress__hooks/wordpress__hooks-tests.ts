@@ -4,8 +4,7 @@ hooks.addAction('my-action', 'my/namespace', () => {});
 hooks.addAction('my-action', 'my/namespace', () => {}, 20);
 
 hooks.addFilter('my-filter', 'my/namespace', (foo: string, bar: number) => `${foo}${bar}`);
-// NOTE: Can't figure out a way to get this to work. This shouldn't be allowed.
-hooks.addFilter('my-filter', 'my/namespace', (_: string, bar: number) => bar, 23);
+hooks.addFilter('my-filter', 'my/namespace', (foo: number, bar: number) => bar, 23);
 
 hooks.removeAction('my-action', 'my/namespace');
 hooks.removeFilter('my-filter', 'my/namespace');
