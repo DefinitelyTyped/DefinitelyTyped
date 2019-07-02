@@ -49,9 +49,9 @@ declare namespace next {
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
         /** HTTP request object (server only) */
-        req?: http.IncomingMessage & CustomReq;
+        req?: http.IncomingMessage & CustomReq | { url: string };
         /** HTTP response object (server only) */
-        res?: http.ServerResponse;
+        res?: http.ServerResponse | {};
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
