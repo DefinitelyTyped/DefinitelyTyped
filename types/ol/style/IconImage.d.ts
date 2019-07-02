@@ -3,7 +3,6 @@ import Target from '../events/Target';
 import ImageState from '../ImageState';
 import { Size } from '../size';
 
-export function get(image: HTMLImageElement | HTMLCanvasElement, src: string, size: Size, crossOrigin: string, imageState: ImageState, color: Color): IconImage;
 export default class IconImage extends Target {
     constructor(image: HTMLImageElement | HTMLCanvasElement, src: string, size: Size, crossOrigin: string, imageState: ImageState, color: Color);
     getHitDetectionImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
@@ -13,3 +12,4 @@ export default class IconImage extends Target {
     getSrc(): string;
     load(): void;
 }
+export function get(image: HTMLImageElement | HTMLCanvasElement, src: string, size: Size, crossOrigin: string, imageState: ImageState, color: Color): IconImage;

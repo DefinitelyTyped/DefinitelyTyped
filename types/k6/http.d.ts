@@ -1,4 +1,4 @@
-import { bytes, JSON } from '.';
+import { bytes, JSONValue } from '.';
 import { Selection } from './html';
 
 // Generics refine response to expose body with correct type
@@ -137,7 +137,7 @@ export interface Response {
         params?: GenericParams<RT> | null;
     }): RefinedResponse<RT>;
     html(selector?: string): Selection;
-    json(selector?: string): JSON | undefined;
+    json(selector?: string): JSONValue | undefined;
     submitForm<RT extends ResponseType | undefined>(args?: {
         formSelector?: string;
         fields?: { [name: string]: string };

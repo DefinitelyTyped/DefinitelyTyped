@@ -20,6 +20,15 @@
 
 import './global'; // Type global environment
 
+// Expose everything to autoimport
+import './crypto';
+import './encoding';
+import './html';
+import './http';
+import './metrics';
+import './options';
+import './ws';
+
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 export function fail(err?: string): never;
 export function group<T>(name: string, fn: () => T): T;
@@ -37,14 +46,8 @@ export type byte = number; // [0,256)
 export type bytes = byte[];
 
 // JavaScript value representable with JSON
-export type JSON =
-    | null
-    | boolean
-    | number
-    | string
-    | JSONArray
-    | JSONObject;
-export interface JSONArray extends Array<JSON> {}
+export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
+export interface JSONArray extends Array<JSONValue> {}
 export interface JSONObject {
-    [key: string]: JSON;
+    [key: string]: JSONValue;
 }

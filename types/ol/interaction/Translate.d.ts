@@ -7,11 +7,6 @@ import Layer from '../layer/Layer';
 import { ObjectEvent } from '../Object';
 import PointerInteraction from './Pointer';
 
-export class TranslateEvent extends Event {
-    constructor();
-    features: Collection<Feature>;
-    coordinate: Coordinate;
-}
 export interface Options {
     features?: Collection<Feature>;
     layers?: Layer[] | ((p0: Layer) => boolean);
@@ -42,4 +37,9 @@ export default class Translate extends PointerInteraction {
     on(type: 'translating', listener: (evt: TranslateEvent) => void): EventsKey;
     once(type: 'translating', listener: (evt: TranslateEvent) => void): EventsKey;
     un(type: 'translating', listener: (evt: TranslateEvent) => void): void;
+}
+export class TranslateEvent extends Event {
+    constructor();
+    features: Collection<Feature>;
+    coordinate: Coordinate;
 }

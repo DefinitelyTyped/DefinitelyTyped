@@ -10,6 +10,18 @@ import Polygon from '../geom/Polygon';
 import { Parser } from '../xml';
 import XMLFeature from './XMLFeature';
 
+export interface Options {
+    featureNS?: { [key: string]: string } | string;
+    featureType?: string[] | string;
+    srsName: string;
+    surface?: boolean;
+    curve?: boolean;
+    multiCurve?: boolean;
+    multiSurface?: boolean;
+    schemaLocation?: string;
+    hasZ?: boolean;
+}
+export const GMLNS: string;
 export default class GMLBase extends XMLFeature {
     constructor(opt_options?: Options);
     protected featureNS: { [key: string]: string } | string;
@@ -31,16 +43,4 @@ export default class GMLBase extends XMLFeature {
     readMultiPolygon(node: Element, objectStack: any[]): MultiPolygon;
     readPoint(node: Element, objectStack: any[]): Point;
     readPolygon(node: Element, objectStack: any[]): Polygon;
-}
-export const GMLNS: string;
-export interface Options {
-    featureNS?: { [key: string]: string } | string;
-    featureType?: string[] | string;
-    srsName: string;
-    surface?: boolean;
-    curve?: boolean;
-    multiCurve?: boolean;
-    multiSurface?: boolean;
-    schemaLocation?: string;
-    hasZ?: boolean;
 }

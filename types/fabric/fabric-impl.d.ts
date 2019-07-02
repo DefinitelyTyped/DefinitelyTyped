@@ -928,11 +928,11 @@ interface ICanvasDimensions {
 	/**
 	 * Width of canvas element
 	 */
-	width: number;
+	width: number | string;
 	/**
 	 * Height of canvas element
 	 */
-	height: number;
+	height: number | string;
 }
 interface ICanvasDimensionsOptions {
 	/**

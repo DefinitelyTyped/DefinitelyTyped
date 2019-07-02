@@ -21,6 +21,11 @@ export interface CUSTOM_INPUT_TYPE {
   textarea: 'textarea';
 }
 
+export interface ENHANCER_POSITION {
+    start: 'start';
+    end: 'end';
+}
+
 export interface BaseInputOverrides {
   InputContainer?: Override<any>;
   Input?: Override<any>;
@@ -112,3 +117,9 @@ export const StyledStartEnhancer: StyletronComponent<any>;
 export const StyledEndEnhancer: StyletronComponent<any>;
 export const StyledInputContainer: StyletronComponent<any>;
 export const StyledInput: StyletronComponent<any>;
+
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;
+export const CUSTOM_INPUT_TYPE: CUSTOM_INPUT_TYPE;
+export const ADJOINED: ADJOINED;
+export const SIZE: SIZE;
+export const ENHANCER_POSITION: ENHANCER_POSITION;

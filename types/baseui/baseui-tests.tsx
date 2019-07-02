@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
-    createTheme, LightThemePrimitives, mergeOverrides, BaseProvider
+    createTheme, LightThemePrimitives, mergeOverrides, BaseProvider, styled
 } from 'baseui';
 import { Block } from 'baseui/block';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Accordion, Panel, StatefulPanel } from 'baseui/accordion';
 import { Avatar } from 'baseui/avatar';
 import { Breadcrumbs } from 'baseui/breadcrumbs';
-import { Button } from 'baseui/button';
-import { ButtonGroup, StatefulButtonGroup } from 'baseui/button-group';
+import { Button, KIND as BUTTON_KIND, SHAPE as BUTTON_SHAPE, SIZE as BUTTON_SIZE } from 'baseui/button';
+import { ButtonGroup, StatefulButtonGroup, MODE as BUTTON_GROUP_MODE } from 'baseui/button-group';
 import { Card, StyledBody } from 'baseui/card';
 import { Checkbox, StatefulCheckbox } from 'baseui/checkbox';
 import { StatefulCalendar, StatefulDatepicker, TimePicker, TimezonePicker, Datepicker } from 'baseui/datepicker';
@@ -19,13 +19,14 @@ import {
     HeaderNavigation,
     StyledNavigationItem as NavigationItem,
     StyledNavigationList as NavigationList,
+    ALIGN as NAV_ALIGN,
 } from 'baseui/header-navigation';
 import { Heading, HeadingLevel } from 'baseui/heading';
 import ArrowUp from 'baseui/icon/arrow-up';
 import ArrowRight from 'baseui/icon/arrow-right';
 import ArrowDown from 'baseui/icon/arrow-down';
 import ArrowLeft from 'baseui/icon/arrow-left';
-import { Input, MaskedInput, StatefulInput } from 'baseui/input';
+import { Input, MaskedInput, StatefulInput, SIZE as INPUT_SIZE } from 'baseui/input';
 import { Layer, TetherBehavior } from 'baseui/layer';
 import { StyledLink } from 'baseui/link';
 import { Menu, StatefulMenu, NestedMenus } from 'baseui/menu';
@@ -40,7 +41,7 @@ import { Notification } from 'baseui/notification';
 import { Pagination, StatefulPagination } from 'baseui/pagination';
 import { Popover, StatefulPopover } from 'baseui/popover';
 import { ProgressBar } from 'baseui/progress-bar';
-import { NumberedStep, ProgressSteps, Step } from 'baseui/progress-steps';
+import { NumberedStep, ProgressSteps, Step, StyledProgressSteps, StyleProps as ProgressStepsStyleProps } from 'baseui/progress-steps';
 import { Radio, RadioGroup, StatefulRadioGroup } from 'baseui/radio';
 import { StarRating, EmoticonRating } from 'baseui/rating';
 import { StatefulSelect, Select } from 'baseui/select';
@@ -57,10 +58,10 @@ import {
     StyledAction,
     Table,
 } from 'baseui/table';
-import { Tab, Tabs, StatefulTabs } from 'baseui/tabs';
-import { Tag } from 'baseui/tag';
+import { Tab, Tabs, StatefulTabs, ORIENTATION as TAB_ORIENTATION } from 'baseui/tabs';
+import { Tag, KIND as TAG_KIND, VARIANT as TAG_VARIANT } from 'baseui/tag';
 import { StatefulTextarea as Textarea } from 'baseui/textarea';
-import { ToasterContainer, Toast } from 'baseui/toast';
+import { ToasterContainer, Toast, KIND as TOAST_KIND } from 'baseui/toast';
 import { StatefulTooltip } from 'baseui/tooltip';
 import {
     Label1,
@@ -71,7 +72,7 @@ import {
     Paragraph2,
 } from 'baseui/typography';
 import { PaymentCard, StatefulPaymentCard } from 'baseui/payment-card';
-import { PhoneInput, StatefulPhoneInput } from 'baseui/phone-input';
+import { PhoneInput, StatefulPhoneInput, COUNTRIES } from 'baseui/phone-input';
 
 // Base API
 const newTheme = createTheme({...LightThemePrimitives}, {}); // $ExpectType Theme
@@ -80,6 +81,19 @@ createTheme({primary: 'red'}, {}); // $ExpectError
 mergeOverrides({style: {}}, {props: {}});
 mergeOverrides({style: {}}, 'hello'); // $ExpectError
 mergeOverrides({style: {}}, {name: 'override'}); // $ExpectError
+
+styled(StyledProgressSteps, { marginTop: '10px' });
+styled(StyledProgressSteps, { marginTop: null }); // $ExpectError
+styled(StyledProgressSteps, ({ $theme }) => ({ marginTop: '10px' }));
+const StyledAnchor = styled('a', { marginTop: '10px' });
+const NewStyledProgressSteps = styled<ProgressStepsStyleProps, typeof StyledProgressSteps>(
+    StyledProgressSteps,
+    ({ $theme, $disabled }) => ({ marginTop: '10px' })
+);
+
+<StyledAnchor href="url" />;
+<NewStyledProgressSteps $disabled="string" />; // $ExpectError
+<NewStyledProgressSteps $disabled={false} />;
 
 <BaseProvider theme={newTheme}></BaseProvider>; // $ExpectError
 
@@ -115,11 +129,17 @@ mergeOverrides({style: {}}, {name: 'override'}); // $ExpectError
 // Button
 <Button>Click Me</Button>;
 <Button kind='secondary'>Click Me</Button>;
+<Button kind={BUTTON_KIND.minimal} shape={BUTTON_SHAPE.default} size={BUTTON_SIZE.default}>
+    Click Me
+</Button>;
 <Button kind='invalid'>Click Me</Button>; // $ExpectError
 <Button isLoading>Click Me</Button>;
 <Button isLoading='nope'>Click Me</Button>; // $ExpectError
 <Button size='default'>Click Me</Button>;
 <Button size='huge'>Click Me</Button>; // $ExpectError
+<Button size="compact">Click Me</Button>;
+<Button size="default">Click Me</Button>;
+<Button size="large">Click Me</Button>;
 <Button shape='square'>Click Me</Button>;
 <Button shape='round'>Click Me</Button>;
 <Button shape='triangle'>Primary</Button>; // $ExpectError
@@ -132,6 +152,10 @@ mergeOverrides({style: {}}, {name: 'override'}); // $ExpectError
     <Button>Label</Button>
 </ButtonGroup>;
 <StatefulButtonGroup mode="radio" initialState={{selected: 0}}>
+    <Button>Label</Button>
+    <Button>Label</Button>
+</StatefulButtonGroup>;
+<StatefulButtonGroup mode={BUTTON_GROUP_MODE.radio} initialState={{ selected: 0 }}>
     <Button>Label</Button>
     <Button>Label</Button>
 </StatefulButtonGroup>;
@@ -325,7 +349,7 @@ mergeOverrides({style: {}}, {name: 'override'}); // $ExpectError
             <Button>Get started</Button>
         </NavigationItem>
     </NavigationList>
-    <NavigationList $align={'right'}>
+    <NavigationList $align={NAV_ALIGN.right}>
         <NavigationItem>
             <Button>Get started</Button>
         </NavigationItem>
@@ -360,6 +384,7 @@ mergeOverrides({style: {}}, {name: 'override'}); // $ExpectError
 />;
 <StatefulInput placeholder="Uncontrolled Input" />;
 <StatefulInput size={'default'} placeholder="default" />;
+<StatefulInput size={INPUT_SIZE.default} placeholder="default" />;
 <StatefulInput size={'enormous'} placeholder="default" />; // $ExpectError
 <StatefulInput
     initialState={{
@@ -920,10 +945,20 @@ const COLUMNS = ['Name', 'Age', 'Address'];
     <Tab title="Tab Link 2">Tab 2 content</Tab>
     <Tab title="Tab Link 3">Tab 3 content</Tab>
 </StatefulTabs>;
+<StatefulTabs orientation={TAB_ORIENTATION.vertical} initialState={{ activeKey: '2' }}>
+    <Tab title="Tab Link 1">Tab 1 content</Tab>
+    <Tab title="Tab Link 2">Tab 2 content</Tab>
+    <Tab title="Tab Link 3">Tab 3 content</Tab>
+</StatefulTabs>;
 <StatefulTabs
     orientation={'up'} // $ExpectError
     initialState={{activeKey: '2'}}
 >
+    <Tab title="Tab Link 1">Tab 1 content</Tab>
+    <Tab title="Tab Link 2">Tab 2 content</Tab>
+    <Tab title="Tab Link 3">Tab 3 content</Tab>
+</StatefulTabs>;
+<StatefulTabs orientation={TAB_ORIENTATION.vertical} initialState={{ activeKey: '2' }}>
     <Tab title="Tab Link 1">Tab 1 content</Tab>
     <Tab title="Tab Link 2">Tab 2 content</Tab>
     <Tab title="Tab Link 3">Tab 3 content</Tab>
@@ -944,6 +979,9 @@ const COLUMNS = ['Name', 'Age', 'Address'];
 <Tag>default</Tag>;
 <Tag>long text inside the tag</Tag>;
 <Tag variant={'solid'} kind={'neutral'}>
+    With kind
+</Tag>;
+<Tag variant={TAG_VARIANT.solid} kind={TAG_KIND.neutral}>
     With kind
 </Tag>;
 <Tag disabled variant={'solid'} kind={'neutral'}>
@@ -973,6 +1011,7 @@ const COLUMNS = ['Name', 'Age', 'Address'];
 <Toast kind={'positive'}>Positive notification</Toast>;
 <Toast kind={'warning'}>Warning notification</Toast>;
 <Toast kind={'negative'}>Negative notification</Toast>;
+<Toast kind={TOAST_KIND.negative}>Negative notification</Toast>;
 <Toast kind={'burnt'}>Negative notification</Toast>; // $ExpectError
 
 // Tooltip
@@ -1030,6 +1069,7 @@ const COLUMNS = ['Name', 'Age', 'Address'];
 <StatefulPhoneInput
     initialState={{ country: 'Brazil' }} // $ExpectError
 />;
+<StatefulPhoneInput initialState={{ country: COUNTRIES.BR }} />;
 <PhoneInput
     text={''}
     country={{label: 'Andorra', id: 'AD', dialCode: '+376'}}

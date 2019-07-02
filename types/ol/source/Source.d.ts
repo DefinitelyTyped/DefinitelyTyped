@@ -6,7 +6,7 @@ import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import State from './State';
 
-export type Attribution = ((p0: FrameState) => string | string[]);
+export type Attribution = ((p0: FrameState) => (string | string[]));
 export type AttributionLike = string | string[] | Attribution;
 export interface Options {
     attributions?: AttributionLike;

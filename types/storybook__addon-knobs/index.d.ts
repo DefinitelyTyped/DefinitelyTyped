@@ -85,6 +85,15 @@ export function optionsKnob<T>(
     options?: OptionsKnobOptions
 ): T;
 
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: T;
+    },
+    defaultValue?: T[],
+    options?: OptionsKnobOptions
+): T[];
+
 export interface WrapStoryProps {
     context?: object;
     storyFn?: RenderFunction;

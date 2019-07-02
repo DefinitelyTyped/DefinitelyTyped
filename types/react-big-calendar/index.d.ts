@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.20
+// Type definitions for react-big-calendar 0.22
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -13,6 +13,7 @@
 //                 Siarhey Belofost <https://github.com/SergeyBelofost>
 //                 Mark Nelissen <https://github.com/marknelissen>
 //                 Eric Kenney <https://github.com/KenneyE>
+//                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
@@ -24,15 +25,14 @@ export type SlotPropGetter = (date: Date) => { className?: string, style?: React
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
-export type Views = View[] | {
+export type ViewsProps = View[] | {
     work_week?: boolean | React.SFC | React.Component,
     day?: boolean | React.SFC | React.Component,
     agenda?: boolean | React.SFC | React.Component,
     month?: boolean | React.SFC | React.Component,
     week?: boolean | React.SFC | React.Component
 };
-export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
-
+export type NavigateAction = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 export interface Event {
     allDay?: boolean;
     title?: string;
@@ -171,10 +171,10 @@ export interface Components<TEvent extends object = Event> {
 export interface ToolbarProps {
     date: Date;
     view: View;
-    views: Views;
+    views: ViewsProps;
     label: string;
     localizer: { messages: Messages };
-    onNavigate: (navigate: Navigate, date?: Date) => void;
+    onNavigate: (navigate: NavigateAction, date?: Date) => void;
     onView: (view: View) => void;
     children?: React.ReactNode;
 }
@@ -248,15 +248,15 @@ export class DateLocalizer {
     format(value: FormatInput, format: string, culture: Culture): string;
 }
 
-export interface BigCalendarProps<TEvent extends object = Event, TResource extends object = object>
-    extends React.Props<BigCalendar<TEvent, TResource>> {
+export interface CalendarProps<TEvent extends object = Event, TResource extends object = object>
+    extends React.Props<Calendar<TEvent, TResource>> {
     localizer: DateLocalizer;
 
     date?: stringOrDate;
     getNow?: () => Date;
     view?: View;
     events?: TEvent[];
-    onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
+    onNavigate?: (newDate: Date, view: View, action: NavigateAction) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: {
@@ -270,7 +270,7 @@ export interface BigCalendarProps<TEvent extends object = Event, TResource exten
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
     onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }) => void;
     selected?: any;
-    views?: Views;
+    views?: ViewsProps;
     drilldownView?: View | null;
     getDrilldownView?: ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void) | null;
     length?: number;
@@ -310,44 +310,38 @@ export interface BigCalendarProps<TEvent extends object = Event, TResource exten
 }
 
 export interface ViewStatic {
-    navigate(date: Date, action: Navigate, props: any): Date;
+    navigate(date: Date, action: NavigateAction, props: any): Date;
 }
 
 export interface MoveOptions {
-    action: Navigate;
+    action: NavigateAction;
     date: Date;
     today: Date;
 }
 
-export default class BigCalendar<
+export class Calendar<
     TEvent extends object = Event,
     TResource extends object = object
-> extends React.Component<BigCalendarProps<TEvent, TResource>> {
-    components: {
-        dateCellWrapper: React.ComponentType;
-        dayWrapper: React.ComponentType;
-        eventWrapper: React.ComponentType<TEvent>;
-    };
-    /**
-     * create DateLocalizer from globalize
-     */
-    static globalizeLocalizer(globalizeInstance: object): DateLocalizer;
-    /**
-     * create DateLocalizer from a moment
-     */
-    static momentLocalizer(momentInstance: object): DateLocalizer;
-    /**
-     * action constants for Navigate
-     */
-    static Navigate: {
-        PREVIOUS: 'PREV';
-        NEXT: 'NEXT';
-        TODAY: 'TODAY';
-        DATE: 'DATE';
-    };
-    /**
-     * action constants for View
-     */
-    static Views: Record<ViewKey, View>;
-    static move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
+> extends React.Component<CalendarProps<TEvent, TResource>> {}
+
+export interface components {
+    dateCellWrapper: React.ComponentType;
+    dayWrapper: React.ComponentType;
+    eventWrapper: React.ComponentType<Event>;
 }
+export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
+export function momentLocalizer(momentInstance: object): DateLocalizer;
+export interface Navigate {
+    PREVIOUS: 'PREV';
+    NEXT: 'NEXT';
+    TODAY: 'TODAY';
+    DATE: 'DATE';
+}
+export interface Views {
+    MONTH: 'month';
+    WEEK: 'week';
+    WORK_WEEK: 'work_week';
+    DAY: 'day';
+    AGENDA: 'agenda';
+}
+export function move(View: ViewStatic | ViewKey, options: MoveOptions): Date;

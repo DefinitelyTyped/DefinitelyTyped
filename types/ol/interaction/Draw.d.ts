@@ -12,8 +12,34 @@ import VectorSource from '../source/Vector';
 import { StyleFunction, StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
-export function createBox(): GeometryFunction;
-export function createRegularPolygon(opt_sides?: number, opt_angle?: number): GeometryFunction;
+export type GeometryFunction = ((p0: SketchCoordType, p1?: SimpleGeometry) => SimpleGeometry);
+export type LineCoordType = Coordinate[];
+export interface Options {
+    type: GeometryType;
+    clickTolerance?: number;
+    features?: Collection<Feature>;
+    source?: VectorSource;
+    dragVertexDelay?: number;
+    snapTolerance?: number;
+    stopClick?: boolean;
+    maxPoints?: number;
+    minPoints?: number;
+    finishCondition?: Condition;
+    style?: StyleLike;
+    geometryFunction?: GeometryFunction;
+    geometryName?: string;
+    condition?: Condition;
+    freehand?: boolean;
+    freehandCondition?: Condition;
+    wrapX?: boolean;
+}
+export type PointCoordType = Coordinate;
+export type PolyCoordType = Coordinate[][];
+export type SketchCoordType = PointCoordType | LineCoordType | PolyCoordType;
+export enum DrawEventType {
+    DRAWSTART = 'drawstart',
+    DRAWEND = 'drawend',
+}
 export default class Draw extends PointerInteraction {
     constructor(options: Options);
     extend(feature: Feature): void;
@@ -43,31 +69,5 @@ export class DrawEvent extends Event {
     constructor(type: DrawEventType, feature: Feature);
     feature: Feature;
 }
-export enum DrawEventType {
-    DRAWSTART = 'drawstart',
-    DRAWEND = 'drawend',
-}
-export type GeometryFunction = ((p0: SketchCoordType, p1?: SimpleGeometry) => SimpleGeometry);
-export type LineCoordType = Coordinate[];
-export interface Options {
-    type: GeometryType;
-    clickTolerance?: number;
-    features?: Collection<Feature>;
-    source?: VectorSource;
-    dragVertexDelay?: number;
-    snapTolerance?: number;
-    stopClick?: boolean;
-    maxPoints?: number;
-    minPoints?: number;
-    finishCondition?: Condition;
-    style?: StyleLike;
-    geometryFunction?: GeometryFunction;
-    geometryName?: string;
-    condition?: Condition;
-    freehand?: boolean;
-    freehandCondition?: Condition;
-    wrapX?: boolean;
-}
-export type PointCoordType = Coordinate;
-export type PolyCoordType = Coordinate[][];
-export type SketchCoordType = PointCoordType | LineCoordType | PolyCoordType;
+export function createBox(): GeometryFunction;
+export function createRegularPolygon(opt_sides?: number, opt_angle?: number): GeometryFunction;

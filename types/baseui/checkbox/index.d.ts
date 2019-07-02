@@ -103,3 +103,6 @@ export class Checkbox extends React.Component<CheckboxProps, CheckboxState> {
   onFocus(event: React.SyntheticEvent<HTMLInputElement>): void;
   onBlur(event: React.SyntheticEvent<HTMLInputElement>): void;
 }
+
+export const STATE_TYPE: STATE_TYPE;
+export const STYLE_TYPE: STYLE_TYPE;

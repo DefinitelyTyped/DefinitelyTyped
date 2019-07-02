@@ -17,6 +17,42 @@ declare class Uni {
      */
     arrayBufferToBase64(arrayBuffer?: ArrayBuffer): string;
     /**
+     * 监听自定义事件。事件可以由 uni.$emit 触发。回调函数会接收 uni.$emit 传递的参数。
+     *
+     * 参考: [http://uniapp.dcloud.io/api/window/communication?id=on](http://uniapp.dcloud.io/api/window/communication?id=on)
+     */
+    $on(eventName?: string, callback?: () => void): void;
+    /**
+     * 触发自定义事件，附加的参数会传递给事件监听器。
+     *
+     * 参考: [http://uniapp.dcloud.io/api/window/communication?id=emit](http://uniapp.dcloud.io/api/window/communication?id=emit)
+     */
+    $emit(eventName?: string, param?: any): void;
+    /**
+     * 监听一个自定义事件。事件只触发一次，在第一次触发之后移除事件监听器。
+     *
+     * 参考: [http://uniapp.dcloud.io/api/window/communication?id=once](http://uniapp.dcloud.io/api/window/communication?id=once)
+     */
+    $once(eventName?: string, callback?: () => void): void;
+    /**
+     * 移除自定义事件监听器。如果没有指定事件名，则移除所有事件监听器。如果提供事件名，则移除该事件的所有监听器。如果提供了事件名和回调，则只移除这个回调的监听器。
+     *
+     * 参考: [http://uniapp.dcloud.io/api/window/communication?id=off](http://uniapp.dcloud.io/api/window/communication?id=off)
+     */
+    $off(eventName?: string | any [], callback?: () => void): void;
+    /**
+     * 通过id 获取 subNVues 原生子窗体的实例
+     *
+     * 参考: [http://uniapp.dcloud.io/api/window/subNVues?id=app-getsubnvuebyid](http://uniapp.dcloud.io/api/window/subNVues?id=app-getsubnvuebyid)
+     */
+    getSubNVueById(subNvueId?: string): SubNVue;
+    /**
+     * 获取当前 subNVues 原生子窗体的实例
+     *
+     * 参考: [http://uniapp.dcloud.io/api/window/subNVues?id=app-getsubnvuebyid](http://uniapp.dcloud.io/api/window/subNVues?id=app-getsubnvuebyid)
+     */
+    getCurrentSubNVue(): SubNVue;
+    /**
      * 发起网络请求
      *
      * 参考: [http://uniapp.dcloud.io/api/request/request?id=request](http://uniapp.dcloud.io/api/request/request?id=request)
@@ -273,13 +309,13 @@ declare class Uni {
      */
     createMapContext(): MapContext;
     /**
-     * 获取系统信息
+     * 异步获取系统信息
      *
      * 参考: [http://uniapp.dcloud.io/api/system/info?id=getsysteminfo](http://uniapp.dcloud.io/api/system/info?id=getsysteminfo)
      */
     getSystemInfo(options?: GetSystemInfoOptions): void;
     /**
-     * 获取系统信息
+     * 同步获取系统信息
      *
      * 参考: [http://uniapp.dcloud.io/api/system/info?id=getsysteminfosync](http://uniapp.dcloud.io/api/system/info?id=getsysteminfosync)
      */
@@ -899,6 +935,87 @@ interface GeneralCallbackResult {
     errMsg?: string;
 }
 
+interface SubNVue {
+    /**
+     * 显示原生子窗体
+     */
+    show(options?: 'slide-in-right' | 'slide-in-left' | 'slide-in-top' | 'slide-in-bottom' | 'fade-in' | 'zoom-out' | 'zoom-fade-out' | 'pop-in'): void;
+    /**
+     * 隐藏原生子窗体
+     */
+    hide(options?: 'slide-out-right' | 'slide-out-left' | 'slide-out-top' | 'slide-out-bottom' | 'fade-out' | 'zoom-in' | 'zoom-fade-in' | 'pop-out'): void;
+    /**
+     * 设置原生子窗体的样式
+     */
+    setStyle(options?: SubNVuesSetStyleOptions): void;
+    /**
+     * 发送消息
+     */
+    postMessage(): void;
+    /**
+     * 监听消息
+     */
+    onMessage(success?: () => void): void;
+}
+
+interface SubNVuesSetStyleOptions {
+    /**
+     * 原生子窗体的排版位置
+     * - static: 原生子窗体在页面中正常定位
+     * - absolute: 原生子窗体在页面中绝对定位
+     * - dock: 原生子窗体在页面中停靠
+     */
+    position?: 'static' | 'absolute' | 'dock';
+    /**
+     * 原生子窗体的停靠方式,仅当原生子窗体 "position" 属性值设置为 "dock" 时才生效
+     * - top: 原生子窗体停靠则页面顶部
+     * - bottom: 原生子窗体停靠在页面底部
+     * - left: 原生子窗体停靠在页面左侧
+     * - right: 原生子窗体停靠在页面右侧
+     */
+    dock?: 'top' | 'bottom' | 'left' | 'right';
+    /**
+     * 原生子窗体的内置样式
+     * - popup: 弹出层
+     * - navigationBar: 导航栏
+     */
+    type?: 'popup' | 'navigationBar';
+    /**
+     * 原生子窗体的遮罩层,仅当原生子窗体 "type" 属性值设置为 "popup" 时才生效
+     * - popup: 弹出层
+     * - navigationBar: 导航栏
+     */
+    mask?: 'popup' | 'navigationBar';
+    /**
+     * 原生子窗体的宽度
+     */
+    width?: string;
+    /**
+     * 原生子窗体的高度
+     */
+    height?: string;
+    /**
+     * 原生子窗体垂直向下的偏移量
+     */
+    top?: string;
+    /**
+     * 原生子窗体垂直向上的偏移量
+     */
+    bottom?: string;
+    /**
+     * 原生子窗体水平向左的偏移量
+     */
+    left?: string;
+    /**
+     * 原生子窗体水平向右的偏移量
+     */
+    right?: string;
+    /**
+     * 原生子窗体的边距
+     */
+    margin?: string;
+}
+
 interface RequestPaymentOptions {
     /**
      * 支付服务提供商，通过 uni.getProvider 获取
@@ -1331,6 +1448,10 @@ interface PreviewImageOptions {
      * 当前显示图片的链接，不填则默认为 urls 的第一张
      */
     count?: string;
+    /**
+     * current 为当前显示图片的链接/索引值，不填或填写的值无效则为 urls 的第一张。App平台在 1.9.5至1.9.8之间，current为必填。不填会报错
+     */
+    current?: string;
     /**
      * 需要预览的图片链接列表
      */
@@ -1911,6 +2032,12 @@ interface ChooseVideoOptions {
      */
     maxDuration?: number;
     /**
+     * 摄像切换
+     * - front: 前置摄像头
+     * - back: 后置摄像头
+     */
+    camera?: 'front' | 'back';
+    /**
      * 接口调用成功，返回视频文件的临时文件路径，详见返回参数说明
      */
     success?: (result: ChooseVideoSuccess) => void;
@@ -2332,6 +2459,10 @@ interface GetLocationOptions {
      */
     altitude?: boolean;
     /**
+     * 传入 true 会解析地址
+     */
+    geocode?: boolean;
+    /**
      * 接口调用成功的回调函数
      */
     success?: (result: GetLocationSuccess) => void;
@@ -2374,6 +2505,10 @@ interface GetLocationSuccess {
      * 水平精度，单位 m
      */
     horizontalAccuracy?: number;
+    /**
+     * 地址信息
+     */
+    address?: any;
 }
 
 interface ChooseLocationOptions {
@@ -4935,11 +5070,11 @@ interface CanvasContext {
     /**
      * 设置线条的端点样式
      */
-    setLineCap(lineCap?: string): void;
+    setLineCap(lineCap?: 'butt' | 'round' | 'square'): void;
     /**
      * 设置线条的交点样式
      */
-    setLineJoin(lineJoin?: string): void;
+    setLineJoin(lineJoin?: 'bevel' | 'round' | 'miter'): void;
     /**
      * 设置线条的宽度
      */
@@ -5027,11 +5162,11 @@ interface CanvasContext {
     /**
      * 设置文字的对齐
      */
-    setTextAlign(align?: string): void;
+    setTextAlign(align?: 'left' | 'center' | 'right'): void;
     /**
      * 设置文字的水平对齐
      */
-    setTextBaseline(textBaseline?: string): void;
+    setTextBaseline(textBaseline?: 'top' | 'bottom' | 'middle' | 'normal'): void;
     /**
      * 绘制图像到画布
      */
@@ -5067,7 +5202,7 @@ interface CanvasContext {
     /**
      * 对指定的图像创建模式的方法，可在指定的方向上重复元图像
      */
-    createPattern(image?: string, repetition?: string): void;
+    createPattern(image?: string, repetition?: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): void;
     /**
      * 使用矩阵重新设置（覆盖）当前变换的方法
      */
@@ -5572,6 +5707,26 @@ interface LoginRes {
      * 登录服务商提供的登录信息，服务商不同返回的结果不完全相同
      */
     authResult?: string;
+    /**
+     * 小程序用户临时登录凭证
+     */
+    code?: string;
+    /**
+     * 头条小程序当前设备标识
+     */
+    anonymousCode?: string;
+    /**
+     * 支付宝小程序授权码
+     */
+    authCode?: string;
+    /**
+     * 支付宝小程序登录失败的授权类型，key是授权失败的 scope，value 是对应的错误码
+     */
+    authErrorScope?: any;
+    /**
+     * 支付宝小程序登录成功的授权 scope
+     */
+    authSucessScope?: string [];
 }
 
 interface CheckSessionOptions {
@@ -6113,11 +6268,50 @@ interface GetSettingOptions {
     /**
      * 接口调用失败的回调函数
      */
-    fail?: () => void;
+    fail?: (result: AuthSetting) => void;
     /**
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface AuthSetting {
+    /**
+     * 是否授权用户信息
+     */
+    'scope.userInfo'?: boolean;
+    /**
+     * 是否授权地理位置
+     */
+    'scope.userLocation'?: boolean;
+    /**
+     * 是否授权通讯地址
+     */
+    'scope.address'?: boolean;
+    /**
+     * 是否授权发票抬头
+     */
+    'scope.invoiceTitle'?: boolean;
+    /**
+     * 是否授权获取发票
+     */
+    'scope.invoice'?: boolean;
+    /**
+     * 是否授权微信运动步数
+     */
+    'scope.werun'?: boolean;
+    /**
+     * 是否授权录音功能
+     */
+    'scope.record'?: boolean;
+    /**
+     * 是否授权保存到相册
+     */
+    'scope.writePhotosAlbum'?: boolean;
+    /**
+     * 是否授权摄像头
+     */
+    'scope.camera'?: boolean;
 }
 
 interface GetWeRunDataOptions {

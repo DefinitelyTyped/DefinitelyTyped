@@ -10,7 +10,15 @@ import ImageSource from './Image';
 import { AttributionLike } from './Source';
 import State from './State';
 
-export type FunctionType = ((this: ImageCanvas, p1: Extent, p2: number, p3: number, p4: Size, p5: Projection) => HTMLCanvasElement);
+export type FunctionType = ((this: ImageCanvas, p0: Extent, p1: number, p2: number, p3: Size, p4: Projection) => HTMLCanvasElement);
+export interface Options {
+    attributions?: AttributionLike;
+    canvasFunction?: FunctionType;
+    projection?: ProjectionLike;
+    ratio?: number;
+    resolutions?: number[];
+    state?: State;
+}
 export default class ImageCanvasSource extends ImageSource {
     constructor(opt_options?: Options);
     on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
@@ -22,12 +30,4 @@ export default class ImageCanvasSource extends ImageSource {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    attributions?: AttributionLike;
-    canvasFunction?: FunctionType;
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    state?: State;
 }

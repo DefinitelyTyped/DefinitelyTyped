@@ -13,12 +13,15 @@
 /// <reference path="overrides.d.ts"/>
 
 import * as React from 'react';
-import { StyledFn, StyletronComponent } from 'styletron-react';
+import { StyleObject, StyletronComponent } from 'styletron-react';
 
 export function createTheme(primitives: ThemePrimitives, overrides?: object): Theme;
 export function withProps(Component: React.ComponentType, customProps?: object): (props: object) => any;
 export function mergeOverrides<T>(target?: Overrides<T>, source?: Overrides<T>): Overrides<T>;
-export function styled(...args: any): StyledFn;
+export function styled<P extends object, C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    component: C,
+    styledFn: StyleObject | ((props: { $theme: Theme } & P) => StyleObject)
+): StyletronComponent<Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>> & P>;
 
 export const LightTheme: Theme;
 export const LightThemeMove: Theme;

@@ -2,7 +2,6 @@ import { EventsKey } from './events';
 import Event from './events/Event';
 import Target from './events/Target';
 
-export function unByKey(key: EventsKey | EventsKey[]): void;
 export default class Observable extends Target {
     constructor();
     changed(): void;
@@ -14,3 +13,4 @@ export default class Observable extends Target {
     once(type: 'change', listener: (evt: Event) => void): EventsKey;
     un(type: 'change', listener: (evt: Event) => void): void;
 }
+export function unByKey(key: EventsKey | EventsKey[]): void;

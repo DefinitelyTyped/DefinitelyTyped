@@ -24,6 +24,9 @@ export interface Options {
     wrapX?: boolean;
     hitTolerance?: number;
 }
+export enum SelectEventType {
+    SELECT = 'select',
+}
 export default class Select extends Interaction {
     constructor(opt_options?: Options);
     getFeatures(): Collection<Feature>;
@@ -52,7 +55,4 @@ export class SelectEvent extends Event {
     deselected: Feature[];
     mapBrowserEvent: MapBrowserEvent;
     selected: Feature[];
-}
-export enum SelectEventType {
-    SELECT = 'select',
 }
