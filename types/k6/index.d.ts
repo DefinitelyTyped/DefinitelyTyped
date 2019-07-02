@@ -20,6 +20,15 @@
 
 import './global'; // Type global environment
 
+// Expose everything to autoimport
+import './crypto';
+import './encoding';
+import './html';
+import './http';
+import './metrics';
+import './options';
+import './ws';
+
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 export function fail(err?: string): never;
 export function group<T>(name: string, fn: () => T): T;
