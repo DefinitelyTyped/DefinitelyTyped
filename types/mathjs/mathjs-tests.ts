@@ -1,5 +1,5 @@
 // Import needed for mathjs.import functionality (declaring/extending module)
-import { create, all } from 'mathjs';
+import { create, factory, all, MathJsFunctionName } from 'mathjs';
 
 /*
 Basic usage examples
@@ -457,4 +457,29 @@ Renamed functions from v5 => v6
 	math.chain('1 + 2')
 		.evaluate()
 		.done();
+}
+
+/*
+Factory Test
+ */
+{
+	// create a factory function
+	const name = 'negativeSquare';
+	const dependencies: MathJsFunctionName[] = ['multiply', 'unaryMinus'];
+	const createNegativeSquare = factory(
+		name,
+		dependencies,
+		(injected) => {
+			const { multiply, unaryMinus } = injected;
+			return function negativeSquare(x: number): number {
+				return unaryMinus(multiply(x, x));
+			};
+		},
+	);
+
+	// create an instance of the function yourself:
+	const multiply = (a: number, b: number) => a * b;
+	const unaryMinus = (a: number) => -a;
+	const negativeSquare = createNegativeSquare({ multiply, unaryMinus });
+	negativeSquare(3);
 }

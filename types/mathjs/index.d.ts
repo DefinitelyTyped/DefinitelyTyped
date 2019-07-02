@@ -26,21 +26,23 @@ declare namespace math {
         | Matrix;
     type MathExpression = string | string[] | MathArray | Matrix;
 
-    type FactoryFunction = (scope: any) => any;
+    type FactoryFunction<T> = (scope: any) => T;
 
     // FactoryFunctionMap can be nested; all nested objects will be flattened
-    type FactoryFunctionMap = {
-        [key: string]: FactoryFunction | FactoryFunctionMap;
+    interface FactoryFunctionMap {
+        [key: string]: FactoryFunction<any> | FactoryFunctionMap;
     }
+
+    type MathJsFunctionName = keyof MathJsStatic;
 
     interface MathJsStatic {
         create: (factories: FactoryFunctionMap, config: ConfigOptions) => MathJsStatic;
-        factory: (
+        factory: <T>(
             name: string,
-            dependencies: string[],
-            create: (depencencies: { [key: string]: any }) => any,
+            dependencies: MathJsFunctionName[],
+            create: (injected: MathJsStatic) => T,
             meta?: any,
-        ) => FactoryFunction;
+        ) => FactoryFunction<T>;
         all: FactoryFunctionMap;
 
         e: number;
