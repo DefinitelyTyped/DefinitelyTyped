@@ -403,7 +403,7 @@ interface PublicKeyCredentialRequestOptions {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
  */
 interface PublicKeyCredentialRpEntity {
-    id: string;
+    id?: string;
     name: string;
 }
 
