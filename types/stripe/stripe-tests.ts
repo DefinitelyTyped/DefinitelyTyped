@@ -1556,6 +1556,16 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 
 //#endregion
 
+//#region Sources tests
+// ##################################################################################
+
+stripe.sources.retrieve("tok_15V2YhEe31JkLCeQy9iUgsJX").then((source) => {
+    // asynchronously called
+    const obj: Stripe.ICardHashInfo = source.card;
+});
+
+//#endregion
+
 //#region Subscription Items tests
 // ##################################################################################
 
