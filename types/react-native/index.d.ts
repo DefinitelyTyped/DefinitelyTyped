@@ -2042,7 +2042,15 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessibilityHint?: string;
 }
 
-export type AccessibilityState = "selected" | "disabled";
+export type AccessibilityState =
+    | "disabled"
+    | "selected"
+    | "checked"
+    | "unchecked"
+    | "busy"
+    | "expanded"
+    | "collapsed"
+    | "hasPopup";
 
 export type AccessibilityRole =
     | "none"
@@ -2053,9 +2061,25 @@ export type AccessibilityRole =
     | "keyboardkey"
     | "text"
     | "adjustable"
+    | "imagebutton"
     | "header"
     | "summary"
-    | "imagebutton";
+    | "alert"
+    | "checkbox"
+    | "combobox"
+    | "menu"
+    | "menubar"
+    | "menuitem"
+    | "progressbar"
+    | "radio"
+    | "radiogroup"
+    | "scrollbar"
+    | "spinbutton"
+    | "switch"
+    | "tab"
+    | "tablist"
+    | "timer"
+    | "toolbar";
 
 export interface AccessibilityPropsAndroid {
     /**
