@@ -23,6 +23,8 @@ import { Writable, Readable, Pipe } from 'stream';
 {
     childProcess.execFile("npm", () => {});
     childProcess.execFile("npm", { windowsHide: true }, () => {});
+    childProcess.execFile("npm", { shell: true }, () => {});
+    childProcess.execFile("npm", { shell: '/bin/sh' }, () => {});
     childProcess.execFile("npm", ["-v"], () => {});
     childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
     childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
