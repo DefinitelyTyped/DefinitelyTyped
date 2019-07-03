@@ -1951,7 +1951,7 @@ declare namespace Stripe {
             /**
              * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
              */
-            reason: string | null;
+            reason: CreditNoteReason | null;
 
             /**
              * Refund related to this credit note.
@@ -1961,14 +1961,14 @@ declare namespace Stripe {
             /**
              * Status of this credit note, one of issued or void.
              */
-            status: string;
+            status: "issued" | "void";
 
             /**
              * Type of this credit note, one of post_payment or pre_payment.
              * A pre_payment credit note means it was issued when the invoice was open.
              * A post_payment credit note means it was issued when the invoice was paid.
              */
-            type: string;
+            type: "post_payment" | "pre_payment";
       }
 
       interface ICreditNoteCreationOptions extends IDataOptionsWithMetadata {
@@ -1981,7 +1981,7 @@ declare namespace Stripe {
          */
         credit_amount?: number;
         memo?: string;
-        reason?: string;
+        reason?: CreditNoteReason;
 
         /**
          * ID of an existing refund to link this credit note to.
@@ -2001,6 +2001,11 @@ declare namespace Stripe {
       interface ICreditNoteListOptions extends IListOptions {
         invoice?: string;
       }
+
+      /**
+       * Reason for issuing a credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
+       */
+      type CreditNoteReason = "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
     }
 
     namespace customers {
