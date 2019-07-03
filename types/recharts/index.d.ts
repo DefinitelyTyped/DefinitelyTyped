@@ -12,6 +12,7 @@
 //                 Robert Stigsson <https://github.com/RobertStigsson>
 //                 Kosaku Kurino <https://github.com/kousaku-maron>
 //                 Leon Ng <https://github.com/iflp>
+//                 Dave Vedder <https://github.com/veddermatic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -48,6 +49,7 @@ export type LineType =
     'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory;
 export type IfOverflowType = 'hidden' | 'visible' | 'discard' | 'extendDomain';
 export type AxisInterval = number | 'preserveStart' | 'preserveEnd' | 'preserveStartEnd';
+export type BaseValueType = number | 'auto' | 'dataMin' | 'dataMax';
 
 export type PickedCSSStyleDeclarationKeys =
     'alignmentBaseline' | 'baselineShift' | 'clip' | 'clipPath' | 'clipRule' | 'color' |
@@ -83,6 +85,7 @@ export interface Animatable {
     animationEasing?: AnimationEasingType;
 }
 
+
 export interface CategoricalChartWrapper<L = LayoutType> {
     syncId?: string | number;
     compact?: boolean;
@@ -96,6 +99,7 @@ export interface CategoricalChartWrapper<L = LayoutType> {
     barCategoryGap?: number | string;
     barGap?: number | string;
     barSize?: number | string;
+    baseValue?: BaseValueType;
     maxBarSize?: number;
     style?: object;
     className?: string;
