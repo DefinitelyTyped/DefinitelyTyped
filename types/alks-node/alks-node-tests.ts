@@ -1,25 +1,37 @@
-import { Auth, Account, AwsKey,
-  createIamKey, createIamRole, createIamTrustRole, createKey, createLongTermKey,
-  deleteIamRole, deleteLongTermKey, generateConsoleUrl, getAccounts, getDurations,
-  getIamRoleTypes, refreshTokenToAccessToken
+import {
+    Auth,
+    Account,
+    AwsKey,
+    createIamKey,
+    createIamRole,
+    createIamTrustRole,
+    createKey,
+    createLongTermKey,
+    deleteIamRole,
+    deleteLongTermKey,
+    generateConsoleUrl,
+    getAccounts,
+    getDurations,
+    getIamRoleTypes,
+    refreshTokenToAccessToken,
 } from 'alks-node';
 
 const auth: Auth = {
-  password: 'pass',
-  token: 'token'
+    password: 'pass',
+    token: 'token',
 };
 
 const acct: Account = {
-  alksAccount: 'alksAcct',
-  alksRole: 'alksRole',
-  server: 'server',
-  userid: 'userId'
+    alksAccount: 'alksAcct',
+    alksRole: 'alksRole',
+    server: 'server',
+    userid: 'userId',
 };
 
 const awsKey: AwsKey = {
-  accessKey: 'accessKey',
-  secretKey: 'secretKey',
-  sessionToken: 'sessionToken'
+    accessKey: 'accessKey',
+    secretKey: 'secretKey',
+    sessionToken: 'sessionToken',
 };
 
 createIamKey(acct, auth, 1, {}, () => {});
