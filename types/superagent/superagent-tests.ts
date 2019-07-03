@@ -455,6 +455,16 @@ request
     .pfx([pfx])
     .end(callback);
 
+// 'response' event, adapted from: https://visionmedia.github.io/superagent/docs/test.html
+request
+    .get('/user/1')
+    .on('response', res => {
+      try {
+        assert.equal('bar', res.body.foo);
+      } catch (e) { /* ignore */ }
+    })
+    .end();
+
 // ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
 request
     .get('/404')

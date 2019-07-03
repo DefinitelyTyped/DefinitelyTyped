@@ -140,6 +140,7 @@ declare namespace request {
         ok(callback: (res: Response) => boolean): this;
         on(name: 'error', handler: (err: any) => void): this;
         on(name: 'progress', handler: (event: ProgressEvent) => void): this;
+        on(name: 'response', handler: (response: Response) => void): this;
         on(name: string, handler: (event: any) => void): this;
         parse(parser: Parser): this;
         part(): this;
