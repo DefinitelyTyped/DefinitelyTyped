@@ -8,10 +8,12 @@
 //                 Adam Haglund <https://github.com/beeequeue>
 //                 Lukas Elmer <https://github.com/lukaselmer>
 //                 Jesse Rogers <https://github.com/theQuazz>
+//                 Chris Arnesen <https://github.com/carnesen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
+/// <reference lib="dom" />
 
 import * as fs from 'fs';
 import * as https from 'https';
