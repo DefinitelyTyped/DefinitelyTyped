@@ -4,6 +4,7 @@
 //                 Anthony Nichols <https://github.com/anthonynichols>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -12,7 +13,7 @@ import { EventEmitter } from 'events';
 export = Nedb;
 export as namespace Nedb;
 
-declare class Nedb<G=any> extends EventEmitter {
+declare class Nedb<G = any> extends EventEmitter {
     constructor(pathOrOptions?: string | Nedb.DataStoreOptions);
 
     persistence: Nedb.Persistence;
