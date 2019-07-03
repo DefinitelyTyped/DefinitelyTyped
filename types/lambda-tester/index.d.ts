@@ -17,12 +17,17 @@ declare namespace lambdaTester {
         ? NonNullable<Parameters<Callback<TResult>>['0']>
         : never;
 
-    interface Verifier<S> {
+    interface VerifierFn<S> {
         (result: S, additional?: any): void | Promise<void>;
         (result: S, additional?: any, done?: () => {}): void;
     }
-
-    // type Verifier<T> = (result: T, additional?: any, done?: () => {}) => void | Promise<void>;
+    type Verifier<S> = S extends HandlerError<Handler>
+        ? S extends string
+            ? VerifierFn<string>
+            : S extends Error
+            ? VerifierFn<Error>
+            : never
+        : VerifierFn<S>;
 
     class LambdaTester<T extends Handler> {
         event(event: HandlerEvent<T>): this;
@@ -31,15 +36,15 @@ declare namespace lambdaTester {
         identity(cognitoIdentityId: string, cognitoIdentityPoolId: string): this;
         timeout(seconds: number): this;
         xray(): this;
-        expectSucceed<S extends HandlerResult<T> = HandlerResult<T>>(verifier: Verifier<S>): Promise<any>;
-        expectFail<S = HandlerError<T>>(verifier: Verifier<S>): Promise<any>;
-        expectResult<S extends HandlerResult<T> = HandlerResult<T>>(verifier: Verifier<S>): Promise<any>;
-        expectError<S = HandlerError<T>>(verifier: Verifier<S>): Promise<any>;
-        expectResolve<S extends HandlerResult<T> = HandlerResult<T>>(verifier: Verifier<S>): Promise<any>;
-        expectReject<S = HandlerError<T>>(verifier: Verifier<S>): Promise<any>;
+        expectSucceed(verifier: Verifier<HandlerResult<T>>): Promise<any>;
+        expectFail(verifier: Verifier<HandlerError<T>>): Promise<any>;
+        expectResult(verifier: Verifier<HandlerResult<T>>): Promise<any>;
+        expectError(verifier: Verifier<HandlerError<T>>): Promise<any>;
+        expectResolve(verifier: Verifier<HandlerResult<T>>): Promise<any>;
+        expectReject(verifier: Verifier<HandlerError<T>>): Promise<any>;
     }
 }
 
-declare function lambdaTester<T extends Handler = Handler>(handler: T): lambdaTester.LambdaTester<T>;
+declare function lambdaTester<T extends Handler>(handler: T): lambdaTester.LambdaTester<T>;
 
 export = lambdaTester;
