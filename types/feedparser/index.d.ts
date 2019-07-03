@@ -150,8 +150,8 @@ declare namespace FeedParser {
     }
 
     interface Enclosure {
-       length: string;
-       type: string;
+       length?: string;
+       type?: string;
        url: string;
     }
 
