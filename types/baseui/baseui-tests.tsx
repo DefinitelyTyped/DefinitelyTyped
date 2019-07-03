@@ -111,6 +111,17 @@ const NewStyledProgressSteps = styled<ProgressStepsStyleProps, typeof StyledProg
 // Avatar
 <Avatar name='user' size='10'/>;
 <Avatar name='user' size={10}/>; // $ExpectError
+<Avatar
+    name="user"
+    overrides={{ Root: { style: ({ $theme }) => ({ height: $theme.sizing && $theme.sizing.scale1000 }) } }}
+/>;
+<Avatar
+    name="user"
+    overrides={{ Root: { style: ({ $didImageFailToLoad }) => ({ height: $didImageFailToLoad ? '0' : '10px' }) } }}
+/>;
+<Avatar name="user" overrides={{ Root: { style: ({ children }) => ({ height: children ? '10px' : '0'})} }} />;
+<Avatar name="user" overrides={{ Root: { style: ({ $theme }) => ({ height: $theme.sizing && $theme.sizing.notasize })} }} />; // $ExpectError
+<Avatar name="user" overrides={{ Root: { style: ({ $nonExistantProp }) => ({}) }}} />; // $ExpectError
 
 // Block
 <Block as='h1'/>;

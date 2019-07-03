@@ -1,9 +1,9 @@
-type StyleOverride = object | ((props: any) => object);
+type StyleOverride<T> = object | ((props: { $theme: Theme } & React.PropsWithChildren<T>) => object);
 
 interface OverrideObject<T> {
   component?: React.ComponentType<T>;
   props?: object;
-  style?: StyleOverride;
+  style?: StyleOverride<T>;
 }
 
 type Override<T> = OverrideObject<T> | React.ComponentType<T>;
