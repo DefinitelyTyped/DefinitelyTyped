@@ -37,6 +37,7 @@
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
 //                 Thanik Bhongbhibhat <https://github.com/bhongy>
+//                 Martin Trobäck <https://github.com/lekoaf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.2.
@@ -63,16 +64,16 @@ interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
-interface Set<T> {}
-interface Map<K, V> {}
-interface ReadonlySet<T> {}
+interface Set<T> { }
+interface Map<K, V> { }
+interface ReadonlySet<T> { }
 interface IteratorResult<T> { }
 interface Iterable<T> { }
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
 interface IterableIterator<T> { }
-interface AsyncIterableIterator<T> {}
+interface AsyncIterableIterator<T> { }
 interface SymbolConstructor {
     readonly iterator: symbol;
     readonly asyncIterator: symbol;
