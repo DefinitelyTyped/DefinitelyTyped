@@ -21,7 +21,7 @@ export type Options =
 
 export type OptionsResult = OptionsData | Promise<OptionsData>;
 
-export type OptionsData = {
+export interface OptionsData {
     /**
      * A GraphQL schema from graphql-js.
      */
@@ -78,6 +78,6 @@ export type OptionsData = {
      * value or method on the source value with the field's name).
      */
     fieldResolver?: GraphQLFieldResolver<any, any>;
-};
+}
 
 export default function graphqlHTTP(options: Options): Middleware;
