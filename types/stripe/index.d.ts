@@ -7721,7 +7721,7 @@ declare namespace Stripe {
             ): Promise<creditNotes.ICreditNote>;
 
             /**
-             * Returns a list of your credit notes. Credit notes are returned sorted by creation date, with the most recently created invoice
+             * Returns a list of your credit notes. Credit notes are returned sorted by creation date, with the most recently created credit note
              * items appearing first.
              */
             list(
