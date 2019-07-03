@@ -25,4 +25,4 @@ const serializer = new Serializer(factory, modelManager);
 const plainJsObject = serializer.toJSON(postalAddress);
 
 const sPostalAddress = serializer.fromJSON(plainJsObject);
-let streetAddress: string = sPostalAddress.streetAddress;
+const streetAddress: string = sPostalAddress.streetAddress;
