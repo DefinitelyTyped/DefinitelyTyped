@@ -85,7 +85,6 @@ export interface Animatable {
     animationEasing?: AnimationEasingType;
 }
 
-
 export interface CategoricalChartWrapper<L = LayoutType> {
     syncId?: string | number;
     compact?: boolean;
