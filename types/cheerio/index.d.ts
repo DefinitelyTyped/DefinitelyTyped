@@ -265,6 +265,7 @@ interface CheerioElement {
     parentNode: CheerioElement;
     nodeValue: string;
     data?: string;
+    startIndex?: number;
 }
 
 interface CheerioAPI extends CheerioSelector, CheerioStatic {
