@@ -452,11 +452,15 @@ declare namespace Office {
         *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>The error message from the Exchange server in a JSON object e.g., `{"ErrorText": "The mailbox database is temporarily unavailable"}`</td></tr>
         * </table>
         */
-       diagnostics: any;
-       /**
+        diagnostics: any;
+        /**
         * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
         */
         error: Office.Error;
+        /**
+        * Gets the the GUID of the CustomXmlPart, when T (the type of the value property) is {@link Office.CustomXmlPart}.
+        */
+        id?: string;
         /**
         * Gets the {@link Office.AsyncResultStatus} of the asynchronous operation.
         */
