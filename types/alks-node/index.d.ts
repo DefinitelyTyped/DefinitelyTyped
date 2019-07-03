@@ -2,6 +2,7 @@
 // Project: https://github.com/Cox-Automotive/alks-node#readme
 // Definitions by: Matt Hoang <https://github.com/matthoang08>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { Moment } from 'moment';
 
