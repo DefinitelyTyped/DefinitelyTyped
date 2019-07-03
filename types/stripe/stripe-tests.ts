@@ -271,6 +271,76 @@ stripe.checkout.sessions.create({
 
 //#endregion
 
+//#region CreditNotes tests
+// ##################################################################################
+stripe.creditNotes.create({
+  amount: 100,
+  invoice: "in_15fvyXEe31JkLCeQH7QbgZZb",
+}, (err, creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+stripe.creditNotes.create({
+  amount: 100,
+  invoice: "in_15fvyXEe31JkLCeQH7QbgZZb",
+}).then((creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+stripe.creditNotes.retrieve(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+stripe.creditNotes.retrieve("cn_1FsAjKFpRTWZADwSy2clIZum").then((creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+stripe.creditNotes.retrieve("cn_1FsAjKFpRTWZADwSy2clIZum", { expand: ["refund"] }).then((creditNote) => {
+  creditNote.refund;
+});
+
+stripe.creditNotes.update(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  {
+    memo: 'foobar',
+  },
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+stripe.creditNotes.update(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  {
+    memo: 'foobar',
+  }).then((creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+
+stripe.creditNotes.list(
+  { invoice: "in_15fvyXEe31JkLCeQH7QbgZZb", limit: 3 },
+  (err, creditNotes) => {
+    creditNotes; // $ExpectType IList<ICreditNote>
+  }
+);
+stripe.creditNotes.list({ invoice: "in_15fvyXEe31JkLCeQH7QbgZZb", limit: 3 }).then((creditNotes) => {
+  creditNotes; // $ExpectType IList<ICreditNote>
+});
+
+stripe.creditNotes.voidCreditNote(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+
+stripe.creditNotes.voidCreditNote("cn_1FsAjKFpRTWZADwSy2clIZum").then(creditNote => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+//#endregion
+
 //#region Customer tests
 // ##################################################################################
 
