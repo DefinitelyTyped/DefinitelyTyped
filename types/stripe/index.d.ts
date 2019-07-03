@@ -57,6 +57,7 @@ declare class Stripe {
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
     customers: Stripe.resources.Customers;
     disputes: Stripe.resources.Disputes;
     events: Stripe.resources.Events;
@@ -92,11 +93,11 @@ declare class Stripe {
     sources: Stripe.resources.Sources;
 
     setHost(host: string): void;
-    setHost(host: string, port: string|number): void;
-    setHost(host: string, port: string|number, protocol: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
     setProtocol(protocol: string): void;
-    setPort(port: string|number): void;
+    setPort(port: string | number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
     setTimeout(timeout?: number): void;
@@ -1915,6 +1916,93 @@ declare namespace Stripe {
         }
     }
 
+    namespace creditNotes {
+      /**
+       * Credit notes are documents that decrease the amount owed on a specified invoice.
+       * Credit notes are the only way to adjust the amount of an invoice once it's been finalized
+       * (other than voiding and recreating the invoice from scratch).
+       */
+      interface ICreditNote extends IResourceObject {
+            /**
+             * Value is "credit_note"
+             */
+            object: "credit_note";
+
+            amount: number;
+            created: string;
+            currency: string;
+            customer: string | customers.ICustomer;
+            customer_balance_transaction: string;
+            invoice: string | invoices.IInvoice;
+            livemode: boolean;
+            memo: string | null;
+            metadata: IMetadata;
+
+            /**
+             * A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice.
+             */
+            number: string;
+
+            /**
+             * The link to download the PDF of the credit note.
+             */
+            pdf: string;
+
+            /**
+             * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
+             */
+            reason: string | null;
+
+            /**
+             * Refund related to this credit note.
+             */
+            refund: string | null | refunds.IRefund;
+
+            /**
+             * Status of this credit note, one of issued or void.
+             */
+            status: string;
+
+            /**
+             * Type of this credit note, one of post_payment or pre_payment.
+             * A pre_payment credit note means it was issued when the invoice was open.
+             * A post_payment credit note means it was issued when the invoice was paid.
+             */
+            type: string;
+      }
+
+      interface ICreditNoteCreationOptions extends IDataOptionsWithMetadata {
+        amount: number;
+        invoice: string;
+
+        /**
+         * The amount to credit the customer’s balance.
+         * It will be automatically applied to their next invoice.
+         */
+        credit_amount?: number;
+        memo?: string;
+        reason?: string;
+
+        /**
+         * ID of an existing refund to link this credit note to.
+         */
+        refund?: string;
+
+        /**
+         * The amount to refund. If set, a refund will be created for the charge associated with the invoice.
+         */
+        refund_amount?: number;
+      }
+
+      interface ICreditNoteUpdateOptions extends IDataOptionsWithMetadata {
+        memo?: string;
+      }
+
+      interface ICreditNoteListOptions extends IListOptions {
+        invoice?: string;
+      }
+    }
+
     namespace customers {
         /**
          * Customer objects allow you to perform recurring charges and track multiple charges that are associated
@@ -2791,6 +2879,16 @@ declare namespace Stripe {
              * Start of the usage period during which invoice items were added to this invoice
              */
             period_start: number;
+
+            /**
+             * Total amount of all post-payment credit notes issued for this invoice.
+             */
+            post_payment_credit_notes_amount: number;
+
+            /**
+             * Total amount of all pre-payment credit notes issued for this invoice.
+             */
+            pre_payment_credit_notes_amount: number;
 
             /**
              * This is the transaction number that appears on email receipts sent for this invoice.
@@ -7576,6 +7674,83 @@ declare namespace Stripe {
             list(data: IListOptionsCreated, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
             list(options: HeaderOptions, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
             list(response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
+        }
+
+        class CreditNotes extends StripeResource {
+            /**
+             * A credit note can be issued for open and paid invoices.
+             * When issued for an open invoice, a credit note decreases the invoice’s amount due.
+             * When issued for a paid invoice, it is commonly used to refund or credit a specified amount to the customer.
+             */
+            create(
+                data: creditNotes.ICreditNoteCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            create(
+                data: creditNotes.ICreditNoteCreationOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Retrieves the credit note with the given ID.
+             */
+            retrieve(
+                creditNoteId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            retrieve(
+                creditNoteId: string,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Updates the memo or metadata on the credit note.
+             */
+            update(
+                creditNoteId: string,
+                data: creditNotes.ICreditNoteUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            update(
+                creditNoteId: string,
+                data: creditNotes.ICreditNoteUpdateOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Returns a list of your credit notes. Credit notes are returned sorted by creation date, with the most recently created invoice
+             * items appearing first.
+             */
+            list(
+                data: creditNotes.ICreditNoteListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(
+                data: creditNotes.ICreditNoteListOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(response?: IResponseFn<IList<creditNotes.ICreditNote>>): Promise<IList<creditNotes.ICreditNote>>;
+
+            /**
+             * Marks a credit note as void. Voiding a credit note reverses its adjustment. Voiding is only possible on open invoices.
+             */
+            voidCreditNote(
+                creditNoteId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            voidCreditNote(
+                creditNoteId: string,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
         }
 
         class CustomerCards extends StripeResource {
