@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare namespace SumoLogger {}
-
 declare class SumoLogger {
     constructor(collectorCode: string, opts?: object);
 
