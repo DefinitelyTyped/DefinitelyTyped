@@ -752,9 +752,9 @@ declare namespace GoogleAppsScript {
         ytRating?: string;
       }
       export interface GeoPoint {
-        altitude?: Number;
-        latitude?: Number;
-        longitude?: Number;
+        altitude?: number;
+        latitude?: number;
+        longitude?: number;
       }
       export interface GuideCategory {
         etag?: string;
@@ -1490,10 +1490,10 @@ declare namespace GoogleAppsScript {
         vendor?: string;
       }
       export interface VideoFileDetailsVideoStream {
-        aspectRatio?: Number;
+        aspectRatio?: number;
         bitrateBps?: string;
         codec?: string;
-        frameRateFps?: Number;
+        frameRateFps?: number;
         heightPixels?: number;
         rotation?: string;
         vendor?: string;

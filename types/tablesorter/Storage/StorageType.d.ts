@@ -1,19 +1,18 @@
 /**
  * Represents a storage type.
  */
-export enum StorageType {
+export type StorageType =
     /**
      * Indicates the default local storage.
      */
-    Default = "d",
+    "d" |
 
     /**
      * Indicates the session-storage.
      */
-    Session = "s",
+    "s" |
 
     /**
      * Indicates cookies.
      */
-    Cookie = "s"
-}
+    "c";

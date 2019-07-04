@@ -40,6 +40,7 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
     onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string;
+    classNames?: any;
     style?: any;
     suggestionsPortalHost?: Element;
     inputRef?: React.RefObject<HTMLTextAreaElement> | React.RefObject<HTMLInputElement>;

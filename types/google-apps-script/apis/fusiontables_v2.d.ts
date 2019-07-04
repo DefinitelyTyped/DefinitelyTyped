@@ -144,9 +144,9 @@ declare namespace GoogleAppsScript {
       export interface Bucket {
         color?: string;
         icon?: string;
-        max?: Number;
-        min?: Number;
-        opacity?: Number;
+        max?: number;
+        min?: number;
+        opacity?: number;
         weight?: number;
       }
       export interface Column {
@@ -174,7 +174,7 @@ declare namespace GoogleAppsScript {
         totalItems?: number;
       }
       export interface Geometry {
-        geometries?: Object[];
+        geometries?: object[];
         geometry?: object;
         type?: string;
       }
@@ -183,18 +183,18 @@ declare namespace GoogleAppsScript {
         numRowsReceived?: string;
       }
       export interface Line {
-        coordinates?: Number[][];
+        coordinates?: number[][];
         type?: string;
       }
       export interface LineStyle {
         strokeColor?: string;
         strokeColorStyler?: FusionTables.Schema.StyleFunction;
-        strokeOpacity?: Number;
+        strokeOpacity?: number;
         strokeWeight?: number;
         strokeWeightStyler?: FusionTables.Schema.StyleFunction;
       }
       export interface Point {
-        coordinates?: Number[];
+        coordinates?: number[];
         type?: string;
       }
       export interface PointStyle {
@@ -202,23 +202,23 @@ declare namespace GoogleAppsScript {
         iconStyler?: FusionTables.Schema.StyleFunction;
       }
       export interface Polygon {
-        coordinates?: Number[][][];
+        coordinates?: number[][][];
         type?: string;
       }
       export interface PolygonStyle {
         fillColor?: string;
         fillColorStyler?: FusionTables.Schema.StyleFunction;
-        fillOpacity?: Number;
+        fillOpacity?: number;
         strokeColor?: string;
         strokeColorStyler?: FusionTables.Schema.StyleFunction;
-        strokeOpacity?: Number;
+        strokeOpacity?: number;
         strokeWeight?: number;
         strokeWeightStyler?: FusionTables.Schema.StyleFunction;
       }
       export interface Sqlresponse {
         columns?: string[];
         kind?: string;
-        rows?: Object[][];
+        rows?: object[][];
       }
       export interface StyleFunction {
         buckets?: FusionTables.Schema.Bucket[];
@@ -228,12 +228,12 @@ declare namespace GoogleAppsScript {
       }
       export interface StyleFunctionGradient {
         colors?: FusionTables.Schema.StyleFunctionGradientColors[];
-        max?: Number;
-        min?: Number;
+        max?: number;
+        min?: number;
       }
       export interface StyleFunctionGradientColors {
         color?: string;
-        opacity?: Number;
+        opacity?: number;
       }
       export interface StyleSetting {
         kind?: string;

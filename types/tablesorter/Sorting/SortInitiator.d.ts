@@ -1,29 +1,28 @@
 /**
  * Represents a sort-initiator.
  */
-export enum SortInitiator {
+export type SortInitiator =
     /**
      * Indicates the user.
      */
-    User = "user",
+    "user" |
 
     /**
      * Indicates the `sort`-event.
      */
-    SortEvent = "sort",
+    "sort" |
 
     /**
      * Indicates the `sorton`-method.
      */
-    SortOnMethod = "sorton",
+    "sorton" |
 
     /**
      * Indicates the `sortAppend`-configuration.
      */
-    SotAppend = "sortAppend",
+    "sortAppend" |
 
     /**
      * Indicates the `sortForce`-configuration.
      */
-    SortForce = "sortForce"
-}
+    "sortForce";

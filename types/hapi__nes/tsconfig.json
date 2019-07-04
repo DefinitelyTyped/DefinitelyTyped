@@ -43,8 +43,8 @@
             "@hapi/nes": [
                 "hapi__nes"
             ],
-            "@hapi/nes/client": [
-                "hapi__nes/client"
+            "@hapi/nes/lib/client": [
+                "hapi__nes/lib/client"
             ]
         },
         "types": [],
@@ -53,7 +53,7 @@
     },
     "files": [
         "index.d.ts",
-        "client.d.ts",
+        "lib/client.d.ts",
         "test/client-require.ts",
         "test/hapi__nes-tests.ts",
         "test/broadcast-client.ts",

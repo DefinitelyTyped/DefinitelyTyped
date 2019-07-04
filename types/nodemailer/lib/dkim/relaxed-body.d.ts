@@ -13,6 +13,8 @@ declare namespace RelaxedBody {
  * Streams through a message body and calculates relaxed body hash
  */
 declare class RelaxedBody extends Transform {
+    constructor(options?: RelaxedBody.Options);
+
     addListener(event: 'hash', listener: (digest: Buffer, debugBody: Buffer | false) => void): this;
     addListener(event: 'close', listener: () => void): this;
     addListener(event: 'data', listener: (chunk: any) => void): this;

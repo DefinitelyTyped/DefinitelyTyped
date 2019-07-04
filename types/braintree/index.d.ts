@@ -62,6 +62,7 @@ declare namespace braintree {
         settlementBatchSumary: T extends SettlementBatchSummary ? SettlementBatchSummary : never;
         subscription: T extends Subscription ? Subscription : never;
         transaction: T extends Transaction ? Transaction : never;
+        clientToken: T extends ClientToken ? string : never;
     }
 
     /**
@@ -80,7 +81,7 @@ declare namespace braintree {
     }
 
     interface ClientTokenGateway {
-        generate(request: ClientTokenRequest): Promise<string>;
+        generate(request: ClientTokenRequest): Promise<ValidatedResponse<ClientToken>>;
     }
 
     interface CreditCardGateway {
@@ -473,6 +474,7 @@ declare namespace braintree {
         email?: string;
         fax?: string;
         firstName?: string;
+        id?: string;
         lastName?: string;
         paymentMethodNonce?: string;
         phone?: string;
@@ -1145,6 +1147,10 @@ declare namespace braintree {
         voiceReferralNumber?: string;
     }
 
+    interface ClientToken {
+      clientToken: string;
+    }
+
     export interface TransactionRequest {
         amount: string;
         billing?: {
@@ -1314,8 +1320,8 @@ declare namespace braintree {
         id: string;
     }
 
-    export type TransactionStatus = 'AuthorizationExpired' | 'Authorized' | 'Authorizing' | 'SettlementPending' | 'SettlemnetDeclined' |
-        'Failed' | 'GatewayRejected' | 'ProcessorDeclined' | 'Settled' | 'Settling' | 'SubmittedForSettlement' | 'Voided';
+    export type TransactionStatus = 'authorization_expired' | 'authorized' | 'authorizing' | 'settlement_pending' | 'settlement_declined' |
+        'failed' | 'gateway_rejected' | 'processor_declined' | 'settled' | 'settling' | 'submitted_for_settlement' | 'voided';
 
     export interface TransactionStatusHistory {
         amount: string;

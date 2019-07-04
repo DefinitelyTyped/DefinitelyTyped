@@ -1,3 +1,6 @@
-import * as ol from 'openlayers';
+import { Extent } from '../extent';
+import XML from './XML';
 
-export default ol.format.WMSCapabilities;
+export default class WMSCapabilities extends XML {
+    constructor();
+}

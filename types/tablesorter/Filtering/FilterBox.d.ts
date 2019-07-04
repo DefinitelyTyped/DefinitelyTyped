@@ -1,24 +1,23 @@
 /**
  * Represents a filter-box.
  */
-export enum FilterBox {
+export type FilterBox =
     /**
      * Indicates an ordinary text-box.
      */
-    TextBox = "search",
+    "search" |
 
     /**
      * Indicates a dropdown.
      */
-    Dropdown = "select",
+    "select" |
 
     /**
      * Indicates the textbox for the start of a date-range.
      */
-    DateFrom = "from",
+    "from" |
 
     /**
      * Indicates the textbox for the end of a date-range.
      */
-    DateTo = "to"
-}
+    "to";

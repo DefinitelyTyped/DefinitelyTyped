@@ -8,8 +8,7 @@
 import SelectBase from './lib/Select';
 import { StateManager } from './lib/stateManager';
 
-export default SelectBase;
-// export default StateManager;
+export default StateManager;
 
 export { SelectBase };
 export { default as Async } from './lib/Async';

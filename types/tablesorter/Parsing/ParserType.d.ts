@@ -1,14 +1,13 @@
 /**
  * Represents a parser-type.
  */
-export enum ParserType {
+export type ParserType =
     /**
      * Indicates the default parser-type.
      */
-    Default = "text",
+    "text" |
 
     /**
      * Indicates a decimal parser-type.
      */
-    Decimal = "numeric"
-}
+    "numeric";

@@ -46,7 +46,7 @@ declare namespace MimeNode {
  * the options, assumes this is the root.
  */
 declare class MimeNode {
-    constructor(contentType: string, options?: MimeNode.Options);
+    constructor(contentType?: string, options?: MimeNode.Options);
 
     /** Creates and appends a child node.Arguments provided are passed to MimeNode constructor */
     createChild(contentType: string, options?: MimeNode.Options): MimeNode;

@@ -6,6 +6,7 @@
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Artur Androsovych <https://github.com/arturovt>
 //                 Dave Cardwell <https://github.com/davecardwell>
+//                 Katsuya Hino <https://github.com/dobogo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,7 +16,7 @@ import * as express from 'express';
 import * as serveStatic from 'serve-static';
 import * as https from 'https';
 import * as http from 'http';
-import { Url } from "url";
+import * as connectHistoryApiFallback from 'connect-history-api-fallback';
 
 declare namespace WebpackDevServer {
     interface ListeningApp {
@@ -32,23 +33,6 @@ declare namespace WebpackDevServer {
     } & httpProxyMiddleware.Config;
 
     type ProxyConfigArray = ProxyConfigArrayItem[];
-
-    interface Context {
-        match: RegExpMatchArray;
-        parsedUrl: Url;
-    }
-
-    type RewriteTo = (context: Context) => string;
-
-    interface Rewrite {
-        from: RegExp;
-        to: string | RegExp | RewriteTo;
-    }
-
-    interface HistoryApiFallbackConfig {
-        disableDotRule?: boolean;
-        rewrites?: Rewrite[];
-    }
 
     interface Configuration {
         /** Provides the ability to execute custom middleware after all other middleware internally within the server. */
@@ -87,7 +71,7 @@ declare namespace WebpackDevServer {
             [key: string]: string;
         };
         /** When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses. */
-        historyApiFallback?: boolean | HistoryApiFallbackConfig;
+        historyApiFallback?: boolean | connectHistoryApiFallback.Options;
         /** Specify a host to use. By default this is localhost. */
         host?: string;
         /** Enable webpack's Hot Module Replacement feature. */

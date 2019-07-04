@@ -1732,6 +1732,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.filter(list, listIterator); // $ExpectType AbcObject[]
     _.filter(list, ""); // $ExpectType AbcObject[]
     _.filter(list, { a: 42 }); // $ExpectType AbcObject[]
+    _.filter([{ a: { b: { c: 1 }, other1: "o" }, other2: "p" }], { a: { b: 0 } }); // $ExpectType { a: { b: { c: number; }; other1: string; }; other2: string; }[]
     _.filter(list, ["a", 42]); // $ExpectType AbcObject[]
     _.filter(dictionary, dictionaryIterator); // $ExpectType AbcObject[]
     _.filter(dictionary, ""); // $ExpectType AbcObject[]
@@ -2524,11 +2525,15 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _(list).includes(abcObject, 42); // $ExpectType boolean
     _(dictionary).includes(abcObject); // $ExpectType boolean
     _(dictionary).includes(abcObject, 42); // $ExpectType boolean
+    _('hi').includes('h'); // $ExpectType boolean
+    _('hi').includes('h', 0); // $ExpectType boolean
 
     _.chain(list).includes(abcObject); // $ExpectType PrimitiveChain<boolean>
     _.chain(list).includes(abcObject, 42); // $ExpectType PrimitiveChain<boolean>
     _.chain(dictionary).includes(abcObject); // $ExpectType PrimitiveChain<boolean>
     _.chain(dictionary).includes(abcObject, 42); // $ExpectType PrimitiveChain<boolean>
+    _.chain('hi').includes('h'); // $ExpectType PrimitiveChain<boolean>
+    _.chain('hi').includes('h', 0); // $ExpectType PrimitiveChain<boolean>
 
     fp.includes(abcObject, list); // $ExpectType boolean
     fp.includes(abcObject)(list); // $ExpectType boolean
@@ -3157,7 +3162,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.orderBy("acbd", [(value) => 1, (value) => 2], [true, false]); // $ExpectType string[]
     _.orderBy(list, (value) => 1); // $ExpectType AbcObject[]
     _.orderBy(list, (value) => 1, true); // $ExpectType AbcObject[]
-    _.orderBy(list, [(value) => 1, (value) => 2], [true, false]); // $ExpectType AbcObject[]
+    _.orderBy(list, [(value) => 1, 'third', (value) => 2], [true, false]); // $ExpectType AbcObject[]
     _.orderBy(dictionary, (value) => 1); // $ExpectType AbcObject[]
     _.orderBy(dictionary, (value) => 1, true); // $ExpectType AbcObject[]
     _.orderBy(numericDictionary, (value) => 1); // $ExpectType AbcObject[]
@@ -3173,7 +3178,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.chain(list).orderBy((value) => 1); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).orderBy((value) => 1, true); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).orderBy([(value) => 1, (value) => 2], true); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).orderBy([(value) => 1, 'third', (value) => 2], true); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).orderBy((value) => 1); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).orderBy((value) => 1, true); // $ExpectType CollectionChain<AbcObject>
     _.chain(numericDictionary).orderBy((value) => 1); // $ExpectType CollectionChain<AbcObject>
@@ -5177,7 +5182,8 @@ fp.now(); // $ExpectType number
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType boolean
+    _.get({ a: { b: { c: { d: true } } } }, ["a", "b", "c", "d"]); // $ExpectType boolean
     _.get({ a: undefined }, "a"); // $ExpectType undefined
     _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
@@ -5187,7 +5193,8 @@ fp.now(); // $ExpectType number
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
-    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType any
+    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType boolean
+    _({ a: { b: { c: {d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType boolean
     _({ a: undefined }).get("a"); // $ExpectType undefined
     _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
@@ -5197,10 +5204,14 @@ fp.now(); // $ExpectType number
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType ObjectChain<{ b: boolean; }>
-    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
+    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b"]); // $ExpectType ObjectChain<{ c: { d: boolean; }; }>
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d2"]); // $ExpectType LoDashExplicitWrapper<any>
     _.chain({ a: undefined }).get("a"); // $ExpectType never
     _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain | PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
 
     fp.get(Symbol.iterator, []); // $ExpectType any
     fp.get(Symbol.iterator)([]); // $ExpectType any
@@ -5618,10 +5629,10 @@ fp.now(); // $ExpectType number
     const literalsArray: Array<"a" | "b"> = ["a", "b"];
     const roLiteralsArray: ReadonlyArray<"a" | "b"> = literalsArray;
 
-    _.pick(obj1, "a"); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj1, 0, "a"); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType PartialDeep<AbcObject>
-    _.pick(obj1, readonlyArray); // $ExpectType PartialDeep<AbcObject>
+    _.pick(obj1, "a"); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, 0, "a"); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, readonlyArray); // $ExpectType Partial<AbcObject>
     _.pick(obj2, "a", "b"); // $ExpectType Pick<AbcObject, "a" | "b">
     // We can't use ExpectType here because typescript keeps changing what order the types appear.
     let result1: Pick<AbcObject, "a" | "b">;
