@@ -442,6 +442,10 @@ declare module "inquirer/lib/objects/choices" {
     export = Choices;
 }
 
+declare module "inquirer/lib/objects/separator" {
+    export = Separator;
+}
+
 declare module "inquirer/lib/prompts/base" {
     export = Prompt;
 }
