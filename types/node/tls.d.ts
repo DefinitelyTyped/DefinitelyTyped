@@ -215,7 +215,6 @@ declare module "tls" {
         prependListener(event: "secureConnect", listener: () => void): this;
         prependListener(event: "session", listener: (session: Buffer) => void): this;
         prependListener(event: "keylog", listener: (line: Buffer) => void): this;
-        prependListener(event: "keylog", listener: (line: Buffer) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
