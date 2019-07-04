@@ -1,6 +1,8 @@
 // Type definitions for falcor-router 0.8
 // Project: https://github.com/Netflix/falcor-router
-// Definitions by: Quramy <https://github.com/Quramy>, cdhgee <https://github.com/cdhgee>
+// Definitions by: Quramy <https://github.com/Quramy>
+//                 cdhgee <https://github.com/cdhgee>
+//                 LukeRielley <https://github.com/lukerielley>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.4
 
