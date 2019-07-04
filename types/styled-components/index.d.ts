@@ -217,7 +217,6 @@ export interface ThemedStyledFunctionBase<
         first:
             | TemplateStringsArray
             | CSSObject
-            | CSSObject[]
             | InterpolationFunction<
                   ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
               >,
@@ -231,7 +230,6 @@ export interface ThemedStyledFunctionBase<
         first:
             | TemplateStringsArray
             | CSSObject
-            | CSSObject[]
             | InterpolationFunction<
                   ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
               >,
@@ -324,14 +322,13 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
     (
-        first: TemplateStringsArray | CSSObject | CSSObject[],
+        first: TemplateStringsArray | CSSObject,
         ...interpolations: SimpleInterpolation[]
     ): FlattenSimpleInterpolation;
     (
         first:
             | TemplateStringsArray
             | CSSObject
-            | CSSObject[]
             | InterpolationFunction<ThemedStyledProps<{}, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
     ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
@@ -339,7 +336,6 @@ export interface BaseThemedCssFunction<T extends object> {
         first:
             | TemplateStringsArray
             | CSSObject
-            | CSSObject[]
             | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): FlattenInterpolation<ThemedStyledProps<P, T>>;
@@ -374,7 +370,6 @@ export interface ThemedStyledComponentsModule<
         first:
             | TemplateStringsArray
             | CSSObject
-            | CSSObject[]
             | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
@@ -448,7 +443,6 @@ export function createGlobalStyle<P extends object = {}>(
     first:
         | TemplateStringsArray
         | CSSObject
-        | CSSObject[]
         | InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
 ): GlobalStyleComponent<P, DefaultTheme>;
@@ -515,7 +509,6 @@ export class StyleSheetManager extends React.Component<
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
     | string
     | CSSObject
-    | CSSObject[]
     | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;

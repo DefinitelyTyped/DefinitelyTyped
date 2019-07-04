@@ -900,6 +900,8 @@ function validateArgumentsAndReturns() {
             ${{ color: "blue" }}
         `
     );
+    // _technically_ valid as styled-components doesn't look at .raw but best not to support it
+    // $ExpectError
     css([]);
 
     styled.div({ color: "blue" });
@@ -914,6 +916,7 @@ function validateArgumentsAndReturns() {
             ${{ color: "blue" }}
         `
     );
+    // $ExpectError
     styled.div([]);
 
     createGlobalStyle({
@@ -938,6 +941,7 @@ function validateArgumentsAndReturns() {
             color: ${() => "blue"};
         }
     `);
+    // $ExpectError
     createGlobalStyle([]);
 }
 
