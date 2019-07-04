@@ -643,7 +643,7 @@ declare namespace Bull {
     getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Array<Job<T>>>;
 
     /**
-     * Returns a object with the logs according to the stard and end arguments. The returned count
+     * Returns a object with the logs according to the start and end arguments. The returned count
      * value is the total amount of logs, useful for implementing pagination.
      */
     getJobLogs(jobId: string, start?: number, end?: number): Promise<{ logs: string[], count: number }>;
