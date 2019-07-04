@@ -1,7 +1,18 @@
 import { IncomingMessage } from 'http';
-import { Issuer, generators } from 'openid-client';
+import { Issuer, generators, custom } from 'openid-client';
 
 async (req: IncomingMessage) => {
+    // Custom HTTP options on the `Issuer` _c'tor_ (e.g. used for `Issuer.discover()`):
+    Issuer[custom.http_options] = options => {
+        console.log(options.followRedirect, options.timeout, options.retry);
+        return {
+            ...options,
+            followRedirect: true,
+            timeout: 10_000,
+            retry: 3,
+        };
+    };
+
     let issuer = await Issuer.discover('https://accounts.google.com');
     console.log('Discovered issuer %O', issuer.metadata.issuer);
 
@@ -28,6 +39,9 @@ async (req: IncomingMessage) => {
         response_types: ['code'],
     });
     console.log(client.metadata.client_id);
+
+    // Custom HTTP options on the `Client` _instance_
+    client[custom.http_options] = options => ({ ...options, retry: 3 });
 
     //
 
