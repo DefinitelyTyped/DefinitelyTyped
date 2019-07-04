@@ -172,7 +172,22 @@ declare namespace inquirer {
             disabled?: DynamicQuestionProperty<A, boolean | string>;
         }
 
-        export type DistinctChoice<A extends Answers = Answers> = string | ChoiceOptions<A> | Separator;
+        export type DistinctChoice<A extends Answers = Answers> = string | ChoiceOptions<A> | SeparatorOptions | Separator;
+
+        /**
+         * Represents a separator.
+         */
+        export interface SeparatorOptions {
+            /**
+             * Gets the type of the choice.
+             */
+            type: "separator";
+        
+            /**
+             * Gets or sets the text of the separator.
+             */
+            line?: string;
+        }
 
         export type DistinctQuestion<A extends Answers = Answers> =
             ListQuestion<A> |

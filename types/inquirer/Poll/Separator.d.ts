@@ -4,14 +4,14 @@ import { ChoiceBase } from "./ChoiceBase";
 /**
  * Represents a choice-item separator.
  */
-export class Separator implements ChoiceBase {
+export class Separator implements ChoiceBase, inquirer.poll.SeparatorOptions {
     /**
-     * Gets the type of the choice.
+     * @inheritdoc
      */
     public readonly type: "separator";
 
     /**
-     * Gets or sets the text of the separator.
+     * @inheritdoc
      */
     public line: string;
 
