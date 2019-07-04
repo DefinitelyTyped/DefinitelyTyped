@@ -1,6 +1,7 @@
 // Type definitions for react-filepond 5.0
 // Project: https://github.com/pqina/react-filepond, https://pqina.nl/filepond
 // Definitions by: Zach Posten <https://github.com/zposten>
+//                 Marcelo Cardoso <https://github.com/marcelovicentegc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,8 +19,7 @@ export {};
 type FilePondOrigin =
     | 'input' // Added by user
     | 'limbo' // Temporary server file
-    | 'local' // Existing server file
-    ;
+    | 'local'; // Existing server file
 
 export interface FileProps {
     src: string;
@@ -27,7 +27,7 @@ export interface FileProps {
     size?: number;
     type?: string;
     origin?: FilePondOrigin;
-    metadata?: {[key: string]: any};
+    metadata?: { [key: string]: any };
 }
 
 // Note that this duplicates the JS File type declaration, but is necessary
@@ -35,7 +35,7 @@ export interface FileProps {
 // see: https://developer.mozilla.org/en-US/docs/Web/API/File
 // see: https://github.com/Microsoft/dtslint/issues/173
 // see: https://stackoverflow.com/q/53876793/2517147
-type ActualFileObject = Blob & {readonly lastModified: number; readonly name: string};
+type ActualFileObject = Blob & { readonly lastModified: number; readonly name: string };
 
 export class File extends React.Component<FileProps> {
     file: ActualFileObject;
@@ -67,7 +67,7 @@ interface ServerUrl {
     url: string;
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     withCredentials?: boolean;
-    headers?: {[key: string]: string|boolean|number};
+    headers?: { [key: string]: string | boolean | number };
     timeout?: number;
 
     /**
@@ -97,7 +97,7 @@ type ProgressServerConfigFunction = (
     /** The amount of data currently transferred */
     loadedDataAmount: number,
     /** The total amount of data to be transferred */
-    totalDataAmount: number,
+    totalDataAmount: number
 ) => void;
 
 type ProcessServerConfigFunction = (
@@ -105,14 +105,14 @@ type ProcessServerConfigFunction = (
     fieldName: string,
     /** The actual file object to send */
     file: ActualFileObject,
-    metadata: {[key: string]: any},
+    metadata: { [key: string]: any },
     /**
      * Should call the load method when done and pass the returned server file id.
      * This server file id is then used later on when reverting or restoring a file
      * so that your server knows which file to return without exposing that info
      * to the client.
      */
-    load: (p: string | {[key: string]: any}) => void,
+    load: (p: string | { [key: string]: any }) => void,
     /** Can call the error method is something went wrong, should exit after */
     error: (errorText: string) => void,
     /**
@@ -130,7 +130,7 @@ type RevertServerConfigFunction = (
     /** Should call the load method when done */
     load: () => void,
     /** Can call the error method is something went wrong, should exit after */
-    error: (errorText: string) => void,
+    error: (errorText: string) => void
 ) => void;
 
 type RestoreServerConfigFunction = (
@@ -150,7 +150,7 @@ type RestoreServerConfigFunction = (
      * Can call the headers method to supply FilePond with early response header string
      * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
      */
-    headers: (headersString: string) => void,
+    headers: (headersString: string) => void
 ) => void;
 
 type LoadServerConfigFunction = (
@@ -170,7 +170,7 @@ type LoadServerConfigFunction = (
      * Can call the headers method to supply FilePond with early response header string
      * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
      */
-    headers: (headersString: string) => void,
+    headers: (headersString: string) => void
 ) => void;
 
 type FetchServerConfigFunction = (
@@ -190,18 +190,20 @@ type FetchServerConfigFunction = (
      * Can call the headers method to supply FilePond with early response header string
      * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
      */
-    headers: (headersString: string) => void,
+    headers: (headersString: string) => void
 ) => void;
 
 interface FilePondServerConfigProps {
     instantUpload?: boolean;
-    server?: string | {
-        process?: string | ServerUrl | ProcessServerConfigFunction;
-        revert?: string | ServerUrl | RevertServerConfigFunction;
-        restore?: string | ServerUrl | RestoreServerConfigFunction;
-        load?: string | ServerUrl | LoadServerConfigFunction;
-        fetch?: string | ServerUrl | FetchServerConfigFunction;
-    };
+    server?:
+        | string
+        | {
+              process?: string | ServerUrl | ProcessServerConfigFunction;
+              revert?: string | ServerUrl | RevertServerConfigFunction;
+              restore?: string | ServerUrl | RestoreServerConfigFunction;
+              load?: string | ServerUrl | LoadServerConfigFunction;
+              fetch?: string | ServerUrl | FetchServerConfigFunction;
+          };
 }
 
 interface FilePondDragDropProps {
@@ -238,6 +240,11 @@ interface FilePondLabelProps {
      * the element with CSS class .filepond--label-action
      */
     labelIdle?: string;
+    /**
+     * Label shown when the field contains invalid files
+     * and is validated by the parent form.
+     */
+    labelInvalidField?: string;
     /** Label used while waiting for file size information */
     labelFileWaitingForSize?: string;
     /** Label used when no file size information was received */
@@ -254,6 +261,10 @@ interface FilePondLabelProps {
     labelFileProcessingAborted?: string;
     /** Label used when something went wrong during file upload */
     labelFileProcessingError?: string;
+    /** Label used when something went wrong during reverting the file upload */
+    labelFileProcessingRevertError?: string;
+    /** Label used to indicate to the user that a file removal errored. */
+    labelFileRemoveError?: string;
     /** Label used to indicate to the user that an action can be cancelled. */
     labelTapToCancel?: string;
     /** Label used to indicate to the user that an action can be retried. */
@@ -369,17 +380,17 @@ interface FilePondBaseProps {
     /** The maximum number of files that can be uploaded in parallel */
     maxParallelUploads?: number;
     acceptedFileTypes?: string[];
-    metadata?: {[key: string]: any};
+    metadata?: { [key: string]: any };
 }
 
-export interface FilePondProps extends
-    FilePondDragDropProps,
-    FilePondServerConfigProps,
-    FilePondLabelProps,
-    FilePondSvgIconProps,
-    FilePondCallbackProps,
-    FilePondHookProps,
-    FilePondBaseProps {}
+export interface FilePondProps
+    extends FilePondDragDropProps,
+        FilePondServerConfigProps,
+        FilePondLabelProps,
+        FilePondSvgIconProps,
+        FilePondCallbackProps,
+        FilePondHookProps,
+        FilePondBaseProps {}
 
 export class FilePond extends React.Component<FilePondProps> {
     setOptions: (options: FilePondProps) => void;

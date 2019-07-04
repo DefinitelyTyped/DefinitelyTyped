@@ -15,7 +15,7 @@ class App extends React.Component<{}, AppState> {
 
         this.state = {
             // Set initial files
-            filenames: ['index.html']
+            filenames: ['index.html'],
         };
     }
 
@@ -25,10 +25,10 @@ class App extends React.Component<{}, AppState> {
 
     render() {
         return (
-            <div className='App'>
+            <div className="App">
                 {/* Pass FilePond properties as attributes */}
                 <filepond.FilePond
-                    ref={ref => this.pond = ref}
+                    ref={ref => (this.pond = ref)}
                     allowMultiple={true}
                     maxFiles={3}
                     server={{
@@ -38,17 +38,39 @@ class App extends React.Component<{}, AppState> {
                         load: (source, load, error, progress, abort, headers) => {},
                         fetch: (url, load, error, progress, abort, headers) => {},
                     }}
-                    oninit={() => this.handleInit() }
-                    onupdatefiles={(fileItems) => {
+                    oninit={() => this.handleInit()}
+                    onupdatefiles={fileItems => {
                         // Set current file objects to this.state
                         this.setState({
-                            filenames: fileItems.map(fileItem => fileItem.file.name)
+                            filenames: fileItems.map(fileItem => fileItem.file.name),
                         });
                     }}
+                    labelIdle={'Drag & Drop your files or <span class="filepond--label-action"> Browse </span>'}
+                    labelInvalidField={'Field contains invalid files'}
+                    labelFileWaitingForSize={'Waiting for size'}
+                    labelFileSizeNotAvailable={'Size not available'}
+                    labelFileLoading={'Loading'}
+                    labelFileLoadError={'Error during load'}
+                    labelFileProcessing={'Uploading'}
+                    labelFileProcessingComplete={'Upload complete'}
+                    labelFileProcessingAborted={'Upload cancelled'}
+                    labelFileProcessingError={'Error during upload'}
+                    labelFileProcessingRevertError={'Error during revert'}
+                    labelFileRemoveError={'Error during remove'}
+                    labelTapToCancel={'tap to cancel'}
+                    labelTapToRetry={'tap to retry'}
+                    labelTapToUndo={'tap to undo'}
+                    labelButtonRemoveItem={'Remove'}
+                    labelButtonAbortItemLoad={'Abort'}
+                    labelButtonRetryItemLoad={'Retry'}
+                    labelButtonAbortItemProcessing={'Cancel'}
+                    labelButtonUndoItemProcessing={'Undo'}
+                    labelButtonRetryItemProcessing={'Retry'}
+                    labelButtonProcessItem={'Upload'}
                 >
                     {/* Update current files  */}
                     {this.state.filenames.map(file => (
-                        <filepond.File key={file} src={file} origin='local' />
+                        <filepond.File key={file} src={file} origin="local" />
                     ))}
                 </filepond.FilePond>
             </div>
