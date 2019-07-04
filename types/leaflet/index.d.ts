@@ -1042,7 +1042,6 @@ export interface ControlOptions {
 }
 
 export class Control extends Class {
-    static extend<T extends object>(props: T): {new(...args: any[]): T} & typeof Control;
     constructor(options?: ControlOptions);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;
