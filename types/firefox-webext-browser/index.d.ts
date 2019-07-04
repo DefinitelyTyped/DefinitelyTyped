@@ -2471,7 +2471,7 @@ declare namespace browser.permissions {
     function request(permissions: Permissions): Promise<boolean>;
 
     /** Relinquish the given permissions. */
-    function remove(permissions: Permissions): Promise<void>;
+    function remove(permissions: Permissions): Promise<boolean>;
 
     /* permissions events */
     /**
