@@ -22,12 +22,12 @@ declare global {
 import * as CSS from "csstype";
 import * as React from "react";
 
-export type CSSProperties = CSS.Properties<string | number>
+export type CSSProperties = CSS.Properties<string | number>;
 
-export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject }
+export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject };
 
 export interface CSSObject extends CSSProperties, CSSPseudos {
-    [key: string]: CSSObject | string | number | undefined
+    [key: string]: CSSObject | string | number | undefined;
 }
 
 export type CSSKeyframes = object & { [key: string]: CSSObject };
