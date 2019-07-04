@@ -1,4 +1,4 @@
-import inquirer = require("..");
+import inquirer = require('..');
 
 /**
  * Represents a choice for several question-types.

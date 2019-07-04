@@ -31,7 +31,7 @@ import { ConfirmPrompt } from "./Prompts/ConfirmPrompt";
 import { EditorPrompt } from "./Prompts/EditorPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
-import { Choice } from "./System/Choice";
+import { Choice } from "./Poll/Choice";
 
 declare namespace inquirer {
     export interface StreamOptions {
