@@ -51,7 +51,10 @@ export class Issuer {
     static [custom.http_options]: CustomHttpOptionsProvider;
 
     constructor(metadata?: IssuerMetadata);
+
     static discover(issuer: string): Promise<Issuer>;
+
+    [custom.http_options]: CustomHttpOptionsProvider;
 
     readonly metadata: IssuerMetadata;
 
@@ -87,6 +90,8 @@ export interface EndSessionUrlParameters {
 }
 
 export class Client {
+    static [custom.http_options]: CustomHttpOptionsProvider;
+
     constructor(metadata?: ClientMetadata);
 
     [custom.http_options]: CustomHttpOptionsProvider;

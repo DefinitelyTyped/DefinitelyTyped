@@ -30,7 +30,11 @@ async (req: IncomingMessage) => {
         token_endpoint_auth_methods_supported: ['client_secret_post', 'client_secret_basic'],
     });
 
+    issuer[custom.http_options] = options => ({ ...options, retry: 3 });
+
     //
+
+    issuer.Client[custom.http_options] = options => ({ ...options, retry: 3 });
 
     const client = new issuer.Client({
         client_id: 'c',
