@@ -28,3 +28,5 @@ import { Readable } from 'stream';
         objectMode: true,
     });
 }
+
+const a: NodeJS.TypedArray = new Buffer(123);

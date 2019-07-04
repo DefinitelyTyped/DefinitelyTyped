@@ -245,7 +245,7 @@ declare module "tls" {
          * An array of strings or a Buffer naming possible ALPN protocols.
          * (Protocols should be ordered by their priority.)
          */
-        ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+        ALPNProtocols?: string[] | Uint8Array[] | Uint8Array;
         /**
          * SNICallback(servername, cb) <Function> A function that will be
          * called if the client supports SNI TLS extension. Two arguments
@@ -262,7 +262,7 @@ declare module "tls" {
          * effect if requestCert is true.
          * @default true
          */
-        rejectUnauthorized?: boolean; // Defaults to true
+        rejectUnauthorized?: boolean;
     }
 
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
