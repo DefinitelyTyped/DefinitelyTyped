@@ -1081,6 +1081,12 @@
             "asOfVersion": "0.4.5"
         },
         {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "Foundation Sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
