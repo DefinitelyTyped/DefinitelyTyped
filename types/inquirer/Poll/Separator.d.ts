@@ -1,4 +1,4 @@
-import inquirer = require("inquirer");
+import inquirer = require("..");
 import { ChoiceBase } from "./ChoiceBase";
 
 /**
