@@ -13,7 +13,7 @@
 
 interface KnockoutSubscribableFunctions<T> {
     /**
-     * Notify subscribers of knockout "change" event. This doesn't acctually change the observable value.
+     * Notify subscribers of knockout "change" event. This doesn't actually change the observable value.
      * @param eventValue A value to be sent with the event.
      * @param event The knockout event.
      */
@@ -73,7 +73,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
      */
     pop(): T;
     /**
-     * Adds a new item to the end of array.
+     * Adds new item or items to the end of array.
      * @param items Items  to be added.
      */
     push(...items: T[]): void;
@@ -82,7 +82,7 @@ interface KnockoutObservableArrayFunctions<T> extends KnockoutReadonlyObservable
      */
     shift(): T;
     /**
-     * Inserts a new item at the beginning of the array.
+     * Inserts new item or items at the beginning of the array.
      * @param items Items to be added.
      */
     unshift(...items: T[]): number;
@@ -977,7 +977,7 @@ declare namespace KnockoutComponentTypes {
     }
 
     interface ViewModelFactoryFunction {
-        createViewModel: (params?: any, componentInfo?: ComponentInfo) => any;
+        createViewModel: (params: any, componentInfo: ComponentInfo) => any;
     }
 
     interface ComponentInfo {

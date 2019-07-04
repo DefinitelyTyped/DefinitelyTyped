@@ -300,6 +300,7 @@ async.auto<A>({
 async.retry(3, (callback, results) => { }, (err, result) => { });
 async.retry({ times: 3, interval: 200 }, (callback, results) => { }, (err, result) => { });
 async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, (callback, results) => { }, (err, result) => { });
+async.retry({ times: 3, interval: 200, errorFilter: (err) => true }, (callback, results) => { }, (err, result) => { });
 
 async.parallel([
         (callback: (err: Error, val: string) => void) => { },

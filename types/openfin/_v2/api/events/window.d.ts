@@ -1,5 +1,6 @@
 import { CrashedEvent } from './application';
 import { WindowEvent, BaseEventMap } from './base';
+import { WindowOptionDiff } from '../window/windowOption';
 export declare type SpecificWindowEvent<Type> = WindowEvent<'window', Type>;
 export interface WindowAlertRequestedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     message: string;
@@ -24,6 +25,9 @@ export interface WindowNavigationRejectedEvent<Topic, Type> extends WindowEvent<
 }
 export interface WindowReloadedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     url: string;
+}
+export interface WindowOptionsChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
+    diff: WindowOptionDiff;
 }
 export interface WindowExternalProcessExitedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     processUuid: string;
@@ -126,6 +130,7 @@ export interface WindowEventMapping<Topic = string, Type = string> extends BaseE
     'maximized': WindowEvent<Topic, Type>;
     'minimized': WindowEvent<Topic, Type>;
     'navigation-rejected': WindowNavigationRejectedEvent<Topic, Type>;
+    'options-changed': WindowOptionsChangedEvent<Topic, Type>;
     'preload-scripts-state-changed': WindowPreloadScriptsStateChangeEvent<Topic, Type>;
     'preload-scripts-state-changing': WindowPreloadScriptsStateChangeEvent<Topic, Type>;
     'resource-load-failed': WindowResourceLoadFailedEvent<Topic, Type>;
@@ -158,6 +163,7 @@ export interface PropagatedWindowEventMapping<Topic = string, Type = string> ext
     'window-maximized': WindowEvent<Topic, Type>;
     'window-minimized': WindowEvent<Topic, Type>;
     'window-navigation-rejected': WindowNavigationRejectedEvent<Topic, Type>;
+    'window-options-changed': WindowOptionsChangedEvent<Topic, Type>;
     'window-preload-scripts-state-changed': WindowPreloadScriptsStateChangeEvent<Topic, Type>;
     'window-preload-scripts-state-changing': WindowPreloadScriptsStateChangedEvent<Topic, Type>;
     'window-resource-load-failed': WindowResourceLoadFailedEvent<Topic, Type>;

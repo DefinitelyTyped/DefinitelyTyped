@@ -1,3 +1,15 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
 declare enum EnumDWT_OCRLanguage {
     OCRL_ENG = "eng",
     OCRL_ARA = "ara",
@@ -187,6 +199,6 @@ interface OCR {
     SetOutputFormat(value: EnumDWT_OCROutputFormat): void;
 }
 
-interface WebTwainAddon {
+interface DynamsoftWebTwainAddon {
     OCR: OCR;
 }

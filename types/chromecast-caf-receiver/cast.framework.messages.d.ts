@@ -1,6 +1,6 @@
 import { Event, DetailedErrorCode } from "./cast.framework.events";
 
-export as namespace messages
+export as namespace messages;
 export type UserAction =
     | "LIKE"
     | "DISLIKE"
@@ -51,16 +51,27 @@ export type TextTrackEdgeType =
     | "RAISED"
     | "DEPRESSED";
 
-export type Command =
-    | "PAUSE"
-    | "SEEK"
-    | "STREAM_VOLUME"
-    | "STREAM_MUTE"
-    | "ALL_BASIC_MEDIA"
-    | "QUEUE_NEXT"
-    | "QUEUE_PREV"
-    | "QUEUE_SHUFFLE"
-    | "SKIP_AD";
+export namespace Command {
+    const ALL_BASIC_MEDIA: number;
+    const DISLIKE: number;
+    const EDIT_TRACKS: number;
+    const FOLLOW: number;
+    const LIKE: number;
+    const PAUSE: number;
+    const PLAYBACK_RATE: number;
+    const QUEUE_NEXT: number;
+    const QUEUE_PREV: number;
+    const QUEUE_REPEAT: number;
+    const QUEUE_REPEAT_ALL: number;
+    const QUEUE_REPEAT_ONE: number;
+    const QUEUE_SHUFFLE: number;
+    const SEEK: number;
+    const SKIP_AD: number;
+    const STREAM_MUTE: number;
+    const STREAM_TRANSFER: number;
+    const STREAM_VOLUME: number;
+    const UNFOLLOW: number;
+}
 
 export type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
 
@@ -109,9 +120,16 @@ export type RepeatMode =
 
 export type IdleReason = "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
 
-export type HlsSegmentFormat = "AAC" | "AC3" | "MP3" | "TS" | "TS_AAC";
+export type HlsSegmentFormat =
+    | "aac"
+    | "ac3"
+    | "e_ac3"
+    | "fmp4"
+    | "mp3"
+    | "ts"
+    | "ts_aac";
 
-export type HdrType = "SDR" | "HDR" | "DV";
+export type HdrType = "sdr" | "hdr" | "dv";
 
 export type PlayStringId =
     | "FREE_TRIAL_ABOUT_TO_EXPIRE"
@@ -1420,12 +1438,12 @@ export interface MediaInformation {
      * The media metadata.
      */
     metadata?:
-    | MediaMetadata
-    | GenericMediaMetadata
-    | MovieMediaMetadata
-    | MusicTrackMediaMetadata
-    | PhotoMediaMetadata
-    | TvShowMediaMetadata;
+        | MediaMetadata
+        | GenericMediaMetadata
+        | MovieMediaMetadata
+        | MusicTrackMediaMetadata
+        | PhotoMediaMetadata
+        | TvShowMediaMetadata;
 
     /**
      * The stream type.
@@ -1671,10 +1689,7 @@ export class FetchItemsRequestData extends RequestData {
  * Extended media status information
  */
 export class ExtendedMediaStatus {
-    constructor(
-        playerState: MediaInformation,
-        opt_media?: MediaInformation
-    );
+    constructor(playerState: MediaInformation, opt_media?: MediaInformation);
 
     media: MediaInformation;
 

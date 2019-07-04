@@ -14,7 +14,7 @@ declare namespace re {
     }
 
     type FilterFunction = (stat: Entry) => boolean;
-    type Callback<T> = (err: NodeJS.ErrnoException, result: T) => void;
+    type Callback<T> = (err: NodeJS.ErrnoException | null, result: T) => void;
     type CallbackString = Callback<string[]>;
     type CallbackEntry = Callback<Entry[]>;
 

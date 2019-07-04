@@ -77,7 +77,7 @@ export interface RedirectProps<TState> {
     replace?: boolean;
 }
 
-export class Redirect<TState> extends React.Component<RedirectProps<TState>> { }
+export class Redirect<TState> extends React.Component<RouteComponentProps<RedirectProps<TState>>> { }
 
 export interface MatchProps<TParams> {
     path: string;

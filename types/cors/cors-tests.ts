@@ -40,7 +40,7 @@ app.use(cors({
 app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
-            const allow = requestOrigin.indexOf('.edu') !== -1;
+            const allow = !requestOrigin || requestOrigin.indexOf('.edu') !== -1;
             cb(null, allow);
         } catch (err) {
             cb(err);

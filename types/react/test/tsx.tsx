@@ -321,6 +321,41 @@ const ForwardRef3 = React.forwardRef(
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
 
+const Profiler = React.unstable_Profiler;
+
+// 'id' is missing
+<Profiler />; // $ExpectError
+// 'onRender' is missing
+<Profiler id="test" />; // $ExpectError
+// 'number' is not assignable to 'string'
+<Profiler id={2} />; // $ExpectError
+
+<Profiler
+  id="test"
+  onRender={(
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+    interactions
+  ) => {
+    const message = `${id} ${phase} took ${actualDuration.toFixed(2)}s actual, ${baseDuration.toFixed(2)}s base`;
+
+    const commitMessage = `commit started ${startTime.toFixed(2)} within ${commitTime}`;
+
+    const interactionsSummary = Array.from(interactions)
+      .map(interaction => {
+        return `${interaction.id}: '${interaction.name}' started at ${interaction.timestamp.toFixed(2)}`;
+      })
+      .join("\n");
+    const interactionMessage = `there were ${interactions.size} interactions:\n${interactionsSummary}`;
+  }}
+>
+  <div />
+</Profiler>;
+
 type ImgProps = React.ComponentProps<'img'>;
 // $ExpectType "async" | "auto" | "sync" | undefined
 type ImgPropsDecoding = ImgProps['decoding'];

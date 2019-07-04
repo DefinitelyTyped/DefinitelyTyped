@@ -38,7 +38,10 @@ declare namespace next {
      *
      * @template Q Query object schema.
      */
-    interface NextContext<Q extends DefaultQuery = DefaultQuery> {
+    interface NextContext<
+        Q extends DefaultQuery = DefaultQuery,
+        CustomReq = {}
+    > {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
@@ -46,7 +49,7 @@ declare namespace next {
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
         /** HTTP request object (server only) */
-        req?: http.IncomingMessage;
+        req?: http.IncomingMessage & CustomReq;
         /** HTTP response object (server only) */
         res?: http.ServerResponse;
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */

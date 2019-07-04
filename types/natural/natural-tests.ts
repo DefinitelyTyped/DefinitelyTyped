@@ -1,9 +1,3 @@
-// Type definitions for Natural 0.2.1
-// Project: https://github.com/NaturalNode/natural
-// Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 import natural = require('natural');
 
 // Tokenizers
@@ -59,7 +53,12 @@ classifier.addDocument('sell gold', 'sell');
 classifier.train();
 console.log(classifier.classify('i am short silver'));
 console.log(classifier.classify('i am long copper'));
-console.log(classifier.getClassifications('i am long copper'));
+var classifications = classifier.getClassifications('i am long copper');
+classifications.forEach(function(classification) {
+    var label = classification.label
+    var value = classification.value
+    console.log('label: ' + label + ', value: ' + value)
+})
 classifier.addDocument(['sell', 'gold'], 'sell');
 classifier.events.on('trainedWithDocument', function (obj: any) {
    console.log(obj);

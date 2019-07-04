@@ -13,7 +13,7 @@ export interface WrapperState {
 }
 
 export interface WrapperProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends React.HTMLProps<T> {
 	/**
 	 * A callback to run when the user makes a selection
 	 * (i.e. clicks or presses Enter or Space on a `MenuItem`).
@@ -58,7 +58,7 @@ export interface WrapperProps<T extends HTMLElement>
 export class Wrapper extends React.Component<WrapperProps<HTMLElement>> {}
 
 export interface ButtonProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends React.HTMLProps<T> {
 	/**
 	 * If true, the element is disabled
 	 * (aria-disabled='true', not in tab order, clicking has no effect).
@@ -82,7 +82,7 @@ export interface ButtonProps<T extends HTMLElement>
 export class Button extends React.Component<ButtonProps<HTMLElement>> {}
 
 export interface MenuProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends React.HTMLProps<T> {
 	/**
 	 * The HTML tag for this element. Default: 'span'.
 	 */
@@ -95,7 +95,7 @@ export interface MenuProps<T extends HTMLElement>
 export class Menu extends React.Component<MenuProps<HTMLElement>> {}
 
 export interface MenuItemProps<T extends HTMLElement>
-	extends React.HTMLAttributes<T> {
+	extends React.HTMLProps<T> {
 	/**
 	 * If value has a value, it will be passed to the onSelection handler
 	 * when the `MenuItem` is selected
@@ -158,6 +158,6 @@ export function closeMenu(
 		 * If `true`, the widget's button will receive focus when the
 		 * menu closes. Default: `false`.
 		 */
-		focusMenu: boolean;
+		focusButton: boolean;
 	}
 ): void;

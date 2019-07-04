@@ -764,7 +764,7 @@ declare namespace Tabulator {
     interface ColumnDefinition extends ColumnLayout, CellCallbacks {
         // Layout
         /** sets the text alignment for this column */
-        align?: "left" | "center" | "right"; // Align?
+        align?: ColumnDefinitionAlign; // Align?
         /** sets the minimum width of this column, this should be set in pixels (this takes priority over the global option of columnMinWidth) */
         minWidth?: number;
 
@@ -1012,6 +1012,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
     type ScrollToRowPostition = "top" | "center" | "bottom" | "nearest";
     type ScrollToColumnPosition = "left" | "center" | "middle" | "right";
+    type ColumnDefinitionAlign = "left" | "center" | "right";
 
     interface MoneyParams {
         // Money
@@ -1376,6 +1377,7 @@ declare class Tabulator {
     browserSlow: boolean;
     modules: any;
     options: Tabulator.Options;
+    element: HTMLElement;
 
     /** You have a choice of four file types to choose from:
       csv - Comma separated value file

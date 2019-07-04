@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { CSSModule } from '../index';
 
-export type FormGroupProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
+export interface FormGroupProps extends React.HTMLProps<HTMLDivElement> {
+  [key: string]: any;
   row?: boolean;
   check?: boolean;
   inline?: boolean;
@@ -9,7 +10,7 @@ export type FormGroupProps<T = {}> = React.HTMLProps<HTMLDivElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-} & T;
+}
 
-declare class FormGroup<T = {[key: string]: any}> extends React.Component<FormGroupProps<T>> {}
+declare class FormGroup<T = {[key: string]: any}> extends React.Component<FormGroupProps> {}
 export default FormGroup;

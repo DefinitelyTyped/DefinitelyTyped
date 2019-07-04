@@ -5,290 +5,290 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
-  namespace Content_v2 {
+  namespace Content {
     namespace Collection {
       export interface AccountsCollection {
         // Returns information about the authenticated user.
-        authinfo(): Content_v2.Schema.AccountsAuthInfoResponse;
+        authinfo(): Content.Schema.AccountsAuthInfoResponse;
         // Claims the website of a Merchant Center sub-account.
-        claimwebsite(merchantId: string, accountId: string): Content_v2.Schema.AccountsClaimWebsiteResponse;
+        claimwebsite(merchantId: string, accountId: string): Content.Schema.AccountsClaimWebsiteResponse;
         // Claims the website of a Merchant Center sub-account.
-        claimwebsite(merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.AccountsClaimWebsiteResponse;
+        claimwebsite(merchantId: string, accountId: string, optionalArgs: object): Content.Schema.AccountsClaimWebsiteResponse;
         // Retrieves, inserts, updates, and deletes multiple Merchant Center (sub-)accounts in a single request.
-        custombatch(resource: Schema.AccountsCustomBatchRequest): Content_v2.Schema.AccountsCustomBatchResponse;
+        custombatch(resource: Schema.AccountsCustomBatchRequest): Content.Schema.AccountsCustomBatchResponse;
         // Retrieves, inserts, updates, and deletes multiple Merchant Center (sub-)accounts in a single request.
-        custombatch(resource: Schema.AccountsCustomBatchRequest, optionalArgs: object): Content_v2.Schema.AccountsCustomBatchResponse;
+        custombatch(resource: Schema.AccountsCustomBatchRequest, optionalArgs: object): Content.Schema.AccountsCustomBatchResponse;
         // Retrieves a Merchant Center account.
-        get(merchantId: string, accountId: string): Content_v2.Schema.Account;
+        get(merchantId: string, accountId: string): Content.Schema.Account;
         // Creates a Merchant Center sub-account.
-        insert(resource: Schema.Account, merchantId: string): Content_v2.Schema.Account;
+        insert(resource: Schema.Account, merchantId: string): Content.Schema.Account;
         // Creates a Merchant Center sub-account.
-        insert(resource: Schema.Account, merchantId: string, optionalArgs: object): Content_v2.Schema.Account;
+        insert(resource: Schema.Account, merchantId: string, optionalArgs: object): Content.Schema.Account;
         // Performs an action on a link between a Merchant Center account and another account.
-        link(resource: Schema.AccountsLinkRequest, merchantId: string, accountId: string): Content_v2.Schema.AccountsLinkResponse;
+        link(resource: Schema.AccountsLinkRequest, merchantId: string, accountId: string): Content.Schema.AccountsLinkResponse;
         // Lists the sub-accounts in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.AccountsListResponse;
+        list(merchantId: string): Content.Schema.AccountsListResponse;
         // Lists the sub-accounts in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.AccountsListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.AccountsListResponse;
         // Updates a Merchant Center account. This method supports patch semantics.
-        patch(resource: Schema.Account, merchantId: string, accountId: string): Content_v2.Schema.Account;
+        patch(resource: Schema.Account, merchantId: string, accountId: string): Content.Schema.Account;
         // Updates a Merchant Center account. This method supports patch semantics.
-        patch(resource: Schema.Account, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.Account;
+        patch(resource: Schema.Account, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.Account;
         // Deletes a Merchant Center sub-account.
         remove(merchantId: string, accountId: string): void;
         // Deletes a Merchant Center sub-account.
         remove(merchantId: string, accountId: string, optionalArgs: object): void;
         // Updates a Merchant Center account.
-        update(resource: Schema.Account, merchantId: string, accountId: string): Content_v2.Schema.Account;
+        update(resource: Schema.Account, merchantId: string, accountId: string): Content.Schema.Account;
         // Updates a Merchant Center account.
-        update(resource: Schema.Account, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.Account;
+        update(resource: Schema.Account, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.Account;
       }
       export interface AccountstatusesCollection {
         // Retrieves multiple Merchant Center account statuses in a single request.
-        custombatch(resource: Schema.AccountstatusesCustomBatchRequest): Content_v2.Schema.AccountstatusesCustomBatchResponse;
+        custombatch(resource: Schema.AccountstatusesCustomBatchRequest): Content.Schema.AccountstatusesCustomBatchResponse;
         // Retrieves the status of a Merchant Center account. No itemLevelIssues are returned for multi-client accounts.
-        get(merchantId: string, accountId: string): Content_v2.Schema.AccountStatus;
+        get(merchantId: string, accountId: string): Content.Schema.AccountStatus;
         // Retrieves the status of a Merchant Center account. No itemLevelIssues are returned for multi-client accounts.
-        get(merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.AccountStatus;
+        get(merchantId: string, accountId: string, optionalArgs: object): Content.Schema.AccountStatus;
         // Lists the statuses of the sub-accounts in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.AccountstatusesListResponse;
+        list(merchantId: string): Content.Schema.AccountstatusesListResponse;
         // Lists the statuses of the sub-accounts in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.AccountstatusesListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.AccountstatusesListResponse;
       }
       export interface AccounttaxCollection {
         // Retrieves and updates tax settings of multiple accounts in a single request.
-        custombatch(resource: Schema.AccounttaxCustomBatchRequest): Content_v2.Schema.AccounttaxCustomBatchResponse;
+        custombatch(resource: Schema.AccounttaxCustomBatchRequest): Content.Schema.AccounttaxCustomBatchResponse;
         // Retrieves and updates tax settings of multiple accounts in a single request.
-        custombatch(resource: Schema.AccounttaxCustomBatchRequest, optionalArgs: object): Content_v2.Schema.AccounttaxCustomBatchResponse;
+        custombatch(resource: Schema.AccounttaxCustomBatchRequest, optionalArgs: object): Content.Schema.AccounttaxCustomBatchResponse;
         // Retrieves the tax settings of the account.
-        get(merchantId: string, accountId: string): Content_v2.Schema.AccountTax;
+        get(merchantId: string, accountId: string): Content.Schema.AccountTax;
         // Lists the tax settings of the sub-accounts in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.AccounttaxListResponse;
+        list(merchantId: string): Content.Schema.AccounttaxListResponse;
         // Lists the tax settings of the sub-accounts in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.AccounttaxListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.AccounttaxListResponse;
         // Updates the tax settings of the account. This method supports patch semantics.
-        patch(resource: Schema.AccountTax, merchantId: string, accountId: string): Content_v2.Schema.AccountTax;
+        patch(resource: Schema.AccountTax, merchantId: string, accountId: string): Content.Schema.AccountTax;
         // Updates the tax settings of the account. This method supports patch semantics.
-        patch(resource: Schema.AccountTax, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.AccountTax;
+        patch(resource: Schema.AccountTax, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.AccountTax;
         // Updates the tax settings of the account.
-        update(resource: Schema.AccountTax, merchantId: string, accountId: string): Content_v2.Schema.AccountTax;
+        update(resource: Schema.AccountTax, merchantId: string, accountId: string): Content.Schema.AccountTax;
         // Updates the tax settings of the account.
-        update(resource: Schema.AccountTax, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.AccountTax;
+        update(resource: Schema.AccountTax, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.AccountTax;
       }
       export interface DatafeedsCollection {
         // Deletes, fetches, gets, inserts and updates multiple datafeeds in a single request.
-        custombatch(resource: Schema.DatafeedsCustomBatchRequest): Content_v2.Schema.DatafeedsCustomBatchResponse;
+        custombatch(resource: Schema.DatafeedsCustomBatchRequest): Content.Schema.DatafeedsCustomBatchResponse;
         // Deletes, fetches, gets, inserts and updates multiple datafeeds in a single request.
-        custombatch(resource: Schema.DatafeedsCustomBatchRequest, optionalArgs: object): Content_v2.Schema.DatafeedsCustomBatchResponse;
+        custombatch(resource: Schema.DatafeedsCustomBatchRequest, optionalArgs: object): Content.Schema.DatafeedsCustomBatchResponse;
         // Invokes a fetch for the datafeed in your Merchant Center account.
-        fetchnow(merchantId: string, datafeedId: string): Content_v2.Schema.DatafeedsFetchNowResponse;
+        fetchnow(merchantId: string, datafeedId: string): Content.Schema.DatafeedsFetchNowResponse;
         // Invokes a fetch for the datafeed in your Merchant Center account.
-        fetchnow(merchantId: string, datafeedId: string, optionalArgs: object): Content_v2.Schema.DatafeedsFetchNowResponse;
+        fetchnow(merchantId: string, datafeedId: string, optionalArgs: object): Content.Schema.DatafeedsFetchNowResponse;
         // Retrieves a datafeed configuration from your Merchant Center account.
-        get(merchantId: string, datafeedId: string): Content_v2.Schema.Datafeed;
+        get(merchantId: string, datafeedId: string): Content.Schema.Datafeed;
         // Registers a datafeed configuration with your Merchant Center account.
-        insert(resource: Schema.Datafeed, merchantId: string): Content_v2.Schema.Datafeed;
+        insert(resource: Schema.Datafeed, merchantId: string): Content.Schema.Datafeed;
         // Registers a datafeed configuration with your Merchant Center account.
-        insert(resource: Schema.Datafeed, merchantId: string, optionalArgs: object): Content_v2.Schema.Datafeed;
+        insert(resource: Schema.Datafeed, merchantId: string, optionalArgs: object): Content.Schema.Datafeed;
         // Lists the configurations for datafeeds in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.DatafeedsListResponse;
+        list(merchantId: string): Content.Schema.DatafeedsListResponse;
         // Lists the configurations for datafeeds in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.DatafeedsListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.DatafeedsListResponse;
         // Updates a datafeed configuration of your Merchant Center account. This method supports patch semantics.
-        patch(resource: Schema.Datafeed, merchantId: string, datafeedId: string): Content_v2.Schema.Datafeed;
+        patch(resource: Schema.Datafeed, merchantId: string, datafeedId: string): Content.Schema.Datafeed;
         // Updates a datafeed configuration of your Merchant Center account. This method supports patch semantics.
-        patch(resource: Schema.Datafeed, merchantId: string, datafeedId: string, optionalArgs: object): Content_v2.Schema.Datafeed;
+        patch(resource: Schema.Datafeed, merchantId: string, datafeedId: string, optionalArgs: object): Content.Schema.Datafeed;
         // Deletes a datafeed configuration from your Merchant Center account.
         remove(merchantId: string, datafeedId: string): void;
         // Deletes a datafeed configuration from your Merchant Center account.
         remove(merchantId: string, datafeedId: string, optionalArgs: object): void;
         // Updates a datafeed configuration of your Merchant Center account.
-        update(resource: Schema.Datafeed, merchantId: string, datafeedId: string): Content_v2.Schema.Datafeed;
+        update(resource: Schema.Datafeed, merchantId: string, datafeedId: string): Content.Schema.Datafeed;
         // Updates a datafeed configuration of your Merchant Center account.
-        update(resource: Schema.Datafeed, merchantId: string, datafeedId: string, optionalArgs: object): Content_v2.Schema.Datafeed;
+        update(resource: Schema.Datafeed, merchantId: string, datafeedId: string, optionalArgs: object): Content.Schema.Datafeed;
       }
       export interface DatafeedstatusesCollection {
         // Gets multiple Merchant Center datafeed statuses in a single request.
-        custombatch(resource: Schema.DatafeedstatusesCustomBatchRequest): Content_v2.Schema.DatafeedstatusesCustomBatchResponse;
+        custombatch(resource: Schema.DatafeedstatusesCustomBatchRequest): Content.Schema.DatafeedstatusesCustomBatchResponse;
         // Retrieves the status of a datafeed from your Merchant Center account.
-        get(merchantId: string, datafeedId: string): Content_v2.Schema.DatafeedStatus;
+        get(merchantId: string, datafeedId: string): Content.Schema.DatafeedStatus;
         // Retrieves the status of a datafeed from your Merchant Center account.
-        get(merchantId: string, datafeedId: string, optionalArgs: object): Content_v2.Schema.DatafeedStatus;
+        get(merchantId: string, datafeedId: string, optionalArgs: object): Content.Schema.DatafeedStatus;
         // Lists the statuses of the datafeeds in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.DatafeedstatusesListResponse;
+        list(merchantId: string): Content.Schema.DatafeedstatusesListResponse;
         // Lists the statuses of the datafeeds in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.DatafeedstatusesListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.DatafeedstatusesListResponse;
       }
       export interface InventoryCollection {
         // Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products.
-        custombatch(resource: Schema.InventoryCustomBatchRequest): Content_v2.Schema.InventoryCustomBatchResponse;
+        custombatch(resource: Schema.InventoryCustomBatchRequest): Content.Schema.InventoryCustomBatchResponse;
         // Updates price and availability for multiple products or stores in a single request. This operation does not update the expiration date of the products.
-        custombatch(resource: Schema.InventoryCustomBatchRequest, optionalArgs: object): Content_v2.Schema.InventoryCustomBatchResponse;
+        custombatch(resource: Schema.InventoryCustomBatchRequest, optionalArgs: object): Content.Schema.InventoryCustomBatchResponse;
         // Updates price and availability of a product in your Merchant Center account.
-        set(resource: Schema.InventorySetRequest, merchantId: string, storeCode: string, productId: string): Content_v2.Schema.InventorySetResponse;
+        set(resource: Schema.InventorySetRequest, merchantId: string, storeCode: string, productId: string): Content.Schema.InventorySetResponse;
         // Updates price and availability of a product in your Merchant Center account.
-        set(resource: Schema.InventorySetRequest, merchantId: string, storeCode: string, productId: string, optionalArgs: object): Content_v2.Schema.InventorySetResponse;
+        set(resource: Schema.InventorySetRequest, merchantId: string, storeCode: string, productId: string, optionalArgs: object): Content.Schema.InventorySetResponse;
       }
       export interface LiasettingsCollection {
         // Retrieves and/or updates the LIA settings of multiple accounts in a single request.
-        custombatch(resource: Schema.LiasettingsCustomBatchRequest): Content_v2.Schema.LiasettingsCustomBatchResponse;
+        custombatch(resource: Schema.LiasettingsCustomBatchRequest): Content.Schema.LiasettingsCustomBatchResponse;
         // Retrieves and/or updates the LIA settings of multiple accounts in a single request.
-        custombatch(resource: Schema.LiasettingsCustomBatchRequest, optionalArgs: object): Content_v2.Schema.LiasettingsCustomBatchResponse;
+        custombatch(resource: Schema.LiasettingsCustomBatchRequest, optionalArgs: object): Content.Schema.LiasettingsCustomBatchResponse;
         // Retrieves the LIA settings of the account.
-        get(merchantId: string, accountId: string): Content_v2.Schema.LiaSettings;
+        get(merchantId: string, accountId: string): Content.Schema.LiaSettings;
         // Retrieves the list of accessible Google My Business accounts.
-        getaccessiblegmbaccounts(merchantId: string, accountId: string): Content_v2.Schema.LiasettingsGetAccessibleGmbAccountsResponse;
+        getaccessiblegmbaccounts(merchantId: string, accountId: string): Content.Schema.LiasettingsGetAccessibleGmbAccountsResponse;
         // Lists the LIA settings of the sub-accounts in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.LiasettingsListResponse;
+        list(merchantId: string): Content.Schema.LiasettingsListResponse;
         // Lists the LIA settings of the sub-accounts in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.LiasettingsListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.LiasettingsListResponse;
         // Retrieves the list of POS data providers that have active settings for the all eiligible countries.
-        listposdataproviders(): Content_v2.Schema.LiasettingsListPosDataProvidersResponse;
+        listposdataproviders(): Content.Schema.LiasettingsListPosDataProvidersResponse;
         // Updates the LIA settings of the account. This method supports patch semantics.
-        patch(resource: Schema.LiaSettings, merchantId: string, accountId: string): Content_v2.Schema.LiaSettings;
+        patch(resource: Schema.LiaSettings, merchantId: string, accountId: string): Content.Schema.LiaSettings;
         // Updates the LIA settings of the account. This method supports patch semantics.
-        patch(resource: Schema.LiaSettings, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.LiaSettings;
+        patch(resource: Schema.LiaSettings, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.LiaSettings;
         // Requests access to a specified Google My Business account.
-        requestgmbaccess(merchantId: string, accountId: string, gmbEmail: string): Content_v2.Schema.LiasettingsRequestGmbAccessResponse;
+        requestgmbaccess(merchantId: string, accountId: string, gmbEmail: string): Content.Schema.LiasettingsRequestGmbAccessResponse;
         // Requests inventory validation for the specified country.
-        requestinventoryverification(merchantId: string, accountId: string, country: string): Content_v2.Schema.LiasettingsRequestInventoryVerificationResponse;
+        requestinventoryverification(merchantId: string, accountId: string, country: string): Content.Schema.LiasettingsRequestInventoryVerificationResponse;
         // Sets the inventory verification contract for the specified country.
-        setinventoryverificationcontact(merchantId: string, accountId: string, contactEmail: string, contactName: string, country: string, language: string): Content_v2.Schema.LiasettingsSetInventoryVerificationContactResponse;
+        setinventoryverificationcontact(merchantId: string, accountId: string, contactEmail: string, contactName: string, country: string, language: string): Content.Schema.LiasettingsSetInventoryVerificationContactResponse;
         // Sets the POS data provider for the specified country.
-        setposdataprovider(merchantId: string, accountId: string, country: string): Content_v2.Schema.LiasettingsSetPosDataProviderResponse;
+        setposdataprovider(merchantId: string, accountId: string, country: string): Content.Schema.LiasettingsSetPosDataProviderResponse;
         // Sets the POS data provider for the specified country.
-        setposdataprovider(merchantId: string, accountId: string, country: string, optionalArgs: object): Content_v2.Schema.LiasettingsSetPosDataProviderResponse;
+        setposdataprovider(merchantId: string, accountId: string, country: string, optionalArgs: object): Content.Schema.LiasettingsSetPosDataProviderResponse;
         // Updates the LIA settings of the account.
-        update(resource: Schema.LiaSettings, merchantId: string, accountId: string): Content_v2.Schema.LiaSettings;
+        update(resource: Schema.LiaSettings, merchantId: string, accountId: string): Content.Schema.LiaSettings;
         // Updates the LIA settings of the account.
-        update(resource: Schema.LiaSettings, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.LiaSettings;
+        update(resource: Schema.LiaSettings, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.LiaSettings;
       }
       export interface OrderinvoicesCollection {
         // Creates a charge invoice for a shipment group, and triggers a charge capture for non-facilitated payment orders.
-        createchargeinvoice(resource: Schema.OrderinvoicesCreateChargeInvoiceRequest, merchantId: string, orderId: string): Content_v2.Schema.OrderinvoicesCreateChargeInvoiceResponse;
+        createchargeinvoice(resource: Schema.OrderinvoicesCreateChargeInvoiceRequest, merchantId: string, orderId: string): Content.Schema.OrderinvoicesCreateChargeInvoiceResponse;
         // Creates a refund invoice for one or more shipment groups, and triggers a refund for non-facilitated payment orders. This can only be used for line items that have previously been charged using createChargeInvoice. All amounts (except for the summary) are incremental with respect to the previous invoice.
-        createrefundinvoice(resource: Schema.OrderinvoicesCreateRefundInvoiceRequest, merchantId: string, orderId: string): Content_v2.Schema.OrderinvoicesCreateRefundInvoiceResponse;
+        createrefundinvoice(resource: Schema.OrderinvoicesCreateRefundInvoiceRequest, merchantId: string, orderId: string): Content.Schema.OrderinvoicesCreateRefundInvoiceResponse;
       }
       export interface OrderpaymentsCollection {
         // Notify about successfully authorizing user's payment method for a given amount.
-        notifyauthapproved(resource: Schema.OrderpaymentsNotifyAuthApprovedRequest, merchantId: string, orderId: string): Content_v2.Schema.OrderpaymentsNotifyAuthApprovedResponse;
+        notifyauthapproved(resource: Schema.OrderpaymentsNotifyAuthApprovedRequest, merchantId: string, orderId: string): Content.Schema.OrderpaymentsNotifyAuthApprovedResponse;
         // Notify about failure to authorize user's payment method.
-        notifyauthdeclined(resource: Schema.OrderpaymentsNotifyAuthDeclinedRequest, merchantId: string, orderId: string): Content_v2.Schema.OrderpaymentsNotifyAuthDeclinedResponse;
+        notifyauthdeclined(resource: Schema.OrderpaymentsNotifyAuthDeclinedRequest, merchantId: string, orderId: string): Content.Schema.OrderpaymentsNotifyAuthDeclinedResponse;
         // Notify about charge on user's selected payments method.
-        notifycharge(resource: Schema.OrderpaymentsNotifyChargeRequest, merchantId: string, orderId: string): Content_v2.Schema.OrderpaymentsNotifyChargeResponse;
+        notifycharge(resource: Schema.OrderpaymentsNotifyChargeRequest, merchantId: string, orderId: string): Content.Schema.OrderpaymentsNotifyChargeResponse;
         // Notify about refund on user's selected payments method.
-        notifyrefund(resource: Schema.OrderpaymentsNotifyRefundRequest, merchantId: string, orderId: string): Content_v2.Schema.OrderpaymentsNotifyRefundResponse;
+        notifyrefund(resource: Schema.OrderpaymentsNotifyRefundRequest, merchantId: string, orderId: string): Content.Schema.OrderpaymentsNotifyRefundResponse;
       }
       export interface OrderreportsCollection {
         // Retrieves a report for disbursements from your Merchant Center account.
-        listdisbursements(merchantId: string, disbursementStartDate: string): Content_v2.Schema.OrderreportsListDisbursementsResponse;
+        listdisbursements(merchantId: string, disbursementStartDate: string): Content.Schema.OrderreportsListDisbursementsResponse;
         // Retrieves a report for disbursements from your Merchant Center account.
-        listdisbursements(merchantId: string, disbursementStartDate: string, optionalArgs: object): Content_v2.Schema.OrderreportsListDisbursementsResponse;
+        listdisbursements(merchantId: string, disbursementStartDate: string, optionalArgs: object): Content.Schema.OrderreportsListDisbursementsResponse;
         // Retrieves a list of transactions for a disbursement from your Merchant Center account.
-        listtransactions(merchantId: string, disbursementId: string, transactionStartDate: string): Content_v2.Schema.OrderreportsListTransactionsResponse;
+        listtransactions(merchantId: string, disbursementId: string, transactionStartDate: string): Content.Schema.OrderreportsListTransactionsResponse;
         // Retrieves a list of transactions for a disbursement from your Merchant Center account.
-        listtransactions(merchantId: string, disbursementId: string, transactionStartDate: string, optionalArgs: object): Content_v2.Schema.OrderreportsListTransactionsResponse;
+        listtransactions(merchantId: string, disbursementId: string, transactionStartDate: string, optionalArgs: object): Content.Schema.OrderreportsListTransactionsResponse;
       }
       export interface OrderreturnsCollection {
         // Retrieves an order return from your Merchant Center account.
-        get(merchantId: string, returnId: string): Content_v2.Schema.MerchantOrderReturn;
+        get(merchantId: string, returnId: string): Content.Schema.MerchantOrderReturn;
         // Lists order returns in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.OrderreturnsListResponse;
+        list(merchantId: string): Content.Schema.OrderreturnsListResponse;
         // Lists order returns in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.OrderreturnsListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.OrderreturnsListResponse;
       }
       export interface OrdersCollection {
         // Marks an order as acknowledged.
-        acknowledge(resource: Schema.OrdersAcknowledgeRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersAcknowledgeResponse;
+        acknowledge(resource: Schema.OrdersAcknowledgeRequest, merchantId: string, orderId: string): Content.Schema.OrdersAcknowledgeResponse;
         // Sandbox only. Moves a test order from state "inProgress" to state "pendingShipment".
-        advancetestorder(merchantId: string, orderId: string): Content_v2.Schema.OrdersAdvanceTestOrderResponse;
+        advancetestorder(merchantId: string, orderId: string): Content.Schema.OrdersAdvanceTestOrderResponse;
         // Cancels all line items in an order, making a full refund.
-        cancel(resource: Schema.OrdersCancelRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersCancelResponse;
+        cancel(resource: Schema.OrdersCancelRequest, merchantId: string, orderId: string): Content.Schema.OrdersCancelResponse;
         // Cancels a line item, making a full refund.
-        cancellineitem(resource: Schema.OrdersCancelLineItemRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersCancelLineItemResponse;
+        cancellineitem(resource: Schema.OrdersCancelLineItemRequest, merchantId: string, orderId: string): Content.Schema.OrdersCancelLineItemResponse;
         // Sandbox only. Cancels a test order for customer-initiated cancellation.
-        canceltestorderbycustomer(resource: Schema.OrdersCancelTestOrderByCustomerRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersCancelTestOrderByCustomerResponse;
+        canceltestorderbycustomer(resource: Schema.OrdersCancelTestOrderByCustomerRequest, merchantId: string, orderId: string): Content.Schema.OrdersCancelTestOrderByCustomerResponse;
         // Sandbox only. Creates a test order.
-        createtestorder(resource: Schema.OrdersCreateTestOrderRequest, merchantId: string): Content_v2.Schema.OrdersCreateTestOrderResponse;
+        createtestorder(resource: Schema.OrdersCreateTestOrderRequest, merchantId: string): Content.Schema.OrdersCreateTestOrderResponse;
         // Sandbox only. Creates a test return.
-        createtestreturn(resource: Schema.OrdersCreateTestReturnRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersCreateTestReturnResponse;
+        createtestreturn(resource: Schema.OrdersCreateTestReturnRequest, merchantId: string, orderId: string): Content.Schema.OrdersCreateTestReturnResponse;
         // Retrieves or modifies multiple orders in a single request.
-        custombatch(resource: Schema.OrdersCustomBatchRequest): Content_v2.Schema.OrdersCustomBatchResponse;
+        custombatch(resource: Schema.OrdersCustomBatchRequest): Content.Schema.OrdersCustomBatchResponse;
         // Retrieves an order from your Merchant Center account.
-        get(merchantId: string, orderId: string): Content_v2.Schema.Order;
+        get(merchantId: string, orderId: string): Content.Schema.Order;
         // Retrieves an order using merchant order ID.
-        getbymerchantorderid(merchantId: string, merchantOrderId: string): Content_v2.Schema.OrdersGetByMerchantOrderIdResponse;
+        getbymerchantorderid(merchantId: string, merchantOrderId: string): Content.Schema.OrdersGetByMerchantOrderIdResponse;
         // Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox.
-        gettestordertemplate(merchantId: string, templateName: string): Content_v2.Schema.OrdersGetTestOrderTemplateResponse;
+        gettestordertemplate(merchantId: string, templateName: string): Content.Schema.OrdersGetTestOrderTemplateResponse;
         // Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox.
-        gettestordertemplate(merchantId: string, templateName: string, optionalArgs: object): Content_v2.Schema.OrdersGetTestOrderTemplateResponse;
+        gettestordertemplate(merchantId: string, templateName: string, optionalArgs: object): Content.Schema.OrdersGetTestOrderTemplateResponse;
         // Notifies that item return and refund was handled directly by merchant outside of Google payments processing (e.g. cash refund done in store).
         // Note: We recommend calling the returnrefundlineitem method to refund in-store returns. We will issue the refund directly to the customer. This helps to prevent possible differences arising between merchant and Google transaction records. We also recommend having the point of sale system communicate with Google to ensure that customers do not receive a double refund by first refunding via Google then via an in-store return.
-        instorerefundlineitem(resource: Schema.OrdersInStoreRefundLineItemRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersInStoreRefundLineItemResponse;
+        instorerefundlineitem(resource: Schema.OrdersInStoreRefundLineItemRequest, merchantId: string, orderId: string): Content.Schema.OrdersInStoreRefundLineItemResponse;
         // Lists the orders in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.OrdersListResponse;
+        list(merchantId: string): Content.Schema.OrdersListResponse;
         // Lists the orders in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.OrdersListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.OrdersListResponse;
         // Deprecated, please use returnRefundLineItem instead.
-        refund(resource: Schema.OrdersRefundRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersRefundResponse;
+        refund(resource: Schema.OrdersRefundRequest, merchantId: string, orderId: string): Content.Schema.OrdersRefundResponse;
         // Rejects return on an line item.
-        rejectreturnlineitem(resource: Schema.OrdersRejectReturnLineItemRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersRejectReturnLineItemResponse;
+        rejectreturnlineitem(resource: Schema.OrdersRejectReturnLineItemRequest, merchantId: string, orderId: string): Content.Schema.OrdersRejectReturnLineItemResponse;
         // Returns a line item.
-        returnlineitem(resource: Schema.OrdersReturnLineItemRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersReturnLineItemResponse;
+        returnlineitem(resource: Schema.OrdersReturnLineItemRequest, merchantId: string, orderId: string): Content.Schema.OrdersReturnLineItemResponse;
         // Returns and refunds a line item. Note that this method can only be called on fully shipped orders.
-        returnrefundlineitem(resource: Schema.OrdersReturnRefundLineItemRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersReturnRefundLineItemResponse;
+        returnrefundlineitem(resource: Schema.OrdersReturnRefundLineItemRequest, merchantId: string, orderId: string): Content.Schema.OrdersReturnRefundLineItemResponse;
         // Sets (or overrides if it already exists) merchant provided annotations in the form of key-value pairs. A common use case would be to supply us with additional structured information about a line item that cannot be provided via other methods. Submitted key-value pairs can be retrieved as part of the orders resource.
-        setlineitemmetadata(resource: Schema.OrdersSetLineItemMetadataRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersSetLineItemMetadataResponse;
+        setlineitemmetadata(resource: Schema.OrdersSetLineItemMetadataRequest, merchantId: string, orderId: string): Content.Schema.OrdersSetLineItemMetadataResponse;
         // Marks line item(s) as shipped.
-        shiplineitems(resource: Schema.OrdersShipLineItemsRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersShipLineItemsResponse;
+        shiplineitems(resource: Schema.OrdersShipLineItemsRequest, merchantId: string, orderId: string): Content.Schema.OrdersShipLineItemsResponse;
         // Updates ship by and delivery by dates for a line item.
-        updatelineitemshippingdetails(resource: Schema.OrdersUpdateLineItemShippingDetailsRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersUpdateLineItemShippingDetailsResponse;
+        updatelineitemshippingdetails(resource: Schema.OrdersUpdateLineItemShippingDetailsRequest, merchantId: string, orderId: string): Content.Schema.OrdersUpdateLineItemShippingDetailsResponse;
         // Updates the merchant order ID for a given order.
-        updatemerchantorderid(resource: Schema.OrdersUpdateMerchantOrderIdRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersUpdateMerchantOrderIdResponse;
+        updatemerchantorderid(resource: Schema.OrdersUpdateMerchantOrderIdRequest, merchantId: string, orderId: string): Content.Schema.OrdersUpdateMerchantOrderIdResponse;
         // Updates a shipment's status, carrier, and/or tracking ID.
-        updateshipment(resource: Schema.OrdersUpdateShipmentRequest, merchantId: string, orderId: string): Content_v2.Schema.OrdersUpdateShipmentResponse;
+        updateshipment(resource: Schema.OrdersUpdateShipmentRequest, merchantId: string, orderId: string): Content.Schema.OrdersUpdateShipmentResponse;
       }
       export interface PosCollection {
         // Batches multiple POS-related calls in a single request.
-        custombatch(resource: Schema.PosCustomBatchRequest): Content_v2.Schema.PosCustomBatchResponse;
+        custombatch(resource: Schema.PosCustomBatchRequest): Content.Schema.PosCustomBatchResponse;
         // Batches multiple POS-related calls in a single request.
-        custombatch(resource: Schema.PosCustomBatchRequest, optionalArgs: object): Content_v2.Schema.PosCustomBatchResponse;
+        custombatch(resource: Schema.PosCustomBatchRequest, optionalArgs: object): Content.Schema.PosCustomBatchResponse;
         // Retrieves information about the given store.
-        get(merchantId: string, targetMerchantId: string, storeCode: string): Content_v2.Schema.PosStore;
+        get(merchantId: string, targetMerchantId: string, storeCode: string): Content.Schema.PosStore;
         // Creates a store for the given merchant.
-        insert(resource: Schema.PosStore, merchantId: string, targetMerchantId: string): Content_v2.Schema.PosStore;
+        insert(resource: Schema.PosStore, merchantId: string, targetMerchantId: string): Content.Schema.PosStore;
         // Creates a store for the given merchant.
-        insert(resource: Schema.PosStore, merchantId: string, targetMerchantId: string, optionalArgs: object): Content_v2.Schema.PosStore;
+        insert(resource: Schema.PosStore, merchantId: string, targetMerchantId: string, optionalArgs: object): Content.Schema.PosStore;
         // Submit inventory for the given merchant.
-        inventory(resource: Schema.PosInventoryRequest, merchantId: string, targetMerchantId: string): Content_v2.Schema.PosInventoryResponse;
+        inventory(resource: Schema.PosInventoryRequest, merchantId: string, targetMerchantId: string): Content.Schema.PosInventoryResponse;
         // Submit inventory for the given merchant.
-        inventory(resource: Schema.PosInventoryRequest, merchantId: string, targetMerchantId: string, optionalArgs: object): Content_v2.Schema.PosInventoryResponse;
+        inventory(resource: Schema.PosInventoryRequest, merchantId: string, targetMerchantId: string, optionalArgs: object): Content.Schema.PosInventoryResponse;
         // Lists the stores of the target merchant.
-        list(merchantId: string, targetMerchantId: string): Content_v2.Schema.PosListResponse;
+        list(merchantId: string, targetMerchantId: string): Content.Schema.PosListResponse;
         // Deletes a store for the given merchant.
         remove(merchantId: string, targetMerchantId: string, storeCode: string): void;
         // Deletes a store for the given merchant.
         remove(merchantId: string, targetMerchantId: string, storeCode: string, optionalArgs: object): void;
         // Submit a sale event for the given merchant.
-        sale(resource: Schema.PosSaleRequest, merchantId: string, targetMerchantId: string): Content_v2.Schema.PosSaleResponse;
+        sale(resource: Schema.PosSaleRequest, merchantId: string, targetMerchantId: string): Content.Schema.PosSaleResponse;
         // Submit a sale event for the given merchant.
-        sale(resource: Schema.PosSaleRequest, merchantId: string, targetMerchantId: string, optionalArgs: object): Content_v2.Schema.PosSaleResponse;
+        sale(resource: Schema.PosSaleRequest, merchantId: string, targetMerchantId: string, optionalArgs: object): Content.Schema.PosSaleResponse;
       }
       export interface ProductsCollection {
         // Retrieves, inserts, and deletes multiple products in a single request.
-        custombatch(resource: Schema.ProductsCustomBatchRequest): Content_v2.Schema.ProductsCustomBatchResponse;
+        custombatch(resource: Schema.ProductsCustomBatchRequest): Content.Schema.ProductsCustomBatchResponse;
         // Retrieves, inserts, and deletes multiple products in a single request.
-        custombatch(resource: Schema.ProductsCustomBatchRequest, optionalArgs: object): Content_v2.Schema.ProductsCustomBatchResponse;
+        custombatch(resource: Schema.ProductsCustomBatchRequest, optionalArgs: object): Content.Schema.ProductsCustomBatchResponse;
         // Retrieves a product from your Merchant Center account.
-        get(merchantId: string, productId: string): Content_v2.Schema.Product;
+        get(merchantId: string, productId: string): Content.Schema.Product;
         // Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this method updates that entry.
-        insert(resource: Schema.Product, merchantId: string): Content_v2.Schema.Product;
+        insert(resource: Schema.Product, merchantId: string): Content.Schema.Product;
         // Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this method updates that entry.
-        insert(resource: Schema.Product, merchantId: string, optionalArgs: object): Content_v2.Schema.Product;
+        insert(resource: Schema.Product, merchantId: string, optionalArgs: object): Content.Schema.Product;
         // Lists the products in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.ProductsListResponse;
+        list(merchantId: string): Content.Schema.ProductsListResponse;
         // Lists the products in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.ProductsListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.ProductsListResponse;
         // Deletes a product from your Merchant Center account.
         remove(merchantId: string, productId: string): void;
         // Deletes a product from your Merchant Center account.
@@ -296,57 +296,57 @@ declare namespace GoogleAppsScript {
       }
       export interface ProductstatusesCollection {
         // Gets the statuses of multiple products in a single request.
-        custombatch(resource: Schema.ProductstatusesCustomBatchRequest): Content_v2.Schema.ProductstatusesCustomBatchResponse;
+        custombatch(resource: Schema.ProductstatusesCustomBatchRequest): Content.Schema.ProductstatusesCustomBatchResponse;
         // Gets the statuses of multiple products in a single request.
-        custombatch(resource: Schema.ProductstatusesCustomBatchRequest, optionalArgs: object): Content_v2.Schema.ProductstatusesCustomBatchResponse;
+        custombatch(resource: Schema.ProductstatusesCustomBatchRequest, optionalArgs: object): Content.Schema.ProductstatusesCustomBatchResponse;
         // Gets the status of a product from your Merchant Center account.
-        get(merchantId: string, productId: string): Content_v2.Schema.ProductStatus;
+        get(merchantId: string, productId: string): Content.Schema.ProductStatus;
         // Gets the status of a product from your Merchant Center account.
-        get(merchantId: string, productId: string, optionalArgs: object): Content_v2.Schema.ProductStatus;
+        get(merchantId: string, productId: string, optionalArgs: object): Content.Schema.ProductStatus;
         // Lists the statuses of the products in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.ProductstatusesListResponse;
+        list(merchantId: string): Content.Schema.ProductstatusesListResponse;
         // Lists the statuses of the products in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.ProductstatusesListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.ProductstatusesListResponse;
       }
       export interface ShippingsettingsCollection {
         // Retrieves and updates the shipping settings of multiple accounts in a single request.
-        custombatch(resource: Schema.ShippingsettingsCustomBatchRequest): Content_v2.Schema.ShippingsettingsCustomBatchResponse;
+        custombatch(resource: Schema.ShippingsettingsCustomBatchRequest): Content.Schema.ShippingsettingsCustomBatchResponse;
         // Retrieves and updates the shipping settings of multiple accounts in a single request.
-        custombatch(resource: Schema.ShippingsettingsCustomBatchRequest, optionalArgs: object): Content_v2.Schema.ShippingsettingsCustomBatchResponse;
+        custombatch(resource: Schema.ShippingsettingsCustomBatchRequest, optionalArgs: object): Content.Schema.ShippingsettingsCustomBatchResponse;
         // Retrieves the shipping settings of the account.
-        get(merchantId: string, accountId: string): Content_v2.Schema.ShippingSettings;
+        get(merchantId: string, accountId: string): Content.Schema.ShippingSettings;
         // Retrieves supported carriers and carrier services for an account.
-        getsupportedcarriers(merchantId: string): Content_v2.Schema.ShippingsettingsGetSupportedCarriersResponse;
+        getsupportedcarriers(merchantId: string): Content.Schema.ShippingsettingsGetSupportedCarriersResponse;
         // Retrieves supported holidays for an account.
-        getsupportedholidays(merchantId: string): Content_v2.Schema.ShippingsettingsGetSupportedHolidaysResponse;
+        getsupportedholidays(merchantId: string): Content.Schema.ShippingsettingsGetSupportedHolidaysResponse;
         // Lists the shipping settings of the sub-accounts in your Merchant Center account.
-        list(merchantId: string): Content_v2.Schema.ShippingsettingsListResponse;
+        list(merchantId: string): Content.Schema.ShippingsettingsListResponse;
         // Lists the shipping settings of the sub-accounts in your Merchant Center account.
-        list(merchantId: string, optionalArgs: object): Content_v2.Schema.ShippingsettingsListResponse;
+        list(merchantId: string, optionalArgs: object): Content.Schema.ShippingsettingsListResponse;
         // Updates the shipping settings of the account. This method supports patch semantics.
-        patch(resource: Schema.ShippingSettings, merchantId: string, accountId: string): Content_v2.Schema.ShippingSettings;
+        patch(resource: Schema.ShippingSettings, merchantId: string, accountId: string): Content.Schema.ShippingSettings;
         // Updates the shipping settings of the account. This method supports patch semantics.
-        patch(resource: Schema.ShippingSettings, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.ShippingSettings;
+        patch(resource: Schema.ShippingSettings, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.ShippingSettings;
         // Updates the shipping settings of the account.
-        update(resource: Schema.ShippingSettings, merchantId: string, accountId: string): Content_v2.Schema.ShippingSettings;
+        update(resource: Schema.ShippingSettings, merchantId: string, accountId: string): Content.Schema.ShippingSettings;
         // Updates the shipping settings of the account.
-        update(resource: Schema.ShippingSettings, merchantId: string, accountId: string, optionalArgs: object): Content_v2.Schema.ShippingSettings;
+        update(resource: Schema.ShippingSettings, merchantId: string, accountId: string, optionalArgs: object): Content.Schema.ShippingSettings;
       }
     }
     namespace Schema {
       export interface Account {
         adultContent?: boolean;
-        adwordsLinks?: Content_v2.Schema.AccountAdwordsLink[];
-        businessInformation?: Content_v2.Schema.AccountBusinessInformation;
-        googleMyBusinessLink?: Content_v2.Schema.AccountGoogleMyBusinessLink;
+        adwordsLinks?: Content.Schema.AccountAdwordsLink[];
+        businessInformation?: Content.Schema.AccountBusinessInformation;
+        googleMyBusinessLink?: Content.Schema.AccountGoogleMyBusinessLink;
         id?: string;
         kind?: string;
         name?: string;
         reviewsUrl?: string;
         sellerId?: string;
-        users?: Content_v2.Schema.AccountUser[];
+        users?: Content.Schema.AccountUser[];
         websiteUrl?: string;
-        youtubeChannelLinks?: Content_v2.Schema.AccountYouTubeChannelLink[];
+        youtubeChannelLinks?: Content.Schema.AccountYouTubeChannelLink[];
       }
       export interface AccountAddress {
         country?: string;
@@ -360,8 +360,8 @@ declare namespace GoogleAppsScript {
         status?: string;
       }
       export interface AccountBusinessInformation {
-        address?: Content_v2.Schema.AccountAddress;
-        customerService?: Content_v2.Schema.AccountCustomerService;
+        address?: Content.Schema.AccountAddress;
+        customerService?: Content.Schema.AccountCustomerService;
         phoneNumber?: string;
       }
       export interface AccountCustomerService {
@@ -379,10 +379,10 @@ declare namespace GoogleAppsScript {
       }
       export interface AccountStatus {
         accountId?: string;
-        accountLevelIssues?: Content_v2.Schema.AccountStatusAccountLevelIssue[];
-        dataQualityIssues?: Content_v2.Schema.AccountStatusDataQualityIssue[];
+        accountLevelIssues?: Content.Schema.AccountStatusAccountLevelIssue[];
+        dataQualityIssues?: Content.Schema.AccountStatusDataQualityIssue[];
         kind?: string;
-        products?: Content_v2.Schema.AccountStatusProducts[];
+        products?: Content.Schema.AccountStatusProducts[];
         websiteClaimed?: boolean;
       }
       export interface AccountStatusAccountLevelIssue {
@@ -399,7 +399,7 @@ declare namespace GoogleAppsScript {
         destination?: string;
         detail?: string;
         displayedValue?: string;
-        exampleItems?: Content_v2.Schema.AccountStatusExampleItem[];
+        exampleItems?: Content.Schema.AccountStatusExampleItem[];
         id?: string;
         lastChecked?: string;
         location?: string;
@@ -428,8 +428,8 @@ declare namespace GoogleAppsScript {
         channel?: string;
         country?: string;
         destination?: string;
-        itemLevelIssues?: Content_v2.Schema.AccountStatusItemLevelIssue[];
-        statistics?: Content_v2.Schema.AccountStatusStatistics;
+        itemLevelIssues?: Content.Schema.AccountStatusItemLevelIssue[];
+        statistics?: Content.Schema.AccountStatusStatistics;
       }
       export interface AccountStatusStatistics {
         active?: string;
@@ -440,7 +440,7 @@ declare namespace GoogleAppsScript {
       export interface AccountTax {
         accountId?: string;
         kind?: string;
-        rules?: Content_v2.Schema.AccountTaxTaxRule[];
+        rules?: Content.Schema.AccountTaxTaxRule[];
       }
       export interface AccountTaxTaxRule {
         country?: string;
@@ -461,21 +461,21 @@ declare namespace GoogleAppsScript {
         status?: string;
       }
       export interface AccountsAuthInfoResponse {
-        accountIdentifiers?: Content_v2.Schema.AccountIdentifier[];
+        accountIdentifiers?: Content.Schema.AccountIdentifier[];
         kind?: string;
       }
       export interface AccountsClaimWebsiteResponse {
         kind?: string;
       }
       export interface AccountsCustomBatchRequest {
-        entries?: Content_v2.Schema.AccountsCustomBatchRequestEntry[];
+        entries?: Content.Schema.AccountsCustomBatchRequestEntry[];
       }
       export interface AccountsCustomBatchRequestEntry {
-        account?: Content_v2.Schema.Account;
+        account?: Content.Schema.Account;
         accountId?: string;
         batchId?: number;
         force?: boolean;
-        linkRequest?: Content_v2.Schema.AccountsCustomBatchRequestEntryLinkRequest;
+        linkRequest?: Content.Schema.AccountsCustomBatchRequestEntryLinkRequest;
         merchantId?: string;
         method?: string;
         overwrite?: boolean;
@@ -486,13 +486,13 @@ declare namespace GoogleAppsScript {
         linkedAccountId?: string;
       }
       export interface AccountsCustomBatchResponse {
-        entries?: Content_v2.Schema.AccountsCustomBatchResponseEntry[];
+        entries?: Content.Schema.AccountsCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface AccountsCustomBatchResponseEntry {
-        account?: Content_v2.Schema.Account;
+        account?: Content.Schema.Account;
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         kind?: string;
         linkStatus?: string;
       }
@@ -507,10 +507,10 @@ declare namespace GoogleAppsScript {
       export interface AccountsListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.Account[];
+        resources?: Content.Schema.Account[];
       }
       export interface AccountstatusesCustomBatchRequest {
-        entries?: Content_v2.Schema.AccountstatusesCustomBatchRequestEntry[];
+        entries?: Content.Schema.AccountstatusesCustomBatchRequestEntry[];
       }
       export interface AccountstatusesCustomBatchRequestEntry {
         accountId?: string;
@@ -520,52 +520,52 @@ declare namespace GoogleAppsScript {
         method?: string;
       }
       export interface AccountstatusesCustomBatchResponse {
-        entries?: Content_v2.Schema.AccountstatusesCustomBatchResponseEntry[];
+        entries?: Content.Schema.AccountstatusesCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface AccountstatusesCustomBatchResponseEntry {
-        accountStatus?: Content_v2.Schema.AccountStatus;
+        accountStatus?: Content.Schema.AccountStatus;
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
       }
       export interface AccountstatusesListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.AccountStatus[];
+        resources?: Content.Schema.AccountStatus[];
       }
       export interface AccounttaxCustomBatchRequest {
-        entries?: Content_v2.Schema.AccounttaxCustomBatchRequestEntry[];
+        entries?: Content.Schema.AccounttaxCustomBatchRequestEntry[];
       }
       export interface AccounttaxCustomBatchRequestEntry {
         accountId?: string;
-        accountTax?: Content_v2.Schema.AccountTax;
+        accountTax?: Content.Schema.AccountTax;
         batchId?: number;
         merchantId?: string;
         method?: string;
       }
       export interface AccounttaxCustomBatchResponse {
-        entries?: Content_v2.Schema.AccounttaxCustomBatchResponseEntry[];
+        entries?: Content.Schema.AccounttaxCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface AccounttaxCustomBatchResponseEntry {
-        accountTax?: Content_v2.Schema.AccountTax;
+        accountTax?: Content.Schema.AccountTax;
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         kind?: string;
       }
       export interface AccounttaxListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.AccountTax[];
+        resources?: Content.Schema.AccountTax[];
       }
       export interface Amount {
-        pretax?: Content_v2.Schema.Price;
-        tax?: Content_v2.Schema.Price;
+        pretax?: Content.Schema.Price;
+        tax?: Content.Schema.Price;
       }
       export interface CarrierRate {
         carrierName?: string;
         carrierService?: string;
-        flatAdjustment?: Content_v2.Schema.Price;
+        flatAdjustment?: Content.Schema.Price;
         name?: string;
         originPostalCode?: string;
         percentageAdjustment?: string;
@@ -582,7 +582,7 @@ declare namespace GoogleAppsScript {
         value?: string;
       }
       export interface CustomGroup {
-        attributes?: Content_v2.Schema.CustomAttribute[];
+        attributes?: Content.Schema.CustomAttribute[];
         name?: string;
       }
       export interface CustomerReturnReason {
@@ -598,15 +598,15 @@ declare namespace GoogleAppsScript {
         attributeLanguage?: string;
         contentLanguage?: string;
         contentType?: string;
-        fetchSchedule?: Content_v2.Schema.DatafeedFetchSchedule;
+        fetchSchedule?: Content.Schema.DatafeedFetchSchedule;
         fileName?: string;
-        format?: Content_v2.Schema.DatafeedFormat;
+        format?: Content.Schema.DatafeedFormat;
         id?: string;
         intendedDestinations?: string[];
         kind?: string;
         name?: string;
         targetCountry?: string;
-        targets?: Content_v2.Schema.DatafeedTarget[];
+        targets?: Content.Schema.DatafeedTarget[];
       }
       export interface DatafeedFetchSchedule {
         dayOfMonth?: number;
@@ -627,19 +627,19 @@ declare namespace GoogleAppsScript {
       export interface DatafeedStatus {
         country?: string;
         datafeedId?: string;
-        errors?: Content_v2.Schema.DatafeedStatusError[];
+        errors?: Content.Schema.DatafeedStatusError[];
         itemsTotal?: string;
         itemsValid?: string;
         kind?: string;
         language?: string;
         lastUploadDate?: string;
         processingStatus?: string;
-        warnings?: Content_v2.Schema.DatafeedStatusError[];
+        warnings?: Content.Schema.DatafeedStatusError[];
       }
       export interface DatafeedStatusError {
         code?: string;
         count?: string;
-        examples?: Content_v2.Schema.DatafeedStatusExample[];
+        examples?: Content.Schema.DatafeedStatusExample[];
         message?: string;
       }
       export interface DatafeedStatusExample {
@@ -654,23 +654,23 @@ declare namespace GoogleAppsScript {
         language?: string;
       }
       export interface DatafeedsCustomBatchRequest {
-        entries?: Content_v2.Schema.DatafeedsCustomBatchRequestEntry[];
+        entries?: Content.Schema.DatafeedsCustomBatchRequestEntry[];
       }
       export interface DatafeedsCustomBatchRequestEntry {
         batchId?: number;
-        datafeed?: Content_v2.Schema.Datafeed;
+        datafeed?: Content.Schema.Datafeed;
         datafeedId?: string;
         merchantId?: string;
         method?: string;
       }
       export interface DatafeedsCustomBatchResponse {
-        entries?: Content_v2.Schema.DatafeedsCustomBatchResponseEntry[];
+        entries?: Content.Schema.DatafeedsCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface DatafeedsCustomBatchResponseEntry {
         batchId?: number;
-        datafeed?: Content_v2.Schema.Datafeed;
-        errors?: Content_v2.Schema.Errors;
+        datafeed?: Content.Schema.Datafeed;
+        errors?: Content.Schema.Errors;
       }
       export interface DatafeedsFetchNowResponse {
         kind?: string;
@@ -678,10 +678,10 @@ declare namespace GoogleAppsScript {
       export interface DatafeedsListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.Datafeed[];
+        resources?: Content.Schema.Datafeed[];
       }
       export interface DatafeedstatusesCustomBatchRequest {
-        entries?: Content_v2.Schema.DatafeedstatusesCustomBatchRequestEntry[];
+        entries?: Content.Schema.DatafeedstatusesCustomBatchRequestEntry[];
       }
       export interface DatafeedstatusesCustomBatchRequestEntry {
         batchId?: number;
@@ -692,27 +692,27 @@ declare namespace GoogleAppsScript {
         method?: string;
       }
       export interface DatafeedstatusesCustomBatchResponse {
-        entries?: Content_v2.Schema.DatafeedstatusesCustomBatchResponseEntry[];
+        entries?: Content.Schema.DatafeedstatusesCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface DatafeedstatusesCustomBatchResponseEntry {
         batchId?: number;
-        datafeedStatus?: Content_v2.Schema.DatafeedStatus;
-        errors?: Content_v2.Schema.Errors;
+        datafeedStatus?: Content.Schema.DatafeedStatus;
+        errors?: Content.Schema.Errors;
       }
       export interface DatafeedstatusesListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.DatafeedStatus[];
+        resources?: Content.Schema.DatafeedStatus[];
       }
       export interface DeliveryTime {
-        cutoffTime?: Content_v2.Schema.CutoffTime;
-        holidayCutoffs?: Content_v2.Schema.HolidayCutoff[];
+        cutoffTime?: Content.Schema.CutoffTime;
+        holidayCutoffs?: Content.Schema.HolidayCutoff[];
         maxHandlingTimeInDays?: number;
         maxTransitTimeInDays?: number;
         minHandlingTimeInDays?: number;
         minTransitTimeInDays?: number;
-        transitTimeTable?: Content_v2.Schema.TransitTable;
+        transitTimeTable?: Content.Schema.TransitTable;
       }
       export interface Error {
         domain?: string;
@@ -721,12 +721,12 @@ declare namespace GoogleAppsScript {
       }
       export interface Errors {
         code?: number;
-        errors?: Content_v2.Schema.Error[];
+        errors?: Content.Schema.Error[];
         message?: string;
       }
       export interface GmbAccounts {
         accountId?: string;
-        gmbAccounts?: Content_v2.Schema.GmbAccountsGmbAccount[];
+        gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[];
       }
       export interface GmbAccountsGmbAccount {
         email?: string;
@@ -735,11 +735,11 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface Headers {
-        locations?: Content_v2.Schema.LocationIdSet[];
+        locations?: Content.Schema.LocationIdSet[];
         numberOfItems?: string[];
         postalCodeGroupNames?: string[];
-        prices?: Content_v2.Schema.Price[];
-        weights?: Content_v2.Schema.Weight[];
+        prices?: Content.Schema.Price[];
+        weights?: Content.Schema.Weight[];
       }
       export interface HolidayCutoff {
         deadlineDate?: string;
@@ -757,7 +757,7 @@ declare namespace GoogleAppsScript {
         type?: string;
       }
       export interface Installment {
-        amount?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
         months?: string;
       }
       export interface Inventory {
@@ -767,34 +767,34 @@ declare namespace GoogleAppsScript {
         customLabel2?: string;
         customLabel3?: string;
         customLabel4?: string;
-        installment?: Content_v2.Schema.Installment;
+        installment?: Content.Schema.Installment;
         instoreProductLocation?: string;
         kind?: string;
-        loyaltyPoints?: Content_v2.Schema.LoyaltyPoints;
-        pickup?: Content_v2.Schema.InventoryPickup;
-        price?: Content_v2.Schema.Price;
+        loyaltyPoints?: Content.Schema.LoyaltyPoints;
+        pickup?: Content.Schema.InventoryPickup;
+        price?: Content.Schema.Price;
         quantity?: number;
-        salePrice?: Content_v2.Schema.Price;
+        salePrice?: Content.Schema.Price;
         salePriceEffectiveDate?: string;
         sellOnGoogleQuantity?: number;
       }
       export interface InventoryCustomBatchRequest {
-        entries?: Content_v2.Schema.InventoryCustomBatchRequestEntry[];
+        entries?: Content.Schema.InventoryCustomBatchRequestEntry[];
       }
       export interface InventoryCustomBatchRequestEntry {
         batchId?: number;
-        inventory?: Content_v2.Schema.Inventory;
+        inventory?: Content.Schema.Inventory;
         merchantId?: string;
         productId?: string;
         storeCode?: string;
       }
       export interface InventoryCustomBatchResponse {
-        entries?: Content_v2.Schema.InventoryCustomBatchResponseEntry[];
+        entries?: Content.Schema.InventoryCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface InventoryCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         kind?: string;
       }
       export interface InventoryPickup {
@@ -808,13 +808,13 @@ declare namespace GoogleAppsScript {
         customLabel2?: string;
         customLabel3?: string;
         customLabel4?: string;
-        installment?: Content_v2.Schema.Installment;
+        installment?: Content.Schema.Installment;
         instoreProductLocation?: string;
-        loyaltyPoints?: Content_v2.Schema.LoyaltyPoints;
-        pickup?: Content_v2.Schema.InventoryPickup;
-        price?: Content_v2.Schema.Price;
+        loyaltyPoints?: Content.Schema.LoyaltyPoints;
+        pickup?: Content.Schema.InventoryPickup;
+        price?: Content.Schema.Price;
         quantity?: number;
-        salePrice?: Content_v2.Schema.Price;
+        salePrice?: Content.Schema.Price;
         salePriceEffectiveDate?: string;
         sellOnGoogleQuantity?: number;
       }
@@ -822,15 +822,15 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface InvoiceSummary {
-        additionalChargeSummaries?: Content_v2.Schema.InvoiceSummaryAdditionalChargeSummary[];
-        customerBalance?: Content_v2.Schema.Amount;
-        googleBalance?: Content_v2.Schema.Amount;
-        merchantBalance?: Content_v2.Schema.Amount;
-        productTotal?: Content_v2.Schema.Amount;
-        promotionSummaries?: Content_v2.Schema.Promotion[];
+        additionalChargeSummaries?: Content.Schema.InvoiceSummaryAdditionalChargeSummary[];
+        customerBalance?: Content.Schema.Amount;
+        googleBalance?: Content.Schema.Amount;
+        merchantBalance?: Content.Schema.Amount;
+        productTotal?: Content.Schema.Amount;
+        promotionSummaries?: Content.Schema.Promotion[];
       }
       export interface InvoiceSummaryAdditionalChargeSummary {
-        totalAmount?: Content_v2.Schema.Amount;
+        totalAmount?: Content.Schema.Amount;
         type?: string;
       }
       export interface LiaAboutPageSettings {
@@ -838,12 +838,12 @@ declare namespace GoogleAppsScript {
         url?: string;
       }
       export interface LiaCountrySettings {
-        about?: Content_v2.Schema.LiaAboutPageSettings;
+        about?: Content.Schema.LiaAboutPageSettings;
         country?: string;
         hostedLocalStorefrontActive?: boolean;
-        inventory?: Content_v2.Schema.LiaInventorySettings;
-        onDisplayToOrder?: Content_v2.Schema.LiaOnDisplayToOrderSettings;
-        posDataProvider?: Content_v2.Schema.LiaPosDataProvider;
+        inventory?: Content.Schema.LiaInventorySettings;
+        onDisplayToOrder?: Content.Schema.LiaOnDisplayToOrderSettings;
+        posDataProvider?: Content.Schema.LiaPosDataProvider;
         storePickupActive?: boolean;
       }
       export interface LiaInventorySettings {
@@ -862,11 +862,11 @@ declare namespace GoogleAppsScript {
       }
       export interface LiaSettings {
         accountId?: string;
-        countrySettings?: Content_v2.Schema.LiaCountrySettings[];
+        countrySettings?: Content.Schema.LiaCountrySettings[];
         kind?: string;
       }
       export interface LiasettingsCustomBatchRequest {
-        entries?: Content_v2.Schema.LiasettingsCustomBatchRequestEntry[];
+        entries?: Content.Schema.LiasettingsCustomBatchRequestEntry[];
       }
       export interface LiasettingsCustomBatchRequestEntry {
         accountId?: string;
@@ -875,37 +875,37 @@ declare namespace GoogleAppsScript {
         contactName?: string;
         country?: string;
         gmbEmail?: string;
-        liaSettings?: Content_v2.Schema.LiaSettings;
+        liaSettings?: Content.Schema.LiaSettings;
         merchantId?: string;
         method?: string;
         posDataProviderId?: string;
         posExternalAccountId?: string;
       }
       export interface LiasettingsCustomBatchResponse {
-        entries?: Content_v2.Schema.LiasettingsCustomBatchResponseEntry[];
+        entries?: Content.Schema.LiasettingsCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface LiasettingsCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
-        gmbAccounts?: Content_v2.Schema.GmbAccounts;
+        errors?: Content.Schema.Errors;
+        gmbAccounts?: Content.Schema.GmbAccounts;
         kind?: string;
-        liaSettings?: Content_v2.Schema.LiaSettings;
-        posDataProviders?: Content_v2.Schema.PosDataProviders[];
+        liaSettings?: Content.Schema.LiaSettings;
+        posDataProviders?: Content.Schema.PosDataProviders[];
       }
       export interface LiasettingsGetAccessibleGmbAccountsResponse {
         accountId?: string;
-        gmbAccounts?: Content_v2.Schema.GmbAccountsGmbAccount[];
+        gmbAccounts?: Content.Schema.GmbAccountsGmbAccount[];
         kind?: string;
       }
       export interface LiasettingsListPosDataProvidersResponse {
         kind?: string;
-        posDataProviders?: Content_v2.Schema.PosDataProviders[];
+        posDataProviders?: Content.Schema.PosDataProviders[];
       }
       export interface LiasettingsListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.LiaSettings[];
+        resources?: Content.Schema.LiaSettings[];
       }
       export interface LiasettingsRequestGmbAccessResponse {
         kind?: string;
@@ -925,43 +925,43 @@ declare namespace GoogleAppsScript {
       export interface LoyaltyPoints {
         name?: string;
         pointsValue?: string;
-        ratio?: Number;
+        ratio?: number;
       }
       export interface MerchantOrderReturn {
         creationDate?: string;
         merchantOrderId?: string;
         orderId?: string;
         orderReturnId?: string;
-        returnItems?: Content_v2.Schema.MerchantOrderReturnItem[];
-        returnShipments?: Content_v2.Schema.ReturnShipment[];
+        returnItems?: Content.Schema.MerchantOrderReturnItem[];
+        returnShipments?: Content.Schema.ReturnShipment[];
       }
       export interface MerchantOrderReturnItem {
-        customerReturnReason?: Content_v2.Schema.CustomerReturnReason;
+        customerReturnReason?: Content.Schema.CustomerReturnReason;
         itemId?: string;
-        merchantReturnReason?: Content_v2.Schema.RefundReason;
-        product?: Content_v2.Schema.OrderLineItemProduct;
+        merchantReturnReason?: Content.Schema.RefundReason;
+        product?: Content.Schema.OrderLineItemProduct;
         returnShipmentIds?: string[];
         state?: string;
       }
       export interface Order {
         acknowledged?: boolean;
         channelType?: string;
-        customer?: Content_v2.Schema.OrderCustomer;
-        deliveryDetails?: Content_v2.Schema.OrderDeliveryDetails;
+        customer?: Content.Schema.OrderCustomer;
+        deliveryDetails?: Content.Schema.OrderDeliveryDetails;
         id?: string;
         kind?: string;
-        lineItems?: Content_v2.Schema.OrderLineItem[];
+        lineItems?: Content.Schema.OrderLineItem[];
         merchantId?: string;
         merchantOrderId?: string;
-        netAmount?: Content_v2.Schema.Price;
-        paymentMethod?: Content_v2.Schema.OrderPaymentMethod;
+        netAmount?: Content.Schema.Price;
+        paymentMethod?: Content.Schema.OrderPaymentMethod;
         paymentStatus?: string;
         placedDate?: string;
-        promotions?: Content_v2.Schema.OrderLegacyPromotion[];
-        refunds?: Content_v2.Schema.OrderRefund[];
-        shipments?: Content_v2.Schema.OrderShipment[];
-        shippingCost?: Content_v2.Schema.Price;
-        shippingCostTax?: Content_v2.Schema.Price;
+        promotions?: Content.Schema.OrderLegacyPromotion[];
+        refunds?: Content.Schema.OrderRefund[];
+        shipments?: Content.Schema.OrderShipment[];
+        shippingCost?: Content.Schema.Price;
+        shippingCostTax?: Content.Schema.Price;
         shippingOption?: string;
         status?: string;
         taxCollector?: string;
@@ -987,7 +987,7 @@ declare namespace GoogleAppsScript {
         email?: string;
         explicitMarketingPreference?: boolean;
         fullName?: string;
-        marketingRightsInfo?: Content_v2.Schema.OrderCustomerMarketingRightsInfo;
+        marketingRightsInfo?: Content.Schema.OrderCustomerMarketingRightsInfo;
       }
       export interface OrderCustomerMarketingRightsInfo {
         explicitMarketingPreference?: string;
@@ -995,11 +995,11 @@ declare namespace GoogleAppsScript {
         marketingEmailAddress?: string;
       }
       export interface OrderDeliveryDetails {
-        address?: Content_v2.Schema.OrderAddress;
+        address?: Content.Schema.OrderAddress;
         phoneNumber?: string;
       }
       export interface OrderLegacyPromotion {
-        benefits?: Content_v2.Schema.OrderLegacyPromotionBenefit[];
+        benefits?: Content.Schema.OrderLegacyPromotionBenefit[];
         effectiveDates?: string;
         genericRedemptionCode?: string;
         id?: string;
@@ -1008,49 +1008,49 @@ declare namespace GoogleAppsScript {
         redemptionChannel?: string;
       }
       export interface OrderLegacyPromotionBenefit {
-        discount?: Content_v2.Schema.Price;
+        discount?: Content.Schema.Price;
         offerIds?: string[];
         subType?: string;
-        taxImpact?: Content_v2.Schema.Price;
+        taxImpact?: Content.Schema.Price;
         type?: string;
       }
       export interface OrderLineItem {
-        annotations?: Content_v2.Schema.OrderMerchantProvidedAnnotation[];
-        cancellations?: Content_v2.Schema.OrderCancellation[];
+        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
+        cancellations?: Content.Schema.OrderCancellation[];
         id?: string;
-        price?: Content_v2.Schema.Price;
-        product?: Content_v2.Schema.OrderLineItemProduct;
+        price?: Content.Schema.Price;
+        product?: Content.Schema.OrderLineItemProduct;
         quantityCanceled?: number;
         quantityDelivered?: number;
         quantityOrdered?: number;
         quantityPending?: number;
         quantityReturned?: number;
         quantityShipped?: number;
-        returnInfo?: Content_v2.Schema.OrderLineItemReturnInfo;
-        returns?: Content_v2.Schema.OrderReturn[];
-        shippingDetails?: Content_v2.Schema.OrderLineItemShippingDetails;
-        tax?: Content_v2.Schema.Price;
+        returnInfo?: Content.Schema.OrderLineItemReturnInfo;
+        returns?: Content.Schema.OrderReturn[];
+        shippingDetails?: Content.Schema.OrderLineItemShippingDetails;
+        tax?: Content.Schema.Price;
       }
       export interface OrderLineItemProduct {
         brand?: string;
         channel?: string;
         condition?: string;
         contentLanguage?: string;
-        fees?: Content_v2.Schema.OrderLineItemProductFee[];
+        fees?: Content.Schema.OrderLineItemProductFee[];
         gtin?: string;
         id?: string;
         imageLink?: string;
         itemGroupId?: string;
         mpn?: string;
         offerId?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         shownImage?: string;
         targetCountry?: string;
         title?: string;
-        variantAttributes?: Content_v2.Schema.OrderLineItemProductVariantAttribute[];
+        variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[];
       }
       export interface OrderLineItemProductFee {
-        amount?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
         name?: string;
       }
       export interface OrderLineItemProductVariantAttribute {
@@ -1064,7 +1064,7 @@ declare namespace GoogleAppsScript {
       }
       export interface OrderLineItemShippingDetails {
         deliverByDate?: string;
-        method?: Content_v2.Schema.OrderLineItemShippingDetailsMethod;
+        method?: Content.Schema.OrderLineItemShippingDetailsMethod;
         shipByDate?: string;
       }
       export interface OrderLineItemShippingDetailsMethod {
@@ -1078,7 +1078,7 @@ declare namespace GoogleAppsScript {
         value?: string;
       }
       export interface OrderPaymentMethod {
-        billingAddress?: Content_v2.Schema.OrderAddress;
+        billingAddress?: Content.Schema.OrderAddress;
         expirationMonth?: number;
         expirationYear?: number;
         lastFourDigits?: string;
@@ -1087,28 +1087,28 @@ declare namespace GoogleAppsScript {
       }
       export interface OrderRefund {
         actor?: string;
-        amount?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
         creationDate?: string;
         reason?: string;
         reasonText?: string;
       }
       export interface OrderReportDisbursement {
-        disbursementAmount?: Content_v2.Schema.Price;
+        disbursementAmount?: Content.Schema.Price;
         disbursementCreationDate?: string;
         disbursementDate?: string;
         disbursementId?: string;
         merchantId?: string;
       }
       export interface OrderReportTransaction {
-        disbursementAmount?: Content_v2.Schema.Price;
+        disbursementAmount?: Content.Schema.Price;
         disbursementCreationDate?: string;
         disbursementDate?: string;
         disbursementId?: string;
         merchantId?: string;
         merchantOrderId?: string;
         orderId?: string;
-        productAmount?: Content_v2.Schema.Amount;
-        productAmountWithRemittedTax?: Content_v2.Schema.ProductAmount;
+        productAmount?: Content.Schema.Amount;
+        productAmountWithRemittedTax?: Content.Schema.ProductAmount;
         transactionDate?: string;
       }
       export interface OrderReturn {
@@ -1123,7 +1123,7 @@ declare namespace GoogleAppsScript {
         creationDate?: string;
         deliveryDate?: string;
         id?: string;
-        lineItems?: Content_v2.Schema.OrderShipmentLineItemShipment[];
+        lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
         status?: string;
         trackingId?: string;
       }
@@ -1134,8 +1134,8 @@ declare namespace GoogleAppsScript {
       }
       export interface OrderinvoicesCreateChargeInvoiceRequest {
         invoiceId?: string;
-        invoiceSummary?: Content_v2.Schema.InvoiceSummary;
-        lineItemInvoices?: Content_v2.Schema.ShipmentInvoiceLineItemInvoice[];
+        invoiceSummary?: Content.Schema.InvoiceSummary;
+        lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[];
         operationId?: string;
         shipmentGroupId?: string;
       }
@@ -1146,9 +1146,9 @@ declare namespace GoogleAppsScript {
       export interface OrderinvoicesCreateRefundInvoiceRequest {
         invoiceId?: string;
         operationId?: string;
-        refundOnlyOption?: Content_v2.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption;
-        returnOption?: Content_v2.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption;
-        shipmentInvoices?: Content_v2.Schema.ShipmentInvoice[];
+        refundOnlyOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption;
+        returnOption?: Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption;
+        shipmentInvoices?: Content.Schema.ShipmentInvoice[];
       }
       export interface OrderinvoicesCreateRefundInvoiceResponse {
         executionStatus?: string;
@@ -1163,8 +1163,8 @@ declare namespace GoogleAppsScript {
         reason?: string;
       }
       export interface OrderpaymentsNotifyAuthApprovedRequest {
-        authAmountPretax?: Content_v2.Schema.Price;
-        authAmountTax?: Content_v2.Schema.Price;
+        authAmountPretax?: Content.Schema.Price;
+        authAmountTax?: Content.Schema.Price;
       }
       export interface OrderpaymentsNotifyAuthApprovedResponse {
         executionStatus?: string;
@@ -1196,19 +1196,19 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface OrderreportsListDisbursementsResponse {
-        disbursements?: Content_v2.Schema.OrderReportDisbursement[];
+        disbursements?: Content.Schema.OrderReportDisbursement[];
         kind?: string;
         nextPageToken?: string;
       }
       export interface OrderreportsListTransactionsResponse {
         kind?: string;
         nextPageToken?: string;
-        transactions?: Content_v2.Schema.OrderReportTransaction[];
+        transactions?: Content.Schema.OrderReportTransaction[];
       }
       export interface OrderreturnsListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.MerchantOrderReturn[];
+        resources?: Content.Schema.MerchantOrderReturn[];
       }
       export interface OrdersAcknowledgeRequest {
         operationId?: string;
@@ -1221,9 +1221,9 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface OrdersCancelLineItemRequest {
-        amount?: Content_v2.Schema.Price;
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         lineItemId?: string;
         operationId?: string;
         productId?: string;
@@ -1253,49 +1253,49 @@ declare namespace GoogleAppsScript {
       export interface OrdersCreateTestOrderRequest {
         country?: string;
         templateName?: string;
-        testOrder?: Content_v2.Schema.TestOrder;
+        testOrder?: Content.Schema.TestOrder;
       }
       export interface OrdersCreateTestOrderResponse {
         kind?: string;
         orderId?: string;
       }
       export interface OrdersCreateTestReturnRequest {
-        items?: Content_v2.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem[];
+        items?: Content.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem[];
       }
       export interface OrdersCreateTestReturnResponse {
         kind?: string;
         returnId?: string;
       }
       export interface OrdersCustomBatchRequest {
-        entries?: Content_v2.Schema.OrdersCustomBatchRequestEntry[];
+        entries?: Content.Schema.OrdersCustomBatchRequestEntry[];
       }
       export interface OrdersCustomBatchRequestEntry {
         batchId?: number;
-        cancel?: Content_v2.Schema.OrdersCustomBatchRequestEntryCancel;
-        cancelLineItem?: Content_v2.Schema.OrdersCustomBatchRequestEntryCancelLineItem;
-        inStoreRefundLineItem?: Content_v2.Schema.OrdersCustomBatchRequestEntryInStoreRefundLineItem;
+        cancel?: Content.Schema.OrdersCustomBatchRequestEntryCancel;
+        cancelLineItem?: Content.Schema.OrdersCustomBatchRequestEntryCancelLineItem;
+        inStoreRefundLineItem?: Content.Schema.OrdersCustomBatchRequestEntryInStoreRefundLineItem;
         merchantId?: string;
         merchantOrderId?: string;
         method?: string;
         operationId?: string;
         orderId?: string;
-        refund?: Content_v2.Schema.OrdersCustomBatchRequestEntryRefund;
-        rejectReturnLineItem?: Content_v2.Schema.OrdersCustomBatchRequestEntryRejectReturnLineItem;
-        returnLineItem?: Content_v2.Schema.OrdersCustomBatchRequestEntryReturnLineItem;
-        returnRefundLineItem?: Content_v2.Schema.OrdersCustomBatchRequestEntryReturnRefundLineItem;
-        setLineItemMetadata?: Content_v2.Schema.OrdersCustomBatchRequestEntrySetLineItemMetadata;
-        shipLineItems?: Content_v2.Schema.OrdersCustomBatchRequestEntryShipLineItems;
-        updateLineItemShippingDetails?: Content_v2.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails;
-        updateShipment?: Content_v2.Schema.OrdersCustomBatchRequestEntryUpdateShipment;
+        refund?: Content.Schema.OrdersCustomBatchRequestEntryRefund;
+        rejectReturnLineItem?: Content.Schema.OrdersCustomBatchRequestEntryRejectReturnLineItem;
+        returnLineItem?: Content.Schema.OrdersCustomBatchRequestEntryReturnLineItem;
+        returnRefundLineItem?: Content.Schema.OrdersCustomBatchRequestEntryReturnRefundLineItem;
+        setLineItemMetadata?: Content.Schema.OrdersCustomBatchRequestEntrySetLineItemMetadata;
+        shipLineItems?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItems;
+        updateLineItemShippingDetails?: Content.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails;
+        updateShipment?: Content.Schema.OrdersCustomBatchRequestEntryUpdateShipment;
       }
       export interface OrdersCustomBatchRequestEntryCancel {
         reason?: string;
         reasonText?: string;
       }
       export interface OrdersCustomBatchRequestEntryCancelLineItem {
-        amount?: Content_v2.Schema.Price;
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         lineItemId?: string;
         productId?: string;
         quantity?: number;
@@ -1307,8 +1307,8 @@ declare namespace GoogleAppsScript {
         quantity?: number;
       }
       export interface OrdersCustomBatchRequestEntryInStoreRefundLineItem {
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         lineItemId?: string;
         productId?: string;
         quantity?: number;
@@ -1316,9 +1316,9 @@ declare namespace GoogleAppsScript {
         reasonText?: string;
       }
       export interface OrdersCustomBatchRequestEntryRefund {
-        amount?: Content_v2.Schema.Price;
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         reason?: string;
         reasonText?: string;
       }
@@ -1337,8 +1337,8 @@ declare namespace GoogleAppsScript {
         reasonText?: string;
       }
       export interface OrdersCustomBatchRequestEntryReturnRefundLineItem {
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         lineItemId?: string;
         productId?: string;
         quantity?: number;
@@ -1346,16 +1346,16 @@ declare namespace GoogleAppsScript {
         reasonText?: string;
       }
       export interface OrdersCustomBatchRequestEntrySetLineItemMetadata {
-        annotations?: Content_v2.Schema.OrderMerchantProvidedAnnotation[];
+        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
         lineItemId?: string;
         productId?: string;
       }
       export interface OrdersCustomBatchRequestEntryShipLineItems {
         carrier?: string;
-        lineItems?: Content_v2.Schema.OrderShipmentLineItemShipment[];
+        lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
         shipmentGroupId?: string;
         shipmentId?: string;
-        shipmentInfos?: Content_v2.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
+        shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
         trackingId?: string;
       }
       export interface OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo {
@@ -1377,27 +1377,27 @@ declare namespace GoogleAppsScript {
         trackingId?: string;
       }
       export interface OrdersCustomBatchResponse {
-        entries?: Content_v2.Schema.OrdersCustomBatchResponseEntry[];
+        entries?: Content.Schema.OrdersCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface OrdersCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         executionStatus?: string;
         kind?: string;
-        order?: Content_v2.Schema.Order;
+        order?: Content.Schema.Order;
       }
       export interface OrdersGetByMerchantOrderIdResponse {
         kind?: string;
-        order?: Content_v2.Schema.Order;
+        order?: Content.Schema.Order;
       }
       export interface OrdersGetTestOrderTemplateResponse {
         kind?: string;
-        template?: Content_v2.Schema.TestOrder;
+        template?: Content.Schema.TestOrder;
       }
       export interface OrdersInStoreRefundLineItemRequest {
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         lineItemId?: string;
         operationId?: string;
         productId?: string;
@@ -1412,12 +1412,12 @@ declare namespace GoogleAppsScript {
       export interface OrdersListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.Order[];
+        resources?: Content.Schema.Order[];
       }
       export interface OrdersRefundRequest {
-        amount?: Content_v2.Schema.Price;
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amount?: Content.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         operationId?: string;
         reason?: string;
         reasonText?: string;
@@ -1451,8 +1451,8 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface OrdersReturnRefundLineItemRequest {
-        amountPretax?: Content_v2.Schema.Price;
-        amountTax?: Content_v2.Schema.Price;
+        amountPretax?: Content.Schema.Price;
+        amountTax?: Content.Schema.Price;
         lineItemId?: string;
         operationId?: string;
         productId?: string;
@@ -1465,7 +1465,7 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface OrdersSetLineItemMetadataRequest {
-        annotations?: Content_v2.Schema.OrderMerchantProvidedAnnotation[];
+        annotations?: Content.Schema.OrderMerchantProvidedAnnotation[];
         lineItemId?: string;
         operationId?: string;
         productId?: string;
@@ -1476,11 +1476,11 @@ declare namespace GoogleAppsScript {
       }
       export interface OrdersShipLineItemsRequest {
         carrier?: string;
-        lineItems?: Content_v2.Schema.OrderShipmentLineItemShipment[];
+        lineItems?: Content.Schema.OrderShipmentLineItemShipment[];
         operationId?: string;
         shipmentGroupId?: string;
         shipmentId?: string;
-        shipmentInfos?: Content_v2.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
+        shipmentInfos?: Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo[];
         trackingId?: string;
       }
       export interface OrdersShipLineItemsResponse {
@@ -1519,33 +1519,33 @@ declare namespace GoogleAppsScript {
         kind?: string;
       }
       export interface PosCustomBatchRequest {
-        entries?: Content_v2.Schema.PosCustomBatchRequestEntry[];
+        entries?: Content.Schema.PosCustomBatchRequestEntry[];
       }
       export interface PosCustomBatchRequestEntry {
         batchId?: number;
-        inventory?: Content_v2.Schema.PosInventory;
+        inventory?: Content.Schema.PosInventory;
         merchantId?: string;
         method?: string;
-        sale?: Content_v2.Schema.PosSale;
-        store?: Content_v2.Schema.PosStore;
+        sale?: Content.Schema.PosSale;
+        store?: Content.Schema.PosStore;
         storeCode?: string;
         targetMerchantId?: string;
       }
       export interface PosCustomBatchResponse {
-        entries?: Content_v2.Schema.PosCustomBatchResponseEntry[];
+        entries?: Content.Schema.PosCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface PosCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
-        inventory?: Content_v2.Schema.PosInventory;
+        errors?: Content.Schema.Errors;
+        inventory?: Content.Schema.PosInventory;
         kind?: string;
-        sale?: Content_v2.Schema.PosSale;
-        store?: Content_v2.Schema.PosStore;
+        sale?: Content.Schema.PosSale;
+        store?: Content.Schema.PosStore;
       }
       export interface PosDataProviders {
         country?: string;
-        posDataProviders?: Content_v2.Schema.PosDataProvidersPosDataProvider[];
+        posDataProviders?: Content.Schema.PosDataProvidersPosDataProvider[];
       }
       export interface PosDataProvidersPosDataProvider {
         displayName?: string;
@@ -1557,7 +1557,7 @@ declare namespace GoogleAppsScript {
         gtin?: string;
         itemId?: string;
         kind?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         quantity?: string;
         storeCode?: string;
         targetCountry?: string;
@@ -1567,7 +1567,7 @@ declare namespace GoogleAppsScript {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         quantity?: string;
         storeCode?: string;
         targetCountry?: string;
@@ -1578,7 +1578,7 @@ declare namespace GoogleAppsScript {
         gtin?: string;
         itemId?: string;
         kind?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         quantity?: string;
         storeCode?: string;
         targetCountry?: string;
@@ -1586,14 +1586,14 @@ declare namespace GoogleAppsScript {
       }
       export interface PosListResponse {
         kind?: string;
-        resources?: Content_v2.Schema.PosStore[];
+        resources?: Content.Schema.PosStore[];
       }
       export interface PosSale {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
         kind?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         quantity?: string;
         saleId?: string;
         storeCode?: string;
@@ -1604,7 +1604,7 @@ declare namespace GoogleAppsScript {
         contentLanguage?: string;
         gtin?: string;
         itemId?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         quantity?: string;
         saleId?: string;
         storeCode?: string;
@@ -1616,7 +1616,7 @@ declare namespace GoogleAppsScript {
         gtin?: string;
         itemId?: string;
         kind?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         quantity?: string;
         saleId?: string;
         storeCode?: string;
@@ -1631,7 +1631,7 @@ declare namespace GoogleAppsScript {
       export interface PostalCodeGroup {
         country?: string;
         name?: string;
-        postalCodeRanges?: Content_v2.Schema.PostalCodeRange[];
+        postalCodeRanges?: Content.Schema.PostalCodeRange[];
       }
       export interface PostalCodeRange {
         postalCodeRangeBegin?: string;
@@ -1649,7 +1649,7 @@ declare namespace GoogleAppsScript {
         adwordsLabels?: string[];
         adwordsRedirect?: string;
         ageGroup?: string;
-        aspects?: Content_v2.Schema.ProductAspect[];
+        aspects?: Content.Schema.ProductAspect[];
         availability?: string;
         availabilityDate?: string;
         brand?: string;
@@ -1657,21 +1657,21 @@ declare namespace GoogleAppsScript {
         color?: string;
         condition?: string;
         contentLanguage?: string;
-        costOfGoodsSold?: Content_v2.Schema.Price;
-        customAttributes?: Content_v2.Schema.CustomAttribute[];
-        customGroups?: Content_v2.Schema.CustomGroup[];
+        costOfGoodsSold?: Content.Schema.Price;
+        customAttributes?: Content.Schema.CustomAttribute[];
+        customGroups?: Content.Schema.CustomGroup[];
         customLabel0?: string;
         customLabel1?: string;
         customLabel2?: string;
         customLabel3?: string;
         customLabel4?: string;
         description?: string;
-        destinations?: Content_v2.Schema.ProductDestination[];
+        destinations?: Content.Schema.ProductDestination[];
         displayAdsId?: string;
         displayAdsLink?: string;
         displayAdsSimilarIds?: string[];
         displayAdsTitle?: string;
-        displayAdsValue?: Number;
+        displayAdsValue?: number;
         energyEfficiencyClass?: string;
         expirationDate?: string;
         gender?: string;
@@ -1680,12 +1680,12 @@ declare namespace GoogleAppsScript {
         id?: string;
         identifierExists?: boolean;
         imageLink?: string;
-        installment?: Content_v2.Schema.Installment;
+        installment?: Content.Schema.Installment;
         isBundle?: boolean;
         itemGroupId?: string;
         kind?: string;
         link?: string;
-        loyaltyPoints?: Content_v2.Schema.LoyaltyPoints;
+        loyaltyPoints?: Content.Schema.LoyaltyPoints;
         material?: string;
         maxEnergyEfficiencyClass?: string;
         maxHandlingTime?: string;
@@ -1697,34 +1697,34 @@ declare namespace GoogleAppsScript {
         offerId?: string;
         onlineOnly?: boolean;
         pattern?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         productType?: string;
         promotionIds?: string[];
-        salePrice?: Content_v2.Schema.Price;
+        salePrice?: Content.Schema.Price;
         salePriceEffectiveDate?: string;
         sellOnGoogleQuantity?: string;
-        shipping?: Content_v2.Schema.ProductShipping[];
-        shippingHeight?: Content_v2.Schema.ProductShippingDimension;
+        shipping?: Content.Schema.ProductShipping[];
+        shippingHeight?: Content.Schema.ProductShippingDimension;
         shippingLabel?: string;
-        shippingLength?: Content_v2.Schema.ProductShippingDimension;
-        shippingWeight?: Content_v2.Schema.ProductShippingWeight;
-        shippingWidth?: Content_v2.Schema.ProductShippingDimension;
+        shippingLength?: Content.Schema.ProductShippingDimension;
+        shippingWeight?: Content.Schema.ProductShippingWeight;
+        shippingWidth?: Content.Schema.ProductShippingDimension;
         sizeSystem?: string;
         sizeType?: string;
         sizes?: string[];
         source?: string;
         targetCountry?: string;
-        taxes?: Content_v2.Schema.ProductTax[];
+        taxes?: Content.Schema.ProductTax[];
         title?: string;
-        unitPricingBaseMeasure?: Content_v2.Schema.ProductUnitPricingBaseMeasure;
-        unitPricingMeasure?: Content_v2.Schema.ProductUnitPricingMeasure;
+        unitPricingBaseMeasure?: Content.Schema.ProductUnitPricingBaseMeasure;
+        unitPricingMeasure?: Content.Schema.ProductUnitPricingMeasure;
         validatedDestinations?: string[];
-        warnings?: Content_v2.Schema.Error[];
+        warnings?: Content.Schema.Error[];
       }
       export interface ProductAmount {
-        priceAmount?: Content_v2.Schema.Price;
-        remittedTaxAmount?: Content_v2.Schema.Price;
-        taxAmount?: Content_v2.Schema.Price;
+        priceAmount?: Content.Schema.Price;
+        remittedTaxAmount?: Content.Schema.Price;
+        taxAmount?: Content.Schema.Price;
       }
       export interface ProductAspect {
         aspectName?: string;
@@ -1740,28 +1740,28 @@ declare namespace GoogleAppsScript {
         locationGroupName?: string;
         locationId?: string;
         postalCode?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         region?: string;
         service?: string;
       }
       export interface ProductShippingDimension {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
       export interface ProductShippingWeight {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
       export interface ProductStatus {
         creationDate?: string;
-        dataQualityIssues?: Content_v2.Schema.ProductStatusDataQualityIssue[];
-        destinationStatuses?: Content_v2.Schema.ProductStatusDestinationStatus[];
+        dataQualityIssues?: Content.Schema.ProductStatusDataQualityIssue[];
+        destinationStatuses?: Content.Schema.ProductStatusDestinationStatus[];
         googleExpirationDate?: string;
-        itemLevelIssues?: Content_v2.Schema.ProductStatusItemLevelIssue[];
+        itemLevelIssues?: Content.Schema.ProductStatusItemLevelIssue[];
         kind?: string;
         lastUpdateDate?: string;
         link?: string;
-        product?: Content_v2.Schema.Product;
+        product?: Content.Schema.Product;
         productId?: string;
         title?: string;
       }
@@ -1796,7 +1796,7 @@ declare namespace GoogleAppsScript {
         country?: string;
         locationId?: string;
         postalCode?: string;
-        rate?: Number;
+        rate?: number;
         region?: string;
         taxShip?: boolean;
       }
@@ -1806,35 +1806,35 @@ declare namespace GoogleAppsScript {
       }
       export interface ProductUnitPricingMeasure {
         unit?: string;
-        value?: Number;
+        value?: number;
       }
       export interface ProductsCustomBatchRequest {
-        entries?: Content_v2.Schema.ProductsCustomBatchRequestEntry[];
+        entries?: Content.Schema.ProductsCustomBatchRequestEntry[];
       }
       export interface ProductsCustomBatchRequestEntry {
         batchId?: number;
         merchantId?: string;
         method?: string;
-        product?: Content_v2.Schema.Product;
+        product?: Content.Schema.Product;
         productId?: string;
       }
       export interface ProductsCustomBatchResponse {
-        entries?: Content_v2.Schema.ProductsCustomBatchResponseEntry[];
+        entries?: Content.Schema.ProductsCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface ProductsCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         kind?: string;
-        product?: Content_v2.Schema.Product;
+        product?: Content.Schema.Product;
       }
       export interface ProductsListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.Product[];
+        resources?: Content.Schema.Product[];
       }
       export interface ProductstatusesCustomBatchRequest {
-        entries?: Content_v2.Schema.ProductstatusesCustomBatchRequestEntry[];
+        entries?: Content.Schema.ProductstatusesCustomBatchRequestEntry[];
       }
       export interface ProductstatusesCustomBatchRequestEntry {
         batchId?: number;
@@ -1845,31 +1845,31 @@ declare namespace GoogleAppsScript {
         productId?: string;
       }
       export interface ProductstatusesCustomBatchResponse {
-        entries?: Content_v2.Schema.ProductstatusesCustomBatchResponseEntry[];
+        entries?: Content.Schema.ProductstatusesCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface ProductstatusesCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         kind?: string;
-        productStatus?: Content_v2.Schema.ProductStatus;
+        productStatus?: Content.Schema.ProductStatus;
       }
       export interface ProductstatusesListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.ProductStatus[];
+        resources?: Content.Schema.ProductStatus[];
       }
       export interface Promotion {
-        promotionAmount?: Content_v2.Schema.Amount;
+        promotionAmount?: Content.Schema.Amount;
         promotionId?: string;
       }
       export interface RateGroup {
         applicableShippingLabels?: string[];
-        carrierRates?: Content_v2.Schema.CarrierRate[];
-        mainTable?: Content_v2.Schema.Table;
+        carrierRates?: Content.Schema.CarrierRate[];
+        mainTable?: Content.Schema.Table;
         name?: string;
-        singleValue?: Content_v2.Schema.Value;
-        subtables?: Content_v2.Schema.Table[];
+        singleValue?: Content.Schema.Value;
+        subtables?: Content.Schema.Table[];
       }
       export interface RefundReason {
         description?: string;
@@ -1880,33 +1880,33 @@ declare namespace GoogleAppsScript {
         deliveryDate?: string;
         returnMethodType?: string;
         shipmentId?: string;
-        shipmentTrackingInfos?: Content_v2.Schema.ShipmentTrackingInfo[];
+        shipmentTrackingInfos?: Content.Schema.ShipmentTrackingInfo[];
         shippingDate?: string;
         state?: string;
       }
       export interface Row {
-        cells?: Content_v2.Schema.Value[];
+        cells?: Content.Schema.Value[];
       }
       export interface Service {
         active?: boolean;
         currency?: string;
         deliveryCountry?: string;
-        deliveryTime?: Content_v2.Schema.DeliveryTime;
+        deliveryTime?: Content.Schema.DeliveryTime;
         eligibility?: string;
-        minimumOrderValue?: Content_v2.Schema.Price;
+        minimumOrderValue?: Content.Schema.Price;
         name?: string;
-        rateGroups?: Content_v2.Schema.RateGroup[];
+        rateGroups?: Content.Schema.RateGroup[];
       }
       export interface ShipmentInvoice {
-        invoiceSummary?: Content_v2.Schema.InvoiceSummary;
-        lineItemInvoices?: Content_v2.Schema.ShipmentInvoiceLineItemInvoice[];
+        invoiceSummary?: Content.Schema.InvoiceSummary;
+        lineItemInvoices?: Content.Schema.ShipmentInvoiceLineItemInvoice[];
         shipmentGroupId?: string;
       }
       export interface ShipmentInvoiceLineItemInvoice {
         lineItemId?: string;
         productId?: string;
         shipmentUnitIds?: string[];
-        unitInvoice?: Content_v2.Schema.UnitInvoice;
+        unitInvoice?: Content.Schema.UnitInvoice;
       }
       export interface ShipmentTrackingInfo {
         carrier?: string;
@@ -1914,77 +1914,77 @@ declare namespace GoogleAppsScript {
       }
       export interface ShippingSettings {
         accountId?: string;
-        postalCodeGroups?: Content_v2.Schema.PostalCodeGroup[];
-        services?: Content_v2.Schema.Service[];
+        postalCodeGroups?: Content.Schema.PostalCodeGroup[];
+        services?: Content.Schema.Service[];
       }
       export interface ShippingsettingsCustomBatchRequest {
-        entries?: Content_v2.Schema.ShippingsettingsCustomBatchRequestEntry[];
+        entries?: Content.Schema.ShippingsettingsCustomBatchRequestEntry[];
       }
       export interface ShippingsettingsCustomBatchRequestEntry {
         accountId?: string;
         batchId?: number;
         merchantId?: string;
         method?: string;
-        shippingSettings?: Content_v2.Schema.ShippingSettings;
+        shippingSettings?: Content.Schema.ShippingSettings;
       }
       export interface ShippingsettingsCustomBatchResponse {
-        entries?: Content_v2.Schema.ShippingsettingsCustomBatchResponseEntry[];
+        entries?: Content.Schema.ShippingsettingsCustomBatchResponseEntry[];
         kind?: string;
       }
       export interface ShippingsettingsCustomBatchResponseEntry {
         batchId?: number;
-        errors?: Content_v2.Schema.Errors;
+        errors?: Content.Schema.Errors;
         kind?: string;
-        shippingSettings?: Content_v2.Schema.ShippingSettings;
+        shippingSettings?: Content.Schema.ShippingSettings;
       }
       export interface ShippingsettingsGetSupportedCarriersResponse {
-        carriers?: Content_v2.Schema.CarriersCarrier[];
+        carriers?: Content.Schema.CarriersCarrier[];
         kind?: string;
       }
       export interface ShippingsettingsGetSupportedHolidaysResponse {
-        holidays?: Content_v2.Schema.HolidaysHoliday[];
+        holidays?: Content.Schema.HolidaysHoliday[];
         kind?: string;
       }
       export interface ShippingsettingsListResponse {
         kind?: string;
         nextPageToken?: string;
-        resources?: Content_v2.Schema.ShippingSettings[];
+        resources?: Content.Schema.ShippingSettings[];
       }
       export interface Table {
-        columnHeaders?: Content_v2.Schema.Headers;
+        columnHeaders?: Content.Schema.Headers;
         name?: string;
-        rowHeaders?: Content_v2.Schema.Headers;
-        rows?: Content_v2.Schema.Row[];
+        rowHeaders?: Content.Schema.Headers;
+        rows?: Content.Schema.Row[];
       }
       export interface TestOrder {
-        customer?: Content_v2.Schema.TestOrderCustomer;
+        customer?: Content.Schema.TestOrderCustomer;
         enableOrderinvoices?: boolean;
         kind?: string;
-        lineItems?: Content_v2.Schema.TestOrderLineItem[];
+        lineItems?: Content.Schema.TestOrderLineItem[];
         notificationMode?: string;
-        paymentMethod?: Content_v2.Schema.TestOrderPaymentMethod;
+        paymentMethod?: Content.Schema.TestOrderPaymentMethod;
         predefinedDeliveryAddress?: string;
-        promotions?: Content_v2.Schema.OrderLegacyPromotion[];
-        shippingCost?: Content_v2.Schema.Price;
-        shippingCostTax?: Content_v2.Schema.Price;
+        promotions?: Content.Schema.OrderLegacyPromotion[];
+        shippingCost?: Content.Schema.Price;
+        shippingCostTax?: Content.Schema.Price;
         shippingOption?: string;
       }
       export interface TestOrderCustomer {
         email?: string;
         explicitMarketingPreference?: boolean;
         fullName?: string;
-        marketingRightsInfo?: Content_v2.Schema.TestOrderCustomerMarketingRightsInfo;
+        marketingRightsInfo?: Content.Schema.TestOrderCustomerMarketingRightsInfo;
       }
       export interface TestOrderCustomerMarketingRightsInfo {
         explicitMarketingPreference?: string;
         lastUpdatedTimestamp?: string;
       }
       export interface TestOrderLineItem {
-        product?: Content_v2.Schema.TestOrderLineItemProduct;
+        product?: Content.Schema.TestOrderLineItemProduct;
         quantityOrdered?: number;
-        returnInfo?: Content_v2.Schema.OrderLineItemReturnInfo;
-        shippingDetails?: Content_v2.Schema.OrderLineItemShippingDetails;
-        unitTax?: Content_v2.Schema.Price;
+        returnInfo?: Content.Schema.OrderLineItemReturnInfo;
+        shippingDetails?: Content.Schema.OrderLineItemShippingDetails;
+        unitTax?: Content.Schema.Price;
       }
       export interface TestOrderLineItemProduct {
         brand?: string;
@@ -1996,10 +1996,10 @@ declare namespace GoogleAppsScript {
         itemGroupId?: string;
         mpn?: string;
         offerId?: string;
-        price?: Content_v2.Schema.Price;
+        price?: Content.Schema.Price;
         targetCountry?: string;
         title?: string;
-        variantAttributes?: Content_v2.Schema.OrderLineItemProductVariantAttribute[];
+        variantAttributes?: Content.Schema.OrderLineItemProductVariantAttribute[];
       }
       export interface TestOrderPaymentMethod {
         expirationMonth?: number;
@@ -2010,35 +2010,35 @@ declare namespace GoogleAppsScript {
       }
       export interface TransitTable {
         postalCodeGroupNames?: string[];
-        rows?: Content_v2.Schema.TransitTableTransitTimeRow[];
+        rows?: Content.Schema.TransitTableTransitTimeRow[];
         transitTimeLabels?: string[];
       }
       export interface TransitTableTransitTimeRow {
-        values?: Content_v2.Schema.TransitTableTransitTimeRowTransitTimeValue[];
+        values?: Content.Schema.TransitTableTransitTimeRowTransitTimeValue[];
       }
       export interface TransitTableTransitTimeRowTransitTimeValue {
         maxTransitTimeInDays?: number;
         minTransitTimeInDays?: number;
       }
       export interface UnitInvoice {
-        additionalCharges?: Content_v2.Schema.UnitInvoiceAdditionalCharge[];
-        promotions?: Content_v2.Schema.Promotion[];
-        unitPricePretax?: Content_v2.Schema.Price;
-        unitPriceTaxes?: Content_v2.Schema.UnitInvoiceTaxLine[];
+        additionalCharges?: Content.Schema.UnitInvoiceAdditionalCharge[];
+        promotions?: Content.Schema.Promotion[];
+        unitPricePretax?: Content.Schema.Price;
+        unitPriceTaxes?: Content.Schema.UnitInvoiceTaxLine[];
       }
       export interface UnitInvoiceAdditionalCharge {
-        additionalChargeAmount?: Content_v2.Schema.Amount;
-        additionalChargePromotions?: Content_v2.Schema.Promotion[];
+        additionalChargeAmount?: Content.Schema.Amount;
+        additionalChargePromotions?: Content.Schema.Promotion[];
         type?: string;
       }
       export interface UnitInvoiceTaxLine {
-        taxAmount?: Content_v2.Schema.Price;
+        taxAmount?: Content.Schema.Price;
         taxName?: string;
         taxType?: string;
       }
       export interface Value {
         carrierRateName?: string;
-        flatRate?: Content_v2.Schema.Price;
+        flatRate?: Content.Schema.Price;
         noShipping?: boolean;
         pricePercentage?: string;
         subtableName?: string;
@@ -2049,318 +2049,318 @@ declare namespace GoogleAppsScript {
       }
     }
   }
-  export interface Content_v2 {
-    Accounts?: Content_v2.Collection.AccountsCollection;
-    Accountstatuses?: Content_v2.Collection.AccountstatusesCollection;
-    Accounttax?: Content_v2.Collection.AccounttaxCollection;
-    Datafeeds?: Content_v2.Collection.DatafeedsCollection;
-    Datafeedstatuses?: Content_v2.Collection.DatafeedstatusesCollection;
-    Inventory?: Content_v2.Collection.InventoryCollection;
-    Liasettings?: Content_v2.Collection.LiasettingsCollection;
-    Orderinvoices?: Content_v2.Collection.OrderinvoicesCollection;
-    Orderpayments?: Content_v2.Collection.OrderpaymentsCollection;
-    Orderreports?: Content_v2.Collection.OrderreportsCollection;
-    Orderreturns?: Content_v2.Collection.OrderreturnsCollection;
-    Orders?: Content_v2.Collection.OrdersCollection;
-    Pos?: Content_v2.Collection.PosCollection;
-    Products?: Content_v2.Collection.ProductsCollection;
-    Productstatuses?: Content_v2.Collection.ProductstatusesCollection;
-    Shippingsettings?: Content_v2.Collection.ShippingsettingsCollection;
+  export interface Content {
+    Accounts?: Content.Collection.AccountsCollection;
+    Accountstatuses?: Content.Collection.AccountstatusesCollection;
+    Accounttax?: Content.Collection.AccounttaxCollection;
+    Datafeeds?: Content.Collection.DatafeedsCollection;
+    Datafeedstatuses?: Content.Collection.DatafeedstatusesCollection;
+    Inventory?: Content.Collection.InventoryCollection;
+    Liasettings?: Content.Collection.LiasettingsCollection;
+    Orderinvoices?: Content.Collection.OrderinvoicesCollection;
+    Orderpayments?: Content.Collection.OrderpaymentsCollection;
+    Orderreports?: Content.Collection.OrderreportsCollection;
+    Orderreturns?: Content.Collection.OrderreturnsCollection;
+    Orders?: Content.Collection.OrdersCollection;
+    Pos?: Content.Collection.PosCollection;
+    Products?: Content.Collection.ProductsCollection;
+    Productstatuses?: Content.Collection.ProductstatusesCollection;
+    Shippingsettings?: Content.Collection.ShippingsettingsCollection;
     // Create a new instance of Account
-    newAccount(): Content_v2.Schema.Account;
+    newAccount(): Content.Schema.Account;
     // Create a new instance of AccountAddress
-    newAccountAddress(): Content_v2.Schema.AccountAddress;
+    newAccountAddress(): Content.Schema.AccountAddress;
     // Create a new instance of AccountAdwordsLink
-    newAccountAdwordsLink(): Content_v2.Schema.AccountAdwordsLink;
+    newAccountAdwordsLink(): Content.Schema.AccountAdwordsLink;
     // Create a new instance of AccountBusinessInformation
-    newAccountBusinessInformation(): Content_v2.Schema.AccountBusinessInformation;
+    newAccountBusinessInformation(): Content.Schema.AccountBusinessInformation;
     // Create a new instance of AccountCustomerService
-    newAccountCustomerService(): Content_v2.Schema.AccountCustomerService;
+    newAccountCustomerService(): Content.Schema.AccountCustomerService;
     // Create a new instance of AccountGoogleMyBusinessLink
-    newAccountGoogleMyBusinessLink(): Content_v2.Schema.AccountGoogleMyBusinessLink;
+    newAccountGoogleMyBusinessLink(): Content.Schema.AccountGoogleMyBusinessLink;
     // Create a new instance of AccountTax
-    newAccountTax(): Content_v2.Schema.AccountTax;
+    newAccountTax(): Content.Schema.AccountTax;
     // Create a new instance of AccountTaxTaxRule
-    newAccountTaxTaxRule(): Content_v2.Schema.AccountTaxTaxRule;
+    newAccountTaxTaxRule(): Content.Schema.AccountTaxTaxRule;
     // Create a new instance of AccountUser
-    newAccountUser(): Content_v2.Schema.AccountUser;
+    newAccountUser(): Content.Schema.AccountUser;
     // Create a new instance of AccountYouTubeChannelLink
-    newAccountYouTubeChannelLink(): Content_v2.Schema.AccountYouTubeChannelLink;
+    newAccountYouTubeChannelLink(): Content.Schema.AccountYouTubeChannelLink;
     // Create a new instance of AccountsCustomBatchRequest
-    newAccountsCustomBatchRequest(): Content_v2.Schema.AccountsCustomBatchRequest;
+    newAccountsCustomBatchRequest(): Content.Schema.AccountsCustomBatchRequest;
     // Create a new instance of AccountsCustomBatchRequestEntry
-    newAccountsCustomBatchRequestEntry(): Content_v2.Schema.AccountsCustomBatchRequestEntry;
+    newAccountsCustomBatchRequestEntry(): Content.Schema.AccountsCustomBatchRequestEntry;
     // Create a new instance of AccountsCustomBatchRequestEntryLinkRequest
-    newAccountsCustomBatchRequestEntryLinkRequest(): Content_v2.Schema.AccountsCustomBatchRequestEntryLinkRequest;
+    newAccountsCustomBatchRequestEntryLinkRequest(): Content.Schema.AccountsCustomBatchRequestEntryLinkRequest;
     // Create a new instance of AccountsLinkRequest
-    newAccountsLinkRequest(): Content_v2.Schema.AccountsLinkRequest;
+    newAccountsLinkRequest(): Content.Schema.AccountsLinkRequest;
     // Create a new instance of AccountstatusesCustomBatchRequest
-    newAccountstatusesCustomBatchRequest(): Content_v2.Schema.AccountstatusesCustomBatchRequest;
+    newAccountstatusesCustomBatchRequest(): Content.Schema.AccountstatusesCustomBatchRequest;
     // Create a new instance of AccountstatusesCustomBatchRequestEntry
-    newAccountstatusesCustomBatchRequestEntry(): Content_v2.Schema.AccountstatusesCustomBatchRequestEntry;
+    newAccountstatusesCustomBatchRequestEntry(): Content.Schema.AccountstatusesCustomBatchRequestEntry;
     // Create a new instance of AccounttaxCustomBatchRequest
-    newAccounttaxCustomBatchRequest(): Content_v2.Schema.AccounttaxCustomBatchRequest;
+    newAccounttaxCustomBatchRequest(): Content.Schema.AccounttaxCustomBatchRequest;
     // Create a new instance of AccounttaxCustomBatchRequestEntry
-    newAccounttaxCustomBatchRequestEntry(): Content_v2.Schema.AccounttaxCustomBatchRequestEntry;
+    newAccounttaxCustomBatchRequestEntry(): Content.Schema.AccounttaxCustomBatchRequestEntry;
     // Create a new instance of Amount
-    newAmount(): Content_v2.Schema.Amount;
+    newAmount(): Content.Schema.Amount;
     // Create a new instance of CarrierRate
-    newCarrierRate(): Content_v2.Schema.CarrierRate;
+    newCarrierRate(): Content.Schema.CarrierRate;
     // Create a new instance of CustomAttribute
-    newCustomAttribute(): Content_v2.Schema.CustomAttribute;
+    newCustomAttribute(): Content.Schema.CustomAttribute;
     // Create a new instance of CustomGroup
-    newCustomGroup(): Content_v2.Schema.CustomGroup;
+    newCustomGroup(): Content.Schema.CustomGroup;
     // Create a new instance of CutoffTime
-    newCutoffTime(): Content_v2.Schema.CutoffTime;
+    newCutoffTime(): Content.Schema.CutoffTime;
     // Create a new instance of Datafeed
-    newDatafeed(): Content_v2.Schema.Datafeed;
+    newDatafeed(): Content.Schema.Datafeed;
     // Create a new instance of DatafeedFetchSchedule
-    newDatafeedFetchSchedule(): Content_v2.Schema.DatafeedFetchSchedule;
+    newDatafeedFetchSchedule(): Content.Schema.DatafeedFetchSchedule;
     // Create a new instance of DatafeedFormat
-    newDatafeedFormat(): Content_v2.Schema.DatafeedFormat;
+    newDatafeedFormat(): Content.Schema.DatafeedFormat;
     // Create a new instance of DatafeedTarget
-    newDatafeedTarget(): Content_v2.Schema.DatafeedTarget;
+    newDatafeedTarget(): Content.Schema.DatafeedTarget;
     // Create a new instance of DatafeedsCustomBatchRequest
-    newDatafeedsCustomBatchRequest(): Content_v2.Schema.DatafeedsCustomBatchRequest;
+    newDatafeedsCustomBatchRequest(): Content.Schema.DatafeedsCustomBatchRequest;
     // Create a new instance of DatafeedsCustomBatchRequestEntry
-    newDatafeedsCustomBatchRequestEntry(): Content_v2.Schema.DatafeedsCustomBatchRequestEntry;
+    newDatafeedsCustomBatchRequestEntry(): Content.Schema.DatafeedsCustomBatchRequestEntry;
     // Create a new instance of DatafeedstatusesCustomBatchRequest
-    newDatafeedstatusesCustomBatchRequest(): Content_v2.Schema.DatafeedstatusesCustomBatchRequest;
+    newDatafeedstatusesCustomBatchRequest(): Content.Schema.DatafeedstatusesCustomBatchRequest;
     // Create a new instance of DatafeedstatusesCustomBatchRequestEntry
-    newDatafeedstatusesCustomBatchRequestEntry(): Content_v2.Schema.DatafeedstatusesCustomBatchRequestEntry;
+    newDatafeedstatusesCustomBatchRequestEntry(): Content.Schema.DatafeedstatusesCustomBatchRequestEntry;
     // Create a new instance of DeliveryTime
-    newDeliveryTime(): Content_v2.Schema.DeliveryTime;
+    newDeliveryTime(): Content.Schema.DeliveryTime;
     // Create a new instance of Error
-    newError(): Content_v2.Schema.Error;
+    newError(): Content.Schema.Error;
     // Create a new instance of Headers
-    newHeaders(): Content_v2.Schema.Headers;
+    newHeaders(): Content.Schema.Headers;
     // Create a new instance of HolidayCutoff
-    newHolidayCutoff(): Content_v2.Schema.HolidayCutoff;
+    newHolidayCutoff(): Content.Schema.HolidayCutoff;
     // Create a new instance of Installment
-    newInstallment(): Content_v2.Schema.Installment;
+    newInstallment(): Content.Schema.Installment;
     // Create a new instance of Inventory
-    newInventory(): Content_v2.Schema.Inventory;
+    newInventory(): Content.Schema.Inventory;
     // Create a new instance of InventoryCustomBatchRequest
-    newInventoryCustomBatchRequest(): Content_v2.Schema.InventoryCustomBatchRequest;
+    newInventoryCustomBatchRequest(): Content.Schema.InventoryCustomBatchRequest;
     // Create a new instance of InventoryCustomBatchRequestEntry
-    newInventoryCustomBatchRequestEntry(): Content_v2.Schema.InventoryCustomBatchRequestEntry;
+    newInventoryCustomBatchRequestEntry(): Content.Schema.InventoryCustomBatchRequestEntry;
     // Create a new instance of InventoryPickup
-    newInventoryPickup(): Content_v2.Schema.InventoryPickup;
+    newInventoryPickup(): Content.Schema.InventoryPickup;
     // Create a new instance of InventorySetRequest
-    newInventorySetRequest(): Content_v2.Schema.InventorySetRequest;
+    newInventorySetRequest(): Content.Schema.InventorySetRequest;
     // Create a new instance of InvoiceSummary
-    newInvoiceSummary(): Content_v2.Schema.InvoiceSummary;
+    newInvoiceSummary(): Content.Schema.InvoiceSummary;
     // Create a new instance of InvoiceSummaryAdditionalChargeSummary
-    newInvoiceSummaryAdditionalChargeSummary(): Content_v2.Schema.InvoiceSummaryAdditionalChargeSummary;
+    newInvoiceSummaryAdditionalChargeSummary(): Content.Schema.InvoiceSummaryAdditionalChargeSummary;
     // Create a new instance of LiaAboutPageSettings
-    newLiaAboutPageSettings(): Content_v2.Schema.LiaAboutPageSettings;
+    newLiaAboutPageSettings(): Content.Schema.LiaAboutPageSettings;
     // Create a new instance of LiaCountrySettings
-    newLiaCountrySettings(): Content_v2.Schema.LiaCountrySettings;
+    newLiaCountrySettings(): Content.Schema.LiaCountrySettings;
     // Create a new instance of LiaInventorySettings
-    newLiaInventorySettings(): Content_v2.Schema.LiaInventorySettings;
+    newLiaInventorySettings(): Content.Schema.LiaInventorySettings;
     // Create a new instance of LiaOnDisplayToOrderSettings
-    newLiaOnDisplayToOrderSettings(): Content_v2.Schema.LiaOnDisplayToOrderSettings;
+    newLiaOnDisplayToOrderSettings(): Content.Schema.LiaOnDisplayToOrderSettings;
     // Create a new instance of LiaPosDataProvider
-    newLiaPosDataProvider(): Content_v2.Schema.LiaPosDataProvider;
+    newLiaPosDataProvider(): Content.Schema.LiaPosDataProvider;
     // Create a new instance of LiaSettings
-    newLiaSettings(): Content_v2.Schema.LiaSettings;
+    newLiaSettings(): Content.Schema.LiaSettings;
     // Create a new instance of LiasettingsCustomBatchRequest
-    newLiasettingsCustomBatchRequest(): Content_v2.Schema.LiasettingsCustomBatchRequest;
+    newLiasettingsCustomBatchRequest(): Content.Schema.LiasettingsCustomBatchRequest;
     // Create a new instance of LiasettingsCustomBatchRequestEntry
-    newLiasettingsCustomBatchRequestEntry(): Content_v2.Schema.LiasettingsCustomBatchRequestEntry;
+    newLiasettingsCustomBatchRequestEntry(): Content.Schema.LiasettingsCustomBatchRequestEntry;
     // Create a new instance of LocationIdSet
-    newLocationIdSet(): Content_v2.Schema.LocationIdSet;
+    newLocationIdSet(): Content.Schema.LocationIdSet;
     // Create a new instance of LoyaltyPoints
-    newLoyaltyPoints(): Content_v2.Schema.LoyaltyPoints;
+    newLoyaltyPoints(): Content.Schema.LoyaltyPoints;
     // Create a new instance of OrderLegacyPromotion
-    newOrderLegacyPromotion(): Content_v2.Schema.OrderLegacyPromotion;
+    newOrderLegacyPromotion(): Content.Schema.OrderLegacyPromotion;
     // Create a new instance of OrderLegacyPromotionBenefit
-    newOrderLegacyPromotionBenefit(): Content_v2.Schema.OrderLegacyPromotionBenefit;
+    newOrderLegacyPromotionBenefit(): Content.Schema.OrderLegacyPromotionBenefit;
     // Create a new instance of OrderLineItemProductVariantAttribute
-    newOrderLineItemProductVariantAttribute(): Content_v2.Schema.OrderLineItemProductVariantAttribute;
+    newOrderLineItemProductVariantAttribute(): Content.Schema.OrderLineItemProductVariantAttribute;
     // Create a new instance of OrderLineItemReturnInfo
-    newOrderLineItemReturnInfo(): Content_v2.Schema.OrderLineItemReturnInfo;
+    newOrderLineItemReturnInfo(): Content.Schema.OrderLineItemReturnInfo;
     // Create a new instance of OrderLineItemShippingDetails
-    newOrderLineItemShippingDetails(): Content_v2.Schema.OrderLineItemShippingDetails;
+    newOrderLineItemShippingDetails(): Content.Schema.OrderLineItemShippingDetails;
     // Create a new instance of OrderLineItemShippingDetailsMethod
-    newOrderLineItemShippingDetailsMethod(): Content_v2.Schema.OrderLineItemShippingDetailsMethod;
+    newOrderLineItemShippingDetailsMethod(): Content.Schema.OrderLineItemShippingDetailsMethod;
     // Create a new instance of OrderMerchantProvidedAnnotation
-    newOrderMerchantProvidedAnnotation(): Content_v2.Schema.OrderMerchantProvidedAnnotation;
+    newOrderMerchantProvidedAnnotation(): Content.Schema.OrderMerchantProvidedAnnotation;
     // Create a new instance of OrderShipmentLineItemShipment
-    newOrderShipmentLineItemShipment(): Content_v2.Schema.OrderShipmentLineItemShipment;
+    newOrderShipmentLineItemShipment(): Content.Schema.OrderShipmentLineItemShipment;
     // Create a new instance of OrderinvoicesCreateChargeInvoiceRequest
-    newOrderinvoicesCreateChargeInvoiceRequest(): Content_v2.Schema.OrderinvoicesCreateChargeInvoiceRequest;
+    newOrderinvoicesCreateChargeInvoiceRequest(): Content.Schema.OrderinvoicesCreateChargeInvoiceRequest;
     // Create a new instance of OrderinvoicesCreateRefundInvoiceRequest
-    newOrderinvoicesCreateRefundInvoiceRequest(): Content_v2.Schema.OrderinvoicesCreateRefundInvoiceRequest;
+    newOrderinvoicesCreateRefundInvoiceRequest(): Content.Schema.OrderinvoicesCreateRefundInvoiceRequest;
     // Create a new instance of OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption
-    newOrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption(): Content_v2.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption;
+    newOrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption(): Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceRefundOption;
     // Create a new instance of OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption
-    newOrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption(): Content_v2.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption;
+    newOrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption(): Content.Schema.OrderinvoicesCustomBatchRequestEntryCreateRefundInvoiceReturnOption;
     // Create a new instance of OrderpaymentsNotifyAuthApprovedRequest
-    newOrderpaymentsNotifyAuthApprovedRequest(): Content_v2.Schema.OrderpaymentsNotifyAuthApprovedRequest;
+    newOrderpaymentsNotifyAuthApprovedRequest(): Content.Schema.OrderpaymentsNotifyAuthApprovedRequest;
     // Create a new instance of OrderpaymentsNotifyAuthDeclinedRequest
-    newOrderpaymentsNotifyAuthDeclinedRequest(): Content_v2.Schema.OrderpaymentsNotifyAuthDeclinedRequest;
+    newOrderpaymentsNotifyAuthDeclinedRequest(): Content.Schema.OrderpaymentsNotifyAuthDeclinedRequest;
     // Create a new instance of OrderpaymentsNotifyChargeRequest
-    newOrderpaymentsNotifyChargeRequest(): Content_v2.Schema.OrderpaymentsNotifyChargeRequest;
+    newOrderpaymentsNotifyChargeRequest(): Content.Schema.OrderpaymentsNotifyChargeRequest;
     // Create a new instance of OrderpaymentsNotifyRefundRequest
-    newOrderpaymentsNotifyRefundRequest(): Content_v2.Schema.OrderpaymentsNotifyRefundRequest;
+    newOrderpaymentsNotifyRefundRequest(): Content.Schema.OrderpaymentsNotifyRefundRequest;
     // Create a new instance of OrdersAcknowledgeRequest
-    newOrdersAcknowledgeRequest(): Content_v2.Schema.OrdersAcknowledgeRequest;
+    newOrdersAcknowledgeRequest(): Content.Schema.OrdersAcknowledgeRequest;
     // Create a new instance of OrdersCancelLineItemRequest
-    newOrdersCancelLineItemRequest(): Content_v2.Schema.OrdersCancelLineItemRequest;
+    newOrdersCancelLineItemRequest(): Content.Schema.OrdersCancelLineItemRequest;
     // Create a new instance of OrdersCancelRequest
-    newOrdersCancelRequest(): Content_v2.Schema.OrdersCancelRequest;
+    newOrdersCancelRequest(): Content.Schema.OrdersCancelRequest;
     // Create a new instance of OrdersCancelTestOrderByCustomerRequest
-    newOrdersCancelTestOrderByCustomerRequest(): Content_v2.Schema.OrdersCancelTestOrderByCustomerRequest;
+    newOrdersCancelTestOrderByCustomerRequest(): Content.Schema.OrdersCancelTestOrderByCustomerRequest;
     // Create a new instance of OrdersCreateTestOrderRequest
-    newOrdersCreateTestOrderRequest(): Content_v2.Schema.OrdersCreateTestOrderRequest;
+    newOrdersCreateTestOrderRequest(): Content.Schema.OrdersCreateTestOrderRequest;
     // Create a new instance of OrdersCreateTestReturnRequest
-    newOrdersCreateTestReturnRequest(): Content_v2.Schema.OrdersCreateTestReturnRequest;
+    newOrdersCreateTestReturnRequest(): Content.Schema.OrdersCreateTestReturnRequest;
     // Create a new instance of OrdersCustomBatchRequest
-    newOrdersCustomBatchRequest(): Content_v2.Schema.OrdersCustomBatchRequest;
+    newOrdersCustomBatchRequest(): Content.Schema.OrdersCustomBatchRequest;
     // Create a new instance of OrdersCustomBatchRequestEntry
-    newOrdersCustomBatchRequestEntry(): Content_v2.Schema.OrdersCustomBatchRequestEntry;
+    newOrdersCustomBatchRequestEntry(): Content.Schema.OrdersCustomBatchRequestEntry;
     // Create a new instance of OrdersCustomBatchRequestEntryCancel
-    newOrdersCustomBatchRequestEntryCancel(): Content_v2.Schema.OrdersCustomBatchRequestEntryCancel;
+    newOrdersCustomBatchRequestEntryCancel(): Content.Schema.OrdersCustomBatchRequestEntryCancel;
     // Create a new instance of OrdersCustomBatchRequestEntryCancelLineItem
-    newOrdersCustomBatchRequestEntryCancelLineItem(): Content_v2.Schema.OrdersCustomBatchRequestEntryCancelLineItem;
+    newOrdersCustomBatchRequestEntryCancelLineItem(): Content.Schema.OrdersCustomBatchRequestEntryCancelLineItem;
     // Create a new instance of OrdersCustomBatchRequestEntryCreateTestReturnReturnItem
-    newOrdersCustomBatchRequestEntryCreateTestReturnReturnItem(): Content_v2.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem;
+    newOrdersCustomBatchRequestEntryCreateTestReturnReturnItem(): Content.Schema.OrdersCustomBatchRequestEntryCreateTestReturnReturnItem;
     // Create a new instance of OrdersCustomBatchRequestEntryInStoreRefundLineItem
-    newOrdersCustomBatchRequestEntryInStoreRefundLineItem(): Content_v2.Schema.OrdersCustomBatchRequestEntryInStoreRefundLineItem;
+    newOrdersCustomBatchRequestEntryInStoreRefundLineItem(): Content.Schema.OrdersCustomBatchRequestEntryInStoreRefundLineItem;
     // Create a new instance of OrdersCustomBatchRequestEntryRefund
-    newOrdersCustomBatchRequestEntryRefund(): Content_v2.Schema.OrdersCustomBatchRequestEntryRefund;
+    newOrdersCustomBatchRequestEntryRefund(): Content.Schema.OrdersCustomBatchRequestEntryRefund;
     // Create a new instance of OrdersCustomBatchRequestEntryRejectReturnLineItem
-    newOrdersCustomBatchRequestEntryRejectReturnLineItem(): Content_v2.Schema.OrdersCustomBatchRequestEntryRejectReturnLineItem;
+    newOrdersCustomBatchRequestEntryRejectReturnLineItem(): Content.Schema.OrdersCustomBatchRequestEntryRejectReturnLineItem;
     // Create a new instance of OrdersCustomBatchRequestEntryReturnLineItem
-    newOrdersCustomBatchRequestEntryReturnLineItem(): Content_v2.Schema.OrdersCustomBatchRequestEntryReturnLineItem;
+    newOrdersCustomBatchRequestEntryReturnLineItem(): Content.Schema.OrdersCustomBatchRequestEntryReturnLineItem;
     // Create a new instance of OrdersCustomBatchRequestEntryReturnRefundLineItem
-    newOrdersCustomBatchRequestEntryReturnRefundLineItem(): Content_v2.Schema.OrdersCustomBatchRequestEntryReturnRefundLineItem;
+    newOrdersCustomBatchRequestEntryReturnRefundLineItem(): Content.Schema.OrdersCustomBatchRequestEntryReturnRefundLineItem;
     // Create a new instance of OrdersCustomBatchRequestEntrySetLineItemMetadata
-    newOrdersCustomBatchRequestEntrySetLineItemMetadata(): Content_v2.Schema.OrdersCustomBatchRequestEntrySetLineItemMetadata;
+    newOrdersCustomBatchRequestEntrySetLineItemMetadata(): Content.Schema.OrdersCustomBatchRequestEntrySetLineItemMetadata;
     // Create a new instance of OrdersCustomBatchRequestEntryShipLineItems
-    newOrdersCustomBatchRequestEntryShipLineItems(): Content_v2.Schema.OrdersCustomBatchRequestEntryShipLineItems;
+    newOrdersCustomBatchRequestEntryShipLineItems(): Content.Schema.OrdersCustomBatchRequestEntryShipLineItems;
     // Create a new instance of OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo
-    newOrdersCustomBatchRequestEntryShipLineItemsShipmentInfo(): Content_v2.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo;
+    newOrdersCustomBatchRequestEntryShipLineItemsShipmentInfo(): Content.Schema.OrdersCustomBatchRequestEntryShipLineItemsShipmentInfo;
     // Create a new instance of OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails
-    newOrdersCustomBatchRequestEntryUpdateLineItemShippingDetails(): Content_v2.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails;
+    newOrdersCustomBatchRequestEntryUpdateLineItemShippingDetails(): Content.Schema.OrdersCustomBatchRequestEntryUpdateLineItemShippingDetails;
     // Create a new instance of OrdersCustomBatchRequestEntryUpdateShipment
-    newOrdersCustomBatchRequestEntryUpdateShipment(): Content_v2.Schema.OrdersCustomBatchRequestEntryUpdateShipment;
+    newOrdersCustomBatchRequestEntryUpdateShipment(): Content.Schema.OrdersCustomBatchRequestEntryUpdateShipment;
     // Create a new instance of OrdersInStoreRefundLineItemRequest
-    newOrdersInStoreRefundLineItemRequest(): Content_v2.Schema.OrdersInStoreRefundLineItemRequest;
+    newOrdersInStoreRefundLineItemRequest(): Content.Schema.OrdersInStoreRefundLineItemRequest;
     // Create a new instance of OrdersRefundRequest
-    newOrdersRefundRequest(): Content_v2.Schema.OrdersRefundRequest;
+    newOrdersRefundRequest(): Content.Schema.OrdersRefundRequest;
     // Create a new instance of OrdersRejectReturnLineItemRequest
-    newOrdersRejectReturnLineItemRequest(): Content_v2.Schema.OrdersRejectReturnLineItemRequest;
+    newOrdersRejectReturnLineItemRequest(): Content.Schema.OrdersRejectReturnLineItemRequest;
     // Create a new instance of OrdersReturnLineItemRequest
-    newOrdersReturnLineItemRequest(): Content_v2.Schema.OrdersReturnLineItemRequest;
+    newOrdersReturnLineItemRequest(): Content.Schema.OrdersReturnLineItemRequest;
     // Create a new instance of OrdersReturnRefundLineItemRequest
-    newOrdersReturnRefundLineItemRequest(): Content_v2.Schema.OrdersReturnRefundLineItemRequest;
+    newOrdersReturnRefundLineItemRequest(): Content.Schema.OrdersReturnRefundLineItemRequest;
     // Create a new instance of OrdersSetLineItemMetadataRequest
-    newOrdersSetLineItemMetadataRequest(): Content_v2.Schema.OrdersSetLineItemMetadataRequest;
+    newOrdersSetLineItemMetadataRequest(): Content.Schema.OrdersSetLineItemMetadataRequest;
     // Create a new instance of OrdersShipLineItemsRequest
-    newOrdersShipLineItemsRequest(): Content_v2.Schema.OrdersShipLineItemsRequest;
+    newOrdersShipLineItemsRequest(): Content.Schema.OrdersShipLineItemsRequest;
     // Create a new instance of OrdersUpdateLineItemShippingDetailsRequest
-    newOrdersUpdateLineItemShippingDetailsRequest(): Content_v2.Schema.OrdersUpdateLineItemShippingDetailsRequest;
+    newOrdersUpdateLineItemShippingDetailsRequest(): Content.Schema.OrdersUpdateLineItemShippingDetailsRequest;
     // Create a new instance of OrdersUpdateMerchantOrderIdRequest
-    newOrdersUpdateMerchantOrderIdRequest(): Content_v2.Schema.OrdersUpdateMerchantOrderIdRequest;
+    newOrdersUpdateMerchantOrderIdRequest(): Content.Schema.OrdersUpdateMerchantOrderIdRequest;
     // Create a new instance of OrdersUpdateShipmentRequest
-    newOrdersUpdateShipmentRequest(): Content_v2.Schema.OrdersUpdateShipmentRequest;
+    newOrdersUpdateShipmentRequest(): Content.Schema.OrdersUpdateShipmentRequest;
     // Create a new instance of PosCustomBatchRequest
-    newPosCustomBatchRequest(): Content_v2.Schema.PosCustomBatchRequest;
+    newPosCustomBatchRequest(): Content.Schema.PosCustomBatchRequest;
     // Create a new instance of PosCustomBatchRequestEntry
-    newPosCustomBatchRequestEntry(): Content_v2.Schema.PosCustomBatchRequestEntry;
+    newPosCustomBatchRequestEntry(): Content.Schema.PosCustomBatchRequestEntry;
     // Create a new instance of PosInventory
-    newPosInventory(): Content_v2.Schema.PosInventory;
+    newPosInventory(): Content.Schema.PosInventory;
     // Create a new instance of PosInventoryRequest
-    newPosInventoryRequest(): Content_v2.Schema.PosInventoryRequest;
+    newPosInventoryRequest(): Content.Schema.PosInventoryRequest;
     // Create a new instance of PosSale
-    newPosSale(): Content_v2.Schema.PosSale;
+    newPosSale(): Content.Schema.PosSale;
     // Create a new instance of PosSaleRequest
-    newPosSaleRequest(): Content_v2.Schema.PosSaleRequest;
+    newPosSaleRequest(): Content.Schema.PosSaleRequest;
     // Create a new instance of PosStore
-    newPosStore(): Content_v2.Schema.PosStore;
+    newPosStore(): Content.Schema.PosStore;
     // Create a new instance of PostalCodeGroup
-    newPostalCodeGroup(): Content_v2.Schema.PostalCodeGroup;
+    newPostalCodeGroup(): Content.Schema.PostalCodeGroup;
     // Create a new instance of PostalCodeRange
-    newPostalCodeRange(): Content_v2.Schema.PostalCodeRange;
+    newPostalCodeRange(): Content.Schema.PostalCodeRange;
     // Create a new instance of Price
-    newPrice(): Content_v2.Schema.Price;
+    newPrice(): Content.Schema.Price;
     // Create a new instance of Product
-    newProduct(): Content_v2.Schema.Product;
+    newProduct(): Content.Schema.Product;
     // Create a new instance of ProductAspect
-    newProductAspect(): Content_v2.Schema.ProductAspect;
+    newProductAspect(): Content.Schema.ProductAspect;
     // Create a new instance of ProductDestination
-    newProductDestination(): Content_v2.Schema.ProductDestination;
+    newProductDestination(): Content.Schema.ProductDestination;
     // Create a new instance of ProductShipping
-    newProductShipping(): Content_v2.Schema.ProductShipping;
+    newProductShipping(): Content.Schema.ProductShipping;
     // Create a new instance of ProductShippingDimension
-    newProductShippingDimension(): Content_v2.Schema.ProductShippingDimension;
+    newProductShippingDimension(): Content.Schema.ProductShippingDimension;
     // Create a new instance of ProductShippingWeight
-    newProductShippingWeight(): Content_v2.Schema.ProductShippingWeight;
+    newProductShippingWeight(): Content.Schema.ProductShippingWeight;
     // Create a new instance of ProductTax
-    newProductTax(): Content_v2.Schema.ProductTax;
+    newProductTax(): Content.Schema.ProductTax;
     // Create a new instance of ProductUnitPricingBaseMeasure
-    newProductUnitPricingBaseMeasure(): Content_v2.Schema.ProductUnitPricingBaseMeasure;
+    newProductUnitPricingBaseMeasure(): Content.Schema.ProductUnitPricingBaseMeasure;
     // Create a new instance of ProductUnitPricingMeasure
-    newProductUnitPricingMeasure(): Content_v2.Schema.ProductUnitPricingMeasure;
+    newProductUnitPricingMeasure(): Content.Schema.ProductUnitPricingMeasure;
     // Create a new instance of ProductsCustomBatchRequest
-    newProductsCustomBatchRequest(): Content_v2.Schema.ProductsCustomBatchRequest;
+    newProductsCustomBatchRequest(): Content.Schema.ProductsCustomBatchRequest;
     // Create a new instance of ProductsCustomBatchRequestEntry
-    newProductsCustomBatchRequestEntry(): Content_v2.Schema.ProductsCustomBatchRequestEntry;
+    newProductsCustomBatchRequestEntry(): Content.Schema.ProductsCustomBatchRequestEntry;
     // Create a new instance of ProductstatusesCustomBatchRequest
-    newProductstatusesCustomBatchRequest(): Content_v2.Schema.ProductstatusesCustomBatchRequest;
+    newProductstatusesCustomBatchRequest(): Content.Schema.ProductstatusesCustomBatchRequest;
     // Create a new instance of ProductstatusesCustomBatchRequestEntry
-    newProductstatusesCustomBatchRequestEntry(): Content_v2.Schema.ProductstatusesCustomBatchRequestEntry;
+    newProductstatusesCustomBatchRequestEntry(): Content.Schema.ProductstatusesCustomBatchRequestEntry;
     // Create a new instance of Promotion
-    newPromotion(): Content_v2.Schema.Promotion;
+    newPromotion(): Content.Schema.Promotion;
     // Create a new instance of RateGroup
-    newRateGroup(): Content_v2.Schema.RateGroup;
+    newRateGroup(): Content.Schema.RateGroup;
     // Create a new instance of Row
-    newRow(): Content_v2.Schema.Row;
+    newRow(): Content.Schema.Row;
     // Create a new instance of Service
-    newService(): Content_v2.Schema.Service;
+    newService(): Content.Schema.Service;
     // Create a new instance of ShipmentInvoice
-    newShipmentInvoice(): Content_v2.Schema.ShipmentInvoice;
+    newShipmentInvoice(): Content.Schema.ShipmentInvoice;
     // Create a new instance of ShipmentInvoiceLineItemInvoice
-    newShipmentInvoiceLineItemInvoice(): Content_v2.Schema.ShipmentInvoiceLineItemInvoice;
+    newShipmentInvoiceLineItemInvoice(): Content.Schema.ShipmentInvoiceLineItemInvoice;
     // Create a new instance of ShippingSettings
-    newShippingSettings(): Content_v2.Schema.ShippingSettings;
+    newShippingSettings(): Content.Schema.ShippingSettings;
     // Create a new instance of ShippingsettingsCustomBatchRequest
-    newShippingsettingsCustomBatchRequest(): Content_v2.Schema.ShippingsettingsCustomBatchRequest;
+    newShippingsettingsCustomBatchRequest(): Content.Schema.ShippingsettingsCustomBatchRequest;
     // Create a new instance of ShippingsettingsCustomBatchRequestEntry
-    newShippingsettingsCustomBatchRequestEntry(): Content_v2.Schema.ShippingsettingsCustomBatchRequestEntry;
+    newShippingsettingsCustomBatchRequestEntry(): Content.Schema.ShippingsettingsCustomBatchRequestEntry;
     // Create a new instance of Table
-    newTable(): Content_v2.Schema.Table;
+    newTable(): Content.Schema.Table;
     // Create a new instance of TestOrder
-    newTestOrder(): Content_v2.Schema.TestOrder;
+    newTestOrder(): Content.Schema.TestOrder;
     // Create a new instance of TestOrderCustomer
-    newTestOrderCustomer(): Content_v2.Schema.TestOrderCustomer;
+    newTestOrderCustomer(): Content.Schema.TestOrderCustomer;
     // Create a new instance of TestOrderCustomerMarketingRightsInfo
-    newTestOrderCustomerMarketingRightsInfo(): Content_v2.Schema.TestOrderCustomerMarketingRightsInfo;
+    newTestOrderCustomerMarketingRightsInfo(): Content.Schema.TestOrderCustomerMarketingRightsInfo;
     // Create a new instance of TestOrderLineItem
-    newTestOrderLineItem(): Content_v2.Schema.TestOrderLineItem;
+    newTestOrderLineItem(): Content.Schema.TestOrderLineItem;
     // Create a new instance of TestOrderLineItemProduct
-    newTestOrderLineItemProduct(): Content_v2.Schema.TestOrderLineItemProduct;
+    newTestOrderLineItemProduct(): Content.Schema.TestOrderLineItemProduct;
     // Create a new instance of TestOrderPaymentMethod
-    newTestOrderPaymentMethod(): Content_v2.Schema.TestOrderPaymentMethod;
+    newTestOrderPaymentMethod(): Content.Schema.TestOrderPaymentMethod;
     // Create a new instance of TransitTable
-    newTransitTable(): Content_v2.Schema.TransitTable;
+    newTransitTable(): Content.Schema.TransitTable;
     // Create a new instance of TransitTableTransitTimeRow
-    newTransitTableTransitTimeRow(): Content_v2.Schema.TransitTableTransitTimeRow;
+    newTransitTableTransitTimeRow(): Content.Schema.TransitTableTransitTimeRow;
     // Create a new instance of TransitTableTransitTimeRowTransitTimeValue
-    newTransitTableTransitTimeRowTransitTimeValue(): Content_v2.Schema.TransitTableTransitTimeRowTransitTimeValue;
+    newTransitTableTransitTimeRowTransitTimeValue(): Content.Schema.TransitTableTransitTimeRowTransitTimeValue;
     // Create a new instance of UnitInvoice
-    newUnitInvoice(): Content_v2.Schema.UnitInvoice;
+    newUnitInvoice(): Content.Schema.UnitInvoice;
     // Create a new instance of UnitInvoiceAdditionalCharge
-    newUnitInvoiceAdditionalCharge(): Content_v2.Schema.UnitInvoiceAdditionalCharge;
+    newUnitInvoiceAdditionalCharge(): Content.Schema.UnitInvoiceAdditionalCharge;
     // Create a new instance of UnitInvoiceTaxLine
-    newUnitInvoiceTaxLine(): Content_v2.Schema.UnitInvoiceTaxLine;
+    newUnitInvoiceTaxLine(): Content.Schema.UnitInvoiceTaxLine;
     // Create a new instance of Value
-    newValue(): Content_v2.Schema.Value;
+    newValue(): Content.Schema.Value;
     // Create a new instance of Weight
-    newWeight(): Content_v2.Schema.Weight;
+    newWeight(): Content.Schema.Weight;
   }
 }
 
-declare var Content_v2: GoogleAppsScript.Content_v2;
+declare var Content: GoogleAppsScript.Content;

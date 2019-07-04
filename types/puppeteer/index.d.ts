@@ -553,7 +553,7 @@ export type LayoutDimension = string | number;
 export type PDFFormat =
   | "Letter"
   | "Legal"
-  | "Tabload"
+  | "Tabloid"
   | "Ledger"
   | "A0"
   | "A1"

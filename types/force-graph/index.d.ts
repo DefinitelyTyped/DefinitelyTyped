@@ -1,4 +1,4 @@
-// Type definitions for force-graph 1.14
+// Type definitions for force-graph 1.15
 // Project: https://github.com/vasturiano/force-graph
 // Definitions by: Peter Kimberley <https://github.com/p-kimberley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -121,6 +121,7 @@ declare namespace ForceGraph {
         pauseAnimation(): ForceGraphInstance;
         stopAnimation(): ForceGraphInstance; // Alias for pauseAnimation()
         resumeAnimation(): ForceGraphInstance;
+        refresh(): ForceGraphInstance;
         centerAt(x?: number, y?: number, milliseconds?: number): ForceGraphInstance & {x: number, y: number};
         zoom(zoomLevel?: number, duration?: number): ForceGraphInstance & number;
 

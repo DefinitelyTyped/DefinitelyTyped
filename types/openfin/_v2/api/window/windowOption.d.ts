@@ -44,3 +44,9 @@ export interface CustomRequestHeaders {
     urlPatterns: Array<string>;
     headers: Array<object>;
 }
+export declare type WindowOptionDiff = {
+    [key in keyof WindowOption]: {
+        oldVal: WindowOption[key];
+        newVal: WindowOption[key];
+    };
+};

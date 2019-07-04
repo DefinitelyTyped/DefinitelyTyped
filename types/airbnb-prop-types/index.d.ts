@@ -1,4 +1,4 @@
-// Type definitions for airbnb-prop-types 2.11
+// Type definitions for airbnb-prop-types 2.13
 // Project: https://github.com/airbnb/prop-types
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,6 +23,12 @@ export interface ReactClassComponentLike {
 export type ReactFunctionComponentLike = (...args: any[]) => PropTypes.ReactNodeLike;
 
 export type ReactTypeLike = string | ReactClassComponentLike | ReactFunctionComponentLike;
+
+export interface ReactRefLike<T> {
+    readonly current: T | null;
+}
+
+export type ReactLegacyRefLike<T> = ((instance: T | null) => void) | ReactRefLike<T>;
 
 export interface Specifier<T = any> {
     max?: number;
@@ -155,6 +161,8 @@ export function or<T = any>(
 export function range<T extends number>(min?: number, max?: number): PropTypes.Requireable<T>;
 
 export function range(min?: number, max?: number): PropTypes.Requireable<number>;
+
+export function ref<T = HTMLElement>(): PropTypes.Requireable<ReactLegacyRefLike<T>>;
 
 export function requiredBy<P>(
     requiredByPropName: string,

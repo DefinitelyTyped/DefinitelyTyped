@@ -8,6 +8,7 @@
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
+//                 Cahil Foley <https://github.com/cahilfoley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -273,7 +274,9 @@ export declare class Request extends events.EventEmitter {
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;
+    public query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
+    public query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;

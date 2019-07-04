@@ -17,6 +17,10 @@ export interface RuntimeConfig {
     arguments?: string;
     rvmDir?: string;
 }
+export interface ServiceConfig {
+    name: string;
+    manifestUrl: string;
+}
 export interface BaseConfig {
     uuid?: string;
     address?: string;
@@ -32,6 +36,7 @@ export interface BaseConfig {
     devToolsPort?: number;
     installerUI?: boolean;
     runtime?: RuntimeConfig;
+    services?: ServiceConfig[];
     appAssets?: [{
         src: string;
         alias: string;

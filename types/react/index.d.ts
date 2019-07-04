@@ -19,9 +19,9 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
 //                 Jessica Franco <https://github.com/Jessidhia>
-//                 Paul Sherman <https://github.com/pshrmn>
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -42,6 +42,15 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+
+/**
+ * defined in scheduler/tracing
+ */
+interface SchedulerInteraction {
+    id: number;
+    name: string;
+    timestamp: number;
+}
 
 // tslint:disable-next-line:export-just-namespace
 export = React;
@@ -355,6 +364,26 @@ declare namespace React {
      */
     const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
+
+    /**
+     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
+     */
+    type ProfilerOnRenderCallback = (
+        id: string,
+        phase: "mount" | "update",
+        actualDuration: number,
+        baseDuration: number,
+        startTime: number,
+        commitTime: number,
+        interactions: Set<SchedulerInteraction>,
+    ) => void;
+    interface ProfilerProps {
+        children?: ReactNode;
+        id: string;
+        onRender: ProfilerOnRenderCallback;
+    }
+
+    const unstable_Profiler: ExoticComponent<ProfilerProps>;
 
     //
     // Component API
@@ -748,9 +777,9 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    interface MemoExoticComponent<T extends ComponentType<any>> extends NamedExoticComponent<ComponentPropsWithRef<T>> {
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
         readonly type: T;
-    }
+    };
 
     function memo<P extends object>(
         Component: SFC<P>,
@@ -761,9 +790,9 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
     ): MemoExoticComponent<T>;
 
-    interface LazyExoticComponent<T extends ComponentType<any>> extends ExoticComponent<ComponentPropsWithRef<T>> {
+    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<ComponentPropsWithRef<T>> & {
         readonly _result: T;
-    }
+    };
 
     function lazy<T extends ComponentType<any>>(
         factory: () => Promise<{ default: T }>
@@ -1312,6 +1341,8 @@ declare namespace React {
         onWaitingCapture?: ReactEventHandler<T>;
 
         // MouseEvents
+        onAuxClick?: MouseEventHandler<T>;
+        onAuxClickCapture?: MouseEventHandler<T>;
         onClick?: MouseEventHandler<T>;
         onClickCapture?: MouseEventHandler<T>;
         onContextMenu?: MouseEventHandler<T>;
@@ -1415,65 +1446,8 @@ declare namespace React {
          */
     }
 
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
-        // React-specific Attributes
-        defaultChecked?: boolean;
-        defaultValue?: string | string[];
-        suppressContentEditableWarning?: boolean;
-        suppressHydrationWarning?: boolean;
-
-        // Standard HTML Attributes
-        accessKey?: string;
-        className?: string;
-        contentEditable?: boolean;
-        contextMenu?: string;
-        dir?: string;
-        draggable?: boolean;
-        hidden?: boolean;
-        id?: string;
-        lang?: string;
-        placeholder?: string;
-        slot?: string;
-        spellCheck?: boolean;
-        style?: CSSProperties;
-        tabIndex?: number;
-        title?: string;
-
-        // Unknown
-        inputMode?: string;
-        is?: string;
-        radioGroup?: string; // <command>, <menuitem>
-
-        // WAI-ARIA
-        role?: string;
-
-        // RDFa Attributes
-        about?: string;
-        datatype?: string;
-        inlist?: any;
-        prefix?: string;
-        property?: string;
-        resource?: string;
-        typeof?: string;
-        vocab?: string;
-
-        // Non-standard Attributes
-        autoCapitalize?: string;
-        autoCorrect?: string;
-        autoSave?: string;
-        color?: string;
-        itemProp?: string;
-        itemScope?: boolean;
-        itemType?: string;
-        itemID?: string;
-        itemRef?: string;
-        results?: number;
-        security?: string;
-        unselectable?: 'on' | 'off';
-    }
-
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
+    interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
         'aria-activedescendant'?: string;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
@@ -1658,6 +1632,63 @@ declare namespace React {
         'aria-valuenow'?: number;
         /** Defines the human readable text alternative of aria-valuenow for a range widget. */
         'aria-valuetext'?: string;
+    }
+
+    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+        // React-specific Attributes
+        defaultChecked?: boolean;
+        defaultValue?: string | string[];
+        suppressContentEditableWarning?: boolean;
+        suppressHydrationWarning?: boolean;
+
+        // Standard HTML Attributes
+        accessKey?: string;
+        className?: string;
+        contentEditable?: boolean;
+        contextMenu?: string;
+        dir?: string;
+        draggable?: boolean;
+        hidden?: boolean;
+        id?: string;
+        lang?: string;
+        placeholder?: string;
+        slot?: string;
+        spellCheck?: boolean;
+        style?: CSSProperties;
+        tabIndex?: number;
+        title?: string;
+
+        // Unknown
+        inputMode?: string;
+        is?: string;
+        radioGroup?: string; // <command>, <menuitem>
+
+        // WAI-ARIA
+        role?: string;
+
+        // RDFa Attributes
+        about?: string;
+        datatype?: string;
+        inlist?: any;
+        prefix?: string;
+        property?: string;
+        resource?: string;
+        typeof?: string;
+        vocab?: string;
+
+        // Non-standard Attributes
+        autoCapitalize?: string;
+        autoCorrect?: string;
+        autoSave?: string;
+        color?: string;
+        itemProp?: string;
+        itemScope?: boolean;
+        itemType?: string;
+        itemID?: string;
+        itemRef?: string;
+        results?: number;
+        security?: string;
+        unselectable?: 'on' | 'off';
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1883,6 +1914,7 @@ declare namespace React {
         marginHeight?: number;
         marginWidth?: number;
         name?: string;
+        referrerPolicy?: string;
         sandbox?: string;
         scrolling?: string;
         seamless?: boolean;
@@ -2173,7 +2205,7 @@ declare namespace React {
     //   - "number | string"
     //   - "string"
     //   - union of string literals
-    interface SVGAttributes<T> extends DOMAttributes<T> {
+    interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // Attributes which also defined in HTMLAttributes
         // See comment in SVGDOMPropertyConfig.js
         className?: string;
@@ -2562,6 +2594,7 @@ declare namespace React {
         summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+        template: DetailedHTMLFactory<HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
         tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
         td: DetailedHTMLFactory<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
         textarea: DetailedHTMLFactory<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
@@ -2732,16 +2765,24 @@ declare namespace React {
 // so boolean is only resolved for T = any
 type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
 
+type ExactlyAnyPropertyKeys<T> = { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T];
+type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
+
 // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-// If props is type any, use propTypes definitions, otherwise for each `any` property of props, use the propTypes type
-// If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-type MergePropTypes<P, T> = IsExactlyAny<P> extends true ? T : ({
-    [K in keyof P]: IsExactlyAny<P[K]> extends true
-        ? K extends keyof T
-        ? T[K]
-        : P[K]
-        : P[K]
-} & Pick<T, Exclude<keyof T, keyof P>>);
+type MergePropTypes<P, T> =
+    // Distribute over P in case it is a union type
+    P extends any
+        // If props is type any, use propTypes definitions
+        ? IsExactlyAny<P> extends true ? T :
+            // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
+            string extends keyof P ? P :
+                // Prefer declared types which are not exactly any
+                & Pick<P, NotExactlyAnyPropertyKeys<P>>
+                // For props which are exactly any, use the type inferred from propTypes if present
+                & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
+                // Keep leftover props not specified in propTypes
+                & Pick<P, Exclude<keyof P, keyof T>>
+        : never;
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
@@ -2886,6 +2927,7 @@ declare global {
             summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             sup: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             table: React.DetailedHTMLProps<React.TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
+            template: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
             tbody: React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
             td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
             textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;

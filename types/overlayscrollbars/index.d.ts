@@ -1,4 +1,4 @@
-// Type definitions for OverlayScrollbars 1.6
+// Type definitions for OverlayScrollbars 1.7
 // Project: https://kingsora.github.io/OverlayScrollbars
 // Definitions by: KingSora <https://github.com/KingSora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -109,6 +109,7 @@ declare namespace OverlayScrollbars {
             dragScrolling?: boolean;
             clickScrolling?: boolean;
             touchSupport?: boolean;
+            snapHandle?: boolean;
         };
         textarea?: {
             dynWidth?: boolean;
@@ -157,6 +158,10 @@ declare namespace OverlayScrollbars {
             y: number;
         };
         trackLength: {
+            x: number;
+            y: number;
+        };
+        snappedHandleOffset: {
             x: number;
             y: number;
         };

@@ -12,7 +12,7 @@ declare namespace AMap {
             dragstart: MapsEvent<'dragstart', I>;
             dragging: MapsEvent<'dragging', I>;
             dragend: MapsEvent<'dragend', I>;
-            moving: Event<'moving', { passwdPath: LngLat[]; }>;
+            moving: Event<'moving', { passedPath: LngLat[]; }>;
             moveend: Event<'moveend'>;
             movealong: Event<'movealong'>;
             touchstart: MapsEvent<'touchstart', I>;
@@ -20,9 +20,11 @@ declare namespace AMap {
             touchend: MapsEvent<'touchend', I>;
         }
 
+        type LabelDirection = 'top' | 'right' | 'bottom' | 'left' | 'center';
         interface Label {
             content?: string;
             offset?: Pixel;
+            direction?: LabelDirection;
         }
 
         type Anchor = 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';

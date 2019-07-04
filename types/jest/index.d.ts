@@ -18,6 +18,8 @@
 //                 Sebastian Sebald <https://github.com/sebald>
 //                 Andy <https://github.com/andys8>
 //                 Antoine Brault <https://github.com/antoinebrault>
+//                 Jeroen Claassens <https://github.com/favna>
+//                 Gregor Stamać <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -757,8 +759,25 @@ declare namespace jest {
         toMatch(expected: string | RegExp): R;
         /**
          * Used to check that a JavaScript object matches a subset of the properties of an object
+         *
+         * Optionally, you can provide an object to use as Generic type for the expected value.
+         * This ensures that the matching object matches the structure of the provided object-like type.
+         *
+         * @example
+         *
+         * type House = {
+         *   bath: boolean;
+         *   bedrooms: number;
+         *   kitchen: {
+         *     amenities: string[];
+         *     area: number;
+         *     wallColor: string;
+         *   }
+         * };
+         *
+         * expect(desiredHouse).toMatchObject<House>(...standardHouse, kitchen: {area: 20}) // wherein standardHouse is some base object of type House
          */
-        toMatchObject(expected: {} | any[]): R;
+        toMatchObject<E extends {} | any[]>(expected: E): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -886,7 +905,7 @@ declare namespace jest {
          *
          * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
          */
-        mockImplementation(fn?: (...args: Y) => T): Mock<T, Y>;
+        mockImplementation(fn?: (...args: Y) => T): this;
         /**
          * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
          * Can be chained so that multiple function calls produce different results.
@@ -902,9 +921,9 @@ declare namespace jest {
          *
          * myMockFn((err, val) => console.log(val)); // false
          */
-        mockImplementationOnce(fn: (...args: Y) => T): Mock<T, Y>;
+        mockImplementationOnce(fn: (...args: Y) => T): this;
         /** Sets the name of the mock`. */
-        mockName(name: string): Mock<T, Y>;
+        mockName(name: string): this;
         /**
          * Just a simple sugar function for:
          *
@@ -914,7 +933,7 @@ declare namespace jest {
          *     return this;
          *   });
          */
-        mockReturnThis(): Mock<T, Y>;
+        mockReturnThis(): this;
         /**
          * Accepts a value that will be returned whenever the mock function is called.
          *
@@ -926,7 +945,7 @@ declare namespace jest {
          * mock.mockReturnValue(43);
          * mock(); // 43
          */
-        mockReturnValue(value: T): Mock<T, Y>;
+        mockReturnValue(value: T): this;
         /**
          * Accepts a value that will be returned for one call to the mock function. Can be chained so that
          * successive calls to the mock function return different values. When there are no more
@@ -943,11 +962,11 @@ declare namespace jest {
          * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
          *
          */
-        mockReturnValueOnce(value: T): Mock<T, Y>;
+        mockReturnValueOnce(value: T): this;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
          */
-        mockResolvedValue(value: ResolvedValue<T>): Mock<T, Y>;
+        mockResolvedValue(value: ResolvedValue<T>): this;
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
          *
@@ -967,7 +986,7 @@ declare namespace jest {
          * });
          *
          */
-        mockResolvedValueOnce(value: ResolvedValue<T>): Mock<T, Y>;
+        mockResolvedValueOnce(value: ResolvedValue<T>): this;
         /**
          * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
          *
@@ -979,7 +998,7 @@ declare namespace jest {
          *   await asyncMock(); // throws "Async error"
          * });
          */
-        mockRejectedValue(value: RejectedValue<T>): Mock<T, Y>;
+        mockRejectedValue(value: RejectedValue<T>): this;
 
         /**
          * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
@@ -997,7 +1016,7 @@ declare namespace jest {
          * });
          *
          */
-        mockRejectedValueOnce(value: RejectedValue<T>): Mock<T, Y>;
+        mockRejectedValueOnce(value: RejectedValue<T>): this;
     }
 
     /**

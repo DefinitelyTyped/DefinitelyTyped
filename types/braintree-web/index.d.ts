@@ -472,6 +472,18 @@ declare namespace braintree {
   }
 }
 
+interface HostedFieldsFieldMaskInput {
+    /**
+     * The character to use when masking the input.
+     * @default '•'
+     */
+    character?: string;
+    /**
+     * Only applicable for the credit card field. Whether or not to show the last 4 digits of the card when masking.
+     */
+    showLastFour?: boolean;
+}
+
 /** @module braintree-web/hosted-fields */
 declare namespace braintree {
   /**
@@ -483,13 +495,20 @@ declare namespace braintree {
    * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field.
    * @property {object|boolean} [select] If truthy, this field becomes a `<select>` dropdown list. This can only be used for `expirationMonth` and `expirationYear` fields.
    * @property {string[]} [select.options] An array of 12 strings, one per month. This can only be used for the `expirationMonth` field. For example, the array can look like `['01 - January', '02 - February', ...]`.
+   * @property {boolean | HostedFieldsFieldMaskInput} [maskInput] Enable or disable input masking when input is not focused. If set to `true` instead of an object, the defaults for the `maskInput` parameters will be used.
    */
   interface HostedFieldsField {
     selector: string;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
+    maskInput?: boolean | HostedFieldsFieldMaskInput;
     select?: boolean | { options: string[] };
+    maxCardLength?: number;
+    maxlength?: number;
+    minlength?: number;
+    prefill?: string;
+    rejectUnsupportedCards?: boolean;
   }
 
   /**

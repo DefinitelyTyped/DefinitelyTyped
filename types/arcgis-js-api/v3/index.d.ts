@@ -14078,6 +14078,108 @@ declare module "esri/request" {
   export = request;
 }
 
+declare module "esri/styles/basic" {
+  /** This module contains a collection of themes suitable for basic visualization of features i.e. */
+  var basic: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = basic;
+}
+
+declare module "esri/styles/choropleth" {
+  /** This module contains a collection of themes suitable for unclassed and classed choropleth mapping. */
+  var choropleth: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = choropleth;
+}
+
+declare module "esri/styles/heatmap" {
+  /** This module contains a collection of themes suitable for visualizing features using a heatmap. */
+  var heatmap: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = heatmap;
+}
+
+declare module "esri/styles/relationship" {
+  /** This module contains a collection of color schemes suitable for creating relationship (or bivariate choropleth) visualizations. */
+  var relationship: {
+    /**
+     * Returns themes available for the given basemap.
+     * @param basemap Specifies the basemap name if you only want themes applicable to a specific basemap, for example: streets, gray, topo,  terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap: string): any[];
+    /**
+     * Returns the primary and secondary color schemes for the given theme, basemap, and geometry type.
+     * @param params See the params Object Specifications table below for a description of the method parameters.
+     */
+    getSchemes(params: any): any;
+  };
+  export = relationship;
+}
+
+declare module "esri/styles/size" {
+  /** This module contains a collection of themes useful for visualizing points and lines by varying their size to show data. */
+  var size: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = size;
+}
+
+declare module "esri/styles/type" {
+  /** This module contains a collection of themes suitable for visualizing features by their type. */
+  var type: {
+    /**
+     * Returns available themes.
+     * @param basemap Specify the basemap name if you only want themes applicable to a specific basemap, for example:  Example: streets, gray, topo, terrain, national-geographic, oceans, osm, satellite, hybrid, dark-gray.
+     */
+    getAvailableThemes(basemap?: string): any[];
+    /**
+     * Returns schemes matching the given parameters.
+     * @param params Parameters used to determine the returned scheme type.
+     */
+    getSchemes(params: any): any;
+  };
+  export = type;
+}
+
 declare module "esri/support/expressionUtils" {
   /** A utility module that allows you to enable geometry operations referenced inside Arcade expressions. */
   var expressionUtils: {

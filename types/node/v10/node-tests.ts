@@ -430,6 +430,18 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer, transcode, 
             mode: 0o777,
         });
     }
+
+    {
+        let names: Promise<string[]>;
+        let buffers: Promise<Buffer[]>;
+        let namesOrBuffers: Promise<string[] | Buffer[]>;
+        let entries: Promise<fs.Dirent[]>;
+
+        names = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: false });
+        buffers = fs.promises.readdir('/path/to/dir', { encoding: 'buffer', withFileTypes: false });
+        namesOrBuffers = fs.promises.readdir('/path/to/dir', { encoding: 'SOME OTHER', withFileTypes: false });
+        entries = fs.promises.readdir('/path/to/dir', { encoding: 'utf8', withFileTypes: true });
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -4810,7 +4822,7 @@ import * as constants from 'constants';
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

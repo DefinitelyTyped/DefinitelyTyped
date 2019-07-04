@@ -2794,6 +2794,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 
 // _.partition
 {
+    const mixedArray = [1, 2, '3', '4'];
+
     // $ExpectType [any[], any[]]
     _.partition(anything, (value) => {
         value; // $ExpectType any
@@ -2809,6 +2811,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType [number[], string[]]
+    _.partition(mixedArray, (value): value is number => typeof value === 'number');
 
     // $ExpectType LoDashImplicitWrapper<[any[], any[]]>
     _(anything).partition((value) => {
@@ -2825,6 +2829,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType LoDashImplicitWrapper<[number[], string[]]>
+    _(mixedArray).partition((value): value is number => typeof value === 'number');
 
     // $ExpectType LoDashExplicitWrapper<[any[], any[]]>
     _.chain(anything).partition((value) => {
@@ -2841,6 +2847,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     });
+    // $ExpectType LoDashExplicitWrapper<[number[], string[]]>
+    _.chain(mixedArray).partition((value): value is number => typeof value === 'number');
 
     // $ExpectType [any[], any[]]
     fp.partition((value) => {
@@ -2859,6 +2867,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return true;
     }, list);
+    // $ExpectType [number[], string[]]
+    fp.partition((value): value is number => typeof value === 'number', mixedArray);
 }
 
 // _.reduce

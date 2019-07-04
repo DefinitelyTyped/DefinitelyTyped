@@ -261,6 +261,7 @@ declare namespace Cesium {
         toString(): string;
         static fromRadians(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
         static fromDegrees(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
+        static toCartesian(cartographic: Cartographic, ellipsoid?: Ellipsoid, result?: Cartesian3): Cartesian3;
         static clone(cartographic: Cartographic, result?: Cartographic): Cartographic;
         static equals(left?: Cartographic, right?: Cartographic): boolean;
         static equalsEpsilon(left: Cartographic, right: Cartographic, epsilon: number): boolean;
@@ -1391,10 +1392,29 @@ declare namespace Cesium {
         constructor(message?: string);
     }
 
+    interface ScreenSpaceEventMap {
+        [ScreenSpaceEventType.LEFT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_DOUBLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
+        [ScreenSpaceEventType.WHEEL]: number;
+        [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+    }
+
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(action: (click: { position: Cartesian2 }) => void, type: number, modifier?: number): void;
-        getInputAction(type: number, modifier?: number): () => void;
+        setInputAction<K extends keyof ScreenSpaceEventMap>(action: (event: ScreenSpaceEventMap[K]) => void, type: K, modifier?: number): void;
+        setInputAction(action: () => void, type: ScreenSpaceEventType, modifier?: number): void;
+        getInputAction<K extends keyof ScreenSpaceEventMap>(type: K, modifier?: number): (event: ScreenSpaceEventMap[K]) => void;
+        getInputAction(type: ScreenSpaceEventType, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
@@ -1428,6 +1448,9 @@ declare namespace Cesium {
     }
 
     class Spherical {
+        clock: number;
+        cone: number;
+        magnitude: number;
         constructor(clock?: number, cone?: number, magnitude?: number);
         equals(other: Spherical): boolean;
         clone(result?: Spherical): Spherical;
@@ -2414,16 +2437,24 @@ declare namespace Cesium {
         constructor(color?: Property);
     }
 
-    class PolylineGeometryUpdater extends GeometryUpdater {
-        readonly depthFailMaterialProperty: MaterialProperty;
-        readonly distanceDisplayConditionProperty: Property;
-        constructor(entity: Entity, scene: Scene);
-    }
-
     class PolylineGlowMaterialProperty extends MaterialProperty {
         color: Color;
         glowPower: Property;
         constructor(options?: { color?: Property; glowPower?: Property });
+    }
+
+    class PolylineDashMaterialProperty extends MaterialProperty {
+        color: Color;
+        gapColor: Color;
+        dashLength: Property;
+        dashPattern: Property;
+        constructor(options?: {color?: Color; gapColor?: Color; dashLength?: Property; dashPattern?: Property});
+    }
+
+    class PolylineGeometryUpdater extends GeometryUpdater {
+        readonly depthFailMaterialProperty: MaterialProperty;
+        readonly distanceDisplayConditionProperty: Property;
+        constructor(entity: Entity, scene: Scene);
     }
 
     class PolylineGraphics {
@@ -2434,7 +2465,14 @@ declare namespace Cesium {
         width: number;
         followSurface: Property;
         granularity: Property;
-        constructor(options?: { positions?: Cartesian3[]; followSurface?: Property; width?: number; show?: Property; material?: MaterialProperty; granularity?: Property });
+        constructor(options?: {
+            positions?: Cartesian3[];
+            followSurface?: Property;
+            width?: number;
+            show?: Property;
+            material?: MaterialProperty;
+            granularity?: Property
+        });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
     }
@@ -2824,7 +2862,7 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: any;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
             duration?: number;
             complete?: Camera.FlightCompleteCallback;
             cancel?: Camera.FlightCancelledCallback;
@@ -2833,7 +2871,8 @@ declare namespace Cesium {
             pitchAdjustHeight?: number;
             flyOverLongitude?: number;
             flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction
+            easingFunction?: EasingFunction,
+            convert?: boolean,
         }): void;
         flyToBoundingSphere(boundingSphere: BoundingSphere, options?: {
             duration?: number;
@@ -2871,7 +2910,12 @@ declare namespace Cesium {
         rotateLeft(angle?: number): void;
         rotateRight(angle?: number): void;
         rotateUp(angle?: number): void;
-        setView(options: {destination?: Cartesian3 | Rectangle; orientation?: any; endTransform?: Matrix4}): void;
+        setView(options: {
+            destination?: Cartesian3 | Rectangle;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
+            endTransform?: Matrix4,
+            convert?: boolean,
+        }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
         twistLeft(amount?: number): void;
@@ -3027,6 +3071,7 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         imageryLayers: ImageryLayerCollection;
         baseColor: Color;
+        cartographicLimitRectangle: Rectangle;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
@@ -4517,6 +4562,8 @@ declare namespace Cesium {
 
     function sampleTerrain(terrainProvider: TerrainProvider, level: number, positions: Cartographic[]): Promise<Cartographic[]>;
 
+    function sampleTerrainMostDetailed(terrainProvider: TerrainProvider, positions: Cartographic[]): Promise<Cartographic[]>;
+
     function subdivideArray(array: any[], numberOfArrays: number): undefined;
 
     function throttleRequestByServer(url: string, requestFunction: throttleRequestByServer.RequestFunction): Promise<any>;
@@ -4844,23 +4891,21 @@ declare namespace Cesium {
     }
 
     enum ScreenSpaceEventType {
-        LEFT_DOWN,
-        LEFT_UP,
-        LEFT_CLICK,
-        LEFT_DOUBLE_CLICK,
-        RIGHT_DOWN,
-        RIGHT_UP,
-        RIGHT_CLICK,
-        RIGHT_DOUBLE_CLICK,
-        MIDDLE_DOWN,
-        MIDDLE_UP,
-        MIDDLE_CLICK,
-        MIDDLE_DOUBLE_CLICK,
-        MOUSE_MOVE,
-        WHEEL,
-        PINCH_START,
-        PINCH_END,
-        PINCH_MOVE,
+        LEFT_DOWN = 0,
+        LEFT_UP = 1,
+        LEFT_CLICK = 2,
+        LEFT_DOUBLE_CLICK = 3,
+        RIGHT_DOWN = 5,
+        RIGHT_UP = 6,
+        RIGHT_CLICK = 7,
+        MIDDLE_DOWN = 10,
+        MIDDLE_UP = 11,
+        MIDDLE_CLICK = 12,
+        MOUSE_MOVE = 15,
+        WHEEL = 16,
+        PINCH_START = 17,
+        PINCH_END = 18,
+        PINCH_MOVE = 19,
     }
 
     namespace Simon1994PlanetaryPositions {

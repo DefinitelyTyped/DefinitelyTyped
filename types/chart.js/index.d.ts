@@ -14,6 +14,8 @@
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
 //                 Conrad Holtzhausen <https://github.com/Conrad777>
+//                 Adrián Caballero <https://github.com/adripanico>
+//                 wertzui <https://github.com/wertzui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -146,8 +148,8 @@ declare namespace Chart {
     }
 
     interface ChartTooltipItem {
-        xLabel?: string;
-        yLabel?: string;
+        xLabel?: string | number;
+        yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
     }
@@ -269,7 +271,7 @@ declare namespace Chart {
         fontColor?: ChartColor;
         fontFamily?: string;
         padding?: number;
-        generateLabels?(chart: any): any;
+        generateLabels?(chart: Chart): ChartLegendLabelItem[];
         filter?(legendItem: ChartLegendLabelItem, data: ChartData): any;
         usePointStyle?: boolean;
     }
@@ -411,7 +413,7 @@ declare namespace Chart {
         color?: ChartColor;
         borderDash?: number[];
         borderDashOffset?: number;
-        lineWidth?: number;
+        lineWidth?: number | number[];
         drawBorder?: boolean;
         drawOnChartArea?: boolean;
         drawTicks?: boolean;

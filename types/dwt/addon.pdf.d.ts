@@ -1,3 +1,15 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
 declare enum EnumDWT_ConvertMode {
     CM_DEFAULT = 0,
     CM_RENDERALL = 1
@@ -59,6 +71,6 @@ interface PDF {
     IsTextBasedPDF(localFile: string): boolean;
 }
 
-interface WebTwainAddon {
+interface DynamsoftWebTwainAddon {
     PDF: PDF;
 }

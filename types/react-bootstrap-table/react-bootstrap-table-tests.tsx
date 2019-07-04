@@ -779,7 +779,7 @@ class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBo
   getFieldValue() {
     const newRow: Partial<Product> = {};
     this.props.columns.forEach((column, i) => {
-      newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
+      newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value as number & string;
     }, this);
     return newRow as Product;
   }

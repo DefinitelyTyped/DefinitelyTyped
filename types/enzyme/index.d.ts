@@ -9,6 +9,8 @@
 //                 Torgeir Hovden <https://github.com/thovden>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Christian Rackerseder <https://github.com/screendriver>
+//                 Mateusz Sokoła <https://github.com/mateuszsokola>
+//                 Braiden Cutforth <https://github.com/braidencutforth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -156,7 +158,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns the outer most DOMComponent of the current wrapper.
      */
-    getDOMNode(): Element;
+    getDOMNode<T extends Element = Element>(): T;
 
     /**
      * Returns a wrapper around the node at a given index of the current wrapper.
@@ -253,7 +255,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      */
-    setProps<K extends keyof P>(props: Pick<P, K>): this;
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 
     /**
      * A method that sets the context of the root component, and re-renders. Useful for when you are wanting to
@@ -556,18 +558,6 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
-
-    /**
-     * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
-     * how the component behaves over time with changing props. Calling this, for instance, will call the
-     * componentWillReceiveProps lifecycle method.
-     *
-     * Similar to setState, this method accepts a props object and will merge it in with the already existing props.
-     * Returns itself.
-     *
-     * NOTE: can only be called on a wrapper instance that is also the root instance.
-     */
-    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 }
 
 export interface ShallowRendererProps {

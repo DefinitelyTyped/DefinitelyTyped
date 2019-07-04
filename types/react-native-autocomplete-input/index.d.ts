@@ -1,6 +1,7 @@
-// Type definitions for react-native-autocomplete-input 3.5
+// Type definitions for react-native-autocomplete-input 4.0
 // Project: https://github.com/l-urence/react-native-autocomplete-input#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -11,6 +12,7 @@ import {
     StyleProp,
     TextInputProperties,
     ViewStyle,
+    FlatListProps,
 } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProperties {
@@ -28,15 +30,27 @@ export interface AutocompleteProps<T> extends TextInputProperties {
 
     /**
      * array
-     * An array with suggestion items to be rendered in renderItem(item). Any array with length > 0 will open the suggestion list and any array with length < 1 will hide the list.
+     * An array with suggestion items to be rendered in renderItem({ item, index }). Any array with length > 0 will open the suggestion list and any array with length < 1 will hide the list.
      */
     data: T[];
+
+    /**
+     * object
+     * Props to pass on to the underlying FlatList.
+     */
+    flatListProps?: Partial<FlatListProps<T>>;
 
     /**
      * style
      * These styles will be applied to the container which surrounds the textInput component.
      */
     inputContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * function
+     * keyExtractor will be called to get key for each item. It's up to you which string to return as a key.
+     */
+    keyExtractor?(item: T, i: number): string;
 
     /**
      * style
@@ -66,7 +80,7 @@ export interface AutocompleteProps<T> extends TextInputProperties {
      * function
      * renderItem will be called to render the data objects which will be displayed in the result view below the text input.
      */
-    renderItem(item: T): ReactNode;
+    renderItem(itemWithIndex: { item: T; index: number }): ReactNode;
 
     /**
      * function

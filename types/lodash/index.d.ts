@@ -4,7 +4,6 @@
 //                 Ilya Mochalov <https://github.com/chrootsu>,
 //                 Stepan Mikhaylyuk <https://github.com/stepancar>,
 //                 AJ Richardson <https://github.com/aj-r>,
-//                 Junyoung Clare Jang <https://github.com/ailrun>,
 //                 e-cloud <https://github.com/e-cloud>,
 //                 Georgii Dolzhykov <https://github.com/thorn0>,
 //                 Jack Moore <https://github.com/jtmthf>,

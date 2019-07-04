@@ -38,6 +38,7 @@ async function initRoom() {
 function unpublishTracks() {
   if (room && localVideoTrack) room.localParticipant.unpublishTrack(localVideoTrack);
   if (room && localAudioTrack) room.localParticipant.unpublishTrack(localAudioTrack);
+  if (room && localVideoTrack && localAudioTrack) room.localParticipant.unpublishTracks([localVideoTrack, localAudioTrack]);
 }
 
 function participantConnected(participant: Video.Participant) {

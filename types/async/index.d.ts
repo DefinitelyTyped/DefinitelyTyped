@@ -197,7 +197,8 @@ export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback
 export function retry<T, E = Error>(
     opts: number | {
         times: number,
-        interval: number | ((retryCount: number) => number)
+        interval: number | ((retryCount: number) => number),
+        errorFilter?: (error: Error) => boolean
     },
     task: (callback: AsyncResultCallback<T, E>, results: any) => void,
     callback: AsyncResultCallback<any, E>

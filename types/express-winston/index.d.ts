@@ -21,6 +21,7 @@ export type DynamicLevelFunction = (req: Request, res: Response, err: Error) => 
 export type RequestFilter = (req: FilterRequest, propName: string) => any;
 export type ResponseFilter = (res: FilterResponse, propName: string) => any;
 export type RouteFilter = (req: Request, res: Response) => boolean;
+export type MessageTemplate = string | ((req: Request, res: Response) => string);
 
 export interface BaseLoggerOptions {
   baseMeta?: object;
@@ -34,7 +35,7 @@ export interface BaseLoggerOptions {
   level?: string | DynamicLevelFunction;
   meta?: boolean;
   metaField?: string;
-  msg?: string;
+  msg?: MessageTemplate;
   requestFilter?: RequestFilter;
   requestWhitelist?: string[];
   responseFilter?: ResponseFilter;
@@ -64,7 +65,7 @@ export interface BaseErrorLoggerOptions {
   dynamicMeta?: DynamicMetaFunction;
   level?: string | DynamicLevelFunction;
   metaField?: string;
-  msg?: string;
+  msg?: MessageTemplate;
   requestFilter?: RequestFilter;
   requestWhitelist?: string[];
 }

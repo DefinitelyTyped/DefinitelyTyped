@@ -1,3 +1,15 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
 /** -2400 to -2499 is webcam error code */
 declare enum EnumDWT_ErrorCode {
     /** All error from directshow sdk */
@@ -329,6 +341,6 @@ interface Webcam {
     SetCameraControlPropertySetting(property: EnumDWT_CameraControlProperty, value: number, auto: boolean): boolean;
 }
 
-interface WebTwainAddon {
+interface DynamsoftWebTwainAddon {
     Webcam: Webcam;
 }

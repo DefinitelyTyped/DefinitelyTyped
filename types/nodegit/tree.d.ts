@@ -58,7 +58,12 @@ export class Tree {
     /**
      * Recursively walk the tree in breadth-first order. Fires an event for each entry.
      */
-    walk(blobsOnly?: boolean): NodeJS.EventEmitter;
+    walk(blobsOnly?: boolean): NodeJS.EventEmitter & {
+        /**
+         * Start walking the tree and emitting events. This should be called after event listeners have been attached.
+         */
+        start: () => void;
+    };
     /**
      * Return the path of this tree, like /lib/foo/bar
      *

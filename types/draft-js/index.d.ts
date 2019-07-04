@@ -121,6 +121,8 @@ declare namespace Draft {
                 ariaLabel?: string;
                 ariaMultiline?: boolean;
 
+                role?: string;
+
                 webDriverTestID?: string;
 
                 /**
@@ -503,10 +505,10 @@ declare namespace Draft {
             /**
              * A plain object representation of an EntityInstance.
              */
-            interface RawDraftEntity {
+            interface RawDraftEntity<T = { [key: string]: any }> {
                 type: DraftEntityType;
                 mutability: DraftEntityMutability;
-                data: { [key: string]: any };
+                data: T;
             }
 
             /**

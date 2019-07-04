@@ -82,6 +82,7 @@ function testSandbox() {
     const stubInstance = sb.createStubInstance(cls);
     const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
     stubInstance.foo.calledWith('foo', 1);
+    stubInstance.foo.calledWith('foo');
     privateFooStubbedInstance.foo.calledWith();
     const clsFoo: sinon.SinonStub<[string, number], number> = stubInstance.foo;
     const privateFooFoo: sinon.SinonStub<[], void> = privateFooStubbedInstance.foo;

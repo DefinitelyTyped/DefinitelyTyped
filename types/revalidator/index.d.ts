@@ -36,7 +36,9 @@ declare module Revalidator {
     }
 
     interface JSONSchema<T> {
+        type?: 'object';
         properties?: ISchemas<T>;
+        patternProperties?: ISchemas<T>;
     }
 
     interface ISchemas<T> {

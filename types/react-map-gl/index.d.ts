@@ -30,6 +30,11 @@ export interface MapRequest {
     credentials?: string;
 }
 
+export interface MapLoadEvent {
+    type: string;
+    target: MapboxGL.Map;
+}
+
 export interface MapboxProps extends Partial<ViewState> {
     container?: object;
     gl?: object;
@@ -41,7 +46,7 @@ export interface MapboxProps extends Partial<ViewState> {
     mapOptions?: object;
     mapStyle?: string | object;
     visible?: boolean;
-    onLoad?: () => void;
+    onLoad?: (event: MapLoadEvent) => void;
     onError?: (e: MapError) => void;
     reuseMap?: boolean;
     width: number | string;

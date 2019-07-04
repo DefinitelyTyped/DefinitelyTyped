@@ -79,31 +79,31 @@ export interface CentralDirectory {
     sizeOfCentralDirectory: number;
     offsetToStartOfCentralDirectory: number;
     commentLength: number;
-    files: [
-        {
-            signature: number;
-            versionMadeBy: number;
-            versionsNeededToExtract: number;
-            flags: number;
-            compressionMethod: number;
-            lastModifiedTime: number;
-            lastModifiedDate: number;
-            crc32: number;
-            compressedSize: number;
-            uncompressedSize: number;
-            fileNameLength: number;
-            extraFieldLength: number;
-            fileCommentLength: number;
-            diskNumber: number;
-            internalFileAttributes: number;
-            externalFileAttributes: number;
-            offsetToLocalFileHeader: number;
-            path: string;
-            comment: string;
-            stream: (password?: string) => Entry;
-            buffer: (password?: string) => Promise<Buffer>;
-        }
-    ];
+    files: File[];
+}
+
+export interface File {
+    signature: number;
+    versionMadeBy: number;
+    versionsNeededToExtract: number;
+    flags: number;
+    compressionMethod: number;
+    lastModifiedTime: number;
+    lastModifiedDate: number;
+    crc32: number;
+    compressedSize: number;
+    uncompressedSize: number;
+    fileNameLength: number;
+    extraFieldLength: number;
+    fileCommentLength: number;
+    diskNumber: number;
+    internalFileAttributes: number;
+    externalFileAttributes: number;
+    offsetToLocalFileHeader: number;
+    path: string;
+    comment: string;
+    stream: (password?: string) => Entry;
+    buffer: (password?: string) => Promise<Buffer>;
 }
 
 export class ParseOptions {

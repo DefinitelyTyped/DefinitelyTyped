@@ -102,18 +102,6 @@ declare module "async_hooks" {
         constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
 
         /**
-         * Call AsyncHooks before callbacks.
-         * @deprecated since 9.6 - Use asyncResource.runInAsyncScope() instead.
-         */
-        emitBefore(): void;
-
-        /**
-         * Call AsyncHooks after callbacks.
-         * @deprecated since 9.6 - Use asyncResource.runInAsyncScope() instead.
-         */
-        emitAfter(): void;
-
-        /**
          * Call the provided function with the provided arguments in the
          * execution context of the async resource. This will establish the
          * context, trigger the AsyncHooks before callbacks, call the function,

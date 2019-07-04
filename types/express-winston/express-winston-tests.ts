@@ -67,6 +67,19 @@ app.use(expressWinston.errorLogger({
   winstonInstance: logger,
 }));
 
+// Request and error logger with function type msg
+app.use(expressWinston.logger({
+  msg: (req, res) => `HTTP ${req.method} ${req.url} - ${res.statusCode}`,
+  transports: [
+    new winston.transports.Console({})
+  ],
+}));
+
+app.use(expressWinston.errorLogger({
+  msg: (req, res) => `HTTP ${req.method} ${req.url} - ${res.statusCode}`,
+  winstonInstance: logger,
+}));
+
 expressWinston.bodyBlacklist.push('potato');
 expressWinston.bodyWhitelist.push('apple');
 expressWinston.defaultRequestFilter = (req: expressWinston.FilterRequest, prop: string) => req[prop];

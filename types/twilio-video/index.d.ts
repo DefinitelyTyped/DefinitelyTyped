@@ -105,11 +105,11 @@ export class LocalParticipant extends Participant {
         mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
     ): Promise<LocalTrackPublication>;
     publishTracks(
-        tracks: LocalTrack[] | MediaStreamTrack[],
+        tracks: Array<LocalTrack | MediaStreamTrack>,
     ): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
-    unpublishTrack(track: LocalTrack): LocalTrackPublication;
-    unpublishTracks(tracks: LocalTrack): LocalTrackPublication[];
+    unpublishTrack(track: LocalTrack | MediaStreamTrack): LocalTrackPublication;
+    unpublishTracks(tracks: Array<LocalTrack | MediaStreamTrack>): LocalTrackPublication[];
 }
 export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;

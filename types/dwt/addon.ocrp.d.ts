@@ -1,3 +1,15 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
+/*!
+* Product: Dynamsoft Web Twain
+* Web Site: http://www.dynamsoft.com
+*
+* Copyright 2019, Dynamsoft Corporation
+* Author: Dynamsoft Support Team
+*/
+
 interface Redaction {
     FindText: string;
     FindTextFlags: EnumDWT_OCRFindTextFlags.OCRFT_WHOLEWORD;
@@ -43,13 +55,6 @@ interface DynamsoftLib {
     NewRedaction(): Redaction;
     NewOCRReadPara(): OCRReadPara;
     NewOCRZone(): OCRZone;
-}
-
-interface OCRProAddon {
-    NewOCRError(): OCRError;
-    NewOCRReadPara(): OCRReadPara;
-    NewOCRZone(): OCRZone;
-    NewSettings(): Settings;
 }
 
 declare enum EnumDWT_OCRFindTextFlags {
@@ -157,8 +162,13 @@ interface OCRPro {
      * @return {void}
      */
     RecognizeSelectedImages(optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: () => void): void;
+
+	NewOCRError(): OCRError;
+	NewOCRReadPara(): OCRReadPara;
+	NewOCRZone(): OCRZone;
+	NewSettings(): Settings;
 }
 
-interface WebTwainAddon {
+interface DynamsoftWebTwainAddon {
     OCRPro: OCRPro;
 }

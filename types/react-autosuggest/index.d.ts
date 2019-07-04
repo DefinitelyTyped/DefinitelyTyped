@@ -6,6 +6,7 @@
 //                 Terry Bayne <https://github.com/tbayne>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Kevin Ross <https://github.com/rosskevin>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -191,7 +192,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: TSuggestion[];
+        suggestions: ReadonlyArray<TSuggestion>;
         /**
          * Use your imagination to style the Autosuggest.
          */

@@ -123,6 +123,7 @@ declare module 'angular' {
             skipHide?: boolean;
             multiple?: boolean;
             fullscreen?: boolean; // default: false
+            title?: string;
         }
 
         interface IDialogService {

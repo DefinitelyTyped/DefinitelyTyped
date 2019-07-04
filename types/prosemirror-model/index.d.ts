@@ -1035,7 +1035,7 @@ export class NodeType<S extends Schema = any> {
    * set of marks.
    */
   create(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S>;
@@ -1045,7 +1045,7 @@ export class NodeType<S extends Schema = any> {
    * if it doesn't match.
    */
   createChecked(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S>;
@@ -1058,7 +1058,7 @@ export class NodeType<S extends Schema = any> {
    * `Fragment.empty` as content.
    */
   createAndFill(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S> | null | undefined;

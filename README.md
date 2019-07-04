@@ -98,7 +98,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
-  If you make breaking changes, do not forget to [update a major version](#i-want-to-update-a-package-to-a-new-major-version).
+  If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 * You may also want to add yourself to "Definitions by" section of the package header.
   - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
@@ -169,7 +169,7 @@ When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration
 
 You can remove it by running `npm run not-needed -- typingsPackageName asOfVersion sourceRepoURL [libraryName]`.
 - `typingsPackageName`: This is the name of the directory to delete.
-- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
+- `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version, and should be a version of `foo` on npm.
 - `sourceRepoURL`: This should point to the repository that contains the typings.
 - `libraryName`: Name of npm package that replaces the Definitely Typed types. Usually this is identical to "typingsPackageName", in which case you can omit it.
 

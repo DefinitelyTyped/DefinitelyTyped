@@ -2705,15 +2705,21 @@ declare namespace _ {
     type LodashPartialRight27x1 = (args: ReadonlyArray<any>) => (...args: any[]) => any;
     type LodashPartialRight27x2 = (func: (...args: any[]) => any) => (...args: any[]) => any;
     interface LodashPartition {
-        <T>(callback: lodash.ValueIteratee<T>): LodashPartition1x1<T>;
+        <T, U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>): LodashPartition1x1<T, U>;
         <T>(callback: lodash.__, collection: lodash.List<T> | null | undefined): LodashPartition1x2<T>;
+        <T, U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>, collection: lodash.List<T> | null | undefined): [U[], Array<Exclude<T, U>>];
+        <T>(callback: lodash.ValueIteratee<T>): LodashPartition2x1<T>;
         <T>(callback: lodash.ValueIteratee<T>, collection: lodash.List<T> | null | undefined): [T[], T[]];
-        <T extends object>(callback: lodash.__, collection: T | null | undefined): LodashPartition2x2<T>;
+        <T extends object>(callback: lodash.__, collection: T | null | undefined): LodashPartition3x2<T>;
         <T extends object>(callback: lodash.ValueIteratee<T[keyof T]>, collection: T | null | undefined): [Array<T[keyof T]>, Array<T[keyof T]>];
     }
-    type LodashPartition1x1<T> = (collection: lodash.List<T> | object | null | undefined) => [T[], T[]];
-    type LodashPartition1x2<T> = (callback: lodash.ValueIteratee<T>) => [T[], T[]];
-    type LodashPartition2x2<T> = (callback: lodash.ValueIteratee<T[keyof T]>) => [Array<T[keyof T]>, Array<T[keyof T]>];
+    type LodashPartition1x1<T, U> = (collection: lodash.List<T> | null | undefined) => [U[], Array<Exclude<T, U>>];
+    interface LodashPartition1x2<T> {
+        <U extends T>(callback: lodash.ValueIteratorTypeGuard<T, U>): [U[], Array<Exclude<T, U>>];
+        (callback: lodash.ValueIteratee<T>): [T[], T[]];
+    }
+    type LodashPartition2x1<T> = (collection: lodash.List<T> | object | null | undefined) => [T[], T[]];
+    type LodashPartition3x2<T> = (callback: lodash.ValueIteratee<T[keyof T]>) => [Array<T[keyof T]>, Array<T[keyof T]>];
     interface LodashPath {
         <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): LodashPath1x1<TObject, TKey>;
         <TObject extends object>(path: lodash.__, object: TObject): LodashPath1x2<TObject>;

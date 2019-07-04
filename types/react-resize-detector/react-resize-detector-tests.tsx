@@ -23,9 +23,11 @@ class App extends React.PureComponent {
                     handleWidth
                     handleHeight
                     skipOnMount
-                    querySelector="someElement"
                     refreshMode="throttle"
                     refreshRate={10}
+                    refreshOptions={{ leading: true, trailing: true }}
+                    querySelector="someElement"
+                    nodeType="span"
                 />
                 <ReactResizeDetector handleWidth handleHeight>
                     {({ width, height }: { width: number; height: number }) => (
@@ -49,13 +51,7 @@ class App extends React.PureComponent {
         );
     }
 
-    private readonly handleResize = ({
-        width,
-        height
-    }: {
-        width: number;
-        height: number;
-    }) => {
+    private readonly handleResize = (width: number, height: number) => {
         console.log(`width = ${width}`);
         console.log(`height = ${height}`);
     }

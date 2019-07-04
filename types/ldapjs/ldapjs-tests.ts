@@ -15,8 +15,40 @@ let opts: ldap.SearchOptions = {
 	attributes: ['dn', 'sn', 'cn']
 };
 
-client.search('o=example', opts, (err: Error, res: NodeJS.EventEmitter): void => {
-	// nothing
+client.search('o=example', opts, (err, res): void => {
+    if (err) {
+        err.message;
+        return;
+    }
+
+    res.on('error', error => {
+        error.message;
+    });
+
+	res.on('searchEntry', (entry) => {
+        entry.json.objectName;
+        entry.object.dn;
+        entry.raw.dn;
+    });
+
+    res.on('page', function(result, cb) {
+        result.status;
+
+        cb(); // Only when opts.pagePause == true
+    });
+
+    res.on('searchReference', (ref) => {
+        ref.uris;
+    });
+
+    res.on('end', (res) => {
+        res.status;
+    });
+
+    // Not a known event, just testing the EventEmitter fallback
+    res.on('unknown-event', (value) => {
+        value.any;
+    });
 });
 
 let change = new ldap.Change({

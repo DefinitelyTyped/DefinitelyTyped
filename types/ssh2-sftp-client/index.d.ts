@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 2.4
+// Type definitions for ssh2-sftp-client 2.5
 // Project: https://github.com/jyu213/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -20,13 +20,13 @@ declare class sftp {
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
-    get(remoteFilePath: string, useCompression?: boolean, encoding?: string | null): Promise<NodeJS.ReadableStream>;
+    get(path: string, dst?: string | NodeJS.ReadableStream, options?: boolean): Promise<string | NodeJS.ReadableStream | Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
-    put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, useCompression?: boolean, encoding?: string): Promise<void>;
+    put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<void>;
 
-    fastPut(localPath: string, emoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
+    fastPut(localPath: string, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
     mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
 
@@ -37,6 +37,8 @@ declare class sftp {
     rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
 
     chmod(remotePath: string, mode: number | string): Promise<string>;
+
+    append(input: Buffer | NodeJS.ReadableStream, remotePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
     end(): Promise<void>;
 

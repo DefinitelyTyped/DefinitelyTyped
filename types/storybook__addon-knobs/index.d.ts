@@ -1,10 +1,11 @@
-// Type definitions for @storybook/addon-knobs 4.0
+// Type definitions for @storybook/addon-knobs 5.0
 // Project: https://github.com/storybooks/storybook, https://github.com/storybooks/storybook/tree/master/addons/knobs
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
 //                 Michael Loughry <https://github.com/MLoughry>
 //                 Alan Choi <https://github.com/alanhchoi>
+//                 Adam Zmenak <https://github.com/azmenak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -64,6 +65,25 @@ export function date(name: string, value?: Date, groupId?: string): Date;
 export function array<T>(name: string, value: ReadonlyArray<T>, separator?: string, groupId?: string): T[];
 
 export function button(name: string, handler: () => any, groupId?: string): void;
+
+export interface OptionsKnobOptions {
+    display?:
+    | "radio"
+    | "inline-radio"
+    | "check"
+    | "inline-check"
+    | "select"
+    | "multi-select";
+}
+
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: T;
+    },
+    defaultValue?: T,
+    options?: OptionsKnobOptions
+): T;
 
 export interface WrapStoryProps {
     context?: object;

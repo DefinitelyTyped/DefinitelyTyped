@@ -13,7 +13,7 @@ declare namespace AMap {
             cursor?: string;
             radius?: number;
             strokeColor?: string;
-            strokeOpcity?: number;
+            strokeOpacity?: number;
             strokeWeight?: number;
             fillColor?: string;
             fillOpacity?: number;

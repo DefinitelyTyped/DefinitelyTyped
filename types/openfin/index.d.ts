@@ -1,4 +1,4 @@
-// Type definitions for non-npm package OpenFin API 39.0
+// Type definitions for non-npm package OpenFin API 41.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-// based on v10.66.39.25
+// based on v10.66.41.11
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
