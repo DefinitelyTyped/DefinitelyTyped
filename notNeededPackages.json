@@ -1069,6 +1069,12 @@
             "asOfVersion": "0.4.5"
         },
         {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "Foundation Sites",
             "typingsPackageName": "foundation-sites",
             "sourceRepoURL": "http://foundation.zurb.com/",
@@ -3019,12 +3025,6 @@
             "asOfVersion": "0.21.0"
         },
         {
-            "libraryName": "swagger-parser",
-            "typingsPackageName": "swagger-parser",
-            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
-            "asOfVersion": "7.0.0"
-        },
-        {
             "libraryName": "ServiceStack Utils",
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
@@ -3107,6 +3107,12 @@
             "typingsPackageName": "svg.js",
             "sourceRepoURL": "http://www.svgjs.com/",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "swagger-parser",
+            "typingsPackageName": "swagger-parser",
+            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",
