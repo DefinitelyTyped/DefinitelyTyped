@@ -2,6 +2,7 @@
 // Project: https://github.com/Netflix/falcor-json-graph
 // Definitions by: Quramy <https://github.com/Quramy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.4
 
 export = FalcorJsonGraph;
 
