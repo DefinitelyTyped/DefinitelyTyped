@@ -170,6 +170,7 @@ declare module 'react-jsonschema-form' {
         title: string;
         formContext: any;
         formData: T;
+        registry: FieldProps["registry"];
     };
 
     export type ObjectFieldTemplateProps<T = any> = {
