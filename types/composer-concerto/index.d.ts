@@ -239,10 +239,6 @@ export class EnumDeclaration extends ClassDeclaration {
      * Returns true if this class is an enumeration.
      */
     isEnum(): boolean;
-    /**
-     * Returns the string representation of this class.
-     */
-    tostring(): string;
 }
 
 /**
@@ -818,10 +814,6 @@ export class Relationship extends Identifiable {
      */
     constructor(modelManager: ModelManager, classDeclaration: ClassDeclaration, ns: string, type: string, id: string);
     /**
-     * Returns the string representation of this class.
-     */
-    tostring(): string;
-    /**
      * Determine if this identifiable is a relationship.
      */
     isRelationship(): boolean;
@@ -861,10 +853,6 @@ export class Resource extends Identifiable {
      * This constructor should not be called directly.
      */
     constructor(modelManager: ModelManager, classDeclaration: ClassDeclaration, ns: string, type: string, id: string);
-    /**
-     * Returns the string representation of this class.
-     */
-    tostring(): string;
     /**
      * Determine if this identifiable is a resource.
      * false if not.
