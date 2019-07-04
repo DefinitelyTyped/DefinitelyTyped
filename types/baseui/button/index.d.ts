@@ -10,9 +10,9 @@ export interface KIND {
 }
 
 export interface SIZE {
+  compact: 'compact';
   default: 'default';
-  round: 'round';
-  square: 'square';
+  large: 'large';
 }
 
 export interface SHAPE {
@@ -52,3 +52,7 @@ export const StyledLoadingSpinnerContainer: StyletronComponent<any>;
 export class Button extends React.Component<ButtonProps> {
   internalOnClick(...args: any): void;
 }
+
+export const KIND: KIND;
+export const SHAPE: SHAPE;
+export const SIZE: SIZE;

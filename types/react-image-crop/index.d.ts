@@ -1,4 +1,4 @@
-// Type definitions for react-image-crop 8.0
+// Type definitions for react-image-crop 8.1
 // Project: https://github.com/DominicTobias/react-image-crop
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
 //                 Elias Chaaya <https://github.com/chaaya>
@@ -42,6 +42,7 @@ declare namespace ReactCrop {
         onImageError?: (event: React.SyntheticEvent<HTMLImageElement>) => void;
         className?: string;
         locked?: boolean;
+        renderComponent?: ReactNode;
         renderSelectionAddon?: (state: any) => ReactNode;
     }
 

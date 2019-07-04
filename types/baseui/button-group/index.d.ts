@@ -50,3 +50,6 @@ export class StatefulContainer extends React.Component<StatefulButtonGroupProps,
   changeState(nextState: State): void;
   onClick(event: React.SyntheticEvent<HTMLButtonElement>, index: number): void;
 }
+
+export const MODE: MODE;
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;

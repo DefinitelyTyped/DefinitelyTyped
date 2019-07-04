@@ -4,7 +4,6 @@ import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
 import Control from './Control';
 
-export function render(mapEvent: MapEvent): void;
 export interface Options {
     className?: string;
     duration?: number;
@@ -22,3 +21,4 @@ export default class ZoomSlider extends Control {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+export function render(mapEvent: MapEvent): void;

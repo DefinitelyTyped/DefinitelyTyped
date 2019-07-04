@@ -82,3 +82,5 @@ export class StatefulContainer extends React.Component<StatefulContainerProps, S
 export const StyledRoot: StyletronComponent<any>;
 export const StyledMaxLabel: StyletronComponent<any>;
 export const StyledDropdownContainer: StyletronComponent<any>;
+
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;

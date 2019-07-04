@@ -3,6 +3,8 @@ import { Extent } from './extent';
 import Projection from './proj/Projection';
 import Units from './proj/Units';
 
+export type ProjectionLike = Projection | string;
+export type TransformFunction = ((p0: number[], p1?: number[], p2?: number) => number[]);
 export function addCommon(): void;
 export function addCoordinateTransforms(source: ProjectionLike, destination: ProjectionLike, forward: ((p0: Coordinate) => Coordinate), inverse: ((p0: Coordinate) => Coordinate)): void;
 export function addEquivalentProjections(projections: Projection[]): void;
@@ -24,5 +26,3 @@ export function toLonLat(coordinate: Coordinate, opt_projection?: ProjectionLike
 export function transform(coordinate: Coordinate, source: ProjectionLike, destination: ProjectionLike): Coordinate;
 export function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 export function transformWithProjections(point: Coordinate, sourceProjection: Projection, destinationProjection: Projection): Coordinate;
-export type ProjectionLike = Projection | string;
-export type TransformFunction = ((p0: number[], p1?: number[], p2?: number) => number[]);

@@ -16,6 +16,16 @@ export interface Options {
     rotateWithView?: boolean;
     atlasManager?: AtlasManager;
 }
+export interface RenderOptions {
+    strokeStyle?: ColorLike;
+    strokeWidth: number;
+    size: number;
+    lineCap: string;
+    lineDash: number[];
+    lineDashOffset: number;
+    lineJoin: string;
+    miterLimit: number;
+}
 export default class RegularShape extends ImageStyle {
     constructor(options: Options);
     protected atlasManager_: AtlasManager;
@@ -30,14 +40,4 @@ export default class RegularShape extends ImageStyle {
     getRadius(): number;
     getRadius2(): number;
     getStroke(): Stroke;
-}
-export interface RenderOptions {
-    strokeStyle?: ColorLike;
-    strokeWidth: number;
-    size: number;
-    lineCap: string;
-    lineDash: number[];
-    lineDashOffset: number;
-    lineJoin: string;
-    miterLimit: number;
 }

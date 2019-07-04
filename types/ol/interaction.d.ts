@@ -22,7 +22,6 @@ export { default as Select } from './interaction/Select';
 export { default as Snap } from './interaction/Snap';
 export { default as Translate } from './interaction/Translate';
 
-export function defaults(opt_options?: DefaultsOptions): Collection<Interaction>;
 export interface DefaultsOptions {
     altShiftDragRotate?: boolean;
     onFocusOnly?: boolean;
@@ -37,3 +36,4 @@ export interface DefaultsOptions {
     zoomDelta?: number;
     zoomDuration?: number;
 }
+export function defaults(opt_options?: DefaultsOptions): Collection<Interaction>;

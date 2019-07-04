@@ -51,7 +51,7 @@ declare namespace google.maps {
         getDiv(): Element;
         getHeading(): number;
         getMapTypeId(): MapTypeId | string;
-        getProjection(): Projection;
+        getProjection(): Projection | null;
         getStreetView(): StreetViewPanorama;
         getTilt(): number;
         getZoom(): number;

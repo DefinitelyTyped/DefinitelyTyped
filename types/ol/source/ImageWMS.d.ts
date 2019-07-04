@@ -8,6 +8,18 @@ import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 import WMSServerType from './WMSServerType';
 
+export interface Options {
+    attributions?: AttributionLike;
+    crossOrigin?: string;
+    hidpi?: boolean;
+    serverType?: WMSServerType | string;
+    imageLoadFunction?: LoadFunction;
+    params: { [key: string]: any };
+    projection?: ProjectionLike;
+    ratio?: number;
+    resolutions?: number[];
+    url: string;
+}
 export default class ImageWMS extends ImageSource {
     constructor(opt_options?: Options);
     getGetFeatureInfoUrl(coordinate: Coordinate, resolution: number, projection: ProjectionLike, params: any): string;
@@ -35,16 +47,4 @@ export default class ImageWMS extends ImageSource {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    attributions?: AttributionLike;
-    crossOrigin?: string;
-    hidpi?: boolean;
-    serverType?: WMSServerType | string;
-    imageLoadFunction?: LoadFunction;
-    params: { [key: string]: any };
-    projection?: ProjectionLike;
-    ratio?: number;
-    resolutions?: number[];
-    url: string;
 }

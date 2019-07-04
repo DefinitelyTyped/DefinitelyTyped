@@ -161,3 +161,7 @@ export const StyledProfileLabelsContainer: StyletronComponent<any>;
 export const StyledProfileTitle: StyletronComponent<any>;
 export const StyledProfileSubtitle: StyletronComponent<any>;
 export const StyledProfileBody: StyletronComponent<any>;
+
+export const KEY_STRINGS: KEY_STRINGS;
+export const STATE_CHANGE_TYPES: STATE_CHANGE_TYPES;
+export const OPTION_LIST_SIZE: OPTION_LIST_SIZE;

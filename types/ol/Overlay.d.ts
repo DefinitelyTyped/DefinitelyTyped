@@ -21,6 +21,10 @@ export interface Options {
     autoPanMargin?: number;
     className?: string;
 }
+export interface PanOptions {
+    duration?: number;
+    easing?: ((p0: number) => number);
+}
 export default class Overlay extends BaseObject {
     constructor(options: Options);
     protected autoPan: boolean;
@@ -80,8 +84,4 @@ export default class Overlay extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface PanOptions {
-    duration?: number;
-    easing?: ((p0: number) => number);
 }

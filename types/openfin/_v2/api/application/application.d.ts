@@ -4,7 +4,7 @@ import { _Window } from '../window/window';
 import { Point } from '../system/point';
 import { MonitorInfo } from '../system/monitor';
 import Transport from '../../transport/transport';
-import Bounds from '../window/bounds';
+import { Bounds } from '../../shapes';
 import { ApplicationEvents } from '../events/application';
 import { ApplicationOption } from './applicationOption';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {

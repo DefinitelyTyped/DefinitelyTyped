@@ -8,7 +8,27 @@ import Source from '../source/Source';
 import State_1 from '../source/State';
 import BaseLayer from './Base';
 
-export function visibleAtResolution(layerState: State, resolution: number): boolean;
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    source?: Source;
+    map?: PluggableMap;
+}
+export interface State {
+    layer: BaseLayer;
+    opacity: number;
+    sourceState: State_1;
+    visible: boolean;
+    managed: boolean;
+    extent?: Extent;
+    zIndex: number;
+    maxResolution: number;
+    minResolution: number;
+}
 export default class Layer extends BaseLayer {
     constructor(options: Options);
     getSource(): Source;
@@ -57,24 +77,4 @@ export default class Layer extends BaseLayer {
     once(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     un(type: 'rendercomplete', listener: (evt: RenderEvent) => void): void;
 }
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    source?: Source;
-    map?: PluggableMap;
-}
-export interface State {
-    layer: BaseLayer;
-    opacity: number;
-    sourceState: State_1;
-    visible: boolean;
-    managed: boolean;
-    extent?: Extent;
-    zIndex: number;
-    maxResolution: number;
-    minResolution: number;
-}
+export function visibleAtResolution(layerState: State, resolution: number): boolean;

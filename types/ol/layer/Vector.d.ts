@@ -9,7 +9,7 @@ import { OrderFunction } from '../render';
 import RenderEvent from '../render/Event';
 import Source from '../source/Source';
 import VectorSource from '../source/Vector';
-import Style, { StyleLike, StyleFunction } from '../style/Style';
+import Style, { StyleFunction, StyleLike } from '../style/Style';
 import Layer from './Layer';
 import VectorRenderType from './VectorRenderType';
 

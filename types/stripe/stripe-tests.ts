@@ -5,6 +5,24 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+// generic list tests
+// ##################################################################################
+stripe.balance.listTransactions().then(items => {
+    items; // $ExpectType IList<IBalanceTransaction>
+});
+stripe.balance.listTransactions().autoPagingEach(async item => {
+    item; // $ExpectType IBalanceTransaction
+});
+stripe.balance.listTransactions().autoPagingToArray({}); // $ExpectError
+stripe.balance.listTransactions().autoPagingToArray({limit: 1}).then(items => {
+    items; // $ExpectType IBalanceTransaction[]
+});
+async function testAutoPaging() {
+    for await (const item of stripe.balance.listTransactions()) {
+        item; // $ExpectType IBalanceTransaction
+    }
+}
+
 //#region Balance tests
 // ##################################################################################
 
@@ -964,6 +982,9 @@ stripe.accounts.createLoginLink("acct_17wV8KBoqMA9o2xk", "http://localhost:3000"
 
 //#region Application Fees tests
 // ##################################################################################
+stripe.applicationFees.retrieveRefund("fee_1Eq2auEELBA7Bnp1FpeuNccq", "fr_1Eq2auEELBA7Bnp1sNrbVAO9").then(refund => {
+    refund; // $ExpectType IApplicationFeeRefund
+});
 
 //#endregion
 
@@ -1223,6 +1244,14 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { paid_out_of_band: true }).t
 
 stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { forgive: true }).then((invoice) => {
     // asynchronously called
+});
+
+stripe.invoices.finalizeInvoice("in_15fvyXEe31JkLCeQH7QbgZZb").then(invoice => {
+    invoice; // $ExpectType IInvoice
+});
+
+stripe.invoices.finalizeInvoice("in_15fvyXEe31JkLCeQH7QbgZZb", { auto_advance: true }).then(invoice => {
+    invoice; // $ExpectType IInvoice
 });
 
 stripe.invoices.list(

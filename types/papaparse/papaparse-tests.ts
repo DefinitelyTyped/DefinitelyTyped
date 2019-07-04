@@ -45,7 +45,10 @@ var file = new File(null, null, null);
 
 Papa.parse(file, {
     transform: function(value, field) {},
-    complete: function(a, b) {
+    transformHeader: function(header) {
+        return header;
+    },
+    complete: function (a, b) {
         a.meta.fields;
         b.name;
     },
