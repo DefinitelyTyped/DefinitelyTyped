@@ -7,6 +7,7 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
+//                 Matthew Wagerfield <https://github.com/wagerfield>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -21,17 +22,14 @@ declare global {
 import * as CSS from "csstype";
 import * as React from "react";
 
-export type CSSObject = CSS.Properties<string | number> &
-    // Index type to allow selector nesting
-    // This is "[key in string]" and not "[key: string]" to allow CSSObject to be self-referential
-    {
-        // we need the CSS.Properties in here too to ensure the index signature doesn't create impossible values
-        [key in string]:
-            | CSS.Properties<string | number>[keyof CSS.Properties<
-                  string | number
-              >]
-            | CSSObject
-    };
+export type CSSProperties = CSS.Properties<string | number>
+
+export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject }
+
+export interface CSSObject extends CSSProperties, CSSPseudos {
+    [key: string]: CSSObject | string | number | undefined
+}
+
 export type CSSKeyframes = object & { [key: string]: CSSObject };
 
 export interface ThemeProps<T> {
@@ -219,6 +217,7 @@ export interface ThemedStyledFunctionBase<
         first:
             | TemplateStringsArray
             | CSSObject
+            | CSSObject[]
             | InterpolationFunction<
                   ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
               >,
@@ -232,6 +231,7 @@ export interface ThemedStyledFunctionBase<
         first:
             | TemplateStringsArray
             | CSSObject
+            | CSSObject[]
             | InterpolationFunction<
                   ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
               >,
@@ -324,13 +324,14 @@ export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
     (
-        first: TemplateStringsArray | CSSObject,
+        first: TemplateStringsArray | CSSObject | CSSObject[],
         ...interpolations: SimpleInterpolation[]
     ): FlattenSimpleInterpolation;
     (
         first:
             | TemplateStringsArray
             | CSSObject
+            | CSSObject[]
             | InterpolationFunction<ThemedStyledProps<{}, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
     ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
@@ -338,6 +339,7 @@ export interface BaseThemedCssFunction<T extends object> {
         first:
             | TemplateStringsArray
             | CSSObject
+            | CSSObject[]
             | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): FlattenInterpolation<ThemedStyledProps<P, T>>;
@@ -372,6 +374,7 @@ export interface ThemedStyledComponentsModule<
         first:
             | TemplateStringsArray
             | CSSObject
+            | CSSObject[]
             | InterpolationFunction<ThemedStyledProps<P, T>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
@@ -445,6 +448,7 @@ export function createGlobalStyle<P extends object = {}>(
     first:
         | TemplateStringsArray
         | CSSObject
+        | CSSObject[]
         | InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
 ): GlobalStyleComponent<P, DefaultTheme>;
@@ -511,6 +515,7 @@ export class StyleSheetManager extends React.Component<
 export type CSSProp<T = AnyIfEmpty<DefaultTheme>> =
     | string
     | CSSObject
+    | CSSObject[]
     | FlattenInterpolation<ThemeProps<T>>;
 
 export default styled;
