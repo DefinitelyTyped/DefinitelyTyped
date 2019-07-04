@@ -32,6 +32,7 @@ import { EditorPrompt } from "./Prompts/EditorPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
 import { Choice } from "./Poll/Choice";
+import { Choices } from "./Poll/Choices";
 
 declare namespace inquirer {
     export interface StreamOptions {
@@ -435,6 +436,10 @@ declare namespace inquirer {
 
 declare module "inquirer/lib/objects/choice" {
     export = Choice;
+}
+
+declare module "inquirer/lib/objects/choices" {
+    export = Choices;
 }
 
 declare module "inquirer/lib/prompts/base" {
