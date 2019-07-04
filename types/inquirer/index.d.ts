@@ -31,6 +31,7 @@ import { ConfirmPrompt } from "./Prompts/ConfirmPrompt";
 import { EditorPrompt } from "./Prompts/EditorPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
+import { Choice } from "./System/Choice";
 
 declare namespace inquirer {
     export interface StreamOptions {
@@ -417,12 +418,8 @@ declare namespace inquirer {
     }
 }
 
-declare module "inquirer/lib/utils/paginator" {
-    export = Paginator;
-}
-
-declare module "inquirer/lib/utils/screen-manager" {
-    export = ScreenManager;
+declare module "inquirer/lib/objects/choice" {
+    export = Choice;
 }
 
 declare module "inquirer/lib/prompts/base" {
@@ -439,6 +436,14 @@ declare module "inquirer/lib/prompts/confirm" {
 
 declare module "inquirer/lib/prompts/editor" {
     export = EditorPrompt;
+}
+
+declare module "inquirer/lib/utils/paginator" {
+    export = Paginator;
+}
+
+declare module "inquirer/lib/utils/screen-manager" {
+    export = ScreenManager;
 }
 
 declare var inquirer: inquirer.Inquirer;
