@@ -1128,7 +1128,6 @@ declare namespace NodeJS {
         unref(): this;
     }
 
-
     class Immediate {
         hasRef(): boolean;
         ref(): this;

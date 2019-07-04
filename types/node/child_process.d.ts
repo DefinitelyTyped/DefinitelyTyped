@@ -346,7 +346,6 @@ declare module "child_process" {
     function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
     function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
-
     interface ExecFileSyncOptions extends CommonOptions {
         input?: string | Buffer | NodeJS.TypedArray | DataView;
         stdio?: StdioOptions;
