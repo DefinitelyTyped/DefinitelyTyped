@@ -271,6 +271,7 @@ declare module "tls" {
          * @default true
          */
         rejectUnauthorized?: boolean; // Defaults to true
+
     }
 
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions {
