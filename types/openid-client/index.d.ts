@@ -10,6 +10,8 @@
 import { IncomingMessage } from 'http';
 import { GotOptions } from 'got';
 
+export { }; // Disable automatic export of all module members (make it explicit)
+
 //
 
 type HttpRequestOptions = GotOptions<null>;
