@@ -173,7 +173,7 @@ declare namespace Bull {
      */
     progress(value: any): Promise<void>;
 
-    log(logRow: string): any;
+    log(row: string): Promise<any>;
     isCompleted(): Promise<boolean>;
     isFailed(): Promise<boolean>;
     isDelayed(): Promise<boolean>;
