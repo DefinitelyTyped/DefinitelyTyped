@@ -62,7 +62,7 @@ describe("Stripe elements", () => {
                 });
 
         // test 3D secure
-        const threeDSecureFrame = <HTMLIFrameElement>document.getElementById('3d-secure-frame');
+        const threeDSecureFrame = <HTMLIFrameElement> document.getElementById('3d-secure-frame');
         const ownerInfo = {
             name: 'Jimmy',
             address: {
@@ -252,7 +252,6 @@ describe("Stripe elements", () => {
     });
 
     it("should handle card setup", () => {
-
         const card = elements.create('card');
 
         stripe.handleCardSetup(
@@ -265,7 +264,7 @@ describe("Stripe elements", () => {
                     },
                 }
             }
-        ).then(function (result) {
+        ).then(result => {
             if (result.error) {
                 console.error(result.error.message);
             } else if (result.setupIntent) {
