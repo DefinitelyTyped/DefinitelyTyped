@@ -1,6 +1,7 @@
 import { CometD, Listener, Message, SubscriptionHandle } from "cometd";
 import TimeSyncExtension from 'cometd/TimeSyncExtension';
 import AckExtension from 'cometd/AckExtension';
+import BinaryExtension from 'cometd/BinaryExtension';
 
 const cometd = new CometD();
 
@@ -14,6 +15,7 @@ cometd.configure({
 });
 
 cometd.registerExtension("ack", new AckExtension());
+cometd.registerExtension("binary", new BinaryExtension());
 
 const timesync = new TimeSyncExtension();
 cometd.registerExtension("timesync", timesync);
