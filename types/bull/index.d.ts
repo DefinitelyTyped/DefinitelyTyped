@@ -14,6 +14,7 @@
 //                 Kjell-Morten Bratsberg Thorsen <https://github.com/kjellmorten>
 //                 Christian D. <https://github.com/pc-jedi>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 DoYoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -171,6 +172,15 @@ declare namespace Bull {
      * Report progress on a job
      */
     progress(value: any): Promise<void>;
+
+    log(logRow: string): any;
+    isCompleted(): Promise<boolean>;
+    isFailed(): Promise<boolean>;
+    isDelayed(): Promise<boolean>;
+    isActive(): Promise<boolean>;
+    isWaiting(): Promise<boolean>;
+    isPaused(): Promise<boolean>;
+    isStuck(): Promise<boolean>;
 
     /**
      * Returns a promise resolving to the current job's status.
@@ -755,6 +765,12 @@ declare namespace Bull {
      * Array of Redis clients the queue uses
      */
     clients: Redis.Redis[];
+
+    setWorkerName(): Promise<any>;
+    getWorkers(): Promise<Redis.Redis[]>;
+    base64Name(): string;
+    clientName(): string;
+    parseClientList(list: string): Redis.Redis[];
   }
 
   type EventCallback = () => void;

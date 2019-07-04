@@ -12,6 +12,12 @@ const audioQueue = new Queue('audio transcoding', {
 });
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
 
+videoQueue.getWorkers();
+videoQueue.setWorkerName();
+videoQueue.base64Name();
+videoQueue.clientName();
+videoQueue.parseClientList('');
+
 videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created
     // job.jobId contains id of this job.
@@ -21,6 +27,15 @@ videoQueue.process((job, done) => {
 
     // transcode video asynchronously and report progress
     job.progress(42);
+
+    job.log('loglog');
+    job.isCompleted();
+    job.isFailed();
+    job.isDelayed();
+    job.isActive();
+    job.isWaiting();
+    job.isPaused();
+    job.isStuck();
 
     // call done when finished
     done();
