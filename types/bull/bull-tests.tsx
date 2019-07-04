@@ -25,6 +25,9 @@ videoQueue.process((job, done) => {
     // job.opts contains the options that were passed to the job
     job.opts;
 
+    job.queue;
+    job.queue.client;
+
     // transcode video asynchronously and report progress
     job.progress(42);
 

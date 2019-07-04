@@ -413,6 +413,11 @@ declare namespace Bull {
     name: string;
 
     /**
+     * Queue client (used to add jobs, pause queues, etc);
+     */
+    client: Redis.Redis;
+
+    /**
      * Returns a promise that resolves when Redis is connected and the queue is ready to accept jobs.
      * This replaces the `ready` event emitted on Queue in previous verisons.
      */
