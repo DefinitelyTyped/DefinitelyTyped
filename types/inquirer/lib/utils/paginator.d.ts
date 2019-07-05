@@ -1,9 +1,9 @@
-import { ScreenManager } from "./ScreenManager";
+import ScreenManager = require("./screen-manager");
 
 /**
  * Provides the functionality to draw paginated content using a `ScreenManager`.
  */
-export class Paginator {
+declare class Paginator {
     /**
      * Gets or sets the index of the currently focused line.
      */
@@ -37,3 +37,5 @@ export class Paginator {
      */
     public paginate(content: string, selectedIndex: number): string;
 }
+
+export = Paginator;

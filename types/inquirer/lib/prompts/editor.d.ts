@@ -1,6 +1,6 @@
-import { Prompt } from "./Prompt";
+import Prompt = require("./base");
 import { Subject, Subscription } from "rxjs";
-import inquirer = require("..");
+import inquirer = require("../..");
 
 /**
  * Represents a prompt which provides a text-editor.

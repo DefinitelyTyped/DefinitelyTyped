@@ -1,11 +1,11 @@
-import { Prompt } from "./Prompt";
-import inquirer = require("..");
+import Prompt = require("./base");
+import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
  * Represents a prompt which provides a message to confirm.
  */
-export class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>> {
+declare class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>> {
     /**
      * Initializes a new instance of the `CheckboxPrompt<T>` class.
      *
@@ -41,3 +41,5 @@ export class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquirer
      */
     protected onKeypress(): void;
 }
+
+export = ConfirmPrompt;

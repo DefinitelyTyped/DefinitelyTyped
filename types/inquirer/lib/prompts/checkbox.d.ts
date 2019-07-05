@@ -1,12 +1,12 @@
-import inquirer = require("..");
-import { Prompt } from "./Prompt";
+import inquirer = require("../..");
+import Prompt = require("./base");
 import { Interface as ReadLineInterface } from "readline";
-import { Paginator } from "../System/Paginator";
+import Paginator = require("../utils/paginator");
 
 /**
  * Represents a prompt which provides a set of choices to check.
  */
-export class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>> {
+declare class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>> {
     /**
      * Gets or sets the index of the currently focused choice.
      */
@@ -104,3 +104,5 @@ export class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquir
      */
     protected toggleChoice(index: number): void;
 }
+
+export = CheckboxPrompt;

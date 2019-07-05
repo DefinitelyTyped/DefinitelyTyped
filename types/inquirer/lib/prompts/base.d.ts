@@ -1,12 +1,12 @@
-import inquirer = require("..");
+import inquirer = require("../..");
 import { Interface as ReadLineInterface } from "readline";
-import { ScreenManager } from "../System/ScreenManager";
+import ScreenManager = require("../utils/screen-manager");
 import { Observable } from "rxjs";
 
 /**
  * Represents a prompt.
  */
-export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
+declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
     /**
      * @inheritdoc
      */
@@ -88,3 +88,5 @@ export declare class Prompt<TOptions = inquirer.poll.Question<inquirer.poll.Answ
      */
     protected getQuestion(): string;
 }
+
+export = Prompt;

@@ -24,13 +24,10 @@ import { KeyUnion } from "./System/KeyUnion";
 import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
 import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
-import { ScreenManager } from "./System/ScreenManager";
-import { Prompt } from "./Prompts/Prompt";
-import { CheckboxPrompt } from "./Prompts/CheckboxPrompt";
-import { ConfirmPrompt } from "./Prompts/ConfirmPrompt";
-import { EditorPrompt } from "./Prompts/EditorPrompt";
+import ScreenManager = require("./lib/utils/screen-manager");
+import Prompt = require("./lib/prompts/base");
 import { LiteralUnion } from './System/LiteralUnion';
-import { Paginator } from "./System/Paginator";
+import Paginator = require("./lib/utils/paginator");
 import Choice = require("./lib/objects/choice");
 import { Choices } from "./lib/objects/choices";
 
@@ -432,30 +429,6 @@ declare namespace inquirer {
             forEach<T>(application: (choice: Choice<A>) => T): T[];
         }
     }
-}
-
-declare module "inquirer/lib/prompts/base" {
-    export = Prompt;
-}
-
-declare module "inquirer/lib/prompts/checkbox" {
-    export = CheckboxPrompt;
-}
-
-declare module "inquirer/lib/prompts/confirm" {
-    export = ConfirmPrompt;
-}
-
-declare module "inquirer/lib/prompts/editor" {
-    export = EditorPrompt;
-}
-
-declare module "inquirer/lib/utils/paginator" {
-    export = Paginator;
-}
-
-declare module "inquirer/lib/utils/screen-manager" {
-    export = ScreenManager;
 }
 
 declare var inquirer: inquirer.Inquirer;

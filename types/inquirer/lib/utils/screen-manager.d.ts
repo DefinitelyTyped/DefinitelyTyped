@@ -3,7 +3,7 @@ import { Interface as ReadLineInterface } from "readline";
 /**
  * Provides the functionality to manage the content of a console-screen.
  */
-export declare class ScreenManager {
+declare class ScreenManager {
     /**
      * Gets or sets the height of the screen.
      */
@@ -86,3 +86,5 @@ export declare class ScreenManager {
      */
     protected forceLineReturn(text: string, width: number): string;
 }
+
+export = ScreenManager;
