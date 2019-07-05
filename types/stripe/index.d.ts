@@ -102,9 +102,11 @@ declare class Stripe {
     setApiKey(key?: string): void;
     setTimeout(timeout?: number): void;
     setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
     setHttpAgent(agent: string): void;
     getConstant(c: string): any;
     getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
     getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;

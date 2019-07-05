@@ -5,6 +5,9 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+stripe.setTelemetryEnabled(true);
+stripe.getTelemetryEnabled();
+
 // generic list tests
 // ##################################################################################
 stripe.balance.listTransactions().then(items => {
