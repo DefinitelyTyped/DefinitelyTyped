@@ -100,6 +100,7 @@ declare class Stripe {
     setPort(port: string|number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
     setTimeout(timeout?: number): void;
     setMaxNetworkRetries(maxNetworkRetries: number): void;
     setTelemetryEnabled(enabled: boolean): void;

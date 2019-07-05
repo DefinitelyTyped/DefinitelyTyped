@@ -5,6 +5,11 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+stripe.setAppInfo();
+stripe.setAppInfo({
+    name: 'DefinitelyTyped',
+});
+
 stripe.setTelemetryEnabled(true);
 stripe.getTelemetryEnabled();
 
