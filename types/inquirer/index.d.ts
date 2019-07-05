@@ -19,8 +19,6 @@ import { Interface as ReadlineInterface } from 'readline';
 import { PromptModuleBase } from "./PromptModuleBase";
 import { Prompts } from "./Prompts";
 import Separator = require("./lib/objects/separator");
-import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
-import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 import ScreenManager = require("./lib/utils/screen-manager");
 import Prompt = require("./lib/prompts/base");
 import Paginator = require("./lib/utils/paginator");
@@ -114,6 +112,38 @@ declare namespace inquirer {
              * message is provided.
              */
             validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
+        }
+
+        /**
+         * Represents an input-based question.
+         */
+        export interface InputQuestionBase<T> extends inquirer.poll.Question<T> {
+            /**
+             * Receive the user input, answers hash and option flags, and return a transformed value
+             * to display to the user. The transformation only impacts what is shown while editing.
+             * It does not modify the answers hash.
+             */
+            transformer?(input: string, answers: T, flags: any): string | Promise<string>;
+        }
+
+        /**
+         * Represents a list-based question.
+         */
+        export interface ListQuestionBase<T> extends inquirer.poll.Question<T> {
+            /**
+             * Choices array or a function returning a choices array. If defined as a function,
+             * the first parameter will be the current inquirer session answers. Array values can
+             * be simple `numbers`, `strings`, or `objects` containing a `name` (to display in list),
+             * a `value` (to save in the answers hash) and a `short` (to display after selection)
+             * properties. The choices array can also contain
+             * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
+             */
+            choices?: Internal.Poll.DynamicQuestionProperty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
+            /**
+             * Change the number of lines that will be rendered when using `list`, `rawList`,
+             * `expand` or `checkbox`.
+             */
+            pageSize?: number;
         }
 
         export interface InputQuestion<A> extends InputQuestionBase<A> {
