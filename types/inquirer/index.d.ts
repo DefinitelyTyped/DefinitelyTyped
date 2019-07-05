@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
 import { PromptModuleBase } from "./PromptModuleBase";
 import { Prompts } from "./Prompts";
-import { Separator } from "./Poll/Separator";
+import Separator = require("./lib/objects/separator");
 import { ChoiceBase } from './Poll/ChoiceBase';
 import { KeyUnion } from "./System/KeyUnion";
 import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
@@ -31,8 +31,8 @@ import { ConfirmPrompt } from "./Prompts/ConfirmPrompt";
 import { EditorPrompt } from "./Prompts/EditorPrompt";
 import { LiteralUnion } from './System/LiteralUnion';
 import { Paginator } from "./System/Paginator";
-import { Choice } from "./Poll/Choice";
-import { Choices } from "./Poll/Choices";
+import Choice = require("./lib/objects/choice");
+import { Choices } from "./lib/objects/choices";
 
 declare namespace inquirer {
     export interface StreamOptions {
@@ -432,18 +432,6 @@ declare namespace inquirer {
             forEach<T>(application: (choice: Choice<A>) => T): T[];
         }
     }
-}
-
-declare module "inquirer/lib/objects/choice" {
-    export = Choice;
-}
-
-declare module "inquirer/lib/objects/choices" {
-    export = Choices;
-}
-
-declare module "inquirer/lib/objects/separator" {
-    export = Separator;
 }
 
 declare module "inquirer/lib/prompts/base" {

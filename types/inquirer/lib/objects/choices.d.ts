@@ -1,6 +1,6 @@
-import inquirer = require("..");
-import { Choice } from "./Choice";
-import { Separator } from "./Separator";
+import inquirer = require("../..");
+import Choice = require("./choice");
+import Separator = require("./separator");
 
 /**
  * A collection of multiple `Choice`-objects.

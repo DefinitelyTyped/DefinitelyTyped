@@ -1,10 +1,10 @@
-import inquirer = require("..");
-import { ChoiceBase } from "./ChoiceBase";
+import inquirer = require("../..");
+import { ChoiceBase } from "../../Poll/ChoiceBase";
 
 /**
  * Represents a choice-item separator.
  */
-export class Separator implements ChoiceBase, inquirer.poll.SeparatorOptions {
+declare class Separator implements ChoiceBase, inquirer.poll.SeparatorOptions {
     /**
      * @inheritdoc
      */
@@ -34,3 +34,5 @@ export class Separator implements ChoiceBase, inquirer.poll.SeparatorOptions {
      */
     public static exclude(item: any): boolean;
 }
+
+export = Separator;
