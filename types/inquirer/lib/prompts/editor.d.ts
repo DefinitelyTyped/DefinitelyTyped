@@ -5,7 +5,7 @@ import inquirer = require("../..");
 /**
  * Represents a prompt which provides a text-editor.
  */
-export class EditorPrompt extends Prompt {
+export class EditorPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.poll.Answers>> {
     /**
      * Resolves the value of the prompt.
      */
