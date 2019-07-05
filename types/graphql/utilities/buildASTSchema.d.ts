@@ -92,4 +92,4 @@ export function getDescription(
  * A helper function to build a GraphQLSchema directly from a source
  * document.
  */
-export function buildSchema(source: string | Source, options?: BuildSchemaOptions & ParseOptions): GraphQLSchema;
+export function buildSchema<TSource = any, TContext = any, TArgs = { [key: string]: any }>(source: string | Source, options?: BuildSchemaOptions & ParseOptions): GraphQLSchema<TSource, TContext, TArgs }>;
