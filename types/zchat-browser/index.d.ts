@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export as namespace zchat;
+export as namespace zChat;
 
 export interface InitProps {
     account_key: string;
