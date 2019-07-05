@@ -12,12 +12,9 @@
 //                 Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
-/// <reference path="Internal.d.ts" />
 import { ThroughStream } from 'through';
 import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
-import { PromptModuleBase } from "./PromptModuleBase";
-import { Prompts } from "./Prompts";
 import Separator = require("./lib/objects/separator");
 import ScreenManager = require("./lib/utils/screen-manager");
 import Prompt = require("./lib/prompts/base");
@@ -25,7 +22,52 @@ import Paginator = require("./lib/utils/paginator");
 import Choice = require("./lib/objects/choice");
 import { Choices } from "./lib/objects/choices";
 
+/**
+ * Represents a union which preserves autocompletion.
+ */
+type LiteralUnion<T extends I, I = string> = T | (I & {});
+
+/**
+ * Represents either a key of `T` or a `string`.
+ */
+type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
+
+/**
+ * Represents a dynamic property for a question.
+ */
+type DynamicQuestionProperty<TAnswers, T> = T | ((answers: TAnswers) => T | Promise<T>);
+
+/**
+ * Represents a choice-item.
+ */
+interface ChoiceBase {
+    /**
+     * Gets the type of the choice.
+     */
+    type?: string;
+}
+
+/**
+ * Provides prompts for answering questions.
+ */
+interface PromptModuleBase {
+    /**
+     * Register a prompt type
+     * @param name Prompt type name
+     * @param prompt Prompt constructor
+     */
+    registerPrompt(name: string, prompt: inquirer.prompts.PromptConstructor): PromptModuleBase;
+    /**
+     * Register the defaults provider prompts
+     */
+    restoreDefaultPrompts(): void;
+}
+
 declare namespace inquirer {
+    export interface Prompts<T extends poll.Answers = poll.Answers> {
+        [name: string]: Prompt<poll.Question<T>>;
+    }
+
     export interface StreamOptions {
         input?: NodeJS.ReadStream,
         output?: NodeJS.WriteStream,
@@ -59,7 +101,7 @@ declare namespace inquirer {
          * @return
          */
         prompt: PromptModule;
-        prompts: Prompts;
+        prompts: {};
         Separator: typeof Separator;
         ui: {
             BottomBar: ui.BottomBar;
@@ -68,26 +110,26 @@ declare namespace inquirer {
     }
 
     export namespace poll {
-        export interface Answers extends Record<string, any> {}
+export interface Answers extends Record<string, any> {}
         export interface Question<A extends Answers = Answers> {
             type?: string;
             /**
              * The name to use when storing the answer in the answers hash.
              * If the name contains periods, it will define a path in the answers hash.
              */
-            name?: Internal.System.KeyUnion<A>;
+            name?: KeyUnion<A>;
             /**
              * The question to print. If defined as a function, the first parameter will be
              * the current inquirer session answers.
              * Defaults to the value of `name` (followed by a colon).
              */
-            message?: Internal.Poll.DynamicQuestionProperty<A, string>;
+            message?: DynamicQuestionProperty<A, string>;
             /**
              * Default value(s) to use if nothing is entered, or a function that returns
              * the default value(s). If defined as a function, the first parameter will be
              * the current inquirer session answers.
              */
-            default?: Internal.Poll.DynamicQuestionProperty<A, any>;
+            default?: DynamicQuestionProperty<A, any>;
             /**
              * Change the default _prefix_ message.
              */
@@ -105,7 +147,7 @@ declare namespace inquirer {
              * Receive the current user answers hash and should return `true` or `false` depending
              * on whether or not this question should be asked. The value can also be a simple boolean.
              */
-            when?: Internal.Poll.DynamicQuestionProperty<A, boolean>;
+            when?: DynamicQuestionProperty<A, boolean>;
             /**
              * Receive the user input and answers hash. Should return `true` if the value is valid,
              * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -113,6 +155,37 @@ declare namespace inquirer {
              */
             validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
         }
+
+        export interface ChoiceOptions<A extends Answers = Answers> extends ChoiceBase {
+            name?: string;
+            value?: any;
+            short?: string;
+            extra?: any;
+            key?: string;
+            checked?: boolean;
+            disabled?: DynamicQuestionProperty<A, boolean | string>;
+        }
+
+        /**
+         * Represents a separator.
+         */
+        export interface SeparatorOptions {
+            /**
+             * Gets the type of the choice.
+             */
+            type: 'separator';
+
+            /**
+             * Gets or sets the text of the separator.
+             */
+            line?: string;
+        }
+
+        export type DistinctChoice<A extends Answers = Answers> =
+            | string
+            | ChoiceOptions<A>
+            | SeparatorOptions
+            | Separator;
 
         /**
          * Represents an input-based question.
@@ -138,7 +211,7 @@ declare namespace inquirer {
              * properties. The choices array can also contain
              * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
              */
-            choices?: Internal.Poll.DynamicQuestionProperty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
+            choices?: DynamicQuestionProperty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
             /**
              * Change the number of lines that will be rendered when using `list`, `rawList`,
              * `expand` or `checkbox`.
@@ -155,7 +228,7 @@ declare namespace inquirer {
         }
 
         export interface PasswordQuestion<A> extends InputQuestionBase<A> {
-            type: 'password'
+            type: 'password';
             /**
              * Hides the user input.
              */
@@ -163,15 +236,15 @@ declare namespace inquirer {
         }
 
         export interface ListQuestion<A> extends ListQuestionBase<A> {
-            type: 'list'
+            type: 'list';
         }
 
         export interface RawListQuestion<A> extends ListQuestionBase<A> {
-            type: 'rawlist'
+            type: 'rawlist';
         }
 
         export interface ExpandQuestion<A> extends ListQuestionBase<A> {
-            type: 'expand'
+            type: 'expand';
         }
 
         export interface CheckboxQuestion<A> extends ListQuestionBase<A> {
@@ -179,50 +252,23 @@ declare namespace inquirer {
         }
 
         export interface ConfirmQuestion<A> extends poll.Question<A> {
-            type: 'confirm'
+            type: 'confirm';
         }
 
         export interface EditorQuestion<A> extends poll.Question<A> {
             type: 'editor';
         }
 
-        export interface ChoiceOptions<A extends Answers = Answers> extends Internal.Poll.ChoiceBase {
-            name?: string;
-            value?: any;
-            short?: string;
-            extra?: any;
-            key?: string;
-            checked?: boolean;
-            disabled?: Internal.Poll.DynamicQuestionProperty<A, boolean | string>;
-        }
-
-        export type DistinctChoice<A extends Answers = Answers> = string | ChoiceOptions<A> | SeparatorOptions | Separator;
-
-        /**
-         * Represents a separator.
-         */
-        export interface SeparatorOptions {
-            /**
-             * Gets the type of the choice.
-             */
-            type: "separator";
-        
-            /**
-             * Gets or sets the text of the separator.
-             */
-            line?: string;
-        }
-
         export type DistinctQuestion<A extends Answers = Answers> =
-            ListQuestion<A> |
-            RawListQuestion<A> |
-            ExpandQuestion<A> |
-            CheckboxQuestion<A> |
-            ConfirmQuestion<A> |
-            InputQuestion<A> |
-            NumberQuestion<A> |
-            PasswordQuestion<A> |
-            EditorQuestion<A>;
+            | ListQuestion<A>
+            | RawListQuestion<A>
+            | ExpandQuestion<A>
+            | CheckboxQuestion<A>
+            | ConfirmQuestion<A>
+            | InputQuestion<A>
+            | NumberQuestion<A>
+            | PasswordQuestion<A>
+            | EditorQuestion<A>;
 
         export type QuestionCollection<A extends Answers = Answers> =
             | DistinctQuestion<A>
@@ -272,7 +318,7 @@ declare namespace inquirer {
         /**
          * Represents the state of a prompt.
          */
-        export type PromptState = Internal.System.LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+        export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
 
         /**
          * Provides data about the state of a prompt.
