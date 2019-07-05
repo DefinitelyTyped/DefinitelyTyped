@@ -35,25 +35,25 @@ export function isSchema(schema: any): schema is GraphQLSchema;
  *     })
  *
  */
-export class GraphQLSchema {
+export class GraphQLSchema<TSource = any, TContext = any, TArgs = { [key: string]: any }> {
     astNode: Maybe<SchemaDefinitionNode>;
     extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 
-    constructor(config: GraphQLSchemaConfig);
+    constructor(config: GraphQLSchemaConfig<TSource, TContext, TArgs>);
 
-    getQueryType(): Maybe<GraphQLObjectType>;
-    getMutationType(): Maybe<GraphQLObjectType>;
-    getSubscriptionType(): Maybe<GraphQLObjectType>;
+    getQueryType(): Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
+    getMutationType(): Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
+    getSubscriptionType(): Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
     getTypeMap(): TypeMap;
     getType(name: string): Maybe<GraphQLNamedType>;
     getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType>;
 
-    isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType): boolean;
+    isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType<TSource, TContext, TArgs>): boolean;
 
     getDirectives(): ReadonlyArray<GraphQLDirective>;
     getDirective(name: string): Maybe<GraphQLDirective>;
 
-    toConfig(): GraphQLSchemaConfig & {
+    toConfig(): GraphQLSchemaConfig<TSource, TContext, TArgs> & {
         types: GraphQLNamedType[];
         directives: GraphQLDirective[];
         extensionASTNodes: ReadonlyArray<SchemaExtensionNode>;
@@ -82,10 +82,10 @@ export interface GraphQLSchemaValidationOptions {
     allowedLegacyNames?: Maybe<ReadonlyArray<string>>;
 }
 
-export interface GraphQLSchemaConfig extends GraphQLSchemaValidationOptions {
-    query: Maybe<GraphQLObjectType>;
-    mutation?: Maybe<GraphQLObjectType>;
-    subscription?: Maybe<GraphQLObjectType>;
+export interface GraphQLSchemaConfig<TSource = any, TContext = any, TArgs = { [key: string]: any }> extends GraphQLSchemaValidationOptions {
+    query: Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
+    mutation?: Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
+    subscription?: Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
     types?: Maybe<GraphQLNamedType[]>;
     directives?: Maybe<GraphQLDirective[]>;
     astNode?: Maybe<SchemaDefinitionNode>;
