@@ -46,7 +46,7 @@ export class GraphQLSchema<TSource = any, TContext = any, TArgs = { [key: string
     getSubscriptionType(): Maybe<GraphQLObjectType<TSource, TContext, TArgs>>;
     getTypeMap(): TypeMap;
     getType(name: string): Maybe<GraphQLNamedType>;
-    getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType>;
+    getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType<TSource, TContext, TArgs>>;
 
     isPossibleType(abstractType: GraphQLAbstractType, possibleType: GraphQLObjectType<TSource, TContext, TArgs>): boolean;
 
