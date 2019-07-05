@@ -5,10 +5,11 @@
             "es6",
             "dom"
         ],
+        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "zendesk-chat-tests.ts"
+        "zchat-tests.ts"
     ]
 }
