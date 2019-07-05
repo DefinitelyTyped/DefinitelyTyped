@@ -242,16 +242,8 @@ declare module "tls" {
          */
         requestCert?: boolean;
         /**
-         * An array of strings or a Buffer naming possible NPN protocols.
-         * (Protocols should be ordered by their priority.)
-         */
-        NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
-        /**
          * An array of strings or a Buffer naming possible ALPN protocols.
-         * (Protocols should be ordered by their priority.) When the server
-         * receives both NPN and ALPN extensions from the client, ALPN takes
-         * precedence over NPN and the server does not send an NPN extension
-         * to the client.
+         * (Protocols should be ordered by their priority.)
          */
         ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
         /**
