@@ -2643,7 +2643,7 @@ declare namespace Stripe {
             /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
              */
-            charge: string | charges.ICharge;
+            charge: string | charges.ICharge | null;
 
             /**
              * Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
@@ -3339,9 +3339,9 @@ declare namespace Stripe {
             discountable: boolean;
 
             /**
-             * If null, the invoice item is pending and will be included in the upcoming invoice.
+             * If null, the invoice item is pending and will be included in the upcoming invoice. [Expandable]
              */
-            invoice: string | null;
+            invoice: string | invoices.IInvoice | null;
             livemode: boolean;
             metadata: IMetadata;
 
