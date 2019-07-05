@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-interface Window {
-    zChat?: ZChat;
-}
+export as namespace zChat;
 
 interface InitProps {
     account_key: string;
@@ -15,82 +13,85 @@ interface InitProps {
     };
 }
 
-interface ZChat {
-    init(initProps: InitProps): void;
+export function init(initProps: InitProps): void;
 
-    getAccountStatus(): 'online' | 'offline' | 'away';
+export function getAccountStatus(): 'online' | 'offline' | 'away';
 
-    getConnectionStatus(): 'connected' | 'connecting' | 'closed';
+export function getConnectionStatus(): 'connected' | 'connecting' | 'closed';
 
-    getVisitorInfo(): VisitorInfo;
+export function getVisitorInfo(): VisitorInfo;
 
-    setVisitorInfo(options: Partial<VisitorInfo>, callback?: (err: Error) => void): void;
+export function setVisitorInfo(options: Partial<VisitorInfo>, callback?: (err: Error) => void): void;
 
-    sendVisitorPath(options: { title: string, url: string }, callback?: (err: Error) => void): void;
+export function sendVisitorPath(options: { title: string; url: string }, callback?: (err: Error) => void): void;
 
-    getQueuePosition(): number;
+export function getQueuePosition(): number;
 
-    getAllDepartments(): Department[];
+export function getAllDepartments(): Department[];
 
-    getDepartment(id: number): Department;
+export function getDepartment(id: number): Department;
 
-    getVisitorDefaultDepartment(id?: number): Department;
+export function getVisitorDefaultDepartment(id?: number): Department;
 
-    setVisitorDefaultDepartment(id: number, callback?: (err: Error) => void): void;
+export function setVisitorDefaultDepartment(id: number, callback?: (err: Error) => void): void;
 
-    clearVisitorDefaultDepartment(callback?: (err: Error) => void): void;
+export function clearVisitorDefaultDepartment(callback?: (err: Error) => void): void;
 
-    /**
-     * If this method is used when none of the agents are available to pick up a chat,
-     * messages sent by visitors may result in missed chats.
-     * @param msg
-     * @param callback
-     */
-    sendChatMsg(msg: string, callback?: (err: Error) => void): void;
+/**
+ * If this method is used when none of the agents are available to pick up a chat,
+ * messages sent by visitors may result in missed chats.
+ * @param msg
+ * @param callback
+ */
+export function sendChatMsg(msg: string, callback?: (err: Error) => void): void;
 
-    /**
-     * The size of each file attachment sent cannot exceed 20MB as of v1.1.4.
-     * The previous limit was 5MB.
-     * @param file
-     * @param callback
-     */
-    sendFile(file: File, callback?: (err: SendFileErrorMessage, data: {
-        mime_type: string,
-        name: string,
-        size: number,
-        url: string,
-    }) => void): void;
+/**
+ * The size of each file attachment sent cannot exceed 20MB as of v1.1.4.
+ * The previous limit was 5MB.
+ * @param file
+ * @param callback
+ */
+export function sendFile(file: File, callback?: (err: SendFileErrorMessage, data: {
+    mime_type: string,
+    name: string,
+    size: number,
+    url: string,
+}) => void): void;
 
-    sendOfflineMsg(options: {
-        name: string,
-        email: string,
-        phone?: string,
-        message: string,
-        department?: number,
-    }, callback: (err: Error) => void): void;
+export function sendOfflineMsg(
+    
+    options: {
+            name: string;
+        email: string;
+        phone?: string;
+        message: string;
+        department?: number;
+    },
+    callback: (err: Error) => void
 
-    addTags(tags: string[], callback?: (err: Error) => void): void;
+): void;
 
-    removeTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
+export function addTags(tags: string[], callback?: (err: Error) => void): void;
 
-    sendTyping(is_typing: boolean): void;
+export function removeTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
 
-    getChatInfo(): { rating?: string, comment?: string };
+export function sendTyping(is_typing: boolean): void;
 
-    sendChatRating(rating: 'good' | 'bad' | undefined, callback?: (err: Error) => void): void;
+export function getChatInfo(): { rating?: string; comment?: string };
 
-    sendChatComment(comment: string, callback?: (err: Error) => void): void;
+export function sendChatRating(rating: 'good' | 'bad' | undefined, callback?: (err: Error) => void): void;
 
-    isChatting(): boolean;
+export function sendChatComment(comment: string, callback?: (err: Error) => void): void;
 
-    getChatLog(): ChatEvent.ChatEventData[];
+export function isChatting(): boolean;
 
-    on(event_name: EventName, handler: (event_data?: EventData) => void): void;
+export function getChatLog(): ChatEvent.ChatEventData[];
 
-    un(event_name: EventName, handler: (event_data?: EventData) => void): void;
-}
+export function on(event_name: EventName, handler: (event_data?: EventData) => void): void;
 
-declare namespace ChatEvent {
+export function un(event_name: EventName, handler: (event_data?: EventData) => void): void;
+
+export namespace ChatEvent {
     interface BaseChatEventData {
         nick: string;
         display_name: string;
@@ -98,30 +99,36 @@ declare namespace ChatEvent {
     }
 
     type ChatEventData =
-        BaseChatEventData & {
-        type: 'chat.msg',
-        msg: string,
-        options: string[],
-        structured_msg: StructuredMessage,
-    } | BaseChatEventData & {
-        type: 'chat.file',
-        attachment: Attachment,
-        deleted: boolean,
-    } | BaseChatEventData & {
-        type: 'chat.memberjoin',
-    } | BaseChatEventData & {
-        type: 'chat.memberleave',
-    } | BaseChatEventData & {
-        type: 'chat.request.rating',
-    } | BaseChatEventData & {
-        type: 'chat.rating',
-        rating?: string,
-        new_rating?: string,
-    } | BaseChatEventData & {
-        type: 'chat.comment',
-        comment?: string,
-        new_comment?: string,
-    };
+        | BaseChatEventData & {
+              type: 'chat.msg';
+              msg: string;
+              options: string[];
+              structured_msg: StructuredMessage;
+          }
+        | BaseChatEventData & {
+              type: 'chat.file';
+              attachment: Attachment;
+              deleted: boolean;
+          }
+        | BaseChatEventData & {
+              type: 'chat.memberjoin';
+          }
+        | BaseChatEventData & {
+              type: 'chat.memberleave';
+          }
+        | BaseChatEventData & {
+              type: 'chat.request.rating';
+          }
+        | BaseChatEventData & {
+              type: 'chat.rating';
+              rating?: string;
+              new_rating?: string;
+          }
+        | BaseChatEventData & {
+              type: 'chat.comment';
+              comment?: string;
+              new_comment?: string;
+          };
 
     interface Action {
         type: 'QUICK_REPLY_ACTION' | 'LINK_ACTION';
@@ -153,26 +160,30 @@ declare namespace ChatEvent {
         action: Action;
     }
 
-    type StructuredMessage = {
-        type: 'QUICK_REPLIES',
-        msg: string,
-        quick_replies: Button[],
-    } | {
-        type: 'PANEL_TEMPLATE',
-        panel: Panel,
-        buttons: Button[],
-    } | {
-        type: 'PANEL_TEMPLATE_CAROUSEL',
-        items: PanelTemplate[],
-    } | {
-        type: 'LIST_TEMPLATE',
-        items: ListItem[],
-        buttons: Button[],
-    };
+    type StructuredMessage =
+        | {
+              type: 'QUICK_REPLIES';
+              msg: string;
+              quick_replies: Button[];
+          }
+        | {
+              type: 'PANEL_TEMPLATE';
+              panel: Panel;
+              buttons: Button[];
+          }
+        | {
+              type: 'PANEL_TEMPLATE_CAROUSEL';
+              items: PanelTemplate[];
+          }
+        | {
+              type: 'LIST_TEMPLATE';
+              items: ListItem[];
+              buttons: Button[];
+          };
 }
 
-type SendFileErrorMessage =
-    'NOT_SUPPORTED'
+export type SendFileErrorMessage =
+    | 'NOT_SUPPORTED'
     | 'NOT_ALLOWED'
     | 'CONN_ERROR'
     | 'INVALID_EXTENSION'
@@ -180,19 +191,19 @@ type SendFileErrorMessage =
     | 'INTERNAL_ERROR'
     | 'UNKNOWN_ERROR';
 
-interface VisitorInfo {
+export interface VisitorInfo {
     display_name: string;
     email: string;
     phone: string;
 }
 
-interface Department {
+export interface Department {
     id: number;
     name: string;
     status: 'online' | 'offline';
 }
 
-interface Attachment {
+export interface Attachment {
     metadata?: AttachmentMetadata;
     mime_type: string;
     name: string;
@@ -200,13 +211,13 @@ interface Attachment {
     url: string;
 }
 
-interface AttachmentMetadata {
+export interface AttachmentMetadata {
     width: number;
     height: number;
 }
 
-type EventName =
-    'account_status'
+export type EventName =
+    | 'account_status'
     | 'connection_update'
     | 'department_update'
     | 'visitor_update'
@@ -216,21 +227,24 @@ type EventName =
     | 'typing'
     | 'error';
 
-type EventData = ChatEvent.ChatEventData
+export type EventData =
+    | ChatEvent.ChatEventData
     | {
-    type: 'chat.queue_position',
-    nick: string,
-    queue_position: number,
-}
+          type: 'chat.queue_position';
+          nick: string;
+          queue_position: number;
+      }
     | {
-    type: 'typing',
-    nick: string,
-    typing: boolean,
-} | {
-    type: 'last_read',
-    nick: string,
-    timestamp: number,
-} | 'online'
+          type: 'typing';
+          nick: string;
+          typing: boolean;
+      }
+    | {
+          type: 'last_read';
+          nick: string;
+          timestamp: number;
+      }
+    | 'online'
     | 'away'
     | 'offline'
     | 'connecting'
