@@ -5,8 +5,9 @@
 // TypeScript Version: 3.0
 // Acknowledgements: This work has been financed by Logilab SA, FRANCE, logilab.fr
 
-
-export type Bindings = { [id: string]: Node };
+export interface Bindings {
+    [id: string]: Node;
+}
 /**
  * Class orders
  */
@@ -810,8 +811,11 @@ export class Formula extends Node {
 }
 
 export class Query {
-    constructor(name: string, id?: any)
-}
+           pat: IndexedFormula;
+           name: string;
+           id?: string;
+           constructor(name: string, id?: any);
+       }
 
 /**
  * A formula (set of triples) which indexes by predicate, subject and object.
@@ -869,7 +873,7 @@ export class IndexedFormula extends Formula {
     /**
      * @param features
      */
-    initPropertyActions(features: ('sameAs' | 'InverseFunctionalProperty' | 'FunctionalProperty')[]): boolean;
+    initPropertyActions(features: Array<('sameAs' | 'InverseFunctionalProperty' | 'FunctionalProperty')>): boolean;
     /**
      * add - same signature as parent class Formula
      */
@@ -899,7 +903,7 @@ export class IndexedFormula extends Formula {
     copyTo(
         template: Node,
         target: Node,
-        flags?: ('two-direction' | 'delete')[]
+        flags?: Array<('two-direction' | 'delete')>
     ): void;
     /**
      * Simplify graph in store when we realize two identifiers are equivalent
@@ -949,7 +953,7 @@ export class IndexedFormula extends Formula {
      * @param pred the predicate that the function should be triggered on
      * @param action the function that should trigger
      */
-    newPropertyAction(pred: Node, action: Function): boolean;
+    newPropertyAction(pred: Node, action: (store: IndexedFormula, subject: NamedNode, object: NamedNode) => boolean): boolean;
     /**
      * Creates a new universal node
      * Universals are Variables
@@ -971,18 +975,18 @@ export class IndexedFormula extends Formula {
      * @param dummy OBSOLETE - do not use this
      * @param onDone OBSOLETE - do not use this
      */
-    query (
+    query(
         myQuery: Query,
         callback: (bindings: Bindings) => void,
         dummy?: null,
         onDone?: () => void
-    ): void
+    ): void;
     /**
      * Query this store synchronously and return bindings
      *
      * @param myQuery The query to be run
      */
-    querySync (myQuery: Query): Bindings[];
+    querySync(myQuery: Query): Bindings[];
     /**
      * Removes a statement from this formula
      * @param st A statement to remove
