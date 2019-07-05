@@ -5,7 +5,7 @@ import Separator = require("./separator");
 /**
  * A collection of multiple `Choice`-objects.
  */
-export class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
+declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
     /**
      * The number of selectable choices.
      */
@@ -157,3 +157,5 @@ export class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      */
     public push(...items: Array<Choice<T> | Separator>): number;
 }
+
+export = Choices;

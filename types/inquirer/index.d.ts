@@ -20,7 +20,7 @@ import ScreenManager = require("./lib/utils/screen-manager");
 import Prompt = require("./lib/prompts/base");
 import Paginator = require("./lib/utils/paginator");
 import Choice = require("./lib/objects/choice");
-import { Choices } from "./lib/objects/choices";
+import Choices = require("./lib/objects/choices");
 
 /**
  * Represents a union which preserves autocompletion.
@@ -110,7 +110,7 @@ declare namespace inquirer {
     }
 
     export namespace poll {
-export interface Answers extends Record<string, any> {}
+        export interface Answers extends Record<string, any> {}
         export interface Question<A extends Answers = Answers> {
             type?: string;
             /**
