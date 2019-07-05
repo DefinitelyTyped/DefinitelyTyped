@@ -16,7 +16,7 @@ export type RenderFunction = () => Renderable | Renderable[];
 export interface DecoratorParameters {
     [key: string]: any;
 }
-export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
+export type StoryDecorator = (story: RenderFunction, context: { kind: string; story: string }) => Renderable | null;
 
 export interface Story {
     readonly kind: string;
@@ -33,6 +33,7 @@ export function setAddon(addon: object): void;
 export function storiesOf(name: string, module: NodeModule): Story;
 export function storiesOf<T>(name: string, module: NodeModule): Story & T;
 export function forceReRender(): void;
+export function load(paths: __WebpackModuleApi.RequireContext, module: NodeModule): void;
 
 export interface StoryObject {
     name: string;
