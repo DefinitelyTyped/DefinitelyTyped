@@ -44,7 +44,7 @@ declare namespace inquirer {
          * @param name Prompt type name
          * @param prompt Prompt constructor
          */
-        registerPrompt(name: string, prompt: Prompt): this;
+        registerPrompt(name: string, prompt: prompts.PromptConstructor): this;
     }
 
     export interface Inquirer extends PromptModuleBase {

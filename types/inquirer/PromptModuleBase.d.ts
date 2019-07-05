@@ -9,7 +9,7 @@ export interface PromptModuleBase {
      * @param name Prompt type name
      * @param prompt Prompt constructor
      */
-    registerPrompt(name: string, prompt: inquirer.prompts.Base): PromptModuleBase;
+    registerPrompt(name: string, prompt: inquirer.prompts.PromptConstructor): PromptModuleBase;
     /**
      * Register the defaults provider prompts
      */
