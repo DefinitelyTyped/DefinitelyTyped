@@ -12,21 +12,17 @@
 //                 Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
-
+/// <reference path="Internal.d.ts" />
 import { ThroughStream } from 'through';
 import { Observable } from 'rxjs';
 import { Interface as ReadlineInterface } from 'readline';
 import { PromptModuleBase } from "./PromptModuleBase";
 import { Prompts } from "./Prompts";
 import Separator = require("./lib/objects/separator");
-import { ChoiceBase } from './Poll/ChoiceBase';
-import { KeyUnion } from "./System/KeyUnion";
-import { DynamicQuestionProperty } from "./Poll/DynamicQuestionProperty";
 import { InputQuestion as InputQuestionBase } from "./Poll/InputQuestion";
 import { ListQuestion as ListQuestionBase } from "./Poll/ListQuestion";
 import ScreenManager = require("./lib/utils/screen-manager");
 import Prompt = require("./lib/prompts/base");
-import { LiteralUnion } from './System/LiteralUnion';
 import Paginator = require("./lib/utils/paginator");
 import Choice = require("./lib/objects/choice");
 import { Choices } from "./lib/objects/choices";
@@ -81,19 +77,19 @@ declare namespace inquirer {
              * The name to use when storing the answer in the answers hash.
              * If the name contains periods, it will define a path in the answers hash.
              */
-            name?: KeyUnion<A>;
+            name?: Internal.System.KeyUnion<A>;
             /**
              * The question to print. If defined as a function, the first parameter will be
              * the current inquirer session answers.
              * Defaults to the value of `name` (followed by a colon).
              */
-            message?: DynamicQuestionProperty<A, string>;
+            message?: Internal.Poll.DynamicQuestionProperty<A, string>;
             /**
              * Default value(s) to use if nothing is entered, or a function that returns
              * the default value(s). If defined as a function, the first parameter will be
              * the current inquirer session answers.
              */
-            default?: DynamicQuestionProperty<A, any>;
+            default?: Internal.Poll.DynamicQuestionProperty<A, any>;
             /**
              * Change the default _prefix_ message.
              */
@@ -111,7 +107,7 @@ declare namespace inquirer {
              * Receive the current user answers hash and should return `true` or `false` depending
              * on whether or not this question should be asked. The value can also be a simple boolean.
              */
-            when?: DynamicQuestionProperty<A, boolean>;
+            when?: Internal.Poll.DynamicQuestionProperty<A, boolean>;
             /**
              * Receive the user input and answers hash. Should return `true` if the value is valid,
              * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -160,14 +156,14 @@ declare namespace inquirer {
             type: 'editor';
         }
 
-        export interface ChoiceOptions<A extends Answers = Answers> extends ChoiceBase {
+        export interface ChoiceOptions<A extends Answers = Answers> extends Internal.Poll.ChoiceBase {
             name?: string;
             value?: any;
             short?: string;
             extra?: any;
             key?: string;
             checked?: boolean;
-            disabled?: DynamicQuestionProperty<A, boolean | string>;
+            disabled?: Internal.Poll.DynamicQuestionProperty<A, boolean | string>;
         }
 
         export type DistinctChoice<A extends Answers = Answers> = string | ChoiceOptions<A> | SeparatorOptions | Separator;
@@ -236,7 +232,7 @@ declare namespace inquirer {
         /**
          * Represents the state of a prompt.
          */
-        export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+        export type PromptState = Internal.System.LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
 
         /**
          * Provides data about the state of a prompt.

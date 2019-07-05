@@ -1,5 +1,5 @@
+/// <reference path="DynamicQuestionProperty.d.ts" />
 import inquirer = require("..");
-import { DynamicQuestionProperty } from "./DynamicQuestionProperty";
 
 /**
  * Represents a list-based question.
@@ -13,7 +13,7 @@ export interface ListQuestion<T> extends inquirer.poll.Question<T> {
      * properties. The choices array can also contain
      * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
      */
-    choices?: DynamicQuestionProperty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
+    choices?: Internal.Poll.DynamicQuestionProperty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
     /**
      * Change the number of lines that will be rendered when using `list`, `rawList`,
      * `expand` or `checkbox`.
