@@ -19,12 +19,12 @@ export class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
     /**
      * The unfiltered choices.
      */
-    protected choices: Array<Choice<T> | Separator>;
+    public choices: Array<Choice<T> | Separator>;
 
     /**
      * The selectable choices.
      */
-    protected realChoices: Array<Choice<T>>;
+    public realChoices: Array<Choice<T>>;
 
     /**
      * Initializes a new instance of the `Choices` class.
