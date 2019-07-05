@@ -4,6 +4,4 @@
 /**
  * Contains internal declarations.
  */
-declare namespace Internal {
-
-}
+declare namespace Internal { }

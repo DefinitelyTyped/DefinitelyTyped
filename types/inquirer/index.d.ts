@@ -212,6 +212,16 @@ declare namespace inquirer {
         }
 
         /**
+         * Provides a base for question- and prompt-options.
+         */
+        export type PromptOptions<T extends inquirer.poll.Question<inquirer.poll.Answers> = inquirer.poll.Question<inquirer.poll.Answers>> = T & {
+            /**
+             * The choices of the prompt.
+             */
+            choices: Choices;
+        }
+
+        /**
          * Represents a prompt.
          */
         export interface PromptBase {
