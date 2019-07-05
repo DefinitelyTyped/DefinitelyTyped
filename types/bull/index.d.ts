@@ -173,13 +173,54 @@ declare namespace Bull {
      */
     progress(value: any): Promise<void>;
 
+    /**
+     * Logs one row of log data.
+     *
+     * @params row: string String with log data to be logged.
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L332
+     */
     log(row: string): Promise<any>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is completed
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L337
+     */
     isCompleted(): Promise<boolean>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is failed
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L341
+     */
     isFailed(): Promise<boolean>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is delayed
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L345 
+     */
     isDelayed(): Promise<boolean>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is active
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L349
+     */
     isActive(): Promise<boolean>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is wait
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L353
+     */
     isWaiting(): Promise<boolean>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is paused
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L357
+     */
     isPaused(): Promise<boolean>;
+
+    /*
+     * Returns a promise resolving to a boolean which, if true, current job's state is stuck
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L361
+     */
     isStuck(): Promise<boolean>;
 
     /**
@@ -414,6 +455,7 @@ declare namespace Bull {
 
     /**
      * Queue client (used to add jobs, pause queues, etc);
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/queue.js#L168
      */
     client: Redis.Redis;
 
@@ -777,10 +819,36 @@ declare namespace Bull {
      */
     clients: Redis.Redis[];
 
+    /**
+     * Set clientName to Redis.client
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/worker.js#L12
+     */
     setWorkerName(): Promise<any>;
+
+    /*
+     * Returns Redis clients array which belongs to current Queue
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/worker.js#L23
+     */
     getWorkers(): Promise<Redis.Redis[]>;
+
+    /*
+     * Returns Queue name in base64 encoded format
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/worker.js#L37
+     */
     base64Name(): string;
+
+    /*
+     * Returns Queue name with keyPrefix (default: 'bull')
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/worker.js#L41
+     */
     clientName(): string;
+
+    /*
+     * Returns Redis clients array which belongs to current Queue from string with all redis clients
+     *
+     * @params list: string String with all redis clients
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/worker.js#L45
+     */
     parseClientList(list: string): Redis.Redis[];
   }
 
