@@ -33,11 +33,6 @@ type LiteralUnion<T extends I, I = string> = T | (I & {});
 type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
 
 /**
- * Represents a dynamic property for a question.
- */
-type DynamicQuestionProperty<TAnswers, T> = T | ((answers: TAnswers) => T | Promise<T>);
-
-/**
  * Represents a choice-item.
  */
 interface ChoiceBase {
@@ -111,6 +106,12 @@ declare namespace inquirer {
 
     export namespace poll {
         export interface Answers extends Record<string, any> {}
+
+        /**
+         * Represents a dynamic property for a question.
+         */
+        export type DynamicQuestionProperty<TAnswers, T> = T | ((answers: TAnswers) => T | Promise<T>);
+
         export interface Question<A extends Answers = Answers> {
             type?: string;
             /**
