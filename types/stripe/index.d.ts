@@ -25,6 +25,7 @@
 //                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
 //                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Dylan Aspden <https://github.com/dhaspden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
