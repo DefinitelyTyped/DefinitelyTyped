@@ -1,4 +1,4 @@
-// Type definitions for non-npm package zChat 1.81
+// Type definitions for non-npm package zchat-browser 1.81
 // Project: https://api.zopim.com/web-sdk/#introduction
 // Definitions by: David Copley <https://github.com/davidcopley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "zchat-tests.ts"
+        "zchat-browser-tests.ts"
     ]
 }
