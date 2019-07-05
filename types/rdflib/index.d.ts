@@ -856,8 +856,8 @@ export class IndexedFormula extends Formula {
      */
     applyPatch(
         patch: {
-            delete?: Statement[],
-            patch?: Statement[]
+            delete?: ReadonlyArray<Statement>,
+            patch?: ReadonlyArray<Statement>
         },
         target: NamedNode,
         patchCallback: () => void
@@ -1236,7 +1236,7 @@ export class Fetcher {
      * Loads a web resource or resources into the store.
      * @param uri Resource to load, provided either as a NamedNode object or a plain URL. If multiple resources are passed as an array, they will be fetched in parallel.
      */
-    load: (uri: NamedNode[] | string[] | NamedNode | string, options?: FetchOptions) => Promise<Response>;
+    load: (uri: ReadonlyArray<NamedNode> | ReadonlyArray<string> | NamedNode | string, options?: FetchOptions) => Promise<Response>;
 }
 /**
  * Gets a node for the specified input
@@ -1382,7 +1382,7 @@ export class UpdateManager {
      */
     put(
         document: Node,
-        data: string | Statement[],
+        data: string | ReadonlyArray<Statement>,
         contentType: string,
         callback: (uri: string, ok: boolean, errorMessage: string, response?: unknown) => void,
     ): Promise<void>;
@@ -1396,8 +1396,8 @@ export class UpdateManager {
      * @param callback
      */
     update(
-        statementsToDelete: Statement[],
-        statementsToAdd: Statement[],
+        statementsToDelete: ReadonlyArray<Statement>,
+        statementsToAdd: ReadonlyArray<Statement>,
         callback: (uri: string | undefined, success: boolean, errorBody?: string) => void
     ): void;
 }
