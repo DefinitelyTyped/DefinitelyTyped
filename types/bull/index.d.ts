@@ -195,7 +195,7 @@ declare namespace Bull {
 
     /*
      * Returns a promise resolving to a boolean which, if true, current job's state is delayed
-     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L345 
+     * https://github.com/OptimalBits/bull/blob/4b3ba1a75a7d29263897f91bd943298e0e6dbba4/lib/job.js#L345
      */
     isDelayed(): Promise<boolean>;
 
