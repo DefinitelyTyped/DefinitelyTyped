@@ -28,11 +28,6 @@ import Choices = require("./lib/objects/choices");
 type LiteralUnion<T extends I, I = string> = T | (I & {});
 
 /**
- * Represents either a key of `T` or a `string`.
- */
-type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
-
-/**
  * Provides prompts for answering questions.
  */
 interface PromptModuleBase {
@@ -48,7 +43,32 @@ interface PromptModuleBase {
     restoreDefaultPrompts(): void;
 }
 
+/**
+ * Represents a list-based question.
+ */
+interface ListQuestionBase<T, TChoiceMap> extends inquirer.poll.Question<T> {
+    /**
+     * Choices array or a function returning a choices array. If defined as a function,
+     * the first parameter will be the current inquirer session answers. Array values can
+     * be simple `numbers`, `strings`, or `objects` containing a `name` (to display in list),
+     * a `value` (to save in the answers hash) and a `short` (to display after selection)
+     * properties. The choices array can also contain
+     * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
+     */
+    choices?: inquirer.poll.AsyncDynamicQuestionProparty<T, ReadonlyArray<inquirer.poll.DistinctChoice<TChoiceMap>>>;
+    /**
+     * Change the number of lines that will be rendered when using `list`, `rawList`,
+     * `expand` or `checkbox`.
+     */
+    pageSize?: number;
+}
+
 declare namespace inquirer {
+    /**
+     * Represents either a key of `T` or a `string`.
+     */
+    export type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
+
     export interface Prompts<T extends poll.Answers = poll.Answers> {
         [name: string]: Prompt<poll.Question<T>>;
     }
@@ -157,19 +177,47 @@ declare namespace inquirer {
          */
         export interface ChoiceBase {
             /**
-             * Gets the type of the choice.
+             * The type of the choice.
              */
             type?: string;
         }
 
         export interface ChoiceOptions<A extends Answers = Answers> extends ChoiceBase {
+            type?: "choice";
             name?: string;
             value?: any;
             short?: string;
             extra?: any;
-            key?: string;
-            checked?: boolean;
+        }
+
+        /**
+         * Provides options for a choice of the `ListPrompt`.
+         */
+        export interface ListChoiceOptions<A extends Answers = Answers> extends ChoiceOptions<A> {
+            /**
+             * A value indicating whether the choice is disabled.
+             */
             disabled?: DynamicQuestionProperty<A, boolean | string>;
+        }
+
+        /**
+         * Provides options for a choice of the `CheckboxPrompt`.
+         */
+        export interface CheckboxChoiceOptions<A extends Answers = Answers> extends ListChoiceOptions<A> {
+            /**
+             * A value indicating whether the choice should be initially checked.
+             */
+            checked?: boolean;
+        }
+
+        /**
+         * Provides options for a choice of the `ExpandPrompt`.
+         */
+        export interface ExpandChoiceOptions<A extends Answers = Answers> extends ChoiceOptions<A> {
+            /**
+             * The key to press for selecting the choice.
+             */
+            key?: string;
         }
 
         /**
@@ -187,11 +235,55 @@ declare namespace inquirer {
             line?: string;
         }
 
-        export type DistinctChoice<A extends Answers = Answers> =
-            | string
-            | ChoiceOptions<A>
-            | SeparatorOptions
-            | Separator;
+        /**
+         * Provides all valid choice-types for any kind of question.
+         */
+        export interface BaseChoiceMap<T extends Answers = Answers> {
+            Choice: Choice<T>;
+            ChoiceOptions: ChoiceOptions<T>;
+            SeparatorOptions: SeparatorOptions;
+            Separator: Separator;
+        }
+        
+        /**
+         * Provides all valid choice-types for the `ListQuestion`.
+         */
+        export interface ListChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+            ListChoiceOptions: ListChoiceOptions<T>;
+        }
+
+        /**
+         * Provides all valid choice-types for the `CheckboxQuestion`.
+         */
+        export interface CheckboxChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+            CheckboxChoiceOptions: CheckboxChoiceOptions<T>;
+        }
+
+        /**
+         * Provides all valid choice-types for the `ExpandQuestion`.
+         */
+        export interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+            ExpandChoiceOptions: ExpandChoiceOptions<T>;
+        }
+
+        /**
+         * Provides all valid choice-types.
+         */
+        export interface AllChoiceMap<T extends Answers = Answers> {
+            BaseChoiceMap: BaseChoiceMap<T>[keyof BaseChoiceMap<T>];
+            ListChoiceMap: ListChoiceMap<T>[keyof ListChoiceMap<T>];
+            CheckboxChoiceMap: CheckboxChoiceMap<T>[keyof CheckboxChoiceMap<T>];
+            ExpandChoiceMap: ExpandChoiceMap<T>[keyof ExpandChoiceMap<T>];
+        }
+
+        export type AnyQuestion = AllChoiceMap[keyof AllChoiceMap];
+
+        /**
+         * Provides valid choices for the question of the `TChoiceMap`.
+         */
+        export type DistinctChoice<TChoiceMap> =
+            string |
+            TChoiceMap[keyof TChoiceMap];
 
         /**
          * Represents an input-based question.
@@ -203,26 +295,6 @@ declare namespace inquirer {
              * It does not modify the answers hash.
              */
             transformer?(input: string, answers: T, flags: any): string | Promise<string>;
-        }
-
-        /**
-         * Represents a list-based question.
-         */
-        export interface ListQuestionBase<T> extends inquirer.poll.Question<T> {
-            /**
-             * Choices array or a function returning a choices array. If defined as a function,
-             * the first parameter will be the current inquirer session answers. Array values can
-             * be simple `numbers`, `strings`, or `objects` containing a `name` (to display in list),
-             * a `value` (to save in the answers hash) and a `short` (to display after selection)
-             * properties. The choices array can also contain
-             * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
-             */
-            choices?: AsyncDynamicQuestionProparty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
-            /**
-             * Change the number of lines that will be rendered when using `list`, `rawList`,
-             * `expand` or `checkbox`.
-             */
-            pageSize?: number;
         }
 
         export interface InputQuestion<A> extends InputQuestionBase<A> {
@@ -241,19 +313,19 @@ declare namespace inquirer {
             mask?: string;
         }
 
-        export interface ListQuestion<A> extends ListQuestionBase<A> {
+        export interface ListQuestion<A> extends ListQuestionBase<A, ListChoiceMap<A>> {
             type: 'list';
         }
 
-        export interface RawListQuestion<A> extends ListQuestionBase<A> {
+        export interface RawListQuestion<A> extends ListQuestionBase<A, ListChoiceMap<A>> {
             type: 'rawlist';
         }
 
-        export interface ExpandQuestion<A> extends ListQuestionBase<A> {
+        export interface ExpandQuestion<A> extends ListQuestionBase<A, ExpandChoiceMap<A>> {
             type: 'expand';
         }
 
-        export interface CheckboxQuestion<A> extends ListQuestionBase<A> {
+        export interface CheckboxQuestion<A> extends ListQuestionBase<A, CheckboxChoiceMap<A>> {
             type: 'checkbox';
         }
 

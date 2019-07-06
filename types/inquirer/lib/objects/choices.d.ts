@@ -3,6 +3,26 @@ import Choice = require("./choice");
 import Separator = require("./separator");
 
 /**
+ * Represents a valid choice for the `Choices` class.
+ */
+type DistinctChoice<T extends inquirer.poll.Answers = inquirer.poll.Answers> = inquirer.poll.AllChoiceMap<T>[keyof inquirer.poll.AllChoiceMap<T>];
+
+/**
+ * Represents a valid real choice for the `Choices` class.
+ */
+type RealChoice<T extends inquirer.poll.Answers = inquirer.poll.Answers> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
+
+/**
+ * Converts the specified union-type `U` to an intersection-type.
+ */
+type UnionToIntersection<U> = (U extends any ? (k: U)=>void : never) extends ((k: infer I)=>void) ? I : never;
+
+/**
+ * Represents a property-name of any choice-type.
+ */
+type ChoiceProperty<T> = inquirer.KeyUnion<UnionToIntersection<RealChoice<T>>>;
+
+/**
  * A collection of multiple `Choice`-objects.
  */
 declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
@@ -19,12 +39,12 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
     /**
      * The unfiltered choices.
      */
-    public choices: Array<Choice<T> | Separator>;
+    public choices: Array<DistinctChoice<T>>;
 
     /**
      * The selectable choices.
      */
-    public realChoices: Array<Choice<T>>;
+    public realChoices: Array<RealChoice<T>>;
 
     /**
      * Initializes a new instance of the `Choices` class.
@@ -35,7 +55,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @param answers
      * The `answers`-object.
      */
-    public constructor(choices: inquirer.poll.DistinctChoice<T>[], answers: T);
+    public constructor(choices: DistinctChoice<T>[], answers: T);
 
     /**
      * Gets the choice at the specified index.
@@ -46,7 +66,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The choice at the specified index.
      */
-    public getChoice(index: number): Choice;
+    public getChoice(index: number): RealChoice<T>;
 
     /**
      * Gets the item at the specified index.
@@ -57,7 +77,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The item at the specified index.
      */
-    public get(index: number): Choice | Separator;
+    public get(index: number): DistinctChoice<T>;
 
     /**
      * Gets all choices which apply to the where-clause.
@@ -68,7 +88,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The choices which apply to the where-clause.
      */
-    public where(whereClause: object): Choice<T>[];
+    public where(whereClause: object): RealChoice<T>[];
 
     /**
      * Retrieves the specified `property` from all choices.
@@ -79,7 +99,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The value of the property of each choice.
      */
-    public pluck<TProperty extends keyof Choice<T>>(): Choice<T>[TProperty];
+    public pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): (RealChoice<T> & { [key: string]: undefined })[TProperty];
 
     /**
      * Returns the index of the first occurrence of a value in an array.

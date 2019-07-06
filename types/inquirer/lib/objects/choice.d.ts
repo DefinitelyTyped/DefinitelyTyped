@@ -3,26 +3,51 @@ import inquirer = require('../..');
 /**
  * Represents a choice for several question-types.
  */
-declare class Choice<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
+declare class Choice<T extends inquirer.poll.Answers = inquirer.poll.Answers> implements inquirer.poll.ListChoiceOptions<T>, inquirer.poll.CheckboxChoiceOptions<T>, inquirer.poll.ExpandChoiceOptions<T> {
     /**
-     * The name of the choice.
+     * Gets an option of the choice.
+     */
+    [key: string]: any;
+
+    /**
+     * @inheritdoc
+     */
+    public type?: "choice";
+
+    /**
+     * @inheritdoc
      */
     public name: string;
 
     /**
-     * The short name of the choice.
+     * @inheritdoc
      */
     public short: string;
 
     /**
-     * The value of the choice.
+     * @inheritdoc
      */
     public value: any;
 
     /**
-     * A value indicating whether the choice is disabled.
+     * @inheritdoc
+     */
+    public checked?: boolean;
+
+    /**
+     * @inheritdoc
      */
     public disabled: boolean;
+
+    /**
+     * @inheritdoc
+     */
+    public key?: string;
+
+    /**
+     * @inheritdoc
+     */
+    public extra?: any;
 
     /**
      * Initializes a new instance of the `Choice` class.
