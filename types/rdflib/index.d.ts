@@ -217,7 +217,7 @@ export class Literal extends Node {
      * @param language The language for the literal
      * @param datatype The literal's datatype as a named node
      */
-    constructor(value: string, language: string, datatype: NamedNode);
+    constructor(value: string, language?: string, datatype?: NamedNode);
     /**
      * Gets a copy of this literal
      */
@@ -264,7 +264,7 @@ export class Variable extends Node {
      * Initializes this variable
      * @param name The variable's name
      */
-    constructor(name: string);
+    constructor(name?: string);
     static termType: string;
 }
 /**
@@ -1083,7 +1083,7 @@ export namespace DataFactory {
      * @param lang The language
      * @param dt The datatype
      */
-    function lit(val: string, lang: string, dt: NamedNode): Literal;
+    function lit(val: string, lang?: string, dt?: NamedNode): Literal;
     /**
      * Creates a new literal node
      * @param value The lexical value
@@ -1091,7 +1091,7 @@ export namespace DataFactory {
      */
     function literal(
         value: string,
-        languageOrDatatype: string | NamedNode
+        languageOrDatatype?: string | NamedNode
     ): Literal;
     /**
      * Creates a new named node
@@ -1135,7 +1135,7 @@ export namespace DataFactory {
      * Creates a new variable
      * @param name The name for the variable
      */
-    function variable(name: string): Variable;
+    function variable(name?: string): Variable;
 }
 export namespace Util {
     /**
