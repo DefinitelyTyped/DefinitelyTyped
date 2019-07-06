@@ -1,8 +1,126 @@
+import Paginator = require("../utils/paginator");
 import Prompt = require("./base");
+import inquirer = require("../..");
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
  */
-export class ExpandPrompt extends Prompt {
-    
+declare class ExpandPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.poll.Answers>> {
+    /**
+     * Resolves the value of the prompt.
+     */
+    protected done: (value: any) => void;
+
+    /**
+     * Gets or sets the default key.
+     */
+    protected rawDefault: string;
+
+    /**
+     * Gets or sets an object for paginating the content.
+     */
+    protected paginator: Paginator;
+
+    /**
+     * Gets the promise of the keypress-eventhandler.
+     */
+    protected keypressObs: Promise<void>;
+
+    /**
+     * Gets or sets the currently selected key.
+     */
+    protected selectedKey: string;
+
+    /**
+     * Gets or sets the answer of the prompt.
+     */
+    protected answer: string;
+
+    /**
+     * Renders the prompt to the screen.
+     *
+     * @param error
+     * The error to render.
+     *
+     * @param hint
+     * The hint to render.
+     */
+    protected render(error?: string, hint?: string): void;
+
+    /**
+     * Determines the current value of the prompt.
+     *
+     * @param input
+     * The input provided by the user.
+     *
+     * @returns
+     * The current value of the prompt.
+     */
+    protected getCurrentValue(input: string): any;
+
+    /**
+     * Generates the string-representation of the choices.
+     *
+     * @deprecated
+     *
+     * @returns
+     * The string-representations of the choices.
+     */
+    protected getChoices(): string;
+
+    /**
+     * Handles the `error`-event of the prompt.
+     *
+     * @param state
+     * An object which contains state-data.
+     */
+    protected onError(state: inquirer.prompts.FailedPromptStateData): void;
+
+    /**
+     * Handles the `success`-event of the prompt.
+     *
+     * @param state
+     * An object which contains state-data.
+     */
+    protected onSubmit(state: inquirer.prompts.SuccessfulPromptStateData): void;
+
+    /**
+     * Handles the `keypress`-event of the prompt.
+     */
+    protected onKeypress(): void;
+
+    /**
+     * Validates the integrity of the choices.
+     *
+     * @param choices
+     * The choices to validate.
+     */
+    protected validateChoices(choices: ExpandPrompt["opt"]["choices"]): void;
+
+    /**
+     * Generates the string-representation of the choices.
+     *
+     * @param choices
+     * The choices to generate the string-representation for.
+     *
+     * @param defaultChoice
+     * The value of the default choice.
+     *
+     * @returns
+     * The string-representations of the choices.
+     */
+    protected generateChoicesString(choices: ExpandPrompt["opt"]["choices"], defaultChoice: any): string;
+
+    /**
+     * Renders the choices.
+     *
+     * @param choices
+     * The choices to render.
+     *
+     * @param pointer
+     * The value of the choice to select.
+     */
+    protected renderChoices(choices: ExpandPrompt["opt"]["choices"], pointer: string): string;
 }
+
+export = ExpandPrompt;
