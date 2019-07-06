@@ -100,7 +100,12 @@ declare namespace inquirer {
         /**
          * Represents a dynamic property for a question.
          */
-        export type DynamicQuestionProperty<TAnswers, T> = T | ((answers: TAnswers) => T | Promise<T>);
+        export type DynamicQuestionProperty<TAnswers, T> = T | ((answers: TAnswers) => T);
+
+        /**
+         * Represents a dynamic property for a question which can be fetched asynchronously.
+         */
+        export type AsyncDynamicQuestionProparty<TAnswers, T> = DynamicQuestionProperty<TAnswers, T | Promise<T>>;
 
         export interface Question<A extends Answers = Answers> {
             type?: string;
@@ -114,13 +119,13 @@ declare namespace inquirer {
              * the current inquirer session answers.
              * Defaults to the value of `name` (followed by a colon).
              */
-            message?: DynamicQuestionProperty<A, string>;
+            message?: AsyncDynamicQuestionProparty<A, string>;
             /**
              * Default value(s) to use if nothing is entered, or a function that returns
              * the default value(s). If defined as a function, the first parameter will be
              * the current inquirer session answers.
              */
-            default?: DynamicQuestionProperty<A, any>;
+            default?: AsyncDynamicQuestionProparty<A, any>;
             /**
              * Change the default _prefix_ message.
              */
@@ -138,7 +143,7 @@ declare namespace inquirer {
              * Receive the current user answers hash and should return `true` or `false` depending
              * on whether or not this question should be asked. The value can also be a simple boolean.
              */
-            when?: DynamicQuestionProperty<A, boolean>;
+            when?: AsyncDynamicQuestionProparty<A, boolean>;
             /**
              * Receive the user input and answers hash. Should return `true` if the value is valid,
              * and an error message (`String`) otherwise. If `false` is returned, a default error
@@ -212,7 +217,7 @@ declare namespace inquirer {
              * properties. The choices array can also contain
              * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
              */
-            choices?: DynamicQuestionProperty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
+            choices?: AsyncDynamicQuestionProparty<T, ReadonlyArray<inquirer.poll.DistinctChoice>>;
             /**
              * Change the number of lines that will be rendered when using `list`, `rawList`,
              * `expand` or `checkbox`.
@@ -275,7 +280,7 @@ declare namespace inquirer {
             editor: EditorQuestion<T>;
         }
 
-        export type DistinctQuestion<A extends Answers = Answers> = QuestionMap<A>[keyof QuestionMap<A>] | Question<A>;
+        export type DistinctQuestion<A extends Answers = Answers> = QuestionMap<A>[keyof QuestionMap<A>];
 
         export type QuestionCollection<A extends Answers = Answers> =
             | DistinctQuestion<A>
