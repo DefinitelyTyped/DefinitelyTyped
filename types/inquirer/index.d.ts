@@ -260,16 +260,22 @@ declare namespace inquirer {
             type: 'editor';
         }
 
-        export type DistinctQuestion<A extends Answers = Answers> =
-            | ListQuestion<A>
-            | RawListQuestion<A>
-            | ExpandQuestion<A>
-            | CheckboxQuestion<A>
-            | ConfirmQuestion<A>
-            | InputQuestion<A>
-            | NumberQuestion<A>
-            | PasswordQuestion<A>
-            | EditorQuestion<A>;
+        /**
+         * Provides the available question-types.
+         */
+        export interface QuestionMap<T extends Answers = Answers> {
+            input: InputQuestion<T>;
+            number: NumberQuestion<T>;
+            password: PasswordQuestion<T>;
+            list: ListQuestion<T>;
+            rawList: RawListQuestion<T>;
+            expand: ExpandQuestion<T>;
+            checkbox: CheckboxQuestion<T>;
+            confirm : ConfirmQuestion<T>;
+            editor: EditorQuestion<T>;
+        }
+
+        export type DistinctQuestion<A extends Answers = Answers> = QuestionMap<A>[keyof QuestionMap<A>] | Question<A>;
 
         export type QuestionCollection<A extends Answers = Answers> =
             | DistinctQuestion<A>
