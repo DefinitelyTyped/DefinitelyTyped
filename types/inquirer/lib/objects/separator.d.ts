@@ -1,10 +1,9 @@
 import inquirer = require("../..");
-import { ChoiceBase } from "../../Poll/ChoiceBase";
 
 /**
  * Represents a choice-item separator.
  */
-declare class Separator implements ChoiceBase, inquirer.poll.SeparatorOptions {
+declare class Separator implements inquirer.poll.ChoiceBase, inquirer.poll.SeparatorOptions {
     /**
      * @inheritdoc
      */

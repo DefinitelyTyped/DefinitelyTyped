@@ -33,16 +33,6 @@ type LiteralUnion<T extends I, I = string> = T | (I & {});
 type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
 
 /**
- * Represents a choice-item.
- */
-interface ChoiceBase {
-    /**
-     * Gets the type of the choice.
-     */
-    type?: string;
-}
-
-/**
  * Provides prompts for answering questions.
  */
 interface PromptModuleBase {
@@ -155,6 +145,16 @@ declare namespace inquirer {
              * message is provided.
              */
             validate?(input: string, answers?: A): boolean | string | Promise<boolean | string>;
+        }
+
+        /**
+         * Represents a choice-item.
+         */
+        export interface ChoiceBase {
+            /**
+             * Gets the type of the choice.
+             */
+            type?: string;
         }
 
         export interface ChoiceOptions<A extends Answers = Answers> extends ChoiceBase {
@@ -271,7 +271,7 @@ declare namespace inquirer {
             rawList: RawListQuestion<T>;
             expand: ExpandQuestion<T>;
             checkbox: CheckboxQuestion<T>;
-            confirm : ConfirmQuestion<T>;
+            confirm: ConfirmQuestion<T>;
             editor: EditorQuestion<T>;
         }
 
