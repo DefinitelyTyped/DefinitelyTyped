@@ -4301,6 +4301,11 @@ declare namespace Stripe {
             client_secret?: string;
 
             /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object) to attach to this PaymentIntent.
+             */
+            payment_method?: string;
+
+            /**
              * Email address that the receipt for the resulting payment will be sent to.
              */
             receipt_email?: string | null;
