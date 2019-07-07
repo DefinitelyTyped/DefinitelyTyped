@@ -41,6 +41,16 @@ export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
  * @param err - Error message that gets printed to stderr.
  */
 export function fail(err?: string): never;
+/**
+ * Run code inside a group.
+ *
+ * @remarks
+ * Groups are used to organize results in a test.
+ *
+ * @param name - Name of the group.
+ * @param fn - Group body. Code to be executed in the group context.
+ * @returns The return value of `fn`.
+ */
 export function group<T>(name: string, fn: () => T): T;
 export function sleep(t: number): void;
 
