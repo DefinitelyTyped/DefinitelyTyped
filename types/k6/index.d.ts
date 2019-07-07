@@ -30,6 +30,18 @@ import './options';
 import './ws';
 
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
+/**
+ * Immediately throw an error, aborting the current script iteration.
+ *
+ * @remarks
+ * fail() is a simple convenience wrapper on top of JavaScript's `throw()`
+ * (because the latter cannot be used as `[expr] || throw`, which is a
+ * convenient way to write k6 test code).
+ *
+ * https://docs.k6.io/docs/fail-err
+ *
+ * @param err - Error message that gets printed to stderr.
+ */
 export function fail(err?: string): never;
 export function group<T>(name: string, fn: () => T): T;
 export function sleep(t: number): void;
