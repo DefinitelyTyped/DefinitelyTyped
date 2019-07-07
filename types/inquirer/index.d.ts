@@ -21,6 +21,8 @@ import Prompt = require("./lib/prompts/base");
 import Paginator = require("./lib/utils/paginator");
 import Choice = require("./lib/objects/choice");
 import Choices = require("./lib/objects/choices");
+import BottomBar = require("./lib/ui/bottom-bar");
+import PromptUI = require("./lib/ui/prompt");
 
 /**
  * Represents a union which preserves autocompletion.
@@ -85,7 +87,7 @@ declare namespace inquirer {
          */
         prompts: prompts.PromptCollection;
 
-        <T>(questions: poll.QuestionCollection<T>): Promise<T> & { ui: ui.PromptUI };
+        <T>(questions: poll.QuestionCollection<T>): Promise<T> & { ui: typeof PromptUI };
         /**
          * Register a prompt type
          * @param name Prompt type name
@@ -115,8 +117,8 @@ declare namespace inquirer {
         prompts: {};
         Separator: typeof Separator;
         ui: {
-            BottomBar: ui.BottomBar;
-            Prompt: ui.PromptUI;
+            BottomBar: typeof BottomBar;
+            Prompt: typeof PromptUI;
         };
     }
 
@@ -511,136 +513,6 @@ declare namespace inquirer {
         export interface FetchedAnswer {
             name: string;
             answer: any;
-        }
-
-        /**
-         * Base interface class other can inherits from
-         */
-        export interface BaseUI {
-            rl: ReadlineInterface;
-            new(opt: StreamOptions): BaseUI;
-            /**
-             * Handle the ^C exit
-             * @return {null}
-             */
-            onForceClose(): void;
-            /**
-             * Close the interface and cleanup listeners
-             */
-            close(): void;
-        }
-        /**
-         * Base interface class other can inherits from
-         */
-        export interface PromptUI extends BaseUI {
-            process: Observable<FetchedAnswer>;
-            new(prompts: prompts.PromptCollection, opt: StreamOptions): PromptUI;
-            run<T>(questions: poll.QuestionCollection<T>): Promise<T>;
-            /**
-             * Once all prompt are over
-             */
-            onCompletion(): void;
-            processQuestion<T>(question: poll.DistinctQuestion<T>): Observable<poll.DistinctQuestion<T>>;
-            fetchAnswer<T>(question: poll.DistinctQuestion<T>): Observable<poll.DistinctQuestion<T>>;
-            setDefaultType<T>(question: poll.DistinctQuestion<T>): Observable<poll.DistinctQuestion<T>>;
-            filterIfRunnable<T>(question: poll.DistinctQuestion<T>): Observable<poll.DistinctQuestion<T>>;
-        }
-
-        /**
-         * Sticky bottom bar user interface
-         */
-        export interface BottomBar extends BaseUI {
-            new(opt?: StreamOptions & { bottomBar?: string }): BottomBar;
-            /**
-             * Render the prompt to screen
-             * @return self
-             */
-            render(): BottomBar;
-            clean(): BottomBar;
-            /**
-             * Update the bottom bar content and rerender
-             * @param bottomBar Bottom bar content
-             * @return self
-             */
-            updateBottomBar(bottomBar: string): BottomBar;
-            /**
-             * Write out log data
-             * @param {String} data - The log data to be output
-             * @return self
-             */
-            writeLog(data: string): BottomBar;
-            /**
-             * Make sure line end on a line feed
-             * @param str Input string
-             * @return The input string with a final line feed
-             */
-            enforceLF(str: string): string;
-            /**
-             * Helper for writing message in Prompt
-             * @param message The message to be output
-             */
-            write(message: string): void;
-            log: ThroughStream;
-        }
-
-    }
-
-    export namespace objects {
-        /**
-         * Choice object
-         * Normalize input as choice object
-         * @constructor
-         * @param {String|Object} val  Choice value. If an object is passed, it should contains
-         *                             at least one of `value` or `name` property
-         */
-        export interface Choice<T> {
-            new(str: string): Choice<T>;
-            new(separator: Separator): Choice<T>;
-
-            new(option: poll.ChoiceOptions<T>): Choice<T>;
-        }
-
-        /**
-         * Choices collection
-         * Collection of multiple `choice` object
-         * @constructor
-         * @param choices  All `choice` to keep in the collection
-         */
-        export interface Choices<T> {
-            new(
-                choices: ReadonlyArray<string | Separator | poll.ChoiceOptions<T>>,
-
-                answers?: T
-            ): Choices<T>;
-            choices: ReadonlyArray<Choice<T>>;
-            realChoices: ReadonlyArray<Choice<T>>;
-            length: number;
-            realLength: number;
-            /**
-             * Get a valid choice from the collection
-             * @param selector The selected choice index
-             * @return Return the matched choice or undefined
-             */
-            getChoice(selector: number): Choice<T>;
-            /**
-             * Get a raw element from the collection
-             * @param selector The selected index value
-             * @return Return the matched choice or undefined
-             */
-            get(selector: number): Choice<T>;
-            /**
-             * Match the valid choices against a where clause
-             * @param whereClause Lodash `where` clause
-             * @return Matching choices or empty array
-             */
-            where<U extends {}>(whereClause: U): Choice<T>[];
-            /**
-             * Pluck a particular key from the choices
-             * @param propertyName Property name to select
-             * @return Selected properties
-             */
-            pluck(propertyName: string): any[];
-            forEach<T>(application: (choice: Choice<T>) => T): T[];
         }
     }
 }
