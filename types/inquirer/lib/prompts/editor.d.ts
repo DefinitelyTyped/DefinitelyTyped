@@ -11,7 +11,7 @@ type Question = inquirer.poll.EditorQuestion<inquirer.poll.Answers>;
 /**
  * Represents a prompt which provides a text-editor.
  */
-export class EditorPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
+declare class EditorPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Resolves the value of the prompt.
      */
@@ -94,3 +94,5 @@ export class EditorPrompt<TQuestion extends Question = Question> extends Prompt<
      */
     protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
 }
+
+export = EditorPrompt;
