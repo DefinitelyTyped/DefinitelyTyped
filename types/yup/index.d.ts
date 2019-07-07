@@ -511,7 +511,8 @@ type KeyOfUndefined<T> = {
     [P in keyof T]-?: undefined extends T[P] ? P : never
 }[keyof T];
 
+type Id<T> = {[K in keyof T]: T[K]};
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
-type InnerInferType<T> = NotRequiredProps<T> & RequiredProps<T>;
+type InnerInferType<T> = Id<NotRequiredProps<T> & RequiredProps<T>>;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;
