@@ -1,6 +1,6 @@
-import UI = require("./baseUI");
+import { defer, Observable } from "rxjs";
 import inquirer = require("../..");
-import { Observable, defer } from "rxjs";
+import UI = require("./baseUI");
 
 /**
  * Represents the prompt ui.

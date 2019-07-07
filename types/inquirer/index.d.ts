@@ -12,17 +12,17 @@
 //                 Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
-import { ThroughStream } from "through";
-import { Observable } from "rxjs";
 import { Interface as ReadlineInterface } from "readline";
-import Separator = require("./lib/objects/separator");
-import ScreenManager = require("./lib/utils/screen-manager");
-import Prompt = require("./lib/prompts/base");
-import Paginator = require("./lib/utils/paginator");
+import { Observable } from "rxjs";
+import { ThroughStream } from "through";
 import Choice = require("./lib/objects/choice");
 import Choices = require("./lib/objects/choices");
+import Separator = require("./lib/objects/separator");
+import Prompt = require("./lib/prompts/base");
 import BottomBar = require("./lib/ui/bottom-bar");
 import PromptUI = require("./lib/ui/prompt");
+import Paginator = require("./lib/utils/paginator");
+import ScreenManager = require("./lib/utils/screen-manager");
 
 /**
  * Represents a union which preserves autocompletion.
