@@ -65,16 +65,16 @@ export type StyledComponentProps<
     O extends object,
     // The props that are made optional by .attrs
     A extends keyof any
-> = WithOptionalTheme<
-    Omit<
-        ReactDefaultizedProps<
-            C,
-            React.ComponentPropsWithRef<C>
-        > & O,
-        A
-    > & Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
-    T
-> & WithChildrenIfReactComponentClass<C>;
+> =
+    // Distribute O if O is a union type
+    O extends object
+    ? WithOptionalTheme<
+          Omit<ReactDefaultizedProps<C, React.ComponentPropsWithRef<C>> & O, A> &
+              Partial<Pick<React.ComponentPropsWithRef<C> & O, A>>,
+          T
+      > &
+          WithChildrenIfReactComponentClass<C>
+    : never;
 
 // Because of React typing quirks, when getting props from a React.ComponentClass,
 // we need to manually add a `children` field.
