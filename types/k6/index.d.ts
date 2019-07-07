@@ -33,23 +33,23 @@ export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 /**
  * Immediately throw an error, aborting the current script iteration.
  *
+ * @param err - Error message that gets printed to stderr.
+ *
  * @remarks
  * fail() is a simple convenience wrapper on top of JavaScript's `throw()`
  * (because the latter cannot be used as `[expr] || throw`, which is a
  * convenient way to write k6 test code).
- *
- * @param err - Error message that gets printed to stderr.
  */
 export function fail(err?: string): never;
 /**
  * Run code inside a group.
  *
- * @remarks
- * Groups are used to organize results in a test.
- *
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
+ *
+ * @remarks
+ * Groups are used to organize results in a test.
  */
 export function group<T>(name: string, fn: () => T): T;
 /**
