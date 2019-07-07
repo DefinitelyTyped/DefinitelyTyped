@@ -3,9 +3,9 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
- * The question for the `ConfirmPrompt<T>`.
+ * The question-options for the `ConfirmPrompt<T>`.
  */
-type Question = inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>;
+type Question = inquirer.poll.ConfirmQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a message to confirm.

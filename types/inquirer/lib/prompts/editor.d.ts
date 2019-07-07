@@ -4,9 +4,9 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
- * The question for the `EditorPrompt<T>`.
+ * The question-options for the `EditorPrompt<T>`.
  */
-type Question = inquirer.poll.EditorQuestion<inquirer.poll.Answers>;
+type Question = inquirer.poll.EditorQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a text-editor.

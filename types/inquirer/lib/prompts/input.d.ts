@@ -3,14 +3,14 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
- * The question for the `InputPrompt<T>`.
+ * The question-options for the `InputPrompt<T>`.
  */
-type Question = inquirer.poll.InputQuestion<inquirer.poll.Answers>;
+type Question = inquirer.poll.InputQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which allows the user to type an answer.
  */
-declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<inquirer.poll.InputQuestion<inquirer.poll.Answers>> {
+declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Resolves the value of the prompt.
      */

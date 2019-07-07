@@ -4,9 +4,9 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
- * The question for the `ExpandPrompt<T>`.
+ * The question-options for the `ExpandPrompt<T>`.
  */
-type Question = inquirer.poll.ExpandQuestion<inquirer.poll.Answers>;
+type Question = inquirer.poll.ExpandQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.

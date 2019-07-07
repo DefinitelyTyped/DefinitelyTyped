@@ -46,7 +46,7 @@ interface PromptModuleBase {
 /**
  * Represents a list-based question.
  */
-interface ListQuestionBase<T, TChoiceMap> extends inquirer.poll.Question<T> {
+interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.poll.Question<T> {
     /**
      * Choices array or a function returning a choices array. If defined as a function,
      * the first parameter will be the current inquirer session answers. Array values can
@@ -276,8 +276,6 @@ declare namespace inquirer {
             ExpandChoiceMap: ExpandChoiceMap<T>[keyof ExpandChoiceMap<T>];
         }
 
-        export type AnyQuestion = AllChoiceMap[keyof AllChoiceMap];
-
         /**
          * Provides valid choices for the question of the `TChoiceMap`.
          */
@@ -285,55 +283,69 @@ declare namespace inquirer {
             string |
             TChoiceMap[keyof TChoiceMap];
 
-        /**
-         * Represents an input-based question.
-         */
-        export interface InputQuestionBase<T> extends inquirer.poll.Question<T> {
+        export interface InputQuestionOptions<A> extends Question<A> {
             /**
              * Receive the user input, answers hash and option flags, and return a transformed value
              * to display to the user. The transformation only impacts what is shown while editing.
              * It does not modify the answers hash.
              */
-            transformer?(input: string, answers: T, flags: any): string | Promise<string>;
+            transformer?(input: string, answers: A, flags: any): string | Promise<string>;
         }
 
-        export interface InputQuestion<A> extends InputQuestionBase<A> {
+        export interface InputQuestion<A> extends InputQuestionOptions<A> {
             type?: 'input';
         }
 
-        export interface NumberQuestion<A> extends InputQuestionBase<A> {
+        export interface NumberQuestionOptions<A> extends InputQuestionOptions<A> { }
+
+        export interface NumberQuestion<A> extends NumberQuestionOptions<A> {
             type: 'number';
         }
 
-        export interface PasswordQuestion<A> extends InputQuestionBase<A> {
-            type: 'password';
+        export interface PasswordQuestionOptions<A> extends InputQuestionOptions<A> {
             /**
              * Hides the user input.
              */
             mask?: string;
         }
 
-        export interface ListQuestion<A> extends ListQuestionBase<A, ListChoiceMap<A>> {
+        export interface PasswordQuestion<A> extends PasswordQuestionOptions<A> {
+            type: 'password';
+        }
+
+        export interface ListQuestionOptions<A> extends ListQuestionOptionsBase<A, ListChoiceMap<A>> { }
+
+        export interface ListQuestion<A> extends ListQuestionOptions<A> {
             type: 'list';
         }
 
-        export interface RawListQuestion<A> extends ListQuestionBase<A, ListChoiceMap<A>> {
+        export interface RawListQuestionOptions<A> extends ListQuestionOptions<A> { }
+
+        export interface RawListQuestion<A> extends ListQuestionOptionsBase<A, ListChoiceMap<A>> {
             type: 'rawlist';
         }
 
-        export interface ExpandQuestion<A> extends ListQuestionBase<A, ExpandChoiceMap<A>> {
+        export interface ExpandQuestionOptions<A> extends ListQuestionOptionsBase<A, ExpandChoiceMap<A>> { }
+
+        export interface ExpandQuestion<A> extends ExpandQuestionOptions<A> {
             type: 'expand';
         }
 
-        export interface CheckboxQuestion<A> extends ListQuestionBase<A, CheckboxChoiceMap<A>> {
+        export interface CheckboxQuestionOptions<A> extends ListQuestionOptionsBase<A, CheckboxChoiceMap<A>> { }
+
+        export interface CheckboxQuestion<A> extends CheckboxQuestionOptions<A> {
             type: 'checkbox';
         }
 
-        export interface ConfirmQuestion<A> extends poll.Question<A> {
+        export interface ConfirmQuestionOptions<A> extends Question<A> { }
+
+        export interface ConfirmQuestion<A> extends ConfirmQuestionOptions<A> {
             type: 'confirm';
         }
 
-        export interface EditorQuestion<A> extends poll.Question<A> {
+        export interface EditorQuestionOptions<A> extends Question<A> { }
+
+        export interface EditorQuestion<A> extends EditorQuestionOptions<A> {
             type: 'editor';
         }
 
