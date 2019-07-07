@@ -13,14 +13,9 @@ type DistinctChoice<T extends inquirer.poll.Answers = inquirer.poll.Answers> = i
 type RealChoice<T extends inquirer.poll.Answers = inquirer.poll.Answers> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
 
 /**
- * Converts the specified union-type `U` to an intersection-type.
- */
-type UnionToIntersection<U> = (U extends any ? (k: U)=>void : never) extends ((k: infer I)=>void) ? I : never;
-
-/**
  * Represents a property-name of any choice-type.
  */
-type ChoiceProperty<T> = inquirer.KeyUnion<UnionToIntersection<RealChoice<T>>>;
+type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoice<T>>>;
 
 /**
  * A collection of multiple `Choice`-objects.

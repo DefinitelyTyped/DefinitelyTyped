@@ -69,6 +69,11 @@ declare namespace inquirer {
      */
     export type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
 
+    /**
+     * Converts the specified union-type `U` to an intersection-type.
+     */
+    export type UnionToIntersection<U> = (U extends any ? (k: U)=>void : never) extends ((k: infer I)=>void) ? I : never;
+
     export interface Prompts<T extends poll.Answers = poll.Answers> {
         [name: string]: Prompt<poll.Question<T>>;
     }
