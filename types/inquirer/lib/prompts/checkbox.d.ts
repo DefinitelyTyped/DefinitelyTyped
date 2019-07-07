@@ -29,7 +29,7 @@ declare class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inqui
      * @param answers
      * The answer-object.
      */
-    public constructor(questions: inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt.
@@ -42,18 +42,18 @@ declare class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inqui
     /**
      * Handles the `success`-event of the prompt.
      *
-     * @param state
-     * An object which contains state-data.
+     * @param eventArgs
+     * An object which contains event-data.
      */
-    protected onEnd(state: inquirer.prompts.SuccessfulPromptStateData): void;
+    protected onEnd(eventArgs: inquirer.prompts.SuccessfulPromptStateData): void;
 
     /**
      * Handles the `error`-event of the prompt.
      *
-     * @param state
-     * An object which contains state-data.
+     * @param eventArgs
+     * An object which contains event-data.
      */
-    protected onError(state: inquirer.prompts.FailedPromptStateData): void;
+    protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
 
     /**
      * Gets the current value of the prompt.

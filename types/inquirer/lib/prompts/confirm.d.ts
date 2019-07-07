@@ -7,7 +7,7 @@ import { Interface as ReadlineInterface } from "readline";
  */
 declare class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>> {
     /**
-     * Initializes a new instance of the `CheckboxPrompt<T>` class.
+     * Initializes a new instance of the `ConfirmPrompt<T>` class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -18,7 +18,7 @@ declare class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquire
      * @param answers
      * The answer-object.
      */
-    public constructor(questions: inquirer.poll.InputQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(questions: inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt.

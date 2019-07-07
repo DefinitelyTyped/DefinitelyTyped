@@ -1,6 +1,7 @@
 import Prompt = require("./base");
 import { Subject, Subscription } from "rxjs";
 import inquirer = require("../..");
+import { Interface as ReadlineInterface } from "readline";
 
 /**
  * Represents a prompt which provides a text-editor.
@@ -27,9 +28,24 @@ export class EditorPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.p
     protected currentText: string;
 
     /**
-     * @inheritdoc
-     * @returns
-     * The editor-prompt.
+     * Initializes a new instance of the `EditorPrompt<T>` class.
+     *
+     * @param question
+     * The question to prompt the user to answer.
+     *
+     * @param readLine
+     * An object for performing read from and write to the console.
+     *
+     * @param answers
+     * The answer-object.
+     */
+    public constructor(question: inquirer.poll.EditorQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+
+    /**
+     * Runs the prompt.
+     *
+     * @param callback
+     * The callback for resolving the result.
      */
     protected _run(callback: (value: any) => void): this;
 
@@ -39,7 +55,7 @@ export class EditorPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.p
      * @param error
      * The error to render.
      */
-    protected render(error: string): void;
+    protected render(error?: string): void;
 
     /**
      * Launches the default text-editor of the system.
@@ -60,16 +76,16 @@ export class EditorPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.p
     /**
      * Handles the `success`-event of the prompt.
      *
-     * @param state
-     * An object which contains state-data.
+     * @param eventArgs
+     * An object which contains event-data.
      */
-    protected onEnd(state: inquirer.prompts.SuccessfulPromptStateData): void;
+    protected onEnd(eventArgs: inquirer.prompts.SuccessfulPromptStateData): void;
 
     /**
      * Handles the `error`-event of the prompt.
      *
-     * @param state
-     * An object which contains state-data.
+     * @param eventArgs
+     * An object which contains event-data.
      */
-    protected onError(state: inquirer.prompts.FailedPromptStateData): void;
+    protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
 }

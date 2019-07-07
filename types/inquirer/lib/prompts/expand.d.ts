@@ -1,11 +1,12 @@
 import Paginator = require("../utils/paginator");
 import Prompt = require("./base");
 import inquirer = require("../..");
+import { Interface as ReadlineInterface } from "readline";
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
  */
-declare class ExpandPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.poll.Answers>> {
+declare class ExpandPrompt extends Prompt<inquirer.poll.ExpandQuestion<inquirer.poll.Answers>> {
     /**
      * Resolves the value of the prompt.
      */
@@ -35,6 +36,20 @@ declare class ExpandPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.
      * Gets or sets the answer of the prompt.
      */
     protected answer: string;
+
+    /**
+     * Initializes a new instance of the `ExpandPrompt<T>` class.
+     *
+     * @param question
+     * The question to prompt the user to answer.
+     *
+     * @param readLine
+     * An object for performing read from and write to the console.
+     *
+     * @param answers
+     * The answer-object.
+     */
+    public constructor(question: inquirer.poll.ExpandQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt to the screen.
@@ -71,18 +86,18 @@ declare class ExpandPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.
     /**
      * Handles the `error`-event of the prompt.
      *
-     * @param state
-     * An object which contains state-data.
+     * @param eventArgs
+     * An object which contains event-data.
      */
-    protected onError(state: inquirer.prompts.FailedPromptStateData): void;
+    protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
 
     /**
      * Handles the `success`-event of the prompt.
      *
-     * @param state
-     * An object which contains state-data.
+     * @param eventArgs
+     * An object which contains event-data.
      */
-    protected onSubmit(state: inquirer.prompts.SuccessfulPromptStateData): void;
+    protected onSubmit(eventArgs: inquirer.prompts.SuccessfulPromptStateData): void;
 
     /**
      * Handles the `keypress`-event of the prompt.

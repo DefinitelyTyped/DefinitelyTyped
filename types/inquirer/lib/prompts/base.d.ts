@@ -57,7 +57,7 @@ declare class Prompt<T = inquirer.poll.Question<inquirer.poll.Answers>> implemen
      * @param callback
      * The callback for resolving the result.
      */
-    protected _run(callback: (value: any) => void): void;
+    protected _run(callback: (callback: any) => void): void;
 
     /**
      * Throws an error for a missing param.
@@ -75,10 +75,10 @@ declare class Prompt<T = inquirer.poll.Question<inquirer.poll.Answers>> implemen
     /**
      * Handles the submit-event.
      *
-     * @param submit
-     * The submit-event flow.
+     * @param observable
+     * The observable submit-event flow.
      */
-    protected handleSubmitEvents<T>(submit: Observable<T>): inquirer.prompts.PromptEventPipes<T>;
+    protected handleSubmitEvents<T>(observable: Observable<T>): inquirer.prompts.PromptEventPipes<T>;
 
     /**
      * Generates the question-string.
