@@ -52,6 +52,11 @@ export function fail(err?: string): never;
  * @returns The return value of `fn`.
  */
 export function group<T>(name: string, fn: () => T): T;
+/**
+ * Suspend VU execution for the specified duration.
+ *
+ * @param t - Duration, in seconds.
+ */
 export function sleep(t: number): void;
 
 export interface Checker<T> {
