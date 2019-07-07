@@ -1,4 +1,3 @@
-// Import needed for mathjs.import functionality (declaring/extending module)
 import { create, factory, all, MathJsFunctionName } from 'mathjs';
 
 /*
