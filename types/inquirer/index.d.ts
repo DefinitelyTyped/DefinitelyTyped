@@ -368,7 +368,7 @@ declare namespace inquirer {
             /**
              * Initializes a new instance of a prompt.
              */
-            new (question: poll.Question<poll.Answers>, readLine: ReadlineInterface, answers: poll.Answers): PromptBase;
+            new (question: any, readLine: ReadlineInterface, answers: poll.Answers): PromptBase;
         }
 
         /**
