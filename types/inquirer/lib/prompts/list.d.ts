@@ -1,11 +1,17 @@
 import Prompt = require("./base");
 import inquirer = require("../..");
 import Paginator = require("../utils/paginator");
+import { Interface as ReadlineInterface } from "readline";
+
+/**
+ * The question for the `ListPrompt<T>`.
+ */
+type Question = inquirer.poll.ListQuestion<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
  */
-declare class ListPrompt extends Prompt<inquirer.poll.ListQuestion<inquirer.poll.Answers>> {
+declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<inquirer.poll.ListQuestion<inquirer.poll.Answers>> {
     /**
      * Resolves the value of the prompt.
      */
@@ -25,6 +31,20 @@ declare class ListPrompt extends Prompt<inquirer.poll.ListQuestion<inquirer.poll
      * Gets or sets an object for paginating the content.
      */
     protected paginator: Paginator;
+
+    /**
+     * Initializes a new instance of the `ListPrompt<T>` class.
+     *
+     * @param question
+     * The question to prompt the user to answer.
+     *
+     * @param readLine
+     * An object for performing read from and write to the console.
+     *
+     * @param answers
+     * The answer-object.
+     */
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt.

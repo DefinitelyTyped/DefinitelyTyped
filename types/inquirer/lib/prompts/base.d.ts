@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 /**
  * Represents a prompt.
  */
-declare class Prompt<T = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
+declare class Prompt<TQuestion = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
     /**
      * @inheritdoc
      */
@@ -20,7 +20,7 @@ declare class Prompt<T = inquirer.poll.Question<inquirer.poll.Answers>> implemen
     /**
      * Gets or sets the options of the prompt.
      */
-    protected opt: inquirer.prompts.PromptOptions<T>;
+    protected opt: inquirer.prompts.PromptOptions<TQuestion>;
 
     /**
      * Gets or sets an object for performing read from and write to the console.
@@ -44,7 +44,7 @@ declare class Prompt<T = inquirer.poll.Question<inquirer.poll.Answers>> implemen
      * @param answers
      * The answer-object.
      */
-    public constructor(question: T, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
 
     /**
      * @inheritdoc

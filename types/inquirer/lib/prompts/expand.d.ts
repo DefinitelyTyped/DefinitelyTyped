@@ -4,9 +4,14 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
+ * The question for the `ExpandPrompt<T>`.
+ */
+type Question = inquirer.poll.ExpandQuestion<inquirer.poll.Answers>;
+
+/**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
  */
-declare class ExpandPrompt extends Prompt<inquirer.poll.ExpandQuestion<inquirer.poll.Answers>> {
+declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Resolves the value of the prompt.
      */
@@ -49,7 +54,7 @@ declare class ExpandPrompt extends Prompt<inquirer.poll.ExpandQuestion<inquirer.
      * @param answers
      * The answer-object.
      */
-    public constructor(question: inquirer.poll.ExpandQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt to the screen.

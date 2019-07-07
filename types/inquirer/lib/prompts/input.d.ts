@@ -1,10 +1,16 @@
 import Prompt = require("./base");
 import inquirer = require("../..");
+import { Interface as ReadlineInterface } from "readline";
+
+/**
+ * The question for the `InputPrompt<T>`.
+ */
+type Question = inquirer.poll.InputQuestion<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which allows the user to type an answer.
  */
-declare class InputPrompt extends Prompt<inquirer.poll.InputQuestion<inquirer.poll.Answers>> {
+declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<inquirer.poll.InputQuestion<inquirer.poll.Answers>> {
     /**
      * Resolves the value of the prompt.
      */
@@ -14,6 +20,20 @@ declare class InputPrompt extends Prompt<inquirer.poll.InputQuestion<inquirer.po
      * The answer to this prompt.
      */
     protected answer: any;
+
+    /**
+     * Initializes a new instance of the `InputPrompt<T>` class.
+     *
+     * @param question
+     * The question to prompt the user to answer.
+     *
+     * @param readLine
+     * An object for performing read from and write to the console.
+     *
+     * @param answers
+     * The answer-object.
+     */
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt.

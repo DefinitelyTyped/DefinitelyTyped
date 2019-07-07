@@ -4,9 +4,14 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
+ * The question for the `EditorPrompt<T>`.
+ */
+type Question = inquirer.poll.EditorQuestion<inquirer.poll.Answers>;
+
+/**
  * Represents a prompt which provides a text-editor.
  */
-export class EditorPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.poll.Answers>> {
+export class EditorPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Resolves the value of the prompt.
      */
@@ -39,7 +44,7 @@ export class EditorPrompt extends Prompt<inquirer.poll.EditorQuestion<inquirer.p
      * @param answers
      * The answer-object.
      */
-    public constructor(question: inquirer.poll.EditorQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Runs the prompt.

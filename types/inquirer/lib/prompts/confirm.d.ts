@@ -3,9 +3,14 @@ import inquirer = require("../..");
 import { Interface as ReadlineInterface } from "readline";
 
 /**
+ * The question for the `ConfirmPrompt<T>`.
+ */
+type Question = inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>;
+
+/**
  * Represents a prompt which provides a message to confirm.
  */
-declare class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>> {
+declare class ConfirmPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Initializes a new instance of the `ConfirmPrompt<T>` class.
      *
@@ -18,7 +23,7 @@ declare class ConfirmPrompt extends Prompt<inquirer.poll.ConfirmQuestion<inquire
      * @param answers
      * The answer-object.
      */
-    public constructor(questions: inquirer.poll.ConfirmQuestion<inquirer.poll.Answers>, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(questions: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt.

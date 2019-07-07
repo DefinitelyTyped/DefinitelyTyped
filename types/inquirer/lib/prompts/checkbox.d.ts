@@ -4,9 +4,14 @@ import { Interface as ReadLineInterface } from "readline";
 import Paginator = require("../utils/paginator");
 
 /**
+ * The question for the `ChoicePrompt<T>`.
+ */
+type Question = inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>;
+
+/**
  * Represents a prompt which provides a set of choices to check.
  */
-declare class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>> {
+declare class CheckboxPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Gets or sets the index of the currently focused choice.
      */
@@ -29,7 +34,7 @@ declare class CheckboxPrompt extends Prompt<inquirer.poll.CheckboxQuestion<inqui
      * @param answers
      * The answer-object.
      */
-    public constructor(question: inquirer.poll.CheckboxQuestion<inquirer.poll.Answers>, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
 
     /**
      * Renders the prompt.
