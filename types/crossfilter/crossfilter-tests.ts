@@ -116,6 +116,9 @@ var types = paymentCountByType.all();
 // $ExpectError
 types.sort();
 
+types[0].key;
+types[0].value;
+
 paymentsByTotal.dispose();
 
 crossfilter.bisect([], null, 0, 0);
