@@ -1,0 +1,65 @@
+import UI = require("./baseUI");
+import inquirer = require("../..");
+import { ThroughStream } from "through";
+
+/**
+ * Represents the bottom-bar UI.
+ */
+declare class BottomBar extends UI {
+    /**
+     * Gets or sets a stream to write logs to.
+     */
+    protected log: ThroughStream;
+
+    /**
+     * Initializes a new instance of the `BottomBar` class.
+     *
+     * @param options
+     * The input- and output-stream of the ui.
+     */
+    public constructor(options?: inquirer.StreamOptions);
+
+    /**
+     * Renders the specified `text` to the bottom bar.
+     *
+     * @param text
+     * The text to print to the bottom bar.
+     */
+    public updateBottomBar(text: string): this;
+
+    /**
+     * Renders the bottom bar.
+     */
+    protected render(): this;
+
+    /**
+     * Clean the bottom bar.
+     */
+    protected clean(): this;
+
+    /**
+     * Writes a message to the bottom bar.
+     *
+     * @param message
+     * The message to write.
+     */
+    protected write(message: string): void;
+
+    /**
+     * Writes the specified `data` to the log-zone.
+     *
+     * @param data
+     * The data to write to the log-zone.
+     */
+    protected writeLog(data: any): this;
+
+    /**
+     * Fixes the new-line characters of the specified `text`.
+     *
+     * @param text
+     * The text to process.
+     */
+    protected enforceLF(text: string): string;
+}
+
+export = BottomBar;

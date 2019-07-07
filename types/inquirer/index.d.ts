@@ -79,6 +79,11 @@ declare namespace inquirer {
     }
 
     export interface PromptModule extends PromptModuleBase {
+        /**
+         * The prompts of the prompt-module.
+         */
+        prompts: prompts.PromptCollection;
+
         <A>(questions: poll.QuestionCollection<A>): Promise<A> & { ui: ui.PromptUI };
         /**
          * Register a prompt type
@@ -373,15 +378,6 @@ declare namespace inquirer {
     }
 
     export namespace prompts {
-        /**
-         * Provides the functionality to initialize new prompts.
-         */
-        export interface PromptConstructor {
-            /**
-             * Initializes a new instance of a prompt.
-             */
-            new (question: any, readLine: ReadlineInterface, answers: poll.Answers): PromptBase;
-        }
 
         /**
          * Provides a base for question- and prompt-options.
@@ -392,6 +388,11 @@ declare namespace inquirer {
              */
             choices: Choices;
         }
+
+        /**
+         * Represents the state of a prompt.
+         */
+        export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
 
         /**
          * Represents a prompt.
@@ -412,9 +413,21 @@ declare namespace inquirer {
         }
 
         /**
-         * Represents the state of a prompt.
+         * Provides the functionality to initialize new prompts.
          */
-        export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+        export interface PromptConstructor {
+            /**
+             * Initializes a new instance of a prompt.
+             */
+            new (question: any, readLine: ReadlineInterface, answers: poll.Answers): PromptBase;
+        }
+
+        /**
+         * Provides a set of prompt-constructors.
+         */
+        export interface PromptCollection {
+            [name: string]: PromptConstructor;
+        }
 
         /**
          * Provides data about the state of a prompt.
@@ -468,13 +481,35 @@ declare namespace inquirer {
     }
 
     export namespace ui {
+        export type FetchedQuestion = poll.DistinctQuestion & {
+            /**
+             * @inheritdoc
+             */
+            type: string;
+
+            /**
+             * @inheritdoc
+             */
+            message: string;
+
+            /**
+             * @inheritdoc
+             */
+            default: any;
+
+            /**
+             * The choices of the question.
+             */
+            choices: poll.DistinctChoice<poll.AllChoiceMap>;
+        }
+
         /**
          * Corresponding to the answer object creation in:
          * https://github.com/SBoudrias/Inquirer.js/blob/ff075f587ef78504f0eae4ee5ca0656432429026/packages/inquirer/lib/ui/prompt.js#L88
          */
-        export interface Answer {
-            name: string,
-            answer: any,
+        export interface FetchedAnswer {
+            name: string;
+            answer: any;
         }
 
         /**
@@ -497,7 +532,7 @@ declare namespace inquirer {
          * Base interface class other can inherits from
          */
         export interface PromptUI extends BaseUI {
-            process: Observable<Answer>;
+            process: Observable<FetchedAnswer>;
             new(prompts: Prompts, opt: StreamOptions): PromptUI;
             run<A>(questions: poll.QuestionCollection<A>): Promise<A>;
             /**
