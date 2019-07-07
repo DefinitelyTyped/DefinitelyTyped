@@ -29,6 +29,26 @@ import './metrics';
 import './options';
 import './ws';
 
+/**
+ * Run checks on a value.
+ *
+ * @param val - Value to test.
+ * @param sets - Tests (checks) to run on the value.
+ * @param tags - Extra tags to attach to metrics emitted.
+ * @returns `true` if all checks have succeeded, otherwise `false`.
+ *
+ * @remarks
+ * Runs one or more checks on a value and generates a pass/fail result but does
+ * not throw errors or otherwise interrupt execution upon failure.
+ * A check is a test condition that can give a truthy or falsy result.
+ * The `sets` parameter contain one or more checks, and the check() function
+ * will return `false` if any of them fail.
+ *
+ * Note that checks are not asserts in their traditional sense - a failed
+ * assertion will throw an error, while a check will always return with a pass
+ * or a failure. Failure conditions can then instead be controlled by
+ * thresholds, for more power and flexibility.
+ */
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 /**
  * Immediately throw an error, aborting the current script iteration.
