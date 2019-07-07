@@ -84,20 +84,20 @@ declare class ExpandPrompt extends Prompt<inquirer.poll.ExpandQuestion<inquirer.
     protected getChoices(): string;
 
     /**
-     * Handles the `error`-event of the prompt.
-     *
-     * @param eventArgs
-     * An object which contains event-data.
-     */
-    protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
-
-    /**
      * Handles the `success`-event of the prompt.
      *
      * @param eventArgs
      * An object which contains event-data.
      */
     protected onSubmit(eventArgs: inquirer.prompts.SuccessfulPromptStateData): void;
+
+    /**
+     * Handles the `error`-event of the prompt.
+     *
+     * @param eventArgs
+     * An object which contains event-data.
+     */
+    protected onError(eventArgs: inquirer.prompts.FailedPromptStateData): void;
 
     /**
      * Handles the `keypress`-event of the prompt.
