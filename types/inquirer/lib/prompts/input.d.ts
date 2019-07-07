@@ -2,7 +2,7 @@ import Prompt = require("./base");
 import inquirer = require("../..");
 
 /**
- * Represents a poll which prompts the user to type an answer.
+ * Represents a prompt which allows the user to type an answer.
  */
 declare class InputPrompt extends Prompt<inquirer.poll.InputQuestion<inquirer.poll.Answers>> {
     /**
