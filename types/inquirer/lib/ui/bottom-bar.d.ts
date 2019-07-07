@@ -17,7 +17,7 @@ declare class BottomBar extends UI {
      * @param options
      * The input- and output-stream of the ui.
      */
-    public constructor(options?: inquirer.StreamOptions);
+    constructor(options?: inquirer.StreamOptions);
 
     /**
      * Renders the specified `text` to the bottom bar.
@@ -25,7 +25,7 @@ declare class BottomBar extends UI {
      * @param text
      * The text to print to the bottom bar.
      */
-    public updateBottomBar(text: string): this;
+    updateBottomBar(text: string): this;
 
     /**
      * Renders the bottom bar.

@@ -24,22 +24,22 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
     /**
      * The number of selectable choices.
      */
-    public realLength: number;
+    realLength: number;
 
     /**
      * The number of choices.
      */
-    public length: number;
+    length: number;
 
     /**
      * The unfiltered choices.
      */
-    public choices: Array<DistinctChoice<T>>;
+    choices: Array<DistinctChoice<T>>;
 
     /**
      * The selectable choices.
      */
-    public realChoices: Array<RealChoice<T>>;
+    realChoices: Array<RealChoice<T>>;
 
     /**
      * Initializes a new instance of the `Choices` class.
@@ -50,7 +50,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @param answers
      * The `answers`-object.
      */
-    public constructor(choices: DistinctChoice<T>[], answers: T);
+    constructor(choices: Array<DistinctChoice<T>>, answers: T);
 
     /**
      * Gets the choice at the specified index.
@@ -61,7 +61,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The choice at the specified index.
      */
-    public getChoice(index: number): RealChoice<T>;
+    getChoice(index: number): RealChoice<T>;
 
     /**
      * Gets the item at the specified index.
@@ -72,7 +72,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The item at the specified index.
      */
-    public get(index: number): DistinctChoice<T>;
+    get(index: number): DistinctChoice<T>;
 
     /**
      * Gets all choices which apply to the where-clause.
@@ -83,7 +83,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The choices which apply to the where-clause.
      */
-    public where(whereClause: object): RealChoice<T>[];
+    where(whereClause: object): Array<RealChoice<T>>;
 
     /**
      * Retrieves the specified `property` from all choices.
@@ -94,7 +94,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The value of the property of each choice.
      */
-    public pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): (RealChoice<T> & { [key: string]: undefined })[TProperty][];
+    pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): Array<(RealChoice<T> & { [key: string]: undefined })[TProperty]>;
 
     /**
      * Returns the index of the first occurrence of a value in an array.
@@ -104,13 +104,13 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      *
      * @param fromIndex
      * The array index at which to begin the search.
-     * 
+     *
      * If fromIndex is omitted, the search starts at index 0.
      *
      * @returns
      * The index of the specified `searchElement`.
      */
-    public indexOf(searchElement: Choice<T> | Separator, fromIndex?: number): number;
+    indexOf(searchElement: Choice<T> | Separator, fromIndex?: number): number;
 
     /**
      * Performs the specified action for each element in an array.
@@ -125,7 +125,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      *
      * If thisArg is omitted, undefined is used as the this value.
      */
-    public forEach(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void, thisArg?: any): void;
+    forEach(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void, thisArg?: any): void;
 
     /**
      * Returns the elements of an array that meet the condition specified in a callback function.
@@ -143,7 +143,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The elements in the collection which meet the conditions.
      */
-    public filter<TElement extends Choice<T> | Separator>(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => value is TElement, thisArg?: any): TElement[];
+    filter<TElement extends Choice<T> | Separator>(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => value is TElement, thisArg?: any): TElement[];
 
     /**
      * Returns the value of the first element in the array where predicate is true, and `undefined` otherwise.
@@ -159,7 +159,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      *
      * If it is not provided, undefined is used instead.
      */
-    public find(predicate: (value: Choice<T> | Separator, index: number, obj: Array<Choice<T> | Separator>) => boolean, thisArg?: any): Choice<T> | Separator;
+    find(predicate: (value: Choice<T> | Separator, index: number, obj: Array<Choice<T> | Separator>) => boolean, thisArg?: any): Choice<T> | Separator;
 
     /**
      * Appends new elements to an array, and returns the new length of the array.
@@ -170,7 +170,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The new length of the array.
      */
-    public push(...items: Array<Choice<T> | Separator>): number;
+    push(...items: Array<Choice<T> | Separator>): number;
 }
 
 export = Choices;

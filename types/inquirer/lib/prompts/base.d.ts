@@ -15,7 +15,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     /**
      * @inheritdoc
      */
-    public status: inquirer.prompts.PromptState;
+    status: inquirer.prompts.PromptState;
 
     /**
      * Gets or sets an object which contains the answers.
@@ -49,12 +49,12 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
+    constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
 
     /**
      * @inheritdoc
      */
-    public run(): Promise<any>;
+    run(): Promise<any>;
 
     /**
      * Runs the prompt.

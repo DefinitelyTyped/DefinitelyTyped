@@ -25,7 +25,7 @@ declare class Paginator {
      * @param screenManager
      * A screen-manager for drawing the paginated content.
      */
-    public constructor(screenManager: ScreenManager);
+    constructor(screenManager: ScreenManager);
 
     /**
      * Paginates the specified `content`.
@@ -35,7 +35,7 @@ declare class Paginator {
      * @param selectedIndex
      * The number of the selected line.
      */
-    public paginate(content: string, selectedIndex: number): string;
+    paginate(content: string, selectedIndex: number): string;
 }
 
 export = Paginator;

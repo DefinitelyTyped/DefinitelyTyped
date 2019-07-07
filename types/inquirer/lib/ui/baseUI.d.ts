@@ -21,8 +21,8 @@ declare class UI {
      * @param options
      * The input- and output-stream of the ui.
      */
-    public constructor(options?: inquirer.StreamOptions);
-    
+    constructor(options?: inquirer.StreamOptions);
+
     /**
      * Handles a forced exit of the application.
      */

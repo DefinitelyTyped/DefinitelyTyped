@@ -7,17 +7,17 @@ declare class ScreenManager {
     /**
      * Gets or sets the height of the screen.
      */
-    public height: number;
+    height: number;
 
     /**
      * Gets or sets the number of extra-lines below the prompt.
      */
-    public extraLinesUnderPrompt: number;
+    extraLinesUnderPrompt: number;
 
     /**
      * Gets or sets an object for performing read from and write to the console.
      */
-    public rl: ReadLineInterface;
+    rl: ReadLineInterface;
 
     /**
      * Initializes a new instance of the `ScreenManager` class.
@@ -25,7 +25,7 @@ declare class ScreenManager {
      * @param readLine
      * An object for performing read from and write to the console.
      */
-    public constructor(readLine: ReadLineInterface);
+    constructor(readLine: ReadLineInterface);
 
     /**
      * Renders content to the screen.
@@ -36,7 +36,7 @@ declare class ScreenManager {
      * @param bottomContent
      * The content to render to the bottom of the screen.
      */
-    public render(content: string, bottomContent: string): void;
+    render(content: string, bottomContent: string): void;
 
     /**
      * Cleans all lines expect the first `extraLines`.
@@ -44,17 +44,17 @@ declare class ScreenManager {
      * @param extraLines
      * The number of lines at the begin to skip.
      */
-    public clean(extraLines: number): void;
+    clean(extraLines: number): void;
 
     /**
      * Releases all unmanaged resources.
      */
-    public done(): void;
+    done(): void;
 
     /**
      * Releases the cursor.
      */
-    public releaseCursor(): void;
+    releaseCursor(): void;
 
     /**
      * Identifies the width of the screen.

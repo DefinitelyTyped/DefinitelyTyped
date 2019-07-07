@@ -69,19 +69,19 @@ declare namespace inquirer {
     /**
      * Represents either a key of `T` or a `string`.
      */
-    export type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
+    type KeyUnion<T> = LiteralUnion<Extract<keyof T, string>>;
 
     /**
      * Converts the specified union-type `U` to an intersection-type.
      */
-    export type UnionToIntersection<U> = (U extends any ? (k: U)=>void : never) extends ((k: infer I)=>void) ? I : never;
+    type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
-    export interface StreamOptions {
-        input?: NodeJS.ReadStream,
-        output?: NodeJS.WriteStream,
+    interface StreamOptions {
+        input?: NodeJS.ReadStream;
+        output?: NodeJS.WriteStream;
     }
 
-    export interface PromptModule extends PromptModuleBase {
+    interface PromptModule extends PromptModuleBase {
         /**
          * The prompts of the prompt-module.
          */
@@ -96,7 +96,7 @@ declare namespace inquirer {
         registerPrompt(name: string, prompt: prompts.PromptConstructor): this;
     }
 
-    export interface Inquirer extends PromptModuleBase {
+    interface Inquirer extends PromptModuleBase {
         /**
          * Register a prompt type
          * @param name Prompt type name
@@ -122,20 +122,20 @@ declare namespace inquirer {
         };
     }
 
-    export namespace poll {
-        export interface Answers extends Record<string, any> {}
+    namespace poll {
+        interface Answers extends Record<string, any> {}
 
         /**
          * Represents a dynamic property for a question.
          */
-        export type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
+        type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
 
         /**
          * Represents a dynamic property for a question which can be fetched asynchronously.
          */
-        export type AsyncDynamicQuestionProparty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<TAnswers, T | Promise<T>>;
+        type AsyncDynamicQuestionProparty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<TAnswers, T | Promise<T>>;
 
-        export interface Question<T extends Answers = Answers> {
+        interface Question<T extends Answers = Answers> {
             type?: string;
             /**
              * The name to use when storing the answer in the answers hash.
@@ -166,7 +166,7 @@ declare namespace inquirer {
              * Receive the user input and return the filtered value to be used inside the program.
              * The value returned will be added to the _Answers_ hash.
              */
-            filter?(input: string): any | Promise<any>;
+            filter?(input: string): any;
             /**
              * Receive the current user answers hash and should return `true` or `false` depending
              * on whether or not this question should be asked. The value can also be a simple boolean.
@@ -183,14 +183,14 @@ declare namespace inquirer {
         /**
          * Represents a choice-item.
          */
-        export interface ChoiceBase {
+        interface ChoiceBase {
             /**
              * The type of the choice.
              */
             type?: string;
         }
 
-        export interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
+        interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
             type?: "choice";
             name?: string;
             value?: any;
@@ -201,7 +201,7 @@ declare namespace inquirer {
         /**
          * Provides options for a choice of the `ListPrompt`.
          */
-        export interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+        interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
             /**
              * A value indicating whether the choice is disabled.
              */
@@ -211,7 +211,7 @@ declare namespace inquirer {
         /**
          * Provides options for a choice of the `CheckboxPrompt`.
          */
-        export interface CheckboxChoiceOptions<T extends Answers = Answers> extends ListChoiceOptions<T> {
+        interface CheckboxChoiceOptions<T extends Answers = Answers> extends ListChoiceOptions<T> {
             /**
              * A value indicating whether the choice should be initially checked.
              */
@@ -221,7 +221,7 @@ declare namespace inquirer {
         /**
          * Provides options for a choice of the `ExpandPrompt`.
          */
-        export interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+        interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
             /**
              * The key to press for selecting the choice.
              */
@@ -231,7 +231,7 @@ declare namespace inquirer {
         /**
          * Represents a separator.
          */
-        export interface SeparatorOptions {
+        interface SeparatorOptions {
             /**
              * Gets the type of the choice.
              */
@@ -246,38 +246,38 @@ declare namespace inquirer {
         /**
          * Provides all valid choice-types for any kind of question.
          */
-        export interface BaseChoiceMap<T extends Answers = Answers> {
+        interface BaseChoiceMap<T extends Answers = Answers> {
             Choice: Choice<T>;
             ChoiceOptions: ChoiceOptions<T>;
             SeparatorOptions: SeparatorOptions;
             Separator: Separator;
         }
-        
+
         /**
          * Provides all valid choice-types for the `ListQuestion`.
          */
-        export interface ListChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+        interface ListChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
             ListChoiceOptions: ListChoiceOptions<T>;
         }
 
         /**
          * Provides all valid choice-types for the `CheckboxQuestion`.
          */
-        export interface CheckboxChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+        interface CheckboxChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
             CheckboxChoiceOptions: CheckboxChoiceOptions<T>;
         }
 
         /**
          * Provides all valid choice-types for the `ExpandQuestion`.
          */
-        export interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+        interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
             ExpandChoiceOptions: ExpandChoiceOptions<T>;
         }
 
         /**
          * Provides all valid choice-types.
          */
-        export interface AllChoiceMap<T extends Answers = Answers> {
+        interface AllChoiceMap<T extends Answers = Answers> {
             BaseChoiceMap: BaseChoiceMap<T>[keyof BaseChoiceMap<T>];
             ListChoiceMap: ListChoiceMap<T>[keyof ListChoiceMap<T>];
             CheckboxChoiceMap: CheckboxChoiceMap<T>[keyof CheckboxChoiceMap<T>];
@@ -287,11 +287,11 @@ declare namespace inquirer {
         /**
          * Provides valid choices for the question of the `TChoiceMap`.
          */
-        export type DistinctChoice<TChoiceMap> =
+        type DistinctChoice<TChoiceMap> =
             string |
             TChoiceMap[keyof TChoiceMap];
 
-        export interface InputQuestionOptions<T extends Answers = Answers> extends Question<T> {
+        interface InputQuestionOptions<T extends Answers = Answers> extends Question<T> {
             /**
              * Receive the user input, answers hash and option flags, and return a transformed value
              * to display to the user. The transformation only impacts what is shown while editing.
@@ -300,67 +300,67 @@ declare namespace inquirer {
             transformer?(input: string, answers: T, flags: any): string | Promise<string>;
         }
 
-        export interface InputQuestion<T extends Answers = Answers> extends InputQuestionOptions<T> {
+        interface InputQuestion<T extends Answers = Answers> extends InputQuestionOptions<T> {
             type?: 'input';
         }
 
-        export interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
+        interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
 
-        export interface NumberQuestion<T extends Answers = Answers> extends NumberQuestionOptions<T> {
+        interface NumberQuestion<T extends Answers = Answers> extends NumberQuestionOptions<T> {
             type: 'number';
         }
 
-        export interface PasswordQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {
+        interface PasswordQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {
             /**
              * Hides the user input.
              */
             mask?: string;
         }
 
-        export interface PasswordQuestion<T extends Answers = Answers> extends PasswordQuestionOptions<T> {
+        interface PasswordQuestion<T extends Answers = Answers> extends PasswordQuestionOptions<T> {
             type: 'password';
         }
 
-        export interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
+        interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
 
-        export interface ListQuestion<T extends Answers = Answers> extends ListQuestionOptions<T> {
+        interface ListQuestion<T extends Answers = Answers> extends ListQuestionOptions<T> {
             type: 'list';
         }
 
-        export interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
+        interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
 
-        export interface RawListQuestion<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+        interface RawListQuestion<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
             type: 'rawlist';
         }
 
-        export interface ExpandQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
+        interface ExpandQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
 
-        export interface ExpandQuestion<T extends Answers = Answers> extends ExpandQuestionOptions<T> {
+        interface ExpandQuestion<T extends Answers = Answers> extends ExpandQuestionOptions<T> {
             type: 'expand';
         }
 
-        export interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
+        interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
 
-        export interface CheckboxQuestion<T extends Answers = Answers> extends CheckboxQuestionOptions<T> {
+        interface CheckboxQuestion<T extends Answers = Answers> extends CheckboxQuestionOptions<T> {
             type: 'checkbox';
         }
 
-        export interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+        interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
 
-        export interface ConfirmQuestion<T extends Answers = Answers> extends ConfirmQuestionOptions<T> {
+        interface ConfirmQuestion<T extends Answers = Answers> extends ConfirmQuestionOptions<T> {
             type: 'confirm';
         }
 
-        export interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+        interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> { }
 
-        export interface EditorQuestion<T extends Answers = Answers> extends EditorQuestionOptions<T> {
+        interface EditorQuestion<T extends Answers = Answers> extends EditorQuestionOptions<T> {
             type: 'editor';
         }
 
         /**
          * Provides the available question-types.
          */
-        export interface QuestionMap<T extends Answers = Answers> {
+        interface QuestionMap<T extends Answers = Answers> {
             input: InputQuestion<T>;
             number: NumberQuestion<T>;
             password: PasswordQuestion<T>;
@@ -372,35 +372,34 @@ declare namespace inquirer {
             editor: EditorQuestion<T>;
         }
 
-        export type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof QuestionMap<T>];
+        type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof QuestionMap<T>];
 
-        export type QuestionCollection<T extends Answers = Answers> =
+        type QuestionCollection<T extends Answers = Answers> =
             | DistinctQuestion<T>
-            | ReadonlyArray<poll.DistinctQuestion<T>>
-            | Observable<poll.DistinctQuestion<T>>;
+            | ReadonlyArray<DistinctQuestion<T>>
+            | Observable<DistinctQuestion<T>>;
     }
 
-    export namespace prompts {
-
+    namespace prompts {
         /**
          * Provides a base for question- and prompt-options.
          */
-        export type PromptOptions<T extends poll.Question<poll.Answers> = poll.Question<poll.Answers>> = T & {
+        type PromptOptions<T extends poll.Question<poll.Answers> = poll.Question<poll.Answers>> = T & {
             /**
              * The choices of the prompt.
              */
             choices: Choices;
-        }
+        };
 
         /**
          * Represents the state of a prompt.
          */
-        export type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
+        type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
 
         /**
          * Represents a prompt.
          */
-        export interface PromptBase {
+        interface PromptBase {
             /**
              * Gets or sets a string which represents the state of the prompt.
              */
@@ -418,7 +417,7 @@ declare namespace inquirer {
         /**
          * Provides the functionality to initialize new prompts.
          */
-        export interface PromptConstructor {
+        interface PromptConstructor {
             /**
              * Initializes a new instance of a prompt.
              */
@@ -428,14 +427,14 @@ declare namespace inquirer {
         /**
          * Provides a set of prompt-constructors.
          */
-        export interface PromptCollection {
+        interface PromptCollection {
             [name: string]: PromptConstructor;
         }
 
         /**
          * Provides data about the state of a prompt.
          */
-        export interface PromptStateData {
+        interface PromptStateData {
             /**
              * Either a string which describes the error of the prompt or a boolean indicating whether the prompt-value is valid.
              */
@@ -445,7 +444,7 @@ declare namespace inquirer {
         /**
          * Provides data about the successful state of a prompt.
          */
-        export interface SuccessfulPromptStateData<T = any> extends PromptStateData {
+        interface SuccessfulPromptStateData<T = any> extends PromptStateData {
             /**
              * @inheritdoc
              */
@@ -460,7 +459,7 @@ declare namespace inquirer {
         /**
          * Provides data about the failed state of a prompt.
          */
-        export interface FailedPromptStateData extends PromptStateData {
+        interface FailedPromptStateData extends PromptStateData {
             /**
              * @inheritdoc
              */
@@ -470,7 +469,7 @@ declare namespace inquirer {
         /**
          * Provides pipes for handling events of a prompt.
          */
-        export interface PromptEventPipes<T = any> {
+        interface PromptEventPipes<T = any> {
             /**
              * A pypeline for succesful inputs.
              */
@@ -483,8 +482,8 @@ declare namespace inquirer {
         }
     }
 
-    export namespace ui {
-        export type FetchedQuestion<T extends poll.Answers = poll.Answers> = poll.DistinctQuestion<T> & {
+    namespace ui {
+        type FetchedQuestion<T extends poll.Answers = poll.Answers> = poll.DistinctQuestion<T> & {
             /**
              * @inheritdoc
              */
@@ -504,13 +503,13 @@ declare namespace inquirer {
              * The choices of the question.
              */
             choices: poll.DistinctChoice<poll.AllChoiceMap<T>>;
-        }
+        };
 
         /**
          * Corresponding to the answer object creation in:
          * https://github.com/SBoudrias/Inquirer.js/blob/ff075f587ef78504f0eae4ee5ca0656432429026/packages/inquirer/lib/ui/prompt.js#L88
          */
-        export interface FetchedAnswer {
+        interface FetchedAnswer {
             name: string;
             answer: any;
         }

@@ -9,17 +9,17 @@ declare class PromptUI extends UI {
     /**
      * Gets or sets the prompts of the ui.
      */
-    public prompts: inquirer.prompts.PromptCollection;
+    prompts: inquirer.prompts.PromptCollection;
 
     /**
      * Gets or sets the answers provided by the user.
      */
-    public answers: inquirer.poll.Answers;
+    answers: inquirer.poll.Answers;
 
     /**
      * Gets or sets the event-flow of the process.
      */
-    public process: Observable<inquirer.poll.Answers>;
+    process: Observable<inquirer.poll.Answers>;
 
     /**
      * Initializes a new instance of the `PromptUI` class.
@@ -30,7 +30,7 @@ declare class PromptUI extends UI {
      * @param options
      * The input- and output-stream of the ui.
      */
-    public constructor(prompts: inquirer.prompts.PromptCollection, options: inquirer.StreamOptions);
+    constructor(prompts: inquirer.prompts.PromptCollection, options: inquirer.StreamOptions);
 
     /**
      * Runs the prompt-UI.
@@ -41,7 +41,7 @@ declare class PromptUI extends UI {
      * @returns
      * The answers provided by the user.
      */
-    public run(questions: inquirer.poll.DistinctQuestion<inquirer.poll.Answers>[]): Promise<inquirer.poll.Answers>;
+    run(questions: Array<inquirer.poll.DistinctQuestion<inquirer.poll.Answers>>): Promise<inquirer.poll.Answers>;
 
     /**
      * Finishes the process.

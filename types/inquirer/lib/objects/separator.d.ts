@@ -7,12 +7,12 @@ declare class Separator implements inquirer.poll.ChoiceBase, inquirer.poll.Separ
     /**
      * @inheritdoc
      */
-    public readonly type: "separator";
+    readonly type: "separator";
 
     /**
      * @inheritdoc
      */
-    public line: string;
+    line: string;
 
     /**
      * Initializes a new instance of the `Separator` class.
@@ -20,7 +20,7 @@ declare class Separator implements inquirer.poll.ChoiceBase, inquirer.poll.Separ
      * @param line
      * The text of the separator.
      */
-    public constructor(line?: string);
+    constructor(line?: string);
 
     /**
      * Checks whether the specified `item` is not a separator.
@@ -31,7 +31,7 @@ declare class Separator implements inquirer.poll.ChoiceBase, inquirer.poll.Separ
      * @returns
      * A value indicating whether the item is not a separator.
      */
-    public static exclude(item: any): boolean;
+    static exclude(item: any): boolean;
 }
 
 export = Separator;
