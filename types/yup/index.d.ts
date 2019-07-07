@@ -104,6 +104,8 @@ export interface MixedSchema<T = any> extends Schema<T> {
     nullable(isNullable?: boolean): MixedSchema<T>;
     required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
+    concat(schema: this): this;
+    concat<U >(schema: MixedSchema<U>): MixedSchema<T | U>;
 }
 
 export interface StringSchemaConstructor {

@@ -199,6 +199,10 @@ mixed.test({
     test: testContext,
 });
 
+// mixed with concat
+yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
+yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date>
+
 // Async ValidationError
 const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
     return new Promise(resolve => resolve(this.createError({ path: 'testPath', message: 'testMessage' })));
@@ -693,13 +697,3 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
 
 const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
 const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
-
-const partAShema = yup.object({
-    a: yup.string()
-});
-
-const partBSchema = yup.object({
-    b: yup.string()
-});
-
-const bothPartsSchema = partAShema.concat(partBSchema); // $ExpectType ObjectSchema<{ a: string; } & { b: string; }>
