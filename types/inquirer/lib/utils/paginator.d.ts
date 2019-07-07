@@ -32,8 +32,12 @@ declare class Paginator {
      *
      * @param content
      * The content to paginate.
+     *
      * @param selectedIndex
      * The number of the selected line.
+     *
+     * @returns
+     * The paginated content.
      */
     paginate(content: string, selectedIndex: number): string;
 }

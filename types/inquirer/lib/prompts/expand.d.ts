@@ -10,6 +10,9 @@ type Question = inquirer.poll.ExpandQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**

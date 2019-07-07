@@ -10,6 +10,9 @@ type Question = inquirer.poll.Question<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class Prompt<TQuestion extends Question = Question> implements inquirer.prompts.PromptBase {
     /**

@@ -10,6 +10,9 @@ type Question = inquirer.poll.RawListQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class RawListPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**

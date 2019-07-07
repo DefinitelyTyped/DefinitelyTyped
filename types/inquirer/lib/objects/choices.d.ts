@@ -4,21 +4,33 @@ import Separator = require("./separator");
 
 /**
  * Represents a valid choice for the `Choices` class.
+ *
+ * @template T
+ * The type of the answers.
  */
-type DistinctChoice<T extends inquirer.poll.Answers = inquirer.poll.Answers> = inquirer.poll.AllChoiceMap<T>[keyof inquirer.poll.AllChoiceMap<T>];
+type DistinctChoice<T> = inquirer.poll.AllChoiceMap<T>[keyof inquirer.poll.AllChoiceMap<T>];
 
 /**
  * Represents a valid real choice for the `Choices` class.
+ *
+ * @template T
+ * The type of the answers.
  */
-type RealChoice<T extends inquirer.poll.Answers = inquirer.poll.Answers> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
+type RealChoice<T> = Exclude<DistinctChoice<T>, { type: Separator["type"] }>;
 
 /**
  * Represents a property-name of any choice-type.
+ *
+ * @template T
+ * The type of the answers.
  */
 type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoice<T>>>;
 
 /**
  * A collection of multiple `Choice`-objects.
+ *
+ * @template T
+ * The type of the answers.
  */
 declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
     /**
@@ -88,6 +100,9 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
     /**
      * Retrieves the specified `property` from all choices.
      *
+     * @template TProperty
+     * The name of the property to get.
+     *
      * @param property
      * The property to query.
      *
@@ -123,7 +138,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @param thisArg
      * An object to which the this keyword can refer in the callbackfn function.
      *
-     * If thisArg is omitted, undefined is used as the this value.
+     * If `thisArg` is omitted, undefined is used as the this value.
      */
     forEach(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => void, thisArg?: any): void;
 
@@ -138,7 +153,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @param thisArg
      * An object to which the `this` keyword can refer in the callbackfn function.
      *
-     * If thisArg is omitted, undefined is used as the this value.
+     * If `thisArg` is omitted, undefined is used as the this value.
      *
      * @returns
      * The elements in the collection which meet the conditions.
@@ -165,7 +180,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * Appends new elements to an array, and returns the new length of the array.
      *
      * @param items
-     * New elements of the Array.
+     * The elements to add to the array.
      *
      * @returns
      * The new length of the array.

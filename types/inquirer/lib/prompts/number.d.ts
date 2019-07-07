@@ -9,6 +9,9 @@ type Question = inquirer.poll.NumberQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Provides a prompt which allows the user to type a number as answer.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class NumberPrompt<TQuestion extends Question = Question> extends InputPrompt<TQuestion> {
     /**

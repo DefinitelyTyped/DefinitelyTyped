@@ -2,6 +2,9 @@ import inquirer = require('../..');
 
 /**
  * Represents a choice for several question-types.
+ *
+ * @template T
+ * The type of the answers.
  */
 declare class Choice<T extends inquirer.poll.Answers = inquirer.poll.Answers> implements
     inquirer.poll.ListChoiceOptions<T>,
@@ -9,6 +12,9 @@ declare class Choice<T extends inquirer.poll.Answers = inquirer.poll.Answers> im
     inquirer.poll.ExpandChoiceOptions<T> {
     /**
      * Gets an option of the choice.
+     *
+     * @param key
+     * The name of the option.
      */
     [key: string]: any;
 

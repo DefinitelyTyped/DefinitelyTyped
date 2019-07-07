@@ -9,6 +9,9 @@ type Question = inquirer.poll.ConfirmQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a message to confirm.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class ConfirmPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**

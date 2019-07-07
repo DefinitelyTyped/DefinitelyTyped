@@ -10,6 +10,9 @@ type Question = inquirer.poll.CheckboxQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a set of choices to check.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class CheckboxPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**

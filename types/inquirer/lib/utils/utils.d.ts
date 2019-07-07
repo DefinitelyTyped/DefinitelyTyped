@@ -12,7 +12,8 @@ type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.
 type UnpackQuestionProperty<T> = T extends inquirer.poll.AsyncDynamicQuestionProparty<inquirer.poll.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
 
 /**
- * 
+ * Fetches a property of the specified `question`.
+ *
  * @param question
  * The question to fetch the property from.
  *
@@ -21,6 +22,9 @@ type UnpackQuestionProperty<T> = T extends inquirer.poll.AsyncDynamicQuestionPro
  *
  * @param answers
  * The answers provided by the user.
+ *
+ * @returns
+ * The processed question.
  */
 export function fetchAsyncQuestionPropertyQuestionProperty(
     question: inquirer.poll.DistinctQuestion,

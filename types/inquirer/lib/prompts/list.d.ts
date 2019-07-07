@@ -10,6 +10,9 @@ type Question = inquirer.poll.ListQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**

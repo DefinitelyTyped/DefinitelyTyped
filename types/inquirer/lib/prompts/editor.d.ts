@@ -10,6 +10,9 @@ type Question = inquirer.poll.EditorQuestionOptions<inquirer.poll.Answers>;
 
 /**
  * Represents a prompt which provides a text-editor.
+ *
+ * @template TQuestion
+ * The options for the question.
  */
 declare class EditorPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
