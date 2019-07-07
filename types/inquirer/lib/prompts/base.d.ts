@@ -4,9 +4,14 @@ import ScreenManager = require("../utils/screen-manager");
 import { Observable } from "rxjs";
 
 /**
+ * The question-options for the `Prompt<T>`.
+ */
+type Question = inquirer.poll.Question<inquirer.poll.Answers>;
+
+/**
  * Represents a prompt.
  */
-declare class Prompt<TQuestion = inquirer.poll.Question<inquirer.poll.Answers>> implements inquirer.prompts.PromptBase {
+declare class Prompt<TQuestion extends Question = Question> implements inquirer.prompts.PromptBase {
     /**
      * @inheritdoc
      */

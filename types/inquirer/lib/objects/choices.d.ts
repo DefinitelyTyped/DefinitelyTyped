@@ -94,7 +94,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The value of the property of each choice.
      */
-    public pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): (RealChoice<T> & { [key: string]: undefined })[TProperty];
+    public pluck<TProperty extends ChoiceProperty<T>>(property: TProperty | ChoiceProperty<T>): (RealChoice<T> & { [key: string]: undefined })[TProperty][];
 
     /**
      * Returns the index of the first occurrence of a value in an array.
@@ -143,7 +143,7 @@ declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
      * @returns
      * The elements in the collection which meet the conditions.
      */
-    public filter<S extends Choice<T> | Separator>(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => value is S, thisArg?: any): S[];
+    public filter<TElement extends Choice<T> | Separator>(callbackfn: (value: Choice<T> | Separator, index: number, array: Array<Choice<T> | Separator>) => value is TElement, thisArg?: any): TElement[];
 
     /**
      * Returns the value of the first element in the array where predicate is true, and `undefined` otherwise.

@@ -41,7 +41,7 @@ declare class PromptUI extends UI {
      * @returns
      * The answers provided by the user.
      */
-    public run(questions: inquirer.poll.DistinctQuestion[]): Promise<inquirer.poll.Answers>;
+    public run(questions: inquirer.poll.DistinctQuestion<inquirer.poll.Answers>[]): Promise<inquirer.poll.Answers>;
 
     /**
      * Finishes the process.
@@ -57,7 +57,7 @@ declare class PromptUI extends UI {
      * @returns
      * The answer to the question.
      */
-    protected processQuestion(question: inquirer.poll.DistinctQuestion): Observable<inquirer.ui.FetchedAnswer>;
+    protected processQuestion(question: inquirer.poll.DistinctQuestion<inquirer.poll.Answers>): Observable<inquirer.ui.FetchedAnswer>;
 
     /**
      * Fetches the answer to a question.
@@ -68,7 +68,7 @@ declare class PromptUI extends UI {
      * @returns
      * The answer to the question.
      */
-    protected fetchAnswer(question: inquirer.ui.FetchedQuestion): Observable<inquirer.ui.FetchedAnswer>;
+    protected fetchAnswer(question: inquirer.ui.FetchedQuestion<inquirer.poll.Answers>): Observable<inquirer.ui.FetchedAnswer>;
 
     /**
      * Sets the type of the question if no question-type is specified.
@@ -79,7 +79,7 @@ declare class PromptUI extends UI {
      * @returns
      * The processed question.
      */
-    protected setDefaultType(question: inquirer.poll.DistinctQuestion): Observable<inquirer.poll.DistinctQuestion>;
+    protected setDefaultType(question: inquirer.poll.DistinctQuestion<inquirer.poll.Answers>): Observable<inquirer.poll.DistinctQuestion<inquirer.poll.Answers>>;
 
     /**
      * Filters the question if it is runnable.
@@ -90,7 +90,7 @@ declare class PromptUI extends UI {
      * @returns
      * Either the event-flow of the question if it is runnable or an empty event-flow.
      */
-    protected filterIfRunnable(question: inquirer.poll.DistinctQuestion): Observable<inquirer.poll.DistinctQuestion>;
+    protected filterIfRunnable(question: inquirer.poll.DistinctQuestion<inquirer.poll.Answers>): Observable<inquirer.poll.DistinctQuestion<inquirer.poll.Answers>>;
 }
 
 export = PromptUI;

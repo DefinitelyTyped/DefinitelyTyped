@@ -10,7 +10,7 @@ type Question = inquirer.poll.PasswordQuestionOptions<inquirer.poll.Answers>;
 /**
  * Represents a prompt which allows the user to type a password.
  */
-declare class PasswordPrompt<TQuestion extends Question = Question> extends Prompt {
+declare class PasswordPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
      * Resolves the value of the prompt.
      */
