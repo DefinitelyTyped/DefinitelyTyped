@@ -200,7 +200,7 @@ declare namespace Stripe {
               * External accounts (bank accounts and debit cards) currently
               * attached to this account
               */
-            external_accounts: IList<cards.ICard | bankAccounts.IBankAccount>;
+            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
