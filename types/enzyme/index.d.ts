@@ -308,7 +308,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * tests are not passing when you expect them to.
      */
     debug(options?: {
-        /** Whether props should be omitted in the resulting string. Props are included by default. */ 
+        /** Whether props should be omitted in the resulting string. Props are included by default. */
         ignoreProps?: boolean;
         /** Whether arrays and objects passed as props should be verbosely printed. */
         verbose?: boolean;
