@@ -25,7 +25,7 @@ export function styled<P extends object, C extends keyof JSX.IntrinsicElements |
 
 export const LightTheme: Theme;
 export const LightThemeMove: Theme;
-export const LightThemePrimitives: ThemePrimitives;
+export const lightThemePrimitives: ThemePrimitives;
 export const DarkTheme: Theme;
 export const DarkThemeMove: Theme;
 
