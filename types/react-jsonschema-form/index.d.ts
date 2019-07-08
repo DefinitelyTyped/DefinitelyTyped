@@ -239,6 +239,12 @@ declare module 'react-jsonschema-form' {
     export function withTheme<T>(
         themeProps: Omit<FormProps<T>, 'schema'>
     ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
+
+    export type AddButtonProps = {
+        className: string;
+        onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+        disabled: boolean;
+    }
 }
 
 declare module 'react-jsonschema-form/lib/utils' {
