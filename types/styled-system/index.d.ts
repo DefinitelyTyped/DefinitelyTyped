@@ -17,7 +17,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as CSS from "csstype";
+import * as CSS from 'csstype';
 
 export function get(obj: any, ...paths: Array<string | number>): any;
 
@@ -165,23 +165,23 @@ export const space: styleFn;
 export interface MarginProps
     extends Pick<
         SpaceProps,
-        | "m"
-        | "margin"
-        | "mt"
-        | "marginTop"
-        | "mb"
-        | "marginBottom"
-        | "ml"
-        | "marginLeft"
-        | "mr"
-        | "marginRight"
-        | "my"
-        | "mx"
+        | 'm'
+        | 'margin'
+        | 'mt'
+        | 'marginTop'
+        | 'mb'
+        | 'marginBottom'
+        | 'ml'
+        | 'marginLeft'
+        | 'mr'
+        | 'marginRight'
+        | 'my'
+        | 'mx'
     > {}
-export interface MarginTopProps extends Pick<SpaceProps, "mt" | "marginTop"> {}
-export interface MarginBottomProps extends Pick<SpaceProps, "mb" | "marginBottom"> {}
-export interface MarginLeftProps extends Pick<SpaceProps, "ml" | "marginLeft"> {}
-export interface MarginRightProps extends Pick<SpaceProps, "mr" | "marginRight"> {}
+export interface MarginTopProps extends Pick<SpaceProps, 'mt' | 'marginTop'> {}
+export interface MarginBottomProps extends Pick<SpaceProps, 'mb' | 'marginBottom'> {}
+export interface MarginLeftProps extends Pick<SpaceProps, 'ml' | 'marginLeft'> {}
+export interface MarginRightProps extends Pick<SpaceProps, 'mr' | 'marginRight'> {}
 
 export const margin: styleFn;
 export const marginTop: styleFn;
@@ -192,23 +192,23 @@ export const marginRight: styleFn;
 export interface PaddingProps
     extends Pick<
         SpaceProps,
-        | "p"
-        | "padding"
-        | "pt"
-        | "paddingTop"
-        | "pb"
-        | "paddingBottom"
-        | "pl"
-        | "paddingLeft"
-        | "pr"
-        | "paddingRight"
-        | "py"
-        | "px"
+        | 'p'
+        | 'padding'
+        | 'pt'
+        | 'paddingTop'
+        | 'pb'
+        | 'paddingBottom'
+        | 'pl'
+        | 'paddingLeft'
+        | 'pr'
+        | 'paddingRight'
+        | 'py'
+        | 'px'
     > {}
-export interface PaddingTopProps extends Pick<SpaceProps, "pt" | "paddingTop"> {}
-export interface PaddingBottomProps extends Pick<SpaceProps, "pb" | "paddingBottom"> {}
-export interface PaddingLeftProps extends Pick<SpaceProps, "pl" | "paddingLeft"> {}
-export interface PaddingRightProps extends Pick<SpaceProps, "pr" | "paddingRight"> {}
+export interface PaddingTopProps extends Pick<SpaceProps, 'pt' | 'paddingTop'> {}
+export interface PaddingBottomProps extends Pick<SpaceProps, 'pb' | 'paddingBottom'> {}
+export interface PaddingLeftProps extends Pick<SpaceProps, 'pl' | 'paddingLeft'> {}
+export interface PaddingRightProps extends Pick<SpaceProps, 'pr' | 'paddingRight'> {}
 
 export const padding: styleFn;
 export const paddingTop: styleFn;
@@ -765,9 +765,7 @@ export interface GridTemplateColumnsProps<TLength = TLengthStyledSystem> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns)
      */
-    gridTemplateColumns?: ResponsiveValue<
-        CSS.GridTemplateColumnsProperty<TLength>
-    >;
+    gridTemplateColumns?: ResponsiveValue<CSS.GridTemplateColumnsProperty<TLength>>;
 }
 
 export const gridTemplateColumns: styleFn;
@@ -1007,10 +1005,9 @@ export interface TextShadowProps {
 
 export const textShadow: styleFn;
 
-export interface ShadowsProps
-    extends BoxShadowProps, TextShadowProps {}
+export interface ShadowProps extends BoxShadowProps, TextShadowProps {}
 
-export const shadows: styleFn;
+export const shadow: styleFn;
 
 export interface OpacityProps {
     /**
@@ -1069,9 +1066,7 @@ export interface BackgroundPositionProps<TLength = TLengthStyledSystem> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-position)
      */
-    backgroundPosition?: ResponsiveValue<
-        CSS.BackgroundPositionProperty<TLength>
-    >;
+    backgroundPosition?: ResponsiveValue<CSS.BackgroundPositionProperty<TLength>>;
 }
 
 export const backgroundPosition: styleFn;
@@ -1168,12 +1163,7 @@ export interface LeftProps<TLength = TLengthStyledSystem> {
 
 export const left: styleFn;
 
-export interface PositionProps
-    extends ZIndexProps,
-        TopProps,
-        RightProps,
-        BottomProps,
-        LeftProps {
+export interface PositionProps extends ZIndexProps, TopProps, RightProps, BottomProps, LeftProps {
     /**
      * The position CSS property specifies how an element is positioned in a document.
      * The top, right, bottom, and left properties determine the final location of positioned elements.
