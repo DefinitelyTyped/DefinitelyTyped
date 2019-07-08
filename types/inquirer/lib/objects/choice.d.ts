@@ -11,14 +11,6 @@ declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
     inquirer.CheckboxChoiceOptions<T>,
     inquirer.ExpandChoiceOptions<T> {
     /**
-     * Gets an option of the choice.
-     *
-     * @param key
-     * The name of the option.
-     */
-    [key: string]: any;
-
-    /**
      * @inheritdoc
      */
     type?: "choice";
