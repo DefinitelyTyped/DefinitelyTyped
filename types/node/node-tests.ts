@@ -1044,7 +1044,6 @@ import * as constants from 'constants';
     num = constants.DH_CHECK_P_NOT_PRIME;
     num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = constants.DH_NOT_SUITABLE_GENERATOR;
-    num = constants.NPN_ENABLED;
     num = constants.ALPN_ENABLED;
     num = constants.RSA_PKCS1_PADDING;
     num = constants.RSA_SSLV23_PADDING;
