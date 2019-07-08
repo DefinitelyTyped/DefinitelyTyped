@@ -1928,18 +1928,55 @@ declare namespace Stripe {
              */
             object: "credit_note";
 
+            /**
+             * The integer amount in cents representing the total amount of the credit note.
+             */
             amount: number;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
             created: string;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
             currency: string;
+
+            /**
+             * ID of the customer. [Expandable]
+             */
             customer: string | customers.ICustomer;
-            customer_balance_transaction: string;
+
+            /**
+             * Customer balance transaction related to this credit note. [Expandable]
+             */
+            customer_balance_transaction: string | balance.IBalanceTransaction;
+
+            /**
+             * ID of the invoice. [Expandable]
+             */
             invoice: string | invoices.IInvoice;
+
+            /**
+             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             */
             livemode: boolean;
+
+            /**
+             * Customer-facing text that appears on the credit note PDF.
+             */
             memo: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about the object in a structured format.
+             */
             metadata: IMetadata;
 
             /**
-             * A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice.
+             * A unique number that identifies this particular credit note.
+             * It appears on the PDF of the credit note and its associated invoice.
              */
             number: string;
 
@@ -1954,7 +1991,7 @@ declare namespace Stripe {
             reason: CreditNoteReason | null;
 
             /**
-             * Refund related to this credit note.
+             * Refund related to this credit note. [Expandable]
              */
             refund: string | null | refunds.IRefund;
 
@@ -1980,7 +2017,15 @@ declare namespace Stripe {
          * It will be automatically applied to their next invoice.
          */
         credit_amount?: number;
+
+        /**
+         * The credit note’s memo appears on the credit note PDF. This can be unset by updating the value to nil and then saving.
+         */
         memo?: string;
+
+        /**
+         * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory.
+         */
         reason?: CreditNoteReason;
 
         /**
@@ -1995,10 +2040,16 @@ declare namespace Stripe {
       }
 
       interface ICreditNoteUpdateOptions extends IDataOptionsWithMetadata {
+        /**
+         * Credit note memo. This can be unset by updating the value to nil and then saving.
+         */
         memo?: string;
       }
 
       interface ICreditNoteListOptions extends IListOptions {
+        /**
+         * ID of the invoice.
+         */
         invoice?: string;
       }
 
