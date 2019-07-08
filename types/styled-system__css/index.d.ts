@@ -84,6 +84,17 @@ export type SpaceProps = ResponsiveStyleProps<{
     paddingRight: number | string;
     paddingBottom: number | string;
     paddingLeft: number | string;
+
+    top: number | string;
+    right: number | string;
+    bottom: number | string;
+    left: number | string;
+    gridGap: number | string;
+    gridColumnGap: number | string;
+    gridRowGap: number | string;
+    gap: number | string;
+    columnGap: number | string;
+    rowGap: number | string;
 }>;
 
 /**
