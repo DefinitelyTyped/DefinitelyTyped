@@ -49,7 +49,7 @@ declare namespace TagsInput {
         value: Tag[];
         onChange: (tags: Tag[], changed: Tag[], changedIndexes: number[]) => void;
         onChangeInput?: (value: string) => void;
-        addKeys?: number[];
+        addKeys?: number[] | string[];
         currentValue?: string;
         inputValue?: string;
         onlyUnique?: boolean;
