@@ -249,6 +249,8 @@ export default class QuerySet<M extends AnyModel = any, InstanceProps extends ob
 
 /**
  * {@link QuerySet} extensions available on {@link ManyToMany} fields of session bound {@link Model} instances.
+ *
+ * @see {@link IdOrModelLike}
  */
 export interface ManyToManyExtensions<M extends AnyModel> {
     add: (...entitiesToAdd: ReadonlyArray<IdOrModelLike<M>>) => void;

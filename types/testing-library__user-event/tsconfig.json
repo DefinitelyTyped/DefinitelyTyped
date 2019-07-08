@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "paths": {
+            "@testing-library/user-event": [
+                "testing-library__user-event"
+            ]
+    },
+    "files": ["index.d.ts", "testing-library__user-event-tests.ts"]
+}

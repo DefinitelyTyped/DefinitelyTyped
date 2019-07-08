@@ -448,12 +448,6 @@ export const themeA: Theme = {
     zIndices: [-1, 0, 1, 9999]
 };
 
-themeA.mediaQueries = {
-    small: '@media screen and (min-width: 32em)',
-    medium: '@media screen and (min-width: 64em)',
-    large: '@media screen and (min-width: 96em)',
-};
-
 // Some properties can be formatted differently
 export const themeB: Theme = {
     space: ['12px', '14px', '16px'],

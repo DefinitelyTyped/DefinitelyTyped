@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 1.3
+// Type definitions for react-jsonschema-form 1.6.1
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 //                 Ivan Jiang <https://github.com/iplus26>
@@ -8,8 +8,9 @@
 //                 Sebastian Busch <https://github.com/sbusch>
 //                 Mehdi Lahlou <https://github.com/medfreeman>
 //                 Saad Tazi <https://github.com/saadtazi>
+//                 Agustin N. R. Ramirez <https://github.com/agustin107>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 
 declare module "react-jsonschema-form" {
@@ -244,6 +245,10 @@ declare module "react-jsonschema-form" {
     type FormSubmit<T> = {
         formData: T;
     };
+
+    export function withTheme<T>(
+        themeProps: Omit<FormProps<T>, 'schema'>
+    ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
 }
 
 declare module "react-jsonschema-form/lib/utils" {

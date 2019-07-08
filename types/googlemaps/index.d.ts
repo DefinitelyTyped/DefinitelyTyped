@@ -51,7 +51,7 @@ declare namespace google.maps {
         getDiv(): Element;
         getHeading(): number;
         getMapTypeId(): MapTypeId | string;
-        getProjection(): Projection;
+        getProjection(): Projection | null;
         getStreetView(): StreetViewPanorama;
         getTilt(): number;
         getZoom(): number;
@@ -2587,7 +2587,7 @@ declare namespace google.maps {
     class StreetViewService {
         getPanorama(
             request: StreetViewLocationRequest | StreetViewPanoRequest,
-            cb: (data: StreetViewPanoramaData, status: StreetViewStatus) => void
+            cb: (data: StreetViewPanoramaData | null, status: StreetViewStatus) => void
         ): void;
         getPanoramaById(
             pano: string,
@@ -3116,6 +3116,8 @@ declare namespace google.maps {
             getPlace(): PlaceResult;
             setBounds(bounds: LatLngBounds | LatLngBoundsLiteral): void;
             setComponentRestrictions(restrictions: ComponentRestrictions): void;
+            setFields(fields: Array<string> | undefined): void;
+            setOptions(options: AutocompleteOptions): void;
             setTypes(types: string[]): void;
         }
 

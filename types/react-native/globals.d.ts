@@ -31,6 +31,10 @@ declare interface GlobalFetch {
 
 declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 
+declare interface WindowOrWorkerGlobalScope {
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
+}
+
 interface Blob {}
 
 declare class FormData {

@@ -32,7 +32,7 @@ declare namespace mapboxgl {
         // Lookup
         | 'at' | 'get' | 'has' | 'length'
         // Decision
-        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match'
+        | '!' | '!=' | '<' | '<=' | '==' | '>' | '>=' | 'all' | 'any' | 'case' | 'match' | 'coalesce'
         // Ramps, scales, curves
         | 'interpolate' | 'interpolate-hcl' | 'interpolate-lab' | 'step'
         // Variable binding
@@ -199,7 +199,7 @@ declare namespace mapboxgl {
 
         setPitch(pitch: number, eventData?: EventData): this;
 
-        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraOptions | undefined;
+        cameraForBounds(bounds: LngLatBoundsLike, options?: CameraForBoundsOptions): CameraForBoundsResult | undefined;
 
         fitBounds(bounds: LngLatBoundsLike, options?: mapboxgl.FitBoundsOptions, eventData?: mapboxgl.EventData): this;
 
@@ -1210,6 +1210,13 @@ declare namespace mapboxgl {
         offset?: PointLike;
         maxZoom?: number;
     }
+
+    // The Mapbox docs say that if the result is defined, it will have zoom, center and bearing set.
+    // In practice center is always a {lat, lng} object.
+    export type CameraForBoundsResult = Required<Pick<CameraOptions, 'zoom' | 'bearing'>> & {
+        /** Map center */
+        center: {lng: number; lat: number};
+    };
 
     /**
      * FlyToOptions

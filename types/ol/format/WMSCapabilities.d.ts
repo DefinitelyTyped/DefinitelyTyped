@@ -1,5 +1,6 @@
-import { Extent } from 'ol/extent';
-import XML from 'ol/format/XML';
+import { Extent } from '../extent';
+import XML from './XML';
+
 export default class WMSCapabilities extends XML {
     constructor();
 }
