@@ -513,8 +513,8 @@ declare global {
         /**
          * Call a method on the dropdown element:
          * * `toggle` – Toggles the dropdown menu of a given navbar or tabbed navigation.
-         * * `show` - Shows the dropdown menu of a given navbar or tabbed navigation.
-         * * `hide` - Hides the dropdown menu of a given navbar or tabbed navigation.
+         * * `show` – Shows the dropdown menu of a given navbar or tabbed navigation.
+         * * `hide` – Hides the dropdown menu of a given navbar or tabbed navigation.
          * * `update` – Updates the position of an element's dropdown.
          * * `dispose` – Destroys an element's dropdown.
          */
