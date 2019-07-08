@@ -107,7 +107,7 @@ declare namespace Parse {
     interface AuthData {
         [key: string]: any
     }
-    
+
     class BaseObject implements IBaseObject {
         toJSON(): any;
     }
@@ -1012,6 +1012,8 @@ subscription.on('close', () => {});
             badge?: string;
             sound?: string;
             title?: string;
+            notification?: any;
+            content_available?: any;
         }
 
         interface SendOptions extends UseMasterKeyOption {
