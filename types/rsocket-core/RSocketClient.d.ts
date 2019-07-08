@@ -12,7 +12,7 @@ export interface ClientConfig<D, M> {
         metadataMimeType: string;
     };
     transport: DuplexConnection;
-    responder?: Responder<D, M>;
+    responder?: Partial<Responder<D, M>>;
 }
 
 /**
