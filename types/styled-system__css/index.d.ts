@@ -37,7 +37,7 @@ export interface CSSProperties extends CSS.StandardProperties<number | string>, 
 /**
  * Map of all CSS pseudo selectors (`:hover`, `:focus`, ...)
  */
-export type CSSPseudoSelectorProps = { [Key in CSS.SimplePseudos]?: ResponsiveStyleProps<CSSProperties> };
+export type CSSPseudoSelectorProps<Properties> = { [Key in CSS.SimplePseudos]?: ResponsiveStyleProps<Properties> };
 
 /**
  * Color system properties.
@@ -93,7 +93,7 @@ export type SpaceProps = ResponsiveStyleProps<{
 export type TypographyProps = ResponsiveStyleProps<{
     fontFamily: CSS.FontFamilyProperty;
     fontSize: CSS.FontSizeProperty<number>;
-    fontWeight: CSS.FontWeightProperty;
+    fontWeight: CSS.FontWeightProperty | string;
     lineHeight: CSS.LineHeightProperty<string>;
     letterSpacing: CSS.LetterSpacingProperty<string | number>;
 }>;
@@ -180,14 +180,14 @@ export type Theme<Styles extends string = never> = {
     sizes?: ThemeValue<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
 } & { [key in Styles]: ThemeValue<SystemStyleObject> };
 
+type StyleObject = ResponsiveStyleProps<Omit<CSSProperties, 'boxShadow' | 'fontWeight'>> & StyleProps;
+
 /**
  * The `SystemStyleObject` extends [style props](https://emotion.sh/docs/object-styles)
  * such that properties that are part of the `Theme` will be transformed to
  * their corresponding values. Other valid CSS properties are also allowed.
  */
-export type SystemStyleObject = ResponsiveStyleProps<Omit<CSSProperties, 'boxShadow'>> &
-    CSSPseudoSelectorProps &
-    StyleProps;
+export type SystemStyleObject = StyleObject & CSSPseudoSelectorProps<StyleObject>;
 
 /**
  * Transforms `input` to a style object that can be processed by CSS-in-JS

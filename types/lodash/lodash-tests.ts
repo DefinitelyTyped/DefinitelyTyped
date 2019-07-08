@@ -624,6 +624,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return 1;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionBy(...[list], (value) => {
+        value; // $ExpectType AbcObject
+        return 0;
+    });
 
     _.chain(list).intersectionBy(list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).intersectionBy(list, "a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
@@ -661,8 +666,18 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType T1 | T2
         return {};
     });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    _([t1]).intersectionBy(...[[t2]], (value) => {
+        value; // $ExpectType T1 | T2
+        return {};
+    });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     _.chain([t1]).intersectionBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+        return {};
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    _.chain([t1]).intersectionBy(...[[t2]], (value) => {
         value; // $ExpectType T1 | T2
         return {};
     });
