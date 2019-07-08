@@ -8,7 +8,7 @@ import Separator = require("./separator");
  * @template T
  * The type of the answers.
  */
-type DistinctChoice<T> = inquirer.poll.AllChoiceMap<T>[keyof inquirer.poll.AllChoiceMap<T>];
+type DistinctChoice<T> = inquirer.AllChoiceMap<T>[keyof inquirer.AllChoiceMap<T>];
 
 /**
  * Represents a valid real choice for the `Choices` class.
@@ -32,7 +32,7 @@ type ChoiceProperty<T> = inquirer.KeyUnion<inquirer.UnionToIntersection<RealChoi
  * @template T
  * The type of the answers.
  */
-declare class Choices<T extends inquirer.poll.Answers = inquirer.poll.Answers> {
+declare class Choices<T extends inquirer.Answers = inquirer.Answers> {
     /**
      * The number of selectable choices.
      */

@@ -3,7 +3,7 @@ import inquirer = require("../..");
 /**
  * Represents a choice-item separator.
  */
-declare class Separator implements inquirer.poll.ChoiceBase, inquirer.poll.SeparatorOptions {
+declare class Separator implements inquirer.ChoiceBase, inquirer.SeparatorOptions {
     /**
      * @inheritdoc
      */

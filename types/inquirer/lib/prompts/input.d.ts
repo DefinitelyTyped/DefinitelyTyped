@@ -5,7 +5,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `InputPrompt<T>`.
  */
-type Question = inquirer.poll.InputQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.InputQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which allows the user to type an answer.
@@ -36,7 +36,7 @@ declare class InputPrompt<TQuestion extends Question = Question> extends Prompt<
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt.

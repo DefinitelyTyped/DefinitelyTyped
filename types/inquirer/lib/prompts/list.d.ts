@@ -6,7 +6,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `ListPrompt<T>`.
  */
-type Question = inquirer.poll.ListQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.ListQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
@@ -47,7 +47,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt.

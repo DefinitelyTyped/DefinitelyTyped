@@ -78,11 +78,11 @@ interface PromptModuleBase {
  * @template TChoiceMap
  * The valid choices for the question.
  */
-interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.poll.Question<T> {
+interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.Question<T> {
     /**
      * The choices of the prompt.
      */
-    choices?: inquirer.poll.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.poll.DistinctChoice<TChoiceMap>>, T>;
+    choices?: inquirer.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.DistinctChoice<TChoiceMap>>, T>;
 
     /**
      * The number of elements to show on each page.
@@ -137,7 +137,7 @@ declare namespace inquirer {
         /**
          * Prompts the questions to the user.
          */
-        <T>(questions: poll.QuestionCollection<T>): Promise<T> & { ui: typeof PromptUI };
+        <T>(questions: QuestionCollection<T>): Promise<T> & { ui: typeof PromptUI };
 
         /**
          * Registers a new prompt-type.
@@ -207,536 +207,532 @@ declare namespace inquirer {
         };
     }
 
+
     /**
-     * Provides components for polls.
+     * A set of answers.
      */
-    namespace poll {
+    interface Answers extends Record<string, any> { }
+
+    /**
+     * Represents a dynamic property for a question.
+     */
+    type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
+
+    /**
+     * Represents a dynamic property for a question which can be fetched asynchronously.
+     */
+    type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
+
+    /**
+     * Provides options for a question.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface Question<T extends Answers = Answers> {
         /**
-         * A set of answers.
+         * The type of the question.
          */
-        interface Answers extends Record<string, any> { }
+        type?: string;
 
         /**
-         * Represents a dynamic property for a question.
+         * The key to save the answer to the answers-hash.
          */
-        type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
+        name?: KeyUnion<T>;
 
         /**
-         * Represents a dynamic property for a question which can be fetched asynchronously.
+         * The message to show to the user.
          */
-        type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
+        message?: AsyncDynamicQuestionProperty<string, T>;
 
         /**
-         * Provides options for a question.
+         * The default value of the question.
+         */
+        default?: AsyncDynamicQuestionProperty<any, T>;
+
+        /**
+         * The prefix of the `message`.
+         */
+        prefix?: string;
+
+        /**
+         * The suffix of the `message`.
+         */
+        suffix?: string;
+
+        /**
+         * Post-processes the answer.
          *
-         * @template T
-         * The type of the answers.
+         * @param input
+         * The answer provided by the user.
          */
-        interface Question<T extends Answers = Answers> {
-            /**
-             * The type of the question.
-             */
-            type?: string;
-
-            /**
-             * The key to save the answer to the answers-hash.
-             */
-            name?: KeyUnion<T>;
-
-            /**
-             * The message to show to the user.
-             */
-            message?: AsyncDynamicQuestionProperty<string, T>;
-
-            /**
-             * The default value of the question.
-             */
-            default?: AsyncDynamicQuestionProperty<any, T>;
-
-            /**
-             * The prefix of the `message`.
-             */
-            prefix?: string;
-
-            /**
-             * The suffix of the `message`.
-             */
-            suffix?: string;
-
-            /**
-             * Post-processes the answer.
-             *
-             * @param input
-             * The answer provided by the user.
-             */
-            filter?(input: any): any;
-
-            /**
-             * A value indicating whether the question should be prompted.
-             */
-            when?: AsyncDynamicQuestionProperty<boolean, T>;
-
-            /**
-             * Validates the integrity of the answer.
-             *
-             * @param input
-             * The answer provided by the user.
-             *
-             * @param answers
-             * The answers provided by the user.
-             *
-             * @returns
-             * Either a value indicating whether the answer is valid or a `string` which describes the error.
-             */
-            validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
-        }
+        filter?(input: any): any;
 
         /**
-         * Represents a choice-item.
+         * A value indicating whether the question should be prompted.
          */
-        interface ChoiceBase {
-            /**
-             * The type of the choice.
-             */
-            type?: string;
-        }
+        when?: AsyncDynamicQuestionProperty<boolean, T>;
 
         /**
-         * Provides options for a choice.
+         * Validates the integrity of the answer.
          *
-         * @template T
-         * The type of the answers.
-         */
-        interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
-            /**
-             * @inheritdoc
-             */
-            type?: "choice";
-
-            /**
-             * The name of the choice to show to the user.
-             */
-            name?: string;
-
-            /**
-             * The value of the choice.
-             */
-            value?: any;
-
-            /**
-             * The short form of the name of the choice.
-             */
-            short?: string;
-
-            /**
-             * The extra properties of the choice.
-             */
-            extra?: any;
-        }
-
-        /**
-         * Provides options for a choice of the `ListPrompt`.
+         * @param input
+         * The answer provided by the user.
          *
-         * @template T
-         * The type of the answers.
-         */
-        interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
-            /**
-             * A value indicating whether the choice is disabled.
-             */
-            disabled?: DynamicQuestionProperty<boolean | string, T>;
-        }
-
-        /**
-         * Provides options for a choice of the `CheckboxPrompt`.
+         * @param answers
+         * The answers provided by the user.
          *
-         * @template T
-         * The type of the answers.
+         * @returns
+         * Either a value indicating whether the answer is valid or a `string` which describes the error.
          */
-        interface CheckboxChoiceOptions<T extends Answers = Answers> extends ListChoiceOptions<T> {
-            /**
-             * A value indicating whether the choice should be initially checked.
-             */
-            checked?: boolean;
-        }
-
-        /**
-         * Provides options for a choice of the `ExpandPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
-            /**
-             * The key to press for selecting the choice.
-             */
-            key?: string;
-        }
-
-        /**
-         * Represents a separator.
-         */
-        interface SeparatorOptions {
-            /**
-             * Gets the type of the choice.
-             */
-            type: "separator";
-
-            /**
-             * Gets or sets the text of the separator.
-             */
-            line?: string;
-        }
-
-        /**
-         * Provides all valid choice-types for any kind of question.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface BaseChoiceMap<T extends Answers = Answers> {
-            Choice: Choice<T>;
-            ChoiceOptions: ChoiceOptions<T>;
-            SeparatorOptions: SeparatorOptions;
-            Separator: Separator;
-        }
-
-        /**
-         * Provides all valid choice-types for the `ListQuestion`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ListChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-            ListChoiceOptions: ListChoiceOptions<T>;
-        }
-
-        /**
-         * Provides all valid choice-types for the `CheckboxQuestion`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface CheckboxChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-            CheckboxChoiceOptions: CheckboxChoiceOptions<T>;
-        }
-
-        /**
-         * Provides all valid choice-types for the `ExpandQuestion`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
-            ExpandChoiceOptions: ExpandChoiceOptions<T>;
-        }
-
-        /**
-         * Provides all valid choice-types.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface AllChoiceMap<T extends Answers = Answers> {
-            BaseChoiceMap: BaseChoiceMap<T>[keyof BaseChoiceMap<T>];
-            ListChoiceMap: ListChoiceMap<T>[keyof ListChoiceMap<T>];
-            CheckboxChoiceMap: CheckboxChoiceMap<T>[keyof CheckboxChoiceMap<T>];
-            ExpandChoiceMap: ExpandChoiceMap<T>[keyof ExpandChoiceMap<T>];
-        }
-
-        /**
-         * Provides valid choices for the question of the `TChoiceMap`.
-         *
-         * @template TChoiceMap
-         * The choice-types to provide.
-         */
-        type DistinctChoice<TChoiceMap> =
-            string |
-            TChoiceMap[keyof TChoiceMap];
-
-        /**
-         * Provides options for a question for the `InputPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface InputQuestionOptions<T extends Answers = Answers> extends Question<T> {
-            /**
-             * Transforms the value to display to the user.
-             *
-             * @param input
-             * The input provided by the user.
-             *
-             * @param answers
-             * The answers provided by the users.
-             *
-             * @param flags
-             * Additional information about the value.
-             *
-             * @returns
-             * The value to display to the user.
-             */
-            transformer?(input: any, answers: T, flags: { isFinal?: boolean }): string | Promise<string>;
-        }
-
-        /**
-         * Provides options for a question for the `InputPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface InputQuestion<T extends Answers = Answers> extends InputQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type?: "input";
-        }
-
-        /**
-         * Provides options for a question for the `NumberPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
-
-        /**
-         * Provides options for a question for the `NumberPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface NumberQuestion<T extends Answers = Answers> extends NumberQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "number";
-        }
-
-        /**
-         * Provides options for a question for the `PasswordPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface PasswordQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {
-            /**
-             * The character to replace the user-input.
-             */
-            mask?: string;
-        }
-
-        /**
-         * Provides options for a question for the `PasswordPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface PasswordQuestion<T extends Answers = Answers> extends PasswordQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "password";
-        }
-
-        /**
-         * Provides options for a question for the `ListPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
-
-        /**
-         * Provides options for a question for the `ListPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ListQuestion<T extends Answers = Answers> extends ListQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "list";
-        }
-
-        /**
-         * Provides options for a question for the `RawListPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
-
-        /**
-         * Provides options for a question for the `RawListPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface RawListQuestion<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
-            /**
-             * @inheritdoc
-             */
-            type: "rawlist";
-        }
-
-        /**
-         * Provides options for a question for the `ExpandPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ExpandQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
-
-        /**
-         * Provides options for a question for the `ExpandPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ExpandQuestion<T extends Answers = Answers> extends ExpandQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "expand";
-        }
-
-        /**
-         * Provides options for a question for the `CheckboxPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
-
-        /**
-         * Provides options for a question for the `CheckboxPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface CheckboxQuestion<T extends Answers = Answers> extends CheckboxQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "checkbox";
-        }
-
-        /**
-         * Provides options for a question for the `ConfirmPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
-
-        /**
-         * Provides options for a question for the `ConfirmPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface ConfirmQuestion<T extends Answers = Answers> extends ConfirmQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "confirm";
-        }
-
-        /**
-         * Provides options for a question for the `EditorPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> { }
-
-        /**
-         * Provides options for a question for the `EditorPrompt`.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface EditorQuestion<T extends Answers = Answers> extends EditorQuestionOptions<T> {
-            /**
-             * @inheritdoc
-             */
-            type: "editor";
-        }
-
-        /**
-         * Provides the available question-types.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        interface QuestionMap<T extends Answers = Answers> {
-            /**
-             * The `InputQuestion` type.
-             */
-            input: InputQuestion<T>;
-
-            /**
-             * The `NumberQuestion` type.
-             */
-            number: NumberQuestion<T>;
-
-            /**
-             * The `PasswordQuestion` type.
-             */
-            password: PasswordQuestion<T>;
-
-            /**
-             * The `ListQuestion` type.
-             */
-            list: ListQuestion<T>;
-
-            /**
-             * The `RawListQuestion` type.
-             */
-            rawList: RawListQuestion<T>;
-
-            /**
-             * The `ExpandQuestion` type.
-             */
-            expand: ExpandQuestion<T>;
-
-            /**
-             * The `CheckboxQuestion` type.
-             */
-            checkbox: CheckboxQuestion<T>;
-
-            /**
-             * The `ConfirmQuestion` type.
-             */
-            confirm: ConfirmQuestion<T>;
-
-            /**
-             * The `EditorQuestion` type.
-             */
-            editor: EditorQuestion<T>;
-        }
-
-        /**
-         * Represents one of the available questions.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof QuestionMap<T>];
-
-        /**
-         * Represents a collection of questions.
-         *
-         * @template T
-         * The type of the answers.
-         */
-        type QuestionCollection<T extends Answers = Answers> =
-            | DistinctQuestion<T>
-            | ReadonlyArray<DistinctQuestion<T>>
-            | Observable<DistinctQuestion<T>>;
+        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
     }
+
+    /**
+     * Represents a choice-item.
+     */
+    interface ChoiceBase {
+        /**
+         * The type of the choice.
+         */
+        type?: string;
+    }
+
+    /**
+     * Provides options for a choice.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ChoiceOptions<T extends Answers = Answers> extends ChoiceBase {
+        /**
+         * @inheritdoc
+         */
+        type?: "choice";
+
+        /**
+         * The name of the choice to show to the user.
+         */
+        name?: string;
+
+        /**
+         * The value of the choice.
+         */
+        value?: any;
+
+        /**
+         * The short form of the name of the choice.
+         */
+        short?: string;
+
+        /**
+         * The extra properties of the choice.
+         */
+        extra?: any;
+    }
+
+    /**
+     * Provides options for a choice of the `ListPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ListChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+        /**
+         * A value indicating whether the choice is disabled.
+         */
+        disabled?: DynamicQuestionProperty<boolean | string, T>;
+    }
+
+    /**
+     * Provides options for a choice of the `CheckboxPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface CheckboxChoiceOptions<T extends Answers = Answers> extends ListChoiceOptions<T> {
+        /**
+         * A value indicating whether the choice should be initially checked.
+         */
+        checked?: boolean;
+    }
+
+    /**
+     * Provides options for a choice of the `ExpandPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ExpandChoiceOptions<T extends Answers = Answers> extends ChoiceOptions<T> {
+        /**
+         * The key to press for selecting the choice.
+         */
+        key?: string;
+    }
+
+    /**
+     * Represents a separator.
+     */
+    interface SeparatorOptions {
+        /**
+         * Gets the type of the choice.
+         */
+        type: "separator";
+
+        /**
+         * Gets or sets the text of the separator.
+         */
+        line?: string;
+    }
+
+    /**
+     * Provides all valid choice-types for any kind of question.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface BaseChoiceMap<T extends Answers = Answers> {
+        Choice: Choice<T>;
+        ChoiceOptions: ChoiceOptions<T>;
+        SeparatorOptions: SeparatorOptions;
+        Separator: Separator;
+    }
+
+    /**
+     * Provides all valid choice-types for the `ListQuestion`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ListChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+        ListChoiceOptions: ListChoiceOptions<T>;
+    }
+
+    /**
+     * Provides all valid choice-types for the `CheckboxQuestion`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface CheckboxChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+        CheckboxChoiceOptions: CheckboxChoiceOptions<T>;
+    }
+
+    /**
+     * Provides all valid choice-types for the `ExpandQuestion`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ExpandChoiceMap<T extends Answers = Answers> extends BaseChoiceMap<T> {
+        ExpandChoiceOptions: ExpandChoiceOptions<T>;
+    }
+
+    /**
+     * Provides all valid choice-types.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface AllChoiceMap<T extends Answers = Answers> {
+        BaseChoiceMap: BaseChoiceMap<T>[keyof BaseChoiceMap<T>];
+        ListChoiceMap: ListChoiceMap<T>[keyof ListChoiceMap<T>];
+        CheckboxChoiceMap: CheckboxChoiceMap<T>[keyof CheckboxChoiceMap<T>];
+        ExpandChoiceMap: ExpandChoiceMap<T>[keyof ExpandChoiceMap<T>];
+    }
+
+    /**
+     * Provides valid choices for the question of the `TChoiceMap`.
+     *
+     * @template TChoiceMap
+     * The choice-types to provide.
+     */
+    type DistinctChoice<TChoiceMap> =
+        string |
+        TChoiceMap[keyof TChoiceMap];
+
+    /**
+     * Provides options for a question for the `InputPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface InputQuestionOptions<T extends Answers = Answers> extends Question<T> {
+        /**
+         * Transforms the value to display to the user.
+         *
+         * @param input
+         * The input provided by the user.
+         *
+         * @param answers
+         * The answers provided by the users.
+         *
+         * @param flags
+         * Additional information about the value.
+         *
+         * @returns
+         * The value to display to the user.
+         */
+        transformer?(input: any, answers: T, flags: { isFinal?: boolean }): string | Promise<string>;
+    }
+
+    /**
+     * Provides options for a question for the `InputPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface InputQuestion<T extends Answers = Answers> extends InputQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type?: "input";
+    }
+
+    /**
+     * Provides options for a question for the `NumberPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
+
+    /**
+     * Provides options for a question for the `NumberPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface NumberQuestion<T extends Answers = Answers> extends NumberQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "number";
+    }
+
+    /**
+     * Provides options for a question for the `PasswordPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface PasswordQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {
+        /**
+         * The character to replace the user-input.
+         */
+        mask?: string;
+    }
+
+    /**
+     * Provides options for a question for the `PasswordPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface PasswordQuestion<T extends Answers = Answers> extends PasswordQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "password";
+    }
+
+    /**
+     * Provides options for a question for the `ListPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> { }
+
+    /**
+     * Provides options for a question for the `ListPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ListQuestion<T extends Answers = Answers> extends ListQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "list";
+    }
+
+    /**
+     * Provides options for a question for the `RawListPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
+
+    /**
+     * Provides options for a question for the `RawListPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface RawListQuestion<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ListChoiceMap<T>> {
+        /**
+         * @inheritdoc
+         */
+        type: "rawlist";
+    }
+
+    /**
+     * Provides options for a question for the `ExpandPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ExpandQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
+
+    /**
+     * Provides options for a question for the `ExpandPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ExpandQuestion<T extends Answers = Answers> extends ExpandQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "expand";
+    }
+
+    /**
+     * Provides options for a question for the `CheckboxPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface CheckboxQuestionOptions<T extends Answers = Answers> extends ListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
+
+    /**
+     * Provides options for a question for the `CheckboxPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface CheckboxQuestion<T extends Answers = Answers> extends CheckboxQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "checkbox";
+    }
+
+    /**
+     * Provides options for a question for the `ConfirmPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+
+    /**
+     * Provides options for a question for the `ConfirmPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface ConfirmQuestion<T extends Answers = Answers> extends ConfirmQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "confirm";
+    }
+
+    /**
+     * Provides options for a question for the `EditorPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface EditorQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+
+    /**
+     * Provides options for a question for the `EditorPrompt`.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface EditorQuestion<T extends Answers = Answers> extends EditorQuestionOptions<T> {
+        /**
+         * @inheritdoc
+         */
+        type: "editor";
+    }
+
+    /**
+     * Provides the available question-types.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    interface QuestionMap<T extends Answers = Answers> {
+        /**
+         * The `InputQuestion` type.
+         */
+        input: InputQuestion<T>;
+
+        /**
+         * The `NumberQuestion` type.
+         */
+        number: NumberQuestion<T>;
+
+        /**
+         * The `PasswordQuestion` type.
+         */
+        password: PasswordQuestion<T>;
+
+        /**
+         * The `ListQuestion` type.
+         */
+        list: ListQuestion<T>;
+
+        /**
+         * The `RawListQuestion` type.
+         */
+        rawList: RawListQuestion<T>;
+
+        /**
+         * The `ExpandQuestion` type.
+         */
+        expand: ExpandQuestion<T>;
+
+        /**
+         * The `CheckboxQuestion` type.
+         */
+        checkbox: CheckboxQuestion<T>;
+
+        /**
+         * The `ConfirmQuestion` type.
+         */
+        confirm: ConfirmQuestion<T>;
+
+        /**
+         * The `EditorQuestion` type.
+         */
+        editor: EditorQuestion<T>;
+    }
+
+    /**
+     * Represents one of the available questions.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof QuestionMap<T>];
+
+    /**
+     * Represents a collection of questions.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    type QuestionCollection<T extends Answers = Answers> =
+        | DistinctQuestion<T>
+        | ReadonlyArray<DistinctQuestion<T>>
+        | Observable<DistinctQuestion<T>>;
 
     /**
      * Provides components for the prompts.
@@ -748,7 +744,7 @@ declare namespace inquirer {
          * @template T
          * The type of the answers.
          */
-        type PromptOptions<T extends poll.Question<poll.Answers> = poll.Question<poll.Answers>> = T & {
+        type PromptOptions<T extends Question<Answers> = Question<Answers>> = T & {
             /**
              * The choices of the prompt.
              */
@@ -794,7 +790,7 @@ declare namespace inquirer {
              * @param answers
              * The answers provided by the user.
              */
-            new(question: any, readLine: ReadlineInterface, answers: poll.Answers): PromptBase;
+            new(question: any, readLine: ReadlineInterface, answers: Answers): PromptBase;
         }
 
         /**
@@ -877,7 +873,7 @@ declare namespace inquirer {
          * @template T
          * The type of the answers.
          */
-        type FetchedQuestion<T extends poll.Answers = poll.Answers> = poll.DistinctQuestion<T> & {
+        type FetchedQuestion<T extends Answers = Answers> = DistinctQuestion<T> & {
             /**
              * The type of the question.
              */
@@ -896,7 +892,7 @@ declare namespace inquirer {
             /**
              * The choices of the question.
              */
-            choices: poll.DistinctChoice<poll.AllChoiceMap<T>>;
+            choices: DistinctChoice<AllChoiceMap<T>>;
         };
 
         /**

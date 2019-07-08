@@ -6,7 +6,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question for the `RawListPrompt<T>`.
  */
-type Question = inquirer.poll.RawListQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.RawListQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
@@ -47,7 +47,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt.

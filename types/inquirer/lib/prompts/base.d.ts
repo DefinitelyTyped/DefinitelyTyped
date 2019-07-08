@@ -6,7 +6,7 @@ import ScreenManager = require("../utils/screen-manager");
 /**
  * The question-options for the `Prompt<T>`.
  */
-type Question = inquirer.poll.Question<inquirer.poll.Answers>;
+type Question = inquirer.Question<inquirer.Answers>;
 
 /**
  * Represents a prompt.
@@ -23,7 +23,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
     /**
      * Gets or sets an object which contains the answers.
      */
-    protected answers: inquirer.poll.Answers;
+    protected answers: inquirer.Answers;
 
     /**
      * Gets or sets the options of the prompt.
@@ -52,7 +52,7 @@ declare class Prompt<TQuestion extends Question = Question> implements inquirer.
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
+    constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.Answers);
 
     /**
      * @inheritdoc

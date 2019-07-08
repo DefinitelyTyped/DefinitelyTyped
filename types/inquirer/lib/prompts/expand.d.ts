@@ -6,7 +6,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `ExpandPrompt<T>`.
  */
-type Question = inquirer.poll.ExpandQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.ExpandQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which forces the user to make a choice by typing a specific key.
@@ -57,7 +57,7 @@ declare class ExpandPrompt<TQuestion extends Question = Question> extends Prompt
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt to the screen.

@@ -5,7 +5,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `ConfirmPrompt<T>`.
  */
-type Question = inquirer.poll.ConfirmQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.ConfirmQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which provides a message to confirm.
@@ -26,7 +26,7 @@ declare class ConfirmPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    public constructor(questions: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(questions: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt.

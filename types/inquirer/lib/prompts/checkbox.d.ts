@@ -6,7 +6,7 @@ import Paginator = require("../utils/paginator");
 /**
  * The question-options for the `ChoicePrompt<T>`.
  */
-type Question = inquirer.poll.CheckboxQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.CheckboxQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which provides a set of choices to check.
@@ -37,7 +37,7 @@ declare class CheckboxPrompt<TQuestion extends Question = Question> extends Prom
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt.

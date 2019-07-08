@@ -6,10 +6,10 @@ import inquirer = require('../..');
  * @template T
  * The type of the answers.
  */
-declare class Choice<T extends inquirer.poll.Answers = inquirer.poll.Answers> implements
-    inquirer.poll.ListChoiceOptions<T>,
-    inquirer.poll.CheckboxChoiceOptions<T>,
-    inquirer.poll.ExpandChoiceOptions<T> {
+declare class Choice<T extends inquirer.Answers = inquirer.Answers> implements
+    inquirer.ListChoiceOptions<T>,
+    inquirer.CheckboxChoiceOptions<T>,
+    inquirer.ExpandChoiceOptions<T> {
     /**
      * Gets an option of the choice.
      *

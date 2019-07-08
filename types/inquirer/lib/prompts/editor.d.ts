@@ -6,7 +6,7 @@ import { Interface as ReadlineInterface } from "readline";
 /**
  * The question-options for the `EditorPrompt<T>`.
  */
-type Question = inquirer.poll.EditorQuestionOptions<inquirer.poll.Answers>;
+type Question = inquirer.EditorQuestionOptions<inquirer.Answers>;
 
 /**
  * Represents a prompt which provides a text-editor.
@@ -47,7 +47,7 @@ declare class EditorPrompt<TQuestion extends Question = Question> extends Prompt
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.poll.Answers);
+    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Runs the prompt.

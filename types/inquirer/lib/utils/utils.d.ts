@@ -4,12 +4,12 @@ import { Observable } from "rxjs";
 /**
  * Represents a property-name of any question-type.
  */
-type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.poll.DistinctQuestion>>;
+type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.DistinctQuestion>>;
 
 /**
  * Unpacks a question-property.
  */
-type UnpackQuestionProperty<T> = T extends inquirer.poll.AsyncDynamicQuestionProperty<inquirer.poll.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
+type UnpackQuestionProperty<T> = T extends inquirer.AsyncDynamicQuestionProperty<inquirer.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
 
 /**
  * Fetches a property of the specified `question`.
@@ -27,6 +27,6 @@ type UnpackQuestionProperty<T> = T extends inquirer.poll.AsyncDynamicQuestionPro
  * The processed question.
  */
 export function fetchAsyncQuestionPropertyQuestionProperty(
-    question: inquirer.poll.DistinctQuestion,
+    question: inquirer.DistinctQuestion,
     prop: QuestionProperty,
-    answers: inquirer.poll.Answers): Observable<inquirer.poll.DistinctQuestion>; 
+    answers: inquirer.Answers): Observable<inquirer.DistinctQuestion>; 
