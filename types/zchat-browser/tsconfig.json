@@ -5,9 +5,10 @@
             "es6",
             "dom"
         ],
+        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -19,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "z-schema-tests.ts"
+        "zchat-browser-tests.ts"
     ]
 }

@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.57
+// Type definitions for react-native 0.60
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -2033,16 +2033,52 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessibilityRole?: AccessibilityRole;
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     * @deprecated: accessibilityState available in 0.60+
      */
-    accessibilityStates?: AccessibilityState[];
-
+    accessibilityStates?: AccessibilityStates[];
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     */
+    accessibilityState?: AccessibilityState;
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
 }
 
-export type AccessibilityState = "selected" | "disabled";
+// @deprecated: use AccessibilityState available in 0.60+
+export type AccessibilityStates =
+    | "disabled"
+    | "selected"
+    | "checked"
+    | "unchecked"
+    | "busy"
+    | "expanded"
+    | "collapsed"
+    | "hasPopup";
+
+export interface AccessibilityState {
+    /**
+     * When true, informs accessible tools if the element is disabled
+     */
+    disabled?: boolean;
+    /**
+     * When true, informs accessible tools if the element is selected
+     */
+    selected?: boolean;
+    /**
+     * For items like Checkboxes and Toggle switches, reports their state to accessible tools
+     */
+    checked?: boolean | "mixed";
+    /**
+     *  When present, informs accessible tools if the element is busy
+     */
+    busy?: boolean;
+    /**
+     *  When present, informs accessible tools the element is expanded or collapsed
+     */
+    expanded?: boolean;
+}
 
 export type AccessibilityRole =
     | "none"
@@ -2053,9 +2089,26 @@ export type AccessibilityRole =
     | "keyboardkey"
     | "text"
     | "adjustable"
+    | "imagebutton"
     | "header"
     | "summary"
-    | "imagebutton";
+    | "alert"
+    | "checkbox"
+    | "combobox"
+    | "menu"
+    | "menubar"
+    | "menuitem"
+    | "progressbar"
+    | "radio"
+    | "radiogroup"
+    | "scrollbar"
+    | "spinbutton"
+    | "switch"
+    | "tab"
+    | "tablist"
+    | "timer"
+    | "toolbar";
+
 
 export interface AccessibilityPropsAndroid {
     /**
