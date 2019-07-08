@@ -77,7 +77,7 @@ export function Given(pattern: RegExp | string, options: StepDefinitionOptions, 
 export function setDefaultTimeout(time: number): void;
 export function setDefinitionFunctionWrapper(fn: ((fn: () => void) => (...args: any[]) => any) | ((fn: () => void, options?: {[key: string]: any}) => (...args: any[]) => any)): void;
 // tslint:disable-next-line ban-types
-export function setWorldConstructor(world: ((this: World, init: { attach: Function, parameters: {[key: string]: any }}) => void) | {}): void;
+export function setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
 export function Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
 export function Then(pattern: RegExp | string, code: StepDefinitionCode): void;
 export function When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
