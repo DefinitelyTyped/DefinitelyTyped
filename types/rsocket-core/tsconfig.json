@@ -19,6 +19,8 @@
     },
     "files": [
         "index.d.ts",
+        "rsocket-client-tests.ts",
+        "rsocket-server-tests.ts",
         "RSocketBinaryFraming.d.ts",
         "RSocketBufferUtils.d.ts",
         "RSocketClient.d.ts",
