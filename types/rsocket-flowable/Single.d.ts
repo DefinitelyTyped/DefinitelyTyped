@@ -1,15 +1,15 @@
-export type Source<T> = (subject: IFutureSubject<T>) => undefined;
-export type CancelCallback = () => undefined;
+export type Source<T> = (subject: IFutureSubject<T>) => void;
+export type CancelCallback = () => void;
 
 export interface IFutureSubscriber<T> {
-    onComplete: (value: T) => undefined;
-    onError: (error: Error) => undefined;
-    onSubscribe: (cancel: CancelCallback) => undefined;
+    onComplete: (value: T) => void;
+    onError: (error: Error) => void;
+    onSubscribe: (cancel: CancelCallback) => void;
 }
 export interface IFutureSubject<T> {
-    onComplete: (value: T) => undefined;
-    onError: (error: Error) => undefined;
-    onSubscribe: (cancel: CancelCallback | null | undefined) => undefined;
+    onComplete: (value: T) => void;
+    onError: (error: Error) => void;
+    onSubscribe: (cancel: CancelCallback | null | undefined) => void;
 }
 /**
  * Represents a lazy computation that will either produce a value of type T
