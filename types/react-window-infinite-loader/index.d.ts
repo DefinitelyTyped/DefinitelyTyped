@@ -14,6 +14,8 @@ interface InfiniteLoaderProps {
     loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any>;
     itemCount: number;
     children: (props: {onItemsRendered: OnItemsRendered, ref: Ref<any>}) => ReactNode;
+    minimumBatchSize: number;
+    threshold: number;
 }
 
 declare class InfiniteLoader extends Component<InfiniteLoaderProps> {
