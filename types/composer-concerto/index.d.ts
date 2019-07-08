@@ -179,7 +179,7 @@ export abstract class ClassDeclaration extends Decorated {
     /**
      * Returns the string representation of this class.
      */
-    tostring(): string;
+    toString(): string;
 }
 
 /**
@@ -295,7 +295,7 @@ export class Field extends Property {
     /**
      * Returns a string representation of this property.
      */
-    tostring(): string;
+    toString(): string;
 }
 
 /**
@@ -782,7 +782,7 @@ export abstract class Identifiable extends Typed {
     /**
      * Returns the string representation of this class.
      */
-    tostring(): string;
+    toString(): string;
     /**
      * Determine if this identifiable is a relationship.
      */
@@ -835,7 +835,7 @@ export class RelationshipDeclaration extends Property {
     /**
      * Returns a string representation of this property.
      */
-    tostring(): string;
+    toString(): string;
 }
 
 /**
