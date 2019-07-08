@@ -256,6 +256,9 @@ const functionComponentFactory: React.FunctionComponentFactory<SCProps> =
 const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> =
     functionComponentFactory(props);
 
+const classComponentFactory: React.Factory<Props> = React.createFactory(ModernComponent);
+const classComponentFactoryElement: React.ReactElement<Props> = classComponentFactory(props);
+
 const legacyStatelessComponentFactory: React.SFCFactory<SCProps> =
     React.createFactory(FunctionComponent);
 const legacyStatelessComponentFactoryElement: React.SFCElement<SCProps> =
