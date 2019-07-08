@@ -30,7 +30,7 @@ declare class PromptUI extends UI {
      * @param options
      * The input- and output-stream of the ui.
      */
-    constructor(prompts: inquirer.prompts.PromptCollection, options: inquirer.StreamOptions);
+    constructor(prompts: inquirer.prompts.PromptCollection, options?: inquirer.StreamOptions);
 
     /**
      * Runs the prompt-UI.
