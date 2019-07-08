@@ -616,7 +616,7 @@ stripe.customers.retrieveSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp"
     // asynchronously called
 });
 
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] },
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }], pay_immediately: false },
     (err, subscription) => {
         // asynchronously called
     }

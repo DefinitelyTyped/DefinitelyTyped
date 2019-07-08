@@ -6364,6 +6364,14 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.
+             * This can be set to false when used with services like Avalara that need to augment an invoice before the subscription is paid.
+             *
+             * Using this flag requires contacting Stripe support in order to have the account whitelisted.
+             */
+            pay_immediately?: boolean;
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
