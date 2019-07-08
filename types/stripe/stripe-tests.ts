@@ -763,8 +763,11 @@ stripe.accounts.retrieve(
 );
 stripe.accounts.retrieve(
     "acct_17wV8KBoqMA9o2xk").then(
-    (account) => {
+    account => {
         // asynchronously called
+
+        // account should have external_accounts property
+        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
     }
 );
 
