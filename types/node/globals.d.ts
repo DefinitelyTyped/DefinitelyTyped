@@ -154,6 +154,10 @@ interface String {
     trimRight(): string;
 }
 
+interface ImportMeta {
+    url: string;
+}
+
 /*-----------------------------------------------*
  *                                               *
  *                   GLOBAL                      *
