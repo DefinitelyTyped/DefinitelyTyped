@@ -36,7 +36,7 @@ export interface ButtonProps {
   isLoading?: boolean;
   isSelected?: boolean;
   kind?: KIND[keyof KIND];
-  onClick?: (event: React.SyntheticEvent<HTMLButtonElement>) => any;
+  onClick?: (event: React.MouseEventHandler<HTMLButtonElement>) => any;
   overrides?: ButtonOverrides;
   shape?: SHAPE[keyof SHAPE];
   size?: SIZE[keyof SIZE];

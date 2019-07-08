@@ -100,8 +100,8 @@ export interface SelectProps {
   onBlur?: (e: Event) => any;
   onBlurResetsInput?: boolean;
   onChange?: (params: OnChangeParams) => any;
-  onFocus?: (e: React.SyntheticEvent<HTMLElement>) => any;
-  onInputChange?: (e: React.SyntheticEvent<HTMLInputElement>) => any;
+  onFocus?: (e: React.FocusEventHandler<HTMLElement>) => any;
+  onInputChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
   onCloseResetsInput?: boolean;
   onSelectResetsInput?: boolean;
   onOpen?: () => any;
@@ -133,10 +133,10 @@ export class Select extends React.Component<SelectProps, SelectState> {
   handleTouchEndClearValue(event: TouchEvent): void;
   handleClick(event: MouseEvent | TouchEvent): void;
   closeMenu(): void;
-  handleInputFocus(event: React.SyntheticEvent<HTMLElement>): void;
+  handleInputFocus(event: React.FocusEventHandler<HTMLElement>): void;
   handleBlur(event: Event): void;
   handleClickOutside(event: MouseEvent): void;
-  handleInputChange(event: React.SyntheticEvent<HTMLInputElement>): void;
+  handleInputChange(event: React.FormEventHandler<HTMLInputElement>): void;
   handleKeyDown(event: KeyboardEvent): void;
   getOptionLabel(locale: Locale, {option}: {
     option: Option;

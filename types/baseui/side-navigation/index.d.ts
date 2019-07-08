@@ -48,8 +48,8 @@ export interface NavItemProps {
 }
 
 export class NavItem extends React.Component<NavItemProps> {
-  handleClick(event: React.SyntheticEvent<Event>): void;
-  handleKeyDown(event: React.SyntheticEvent<KeyboardEvent>): void;
+  handleClick(event: React.MouseEventHandler): void;
+  handleKeyDown(event: React.KeyboardEventHandler): void;
 }
 
 export const StyledRoot: StyletronComponent<any>;
