@@ -293,6 +293,7 @@ export interface CognitoUserPoolTriggerEvent {
         userAttributes: { [key: string]: string };
         validationData?: { [key: string]: string };
         codeParameter?: string;
+        linkParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
@@ -322,6 +323,15 @@ export interface CognitoUserPoolTriggerEvent {
         messageAction?: "SUPPRESS";
         desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
         forceAliasCreation?: boolean;
+        claimsOverrideDetails?: {
+            claimsToAddOrOverride?: { [key: string]: string };
+            claimsToSuppress?: string[];
+            groupOverrideDetails?: null | {
+                groupsToOverride?: string[];
+                iamRolesToOverride?: string[];
+                preferredRole?: string;
+            };
+        };
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
