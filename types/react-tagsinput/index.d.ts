@@ -43,7 +43,7 @@ declare namespace TagsInput {
         readonly tag: Tag;
     }
 
-    type RenderLayout = (tagComponent: React.Component[], inputComponent: React.Component) => React.ReactChild;
+    type RenderLayout = (tagComponents: React.Component[], inputComponent: React.Component) => React.ReactChild;
 
     interface ReactTagsInputProps extends React.Props<TagsInput> {
         value: Tag[];
