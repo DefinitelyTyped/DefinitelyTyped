@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": ["dom", "es6"],
-        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -14,12 +13,14 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@wordpress/data": ["wordpress__data"],
-            "@wordpress/components": ["wordpress__components"],
             "@wordpress/element": ["wordpress__element"],
-            "@wordpress/notices": ["wordpress__notices"],
-            "@wordpress/plugins": ["wordpress__plugins"],
-            "@wordpress/rich-text": ["wordpress__rich-text"]
+            "@wordpress/notices": ["wordpress__notices"]
         }
     },
-    "files": ["index.d.ts", "wordpress__plugins-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "store/actions.d.ts",
+        "store/selectors.d.ts",
+        "wordpress__notices-tests.ts"
+    ]
 }
