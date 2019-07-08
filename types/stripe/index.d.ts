@@ -9109,23 +9109,27 @@ declare namespace Stripe {
          * The card number
          */
         number?: string;
+
         /**
          * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
          */
         brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown" ;
         exp_month: number;
         exp_year: number;
+
         /**
          * Card funding type. Can be credit, debit, prepaid, or unknown
          */
         funding: "credit" | "debit" | "prepaid" | "unknown";
         last4: string;
         address_city: string | null;
+
         /**
          * Billing address country, if provided when creating card
          */
         address_country: string | null;
         address_line1: string | null;
+
         /**
          * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
          */
@@ -9133,33 +9137,40 @@ declare namespace Stripe {
         address_line2: string | null;
         address_state: string | null;
         address_zip: string | null;
+
         /**
          * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
          */
         address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
+
         /**
          * Two-letter ISO code representing the country of the card. You could use this
          * attribute to get a sense of the international breakdown of cards you've collected.
          */
         country: string;
+
         /**
          * If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked
          */
         cvc_check: "pass" | "fail" | "unavailable" | "unchecked";
+
         /**
          * (For Apple Pay integrations only.) The last four digits of the device account number.
          */
         dynamic_last4: string | null;
+
         /**
          * Cardholder name
          */
         name: string | null;
+
         /**
          * Uniquely identifies this particular card number. You can use this attribute to check
          * whether two customers who've signed up with you are using the same card number, for example.
          */
         fingerprint: string;
         metadata?: IMetadata;
+
         /**
          * If the card number is tokenized, this is the method that was
          * used. Can be "apple_pay" or "android_pay".

@@ -1561,7 +1561,7 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 
 stripe.sources.retrieve("tok_15V2YhEe31JkLCeQy9iUgsJX").then((source) => {
     // asynchronously called
-    const obj: Stripe.ICardHashInfo = source.card;
+    const obj: Stripe.ICardHashInfo = source.card; // $ExpectType ICardHashInfo
 });
 
 //#endregion
