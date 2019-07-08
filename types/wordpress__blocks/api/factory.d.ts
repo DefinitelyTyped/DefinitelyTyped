@@ -39,10 +39,10 @@ export function createBlock<T extends Record<string, any>>(
  *
  * @returns Highest-priority transform candidate.
  */
-export function findTransform<T extends Record<string, any> = Record<string, any>>(
-    transforms: readonly Transform[],
-    predicate: (transform: Transform) => boolean
-): Transform<T>; // tslint:disable-line:no-unnecessary-generics
+export function findTransform<T extends Transform, U extends Record<string, any> = Record<string, any>>(
+    transforms: T[],
+    predicate: (transform: T) => boolean
+): Transform<U> | null; // tslint:disable-line:no-unnecessary-generics
 
 /**
  * Returns normal block transforms for a given transform direction, optionally
@@ -55,8 +55,8 @@ export function findTransform<T extends Record<string, any> = Record<string, any
  */
 export function getBlockTransforms<T extends Record<string, any> = Record<string, any>>(
     direction: 'to' | 'from',
-    blockTypeOrName: string | Block
-): Array<Transform<T>>; // tslint:disable-line:no-unnecessary-generics
+    blockTypeOrName?: string | Block
+): Array<Transform<T> & { blockName: string }>; // tslint:disable-line:no-unnecessary-generics
 
 /**
  * Returns an array of block types that the set of blocks received as argument
