@@ -244,7 +244,7 @@ declare module 'react-jsonschema-form' {
         className: string;
         onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
         disabled: boolean;
-    }
+    };
 }
 
 declare module 'react-jsonschema-form/lib/utils' {
