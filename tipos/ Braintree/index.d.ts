@@ -8,9 +8,6 @@ export = braintree;
 export as namespace braintree;
 
 declare namespace braintree {
-    
-    export function connect(config: GatewayConfig): BraintreeGateway;
-    
     /**
      * Braintree Config and Client
      */
@@ -1688,4 +1685,5 @@ declare namespace braintree {
     export interface TooManyRequestsError extends Error {}
     export interface UnexpectedError extends Error {}
     export interface UpgradeRequired extends Error {}
+    export function connect(config: GatewayConfig): BraintreeGateway
 }
