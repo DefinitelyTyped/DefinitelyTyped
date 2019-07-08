@@ -47,7 +47,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
      * @param answers
      * The answer-object.
      */
-    public constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
 
     /**
      * Renders the prompt.
@@ -69,7 +69,7 @@ declare class ListPrompt<TQuestion extends Question = Question> extends Prompt<T
      */
     protected onDownKey(): void;
 
-        /**
+    /**
      * Handles the `numberKey`-event.
      *
      * @param input

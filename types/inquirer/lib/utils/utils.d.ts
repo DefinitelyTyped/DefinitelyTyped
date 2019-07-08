@@ -29,4 +29,6 @@ type UnpackQuestionProperty<T> = T extends inquirer.AsyncDynamicQuestionProperty
 export function fetchAsyncQuestionPropertyQuestionProperty(
     question: inquirer.DistinctQuestion,
     prop: QuestionProperty,
-    answers: inquirer.Answers): Observable<inquirer.DistinctQuestion>; 
+    answers: inquirer.Answers): Observable<inquirer.DistinctQuestion>;
+
+export { };

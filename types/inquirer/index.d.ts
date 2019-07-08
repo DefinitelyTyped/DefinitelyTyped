@@ -207,7 +207,6 @@ declare namespace inquirer {
         };
     }
 
-
     /**
      * A set of answers.
      */
@@ -744,7 +743,7 @@ declare namespace inquirer {
          * @template T
          * The type of the answers.
          */
-        type PromptOptions<T extends Question<Answers> = Question<Answers>> = T & {
+        type PromptOptions<T extends Question = Question> = T & {
             /**
              * The choices of the prompt.
              */
