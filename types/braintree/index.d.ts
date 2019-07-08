@@ -8,6 +8,9 @@ export = braintree;
 export as namespace braintree;
 
 declare namespace braintree {
+    
+    export function connect(config: GatewayConfig): BraintreeGateway;
+    
     /**
      * Braintree Config and Client
      */
@@ -20,10 +23,11 @@ declare namespace braintree {
     }
 
     export interface GatewayConfig {
-        environment: any;
-        merchantId: string;
-        publicKey: string;
-        privateKey: string;
+        environment?: any;
+        merchantId?: string;
+        publicKey?: string;
+        privateKey?: string;
+        accessToken?: string;
     }
 
     export class BraintreeGateway {
