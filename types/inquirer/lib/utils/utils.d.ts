@@ -9,7 +9,7 @@ type QuestionProperty = inquirer.KeyUnion<inquirer.UnionToIntersection<inquirer.
 /**
  * Unpacks a question-property.
  */
-type UnpackQuestionProperty<T> = T extends inquirer.poll.AsyncDynamicQuestionProparty<inquirer.poll.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
+type UnpackQuestionProperty<T> = T extends inquirer.poll.AsyncDynamicQuestionProperty<inquirer.poll.Answers, infer U> ? (U extends Promise<infer U2> ? U2 : U) : T;
 
 /**
  * Fetches a property of the specified `question`.

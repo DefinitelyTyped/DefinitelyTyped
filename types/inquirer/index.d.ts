@@ -87,7 +87,7 @@ interface ListQuestionOptionsBase<T, TChoiceMap> extends inquirer.poll.Question<
      * properties. The choices array can also contain
      * [a Separator](https://github.com/SBoudrias/Inquirer.js#separator).
      */
-    choices?: inquirer.poll.AsyncDynamicQuestionProparty<ReadonlyArray<inquirer.poll.DistinctChoice<TChoiceMap>>, T>;
+    choices?: inquirer.poll.AsyncDynamicQuestionProperty<ReadonlyArray<inquirer.poll.DistinctChoice<TChoiceMap>>, T>;
     /**
      * Change the number of lines that will be rendered when using `list`, `rawList`,
      * `expand` or `checkbox`.
@@ -229,7 +229,7 @@ declare namespace inquirer {
         /**
          * Represents a dynamic property for a question which can be fetched asynchronously.
          */
-        type AsyncDynamicQuestionProparty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<TAnswers, T | Promise<T>>;
+        type AsyncDynamicQuestionProperty<T, TAnswers extends Answers = Answers> = DynamicQuestionProperty<T | Promise<T>, TAnswers>;
 
         /**
          * Provides options for a question.
@@ -251,12 +251,12 @@ declare namespace inquirer {
             /**
              * The message to show to the user.
              */
-            message?: AsyncDynamicQuestionProparty<string, T>;
+            message?: AsyncDynamicQuestionProperty<string, T>;
 
             /**
              * The default value of the question.
              */
-            default?: AsyncDynamicQuestionProparty<any, T>;
+            default?: AsyncDynamicQuestionProperty<any, T>;
 
             /**
              * The prefix of the `message`.
@@ -279,7 +279,7 @@ declare namespace inquirer {
             /**
              * A value indicating whether the question should be prompted.
              */
-            when?: AsyncDynamicQuestionProparty<boolean, T>;
+            when?: AsyncDynamicQuestionProperty<boolean, T>;
 
             /**
              * Validates the integrity of the answer.
