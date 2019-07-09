@@ -1,4 +1,4 @@
-import * as kdbush from 'kdbush';
+import { KDBush } from 'kdbush';
 import * as geokdbush from 'geokdbush';
 
 const points = [
@@ -6,5 +6,5 @@ const points = [
   {lon: 20, lat: 10},
   {lon: -10, lat: 30},
 ];
-const index = kdbush(points, p => p.lon, p => p.lat);
+const index = new KDBush(points, p => p.lon, p => p.lat);
 const nearest = geokdbush.around(index, -119.7051, 34.4363, 1000);
