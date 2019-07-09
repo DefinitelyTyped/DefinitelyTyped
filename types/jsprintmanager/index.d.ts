@@ -4,9 +4,13 @@
 
 
 
+
+
 // Project: https://github.com/neodynamic/jsprintmanager
 // Definitions by: Philippe Auriou <https://github.com/auriou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+
 
 
 
