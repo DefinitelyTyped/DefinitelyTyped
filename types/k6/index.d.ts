@@ -50,6 +50,7 @@ import './ws';
  * thresholds, for more power and flexibility.
  */
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
+
 /**
  * Immediately throw an error, aborting the current script iteration.
  *
@@ -61,6 +62,7 @@ export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
  * convenient way to write k6 test code).
  */
 export function fail(err?: string): never;
+
 /**
  * Run code inside a group.
  *
@@ -72,6 +74,7 @@ export function fail(err?: string): never;
  * Groups are used to organize results in a test.
  */
 export function group<T>(name: string, fn: () => T): T;
+
 /**
  * Suspend VU execution for the specified duration.
  *
