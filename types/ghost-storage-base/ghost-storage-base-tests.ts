@@ -6,11 +6,11 @@ class MyCustomAdapter extends StorageBase {
         super();
     }
 
-    async exists(fileName: string, targetDir: string) {
+    async exists(fileName: string, targetDir?: string) {
         return true;
     }
 
-    async save(image: Image, targetDir: string) {
+    async save(image: Image, targetDir?: string) {
         return 'string';
     }
 
@@ -18,7 +18,7 @@ class MyCustomAdapter extends StorageBase {
         return (req: Request, res: Response, next: NextFunction) => next();
     }
 
-    async delete(fileName: string, targetDir: string) {
+    async delete(fileName: string, targetDir?: string) {
         return true;
     }
 
