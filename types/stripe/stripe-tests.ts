@@ -5,6 +5,15 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+stripe.setAppInfo(); // $ExpectType void
+// $ExpectType void
+stripe.setAppInfo({
+    name: 'DefinitelyTyped',
+});
+
+stripe.setTelemetryEnabled(true); // $ExpectType void
+stripe.getTelemetryEnabled(); // $ExpectType boolean
+
 // generic list tests
 // ##################################################################################
 stripe.balance.listTransactions().then(items => {

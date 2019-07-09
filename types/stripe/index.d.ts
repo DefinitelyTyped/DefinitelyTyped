@@ -25,6 +25,7 @@
 //                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
 //                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Dylan Aspden <https://github.com/dhaspden>
 //                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -101,11 +102,14 @@ declare class Stripe {
     setPort(port: string | number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
     setTimeout(timeout?: number): void;
     setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
     setHttpAgent(agent: string): void;
     getConstant(c: string): any;
     getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
     getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
