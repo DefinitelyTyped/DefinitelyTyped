@@ -26,4 +26,4 @@ declare class KDBush<T = readonly [number, number]> {
     within(x: number, y: number, r: number): number[];
 }
 
-export default KDBush;
+export = KDBush;
