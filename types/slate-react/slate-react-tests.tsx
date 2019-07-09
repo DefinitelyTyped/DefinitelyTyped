@@ -32,6 +32,7 @@ class MyPlugin implements Plugin {
 }
 
 const myPlugin = new MyPlugin();
+const plugins = [myPlugin, [myPlugin, [myPlugin]]];
 
 interface MyEditorState {
     value: Value;
@@ -47,11 +48,15 @@ class MyEditor extends React.Component<EditorProps, MyEditorState> {
         };
     }
     render() {
-        return <Editor
-            value={this.state.value}
-            renderBlock={ myPlugin.renderBlock }
-            renderInline={ myPlugin.renderInline }
-            onChange={ myPlugin.onChange }/>;
+        return (
+            <Editor
+                plugins={plugins}
+                value={this.state.value}
+                renderBlock={myPlugin.renderBlock}
+                renderInline={myPlugin.renderInline}
+                onChange={myPlugin.onChange}
+            />
+        );
     }
 }
 

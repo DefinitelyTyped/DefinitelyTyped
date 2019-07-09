@@ -45,7 +45,7 @@ export function create<TProps, TState, TContext, TStatic>(base: Component<TProps
  * This is a way to connect stores to a functional stateless view.
  */
 export function createFunctional<TProps, TState>(
-    viewFn: (props: TProps) => React.ReactElement<TState>,
+    viewFn: (props: TState) => React.ReactElement<TState>,
     getStores: (maybeProps?: TProps, maybeContext?: any) => Array<FluxStore<any>>,
     calculateState: (prevState?: TState, maybeProps?: TProps, maybeContext?: any) => TState,
     options?: RealOptions

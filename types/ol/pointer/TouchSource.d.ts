@@ -1,6 +1,7 @@
-import EventSource from 'ol/pointer/EventSource';
-import MouseSource from 'ol/pointer/MouseSource';
-import PointerEventHandler from 'ol/pointer/PointerEventHandler';
+import EventSource from './EventSource';
+import MouseSource from './MouseSource';
+import PointerEventHandler from './PointerEventHandler';
+
 export default class TouchSource extends EventSource {
     constructor(dispatcher: PointerEventHandler, mouseSource: MouseSource);
 }

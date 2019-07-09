@@ -1,3 +1,5 @@
+import { Readable } from 'stream';
+
 {
     const x: NodeModule = {} as any;
     const y: NodeModule = {} as any;
@@ -13,5 +15,16 @@
 {
     queueMicrotask(() => {
         // cool
+    });
+}
+
+{
+    const a = new Readable();
+    a.unshift('something', 'utf8');
+}
+
+{
+    const a = Readable.from(['test'], {
+        objectMode: true,
     });
 }
