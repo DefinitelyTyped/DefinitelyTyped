@@ -1290,7 +1290,7 @@ export interface IndicesPutMappingParams extends GenericParams {
     expandWildcards?: ExpandWildcards;
     updateAllTypes?: boolean;
     index: NameList;
-    type: string;
+    type?: string;
     body: any;
 }
 
