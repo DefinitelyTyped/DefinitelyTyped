@@ -180,37 +180,37 @@ declare namespace Bull {
      */
     log(row: string): Promise<any>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is completed
      */
     isCompleted(): Promise<boolean>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is failed
      */
     isFailed(): Promise<boolean>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is delayed
      */
     isDelayed(): Promise<boolean>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is active
      */
     isActive(): Promise<boolean>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is wait
      */
     isWaiting(): Promise<boolean>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is paused
      */
     isPaused(): Promise<boolean>;
 
-    /*
+    /**
      * Returns a promise resolving to a boolean which, if true, current job's state is stuck
      */
     isStuck(): Promise<boolean>;
@@ -815,22 +815,22 @@ declare namespace Bull {
      */
     setWorkerName(): Promise<any>;
 
-    /*
+    /**
      * Returns Redis clients array which belongs to current Queue
      */
     getWorkers(): Promise<Redis.Redis[]>;
 
-    /*
+    /**
      * Returns Queue name in base64 encoded format
      */
     base64Name(): string;
 
-    /*
+    /**
      * Returns Queue name with keyPrefix (default: 'bull')
      */
     clientName(): string;
 
-    /*
+    /**
      * Returns Redis clients array which belongs to current Queue from string with all redis clients
      *
      * @params list: string String with all redis clients
