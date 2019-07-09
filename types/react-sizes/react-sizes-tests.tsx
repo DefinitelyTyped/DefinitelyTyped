@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { WithSizes, Sizes } from 'react-sizes';
+import WithSizes, { Sizes } from 'react-sizes';
 
 interface TestProps {
     foo: string;
