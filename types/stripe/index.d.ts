@@ -3363,6 +3363,8 @@ declare namespace Stripe {
             subscription_trial_end?: number;
         }
 
+        type IInvoiceListLineItemsOptions = IListOptions;
+
         interface IInvoiceUpcomingOptions extends IDataOptions {
             /**
              * The code of the coupon to apply. If a subscription or subscription_plan is provided, the invoice returned will preview updating
@@ -3416,6 +3418,9 @@ declare namespace Stripe {
              */
             subscription_trial_end?: number;
         }
+
+        // TODO: update once https://stripe.com/docs/api/invoices/upcoming_invoice_lines is fixed.
+        type IInvoiceListUpcomingLineItemsOptions = IListOptions;
 
         interface IPeriod {
             /**
@@ -8543,6 +8548,20 @@ declare namespace Stripe {
             retrieveLines(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
 
             /**
+             * When retrieving an invoice, you'll get a lines property containing the total count of line items and the first
+             * handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+             *
+             * @returns Returns a list of line_item objects.
+             *
+             * @param id The id of the invoice containing the lines to be retrieved
+             * @param data Filtering options
+             */
+            listLineItems(id: string, data: invoices.IInvoiceListLineItemsOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, data: invoices.IInvoiceListLineItemsOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+
+            /**
              * At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending,
              * including subscription renewal charges, invoice item charges, etc. It will also show you any discount that is applicable
              * to the customer. Note that when you are viewing an upcoming invoice, you are simply viewing a preview -- the invoice has
@@ -8560,6 +8579,21 @@ declare namespace Stripe {
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+
+            /**
+             * When retrieving an upcoming invoice, you’ll get a lines property containing the total count of line
+             * items and the first handful of those items. There is also a URL where you can retrieve the full
+             * (paginated) list of line items.
+             *
+             * @returns Returns a list of line_item objects.
+             *
+             * @param id The id of the invoice containing the lines to be retrieved
+             * @param data Filtering options
+             */
+            listUpcomingLineItems(data: invoices.IInvoiceListUpcomingLineItemsOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(data: invoices.IInvoiceListUpcomingLineItemsOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
 
             /**
              * Until an invoice is paid, it is marked as open (closed=false). If you'd like to stop Stripe from automatically attempting
