@@ -1,7 +1,9 @@
 // Type definitions for JSPrintManager 2.0
+
 // Project: https://github.com/neodynamic/jsprintmanager
 // Definitions by: Philippe Auriou <https://github.com/auriou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 
 export namespace JSPM {
     interface IClientPrinter {
@@ -81,7 +83,19 @@ export namespace JSPM {
         stopBits: Serial.StopBits;
         dataBits: number;
         flowControl: Serial.Handshake;
-        constructor(portName: string, baudRate: number, parity: Serial.Parity, stopBits: Serial.StopBits, dataBits: number, flowControl: Serial.Handshake);
+        constructor(
+            
+            portName: string,
+           
+            baudRate: number,
+           
+            parity: Serial.Parity,
+            stopBits:
+            Serial.StopBits,
+            dataBits: number,
+            flowControl: Serial.Handshake
+        
+        );
         serialize(): string;
     }
     class NetworkPrinter implements IClientPrinter {
@@ -244,6 +258,11 @@ declare namespace zip {
     class Reader {
         size: number;
         init(callback: () => void, onerror: (error: any) => void): void;
-        readUint8Array(index: number, length: number, callback: (result: Uint8Array) => void, onerror?: (error: any) => void): void;
+        readUint8Array(
+            index: number,
+            length: number,
+            callback: (result: Uint8Array) => void,
+            onerror?: (error: any) => void
+        ): void;
     }
 }
