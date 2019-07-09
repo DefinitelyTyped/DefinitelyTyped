@@ -16,7 +16,7 @@ export interface ReadOptions {
     path: string;
 }
 
-export abstract class StorageBase {
+export default abstract class StorageBase {
     constructor();
 
     abstract exists(fileName: string, targetDir: string): Promise<boolean>;
