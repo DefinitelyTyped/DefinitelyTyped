@@ -58,12 +58,6 @@ declare namespace CustomFunctions {
     }
 
     /**
-     * @deprecated Use `CancelableInvocation` instead.
-     */
-    interface CancelableHandler extends CancelableInvocation {
-    }
-
-    /**
      * Provides information about the invocation of a streaming custom function.
      * A streaming custom function can provide results which can change over time.
      *
@@ -75,11 +69,5 @@ declare namespace CustomFunctions {
          * Set the result for the custom function. May be called more than once.
          */
         setResult: (value: ResultType | Error) => void;
-    }
-
-    /**
-     * @deprecated Use `StreamingInvocation<ResultType>` instead.
-     */
-    interface StreamingHandler<ResultType> extends StreamingInvocation<ResultType> {
     }
 }
