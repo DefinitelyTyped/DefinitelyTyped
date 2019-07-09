@@ -25,7 +25,7 @@ export abstract class StorageBase {
     abstract delete(fileName: string, targetDir?: string): Promise<boolean>;
     abstract read(options?: ReadOptions): Promise<Buffer>;
 
-    getTargetDir(baseDir: string): string;
+    getTargetDir(baseDir?: string): string;
     getUniqueFileName(image: Image, targetDir: string): string;
     getSanitizedFileName(fileName: string): string;
 }
