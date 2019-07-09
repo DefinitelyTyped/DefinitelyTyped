@@ -17,7 +17,7 @@ type ArrayType =
     | typeof Array;
 
 declare class KDBush<T = readonly [number, number]> {
-    constructor(points: T[], getX?: Get<T>, getY?: Get<T>, arrayType?: ArrayType);
+    constructor(points: T[], getX?: Get<T>, getY?: Get<T>, nodeSize?: number, arrayType?: ArrayType);
 
     readonly nodeSize: number;
     readonly points: readonly T[];
