@@ -1,7 +1,8 @@
-// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.3
+// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.4
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
 //                 Joao Peixoto <https://github.com/Hartimer>
+//                 Michael J. Currie <https://github.com/Basaingeal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -57,7 +58,7 @@ interface CMRequestInit {
  * interface.
  */
 interface Navigator {
-    credentials?: CredentialsContainer;
+    readonly credentials: CredentialsContainer;
 }
 
 /**
@@ -73,7 +74,7 @@ interface CredentialsContainer {
      *     return.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get}
      */
-    get(options?: CredentialRequestOptions): Promise<Credential|null>;
+    get(options?: CredentialRequestOptions): Promise<CredentialType|null>;
 
     /**
      * Ask the credential manager to store a {@link Credential} for the user.
@@ -82,14 +83,14 @@ interface CredentialsContainer {
      *
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-store}
      */
-    store(credential: Credential): Promise<Credential>;
+    store(credential: CredentialType): Promise<CredentialType>;
 
     /**
      * Create a {@link Credential} asynchronously.
      *
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-create}
      */
-    create(options: CredentialCreationOptions): Promise<Credential|null>;
+    create(options: CredentialCreationOptions): Promise<CredentialType|null>;
 
     /**
      * Ask the credential manager to require user mediation before returning
@@ -126,7 +127,7 @@ interface CredentialData {
     id: string;
 }
 
-type Credential = PasswordCredential|FederatedCredential|PublicKeyCredential;
+type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -280,11 +281,6 @@ declare class FederatedCredential extends SiteBoundCredential {
 }
 
 /**
- * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#enumdef-credentialmediationrequirement}
- */
-type CredentialMediationRequirement = 'silent'|'optional'|'required';
-
-/**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
  */
 interface CredentialRequestOptions {
@@ -312,7 +308,7 @@ interface CredentialRequestOptions {
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: CredentialMediationRequirement;
+    mediation?: 'silent' | 'optional' | 'required';
 
     /**
      * This property specifies options for requesting a public-key signature.
@@ -403,7 +399,7 @@ interface PublicKeyCredentialRequestOptions {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
  */
 interface PublicKeyCredentialRpEntity {
-    id: string;
+    id?: string;
     name: string;
 }
 
@@ -449,7 +445,7 @@ type AuthenticatorAttachment = "platform" | "cross-platform";
 interface AuthenticatorSelectionCriteria {
     authenticatorAttachment?: AuthenticatorAttachment;
     requireResidentKey?: boolean;
-    requireUserVerification?: UserVerificationRequirement;
+    userVerification?: UserVerificationRequirement;
 }
 
 /**

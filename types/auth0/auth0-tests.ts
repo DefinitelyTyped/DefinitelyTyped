@@ -481,3 +481,22 @@ management.getUsersInRole({id: "role_id", per_page: 8}).then(users => console.lo
 management.getUsersInRole({id: "role_id", per_page: 8}, (err, data) => console.log(data));
 management.getUsersInRole({id: "role_id", include_totals: true}).then(userPage => console.log(userPage));
 management.getUsersInRole({id: "role_id", include_totals: true}, (err, data) => console.log(data));
+
+management.createClient({
+    name: 'client'
+});
+
+management.createClient({
+    name: 'client',
+    grant_types: ['implicit'],
+    jwt_configuration: {
+        lifetime_in_seconds: 300,
+        scopes: {},
+        alg: 'RS256',
+    },
+    encryption_key: {
+        pub: 'pub',
+        cert: 'cert',
+        subject: 'subject',
+    }
+});

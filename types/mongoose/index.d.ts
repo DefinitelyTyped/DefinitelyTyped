@@ -403,7 +403,7 @@ declare module "mongoose" {
     static STATES: ConnectionStates;
   }
 
-  enum ConnectionStates {
+  export enum ConnectionStates {
     disconnected = 0,
     connected = 1,
     connecting = 2,

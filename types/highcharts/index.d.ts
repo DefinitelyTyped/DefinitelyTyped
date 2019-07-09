@@ -6,6 +6,8 @@
 //                 Juliën Hanssens <https://github.com/hanssens>
 //                 Johns Gresham <https://github.com/jgresham>
 //                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
+//                 Dolan Miu <https://github.com/dolanmiu>
+//                 Jack Siman <https://github.com/jjsiman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1005,6 +1007,11 @@ declare namespace Highcharts {
          * @default 0
          */
         gridLineWidth?: number;
+        /**
+         * Polar charts only. Whether the grid lines should draw as a polygon with straight lines between categories, or as circles.
+         * @default undefined
+         */
+        gridLineInterpolation?: string;
         /**
          * The Z index of the grid lines.
          * @default 1
@@ -7509,7 +7516,7 @@ declare namespace Highcharts {
          * Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
-        addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
+        addPoint(options: number | [number, number] | [number, number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
         /**
          * Read only. The chart that the series belongs to.
          * @since 1.2.0

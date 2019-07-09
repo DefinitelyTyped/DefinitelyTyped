@@ -111,14 +111,17 @@ export interface Plugin extends CorePlugin {
     onSelect?: EventHook;
 }
 
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
+
 export interface BasicEditorProps {
     value: Value;
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => any;
     placeholder?: any;
-    plugins?: Plugin[];
+    plugins?: Plugins;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;

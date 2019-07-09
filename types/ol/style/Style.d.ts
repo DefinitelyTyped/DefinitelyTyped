@@ -1,17 +1,15 @@
-import { Coordinate } from 'ol/coordinate';
-import { FeatureLike } from 'ol/Feature';
-import Geometry from 'ol/geom/Geometry';
-import GeometryType from 'ol/geom/GeometryType';
-import { State } from 'ol/render';
-import RenderFeature from 'ol/render/Feature';
-import Fill from 'ol/style/Fill';
-import ImageStyle from 'ol/style/Image';
-import Stroke from 'ol/style/Stroke';
-import Text from 'ol/style/Text';
-export function createDefaultStyle(feature: FeatureLike, resolution: number): Style[];
-export function createEditingStyle(): { [key in GeometryType]: Style[] };
-export function toFunction(obj: StyleFunction | Style[] | Style): StyleFunction;
-export type GeometryFunction = ((param0: FeatureLike) => Geometry | RenderFeature);
+import { Coordinate } from '../coordinate';
+import { FeatureLike } from '../Feature';
+import Geometry from '../geom/Geometry';
+import GeometryType from '../geom/GeometryType';
+import { State } from '../render';
+import RenderFeature from '../render/Feature';
+import Fill from './Fill';
+import ImageStyle from './Image';
+import Stroke from './Stroke';
+import Text from './Text';
+
+export type GeometryFunction = ((p0: FeatureLike) => (Geometry | RenderFeature));
 export interface Options {
     geometry?: string | Geometry | GeometryFunction;
     fill?: Fill;
@@ -21,18 +19,20 @@ export interface Options {
     text?: Text;
     zIndex?: number;
 }
-export type RenderFunction = ((param0: Coordinate | Coordinate[] | Coordinate[][], param1: State) => void);
+export type RenderFunction = ((p0: (Coordinate | Coordinate[] | Coordinate[][]), p1: State) => void);
+export type StyleFunction = ((p0: FeatureLike, p1: number) => (Style | Style[]));
+export type StyleLike = Style | Style[] | StyleFunction;
 export default class Style {
     constructor(opt_options?: Options);
-    getZIndex(): number;
     clone(): Style;
+    getFill(): Fill;
     getGeometry(): string | Geometry | GeometryFunction;
     getGeometryFunction(): GeometryFunction;
     getImage(): ImageStyle;
     getRenderer(): RenderFunction;
     getStroke(): Stroke;
     getText(): Text;
-    getFill(): Fill;
+    getZIndex(): number;
     setFill(fill: Fill): void;
     setGeometry(geometry: string | Geometry | GeometryFunction): void;
     setImage(image: ImageStyle): void;
@@ -41,5 +41,6 @@ export default class Style {
     setText(text: Text): void;
     setZIndex(zIndex: number): void;
 }
-export type StyleFunction = ((param0: FeatureLike, param1: number) => Style | Style[]);
-export type StyleLike = Style | Style[] | StyleFunction;
+export function createDefaultStyle(feature: FeatureLike, resolution: number): Style[];
+export function createEditingStyle(): { [key in GeometryType]: Style[] };
+export function toFunction(obj: StyleFunction | Style[] | Style): StyleFunction;
