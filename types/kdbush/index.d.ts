@@ -16,13 +16,13 @@ type ArrayType =
     | typeof Array;
 
 declare class KDBush<T = readonly [number, number]> {
-    public constructor(points: Array<T>, getX?: Get<T>, getY?: Get<T>, arrayType?: ArrayType);
+    public constructor(points: T[], getX?: Get<T>, getY?: Get<T>, arrayType?: ArrayType);
 
     public readonly nodeSize: number;
-    public readonly points: ReadonlyArray<T>;
+    public readonly points: readonly T[];
 
-    public range(minX: number, minY: number, maxX: number, maxY: number): Array<number>;
-    public within(x: number, y: number, r: number): Array<number>;
+    public range(minX: number, minY: number, maxX: number, maxY: number): number[];
+    public within(x: number, y: number, r: number): number[];
 }
 
 export = KDBush;
