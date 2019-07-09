@@ -81,7 +81,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/frame?id=upx2px](http://uniapp.dcloud.io/frame?id=upx2px)
      */
-    upx2px(upx: number): number;
+    upx2px(upx?: number): number;
     /**
      * 创建一个 WebSocket 连接
      *
