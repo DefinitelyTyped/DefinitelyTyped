@@ -4,6 +4,7 @@
 //                 Christian Scott <https://github.com/chrfrasco>
 //                 Jamie Winder <https://github.com/jamiewinder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.4
 
 type Get<T> = (point: T) => number;
 
