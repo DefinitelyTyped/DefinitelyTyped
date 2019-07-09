@@ -1,24 +1,24 @@
-// Type definitions for hapi-pino 5.2
+// Type definitions for hapi-pino 6.0
 // Project: https://github.com/pinojs/hapi-pino#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
+//                 Todd Bealmear <https://github.com/todd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types='node' />
 
-import {
-    Plugin,
-} from 'hapi';
 import * as pino from 'pino';
 
-declare module 'hapi' {
-interface Server {
-    logger: () => pino.Logger;
-}
+import { Plugin } from '@hapi/hapi';
 
-interface Request {
-    logger: pino.Logger;
-}
+declare module '@hapi/hapi' {
+    interface Server {
+        logger: () => pino.Logger;
+    }
+
+    interface Request {
+        logger: pino.Logger;
+    }
 }
 
 declare namespace HapiPino {

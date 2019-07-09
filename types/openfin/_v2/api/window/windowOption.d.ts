@@ -1,13 +1,17 @@
 import { DownloadPreloadOption } from '../system/download-preload';
+import { RGB, ContextMenuSettings } from '../../shapes';
 export interface WindowOption {
     accelerator?: object;
+    alphaMask?: RGB;
     alwaysOnTop?: boolean;
     api?: object;
+    applicationIcon?: string;
     aspectRatio?: number;
     autoShow?: boolean;
     backgroundColor?: string;
     contentNavigation?: object;
     contextMenu?: boolean;
+    contextMenuSettings?: ContextMenuSettings;
     cornerRounding?: object;
     customData?: string;
     customRequestHeaders?: Array<CustomRequestHeaders>;

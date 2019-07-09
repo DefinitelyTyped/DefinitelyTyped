@@ -1,6 +1,7 @@
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import TextPlacement from 'ol/style/TextPlacement';
+import Fill from './Fill';
+import Stroke from './Stroke';
+import TextPlacement from './TextPlacement';
+
 export interface Options {
     font?: string;
     maxAngle?: number;
@@ -22,8 +23,8 @@ export interface Options {
 }
 export default class Text {
     constructor(opt_options?: Options);
-    getTextBaseline(): string;
     clone(): Text;
+    getBackgroundFill(): Fill;
     getBackgroundStroke(): Stroke;
     getFill(): Fill;
     getFont(): string;
@@ -39,7 +40,7 @@ export default class Text {
     getStroke(): Stroke;
     getText(): string;
     getTextAlign(): string;
-    getBackgroundFill(): Fill;
+    getTextBaseline(): string;
     setBackgroundFill(fill: Fill): void;
     setBackgroundStroke(stroke: Stroke): void;
     setFill(fill: Fill): void;

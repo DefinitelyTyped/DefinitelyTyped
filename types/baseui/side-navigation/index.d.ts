@@ -2,6 +2,10 @@
 import * as React from 'react';
 import { StyletronComponent } from 'styletron-react';
 
+export interface STATE_CHANGE_TYPE {
+    change: 'change';
+}
+
 export interface Item {
   title: React.ReactNode;
   itemId?: string;
@@ -53,3 +57,5 @@ export const StyledNavItemContainer: StyletronComponent<any>;
 export const StyledNavLink: StyletronComponent<any>;
 export const StyledNavItem: StyletronComponent<any>;
 export const StyledSubNavContainer: StyletronComponent<any>;
+
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;

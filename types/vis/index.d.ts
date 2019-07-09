@@ -1206,6 +1206,16 @@ export class Network {
   getBaseEdge(clusteredEdgeId: IdType): IdType;
 
   /**
+   * For the given clusteredEdgeId, this method will return all the original
+   * base edge id's provided in data.edges.
+   * For a non-clustered (i.e. 'base') edge, clusteredEdgeId is returned.
+   * Only the base edge id's are returned.
+   * All clustered edges id's under clusteredEdgeId are skipped,
+   * but scanned recursively to return their base id's.
+   */
+  getBaseEdges(clusteredEdgeId: IdType): IdType[];
+
+  /**
    * Visible edges between clustered nodes are not the same edge as the ones provided
    * in data.edges passed on network creation. With each layer of clustering, copies of
    * the edges between clusters are created and the previous edges are hidden,

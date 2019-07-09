@@ -78,3 +78,5 @@ export class LayersManager extends React.Component<LayersManagerProps> {
   host: React.Ref<HTMLElement>;
 }
 export const Layer: React.FC<LayerProps>;
+
+export const TETHER_PLACEMENT: TETHER_PLACEMENT;

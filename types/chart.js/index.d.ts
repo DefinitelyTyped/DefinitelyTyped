@@ -154,10 +154,14 @@ declare namespace Chart {
     }
 
     interface ChartTooltipItem {
+        label?: string;
+        value?: string;
         xLabel?: string | number;
         yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ChartTooltipLabelColor {

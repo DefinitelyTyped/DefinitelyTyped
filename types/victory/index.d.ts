@@ -1765,7 +1765,7 @@ declare module "victory" {
    */
   export class VictoryChart extends React.Component<VictoryChartProps, any> {}
 
-  export interface VictoryGroupProps extends VictoryCommonProps, VictoryMultiLabeableProps {
+  export interface VictoryGroupProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
     /**
      * The categories prop specifies how categorical data for a chart should be ordered.
      * This prop should be given as an array of string values, or an object with

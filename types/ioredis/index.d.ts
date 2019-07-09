@@ -416,6 +416,9 @@ declare namespace IORedis {
         ttl(key: KeyType, callback: (err: Error, res: number) => void): void;
         ttl(key: KeyType): Promise<number>;
 
+        pttl(key: KeyType, callback: (err: Error, res: number) => void): void;
+        pttl(key: KeyType): Promise<number>;
+
         persist(key: KeyType, callback: (err: Error, res: 0 | 1) => void): void;
         persist(key: KeyType): Promise<0 | 1>;
 
@@ -778,6 +781,8 @@ declare namespace IORedis {
         monitor(callback?: (err: Error, res: NodeJS.EventEmitter) => void): Pipeline;
 
         ttl(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
+
+        pttl(key: KeyType, callback: (err: Error, res: number) => void): Pipeline;
 
         persist(key: KeyType, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 

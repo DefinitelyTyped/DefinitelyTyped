@@ -114,7 +114,7 @@ const plugin: Plugin = {
     schema: {...schema},
 };
 
-const plugins = [plugin];
+const plugins = [plugin, [plugin, [plugin]]];
 
 const editor = new Editor({ value, plugins });
 const point = Point.create({ key: "a", offset: 0 });

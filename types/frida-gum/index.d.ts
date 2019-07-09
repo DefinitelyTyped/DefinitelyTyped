@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 13.0
+// Type definitions for non-npm package frida-gum 13.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3320,10 +3320,15 @@ declare namespace ObjC {
         $className: string;
 
         /**
+         * Name of module where this object is implemented.
+         */
+        $moduleName: string;
+
+        /**
          * Protocols that this object conforms to.
          */
         $protocols: {
-            [name: string]: Protocol
+            [name: string]: Protocol;
         };
 
         /**
