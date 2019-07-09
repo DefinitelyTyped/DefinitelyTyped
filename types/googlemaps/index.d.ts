@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.36
+// Type definitions for Google Maps JavaScript API 3.37
 // Project: https://developers.google.com/maps/
 // Definitions by:  Folia A/S <http://www.folia.dk>,
 //                  Chris Wrench <https://github.com/cgwrench>,
@@ -13,6 +13,7 @@
 //                  Michael Gauthier <https://github.com/gauthierm>
 //                  Colin Doig <https://github.com/captain-igloo>
 //                  Dmitry Demensky <https://github.com/demensky>
+//                  Vladimir Dashukevich <https://github.com/life777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.7
@@ -198,6 +199,8 @@ declare namespace google.maps {
         rotateControl?: boolean;
         /** The display options for the Rotate control. */
         rotateControlOptions?: RotateControlOptions;
+        /** Options for restricting map viewport. */
+        restriction?: MapRestriction;
         /** The initial enabled/disabled state of the Scale control. */
         scaleControl?: boolean;
         /** The initial display options for the Scale control. */
@@ -327,6 +330,19 @@ declare namespace google.maps {
          * The default position is TOP_LEFT.
          */
         position?: ControlPosition;
+    }
+
+    /** Options for restricting map viewport. */
+    interface MapRestriction {
+        /**
+         * Bounds for restricting map viewport. 
+         */
+        latLngBounds: LatLngBounds | LatLngBoundsLiteral;
+        /**
+         * It ensurs that everything outside of the restricted bounds stays hidden.
+         * The default value is false
+        */
+        strictBounds?: boolean;
     }
 
     /** Options for the rendering of the scale control. */
