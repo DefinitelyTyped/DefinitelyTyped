@@ -2,7 +2,7 @@
 // Project: https://github.com/mourner/geokdbush
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 3.4
 import { KDBush } from 'kdbush';
 
 export function around<T>(
