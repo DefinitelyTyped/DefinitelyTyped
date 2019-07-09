@@ -176,7 +176,7 @@ declare namespace Bull {
     /**
      * Logs one row of log data.
      *
-     * @params row: string String with log data to be logged.
+     * @param row String with log data to be logged.
      */
     log(row: string): Promise<any>;
 
