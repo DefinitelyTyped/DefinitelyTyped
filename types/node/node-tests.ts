@@ -562,65 +562,6 @@ import Module = require("module");
     const end2: string = decoder1.end(new Buffer('test'));
 }
 
-////////////////////////////////////////////////////
-/// vm tests : https://nodejs.org/api/vm.html
-////////////////////////////////////////////////////
-
-{
-    {
-        const sandbox = {
-            animal: 'cat',
-            count: 2
-        };
-
-        const context = vm.createContext(sandbox);
-        console.log(vm.isContext(context));
-        const script = new vm.Script('count += 1; name = "kitty"');
-
-        for (let i = 0; i < 10; ++i) {
-            script.runInContext(context);
-        }
-
-        console.log(util.inspect(sandbox));
-
-        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
-        console.log(util.inspect(sandbox));
-    }
-
-    {
-        const sandboxes = [{}, {}, {}];
-
-        const script = new vm.Script('globalVar = "set"');
-
-        sandboxes.forEach((sandbox) => {
-            script.runInNewContext(sandbox);
-            script.runInThisContext();
-        });
-
-        console.log(util.inspect(sandboxes));
-
-        const localVar = 'initial value';
-        vm.runInThisContext('localVar = "vm";');
-
-        console.log(localVar);
-    }
-
-    {
-        vm.runInThisContext('console.log("hello world"', './my-file.js');
-    }
-
-    {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
-            parsingContext: vm.createContext(),
-            contextExtensions: [{
-                a: 1,
-            }],
-            produceCachedData: false,
-            cachedData: Buffer.from('nope'),
-        });
-    }
-}
-
 /////////////////////////////////////////////////////
 /// Timers tests : https://nodejs.org/api/timers.html
 /////////////////////////////////////////////////////
@@ -1044,7 +985,6 @@ import * as constants from 'constants';
     num = constants.DH_CHECK_P_NOT_PRIME;
     num = constants.DH_UNABLE_TO_CHECK_GENERATOR;
     num = constants.DH_NOT_SUITABLE_GENERATOR;
-    num = constants.NPN_ENABLED;
     num = constants.ALPN_ENABLED;
     num = constants.RSA_PKCS1_PADDING;
     num = constants.RSA_SSLV23_PADDING;

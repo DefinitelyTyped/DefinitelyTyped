@@ -1,4 +1,4 @@
-// Type definitions for stripe 6.30
+// Type definitions for stripe 6.31
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 //                 Peter Harris <https://github.com/codeanimal>
@@ -25,6 +25,7 @@
 //                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
 //                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,6 +58,7 @@ declare class Stripe {
     charges: Stripe.resources.Charges;
     checkout: Stripe.resources.Checkout;
     coupons: Stripe.resources.Coupons;
+    creditNotes: Stripe.resources.CreditNotes;
     customers: Stripe.resources.Customers;
     disputes: Stripe.resources.Disputes;
     events: Stripe.resources.Events;
@@ -92,11 +94,11 @@ declare class Stripe {
     sources: Stripe.resources.Sources;
 
     setHost(host: string): void;
-    setHost(host: string, port: string|number): void;
-    setHost(host: string, port: string|number, protocol: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
     setProtocol(protocol: string): void;
-    setPort(port: string|number): void;
+    setPort(port: string | number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
     setTimeout(timeout?: number): void;
@@ -194,6 +196,12 @@ declare namespace Stripe {
              * This field is null unless business_type is set to individual.
              */
             individual?: IIndividual;
+
+             /**
+              * External accounts (bank accounts and debit cards) currently
+              * attached to this account
+              */
+            external_accounts?: IList<cards.ICard | bankAccounts.IBankAccount>;
         }
 
         interface IAccountCreationOptions extends IAccountUpdateOptions {
@@ -1915,6 +1923,149 @@ declare namespace Stripe {
         }
     }
 
+    namespace creditNotes {
+      /**
+       * Credit notes are documents that decrease the amount owed on a specified invoice.
+       * Credit notes are the only way to adjust the amount of an invoice once it's been finalized
+       * (other than voiding and recreating the invoice from scratch).
+       */
+      interface ICreditNote extends IResourceObject {
+            /**
+             * Value is "credit_note"
+             */
+            object: "credit_note";
+
+            /**
+             * The integer amount in cents representing the total amount of the credit note.
+             */
+            amount: number;
+
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: string;
+
+            /**
+             * Three-letter ISO currency code, in lowercase. Must be a supported currency.
+             */
+            currency: string;
+
+            /**
+             * ID of the customer. [Expandable]
+             */
+            customer: string | customers.ICustomer;
+
+            /**
+             * Customer balance transaction related to this credit note. [Expandable]
+             */
+            customer_balance_transaction: string | balance.IBalanceTransaction;
+
+            /**
+             * ID of the invoice. [Expandable]
+             */
+            invoice: string | invoices.IInvoice;
+
+            /**
+             * Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+             */
+            livemode: boolean;
+
+            /**
+             * Customer-facing text that appears on the credit note PDF.
+             */
+            memo: string | null;
+
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+
+            /**
+             * A unique number that identifies this particular credit note.
+             * It appears on the PDF of the credit note and its associated invoice.
+             */
+            number: string;
+
+            /**
+             * The link to download the PDF of the credit note.
+             */
+            pdf: string;
+
+            /**
+             * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
+             */
+            reason: CreditNoteReason | null;
+
+            /**
+             * Refund related to this credit note. [Expandable]
+             */
+            refund: string | null | refunds.IRefund;
+
+            /**
+             * Status of this credit note, one of issued or void.
+             */
+            status: "issued" | "void";
+
+            /**
+             * Type of this credit note, one of post_payment or pre_payment.
+             * A pre_payment credit note means it was issued when the invoice was open.
+             * A post_payment credit note means it was issued when the invoice was paid.
+             */
+            type: "post_payment" | "pre_payment";
+      }
+
+      interface ICreditNoteCreationOptions extends IDataOptionsWithMetadata {
+        amount: number;
+        invoice: string;
+
+        /**
+         * The amount to credit the customer’s balance.
+         * It will be automatically applied to their next invoice.
+         */
+        credit_amount?: number;
+
+        /**
+         * The credit note’s memo appears on the credit note PDF. This can be unset by updating the value to nil and then saving.
+         */
+        memo?: string;
+
+        /**
+         * Reason for issuing this credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory.
+         */
+        reason?: CreditNoteReason;
+
+        /**
+         * ID of an existing refund to link this credit note to.
+         */
+        refund?: string;
+
+        /**
+         * The amount to refund. If set, a refund will be created for the charge associated with the invoice.
+         */
+        refund_amount?: number;
+      }
+
+      interface ICreditNoteUpdateOptions extends IDataOptionsWithMetadata {
+        /**
+         * Credit note memo. This can be unset by updating the value to nil and then saving.
+         */
+        memo?: string;
+      }
+
+      interface ICreditNoteListOptions extends IListOptions {
+        /**
+         * ID of the invoice.
+         */
+        invoice?: string;
+      }
+
+      /**
+       * Reason for issuing a credit note, one of duplicate, fraudulent, order_change, or product_unsatisfactory
+       */
+      type CreditNoteReason = "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+    }
+
     namespace customers {
         /**
          * Customer objects allow you to perform recurring charges and track multiple charges that are associated
@@ -2643,7 +2794,7 @@ declare namespace Stripe {
             /**
              * ID of the latest charge generated for this invoice, if any. [Expandable]
              */
-            charge: string | charges.ICharge;
+            charge: string | charges.ICharge | null;
 
             /**
              * Whether or not the invoice is still trying to collect payment. An invoice is closed if it's either paid or
@@ -2791,6 +2942,16 @@ declare namespace Stripe {
              * Start of the usage period during which invoice items were added to this invoice
              */
             period_start: number;
+
+            /**
+             * Total amount of all post-payment credit notes issued for this invoice.
+             */
+            post_payment_credit_notes_amount: number;
+
+            /**
+             * Total amount of all pre-payment credit notes issued for this invoice.
+             */
+            pre_payment_credit_notes_amount: number;
 
             /**
              * This is the transaction number that appears on email receipts sent for this invoice.
@@ -3339,9 +3500,9 @@ declare namespace Stripe {
             discountable: boolean;
 
             /**
-             * If null, the invoice item is pending and will be included in the upcoming invoice.
+             * If null, the invoice item is pending and will be included in the upcoming invoice. [Expandable]
              */
-            invoice: string | null;
+            invoice: string | invoices.IInvoice | null;
             livemode: boolean;
             metadata: IMetadata;
 
@@ -4299,6 +4460,11 @@ declare namespace Stripe {
              * The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key. Please refer to dynamic authentication guide on how client_secret should be handled. Required if using Publishable Key!
              */
             client_secret?: string;
+
+            /**
+             * ID of the payment method (a PaymentMethod, Card, BankAccount, or saved Source object) to attach to this PaymentIntent.
+             */
+            payment_method?: string;
 
             /**
              * Email address that the receipt for the resulting payment will be sent to.
@@ -5803,7 +5969,7 @@ declare namespace Stripe {
         /**
          * Hash describing the card used to make the charge
          */
-        interface ICardHash extends IResourceObject {
+        interface ICardHash extends IResourceObject, ICardHashInfo {
             /**
              * ID of card (used in conjunction with a customer or recipient ID)
              */
@@ -5813,79 +5979,6 @@ declare namespace Stripe {
              * Value is 'card'
              */
             object: "card";
-
-            /**
-             * The card number
-             */
-            number?: string;
-
-            /**
-             * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
-             */
-            brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown" ;
-            exp_month: number;
-            exp_year: number;
-
-            /**
-             * Card funding type. Can be credit, debit, prepaid, or unknown
-             */
-            funding: "credit" | "debit" | "prepaid" | "unknown";
-            last4: string;
-            address_city: string | null;
-
-            /**
-             * Billing address country, if provided when creating card
-             */
-            address_country: string | null;
-            address_line1: string | null;
-
-            /**
-             * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
-             */
-            address_line1_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
-            address_line2: string | null;
-            address_state: string | null;
-            address_zip: string | null;
-
-            /**
-             * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
-             */
-            address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
-
-            /**
-             * Two-letter ISO code representing the country of the card. You could use this
-             * attribute to get a sense of the international breakdown of cards you've collected.
-             */
-            country: string;
-
-            /**
-             * If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked
-             */
-            cvc_check: "pass" | "fail" | "unavailable" | "unchecked";
-
-            /**
-             * (For Apple Pay integrations only.) The last four digits of the device account number.
-             */
-            dynamic_last4: string | null;
-
-            /**
-             * Cardholder name
-             */
-            name: string | null;
-
-            /**
-             * Uniquely identifies this particular card number. You can use this attribute to check
-             * whether two customers who've signed up with you are using the same card number, for example.
-             */
-            fingerprint: string;
-
-            metadata?: IMetadata;
-
-            /**
-             * If the card number is tokenized, this is the method that was
-             * used. Can be "apple_pay" or "android_pay".
-             */
-            tokenization_method: "apple_pay" | "android_pay" | null;
         }
 
         interface ICardUpdateOptions extends IDataOptionsWithMetadata {
@@ -6364,6 +6457,14 @@ declare namespace Stripe {
              * Boolean indicating whether this subscription should cancel at the end of the current period.
              */
             cancel_at_period_end?: boolean;
+
+            /**
+             * Boolean (default true). Used to prevent Stripe Invoicing from automatically paying the subscription when the term changes.
+             * This can be set to false when used with services like Avalara that need to augment an invoice before the subscription is paid.
+             *
+             * Using this flag requires contacting Stripe support in order to have the account whitelisted.
+             */
+            pay_immediately?: boolean;
         }
 
         interface ISubscriptionCancellationOptions extends IDataOptions {
@@ -6727,6 +6828,7 @@ declare namespace Stripe {
                 refund_account_holder_name?: string | null;
             };
             amount?: number | null;
+            card?: ICardHashInfo;
             client_secret: string;
             code_verification?: {
                 attempts_remaining: number
@@ -7576,6 +7678,83 @@ declare namespace Stripe {
             list(data: IListOptionsCreated, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
             list(options: HeaderOptions, response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
             list(response?: IResponseFn<IList<coupons.ICoupon>>): IListPromise<coupons.ICoupon>;
+        }
+
+        class CreditNotes extends StripeResource {
+            /**
+             * A credit note can be issued for open and paid invoices.
+             * When issued for an open invoice, a credit note decreases the invoice’s amount due.
+             * When issued for a paid invoice, it is commonly used to refund or credit a specified amount to the customer.
+             */
+            create(
+                data: creditNotes.ICreditNoteCreationOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            create(
+                data: creditNotes.ICreditNoteCreationOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Retrieves the credit note with the given ID.
+             */
+            retrieve(
+                creditNoteId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            retrieve(
+                creditNoteId: string,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Updates the memo or metadata on the credit note.
+             */
+            update(
+                creditNoteId: string,
+                data: creditNotes.ICreditNoteUpdateOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            update(
+                creditNoteId: string,
+                data: creditNotes.ICreditNoteUpdateOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+
+            /**
+             * Returns a list of your credit notes. Credit notes are returned sorted by creation date, with the most recently created credit note
+             * items appearing first.
+             */
+            list(
+                data: creditNotes.ICreditNoteListOptions,
+                options: HeaderOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(
+                data: creditNotes.ICreditNoteListOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(
+                options: HeaderOptions,
+                response?: IResponseFn<IList<creditNotes.ICreditNote>>
+            ): Promise<IList<creditNotes.ICreditNote>>;
+            list(response?: IResponseFn<IList<creditNotes.ICreditNote>>): Promise<IList<creditNotes.ICreditNote>>;
+
+            /**
+             * Marks a credit note as void. Voiding a credit note reverses its adjustment. Voiding is only possible on open invoices.
+             */
+            voidCreditNote(
+                creditNoteId: string,
+                options: HeaderOptions,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
+            voidCreditNote(
+                creditNoteId: string,
+                response?: IResponseFn<creditNotes.ICreditNote>
+            ): Promise<creditNotes.ICreditNote>;
         }
 
         class CustomerCards extends StripeResource {
@@ -9205,6 +9384,80 @@ declare namespace Stripe {
 
     interface IResourceObject extends IObject {
         id: string;
+    }
+
+    interface ICardHashInfo {
+        /**
+         * The card number
+         */
+        number?: string;
+
+        /**
+         * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
+         */
+        brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown" ;
+        exp_month: number;
+        exp_year: number;
+
+        /**
+         * Card funding type. Can be credit, debit, prepaid, or unknown
+         */
+        funding: "credit" | "debit" | "prepaid" | "unknown";
+        last4: string;
+        address_city: string | null;
+
+        /**
+         * Billing address country, if provided when creating card
+         */
+        address_country: string | null;
+        address_line1: string | null;
+
+        /**
+         * If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.
+         */
+        address_line1_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
+        address_line2: string | null;
+        address_state: string | null;
+        address_zip: string | null;
+
+        /**
+         * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
+         */
+        address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" | null;
+
+        /**
+         * Two-letter ISO code representing the country of the card. You could use this
+         * attribute to get a sense of the international breakdown of cards you've collected.
+         */
+        country: string;
+
+        /**
+         * If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked
+         */
+        cvc_check: "pass" | "fail" | "unavailable" | "unchecked";
+
+        /**
+         * (For Apple Pay integrations only.) The last four digits of the device account number.
+         */
+        dynamic_last4: string | null;
+
+        /**
+         * Cardholder name
+         */
+        name: string | null;
+
+        /**
+         * Uniquely identifies this particular card number. You can use this attribute to check
+         * whether two customers who've signed up with you are using the same card number, for example.
+         */
+        fingerprint: string;
+        metadata?: IMetadata;
+
+        /**
+         * If the card number is tokenized, this is the method that was
+         * used. Can be "apple_pay" or "android_pay".
+         */
+        tokenization_method: "apple_pay" | "android_pay" | null;
     }
 
     type IResponseFn<R> = (err: IStripeError, value: R) => void;

@@ -88,7 +88,7 @@ export interface CategoricalChartWrapper<L = LayoutType> {
     compact?: boolean;
     width?: number;
     height?: number;
-    data?: object[];
+    data?: ReadonlyArray<object>;
     layout?: L;
     stackOffset?: StackOffsetType;
     throttleDelay?: number;
@@ -416,7 +416,7 @@ export interface LineProps extends EventAttributes, Partial<PresentationAttribut
     left?: number;
     width?: number;
     height?: number;
-    data?: object[];
+    data?: ReadonlyArray<object>;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     label?: boolean | object | React.ReactElement | ContentRenderer<any>;
     points?: Point[];
@@ -443,7 +443,7 @@ export interface PieProps extends EventAttributes, Partial<PresentationAttribute
     cornerRadius?: number | string;
     nameKey?: string | number | ((dataObject: any) => number);
     valueKey?: string | number | ((dataObject: any) => number);
-    data?: object[];
+    data?: ReadonlyArray<object>;
     minAngle?: number;
     legendType?: LegendType;
     maxRadius?: number;
@@ -755,7 +755,7 @@ export interface ScatterProps extends EventAttributes, Partial<PresentationAttri
     shape?: 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement | ContentRenderer<any>;
     points?: ScatterPoint[];
     hide?: boolean;
-    data?: object[];
+    data?: ReadonlyArray<object>;
     name?: string | number;
 }
 

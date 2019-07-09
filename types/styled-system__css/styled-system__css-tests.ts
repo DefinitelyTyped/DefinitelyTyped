@@ -129,3 +129,22 @@ css({
 css({
     variant: 'text.title',
 });
+
+css({
+    fontWeight: 'regular',
+    bg: 'secondary',
+});
+
+css({
+    bg: 'primary',
+
+    ':hover': {
+        bg: 'secondary',
+    },
+
+    ':disabled': {
+        color: 'gray',
+        bg: 'white',
+        cursor: 'auto',
+    },
+});
