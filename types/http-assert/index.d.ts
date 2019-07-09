@@ -1,4 +1,4 @@
-// Type definitions for http-assert 1.4
+// Type definitions for http-assert 1.5
 // Project: https://github.com/jshttp/http-assert
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 //                 Peter Squicciarini <https://github.com/stripedpajamas>

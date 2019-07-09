@@ -271,6 +271,76 @@ stripe.checkout.sessions.create({
 
 //#endregion
 
+//#region CreditNotes tests
+// ##################################################################################
+stripe.creditNotes.create({
+  amount: 100,
+  invoice: "in_15fvyXEe31JkLCeQH7QbgZZb",
+}, (err, creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+stripe.creditNotes.create({
+  amount: 100,
+  invoice: "in_15fvyXEe31JkLCeQH7QbgZZb",
+}).then((creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+stripe.creditNotes.retrieve(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+stripe.creditNotes.retrieve("cn_1FsAjKFpRTWZADwSy2clIZum").then((creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+stripe.creditNotes.retrieve("cn_1FsAjKFpRTWZADwSy2clIZum", { expand: ["refund"] }).then((creditNote) => {
+  creditNote.refund;
+});
+
+stripe.creditNotes.update(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  {
+    memo: 'foobar',
+  },
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+stripe.creditNotes.update(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  {
+    memo: 'foobar',
+  }).then((creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+
+stripe.creditNotes.list(
+  { invoice: "in_15fvyXEe31JkLCeQH7QbgZZb", limit: 3 },
+  (err, creditNotes) => {
+    creditNotes; // $ExpectType IList<ICreditNote>
+  }
+);
+stripe.creditNotes.list({ invoice: "in_15fvyXEe31JkLCeQH7QbgZZb", limit: 3 }).then((creditNotes) => {
+  creditNotes; // $ExpectType IList<ICreditNote>
+});
+
+stripe.creditNotes.voidCreditNote(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+
+stripe.creditNotes.voidCreditNote("cn_1FsAjKFpRTWZADwSy2clIZum").then(creditNote => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+//#endregion
+
 //#region Customer tests
 // ##################################################################################
 
@@ -616,7 +686,7 @@ stripe.customers.retrieveSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp"
     // asynchronously called
 });
 
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] },
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }], pay_immediately: false },
     (err, subscription) => {
         // asynchronously called
     }
@@ -763,8 +833,11 @@ stripe.accounts.retrieve(
 );
 stripe.accounts.retrieve(
     "acct_17wV8KBoqMA9o2xk").then(
-    (account) => {
+    account => {
         // asynchronously called
+
+        // account should have external_accounts property
+        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
     }
 );
 
@@ -1578,6 +1651,16 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 });
 stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" }).then((subscriptions) => {
     // asynchronously called
+});
+
+//#endregion
+
+//#region Sources tests
+// ##################################################################################
+
+stripe.sources.retrieve("tok_15V2YhEe31JkLCeQy9iUgsJX").then((source) => {
+    // asynchronously called
+    source.card; // $ExpectType ICardHashInfo
 });
 
 //#endregion

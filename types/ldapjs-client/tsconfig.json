@@ -1,16 +1,24 @@
 {
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "stream-mock-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "ldapjs-client-tests.ts"
+    ]
 }

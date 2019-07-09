@@ -3,6 +3,7 @@
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
+//                 Dmytro Gokun <https://github.com/dmytro-gokun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -766,6 +767,8 @@ declare namespace mapboxgl {
         type: 'image';
 
         constructor(options?: mapboxgl.ImageSourceOptions);
+
+        updateImage(options: ImageSourceOptions): this;
 
         setCoordinates(coordinates: number[][]): this;
     }

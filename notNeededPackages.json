@@ -3019,12 +3019,6 @@
             "asOfVersion": "0.21.0"
         },
         {
-            "libraryName": "swagger-parser",
-            "typingsPackageName": "swagger-parser",
-            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
-            "asOfVersion": "7.0.0"
-        },
-        {
             "libraryName": "ServiceStack Utils",
             "typingsPackageName": "ss-utils",
             "sourceRepoURL": "https://servicestack.net/",
@@ -3035,6 +3029,12 @@
             "typingsPackageName": "storybook__addon-notes",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
             "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "stream-mock",
+            "typingsPackageName": "stream-mock",
+            "sourceRepoURL": "https://github.com/b4nst/stream-mock",
+            "asOfVersion": "2.0.1"
         },
         {
             "libraryName": "string-length",
@@ -3107,6 +3107,12 @@
             "typingsPackageName": "svg.js",
             "sourceRepoURL": "http://www.svgjs.com/",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "swagger-parser",
+            "typingsPackageName": "swagger-parser",
+            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",

@@ -145,7 +145,7 @@ export interface BlockInstance<T extends Record<string, any> = { [k: string]: an
     /**
      * Array of inner blocks, if the block has any.
      */
-    readonly innerBlocks: readonly BlockInstance[];
+    readonly innerBlocks: BlockInstance[];
     /**
      * Indicates whether or not the block is valid.
      */
@@ -348,16 +348,17 @@ export type TransformRawSchema = {
 
 export interface TransformBlock<T extends Record<string, any>> {
     type: 'block';
-    blocks: string[];
     priority?: number;
+    blocks: string[];
     isMatch?(attributes: T): boolean;
+    isMultiBlock?: boolean;
     transform(attributes: T): BlockInstance<Partial<T>>;
 }
 
 export interface TransformEnter<T extends Record<string, any>> {
     type: 'enter';
-    regExp: RegExp;
     priority?: number;
+    regExp: RegExp;
     transform(): BlockInstance<Partial<T>>;
 }
 
@@ -370,12 +371,14 @@ export interface TransformFiles<T extends Record<string, any>> {
 
 export interface TransformPrefix<T extends Record<string, any>> {
     type: 'prefix';
+    priority?: number;
     prefix: string;
     transform(content: string): BlockInstance<Partial<T>>;
 }
 
 export interface TransformRaw<T extends Record<string, any>> {
     type: 'raw';
+    priority?: number;
     /**
      * Comma-separated list of selectors, no spaces.
      *
@@ -383,15 +386,15 @@ export interface TransformRaw<T extends Record<string, any>> {
      */
     selector?: string;
     schema?: TransformRawSchema;
-    priority?: number;
     isMatch?(node: Node): boolean;
     transform?(node: Node): BlockInstance<Partial<T>> | void;
 }
 
 export interface TransformShortcode<T extends Record<string, any>> {
     type: 'shortcode';
+    priority?: number;
     tag: string;
-    attributes?: any; // fix this if I ever need it.
+    attributes?: any; // TODO: add stronger types here.
 }
 
 export type Transform<T extends Record<string, any> = Record<string, any>> =
