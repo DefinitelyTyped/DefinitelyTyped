@@ -1,10 +1,10 @@
-// Type definitions for ghost-storage-base 0.0.3
+// Type definitions for ghost-storage-base 0.0
 // Project: https://github.com/TryGhost/Ghost-Storage-Base
 // Definitions by: Demian <https://github.com/thde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Handler }  from 'express';
+import { Handler } from 'express';
 
 export interface Image {
     path: string;
@@ -13,10 +13,10 @@ export interface Image {
 }
 
 export interface ReadOptions {
-    path: string
+    path: string;
 }
 
-export declare abstract class StorageBase { 
+export abstract class StorageBase {
     constructor();
 
     abstract exists(fileName: string, targetDir: string): Promise<boolean>;
@@ -29,5 +29,3 @@ export declare abstract class StorageBase {
     getUniqueFileName(image: Image, targetDir: string): string;
     getSanitizedFileName(fileName: string): string;
 }
-
-export default StorageBase;
