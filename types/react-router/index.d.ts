@@ -92,7 +92,7 @@ export interface RouteProps {
   sensitive?: boolean;
   strict?: boolean;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T, any> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T & RouteProps, any> { }
 
 export interface RouterProps {
   history: H.History;
