@@ -1,10 +1,9 @@
-// Type definitions for JSPrintManager v2.0.2
+// Type definitions for JSPrintManager 2.0
 // Project: https://github.com/neodynamic/jsprintmanager
 // Definitions by: Philippe Auriou <https://github.com/auriou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-export declare namespace JSPM {
+export namespace JSPM {
     interface IClientPrinter {
         Id: any;
         serialize(): any;
@@ -129,26 +128,6 @@ export declare namespace JSPM {
         Landscape = 1,
     }
 
-    enum Parity {
-        None = 0,
-        Odd = 1,
-        Even = 2,
-        Mark = 3,
-        Space = 4,
-    }
-    enum StopBits {
-        None = 0,
-        One = 1,
-        Two = 2,
-        OnePointFive = 3,
-    }
-    enum Handshake {
-        None = 0,
-        RequestToSend = 1,
-        RequestToSendXOnXOff = 2,
-        XOnXOff = 3,
-    }
-
     class JSPMWebSocket {
         private _ws;
         private _addr;
@@ -176,7 +155,6 @@ export declare namespace JSPM {
         send(data: any): Promise<any>;
         stop(): void;
     }
-
 
     class JSPrintManager {
         static WS: JSPMWebSocket;
@@ -231,5 +209,41 @@ export declare namespace JSPM {
         marginBottom: number;
         constructor(fileContent: string, fileName: string, copies?: number);
         serialize(): Promise<zip.Reader>;
+    }
+
+    namespace Serial {
+        enum Parity {
+            None = 0,
+            Odd = 1,
+            Even = 2,
+            Mark = 3,
+            Space = 4,
+        }
+        enum StopBits {
+            None = 0,
+            One = 1,
+            Two = 2,
+            OnePointFive = 3,
+        }
+        enum Handshake {
+            None = 0,
+            RequestToSend = 1,
+            RequestToSendXOnXOff = 2,
+            XOnXOff = 3,
+        }
+    }
+}
+
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
+
+declare namespace zip {
+    class Reader {
+        size: number;
+        init(callback: () => void, onerror: (error: any) => void): void;
+        readUint8Array(index: number, length: number, callback: (result: Uint8Array) => void, onerror?: (error: any) => void): void;
     }
 }
