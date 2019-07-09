@@ -1258,6 +1258,9 @@ stripe.invoices.retrieveLines(
 stripe.invoices.retrieveLines("in_15fvyXEe31JkLCeQH7QbgZZb", { limit: 5 }).then((lines) => {
     // asynchronously called
 });
+stripe.invoices.listLineItems("in_15fvyXEe31JkLCeQH7QbgZZb", { limit: 5 }).then((lines) => {
+    lines; // $ExpectType IList<IInvoiceLineItem>
+});
 
 stripe.invoices.retrieveUpcoming(
     "cus_5rfJKDJkuxzh5Q",
@@ -1278,6 +1281,9 @@ stripe.invoices.retrieveUpcoming(
 );
 stripe.invoices.retrieveUpcoming("cus_5rfJKDJkuxzh5Q").then((upcoming) => {
     // asynchronously called
+});
+stripe.invoices.listUpcomingLineItems({ limit: 5 }).then((lines) => {
+    lines; // $ExpectType IList<IInvoiceLineItem>
 });
 
 stripe.invoices.update(
