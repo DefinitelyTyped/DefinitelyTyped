@@ -1,6 +1,6 @@
 // Type definitions for redux-api-middleware 3.0
 // Project: https://github.com/agraboso/redux-api-middleware
-// Definitions by: Andrew Luca <https://github.com/me>
+// Definitions by: Andrew Luca <https://github.com/iamandrewluca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
