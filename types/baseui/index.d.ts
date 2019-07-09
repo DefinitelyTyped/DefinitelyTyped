@@ -28,6 +28,7 @@ export const LightThemeMove: Theme;
 export const LightThemePrimitives: ThemePrimitives;
 export const DarkTheme: Theme;
 export const DarkThemeMove: Theme;
+export const darkThemePrimitives: ThemePrimitives;
 
 export interface BaseProviderProps {
   children: React.ReactNode;
