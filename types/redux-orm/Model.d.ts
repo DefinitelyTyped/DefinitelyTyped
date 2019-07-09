@@ -37,7 +37,7 @@ export interface SerializableMap {
  * - {@link MutableQuerySet} - for many-to-many relations
  * - {@link QuerySet} - for reverse side of foreign keys
  */
-export type ModelField = MutableQuerySet | QuerySet | SessionBoundModel | Serializable;
+export type ModelField = QuerySet | SessionBoundModel | Serializable;
 
 /**
  * Map of fields restriction to supported field types.
@@ -72,7 +72,7 @@ export type IdOrModelLike<M extends Model> = IdType<M> | {getId(): IdType<M>; };
  * logic by defining prototype methods (without `static` keyword).
  * @borrows {@link QuerySet.filter} as Model#filter
  */
-export default class Model<MClass extends typeof AnyModel = any, Fields extends ModelFieldMap = any> {
+export default class Model<MClass extends typeof AnyModel = typeof AnyModel, Fields extends ModelFieldMap = any> {
     /**
      * A string constant identifying specific Model, necessary to retain the shape of state and relations through transpilation steps
      */
@@ -122,7 +122,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      *
      * @return a reference to the plain JS object in the store
      */
-    readonly ref: Ref<InstanceType<MClass>>;
+    readonly ref: Ref<this>;
 
     /**
      * Creates a Model instance from it's properties.
@@ -402,7 +402,7 @@ export type IdType<M extends Model> = IdKey<M> extends infer U
 /**
  * Type of {@link Model.ref} / database entry for a particular Model type
  */
-export type Ref<M extends Model> = {
+export type Ref<M extends AnyModel> = {
     [K in keyof RefFields<M>]: ModelFields<M>[K] extends AnyModel ? IdType<ModelFields<M>[K]> : RefFields<M>[K]
 };
 
@@ -412,7 +412,7 @@ export type Ref<M extends Model> = {
  * - declared Model field type - if propertyName belongs to declared Model fields
  * - any serializable value - if propertyName is not among declared Model fields
  */
-export type RefPropOrSimple<M extends Model, K extends string> = K extends keyof RefFields<M>
+export type RefPropOrSimple<M extends AnyModel, K extends string> = K extends keyof RefFields<M>
     ? Ref<M>[K]
     : Serializable;
 
@@ -477,7 +477,7 @@ export type ModelClass<M extends AnyModel> = ReturnType<M['getClass']>;
 /**
  * @internal
  */
-export type ModelFields<M extends Model> = [ConstructorParameters<ModelClass<M>>] extends [[infer U]]
+export type ModelFields<M extends Model> = ConstructorParameters<ModelClass<M>> extends [infer U]
     ? U extends ModelFieldMap
         ? U
         : never
