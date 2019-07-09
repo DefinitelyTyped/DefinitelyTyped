@@ -3,7 +3,7 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
-import KDBush from 'kdbush';
+import KDBush = require ('kdbush');
 
 export function around<T>(
   index: KDBush<T>,
