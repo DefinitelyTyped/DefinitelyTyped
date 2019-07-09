@@ -2,9 +2,13 @@
 
 
 
+
+
 // Project: https://github.com/neodynamic/jsprintmanager
 // Definitions by: Philippe Auriou <https://github.com/auriou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+
 
 
 
@@ -94,7 +98,9 @@ export namespace JSPM {
             baudRate: number,
 
             parity: Serial.Parity,
+
             stopBits: Serial.StopBits,
+
             dataBits: number,
             flowControl: Serial.Handshake
         );
