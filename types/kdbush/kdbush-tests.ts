@@ -1,4 +1,4 @@
-import KDBush from "kdbush";
+import KDBush = require("kdbush");
 
 // API
 const points = [[110, 60], [130, 40]];
