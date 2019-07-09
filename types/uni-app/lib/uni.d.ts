@@ -39,7 +39,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/window/communication?id=off](http://uniapp.dcloud.io/api/window/communication?id=off)
      */
-    $off(eventName?: string | any [], callback?: () => void): void;
+    $off(eventName?: string | any[], callback?: () => void): void;
     /**
      * 通过id 获取 subNVues 原生子窗体的实例
      *

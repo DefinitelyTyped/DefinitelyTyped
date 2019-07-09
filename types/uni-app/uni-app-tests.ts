@@ -28,3 +28,5 @@ uni.createSelectorQuery().select('.test').context(res => {
         }
     });
 });
+
+const px: number = uni.upx2px(750);
