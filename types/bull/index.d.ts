@@ -833,7 +833,7 @@ declare namespace Bull {
     /**
      * Returns Redis clients array which belongs to current Queue from string with all redis clients
      *
-     * @params list: string String with all redis clients
+     * @param list String with all redis clients
      */
     parseClientList(list: string): Redis.Redis[];
   }
