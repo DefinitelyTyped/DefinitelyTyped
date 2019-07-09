@@ -1,4 +1,4 @@
-// Type definitions for kdbush 3.0.0
+// Type definitions for kdbush 3.0
 // Project: https://github.com/mourner/kdbush
 // Definitions by: DenisCarriere <https://github.com/DenisCarriere>
 //                 Christian Scott <https://github.com/chrfrasco>
