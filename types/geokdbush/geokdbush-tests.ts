@@ -1,4 +1,4 @@
-import KDBush from 'kdbush';
+import KDBush = require('kdbush');
 import * as geokdbush from 'geokdbush';
 
 const points = [
