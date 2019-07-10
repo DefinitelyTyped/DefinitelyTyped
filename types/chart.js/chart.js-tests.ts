@@ -5,11 +5,13 @@ import { Chart, ChartData, Point } from "chart.js";
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {
     }
 };
 
-const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
+const ctx = new CanvasRenderingContext2D();
+
+const chart: Chart = new Chart(ctx, {
     type: "bar",
     plugins: [plugin, plugin],
     data: {
@@ -17,9 +19,11 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         datasets: [
             {
                 backgroundColor: "#000000",
+                hoverBackgroundColor: ctx.createLinearGradient(0, 0, 0, 100),
+                hoverBorderColor: ctx.createLinearGradient(0, 0, 0, 100),
                 borderWidth: 1,
                 label: "test",
-                data: [1]
+                data: [1, null, 3]
             }
         ]
     },
@@ -36,12 +40,20 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
+            mode: 'index',
             itemSort: (a, b) => Math.random() - 0.5,
             position: "average",
             caretPadding: 2,
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
-            borderWidth: 1
+            borderWidth: 1,
+            callbacks: {
+                title: ([point]) => point.label ? point.label.substring(0, 2) : 'title',
+                label(tooltipItem) {
+                    const { value, x, y, label } = tooltipItem;
+                    return `${label}(${x}, ${y}) = ${value}`;
+                },
+            },
         },
         scales: {
             xAxes: [
@@ -54,7 +66,8 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                         borderDash: [5, 15],
                         borderDashOffset: 2,
                         zeroLineBorderDash: [5, 15],
-                        zeroLineBorderDashOffset: 2
+                        zeroLineBorderDashOffset: 2,
+                        lineWidth: [1, 2, 3]
                     }
                 }
             ]
@@ -66,10 +79,14 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 padding: 40
             }
         },
-        devicePixelRatio: 2
+        devicePixelRatio: 2,
+        plugins: {
+            bar: false,
+            foo: {}
+        }
     }
 });
-chart.update();
+chart.update({duration: 500, lazy: false, easing: 'linear'});
 
 console.log(chart.getDatasetMeta(0));
 
@@ -106,7 +123,9 @@ const scaleOptions: Chart.RadialLinearScale = {
     lineArc: false,
     display: false,
     scaleLabel: {
-        display: false
+        display: false,
+        lineHeight: 1,
+        padding: 0,
     },
 };
 const radarChartOptions: Chart.RadialChartOptions = {
@@ -125,6 +144,7 @@ const chartConfig: Chart.ChartConfiguration = {
             backgroundColor: '#37738353',
             borderColor: '#37738353',
             borderWidth: 3,
+            borderCapStyle: 'round',
             fill: true
         }]
     },

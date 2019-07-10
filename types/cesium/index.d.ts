@@ -1,11 +1,12 @@
-// Type definitions for cesium 1.47
+// Type definitions for cesium 1.59
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
 //                 Jared Szechy <https://github.com/szechyjs>
 //                 Radek Goláň jr. <https://github.com/golyalpha>
+//                 Emma Krantz <https://github.com/KeyboardSounds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 // tslint:disable-next-line:export-just-namespace
 export = Cesium;
@@ -261,6 +262,7 @@ declare namespace Cesium {
         toString(): string;
         static fromRadians(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
         static fromDegrees(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
+        static toCartesian(cartographic: Cartographic, ellipsoid?: Ellipsoid, result?: Cartesian3): Cartesian3;
         static clone(cartographic: Cartographic, result?: Cartographic): Cartographic;
         static equals(left?: Cartographic, right?: Cartographic): boolean;
         static equalsEpsilon(left: Cartographic, right: Cartographic, epsilon: number): boolean;
@@ -312,7 +314,7 @@ declare namespace Cesium {
         clockRange: ClockRange;
         canAnimate: boolean;
         shouldAnimate: boolean;
-        onTick: Event;
+        onTick: Event<[Clock]>;
         constructor(options: {
             startTime?: JulianDate;
             stopTime?: JulianDate;
@@ -704,11 +706,11 @@ declare namespace Cesium {
         constructor(options?: { tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid });
     }
 
-    class Event {
+    class Event<T extends any[] = any[]> {
         numberOfListeners: number;
-        addEventListener(listener: () => void, scope?: any): Event.RemoveCallback;
-        removeEventListener(listener: () => void, scope?: any): boolean;
-        raiseEvent(...args: any[]): void;
+        addEventListener(listener: (...args: T) => void, scope?: any): Event.RemoveCallback;
+        removeEventListener(listener: (...args: T) => void, scope?: any): boolean;
+        raiseEvent(...args: T): void;
     }
 
     namespace Event {
@@ -1391,10 +1393,29 @@ declare namespace Cesium {
         constructor(message?: string);
     }
 
+    interface ScreenSpaceEventMap {
+        [ScreenSpaceEventType.LEFT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.LEFT_DOUBLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.RIGHT_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_DOWN]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_UP]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MIDDLE_CLICK]: { position: Cartesian2 };
+        [ScreenSpaceEventType.MOUSE_MOVE]: { startPosition: Cartesian2, endPosition: Cartesian2 };
+        [ScreenSpaceEventType.WHEEL]: number;
+        [ScreenSpaceEventType.PINCH_START]: { position1: Cartesian2, position2: Cartesian2 };
+        [ScreenSpaceEventType.PINCH_MOVE]: { distance: { startPosition: Cartesian2, endPosition: Cartesian2 }, angleAndHeight: { startPosition: Cartesian2, endPosition: Cartesian2 }};
+    }
+
     class ScreenSpaceEventHandler {
         constructor(element?: HTMLCanvasElement);
-        setInputAction(action: () => void, type: number, modifier?: number): void;
-        getInputAction(type: number, modifier?: number): () => void;
+        setInputAction<K extends keyof ScreenSpaceEventMap>(action: (event: ScreenSpaceEventMap[K]) => void, type: K, modifier?: number): void;
+        setInputAction(action: () => void, type: ScreenSpaceEventType, modifier?: number): void;
+        getInputAction<K extends keyof ScreenSpaceEventMap>(type: K, modifier?: number): (event: ScreenSpaceEventMap[K]) => void;
+        getInputAction(type: ScreenSpaceEventType, modifier?: number): () => void;
         removeInputAction(type: number, modifier?: number): void;
         isDestroyed(): boolean;
         destroy(): void;
@@ -1428,6 +1449,9 @@ declare namespace Cesium {
     }
 
     class Spherical {
+        clock: number;
+        cone: number;
+        magnitude: number;
         constructor(clock?: number, cone?: number, magnitude?: number);
         equals(other: Spherical): boolean;
         clone(result?: Spherical): Spherical;
@@ -1512,7 +1536,7 @@ declare namespace Cesium {
         retry: boolean;
         error: Error;
         constructor(provider: ImageryProvider | TerrainProvider, message: string, x?: number, y?: number, level?: number, timesRetried?: number, error?: Error);
-        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event,
+        static handleError(previousError: TileProviderError, provider: ImageryProvider | TerrainProvider, event: Event<[TileProviderError]>,
                             message: string, x: number, y: number, level: number, retryFunction: TileProviderError.RetryFunction,
                             errorDetails?: Error): TileProviderError;
         static handleSuccess(previousError: TileProviderError): void;
@@ -1562,7 +1586,7 @@ declare namespace Cesium {
     }
 
     class TimeIntervalCollection {
-        readonly changedEvent: Event;
+        readonly changedEvent: Event<[TimeIntervalCollection]>;
         readonly start: JulianDate;
         readonly isStartIncluded: boolean;
         readonly stop: JulianDate;
@@ -2414,16 +2438,24 @@ declare namespace Cesium {
         constructor(color?: Property);
     }
 
-    class PolylineGeometryUpdater extends GeometryUpdater {
-        readonly depthFailMaterialProperty: MaterialProperty;
-        readonly distanceDisplayConditionProperty: Property;
-        constructor(entity: Entity, scene: Scene);
-    }
-
     class PolylineGlowMaterialProperty extends MaterialProperty {
         color: Color;
         glowPower: Property;
         constructor(options?: { color?: Property; glowPower?: Property });
+    }
+
+    class PolylineDashMaterialProperty extends MaterialProperty {
+        color: Color;
+        gapColor: Color;
+        dashLength: Property;
+        dashPattern: Property;
+        constructor(options?: {color?: Color; gapColor?: Color; dashLength?: Property; dashPattern?: Property});
+    }
+
+    class PolylineGeometryUpdater extends GeometryUpdater {
+        readonly depthFailMaterialProperty: MaterialProperty;
+        readonly distanceDisplayConditionProperty: Property;
+        constructor(entity: Entity, scene: Scene);
     }
 
     class PolylineGraphics {
@@ -2434,7 +2466,14 @@ declare namespace Cesium {
         width: number;
         followSurface: Property;
         granularity: Property;
-        constructor(options?: { positions?: Cartesian3[]; followSurface?: Property; width?: number; show?: Property; material?: MaterialProperty; granularity?: Property });
+        constructor(options?: {
+            positions?: Cartesian3[];
+            followSurface?: Property;
+            width?: number;
+            show?: Property;
+            material?: MaterialProperty;
+            granularity?: Property
+        });
         clone(result?: PolylineGraphics): PolylineGraphics;
         merge(source: PolylineGraphics): PolylineGraphics;
     }
@@ -2824,7 +2863,7 @@ declare namespace Cesium {
         flyHome(duration: number): void;
         flyTo(options: {
             destination: Cartesian3 | Rectangle;
-            orientation?: any;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
             duration?: number;
             complete?: Camera.FlightCompleteCallback;
             cancel?: Camera.FlightCancelledCallback;
@@ -2833,7 +2872,8 @@ declare namespace Cesium {
             pitchAdjustHeight?: number;
             flyOverLongitude?: number;
             flyOverLongitudeWeight?: number;
-            easingFunction?: EasingFunction
+            easingFunction?: EasingFunction,
+            convert?: boolean,
         }): void;
         flyToBoundingSphere(boundingSphere: BoundingSphere, options?: {
             duration?: number;
@@ -2871,7 +2911,12 @@ declare namespace Cesium {
         rotateLeft(angle?: number): void;
         rotateRight(angle?: number): void;
         rotateUp(angle?: number): void;
-        setView(options: {destination?: Cartesian3 | Rectangle; orientation?: any; endTransform?: Matrix4}): void;
+        setView(options: {
+            destination?: Cartesian3 | Rectangle;
+            orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
+            endTransform?: Matrix4,
+            convert?: boolean,
+        }): void;
         switchToOrthographicFrustum(): void;
         switchToPerspectiveFrustum(): void;
         twistLeft(amount?: number): void;
@@ -3012,6 +3057,9 @@ declare namespace Cesium {
     }
 
     class Globe {
+        atmosphereBrightnessShift: number;
+        atmosphereSaturationShift: number;
+        atmosphereHueShift: number;
         terrainProvider: TerrainProvider;
         northPoleColor: Cartesian3;
         southPoleColor: Cartesian3;
@@ -3027,6 +3075,7 @@ declare namespace Cesium {
         ellipsoid: Ellipsoid;
         imageryLayers: ImageryLayerCollection;
         baseColor: Color;
+        cartographicLimitRectangle: Rectangle;
         constructor(ellipsoid?: Ellipsoid);
         pick(ray: Ray, scene: Scene, result?: Cartesian3): Cartesian3;
         getHeight(cartographic: Cartographic): number;
@@ -3132,6 +3181,15 @@ declare namespace Cesium {
         range: number;
         constructor(heading?: number, pitch?: number, range?: number);
         static clone(hpr: HeadingPitchRange, result?: HeadingPitchRange): HeadingPitchRange;
+    }
+
+    // tslint:disable-next-line:no-unnecessary-class
+    class Cesium3DTileset {
+      constructor(Cesium3DTilesetItem: {
+        url: string;
+        maximumScreenSpaceError: number;
+        maximumNumberOfLoadedTiles: number;
+      })
     }
 
     class ImageryLayer {
@@ -3580,6 +3638,45 @@ declare namespace Cesium {
         constructor(options?: { translucent?: boolean; material?: Material; vertexShaderSource?: string; fragmentShaderSource?: string; renderState?: RenderState });
     }
 
+    class PostProcessStage {
+        readonly clearColor: Color;
+        enabled: boolean;
+        readonly forcePowerOfTwo: boolean;
+        readonly fragmentShader: string;
+        readonly name: string;
+        readonly pixelFormat: PixelFormat;
+        readonly ready: boolean;
+        readonly scissorRectangle: BoundingRectangle;
+        selected: any[];
+        readonly textureScale: number;
+        readonly uniforms: object;
+        constructor(options?: {
+            fragmentShader: string;
+            uniforms?: object;
+            textureScale?: number;
+            forcePowerOfTwo?: boolean;
+            pixelFormat?: PixelFormat;
+            clearColor?: Color;
+            scissorRectangle?: BoundingRectangle;
+            name?: string;
+        });
+        destroy(): void;
+        isDestroyed(): boolean;
+    }
+
+    class PostProcessStageCollection {
+        readonly fxaa: PostProcessStage;
+        readonly length: number;
+        readonly ready: boolean;
+        add(stage: PostProcessStage): PostProcessStage;
+        contains(stage: PostProcessStage): boolean;
+        destroy(): void;
+        get(index: number): PostProcessStage;
+        isDestroyed(): boolean;
+        remove(stage: PostProcessStage): boolean;
+        removeAll(): void;
+    }
+
     class Primitive {
         readonly allowPicking: boolean;
         appearance: Appearance;
@@ -3687,6 +3784,8 @@ declare namespace Cesium {
         fxaa: boolean;
         globe: Globe;
         readonly groundPrimitives: PrimitiveCollection;
+        highDynamicRange: boolean;
+        highDynamicRangeSupported: boolean;
         readonly id: string;
         readonly imageryLayers: ImageryLayerCollection;
         imagerySplitPosition: number;
@@ -3701,7 +3800,7 @@ declare namespace Cesium {
         maximumRenderTimeChange: number;
         minimumDisableDepthTestDistance: number;
         mode: SceneMode;
-        moon: Moon;
+        moon?: Moon;
         morphComplete: Event;
         morphStart: Event;
         morphTime: number;
@@ -3709,6 +3808,7 @@ declare namespace Cesium {
         readonly orderIndependentTranslucency: boolean;
         readonly pickPositionSupported: boolean;
         pickTranslucentDepth: boolean;
+        postProcessStages: PostProcessStageCollection;
         readonly postRender: Event;
         readonly preRender: Event;
         readonly preUpdate: Event;
@@ -3719,9 +3819,9 @@ declare namespace Cesium {
         readonly scene3DOnly: boolean;
         readonly screenSpaceCameraController: ScreenSpaceCameraController;
         shadowMap: ShadowMap;
-        skyAtmosphere: SkyAtmosphere;
-        skyBox: SkyBox;
-        sun: Sun;
+        skyAtmosphere?: SkyAtmosphere;
+        skyBox?: SkyBox;
+        sun?: Sun;
         sunBloom: boolean;
         terrainExaggeration: number;
         terrainProvider: TerrainProvider;
@@ -3792,6 +3892,9 @@ declare namespace Cesium {
     class SkyAtmosphere {
         show: boolean;
         ellipsoid: Ellipsoid;
+        saturationShift: number;
+        hueShift: number;
+        brightnessShift: number;
         constructor(ellipsoid?: Ellipsoid);
         isDestroyed(): boolean;
         destroy(): void;
@@ -4379,8 +4482,8 @@ declare namespace Cesium {
         allowDataSourcesToSuspendAnimation: boolean;
         trackedEntity: Entity;
         selectedEntity: Entity;
-        readonly trackedEntityChanged: Event;
-        readonly selectedEntityChanged: Event;
+        readonly trackedEntityChanged: Event<[Entity?]>;
+        readonly selectedEntityChanged: Event<[Entity?]>;
         readonly shadowMap: ShadowMap;
         readonly vrButton: VRButton;
         shadows: boolean;
@@ -4507,6 +4610,8 @@ declare namespace Cesium {
     }
 
     function sampleTerrain(terrainProvider: TerrainProvider, level: number, positions: Cartographic[]): Promise<Cartographic[]>;
+
+    function sampleTerrainMostDetailed(terrainProvider: TerrainProvider, positions: Cartographic[]): Promise<Cartographic[]>;
 
     function subdivideArray(array: any[], numberOfArrays: number): undefined;
 
@@ -4835,23 +4940,21 @@ declare namespace Cesium {
     }
 
     enum ScreenSpaceEventType {
-        LEFT_DOWN,
-        LEFT_UP,
-        LEFT_CLICK,
-        LEFT_DOUBLE_CLICK,
-        RIGHT_DOWN,
-        RIGHT_UP,
-        RIGHT_CLICK,
-        RIGHT_DOUBLE_CLICK,
-        MIDDLE_DOWN,
-        MIDDLE_UP,
-        MIDDLE_CLICK,
-        MIDDLE_DOUBLE_CLICK,
-        MOUSE_MOVE,
-        WHEEL,
-        PINCH_START,
-        PINCH_END,
-        PINCH_MOVE,
+        LEFT_DOWN = 0,
+        LEFT_UP = 1,
+        LEFT_CLICK = 2,
+        LEFT_DOUBLE_CLICK = 3,
+        RIGHT_DOWN = 5,
+        RIGHT_UP = 6,
+        RIGHT_CLICK = 7,
+        MIDDLE_DOWN = 10,
+        MIDDLE_UP = 11,
+        MIDDLE_CLICK = 12,
+        MOUSE_MOVE = 15,
+        WHEEL = 16,
+        PINCH_START = 17,
+        PINCH_END = 18,
+        PINCH_MOVE = 19,
     }
 
     namespace Simon1994PlanetaryPositions {
@@ -5204,5 +5307,588 @@ declare namespace Cesium {
 
     namespace buildModuleUrl {
       function setBaseUrl(value: string): undefined;
+    }
+
+    enum WebGLConstants  {
+        DEPTH_BUFFER_BIT,
+        STENCIL_BUFFER_BIT,
+        COLOR_BUFFER_BIT,
+        POINTS,
+        LINES,
+        LINE_LOOP,
+        LINE_STRIP,
+        TRIANGLES,
+        TRIANGLE_STRIP,
+        TRIANGLE_FAN,
+        ZERO,
+        ONE,
+        SRC_COLOR,
+        ONE_MINUS_SRC_COLOR,
+        SRC_ALPHA,
+        ONE_MINUS_SRC_ALPHA,
+        DST_ALPHA,
+        ONE_MINUS_DST_ALPHA,
+        DST_COLOR,
+        ONE_MINUS_DST_COLOR,
+        SRC_ALPHA_SATURATE,
+        FUNC_ADD,
+        BLEND_EQUATION,
+        BLEND_EQUATION_RGB, // same as BLEND_EQUATION
+        BLEND_EQUATION_ALPHA,
+        FUNC_SUBTRACT,
+        FUNC_REVERSE_SUBTRACT,
+        BLEND_DST_RGB,
+        BLEND_SRC_RGB,
+        BLEND_DST_ALPHA,
+        BLEND_SRC_ALPHA,
+        CONSTANT_COLOR,
+        ONE_MINUS_CONSTANT_COLOR,
+        CONSTANT_ALPHA,
+        ONE_MINUS_CONSTANT_ALPHA,
+        BLEND_COLOR,
+        ARRAY_BUFFER,
+        ELEMENT_ARRAY_BUFFER,
+        ARRAY_BUFFER_BINDING,
+        ELEMENT_ARRAY_BUFFER_BINDING,
+        STREAM_DRAW,
+        STATIC_DRAW,
+        DYNAMIC_DRAW,
+        BUFFER_SIZE,
+        BUFFER_USAGE,
+        CURRENT_VERTEX_ATTRIB,
+        FRONT,
+        BACK,
+        FRONT_AND_BACK,
+        CULL_FACE,
+        BLEND,
+        DITHER,
+        STENCIL_TEST,
+        DEPTH_TEST,
+        SCISSOR_TEST,
+        POLYGON_OFFSET_FILL,
+        SAMPLE_ALPHA_TO_COVERAGE,
+        SAMPLE_COVERAGE ,
+        NO_ERROR,
+        INVALID_ENUM,
+        INVALID_VALUE,
+        INVALID_OPERATION,
+        OUT_OF_MEMORY,
+        CW,
+        CCW,
+        LINE_WIDTH,
+        ALIASED_POINT_SIZE_RANGE,
+        ALIASED_LINE_WIDTH_RANGE,
+        CULL_FACE_MODE,
+        FRONT_FACE,
+        DEPTH_RANGE,
+        DEPTH_WRITEMASK,
+        DEPTH_CLEAR_VALUE,
+        DEPTH_FUNC,
+        STENCIL_CLEAR_VALUE,
+        STENCIL_FUNC,
+        STENCIL_FAIL,
+        STENCIL_PASS_DEPTH_FAIL,
+        STENCIL_PASS_DEPTH_PASS,
+        STENCIL_REF,
+        STENCIL_VALUE_MASK,
+        STENCIL_WRITEMASK,
+        STENCIL_BACK_FUNC,
+        STENCIL_BACK_FAIL,
+        STENCIL_BACK_PASS_DEPTH_FAIL,
+        STENCIL_BACK_PASS_DEPTH_PASS,
+        STENCIL_BACK_REF,
+        STENCIL_BACK_VALUE_MASK,
+        STENCIL_BACK_WRITEMASK,
+        VIEWPORT,
+        SCISSOR_BOX,
+        COLOR_CLEAR_VALUE,
+        COLOR_WRITEMASK,
+        UNPACK_ALIGNMENT,
+        PACK_ALIGNMENT,
+        MAX_TEXTURE_SIZE,
+        MAX_VIEWPORT_DIMS,
+        SUBPIXEL_BITS,
+        RED_BITS,
+        GREEN_BITS,
+        BLUE_BITS,
+        ALPHA_BITS,
+        DEPTH_BITS,
+        STENCIL_BITS,
+        POLYGON_OFFSET_UNITS,
+        POLYGON_OFFSET_FACTOR,
+        TEXTURE_BINDING_2D,
+        SAMPLE_BUFFERS,
+        SAMPLES,
+        SAMPLE_COVERAGE_VALUE,
+        SAMPLE_COVERAGE_INVERT,
+        COMPRESSED_TEXTURE_FORMATS,
+        DONT_CARE,
+        FASTEST,
+        NICEST ,
+        GENERATE_MIPMAP_HINT,
+        BYTE,
+        UNSIGNED_BYTE,
+        SHORT,
+        UNSIGNED_SHORT,
+        INT,
+        UNSIGNED_INT,
+        FLOAT,
+        DEPTH_COMPONENT,
+        ALPHA,
+        RGB,
+        RGBA,
+        LUMINANCE,
+        LUMINANCE_ALPHA,
+        UNSIGNED_SHORT_4_4_4_4,
+        UNSIGNED_SHORT_5_5_5_1,
+        UNSIGNED_SHORT_5_6_5,
+        FRAGMENT_SHADER,
+        VERTEX_SHADER,
+        MAX_VERTEX_ATTRIBS,
+        MAX_VERTEX_UNIFORM_VECTORS,
+        MAX_VARYING_VECTORS,
+        MAX_COMBINED_TEXTURE_IMAGE_UNITS,
+        MAX_VERTEX_TEXTURE_IMAGE_UNITS,
+        MAX_TEXTURE_IMAGE_UNITS,
+        MAX_FRAGMENT_UNIFORM_VECTORS,
+        SHADER_TYPE,
+        DELETE_STATUS,
+        LINK_STATUS,
+        VALIDATE_STATUS,
+        ATTACHED_SHADERS,
+        ACTIVE_UNIFORMS,
+        ACTIVE_ATTRIBUTES,
+        SHADING_LANGUAGE_VERSION,
+        CURRENT_PROGRAM,
+        NEVER,
+        LESS,
+        EQUAL,
+        LEQUAL,
+        GREATER,
+        NOTEQUAL,
+        GEQUAL,
+        ALWAYS,
+        KEEP,
+        REPLACE,
+        INCR,
+        DECR,
+        INVERT,
+        INCR_WRAP,
+        DECR_WRAP,
+        VENDOR,
+        RENDERER,
+        VERSION,
+        NEAREST,
+        LINEAR,
+        NEAREST_MIPMAP_NEAREST,
+        LINEAR_MIPMAP_NEAREST,
+        NEAREST_MIPMAP_LINEAR ,
+        LINEAR_MIPMAP_LINEAR,
+        TEXTURE_MAG_FILTER,
+        TEXTURE_MIN_FILTER,
+        TEXTURE_WRAP_S,
+        TEXTURE_WRAP_T,
+        TEXTURE_2D,
+        TEXTURE,
+        TEXTURE_CUBE_MAP,
+        TEXTURE_BINDING_CUBE_MAP,
+        TEXTURE_CUBE_MAP_POSITIVE_X,
+        TEXTURE_CUBE_MAP_NEGATIVE_X ,
+        TEXTURE_CUBE_MAP_POSITIVE_Y,
+        TEXTURE_CUBE_MAP_NEGATIVE_Y,
+        TEXTURE_CUBE_MAP_POSITIVE_Z,
+        TEXTURE_CUBE_MAP_NEGATIVE_Z,
+        MAX_CUBE_MAP_TEXTURE_SIZE,
+        TEXTURE0,
+        TEXTURE1,
+        TEXTURE2,
+        TEXTURE3,
+        TEXTURE4,
+        TEXTURE5,
+        TEXTURE6,
+        TEXTURE7,
+        TEXTURE8,
+        TEXTURE9,
+        TEXTURE10,
+        TEXTURE11,
+        TEXTURE12,
+        TEXTURE13,
+        TEXTURE14,
+        TEXTURE15,
+        TEXTURE16,
+        TEXTURE17,
+        TEXTURE18,
+        TEXTURE19,
+        TEXTURE20,
+        TEXTURE21,
+        TEXTURE22,
+        TEXTURE23,
+        TEXTURE24,
+        TEXTURE25,
+        TEXTURE26,
+        TEXTURE27,
+        TEXTURE28,
+        TEXTURE29,
+        TEXTURE30,
+        TEXTURE31,
+        ACTIVE_TEXTURE,
+        REPEAT,
+        CLAMP_TO_EDGE,
+        MIRRORED_REPEAT,
+        FLOAT_VEC2,
+        FLOAT_VEC3,
+        FLOAT_VEC4,
+        INT_VEC2,
+        INT_VEC3,
+        INT_VEC4,
+        BOOL,
+        BOOL_VEC2,
+        BOOL_VEC3,
+        BOOL_VEC4,
+        FLOAT_MAT2,
+        FLOAT_MAT3,
+        FLOAT_MAT4,
+        SAMPLER_2D,
+        SAMPLER_CUBE,
+        VERTEX_ATTRIB_ARRAY_ENABLED,
+        VERTEX_ATTRIB_ARRAY_SIZE,
+        VERTEX_ATTRIB_ARRAY_STRIDE,
+        VERTEX_ATTRIB_ARRAY_TYPE,
+        VERTEX_ATTRIB_ARRAY_NORMALIZED,
+        VERTEX_ATTRIB_ARRAY_POINTER,
+        VERTEX_ATTRIB_ARRAY_BUFFER_BINDING,
+        IMPLEMENTATION_COLOR_READ_TYPE,
+        IMPLEMENTATION_COLOR_READ_FORMAT,
+        COMPILE_STATUS,
+        LOW_FLOAT,
+        MEDIUM_FLOAT,
+        HIGH_FLOAT,
+        LOW_INT,
+        MEDIUM_INT,
+        HIGH_INT,
+        FRAMEBUFFER,
+        RENDERBUFFER,
+        RGBA4,
+        RGB5_A1,
+        RGB565,
+        DEPTH_COMPONENT16,
+        STENCIL_INDEX,
+        STENCIL_INDEX8,
+        DEPTH_STENCIL,
+        RENDERBUFFER_WIDTH,
+        RENDERBUFFER_HEIGHT,
+        RENDERBUFFER_INTERNAL_FORMAT,
+        RENDERBUFFER_RED_SIZE,
+        RENDERBUFFER_GREEN_SIZE,
+        RENDERBUFFER_BLUE_SIZE,
+        RENDERBUFFER_ALPHA_SIZE,
+        RENDERBUFFER_DEPTH_SIZE,
+        RENDERBUFFER_STENCIL_SIZE,
+        FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE,
+        FRAMEBUFFER_ATTACHMENT_OBJECT_NAME,
+        FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL,
+        FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE,
+        COLOR_ATTACHMENT0,
+        DEPTH_ATTACHMENT,
+        STENCIL_ATTACHMENT,
+        DEPTH_STENCIL_ATTACHMENT,
+        NONE,
+        FRAMEBUFFER_COMPLETE,
+        FRAMEBUFFER_INCOMPLETE_ATTACHMENT,
+        FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT,
+        FRAMEBUFFER_INCOMPLETE_DIMENSIONS,
+        FRAMEBUFFER_UNSUPPORTED,
+        FRAMEBUFFER_BINDING,
+        RENDERBUFFER_BINDING,
+        MAX_RENDERBUFFER_SIZE,
+        INVALID_FRAMEBUFFER_OPERATION,
+        UNPACK_FLIP_Y_WEBGL,
+        UNPACK_PREMULTIPLY_ALPHA_WEBGL,
+        CONTEXT_LOST_WEBGL,
+        UNPACK_COLORSPACE_CONVERSION_WEBGL,
+        BROWSER_DEFAULT_WEBGL,
+        COMPRESSED_RGB_S3TC_DXT1_EXT,
+        COMPRESSED_RGBA_S3TC_DXT1_EXT,
+        COMPRESSED_RGBA_S3TC_DXT3_EXT,
+        COMPRESSED_RGBA_S3TC_DXT5_EXT,
+        COMPRESSED_RGB_PVRTC_4BPPV1_IMG,
+        COMPRESSED_RGB_PVRTC_2BPPV1_IMG,
+        COMPRESSED_RGBA_PVRTC_4BPPV1_IMG,
+        COMPRESSED_RGBA_PVRTC_2BPPV1_IMG,
+        COMPRESSED_RGB_ETC1_WEBGL,
+        HALF_FLOAT_OES,
+        DOUBLE,
+        READ_BUFFER,
+        UNPACK_ROW_LENGTH,
+        UNPACK_SKIP_ROWS,
+        UNPACK_SKIP_PIXELS,
+        PACK_ROW_LENGTH,
+        PACK_SKIP_ROWS,
+        PACK_SKIP_PIXELS,
+        COLOR,
+        DEPTH,
+        STENCIL,
+        RED,
+        RGB8,
+        RGBA8,
+        RGB10_A2,
+        TEXTURE_BINDING_3D,
+        UNPACK_SKIP_IMAGES,
+        UNPACK_IMAGE_HEIGHT,
+        TEXTURE_3D,
+        TEXTURE_WRAP_R,
+        MAX_3D_TEXTURE_SIZE,
+        UNSIGNED_INT_2_10_10_10_REV,
+        MAX_ELEMENTS_VERTICES,
+        MAX_ELEMENTS_INDICES,
+        TEXTURE_MIN_LOD,
+        TEXTURE_MAX_LOD,
+        TEXTURE_BASE_LEVEL,
+        TEXTURE_MAX_LEVEL,
+        MIN,
+        MAX,
+        DEPTH_COMPONENT24,
+        MAX_TEXTURE_LOD_BIAS,
+        TEXTURE_COMPARE_MODE,
+        TEXTURE_COMPARE_FUNC,
+        CURRENT_QUERY,
+        QUERY_RESULT,
+        QUERY_RESULT_AVAILABLE,
+        STREAM_READ,
+        STREAM_COPY,
+        STATIC_READ,
+        STATIC_COPY,
+        DYNAMIC_READ,
+        DYNAMIC_COPY,
+        MAX_DRAW_BUFFERS,
+        DRAW_BUFFER0,
+        DRAW_BUFFER1,
+        DRAW_BUFFER2,
+        DRAW_BUFFER3,
+        DRAW_BUFFER4,
+        DRAW_BUFFER5,
+        DRAW_BUFFER6,
+        DRAW_BUFFER7,
+        DRAW_BUFFER8,
+        DRAW_BUFFER9,
+        DRAW_BUFFER10,
+        DRAW_BUFFER11,
+        DRAW_BUFFER12,
+        DRAW_BUFFER13,
+        DRAW_BUFFER14,
+        DRAW_BUFFER15,
+        MAX_FRAGMENT_UNIFORM_COMPONENTS,
+        MAX_VERTEX_UNIFORM_COMPONENTS,
+        SAMPLER_3D,
+        SAMPLER_2D_SHADOW,
+        FRAGMENT_SHADER_DERIVATIVE_HINT,
+        PIXEL_PACK_BUFFER,
+        PIXEL_UNPACK_BUFFER,
+        PIXEL_PACK_BUFFER_BINDING,
+        PIXEL_UNPACK_BUFFER_BINDING,
+        FLOAT_MAT2x3,
+        FLOAT_MAT2x4,
+        FLOAT_MAT3x2,
+        FLOAT_MAT3x4,
+        FLOAT_MAT4x2,
+        FLOAT_MAT4x3,
+        SRGB,
+        SRGB8,
+        SRGB8_ALPHA8,
+        COMPARE_REF_TO_TEXTURE,
+        RGBA32F,
+        RGB32F,
+        RGBA16F,
+        RGB16F,
+        VERTEX_ATTRIB_ARRAY_INTEGER,
+        MAX_ARRAY_TEXTURE_LAYERS,
+        MIN_PROGRAM_TEXEL_OFFSET,
+        MAX_PROGRAM_TEXEL_OFFSET,
+        MAX_VARYING_COMPONENTS,
+        TEXTURE_2D_ARRAY,
+        TEXTURE_BINDING_2D_ARRAY,
+        R11F_G11F_B10F,
+        UNSIGNED_INT_10F_11F_11F_REV,
+        RGB9_E5,
+        UNSIGNED_INT_5_9_9_9_REV,
+        TRANSFORM_FEEDBACK_BUFFER_MODE,
+        MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS,
+        TRANSFORM_FEEDBACK_VARYINGS,
+        TRANSFORM_FEEDBACK_BUFFER_START,
+        TRANSFORM_FEEDBACK_BUFFER_SIZE,
+        TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN,
+        RASTERIZER_DISCARD,
+        MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS,
+        MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS,
+        INTERLEAVED_ATTRIBS,
+        SEPARATE_ATTRIBS,
+        TRANSFORM_FEEDBACK_BUFFER,
+        TRANSFORM_FEEDBACK_BUFFER_BINDING,
+        RGBA32UI,
+        RGB32UI,
+        RGBA16UI,
+        RGB16UI,
+        RGBA8UI,
+        RGB8UI,
+        RGBA32I,
+        RGB32I,
+        RGBA16I,
+        RGB16I,
+        RGBA8I,
+        RGB8I,
+        RED_INTEGER,
+        RGB_INTEGER,
+        RGBA_INTEGER,
+        SAMPLER_2D_ARRAY,
+        SAMPLER_2D_ARRAY_SHADOW,
+        SAMPLER_CUBE_SHADOW,
+        UNSIGNED_INT_VEC2,
+        UNSIGNED_INT_VEC3,
+        UNSIGNED_INT_VEC4,
+        INT_SAMPLER_2D,
+        INT_SAMPLER_3D,
+        INT_SAMPLER_CUBE,
+        INT_SAMPLER_2D_ARRAY,
+        UNSIGNED_INT_SAMPLER_2D,
+        UNSIGNED_INT_SAMPLER_3D,
+        UNSIGNED_INT_SAMPLER_CUBE,
+        UNSIGNED_INT_SAMPLER_2D_ARRAY,
+        DEPTH_COMPONENT32F,
+        DEPTH32F_STENCIL8,
+        FLOAT_32_UNSIGNED_INT_24_8_REV,
+        FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING,
+        FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE,
+        FRAMEBUFFER_ATTACHMENT_RED_SIZE,
+        FRAMEBUFFER_ATTACHMENT_GREEN_SIZE,
+        FRAMEBUFFER_ATTACHMENT_BLUE_SIZE,
+        FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE,
+        FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE,
+        FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE,
+        FRAMEBUFFER_DEFAULT,
+        UNSIGNED_INT_24_8,
+        DEPTH24_STENCIL8,
+        UNSIGNED_NORMALIZED,
+        DRAW_FRAMEBUFFER_BINDING,
+        READ_FRAMEBUFFER,
+        DRAW_FRAMEBUFFER,
+        READ_FRAMEBUFFER_BINDING,
+        RENDERBUFFER_SAMPLES,
+        FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER,
+        MAX_COLOR_ATTACHMENTS,
+        COLOR_ATTACHMENT1,
+        COLOR_ATTACHMENT2,
+        COLOR_ATTACHMENT3,
+        COLOR_ATTACHMENT4,
+        COLOR_ATTACHMENT5,
+        COLOR_ATTACHMENT6,
+        COLOR_ATTACHMENT7,
+        COLOR_ATTACHMENT8,
+        COLOR_ATTACHMENT9,
+        COLOR_ATTACHMENT10,
+        COLOR_ATTACHMENT11,
+        COLOR_ATTACHMENT12,
+        COLOR_ATTACHMENT13,
+        COLOR_ATTACHMENT14,
+        COLOR_ATTACHMENT15,
+        FRAMEBUFFER_INCOMPLETE_MULTISAMPLE,
+        MAX_SAMPLES,
+        HALF_FLOAT,
+        RG,
+        RG_INTEGER,
+        R8,
+        RG8,
+        R16F,
+        R32F,
+        RG16F,
+        RG32F,
+        R8I,
+        R8UI,
+        R16I,
+        R16UI,
+        R32I,
+        R32UI,
+        RG8I,
+        RG8UI,
+        RG16I,
+        RG16UI,
+        RG32I,
+        RG32UI,
+        VERTEX_ARRAY_BINDING,
+        R8_SNORM,
+        RG8_SNORM,
+        RGB8_SNORM,
+        RGBA8_SNORM,
+        SIGNED_NORMALIZED,
+        COPY_READ_BUFFER,
+        COPY_WRITE_BUFFER,
+        COPY_READ_BUFFER_BINDING,
+        COPY_WRITE_BUFFER_BINDING,
+        UNIFORM_BUFFER,
+        UNIFORM_BUFFER_BINDING,
+        UNIFORM_BUFFER_START,
+        UNIFORM_BUFFER_SIZE,
+        MAX_VERTEX_UNIFORM_BLOCKS,
+        MAX_FRAGMENT_UNIFORM_BLOCKS,
+        MAX_COMBINED_UNIFORM_BLOCKS,
+        MAX_UNIFORM_BUFFER_BINDINGS,
+        MAX_UNIFORM_BLOCK_SIZE,
+        MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS,
+        MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS,
+        UNIFORM_BUFFER_OFFSET_ALIGNMENT,
+        ACTIVE_UNIFORM_BLOCKS,
+        UNIFORM_TYPE,
+        UNIFORM_SIZE,
+        UNIFORM_BLOCK_INDEX,
+        UNIFORM_OFFSET,
+        UNIFORM_ARRAY_STRIDE,
+        UNIFORM_MATRIX_STRIDE,
+        UNIFORM_IS_ROW_MAJOR,
+        UNIFORM_BLOCK_BINDING,
+        UNIFORM_BLOCK_DATA_SIZE,
+        UNIFORM_BLOCK_ACTIVE_UNIFORMS,
+        UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES,
+        UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER,
+        UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER,
+        INVALID_INDEX,
+        MAX_VERTEX_OUTPUT_COMPONENTS,
+        MAX_FRAGMENT_INPUT_COMPONENTS,
+        MAX_SERVER_WAIT_TIMEOUT,
+        OBJECT_TYPE,
+        SYNC_CONDITION,
+        SYNC_STATUS,
+        SYNC_FLAGS,
+        SYNC_FENCE,
+        SYNC_GPU_COMMANDS_COMPLETE,
+        UNSIGNALED,
+        SIGNALED,
+        ALREADY_SIGNALED,
+        TIMEOUT_EXPIRED,
+        CONDITION_SATISFIED,
+        WAIT_FAILED,
+        SYNC_FLUSH_COMMANDS_BIT,
+        VERTEX_ATTRIB_ARRAY_DIVISOR,
+        ANY_SAMPLES_PASSED,
+        ANY_SAMPLES_PASSED_CONSERVATIVE,
+        SAMPLER_BINDING,
+        RGB10_A2UI,
+        INT_2_10_10_10_REV,
+        TRANSFORM_FEEDBACK,
+        TRANSFORM_FEEDBACK_PAUSED,
+        TRANSFORM_FEEDBACK_ACTIVE,
+        TRANSFORM_FEEDBACK_BINDING,
+        COMPRESSED_R11_EAC,
+        COMPRESSED_SIGNED_R11_EAC,
+        COMPRESSED_RG11_EAC,
+        COMPRESSED_SIGNED_RG11_EAC,
+        COMPRESSED_RGB8_ETC2,
+        COMPRESSED_SRGB8_ETC2,
+        COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2,
+        COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2,
+        COMPRESSED_RGBA8_ETC2_EAC,
+        COMPRESSED_SRGB8_ALPHA8_ETC2_EAC,
+        TEXTURE_IMMUTABLE_FORMAT,
+        MAX_ELEMENT_INDEX,
+        TEXTURE_IMMUTABLE_LEVELS,
+        MAX_TEXTURE_MAX_ANISOTROPY_EXT
     }
 }

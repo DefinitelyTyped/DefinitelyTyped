@@ -1,78 +1,71 @@
-// Type definitions for braces 2.3
+// Type definitions for braces 3.0
 // Project: https://github.com/micromatch/braces
 // Definitions by: vemoo <https://github.com/vemoo>
+//                 mrmlnc <https://github.com/mrmlnc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace braces {
+    type Transform = (str: string) => string;
+
     interface Options {
         /**
-         * Generate an "expanded" brace pattern (this option is unncessary with the `.expand` method, which does the same thing).
+         * Limit the length of the input string. Useful when the input string is generated or your application allows
+         * users to pass a string, et cetera.
          *
-         * ```js
-         * console.log(braces('a/{b,c}/d', {expand: true}));
-         * //=> [ 'a/b/d', 'a/c/d' ]
-         * ```
+         * @default 65536
+         * @example
+         * console.log(braces('a/{b,c}/d', { maxLength: 3 }));
+         * //=> throws an error
+         */
+        maxLength?: number;
+        /**
+         * Generate an "expanded" brace pattern (alternatively you can use the `braces.expand()` method).
          *
          * @default undefined
+         * @example
+         * console.log(braces('a/{b,c}/d', { expand: true }));
+         * //=> [ 'a/b/d', 'a/c/d' ]
          */
         expand?: boolean;
         /**
-         * Enabled by default.
+         * Remove duplicates from the returned array.
          *
-         * ```js
-         * console.log(braces('a/{b,c}/d'));
-         * //=> [ 'a/(b|c)/d' ]
-         * ```
-         *
-         * @default true
-         */
-        optimize?: boolean;
-        /**
-         * Duplicates are removed by default. To keep duplicates, pass `{nodupes: false}` on the options
-         *
-         * @default true
+         * @default undefined
          */
         nodupes?: boolean;
         /**
-         * When `braces.expand()` is used, or `options.expand` is true, brace patterns will automatically be [optimized](#optionsoptimize)
-         * when the difference between the range minimum and range maximum exceeds the `rangeLimit`.
-         * This is to prevent huge ranges from freezing your application.
+         * To prevent malicious patterns from being passed by users, an error is thrown when `braces.expand()`
+         * is used or `options.expand` is true and the generated range will exceed the `rangeLimit`.
          *
-         * You can set this to any number, or change `options.rangeLimit` to `Inifinity` to disable this altogether.
+         * You can customize `options.rangeLimit` or set it to `Infinity` to disable this altogether.
          *
-         * @default 250
-         *
+         * @default 1000
          * @example
-         * ```js
          * // pattern exceeds the "rangeLimit", so it's optimized automatically
          * console.log(braces.expand('{1..1000}'));
          * //=> ['([1-9]|[1-9][0-9]{1,2}|1000)']
          *
          * // pattern does not exceed "rangeLimit", so it's NOT optimized
          * console.log(braces.expand('{1..100}'));
-         * //=> ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11' ... '89', 90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '100']
-         * ```
+         * //=> ['1', '2', '3', '4', '5', …, '100']
          */
         rangeLimit?: number;
         /**
          * Customize range expansion.
          *
-         * ```js
-         * var range = braces.expand('x{a..e}y', {
-         *   transform: function(str) {
-         *     return 'foo' + str;
-         *   }
+         * @default undefined
+         * @example
+         * const range = braces.expand('x{a..e}y', {
+         *   transform: (str) => `foo/${str}`
          * });
          *
          * console.log(range);
          * //=> [ 'xfooay', 'xfooby', 'xfoocy', 'xfoody', 'xfooey' ]
-         * ```
-         *
-         * @default undefined
          */
-        transform?: (str: string) => string;
+        transform?: Transform;
         /**
-         * In regular expressions, quanitifiers can be used to specify how many times a token can be repeated. For example, `a{1,3}` will match the letter `a` one to three times.
+         * In regular expressions, quanitifiers can be used to specify how many times a token can be repeated.
+         * For example, `a{1,3}` will match the letter `a` one to three times.
          *
          * Unfortunately, regex quantifiers happen to share the same syntax as [Bash lists](#lists)
          *
@@ -80,17 +73,14 @@ declare namespace braces {
          * are defined in the given pattern, and not to try to expand them as lists.
          *
          * @default undefined
-         *
          * @example
-         * ```js
-         * var braces = require('braces');
+         * const braces = require('braces');
          * console.log(braces('a/b{1,3}/{x,y,z}'));
          * //=> [ 'a/b(1|3)/(x|y|z)' ]
          * console.log(braces('a/b{1,3}/{x,y,z}', {quantifiers: true}));
          * //=> [ 'a/b{1,3}/(x|y|z)' ]
          * console.log(braces('a/b{1,3}/{x,y,z}', {quantifiers: true, expand: true}));
          * //=> [ 'a/b{1,3}/x', 'a/b{1,3}/y', 'a/b{1,3}/z' ]
-         * ```
          */
         quantifiers?: boolean;
         /**

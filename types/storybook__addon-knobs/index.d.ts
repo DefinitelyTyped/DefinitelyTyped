@@ -1,17 +1,20 @@
-// Type definitions for @storybook/addon-knobs 3.4
-// Project: https://github.com/storybooks/storybook
+// Type definitions for @storybook/addon-knobs 5.0
+// Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/addons/knobs
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Martynas Kadisa <https://github.com/martynaskadisa>
 //                 A.MacLeay <https://github.com/amacleay>
+//                 Michael Loughry <https://github.com/MLoughry>
+//                 Alan Choi <https://github.com/alanhchoi>
+//                 Adam Zmenak <https://github.com/azmenak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 import { RenderFunction } from '@storybook/react';
 
 export interface KnobOption<T> {
     value: T;
-    type: 'text' | 'boolean' | 'number' | 'color' | 'object' | 'select' | 'date';
+    type: 'text' | 'boolean' | 'number' | 'color' | 'object' | 'select' | 'date' | 'radios';
 }
 
 export interface StoryContext {
@@ -47,19 +50,49 @@ export function color(name: string, value: string, groupId?: string): string;
 
 export function object<T>(name: string, value: T, groupId?: string): T;
 
-export type SelectValue = string | number;
-export function select<T extends string>(name: string, options: { [s: string]: string }, value: T, groupId?: string): T;
-export function select<T extends number>(name: string, options: { [s: number]: string }, value: T, groupId?: string): T;
-export function select<T extends SelectValue>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
+export function radios<T>(name: string, options: { [s: string]: T }, value?: T, groupId?: string): T;
 
-export function selectV2<T extends string | number>(name: string, options: { [s: string]: T | T[] }, value: T | T[], groupId?: string): T;
-export function selectV2<T extends SelectValue>(name: string, options: T[], value: T, groupId?: string): T;
+export function select<T>(name: string, options: { [s: string]: T }, value: T, groupId?: string): T;
+export function select<
+    T extends Exclude<
+        React.OptionHTMLAttributes<HTMLOptionElement>['value'],
+        undefined
+    >
+>(name: string, options: ReadonlyArray<T>, value: T, groupId?: string): T;
 
 export function date(name: string, value?: Date, groupId?: string): Date;
 
 export function array<T>(name: string, value: ReadonlyArray<T>, separator?: string, groupId?: string): T[];
 
 export function button(name: string, handler: () => any, groupId?: string): void;
+
+export interface OptionsKnobOptions {
+    display?:
+    | "radio"
+    | "inline-radio"
+    | "check"
+    | "inline-check"
+    | "select"
+    | "multi-select";
+}
+
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: T;
+    },
+    defaultValue?: T,
+    options?: OptionsKnobOptions
+): T;
+
+export function optionsKnob<T>(
+    label: string,
+    values: {
+        [key: string]: T;
+    },
+    defaultValue?: T[],
+    options?: OptionsKnobOptions
+): T[];
 
 export interface WrapStoryProps {
     context?: object;

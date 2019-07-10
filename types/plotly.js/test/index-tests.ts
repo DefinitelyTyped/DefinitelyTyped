@@ -1,5 +1,5 @@
 import * as Plotly from 'plotly.js';
-import { Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
+import { Datum, Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
 
 const graphDiv = '#test';
 
@@ -96,14 +96,16 @@ const graphDiv = '#test';
 					{ target: 'y', func: 'avg' },
 					{ target: 'marker.size', func: 'sum' }
 				]
-			}]
+			}],
+		width: 2
 	} as PlotData;
 	const trace2 = {
 		yaxis: 'y2',
 		x: unpack(testrows, 'lifeExp'),
 		name: 'x density',
 		marker: { color: 'rgb(102,0,0)' },
-		type: 'histogram'
+		type: 'histogram',
+		width: [2]
 	} as PlotData;
 	const trace3 = {
 		xaxis: 'x2',
@@ -250,6 +252,24 @@ const graphDiv = '#test';
 		title: 'some new title', // updates the title
 	};
 	Plotly.update(graphDiv, data_update, layout_update);
+})();
+
+(() => {
+	const update = {
+		title: {
+			text: 'some new title',
+			font: {
+				size: 1.2,
+			},
+			x: 0.9,
+			pad: {
+				t: 20
+			},
+		}, // updates the title
+		'xaxis.range': [0, 5],   // updates the xaxis range
+		'yaxis.range[1]': 15	 // updates the end of the yaxis range
+	} as Layout;
+	Plotly.relayout(graphDiv, update);
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -446,8 +466,8 @@ function rand() {
 	});
 
 	myPlot.on('plotly_selected', (data) => {
-		const x = [] as number[];
-		const y = [] as number[];
+		const x = [] as Datum[];
+		const y = [] as Datum[];
 		const N = 1000;
 		const color1 = '#7b3294';
 		const color1Light = '#c2a5cf';
@@ -546,5 +566,6 @@ function rand() {
 	myPlot.on('plotly_transitioninterrupted', () => {
 		console.log('transition interrupted');
 	});
+
+	myPlot.removeAllListeners('plotly_restyle');
 })();
-//////////////////////////////////////////////////////////////////////

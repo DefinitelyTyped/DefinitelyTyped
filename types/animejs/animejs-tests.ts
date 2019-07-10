@@ -1,4 +1,4 @@
-import * as anime from 'animejs';
+import anime from 'animejs';
 
 const test1 = anime({
 	targets: 'div',
@@ -17,9 +17,9 @@ const test2 = anime({
 	},
 	translateY: '40px',
 	color: [
-		{value: '#FF0000', duration: 2000},
-		{value: '#00FF00', duration: 2000},
-		{value: '#0000FF', duration: 2000},
+		{ value: '#FF0000', duration: 2000 },
+		{ value: '#00FF00', duration: 2000 },
+		{ value: '#0000FF', duration: 2000 },
 	],
 	duration: () => {
 		return 1000000000000;
@@ -69,3 +69,9 @@ const bezier = anime.bezier(0, 0, 100, 100);
 anime.easings['hello'] = anime.bezier(0, 0, 1900, 3020);
 const runningAnims = anime.running;
 anime.remove(".tiny-divvy-div");
+
+anime.timeline().add({
+	targets: [],
+	duration: 1000,
+	easing: "linear",
+}, 0);

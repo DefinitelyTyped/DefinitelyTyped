@@ -1,7 +1,9 @@
-// Type definitions for filesize 3.6
-// Project: https://github.com/avoidwork/filesize.js
+// Type definitions for filesize 4.1
+// Project: https://github.com/avoidwork/filesize.js, https://filesizejs.com
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Renaud Chaput <https://github.com/renchap>
+//                 Roman Nuritdinov <https://github.com/Ky6uk>
+//                 Sam Hulick <https://github.com/ffxsam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fileSize: Filesize.Filesize;
@@ -57,6 +59,10 @@ declare namespace Filesize {
          */
         fullforms?: string[];
         /**
+         * BCP 47 language tag to specify a locale, or true to use default locale, default is ""
+         */
+        locale?: string | boolean;
+        /**
          * Output of function (array, exponent, object, or string), default is string
          */
         output?: "array" | "exponent" | "object" | "string";
@@ -80,11 +86,6 @@ declare namespace Filesize {
          * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
          */
         symbols?: SiJedec;
-        /**
-         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
-         * @deprecated: use `symbols`
-         */
-        suffixes?: SiJedec;
         /**
          *  Enables unix style human readable output, e.g ls -lh, default is false
          */

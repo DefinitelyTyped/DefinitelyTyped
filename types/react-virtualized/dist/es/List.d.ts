@@ -7,10 +7,10 @@ import {
 } from "./Grid";
 import { Index, IndexRange, Alignment } from "../../index";
 import { CellMeasurerCache, CellPosition } from "./CellMeasurer";
+import { OnScrollParams } from './ScrollSync';
 
-export type ListRowProps = GridCellProps & {
-    index: number;
-    style: React.CSSProperties;
+export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
+    index: GridCellProps['rowIndex'];
 };
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
@@ -54,9 +54,7 @@ export type ListProps = GridCoreProps & {
      * This callback can be used to sync scrolling between lists, tables, or grids.
      * ({ clientHeight, scrollHeight, scrollTop }): void
      */
-    onScroll?: (
-        info: { clientHeight: number; scrollHeight: number; scrollTop: number }
-    ) => void;
+    onScroll?: (params: OnScrollParams) => void;
     /** See Grid#overscanIndicesGetter */
     overscanIndicesGetter?: OverscanIndicesGetter;
     /**

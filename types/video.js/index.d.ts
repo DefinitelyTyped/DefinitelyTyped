@@ -1,5 +1,5 @@
 // Type definitions for Video.js 7.2
-// Project: https://github.com/videojs/video.js
+// Project: https://github.com/videojs/video.js, https://videojs.com
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
 //                 Sean Bennett <https://github.com/SWBennett06>
@@ -3713,6 +3713,21 @@ declare namespace videojs {
 		new (player: Player, options?: ComponentOptions): MouseTimeDisplay
 	};
 
+	enum ReadyState {
+		HaveNothing = 0,
+		HaveMetadata = 1,
+		HaveCurrentData = 2,
+		HaveFutureData = 3,
+		HaveEnoughData = 4
+	}
+
+	enum NetworkState {
+		Empty = 0,
+		Idle = 1,
+		Loading = 2,
+		NoSource = 3
+	}
+
 	/**
 	 * An instance of the `Player` class is created when any of the Video.js setup methods
 	 * are used to initialize a video.
@@ -4233,7 +4248,7 @@ declare namespace videojs {
 		 */
 		loop(value?: boolean): void;
 
-		loop(): string;
+		loop(): boolean;
 
 		/**
 		 * Get the current muted state, or turn mute on or off
@@ -4248,6 +4263,13 @@ declare namespace videojs {
 		muted(muted: boolean): void;
 
 		muted(): boolean;
+
+		/**
+		 * Returns the current state of network activity for the element
+		 *
+		 * @return The current network state
+		 */
+		networkState(): NetworkState;
 
 		/**
 		 * Pause the video playback
@@ -4341,6 +4363,12 @@ declare namespace videojs {
 		 * @return The preload attribute value when getting
 		 */
 		preload(value?: boolean): string;
+
+		/**
+		 * Returns a value that expresses the current state of the element
+		 * with respect to rendering the current playback position.
+		 */
+		readyState(): ReadyState;
 
 		/**
 		 * Calculates how much time is left in the video. Not part
@@ -4609,10 +4637,12 @@ declare namespace videojs {
 		fluid?: boolean;
 		height?: number;
 		html5?: any;
+		inactivityTimeout?: number;
 		language?: string;
 		languages?: { [code: string]: LanguageTranslations };
 		loop?: boolean;
 		muted?: boolean;
+		nativeControlsForTouch?: boolean;
 		notSupportedMessage?: string;
 		playbackRates?: number[];
 		plugins?: any;

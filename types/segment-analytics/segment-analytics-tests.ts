@@ -13,6 +13,11 @@ var testProps = {
 var testOpts = {
   integrations: {
     Mixpanel: true
+  },
+  context: {
+    campaign: {
+      name: 'Cheese Promo'
+    }
   }
 };
 
@@ -23,6 +28,9 @@ var testCb = function() {};
 
 function test_load() {
   analytics.load("YOUR_WRITE_KEY");
+
+  // With options
+  analytics.load('writekey', { integrations: { All: false, 'Google Analytics': true, 'Segment.io': true } })
 }
 
 function test_identify() {
@@ -78,6 +86,22 @@ function testPage() {
   });
 
   analytics.page('Category', 'Signup');
+
+  analytics.page(undefined, 'Signup');
+
+  analytics.page(undefined, undefined, {
+    title: 'Segment Pricing',
+    url: 'https://segment.com/pricing',
+    path: '/pricing',
+    referrer: 'https://segment.com'
+  });
+
+  analytics.page(undefined, 'Signup', {
+    title: 'Segment Pricing',
+    url: 'https://segment.com/pricing',
+    path: '/pricing',
+    referrer: 'https://segment.com'
+  });
 
   analytics.page('Signup', testProps, testOpts, testCb);
 }

@@ -5,104 +5,123 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="webassembly-js-api" />
+/** Other WebAssembly declarations, for compatibility with older versions of Typescript */
+declare namespace WebAssembly {
+    interface Module { }
+}
 
 declare namespace Emscripten {
     interface FileSystemType {
     }
-}
-
-declare namespace Module {
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
 
-    function print(str: string): void;
-    function printErr(str: string): void;
-    var arguments: string[];
-    var environment: EnvironmentType;
-    var preInit: { ():  void }[];
-    var preRun: { ():  void }[];
-    var postRun: { ():  void }[];
-    var preinitializedWebGLContext: WebGLRenderingContext;
-    var noInitialRun: boolean;
-    var noExitRuntime: boolean;
-    var logReadFiles: boolean;
-    var filePackagePrefixURL: string;
-    var wasmBinary: ArrayBuffer;
+    type WebAssemblyImports =  Array<{
+        name: string;
+        kind: string;
+    }>;
 
-    function destroy(object: object): void;
-    function getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
-    function instantiateWasm(
-        imports: WebAssembly.Imports,
+    type WebAssemblyExports = Array<{
+        module: string;
+        name: string;
+        kind: string;
+    }>;
+}
+
+declare interface EmscriptenModule {
+
+    print(str: string): void;
+    printErr(str: string): void;
+    arguments: string[];
+    environment: Emscripten.EnvironmentType;
+    preInit: { ():  void }[];
+    preRun: { ():  void }[];
+    postRun: { ():  void }[];
+    preinitializedWebGLContext: WebGLRenderingContext;
+    noInitialRun: boolean;
+    noExitRuntime: boolean;
+    logReadFiles: boolean;
+    filePackagePrefixURL: string;
+    wasmBinary: ArrayBuffer;
+
+    destroy(object: object): void;
+    getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
+    instantiateWasm(
+        imports: Emscripten.WebAssemblyImports,
         successCallback: (module: WebAssembly.Module) => void
-    ): WebAssembly.Exports;
-    function locateFile(url: string): string;
-    function onCustomMessage(event: MessageEvent): void;
+    ): Emscripten.WebAssemblyExports;
+    locateFile(url: string): string;
+    onCustomMessage(event: MessageEvent): void;
 
-    var Runtime: any;
+    Runtime: any;
 
-    function ccall(ident: string, returnType: string | null, argTypes: string[], args: any[]): any;
-    function cwrap(ident: string, returnType: string | null, argTypes: string[]): any;
+    ccall(ident: string, returnType: string | null, argTypes: string[], args: any[]): any;
+    cwrap(ident: string, returnType: string | null, argTypes: string[]): any;
 
-    function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
-    function getValue(ptr: number, type: string, noSafe?: boolean): number;
+    setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
+    getValue(ptr: number, type: string, noSafe?: boolean): number;
 
-    var ALLOC_NORMAL: number;
-    var ALLOC_STACK: number;
-    var ALLOC_STATIC: number;
-    var ALLOC_DYNAMIC: number;
-    var ALLOC_NONE: number;
+    ALLOC_NORMAL: number;
+    ALLOC_STACK: number;
+    ALLOC_STATIC: number;
+    ALLOC_DYNAMIC: number;
+    ALLOC_NONE: number;
 
-    function allocate(slab: any, types: string, allocator: number, ptr: number): number;
-    function allocate(slab: any, types: string[], allocator: number, ptr: number): number;
+    allocate(slab: any, types: string, allocator: number, ptr: number): number;
+    allocate(slab: any, types: string[], allocator: number, ptr: number): number;
 
-    function Pointer_stringify(ptr: number, length?: number): string;
-    function UTF16ToString(ptr: number): string;
-    function stringToUTF16(str: string, outPtr: number): void;
-    function UTF32ToString(ptr: number): string;
-    function stringToUTF32(str: string, outPtr: number): void;
+    Pointer_stringify(ptr: number, length?: number): string;
+    UTF16ToString(ptr: number): string;
+    stringToUTF16(str: string, outPtr: number): void;
+    UTF32ToString(ptr: number): string;
+    stringToUTF32(str: string, outPtr: number): void;
 
     // USE_TYPED_ARRAYS == 1
-    var HEAP: Int32Array;
-    var IHEAP: Int32Array;
-    var FHEAP: Float64Array;
+    HEAP: Int32Array;
+    IHEAP: Int32Array;
+    FHEAP: Float64Array;
 
     // USE_TYPED_ARRAYS == 2
-    var HEAP8: Int8Array;
-    var HEAP16: Int16Array;
-    var HEAP32: Int32Array;
-    var HEAPU8:  Uint8Array;
-    var HEAPU16: Uint16Array;
-    var HEAPU32: Uint32Array;
-    var HEAPF32: Float32Array;
-    var HEAPF64: Float64Array;
+    HEAP8: Int8Array;
+    HEAP16: Int16Array;
+    HEAP32: Int32Array;
+    HEAPU8:  Uint8Array;
+    HEAPU16: Uint16Array;
+    HEAPU32: Uint32Array;
+    HEAPF32: Float32Array;
+    HEAPF64: Float64Array;
 
-    var TOTAL_STACK: number;
-    var TOTAL_MEMORY: number;
-    var FAST_MEMORY: number;
+    TOTAL_STACK: number;
+    TOTAL_MEMORY: number;
+    FAST_MEMORY: number;
 
-    function addOnPreRun(cb: () => any): void;
-    function addOnInit(cb: () => any): void;
-    function addOnPreMain(cb: () => any): void;
-    function addOnExit(cb: () => any): void;
-    function addOnPostRun(cb: () => any): void;
+    addOnPreRun(cb: () => any): void;
+    addOnInit(cb: () => any): void;
+    addOnPreMain(cb: () => any): void;
+    addOnExit(cb: () => any): void;
+    addOnPostRun(cb: () => any): void;
 
     // Tools
-    function intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
-    function intArrayToString(array: number[]): string;
-    function writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-    function writeArrayToMemory(array: number[], buffer: number): void;
-    function writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+    intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
+    intArrayToString(array: number[]): string;
+    writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+    writeArrayToMemory(array: number[], buffer: number): void;
+    writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
 
-    function addRunDependency(id: any): void;
-    function removeRunDependency(id: any): void;
+    addRunDependency(id: any): void;
+    removeRunDependency(id: any): void;
 
 
-    var preloadedImages: any;
-    var preloadedAudios: any;
+    preloadedImages: any;
+    preloadedAudios: any;
 
-    function _malloc(size: number): number;
-    function _free(ptr: number): void;
+    _malloc(size: number): number;
+    _free(ptr: number): void;
 }
+
+// By default Emscripten emits a single global Module.  Users setting -s
+// MODULARIZE=1 -s EXPORT_NAME=MyMod should declare their own types, e.g.
+// declare var MyMod: EmscriptenModule;
+declare var Module: EmscriptenModule;
 
 declare namespace FS {
     interface Lookup {

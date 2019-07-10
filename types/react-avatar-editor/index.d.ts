@@ -2,27 +2,29 @@
 // Project: https://github.com/mosch/react-avatar-editor
 // Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
 //                 Gabriel Prates <https://github.com/gabsprates>
+//                 Laurent Senta <https://github.com/lsenta>
+//                 David Spiess <https://github.com/davidspiess>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 
-export interface ImageState {
-    height: number;
-    width: number;
+export interface Position {
     x: number;
     y: number;
+}
+
+export interface CroppedRect extends Position {
+    width: number;
+    height: number;
+}
+
+export interface ImageState extends CroppedRect {
     resource: ImageData;
 }
 
-export interface CroppedRect {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
-
 export interface AvatarEditorProps {
+    className?: string;
     image: string | File;
     width?: number;
     height?: number;
@@ -31,7 +33,7 @@ export interface AvatarEditorProps {
     color?: number[];
     style?: object;
     scale?: number;
-    position?: object;
+    position?: Position;
     rotate?: number;
     crossOrigin?: string;
     disableDrop?: boolean;
@@ -42,7 +44,7 @@ export interface AvatarEditorProps {
     onMouseUp?(): void;
     onMouseMove?(event: Event): void;
     onImageChange?(): void;
-    onPositionChange?(): void;
+    onPositionChange?(position: Position): void;
 }
 
 export default class AvatarEditor extends React.Component<AvatarEditorProps, any> {

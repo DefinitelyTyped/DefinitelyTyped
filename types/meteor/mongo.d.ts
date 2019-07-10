@@ -96,7 +96,7 @@ declare module "meteor/mongo" {
             { $each?: T[P], $position?: number, $slice?: number, $sort?: 1 | -1 | Dictionary<number> }
         }
         type ArraysOrEach<T> = {
-            [P in keyof T]?: OnlyArrays<T[P]> | { $each: T[P] }
+            [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] }
         }
         type CurrentDateModifier = { $type: "timestamp" | "date" } | true
         type Modifier<T> = T | {
@@ -127,7 +127,7 @@ declare module "meteor/mongo" {
             new <T>(name: string, options?: {
                 connection?: Object | null;
                 idGeneration?: string;
-                transform?: Function;
+                transform?: Function | null;
             }): Collection<T>;
         }
         interface Collection<T> {
@@ -136,14 +136,14 @@ declare module "meteor/mongo" {
                 update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
                 remove?: (userId: string, doc: T) => boolean;
                 fetch?: string[];
-                transform?: Function;
+                transform?: Function | null;
             }): boolean;
             deny(options: {
                 insert?: (userId: string, doc: T) => boolean;
                 update?: (userId: string, doc: T, fieldNames: string[], modifier: any) => boolean;
                 remove?: (userId: string, doc: T) => boolean;
                 fetch?: string[];
-                transform?: Function;
+                transform?: Function | null;
             }): boolean;
             find(selector?: Selector<T> | ObjectID | string, options?: {
                 sort?: SortSpecifier;
@@ -151,14 +151,14 @@ declare module "meteor/mongo" {
                 limit?: number;
                 fields?: FieldSpecifier;
                 reactive?: boolean;
-                transform?: Function;
+                transform?: Function | null;
             }): Cursor<T>;
             findOne(selector?: Selector<T> | ObjectID | string, options?: {
                 sort?: SortSpecifier;
                 skip?: number;
                 fields?: FieldSpecifier;
                 reactive?: boolean;
-                transform?: Function;
+                transform?: Function | null;
             }): T;
             insert(doc: T, callback?: Function): string;
             rawCollection(): any;
@@ -230,7 +230,7 @@ declare module "meteor/mongo" {
             update?: (userId: string, doc: any, fieldNames: string[], modifier: any) => boolean;
             remove?: (userId: string, doc: any) => boolean;
             fetch?: string[];
-            transform?: Function;
+            transform?: Function | null;
         }
     }
 }

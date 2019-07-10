@@ -1,5 +1,7 @@
 import IdyllDocument, { IdyllDocumentProps } from "idyll-document";
-import { createElement } from "react";
+import { createElement, ReactElement } from "react";
 
-// $ExpectType ReactElement<IdyllDocumentProps>
-createElement<IdyllDocumentProps>(IdyllDocument);
+const doc = createElement<IdyllDocumentProps>(IdyllDocument);
+
+// $ExpectType true
+type test = typeof doc extends ReactElement<IdyllDocumentProps> ? true : false;

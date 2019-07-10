@@ -41,8 +41,10 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 50,
+                    unit: "px",
                 },
-                image.width / image.height,
+                image.width,
+                image.height,
             ),
         });
     }
@@ -54,6 +56,25 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                 onChange={this.onChange}
                 onImageLoaded={this.onImageLoaded}
                 crop={this.state.crop}
+            />
+        );
+    }
+}
+
+// Testing renderComponent
+class RenderComponentTest extends React.Component {
+    render() {
+        const videoComponent = (
+            <video autoPlay loop style={{ display: 'block', maxWidth: '100%' }}>
+                <source src="sample.mp4" type="video/mp4" />
+            </video>
+        );
+
+        return (
+            <ReactCrop
+                src="imageSrc"
+                onChange={(crop) => console.log(crop)}
+                renderComponent={videoComponent}
             />
         );
     }
@@ -75,10 +96,16 @@ class CompleteTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 20,
+                    unit: "px",
                 },
-                image.width / image.height,
+                image.width,
+                image.height,
             ),
         });
+    }
+
+    onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+        console.warn('Error loading image');
     }
 
     render() {
@@ -99,6 +126,10 @@ class CompleteTest extends React.Component<{}, TestState> {
                 onDragStart={() => console.log('Drag start')}
                 onDragEnd={() => console.log('Drag end')}
                 crossorigin="anonymous"
+                onImageError={this.onImageError}
+                className="my-cropper"
+                locked={false}
+                renderComponent={<div></div>}
             />
         );
     }

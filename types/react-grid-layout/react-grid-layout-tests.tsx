@@ -54,6 +54,31 @@ class ResponsiveGridTest extends React.Component {
   }
 }
 
+class ResponsiveGridTestWithCustomBreakpoints extends React.Component {
+  render() {
+    const layouts = {
+      lg: [
+        { i: '1', x: 0, y: 0, w: 1, h: 2, static: true },
+        { i: '2', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+        { i: '3', x: 4, y: 0, w: 1, h: 2 }
+      ]
+    };
+
+    return (
+      <Responsive
+        layouts={layouts}
+        width={800}
+        breakpoints={{ lg: 468, sm: 0 }}
+        cols={{ lg: 12, sm: 6 }}
+      >
+        <div key="1">a</div>
+        <div key="2">b</div>
+        <div key="3">c</div>
+      </Responsive>
+    );
+  }
+}
+
 class ResponsiveGridWidthProviderTest extends React.Component {
   render() {
     return (

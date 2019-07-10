@@ -8,10 +8,9 @@ let x: string = forge.ssh.privateKeyToOpenSSH(key);
 let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
-let privateKeyRsa2 = forge.pki.privateKeyInfoToPem(privateKeyPem);
-let byteBufferString = forge.pki.pemToDer(privateKeyRsa);
-let certPem = forge.pki.certificateFromPem(pemKey);
+let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let cert = forge.pki.createCertificate();
+forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
@@ -118,6 +117,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    let key = forge.random.getBytesSync(24)
     let payload = { asd: 'asd' };
     let cipher = forge.cipher.createCipher('3DES-ECB', forge.util.createBuffer(key, 'raw'));
     cipher.start();
@@ -133,7 +133,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     let decrypted = decipher.output as forge.util.ByteStringBuffer;
     let content = JSON.parse(forge.util.encodeUtf8(decrypted.getBytes()));
 
-    if (content.asd == payload.asd) throw Error('forge.cipher.createCipher failed');
+    if (content.asd !== payload.asd) throw Error('forge.cipher.createCipher failed');
 }
 
 {
@@ -188,4 +188,179 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
+}
+
+{
+    let md: forge.md.MessageDigest;
+    let hex: string;
+    let signature: forge.Bytes
+
+    md = forge.md.sha256.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    signature = keypair.privateKey.sign(md)
+    if (!keypair.publicKey.verify(md.digest().bytes(), signature)) {
+        throw Error("rsa signature verification fail");
+    }
+}
+
+{
+    const emptyStore = forge.pki.createCaStore();
+
+    const certificate = cert;
+    const pem = forge.pki.certificateToPem(certificate);
+
+    const caStore = forge.pki.createCaStore();
+    caStore.addCertificate(certificate);
+    caStore.removeCertificate(certificate);
+
+    caStore.listAllCertificates();
+
+    caStore.removeCertificate(certificate);
+
+    forge.pki.verifyCertificateChain(caStore, [certificate], (verified, depth, chain) => {
+        return true;
+    });
+}
+
+{
+    let md: forge.md.MessageDigest;
+    md = forge.md.sha256.create();
+
+    const key1: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32);
+    const key2: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md);
+
+    let key3: string;
+    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, function(err: Error | null, dk: null | string) {
+        if (err === null)
+            key3 = dk;
+        else
+            throw Error("pbkdf2 key derivation fail");
+    });
+
+    let key4: string;
+    forge.pkcs5.pbkdf2("password", "salt", 1000, 32, md, function(err: Error | null, dk: null | string) {
+        if (err === null)
+            key4 = dk;
+        else
+            throw Error("pbkdf2 key derivation fail");
+    });
+}
+
+{
+    // Based on node-forge/examples/tls.js
+
+    let success = false;
+
+    const client = forge.tls.createConnection({
+        server: false,
+        caStore: [cert],
+        sessionCache: {},
+        // supported cipher suites in order of preference
+        cipherSuites: [
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_128_CBC_SHA,
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA],
+        virtualHost: 'server',
+        verify: function(c, verified, depth, certs) {
+            console.log(
+                'TLS Client verifying certificate w/CN: \"' +
+                    certs[0].subject.getField('CN').value +
+                    '\", verified: ' + verified + '...');
+            return verified;
+        },
+        connected: function(c) {
+            console.log('Client connected...');
+
+            // send message to server
+            setTimeout(function() {
+                c.prepareHeartbeatRequest('heartbeat');
+                c.prepare('Hello Server');
+            }, 1);
+        },
+        getCertificate: function(c, hint) {
+            console.log('Client getting certificate ...');
+            return forge.pki.certificateToPem(cert);
+        },
+        getPrivateKey: function(c, cert) {
+            return privateKeyPem;
+        },
+        tlsDataReady: function(c) {
+            // send TLS data to server
+            server.process(c.tlsData.getBytes());
+        },
+        dataReady: function(c) {
+            var response = c.data.getBytes();
+            console.log('Client received \"' + response + '\"');
+            success = (response === 'Hello Client');
+            c.close();
+        },
+        heartbeatReceived: function(c, payload) {
+            console.log('Client received heartbeat: ' + payload.getBytes());
+        },
+        closed: function(c) {
+            console.log('Client disconnected.');
+            if(success) {
+                console.log('PASS');
+            } else {
+                console.log('FAIL');
+            }
+        },
+        error: function(c, error) {
+            console.log('Client error: ' + error.message);
+        }
+    });
+
+    // create TLS server
+    const server = forge.tls.createConnection({
+        server: true,
+        caStore: [cert],
+        sessionCache: {},
+        // supported cipher suites in order of preference
+        cipherSuites: [
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_128_CBC_SHA,
+            forge.tls.CipherSuites.TLS_RSA_WITH_AES_256_CBC_SHA],
+        connected: function(c) {
+            console.log('Server connected');
+            c.prepareHeartbeatRequest('heartbeat');
+        },
+        verifyClient: true,
+        verify: function(c, verified, depth, certs) {
+            console.log(
+                'Server verifying certificate w/CN: \"' +
+                    certs[0].subject.getField('CN').value +
+                    '\", verified: ' + verified + '...');
+            return verified;
+        },
+        getCertificate: function(c, hint) {
+            console.log('Server getting certificate for \"' + (hint as string[])[0] + '\"...');
+            return forge.pki.certificateToPem(cert);
+        },
+        getPrivateKey: function(c, cert) {
+            return privateKeyPem;
+        },
+        tlsDataReady: function(c) {
+            // send TLS data to client
+            client.process(c.tlsData.getBytes());
+        },
+        dataReady: function(c) {
+            console.log('Server received \"' + c.data.getBytes() + '\"');
+
+            // send response
+            c.prepare('Hello Client');
+            c.close();
+        },
+        heartbeatReceived: function(c, payload) {
+            console.log('Server received heartbeat: ' + payload.getBytes());
+        },
+        closed: function(c) {
+            console.log('Server disconnected.');
+        },
+        error: function(c, error) {
+            console.log('Server error: ' + error.message);
+        }
+    });
+
+    console.log('created TLS client and server, doing handshake...');
+    client.handshake();
 }

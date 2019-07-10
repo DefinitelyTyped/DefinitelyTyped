@@ -13,7 +13,7 @@ declare namespace TransitionGroup {
     type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", V extends ReactType = any> =
         (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T]) | (ComponentTransitionGroupProps<V>) & {
         children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
-        childFactory?(child: ReactElement<any>): ReactElement<any>;
+        childFactory?(child: ReactElement): ReactElement;
         [prop: string]: any;
     };
 }

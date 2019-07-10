@@ -23,7 +23,7 @@ declare class Watchpack extends EventEmitter {
 
     constructor(options: Watchpack.WatchOptions);
 
-    watch(files: string[], directories: string[], startTime: number): void;
+    watch(files: string[], directories: string[], startTime?: number): void;
 
     close(): void;
 

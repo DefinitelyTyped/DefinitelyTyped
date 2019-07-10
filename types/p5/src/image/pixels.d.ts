@@ -225,10 +225,14 @@ declare module "../../index" {
      *   is easy, but not as fast as grabbing the data
      *   directly from pixels[]. The equivalent statement
      *   to get(x, y) using pixels[] with pixel density d
-     *   is  var x, y, d; // set these to the coordinates
-     *   var off = (y  width + x)  d * 4; var components =
-     *   [ pixels[off], pixels[off + 1], pixels[off + 2],
+     *   is
+     *
+     *   let x, y, d; // set these to the coordinates let
+     *   off = (y * width + x) * d * 4; let components = [
+     *   pixels[off], pixels[off + 1], pixels[off + 2],
      *   pixels[off + 3] ]; print(components);
+     *
+     *
      *
      *
      *   See the reference for pixels[] for more
@@ -346,11 +350,11 @@ declare module "../../index" {
      *   pixel at (1, 0). More generally, to set values for
      *   a pixel at (x, y):
      *
-     *   var d = pixelDensity(); for (var i = 0; i < d;
-     *   i++) { for (var j = 0; j < d; j++) { // loop over
-     *   idx = 4 * ((y * d + j) * width * d + (x * d + i));
-     *   pixels[idx] = r; pixels[idx+1] = g; pixels[idx+2]
-     *   = b; pixels[idx+3] = a; } }
+     *   let d = pixelDensity(); for (let i = 0; i < d;
+     *   i++) { for (let j = 0; j < d; j++) { // loop over
+     *   index = 4 * ((y * d + j) * width * d + (x * d +
+     *   i)); pixels[index] = r; pixels[index+1] = g;
+     *   pixels[index+2] = b; pixels[index+3] = a; } }
      *
      *   While the above method is complex, it is flexible
      *   enough to work with any pixelDensity. Note that

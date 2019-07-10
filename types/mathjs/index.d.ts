@@ -1,8 +1,10 @@
-// Type definitions for mathjs 4.4
-// Project: http://mathjs.org/
+// Type definitions for mathjs 6.0
+// Project: https://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol>,
 //                  Andy Patterson <https://github.com/andnp>,
 //                  Brad Besserman <https://github.com/bradbesserman>
+//                  Pawel Krol <https://github.com/pawkrol>
+//                  Charlee Li <https://github.com/charlee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -24,7 +26,25 @@ declare namespace math {
         | Matrix;
     type MathExpression = string | string[] | MathArray | Matrix;
 
+    type FactoryFunction<T> = (scope: any) => T;
+
+    // FactoryFunctionMap can be nested; all nested objects will be flattened
+    interface FactoryFunctionMap {
+        [key: string]: FactoryFunction<any> | FactoryFunctionMap;
+    }
+
+    type MathJsFunctionName = keyof MathJsStatic;
+
     interface MathJsStatic {
+        create: (factories: FactoryFunctionMap, config: ConfigOptions) => MathJsStatic;
+        factory: <T>(
+            name: string,
+            dependencies: MathJsFunctionName[],
+            create: (injected: MathJsStatic) => T,
+            meta?: any,
+        ) => FactoryFunction<T>;
+        all: FactoryFunctionMap;
+
         e: number;
         pi: number;
         i: number;
@@ -301,7 +321,7 @@ declare namespace math {
 
         /**
          * Parse and compile an expression. Returns a an object with a function
-         * eval([scope]) to evaluate the compiled expression.
+         * evaluate([scope]) to evaluate the compiled expression.
          * @param expr The expression to be compiled
          * @returns An object with the compiled expression
          */
@@ -318,7 +338,7 @@ declare namespace math {
          * @param scope Scope to read/write variables
          * @returns The result of the expression
          */
-        eval(
+        evaluate(
             expr: MathExpression | MathExpression[] | Matrix,
             scope?: object
         ): any;
@@ -333,7 +353,7 @@ declare namespace math {
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
-         * invoking node.eval();
+         * invoking node.evaluate();
          * @param expr Expression to be parsed
          * @param options Available options: nodes - a set of custome nodes
          * @returns A node
@@ -1276,7 +1296,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        eye(
+        identity(
             size: number | number[] | Matrix | MathArray,
             format?: string
         ): Matrix | MathArray | number;
@@ -1286,7 +1306,7 @@ declare namespace math {
          * @param format The Matrix storage format
          * @returns A matrix with ones on the diagonal
          */
-        eye(m: number, n: number, format?: string): Matrix | MathArray | number;
+        identity(m: number, n: number, format?: string): Matrix | MathArray | number;
 
         /**
          * Filter the items in an array or one dimensional matrix.
@@ -1298,8 +1318,8 @@ declare namespace math {
          * traversed. The function must return a boolean.
          */
         filter(
-            x: Matrix | MathArray,
-            test: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray) | RegExp
+            x: Matrix | MathArray | string[],
+            test: ((value: any, index: any, matrix: Matrix | MathArray | string[]) => boolean) | RegExp
         ): Matrix | MathArray;
 
         /**
@@ -1345,7 +1365,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): Matrix | MathArray;
+        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => MathType | string)): Matrix | MathArray;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -2052,7 +2072,7 @@ declare namespace math {
         /**
          * Compute the standard deviation of a matrix or a list with values. The
          * standard deviations is defined as the square root of the variance:
-         * std(A) = sqrt(var(A)). In case of a (multi dimensional) array or
+         * std(A) = sqrt(variance(A)). In case of a (multi dimensional) array or
          * matrix, the standard deviation over all elements will be calculated.
          * Optionally, the type of normalization can be specified as second
          * parameter. The parameter normalization can be one of the following
@@ -2094,11 +2114,11 @@ declare namespace math {
          * is divided by n 'biased' The sum of squared errors is divided by (n +
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
-         * math.var(...).
+         * math.variance(...).
          * @param args A single matrix or multiple scalar values
          * @returns The variance
          */
-        var(...args: Array<number | BigNumber | Fraction>): any;
+        variance(...args: Array<number | BigNumber | Fraction>): any;
         /**
          * @param array A single matrix
          * @param normalization normalization Determines how to normalize the
@@ -2106,7 +2126,7 @@ declare namespace math {
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        var(
+        variance(
             array: MathArray | Matrix,
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
         ): any;
@@ -2570,7 +2590,24 @@ declare namespace math {
          * case, non-primitive types are upper-camel-case. For example ‘number’,
          * ‘string’, ‘Array’, ‘Date’.
          */
-        typeof(x: any): string;
+        typeOf(x: any): string;
+
+        /**
+         * Import functions from an object or a module
+         * To avoid errors when using one of the imported functions extend module like this:
+         *
+         * @example
+         * // imported_math_functions.ts
+         * declare module 'mathjs' {
+         *      interface MathJsStatic {
+         *          hello(a: number): number;
+         *      }
+         * }
+         *
+         * @param object An object with functions to be imported.
+         * @param options An object with import options.
+         */
+        import(object: ImportObject | ImportObject[], options: ImportOptions): void;
     }
 
     interface Matrix {
@@ -2682,7 +2719,7 @@ declare namespace math {
     interface Index {} // tslint:disable-line no-empty-interface
 
     interface EvalFunction {
-        eval(scope?: any): any;
+        evaluate(scope?: any): any;
     }
 
     interface MathNode {
@@ -2722,14 +2759,14 @@ declare namespace math {
         cloneDeep(): MathNode;
         /**
          * Compile an expression into optimized JavaScript code. compile returns
-         * an object with a function eval([scope]) to evaluate. Example:
+         * an object with a function evaluate([scope]) to evaluate. Example:
          */
         compile(): EvalFunction;
         /**
          * Compile and eval an expression, this is the equivalent of doing
-         * node.compile().eval(scope). Example:
+         * node.compile().evaluate(scope). Example:
          */
-        eval(expr?: any): any;
+        evaluate(expr?: any): any;
         /**
          * Test whether this node equals an other node. Does a deep comparison
          * of the values of both nodes.
@@ -2874,8 +2911,9 @@ declare namespace math {
     }
 
     interface Parser {
-        eval(expr: string): any;
+        evaluate(expr: string): any;
         get(variable: string): any;
+        getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
         clear: () => void;
     }
@@ -3073,7 +3111,7 @@ declare namespace math {
 
         /**
          * Parse and compile an expression. Returns a an object with a function
-         * eval([scope]) to evaluate the compiled expression.
+         * evaluate([scope]) to evaluate the compiled expression.
          */
         compile(): MathJsChain;
 
@@ -3081,7 +3119,7 @@ declare namespace math {
          * Evaluate an expression.
          * @param scope Scope to read/write variables
          */
-        eval(scope?: object): MathJsChain;
+        evaluate(scope?: object): MathJsChain;
 
         /**
          * Retrieve help on a function or data type. Help files are retrieved
@@ -3091,7 +3129,7 @@ declare namespace math {
 
         /**
          * Parse an expression. Returns a node tree, which can be evaluated by
-         * invoking node.eval();
+         * invoking node.evaluate();
          * @param options Available options: nodes - a set of custome nodes
          */
         parse(options?: any): MathJsChain;
@@ -3695,12 +3733,12 @@ declare namespace math {
          * matrix has ones on the diagonal and zeros elsewhere.
          * @param format The Matrix storage format
          */
-        eye(format?: string): MathJsChain;
+        identity(format?: string): MathJsChain;
         /**
          * @param n The y dimension for the matrix
          * @param format The Matrix storage format
          */
-        eye(n: number, format?: string): MathJsChain;
+        identity(n: number, format?: string): MathJsChain;
 
         /**
          * Filter the items in an array or one dimensional matrix.
@@ -4223,7 +4261,7 @@ declare namespace math {
         /**
          * Compute the standard deviation of a matrix or a list with values. The
          * standard deviations is defined as the square root of the variance:
-         * std(A) = sqrt(var(A)). In case of a (multi dimensional) array or
+         * std(A) = sqrt(variance(A)). In case of a (multi dimensional) array or
          * matrix, the standard deviation over all elements will be calculated.
          * Optionally, the type of normalization can be specified as second
          * parameter. The parameter normalization can be one of the following
@@ -4257,13 +4295,13 @@ declare namespace math {
          * is divided by n 'biased' The sum of squared errors is divided by (n +
          * 1) Note that older browser may not like the variable name var. In
          * that case, the function can be called as math['var'](...) instead of
-         * math.var(...).
+         * math.variance(...).
          * @param normalization normalization Determines how to normalize the
          * variance. Choose ‘unbiased’ (default), ‘uncorrected’, or ‘biased’.
          * Default value: ‘unbiased’.
          * @returns The variance
          */
-        var(
+        variance(
             normalization?: "unbiased" | "uncorrected" | "biased" | "unbiased"
         ): MathJsChain;
 
@@ -4539,6 +4577,16 @@ declare namespace math {
         /**
          * Determine the type of a variable.
          */
-        typeof(): MathJsChain;
+        typeOf(): MathJsChain;
+    }
+
+    interface ImportOptions {
+        override?: boolean;
+        silent?: boolean;
+        wrap?: boolean;
+    }
+
+    interface ImportObject {
+        [key: string]: any;
     }
 }

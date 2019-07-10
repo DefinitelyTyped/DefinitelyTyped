@@ -1,5 +1,5 @@
 // Type definitions for restify 7.2
-// Project: https://github.com/restify/node-restify
+// Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
 //                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
@@ -385,6 +385,14 @@ export class Router {
      * Default route, when no route found
      */
     defaultRoute(req: Request, res: Response, next: Next): void;
+
+    /**
+     * takes an object of route params and query params, and 'renders' a URL.
+     * @param    routeName the route name
+     * @param    params    an object of route params
+     * @param    query     an object of query params
+     */
+    render(routeName: string, params: object, query?: object): string;
 
     /**
      * toString() serialization.
@@ -1227,6 +1235,8 @@ export namespace plugins {
          */
         rejectUnknown?: boolean;
 
+        requestBodyOnGet?: boolean;
+
         reviver?: any;
 
         maxFieldsSize?: number;
@@ -1261,7 +1271,7 @@ export namespace plugins {
     interface JsonBodyParserOptions {
         mapParams?: boolean;
         overrideParams?: boolean;
-        reviver?: (key: any, value: any) => any;
+        reviver?(key: any, value: any): any;
         bodyReader?: boolean;
     }
 
@@ -1343,7 +1353,7 @@ export namespace plugins {
     }
 
     /**
-     * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+     * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
      */
     function queryParser(options?: QueryParserOptions): RequestHandler;
 
@@ -1417,22 +1427,32 @@ export namespace plugins {
      */
     function throttle(options?: ThrottleOptions): RequestHandler;
 
-    interface MetricsCallback {
+    type MetricsCallback = (
         /**
          *  An error if the request had an error
          */
-        err: Error;
+        err: Error,
 
-        metrics: MetricsCallbackOptions;
+        /**
+         *  Object that contains the various metrics that are returned
+         */
+        metrics: MetricsCallbackOptions,
 
-        req: Request;
-        res: Response;
+        /**
+         * The request obj
+         */
+        req: Request,
+
+        /**
+         * The response obj
+         */
+        res: Response,
 
         /**
          * The route obj that serviced the request
          */
-        route: Route;
-    }
+        route: Route,
+    ) => void;
 
     type TMetricsCallback = 'close' | 'aborted' | undefined;
 
@@ -1495,13 +1515,13 @@ export namespace plugins {
      * Listens to the server's after event and emits information about that request (5.x compatible only).
      *
      * ```
-     * server.on('after', plugins.metrics( (err, metrics) =>
+     * server.on('after', plugins.metrics({ server }, (err, metrics, req, res, route) =>
      * {
      *    // metrics is an object containing information about the request
      * }));
      * ```
      */
-    function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
+    function metrics(opts: { server: Server }, callback: MetricsCallback): (...args: any[]) => void;
 
     /**
      * Parse the client's request for an OAUTH2 access tokensTable

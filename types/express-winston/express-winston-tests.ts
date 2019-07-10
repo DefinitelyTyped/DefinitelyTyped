@@ -1,6 +1,7 @@
 import expressWinston = require('express-winston');
 import * as winston from 'winston';
 import express = require('express');
+import { Format } from 'logform';
 
 const app = express();
 
@@ -12,13 +13,14 @@ app.use(expressWinston.logger({
   colorize: true,
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
   expressFormat: true,
+  format: new Format(),
   ignoreRoute: (req, res) => true,
   ignoredRoutes: ['foo'],
   level: (req, res) => 'level',
   meta: true,
   metaField: 'metaField',
   msg: 'msg',
-  requestFilter: (req, prop) => true,
+  requestFilter: (req, prop) => req[prop],
   requestWhitelist: ['foo', 'bar'],
   skip: (req, res) => false,
   statusLevels: ({ error: 'error', success: 'success', warn: 'warn' }),
@@ -45,6 +47,7 @@ app.use(expressWinston.logger({
 app.use(expressWinston.errorLogger({
   baseMeta: { foo: 'foo', nested: { bar: 'baz' } },
   dynamicMeta: (req, res, err) => ({ foo: 'bar' }),
+  format: new Format(),
   level: (req, res) => 'level',
   metaField: 'metaField',
   msg: 'msg',
@@ -67,10 +70,23 @@ app.use(expressWinston.errorLogger({
   winstonInstance: logger,
 }));
 
+// Request and error logger with function type msg
+app.use(expressWinston.logger({
+  msg: (req, res) => `HTTP ${req.method} ${req.url} - ${res.statusCode}`,
+  transports: [
+    new winston.transports.Console({})
+  ],
+}));
+
+app.use(expressWinston.errorLogger({
+  msg: (req, res) => `HTTP ${req.method} ${req.url} - ${res.statusCode}`,
+  winstonInstance: logger,
+}));
+
 expressWinston.bodyBlacklist.push('potato');
 expressWinston.bodyWhitelist.push('apple');
-expressWinston.defaultRequestFilter = (req: express.Request, prop: string) => true;
-expressWinston.defaultResponseFilter = (res: express.Response, prop: string) => true;
+expressWinston.defaultRequestFilter = (req: expressWinston.FilterRequest, prop: string) => req[prop];
+expressWinston.defaultResponseFilter = (res: expressWinston.FilterResponse, prop: string) => res[prop];
 expressWinston.defaultSkip = () => true;
 expressWinston.ignoredRoutes.push('/ignored');
 expressWinston.responseWhitelist.push('body');

@@ -5,7 +5,7 @@
 //                 Troy McKinnon <https://github.com/trodi>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import { EventEmitter } from 'events';
 import Sequelize = require("sequelize");
@@ -41,7 +41,7 @@ declare namespace umzug {
          * See https://github.com/sequelize/umzug/tree/master/test/fixtures
          * for examples.
          */
-        customResolver?(path: string): { up: () => Promise<any>, down?: () => Promise<any> };
+        customResolver?(path: string): { up: () => PromiseLike<any>, down?: () => PromiseLike<any> };
 
     }
 

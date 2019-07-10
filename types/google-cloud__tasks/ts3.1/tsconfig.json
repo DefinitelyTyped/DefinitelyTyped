@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "paths": {
+            "@google-cloud/tasks": ["google-cloud__tasks"]
+        },
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": ["index.d.ts", "google-cloud__tasks-tests.ts"]
+}

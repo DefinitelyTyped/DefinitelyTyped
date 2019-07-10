@@ -13,6 +13,10 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "parse": ["parse/v1"],
+            "parse/*": ["parse/v1/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

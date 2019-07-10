@@ -15,7 +15,7 @@ var sortInfo = [ { name: 'country', dir: 'asc'}]
 
 export module X {
 export class ExampleBasic extends React.Component {
-  render(): React.ReactElement<any> {
+  render(): React.ReactElement {
       return (
           <ReactDataGrid
             key={0}
@@ -30,7 +30,7 @@ export class ExampleBasic extends React.Component {
 
 class ExampleFull extends React.Component {
 
-    render(): React.ReactElement<any> {
+    render(): React.ReactElement {
 		    return (
             <ReactDataGrid
               key={1}

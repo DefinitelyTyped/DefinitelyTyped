@@ -87,7 +87,7 @@ declare namespace connectMongo {
         mongoOptions?: mongoose.ConnectionOptions;
     }
 
-    export interface MogooseConnectionOptions extends DefaultOptions {
+    export interface MongooseConnectionOptions extends DefaultOptions {
         mongooseConnection: mongoose.Connection;
     }
 
@@ -100,7 +100,7 @@ declare namespace connectMongo {
     }
 
     export interface MongoStoreFactory {
-        new(options: MongoUrlOptions | MogooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
+        new(options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
     }
 
     export class MongoStore extends session.Store {
@@ -110,6 +110,7 @@ declare namespace connectMongo {
         length: (callback: (err: any, length: number) => void) => void;
         clear: (callback?: (err?: any) => void) => void;
         touch: (sid: string, session: Express.SessionData, callback?: (err: any) => void) => void;
+        close: () => void;
     }
 }
 

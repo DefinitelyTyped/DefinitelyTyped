@@ -1,301 +1,825 @@
-// Type definitions for relay-runtime 1.3
-// Project: https://github.com/facebook/relay
+// Type definitions for relay-runtime 5.0
+// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
+//                 Cameron Knight <https://github.com/ckknight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.0
 
-// Prettified with:
-// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
-//   types/{react-relay,relay-runtime}/{,*}/*.ts*
-
-/**
- * SOURCE:
- * Relay 1.3.0
- * https://github.com/facebook/relay/blob/b85a1d69bb72be4ace67179f55c2a54a8d761c8b/packages/react-relay/classic/environment/RelayCombinedEnvironmentTypes.js
- */
-// ~~~~~~~~~~~~~~~~~~~~~
-// Maybe Fix
-// ~~~~~~~~~~~~~~~~~~~~~
-export type RelayConcreteNode = any;
-export type RelayMutationTransaction = any;
-export type RelayMutationRequest = any;
-export type RelayQueryRequest = any;
-export type ConcreteFragmentDefinition = object;
-export type ConcreteOperationDefinition = object;
-
-/**
- * FIXME: RelayContainer used to be typed with ReactClass<any>, but
- * ReactClass is broken and allows for access to any property. For example
- * ReactClass<any>.getFragment('foo') is valid even though ReactClass has no
- * such getFragment() type definition. When ReactClass is fixed this causes a
- * lot of errors in Relay code since methods like getFragment() are used often
- * but have no definition in Relay's types. Suppressing for now.
- */
-export type RelayContainer = any;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// Used in artifacts
-// emitted by
-// relay-compiler
-// ~~~~~~~~~~~~~~~~~~~~~
-
-// File: https://github.com/facebook/relay/blob/fe0e70f10bbcba1fff89911313ea69f24569464b/packages/relay-runtime/util/RelayConcreteNode.js
-export type ConcreteFragment = any;
-export type ConcreteRequest = any;
-export type ConcreteBatchRequest = any;
-
-export type RequestNode = ConcreteRequest | ConcreteBatchRequest;
-
-// Using `enum` here to create a distinct type and `const` to ensure it doesn’t leave any generated code.
-// tslint:disable-next-line:no-const-enum
-export const enum FragmentReference {}
-
-export interface OperationBase {
-    variables: object;
-    response: object;
-}
-export interface OperationDefaults {
-    variables: Variables;
-    response: Variables;
+// ./handlers/connection/RelayConnectionHandler
+export interface ConnectionMetadata {
+    path: ReadonlyArray<string> | null | undefined;
+    direction: string | null | undefined; // 'forward' | 'backward' | 'bidirectional' | null | undefined;
+    cursor: string | null | undefined;
+    count: string | null | undefined;
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// Constants
-// ~~~~~~~~~~~~~~~~~~~~~
-export const ROOT_ID: string;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayQL
-// ~~~~~~~~~~~~~~~~~~~~~
-export type RelayQL = (strings: string[], ...substitutions: any[]) => RelayConcreteNode;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayModernGraphQLTag
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface GeneratedNodeMap {
-    [key: string]: GraphQLTaggedNode;
+// ./handlers/connection/RelayConnectionInterface
+export interface Record {
+    [key: string]: unknown;
 }
-export type GraphQLTaggedNode =
-    | (() => ConcreteFragment | RequestNode)
+
+export interface EdgeRecord extends Record {
+    cursor: unknown;
+    node: Record;
+}
+
+export interface PageInfo {
+    endCursor: string | null | undefined;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    startCursor: string | null | undefined;
+}
+
+// ./mutations/RelayDeclarativeMutationConfig
+interface RangeAddConfig {
+    type: 'RANGE_ADD';
+    parentName?: string;
+    parentID?: string;
+    connectionInfo?: ReadonlyArray<{
+        key: string;
+        filters?: Variables;
+        rangeBehavior: string;
+    }>;
+    connectionName?: string;
+    edgeName: string;
+    rangeBehaviors?: RangeBehaviors;
+}
+
+interface RangeDeleteConfig {
+    type: 'RANGE_DELETE';
+    parentName?: string;
+    parentID?: string;
+    connectionKeys?: ReadonlyArray<{
+        key: string;
+        filters?: Variables;
+    }>;
+    connectionName?: string;
+    deletedIDFieldName: string | ReadonlyArray<string>;
+    pathToConnection: ReadonlyArray<string>;
+}
+
+interface NodeDeleteConfig {
+    type: 'NODE_DELETE';
+    parentName?: string;
+    parentID?: string;
+    connectionName?: string;
+    deletedIDFieldName: string;
+}
+
+// Unused in Relay Modern
+interface LegacyFieldsChangeConfig {
+    type: 'FIELDS_CHANGE';
+    fieldIDs: { [fieldName: string]: DataID | ReadonlyArray<DataID> };
+}
+
+// Unused in Relay Modern
+interface LegacyRequiredChildrenConfig {
+    type: 'REQUIRED_CHILDREN';
+    children: ReadonlyArray<unknown>;
+}
+export type DeclarativeMutationConfig =
+    | RangeAddConfig
+    | RangeDeleteConfig
+    | NodeDeleteConfig
+    | LegacyFieldsChangeConfig
+    | LegacyRequiredChildrenConfig;
+export type MutationType = 'RANGE_ADD' | 'RANGE_DELETE' | 'NODE_DELETE' | 'FIELDS_CHANGE' | 'REQUIRED_CHILDREN';
+export type RangeOperation = 'append' | 'ignore' | 'prepend' | 'refetch' | 'remove';
+export type RangeBehaviors =
+    | ((connectionArgs: { [name: string]: unknown }) => RangeOperation)
     | {
-          modern(): ConcreteFragment | RequestNode;
-          classic(relayQL: RelayQL): ConcreteFragmentDefinition | ConcreteOperationDefinition;
+          [key: string]: RangeOperation;
       };
-// ~~~~~~~~~~~~~~~~~~~~~
-// General Usage
-// ~~~~~~~~~~~~~~~~~~~~~
-export type DataID = string;
-export interface Variables {
-    [name: string]: any;
+
+// ./mutations/applyRelayModernOptimisticMutation
+export interface OptimisticMutationConfig {
+    configs?: ReadonlyArray<DeclarativeMutationConfig> | null;
+    mutation: GraphQLTaggedNode;
+    variables: Variables;
+    optimisticUpdater?: SelectorStoreUpdater | null;
+    optimisticResponse?: object;
 }
+
+// ./mutations/commitRelayModernMutation
+export interface MutationConfig<TOperation extends OperationType> {
+    configs?: ReadonlyArray<DeclarativeMutationConfig>;
+    mutation: GraphQLTaggedNode;
+    variables: TOperation['variables'];
+    uploadables?: UploadableMap;
+    onCompleted?:
+        | ((response: TOperation['response'], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
+        | null;
+    onError?: ((error: Error) => void) | null;
+    optimisticUpdater?: SelectorStoreUpdater | null;
+    optimisticResponse?: TOperation['response'] | null;
+    updater?: SelectorStoreUpdater<TOperation['response']> | null;
+}
+
+// ./network/RelayNetworkLoggerTransaction
+export interface RelayNetworkLog {
+    label: string;
+    values: ReadonlyArray<unknown>;
+}
+
+// ./network/RelayNetworkTypes
+export type ExecuteFunction = (
+    request: RequestParameters,
+    variables: Variables,
+    cacheConfig: CacheConfig,
+    uploadables?: UploadableMap | null
+) => RelayObservable<GraphQLResponse>;
+
+export type FetchFunction = (
+    request: RequestParameters,
+    variables: Variables,
+    cacheConfig: CacheConfig,
+    uploadables?: UploadableMap | null
+) => ObservableFromValue<GraphQLResponse>;
+
+export type GraphQLResponse =
+    | {
+          data: PayloadData;
+          errors?: ReadonlyArray<PayloadError>;
+          extensions?: PayloadExtensions;
+      }
+    | {
+          data?: PayloadData | null;
+          errors: ReadonlyArray<PayloadError>;
+          extensions?: PayloadExtensions;
+      };
+
+export interface LegacyObserver<T> {
+    onCompleted?: () => void;
+    onError?: (error: Error) => void;
+    onNext?: (data: T) => void;
+}
+
+interface Network {
+    execute: ExecuteFunction;
+}
+export { Network as INetwork };
+
+export interface PayloadData {
+    [key: string]: unknown;
+}
+
+export interface PayloadError {
+    message: string;
+    locations?: ReadonlyArray<{
+        line: number;
+        column: number;
+    }>;
+    severity?: 'CRITICAL' | 'ERROR' | 'WARNING'; // Not officially part of the spec, but used at Facebook
+}
+
+export type SubscribeFunction = (
+    request: RequestParameters,
+    variables: Variables,
+    cacheConfig: CacheConfig,
+    observer?: LegacyObserver<GraphQLResponse>
+) => RelayObservable<GraphQLResponse> | Disposable;
+
 export type Uploadable = File | Blob;
 export interface UploadableMap {
     [key: string]: Uploadable;
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayNetworkTypes
-// Version: Relay 1.3.0
-// File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayNetworkTypes.js
-// ~~~~~~~~~~~~~~~~~~~~~
-
-export interface LegacyObserver<T> {
-    onCompleted?(): void;
-    onError?(error: Error): void;
-    onNext?(data: T): void;
+interface PayloadExtensions {
+    [key: string]: unknown;
 }
-export interface PayloadError {
-    message: string;
-    locations?: Array<{
-        line: number;
-        column: number;
-    }>;
+
+// ./network/RelayObservable
+export type ObservableFromValue<T> = Subscribable<T> | Promise<T> | T;
+
+export interface Observer<T> {
+    readonly start?: (subscription: Subscription) => void;
+    readonly next?: (value: T) => void;
+    readonly error?: (error: Error) => void;
+    readonly complete?: () => void;
+    readonly unsubscribe?: (subscription: Subscription) => void;
 }
-/**
- * A function that executes a GraphQL operation with request/response semantics.
- *
- * May return an Observable or Promise of a raw server response.
- */
-export type FetchFunction = (
-    operation: RequestNode,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    uploadables?: UploadableMap
-) => ObservableFromValue<QueryPayload>;
 
-/**
- * A function that executes a GraphQL subscription operation, returning one or
- * more raw server responses over time.
- *
- * May return an Observable, otherwise must call the callbacks found in the
- * fourth parameter.
- */
-export type SubscribeFunction = (
-    operation: RequestNode,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    observer: LegacyObserver<QueryPayload>
-) => RelayObservable<QueryPayload> | Disposable;
+export interface Subscribable<T> {
+    subscribe(observer: Observer<T> | Sink<T>): Subscription;
+}
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayStoreTypes
-// Version: Relay 1.3.0
-// File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/store/RelayStoreTypes.js
-// ~~~~~~~~~~~~~~~~~~~~~
-/**
- * A function that receives a proxy over the store and may trigger side-effects
- * (indirectly) by calling `set*` methods on the store or its record proxies.
- */
-export type StoreUpdater = (store: RecordSourceProxy) => void;
+interface Sink<T> {
+    next(value: T): void;
+    error(error: Error, isUncaughtThrownError?: boolean): void;
+    complete(): void;
+    readonly closed: boolean;
+}
+type Source<T> = (sink: Sink<T>) => void | Subscription | (() => unknown);
 
-/**
- * Similar to StoreUpdater, but accepts a proxy tied to a specific selector in
- * order to easily access the root fields of a query/mutation as well as a
- * second argument of the response object of the mutation.
- */
-export type SelectorStoreUpdater<T = any> = (
-    store: RecordSourceSelectorProxy,
-    // Actually RelayCombinedEnvironmentTypes#SelectorData, but mixed is
-    // inconvenient to access deeply in product code.
-    data: T
-) => void;
+export interface Subscription {
+    unsubscribe(): void;
+    readonly closed: boolean;
+}
 
-/**
- * Extends the RecordSourceProxy interface with methods for accessing the root
- * fields of a Selector.
- */
-export interface RecordSourceSelectorProxy {
-    create(dataID: DataID, typeName: string): RecordProxy;
-    delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy | null;
-    getRoot(): RecordProxy;
-    getRootField(fieldName: string): RecordProxy | null;
-    getPluralRootField(fieldName: string): RecordProxy[] | null;
+// ./network/createRelayNetworkLogger
+export type GraphiQLPrinter = (request: RequestParameters, variables: Variables) => string;
+
+// ./query/RelayModernGraphQLTag
+export type GraphQLTaggedNode =
+    | ReaderFragment
+    | ConcreteRequest
+    | (() => ReaderFragment | ConcreteRequest)
+    | {
+          modern: () => ReaderFragment | ConcreteRequest;
+      };
+
+// ./store/RelayRecordState
+export type RecordState = 'EXISTENT' | 'NONEXISTENT' | 'UNKNOWN';
+
+// ./store/RelayStoreTypes
+interface Environment
+    extends CEnvironment<
+        Environment,
+        ReaderFragment,
+        GraphQLTaggedNode,
+        ReaderSelectableNode,
+        NormalizationSelectableNode,
+        ConcreteRequest,
+        GraphQLResponse,
+        OwnedReaderSelector
+    > {
+    applyUpdate(optimisticUpdate: OptimisticUpdate): Disposable;
+
+    commitUpdate(updater: StoreUpdater): void;
+
+    commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
+
+    getStore(): Store;
+
+    lookup(selector: ReaderSelector, owner?: OperationDescriptor): CSnapshot<ReaderSelectableNode, OperationDescriptor>;
+
+    executeMutation(data: {
+        operation: OperationDescriptor;
+        optimisticUpdater?: SelectorStoreUpdater | null;
+        optimisticResponse?: object | null;
+        updater?: SelectorStoreUpdater | null;
+        uploadables?: UploadableMap | null;
+    }): RelayObservable<GraphQLResponse>;
+}
+export { Environment as IEnvironment };
+
+export type FragmentMap = CFragmentMap<ReaderFragment>;
+
+export type FragmentReference = never & { __tag: 'FragmentReference' };
+
+export interface FragmentPointer {
+    __id: DataID;
+    __fragments: { [fragmentName: string]: Variables };
+    __fragmentOwner: OperationDescriptor | null;
+}
+
+export interface HandleFieldPayload {
+    readonly args: Variables;
+    readonly dataID: DataID;
+    readonly fieldKey: string;
+    readonly handle: string;
+    readonly handleKey: string;
+}
+
+export interface MatchPointer {
+    __id: DataID;
+    __fragments: { [fragmentName: string]: Variables };
+    __fragmentPropName: string;
+    __module: unknown;
+}
+
+export type MissingFieldHandler =
+    | {
+          kind: 'scalar';
+          handle: (
+              field: NormalizationScalarField,
+              record: Record | null | undefined,
+              args: Variables,
+              store: ReadonlyRecordSourceProxy
+          ) => unknown;
+      }
+    | {
+          kind: 'linked';
+          handle: (
+              field: NormalizationLinkedField,
+              record: Record | null | undefined,
+              args: Variables,
+              store: ReadonlyRecordSourceProxy
+          ) => DataID | null | undefined;
+      }
+    | {
+          kind: 'pluralLinked';
+          handle: (
+              field: NormalizationLinkedField,
+              record: Record | null | undefined,
+              args: Variables,
+              store: ReadonlyRecordSourceProxy
+          ) => ReadonlyArray<DataID | null | undefined> | null | undefined;
+      };
+
+export const RelayDefaultMissingFieldHandlers: ReadonlyArray<MissingFieldHandler>;
+
+export interface OperationLoader {
+    get(reference: unknown): NormalizationSplitOperation | null | undefined;
+
+    load(reference: unknown): Promise<NormalizationSplitOperation | null | undefined>;
+}
+
+export type OperationDescriptor = COperationDescriptor<
+    ReaderSelectableNode,
+    NormalizationSelectableNode,
+    ConcreteRequest
+>;
+
+export type OptimisticUpdate =
+    | {
+          storeUpdater: StoreUpdater;
+      }
+    | {
+          selectorStoreUpdater: SelectorStoreUpdater | null | undefined;
+          operation: OperationDescriptor;
+          response: object | null | undefined;
+      }
+    | {
+          source: RecordSource;
+          fieldPayloads?: ReadonlyArray<HandleFieldPayload> | null;
+      };
+
+export interface OwnedReaderSelector {
+    owner: OperationDescriptor | null;
+    selector: ReaderSelector;
 }
 
 export interface RecordProxy {
     copyFieldsFrom(source: RecordProxy): void;
     getDataID(): DataID;
-    getLinkedRecord(name: string, args?: Variables): RecordProxy | null;
-    getLinkedRecords(name: string, args?: Variables): ReadonlyArray<RecordProxy | null> | null;
-    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables): RecordProxy;
-    getType(): string;
-    getValue(name: string, args?: Variables): any;
-    setLinkedRecord(record: RecordProxy, name: string, args?: Variables): RecordProxy;
-    setLinkedRecords(
-        records: Array<RecordProxy | null> | undefined | null,
+    getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
+    getLinkedRecords(
         name: string,
-        args?: Variables
+        args?: Variables | null
+    ): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
+    getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy;
+    getType(): string;
+    getValue(name: string, args?: Variables | null): unknown;
+    setLinkedRecord(record: RecordProxy, name: string, args?: Variables | null): RecordProxy;
+    setLinkedRecords(
+        records: Array<RecordProxy | null | undefined>,
+        name: string,
+        args?: Variables | null
     ): RecordProxy;
-    setValue(value: any, name: string, args?: Variables): RecordProxy;
+    setValue(value: unknown, name: string, args?: Variables | null): RecordProxy;
 }
 
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    get(dataID: DataID): RecordProxy | null;
+    get(dataID: DataID): RecordProxy | null | undefined;
     getRoot(): RecordProxy;
 }
 
-export interface HandleFieldPayload {
-    // The arguments that were fetched.
-    args: Variables;
-    // The __id of the record containing the source/handle field.
+export interface RecordSourceSelectorProxy {
+    create(dataID: DataID, typeName: string): RecordProxy;
+    delete(dataID: DataID): void;
+    get(dataID: DataID): RecordProxy | null | undefined;
+    getRoot(): RecordProxy;
+    getRootField(fieldName: string): RecordProxy | null | undefined;
+    getPluralRootField(fieldName: string): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
+}
+
+export type RelayContext = CRelayContext<Environment>;
+
+export type ReaderSelector = CReaderSelector<ReaderSelectableNode>;
+
+export type NormalizationSelector = CNormalizationSelector<NormalizationSelectableNode>;
+
+export type SelectorStoreUpdater<TData = unknown> = (store: RecordSourceSelectorProxy, data: TData) => void;
+
+export type Snapshot = CSnapshot<ReaderSelectableNode, OperationDescriptor>;
+
+export type StoreUpdater = (store: RecordSourceProxy) => void;
+
+interface ReadonlyRecordSourceProxy {
+    get(dataID: DataID): ReadonlyRecordProxy | null | undefined;
+    getRoot(): ReadonlyRecordProxy;
+}
+
+interface ReadonlyRecordProxy {
+    getDataID(): DataID;
+    getLinkedRecord(name: string, args?: Variables | null): RecordProxy | null | undefined;
+    getLinkedRecords(
+        name: string,
+        args?: Variables | null
+    ): ReadonlyArray<RecordProxy | null | undefined> | null | undefined;
+    getType(): string;
+    getValue(name: string, args?: Variables | null): unknown;
+}
+
+interface RecordSource {
+    get(dataID: DataID): Record | null | undefined;
+    getRecordIDs(): ReadonlyArray<DataID>;
+    getStatus(dataID: DataID): RecordState;
+    has(dataID: DataID): boolean;
+    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
+    size(): number;
+}
+export { RecordSource as IRecordSource };
+
+interface Store {
+    getSource(): RecordSource;
+    check(selector: NormalizationSelector): boolean;
+    lookup(selector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
+    notify(): void;
+    publish(source: RecordSource): void;
+    retain(selector: NormalizationSelector): Disposable;
+    subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
+    holdGC(): Disposable;
+}
+
+export interface MutableRecordSource extends RecordSource {
+    clear(): void;
+    delete(dataID: DataID): void;
+    remove(dataID: DataID): void;
+    set(dataID: DataID, record: Record): void;
+}
+
+type Scheduler = (callback: () => void) => void;
+
+// ./subscription/requestRelaySubscription
+export interface GraphQLSubscriptionConfig<TSubscriptionPayload> {
+    configs?: ReadonlyArray<DeclarativeMutationConfig>;
+    subscription: GraphQLTaggedNode;
+    variables: Variables;
+    onCompleted?: () => void;
+    onError?: (error: Error) => void;
+    onNext?: (response: TSubscriptionPayload | null | undefined) => void;
+    updater?: SelectorStoreUpdater;
+}
+
+// ./util/NormalizationNode
+export type NormalizationArgument = NormalizationLiteral | NormalizationVariable;
+
+export type NormalizationArgumentDefinition = NormalizationLocalArgument | NormalizationRootArgument;
+
+export interface NormalizationDefer {
+    readonly if: string | null;
+    readonly kind: 'Defer';
+    readonly label: string;
+    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+export type NormalizationField = NormalizationScalarField | NormalizationLinkedField | NormalizationMatchField;
+
+export interface NormalizationLinkedField {
+    readonly kind: string; // 'LinkedField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly storageKey: string | null | undefined;
+    readonly args: ReadonlyArray<NormalizationArgument>;
+    readonly concreteType: string | null | undefined;
+    readonly plural: boolean;
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+export interface NormalizationMatchField {
+    readonly kind: string; // 'MatchField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly storageKey: string | null | undefined;
+    readonly args: ReadonlyArray<NormalizationArgument>;
+    readonly matchesByType: {
+        readonly [key: string]: {
+            readonly fragmentPropName: string;
+            readonly fragmentName: string;
+        };
+    };
+}
+
+export interface NormalizationOperation {
+    readonly kind: string; // 'Operation';
+    readonly name: string;
+    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgument>;
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+export interface NormalizationScalarField {
+    readonly kind: string; // 'ScalarField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly storageKey: string | null | undefined;
+}
+
+export type NormalizationSelection =
+    | NormalizationCondition
+    | NormalizationField
+    | NormalizationHandle
+    | NormalizationInlineFragment
+    | NormalizationMatchField;
+
+export interface NormalizationSplitOperation {
+    readonly kind: string; // 'SplitOperation';
+    readonly name: string;
+    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+export interface NormalizationStream {
+    readonly if: string | null;
+    readonly kind: string; // 'Stream';
+    readonly label: string;
+    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+interface NormalizationLiteral {
+    readonly kind: string; // 'Literal';
+    readonly name: string;
+    readonly type?: string | null;
+    readonly value: unknown;
+}
+
+interface NormalizationVariable {
+    readonly kind: string; // 'Variable';
+    readonly name: string;
+    readonly type?: string | null;
+    readonly variableName: string;
+}
+
+interface NormalizationLocalArgument {
+    readonly kind: string; // 'LocalArgument';
+    readonly name: string;
+    readonly type: string;
+    readonly defaultValue: unknown;
+}
+
+interface NormalizationRootArgument {
+    readonly kind: string; // 'RootArgument';
+    readonly name: string;
+    readonly type: string | null | undefined;
+}
+
+interface NormalizationCondition {
+    readonly kind: string; // 'Condition';
+    readonly passingValue: boolean;
+    readonly condition: string;
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+}
+
+type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;
+
+interface NormalizationLinkedHandle {
+    readonly kind: string; // 'LinkedHandle';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly handle: string;
+    readonly key: string;
+    readonly filters: ReadonlyArray<string> | null | undefined;
+}
+
+interface NormalizationScalarHandle {
+    readonly kind: string; // 'ScalarHandle';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly args: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly handle: string;
+    readonly key: string;
+    readonly filters: ReadonlyArray<string> | null | undefined;
+}
+
+interface NormalizationInlineFragment {
+    readonly kind: string; // 'InlineFragment';
+    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly type: string;
+}
+
+type NormalizationSelectableNode =
+    | NormalizationDefer
+    | NormalizationOperation
+    | NormalizationSplitOperation
+    | NormalizationStream;
+
+// ./util/ReaderNode
+export type ReaderArgument = ReaderLiteral | ReaderVariable;
+
+export type ReaderArgumentDefinition = ReaderLocalArgument | ReaderRootArgument;
+
+export type ReaderField = ReaderScalarField | ReaderLinkedField | ReaderMatchField;
+
+export interface ReaderFragment {
+    readonly kind: string; // 'Fragment';
+    readonly name: string;
+    readonly type: string;
+    readonly metadata:
+        | {
+              readonly connection?: ReadonlyArray<ConnectionMetadata>;
+              readonly mask?: boolean;
+              readonly plural?: boolean;
+              readonly refetch?: ReaderRefetchMetadata;
+          }
+        | null
+        | undefined;
+    readonly argumentDefinitions: ReadonlyArray<ReaderArgumentDefinition>;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+export interface ReaderLinkedField {
+    readonly kind: string; // 'LinkedField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly storageKey: string | null | undefined;
+    readonly args: ReadonlyArray<ReaderArgument>;
+    readonly concreteType: string | null | undefined;
+    readonly plural: boolean;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+export interface ReaderMatchField {
+    readonly kind: string; // 'MatchField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly storageKey: string | null | undefined;
+    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
+    readonly matchesByType: {
+        readonly [key: string]: {
+            readonly fragmentPropName: string;
+            readonly fragmentName: string;
+        };
+    };
+}
+
+export interface ReaderPaginationMetadata {
+    readonly backward: {
+        readonly count: string;
+        readonly cursor: string;
+    } | null;
+    readonly forward: {
+        readonly count: string;
+        readonly cursor: string;
+    } | null;
+    readonly path: ReadonlyArray<string>;
+}
+
+export interface ReaderRefetchableFragment extends ReaderFragment {
+    readonly metadata: {
+        readonly connection?: [ConnectionMetadata];
+        readonly refetch: ReaderRefetchMetadata;
+    };
+}
+
+export interface ReaderScalarField {
+    readonly kind: string; // 'ScalarField';
+    readonly alias: string | null | undefined;
+    readonly name: string;
+    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
+    readonly storageKey: string | null | undefined;
+}
+
+export type ReaderSelection =
+    | ReaderCondition
+    | ReaderField
+    | ReaderFragmentSpread
+    | ReaderInlineFragment
+    | ReaderMatchField;
+
+export interface ReaderSplitOperation {
+    readonly kind: string; // 'SplitOperation';
+    readonly name: string;
+    readonly metadata: { readonly [key: string]: unknown } | null | undefined;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+interface ReaderLiteral {
+    readonly kind: string; // 'Literal';
+    readonly name: string;
+    readonly value: unknown;
+}
+
+interface ReaderVariable {
+    readonly kind: string; // 'Variable';
+    readonly name: string;
+    readonly variableName: string;
+}
+
+interface ReaderLocalArgument {
+    readonly kind: string; // 'LocalArgument';
+    readonly name: string;
+    readonly type: string;
+    readonly defaultValue: unknown;
+}
+
+interface ReaderRootArgument {
+    readonly kind: string; // 'RootArgument';
+    readonly name: string;
+    readonly type: string | null | undefined;
+}
+
+interface ReaderRefetchMetadata {
+    readonly connection: ReaderPaginationMetadata | null | undefined;
+    readonly operation: string | ConcreteRequest;
+    readonly fragmentPathInResult: ReadonlyArray<string>;
+}
+
+interface ReaderCondition {
+    readonly kind: string; // 'Condition';
+    readonly passingValue: boolean;
+    readonly condition: string;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
+interface ReaderFragmentSpread {
+    readonly kind: string; // 'FragmentSpread';
+    readonly name: string;
+    readonly args: ReadonlyArray<ReaderArgument> | null | undefined;
+}
+
+interface ReaderInlineFragment {
+    readonly kind: string; // 'InlineFragment';
+    readonly selections: ReadonlyArray<ReaderSelection>;
+    readonly type: string;
+}
+
+type ReaderSelectableNode = ReaderFragment | ReaderSplitOperation;
+
+interface ReaderPaginationFragment extends ReaderFragment {
+    readonly metadata: {
+        readonly connection: [ConnectionMetadata];
+        readonly refetch: ReaderRefetchMetadata & {
+            connection: ReaderPaginationMetadata;
+        };
+    };
+}
+
+// ./util/RelayCombinedEnvironmentTypes
+export interface CEnvironment<
+    TEnvironment,
+    TFragment,
+    TGraphQLTaggedNode,
+    TReaderNode,
+    TNormalizationNode,
+    TRequest,
+    TPayload,
+    TReaderSelector
+> {
+    check(selector: CNormalizationSelector<TNormalizationNode>): boolean;
+
+    lookup(
+        selector: CReaderSelector<TReaderNode>
+    ): CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>;
+
+    subscribe(
+        snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>,
+        callback: (
+            snapshot: CSnapshot<TReaderNode, COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>>
+        ) => void
+    ): Disposable;
+
+    retain(selector: CNormalizationSelector<TNormalizationNode>): Disposable;
+
+    execute(config: {
+        operation: COperationDescriptor<TReaderNode, TNormalizationNode, TRequest>;
+        cacheConfig?: CacheConfig | null;
+        updater?: SelectorStoreUpdater | null;
+    }): RelayObservable<TPayload>;
+}
+
+export interface CFragmentMap<TFragment> {
+    [key: string]: TFragment;
+}
+
+export interface CNormalizationSelector<TNormalizationNode> {
     dataID: DataID;
-    // The (storage) key at which the original server data was written.
-    fieldKey: string;
-    // The name of the handle
-    handle: string;
-    // The (storage) key at which the handle's data should be written by the
-    // handler
-    handleKey: string;
-}
-export interface HandlerInterface {
-    update(store: RecordSourceProxy, fieldPayload: HandleFieldPayload): void;
-    [functionName: string]: (...args: any[]) => any;
-}
-export const ConnectionHandler: HandlerInterface;
-export const ViewerHandler: HandlerInterface;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayCombinedEnvironmentTypes
-// Version: Relay 1.3.0
-// File: https://github.com/facebook/relay/blob/b85a1d69bb72be4ace67179f55c2a54a8d761c8b/packages/react-relay/classic/environment/RelayCombinedEnvironmentTypes.js
-// ~~~~~~~~~~~~~~~~~~~~~
-/**
- * Settings for how a query response may be cached.
- *
- * - `force`: causes a query to be issued unconditionally, irrespective of the
- *   state of any configured response cache.
- * - `poll`: causes a query to live update by polling at the specified interval
- *   in milliseconds. (This value will be passed to setTimeout.)
- */
-export interface CacheConfig {
-    force?: boolean;
-    poll?: number;
-}
-
-/**
- * Represents any resource that must be explicitly disposed of. The most common
- * use-case is as a return value for subscriptions, where calling `dispose()`
- * would cancel the subscription.
- */
-export interface Disposable {
-    dispose(): void;
-}
-
-/**
- * Arbitrary data e.g. received by a container as props.
- */
-export interface Props {
-    [key: string]: any;
-}
-
-/**
- * A selector defines the starting point for a traversal into the graph for the
- * purposes of targeting a subgraph.
- */
-export interface CSelector<TNode> {
-    dataID: DataID;
-    node: TNode;
+    node: TNormalizationNode;
     variables: Variables;
 }
 
-/**
- * A representation of a selector and its results at a particular point in time.
- */
-export type CSnapshot<TNode> = CSelector<TNode> & {
+export interface COperationDescriptor<TReaderNode, TNormalizationNode, TRequest> {
+    fragment: CReaderSelector<TReaderNode>;
+    node: TRequest;
+    root: CNormalizationSelector<TNormalizationNode>;
+    variables: Variables;
+}
+
+export interface CReaderSelector<TReaderNode> {
+    dataID: DataID;
+    node: TReaderNode;
+    variables: Variables;
+}
+
+export interface CRelayContext<TEnvironment> {
+    environment: TEnvironment;
+    variables: Variables;
+}
+
+export interface CSnapshot<TReaderNode, TOwner> extends CReaderSelector<TReaderNode> {
     data: SelectorData | null | undefined;
     seenRecords: RecordMap;
-};
-
-/**
- * The results of a selector given a store/RecordSource.
- */
-export interface SelectorData {
-    [key: string]: any;
+    isMissingData: boolean;
+    owner: TOwner | null;
 }
 
-/**
- * The results of reading the results of a FragmentMap given some input
- * `Props`.
- */
-export interface FragmentSpecResults {
-    [key: string]: any;
-}
-
-/**
- * A utility for resolving and subscribing to the results of a fragment spec
- * (key -> fragment mapping) given some "props" that determine the root ID
- * and variables to use when reading each fragment. When props are changed via
- * `setProps()`, the resolver will update its results and subscriptions
- * accordingly. Internally, the resolver:
- * - Converts the fragment map & props map into a map of `Selector`s.
- * - Removes any resolvers for any props that became null.
- * - Creates resolvers for any props that became non-null.
- * - Updates resolvers with the latest props.
- */
 export interface FragmentSpecResolver {
     /**
      * Stop watching for changes to the results of the fragments.
@@ -317,774 +841,413 @@ export interface FragmentSpecResolver {
      * Override the variables used to read the results of the fragments. Call
      * `resolve()` to get the updated results.
      */
-    setVariables(variables: Variables): void;
-}
-
-export interface CFragmentMap<TFragment> {
-    [key: string]: TFragment;
-}
-
-/**
- * An operation selector describes a specific instance of a GraphQL operation
- * with variables applied.
- *
- * - `root`: a selector intended for processing server results or retaining
- *   response data in the store.
- * - `fragment`: a selector intended for use in reading or subscribing to
- *   the results of the the operation.
- */
-export interface COperationSelector<TNode, TOperation> {
-    fragment: CSelector<TNode>;
-    node: TOperation;
-    root: CSelector<TNode>;
-    variables: Variables;
-}
-
-/**
- * The public API of Relay core. Represents an encapsulated environment with its
- * own in-memory cache.
- */
-export interface CEnvironment<TEnvironment, TFragment, TGraphQLTaggedNode, TNode, TOperation, TPayload> {
-    /**
-     * Read the results of a selector from in-memory records in the store.
-     */
-    lookup(selector: CSelector<TNode>): CSnapshot<TNode>;
+    setVariables(variables: Variables, request?: ConcreteRequest): void;
 
     /**
-     * Subscribe to changes to the results of a selector. The callback is called
-     * when data has been committed to the store that would cause the results of
-     * the snapshot's selector to change.
+     * Subscribe to resolver updates.
+     * Overrides existing callback (if one has been specified).
      */
-    subscribe(snapshot: CSnapshot<TNode>, callback: (snapshot: CSnapshot<TNode>) => void): Disposable;
-
-    /**
-     * Ensure that all the records necessary to fulfill the given selector are
-     * retained in-memory. The records will not be eligible for garbage collection
-     * until the returned reference is disposed.
-     *
-     * Note: This is a no-op in the classic core.
-     */
-    retain(selector: CSelector<TNode>): Disposable;
-
-    /**
-     * Send a query to the server with request/response semantics: the query will
-     * either complete successfully (calling `onNext` and `onCompleted`) or fail
-     * (calling `onError`).
-     *
-     * Note: Most applications should use `streamQuery` in order to
-     * optionally receive updated information over time, should that feature be
-     * supported by the network/server. A good rule of thumb is to use this method
-     * if you would otherwise immediately dispose the `streamQuery()`
-     * after receving the first `onNext` result.
-     */
-    sendQuery(config: {
-        cacheConfig?: CacheConfig;
-        onCompleted?(): void;
-        onError?(error: Error): void;
-        onNext?(payload: TPayload): void;
-        operation: COperationSelector<TNode, TOperation>;
-    }): Disposable;
-
-    /**
-     * Send a query to the server with request/subscription semantics: one or more
-     * responses may be returned (via `onNext`) over time followed by either
-     * the request completing (`onCompleted`) or an error (`onError`).
-     *
-     * Networks/servers that support subscriptions may choose to hold the
-     * subscription open indefinitely such that `onCompleted` is not called.
-     */
-    streamQuery(config: {
-        cacheConfig?: CacheConfig;
-        onCompleted?(): void;
-        onError?(error: Error): void;
-        onNext?(payload: TPayload): void;
-        operation: COperationSelector<TNode, TOperation>;
-    }): Disposable;
-
-    unstable_internal: CUnstableEnvironmentCore<TEnvironment, TFragment, TGraphQLTaggedNode, TNode, TOperation>;
+    setCallback(callback: () => void): void;
 }
 
-export interface CUnstableEnvironmentCore<TEnvironment, TFragment, TGraphQLTaggedNode, TNode, TOperation> {
-    /**
-     * Create an instance of a FragmentSpecResolver.
-     *
-     * TODO: The FragmentSpecResolver *can* be implemented via the other methods
-     * defined here, so this could be moved out of core. It's convenient to have
-     * separate implementations until the experimental core is in OSS.
-     */
-    createFragmentSpecResolver(
-        context: CRelayContext<TEnvironment>,
-        containerName: string,
-        fragments: CFragmentMap<TFragment>,
-        props: Props,
-        callback: () => void
-    ): FragmentSpecResolver;
-
-    /**
-     * Creates an instance of an OperationSelector given an operation definition
-     * (see `getOperation`) and the variables to apply. The input variables are
-     * filtered to exclude variables that do not matche defined arguments on the
-     * operation, and default values are populated for null values.
-     */
-    createOperationSelector(operation: TOperation, variables: Variables): COperationSelector<TNode, TOperation>;
-
-    /**
-     * Given a graphql`...` tagged template, extract a fragment definition usable
-     * by this version of Relay core. Throws if the value is not a fragment.
-     */
-    getFragment(node: TGraphQLTaggedNode): TFragment;
-
-    /**
-     * Given a graphql`...` tagged template, extract an operation definition
-     * usable by this version of Relay core. Throws if the value is not an
-     * operation.
-     */
-    getOperation(node: TGraphQLTaggedNode): TOperation;
-
-    /**
-     * Determine if two selectors are equal (represent the same selection). Note
-     * that this function returns `false` when the two queries/fragments are
-     * different objects, even if they select the same fields.
-     */
-    areEqualSelectors(a: CSelector<TNode>, b: CSelector<TNode>): boolean;
-
-    /**
-     * Given the result `item` from a parent that fetched `fragment`, creates a
-     * selector that can be used to read the results of that fragment for that item.
-     *
-     * Example:
-     *
-     * Given two fragments as follows:
-     *
-     * ```
-     * fragment Parent on User {
-     *   id
-     *   ...Child
-     * }
-     * fragment Child on User {
-     *   name
-     * }
-     * ```
-     *
-     * And given some object `parent` that is the results of `Parent` for id "4",
-     * the results of `Child` can be accessed by first getting a selector and then
-     * using that selector to `lookup()` the results against the environment:
-     *
-     * ```
-     * const childSelector = getSelector(queryVariables, Child, parent);
-     * const childData = environment.lookup(childSelector).data;
-     * ```
-     */
-    getSelector(operationVariables: Variables, fragment: TFragment, prop: any): CSelector<TNode> | null;
-
-    /**
-     * Given the result `items` from a parent that fetched `fragment`, creates a
-     * selector that can be used to read the results of that fragment on those
-     * items. This is similar to `getSelector` but for "plural" fragments that
-     * expect an array of results and therefore return an array of selectors.
-     */
-    getSelectorList(operationVariables: Variables, fragment: TFragment, props: any[]): Array<CSelector<TNode>> | null;
-
-    /**
-     * Given a mapping of keys -> results and a mapping of keys -> fragments,
-     * extracts the selectors for those fragments from the results.
-     *
-     * The canonical use-case for this function are Relay Containers, which
-     * use this function to convert (props, fragments) into selectors so that they
-     * can read the results to pass to the inner component.
-     */
-    getSelectorsFromObject(
-        operationVariables: Variables,
-        fragments: CFragmentMap<TFragment>,
-        props: Props
-    ): {
-        [key: string]: CSelector<TNode> | Array<CSelector<TNode>> | null | undefined;
-    };
-
-    /**
-     * Given a mapping of keys -> results and a mapping of keys -> fragments,
-     * extracts a mapping of keys -> id(s) of the results.
-     *
-     * Similar to `getSelectorsFromObject()`, this function can be useful in
-     * determining the "identity" of the props passed to a component.
-     */
-    getDataIDsFromObject(
-        fragments: CFragmentMap<TFragment>,
-        props: Props
-    ): { [key: string]: DataID | DataID[] | null | undefined };
-
-    /**
-     * Given a mapping of keys -> results and a mapping of keys -> fragments,
-     * extracts the merged variables that would be in scope for those
-     * fragments/results.
-     *
-     * This can be useful in determing what varaibles were used to fetch the data
-     * for a Relay container, for example.
-     */
-    getVariablesFromObject(operationVariables: Variables, fragments: CFragmentMap<TFragment>, props: Props): Variables;
+export interface FragmentSpecResults {
+    [key: string]: unknown;
 }
 
-/**
- * The type of the `relay` property set on React context by the React/Relay
- * integration layer (e.g. QueryRenderer, FragmentContainer, etc).
- */
-export interface CRelayContext<TEnvironment> {
-    environment: TEnvironment;
-    variables: Variables;
+export interface Props {
+    [key: string]: unknown;
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayTypes
-/**
- * Version: Relay 1.3.0
- * File:
- * https://github.com/facebook/relay/blob/fa9f48ea209ee2402d433b59a84d1cbc046574e2/packages/react-relay/classic/tools/RelayTypes.js
- */
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface RerunParam {
-    param: string;
-    import: string;
-    max_runs: number;
+interface RecordMap {
+    // theoretically, this should be `[dataID: DataID]`, but `DataID` is a string.
+    [dataID: string]: Record | undefined;
 }
-export interface FIELDS_CHANGE {
-    type: "FIELDS_CHANGE";
-    fieldIDs: { [fieldName: string]: DataID | DataID[] };
-}
-export interface RANGE_ADD {
-    type: "RANGE_ADD";
-    parentName?: string;
-    parentID?: string;
-    connectionInfo?: Array<{
-        key: string;
-        filters?: Variables;
-        rangeBehavior: string;
-    }>;
-    connectionName?: string;
-    edgeName: string;
-    rangeBehaviors?: RangeBehaviors;
-}
-export interface NODE_DELETE {
-    type: "NODE_DELETE";
-    parentName?: string;
-    parentID?: string;
-    connectionName?: string;
-    deletedIDFieldName: string;
-}
-export interface RANGE_DELETE {
-    type: "RANGE_DELETE";
-    parentName?: string;
-    parentID?: string;
-    connectionKeys?: Array<{
-        key: string;
-        filters?: Variables;
-    }>;
-    connectionName?: string;
-    deletedIDFieldName: string | string[];
-    pathToConnection: string[];
-}
-export interface REQUIRED_CHILDREN {
-    type: "REQUIRED_CHILDREN";
-    children: RelayConcreteNode[];
-}
-export type RelayMutationConfig = FIELDS_CHANGE | RANGE_ADD | NODE_DELETE | RANGE_DELETE | REQUIRED_CHILDREN;
-
-export interface RelayMutationTransactionCommitCallbacks {
-    onFailure?: RelayMutationTransactionCommitFailureCallback;
-    onSuccess?: RelayMutationTransactionCommitSuccessCallback;
-}
-export type RelayMutationTransactionCommitFailureCallback = (
-    transaction: RelayMutationTransaction,
-    preventAutoRollback: () => void
-) => void;
-export type RelayMutationTransactionCommitSuccessCallback = (
-    response: {
-        [key: string]: any;
-    }
-) => void;
-export interface NetworkLayer {
-    sendMutation(request: RelayMutationRequest): Promise<any> | null;
-    sendQueries(requests: RelayQueryRequest[]): Promise<any> | null;
-    supports(...options: string[]): boolean;
-}
-export interface QueryResult {
-    error?: Error;
-    ref_params?: { [name: string]: any };
-    response: QueryPayload;
-}
-export interface ReadyState {
-    aborted: boolean;
-    done: boolean;
-    error: Error | null;
-    events: ReadyStateEvent[];
-    ready: boolean;
-    stale: boolean;
-}
-export type RelayContainerErrorEventType = "CACHE_RESTORE_FAILED" | "NETWORK_QUERY_ERROR";
-export type RelayContainerLoadingEventType =
-    | "ABORT"
-    | "CACHE_RESTORED_REQUIRED"
-    | "CACHE_RESTORE_START"
-    | "NETWORK_QUERY_RECEIVED_ALL"
-    | "NETWORK_QUERY_RECEIVED_REQUIRED"
-    | "NETWORK_QUERY_START"
-    | "STORE_FOUND_ALL"
-    | "STORE_FOUND_REQUIRED";
-export type ReadyStateChangeCallback = (readyState: ReadyState) => void;
-export interface ReadyStateEvent {
-    type: RelayContainerLoadingEventType | RelayContainerErrorEventType;
-    error?: Error;
-}
-export interface Abortable {
-    abort(): void;
+export interface SelectorData {
+    [key: string]: unknown;
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayInternalTypes
-/**
- * Version: Relay 1.3.0
- * File:
- * https://github.com/facebook/relay/blob/master/packages/react-relay/classic/tools/RelayInternalTypes.js
- */
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface QueryPayload {
-    [key: string]: any;
-}
-export interface RelayQuerySet {
-    [queryName: string]: any;
-}
-export type RangeBehaviorsFunction = (
-    connectionArgs: {
-        [argName: string]: any;
-    }
-) => "APPEND" | "IGNORE" | "PREPEND" | "REFETCH" | "REMOVE";
-export interface RangeBehaviorsObject {
-    [key: string]: "APPEND" | "IGNORE" | "PREPEND" | "REFETCH" | "REMOVE";
-}
-export type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// Maybe Fix
-// ~~~~~~~~~~~~~~~~~~~~~
-export type RelayDebugger = any;
-export type OptimisticUpdate = any;
-export type OperationSelector = COperationSelector<any, any>;
-export type Selector = CSelector<any>;
-export type PayloadData = any;
-export type Snapshot = CSnapshot<any>;
-export type RelayResponsePayload = any;
-export type MutableRecordSource = RecordSource;
-
-/**
- * A function that returns an Observable representing the response of executing
- * a GraphQL operation.
- */
-export type ExecuteFunction = (
-    operation: object,
-    variables: Variables,
-    cacheConfig: CacheConfig,
-    uploadables?: UploadableMap
-) => Promise<any>;
-export interface RelayNetwork {
-    execute: ExecuteFunction;
+// ./util/RelayConcreteNode
+export interface ConcreteRequest {
+    readonly kind: string; // 'Request';
+    readonly fragment: ReaderFragment;
+    readonly operation: NormalizationOperation;
+    readonly params: RequestParameters;
 }
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayDefaultHandlerProvider
-// ~~~~~~~~~~~~~~~~~~~~~
-export type HandlerProvider = (name: string) => HandlerInterface | null;
+export type GeneratedNode = ConcreteRequest | ReaderFragment | NormalizationSplitOperation;
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayModernEnvironment
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface EnvironmentConfig {
-    configName?: string;
-    handlerProvider?: HandlerProvider;
-    network: Network;
-    store: Store;
+export interface RequestParameters {
+    readonly name: string;
+    readonly operationKind: string; // 'mutation' | 'query' | 'subscription';
+    readonly id: string | null | undefined;
+    readonly text: string | null | undefined;
+    readonly metadata: { [key: string]: unknown };
 }
-export class Environment {
+
+// ./util/RelayRuntimeTypes
+export interface CacheConfig {
+    force?: boolean | null;
+    poll?: number | null;
+    liveConfigId?: string | null;
+    metadata?: { [key: string]: unknown };
+    transactionId?: string | null;
+}
+
+export type DataID = string;
+
+export interface Disposable {
+    dispose(): void;
+}
+
+export interface OperationType {
+    readonly variables: Variables;
+    readonly response: unknown;
+}
+
+export interface Variables {
+    [name: string]: any;
+}
+
+// Core API
+
+// ./RelayModernEnvironment
+interface EnvironmentConfig {
+    readonly configName?: string;
+    readonly handlerProvider?: HandlerProvider;
+    readonly operationLoader?: OperationLoader;
+    readonly network: Network;
+    readonly store: Store;
+    readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler>;
+}
+declare class RelayModernEnvironment implements Environment {
+    readonly configName: string | null | undefined;
     constructor(config: EnvironmentConfig);
     getStore(): Store;
-    getDebugger(): RelayDebugger;
+    getNetwork(): Network;
     applyUpdate(optimisticUpdate: OptimisticUpdate): Disposable;
     revertUpdate(update: OptimisticUpdate): void;
     replaceUpdate(update: OptimisticUpdate, newUpdate: OptimisticUpdate): void;
-    applyMutation(config: {
-        operation: OperationSelector;
-        optimisticUpdater?: SelectorStoreUpdater;
+    applyMutation(data: {
+        operation: OperationDescriptor;
+        optimisticUpdater?: SelectorStoreUpdater | null;
         optimisticResponse?: object;
     }): Disposable;
-    check(readSelector: Selector): boolean;
-    commitPayload(operationSelector: OperationSelector, payload: PayloadData): void;
+    check(readSelector: NormalizationSelector): boolean;
+    commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
     commitUpdate(updater: StoreUpdater): void;
-    lookup(readSelector: Selector): Snapshot;
+    lookup(readSelector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
-    retain(selector: Selector): Disposable;
-    execute(config: {
-        operation: OperationSelector;
-        cacheConfig?: CacheConfig;
-        updater?: SelectorStoreUpdater;
-    }): RelayObservable<RelayResponsePayload>;
-    executeMutation(config: {
-        operation: OperationSelector;
-        optimisticUpdater?: SelectorStoreUpdater;
-        optimisticResponse?: object;
-        updater?: SelectorStoreUpdater;
-        uploadables?: UploadableMap;
-    }): RelayObservable<RelayResponsePayload>;
+    retain(selector: NormalizationSelector): Disposable;
+    execute(data: {
+        operation: OperationDescriptor;
+        cacheConfig?: CacheConfig | null;
+        updater?: SelectorStoreUpdater | null;
+    }): RelayObservable<GraphQLResponse>;
+    executeMutation({
+        operation,
+        optimisticResponse,
+        optimisticUpdater,
+        updater,
+        uploadables,
+    }: {
+        operation: OperationDescriptor;
+        optimisticUpdater?: SelectorStoreUpdater | null;
+        optimisticResponse?: object | null;
+        updater?: SelectorStoreUpdater | null;
+        uploadables?: UploadableMap | null;
+    }): RelayObservable<GraphQLResponse>;
 }
+export { RelayModernEnvironment as Environment };
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayInMemoryRecordSource
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface RelayInMemoryRecordSource {
-    [key: string]: any;
-}
-export interface RecordMap {
-    [dataID: string]: RelayInMemoryRecordSource | null | undefined;
-}
+type HandlerProvider = (name: string) => Handler | null | undefined;
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// Network
-// ~~~~~~~~~~~~~~~~~~~~~
-export class Network {
-    /**
-     * Creates an implementation of the `Network` interface defined in
-     * `RelayNetworkTypes` given `fetch` and `subscribe` functions.
-     */
-    static create(fetchFn: FetchFunction, subscribeFn?: SubscribeFunction): RelayNetwork;
-}
+// ./network/RelayNetwork
+declare const RelayNetwork: {
+    create(fetchFn: FetchFunction, subscribeFn?: SubscribeFunction): Network;
+};
+export { RelayNetwork as Network };
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// Network
-// ~~~~~~~~~~~~~~~~~~~~~
-export class RecordSource {
+// ./network/RelayObservable
+declare class RelayObservable<T> implements Subscribable<T> {
+    // Use RelayObservable.create(source);
+    private constructor(source: never);
+
+    static create<V>(source: Source<V>): RelayObservable<V>;
+
+    static onUnhandledError(callback: (error: Error, isUncaughtThrownError: boolean) => void): void;
+
+    static from<V>(obj: ObservableFromValue<V>): RelayObservable<V>;
+
+    static fromLegacy<V>(
+        callback: (observer: LegacyObserver<V>) => Disposable | RelayObservable<V>
+    ): RelayObservable<V>;
+
+    catch<U>(fn: (error: Error) => RelayObservable<U>): RelayObservable<T | U>;
+
+    do(observer: Observer<T>): RelayObservable<T>;
+
+    finally(fn: () => unknown): RelayObservable<T>;
+
+    ifEmpty<U>(alternate: RelayObservable<U>): RelayObservable<T | U>;
+
+    subscribe(observer: Observer<T> | Sink<T>): Subscription;
+
+    subscribeLegacy(legacyObserver: LegacyObserver<T>): Disposable;
+
+    map<U>(fn: (value: T) => U): RelayObservable<U>;
+
+    mergeMap<U>(fn: (value: T) => ObservableFromValue<U>): RelayObservable<U>;
+
+    poll(pollInterval: number): RelayObservable<T>;
+
+    toPromise(): Promise<T | undefined>;
+}
+export { RelayObservable as Observable };
+
+// ./networks/RelayQueryResponseCache
+declare class RelayQueryResponseCache {
+    constructor(config: { size: number; ttl: number });
+    clear(): void;
+    get(queryID: string, variables: Variables): GraphQLResponse | null;
+    set(queryID: string, variables: Variables, payload: GraphQLResponse): void;
+}
+export { RelayQueryResponseCache as QueryResponseCache };
+
+// ./store/RelayInMemoryRecordSource
+declare class RelayInMemoryRecordSource implements MutableRecordSource {
     constructor(records?: RecordMap);
     clear(): void;
     delete(dataID: DataID): void;
-    get(dataID: DataID): RelayInMemoryRecordSource | null;
-    getRecordIDs(): DataID[];
-    getStatus(dataID: DataID): "EXISTENT" | "NONEXISTENT" | "UNKNOWN";
+    get(dataID: DataID): Record | null | undefined;
+    getRecordIDs(): ReadonlyArray<DataID>;
+    getStatus(dataID: DataID): RecordState;
     has(dataID: DataID): boolean;
-    load(dataID: DataID, callback: (error: Error | null, record: RelayInMemoryRecordSource | null) => void): void;
+    load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
     remove(dataID: DataID): void;
-    set(dataID: DataID, record: RelayInMemoryRecordSource): void;
+    set(dataID: DataID, record: Record): void;
     size(): number;
-    toJSON(): RecordMap;
 }
+export { RelayInMemoryRecordSource as RecordSource };
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// ModernStore
-// ~~~~~~~~~~~~~~~~~~~~~
-export class Store {
-    constructor(source: RecordSource);
-    getSource(): MutableRecordSource;
-    check(selector: Selector): boolean;
-    retain(selector: Selector): Disposable;
-    lookup(selector: Selector): Snapshot;
+// ./store/RelayModernStore
+declare class RelayModernStore implements Store {
+    constructor(source: MutableRecordSource, gcScheduler?: Scheduler, operationLoader?: OperationLoader | null);
+    getSource(): RecordSource;
+    check(selector: NormalizationSelector): boolean;
+    retain(selector: NormalizationSelector): Disposable;
+    lookup(selector: ReaderSelector, owner?: OperationDescriptor): Snapshot;
     notify(): void;
     publish(source: RecordSource): void;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
+    holdGC(): Disposable;
 }
+export { RelayModernStore as Store };
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayRecordSourceInspector
-// ~~~~~~~~~~~~~~~~~~~~~
-/**
- * An internal class to provide a console-friendly string representation of a
- * RelayInMemoryRecordSource.
- */
-export class RecordSummary {
-    id: DataID;
-    type: string | null | undefined;
-    static createFromRecord(id: DataID, record: any): RecordSummary;
-    constructor(id: DataID, type: string | null | undefined);
-    toString(): string;
+// ./store/RelayModernSelector via ./store/RelayCore
+export function areEqualSelectors(thisSelector: OwnedReaderSelector, thatSelector: OwnedReaderSelector): boolean;
+
+export function getDataIDsFromObject(
+    fragments: { [key: string]: ReaderFragment },
+    object: { [key: string]: unknown }
+): { [key: string]: DataID | ReadonlyArray<DataID> | null | undefined };
+
+export function getSelector(
+    operationVariables: Variables,
+    fragment: ReaderFragment,
+    item: unknown
+): OwnedReaderSelector | null | undefined;
+
+export function getSelectorList(
+    operationVariables: Variables,
+    fragment: ReaderFragment,
+    items: ReadonlyArray<unknown>
+): ReadonlyArray<OwnedReaderSelector> | null | undefined;
+
+export function getSelectorsFromObject(
+    operationVariables: Variables,
+    fragments: { [key: string]: ReaderFragment },
+    object: { [key: string]: unknown }
+): {
+    [key: string]: OwnedReaderSelector | ReadonlyArray<OwnedReaderSelector> | null | undefined;
+};
+
+export function getVariablesFromObject(
+    operationVariables: Variables,
+    fragments: { [key: string]: ReaderFragment },
+    object: { [key: string]: unknown }
+): Variables;
+
+// ./store/RelayModernOperationDescriptor via ./store/RelayCore
+export function createOperationDescriptor(request: ConcreteRequest, variables: Variables): OperationDescriptor;
+
+// ./store/RelayCore
+export function createFragmentSpecResolver(
+    context: RelayContext,
+    containerName: string,
+    fragments: FragmentMap,
+    props: Props,
+    callback?: () => void
+): FragmentSpecResolver;
+
+// ./query/RelayModernGraphQLTag
+export function getFragment(taggedNode: GraphQLTaggedNode): ReaderFragment;
+export function getFragmentOwner(
+    fragmentNode: ReaderFragment,
+    fragmentRef: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined
+): OperationDescriptor | null;
+export function getFragmentOwners(
+    fragmentNodes: { [key: string]: ReaderFragment },
+    fragmentRefs: {
+        [key: string]: FragmentPointer | ReadonlyArray<FragmentPointer | null | undefined> | null | undefined;
+    }
+): { [key: string]: OperationDescriptor | null };
+export function getPaginationFragment(taggedNode: GraphQLTaggedNode): ReaderPaginationFragment | null;
+export function getRefetchableFragment(taggedNode: GraphQLTaggedNode): ReaderRefetchableFragment | null;
+export function getRequest(taggedNode: GraphQLTaggedNode): ConcreteRequest;
+export function graphql(strings: ReadonlyArray<string>): GraphQLTaggedNode;
+
+// ./store/RelayStoreUtils
+export function getStorageKey(
+    field: NormalizationField | NormalizationHandle | ReaderField,
+    variables: Variables
+): string;
+export function getModuleComponentKey(documentName: string): string;
+export function getModuleOperationKey(documentName: string): string;
+
+// Declarative mutation API
+// ./mutations/RelayDeclarativeMutationConfig
+export const MutationTypes: {
+    RANGE_ADD: 'RANGE_ADD';
+    RANGE_DELETE: 'RANGE_DELETE';
+    NODE_DELETE: 'NODE_DELETE';
+    FIELDS_CHANGE: 'FIELDS_CHANGE';
+    REQUIRED_CHILDREN: 'REQUIRED_CHILDREN';
+};
+
+export const RangeOperations: {
+    APPEND: 'append';
+    IGNORE: 'ignore';
+    PREPEND: 'prepend';
+    REFETCH: 'refetch'; // legacy only
+    REMOVE: 'remove'; // legacy only
+};
+
+export const FRAGMENTS_KEY: string;
+export const FRAGMENT_OWNER_KEY: string;
+export const ID_KEY: string;
+export const REF_KEY: string;
+export const REFS_KEY: string;
+export const ROOT_ID: string;
+export const ROOT_TYPE: string;
+export const TYPENAME_KEY: string;
+
+// Extensions
+// ./handlers/RelayDefaultHandlerProvider
+declare function RelayDefaultHandlerProvider(handle: string): Handler;
+export { RelayDefaultHandlerProvider as DefaultHandlerProvider };
+
+// ./handlers/connection/RelayConnectionHandler
+interface RelayConnectionHandler {
+    buildConnectionEdge(
+        store: RecordSourceProxy,
+        connection: RecordProxy,
+        edge: RecordProxy | null | undefined
+    ): RecordProxy | null | undefined;
+    createEdge(store: RecordSourceProxy, record: RecordProxy, node: RecordProxy, edgeType: string): RecordProxy;
+    deleteNode(record: RecordProxy, nodeID: DataID): void;
+    getConnection(record: ReadonlyRecordProxy, key: string, filters?: Variables | null): RecordProxy | null | undefined;
+    insertEdgeAfter(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
+    insertEdgeBefore(record: RecordProxy, newEdge: RecordProxy, cursor?: string | null): void;
+    update(store: RecordSourceProxy, payload: HandleFieldPayload): void;
 }
-/**
- * Internal class for inspecting a single RelayInMemoryRecordSource.
- */
-export class RecordInspector {
-    constructor(sourceInspector: RelayRecordSourceInspector, record: RelayInMemoryRecordSource);
-    /**
-     * Get the cache id of the given record. For types that implement the `Node`
-     * interface (or that have an `id`) this will be `id`, for other types it will be
-     * a synthesized identifier based on the field path from the nearest ancestor
-     * record that does have an `id`.
-     */
-    getDataID(): DataID;
+declare const RelayConnectionHandler: RelayConnectionHandler;
+export { RelayConnectionHandler as ConnectionHandler };
 
-    /**
-     * Returns a list of the fields that have been fetched on the current record.
-     */
-    getFields(): string[];
-
-    /**
-     * Returns the type of the record.
-     */
-    getType(): string;
-
-    /**
-     * Returns a copy of the internal representation of the record.
-     */
-    inspect(): any;
-
-    /**
-     * Returns the value of a scalar field. May throw if the given field is
-     * present but not actually scalar.
-     */
-    getValue(name: string, args?: Variables): any;
-
-    /**
-     * Returns an inspector for the given scalar "linked" field (a field whose
-     * value is another RelayInMemoryRecordSource instead of a scalar). May throw if the field is
-     * present but not a scalar linked record.
-     */
-    getLinkedRecord(name: string, args?: Variables): RecordInspector | null;
-
-    /**
-     * Returns an array of inspectors for the given plural "linked" field (a field
-     * whose value is an array of Records instead of a scalar). May throw if the
-     * field is  present but not a plural linked record.
-     */
-    getLinkedRecords(name: string, args?: Variables): RecordInspector[] | null;
+// ./handlers/viewer/RelayViewerHandler
+interface RelayViewerHandler {
+    readonly VIEWER_ID: DataID;
+    readonly VIEWER_TYPE: 'Viewer';
 }
+declare const RelayViewerHandler: RelayViewerHandler;
+export { RelayViewerHandler as ViewerHandler };
 
-export class RelayRecordSourceInspector {
-    constructor(source: RecordSource);
-    static getForEnvironment(environment: Environment): RelayRecordSourceInspector;
-    /**
-     * Returns an inspector for the record with the given id, or null/undefined if
-     * that record is deleted/unfetched.
-     */
-    get(dataID: DataID): RecordInspector | null;
-    /**
-     * Returns a list of "<id>: <type>" for each record in the store that has an
-     * `id`.
-     */
-    getNodes(): RecordSummary[];
-    /**
-     * Returns a list of "<id>: <type>" for all records in the store including
-     * those that do not have an `id`.
-     */
-    getRecords(): RecordSummary[];
+// Helpers (can be implemented via the above API)
 
-    /**
-     * Returns an inspector for the synthesized "root" object, allowing access to
-     * e.g. the `viewer` object or the results of other fields on the "Query"
-     * type.
-     */
-    getRoot(): RecordInspector;
-}
+// ./mutations/applyRelayModernOptimisticMutation
+declare function applyRelayModernOptimisticMutation(
+    environment: Environment,
+    config: OptimisticMutationConfig
+): Disposable;
+export { applyRelayModernOptimisticMutation as applyOptimisticMutation };
 
-// note RecordSourceInspector is only available in dev environment
-export class RecordSourceInspector extends RelayRecordSourceInspector {}
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// RelayObservable
-// ~~~~~~~~~~~~~~~~~~~~~
-export interface Subscription {
-    unsubscribe(): void;
-    readonly closed: boolean;
-}
-export interface Observer<T> {
-    start?(subscription: Subscription): any;
-    next?(nextThing: T): any;
-    error?(error: Error): any;
-    complete?(): any;
-    unsubscribe?(subscription: Subscription): any;
-}
-export type Source<T> = <T>() => any; // tslint:disable-line:no-unnecessary-generics
-export interface Subscribable<T> {
-    subscribe(observer: Observer<T>): Subscription;
-}
-export type ObservableFromValue<T> = RelayObservable<T> | Promise<T> | T;
-export class RelayObservable<T> implements Subscribable<T> {
-    _source: Source<T>;
-
-    constructor(source: Source<T>);
-
-    /**
-     * When an unhandled error is detected, it is reported to the host environment
-     * (the ESObservable spec refers to this method as "HostReportErrors()").
-     *
-     * The default implementation in development builds re-throws errors in a
-     * separate frame, and from production builds does nothing (swallowing
-     * uncaught errors).
-     *
-     * Called during application initialization, this method allows
-     * application-specific handling of uncaught errors. Allowing, for example,
-     * integration with error logging or developer tools.
-     */
-    static onUnhandledError(callback: (error: Error) => any): void;
-
-    /**
-     * Accepts various kinds of data sources, and always returns a RelayObservable
-     * useful for accepting the result of a user-provided FetchFunction.
-     */
-    static from<V>(obj: ObservableFromValue<V>): RelayObservable<V>;
-
-    /**
-     * Creates a RelayObservable, given a function which expects a legacy
-     * Relay Observer as the last argument and which returns a Disposable.
-     *
-     * To support migration to Observable, the function may ignore the
-     * legacy Relay observer and directly return an Observable instead.
-     */
-    static fromLegacy<V>(
-        callback: (legacyObserver: LegacyObserver<V>) => Disposable | RelayObservable<V>
-    ): RelayObservable<V>;
-
-    /**
-     * Returns a new Observable which returns the same values as this one, but
-     * modified so that the provided Observer is called to perform a side-effects
-     * for all events emitted by the source.
-     *
-     * Any errors that are thrown in the side-effect Observer are unhandled, and
-     * do not affect the source Observable or its Observer.
-     *
-     * This is useful for when debugging your Observables or performing other
-     * side-effects such as logging or performance monitoring.
-     */
-    do(observer: Observer<T>): RelayObservable<T>;
-
-    /**
-     * Returns a new Observable which returns the same values as this one, but
-     * modified so that the finally callback is performed after completion,
-     * whether normal or due to error or unsubscription.
-     *
-     * This is useful for cleanup such as resource finalization.
-     */
-    finally(fn: () => any): RelayObservable<T>;
-
-    /**
-     * Returns a new Observable which is identical to this one, unless this
-     * Observable completes before yielding any values, in which case the new
-     * Observable will yield the values from the alternate Observable.
-     *
-     * If this Observable does yield values, the alternate is never subscribed to.
-     *
-     * This is useful for scenarios where values may come from multiple sources
-     * which should be tried in order, i.e. from a cache before a network.
-     */
-    ifEmpty<U>(alternate: RelayObservable<U>): RelayObservable<T | U>;
-
-    /**
-     * Observable's primary API: returns an unsubscribable Subscription to the
-     * source of this Observable.
-     */
-    subscribe(observer: Observer<T>): Subscription;
-
-    /**
-     * Supports subscription of a legacy Relay Observer, returning a Disposable.
-     */
-    subscribeLegacy(legacyObserver: LegacyObserver<T>): Disposable;
-
-    /**
-     * Returns a new Observerable where each value has been transformed by
-     * the mapping function.
-     */
-    map<U>(fn: (thing: T) => U): RelayObservable<U>;
-
-    /**
-     * Returns a new Observable where each value is replaced with a new Observable
-     * by the mapping function, the results of which returned as a single
-     * concattenated Observable.
-     */
-    concatMap<U>(fn: (thing: T) => ObservableFromValue<U>): RelayObservable<U>;
-
-    /**
-     * Returns a new Observable which first mirrors this Observable, then when it
-     * completes, waits for `pollInterval` milliseconds before re-subscribing to
-     * this Observable again, looping in this manner until unsubscribed.
-     *
-     * The returned Observable never completes.
-     */
-    poll(pollInterval: number): RelayObservable<T>;
-
-    /**
-     * Returns a Promise which resolves when this Observable yields a first value
-     * or when it completes with no value.
-     */
-    toPromise(): Promise<T | null | undefined>;
-}
-
-export type Observable<T> = RelayObservable<T>;
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// commitLocalUpdate
-// ~~~~~~~~~~~~~~~~~~~~~
-// exposed through RelayModern, not Runtime directly
+// ./mutations/commitLocalUpdate
 export function commitLocalUpdate(environment: Environment, updater: StoreUpdater): void;
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// commitRelayModernMutation
-// ~~~~~~~~~~~~~~~~~~~~~
-// exposed through RelayModern, not Runtime directly
-export interface MutationConfig<T extends OperationBase> {
-    configs?: RelayMutationConfig[];
-    mutation: GraphQLTaggedNode;
-    variables: T["variables"];
-    uploadables?: UploadableMap;
-    onCompleted?(response: T["response"], errors: PayloadError[] | null | undefined): void;
-    onError?(error?: Error): void;
-    optimisticUpdater?: SelectorStoreUpdater<T["response"]>;
-    optimisticResponse?: T["response"];
-    updater?: SelectorStoreUpdater<T["response"]>;
-}
-export function commitRelayModernMutation<T extends OperationBase = OperationDefaults>(
+// ./mutations/commitRelayModernMutation
+declare function commitRelayModernMutation<TOperation extends OperationType = OperationType>(
     environment: Environment,
-    // tslint:disable-next-line:no-unnecessary-generics
-    config: MutationConfig<T>
+    // tslint:disable-next-line no-unnecessary-generics
+    config: MutationConfig<TOperation>
 ): Disposable;
+export { commitRelayModernMutation as commitMutation };
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// applyRelayModernOptimisticMutation
-// ~~~~~~~~~~~~~~~~~~~~~
-// exposed through RelayModern, not Runtime directly
-export interface OptimisticMutationConfig {
-    configs?: RelayMutationConfig[];
-    mutation: GraphQLTaggedNode;
-    variables: Variables;
-    optimisticUpdater?: SelectorStoreUpdater;
-    optimisticResponse?: object;
-}
-
-// ~~~~~~~~~~~~~~~~~~~~~
-// fetchRelayModernQuery
-// ~~~~~~~~~~~~~~~~~~~~~
-// exposed through RelayModern, not Runtime directly
-/**
- * A helper function to fetch the results of a query. Note that results for
- * fragment spreads are masked: fields must be explicitly listed in the query in
- * order to be accessible in the result object.
- *
- * NOTE: This module is primarily intended for integrating with classic APIs.
- * Most product code should use a Renderer or Container.
- *
- * TODO(t16875667): The return type should be `Promise<?SelectorData>`, but
- * that's not really helpful as `SelectorData` is essentially just `mixed`. We
- * can probably leverage generated flow types here to return the real expected
- * shape.
- */
-export function fetchRelayModernQuery(
-    environment: any, // FIXME - $FlowFixMe in facebook source code
+// ./query/fetchRelayModernQuery
+declare function fetchRelayModernQuery<T extends OperationType>(
+    environment: RelayModernEnvironment,
     taggedNode: GraphQLTaggedNode,
-    variables: Variables,
-    cacheConfig?: CacheConfig
-): Promise<any>; // FIXME - $FlowFixMe in facebook source code
+    variables: T['variables'],
+    cacheConfig?: CacheConfig | null
+): Promise<T['response']>;
+export { fetchRelayModernQuery as fetchQuery };
 
-// ~~~~~~~~~~~~~~~~~~~~~
-// requestRelaySubscription
-// ~~~~~~~~~~~~~~~~~~~~~
-// exposed through RelayModern, not Runtime directly
-export interface GraphQLSubscriptionConfig {
-    configs?: RelayMutationConfig[];
-    subscription: GraphQLTaggedNode;
-    variables: Variables;
-    onCompleted?(): void;
-    onError?(error: Error): void;
-    onNext?(response: object | null | undefined): void;
-    updater?(store: RecordSourceSelectorProxy): void;
+// ./store/isRelayModernEnvironment
+export function isRelayModernEnvironment(environment: any): environment is RelayModernEnvironment;
+
+// ./subscription/requestRelaySubscription
+declare function requestRelaySubscription(environment: Environment, config: GraphQLSubscriptionConfig<{}>): Disposable;
+export { requestRelaySubscription as requestSubscription };
+
+// Configuration interface for legacy or special uses
+// ./handlers/connection/RelayConnectionInterface
+export const ConnectionInterface: {
+    get(): {
+        CLIENT_MUTATION_ID: 'clientMutationId';
+        CURSOR: 'cursor';
+        EDGES_HAVE_SOURCE_FIELD: boolean;
+        EDGES: 'edges';
+        END_CURSOR: 'endCursor';
+        HAS_NEXT_PAGE: 'hasNextPage';
+        HAS_PREV_PAGE: 'hasPreviousPage';
+        NODE: 'node';
+        PAGE_INFO_TYPE: 'PageInfo';
+        PAGE_INFO: 'pageInfo';
+        START_CURSOR: 'startCursor';
+    };
+};
+
+// Utilities
+interface Handler {
+    update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload) => void;
 }
-export function requestRelaySubscription(environment: Environment, config: GraphQLSubscriptionConfig): Disposable;
+type ProfileHandler = (name: string, state?: any) => (error?: Error) => void;
+export interface RelayProfiler {
+    instrumentMethods(object: object, names: { [key: string]: string }): void;
+    instrument<T extends (...args: any[]) => any>(name: string, originalFunction: T): T;
+    attachAggregateHandler(name: string, handler: Handler): void;
+    detachAggregateHandler(name: string, handler: Handler): void;
+    profile(name: string, state?: any): { stop: (error?: Error) => void };
+    attachProfileHandler(name: string, handler: ProfileHandler): void;
+    detachProfileHandler(name: string, handler: ProfileHandler): void;
+}
+export const RelayProfiler: RelayProfiler;
+
+// Internal API
+export function deepFreeze<T extends object>(value: T): T;
+
+// ./utils/RelayFeatureFlags
+
+interface FeatureFlags {
+    ENABLE_VARIABLE_CONNECTION_KEY: boolean;
+}
+
+export const RelayFeatureFlags: FeatureFlags;

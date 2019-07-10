@@ -1054,6 +1054,19 @@ declare namespace Xrm
              * A collection of all the controls on the form that interface with this attribute.
              */
             controls: Collection.ItemCollection<Control>;
+
+            /**
+             * Gets the value.
+             * 
+             * @return  The value.
+             */
+            getValue(): any;
+
+            /**
+             * 
+             * @param       value   The value.
+             */
+            setValue(value: any): void;
         }
 
         /**

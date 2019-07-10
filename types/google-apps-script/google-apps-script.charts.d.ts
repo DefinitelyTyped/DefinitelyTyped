@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2019-04-09
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,7 +14,6 @@ declare namespace GoogleAppsScript {
      *
      * Here is an example that shows how to build an area chart.
      *
-     *     function doGet() {
      *       // Create a data table with some sample data.
      *       var sampleData = Charts.newDataTable()
      *           .addColumn(Charts.ColumnType.STRING, "Month")
@@ -43,9 +42,6 @@ declare namespace GoogleAppsScript {
      *           .setColors(['red', 'green'])
      *           .setDataTable(sampleData)
      *           .build();
-     *
-     *       return UiApp.createApplication().add(chart);
-     *     }
      */
     export interface AreaChartBuilder {
       build(): Chart;
@@ -59,9 +55,9 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): AreaChartBuilder;
       setLegendPosition(position: Position): AreaChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): AreaChartBuilder;
-      setOption(option: string, value: Object): AreaChartBuilder;
+      setOption(option: string, value: any): AreaChartBuilder;
       setPointStyle(style: PointStyle): AreaChartBuilder;
-      setRange(start: Number, end: Number): AreaChartBuilder;
+      setRange(start: number, end: number): AreaChartBuilder;
       setStacked(): AreaChartBuilder;
       setTitle(chartTitle: string): AreaChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): AreaChartBuilder;
@@ -80,7 +76,6 @@ declare namespace GoogleAppsScript {
      * Here is an example that shows how to build a bar chart. The data is imported from a
      * Google spreadsheet.
      *
-     *     function doGet() {
      *      // Get sample data from a spreadsheet.
      *      var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=B1%3AC11' +
      *          '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=0&headers=-1';
@@ -94,8 +89,6 @@ declare namespace GoogleAppsScript {
      *          .setDataSourceUrl(dataSourceUrl);
      *
      *      var chart = chartBuilder.build();
-     *      return UiApp.createApplication().add(chart);
-     *     }
      */
     export interface BarChartBuilder {
       build(): Chart;
@@ -110,8 +103,8 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): BarChartBuilder;
       setLegendPosition(position: Position): BarChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): BarChartBuilder;
-      setOption(option: string, value: Object): BarChartBuilder;
-      setRange(start: Number, end: Number): BarChartBuilder;
+      setOption(option: string, value: any): BarChartBuilder;
+      setRange(start: number, end: number): BarChartBuilder;
       setStacked(): BarChartBuilder;
       setTitle(chartTitle: string): BarChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): BarChartBuilder;
@@ -128,58 +121,11 @@ declare namespace GoogleAppsScript {
      * A builder for category filter controls.
      *
      * A category filter is a picker to choose one or more between a set of defined values. Given a
-     * column of type string, this control will filter out the rows that don't match any of the picked
+     * column of type string, this control filters out the rows that don't match any of the picked
      * values.
      *
-     * Here is an example that creates a table chart a binds a category filter to it. This allows the
-     * user to filter the data the table displays.
-     *
-     *     function doGet() {
-     *       var app = UiApp.createApplication();
-     *       var sampleData = Charts.newDataTable()
-     *           .addColumn(Charts.ColumnType.STRING, "Month")
-     *           .addColumn(Charts.ColumnType.NUMBER, "Dining")
-     *           .addColumn(Charts.ColumnType.NUMBER, "Total")
-     *           .addRow(["Jan", 60, 520])
-     *           .addRow(["Feb", 50, 430])
-     *           .addRow(["Mar", 53, 440])
-     *           .addRow(["Apr", 70, 410])
-     *           .addRow(["May", 80, 390])
-     *           .addRow(["Jun", 60, 500])
-     *           .addRow(["Jul", 100, 450])
-     *           .addRow(["Aug", 140, 431])
-     *           .addRow(["Sep", 75, 488])
-     *           .addRow(["Oct", 70, 521])
-     *           .addRow(["Nov", 58, 388])
-     *           .addRow(["Dec", 63, 400])
-     *           .build();
-     *
-     *       var chart = Charts.newTableChart()
-     *           .setDimensions(600, 500)
-     *           .build();
-     *
-     *       var categoryFilter = Charts.newCategoryFilter()
-     *           .setFilterColumnLabel("Month")
-     *           .setAllowMultiple(true)
-     *           .setSortValues(true)
-     *           .setLabelStacking(Charts.Orientation.VERTICAL)
-     *           .setCaption('Choose categories...')
-     *           .build();
-     *
-     *       var panel = app.createVerticalPanel().setSpacing(10);
-     *       panel.add(categoryFilter).add(chart);
-     *
-     *       var dashboard = Charts.newDashboardPanel()
-     *           .setDataTable(sampleData)
-     *           .bind(categoryFilter, chart)
-     *           .build();
-     *
-     *       dashboard.add(panel);
-     *       app.add(dashboard);
-     *       return app;
-     *     }
-     *
-     * documentation
+     * For more details, see the Gviz
+     * documentation.
      */
     export interface CategoryFilterBuilder {
       build(): Control;
@@ -232,7 +178,7 @@ declare namespace GoogleAppsScript {
      * These options are immutable.
      */
     export interface ChartOptions {
-      get(option: string): Object;
+      get(option: string): object;
     }
 
     /**
@@ -305,32 +251,28 @@ declare namespace GoogleAppsScript {
      *
      * This example shows how to create a column chart with data from a data table.
      *
-     *      function doGet() {
-     *       var sampleData = Charts.newDataTable()
-     *           .addColumn(Charts.ColumnType.STRING, "Year")
-     *           .addColumn(Charts.ColumnType.NUMBER, "Sales")
-     *           .addColumn(Charts.ColumnType.NUMBER, "Expenses")
-     *           .addRow(["2004", 1000, 400])
-     *           .addRow(["2005", 1170, 460])
-     *           .addRow(["2006", 660, 1120])
-     *           .addRow(["2007", 1030, 540])
-     *           .addRow(["2008", 800, 600])
-     *           .addRow(["2009", 943, 678])
-     *           .addRow(["2010", 1020, 550])
-     *           .addRow(["2011", 910, 700])
-     *           .addRow(["2012", 1230, 840])
-     *           .build();
+     *     var sampleData = Charts.newDataTable()
+     *         .addColumn(Charts.ColumnType.STRING, "Year")
+     *         .addColumn(Charts.ColumnType.NUMBER, "Sales")
+     *         .addColumn(Charts.ColumnType.NUMBER, "Expenses")
+     *         .addRow(["2004", 1000, 400])
+     *         .addRow(["2005", 1170, 460])
+     *         .addRow(["2006", 660, 1120])
+     *         .addRow(["2007", 1030, 540])
+     *         .addRow(["2008", 800, 600])
+     *         .addRow(["2009", 943, 678])
+     *         .addRow(["2010", 1020, 550])
+     *         .addRow(["2011", 910, 700])
+     *         .addRow(["2012", 1230, 840])
+     *         .build();
      *
-     *       var chart = Charts.newColumnChart()
-     *           .setTitle('Sales vs. Expenses')
-     *           .setXAxisTitle('Year')
-     *           .setYAxisTitle('Amount (USD)')
-     *           .setDimensions(600, 500)
-     *           .setDataTable(sampleData)
-     *           .build();
-     *
-     *       return UiApp.createApplication().add(chart);
-     *     }
+     *     var chart = Charts.newColumnChart()
+     *         .setTitle('Sales & Expenses')
+     *         .setXAxisTitle('Year')
+     *         .setYAxisTitle('Amount (USD)')
+     *         .setDimensions(600, 500)
+     *         .setDataTable(sampleData)
+     *         .build();
      */
     export interface ColumnChartBuilder {
       build(): Chart;
@@ -344,8 +286,8 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ColumnChartBuilder;
       setLegendPosition(position: Position): ColumnChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ColumnChartBuilder;
-      setOption(option: string, value: Object): ColumnChartBuilder;
-      setRange(start: Number, end: Number): ColumnChartBuilder;
+      setOption(option: string, value: any): ColumnChartBuilder;
+      setRange(start: number, end: number): ColumnChartBuilder;
       setStacked(): ColumnChartBuilder;
       setTitle(chartTitle: string): ColumnChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ColumnChartBuilder;
@@ -370,9 +312,9 @@ declare namespace GoogleAppsScript {
      * pickers, range sliders, autocompleters, etc.) users interact with in order to drive the data
      * managed by a dashboard and the charts that are part of it. Controls collect user input and use
      * the information to decide which of the data the dashboard is managing should be made available to
-     * the charts that are part of it. Given a data table, a control will filter out the data that
-     * doesn't comply with the conditions implied by its current state, and will expose the filtered
-     * data table as an output.
+     * the charts that are part of it. Given a data table, a control filters out the data that doesn't
+     * comply with the conditions implied by its current state, and exposes the filtered data table as
+     * an output.
      *
      * For more details, see the Gviz documentation.
      */
@@ -394,8 +336,8 @@ declare namespace GoogleAppsScript {
      * Controls are user interface widgets (category pickers, range sliders, autocompleters, etc.)
      * users interact with in order to drive the data managed by a dashboard and the charts that are
      * part of it. For example, a string filter control is a simple text input field that lets the user
-     * filter data via string matching. Given a column and matching options, the control will filter out
-     * the rows that don't match the term that's in the input field.
+     * filter data via string matching. Given a column and matching options, the control filters out the
+     * rows that don't match the term that's in the input field.
      *
      * The Gviz API defines a dashboard as a set of charts and controls bound together. The bindings
      * between the different components define the data flow, the state of the controls filters views of
@@ -405,50 +347,6 @@ declare namespace GoogleAppsScript {
      * The dashboard panel has two purposes, one is being a container for the charts and controls
      * objects that compose the dashboard, and the other is holding the data and use as an interface for
      * binding controls to charts.
-     *
-     * Here's an example of creating a dashboard and showing it in a UI app:
-     *
-     *     function doGet() {
-     *       // Create a data table with some sample data.
-     *       var data = Charts.newDataTable()
-     *         .addColumn(Charts.ColumnType.STRING, "Name")
-     *         .addColumn(Charts.ColumnType.NUMBER, "Age")
-     *         .addRow(["Michael", 18])
-     *         .addRow(["Elisa", 12])
-     *         .addRow(["John", 20])
-     *         .addRow(["Jessica", 25])
-     *         .addRow(["Aaron", 14])
-     *         .addRow(["Margareth", 19])
-     *         .addRow(["Miranda", 22])
-     *         .addRow(["May", 20])
-     *         .build();
-     *
-     *       var chart = Charts.newBarChart()
-     *         .setTitle("Ages")
-     *         .build();
-     *
-     *       var control = Charts.newStringFilter()
-     *         .setFilterColumnLabel("Name")
-     *         .build();
-     *
-     *       // Bind the control to the chart in a dashboard panel.
-     *       var dashboard = Charts.newDashboardPanel()
-     *         .setDataTable(data)
-     *         .bind(control, chart)
-     *         .build();
-     *
-     *       var uiApp = UiApp.createApplication().setTitle("My Dashboard");
-     *
-     *       var panel = uiApp.createHorizontalPanel()
-     *         .setVerticalAlignment(UiApp.VerticalAlignment.MIDDLE)
-     *         .setSpacing(50);
-     *
-     *       panel.add(control);
-     *       panel.add(chart);
-     *       dashboard.add(panel);
-     *       uiApp.add(dashboard);
-     *       return uiApp;
-     *     }
      */
     export interface DashboardPanel {
       getId(): string;
@@ -496,9 +394,9 @@ declare namespace GoogleAppsScript {
      */
     export interface DataTableBuilder {
       addColumn(type: ColumnType, label: string): DataTableBuilder;
-      addRow(values: Object[]): DataTableBuilder;
+      addRow(values: any[]): DataTableBuilder;
       build(): DataTable;
-      setValue(row: Integer, column: Integer, value: Object): DataTableBuilder;
+      setValue(row: Integer, column: Integer, value: any): DataTableBuilder;
     }
 
     /**
@@ -520,9 +418,9 @@ declare namespace GoogleAppsScript {
      *
      * Data view definition can be set for charts to visualize a view derived from the given data
      * table and not the data table itself. For example if the view definition of a chart states that
-     * the view columns are [0, 3], only the first and the third columns of the data table will be taken
-     * into consideration when drawing the chart. See DataViewDefinitionBuilder for an example
-     * on how to define and use a DataViewDefinition.
+     * the view columns are [0, 3], only the first and the third columns of the data table is taken into
+     * consideration when drawing the chart. See DataViewDefinitionBuilder for an example on how
+     * to define and use a DataViewDefinition.
      */
     export interface DataViewDefinition {
     }
@@ -536,7 +434,7 @@ declare namespace GoogleAppsScript {
      *     function doGet() {
      *       // This example creates two table charts side by side. One uses a data view definition to
      *       // restrict the number of displayed columns.
-     *       var app = UiApp.createApplication();
+     *
      *       // Get sample data from a spreadsheet.
      *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AF' +
      *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
@@ -555,14 +453,22 @@ declare namespace GoogleAppsScript {
      *           .setDataViewDefinition(dataViewDefinition)
      *           .build();
      *
-     *       var panel = app.createHorizontalPanel().setSpacing(15);
-     *       panel.add(originalChart).add(limitedChart);
-     *       return app.add(panel);
+     *       var htmlOutput = HtmlService.createHtmlOutput();
+     *       var originalChartData = Utilities.base64Encode(originalChart.getAs('image/png').getBytes());
+     *       var originalChartUrl = "data:image/png;base64," + encodeURI(originalChartData);
+     *       var limitedChartData = Utilities.base64Encode(limitedChart.getAs('image/png').getBytes());
+     *       var limitedChartUrl = "data:image/png;base64," + encodeURI(limitedChartData);
+     *       htmlOutput.append("<table><tr><td>");
+     *       htmlOutput.append("<img border=\"1\" src=\"" + originalChartUrl + "\">");
+     *       htmlOutput.append("</td><td>");
+     *       htmlOutput.append("<img border=\"1\" src=\"" + limitedChartUrl + "\">");
+     *       htmlOutput.append("</td></tr></table>");
+     *       return htmlOutput;
      *     }
      */
     export interface DataViewDefinitionBuilder {
       build(): DataViewDefinition;
-      setColumns(columns: Object[]): DataViewDefinitionBuilder;
+      setColumns(columns: object[]): DataViewDefinitionBuilder;
     }
 
     /**
@@ -570,7 +476,6 @@ declare namespace GoogleAppsScript {
      *
      * Here is an example that shows how to build a line chart. The data is imported from a Google spreadsheet.
      *
-     *     function doGet() {
      *       // Get sample data from a spreadsheet.
      *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AG5' +
      *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=2&headers=-1';
@@ -585,8 +490,6 @@ declare namespace GoogleAppsScript {
      *           .setDataSourceUrl(dataSourceUrl);
      *
      *       var chart = chartBuilder.build();
-     *       return UiApp.createApplication().add(chart);
-     *     }
      */
     export interface LineChartBuilder {
       build(): Chart;
@@ -601,9 +504,9 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): LineChartBuilder;
       setLegendPosition(position: Position): LineChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): LineChartBuilder;
-      setOption(option: string, value: Object): LineChartBuilder;
+      setOption(option: string, value: any): LineChartBuilder;
       setPointStyle(style: PointStyle): LineChartBuilder;
-      setRange(start: Number, end: Number): LineChartBuilder;
+      setRange(start: number, end: number): LineChartBuilder;
       setTitle(chartTitle: string): LineChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): LineChartBuilder;
       setXAxisTextStyle(textStyle: TextStyle): LineChartBuilder;
@@ -617,8 +520,8 @@ declare namespace GoogleAppsScript {
 
     /**
      * An enumeration of how a string value should be matched. Matching a string is a boolean operation.
-     * Given a string, a match term (string), and a match type, the operation will output true in the
-     * following cases:
+     * Given a string, a match term (string), and a match type, the operation outputs true in
+     * the following cases:
      *
      * If the match type equals EXACT and the match term equals the string.
      *
@@ -636,43 +539,11 @@ declare namespace GoogleAppsScript {
      * A builder for number range filter controls.
      *
      * A number range filter is a slider with two thumbs that lets the user select ranges of numeric
-     * values. Given a column of type number and matching options, this control will filter out the rows
+     * values. Given a column of type number and matching options, this control filters out the rows
      * that don't match the range that was selected.
      *
-     * This example creates a table chart bound to a number range filter:
-     *
-     *     function doGet() {
-     *       var app = UiApp.createApplication();
-     *       // Get sample data from a spreadsheet.
-     *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AF' +
-     *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
-     *       var data = SpreadsheetApp.openByUrl(dataSourceUrl).getSheetByName('US_GDP').getRange("A1:F");
-     *
-     *       var chart = Charts.newTableChart()
-     *           .setDimensions(600, 500)
-     *           .build();
-     *
-     *       var numberRangeFilter = Charts.newNumberRangeFilter()
-     *           .setFilterColumnLabel("Year")
-     *           .setShowRangeValues(true)
-     *           .setLabel("Restrict year range")
-     *           .build();
-     *
-     *       var panel = app.createVerticalPanel().setSpacing(10);
-     *       panel.add(numberRangeFilter).add(chart);
-     *
-     *       // Create a new dashboard panel to bind the filter and chart together.
-     *       var dashboard = Charts.newDashboardPanel()
-     *           .setDataTable(data)
-     *           .bind(numberRangeFilter, chart)
-     *           .build();
-     *
-     *       dashboard.add(panel);
-     *       app.add(dashboard);
-     *       return app;
-     *     }
-     *
-     * documentation
+     * For more details, see the Gviz
+     * documentation.
      */
     export interface NumberRangeFilterBuilder {
       build(): Control;
@@ -705,7 +576,6 @@ declare namespace GoogleAppsScript {
      *
      * Here is an example that shows how to build a pie chart. The data is imported from a Google spreadsheet.
      *
-     *     function doGet() {
      *       // Get sample data from a spreadsheet.
      *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AB8' +
      *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=3&headers=-1';
@@ -717,8 +587,6 @@ declare namespace GoogleAppsScript {
      *           .setDataSourceUrl(dataSourceUrl);
      *
      *       var chart = chartBuilder.build();
-     *       return UiApp.createApplication().add(chart);
-     *     }
      */
     export interface PieChartBuilder {
       build(): Chart;
@@ -733,7 +601,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): PieChartBuilder;
       setLegendPosition(position: Position): PieChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): PieChartBuilder;
-      setOption(option: string, value: Object): PieChartBuilder;
+      setOption(option: string, value: any): PieChartBuilder;
       setTitle(chartTitle: string): PieChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): PieChartBuilder;
     }
@@ -753,22 +621,19 @@ declare namespace GoogleAppsScript {
      *
      * Here is an example that shows how to build a scatter chart. The data is imported from a Google spreadsheet.
      *
-     *     function doGet() {
-     *       // Get sample data from a spreadsheet.
-     *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=C1%3AD' +
-     *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
+     *     // Get sample data from a spreadsheet.
+     *     var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=C1%3AD' +
+     *         '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
      *
-     *       var chartBuilder = Charts.newScatterChart()
-     *           .setTitle('Adjusted GDP vs. U.S. Population')
-     *           .setXAxisTitle('U.S. Population (millions)')
-     *           .setYAxisTitle('Adjusted GDP ($ billions)')
-     *           .setDimensions(600, 500)
-     *           .setLegendPosition(Charts.Position.NONE)
-     *           .setDataSourceUrl(dataSourceUrl);
+     *     var chartBuilder = Charts.newScatterChart()
+     *         .setTitle('Adjusted GDP & U.S. Population')
+     *         .setXAxisTitle('U.S. Population (millions)')
+     *         .setYAxisTitle('Adjusted GDP ($ billions)')
+     *         .setDimensions(600, 500)
+     *         .setLegendPosition(Charts.Position.NONE)
+     *         .setDataSourceUrl(dataSourceUrl);
      *
-     *       var chart = chartBuilder.build();
-     *       return UiApp.createApplication().add(chart);
-     *     }
+     *     var chart = chartBuilder.build();
      */
     export interface ScatterChartBuilder {
       build(): Chart;
@@ -781,17 +646,17 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ScatterChartBuilder;
       setLegendPosition(position: Position): ScatterChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ScatterChartBuilder;
-      setOption(option: string, value: Object): ScatterChartBuilder;
+      setOption(option: string, value: any): ScatterChartBuilder;
       setPointStyle(style: PointStyle): ScatterChartBuilder;
       setTitle(chartTitle: string): ScatterChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setXAxisLogScale(): ScatterChartBuilder;
-      setXAxisRange(start: Number, end: Number): ScatterChartBuilder;
+      setXAxisRange(start: number, end: number): ScatterChartBuilder;
       setXAxisTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setXAxisTitle(title: string): ScatterChartBuilder;
       setXAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setYAxisLogScale(): ScatterChartBuilder;
-      setYAxisRange(start: Number, end: Number): ScatterChartBuilder;
+      setYAxisRange(start: number, end: number): ScatterChartBuilder;
       setYAxisTextStyle(textStyle: TextStyle): ScatterChartBuilder;
       setYAxisTitle(title: string): ScatterChartBuilder;
       setYAxisTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
@@ -801,58 +666,11 @@ declare namespace GoogleAppsScript {
      * A builder for string filter controls.
      *
      * A string filter is a simple text input field that lets the user filter data via string
-     * matching. Given a column of type string and matching options, this control will filter out the
-     * rows that don't match the term that's in the input field.
+     * matching. Given a column of type string and matching options, this control filters out the rows
+     * that don't match the term that's in the input field.
      *
-     * This example creates a table chart and binds it to a string filter. Using the filter, it is
-     * possible to change the table chart to display a subset of its data.
-     *
-     *     function doGet() {
-     *       var app = UiApp.createApplication();
-     *       var sampleData = Charts.newDataTable()
-     *           .addColumn(Charts.ColumnType.STRING, "Month")
-     *           .addColumn(Charts.ColumnType.NUMBER, "Dining")
-     *           .addColumn(Charts.ColumnType.NUMBER, "Total")
-     *           .addRow(["Jan", 60, 520])
-     *           .addRow(["Feb", 50, 430])
-     *           .addRow(["Mar", 53, 440])
-     *           .addRow(["Apr", 70, 410])
-     *           .addRow(["May", 80, 390])
-     *           .addRow(["Jun", 60, 500])
-     *           .addRow(["Jul", 100, 450])
-     *           .addRow(["Aug", 140, 431])
-     *           .addRow(["Sep", 75, 488])
-     *           .addRow(["Oct", 70, 521])
-     *           .addRow(["Nov", 58, 388])
-     *           .addRow(["Dec", 63, 400])
-     *           .build();
-     *
-     *       var chart = Charts.newTableChart()
-     *           .setDimensions(600, 500)
-     *           .build();
-     *
-     *       var stringFilter = Charts.newStringFilter()
-     *           .setFilterColumnLabel("Month")
-     *           .setRealtimeTrigger(true)
-     *           .setCaseSensitive(true)
-     *           .setLabel("Filter months shown")
-     *           .build();
-     *
-     *       var panel = app.createVerticalPanel().setSpacing(10);
-     *       panel.add(stringFilter).add(chart);
-     *
-     *       // Create a dashboard panel to bind the filter and the chart together.
-     *       var dashboard = Charts.newDashboardPanel()
-     *           .setDataTable(sampleData)
-     *           .bind(stringFilter, chart)
-     *           .build();
-     *
-     *       dashboard.add(panel);
-     *       app.add(dashboard);
-     *       return app;
-     *     }
-     *
-     * documentation
+     * For more details, see the Gviz
+     * documentation.
      */
     export interface StringFilterBuilder {
       build(): Control;
@@ -873,19 +691,16 @@ declare namespace GoogleAppsScript {
      *
      * Here is an example that shows how to build a table chart. The data is imported from a Google spreadsheet.
      *
-     *     function doGet() {
-     *       // Get sample data from a spreadsheet.
-     *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AF' +
-     *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
+     *     // Get sample data from a spreadsheet.
+     *     var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AF' +
+     *         '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
      *
-     *       var chartBuilder = Charts.newTableChart()
-     *           .setDimensions(600, 500)
-     *           .enablePaging(20)
-     *           .setDataSourceUrl(dataSourceUrl);
+     *     var chartBuilder = Charts.newTableChart()
+     *         .setDimensions(600, 500)
+     *         .enablePaging(20)
+     *         .setDataSourceUrl(dataSourceUrl);
      *
-     *       var chart = chartBuilder.build();
-     *       return UiApp.createApplication().add(chart);
-     *     }
+     *     var chart = chartBuilder.build();
      */
     export interface TableChartBuilder {
       build(): Chart;
@@ -902,7 +717,7 @@ declare namespace GoogleAppsScript {
       setFirstRowNumber(number: Integer): TableChartBuilder;
       setInitialSortingAscending(column: Integer): TableChartBuilder;
       setInitialSortingDescending(column: Integer): TableChartBuilder;
-      setOption(option: string, value: Object): TableChartBuilder;
+      setOption(option: string, value: any): TableChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): TableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): TableChartBuilder;
     }
@@ -912,7 +727,6 @@ declare namespace GoogleAppsScript {
      * that accepts it, such as title, horizontal axis, vertical axis, legend and tooltip.
      *
      *     // This example creates a chart specifying different text styles for the title and axes.
-     *     function doGet() {
      *       var sampleData = Charts.newDataTable()
      *           .addColumn(Charts.ColumnType.STRING, "Seasons")
      *           .addColumn(Charts.ColumnType.NUMBER, "Rainy Days")
@@ -938,14 +752,11 @@ declare namespace GoogleAppsScript {
      *           .setYAxisTitle('Number of Rainy Days')
      *           .setDataTable(sampleData)
      *           .build();
-     *
-     *       return UiApp.createApplication().add(chart);
-     *     }
      */
     export interface TextStyle {
       getColor(): string;
       getFontName(): string;
-      getFontSize(): Number;
+      getFontSize(): number;
     }
 
     /**
@@ -964,7 +775,7 @@ declare namespace GoogleAppsScript {
       build(): TextStyle;
       setColor(cssValue: string): TextStyleBuilder;
       setFontName(fontName: string): TextStyleBuilder;
-      setFontSize(fontSize: Number): TextStyleBuilder;
+      setFontSize(fontSize: number): TextStyleBuilder;
     }
 
   }

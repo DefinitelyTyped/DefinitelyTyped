@@ -140,3 +140,68 @@ let flikty4: Flickity = new Flickity(new HTMLElement(), {
         x3: 30
     }
 });
+
+let flikty5: Flickity = new Flickity(new HTMLElement(), {
+    on: {
+        ready: () => {},
+        change: (index) => {},
+        select: (index) => {},
+        settle: (index)  => {},
+        scroll: (progress)  => {},
+        dragStart: (event, pointer)  => {},
+        dragMove: (event, pointer, moveVector)  => {},
+        dragEnd: (event, pointer)  => {},
+        pointerDown: (event, pointer)  => {},
+        pointerMove: (event, pointer, moveVector)  => {},
+        pointerUp: (event, pointer)  => {},
+        staticClick: (event, pointer, cellElement, cellIndex)  => {},
+        lazyLoad: (event, cellElement)  => {},
+        bgLazyLoad: (event, element)  => {},
+        fullscreenChange: (isFullscreen)  => {}
+    }
+});
+
+let fliktyBindings: Flickity.EventBindings = {
+    ready: () => {},
+    change: (index) => {},
+    select: (index) => {},
+    settle: (index)  => {},
+    scroll: (progress)  => {},
+    dragStart: (event, pointer)  => {},
+    dragMove: (event, pointer, moveVector)  => {},
+    dragEnd: (event, pointer)  => {},
+    pointerDown: (event, pointer)  => {},
+    pointerMove: (event, pointer, moveVector)  => {},
+    pointerUp: (event, pointer)  => {},
+    staticClick: (event, pointer, cellElement, cellIndex)  => {},
+    lazyLoad: (event, cellElement)  => {},
+    bgLazyLoad: (event, element)  => {},
+    fullscreenChange: (isFullscreen)  => {}
+};
+
+let fliktyOpts1: Flickity.Options = {
+    initialIndex: 0,
+    accessibility: true,
+    asNavFor: "#nav-bar",
+    autoPlay: true,
+    cellAlign: "left",
+    cellSelector: ".gallery-cell",
+    contain: true,
+    draggable: true,
+    freeScroll: false,
+    freeScrollFriction: 0.5,
+    friction: 0.8,
+    imagesLoaded: false,
+    lazyLoad: false,
+    pageDots: false,
+    arrowShape: "arrow.svg",
+    percentPosition: false,
+    prevNextButtons: false,
+    selectedAttraction: 0.050,
+    setGallerySize: true,
+    watchCSS: true,
+    wrapAround: true,
+    resize: true,
+    rightToLeft: false,
+    on: fliktyBindings
+};

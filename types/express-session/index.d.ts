@@ -1,5 +1,5 @@
 // Type definitions for express-session 1.15
-// Project: https://www.npmjs.org/package/express-session
+// Project: https://github.com/expressjs/session
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 //                 Jacob Bogers <https://github.com/jacobbogers>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
@@ -45,7 +45,7 @@ declare global {
       destroy(callback: (err: any) => void): void;
       reload(callback: (err: any) => void): void;
       save(callback: (err: any) => void): void;
-      touch(callback: (err: any) => void): void;
+      touch(): void;
       cookie: SessionCookie;
     }
   }

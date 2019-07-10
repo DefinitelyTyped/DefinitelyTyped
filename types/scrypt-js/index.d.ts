@@ -1,13 +1,14 @@
 // Type definitions for scrypt-js 2.0
 // Project: https://github.com/ricmoo/scrypt-js
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
+//                 Romain Delamare <https://github.com/alightgoesout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types= "node" />
 
 declare function scrypt(
-    password: Buffer,
-    salt: Buffer,
+    password: Buffer | ReadonlyArray<number> | Uint8Array,
+    salt: Buffer | ReadonlyArray<number> | Uint8Array,
     N: number,
     r: number,
     p: number,
@@ -15,7 +16,7 @@ declare function scrypt(
     callback: (
         error: Error | undefined | null,
         progress: number,
-        key?: string,
+        key?: ReadonlyArray<number>,
     ) => void
 ): void;
 

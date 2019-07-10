@@ -514,3 +514,14 @@ db.insert({ somefield: 'nedb' }, (err: Error) => {
 // Remove index on field somefield
 db.removeIndex('somefield', (err: Error) => {
 });
+
+db.addListener("compaction.done", () => {});
+db.on("compaction.done", () => {});
+db.once("compaction.done", () => {});
+db.prependListener("compaction.done", () => {});
+db.prependOnceListener("compaction.done", () => {});
+db.removeListener("compaction.done", () => {});
+db.off("compaction.done", () => {});
+db.listeners("compaction.done"); // $ExpectType (() => void)[]
+db.rawListeners("compaction.done"); // $ExpectType (() => void)[]
+db.listenerCount("compaction.done"); // $ExpectType number

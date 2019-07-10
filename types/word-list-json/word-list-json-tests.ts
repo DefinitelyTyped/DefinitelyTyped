@@ -1,4 +1,4 @@
-import wordListJson from 'word-list-json';
+import wordListJson = require('word-list-json');
 
 wordListJson.lengths; // $ExpectType Lengths
 

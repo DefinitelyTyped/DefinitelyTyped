@@ -1,8 +1,10 @@
-// Type definitions for Leaflet.js 1.2
+// Type definitions for Leaflet.js 1.4
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
 //                 Michael Auer <https://github.com/mcauer>
+//                 Roni Karilkar <https://github.com/ronikar>
+//                 Sandra Frischmuth <https://github.com/sanfrisc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -323,7 +325,7 @@ export abstract class Evented extends Class {
      * Note that if you passed a custom context to on, you must pass the same context
      * to off in order to remove the listener.
      */
-    removeEventListener(type: string, fn: LeafletEventHandlerFn, context?: any): this;
+    removeEventListener(type: string, fn?: LeafletEventHandlerFn, context?: any): this;
 
     /**
      * Alias for off(...)
@@ -493,8 +495,12 @@ export interface TileLayerOptions extends GridLayerOptions {
     tms?: boolean;
     zoomReverse?: boolean;
     detectRetina?: boolean;
-    crossOrigin?: boolean;
-    [name: string]: any;
+    crossOrigin?: CrossOrigin;
+    // [name: string]: any;
+    // You are able add additional properties, but it makes this interface unchackable.
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
+    // Example:
+    // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 }
 
 export class TileLayer extends GridLayer {
@@ -545,12 +551,16 @@ export namespace tileLayer {
     function wms(baseUrl: string, options?: WMSOptions): TileLayer.WMS;
 }
 
+export type CrossOrigin = boolean | string;
+
 export interface ImageOverlayOptions extends InteractiveLayerOptions {
     opacity?: number;
     alt?: string;
     interactive?: boolean;
     attribution?: string;
-    crossOrigin?: boolean;
+    crossOrigin?: CrossOrigin;
+    errorOverlayUrl?: string;
+    zIndex?: number;
     className?: string;
 }
 
@@ -564,6 +574,9 @@ export class ImageOverlay extends Layer {
     /** Update the bounds that this ImageOverlay covers */
     setBounds(bounds: LatLngBounds): this;
 
+    /** Changes the zIndex of the image overlay */
+    setZIndex(value: number): this;
+
     /** Get the bounds that this ImageOverlay covers */
     getBounds(): LatLngBounds;
 
@@ -574,6 +587,32 @@ export class ImageOverlay extends Layer {
 }
 
 export function imageOverlay(imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions): ImageOverlay;
+
+export interface VideoOverlayOptions extends ImageOverlayOptions {
+    autoplay?: boolean;
+    loop?: boolean;
+}
+
+export class VideoOverlay extends Layer { /** VideoOverlay doesn't extend ImageOverlay because ImageOverlay.getElement returns HTMLImageElement */
+    constructor(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this VideoOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Get the bounds that this VideoOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the video element that represents the VideoOverlay on the map */
+    getElement(): HTMLVideoElement | undefined;
+
+    options: VideoOverlayOptions;
+}
+
+export function videoOverlay(video: string | string[] | HTMLVideoElement, bounds: LatLngBoundsExpression, options?: VideoOverlayOptions): VideoOverlay;
 
 export type LineCapShape = 'butt' | 'round' | 'square' | 'inherit';
 
@@ -588,7 +627,7 @@ export interface PathOptions extends InteractiveLayerOptions {
     opacity?: number;
     lineCap?: LineCapShape;
     lineJoin?: LineJoinShape;
-    dashArray?: string;
+    dashArray?: string | number[];
     dashOffset?: string;
     fill?: boolean;
     fillColor?: string;
@@ -817,7 +856,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
     pointToLayer?(geoJsonPoint: geojson.Feature<geojson.Point, P>, latlng: LatLng): Layer; // should import GeoJSON typings
 
     /**
-     * A Function defining the Path options for styling GeoJSON lines and polygons,
+     * PathOptions or a Function defining the Path options for styling GeoJSON lines and polygons,
      * called internally when data is added.
      *
      * The default value is to not override any defaults:
@@ -828,7 +867,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * }
      * ```
      */
-    style?: StyleFunction<P>;
+    style?: PathOptions | StyleFunction<P>;
 
     /**
      * A Function that will be called once for each created Feature, after it
@@ -918,6 +957,12 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * useful for resetting style after hover events.
      */
     resetStyle(layer: Layer): Layer;
+
+    /**
+     * Same as FeatureGroup's setStyle method, but style-functions are also
+     * allowed here to set the style according to the feature.
+     */
+    setStyle(style: PathOptions | StyleFunction<P>): this;
 
     options: GeoJSONOptions<P>;
 }
@@ -1090,14 +1135,15 @@ export interface PopupOptions extends DivOverlayOptions {
     maxWidth?: number;
     minWidth?: number;
     maxHeight?: number;
+    keepInView?: boolean;
+    closeButton?: boolean;
     autoPan?: boolean;
     autoPanPaddingTopLeft?: PointExpression;
     autoPanPaddingBottomRight?: PointExpression;
     autoPanPadding?: PointExpression;
-    keepInView?: boolean;
-    closeButton?: boolean;
     autoClose?: boolean;
     closeOnClick?: boolean;
+    closeOnEscapeKey?: boolean;
 }
 
 export type Content = string | HTMLElement;
@@ -1169,6 +1215,12 @@ export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingBottomRight?: PointExpression;
     padding?: PointExpression;
     maxZoom?: number;
+}
+
+export interface PanInsideOptions {
+    paddingTopLeft?: PointExpression;
+    paddingBottomRight?: PointExpression;
+    padding?: PointExpression;
 }
 
 export interface LocateOptions {
@@ -1341,10 +1393,11 @@ export class Map extends Evented {
     fitBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
     fitWorld(options?: FitBoundsOptions): this;
     panTo(latlng: LatLngExpression, options?: PanOptions): this;
-    panBy(offset: PointExpression): this;
+    panBy(offset: PointExpression, options?: PanOptions): this;
     setMaxBounds(bounds: LatLngBoundsExpression): this;
     setMinZoom(zoom: number): this;
     setMaxZoom(zoom: number): this;
+    panInside(latLng: LatLngExpression, options?: PanInsideOptions): this;
     panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
     /**
      * Boolean for animate or advanced ZoomPanOptions
@@ -1483,6 +1536,9 @@ export interface MarkerOptions extends InteractiveLayerOptions {
     opacity?: number;
     riseOnHover?: boolean;
     riseOffset?: number;
+    autoPan?: boolean;
+    autoPanSpeed?: number;
+    autoPanPadding?: PointExpression;
 }
 
 export class Marker<P = any> extends Layer {

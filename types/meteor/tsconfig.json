@@ -63,6 +63,8 @@
         "test/meteor-tests.ts",
         "test/globals/meteor-tests.ts",
         "test/meteor-tests-module-only.ts",
-        "test/server-render.tsx"
+        "test/server-render.tsx",
+        "react-meteor-data.d.ts",
+        "test/react-meteor-data-tests.tsx"
     ]
 }

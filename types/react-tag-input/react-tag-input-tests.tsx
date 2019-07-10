@@ -18,7 +18,7 @@ ReactDOM.render(
         handleDelete={(i: number) => console.log("Delete: " + i)}
         handleDrag={(tag: { id: string; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)}
         handleInputChange={(value: string) => console.log("Changed to: ", value)}
-        handleFilterSuggestions={(textInputValue: string, possibleSuggestionsArray: Array<{ id: string, text: string }>) => true}
+        handleFilterSuggestions={(textInputValue: string, possibleSuggestionsArray: Array<{ id: string, text: string }>) => suggestions}
         handleInputBlur={() => console.log("Blured")}
 
         autofocus={false}
@@ -31,6 +31,17 @@ ReactDOM.render(
 
         name="react-tags-field"
         id="react-tags-field"
+
+        classNames={{
+            tags: 'tagsClass',
+            tagInput: 'tagInputClass',
+            tagInputField: 'tagInputFieldClass',
+            selected: 'selectedClass',
+            tag: 'tagClass',
+            remove: 'removeClass',
+            suggestions: 'suggestionsClass',
+            activeSuggestion: 'activeSuggestionClass'
+        }}
     />,
     document.getElementById("app")
 );

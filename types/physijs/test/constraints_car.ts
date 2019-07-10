@@ -5,12 +5,10 @@ Physijs.scripts.ammo = 'examples/js/ammo.js';
 
 var initScene, render,
     ground_material, car_material, wheel_material, wheel_geometry,
-    projector, renderer, render_stats, physics_stats, scene, ground_geometry, ground, light, camera,
+    renderer, render_stats, physics_stats, scene, ground_geometry, ground, light, camera,
     car: any = {};
 
 initScene = function() {
-    projector = new THREE.Projector;
-
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.shadowMapEnabled = true;

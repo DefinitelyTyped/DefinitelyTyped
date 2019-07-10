@@ -1,6 +1,12 @@
 import * as React from "react";
 import { Wizard, Step, Steps, withWizard } from "react-albus";
 
+declare module "react-albus" {
+    interface StepObject {
+        quote?: string;
+    }
+}
+
 const Example = () => (
     <Wizard
         basename="path"
@@ -19,6 +25,7 @@ const Example = () => (
             <Steps>
                 <Step
                     id="merlin"
+                    quote="Camelot isn't built on magic, but on people, on their faith"
                     render={() => (
                         <div>
                             <h1>Merlin</h1>
@@ -28,6 +35,7 @@ const Example = () => (
                 />
                 <Step
                     id="gandalf"
+                    quote="A wizard is never late, nor is he early. He arrives precisely when he means to."
                     render={stepWiz => (
                         <div>
                             <h1>Gandalf</h1>

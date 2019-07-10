@@ -1,5 +1,5 @@
 // Type definitions for Mithril 1.1
-// Project: https://mithril.js.org/
+// Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
 // Definitions by: Mike Linkovich <https://github.com/spacejack>, András Parditka <https://github.com/andraaspar>, Isiah Meadows <https://github.com/isiahmeadows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -94,8 +94,9 @@ declare namespace Mithril {
 		set(route: string, data?: any, options?: RouteOptions): void;
 		/** Defines a router prefix which is a fragment of the URL that dictates the underlying strategy used by the router. */
 		prefix(urlFragment: string): void;
-		/** This method is meant to be used in conjunction with an <a> Vnode's oncreate hook. */
-		link(vnode: Vnode<any, any>): (e?: Event) => any;
+		/** This method is meant to be used in conjunction with an <a> Vnode's oncreate/onupdate hooks. */
+        link(vnode: Vnode<any, any>): (e?: Event) => any;
+        link(options: RouteOptions): (vnode: Vnode<any, any>) => (e?: Event) => any;
 		/** Returns the named parameter value from the current route. */
 		param(name: string): string;
 		/** Gets all route parameters. */
@@ -173,7 +174,7 @@ declare namespace Mithril {
 	type ChildArrayOrPrimitive = ChildArray | string | number | boolean;
 
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
-	interface Vnode<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> {
+	interface Vnode<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
 		tag: string | ComponentTypes<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
@@ -194,7 +195,7 @@ declare namespace Mithril {
 
 	// In some lifecycle methods, Vnode will have a dom property
 	// and possibly a domSize property.
-	interface VnodeDOM<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> extends Vnode<Attrs, State> {
+	interface VnodeDOM<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> extends Vnode<Attrs, State> {
 		/** Points to the element that corresponds to the vnode. */
 		dom: Element;
 		/** This defines the number of DOM elements that the vnode represents (starting from the element referenced by the dom property). */
@@ -210,7 +211,7 @@ declare namespace Mithril {
 	 * Any Javascript object that has a view method can be used as a Mithril component.
 	 * Components can be consumed via the m() utility.
 	 */
-	interface Component<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> extends Lifecycle<Attrs, State> {
+	interface Component<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> extends Lifecycle<Attrs, State> {
 		/** Creates a view out of virtual elements. */
 		view(this: State, vnode: Vnode<Attrs, State>): Children | null | void;
 	}
@@ -242,16 +243,23 @@ declare namespace Mithril {
 	 * Any function that returns an object with a view method can be used as a Mithril component.
 	 * Components can be consumed via the m() utility.
 	 */
-	type FactoryComponent<A = {}> = (vnode: Vnode<A, {}>) => Component<A, {}>;
+	type FactoryComponent<A = {}> = (vnode: Vnode<A>) => Component<A>;
+
+	/**
+	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
+	 * Any function that returns an object with a view method can be used as a Mithril component.
+	 * Components can be consumed via the m() utility.
+	 */
+	type ClosureComponent<A = {}> = FactoryComponent<A>;
 
 	/**
 	 * Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse.
 	 * Any Javascript object that has a view method is a Mithril component. Components can be consumed via the m() utility.
 	 */
-	type Comp<Attrs = {}, State extends Lifecycle<Attrs, State> = Lifecycle<Attrs, State>> = Component<Attrs, State> & State;
+	type Comp<Attrs = {}, State extends Lifecycle<Attrs, State> = {}> = Component<Attrs, State> & State;
 
 	/** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
-	type ComponentTypes<A = {}, S extends Lifecycle<A, S> = Lifecycle<A, S>> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;
+	type ComponentTypes<A = {}, S extends Lifecycle<A, S> = {}> = Component<A, S> | { new (vnode: CVnode<A>): ClassComponent<A> } | FactoryComponent<A>;
 
 	/** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
 	interface Attributes extends Lifecycle<any, any> {

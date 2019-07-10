@@ -14,7 +14,8 @@ import {
   array,
   button,
   knob,
-  selectV2,
+  radios,
+  optionsKnob as options,
 } from '@storybook/addon-knobs';
 
 enum SomeEnum {
@@ -35,10 +36,12 @@ stories.add('with all knobs', () => {
   const selectedColor = color('Color', 'black');
   const favoriteNumber = number('Favorite Number', 42);
   const comfortTemp = number('Comfort Temp', 72, { range: true, min: 60, max: 90, step: 1 });
+  const radioStation: string = radios('Favorite Radio Station', { 1100: "1100", 2200: "2200", 3300: "3300" });
+  const luckyNumber: number = radios('Lucky Number', { 3: 3, 7: 7, 23: 23 });
   const textDecoration = select('Decoration', {
-    none: 'None',
-    underline: 'Underline',
-    'line-through': 'Line-Through'
+    None: 'none',
+    Underline: 'underline',
+    'Line-through': 'line-through'
   }, 'none');
 
   const customStyle = object('Style', {
@@ -50,15 +53,12 @@ stories.add('with all knobs', () => {
 
   type X = 'a' | 'b';
 
-  const genericSelect: X = select<X>('Some generic select', { a: 'type a', b: 'type b' }, 'b');
-
   const enumSelectOptions: { [s: number]: string } = {};
   enumSelectOptions[SomeEnum.Type1] = "Type 1";
   enumSelectOptions[SomeEnum.Type2] = "Type 2";
-  const genericSelect2: SomeEnum = select<SomeEnum>('Some generic select', enumSelectOptions, SomeEnum.Type1);
 
-  const genericSelectV2: X = selectV2<X>('Some generic select', { 'type a': 'a', 'type b': 'b' }, 'b');
-  const genericSelectV2Enum: SomeEnum = selectV2<SomeEnum>('Some generic select v2', { 'type a': SomeEnum.Type1, 'type b': SomeEnum.Type2 }, SomeEnum.Type2);
+  const genericSelectV2: X = select<X>('Some generic select', { 'type a': 'a', 'type b': 'b' }, 'b');
+  const genericSelectV2Enum: SomeEnum = select<SomeEnum>('Some generic select v2', { 'type a': SomeEnum.Type1, 'type b': SomeEnum.Type2 }, SomeEnum.Type2);
 
   const genericArray: string[] = array<string>('Some generic array', ['red', 'green', 'blue']);
 
@@ -78,6 +78,8 @@ stories.add('with all knobs', () => {
       I'm {name} and I was born on "{dob}"
       <p>My favorite number is {favoriteNumber}.</p>
       <p>My most comfortable room temperature is {comfortTemp} degrees Fahrenheit.</p>
+      <p>My favorite radio station is: {radioStation}</p>
+      <p>My lucky number is {luckyNumber}.</p>
     </div>
   );
 });
@@ -94,12 +96,27 @@ stories.add('dynamic knobs', () => {
   );
 });
 
-const readonlyOptionsArray: ReadonlyArray<string> = ['hi'];
-select('With readonly array', readonlyOptionsArray, readonlyOptionsArray[0]);
+// readonly option array: element can be typed string | number | string[]
+select('With readonly string array', ['hi'], 'hi');
+select('With readonly number array', [1, 2, 3, 4], 1);
+select('With readonly string[] array', [['a'], ['b', 'c']], ['a']);
+select('With mixed-typed element array', [1, 'hi', ['a']], 1);
+
+type StringLiteralType = 'Apple' | 'Banana' | 'Grapes';
+const stringLiteralArray: StringLiteralType[] = ['Apple', 'Banana', 'Grapes'];
+
+// type of value returned from `select` must be `StringLiteralType`.
+const _: StringLiteralType = select('With string literal array', stringLiteralArray, stringLiteralArray[0]);
+
+const optionsObject = {
+  Apple: { taste: 'sweet', color: 'red' },
+  Lemon: { taste: 'sour', color: 'yellow' }
+};
+select('With object', optionsObject, optionsObject.Apple);
 
 const genericArray = array('With regular array', ['hi', 'there']);
 
-const userInputArray = array('With readonly array', readonlyOptionsArray);
+const userInputArray = array('With readonly array', ['hi']);
 userInputArray.push('Make sure that the output is still mutable although the input need not be!');
 
 // groups
@@ -111,7 +128,24 @@ number('label', 1, {}, groupId);
 color('label', '#ffffff', groupId);
 object('label', {}, groupId);
 array('label', [], ',', groupId);
+radios('label', {}, null, groupId);
 select<any>('label', { option: 'Option' }, null, groupId);
 files('label', 'image/*', []);
 date('label', new Date(), groupId);
 button('label', () => undefined, groupId);
+
+// optionsKnob
+type Tool = 'hammer' | 'saw' | 'drill';
+const visibleToolOptions: { [key: string]: Tool } = { hammer: 'hammer', saw: 'saw', drill: 'drill' };
+
+// test selecting one option
+const defaultVisibleTool = 'hammer';
+const singleSelection: Tool = options<Tool>('visibleTools', visibleToolOptions, defaultVisibleTool, {
+  display: 'check',
+});
+
+// test selecting multiple options
+const defaultVisibleTools: Tool[] = ['hammer'];
+const multiSelection: Tool[] = options<Tool>('visibleTools', visibleToolOptions, defaultVisibleTools, {
+  display: 'check',
+});

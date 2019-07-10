@@ -2,10 +2,11 @@
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.9
 
 // This file was auto-generated. Please do not edit it.
 
+/// <reference path="./lib/addons/p5.dom.d.ts" />
 /// <reference path="./src/color/creating_reading.d.ts" />
 /// <reference path="./src/color/setting.d.ts" />
 /// <reference path="./src/core/shape/2d_primitives.d.ts" />

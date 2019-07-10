@@ -22,7 +22,9 @@ import {
   DraftEntityType,
   convertFromHTML,
   convertToRaw,
+  DraftDecorator,
   CompositeDecorator,
+  DraftStyleMap
 } from 'draft-js';
 
 const SPLIT_HEADER_BLOCK = 'split-header-block';
@@ -98,7 +100,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
         return getDefaultKeyBinding(e);
     }
 
-    handleKeyCommand = (command: string, editorState: EditorState) => {
+    handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number) => {
         if (command === SPLIT_HEADER_BLOCK) {
             this.onChange(this.splitHeaderToNewBlock());
             return 'handled';
@@ -185,7 +187,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
 }
 
 // Custom overrides for "code" style.
-const styleMap = {
+const styleMap: DraftStyleMap = {
   CODE: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
@@ -315,6 +317,7 @@ ReactDOM.render(
 
 const editorState = EditorState.createEmpty();
 const contentState = editorState.getCurrentContent();
+const entityMap = contentState.getEntityMap();
 const rawContentState: RawDraftContentState = convertToRaw(contentState);
 
 rawContentState.blocks.forEach((block: RawDraftContentBlock) => {

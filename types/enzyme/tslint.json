@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "dt-header": false,
+        "npm-naming": false,
         "no-duplicate-imports": false,
         "no-unnecessary-generics": false
     }

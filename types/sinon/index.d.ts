@@ -1,5 +1,5 @@
-// Type definitions for Sinon 5.0
-// Project: http://sinonjs.org/
+// Type definitions for Sinon 7.0
+// Project: https://sinonjs.org
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 //                 Jonathan Little <https://github.com/rationull>
 //                 Lukas Spieß <https://github.com/lumaxis>
@@ -7,6 +7,10 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
+//                 John Wood <https://github.com/johnjesse>
+//                 Alec Flett <https://github.com/alecf>
+//                 Simon Schick <https://github.com/SimonSchick>
+//                 Roey Berman <https://github.com/bergundy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -296,6 +300,11 @@ declare namespace Sinon {
          */
         invokeCallback(...args: any[]): void;
         /**
+         * Set the displayName of the spy or stub.
+         * @param name
+         */
+        named(name: string): SinonSpy;
+        /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
          * @param n
@@ -344,7 +353,7 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T>(obj: T, method: keyof T): SinonSpy;
+        <T>(obj: T, method: keyof T, types?: string[]): SinonSpy;
     }
 
     interface SinonStub extends SinonSpy {
@@ -399,6 +408,10 @@ declare namespace Sinon {
          * If the argument at the provided index is not available, a TypeError will be thrown.
          */
         resolvesArg(index: number): SinonStub;
+        /**
+         * Causes the stub to return a Promise which resolves to its this value.
+         */
+        resolvesThis(): SinonStub;
         /**
          * Causes the stub to throw an exception (Error).
          * @param type
@@ -530,6 +543,11 @@ declare namespace Sinon {
          * @param val
          */
         value(val: any): SinonStub;
+        /**
+         * Set the displayName of the spy or stub.
+         * @param name
+         */
+        named(name: string): SinonStub;
         /**
          * Similar to callsArg.
          * Causes the stub to call the first callback it receives with the provided arguments (if any).
@@ -1343,6 +1361,10 @@ declare namespace Sinon {
          */
         symbol: SinonMatcher;
         /**
+         * Requires the value to be in the specified array.
+         */
+        in(allowed: any[]): SinonMatcher;
+        /**
          * Requires the value to strictly equal ref.
          */
         same(obj: any): SinonMatcher;
@@ -1597,10 +1619,14 @@ declare namespace Sinon {
          *
          * @template TType Type being stubbed.
          * @param constructor   Object or class to stub.
+         * @param overrides     An optional map overriding created stubs
          * @returns A stubbed version of the constructor.
          * @remarks The given constructor function is not invoked. See also the stub API.
          */
-        createStubInstance<TType>(constructor: StubbableType<TType>): SinonStubbedInstance<TType>;
+        createStubInstance<TType>(
+            constructor: StubbableType<TType>,
+            overrides?: { [K in keyof TType]?: any }
+        ): SinonStubbedInstance<TType>;
     }
 
     interface SinonApi {

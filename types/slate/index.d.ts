@@ -1,4 +1,4 @@
-// Type definitions for slate 0.40
+// Type definitions for slate 0.44
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -7,9 +7,14 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
+//                 Hanna Greaves <https://github.com/sgreav>
+//                 Jack Allen <https://github.com/jackall3n>
+//                 Benjamin Evenson <https://github.com/benjiro>
+//                 Han Jeon <https://github.com/hanstar17>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 import * as Immutable from "immutable";
+import { SyntheticEvent } from "react";
 
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
@@ -25,7 +30,7 @@ export interface RulesByNodeType {
 
 export interface ObjectAndType {
     object?: string;
-    types?: string;
+    type?: string;
 }
 
 export interface Rules {
@@ -35,14 +40,19 @@ export interface Rules {
     first?: ObjectAndType | ObjectAndType[];
     isVoid?: boolean;
     last?: ObjectAndType | ObjectAndType[];
+    marks?: Array<{
+        type: string | ((type: string) => boolean)
+    }>;
+    next?: ObjectAndType | ObjectAndType[];
     nodes?: Array<{
         min?: number;
         max?: number;
         match?: ObjectAndType | ObjectAndType[];
     }>;
-    normalize?: (change: Change, error: SlateError) => void;
+    normalize?: (editor: Editor, error: SlateError) => void;
     parent?: ObjectAndType | ObjectAndType[];
-    text?: RegExp;
+    text?: RegExp | ((text: string) => boolean);
+    previous?: ObjectAndType | ObjectAndType[];
 }
 
 export interface SchemaProperties {
@@ -51,39 +61,9 @@ export interface SchemaProperties {
     inlines?: RulesByNodeType;
 }
 
-export class Schema extends Immutable.Record({}) {
-    stack: Stack;
-    rules: Rules[];
-
-    static create(properties: SchemaProperties | Schema): Schema;
-    static fromJSON(object: SchemaProperties): Schema;
-    static fromJS(object: SchemaProperties): Schema;
-    static isSchema(maybeSchema: any): maybeSchema is Schema;
-
-    validateNode(node: Node): Error | void;
-    testNode(node: Node): boolean;
-    assertNode(node: Node): boolean;
-    getNodeRules(node: Node): any[];
-    isVoid(node: Node): boolean;
-    isAtomic(mark: Mark): boolean;
-    normalizeNode(node: Node): () => void;
-    testRules(object: any, rules: object | any[]): boolean;
-    validateRules(
-        object: any,
-        rule: object | any[],
-        rules: any[] | null,
-        options?: object
-    ): Error | void;
-
-    toJSON(): SchemaProperties;
-    toJS(): SchemaProperties;
-}
-
 export interface ValueProperties {
     document?: Document;
     selection?: Selection;
-    history?: History;
-    schema?: Schema;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
 }
@@ -91,20 +71,16 @@ export interface ValueProperties {
 export interface ValueJSON {
     document?: DocumentJSON;
     selection?: Selection;
-    history?: History;
-    schema?: Schema;
     data?: Data;
     decorations?: Immutable.List<Decoration> | null;
     object?: "value";
 }
 
-export type Path = Immutable.List<number> | string;
+export type Path = Immutable.List<number> | string | number;
 
 export class Value extends Immutable.Record({}) {
     document: Document;
     selection: Selection;
-    history: History;
-    schema: Schema;
     data: Data;
     object: "value";
     decorations: Immutable.List<Decoration>;
@@ -143,7 +119,6 @@ export class Value extends Immutable.Record({}) {
     static fromJS(properties: ValueJSON): Value;
     static isValue(maybeValue: any): maybeValue is Value;
 
-    change(): Change;
     toJSON(): ValueJSON;
     addMark(path: Path, offset: number, length: number, mark: Mark): Value;
     insertNode(path: Path, node: Node): Value;
@@ -318,7 +293,7 @@ export class Text extends Immutable.Record({}) {
     addMark(index: number, length: number, mark: Mark): Text;
     addMarks(index: number, lenght: number, marks: Immutable.Set<Mark>): Text;
     getLeaves(decorations?: Range[]): Immutable.List<Leaf>;
-    getActiveMarksBetweenOffset(
+    getActiveMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
     ): Immutable.Set<Mark>;
@@ -326,13 +301,13 @@ export class Text extends Immutable.Record({}) {
     getFirstText(): Text;
     getLastText(): Text;
     getText(): string;
-    getMarksBetweenOffset(
+    getMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
     ): Immutable.Set<Mark>;
     getMarks(): Immutable.OrderedSet<Mark>;
     getMarksAsArray(): Mark[];
-    getMarksAtIndex(index: number): Mark;
+    getMarksAtIndex(index: number): Immutable.OrderedSet<Mark>;
     getNode(key: string): Node | null;
     getPath(key: string | Path): Path;
     hasNode(key: string): boolean;
@@ -349,9 +324,6 @@ export class Text extends Immutable.Record({}) {
     ): Text;
     splitText(offset: number): Text[];
     mergeText(text: Text): Text;
-    normalize(schema: Schema): () => void | null;
-    validate(schema: Schema): Error | null;
-    getFirstInvalidNode(schema: Schema): Text | null;
     setLeaves(leaves: Immutable.List<Leaf>): Text;
 }
 
@@ -361,8 +333,9 @@ export interface LeafProperties {
 }
 
 export interface LeafJSON {
-    marks?: Mark[];
+    marks?: MarkJSON[];
     text?: string;
+    object: "leaf";
 }
 
 export class Leaf extends Immutable.Record({}) {
@@ -433,11 +406,9 @@ declare class BaseNode<
     createRange(properties: RangeProperties | Range): Range;
     createSelection(properties: SelectionProperties | Selection): Selection;
     filterDescendants(iterator: (node: Node) => boolean): Immutable.List<Node>;
-    findDescendants(iterator: (node: Node) => boolean): Node | null;
+    findDescendant(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
-    getBlocksAtRange(range: Range): Immutable.List<Block>;
-    getBlocksAtRangeAsArray(range: Range): Block[];
     getBlocks(): Immutable.List<Block>;
     getBlocksAsArray(): Block[];
     getBlocksByType(type: string): Immutable.List<Block>;
@@ -445,13 +416,12 @@ declare class BaseNode<
     getChild(path: Path): Node | null;
     getClosestBlock(path: Path): Block | null;
     getClosestInline(path: Path): Inline | null;
-    getClosestVoid(path: Path, schema: Schema): Node | null;
+    getClosestVoid(key: string | Path): Node | null;
     getClosest(path: Path, iterator: (node: Node) => boolean): Node | null;
     getCommonAncestor(a: Path, b: Path): Node;
-    getDecorations(stack: Stack): Immutable.List<Range>;
+    getDecorations(editor: Editor): Immutable.List<Decoration>;
     getDepth(path: Path, startAt?: number): number;
     getDescendant(path: Path): Node | null;
-    getFirstInvalidNode(schema: Schema): Node | null;
     getFirstText(): Text | null;
     getFragmentAtRange(range: Range): Document;
     getFurthest(path: Path, iterator: (node: Node) => boolean): Node | null;
@@ -468,6 +438,8 @@ declare class BaseNode<
     getInsertMarksAtRange(range: Range): Immutable.Set<Mark>;
     getKeysToPathsTable(): object;
     getLastText(): Text | null;
+    getLeafBlocksAtRange(range: Range): Immutable.List<Block>;
+    getLeafBlocksAtRangeAsArray(range: Range): Block[];
     getMarks(): Immutable.Set<Mark>;
     getMarksAsArray(): Mark[];
     getMarksAtPosition(key: string, offset: number): Immutable.Set<Mark>;
@@ -496,6 +468,8 @@ declare class BaseNode<
     getPreviousNode(path: Path): Node | null;
     getPreviousSibling(path: Path): Node | null;
     getPreviousText(path: Path): Text | null;
+    getRootBlocksAtRange(range: Range): Immutable.List<Block>;
+    getRootInlinesAtRange(range: Range): Immutable.List<Block>;
     getSelectionIndexes(
         range: Range,
         isSelected?: boolean
@@ -513,7 +487,7 @@ declare class BaseNode<
     hasInlineChildren(): boolean;
     hasDescendant(path: Path): boolean;
     hasNode(path: Path): boolean;
-    hasVoidParent(path: Path, schema: Schema): boolean;
+    hasVoidParent(path: Path, editor: Editor): boolean;
     insertNode(path: Path, node: Node): Node;
     insertText(
         path: Path,
@@ -527,7 +501,7 @@ declare class BaseNode<
     mapDescendants(iterator: () => void): Node;
     mergeNode(path: Path): Node;
     moveNode(path: Path, newPath: Path, newIndex?: number): Node;
-    normalize(schema: Schema): () => void | void;
+    normalize(editor: Editor): () => void | void;
     refinedNOde(path: Path, key: string): Node | null;
     refindPath(path: Path, key: string): Immutable.List<string> | null;
     regenerateKey(): Node;
@@ -547,7 +521,7 @@ declare class BaseNode<
         properties: MarkProperties
     ): Node;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
-    validate(schema: Schema): Error | void;
+    validate(editor: Editor): Error | void;
 }
 
 export interface MarkProperties {
@@ -558,6 +532,7 @@ export interface MarkProperties {
 export interface MarkJSON {
     type: string;
     data?: { [key: string]: any };
+    object: "mark";
 }
 
 export class Mark extends Immutable.Record({}) {
@@ -574,487 +549,6 @@ export class Mark extends Immutable.Record({}) {
     static isMark(maybeMark: any): maybeMark is Mark;
 
     toJSON(): MarkProperties;
-}
-
-export interface ChangeOption {
-    normalize?: boolean;
-}
-
-export class Change extends Immutable.Record({}) {
-    object: "change";
-    value: Value;
-    operations: Immutable.List<Operation>;
-
-    call(customChange: (change: Change, ...args: any[]) => Change): Change;
-
-    applyOperations(operations: Operation[]): Change;
-    applyOperation(operation: Operation): Change;
-
-    withoutNormalization(fn: (change: Change) => void): Change;
-    setOperationFlag(key: string, value: any): Change;
-    getFlag(key: string, options?: object): any;
-    unsetOperationFlag(key: string): Change;
-
-    // Full Value Change
-    setValue(properties: Value | ValueProperties): Change;
-
-    // Current Value Changes
-    deleteBackward(n: number): Change;
-    deleteForward(n: number): Change;
-    delete(): Change;
-    insertBlock(block: Block | BlockProperties | string): Change;
-    insertFragment(fragment: Document): Change;
-    insertInline(inline: Inline | InlineProperties): Change;
-    insertText(text: string): Change;
-    addMark(mark: Mark | MarkProperties | string): Change;
-    setBlocks(properties: BlockProperties | string): Change;
-    setInlines(properties: InlineProperties | string): Change;
-    splitBlock(depth: number): Change;
-    splitInline(depth: number): Change;
-    removeMark(mark: Mark | MarkProperties | string): Change;
-    replaceMark(
-        mark: Mark | MarkProperties | string,
-        newMark: Mark | MarkProperties | string
-    ): Change;
-    toggleMark(mark: Mark | MarkProperties | string): Change;
-    unwrapBlock(properties: BlockProperties | string): Change;
-    unwrapInline(properties: InlineProperties | string): Change;
-    wrapBlock(properties: BlockProperties | string): Change;
-    wrapInline(properties: InlineProperties | string): Change;
-    wrapText(prefix: string, suffix?: string): Change;
-
-    // Selection Changes
-    blur(): Change;
-
-    flip(): Change;
-    focus(): Change;
-    move(n: number): Change;
-
-    moveAnchorBackward(n?: number): Change;
-    moveAnchorForward(n?: number): Change;
-    moveAnchorTo(path: Path, offset: number): Change;
-    moveAnchorToEndOfBlock(): Change;
-    moveAnchorToEndOfInline(): Change;
-    moveAnchorToEndOfDocument(): Change;
-    moveAnchorToEndOfNextBlock(): Change;
-    moveAnchorToEndOfNextInline(): Change;
-    moveAnchorToEndOfNextText(): Change;
-    moveAnchorEndOfNode(node: Node): Change;
-    moveAnchorToEndOfPreviousBlock(): Change;
-    moveAnchorToEndOfPreviousInline(): Change;
-    moveAnchorToEndOfPreviousText(): Change;
-    moveAnchorToEndOfText(): Change;
-    moveAnchorToStartOfBlock(): Change;
-    moveAnchorToStartOfDocument(): Change;
-    moveAnchorToStartOfInline(): Change;
-    moveAnchorToStartOfNextBlock(): Change;
-    moveAnchorToStartOfNextInline(): Change;
-    moveAnchorToStartOfNextText(): Change;
-    moveAnchorToStartOfNode(node: Node): Change;
-    moveAnchorToStartOfPreviousBlock(): Change;
-    moveAnchorToStartOfPreviousInline(): Change;
-    moveAnchorToStartOfPreviousText(): Change;
-    moveAnchorToStartOfText(): Change;
-
-    moveBackward(point: Point, n?: number): Change;
-    moveEndBackward(point: Point, n?: number): Change;
-    moveEndForward(point: Point, n?: number): Change;
-
-    moveEndTo(path: Path, offset: number): Change;
-    moveEndToEndOfBlock(): Change;
-    moveEndToEndOfDocument(): Change;
-    moveEndToEndOfInline(): Change;
-    moveEndToEndOfNextBlock(): Change;
-    moveEndToEndOfNextInline(): Change;
-    moveEndToEndOfNextText(): Change;
-    moveEndToEndOfNode(node: Node): Change;
-    moveEndToEndOfPreviousBlock(): Change;
-    moveEndToEndOfPreviousInline(): Change;
-    moveEndToEndOfPreviousText(): Change;
-    moveEndToEndOfText(): Change;
-    moveEndToStartOfBlock(): Change;
-    moveEndToStartOfDocument(): Change;
-    moveEndToStartOfInline(): Change;
-    moveEndToStartOfNextBlock(): Change;
-    moveEndToStartOfNextInline(): Change;
-    moveEndToStartOfNextText(): Change;
-    moveEndToStartOfNode(node: Node): Change;
-    moveEndToStartOfPreviousBlock(): Change;
-    moveEndToStartOfPreviousInline(): Change;
-    moveEndToStartOfPreviousText(): Change;
-    moveEndToStartOfText(): Change;
-
-    moveFocusBackward(n?: number): Change;
-    moveFocusForward(n?: number): Change;
-    moveFocusTo(point: Point, n?: number): Change;
-    moveFocusToEndOfBlock(): Change;
-    moveFocusToEndOfDocument(): Change;
-    moveFocusToEndOfInline(): Change;
-    moveFocusToEndOfNextBlock(): Change;
-    moveFocusToEndOfNextInline(): Change;
-    moveFocusToEndOfNextText(): Change;
-    moveFocusToEndOfNode(node: Node): Change;
-    moveFocusToEndOfPreviousBlock(): Change;
-    moveFocusToEndOfPreviousInline(): Change;
-    moveFocusToEndOfPreviousText(): Change;
-    moveFocusToEndOfText(): Change;
-    moveFocusToStartOfBlock(): Change;
-    moveFocusToStartOfDocument(): Change;
-    moveFocusToStartOfInline(): Change;
-    moveFocusToStartOfNextBlock(): Change;
-    moveFocusToStartOfNextInline(): Change;
-    moveFocusToStartOfNextText(): Change;
-    moveFocusToStartOfNode(node: Node): Change;
-    moveFocusToStartOfPreviousBlock(): Change;
-    moveFocusToStartOfPreviousInline(): Change;
-    moveFocusToStartOfPreviousText(): Change;
-    moveFocusToStartOfText(): Change;
-
-    moveForward(point: Point, n?: number): Change;
-
-    moveStartForward(point: Point, n?: number): Change;
-    moveStartBackward(point: Point, n?: number): Change;
-    moveStartTo(point: Point, n?: number): Change;
-    moveStartToEndOfBlock(): Change;
-    moveStartToEndOfDocument(): Change;
-    moveStartToEndOfInline(): Change;
-    moveStartToEndOfNextBlock(): Change;
-    moveStartToEndOfNextInline(): Change;
-    moveStartToEndOfNextText(): Change;
-    moveStartToEndOfNode(node: Node): Change;
-    moveStartToEndOfPreviousBlock(): Change;
-    moveStartToEndOfPreviousInline(): Change;
-    moveStartToEndOfPreviousText(): Change;
-    moveStartToEndOfText(): Change;
-    moveStartToStartOfBlock(): Change;
-    moveStartToStartOfDocument(): Change;
-    moveStartToStartOfInline(): Change;
-    moveStartToStartOfNextBlock(): Change;
-    moveStartToStartOfNextInline(): Change;
-    moveStartToStartOfNextText(): Change;
-    moveStartToStartOfNode(node: Node): Change;
-    moveStartToStartOfPreviousBlock(): Change;
-    moveStartToStartOfPreviousInline(): Change;
-    moveStartToStartOfPreviousText(): Change;
-    moveStartToStartOfText(): Change;
-
-    moveTo(path: Path, offset: number): Change;
-    moveToAnchor(): Change;
-    moveToFocus(): Change;
-    moveToStart(): Change;
-    moveToEnd(): Change;
-    moveToEndOfBlock(): Change;
-    moveToEndOfDocument(): Change;
-    moveToEndOfInline(): Change;
-    moveToEndOfNextBlock(): Change;
-    moveToEndOfNextInline(): Change;
-    moveToEndOfNextText(): Change;
-    moveToEndOfNode(node: Node): Change;
-    moveToEndOfPreviousBlock(): Change;
-    moveToEndOfPreviousInline(): Change;
-    moveToEndOfPreviousText(): Change;
-    moveToEndOfText(): Change;
-    moveToStartOfBlock(): Change;
-    moveToStartOfDocument(): Change;
-    moveToStartOfInline(): Change;
-    moveToStartOfNextBlock(): Change;
-    moveToStartOfNextInline(): Change;
-    moveToStartOfNextText(): Change;
-    moveToStartOfNode(node: Node): Change;
-    moveToStartOfPreviousBlock(): Change;
-    moveToStartOfPreviousInline(): Change;
-    moveToStartOfPreviousText(): Change;
-    moveToStartOfText(): Change;
-
-    moveToRangeOfDocument(): Change;
-    moveToRangeOfNode(node: Node): Change;
-    select(properties: Range | RangeProperties, options: ChangeOption): Change;
-    setAnchor(point: Point): Change;
-    setEnd(point: Point): Change;
-    setFocus(point: Point): Change;
-    setStart(point: Point): Change;
-    snapshotSelection(): Change;
-    deselect(): Change;
-
-    // Document Changes
-    deleteCharBackwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteLineBackwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteWordBackwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteBackwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteCharForwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteLineForwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteWordForwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteForwardAtRange(range: Range, options?: ChangeOption): Change;
-    deleteAtRange(range: Range, options?: ChangeOption): Change;
-    insertBlockAtRange(
-        range: Range,
-        block: Block | BlockProperties | string,
-        options?: ChangeOption
-    ): Change;
-    insertFragmentAtRange(
-        range: Range,
-        fragment: Document,
-        options?: ChangeOption
-    ): Change;
-    insertInlineAtRange(
-        range: Range,
-        inline: Inline | InlineProperties,
-        options?: ChangeOption
-    ): Change;
-    insertTextAtRange(
-        range: Range,
-        text: string,
-        marks?: Immutable.Set<Mark>,
-        options?: ChangeOption
-    ): Change;
-    addMarkAtRange(
-        range: Range,
-        mark: Mark | MarkProperties | string,
-        options?: ChangeOption
-    ): Change;
-    addMarksAtRange(
-        range: Range,
-        marks: Mark[] | MarkProperties[] | string[],
-        options?: ChangeOption
-    ): Change;
-    setBlocksAtRange(
-        range: Range,
-        properties: BlockProperties | string,
-        options?: ChangeOption
-    ): Change;
-    setInlinesAtRange(
-        range: Range,
-        properties: InlineProperties | string,
-        options?: ChangeOption
-    ): Change;
-    splitBlockAtRange(
-        range: Range,
-        depth: number,
-        height?: number,
-        options?: ChangeOption
-    ): Change;
-    splitInlineAtRange(
-        range: Range,
-        depth: number,
-        height?: number,
-        options?: ChangeOption
-    ): Change;
-    removeMarkAtRange(
-        range: Range,
-        mark: Mark | MarkProperties | string,
-        options?: ChangeOption
-    ): Change;
-    toggleMarkAtRange(
-        range: Range,
-        mark: Mark | MarkProperties | string,
-        options?: ChangeOption
-    ): Change;
-    unwrapBlockAtRange(
-        range: Range,
-        properties: BlockProperties | string,
-        options?: ChangeOption
-    ): Change;
-    unwrapInlineAtRange(
-        range: Range,
-        properties: InlineProperties | string,
-        options?: ChangeOption
-    ): Change;
-    wrapBlockAtRange(
-        range: Range,
-        properties: BlockProperties | string,
-        options?: ChangeOption
-    ): Change;
-    wrapInlineAtRange(
-        range: Range,
-        properties: InlineProperties | string,
-        options?: ChangeOption
-    ): Change;
-    wrapTextAtRange(
-        range: Range,
-        prefix: string,
-        suffix?: string,
-        options?: ChangeOption
-    ): Change;
-
-    // Node Changes
-    addMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark
-    ): Change;
-    insertNodeByKey(key: string, index: number, node: Node): Change;
-    insertFragmentByKey(key: string, index: number, fragment: Document): Change;
-    insertTextByKey(
-        key: string,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Change;
-    moveNodeByKey(key: string, newKey: string, newIndex: number): Change;
-    removeMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark
-    ): Change;
-    removeNodeByKey(key: string): Change;
-    replaceNodeByKey(key: string, node: Node): Change;
-    removeTextByKey(key: string, offset: number, length: number): Change;
-    setMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Change;
-    setNodeByKey(
-        key: string,
-        properties: BlockProperties | InlineProperties | string
-    ): Change;
-    splitNodeByKey(key: string, offset: number): Change;
-    unwrapInlineByKey(
-        key: string,
-        properties: InlineProperties | string
-    ): Change;
-    unwrapBlockByKey(key: string, properties: BlockProperties | string): Change;
-    unwrapNodeByKey(key: string): Change;
-    wrapInlineByKey(key: string, properties: InlineProperties | string): Change;
-    wrapBlockByKey(key: string, properties: BlockProperties | string): Change;
-    wrapNodeByKey(key: string): Change;
-
-    // by path
-    addMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string,
-        options: ChangeOption
-    ): Change;
-    insertFragmentByPath(
-        path: Path,
-        index: number,
-        fragment: Document,
-        options: ChangeOption
-    ): Change;
-    insertNodeByPath(
-        path: Path,
-        index: number,
-        node: Node,
-        options: ChangeOption
-    ): Change;
-    insertTextByPath(
-        path: Path,
-        offset: number,
-        text: string,
-        marks: Immutable.Set<Mark> | null | undefined,
-        options: ChangeOption
-    ): Change;
-    mergeNodeByPath(path: Path, options: ChangeOption): Change;
-    mergeNodeByKey(key: string, options: ChangeOption): Change;
-    moveNodeByPath(
-        path: Path,
-        newPath: Path,
-        newIndex: number,
-        options: ChangeOption
-    ): Change;
-    removeMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string,
-        options: ChangeOption
-    ): Change;
-    removeAllMarksByPath(path: Path, options: ChangeOption): Change;
-    removeAllMarksByKey(key: string, options: ChangeOption): Change;
-    removeNodeByPath(path: Path, options: ChangeOption): Change;
-    removeTextByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        options: ChangeOption
-    ): Change;
-    replaceNodeByPath(path: Path, newNode: Node, options: ChangeOption): Change;
-    replaceTextByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        text: string,
-        marks: Immutable.Set<Mark> | null | undefined,
-        options: ChangeOption
-    ): Change;
-    replaceTextByKey(
-        key: string,
-        offset: number,
-        length: number,
-        text: string,
-        marks: Immutable.Set<Mark> | null | undefined,
-        options: ChangeOption
-    ): Change;
-    setMarksByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties,
-        options: ChangeOption
-    ): Change;
-    setNodeByPath(
-        path: Path,
-        properties: NodeProperties,
-        options: ChangeOption
-    ): Change;
-    setTextByPath(
-        path: Path,
-        text: string,
-        marks: Immutable.Set<Mark> | null | undefined,
-        options: ChangeOption
-    ): Change;
-    setTextByKey(
-        key: string,
-        text: string,
-        marks: Immutable.Set<Mark> | null | undefined,
-        options: ChangeOption
-    ): Change;
-    splitNodeByPath(
-        path: Path,
-        position: number,
-        options?: ChangeOption
-    ): Change;
-    splitDescendantByPath(
-        path: Path,
-        textPath: Path,
-        textOffset: number,
-        options: ChangeOption
-    ): Change;
-    unwrapInlineByPath(
-        path: Path,
-        properties: InlineProperties,
-        options: ChangeOption
-    ): Change;
-    unwrapBlockByPath(
-        path: Path,
-        properties: BlockProperties,
-        options: ChangeOption
-    ): Change;
-    unwrapNodeByPath(path: Path, options: ChangeOption): Change;
-    wrapBlockByPath(path: Path, block: Block, options: ChangeOption): Change;
-    wrapInlineByPath(path: Path, inline: Inline, options: ChangeOption): Change;
-    wrapNodeByPath(path: Path, node: Node): Change;
-
-    normalize(options: ChangeOption): Change;
-    normalizeDocument(options: ChangeOption): Change;
-    normalizeNodeByKey(key: string, options: ChangeOption): Change;
-    normalizeAncestorsByKey(key: string): Change;
-    normalizeParentByKey(key: string, options: ChangeOption): Change;
-    normalizeNodeByPath(path: Path, options: ChangeOption): Change;
-    normalizeParentByPath(path: Path, options: ChangeOption): Change;
-    normalizeNodeAndChildren(node: Node, schema: Schema): Change;
-    normalizeNode(node: Node, schema: Schema): Change;
-
-    // History Changes
-    redo(): Change;
-    undo(): Change;
 }
 
 export interface SelectionProperties {
@@ -1302,91 +796,107 @@ export type Operation =
 
 export interface InsertTextOperation {
     type: "insert_text";
-    path: number[];
+    path: Path;
     offset: number;
     text: string;
     marks: Mark[];
+    data: Data;
 }
 
 export interface RemoveTextOperation {
     type: "remove_text";
-    path: number[];
+    path: Path;
     offset: number;
     text: string;
+    data: Data;
 }
 
 export interface AddMarkOperation {
     type: "add_mark";
-    path: number[];
+    path: Path;
     offset: number;
     length: number;
     mark: Mark;
+    data: Data;
 }
 
 export interface RemoveMarkOperation {
     type: "remove_mark";
-    path: number[];
+    path: Path;
     offset: number;
     length: number;
     mark: Mark;
+    data: Data;
 }
 
 export interface SetMarkOperation {
     type: "set_mark";
-    path: number[];
+    path: Path;
     offset: number;
     length: number;
-    mark: Mark;
     properties: MarkProperties;
+    newProperties: MarkProperties;
+    data: Data;
 }
 
 export interface InsertNodeOperation {
     type: "insert_node";
-    path: number[];
+    path: Path;
     node: Node;
+    data: Data;
 }
 
 export interface MergeNodeOperation {
     type: "merge_node";
-    path: number[];
+    path: Path;
     position: number;
+    properties: NodeProperties;
+    data: Data;
 }
 
 export interface MoveNodeOperation {
     type: "move_node";
-    path: number[];
-    newPath: number[];
+    path: Path;
+    newPath: Path | number[];
+    data: Data;
 }
 
 export interface RemoveNodeOperation {
     type: "remove_node";
-    path: number[];
+    path: Path;
     node: Node;
+    data: Data;
 }
 
 export interface SetNodeOperation {
     type: "set_node";
-    path: number[];
-    properties: BlockProperties | InlineProperties | TextProperties;
+    path: Path;
+    properties: NodeProperties;
+    newProperties: NodeProperties;
+    data: Data;
 }
 
 export interface SplitNodeOperation {
     type: "split_node";
-    path: number[];
+    path: Path;
     position: number;
     target: number;
+    properties: NodeProperties;
+    data: Data;
 }
 
 export interface SetSelectionOperation {
     type: "set_selection";
-    properties: RangeProperties;
-    selection: Range;
+    properties: SelectionProperties;
+    newProperties: SelectionProperties;
+    data: Data;
 }
 
 export interface SetValueOperation {
     type: "set_value";
     properties: ValueProperties;
-    value: Value;
+    newProperties: ValueProperties;
+    data: Data;
 }
 
 export interface Operations {
@@ -1394,66 +904,13 @@ export interface Operations {
     invert: (operation: Operation) => Operation;
 }
 
-export interface StackProperties {
-    plugins?: any[];
-}
-
-export interface StackJSON {
-    object: "stack";
-    plugins: any[];
-}
-
-export class Stack extends Immutable.Record({}) {
-    object: "stack";
-    plugins: any[];
-
-    static create(attrs: StackProperties): Stack;
-    static isStack(maybeStack: any): maybeStack is Stack;
-
-    static fromJSON(properties: StackJSON): Stack;
-    static fromJS(properties: StackJSON): Stack;
-    toJSON(options: any): object;
-}
-
-export interface HistoryProperties {
-    undos?: Operation[];
-    redos?: Operation[];
-}
-
-export interface HistoryJSON {
-    object: "history";
-    undos: any[];
-    redos: any[];
-}
-
-export interface HistoryOptions {
-    merge?: boolean;
-    skip?: boolean;
-}
-
-export class History extends Immutable.Record({}) {
-    redos: Stack;
-    undos: Stack;
-    object: "history";
-
-    static create(attrs: History | HistoryProperties): History;
-    static createOperationsList(
-        oeprations?: Immutable.List<Operation> | Operation[]
-    ): Immutable.List<Operation>;
-    static fromJSON(object: HistoryJSON): History;
-    static fromJS(object: HistoryJSON): History;
-    static isHistory(maybeHistory: any): maybeHistory is History;
-
-    save(operation: Operation, options?: HistoryOptions): History;
-    toJSON(): HistoryJSON;
-    toJS(): HistoryJSON;
-}
-
 export type ErrorCode =
     | "child_object_invalid"
     | "child_required"
     | "child_type_invalid"
     | "child_unknown"
+    | "child_min_invalid"
+    | "child_max_invalid"
     | "first_child_object_invalid"
     | "first_child_type_invalid"
     | "last_child_object_invalid"
@@ -1476,55 +933,1557 @@ export class SlateError extends Error {
     [key: string]: any;
 }
 
-export interface KeyUtils {
-    create(key: string): string;
-    setGenerator(func: () => any): void;
-    resetGenerator(): void;
+export namespace KeyUtils {
+    function create(key?: string): string;
+    function setGenerator(func: () => any): void;
+    function resetGenerator(): void;
 }
 
 export type useMemoization = () => void;
 export type resetMemoization = () => void;
 
-export interface PathUtils {
-    compare(
+export namespace PathUtils {
+    /**
+     * Compare paths `path` and `target` to see which is before or after.
+     */
+    function compare(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): number | null;
-    create(attrs: Immutable.List<number> | string): Immutable.List<number>;
-    crop(
+
+    /**
+     * Create a path from `attrs`.
+     */
+    function create(
+        attrs: Immutable.List<number> | number[]
+    ): Immutable.List<number>;
+
+    /**
+     * Crop paths `a` and `b` to an equal size, defaulting to the shortest.
+     */
+    function crop(
         a: Immutable.List<number>,
         b: Immutable.List<number>,
         size?: number
     ): Array<Immutable.List<number>>;
-    decrement(
+
+    /**
+     * Decrement a `path` by `n` at `index`, defaulting to the last index.
+     */
+    function decrement(
         path: Immutable.List<number>,
         n?: number,
         index?: number
     ): Immutable.List<number>;
-    increment(
+
+    /**
+     * Get all ancestor paths of the given path.
+     */
+    function getAncestors(
+        path: Immutable.List<number>
+    ): Immutable.List<number>;
+
+    /**
+     * Increment a `path` by `n` at `index`, defaulting to the last index.
+     */
+    function increment(
         path: Immutable.List<number>,
         n?: number,
         index?: number
     ): Immutable.List<number>;
-    isAbove(
+
+    /**
+     * Is a `path` above another `target` path?
+     */
+    function isAbove(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    isAfter(
+
+    /**
+     * Is a `path` after another `target` path in a document?
+     */
+    function isAfter(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    isBefore(
+
+    /**
+     * Is a `path` before another `target` path in a document?
+     */
+    function isBefore(
         path: Immutable.List<number>,
         target: Immutable.List<number>
     ): boolean;
-    lift(path: Immutable.List<number>): Immutable.List<number>;
-    max(a: Immutable.List<number>, b: Immutable.List<number>): number;
-    min(a: Immutable.List<number>, b: Immutable.List<number>): number;
-    relate(
+
+    /**
+     * Is a `path` equal to another `target` path in a document?
+     */
+    function isEqual(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is a `path` older than a `target` path? Meaning that it ends as an older
+     * sibling of one of the indexes in the target.
+     */
+    function isOlder(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is an `any` object a path?
+     */
+    function isPath(
+        any: any
+    ): boolean;
+
+    /**
+     * Is a `path` a sibling of a `target` path?
+     */
+    function isSibling(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Is a `path` younger than a `target` path? Meaning that it ends as a younger
+     * sibling of one of the indexes in the target.
+     */
+    function isYounger(
+        path: Immutable.List<number>,
+        target: Immutable.List<number>
+    ): boolean;
+
+    /**
+     * Lift a `path` to refer to its `n`th ancestor.
+     */
+    function lift(
+        path: Immutable.List<number>
+    ): Immutable.List<number>;
+
+    /**
+     * Drop a `path`, returning a relative path from a depth of `n`.
+     */
+    function drop(
+        path: Immutable.List<number>,
+        n?: number
+    ): Immutable.List<number>;
+
+    /**
+     * Get the maximum length of paths `a` and `b`.
+     */
+    function max(
+        a: Immutable.List<number>,
+        b: Immutable.List<number>
+    ): number;
+
+    /**
+     * Get the minimum length of paths `a` and `b`.
+     */
+    function min(
+        a: Immutable.List<number>,
+        b: Immutable.List<number>
+    ): number;
+
+    /**
+     * Get the common ancestor path of path `a` and path `b`.
+     */
+    function relate(
         a: Immutable.List<number>,
         b: Immutable.List<number>
     ): Immutable.List<number>;
+
+    /**
+     * Transform a `path` by an `operation`, adjusting it to stay current.
+     */
+    function transform(
+        path: Immutable.List<number>,
+        operation: Operation
+    ): Immutable.List<Immutable.List<number>>;
+}
+
+export interface Command {
+    type: string;
+    args: any[];
+}
+
+export interface Query {
+    type: string;
+    args: any[];
+}
+
+export type CommandFunc = (editor: Editor, ...args: any[]) => Editor;
+export type QueryFunc = (editor: Editor, ...args: any[]) => any;
+
+export interface Plugin {
+    normalizeNode?: (node: Node, editor: Editor, next: () => void) => ((editor: Editor) => void) | void;
+    onChange?: (editor: Editor, next: () => void) => void;
+    onCommand?: (command: Command, editor: Editor, next: () => void) => void;
+    onConstruct?: (editor: Editor, next: () => void) => void;
+    onQuery?: (query: Query, editor: Editor, next: () => void) => void;
+    validateNode?: (node: Node, editor: Editor, next: () => void) => SlateError | void;
+
+    commands?: {[name: string]: CommandFunc};
+    queries?: {[name: string]: QueryFunc};
+    schema?: SchemaProperties;
+}
+
+export interface Plugins extends Array<Plugin | Plugins> {}
+
+export interface EditorProperties {
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
+    plugins?: Plugins;
+    readOnly?: boolean;
+    value?: Value;
+}
+
+export class Editor implements Controller {
+    object: "editor";
+    onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
+    operations: Immutable.List<Operation>;
+    plugins: Plugin[];
+    readOnly: boolean;
+    value: Value;
+    constructor(attributes: EditorProperties)
+
+    /**
+     * Synchronously flush the current changes to editor, calling onChange.
+     * In normal operation you never need to use this method! Reserved for testing.
+     */
+    flush(): Editor;
+
+    setReadOnly(readOnly: boolean): Editor;
+
+    /**
+     * Set the editor's value state.
+     * You can optionally provide a normalize option to either for the editor to completely re-normalize the new value based on its schema or not.
+     * By default, the editor will re-normalize only if the value is not equal to its previously seen value (which it knows was normalized).
+     */
+    setValue(value: Value, options?: { normalize: boolean }): Editor;
+
+    // Commandable
+    addMark(mark: Mark | MarkProperties | string): Editor;
+    delete(): Editor;
+    deleteBackward(n: number): Editor;
+    deleteForward(n: number): Editor;
+    insertBlock(block: Block | BlockProperties | string): Editor;
+    insertFragment(fragment: Document): Editor;
+    insertInline(inline: Inline | InlineProperties): Editor;
+    insertText(text: string): Editor;
+    setBlocks(properties: BlockProperties | string): Editor;
+    setInlines(properties: InlineProperties | string): Editor;
+    splitBlock(depth?: number): Editor;
+    splitInline(depth?: number): Editor;
+    removeMark(mark: Mark | MarkProperties | string): Editor;
+    replaceMark(
+        mark: Mark | MarkProperties | string,
+        newMark: Mark | MarkProperties | string
+    ): Editor;
+    toggleMark(mark: Mark | MarkProperties | string): Editor;
+    unwrapBlock(properties: BlockProperties | string): Editor;
+    unwrapInline(properties: InlineProperties | string): Editor;
+    wrapBlock(properties: BlockProperties | string): Editor;
+    wrapInline(properties: InlineProperties | string): Editor;
+    wrapText(prefix: string, suffix?: string): Editor;
+    blur(): Editor;
+    deselect(): Editor;
+    flip(): Editor;
+    focus(): Editor;
+    moveAnchorBackward(n?: number): Editor;
+    moveAnchorForward(n?: number): Editor;
+    moveAnchorTo(path: Path, offset?: number): Editor;
+    moveAnchorToEndOfBlock(): Editor;
+    moveAnchorToEndOfInline(): Editor;
+    moveAnchorToEndOfDocument(): Editor;
+    moveAnchorToEndOfNextBlock(): Editor;
+    moveAnchorToEndOfNextInline(): Editor;
+    moveAnchorToEndOfNextText(): Editor;
+    moveAnchorEndOfNode(node: Node): Editor;
+    moveAnchorToEndOfPreviousBlock(): Editor;
+    moveAnchorToEndOfPreviousInline(): Editor;
+    moveAnchorToEndOfPreviousText(): Editor;
+    moveAnchorToEndOfText(): Editor;
+    moveAnchorToStartOfBlock(): Editor;
+    moveAnchorToStartOfDocument(): Editor;
+    moveAnchorToStartOfInline(): Editor;
+    moveAnchorToStartOfNextBlock(): Editor;
+    moveAnchorToStartOfNextInline(): Editor;
+    moveAnchorToStartOfNextText(): Editor;
+    moveAnchorToStartOfNode(node: Node): Editor;
+    moveAnchorToStartOfPreviousBlock(): Editor;
+    moveAnchorToStartOfPreviousInline(): Editor;
+    moveAnchorToStartOfPreviousText(): Editor;
+    moveAnchorToStartOfText(): Editor;
+    moveEndBackward(n?: number): Editor;
+    moveEndForward(n?: number): Editor;
+    moveEndTo(path: Path, offset?: number): Editor;
+    moveEndToEndOfBlock(): Editor;
+    moveEndToEndOfDocument(): Editor;
+    moveEndToEndOfInline(): Editor;
+    moveEndToEndOfNextBlock(): Editor;
+    moveEndToEndOfNextInline(): Editor;
+    moveEndToEndOfNextText(): Editor;
+    moveEndToEndOfNode(node: Node): Editor;
+    moveEndToEndOfPreviousBlock(): Editor;
+    moveEndToEndOfPreviousInline(): Editor;
+    moveEndToEndOfPreviousText(): Editor;
+    moveEndToEndOfText(): Editor;
+    moveEndToStartOfBlock(): Editor;
+    moveEndToStartOfDocument(): Editor;
+    moveEndToStartOfInline(): Editor;
+    moveEndToStartOfNextBlock(): Editor;
+    moveEndToStartOfNextInline(): Editor;
+    moveEndToStartOfNextText(): Editor;
+    moveEndToStartOfNode(node: Node): Editor;
+    moveEndToStartOfPreviousBlock(): Editor;
+    moveEndToStartOfPreviousInline(): Editor;
+    moveEndToStartOfPreviousText(): Editor;
+    moveEndToStartOfText(): Editor;
+    moveFocusBackward(n?: number): Editor;
+    moveFocusForward(n?: number): Editor;
+    moveFocusTo(path: Path, offset?: number): Editor;
+    moveFocusToEndOfBlock(): Editor;
+    moveFocusToEndOfDocument(): Editor;
+    moveFocusToEndOfInline(): Editor;
+    moveFocusToEndOfNextBlock(): Editor;
+    moveFocusToEndOfNextInline(): Editor;
+    moveFocusToEndOfNextText(): Editor;
+    moveFocusToEndOfNode(node: Node): Editor;
+    moveFocusToEndOfPreviousBlock(): Editor;
+    moveFocusToEndOfPreviousInline(): Editor;
+    moveFocusToEndOfPreviousText(): Editor;
+    moveFocusToEndOfText(): Editor;
+    moveFocusToStartOfBlock(): Editor;
+    moveFocusToStartOfDocument(): Editor;
+    moveFocusToStartOfInline(): Editor;
+    moveFocusToStartOfNextBlock(): Editor;
+    moveFocusToStartOfNextInline(): Editor;
+    moveFocusToStartOfNextText(): Editor;
+    moveFocusToStartOfNode(node: Node): Editor;
+    moveFocusToStartOfPreviousBlock(): Editor;
+    moveFocusToStartOfPreviousInline(): Editor;
+    moveFocusToStartOfPreviousText(): Editor;
+    moveFocusToStartOfText(): Editor;
+    moveStartForward(n?: number): Editor;
+    moveStartBackward(n?: number): Editor;
+    moveStartTo(path: Path, n?: number): Editor;
+    moveStartToEndOfBlock(): Editor;
+    moveStartToEndOfDocument(): Editor;
+    moveStartToEndOfInline(): Editor;
+    moveStartToEndOfNextBlock(): Editor;
+    moveStartToEndOfNextInline(): Editor;
+    moveStartToEndOfNextText(): Editor;
+    moveStartToEndOfNode(node: Node): Editor;
+    moveStartToEndOfPreviousBlock(): Editor;
+    moveStartToEndOfPreviousInline(): Editor;
+    moveStartToEndOfPreviousText(): Editor;
+    moveStartToEndOfText(): Editor;
+    moveStartToStartOfBlock(): Editor;
+    moveStartToStartOfDocument(): Editor;
+    moveStartToStartOfInline(): Editor;
+    moveStartToStartOfNextBlock(): Editor;
+    moveStartToStartOfNextInline(): Editor;
+    moveStartToStartOfNextText(): Editor;
+    moveStartToStartOfNode(node: Node): Editor;
+    moveStartToStartOfPreviousBlock(): Editor;
+    moveStartToStartOfPreviousInline(): Editor;
+    moveStartToStartOfPreviousText(): Editor;
+    moveStartToStartOfText(): Editor;
+    moveBackward(n?: number): Editor;
+    moveForward(n?: number): Editor;
+    moveTo(path: Path, offset?: number): Editor;
+    moveToAnchor(): Editor;
+    moveToFocus(): Editor;
+    moveToStart(): Editor;
+    moveToEnd(): Editor;
+    moveToEndOfBlock(): Editor;
+    moveToEndOfDocument(): Editor;
+    moveToEndOfInline(): Editor;
+    moveToEndOfNextBlock(): Editor;
+    moveToEndOfNextInline(): Editor;
+    moveToEndOfNextText(): Editor;
+    moveToEndOfNode(node: Node): Editor;
+    moveToEndOfPreviousBlock(): Editor;
+    moveToEndOfPreviousInline(): Editor;
+    moveToEndOfPreviousText(): Editor;
+    moveToEndOfText(): Editor;
+    moveToStartOfBlock(): Editor;
+    moveToStartOfDocument(): Editor;
+    moveToStartOfInline(): Editor;
+    moveToStartOfNextBlock(): Editor;
+    moveToStartOfNextInline(): Editor;
+    moveToStartOfNextText(): Editor;
+    moveToStartOfNode(node: Node): Editor;
+    moveToStartOfPreviousBlock(): Editor;
+    moveToStartOfPreviousInline(): Editor;
+    moveToStartOfPreviousText(): Editor;
+    moveToStartOfText(): Editor;
+    moveToRangeOfDocument(): Editor;
+    moveToRangeOfNode(node: Node): Editor;
+    select(properties: Range | RangeProperties): Editor;
+    addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
+    deleteAtRange(range: Range): Editor;
+    deleteCharBackwardAtRange(range: Range): Editor;
+    deleteLineBackwardAtRange(range: Range): Editor;
+    deleteWordBackwardAtRange(range: Range): Editor;
+    deleteBackwardAtRange(range: Range, n: number): Editor;
+    deleteCharForwardAtRange(range: Range): Editor;
+    deleteLineForwardAtRange(range: Range): Editor;
+    deleteWordForwardAtRange(range: Range): Editor;
+    deleteForwardAtRange(range: Range, n: number): Editor;
+    insertBlockAtRange(range: Range, block: Block | BlockProperties | string): Editor;
+    insertFragmentAtRange(range: Range, fragment: Document): Editor;
+    insertInlineAtRange(range: Range, inline: Inline | InlineProperties): Editor;
+    insertTextAtRange(range: Range, text: string): Editor;
+    setBlocksAtRange(range: Range, properties: BlockProperties | string): Editor;
+    setInlinesAtRange(range: Range, properties: InlineProperties | string): Editor;
+    splitBlockAtRange(range: Range, depth?: number): Editor;
+    splitInlineAtRange(range: Range, depth?: number): Editor;
+    removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
+    toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
+    unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
+    unwrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
+    wrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
+    wrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
+    wrapTextAtRange(range: Range, prefix: string, suffix?: string): Editor;
+    addMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: MarkProperties | Mark | string
+    ): Editor;
+    addMarkByPath(
+        path: Path,
+        offset: number,
+        length: number,
+        mark: MarkProperties | Mark | string
+    ): Editor;
+    insertNodeByKey(key: string, index: number, node: Node): Editor;
+    insertNodeByPath(path: Path, index: number, node: Node): Editor;
+    insertFragmentByKey(key: string, index: number, fragment: Document): Editor;
+    insertFragmentByPath(path: Path, index: number, fragment: Document): Editor;
+    insertTextByKey(
+        key: string,
+        offset: number,
+        text: string,
+        marks?: Immutable.Set<Mark> | Mark[]
+    ): Editor;
+    insertTextByPath(
+        path: Path,
+        offset: number,
+        text: string,
+        marks?: Immutable.Set<Mark> | Mark[]
+    ): Editor;
+    mergeNodeByKey(key: string): Editor;
+    mergeNodeByPath(path: Path): Editor;
+    moveNodeByKey(key: string, newKey: string, newIndex: number): Editor;
+    moveNodeByPath(path: Path, newPath: Path, newIndex: number): Editor;
+    removeMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: Mark | Mark | string
+    ): Editor;
+    removeMarkByPath(
+        path: Path,
+        offset: number,
+        length: number,
+        mark: MarkProperties | Mark | string
+    ): Editor;
+    removeNodeByKey(key: string): Editor;
+    removeNodeByPath(path: Path): Editor;
+    replaceNodeByKey(key: string, node: Node): Editor;
+    replaceNodeByPath(path: Path, newNode: Node): Editor;
+    removeTextByKey(key: string, offset: number, length: number): Editor;
+    removeTextByPath(path: Path, offset: number, length: number): Editor;
+    setDecorations(decorations: Immutable.List<Decoration> | Decoration[]): Editor;
+    setMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: Mark,
+        properties: MarkProperties
+    ): Editor;
+    setMarksByPath(
+        path: Path,
+        offset: number,
+        length: number,
+        mark: Mark,
+        properties: MarkProperties
+    ): Editor;
+    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Editor;
+    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Editor;
+    splitNodeByKey(key: string, offset: number): Editor;
+    splitNodeByPath(path: Path, position: number): Editor;
+    unwrapInlineByKey(key: string, properties: InlineProperties | string): Editor;
+    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Editor;
+    unwrapBlockByKey(key: string, properties: BlockProperties | string): Editor;
+    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Editor;
+    unwrapNodeByKey(key: string): Editor;
+    unwrapNodeByPath(path: Path): Editor;
+    wrapInlineByKey(key: string, properties: InlineProperties | string): Editor;
+    wrapInlineByPath(path: Path, properties: InlineProperties | string): Editor;
+    wrapBlockByKey(key: string, properties: BlockProperties | string): Editor;
+    wrapBlockByPath(path: Path, block: Block | string): Editor;
+    wrapNodeByKey(key: string, parent: Node): Editor;
+    wrapNodeByPath(path: Path, parent: Node): Editor;
+    normalize(): Editor;
+    withoutNormalizing(fn: () => void): Editor;
+    withoutSaving(fn: () => void): Editor;
+    withoutMerging(fn: () => void): Editor;
+    redo(): Editor;
+    undo(): Editor;
+    snapshotSelection(): Editor;
+    command(name: string | CommandFunc, ...args: any[]): Editor;
+    query(query: string | QueryFunc, ...args: any[]): any;
+    registerCommand(command: string): Editor;
+    registerQuery(query: string): Editor;
+    applyOperation(operation: Operation): Editor;
+    run(key: string, ...args: any[]): Editor;
+}
+
+export interface Controller {
+    // Current Selection Commands //
+    /**
+     * Add a mark to the characters in the current selection
+     */
+    addMark(mark: Mark | MarkProperties | string): Controller;
+
+    /**
+     * Delete everything in the current selection.
+     */
+    delete(): Controller;
+
+    /**
+     * Delete backward n characters at the current cursor.
+     * If the selection is expanded, behaviour is equivalent to delete()
+     */
+    deleteBackward(n: number): Controller;
+
+    /**
+     * Delete backward n characters at the current cursor.
+     * If the selection is expanded, behaviour is equivalent to delete()
+     */
+    deleteForward(n: number): Controller;
+
+    /**
+     * Insert a new block at the same level as the current block, splitting the current block to make room if it is non-empty.
+     * If the selection is expanded, it will be deleted first.
+     */
+    insertBlock(block: Block | BlockProperties | string): Controller;
+
+    /**
+     * Insert a document fragment at the current selection. If the selection is expanded, it will be deleted first.
+     */
+    insertFragment(fragment: Document): Controller;
+
+    /**
+     * Insert a new inline at the current cursor position, splitting the text to make room if it is non-empty.
+     * If the selection is expanded, it will be deleted first.
+     */
+    insertInline(inline: Inline | InlineProperties): Controller;
+
+    /**
+     * Insert a string of text at the current selection. If the selection is expanded, it will be deleted first
+     */
+    insertText(text: string): Controller;
+
+    /**
+     * Set the properties of the Blocks in the current selection.
+     * Passing a string will set the blocks' type only.
+     */
+    setBlocks(properties: BlockProperties | string): Controller;
+
+    /**
+     * Set the properties of the Inlines nodes in the current selection.
+     * Passing a string will set the nodes' type only.
+     */
+    setInlines(properties: InlineProperties | string): Controller;
+
+    /**
+     * Split the Block in the current selection by depth levels.
+     * If the selection is expanded, it will be deleted first.
+     */
+    splitBlock(depth: number): Controller;
+
+    /**
+     * Split the Inline node in the current selection by depth levels.
+     * If the selection is expanded, it will be deleted first
+     */
+    splitInline(depth: number): Controller;
+
+    /**
+     * Remove a mark from the characters in the current selection.
+     * Passing a string will implicitly create a Mark of that type for removal.
+     */
+    removeMark(mark: Mark | MarkProperties | string): Controller;
+
+    /**
+     * Remove a mark from the characters in the current selection.
+     * Passing a string will implicitly create a Mark of that type.
+     */
+    replaceMark(
+        mark: Mark | MarkProperties | string,
+        newMark: Mark | MarkProperties | string
+    ): Controller;
+
+    /**
+     * Add or remove a mark from the characters in the current selection, depending on it already exists on any or not.
+     * Passing a string will implicitly create a Mark of that type to toggle.
+     */
+    toggleMark(mark: Mark | MarkProperties | string): Controller;
+
+    /**
+     * Unwrap all Block nodes in the current selection that match a type and/or data
+     */
+    unwrapBlock(properties: BlockProperties | string): Controller;
+
+    /**
+     * Unwrap all Inline nodes in the current selection that match a type and/or data
+     */
+    unwrapInline(properties: InlineProperties | string): Controller;
+
+    /**
+     * Wrap the Block nodes in the current selection with a new Block
+     */
+    wrapBlock(properties: BlockProperties | string): Controller;
+
+    /**
+     *  Wrap the Block nodes in the current selection with a new Inline
+     */
+    wrapInline(properties: InlineProperties | string): Controller;
+
+    /**
+     * Surround the text in the current selection with prefix and suffix strings.
+     * If the suffix is ommitted, the prefix will be used instead.
+     */
+    wrapText(prefix: string, suffix?: string): Controller;
+
+    // Selection Commands //
+    /**
+     * Blur the current selection
+     */
+    blur(): Controller;
+
+    /**
+     * Unset the selection
+     */
+    deselect(): Controller;
+
+    /**
+     * Flip the selection
+     */
+    flip(): Controller;
+
+    /**
+     * Focus the current selection
+     */
+    focus(): Controller;
+
+    /**
+     * Move the anchor of the current selection backward n characters
+     */
+    moveAnchorBackward(n?: number): Controller;
+    /**
+     * Move the anchor of the current selection forward n characters
+     */
+    moveAnchorForward(n?: number): Controller;
+    /**
+     * Move the anchor of the current selection to a new path and offset
+     */
+    moveAnchorTo(path: Path, offset?: number): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the closest block parent.
+     */
+    moveAnchorToEndOfBlock(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the closest inline parent.
+     */
+    moveAnchorToEndOfInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the document.
+     */
+    moveAnchorToEndOfDocument(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the next block.
+     */
+    moveAnchorToEndOfNextBlock(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the next inline.
+     */
+    moveAnchorToEndOfNextInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the next text.
+     */
+    moveAnchorToEndOfNextText(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the provided node.
+     */
+    moveAnchorEndOfNode(node: Node): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the previous block.
+     */
+    moveAnchorToEndOfPreviousBlock(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the previous inline.
+     */
+    moveAnchorToEndOfPreviousInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the previous text.
+     */
+    moveAnchorToEndOfPreviousText(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the current text node.
+     */
+    moveAnchorToEndOfText(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the closest block parent.
+     */
+    moveAnchorToStartOfBlock(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the document.
+     */
+    moveAnchorToStartOfDocument(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the closest inline parent.
+     */
+    moveAnchorToStartOfInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the next block.
+     */
+    moveAnchorToStartOfNextBlock(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the next inline.
+     */
+    moveAnchorToStartOfNextInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the next text node.
+     */
+    moveAnchorToStartOfNextText(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the provided node.
+     */
+    moveAnchorToStartOfNode(node: Node): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the previous block.
+     */
+    moveAnchorToStartOfPreviousBlock(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the previous inline.
+     */
+    moveAnchorToStartOfPreviousInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the previous text node.
+     */
+    moveAnchorToStartOfPreviousText(): Controller;
+    /**
+     * Move the anchor of the current selection to the start of the current text node.
+     */
+    moveAnchorToStartOfText(): Controller;
+
+    /**
+     * Move the end of the selection backward n characters
+     */
+    moveEndBackward(n?: number): Controller;
+    /**
+     * Move the end of the selection foward n characters
+     */
+    moveEndForward(n?: number): Controller;
+
+    /**
+     * Move the end of the selection to a new path and offset
+     */
+    moveEndTo(path: Path, offset?: number): Controller;
+    /**
+     * Move the end of the current selection to the end of the closest block parent.
+     */
+    moveEndToEndOfBlock(): Controller;
+    /**
+     * Move the end of the current selection to the end of the document.
+     */
+    moveEndToEndOfDocument(): Controller;
+    /**
+     * Move the end of the current selection to the end of the closest inline parent.
+     */
+    moveEndToEndOfInline(): Controller;
+    /**
+     * Move the anchor of the current selection to the end of the next block.
+     */
+    moveEndToEndOfNextBlock(): Controller;
+    /**
+     * Move the end of the current selection to the end of the next inline.
+     */
+    moveEndToEndOfNextInline(): Controller;
+    /**
+     * Move the end of the current selection to the end of the next text.
+     */
+    moveEndToEndOfNextText(): Controller;
+    /**
+     * Move the end of the current selection to the end of the provided node.
+     */
+    moveEndToEndOfNode(node: Node): Controller;
+    /**
+     * Move the end of the current selection to the end of the previous block.
+     */
+    moveEndToEndOfPreviousBlock(): Controller;
+    /**
+     * Move the end of the current selection to the end of the previous inline.
+     */
+    moveEndToEndOfPreviousInline(): Controller;
+    /**
+     * Move the commandable of the current selection to the end of the previous text.
+     */
+    moveEndToEndOfPreviousText(): Controller;
+    /**
+     * Move the end of the current selection to the end of the current text node.
+     */
+    moveEndToEndOfText(): Controller;
+    /**
+     * Move the end of the current selection to the start of the closest block parent.
+     */
+    moveEndToStartOfBlock(): Controller;
+    /**
+     * Move the end of the current selection to the start of the document.
+     */
+    moveEndToStartOfDocument(): Controller;
+    /**
+     * Move the end of the current selection to the start of the closest inline parent.
+     */
+    moveEndToStartOfInline(): Controller;
+    /**
+     * Move the end of the current selection to the start of the next block.
+     */
+    moveEndToStartOfNextBlock(): Controller;
+    /**
+     * Move the end of the current selection to the start of the next inline.
+     */
+    moveEndToStartOfNextInline(): Controller;
+    /**
+     * Move the end of the current selection to the start of the next text node.
+     */
+    moveEndToStartOfNextText(): Controller;
+    /**
+     * Move the end of the current selection to the start of the provided node.
+     */
+    moveEndToStartOfNode(node: Node): Controller;
+    /**
+     * Move the end of the current selection to the start of the previous block.
+     */
+    moveEndToStartOfPreviousBlock(): Controller;
+    /**
+     * Move the end of the current selection to the start of the previous inline.
+     */
+    moveEndToStartOfPreviousInline(): Controller;
+    /**
+     * Move the end of the current selection to the start of the previous text node.
+     */
+    moveEndToStartOfPreviousText(): Controller;
+    /**
+     * Move the end of the current selection to the start of the current text node.
+     */
+    moveEndToStartOfText(): Controller;
+
+    /**
+     * Move the focus of the current selection backward n characters
+     */
+    moveFocusBackward(n?: number): Controller;
+    /**
+     * Move the focus of the current selection forward n characters
+     */
+    moveFocusForward(n?: number): Controller;
+    /**
+     * Move the focus of the current selection to a new path and offset
+     */
+    moveFocusTo(path: Path, offset?: number): Controller;
+    /**
+     * Move the focus of the current selection to the end of the closest block parent.
+     */
+    moveFocusToEndOfBlock(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the document.
+     */
+    moveFocusToEndOfDocument(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the closest inline parent.
+     */
+    moveFocusToEndOfInline(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the next block.
+     */
+    moveFocusToEndOfNextBlock(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the next inline.
+     */
+    moveFocusToEndOfNextInline(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the next text.
+     */
+    moveFocusToEndOfNextText(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the provided node.
+     */
+    moveFocusToEndOfNode(node: Node): Controller;
+    /**
+     * Move the focus of the current selection to the end of the previous block.
+     */
+    moveFocusToEndOfPreviousBlock(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the previous inline.
+     */
+    moveFocusToEndOfPreviousInline(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the previous text.
+     */
+    moveFocusToEndOfPreviousText(): Controller;
+    /**
+     * Move the focus of the current selection to the end of the current text node.
+     */
+    moveFocusToEndOfText(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the closest block parent.
+     */
+    moveFocusToStartOfBlock(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the document.
+     */
+    moveFocusToStartOfDocument(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the closest inline parent.
+     */
+    moveFocusToStartOfInline(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the next block.
+     */
+    moveFocusToStartOfNextBlock(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the next inline.
+     */
+    moveFocusToStartOfNextInline(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the next text node.
+     */
+    moveFocusToStartOfNextText(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the provided node.
+     */
+    moveFocusToStartOfNode(node: Node): Controller;
+    /**
+     * Move the focus of the current selection to the start of the previous block.
+     */
+    moveFocusToStartOfPreviousBlock(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the previous inline.
+     */
+    moveFocusToStartOfPreviousInline(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the previous text node.
+     */
+    moveFocusToStartOfPreviousText(): Controller;
+    /**
+     * Move the focus of the current selection to the start of the current text node.
+     */
+    moveFocusToStartOfText(): Controller;
+
+    /**
+     * Move the start of the current selection backward n characters
+     */
+    moveStartForward(n?: number): Controller;
+    /**
+     * Move the start of the current selection forward n characters
+     */
+    moveStartBackward(n?: number): Controller;
+    /**
+     * Move the start of the current selection to a new path and offset
+     */
+    moveStartTo(path: Path, n?: number): Controller;
+    /**
+     * Move the start of the current selection to the end of the closest block parent.
+     */
+    moveStartToEndOfBlock(): Controller;
+    /**
+     * Move the start of the current selection to the end of the document.
+     */
+    moveStartToEndOfDocument(): Controller;
+    /**
+     * Move the start of the current selection to the end of the closest inline parent.
+     */
+    moveStartToEndOfInline(): Controller;
+    /**
+     * Move the start of the current selection to the end of the next block.
+     */
+    moveStartToEndOfNextBlock(): Controller;
+    /**
+     * Move the start of the current selection to the end of the next inline.
+     */
+    moveStartToEndOfNextInline(): Controller;
+    /**
+     * Move the start of the current selection to the end of the next text.
+     */
+    moveStartToEndOfNextText(): Controller;
+    /**
+     * Move the start of the current selection to the end of the provided node.
+     */
+    moveStartToEndOfNode(node: Node): Controller;
+    /**
+     * Move the start of the current selection to the end of the previous block.
+     */
+    moveStartToEndOfPreviousBlock(): Controller;
+    /**
+     * Move the start of the current selection to the end of the previous inline.
+     */
+    moveStartToEndOfPreviousInline(): Controller;
+    /**
+     * Move the start of the current selection to the end of the previous text.
+     */
+    moveStartToEndOfPreviousText(): Controller;
+    /**
+     * Move the start of the current selection to the end of the current text node.
+     */
+    moveStartToEndOfText(): Controller;
+    /**
+     * Move the start of the current selection to the start of the closest block parent.
+     */
+    moveStartToStartOfBlock(): Controller;
+    /**
+     * Move the start of the current selection to the start of the document.
+     */
+    moveStartToStartOfDocument(): Controller;
+    /**
+     * Move the start of the current selection to the start of the closest inline parent.
+     */
+    moveStartToStartOfInline(): Controller;
+    /**
+     * Move the start of the current selection to the start of the next block.
+     */
+    moveStartToStartOfNextBlock(): Controller;
+    /**
+     * Move the start of the current selection to the start of the next inline.
+     */
+    moveStartToStartOfNextInline(): Controller;
+    /**
+     * Move the start of the current selection to the start of the next text node.
+     */
+    moveStartToStartOfNextText(): Controller;
+    /**
+     * Move the start of the current selection to the start of the provided node.
+     */
+    moveStartToStartOfNode(node: Node): Controller;
+    /**
+     * Move the start of the current selection to the start of the previous block.
+     */
+    moveStartToStartOfPreviousBlock(): Controller;
+    /**
+     * Move the start of the current selection to the start of the previous inline.
+     */
+    moveStartToStartOfPreviousInline(): Controller;
+    /**
+     * Move the start of the current selection to the start of the previous text node.
+     */
+    moveStartToStartOfPreviousText(): Controller;
+    /**
+     * Move the start of the current selection to the start of the current text node.
+     */
+    moveStartToStartOfText(): Controller;
+
+    /**
+     * Move the anchor and focus of the selection backward n characters.
+     */
+    moveBackward(n?: number): Controller;
+    /**
+     * Move the anchor and focus of the selection forward n characters.
+     */
+    moveForward(n?: number): Controller;
+    /**
+     * Collapse the current selection at the provided new path and offset.
+     */
+    moveTo(path: Path, offset?: number): Controller;
+    /**
+     * Collapse the current selection at the anchor.
+     */
+    moveToAnchor(): Controller;
+    /**
+     * Collapse the current selection at the focus.
+     */
+    moveToFocus(): Controller;
+    /**
+     * Collapse the current selection at the start.
+     */
+    moveToStart(): Controller;
+    /**
+     * Collapse the current selection at the end.
+     */
+    moveToEnd(): Controller;
+    /**
+     * Collapse the current selection at the end of the closest block parent.
+     */
+    moveToEndOfBlock(): Controller;
+    /**
+     * Collapse the current selection at the end of the document.
+     */
+    moveToEndOfDocument(): Controller;
+    /**
+     * Collapse the current selection at the end of the closest inline parent.
+     */
+    moveToEndOfInline(): Controller;
+    /**
+     * Collapse the current selection at the end of the next block.
+     */
+    moveToEndOfNextBlock(): Controller;
+    /**
+     * Collapse the current selection at the end of the inline.
+     */
+    moveToEndOfNextInline(): Controller;
+    /**
+     * Collapse the current selection at the end of the next text node.
+     */
+    moveToEndOfNextText(): Controller;
+    /**
+     * Collapse the current selection at the end of the provided node.
+     */
+    moveToEndOfNode(node: Node): Controller;
+    /**
+     * Collapse the current selection at the end of the previous block.
+     */
+    moveToEndOfPreviousBlock(): Controller;
+    /**
+     * Collapse the current selection at the end of the previous inline.
+     */
+    moveToEndOfPreviousInline(): Controller;
+    /**
+     * Collapse the current selection at the end of the previous text node.
+     */
+    moveToEndOfPreviousText(): Controller;
+    /**
+     * Collapse the current selection at the end of the current text node.
+     */
+    moveToEndOfText(): Controller;
+    /**
+     * Collapse the current selection at the start of the nearest block parent.
+     */
+    moveToStartOfBlock(): Controller;
+    /**
+     * Collapse the current selection at the start of the document.
+     */
+    moveToStartOfDocument(): Controller;
+    /**
+     * Collapse the current selection at the start of the nearest inline parent.
+     */
+    moveToStartOfInline(): Controller;
+    /**
+     * Collapse the current selection at the start of the next block.
+     */
+    moveToStartOfNextBlock(): Controller;
+    /**
+     * Collapse the current selection at the start of the next inline.
+     */
+    moveToStartOfNextInline(): Controller;
+    /**
+     * Collapse the current selection at the start of the next text node.
+     */
+    moveToStartOfNextText(): Controller;
+    /**
+     * Collapse the current selection at the start of the provided node.
+     */
+    moveToStartOfNode(node: Node): Controller;
+    /**
+     * Collapse the current selection at the start of the previous block.
+     */
+    moveToStartOfPreviousBlock(): Controller;
+    /**
+     * Collapse the current selection at the start of the previous inline.
+     */
+    moveToStartOfPreviousInline(): Controller;
+    /**
+     * Collapse the current selection at the start of the previous text node.
+     */
+    moveToStartOfPreviousText(): Controller;
+    /**
+     * Collapse the current selection at the start of the current text node.
+     */
+    moveToStartOfText(): Controller;
+
+    /**
+     * Move the current selection's anchor to the start of the document and its focus to the end of it, selecting everything.
+     */
+    moveToRangeOfDocument(): Controller;
+    /**
+     * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
+     */
+    moveToRangeOfNode(node: Node): Controller;
+    /**
+     * Merge the current selection with the provided properties
+     */
+    select(properties: Range | RangeProperties): Controller;
+
+    // Document Range Commands //
+
+    /**
+     * Add a mark to the characters in the range.
+     * Passing a string as `mark` will implicitly create a mark with that `type`
+     */
+    addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Controller;
+    /**
+     * Delete everything in the range
+     */
+    deleteAtRange(range: Range): Controller;
+    /**
+     * Delete backward until the char boundary at a range
+     */
+    deleteCharBackwardAtRange(range: Range): Controller;
+    /**
+     * Delete backward until the line boundary at a range
+     */
+    deleteLineBackwardAtRange(range: Range): Controller;
+    /**
+     * Delete backward until the word boundary at a range
+     */
+    deleteWordBackwardAtRange(range: Range): Controller;
+    /**
+     * Delete backward n characters at a range
+     */
+    deleteBackwardAtRange(range: Range, n: number): Controller;
+    /**
+     * Delete forward until the char boundary at a range
+     */
+    deleteCharForwardAtRange(range: Range): Controller;
+    /**
+     * Delete forward until the line boundary at a range
+     */
+    deleteLineForwardAtRange(range: Range): Controller;
+    /**
+     * Delete forward until the word boundary at a range
+     */
+    deleteWordForwardAtRange(range: Range): Controller;
+    /**
+     * Delete forward n characters at a range
+     */
+    deleteForwardAtRange(range: Range, n: number): Controller;
+
+    /**
+     * Insert a block node at range, splitting text to make room if it is non-empty.
+     * If the range is expanded, it will be deleted first.
+     */
+    insertBlockAtRange(range: Range, block: Block | BlockProperties | string): Controller;
+    /**
+     * Insert a document fragment at a range, if the range is expanded, it will be deleted first.
+     */
+    insertFragmentAtRange(range: Range, fragment: Document): Controller;
+    /**
+     * Insert a new inline at range, splitting text to make room if it is non-empty.
+     * If the range is expanded, it will be deleted first.
+     */
+    insertInlineAtRange(range: Range, inline: Inline | InlineProperties): Controller;
+    /**
+     * Insert text at range. If the range is expanded it will be deleted first
+     */
+    insertTextAtRange(range: Range, text: string): Controller;
+    /**
+     * Set the properties of the block nodes in a range.
+     * Passing a string will set the nodes' type only
+     */
+    setBlocksAtRange(range: Range, properties: BlockProperties | string): Controller;
+    /**
+     * Set the properties of the inline nodes in a range.
+     * Passing a string will set the nodes' type only
+     */
+    setInlinesAtRange(range: Range, properties: InlineProperties | string): Controller;
+    /**
+     * Split the block in a range by depth levels. If the range is expanded it will be deleted first.
+     */
+    splitBlockAtRange(range: Range, depth: number): Controller;
+    /**
+     * Split the inline in a range by depth levels. If the range is expanded it will be deleted first.
+     */
+    splitInlineAtRange(range: Range, depth: number): Controller;
+    /**
+     * Remove a mark from characters in the range. Passing a string will
+     * implicitly create a mark of that type for deletion.
+     */
+    removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Controller;
+    /**
+     * Add or remove a mark from characters in the range. Passing a string will
+     * implicitly create a mark of that type for deletion.
+     */
+    toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Controller;
+    /**
+     * Unwrap all block nodes in a range that match properties
+     */
+    unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Controller;
+    /**
+     * Unwrap all inline nodes in a range that match properties
+     */
+    unwrapInlineAtRange(range: Range, properties: InlineProperties | string): Controller;
+    /**
+     * wrap all block nodes in a range with a new block node with the provided properties
+     */
+    wrapBlockAtRange(range: Range, properties: BlockProperties | string): Controller;
+    /**
+     * wrap all inline nodes in a range with a new inline node with the provided properties
+     */
+    wrapInlineAtRange(range: Range, properties: InlineProperties | string): Controller;
+    /**
+     * Surround the text in a range with a prefix and suffix. If the suffix is ommitted,
+     * the prefix will be used instead.
+     */
+    wrapTextAtRange(range: Range, prefix: string, suffix?: string): Controller;
+
+    // Node commands //
+    /**
+     * Add a mark to length characters starting at an offset in a node by key
+     */
+    addMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: MarkProperties | Mark | string
+    ): Controller;
+    /**
+     * Add a mark to length characters starting at an offset in a node by path
+     */
+    addMarkByPath(
+        path: Path,
+        offset: number,
+        length: number,
+        mark: MarkProperties | Mark | string
+    ): Controller;
+    /**
+     * Insert a node at index inside a parent node by key
+     */
+    insertNodeByKey(key: string, index: number, node: Node): Controller;
+    /**
+     * Insert a node at index inside a parent node by apth
+     */
+    insertNodeByPath(path: Path, index: number, node: Node): Controller;
+    /**
+     * Insert a document fragment at index inside a parent node by key
+     */
+    insertFragmentByKey(key: string, index: number, fragment: Document): Controller;
+    /**
+     * Insert a document fragment at index inside a parent node by path
+     */
+    insertFragmentByPath(path: Path, index: number, fragment: Document): Controller;
+    /**
+     * Insert text at an offset in a text node by its key with optional marks
+     */
+    insertTextByKey(
+        key: string,
+        offset: number,
+        text: string,
+        marks?: Immutable.Set<Mark> | Mark[]
+    ): Controller;
+    /**
+     * Insert text at an offset in a text node by its path with optional marks
+     */
+    insertTextByPath(
+        path: Path,
+        offset: number,
+        text: string,
+        marks?: Immutable.Set<Mark> | Mark[]
+    ): Controller;
+    /**
+     * Merge a node by its key with its previous sibling
+     */
+    mergeNodeByKey(key: string): Controller;
+    /**
+     * Merge a node by its path with its previous sibling
+     */
+    mergeNodeByPath(path: Path): Controller;
+    /**
+     * Move a node by its key to a new parent node with with newkey at newindex
+     */
+    moveNodeByKey(key: string, newKey: string, newIndex: number): Controller;
+    /**
+     * Move a node by its path to a new parent node with with newpath at newindex
+     */
+    moveNodeByPath(path: Path, newPath: Path, newIndex: number): Controller;
+    /**
+     * Remove a mark from length characters starting at an offset in a node by key
+     */
+    removeMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: Mark | Mark | string
+    ): Controller;
+    /**
+     * Remove a mark from length characters starting at an offset in a node by path
+     */
+    removeMarkByPath(
+        path: Path,
+        offset: number,
+        length: number,
+        mark: MarkProperties | Mark | string
+    ): Controller;
+    /**
+     * Remove a node from the document by its key
+     */
+    removeNodeByKey(key: string): Controller;
+    /**
+     * Remove a node from the document by its path
+     */
+    removeNodeByPath(path: Path): Controller;
+    /**
+     * Replace a node in the document with a new node by key
+     */
+    replaceNodeByKey(key: string, node: Node): Controller;
+    /**
+     * Replace a node in the document with a new node by path
+     */
+    replaceNodeByPath(path: Path, newNode: Node): Controller;
+    /**
+     * Remove length characters of text starting at an offset in a node by key
+     */
+    removeTextByKey(key: string, offset: number, length: number): Controller;
+    /**
+     * Remove length characters of text starting at an offset in a node by path
+     */
+    removeTextByPath(path: Path, offset: number, length: number): Controller;
+    /**
+     * Set a dictionary of properties on a mark by its key.
+     */
+    setMarkByKey(
+        key: string,
+        offset: number,
+        length: number,
+        mark: Mark,
+        properties: MarkProperties
+    ): Controller;
+    /**
+     * Set a dictionary of properties on a mark by its path.
+     */
+    setMarksByPath(
+        path: Path,
+        offset: number,
+        length: number,
+        mark: Mark,
+        properties: MarkProperties
+    ): Controller;
+    /**
+     * Set a dictionary of properties on a node by its key.
+     */
+    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Controller;
+    /**
+     * Set a dictionary of properties on a node by its key.
+     */
+    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Controller;
+    /**
+     * Split a node by its key at an offset
+     */
+    splitNodeByKey(key: string, offset: number): Controller;
+    /**
+     * Split a node by its path at an offset
+     */
+    splitNodeByPath(path: Path, position: number): Controller;
+    /**
+     * Unwrap all inner content of an inline node by its key that match properties
+     */
+    unwrapInlineByKey(key: string, properties: InlineProperties | string): Controller;
+    /**
+     * Unwrap all inner content of an inline node by its path that match properties
+     */
+    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Controller;
+    /**
+     * Unwrap all inner content of a block node by its key that match properties
+     */
+    unwrapBlockByKey(key: string, properties: BlockProperties | string): Controller;
+    /**
+     * Unwrap all inner content of a block node by its path that match properties
+     */
+    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Controller;
+    /**
+     * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
+     * If the node is an only child, it will replace the parent
+     */
+    unwrapNodeByKey(key: string): Controller;
+    /**
+     * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
+     * If the node is an only child, it will replace the parent
+     */
+    unwrapNodeByPath(path: Path): Controller;
+    /**
+     * Wrap the given node by key in an Inline node that matches properties.
+     */
+    wrapInlineByKey(key: string, properties: InlineProperties | string): Controller;
+    /**
+     * Wrap the given node by path in an Inline node that matches properties.
+     */
+    wrapInlineByPath(path: Path, properties: InlineProperties | string): Controller;
+    /**
+     * Wrap the given node by key in a block node that matches properties.
+     */
+    wrapBlockByKey(key: string, properties: BlockProperties | string): Controller;
+    /**
+     * Wrap the given node by path in a block node that matches properties.
+     */
+    wrapBlockByPath(path: Path, block: Block | string): Controller;
+    /**
+     * Wrap the node with the specified key with the parent node, this will clear all children of the parent.
+     */
+    wrapNodeByKey(key: string, parent: Node): Controller;
+    /**
+     * Wrap the node with the specified key with the parent node, this will clear all children of the parent.
+     */
+    wrapNodeByPath(path: Path, parent: Node): Controller;
+
+    // Miscellaneous Commands //
+    /**
+     * Normalizes the document with the value's schema. Run automatically unless manually disabled.
+     * Use it sparingly and strategically, as it can be very expensive.
+     */
+    normalize(): Controller;
+    /**
+     * Calls the provided function with the current commandable as the first argument.
+     * Normalization does not occur while the function is executing and is deferred to execute immediately after completion.
+     *
+     * This allows for sequence change operations to not be interrupted by normalization
+     */
+    withoutNormalizing(fn: () => void): Controller;
+    /**
+     * By default all operations are saved to the commandable's history. If you have
+     * changes that you don't want to show up in history, use this function.
+     */
+    withoutSaving(fn: () => void): Controller;
+    /**
+     * Usually all command operations are merged into a single save point in history,
+     * if more control is desired, create single save points using this function.
+     */
+    withoutMerging(fn: () => void): Controller;
+
+    // History Commands //
+    /**
+     * Move forward one step in the history
+     */
+    redo(): Controller;
+    /**
+     * Move backward one step in the history
+     */
+    undo(): Controller;
+    /**
+     * Snapshot the current selection for undo purposes.
+     */
+    snapshotSelection(): Controller;
+    command(name: string, ...args: any[]): Controller;
+    query(query: string, ...args: any[]): any;
+    /**
+     * Add a new command by type to the controller. This will make the command available as a top-level method on the controller
+     */
+    registerCommand(command: string): Controller;
+    /**
+     * Add a new query by type to the controller. This will make the query available as a top-level method on the controller.
+     */
+    registerQuery(query: string): Controller;
+    /**
+     * Apply an `operation` to the controller, updating its value.
+     */
+    applyOperation(operation: Operation): Controller;
+    /**
+     * Run the middleware stack by key with args, returning its result.
+     * In normal operation you never need to use this method! Reserved for testing.
+     */
+    run(key: string, ...args: any[]): Controller;
 }
 
 export {};

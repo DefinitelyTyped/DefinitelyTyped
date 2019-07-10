@@ -2036,7 +2036,7 @@ declare module 'gl-matrix' {
          * @param v vector to translate by
          * @returns out
          */
-        public static translate(out: mat3, a: mat3, v: vec3 | number[]): mat3;
+        public static translate(out: mat3, a: mat3, v: vec2 | number[]): mat3;
 
         /**
          * Rotates a mat3 by the given angle
@@ -2661,6 +2661,17 @@ declare module 'gl-matrix' {
          * @returns out
          */
         public static lookAt(out: mat4, eye: vec3 | number[], center: vec3 | number[], up: vec3 | number[]): mat4;
+
+        /**
+         * Generates a matrix that makes something look at something else.
+         *
+         * @param out mat4 frustum matrix will be written into
+         * @param eye Position of the viewer
+         * @param target Point the viewer is looking at
+         * @param up vec3 pointing up
+         * @returns out
+         */
+        public static targetTo(out: mat4, eye: vec3 | number[], target: vec3 | number[], up: vec3 | number[]): mat4;
 
         /**
          * Returns a string representation of a mat4

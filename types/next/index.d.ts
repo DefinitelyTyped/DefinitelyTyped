@@ -1,11 +1,12 @@
-// Type definitions for next 7.0
-// Project: https://github.com/zeit/next.js
+// Type definitions for next 8.0
+// Project: https://github.com/zeit/next.js/packages/next, https://nextjs.org
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>
 //                 Resi Respati <https://github.com/resir014>
 //                 Scott Jones <https://github.com/scottdj92>
 //                 Joao Vieira <https://github.com/joaovieira>
+//                 AJ Livingston <https://github.com/ajliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,14 +14,50 @@
 
 import * as http from "http";
 import * as url from "url";
+import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from "next-server";
+import { NextConfig as NextServerConfig } from "next-server/next-config";
 import { Response as NodeResponse } from "node-fetch";
 import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
 
 declare namespace next {
+    // Moved to next-server
+    type NextConfig = NextServerConfig;
+    type Server = NextServer;
+    type ServerOptions = NextServerOptions;
+    // End Moved to next-server
+
     // Deprecated
     type QueryStringMapObject = DefaultQuery;
     type ServerConfig = NextConfig;
     // End Deprecated
+
+    /**
+     * HTTP request object (server only, non-export mode)
+     */
+    type NextReq<CustomReq = {}> = http.IncomingMessage & CustomReq;
+
+    /**
+     * HTTP request object (server only, `next export` mode)
+     *
+     * Note: We're using `Partial` here (instead of `{ url?: string }`)
+     * in order to avoid TS raising typedef errors
+     * when using it like `req && req.getHeaderNames ? req.getHeaderNames() : []`.
+     */
+    type NextExportReq<CustomReq = {}> = Partial<NextReq<CustomReq>>;
+
+    /**
+     * HTTP response object (server only, non-export mode)
+     */
+    type NextResponse = http.ServerResponse;
+
+    /**
+     * HTTP response object (server only, `next export` mode)
+     *
+     * Note: We're using `Partial` here (instead of `{}`)
+     * in order to avoid TS raising typedef errors
+     * when using it like `res && res.getHeaderNames ? res.getHeaderNames() : []`.
+     */
+    type NextExportResponse = Partial<NextResponse>;
 
     /**
      * Context object used in methods like `getInitialProps()`
@@ -29,17 +66,26 @@ declare namespace next {
      *
      * @template Q Query object schema.
      */
-    interface NextContext<Q extends DefaultQuery = DefaultQuery> {
+    interface NextContext<
+        Q extends DefaultQuery = DefaultQuery,
+        CustomReq = {}
+    > {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
         query: Q;
         /** String of the actual path (including the query) shows in the browser */
         asPath: string;
-        /** HTTP request object (server only) */
-        req?: http.IncomingMessage;
-        /** HTTP response object (server only) */
-        res?: http.ServerResponse;
+        /**
+         * HTTP request object (server only)
+         * Note: In `next export` mode, this will consist of only `{ url?: string }`.
+         */
+        req?: NextReq<CustomReq> | NextExportReq<CustomReq>;
+        /**
+         * HTTP response object (server only)
+         * Note: In `next export` mode, this will be empty `{}` object.
+         */
+        res?: NextResponse | NextExportResponse;
         /** Fetch Response object (client only) - from https://developer.mozilla.org/en-US/docs/Web/API/Response */
         jsonPageRes?: NodeResponse;
         /** Error object if any error is encountered during the rendering */
@@ -47,126 +93,21 @@ declare namespace next {
     }
 
     /**
-     * Next.js config schema.
-     * https://github.com/zeit/next.js/blob/7.0.0/server/config.js#L9
+     * Next.js dev server instance API.
      */
-    interface NextConfig {
-        webpack?: any;
-        webpackDevMiddleware?: any;
-        poweredByHeader?: boolean;
-        distDir?: string;
-        assetPrefix?: string;
-        configOrigin?: string;
-        useFileSystemPublicRoutes?: boolean;
-        generateBuildId?: () => string;
-        generateEtags?: boolean;
-        pageExtensions?: string[];
-        publicRuntimeConfig?: object;
-        serverRuntimeConfig?: object;
-
-        // Plugin can define their own keys.
-        [key: string]: any;
-    }
-
-    /**
-     * Options passed to the Server constructor in Node.js.
-     * https://github.com/zeit/next.js/blob/7.0.0/server/index.js#L25
-     */
-    interface ServerOptions {
-        dir?: string;
-        dev?: boolean;
-        staticMarkup?: boolean;
-        quiet?: boolean;
-        conf?: NextConfig;
-    }
-
-    /**
-     * Next.js server instance API.
-     */
-    interface Server {
-        // From constructor
-        // https://github.com/zeit/next.js/blob/7.0.0/server/index.js#L25
-        dir: string;
-        dev: boolean;
-        quiet: boolean;
-        router: SingletonRouter;
-        http: null | http.Server;
-        nextConfig: NextConfig;
-        distDir: string;
-        buildId: string;
+    interface DevServer extends Server {
         hotReloader: any;
-        renderOpts: {
-            dev: string;
-            staticMarkup: boolean;
-            distDir: string;
+        renderOpts: RenderOptions & {
+            dev: true;
             hotReloader: any;
-            buildId: string;
-            generateETags: boolean;
-            runtimeConfig?: object;
         };
 
         getHotReloader(
             dir: string,
             options: { quiet: boolean; config: NextConfig; buildId: string }
         ): any;
-        handleRequest(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl?: UrlLike
-        ): Promise<void>;
-        getRequestHandler(): (
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl?: UrlLike
-        ) => Promise<void>;
-        setAssetPrefix(prefix: string): void;
 
-        prepare(): Promise<void>;
-        close(): Promise<void>;
-        defineRoutes(): Promise<void>;
-        start(): Promise<void>;
-        run(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
-
-        render(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery,
-            parsedUrl?: UrlLike
-        ): Promise<void>;
-        renderToHTML(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery
-        ): Promise<string>;
-        renderError(
-            err: any,
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery
-        ): Promise<void>;
-        renderErrorToHTML(
-            err: any,
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery
-        ): Promise<string>;
-        render404(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl?: UrlLike
-        ): Promise<void>;
-
-        serveStatic(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            path: string
-        ): Promise<void>;
-        isServeableUrl(path: string): boolean;
-        readBuildId(): string;
+        addExportPathMapRoutes(): Promise<void>;
         getCompilationError(): Promise<any>;
     }
 
@@ -183,14 +124,31 @@ declare namespace next {
         | NextStatelessComponent<P, IP, C>;
 
     /**
-     * Next.js counterpart of React.SFC/React.StatelessComponent.
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `NextFunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type NextSFC<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `NextFunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type NextStatelessComponent<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    type NextFC<P = {}, IP = P, C = NextContext> = NextFunctionComponent<P, IP, C>;
+
+    /**
+     * Next.js counterpart of React.FC/React.FunctionComponent.
      *
      * @template P Component props.
      * @template IP Initial props returned from getInitialProps.
      * @template C Context passed to getInitialProps.
      */
-    type NextSFC<P = {}, IP = P, C = NextContext> = NextStatelessComponent<P, IP, C>;
-    type NextStatelessComponent<P = {}, IP = P, C = NextContext> = React.StatelessComponent<P> &
+    type NextFunctionComponent<P = {}, IP = P, C = NextContext> = React.FunctionComponent<P> &
         NextStaticLifecycle<IP, C>;
 
     /**
@@ -210,9 +168,18 @@ declare namespace next {
      * @template C Context passed to getInitialProps.
      */
     interface NextStaticLifecycle<IP, C> {
-        getInitialProps?: (ctx: C) => Promise<IP> | IP;
+        getInitialProps?: GetInitialProps<IP, C>;
     }
+
+    /**
+     * Next.js getInitialProps type.
+     *
+     * @template IP Initial props returned from getInitialProps and passed to the component.
+     * @template C Context passed to getInitialProps.
+     */
+    type GetInitialProps<IP, C> = (ctx: C) => Promise<IP> | IP;
 }
 
+declare function next(options?: next.ServerOptions & { dev: true }): next.DevServer;
 declare function next(options?: next.ServerOptions): next.Server;
 export = next;

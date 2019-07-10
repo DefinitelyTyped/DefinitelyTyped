@@ -20,6 +20,7 @@
     "files": [
         "angular.d.ts",
         "index.d.ts",
+        "react.d.ts",
         "mithril.d.ts",
         "storybook__addon-centered-tests.tsx"
     ]

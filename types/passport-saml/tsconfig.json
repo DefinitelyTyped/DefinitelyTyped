@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "multiSamlStrategy.d.ts",
         "passport-saml-tests.ts"
     ]
 }

@@ -1,8 +1,18 @@
 import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
+import { Backburner, DebugInfo, QueueItem, DeferredActionQueues } from '@ember/runloop/-private/backburner';
 
+run; // $ExpectType RunNamespace
 run.queues; // $ExpectType EmberRunQueues[]
 const queues: string[] = run.queues;
+
+// It will be the responsibility of each consuming package that needs access to the backburner property
+// to merge the private types in the public API.
+declare module '@ember/runloop' {
+  interface RunNamespace {
+    backburner: Backburner;
+  }
+}
 
 function testRun() {
     run(() => { // $ExpectType number
@@ -197,4 +207,10 @@ function testThrottle() {
 
     run.throttle(runIt, 150);
     run.throttle(myContext, runIt, 150);
+}
+
+function testBackburner() {
+  const debugInfo: DebugInfo = run.backburner.getDebugInfo();
+  const queueItems: QueueItem[] = debugInfo.timers;
+  const deferredActionQueues: DeferredActionQueues[] = debugInfo.instanceStack;
 }

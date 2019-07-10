@@ -62,6 +62,9 @@ function translate(): void {
 
 	polyglot.clear();
 
-	polyglot.locale("fr");
-	polyglot.locale();
+	if (polyglot.locale("fr")) {
+    };
+    
+	if (polyglot.locale()) {
+    };
 }
