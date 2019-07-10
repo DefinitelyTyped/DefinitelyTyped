@@ -4,7 +4,7 @@ import { Props as CreatableProps, State as CreatableState } from './Creatable';
 import { OptionsType, ValueType, ActionMeta, InputActionMeta } from './types';
 import { cleanValue } from './utils';
 
-type Props<OptionType> = AsyncProps<OptionType> & CreatableProps<OptionType>;
+export type Props<OptionType> = AsyncProps<OptionType> & CreatableProps<OptionType>;
 
 type State<OptionType> = AsyncState<OptionType> & CreatableState<OptionType>;
 
