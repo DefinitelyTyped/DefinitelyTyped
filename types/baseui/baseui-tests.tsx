@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-    createTheme, LightThemePrimitives, mergeOverrides, BaseProvider, styled
-} from 'baseui';
+import { createTheme, lightThemePrimitives, mergeOverrides, BaseProvider, styled } from 'baseui';
 import { Block } from 'baseui/block';
 import { FlexGrid, FlexGridItem } from 'baseui/flex-grid';
 import { Accordion, Panel, StatefulPanel } from 'baseui/accordion';
@@ -75,7 +73,7 @@ import { PaymentCard, StatefulPaymentCard } from 'baseui/payment-card';
 import { PhoneInput, StatefulPhoneInput, COUNTRIES } from 'baseui/phone-input';
 
 // Base API
-const newTheme = createTheme({...LightThemePrimitives}, {}); // $ExpectType Theme
+const newTheme = createTheme({...lightThemePrimitives}, {}); // $ExpectType Theme
 createTheme({primary: 'red'}, {}); // $ExpectError
 
 mergeOverrides({style: {}}, {props: {}});

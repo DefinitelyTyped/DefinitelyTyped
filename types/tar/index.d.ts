@@ -489,6 +489,19 @@ export interface ExtractOptions {
      * filter.
      */
     onentry?(entry: ReadEntry): void;
+
+    // The following options are mostly internal, but can be modified in some
+    // advanced use cases, such as re-using caches between runs.
+
+    /**
+     * The maximum buffer size for fs.read() operations (in bytes). Defaults to 16 MB.
+     */
+    maxReadSize?: number;
+
+    /**
+     * The maximum size of meta entries that is supported. Defaults to 1 MB.
+     */
+    maxMetaEntrySize?: number;
 }
 
 export interface ListOptions {

@@ -729,6 +729,7 @@ declare namespace NodeJS {
     }
 
     interface WriteStream extends Socket {
+        readonly writableFinished: boolean;
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
         columns?: number;

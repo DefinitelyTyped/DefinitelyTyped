@@ -456,6 +456,9 @@ function ShallowWrapperTest() {
 
     function test_debug() {
         stringVal = shallowWrapper.debug();
+        stringVal = shallowWrapper.debug({ verbose: false });
+        stringVal = shallowWrapper.debug({ ignoreProps: true });
+        stringVal = shallowWrapper.debug({ ignoreProps: true, verbose: true });
     }
 
     function test_type() {
@@ -885,6 +888,9 @@ function ReactWrapperTest() {
 
     function test_debug() {
         stringVal = reactWrapper.debug();
+        stringVal = reactWrapper.debug({ verbose: false });
+        stringVal = reactWrapper.debug({ ignoreProps: true });
+        stringVal = reactWrapper.debug({ ignoreProps: true, verbose: true });
     }
 
     function test_type() {
