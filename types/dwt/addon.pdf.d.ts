@@ -26,7 +26,8 @@ declare enum EnumDWT_ConverMode {
 interface PDF {
     /**
      * Download and install pdf rasterizer add-on on the local system.
-     * @method Dynamsoft.WebTwain#Download
+     * [Deprecated] Starting in v14.2, the PDF module is installed with Dynamsoft Service.
+     * @method Dynamsoft.WebTwain.Addon.PDF#Download
      * @param {string} remoteFile specifies the value of which frame to get.
      * @param {function} optionalAsyncSuccessFunc optional.
      * The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
@@ -40,7 +41,7 @@ interface PDF {
 
     /**
      *  Input the password to decrypt PDF files using PDF Rasterizer add-on.
-     * @method Dynamsoft.WebTwain#SetPassword
+     * @method Dynamsoft.WebTwain.Addon.PDF#SetPassword
      * @param {string} password Specifies the PDF password.
      * @return {boolean}
      */
@@ -48,7 +49,7 @@ interface PDF {
 
     /**
      *  Set the image convert mode for PDF Rasterizer in Dynamic Web TWAIN.
-     * @method Dynamsoft.WebTwain#SetConvertMode
+     * @method Dynamsoft.WebTwain.Addon.PDF#SetConvertMode
      * @param {EnumDWT_ConvertMode | EnumDWT_ConverMode} convertMode Specifies the image convert mode.
      * @return {boolean}
      */
@@ -56,7 +57,7 @@ interface PDF {
 
     /**
      *  Set the output resolution for the PDF Rasterizer in Dynamic Web TWAIN.
-     * @method Dynamsoft.WebTwain#ReadRect
+     * @method Dynamsoft.WebTwain.Addon.PDF#ReadRect
      * @param {float} fResolution Specifies the resolution for convert image from PDF file.
      * @return {boolean}
      */
@@ -64,11 +65,23 @@ interface PDF {
 
     /**
      * Judges whether the local PDF is text-based or not.
-     * @method Dynamsoft.WebTwain#ReadRect
+     * @method Dynamsoft.WebTwain.Addon.PDF#ReadRect
      * @param {string} localFile specifies the local path of the target PDF.
      * @return {boolean}
      */
     IsTextBasedPDF(localFile: string): boolean;
+
+    Write: PDFWrite;
+}
+
+interface PDFWrite {
+    /**
+     * Configures how the PDF generating is done
+     * @method Dynamsoft.WebTwain.Addon.PDF.Write#jsonWriteSetting
+     * @param {any} jsonWriteSetting detailed settings for PDF writing.
+     * @return {boolean}
+     */
+    Setup(jsonWriteSetting: any): void;
 }
 
 interface DynamsoftWebTwainAddon {
