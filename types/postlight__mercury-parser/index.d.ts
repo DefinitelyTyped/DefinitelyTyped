@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
+/// <reference types="node" />
+
 export interface ParseResult {
     title: string | null;
     content: string | null;
