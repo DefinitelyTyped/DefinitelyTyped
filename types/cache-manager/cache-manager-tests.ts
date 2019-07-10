@@ -1,6 +1,6 @@
 import * as cacheManager from 'cache-manager'
 
-const memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 10/*seconds*/ });
+const memoryCache: cacheManager.Cache = cacheManager.caching({ store: 'memory', max: 100, ttl: 10/*seconds*/ });
 const ttl = 5;
 
 memoryCache.set('foo', 'bar', { ttl: ttl }, (err) => {

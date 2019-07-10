@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -13,9 +14,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "boom": ["boom/v4"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

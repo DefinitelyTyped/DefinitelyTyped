@@ -58,10 +58,10 @@ declare namespace pc {
      */
     class VertexFormat {
         constructor(graphicsDevice: pc.GraphicsDevice, description: {
-            semantic: number,
+            semantic: string,
             components: number,
             type: number,
-            normalize: boolean
+            normalize?: boolean
         }[])
     }
 }

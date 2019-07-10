@@ -23,7 +23,7 @@ const typeConstructorOptions: TypeConstructorOptions = {
 	resolve: fn,
 	construct: fn,
 	instanceOf: obj,
-	predicate: str,
+	predicate: (obj) => false,
 	represent: fn,
 	defaultStyle: str,
 	styleAliases: map
@@ -58,19 +58,22 @@ loadOpts = {
 	filename: str
 };
 loadOpts = {
-	strict: bool
-};
-loadOpts = {
-	schema: bool
+	onWarning(e) { e.stack; }
 };
 loadOpts = {
 	json: bool
+};
+loadOpts = {
+	schema: yaml.DEFAULT_SAFE_SCHEMA
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 dumpOpts = {
 	indent: num
+};
+dumpOpts = {
+	noArrayIndent: bool
 };
 dumpOpts = {
 	skipInvalid: bool
@@ -83,6 +86,9 @@ dumpOpts = {
 };
 dumpOpts = {
 	schema: value
+};
+dumpOpts = {
+	schema: yaml.DEFAULT_FULL_SCHEMA
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -98,7 +104,7 @@ type.resolve;
 type.construct;
 // $ExpectType object | null
 type.instanceOf;
-// $ExpectType string | null
+// $ExpectType ((data: object) => boolean) | null
 type.predicate;
 // $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
 type.represent;
@@ -121,28 +127,32 @@ yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any
+// $ExpectType any[]
 yaml.safeLoadAll(str);
-// $ExpectType any
+
+// $ExpectType undefined
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 });
-// $ExpectType any
+// $ExpectType undefined
 yaml.safeLoadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+// $ExpectType any[]
 value = yaml.safeLoadAll(str, undefined, loadOpts);
 
-// $ExpectType any
+// $ExpectType any[]
 value = yaml.loadAll(str);
-// $ExpectType any
+
+// $ExpectType undefined
 yaml.loadAll(str, (doc) => {
 	value = doc;
 });
-// $ExpectType any
+// $ExpectType undefined
 yaml.loadAll(str, (doc) => {
 	value = doc;
 }, loadOpts);
+// $ExpectType any[]
 value = yaml.loadAll(str, undefined, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

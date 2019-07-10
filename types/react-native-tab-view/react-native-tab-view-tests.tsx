@@ -1,7 +1,7 @@
-import { PureComponent } from 'react'
+import { PureComponent, Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import {
-  TabViewAnimated,
+  TabView,
   TabBar,
   SceneMap,
   TabBarProps,
@@ -11,9 +11,14 @@ import {
 const FirstRoute = () => (
   <View style={[styles.container, { backgroundColor: '#ff4081' }]} />
 )
-const SecondRoute = () => (
-  <View style={[styles.container, { backgroundColor: '#673ab7' }]} />
-)
+
+class SecondRoute extends Component {
+  render() {
+    return (
+      <View style={[styles.container, { backgroundColor: '#673ab7' }]} />
+    );
+  }
+}
 
 class TabViewExample extends PureComponent {
   state: { index: number; routes: Array<RouteBase & { title: string }> } = {
@@ -26,7 +31,7 @@ class TabViewExample extends PureComponent {
 
   _handleIndexChange = (index: number) => this.setState({ index })
 
-  _renderHeader = (props: TabBarProps) => <TabBar {...props} />
+  _renderTabBar = (props: TabBarProps) => <TabBar {...props} />
 
   _renderScene = SceneMap({
     first: FirstRoute,
@@ -35,11 +40,12 @@ class TabViewExample extends PureComponent {
 
   render() {
     return (
-      <TabViewAnimated
+      <TabView
         style={styles.container}
         navigationState={this.state}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
+        renderTabBar={this._renderTabBar}
+        tabBarPosition="top"
         onIndexChange={this._handleIndexChange}
       />
     )

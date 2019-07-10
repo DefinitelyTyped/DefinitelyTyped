@@ -8,7 +8,11 @@ declare namespace pc {
      * @param {pc.Application} app The running {pc.Application}
      */
     class ScriptHandler {
-        constructor(app: pc.Application)
+        static _push(Type: ScriptType): void;
 
+        constructor(app: pc.Application)
+        load(url: string, callback: Function): void;
+        open(url: string, data: any): any;
+        patch(asset: pc.Asset, assets: pc.AssetRegistry): void;
     }
 }

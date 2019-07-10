@@ -1,20 +1,19 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface Transition {
-    onEnter?: () => void;
-    onEntering?: () => void;
-    onEntered?: () => void;
-    onExit?: () => void;
-    onExiting?: () => void;
-    onExited?: () => void;
+export interface CarouselItemProps extends React.HTMLProps<HTMLElement> {
+  [key: string]: any;
+  tag?: React.ReactType;
+  in?: boolean;
+  cssModule?: CSSModule;
+  slide?: boolean;
+  onEnter?: () => void;
+  onEntering?: () => void;
+  onEntered?: () => void;
+  onExit?: () => void;
+  onExiting?: () => void;
+  onExited?: () => void;
 }
 
-export interface CarouselItemProps extends React.HTMLProps<HTMLElement>, Transition {
-    tag?: React.ReactType;
-    in?: boolean;
-    cssModule?: CSSModule;
-    slide?: boolean;
-}
-
-declare const CarouselItem: React.StatelessComponent<CarouselItemProps>;
+declare class CarouselItem<T = {[key: string]: any}> extends React.Component<CarouselItemProps> {}
 export default CarouselItem;

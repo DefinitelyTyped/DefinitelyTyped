@@ -1968,37 +1968,37 @@ interface JSTreeGetJsonOptions {
     /**
     * do not return state information
     */
-    no_state: boolean;
+    no_state?: boolean;
 
     /**
     * do not return ID
     */
-    no_id: boolean;
+    no_id?: boolean;
 
     /**
     * do not include children
     */
-    no_children: boolean;
+    no_children?: boolean;
 
     /**
     * do not include node data
     */
-    no_data: boolean;
+    no_data?: boolean;
 
     /**
     * do not include LI attributes
     */
-    no_li_attr: boolean;
+    no_li_attr?: boolean;
 
     /**
     * do not include A attributes
     */
-    no_a_attr: boolean;
+    no_a_attr?: boolean;
 
     /**
     * return flat JSON instead of nested
     */
-    flat: boolean;
+    flat?: boolean;
 }
 
 interface JSTreeBindOptions {

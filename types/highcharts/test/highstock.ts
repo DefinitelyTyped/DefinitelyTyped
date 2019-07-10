@@ -25,6 +25,14 @@ $(() => {
         rangeSelector: {
             allButtonsEnabled: true,
             selected: 1,
+            buttons: [{
+                type: 'month',
+                count: 1,
+                text: '1m',
+                events: {
+                    click: () => { }
+                }
+            }],
             buttonTheme: { // styles for the buttons
                 fill: 'none',
                 stroke: 'none',
@@ -58,10 +66,10 @@ $(() => {
             }
         },
 
-        series: [<Highcharts.AreaRangeChartSeriesOptions> {
+        series: [{
             name: 'USD to EUR',
             data: someData,
             lineColor: "blue"
-        }]
+        } as Highcharts.AreaRangeChartSeriesOptions]
     });
 });

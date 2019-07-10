@@ -1,7 +1,10 @@
-/// <reference types="mocha"" />
-
 import { Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies } from 'expect';
 import * as expect from 'expect';
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('chaining assertions', () => {
   it('should allow chaining for array-like applications', () => {
@@ -86,6 +89,17 @@ describe('A spy', () => {
   it('knows the arguments it was called with', () => {
     spy(1, 2, 3);
     expect(spy).toHaveBeenCalledWith(1, 2, 3);
+  });
+
+  it('knows the arguments it was last called with', () => {
+    spy(0, 1, 2);
+    spy(1, 2, 3);
+    expect(spy).toHaveBeenLastCalledWith(1, 2, 3);
+  });
+
+  it('accepts to have been called with any object', () => {
+    spy({});
+    expect(spy).toHaveBeenCalledWith(expect.any(Object));
   });
 
   describe('that calls some other function', () => {
@@ -458,6 +472,66 @@ describe('toBeFalsy', () => {
       expect(0).toBeFalsy();
       expect(null).toBeFalsy();
       expect(undefined).toBeFalsy();
+    }).toNotThrow();
+  });
+});
+
+describe('toBeDefined', () => {
+  it('does not throw on defined actual values', () => {
+    expect(() => {
+      expect(1).toBeDefined();
+      expect(0).toBeDefined();
+      expect(null).toBeDefined();
+    }).toNotThrow();
+  });
+
+  it('throws on undefined actual values', () => {
+    expect(() => {
+      expect(undefined).toBeDefined();
+    }).toThrow();
+  });
+});
+
+describe('toBeUndefined', () => {
+  it('throws on defined values', () => {
+    expect(() => {
+      expect(42).toBeUndefined();
+    }).toThrow();
+
+    expect(() => {
+      expect(0).toBeUndefined();
+    }).toThrow();
+
+    expect(() => {
+      expect(null).toBeUndefined();
+    }).toThrow();
+  });
+
+  it('does not throw with undefined actual values', () => {
+    expect(() => {
+      expect(undefined).toBeUndefined();
+    }).toNotThrow();
+  });
+});
+
+describe('toBeNull', () => {
+  it('throws on non-null values', () => {
+    expect(() => {
+      expect(42).toBeNull();
+    }).toThrow();
+
+    expect(() => {
+      expect(0).toBeNull();
+    }).toThrow();
+
+    expect(() => {
+      expect(undefined).toBeNull();
+    }).toThrow();
+  });
+
+  it('does not throw with null actual values', () => {
+    expect(() => {
+      expect(null).toBeNull();
     }).toNotThrow();
   });
 });
@@ -953,6 +1027,36 @@ describe('expect(array).toNotMatch', () => {
   });
 });
 
+describe('expect(object).toMatchObject', () => {
+  it('does not throw when the actual value matches', () => {
+    expect(() => {
+      expect({
+        statusCode: 200,
+        headers: {
+          server: 'express web server'
+        }
+      }).toMatchObject({
+        statusCode: 200,
+        headers: {}
+      });
+    }).toNotThrow();
+  });
+
+  it('throws when the actual value does not match', () => {
+    expect(() => {
+      expect({
+        statusCode: 200,
+        headers: {
+          server: 'nginx web server'
+        }
+      }).toMatchObject({
+        statusCode: 201,
+        headers: {}
+      });
+    }).toThrow(/to match/);
+  });
+});
+
 describe('toNotEqual', () => {
   it('works', () => {
     expect('actual').toNotEqual('expected');
@@ -1098,5 +1202,19 @@ describe('withContext', () => {
     expect(() => {
       expect('not a function').withContext(context).toThrow();
     }).toThrow(/must be a function/);
+  });
+});
+
+describe('not', () => {
+  it('does not throw on different values', () => {
+    expect(() => {
+      expect(1).not.toEqual(2);
+    }).toNotThrow();
+  });
+
+  it('throws on equal values', () => {
+    expect(() => {
+      expect(1).not.toEqual(1);
+    }).toThrow();
   });
 });

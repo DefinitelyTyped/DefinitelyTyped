@@ -1,5 +1,5 @@
 // Type definitions for vanilla-modal 1.6
-// Project: https://github.com/benceg/vanilla-modal
+// Project: https://github.com/benceg/vanilla-modal, https://github.com/thephuse/vanilla-modal
 // Definitions by: Sam Nau <https://github.com/samnau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -13,7 +13,7 @@ export interface VanillaModalConfig {
   class?: string;
   loadClass?: string;
   clickOutside?: boolean;
-  closeKeys?: [number];
+  closeKeys?: number[] | undefined[] | boolean;
   transitions?: string;
   transitionEnd?(): undefined;
   onBeforeOpen?(): undefined;

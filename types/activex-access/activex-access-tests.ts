@@ -1,3 +1,5 @@
+/// <reference types="windows-script-host" />
+
 let app = new ActiveXObject('Access.Application');
 app.UserControl = true;
 
@@ -6,7 +8,7 @@ app.DoCmd.OpenForm('MyForm', Access.AcFormView.acNormal, '', 'LastName="Smith"')
 
 // change the contents of a textbox
 // tslint:disable-next-line:no-unnecessary-type-assertion
-let textbox = app.Forms.Item('MyForm').Controls.Item('MyTextBox') as Access.TextBox;
+let textbox = app.Forms('MyForm').Controls('MyTextBox') as Access.TextBox;
 textbox.Text = 'Not Smith';
 
 // save the current record on the active form

@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,37 +10,24 @@ declare namespace GoogleAppsScript {
   export module Drive {
     /**
      * An enum representing classes of users who can access a file or folder, besides any individual
-     *  users who have been explicitly given access. These properties can be accessed from
-     *  DriveApp.Access.
+     * users who have been explicitly given access. These properties can be accessed from DriveApp.Access.
      *
-     *      // Creates a folder that anyone on the Internet can read from and write to. (Domain
-     *      // administrators can prohibit this setting for users of a G Suite domain.)
-     *      var folder = DriveApp.createFolder('Shared Folder');
-     *      folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
+     *     // Creates a folder that anyone on the Internet can read from and write to. (Domain
+     *     // administrators can prohibit this setting for users of a G Suite domain.)
+     *     var folder = DriveApp.createFolder('Shared Folder');
+     *     folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
      */
     export enum Access { ANYONE, ANYONE_WITH_LINK, DOMAIN, DOMAIN_WITH_LINK, PRIVATE }
 
     /**
-     * An enum representing the permissions granted to users who can access a file or folder, besides
-     *  any individual users who have been explicitly given access. These properties can be accessed from
-     *  DriveApp.Permission.
-     *
-     *      // Creates a folder that anyone on the Internet can read from and write to. (Domain
-     *      // administrators can prohibit this setting for users of a G Suite domain.)
-     *      var folder = DriveApp.createFolder('Shared Folder');
-     *      folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
-     */
-    export enum Permission { VIEW, EDIT, COMMENT, OWNER, ORGANIZER, NONE }
-
-    /**
      * Allows scripts to create, find, and modify files and folders in Google Drive.
      *
-     *      // Log the name of every file in the user's Drive.
-     *      var files = DriveApp.getFiles();
-     *      while (files.hasNext()) {
-     *        var file = files.next();
-     *        Logger.log(file.getName());
-     *      }
+     *     // Log the name of every file in the user's Drive.
+     *     var files = DriveApp.getFiles();
+     *     while (files.hasNext()) {
+     *       var file = files.next();
+     *       Logger.log(file.getName());
+     *     }
      */
     export interface DriveApp {
       Access: typeof Access;
@@ -149,14 +136,14 @@ declare namespace GoogleAppsScript {
     /**
      * A file in Google Drive. Files can be accessed or created from DriveApp.
      *
-     *      // Trash every untitled spreadsheet that hasn't been updated in a week.
-     *      var files = DriveApp.getFilesByName('Untitled spreadsheet');
-     *      while (files.hasNext()) {
-     *        var file = files.next();
-     *        if (new Date() - file.getLastUpdated() > 7 * 24 * 60 * 60 * 1000) {
-     *          file.setTrashed(true);
-     *        }
-     *      }
+     *     // Trash every untitled spreadsheet that hasn't been updated in a week.
+     *     var files = DriveApp.getFilesByName('Untitled spreadsheet');
+     *     while (files.hasNext()) {
+     *       var file = files.next();
+     *       if (new Date() - file.getLastUpdated() > 7 * 24 * 60 * 60 * 1000) {
+     *         file.setTrashed(true);
+     *       }
+     *     }
      */
     export interface File {
       addCommenter(emailAddress: string): File;
@@ -216,14 +203,14 @@ declare namespace GoogleAppsScript {
 
     /**
      * An iterator that allows scripts to iterate over a potentially large collection of files. File
-     *  iterators can be acccessed from DriveApp or a Folder.
+     * iterators can be acccessed from DriveApp or a Folder.
      *
-     *      // Log the name of every file in the user's Drive.
-     *      var files = DriveApp.getFiles();
-     *      while (files.hasNext()) {
-     *        var file = files.next();
-     *        Logger.log(file.getName());
-     *      }
+     *     // Log the name of every file in the user's Drive.
+     *     var files = DriveApp.getFiles();
+     *     while (files.hasNext()) {
+     *       var file = files.next();
+     *       Logger.log(file.getName());
+     *     }
      */
     export interface FileIterator {
       /**
@@ -244,12 +231,12 @@ declare namespace GoogleAppsScript {
     /**
      * A folder in Google Drive. Folders can be accessed or created from DriveApp.
      *
-     *      // Log the name of every folder in the user's Drive.
-     *      var folders = DriveApp.getFolders();
-     *      while (folders.hasNext()) {
-     *        var folder = folders.next();
-     *        Logger.log(folder.getName());
-     *      }
+     *     // Log the name of every folder in the user's Drive.
+     *     var folders = DriveApp.getFolders();
+     *     while (folders.hasNext()) {
+     *       var folder = folders.next();
+     *       Logger.log(folder.getName());
+     *     }
      */
     export interface Folder {
       addEditor(emailAddress: string): Folder;
@@ -309,41 +296,42 @@ declare namespace GoogleAppsScript {
 
     /**
      * An object that allows scripts to iterate over a potentially large collection of folders. Folder
-     *  iterators can be acccessed from DriveApp, a File, or a Folder.
+     * iterators can be acccessed from DriveApp, a File, or a Folder.
      *
-     *      // Log the name of every folder in the user's Drive.
-     *      var folders = DriveApp.getFolders();
-     *      while (folders.hasNext()) {
-     *        var folder = folders.next();
-     *        Logger.log(folder.getName());
-     *      }
+     *     // Log the name of every folder in the user's Drive.
+     *     var folders = DriveApp.getFolders();
+     *     while (folders.hasNext()) {
+     *       var folder = folders.next();
+     *       Logger.log(folder.getName());
+     *     }
      */
     export interface FolderIterator {
-      /**
-       * Gets a token that can be used to resume this iteration at a later time.
-       * This method is useful if processing an iterator in one execution would
-       * exceed the maximum execution time. Continuation tokens are generally valid for one week.
-       */
       getContinuationToken(): string;
-      /** Determines whether calling next() will return an item. */
       hasNext(): boolean;
-      /**
-       * Gets the next item in the collection of files or folders.
-       * Throws an exception if no items remain.
-       */
       next(): Folder;
     }
 
     /**
-     * A user associated with a file in Google Drive. Users can be accessed from
-     *  File.getEditors(), Folder.getViewers(), and other methods.
+     * An enum representing the permissions granted to users who can access a file or folder, besides
+     * any individual users who have been explicitly given access. These properties can be accessed from
+     * DriveApp.Permission.
      *
-     *      // Log the email address of all users who have edit access to a file.
-     *      var file = DriveApp.getFileById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *      var editors = file.getEditors();
-     *      for (var i = 0; i < editors.length; i++) {
-     *        Logger.log(editors[i].getEmail());
-     *      }
+     *     // Creates a folder that anyone on the Internet can read from and write to. (Domain
+     *     // administrators can prohibit this setting for G Suite users.)
+     *     var folder = DriveApp.createFolder('Shared Folder');
+     *     folder.setSharing(DriveApp.Access.ANYONE, DriveApp.Permission.EDIT);
+     */
+    export enum Permission { VIEW, EDIT, COMMENT, OWNER, ORGANIZER, NONE }
+
+    /**
+     * A user associated with a file in Google Drive. Users can be accessed from File.getEditors(), Folder.getViewers(), and other methods.
+     *
+     *     // Log the email address of all users who have edit access to a file.
+     *     var file = DriveApp.getFileById('1234567890abcdefghijklmnopqrstuvwxyz');
+     *     var editors = file.getEditors();
+     *     for (var i = 0; i < editors.length; i++) {
+     *       Logger.log(editors[i].getEmail());
+     *     }
      */
     export interface User {
       /** Gets the domain name associated with the user's account. */
@@ -357,16 +345,15 @@ declare namespace GoogleAppsScript {
        */
       getEmail(): string;
       /** Gets the user's name. This method returns null if the user's name is not available. */
-      getName(): string | null;
+      getName(): string;
       /** Gets the URL for the user's photo. This method returns null if the user's photo is not available. */
-      getPhotoUrl(): string | null;
+      getPhotoUrl(): string;
       /**
        * Gets the user's email address.
        * @deprecated As of June 24, 2013, replaced by getEmail()
        */
       getUserLoginId(): string;
     }
-
   }
 }
 

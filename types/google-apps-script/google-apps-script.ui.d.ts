@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,26 +10,23 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * An absolute panel positions all of its children absolutely, allowing them to overlap.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var button = app.createButton("a button");
-     *        var panel = app.createAbsolutePanel();
-     *        // add a widget at position (10, 20)
-     *        panel.add(button, 10, 20);
-     *        app.add(panel);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var button = app.createButton("a button");
+     *       var panel = app.createAbsolutePanel();
+     *       // add a widget at position (10, 20)
+     *       panel.add(button, 10, 20);
+     *       app.add(panel);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the AbsolutePanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the AbsolutePanel documentation here.
      */
     export interface AbsolutePanel {
       add(widget: Widget): AbsolutePanel;
@@ -44,11 +41,11 @@ declare namespace GoogleAppsScript {
       remove(widget: Widget): AbsolutePanel;
       setHeight(height: string): AbsolutePanel;
       setId(id: string): AbsolutePanel;
-      setLayoutData(layout: Object): AbsolutePanel;
+      setLayoutData(layout: any): AbsolutePanel;
       setPixelSize(width: Integer, height: Integer): AbsolutePanel;
       setSize(width: string, height: string): AbsolutePanel;
       setStyleAttribute(attribute: string, value: string): AbsolutePanel;
-      setStyleAttributes(attributes: Object): AbsolutePanel;
+      setStyleAttributes(attributes: any): AbsolutePanel;
       setStyleName(styleName: string): AbsolutePanel;
       setStylePrimaryName(styleName: string): AbsolutePanel;
       setTag(tag: string): AbsolutePanel;
@@ -61,27 +58,24 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A widget that represents a simple <a> element. That is, a hyperlink to a different page.
      *
-     *  By design, these hyperlinks always open in a new page. Links that reload the current page are
-     *  not allowed.
+     * By design, these hyperlinks always open in a new page. Links that reload the current page are
+     * not allowed.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // Creates a link to your favorite search engine.
-     *        var anchor = app.createAnchor("a link", "http://www.google.com");
-     *        app.add(anchor);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // Creates a link to your favorite search engine.
+     *       var anchor = app.createAnchor("a link", "http://www.google.com");
+     *       app.add(anchor);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Anchor documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Anchor documentation here.
      */
     export interface Anchor {
       addBlurHandler(handler: Handler): Anchor;
@@ -110,12 +104,12 @@ declare namespace GoogleAppsScript {
       setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): Anchor;
       setHref(href: string): Anchor;
       setId(id: string): Anchor;
-      setLayoutData(layout: Object): Anchor;
+      setLayoutData(layout: any): Anchor;
       setName(name: string): Anchor;
       setPixelSize(width: Integer, height: Integer): Anchor;
       setSize(width: string, height: string): Anchor;
       setStyleAttribute(attribute: string, value: string): Anchor;
-      setStyleAttributes(attributes: Object): Anchor;
+      setStyleAttributes(attributes: any): Anchor;
       setStyleName(styleName: string): Anchor;
       setStylePrimaryName(styleName: string): Anchor;
       setTabIndex(index: Integer): Anchor;
@@ -131,31 +125,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A standard push-button widget.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // create a button and give it a click handler
-     *        var button = app.createButton("click me!").setId("button");
-     *        button.addClickHandler(app.createServerHandler("handlerFunction"));
-     *        app.add(button);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // create a button and give it a click handler
+     *       var button = app.createButton("click me!").setId("button");
+     *       button.addClickHandler(app.createServerHandler("handlerFunction"));
+     *       app.add(button);
+     *       return app;
+     *     }
      *
-     *      function handlerFunction(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        app.getElementById("button").setText("I was clicked!");
-     *        return app;
-     *      }
+     *     function handlerFunction(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       app.getElementById("button").setText("I was clicked!");
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Button documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Button documentation here.
      */
     export interface Button {
       addBlurHandler(handler: Handler): Button;
@@ -181,11 +172,11 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): Button;
       setHeight(height: string): Button;
       setId(id: string): Button;
-      setLayoutData(layout: Object): Button;
+      setLayoutData(layout: any): Button;
       setPixelSize(width: Integer, height: Integer): Button;
       setSize(width: string, height: string): Button;
       setStyleAttribute(attribute: string, value: string): Button;
-      setStyleAttributes(attributes: Object): Button;
+      setStyleAttributes(attributes: any): Button;
       setStyleName(styleName: string): Button;
       setStylePrimaryName(styleName: string): Button;
       setTabIndex(index: Integer): Button;
@@ -199,31 +190,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A panel that wraps its contents in a border with a caption that appears in the upper left corner
+     * of the border. This is an implementation of the fieldset HTML element.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A panel that wraps its contents in a border with a caption that appears in the upper left
-     *  corner of the border. This is an implementation of the fieldset HTML element.
+     * Note that this panel can contain at most one direct child widget. To add more children, make
+     * the child of this panel a different panel that can contain more than one child.
      *
-     *  Note that this panel can contain at most one direct child widget. To add more children, make the
-     *  child of this panel a different panel that can contain more than one child.
+     * Note also that the placement of the caption in a caption panel will vary slightly from browser
+     * to browser, so this widget is not a good choice when precise cross-browser layout is needed.
      *
-     *  Note also that the placement of the caption in a caption panel will vary slightly from browser to
-     *  browser, so this widget is not a good choice when precise cross-browser layout is needed.
+     * Here is an example of how to use this widget:
      *
-     *  Here is an example of how to use this widget:
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var panel = app.createCaptionPanel("my caption!");
+     *       panel.add(app.createButton("a button inside..."));
+     *       app.add(panel);
+     *       return app;
+     *     }
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var panel = app.createCaptionPanel("my caption!");
-     *        panel.add(app.createButton("a button inside..."));
-     *        app.add(panel);
-     *        return app;
-     *      }
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the CaptionPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the CaptionPanel documentation here.
      */
     export interface CaptionPanel {
       add(widget: Widget): CaptionPanel;
@@ -237,11 +225,11 @@ declare namespace GoogleAppsScript {
       setContentWidget(widget: Widget): CaptionPanel;
       setHeight(height: string): CaptionPanel;
       setId(id: string): CaptionPanel;
-      setLayoutData(layout: Object): CaptionPanel;
+      setLayoutData(layout: any): CaptionPanel;
       setPixelSize(width: Integer, height: Integer): CaptionPanel;
       setSize(width: string, height: string): CaptionPanel;
       setStyleAttribute(attribute: string, value: string): CaptionPanel;
-      setStyleAttributes(attributes: Object): CaptionPanel;
+      setStyleAttributes(attributes: any): CaptionPanel;
       setStyleName(styleName: string): CaptionPanel;
       setStylePrimaryName(styleName: string): CaptionPanel;
       setTag(tag: string): CaptionPanel;
@@ -255,30 +243,27 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A standard check box widget.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var handler = app.createServerHandler("change");
-     *        var check = app.createCheckBox("click me").addValueChangeHandler(handler);
-     *        app.add(check);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var handler = app.createServerHandler("change");
+     *       var check = app.createCheckBox("click me").addValueChangeHandler(handler);
+     *       app.add(check);
+     *       return app;
+     *     }
      *
-     *      function change() {
-     *        var app = UiApp.getActiveApplication();
-     *        app.add(app.createLabel("The value changed!"));
-     *        return app;
-     *      }
+     *     function change() {
+     *       var app = UiApp.getActiveApplication();
+     *       app.add(app.createLabel("The value changed!"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the CheckBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the CheckBox documentation here.
      */
     export interface CheckBox {
       addBlurHandler(handler: Handler): CheckBox;
@@ -306,12 +291,12 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): CheckBox;
       setHeight(height: string): CheckBox;
       setId(id: string): CheckBox;
-      setLayoutData(layout: Object): CheckBox;
+      setLayoutData(layout: any): CheckBox;
       setName(name: string): CheckBox;
       setPixelSize(width: Integer, height: Integer): CheckBox;
       setSize(width: string, height: string): CheckBox;
       setStyleAttribute(attribute: string, value: string): CheckBox;
-      setStyleAttributes(attributes: Object): CheckBox;
+      setStyleAttributes(attributes: any): CheckBox;
       setStyleName(styleName: string): CheckBox;
       setStylePrimaryName(styleName: string): CheckBox;
       setTabIndex(index: Integer): CheckBox;
@@ -327,49 +312,47 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * An event handler that runs in the user's browser without needing a call back to the server. These
+     * will, in general, run much faster than ServerHandlers but they are also more limited in
+     * what they can do.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * An event handler that runs in the user's browser without needing a call back to the server.
-     *  These will, in general, run much faster than ServerHandlers but they are also more
-     *  limited in what they can do.
+     * Any method that accepts a "Handler" parameter can accept a ClientHandler.
      *
-     *  Any method that accepts a "Handler" parameter can accept a ClientHandler.
+     * If you set validators on a ClientHandler, they will be checked before the handler performs its
+     * actions. The actions will only be performed if the validators succeed.
      *
-     *  If you set validators on a ClientHandler, they will be checked before the handler performs its
-     *  actions. The actions will only be performed if the validators succeed.
+     * If you have multiple ClientHandlers for the same event on the same widget, they will perform
+     * their actions in the order that they were added.
      *
-     *  If you have multiple ClientHandlers for the same event on the same widget, they will perform
-     *  their actions in the order that they were added.
+     * An example of using client handlers:
      *
-     *  An example of using client handlers:
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var button = app.createButton("Say Hello");
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var button = app.createButton("Say Hello");
+     *       // Create a label with the "Hello World!" text and hide it for now
+     *       var label = app.createLabel("Hello World!").setVisible(false);
      *
-     *        // Create a label with the "Hello World!" text and hide it for now
-     *        var label = app.createLabel("Hello World!").setVisible(false);
+     *       // Create a new handler that does not require the server.
+     *       // We give the handler two actions to perform on different targets.
+     *       // The first action disables the widget that invokes the handler
+     *       // and the second displays the label.
+     *       var handler = app.createClientHandler()
+     *         .forEventSource().setEnabled(false)
+     *         .forTargets(label).setVisible(true);
      *
-     *        // Create a new handler that does not require the server.
-     *        // We give the handler two actions to perform on different targets.
-     *        // The first action disables the widget that invokes the handler
-     *        // and the second displays the label.
-     *        var handler = app.createClientHandler()
-     *          .forEventSource().setEnabled(false)
-     *          .forTargets(label).setVisible(true);
+     *       // Add our new handler to be invoked when the button is clicked
+     *       button.addClickHandler(handler);
      *
-     *        // Add our new handler to be invoked when the button is clicked
-     *        button.addClickHandler(handler);
-     *
-     *        app.add(button);
-     *        app.add(label);
-     *        return app;
-     *      }
+     *       app.add(button);
+     *       app.add(label);
+     *       return app;
+     *     }
      */
     export interface ClientHandler {
       forEventSource(): ClientHandler;
-      forTargets(...widgets: Object[]): ClientHandler;
+      forTargets(...widgets: object[]): ClientHandler;
       getId(): string;
       getTag(): string;
       getType(): string;
@@ -378,8 +361,8 @@ declare namespace GoogleAppsScript {
       setId(id: string): ClientHandler;
       setStyleAttribute(row: Integer, column: Integer, attribute: string, value: string): ClientHandler;
       setStyleAttribute(attribute: string, value: string): ClientHandler;
-      setStyleAttributes(row: Integer, column: Integer, attributes: Object): ClientHandler;
-      setStyleAttributes(attributes: Object): ClientHandler;
+      setStyleAttributes(row: Integer, column: Integer, attributes: any): ClientHandler;
+      setStyleAttributes(attributes: any): ClientHandler;
       setTag(tag: string): ClientHandler;
       setText(text: string): ClientHandler;
       setValue(value: boolean): ClientHandler;
@@ -396,20 +379,18 @@ declare namespace GoogleAppsScript {
       validateNotMatches(widget: Widget, pattern: string, flags: string): ClientHandler;
       validateNotNumber(widget: Widget): ClientHandler;
       validateNotOptions(widget: Widget, options: string[]): ClientHandler;
-      validateNotRange(widget: Widget, min: Number, max: Number): ClientHandler;
+      validateNotRange(widget: Widget, min: number, max: number): ClientHandler;
       validateNotSum(widgets: Widget[], sum: Integer): ClientHandler;
       validateNumber(widget: Widget): ClientHandler;
       validateOptions(widget: Widget, options: string[]): ClientHandler;
-      validateRange(widget: Widget, min: Number, max: Number): ClientHandler;
+      validateRange(widget: Widget, min: number, max: number): ClientHandler;
       validateSum(widgets: Widget[], sum: Integer): ClientHandler;
     }
 
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A generic component object.
      * Implementing classes
      *
@@ -421,8 +402,8 @@ declare namespace GoogleAppsScript {
      *
      * ButtonA standard push-button widget.
      *
-     * CaptionPanelA panel that wraps its contents in a border with a caption that appears in the upper left
-     *  corner of the border.
+     * CaptionPanelA panel that wraps its contents in a border with a caption that appears in the upper left corner
+     * of the border.
      *
      * ChartA Chart object, which can be embedded into documents, UI elements, or used as a static image.
      *
@@ -432,29 +413,28 @@ declare namespace GoogleAppsScript {
      *
      * ControlA user interface control object, that drives the data displayed by a DashboardPanel.
      *
-     * DashboardPanelA dashboard is a visual structure that enables the organization and management
-     *  of multiple charts that share the same underlying data.
+     * DashboardPanelA dashboard is a visual structure that enables the organization and management of multiple charts
+     * that share the same underlying data.
      *
      * DateBoxA text box that shows a DatePicker when the user focuses on it.
      *
      * DatePickerA date picker widget.
      *
      * DecoratedStackPanelA StackPanel that wraps each item in a 2x3 grid (six box), which allows users to add
-     *  rounded corners.
+     * rounded corners.
      *
      * DecoratedTabBarA TabBar that wraps each tab in a 2x3 grid (six box), which allows users to add rounded corners.
      *
      * DecoratedTabPanelA TabPanel that uses a DecoratedTabBar with rounded corners.
      *
      * DecoratorPanelA SimplePanel that wraps its contents in stylized boxes, which can be used to add rounded
-     *  corners to a Widget.
+     * corners to a Widget.
      *
-     * DialogBoxA form of popup that has a caption area at the top and can be dragged by the
-     *  user.
+     * DialogBoxA form of popup that has a caption area at the top and can be dragged by the user.
      *
      * DocsListDialogA "file-open" dialog for Google Drive.
      *
-     * EmbeddedChartRepresents a chart that has been embedded into a Spreadsheet.
+     * EmbeddedChartRepresents a chart that has been embedded into a spreadsheet.
      *
      * FileUploadA widget that wraps the HTML <input type='file'> element.
      *
@@ -463,7 +443,7 @@ declare namespace GoogleAppsScript {
      * FlowPanelA panel that formats its child widgets using the default HTML layout behavior.
      *
      * FocusPanelA simple panel that makes its contents focusable, and adds the ability to catch mouse and
-     *  keyboard events.
+     * keyboard events.
      *
      * FormPanelA panel that wraps its contents in an HTML <FORM> element.
      *
@@ -474,7 +454,7 @@ declare namespace GoogleAppsScript {
      * HandlerBase interface for client and server handlers.
      *
      * HiddenRepresents a hidden field for storing data in the user's browser that can be passed back to a
-     *  handler as a "callback element".
+     * handler as a "callback element".
      *
      * HorizontalPanelA panel that lays all of its widgets out in a single horizontal column.
      *
@@ -484,8 +464,8 @@ declare namespace GoogleAppsScript {
      *
      * LabelA widget that contains arbitrary text, not interpreted as HTML.
      *
-     * ListBoxA widget that presents a list of choices to the user, either as a list box or
-     *  as a drop-down list.
+     * ListBoxA widget that presents a list of choices to the user, either as a list box or as a drop-down
+     * list.
      *
      * MenuBarA standard menu bar widget.
      *
@@ -502,7 +482,7 @@ declare namespace GoogleAppsScript {
      * RadioButtonA mutually-exclusive selection radio button widget.
      *
      * ResetButtonA standard push-button widget which will automatically reset its enclosing FormPanel if
-     *  any.
+     * any.
      *
      * ScrollPanelA panel that wraps its contents in a scrollable element.
      *
@@ -516,26 +496,25 @@ declare namespace GoogleAppsScript {
      *
      * SplitLayoutPanelA panel that adds user-positioned splitters between each of its child widgets.
      *
-     * StackPanelA panel that stacks its children vertically, displaying only one at a time,
-     *  with a header for each child which the user can click to display.
+     * StackPanelA panel that stacks its children vertically, displaying only one at a time, with a header for
+     * each child which the user can click to display.
      *
      * SubmitButtonA standard push-button widget which will automatically submit its enclosing FormPanel if
-     *  any.
+     * any.
      *
-     * SuggestBoxA SuggestBox is a text box or text area which displays a
-     *  pre-configured set of selections that match the user's input.
+     * SuggestBoxA SuggestBox is a text box or text area which displays a pre-configured set of selections
+     * that match the user's input.
      *
      * TabBarA horizontal bar of folder-style tabs, most commonly used as part of a TabPanel.
      *
-     * TabPanelA panel that represents a tabbed set of pages, each of which contains another
-     *  widget.
+     * TabPanelA panel that represents a tabbed set of pages, each of which contains another widget.
      *
      * TextAreaA text box that allows multiple lines of text to be entered.
      *
      * TextBoxA standard single-line text box.
      *
-     * ToggleButtonA ToggleButton is a stylish stateful button which allows the
-     *  user to toggle between up and down states.
+     * ToggleButtonA ToggleButton is a stylish stateful button which allows the user to toggle between
+     * up and down states.
      *
      * TreeA standard hierarchical tree widget.
      *
@@ -553,31 +532,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A text box that shows a DatePicker when the user focuses on it.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var handler = app.createServerHandler("change");
-     *        var dateBox = app.createDateBox().addValueChangeHandler(handler).setId("datebox");
-     *        app.add(dateBox);
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var handler = app.createServerHandler("change");
+     *       var dateBox = app.createDateBox().addValueChangeHandler(handler).setId("datebox");
+     *       app.add(dateBox);
+     *       return app;
+     *     }
+     *
+     *     function change(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       app.add(app.createLabel("The value of the date box changed to " +
+     *           eventInfo.parameter.datebox));
      *        return app;
      *      }
      *
-     *      function change(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        app.add(app.createLabel("The value of the date box changed to " +
-     *            eventInfo.parameter.datebox));
-     *         return app;
-     *       }
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DateBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DateBox documentation here.
      */
     export interface DateBox {
       addStyleDependentName(styleName: string): DateBox;
@@ -594,18 +570,18 @@ declare namespace GoogleAppsScript {
       setFormat(dateTimeFormat: DateTimeFormat): DateBox;
       setHeight(height: string): DateBox;
       setId(id: string): DateBox;
-      setLayoutData(layout: Object): DateBox;
+      setLayoutData(layout: any): DateBox;
       setName(name: string): DateBox;
       setPixelSize(width: Integer, height: Integer): DateBox;
       setSize(width: string, height: string): DateBox;
       setStyleAttribute(attribute: string, value: string): DateBox;
-      setStyleAttributes(attributes: Object): DateBox;
+      setStyleAttributes(attributes: any): DateBox;
       setStyleName(styleName: string): DateBox;
       setStylePrimaryName(styleName: string): DateBox;
       setTabIndex(index: Integer): DateBox;
       setTag(tag: string): DateBox;
       setTitle(title: string): DateBox;
-      setValue(date: Date): DateBox;
+      setValue(date: Base.Date): DateBox;
       setVisible(visible: boolean): DateBox;
       setWidth(width: string): DateBox;
       showDatePicker(): DateBox;
@@ -614,31 +590,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A date picker widget.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var handler = app.createServerHandler("change");
-     *        var picker = app.createDatePicker().addValueChangeHandler(handler).setId("picker");
-     *        app.add(picker);
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var handler = app.createServerHandler("change");
+     *       var picker = app.createDatePicker().addValueChangeHandler(handler).setId("picker");
+     *       app.add(picker);
+     *       return app;
+     *     }
+     *
+     *     function change(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       app.add(app.createLabel("The value of the date picker changed to " +
+     *           eventInfo.parameter.picker));
      *        return app;
      *      }
      *
-     *      function change(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        app.add(app.createLabel("The value of the date picker changed to " +
-     *            eventInfo.parameter.picker));
-     *         return app;
-     *       }
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DatePicker documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DatePicker documentation here.
      */
     export interface DatePicker {
       addStyleDependentName(styleName: string): DatePicker;
@@ -647,20 +620,20 @@ declare namespace GoogleAppsScript {
       getId(): string;
       getTag(): string;
       getType(): string;
-      setCurrentMonth(date: Date): DatePicker;
+      setCurrentMonth(date: Base.Date): DatePicker;
       setHeight(height: string): DatePicker;
       setId(id: string): DatePicker;
-      setLayoutData(layout: Object): DatePicker;
+      setLayoutData(layout: any): DatePicker;
       setName(name: string): DatePicker;
       setPixelSize(width: Integer, height: Integer): DatePicker;
       setSize(width: string, height: string): DatePicker;
       setStyleAttribute(attribute: string, value: string): DatePicker;
-      setStyleAttributes(attributes: Object): DatePicker;
+      setStyleAttributes(attributes: any): DatePicker;
       setStyleName(styleName: string): DatePicker;
       setStylePrimaryName(styleName: string): DatePicker;
       setTag(tag: string): DatePicker;
       setTitle(title: string): DatePicker;
-      setValue(date: Date): DatePicker;
+      setValue(date: Base.Date): DatePicker;
       setVisible(visible: boolean): DatePicker;
       setWidth(width: string): DatePicker;
     }
@@ -668,30 +641,24 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * Date and time format constants for widgets such as DateBox.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * Date and time format constants for widgets such as
-     *  DateBox.
-     *
-     *  These correspond to the predefined constants from the Google Web Toolkit. You can read
-     *  more about these constants
-     *  here.
+     * These correspond to the predefined constants from the Google Web Toolkit. You can read more
+     * about these constants
+     * here.
      */
     export enum DateTimeFormat { ISO_8601, RFC_2822, DATE_FULL, DATE_LONG, DATE_MEDIUM, DATE_SHORT, TIME_FULL, TIME_LONG, TIME_MEDIUM, TIME_SHORT, DATE_TIME_FULL, DATE_TIME_LONG, DATE_TIME_MEDIUM, DATE_TIME_SHORT, DAY, HOUR_MINUTE, HOUR_MINUTE_SECOND, HOUR24_MINUTE, HOUR24_MINUTE_SECOND, MINUTE_SECOND, MONTH, MONTH_ABBR, MONTH_ABBR_DAY, MONTH_DAY, MONTH_NUM_DAY, MONTH_WEEKDAY_DAY, YEAR, YEAR_MONTH, YEAR_MONTH_ABBR, YEAR_MONTH_ABBR_DAY, YEAR_MONTH_DAY, YEAR_MONTH_NUM, YEAR_MONTH_NUM_DAY, YEAR_MONTH_WEEKDAY_DAY, YEAR_QUARTER, YEAR_QUARTER_ABBR }
 
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A StackPanel that wraps each item in a 2x3 grid (six box), which allows users to add
-     *  rounded corners.
+     * rounded corners.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DecoratedStackPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DecoratedStackPanel documentation here.
      */
     export interface DecoratedStackPanel {
       add(widget: Widget): DecoratedStackPanel;
@@ -707,13 +674,13 @@ declare namespace GoogleAppsScript {
       remove(widget: Widget): DecoratedStackPanel;
       setHeight(height: string): DecoratedStackPanel;
       setId(id: string): DecoratedStackPanel;
-      setLayoutData(layout: Object): DecoratedStackPanel;
+      setLayoutData(layout: any): DecoratedStackPanel;
       setPixelSize(width: Integer, height: Integer): DecoratedStackPanel;
       setSize(width: string, height: string): DecoratedStackPanel;
       setStackText(index: Integer, text: string): DecoratedStackPanel;
       setStackText(index: Integer, text: string, asHtml: boolean): DecoratedStackPanel;
       setStyleAttribute(attribute: string, value: string): DecoratedStackPanel;
-      setStyleAttributes(attributes: Object): DecoratedStackPanel;
+      setStyleAttributes(attributes: any): DecoratedStackPanel;
       setStyleName(styleName: string): DecoratedStackPanel;
       setStylePrimaryName(styleName: string): DecoratedStackPanel;
       setTag(tag: string): DecoratedStackPanel;
@@ -725,14 +692,11 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A TabBar that wraps each tab in a 2x3 grid (six box), which allows users to add rounded corners.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DecoratedTabBar documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DecoratedTabBar documentation here.
      */
     export interface DecoratedTabBar {
       addBeforeSelectionHandler(handler: Handler): DecoratedTabBar;
@@ -748,11 +712,11 @@ declare namespace GoogleAppsScript {
       selectTab(index: Integer): DecoratedTabBar;
       setHeight(height: string): DecoratedTabBar;
       setId(id: string): DecoratedTabBar;
-      setLayoutData(layout: Object): DecoratedTabBar;
+      setLayoutData(layout: any): DecoratedTabBar;
       setPixelSize(width: Integer, height: Integer): DecoratedTabBar;
       setSize(width: string, height: string): DecoratedTabBar;
       setStyleAttribute(attribute: string, value: string): DecoratedTabBar;
-      setStyleAttributes(attributes: Object): DecoratedTabBar;
+      setStyleAttributes(attributes: any): DecoratedTabBar;
       setStyleName(styleName: string): DecoratedTabBar;
       setStylePrimaryName(styleName: string): DecoratedTabBar;
       setTabEnabled(index: Integer, enabled: boolean): DecoratedTabBar;
@@ -766,14 +730,11 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A TabPanel that uses a DecoratedTabBar with rounded corners.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DecoratedTabPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DecoratedTabPanel documentation here.
      */
     export interface DecoratedTabPanel {
       add(widget: Widget): DecoratedTabPanel;
@@ -791,11 +752,11 @@ declare namespace GoogleAppsScript {
       setAnimationEnabled(animationEnabled: boolean): DecoratedTabPanel;
       setHeight(height: string): DecoratedTabPanel;
       setId(id: string): DecoratedTabPanel;
-      setLayoutData(layout: Object): DecoratedTabPanel;
+      setLayoutData(layout: any): DecoratedTabPanel;
       setPixelSize(width: Integer, height: Integer): DecoratedTabPanel;
       setSize(width: string, height: string): DecoratedTabPanel;
       setStyleAttribute(attribute: string, value: string): DecoratedTabPanel;
-      setStyleAttributes(attributes: Object): DecoratedTabPanel;
+      setStyleAttributes(attributes: any): DecoratedTabPanel;
       setStyleName(styleName: string): DecoratedTabPanel;
       setStylePrimaryName(styleName: string): DecoratedTabPanel;
       setTag(tag: string): DecoratedTabPanel;
@@ -807,18 +768,15 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A SimplePanel that wraps its contents in stylized boxes, which can be used to add rounded
-     *  corners to a Widget.
+     * corners to a Widget.
      *
-     *  Note that this panel can contain at most one direct child widget. To add more children, make the
-     *  child of this panel a different panel that can contain more than one child.
+     * Note that this panel can contain at most one direct child widget. To add more children, make
+     * the child of this panel a different panel that can contain more than one child.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DecoratorPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DecoratorPanel documentation here.
      */
     export interface DecoratorPanel {
       add(widget: Widget): DecoratorPanel;
@@ -830,11 +788,11 @@ declare namespace GoogleAppsScript {
       getType(): string;
       setHeight(height: string): DecoratorPanel;
       setId(id: string): DecoratorPanel;
-      setLayoutData(layout: Object): DecoratorPanel;
+      setLayoutData(layout: any): DecoratorPanel;
       setPixelSize(width: Integer, height: Integer): DecoratorPanel;
       setSize(width: string, height: string): DecoratorPanel;
       setStyleAttribute(attribute: string, value: string): DecoratorPanel;
-      setStyleAttributes(attributes: Object): DecoratorPanel;
+      setStyleAttributes(attributes: any): DecoratorPanel;
       setStyleName(styleName: string): DecoratorPanel;
       setStylePrimaryName(styleName: string): DecoratorPanel;
       setTag(tag: string): DecoratorPanel;
@@ -847,35 +805,31 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A form of popup that has a caption area at the top and can be dragged by the user. Unlike a
+     * PopupPanel, calls to setWidth(width) and setHeight(height) will set
+     * the width and height of the dialog box itself, even if a widget has not been added as yet.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A form of popup that has a caption area at the top and can be dragged by the
-     *  user. Unlike a PopupPanel, calls to setWidth(width) and
-     *  setHeight(height) will set the width and height of the dialog box
-     *  itself, even if a widget has not been added as yet.
+     * In general it's not recommended to add this panel as a child of another widget or of the app
+     * as that will make it behave like any other inline panel and not act as a popup. Instead, create
+     * the popup and then use its show() and hide() methods to show and hide it. See
+     * the example below.
      *
-     *  In general it's not recommended to add this panel as a child of another widget or of the app
-     *  as that will make it behave like any other inline panel and not act as a popup. Instead, create
-     *  the popup and then use its show() and hide() methods to show and hide it. See
-     *  the example below.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the DialogBox documentation here.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the DialogBox documentation here.
+     * Here is an example showing how to use the dialog box widget:
      *
-     *  Here is an example showing how to use the dialog box widget:
-     *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // Create a dialog box.
-     *        var dialog = app.createDialogBox();
-     *        // Set the position and dimensions.
-     *        dialog.setPopupPosition(100, 100).setSize(500, 500);
-     *        // Show the dialog. Note that it does not have to be "added" to the UiInstance.
-     *        dialog.show();
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // Create a dialog box.
+     *       var dialog = app.createDialogBox();
+     *       // Set the position and dimensions.
+     *       dialog.setPopupPosition(100, 100).setSize(500, 500);
+     *       // Show the dialog. Note that it does not have to be "added" to the UiInstance.
+     *       dialog.show();
+     *       return app;
+     *     }
      */
     export interface DialogBox {
       add(widget: Widget): DialogBox;
@@ -895,7 +849,7 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): DialogBox;
       setHeight(height: string): DialogBox;
       setId(id: string): DialogBox;
-      setLayoutData(layout: Object): DialogBox;
+      setLayoutData(layout: any): DialogBox;
       setModal(modal: boolean): DialogBox;
       setPixelSize(width: Integer, height: Integer): DialogBox;
       setPopupPosition(left: Integer, top: Integer): DialogBox;
@@ -903,7 +857,7 @@ declare namespace GoogleAppsScript {
       setPreviewingAllNativeEvents(previewing: boolean): DialogBox;
       setSize(width: string, height: string): DialogBox;
       setStyleAttribute(attribute: string, value: string): DialogBox;
-      setStyleAttributes(attributes: Object): DialogBox;
+      setStyleAttributes(attributes: any): DialogBox;
       setStyleName(styleName: string): DialogBox;
       setStylePrimaryName(styleName: string): DialogBox;
       setTag(tag: string): DialogBox;
@@ -918,64 +872,61 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A "file-open" dialog for Google Drive. Unlike most UiApp objects, DocsListDialog
-     *  should not be added to the UiInstance. The
-     *  example below shows how to display a DocsListDialog in the
-     *  new version of Google Sheets.
+     * should not be added to the UiInstance. The
+     * example below shows how to display a DocsListDialog in the new version of Google Sheets.
      *
      * Note that HTML service offers a similar but superior
-     *  feature, Google Picker. In almost all
-     *  cases, using Google Picker is preferable.
+     * feature, Google Picker. In almost all
+     * cases, using Google Picker is preferable.
      *
-     *      function onOpen() {
-     *        SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
-     *            .createMenu('Custom Menu')
-     *            .addItem('Select file', 'showDialog')
-     *            .addToUi();
-     *      }
+     *     function onOpen() {
+     *       SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
+     *           .createMenu('Custom Menu')
+     *           .addItem('Select file', 'showDialog')
+     *           .addToUi();
+     *     }
      *
-     *      function showDialog() {
-     *        // Dummy call to DriveApp to ensure the OAuth dialog requests Google Drive scope, so that the
-     *        // getOAuthToken() call below returns a token with the necessary permissions.
-     *        DriveApp.getRootFolder();
+     *     function showDialog() {
+     *       // Dummy call to DriveApp to ensure the OAuth dialog requests Google Drive scope, so that the
+     *       // getOAuthToken() call below returns a token with the necessary permissions.
+     *       DriveApp.getRootFolder();
      *
-     *        var app = UiApp.createApplication()
-     *            .setWidth(570)
-     *            .setHeight(352);
+     *       var app = UiApp.createApplication()
+     *           .setWidth(570)
+     *           .setHeight(352);
      *
-     *        var serverHandler = app.createServerHandler('pickerHandler');
+     *       var serverHandler = app.createServerHandler('pickerHandler');
      *
-     *        app.createDocsListDialog()
-     *           .addCloseHandler(serverHandler)
-     *           .addSelectionHandler(serverHandler)
-     *           .setOAuthToken(ScriptApp.getOAuthToken())
-     *           .showDocsPicker();
+     *       app.createDocsListDialog()
+     *          .addCloseHandler(serverHandler)
+     *          .addSelectionHandler(serverHandler)
+     *          .setOAuthToken(ScriptApp.getOAuthToken())
+     *          .showDocsPicker();
      *
-     *        SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
-     *           .showModalDialog(app,' ');
-     *      }
+     *       SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
+     *          .showModalDialog(app,' ');
+     *     }
      *
-     *      function pickerHandler(e) {
-     *        var action = e.parameter.eventType;
-     *        var app = UiApp.getActiveApplication();
+     *     function pickerHandler(e) {
+     *       var action = e.parameter.eventType;
+     *       var app = UiApp.getActiveApplication();
      *
-     *        if (action == 'selection') {
-     *          var doc = e.parameter.items[0];
-     *          var id = doc.id;
-     *          var name = doc.name;
-     *          var url = doc.url;
-     *          app.add(app.createLabel('You picked '));
-     *          app.add(app.createAnchor(name, url));
-     *          app.add(app.createLabel('(ID: ' + id + ').'));
-     *        } else if (action == 'close') {
-     *          app.add(app.createLabel('You clicked "Cancel".'));
-     *        }
+     *       if (action == 'selection') {
+     *         var doc = e.parameter.items[0];
+     *         var id = doc.id;
+     *         var name = doc.name;
+     *         var url = doc.url;
+     *         app.add(app.createLabel('You picked '));
+     *         app.add(app.createAnchor(name, url));
+     *         app.add(app.createLabel('(ID: ' + id + ').'));
+     *       } else if (action == 'close') {
+     *         app.add(app.createLabel('You clicked "Cancel".'));
+     *       }
      *
-     *        return app;
-     *      }
+     *       return app;
+     *     }
      */
     export interface DocsListDialog {
       addCloseHandler(handler: Handler): DocsListDialog;
@@ -995,47 +946,41 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * File type constants for the
-     *  DocsListDialog.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * File type constants for the DocsListDialog.
      */
     export enum FileType { ALL, ALL_DOCS, DRAWINGS, DOCUMENTS, SPREADSHEETS, FOLDERS, RECENTLY_PICKED, PRESENTATIONS, FORMS, PHOTOS, PHOTO_ALBUMS, PDFS }
 
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A widget that wraps the HTML <input type='file'> element. This widget must be used within a
+     * FormPanel.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A widget that wraps the HTML <input type='file'> element. This widget
-     *  must be used within a FormPanel.
+     * The result of a FileUpload is a "Blob" which can we used in various other functions. Below is
+     * an example of how to use FileUpload.
      *
-     *  The result of a FileUpload is a "Blob" which can we used in various other functions. Below is an
-     *  example of how to use FileUpload.
+     *     function doGet(e) {
      *
-     *      function doGet(e) {
+     *     var app = UiApp.createApplication().setTitle("Upload CSV to Sheet");
+     *       var formContent = app.createVerticalPanel();
+     *       formContent.add(app.createFileUpload().setName('thefile'));
+     *       formContent.add(app.createSubmitButton());
+     *       var form = app.createFormPanel();
+     *       form.add(formContent);
+     *       app.add(form);
+     *       return app;
+     *     }
      *
-     *      var app = UiApp.createApplication().setTitle("Upload CSV to Sheet");
-     *        var formContent = app.createVerticalPanel();
-     *        formContent.add(app.createFileUpload().setName('thefile'));
-     *        formContent.add(app.createSubmitButton());
-     *        var form = app.createFormPanel();
-     *        form.add(formContent);
-     *        app.add(form);
-     *        return app;
-     *      }
+     *     function doPost(e) {
+     *       // data returned is a blob for FileUpload widget
+     *       var fileBlob = e.parameter.thefile;
+     *       var doc = DocsList.createFile(fileBlob);
+     *     }
      *
-     *      function doPost(e) {
-     *        // data returned is a blob for FileUpload widget
-     *        var fileBlob = e.parameter.thefile;
-     *        var doc = DocsList.createFile(fileBlob);
-     *      }
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the FileUpload documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the FileUpload documentation here.
      */
     export interface FileUpload {
       addChangeHandler(handler: Handler): FileUpload;
@@ -1047,12 +992,12 @@ declare namespace GoogleAppsScript {
       setEnabled(enabled: boolean): FileUpload;
       setHeight(height: string): FileUpload;
       setId(id: string): FileUpload;
-      setLayoutData(layout: Object): FileUpload;
+      setLayoutData(layout: any): FileUpload;
       setName(name: string): FileUpload;
       setPixelSize(width: Integer, height: Integer): FileUpload;
       setSize(width: string, height: string): FileUpload;
       setStyleAttribute(attribute: string, value: string): FileUpload;
-      setStyleAttributes(attributes: Object): FileUpload;
+      setStyleAttributes(attributes: any): FileUpload;
       setStyleName(styleName: string): FileUpload;
       setStylePrimaryName(styleName: string): FileUpload;
       setTag(tag: string): FileUpload;
@@ -1064,32 +1009,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A flexible table that creates cells on demand. It can be jagged (that is, each row can contain a
+     * different number of cells) and individual cells can be set to span multiple rows or columns.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A flexible table that creates cells on demand. It can be jagged (that is,
-     *  each row can contain a different number of cells) and individual cells can be
-     *  set to span multiple rows or columns.
+     * Here is an example of how to use this widget:
      *
-     *  Here is an example of how to use this widget:
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       app.add(app.createFlexTable()
+     *         .insertRow(0).insertRow(0).insertRow(0)
+     *         .insertCell(0, 0)
+     *         .insertCell(0, 1)
+     *         .insertCell(0, 2)
+     *         .insertCell(1, 0)
+     *         .insertCell(1, 1)
+     *         .insertCell(2, 0)
+     *         .setBorderWidth(5).setCellPadding(10).setCellSpacing(10));
+     *       return app;
+     *     }
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        app.add(app.createFlexTable()
-     *          .insertRow(0).insertRow(0).insertRow(0)
-     *          .insertCell(0, 0)
-     *          .insertCell(0, 1)
-     *          .insertCell(0, 2)
-     *          .insertCell(1, 0)
-     *          .insertCell(1, 1)
-     *          .insertCell(2, 0)
-     *          .setBorderWidth(5).setCellPadding(10).setCellSpacing(10));
-     *        return app;
-     *      }
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the FlexTable documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the FlexTable documentation here.
      */
     export interface FlexTable {
       addCell(row: Integer): FlexTable;
@@ -1109,18 +1050,18 @@ declare namespace GoogleAppsScript {
       setCellPadding(padding: Integer): FlexTable;
       setCellSpacing(spacing: Integer): FlexTable;
       setColumnStyleAttribute(column: Integer, attribute: string, value: string): FlexTable;
-      setColumnStyleAttributes(column: Integer, attributes: Object): FlexTable;
+      setColumnStyleAttributes(column: Integer, attributes: any): FlexTable;
       setHeight(height: string): FlexTable;
       setId(id: string): FlexTable;
-      setLayoutData(layout: Object): FlexTable;
+      setLayoutData(layout: any): FlexTable;
       setPixelSize(width: Integer, height: Integer): FlexTable;
       setRowStyleAttribute(row: Integer, attribute: string, value: string): FlexTable;
-      setRowStyleAttributes(row: Integer, attributes: Object): FlexTable;
+      setRowStyleAttributes(row: Integer, attributes: any): FlexTable;
       setSize(width: string, height: string): FlexTable;
       setStyleAttribute(row: Integer, column: Integer, attribute: string, value: string): FlexTable;
       setStyleAttribute(attribute: string, value: string): FlexTable;
-      setStyleAttributes(row: Integer, column: Integer, attributes: Object): FlexTable;
-      setStyleAttributes(attributes: Object): FlexTable;
+      setStyleAttributes(row: Integer, column: Integer, attributes: any): FlexTable;
+      setStyleAttributes(attributes: any): FlexTable;
       setStyleName(styleName: string): FlexTable;
       setStylePrimaryName(styleName: string): FlexTable;
       setTag(tag: string): FlexTable;
@@ -1134,25 +1075,22 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that formats its child widgets using the default HTML layout behavior.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var panel = app.createFlowPanel();
-     *        panel.add(app.createButton("button 1"));
-     *        panel.add(app.createButton("button 2"));
-     *        app.add(panel);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var panel = app.createFlowPanel();
+     *       panel.add(app.createButton("button 1"));
+     *       panel.add(app.createButton("button 2"));
+     *       app.add(panel);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the FlowPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the FlowPanel documentation here.
      */
     export interface FlowPanel {
       add(widget: Widget): FlowPanel;
@@ -1167,11 +1105,11 @@ declare namespace GoogleAppsScript {
       remove(widget: Widget): FlowPanel;
       setHeight(height: string): FlowPanel;
       setId(id: string): FlowPanel;
-      setLayoutData(layout: Object): FlowPanel;
+      setLayoutData(layout: any): FlowPanel;
       setPixelSize(width: Integer, height: Integer): FlowPanel;
       setSize(width: string, height: string): FlowPanel;
       setStyleAttribute(attribute: string, value: string): FlowPanel;
-      setStyleAttributes(attributes: Object): FlowPanel;
+      setStyleAttributes(attributes: any): FlowPanel;
       setStyleName(styleName: string): FlowPanel;
       setStylePrimaryName(styleName: string): FlowPanel;
       setTag(tag: string): FlowPanel;
@@ -1183,31 +1121,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A simple panel that makes its contents focusable, and adds the ability to catch mouse and
-     *  keyboard events.
+     * keyboard events.
      *
-     *  Note that this panel can contain at most one direct child widget. To add more children, make the
-     *  child of this panel a different panel that can contain more than one child.
+     * Note that this panel can contain at most one direct child widget. To add more children, make
+     * the child of this panel a different panel that can contain more than one child.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var focus = app.createFocusPanel();
-     *        var flow = app.createFlowPanel();
-     *        flow.add(app.createButton("button 1"));
-     *        flow.add(app.createButton("button 2"));
-     *        focus.add(flow);
-     *        app.add(focus);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var focus = app.createFocusPanel();
+     *       var flow = app.createFlowPanel();
+     *       flow.add(app.createButton("button 1"));
+     *       flow.add(app.createButton("button 2"));
+     *       focus.add(flow);
+     *       app.add(focus);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the FocusPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the FocusPanel documentation here.
      */
     export interface FocusPanel {
       add(widget: Widget): FocusPanel;
@@ -1233,11 +1168,11 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): FocusPanel;
       setHeight(height: string): FocusPanel;
       setId(id: string): FocusPanel;
-      setLayoutData(layout: Object): FocusPanel;
+      setLayoutData(layout: any): FocusPanel;
       setPixelSize(width: Integer, height: Integer): FocusPanel;
       setSize(width: string, height: string): FocusPanel;
       setStyleAttribute(attribute: string, value: string): FocusPanel;
-      setStyleAttributes(attributes: Object): FocusPanel;
+      setStyleAttributes(attributes: any): FocusPanel;
       setStyleName(styleName: string): FocusPanel;
       setStylePrimaryName(styleName: string): FocusPanel;
       setTabIndex(index: Integer): FocusPanel;
@@ -1251,45 +1186,42 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that wraps its contents in an HTML <FORM> element.
      *
-     *  This panel can be used with a SubmitButton to post form values to the server. All
-     *  children of this panel (direct, or even children of sub-panels) that have a setName function
-     *  and have been given a name will have their values sent to the server when the form is submitted.
-     *  The submit can be handled in the special "doPost" function, as shown in the example.
+     * This panel can be used with a SubmitButton to post form values to the server. All
+     * children of this panel (direct, or even children of sub-panels) that have a setName function and
+     * have been given a name will have their values sent to the server when the form is submitted. The
+     * submit can be handled in the special "doPost" function, as shown in the example.
      *
-     *  Note that this panel can contain at most one direct child widget. To add more children, make the
-     *  child of this panel a different panel that can contain more than one child.
+     * Note that this panel can contain at most one direct child widget. To add more children, make
+     * the child of this panel a different panel that can contain more than one child.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var form = app.createFormPanel();
-     *        var flow = app.createFlowPanel();
-     *        flow.add(app.createTextBox().setName("textBox"));
-     *        flow.add(app.createListBox().setName("listBox").addItem("option 1").addItem("option 2"));
-     *        flow.add(app.createSubmitButton("Submit"));
-     *        form.add(flow);
-     *        app.add(form);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var form = app.createFormPanel();
+     *       var flow = app.createFlowPanel();
+     *       flow.add(app.createTextBox().setName("textBox"));
+     *       flow.add(app.createListBox().setName("listBox").addItem("option 1").addItem("option 2"));
+     *       flow.add(app.createSubmitButton("Submit"));
+     *       form.add(flow);
+     *       app.add(form);
+     *       return app;
+     *     }
      *
-     *      function doPost(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        app.add(app.createLabel("Form submitted. The text box's value was '" +
-     *            eventInfo.parameter.textBox +
-     *            "' and the list box's value was '" +
-     *            eventInfo.parameter.listBox + "'"));
-     *        return app;
-     *      }
+     *     function doPost(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       app.add(app.createLabel("Form submitted. The text box's value was '" +
+     *           eventInfo.parameter.textBox +
+     *           "' and the list box's value was '" +
+     *           eventInfo.parameter.listBox + "'"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the FormPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the FormPanel documentation here.
      */
     export interface FormPanel {
       add(widget: Widget): FormPanel;
@@ -1305,12 +1237,12 @@ declare namespace GoogleAppsScript {
       setEncoding(encoding: string): FormPanel;
       setHeight(height: string): FormPanel;
       setId(id: string): FormPanel;
-      setLayoutData(layout: Object): FormPanel;
+      setLayoutData(layout: any): FormPanel;
       setMethod(method: string): FormPanel;
       setPixelSize(width: Integer, height: Integer): FormPanel;
       setSize(width: string, height: string): FormPanel;
       setStyleAttribute(attribute: string, value: string): FormPanel;
-      setStyleAttributes(attributes: Object): FormPanel;
+      setStyleAttributes(attributes: any): FormPanel;
       setStyleName(styleName: string): FormPanel;
       setStylePrimaryName(styleName: string): FormPanel;
       setTag(tag: string): FormPanel;
@@ -1323,36 +1255,33 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A rectangular grid that can contain text, html, or a child widget within its cells. It must be
-     *  resized explicitly to the desired number of rows and columns.
+     * resized explicitly to the desired number of rows and columns.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        app.add(app.createGrid(3, 3)
-     *            .setBorderWidth(1)
-     *            .setCellSpacing(10)
-     *            .setCellPadding(10)
-     *            .setText(0, 0, "X")
-     *            .setText(1, 1, "X")
-     *            .setText(2, 2, "X")
-     *            .setText(0, 1, "O")
-     *            .setText(0, 2, "O")
-     *            .setStyleAttribute(0, 0, "color", "red")
-     *            .setStyleAttribute(1, 1, "color", "red")
-     *            .setStyleAttribute(2, 2, "color", "red")
-     *            .setStyleAttribute(0, 1, "color", "blue")
-     *            .setStyleAttribute(0, 2, "color", "blue"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       app.add(app.createGrid(3, 3)
+     *           .setBorderWidth(1)
+     *           .setCellSpacing(10)
+     *           .setCellPadding(10)
+     *           .setText(0, 0, "X")
+     *           .setText(1, 1, "X")
+     *           .setText(2, 2, "X")
+     *           .setText(0, 1, "O")
+     *           .setText(0, 2, "O")
+     *           .setStyleAttribute(0, 0, "color", "red")
+     *           .setStyleAttribute(1, 1, "color", "red")
+     *           .setStyleAttribute(2, 2, "color", "red")
+     *           .setStyleAttribute(0, 1, "color", "blue")
+     *           .setStyleAttribute(0, 2, "color", "blue"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Grid documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Grid documentation here.
      */
     export interface Grid {
       addClickHandler(handler: Handler): Grid;
@@ -1367,18 +1296,18 @@ declare namespace GoogleAppsScript {
       setCellPadding(padding: Integer): Grid;
       setCellSpacing(spacing: Integer): Grid;
       setColumnStyleAttribute(column: Integer, attribute: string, value: string): Grid;
-      setColumnStyleAttributes(column: Integer, attributes: Object): Grid;
+      setColumnStyleAttributes(column: Integer, attributes: any): Grid;
       setHeight(height: string): Grid;
       setId(id: string): Grid;
-      setLayoutData(layout: Object): Grid;
+      setLayoutData(layout: any): Grid;
       setPixelSize(width: Integer, height: Integer): Grid;
       setRowStyleAttribute(row: Integer, attribute: string, value: string): Grid;
-      setRowStyleAttributes(row: Integer, attributes: Object): Grid;
+      setRowStyleAttributes(row: Integer, attributes: any): Grid;
       setSize(width: string, height: string): Grid;
       setStyleAttribute(row: Integer, column: Integer, attribute: string, value: string): Grid;
       setStyleAttribute(attribute: string, value: string): Grid;
-      setStyleAttributes(row: Integer, column: Integer, attributes: Object): Grid;
-      setStyleAttributes(attributes: Object): Grid;
+      setStyleAttributes(row: Integer, column: Integer, attributes: any): Grid;
+      setStyleAttributes(attributes: any): Grid;
       setStyleName(styleName: string): Grid;
       setStylePrimaryName(styleName: string): Grid;
       setTag(tag: string): Grid;
@@ -1392,25 +1321,22 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A widget that contains arbitrary text, which is interpreted as HTML.
      *
-     *  Only basic HTML markup such as bold, italic, etc. are allowed; in particular, scripts will be
-     *  stripped out completely.
+     * Only basic HTML markup such as bold, italic, etc. are allowed; in particular, scripts will be
+     * stripped out completely.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        app.add(app.createHTML("<b>Hello World!</b>"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       app.add(app.createHTML("<b>Hello World!</b>"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the HTML documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the HTML documentation here.
      */
     export interface HTML {
       addClickHandler(handler: Handler): HTML;
@@ -1430,11 +1356,11 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): HTML;
       setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): HTML;
       setId(id: string): HTML;
-      setLayoutData(layout: Object): HTML;
+      setLayoutData(layout: any): HTML;
       setPixelSize(width: Integer, height: Integer): HTML;
       setSize(width: string, height: string): HTML;
       setStyleAttribute(attribute: string, value: string): HTML;
-      setStyleAttributes(attributes: Object): HTML;
+      setStyleAttributes(attributes: any): HTML;
       setStyleName(styleName: string): HTML;
       setStylePrimaryName(styleName: string): HTML;
       setTag(tag: string): HTML;
@@ -1448,9 +1374,7 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * Base interface for client and server handlers.
      * Implementing classes
      *
@@ -1478,53 +1402,50 @@ declare namespace GoogleAppsScript {
       validateNotMatches(widget: Widget, pattern: string, flags: string): Handler;
       validateNotNumber(widget: Widget): Handler;
       validateNotOptions(widget: Widget, options: string[]): Handler;
-      validateNotRange(widget: Widget, min: Number, max: Number): Handler;
+      validateNotRange(widget: Widget, min: number, max: number): Handler;
       validateNotSum(widgets: Widget[], sum: Integer): Handler;
       validateNumber(widget: Widget): Handler;
       validateOptions(widget: Widget, options: string[]): Handler;
-      validateRange(widget: Widget, min: Number, max: Number): Handler;
+      validateRange(widget: Widget, min: number, max: number): Handler;
       validateSum(widgets: Widget[], sum: Integer): Handler;
     }
 
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * Represents a hidden field for storing data in the user's browser that can be passed back to a
-     *  handler as a "callback element".
+     * handler as a "callback element".
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // Note that the name "appState" for callbacks, and the id "hidden" for
-     *        // getting a reference to the widget, are not required to be the same.
-     *        var hidden = app.createHidden("appState", "0").setId("hidden");
-     *        app.add(hidden);
-     *        var handler = app.createServerHandler("click").addCallbackElement(hidden);
-     *        app.add(app.createButton("click me!", handler));
-     *        app.add(app.createLabel("clicked 0 times").setId("label"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // Note that the name "appState" for callbacks, and the id "hidden" for
+     *       // getting a reference to the widget, are not required to be the same.
+     *       var hidden = app.createHidden("appState", "0").setId("hidden");
+     *       app.add(hidden);
+     *       var handler = app.createServerHandler("click").addCallbackElement(hidden);
+     *       app.add(app.createButton("click me!", handler));
+     *       app.add(app.createLabel("clicked 0 times").setId("label"));
+     *       return app;
+     *     }
      *
-     *      function click(eventInfo) {
-     *        var app = UiApp.createApplication();
-     *        // We have the value of the hidden field because it was a callback element.
-     *        var numClicks = Number(eventInfo.parameter.appState);
-     *        numClicks++;
-     *        // Just store the number as a string. We could actually store arbitrarily complex data
-     *        // here using JSON.stringify() to turn a JavaScript object into a string to store, and
-     *        // JSON.parse() to turn the string back into an object.
-     *        app.getElementById("hidden").setValue(String(numClicks));
-     *        app.getElementById("label").setText("clicked " + numClicks + " times");
-     *        return app;
-     *      }
+     *     function click(eventInfo) {
+     *       var app = UiApp.createApplication();
+     *       // We have the value of the hidden field because it was a callback element.
+     *       var numClicks = Number(eventInfo.parameter.appState);
+     *       numClicks++;
+     *       // Just store the number as a string. We could actually store arbitrarily complex data
+     *       // here using JSON.stringify() to turn a JavaScript object into a string to store, and
+     *       // JSON.parse() to turn the string back into an object.
+     *       app.getElementById("hidden").setValue(String(numClicks));
+     *       app.getElementById("label").setText("clicked " + numClicks + " times");
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Hidden documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Hidden documentation here.
      */
     export interface Hidden {
       addStyleDependentName(styleName: string): Hidden;
@@ -1536,12 +1457,12 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): Hidden;
       setID(id: string): Hidden;
       setId(id: string): Hidden;
-      setLayoutData(layout: Object): Hidden;
+      setLayoutData(layout: any): Hidden;
       setName(name: string): Hidden;
       setPixelSize(width: Integer, height: Integer): Hidden;
       setSize(width: string, height: string): Hidden;
       setStyleAttribute(attribute: string, value: string): Hidden;
-      setStyleAttributes(attributes: Object): Hidden;
+      setStyleAttributes(attributes: any): Hidden;
       setStyleName(styleName: string): Hidden;
       setStylePrimaryName(styleName: string): Hidden;
       setTag(tag: string): Hidden;
@@ -1554,9 +1475,7 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * Horizontal alignment constants to use with setHorizontalAlignment methods in UiApp.
      */
     export enum HorizontalAlignment { LEFT, RIGHT, CENTER, DEFAULT, JUSTIFY, LOCALE_START, LOCALE_END }
@@ -1564,25 +1483,22 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that lays all of its widgets out in a single horizontal column.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var panel = app.createHorizontalPanel();
-     *        panel.add(app.createButton("button 1"));
-     *        panel.add(app.createButton("button 2"));
-     *        app.add(panel);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var panel = app.createHorizontalPanel();
+     *       panel.add(app.createButton("button 1"));
+     *       panel.add(app.createButton("button 2"));
+     *       app.add(panel);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the HorizontalPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the HorizontalPanel documentation here.
      */
     export interface HorizontalPanel {
       add(widget: Widget): HorizontalPanel;
@@ -1602,12 +1518,12 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): HorizontalPanel;
       setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): HorizontalPanel;
       setId(id: string): HorizontalPanel;
-      setLayoutData(layout: Object): HorizontalPanel;
+      setLayoutData(layout: any): HorizontalPanel;
       setPixelSize(width: Integer, height: Integer): HorizontalPanel;
       setSize(width: string, height: string): HorizontalPanel;
       setSpacing(spacing: Integer): HorizontalPanel;
       setStyleAttribute(attribute: string, value: string): HorizontalPanel;
-      setStyleAttributes(attributes: Object): HorizontalPanel;
+      setStyleAttributes(attributes: any): HorizontalPanel;
       setStyleName(styleName: string): HorizontalPanel;
       setStylePrimaryName(styleName: string): HorizontalPanel;
       setTag(tag: string): HorizontalPanel;
@@ -1620,38 +1536,34 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A widget that displays the image at a given URL.
      *
-     *  The image can be in 'unclipped' mode (the default) or 'clipped' mode.
-     *  In clipped mode, a viewport is overlaid on top of the image so that a subset of the image will be
-     *  displayed. In unclipped mode, there is no viewport - the entire image will be
-     *  visible. Whether an image is in clipped or unclipped mode depends on how the
-     *  image is constructed, and how it is transformed after construction. Methods
-     *  will operate differently depending on the mode that the image is in. These
-     *  differences are detailed in the documentation for each method.
+     * The image can be in 'unclipped' mode (the default) or 'clipped' mode. In clipped mode, a
+     * viewport is overlaid on top of the image so that a subset of the image will be displayed. In
+     * unclipped mode, there is no viewport - the entire image will be visible. Whether an image is in
+     * clipped or unclipped mode depends on how the image is constructed, and how it is transformed
+     * after construction. Methods will operate differently depending on the mode that the image is in.
+     * These differences are detailed in the documentation for each method.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // The very first Google Doodle!
-     *        app.add(app.createImage("http://www.google.com/logos/googleburn.jpg"));
-     *        // Just the man in the middle
-     *        app.add(app.createImage("http://www.google.com/logos/googleburn.jpg", 118, 0, 50, 106));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // The very first Google Doodle!
+     *       app.add(app.createImage("http://www.google.com/logos/googleburn.jpg"));
+     *       // Just the man in the middle
+     *       app.add(app.createImage("http://www.google.com/logos/googleburn.jpg", 118, 0, 50, 106));
+     *       return app;
+     *     }
      *
-     *  Due to browser-specific HTML constructions needed to achieve the clipping effect, certain CSS
-     *  attributes, such as padding and background, may not work as expected when an image is in clipped
-     *  mode. These limitations can usually be easily worked around by encapsulating the image in a
-     *  container widget that can itself be styled.
+     * Due to browser-specific HTML constructions needed to achieve the clipping effect, certain CSS
+     * attributes, such as padding and background, may not work as expected when an image is in clipped
+     * mode. These limitations can usually be easily worked around by encapsulating the image in a
+     * container widget that can itself be styled.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Image documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Image documentation here.
      */
     export interface Image {
       addClickHandler(handler: Handler): Image;
@@ -1670,12 +1582,12 @@ declare namespace GoogleAppsScript {
       getType(): string;
       setHeight(height: string): Image;
       setId(id: string): Image;
-      setLayoutData(layout: Object): Image;
+      setLayoutData(layout: any): Image;
       setPixelSize(width: Integer, height: Integer): Image;
       setResource(resource: Component): Image;
       setSize(width: string, height: string): Image;
       setStyleAttribute(attribute: string, value: string): Image;
-      setStyleAttributes(attributes: Object): Image;
+      setStyleAttributes(attributes: any): Image;
       setStyleName(styleName: string): Image;
       setStylePrimaryName(styleName: string): Image;
       setTag(tag: string): Image;
@@ -1690,16 +1602,13 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A widget that contains arbitrary text, not interpreted as HTML.
      *
-     *  This widget uses a <span> element, causing it to be displayed with inline layout.
+     * This widget uses a <span> element, causing it to be displayed with inline layout.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the InlineLabel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the InlineLabel documentation here.
      */
     export interface InlineLabel {
       addClickHandler(handler: Handler): InlineLabel;
@@ -1718,11 +1627,11 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): InlineLabel;
       setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): InlineLabel;
       setId(id: string): InlineLabel;
-      setLayoutData(layout: Object): InlineLabel;
+      setLayoutData(layout: any): InlineLabel;
       setPixelSize(width: Integer, height: Integer): InlineLabel;
       setSize(width: string, height: string): InlineLabel;
       setStyleAttribute(attribute: string, value: string): InlineLabel;
-      setStyleAttributes(attributes: Object): InlineLabel;
+      setStyleAttributes(attributes: any): InlineLabel;
       setStyleName(styleName: string): InlineLabel;
       setStylePrimaryName(styleName: string): InlineLabel;
       setTag(tag: string): InlineLabel;
@@ -1736,22 +1645,19 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A widget that contains arbitrary text, not interpreted as HTML.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        app.add(app.createLabel("Hello World!"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       app.add(app.createLabel("Hello World!"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Label documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Label documentation here.
      */
     export interface Label {
       addClickHandler(handler: Handler): Label;
@@ -1770,11 +1676,11 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): Label;
       setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): Label;
       setId(id: string): Label;
-      setLayoutData(layout: Object): Label;
+      setLayoutData(layout: any): Label;
       setPixelSize(width: Integer, height: Integer): Label;
       setSize(width: string, height: string): Label;
       setStyleAttribute(attribute: string, value: string): Label;
-      setStyleAttributes(attributes: Object): Label;
+      setStyleAttributes(attributes: any): Label;
       setStyleName(styleName: string): Label;
       setStylePrimaryName(styleName: string): Label;
       setTag(tag: string): Label;
@@ -1788,55 +1694,52 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A widget that presents a list of choices to the user, either as a list box or as a drop-down
+     * list.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A widget that presents a list of choices to the user, either as a list box or
-     *  as a drop-down list.
+     * Here is an example usage, which should be executed from within a spreadsheet bound script.
      *
-     *  Here is an example usage, which should be executed from within a spreadsheet bound script.
+     *     // execute this in a spreadsheet
+     *     function show() {
+     *       var doc = SpreadsheetApp.getActiveSpreadsheet();
+     *       var app = UiApp.createApplication().setTitle('My Application');
+     *       var panel = app.createVerticalPanel();
+     *       var lb = app.createListBox(true).setId('myId').setName('myLbName');
      *
-     *      // execute this in a spreadsheet
-     *      function show() {
-     *        var doc = SpreadsheetApp.getActiveSpreadsheet();
-     *        var app = UiApp.createApplication().setTitle('My Application');
-     *        var panel = app.createVerticalPanel();
-     *        var lb = app.createListBox(true).setId('myId').setName('myLbName');
+     *       // add items to ListBox
+     *       lb.setVisibleItemCount(3);
+     *       lb.addItem('first');
+     *       lb.addItem('second');
+     *       lb.addItem('third');
+     *       lb.addItem('fourth');
+     *       lb.addItem('fifth');
+     *       lb.addItem('sixth');
      *
-     *        // add items to ListBox
-     *        lb.setVisibleItemCount(3);
-     *        lb.addItem('first');
-     *        lb.addItem('second');
-     *        lb.addItem('third');
-     *        lb.addItem('fourth');
-     *        lb.addItem('fifth');
-     *        lb.addItem('sixth');
+     *       panel.add(lb);
+     *       var button = app.createButton('press me');
+     *       var handler = app.createServerClickHandler('click').addCallbackElement(panel);
+     *       button.addClickHandler(handler);
+     *       panel.add(button);
+     *       app.add(panel);
+     *       doc.show(app);
+     *     }
      *
-     *        panel.add(lb);
-     *        var button = app.createButton('press me');
-     *        var handler = app.createServerClickHandler('click').addCallbackElement(panel);
-     *        button.addClickHandler(handler);
-     *        panel.add(button);
-     *        app.add(panel);
-     *        doc.show(app);
-     *      }
+     *     function click(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       // get values of ListBox
+     *       var value = eventInfo.parameter.myLbName;
+     *       // multi select box returns a comma separated string
+     *       var n = value.split(',');
      *
-     *      function click(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        // get values of ListBox
-     *        var value = eventInfo.parameter.myLbName;
-     *        // multi select box returns a comma separated string
-     *        var n = value.split(',');
+     *       var doc = SpreadsheetApp.getActiveSpreadsheet();
+     *       doc.getRange('a1').setValue(value);
+     *       doc.getRange('b1').setValue('there are ' + n.length + ' items selected');
+     *       return app;
+     *     }
      *
-     *        var doc = SpreadsheetApp.getActiveSpreadsheet();
-     *        doc.getRange('a1').setValue(value);
-     *        doc.getRange('b1').setValue('there are ' + n.length + ' items selected');
-     *        return app;
-     *      }
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the ListBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the ListBox documentation here.
      */
     export interface ListBox {
       addBlurHandler(handler: Handler): ListBox;
@@ -1868,13 +1771,13 @@ declare namespace GoogleAppsScript {
       setId(id: string): ListBox;
       setItemSelected(index: Integer, selected: boolean): ListBox;
       setItemText(index: Integer, text: string): ListBox;
-      setLayoutData(layout: Object): ListBox;
+      setLayoutData(layout: any): ListBox;
       setName(name: string): ListBox;
       setPixelSize(width: Integer, height: Integer): ListBox;
       setSelectedIndex(index: Integer): ListBox;
       setSize(width: string, height: string): ListBox;
       setStyleAttribute(attribute: string, value: string): ListBox;
-      setStyleAttributes(attributes: Object): ListBox;
+      setStyleAttributes(attributes: any): ListBox;
       setStyleName(styleName: string): ListBox;
       setStylePrimaryName(styleName: string): ListBox;
       setTabIndex(index: Integer): ListBox;
@@ -1889,17 +1792,14 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A standard menu bar widget.
      *
-     *  A menu bar can contain any number of menu items,
-     *  each of which can either fire an event handler or open a cascaded menu bar.
+     * A menu bar can contain any number of menu items, each of which can either fire an event
+     * handler or open a cascaded menu bar.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the MenuBar documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the MenuBar documentation here.
      */
     export interface MenuBar {
       addCloseHandler(handler: Handler): MenuBar;
@@ -1919,11 +1819,11 @@ declare namespace GoogleAppsScript {
       setAutoOpen(autoOpen: boolean): MenuBar;
       setHeight(height: string): MenuBar;
       setId(id: string): MenuBar;
-      setLayoutData(layout: Object): MenuBar;
+      setLayoutData(layout: any): MenuBar;
       setPixelSize(width: Integer, height: Integer): MenuBar;
       setSize(width: string, height: string): MenuBar;
       setStyleAttribute(attribute: string, value: string): MenuBar;
-      setStyleAttributes(attributes: Object): MenuBar;
+      setStyleAttributes(attributes: any): MenuBar;
       setStyleName(styleName: string): MenuBar;
       setStylePrimaryName(styleName: string): MenuBar;
       setTag(tag: string): MenuBar;
@@ -1935,16 +1835,14 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * An entry in a MenuBar.
      *
-     *  Menu items can either fire an event handler when they are clicked, or open a cascading sub-menu.
+     * Menu items can either fire an event handler when they are clicked, or open a cascading
+     * sub-menu.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the MenuItem documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the MenuItem documentation here.
      */
     export interface MenuItem {
       addStyleDependentName(styleName: string): MenuItem;
@@ -1959,7 +1857,7 @@ declare namespace GoogleAppsScript {
       setPixelSize(width: Integer, height: Integer): MenuItem;
       setSize(width: string, height: string): MenuItem;
       setStyleAttribute(attribute: string, value: string): MenuItem;
-      setStyleAttributes(attributes: Object): MenuItem;
+      setStyleAttributes(attributes: any): MenuItem;
       setStyleName(styleName: string): MenuItem;
       setStylePrimaryName(styleName: string): MenuItem;
       setSubMenu(subMenu: MenuBar): MenuItem;
@@ -1973,14 +1871,11 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A separator that can be placed in a MenuBar.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the MenuItemSeparator documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the MenuItemSeparator documentation here.
      */
     export interface MenuItemSeparator {
       addStyleDependentName(styleName: string): MenuItemSeparator;
@@ -1993,7 +1888,7 @@ declare namespace GoogleAppsScript {
       setPixelSize(width: Integer, height: Integer): MenuItemSeparator;
       setSize(width: string, height: string): MenuItemSeparator;
       setStyleAttribute(attribute: string, value: string): MenuItemSeparator;
-      setStyleAttributes(attributes: Object): MenuItemSeparator;
+      setStyleAttributes(attributes: any): MenuItemSeparator;
       setStyleName(styleName: string): MenuItemSeparator;
       setStylePrimaryName(styleName: string): MenuItemSeparator;
       setTag(tag: string): MenuItemSeparator;
@@ -2005,44 +1900,41 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A text box that visually masks its input to prevent eavesdropping.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var text = app.createPasswordTextBox().setName("text");
-     *        var handler = app.createServerHandler("test").addCallbackElement(text);
-     *        app.add(text);
-     *        app.add(app.createButton("Test", handler));
-     *        app.add(app.createLabel("0 characters").setId("label"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var text = app.createPasswordTextBox().setName("text");
+     *       var handler = app.createServerHandler("test").addCallbackElement(text);
+     *       app.add(text);
+     *       app.add(app.createButton("Test", handler));
+     *       app.add(app.createLabel("0 characters").setId("label"));
+     *       return app;
+     *     }
      *
-     *      function test(eventInfo) {
-     *        var app = UiApp.createApplication();
-     *        // Because the text box was named "text" and added as a callback element to the
-     *        // button's click event, we have its value available in eventInfo.parameter.text.
-     *        var pass = eventInfo.parameter.text;
-     *        var isStrong =
-     *            pass.length >= 10 && /[A-Z]/.test(pass) && /[a-z]/.test(pass) && /[0-9]/.test(pass);
-     *        var label = app.getElementById("label");
-     *        if (isStrong) {
-     *          label.setText("Strong! Well, not really, but this is just an example.")
-     *              .setStyleAttribute("color", "green");
-     *        } else {
-     *          label.setText("Weak! Use at least 10 characters, with uppercase, lowercase, and digits")
-     *              .setStyleAttribute("color", "red");
-     *        }
-     *        return app;
-     *      }
+     *     function test(eventInfo) {
+     *       var app = UiApp.createApplication();
+     *       // Because the text box was named "text" and added as a callback element to the
+     *       // button's click event, we have its value available in eventInfo.parameter.text.
+     *       var pass = eventInfo.parameter.text;
+     *       var isStrong =
+     *           pass.length >= 10 && /[A-Z]/.test(pass) && /[a-z]/.test(pass) && /[0-9]/.test(pass);
+     *       var label = app.getElementById("label");
+     *       if (isStrong) {
+     *         label.setText("Strong! Well, not really, but this is just an example.")
+     *             .setStyleAttribute("color", "green");
+     *       } else {
+     *         label.setText("Weak! Use at least 10 characters, with uppercase, lowercase, and digits")
+     *             .setStyleAttribute("color", "red");
+     *       }
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the PasswordTextBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the PasswordTextBox documentation here.
      */
     export interface PasswordTextBox {
       addBlurHandler(handler: Handler): PasswordTextBox;
@@ -2071,7 +1963,7 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): PasswordTextBox;
       setHeight(height: string): PasswordTextBox;
       setId(id: string): PasswordTextBox;
-      setLayoutData(layout: Object): PasswordTextBox;
+      setLayoutData(layout: any): PasswordTextBox;
       setMaxLength(length: Integer): PasswordTextBox;
       setName(name: string): PasswordTextBox;
       setPixelSize(width: Integer, height: Integer): PasswordTextBox;
@@ -2079,7 +1971,7 @@ declare namespace GoogleAppsScript {
       setSelectionRange(position: Integer, length: Integer): PasswordTextBox;
       setSize(width: string, height: string): PasswordTextBox;
       setStyleAttribute(attribute: string, value: string): PasswordTextBox;
-      setStyleAttributes(attributes: Object): PasswordTextBox;
+      setStyleAttributes(attributes: any): PasswordTextBox;
       setStyleName(styleName: string): PasswordTextBox;
       setStylePrimaryName(styleName: string): PasswordTextBox;
       setTabIndex(index: Integer): PasswordTextBox;
@@ -2097,40 +1989,37 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A panel that can "pop up" over other widgets. It overlays the browser's client area (and any
+     * previously-created popups).
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A panel that can "pop up" over other widgets. It overlays the browser's
-     *  client area (and any previously-created popups).
+     * In general it's not recommended to add this panel as a child of another widget or of the app
+     * as that will make it behave like any other inline panel and not act as a popup. Instead, create
+     * the popup and then use its show() and hide() methods to show and hide it. See
+     * the example below.
      *
-     *  In general it's not recommended to add this panel as a child of another widget or of the app
-     *  as that will make it behave like any other inline panel and not act as a popup. Instead, create
-     *  the popup and then use its show() and hide() methods to show and hide it. See
-     *  the example below.
+     * To make the popup stay at a fixed location rather than scrolling with the page, try setting
+     * the 'position', 'fixed' style on it with setStyleAttribute(attribute, value).
      *
-     *  To make the popup stay at a fixed location rather than scrolling with the page, try setting the
-     *  'position', 'fixed' style on it with setStyleAttribute(attribute, value).
+     * Note that this panel can contain at most one direct child widget. To add more children, make
+     * the child of this panel a different panel that can contain more than one child.
      *
-     *  Note that this panel can contain at most one direct child widget. To add more children, make the
-     *  child of this panel a different panel that can contain more than one child.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the PopupPanel documentation here.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the PopupPanel documentation here.
+     * Here is an example showing how to use the popup panel widget:
      *
-     *  Here is an example showing how to use the popup panel widget:
-     *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // Create a popup panel and set it to be modal.
-     *        var popupPanel = app.createPopupPanel(false, true);
-     *        // Add a button to the panel and set the dimensions and position.
-     *        popupPanel.add(app.createButton()).setWidth("100px").setHeight("100px")
-     *            .setPopupPosition(100, 100);
-     *        // Show the panel. Note that it does not have to be "added" to the UiInstance.
-     *        popupPanel.show();
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // Create a popup panel and set it to be modal.
+     *       var popupPanel = app.createPopupPanel(false, true);
+     *       // Add a button to the panel and set the dimensions and position.
+     *       popupPanel.add(app.createButton()).setWidth("100px").setHeight("100px")
+     *           .setPopupPosition(100, 100);
+     *       // Show the panel. Note that it does not have to be "added" to the UiInstance.
+     *       popupPanel.show();
+     *       return app;
+     *     }
      */
     export interface PopupPanel {
       add(widget: Widget): PopupPanel;
@@ -2149,7 +2038,7 @@ declare namespace GoogleAppsScript {
       setGlassStyleName(styleName: string): PopupPanel;
       setHeight(height: string): PopupPanel;
       setId(id: string): PopupPanel;
-      setLayoutData(layout: Object): PopupPanel;
+      setLayoutData(layout: any): PopupPanel;
       setModal(modal: boolean): PopupPanel;
       setPixelSize(width: Integer, height: Integer): PopupPanel;
       setPopupPosition(left: Integer, top: Integer): PopupPanel;
@@ -2157,7 +2046,7 @@ declare namespace GoogleAppsScript {
       setPreviewingAllNativeEvents(previewing: boolean): PopupPanel;
       setSize(width: string, height: string): PopupPanel;
       setStyleAttribute(attribute: string, value: string): PopupPanel;
-      setStyleAttributes(attributes: Object): PopupPanel;
+      setStyleAttributes(attributes: any): PopupPanel;
       setStyleName(styleName: string): PopupPanel;
       setStylePrimaryName(styleName: string): PopupPanel;
       setTag(tag: string): PopupPanel;
@@ -2171,31 +2060,28 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A normal push button with custom styling.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // create a button and give it a click handler
-     *        var button = app.createPushButton().setText("click me!").setId("button");
-     *        button.addClickHandler(app.createServerHandler("handlerFunction"));
-     *        app.add(button);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // create a button and give it a click handler
+     *       var button = app.createPushButton().setText("click me!").setId("button");
+     *       button.addClickHandler(app.createServerHandler("handlerFunction"));
+     *       app.add(button);
+     *       return app;
+     *     }
      *
-     *      function handlerFunction(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        app.add(app.createLabel("The button was clicked!"));
-     *        return app;
-     *      }
+     *     function handlerFunction(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       app.add(app.createLabel("The button was clicked!"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the PushButton documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the PushButton documentation here.
      */
     export interface PushButton {
       addBlurHandler(handler: Handler): PushButton;
@@ -2221,11 +2107,11 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): PushButton;
       setHeight(height: string): PushButton;
       setId(id: string): PushButton;
-      setLayoutData(layout: Object): PushButton;
+      setLayoutData(layout: any): PushButton;
       setPixelSize(width: Integer, height: Integer): PushButton;
       setSize(width: string, height: string): PushButton;
       setStyleAttribute(attribute: string, value: string): PushButton;
-      setStyleAttributes(attributes: Object): PushButton;
+      setStyleAttributes(attributes: any): PushButton;
       setStyleName(styleName: string): PushButton;
       setStylePrimaryName(styleName: string): PushButton;
       setTabIndex(index: Integer): PushButton;
@@ -2239,35 +2125,31 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A mutually-exclusive selection radio button widget.
      *
-     *  This widget fires
-     *  click events when the radio button is clicked, and value change events when the
-     *  button becomes checked. Note, however, that browser limitations prevent
-     *  value change events from being sent when the radio button is cleared as a side
-     *  effect of another in the group being clicked.
+     * This widget fires click events when the radio button is clicked, and value change events when
+     * the button becomes checked. Note, however, that browser limitations prevent value change events
+     * from being sent when the radio button is cleared as a side effect of another in the group being
+     * clicked.
      *
-     *  RadioButtons are grouped according to the following rules:
+     * RadioButtons are grouped according to the following rules:
      *
      * In the absence of a FormPanel, RadioButtons with the same name are part of the same
-     *  group.
+     *       group.
      *
      * Within a FormPanel, all unnamed RadioButtons are part of the same group.
      *
      * Within a FormPanel, all RadioButtons with the same name are part of the same group - but
-     *      not part of the same group as RadioButtons with the same name outside of the
-     *      FormPanel.
+     *       not part of the same group as RadioButtons with the same name outside of the
+     *       FormPanel.
      *
-     *  Note that radio button selections within a group do not propagate to server handlers created with
-     *  UiInstance#createServerHandler(). Instead, to capture values on the server, use
-     *  doPost() or separate handlers for each RadioButton.
+     * Note that radio button selections within a group do not propagate to server handlers created
+     * with UiInstance#createServerHandler(). Instead, to capture values on the server, use
+     * doPost() or separate handlers for each RadioButton.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the RadioButton documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the RadioButton documentation here.
      */
     export interface RadioButton {
       addBlurHandler(handler: Handler): RadioButton;
@@ -2295,12 +2177,12 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): RadioButton;
       setHeight(height: string): RadioButton;
       setId(id: string): RadioButton;
-      setLayoutData(layout: Object): RadioButton;
+      setLayoutData(layout: any): RadioButton;
       setName(name: string): RadioButton;
       setPixelSize(width: Integer, height: Integer): RadioButton;
       setSize(width: string, height: string): RadioButton;
       setStyleAttribute(attribute: string, value: string): RadioButton;
-      setStyleAttributes(attributes: Object): RadioButton;
+      setStyleAttributes(attributes: any): RadioButton;
       setStyleName(styleName: string): RadioButton;
       setStylePrimaryName(styleName: string): RadioButton;
       setTabIndex(index: Integer): RadioButton;
@@ -2316,28 +2198,25 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A standard push-button widget which will automatically reset its enclosing FormPanel if
-     *  any.
+     * any.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var panel = app.createFlowPanel();
-     *        panel.add(app.createTextBox().setText("some text"));
-     *        panel.add(app.createResetButton("reset the textbox"));
-     *        var form = app.createFormPanel();
-     *        form.add(panel);
-     *        app.add(form);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var panel = app.createFlowPanel();
+     *       panel.add(app.createTextBox().setText("some text"));
+     *       panel.add(app.createResetButton("reset the textbox"));
+     *       var form = app.createFormPanel();
+     *       form.add(panel);
+     *       app.add(form);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the ResetButton documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the ResetButton documentation here.
      */
     export interface ResetButton {
       addBlurHandler(handler: Handler): ResetButton;
@@ -2363,11 +2242,11 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): ResetButton;
       setHeight(height: string): ResetButton;
       setId(id: string): ResetButton;
-      setLayoutData(layout: Object): ResetButton;
+      setLayoutData(layout: any): ResetButton;
       setPixelSize(width: Integer, height: Integer): ResetButton;
       setSize(width: string, height: string): ResetButton;
       setStyleAttribute(attribute: string, value: string): ResetButton;
-      setStyleAttributes(attributes: Object): ResetButton;
+      setStyleAttributes(attributes: any): ResetButton;
       setStyleName(styleName: string): ResetButton;
       setStylePrimaryName(styleName: string): ResetButton;
       setTabIndex(index: Integer): ResetButton;
@@ -2381,32 +2260,29 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that wraps its contents in a scrollable element.
      *
-     *  Note that this panel can contain at most one direct child widget. To add more children, make the
-     *  child of this panel a different panel that can contain more than one child.
+     * Note that this panel can contain at most one direct child widget. To add more children, make
+     * the child of this panel a different panel that can contain more than one child.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        // Create some long content.
-     *        var vertical = app.createVerticalPanel();
-     *        for (var i = 0; i < 100; ++i) {
-     *          vertical.add(app.createButton("button " + i));
-     *        }
-     *        var scroll = app.createScrollPanel().setPixelSize(100, 100);
-     *        scroll.add(vertical);
-     *        app.add(scroll);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       // Create some long content.
+     *       var vertical = app.createVerticalPanel();
+     *       for (var i = 0; i < 100; ++i) {
+     *         vertical.add(app.createButton("button " + i));
+     *       }
+     *       var scroll = app.createScrollPanel().setPixelSize(100, 100);
+     *       scroll.add(vertical);
+     *       app.add(scroll);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the ScrollPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the ScrollPanel documentation here.
      */
     export interface ScrollPanel {
       add(widget: Widget): ScrollPanel;
@@ -2421,12 +2297,12 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): ScrollPanel;
       setHorizontalScrollPosition(position: Integer): ScrollPanel;
       setId(id: string): ScrollPanel;
-      setLayoutData(layout: Object): ScrollPanel;
+      setLayoutData(layout: any): ScrollPanel;
       setPixelSize(width: Integer, height: Integer): ScrollPanel;
       setScrollPosition(position: Integer): ScrollPanel;
       setSize(width: string, height: string): ScrollPanel;
       setStyleAttribute(attribute: string, value: string): ScrollPanel;
-      setStyleAttributes(attributes: Object): ScrollPanel;
+      setStyleAttributes(attributes: any): ScrollPanel;
       setStyleName(styleName: string): ScrollPanel;
       setStylePrimaryName(styleName: string): ScrollPanel;
       setTag(tag: string): ScrollPanel;
@@ -2439,29 +2315,26 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * An event handler that runs on the server. These will, in general, run much slower than ClientHandlers but they are not limited in what they can do.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * An event handler that runs on the server. These will, in general, run much slower than
-     *  ClientHandlers but they are not limited in what they can do.
+     * Any method that accepts a "Handler" parameter can accept a ServerHandler.
      *
-     *  Any method that accepts a "Handler" parameter can accept a ServerHandler.
+     * When a ServerHandler is invoked, the function it refers to is called on the Apps Script server
+     * in a "fresh" script. This means that no variable values will have survived from previous handlers
+     * or from the initial script that loaded the app. Global variables in the script will be
+     * re-evaluated, which means that it's a bad idea to do anything slow (like opening a Spreadsheet or
+     * fetching a Calendar) in a global variable.
      *
-     *  When a ServerHandler is invoked, the function it refers to is called on the Apps Script server in
-     *  a "fresh" script. This means that no variable values will have survived from previous handlers or
-     *  from the initial script that loaded the app. Global variables in the script will be re-evaluated,
-     *  which means that it's a bad idea to do anything slow (like opening a Spreadsheet or fetching a
-     *  Calendar) in a global variable.
+     * If you need to save state on the server, you can try using ScriptProperties or UserProperties.
+     * You can also add a Hidden field to your app storing the information you want to save and
+     * pass it back explicitly to handlers as a "callback element."
      *
-     *  If you need to save state on the server, you can try using ScriptProperties or UserProperties.
-     *  You can also add a Hidden field to your app storing the information you want to save
-     *  and pass it back explicitly to handlers as a "callback element."
+     * If you set validators on a ServerHandler, they will be checked before the handler calls the
+     * server. The server will only be called if the validators succeed.
      *
-     *  If you set validators on a ServerHandler, they will be checked before the handler calls the
-     *  server. The server will only be called if the validators succeed.
-     *
-     *  If you have multiple ServerHandlers for the same event on the same widget, they will be called
-     *  simultaneously.
+     * If you have multiple ServerHandlers for the same event on the same widget, they will be called
+     * simultaneously.
      */
     export interface ServerHandler {
       addCallbackElement(widget: Widget): ServerHandler;
@@ -2483,25 +2356,22 @@ declare namespace GoogleAppsScript {
       validateNotMatches(widget: Widget, pattern: string, flags: string): ServerHandler;
       validateNotNumber(widget: Widget): ServerHandler;
       validateNotOptions(widget: Widget, options: string[]): ServerHandler;
-      validateNotRange(widget: Widget, min: Number, max: Number): ServerHandler;
+      validateNotRange(widget: Widget, min: number, max: number): ServerHandler;
       validateNotSum(widgets: Widget[], sum: Integer): ServerHandler;
       validateNumber(widget: Widget): ServerHandler;
       validateOptions(widget: Widget, options: string[]): ServerHandler;
-      validateRange(widget: Widget, min: Number, max: Number): ServerHandler;
+      validateRange(widget: Widget, min: number, max: number): ServerHandler;
       validateSum(widgets: Widget[], sum: Integer): ServerHandler;
     }
 
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A simple checkbox widget, with no label.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the SimpleCheckBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the SimpleCheckBox documentation here.
      */
     export interface SimpleCheckBox {
       addBlurHandler(handler: Handler): SimpleCheckBox;
@@ -2527,12 +2397,12 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): SimpleCheckBox;
       setHeight(height: string): SimpleCheckBox;
       setId(id: string): SimpleCheckBox;
-      setLayoutData(layout: Object): SimpleCheckBox;
+      setLayoutData(layout: any): SimpleCheckBox;
       setName(name: string): SimpleCheckBox;
       setPixelSize(width: Integer, height: Integer): SimpleCheckBox;
       setSize(width: string, height: string): SimpleCheckBox;
       setStyleAttribute(attribute: string, value: string): SimpleCheckBox;
-      setStyleAttributes(attributes: Object): SimpleCheckBox;
+      setStyleAttributes(attributes: any): SimpleCheckBox;
       setStyleName(styleName: string): SimpleCheckBox;
       setStylePrimaryName(styleName: string): SimpleCheckBox;
       setTabIndex(index: Integer): SimpleCheckBox;
@@ -2545,30 +2415,27 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that can contain only one widget.
      *
-     *  This panel is useful for adding styling effects to the child widget. To add more children, make
-     *  the child of this panel a different panel that can contain more than one child.
+     * This panel is useful for adding styling effects to the child widget. To add more children,
+     * make the child of this panel a different panel that can contain more than one child.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var simple = app.createSimplePanel();
-     *        var flow = app.createFlowPanel();
-     *        flow.add(app.createButton("button 1"));
-     *        flow.add(app.createButton("button 2"));
-     *        simple.add(flow);
-     *        app.add(simple);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var simple = app.createSimplePanel();
+     *       var flow = app.createFlowPanel();
+     *       flow.add(app.createButton("button 1"));
+     *       flow.add(app.createButton("button 2"));
+     *       simple.add(flow);
+     *       app.add(simple);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the SimplePanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the SimplePanel documentation here.
      */
     export interface SimplePanel {
       add(widget: Widget): SimplePanel;
@@ -2580,11 +2447,11 @@ declare namespace GoogleAppsScript {
       getType(): string;
       setHeight(height: string): SimplePanel;
       setId(id: string): SimplePanel;
-      setLayoutData(layout: Object): SimplePanel;
+      setLayoutData(layout: any): SimplePanel;
       setPixelSize(width: Integer, height: Integer): SimplePanel;
       setSize(width: string, height: string): SimplePanel;
       setStyleAttribute(attribute: string, value: string): SimplePanel;
-      setStyleAttributes(attributes: Object): SimplePanel;
+      setStyleAttributes(attributes: any): SimplePanel;
       setStyleName(styleName: string): SimplePanel;
       setStylePrimaryName(styleName: string): SimplePanel;
       setTag(tag: string): SimplePanel;
@@ -2597,16 +2464,13 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A simple radio button widget, with no label.
      *
-     *  SimpleRadioButtons are grouped according to the same rules as RadioButtons.
+     * SimpleRadioButtons are grouped according to the same rules as RadioButtons.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the SimpleRadioButton documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the SimpleRadioButton documentation here.
      */
     export interface SimpleRadioButton {
       addBlurHandler(handler: Handler): SimpleRadioButton;
@@ -2632,12 +2496,12 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): SimpleRadioButton;
       setHeight(height: string): SimpleRadioButton;
       setId(id: string): SimpleRadioButton;
-      setLayoutData(layout: Object): SimpleRadioButton;
+      setLayoutData(layout: any): SimpleRadioButton;
       setName(name: string): SimpleRadioButton;
       setPixelSize(width: Integer, height: Integer): SimpleRadioButton;
       setSize(width: string, height: string): SimpleRadioButton;
       setStyleAttribute(attribute: string, value: string): SimpleRadioButton;
-      setStyleAttributes(attributes: Object): SimpleRadioButton;
+      setStyleAttributes(attributes: any): SimpleRadioButton;
       setStyleName(styleName: string): SimpleRadioButton;
       setStylePrimaryName(styleName: string): SimpleRadioButton;
       setTabIndex(index: Integer): SimpleRadioButton;
@@ -2650,26 +2514,23 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that adds user-positioned splitters between each of its child widgets.
      *
-     *  This panel is similar to a DockLayoutPanel, but each pair of child widgets has a splitter
-     *  between them that the user can drag.
+     * This panel is similar to a DockLayoutPanel, but each pair of child widgets has a
+     * splitter between them that the user can drag.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the SplitLayoutPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the SplitLayoutPanel documentation here.
      */
     export interface SplitLayoutPanel {
       add(widget: Widget): SplitLayoutPanel;
-      addEast(widget: Widget, width: Number): SplitLayoutPanel;
-      addNorth(widget: Widget, height: Number): SplitLayoutPanel;
-      addSouth(widget: Widget, height: Number): SplitLayoutPanel;
+      addEast(widget: Widget, width: number): SplitLayoutPanel;
+      addNorth(widget: Widget, height: number): SplitLayoutPanel;
+      addSouth(widget: Widget, height: number): SplitLayoutPanel;
       addStyleDependentName(styleName: string): SplitLayoutPanel;
       addStyleName(styleName: string): SplitLayoutPanel;
-      addWest(widget: Widget, width: Number): SplitLayoutPanel;
+      addWest(widget: Widget, width: number): SplitLayoutPanel;
       clear(): SplitLayoutPanel;
       getId(): string;
       getTag(): string;
@@ -2678,11 +2539,11 @@ declare namespace GoogleAppsScript {
       remove(widget: Widget): SplitLayoutPanel;
       setHeight(height: string): SplitLayoutPanel;
       setId(id: string): SplitLayoutPanel;
-      setLayoutData(layout: Object): SplitLayoutPanel;
+      setLayoutData(layout: any): SplitLayoutPanel;
       setPixelSize(width: Integer, height: Integer): SplitLayoutPanel;
       setSize(width: string, height: string): SplitLayoutPanel;
       setStyleAttribute(attribute: string, value: string): SplitLayoutPanel;
-      setStyleAttributes(attributes: Object): SplitLayoutPanel;
+      setStyleAttributes(attributes: any): SplitLayoutPanel;
       setStyleName(styleName: string): SplitLayoutPanel;
       setStylePrimaryName(styleName: string): SplitLayoutPanel;
       setTag(tag: string): SplitLayoutPanel;
@@ -2695,15 +2556,12 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A panel that stacks its children vertically, displaying only one at a time, with a header for
+     * each child which the user can click to display.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A panel that stacks its children vertically, displaying only one at a time,
-     *  with a header for each child which the user can click to display.
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the StackPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the StackPanel documentation here.
      */
     export interface StackPanel {
       add(widget: Widget): StackPanel;
@@ -2719,13 +2577,13 @@ declare namespace GoogleAppsScript {
       remove(widget: Widget): StackPanel;
       setHeight(height: string): StackPanel;
       setId(id: string): StackPanel;
-      setLayoutData(layout: Object): StackPanel;
+      setLayoutData(layout: any): StackPanel;
       setPixelSize(width: Integer, height: Integer): StackPanel;
       setSize(width: string, height: string): StackPanel;
       setStackText(index: Integer, text: string): StackPanel;
       setStackText(index: Integer, text: string, asHtml: boolean): StackPanel;
       setStyleAttribute(attribute: string, value: string): StackPanel;
-      setStyleAttributes(attributes: Object): StackPanel;
+      setStyleAttributes(attributes: any): StackPanel;
       setStyleName(styleName: string): StackPanel;
       setStylePrimaryName(styleName: string): StackPanel;
       setTag(tag: string): StackPanel;
@@ -2737,35 +2595,32 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A standard push-button widget which will automatically submit its enclosing FormPanel if
-     *  any.
+     * any.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var form = app.createFormPanel();
-     *        var flow = app.createFlowPanel();
-     *        flow.add(app.createTextBox().setName("textBox"));
-     *        flow.add(app.createSubmitButton("Submit"));
-     *        form.add(flow);
-     *        app.add(form);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var form = app.createFormPanel();
+     *       var flow = app.createFlowPanel();
+     *       flow.add(app.createTextBox().setName("textBox"));
+     *       flow.add(app.createSubmitButton("Submit"));
+     *       form.add(flow);
+     *       app.add(form);
+     *       return app;
+     *     }
      *
-     *      function doPost(eventInfo) {
-     *        var app = UiApp.getActiveApplication();
-     *        app.add(app.createLabel("Form submitted. The text box's value was '" +
-     *            eventInfo.parameter.textBox + "'"));
-     *        return app;
-     *      }
+     *     function doPost(eventInfo) {
+     *       var app = UiApp.getActiveApplication();
+     *       app.add(app.createLabel("Form submitted. The text box's value was '" +
+     *           eventInfo.parameter.textBox + "'"));
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the SubmitButton documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the SubmitButton documentation here.
      */
     export interface SubmitButton {
       addBlurHandler(handler: Handler): SubmitButton;
@@ -2791,11 +2646,11 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): SubmitButton;
       setHeight(height: string): SubmitButton;
       setId(id: string): SubmitButton;
-      setLayoutData(layout: Object): SubmitButton;
+      setLayoutData(layout: any): SubmitButton;
       setPixelSize(width: Integer, height: Integer): SubmitButton;
       setSize(width: string, height: string): SubmitButton;
       setStyleAttribute(attribute: string, value: string): SubmitButton;
-      setStyleAttributes(attributes: Object): SubmitButton;
+      setStyleAttributes(attributes: any): SubmitButton;
       setStyleName(styleName: string): SubmitButton;
       setStylePrimaryName(styleName: string): SubmitButton;
       setTabIndex(index: Integer): SubmitButton;
@@ -2809,14 +2664,13 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. This class is deprecated and should not be used in new scripts.
-     * A SuggestBox is a text box or text area which displays a
-     *  pre-configured set of selections that match the user's input.
+     * A SuggestBox is a text box or text area which displays a pre-configured set of selections
+     * that match the user's input.
      *
-     *  This widget is not currently functional.
+     * This widget is not currently functional.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the SuggestBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the SuggestBox documentation here.
      */
     export interface SuggestBox {
       addKeyDownHandler(handler: Handler): SuggestBox;
@@ -2835,13 +2689,13 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): SuggestBox;
       setHeight(height: string): SuggestBox;
       setId(id: string): SuggestBox;
-      setLayoutData(layout: Object): SuggestBox;
+      setLayoutData(layout: any): SuggestBox;
       setLimit(limit: Integer): SuggestBox;
       setPixelSize(width: Integer, height: Integer): SuggestBox;
       setPopupStyleName(styleName: string): SuggestBox;
       setSize(width: string, height: string): SuggestBox;
       setStyleAttribute(attribute: string, value: string): SuggestBox;
-      setStyleAttributes(attributes: Object): SuggestBox;
+      setStyleAttributes(attributes: any): SuggestBox;
       setStyleName(styleName: string): SuggestBox;
       setStylePrimaryName(styleName: string): SuggestBox;
       setTabIndex(index: Integer): SuggestBox;
@@ -2857,14 +2711,11 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A horizontal bar of folder-style tabs, most commonly used as part of a TabPanel.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the TabBar documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the TabBar documentation here.
      */
     export interface TabBar {
       addBeforeSelectionHandler(handler: Handler): TabBar;
@@ -2880,11 +2731,11 @@ declare namespace GoogleAppsScript {
       selectTab(index: Integer): TabBar;
       setHeight(height: string): TabBar;
       setId(id: string): TabBar;
-      setLayoutData(layout: Object): TabBar;
+      setLayoutData(layout: any): TabBar;
       setPixelSize(width: Integer, height: Integer): TabBar;
       setSize(width: string, height: string): TabBar;
       setStyleAttribute(attribute: string, value: string): TabBar;
-      setStyleAttributes(attributes: Object): TabBar;
+      setStyleAttributes(attributes: any): TabBar;
       setStyleName(styleName: string): TabBar;
       setStylePrimaryName(styleName: string): TabBar;
       setTabEnabled(index: Integer, enabled: boolean): TabBar;
@@ -2898,16 +2749,12 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A panel that represents a tabbed set of pages, each of which contains another widget. Its child
+     * widgets are shown as the user selects the various tabs associated with them.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A panel that represents a tabbed set of pages, each of which contains another
-     *  widget. Its child widgets are shown as the user selects the various tabs
-     *  associated with them.
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the TabPanel documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the TabPanel documentation here.
      */
     export interface TabPanel {
       add(widget: Widget): TabPanel;
@@ -2925,11 +2772,11 @@ declare namespace GoogleAppsScript {
       setAnimationEnabled(animationEnabled: boolean): TabPanel;
       setHeight(height: string): TabPanel;
       setId(id: string): TabPanel;
-      setLayoutData(layout: Object): TabPanel;
+      setLayoutData(layout: any): TabPanel;
       setPixelSize(width: Integer, height: Integer): TabPanel;
       setSize(width: string, height: string): TabPanel;
       setStyleAttribute(attribute: string, value: string): TabPanel;
-      setStyleAttributes(attributes: Object): TabPanel;
+      setStyleAttributes(attributes: any): TabPanel;
       setStyleName(styleName: string): TabPanel;
       setStylePrimaryName(styleName: string): TabPanel;
       setTag(tag: string): TabPanel;
@@ -2941,34 +2788,31 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A text box that allows multiple lines of text to be entered.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var text = app.createTextArea().setName("text");
-     *        var handler = app.createServerHandler("count").addCallbackElement(text);
-     *        app.add(text);
-     *        app.add(app.createButton("Count", handler));
-     *        app.add(app.createLabel("0 characters").setId("label"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var text = app.createTextArea().setName("text");
+     *       var handler = app.createServerHandler("count").addCallbackElement(text);
+     *       app.add(text);
+     *       app.add(app.createButton("Count", handler));
+     *       app.add(app.createLabel("0 characters").setId("label"));
+     *       return app;
+     *     }
      *
-     *      function count(eventInfo) {
-     *        var app = UiApp.createApplication();
-     *        // Because the text area was named "text" and added as a callback element to the
-     *        // button's click event, we have its value available in eventInfo.parameter.text.
-     *        app.getElementById("label").setText(eventInfo.parameter.text.length + " characters");
-     *        return app;
-     *      }
+     *     function count(eventInfo) {
+     *       var app = UiApp.createApplication();
+     *       // Because the text area was named "text" and added as a callback element to the
+     *       // button's click event, we have its value available in eventInfo.parameter.text.
+     *       app.getElementById("label").setText(eventInfo.parameter.text.length + " characters");
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the TextArea documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the TextArea documentation here.
      */
     export interface TextArea {
       addBlurHandler(handler: Handler): TextArea;
@@ -2998,14 +2842,14 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): TextArea;
       setHeight(height: string): TextArea;
       setId(id: string): TextArea;
-      setLayoutData(layout: Object): TextArea;
+      setLayoutData(layout: any): TextArea;
       setName(name: string): TextArea;
       setPixelSize(width: Integer, height: Integer): TextArea;
       setReadOnly(readOnly: boolean): TextArea;
       setSelectionRange(position: Integer, length: Integer): TextArea;
       setSize(width: string, height: string): TextArea;
       setStyleAttribute(attribute: string, value: string): TextArea;
-      setStyleAttributes(attributes: Object): TextArea;
+      setStyleAttributes(attributes: any): TextArea;
       setStyleName(styleName: string): TextArea;
       setStylePrimaryName(styleName: string): TextArea;
       setTabIndex(index: Integer): TextArea;
@@ -3023,34 +2867,31 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A standard single-line text box.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var text = app.createTextBox().setName("text");
-     *        var handler = app.createServerHandler("count").addCallbackElement(text);
-     *        app.add(text);
-     *        app.add(app.createButton("Count", handler));
-     *        app.add(app.createLabel("0 characters").setId("label"));
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var text = app.createTextBox().setName("text");
+     *       var handler = app.createServerHandler("count").addCallbackElement(text);
+     *       app.add(text);
+     *       app.add(app.createButton("Count", handler));
+     *       app.add(app.createLabel("0 characters").setId("label"));
+     *       return app;
+     *     }
      *
-     *      function count(eventInfo) {
-     *        var app = UiApp.createApplication();
-     *        // Because the text box was named "text" and added as a callback element to the
-     *        // button's click event, we have its value available in eventInfo.parameter.text.
-     *        app.getElementById("label").setText(eventInfo.parameter.text.length + " characters");
-     *        return app;
-     *      }
+     *     function count(eventInfo) {
+     *       var app = UiApp.createApplication();
+     *       // Because the text box was named "text" and added as a callback element to the
+     *       // button's click event, we have its value available in eventInfo.parameter.text.
+     *       app.getElementById("label").setText(eventInfo.parameter.text.length + " characters");
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the TextBox documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the TextBox documentation here.
      */
     export interface TextBox {
       addBlurHandler(handler: Handler): TextBox;
@@ -3079,7 +2920,7 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): TextBox;
       setHeight(height: string): TextBox;
       setId(id: string): TextBox;
-      setLayoutData(layout: Object): TextBox;
+      setLayoutData(layout: any): TextBox;
       setMaxLength(length: Integer): TextBox;
       setName(name: string): TextBox;
       setPixelSize(width: Integer, height: Integer): TextBox;
@@ -3087,7 +2928,7 @@ declare namespace GoogleAppsScript {
       setSelectionRange(position: Integer, length: Integer): TextBox;
       setSize(width: string, height: string): TextBox;
       setStyleAttribute(attribute: string, value: string): TextBox;
-      setStyleAttributes(attributes: Object): TextBox;
+      setStyleAttributes(attributes: any): TextBox;
       setStyleName(styleName: string): TextBox;
       setStylePrimaryName(styleName: string): TextBox;
       setTabIndex(index: Integer): TextBox;
@@ -3105,15 +2946,12 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A ToggleButton is a stylish stateful button which allows the user to toggle between
+     * up and down states.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A ToggleButton is a stylish stateful button which allows the
-     *  user to toggle between up and down states.
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the ToggleButton documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the ToggleButton documentation here.
      */
     export interface ToggleButton {
       addBlurHandler(handler: Handler): ToggleButton;
@@ -3140,11 +2978,11 @@ declare namespace GoogleAppsScript {
       setHTML(html: string): ToggleButton;
       setHeight(height: string): ToggleButton;
       setId(id: string): ToggleButton;
-      setLayoutData(layout: Object): ToggleButton;
+      setLayoutData(layout: any): ToggleButton;
       setPixelSize(width: Integer, height: Integer): ToggleButton;
       setSize(width: string, height: string): ToggleButton;
       setStyleAttribute(attribute: string, value: string): ToggleButton;
-      setStyleAttributes(attributes: Object): ToggleButton;
+      setStyleAttributes(attributes: any): ToggleButton;
       setStyleName(styleName: string): ToggleButton;
       setStylePrimaryName(styleName: string): ToggleButton;
       setTabIndex(index: Integer): ToggleButton;
@@ -3158,15 +2996,12 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
+     * A standard hierarchical tree widget. The tree contains a hierarchy of TreeItems that the
+     * user can open, close, and select.
      *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
-     * A standard hierarchical tree widget. The tree contains a hierarchy of
-     *  TreeItems that the user can open, close, and select.
-     *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the Tree documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the Tree documentation here.
      */
     export interface Tree {
       add(widget: Widget): Tree;
@@ -3198,13 +3033,13 @@ declare namespace GoogleAppsScript {
       setFocus(focus: boolean): Tree;
       setHeight(height: string): Tree;
       setId(id: string): Tree;
-      setLayoutData(layout: Object): Tree;
+      setLayoutData(layout: any): Tree;
       setPixelSize(width: Integer, height: Integer): Tree;
       setSelectedItem(item: TreeItem): Tree;
       setSelectedItem(item: TreeItem, fireEvents: boolean): Tree;
       setSize(width: string, height: string): Tree;
       setStyleAttribute(attribute: string, value: string): Tree;
-      setStyleAttributes(attributes: Object): Tree;
+      setStyleAttributes(attributes: any): Tree;
       setStyleName(styleName: string): Tree;
       setStylePrimaryName(styleName: string): Tree;
       setTabIndex(index: Integer): Tree;
@@ -3217,14 +3052,11 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * An item that can be contained within a Tree.
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the TreeItem documentation here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the TreeItem documentation here.
      */
     export interface TreeItem {
       addItem(text: string): TreeItem;
@@ -3245,13 +3077,13 @@ declare namespace GoogleAppsScript {
       setState(open: boolean): TreeItem;
       setState(open: boolean, fireEvents: boolean): TreeItem;
       setStyleAttribute(attribute: string, value: string): TreeItem;
-      setStyleAttributes(attributes: Object): TreeItem;
+      setStyleAttributes(attributes: any): TreeItem;
       setStyleName(styleName: string): TreeItem;
       setStylePrimaryName(styleName: string): TreeItem;
       setTag(tag: string): TreeItem;
       setText(text: string): TreeItem;
       setTitle(title: string): TreeItem;
-      setUserObject(a: Object): TreeItem;
+      setUserObject(a: any): TreeItem;
       setVisible(visible: boolean): TreeItem;
       setWidget(widget: Widget): TreeItem;
       setWidth(width: string): TreeItem;
@@ -3260,9 +3092,7 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * Create user interfaces for use inside G Suite or as standalone services.
      */
     export interface UiApp {
@@ -3278,12 +3108,10 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A representation of a user interface.
      *
-     *  You can use this to create a new user interface or manipulate an existing one.
+     * You can use this to create a new user interface or manipulate an existing one.
      */
     export interface UiInstance {
       add(child: Widget): UiInstance;
@@ -3415,7 +3243,7 @@ declare namespace GoogleAppsScript {
       getId(): string;
       isStandardsMode(): boolean;
       loadComponent(componentName: string): Component;
-      loadComponent(componentName: string, optAdvancedArgs: Object): Component;
+      loadComponent(componentName: string, optAdvancedArgs: any): Component;
       remove(index: Integer): UiInstance;
       remove(widget: Widget): UiInstance;
       setHeight(height: Integer): UiInstance;
@@ -3428,9 +3256,7 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * Vertical alignment constants to use with setVerticalAlignment methods in UiApp.
      */
     export enum VerticalAlignment { TOP, MIDDLE, BOTTOM }
@@ -3438,26 +3264,22 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * A panel that lays all of its widgets out in a single vertical column.
      *
-     *  Here is an example of how to use this widget:
+     * Here is an example of how to use this widget:
      *
-     *      function doGet() {
-     *        var app = UiApp.createApplication();
-     *        var panel = app.createVerticalPanel();
-     *        panel.add(app.createButton("button 1"));
-     *        panel.add(app.createButton("button 2"));
-     *        app.add(panel);
-     *        return app;
-     *      }
+     *     function doGet() {
+     *       var app = UiApp.createApplication();
+     *       var panel = app.createVerticalPanel();
+     *       panel.add(app.createButton("button 1"));
+     *       panel.add(app.createButton("button 2"));
+     *       app.add(panel);
+     *       return app;
+     *     }
      *
-     *  Internally, UiApp widgets are built on top of the
-     *  Google Web Toolkit, and it can sometimes be helpful to look at the GWT documentation
-     *  directly. You can find the VerticalPanel documentation
-     *  here.
+     * Internally, UiApp widgets are built on top of the Google Web Toolkit, and it can sometimes be helpful
+     * to look at the GWT documentation directly. You can find the VerticalPanel documentation here.
      */
     export interface VerticalPanel {
       add(widget: Widget): VerticalPanel;
@@ -3477,12 +3299,12 @@ declare namespace GoogleAppsScript {
       setHeight(height: string): VerticalPanel;
       setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): VerticalPanel;
       setId(id: string): VerticalPanel;
-      setLayoutData(layout: Object): VerticalPanel;
+      setLayoutData(layout: any): VerticalPanel;
       setPixelSize(width: Integer, height: Integer): VerticalPanel;
       setSize(width: string, height: string): VerticalPanel;
       setSpacing(spacing: Integer): VerticalPanel;
       setStyleAttribute(attribute: string, value: string): VerticalPanel;
-      setStyleAttributes(attributes: Object): VerticalPanel;
+      setStyleAttributes(attributes: any): VerticalPanel;
       setStyleName(styleName: string): VerticalPanel;
       setStylePrimaryName(styleName: string): VerticalPanel;
       setTag(tag: string): VerticalPanel;
@@ -3495,9 +3317,7 @@ declare namespace GoogleAppsScript {
     /**
      *
      * Deprecated. The UI service was
-     *
-     *      deprecated on December 11, 2014. To create user interfaces, use the
-     *      HTML service instead.
+     *     deprecated on December 11, 2014. To create user interfaces, use the HTML service instead.
      * Base interface for UiApp widgets.
      * Implementing classes
      *
@@ -3509,8 +3329,8 @@ declare namespace GoogleAppsScript {
      *
      * ButtonA standard push-button widget.
      *
-     * CaptionPanelA panel that wraps its contents in a border with a caption that appears in the upper left
-     *  corner of the border.
+     * CaptionPanelA panel that wraps its contents in a border with a caption that appears in the upper left corner
+     * of the border.
      *
      * ChartA Chart object, which can be embedded into documents, UI elements, or used as a static image.
      *
@@ -3518,27 +3338,26 @@ declare namespace GoogleAppsScript {
      *
      * ControlA user interface control object, that drives the data displayed by a DashboardPanel.
      *
-     * DashboardPanelA dashboard is a visual structure that enables the organization and management
-     *  of multiple charts that share the same underlying data.
+     * DashboardPanelA dashboard is a visual structure that enables the organization and management of multiple charts
+     * that share the same underlying data.
      *
      * DateBoxA text box that shows a DatePicker when the user focuses on it.
      *
      * DatePickerA date picker widget.
      *
      * DecoratedStackPanelA StackPanel that wraps each item in a 2x3 grid (six box), which allows users to add
-     *  rounded corners.
+     * rounded corners.
      *
      * DecoratedTabBarA TabBar that wraps each tab in a 2x3 grid (six box), which allows users to add rounded corners.
      *
      * DecoratedTabPanelA TabPanel that uses a DecoratedTabBar with rounded corners.
      *
      * DecoratorPanelA SimplePanel that wraps its contents in stylized boxes, which can be used to add rounded
-     *  corners to a Widget.
+     * corners to a Widget.
      *
-     * DialogBoxA form of popup that has a caption area at the top and can be dragged by the
-     *  user.
+     * DialogBoxA form of popup that has a caption area at the top and can be dragged by the user.
      *
-     * EmbeddedChartRepresents a chart that has been embedded into a Spreadsheet.
+     * EmbeddedChartRepresents a chart that has been embedded into a spreadsheet.
      *
      * FileUploadA widget that wraps the HTML <input type='file'> element.
      *
@@ -3547,7 +3366,7 @@ declare namespace GoogleAppsScript {
      * FlowPanelA panel that formats its child widgets using the default HTML layout behavior.
      *
      * FocusPanelA simple panel that makes its contents focusable, and adds the ability to catch mouse and
-     *  keyboard events.
+     * keyboard events.
      *
      * FormPanelA panel that wraps its contents in an HTML <FORM> element.
      *
@@ -3556,7 +3375,7 @@ declare namespace GoogleAppsScript {
      * HTMLA widget that contains arbitrary text, which is interpreted as HTML.
      *
      * HiddenRepresents a hidden field for storing data in the user's browser that can be passed back to a
-     *  handler as a "callback element".
+     * handler as a "callback element".
      *
      * HorizontalPanelA panel that lays all of its widgets out in a single horizontal column.
      *
@@ -3566,8 +3385,8 @@ declare namespace GoogleAppsScript {
      *
      * LabelA widget that contains arbitrary text, not interpreted as HTML.
      *
-     * ListBoxA widget that presents a list of choices to the user, either as a list box or
-     *  as a drop-down list.
+     * ListBoxA widget that presents a list of choices to the user, either as a list box or as a drop-down
+     * list.
      *
      * MenuBarA standard menu bar widget.
      *
@@ -3580,7 +3399,7 @@ declare namespace GoogleAppsScript {
      * RadioButtonA mutually-exclusive selection radio button widget.
      *
      * ResetButtonA standard push-button widget which will automatically reset its enclosing FormPanel if
-     *  any.
+     * any.
      *
      * ScrollPanelA panel that wraps its contents in a scrollable element.
      *
@@ -3592,26 +3411,25 @@ declare namespace GoogleAppsScript {
      *
      * SplitLayoutPanelA panel that adds user-positioned splitters between each of its child widgets.
      *
-     * StackPanelA panel that stacks its children vertically, displaying only one at a time,
-     *  with a header for each child which the user can click to display.
+     * StackPanelA panel that stacks its children vertically, displaying only one at a time, with a header for
+     * each child which the user can click to display.
      *
      * SubmitButtonA standard push-button widget which will automatically submit its enclosing FormPanel if
-     *  any.
+     * any.
      *
-     * SuggestBoxA SuggestBox is a text box or text area which displays a
-     *  pre-configured set of selections that match the user's input.
+     * SuggestBoxA SuggestBox is a text box or text area which displays a pre-configured set of selections
+     * that match the user's input.
      *
      * TabBarA horizontal bar of folder-style tabs, most commonly used as part of a TabPanel.
      *
-     * TabPanelA panel that represents a tabbed set of pages, each of which contains another
-     *  widget.
+     * TabPanelA panel that represents a tabbed set of pages, each of which contains another widget.
      *
      * TextAreaA text box that allows multiple lines of text to be entered.
      *
      * TextBoxA standard single-line text box.
      *
-     * ToggleButtonA ToggleButton is a stylish stateful button which allows the
-     *  user to toggle between up and down states.
+     * ToggleButtonA ToggleButton is a stylish stateful button which allows the user to toggle between
+     * up and down states.
      *
      * TreeA standard hierarchical tree widget.
      *

@@ -8,12 +8,9 @@ import {
 import Drawer from 'react-native-drawer';
 
 class DrawerTest extends React.Component<{}, {open: boolean}> {
-    constructor(props: {}) {
-      super(props);
-      this.state = {
+    state = {
         open: true
-      };
-    }
+    };
 
     render() {
         return (
@@ -25,6 +22,9 @@ class DrawerTest extends React.Component<{}, {open: boolean}> {
               onClose={this.onClose}
               closedDrawerOffset={100}
               openDrawerOffset={(viewport: ScaledSize) => 50}
+              side={ "bottom" }
+              acceptPanOnDrawer={ true }
+              onDragStart={ () => {} }
             >
             </Drawer>
         );

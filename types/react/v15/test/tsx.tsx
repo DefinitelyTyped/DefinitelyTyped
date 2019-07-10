@@ -41,6 +41,16 @@ StatelessComponent2.defaultProps = {
     <b>foo</b>
 </div>;
 
+// WAI-ARIA 1.1 Attributes
+<div
+    aria-atomic={false}
+    aria-checked='true'
+    aria-colcount={7}
+    aria-label='test'
+>
+    <b>bar</b>
+</div>;
+
 interface Props {
     hello: string;
 }
@@ -90,8 +100,9 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 }
 
 // Below tests that & generic still works
-export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
-}
+// This is invalid because 'S' may specify a different type for `baseProp`.
+// export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+// 	   foo() {
+// 	       this.setState({ baseProp: 'foobar' });
+// 	   }
+// }

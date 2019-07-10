@@ -28,6 +28,12 @@ declare namespace serveStatic {
     var mime: typeof m;
     interface ServeStaticOptions {
         /**
+         * Enable or disable setting Cache-Control response header, defaults to true. 
+         * Disabling this will ignore the immutable and maxAge options.
+         */
+        cacheControl?: boolean;
+
+        /**
          * Set how "dotfiles" are treated when encountered. A dotfile is a file or directory that begins with a dot (".").
          * Note this check is done on the path itself without checking if the path actually exists on the disk.
          * If root is specified, only the dotfiles above the root are checked (i.e. the root itself can be within a dotfile when when set to "deny").

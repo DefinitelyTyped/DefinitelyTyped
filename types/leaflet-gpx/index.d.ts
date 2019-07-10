@@ -1,6 +1,6 @@
-// Type definitions for leaflet-gpx 1.1
+// Type definitions for leaflet-gpx 1.3
 // Project: https://github.com/mpetazzoni/leaflet-gpx
-// Definitions by: Viktor Soucek <https://github.com/soucekv>
+// Definitions by: Viktor Soucek <https://github.com/soucekv>, Márton Molnár <https://github.com/molnarm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,62 +8,63 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
     interface GPXOptions {
-		async?: boolean;
+        async?: boolean;
         max_point_interval?: number;
         marker_options?: MarkerOptions;
         polyline_options?: PolylineOptions;
         gpx_options?: { parseElements: ['track', 'route', 'waypoint'] };
     }
+
     class GPX extends FeatureGroup {
-        constructor(gpx: any, options?: GPXOptions);
-        get_duration_string(duration: any, hidems: any): any;
-        get_duration_string_iso(duration: any, hidems: any): any;
-        to_miles(v: any): any;
-        to_ft(v: any): any;
-        m_to_km(v: any): any;
-        m_to_mi(v: any): any;
+        constructor(gpx: string, options?: GPXOptions);
+        get_duration_string(duration: number, hidems: boolean): string;
+        get_duration_string_iso(duration: number, hidems: boolean): string;
+        to_miles(kilometers: number): number;
+        to_ft(meters: number): number;
+        m_to_km(meters: number): number;
+        m_to_mi(meters: number): number;
 
-        get_name(): any;
-        get_desc(): any;
-        get_author(): any;
-        get_copyright(): any;
-        get_distance(): any;
-        get_distance_imp(): any;
+        get_name(): string;
+        get_desc(): string;
+        get_author(): string;
+        get_copyright(): string;
+        get_distance(): number;
+        get_distance_imp(): number;
 
-        get_start_time(): any;
-        get_end_time(): any;
-        get_moving_time(): any;
-        get_total_time(): any;
+        get_start_time(): Date;
+        get_end_time(): Date;
+        get_moving_time(): number;
+        get_total_time(): number;
 
-        get_moving_pace(): any;
-        get_moving_pace_imp(): any;
+        get_moving_pace(): number;
+        get_moving_pace_imp(): number;
 
-        get_moving_speed(): any;
-        get_moving_speed_imp(): any;
+        get_moving_speed(): number;
+        get_moving_speed_imp(): number;
 
-        get_total_speed(): any;
-        get_total_speed_imp(): any;
+        get_total_speed(): number;
+        get_total_speed_imp(): number;
 
-        get_elevation_gain(): any;
-        get_elevation_loss(): any;
-        get_elevation_gain_imp(): any;
-        get_elevation_loss_imp(): any;
-        get_elevation_data(): any;
-        get_elevation_data_imp(): any;
-        get_elevation_max(): any;
-        get_elevation_min(): any;
-        get_elevation_max_imp(): any;
-        get_elevation_min_imp(): any;
+        get_elevation_gain(): number;
+        get_elevation_loss(): number;
+        get_elevation_gain_imp(): number;
+        get_elevation_loss_imp(): number;
+        get_elevation_data(): Array<[number, number, string]>;
+        get_elevation_data_imp(): Array<[number, number, string]>;
+        get_elevation_max(): number;
+        get_elevation_min(): number;
+        get_elevation_max_imp(): number;
+        get_elevation_min_imp(): number;
 
-        get_average_hr(): any;
-        get_average_temp(): any;
-        get_average_cadence(): any;
-        get_heartrate_data(): any;
-        get_heartrate_data_imp(): any;
-        get_cadence_data(): any;
-        get_temp_data(): any;
-        get_cadence_data_imp(): any;
-        get_temp_data_imp(): any;
+        get_average_hr(): number;
+        get_average_temp(): number;
+        get_average_cadence(): number;
+        get_heartrate_data(): Array<[number, number, string]>;
+        get_heartrate_data_imp(): Array<[number, number, string]>;
+        get_cadence_data(): Array<[number, number, string]>;
+        get_temp_data(): Array<[number, number, string]>;
+        get_cadence_data_imp(): Array<[number, number, string]>;
+        get_temp_data_imp(): Array<[number, number, string]>;
 
         reload(): void;
     }

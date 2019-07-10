@@ -320,7 +320,7 @@ declare namespace grunt {
          * @see IFileWriteBufferOption
          * @see IFileWriteStringOption
          */
-        interface IFileWriteOptions {
+        interface IFileWriteOptions extends grunt.file.IFileEncodedOption {
             /**
              * These optional globbing patterns will be matched against the filepath
              * (not the filename) using grunt.file.isMatch. If any specified globbing
@@ -349,11 +349,24 @@ declare namespace grunt {
          */
         interface IFileWriteStringOption extends grunt.file.IFileWriteOptions {
             /**
-             * The source file contents and file path are passed into this function,
-             * whose return value will be used as the destination file's contents. If
-             * this function returns `false`, the file copy will be aborted.
-             */
-            process?: (file: string) => boolean;
+            * The source file contents, source file path, and destination file path
+            * are passed into this function, whose return value will be used as the
+            * destination file's contents.  
+            * If this function returns 'false', the file copy will be aborted.
+            * @example
+            ```ts
+const copyOptions: grunt.file.IFileWriteStringOption = {
+  encoding: options.encoding,
+  process: (contents: string, srcpath: string, destpath: string): string | boolean => {
+      // some other code
+      // return the content to be written or return false to cancel
+      return contents;
+  },
+  noProcess: options.noProcess,
+};
+            ```
+            */
+            process?: (contents: string, srcpath: string, destpath: string) => (string | boolean);
         }
 
         /**
@@ -445,8 +458,8 @@ declare namespace grunt {
              * File paths are relative to the Gruntfile unless the current working directory is changed with
              * grunt.file.setBase or the --base command-line option.
              */
-            expand(patterns: string[]): string[];
-            expand(options: IFilesConfig, patterns: string[]): string[];
+            expand(patterns: string | string[]): string[];
+            expand(options: IFilesConfig, patterns: string | string[]): string[];
 
             /**
              * Returns an array of src-dest file mapping objects.
@@ -595,6 +608,12 @@ declare namespace grunt {
             // filter?: string
             // filter?: (src: string) => boolean
             filter?: any;
+
+            /**
+             * Patterns will be matched relative to this path, and all returned filepaths will
+             * also be relative to this path.
+             */
+            cwd?: string;
         }
 
         /**

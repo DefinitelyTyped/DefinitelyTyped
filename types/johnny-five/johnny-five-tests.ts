@@ -71,14 +71,14 @@ board.on('ready', function(){
         freq: 100      // optional
     });
 
-    var motion = new five.IR.Motion(7);
+    var motion = new five.Motion(7);
 
 // Options object with pin property
-    var motion = new five.IR.Motion({
+    var motion = new five.Motion({
         pin: 7
     });
 
-    var proximity = new five.IR.Proximity({
+    var proximity = new five.Proximity({
         controller: "GP2Y0A21YK",
         pin: "A0"
     });
@@ -154,6 +154,11 @@ board.on('ready', function(){
             brake: 11
         }
     });
+
+    var motors = new five.Motors([
+       { controller: 'PCA9685', pins: { pwm: 4, dir: 6 }},
+       { controller: 'PCA9685', pins: { pwm: 5, dir: 7 }}
+    ]);
 
     var piezo = new five.Piezo(3);
 

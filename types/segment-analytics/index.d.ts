@@ -12,6 +12,7 @@ declare namespace SegmentAnalytics {
   interface SegmentOpts {
     integrations?: any;
     anonymousId?: string;
+    context?: object;
   }
 
   // The actual analytics.js object
@@ -19,6 +20,14 @@ declare namespace SegmentAnalytics {
 
     /* Configure Segment with write key */
     load(writeKey: string): void;
+
+    /* Configure Segment with write key & integration management.
+
+       The load method can also be modified to take a second argument,
+       an object with an integrations dictionary, which used to load
+       only the integrations that are marked as enabled with the boolean value true.
+       works in version 4.1.0 or higher */
+   load(writeKey: string, options?: SegmentOpts): void;
 
     /* The identify method is how you tie one of your users and their actions
        to a recognizable userId and traits. */
@@ -40,7 +49,7 @@ declare namespace SegmentAnalytics {
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
-    page(category: string, name: string, properties?: Object,
+    page(category?: string, name?: string, properties?: Object,
          options?: SegmentOpts, callback?: () => void): void;
     page(name?: string, properties?: Object,
          options?: SegmentOpts, callback?: () => void): void;

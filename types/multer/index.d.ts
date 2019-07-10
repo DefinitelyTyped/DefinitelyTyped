@@ -71,6 +71,8 @@ declare namespace multer {
         fields(fields: Field[]): express.RequestHandler;
         /** Accepts all files that comes over the wire. An array of files will be stored in req.files. */
         any(): express.RequestHandler;
+        /** Accept only text fields. If any file upload is made, error with code “LIMIT_UNEXPECTED_FILE” will be issued. This is the same as doing upload.fields([]). */
+        none(): express.RequestHandler;
     }
 }
 

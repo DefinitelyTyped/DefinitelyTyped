@@ -20,9 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "classic.d.ts",
-        "compat.d.ts",
-        "test/react-relay-tests.tsx",
-        "test/react-relay-classic-tests.tsx"
+        "test/react-relay-tests.tsx"
     ]
 }

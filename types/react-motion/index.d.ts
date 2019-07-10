@@ -1,8 +1,10 @@
 // Type definitions for react-motion
 // Project: https://github.com/chenglou/react-motion
-// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>, Alexey Svetliakov <https://github.com/asvetliakov>
+// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
+//                 Alexey Svetliakov <https://github.com/asvetliakov>
+//                 Dimitar Nestorov <https://github.com/dimitarnestorov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Component, ReactElement } from 'react';
 
@@ -63,7 +65,7 @@ interface MotionProps {
      * Callback with your interpolated styles. Must return one react element to render
      * @param interpolatedStyle
      */
-    children?: (interpolatedStyle: PlainStyle) => ReactElement<any>;
+    children?: (interpolatedStyle: PlainStyle) => JSX.Element;
     /**
      * The callback that fires when the animation comes to a rest.
      */
@@ -92,7 +94,7 @@ interface TransitionStyle {
  * Default style for transition
  */
 interface TransitionPlainStyle {
-    key: any;
+    key: string;
     data?: any;
     // same as TransitionStyle, passed as argument to style/children function
     style: PlainStyle;
@@ -111,17 +113,22 @@ interface TransitionProps {
      * <StaggeredMotion/>
      */
     styles: Array<TransitionStyle> | InterpolateFunction;
-    children?: (interpolatedStyles: Array<TransitionPlainStyle>) => ReactElement<any>;
+    children?: (interpolatedStyles: Array<TransitionPlainStyle>) => JSX.Element;
     /**
-     * Triggers when new elements appears
+     * Triggers when a new element will appear
      * @param styleThatEntered
      */
     willEnter?: (styleThatEntered: TransitionStyle) => PlainStyle;
     /**
-     * Triggers when new element disappears
+     * Triggers when an element will disappear
      * @param styleThatLeft
      */
     willLeave?: (styleThatLeft: TransitionStyle) => Style | void;
+    /**
+     * Triggers when an element has disappeared
+     * @param styleThatLeft
+     */
+    didLeave?: (styleThatLeft: TransitionStyle) => void;
 }
 export class TransitionMotion extends Component<TransitionProps> { }
 

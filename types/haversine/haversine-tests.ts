@@ -33,6 +33,22 @@ const optionsShort: haversine.Options = {
 
 haversine(startShort, endShort, optionsShort);
 
+const startLatLng: haversine.CoordinateLatLng = {
+  lat: 11.4017529,
+  lng: 48.1548256,
+};
+
+const endLatLng: haversine.CoordinateLatLng = {
+  lat: 13.1445551,
+  lng: 52.5065133,
+};
+
+const optionsLatLng: haversine.Options = {
+  format: '{lat,lng}'
+};
+
+haversine(startLatLng, endLatLng, optionsLatLng);
+
 const startLatLon: haversine.LatLonTuple = [11.4017529, 48.1548256];
 
 const endLatLon: haversine.LatLonTuple = [13.1445551, 52.5065133];

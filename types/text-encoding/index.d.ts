@@ -1,59 +1,50 @@
 // Type definitions for text-encoding
 // Project: https://github.com/inexorabletash/text-encoding
-// Definitions by: MIZUNE Pine <https://github.com/pine613>
+// Definitions by: Pine Mizune <https://github.com/pine>
+//                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Thomas Nicollet <https://github.com/nwmqpa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 declare namespace TextEncoding {
-    interface TextDecoderOptions {
-        fatal?: boolean;
-        ignoreBOM?: boolean;
-    }
-
-    interface TextDecodeOptions {
-        stream?: boolean;
-    }
-
     interface TextEncoderOptions {
         NONSTANDARD_allowLegacyEncoding?: boolean;
     }
-
-    interface TextDecoder {
-        encoding: string;
-        fatal: boolean;
-        ignoreBOM: boolean;
-        decode(input?: ArrayBuffer | ArrayBufferView, options?: TextDecodeOptions): string;
-    }
-
-    interface TextEncoder {
-        encoding: string;
-        encode(input?: string, options?: TextEncodeOptions): Uint8Array;
-    }
-
-    interface TextEncodeOptions {
-        stream?: boolean;
-    }
-
     interface TextEncoderStatic {
         (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
         new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
     }
 
-    interface TextDecoderStatic {
+    export var TextEncoder: {
+        new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        encoding: string;
+    };
+
+    export var TextDecoder: {
         (label?: string, options?: TextDecoderOptions): TextDecoder;
         new (label?: string, options?: TextDecoderOptions): TextDecoder;
-    }
-
-    interface TextEncodingStatic {
-        TextEncoder: TextEncoderStatic;
-        TextDecoder: TextDecoderStatic;
-    }
+        encoding: string;
+    };
 }
 
-declare var TextDecoder: TextEncoding.TextDecoderStatic;
+interface TextEncodeOptions {
+    stream?: boolean;
+}
 
-declare var TextEncoder: TextEncoding.TextEncoderStatic;
+interface TextDecoderOptions {
+    stream?: boolean;
+}
 
-declare var TextEncoding: TextEncoding.TextEncodingStatic;
+interface TextEncoder {
+    readonly encoding: string;
+    encode(input?: string, options?: TextEncodeOptions): Uint8Array;
+}
+
+interface TextDecoder {
+    readonly encoding: string;
+    decode(input?: Uint8Array, options?: TextDecoderOptions): string;
+}
 
 declare module "text-encoding" {
     export = TextEncoding;

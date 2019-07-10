@@ -56,7 +56,7 @@ router
     .resolve();
 
 router
-    .on('/user/:id/:action', (params: { id: string; action: string }) => {
+    .on('/user/:id/:action', (params: Params) => {
         // If we have http://site.com/user/42/save as a url then
         // params.id = 42
         // params.action = save
@@ -64,7 +64,7 @@ router
     .resolve();
 
 router
-    .on('/user/:id/:action', (params: { id: string; action: string }, query: string) => {
+    .on('/user/:id/:action', (params: Params, query: string) => {
         // If we have http://site.com/user/42/save?answer=42 as a url then
         // params.id = 42
         // params.action = save
@@ -116,6 +116,12 @@ a = (router.generate('trip.save')); // --> /trip/save
 router.pause();
 router.navigate('/en/products');
 router.resume(); // or .pause(false)
+
+router.pause();
+router.historyAPIUpdateMethod('replaceState');
+router.disableIfAPINotAvailable();
+router.off('/trip/:number', { as: 'trip', uses: (params, query) => {}});
+router.resume();
 
 router.on(
     '/user/edit',

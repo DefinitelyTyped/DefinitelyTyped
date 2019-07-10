@@ -1,6 +1,13 @@
 // Type definitions for Dropzone 5.0.0
 // Project: http://www.dropzonejs.com/
-// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Vasya Aksyonov <https://github.com/outring>, Simon Huber <https://github.com/renuo>, Sebastiaan de Rooij <https://github.com/Hikariii>, Ted Bicknell <https://github.com/tedbcsgpro>
+// Definitions by: Natan Vivo <https://github.com/nvivo>
+//                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
+//                 Vasya Aksyonov <https://github.com/outring>
+//                 Simon Huber <https://github.com/renuo>
+//                 Sebastiaan de Rooij <https://github.com/Hikariii>
+//                 Ted Bicknell <https://github.com/tedbcsgpro>
+//                 Daniel Waxweiler <https://github.com/dwaxweiler>
+//                 PikachuEXE <https://github.com/PikachuEXE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,6 +49,12 @@ declare namespace Dropzone {
 		timeout?: number;
 		parallelUploads?: number;
 		uploadMultiple?: boolean;
+		chunking?: boolean;
+		forceChunking?: boolean;
+		chunkSize?: number;
+		parallelChunkUploads?: boolean;
+		retryChunks?: boolean;
+		retryChunksLimit?: number;
 		maxFilesize?: number;
 		paramName?: string;
 		createImageThumbnails?: boolean;
@@ -81,9 +94,11 @@ declare namespace Dropzone {
 		dictRemoveFileConfirmation?: string;
 		dictMaxFilesExceeded?: string;
 		dictFileSizeUnits?: DropzoneDictFileSizeUnits;
+		dictUploadCanceled?: string;
 
 		accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
-		init?(): void;
+		chunksUploaded?(file: DropzoneFile, done: (error?: string | Error) => void): void; 
+		init?(this : Dropzone): void;
 		forceFallback?: boolean;
 		fallback?(): void;
 		resize?(file: DropzoneFile, width?: number, height?: number, resizeMethod?: string): DropzoneResizeInfo;
@@ -127,6 +142,8 @@ declare namespace Dropzone {
 		maxfilesexceeded?(file: DropzoneFile): void;
 		maxfilesreached?(files: DropzoneFile[]): void;
 		queuecomplete?(): void;
+
+		transformFile?(file: DropzoneFile, done: (file: string | Blob) => void): void;
 
 		previewTemplate?: string;
 	}
@@ -299,8 +316,14 @@ declare class Dropzone {
 
 }
 
-interface JQuery {
-	dropzone(options: Dropzone.DropzoneOptions): Dropzone;
+declare global {
+	interface JQuery {
+		dropzone(options: Dropzone.DropzoneOptions): Dropzone;
+	}
+
+	interface HTMLElement {
+		dropzone: Dropzone;
+	}
 }
 
 export = Dropzone;

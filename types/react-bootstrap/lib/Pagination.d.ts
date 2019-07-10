@@ -1,22 +1,23 @@
 import * as React from 'react';
 import { Sizes, SelectCallback } from 'react-bootstrap';
+import PaginationFirst = require('./PaginationFirst');
+import PaginationPrev = require('./PaginationPrev');
+import PaginationNext = require('./PaginationNext');
+import PaginationLast = require('./PaginationLast');
+import PaginationEllipsis = require('./PaginationEllipsis');
+import PaginationItem = require('./PaginationItem');
 
 declare namespace Pagination {
     export interface PaginationProps extends React.HTMLProps<Pagination> {
-        activePage?: number;
         bsSize?: Sizes;
-        bsStyle?: string;
-        boundaryLinks?: boolean;
-        buttonComponentClass?: React.ReactType;
-        ellipsis?: React.ReactNode;
-        first?: React.ReactNode;
-        items?: number;
-        last?: React.ReactNode;
-        maxButtons?: number;
-        next?: React.ReactNode;
-        onSelect?: SelectCallback;
-        prev?: React.ReactNode;
     }
 }
-declare class Pagination extends React.Component<Pagination.PaginationProps> { }
+declare class Pagination extends React.Component<Pagination.PaginationProps> {
+    static First: typeof PaginationFirst;
+    static Prev: typeof PaginationPrev;
+    static Next: typeof PaginationNext;
+    static Last: typeof PaginationLast;
+    static Ellipsis: typeof PaginationEllipsis;
+    static Item: typeof PaginationItem;
+}
 export = Pagination;

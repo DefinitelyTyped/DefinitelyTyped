@@ -180,7 +180,7 @@ canvasRibbon(ribbon); // render ribbon for first chord
 
 // The below fails explicitly, as standard ChordSubgroup objects for source and target are missing "radius" property assumed in default
 // radius accessor. Given the internals of d3 this would lead to a "NaN" radius. So using static typing to raise this to
-// awareness seems appropriate. The alternative, is to create RibbonGenerator using the generics to explictly set the types and
+// awareness seems appropriate. The alternative, is to create RibbonGenerator using the generics to explicitly set the types and
 // then set the radius. Or, one could map a radius property into the Chords returned by the ChordLayout.
 
 // canvasRibbon(chords[0]); // fails, see above
@@ -193,5 +193,5 @@ ribbonPaths = select<SVGGElement, any>('g')
     .datum(chords)
     .selectAll()
     .data(chords => chords)
-    .enter().append<SVGPathElement>('path')
+    .enter().append('path')
     .attr('d', svgRibbon);

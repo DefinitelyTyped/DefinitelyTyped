@@ -21,7 +21,8 @@ import * as accepts from "accepts";
 import * as Cookies from "cookies";
 import { EventEmitter } from "events";
 import { IncomingMessage, ServerResponse, Server } from "http";
-import * as httpAssert from "http-assert";
+import { Http2ServerRequest, Http2ServerResponse } from 'http2';
+import httpAssert = require("http-assert");
 import * as Keygrip from "keygrip";
 import * as compose from "koa-compose";
 import { Socket, ListenOptions } from "net";
@@ -430,12 +431,12 @@ declare interface ContextDelegatedResponse {
     flushHeaders(): void;
 }
 
-declare class Application extends EventEmitter {
+declare class Application<StateT = any, CustomT = {}> extends EventEmitter {
     proxy: boolean;
-    middleware: Application.Middleware[];
+    middleware: Application.Middleware<StateT, CustomT>[];
     subdomainOffset: number;
     env: string;
-    context: Application.BaseContext;
+    context: Application.BaseContext & CustomT;
     request: Application.BaseRequest;
     response: Application.BaseResponse;
     silent: boolean;
@@ -496,23 +497,25 @@ declare class Application extends EventEmitter {
      *
      * Old-style middleware will be converted.
      */
-    use(middleware: Application.Middleware): this;
+    use<NewStateT = {}, NewCustomT = {}>(
+        middleware: Application.Middleware<StateT & NewStateT, CustomT & NewCustomT>,
+    ): Application<StateT & NewStateT, CustomT & NewCustomT>;
 
     /**
      * Return a request handler callback
-     * for node's native http server.
+     * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage, res: ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
 
     /**
      * Initialize a new context.
      *
      * @api private
      */
-    createContext(
+    createContext<StateT = any>(
         req: IncomingMessage,
         res: ServerResponse,
-    ): Application.Context;
+    ): Application.ParameterizedContext<StateT>;
 
     /**
      * Default error handler.
@@ -523,7 +526,7 @@ declare class Application extends EventEmitter {
 }
 
 declare namespace Application {
-    type Middleware = compose.Middleware<Context>;
+    type Middleware<StateT = any, CustomT = {}> = compose.Middleware<ParameterizedContext<StateT, CustomT>>;
 
     interface BaseRequest extends ContextDelegatedRequest {
         /**
@@ -658,7 +661,9 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
-
+        /**
+         * Custom properties.
+         */
         [key: string]: any;
     }
 
@@ -681,7 +686,7 @@ declare namespace Application {
         request: Request;
     }
 
-    interface Context extends BaseContext {
+    interface ExtendableContext extends BaseContext {
         app: Application;
         request: Request;
         response: Response;
@@ -690,12 +695,17 @@ declare namespace Application {
         originalUrl: string;
         cookies: Cookies;
         accept: accepts.Accepts;
-        state: any;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
     }
+
+    type ParameterizedContext<StateT = any, CustomT = {}> = ExtendableContext & {
+        state: StateT;
+    } & CustomT;
+
+    interface Context extends ParameterizedContext {}
 }
 
 export = Application;

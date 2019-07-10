@@ -1,8 +1,8 @@
-// Port of https://github.com/missive/emoji-mart/blob/master/src/components/emoji.js
+// Port of https://github.com/missive/emoji-mart/blob/v2.8.0/stories/index.js
 
 import React = require('react');
 
-import { Picker, Emoji, EmojiProps, CustomEmoji } from 'emoji-mart';
+import { Picker, Emoji, EmojiProps, CustomEmoji, BaseEmoji, NimbleEmojiIndex } from 'emoji-mart';
 
 declare var console: { log(...args: any[]): void; };
 

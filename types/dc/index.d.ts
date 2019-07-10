@@ -5,10 +5,6 @@
 //                 matthias jobst <https://github.com/MatthiasJobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
-
-///<reference types="crossfilter" />
-
 import * as d3 from "d3";
 
 export = dc;
@@ -176,6 +172,7 @@ declare namespace dc {
         legend: IGetSet<Legend, T>;
         options(optionsObject: any): T;
         renderlet(fn: (chart: T) => any): T;
+        useViewBoxResizing: IGetSet<boolean, T>;
 
         on(event: "renderlet", fn: (chart: T, filter: any) => any): T;
         on(event: "pretransition", fn: (chart: T, filter: any) => any): T;

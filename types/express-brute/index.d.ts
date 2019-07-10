@@ -67,19 +67,19 @@ declare namespace ExpressBrute {
          * @summary Allows you to override the value of failCallback for this middleware.
          * @type {Function}
          */
-        failCallback: Function;
+        failCallback?: Function;
 
         /**
          * @summary Disregard IP address when matching requests if set to true. Defaults to false.
          * @type {boolean}
          */
-        ignoreIP: boolean;
+        ignoreIP?: boolean;
 
         /**
          * @summary Key.
          * @type {any}
          */
-        key: any;
+        key?: any;
     }
 
     /**
@@ -154,6 +154,14 @@ declare namespace ExpressBrute {
          * @param {Function}    callback The callback.
          */
         reset(key: string, callback: (error: any) => void): void;
+    }
+}
+    
+declare module "express-serve-static-core" {
+    export interface Request {
+        brute?: {
+            reset?: (callback?: () => void) => void
+        };
     }
 }
 

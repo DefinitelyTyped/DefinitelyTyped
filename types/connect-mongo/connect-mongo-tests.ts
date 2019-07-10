@@ -1,8 +1,7 @@
-
-import * as express from 'express';
+import express = require('express');
 import * as mongoose from 'mongoose';
-import * as session from 'express-session';
-import * as connectMongo from 'connect-mongo';
+import session = require('express-session');
+import connectMongo = require('connect-mongo');
 import * as mongodb from 'mongodb';
 
 var app = express();
@@ -46,8 +45,8 @@ app.use(session({
 
 // NativeMongoPromiseOptions
 var Client = mongodb.MongoClient;
-var mongoDbPromise = Client.connect('mongodb://localhost/test');
+var mongoDbPromise = Client.connect('mongodb://localhost/test').then(client => client.db())
 app.use(session({
     secret: 'secret',
-    store: new MongoStore({ dbPromise: mongoDbPromise})
+    store: new MongoStore({ dbPromise: mongoDbPromise })
 }));

@@ -65,10 +65,10 @@ const PrivateRoute: React.SFC<RouteProps> = ({ component, ...rest }) => (
   )}/>
 );
 
-const Public: React.SFC<RouteComponentProps<{}>> = () => <h3>Public</h3>;
-const Protected: React.SFC<RouteComponentProps<{}>> = () => <h3>Protected</h3>;
+const Public: React.SFC<RouteComponentProps> = () => <h3>Public</h3>;
+const Protected: React.SFC<RouteComponentProps> = () => <h3>Protected</h3>;
 
-class Login extends React.Component<RouteComponentProps<{}>, {redirectToReferrer: boolean}> {
+class Login extends React.Component<RouteComponentProps, {redirectToReferrer: boolean}> {
   state = {
     redirectToReferrer: false
   };

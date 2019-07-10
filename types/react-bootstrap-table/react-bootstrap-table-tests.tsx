@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import {
-  ApplyFilterParameter,
   BootstrapTable,
   ButtonGroupProps,
   CellEdit,
   ColumnDescription,
+  CustomFilter,
   CustomSelectProps,
   DeleteButton,
   EditableAttrs,
@@ -15,6 +15,7 @@ import {
   ExportCSVButton,
   Filter,
   FilterData,
+  FilterType,
   FooterData,
   InsertButton,
   InsertModalColumnDescription,
@@ -32,7 +33,8 @@ import {
   SizePerPageDropDown,
   SortOrder,
   TableHeaderColumn,
-  ToolBarProps
+  ToolBarProps,
+  CustomFilterParameters
 } from 'react-bootstrap-table';
 
 interface Product {
@@ -135,15 +137,21 @@ class TextFilterWithCondition extends React.Component {
   }
 }
 
-function getCustomFilter(filterHandler: (parameters?: ApplyFilterParameter) => void, customFilterParameters: any) {
+interface CustomFilterParams {
+  textOK: string;
+  textNOK: string;
+}
+function getCustomFilter(filterHandler: (parameters?: CustomFilterParameters<CustomFilterParams>, type?: 'CustomFilter') => void, customFilterParameters: CustomFilterParameters<CustomFilterParams>) {
   return (
     <div />
   );
 }
 
-class CustomFilter extends React.Component {
+function customFilterCallback(cell: any, callbackParameters: CustomFilterParams) { return true; }
+
+class CustomFilterTable extends React.Component {
   render() {
-    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } };
+    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { callback: customFilterCallback, callbackParameters: { textOK: 'yes', textNOK: 'no' }} };
     return (
       <BootstrapTable data={products}>
         <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
@@ -154,9 +162,38 @@ class CustomFilter extends React.Component {
   }
 }
 
-class RemoteProps extends React.Component {
+class RemotePropsDefault extends React.Component {
   render() {
-    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } };
+    const filter: CustomFilter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { callback: customFilterCallback, callbackParameters: { textOK: 'yes', textNOK: 'no' }} };
+    return (
+      <BootstrapTable
+        data={products}
+        remote={(remoteObj) => {
+          remoteObj.cellEdit = true;
+          return remoteObj;
+        }}
+        options={{
+          onCellEdit: (row: any, fieldName: string, value: any) => { console.info(row); return value; }
+        }}
+      >
+        <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
+        <TableHeaderColumn dataField='isInStock' filter={filter}>Product Is In Stock</TableHeaderColumn>
+      </BootstrapTable>
+    );
+  }
+}
+
+class RemotePropsSpecified extends React.Component {
+  render() {
+    const filter: CustomFilter<CustomFilterParams> = {
+      type: 'CustomFilter',
+      getElement: getCustomFilter,
+      customFilterParameters: {
+        callback: customFilterCallback,
+        callbackParameters: { textOK: 'yes', textNOK: 'no' }
+      }
+    };
     return (
       <BootstrapTable
         data={products}
@@ -178,7 +215,7 @@ class RemoteProps extends React.Component {
 
 class RemoteBool extends React.Component {
   render() {
-    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } };
+    const filter: Filter = { type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: {callback: customFilterCallback, callbackParameters: { textOK: 'yes', textNOK: 'no' } }};
     return (
       <BootstrapTable
         data={products}
@@ -742,7 +779,7 @@ class MyCustomBody extends React.Component<MyCustomBodyProps> implements ModalBo
   getFieldValue() {
     const newRow: Partial<Product> = {};
     this.props.columns.forEach((column, i) => {
-      newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value;
+      newRow[column.field] = (this.refs[column.field] as HTMLInputElement).value as number & string;
     }, this);
     return newRow as Product;
   }
@@ -1185,7 +1222,7 @@ class HideOnInsertTable extends React.Component {
     };
     return (
       <BootstrapTable data={jobs} insertRow={true} options={options}>
-        <TableHeaderColumn dataField='id' isKey={true} autovalue>Job ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='id' isKey={true} autoValue>Job ID</TableHeaderColumn>
         <TableHeaderColumn dataField='name' hiddenOnInsert>Job Name</TableHeaderColumn>
         <TableHeaderColumn dataField='type' editable={{ type: 'select', options: { values: jobTypes }, readOnly: true }}>Job Type</TableHeaderColumn>
         <TableHeaderColumn dataField='active' editable={{ type: 'checkbox', options: { values: 'Y:N' } }}>Active</TableHeaderColumn>

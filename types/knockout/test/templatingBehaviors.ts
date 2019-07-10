@@ -575,7 +575,8 @@ describe('Templating', function() {
 
         // Now set the observable to null and check it's treated like an empty array
         // (because how else should null be interpreted?)
-        myArray(null);
+        // DefinitelyTyped note: while KO accepts this, I wouldn't consider it a well-typed usage of the API
+        myArray(null); // $ExpectError
         expect(testNode.childNodes[0].childNodes.length).toEqual(0);
     });
 
@@ -640,7 +641,7 @@ describe('Templating', function() {
         ko.setTemplateEngine(new dummyTemplateEngine({ myTemplate: "Value: [js: myProp().childProp]" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"myTemplate\", \"if\": myProp }'></div>";
 
-        var viewModel = { myProp: ko.observable({ childProp: 'abc' }) };
+        var viewModel = { myProp: ko.observable<{childProp: string} | null>({ childProp: 'abc' }) };
         ko.applyBindings(viewModel, testNode);
 
         // Initially there is a value
@@ -678,7 +679,7 @@ describe('Templating', function() {
         ko.setTemplateEngine(new dummyTemplateEngine({ myTemplate: "Value: [js: myProp().childProp]" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"myTemplate\", \"if\": myProp, foreach: [$data, $data, $data] }'></div>";
 
-        var viewModel = { myProp: ko.observable({ childProp: 'abc' }) };
+        var viewModel = { myProp: ko.observable<{childProp: string} | null>({ childProp: 'abc' }) };
         ko.applyBindings(viewModel, testNode);
         expect(testNode.childNodes[0].childNodes[0].nodeValue).toEqual("Value: abc");
         expect(testNode.childNodes[0].childNodes[1].nodeValue).toEqual("Value: abc");

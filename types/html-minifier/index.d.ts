@@ -1,8 +1,9 @@
 // Type definitions for html-minifier 3.5
-// Project: https://github.com/kangax/html-minifier
+// Project: https://github.com/kangax/html-minifier, https://kangax.github.io/html-minifier
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Riku <https://github.com/rikuayanokozy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import * as UglifyJS from 'uglify-js';
 import * as CleanCSS from 'clean-css';
@@ -33,7 +34,7 @@ export interface Options {
     customAttrAssign?: RegExp[];
 
     // Regex that specifies custom attribute to strip newlines from (e.g. /ng-class/)
-    customAttrCollapse?: RegExp[];
+    customAttrCollapse?: RegExp;
 
     // Arrays of regex'es that allow to support custom attribute surround expressions (e.g. <input {{#if value}}checked="checked"{{/if}}>)
     customAttrSurround?: RegExp[];

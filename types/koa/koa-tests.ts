@@ -1,11 +1,40 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 
-const app = new Koa();
+declare module "koa" {
+    interface ExtendableContext {
+        errors?: Error[];
+    }
+}
+
+interface DbBaseContext {
+    db(): void;
+}
+
+interface UserContext {
+    user: {};
+}
+
+const app = new Koa<{}, DbBaseContext>();
 
 app.context.db = () => {};
 
 app.use(async ctx => {
+    if (ctx.errors) {
+        ctx.throw(ctx.errors[0], 400);
+    }
+});
+
+app.use(async (ctx, next) => {
+    try {
+        return await next();
+    } catch (ex) {
+        ctx.errors = [ex];
+    }
+});
+
+app.use<{}, UserContext>(async ctx => {
     console.log(ctx.db);
+    ctx.user = {};
 });
 
 app.use((ctx, next) => {

@@ -1,5 +1,5 @@
-type NativeVRDisplay = typeof VRDisplay;
-type NativeVRDisplayCapabilities = typeof VRDisplayCapabilities;
+type NativeVRDisplay = VRDisplay;
+type NativeVRDisplayCapabilities = VRDisplayCapabilities;
 
 declare namespace pc {
 
@@ -96,6 +96,6 @@ declare namespace pc {
         * @description Return the current frame data that is updated during polling.
         * @returns {VRFrameData} The frame data object
         */
-        getFrameData(): void;    
+        getFrameData(): void;
     }
 }

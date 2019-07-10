@@ -6,6 +6,8 @@ font.load();
 font.loaded.then((fontFace: FontFace) => {
     fontFace.status;
     fontFace.family;
+    fontFace.variationSettings;
+    fontFace.display;
 }, (fontFace: FontFace) => {});
 
 const a: boolean = document.fonts.check("12px Example");

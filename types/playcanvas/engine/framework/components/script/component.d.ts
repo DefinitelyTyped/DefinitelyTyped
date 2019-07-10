@@ -70,5 +70,7 @@ declare namespace pc {
          * entity.script.move('playerController', 0);
          */
         move(name: string, ind: number): boolean;
+
+        [prop: string]: any;
     }
 }

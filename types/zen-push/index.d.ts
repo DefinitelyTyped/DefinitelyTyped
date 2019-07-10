@@ -13,4 +13,4 @@ declare class PushStream<T> {
     complete(x?: any): void;
 }
 
-export default PushStream;
+export = PushStream;

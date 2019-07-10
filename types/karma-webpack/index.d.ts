@@ -1,8 +1,8 @@
 // Type definitions for karma-webpack 2.0
-// Project: http://github.com/webpack/karma-webpack
+// Project: https://github.com/webpack-contrib/karma-webpack
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import 'karma';
 import * as Webpack from 'webpack';
@@ -36,6 +36,6 @@ declare module 'karma' {
 
     interface ConfigOptions {
         webpack: Webpack.Configuration;
-        webpackMiddlewareOptions: KarmaWebpackMiddlewareOptions;
+        webpackMiddleware: KarmaWebpackMiddlewareOptions;
     }
 }

@@ -10,7 +10,7 @@ import * as d3Contour from 'd3-contour';
 import {
     range,
     thresholdSturges,
-    ThresholdArrayGenerator,
+    ThresholdNumberArrayGenerator,
     ThresholdCountGenerator
 } from 'd3-array';
 import { geoPath } from 'd3-geo';
@@ -25,10 +25,10 @@ import { randomNormal } from 'd3-random';
 const n = 256;
 const m = 256;
 const values: number[] = new Array(n * m);
-for (let j = 0.5, k = 0; j < m; ++j) {
-    for (let i = 0.5; i < n; i++) {
+for (let j = 0.5, k = 0; j < m; j += 1) {
+    for (let i = 0.5; i < n; i += 1) {
         values[k] = goldsteinPrice(i / n * 4 - 2, 1 - j / m * 3);
-        k++;
+        k += 1;
     }
 }
 
@@ -39,13 +39,13 @@ function goldsteinPrice(x: number, y: number) {
 
 let size: [number, number];
 let boolFlag: boolean;
-const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
+const thresholdArrayGen: ThresholdNumberArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
     let thresholds: number[];
     thresholds = [values[1], values[2], values[4]];
     return thresholds;
 };
 
-let thresholdGenerator: ThresholdArrayGenerator<number> | ThresholdCountGenerator;
+let thresholdGenerator: ThresholdNumberArrayGenerator<number> | ThresholdCountGenerator<number>;
 let pathStringMaybe: string | null;
 let num: number;
 
@@ -62,6 +62,8 @@ let contGen: d3Contour.Contours = d3Contour.contours();
 // Configure contour generator =================================================
 
 // size(...) -------------------------------------------------------------------
+
+const multiPolygon: d3Contour.ContourMultiPolygon = contGen.contour(values, 5);
 
 // set with chainability
 contGen = contGen.size([n, m]);
@@ -111,7 +113,11 @@ interface CustomDatum {
 
 // Get contour generator -------------------------------------------------------
 
-const contDensDefault: d3Contour.ContourDensity<[number, number]> = d3Contour.contourDensity();
+// test generic parameter defaults for ContourDensity and contourDensity
+const contDensDefault: d3Contour.ContourDensity = d3Contour.contourDensity();
+// tslint:disable-next-line: use-default-type-parameter
+const contDensDefaultCopy: d3Contour.ContourDensity<[number, number]> = contDensDefault;
+// test with explicit generic parameter
 let contDensCustom: d3Contour.ContourDensity<CustomDatum> = d3Contour.contourDensity<CustomDatum>();
 
 // Configure contour generator =================================================
@@ -138,6 +144,13 @@ contDensCustom = contDensCustom.y((datum) => {
 // get
 const yAcc: (d: CustomDatum) => number = contDensCustom.y();
 
+// weight(...) -----------------------------------------------------------------
+contDensCustom = contDensCustom.weight((datum) => {
+    return 5;
+});
+
+// get
+const weightAcc: (d: CustomDatum) => number = contDensCustom.weight();
 // size(...) -------------------------------------------------------------------
 
 // set with chainability
@@ -180,7 +193,7 @@ num = contDensCustom.bandwidth();
 const indNorm: CustomDatum[] = [];
 const rX = randomNormal();
 const rY = randomNormal(1, 2);
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 1000; i += 1) {
     indNorm.push({
         x: rX(),
         y: rY()

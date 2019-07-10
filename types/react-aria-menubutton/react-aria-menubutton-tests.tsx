@@ -56,10 +56,7 @@ interface DemoOneState {
 }
 
 class DemoOne extends React.Component<{}, DemoOneState> {
-	constructor(props: any) {
-		super(props);
-		this.state = { selected: "", noMenu: false };
-	}
+	state = { selected: "", noMenu: false };
 
 	handleSelection(value: string) {
 		if (value === "destroy") {
@@ -120,7 +117,22 @@ class DemoOne extends React.Component<{}, DemoOneState> {
 ReactDOM.render(<DemoOne />, document.getElementById("demo-one"));
 
 closeMenu("");
-closeMenu("", { focusMenu: true });
+closeMenu("", { focusButton: true });
 
 openMenu("");
 openMenu("", { focusMenu: true });
+
+class ObjectMenuItem extends React.Component {
+	render() {
+		const itemValue = { name: "Test name", label: "Only item to select" };
+		return (
+			<Wrapper onSelection={(value) => console.log(value.name)}>
+				<li>
+					<MenuItem value={itemValue} >{itemValue.label}</MenuItem>
+				</li>
+			</Wrapper>
+		);
+	}
+}
+
+ReactDOM.render(<ObjectMenuItem />, document.body);

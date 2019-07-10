@@ -1,5 +1,5 @@
 import { src, dest } from 'gulp';
-import * as gulpPug from 'gulp-pug';
+import gulpPug = require('gulp-pug');
 
 const s1 = gulpPug();
 const s2 = gulpPug({});

@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment = require("moment");
 import * as momentRange from "moment-range";
 
 const range: momentRange.DateRange = new momentRange.DateRange(new Date(2012, 0, 15), new Date(2012, 4, 23));
@@ -60,18 +60,20 @@ const it10: Iterable<moment.Moment> = range.reverseByRange(range, { exclusive: t
 const it11: Iterable<moment.Moment> = range.reverseByRange(range, { exclusive: false, step: 2 });
 
 const res23: momentRange.DateRange = range.add(range2);
+const res24: momentRange.DateRange = range.add(range2, {adjacent: true});
+const res25: momentRange.DateRange = range.add(range2, {adjacent: false});
 
-const res24: momentRange.DateRange[] = range.subtract(range2);
+const res26: momentRange.DateRange[] = range.subtract(range2);
 
-const res25: Date[] = range.toDate();
+const res27: Date[] = range.toDate();
 
-const res26: string = range.toString();
+const res28: string = range.toString();
 
-const res27: number = range.valueOf();
+const res29: number = range.valueOf();
 
-const res28: moment.Moment = range.start;
-const res29: moment.Moment = range.end;
+const res30: moment.Moment = range.start;
+const res31: moment.Moment = range.end;
 
-const res30: boolean = extendedMoment.within(range);
-const res31: boolean = extendedMoment().within(range);
-const res32: momentRange.DateRange = extendedMoment().range(moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD"));
+const res32: boolean = extendedMoment.within(range);
+const res33: boolean = extendedMoment().within(range);
+const res34: momentRange.DateRange = extendedMoment().range(moment("2011-04-15", "YYYY-MM-DD"), moment("2011-11-27", "YYYY-MM-DD"));

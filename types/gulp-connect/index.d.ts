@@ -2,7 +2,7 @@
 // Project: https://github.com/avevlad/gulp-connect#readme
 // Definitions by: Andre Wiggins <https://github.com/andrewiggins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as http from "http";
 import * as https from "https";
@@ -39,7 +39,7 @@ export interface ConnectAppOptions {
     host?: string;
 
     /** Don't log any messages. Defaults to false. */
-    slient?: boolean;
+    silent?: boolean;
 
     /**
      * Options to pass to http.createServer (or false to disable https).

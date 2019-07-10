@@ -1,11 +1,14 @@
-/// <reference types="mocha" />
-
 import gulp = require('gulp');
 import util = require('gulp-util');
 import path = require('path');
 import Stream = require('stream');
 import through = require('through2');
 const es = require('event-stream');
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 // TODO: These aren't useful as types tests since they take `any`.
 declare const should: ShouldStatic;

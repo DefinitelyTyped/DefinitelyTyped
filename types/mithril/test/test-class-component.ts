@@ -1,4 +1,4 @@
-import * as m from 'mithril';
+import m = require('mithril');
 import { ClassComponent, Vnode, CVnode, CVnodeDOM } from 'mithril';
 
 ///////////////////////////////////////////////////////////

@@ -38,7 +38,7 @@ qNoResult = qNoResult.defer(delayedHello, 'Alice', 250);
 
 qNoResult.defer(delayedHello, 'Bob', 500);
 
-// Task with Reuslts -------------------------------------------------
+// Task with Results -------------------------------------------------
 
 function getFileStats(path: string, callback: (error: any | null, stats?: any) => void) {
     // magically get file stats and behave like fs.stat when invoking the callback
@@ -57,7 +57,7 @@ qNoResult = qNoResult.await((error) => {
     console.log('Goodbye!');
 });
 
-// Task with Reuslts -------------------------------------------------
+// Task with Results -------------------------------------------------
 
 // await
 qWithResults
@@ -73,7 +73,7 @@ qWithResults = d3Queue.queue()
     .defer(getFileStats, './yetanotherworkingpath/file2.json')
     .awaitAll((error, fileStats) => {
         if (error) throw error;
-        console.log(fileStats[0], fileStats[1]);
+        console.log(fileStats![0], fileStats![1]);
     });
 
 // Abort Deferred Tasks ==============================================
@@ -83,11 +83,11 @@ function requestDataFromInterWeb(url: string, callback: (error: any | null, data
 }
 
 qWithResults = d3Queue.queue()
-    .defer(requestDataFromInterWeb, 'http://www.google.com:81')
-    .defer(requestDataFromInterWeb, 'http://www.google.com:81')
+    .defer(requestDataFromInterWeb, 'http://www.example.org:81')
+    .defer(requestDataFromInterWeb, 'http://www.example.org:81')
     .awaitAll((error, results) => {
         if (error) throw error;
-        console.log(results[0], results[1]);
+        console.log(results![0], results![1]);
     });
 
 qWithResults.abort();

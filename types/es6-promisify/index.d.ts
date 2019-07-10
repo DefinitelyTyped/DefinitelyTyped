@@ -1,24 +1,43 @@
-// Type definitions for es6-promisify 5.0
+// Type definitions for es6-promisify 6.0
 // Project: https://github.com/digitaldesignlabs/es6-promisify#readme
 // Definitions by: Harry Shipton <https://github.com/harryshipton>
+//                 Brian Schlenker <https://github.com/bschlenk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function es6_promisify(original: (...args: any[]) => any, settings?: es6_promisify.Settings): ((...args: any[]) => Promise<any>);
-
 // If the issue at https://github.com/Microsoft/TypeScript/issues/1360 is fixed,
-// then an update should be submitted replacing the above declaration with the
-// following declarations.
+// then an update should be submitted replacing the promisify declaration with
+// the following declarations.
 /*
-declare function es6_promisify<T>(original: (...args: any[], callback: (error: any, arg: T) => any) => any, settings?: Settings): ((...args: any[]) => Promise<T>);
+function promisify<T>(original: (...args: any[], callback: (error: any, arg: T) => any) => any): ((...args: any[]) => Promise<T>);
 
-declare function es6_promisify(original: (...args: any[], callback: (error: any, ...args: any[]) => any) => any, settings?: Settings): ((...args: any[]) => Promise<any[]>);
+function promisify(original: (...args: any[], callback: (error: any, ...args: any[]) => any) => any): ((...args: any[]) => Promise<any>);
 */
 
-declare namespace es6_promisify {
-    interface Settings {
-        thisArg?: any;
-        multiArgs?: boolean;
-    }
-}
+export type Callback<T> = (err: any, arg?: T) => any;
+export type CallbackFunction = (...args: any[]) => any;
+export type PromiseFunction = (...args: any[]) => Promise<any>;
 
-export = es6_promisify;
+export function promisify<T>(original: (cb: Callback<T>) => any):
+    () => Promise<T>;
+export function promisify<T, U>(original: (param1: U, cb: Callback<T>) => any):
+    (param1: U) => Promise<T>;
+export function promisify<T, U, V>(original: (param1: U, param2: V, cb: Callback<T>) => any):
+    (param1: U, param2: V) => Promise<T>;
+export function promisify<T, U, V, W>(original: (param1: U, param2: V, param3: W, cb: Callback<T>) => any):
+    (param1: U, param2: V, param3: W) => Promise<T>;
+export function promisify(original: CallbackFunction): PromiseFunction;
+
+export namespace promisify {
+    /**
+     * This symbol can be placed on the function to be promisified to
+     * provide names as an array of strings for the values in a success
+     * callback.
+     */
+    const argumentNames: symbol;
+
+    /**
+     * The user can supply their own Promise implementation by setting it
+     * here. Otherwise, the global Promise object will be used.
+     */
+    let Promise: PromiseConstructor;
+}

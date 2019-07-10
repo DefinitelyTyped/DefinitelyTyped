@@ -1,6 +1,5 @@
 import * as chai from 'chai';
 import * as spies from 'chai-spies';
-import * as Mocha from 'mocha';
 
 function original(): void {
   // do something cool
@@ -25,7 +24,12 @@ let array = [ 1, 2, 3 ];
 chai.spy.on(array, 'push');
 
 // or you can track multiple object's methods
-chai.spy.on(array, 'push', 'pop');
+chai.spy.on(array, ['push', 'pop']);
+
+// or you can track multiple object's methods
+chai.spy.on(array, 'push', function(item) {
+    array.push(item);
+});
 
 array.push(5);
 
@@ -89,6 +93,27 @@ spyStringArg('foo');
 expect(spyStringArg).to.have.been.called.always.with.exactly('foo');
 spyStringArg.should.have.been.called.always.with.exactly('foo');
 
+// .first / .second / .third
+const spyStringIteratedArg = chai.spy((arg: string) => arg);
+spyStringIteratedArg('foo');
+spyStringIteratedArg('bar');
+spyStringIteratedArg('baz');
+expect(spyStringIteratedArg).to.have.been.first.called.with('foo');
+spyStringIteratedArg.should.have.been.first.called.with('foo');
+expect(spyStringIteratedArg).to.have.been.first.called.with('bar');
+spyStringIteratedArg.should.have.been.first.called.with('bar');
+expect(spyStringIteratedArg).to.have.been.first.called.with('baz');
+spyStringIteratedArg.should.have.been.first.called.with('baz');
+
+// .nth
+const spyStringNthArg = chai.spy((arg: string) => arg);
+spyStringNthArg('foo');
+spyStringNthArg('bar');
+expect(spyStringNthArg).on.nth(1).be.called.with('foo');
+spyStringNthArg.should.on.nth(1).be.called.with('foo');
+expect(spyStringNthArg).on.nth(2).be.called.with('bar');
+spyStringNthArg.should.on.nth(2).be.called.with('bar');
+
 // .once
 expect(spy).to.have.been.called.once;
 expect(spy).to.not.have.been.called.once;
@@ -130,3 +155,19 @@ expect(spy).to.have.been.called.below(3);
 expect(spy).to.not.have.been.called.lt(3);
 spy.should.have.been.called.lt(3);
 spy.should.not.have.been.called.below(3);
+
+// You can also create sandbox
+let sb = chai.spy.sandbox();
+
+sb.on(array, 'pop', () => {
+    return 1;
+})
+
+let one = array.pop();
+expect(one).to.equal(1);
+
+// Can restore methods in sandbox
+sb.restore();
+array.push(2);
+let two = array.pop();
+expect(two).to.equal(2);

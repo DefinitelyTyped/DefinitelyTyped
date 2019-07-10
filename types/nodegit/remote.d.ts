@@ -62,7 +62,7 @@ export class Remote {
 
     stop(): void;
     updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
-    upload(refspecs: Strarray, opts?: PushOptions): number;
+    upload(refspecs: Strarray | string | string[], opts?: PushOptions): number;
     url(): string;
     /**
      * Lists advertised references from a remote. You must connect to the remote before using referenceList.

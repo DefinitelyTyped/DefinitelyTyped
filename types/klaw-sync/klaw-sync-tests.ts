@@ -1,20 +1,25 @@
-import * as path from 'path'
 import klawSync = require('klaw-sync')
+import * as fs from 'fs'
 
 const outputMessage = (result: klawSync.Item) => {
-  console.log(`file: ${result.path} has size '${result.stats.size}'`)
+    console.log(`file: ${result.path} has size '${result.stats.size}'`)
 }
 
 klawSync('/some/dir').forEach(outputMessage)
 
-const defaultOptions = {}
+const defaultOptions: klawSync.Options = {}
 
 klawSync('/some/dir', defaultOptions).forEach(outputMessage)
 
-const options = {
-  ignore: ['.exe'],
-  nodir: true,
-  nofile: false,
+const options: klawSync.Options = {
+    nodir: true,
+    nofile: false,
+    filter(item: klawSync.Item) {
+        return item.path.indexOf('node_modules') < 0
+    },
+    depthLimit: 5,
+    fs,
+    traverseAll: true
 }
 
 klawSync('/some/dir', options).forEach(outputMessage)

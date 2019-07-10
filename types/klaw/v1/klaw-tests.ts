@@ -1,4 +1,4 @@
-import * as klaw from "klaw";
+import klaw = require("klaw");
 import * as  path from "path";
 
 // README.md: Streams 1 (push) example:
@@ -16,7 +16,7 @@ klaw('/some/dir')
 // README.md: Streams 2 & 3 (pull) with error handling
 
 klaw('/some/dir')
-    .on('readable', () => {
+    .on('readable', function() {
         while (true) {
             const item = this.read();
             if (!item) break;

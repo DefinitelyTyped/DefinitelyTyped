@@ -1,3 +1,17 @@
+// tslint:disable:no-arg
+// tslint:disable:no-var-keyword
+// tslint:disable:object-literal-key-quotes
+// tslint:disable:object-literal-shorthand
+// tslint:disable:one-variable-per-declaration
+// tslint:disable:only-arrow-functions
+// tslint:disable:prefer-conditional-expression
+// tslint:disable:prefer-const
+// tslint:disable:prefer-for-of
+// tslint:disable:prefer-switch
+// tslint:disable:prefer-template
+// tslint:disable:space-within-parens
+// tslint:disable:triple-equals
+
 function examples() {
     function add_0() {
         $('div').css('border', '2px solid red')
@@ -370,7 +384,7 @@ function examples() {
     }
 
     function bind_2() {
-        function handler(event: JQuery.Event<HTMLElement, any>) {
+        function handler(event: JQuery.TriggeredEvent<HTMLElement>) {
             alert(event.data.foo);
         }
 
@@ -816,7 +830,7 @@ function examples() {
             var len = kids.addClass('hilite').length;
 
             $('#results span:first').text(len);
-            $('#results span:last').text((<HTMLElement> event.target).tagName);
+            $('#results span:last').text((event.target as Element).tagName);
 
             event.preventDefault();
         });
@@ -1564,7 +1578,7 @@ function examples() {
 
     function event_related_target_0() {
         $('a').mouseout(function(event) {
-            alert((<HTMLElement> event.relatedTarget).nodeName); // "DIV"
+            alert((event.relatedTarget as HTMLElement).nodeName); // "DIV"
         });
     }
 
@@ -1600,12 +1614,12 @@ function examples() {
 
     function event_target_0() {
         $('body').click(function(event) {
-            $('#log').html('clicked: ' + (<HTMLElement> event.target).nodeName);
+            $('#log').html('clicked: ' + (event.target as Node).nodeName);
         });
     }
 
     function event_target_1() {
-        function handler(event: JQuery.Event) {
+        function handler(event: JQuery.TriggeredEvent) {
             var target = $(event.target);
             if (target.is('li')) {
                 target.children().toggle();
@@ -2320,8 +2334,10 @@ function examples() {
     }
 
     function jQuery_contains_0() {
-        $.contains(document.documentElement, document.body); // true
-        $.contains(document.body, document.documentElement); // false
+        // tslint:disable-next-line no-unnecessary-type-assertion
+        $.contains(document.documentElement!, document.body); // true
+        // tslint:disable-next-line no-unnecessary-type-assertion
+        $.contains(document.body, document.documentElement!); // false
     }
 
     function jQuery_data_0() {
@@ -3002,10 +3018,10 @@ function examples() {
     function jQuery_proxy_0() {
         var me = {
             type: 'zombie',
-            test: function(event: JQuery.Event) {
+            test: function(event: JQuery.TriggeredEvent) {
                 // Without proxy, `this` would refer to the event target
                 // use event.target to reference that element.
-                var element = event.target;
+                var element = event.target as Element;
                 $(element).css('background-color', 'red');
 
                 // With proxy, `this` refers to the me object encapsulating
@@ -3017,7 +3033,7 @@ function examples() {
 
         var you = {
             type: 'person',
-            test: function(event: JQuery.Event) {
+            test: function(event: JQuery.TriggeredEvent) {
                 $('#log').append(this.type + ' ');
             },
         };
@@ -3059,7 +3075,7 @@ function examples() {
             type: 'dog',
 
             // Note that event comes *after* one and two
-            test: function(one: typeof you, two: typeof they, event: JQuery.Event<HTMLElement>) {
+            test: function(one: typeof you, two: typeof they, event: JQuery.TriggeredEvent<HTMLElement>) {
                 $('#log')
 
                 // `one` maps to `you`, the 1st additional
@@ -3428,7 +3444,7 @@ function examples() {
     function map_0() {
         $('p')
             .append($('input').map(function() {
-                return $(this).val();
+                return $(this).val() as string;
             })
                 .get()
                 .join(', '));
@@ -3780,7 +3796,7 @@ function examples() {
     }
 
     function on_1() {
-        function myHandler(event: JQuery.Event<HTMLElement, { foo: string; }>) {
+        function myHandler(event: JQuery.TriggeredEvent<HTMLElement, { foo: string; }>) {
             alert(event.data.foo);
         }
 

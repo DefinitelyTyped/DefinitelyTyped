@@ -52,5 +52,5 @@ export class Strategy implements passport.Strategy {
     constructor(options: StrategyOption, verify: VerifyFunction);
 
     name: string;
-    authenticate: (req: express.Request, options?: object) => void;
+    authenticate(req: express.Request, options?: object): void;
 }

@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "lodash-scripts",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "ts-node generate-fp",
+    "fp": "ts-node generate-fp"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.4",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.7.1"
+  },
+  "dependencies": {}
+}

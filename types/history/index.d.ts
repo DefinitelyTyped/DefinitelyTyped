@@ -1,46 +1,47 @@
-// Type definitions for history 4.6.2
+// Type definitions for history 4.7.2
 // Project: https://github.com/mjackson/history
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>, Young Rok Kim <https://github.com/rokoroku>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 export as namespace History;
 
 export type Action = 'PUSH' | 'POP' | 'REPLACE';
 export type UnregisterCallback = () => void;
 
-export interface History {
+export interface History<HistoryLocationState = LocationState> {
     length: number;
     action: Action;
-    location: Location;
-    push(path: Path, state?: LocationState): void;
-    push(location: LocationDescriptorObject): void;
-    replace(path: Path, state?: LocationState): void;
-    replace(location: LocationDescriptorObject): void;
+    location: Location<HistoryLocationState>;
+    push(path: Path, state?: HistoryLocationState): void;
+    push(location: LocationDescriptorObject<HistoryLocationState>): void;
+    replace(path: Path, state?: HistoryLocationState): void;
+    replace(location: LocationDescriptorObject<HistoryLocationState>): void;
     go(n: number): void;
     goBack(): void;
     goForward(): void;
     block(prompt?: boolean | string | TransitionPromptHook): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
-    createHref(location: LocationDescriptorObject): Href;
+    createHref(location: LocationDescriptorObject<HistoryLocationState>): Href;
 }
 
-export interface Location {
+export interface Location<S = LocationState> {
     pathname: Pathname;
     search: Search;
-    state: LocationState;
+    state: S;
     hash: Hash;
     key?: LocationKey;
 }
 
-export interface LocationDescriptorObject {
+export interface LocationDescriptorObject<S = LocationState> {
     pathname?: Pathname;
     search?: Search;
-    state?: LocationState;
+    state?: S;
     hash?: Hash;
     key?: LocationKey;
 }
 
 export namespace History {
-    export type LocationDescriptor = Path | LocationDescriptorObject;
+    export type LocationDescriptor<S = LocationState> = Path | LocationDescriptorObject<S>;
     export type LocationKey = string;
     export type LocationListener = (location: Location, action: Action) => void;
     export type LocationState = any;
@@ -53,7 +54,7 @@ export namespace History {
     export type Href = string;
 }
 
-export type LocationDescriptor = History.LocationDescriptor;
+export type LocationDescriptor<S = LocationState> = History.LocationDescriptor<S>;
 export type LocationKey = History.LocationKey;
 export type LocationListener = History.LocationListener;
 export type LocationState = History.LocationState;

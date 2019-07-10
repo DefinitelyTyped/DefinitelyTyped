@@ -9,7 +9,7 @@ declare class Pbf {
     type: number;
     length: number;
 
-    constructor(buffer?: Uint8Array);
+    constructor(buffer?: Uint8Array|ArrayBuffer);
 
     destroy(): void;
     readFields<T>(readField: (tag: number, result?: T, pbf?: Pbf) => void, result?: T, end?: number): T;

@@ -1,12 +1,15 @@
-// Type definitions for C3js 0.4
-// Project: http://c3js.org/
+// Type definitions for C3js 0.7
+// Project: http://c3js.org/, https://github.com/c3js/c3
 // Definitions by: Marc Climent <https://github.com/mcliment>
 //                 Gerin Jacob <https://github.com/gerinjacob>
 //                 Bernd Hacker <https://github.com/denyo>
+//                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
+//                 Tim Niemueller <https://github.com/timn>
+//                 Nate Mara <https://github.com/natemara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import * as d3 from "d3";
+import * as d3 from 'd3';
 
 export as namespace c3;
 
@@ -27,7 +30,7 @@ export interface ChartConfiguration {
      * Note: When chart is not binded, c3 starts observing if chart.element is binded by MutationObserver. In this case, polyfill is required in IE9 and IE10 becuase they do not support
      * MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
      */
-    bindto?: string | HTMLElement | d3.Selection<any> | null;
+    bindto?: string | HTMLElement | d3.Selection<any, any, any, any> | null;
     size?: {
         /**
          * The desired width of the chart element.
@@ -59,6 +62,13 @@ export interface ChartConfiguration {
          * The padding on the left of the chart.
          */
         left?: number;
+    };
+
+    resize?: {
+        /**
+         * Indicate if the chart should automatically get resized when the window gets resized.
+         */
+        auto?: boolean;
     };
 
     color?: {
@@ -164,16 +174,18 @@ export interface ChartConfiguration {
         /**
          * Change the width of bar chart. If ratio is specified, change the width of bar chart by ratio.
          */
-        width?: number | {
-            /**
-             * Set the width of each bar by ratio
-             */
-            ratio: number,
-            /**
-             * Set max width of each bar
-             */
-            max?: number
-        };
+        width?:
+            | number
+            | {
+                  /**
+                   * Set the width of each bar by ratio
+                   */
+                  ratio: number;
+                  /**
+                   * Set max width of each bar
+                   */
+                  max?: number;
+              };
         /**
          * Set if min or max value will be 0 on bar chart.
          */
@@ -197,7 +209,7 @@ export interface ChartConfiguration {
             /**
              * Set threshold to show/hide labels.
              */
-            threshold?: number
+            threshold?: number;
         };
         /**
          * Enable or disable expanding pie pieces.
@@ -218,7 +230,7 @@ export interface ChartConfiguration {
             /**
              * Set threshold to show/hide labels.
              */
-            threshold?: number
+            threshold?: number;
         };
         /**
          * Enable or disable expanding pie pieces.
@@ -265,6 +277,12 @@ export interface ChartConfiguration {
          * Set width of gauge chart.
          */
         width?: number;
+        /**
+         * Whether this should be displayed
+         * as a full circle instead of a
+         * half circle.
+         */
+        fullCircle?: boolean;
     };
 
     spline?: {
@@ -272,7 +290,17 @@ export interface ChartConfiguration {
             /**
              * Set custom spline interpolation
              */
-            type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' | 'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone';
+            type?:
+                | 'linear'
+                | 'linear-closed'
+                | 'basis'
+                | 'basis-open'
+                | 'basis-closed'
+                | 'bundle'
+                | 'cardinal'
+                | 'cardinal-open'
+                | 'cardinal-closed'
+                | 'monotone';
         };
     };
 }
@@ -291,8 +319,8 @@ export interface Data {
      */
     rows?: PrimitiveArray[];
     /*
-        * Load data from a multidimensional array, with each element containing an array consisting of a datum name and associated data values.
-        */
+     * Load data from a multidimensional array, with each element containing an array consisting of a datum name and associated data values.
+     */
     columns?: PrimitiveArray[];
     /**
      * Used if loading JSON via data.url
@@ -301,7 +329,7 @@ export interface Data {
     /**
      * Choose which JSON object keys correspond to desired data.
      */
-    keys?: { x?: string; value: string[]; };
+    keys?: { x?: string; value: string[] };
     /**
      * Specify the key of x values in the data.
      * We can show the data with non-index x values by this option. This option is required when the type of x axis is timeseries. If this option is set on category axis, the values of the data
@@ -357,9 +385,10 @@ export interface Data {
      * - j is the sub index of the data point where the label is shown.
      * Formatter function can be defined for each data by specifying as an object and D3 formatter function can be set (e.g. d3.format('$'))
      */
-    labels?: boolean |
-    { format: FormatFunction } |
-    { format: { [key: string]: FormatFunction } };
+    labels?:
+        | boolean
+        | { format: FormatFunction }
+        | { format: { [key: string]: FormatFunction } };
     /**
      * Define the order of the data.
      * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data
@@ -379,11 +408,16 @@ export interface Data {
      * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that
      * represents color (e.g. '#00ff00').
      */
-    color?(color: string, d: any): string | d3.Rgb;
+    color?(color: string, d: any): string | d3.RGBColor;
     /**
      * Set color for each data.
      */
-    colors?: { [key: string]: string | d3.Rgb | ((d: any) => string | d3.Rgb) };
+    colors?: {
+        [key: string]:
+            | string
+            | d3.RGBColor
+            | ((d: any) => string | d3.RGBColor);
+    };
     /**
      * Hide each data when the chart appears.
      * If true specified, all of data will be hidden. If multiple ids specified as an array, those will be hidden.
@@ -578,6 +612,10 @@ export interface XTickConfiguration {
      * Show x axis outer tick.
      */
     outer?: boolean;
+    /**
+     * Set width of x axis tick.
+     */
+    width?: number;
     multiline?: boolean; // Undocumented
 }
 
@@ -648,6 +686,7 @@ export interface RegionOptions {
     start?: string | number | Date;
     end?: string | number | Date;
     class?: string;
+    opacity?: number;
 }
 
 export interface LegendOptions {
@@ -678,6 +717,10 @@ export interface LegendOptions {
         y?: number;
         step?: number;
     };
+    /**
+     * Padding between legend elements.
+     */
+    padding?: number;
 
     item?: {
         /**
@@ -692,6 +735,19 @@ export interface LegendOptions {
          * Set mouseout event handler to the legend item.
          */
         onmouseout?(id: any): void;
+        /**
+         * Tile settings for legend color display.
+         */
+        tile?: {
+            /**
+             * Tile width.
+             */
+            width?: number;
+            /**
+             * Tile height
+             */
+            height?: number;
+        };
     };
 }
 
@@ -724,12 +780,27 @@ export interface TooltipOptions {
     /**
      * Set custom position for the tooltip. This option can be used to modify the tooltip position by returning object that has top and left.
      */
-    position?(data: any, width: number, height: number, element: any): { top: number; left: number };
+    position?(
+        data: any,
+        width: number,
+        height: number,
+        element: any,
+    ): { top: number; left: number };
     /**
      * Set custom HTML for the tooltip.
      * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
      */
-    contents?(data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any): string;
+    contents?(
+        data: any,
+        defaultTitleFormat: string,
+        defaultValueFormat: string,
+        color: any,
+    ): string;
+    /**
+     * Set tooltip values order
+     * Available Values: desc, asc, any[], function (data1, data2) { ... }, null
+     */
+    order?: string | any[] | ((data1: any, data2: any) => number) | null;
 }
 
 export interface SubchartOptions {
@@ -755,6 +826,10 @@ export interface ZoomOptions {
      * Enable zooming.
      */
     enabled?: boolean;
+    /**
+     * Set interaction type for zooming
+     */
+    type?: 'scroll' | 'drag';
     /**
      * Enable to rescale after zooming. If true set, y domain will be updated according to the zoomed region.
      */
@@ -787,6 +862,11 @@ export interface PointOptions {
      */
     r?: number | ((d: any) => number);
 
+    /**
+     * How sensitive is each point to mouse cursor hover
+     */
+    sensitivity?: number;
+
     focus?: {
         expand: {
             /**
@@ -796,7 +876,7 @@ export interface PointOptions {
             /**
              * The radius size of each point on focus.
              */
-            r?: number
+            r?: number;
         };
     };
 
@@ -860,14 +940,15 @@ export interface ChartAPI {
     load(args: {
         url?: string;
         json?: {};
-        keys?: { x?: string; value: string[]; }
+        keys?: { x?: string; value: string[] };
         rows?: PrimitiveArray[];
         columns?: PrimitiveArray[];
+        xs?: { [key: string]: string };
         names?: { [key: string]: string };
         classes?: { [key: string]: string };
         categories?: string[];
         axes?: { [key: string]: string };
-        colors?: { [key: string]: string | d3.Rgb };
+        colors?: { [key: string]: string | d3.RGBColor };
         type?: string;
         types?: { [key: string]: string };
         unload?: boolean | ArrayOrString;
@@ -893,7 +974,7 @@ export interface ChartAPI {
      */
     flow(args: {
         json?: {};
-        keys?: { x?: string; value: string[]; }
+        keys?: { x?: string; value: string[] };
         rows?: PrimitiveArray[];
         columns?: PrimitiveArray[];
         to?: any;
@@ -979,7 +1060,9 @@ export interface ChartAPI {
          * Get and set colors of the data loaded in the chart.
          * @param colors If this argument is given, the colors of data will be updated. If not given, the current colors will be returned. The format of this argument is the same as data.colors.
          */
-        colors(colors?: { [key: string]: string | d3.Rgb }): { [key: string]: string };
+        colors(colors?: {
+            [key: string]: string | d3.RGBColor;
+        }): { [key: string]: string };
         /**
          * Get and set axes of the data loaded in the chart.
          * @param axes If this argument is given, the axes of data will be updated. If not given, the current axes will be returned. The format of this argument is the same as data.axes.
@@ -1015,29 +1098,41 @@ export interface ChartAPI {
      * Get and set x values for the chart.
      * @param x If x is given, x values of every target will be updated. If no argument is given, current x values will be returned as an Object whose keys are the target ids.
      */
-    xs(xs?: { [key: string]: PrimitiveArray }): { [key: string]: PrimitiveArray };
+    xs(xs?: {
+        [key: string]: PrimitiveArray;
+    }): { [key: string]: PrimitiveArray };
 
     axis: {
         /**
          * Get and set axis labels.
          * @param labels If labels is given, specified axis' label will be updated.
          */
-        labels(labels?: { [key: string]: string }): { [key: string]: string }
+        labels(labels?: { [key: string]: string }): { [key: string]: string };
         /**
          * Get and set axis min value.
          * @param min If min is given, specified axis' min value will be updated. If no argument is given, the current min values for each axis will be returned.
          */
-        min(min?: number | { [key: string]: number }): number | { [key: string]: number }
+        min(
+            min?: number | { [key: string]: number },
+        ): number | { [key: string]: number };
         /**
          * Get and set axis max value.
          * @param max If max is given, specified axis' max value will be updated. If no argument is given, the current max values for each axis will be returned.
          */
-        max(max?: number | { [key: string]: number }): number | { [key: string]: number }
+        max(
+            max?: number | { [key: string]: number },
+        ): number | { [key: string]: number };
         /**
          * Get and set axis min and max value.
          * @param range If range is given, specified axis' min and max value will be updated. If no argument is given, the current min and max values for each axis will be returned.
          */
-        range(range?: { min?: number | { [key: string]: number }; max?: number | { [key: string]: number } }): { min: number | { [key: string]: number }; max: number | { [key: string]: number } }
+        range(range?: {
+            min?: number | { [key: string]: number };
+            max?: number | { [key: string]: number };
+        }): {
+            min: number | { [key: string]: number };
+            max: number | { [key: string]: number };
+        };
     };
 
     legend: {

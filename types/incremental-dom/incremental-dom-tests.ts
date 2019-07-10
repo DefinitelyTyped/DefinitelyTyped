@@ -1,5 +1,9 @@
-/// <reference types="mocha" />
 declare var expect: any;
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+  [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 import id = require('incremental-dom');
 var patch = id.patch;

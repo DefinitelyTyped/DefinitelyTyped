@@ -1,9 +1,11 @@
-// Type definitions for Complex 3.0.1
+// Type definitions for Complex 3.0
 // Project: https://github.com/arian/Complex
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
+//                 Paul Vasich <https://github.com/pavasich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class Complex {
+export = Complex;
+declare class Complex {
     /**
      * @param real The real part of the number
      * @param im The imaginary part of the number
@@ -47,6 +49,16 @@ export default class Complex {
     static one: Complex;
 
     /**
+     * The Complex number's real component
+     */
+    real: number;
+
+    /**
+     * The Complex number's imaginary component
+     */
+    im: number;
+
+    /**
      * Set the real and imaginary properties a and b from a + bi.
      * @param real The real part of the number
      * @param im The imaginary part of the number
@@ -61,19 +73,25 @@ export default class Complex {
     fromPolar(r: number, phi: number): Complex;
 
     /**
-     * Set the precision of the numbers. Similar to Number.prototype.toPrecision. Useful before printing the number with the toString method.
+     * Set the precision of the numbers. Similar to Number.prototype.toPrecision.
+     * Useful before printing the number with the toString method.
      * @param k An integer specifying the number of significant digits
      */
     toPrecision(k: number): Complex;
 
     /**
-     * Format a number using fixed-point notation. Similar to Number.prototype.toFixed. Useful before printing the number with the toString method.
-     * @param k The number of digits to appear after the decimal point; this may be a value between 0 and 20, inclusive, and implementations may optionally support a larger range of values. If this argument is omitted, it is treated as 0.
+     * Format a number using fixed-point notation. Similar to Number.prototype.toFixed.
+     * Useful before printing the number with the toString method.
+     * @param k The number of digits to appear after the decimal point [0 - 20].
+     * Implementations may optionally support a larger range of values.
+     * If this argument is omitted, it is treated as 0.
      */
     toFixed(k: number): Complex;
 
     /**
-     * Finalize the instance. The number will not change and any other method call will return a new instance. Very useful when a complex instance should stay constant. For example the Complex.i variable is a finalized instance.
+     * Finalize the instance. The number will not change and any other method call will return a new instance.
+     * Very useful when a complex instance should stay constant.
+     * For example the Complex.i variable is a finalized instance.
      */
     finalize(): Complex;
 
@@ -167,7 +185,8 @@ export default class Complex {
 
     /**
      * Return the natural logarithm (base E)
-     * @param k The actual answer has a multiplicity (ln(z) = ln|z| + arg(z)) where arg(z) can return the same for different angles (every 2*pi), with this argument you can define which answer is required
+     * @param k The actual answer has a multiplicity (ln(z) = ln|z| + arg(z)) where arg(z) can return the same for
+     * different angles (every 2*pi), with this argument you can define which answer is required
      */
     log(k?: number): Complex;
 
@@ -194,17 +213,17 @@ export default class Complex {
     /**
      * Calculate the hyperbolic sine of the complex number
      */
-    sinh(): Complex
+    sinh(): Complex;
 
     /**
      * Calculate the hyperbolic cosine of the complex number
      */
-    cosh(): Complex
+    cosh(): Complex;
 
     /**
      * Calculate the hyperbolic tangent of the complex number
      */
-    tanh(): Complex
+    tanh(): Complex;
 
     /**
      * Return a new Complex instance with the same real and imaginary properties

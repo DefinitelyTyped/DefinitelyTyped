@@ -1,6 +1,8 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface ButtonGroupProps {
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;
@@ -10,5 +12,5 @@ export interface ButtonGroupProps {
   vertical?: boolean;
 }
 
-declare const ButtonGroup: React.StatelessComponent<ButtonGroupProps>;
+declare class ButtonGroup<T = {[key: string]: any}> extends React.Component<ButtonGroupProps> {}
 export default ButtonGroup;

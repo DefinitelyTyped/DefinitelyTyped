@@ -1,4 +1,4 @@
-import * as NsApi from "ns-api";
+import NsApi = require("ns-api");
 
 declare var console: { log(msg: any): string };
 

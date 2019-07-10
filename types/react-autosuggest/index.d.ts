@@ -1,13 +1,14 @@
 // Type definitions for react-autosuggest 9.3
-// Project: http://react-autosuggest.js.org/
+// Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 //                 Philip Ottesen <https://github.com/pjo256>
 //                 Robert Essig <https://github.com/robessog>
 //                 Terry Bayne <https://github.com/tbayne>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Kevin Ross <https://github.com/rosskevin>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -22,11 +23,7 @@ declare namespace Autosuggest {
      */
 
     /** @internal */
-    type Diff<T extends string, U extends string> = ({ [P in T]: P } &
-        { [P in U]: never } & { [x: string]: never })[T];
-
-    /** @internal */
-    type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
     interface SuggestionsFetchRequestedParams {
         value: string;
@@ -58,7 +55,7 @@ declare namespace Autosuggest {
 
     interface InputProps<TSuggestion>
         extends Omit<React.InputHTMLAttributes<any>, 'onChange' | 'onBlur'> {
-        onChange(event: React.FormEvent<any>, params?: ChangeEvent): void;
+        onChange(event: React.FormEvent<any>, params: ChangeEvent): void;
         onBlur?(event: React.FormEvent<any>, params?: BlurEvent<TSuggestion>): void;
         value: string;
         [key: string]: any;
@@ -96,8 +93,9 @@ declare namespace Autosuggest {
         containerProps: {
             id: string;
             key: string;
+            className: string;
             ref: any;
-            style: any;
+            role: string;
         };
         children: React.ReactNode;
         query: string;
@@ -195,7 +193,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: TSuggestion[];
+        suggestions: ReadonlyArray<TSuggestion>;
         /**
          * Use your imagination to style the Autosuggest.
          */

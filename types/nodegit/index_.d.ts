@@ -26,7 +26,7 @@ export class Index {
     static open(indexPath: string): Promise<Index>;
 
     add(sourceEntry: IndexEntry): number;
-    addAll(pathspec: Strarray, flags: number, callback?: Function): Promise<number>;
+    addAll(pathspec?: Strarray | string | string[], flags?: number, callback?: Function): Promise<number>;
     addByPath(path: string): Promise<number>;
     caps(): number;
     checksum(): Oid;
@@ -37,18 +37,18 @@ export class Index {
     conflictRemove(path: string): number;
     entryCount(): number;
     getByIndex(n: number): IndexEntry;
-    getByPath(path: string, stage: number): IndexEntry;
+    getByPath(path: string, stage?: number): IndexEntry;
     hasConflicts(): boolean;
     owner(): Repository;
     path(): string;
     read(force: number): number;
     readTree(tree: Tree): number;
     remove(path: string, stage: number): number;
-    removeAll(pathspec: Strarray, callback?: Function): Promise<number>;
+    removeAll(pathspec: Strarray | string | string[], callback?: Function): Promise<number>;
     removeByPath(path: string): Promise<number>;
     removeDirectory(dir: string, stage: number): number;
     setCaps(caps: number): number;
-    updateAll(pathspec: Strarray, callback?: Function): Promise<number>;
+    updateAll(pathspec: Strarray | string | string[], callback?: Function): Promise<number>;
     write(): number;
     writeTree(): Promise<Oid>;
     writeTreeTo(repo: Repository): Promise<Oid>;

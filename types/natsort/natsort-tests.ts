@@ -1,4 +1,4 @@
-import * as natsort from "natsort";
+import natsort = require("natsort");
 
 const someArr = [2, 5, 3, 4, 1, 'a', 'B'];
 

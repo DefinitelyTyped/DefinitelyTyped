@@ -8,6 +8,8 @@ let success: Promise<boolean>;
 success = keytar.deletePassword('keytar-tests', 'username');
 
 let password: Promise<string | null>;
-
 password = keytar.findPassword('keytar-tests');
 password = keytar.getPassword('keytar-tests', 'username');
+
+let credentials: Promise<Array<{ account: string, password: string }>>;
+credentials = keytar.findCredentials('keytar-tests');

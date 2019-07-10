@@ -1,8 +1,8 @@
-// Type definitions for react-tooltip 3.3
+// Type definitions for react-tooltip 3.9
 // Project: https://github.com/wwayne/react-tooltip
-// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
+// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Vijayasingam <https://github.com/Vijayasingam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -39,13 +39,22 @@ declare namespace ReactTooltip {
     type ElementEvents = (keyof HTMLElementEventMap) | string;
     type WindowEvents = (keyof WindowEventMap) | string;
 
-    type GetContentCallback = () => React.ReactNode;
+    type GetContentCallback = (dataTip: string) => React.ReactNode;
     type GetContent = GetContentCallback | [GetContentCallback, number];
 
     type Place = "top" | "right" | "bottom" | "left";
-    type Type = "success" | "warning" | "error" | "info" | "light";
+    type Type = "dark" | "success" | "warning" | "error" | "info" | "light";
     type Effect = "float" | "solid";
-
+    interface SanitizeHtmlParserOptions {
+        decodeEntities?: boolean;
+    }
+    interface SanitizeHtmlOptions {
+        allowedTags?: string[];
+        allowedAttributes?: any;
+        selfClosing?: string[];
+        allowedSchemes?: string[];
+        parser?: SanitizeHtmlParserOptions;
+    }
     /**
      * Available data-* attributes to be used by a tooltip, this interface isn't used by ReactTooltip itself as any
      * data-* attribute can exist on a JSX element without type checking, but it at least be useful for developers
@@ -70,6 +79,7 @@ declare namespace ReactTooltip {
     }
 
     interface Props {
+        children?: React.ReactNode;
         id?: string;
         place?: Place;
         type?: Type;
@@ -84,6 +94,7 @@ declare namespace ReactTooltip {
         html?: boolean;
         delayHide?: number;
         delayShow?: number;
+        delayUpdate?: number;
         insecure?: boolean;
         border?: boolean;
         getContent?: GetContent;
@@ -96,6 +107,8 @@ declare namespace ReactTooltip {
         role?: string;
         class?: string;
         watchWindow?: boolean;
+        sanitizeHtmlOptions?: SanitizeHtmlOptions;
+        clickable?: boolean;
     }
 }
 

@@ -1,6 +1,8 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface DropdownItemProps {
+export interface DropdownItemProps extends React.HTMLAttributes<HTMLElement> {
+  [key: string]: any;
   disabled?: boolean;
   divider?: boolean;
   tag?: React.ReactType;
@@ -13,5 +15,5 @@ export interface DropdownItemProps {
   active?: boolean;
 }
 
-declare const DropdownItem: React.StatelessComponent<DropdownItemProps>;
+declare class DropdownItem<T> extends React.Component<DropdownItemProps> {}
 export default DropdownItem;

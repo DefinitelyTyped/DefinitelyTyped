@@ -2,6 +2,7 @@
 // Project: https://github.com/TiddoLangerak/webpack-fail-plugin
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="webpack" />
 

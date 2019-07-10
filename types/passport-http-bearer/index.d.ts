@@ -34,5 +34,5 @@ declare class Strategy implements passport.Strategy {
     constructor(options: IStrategyOptions, verify: VerifyFunctionWithRequest);
 
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate(req: express.Request, options?: Object): void;
 }

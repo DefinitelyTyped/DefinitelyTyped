@@ -2,6 +2,9 @@
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
+//                 Simon Colmer <https://github.com/workshop2>
+//                 XtrimSystems <https://github.com/xtrimsystems>
+//                 Marcin Obiedziński <https://github.com/marcinobiedz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -101,6 +104,7 @@ export interface BoardOption {
     repl?: boolean;
     debug?: boolean;
     timeout?: number;
+    io?: any;
 }
 
 export declare class Board {
@@ -108,21 +112,20 @@ export declare class Board {
 
     io: any;
     id: string;
-    repl: any;
+    repl: Repl;
     isReady: boolean;
     pins: Array<Pin>;
     port: string;
-    inject: Repl;
 
     on(event: string, cb: () => void): this;
     on(event: "ready", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
-    pinMode(pin: number, mode: number): void;
-    analogWrite(pin: number, value: number): void;
-    analogRead(pin: number, cb: (item: number) => void): void;
-    digitalWrite(pin: number, value: number): void;
-    digitalRead(pin: number, cb: (item: number) => void): void;
-    servoWrite(pin: number, angle: number): void;
+    pinMode(pin: number | string, mode: number): void;
+    analogWrite(pin: number | string, value: number): void;
+    analogRead(pin: number | string, cb: (item: number) => void): void;
+    digitalWrite(pin: number | string, value: number): void;
+    digitalRead(pin: number | string, cb: (item: number) => void): void;
+    servoWrite(pin: number | string, angle: number): void;
     shiftOut(dataPin: Pin, clockPin: Pin, isBigEndian: boolean, value: number): void;
     wait(ms: number, cb: () => void): void;
     loop(ms: number, cb: () => void): void;
@@ -290,30 +293,6 @@ export declare class IMU {
 }
 
 export declare module IR {
-    export interface MotionOption {
-        pin: number | string;
-    }
-
-    export class Motion {
-        constructor(option: number | MotionOption);
-        on(event: string, cb: () => void): this;
-        on(event: "data", cb: (data: any) => void): this;
-        on(event: "motionstart", cb: () => void): this;
-        on(event: "motionend", cb: () => void): this;
-        on(event: "calibrated", cb: () => void): this;
-    }
-
-    export interface PloximityOption {
-        pin: number | string;
-        controller: string;
-    }
-
-    export class Proximity {
-        constructor(option: number | PloximityOption);
-        on(event: string, cb: () => void): this;
-        on(event: "data", cb: (data: any) => void): this;
-        on(event: "change", cb: () => void): this;
-    }
 
     export interface ArrayOption {
         pins: Array<number> | Array<string>;
@@ -386,20 +365,22 @@ export declare class LCD {
     rows: number;
     cols: number;
 
-    print(message: string): void;
-    useChar(char: string): void;
-    clear(): void;
-    cursor(row: number, col: number): void;
-    home(): void;
-    on(): void;
-    off(): void;
-    display(): void;
-    noDisplay(): void;
-    blink(): void;
-    noBlink(): void;
-    autoscroll(): void;
-    noAutoscroll(): void;
-    bgColor(color: any): void;
+    print(message: string): this;
+    useChar(char: string): this;
+    clear(): this;
+    cursor(row: number, col: number): this;
+    home(): this;
+    on(): this;
+    off(): this;
+    display(): this;
+    noDisplay(): this;
+    blink(): this;
+    noBlink(): this;
+    autoscroll(): this;
+    noAutoscroll(): this;
+    bgColor(color: any): this;
+    noBacklight(): this;
+    backlight(): this;
 }
 
 export interface LedOption {
@@ -510,10 +491,10 @@ export declare module Led {
 
         on(): void;
         off(): void;
-        color(value: number): void;
+        color(value: string): void;
         toggle(): void;
         strobe(ms: number): void;
-        brightness(value: number): void;
+        intensity(value: number): void;
         fadeIn(ms: number): void;
         fadeOut(ms: number): void;
         pulse(ms: number): void;
@@ -521,9 +502,29 @@ export declare module Led {
     }
 }
 
+export interface MotionOption {
+    pin: number | string;
+}
+
+export class Motion {
+    constructor(option: number | MotionOption);
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    on(event: "motionstart", cb: () => void): this;
+    on(event: "motionend", cb: () => void): this;
+    on(event: "calibrated", cb: () => void): this;
+}
+
+export interface MotorPins {
+    pwm: number;
+    dir: number;
+    cdir?: number;
+    brake?:number;
+}
+
 export interface MotorOption {
-    pins: any;
-    current?: any;
+    pins: MotorPins;
+    current?: SensorOption;
     invertPWM?: boolean;
     address?: number;
     controller?: string;
@@ -532,7 +533,7 @@ export interface MotorOption {
 }
 
 export declare class Motor {
-    constructor(option: Array<number> | MotorOption);
+    constructor(option: number[] | MotorOption);
 
     readonly isOn: boolean;
 
@@ -540,8 +541,22 @@ export declare class Motor {
     fwd(speed: number): void;
     reverse(speed: number): void;
     rev(speed: number): void;
-    start(): void;
-    start(speed: number): void;
+    start(speed?: number): void;
+    stop(): void;
+    brake(): void;
+    release(): void;
+}
+
+export declare class Motors {
+    constructor(option: number[] | MotorOption[]);
+
+    readonly isOn: boolean;
+
+    forward(speed: number): void;
+    fwd(speed: number): void;
+    reverse(speed: number): void;
+    rev(speed: number): void;
+    start(speed?: number): void;
     stop(): void;
     brake(): void;
     release(): void;
@@ -607,12 +622,12 @@ export declare class Pin {
     mode: number;
 
     static write(pin: number, value: number): void;
-    static read(pin: number, cb: (data: number) => void): void;
+    static read(pin: number, cb: (error: Error, data: number) => void): void;
     query(cb: (pin: PinState) => void): void;
     high(): void;
     low(): void;
     write(value: number): void;
-    read(cb: (value: number) => void): void;
+    read(cb: (error: Error, value: number) => void): void;
     on(event: string, cb: () => void): this;
     on(event: "high", cb: () => void): this;
     on(event: "low", cb: () => void): this;
@@ -627,6 +642,23 @@ export interface PingOption {
 
 export declare class Ping {
     constructor(option: number | PingOption);
+}
+
+export declare interface ProximityOption {
+    pin: number | string;
+    controller: string;
+}
+
+export declare interface ProximityData {
+    cm: number;
+    in: number;
+}
+
+export declare class Proximity {
+    constructor(option: number | ProximityOption);
+    on(event: string, cb: () => void): this;
+    on(event: "data", cb: (data: ProximityData) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface RelayOption {
@@ -655,6 +687,7 @@ export interface SensorOption {
     pin: number | string;
     freq?: boolean;
     threshold?: number;
+    enabled?: boolean;
 }
 
 export declare class Sensor {

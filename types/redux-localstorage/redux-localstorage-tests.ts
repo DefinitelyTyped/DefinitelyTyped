@@ -5,9 +5,9 @@ import {
     transformState,
     actionTypes
 } from "redux-localstorage";
-import * as adapterAsyncStorage from "redux-localstorage/lib/adapters/AsyncStorage";
-import * as adapterLocalStorage from "redux-localstorage/lib/adapters/localStorage";
-import * as adapterSessionStorage from "redux-localstorage/lib/adapters/sessionStorage";
+import adapterAsyncStorage = require("redux-localstorage/lib/adapters/AsyncStorage");
+import adapterLocalStorage = require("redux-localstorage/lib/adapters/localStorage");
+import adapterSessionStorage = require("redux-localstorage/lib/adapters/sessionStorage");
 
 const AsyncStorage: any = {};
 

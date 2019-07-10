@@ -54,6 +54,24 @@ declare module "bull" {
              * since pubsub does not give any guarantees.
              */
             finished(): Promise<void>;
+
+            /**
+             * Moves a job to the `completed` queue. Pulls a job from 'waiting' to
+             * 'active' and returns a tuple containing the next jobs data and id. If no
+             * job is in the `waiting` queue, returns null.
+             * @param returnValue The jobs success message.
+             * @param ignoreLock True when wanting to ignore the redis lock on this job.
+             * @returns Contains the next jobs data and id or null if job left in 'waiting' queue.
+             */
+            moveToCompleted(returnValue: string, ignoreLock: boolean): Promise<string[] | null>;
+
+            /**
+             * Moves a job to the failed queue.
+             * @param errorInfo The jobs error message.
+             * @param ignoreLock True when wanting to ignore the redis lock on this job.
+             * @returns void
+             */
+            moveToFailed(errorInfo: ErrorMessage, ignoreLock: boolean): Promise<void>;
         }
 
         export interface Backoff {
@@ -204,7 +222,7 @@ declare module "bull" {
              * Returns a promise that will return the job instance associated with the jobId parameter.
              * If the specified job cannot be located, the promise callback parameter will be set to null.
              */
-            getJob(jobId: string): Promise<Job>;
+            getJob(jobId: string): Promise<Job | null>;
 
             /**
              * Tells the queue remove all jobs created outside of a grace period in milliseconds.
@@ -217,6 +235,18 @@ declare module "bull" {
              * 'ready', 'error', 'activ', 'progress', 'completed', 'failed', 'paused', 'resumed', 'cleaned'
              */
             on(eventName: string, callback: EventCallback): void;
+
+            /**
+             * Moves the next job from 'waiting' to 'active'.
+             * Sets the processedOn timestamp to the current datetime.
+             * @param jobId If specified, will move a specific job from 'waiting' to 'active',
+             * @returns Returns the job moved from waiting to active queue.
+             */
+            getNextJob:(jobId?: string) => Promise<Job | null>;
+        }
+
+        interface ErrorMessage {
+            message: string;
         }
 
         interface EventCallback {

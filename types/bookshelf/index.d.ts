@@ -1,8 +1,8 @@
-// Type definitions for bookshelfjs v0.9.4
+// Type definitions for bookshelfjs v0.13.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.2
 
 import Knex = require('knex');
 import knex = require('knex');
@@ -250,7 +250,7 @@ declare namespace Bookshelf {
 		detach(options?: SyncOptions): BlueBird<any>;
 		fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
 		load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
-		orderBy(column: string, order?: SortOrder): T;
+		orderBy(column: string, order?: SortOrder): Collection<T>;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
 		query(): Knex.QueryBuilder;
@@ -317,6 +317,7 @@ declare namespace Bookshelf {
 	interface SyncOptions {
 		transacting?: Knex.Transaction;
 		debug?: boolean;
+		withSchema?: string;
 	}
 
 	interface CollectionOptions<T> {

@@ -13,7 +13,7 @@ declare namespace dragula {
     interface DragulaOptions {
         containers?: Element[];
         isContainer?: (el?: Element) => boolean;
-        moves?: (el?: Element, container?: Element, handle?: Element) => boolean;
+        moves?: (el?: Element, container?: Element, handle?: Element, sibling?: Element) => boolean;
         accepts?: (el?: Element, target?: Element, source?: Element, sibling?: Element) => boolean;
         invalid?: (el?: Element, target?: Element) => boolean;
         direction?: string;
@@ -33,7 +33,7 @@ declare namespace dragula {
         cancel(revert:boolean): void;
         cancel(): void;
         remove(): void;
-        on(events: string, callback: Function): void;
+        on(events: string, callback: Function): Drake;
         destroy(): void;
     }
 

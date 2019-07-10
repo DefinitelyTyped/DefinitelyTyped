@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Checkout NPM package files with forced LF lineendings
+# to prevent git conflicts when running npm commands
+package.json text eol=lf
+package-lock.json text eol=lf

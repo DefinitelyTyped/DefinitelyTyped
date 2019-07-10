@@ -15,6 +15,8 @@ var options2 = {
 		label: "white",
 		metadata: "green"
 	},
-	label: true
+	label: true,
+	labelPrefix: '[',
+	labelSuffix: ']'
 };
 consoleStamp(console, options2);

@@ -1,17 +1,20 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
 export interface NavProps extends React.HTMLProps<HTMLUListElement> {
-  inline?: boolean;
-  disabled?: boolean;
+  [key: string]: any;
   tabs?: boolean;
   pills?: boolean;
-  stacked?: boolean;
+  vertical?: boolean | string;
+  horizontal?: string;
+  justified?: boolean;
+  fill?: boolean;
   navbar?: boolean;
+  card?: boolean;
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-  vertical?: boolean;
 }
 
-declare const Nav: React.StatelessComponent<NavProps>;
+declare class Nav<T = {[key: string]: any}> extends React.Component<NavProps> {}
 export default Nav;

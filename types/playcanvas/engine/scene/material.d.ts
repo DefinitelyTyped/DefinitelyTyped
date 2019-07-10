@@ -57,6 +57,9 @@ declare namespace pc {
         alphaTest: number;
         alphaToCoverage: boolean;
         alphaWrite: boolean;
+        blend: boolean;
+        blendSrc: number;
+        blendDst: number;
         blendType: number;
         blueWrite: boolean;
         cull: number;

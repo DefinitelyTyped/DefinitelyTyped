@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as webpack from 'webpack';
-import * as webpackDevMiddleware from 'webpack-dev-middleware';
+import express = require('express');
+import webpack = require('webpack');
+import webpackDevMiddleware = require('webpack-dev-middleware');
 
 const compiler = webpack({});
 

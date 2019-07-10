@@ -36,3 +36,15 @@ randomColor({
     luminosity: 'light',
     format: 'hsla' // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
 });
+
+// Returns a dark RGB color with specified alpha
+randomColor({
+    luminosity: 'dark',
+    format: 'rgba',
+    alpha: 0.5 // e.g. 'rgba(9, 1, 107, 0.5)',
+});
+
+// Support for setting hue from a hex color
+randomColor({
+    hue: "#00FFFF"
+});

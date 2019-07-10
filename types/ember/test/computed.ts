@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Component from '@ember/component';
-import { or } from '@ember/object/computed';
+import Computed, { alias, or } from '@ember/object/computed';
 import { assertType } from './lib/assert';
 
 const Person = Ember.Object.extend({
@@ -23,7 +23,7 @@ const Person = Ember.Object.extend({
             return this.get('fullName');
         },
         set(key, value) {
-            let [first, last] = value.split(' ');
+            const [first, last] = value.split(' ');
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
@@ -38,7 +38,7 @@ const Person = Ember.Object.extend({
 
     fullNameSetOnly: Ember.computed<string>('firstName', 'lastName', {
         set(key, value) {
-            let [first, last] = value.split(' ');
+            const [first, last] = value.split(' ');
             this.set('firstName', first);
             this.set('lastName', last);
             return value;
@@ -50,7 +50,9 @@ const Person = Ember.Object.extend({
     }).property('firstName')
       .meta({ foo: 'bar' })
       .volatile()
-      .readOnly()
+      .readOnly(),
+
+    explicitlyDeclared: alias('fullName') as Computed<string>,
 });
 
 const person = Person.create({
@@ -68,6 +70,7 @@ assertType<Ember.ComputedProperty<string>>(person.fullNameWritable);
 assertType<Ember.ComputedProperty<string>>(person.fullNameGetOnly);
 assertType<Ember.ComputedProperty<string>>(person.fullNameSetOnly);
 assertType<Ember.ComputedProperty<string>>(person.combinators);
+assertType<Ember.ComputedProperty<string>>(person.explicitlyDeclared);
 
 assertType<string>(person.get('firstName'));
 assertType<number>(person.get('age'));
@@ -78,6 +81,7 @@ assertType<string>(person.get('fullNameWritable'));
 assertType<string>(person.get('fullNameGetOnly'));
 assertType<string>(person.get('fullNameSetOnly'));
 assertType<string>(person.get('combinators'));
+assertType<string>(person.get('explicitlyDeclared'));
 
 assertType<{ firstName: string, fullName: string, age: number }>(person.getProperties('firstName', 'fullName', 'age'));
 

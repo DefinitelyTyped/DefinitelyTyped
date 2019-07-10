@@ -1,5 +1,5 @@
-import * as webpack from "webpack";
-import * as StylelintWebpackPlugin from "stylelint-webpack-plugin";
+import webpack = require("webpack");
+import StylelintWebpackPlugin = require("stylelint-webpack-plugin");
 
 const compiler = webpack({
     plugins: [

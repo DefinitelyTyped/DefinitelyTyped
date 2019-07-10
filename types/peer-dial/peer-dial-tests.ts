@@ -1,5 +1,5 @@
 import { Server, Client, App, AppInfo, CorsOptions, ServerOptions, Delegate, DialDevice, DeviceInfo } from 'peer-dial';
-import * as express from 'express';
+import express = require('express');
 
 class AppImpl implements App {
     name: string;

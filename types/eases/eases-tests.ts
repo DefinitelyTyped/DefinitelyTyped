@@ -1,0 +1,100 @@
+import eases = require("eases");
+import backInOut = require("eases/backInOut");
+import backIn = require("eases/backIn");
+import backOut = require("eases/backOut");
+import bounceInOut = require("eases/bounceInOut");
+import bounceIn = require("eases/bounceIn");
+import bounceOut = require("eases/bounceOut");
+import circInOut = require("eases/circInOut");
+import circIn = require("eases/circIn");
+import circOut = require("eases/circOut");
+import cubicInOut = require("eases/cubicInOut");
+import cubicIn = require("eases/cubicIn");
+import cubicOut = require("eases/cubicOut");
+import elasticInOut = require("eases/elasticInOut");
+import elasticIn = require("eases/elasticIn");
+import elasticOut = require("eases/elasticOut");
+import expoInOut = require("eases/expoInOut");
+import expoIn = require("eases/expoIn");
+import expoOut = require("eases/expoOut");
+import linear = require("eases/linear");
+import quadInOut = require("eases/quadInOut");
+import quadIn = require("eases/quadIn");
+import quadOut = require("eases/quadOut");
+import quartInOut = require("eases/quartInOut");
+import quartIn = require("eases/quartIn");
+import quartOut = require("eases/quartOut");
+import quintInOut = require("eases/quintInOut");
+import quintIn = require("eases/quintIn");
+import quintOut = require("eases/quintOut");
+import sineInOut = require("eases/sineInOut");
+import sineIn = require("eases/sineIn");
+import sineOut = require("eases/sineOut");
+
+{
+    eases.backInOut(0.5); // $ExpectType number
+    eases.backIn(0.5); // $ExpectType number
+    eases.backOut(0.5); // $ExpectType number
+    eases.bounceInOut(0.5); // $ExpectType number
+    eases.bounceIn(0.5); // $ExpectType number
+    eases.bounceOut(0.5); // $ExpectType number
+    eases.circInOut(0.5); // $ExpectType number
+    eases.circIn(0.5); // $ExpectType number
+    eases.circOut(0.5); // $ExpectType number
+    eases.cubicInOut(0.5); // $ExpectType number
+    eases.cubicIn(0.5); // $ExpectType number
+    eases.cubicOut(0.5); // $ExpectType number
+    eases.elasticInOut(0.5); // $ExpectType number
+    eases.elasticIn(0.5); // $ExpectType number
+    eases.elasticOut(0.5); // $ExpectType number
+    eases.expoInOut(0.5); // $ExpectType number
+    eases.expoIn(0.5); // $ExpectType number
+    eases.expoOut(0.5); // $ExpectType number
+    eases.linear(0.5); // $ExpectType number
+    eases.quadInOut(0.5); // $ExpectType number
+    eases.quadIn(0.5); // $ExpectType number
+    eases.quadOut(0.5); // $ExpectType number
+    eases.quartInOut(0.5); // $ExpectType number
+    eases.quartIn(0.5); // $ExpectType number
+    eases.quartOut(0.5); // $ExpectType number
+    eases.quintInOut(0.5); // $ExpectType number
+    eases.quintIn(0.5); // $ExpectType number
+    eases.quintOut(0.5); // $ExpectType number
+    eases.sineInOut(0.5); // $ExpectType number
+    eases.sineIn(0.5); // $ExpectType number
+    eases.sineOut(0.5); // $ExpectType number
+}
+
+{
+    backInOut(0.5); // $ExpectType number
+    backIn(0.5); // $ExpectType number
+    backOut(0.5); // $ExpectType number
+    bounceInOut(0.5); // $ExpectType number
+    bounceIn(0.5); // $ExpectType number
+    bounceOut(0.5); // $ExpectType number
+    circInOut(0.5); // $ExpectType number
+    circIn(0.5); // $ExpectType number
+    circOut(0.5); // $ExpectType number
+    cubicInOut(0.5); // $ExpectType number
+    cubicIn(0.5); // $ExpectType number
+    cubicOut(0.5); // $ExpectType number
+    elasticInOut(0.5); // $ExpectType number
+    elasticIn(0.5); // $ExpectType number
+    elasticOut(0.5); // $ExpectType number
+    expoInOut(0.5); // $ExpectType number
+    expoIn(0.5); // $ExpectType number
+    expoOut(0.5); // $ExpectType number
+    linear(0.5); // $ExpectType number
+    quadInOut(0.5); // $ExpectType number
+    quadIn(0.5); // $ExpectType number
+    quadOut(0.5); // $ExpectType number
+    quartInOut(0.5); // $ExpectType number
+    quartIn(0.5); // $ExpectType number
+    quartOut(0.5); // $ExpectType number
+    quintInOut(0.5); // $ExpectType number
+    quintIn(0.5); // $ExpectType number
+    quintOut(0.5); // $ExpectType number
+    sineInOut(0.5); // $ExpectType number
+    sineIn(0.5); // $ExpectType number
+    sineOut(0.5); // $ExpectType number
+}

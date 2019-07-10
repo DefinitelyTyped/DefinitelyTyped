@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as hpp from 'hpp';
+import express = require('express');
+import hpp = require('hpp');
 
 const app = express();
 

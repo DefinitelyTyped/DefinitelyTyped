@@ -41,7 +41,7 @@ declare namespace pc {
          * });
          * obj.fire('test', 1, 2); // prints 3 to the console
          */
-        on(name: string, callback: (...args: any[]) => void, scope: any): any;
+        on(name: string, callback: (...args: any[]) => void, scope?: any): void;
 
         /**
          * @function
@@ -61,7 +61,7 @@ declare namespace pc {
          * obj.off('test', handler); // Removes all handler functions, called 'test'
          * obj.off('test', handler, this); // Removes all hander functions, called 'test' with scope this
          */
-        off(name: string, callback: (...args: any[]) => void, scope: any): any;
+        off(name: string, callback?: (...args: any[]) => void, scope?: any): void;
 
         /**
          * @function
@@ -72,7 +72,7 @@ declare namespace pc {
          * @example
          * obj.fire('test', 'This is the message');
          */
-        fire(name: string, arg1: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): any;
+        fire(name: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, arg6?: any, arg7?: any, arg8?: any): void;
 
         /**
          * @function
@@ -88,7 +88,7 @@ declare namespace pc {
          * obj.fire('test', 1, 2); // prints 3 to the console
          * obj.fire('test', 1, 2); // not going to get handled
          */
-        once(name: string, callback: (...args: any[]) => void, scope: any): any;
+        once(name: string, callback: (...args: any[]) => void, scope?: any): void;
 
         /**
         * @function

@@ -2,7 +2,7 @@
 // Project: https://github.com/othiym23/shimmer
 // Definitions by: Kelvin Jin <https://github.com/kjin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.2
 
 declare global {
     interface Function {
@@ -12,23 +12,23 @@ declare global {
 
 declare const shimmer: {
     (options: { logger?(msg: string): void }): void;
-    wrap<T extends (...args: any[]) => any>(
-        nodule: object,
-        name: string,
-        wrapper: (original: T) => T
+    wrap<Nodule extends object, FieldName extends keyof Nodule>(
+        nodule: Nodule,
+        name: FieldName,
+        wrapper: (original: Nodule[FieldName]) => Nodule[FieldName]
     ): void;
-    massWrap<T extends (...args: any[]) => any>(
-        nodules: object[],
-        names: string[],
-        wrapper: (original: T) => T
+    massWrap<Nodule extends object, FieldName extends keyof Nodule>(
+        nodules: Nodule[],
+        names: FieldName[],
+        wrapper: (original: Nodule[FieldName]) => Nodule[FieldName]
     ): void;
-    unwrap(
-        nodule: object,
-        name: string
+    unwrap<Nodule extends object>(
+        nodule: Nodule,
+        name: keyof Nodule
     ): void;
-    massUnwrap(
-        nodules: object[],
-        names: string[]
+    massUnwrap<Nodule extends object>(
+        nodules: Nodule[],
+        names: Array<keyof Nodule>
     ): void;
 };
 

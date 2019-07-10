@@ -1,8 +1,10 @@
-// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.3
+// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.4
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
+//                 Joao Peixoto <https://github.com/Hartimer>
+//                 Michael J. Currie <https://github.com/Basaingeal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.7
 
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
@@ -25,6 +27,9 @@ interface GlobalFetch {
     // variant for navigator.credentials monkey patching
     fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
 }
+interface WindowOrWorkerGlobalScope {
+    fetch(url: Request|string, init?: CMRequestInit): Promise<Response>;
+}
 
 /**
  * Variant of TS 2.2 {@link RequestInit} that permits a
@@ -38,7 +43,7 @@ interface CMRequestInit {
     referrer?: string;
     referrerPolicy?: string;
     mode?: string;
-    credentials?: PasswordCredential|string;
+    credentials?: PasswordCredential|FederatedCredential|string;
     cache?: string;
     redirect?: string;
     integrity?: string;
@@ -53,7 +58,7 @@ interface CMRequestInit {
  * interface.
  */
 interface Navigator {
-    credentials?: CredentialsContainer;
+    readonly credentials: CredentialsContainer;
 }
 
 /**
@@ -69,7 +74,7 @@ interface CredentialsContainer {
      *     return.
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-get}
      */
-    get(options?: CredentialRequestOptions): Promise<Credential|null>;
+    get(options?: CredentialRequestOptions): Promise<CredentialType|null>;
 
     /**
      * Ask the credential manager to store a {@link Credential} for the user.
@@ -78,14 +83,14 @@ interface CredentialsContainer {
      *
      * @see {@link https://www.w3.org/TR/credential-management-1/#dom-credentialscontainer-store}
      */
-    store(credential: Credential): Promise<Credential>;
+    store(credential: CredentialType): Promise<CredentialType>;
 
     /**
      * Create a {@link Credential} asynchronously.
      *
      * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-create}
      */
-    create(options: CredentialCreationOptions): Promise<Credential|null>;
+    create(options: CredentialCreationOptions): Promise<CredentialType|null>;
 
     /**
      * Ask the credential manager to require user mediation before returning
@@ -122,7 +127,7 @@ interface CredentialData {
     id: string;
 }
 
-type Credential = PasswordCredential|FederatedCredential|PublicKeyCredential;
+type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential;
 
 /**
  * A generic and extensible Credential interface from which all credentials
@@ -276,11 +281,6 @@ declare class FederatedCredential extends SiteBoundCredential {
 }
 
 /**
- * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#enumdef-credentialmediationrequirement}
- */
-type CredentialMediationRequirement = 'silent'|'optional'|'required';
-
-/**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
  */
 interface CredentialRequestOptions {
@@ -308,12 +308,17 @@ interface CredentialRequestOptions {
      * This property specifies the mediation requirements for a given credential
      * request.
      */
-    mediation?: CredentialMediationRequirement;
+    mediation?: 'silent' | 'optional' | 'required';
 
     /**
      * This property specifies options for requesting a public-key signature.
      */
     publicKey?: PublicKeyCredentialRequestOptions;
+
+    /**
+     * This property lets the developer abort an ongoing get() operation.
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -341,7 +346,11 @@ interface CredentialCreationOptions {
     /**
      * @see {@link https://w3c.github.io/webauthn/#dictionary-makecredentialoptions}
      */
-    publicKey?: MakePublicKeyCredentialOptions;
+    publicKey?: PublicKeyCredentialCreationOptions;
+    /**
+     * @see {@link https://w3c.github.io/webappsec-credential-management/#dom-credentialrequestoptions-signal}
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -365,14 +374,24 @@ interface FederatedCredentialRequestOptions {
 // Spec: https://w3c.github.io/webauthn/
 
 /**
+ * @see {@link https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype}
+ */
+type PublicKeyCredentialType = "public-key";
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#enumdef-userverificationrequirement}
+ */
+type UserVerificationRequirement = "required" | "preferred" | "discouraged";
+
+/**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions}
  */
 interface PublicKeyCredentialRequestOptions {
     challenge: BufferSource;
-    timeout: number;
-    rpId: string;
-    allowCredentials: PublicKeyCredentialDescriptor[];
-    userVerification?: 'required' | 'preferred' | 'discouraged';
+    timeout?: number;
+    rpId?: string;
+    allowCredentials?: PublicKeyCredentialDescriptor[];
+    userVerification?: UserVerificationRequirement;
     extensions?: any;
 }
 
@@ -380,7 +399,7 @@ interface PublicKeyCredentialRequestOptions {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialrpentity}
  */
 interface PublicKeyCredentialRpEntity {
-    id: string;
+    id?: string;
     name: string;
 }
 
@@ -397,32 +416,47 @@ interface PublicKeyCredentialUserEntity {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters}
  */
 interface PublicKeyCredentialParameters {
-    type: 'public-key';
+    type: PublicKeyCredentialType;
     alg: number;
 }
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#transport}
+ */
+type AuthenticatorTransport = "usb" | "nfc" | "ble" | "internal";
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor}
  */
 interface PublicKeyCredentialDescriptor {
-    type: 'public-key';
+    type: PublicKeyCredentialType;
     id: BufferSource;
-    transports?: string[];
+    transports?: AuthenticatorTransport[];
 }
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#attachment}
+ */
+type AuthenticatorAttachment = "platform" | "cross-platform";
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-authenticatorselectioncriteria}
  */
 interface AuthenticatorSelectionCriteria {
-    authenticatorAttachment?: string;
+    authenticatorAttachment?: AuthenticatorAttachment;
     requireResidentKey?: boolean;
-    requireUserVerification?: string;
+    userVerification?: UserVerificationRequirement;
 }
+
+/**
+ * @see {@link https://w3c.github.io/webauthn/#attestation-convey}
+ */
+type AttestationConveyancePreference = "none" | "indirect" | "direct";
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#dictdef-makepublickeycredentialoptions}
  */
-interface MakePublicKeyCredentialOptions {
+interface PublicKeyCredentialCreationOptions {
     rp: PublicKeyCredentialRpEntity;
     user: PublicKeyCredentialUserEntity;
 
@@ -432,7 +466,7 @@ interface MakePublicKeyCredentialOptions {
     timeout?: number;
     excludeCredentials?: PublicKeyCredentialDescriptor[];
     authenticatorSelection?: AuthenticatorSelectionCriteria;
-    attestation?: 'none' | 'indirect' | 'direct';
+    attestation?: AttestationConveyancePreference;
     extensions?: any;
 }
 
@@ -456,14 +490,14 @@ interface AuthenticatorAttestationResponse extends AuthenticatorResponse {
 interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
-    readonly userHandle: ArrayBuffer;
+    readonly userHandle: ArrayBuffer | null;
 }
 
 /**
  * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
  */
 interface PublicKeyCredential extends CredentialData {
-    readonly type: 'public-key';
+    readonly type: PublicKeyCredentialType;
     readonly rawId: ArrayBuffer;
     readonly response: AuthenticatorAttestationResponse|AuthenticatorAssertionResponse;
 }
