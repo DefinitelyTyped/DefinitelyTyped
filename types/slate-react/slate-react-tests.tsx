@@ -1,8 +1,6 @@
-import { Editor, Plugin, EditorProps, RenderBlockProps, RenderInlineProps } from "slate-react";
-import { Value, Editor as Controller, Operation, Point, Range, Inline, Mark, Document, Decoration } from "slate";
+import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from "slate-react";
+import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration } from "slate";
 import * as React from "react";
-import * as Immutable from "immutable";
-import { OnChangeFn } from 'slate-react';
 
 class MyPlugin implements Plugin {
     renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
