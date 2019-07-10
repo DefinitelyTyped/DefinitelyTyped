@@ -173,4 +173,8 @@ export interface Props {
   shouldHandleResizeEvent?: (e: any) => boolean;
 }
 
-export default class ReactAliceCarousel extends React.PureComponent<Props> {}
+export default class ReactAliceCarousel extends React.PureComponent<Props> {
+  slidePrev():void;
+  slideNext():void;
+  slideTo(index: number):void;
+}
