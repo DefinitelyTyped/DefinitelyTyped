@@ -296,7 +296,7 @@ declare module "crypto" {
         sign(private_key: SignPrivateKeyInput | KeyLike, output_format: HexBase64Latin1Encoding): string;
     }
 
-    function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
+    function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
     class Verify extends stream.Writable {
         private constructor();
 
