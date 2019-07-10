@@ -50,6 +50,8 @@ import './ws';
  * assertion will throw an error, while a check will always return with a pass
  * or a failure. Failure conditions can then instead be controlled by
  * thresholds, for more power and flexibility.
+ *
+ * @public
  */
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 
@@ -62,6 +64,8 @@ export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
  * fail() is a simple convenience wrapper on top of JavaScript's `throw()`
  * (because the latter cannot be used as `[expr] || throw`, which is a
  * convenient way to write k6 test code).
+ *
+ * @public
  */
 export function fail(err?: string): never;
 
@@ -74,6 +78,8 @@ export function fail(err?: string): never;
  *
  * @remarks
  * Groups are used to organize results in a test.
+ *
+ * @public
  */
 export function group<T>(name: string, fn: () => T): T;
 
@@ -81,6 +87,8 @@ export function group<T>(name: string, fn: () => T): T;
  * Suspend VU execution for the specified duration.
  *
  * @param t - Duration, in seconds.
+ *
+ * @public
  */
 export function sleep(t: number): void;
 
