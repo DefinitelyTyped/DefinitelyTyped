@@ -195,12 +195,17 @@ declare namespace google.maps {
          * in the v3.22 Map Controls}.
          */
         panControlOptions?: PanControlOptions;
+        /** 
+         * Defines a boundary that restricts the area of the map accessible to users.
+         * When set, a user can only pan and zoom while the camera view stays inside the
+         * limits of the boundary.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions.restriction Maps JavaScript API}
+         */
+        restriction?: MapRestriction;
         /** The enabled/disabled state of the Rotate control. */
         rotateControl?: boolean;
         /** The display options for the Rotate control. */
         rotateControlOptions?: RotateControlOptions;
-        /** Options for restricting map viewport. */
-        restriction?: MapRestriction;
         /** The initial enabled/disabled state of the Scale control. */
         scaleControl?: boolean;
         /** The initial display options for the Scale control. */
@@ -332,16 +337,28 @@ declare namespace google.maps {
         position?: ControlPosition;
     }
 
-    /** Options for restricting map viewport. */
+    /**
+     * A restriction that can be applied to the Map. The map's viewport will not
+     * exceed these restrictions.
+     * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapRestriction Maps JavaScript API}
+     */
     interface MapRestriction {
         /**
-         * Bounds for restricting map viewport. 
+         * When set, a user can only pan and zoom inside the given bounds.
+         * Bounds can restrict both longitude and latitude, or can restrict
+         * latitude only. For latitude-only bounds use west and east longitudes
+         * of -180 and 180, respectively.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapRestriction.latLngBounds Maps JavaScript API}
          */
         latLngBounds: LatLngBounds | LatLngBoundsLiteral;
         /**
-         * It ensurs that everything outside of the restricted bounds stays hidden.
-         * The default value is false
-        */
+         * By default bounds are relaxed, meaning that a user can zoom out
+         * until the entire bounded area is in view. Bounds can be made more
+         * restrictive by setting the strictBounds flag to true. This reduces
+         * how far a user can zoom out, ensuring that everything outside of the
+         * restricted bounds stays hidden.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/map#MapRestriction.strictBounds Maps JavaScript API}
+         */
         strictBounds?: boolean;
     }
 
