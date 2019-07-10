@@ -4,6 +4,7 @@
 //                 Kevin Gonnord <https://github.com/lleios>
 //                 Jackie Weng <https://github.com/jemerald>
 //                 Frank Brullo <https://github.com/frankbrullo>
+//                 Leon Montealegre <https://github.com/leonmontealegre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'jspdf' {
