@@ -1,4 +1,4 @@
-// Type definitions for service-worker-mock 2.0.3
+// Type definitions for service-worker-mock 2.0
 // Project: https://github.com/pinterest/service-workers/tree/master/packages/service-worker-mock#readme
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,14 +9,14 @@ export as namespace makeServiceWorkerEnv;
 export = makeServiceWorkerEnv;
 declare function makeServiceWorkerEnv(): WorkerGlobalScope;
 
-declare namespace makeServiceWorkerEnv{
-    export interface Caches {
+declare namespace makeServiceWorkerEnv {
+    interface Caches {
         [key: string]: Cache;
     }
 
-    export type Listeners = Map<keyof ServiceWorkerGlobalScopeEventMap, EventListener>;
+    type Listeners = Map<keyof ServiceWorkerGlobalScopeEventMap, EventListener>;
 
-    export interface Snapshot {
+    interface Snapshot {
         /**
          * A key/value map of current cache contents.
          */
