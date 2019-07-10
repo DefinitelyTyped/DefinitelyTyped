@@ -29,6 +29,8 @@ import './metrics';
 import './options';
 import './ws';
 
+// === Main
+
 /**
  * Run checks on a value.
  *
@@ -89,11 +91,13 @@ export interface Checkers<T> {
     [description: string]: Checker<T>;
 }
 
-// Common types
+// === Common types
+
 export type byte = number; // [0,256)
 export type bytes = byte[];
 
-// JavaScript value representable with JSON
+// === JavaScript value representable with JSON
+
 export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
 export interface JSONArray extends Array<JSONValue> {}
 export interface JSONObject {
