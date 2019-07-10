@@ -1,0 +1,23 @@
+{
+  "name": "@types/datatables.net-fixedcolumns",
+  "description": "TypeScript definitions for datatables.net-fixedcolumns",
+  "version": "3.2.6"
+  "main": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arik-neKrol/DefinitelyTyped.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Arik-neKrol/DefinitelyTyped/issues"
+  },
+  "dependencies": {
+    "@types/datatables.net": "*",
+    "@types/jquery": "*"
+  },
+  "homepage": "https://github.com/Arik-neKrol/DefinitelyTyped#readme",
+  "typeScriptVersion": "2.4"
+}
