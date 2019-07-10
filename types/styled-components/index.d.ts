@@ -7,6 +7,7 @@
 //                 Jason Killian <https://github.com/jkillian>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
+//                 Matthew Wagerfield <https://github.com/wagerfield>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -21,17 +22,14 @@ declare global {
 import * as CSS from "csstype";
 import * as React from "react";
 
-export type CSSObject = CSS.Properties<string | number> &
-    // Index type to allow selector nesting
-    // This is "[key in string]" and not "[key: string]" to allow CSSObject to be self-referential
-    {
-        // we need the CSS.Properties in here too to ensure the index signature doesn't create impossible values
-        [key in string]:
-            | CSS.Properties<string | number>[keyof CSS.Properties<
-                  string | number
-              >]
-            | CSSObject
-    };
+export type CSSProperties = CSS.Properties<string | number>;
+
+export type CSSPseudos = { [K in CSS.Pseudos]?: CSSObject };
+
+export interface CSSObject extends CSSProperties, CSSPseudos {
+    [key: string]: CSSObject | string | number | undefined;
+}
+
 export type CSSKeyframes = object & { [key: string]: CSSObject };
 
 export interface ThemeProps<T> {

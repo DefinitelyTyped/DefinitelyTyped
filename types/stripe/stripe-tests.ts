@@ -5,6 +5,15 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+stripe.setAppInfo(); // $ExpectType void
+// $ExpectType void
+stripe.setAppInfo({
+    name: 'DefinitelyTyped',
+});
+
+stripe.setTelemetryEnabled(true); // $ExpectType void
+stripe.getTelemetryEnabled(); // $ExpectType boolean
+
 // generic list tests
 // ##################################################################################
 stripe.balance.listTransactions().then(items => {
@@ -1258,6 +1267,9 @@ stripe.invoices.retrieveLines(
 stripe.invoices.retrieveLines("in_15fvyXEe31JkLCeQH7QbgZZb", { limit: 5 }).then((lines) => {
     // asynchronously called
 });
+stripe.invoices.listLineItems("in_15fvyXEe31JkLCeQH7QbgZZb", { limit: 5 }).then((lines) => {
+    lines; // $ExpectType IList<IInvoiceLineItem>
+});
 
 stripe.invoices.retrieveUpcoming(
     "cus_5rfJKDJkuxzh5Q",
@@ -1278,6 +1290,9 @@ stripe.invoices.retrieveUpcoming(
 );
 stripe.invoices.retrieveUpcoming("cus_5rfJKDJkuxzh5Q").then((upcoming) => {
     // asynchronously called
+});
+stripe.invoices.listUpcomingLineItems({ limit: 5 }).then((lines) => {
+    lines; // $ExpectType IList<IInvoiceLineItem>
 });
 
 stripe.invoices.update(

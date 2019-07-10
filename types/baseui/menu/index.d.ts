@@ -128,8 +128,8 @@ export interface SharedStatelessProps {
   highlightedIndex?: number;
   items: any[];
   noResultsMsg?: React.ReactNode;
-  onBlur?: (event: React.SyntheticEvent<HTMLElement>) => any;
-  onFocus?: (event: React.SyntheticEvent<HTMLElement>) => any;
+  onBlur?: (event: React.FocusEventHandler<HTMLElement>) => any;
+  onFocus?: (event: React.FocusEventHandler<HTMLElement>) => any;
   rootRef?: React.Ref<any>;
   focusMenu?: (event: FocusEvent | MouseEvent | KeyboardEvent) => any;
   unfocusMenu?: () => any;

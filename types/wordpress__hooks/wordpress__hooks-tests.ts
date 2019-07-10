@@ -89,7 +89,7 @@ hooks.filters;
         firstFilter('foo', 'other', 'args', 34, 'blah', true);
 
         // $ExpectType boolean
-        firstFilter(true);
+        firstFilter(1 < 2);
 
         // $ExpectType number
         firstFilter(123);
