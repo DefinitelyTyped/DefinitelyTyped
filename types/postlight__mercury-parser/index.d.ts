@@ -24,7 +24,7 @@ export interface ParseResult {
 export interface ParseOptions {
     contentType?: 'html' | 'markdown' | 'text';
     headers?: object;
-    html?: string;
+    html?: string | Buffer;
 }
 
 export function parse(url: string, options?: ParseOptions): Promise<ParseResult>;
