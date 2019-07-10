@@ -1,4 +1,4 @@
-import { Readable } from 'stream';
+import { Readable, Writable } from 'stream';
 
 {
     const x: NodeModule = {} as any;
@@ -30,3 +30,12 @@ import { Readable } from 'stream';
 }
 
 const a: NodeJS.TypedArray = new Buffer(123);
+
+{
+    const stdin: Readable = process.stdin;
+    let writableFinished: boolean;
+    const stdout: Writable = process.stdout;
+    writableFinished = process.stdout.writableFinished;
+    const stderr: Writable = process.stderr;
+    writableFinished = process.stderr.writableFinished;
+}

@@ -11,6 +11,7 @@
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 Mateusz Sokoła <https://github.com/mateuszsokola>
 //                 Braiden Cutforth <https://github.com/braidencutforth>
+//                 Erick Zhao <https://github.com/erickzhao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -102,9 +103,15 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * @param ...args The argments to the invokePropName function
      * @returns The value of the function.
      */
-    invoke<K extends NonNullable<{
-        [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never
-    }[keyof P]>>(invokePropName: K): P[K];
+    invoke<
+        K extends NonNullable<
+            {
+                [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never;
+            }[keyof P]
+        >
+    >(
+        invokePropName: K
+    ): P[K];
 
     /**
      * Returns whether or not the current node matches a provided selector.
@@ -300,7 +307,12 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * Returns an html-like string of the wrapper for debugging purposes. Useful to print out to the console when
      * tests are not passing when you expect them to.
      */
-    debug(): string;
+    debug(options?: {
+        /** Whether props should be omitted in the resulting string. Props are included by default. */
+        ignoreProps?: boolean;
+        /** Whether arrays and objects passed as props should be verbosely printed. */
+        verbose?: boolean;
+    }): string;
 
     /**
      * Returns the name of the current node of the wrapper.

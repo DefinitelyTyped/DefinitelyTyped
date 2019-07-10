@@ -170,8 +170,6 @@ declare namespace google.maps {
         minZoom?: number;
         /** If true, do not clear the contents of the Map div. */
         noClear?: boolean;
-        overviewMapControl?: boolean;
-        overviewMapControlOptions?: OverviewMapControlOptions;
         /**
          * The enabled/disabled state of the Pan control.
          * Note: The Pan control is not available in the new set of controls
@@ -207,15 +205,6 @@ declare namespace google.maps {
          * enabled by default.
          */
         scrollwheel?: boolean;
-        /**
-         * The enabled/disabled state of the sign in control. This option only
-         * applies if signed_in=true has been passed as a URL parameter in the
-         * bootstrap request. You may want to use this option to hide the map's sign
-         * in control if you have provided another way for your users to sign in,
-         * such as the Google Sign-In button. This option does not affect the
-         * visibility of the Google avatar shown when the user is already signed in.
-         */
-        signInControl?: boolean;
         /**
          * A StreetViewPanorama to display when the Street View pegman is dropped on
          * the map. If no panorama is specified, a default StreetViewPanorama will
@@ -303,10 +292,6 @@ declare namespace google.maps {
         DEFAULT,
         DROPDOWN_MENU,
         HORIZONTAL_BAR
-    }
-
-    interface OverviewMapControlOptions {
-        opened?: boolean;
     }
 
     type GestureHandlingOptions = 'cooperative' | 'greedy' | 'none' | 'auto';

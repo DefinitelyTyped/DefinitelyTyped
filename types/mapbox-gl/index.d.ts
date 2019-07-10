@@ -605,10 +605,18 @@ declare namespace mapboxgl {
     }
 
     /**
-     * Fullscreen
+     * FullscreenControl
      */
     export class FullscreenControl extends Control {
-        constructor();
+        constructor(options?: FullscreenControlOptions | null);
+    }
+
+    export interface FullscreenControlOptions {
+        /**
+         * A compatible DOM element which should be made full screen.
+         * By default, the map container element will be made full screen.
+         */
+        container?: HTMLElement | null;
     }
 
     /**
