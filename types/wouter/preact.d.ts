@@ -1,6 +1,7 @@
 import {
-    FunctionComponent,
+    ComponentChildren,
     ComponentType,
+    FunctionComponent,
     VNode
 } from "preact";
 
@@ -12,7 +13,7 @@ export type Match = [boolean, Params];
 export type MatcherFn = (pattern: string, path: Path) => Match;
 
 export interface RouteProps {
-    children?: ((params: Params) => VNode) | VNode;
+    children?: ((params: Params) => ComponentChildren) | ComponentChildren;
     path: Path;
     component?: ComponentType<any>;
     match?: boolean;
@@ -22,7 +23,7 @@ export const Route: FunctionComponent<RouteProps>;
 export interface LinkProps {
     to?: string;
     href?: string;
-    children: VNode;
+    children: ComponentChildren;
     onClick?: () => void;
 }
 export const Link: FunctionComponent<LinkProps>;
@@ -45,7 +46,7 @@ export interface RouterProps {
 }
 export const Router: FunctionComponent<
     Partial<RouterProps> & {
-        children: VNode | VNode[];
+        children: ComponentChildren;
     }
 >;
 
