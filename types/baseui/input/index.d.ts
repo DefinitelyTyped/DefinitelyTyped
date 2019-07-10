@@ -47,12 +47,12 @@ export interface BaseInputProps<T> {
   'data-baseweb'?: string;
   inputRef?: React.Ref<T>;
   name?: string;
-  onBlur?: (e: React.FocusEventHandler<T>) => any;
-  onChange?: (e: React.FormEventHandler<T>) => any;
-  onKeyDown?: (e: React.KeyboardEventHandler<T>) => any;
-  onKeyPress?: (e: React.KeyboardEventHandler<T>) => any;
-  onKeyUp?: (e: React.KeyboardEventHandler<T>) => any;
-  onFocus?: (e: React.FocusEventHandler<T>) => any;
+  onBlur?: React.FocusEventHandler<T>;
+  onChange?: React.FormEventHandler<T>;
+  onKeyDown?: React.KeyboardEventHandler<T>;
+  onKeyPress?: React.KeyboardEventHandler<T>;
+  onKeyUp?: React.KeyboardEventHandler<T>;
+  onFocus?: React.FocusEventHandler<T>;
   overrides?: BaseInputOverrides;
   placeholder?: string;
   required?: boolean;
@@ -103,7 +103,7 @@ export interface StatefulContainerProps {
   children?: React.ReactNode;
   initialState?: State;
   stateReducer?: (stateType: STATE_CHANGE_TYPE[keyof STATE_CHANGE_TYPE], nextState: State, currentState: State) => State;
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
 }
 
 export type StatefulInputProps = InputProps & StatefulContainerProps & { children?: never; };

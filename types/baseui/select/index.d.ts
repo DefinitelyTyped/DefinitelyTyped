@@ -100,8 +100,8 @@ export interface SelectProps {
   onBlur?: (e: Event) => any;
   onBlurResetsInput?: boolean;
   onChange?: (params: OnChangeParams) => any;
-  onFocus?: (e: React.FocusEventHandler<HTMLElement>) => any;
-  onInputChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
+  onFocus?: React.FocusEventHandler<HTMLElement>;
+  onInputChange?: React.FormEventHandler<HTMLInputElement>;
   onCloseResetsInput?: boolean;
   onSelectResetsInput?: boolean;
   onOpen?: () => any;
