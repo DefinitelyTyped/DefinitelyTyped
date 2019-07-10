@@ -2,6 +2,7 @@ import { Editor, Plugin, EditorProps, RenderBlockProps, RenderInlineProps } from
 import { Value, Editor as Controller, Operation, Point, Range, Inline, Mark, Document, Decoration } from "slate";
 import * as React from "react";
 import * as Immutable from "immutable";
+import { OnChangeFn } from "slate-react";
 
 class MyPlugin implements Plugin {
     renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
@@ -26,8 +27,8 @@ class MyPlugin implements Plugin {
             }
         }
     }
-    onChange = (change: {operations: Immutable.List<Operation>, value: Value}) => {
-        console.log(change.value);
+    onChange: OnChangeFn = ({ operations, value }) => {
+        console.log(operations, value);
     }
 }
 
