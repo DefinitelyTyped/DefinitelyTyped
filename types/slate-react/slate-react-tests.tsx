@@ -1,5 +1,5 @@
-import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from "slate-react";
-import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration } from "slate";
+import { Editor, Plugin, EditorProps, OnChangeFn, RenderBlockProps, RenderInlineProps } from 'slate-react';
+import { Value, Editor as Controller, Point, Range, Inline, Mark, Document, Decoration } from 'slate';
 import * as React from "react";
 
 class MyPlugin implements Plugin {
@@ -27,7 +27,7 @@ class MyPlugin implements Plugin {
     }
     onChange: OnChangeFn = ({ operations, value }) => {
         console.log(operations, value);
-    };
+    }
 }
 
 const myPlugin = new MyPlugin();
