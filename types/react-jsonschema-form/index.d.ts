@@ -236,7 +236,7 @@ declare module 'react-jsonschema-form' {
         formData: T;
     };
 
-    type ThemeProps<T = any> = Omit<FormProps<T>, 'schema'>;
+    export type ThemeProps<T = any> = Omit<FormProps<T>, 'schema'>;
 
     export function withTheme<T = any>(
         themeProps: ThemeProps<T>
