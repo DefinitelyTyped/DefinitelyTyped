@@ -5,7 +5,7 @@
 This package contains type definitions for datatables.net-fixedcolumns (https://datatables.net).
 
 # Details
-Files were exported from https://github.com/Arik-neKrol/DefinitelyTyped/new/master/types/datatables.net-fixedcolumns
+Files were exported from https://github.com/Arik-neKrol/DefinitelyTyped/tree/master/types/datatables.net-fixedcolumns
 
 Additional Details
  * Last updated: Wed, 10 Jul 2019 17:19:27 GMT
