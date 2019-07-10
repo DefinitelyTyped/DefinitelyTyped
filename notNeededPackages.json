@@ -2617,6 +2617,12 @@
             "asOfVersion": "3.0.2"
         },
         {
+            "libraryName": "react-dropzone",
+            "typingsPackageName": "react-dropzone",
+            "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
