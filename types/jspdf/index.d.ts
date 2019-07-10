@@ -10,7 +10,7 @@ declare module 'jspdf' {
     class jsPDF {
         constructor(orientation?:any,
                     unit?:string,
-                    format?:string,
+                    format?:string|Array<Number>,
                     compressPdf?:number);
 
         CapJoinStyles:any;
