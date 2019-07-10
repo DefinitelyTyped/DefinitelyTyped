@@ -2,15 +2,15 @@ import { Editor, Plugin, EditorProps, RenderBlockProps, RenderInlineProps } from
 import { Value, Editor as Controller, Operation, Point, Range, Inline, Mark, Document, Decoration } from "slate";
 import * as React from "react";
 import * as Immutable from "immutable";
-import { OnChangeFn } from "slate-react";
+import { OnChangeFn } from 'slate-react';
 
 class MyPlugin implements Plugin {
     renderBlock(props: RenderBlockProps, editor: Controller, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
-                case "block":
-                    return <div id="slate-block-test"/>;
+                case 'block':
+                    return <div id="slate-block-test" />;
                 default:
                     return undefined;
             }
@@ -20,7 +20,7 @@ class MyPlugin implements Plugin {
         const { node } = props;
         if (node) {
             switch (node.object) {
-                case "inline":
+                case 'inline':
                     return <span id="slate-inline-test">Hello world</span>;
                 default:
                     return undefined;
@@ -29,7 +29,7 @@ class MyPlugin implements Plugin {
     }
     onChange: OnChangeFn = ({ operations, value }) => {
         console.log(operations, value);
-    }
+    };
 }
 
 const myPlugin = new MyPlugin();

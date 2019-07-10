@@ -116,7 +116,7 @@ export interface Plugins extends Array<PluginOrPlugins> {}
 
 export interface OnChangeParam {
     operations: Immutable.List<Operation>;
-    value: Value
+    value: Value;
 }
 export type OnChangeFn = (change: OnChangeParam) => any;
 
