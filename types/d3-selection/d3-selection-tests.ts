@@ -427,11 +427,12 @@ divs = divs
 
 // style(...) Tests
 
+declare let stringOrStringDelay: string | (() => string);
 divs = divs
     .style('background-color', 'blue') // string
     .style('hidden', false) // boolean
     // $ExpectError
-    .style('color', 'green', 'test') // fails, invalid priority value
+    .style('color', stringOrStringDelay, 'test') // fails, invalid priority value
     .style('color', 'green', 'important');
 
 divs = divs
@@ -450,7 +451,7 @@ divs = divs
     })
     .style('hidden', () => true, null) // boolean return + test: priority = null
     // $ExpectError
-    .style('color', () => 'green', 'test') // fails, test: invalid priority value
+    .style('color', stringOrStringDelay, 'test') // fails, test: invalid priority value
     .style('color', () => 'green', 'important'); // boolean return + test: priority = 'important';
 
 // property(...) Tests
