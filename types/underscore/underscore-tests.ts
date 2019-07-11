@@ -571,6 +571,28 @@ function chain_tests() {
 		.map(num => "string" + num)
 		.value();
 
+  var numEvens = _.chain(['a', 'bb', 'ccc', 'dddd'])
+    .map(n => n.length)
+    .filter(s => s % 2 == 0)
+    .value()
+    .length;
+
+  var sortBy = _.chain([4, 3, 2, 1])
+    .map(v => v * 5)
+    .sortBy(v => v)
+    .value()
+    .length;
+
+  var each = _.chain([4, 3, 2, 1])
+    .map(v => v * 5)
+    .each(v => console.log(v))
+    .value()
+    .length;
+
+  var groupBy = _.chain(['a', 'aa', 'b', 'bb'])
+    .groupBy(v => v[0])
+    .value()[0].length;
+
 	var n = _.chain([1, 2, 3, 200])
 		.filter(num => num % 2 == 0)
 		.tap(alert)
