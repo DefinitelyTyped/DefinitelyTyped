@@ -119,7 +119,7 @@ interface CredentialsContainer {
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialdata}
  */
-interface Credential {
+interface CredentialData {
     /**
      * The credential’s identifier. This might be a GUID, username, or email
      * address, for instance.
@@ -134,13 +134,12 @@ type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential
  * will inherit.
  * @see {@link https://www.w3.org/TR/credential-management-1/#credential}
  */
-declare abstract class CredentialBase {
+interface Credential {
     /**
      * The credential’s identifier. This might be a GUID, username, or email
      * address, for instance.
      */
     readonly id: string;
-
     /**
      * The credential’s type.
      */
@@ -150,7 +149,7 @@ declare abstract class CredentialBase {
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-siteboundcredentialdata}
  */
-interface SiteBoundCredentialData extends Credential {
+interface SiteBoundCredentialData extends CredentialData {
     /**
      * A name associated with the credential, intended as a human-understandable
      * public name.
@@ -170,7 +169,9 @@ interface SiteBoundCredentialData extends Credential {
  * agent’s credential
  * store.
  */
-declare abstract class SiteBoundCredential extends CredentialBase {
+// tslint:disable-next-line no-empty-interface
+interface SiteBoundCredential extends Credential { }
+declare abstract class SiteBoundCredential {
     /**
      * A name associated with the credential, intended as a human-understandable
      * public name.
@@ -481,14 +482,6 @@ interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly authenticatorData: ArrayBuffer;
     readonly signature: ArrayBuffer;
     readonly userHandle: ArrayBuffer | null;
-}
-
-interface Credential {
-    /**
-     * The credential’s identifier. This might be a GUID, username, or email
-     * address, for instance.
-     */
-    readonly id: string;
 }
 
 /**
