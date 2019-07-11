@@ -1,6 +1,6 @@
 // Type definitions for rockset 1.0
 // Project: https://github.com/rockset/rockset-node-client#readme
-// Definitions by: Kshitij Wadhwa <https://github.com/me>
+// Definitions by: Kshitij Wadhwa <https://github.com/kwadhwa18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface XmlParams {
