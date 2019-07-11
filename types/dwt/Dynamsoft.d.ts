@@ -58,11 +58,9 @@ interface dwtEnv {
     initQueue: any[];
     inited: boolean;
 
-
     IfAddMD5InUploadHeader: boolean;
     IfConfineMaskWithinTheViewer: boolean;
     CustomizableDisplayInfo: any;
-
 }
 
 interface DynamsoftLib {
@@ -3205,7 +3203,6 @@ interface WebTwain {
      */
     HTTPUploadThroughPutEx(HTTPServer: string, sImageIndex: number, RemoteFileName: string, lImageType: EnumDWT_ImageType, optionalAsyncSuccessFunc?: () => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
-
     /**
      * Converts the image ID of an image to its index.
      * [Version] Added in v15.0
@@ -3223,7 +3220,6 @@ interface WebTwain {
      * @return {number}
      */
     IndexToImageID(sImageIndex: number): number;
-
 
     /**
      * [Deprecated.] Detects whether an image is blank.
@@ -3766,17 +3762,13 @@ interface WebTwain {
     /**
      * Shows the GUI of Image Editor.
      * @method WebTwain#ShowImageEditor
-
      * @param {string} elEditorDIV Specifies a DIV by its ID to put the editor in
      * @param {number} width Specifies the width of the DIV
      * @param {number} height Specifies the height of the DIV
      * @param {boolean} bHideToolBar Specifies whether to show the toolbar or not 
-
      * @return {boolean}
      */
-
     ShowImageEditor(elEditorDIV?: string, width?: number, height?: number, bHideToolBar?: boolean): boolean;
-
 
     /**
      * [Deprecated.] Shows the GUI of Image Editor with custom settings.
@@ -3793,7 +3785,6 @@ interface WebTwain {
     /*ingored    
     SourceNameItems
     */
-
     
     /**
      * Shows the GUI of Image Editor.
@@ -3802,7 +3793,6 @@ interface WebTwain {
      * @param {any} scanSetup Specifies how images are scanned and outputed
      */
     startScan(scanSetup: any): Promise<any>;
-
 
     /**
      * Switchs two images of specified indices in buffer.

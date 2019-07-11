@@ -30,6 +30,7 @@ interface PDF {
      * [Deprecated] Starting in v14.2, the PDF module is installed with Dynamsoft Service.
      * @method Dynamsoft.WebTwain.Addon.PDF#Download
 
+
      * @param {string} remoteFile specifies the value of which frame to get.
      * @param {function} optionalAsyncSuccessFunc optional.
      * The function to call when the download succeeds. Please refer to the function prototype OnSuccess.
@@ -84,7 +85,6 @@ interface PDFWrite {
      * @return {boolean}
      */
     Setup(jsonWriteSetting: any): void;
-
 }
 
 interface DynamsoftWebTwainAddon {
