@@ -5709,7 +5709,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.mapObject
         **/
-        mapObject<TResult>(fn: _.ListIterator<T, TResult>): _Chain<TResult, Dictionary<TResult>>;
+        mapObject<TResult>(fn: _.ObjectIterator<T, TResult>): _Chain<TResult, Dictionary<TResult>>;
 
         /**
         * Wrapped type `object`.
