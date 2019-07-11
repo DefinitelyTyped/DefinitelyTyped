@@ -17,6 +17,8 @@ declare namespace DataTables {
 
     interface FixedColumnsSettings {
         /*
+         * Row height matching algorithm to use
+         *
          * The algorithm to use. This can be one of (see below for full description):
          * 'none' | 'semiauto' | 'auto'
          */
@@ -48,19 +50,21 @@ declare namespace DataTables {
         /*
         * Update the data shown in the FixedColumns
         */
-        update(): void;
+        update(): Api;
 
         /*
         * Redraw the fixed columns based on new table size
         */
-        relayout(): void;
+        relayout(): Api;
 
         /*
+        * @Deprecated(use dt.row(this).index())
         * Get the row index of a row in a fixed column
         */
         rowIndex(): number;
 
         /*
+        * @Deprecated(use dt.cell(this).index())
         * Get the cell index of a cell in a fixed column
         */
         cellIndex(): CellIndex;
@@ -78,6 +82,6 @@ declare namespace DataTables {
         /*
          * Recalculate the height of one or more rows after a data change
          */
-        recalcHeight(): void;
+        recalcHeight(): Api;
     }
 }
