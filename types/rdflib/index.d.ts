@@ -469,10 +469,6 @@ export class Formula extends Node {
      */
     addAll(statements: Iterable<Statement>): void;
     /**
-     * Returns the symbol with canonical URI as smushed
-     * @param term A RDF node
-     */
-    /**
      * Gets a node that matches the specified pattern
      * @param s The subject
      * @param p The predicate
@@ -875,7 +871,8 @@ export class IndexedFormula extends Formula {
      */
     initPropertyActions(features: Array<('sameAs' | 'InverseFunctionalProperty' | 'FunctionalProperty')>): boolean;
     /**
-     * add - same signature as parent class Formula
+     * Returns the symbol with canonical URI as smushed
+     * @param term A RDF node
      */
     canon(term: Node): Node;
     /**
