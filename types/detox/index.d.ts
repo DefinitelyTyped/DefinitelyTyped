@@ -408,6 +408,10 @@ declare global {
              * By default await detox.init(config); will launch the installed app. If you wish to control when your app is launched, add {launchApp: false} param to your init.
              */
             launchApp?: boolean;
+            /**
+             * By default await detox.init(config); will uninstall and install the app. If you wish to reuse the existing app for a faster run, add {reuse: true} param to your init.
+             */
+            reuse?: boolean;
         }
         interface DeviceLanchAppConfig {
             /**

@@ -5100,7 +5100,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): _Chain<TResult>;
+        map<TResult>(iterator: _.ListIterator<T, TResult>, context?: any):  _Chain<TResult, TResult[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5112,7 +5112,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.map
         **/
-        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult>;
+        map<TResult>(iterator: _.ObjectIterator<T, TResult>, context?: any): _Chain<TResult, TResult[]>;
 
         /**
         * @see _.map
@@ -5462,7 +5462,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.without
         **/
-        without(...values: T[]): _Chain<T>;
+        without(...values: T[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[]`.
@@ -5474,7 +5474,7 @@ declare module _ {
         * Wrapped type `any[][]`.
         * @see _.union
         **/
-        union(...arrays: _.List<T>[]): _Chain<T>;
+        union(...arrays: _.List<T>[]): _Chain<T, T[]>;
 
         /**
         * Wrapped type `any[][]`.

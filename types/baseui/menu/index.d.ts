@@ -128,8 +128,8 @@ export interface SharedStatelessProps {
   highlightedIndex?: number;
   items: any[];
   noResultsMsg?: React.ReactNode;
-  onBlur?: (event: React.SyntheticEvent<HTMLElement>) => any;
-  onFocus?: (event: React.SyntheticEvent<HTMLElement>) => any;
+  onBlur?: (event: React.FocusEventHandler<HTMLElement>) => any;
+  onFocus?: (event: React.FocusEventHandler<HTMLElement>) => any;
   rootRef?: React.Ref<any>;
   focusMenu?: (event: FocusEvent | MouseEvent | KeyboardEvent) => any;
   unfocusMenu?: () => any;
@@ -161,3 +161,7 @@ export const StyledProfileLabelsContainer: StyletronComponent<any>;
 export const StyledProfileTitle: StyletronComponent<any>;
 export const StyledProfileSubtitle: StyletronComponent<any>;
 export const StyledProfileBody: StyletronComponent<any>;
+
+export const KEY_STRINGS: KEY_STRINGS;
+export const STATE_CHANGE_TYPES: STATE_CHANGE_TYPES;
+export const OPTION_LIST_SIZE: OPTION_LIST_SIZE;

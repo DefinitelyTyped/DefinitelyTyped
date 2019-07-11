@@ -71,3 +71,5 @@ export const StyledItem: StyletronComponent<any>;
 export const StyledDragHandle: StyletronComponent<any>;
 export const StyledCloseHandle: StyletronComponent<any>;
 export const StyledLabel: StyletronComponent<any>;
+
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;

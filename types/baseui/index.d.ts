@@ -1,6 +1,11 @@
-// Type definitions for baseui 6.20
+// Type definitions for baseui 7.3
 // Project: https://github.com/uber-web/baseui#readme
 // Definitions by: Jhey Tompkins <https://github.com/jh3y>
+//                 Gergely Nemeth <https://github.com/gergelyke>
+//                 Chase Starr <https://github.com/chasestarr>
+//                 Nadiia <https://github.com/nadiia>
+//                 Vojtech Miksu <https://github.com/tajo>
+//                 Graham Murdoch <https://github.com/sandgraham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 /// <reference path="theme.d.ts"/>
@@ -8,16 +13,19 @@
 /// <reference path="overrides.d.ts"/>
 
 import * as React from 'react';
-import { StyledFn, StyletronComponent } from 'styletron-react';
+import { StyleObject, StyletronComponent } from 'styletron-react';
 
 export function createTheme(primitives: ThemePrimitives, overrides?: object): Theme;
 export function withProps(Component: React.ComponentType, customProps?: object): (props: object) => any;
 export function mergeOverrides<T>(target?: Overrides<T>, source?: Overrides<T>): Overrides<T>;
-export function styled(...args: any): StyledFn;
+export function styled<P extends object, C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    component: C,
+    styledFn: StyleObject | ((props: { $theme: Theme } & P) => StyleObject)
+): StyletronComponent<Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>> & P>;
 
 export const LightTheme: Theme;
 export const LightThemeMove: Theme;
-export const LightThemePrimitives: ThemePrimitives;
+export const lightThemePrimitives: ThemePrimitives;
 export const DarkTheme: Theme;
 export const DarkThemeMove: Theme;
 

@@ -1,55 +1,39 @@
-import { Event, DetailedErrorCode } from "./cast.framework.events";
+import { Event, DetailedErrorCode } from './cast.framework.events';
 
 export as namespace messages;
-export type UserAction =
-    | "LIKE"
-    | "DISLIKE"
-    | "FOLLOW"
-    | "UNFOLLOW"
-    | "FLAG"
-    | "SKIP_AD";
+export type UserAction = 'LIKE' | 'DISLIKE' | 'FOLLOW' | 'UNFOLLOW' | 'FLAG' | 'SKIP_AD';
 
 export type UserActionContext =
-    | "UNKNOWN_CONTEXT"
-    | "ALBUM"
-    | "ARTIST"
-    | "PLAYLIST"
-    | "EPISODE"
-    | "SERIES"
-    | "MOVIE"
-    | "CHANNEL"
-    | "TEAM"
-    | "PLAYER"
-    | "COACH";
+    | 'UNKNOWN_CONTEXT'
+    | 'ALBUM'
+    | 'ARTIST'
+    | 'PLAYLIST'
+    | 'EPISODE'
+    | 'SERIES'
+    | 'MOVIE'
+    | 'CHANNEL'
+    | 'TEAM'
+    | 'PLAYER'
+    | 'COACH';
 
-export type TextTrackType =
-    | "SUBTITLES"
-    | "CAPTIONS"
-    | "DESCRIPTIONS"
-    | "CHAPTERS"
-    | "METADATA";
+export type TextTrackType = 'SUBTITLES' | 'CAPTIONS' | 'DESCRIPTIONS' | 'CHAPTERS' | 'METADATA';
 
-export type TextTrackWindowType = "NONE" | "NORMAL" | "ROUNDED_CORNERS";
+export type TextTrackWindowType = 'NONE' | 'NORMAL' | 'ROUNDED_CORNERS';
 
-export type TrackType = "TEXT" | "AUDIO" | "VIDEO";
+export type TrackType = 'TEXT' | 'AUDIO' | 'VIDEO';
 
 export type TextTrackFontGenericFamily =
-    | "SANS_SERIF"
-    | "MONOSPACED_SANS_SERIF"
-    | "SERIF"
-    | "MONOSPACED_SERIF"
-    | "CASUAL"
-    | "CURSIVE"
-    | "SMALL_CAPITALS";
+    | 'SANS_SERIF'
+    | 'MONOSPACED_SANS_SERIF'
+    | 'SERIF'
+    | 'MONOSPACED_SERIF'
+    | 'CASUAL'
+    | 'CURSIVE'
+    | 'SMALL_CAPITALS';
 
-export type TextTrackFontStyle = "NORMAL" | "BOLD" | "BOLD_ITALIC" | "ITALIC";
+export type TextTrackFontStyle = 'NORMAL' | 'BOLD' | 'BOLD_ITALIC' | 'ITALIC';
 
-export type TextTrackEdgeType =
-    | "NONE"
-    | "OUTLINE"
-    | "DROP_SHADOW"
-    | "RAISED"
-    | "DEPRESSED";
+export type TextTrackEdgeType = 'NONE' | 'OUTLINE' | 'DROP_SHADOW' | 'RAISED' | 'DEPRESSED';
 
 export namespace Command {
     const ALL_BASIC_MEDIA: number;
@@ -73,128 +57,116 @@ export namespace Command {
     const UNFOLLOW: number;
 }
 
-export type SeekResumeState = "PLAYBACK_START" | "PLAYBACK_PAUSE";
+export type SeekResumeState = 'PLAYBACK_START' | 'PLAYBACK_PAUSE';
 
-export type StreamingProtocolType =
-    | "UNKNOWN"
-    | "MPEG_DASH"
-    | "HLS"
-    | "SMOOTH_STREAMING";
+export type StreamingProtocolType = 'UNKNOWN' | 'MPEG_DASH' | 'HLS' | 'SMOOTH_STREAMING';
 
-export type StreamType = "BUFFERED" | "LIVE" | "NONE";
+export type StreamType = 'BUFFERED' | 'LIVE' | 'NONE';
 
-export type FocusState = "IN_FOCUS" | "NOT_IN_FOCUS";
+export type FocusState = 'IN_FOCUS' | 'NOT_IN_FOCUS';
 
-export type ExtendedPlayerState = "LOADING";
+export type ExtendedPlayerState = 'LOADING';
 
-export type ErrorType =
-    | "INVALID_PLAYER_STATE"
-    | "LOAD_FAILED"
-    | "LOAD_CANCELLED"
-    | "INVALID_REQUEST"
-    | "ERROR";
+export type ErrorType = 'INVALID_PLAYER_STATE' | 'LOAD_FAILED' | 'LOAD_CANCELLED' | 'INVALID_REQUEST' | 'ERROR';
 
 export type ErrorReason =
-    | "INVALID_COMMAND"
-    | "INVALID_PARAMS"
-    | "INVALID_MEDIA_SESSION_ID"
-    | "SKIP_LIMIT_REACHED"
-    | "NOT_SUPPORTED"
-    | "LANGUAGE_NOT_SUPPORTED"
-    | "END_OF_QUEUE"
-    | "APP_ERROR"
-    | "AUTHENTICATION_EXPIRED"
-    | "PREMIUM_ACCOUNT_REQUIRED"
-    | "CONCURRENT_STREAM_LIMIT"
-    | "PARENTAL_CONTROL_RESTRICTED"
-    | "NOT_AVAILABLE_IN_REGION"
-    | "CONTENT_ALREADY_PLAYING"
-    | "INVALID_REQUEST"
-    | "GENERIC_LOAD_ERROR";
+    | 'INVALID_COMMAND'
+    | 'INVALID_PARAMS'
+    | 'INVALID_MEDIA_SESSION_ID'
+    | 'SKIP_LIMIT_REACHED'
+    | 'NOT_SUPPORTED'
+    | 'LANGUAGE_NOT_SUPPORTED'
+    | 'END_OF_QUEUE'
+    | 'APP_ERROR'
+    | 'AUTHENTICATION_EXPIRED'
+    | 'PREMIUM_ACCOUNT_REQUIRED'
+    | 'CONCURRENT_STREAM_LIMIT'
+    | 'PARENTAL_CONTROL_RESTRICTED'
+    | 'NOT_AVAILABLE_IN_REGION'
+    | 'CONTENT_ALREADY_PLAYING'
+    | 'INVALID_REQUEST'
+    | 'GENERIC_LOAD_ERROR';
 
-export type RepeatMode =
-    | "REPEAT_OFF"
-    | "REPEAT_ALL"
-    | "REPEAT_SINGLE"
-    | "REPEAT_ALL_AND_SHUFFLE";
+export enum RepeatMode {
+    REPEAT_ALL = 'REPEAT_ALL',
+    REPEAT_ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
+    REPEAT_OFF = 'REPEAT_OFF',
+    REPEAT_SINGLE = 'REPEAT_SINGLE',
+}
 
-export type IdleReason = "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
+export type IdleReason = 'CANCELLED' | 'INTERRUPTED' | 'FINISHED' | 'ERROR';
 
-export type HlsSegmentFormat =
-    | "aac"
-    | "ac3"
-    | "e_ac3"
-    | "fmp4"
-    | "mp3"
-    | "ts"
-    | "ts_aac";
+export type HlsSegmentFormat = 'aac' | 'ac3' | 'e_ac3' | 'fmp4' | 'mp3' | 'ts' | 'ts_aac';
 
-export type HdrType = "sdr" | "hdr" | "dv";
+export type HdrType = 'sdr' | 'hdr' | 'dv';
 
-export type PlayStringId =
-    | "FREE_TRIAL_ABOUT_TO_EXPIRE"
-    | "SUBSCRIPTION_ABOUT_TO_EXPIRE"
-    | "STREAM_HIJACKED";
+export type PlayStringId = 'FREE_TRIAL_ABOUT_TO_EXPIRE' | 'SUBSCRIPTION_ABOUT_TO_EXPIRE' | 'STREAM_HIJACKED';
 
-export type GetStatusOptions = "NO_METADATA" | "NO_QUEUE_ITEMS";
+export type GetStatusOptions = 'NO_METADATA' | 'NO_QUEUE_ITEMS';
 
 export type MessageType =
-    | "MEDIA_STATUS"
-    | "CLOUD_STATUS"
-    | "QUEUE_CHANGE"
-    | "QUEUE_ITEMS"
-    | "QUEUE_ITEM_IDS"
-    | "GET_STATUS"
-    | "LOAD"
-    | "PAUSE"
-    | "STOP"
-    | "PLAY"
-    | "SKIP_AD"
-    | "PLAY_AGAIN"
-    | "SEEK"
-    | "SET_PLAYBACK_RATE"
-    | "SET_VOLUME"
-    | "EDIT_TRACKS_INFO"
-    | "EDIT_AUDIO_TRACKS"
-    | "PRECACHE"
-    | "PRELOAD"
-    | "QUEUE_LOAD"
-    | "QUEUE_INSERT"
-    | "QUEUE_UPDATE"
-    | "QUEUE_REMOVE"
-    | "QUEUE_REORDER"
-    | "QUEUE_NEXT"
-    | "QUEUE_PREV"
-    | "QUEUE_GET_ITEM_RANGE"
-    | "QUEUE_GET_ITEMS"
-    | "QUEUE_GET_ITEM_IDS"
-    | "QUEUE_SHUFFLE"
-    | "SET_CREDENTIALS"
-    | "LOAD_BY_ENTITY"
-    | "USER_ACTION"
-    | "DISPLAY_STATUS"
-    | "FOCUS_STATE"
-    | "CUSTOM_COMMAND";
+    | 'MEDIA_STATUS'
+    | 'CLOUD_STATUS'
+    | 'QUEUE_CHANGE'
+    | 'QUEUE_ITEMS'
+    | 'QUEUE_ITEM_IDS'
+    | 'GET_STATUS'
+    | 'LOAD'
+    | 'PAUSE'
+    | 'STOP'
+    | 'PLAY'
+    | 'SKIP_AD'
+    | 'PLAY_AGAIN'
+    | 'SEEK'
+    | 'SET_PLAYBACK_RATE'
+    | 'SET_VOLUME'
+    | 'EDIT_TRACKS_INFO'
+    | 'EDIT_AUDIO_TRACKS'
+    | 'PRECACHE'
+    | 'PRELOAD'
+    | 'QUEUE_LOAD'
+    | 'QUEUE_INSERT'
+    | 'QUEUE_UPDATE'
+    | 'QUEUE_REMOVE'
+    | 'QUEUE_REORDER'
+    | 'QUEUE_NEXT'
+    | 'QUEUE_PREV'
+    | 'QUEUE_GET_ITEM_RANGE'
+    | 'QUEUE_GET_ITEMS'
+    | 'QUEUE_GET_ITEM_IDS'
+    | 'QUEUE_SHUFFLE'
+    | 'SET_CREDENTIALS'
+    | 'LOAD_BY_ENTITY'
+    | 'USER_ACTION'
+    | 'DISPLAY_STATUS'
+    | 'FOCUS_STATE'
+    | 'CUSTOM_COMMAND';
 
-export type PlayerState = "IDLE" | "PLAYING" | "PAUSED" | "BUFFERING";
+export enum PlayerState {
+    BUFFERING = 'BUFFERING',
+    IDLE = 'IDLE',
+    PAUSED = 'PAUSED',
+    PLAYING = 'PLAYING',
+}
 
-export type QueueChangeType =
-    | "INSERT"
-    | "REMOVE"
-    | "ITEMS_CHANGE"
-    | "UPDATE"
-    | "NO_CHANGE";
+export type QueueChangeType = 'INSERT' | 'REMOVE' | 'ITEMS_CHANGE' | 'UPDATE' | 'NO_CHANGE';
 
-export type QueueType =
-    | "ALBUM"
-    | "PLAYLIST"
-    | "AUDIOBOOK"
-    | "RADIO_STATION"
-    | "PODCAST_SERIES"
-    | "TV_SERIES"
-    | "VIDEO_PLAYLIST"
-    | "LIVE_TV"
-    | "MOVIE";
+export enum QueueType {
+    ALBUM = 'ALBUM',
+    AUDIOBOOK = 'AUDIOBOOK',
+    LIVE_TV = 'LIVE_TV',
+    MOVIE = 'MOVIE',
+    PLAYLIST = 'PLAYLIST',
+    PODCAST_SERIES = 'PODCAST_SERIES',
+    RADIO_STATION = 'RADIO_STATION',
+    TV_SERIES = 'TV_SERIES',
+    VIDEO_PLAYLIST = 'VIDEO_PLAYLIST',
+}
+
+export enum ContainerType {
+    GENERIC_CONTAINER = 0,
+    AUDIOBOOK_CONTAINER = 1,
+}
 
 export enum MetadataType {
     GENERIC = 0,
@@ -202,7 +174,13 @@ export enum MetadataType {
     TV_SHOW = 2,
     MUSIC_TRACK = 3,
     PHOTO = 4,
-    AUDIOBOOK_CHAPTER = 5
+    AUDIOBOOK_CHAPTER = 5,
+}
+
+export enum MediaCategory {
+    AUDIO = 'AUDIO',
+    IMAGE = 'IMAGE',
+    VIDEO = 'VIDEO',
 }
 
 /**
@@ -873,6 +851,37 @@ export class QueueIds {
     type: MessageType;
 }
 
+export class ContainerMetadata {
+    constructor(type?: ContainerType);
+
+    /**
+     * Container duration in seconds. For example an audiobook playback time.
+     */
+    containerDuration?: number;
+
+    /**
+     * Container images. For example a live TV channel logo, audiobook cover,
+     * album cover art, etc.
+     */
+    containerImages?: Image[];
+
+    /**
+     * The type of container object.
+     */
+    containerType: ContainerType;
+
+    /**
+     * Array of media metadata objects to describe the media content sections.
+     * Used to delineate live TV streams into programs and audiobooks into chapters.
+     */
+    sections?: MediaMetadata[];
+
+    /**
+     * The title of the container, for example an audiobook title, a TV channel name, etc.
+     */
+    title?: string;
+}
+
 /**
  * Queue data as part of the LOAD request.
  */
@@ -886,6 +895,11 @@ export class QueueData {
         startIndex?: number,
         startTime?: number
     );
+
+    /**
+     * Metadata to describe the queue content, and optionally media sections.
+     */
+    containerMetadata?: ContainerMetadata;
 
     /**
      * Description of the queue.
@@ -921,6 +935,11 @@ export class QueueData {
      * Continuous playback behavior of the queue.
      */
     repeatMode?: RepeatMode;
+
+    /**
+     * Indicate if the queue is shuffled.
+     */
+    shuffle?: boolean;
 
     /**
      * The index of the item in the queue that should be used to start playback first.
@@ -1555,12 +1574,7 @@ export class LoadByEntityRequestData {
  * attributes.
  */
 export class LiveSeekableRange {
-    constructor(
-        start?: number,
-        end?: number,
-        isMovingWindow?: boolean,
-        isLiveDone?: boolean
-    );
+    constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
 
     /**
      * A boolean value indicates whether a live stream is ended. If it is done;

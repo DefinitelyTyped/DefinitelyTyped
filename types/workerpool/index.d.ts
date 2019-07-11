@@ -1,4 +1,4 @@
-// Type definitions for workerpool 2.3
+// Type definitions for workerpool 3.1
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
@@ -92,6 +92,12 @@ export interface WorkerPoolOptions {
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
      */
     maxWorkers?: number;
+    /**
+     * In case of 'process' (default), child_process will be used.
+     * In case of 'thread', worker_threads will be used. If worker_threads are not available, an error is thrown.
+     * In case of 'auto', worker_threads will be used if available (Node.js >= 11.7.0), else child_process will be used as fallback.
+     */
+    nodeWorker?: 'process' | 'thread' | 'auto';
 
     /** 2nd argument to pass to childProcess.fork() */
     forkArgs?: string[];

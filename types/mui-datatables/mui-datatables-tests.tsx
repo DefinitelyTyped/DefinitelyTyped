@@ -22,14 +22,24 @@ const MuiCustomTable: React.FC<Props> = (props) => {
         rowsPerPageOptions: [5, 10, 20, 25, 50, 100],
         downloadOptions: {
             filename: 'filename.csv',
-            separator: ','
+            separator: ',',
         },
         sortFilterList: false,
+        customRowRender: (data, dataIndex, rowIndex) => {
+            const [id, name, amount] = data;
+
+            return (
+                <div>
+                    <span>{id}</span>
+                    <span>{name}</span>
+                    <span>{amount}</span>
+                </div>
+            );
+        },
         customToolbarSelect: (selectedRows, displayData, setSelectedRows) => {
             return (
                 <span>
-                    Custom Selected Toolbar:{' '}
-                    {`${selectedRows.data.length} - ${JSON.stringify(displayData[0])}`}
+                    Custom Selected Toolbar: {`${selectedRows.data.length} - ${JSON.stringify(displayData[0])}`}
                     <button
                         onClick={() => {
                             setSelectedRows([]);
@@ -71,8 +81,8 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                 text: 'rows(s) selected',
                 delete: 'Delete',
                 deleteAria: 'Delete Selected Rows',
-            }
-        }
+            },
+        },
     };
 
     return (<MUIDataTable title={props.title} data={data} columns={columns} options={TableOptions}/>);
