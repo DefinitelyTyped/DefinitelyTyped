@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Compiler, Plugin } from "webpack";
+import { Compiler, Plugin } from 'webpack';
 
 export = ScriptExtHtmlWebpackPlugin;
 
