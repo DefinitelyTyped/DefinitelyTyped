@@ -9,7 +9,7 @@ export interface TemplateArray extends ReadonlyArray<Template> {}
  * @param blocks - Block list.
  * @param template - Block template.
  */
-export function doBlocksMatchTemplate(blocks?: readonly BlockInstance[], template?: TemplateArray): boolean;
+export function doBlocksMatchTemplate(blocks?: BlockInstance[], template?: TemplateArray): boolean;
 
 /**
  * Synchronize a block list with a block template.
