@@ -841,6 +841,13 @@ declare namespace NodeJS {
         voluntaryContextSwitches: number;
     }
 
+    interface ProcessWarningOptions {
+        type?: String;
+        code?: String;
+        ctor?: Function;
+        detail?: String;
+    }
+
     interface Process extends EventEmitter {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
@@ -860,7 +867,8 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
-        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, name?: string, code?: string, ctor?: Function): void;
+        emitWarning(warning: string | Error, options: ProcessWarningOptions): void;
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
