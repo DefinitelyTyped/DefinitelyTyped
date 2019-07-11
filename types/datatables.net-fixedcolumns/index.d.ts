@@ -79,6 +79,5 @@ declare namespace DataTables {
          * Recalculate the height of one or more rows after a data change
          */
         recalcHeight(): void;
-
     }
 }
