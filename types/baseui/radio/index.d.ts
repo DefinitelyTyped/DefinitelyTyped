@@ -22,7 +22,7 @@ export interface StatefulContainerProps {
   children?: React.ReactNode;
   initialState?: State;
   stateReducer: StateReducer;
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
   autoFocus?: boolean;
 }
 
@@ -37,7 +37,7 @@ export interface StatefulRadioGroupProps {
   initialState?: State;
   autoFocus?: boolean;
   name?: string;
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
 }
 
 export const StatefulRadioGroup: React.FC<StatefulRadioGroupProps>;
@@ -55,11 +55,11 @@ export interface RadioGroupProps {
   align?: string;
   name?: string;
   labelPlacement?: 'top' | 'right' | 'bottom' | 'left';
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
-  onMouseEnter?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseLeave?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onFocus?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onBlur?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export class RadioGroup extends React.Component<RadioGroupProps> {}
@@ -87,13 +87,13 @@ export interface RadioProps {
   isError?: boolean;
   labelPlacement?: 'top' | 'right' | 'bottom' | 'left';
   name?: string;
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
-  onMouseEnter?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseLeave?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onFocus?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onBlur?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onMouseDown?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseUp?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseUp?: React.MouseEventHandler<HTMLInputElement>;
   overrides?: RadioOverrides & RadioGroupOverrides;
   required?: boolean;
   value?: string;
