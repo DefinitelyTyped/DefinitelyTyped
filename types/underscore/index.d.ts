@@ -5189,7 +5189,7 @@ declare module _ {
         filter(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
         /**
-        * @see _.select
+        * @see _.filter
         **/
         select(iterator: _.ListIterator<T, boolean>, context?: any): _Chain<T, T[]>;
 
@@ -5255,7 +5255,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.invoke
         **/
-        invoke(methodName: string, ...args: any[]): _Chain<T, V>;
+        invoke(methodName: string, ...args: any[]): _Chain<any>;
 
         /**
         * Wrapped type `any[]`.
@@ -5357,12 +5357,12 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sample
         **/
-        sample<T>(n: number): _Chain<T, T[]>;
+        sample<T>(n: number): _ChainSingle<T>;
 
         /**
         * @see _.sample
         **/
-        sample<T>(): _Chain<T, T[]>;
+        sample<T>(): _ChainSingle<T>;
 
         /**
         * Wrapped type `any`.
@@ -5703,19 +5703,19 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.values
         **/
-        values(): _Chain<any, any[]>;
+        values(): _Chain<T, T[]>;
 
         /**
         * Wrapped type `object`.
         * @see _.mapObject
         **/
-        mapObject<TResult>(fn: _.ListIterator<T, TResult>): _Chain<TResult, any>;
+        mapObject<TResult>(fn: _.ListIterator<T, TResult>): _Chain<TResult, Dictionary<TResult>>;
 
         /**
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<[string, any], [string, any][]>;
+        pairs(): _Chain<[string, T], [string, T][]>;
 
         /**
         * Wrapped type `object`.
