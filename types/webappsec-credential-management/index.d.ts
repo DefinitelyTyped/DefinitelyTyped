@@ -116,6 +116,17 @@ interface CredentialsContainer {
     preventSilentAccess(): Promise<void>;
 }
 
+/**
+ * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialdata}
+ */
+interface Credential {
+    /**
+     * The credential’s identifier. This might be a GUID, username, or email
+     * address, for instance.
+     */
+    readonly id: string;
+}
+
 type CredentialType = PasswordCredential|FederatedCredential|PublicKeyCredential;
 
 /**
@@ -139,12 +150,7 @@ declare abstract class CredentialBase {
 /**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-siteboundcredentialdata}
  */
-interface SiteBoundCredentialData {
-    /**
-     * The credential’s identifier. This might be a GUID, username, or email
-     * address, for instance.
-     */
-    id: string;
+interface SiteBoundCredentialData extends Credential {
     /**
      * A name associated with the credential, intended as a human-understandable
      * public name.
@@ -477,16 +483,18 @@ interface AuthenticatorAssertionResponse extends AuthenticatorResponse {
     readonly userHandle: ArrayBuffer | null;
 }
 
-/**
- * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
- */
-interface PublicKeyCredential {
+interface Credential {
     /**
      * The credential’s identifier. This might be a GUID, username, or email
      * address, for instance.
      */
-    id: string;
+    readonly id: string;
+}
 
+/**
+ * @see {@link https://w3c.github.io/webauthn/#publickeycredential}
+ */
+interface PublicKeyCredential extends Credential {
     readonly type: "public-key";
     readonly rawId: ArrayBuffer;
     readonly response: AuthenticatorResponse;
