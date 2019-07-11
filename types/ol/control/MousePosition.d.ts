@@ -7,7 +7,14 @@ import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
 import Control from './Control';
 
-export function render(mapEvent: MapEvent): void;
+export interface Options {
+    className?: string;
+    coordinateFormat?: CoordinateFormat;
+    projection?: ProjectionLike;
+    render?: ((p0: MapEvent) => void);
+    target?: HTMLElement | string;
+    undefinedHTML?: string;
+}
 export default class MousePosition extends Control {
     constructor(opt_options?: Options);
     protected handleMouseMove(event: Event): void;
@@ -32,11 +39,4 @@ export default class MousePosition extends Control {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export interface Options {
-    className?: string;
-    coordinateFormat?: CoordinateFormat;
-    projection?: ProjectionLike;
-    render?: ((p0: MapEvent) => void);
-    target?: HTMLElement | string;
-    undefinedHTML?: string;
-}
+export function render(mapEvent: MapEvent): void;

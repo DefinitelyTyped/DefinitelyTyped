@@ -1,12 +1,29 @@
-import css, { Theme, TypographyProps, BorderProps } from '@styled-system/css';
+import css, { Theme, TypographyProps, BorderProps, StyleProps } from '@styled-system/css';
 
-export const typography: TypographyProps = {
+const typography: TypographyProps = {
     fontFamily: 'sans-serif',
     fontSize: [1, 2, 3],
 };
 
-export const border: BorderProps = {
+const border: BorderProps = {
     border: [1, 5],
+};
+
+const spacing: StyleProps = {
+    m: 'normal',
+    p: 5,
+
+    top: 0,
+    right: 1,
+    bottom: 4,
+    left: 6,
+
+    gridGap: 'gutter',
+    gridColumnGap: 'gutter',
+    gridRowGap: 'gutter',
+    gap: 'gutter',
+    columnGap: 'gutter',
+    rowGap: 0,
 };
 
 const theme: Theme = {
@@ -128,4 +145,23 @@ css({
 
 css({
     variant: 'text.title',
+});
+
+css({
+    fontWeight: 'regular',
+    bg: 'secondary',
+});
+
+css({
+    bg: 'primary',
+
+    ':hover': {
+        bg: 'secondary',
+    },
+
+    ':disabled': {
+        color: 'gray',
+        bg: 'white',
+        cursor: 'auto',
+    },
 });

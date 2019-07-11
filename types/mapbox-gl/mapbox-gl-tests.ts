@@ -192,6 +192,23 @@ var imageSourceObj = new mapboxgl.ImageSource({
 map.addSource('some id', imageSourceObj); // add
 map.removeSource('some id');  // remove
 
+imageSourceObj.updateImage({
+	url: '/foo.png',
+	coordinates: [
+		[-76.54335737228394, 39.18579907229748],
+		[-76.52803659439087, 39.1838364847587],
+		[-76.5295386314392, 39.17683392507606],
+		[-76.54520273208618, 39.17876344106642]
+	]
+});
+
+imageSourceObj.setCoordinates([
+	[-76.54335737228394, 39.18579907229748],
+	[-76.52803659439087, 39.1838364847587],
+	[-76.5295386314392, 39.17683392507606],
+	[-76.54520273208618, 39.17876344106642]
+]);
+
 /**
  * Video Source
  */
@@ -404,6 +421,14 @@ bool = bounds.isEmpty()
 let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
 attributionControl.on('click', () => {});
 
+/*
+ * FullscreenControl
+ */
+new mapboxgl.FullscreenControl();
+new mapboxgl.FullscreenControl(null);
+new mapboxgl.FullscreenControl({});
+new mapboxgl.FullscreenControl({container: document.querySelector('body')});
+
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
 declare var lnglatboundslike: mapboxgl.LngLatBoundsLike;
@@ -510,8 +535,8 @@ let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
 	...cameraOpts,
 }
 
-expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike));
-expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
+expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike));
+expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
 
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));

@@ -2,6 +2,10 @@
 import * as React from 'react';
 import { StyletronComponent } from 'styletron-react';
 
+export interface STATE_CHANGE_TYPE {
+    change: 'change';
+}
+
 export interface State {
   value: number[];
 }
@@ -67,3 +71,5 @@ export const StyledThumb: StyletronComponent<any>;
 export const StyledInnerThumb: StyletronComponent<any>;
 export const StyledTick: StyletronComponent<any>;
 export const StyledTickBar: StyletronComponent<any>;
+
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;

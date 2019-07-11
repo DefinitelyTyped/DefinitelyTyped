@@ -6,6 +6,14 @@ import BaseObject, { ObjectEvent } from '../Object';
 import State_1 from '../source/State';
 import Layer, { State } from './Layer';
 
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+}
 export default class BaseLayer extends BaseObject {
     constructor(options: Options);
     getExtent(): Extent;
@@ -52,12 +60,4 @@ export default class BaseLayer extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
 }

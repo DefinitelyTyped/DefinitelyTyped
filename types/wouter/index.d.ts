@@ -1,6 +1,7 @@
 // Type definitions for wouter 2.0
 // Project: https://github.com/molefrog/wouter#readme
 // Definitions by: Tolkunov Alexander <https://github.com/StrayFromThePath>
+//                 Maksim Karelov <https://github.com/Ty3uK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

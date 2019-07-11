@@ -1,11 +1,18 @@
-// Type definitions for load-google-maps-api 1.3
+// Type definitions for load-google-maps-api 2.0
 // Project: https://github.com/yuanqing/load-google-maps-api#readme
 // Definitions by: Oscar Busk <https://github.com/oBusk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 /// <reference types="googlemaps" />
 
 interface Options {
+    /**
+     * The Google Maps API `script` tag URL
+     *
+     * Default Value `'https://maps.googleapis.com/maps/api/js'`
+     */
+    apiUrl?: string;
     /**
      * Client usage reporting channel
      *

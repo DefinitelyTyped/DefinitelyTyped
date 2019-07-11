@@ -15,7 +15,6 @@ import Within from './filter/Within';
 import GMLBase, { Options as Options_1 } from './GMLBase';
 import XMLFeature from './XMLFeature';
 
-export function writeFilter(filter: Filter): Node;
 export interface FeatureCollectionMetadata {
     numberOfFeatures: number;
     bounds: Extent;
@@ -31,19 +30,6 @@ export interface TransactionResponse {
     totalInserted: number;
     totalUpdated: number;
     insertIds: string[];
-}
-export default class WFS extends XMLFeature {
-    constructor(opt_options?: Options);
-    getFeatureType(): string[] | string;
-    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
-    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata;
-    readTransactionResponse(source: Document | Element | object | string): TransactionResponse;
-    readTransactionResponseFromDocument(doc: Document): TransactionResponse;
-    readTransactionResponseFromNode(node: Element): TransactionResponse;
-    setFeatureType(featureType: string[] | string): void;
-    writeGetFeature(options: WriteGetFeatureOptions): Node;
-    writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
 }
 export interface WriteGetFeatureOptions {
     featureNS: string;
@@ -73,3 +59,17 @@ export interface WriteTransactionOptions {
     gmlOptions?: Options_1;
     version?: string;
 }
+export default class WFS extends XMLFeature {
+    constructor(opt_options?: Options);
+    getFeatureType(): string[] | string;
+    readFeatureCollectionMetadata(source: Document | Element | object | string): FeatureCollectionMetadata;
+    readFeatureCollectionMetadataFromDocument(doc: Document): FeatureCollectionMetadata;
+    readFeatureCollectionMetadataFromNode(node: Element): FeatureCollectionMetadata;
+    readTransactionResponse(source: Document | Element | object | string): TransactionResponse;
+    readTransactionResponseFromDocument(doc: Document): TransactionResponse;
+    readTransactionResponseFromNode(node: Element): TransactionResponse;
+    setFeatureType(featureType: string[] | string): void;
+    writeGetFeature(options: WriteGetFeatureOptions): Node;
+    writeTransaction(inserts: Feature[], updates: Feature[], deletes: Feature[], options: WriteTransactionOptions): Node;
+}
+export function writeFilter(filter: Filter): Node;

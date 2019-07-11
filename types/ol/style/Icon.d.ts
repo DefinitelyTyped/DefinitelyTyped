@@ -4,14 +4,6 @@ import IconAnchorUnits from './IconAnchorUnits';
 import IconOrigin from './IconOrigin';
 import ImageStyle from './Image';
 
-export default class Icon extends ImageStyle {
-    constructor(opt_options?: Options);
-    clone(): Icon;
-    clone(): ImageStyle;
-    getColor(): Color;
-    getSrc(): string;
-    setAnchor(anchor: number[]): void;
-}
 export interface Options {
     anchor?: number[];
     anchorOrigin?: IconOrigin;
@@ -29,4 +21,12 @@ export interface Options {
     size?: Size;
     imgSize?: Size;
     src?: string;
+}
+export default class Icon extends ImageStyle {
+    constructor(opt_options?: Options);
+    clone(): Icon;
+    clone(): ImageStyle;
+    getColor(): Color;
+    getSrc(): string;
+    setAnchor(anchor: number[]): void;
 }

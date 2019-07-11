@@ -12,10 +12,6 @@ import TileRange from '../TileRange';
 import Source, { AttributionLike } from './Source';
 import State from './State';
 
-export class TileSourceEvent extends Event {
-    constructor();
-    tile: Tile;
-}
 export interface Options {
     attributions?: AttributionLike;
     attributionsCollapsible?: boolean;
@@ -40,7 +36,7 @@ export default class TileSource extends Source {
     protected setKey(key: string): void;
     canExpireCache(): boolean;
     expireCache(projection: Projection, usedTiles: { [key: string]: TileRange }): void;
-    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: ((p0: Tile) => boolean | void)): boolean;
+    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: ((p0: Tile) => boolean)): boolean;
     getGutterForProjection(projection: Projection): number;
     getOpaque(projection: Projection): boolean;
     getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
@@ -59,4 +55,8 @@ export default class TileSource extends Source {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
+}
+export class TileSourceEvent extends Event {
+    constructor();
+    tile: Tile;
 }

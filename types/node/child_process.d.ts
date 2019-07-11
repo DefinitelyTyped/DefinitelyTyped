@@ -177,19 +177,24 @@ declare module "child_process" {
         callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
 
+    interface PromiseWithChild<T> extends Promise<T> {
+        child: ChildProcess;
+    }
+
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace exec {
-        function __promisify__(command: string): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options: ExecOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(command: string): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
+        function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(command: string, options: ExecOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
     interface ExecFileOptions extends CommonOptions {
         maxBuffer?: number;
         killSignal?: string;
         windowsVerbatimArguments?: boolean;
+        shell?: boolean | string;
     }
     interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
@@ -261,22 +266,22 @@ declare module "child_process" {
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace execFile {
-        function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, args: string[] | undefined | null): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): PromiseWithChild<{ stdout: Buffer, stderr: Buffer }>;
+        function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        function __promisify__(file: string, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): PromiseWithChild<{ stdout: string, stderr: string }>;
+        function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
         function __promisify__(
             file: string,
             args: string[] | undefined | null,
             options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        ): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        ): PromiseWithChild<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
     interface ForkOptions extends ProcessEnvOptions {

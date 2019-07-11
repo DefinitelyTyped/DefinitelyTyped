@@ -45,7 +45,7 @@ interface MultipleOptions {
     showAppsToView?: boolean;
 }
 
-type SupportedSocialApps =
+export type SupportedSocialApps =
     | "facebook"
     | "pagesmanager"
     | "twitter"

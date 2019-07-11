@@ -426,3 +426,8 @@ export const StyledCountrySelectDropdownListItem: StyletronComponent<any>;
 export const StyledCountrySelectDropdownFlagColumn: StyletronComponent<any>;
 export const StyledCountrySelectDropdownNameColumn: StyletronComponent<any>;
 export const StyledCountrySelectDropdownDialcodeColumn: StyletronComponent<any>;
+
+export const DEFAULT_MAX_DROPDOWN_WIDTH: '400px';
+export const DEFAULT_MAX_DROPDOWN_HEIGHT: '400px';
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;
+export const COUNTRIES: COUNTRIES;

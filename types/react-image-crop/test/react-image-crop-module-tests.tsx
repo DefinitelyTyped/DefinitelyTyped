@@ -61,6 +61,25 @@ class AspectRatioTest extends React.Component<{}, TestState> {
     }
 }
 
+// Testing renderComponent
+class RenderComponentTest extends React.Component {
+    render() {
+        const videoComponent = (
+            <video autoPlay loop style={{ display: 'block', maxWidth: '100%' }}>
+                <source src="sample.mp4" type="video/mp4" />
+            </video>
+        );
+
+        return (
+            <ReactCrop
+                src="imageSrc"
+                onChange={(crop) => console.log(crop)}
+                renderComponent={videoComponent}
+            />
+        );
+    }
+}
+
 // All available props
 class CompleteTest extends React.Component<{}, TestState> {
     state = initialState;
@@ -110,6 +129,7 @@ class CompleteTest extends React.Component<{}, TestState> {
                 onImageError={this.onImageError}
                 className="my-cropper"
                 locked={false}
+                renderComponent={<div></div>}
             />
         );
     }

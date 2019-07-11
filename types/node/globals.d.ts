@@ -154,6 +154,10 @@ interface String {
     trimRight(): string;
 }
 
+interface ImportMeta {
+    url: string;
+}
+
 /*-----------------------------------------------*
  *                                               *
  *                   GLOBAL                      *
@@ -324,21 +328,21 @@ declare const Buffer: {
      * @param encoding encoding to use, optional.  Default is 'utf8'
      * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
      */
-    new(str: string, encoding?: BufferEncoding): Buffer;
+    new (str: string, encoding?: BufferEncoding): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
      * @param size count of octets to allocate.
      * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
      */
-    new(size: number): Buffer;
+    new (size: number): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    new(array: Uint8Array): Buffer;
+    new (array: Uint8Array): Buffer;
     /**
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}/{SharedArrayBuffer}.
@@ -347,21 +351,21 @@ declare const Buffer: {
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
      */
-    new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
+    new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    new(array: any[]): Buffer;
+    new (array: any[]): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
      * @param buffer The buffer to copy.
      * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
      */
-    new(buffer: Buffer): Buffer;
+    new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
      * When passed a reference to the .buffer property of a TypedArray instance,
@@ -401,7 +405,7 @@ declare const Buffer: {
      *
      * @param encoding string to test.
      */
-    isEncoding(encoding: string): encoding is BufferEncoding
+    isEncoding(encoding: string): encoding is BufferEncoding;
     /**
      * Gives the actual byte length of a string. encoding defaults to 'utf8'.
      * This is not the same as String.prototype.length since that returns the number of characters in a string.
@@ -409,7 +413,10 @@ declare const Buffer: {
      * @param string string to test.
      * @param encoding encoding used to evaluate (defaults to 'utf8')
      */
-    byteLength(string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
+    byteLength(
+        string: string | NodeJS.TypedArray | DataView | ArrayBuffer | SharedArrayBuffer,
+        encoding?: BufferEncoding
+    ): number;
     /**
      * Returns a buffer which is the result of concatenating all the buffers in the list together.
      *
@@ -619,7 +626,7 @@ declare namespace NodeJS {
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe(destination?: WritableStream): this;
-        unshift(chunk: string | Buffer | Uint8Array): void;
+        unshift(chunk: string | Buffer | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
@@ -722,6 +729,7 @@ declare namespace NodeJS {
     }
 
     interface WriteStream extends Socket {
+        readonly writableFinished: boolean;
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
         columns?: number;
@@ -812,6 +820,25 @@ declare namespace NodeJS {
         writeReport(fileName?: string): string;
         writeReport(error?: Error): string;
         writeReport(fileName?: string, err?: Error): string;
+    }
+
+    interface ResourceUsage {
+        fsRead: number;
+        fsWrite: number;
+        involuntaryContextSwitches: number;
+        ipcReceived: number;
+        ipcSent: number;
+        majorPageFault: number;
+        maxRSS: number;
+        minorPageFault: number;
+        sharedMemorySize: number;
+        signalsCount: number;
+        swappedOut: number;
+        systemCPUTime: number;
+        unsharedDataSize: number;
+        unsharedStackSize: number;
+        userCPUTime: number;
+        voluntaryContextSwitches: number;
     }
 
     interface Process extends EventEmitter {
@@ -922,6 +949,8 @@ declare namespace NodeJS {
          * Only available with `--experimental-report`
          */
         report?: ProcessReport;
+
+        resourceUsage(): ResourceUsage;
 
         /**
          * EventEmitter

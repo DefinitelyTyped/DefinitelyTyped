@@ -6,8 +6,6 @@ import { Transform } from '../transform';
 import Geometry from './Geometry';
 import GeometryLayout from './GeometryLayout';
 
-export function getStrideForLayout(layout: GeometryLayout): number;
-export function transformGeom2D(simpleGeometry: SimpleGeometry, transform: Transform, opt_dest?: number[]): number[];
 export default class SimpleGeometry extends Geometry {
     constructor();
     protected flatCoordinates: number[];
@@ -33,3 +31,5 @@ export default class SimpleGeometry extends Geometry {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
+export function getStrideForLayout(layout: GeometryLayout): number;
+export function transformGeom2D(simpleGeometry: SimpleGeometry, transform: Transform, opt_dest?: number[]): number[];

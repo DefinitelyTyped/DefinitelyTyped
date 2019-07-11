@@ -21,6 +21,11 @@ export interface CUSTOM_INPUT_TYPE {
   textarea: 'textarea';
 }
 
+export interface ENHANCER_POSITION {
+    start: 'start';
+    end: 'end';
+}
+
 export interface BaseInputOverrides {
   InputContainer?: Override<any>;
   Input?: Override<any>;
@@ -42,12 +47,12 @@ export interface BaseInputProps<T> {
   'data-baseweb'?: string;
   inputRef?: React.Ref<T>;
   name?: string;
-  onBlur?: (e: React.SyntheticEvent<T>) => any;
-  onChange?: (e: React.SyntheticEvent<T>) => any;
-  onKeyDown?: (e: React.SyntheticEvent<T>) => any;
-  onKeyPress?: (e: React.SyntheticEvent<T>) => any;
-  onKeyUp?: (e: React.SyntheticEvent<T>) => any;
-  onFocus?: (e: React.SyntheticEvent<T>) => any;
+  onBlur?: (e: React.FocusEventHandler<T>) => any;
+  onChange?: (e: React.FormEventHandler<T>) => any;
+  onKeyDown?: (e: React.KeyboardEventHandler<T>) => any;
+  onKeyPress?: (e: React.KeyboardEventHandler<T>) => any;
+  onKeyUp?: (e: React.KeyboardEventHandler<T>) => any;
+  onFocus?: (e: React.FocusEventHandler<T>) => any;
   overrides?: BaseInputOverrides;
   placeholder?: string;
   required?: boolean;
@@ -78,13 +83,13 @@ export interface InternalState {
 }
 
 export class Input extends React.Component<InputProps, InternalState> {
-  onFocus(e: React.SyntheticEvent<HTMLInputElement>): void;
-  onBlur(e: React.SyntheticEvent<HTMLInputElement>): void;
+  onFocus(e: React.FocusEventHandler<HTMLInputElement>): void;
+  onBlur(e: React.FocusEventHandler<HTMLInputElement>): void;
 }
 
 export class BaseInput extends React.Component<BaseInputProps<HTMLInputElement>, InternalState> {
-  onFocus(e: React.SyntheticEvent<HTMLInputElement>): void;
-  onBlur(e: React.SyntheticEvent<HTMLInputElement>): void;
+  onFocus(e: React.FocusEventHandler<HTMLInputElement>): void;
+  onBlur(e: React.FocusEventHandler<HTMLInputElement>): void;
 }
 
 export interface MaskedInputProps extends InputProps {
@@ -98,7 +103,7 @@ export interface StatefulContainerProps {
   children?: React.ReactNode;
   initialState?: State;
   stateReducer?: (stateType: STATE_CHANGE_TYPE[keyof STATE_CHANGE_TYPE], nextState: State, currentState: State) => State;
-  onChange?: (e: React.SyntheticEvent<HTMLInputElement>) => any;
+  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
 }
 
 export type StatefulInputProps = InputProps & StatefulContainerProps & { children?: never; };
@@ -112,3 +117,9 @@ export const StyledStartEnhancer: StyletronComponent<any>;
 export const StyledEndEnhancer: StyletronComponent<any>;
 export const StyledInputContainer: StyletronComponent<any>;
 export const StyledInput: StyletronComponent<any>;
+
+export const STATE_CHANGE_TYPE: STATE_CHANGE_TYPE;
+export const CUSTOM_INPUT_TYPE: CUSTOM_INPUT_TYPE;
+export const ADJOINED: ADJOINED;
+export const SIZE: SIZE;
+export const ENHANCER_POSITION: ENHANCER_POSITION;

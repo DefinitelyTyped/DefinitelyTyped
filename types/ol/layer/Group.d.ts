@@ -5,6 +5,15 @@ import { Extent } from '../extent';
 import { ObjectEvent } from '../Object';
 import BaseLayer from './Base';
 
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    layers?: BaseLayer[] | Collection<BaseLayer>;
+}
 export default class LayerGroup extends BaseLayer {
     constructor(opt_options?: Options);
     getLayers(): Collection<BaseLayer>;
@@ -39,13 +48,4 @@ export default class LayerGroup extends BaseLayer {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    layers?: BaseLayer[] | Collection<BaseLayer>;
 }
