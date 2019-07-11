@@ -1,4 +1,4 @@
-import makeServiceWorkerEnv from 'service-worker-mock';
+import makeServiceWorkerEnv = require('service-worker-mock');
 
 const mock = makeServiceWorkerEnv();
 
