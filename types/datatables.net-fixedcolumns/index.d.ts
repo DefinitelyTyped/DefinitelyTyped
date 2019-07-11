@@ -1,4 +1,4 @@
-// Type definitions for datatables.net-fixedcolumns 3.2.6
+// Type definitions for datatables.net-fixedcolumns 3.2
 // Project: https://datatables.net
 // Definitions by: Konstantin Kuznetsov <https://github.com/Arik-neKrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,7 +14,6 @@ declare namespace DataTables {
      */
     fixedColumns?: boolean | FixedColumnsSettings;
   }
-
 
   interface FixedColumnsSettings {
     /*
@@ -34,7 +33,6 @@ declare namespace DataTables {
     rightColumns?: number;
   }
 
-
   interface Api {
     fixedColumns: FixedColumnsMethodsModel;
   }
@@ -50,11 +48,11 @@ declare namespace DataTables {
     /*
     * Update the data shown in the FixedColumns
     */
-    update();
+    update(): void;
     /*
     * Redraw the fixed columns based on new table size
     */
-    relayout();
+    relayout(): void;
     /*
     * Get the row index of a row in a fixed column
     */
@@ -77,6 +75,6 @@ declare namespace DataTables {
     /*
      * Recalculate the height of one or more rows after a data change
      */
-    recalcHeight();
+    recalcHeight(): void;
   }
 }
