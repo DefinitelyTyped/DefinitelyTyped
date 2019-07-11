@@ -264,7 +264,7 @@ blocks.getBlockSupport('core/paragraph', 'inserter', { foo: 'bar' });
 // $ExpectType Block<any> | undefined
 blocks.getBlockType('core/paragraph');
 
-// $ExpectType ReadonlyArray<Block<any>>
+// $ExpectType Block<any>[]
 blocks.getBlockTypes();
 
 // $ExpectType string[]

@@ -74,7 +74,4 @@ export function getPossibleBlockTransformations(blocks: BlockInstance[]): Array<
  * @param blocks - One or more `BlockInstance`.
  * @param name - Block name of block to be switched to.
  */
-export function switchToBlockType(
-    blocks: BlockInstance | BlockInstance[],
-    name: string
-): BlockInstance[] | null;
+export function switchToBlockType(blocks: BlockInstance | BlockInstance[], name: string): BlockInstance[] | null;
