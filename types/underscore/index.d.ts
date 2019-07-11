@@ -5357,7 +5357,7 @@ declare module _ {
         * Wrapped type `any[]`.
         * @see _.sample
         **/
-        sample<T>(n: number): _ChainSingle<T>;
+        sample<T>(n: number): _Chain<T, T[]>;
 
         /**
         * @see _.sample

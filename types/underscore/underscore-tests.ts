@@ -593,6 +593,9 @@ function chain_tests() {
     .groupBy(v => v[0])
     .value()[0].length;
 
+  var sampleOne = _.chain([1, 2, 3]).sample().value() * 2;
+  var sampleMore = _.chain([1, 2, 3]).sample(2).value().length;
+
 	var n = _.chain([1, 2, 3, 200])
 		.filter(num => num % 2 == 0)
 		.tap(alert)
