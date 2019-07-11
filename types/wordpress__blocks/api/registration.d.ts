@@ -25,7 +25,7 @@ export function getBlockType<T = any>(name: string | undefined): Block<T> | unde
 /**
  * Returns all registered blocks.
  */
-export function getBlockTypes(): ReadonlyArray<Block<any>>;
+export function getBlockTypes(): Array<Block<any>>;
 
 /**
  * Returns an array with the child blocks of a given block.
