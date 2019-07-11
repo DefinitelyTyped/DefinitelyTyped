@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as webpack from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 
 export namespace BundleAnalyzerPlugin {
     type ExcludeAssetsPatternFn = (assetName: string) => boolean;
@@ -89,6 +89,8 @@ export namespace BundleAnalyzerPlugin {
     }
 }
 
-export class BundleAnalyzerPlugin extends webpack.Plugin {
+export class BundleAnalyzerPlugin extends Plugin {
     constructor(options?: BundleAnalyzerPlugin.Options);
+
+    apply(compiler: Compiler): void;
 }
