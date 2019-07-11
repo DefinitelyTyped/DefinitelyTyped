@@ -1,5 +1,4 @@
 // Type definitions for datatables.net-fixedcolumns 3.2
-
 // Project: https://datatables.net
 // Definitions by: Konstantin Kuznetsov <https://github.com/Arik-neKrol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
