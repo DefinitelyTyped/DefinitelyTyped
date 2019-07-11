@@ -23,7 +23,7 @@ export interface VName {
 /**
  * Kythe edge kinds. See
  *   https://kythe.io/docs/schema/#_edge_kinds
- *   https://github.com/kythe/kythe/blob/ba4ff96ee120050bd497ee2c10910bf74e15d32f/kythe/data/schema_index.textproto#L17
+ *   https://github.com/kythe/kythe/tree/master/kythe/data/schema_index.textproto#L17
  */
 export enum EdgeKind {
     ALIASES = '/kythe/edge/aliases',
@@ -84,7 +84,7 @@ export type OrdinalEdge = string & {
 /**
  * Kythe node kinds. See
  *   https://kythe.io/docs/schema/#_node_kinds
- *   https://github.com/kythe/kythe/blob/ba4ff96ee120050bd497ee2c10910bf74e15d32f/kythe/data/schema_index.textproto#L64
+ *   https://github.com/kythe/kythe/tree/master/kythe/data/schema_index.textproto#L64
  */
 export enum NodeKind {
     ABS = 'abs',
@@ -116,7 +116,7 @@ export enum NodeKind {
 
 /**
  * Kythe fact names. See
- *   https://github.com/kythe/kythe/blob/ba4ff96ee120050bd497ee2c10910bf74e15d32f/kythe/data/schema_index.textproto#L92
+ *   https://github.com/kythe/kythe/tree/master/kythe/data/schema_index.textproto#L92
  */
 export enum FactName {
     BUILD_CONFIG = '/kythe/build/config',
@@ -142,7 +142,7 @@ export enum FactName {
 
 /**
  * Kythe fact subkinds. See
- *   https://github.com/kythe/kythe/blob/ba4ff96ee120050bd497ee2c10910bf74e15d32f/kythe/data/schema_index.textproto#L115
+ *   https://github.com/kythe/kythe/tree/master/kythe/data/schema_index.textproto#L115
  */
 export enum Subkind {
     CATEGORY = 'category',
