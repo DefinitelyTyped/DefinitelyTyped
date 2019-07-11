@@ -1276,6 +1276,8 @@ declare namespace algoliasearch {
     userData?: string | object;
 
     sortFacetValuesBy?: 'count' | 'alpha';
+
+    rulesContexts?: string[];
   }
 
   namespace SearchForFacetValues {
