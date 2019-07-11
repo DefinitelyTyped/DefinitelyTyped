@@ -482,7 +482,8 @@ class MyDivIcon extends L.DivIcon {
 	}
 }
 
-const divIcon = L.divIcon({ html: '' });
+const divIconHtmlAsString = L.divIcon({ html: '' });
+const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
 
