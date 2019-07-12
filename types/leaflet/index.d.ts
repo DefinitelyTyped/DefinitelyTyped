@@ -1561,33 +1561,36 @@ export class Marker<P = any> extends Layer {
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
 export namespace Browser {
+    // sorted                      
+    const android23: boolean;
+    const android: boolean;
+    const androidStock: boolean;
+    const any3d: boolean;
+    const canvas: boolean;
+    const chrome: boolean;
+    const edge: boolean;
+    const gecko3d: boolean;
+    const gecko: boolean;
+    const ie3d: boolean;
     const ie: boolean;
     const ielt9: boolean;
-    const edge: boolean;
-    const webkit: boolean;
-    const gecko: boolean;
-    const android: boolean;
-    const android23: boolean;
-    const chrome: boolean;
-    const safari: boolean;
-    const win: boolean;
-    const ie3d: boolean;
-    const webkit3d: boolean;
-    const gecko3d: boolean;
-    const opera12: boolean;
-    const any3d: boolean;
     const mobile: boolean;
-    const mobileWebkit: boolean;
-    const mobileWebkit3d: boolean;
-    const mobileOpera: boolean;
     const mobileGecko: boolean;
-    const touch: boolean;
+    const mobileOpera: boolean;
+    const mobileWebkit3d: boolean;
+    const mobileWebkit: boolean;
     const msPointer: boolean;
+    const opera12: boolean;
+    const opera: boolean;
     const pointer: boolean;
     const retina: boolean;
-    const canvas: boolean;
-    const vml: boolean;
+    const safari: boolean;
     const svg: boolean;
+    const touch: boolean;
+    const vml : boolean;
+    const webkit3d: boolean;
+    const webkit: boolean;
+    const win: boolean;
 }
 
 export namespace Util {
