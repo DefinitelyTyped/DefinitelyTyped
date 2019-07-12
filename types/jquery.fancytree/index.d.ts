@@ -4,6 +4,7 @@
 //                 Mahdi Abedi <https://github.com/abedi-ir>
 //                 Nikolai Ommundsen <https://github.com/niikoo>
 //                 Nitecube <https://github.com/Nitecube>
+//                 Greg Fulllman <https://github.com/gregfullman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -803,7 +804,9 @@ declare namespace Fancytree {
         /** Add `id="..."` to node markup (default: true). */
         generateIds?: boolean;
         /** Node icon url, if only filename, please use imagePath to set the path */
-        icon?: boolean | string;
+        icon?: boolean | string | ((event: JQueryEventObject, data: EventData) => string|boolean);
+        /** Add a title attribute to the node's icon span markup, thus enabling a tooltip (default: false). */
+        iconTooltip?: boolean | string | ((event: JQueryEventObject, data: EventData) => string|boolean);
         /** Prefix (default: "ft_") */
         idPrefix?: string;
         /** Path to a folder containing icons (default: null, using 'skin/' subdirectory). */
@@ -835,7 +838,7 @@ declare namespace Fancytree {
         /** Animation options, false:off (default: { effect: "blind", options: {direction: "vertical", scale: "box"}, duration: 200 }) */
         toggleEffect?: JQueryUI.EffectOptions;
         /** Tooltips */
-        tooltip?: boolean;
+        tooltip?: boolean | string | ((event: JQueryEventObject, data: EventData) => string|boolean);
 
         /** (dynamic Option)Prevent (de-)selection using mouse or keyboard. */
         unselectable?: boolean | ((event: JQueryEventObject, data: Fancytree.EventData) => boolean | undefined);

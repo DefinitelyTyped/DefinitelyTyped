@@ -44,6 +44,24 @@ $("#tree").fancytree(<Fancytree.FancytreeOptions>{
 			return false;
 		}
 	},
+	icon: (event: JQueryEventObject, data: Fancytree.EventData): string|boolean => {
+		if((data.node as any).icon) {
+			return (data.node as any).icon as string;
+		}
+		return false;
+	},
+	iconTooltip: (event: JQueryEventObject, data: Fancytree.EventData): string|boolean => {
+		if((data.node as any).icon) {
+			return data.node.tooltip;
+		}
+		return false;
+	},
+	tooltip: (event: JQueryEventObject, data: Fancytree.EventData): string|boolean => {
+		if(data.node.tooltip) {
+			return data.node.tooltip;
+		}
+		return false;
+	},
 	unselectable: function (event, data) {
 		return true;
 	},
