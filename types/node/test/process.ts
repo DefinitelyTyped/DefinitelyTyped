@@ -66,5 +66,13 @@ import { EventEmitter } from "events";
 }
 
 {
+    process.emitWarning(new Error('ABC'));
+    process.emitWarning('ABC', 'Warning', 'uniqueCode', process.emitWarning);
+    process.emitWarning('ABC', {
+        type: 'Warning',
+        code: 'uniqueCode',
+        ctor: process.emitWarning,
+        details: 'Extra details',
+    });
     const usage: NodeJS.ResourceUsage = process.resourceUsage();
 }

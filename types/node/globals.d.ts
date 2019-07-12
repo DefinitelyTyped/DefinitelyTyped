@@ -842,10 +842,10 @@ declare namespace NodeJS {
     }
 
     interface ProcessWarningOptions {
-        type?: String;
-        code?: String;
+        type?: string;
+        code?: string;
         ctor?: Function;
-        detail?: String;
+        detail?: string;
     }
 
     interface Process extends EventEmitter {
@@ -868,7 +868,7 @@ declare namespace NodeJS {
         cwd(): string;
         debugPort: number;
         emitWarning(warning: string | Error, name?: string, code?: string, ctor?: Function): void;
-        emitWarning(warning: string | Error, options: ProcessWarningOptions): void;
+        emitWarning(warning: string | Error, options?: ProcessWarningOptions): void;
         env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
