@@ -1,4 +1,4 @@
-// Type definitions for @storybook/polymer 5.1.9
+// Type definitions for @storybook/polymer 5.1
 // Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/app/polymer
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Anton Izmailov <https://github.com/wapgear>
