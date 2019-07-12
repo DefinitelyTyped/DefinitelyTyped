@@ -1,4 +1,5 @@
 // Type definitions for lodash-deep v 2.0
+
 // Project: https://github.com/marklagendijk/lodash-deep
 // Definitions by: Remo uzust01 <https://github.com/uzust01/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
