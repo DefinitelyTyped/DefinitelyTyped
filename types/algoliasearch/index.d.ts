@@ -1980,6 +1980,11 @@ declare namespace algoliasearch {
     index?: string;
 
     /**
+     * Whether the query was processed. Only returned when strategy: stopIfEnoughmatches.
+     */
+    processed?: boolean;
+
+    /**
      * The cursor is only set when browsing the index.
      * https://www.algolia.com/doc/api-reference/api-methods/browse/
      */
