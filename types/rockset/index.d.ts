@@ -167,6 +167,7 @@ export interface QueryResponse {
     // meta information about each column in the result set
     column_fields?: QueryFieldType[];
 }
+export interface QueryResponseResults {}
 export interface QueryRequestSql {
     // SQL query as a string
     query: string;
@@ -544,3 +545,4 @@ export interface AddDocumentsRequest {
     // Array of JSON documents
     data: AddDocumentsRequestData[];
 }
+export interface AddDocumentsRequestData {}

@@ -1,4 +1,4 @@
-import { Collection } from "rockset"
+import { Collection } from "rockset";
 
 function rockset_tests() {
     // TODO
