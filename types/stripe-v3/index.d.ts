@@ -28,7 +28,8 @@ declare namespace stripe {
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
-        redirectToCheckout(options: StripeCheckoutOptions): Promise<StripeRedirectResponse>;
+        redirectToCheckout(options: StripeClientCheckoutOptions): Promise<StripeRedirectResponse>;
+        redirectToCheckout(options: StripeServerCheckoutOptions): Promise<StripeRedirectResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
         createPaymentMethod(
             type: paymentMethod.paymentMethodType,
@@ -75,15 +76,19 @@ declare namespace stripe {
     };
 
     type billingAddressCollectionType = 'required' | 'auto' | '';
-    interface StripeCheckoutOptions {
+
+    interface StripeClientCheckoutOptions {
         items: StripeCheckoutItem[];
         successUrl: string;
         cancelUrl: string;
         clientReferenceId?: string;
         customerEmail?: string;
         billingAddressCollection?: billingAddressCollectionType;
-        sessionId?: string;
         locale?: string;
+    }
+
+    interface StripeServerCheckoutOptions {
+        sessionId: string;
     }
 
     interface StripeCheckoutItem {

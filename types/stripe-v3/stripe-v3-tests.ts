@@ -196,13 +196,21 @@ describe("Stripe elements", () => {
         });
     });
 
-    it("should use checkout API", () => {
+    it("should use checkout API for client implementations", () => {
         stripe.redirectToCheckout({
             items: [
                 { sku: 'sku_123', quantity: 1 }
             ],
             successUrl: 'https://example.com/success',
             cancelUrl: 'https://example.com/canceled',
+        }).then(errorResult => {
+            console.log(errorResult.error.param);
+        });
+    });
+
+    it("should use the checkout API for server implementations", () => {
+        stripe.redirectToCheckout({
+            sessionId: 'sess_test_123',
         }).then(errorResult => {
             console.log(errorResult.error.param);
         });
