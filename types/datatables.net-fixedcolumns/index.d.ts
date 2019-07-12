@@ -36,10 +36,6 @@ declare namespace DataTables {
     }
 
     interface Api {
-        fixedColumns: FixedColumnsMethodsModel;
-    }
-
-    interface FixedColumnsMethodsModel {
         /*
         * Get FixedColumns Api
         */
