@@ -167,7 +167,6 @@ export interface QueryResponse {
     // meta information about each column in the result set
     column_fields?: QueryFieldType[];
 }
-export interface QueryResponseResults {}
 export interface QueryRequestSql {
     // SQL query as a string
     query: string;
@@ -304,6 +303,7 @@ export interface FormatParams {
 }
 export interface FieldMaskMask {
     name: string;
+    // TypeScript Version: 2.2
     args?: object;
 }
 export interface FieldMask {
@@ -318,7 +318,6 @@ export interface FieldMappingV2 {
     // An OutputField for this mapping
     output_field?: OutputField;
 }
-export interface FieldMapping {}
 export interface EventTimeInfo {
     // name of the field containing event time
     field: string;
@@ -481,8 +480,6 @@ export interface CreateApiKeyRequest {
     // descriptive label
     name: string;
 }
-export interface CommitMarkPositions {}
-export interface CommitMark {}
 export interface CollectionStats {
     // number of documents in the collection
     doc_count?: number;
@@ -547,4 +544,3 @@ export interface AddDocumentsRequest {
     // Array of JSON documents
     data: AddDocumentsRequestData[];
 }
-export interface AddDocumentsRequestData {}
