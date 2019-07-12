@@ -2005,7 +2005,12 @@ declare namespace algoliasearch {
     /**
      * user data is returned if a matching query rule was set up to do so
      */
-    userData?: Array<{ [key: string]: any }>
+    userData?: Array<{ [key: string]: any }>;
+
+    /**
+     * The unique identifier of this search, only returned if clickAnalytics: true
+     */
+    queryID?: string;
   }
 
   interface MultiResponse<T=any> {
