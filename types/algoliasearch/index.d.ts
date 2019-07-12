@@ -1842,49 +1842,128 @@ declare namespace algoliasearch {
   }
 
   interface Response<T=any> {
+
     /**
      * Contains all the hits matching the query
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     hits: T[];
+
     /**
      * Current page
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     page: number;
+
     /**
      * Number of total hits matching the query
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     nbHits: number;
+
     /**
      * Number of pages
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     nbPages: number;
+
     /**
      * Number of hits per pages
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     hitsPerPage: number;
+
     /**
      * Engine processing time (excluding network transfer)
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     processingTimeMS: number;
+
     /**
      * Query used to perform the search
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     query: string;
+
+    /**
+     * A markup text indicating which parts of the original query have been removed
+     * in order to retrieve a non-empty result set.
+     * The removed parts are surrounded by <em> tags.
+     * Only returned when removeWordsIfNoResults is set to lastWords or firstWords.
+     */
+    queryAfterRemoval?: string;
+
     /**
      * GET parameters used to perform the search
      * https://www.algolia.com/doc/api-reference/api-methods/search/?language=javascript#response
      */
     params: string;
+
+    /**
+     * Used to return warnings about the query.
+     */
+    message?: string;
+
+    /**
+     * The computed geo location. Warning: for legacy reasons, this parameter is
+     * a string and not an object. Format: ${lat},${lng}, where the latitude and
+     * longitude are expressed as decimal floating point numbers.
+     * Only returned when aroundLatLngViaIP or aroundLatLng is set.
+     */
+    aroundLatLng?: string;
+
+    /**
+     * The automatically computed radius. For legacy reasons, this parameter is a
+     * string and not an integer.
+     * Only returned for geo queries without an explicitly specified radius (see aroundRadius).
+     */
+    automaticRadius?: string;
+
+    /**
+     * Actual host name of the server that processed the request. Our DNS
+     * supports automatic failover and load balancing, so this may differ from
+     * the host name used in the request.
+     * Returned only if getRankingInfo is set to true.
+     */
+    serverUsed?: string;
+
+    /**
+     * Index name used for the query. In the case of an A/B test, the targeted
+     * index isn’t always the index used by the query.
+     * Returned only if getRankingInfo is set to true.
+     */
+    indexUsed?: string;
+
+    /**
+     * If a search encounters an index that is being A/B tested, abTestVariantID
+     * reports the variant ID of the index used (note, this is the ID not the name).
+     * The variant ID is the position in the array of variants (starting at 1).
+     * 
+     * For example, abTestVariantID=1 is variant A (the main index), abTestVariantID=2
+     * is variant B (the replica you chose when creating the A/B test , or the queries
+     * with the changed query parameters if the A/B test is based on query parameters).
+     * Returned only if getRankingInfo is set to true.
+     */
+    abTestVariantID?: number;
+
+    /**
+     * The query string that will be searched, after normalization. Normalization
+     * includes removing stop words (if removeStopWords is enabled), and transforming
+     * portions of the query string into phrase queries (see advancedSyntax).
+     * Returned only if getRankingInfo is set to true.
+     */
+    parsedQuery?: string;
+
+    /**
+     * A mapping of each facet name to the corresponding facet counts.
+     */
     facets?: {
       [facetName: string]: { [facetValue: string]: number };
     };
+
+    /**
+     * Statistics for numerical facets.
+     */
     facets_stats?: {
       [facetName: string]: {
         avg: number,
@@ -1893,16 +1972,35 @@ declare namespace algoliasearch {
         sum: number,
       };
     };
+
     /**
      * The index name is only set when searching multiple indices.
      * https://www.algolia.com/doc/api-reference/api-methods/multiple-queries/?language=javascript#response
      */
     index?: string;
+
     /**
      * The cursor is only set when browsing the index.
      * https://www.algolia.com/doc/api-reference/api-methods/browse/
      */
     cursor?: string;
+
+    /**
+     * Whether the nbHits is exhaustive (true) or approximate (false).
+     * An approximation is done when the query takes more than 50ms to be processed
+     * (this can happen when using complex filters on millions on records).
+     */
+    exhaustiveNbHits: boolean;
+
+    /**
+     * Whether the facet count is exhaustive (true) or approximate (false).
+     */
+    exhaustiveFacetsCount: boolean;
+
+    /**
+     * user data is returned if a matching query rule was set up to do so
+     */
+    userData?: Array<{ [key: string]: any }>
   }
 
   interface MultiResponse<T=any> {
