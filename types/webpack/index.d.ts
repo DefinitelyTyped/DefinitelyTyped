@@ -661,6 +661,10 @@ declare namespace webpack {
             namedModules?: boolean;
             /** Instead of numeric ids, give chunks readable names for better debugging. */
             namedChunks?: boolean;
+            /** Tells webpack which algorithm to use when choosing module ids. Default false. */
+            moduleIds?: boolean | "natural" | "named" | "hashed" | "size" | "total-size";
+            /** Tells webpack which algorithm to use when choosing chunk ids. Default false. */
+            chunkIds?: boolean | "natural" | "named" | "size" | "total-size";
             /** Defines the process.env.NODE_ENV constant to a compile-time-constant value. This allows to remove development only code from code. */
             nodeEnv?: string | false;
             /** Use the minimizer (optimization.minimizer, by default uglify-js) to minimize output assets. */
