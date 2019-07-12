@@ -131,7 +131,7 @@ export interface DefaultTreeNode {
 /**
  * Default tree adapter ParentNode interface.
  */
-export interface DefaultTreeParentNode {
+export interface DefaultTreeParentNode extends DefaultTreeNode {
     /**
      * Child nodes.
      */

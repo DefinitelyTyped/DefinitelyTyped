@@ -11,6 +11,10 @@ let mapOptions: google.maps.MapOptions = {
         position: google.maps.ControlPosition.RIGHT_TOP
     },
     gestureHandling: 'cooperative',
+    restriction: {
+        latLngBounds: { east: 180, west: -180, north: 85, south: -85 },
+        strictBounds: true
+    },
     scrollwheel: true,
     styles: [
         {

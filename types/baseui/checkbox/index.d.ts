@@ -30,11 +30,11 @@ export interface StatefulContainerProps {
   children?: React.ReactNode;
   initialState?: CheckboxState;
   stateReducer?: StateReducer;
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
-  onMouseEnter?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseLeave?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onFocus?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onBlur?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   autoFocus?: boolean;
 }
 
@@ -46,11 +46,11 @@ export interface StatefulCheckboxProps {
   initialState?: CheckboxState;
   autoFocus?: boolean;
   checkmarkType?: STYLE_TYPE[keyof STYLE_TYPE];
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
-  onMouseEnter?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseLeave?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onFocus?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onBlur?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export const StatefulCheckbox: React.FC<StatefulCheckboxProps>;
@@ -80,13 +80,13 @@ export interface CheckboxProps {
   isIndeterminate?: boolean;
   labelPlacement?: 'top' | 'right' | 'bottom' | 'left';
   checkmarkType?: STYLE_TYPE[keyof STYLE_TYPE];
-  onChange?: (e: React.FormEventHandler<HTMLInputElement>) => any;
-  onMouseEnter?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseLeave?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onFocus?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onBlur?: (e: React.FocusEventHandler<HTMLInputElement>) => any;
-  onMouseDown?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
-  onMouseUp?: (e: React.MouseEventHandler<HTMLInputElement>) => any;
+  onChange?: React.FormEventHandler<HTMLInputElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLInputElement>;
+  onMouseUp?: React.MouseEventHandler<HTMLInputElement>;
 }
 
 export interface CheckboxState {

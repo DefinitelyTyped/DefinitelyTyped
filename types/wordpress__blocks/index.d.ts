@@ -169,14 +169,14 @@ export interface BlockDeprecation<T extends Record<string, any>>
      * technically valid even once deprecated, and requires updates to its
      * attributes or inner blocks.
      */
-    isEligible?(attributes: Record<string, any>, innerBlocks: readonly BlockInstance[]): boolean;
+    isEligible?(attributes: Record<string, any>, innerBlocks: BlockInstance[]): boolean;
     /**
      * A function which, given the old attributes and inner blocks is
      * expected to return either the new attributes or a tuple array of
      * [attributes, innerBlocks] compatible with the block.
      */
     migrate?(attributes: Record<string, any>): T;
-    migrate?(attributes: Record<string, any>, innerBlocks: readonly BlockInstance[]): [T, BlockInstance[]];
+    migrate?(attributes: Record<string, any>, innerBlocks: BlockInstance[]): [T, BlockInstance[]];
 }
 
 //
