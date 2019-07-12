@@ -1,11 +1,11 @@
-// Type definitions for @storybook/polymer 5.0
+// Type definitions for @storybook/polymer 5.1.9
 // Project: https://github.com/storybookjs/storybook, https://github.com/storybookjs/storybook/tree/master/app/polymer
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Anton Izmailov <https://github.com/wapgear>
 //                 Dan Dean <https://github.com/dandean>
 //                 Ryan Coleman <https://github.com/ryuhhnn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 
 /// <reference types="webpack-env" />
 
