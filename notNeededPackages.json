@@ -217,6 +217,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "baseui",
+            "typingsPackageName": "baseui",
+            "sourceRepoURL": "https://github.com/uber-web/baseui",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "beeper",
             "typingsPackageName": "beeper",
             "sourceRepoURL": "https://github.com/sindresorhus/beeper",
