@@ -8,6 +8,7 @@
 //                 Jason Li <https://github.com/JasonLi914>
 //                 Brandon Wilson <https://github.com/wilsonianb>
 //                 Steve Faulkner <https://github.com/southpolesteve>
+//                 Jeroen Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
