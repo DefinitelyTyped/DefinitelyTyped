@@ -5,4 +5,4 @@
 
 export = stdin;
 
-declare function stdin(fn: (str: string) => unknown): void;
+declare function stdin(fn: (str: string) => any): void;
