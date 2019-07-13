@@ -1069,6 +1069,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "fork-ts-checker-webpack-plugin",
             "typingsPackageName": "fork-ts-checker-webpack-plugin",
             "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
