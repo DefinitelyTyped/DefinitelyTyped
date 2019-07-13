@@ -144,3 +144,21 @@ function test_ResponseInit() {
         });
     });
 }
+
+interface test_JsonPlaceholderBody {
+    userId: number;
+    id: number;
+    title: string;
+    completed: boolean;
+}
+
+function test_ResponseJsonBody() {
+    fetch('https://jsonplaceholder.typicode.com/todos/1', {}).then(response => {
+        response.json().then(dataWithoutGeneric => {
+            // no type information available => Attempting to access 'id' throws "Property 'id' does not exist on type '{}'" in tests
+        });
+        response.json<test_JsonPlaceholderBody>().then(dataWithGeneric => {
+            const id = dataWithGeneric.id; // type information available
+        });
+    });
+}
