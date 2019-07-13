@@ -6,7 +6,7 @@ import { cleanValue } from './utils';
 
 export type Props<OptionType> = AsyncProps<OptionType> & CreatableProps<OptionType>;
 
-type State<OptionType> = AsyncState<OptionType> & CreatableState<OptionType>;
+export type State<OptionType> = AsyncState<OptionType> & CreatableState<OptionType>;
 
 export class AsyncCreatable<OptionType> extends Component<Props<OptionType>, State<OptionType>> {
     static defaultProps: Props<any>;
