@@ -680,7 +680,7 @@ declare module "mongoose" {
    * section schema.js
    * http://mongoosejs.com/docs/api.html#schema-js
    */
-  class Schema<T = any> extends events.EventEmitter {
+  class Schema<T = any, U = any> extends events.EventEmitter {
     /**
      * Schema constructor.
      * When nesting schemas, (children in the example above), always declare
@@ -878,8 +878,8 @@ declare module "mongoose" {
     /**
      * Adds static "class" methods to Models compiled from this schema.
      */
-    static(name: string, fn: Function): this;
-    static(nameObj: { [name: string]: Function }): this;
+    static<F extends keyof U>(name: F, fn: U[F]): this;
+    static(nameObj: { [F in keyof U]: U[F] }): this;
 
     /** Creates a virtual type with the given name. */
     virtual(name: string, options?: any): VirtualType;
@@ -903,7 +903,9 @@ declare module "mongoose" {
       [F in keyof T]: T[F]
     };
     /** Object of currently defined statics on this schema. */
-    statics: any;
+    statics: {
+      [F in keyof U]: U[F]
+    };
     /** Object of currently defined query helpers on this schema. */
     query: any;
     /** The original object passed to the schema constructor */

@@ -508,18 +508,23 @@ mongoose.Schema.reserved.hasOwnProperty('');
 /* inherited properties */
 schema.addListener('e', cb);
 /* practical examples */
-interface Animal {
-  findSimilarTypes(cb: any): Promise<Animal>
+interface AnimalDocument extends mongoose.Document {
+  name: string
+  type: string
+  findSimilarTypes(cb: Function): mongoose.DocumentQuery<AnimalDocument[], AnimalDocument>
 }
-var animalSchema = new mongoose.Schema<Animal>({
+interface AnimalModel extends mongoose.Model<AnimalDocument> {
+  findByName(name: any, cb: Function): mongoose.DocumentQuery<AnimalDocument[], AnimalDocument>
+}
+var animalSchema = new mongoose.Schema<AnimalDocument, AnimalModel>({
   name: String,
   type: String
 });
-animalSchema.methods.findSimilarTypes = function (cb) {
-  return this.model('Animal').find({ type: this.type }, cb);
+animalSchema.methods.findSimilarTypes = function (this: AnimalDocument, cb: Function) {
+  return this.model<AnimalDocument>('Animal').find({ type: this.type }, cb);
 };
-var Animal: any = mongoose.model('Animal', animalSchema);
-var dog: any = new Animal({type: 'dog'});
+var Animal = mongoose.model<AnimalDocument, AnimalModel>('Animal', animalSchema);
+var dog = new Animal({type: 'dog'});
 dog['findSimilarTypes'](function (err: any, dogs: any) {
   console.log(dogs);
 });
@@ -607,7 +612,7 @@ new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
   { validator: () => {return true}, msg: 'failed' }
 ]}});
-animalSchema.statics.findByName = function(name: any, cb: any) {
+animalSchema.statics.findByName = function(this: AnimalModel, name: any, cb: Function) {
   return this.find({ name: new RegExp(name, 'i') }, cb);
 };
 Animal['findByName']('fido', function(err: any, animals: any) {
