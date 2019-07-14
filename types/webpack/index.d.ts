@@ -1297,7 +1297,7 @@ declare namespace webpack {
             prefetched: boolean;
             profile: any; // TODO
             providedExports?: any; // TODO
-            reasons: {
+            reasons: [{
                 explanation: string | undefined;
                 loc?: string;
                 module: string | null;
@@ -1306,7 +1306,7 @@ declare namespace webpack {
                 moduleName: string |  null;
                 type: any; // TODO
                 userRequest: any; // TODO
-            };
+            }];
             size: number;
             source?: string;
             usedExports?: boolean;
