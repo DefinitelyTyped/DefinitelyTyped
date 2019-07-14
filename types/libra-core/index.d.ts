@@ -385,18 +385,20 @@ export namespace LibraTransactionResponse {
 }
 
 export enum LibraAdmissionControlStatus {
+    UNKNOWN = -1,
     ACCEPTED = 0,
     BLACKLISTED = 1,
-    REJECTED = 2,
+    REJECTED = 2
 }
 
 export enum LibraMempoolTransactionStatus {
+    UNKNOWN = -1,
     VALID = 0,
     INSUFFICIENTBALANCE = 1,
     INVALIDSEQNUMBER = 2,
     MEMPOOLISFULL = 3,
     TOOMANYTRANSACTIONS = 4,
-    INVALIDUPDATE = 5,
+    INVALIDUPDATE = 5
 }
 
 export interface LibraSignedTransaction {
