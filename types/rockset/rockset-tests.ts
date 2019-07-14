@@ -1,4 +1,4 @@
-import * as Rockset from "rockset";
+import * as Rockset from 'rockset';
 
 // create query request
 const queryRequestSql: Rockset.QueryRequestSql = {
@@ -39,5 +39,5 @@ const source: Rockset.Source = {
 const createCollectionRequest: Rockset.CreateCollectionRequest = {
     name: 'collection_name',
     description: 'my first collection',
-    sources: [s3source]
+    sources: [source]
 }
