@@ -1645,6 +1645,12 @@
             "asOfVersion": "3.8.1"
         },
         {
+            "libraryName": "jdenticon",
+            "typingsPackageName": "jdenticon",
+            "sourceRepoURL": "https://github.com/dmester/jdenticon",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "jimp",
             "typingsPackageName": "jimp",
             "sourceRepoURL": "https://github.com/oliver-moran/jimp#readme",
