@@ -159,7 +159,7 @@ export interface QueryResponseStats {
 }
 export interface QueryResponse {
     // list of objects returned by the query
-    results?: QueryResponseResults[];
+    results?: {}[];
     // list of fields returned by the query
     fields?: QueryFieldType[];
     // meta information about the query
@@ -167,7 +167,6 @@ export interface QueryResponse {
     // meta information about each column in the result set
     column_fields?: QueryFieldType[];
 }
-export interface QueryResponseResults {}
 export interface QueryRequestSql {
     // SQL query as a string
     query: string;
@@ -543,6 +542,5 @@ export interface AddDocumentsResponse {
 }
 export interface AddDocumentsRequest {
     // Array of JSON documents
-    data: AddDocumentsRequestData[];
+    data: {}[];
 }
-export interface AddDocumentsRequestData {}
