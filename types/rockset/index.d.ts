@@ -3,12 +3,14 @@
 // Definitions by: Kshitij Wadhwa <https://github.com/kwadhwa18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import Http = require('http');
+
 export = rockset;
 
 declare function rockset(apiKey: string, apiServer: string): rockset.ApiClient;
 
 declare namespace rockset {
-    export interface ApiClient {
+    interface ApiClient {
         apiKeys: ApiKeysApi;
         collections: CollectionsApi;
         documents: DocumentsApi;
@@ -19,15 +21,15 @@ declare namespace rockset {
         workspaces: WorkspacesApi;
     }
 
-    export interface RequestCallback { (err: any, data: any, response: Http.IncomingMessage): void; }
+    interface RequestCallback { (err: any, data: any, response: Http.IncomingMessage): void; }
     
-    export interface ApiKeysApi {
+    interface ApiKeysApi {
         create(body: CreateApiKeyRequest, callback?: RequestCallback): CreateApiKeyResponse;
-        list(callback?: RequestCallback, callback?: RequestCallback): ListApiKeysResponse;
+        list(callback?: RequestCallback): ListApiKeysResponse;
         remove(name: string, callback?: RequestCallback): DeleteApiKeyResponse;
     }
 
-    export interface CollectionsApi {
+    interface CollectionsApi {
         create(workspace: string, body: CreateCollectionRequest, callback?: RequestCallback): CreateCollectionResponse;
         get(workspace: string, collection: string, callback?: RequestCallback): GetCollectionResponse;
         list(callback?: RequestCallback): ListCollectionsResponse;
@@ -35,33 +37,33 @@ declare namespace rockset {
         workspace(workspace: string, callback?: RequestCallback): ListCollectionsResponse;
     }
     
-    export interface DocumentsApi {
+    interface DocumentsApi {
         add(workspace: string, collection: string, body: AddDocumentsRequest, callback?: RequestCallback): AddDocumentsResponse;
         remove(workspace: string, collection: string, body: DeleteDocumentsRequest, callback?: RequestCallback): DeleteDocumentsResponse;
     }
 
-    export interface IntegrationsApi {
+    interface IntegrationsApi {
         create(body: CreateIntegrationRequest, callback?: RequestCallback): CreateIntegrationResponse;
         get(integration: string, callback?: RequestCallback): GetIntegrationResponse;
         list(callback?: RequestCallback): ListIntegrationsResponse;
         remove(integration: string, callback?: RequestCallback): DeleteIntegrationResponse;
 
-    export interface OrganizationsApi {
+    interface OrganizationsApi {
         get(callback?: RequestCallback): OrganizationResponse;
     }
 
-    export interface QueriesApi {
+    interface QueriesApi {
         query(body: QueryRequest, callback?: RequestCallback): QueryResponse;
     }
 
-    export interface UsersApi {
+    interface UsersApi {
         create(body: CreateUserRequest, callback?: RequestCallback): CreateUserResponse;
         get(callback?: RequestCallback): User;
         list(callback?: RequestCallback): ListUsersResponse;
         remove(user: string, callback?: RequestCallback): DeleteUserResponse;
     }
 
-    export interface WorkspacesApi {
+    interface WorkspacesApi {
         child(workspace: string, callback?: RequestCallback): ListWorkspacesResponse;
         create(body: CreateWorkspaceRequest, callback?: RequestCallback): CreateWorkspaceRequest;
         get(workspace: string, callback?: RequestCallback): GetWorkspaceResponse;
@@ -69,7 +71,7 @@ declare namespace rockset {
         remove(workspace: string, callback?: RequestCallback): DeleteWorkspaceResponse;
     }
 
-    export interface XmlParams {
+    interface XmlParams {
         // tag until which xml is ignored
         root_tag?: string;
         // encoding in which data source is encoded
@@ -81,7 +83,7 @@ declare namespace rockset {
         // tag to differentiate between attributes and elements
         attribute_prefix?: string;
     }
-    export interface Workspace {
+    interface Workspace {
         // ISO-8601 date of when workspace was created
         created_at?: string;
         // email of user who created the workspace
@@ -93,7 +95,7 @@ declare namespace rockset {
         // number of collections that are immediate children of workspace
         collection_count?: number;
     }
-    export interface User {
+    interface User {
         // ISO-8601 date
         created_at?: string;
         // user email
@@ -107,7 +109,7 @@ declare namespace rockset {
         // state of user - NEW / ACTIVE
         state?: string;
     }
-    export interface Status {
+    interface Status {
         // Status of the Source's ingestion, one of: INITIALIZING, WATCHING, PROCESSING, COMPLETED, ERROR
         state?: 'INITIALIZING' | 'WATCHING' | 'PROCESSING' | 'COMPLETED' | 'ERROR';
         // ISO-8601 date when state was triggered
@@ -129,11 +131,11 @@ declare namespace rockset {
         // Total items that errored
         total_error_items?: number;
     }
-    export interface SqlExpression {
+    interface SqlExpression {
         // The name of a sql function
         sql?: string;
     }
-    export interface SourceS3 {
+    interface SourceS3 {
         // Prefix that selects keys to ingest.
         prefix?: string;
         // Pattern that selects keys to ingest.
@@ -141,7 +143,7 @@ declare namespace rockset {
         // address of S3 bucket containing data
         bucket: string;
     }
-    export interface SourceRedshift {
+    interface SourceRedshift {
         // name of the database in Redshift Cluster
         database: string;
         // schema which contains the Redshift table
@@ -151,19 +153,19 @@ declare namespace rockset {
         // field in Redshift source table to monitor for updates
         incremental_field?: string;
     }
-    export interface SourceKinesis {
+    interface SourceKinesis {
         // name of kinesis stream
         stream_name: string;
         // AWS region name of Kinesis stream, by default us-west-2 is used
         aws_region?: string;
     }
-    export interface SourceGcs {
+    interface SourceGcs {
         // name of GCS bucket you want to ingest from
         bucket?: string;
         // Prefix that selects keys to ingest.
         prefix?: string;
     }
-    export interface SourceFileUpload {
+    interface SourceFileUpload {
         // name of the file
         file_name: string;
         // size of the file in bytes
@@ -171,13 +173,13 @@ declare namespace rockset {
         // time of file upload
         file_upload_time: string;
     }
-    export interface SourceDynamoDb {
+    interface SourceDynamoDb {
         // name of DynamoDB table containing data
         table_name: string;
         // AWS region name of DynamoDB table, by default us-west-2 is used
         aws_region?: string;
     }
-    export interface Source {
+    interface Source {
         // name of integration to use
         integration_name: string;
         // configuration for ingestion from S3
@@ -197,13 +199,13 @@ declare namespace rockset {
         // the ingest status of this source
         status?: Status;
     }
-    export interface S3Integration {
+    interface S3Integration {
         // details of an AWS cross-account role integration
         aws_role?: AwsRole;
         // credentials for an AWS access key integration
         aws_access_key?: AwsAccessKey;
     }
-    export interface RedshiftIntegration {
+    interface RedshiftIntegration {
         // AWS access key credentials
         aws_access_key?: AwsAccessKey;
         // Username associated with Redshift cluster
@@ -217,13 +219,13 @@ declare namespace rockset {
         // unload S3 bucket path
         s3_bucket_path: string;
     }
-    export interface QueryResponseStats {
+    interface QueryResponseStats {
         // query time in milliseconds
         elapsed_time_ms?: number;
         // rows scanned as part of query execution
         rows_scanned?: number;
     }
-    export interface QueryResponse {
+    interface QueryResponse {
         // list of objects returned by the query
         results?: Array<{}>;
         // list of fields returned by the query
@@ -233,17 +235,17 @@ declare namespace rockset {
         // meta information about each column in the result set
         column_fields?: QueryFieldType[];
     }
-    export interface QueryRequestSql {
+    interface QueryRequestSql {
         // SQL query as a string
         query: string;
         // list of named parameters
         parameters?: QueryParameter[];
     }
-    export interface QueryRequest {
+    interface QueryRequest {
         // details about the query
         sql?: QueryRequestSql;
     }
-    export interface QueryParameter {
+    interface QueryParameter {
         // name of the field
         name: string;
         // data type of the field
@@ -251,13 +253,13 @@ declare namespace rockset {
         // literal value of the field
         value: string;
     }
-    export interface QueryFieldType {
+    interface QueryFieldType {
         // name of the field
         name: string;
         // data type of the field
         type: string;
     }
-    export interface OutputField {
+    interface OutputField {
         // The name of a field, parsed as a SQL qualified name
         field_name?: string;
         // The name of a sql function
@@ -265,11 +267,11 @@ declare namespace rockset {
         // Error in Mapping execution: 'skip' or 'fail'
         on_error?: 'SKIP' | 'FAIL';
     }
-    export interface OrganizationResponse {
+    interface OrganizationResponse {
         // Organization object
         data?: Organization;
     }
-    export interface Organization {
+    interface Organization {
         // unique identifier for the organization
         id?: string;
         // ISO-8601 date
@@ -285,33 +287,33 @@ declare namespace rockset {
         // org state
         state?: 'ACTIVE' | 'TRIAL' | 'TRIAL_EXPIRED' | 'DELETED';
     }
-    export interface ListWorkspacesResponse {
+    interface ListWorkspacesResponse {
         // list of workspaces
         data?: Workspace[];
     }
-    export interface ListUsersResponse {
+    interface ListUsersResponse {
         // list of users
         data?: User[];
     }
-    export interface ListIntegrationsResponse {
+    interface ListIntegrationsResponse {
         // list of integration objects
         data?: Integration[];
     }
-    export interface ListCollectionsResponse {
+    interface ListCollectionsResponse {
         // list of all collections
         data?: Collection[];
     }
-    export interface ListApiKeysResponse {
+    interface ListApiKeysResponse {
         // list of API key objects
         data?: ApiKey[];
     }
-    export interface KinesisIntegration {
+    interface KinesisIntegration {
         // details of an AWS cross-account role integration
         aws_role?: AwsRole;
         // credentials for an AWS access key integration
         aws_access_key?: AwsAccessKey;
     }
-    export interface Integration {
+    interface Integration {
         // ISO-8601 date
         created_at?: string;
         // email of user who created the integration
@@ -331,7 +333,7 @@ declare namespace rockset {
         // GCS details
         gcs?: GcsIntegration;
     }
-    export interface InputField {
+    interface InputField {
         // The name of a field, parsed as a SQL qualified name
         field_name?: string;
         // Define the behaviour if fieldName is missing or is null
@@ -341,42 +343,42 @@ declare namespace rockset {
         // Sql parameter name
         param?: string;
     }
-    export interface GetWorkspaceResponse {
+    interface GetWorkspaceResponse {
         // the workspace that was requested
         data?: Workspace;
     }
-    export interface GetIntegrationResponse {
+    interface GetIntegrationResponse {
         // integration object
         data?: Integration;
     }
-    export interface GetCollectionResponse {
+    interface GetCollectionResponse {
         // collection that was requested
         data?: Collection;
     }
-    export interface GcsIntegration {
+    interface GcsIntegration {
         // credentials for an AWS key integration
         gcp_service_account?: GcpServiceAccount;
     }
-    export interface GcpServiceAccount {
+    interface GcpServiceAccount {
         // Contents of JSON Service Account key file
         service_account_key_file_json: string;
     }
-    export interface FormatParams {
+    interface FormatParams {
         // source data is in json format
         json?: boolean;
         csv?: CsvParams;
         xml?: XmlParams;
     }
-    export interface FieldMaskMask {
+    interface FieldMaskMask {
         name: string;
         // TypeScript Version: 2.2
         args?: object;
     }
-    export interface FieldMask {
+    interface FieldMask {
         input_path: string[];
         mask?: FieldMaskMask;
     }
-    export interface FieldMappingV2 {
+    interface FieldMappingV2 {
         // A user specified string that is a name for this mapping
         name?: string;
         // A List of InputField for this mapping
@@ -384,7 +386,7 @@ declare namespace rockset {
         // An OutputField for this mapping
         output_field?: OutputField;
     }
-    export interface EventTimeInfo {
+    interface EventTimeInfo {
         // name of the field containing event time
         field: string;
         // format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch
@@ -392,7 +394,7 @@ declare namespace rockset {
         // default time zone, in standard IANA format
         time_zone?: string;
     }
-    export interface ErrorModel {
+    interface ErrorModel {
         // descriptive message about the error
         message?: string;
         // category of the error
@@ -420,11 +422,11 @@ declare namespace rockset {
         // Internal trace ID to help with debugging
         trace_id?: string;
     }
-    export interface DynamodbIntegration {
+    interface DynamodbIntegration {
         // credentials for an AWS access key integration
         aws_access_key?: AwsAccessKey;
     }
-    export interface DocumentStatus {
+    interface DocumentStatus {
         // collection name
         _collection?: string;
         // error message, if any
@@ -434,39 +436,39 @@ declare namespace rockset {
         // status, one of ADDED, REPLACED, DELETED, ERROR
         status?: 'ADDED' | 'REPLACED' | 'DELETED' | 'ERROR';
     }
-    export interface DeleteWorkspaceResponse {
+    interface DeleteWorkspaceResponse {
         // the workspace that was deleted
         data?: Workspace;
     }
-    export interface DeleteUserResponse {
+    interface DeleteUserResponse {
         // user object that was deleted
         data?: User;
     }
-    export interface DeleteIntegrationResponse {
+    interface DeleteIntegrationResponse {
         // integration object that was deleted
         data?: Integration;
     }
-    export interface DeleteDocumentsResponse {
+    interface DeleteDocumentsResponse {
         // information about deleted documents
         data?: DocumentStatus[];
     }
-    export interface DeleteDocumentsRequestData {
+    interface DeleteDocumentsRequestData {
         // unique document ID
         _id: string;
     }
-    export interface DeleteDocumentsRequest {
+    interface DeleteDocumentsRequest {
         // array of document IDs
         data: DeleteDocumentsRequestData[];
     }
-    export interface DeleteCollectionResponse {
+    interface DeleteCollectionResponse {
         // collection that was deleted
         data?: Collection;
     }
-    export interface DeleteApiKeyResponse {
+    interface DeleteApiKeyResponse {
         // the API key that was deleted
         data?: ApiKey;
     }
-    export interface CsvParams {
+    interface CsvParams {
         // If the first line in every object specifies the column names
         firstLineAsColumnNames?: boolean;
         // a single character that is the column seperator
@@ -480,31 +482,31 @@ declare namespace rockset {
         // character within which a cell value is enclosed,null character if no such character, default is '"'
         quoteChar?: string;
     }
-    export interface CreateWorkspaceResponse {
+    interface CreateWorkspaceResponse {
         // the workspace that was created
         data?: Workspace;
     }
-    export interface CreateWorkspaceRequest {
+    interface CreateWorkspaceRequest {
         // descriptive label and unique identifier
         name: string;
         // longer explanation for the workspace
         description?: string;
     }
-    export interface CreateUserResponse {
+    interface CreateUserResponse {
         // user that was created
         data?: User;
     }
-    export interface CreateUserRequest {
+    interface CreateUserRequest {
         // user email, must be unique
         email: string;
         // List of roles for a given user
         roles?: string[];
     }
-    export interface CreateIntegrationResponse {
+    interface CreateIntegrationResponse {
         // integration object that was created
         data?: Integration;
     }
-    export interface CreateIntegrationRequest {
+    interface CreateIntegrationRequest {
         // descriptive label
         name: string;
         // longer explanation for the integration
@@ -520,11 +522,11 @@ declare namespace rockset {
         // GCS details
         gcs?: GcsIntegration;
     }
-    export interface CreateCollectionResponse {
+    interface CreateCollectionResponse {
         // collection that was created
         data?: Collection;
     }
-    export interface CreateCollectionRequest {
+    interface CreateCollectionRequest {
         // unique identifer for collection, can contain alphanumeric or dash characters
         name: string;
         // text describing the collection
@@ -538,15 +540,15 @@ declare namespace rockset {
         // list of mappings
         field_mappings?: FieldMappingV2[];
     }
-    export interface CreateApiKeyResponse {
+    interface CreateApiKeyResponse {
         // the API key that was created
         data?: ApiKey;
     }
-    export interface CreateApiKeyRequest {
+    interface CreateApiKeyRequest {
         // descriptive label
         name: string;
     }
-    export interface CollectionStats {
+    interface CollectionStats {
         // number of documents in the collection
         doc_count?: number;
         // total collection size in bytes
@@ -562,7 +564,7 @@ declare namespace rockset {
         // milliseconds since Unix epoch Jan 1, 1970
         last_queried_ms?: number;
     }
-    export interface Collection {
+    interface Collection {
         // ISO-8601 date
         created_at?: string;
         // email of user who created the collection
@@ -584,17 +586,17 @@ declare namespace rockset {
         // list of mappings applied on all documents in a collection
         field_mappings?: FieldMappingV2[];
     }
-    export interface AwsRole {
+    interface AwsRole {
         // ARN of rockset-role created in your account
         aws_role_arn: string;
     }
-    export interface AwsAccessKey {
+    interface AwsAccessKey {
         // AWS access key ID
         aws_access_key_id: string;
         // AWS secret access key
         aws_secret_access_key: string;
     }
-    export interface ApiKey {
+    interface ApiKey {
         // ISO-8601 date
         created_at?: string;
         // descriptive label
@@ -602,11 +604,11 @@ declare namespace rockset {
         // string of 64 alphanumeric characters
         key: string;
     }
-    export interface AddDocumentsResponse {
+    interface AddDocumentsResponse {
         // information about the added documents
         data?: DocumentStatus[];
     }
-    export interface AddDocumentsRequest {
+    interface AddDocumentsRequest {
         // Array of JSON documents
         data: Array<{}>;
     }
