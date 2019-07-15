@@ -8,20 +8,41 @@ export = rockset;
 declare function rockset(apiKey: string, apiServer: string): ApiClient;
 
 declare namespace rockset {
-    export class ApiClient {
+    export interface ApiClient {
         apiKeys(): ApiKeysApi;
         collections(): CollectionsApi;
         documents(): DocumentsApi;
         integrations(): IntegrationsApi;
-        queries(): QueriesApi;
         organizations(): OrganizationsApi;
+        queries(): QueriesApi;
         users(): UsersApi;
         workspaces(): WorspacesApi;
     }
     
-    export class ApiKeysApi {
-        create(request: CreateApiKeyRequest): CreateApiKeyResponse; 
+    export interface ApiKeysApi {
+        create(body: CreateApiKeyRequest): CreateApiKeyResponse;
+        list(): ListApiKeysResponse;
+        remove(name: string): DeleteApiKeyResponse;
     }
+
+    export interface CollectionsApi {
+        create(workspace: string, body: CreateCollectionRequest): CreateCollectionResponse;
+        get(workspace: string, collection:string): GetCollectionResponse;
+        list(): ListCollectionsResponse;
+        remove(workspace: string, collection: string): DeleteCollectionResponse;
+        workspace(workspace: string): ListCollectionsResponse;
+    }
+    
+    export interface DocumentsApi {
+        add(workspace: string, collection: string, body: AddDocumentsRequest): AddDocumentsResponse;
+        remove(workspace: string, collection: string, body: DeleteDocumentsRequest): DeleteDocumentsResponse;
+    }
+
+    export interface IntegrationsApi {
+        create(body: CreateIntegrationRequest): CreateIntegrationResponse;
+        get(integration: string): GetIntegrationResponse;
+        list(): ListIntegrationsResponse;
+        remove(integration: string): DeleteIntegrationResponse;
 
     export interface OrganizationsApi {
         get(): OrganizationResponse;
