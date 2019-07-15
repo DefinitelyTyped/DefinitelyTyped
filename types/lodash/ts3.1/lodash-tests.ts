@@ -6843,6 +6843,13 @@ fp.now(); // $ExpectType number
 // _.overEvery
 // _.overSome
 {
+    interface Named { name: string; }
+    interface Aged { age: number; }
+    const userDefinedTypeGuardNamed: <T>(item: T) => item is T & Named = anything;
+    const userDefinedTypeGuardAged: <T>(item: T) => item is T & Aged = anything;
+
+    _.overEvery(userDefinedTypeGuardNamed, userDefinedTypeGuardAged); // $ExpectType Refinement<{}, Named & Aged>
+
     _.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery([(number: number) => true]); // $ExpectType (...args: number[]) => boolean

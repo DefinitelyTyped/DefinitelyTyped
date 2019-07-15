@@ -744,6 +744,8 @@ declare module "../index" {
         over<TResult>(...iteratees: Array<Many<(...args: any[]) => TResult>>): FunctionChain<(...args: any[]) => Array<ReturnType<T> | TResult>>;
     }
 
+    type Refinement<A, B extends A> = (a: A) => a is B;
+
     interface LoDashStatic {
         /**
          * Creates a function that checks if all of the predicates return truthy when invoked with the arguments
@@ -752,6 +754,10 @@ declare module "../index" {
          * @param predicates The predicates to check.
          * @return Returns the new function.
          */
+        overEvery<A, B extends A, C extends B>(
+            fn1: Refinement<A, B>,
+            fn2: Refinement<B, C>,
+        ): Refinement<A, C>;
         overEvery<T>(...predicates: Array<Many<(...args: T[]) => boolean>>): (...args: T[]) => boolean;
     }
     interface Collection<T> {
