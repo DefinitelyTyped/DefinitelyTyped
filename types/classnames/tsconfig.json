@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "bind.d.ts",
+        "dedupe.d.ts",
         "types.d.ts",
         "classnames-tests.ts"
     ]

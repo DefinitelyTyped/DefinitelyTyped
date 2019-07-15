@@ -9,6 +9,11 @@ L.tileLayer.provider('HERE.terrainDay', {
   app_code: '<insert ID here>'
 }).addTo(map);
 
+L.tileLayer.provider('OpenStreetMap', {
+  maxZoom: 21,
+  maxNativeZoom: 19
+}).addTo(map);
+
 new L.TileLayer.Provider('MapBox').addTo(map);
 new L.TileLayer.Provider('MapBox', {id: 'ID', accessToken: 'ACCESS_TOKEN'}).addTo(map);
 

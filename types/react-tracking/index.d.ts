@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface TrackingProp<P = {}> {
     trackEvent(data: Partial<P>): any;
@@ -16,7 +16,7 @@ export interface TrackingProp<P = {}> {
     getTrackingData(): {};
 }
 
-type Falsy = false | null | undefined | "";
+type Falsy = false | null | undefined | '';
 
 export interface Options<T> {
     /**

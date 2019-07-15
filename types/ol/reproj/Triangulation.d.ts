@@ -1,6 +1,7 @@
-import { Coordinate } from 'ol/coordinate';
-import { Extent } from 'ol/extent';
-import Projection from 'ol/proj/Projection';
+import { Coordinate } from '../coordinate';
+import { Extent } from '../extent';
+import Projection from '../proj/Projection';
+
 export interface Triangle {
     source: Coordinate[];
     target: Coordinate[];

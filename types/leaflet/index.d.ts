@@ -1042,6 +1042,7 @@ export interface ControlOptions {
 }
 
 export class Control extends Class {
+    static extend<T extends object>(props: T): {new(...args: any[]): T} & typeof Control;
     constructor(options?: ControlOptions);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;
@@ -1511,7 +1512,7 @@ export namespace Icon {
 export function icon(options: IconOptions): Icon;
 
 export interface DivIconOptions extends BaseIconOptions {
-    html?: string | false;
+    html?: string | HTMLElement | false;
     bgPos?: PointExpression;
     iconSize?: PointExpression;
     iconAnchor?: PointExpression;

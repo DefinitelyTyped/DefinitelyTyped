@@ -95,8 +95,11 @@ const schema2: SchemaProperties = {
 };
 
 const pluginCommandName = 'plugin_command';
+const pluginCommandFunc = (editor: Editor, ...args: any[]) => editor;
+
 const pluginQueryName = 'plugin_query';
 const pluginQueryResult = 1000;
+const pluginQueryFunc = (editor: Editor, ...args: any[]) => pluginQueryResult;
 
 const plugin: Plugin = {
     normalizeNode: (node: Node, editor: Editor, next: () => void) => next(),
@@ -111,7 +114,7 @@ const plugin: Plugin = {
     schema: {...schema},
 };
 
-const plugins = [plugin];
+const plugins = [plugin, [plugin, [plugin]]];
 
 const editor = new Editor({ value, plugins });
 const point = Point.create({ key: "a", offset: 0 });
@@ -121,7 +124,9 @@ const mark = Mark.create("bold");
 const decorations = Decoration.createList([{ anchor: Point.create({ key: "a", offset: 0 }), focus: Point.create({ key: "a", offset: 0 }), mark }]);
 
 editor.command(pluginCommandName, 1);
+editor.command(pluginCommandFunc, 1);
 editor.query(pluginQueryName, 1);
+editor.query(pluginQueryFunc, 1);
 
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
@@ -129,7 +134,6 @@ editor.setReadOnly(true).setValue(value);
 editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
-const result: number = editor.query(pluginQueryName);
 
 // Test all editor commands
 editor

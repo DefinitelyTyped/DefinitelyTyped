@@ -5,6 +5,7 @@
 // TypeScript Version: 2.2
 
 import { ErrorRequestHandler, Handler, Request, Response } from 'express';
+import { Format } from 'logform';
 import * as winston from 'winston';
 import * as Transport from 'winston-transport';
 
@@ -30,6 +31,7 @@ export interface BaseLoggerOptions {
   colorize?: boolean;
   dynamicMeta?: DynamicMetaFunction;
   expressFormat?: boolean;
+  format?: Format;
   ignoreRoute?: RouteFilter;
   ignoredRoutes?: string[];
   level?: string | DynamicLevelFunction;
@@ -63,6 +65,7 @@ export function logger(options: LoggerOptions): Handler;
 export interface BaseErrorLoggerOptions {
   baseMeta?: object;
   dynamicMeta?: DynamicMetaFunction;
+  format?: Format;
   level?: string | DynamicLevelFunction;
   metaField?: string;
   msg?: MessageTemplate;

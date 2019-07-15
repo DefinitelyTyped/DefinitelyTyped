@@ -16,7 +16,7 @@ declare namespace copyfiles {
         /** do not overwrite destination files if they exist */
         soft?: boolean;
         /** slice a path off the bottom of the paths */
-        up?: number;
+        up?: number | boolean;
         /** print more information to console */
         verbose?: boolean;
     }

@@ -93,7 +93,7 @@ declare namespace prompts {
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date";
+    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }
