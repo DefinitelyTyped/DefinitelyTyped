@@ -12,8 +12,7 @@
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1
  */
-export type JSONSchema4TypeName = 'string' | 'number' | 'integer' | 'boolean'
-    | 'object' | 'array' | 'null' | 'any'
+export type JSONSchema4TypeName = string | number | boolean | object | null | any
 
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.5
@@ -218,7 +217,7 @@ export interface JSONSchema4 {
 
 /* JSON Schema 6 */
 
-export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array' | 'null' | 'any'
+export type JSONSchema6TypeName = string | number | boolean | object | null | any
 
 export type JSONSchema6Type = any[] | boolean | number | null | object | string
 
@@ -517,7 +516,7 @@ export interface JSONSchema6 {
  * Primitive type
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1.1
  */
-export type JSONSchema7TypeName = 'string' | 'number' | 'integer' | 'boolean' | 'object' | 'array' | 'null';
+export type JSONSchema7TypeName = string | number | boolean | object | null;
 export type JSONSchema7Type = JSONSchema7Array[] | boolean | number | null | object | string;
 
 // Workaround for infinite type recursion
