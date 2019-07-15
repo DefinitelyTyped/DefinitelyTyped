@@ -18,53 +18,55 @@ declare namespace rockset {
         users: UsersApi;
         workspaces: WorkspacesApi;
     }
+
+    export interface RequestCallback { (err: any, data: any, response: Http.IncomingMessage): void; }
     
     export interface ApiKeysApi {
-        create(body: CreateApiKeyRequest): CreateApiKeyResponse;
-        list(): ListApiKeysResponse;
-        remove(name: string): DeleteApiKeyResponse;
+        create(body: CreateApiKeyRequest, callback?: RequestCallback): CreateApiKeyResponse;
+        list(callback?: RequestCallback, callback?: RequestCallback): ListApiKeysResponse;
+        remove(name: string, callback?: RequestCallback): DeleteApiKeyResponse;
     }
 
     export interface CollectionsApi {
-        create(workspace: string, body: CreateCollectionRequest): CreateCollectionResponse;
-        get(workspace: string, collection: string): GetCollectionResponse;
-        list(): ListCollectionsResponse;
-        remove(workspace: string, collection: string): DeleteCollectionResponse;
-        workspace(workspace: string): ListCollectionsResponse;
+        create(workspace: string, body: CreateCollectionRequest, callback?: RequestCallback): CreateCollectionResponse;
+        get(workspace: string, collection: string, callback?: RequestCallback): GetCollectionResponse;
+        list(, callback?: RequestCallback): ListCollectionsResponse;
+        remove(workspace: string, collection: string, callback?: RequestCallback): DeleteCollectionResponse;
+        workspace(workspace: string, callback?: RequestCallback): ListCollectionsResponse;
     }
     
     export interface DocumentsApi {
-        add(workspace: string, collection: string, body: AddDocumentsRequest): AddDocumentsResponse;
-        remove(workspace: string, collection: string, body: DeleteDocumentsRequest): DeleteDocumentsResponse;
+        add(workspace: string, collection: string, body: AddDocumentsRequest, callback?: RequestCallback): AddDocumentsResponse;
+        remove(workspace: string, collection: string, body: DeleteDocumentsRequest, callback?: RequestCallback): DeleteDocumentsResponse;
     }
 
     export interface IntegrationsApi {
-        create(body: CreateIntegrationRequest): CreateIntegrationResponse;
-        get(integration: string): GetIntegrationResponse;
-        list(): ListIntegrationsResponse;
-        remove(integration: string): DeleteIntegrationResponse;
+        create(body: CreateIntegrationRequest, callback?: RequestCallback): CreateIntegrationResponse;
+        get(integration: string, callback?: RequestCallback): GetIntegrationResponse;
+        list(, callback?: RequestCallback): ListIntegrationsResponse;
+        remove(integration: string, callback?: RequestCallback): DeleteIntegrationResponse;
 
     export interface OrganizationsApi {
-        get(): OrganizationResponse;
+        get(, callback?: RequestCallback): OrganizationResponse;
     }
 
     export interface QueriesApi {
-        query(body: QueryRequest): QueryResponse;
+        query(body: QueryRequest, callback?: RequestCallback): QueryResponse;
     }
 
     export interface UsersApi {
-        create(body: CreateUserRequest): CreateUserResponse;
-        get(): User;
-        list(): ListUsersResponse;
-        remove(user: string): DeleteUserResponse;
+        create(body: CreateUserRequest, callback?: RequestCallback): CreateUserResponse;
+        get(, callback?: RequestCallback): User;
+        list(, callback?: RequestCallback): ListUsersResponse;
+        remove(user: string, callback?: RequestCallback): DeleteUserResponse;
     }
 
     export interface WorkspacesApi {
-        child(workspace: string): ListWorkspacesResponse;
-        create(body: CreateWorkspaceRequest): CreateWorkspaceRequest;
-        get(workspace: string): GetWorkspaceResponse;
-        list(): ListWorkspacesResponse;
-        remove(workspace: string): DeleteWorkspaceResponse;
+        child(workspace: string, callback?: RequestCallback): ListWorkspacesResponse;
+        create(body: CreateWorkspaceRequest, callback?: RequestCallback): CreateWorkspaceRequest;
+        get(workspace: string, callback?: RequestCallback): GetWorkspaceResponse;
+        list(, callback?: RequestCallback): ListWorkspacesResponse;
+        remove(workspace: string, callback?: RequestCallback): DeleteWorkspaceResponse;
     }
 
     export interface XmlParams {
