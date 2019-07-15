@@ -1,6 +1,7 @@
-// Type definitions for leaflet-mouse-position 1.1
+// Type definitions for leaflet-mouse-position 1.2
 // Project: https://github.com/danwild/Leaflet.MousePosition
 // Definitions by: Hanyon <https://github.com/Hanyon>
+//                 Håkon <https://github.com/hlovdal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -23,7 +24,9 @@ declare module 'leaflet' {
             numDigits?: number;
             lngFormatter?: (lng: number) => string;
             latFormatter?: (lat: number) => string;
+            formatter?: (lng: number, lat: number) => string;
             prefix?: string;
+            wrapLng?: boolean;
         }
 
         class MousePosition extends LControl {

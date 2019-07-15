@@ -1,4 +1,4 @@
-import { Server } from 'hapi';
+import { Server } from '@hapi/hapi';
 import * as pino from 'pino';
 import * as HapiPino from 'hapi-pino';
 

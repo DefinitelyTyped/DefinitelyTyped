@@ -19,6 +19,24 @@ pkgcloud.storage.createClient({
 	storageAccessKey: 'AABDEF==',
 });
 
+/**
+ * Google
+ * See https://github.com/pkgcloud/pkgcloud/blob/master/docs/providers/google.md#using-storage
+ */
+pkgcloud.storage.createClient({
+	provider: 'google',
+	keyFilename: 'path/to/keyFile.json',
+	projectId: 'projectId'
+});
+
+// Openstack
+pkgcloud.storage.createClient({
+	provider: 'openstack',
+	authUrl: 'http://example.com',
+	username: 'username',
+	password: 'password'
+});
+
 // Upload a File
 {
 	const client = pkgcloud.storage.createClient({

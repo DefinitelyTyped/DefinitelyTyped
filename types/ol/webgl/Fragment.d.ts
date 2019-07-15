@@ -1,4 +1,5 @@
-import WebGLShader from 'ol/webgl/Shader';
+import WebGLShader from './Shader';
+
 export default class WebGLFragment extends WebGLShader {
     constructor(source: string);
 }

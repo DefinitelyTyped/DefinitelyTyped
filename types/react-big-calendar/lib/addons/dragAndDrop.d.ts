@@ -1,4 +1,4 @@
-import BigCalendar, { BigCalendarProps, Event, stringOrDate } from '../../index';
+import { Calendar, CalendarProps, Event, stringOrDate } from '../../index';
 import * as React from 'react';
 
 export interface withDragAndDropProps<TEvent> {
@@ -8,7 +8,7 @@ export interface withDragAndDropProps<TEvent> {
 }
 
 declare class DragAndDropCalendar<TEvent extends Event = Event, TResource extends object = object>
-  extends React.Component<BigCalendarProps<TEvent, TResource> & withDragAndDropProps<TEvent>> {}
+  extends React.Component<CalendarProps<TEvent, TResource> & withDragAndDropProps<TEvent>> {}
 
-declare function withDragAndDrop(calendar: typeof BigCalendar): typeof DragAndDropCalendar;
+declare function withDragAndDrop(calendar: typeof Calendar): typeof DragAndDropCalendar;
 export default withDragAndDrop;

@@ -69,10 +69,8 @@ attachedStyleSheet.addRules({
 		fontSize: 17,
 	},
 });
-
-styleSheet.addRule('badProperty', {
-	thisIsNotAValidProperty: 'blah', // $ExpectError
-});
+// $ExpectError
+styleSheet.addRule('badProperty', { thisIsNotAValidProperty: 'blah', });
 
 styleSheet.addRule('badValue', { // $ExpectError
 	'align-items': Symbol(),

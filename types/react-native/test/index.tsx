@@ -90,6 +90,7 @@ import {
     NetInfo,
     PermissionsAndroid,
     Platform,
+    ProgressBarAndroid,
     PushNotificationIOS,
 } from "react-native";
 
@@ -777,6 +778,7 @@ class AccessibilityTest extends React.Component {
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityStates={["selected"]}
+                accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
@@ -935,6 +937,16 @@ const PlatformTest = () => {
         default:
             return Platform.isTV ? 40 : 44;
     }
+};
+
+// ProgressBarAndroid
+const ProgressBarAndroidTest = () => {
+    <ProgressBarAndroid
+        animating
+        color="white"
+        styleAttr="Horizontal"
+        progress={0.42}
+    />
 };
 
 // Push notification
