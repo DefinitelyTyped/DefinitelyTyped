@@ -308,7 +308,7 @@ declare namespace Parse {
         static fetchAll<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static fetchAllWithInclude<T extends Object>(list: T[], keys: string | Array<string | Array<string>>, options: RequestOptions): Promise<T[]>;
-        static fromJSON<T>(this: { new(): T }, json: any, override?: boolean): T;
+        static fromJSON<T, K extends Unobject<T>>(this: { new(): T }, json: K, override?: boolean): T;
         static pinAll(objects: Object[]): Promise<void>;
         static pinAllWithName(name: string, objects: Object[]): Promise<void>;
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
@@ -465,7 +465,7 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query<T = Object, K extends Unobject<T> = Unobject<T>> extends BaseObject {
+    class Query<T extends Object = Object, K extends Unobject<T> = Unobject<T>> extends BaseObject {
 
         objectClass: T;
         className: string;
