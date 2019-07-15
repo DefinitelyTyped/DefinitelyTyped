@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lodash-deep.d.ts",
+        "index.d.ts",
         "lodash-deep-tests.ts"
     ]
 }
