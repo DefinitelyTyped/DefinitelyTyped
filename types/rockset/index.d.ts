@@ -30,7 +30,7 @@ declare namespace rockset {
     export interface CollectionsApi {
         create(workspace: string, body: CreateCollectionRequest, callback?: RequestCallback): CreateCollectionResponse;
         get(workspace: string, collection: string, callback?: RequestCallback): GetCollectionResponse;
-        list(, callback?: RequestCallback): ListCollectionsResponse;
+        list(callback?: RequestCallback): ListCollectionsResponse;
         remove(workspace: string, collection: string, callback?: RequestCallback): DeleteCollectionResponse;
         workspace(workspace: string, callback?: RequestCallback): ListCollectionsResponse;
     }
@@ -43,11 +43,11 @@ declare namespace rockset {
     export interface IntegrationsApi {
         create(body: CreateIntegrationRequest, callback?: RequestCallback): CreateIntegrationResponse;
         get(integration: string, callback?: RequestCallback): GetIntegrationResponse;
-        list(, callback?: RequestCallback): ListIntegrationsResponse;
+        list(callback?: RequestCallback): ListIntegrationsResponse;
         remove(integration: string, callback?: RequestCallback): DeleteIntegrationResponse;
 
     export interface OrganizationsApi {
-        get(, callback?: RequestCallback): OrganizationResponse;
+        get(callback?: RequestCallback): OrganizationResponse;
     }
 
     export interface QueriesApi {
@@ -56,8 +56,8 @@ declare namespace rockset {
 
     export interface UsersApi {
         create(body: CreateUserRequest, callback?: RequestCallback): CreateUserResponse;
-        get(, callback?: RequestCallback): User;
-        list(, callback?: RequestCallback): ListUsersResponse;
+        get(callback?: RequestCallback): User;
+        list(callback?: RequestCallback): ListUsersResponse;
         remove(user: string, callback?: RequestCallback): DeleteUserResponse;
     }
 
@@ -65,7 +65,7 @@ declare namespace rockset {
         child(workspace: string, callback?: RequestCallback): ListWorkspacesResponse;
         create(body: CreateWorkspaceRequest, callback?: RequestCallback): CreateWorkspaceRequest;
         get(workspace: string, callback?: RequestCallback): GetWorkspaceResponse;
-        list(, callback?: RequestCallback): ListWorkspacesResponse;
+        list(callback?: RequestCallback): ListWorkspacesResponse;
         remove(workspace: string, callback?: RequestCallback): DeleteWorkspaceResponse;
     }
 
