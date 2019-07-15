@@ -23,6 +23,28 @@ declare namespace rockset {
         create(request: CreateApiKeyRequest): CreateApiKeyResponse; 
     }
 
+    export interface OrganizationsApi {
+        get(): OrganizationResponse;
+    }
+
+    export interface QueriesApi {
+        query(body: QueryRequest): QueryResponse;
+    }
+
+    export interface UsersApi {
+        create(body: CreateUserRequest): CreateUserResponse;
+        get(): User;
+        list(): ListUsersResponse;
+        remove(user: string): DeleteUserResponse;
+    }
+
+    export interface WorkspacesApi {
+        child(workspace: string): ListWorkspacesResponse;
+        create(body: CreateWorkspaceRequest): CreateWorkspaceRequest;
+        get(workspace: string): GetWorkspaceResponse;
+        list(): ListWorkspacesResponse;
+        remove(workspace: string): DeleteWorkspaceResponse;
+    }
 
     export interface XmlParams {
         // tag until which xml is ignored
