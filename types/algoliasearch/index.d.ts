@@ -1240,7 +1240,7 @@ declare namespace algoliasearch {
      * Filter the query by a set of facets.
      * Default: []
      */
-    facetFilters?: string[]|string[][];
+    facetFilters?: Array<string|string[]>;
     /**
      * If set to false, this query will not be taken into account in the analytics feature.
      * default true
