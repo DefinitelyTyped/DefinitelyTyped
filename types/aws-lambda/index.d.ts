@@ -308,6 +308,8 @@ export interface CognitoUserPoolTriggerEvent {
     };
     response: {
         autoConfirmUser?: boolean;
+        autoVerifyPhone?: boolean;
+        autoVerifyEmail?: boolean;
         smsMessage?: string;
         emailMessage?: string;
         emailSubject?: string;
