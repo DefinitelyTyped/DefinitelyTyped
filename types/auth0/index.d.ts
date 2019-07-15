@@ -679,6 +679,8 @@ export interface PasswordChangeTicketParams {
   connection_id?: string;
   email?: string;
   ttl_sec?: number;
+  mark_email_as_verified?: boolean;
+  includeEmailInRedirect?: boolean;
 }
 
 export interface PasswordChangeTicketResponse {

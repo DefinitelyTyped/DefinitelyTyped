@@ -283,6 +283,8 @@ management.createPasswordChangeTicket({
   new_password: 'password',
   result_url: 'https://www.google.com/',
   ttl_sec: 86400,
+  mark_email_as_verified: true,
+  includeEmailInRedirect: true
 }, (err: Error, data) => {
   console.log(data.ticket);
 });
