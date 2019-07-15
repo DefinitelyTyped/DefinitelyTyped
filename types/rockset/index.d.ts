@@ -3,8 +3,6 @@
 // Definitions by: Kshitij Wadhwa <https://github.com/kwadhwa18>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Http = require('http');
-
 export = rockset;
 
 declare function rockset(apiKey: string, apiServer: string): rockset.ApiClient;
@@ -21,8 +19,8 @@ declare namespace rockset {
         workspaces: WorkspacesApi;
     }
 
-    interface RequestCallback { (err: any, data: any, response: Http.IncomingMessage): void; }
-    
+    interface RequestCallback { (err: any, data: any, response: any): void; }
+
     interface ApiKeysApi {
         create(body: CreateApiKeyRequest, callback?: RequestCallback): CreateApiKeyResponse;
         list(callback?: RequestCallback): ListApiKeysResponse;
@@ -36,7 +34,7 @@ declare namespace rockset {
         remove(workspace: string, collection: string, callback?: RequestCallback): DeleteCollectionResponse;
         workspace(workspace: string, callback?: RequestCallback): ListCollectionsResponse;
     }
-    
+
     interface DocumentsApi {
         add(workspace: string, collection: string, body: AddDocumentsRequest, callback?: RequestCallback): AddDocumentsResponse;
         remove(workspace: string, collection: string, body: DeleteDocumentsRequest, callback?: RequestCallback): DeleteDocumentsResponse;
@@ -47,6 +45,7 @@ declare namespace rockset {
         get(integration: string, callback?: RequestCallback): GetIntegrationResponse;
         list(callback?: RequestCallback): ListIntegrationsResponse;
         remove(integration: string, callback?: RequestCallback): DeleteIntegrationResponse;
+    }
 
     interface OrganizationsApi {
         get(callback?: RequestCallback): OrganizationResponse;
