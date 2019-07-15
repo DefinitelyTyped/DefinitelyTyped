@@ -56,6 +56,9 @@ async function testPromisify() {
     r = await execFile("npm", ["-v"], { encoding: 'buffer' });
     r = await execFile("npm", { encoding: 'utf-8' });
     r = await execFile("npm", { encoding: 'buffer' });
+
+    const prom: childProcess.PromiseWithChild<{ stdout: string, stderr: string }> = execFile('test');
+    prom.child;
 }
 
 {
@@ -346,11 +349,11 @@ async function testPromisify() {
     console.log(process.stdin instanceof net.Socket);
     console.log(process.stdout instanceof fs.ReadStream);
 
-    const stdin: Readable = process.stdin;
+    const stdin: NodeJS.ReadableStream = process.stdin;
     console.log(stdin instanceof net.Socket);
     console.log(stdin instanceof fs.ReadStream);
 
-    const stdout: Writable = process.stdout;
+    const stdout: NodeJS.WritableStream = process.stdout;
     console.log(stdout instanceof net.Socket);
     console.log(stdout instanceof fs.WriteStream);
 }

@@ -8,7 +8,7 @@ import { Flowable } from 'rsocket-flowable';
 export interface ServerOptions {
     host?: string;
     port: number;
-    serverFactory?: (onConnect: (socket: net.Socket) => undefined) => net.Server;
+    serverFactory?: (onConnect: (socket: net.Socket) => void) => net.Server;
 }
 
 /**
@@ -19,5 +19,5 @@ export interface ServerOptions {
 export default class RSocketTCPServer implements TransportServer {
     constructor(options: ServerOptions, encoders?: Encoders<any>);
     start(): Flowable<DuplexConnection>;
-    stop(): undefined;
+    stop(): void;
 }

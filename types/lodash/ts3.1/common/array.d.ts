@@ -713,6 +713,10 @@ declare module "../index" {
          * @see _.intersectionBy
          */
         intersectionBy<T>(array?: List<T> | null, ...values: Array<List<T>>): T[];
+        /**
+         * @see _.intersectionBy
+         */
+        intersectionBy<T>(...values: Array<List<T> | ValueIteratee<T>>): T[];
     }
     interface Collection<T> {
         /**
