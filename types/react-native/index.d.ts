@@ -8097,7 +8097,7 @@ export interface PushNotificationIOSStatic {
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): Promise<PushNotification>;
+    getInitialNotification(): Promise<PushNotification | null>;
 
     /**
      * iOS fetch results that best describe the result of a finished remote notification handler.
