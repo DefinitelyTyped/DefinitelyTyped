@@ -39,7 +39,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/api/window/communication?id=off](http://uniapp.dcloud.io/api/window/communication?id=off)
      */
-    $off(eventName?: string | any[], callback?: () => void): void;
+    $off(eventName?: string | any [], callback?: () => void): void;
     /**
      * 通过id 获取 subNVues 原生子窗体的实例
      *
@@ -5285,11 +5285,11 @@ interface CanvasToTempFilePathOptions {
     /**
      * 输出图片宽度（默认为 width * 屏幕像素密度）
      */
-    destWidth?: boolean;
+    destWidth?: number;
     /**
      * 输出图片高度（默认为 height * 屏幕像素密度）
      */
-    destHeight?: () => void;
+    destHeight?: number;
     /**
      * 画布标识，传入 <canvas/> 的 canvas-id
      */
