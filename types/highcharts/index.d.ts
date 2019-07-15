@@ -8,6 +8,7 @@
 //                 ArunkeshavaReddy Sankaramaddi <https://github.com/Arunkeshavareddy>
 //                 Dolan Miu <https://github.com/dolanmiu>
 //                 Jack Siman <https://github.com/jjsiman>
+//                 Matthew Wills <https://github.com/mdotwills>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -82,7 +83,7 @@ declare namespace Highcharts {
          * @default [-45]
          * @since 4.1.0
          */
-        autoRotation?: number[];
+        autoRotation?: number[] | boolean;
         /**
          * When each category width is more than this many pixels, we don't apply auto rotation. Instead, we lay out the
          * axis label with word wrap. A lower limit makes sense when the label contains multiple short words that don't
