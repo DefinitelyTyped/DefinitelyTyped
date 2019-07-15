@@ -202,7 +202,7 @@ declare namespace got {
         baseUrl?: string;
         cookieJar?: CookieJar;
         encoding?: E;
-        query?: string | object;
+        query?: string | Record<string, string>;
         timeout?: number | TimeoutOptions;
         retry?: number | RetryOptions;
         followRedirect?: boolean;
