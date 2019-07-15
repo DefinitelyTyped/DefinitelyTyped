@@ -1,5 +1,5 @@
-// Type definitions for JSPrintManager 2.0
-// Project: https://github.com/neodynamic/jsprintmanager
+// Type definitions for jsprintmanager 2.0
+// Project: https://github.com/neodynamic/JSPrintManager#readme
 // Definitions by: Philippe Auriou <https://github.com/auriou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -169,16 +169,16 @@ export namespace JSPM {
         stop(): void;
     }
 
-    class JSPrintManager {
-        static WS: JSPMWebSocket;
-        static auto_reconnect: boolean;
-        static start(secure?: boolean, host?: string, port?: number): Promise<void>;
-        static getPrinters(): Promise<{}>;
-        static getPrintersInfo(): Promise<{}>;
-        static readonly websocket_status: WSStatus;
-        static showAbout(): Promise<any>;
-        static updateClient(): Promise<any>;
-        static stop(): void;
+    namespace JSPrintManager {
+        let WS: JSPMWebSocket;
+        let auto_reconnect: boolean;
+        function start(secure?: boolean, host?: string, port?: number): Promise<void>;
+        function getPrinters(): Promise<{}>;
+        function getPrintersInfo(): Promise<{}>;
+        const websocket_status: WSStatus;
+        function showAbout(): Promise<any>;
+        function updateClient(): Promise<any>;
+        function stop(): void;
     }
 
     class PrintFile {
@@ -247,13 +247,7 @@ export namespace JSPM {
     }
 }
 
-interface Blob {
-    readonly size: number;
-    readonly type: string;
-    slice(start?: number, end?: number, contentType?: string): Blob;
-}
-
-declare namespace zip {
+export namespace zip {
     class Reader {
         size: number;
         init(callback: () => void, onerror: (error: any) => void): void;
