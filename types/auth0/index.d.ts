@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.9.3
+// Type definitions for auth0 2.9.4
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -673,14 +673,14 @@ export interface ExportUserField {
 }
 
 export interface PasswordChangeTicketParams {
-  result_url?: string;
-  user_id?: string;
-  new_password?: string;
-  connection_id?: string;
-  email?: string;
-  ttl_sec?: number;
-  mark_email_as_verified?: boolean;
-  includeEmailInRedirect?: boolean;
+    result_url?: string;
+    user_id?: string;
+    new_password?: string;
+    connection_id?: string;
+    email?: string;
+    ttl_sec?: number;
+    mark_email_as_verified?: boolean;
+    includeEmailInRedirect?: boolean;
 }
 
 export interface PasswordChangeTicketResponse {
