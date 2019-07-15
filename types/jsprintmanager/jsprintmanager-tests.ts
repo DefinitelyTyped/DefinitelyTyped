@@ -1,6 +1,8 @@
 import { JSPM } from 'jsprintmanager';
 
 
+
+
 JSPM.JSPrintManager.start()
     .then(_ => {
         JSPM.JSPrintManager.getPrinters().then(e => {
@@ -10,5 +12,7 @@ JSPM.JSPrintManager.start()
     .catch(e => {
         console.log(e);
     });
+
+
 
 
