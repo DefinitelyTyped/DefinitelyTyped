@@ -2,7 +2,6 @@ import { ModelTableOpts, TableOpts } from './db';
 import { IdAttribute } from './db/Table';
 import { AttributeWithDefault, FieldSpecMap, ForeignKey, ManyToMany, OneToOne } from './fields';
 import { Optional, OptionalKeys, Overwrite, PickByValue } from './helpers';
-import { IdOrModelLike, ModelField } from './index';
 import QuerySet, { LookupSpec, MutableQuerySet, SortIteratee, SortOrder } from './QuerySet';
 import { OrmSession } from './Session';
 
@@ -38,7 +37,7 @@ export interface SerializableMap {
  * - {@link MutableQuerySet} - for many-to-many relations
  * - {@link QuerySet} - for reverse side of foreign keys
  */
-export type ModelField = MutableQuerySet | QuerySet | SessionBoundModel | Serializable;
+export type ModelField = QuerySet | SessionBoundModel | Serializable;
 
 /**
  * Map of fields restriction to supported field types.
@@ -50,10 +49,9 @@ export interface ModelFieldMap {
 /**
  * A Model-derived mapped type for supplying relations and alike.
  *
- * Either a primitive type matching Model's identifier type or a map containing an {IdAttribute: IdType} pair,
- * where IdAttribute and IdType match respective Model property key and type
+ * Either a primitive type matching Model's identifier type or an object implementing a `{ getId(): IdType<M> }` interface
  */
-export type IdOrModelLike<M extends Model> = IdType<M> | IdEntry<M>;
+export type IdOrModelLike<M extends Model> = IdType<M> | {getId(): IdType<M>; };
 
 /**
  * The heart of an ORM, the data model.
@@ -74,7 +72,7 @@ export type IdOrModelLike<M extends Model> = IdType<M> | IdEntry<M>;
  * logic by defining prototype methods (without `static` keyword).
  * @borrows {@link QuerySet.filter} as Model#filter
  */
-export default class Model<MClass extends typeof AnyModel = any, Fields extends ModelFieldMap = any> {
+export default class Model<MClass extends typeof AnyModel = typeof AnyModel, Fields extends ModelFieldMap = any> {
     /**
      * A string constant identifying specific Model, necessary to retain the shape of state and relations through transpilation steps
      */
@@ -124,7 +122,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      *
      * @return a reference to the plain JS object in the store
      */
-    readonly ref: Ref<InstanceType<MClass>>;
+    readonly ref: Ref<this>;
 
     /**
      * Creates a Model instance from it's properties.
@@ -300,7 +298,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      * Gets the id value of the current instance by looking up the id attribute.
      * @return The id value of the current instance.
      */
-    getId(): string | number;
+    getId<Id extends Fields[IdAttribute<MClass>] = Fields[IdAttribute<MClass>]>(): Id extends undefined ? number: Id;
 
     /**
      * @return A string representation of this {@link Model} instance.
@@ -327,7 +325,7 @@ export default class Model<MClass extends typeof AnyModel = any, Fields extends 
      * @param  propertyName - name of the property to set
      * @param value - value assigned to the property
      */
-    set<K extends string>(propertyName: K, value: RefPropOrSimple<InstanceType<MClass>, K>): void;
+    set<K extends string>(propertyName: K, value: RefPropOrSimple<this, K>): void;
 
     /**
      * Assigns multiple fields and corresponding values to this {@link Model} instance.
@@ -361,7 +359,7 @@ export class AnyModel extends Model {}
  * Relations can be provided in a flexible manner for both many-to-many and foreign key associations
  * @see {@link IdOrModelLike}
  */
-export type UpsertProps<M extends Model> = Overwrite<Partial<CreateProps<M>>, Required<IdEntry<M>>>;
+export type UpsertProps<M extends Model> = Overwrite<Partial<CreateProps<M>>, {[K in IdKey<M>]-?: IdType<M>}>;
 
 /**
  * {@link Model#update} argument type
@@ -402,14 +400,9 @@ export type IdType<M extends Model> = IdKey<M> extends infer U
     : number;
 
 /**
- * A single entry map representing IdKey: IdType property of supplied {@link Model}.
- */
-export type IdEntry<M extends Model> = { [K in IdKey<M>]: IdType<M> };
-
-/**
  * Type of {@link Model.ref} / database entry for a particular Model type
  */
-export type Ref<M extends Model> = {
+export type Ref<M extends AnyModel> = {
     [K in keyof RefFields<M>]: ModelFields<M>[K] extends AnyModel ? IdType<ModelFields<M>[K]> : RefFields<M>[K]
 };
 
@@ -419,7 +412,7 @@ export type Ref<M extends Model> = {
  * - declared Model field type - if propertyName belongs to declared Model fields
  * - any serializable value - if propertyName is not among declared Model fields
  */
-export type RefPropOrSimple<M extends Model, K extends string> = K extends keyof RefFields<M>
+export type RefPropOrSimple<M extends AnyModel, K extends string> = K extends keyof RefFields<M>
     ? Ref<M>[K]
     : Serializable;
 
@@ -484,7 +477,7 @@ export type ModelClass<M extends AnyModel> = ReturnType<M['getClass']>;
 /**
  * @internal
  */
-export type ModelFields<M extends Model> = [ConstructorParameters<ModelClass<M>>] extends [[infer U]]
+export type ModelFields<M extends Model> = ConstructorParameters<ModelClass<M>> extends [infer U]
     ? U extends ModelFieldMap
         ? U
         : never

@@ -11,7 +11,8 @@
 这个部分会跟踪仓库和发布过程的运行状况。
 这可能会对在 PRs 和包中遇到任何问题的贡献者有所帮助。
 
-* 所有的包都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+* 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
 * 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher): [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
 * [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
 
@@ -113,7 +114,7 @@ npm install --save-dev @types/node
 
 如果你是库作者并且你的包是用 TypeScript 编写的，那么请在你的包里 [捆绑自动生成的声明文件](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 而不是发布到 Definitely Typed.
 
-如果你要为 NPM 包添加类型，清创建具有相同名字的目录。
+如果你要为 NPM 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 NPM 上，请确保为它选择的名字不会与 NPM 上面的包名冲突。
 (你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
 

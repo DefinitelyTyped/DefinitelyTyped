@@ -28,6 +28,7 @@
 //                 Loïk Gaonac'h <https://github.com/loikg>
 //                 Roberto Zen <https://github.com/skyzenr>
 //                 Grzegorz Redlicki <https://github.com/redlickigrzegorz>
+//                 Juan Carbonel <https://github.com/juancarbonel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -258,6 +259,7 @@ export interface CognitoUserPoolTriggerEvent {
     version: number;
     triggerSource:
     | "PreSignUp_SignUp"
+    | "PreSignUp_ExternalProvider"
     | "PostConfirmation_ConfirmSignUp"
     | "PreAuthentication_Authentication"
     | "PostAuthentication_Authentication"
@@ -291,6 +293,7 @@ export interface CognitoUserPoolTriggerEvent {
         userAttributes: { [key: string]: string };
         validationData?: { [key: string]: string };
         codeParameter?: string;
+        linkParameter?: string;
         usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: Array<{
@@ -320,6 +323,15 @@ export interface CognitoUserPoolTriggerEvent {
         messageAction?: "SUPPRESS";
         desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
         forceAliasCreation?: boolean;
+        claimsOverrideDetails?: {
+            claimsToAddOrOverride?: { [key: string]: string };
+            claimsToSuppress?: string[];
+            groupOverrideDetails?: null | {
+                groupsToOverride?: string[];
+                iamRolesToOverride?: string[];
+                preferredRole?: string;
+            };
+        };
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;

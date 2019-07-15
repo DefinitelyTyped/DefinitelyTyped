@@ -1,4 +1,4 @@
-// Type definitions for got 9.4
+// Type definitions for got 9.6
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
@@ -140,11 +140,17 @@ declare namespace got {
      * @template Body Response body type.
      */
     interface Hooks<Options, Body extends Buffer | string | object> {
+        init?: Array<InitHook<Options>>;
         beforeRequest?: Array<BeforeRequestHook<Options>>;
         beforeRedirect?: Array<BeforeRedirectHook<Options>>;
         beforeRetry?: Array<BeforeRetryHook<Options>>;
         afterResponse?: Array<AfterResponseHook<Options, Body>>;
     }
+
+    /**
+     * @param options Unnormalized request options.
+     */
+    type InitHook<Options> = (options: Options) => void;
 
     /**
      * @param options Normalized request options.

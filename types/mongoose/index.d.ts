@@ -403,7 +403,7 @@ declare module "mongoose" {
     static STATES: ConnectionStates;
   }
 
-  enum ConnectionStates {
+  export enum ConnectionStates {
     disconnected = 0,
     connected = 1,
     connecting = 2,
@@ -2813,7 +2813,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: any): T;
+    new(doc?: Partial<T>): T;
 
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
@@ -2922,6 +2922,13 @@ declare module "mongoose" {
      * @param schema discriminator model schema
      */
     discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
+    /**
+     * Adds a discriminator type.
+     * @param name discriminator model name
+     * @param schema discriminator model schema
+     */
+    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
 
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
