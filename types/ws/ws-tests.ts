@@ -19,7 +19,7 @@ import * as https from 'https';
 
 {
     const wss = new WebSocket.Server({port: 8081});
-    wss.on('connection', (ws, req) => {
+    wss.on('connection', function(ws, req) {
         console.log('port: %s', this.options.port);
         ws.on('message', (message) => console.log('received: %s', message));
         ws.send('something');
