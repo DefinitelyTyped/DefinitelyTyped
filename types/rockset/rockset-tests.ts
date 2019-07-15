@@ -1,6 +1,6 @@
 import rockset = require('rockset');
 
-var client: rockset.ApiClient = rockset('API_KEY', 'API_SERVER');
+const client: rockset.ApiClient = rockset('API_KEY', 'API_SERVER');
 
 // create query request
 const queryRequestSql: rockset.QueryRequestSql = {
@@ -11,7 +11,7 @@ const queryRequest: rockset.QueryRequest = {
     sql: queryRequestSql
 };
 
-client.queries.query(body: queryRequest);
+client.queries.query(queryRequest);
 
 const awsAccessKey: rockset.AwsAccessKey = {
     aws_access_key_id: 'my_access_key',
@@ -29,7 +29,7 @@ const createIntegrationRequest: rockset.CreateIntegrationRequest = {
     s3: s3Integration
 };
 
-client.integrations.create(body: createIntegrationRequest);
+client.integrations.create(createIntegrationRequest);
 
 // create Collection with AWS S3 Source
 const s3Source: rockset.SourceS3 = {
@@ -48,4 +48,4 @@ const createCollectionRequest: rockset.CreateCollectionRequest = {
     sources: [source]
 };
 
-client.collections.create(workspace: 'my_workspace', body: createCollectionRequest);
+client.collections.create('my_workspace', createCollectionRequest);
