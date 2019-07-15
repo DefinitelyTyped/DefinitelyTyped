@@ -4,10 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module "lodash-deep" {
-    export function deepMapValues(
-        object: any,
-        callback: any,
-        propertyPath?: any
-    ): any;
+import * as _ from 'lodash';
+
+declare module 'lodash' {
+    interface LoDashStatic {
+        deepMapValues(
+            object: any,
+            callback: any,
+            propertyPath?: any
+        ): any;
+    }
 }
+
+export function deepMapValues(
+    object: any,
+    callback: any,
+    propertyPath?: any
+): any;
+

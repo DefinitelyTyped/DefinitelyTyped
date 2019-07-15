@@ -1,6 +1,8 @@
-import lDeep = require('lodash-deep');
+import _ = require("lodash");
+import lodashDeep = require('lodash-deep');
+_.mixin(lodashDeep);
 
 const object = { null: null };
-const callback = () => {};
+const callback = () => { };
 
-const value = lDeep.deepMapValues(object, callback, 'local-path');
+const value = _.deepMapValues(object, callback, 'local-path');
