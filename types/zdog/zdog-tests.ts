@@ -14,7 +14,8 @@ import {
     Ellipse,
     Polygon,
     Cone,
-    Cylinder, Box
+    Cylinder,
+    Box
 } from 'zdog';
 
 const canvas = document.createElement('canvas');
@@ -107,21 +108,21 @@ new Dragger({startElement: canvas});
 new Dragger({startElement: svg});
 new Dragger({
     onDragStart(pointer) {
-        this; // $ExpectType Group
-        pointer; // $ExpectType Group
+        this; // $ExpectType Dragger
+        pointer; // $ExpectType PointerPosition
     }
 });
 new Dragger({
     onDragMove(pointer, moveX, moveY) {
-        this; // $ExpectType Group
-        pointer; // $ExpectType Group
-        moveX; // $ExpectType  number
-        moveY; // $ExpectType  number
+        this; // $ExpectType Dragger
+        pointer; // $ExpectType PointerPosition
+        moveX; // $ExpectType number
+        moveY; // $ExpectType number
     }
 });
 new Dragger({
     onDragMove() {
-        this; // $ExpectType Group
+        this; // $ExpectType Dragger
     }
 });
 
@@ -141,15 +142,15 @@ new Illustration({
     element: canvas,
     onResize(width, height) {
         this; // $ExpectType Illustration
-        width; // $ExpectType Group
-        height; // $ExpectType  number
+        width; // $ExpectType number
+        height; // $ExpectType number
     }
 });
 new Illustration({
     element: canvas,
     onPrerender(context) {
         this; // $ExpectType Illustration
-        context; // $ExpectType CanvasRenderingContext2D | SVGSVGElement
+        context; // $ExpectType SVGSVGElement | CanvasRenderingContext2D
     }
 });
 
@@ -196,7 +197,7 @@ vector.rotate({x: 1, y: 1, z: 1});
 
 vector.magnitude(); // $ExpectType number
 
-vector.lerp({}, 1); // $ExpectType number
+vector.lerp({}, 1); // $ExpectType Vector
 vector.lerp({x: 1, y: 1, z: 1}, 1);
 
 TAU; // $ExpectType number
