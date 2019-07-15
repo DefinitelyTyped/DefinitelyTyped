@@ -5,18 +5,18 @@
 
 export = rockset;
 
-declare function rockset(apiKey: string, apiServer: string): ApiClient;
+declare function rockset(apiKey: string, apiServer: string): rockset.ApiClient;
 
 declare namespace rockset {
     export interface ApiClient {
-        apiKeys(): ApiKeysApi;
-        collections(): CollectionsApi;
-        documents(): DocumentsApi;
-        integrations(): IntegrationsApi;
-        organizations(): OrganizationsApi;
-        queries(): QueriesApi;
-        users(): UsersApi;
-        workspaces(): WorspacesApi;
+        apiKeys: ApiKeysApi;
+        collections: CollectionsApi;
+        documents: DocumentsApi;
+        integrations: IntegrationsApi;
+        organizations: OrganizationsApi;
+        queries: QueriesApi;
+        users: UsersApi;
+        workspaces: WorkspacesApi;
     }
     
     export interface ApiKeysApi {
@@ -27,7 +27,7 @@ declare namespace rockset {
 
     export interface CollectionsApi {
         create(workspace: string, body: CreateCollectionRequest): CreateCollectionResponse;
-        get(workspace: string, collection:string): GetCollectionResponse;
+        get(workspace: string, collection: string): GetCollectionResponse;
         list(): ListCollectionsResponse;
         remove(workspace: string, collection: string): DeleteCollectionResponse;
         workspace(workspace: string): ListCollectionsResponse;
