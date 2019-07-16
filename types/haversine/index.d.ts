@@ -37,7 +37,7 @@ declare namespace haversine {
         /**
          * If passed, will result in library returning boolean value of whether or not the start and end points are within that supplied threshold.
          */
-        threshold?: number;
+        threshold?: number | null;
         /** Format of coordinate arguments. */
         format?: '[lat,lon]' | '[lon,lat]' | '{lon,lat}' | '{lat,lng}' | 'geojson';
     }
