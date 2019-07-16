@@ -5766,13 +5766,14 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.defaults
         **/
-        defaults(...defaults: any[]): _Chain<T, V>;
+        defaults(...defaults: any[]): _Chain<any, Dictionary<any>>;
 
         /**
          * Wrapped type `any`.
          * @see _.create
          **/
-        create(props?: object): _Chain<any>;
+        create<U>(props?: U): _Chain<U[keyof U] | T, U & V>;
+        create(): _Chain<T, V>;
 
         /**
         * Wrapped type `any[]`.
@@ -5979,7 +5980,7 @@ declare module _ {
         * Wrapped type `string|Function|Object`.
         * @see _.iteratee
         **/
-        iteratee(context?: any): _ChainSingle<any>;
+        iteratee(context?: any): _ChainSingle<Predicate<any>>;
 
         /**
         * Wrapped type `string`.
