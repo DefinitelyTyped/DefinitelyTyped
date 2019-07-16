@@ -16900,20 +16900,20 @@ declare namespace Office {
         /**
          * The email address of the owner of a shared item.
          */
-        owner: String;
+        owner: string;
         /**
          * The REST API's base URL (currently https://outlook.office.com/api).
          * Use with targetMailbox to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
-        targetRestUrl: String;
+        targetRestUrl: string;
         /**
          * The target/owner's mailbox. Use with targetRestUrl to construct REST operation's URL.
          * 
          * Example usage: `targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"`
          */
-        targetMailbox: String;
+        targetMailbox: string;
         /**
          * The permissions that the delegate has on a shared folder.
          */
