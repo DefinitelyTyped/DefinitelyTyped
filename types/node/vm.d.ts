@@ -1,6 +1,4 @@
 declare module "vm" {
-    import TypedArray = NodeJS.TypedArray;
-
     interface Context {
         [key: string]: any;
     }
@@ -24,11 +22,11 @@ declare module "vm" {
     }
 
     interface ScriptOptionsObject extends BaseOptions {
-        cachedData?: Buffer | TypedArray | DataView;
+        cachedData?: Buffer | DataView;
         /** @deprecated This option is deprecated in favor of script.createCachedData() */
         produceCachedData?: boolean;
         /** This option is part of the experimental API for the --experimental-modules flag, and should not be considered stable. */
-        importModuleDynamically?: (specifier: string, module: SourceTextModule) => Object | SourceTextModule;
+        importModuleDynamically?(specifier: string, module: SourceTextModule): Object | SourceTextModule;
     }
 
     /**
@@ -97,8 +95,8 @@ declare module "vm" {
         context?: Context;
         lineOffset?: number;
         columnOffset?: number;
-        initializeImportMeta?: (meta: ImportMeta, module: SourceTextModule) => void;
-        importModuleDynamically?: (specifier: string, module: SourceTextModule) => Object | SourceTextModule;
+        initializeImportMeta?(meta: ImportMeta, module: SourceTextModule): void;
+        importModuleDynamically?(specifier: string, module: SourceTextModule): Object | SourceTextModule;
     }
 
     interface SourceTextModuleEvaluateOptions {
