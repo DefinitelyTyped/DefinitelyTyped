@@ -768,7 +768,6 @@ namespace MeteorTests {
     });
     handle.stop();
 
-
     if (Meteor.isServer) {
         Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
             const currentUser = Meteor.userId();
