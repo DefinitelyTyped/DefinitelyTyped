@@ -600,4 +600,3 @@ declare module "crypto" {
      */
     function verify(algorithm: string | null | undefined, data: Binary, key: KeyLike | VerifyKeyWithOptions, signature: Binary): Buffer;
 }
- 
