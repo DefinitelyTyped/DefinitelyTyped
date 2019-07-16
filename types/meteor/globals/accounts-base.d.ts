@@ -146,3 +146,23 @@ declare module Accounts {
 declare module Accounts {
     function onLogout(func: (user: Meteor.User, connection: Meteor.Connection) => void): void;
 }
+
+declare module Accounts {
+    interface LoginMethodOptions {
+        methodName?: string;
+        methodArguments?: any[],
+        validateResult?: Function,
+        userCallback?: (err: any) => void
+    }
+
+    type Password = string | {
+        digest: string;
+        algorithm: "sha-256"
+    }
+
+    function callLoginMethod(options: LoginMethodOptions): void;
+
+    function registerLoginHandler(name: string, handler: Function): void;
+
+    function _checkPassword(user: Meteor.User, password: Password): { userId: string; error?: any };
+}
