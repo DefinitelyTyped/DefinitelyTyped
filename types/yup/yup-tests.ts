@@ -199,6 +199,10 @@ mixed.test({
     test: testContext,
 });
 
+// mixed with concat
+yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // $ExpectType ObjectSchema<{ name: string; } & { when: Date; }>
+yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date>
+
 // Async ValidationError
 const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
     return new Promise(resolve => resolve(this.createError({ path: 'testPath', message: 'testMessage' })));
