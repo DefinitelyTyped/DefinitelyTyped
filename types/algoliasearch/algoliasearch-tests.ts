@@ -22,6 +22,8 @@ let _algoliaResponse: Response = {
   query: '',
   params: '',
   index: '',
+  exhaustiveFacetsCount: true,
+  exhaustiveNbHits: false,
 };
 
 let _clientOptions: ClientOptions = {

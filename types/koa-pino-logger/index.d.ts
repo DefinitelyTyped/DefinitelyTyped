@@ -21,7 +21,7 @@ declare function logger(
 declare function logger(stream?: DestinationStream): Middleware;
 
 declare module 'koa' {
-    interface Context {
+    interface ExtendableContext {
         log: Logger;
     }
 }

@@ -25,6 +25,7 @@
 //                 Joshua Feltimo <https://github.com/opticalgenesis>
 //                 Josiah <https://github.com/spacetag>
 //                 Oleg Vaskevich <https://github.com/vaskevich>
+//                 Dylan Aspden <https://github.com/dhaspden>
 //                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -101,11 +102,14 @@ declare class Stripe {
     setPort(port: string | number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
+    setAppInfo(info?: { partner_id?: string; name: string; url?: string; version?: string }): void;
     setTimeout(timeout?: number): void;
     setMaxNetworkRetries(maxNetworkRetries: number): void;
+    setTelemetryEnabled(enabled: boolean): void;
     setHttpAgent(agent: string): void;
     getConstant(c: string): any;
     getMaxNetworkRetries(): number;
+    getTelemetryEnabled(): boolean;
     getClientUserAgent(response: (userAgent: string) => void): void;
 }
 export = Stripe;
@@ -1293,6 +1297,21 @@ declare namespace Stripe {
             paid: boolean;
 
             /**
+             * ID of the PaymentIntent associated with this charge, if one exists.
+             */
+            payment_intent?: string;
+
+            /**
+             * ID of the payment method used in this charge.
+             */
+            payment_method: string;
+
+            /**
+             * Details about the payment method at the time of the transaction.
+             */
+            payment_method_details: IPaymentMethodDetails;
+
+            /**
              * This is the email address that the receipt for this charge was sent to.
              */
             receipt_email: string | null;
@@ -1594,6 +1613,251 @@ declare namespace Stripe {
         }
 
         interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds { }
+
+        type IPaymentMethodDetails =
+            | IAchCreditTransferPaymentMethodDetails
+            | IAchDebitPaymentMethodDetails
+            | IAlipayPaymentMethodDetails
+            | IBancontactPaymentMethodDetails
+            | ICardPaymentMethodDetails
+            | ICardPresentPaymentMethodDetails
+            | IEpsPaymentMethodDetails
+            | IGiropayPaymentMethodDetails
+            | IIdealPaymentMethodDetails
+            | IKlarnaPaymentMethodDetails
+            | IP24PaymentMethodDetails
+            | ISofortPaymentMethodDetails
+            | IStripeAccountPaymentMethodDetails
+            | IWechatPaymentMethodDetails;
+
+        interface IAchCreditTransferPaymentMethodDetails {
+            type: "ach_credit_transfer";
+            ach_credit_transfer: {
+                /**
+                 * Account number to transfer funds to.
+                 */
+                account_number: string;
+
+                /**
+                 * Name of the bank associated with the routing number.
+                 */
+                bank_name: string;
+
+                /**
+                 * Routing transit number for the bank account to transfer funds to.
+                 */
+                routing_number: string;
+
+                /**
+                 * SWIFT code of the bank associated with the routing number.
+                 */
+                swift_code: string;
+            };
+        }
+
+        interface IAchDebitPaymentMethodDetails {
+            type: "ach_debit";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            ach_debit: {};
+        }
+
+        interface IAlipayPaymentMethodDetails {
+            type: "alipay";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            alipay: {};
+        }
+
+        interface IBancontactPaymentMethodDetails {
+            type: "bancontact";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            bancontact: {};
+        }
+
+        interface ICardPaymentMethodDetails {
+            type: "card";
+            card: {
+                /**
+                 * Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                 */
+                brand: "amex" | "diner" | "discover" | "jcb" | "mastercard" | "unionpay" | "visa" | "unknown";
+
+                /**
+                 * Check results by Card networks on Card address and CVC at time of payment.
+                 */
+                checks: {
+                    /**
+                     * If a address line1 was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
+                     */
+                    address_line1_check: "pass" | "failed" | "unavailable" | "unchecked";
+
+                    /**
+                     * If a address postal code was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
+                     */
+                    address_postal_code_check: "pass" | "failed" | "unavailable" | "unchecked";
+
+                    /**
+                     * If a CVC was provided, results of the check, one of `pass`, `failed`, `unavailable` or `unchecked`.
+                     */
+                    cvc_check: "pass" | "failed" | "unavailable" | "unchecked";
+                }
+
+                /**
+                 * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of
+                 * the international breakdown of cards you’ve collected.
+                 */
+                country: string;
+
+                /**
+                 * Two-digit number representing the card’s expiration month.
+                 */
+                exp_month: number;
+
+                /**
+                 * Four-digit number representing the card’s expiration year.
+                 */
+                exp_year: number;
+
+                /**
+                 * Uniquely identifies this particular card number. You can use this attribute to check whether two
+                 * customers who’ve signed up with you are using the same card number, for example.
+                 */
+                fingerprint: string;
+
+                /**
+                 * Card funding type. Can be credit, debit, prepaid, or unknown.
+                 */
+                funding: "credit" | "debit" | "prepaid" | "unknown";
+
+                /**
+                 * The last four digits of the card.
+                 */
+                last4: number;
+
+                /**
+                 * Populated if this transaction used 3D Secure authentication.
+                 */
+                three_d_secure?: {
+                    /**
+                     * Whether or not authentication was performed. 3D Secure will succeed without authentication when the
+                     * card is not enrolled.
+                     */
+                    authenticated: boolean;
+
+                    /**
+                     * Whether or not 3D Secure succeeded.
+                     */
+                    succeeded: boolean;
+
+                    /**
+                     * The version of 3D Secure that was used for this payment.
+                     */
+                    version: string;
+                };
+
+                /**
+                 * If this Card is part of a card wallet, this contains the details of the card wallet.
+                 */
+                wallet?: {
+                    /**
+                     * The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`,
+                     * `samsung_pay`, or `visa_checkout`. An additional hash is included on the Wallet subhash with a name
+                     * matching this value. It contains additional information specific to the card wallet type.
+                     */
+                    type: "amex_express_checkout" | "apple_pay" | "google_pay" | "masterpass" | "samsung_pay" | "visa_checkout";
+
+                    /**
+                     * If this is an `amex_express_checkout` card wallet, this hash contains details about the wallet.
+                     */
+                    amex_express_checkout: {};
+
+                    /**
+                     * If this is an `apple_pay` card wallet, this hash contains details about the wallet.
+                     */
+                    apple_pay: {};
+
+                    /**
+                     * (For tokenized numbers only.) The last four digits of the device account number.
+                     */
+                    dynamic_last4?: string;
+
+                    /**
+                     * If this is a `google_pay` card wallet, this hash contains details about the wallet.
+                     */
+                    google_pay?: string;
+
+                    /**
+                     * If this is a `masterpass` card wallet, this hash contains details about the wallet.
+                     */
+                    masterpass?: {
+                        // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-wallet-masterpass
+                    };
+
+                    /**
+                     * If this is a `visa_checkout` card wallet, this hash contains details about the wallet.
+                     */
+                    visa_checkout: {
+                        // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-wallet-visa_checkout
+                    };
+                };
+            };
+        }
+
+        interface ICardPresentPaymentMethodDetails {
+            type: "card_present";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            card_present: {};
+        }
+
+        interface IEpsPaymentMethodDetails {
+            type: "eps";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            eps: {};
+        }
+
+        interface IGiropayPaymentMethodDetails {
+            type: "giropay";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            giropay: {};
+        }
+
+        interface IIdealPaymentMethodDetails {
+            type: "ideal";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            ideal: {};
+        }
+
+        interface IKlarnaPaymentMethodDetails {
+            type: "klarna";
+            klarna: {};
+        }
+
+        interface IMultibancoPaymentMethodDetails {
+            type: "multibanco";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            multibanco: {};
+        }
+
+        interface IP24PaymentMethodDetails {
+            type: "p24";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            p24: {};
+        }
+
+        interface ISofortPaymentMethodDetails {
+            type: "sofort";
+            // TODO: fill in from https://stripe.com/docs/api/charges/object#charge_object-payment_method_details.
+            sofort: {};
+        }
+
+        interface IStripeAccountPaymentMethodDetails {
+            type: "stripe_account";
+            stripe_account: {};
+        }
+
+        interface IWechatPaymentMethodDetails {
+            type: "wechat";
+            wechat: {};
+        }
     }
 
     namespace coupons {
@@ -3363,6 +3627,8 @@ declare namespace Stripe {
             subscription_trial_end?: number;
         }
 
+        type IInvoiceListLineItemsOptions = IListOptions;
+
         interface IInvoiceUpcomingOptions extends IDataOptions {
             /**
              * The code of the coupon to apply. If a subscription or subscription_plan is provided, the invoice returned will preview updating
@@ -3416,6 +3682,9 @@ declare namespace Stripe {
              */
             subscription_trial_end?: number;
         }
+
+        // TODO: update once https://stripe.com/docs/api/invoices/upcoming_invoice_lines is fixed.
+        type IInvoiceListUpcomingLineItemsOptions = IListOptions;
 
         interface IPeriod {
             /**
@@ -8543,6 +8812,20 @@ declare namespace Stripe {
             retrieveLines(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
 
             /**
+             * When retrieving an invoice, you'll get a lines property containing the total count of line items and the first
+             * handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+             *
+             * @returns Returns a list of line_item objects.
+             *
+             * @param id The id of the invoice containing the lines to be retrieved
+             * @param data Filtering options
+             */
+            listLineItems(id: string, data: invoices.IInvoiceListLineItemsOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, data: invoices.IInvoiceListLineItemsOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listLineItems(id: string, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+
+            /**
              * At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending,
              * including subscription renewal charges, invoice item charges, etc. It will also show you any discount that is applicable
              * to the customer. Note that when you are viewing an upcoming invoice, you are simply viewing a preview -- the invoice has
@@ -8560,6 +8843,21 @@ declare namespace Stripe {
             retrieveUpcoming(id: string, data: invoices.IInvoiceUpcomingOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, options: HeaderOptions, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
             retrieveUpcoming(id: string, response?: IResponseFn<invoices.IInvoice>): Promise<invoices.IInvoice>;
+
+            /**
+             * When retrieving an upcoming invoice, you’ll get a lines property containing the total count of line
+             * items and the first handful of those items. There is also a URL where you can retrieve the full
+             * (paginated) list of line items.
+             *
+             * @returns Returns a list of line_item objects.
+             *
+             * @param id The id of the invoice containing the lines to be retrieved
+             * @param data Filtering options
+             */
+            listUpcomingLineItems(data: invoices.IInvoiceListUpcomingLineItemsOptions, options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(data: invoices.IInvoiceListUpcomingLineItemsOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(options: HeaderOptions, response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
+            listUpcomingLineItems(response?: IResponseFn<IList<invoices.IInvoiceLineItem>>): IListPromise<invoices.IInvoiceLineItem>;
 
             /**
              * Until an invoice is paid, it is marked as open (closed=false). If you'd like to stop Stripe from automatically attempting

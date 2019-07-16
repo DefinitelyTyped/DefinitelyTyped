@@ -236,8 +236,10 @@ declare module 'react-jsonschema-form' {
         formData: T;
     };
 
-    export function withTheme<T>(
-        themeProps: Omit<FormProps<T>, 'schema'>
+    export type ThemeProps<T = any> = Omit<FormProps<T>, 'schema'>;
+
+    export function withTheme<T = any>(
+        themeProps: ThemeProps<T>
     ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
 
     export type AddButtonProps = {

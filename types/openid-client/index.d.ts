@@ -8,6 +8,18 @@
 /// <reference types="node" />
 
 import { IncomingMessage } from 'http';
+import { GotOptions } from 'got';
+
+export { }; // Disable automatic export of all module members (make it explicit)
+
+//
+
+type HttpRequestOptions = GotOptions<null>;
+type CustomHttpOptionsProvider = (options: HttpRequestOptions) => HttpRequestOptions;
+
+export const custom: {
+    readonly http_options: unique symbol,
+};
 
 // https://github.com/panva/node-openid-client/tree/master/docs#issuer
 
@@ -36,8 +48,13 @@ export interface IssuerMetadata {
 }
 
 export class Issuer {
+    static [custom.http_options]: CustomHttpOptionsProvider;
+
     constructor(metadata?: IssuerMetadata);
+
     static discover(issuer: string): Promise<Issuer>;
+
+    [custom.http_options]: CustomHttpOptionsProvider;
 
     readonly metadata: IssuerMetadata;
 
@@ -73,7 +90,11 @@ export interface EndSessionUrlParameters {
 }
 
 export class Client {
+    static [custom.http_options]: CustomHttpOptionsProvider;
+
     constructor(metadata?: ClientMetadata);
+
+    [custom.http_options]: CustomHttpOptionsProvider;
 
     readonly metadata: ClientMetadata;
 

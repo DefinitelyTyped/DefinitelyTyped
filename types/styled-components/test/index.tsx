@@ -1056,3 +1056,19 @@ function unionTest() {
     <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
+
+function unionTest2() {
+    // Union of two non-overlapping types
+    type Props = {
+        foo: number, bar?: undefined
+    } | {
+        foo?: undefined, bar: string
+    };
+
+    const C = styled.div<Props>``;
+
+    <C foo={123} />;
+    <C bar="foobar" />;
+    <C />; // $ExpectError
+    <C foo={123} bar="foobar" />; // $ExpectError
+}

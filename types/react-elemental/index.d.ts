@@ -5,6 +5,7 @@
 // TypeScript Version: 2.8
 import {
     AnchorHTMLAttributes,
+    ButtonHTMLAttributes,
     Component,
     CSSProperties,
     FunctionComponent,
@@ -35,7 +36,7 @@ export class Alert extends Component<AlertProps> {
 }
 
 export type ButtonSize = 'alpha' | 'beta' | 'gamma';
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     readonly color?: string;
     readonly size?: ButtonSize;
     readonly text?: string;
