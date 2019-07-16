@@ -16903,10 +16903,11 @@ declare namespace Office {
         owner: String;
         /**
          * The REST API's base URL (currently https://outlook.office.com/api).
+         * Example usage: targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"
          */
         targetRestUrl: String;
         /**
-         * The target/owner's mailbox. Use with targetRestUrl to construct completed REST operation's URL.
+         * The target/owner's mailbox. Use with targetRestUrl to construct REST operation's URL.
          * Example usage: targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"
          */
         targetMailbox: String;
