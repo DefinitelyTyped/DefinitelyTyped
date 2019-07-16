@@ -12,77 +12,75 @@ import * as stream from "stream";
 import { Observable } from "rxjs";
 
 declare namespace Listr {
-    type ListrRendererValue = "silent" | "default" | "verbose" | ListrRendererClass;
+    type ListrContext = any;
+    type ListrRendererValue<Ctx> = "silent" | "default" | "verbose" | ListrRendererClass<Ctx>;
+    type ListrTaskResult<Ctx> = string | Promise<any> | Listr<Ctx> | stream.Readable | Observable<any>;
 
-    interface ListrOptions {
+    interface ListrOptions<Ctx = ListrContext> {
         concurrent?: boolean | number;
         exitOnError?: boolean;
-        renderer?: ListrRendererValue;
-        nonTTYRenderer?: ListrRendererValue;
+        renderer?: ListrRendererValue<Ctx>;
+        nonTTYRenderer?: ListrRendererValue<Ctx>;
     }
-
-    type ListrContext = any;
 
     interface ListrEvent {
         type: string;
     }
 
-    type ListrTaskResult = string | Promise<any> | Listr | stream.Readable | Observable<any>;
-
-    interface ListrTask {
+    interface ListrTask<Ctx = ListrContext> {
         title: string;
-        task: (ctx: ListrContext, task: ListrTaskWrapper) => void | ListrTaskResult;
-        skip?: (ctx: ListrContext) => void | boolean | string | Promise<boolean>;
-        enabled?: (ctx: ListrContext) => boolean | Promise<boolean> | Observable<boolean>;
+        task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
+        skip?: (ctx: Ctx) => void | boolean | string | Promise<boolean>;
+        enabled?: (ctx: Ctx) => boolean | Promise<boolean> | Observable<boolean>;
     }
 
-    interface ListrTaskObject extends Observable<ListrEvent> {
+    interface ListrTaskObject<Ctx> extends Observable<ListrEvent> {
         title: string;
         output?: string;
-        task: (ctx: ListrContext, task: ListrTaskWrapper) => void | ListrTaskResult;
-        skip: (ctx: ListrContext) => void | boolean | string | Promise<boolean>;
-        subtasks: ReadonlyArray<ListrTaskWrapper>;
+        task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
+        skip: (ctx: Ctx) => void | boolean | string | Promise<boolean>;
+        subtasks: ReadonlyArray<ListrTaskWrapper<Ctx>>;
         state: string;
-        check: (ctx: ListrContext) => void;
+        check: (ctx: Ctx) => void;
         hasSubtasks: boolean;
         isPending: boolean;
         isSkipped: boolean;
         isCompleted: boolean;
         isEnabled: boolean;
         hasFailed: boolean;
-        run: (ctx: ListrContext, wrapper: ListrTaskWrapper) => Promise<void>;
+        run: (ctx: Ctx, wrapper: ListrTaskWrapper<Ctx>) => Promise<void>;
     }
 
-    interface ListrTaskWrapper {
+    interface ListrTaskWrapper<Ctx = ListrContext> {
         title: string;
         output: string;
         report(error: Error): void;
         skip(message: string): void;
-        run(ctx?: ListrContext): Promise<void>;
+        run(ctx?: Ctx): Promise<void>;
     }
 
-    interface ListrError extends Error {
-        context: ListrContext;
+    interface ListrError<Ctx> extends Error {
+        context: Ctx;
     }
 
     interface ListrRenderer {
         render(): void;
         end(err: Error): void;
     }
-    interface ListrRendererClass {
+    interface ListrRendererClass<Ctx> {
         nonTTY: boolean;
-        new(tasks: ReadonlyArray<ListrTaskObject>, options: ListrOptions): ListrRenderer;
+        new(tasks: ReadonlyArray<ListrTaskObject<Ctx>>, options: ListrOptions<Ctx>): ListrRenderer;
     }
 }
 
-declare class Listr {
-    constructor(tasks?: ReadonlyArray<Listr.ListrTask>, options?: Listr.ListrOptions);
-    constructor(options?: Listr.ListrOptions);
-    tasks: ReadonlyArray<Listr.ListrTaskWrapper>;
-    setRenderer(value: Listr.ListrRendererValue): void;
-    add(tasks: Listr.ListrTask | ReadonlyArray<Listr.ListrTask>): void;
+declare class Listr<Ctx = Listr.ListrContext> {
+    constructor(tasks?: ReadonlyArray<Listr.ListrTask<Ctx>>, options?: Listr.ListrOptions<Ctx>);
+    constructor(options?: Listr.ListrOptions<Ctx>);
+    tasks: ReadonlyArray<Listr.ListrTaskWrapper<Ctx>>;
+    setRenderer(value: Listr.ListrRendererValue<Ctx>): void;
+    add(tasks: Listr.ListrTask<Ctx> | ReadonlyArray<Listr.ListrTask<Ctx>>): void;
     render(): void;
-    run(ctx?: Listr.ListrContext): Promise<Listr.ListrContext>;
+    run(ctx?: Ctx): Promise<Ctx>;
 }
 
 export = Listr;
