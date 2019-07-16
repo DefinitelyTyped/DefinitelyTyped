@@ -293,6 +293,7 @@ declare namespace Flexmonster {
         showFieldListSearch?: boolean;
         strictDataTypes?: boolean;
         caseSensitiveMembers?: boolean;
+        simplifyFieldListFolders?: boolean;
     }
 
     interface PrintOptions {
