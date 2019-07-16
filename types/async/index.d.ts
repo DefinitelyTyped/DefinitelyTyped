@@ -7,7 +7,9 @@
 //                 Pascal Martin <https://github.com/pascalmartin>
 //                 Dmitri Trofimov <https://github.com/Dmitri1337>
 //                 Etienne Rossignon <https://github.com/erossignon>
+
 //                 Lifeng Zhu <https://github.com/Juliiii>
+
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -61,7 +63,7 @@ export interface AsyncQueue<T> {
     remove(filter: (node: DataContainer<T>) => boolean): void;
 
     saturated(): Promise<void>;
-    saturated(handler: () => void): void ;
+    saturated(handler: () => void): void;
     empty(): Promise<void>;
     empty(handler: () => void): void;
     drain(): Promise<void>;
