@@ -586,8 +586,32 @@ function chain_tests() {
   var each = _.chain([4, 3, 2, 1])
     .map(v => v * 5)
     .each(v => console.log(v))
+    .forEach(v => console.log(v))
     .value()
     .length;
+
+  var objectEach: {[key: string]: number} = _.chain({a: 4, b: 3, c: 2, d: 1})
+    .each(v => console.log(v))
+    .forEach(v => console.log(v))
+    .value();
+
+  var whereAndReject = _.chain({a: 4, b: 3, c: 2, d: 1})
+    .where(v => v < 2)
+    .reject(v => v > 3)
+    .value()
+    .length;
+
+  var invoke = _.chain(
+    [[5, 1, 7], [3, 2, 1]]
+  ).invoke('sort').value().length;
+
+  var indexBy: {[key: string]: string} = _.chain(['a', 'bb', 'c', 'dd'])
+    .indexBy(v => v[0])
+    .value()
+
+  var countBy: {[key: string]: number} = _.chain(['a', 'aa', 'b', 'bb'])
+    .countBy(v => v[0])
+    .value();
 
   var groupBy = _.chain(['a', 'aa', 'b', 'bb'])
     .groupBy(v => v[0])
@@ -595,6 +619,125 @@ function chain_tests() {
 
   var sampleOne = _.chain([1, 2, 3]).sample().value() * 2;
   var sampleMore = _.chain([1, 2, 3]).sample(2).value().length;
+
+  function testChainToArray() {
+    var f: string[] = _.chain(arguments)
+      .toArray()
+      .value()
+      .slice();
+  }
+
+  var lastN = _.chain([1, 2, 3, 4]).last(3).value().length;
+  var fisrtN = _.chain([1, 2, 3, 4]).first(3).value().length;
+  var drop = _.chain([1, 2, 3, 4]).drop().value().length;
+
+  var part: number[][] = _.chain([0, 1, 2, 3, 4, 5]).partition(n => n % 2 == 0).value();
+  var compact: string[] = _.chain(['a', null, 'b'] as string[]).compact().value();
+  var intersection: string[] = _.chain(['a', 'b']).intersection(['b', 'c']).value();
+  var difference: string[] = _.chain(['a', 'b']).difference(['b', 'c']).value();
+  var uniq: string[] = _.chain(['a', 'b', 'c', 'b', 'a']).uniq().value();
+  var zip: Array<string | number>[] = _.chain(['a', 'b', 'c']).zip([1, 2, 3]).value();
+  var unzip: string[][] = _.chain([['a', 'b', 'c'], ['d', 'e', 'f']]).unzip().value();
+  var obj: {[key: string]: number} = _.chain([['a', 1], ['b', 2]]).object().value();
+  var range: number[] = _.chain(10).range().value();
+  var range2: number[] = _.chain(1).range(10, 2).value();
+  var shuffleChunk: number[][] = _.chain([1, 2, 3, 4, 5, 6]).shuffle().chunk(2).value();
+
+  interface bindAll {
+    a: () => number;
+    b: (a: number) => string;
+  }
+
+  var didBindAll: bindAll = _.chain({a: () => 5, b: (a: number) => a.toString()})
+    .bindAll('a', 'b')
+    .value();
+
+  var partial: Function = _.chain((a: number, b: number) => b - a)
+    .partial(5)
+    .value();
+
+  var bind: (a: number) => number = _.chain((a: number) => a * 2).bind({}).value();
+
+  _.chain(alert).defer('hello');
+  _.chain(alert).delay(5, 'hello');
+  var throttle: (s: string) => void = _.chain(alert).throttle(5).value();
+  var debounce: (s: string) => void = _.chain(alert).debounce(5).value();
+  var once: (s: string) => void = _.chain((s: string) => console.log(s, s)).once().value();
+  var after: (s: string) => void = _.chain((s: string) => console.log(s, s)).after(1).value();
+  var before: (s: string) => void = _.chain((s: string) => console.log(s, s)).before(2).value();
+  var restArgs: Function = _.chain((a: number, b: string[]) => console.log(a, b))
+    .restArgs(1)
+    .value();
+
+  var hello = name => 'hello: ' + name;
+  var hello2: Function = _.chain(hello)
+    .wrap((func) => 'before, ' + func('moe') + ', after')
+    .value();
+
+  var negated: boolean = _.chain((a: boolean, b: boolean) => (a || b))
+    .negate()
+    .value()(true, false);
+  var compose: (v: string) => string = _.chain(hello).compose(h => h + '!').value()
+  var keys: string[] = _.chain({a: 1, b: 2}).keys().value();
+  var values: number[] = _.chain({a: 1, b: 2}).values().value();
+  var mappedObj: {[key: string]: string} = _.chain({a: 1, b: 2})
+    .mapObject(v => v.toString())
+    .value();
+  var paired: Array<[string, number]> = _.chain({a: 1, b: 2}).pairs().value();
+  var inverted: {[key: string]: string} = _.chain({a: 'b', b: 'a'}).invert().value();
+  var functions: string[] = _.chain(_).functions().value();
+  var methods: string[] = _.chain(_).methods().value();
+  var extend: {[key: string]: number} = _.chain({a: 1, b: 2}).extend({c: 3}, {d: 4}).value();
+  var findKey: string = _.chain({a: 1, b: 2}).findKey(v => v % 2 === 0).value();
+  var omit: {[key: string]: number} = _.chain({a: 1, b: 2}).omit('a').value();
+  var clone: {[key: string]: number} = _.chain({a: 1, b: 2}).clone().value();
+  var has: boolean = _.chain({a: 1, b: 2}).has('b').value();
+  var defaults: {[key: string]: number} = _.chain({a: 1}).defaults({b: 2}).value();
+  var create: {[key: string]: number} = _.chain(Object.prototype).create({a: 1, b: 2}).value();
+  var matches: (obj: any) => boolean = _.chain({a: 1, b: 2}).matcher().value();
+  var property: (obj: any) => string = _.chain('hello').property().value();
+  var propertyOf: (key: string) => any = _.chain({a: 1, b: 2}).propertyOf().value();
+  var isEqual: boolean = _.chain({a: 1, b: 2}).isEqual({c: 3}).value();
+  var isEmpty: boolean = _.chain({a: 1, b: 2}).isEmpty().value();
+  var isMatch: boolean = _.chain({a: 1, b: 2}).isMatch({b: 3}).value();
+  var isElement: boolean = _.chain('hello').isElement().value();
+  var isArray: boolean = _.chain('hello').isArray().value();
+  var isSymbol: boolean = _.chain('hello').isSymbol().value();
+  var isArguments: boolean = _.chain('hello').isArguments().value();
+  var isFunction: boolean = _.chain('hello').isFunction().value();
+  var isError: boolean = _.chain('hello').isError().value();
+  var isString: boolean = _.chain('hello').isString().value();
+  var isNumber: boolean = _.chain('hello').isNumber().value();
+  var isFinite: boolean = _.chain('hello').isFinite().value();
+  var isBoolean: boolean = _.chain('hello').isBoolean().value();
+  var isDate: boolean = _.chain('hello').isDate().value();
+  var isRegExp: boolean = _.chain('hello').isRegExp().value();
+  var isNaN: boolean = _.chain('hello').isNaN().value();
+  var isNull: boolean = _.chain('hello').isNull().value();
+  var isUndefined: boolean = _.chain('hello').isUndefined().value();
+  var identity: number[] = _.chain([1, 2, 3]).identity().value();
+  var constant: () => string = _.chain('hello').constant().value();
+  _.chain('hello').noop();
+  var times: number[] = _.chain(5).times(n => n*2).value();
+  var random: number = _.chain(10).random().value();
+  _.chain([1, 2, 3]).mixin({a: () => 'hello'});
+  var uniqueId: string = _.chain('prefix').uniqueId().value();
+  var esc: string = _.chain('hello').escape().value();
+  var unesc: string = _.chain('hello').unescape().value();
+  var result: string = _.chain({a: () => 'hello'}).result('a').value();
+  var template: (kv: any) => string = _.chain('templatey').template().value();
+  var proxies: number[] = _.chain([1, 2, 3])
+    .concat([4, 5, 6])
+    .push(7)
+    .reverse()
+    .slice(0)
+    .sort((a: number, b: number) => b - a)
+    .unshift(0)
+    .splice(5, 1, 2, 3, 4, 5)
+    .value();
+  var joined: string = _.chain(['a', 'b', 'c']).join(', ').value();
+  var toString: string = _.chain([1, 2, 3]).toString().value();
+  var chainchain: string[] = _.chain(['a', 'b', 'c']).chain().value();
 
 	var n = _.chain([1, 2, 3, 200])
 		.filter(num => num % 2 == 0)

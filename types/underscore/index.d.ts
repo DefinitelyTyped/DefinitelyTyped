@@ -4622,7 +4622,7 @@ declare module _ {
          * Wrapped type any[][].
          * @see _.chunk
          **/
-        chunk(): any[][];
+        chunk(count: number): any[][];
 
         /* ***********
         * Functions *
@@ -5570,7 +5570,7 @@ declare module _ {
         * Wrapped type `number`.
         * @see _.range
         **/
-        range(stop: number, step?: number): _Chain<T>;
+        range(stop: number, step?: number): _Chain<number, number[]>;
 
         /**
         * Wrapped type `number`.
@@ -5582,7 +5582,7 @@ declare module _ {
          * Wrapped type `any[][]`.
          * @see _.chunk
          **/
-        chunk(): _Chain<T[], T[][]>;
+        chunk(count: number): _Chain<T[], T[][]>;
 
         /* ***********
         * Functions *
@@ -5592,7 +5592,7 @@ declare module _ {
         * Wrapped type `Function`.
         * @see _.bind
         **/
-        bind(object: any, ...args: any[]): _Chain<T, V>;
+        bind(object: any, ...args: any[]): _ChainSingle<T>;
 
         /**
         * Wrapped type `object`.
@@ -5604,7 +5604,7 @@ declare module _ {
         * Wrapped type `Function`.
         * @see _.partial
         **/
-        partial(...args: any[]): _Chain<T, V>;
+        partial(...args: any[]): _ChainSingle<Function>;
 
         /**
         * Wrapped type `Function`.
@@ -5616,18 +5616,18 @@ declare module _ {
         * Wrapped type `Function`.
         * @see _.defer
         **/
-        defer(...args: any[]): _Chain<T, V>;
+        defer(...args: any[]): _ChainSingle<void>;
 
         /**
         * Wrapped type `Function`.
         * @see _.delay
         **/
-        delay(wait: number, ...args: any[]): _Chain<T, V>;
+        delay(wait: number, ...args: any[]): _ChainSingle<void>;
 
         /**
         * @see _.delay
         **/
-        delay(...args: any[]): _Chain<T, V>;
+        delay(...args: any[]): _ChainSingle<void>;
 
         /**
         * Wrapped type `Function`.
@@ -5651,31 +5651,31 @@ declare module _ {
          * Wrapped type `Function`.
          * @see _.once
          **/
-        restArgs(startIndex?: number): _Chain<T, V>;
+        restArgs(starIndex?: number): _ChainSingle<Function>;
 
         /**
         * Wrapped type `number`.
         * @see _.after
         **/
-        after(func: Function): _Chain<T, V>;
+        after(times: number): _Chain<T, V>;
 
         /**
         * Wrapped type `number`.
         * @see _.before
         **/
-        before(fn: Function): _Chain<T, V>;
+        before(times: number): _Chain<T, V>;
 
         /**
         * Wrapped type `Function`.
         * @see _.wrap
         **/
-        wrap(wrapper: Function): () => _Chain<T, V>;
+        wrap(wrapper: Function): _ChainSingle<Function>;
 
         /**
         * Wrapped type `Function`.
         * @see _.negate
         **/
-        negate(): _Chain<T, V>;
+        negate(): _ChainSingle<Function>;
 
         /**
         * Wrapped type `Function[]`.
@@ -5772,7 +5772,7 @@ declare module _ {
          * Wrapped type `any`.
          * @see _.create
          **/
-        create(props?: object): _Chain<T, V>;
+        create(props?: object): _Chain<any>;
 
         /**
         * Wrapped type `any[]`.
@@ -5973,7 +5973,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.mixin
         **/
-        mixin(): _Chain<T, V>;
+        mixin(obj: any): _ChainSingle<undefined>;
 
         /**
         * Wrapped type `string|Function|Object`.
@@ -6009,7 +6009,7 @@ declare module _ {
         * Wrapped type `string`.
         * @see _.template
         **/
-        template(settings?: _.TemplateSettings): (...data: any[]) => _ChainSingle<(kv: any) => string>;
+        template(settings?: _.TemplateSettings): _ChainSingle<(...data: any[]) => string>;
 
         /************* *
         * Array proxy *
@@ -6068,7 +6068,7 @@ declare module _ {
         * @param compareFn Optional. Specifies a function that defines the sort order. If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.
         * @return The sorted array.
         **/
-        sort(compareFn?: (a: T, b: T) => boolean): _Chain<T, T[]>;
+        sort(compareFn?: (a: T, b: T) => number): _Chain<T, T[]>;
 
         /**
         * Changes the content of an array by removing existing elements and/or adding new elements.
