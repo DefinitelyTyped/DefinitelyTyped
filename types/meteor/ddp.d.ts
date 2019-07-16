@@ -1,9 +1,9 @@
-declare module "meteor/ddp" {
+declare module 'meteor/ddp' {
     module DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
-            call(method: string, ...parameters: any[]): void;
-            apply(method: string, ...parameters: any[]): void;
+            call(method: string, ...parameters: any[]): any;
+            apply(method: string, ...parameters: any[]): any;
             methods(IMeteorMethodsDictionary: any): any;
             status(): DDPStatus;
             reconnect(): void;
