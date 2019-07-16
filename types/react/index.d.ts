@@ -2119,6 +2119,7 @@ declare namespace React {
         size?: number;
         value?: string | string[] | number;
         onChange?: ChangeEventHandler<T>;
+        readOnly?: boolean;
     }
 
     interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {
