@@ -149,10 +149,25 @@ declare module Accounts {
 
 declare module Accounts {
     interface LoginMethodOptions {
+        /**
+         * The method to call (default 'login')
+         */
         methodName?: string;
+        /**
+         * The arguments for the method
+         */
         methodArguments?: any[];
+        /**
+         * If provided, will be called with the result of the
+         * method. If it throws, the client will not be logged in (and
+         * its error will be passed to the callback).
+         */
         validateResult?: Function;
-        userCallback?: (err: any) => void;
+        /**
+         * Will be called with no arguments once the user is fully
+         * logged in, or with the error on error.
+         */
+        userCallback?: (err?: any) => void;
     }
 
     /**
