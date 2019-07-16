@@ -421,6 +421,14 @@ bool = bounds.isEmpty()
 let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
 attributionControl.on('click', () => {});
 
+/*
+ * FullscreenControl
+ */
+new mapboxgl.FullscreenControl();
+new mapboxgl.FullscreenControl(null);
+new mapboxgl.FullscreenControl({});
+new mapboxgl.FullscreenControl({container: document.querySelector('body')});
+
 declare var lnglat: mapboxgl.LngLat;
 declare var lnglatlike: mapboxgl.LngLatLike;
 declare var lnglatboundslike: mapboxgl.LngLatBoundsLike;

@@ -422,8 +422,8 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   created_at?: string;
   updated_at?: string;
   identities?: Identity[];
-  app_metadata: A;
-  user_metadata: U;
+  app_metadata?: A;
+  user_metadata?: U;
   picture?: string;
   name?: string;
   nickname?: string;

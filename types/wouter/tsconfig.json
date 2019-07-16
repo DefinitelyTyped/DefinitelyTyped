@@ -21,6 +21,7 @@
     },
     "files": [
         "index.d.ts",
+        "preact.d.ts",
         "use-location.d.ts",
         "static-location.d.ts",
         "matcher.d.ts",

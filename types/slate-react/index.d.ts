@@ -44,7 +44,7 @@ export interface RenderAttributes {
 export interface RenderMarkProps {
     attributes: RenderAttributes;
     children: React.ReactNode;
-    editor: CoreEditor;
+    editor: Editor;
     mark: Mark;
     marks: Immutable.Set<Mark>;
     node: Node;
@@ -53,14 +53,14 @@ export interface RenderMarkProps {
 }
 
 export interface RenderNodeProps {
-  attributes: RenderAttributes;
-  children: React.ReactNode;
-  editor: CoreEditor;
-  isFocused: boolean;
-  isSelected: boolean;
-  key: string;
-  parent: Node;
-  readOnly: boolean;
+    attributes: RenderAttributes;
+    children: React.ReactNode;
+    editor: Editor;
+    isFocused: boolean;
+    isSelected: boolean;
+    key: string;
+    parent: Node;
+    readOnly: boolean;
 }
 
 export interface RenderBlockProps extends RenderNodeProps {

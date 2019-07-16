@@ -83,6 +83,13 @@ export interface WindowBeginBoundsChangingEvent<Topic, Type> extends WindowEvent
     width: number;
     windowState: 'minimized' | 'normal' | 'maximized';
 }
+export interface WindowEndBoundsChangingEvent<Topic, Type> extends WindowEvent<Topic, Type> {
+    height: number;
+    left: number;
+    top: number;
+    width: number;
+    windowState: 'minimized' | 'normal' | 'maximized';
+}
 export interface WindowBoundsChange<Topic, Type> extends WindowEvent<Topic, Type> {
     changeType: 0 | 1 | 2;
     deferred: boolean;
@@ -120,7 +127,7 @@ export interface WindowEventMapping<Topic = string, Type = string> extends BaseE
     'disabled-movement-bounds-changed': WindowBoundsChange<Topic, Type>;
     'disabled-movement-bounds-changing': WindowBoundsChange<Topic, Type>;
     'embedded': WindowEvent<Topic, Type>;
-    'end-user-bounds-changing': WindowBeginBoundsChangingEvent<Topic, Type>;
+    'end-user-bounds-changing': WindowEndBoundsChangingEvent<Topic, Type>;
     'external-process-exited': WindowExternalProcessExitedEvent<Topic, Type>;
     'external-process-started': WindowExternalProcessStartedEvent<Topic, Type>;
     'focused': WindowEvent<Topic, Type>;
