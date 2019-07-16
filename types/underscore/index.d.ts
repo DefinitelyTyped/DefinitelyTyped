@@ -5977,7 +5977,7 @@ declare module _ {
         mixin(obj: any): _ChainSingle<undefined>;
 
         /**
-        * Wrapped type `string|Function|Object`.
+         * Wrapped type `IterateePropertyShorthand|Function|IterateeMatcherShorthand<T>`.
         * @see _.iteratee
         **/
         iteratee(context?: any): _ChainSingle<Predicate<any>>;
