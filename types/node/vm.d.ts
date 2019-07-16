@@ -22,7 +22,7 @@ declare module "vm" {
     }
 
     interface ScriptOptionsObject extends BaseOptions {
-        cachedData?: Buffer | DataView;
+        cachedData?: NodeJS.TypedArray | DataView;
         /** @deprecated This option is deprecated in favor of script.createCachedData() */
         produceCachedData?: boolean;
         /** This option is part of the experimental API for the --experimental-modules flag, and should not be considered stable. */
