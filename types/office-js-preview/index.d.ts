@@ -16902,9 +16902,14 @@ declare namespace Office {
          */
         owner: String;
         /**
-         * The remote REST URL related to the owner’s mailbox.
+         * The REST API's base URL (currently https://outlook.office.com/api).
          */
-        restUrl: String;
+        targetRestUrl: String;
+        /**
+         * The target/owner's mailbox. Use with restUrl to construct completed REST operation's URL.
+         * Example usage: targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"
+         */
+        targetMailbox: String;
         /**
          * The permissions that the delegate has on a shared folder.
          */
