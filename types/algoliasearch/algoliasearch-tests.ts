@@ -148,7 +148,7 @@ let _algoliaQueryParameters: QueryParameters = {
   numericAttributesForFiltering: [''],
   numericFilters: [''],
   tagFilters: [''],
-  facetFilters: [''],
+  facetFilters: ['',['']],
   analytics: false,
   clickAnalytics: true,
   analyticsTags: [''],
