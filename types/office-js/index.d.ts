@@ -242,13 +242,12 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
      *  </table>
      */
     var context: Context;
@@ -278,13 +277,12 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
      *  </table>
      * 
      * @param reason Indicates how the app was initialized.
@@ -316,13 +314,12 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-     *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-     *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-     *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+     *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
+     *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                          </td><td> Y         </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                          </td><td>           </td><td> Y                         </td><td> Y             </td></tr>
+     *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                          </td><td> Y         </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                            </td><td>           </td><td>                           </td><td>               </td></tr>
+     *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                          </td><td> Y         </td><td>                           </td><td>               </td></tr>
      *  </table>
      * 
      * @param useShortNamespace True to use the shortcut alias; otherwise false to disable it. The default is true.
@@ -389,6 +386,10 @@ declare namespace Office {
         Project,
         /**
          * The Office host is Microsoft Access.
+         * 
+         * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+         * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+         * to build no-code business solutions for web and mobile devices.
          */
         Access
     }
@@ -401,7 +402,7 @@ declare namespace Office {
          */
         PC,
         /**
-         * The platform is Office Online.
+         * The platform is Office on the web (in a browser).
          */
         OfficeOnline,
         /**
@@ -451,8 +452,8 @@ declare namespace Office {
         *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>The error message from the Exchange server in a JSON object e.g., `{"ErrorText": "The mailbox database is temporarily unavailable"}`</td></tr>
         * </table>
         */
-       diagnostics: any;
-       /**
+        diagnostics: any;
+        /**
         * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
         */
         error: Office.Error;
@@ -477,7 +478,7 @@ declare namespace Office {
      * The current context exists as a property of Office. It is accessed using `Office.context`.
      *
      * @remarks 
-     * **Hosts**: Access, Excel, Outlook, PowerPoint, Project, Word
+     * **Hosts**: Excel, Outlook, PowerPoint, Project, Word
      */     
     interface Context {
         /**
@@ -486,10 +487,10 @@ declare namespace Office {
         * @remarks
         * **Hosts**: Excel, Word
         * 
-        * `commerceAllowed` is only supported on Office for iPad.
+        * `commerceAllowed` is only supported in Office on iPad.
         * 
-        * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running on 
-        * the Windows desktop or for Office Online in the browser do allow such links. If you want the UI of your add-in to provide a link to an 
+        * The iOS App Store doesn't support apps with add-ins that provide links to additional payment systems. However, Office Add-ins running in 
+        * Office on the Windows desktop or in the browser do allow such links. If you want the UI of your add-in to provide a link to an 
         * external payment system on platforms other than iOS, you can use the commerceAllowed property to control when that link is displayed.
         */
         commerceAllowed: boolean;
@@ -499,8 +500,6 @@ declare namespace Office {
         * @remarks
         * The `contentLanguage` value reflects the **Editing Language** setting specified with **File \> Options \> Language** in the Office host 
         * application.
-        * 
-        * In content add-ins for Access web apps, the `contentLanguage` property gets the add-in culture (e.g., "en-GB").
         * 
         * **Support details**
         * 
@@ -512,13 +511,12 @@ declare namespace Office {
         *  
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td>                            </td><td> Y                          </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
+        *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
+        *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
         *  </table>
         */
         contentLanguage: string;
@@ -536,8 +534,6 @@ declare namespace Office {
         * The `displayLanguage` value reflects the current **Display Language** setting specified with **File \> Options \> Language** in the Office 
         * host application.
         * 
-        * In content add-ins for Access web apps, the `displayLanguage property` gets the add-in language (e.g., "en-US").
-        * 
         * When using in Outlook, the applicable modes are Compose or Read.
         * 
         * **Support details**
@@ -550,13 +546,12 @@ declare namespace Office {
         * 
         * *Supported hosts, by platform*
         *  <table>
-        *   <tr><th>                             </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
-        *   <tr><td><strong> Access     </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Excel      </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Outlook    </strong></td><td> Y                          </td><td> Y                          </td><td>                 </td><td> Y               </td><td> Y              </td></tr>
-        *   <tr><td><strong> PowerPoint </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Project    </strong></td><td> Y                          </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
-        *   <tr><td><strong> Word       </strong></td><td> Y                          </td><td>                            </td><td> Y               </td><td>                 </td><td>                </td></tr>
+        *   <tr><th>                             </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th><th> Outlook on mobile devices </th><th> Office on Mac </th></tr>
+        *   <tr><td><strong> Excel      </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Outlook    </strong></td><td> Y                 </td><td> Y                     </td><td>                </td><td> Y                         </td><td> Y             </td></tr>
+        *   <tr><td><strong> PowerPoint </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Project    </strong></td><td> Y                 </td><td>                       </td><td>                </td><td>                           </td><td>               </td></tr>
+        *   <tr><td><strong> Word       </strong></td><td> Y                 </td><td>                       </td><td> Y              </td><td>                           </td><td>               </td></tr>
         *  </table>
         */
         displayLanguage: string;
@@ -626,7 +621,7 @@ declare namespace Office {
         * @remarks
         * **Hosts**: Excel, PowerPoint, Word
         * 
-        * `touchEnabled` is only supported on Office for iPad.
+        * `touchEnabled` is only supported in Office on iPad.
         * 
         * Use the touchEnabled property to determine when your add-in is running on a touch device and if necessary, adjust the kind of controls, and 
         * size and spacing of elements in your add-in's UI to accommodate touch interactions.
@@ -1000,7 +995,7 @@ declare namespace Office {
          */
         width?: number,
         /**
-         * Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is 
+         * Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office on the web, and is 
          * ignored by other platforms. If false (default), the dialog will be displayed as a new browser window (pop-up). Recommended for 
          * authentication pages that cannot be displayed in an IFrame. If true, the dialog will be displayed as a floating overlay with an IFrame. 
          * This is best for user experience and performance.
@@ -1084,6 +1079,10 @@ declare namespace Office {
         filterType?: Office.FilterType | string
         /**
         * Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+        * 
+        * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+        * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+        * to build no-code business solutions for web and mobile devices.
         */
         rows?: string
         /**
@@ -1111,10 +1110,18 @@ declare namespace Office {
         coercionType?: Office.CoercionType | string
         /**
         * Only for table bindings in content add-ins for Access. Array of strings. Specifies the column names.
+        * 
+        * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+        * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+        * to build no-code business solutions for web and mobile devices.
         */
         columns?: string[]
         /**
         * Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
+        * 
+        * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+        * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+        * to build no-code business solutions for web and mobile devices.
         */
         rows?: string
         /**
@@ -1206,8 +1213,13 @@ declare namespace Office {
         promptText?: string
         /**
          * Specifies a table of sample data displayed in the prompt UI as an example of the kinds of fields (columns) that can be bound by your add-in. 
-         * The headers provided in the TableData object specify the labels used in the field selection UI. 
+         * The headers provided in the TableData object specify the labels used in the field selection UI.
+         * 
          * **Note**: This parameter is used only in add-ins for Access. It is ignored if provided when calling the method in an add-in for Excel.
+         * 
+         * **Important**: We no longer recommend that you create and use Access web apps and databases in SharePoint.
+         * As an alternative, we recommend that you use {@link https://powerapps.microsoft.com/ | Microsoft PowerApps}
+         * to build no-code business solutions for web and mobile devices.
          */
         sampleData?: Office.TableData
         /**
@@ -1359,7 +1371,7 @@ declare namespace Office {
      * @remarks
      * **Hosts**: Excel, Outlook (in preview), PowerPoint, Word
      * 
-     * `OfficeTheme` is only supported on Office for Windows desktop.
+     * `OfficeTheme` is only supported in Office on Windows.
      */
     interface OfficeTheme {
         /**
@@ -1422,10 +1434,9 @@ declare namespace Office {
      * 
      * *Supported hosts, by platform*
      *  <table>
-     *   <tr><th>                         </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th></tr>
-     *   <tr><td><strong> Access </strong></td><td>                            </td><td> Y                          </td><td>                 </td></tr>
-     *   <tr><td><strong> Excel  </strong></td><td> Y                          </td><td> Y                          </td><td> Y               </td></tr>
-     *   <tr><td><strong> Word   </strong></td><td> Y                          </td><td>                            </td><td> Y               </td></tr>
+     *   <tr><th>                         </th><th> Office on Windows </th><th> Office in web browser </th><th> Office on iPad </th></tr>
+     *   <tr><td><strong> Excel  </strong></td><td> Y                 </td><td> Y                     </td><td> Y              </td></tr>
+     *   <tr><td><strong> Word   </strong></td><td> Y                 </td><td>                       </td><td> Y              </td></tr>
      *  </table>
      */
     function select(expression: string, callback?: (result: AsyncResult<any>) => void): Binding;
@@ -1487,7 +1498,7 @@ declare namespace Office {
         /**
          * Return or set data as tabular data with optional headers. Data is returned or set as an array of arrays with optional headers.
          * 
-         * **Note**: Only applies to data in Access, Excel, and Word.
+         * **Note**: Only applies to data in Excel and Word.
          */
         Table,
         /**
@@ -1579,7 +1590,7 @@ declare namespace Office {
      * 
      * @remarks
      * 
-     * **`BindingDataChanged` and `BindingSelectionChanged` hosts**: Access, Excel, Word.
+     * **`BindingDataChanged` and `BindingSelectionChanged` hosts**: Excel, Word.
      * 
      */
     enum EventType {
@@ -1610,7 +1621,7 @@ declare namespace Office {
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
          * 
          * @remarks 
-         * **Hosts**: Access, Excel, Word
+         * **Hosts**: Excel, Word
          */
         BindingDataChanged,
         /**
@@ -1618,7 +1629,7 @@ declare namespace Office {
          * the addHandlerAsync method of the Binding object. The event handler receives an argument of type {@link Office.BindingSelectionChangedEventArgs}.
          * 
          * @remarks 
-         * **Hosts**: Access, Excel, Word 
+         * **Hosts**: Excel, Word 
          */
         BindingSelectionChanged,
         /**
@@ -1688,7 +1699,7 @@ declare namespace Office {
          * A Settings.settingsChanged event was raised.
          * 
          * @remarks 
-         * **Hosts**: Access, Excel, PowerPoint, Word
+         * **Hosts**: Excel, PowerPoint, Word
          */
         SettingsChanged,
         /**
@@ -1704,7 +1715,7 @@ declare namespace Office {
      * Specifies the format in which to return the document.
      *
      * @remarks
-     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word for Windows, Word for Mac, Word Online, and PowerPoint.
+     * `FileType.Text` is only supported in Word, `FileType.Pdf` is only supported in Word on the web, Windows, and Mac, and PowerPoint.
      */
     enum FileType {
         /**
@@ -1830,7 +1841,7 @@ declare namespace Office {
     *
     * @remarks
     * 
-    * **Hosts**: Access, Excel, Word
+    * **Hosts**: Excel, Word
     * 
     * **Requirement sets**: 
     * 
@@ -2062,7 +2073,7 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * For Excel Online:
+         * For Excel on the web:
          * 
          *  - The total number of cells in the value passed to the data parameter can't exceed 20,000 in a single call to this method.
          * 
@@ -2102,13 +2113,13 @@ declare namespace Office {
          *
          * @param data The data to be set in the current selection. Possible data types by host:
          *
-         *        string: Excel, Excel Online, Word, and Word Online only
+         *        string: Excel on the web and Windows, and Word on the web and Windows only
          *
          *        array of arrays: Excel and Word only
          *
-         *        `TableData`: Access, Excel, and Word only
+         *        `TableData`: Excel and Word only
          *
-         *        HTML: Word and Word Online only
+         *        HTML: Word on the web and Windows only
          *
          *        Office Open XML: Word only
          *
@@ -2209,7 +2220,7 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * For Excel Online:
+         * For Excel on the web:
          * 
          *  - The total number of cells in the value passed to the data parameter can't exceed 20,000 in a single call to this method.
          * 
@@ -2249,13 +2260,13 @@ declare namespace Office {
          *
          * @param data The data to be set in the current selection. Possible data types by host:
          *
-         *        string: Excel, Excel Online, Word, and Word Online only
+         *        string: Excel on the web and Windows, and Word on the web and Windows only
          *
          *        array of arrays: Excel and Word only
          *
-         *        `TableData`: Access, Excel, and Word only
+         *        `TableData`: Excel and Word only
          *
-         *        HTML: Word and Word Online only
+         *        HTML: Word on the web and Windows only
          *
          *        Office Open XML: Word only
          *
@@ -3162,7 +3173,7 @@ declare namespace Office {
      * An abstract class that represents the document the add-in is interacting with.
      *
      * @remarks
-     * **Hosts**: Access, Excel, PowerPoint, Project, Word
+     * **Hosts**: Excel, PowerPoint, Project, Word
      */
     interface Document {
         /**
@@ -3248,7 +3259,7 @@ declare namespace Office {
          */
         getActiveViewAsync(callback?: (result: AsyncResult<"edit" | "read">) => void): void;
         /**
-         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins for iOS, file slice is supported up to 65536 (64 KB). 
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iOS, file slice is supported up to 65536 (64 KB). 
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
@@ -3261,20 +3272,20 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          *
-         * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office apps on iOS, the getFileAsync method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          *
-         * Excel for Windows desktop and Excel Online: `Office.FileType.Compressed`
+         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel for Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * PowerPoint for Windows desktop, Mac, iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * Word for Windows desktop, Mac, iPad, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
          *
          * @param fileType The format in which the file will be returned
          * @param options Provides options for setting the size of slices that the document will be divided into.
@@ -3283,7 +3294,7 @@ declare namespace Office {
          */
         getFileAsync(fileType: FileType, options?: GetFileOptions, callback?: (result: AsyncResult<Office.File>) => void): void;
         /**
-         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins for iOS, file slice is supported up to 65536 (64 KB). 
+         * Returns the entire document file in slices of up to 4194304 bytes (4 MB). For add-ins on iOS, file slice is supported up to 65536 (64 KB). 
          * Note that specifying file slice size of above permitted limit will result in an "Internal Error" failure.
          *
          * @remarks
@@ -3296,20 +3307,20 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textfile | TextFile} (when using `Office.FileType.Text`)
          * 
-         * For add-ins running in Office host applications other than Office for iOS, the getFileAsync method supports getting files in slices of up 
-         * to 4194304 bytes (4 MB). For add-ins running in Office for iOS apps, the getFileAsync method supports getting files in slices of up to 
+         * For add-ins running in Office host applications other than Office on iOS, the getFileAsync method supports getting files in slices of up 
+         * to 4194304 bytes (4 MB). For add-ins running in Office on iOS apps, the getFileAsync method supports getting files in slices of up to 
          * 65536 (64 KB).
          *
          * The fileType parameter can be specified by using the {@link Office.FileType} enumeration or text values. But the possible values vary with 
          * the host:
          *
-         * Excel for Windows desktop and Excel Online: `Office.FileType.Compressed`
+         * Excel on the web and Windows desktop: `Office.FileType.Compressed`
          * 
-         * Excel for Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * Excel on Mac: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * PowerPoint for Windows desktop, Mac, iPad, and PowerPoint Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`
+         * PowerPoint on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`
          *
-         * Word for Windows desktop, Mac, iPad, and Word Online: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
+         * Word on the web, Windows desktop, Mac, and iPad: `Office.FileType.Compressed`, `Office.FileType.Pdf`, `Office.FileType.Text`
          *
          * @param fileType The format in which the file will be returned
          * @param callback Optional. A function that is invoked when the callback returns, whose only parameter is of type {@link Office.AsyncResult}.
@@ -3402,7 +3413,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
          *   </tr>
          *   <tr>
-         *     <td>Access, Excel, and Word</td>
+         *     <td>Excel and Word</td>
          *     <td>`Office.CoercionType.Table` (TableData object)</td>
          *   </tr>
          *   <tr>
@@ -3414,7 +3425,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
          *   </tr>
          *   <tr>
-         *     <td>PowerPoint and PowerPoint Online</td>
+         *     <td>PowerPoint on the web and Windows</td>
          *     <td>`Office.CoercionType.SlideRange`</td>
          *   </tr>
          *   <tr>
@@ -3494,7 +3505,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
          *   </tr>
          *   <tr>
-         *     <td>Access, Excel, and Word</td>
+         *     <td>Excel and Word</td>
          *     <td>`Office.CoercionType.Table` (TableData object)</td>
          *   </tr>
          *   <tr>
@@ -3506,7 +3517,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
          *   </tr>
          *   <tr>
-         *     <td>PowerPoint and PowerPoint Online</td>
+         *     <td>PowerPoint on the web and Windows</td>
          *     <td>`Office.CoercionType.SlideRange`</td>
          *   </tr>
          *   <tr>
@@ -3603,7 +3614,7 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`)
          * 
-         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`)
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/image-coercion-requirement-sets | ImageCoercion} (when using `Office.CoercionType.Image`)
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
          * 
@@ -3614,6 +3625,8 @@ declare namespace Office {
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/image-coercion-requirement-sets#imagecoercion-12 | ImageCoercion 1.2} (when using `Office.CoercionType.XmlSvg`)
          * 
          * **Application-specific behaviors**
          * 
@@ -3693,8 +3706,8 @@ declare namespace Office {
          *   </tr>
          * 
          *   <tr>
-         *     <td>Excel Online</td>
-         *     <td>In addition to the behaviors described for Excel above, these limits apply when writing data in Excel Online</td>
+         *     <td>Excel on the web</td>
+         *     <td>In addition to the behaviors described for Excel above, these limits apply when writing data in Excel on the web</td>
          *     <td>The total number of cells you can write to a worksheet with the `data` parameter can't exceed 20,000 in a single call to this method.</td>
          *   </tr>
          *   <tr>
@@ -3726,7 +3739,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
          *   </tr>
          *   <tr>
-         *     <td>Access, Excel, and Word</td>
+         *     <td>Excel and Word</td>
          *     <td>`Office.CoercionType.Table` (TableData object)</td>
          *   </tr>
          *   <tr>
@@ -3738,7 +3751,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
          *   </tr>
          *   <tr>
-         *     <td>PowerPoint and PowerPoint Online</td>
+         *     <td>PowerPoint on the web and Windows</td>
          *     <td>`Office.CoercionType.SlideRange`</td>
          *   </tr>
          *   <tr>
@@ -3789,7 +3802,7 @@ declare namespace Office {
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#htmlcoercion | HtmlCoercion}, (when using `Office.CoercionType.Html`)
          * 
-         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#imagecoercion | ImageCoercion} (when using `Office.CoercionType.Image`)
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/image-coercion-requirement-sets | ImageCoercion} (when using `Office.CoercionType.Image`)
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#matrixcoercion | MatrixCoercion} (when using `Office.CoercionType.Matrix`)
          * 
@@ -3800,6 +3813,8 @@ declare namespace Office {
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#tablecoercion | TableCoercion} (when using `Office.CoercionType.Table`)
          * 
          * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#textcoercion | TextCoercion} (when using `Office.CoercionType.Text`)
+         * 
+         * - {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/image-coercion-requirement-sets#imagecoercion-12 | ImageCoercion 1.2} (when using `Office.CoercionType.XmlSvg`)
          * 
          * **Application-specific behaviors**
          * 
@@ -3878,8 +3893,8 @@ declare namespace Office {
          *   </tr>
          * 
          *   <tr>
-         *     <td>Excel Online</td>
-         *     <td>In addition to the behaviors described for Excel above, these limits apply when writing data in Excel Online</td>
+         *     <td>Excel on the web</td>
+         *     <td>In addition to the behaviors described for Excel above, these limits apply when writing data in Excel on the web</td>
          *     <td>The total number of cells you can write to a worksheet with the `data` parameter can't exceed 20,000 in a single call to this method.</td>
          *   </tr>
          *   <tr>
@@ -3911,7 +3926,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Matrix` (array of arrays)</td>
          *   </tr>
          *   <tr>
-         *     <td>Access, Excel, and Word</td>
+         *     <td>Excel and Word</td>
          *     <td>`Office.CoercionType.Table` (TableData object)</td>
          *   </tr>
          *   <tr>
@@ -3923,7 +3938,7 @@ declare namespace Office {
          *     <td>`Office.CoercionType.Ooxml` (Office Open XML)</td>
          *   </tr>
          *   <tr>
-         *     <td>PowerPoint and PowerPoint Online</td>
+         *     <td>PowerPoint on the web and Windows</td>
          *     <td>`Office.CoercionType.SlideRange`</td>
          *   </tr>
          *   <tr>
@@ -4380,7 +4395,7 @@ declare namespace Office {
      * Represents custom settings for a task pane or content add-in that are stored in the host document as name/value pairs.
      *
      * @remarks
-     * **Hosts**: Access, Excel, PowerPoint, Word
+     * **Hosts**: Excel, PowerPoint, Word
      * 
      * The settings created by using the methods of the Settings object are saved per add-in and per document. 
      * That is, they are available only to the add-in that created them, and only from the document in which they are saved.
@@ -4397,8 +4412,8 @@ declare namespace Office {
          * Adds an event handler for the settingsChanged event.
          *
          * **Important**: Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but 
-         * the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the 
-         * spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
+         * the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel on the web, and more than one user is editing the 
+         * spreadsheet (coauthoring). Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
          *
          * @remarks
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
@@ -4438,8 +4453,8 @@ declare namespace Office {
          * Adds an event handler for the settingsChanged event.
          *
          * **Important**: Your add-in's code can register a handler for the settingsChanged event when the add-in is running with any Excel client, but 
-         * the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel Online, and more than one user is editing the 
-         * spreadsheet (co-authoring). Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
+         * the event will fire only when the add-in is loaded with a spreadsheet that is opened in Excel on the web, and more than one user is editing the 
+         * spreadsheet (coauthoring). Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
          *
          * @remarks
          * **Requirement set**: {@link https://docs.microsoft.com/office/dev/add-ins/reference/requirement-sets/office-add-in-requirement-sets#methods-that-arent-part-of-a-requirement-set | Not in a set}
@@ -4694,12 +4709,12 @@ declare namespace Office {
      * Settings.set or Settings.remove methods are called.
      * 
      * The settingsChanged event was designed to let you to handle potential conflicts when two or more users are 
-     * attempting to save settings at the same time when your add-in is used in a shared (co-authored) document.
+     * attempting to save settings at the same time when your add-in is used in a shared (coauthored) document.
      * 
      * **Important**: Your add-in's code can register a handler for the settingsChanged event when the add-in 
      * is running with any Excel client, but the event will fire only when the add-in is loaded with a spreadsheet 
-     * that is opened in Excel Online, and more than one user is editing the spreadsheet (co-authoring). 
-     * Therefore, effectively the settingsChanged event is supported only in Excel Online in co-authoring scenarios.
+     * that is opened in Excel on the web, and more than one user is editing the spreadsheet (coauthoring). 
+     * Therefore, effectively the settingsChanged event is supported only in Excel on the web in coauthoring scenarios.
      */
     interface SettingsChangedEventArgs {
         /**
@@ -4757,19 +4772,17 @@ declare namespace Office {
         * Gets the number of rows in the TableBinding, as an integer value.
         *
         * @remarks
-        * When you insert an empty table by selecting a single row in Excel 2013 and Excel Online (using Table on the Insert tab), both Office host 
+        * When you insert an empty table by selecting a single row in Excel 2013 and Excel on the web (using Table on the Insert tab), both Office host 
         * applications create a single row of headers followed by a single blank row. However, if your add-in's script creates a binding for this 
         * newly inserted table (for example, by using the {@link Office.Bindings}.addFromSelectionAsync method), and then checks the value of the 
-        * rowCount property, the value returned will differ depending whether the spreadsheet is open in Excel 2013 or Excel Online.
+        * rowCount property, the value returned will differ depending whether the spreadsheet is open in Excel 2013 or Excel on the web.
         * 
         * - In Excel on the desktop, rowCount will return 0 (the blank row following the headers is not counted).
         *
-        * - In Excel Online, rowCount will return 1 (the blank row following the headers is counted).
+        * - In Excel on the web, rowCount will return 1 (the blank row following the headers is counted).
         *
         * You can work around this difference in your script by checking if rowCount == 1, and if so, then checking if the row contains all empty 
         * strings.
-        *
-        * In content add-ins for Access, for performance reasons the rowCount property always returns -1.
         */
         rowCount: number;
         /**
@@ -4791,7 +4804,7 @@ declare namespace Office {
          *
          *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
          *
-         * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
+         * Additional remark for Excel on the web: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
          *
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
@@ -4818,7 +4831,7 @@ declare namespace Office {
          *
          *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
          *
-         * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
+         * Additional remark for Excel on the web: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
          *
          * @param tableData An array of arrays ("matrix") or a TableData object that contains one or more columns of data to add to the table. Required.
@@ -4841,7 +4854,7 @@ declare namespace Office {
          *
          *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
          *
-         * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
+         * Additional remark for Excel on the web: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
          *
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
@@ -4865,7 +4878,7 @@ declare namespace Office {
          *
          *  - If you pass a TableData object as the data argument, the number of header rows must match that of the table being updated.
          *
-         * Additional remark for Excel Online: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
+         * Additional remark for Excel on the web: The total number of cells in the TableData object passed to the data parameter can't exceed 20,000 in 
          * a single call to this method.
          *
          * @param rows An array of arrays ("matrix") or a TableData object that contains one or more rows of data to add to the table. Required.
@@ -7795,19 +7808,19 @@ declare namespace Office {
             Dec = "dec"
         }
         /**
-         * Represents the current view of Outlook Web App.
+         * Represents the current view of Outlook on the web.
          */
         enum OWAView {
             /**
-             * One column view. Displayed when the screen is narrow. Outlook Web App uses this single-column layout on the entire screen of a smartphone.
+             * One column view. Displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a smartphone.
              */
             OneColumn = "OneColumn",
             /**
-             * Two column view. Displayed when the screen is wider. Outlook Web App uses this view on most tablets.
+             * Two column view. Displayed when the screen is wider. Outlook on the web uses this view on most tablets.
              */
             TwoColumns = "TwoColumns",
             /**
-             Three column view. Displayed when the screen is wide. For example, Outlook Web App uses this view in a full screen window on a desktop 
+             Three column view. Displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a desktop 
              computer.
              */
             ThreeColumns = "ThreeColumns"
@@ -9089,7 +9102,7 @@ declare namespace Office {
      * If the user revisits the same message in the future and activates the mail add-in again, the add-in will be able to retrieve the data that had 
      * been saved as custom properties.
      *
-     * Because Outlook for Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
+     * Because Outlook on Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
      *
      * [Api set: Mailbox 1.0]
      *
@@ -9205,8 +9218,8 @@ declare namespace Office {
         /**
          * Gets a string that represents the version of either the host application or the Exchange Server.
          *
-         * If the mail add-in is running on the Outlook desktop client or Outlook for iOS, the hostVersion property returns the version of the host 
-         * application, Outlook. In Outlook Web App, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
+         * If the mail add-in is running in Outlook client on the desktop or iOS, the hostVersion property returns the version of the host 
+         * application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -9218,20 +9231,20 @@ declare namespace Office {
          */
         hostVersion: string;
         /**
-         * Gets a string that represents the current view of Outlook Web App.
+         * Gets a string that represents the current view of Outlook on the web.
          *
          * The returned string can be one of the following values: OneColumn, TwoColumns, or ThreeColumns.
          *
-         * If the host application is not Outlook Web App, then accessing this property results in undefined.
+         * If the host application is not Outlook on the web, then accessing this property results in undefined.
          *
-         * Outlook Web App has three views that correspond to the width of the screen and the window, and the number of columns that can be displayed:
+         * Outlook on the web has three views that correspond to the width of the screen and the window, and the number of columns that can be displayed:
          *
-         * - OneColumn, which is displayed when the screen is narrow. Outlook Web App uses this single-column layout on the entire screen of a 
+         * - OneColumn, which is displayed when the screen is narrow. Outlook on the web uses this single-column layout on the entire screen of a 
          * smartphone.
          *
-         * - TwoColumns, which is displayed when the screen is wider. Outlook Web App uses this view on most tablets.
+         * - TwoColumns, which is displayed when the screen is wider. Outlook on the web uses this view on most tablets.
          *
-         * - ThreeColumns, which is displayed when the screen is wide. For example, Outlook Web App uses this view in a full screen window on a 
+         * - ThreeColumns, which is displayed when the screen is wide. For example, Outlook on the web uses this view in a full screen window on a 
          * desktop computer.
          *
          * [Api set: Mailbox 1.0]
@@ -9965,8 +9978,8 @@ declare namespace Office {
         /**
          * Gets the id of the series that an instance belongs to.
          * 
-         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -10205,7 +10218,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
+         * If your Office add-in is running in Outlook on the web, the addItemAttachmentAsync method can attach items to items other than the item that 
          * you are editing; however, this is not supported and is not recommended.
          *
          * [Api set: Mailbox 1.1]
@@ -10239,7 +10252,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
+         * If your Office add-in is running in Outlook on the web, the addItemAttachmentAsync method can attach items to items other than the item that 
          * you are editing; however, this is not supported and is not recommended.
          *
          * [Api set: Mailbox 1.1]
@@ -10322,7 +10335,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -10346,7 +10359,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -10448,7 +10461,7 @@ declare namespace Office {
          *
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * in the same session. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          *
@@ -10477,7 +10490,7 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. 
-         * In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          *
@@ -10545,7 +10558,7 @@ declare namespace Office {
          * Asynchronously saves an item.
          *
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook on the web or Outlook in online mode, the item is saved to the server. 
          * In Outlook in cached mode, the item is saved to the local cache.
          *
          * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
@@ -10558,7 +10571,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
          * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
@@ -10584,7 +10597,7 @@ declare namespace Office {
          * Asynchronously saves an item.
          *
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
+         * In Outlook on the web or Outlook in online mode, the item is saved to the server. In Outlook in cached mode, the item is saved to the local cache.
          *
          * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
          * appointment on the user's calendar. For new appointments that have not been saved before, no invitation will be sent. 
@@ -10596,7 +10609,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
          * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
@@ -10639,10 +10652,10 @@ declare namespace Office {
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
+         *        coercionType: If text, the current style is applied in Outlook on the web and Windows. 
          *                      If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
-         *                      If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the 
-         *                      default style is applied in Outlook. 
+         *                      If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook on the web and the 
+         *                      default style is applied in Outlook on desktop clients. 
          *                      If the field is a text field, an InvalidDataFormat error is returned. 
          *                      If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
          *                      if the field is text, then plain text is used.
@@ -10736,7 +10749,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
          *
-         * **Note**: This member is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This member is not supported in Outlook on iOS or Android.
          */
         dateTimeModified: Date;
         /**
@@ -10966,8 +10979,8 @@ declare namespace Office {
         /**
          * Gets the id of the series that an instance belongs to.
          * 
-         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. Before making REST API calls using this value, it 
@@ -11053,15 +11066,15 @@ declare namespace Office {
          * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
          * selected appointment.
          *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
          *
          * If any of the string parameters exceed their limits, displayReplyAllForm throws an exception.
          *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
+         * When attachments are specified in the formData.attachments parameter, Outlook on the web and desktop clients attempt to download all attachments and 
          * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
          * If this isn't possible, then no error message is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -11080,15 +11093,15 @@ declare namespace Office {
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
          *
          * If any of the string parameters exceed their limits, displayReplyForm throws an exception.
          *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
+         * When attachments are specified in the formData.attachments parameter, Outlook on the web and desktop clients attempt to download all attachments and 
          * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
          * If this isn't possible, then no error message is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -11107,7 +11120,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -11132,7 +11145,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -11154,7 +11167,7 @@ declare namespace Office {
         /**
          * Gets the entities found in the selected item's body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -11168,7 +11181,7 @@ declare namespace Office {
         /**
          * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          * 
@@ -11237,7 +11250,7 @@ declare namespace Office {
          * The getFilteredEntitiesByName method returns the entities that match the regular expression defined in the ItemHasKnownEntity rule element 
          * in the manifest XML file with the specified FilterName element value.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -11267,7 +11280,7 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results. 
          * Instead, use the Body.getAsync method to retrieve the entire body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -11293,7 +11306,7 @@ declare namespace Office {
          * and should not attempt to return the entire body of the item. 
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -11312,7 +11325,7 @@ declare namespace Office {
         /**
          * Gets the entities found in a highlighted match a user has selected. Highlighted matches apply to contextual add-ins.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -11339,7 +11352,7 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results. 
          * Instead, use the Body.getAsync method to retrieve the entire body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -11480,8 +11493,8 @@ declare namespace Office {
         /**
          * Gets the id of the series that an instance belongs to.
          * 
-         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -11554,7 +11567,7 @@ declare namespace Office {
          * 
          * The `getAttachmentContentAsync` method gets the attachment with the specified identifier from the item. As a best practice, you should use 
          * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
-         * `item.attachments` call. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * `item.attachments` call. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          * 
@@ -11586,7 +11599,7 @@ declare namespace Office {
          * 
          * The `getAttachmentContentAsync` method gets the attachment with the specified identifier from the item. As a best practice, you should use 
          * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
-         * `item.attachments` call. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * `item.attachments` call. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          * 
@@ -11614,7 +11627,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -11640,7 +11653,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -11941,7 +11954,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
+         * If your Office add-in is running in Outlook on the web, the addItemAttachmentAsync method can attach items to items other than the item that 
          * you are editing; however, this is not supported and is not recommended.
          *
          * [Api set: Mailbox 1.1]
@@ -11976,7 +11989,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
+         * If your Office add-in is running in Outlook on the web, the addItemAttachmentAsync method can attach items to items other than the item that 
          * you are editing; however, this is not supported and is not recommended.
          *
          * [Api set: Mailbox 1.1]
@@ -12061,7 +12074,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -12087,7 +12100,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
          * 
          * [Api set: Mailbox Preview]
          *
@@ -12167,7 +12180,7 @@ declare namespace Office {
          *
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * in the same session. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          *
@@ -12196,7 +12209,7 @@ declare namespace Office {
          *
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * in the same session. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          *
@@ -12223,7 +12236,7 @@ declare namespace Office {
          * Asynchronously saves an item.
          *
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook on the web or Outlook in online mode, the item is saved to the server. 
          * In Outlook in cached mode, the item is saved to the local cache.
          *
          * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
@@ -12236,7 +12249,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
          * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
@@ -12264,7 +12277,7 @@ declare namespace Office {
          * Asynchronously saves an item.
          *
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook on the web or Outlook in online mode, the item is saved to the server. 
          * In Outlook in cached mode, the item is saved to the local cache.
          *
          * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
@@ -12277,7 +12290,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
          * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
@@ -12322,10 +12335,10 @@ declare namespace Office {
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
+         *        coercionType: If text, the current style is applied in Outlook on the web and desktop clients. 
          *        If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
-         *        If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the default style is 
-         *        applied in Outlook. 
+         *        If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook on the web and the default style is 
+         *        applied in Outlook on desktop clients.
          *        If the field is a text field, an InvalidDataFormat error is returned. 
          *        If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
          *        if the field is text, then plain text is used.
@@ -12477,15 +12490,15 @@ declare namespace Office {
          * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
          * selected appointment.
          *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
          *
          * If any of the string parameters exceed their limits, displayReplyAllForm throws an exception.
          *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
+         * When attachments are specified in the formData.attachments parameter, Outlook on the web and desktop clients attempt to download all attachments and 
          * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
          * If this isn't possible, then no error message is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12504,15 +12517,15 @@ declare namespace Office {
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
          *
          * If any of the string parameters exceed their limits, displayReplyForm throws an exception.
          *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
+         * When attachments are specified in the formData.attachments parameter, Outlook on the web and desktop clients attempt to download all attachments and 
          * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
          * If this isn't possible, then no error message is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12531,7 +12544,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -12556,7 +12569,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -12579,7 +12592,7 @@ declare namespace Office {
         /**
          * Gets the entities found in the selected item's body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12593,7 +12606,7 @@ declare namespace Office {
         /**
          * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          * 
@@ -12663,7 +12676,7 @@ declare namespace Office {
          * The getFilteredEntitiesByName method returns the entities that match the regular expression defined in the ItemHasKnownEntity rule element 
          * in the manifest XML file with the specified FilterName element value.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12693,7 +12706,7 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results. 
          * Instead, use the Body.getAsync method to retrieve the entire body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12719,7 +12732,7 @@ declare namespace Office {
          * and should not attempt to return the entire body of the item. 
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12738,7 +12751,7 @@ declare namespace Office {
         /**
          * Gets the entities found in a highlighted match a user has selected. Highlighted matches apply to contextual add-ins.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -12763,7 +12776,7 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results. 
          * Instead, use the Body.getAsync method to retrieve the entire body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -12939,8 +12952,8 @@ declare namespace Office {
         /**
          * Gets the id of the series that an instance belongs to.
          * 
-         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -13180,7 +13193,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
+         * If your Office add-in is running in Outlook on the web, the addItemAttachmentAsync method can attach items to items other than the item that 
          * you are editing; however, this is not supported and is not recommended.
          *
          * [Api set: Mailbox 1.1]
@@ -13215,7 +13228,7 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
-         * If your Office add-in is running in Outlook Web App, the addItemAttachmentAsync method can attach items to items other than the item that 
+         * If your Office add-in is running in Outlook on the web, the addItemAttachmentAsync method can attach items to items other than the item that 
          * you are editing; however, this is not supported and is not recommended.
          *
          * [Api set: Mailbox 1.1]
@@ -13299,7 +13312,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -13326,7 +13339,7 @@ declare namespace Office {
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -13432,7 +13445,7 @@ declare namespace Office {
          *
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * in the same session. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          *
@@ -13461,7 +13474,7 @@ declare namespace Office {
          *
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
-         * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * in the same session. In Outlook on the web and mobile devices, the attachment identifier is valid only within the same session. 
          * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
          * continue in a separate window.
          *
@@ -13529,7 +13542,7 @@ declare namespace Office {
          * Asynchronously saves an item.
          *
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook on the web or Outlook in online mode, the item is saved to the server. 
          * In Outlook in cached mode, the item is saved to the local cache.
          *
          * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
@@ -13542,7 +13555,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
          * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
@@ -13569,7 +13582,7 @@ declare namespace Office {
          * Asynchronously saves an item.
          *
          * When invoked, this method saves the current message as a draft and returns the item id via the callback method. 
-         * In Outlook Web App or Outlook in online mode, the item is saved to the server. 
+         * In Outlook on the web or Outlook in online mode, the item is saved to the server. 
          * In Outlook in cached mode, the item is saved to the local cache.
          *
          * Since appointments have no draft state, if saveAsync is called on an appointment in compose mode, the item will be saved as a normal 
@@ -13582,7 +13595,7 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook for Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
+         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
          * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
@@ -13626,10 +13639,10 @@ declare namespace Office {
          *             If more than 1,000,000 characters are passed in, an ArgumentOutOfRange exception is thrown.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
-         *        coercionType: If text, the current style is applied in Outlook Web App and Outlook. 
+         *        coercionType: If text, the current style is applied in Outlook on the web and desktop clients. 
          *        If the field is an HTML editor, only the text data is inserted, even if the data is HTML. 
-         *        If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook Web App and the default style is 
-         *        applied in Outlook. If the field is a text field, an InvalidDataFormat error is returned. 
+         *        If html and the field supports HTML (the subject doesn't), the current style is applied in Outlook on the web and the default style is 
+         *        applied in Outlook on desktop clients. If the field is a text field, an InvalidDataFormat error is returned. 
          *        If coercionType is not set, the result depends on the field: if the field is HTML then HTML is used; 
          *        if the field is text, then plain text is used.
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
@@ -13757,7 +13770,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          *
-         * **Note**: This member is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This member is not supported in Outlook on iOS or Android.
          */
         dateTimeModified: Date;
         /**
@@ -13933,8 +13946,8 @@ declare namespace Office {
         /**
          * Gets the id of the series that an instance belongs to.
          * 
-         * In OWA and Outlook, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
-         * However, in iOS and Android, the seriesId returns the REST ID of the parent item.
+         * In Outlook on the web and desktop clients, the seriesId returns the Exchange Web Services (EWS) ID of the parent (series) item that this item belongs to. 
+         * However, on iOS and Android, the seriesId returns the REST ID of the parent item.
          * 
          * **Note**: The identifier returned by the seriesId property is the same as the Exchange Web Services item identifier. 
          * The seriesId property is not identical to the Outlook IDs used by the Outlook REST API. 
@@ -14053,15 +14066,15 @@ declare namespace Office {
          * Displays a reply form that includes the sender and all recipients of the selected message or the organizer and all attendees of the 
          * selected appointment.
          *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
          *
          * If any of the string parameters exceed their limits, displayReplyAllForm throws an exception.
          *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
+         * When attachments are specified in the formData.attachments parameter, Outlook on the web and desktop clients attempt to download all attachments and 
          * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
          * If this isn't possible, then no error message is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14080,15 +14093,15 @@ declare namespace Office {
         /**
          * Displays a reply form that includes only the sender of the selected message or the organizer of the selected appointment.
          *
-         * In Outlook Web App, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
+         * In Outlook on the web, the reply form is displayed as a pop-out form in the 3-column view and a pop-up form in the 2- or 1-column view.
          *
          * If any of the string parameters exceed their limits, displayReplyForm throws an exception.
          *
-         * When attachments are specified in the formData.attachments parameter, Outlook and Outlook Web App attempt to download all attachments and 
+         * When attachments are specified in the formData.attachments parameter, Outlook on the web and desktop clients attempt to download all attachments and 
          * attach them to the reply form. If any attachments fail to be added, an error is shown in the form UI. 
          * If this isn't possible, then no error message is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14108,7 +14121,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is 
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
          * for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -14134,7 +14147,7 @@ declare namespace Office {
          * Gets initialization data passed when the add-in is 
          * {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
          * 
-         * **Note**: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the 
+         * **Note**: This method is only supported by Outlook 2016 or later on Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the 
          * web for Office 365.
          * 
          * [Api set: Mailbox Preview]
@@ -14157,7 +14170,7 @@ declare namespace Office {
         /**
          * Gets the entities found in the selected item's body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14171,7 +14184,7 @@ declare namespace Office {
         /**
          * Gets an array of all the entities of the specified entity type found in the selected item's body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14241,7 +14254,7 @@ declare namespace Office {
          * The getFilteredEntitiesByName method returns the entities that match the regular expression defined in the ItemHasKnownEntity rule element 
          * in the manifest XML file with the specified FilterName element value.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14271,7 +14284,7 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results. 
          * Instead, use the Body.getAsync method to retrieve the entire body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14297,7 +14310,7 @@ declare namespace Office {
          * and should not attempt to return the entire body of the item. 
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14316,7 +14329,7 @@ declare namespace Office {
         /**
          * Gets the entities found in a highlighted match a user has selected. Highlighted matches apply to contextual add-ins.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -14343,7 +14356,7 @@ declare namespace Office {
          * Using a regular expression such as .* to obtain the entire body of an item does not always return the expected results. 
          * Instead, use the Body.getAsync method to retrieve the entire body.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -14601,12 +14614,12 @@ declare namespace Office {
          * It be one of the following values: Outlook, Mac Outlook, OutlookIOS, or OutlookWebApp.
          * 
          *  - hostVersion (string): A string that represents the version of either the host application or the Exchange Server. 
-         * If the mail add-in is running on the Outlook desktop client or Outlook for iOS, the hostVersion property returns the version of the 
-         * host application, Outlook. In Outlook Web App, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
+         * If the mail add-in is running in Outlook on desktop clients or iOS, the hostVersion property returns the version of the 
+         * host application, Outlook. In Outlook on the web, the property returns the version of the Exchange Server. An example is the string 15.0.468.0.
          * 
-         *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook Web App. 
-         * If the host application is not Outlook Web App, then accessing this property results in undefined. 
-         * Outlook Web App has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, 
+         *  - OWAView (MailboxEnums.OWAView or string): An enum (or string literal) that represents the current view of Outlook on the web. 
+         * If the host application is not Outlook on the web, then accessing this property results in undefined. 
+         * Outlook on the web has three views (OneColumn - displayed when the screen is narrow, TwoColumns - displayed when the screen is wider, 
          * and ThreeColumns - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns 
          * that can be displayed.
          *
@@ -14639,7 +14652,7 @@ declare namespace Office {
          *
          * The ewsUrl value can be used by a remote service to make EWS calls to the user's mailbox. For example, you can create a remote service to {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
          *
-         * **Note**: This member is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This member is not supported in Outlook on iOS or Android.
          */
         ewsUrl: string;
         /**
@@ -14722,7 +14735,7 @@ declare namespace Office {
          * Item IDs retrieved via a REST API (such as the Outlook Mail API or the Microsoft Graph) use a different format than the format used by 
          * Exchange Web Services (EWS). The convertToEwsId method converts a REST-formatted ID into the proper format for EWS.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -14739,14 +14752,14 @@ declare namespace Office {
         /**
          * Gets a dictionary containing time information in local client time.
          *
-         * The dates and times used by a mail app for Outlook or Outlook Web App can use different time zones. 
-         * Outlook uses the client computer time zone; Outlook Web App uses the time zone set on the Exchange Admin Center (EAC). 
+         * The dates and times used by a mail app for Outlook on the web or desktop clients can use different time zones. 
+         * Outlook uses the client computer time zone; Outlook on the web uses the time zone set on the Exchange Admin Center (EAC). 
          * You should handle date and time values so that the values you display on the user interface are always consistent with the time zone that 
          * the user expects.
          *
-         * If the mail app is running in Outlook, the convertToLocalClientTime method will return a dictionary object with the values set to the 
+         * If the mail app is running in Outlook on desktop clients, the convertToLocalClientTime method will return a dictionary object with the values set to the 
          * client computer time zone. 
-         * If the mail app is running in Outlook Web App, the convertToLocalClientTime method will return a dictionary object with the values set to 
+         * If the mail app is running in Outlook on the web, the convertToLocalClientTime method will return a dictionary object with the values set to 
          * the time zone specified in the EAC.
          *
          * [Api set: Mailbox 1.0]
@@ -14763,7 +14776,7 @@ declare namespace Office {
         /**
          * Converts an item ID formatted for EWS into REST format.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -14805,16 +14818,16 @@ declare namespace Office {
          * The displayAppointmentForm method opens an existing calendar appointment in a new window on the desktop or in a dialog box on 
          * mobile devices.
          *
-         * In Outlook for Mac, you can use this method to display a single appointment that is not part of a recurring series, or the 
+         * In Outlook on Mac, you can use this method to display a single appointment that is not part of a recurring series, or the 
          * master appointment of a recurring series, but you cannot display an instance of the series. 
-         * This is because in Outlook for Mac, you cannot access the properties (including the item ID) of instances of a recurring series.
+         * This is because in Outlook on Mac, you cannot access the properties (including the item ID) of instances of a recurring series.
          *
-         * In Outlook Web App, this method opens the specified form only if the body of the form is less than or equal to 32KB number of characters.
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32KB number of characters.
          *
          * If the specified item identifier does not identify an existing appointment, a blank pane opens on the client computer or device, and 
          * no error message will be returned.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14832,7 +14845,7 @@ declare namespace Office {
          *
          * The displayMessageForm method opens an existing message in a new window on the desktop or in a dialog box on mobile devices.
          *
-         * In Outlook Web App, this method opens the specified form only if the body of the form is less than or equal to 32 KB number of characters.
+         * In Outlook on the web, this method opens the specified form only if the body of the form is less than or equal to 32 KB number of characters.
          *
          * If the specified item identifier does not identify an existing message, no message will be displayed on the client computer, and 
          * no error message will be returned.
@@ -14840,7 +14853,7 @@ declare namespace Office {
          * Do not use the displayMessageForm with an itemId that represents an appointment. Use the displayAppointmentForm method to display 
          * an existing appointment, and displayNewAppointmentForm to display a form to create a new appointment.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -14859,7 +14872,7 @@ declare namespace Office {
          * The displayNewAppointmentForm method opens a form that enables the user to create a new appointment or meeting. 
          * If parameters are specified, the appointment form fields are automatically populated with the contents of the parameters.
          *
-         * In Outlook Web App and OWA for Devices, this method always displays a form with an attendees field. 
+         * In Outlook on the web, this method always displays a form with an attendees field. 
          * If you do not specify any attendees as input arguments, the method displays a form with a Save button. 
          * If you have specified attendees, the form would include the attendees and a Send button.
          *
@@ -14869,7 +14882,7 @@ declare namespace Office {
          *
          * If any of the parameters exceed the specified size limits, or if an unknown parameter name is specified, an exception is thrown.
          *
-         * **Note**: This method is not supported in Outlook for iOS or Outlook for Android.
+         * **Note**: This method is not supported in Outlook on iOS or Android.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -15041,7 +15054,7 @@ declare namespace Office {
          *
          * **Note**: This method is not supported in the following scenarios:
          * 
-         * - In Outlook for iOS or Outlook for Android.
+         * - In Outlook on iOS or Android.
          * 
          * - When the add-in is loaded in a Gmail mailbox.
          *
@@ -16436,7 +16449,7 @@ declare namespace Office {
         /**
          * Gets the account type of the user associated with the mailbox. 
          *
-         * **Note**: This member is currently only supported in Outlook 2016 for Mac, build 16.9.1212 and greater.
+         * **Note**: This member is currently only supported in Outlook 2016 or later on Mac, build 16.9.1212 and greater.
          *
          * [Api set: Mailbox 1.6]
          *
@@ -18481,8 +18494,8 @@ declare namespace Excel {
         /**
          *
          * Returns the Iterative Calculation settings.
-            On Excel for Windows and Excel for Mac, the settings will apply to the Excel Application.
-            On Excel Online and Excel for other platforms, the settings will apply to the active workbook.
+            In Excel on Windows and Mac, the settings will apply to the Excel Application.
+            In Excel on the web and other platforms, the settings will apply to the active workbook.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -23150,7 +23163,8 @@ declare namespace Excel {
         ignoreBlanks: boolean;
         /**
          *
-         * Prompt when users select a cell.
+         * Prompt when users select a cell. 
+         * The `DataValidationPrompt` object must be set as a JSON object (use `x.prompt = {...}` instead of `x.prompt.message = ...`).
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -31842,7 +31856,8 @@ declare namespace Excel {
         barDirection: Excel.ConditionalDataBarDirection | "Context" | "LeftToRight" | "RightToLeft";
         /**
          *
-         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar.
+         * The rule for what consistutes the lower bound (and how to calculate it, if applicable) for a data bar. 
+         * The `ConditionalDataBarRule` object must be set as a JSON object (use `x.lowerBoundRule = {...}` instead of `x.lowerBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -31856,7 +31871,8 @@ declare namespace Excel {
         showDataBarOnly: boolean;
         /**
          *
-         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar.
+         * The rule for what constitutes the upper bound (and how to calculate it, if applicable) for a data bar. 
+         * The `ConditionalDataBarRule` object must be set as a JSON object (use `x.upperBoundRule = {...}` instead of `x.upperBoundRule.formula = ...`).
          *
          * [Api set: ExcelApi 1.6]
          */
@@ -33621,6 +33637,7 @@ declare namespace Excel {
         /**
          *
          * Gets or sets the worksheet's print zoom options.
+         * The `PageLayoutZoomOptions` object must be set as a JSON object (use `x.zoom = {...}` instead of `x.zoom.scale = ...`).
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -36023,14 +36040,14 @@ declare namespace Excel {
     }
     /**
      *
-     * Specifies whether the series are by rows or by columns. On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; on Excel Online, "auto" will simply default to "columns".
+     * Specifies whether the series are by rows or by columns. On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; in Excel on the web, "auto" will simply default to "columns".
      *
      * [Api set: ExcelApi 1.1]
      */
     enum ChartSeriesBy {
         /**
          *
-         * On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; on Excel Online, "auto" will simply default to "columns".
+         * On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; in Excel on the web, "auto" will simply default to "columns".
          *
          */
         auto = "Auto",
@@ -42176,8 +42193,8 @@ declare namespace Excel {
             /**
             *
             * Returns the Iterative Calculation settings.
-            On Excel for Windows and Excel for Mac, the settings will apply to the Excel Application.
-            On Excel Online and Excel for other platforms, the settings will apply to the active workbook.
+            In Excel on Windows and Mac, the settings will apply to the Excel Application.
+            In Excel on the web and other platforms, the settings will apply to the active workbook.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -46574,8 +46591,8 @@ declare namespace Excel {
             /**
             *
             * Returns the Iterative Calculation settings.
-            On Excel for Windows and Excel for Mac, the settings will apply to the Excel Application.
-            On Excel Online and Excel for other platforms, the settings will apply to the active workbook.
+            In Excel on Windows and Mac, the settings will apply to the Excel Application.
+            In Excel on the web and other platforms, the settings will apply to the active workbook.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -52157,8 +52174,8 @@ declare namespace Excel {
             /**
             *
             * Returns the Iterative Calculation settings.
-            On Excel for Windows and Excel for Mac, the settings will apply to the Excel Application.
-            On Excel Online and Excel for other platforms, the settings will apply to the active workbook.
+            In Excel on Windows and Mac, the settings will apply to the Excel Application.
+            In Excel on the web and other platforms, the settings will apply to the active workbook.
             *
             * [Api set: ExcelApi 1.9]
             */
@@ -61062,7 +61079,7 @@ declare namespace Word {
         clear(): void;
         /**
          *
-         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word Online, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the body object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match to the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, etc.). If you need exact fidelity, or consistency across platforms, use `Body.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -61564,7 +61581,7 @@ declare namespace Word {
         delete(keepContent: boolean): void;
         /**
          *
-         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word Online, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match to the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -61987,7 +62004,7 @@ declare namespace Word {
         readonly type: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
         /**
          *
-         * Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+         * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
          *
          * [Api set: WordApi 1.3]
          */
@@ -62565,9 +62582,9 @@ declare namespace Word {
          *
          * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
          *
-         * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+         * **Note**: Only the default highlight colors are available in Office on Windows Desktop. 
          * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
-         * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+         * When the add-in runs in Office on Windows Desktop, any other color is converted to the closest color when applied to the font.
          * 
          * [Api set: WordApi 1.1]
          */
@@ -63740,7 +63757,7 @@ declare namespace Word {
         detachFromList(): void;
         /**
          *
-         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word Online, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match to the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, etc.). If you need exact fidelity, or consistency across platforms, use `Paragraph.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -64331,7 +64348,7 @@ declare namespace Word {
         expandToOrNullObject(range: Word.Range): Word.Range;
         /**
          *
-         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, Word Online, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
+         * Gets an HTML representation of the range object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match to the formatting of the document. This method does not return the exact same HTML for the same document on different platforms (Windows, Mac, etc.). If you need exact fidelity, or consistency across platforms, use `Range.getOoxml()` and convert the returned XML to HTML.
          *
          * [Api set: WordApi 1.1]
          */
@@ -67344,7 +67361,7 @@ declare namespace Word {
         interface CustomPropertyUpdateData {
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -67481,9 +67498,9 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
-             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * **Note**: Only the default highlight colors are available in Office on Windows Desktop. 
              * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
-             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * When the add-in runs in Office on Windows Desktop, any other color is converted to the closest color when applied to the font.
              * 
              * [Api set: WordApi 1.1]
              */
@@ -68286,7 +68303,7 @@ declare namespace Word {
             type?: Word.DocumentPropertyType | "String" | "Number" | "Date" | "Boolean";
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -68528,9 +68545,9 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
-             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * **Note**: Only the default highlight colors are available in Office on Windows Desktop. 
              * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
-             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * When the add-in runs in Office on Windows Desktop, any other color is converted to the closest color when applied to the font.
              * 
              * [Api set: WordApi 1.1]
              */
@@ -69716,7 +69733,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -69746,7 +69763,7 @@ declare namespace Word {
             type?: boolean;
             /**
              *
-             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word Online and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
+             * For EACH ITEM in the collection: Gets or sets the value of the custom property. Note that even though Word on the web and the docx file format allow these properties to be arbitrarily long, the desktop version of Word will truncate string values to 255 16-bit chars (possibly creating invalid unicode by breaking up a surrogate pair).
              *
              * [Api set: WordApi 1.3]
              */
@@ -69980,9 +69997,9 @@ declare namespace Word {
              *
              * Gets or sets the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color.
              *
-             * **Note**: Only the default highlight colors are available in Office for Windows Desktop. 
+             * **Note**: Only the default highlight colors are available in Office on Windows Desktop. 
              * These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black".
-             * When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.
+             * When the add-in runs in Office on Windows Desktop, any other color is converted to the closest color when applied to the font.
              * 
              * [Api set: WordApi 1.1]
              */
@@ -71822,7 +71839,7 @@ declare namespace OneNote {
         context: RequestContext; 
         /**
          *
-         * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote Online, only one notebook at a time is open in the application instance. Read-only.
+         * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote on the web, only one notebook at a time is open in the application instance. Read-only.
          *
          * [Api set: OneNoteApi 1.1]
          */
@@ -75623,7 +75640,7 @@ declare namespace OneNote {
         interface ApplicationData {
             /**
             *
-            * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote Online, only one notebook at a time is open in the application instance. Read-only.
+            * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote on the web, only one notebook at a time is open in the application instance. Read-only.
             *
             * [Api set: OneNoteApi 1.1]
             */
@@ -76374,7 +76391,7 @@ declare namespace OneNote {
             $all?: boolean;
             /**
             *
-            * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote Online, only one notebook at a time is open in the application instance.
+            * Gets the collection of notebooks that are open in the OneNote application instance. In OneNote on the web, only one notebook at a time is open in the application instance.
             *
             * [Api set: OneNoteApi 1.1]
             */

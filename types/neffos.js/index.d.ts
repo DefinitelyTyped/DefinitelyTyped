@@ -26,7 +26,7 @@ export const OnAnyEvent = "_OnAnyEvent";
 export const OnNativeMessage = "_OnNativeMessage";
 /* The isSystemEvent reports whether the "event" is a system event, (connect, connected, disconnect, room join, room joined, room leave, room left). */
 export function isSystemEvent(event: string): boolean;
-/* The Message is the structure which describes the icoming data (and if `Conn.Write` is manually used to write). */
+/* The Message is the structure which describes the incoming data (and if `Conn.Write` is manually used to write). */
 export class Message {
   /* The Namespace that this message sent to. */
   Namespace: string;
@@ -47,7 +47,19 @@ export class Message {
   IsLocal: boolean;
   /* The IsNative reports whether the Message is websocket native messages, only Body is filled. */
   IsNative: boolean;
+
+  /* unmarshal method returns this Message's `Body` as an object,
+     equivalent to the Go's `neffos.Message.Unmarshal` method.
+     It can be used inside an event's callbacks.
+     See library-level `marshal` function too. */
+  unmarshal(): any;
 }
+
+/* marshal takes an object and returns its serialized to string form, equivalent to the Go's `neffos.Marshal`.
+   It can be used on `emit` methods.
+   See `Message.unmarshal` method too. */
+export function marshal(obj: any): string;
+
 /* The Room describes a connected connection to a room,
    emits messages with the `Message.Room` filled to the specific room
    and `Message.Namespace` to the underline `NSConn`'s namespace. */
@@ -58,7 +70,8 @@ export class Room {
   /* The emit method sends a message to the server with its `Message.Room` filled to this specific room
      and `Message.Namespace` to the underline `NSConn`'s namespace. */
   emit(event: string, body: WSData): boolean;
-  /* The leave method sends a room leave signal to the server and if succeed it fires the `OnRoomLeave` and `OnRoomLeft` events. */
+  /* The leave method sends a local and server room leave signal `OnRoomLeave`
+     and if succeed it fires the OnRoomLeft` event. */
   leave(): Promise<Error>;
 }
 /* The NSConn describes a connected connection to a specific namespace,
@@ -82,24 +95,41 @@ export class NSConn {
   joinRoom(roomName: string): Promise<Room>;
   /* The room method returns a joined `Room`. */
   room(roomName: string): Room;
-  /* The leaveAll method sends a leave room signal to all rooms and fires the `OnRoomLeave` and `OnRoomLeft` (if no error caused) events. */
+  /* The leaveAll method sends a leave room signal to all rooms and fires the `OnRoomLeave` and `OnRoomLeft` (if no error occurred) events. */
   leaveAll(): Promise<Error>;
   /* The disconnect method sends a disconnect signal to the server and fires the `OnNamespaceDisconnect` event. */
   disconnect(): Promise<Error>;
 }
 
+/* The MessageHandlerFunc is the definition type of the events' callback.
+   Its error can be written to the other side on specific events,
+   i.e on `OnNamespaceConnect` it will abort a remote namespace connection.
+   See examples for more. */
 export type MessageHandlerFunc = (c: NSConn, msg: Message) => Error;
 
-export interface Events {
-  [key: string]: MessageHandlerFunc;
+export type Events = Map<string, MessageHandlerFunc>;
+export type Namespaces = Map<string, Events>;
+
+/* This is the prefix that Options.header function is set to a url parameter's key in order to serve to parse it as header.
+ The server's `URLParamAsHeaderPrefix` must match.
+ Note that on the Nodejs side this is entirely optional, nodejs and go client support custom headers without url parameters parsing. */
+export const URLParamAsHeaderPrefix = "X-Websocket-Header-";
+
+export interface Headers {
+  [key: string]: any;
 }
-export interface Namespaces {
-  [key: string]: Events;
+
+/* Options contains optional fields. Can be passed on the `dial` function. */
+export interface Options {
+  headers?: Headers;
+  protocols?: string[];
+  reconnnect?: number;
 }
 
 /* The dial function returns a neffos client, a new `Conn` instance.
    First parameter is the endpoint, i.e ws://localhost:8080/echo,
-   the second parameter should be the Namespaces structure.
+   the second parameter can be any object of the form of:
+   namespace: {eventName: eventHandler, eventName2: ...} or {eventName: eventHandler}.
    Example Code:
     var conn = await neffos.dial("ws://localhost:8080/echo", {
       default: { // "default" namespace.
@@ -129,7 +159,8 @@ export interface Namespaces {
     nsConn.emit("chat", "Hello from client side!");
     See https://github.com/kataras/neffos.js/tree/master/_examples for more.
 */
-export function dial(endpoint: string, connHandler: Namespaces, protocols?: string[]): Promise<Conn>;
+export function dial(endpoint: string, connHandler: any, options?: Options): Promise<Conn>;
+export function dial(endpoint: string, connHandler: any, options: any): Promise<Conn>;
 
 export const ErrInvalidPayload: Error;
 export const ErrBadNamespace: Error;
@@ -138,18 +169,21 @@ export const ErrClosed: Error;
 export const ErrWrite: Error;
 
 /* The Conn class contains the websocket connection and the neffos communication functionality.
-   Its `connect` will return an `NSCOnn` instance, each connection can connect to one or more namespaces.
+   Its `connect` will return a new `NSConn` instance, each connection can connect to one or more namespaces.
    Each `NSConn` can join to multiple rooms. */
 export class Conn {
   /* ID is the generated connection ID from the server-side, all connected namespaces(`NSConn` instances)
     that belong to that connection have the same ID. It is available immediately after the `dial`. */
   ID: string;
-  constructor(conn: any, connHandler: Namespaces, protocols?: string[]);
+  constructor(conn: any, namespaces: Namespaces, protocols?: string[]);
   /* The connect method returns a new connected to the specific "namespace" `NSConn` instance or an error. */
   connect(namespace: string): Promise<NSConn>;
+  /* waitServerConnect method blocks until server manually calls the connection's `Connect`
+   on the `Server#OnConnected` event. */
+  waitServerConnect(namespace: string): Promise<NSConn>;
   /* The namespace method returns an already connected `NSConn`. */
   namespace(namespace: string): NSConn;
-  /* The ask method writes a message to the server and blocks until a response or an error. */
+  /* The ask method writes a message to the server and blocks until a response or an error received. */
   ask(msg: Message): Promise<Message>;
   /* The isClosed method reports whether this connection is closed. */
   isClosed(): boolean;

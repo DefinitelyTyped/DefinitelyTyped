@@ -1,5 +1,7 @@
-import { Color } from 'ol/color';
-import IconImage from 'ol/style/IconImage';
+import { Color } from '../color';
+import IconImage from './IconImage';
+
+export const shared: IconImageCache;
 export default class IconImageCache {
     constructor();
     clear(): void;
@@ -8,4 +10,3 @@ export default class IconImageCache {
     set(src: string, crossOrigin: string, color: Color, iconImage: IconImage): void;
     setSize(maxCacheSize: number): void;
 }
-export const shared: IconImageCache;

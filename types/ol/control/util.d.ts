@@ -1,6 +1,7 @@
-import { Options } from 'ol/control/Attribution';
-import { Options as Options_1 } from 'ol/control/Rotate';
-import { Options as Options_2 } from 'ol/control/Zoom';
+import { Options } from './Attribution';
+import { Options as Options_1 } from './Rotate';
+import { Options as Options_2 } from './Zoom';
+
 export interface DefaultsOptions {
     attribution?: boolean;
     attributionOptions?: Options;

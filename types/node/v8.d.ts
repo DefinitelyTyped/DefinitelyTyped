@@ -22,6 +22,8 @@ declare module "v8" {
         malloced_memory: number;
         peak_malloced_memory: number;
         does_zap_garbage: DoesZapCodeSpaceFlag;
+        number_of_native_contexts: number;
+        number_of_detached_contexts: number;
     }
 
     function getHeapStatistics(): HeapInfo;

@@ -1,6 +1,7 @@
 // Type definitions for non-npm package chromecast-caf-receiver 3.x
 // Project: https://github.com/googlecast
-// Definitions by: Craig Bruce <https://github.com/craigrbruce>
+// Definitions by: Sergio Arbeo <https://github.com/Serabe>
+//                 Craig Bruce <https://github.com/craigrbruce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 

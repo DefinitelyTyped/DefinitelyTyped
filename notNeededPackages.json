@@ -217,6 +217,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "baseui",
+            "typingsPackageName": "baseui",
+            "sourceRepoURL": "https://github.com/uber-web/baseui",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "beeper",
             "typingsPackageName": "beeper",
             "sourceRepoURL": "https://github.com/sindresorhus/beeper",
@@ -1063,6 +1069,12 @@
             "asOfVersion": "1.1.0"
         },
         {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
+        },
+        {
             "libraryName": "fork-ts-checker-webpack-plugin",
             "typingsPackageName": "fork-ts-checker-webpack-plugin",
             "sourceRepoURL": "https://github.com/Realytics/fork-ts-checker-webpack-plugin",
@@ -1885,6 +1897,12 @@
             "asOfVersion": "2.3.5"
         },
         {
+            "libraryName": "loglevel",
+            "typingsPackageName": "loglevel",
+            "sourceRepoURL": "https://github.com/pimterry/loglevel/",
+            "asOfVersion": "1.6.2"
+        },
+        {
             "libraryName": "loud-rejection",
             "typingsPackageName": "loud-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/loud-rejection",
@@ -2611,6 +2629,12 @@
             "asOfVersion": "3.0.2"
         },
         {
+            "libraryName": "react-dropzone",
+            "typingsPackageName": "react-dropzone",
+            "sourceRepoURL": "https://github.com/react-dropzone/react-dropzone",
+            "asOfVersion": "5.1.0"
+        },
+        {
             "libraryName": "react-flip-move",
             "typingsPackageName": "react-flip-move",
             "sourceRepoURL": "https://github.com/joshwcomeau/react-flip-move",
@@ -3025,6 +3049,12 @@
             "asOfVersion": "5.0.0"
         },
         {
+            "libraryName": "stream-mock",
+            "typingsPackageName": "stream-mock",
+            "sourceRepoURL": "https://github.com/b4nst/stream-mock",
+            "asOfVersion": "2.0.1"
+        },
+        {
             "libraryName": "string-length",
             "typingsPackageName": "string-length",
             "sourceRepoURL": "https://github.com/sindresorhus/string-length",
@@ -3095,6 +3125,12 @@
             "typingsPackageName": "svg.js",
             "sourceRepoURL": "http://www.svgjs.com/",
             "asOfVersion": "2.3.1"
+        },
+        {
+            "libraryName": "swagger-parser",
+            "typingsPackageName": "swagger-parser",
+            "sourceRepoURL": "https://apidevtools.org/swagger-parser/",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "swap-case",

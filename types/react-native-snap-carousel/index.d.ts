@@ -104,6 +104,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
      */
     hasParallaxImages?: boolean;
     /**
+     * How many items should be rendered at the start?
+     */
+    initialNumToRender?: number;
+    /**
      * Prevent the user from interacting with the carousel while it is snapping. Ignored
      * if `enableMomentum` is `true`
      */

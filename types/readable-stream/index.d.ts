@@ -61,6 +61,11 @@ declare namespace _Readable {
     };
 
     class Duplex extends Writable implements /*extends*/_Readable, stream.Duplex {
+        /**
+         * This is a dummy function required to retain type compatibility to node.
+         * @deprecated DO NOT USE
+         */
+        static from(source: any): any;
         allowHalfOpen: boolean;
         destroyed: boolean;
         // Readable
