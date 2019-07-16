@@ -1,4 +1,4 @@
-// Type definitions for Cytoscape.js 3.4
+// Type definitions for Cytoscape.js 3.8.1
 // Project: http://js.cytoscape.org/
 // Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
 //                  Shenghan Gao <https://github.com/wy193777>
