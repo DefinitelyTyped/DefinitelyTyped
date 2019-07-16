@@ -25,6 +25,7 @@
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Grimmer Kang <https://github.com/grimmer0125>
+//                 Fabian Hilz <https://github.com/locke21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
