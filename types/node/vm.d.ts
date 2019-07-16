@@ -1,7 +1,10 @@
 declare module "vm" {
+    import TypedArray = NodeJS.TypedArray;
+
     interface Context {
         [key: string]: any;
     }
+
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.
@@ -19,16 +22,26 @@ declare module "vm" {
          */
         columnOffset?: number;
     }
-    interface ScriptOptions extends BaseOptions {
-        displayErrors?: boolean;
-        timeout?: number;
-        cachedData?: Buffer;
+
+    interface ScriptOptionsObject extends BaseOptions {
+        cachedData?: Buffer | TypedArray | DataView;
+        /** @deprecated This option is deprecated in favor of script.createCachedData() */
         produceCachedData?: boolean;
+        /** This option is part of the experimental API for the --experimental-modules flag, and should not be considered stable. */
+        importModuleDynamically?: (specifier: string, module: SourceTextModule) => Object | SourceTextModule;
     }
+
+    /**
+     * If options is a string, then it specifies the filename.
+     * https://nodejs.org/api/vm.html#vm_constructor_new_vm_script_code_options
+     */
+    type ScriptOptions = ScriptOptionsObject | string;
+
     interface RunningScriptOptions extends BaseOptions {
         displayErrors?: boolean;
         timeout?: number;
     }
+
     interface CompileFunctionOptions extends BaseOptions {
         /**
          * Provides an optional data with V8's code cache data for the supplied source.
@@ -79,13 +92,51 @@ declare module "vm" {
         };
     }
 
-    class Script {
-        constructor(code: string, options?: ScriptOptions);
-        runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
-        runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
-        runInThisContext(options?: RunningScriptOptions): any;
-        createCachedData(): Buffer;
+    interface SourceTextModuleOptions {
+        url?: string;
+        context?: Context;
+        lineOffset?: number;
+        columnOffset?: number;
+        initializeImportMeta?: (meta: ImportMeta, module: SourceTextModule) => void;
+        importModuleDynamically?: (specifier: string, module: SourceTextModule) => Object | SourceTextModule;
     }
+
+    interface SourceTextModuleEvaluateOptions {
+        timeout?: number;
+        breakOnSigint?: boolean;
+    }
+
+    type SourceTextModuleStatus = 'uninstantiated' | 'instantiating' | 'instantiated' | 'evaluating' | 'evaluated' | 'errored';
+    type SourceTextModuleLinkingStatus = 'unlinked' | 'linking' | 'linked' | 'errored';
+
+    class Script {
+        public cachedData?: Buffer;
+        public cachedDataProduced?: boolean;
+        public cachedDataRejected?: boolean;
+        public constructor(code: string, options?: ScriptOptions);
+        public runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+        public runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
+        public runInThisContext(options?: RunningScriptOptions): any;
+        public createCachedData(): Buffer;
+    }
+
+    /**
+     * This feature is only available with the --experimental-vm-modules command flag enabled.
+     * https://nodejs.org/api/vm.html#vm_class_vm_sourcetextmodule
+     */
+    class SourceTextModule {
+        public dependencySpecifiers: string[];
+        public error: any;
+        public linkingStatus: SourceTextModuleLinkingStatus;
+        public namespace: Object;
+        public status: SourceTextModuleStatus;
+        public url: string;
+        public constructor(code: string, options?: SourceTextModuleOptions);
+        public evaluate(options?: SourceTextModuleEvaluateOptions): Promise<any>;
+        public instantiate(): void;
+        public link(linker: (specifier: string, referencingModule: SourceTextModule) => SourceTextModule | Promise<any>): Promise<any>;
+    }
+
     function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
     function isContext(sandbox: Context): boolean;
     function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
