@@ -326,11 +326,7 @@ export interface ComponentDecoratorProps {
     getTdProps: ComponentPropsGetterRC | ComponentPropsGetterR;
     getTfootProps: ComponentPropsGetter0;
     getTfootTrProps: ComponentPropsGetter0;
-
-    /**
-     * @TODO not exists in react-table but in the docs
-     */
-    // getTfootThProps: ComponentPropsGetter
+    getTfootTdProps: ComponentPropsGetterC;
     getPaginationProps: ComponentPropsGetter0;
     getLoadingProps: ComponentPropsGetter0;
     getNoDataProps: ComponentPropsGetter0;
