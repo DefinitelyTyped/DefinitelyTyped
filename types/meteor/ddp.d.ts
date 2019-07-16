@@ -1,4 +1,4 @@
-declare module 'meteor/ddp' {
+declare module "meteor/ddp" {
     module DDP {
         interface DDPStatic {
             subscribe(name: string, ...rest: any[]): Meteor.SubscriptionHandle;
@@ -28,7 +28,7 @@ declare module 'meteor/ddp' {
 
     module DDPCommon {
         interface MethodInvocation {
-            new (options: {}): MethodInvocation;
+            new(options: {}): MethodInvocation;
 
             unblock(): void;
 
