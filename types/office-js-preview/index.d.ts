@@ -16906,7 +16906,7 @@ declare namespace Office {
          */
         targetRestUrl: String;
         /**
-         * The target/owner's mailbox. Use with restUrl to construct completed REST operation's URL.
+         * The target/owner's mailbox. Use with targetRestUrl to construct completed REST operation's URL.
          * Example usage: targetRestUrl + "/{api_version}/users/" + targetMailbox + "/{REST_operation}"
          */
         targetMailbox: String;
