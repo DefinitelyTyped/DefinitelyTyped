@@ -23,10 +23,10 @@ declare namespace Listr {
     type ListrContext = any;
 
     interface ListrEvent {
-        type: string
+        type: string;
     }
 
-    type ListrTaskResult = void | string | Promise<any> | Listr | Observable<any>;
+    type ListrTaskResult = undefined | string | Promise<any> | Listr | Observable<any>;
 
     interface ListrRawTask {
         title: string;
@@ -40,7 +40,7 @@ declare namespace Listr {
         output?: string;
         task: (ctx: ListrContext, task: ListrTaskWrapper) => ListrTaskResult;
         skip: (ctx: ListrContext) => boolean | string | Promise<boolean>;
-        subtasks: ReadonlyArray<Listr.ListrTaskWrapper>;
+        subtasks: ReadonlyArray<ListrTaskWrapper>;
         state: string;
         check: (ctx: ListrContext) => void;
         hasSubtasks: boolean;
@@ -49,7 +49,7 @@ declare namespace Listr {
         isCompleted: boolean;
         isEnabled: boolean;
         hasFailed: boolean;
-        run: (ctx: ListrContext, wrapper: ListrTaskWrapper) => Promise<void>
+        run: (ctx: ListrContext, wrapper: ListrTaskWrapper) => Promise<void>;
     }
 
     interface ListrTaskWrapper {
@@ -61,7 +61,7 @@ declare namespace Listr {
     }
 
     interface ListrError extends Error {
-        context: ListrContext
+        context: ListrContext;
     }
 
     interface ListrRenderer {
@@ -70,7 +70,7 @@ declare namespace Listr {
     }
     interface ListrRendererClass {
         nonTTY: boolean;
-        new(tasks: ReadonlyArray<Listr.ListrTask>, options: Listr.ListrOptions): ListrRenderer
+        new(tasks: ReadonlyArray<ListrTask>, options: ListrOptions): ListrRenderer;
     }
 }
 
