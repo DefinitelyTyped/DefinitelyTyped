@@ -26,20 +26,20 @@ declare namespace Listr {
         type: string;
     }
 
-    type ListrTaskResult = undefined | string | Promise<any> | Listr | Observable<any>;
+    type ListrTaskResult = string | Promise<any> | Listr | stream.Readable | Observable<any>;
 
-    interface ListrRawTask {
+    interface ListrTask {
         title: string;
-        task: (ctx: ListrContext, task: ListrTaskWrapper) => ListrTaskResult;
-        skip?: (ctx: ListrContext) => boolean | string | Promise<boolean>;
-        enabled?: () => boolean | Promise<boolean> | Observable<boolean>;
+        task: (ctx: ListrContext, task: ListrTaskWrapper) => void | ListrTaskResult;
+        skip?: (ctx: ListrContext) => void | boolean | string | Promise<boolean>;
+        enabled?: (ctx: ListrContext) => boolean | Promise<boolean> | Observable<boolean>;
     }
 
-    interface ListrTask extends Observable<ListrEvent> {
+    interface ListrTaskObject extends Observable<ListrEvent> {
         title: string;
         output?: string;
-        task: (ctx: ListrContext, task: ListrTaskWrapper) => ListrTaskResult;
-        skip: (ctx: ListrContext) => boolean | string | Promise<boolean>;
+        task: (ctx: ListrContext, task: ListrTaskWrapper) => void | ListrTaskResult;
+        skip: (ctx: ListrContext) => void | boolean | string | Promise<boolean>;
         subtasks: ReadonlyArray<ListrTaskWrapper>;
         state: string;
         check: (ctx: ListrContext) => void;
@@ -70,16 +70,16 @@ declare namespace Listr {
     }
     interface ListrRendererClass {
         nonTTY: boolean;
-        new(tasks: ReadonlyArray<ListrTask>, options: ListrOptions): ListrRenderer;
+        new(tasks: ReadonlyArray<ListrTaskObject>, options: ListrOptions): ListrRenderer;
     }
 }
 
 declare class Listr {
-    constructor(tasks?: ReadonlyArray<Listr.ListrRawTask>, options?: Listr.ListrOptions);
+    constructor(tasks?: ReadonlyArray<Listr.ListrTask>, options?: Listr.ListrOptions);
     constructor(options?: Listr.ListrOptions);
     tasks: ReadonlyArray<Listr.ListrTaskWrapper>;
     setRenderer(value: Listr.ListrRendererValue): void;
-    add(tasks: Listr.ListrRawTask | ReadonlyArray<Listr.ListrRawTask>): void;
+    add(tasks: Listr.ListrTask | ReadonlyArray<Listr.ListrTask>): void;
     render(): void;
     run(ctx?: Listr.ListrContext): Promise<Listr.ListrContext>;
 }
