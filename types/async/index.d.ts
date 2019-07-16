@@ -7,7 +7,6 @@
 //                 Pascal Martin <https://github.com/pascalmartin>
 //                 Dmitri Trofimov <https://github.com/Dmitri1337>
 //                 Etienne Rossignon <https://github.com/erossignon>
-
 //                 Lifeng Zhu <https://github.com/Juliiii>
 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
