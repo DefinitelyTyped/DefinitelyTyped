@@ -110,14 +110,14 @@ declare module "vm" {
     type SourceTextModuleLinkingStatus = 'unlinked' | 'linking' | 'linked' | 'errored';
 
     class Script {
-        public cachedData?: Buffer;
-        public cachedDataProduced?: boolean;
-        public cachedDataRejected?: boolean;
-        public constructor(code: string, options?: ScriptOptions);
-        public runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
-        public runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
-        public runInThisContext(options?: RunningScriptOptions): any;
-        public createCachedData(): Buffer;
+        cachedData?: Buffer;
+        cachedDataProduced?: boolean;
+        cachedDataRejected?: boolean;
+        constructor(code: string, options?: ScriptOptions);
+        runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+        runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
+        runInThisContext(options?: RunningScriptOptions): any;
+        createCachedData(): Buffer;
     }
 
     /**
@@ -125,16 +125,16 @@ declare module "vm" {
      * https://nodejs.org/api/vm.html#vm_class_vm_sourcetextmodule
      */
     class SourceTextModule {
-        public dependencySpecifiers: string[];
-        public error: any;
-        public linkingStatus: SourceTextModuleLinkingStatus;
-        public namespace: Object;
-        public status: SourceTextModuleStatus;
-        public url: string;
-        public constructor(code: string, options?: SourceTextModuleOptions);
-        public evaluate(options?: SourceTextModuleEvaluateOptions): Promise<any>;
-        public instantiate(): void;
-        public link(linker: (specifier: string, referencingModule: SourceTextModule) => SourceTextModule | Promise<any>): Promise<any>;
+        dependencySpecifiers: string[];
+        error: any;
+        linkingStatus: SourceTextModuleLinkingStatus;
+        namespace: Object;
+        status: SourceTextModuleStatus;
+        url: string;
+        constructor(code: string, options?: SourceTextModuleOptions);
+        evaluate(options?: SourceTextModuleEvaluateOptions): Promise<any>;
+        instantiate(): void;
+        link(linker: (specifier: string, referencingModule: SourceTextModule) => SourceTextModule | Promise<any>): Promise<any>;
     }
 
     function createContext(sandbox?: Context, options?: CreateContextOptions): Context;
