@@ -2,6 +2,7 @@
 // Project: https://github.com/Azure/azure-kusto-node/tree/master/azure-kusto-data
 // Definitions by: Armando Aguirre <https://github.com/armanio123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export class Client {
     constructor(kcsb: string | KustoConnectionStringBuilder);
@@ -9,9 +10,9 @@ export class Client {
     cluster: string;
     endpoints: { mgmt: string, query: string };
     aadHelper: any;
-    execute<T>(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<T>) => void, properties?: any): any;
-    executeMgmt<T>(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<T>) => void, properties: any): any;
-    executeQuery<T>(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<T>) => void, properties: any): any;
+    execute(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void, properties?: any): any;
+    executeMgmt(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void, properties: any): any;
+    executeQuery(db: any, query: any, callback: (err: Error, results: Client.KustoResponseDataSetV2<any>) => void, properties: any): any;
 }
 
 export class ClientRequestProperties {
@@ -42,23 +43,22 @@ export class KustoConnectionStringBuilder {
     static withAadManagedIdentities(connectionString: string, msi_endpoint: string, msi_secret: string): KustoConnectionStringBuilder;
 }
 
+export namespace Client {
+    interface KustoResponseDataSet<T> {
+        tables: Array<KustoResultTable<T>>;
+        tableNames: string[];
+        primaryResults: Array<KustoResultTable<T>>;
+        statusTable: KustoResultTable<T>;
+    }
 
-declare class KustoResponseDataSet<T> {
-    tables: Client.KustoResultTable<T>[];
-    tableNames: string[];
-    primaryResults: Client.KustoResultTable<T>[];
-    statusTable: Client.KustoResultTable<T>;
-}
-
-declare namespace Client {
-    export interface KustoResponseDataSetV2<T> extends KustoResponseDataSet<T> {
+    interface KustoResponseDataSetV2<T> extends KustoResponseDataSet<T> {
         version: string;
         getStatusColumn(): string;
         getErrorColumn(): string;
         getCridColumn(): string;
     }
 
-    export interface KustoResultTable<T> {
+    interface KustoResultTable<T> {
         name: string;
         id: string;
         kind: string;
@@ -69,7 +69,7 @@ declare namespace Client {
         toString(): string;
     }
 
-    export type KustoResultRow<T> = {
+    type KustoResultRow<T> = {
         [P in keyof T]: T[P];
-    }
+    };
 }

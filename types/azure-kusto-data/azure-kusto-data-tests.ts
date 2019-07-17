@@ -16,14 +16,12 @@ KustoConnectionStringBuilder.withAadUserPasswordAuthentication(connectionString,
 KustoConnectionStringBuilder.withAadUserPasswordAuthentication(connectionString, 'username', 'password', 'authorityId');
 KustoConnectionStringBuilder.withAadDeviceAuthentication(connectionString, 'authId');
 KustoConnectionStringBuilder.withAadDeviceAuthentication(connectionString, 'authId', (tokenResponse: any) => {
-    console.log("Open " + tokenResponse.verificationUrl + " and use " + tokenResponse.userCode + " code to authorize.");
+    console.log(`Open ${tokenResponse.verificationUrl} and use ${tokenResponse.userCode } code to authorize.`);
 });
 
-
-let client2 = new Client("http://cluster.region.kusto.windows.net");
-let clientRequestProps = new ClientRequestProperties();
+const client2 = new Client("http://cluster.region.kusto.windows.net");
+const clientRequestProps = new ClientRequestProperties();
 clientRequestProps.setOption("servertimeout", 1000 * 60);
 client2.executeQuery("db", "Table | count", (err: any, results: any) => {
     console.log(results);
 }, clientRequestProps);
-
