@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "dependencies": {
+    "express-graphql": ">= 0.9.0"
+  },
+  "peerDependencies": {
+    "graphql": "^14.4.1"
+  }
+}
