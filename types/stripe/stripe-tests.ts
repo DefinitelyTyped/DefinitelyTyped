@@ -85,6 +85,10 @@ stripe.charges.create({
 }).then((charge) => {
     // asynchronously called
 
+    charge.payment_intent; // $ExpectType string
+    charge.payment_method; // $ExpectType string
+    charge.payment_method_details; // $ExpectType IPaymentMethodDetails
+
     charge.refunds.create().then((refund) => {
         const reason = refund.failure_reason;
         // asynchronously called

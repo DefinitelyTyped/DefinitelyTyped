@@ -15,6 +15,7 @@ export default class ExternalWindowModule extends Base {
      * @return {Promise.<ExternalWindow>}
      * @static
      * @experimental
+     * @tutorial Window.wrap
      */
     wrap(identity: Identity): Promise<ExternalWindow>;
     /**
@@ -28,14 +29,21 @@ export default class ExternalWindowModule extends Base {
      * @return {ExternalWindow}
      * @static
      * @experimental
+     * @tutorial Window.wrapSync
      */
     wrapSync(identity: Identity): ExternalWindow;
 }
 /**
- * @classdesc An ExternalWindow object representing an adopted native window
- * on the system. Allows the developer to call actions on external windows as
- * well as listen to external window events.
+ * @classdesc An ExternalWindow is an OpenFin object representing a window that belongs to a non-openfin application.<br>
+ * While External Windows don't have the complete functionality of an OpenFin Window object,
+ * they can be used to tap into any application that is currently running in the OS.<br>
+ * External Windows are useful for grouping, moving and resizing non-openfin applications
+ * as well as listening to events that are dispatched by these applications.<br>
+ * They are also compatible with OpenFin's Layouts service to facilitate
+ * a complete positional control over all running applications.<br>
+ * External Windows has the ability to listen for <a href="tutorial-ExternalWindow.EventEmitter.html"> external window specific events</a>.
  * @class
+ * @alias ExternalWindow
  * @hideconstructor
  */
 export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
@@ -45,12 +53,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * Brings the external window to the front of the window stack.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.bringToFront
      */
     bringToFront(): Promise<void>;
     /**
      * Closes the external window.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.close
     */
     close(): Promise<void>;
     /**
@@ -58,6 +68,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * when using the window's frame.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.disableUserMovement
      */
     disableUserMovement(): Promise<void>;
     /**
@@ -65,12 +76,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * when using the window's frame.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.enableUserMovement
      */
     enableUserMovement(): Promise<void>;
     /**
      * Flashes the external window’s frame and taskbar icon until stopFlashing is called.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.flash
      */
     flash(): Promise<void>;
     /**
@@ -78,12 +91,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @return {Promise.<void>}
      * @emits ExternalWindow#focused
      * @experimental
+     * @tutorial Window.focus
      */
     focus(): Promise<void>;
     /**
      * Gets the current bounds (top, left, etc.) of the external window.
      * @return {Promise.<Bounds>}
      * @experimental
+     * @tutorial Window.getBounds
     */
     getBounds(): Promise<Bounds>;
     /**
@@ -92,18 +107,21 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * is returned.
      * @return {Promise.<Array<ExternalWindow|_Window>>}
      * @experimental
+     * @tutorial Window.getGroup
      */
     getGroup(): Promise<Array<ExternalWindow | _Window>>;
     /**
      * Gets an information object for the window.
      * @return {Promise.<any>}
      * @experimental
+     * @tutorial Window.getInfo
      */
     getInfo(): Promise<any>;
     /**
      * Gets an external window's options.
      * @return {Promise.<any>}
      * @experimental
+     * @tutorial Window.getOptions
      */
     getOptions(): Promise<any>;
     /**
@@ -111,18 +129,21 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * the external window.
      * @return {Promise.<string>}
      * @experimental
+     * @tutorial Window.getState
      */
     getState(): Promise<string>;
     /**
      * Hides the external window.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.hide
      */
     hide(): Promise<void>;
     /**
      * Determines if the external window is currently showing.
      * @return {Promise.<boolean>}
      * @experimental
+     * @tutorial Window.isShowing
      */
     isShowing(): Promise<boolean>;
     /**
@@ -130,6 +151,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @param { _Window | ExternalWindow } target The window whose group is to be joined
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.joinGroup
      */
     joinGroup(target: ExternalWindow | _Window): Promise<void>;
     /**
@@ -137,12 +159,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * independently of those in the group.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.leaveGroup
      */
     leaveGroup(): Promise<void>;
     /**
      * Maximizes the external window.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.maximize
      */
     maximize(): Promise<void>;
     /**
@@ -150,12 +174,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @param { _Window | ExternalWindow } target The window whose group is to be merged with
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.mergeGroups
      */
     mergeGroups(target: ExternalWindow | _Window): Promise<void>;
     /**
      * Minimizes the external window.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.minimize
      */
     minimize(): Promise<void>;
     /**
@@ -164,6 +190,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @param { number } deltaTop The change in the top position of the window
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.moveBy
      */
     moveBy(deltaLeft: number, deltaTop: number): Promise<void>;
     /**
@@ -172,6 +199,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @param { number } top The top position of the window
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.moveTo
      */
     moveTo(left: number, top: number): Promise<void>;
     /**
@@ -183,6 +211,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * If undefined, the default is "top-left".
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.resizeBy
      */
     resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType): Promise<void>;
     /**
@@ -194,12 +223,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * If undefined, the default is "top-left".
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.resizeTo
      */
     resizeTo(width: number, height: number, anchor: AnchorType): Promise<void>;
     /**
      * Restores the external window to its normal state (i.e. unminimized, unmaximized).
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.restore
      */
     restore(): Promise<void>;
     /**
@@ -207,6 +238,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * give it focus.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.setAsForeground
      */
     setAsForeground(): Promise<void>;
     /**
@@ -214,12 +246,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @property { Bounds } bounds
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.setBounds
      */
     setBounds(bounds: Bounds): Promise<void>;
     /**
      * Shows the external window if it is hidden.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.show
      */
     show(): Promise<void>;
     /**
@@ -230,12 +264,14 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @param { number } top The top position of the window
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.showAt
      */
     showAt(left: number, top: number): Promise<void>;
     /**
      * Stops the taskbar icon from flashing.
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.stopFlashing
      */
     stopFlashing(): Promise<void>;
     /**
@@ -243,6 +279,7 @@ export declare class ExternalWindow extends EmitterBase<ExternalWindowEvents> {
      * @param {*} options Changes an external window's options
      * @return {Promise.<void>}
      * @experimental
+     * @tutorial Window.updateOptions
      */
     updateOptions(options: any): Promise<void>;
 }

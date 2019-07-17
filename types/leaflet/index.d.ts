@@ -1512,7 +1512,7 @@ export namespace Icon {
 export function icon(options: IconOptions): Icon;
 
 export interface DivIconOptions extends BaseIconOptions {
-    html?: string | false;
+    html?: string | HTMLElement | false;
     bgPos?: PointExpression;
     iconSize?: PointExpression;
     iconAnchor?: PointExpression;

@@ -190,9 +190,6 @@ function JQueryStatic() {
                 target;
             });
             const myDocForced: JQuery<Document> = $(document);
-            const myWindow = $(window);
-            // $ExpectType JQuery<Window>
-            myWindow;
             const myWindowForced: JQuery<Window> = $(window);
             // $ExpectType JQuery<Window>
             myWindowForced;

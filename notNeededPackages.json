@@ -217,6 +217,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "baseui",
+            "typingsPackageName": "baseui",
+            "sourceRepoURL": "https://github.com/uber-web/baseui",
+            "asOfVersion": "8.0.0"
+        },
+        {
             "libraryName": "beeper",
             "typingsPackageName": "beeper",
             "sourceRepoURL": "https://github.com/sindresorhus/beeper",
@@ -1061,6 +1067,12 @@
             "typingsPackageName": "flux-standard-action",
             "sourceRepoURL": "https://github.com/acdlite/flux-standard-action",
             "asOfVersion": "1.1.0"
+        },
+        {
+            "libraryName": "form-data",
+            "typingsPackageName": "form-data",
+            "sourceRepoURL": "https://github.com/form-data/form-data",
+            "asOfVersion": "2.5.0"
         },
         {
             "libraryName": "fork-ts-checker-webpack-plugin",
