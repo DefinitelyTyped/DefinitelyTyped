@@ -14,7 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "apimocker-test.config.ts",
         "apimocker-tests.ts"
     ]
 }
