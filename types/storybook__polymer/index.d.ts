@@ -7,6 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
+// tslint:disable:no-unnecessary-generics
+
 /// <reference types="webpack-env" />
 
 import { TemplateResult, SVGTemplateResult } from 'lit-element';
