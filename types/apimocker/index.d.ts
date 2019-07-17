@@ -1,5 +1,3 @@
-// Type definitions for apimocker 1.1.3
-// Project: https://github.com/gstroup/apimocker
 // Definitions by: Uchenna <https://github.com/uchilaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
