@@ -1,0 +1,10 @@
+{
+    "name": "@types/apimocker",
+    "scripts": {
+        "test": "tsnd --project tsconfig.json apimocker-tests.ts"
+    },
+    "devDependencies": {
+        "apimocker": "^1.1.3",
+        "ts-node-dev": "^1.0.0-pre.40"
+    }
+}
