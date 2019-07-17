@@ -5,7 +5,7 @@
 //                 Dan Dean <https://github.com/dandean>
 //                 Ryan Coleman <https://github.com/ryuhhnn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.2
 
 /// <reference types="webpack-env" />
 
