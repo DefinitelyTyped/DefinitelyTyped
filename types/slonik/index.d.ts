@@ -1,4 +1,4 @@
-// Type definitions for slonik 18.2.0
+// Type definitions for slonik 18.2
 // Project: https://github.com/gajus/slonik#readme
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Misha Kaletsky <https://github.com/mmkal>
@@ -292,10 +292,10 @@ export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType
 
 export const sql: SqlTaggedTemplateType;
 
-type IdentifierNormalizerType = (identifierName: string) => string
+export type IdentifierNormalizerType = (identifierName: string) => string;
 
 export interface SqlTagConfigurationType {
-    normalizeIdentifier?: IdentifierNormalizerType
+    normalizeIdentifier?: IdentifierNormalizerType;
 }
 
 export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
