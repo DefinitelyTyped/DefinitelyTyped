@@ -294,6 +294,7 @@ declare namespace Flexmonster {
         strictDataTypes?: boolean;
         caseSensitiveMembers?: boolean;
         simplifyFieldListFolders?: boolean;
+        validateReportFiles?: boolean;
     }
 
     interface PrintOptions {
