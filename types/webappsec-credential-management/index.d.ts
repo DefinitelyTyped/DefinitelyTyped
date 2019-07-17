@@ -405,8 +405,8 @@ interface PublicKeyCredentialRequestOptions {
  * @see {@link https://w3c.github.io/webauthn/#dictdef-publickeycredentialentity}
  */
 interface PublicKeyCredentialEntity {
-    name: string;
     icon?: string;
+    name: string;
 }
 
 /**
