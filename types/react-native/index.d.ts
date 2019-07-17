@@ -7535,7 +7535,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
     getInitialURL(): Promise<string | null>;
-    
+
     /**
      * Open the Settings app and displays the app’s custom settings, if it has any.
      */
