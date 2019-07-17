@@ -840,52 +840,44 @@ async function custom_auth_cb_test() {
 
                     if (!ctx.authMethods.includes('LOGIN')) {
                         console.log('Server does not support AUTH LOGIN');
-                        ctx.reject(new Error('Can not log in'));
-                        return;
+                        return ctx.reject(new Error('Can not log in'));
                     }
                     console.log('AUTH LOGIN is supported, proceeding with login...');
 
                     ctx.sendCommand('AUTH LOGIN', (err, cmd) => {
                         if (err) {
-                            ctx.reject(err);
-                            return;
+                            return ctx.reject(err);
                         }
 
                         if (cmd.status !== 334) {
                             // expecting '334 VXNlcm5hbWU6'
-                            ctx.reject('Invalid login sequence while waiting for "334 VXNlcm5hbWU6"');
-                            return;
+                            return ctx.reject('Invalid login sequence while waiting for "334 VXNlcm5hbWU6"');
                         }
 
                         console.log('Sending username: %s', ctx.auth.credentials.user);
                         ctx.sendCommand(Buffer.from(ctx.auth.credentials.user, 'utf-8').toString('base64'), (err, cmd) => {
                             if (err) {
-                                ctx.reject(err);
-                                return;
+                                return ctx.reject(err);
                             }
                             if (cmd.status !== 334) {
                                 // expecting '334 UGFzc3dvcmQ6'
-                                ctx.reject('Invalid login sequence while waiting for "334 UGFzc3dvcmQ6"');
-                                return;
+                                return ctx.reject('Invalid login sequence while waiting for "334 UGFzc3dvcmQ6"');
                             }
 
                             console.log('Sending password: %s', '*'.repeat(ctx.auth.credentials.pass.length));
                             ctx.sendCommand(Buffer.from(ctx.auth.credentials.pass, 'utf-8').toString('base64'), (err, cmd) => {
                                 if (err) {
-                                    ctx.reject(err);
-                                    return;
+                                    return ctx.reject(err);
                                 }
                                 if (cmd.status < 200 || cmd.status >= 300) {
                                     // expecting a 235 response, just in case allow everything in 2xx range
-                                    ctx.reject('User failed to authenticate');
-                                    return;
+                                    return ctx.reject('User failed to authenticate');
                                 }
 
                                 console.log('User authenticated! (%s)', cmd.response);
 
                                 // all checks passed
-                                ctx.resolve();
-                                return;
+                                return ctx.resolve();
                             });
                         });
                     });

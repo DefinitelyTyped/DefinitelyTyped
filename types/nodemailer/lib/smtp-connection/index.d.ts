@@ -66,12 +66,12 @@ declare namespace SMTPConnection {
         maxAllowedSize: number | false;
         sendCommand(cmd: string): Promise<CustomAuthenticationResponse>;
         sendCommand(cmd: string, done: (err: Error | null, data: CustomAuthenticationResponse) => void): void;
-        resolve(): void;
-        reject(err: Error | string): void;
+        resolve(): unknown;
+        reject(err: Error | string): unknown;
     }
 
     interface CustomAuthenticationHandlers {
-        [method: string]: (ctx: CustomAuthenticationContext) => Promise<boolean> | void;
+        [method: string]: (ctx: CustomAuthenticationContext) => Promise<boolean> | unknown;
     }
 
     type DSNOption = 'NEVER' | 'SUCCESS' | 'FAILURE' | 'DELAY';
