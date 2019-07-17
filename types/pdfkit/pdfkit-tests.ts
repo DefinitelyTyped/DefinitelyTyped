@@ -166,3 +166,21 @@ doc.image(
 ).text('Scale', 320, 265);
 
 doc.text('Scale', { align: 'justify' });
+
+doc.goTo(0, 0, 0, 0, 'lorem');
+
+doc.image('path/to/image.png', {
+    fit: [250, 300],
+    align: 'center',
+    valign: 'center',
+});
+
+doc.image('path/to/image.png', {
+    cover: [250, 300],
+});
+
+doc.image('path/to/image.png', {
+    link: {},
+    goTo: {},
+    destination: 'lorem',
+});
