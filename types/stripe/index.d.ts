@@ -4503,7 +4503,7 @@ declare namespace Stripe {
             /*
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
-            setup_future_usage: paymentIntents.PaymentIntentFutureUsageType | null;
+            setup_future_usage: PaymentIntentFutureUsageType | null;
 
             /**
              * Shipping information for this PaymentIntent.
@@ -4654,7 +4654,7 @@ declare namespace Stripe {
             /*
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
-            setup_future_usage?: paymentIntents.PaymentIntentFutureUsageType;
+            setup_future_usage?: PaymentIntentFutureUsageType;
 
             /**
              * Shipping information for this PaymentIntent.
@@ -4724,7 +4724,7 @@ declare namespace Stripe {
             /*
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
-            setup_future_usage?: paymentIntents.PaymentIntentFutureUsageType;
+            setup_future_usage?: PaymentIntentFutureUsageType;
 
             /**
              * Shipping information for this PaymentIntent.
@@ -4771,7 +4771,7 @@ declare namespace Stripe {
             /*
              * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
              */
-            setup_future_usage?: paymentIntents.PaymentIntentFutureUsageType;
+            setup_future_usage?: PaymentIntentFutureUsageType;
 
             /**
              * Shipping information for this PaymentIntent.
