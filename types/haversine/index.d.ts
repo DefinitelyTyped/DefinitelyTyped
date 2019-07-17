@@ -25,7 +25,7 @@ declare namespace haversine {
 
     interface GeoJSON {
         geometry: {
-            coordinates: LatLonTuple
+            coordinates: number[];  // matches Point type in types/geojson.
         };
     }
 
