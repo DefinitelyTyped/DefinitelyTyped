@@ -1,11 +1,5 @@
-// Type definitions for apimocker 1.1.3
-// Project: https://www.npmjs.com/package/apimocker
-// Definitions by: Uchenna <https://github.com/uchilaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { RequestHandler } from 'express';
-import { configOptions, ApiMocker } from './models';
+import { configOptions, ApiMocker } from '../models';
 
 export const middlewares: RequestHandler[];
 

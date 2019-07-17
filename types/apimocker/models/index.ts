@@ -1,0 +1,33 @@
+import { RequestHandler, Application } from 'express';
+
+export interface configOptions {
+    port?: string;
+    mockDirectory?: string;
+    allowedDomains?: string[];
+    allowedHeaders?: string[];
+    logRequestHeaders?: boolean;
+    allowAvoidPreFlight?: boolean;
+    useUploadFieldname?: boolean;
+    webServices?: any;
+    quiet?: boolean;
+}
+
+export interface ApiMocker {
+    express: Application;
+    middlewares: RequestHandler[];
+    setConfigFile: (file: string) => ApiMocker;
+    loadConfigFile: () => void;
+    setRoutes: (webServices: any) => void;
+    /**
+     * Set the route for express, in case it was not set yet
+     */
+    setRoute: (options: any) => void;
+    /**
+     * @TODO inspect Express.Application.start
+     */
+    start: (serverPort: string | number, callback?: () => void) => ApiMocker;
+    /**
+     * @TODO inspect Express.Application.close
+     */
+    stop: (callback?: () => void) => ApiMocker;
+}
