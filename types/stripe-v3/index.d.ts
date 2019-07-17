@@ -624,7 +624,7 @@ declare namespace stripe {
         }
         
         interface StripePaymentMethodPaymentResponse extends StripePaymentResponse {
-            paymentMethod: PaymentMethod;
+            paymentMethod: paymentMethod.PaymentMethod;
         }
 
         interface StripePaymentRequest {
