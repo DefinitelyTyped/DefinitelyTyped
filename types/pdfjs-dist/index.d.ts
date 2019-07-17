@@ -131,7 +131,7 @@ interface PDFPageViewportOptions {
 interface PDFPageViewport {
     width: number;
     height: number;
-    fontScale: number;
+    scale: number;
     transforms: number[];
 
     clone(options: PDFPageViewportOptions): PDFPageViewport;
@@ -180,6 +180,12 @@ interface PDFRenderParams {
     continueCallback?: (_continue: () => void) => void;
 }
 
+interface ViewportParameters {
+    scale: number; // The desired scale of the viewport.
+    rotation?: number; // (optional) The desired rotation, in degrees, of the viewport. If omitted it defaults to the page rotation.
+    dontFlip?: boolean; // (optional) If true, the y-axis will not be flipped. The default value is `false`.
+}
+
 interface PDFViewerParams {
     container: HTMLElement;
     viewer?: HTMLElement;
@@ -219,12 +225,13 @@ interface PDFPageProxy {
     view: number[];
 
     /**
-     * @param scale The desired scale of the viewport.
-     * @param rotate Degrees to rotate the viewport.  If omitted this defaults to the page rotation.
-     * @param dontFlip
+     * @param viewportParameters include : 
+     *  - scale : the desired scale of the viewport.
+     *  - rotate : Degrees to rotate the viewport.  If omitted this defaults to the page rotation.
+     *  - dontFlip : If true, the y-axis will not be flipped. The default value is `false`
      * @return
      **/
-    getViewport(scale: number, rotate?: number, dontFlip?: boolean): PDFPageViewport;
+    getViewport(viewportParameters: ViewportParameters): PDFPageViewport;
 
     /**
      * A promise that is resolved with an array of the annotation objects.
