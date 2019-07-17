@@ -263,6 +263,7 @@ declare namespace Flexmonster {
             timezoneOffset?: number;
             weekOffset?: number;
             dateFormat?: string;
+            liveSearch?: boolean;
         };
         configuratorActive?: boolean;
         configuratorButton?: boolean;
