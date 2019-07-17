@@ -4,8 +4,8 @@ import compose = require("koa-compose");
 import etag = require("koa-etag");
 import Router = require("@koa/router");
 
-type MyState = {foo: string}
-type MyContext = {bar: string}
+interface MyState {foo: string; }
+interface MyContext {bar: string; }
 
 const app = new Koa<{}, {}>();
 
@@ -14,53 +14,50 @@ const router = new Router<MyState, MyContext>({
 });
 
 router
-    .param('id', function (id, ctx, next) {
+    .param('id', (id, ctx, next) => {
         next();
     })
-    .get('/', function (ctx, next) {
+    .get('/', (ctx, next) => {
         ctx.body = 'Hello World!';
     })
-    .get('user', '/users/:id', function (ctx, next) {
+    .get('user', '/users/:id', (ctx, next) => {
         ctx.body = {
           test1: ctx.router.url('user-accounts', { id: ctx.params.id }),
           test2: ctx.router.url('user-accounts', ctx.params.id),
           test3: ctx.router.url('user-accounts', [ctx.params.id]),
-        }
+        };
     })
-    .get('user-accounts', '/users/:id/accounts', function (ctx, next) {
+    .get('user-accounts', '/users/:id/accounts', (ctx, next) => {
         ctx.body = {
           test1: ctx.router.url('user', { id: 3 }, { query: { limit: 1 } }),
           test2: ctx.router.url('user', { id: 3 }, { query: "limit=1" }),
           test3: ctx.router.url('user', 3, { query: { limit: 1 } }),
           test4: ctx.router.url('user', [3], { query: "limit=1" }),
           test5: ctx.router.url('user', ["3"], { query: { limit: "1" } }),
-        }
+        };
     })
-    .post('/users', function (ctx, next) {
+    .post('/users', (ctx, next) => {
         ctx.state.foo = 'foo';
     })
-    .put('/users/:id', function (ctx, next) {
+    .put('/users/:id', (ctx, next) => {
         ctx.bar = 'bar';
         ctx.body = ctx.params.id;
     })
-    .del('/users/:id', function () {
+    .del('/users/:id', () => {
         // ...
     });
 
-router.get('user', '/users/:id', function (ctx) {
+router.get('user', '/users/:id', (ctx) => {
     ctx.body = "sdsd";
 });
 
 const match = router.match('/users/:id', 'GET');
 
-let layer: Router.Layer
-let layerOptions: Router.ILayerOptions
-
-const mw: Router.IMiddleware = (ctx: Koa.ParameterizedContext<any, Router.IRouterParamContext>, next: () => Promise<any>) => {
+const mw: Router.Middleware = (ctx: Koa.ParameterizedContext<any, Router.RouterParamContext>, next: () => Promise<any>) => {
   ctx.body = "Ok";
 };
 
-const mw2: Router.IMiddleware = (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+const mw2: Router.Middleware = (ctx: Router.RouterContext, next: () => Promise<any>) => {
   ctx.body = "Ok";
 };
 
@@ -82,9 +79,9 @@ router3.get('/', (ctx) => {
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });
-router3.get('/foo', (ctx: Router.IRouterContext) => {
+router3.get('/foo', (ctx: Router.RouterContext) => {
     ctx.body = "Yup";
-})
+});
 new Koa()
     .use(async (ctx, next) => next())
     .use(router3.routes())
@@ -128,13 +125,13 @@ app2.listen(8000);
 
 // Prepending middlewares tests
 
-type IBlah = { blah: string; }
-type IWooh = { wooh: string; }
+interface BlahInterface { blah: string; }
+interface WoohInterface { wooh: string; }
 
 const router4 = new Router<MyState, MyContext>({prefix: "/users"});
 
 router4.get('/',
-    (ctx: Koa.ParameterizedContext<IBlah & IWooh>, next) => {
+    (ctx: Koa.ParameterizedContext<BlahInterface & WoohInterface>, next) => {
         ctx.state.blah = "blah";
         ctx.state.wooh = "wooh";
         return next();
@@ -145,24 +142,24 @@ router4.get('/',
         console.log(ctx.state.foo);
         ctx.body = 'Hello World!';
         return next();
-    })
+    });
 
-const middleware1: Koa.Middleware<IBlah> = (ctx, next) => {
+const middleware1: Koa.Middleware<BlahInterface> = (ctx, next) => {
     ctx.state.blah = "blah";
-}
+};
 
-const middleware2: Koa.Middleware<IWooh> = (ctx, next) => {
+const middleware2: Koa.Middleware<WoohInterface> = (ctx, next) => {
     ctx.state.wooh = "blah";
-}
+};
 
 const emptyMiddleware: Koa.Middleware<{}> = (ctx, next) => {
-}
+};
 
-function routeHandler1(ctx: Koa.ParameterizedContext<IWooh>): void {
+function routeHandler1(ctx: Koa.ParameterizedContext<WoohInterface>): void {
     ctx.body = "234";
 }
 
-function routeHandler2(ctx: Koa.ParameterizedContext<IBlah>): void {
+function routeHandler2(ctx: Koa.ParameterizedContext<BlahInterface>): void {
     ctx.body = "234";
 }
 
@@ -188,7 +185,6 @@ router4.post('/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.post('/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
-
 
 const router5 = new Router();
 router5.register('/foo', ['GET'], middleware1, {

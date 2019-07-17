@@ -14,10 +14,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@koa/router": [
+                "koa__router"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "koa-router-tests.ts"
+        "koa__router-tests.ts"
     ]
 }
