@@ -70,6 +70,7 @@ declare interface EmscriptenModule {
     allocate(slab: any, types: string[], allocator: number, ptr: number): number;
 
     Pointer_stringify(ptr: number, length?: number): string;
+    UTF8ToString(ptr: number, length?: number): string;
     UTF16ToString(ptr: number): string;
     stringToUTF16(str: string, outPtr: number): void;
     UTF32ToString(ptr: number): string;

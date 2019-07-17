@@ -977,9 +977,9 @@ declare namespace Office {
         /**
         * Check if the specified requirement set is supported by the host Office application.
         * @param name - Set name; e.g., "MatrixBindings".
-        * @param minVersion - The minimum required version; e.g., "1.4".
+        * @param minVersion - The minimum required version; e.g., "1.4". Note: String type is recommended data type for this parameter. The use of number type is deprecated and will not be compatible with recent requirement sets.
         */
-       isSetSupported(name: string, minVersion?: number): boolean;
+       isSetSupported(name: string, minVersion?: string | number): boolean;
     }
 
     /**
