@@ -16,7 +16,7 @@ class ReactPagination extends React.Component<{}, {activePage: number}> {
 		});
 	}
 	makePageUrl(pageNumber: number) {
-		return `#;page=${pageNumber}`
+		return `#;page=${pageNumber}`;
 	}
 	render() {
         return (
