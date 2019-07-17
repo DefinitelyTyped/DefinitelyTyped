@@ -411,8 +411,8 @@ stripe.customers.create({
     let metadata: Stripe.IOptionsMetadata;
     const num = 123;
     metadata["test"] = str;
-    metadata["test"] = num;
     metadata["test"] === str;
+    metadata["test"] = num;
     metadata["test"] === num;
     metadata.testStr = str;
     metadata.testNum = num;
