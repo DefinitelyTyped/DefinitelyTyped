@@ -7531,6 +7531,11 @@ export interface LinkingStatic extends NativeEventEmitter {
     canOpenURL(url: string): Promise<boolean>;
 
     /**
+     * Open the Settings app and displays the app’s custom settings, if it has any.
+     */
+    openSettings(): Promise<any>;
+
+    /**
      * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
