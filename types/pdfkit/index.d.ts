@@ -47,6 +47,7 @@ declare namespace PDFKit.Mixins {
     interface PDFAnnotation<TDocument> {
         annotate(x: number, y: number, w: number, h: number, option: AnnotationOption): TDocument;
         note(x: number, y: number, w: number, h: number, content: string, option?: AnnotationOption): TDocument;
+        goTo(x: number, y: number, w: number, h: number, name: string, options?: AnnotationOption): TDocument;
         link(x: number, y: number, w: number, h: number, url: string, option?: AnnotationOption): TDocument;
         highlight(x: number, y: number, w: number, h: number, option?: AnnotationOption): TDocument;
         underline(x: number, y: number, w: number, h: number, option?: AnnotationOption): TDocument;
@@ -89,6 +90,12 @@ declare namespace PDFKit.Mixins {
         scale?: number;
         /** Two elements array specifying dimensions(w,h)  */
         fit?: number[];
+        cover?: boolean;
+        align?: 'center' | 'right';
+        valign?: 'center' | 'bottom';
+        link?: AnnotationOption;
+        goTo?: AnnotationOption;
+        destination?: string;
     }
 
     interface PDFImage<TDocument> {
@@ -136,7 +143,8 @@ declare namespace PDFKit.Mixins {
         continued?: boolean;
 
         /** the alignment of the text (center, justify, left, right) */
-        align?: string;
+        //TODO check this
+        align?: 'center' | 'justify' | 'left' | 'right' | string;
     }
 
     interface PDFText<TDocument> {
