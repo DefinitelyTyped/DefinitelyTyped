@@ -292,6 +292,14 @@ export interface TaggedTemplateLiteralInvocationType<Result = QueryResultRowType
 
 export const sql: SqlTaggedTemplateType;
 
+type IdentifierNormalizerType = (identifierName: string) => string
+
+export interface SqlTagConfigurationType {
+    normalizeIdentifier?: IdentifierNormalizerType
+}
+
+export function createSqlTag(configuration?: SqlTagConfigurationType): SqlTaggedTemplateType;
+
 export interface SqlTaggedTemplateType {
     // tslint:disable-next-line no-unnecessary-generics (the sql<Foo>`select foo` is cleaner in this case than casting with 'as')
     <T = QueryResultRowType>(template: TemplateStringsArray, ...vals: ValueExpressionType[]): SqlSqlTokenType<T>;
