@@ -6,25 +6,20 @@
 
 interface Options {
 	iOSAppId: string;
-	iOSAppLookupUrl?: string;
-	downloadTitle?: string;
-	downloadDescription?: string;
-	downloadDestDirectory?: string;
-	downloadApkName?: string;
-	downloadApkEnd?(path: string): unknown;
-	shouldCheckApkHasDownloaded?: boolean;
-	onError?(): unknown;
+	iOSAppLookupUrl: string;
+	downloadTitle: string;
+	downloadDescription: string;
+	downloadDestDirectory: string;
+	downloadApkName: string;
+	downloadApkEnd(path: string): unknown;
+	shouldCheckApkHasDownloaded: boolean;
+	onError(err: Error): unknown;
 }
 
-// declare namespace RNEasyUpgrade {
-// }
-
 declare class RNEasyUpgrade {
-	constructor(options: Options);
+	constructor(options: Partial<Options>);
 	readonly downloadDestPath: string;
-
 	readonly downloadDestDirectory: string;
-
 	readonly downloading: boolean;
 
 	getNetworkStatus(): Promise<string>;
