@@ -1,4 +1,5 @@
 import haversine = require('haversine');
+import { Feature, Point } from 'geojson';
 
 const start: haversine.CoordinateLongitudeLatitude = {
   longitude: 48.1548256,
@@ -75,12 +76,14 @@ const startGeoJSON = {
     },
 };
 
-const endGeoJSON = {
+// Ensure that types/haversine is compatible with types/geojson.
+const endGeoJSON: Feature<Point> = {
     type: 'Feature',
     geometry: {
         type: 'Point',
         coordinates: endLatLon,
     },
+    properties: {},
 };
 
 const optionsGeoJSON: haversine.Options = {
