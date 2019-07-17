@@ -5,7 +5,7 @@ const apiLimiter = new RateLimit({
   max: 100,
   delayMs: 0 // disabled
 });
-apiLimiter.resetKey("testKey");
+apiLimiter.resetKey('testKey');
 
 const apiLimiterWithMessageObject = new RateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
