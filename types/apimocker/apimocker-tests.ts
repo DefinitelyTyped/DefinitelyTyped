@@ -3,7 +3,11 @@ import * as path from 'path';
 
 const PORT = 7878;
 
-const server = ApiMocker.createServer({ quiet: false }).setConfigFile(path.resolve(__dirname, 'apimocker-test.config'));
+// $ExpectType ApiMocker
+const server = ApiMocker.createServer({ quiet: false });
+
+// $ExpectType ApiMocker
+server.setConfigFile(path.resolve(__dirname, 'apimocker-test.config'));
 
 server.start(PORT, () => {
     console.log(`API mocker started successfully @${PORT}`);
