@@ -11,7 +11,7 @@
 
 /// <reference types="node"/>
 
-import { Url, URL } from 'url';
+import { Url, URL, URLSearchParams } from 'url';
 import * as http from 'http';
 import * as https from 'https';
 import * as nodeStream from 'stream';
@@ -202,7 +202,7 @@ declare namespace got {
         baseUrl?: string;
         cookieJar?: CookieJar;
         encoding?: E;
-        query?: string | object;
+        query?: Record<string, any> | URLSearchParams | string;
         timeout?: number | TimeoutOptions;
         retry?: number | RetryOptions;
         followRedirect?: boolean;
