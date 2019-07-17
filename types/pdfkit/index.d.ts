@@ -89,8 +89,8 @@ declare namespace PDFKit.Mixins {
         /** Scale percentage */
         scale?: number;
         /** Two elements array specifying dimensions(w,h)  */
-        fit?: number[];
-        cover?: boolean;
+        fit?: [number, number];
+        cover?: [number, number];
         align?: 'center' | 'right';
         valign?: 'center' | 'bottom';
         link?: AnnotationOption;
