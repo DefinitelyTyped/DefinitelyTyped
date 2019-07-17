@@ -622,7 +622,7 @@ declare namespace stripe {
         interface StripeSourcePaymentResponse extends StripePaymentResponse {
             source: Source;
         }
-        
+
         interface StripePaymentMethodPaymentResponse extends StripePaymentResponse {
             paymentMethod: paymentMethod.PaymentMethod;
         }
