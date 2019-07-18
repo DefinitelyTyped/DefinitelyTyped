@@ -195,7 +195,7 @@ export abstract class ClassDeclaration extends Decorated {
 export class Concept extends Typed {
     /**
      * Create a Concept.
-     * 
+     *
      * Note: Only to be called by framework code. Applications should
      * retrieve instances from {@link Factory}
      */
@@ -761,7 +761,7 @@ export class Property extends Decorated {
 export abstract class Identifiable extends Typed {
     /**
      * Create an Identifiable.
-     * 
+     *
      * Note: Only to be called by framework code. Applications should
      * retrieve instances from {@link Factory}
      */
@@ -808,7 +808,7 @@ export abstract class Identifiable extends Typed {
 export class Relationship extends Identifiable {
     /**
      * Create a Relationship.
-     * 
+     *
      * Note: Only to be called by framework code. Applications should
      * retrieve instances from {@link Factory}
      */
@@ -841,10 +841,10 @@ export class RelationshipDeclaration extends Property {
 /**
  * Resource is an instance that has a type. The type of the resource
  * specifies a set of properites (which themselves have types).
- * 
+ *
  * Type information in Composer is used to validate the structure of
  * Resource instances and for serialization.
- * 
+ *
  * Resources are used in Composer to represent Assets, Participants, Transactions and
  * other domain classes that can be serialized for long-term persistent storage.
  */
