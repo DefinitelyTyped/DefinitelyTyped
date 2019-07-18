@@ -536,12 +536,14 @@ export interface NormalizationStream {
 interface NormalizationLiteral {
     readonly kind: string; // 'Literal';
     readonly name: string;
+    readonly type?: string | null;
     readonly value: unknown;
 }
 
 interface NormalizationVariable {
     readonly kind: string; // 'Variable';
     readonly name: string;
+    readonly type?: string | null;
     readonly variableName: string;
 }
 
@@ -698,6 +700,7 @@ interface ReaderLiteral {
 interface ReaderVariable {
     readonly kind: string; // 'Variable';
     readonly name: string;
+    readonly type?: string | null;
     readonly variableName: string;
 }
 

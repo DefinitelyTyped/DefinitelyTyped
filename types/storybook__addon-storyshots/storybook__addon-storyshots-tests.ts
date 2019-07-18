@@ -46,6 +46,16 @@ initStoryshots({
 });
 
 initStoryshots({
+    configPath: '',
+    test: renderWithOptions(story => ({
+        createNodeMock: () => {
+            story.name;
+            return undefined;
+        },
+    })),
+});
+
+initStoryshots({
     configPath: "",
     test: imageSnapshot({
         storybookUrl: "http://localhost:9002"

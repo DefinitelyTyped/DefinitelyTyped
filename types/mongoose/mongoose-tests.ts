@@ -804,7 +804,7 @@ ImageModel.findOne({}, function(err, doc) {
 /* Using flatten maps example */
 interface Submission extends mongoose.Document {
   name: string;
-  fields: string[];
+  fields: Record<string,string>;
 }
 var SubmissionSchema = new mongoose.Schema({
   name: String,

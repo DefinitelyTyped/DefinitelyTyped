@@ -44,7 +44,7 @@ export interface RenderAttributes {
 export interface RenderMarkProps {
     attributes: RenderAttributes;
     children: React.ReactNode;
-    editor: CoreEditor;
+    editor: Editor;
     mark: Mark;
     marks: Immutable.Set<Mark>;
     node: Node;
@@ -53,14 +53,14 @@ export interface RenderMarkProps {
 }
 
 export interface RenderNodeProps {
-  attributes: RenderAttributes;
-  children: React.ReactNode;
-  editor: CoreEditor;
-  isFocused: boolean;
-  isSelected: boolean;
-  key: string;
-  parent: Node;
-  readOnly: boolean;
+    attributes: RenderAttributes;
+    children: React.ReactNode;
+    editor: Editor;
+    isFocused: boolean;
+    isSelected: boolean;
+    key: string;
+    parent: Node;
+    readOnly: boolean;
 }
 
 export interface RenderBlockProps extends RenderNodeProps {
@@ -111,14 +111,17 @@ export interface Plugin extends CorePlugin {
     onSelect?: EventHook;
 }
 
+export type PluginOrPlugins = Plugin | Plugins;
+export interface Plugins extends Array<PluginOrPlugins> {}
+
 export interface BasicEditorProps {
     value: Value;
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => any;
     placeholder?: any;
-    plugins?: Plugin[];
+    plugins?: Plugins;
     readOnly?: boolean;
     role?: string;
     schema?: SchemaProperties;

@@ -5,6 +5,12 @@
 // TypeScript Version: 3.5
 
 import { ComponentType } from '@wordpress/element';
+import { dispatch, select } from '@wordpress/data';
+
+declare module '@wordpress/data' {
+    function dispatch(key: 'core/rich-text'): typeof import('./store/actions');
+    function select(key: 'core/rich-text'): typeof import('./store/selectors');
+}
 
 export interface FormatProps {
     value: Value;
@@ -26,6 +32,10 @@ export interface FormatConfiguration {
      */
     attributes?: Record<string, string>;
     edit: ComponentType<FormatProps>;
+}
+
+export interface NamedFormatConfiguration extends FormatConfiguration {
+    name: string;
 }
 
 export interface Format {
@@ -210,10 +220,9 @@ export function join(values: readonly Value[], separator?: Value | string): Valu
  * @param name - Format name.
  * @param config - Format settings.
  *
- * @returns The same `FormatConfiguration` that was passed in if it has been
- * successfully registered, otherwise `undefined`.
+ * @returns `NamedFormatConfiguration` if successful, otherwise `undefined`.
  */
-export function registerFormatType(name: string, config: FormatConfiguration): FormatConfiguration | undefined;
+export function registerFormatType(name: string, config: FormatConfiguration): NamedFormatConfiguration | undefined;
 
 /**
  * Remove content from a Rich Text value between the given `startIndex` and
@@ -311,4 +320,4 @@ export function toggleFormat(value: Value, format: Format): Value;
  * @returns The previous format value, if it has been successfully
  *   unregistered; otherwise `undefined`.
  */
-export function unregisterFormatType(name: string): FormatConfiguration | undefined;
+export function unregisterFormatType(name: string): NamedFormatConfiguration | undefined;

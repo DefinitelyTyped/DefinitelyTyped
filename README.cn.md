@@ -114,7 +114,7 @@ npm install --save-dev @types/node
 
 如果你是库作者并且你的包是用 TypeScript 编写的，那么请在你的包里 [捆绑自动生成的声明文件](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) 而不是发布到 Definitely Typed.
 
-如果你要为 NPM 包添加类型，清创建具有相同名字的目录。
+如果你要为 NPM 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 NPM 上，请确保为它选择的名字不会与 NPM 上面的包名冲突。
 (你可以使用 `npm info foo` 来检查 `foo` 包是否存在。)
 

@@ -408,7 +408,7 @@ export interface Data {
      * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that
      * represents color (e.g. '#00ff00').
      */
-    color?(color: string, d: any): string | d3.RGBColor;
+    color?(color: string, d: any): string | d3.RGBColor | d3.HSLColor;
     /**
      * Set color for each data.
      */
@@ -416,7 +416,8 @@ export interface Data {
         [key: string]:
             | string
             | d3.RGBColor
-            | ((d: any) => string | d3.RGBColor);
+            | d3.HSLColor
+            | ((d: any) => string | d3.RGBColor | d3.HSLColor);
     };
     /**
      * Hide each data when the chart appears.
@@ -966,7 +967,7 @@ export interface ChartAPI {
         classes?: { [key: string]: string };
         categories?: string[];
         axes?: { [key: string]: string };
-        colors?: { [key: string]: string | d3.RGBColor };
+        colors?: { [key: string]: string | d3.RGBColor | d3.HSLColor };
         type?: string;
         types?: { [key: string]: string };
         unload?: boolean | ArrayOrString;
@@ -1079,7 +1080,7 @@ export interface ChartAPI {
          * @param colors If this argument is given, the colors of data will be updated. If not given, the current colors will be returned. The format of this argument is the same as data.colors.
          */
         colors(colors?: {
-            [key: string]: string | d3.RGBColor;
+            [key: string]: string | d3.RGBColor | d3.HSLColor;
         }): { [key: string]: string };
         /**
          * Get and set axes of the data loaded in the chart.

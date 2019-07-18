@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Level } from 'level-js';
+import Level = require('level-js');
 
 const db = Level('bigData');
 const dbClass = new Level('bigData');
