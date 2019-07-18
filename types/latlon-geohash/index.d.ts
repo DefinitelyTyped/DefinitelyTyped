@@ -56,7 +56,7 @@ export function encode(
  * Decode geohash to latitude/longitude (location is approximate centre of geohash cell,
  *     to reasonable precision).
  *
- * @param   geohash - Geohash string to be converted to latitude/longitude.
+ * @param geohash to be converted to latitude/longitude.
  * @returns (Center of) geohashed location.
  * @throws  Invalid geohash.
  *

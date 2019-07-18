@@ -38,18 +38,18 @@ export interface Point {
     lat: number;
     lon: number;
     elevation: number;
-    elevationType: ElevationType
+    elevationType: ElevationType;
 }
 
 export interface EncodeOptions {
-    elevation: number,
-    elevationType: ElevationType
+    elevation: number;
+    elevationType: ElevationType;
 }
 
 export interface GeohashWithElevation {
-    elevation: number,
-    elevationType: ElevationType,
-    geohash: string
+    elevation: number;
+    elevationType: ElevationType;
+    geohash: string;
 }
 
  /**
