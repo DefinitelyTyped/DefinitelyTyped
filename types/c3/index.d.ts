@@ -1203,6 +1203,17 @@ export interface ChartAPI {
      * Reset the chart object and remove element and events completely.
      */
     destroy(): void;
+
+    internal: ChartInternal;
+}
+
+export interface ChartInternal {
+    d3: typeof d3 | undefined;
+    api: ChartAPI;
+    config: Record<string, any>;
+    data: unknown;
+    cache: unknown;
+    axes: unknown;
 }
 
 export interface GridOperations {
