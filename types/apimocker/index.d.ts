@@ -2,11 +2,11 @@
 // Project: https://www.npmjs.com/package/apimocker
 // Definitions by: Uchenna <https://github.com/uchilaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.2
 
 import { RequestHandler, Application } from 'express';
 
-export interface configOptions {
+export interface ConfigOptions {
     port?: string;
     mockDirectory?: string;
     allowedDomains?: string[];
@@ -40,7 +40,7 @@ export interface ApiMocker {
 
 export const middlewares: RequestHandler[];
 
-export function createServer(options?: configOptions): ApiMocker;
+export function createServer(options?: ConfigOptions): ApiMocker;
 
 export function setConfigFile(file: string): ApiMocker;
 
