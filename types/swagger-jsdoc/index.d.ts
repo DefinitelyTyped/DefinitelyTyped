@@ -1,4 +1,4 @@
-// Type definitions for swagger-jsdoc 3.3
+// Type definitions for swagger-jsdoc 3.0
 // Project: https://github.com/surnet/swagger-jsdoc
 // Definitions by: Daniel Grove <https://github.com/drGrove>
 //                 Neil Bryson Cargamento <https://github.com/neilbryson>
