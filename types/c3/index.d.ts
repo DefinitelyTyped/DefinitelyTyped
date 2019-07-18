@@ -313,7 +313,7 @@ export interface Data {
     /**
      * Parse a JSON object for data.
      */
-    json?: {};
+    json?: Record<string | number, unknown>;
     /**
      * Load data from a multidimensional array, with the first element containing the data names, the following containing related data in that order.
      */
@@ -958,7 +958,7 @@ export interface ChartAPI {
      */
     load(args: {
         url?: string;
-        json?: {};
+        json?: Record<string | number, unknown>;
         keys?: { x?: string; value: string[] };
         rows?: PrimitiveArray[];
         columns?: PrimitiveArray[];
@@ -992,7 +992,7 @@ export interface ChartAPI {
      * If done is given, the specified function will be called when flow ends.
      */
     flow(args: {
-        json?: {};
+        json?: Record<string | number, unknown>;
         keys?: { x?: string; value: string[] };
         rows?: PrimitiveArray[];
         columns?: PrimitiveArray[];
@@ -1210,10 +1210,273 @@ export interface ChartAPI {
 export interface ChartInternal {
     d3: typeof d3 | undefined;
     api: ChartAPI;
-    config: Record<string, any>;
+    config: InternalConfig;
     data: unknown;
     cache: unknown;
     axes: unknown;
+    getDefaultConfig: () => InternalConfig;
+    additionalConfig: Record<string | number, any>;
+    loadConfig: (config: Partial<InternalConfig>) => void;
+}
+
+export interface InternalConfig {
+    bindto: unknown;
+    svg_classname: string | undefined;
+    size_width: number | undefined;
+    size_height: number | undefined;
+    padding_left: number | undefined;
+    padding_right: number | undefined;
+    padding_top: number | undefined;
+    padding_bottom: number | undefined;
+    resize_auto: boolean;
+    zoom_enabled: boolean;
+    zoom_initialRange: number | undefined;
+    zoom_type: string;
+    zoom_disableDefaultBehavior: boolean;
+    zoom_privileged: boolean;
+    zoom_rescale: boolean;
+    zoom_onzoom: () => void;
+    zoom_onzoomstart: () => void;
+    zoom_onzoomend: () => void;
+    zoom_x_min: number | undefined;
+    zoom_x_max: number | undefined;
+    interaction_brighten: boolean;
+    interaction_enabled: boolean;
+    onmouseover: () => void;
+    onmouseout: () => void;
+    onresize: () => void;
+    onresized: () => void;
+    oninit: () => void;
+    onrendered: () => void;
+    transition_duration: number;
+    data_epochs: string;
+    data_x: unknown | undefined;
+    data_xs: Record<string | number, unknown>;
+    data_xFormat: string;
+    data_xLocaltime: boolean;
+    data_xSort: boolean;
+    data_idConverter: <T extends unknown>(id: T) => T;
+    data_names: Record<string | number, unknown>;
+    data_classes: Record<string | number, unknown>;
+    data_groups: unknown[];
+    data_axes: Record<string | number, unknown>;
+    data_type: unknown | undefined;
+    data_types: Record<string | number, unknown>;
+    data_labels: Record<string | number, unknown>;
+    data_order: 'desc';
+    data_regions: Record<string | number, unknown>;
+    data_color: unknown | undefined;
+    data_colors: Record<string | number, unknown>;
+    data_hide: boolean;
+    data_filter: unknown | undefined;
+    data_selection_enabled: boolean;
+    data_selection_grouped: boolean;
+    data_selection_isselectable: () => boolean;
+    data_selection_multiple: boolean;
+    data_selection_draggable: boolean;
+    data_onclick: () => void;
+    data_onmouseover: () => void;
+    data_onmouseout: () => void;
+    data_onselected: () => void;
+    data_onunselected: () => void;
+    data_url: unknown | undefined;
+    data_headers: unknown | undefined;
+    data_json: unknown | undefined;
+    data_rows: unknown | undefined;
+    data_columns: unknown | undefined;
+    data_mimeType: unknown | undefined;
+    data_keys: unknown | undefined;
+
+    data_empty_label_text: string;
+
+    subchart_show: boolean;
+    subchart_size_height: number;
+    subchart_axis_x_show: boolean;
+    subchart_onbrush: () => void;
+
+    color_pattern: unknown[];
+    color_threshold: Record<string | number, unknown>;
+
+    legend_show: boolean;
+    legend_hide: boolean;
+    legend_position: string;
+    legend_inset_anchor: string;
+    legend_inset_x: number;
+    legend_inset_y: number;
+    legend_inset_step: unknown | undefined;
+    legend_item_onclick: unknown | undefined;
+    legend_item_onmouseover: unknown | undefined;
+    legend_item_onmouseout: unknown | undefined;
+    legend_equally: boolean;
+    legend_padding: number;
+    legend_item_tile_width: number;
+    legend_item_tile_height: number;
+
+    axis_rotated: boolean;
+    axis_x_show: boolean;
+    axis_x_type: 'indexed';
+    axis_x_localtime: boolean;
+    axis_x_categories: unknown[];
+    axis_x_tick_centered: boolean;
+    axis_x_tick_format: unknown | undefined;
+    axis_x_tick_culling: Record<string | number, unknown>;
+    axis_x_tick_culling_max: number;
+    axis_x_tick_count: unknown | undefined;
+    axis_x_tick_fit: boolean;
+    axis_x_tick_values: unknown | null;
+    axis_x_tick_rotate: number;
+    axis_x_tick_outer: boolean;
+    axis_x_tick_multiline: boolean;
+    axis_x_tick_multilineMax: number;
+    axis_x_tick_width: unknown | null;
+    axis_x_max: unknown | undefined;
+    axis_x_min: unknown | undefined;
+    axis_x_padding: Record<string | number, unknown>;
+    axis_x_height: unknown | undefined;
+    axis_x_selection: unknown | undefined;
+    axis_x_label: Record<string | number, unknown>;
+    axis_x_inner: unknown | undefined;
+    axis_y_show: boolean;
+    axis_y_type: unknown | undefined;
+    axis_y_max: unknown | undefined;
+    axis_y_min: unknown | undefined;
+    axis_y_inverted: boolean;
+    axis_y_center: unknown | undefined;
+    axis_y_inner: unknown | undefined;
+    axis_y_label: Record<string | number, unknown>;
+    axis_y_tick_format: unknown | undefined;
+    axis_y_tick_outer: boolean;
+    axis_y_tick_values: unknown | null;
+    axis_y_tick_rotate: number;
+    axis_y_tick_count: unknown | undefined;
+    axis_y_tick_time_type: unknown | undefined;
+    axis_y_tick_time_interval: unknown | undefined;
+    axis_y_padding: Record<string | number, unknown>;
+    axis_y_default: unknown | undefined;
+    axis_y2_show: boolean;
+    axis_y2_max: unknown | undefined;
+    axis_y2_min: unknown | undefined;
+    axis_y2_inverted: boolean;
+    axis_y2_center: unknown | undefined;
+    axis_y2_inner: unknown | undefined;
+    axis_y2_label: Record<string | number, unknown>;
+    axis_y2_tick_format: unknown | undefined;
+    axis_y2_tick_outer: boolean;
+    axis_y2_tick_values: unknown | null;
+    axis_y2_tick_count: unknown | undefined;
+    axis_y2_padding: Record<string | number, unknown>;
+    axis_y2_default: unknown | undefined;
+
+    grid_x_show: boolean;
+    grid_x_type: string;
+    grid_x_lines: unknown[];
+    grid_y_show: boolean;
+    // not used
+    // grid_y_type: string,
+
+    grid_y_lines: unknown[];
+    grid_y_ticks: number;
+    grid_focus_show: boolean;
+    grid_lines_front: boolean;
+
+    point_show: boolean;
+    point_r: number;
+    point_sensitivity: number;
+    point_focus_expand_enabled: boolean;
+    point_focus_expand_r: unknown | undefined;
+    point_select_r: unknown | undefined;
+
+    line_connectNull: boolean;
+    line_step_type: string;
+
+    bar_width: unknown | undefined;
+    bar_width_ratio: number;
+    bar_width_max: unknown | undefined;
+    bar_zerobased: boolean;
+    bar_space: number;
+
+    area_zerobased: boolean;
+    area_above: boolean;
+
+    pie_label_show: boolean;
+    pie_label_format: unknown | undefined;
+    pie_label_threshold: number;
+    pie_label_ratio: unknown | undefined;
+    pie_expand: Record<string | number, unknown>;
+    pie_expand_duration: number;
+
+    gauge_fullCircle: boolean;
+    gauge_label_show: boolean;
+    gauge_labelLine_show: boolean;
+    gauge_label_format: unknown | undefined;
+    gauge_min: number;
+    gauge_max: number;
+    gauge_startingAngle: number;
+    gauge_label_extents: unknown | undefined;
+    gauge_units: unknown | undefined;
+    gauge_width: unknown | undefined;
+    gauge_arcs_minWidth: number;
+    gauge_expand: Record<string | number, unknown>;
+    gauge_expand_duration: number;
+
+    donut_label_show: boolean;
+    donut_label_format: unknown | undefined;
+    donut_label_threshold: number;
+    donut_label_ratio: unknown | undefined;
+    donut_width: unknown | undefined;
+    donut_title: string;
+    donut_expand: Record<string | number, unknown>;
+    donut_expand_duration: number;
+
+    spline_interpolation_type: string;
+
+    stanford_lines: unknown[];
+    stanford_regions: unknown[];
+    stanford_texts: unknown[];
+    stanford_scaleMin: unknown | undefined;
+    stanford_scaleMax: unknown | undefined;
+    stanford_scaleWidth: unknown | undefined;
+    stanford_scaleFormat: unknown | undefined;
+    stanford_scaleValues: unknown | undefined;
+    stanford_colors: unknown | undefined;
+    stanford_padding: {
+        top: number;
+        right: number;
+        bottom: number;
+        left: number;
+    };
+
+    regions: unknown[];
+
+    tooltip_show: boolean;
+    tooltip_grouped: boolean;
+    tooltip_order: unknown | undefined;
+    tooltip_format_title: unknown | undefined;
+    tooltip_format_name: unknown | undefined;
+    tooltip_format_value: unknown | undefined;
+    tooltip_horizontal: unknown | undefined;
+    tooltip_position: unknown | undefined;
+    tooltip_contents: (d: unknown, defaultTitleFormat: unknown, defaultValueFormat: unknown, color: unknown) => string;
+    tooltip_init_show: boolean;
+    tooltip_init_x: number;
+    tooltip_init_position: {
+        top: string;
+        left: string;
+    };
+    tooltip_onshow: () => void;
+    tooltip_onhide: () => void;
+
+    title_text: unknown | undefined;
+    title_padding: {
+        top: number;
+        right: number;
+        bottom: number;
+        left: number;
+    };
+    title_position: string;
+
+    [key: string]: any;
+    [key: number]: any;
 }
 
 export interface GridOperations {
