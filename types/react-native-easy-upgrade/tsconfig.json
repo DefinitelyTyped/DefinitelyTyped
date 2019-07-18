@@ -5,6 +5,7 @@
         "lib": [
             "es6"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,

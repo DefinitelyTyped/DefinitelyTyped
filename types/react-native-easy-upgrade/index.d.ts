@@ -2,7 +2,6 @@
 // Project: https://github.com/react-native-org/react-native-easy-upgrade#readme
 // Definitions by: taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 interface Options {
 	iOSAppId: string;
@@ -11,12 +10,12 @@ interface Options {
 	downloadDescription: string;
 	downloadDestDirectory: string;
 	downloadApkName: string;
-	downloadApkEnd(path: string): unknown;
+	downloadApkEnd(path: string): any;
 	shouldCheckApkHasDownloaded: boolean;
-	onError(err: Error): unknown;
+	onError(err: Error): any;
 }
 
-declare class RNEasyUpgrade {
+declare class AppUpgrade {
 	constructor(options: Partial<Options>);
 	readonly downloadDestPath: string;
 	readonly downloadDestDirectory: string;
@@ -67,7 +66,7 @@ declare class RNEasyUpgrade {
 		lookupInfo: {
 			version: string;
 			trackViewUrl: string;
-			[key: string]: unknown;
+			[key: string]: any;
 		}
 	}>;
 
@@ -79,4 +78,4 @@ declare class RNEasyUpgrade {
 	startAppUpdate(apkUrl: string, appStoreUrl?: string): void;
 }
 
-export default RNEasyUpgrade;
+export default AppUpgrade;
