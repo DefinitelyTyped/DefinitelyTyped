@@ -1295,7 +1295,7 @@ export interface ChartInternal {
         width: number;
         height: number;
     };
-    CLASS?: unknown;
+    CLASS?: Classes;
 
     [key: string]: any;
 }
@@ -1571,6 +1571,95 @@ export interface InternalConfig {
 
     [key: string]: any;
     [key: number]: any;
+}
+
+// Including the default strings doesn't affect typing (yet) but it could be useful
+export interface Classes {
+    target: 'c3-target' | string;
+    chart: 'c3-chart' | string;
+    chartLine: 'c3-chart-line' | string;
+    chartLines: 'c3-chart-lines' | string;
+    chartBar: 'c3-chart-bar' | string;
+    chartBars: 'c3-chart-bars' | string;
+    chartText: 'c3-chart-text' | string;
+    chartTexts: 'c3-chart-texts' | string;
+    chartArc: 'c3-chart-arc' | string;
+    chartArcs: 'c3-chart-arcs' | string;
+    chartArcsTitle: 'c3-chart-arcs-title' | string;
+    chartArcsBackground: 'c3-chart-arcs-background' | string;
+    chartArcsGaugeUnit: 'c3-chart-arcs-gauge-unit' | string;
+    chartArcsGaugeMax: 'c3-chart-arcs-gauge-max' | string;
+    chartArcsGaugeMin: 'c3-chart-arcs-gauge-min' | string;
+    selectedCircle: 'c3-selected-circle' | string;
+    selectedCircles: 'c3-selected-circles' | string;
+    eventRect: 'c3-event-rect' | string;
+    eventRects: 'c3-event-rects' | string;
+    eventRectsSingle: 'c3-event-rects-single' | string;
+    eventRectsMultiple: 'c3-event-rects-multiple' | string;
+    zoomRect: 'c3-zoom-rect' | string;
+    brush: 'c3-brush' | string;
+    dragZoom: 'c3-drag-zoom' | string;
+    focused: 'c3-focused' | string;
+    defocused: 'c3-defocused' | string;
+    region: 'c3-region' | string;
+    regions: 'c3-regions' | string;
+    title: 'c3-title' | string;
+    tooltipContainer: 'c3-tooltip-container' | string;
+    tooltip: 'c3-tooltip' | string;
+    tooltipName: 'c3-tooltip-name' | string;
+    shape: 'c3-shape' | string;
+    shapes: 'c3-shapes' | string;
+    line: 'c3-line' | string;
+    lines: 'c3-lines' | string;
+    bar: 'c3-bar' | string;
+    bars: 'c3-bars' | string;
+    circle: 'c3-circle' | string;
+    circles: 'c3-circles' | string;
+    arc: 'c3-arc' | string;
+    arcLabelLine: 'c3-arc-label-line' | string;
+    arcs: 'c3-arcs' | string;
+    area: 'c3-area' | string;
+    areas: 'c3-areas' | string;
+    empty: 'c3-empty' | string;
+    text: 'c3-text' | string;
+    texts: 'c3-texts' | string;
+    gaugeValue: 'c3-gauge-value' | string;
+    grid: 'c3-grid' | string;
+    gridLines: 'c3-grid-lines' | string;
+    xgrid: 'c3-xgrid' | string;
+    xgrids: 'c3-xgrids' | string;
+    xgridLine: 'c3-xgrid-line' | string;
+    xgridLines: 'c3-xgrid-lines' | string;
+    xgridFocus: 'c3-xgrid-focus' | string;
+    ygrid: 'c3-ygrid' | string;
+    ygrids: 'c3-ygrids' | string;
+    ygridLine: 'c3-ygrid-line' | string;
+    ygridLines: 'c3-ygrid-lines' | string;
+    colorScale: 'c3-colorscale' | string;
+    stanfordElements: 'c3-stanford-elements' | string;
+    stanfordLine: 'c3-stanford-line' | string;
+    stanfordLines: 'c3-stanford-lines' | string;
+    stanfordRegion: 'c3-stanford-region' | string;
+    stanfordRegions: 'c3-stanford-regions' | string;
+    stanfordText: 'c3-stanford-text' | string;
+    stanfordTexts: 'c3-stanford-texts' | string;
+    axis: 'c3-axis' | string;
+    axisX: 'c3-axis-x' | string;
+    axisXLabel: 'c3-axis-x-label' | string;
+    axisY: 'c3-axis-y' | string;
+    axisYLabel: 'c3-axis-y-label' | string;
+    axisY2: 'c3-axis-y2' | string;
+    axisY2Label: 'c3-axis-y2-label' | string;
+    legendBackground: 'c3-legend-background' | string;
+    legendItem: 'c3-legend-item' | string;
+    legendItemEvent: 'c3-legend-item-event' | string;
+    legendItemTile: 'c3-legend-item-tile' | string;
+    legendItemHidden: 'c3-legend-item-hidden' | string;
+    legendItemFocused: 'c3-legend-item-focused' | string;
+    dragarea: 'c3-dragarea' | string;
+    EXPANDED: '_expanded_' | string;
+    SELECTED: '_selected_' | string;
+    INCLUDED: '_included_' | string;
 }
 
 export interface GridOperations {
