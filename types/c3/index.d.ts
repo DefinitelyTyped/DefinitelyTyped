@@ -1214,9 +1214,103 @@ export interface ChartInternal {
     data: unknown;
     cache: unknown;
     axes: unknown;
-    getDefaultConfig: () => InternalConfig;
-    additionalConfig: Record<string | number, any>;
-    loadConfig: (config: Partial<InternalConfig>) => void;
+
+    getDefaultConfig?: () => InternalConfig;
+    additionalConfig?: Record<string | number, any>;
+    loadConfig?: (config: Partial<InternalConfig>) => void;
+
+    beforeInit?: () => void;
+    afterInit?: () => void;
+    init?: () => void;
+    initParams?: () => void;
+    initChartElements?: () => void;
+    initWithData?: () => void;
+    smoothLines?: (el: unknown[], type: string) => void;
+    updateSizes?: () => void;
+    updateTargets?: (targets: unknown) => void;
+    showTargets?: () => void;
+    redraw?: (options: RedrawOptions, transitions: unknown) => void;
+    updateAndRedraw?: (options: UpdateAndRedrawOptions) => void;
+    redrawWithoutRescale?: () => void;
+    isTimeSeries?: () => boolean;
+    isCategorized?: () => boolean;
+    isCustomX?: () => boolean;
+    isTimeSeriesY?: () => boolean;
+    getTranslate?: (target: 'main' | 'context' | 'legend' | 'x' | 'y' | 'y2' | 'subx' | 'arc') => string;
+    initialOpacity?: (d: Record<string, unknown>) => 1 | 0;
+    initialOpacityForCircle?: (d: Record<string, unknown>) => number;
+    opacityForCircle?: (d: Record<string, unknown>) => number;
+    opacityForText?: () => 1 | 0;
+    xx?: (d: Record<string, unknown>) => unknown | null;
+    xvCustom?: (d: Record<string | number, unknown>, xyValue: number | string | undefined | null) => number;
+    yvCustom?: (d: Record<string | number, unknown>, xyValue: number | string | undefined | null) => number;
+    xv?: (d: Record<string, unknown>) => number;
+    yv?: (d: Record<string, unknown>) => number;
+    subxx?: (d: Record<string, unknown>) => unknown | null;
+    transformMain?: (withTransition: boolean, transitions: Record<string, unknown>) => void;
+    transformAll?: (withTransition: boolean, transitions: Record<string, unknown>) => void;
+    updateSvgSize?: () => void;
+    updateDimension?: (withoutAxis: boolean) => void;
+    observeInserted?: <T extends { node: () => Node }>(selection: T) => void;
+
+    /**
+     * Binds handlers to the window resize event.
+     */
+    bindResize?: () => void;
+
+    /**
+     * Binds handlers to the window focus event.
+     */
+    bindWindowFocus?: () => void;
+
+    /**
+     * Unbinds from the window focus event.
+     */
+    unbindWindowFocus?: () => void;
+
+    generateResize?: <T = () => any>() => {
+        (): void;
+        add: (f: () => any) => void;
+        remove: (f: () => any) => void;
+    };
+
+    endall?: <
+        S extends { on: (event: string, callback: () => void) => any }, 
+        T extends { each: (callback: () => void) => S }
+    >(
+        transition: T,
+        callback: (...args: any[]) => any
+    ) => void;
+    
+    generateWait?: <T extends {empty: () => boolean; transition: () => any}>() => {
+        (callback: () => any): void;
+        add: (transition: T) => void;
+    }
+
+    parseDate?: (date: Date | string | object | number) => Date;
+    isTabVisible?: () => boolean;
+    getPathBox?: (path: SVGPathElement) => {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    CLASS?: unknown;
+
+    [key: string]: any;
+}
+
+interface GenerateResizeReturn extends Function {
+    add: (f: Function) => void;
+    remove: (f: Function) => void;
+}
+
+export interface RedrawOptions {
+    [key: string]: boolean
+}
+
+export interface UpdateAndRedrawOptions {
+    [key: string]: boolean
 }
 
 export interface InternalConfig {
