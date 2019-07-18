@@ -1,4 +1,4 @@
-// Type definitions for webpack 4.4
+// Type definitions for webpack 4.32
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Benjamin Lim <https://github.com/bumbleblym>
@@ -1924,6 +1924,11 @@ declare namespace webpack {
              * Access to the compilation's inputFileSystem property.
              */
             fs: any;
+
+            /**
+             * Which mode is webpack running.
+             */
+            mode: 'production' | 'development' | 'none';
 
             /**
              * Hacky access to the Compilation object of webpack.
