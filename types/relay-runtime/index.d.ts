@@ -422,6 +422,7 @@ interface RecordSource {
     has(dataID: DataID): boolean;
     load(dataID: DataID, callback: (error: Error | null | undefined, record: Record | null | undefined) => void): void;
     size(): number;
+    toJSON(): Record;
 }
 export { RecordSource as IRecordSource };
 
@@ -1027,6 +1028,7 @@ declare class RelayInMemoryRecordSource implements MutableRecordSource {
     remove(dataID: DataID): void;
     set(dataID: DataID, record: Record): void;
     size(): number;
+    toJSON(): Record;
 }
 export { RelayInMemoryRecordSource as RecordSource };
 
