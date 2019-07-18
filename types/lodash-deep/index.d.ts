@@ -2,6 +2,7 @@
 // Project: https://github.com/marklagendijk/lodash-deep
 // Definitions by: Remo uzust01 <https://github.com/uzust01/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 
 import * as _ from 'lodash';
