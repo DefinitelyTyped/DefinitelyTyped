@@ -29,11 +29,11 @@ export interface ApiMocker {
      */
     setRoute: (options: any) => void;
     /**
-     * @TODO inspect Express.Application.start
+     * Start a new instance of API Mocker
      */
     start: (serverPort: string | number, callback?: () => void) => ApiMocker;
     /**
-     * @TODO inspect Express.Application.close
+     * Stop the referenced instance of API Mocker
      */
     stop: (callback?: () => void) => ApiMocker;
 }
