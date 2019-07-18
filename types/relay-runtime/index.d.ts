@@ -700,6 +700,7 @@ interface ReaderLiteral {
 interface ReaderVariable {
     readonly kind: string; // 'Variable';
     readonly name: string;
+    readonly type?: string | null;
     readonly variableName: string;
 }
 
