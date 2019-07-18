@@ -17,7 +17,8 @@
         "paths": {
             "d3": [
                 "d3/v3"
-            ]
+            ],
+            "@dagrejs/graphlib": ["dagrejs__graphlib"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
