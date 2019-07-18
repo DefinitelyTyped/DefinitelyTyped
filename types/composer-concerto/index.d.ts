@@ -765,7 +765,13 @@ export abstract class Identifiable extends Typed {
      * Note: Only to be called by framework code. Applications should
      * retrieve instances from {@link Factory}
      */
-    constructor(modelManager: ModelManager, classDeclaration: ClassDeclaration, ns: string, type: string, id: string);
+    constructor(
+        modelManager: ModelManager,
+        classDeclaration: ClassDeclaration,
+        ns: string,
+        type: string,
+        id: string
+    );
     /**
      * Get the identifier of this instance
      */
@@ -812,7 +818,13 @@ export class Relationship extends Identifiable {
      * Note: Only to be called by framework code. Applications should
      * retrieve instances from {@link Factory}
      */
-    constructor(modelManager: ModelManager, classDeclaration: ClassDeclaration, ns: string, type: string, id: string);
+    constructor(
+        modelManager: ModelManager,
+        classDeclaration: ClassDeclaration,
+        ns: string,
+        type: string,
+        id: string
+    );
     /**
      * Determine if this identifiable is a relationship.
      */
@@ -820,7 +832,12 @@ export class Relationship extends Identifiable {
     /**
      * Contructs a Relationship instance from a URI representation (created using toURI).
      */
-    static fromURI(modelManager: ModelManager, uriAsstring: string, defaultNamespace?: string, defaultType?: string): Relationship;
+    static fromURI(
+        modelManager: ModelManager,
+        uriAsstring: string,
+        defaultNamespace?: string,
+        defaultType?: string
+    ): Relationship;
 }
 
 /**
