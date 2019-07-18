@@ -1,9 +1,8 @@
-// Type definitions for lodash-deep v 2.0
-// Project: https://github.com/marklagendijk/lodash-deep
-// Definitions by: Remo uzust01 <https://github.com/uzust01/>
+// Type definitions for lodash-deep 2.0
+// Project: https://github.com/DefinitelyTyped/lodash-deep
+// Definitions by: Stan <https://github.com/uzust01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-
 
 import * as _ from 'lodash';
 
@@ -22,4 +21,3 @@ export function deepMapValues(
     callback: any,
     propertyPath?: any
 ): any;
-
