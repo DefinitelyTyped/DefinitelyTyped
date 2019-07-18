@@ -18668,6 +18668,7 @@ declare namespace Excel {
     /**
      *
      * Workbook is the top level object which contains related workbook objects such as worksheets, tables, ranges, etc.
+     * To learn more about the workbook object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-workbooks | Work with workbooks using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -19025,6 +19026,7 @@ declare namespace Excel {
     /**
      *
      * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
+     * To learn more about the worksheet object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-worksheets | Work with worksheets using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -19862,6 +19864,7 @@ declare namespace Excel {
     /**
      *
      * Range represents a set of one or more contiguous cells such as a cell, a row, a column, block of cells, etc.
+     * To learn more about how ranges are used throughout the API, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges | Work with ranges using the Excel JavaScript API} and {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-ranges-advanced | Work with ranges using the Excel JavaScript API (advanced)}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -20698,6 +20701,7 @@ declare namespace Excel {
     /**
      *
      * RangeAreas represents a collection of one or more rectangular ranges in the same worksheet.
+     * To learn how to use discontinguous ranges, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-multiple-ranges | Work with multiple ranges simultaneously in Excel add-ins}.
      *
      * [Api set: ExcelApi 1.9]
      */
@@ -22532,6 +22536,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel table.
+     * To learn more about the table object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-tables | Work with tables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -23141,6 +23146,7 @@ declare namespace Excel {
     /**
      *
      * Represents the data validation applied to the current range.
+     * To learn more about the data validation object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-data-validation | Add data validation to Excel ranges}.
      *
      * [Api set: ExcelApi 1.8]
      */
@@ -24303,6 +24309,7 @@ declare namespace Excel {
     /**
      *
      * Represents a chart object in a workbook.
+     * To learn more about the Chart object model, see {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-charts | Work with charts using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.1]
      */
@@ -29612,6 +29619,7 @@ declare namespace Excel {
     /**
      *
      * Represents an Excel PivotTable.
+     * To learn more about the PivotTable object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-pivottables | Work with PivotTables using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.3]
      */
@@ -31583,6 +31591,7 @@ declare namespace Excel {
     /**
      *
      * An object encapsulating a conditional format's range, format, rule, and other properties.
+     * To learn more about the conditional formatting object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-conditional-formatting | Apply conditional formatting to Excel ranges}.
      *
      * [Api set: ExcelApi 1.6]
      */
@@ -34373,6 +34382,7 @@ declare namespace Excel {
     /**
      *
      * Represents a generic shape object in the worksheet. A shape could be a geometric shape, a line, a group of shapes, etc.
+     * To learn more about the shape object model, read {@link https://docs.microsoft.com/office/dev/add-ins/excel/excel-add-ins-shapes | Work with shapes using the Excel JavaScript API}.
      *
      * [Api set: ExcelApi 1.9]
      */
