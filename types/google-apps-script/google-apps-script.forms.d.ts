@@ -650,12 +650,12 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface ItemResponse {
-      getFeedback(): object;
+      getFeedback(): any;
       getItem(): Item;
-      getResponse(): object;
-      getScore(): object;
-      setFeedback(feedback: object): ItemResponse;
-      setScore(score: object): ItemResponse;
+      getResponse(): any;
+      getScore(): any;
+      setFeedback(feedback: any): ItemResponse;
+      setScore(score: any): ItemResponse;
     }
 
     /**

@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "parquet.d.ts",
+        "parquetjs-tests.ts",
+        "lib/shred.d.ts",
+        "lib/metadata.interface.d.ts",
+        "lib/rowBuffer.interface.d.ts",
+        "lib/schema.interface.d.ts",
+        "lib/reader.d.ts",
+        "lib/row.interface.d.ts",
+        "lib/writer.d.ts",
+        "lib/schema.d.ts",
+        "lib/field.interface.d.ts"
+    ]
+}

@@ -14,7 +14,7 @@ declare namespace GoogleAppsScript {
     export interface AddressField {
       deleteAddressField(): void;
       getAddress(): string;
-      getLabel(): object;
+      getLabel(): any;
       isPrimary(): boolean;
       setAddress(address: string): AddressField;
       setAsPrimary(): AddressField;
@@ -39,31 +39,31 @@ declare namespace GoogleAppsScript {
      * A Contact contains the name, address, and various contact details of a contact.
      */
     export interface Contact {
-      addAddress(label: object, address: string): AddressField;
+      addAddress(label: any, address: string): AddressField;
       addCompany(company: string, title: string): CompanyField;
-      addCustomField(label: object, content: object): CustomField;
-      addDate(label: object, month: Base.Month, day: Integer, year: Integer): DateField;
-      addEmail(label: object, address: string): EmailField;
-      addIM(label: object, address: string): IMField;
-      addPhone(label: object, number: string): PhoneField;
+      addCustomField(label: any, content: any): CustomField;
+      addDate(label: any, month: Base.Month, day: Integer, year: Integer): DateField;
+      addEmail(label: any, address: string): EmailField;
+      addIM(label: any, address: string): IMField;
+      addPhone(label: any, number: string): PhoneField;
       addToGroup(group: ContactGroup): Contact;
-      addUrl(label: object, url: string): UrlField;
+      addUrl(label: any, url: string): UrlField;
       deleteContact(): void;
       getAddresses(): AddressField[];
-      getAddresses(label: object): AddressField[];
+      getAddresses(label: any): AddressField[];
       getCompanies(): CompanyField[];
       getContactGroups(): ContactGroup[];
       getCustomFields(): CustomField[];
-      getCustomFields(label: object): CustomField[];
+      getCustomFields(label: any): CustomField[];
       getDates(): DateField[];
-      getDates(label: object): DateField[];
+      getDates(label: any): DateField[];
       getEmails(): EmailField[];
-      getEmails(label: object): EmailField[];
+      getEmails(label: any): EmailField[];
       getFamilyName(): string;
       getFullName(): string;
       getGivenName(): string;
       getIMs(): IMField[];
-      getIMs(label: object): IMField[];
+      getIMs(label: any): IMField[];
       getId(): string;
       getInitials(): string;
       getLastUpdated(): Date;
@@ -72,13 +72,13 @@ declare namespace GoogleAppsScript {
       getNickname(): string;
       getNotes(): string;
       getPhones(): PhoneField[];
-      getPhones(label: object): PhoneField[];
+      getPhones(label: any): PhoneField[];
       getPrefix(): string;
       getPrimaryEmail(): string;
       getShortName(): string;
       getSuffix(): string;
       getUrls(): UrlField[];
-      getUrls(label: object): UrlField[];
+      getUrls(label: any): UrlField[];
       removeFromGroup(group: ContactGroup): Contact;
       setFamilyName(familyName: string): Contact;
       setFullName(fullName: string): Contact;
@@ -98,7 +98,7 @@ declare namespace GoogleAppsScript {
       getMobilePhone(): string;
       getPager(): string;
       getUserDefinedField(key: string): string;
-      getUserDefinedFields(): object;
+      getUserDefinedFields(): any;
       getWorkAddress(): string;
       getWorkFax(): string;
       getWorkPhone(): string;
@@ -109,7 +109,7 @@ declare namespace GoogleAppsScript {
       setPager(phone: string): void;
       setPrimaryEmail(primaryEmail: string): void;
       setUserDefinedField(key: string, value: string): void;
-      setUserDefinedFields(o: object): void;
+      setUserDefinedFields(o: any): void;
       setWorkAddress(addr: string): void;
       setWorkFax(phone: string): void;
       setWorkPhone(phone: string): void;
@@ -156,7 +156,7 @@ declare namespace GoogleAppsScript {
       getContactsByAddress(query: string, label: Field): Contact[];
       getContactsByAddress(query: string, label: string): Contact[];
       getContactsByCompany(query: string): Contact[];
-      getContactsByCustomField(query: object, label: ExtendedField): Contact[];
+      getContactsByCustomField(query: any, label: ExtendedField): Contact[];
       getContactsByDate(month: Base.Month, day: Integer, label: Field): Contact[];
       getContactsByDate(month: Base.Month, day: Integer, year: Integer, label: Field): Contact[];
       getContactsByDate(month: Base.Month, day: Integer, year: Integer, label: string): Contact[];
@@ -188,11 +188,11 @@ declare namespace GoogleAppsScript {
      */
     export interface CustomField {
       deleteCustomField(): void;
-      getLabel(): object;
-      getValue(): object;
+      getLabel(): any;
+      getValue(): any;
       setLabel(field: ExtendedField): CustomField;
       setLabel(label: string): CustomField;
-      setValue(value: object): CustomField;
+      setValue(value: any): CustomField;
     }
 
     /**
@@ -205,7 +205,7 @@ declare namespace GoogleAppsScript {
     export interface DateField {
       deleteDateField(): void;
       getDay(): Integer;
-      getLabel(): object;
+      getLabel(): any;
       getMonth(): Base.Month;
       getYear(): Integer;
       setDate(month: Base.Month, day: Integer): DateField;
@@ -221,7 +221,7 @@ declare namespace GoogleAppsScript {
       deleteEmailField(): void;
       getAddress(): string;
       getDisplayName(): string;
-      getLabel(): object;
+      getLabel(): any;
       isPrimary(): boolean;
       setAddress(address: string): EmailField;
       setAsPrimary(): EmailField;
@@ -251,7 +251,7 @@ declare namespace GoogleAppsScript {
     export interface IMField {
       deleteIMField(): void;
       getAddress(): string;
-      getLabel(): object;
+      getLabel(): any;
       isPrimary(): boolean;
       setAddress(address: string): IMField;
       setAsPrimary(): IMField;
@@ -264,7 +264,7 @@ declare namespace GoogleAppsScript {
      */
     export interface PhoneField {
       deletePhoneField(): void;
-      getLabel(): object;
+      getLabel(): any;
       getPhoneNumber(): string;
       isPrimary(): boolean;
       setAsPrimary(): PhoneField;
@@ -289,7 +289,7 @@ declare namespace GoogleAppsScript {
     export interface UrlField {
       deleteUrlField(): void;
       getAddress(): string;
-      getLabel(): object;
+      getLabel(): any;
       isPrimary(): boolean;
       setAddress(address: string): UrlField;
       setAsPrimary(): UrlField;

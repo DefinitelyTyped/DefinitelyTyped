@@ -1446,8 +1446,8 @@ declare namespace CodeMirror {
      * initialization of the CodeMirror instance.
      */
     interface LintStateOptions {
-        async: boolean;
-        hasGutters: boolean;
+        async?: boolean;
+        hasGutters?: boolean;
         onUpdateLinting?: (annotationsNotSorted: Annotation[], annotations: Annotation[], codeMirror: Editor) => void;
     }
 
@@ -1456,7 +1456,7 @@ declare namespace CodeMirror {
      * linter.
      */
     interface LintOptions extends LintStateOptions {
-        getAnnotations: Linter | AsyncLinter;
+        getAnnotations?: Linter | AsyncLinter;
     }
 
     /**

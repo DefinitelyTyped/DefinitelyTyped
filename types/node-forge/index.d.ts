@@ -257,6 +257,8 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
+        function certificateToAsn1(cert: Certificate): asn1.Asn1;
+
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): PrivateKey;
 
         function createCertificate(): Certificate;

@@ -174,6 +174,13 @@ export interface PermissionPage extends Page {
     permissions: Permission[];
 }
 
+export type Grant =
+  | 'authorization_code'
+  | 'client_credentials'
+  | 'implicit'
+  | 'password'
+  | 'refresh_token';
+
 export interface Client {
   /**
    * The name of the client.
@@ -216,12 +223,26 @@ export interface Client {
   client_aliases?: string[];
   allowed_clients?: string[];
   allowed_logout_urls?: string[];
-  jwt_configuration?: any;
+  jwt_configuration?: {
+    // The amount of time (in seconds) that the token will be valid after being issued
+    lifetime_in_seconds?: number;
+    scopes?: {};
+    // The algorithm used to sign the JsonWebToken
+    alg?: 'HS256' | 'RS256';
+  };
+  /** 
+   * A set of grant types that the client is authorized to use
+   */
+  grant_types?: Grant[];
   /**
    * Client signing keys.
    */
   signing_keys?: string[];
-  encryption_key?: any;
+  encryption_key?: {
+    pub?: string;
+    cert?: string;
+    subject?: string;
+  };
   sso?: boolean;
   /**
    * `true` to disable Single Sign On, `false` otherwise (default: `false`)
@@ -401,8 +422,8 @@ export interface User<A=AppMetadata, U=UserMetadata> {
   created_at?: string;
   updated_at?: string;
   identities?: Identity[];
-  app_metadata: A;
-  user_metadata: U;
+  app_metadata?: A;
+  user_metadata?: U;
   picture?: string;
   name?: string;
   nickname?: string;

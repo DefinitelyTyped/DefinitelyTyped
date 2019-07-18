@@ -55,7 +55,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): AreaChartBuilder;
       setLegendPosition(position: Position): AreaChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): AreaChartBuilder;
-      setOption(option: string, value: object): AreaChartBuilder;
+      setOption(option: string, value: any): AreaChartBuilder;
       setPointStyle(style: PointStyle): AreaChartBuilder;
       setRange(start: number, end: number): AreaChartBuilder;
       setStacked(): AreaChartBuilder;
@@ -103,7 +103,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): BarChartBuilder;
       setLegendPosition(position: Position): BarChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): BarChartBuilder;
-      setOption(option: string, value: object): BarChartBuilder;
+      setOption(option: string, value: any): BarChartBuilder;
       setRange(start: number, end: number): BarChartBuilder;
       setStacked(): BarChartBuilder;
       setTitle(chartTitle: string): BarChartBuilder;
@@ -286,7 +286,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ColumnChartBuilder;
       setLegendPosition(position: Position): ColumnChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ColumnChartBuilder;
-      setOption(option: string, value: object): ColumnChartBuilder;
+      setOption(option: string, value: any): ColumnChartBuilder;
       setRange(start: number, end: number): ColumnChartBuilder;
       setStacked(): ColumnChartBuilder;
       setTitle(chartTitle: string): ColumnChartBuilder;
@@ -394,9 +394,9 @@ declare namespace GoogleAppsScript {
      */
     export interface DataTableBuilder {
       addColumn(type: ColumnType, label: string): DataTableBuilder;
-      addRow(values: object[]): DataTableBuilder;
+      addRow(values: any[]): DataTableBuilder;
       build(): DataTable;
-      setValue(row: Integer, column: Integer, value: object): DataTableBuilder;
+      setValue(row: Integer, column: Integer, value: any): DataTableBuilder;
     }
 
     /**
@@ -504,7 +504,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): LineChartBuilder;
       setLegendPosition(position: Position): LineChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): LineChartBuilder;
-      setOption(option: string, value: object): LineChartBuilder;
+      setOption(option: string, value: any): LineChartBuilder;
       setPointStyle(style: PointStyle): LineChartBuilder;
       setRange(start: number, end: number): LineChartBuilder;
       setTitle(chartTitle: string): LineChartBuilder;
@@ -601,7 +601,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): PieChartBuilder;
       setLegendPosition(position: Position): PieChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): PieChartBuilder;
-      setOption(option: string, value: object): PieChartBuilder;
+      setOption(option: string, value: any): PieChartBuilder;
       setTitle(chartTitle: string): PieChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): PieChartBuilder;
     }
@@ -646,7 +646,7 @@ declare namespace GoogleAppsScript {
       setDimensions(width: Integer, height: Integer): ScatterChartBuilder;
       setLegendPosition(position: Position): ScatterChartBuilder;
       setLegendTextStyle(textStyle: TextStyle): ScatterChartBuilder;
-      setOption(option: string, value: object): ScatterChartBuilder;
+      setOption(option: string, value: any): ScatterChartBuilder;
       setPointStyle(style: PointStyle): ScatterChartBuilder;
       setTitle(chartTitle: string): ScatterChartBuilder;
       setTitleTextStyle(textStyle: TextStyle): ScatterChartBuilder;
@@ -717,7 +717,7 @@ declare namespace GoogleAppsScript {
       setFirstRowNumber(number: Integer): TableChartBuilder;
       setInitialSortingAscending(column: Integer): TableChartBuilder;
       setInitialSortingDescending(column: Integer): TableChartBuilder;
-      setOption(option: string, value: object): TableChartBuilder;
+      setOption(option: string, value: any): TableChartBuilder;
       showRowNumberColumn(showRowNumber: boolean): TableChartBuilder;
       useAlternatingRowStyle(alternate: boolean): TableChartBuilder;
     }

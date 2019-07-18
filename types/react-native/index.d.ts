@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.57
+// Type definitions for react-native 0.60
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -9,7 +9,6 @@
 //                 Alex Dunne <https://github.com/alexdunne>
 //                 Manuel Alabor <https://github.com/swissmanu>
 //                 Michele Bombardi <https://github.com/bm-software>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
 //                 Kacper Wiszczuk <https://github.com/esemesek>
@@ -21,6 +20,7 @@
 //                 Wojciech Tyczynski <https://github.com/tykus160>
 //                 Jake Bloom <https://github.com/jakebloom>
 //                 Ceyhun Ozugur <https://github.com/ceyhun>
+//                 Mike Martin <https://github.com/mcmar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -2033,16 +2033,52 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     accessibilityRole?: AccessibilityRole;
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     * @deprecated: accessibilityState available in 0.60+
      */
-    accessibilityStates?: AccessibilityState[];
-
+    accessibilityStates?: AccessibilityStates[];
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     */
+    accessibilityState?: AccessibilityState;
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
 }
 
-export type AccessibilityState = "selected" | "disabled";
+// @deprecated: use AccessibilityState available in 0.60+
+export type AccessibilityStates =
+    | "disabled"
+    | "selected"
+    | "checked"
+    | "unchecked"
+    | "busy"
+    | "expanded"
+    | "collapsed"
+    | "hasPopup";
+
+export interface AccessibilityState {
+    /**
+     * When true, informs accessible tools if the element is disabled
+     */
+    disabled?: boolean;
+    /**
+     * When true, informs accessible tools if the element is selected
+     */
+    selected?: boolean;
+    /**
+     * For items like Checkboxes and Toggle switches, reports their state to accessible tools
+     */
+    checked?: boolean | "mixed";
+    /**
+     *  When present, informs accessible tools if the element is busy
+     */
+    busy?: boolean;
+    /**
+     *  When present, informs accessible tools the element is expanded or collapsed
+     */
+    expanded?: boolean;
+}
 
 export type AccessibilityRole =
     | "none"
@@ -2053,9 +2089,26 @@ export type AccessibilityRole =
     | "keyboardkey"
     | "text"
     | "adjustable"
+    | "imagebutton"
     | "header"
     | "summary"
-    | "imagebutton";
+    | "alert"
+    | "checkbox"
+    | "combobox"
+    | "menu"
+    | "menubar"
+    | "menuitem"
+    | "progressbar"
+    | "radio"
+    | "radiogroup"
+    | "scrollbar"
+    | "spinbutton"
+    | "switch"
+    | "tab"
+    | "tablist"
+    | "timer"
+    | "toolbar";
+
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -3300,6 +3353,11 @@ export interface ProgressBarAndroidProps extends ViewProps {
     progress?: number;
 
     /**
+     * Whether to show the ProgressBar (true, the default) or hide it (false).
+     */
+    animating?: boolean;
+
+    /**
      * Color of the progress bar.
      */
     color?: string;
@@ -4282,7 +4340,7 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
 export interface SectionBase<ItemT> {
-    data: ItemT[];
+    data: ReadonlyArray<ItemT>;
 
     key?: string;
 
@@ -4427,7 +4485,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * An array of objects with data for each section.
      */
-    sections: SectionListData<ItemT>[];
+    sections: ReadonlyArray<SectionListData<ItemT>>;
 
     /**
      * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
@@ -5315,7 +5373,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): T;
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T | NamedStyles<T>): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -7477,6 +7535,11 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
     getInitialURL(): Promise<string | null>;
+
+    /**
+     * Open the Settings app and displays the app’s custom settings, if it has any.
+     */
+    openSettings(): Promise<void>;
 }
 
 export interface LinkingIOSStatic {
@@ -8039,7 +8102,7 @@ export interface PushNotificationIOSStatic {
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): Promise<PushNotification>;
+    getInitialNotification(): Promise<PushNotification | null>;
 
     /**
      * iOS fetch results that best describe the result of a finished remote notification handler.

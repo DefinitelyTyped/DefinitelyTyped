@@ -17,7 +17,7 @@ interface IntlAction extends Action {
     payload?: IntlState
 }
 
-export function intlReducer(state: IntlState, action: IntlAction): IntlState
+export function intlReducer(state: IntlState | undefined, action: IntlAction): IntlState
 export function updateIntl (opts: IntlState): IntlAction
 export class IntlProvider extends ReactIntlProvider {}
 export class Provider<A extends Action = AnyAction> extends ReduxProvider<A> {}

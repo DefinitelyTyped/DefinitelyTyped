@@ -1,3 +1,6 @@
+// package: google.protobuf
+// file: empty.proto
+
 import * as jspb from "../../index";
 
 export class Empty extends jspb.Message {

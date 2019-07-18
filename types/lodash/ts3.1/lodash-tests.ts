@@ -615,6 +615,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         value; // $ExpectType AbcObject
         return 0;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionBy(...[list], (value) => {
+        value; // $ExpectType AbcObject
+        return 0;
+    });
 
     _(list).intersectionBy(list); // $ExpectType Collection<AbcObject>
     _(list).intersectionBy(list, "a"); // $ExpectType Collection<AbcObject>
@@ -632,6 +637,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(list).intersectionBy(list, ["a", 42]); // $ExpectType CollectionChain<AbcObject>
     // $ExpectType CollectionChain<AbcObject>
     _.chain(list).intersectionBy(list, (value) => {
+        value; // $ExpectType AbcObject
+        return null;
+    });
+    // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).intersectionBy(...[list], (value) => {
         value; // $ExpectType AbcObject
         return null;
     });
@@ -1732,6 +1742,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.filter(list, listIterator); // $ExpectType AbcObject[]
     _.filter(list, ""); // $ExpectType AbcObject[]
     _.filter(list, { a: 42 }); // $ExpectType AbcObject[]
+    _.filter([{ a: { b: { c: 1 }, other1: "o" }, other2: "p" }], { a: { b: 0 } }); // $ExpectType { a: { b: { c: number; }; other1: string; }; other2: string; }[]
     _.filter(list, ["a", 42]); // $ExpectType AbcObject[]
     _.filter(dictionary, dictionaryIterator); // $ExpectType AbcObject[]
     _.filter(dictionary, ""); // $ExpectType AbcObject[]
@@ -5181,7 +5192,8 @@ fp.now(); // $ExpectType number
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
     _.get({ a: { b: true } }, ["a"]); // $ExpectType { b: boolean; }
-    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType any
+    _.get({ a: { b: true } }, ["a", "b"]); // $ExpectType boolean
+    _.get({ a: { b: { c: { d: true } } } }, ["a", "b", "c", "d"]); // $ExpectType boolean
     _.get({ a: undefined }, "a"); // $ExpectType undefined
     _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
@@ -5191,7 +5203,8 @@ fp.now(); // $ExpectType number
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
     _({ a: { b: true } }).get(["a"]); // $ExpectType { b: boolean; }
-    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType any
+    _({ a: { b: true } }).get(["a", "b"]); // $ExpectType boolean
+    _({ a: { b: { c: {d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType boolean
     _({ a: undefined }).get("a"); // $ExpectType undefined
     _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
@@ -5201,7 +5214,10 @@ fp.now(); // $ExpectType number
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType ObjectChain<{ b: boolean; }>
-    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType LoDashExplicitWrapper<any>
+    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b"]); // $ExpectType ObjectChain<{ c: { d: boolean; }; }>
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d2"]); // $ExpectType LoDashExplicitWrapper<any>
     _.chain({ a: undefined }).get("a"); // $ExpectType never
     _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain | PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>

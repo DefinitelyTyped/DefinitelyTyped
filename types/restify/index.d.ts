@@ -877,8 +877,6 @@ export interface RedirectOptions {
 
 export interface Next {
     (err?: any): void;
-
-    ifError(err?: any): void;
 }
 
 export interface RouteSpec {

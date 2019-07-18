@@ -1,4 +1,4 @@
-// Type definitions for Backbone 1.4.0
+// Type definitions for Backbone 1.4
 // Project: http://backbonejs.org/
 //          https://github.com/jashkenas/backbone
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
@@ -8,7 +8,7 @@
 //                 Julian Gonggrijp <https://github.com/jgonggrijp>
 //                 Kyle Scully <https://github.com/zieka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

@@ -1,7 +1,8 @@
-import { Extent } from 'ol/extent';
-import Feature from 'ol/Feature';
-import RenderFeature from 'ol/render/Feature';
-import WebGLReplay from 'ol/render/webgl/Replay';
+import { Extent } from '../../extent';
+import Feature from '../../Feature';
+import RenderFeature from '../Feature';
+import WebGLReplay from './Replay';
+
 export default class WebGLLineStringReplay extends WebGLReplay {
     constructor(tolerance: number, maxExtent: Extent);
     drawPolygonCoordinates(flatCoordinates: number[], holeFlatCoordinates: number[][], stride: number): void;

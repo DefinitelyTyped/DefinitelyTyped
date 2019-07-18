@@ -514,7 +514,7 @@ declare namespace GoogleAppsScript {
      *         .addItem("radio button three title", "radio_three_value", false);
      */
     export interface SelectionInput {
-      addItem(text: object, value: object, selected: boolean): SelectionInput;
+      addItem(text: any, value: any, selected: boolean): SelectionInput;
       setFieldName(fieldName: string): SelectionInput;
       setOnChangeAction(action: Action): SelectionInput;
       setTitle(title: string): SelectionInput;
@@ -536,7 +536,7 @@ declare namespace GoogleAppsScript {
      */
     export interface Suggestions {
       addSuggestion(suggestion: string): Suggestions;
-      addSuggestions(suggestions: object[]): Suggestions;
+      addSuggestions(suggestions: string[]): Suggestions;
     }
 
     /**
@@ -668,7 +668,7 @@ declare namespace GoogleAppsScript {
      */
     export interface UniversalActionResponseBuilder {
       build(): UniversalActionResponse;
-      displayAddOnCards(cardObjects: object[]): UniversalActionResponseBuilder;
+      displayAddOnCards(cardObjects: Card[]): UniversalActionResponseBuilder;
       setOpenLink(openLink: OpenLink): UniversalActionResponseBuilder;
     }
 

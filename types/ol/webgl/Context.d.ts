@@ -1,10 +1,9 @@
-import Disposable from 'ol/Disposable';
-import WebGLBuffer from 'ol/webgl/Buffer';
-import WebGLFragment from 'ol/webgl/Fragment';
-import WebGLShader from 'ol/webgl/Shader';
-import WebGLVertex from 'ol/webgl/Vertex';
-export function createEmptyTexture(gl: WebGLRenderingContext, width: number, height: number, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
-export function createTexture(gl: WebGLRenderingContext, image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
+import Disposable from '../Disposable';
+import WebGLBuffer from './Buffer';
+import WebGLFragment from './Fragment';
+import WebGLShader from './Shader';
+import WebGLVertex from './Vertex';
+
 export interface BufferCacheEntry {
     buf: WebGLBuffer;
     buffer: WebGLBuffer;
@@ -22,3 +21,5 @@ export default class WebGLContext extends Disposable {
     handleWebGLContextRestored(): void;
     useProgram(program: WebGLProgram): boolean;
 }
+export function createEmptyTexture(gl: WebGLRenderingContext, width: number, height: number, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;
+export function createTexture(gl: WebGLRenderingContext, image: HTMLCanvasElement | HTMLImageElement | HTMLVideoElement, opt_wrapS?: number, opt_wrapT?: number): WebGLTexture;

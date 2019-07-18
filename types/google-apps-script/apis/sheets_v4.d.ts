@@ -521,7 +521,7 @@ declare namespace GoogleAppsScript {
       export interface DataFilterValueRange {
         dataFilter?: Sheets.Schema.DataFilter;
         majorDimension?: string;
-        values?: object[][];
+        values?: any[][];
       }
       export interface DataValidationRule {
         condition?: Sheets.Schema.BooleanCondition;
@@ -1179,7 +1179,7 @@ declare namespace GoogleAppsScript {
       export interface ValueRange {
         majorDimension?: string;
         range?: string;
-        values?: object[][];
+        values?: any[][];
       }
       export interface WaterfallChartColumnStyle {
         color?: Sheets.Schema.Color;

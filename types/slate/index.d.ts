@@ -10,6 +10,7 @@
 //                 Hanna Greaves <https://github.com/sgreav>
 //                 Jack Allen <https://github.com/jackall3n>
 //                 Benjamin Evenson <https://github.com/benjiro>
+//                 Han Jeon <https://github.com/hanstar17>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as Immutable from "immutable";
@@ -42,6 +43,7 @@ export interface Rules {
     marks?: Array<{
         type: string | ((type: string) => boolean)
     }>;
+    next?: ObjectAndType | ObjectAndType[];
     nodes?: Array<{
         min?: number;
         max?: number;
@@ -50,6 +52,7 @@ export interface Rules {
     normalize?: (editor: Editor, error: SlateError) => void;
     parent?: ObjectAndType | ObjectAndType[];
     text?: RegExp | ((text: string) => boolean);
+    previous?: ObjectAndType | ObjectAndType[];
 }
 
 export interface SchemaProperties {
@@ -403,7 +406,7 @@ declare class BaseNode<
     createRange(properties: RangeProperties | Range): Range;
     createSelection(properties: SelectionProperties | Selection): Selection;
     filterDescendants(iterator: (node: Node) => boolean): Immutable.List<Node>;
-    findDescendants(iterator: (node: Node) => boolean): Node | null;
+    findDescendant(iterator: (node: Node) => boolean): Node | null;
     getActiveMarksAtRange(range: Range): Immutable.Set<Mark>;
     getAncestors(path: Path): Immutable.List<Node> | null;
     getBlocks(): Immutable.List<Block>;
@@ -1128,9 +1131,11 @@ export interface Plugin {
     schema?: SchemaProperties;
 }
 
+export interface Plugins extends Array<Plugin | Plugins> {}
+
 export interface EditorProperties {
-    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
-    plugins?: Plugin[];
+    onChange?: (change: { operations: Immutable.List<Operation>; value: Value }) => void;
+    plugins?: Plugins;
     readOnly?: boolean;
     value?: Value;
 }
@@ -1432,8 +1437,8 @@ export class Editor implements Controller {
     redo(): Editor;
     undo(): Editor;
     snapshotSelection(): Editor;
-    command(name: string, ...args: any[]): Editor;
-    query(query: string, ...args: any[]): any;
+    command(name: string | CommandFunc, ...args: any[]): Editor;
+    query(query: string | QueryFunc, ...args: any[]): any;
     registerCommand(command: string): Editor;
     registerQuery(query: string): Editor;
     applyOperation(operation: Operation): Editor;

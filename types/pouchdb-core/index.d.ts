@@ -247,7 +247,10 @@ declare namespace PouchDB {
 
         type PostDocument<Content extends {}> = NewDocument<Content> & {
             filters?: {[filterName: string]: string};
-            views?: {[viewName: string]: string};
+            views?: {[viewName: string]: {
+                map: string,
+                reduce?: string
+            }};
 
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;

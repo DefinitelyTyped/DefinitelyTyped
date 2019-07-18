@@ -16,7 +16,7 @@ declare namespace GoogleAppsScript {
      */
     export interface LanguageApp {
       translate(text: string, sourceLanguage: string, targetLanguage: string): string;
-      translate(text: string, sourceLanguage: string, targetLanguage: string, advancedArgs: object): string;
+      translate(text: string, sourceLanguage: string, targetLanguage: string, advancedArgs: any): string;
     }
 
   }

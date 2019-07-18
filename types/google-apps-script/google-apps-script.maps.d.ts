@@ -10,7 +10,7 @@ declare namespace GoogleAppsScript {
   export module Maps {
     /**
      * An enum representing the types of restrictions to avoid when finding directions.
-     */ 
+     */
     export enum Avoid { TOLLS, HIGHWAYS }
 
     /**
@@ -73,7 +73,7 @@ declare namespace GoogleAppsScript {
       addWaypoint(latitude: number, longitude: number): DirectionFinder;
       addWaypoint(address: string): DirectionFinder;
       clearWaypoints(): DirectionFinder;
-      getDirections(): object;
+      getDirections(): any;
       setAlternatives(useAlternatives: boolean): DirectionFinder;
       setArrive(time: Base.Date): DirectionFinder;
       setAvoid(avoid: string): DirectionFinder;
@@ -138,11 +138,11 @@ declare namespace GoogleAppsScript {
      * Google Elevation API
      */
     export interface ElevationSampler {
-      sampleLocation(latitude: number, longitude: number): object;
-      sampleLocations(points: number[]): object;
-      sampleLocations(encodedPolyline: string): object;
-      samplePath(points: number[], numSamples: Integer): object;
-      samplePath(encodedPolyline: string, numSamples: Integer): object;
+      sampleLocation(latitude: number, longitude: number): any;
+      sampleLocations(points: number[]): any;
+      sampleLocations(encodedPolyline: string): any;
+      samplePath(points: number[], numSamples: Integer): any;
+      samplePath(encodedPolyline: string, numSamples: Integer): any;
     }
 
     /**
@@ -184,9 +184,9 @@ declare namespace GoogleAppsScript {
      * Google Geocoding API
      */
     export interface Geocoder {
-      geocode(address: string): object;
-      reverseGeocode(latitude: number, longitude: number): object;
-      reverseGeocode(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): object;
+      geocode(address: string): any;
+      reverseGeocode(latitude: number, longitude: number): any;
+      reverseGeocode(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): any;
       setBounds(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): Geocoder;
       setLanguage(language: string): Geocoder;
       setRegion(region: string): Geocoder;

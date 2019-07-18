@@ -1,4 +1,4 @@
-// Type definitions for got 9.4
+// Type definitions for got 9.6
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
@@ -11,7 +11,7 @@
 
 /// <reference types="node"/>
 
-import { Url, URL } from 'url';
+import { Url, URL, URLSearchParams } from 'url';
 import * as http from 'http';
 import * as https from 'https';
 import * as nodeStream from 'stream';
@@ -140,11 +140,17 @@ declare namespace got {
      * @template Body Response body type.
      */
     interface Hooks<Options, Body extends Buffer | string | object> {
+        init?: Array<InitHook<Options>>;
         beforeRequest?: Array<BeforeRequestHook<Options>>;
         beforeRedirect?: Array<BeforeRedirectHook<Options>>;
         beforeRetry?: Array<BeforeRetryHook<Options>>;
         afterResponse?: Array<AfterResponseHook<Options, Body>>;
     }
+
+    /**
+     * @param options Unnormalized request options.
+     */
+    type InitHook<Options> = (options: Options) => void;
 
     /**
      * @param options Normalized request options.
@@ -196,7 +202,7 @@ declare namespace got {
         baseUrl?: string;
         cookieJar?: CookieJar;
         encoding?: E;
-        query?: string | object;
+        query?: Record<string, any> | URLSearchParams | string;
         timeout?: number | TimeoutOptions;
         retry?: number | RetryOptions;
         followRedirect?: boolean;

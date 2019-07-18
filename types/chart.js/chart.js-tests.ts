@@ -5,7 +5,7 @@ import { Chart, ChartData, Point } from "chart.js";
 // => chartjs.Chart
 
 const plugin = {
-    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+    afterDraw: (chartInstance: Chart, easing: Chart.Easing, options?: any) => {
     }
 };
 
@@ -46,7 +46,14 @@ const chart: Chart = new Chart(ctx, {
             caretPadding: 2,
             displayColors: true,
             borderColor: "rgba(0,0,0,0)",
-            borderWidth: 1
+            borderWidth: 1,
+            callbacks: {
+                title: ([point]) => point.label ? point.label.substring(0, 2) : 'title',
+                label(tooltipItem) {
+                    const { value, x, y, label } = tooltipItem;
+                    return `${label}(${x}, ${y}) = ${value}`;
+                },
+            },
         },
         scales: {
             xAxes: [
@@ -79,7 +86,7 @@ const chart: Chart = new Chart(ctx, {
         }
     }
 });
-chart.update();
+chart.update({duration: 500, lazy: false, easing: 'linear'});
 
 console.log(chart.getDatasetMeta(0));
 
