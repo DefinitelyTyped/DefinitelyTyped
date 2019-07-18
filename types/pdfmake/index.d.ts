@@ -4,6 +4,7 @@
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Enzo Volkmann <https://github.com/evolkmann>
 //                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Seva Maltsev <https://github.com/TwoAbove>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -275,4 +276,36 @@ declare module "pdfmake/build/pdfmake" {
         fonts: { [name: string]: TFontFamilyTypes };
         createPdf(documentDefinitions: TDocumentDefinitions): TCreatedPdf;
     }
+}
+
+declare module 'pdfmake/src/printer' {
+	import * as PDFKit from 'pdfkit';
+	import * as PDFMake from 'pdfmake/build/pdfmake';
+
+	interface FontDescriptors {
+		[fontName: string]: {
+			normal: string | Buffer;
+			bold: string | Buffer;
+			italics: string | Buffer;
+			bolditalics: string | Buffer;
+		}
+	}
+
+	interface DocOptions {
+        tableLayouts?: any;
+        fontLayoutCache?: boolean;
+        bufferPages?: boolean;
+        autoPrint?: boolean;
+        progressCallback?: () => number; // number => (amount done / total)
+    }
+
+	export default class PdfPrinter {
+		constructor(fontDescriptors: FontDescriptors);
+		fontDescriptors: FontDescriptors;
+
+		createPdfKitDocument(
+			docDefinition: PDFMake.TDocumentDefinitions,
+			options?: DocOptions
+		): PDFKit.PDFDocument;
+	}
 }

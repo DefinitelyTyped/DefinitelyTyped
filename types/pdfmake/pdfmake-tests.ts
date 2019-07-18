@@ -1,5 +1,15 @@
+import PdfMakeNode from 'pdfmake/src/printer';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+const RobotoFont = {
+    Roboto: {
+        bold: Buffer.from(pdfFonts.pdfMake.vfs['Roboto-Medium.ttf'], 'base64'),
+        bolditalics: Buffer.from(pdfFonts.pdfMake.vfs['Roboto-MediumItalic.ttf'], 'base64'),
+        italics: Buffer.from(pdfFonts.pdfMake.vfs['Roboto-Italic.ttf'], 'base64'),
+        normal: Buffer.from(pdfFonts.pdfMake.vfs['Roboto-Regular.ttf'], 'base64'),
+    },
+};
 
 const definitions = [
     {
@@ -1325,10 +1335,12 @@ const definitions = [
 
 const createPdf = () => {
   const pdf = pdfMake;
+  const nodePdf = new PdfMakeNode(RobotoFont);
   pdf.vfs = pdfFonts.pdfMake.vfs;
 
   for (const definition of definitions) {
       const typedDefinition: pdfMake.TDocumentDefinitions = definition;
       pdfMake.createPdf(typedDefinition).download();
+      nodePdf.createPdfKitDocument(typedDefinition);
   }
 };
