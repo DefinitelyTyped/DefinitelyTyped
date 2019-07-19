@@ -1093,15 +1093,17 @@ export interface ChartAPI {
     };
 
     /**
-     * Gets and sets the value a category
-     * @param index Index of the category to get or set
-     * @param category: Value of the category to update
+     * Get and/or set the value of a category.
+     * @param i Index of the category to get or set.
+     * @param category: Value to update the category to. If not provided, no change will be made.
+     * @returns The value of the category after updating.
      */
-    category(index: number, category?: string): string;
+    category(i: number, category?: string): string;
 
     /**
-     * Get and set the categories
-     * @param categories: Value of the categories to update
+     * Get and/or set the categories.
+     * @param categories: Value of the categories to update. If provided, will overwrite all categories. If not provided, no change will be made.
+     * @returns The list of categories after updating.
      */
     categories(categories?: string[]): string[];
 
@@ -1151,7 +1153,8 @@ export interface ChartAPI {
 
         /**
          * Get and set axis min and max values.
-         * @param range If range is given, specified axis' min and max value will be updated. If no argument is given, the current min and max values for each axis will be returned.
+         * @param range If range is given, specified axis' min and max value will be updated.
+         * @returns If `range` is *not* given, returns the current min and max values for each axis.
          */
         range(): {
             min: { [key in AxisName]: number; };
