@@ -2,6 +2,7 @@
 // Project: https://github.com/selbekk/calidation#readme
 // Definitions by: Ray Knight <https://github.com/ArrayKnight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -15,7 +16,6 @@ export interface Dirty extends Dictionary<boolean> {}
 
 export interface Errors extends Dictionary<string | null> {}
 
-// tslint:disable-next-line
 export interface Fields extends Dictionary {}
 
 export interface Transforms extends Dictionary<(value: any) => any> {}
@@ -110,7 +110,6 @@ export interface FormProps
 
 export class Form extends React.Component<FormProps> {}
 
-// tslint:disable-next-line
 export interface ValidationContext extends FormContext {}
 
 export interface ValidationProps {
