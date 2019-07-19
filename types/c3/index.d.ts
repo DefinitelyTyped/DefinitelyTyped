@@ -1062,34 +1062,39 @@ export interface ChartAPI {
          * Get data loaded in the chart.
          * @param targetIds If this argument is given, this API returns the specified target data. If this argument is not given, all of data will be returned.
          */
-        (targetIds?: ArrayOrString): Data;
+        (targetIds?: ArrayOrString): DataSeries[];
         /**
          * Get data shown in the chart.
          * @param targetIds If this argument is given, this API filters the data with specified target ids. If this argument is not given, all shown data will be returned.
          */
-        shown(targetIds?: ArrayOrString): Data;
+        shown(targetIds?: ArrayOrString): DataSeries[];
         /**
          * Get values of the data loaded in the chart.
          * @param targetIds This API returns the values of specified target. If this argument is not given, null will be retruned.
          */
-        values(targetIds?: ArrayOrString): any[];
+        values(targetIds?: ArrayOrString): number[] | null;
         /**
-         * Get and set names of the data loaded in the chart.
-         * @param names If this argument is given, the names of data will be updated. If not given, the current names will be returned. The format of this argument is the same as data.names.
+         * Set names of the data loaded in the chart.
+         * @param names This is a map of current names to new names.
+         * @returns Map of the old names to the new names. Only includes the names that were changed.
          */
-        names(names?: { [key: string]: string }): { [key: string]: string };
+        names(): {};
+        names<T extends { [key: string]: string }>(names: T): T;
         /**
          * Get and set colors of the data loaded in the chart.
          * @param colors If this argument is given, the colors of data will be updated. If not given, the current colors will be returned. The format of this argument is the same as data.colors.
+         * @returns A map of all data IDs to their current colors.
          */
         colors(colors?: {
             [key: string]: string | d3.RGBColor | d3.HSLColor;
         }): { [key: string]: string };
         /**
          * Get and set axes of the data loaded in the chart.
-         * @param axes If this argument is given, the axes of data will be updated. If not given, the current axes will be returned. The format of this argument is the same as data.axes.
+         * @param axes If this argument is given, the axes of data will be updated. This is a map of data IDs to their new axes' names.
+         * @returns Map of the changed data IDs to their new axes' names.
          */
-        axes(axes?: { [key: string]: AxisName }): { [key: string]: AxisName };
+        axes(): {};
+        axes<T extends { [key: string]: AxisName }>(axes: T): T;
     };
 
     /**
@@ -1108,9 +1113,10 @@ export interface ChartAPI {
     categories(categories?: string[]): string[];
 
     /**
-     * Get the color for the specified targetId
+     * Get the color for the specified id.
+     * @returns The color that the data series with the specified id has on the chart.
      */
-    color(targetId: string): string;
+    color(id: string): string;
 
     /**
      * Get and set x values for the chart.
@@ -1223,7 +1229,10 @@ export interface ChartInternal {
     d3: typeof d3 | undefined;
     api: ChartAPI;
     config: InternalConfig;
-    data: unknown;
+    data: {
+        targets: DataSeries[];
+        [key: string]: unknown;
+    };
     cache: unknown;
     axes: unknown;
 
@@ -1310,6 +1319,23 @@ export interface ChartInternal {
     CLASS?: Classes;
 
     [key: string]: any;
+}
+
+export interface DataSeries {
+    id?: string;
+    id_org?: string;
+    values: DataPoint[];
+}
+
+export interface DataPoint {
+    x: number;
+    value: number;
+    id: string;
+    index: number;
+}
+
+export interface DataPoint {
+
 }
 
 interface GenerateResizeReturn extends Function {
