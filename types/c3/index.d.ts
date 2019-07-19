@@ -1214,7 +1214,7 @@ export interface ChartAPI {
     /**
      * Reset the chart object and remove element and events completely.
      */
-    destroy(): void;
+    destroy(): null;
 
     internal: ChartInternal;
 }
