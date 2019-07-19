@@ -16,6 +16,8 @@
 
 /// <reference types="node" />
 
+import { BigInteger as JsbnBigInteger } from 'jsbn';
+
 declare module "node-forge" {
     type Byte = number;
     type Bytes = string;
@@ -26,12 +28,7 @@ declare module "node-forge" {
     type Encoding = "raw" | "utf8";
 
     namespace jsbn {
-        class BigInteger {
-            data: number[];
-            t: number;
-            s: number;
-            toString(): string;
-        }
+        type BigInteger = JsbnBigInteger;
     }
 
     namespace pem {
