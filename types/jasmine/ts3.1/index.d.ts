@@ -182,7 +182,12 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type Expected<T> = T | ObjectContaining<T> | Any | Spy;
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | {
+        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+    };
+    type Expected<T> = T | ObjectContaining<T> | Any | Spy | {
+        [K in keyof T]: ExpectedRecursive<T[K]>;
+    };
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
             (ReadonlyArray<string> | {[methodName: string]: any}) :
