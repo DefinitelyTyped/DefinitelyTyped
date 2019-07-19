@@ -16,10 +16,14 @@ export class Client {
 }
 
 export class ClientRequestProperties {
+    constructor(options?: any, parameters?: any);
     clearOptions(): void;
-    getOption(name: any, defaultValue: any): any;
+    clearParameters(): void;
+    getOption(name: string, defaultValue: any): any;
+    getParameter(name: string, defaultValue: any): any;
     getTimeout(): any;
-    setOption(name: any, value: any): void;
+    setOption(name: string, value: any): void;
+    setParameter(name: string, value: any): void;
     setTimeout(timeoutMillis: any): void;
     toJson(): any;
 }
