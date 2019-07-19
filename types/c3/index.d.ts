@@ -1734,21 +1734,25 @@ export interface Classes {
 
 export interface GridOperations {
     /**
-     * Update the x/y grid lines.
-     * @param grids X/Y grid lines will be replaced with this argument. The format of this argument is the same as grid.x.lines or grid.y.lines.
+     * Update the grid lines.
+     * @param grids Grid lines will be replaced with this argument.
      */
-    (grids: any[]): void;
+    (grids: LineOptions[]): LineOptions[];
     /**
-     * Add x/y grid lines. This API adds new x/y grid lines instead of replacing like xgrids.
-     * @param grids New x/y grid lines will be added. The format of this argument is the same as grid.x.lines or grid.y.lines and it's possible to give an Object if only one line will be added.
+     * Add grid lines. This API adds new grid lines instead of replacing.
+     * @param grids New grid lines will be added. It's possible to give an Object if only one line will be added.
      */
-    add(grids: any[] | {}): void;
+    add(grids: LineOptions[] | LineOptions): LineOptions[];
     /**
-     * Remove x/y grid lines. This API removes x/y grid lines.
-     * @param args This argument should include value or class. If value is given, the x/y grid lines that have specified x/y value will be removed. If class is given, the x/y grid lines that
-     * have specified class will be removed. If args is not given, all of x/y grid lines will be removed.
+     * Remove grid lines.
+     * @param params Specifies which grid line to remove. If not given, all of x/y grid lines will be removed. If empty, none will be removed
      */
-    remove(args?: { class?: string; value?: number | string }): void;
+    remove(params?: {
+        /** If provided, will remove all gridlines with this class. */
+        class?: string;
+        /** If provided, will remove all gridlines at this value. */
+        value?: number | string;
+    }): void;
 }
 
 export function generate(config: ChartConfiguration): ChartAPI;
