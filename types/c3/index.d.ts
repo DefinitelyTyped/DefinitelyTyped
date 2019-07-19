@@ -1125,42 +1125,42 @@ export interface ChartAPI {
     }): { [key: string]: PrimitiveArray };
 
     axis: {
+        (): void;
+
         /**
          * Get and set axis labels.
          * @param labels If labels is given, specified axis' label will be updated.
          */
-        labels(labels?: { [key in AxisName]?: string }): { [key in AxisName]?: string };
+        labels(labels?: { [key in AxisName]?: string }): void;
+
         /**
          * Get and set axis min value.
-         * @param min If min is given, specified axis' min value will be updated. If no argument is given, the current min values for each axis will be returned.
+         * @param min If an object is given, specified axis' min value will be updated. If a number is given, the min values for y and y2 will be updated.
+         * @returns If `min` is *not* given, the current max values for each axis will be returned. Otherwise returns nothing.
          */
         min(): { [key in AxisName]: number };
-        min(
-            min?: number | { [key in AxisName]?: number },
-        ): number | { [key in AxisName]?: number };
+        min(min: number | { [key in AxisName]?: number }): void;
+
         /**
          * Get and set axis max value.
-         * @param max If max is given, specified axis' max value will be updated. If no argument is given, the current max values for each axis will be returned.
+         * @param max If an object is given, specified axis' max value will be updated. If a number is given, the max values for y and y2 will be updated.
+         * @returns If `max` is *not* given, the current max values for each axis will be returned. Otherwise returns nothing.
          */
         max(): { [key in AxisName]: number };
-        max(
-            max?: number | { [key in AxisName]?: number },
-        ): number | { [key in AxisName]?: number };
+        max(max: number | { [key in AxisName]?: number }): void;
+
         /**
-         * Get and set axis min and max value.
+         * Get and set axis min and max values.
          * @param range If range is given, specified axis' min and max value will be updated. If no argument is given, the current min and max values for each axis will be returned.
          */
         range(): {
             min: { [key in AxisName]: number; };
             max: { [key in AxisName]: number; };
-        }
-        range(range?: {
+        };
+        range(range: {
             min?: number | { [key in AxisName]?: number };
             max?: number | { [key in AxisName]?: number };
-        }): {
-            min: number | { [key in AxisName]?: number };
-            max: number | { [key in AxisName]?: number };
-        };
+        }): void;
     };
 
     legend: {
