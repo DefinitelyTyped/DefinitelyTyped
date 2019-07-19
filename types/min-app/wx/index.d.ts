@@ -10,6 +10,7 @@
 /// <reference path="./lib.wx.cloud.d.ts" />
 
 declare type IAnyObject = Record<string, any>
+declare type Exclude<T, U> = T extends U ? never : T;
 
 declare type KVInfer<T> = {
   [K in keyof T]: T[K]

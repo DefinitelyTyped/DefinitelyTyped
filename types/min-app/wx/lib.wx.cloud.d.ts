@@ -670,6 +670,10 @@ declare namespace DB {
  * Utils
  */
 
+ declare type Required<T> = {
+  [P in keyof T]-?: T[P];
+};
+
 type OQ<T extends Optional<Record<'complete' | 'success' | 'fail', (...args: any[]) => any>>> =
   (RQ<T> & Required<Pick<T, 'success'>>) |
   (RQ<T> & Required<Pick<T, 'fail'>>) |
