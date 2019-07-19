@@ -1040,9 +1040,10 @@ export interface ChartAPI {
     transform(type: string, targetIds?: ArrayOrString): void;
     /**
      * Update groups for the targets.
-     * @param groups This argument needs to be an Array that includes one or more Array that includes target ids to be grouped.
+     * @param groups An array of groups, each with an array of data IDs defining members of the groups.
      */
-    groups(groups: string[][]): void;
+    groups(): string[][];
+    groups<T extends string[][]>(groups: T): T;
 
     xgrids: GridOperations;
 
@@ -1183,6 +1184,7 @@ export interface ChartAPI {
     };
 
     legend: {
+        (): void;
         /**
          * Show legend for each target.
          * @param targetIds If targetIds is given, specified target's legend will be shown. If only one target is the candidate, String can be passed. If no argument is given, all of target's
