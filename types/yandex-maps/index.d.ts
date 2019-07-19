@@ -3053,6 +3053,8 @@ declare namespace ymaps {
 	}
 
 	interface IFreezable {
+        events: IEventManager;
+
 		freeze(): IFreezable;
 
 		isFrozen(): boolean;
