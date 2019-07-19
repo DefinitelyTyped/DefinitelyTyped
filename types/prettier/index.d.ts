@@ -1,7 +1,8 @@
-// Type definitions for prettier 1.16
+// Type definitions for prettier 1.18
 // Project: https://github.com/prettier/prettier, https://prettier.io
-// Definitions by: Ika <https://github.com/ikatyang>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
+// Definitions by: Ika <https://github.com/ikatyang>,
+//                 Ifiok Jr. <https://github.com/ifiokjr>,
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -123,6 +124,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * Which end of line characters to apply.
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
+    /**
+     * Change when properties in objects are quoted.
+     */
+    quoteProps: 'as-needed' | 'consistent' | 'preserve';
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -272,6 +277,11 @@ export interface SupportLanguage {
     vscodeLanguageIds: string[];
 }
 
+export interface SupportOptionDefault {
+    since: string;
+    value: SupportOptionValue;
+}
+
 export interface SupportOption {
     since?: string;
     type: 'int' | 'boolean' | 'choice' | 'path';
@@ -280,9 +290,10 @@ export interface SupportOption {
     redirect?: SupportOptionRedirect;
     description: string;
     oppositeDescription?: string;
-    default: SupportOptionValue;
+    default: SupportOptionValue | SupportOptionDefault[];
     range?: SupportOptionRange;
     choices?: SupportOptionChoice[];
+    category: string;
 }
 
 export interface SupportOptionRedirect {
