@@ -1066,21 +1066,30 @@ export interface ChartAPI {
 
     regions: {
         /**
-         * Update regions.
-         * @param regions Regions will be replaced with this argument. The format of this argument is the same as regions.
+         * Either get the regions or override the regions.
+         * @param regions Regions will be replaced with this argument.
+         * @returns The regions on the plot, after running this function.
          */
-        (regions: any[]): void;
+        (): RegionOptions[];
+        <T extends RegionOptions[]>(regions: T): T;
         /**
-         * Add new region. This API adds new region instead of replacing like regions.
-         * @param grids New region will be added. The format of this argument is the same as regions and it's possible to give an Object if only one region will be added.
+         * Add new region. This API adds new region instead of replacing.
+         * @param grids New region or regions to be added.
+         * @returns The regions on the plot, after running this function.
          */
-        add(regions: any[] | {}): void;
+        add(): RegionOptions[];
+        add(regions: RegionOptions | RegionOptions[]): RegionOptions[];
         /**
-         * Remove regions. This API removes regions.
-         * @param args This argument should include classes. If classes is given, the regions that have one of the specified classes will be removed. If args is not given, all of regions will be
-         * removed.
+         * Remove regions from the chart.
+         * @param args Arguments object. If not provided, removes all regions.
+         * @returns The regions on the plot, after running this function.
          */
-        remove(args?: { value?: number | string; class?: string }): void;
+        remove(args?: {
+            /** If provided, removes the regions that have all of the specified classes. Otherwise removes all regions. */
+            classes?: string[];
+            /** Transition duration for fade out. */
+            duration?: number;
+        }): RegionOptions[];
     };
 
     data: {
