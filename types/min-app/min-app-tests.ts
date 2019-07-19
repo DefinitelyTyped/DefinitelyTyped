@@ -1,3 +1,5 @@
+// TypeScript Version: 2.3
+
 Page({
     data: {
         msg: 'hello world',
