@@ -3034,7 +3034,7 @@ declare namespace ymaps {
 
 		group(): IEventGroup;
 
-		//remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
+		remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
 		setParent(parent: object | null): this;
 	}
