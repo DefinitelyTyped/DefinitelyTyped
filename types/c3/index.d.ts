@@ -948,44 +948,59 @@ export interface ChartAPI {
     toggle(targetIds?: ArrayOrString, options?: { withLegend: boolean }): void;
     /**
      * Load data to the chart.
-     * If url, json, rows and columns given, the data will be loaded. If data that has the same target id is given, the chart will be updated. Otherwise, new target will be added.
-     * If classes given, the classes specifed by data.classes will be updated. classes must be Object that has target id as keys.
-     * If categories given, the categories specifed by axis.x.categories or data.x will be updated. categories must be Array.
-     * If axes given, the axes specifed by data.axes will be updated. axes must be Object that has target id as keys.
-     * If colors given, the colors specifed by data.colors will be updated. colors must be Object that has target id as keys.
-     * If type or types given, the type of targets will be updated. type must be String and types must be Object.
-     * If unload given, data will be unloaded before loading new data. If true given, all of data will be unloaded. If target ids given as String or Array, specified targets will be unloaded.
-     * If done given, the specified function will be called after data loded.
      * NOTE: unload should be used if some data needs to be unloaded simultaneously. If you call unload API soon after/before load instead of unload param, chart will not be rendered properly
      * because of cancel of animation.
      * NOTE: done will be called after data loaded, but it's not after rendering. It's because rendering will finish after some transition and there is some time lag between loading and rendering.
      */
     load(args: {
+        /** Data to load. */
+        data?: Data;
+        /** API url to load data from. If `data` is provided this will be ignored. */
         url?: string;
-        json?: Record<string | number, unknown>;
-        keys?: { x?: string; value: string[] };
+        /** An object to convert to data to load. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. If `data` or `url` are provided this will be ignored. */
+        json?: Record<string, PrimitiveArray> | Record<string, Primitive>[];
+        /** If json is provided and is in row form, these keys are used to pull the data from each row. */
+        keys?: {
+            /** This is the key for the x-value in each row. */
+            x?: string;
+            /** List of remaining keys (besides the x key) to pull data for. */
+            value: string[];
+        };
+        /** A list of rows, where the first row is the column names and the remaining rows are data.  If `data`, `url`, or `json` are provided this will be ignored.  this is ignored. */
         rows?: PrimitiveArray[];
+        /** A list of columns, where the first element in each column is the ID and the remaining elements are data. If `data`, `url`, `json`, or 'rows' are provided, this will be ignored. */
         columns?: PrimitiveArray[];
-        xs?: { [key: string]: string };
-        names?: { [key: string]: string };
-        classes?: { [key: string]: string };
-        categories?: string[];
-        axes?: { [key: string]: AxisName };
-        colors?: { [key: string]: string | d3.RGBColor | d3.HSLColor };
+        /** Match x columns to the corresponding data columns. */
+        xs?: Record<string, string>;
+        /** Match loaded data IDs with display names. */
+        names?: Record<string, string>;
+        /** If classes given, the classes specifed by `data.classes` will be updated. Keys should be data IDs and values should be classes to assign. */
+        classes?: Record<string, string>;
+        /** Array of arrays of data IDs. IDs that share a sub-array will be categorized together. */
+        categories?: string[][];
+        /** Match data IDs to their axes. */
+        axes?: Record<string, AxisName>;
+        /** Match data IDs to the colors to render that data as. */
+        colors?: Record<string, string | d3.RGBColor | d3.HSLColor>;
+        /** Select the plot type for the loaded data. */
         type?: string;
-        types?: { [key: string]: string };
-        unload?: boolean | ArrayOrString;
+        /** Select the plot types for each individual data by ID. */
+        types?: Record<string, string>;
+        /** ID of data to remove, or list of IDs of data to remove, or `true` to remove all data. */
+        unload?: true | ArrayOrString;
+        /** Called when loading completes. */
         done?(): any;
     }): void;
     /**
-     * Unload data to the chart.
-     * You can specify multiple targets by giving an array that includes id as String. If no argument is given, all of targets will be toggles.
-     * If ids given, the data that has specified target id will be unloaded. ids should be String or Array. If ids is not specified, all data will be unloaded.
-     * If done given, the specified function will be called after data loded.
+     * Unload data from the chart.
+     * @param args If given, will unload the data with the ids that match the string, the array of strings, or the `ids` argument of the object. If not given, will unload all data.
      * NOTE: If you call load API soon after/before unload, unload param of load should be used. Otherwise chart will not be rendered properly because of cancel of animation.
-     * NOTE: done will be called after data loaded, but it's not after rendering. It's because rendering will finish after some transition and there is some time lag between loading and rendering.
      */
-    unload(targetIds?: TargetIds, done?: () => any): any;
+    unload(args?: ArrayOrString | {
+        ids?: ArrayOrString;
+        /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
+        done(): any
+    }): void;
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
      * If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added.
