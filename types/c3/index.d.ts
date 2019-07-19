@@ -22,6 +22,9 @@ export interface TargetIds {
 
 export type ArrayOrString = string[] | string;
 
+export type YAxisName = "y" | "y2";
+export type AxisName = "x" | YAxisName;
+
 export interface ChartConfiguration {
     /**
      * The CSS selector or the element which the chart will be set to. D3 selection object can be specified. If other chart is set already, it will be replaced with the new one (only one chart
@@ -364,7 +367,7 @@ export interface Data {
     /**
      * Set y axis the data related to. y and y2 can be used.
      */
-    axes?: { [key: string]: string };
+    axes?: { [key in YAxisName]?: string };
     /**
      * Set chart type at once.
      * If this option is specified, the type will be applied to every data. This setting can be overwritten by data.types.
@@ -460,15 +463,15 @@ export interface Data {
     onunselected?(d: any, element?: any): void;
 }
 
-export interface Axis {
+export type Axis = {
+    [key in YAxisName]?: YAxisConfiguration;
+} & {
     /**
      * Switch x and y axis position.
      */
     rotated?: boolean;
     x?: XAxisConfiguration;
-    y?: YAxisConfiguration;
-    y2?: YAxisConfiguration;
-}
+};
 
 export interface XAxisConfiguration {
     /**
@@ -677,7 +680,7 @@ export interface Grid {
 export interface LineOptions {
     value: string | number | Date;
     text?: string;
-    axis?: string;
+    axis?: AxisName;
     position?: string;
     class?: string;
 }
@@ -686,7 +689,7 @@ export interface RegionOptions {
     /**
      * The axis on which `start` and `end` values lie.
      */
-    axis?: "x" | "y" | "y2";
+    axis?: AxisName;
     /**
      * The point on the axis at which to start the region. If not provided, will
      * use the start edge of the axis.
@@ -966,7 +969,7 @@ export interface ChartAPI {
         names?: { [key: string]: string };
         classes?: { [key: string]: string };
         categories?: string[];
-        axes?: { [key: string]: string };
+        axes?: { [key: string]: AxisName };
         colors?: { [key: string]: string | d3.RGBColor | d3.HSLColor };
         type?: string;
         types?: { [key: string]: string };
@@ -1086,7 +1089,7 @@ export interface ChartAPI {
          * Get and set axes of the data loaded in the chart.
          * @param axes If this argument is given, the axes of data will be updated. If not given, the current axes will be returned. The format of this argument is the same as data.axes.
          */
-        axes(axes?: { [key: string]: string }): { [key: string]: string };
+        axes(axes?: { [key: string]: AxisName }): { [key: string]: AxisName };
     };
 
     /**
@@ -1126,31 +1129,37 @@ export interface ChartAPI {
          * Get and set axis labels.
          * @param labels If labels is given, specified axis' label will be updated.
          */
-        labels(labels?: { [key: string]: string }): { [key: string]: string };
+        labels(labels?: { [key in AxisName]?: string }): { [key in AxisName]?: string };
         /**
          * Get and set axis min value.
          * @param min If min is given, specified axis' min value will be updated. If no argument is given, the current min values for each axis will be returned.
          */
+        min(): { [key in AxisName]: number };
         min(
-            min?: number | { [key: string]: number },
-        ): number | { [key: string]: number };
+            min?: number | { [key in AxisName]?: number },
+        ): number | { [key in AxisName]?: number };
         /**
          * Get and set axis max value.
          * @param max If max is given, specified axis' max value will be updated. If no argument is given, the current max values for each axis will be returned.
          */
+        max(): { [key in AxisName]: number };
         max(
-            max?: number | { [key: string]: number },
-        ): number | { [key: string]: number };
+            max?: number | { [key in AxisName]?: number },
+        ): number | { [key in AxisName]?: number };
         /**
          * Get and set axis min and max value.
          * @param range If range is given, specified axis' min and max value will be updated. If no argument is given, the current min and max values for each axis will be returned.
          */
+        range(): {
+            min: { [key in AxisName]: number; };
+            max: { [key in AxisName]: number; };
+        }
         range(range?: {
-            min?: number | { [key: string]: number };
-            max?: number | { [key: string]: number };
+            min?: number | { [key in AxisName]?: number };
+            max?: number | { [key in AxisName]?: number };
         }): {
-            min: number | { [key: string]: number };
-            max: number | { [key: string]: number };
+            min: number | { [key in AxisName]?: number };
+            max: number | { [key in AxisName]?: number };
         };
     };
 
@@ -1236,7 +1245,7 @@ export interface ChartInternal {
     isCategorized?: () => boolean;
     isCustomX?: () => boolean;
     isTimeSeriesY?: () => boolean;
-    getTranslate?: (target: 'main' | 'context' | 'legend' | 'x' | 'y' | 'y2' | 'subx' | 'arc') => string;
+    getTranslate?: (target: 'main' | 'context' | 'legend' | AxisName | 'subx' | 'arc') => string;
     initialOpacity?: (d: Record<string, unknown>) => 1 | 0;
     initialOpacityForCircle?: (d: Record<string, unknown>) => number;
     opacityForCircle?: (d: Record<string, unknown>) => number;
@@ -1408,7 +1417,7 @@ export interface InternalConfig {
 
     axis_rotated: boolean;
     axis_x_show: boolean;
-    axis_x_type: 'indexed';
+    axis_x_type: string;
     axis_x_localtime: boolean;
     axis_x_categories: unknown[];
     axis_x_tick_centered: boolean;
