@@ -1616,3 +1616,29 @@ export namespace Util {
     let lastId: number;
     let emptyImageUrl: string;
 }
+
+      export interface SVGOverlayOptions extends ImageOverlayOptions {
+}
+
+export class SVGOverlay extends ImageOverlay { 
+    constructor(svg: string | string[] | SVGElement, bounds: LatLngBoundsExpression, options?: SVGOverlayOptions);
+    setOpacity(opacity: number): this;
+    bringToFront(): this;
+    bringToBack(): this;
+    setUrl(url: string): this;
+
+    /** Update the bounds that this VideoOverlay covers */
+    setBounds(bounds: LatLngBounds): this;
+
+    /** Get the bounds that this VideoOverlay covers */
+    getBounds(): LatLngBounds;
+
+    /** Get the video element that represents the VideoOverlay on the map */
+    getElement(): HTMLImageElement | undefined;
+
+    options: SVGOverlayOptions;
+}
+
+export function svgOverlay(svg: SVGElement|string, bounds: LatLngBoundsExpression, options?: SVGOverlayOptions): SVGOverlay;
+              
+                          
