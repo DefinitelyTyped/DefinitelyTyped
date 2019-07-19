@@ -1671,6 +1671,8 @@ declare namespace Office {
      * Add-ins for Project support the `Office.EventType.ResourceSelectionChanged`, `Office.EventType.TaskSelectionChanged`, and 
      * `Office.EventType.ViewSelectionChanged` event types.
      * 
+     * Only task pane add-ins for Outlook support Mailbox API set event types.
+     * 
      * @remarks
      * 
      * **`BindingDataChanged` and `BindingSelectionChanged` hosts**: Excel, Word.
@@ -1685,13 +1687,13 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
-         * Triggers when any date or time of the selected appointment or series is changed in Outlook.
+         * Triggers when any date or time of the selected appointment or series is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.7]
          */
         AppointmentTimeChanged,
         /**
-         * Triggers when an attachment is added to or removed from an item.
+         * Triggers when an attachment is added to or removed from an item. Supported with task pane only.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1731,13 +1733,13 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned.
+         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.5]
          */
         ItemChanged,
         /**
-         * Triggers when the appointment location is changed in Outlook.
+         * Triggers when the appointment location is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox Preview]
          */
@@ -1755,7 +1757,7 @@ declare namespace Office {
          */
         NodeReplaced,
         /**
-         * Triggers when the OfficeTheme is changed in Outlook.
+         * Triggers when the OfficeTheme is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -1763,13 +1765,13 @@ declare namespace Office {
          */
         OfficeThemeChanged,
         /**
-         * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook.
+         * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.7]
          */
         RecipientsChanged,
         /**
-         * Triggers when the recurrence pattern of the selected series is changed in Outlook.
+         * Triggers when the recurrence pattern of the selected series is changed in Outlook. Supported with task pane only.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -10376,7 +10378,7 @@ declare namespace Office {
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -10400,7 +10402,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -10776,7 +10778,7 @@ declare namespace Office {
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -10798,7 +10800,7 @@ declare namespace Office {
         */
        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -11294,7 +11296,7 @@ declare namespace Office {
         subject: string;
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11318,7 +11320,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11672,7 +11674,7 @@ declare namespace Office {
        loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
 
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -11694,7 +11696,7 @@ declare namespace Office {
         */
        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -11806,7 +11808,7 @@ declare namespace Office {
         seriesId: string;
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -11831,7 +11833,7 @@ declare namespace Office {
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -12033,7 +12035,7 @@ declare namespace Office {
 
 
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -12056,7 +12058,7 @@ declare namespace Office {
        removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
 
        /**
-        * Removes the event handlers for a supported event type.
+        * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
         * `Office.EventType.RecurrenceChanged`.
@@ -13446,7 +13448,7 @@ declare namespace Office {
          */
         addFileAttachmentFromBase64Async(base64File: string, attachmentName: string, callback?: (asyncResult: Office.AsyncResult<string>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13470,7 +13472,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13855,7 +13857,7 @@ declare namespace Office {
          */
         removeAttachmentAsync(attachmentId: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -13877,7 +13879,7 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14389,7 +14391,7 @@ declare namespace Office {
         to: EmailAddressDetails[];
 
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14413,7 +14415,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: any, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14770,7 +14772,7 @@ declare namespace Office {
          */
         loadCustomPropertiesAsync(callback: (asyncResult: Office.AsyncResult<CustomProperties>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -14792,7 +14794,7 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
          * `Office.EventType.RecurrenceChanged`.
@@ -15074,7 +15076,7 @@ declare namespace Office {
          */
         userProfile: UserProfile;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15096,7 +15098,7 @@ declare namespace Office {
          */
         addHandlerAsync(eventType: Office.EventType | string, handler: (type: Office.EventType) => void, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds an event handler for a supported event.
+         * Adds an event handler for a supported event. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15475,7 +15477,7 @@ declare namespace Office {
          */
         makeEwsRequestAsync(data: any, callback: (asyncResult: Office.AsyncResult<string>) => void, userContext?: any): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15495,7 +15497,7 @@ declare namespace Office {
          */
         removeHandlerAsync(eventType: Office.EventType | string, options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Removes the event handlers for a supported event type.
+         * Removes the event handlers for a supported event type. **Note**: Events are available only with task pane.
          *
          * Currently, the only supported event type is `Office.EventType.ItemChanged`.
          * In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
@@ -15902,6 +15904,8 @@ declare namespace Office {
         /**
          * A reference to an icon that is defined in the manifest in the Resources section. It appears in the infobar area. 
          * It is only applicable if the type is InformationalMessage. Specifying this parameter for an unsupported type results in an exception.
+         * 
+         * **Note**: At present, the custom icon is displayed in Outlook on Windows only and not on other clients (e.g., Mac, web browser).
          */
         icon?: string;
         /**
