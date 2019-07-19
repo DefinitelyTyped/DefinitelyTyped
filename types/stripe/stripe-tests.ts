@@ -282,6 +282,11 @@ stripe.checkout.sessions.create({
     // asynchronously called
 });
 
+stripe.checkout.sessions.retrieve('ch_test_123');
+stripe.checkout.sessions.retrieve('ch_test_123', { expand: ['payment_intent'] }).then(session => {
+    session && typeof session.payment_intent !== 'string' && session.payment_intent.id;
+});
+
 //#endregion
 
 //#region CreditNotes tests
