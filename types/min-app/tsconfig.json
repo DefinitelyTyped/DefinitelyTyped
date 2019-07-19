@@ -23,6 +23,6 @@
         "wx/lib.wx.api.d.ts",
         "wx/lib.wx.app.d.ts",
         "wx/lib.wx.cloud.d.ts",
-        "wx/lib.wx.page.d.ts",
+        "wx/lib.wx.page.d.ts"
     ]
 }
