@@ -13,6 +13,7 @@ import * as d3 from 'd3';
 
 export as namespace c3;
 
+export type Primitive = string | boolean | number | null;
 export type PrimitiveArray = Array<string | boolean | number | null>;
 export type FormatFunction = (v: any, id: string, i: number, j: number) => void;
 
@@ -987,21 +988,30 @@ export interface ChartAPI {
     unload(targetIds?: TargetIds, done?: () => any): any;
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
-     * If json, rows and columns given, the data will be loaded. If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added. One of these is
-     * required when calling. If json specified, keys is required as well as data.json
-     * If to is given, the lower x edge will move to that point. If not given, the lower x edge will move by the number of given data points.
-     * If length is given, the lower x edge will move by the number of this argument.
-     * If duration is given, the duration of the transition will be specified value. If not given, transition.duration will be used as default.
-     * If done is given, the specified function will be called when flow ends.
+     * If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added.
+     * @param args The arguments object for this method.
      */
     flow(args: {
-        json?: Record<string | number, unknown>;
-        keys?: { x?: string; value: string[] };
-        rows?: PrimitiveArray[];
-        columns?: PrimitiveArray[];
-        to?: any;
+        /** An object to convert to data to load. Can be in the column form `{key1: [val1, val2, ...]; ...}` or in the row form `[{key1: val1; key2: val2}, ...]`. */
+        json?: Record<string, PrimitiveArray> | Record<string, Primitive>[];
+        /** If json is provided and is in row form, these keys are used to pull the data from each row. */
+        keys?: {
+            /** This is the key for the x-value in each row. */
+            x?: string;
+            /** List of remaining keys (besides the x key) to pull data for. */
+            value: string[];
+        };
+        /** A list of rows, where the first row is the column names and the remaining rows are data. If this is provided and `json` is provided, this is ignored. */
+        rows?: [string[], ...PrimitiveArray[]];
+        /** A list of columns, where the first element in each column is the ID and the remaining elements are data. If `json` or `rows` are provided, this will be ignored. */
+        columns?: [string, ...PrimitiveArray][];
+        /** If given, the lower x edge will move to that point. If not given, the lower x edge will move by the number of given data points. */
+        to?: string | number;
+        /** If given, the lower x edge will move by the number of this argument. */
         length?: number;
+        /** If given, the duration of the transition will be specified value. If not given, `transition.duration` will be used as default. */
         duration?: number;
+        /** Will be called when the flow ends. */
         done?(): any;
     }): void;
     /**
@@ -1317,6 +1327,28 @@ export interface ChartInternal {
         height: number;
     };
     CLASS?: Classes;
+
+    /** True if currently flowing. */
+    flowing?: boolean;
+    generateFlow?: (args: {
+        targets: DataSeries[];
+        flow: {
+            index?: unknown;
+            length?: unknown;
+            duration?: number;
+            done?: () => void;
+        };
+        drawBar?: unknown;
+        drawLine?: unknown;
+        drawArea?: unknown;
+        cx?: unknown;
+        cy?: unknown;
+        xv?: unknown;
+        xForText?: unknown;
+        yForText?: unknown;
+        /** If not provided, will use `flow.duration`. */
+        duration?: number;
+    }) => void;
 
     [key: string]: any;
 }
