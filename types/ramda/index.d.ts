@@ -600,17 +600,18 @@ declare namespace R {
     }
 
     interface Filter {
-        <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
+        <T>(fn: (value: T) => boolean): FilterOnceApplied;
         <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
         <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
         <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
     }
 
-    interface FilterOnceApplied<T> {
-        (list: ReadonlyArray<T>): T[];
-        (obj: Dictionary<T>): Dictionary<T>;
-    }
+    type FilterOnceApplied =
+        <T extends ReadonlyArray<any> | Dictionary<any>>(source: T) =>
+            T extends ReadonlyArray<infer U> ? U[] :
+            T extends Dictionary<infer U> ? Dictionary<U> :
+            never;
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
         [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];

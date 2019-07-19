@@ -827,6 +827,12 @@ R.times(i, 5);
 };
 
 () => {
+    const compact = R.filter(Boolean);
+    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
+    const listA: number[] = compact([0, 1]); // => [1]
+};
+
+() => {
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     }
