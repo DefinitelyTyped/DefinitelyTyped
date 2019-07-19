@@ -133,6 +133,7 @@ export interface ReactDatePickerProps {
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
 	timeInputLabel?: string;
+    showTimeInput?: boolean;
 	inlineFocusSelectedMonth?: boolean;
 	onDayMouseEnter?: (date: Date) => void;
 	onMonthMouseLeave?: () => void;
