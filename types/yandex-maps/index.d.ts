@@ -3052,7 +3052,7 @@ declare namespace ymaps {
 	interface IExpandableControlLayout extends ILayout { //tslint:disable-line no-empty-interface no-empty-interfaces
 	}
 
-	interface IFreezable extends IEventManager {
+	interface IFreezable {
 		freeze(): IFreezable;
 
 		isFrozen(): boolean;
