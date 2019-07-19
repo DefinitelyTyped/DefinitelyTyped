@@ -5910,7 +5910,7 @@ declare namespace Highcharts {
          *            [3, 7, 8]
          *
          */
-        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
+        data?: Array<number | null | [number, number] | [number, null] | [string, number] | [string, number, number] | [number, number, number] | DataPoint | null>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
@@ -6134,7 +6134,7 @@ declare namespace Highcharts {
         /**
          * The y value of the point.
          */
-        y?: number;
+        y?: number | null;
         /**
          * The size value for each bubble. The bubbles' diameters are computed based on the z, and controlled by series
          * options like minSize, maxSize, sizeBy, zMin and zMax.
