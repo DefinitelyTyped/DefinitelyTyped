@@ -2,23 +2,21 @@
 // Project: https://github.com/selbekk/calidation#readme
 // Definitions by: Ray Knight <https://github.com/ArrayKnight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 import * as React from 'react';
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface Dictionary<T = any> {
     [key: string]: T;
 }
 
-export interface Dirty extends Dictionary<boolean> {}
+export type Dirty = Dictionary<boolean>;
 
-export interface Errors extends Dictionary<string | null> {}
+export type Errors = Dictionary<string | null>;
 
-export interface Fields extends Dictionary {}
+export type Fields = Dictionary;
 
-export interface Transforms extends Dictionary<(value: any) => any> {}
+export type Transforms = Dictionary<(value: any) => any>;
 
 export interface ValidatorContext {
     errors: Errors;
@@ -86,7 +84,7 @@ export interface FieldConfig {
     isExactLength?: LengthValidator;
 }
 
-export interface FieldsConfig extends Dictionary<FieldConfig> {}
+export type FieldsConfig = Dictionary<FieldConfig>;
 
 export interface FormContext {
     dirty: Dirty;
@@ -94,6 +92,8 @@ export interface FormContext {
     fields: Fields;
     isValid: boolean;
     resetAll: () => void;
+    register: (config: FieldsConfig, transforms: Transforms, initialValues: Dictionary) => void;
+    unregister: (config: FieldsConfig) => void;
     setError: (delta: Errors) => void;
     setField: (delta: Fields) => void;
     submit: () => void;
@@ -110,7 +110,7 @@ export interface FormProps
 
 export class Form extends React.Component<FormProps> {}
 
-export interface ValidationContext extends FormContext {}
+export type ValidationContext = Omit<FormContext, 'register' | 'unregister'>;
 
 export interface ValidationProps {
     children: (context: ValidationContext) => React.ReactNode;
