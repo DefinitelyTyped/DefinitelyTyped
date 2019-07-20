@@ -101,7 +101,12 @@ export interface Checkers<VT> {
 
 // === Common types
 
-export type byte = number; // [0,256)
+/**
+ * Byte represented as number. Value range [0,256)
+ * @public
+ */
+export type byte = number;
+
 export type bytes = byte[];
 
 // === JavaScript value representable with JSON
