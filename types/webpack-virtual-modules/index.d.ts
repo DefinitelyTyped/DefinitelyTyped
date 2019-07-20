@@ -2,6 +2,7 @@
 // Project: https://github.com/sysgears/webpack-virtual-modules
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import webpack = require('webpack');
 
