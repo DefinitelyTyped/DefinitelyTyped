@@ -59,9 +59,6 @@ export function fail(err?: string): never;
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
  *
- * @remarks
- * Groups are used to organize results in a test.
- *
  * @public
  */
 export function group<T>(name: string, fn: () => T): T;
