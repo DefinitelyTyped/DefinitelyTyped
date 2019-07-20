@@ -83,7 +83,7 @@ export interface Checker<VT> {
     /**
      * Check procedure.
      * @param val - Value to check.
-     * @return Whether check passed.
+     * @returns Whether check passed.
      */
     (val: VT): boolean;
 }
