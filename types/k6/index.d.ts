@@ -50,6 +50,7 @@ export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 
 /**
  * Immediately throw an error, aborting the current script iteration.
+ * https://docs.k6.io/docs/fail-err
  * @param err - Error message that gets printed to stderr.
  * @public
  */
