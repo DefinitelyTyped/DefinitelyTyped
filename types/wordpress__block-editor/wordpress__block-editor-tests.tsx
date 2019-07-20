@@ -516,3 +516,4 @@ select('core/block-editor').canInsertBlockType('core/paragraph', 'foo');
 select('core/block-editor').getAdjacentBlockClientId();
 select('core/block-editor').getAdjacentBlockClientId('foo');
 select('core/block-editor').getAdjacentBlockClientId('foo', -1);
+select('core/block-editor').getAdjacentBlockClientId('foo', 1);
