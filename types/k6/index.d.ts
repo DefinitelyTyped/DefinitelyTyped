@@ -40,13 +40,14 @@ import './ws';
 /**
  * Run checks on a value.
  * https://docs.k6.io/docs/check-val-sets-tags
+ * @typeParam VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
  * @returns `true` if all checks have succeeded, otherwise `false`.
  * @public
  */
-export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
+export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
 
 /**
  * Immediately throw an error, aborting the current script iteration.
