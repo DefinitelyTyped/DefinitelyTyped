@@ -60,12 +60,13 @@ export function fail(err?: string): never;
 /**
  * Run code inside a group.
  * https://docs.k6.io/docs/group-name-fn-cond
+ * @typeParam RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
  * @public
  */
-export function group<T>(name: string, fn: () => T): T;
+export function group<RT>(name: string, fn: () => RT): RT;
 
 /**
  * Suspend VU execution for the specified duration.
