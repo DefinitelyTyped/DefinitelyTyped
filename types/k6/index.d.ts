@@ -68,6 +68,7 @@ export function group<T>(name: string, fn: () => T): T;
 
 /**
  * Suspend VU execution for the specified duration.
+ * https://docs.k6.io/docs/sleep-t-1
  * @param t - Duration, in seconds.
  * @public
  */
