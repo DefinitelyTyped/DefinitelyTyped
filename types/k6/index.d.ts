@@ -84,8 +84,13 @@ export interface Checker<VT> {
     (val: VT): boolean;
 }
 
-export interface Checkers<T> {
-    [description: string]: Checker<T>;
+/**
+ * Named check procedures.
+ * @typeParam VT - Value type.
+ * @public
+ */
+export interface Checkers<VT> {
+    [description: string]: Checker<VT>;
 }
 
 // === Common types
