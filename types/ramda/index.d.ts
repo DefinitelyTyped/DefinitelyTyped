@@ -2816,9 +2816,9 @@ declare namespace R {
          */
         take<T>(n: number, xs: ReadonlyArray<T>): T[];
         take(n: number, xs: string): string;
-        take<T>(n: number): {
+        take(n: number): {
             (xs: string): string;
-            (xs: ReadonlyArray<T>): T[];
+            <T>(xs: ReadonlyArray<T>): T[];
         };
 
         /**

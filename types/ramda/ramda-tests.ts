@@ -1426,6 +1426,8 @@ type Pair = KeyValuePair<string, number>;
         "Eugene Wright", "Gerry Mulligan", "Jack Six", "Alan Dawson", "Darius Brubeck", "Chris Brubeck",
         "Dan Brubeck", "Bobby Militello", "Michael Moore", "Randy Jones"];
     const takeFive = R.take(5);
+
+    // $ExpectType string[]
     takeFive(members); // => ["Paul Desmond","Bob Bates","Joe Dodge","Ron Crotty","Lloyd Davis"]
 };
 
