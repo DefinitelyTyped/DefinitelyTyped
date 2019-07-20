@@ -39,6 +39,7 @@ import './ws';
 
 /**
  * Run checks on a value.
+ * https://docs.k6.io/docs/check-val-sets-tags
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
