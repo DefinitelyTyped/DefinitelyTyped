@@ -58,6 +58,7 @@ export function fail(err?: string): never;
 
 /**
  * Run code inside a group.
+ * https://docs.k6.io/docs/group-name-fn-cond
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
