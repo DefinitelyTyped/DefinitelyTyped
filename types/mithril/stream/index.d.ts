@@ -5,9 +5,7 @@ declare namespace Stream {
 		/** Sets the value of the stream. */
 		(value: T): this;
 		/** Creates a dependent stream whose value is set to the result of the callback function. */
-		map(f: (current: T) => Stream<T> | T | void): Stream<T>;
-		/** Creates a dependent stream whose value is set to the result of the callback function. */
-		map<U>(f: (current: T) => Stream<U> | U): Stream<U>;
+        map<U>(f: (current: T) => U): Stream<U>;
 		/** This method is functionally identical to stream. It exists to conform to Fantasy Land's Applicative specification. */
 		of(val?: T): Stream<T>;
 		/** Apply. */

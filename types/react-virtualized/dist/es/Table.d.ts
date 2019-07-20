@@ -84,6 +84,7 @@ export type TableRowProps = {
     columns: any[];
     index: number;
     isScrolling: boolean;
+    key: string;
     onRowClick?: (params: RowMouseEventHandlerParams) => void;
     onRowDoubleClick?: (params: RowMouseEventHandlerParams) => void;
     onRowMouseOver?: (params: RowMouseEventHandlerParams) => void;

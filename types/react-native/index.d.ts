@@ -7535,6 +7535,11 @@ export interface LinkingStatic extends NativeEventEmitter {
      * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
      */
     getInitialURL(): Promise<string | null>;
+
+    /**
+     * Open the Settings app and displays the app’s custom settings, if it has any.
+     */
+    openSettings(): Promise<void>;
 }
 
 export interface LinkingIOSStatic {
@@ -8097,7 +8102,7 @@ export interface PushNotificationIOSStatic {
      * This method returns a promise that resolves to either the notification
      * object if the app was launched by a push notification, or `null` otherwise.
      */
-    getInitialNotification(): Promise<PushNotification>;
+    getInitialNotification(): Promise<PushNotification | null>;
 
     /**
      * iOS fetch results that best describe the result of a finished remote notification handler.
