@@ -107,6 +107,10 @@ export interface Checkers<VT> {
  */
 export type byte = number;
 
+/**
+ * Byte array.
+ * @public
+ */
 export type bytes = byte[];
 
 // === JavaScript value representable with JSON
