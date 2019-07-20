@@ -39,41 +39,33 @@ import './ws';
 
 /**
  * Run checks on a value.
- *
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
  * @returns `true` if all checks have succeeded, otherwise `false`.
- *
  * @public
  */
 export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
 
 /**
  * Immediately throw an error, aborting the current script iteration.
- *
  * @param err - Error message that gets printed to stderr.
- *
  * @public
  */
 export function fail(err?: string): never;
 
 /**
  * Run code inside a group.
- *
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
- *
  * @public
  */
 export function group<T>(name: string, fn: () => T): T;
 
 /**
  * Suspend VU execution for the specified duration.
- *
  * @param t - Duration, in seconds.
- *
  * @public
  */
 export function sleep(t: number): void;
