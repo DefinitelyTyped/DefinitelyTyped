@@ -2,30 +2,34 @@
 // Project: https://github.com/TryGhost/Ghost-Storage-Base
 // Definitions by: Demian <https://github.com/thde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 import { Handler } from 'express';
 
-export interface Image {
-    path: string;
-    name: string;
-    type: string;
+declare namespace StorageBase {
+    interface Image {
+        path: string;
+        name: string;
+        type: string;
+    }
+
+    interface ReadOptions {
+        path: string;
+    }
 }
 
-export interface ReadOptions {
-    path: string;
-}
-
-export abstract class StorageBase {
+declare abstract class StorageBase {
     constructor();
 
     abstract exists(fileName: string, targetDir?: string): Promise<boolean>;
-    abstract save(image: Image, targetDir?: string): Promise<string>;
+    abstract save(image: StorageBase.Image, targetDir?: string): Promise<string>;
     abstract serve(): Handler;
     abstract delete(fileName: string, targetDir?: string): Promise<boolean>;
-    abstract read(options?: ReadOptions): Promise<Buffer>;
+    abstract read(options?: StorageBase.ReadOptions): Promise<Buffer>;
 
     getTargetDir(baseDir?: string): string;
-    getUniqueFileName(image: Image, targetDir: string): string;
+    getUniqueFileName(image: StorageBase.Image, targetDir: string): string;
     getSanitizedFileName(fileName: string): string;
 }
+
+export = StorageBase;

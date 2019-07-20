@@ -806,6 +806,24 @@ ImageModel.findOne({}, function(err, doc) {
     doc.id;
   }
 });
+
+/* Testing deep partials */
+interface NestedDoc extends mongoose.Document {
+  name: string;
+  image: ImageDoc;
+}
+var NestedDocSchema = new mongoose.Schema({
+  name: String,
+  image: ImageModel
+});
+const NestedModel = mongoose.model<NestedDoc>('Nested', NestedDocSchema);
+const nested = new NestedModel({
+  name: "name",
+  image: {
+    name: "name"
+  }
+})
+
 /* Using flatten maps example */
 interface Submission extends mongoose.Document {
   name: string;
