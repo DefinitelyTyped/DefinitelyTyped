@@ -70,9 +70,20 @@ export function group<T>(name: string, fn: () => T): T;
  */
 export function sleep(t: number): void;
 
-export interface Checker<T> {
-    (val: T): boolean;
+/**
+ * Check procedure.
+ * @typeParam VT - Value type.
+ * @public
+ */
+export interface Checker<VT> {
+    /**
+     * Check procedure.
+     * @param val - Value to check.
+     * @return Whether check passed.
+     */
+    (val: VT): boolean;
 }
+
 export interface Checkers<T> {
     [description: string]: Checker<T>;
 }
