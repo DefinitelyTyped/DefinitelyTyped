@@ -48,11 +48,6 @@ export function check<T>(val: T, sets: Checkers<T>, tags?: object): boolean;
  *
  * @param err - Error message that gets printed to stderr.
  *
- * @remarks
- * fail() is a simple convenience wrapper on top of JavaScript's `throw()`
- * (because the latter cannot be used as `[expr] || throw`, which is a
- * convenient way to write k6 test code).
- *
  * @public
  */
 export function fail(err?: string): never;
