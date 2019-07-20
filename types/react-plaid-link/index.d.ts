@@ -1,4 +1,4 @@
-// Type definitions for react-plaid-link 1.2
+// Type definitions for react-plaid-link 1.3
 // Project: https://github.com/pbernasconi/react-plaid-link
 // Definitions by: KeevanDance <https://github.com/DanceParty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,5 +35,5 @@ export namespace subProp {
      *~   import * as yourMod from 'yourModule';
      *~   yourMod.subProp.foo();
      */
-    export function foo(): void;
+    function foo(): void;
 }
