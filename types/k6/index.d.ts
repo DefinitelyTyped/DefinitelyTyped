@@ -5,7 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-/*
+/**
+ * k6 JavaScript API.
+ * https://docs.k6.io/docs
+ *
+ * @privateRemarks
  * Uses a branding pattern throughout to reflect the custom classes exposed by
  * the k6 runtime. These classes have internal state not visible in JavaScript.
  * The object passed back to k6 must be an actual instance created on the
@@ -16,6 +20,8 @@
  *
  * This follows the pattern used in the TypeScript compiler:
  * https://github.com/Microsoft/TypeScript/blob/7b48a182c05ea4dea81bab73ecbbe9e013a79e99/src/compiler/types.ts#L693-L698
+ *
+ * @packageDocumentation
  */
 
 import './global'; // Type global environment
