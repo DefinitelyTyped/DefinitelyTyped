@@ -4,13 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-
+declare module 'react-share' {
+  import * as React from 'react';
+  // tslint:disable:variable-name
 // =============================================================================
 // Share buttons
 // =============================================================================
 
-export interface CommonShareButtonProps {
+  export interface CommonShareButtonProps {
     /**
      * URL of the shared page
      */
@@ -37,145 +38,171 @@ export interface CommonShareButtonProps {
      * An object to pass any additional properties, such as `aria-*` attributes.
      */
     additionalProps?: React.HTMLAttributes<HTMLDivElement>;
-}
+  }
 
-export const FacebookShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** A quote to be shared along with the link. */
-        quote?: string;
-        /**
-         * A hashtag specified by the developer to be added to the shared
-         * content. People will still have the opportunity to remove this
-         * hashtag in the dialog. The hashtag should include the hash symbol.
-         */
-        hashtag?: string;
-    }
->;
-export const GooglePlusShareButton: React.StatelessComponent<
-    CommonShareButtonProps
->;
-export const LinkedinShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        /** Description of the shared page */
-        description?: string;
-    }
->;
-export const TwitterShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        via?: string;
-        hashtags?: string[];
-    }
->;
-export const TelegramShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-    }
->;
-export const WhatsappShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        /**
-         * Separates title from the url
-         * @default ' '
-         */
-        separator?: string;
-    }
->;
-export const PinterestShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        media: string;
-        /** Description of the shared page */
-        description?: string;
-    }
->;
-export const VKShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        /** Description of the shared page */
-        description?: string;
-        /** An absolute link to the image that will be shared */
-        image?: string;
-    }
->;
-export const OKShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        /** Description of the shared page */
-        description?: string;
-    }
->;
-export const RedditShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-    }
->;
-export const TumblrShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        tags?: string[];
-        /** Description of the shared page */
-        caption?: string;
-    }
->;
-export const LivejournalShareButton: React.StatelessComponent<
-    CommonShareButtonProps & { title?: string; description?: string }
->;
-export const MalruShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        title?: string;
-        /** Description of the shared page */
-        description?: string;
-        /** An absolute link to the image that will be shared */
-        image?: string;
-    }
->;
-export const EmailShareButton: React.StatelessComponent<
-    CommonShareButtonProps & {
-        /** Title of the shared page */
-        subject?: string;
-        /** Body of the email, defaults to shared url. */
-        body?: string;
-    }
->;
+  export const FacebookShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** A quote to be shared along with the link. */
+    quote?: string;
+    /**
+     * A hashtag specified by the developer to be added to the shared
+     * content. People will still have the opportunity to remove this
+     * hashtag in the dialog. The hashtag should include the hash symbol.
+     */
+    hashtag?: string;
+  }>;
+
+  export const GooglePlusShareButton: React.FunctionComponent<CommonShareButtonProps>;
+
+  export const LinkedinShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /** Description of the shared page */
+    description?: string;
+  }>;
+  export const TwitterShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    via?: string;
+    hashtags?: string[];
+  }>;
+  export const TelegramShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+  }>;
+  export const WhatsappShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /**
+     * Separates title from the url
+     * @default ' '
+     */
+    separator?: string;
+  }>;
+  export const PinterestShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    media: string;
+    /** Description of the shared page */
+    description?: string;
+  }>;
+  export const VKShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /** Description of the shared page */
+    description?: string;
+    /** An absolute link to the image that will be shared */
+    image?: string;
+  }>;
+  export const OKShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /** Description of the shared page */
+    description?: string;
+    /** An absolute link to the image that will be shared */
+    image?: string;
+  }>;
+  export const RedditShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+  }>;
+  export const TumblrShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    tags?: string[];
+    /** Description of the shared page */
+    caption?: string;
+  }>;
+  export const LivejournalShareButton: React.FunctionComponent<CommonShareButtonProps &
+    { title?: string; description?: string }>;
+  export const MailruShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /** Description of the shared page */
+    description?: string;
+    /** An absolute link to the image that will be shared */
+    image?: string;
+  }>;
+  export const ViberShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /**
+     * Separates title from the url
+     * @default ' '
+     */
+    separator?: string;
+  }>;
+  export const WorkplaceShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** A quote to be shared along with the link. */
+    quote?: string;
+    /**
+     * A hashtag specified by the developer to be added to the shared
+     * content. People will still have the opportunity to remove this
+     * hashtag in the dialog. The hashtag should include the hash symbol.
+     */
+    hashtag?: string;
+  }>;
+  export const LineShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+  }>;
+  export const WeiboShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /** An absolute link to the image that will be shared */
+    image?: string;
+  }>;
+  export const EmailShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    subject?: string;
+    /** Body of the email, defaults to shared url. */
+    body?: string;
+    /**
+     * Separates title from the url
+     * @default ' '
+     */
+    separator?: string;
+    /**
+     *  Opens the mail client in a new window
+     * @default ' '
+     */
+    openWindow?: boolean;
+  }>;
+  export const PocketShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+  }>;
+  export const InstapaperShareButton: React.FunctionComponent<CommonShareButtonProps & {
+    /** Title of the shared page */
+    title?: string;
+    /** Description of the shared page */
+    description?: string;
+  }>;
 
 // =============================================================================
 // Share counts
 // =============================================================================
 
-export interface ShareCountComponentProps {
+  export interface ShareCountComponentProps {
     /** The URL you are sharing */
     url: string;
     /** Classes to apply (if any) */
     className?: string;
     /** Supply a function as the child to render anything but the count */
     children?: (shareCount: number) => React.ReactNode;
-}
+  }
 
-export const FacebookShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const GooglePlusShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const LinkedinShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const PinterestShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const VKShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const OKShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const RedditShareCount: React.StatelessComponent<ShareCountComponentProps>;
-export const TumblrShareCount: React.StatelessComponent<ShareCountComponentProps>;
+  export const FacebookShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const GooglePlusShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const LinkedinShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const PinterestShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const VKShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const OKShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const RedditShareCount: React.FunctionComponent<ShareCountComponentProps>;
+  export const TumblrShareCount: React.FunctionComponent<ShareCountComponentProps>;
 
 // =============================================================================
 // Icons
 // =============================================================================
 
-export interface IconComponentProps {
+  export interface IconComponentProps {
     /** Icon size in pixels */
     size?: number;
     /** Whether to show round or rect icons */
@@ -187,19 +214,25 @@ export interface IconComponentProps {
      * @default 'white'
      */
     logoFillColor?: string;
-}
+  }
 
-export const FacebookIcon: React.StatelessComponent<IconComponentProps>;
-export const TwitterIcon: React.StatelessComponent<IconComponentProps>;
-export const TelegramIcon: React.StatelessComponent<IconComponentProps>;
-export const WhatsappIcon: React.StatelessComponent<IconComponentProps>;
-export const GooglePlusIcon: React.StatelessComponent<IconComponentProps>;
-export const LinkedinIcon: React.StatelessComponent<IconComponentProps>;
-export const PinterestIcon: React.StatelessComponent<IconComponentProps>;
-export const VKIcon: React.StatelessComponent<IconComponentProps>;
-export const OKIcon: React.StatelessComponent<IconComponentProps>;
-export const RedditIcon: React.StatelessComponent<IconComponentProps>;
-export const TumblrIcon: React.StatelessComponent<IconComponentProps>;
-export const LivejournalIcon: React.StatelessComponent<IconComponentProps>;
-export const MailruIcon: React.StatelessComponent<IconComponentProps>;
-export const EmailIcon: React.StatelessComponent<IconComponentProps>;
+  export const FacebookIcon: React.FunctionComponent<IconComponentProps>;
+  export const TwitterIcon: React.FunctionComponent<IconComponentProps>;
+  export const TelegramIcon: React.FunctionComponent<IconComponentProps>;
+  export const WhatsappIcon: React.FunctionComponent<IconComponentProps>;
+  export const GooglePlusIcon: React.FunctionComponent<IconComponentProps>;
+  export const LinkedinIcon: React.FunctionComponent<IconComponentProps>;
+  export const PinterestIcon: React.FunctionComponent<IconComponentProps>;
+  export const VKIcon: React.FunctionComponent<IconComponentProps>;
+  export const OKIcon: React.FunctionComponent<IconComponentProps>;
+  export const RedditIcon: React.FunctionComponent<IconComponentProps>;
+  export const TumblrIcon: React.FunctionComponent<IconComponentProps>;
+  export const LivejournalIcon: React.FunctionComponent<IconComponentProps>;
+  export const MailruIcon: React.FunctionComponent<IconComponentProps>;
+  export const ViberIcon: React.FunctionComponent<IconComponentProps>;
+  export const WorkplaceIcon: React.FunctionComponent<IconComponentProps>;
+  export const LineIcon: React.FunctionComponent<IconComponentProps>;
+  export const PocketIcon: React.FunctionComponent<IconComponentProps>;
+  export const InstapaperIcon: React.FunctionComponent<IconComponentProps>;
+  export const EmailIcon: React.FunctionComponent<IconComponentProps>;
+}
