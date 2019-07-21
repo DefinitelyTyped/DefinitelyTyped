@@ -25,6 +25,10 @@
  * Run API Extractor to validate doc comments:
  * api-extractor run -c api-extractor.json -l
  *
+ * The `@typeParam` tag is not yet supported by API Extractor and raises
+ * warnings. These warnings are expected for now. They'll disappear when
+ * support for the tag is added.
+ *
  * @packageDocumentation
  */
 
