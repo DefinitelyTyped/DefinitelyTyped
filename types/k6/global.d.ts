@@ -13,7 +13,23 @@ export {};
 // Available without importing
 declare global {
     // === Init context only
+
+    /**
+     * Opens a file, reading all its contents into memory.
+     * https://docs.k6.io/docs/open-filepath-mode
+     * @param filePath - Path to file.
+     * @returns File contents decoded as UTF-8.
+     * @public
+     */
     function open(filePath: string): string;
+
+    /**
+     * Opens a file, reading all its contents into memory.
+     * https://docs.k6.io/docs/open-filepath-mode
+     * @param filePath - Path to file.
+     * @returns Binary file contents.
+     * @public
+     */
     function open(filePath: string, mode: 'b'): bytes;
 
     // === Init context and VU body
