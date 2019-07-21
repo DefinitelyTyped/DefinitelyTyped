@@ -193,7 +193,12 @@ export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
  */
 export type BinaryEncoding = 'binary';
 
+/**
+ * Output encoding.
+ * @public
+ */
 export type OutputEncoding = StringEncoding | BinaryEncoding;
+
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding
     ? string
     : OE extends BinaryEncoding
