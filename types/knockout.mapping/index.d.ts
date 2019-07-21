@@ -1,6 +1,6 @@
 // Type definitions for Knockout.Mapping 2.0
 // Project: https://github.com/SteveSanderson/knockout.mapping
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, 
+// Definitions by: Boris Yankov <https://github.com/borisyankov> 
 //                 Mathias Lorenzen <https://github.com/ffMathy>
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,10 +13,9 @@ export as namespace mapping;
 declare var self: KnockoutMapping;
 export = self;
 
+type Primitives = string | number | boolean | symbol | bigint;
 
 declare global {
-
-    type Primitives = string | number | boolean;
 
     type MappedType<T> =
         T extends Primitives ? KnockoutObservable<T> :
@@ -25,8 +24,8 @@ declare global {
 
     type KnockoutObservableType<T> = {
         [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]> :
-                        T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]> :
-                        MappedType<T[P]>;
+        T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]> :
+        MappedType<T[P]>;
     };
 
     // Could not get this to return any when T is any. It returns a Union type of the possible values.
