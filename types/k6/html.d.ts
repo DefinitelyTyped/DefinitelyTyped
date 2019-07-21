@@ -435,6 +435,10 @@ export abstract class Attribute {
 // === Node type ===
 // -----------------
 
+/**
+ * Node type.
+ * @public
+ */
 export enum NodeType {
     ElementNode = 1,
     TextNode = 3,
