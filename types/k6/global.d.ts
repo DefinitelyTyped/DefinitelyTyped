@@ -94,5 +94,5 @@ interface Logger {
      * @param msg - Message to log.
      * @param fields - Arbitrary data to attach to message.
      */
-    (msg: any, ...fields: any[]): void
+    (msg: any, ...fields: any[]): void;
 }
