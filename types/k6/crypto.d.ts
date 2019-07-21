@@ -187,7 +187,12 @@ export type Algorithm =
  */
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 
+/**
+ * Binary output encoding.
+ * @public
+ */
 export type BinaryEncoding = 'binary';
+
 export type OutputEncoding = StringEncoding | BinaryEncoding;
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding
     ? string
