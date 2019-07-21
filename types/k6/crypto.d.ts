@@ -210,6 +210,11 @@ export type Output<OE extends OutputEncoding> = OE extends StringEncoding
     ? bytes
     : never;
 
+/**
+ * Hashing object.
+ * https://docs.k6.io/docs/hasher-k6crypto
+ * @public
+ */
 export abstract class Hasher {
     protected __brand: never;
     update(input: string): void;
