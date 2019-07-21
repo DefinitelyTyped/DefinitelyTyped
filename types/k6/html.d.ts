@@ -406,13 +406,29 @@ export interface Mapper {
 // === Attribute ===
 // -----------------
 
+/**
+ * HTML attribute.
+ * @public
+ */
 export abstract class Attribute {
     protected __brand: never;
+
+    /** Name. */
     name: string;
+
+    /** Owning element. */
     ownerElement: Element;
+
+    /** Value. */
     value: string;
+
+    /** Local part of qualified name. */
     localName(): string;
+
+    /** Namespace URI. */
     namespaceURI(): string;
+
+    /** Namespace prefix. */
     prefix(): string;
 }
 
