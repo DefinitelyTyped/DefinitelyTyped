@@ -23,7 +23,7 @@
  *
  * @privateRemarks
  * Run API Extractor to validate doc comments:
- * mkdir -p etc && api-extractor run -c api-extractor.json -l
+ * api-extractor run -c api-extractor.json -l
  *
  * @packageDocumentation
  */
