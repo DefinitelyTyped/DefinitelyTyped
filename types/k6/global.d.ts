@@ -33,6 +33,12 @@ declare global {
     function open(filePath: string, mode: 'b'): bytes;
 
     // === Init context and VU body
+
+    /**
+     * Environment variables.
+     * https://docs.k6.io/docs/environment-variables
+     * @public
+     */
     const __ENV: object;
 
     // === VU body only
