@@ -710,9 +710,15 @@ export abstract class DataListElement extends Element {
     options(): OptionElement[];
 }
 
+/**
+ * HTML <del> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class DelElement extends ModElement {
     protected __brand: never;
 }
+
 export abstract class EmbedElement extends Element {
     protected __brand: never;
 }
