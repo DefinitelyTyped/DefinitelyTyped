@@ -56,7 +56,7 @@
         "prefer-for-of": false,
         "prefer-method-signature": false,
         "prefer-template": false,
-        "quotemark": [true, "double", "avoid-escape" ],
+        "quotemark": [true, "single", "avoid-escape" ],
         "radix": false,
         "semicolon": false,
         "space-before-function-paren": false,

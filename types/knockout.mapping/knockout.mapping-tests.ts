@@ -33,30 +33,30 @@ interface MappedCar {
 }
 
 let badUserMappingOptions: KnockoutMappingOptions<User> = {
-    ignore: ["age"],
-    include: ["name"],
-    copy: ["height"],
-    mappedProperties: ["age", "name"],
+    ignore: ['age'],
+    include: ['name'],
+    copy: ['height'],
+    mappedProperties: ['age', 'name'],
     deferEvaluation: false,
     create: (options: KnockoutMappingCreateOptions) => { }, // $ExpectError
 }
 
 let userMappingOptions: KnockoutMappingOptions<User> = {
-    ignore: ["age"],
-    include: ["name"],
-    copy: ["height"],
-    mappedProperties: ["age", "name"],
+    ignore: ['age'],
+    include: ['name'],
+    copy: ['height'],
+    mappedProperties: ['age', 'name'],
     deferEvaluation: false,
     firstName: { create: (options: KnockoutMappingCreateOptions) => { } },
 }
 let badMapping = {
-    ignof3efere: ["age"],
-    inclfefeude: ["name"],
+    ignof3efere: ['age'],
+    inclfefeude: ['name'],
 }
 
 ////////////////////////////////
 // fromJS function with JS object without Array properties
-let userInput: User = { firstName: "foo", age: 12, address: { street: "street name" } }
+let userInput: User = { firstName: 'foo', age: 12, address: { street: 'street name' } }
 
 let mappedUserViewModel: MappedUser = mapping.fromJS(userInput) // $ExpectType KnockoutObservableType<User>
 mappedUserViewModel.age // $ExpectType KnockoutObservable<number>
@@ -73,7 +73,7 @@ mapping.fromJS(untypedObject) // $ExpectType any
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
-let carInput: Car = { name: "hb20x", maintenance: [1, 2], drivers: [userInput] }
+let carInput: Car = { name: 'hb20x', maintenance: [1, 2], drivers: [userInput] }
 let mappedCar: MappedCar = mapping.fromJS(carInput)
 let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
 let maintenance: KnockoutReadonlyObservableArray<number> = mappedCar.maintenance
@@ -130,7 +130,7 @@ interface nameObject {
     name: string
 }
 
-let nameObjectInput: nameObject = { name: "bar" }
+let nameObjectInput: nameObject = { name: 'bar' }
 let nameObjectInputJSON = '{ name: "foo" }'
 
 mapping.fromJSON(nameObjectInputJSON) // $ExpectType any
@@ -170,8 +170,8 @@ mapping.toJSON<MappedUser>(mappedUserViewModel, userMappingOptions) // $ExpectTy
 // visitModel function
 mapping.visitModel(nameObjectInput, (x: any) => x, {})
 mapping.visitModel(nameObjectInput, (x: any) => x, { visitedObjects: null })
-mapping.visitModel(nameObjectInput, (x: any) => x, { parentName: "parent" })
-mapping.visitModel(nameObjectInput, (x: any) => x, { ignore: ["age"] })
-mapping.visitModel(nameObjectInput, (x: any) => x, { copy: ["height"] })
-mapping.visitModel(nameObjectInput, (x: any) => x, { include: ["name"] })
-mapping.visitModel(nameObjectInput, (x: any) => x, { visitedObjects: null, parentName: "parent", ignore: ["age"], copy: ["height"], include: ["name"] })
+mapping.visitModel(nameObjectInput, (x: any) => x, { parentName: 'parent' })
+mapping.visitModel(nameObjectInput, (x: any) => x, { ignore: ['age'] })
+mapping.visitModel(nameObjectInput, (x: any) => x, { copy: ['height'] })
+mapping.visitModel(nameObjectInput, (x: any) => x, { include: ['name'] })
+mapping.visitModel(nameObjectInput, (x: any) => x, { visitedObjects: null, parentName: 'parent', ignore: ['age'], copy: ['height'], include: ['name'] })
