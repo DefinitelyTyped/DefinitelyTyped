@@ -450,49 +450,182 @@ export enum NodeType {
 // === Element ===
 // ---------------
 
+/**
+ * HTML node.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class Element {
     protected __brand: never;
+
+    /** Dictionary of element attributes. */
     attributes(): { [name: string]: Attribute };
+
+    /** Count of child elements. */
     childElementCount(): number;
+
+    /** Child nodes. */
     childNodes(): Element[];
+
+    /** Child elements. */
     children(): Element[];
+
+    /** Class names. */
     classList(): string[];
+
+    /**
+     * Class value.
+     * @returns Single string with all class names.
+     */
     className(): string | undefined;
+
+    /**
+     * Check whether contains element.
+     * @param element - Possibly contained element.
+     * @returns Whether contains element. Self containment returns `true`.
+     */
     contains(element: Element): boolean;
+
+    /** First child node. */
     firstChild(): Element | undefined;
+
+    /** First child element. */
     firstElementChild(): Element | undefined;
+
+    /**
+     * Get attribute value.
+     * @param name - Attribute name.
+     * @returns Attribute value.
+     */
     getAttribute(name: string): string | undefined;
+
+    /**
+     * Get attribute node.
+     * @param name - Attribute name.
+     * @returns Attribute node.
+     */
     getAttributeNode(name: string): Attribute | undefined;
+
+    /**
+     * Get descendant elements in class.
+     * @param name - Class name.
+     * @return Descendant elements in class.
+     */
     getElementsByClassName(name: string): Element[];
+
+    /**
+     * Get descendant elements with tag name.
+     * @param name - Tag name.
+     * @return Descendant elements with tag name.
+     */
     getElementsByTagName(name: string): Element[];
+
+    /**
+     * Check whether has attribute.
+     * @param name - Attribute name.
+     * @returns Whether has attribute.
+     */
     hasAttribute(name: string): boolean;
+
+    /** Whether has any attributes. */
     hasAttributes(): boolean;
+
+    /** Whether has any child nodes. */
     hasChildNodes(): boolean;
+
+    /** Identifier value. */
     id(): string;
+
+    /** Inner HTML. Markup of content. */
     innerHTML(): string | undefined;
+
+    /** Whether has the default namespace. */
     isDefaultNamespace(): boolean;
-    isEqualNode(element: Element): boolean;
-    isSameNode(element: Element): boolean;
+
+    /**
+     * Check whether node is equal.
+     * @param node - Node to check.
+     * @returns Whether node has equal HTML representation.
+     */
+    isEqualNode(node: Element): boolean;
+
+    /**
+     * Check whether node is identical.
+     * @param node - Node to check.
+     * @returns Whether node is self.
+     */
+    isSameNode(node: Element): boolean;
+
+    /** Value of `lang` attribute. */
     lang(): string | undefined;
+
+    /** Last child node. */
     lastChild(): Element | undefined;
+
+    /** Last child element. */
     lastElementChild(): Element | undefined;
+
+    /**
+     * Check whether matches selector.
+     * @param selector - Selector expression.
+     * @returns Whether matches selector.
+     */
     matches(selector: string): boolean;
+
+    /** Namespace URI. */
     namespaceURI(): string;
+
+    /** Next sibling element. */
     nextElementSibling(): Element | undefined;
+
+    /** Next sibling node. */
     nextSibling(): Element | undefined;
+
+    /** Node name. */
     nodeName(): string;
+
+    /** Node type. */
     nodeType(): NodeType | undefined;
+
+    /** Node value. */
     nodeValue(): string | undefined;
+
+    /** Owning document node. */
     ownerDocument(): Element | undefined;
+
+    /** Parent element. */
     parentElement(): Element | undefined;
+
+    /** Parent node. */
     parentNode(): Element | undefined;
+
+    /** Previous sibling element. */
     previousElementSibling(): Element | undefined;
+
+    /** Previous sibling node. */
     previousSibling(): Element | undefined;
+
+    /**
+     * Select a single descendant element.
+     * @param selector - Selector expression.
+     * @returns First matched element.
+     */
     querySelector(selector: string): Element | undefined;
+
+    /**
+     * Select descendant elements.
+     * @param selector - Selector expression.
+     * @returns All matched elements.
+     */
     querySelectorAll(selector: string): Element[];
+
+    /** Text content. */
     textContent(): string;
+
+    /** String representation, eg `[object html.Node]`. */
     toString(): string;
 }
+
 export abstract class AnchorElement extends HrefElement {
     protected __brand: never;
 }
