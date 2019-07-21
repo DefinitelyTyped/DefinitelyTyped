@@ -365,9 +365,19 @@ export interface FormValue {
     value: string;
 }
 
+/**
+ * Test procedure.
+ * @public
+ */
 export interface Tester {
+    /**
+     * @param index - Current index.
+     * @param element - Current element.
+     * @returns Whether element passes test.
+     */
     (index: number, element: Element): boolean;
 }
+
 export interface Handler {
     (index: number, element: Element): void;
 }
