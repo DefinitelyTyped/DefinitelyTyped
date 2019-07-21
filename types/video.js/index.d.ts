@@ -5850,7 +5850,7 @@ declare namespace videojs {
 	 * 1. By calling `videojs('example_video_1');`
 	 * 2. By using it directly via  `videojs.players.example_video_1;`
 	 */
-	interface VideoJsPlayer extends videojs.Component {
+	export interface VideoJsPlayer extends videojs.Component {
 		bigPlayButton: videojs.Button;
 
 		controlBar: videojs.ControlBar;
