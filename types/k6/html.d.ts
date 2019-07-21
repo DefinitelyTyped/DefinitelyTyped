@@ -662,10 +662,18 @@ export abstract class BaseElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <button> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class ButtonElement extends FormFieldElement {
     protected __brand: never;
+
+    /** Value of `value` attribute if exists. Otherwise markup of content. */
     value(): string;
 }
+
 export abstract class CanvasElement extends Element {
     protected __brand: never;
     height(): number;
