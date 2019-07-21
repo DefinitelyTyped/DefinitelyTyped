@@ -155,6 +155,14 @@ export function ripemd160<OE extends OutputEncoding>(
  */
 export function createHash(algorithm: Algorithm): Hasher;
 
+/**
+ * Create an HMAC hashing object.
+ * https://docs.k6.io/docs/createhmacalgorithm-secret
+ * @param algorithm - Hash algorithm.
+ * @param secret - Shared secret.
+ * @returns HMAC hashing object.
+ * @public
+ */
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 
 export type Algorithm =
