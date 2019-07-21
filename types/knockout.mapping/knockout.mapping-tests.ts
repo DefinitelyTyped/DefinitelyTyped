@@ -84,12 +84,10 @@ let numberInput: number
 let stringInput: string
 let booleanInput: boolean
 let symbolInput: symbol
-let bigintInput: bigint
 
 mapping.fromJS(numberInput) // $ExpectType KnockoutObservable<number>
 mapping.fromJS(stringInput) // $ExpectType KnockoutObservable<string>
 mapping.fromJS(symbolInput) // $ExpectType KnockoutObservable<symbol>
-mapping.fromJS(bigintInput) // $ExpectType KnockoutObservable<bigint>
 
 // Typescript weirdly returns KnockoutObservable<false> | KnockoutObservable<true>
 let booleanMapped: KnockoutObservable<boolean> = mapping.fromJS(booleanInput)

@@ -13,7 +13,7 @@ export as namespace mapping;
 declare var self: KnockoutMapping;
 export = self;
 
-type Primitives = string | number | boolean | symbol | bigint;
+type Primitives = string | number | boolean | symbol;
 
 declare global {
 
@@ -34,7 +34,7 @@ declare global {
 
     type KnockoutReadonlyObservableArrayType<T> = T extends Primitives ? KnockoutReadonlyObservableArray<T> : KnockoutReadonlyObservableArray<KnockoutObservableType<T>>;
 
-    type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions
+    type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions;
 
     interface KnockoutMappingStandardOptions {
         ignore?: string[];
