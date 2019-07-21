@@ -626,9 +626,14 @@ export abstract class Element {
     toString(): string;
 }
 
+/**
+ * HTML <a> element.
+ * @public
+ */
 export abstract class AnchorElement extends HrefElement {
     protected __brand: never;
 }
+
 export abstract class AreaElement extends HrefElement {
     protected __brand: never;
 }
