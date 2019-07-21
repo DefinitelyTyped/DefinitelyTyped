@@ -698,10 +698,18 @@ export abstract class DataElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <datalist> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class DataListElement extends Element {
     protected __brand: never;
+
+    /** Contained <option> elements. */
     options(): OptionElement[];
 }
+
 export abstract class DelElement extends ModElement {
     protected __brand: never;
 }
