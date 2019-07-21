@@ -3,6 +3,12 @@
  * https://docs.k6.io/docs/k6html
  */
 
+/**
+ * Parse an HTML string.
+ * @param html - HTML source.
+ * @returns Document node object.
+ * @public
+ */
 export function parseHTML(html: string): Selection;
 
 // Selection
