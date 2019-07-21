@@ -199,6 +199,11 @@ export type BinaryEncoding = 'binary';
  */
 export type OutputEncoding = StringEncoding | BinaryEncoding;
 
+/**
+ * Output type. Varies with output encoding.
+ * @typeParam OE - Output encoding.
+ * @public
+ */
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding
     ? string
     : OE extends BinaryEncoding
