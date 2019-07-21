@@ -43,6 +43,10 @@ declare global {
 
     // === VU body only
 
+    /**
+     * Interface to system console.
+     * @public
+     */
     let console: Console;
 
     /**
@@ -60,10 +64,32 @@ declare global {
     const __ITER: number;
 }
 
+/** @public */
 interface Console {
-    debug(msg: any, ...fields: any[]): void;
-    error(msg: any, ...fields: any[]): void;
-    info(msg: any, ...fields: any[]): void;
-    log(msg: any, ...fields: any[]): void;
-    warn(msg: any, ...fields: any[]): void;
+    /** Log debug message. */
+    debug: Logger;
+
+    /** Log error message. */
+    error: Logger;
+
+    /** Log informational message. */
+    info: Logger;
+
+    /** Log message. */
+    log: Logger;
+
+    /** Log warning message. */
+    warn: Logger;
+}
+
+/**
+ * Log message procedure.
+ * @public
+ */
+interface Logger {
+    /**
+     * @param msg - Message to log.
+     * @param fields - Arbitrary data to attach to message.
+     */
+    (msg: any, ...fields: any[]): void
 }
