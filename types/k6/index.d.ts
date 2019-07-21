@@ -113,10 +113,24 @@ export type byte = number;
  */
 export type bytes = byte[];
 
-// === JavaScript value representable with JSON
+// === JSON
 
+/**
+ * JavaScript value representable with JSON.
+ * @public
+ */
 export type JSONValue = null | boolean | number | string | JSONArray | JSONObject;
+
+/**
+ * Array representable with JSON.
+ * @public
+ */
 export interface JSONArray extends Array<JSONValue> {}
+
+/**
+ * Object representable with JSON.
+ * @public
+ */
 export interface JSONObject {
     [key: string]: JSONValue;
 }
