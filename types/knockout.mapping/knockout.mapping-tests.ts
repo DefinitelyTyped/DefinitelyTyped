@@ -22,13 +22,13 @@ interface MappedAddress {
 
 interface Car {
     name: string
-    maintenance: number[]
+    maintenance: ReadonlyArray<number>
     drivers: User[]
 }
 
 interface MappedCar {
     name: KnockoutObservable<string>
-    maintenance: KnockoutObservableArray<number>
+    maintenance: KnockoutReadonlyObservableArray<number>
     drivers: KnockoutObservableArray<MappedUser>
 }
 
@@ -73,10 +73,10 @@ mapping.fromJS(untypedObject) // $ExpectType any
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
-
-let carInput: Car = { name: "hb20x", maintenance: [1, 2], drivers: [userInput] }
+let carInput: Car = { name: "hb20x", maintenance: [1,2], drivers: [userInput] }
 let mappedCar: MappedCar = mapping.fromJS(carInput)
 let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
+let maintenance : KnockoutReadonlyObservableArray<number> = mappedCar.maintenance
 
 ////////////////////////////////
 // fromJS function with primitives
@@ -109,7 +109,20 @@ mapping.fromJS(untypedArrayObject) // $ExpectType KnockoutObservableArray<any> |
 
 let mappedNumberArrayViewModel = mapping.fromJS(numberArrayInput)  // $ExpectType KnockoutObservableArray<number>
 mapping.fromJS(numberArrayInput, {}, mappedNumberArrayViewModel) // $ExpectType KnockoutObservableArray<number>
-mapping.fromJS(numberArrayInput, {}, {}) // $ExpectError
+mapping.fromJS(numberArrayInput, mappedNumberArrayViewModel) // $ExpectType KnockoutObservableArray<number>
+
+////////////////////////////////
+// fromJS function with JS ReadonlyArray 
+let userReadonlyArrayInput: ReadonlyArray<User>
+let numberReadonlyArray: ReadonlyArray<number>
+
+mapping.fromJS(userReadonlyArrayInput) // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userReadonlyArrayInput, {}) // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
+mapping.fromJS(userReadonlyArrayInput, {}, userArrayInput) // $ExpectError
+
+let mappedNumberReadonlyArrayViewModel = mapping.fromJS(numberReadonlyArray) // $ExpectType KnockoutReadonlyObservableArray<number>
+mapping.fromJS(numberReadonlyArray, {}, mappedNumberReadonlyArrayViewModel) // $ExpectType KnockoutReadonlyObservableArray<number>
+mapping.fromJS(numberReadonlyArray, mappedNumberReadonlyArrayViewModel) // $ExpectType KnockoutReadonlyObservableArray<number>
 
 ////////////////////////////////
 // fromJSON function
