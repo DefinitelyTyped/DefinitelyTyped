@@ -1,3 +1,11 @@
+/*
+ * Custom entities exposed in the global environment.
+ *
+ * The global environment changes with execution context. Some items are
+ * available only in the init context, others only during VU logic execution,
+ * others in both contexts. Comments note availability.
+ */
+
 import { bytes } from '.';
 
 export {};
