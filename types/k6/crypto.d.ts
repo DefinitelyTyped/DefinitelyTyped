@@ -43,8 +43,19 @@ export function md4<OE extends OutputEncoding>(
     outputEncoding: OE
 ): Output<OE>;
 
-export function md5(input: string, outputEncoding: BinaryEncoding): bytes;
-export function md5(input: string, outputEncoding: StringEncoding): string;
+/**
+ * Hash with MD5.
+ * https://docs.k6.io/docs/md5-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns MD5 digest.
+ * @public
+ */
+export function md5<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
+
 export function sha1(input: string, outputEncoding: BinaryEncoding): bytes;
 export function sha1(input: string, outputEncoding: StringEncoding): string;
 export function sha256(input: string, outputEncoding: BinaryEncoding): bytes;
