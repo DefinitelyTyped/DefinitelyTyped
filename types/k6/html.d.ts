@@ -390,7 +390,16 @@ export interface Handler {
     (index: number, element: Element): void;
 }
 
+/**
+ * Map procedure.
+ * @public
+ */
 export interface Mapper {
+    /**
+     * @param index - Current index.
+     * @param element - Current element.
+     * @returns Value element maps to.
+     */
     (index: number, element: Element): unknown;
 }
 
