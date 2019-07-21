@@ -354,7 +354,7 @@ export abstract class Selection {
 }
 
 /**
- * Form value.
+ * Form field value.
  * @public
  */
 export interface FormValue {
