@@ -5842,7 +5842,6 @@ declare namespace videojs {
 	}
 }
 
-
 	/**
 	 * An instance of the `Player` class is created when any of the Video.js setup methods
 	 * are used to initialize a video.
@@ -6483,7 +6482,7 @@ declare namespace videojs {
 		 * Returns a value that expresses the current state of the element
 		 * with respect to rendering the current playback position.
 		 */
-		readyState(): ReadyState;
+		readyState(): videojs.ReadyState;
 
 		/**
 		 * Calculates how much time is left in the video. Not part
