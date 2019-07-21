@@ -17,43 +17,342 @@ export function parseHTML(html: string): Selection;
 // === Selection ===
 // -----------------
 
+/**
+ * Represents a set of nodes in a DOM tree.
+ * https://docs.k6.io/docs/selection-k6html
+ * @public
+ */
 export abstract class Selection {
     protected __brand: never;
+
+    /**
+     * Get the value of an attribute for the first element in the Selection.
+     * https://docs.k6.io/docs/selectionattrname
+     * @param name - Name of attribute to get.
+     * @returns Attribute value.
+     */
     attr(name: string): string | undefined;
+
+    /**
+     * Get the children of each element in the set of matched elements,
+     * optionally filtered by a selector.
+     * https://docs.k6.io/docs/selectionchildrenselector
+     * @param selector - Selector expression.
+     * @returns Selected children.
+     */
     children(selector?: string): Selection;
+
+    /**
+     * For each element in the set, get the first element that matches the
+     * selector by testing the element itself and traversing up through its
+     * ancestors in the DOM tree.
+     * https://docs.k6.io/docs/selectionclosestselector
+     * @param selector - Selector expression.
+     * @returns Selected nodes.
+     */
     closest(selector: string): Selection;
+
+    /**
+     * Get the children of each element in the set of matched elements,
+     * including text and comment nodes.
+     * https://docs.k6.io/docs/selectioncontents
+     * @returns Selected nodes.
+     */
     contents(): Selection;
+
+    /**
+     * Return the value at the named data store for the first element in the
+     * set of matched elements.
+     * https://docs.k6.io/docs/selectiondatakey
+     * @param key - A string naming the piece of data to set.\
+     * @returns The value at the named data store.
+     */
     data(key?: string): string | undefined;
+
+    /**
+     * Iterate over a Selection (k6/html), executing a function for each
+     * matched element.
+     * https://docs.k6.io/docs/selectioneachfn
+     * @param handler - Logic to execute for each element.
+     */
     each(handler: Handler): void;
+
+    /**
+     * Reduce the set of matched elements to the one at the specified index.
+     * https://docs.k6.io/docs/selectioneqindex
+     * @param index - An integer indicating the 0-based position of the element.
+     * @returns Unary set of selected element.
+     */
     eq(index: number): Selection;
-    filter(selector: string | Tester | Selection): Selection;
+
+    /**
+     * Reduce the set of matched elements to those that match the selector
+     * or pass the function's test.
+     * https://docs.k6.io/docs/selectionfilterfn
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
+    filter(selector: string): Selection;
+
+    /**
+     * Reduce the set of matched elements to those that match the selector
+     * or pass the function's test.
+     * https://docs.k6.io/docs/selectionfilterfn
+     * @param selector - A function used as a test for each element in the set.
+     * @returns Selected elements.
+     */
+    filter(selector: Tester): Selection;
+
+    /**
+     * Reduce the set of matched elements to those that match the selector
+     * or pass the function's test.
+     * https://docs.k6.io/docs/selectionfilterfn
+     * @param selector - A selection to match elements against.
+     * @returns Selected elements.
+     */
+    filter(selector: Selection): Selection;
+
+    /**
+     * Find the selection descendants, filtered by a selector.
+     * https://docs.k6.io/docs/selectionfindselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     find(selector: string): Selection;
+
+    /**
+     * Reduce the set of matched elements to the first.
+     * https://docs.k6.io/docs/selectionfirst
+     * @returns Unary set of first element.
+     */
     first(): Selection;
+
+    /**
+     * Retrieve the element matched by the selector.
+     * https://docs.k6.io/docs/selectiongetindex
+     * @param index - A zero-based integer indicating which element to retrieve.
+     * @returns Selected element.
+     */
     get(index: number): Element;
+
+    /**
+     * Reduce the set of matched elements to those that have a descendant that
+     * matches the selector.
+     * https://docs.k6.io/docs/selectionhasselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     has(selector: string): Selection;
+
+    /**
+     * Get the HTML contents of the first element.
+     * https://docs.k6.io/docs/selectionhtml
+     * @returns The HTML content of the first element.
+     */
     html(): string | undefined;
-    is(selector: string | Tester | Selection): Selection;
+
+    /**
+     * Check the current matched set of elements against a selector or element
+     * and return true if at least one of these elements matches the given
+     * arguments.
+     * https://docs.k6.io/docs/selectionisselector
+     * @param selector - Selector expression.
+     * @returns Whether selector matched at least one element.
+     */
+    is(selector: string): boolean;
+
+    /**
+     * Check the current matched set of elements against a selector or element
+     * and return true if at least one of these elements matches the given
+     * arguments.
+     * https://docs.k6.io/docs/selectionisselector
+     * @param selector - A function used as a test for each element in the set.
+     * @returns Whether selector matched at least one element.
+     */
+    is(selector: Tester): boolean;
+
+    /**
+     * Check the current matched set of elements against a selector or element
+     * and return true if at least one of these elements matches the given
+     * arguments.
+     * https://docs.k6.io/docs/selectionisselector
+     * @param selector - A selection to match against.
+     * @returns Whether selector matched at least one element.
+     */
+    is(selector: Selection): boolean;
+
+    /**
+     * Reduce the set of matched elements to the final one.
+     * https://docs.k6.io/docs/selectionlast
+     * @returns Unary set of last element.
+     */
     last(): Selection;
+
+    /**
+     * Pass each element in the current matched set through a function,
+     * producing a new Array containing the return values.
+     * https://docs.k6.io/docs/selectionmapfn
+     * @param mapper - Procedure to execute on each element.
+     * @returns Mapper return values.
+     */
     map(mapper: Mapper): unknown[];
+
+    /**
+     * Get the immediately following sibling of each element.
+     * https://docs.k6.io/docs/selectionnext
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     next(selector?: string): Selection;
+
+    /**
+     * Get all following siblings of each element,
+     * optionally filtered by a selector.
+     * https://docs.k6.io/docs/selectionnextallselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     nextAll(selector?: string): Selection;
+
+    /**
+     * Get all following siblings of each element up to but not including the
+     * element matched by the selector.
+     * https://docs.k6.io/docs/selectionnextuntilselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     nextUntil(selector?: string): Selection;
-    not(selector: string | Tester): Selection;
+
+    /**
+     * Remove elements.
+     * https://docs.k6.io/docs/selectionnotselector
+     * @param selector - Selector expression.
+     * @returns Selection with matched elements removed.
+     */
+    not(selector: string): Selection;
+
+    /**
+     * Remove elements.
+     * https://docs.k6.io/docs/selectionnotselector
+     * @param selector - A function used as a test for each element in the set.
+     * @returns Selection with matched elements removed.
+     */
+    not(selector: Tester): Selection;
+
+    /**
+     * Get the parent of each element, optionally filtered by a selector.
+     * https://docs.k6.io/docs/selectionparentselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     parent(selector?: string): Selection;
+
+    /**
+     * Get the ancestors of each element, optionally filtered by a selector.
+     * https://docs.k6.io/docs/selectionparentsselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     parents(selector?: string): Selection;
+
+    /**
+     * Get the ancestors of each element,
+     * up to but not including the element matched by the selector.
+     * https://docs.k6.io/docs/selectionparentsuntilselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     parentsUntil(selector?: string): Selection;
+
+    /**
+     * Get the immediately preceding sibling of each element.
+     * https://docs.k6.io/docs/selectionprevselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     prev(selector?: string): Selection;
+
+    /**
+     * Get all preceding siblings of each element,
+     * optionally filtered by a selector.
+     * https://docs.k6.io/docs/selectionprevallselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     prevAll(selector?: string): Selection;
+
+    /**
+     * Get all preceding siblings of each element
+     * up to but not including the element matched by the selector.
+     * https://docs.k6.io/docs/selectionprevuntilselector
+     * @param selector - Selector expression.
+     * @returns Selected elements.
+     */
     prevUntil(selector?: string): Selection;
+
+    /**
+     * Encode a set of form elements as a string
+     * in standard URL-encoded notation for submission.
+     * https://docs.k6.io/docs/selectionserialize
+     * @returns URL-encoded representation of the form or form elements.
+     */
     serialize(): string;
+
+    /**
+     * Encode a set of form elements as an array of name-value objects.
+     * `[{ name: "name", value: "value" }, ... ]`
+     * https://docs.k6.io/docs/selectionserializearray
+     * @returns Array of name value objects of the form or form elements.
+     */
     serializeArray(): FormValue[];
+
+    /**
+     * Encode a set of form elements as an object.
+     * `{ inputName: "value", checkboxName: "value", ... }`
+     * https://docs.k6.io/docs/selectionserializeobject
+     * @returns Object representation of the form or form elements,
+     *     key is field name and value is field value.
+     */
     serializeObject(): { [name: string]: string };
+
+    /**
+     * Return the number of elements in the selection.
+     * https://docs.k6.io/docs/selectionsize
+     * @returns The number of elements in the selection.
+     */
     size(): number;
+
+    /**
+     * Reduce the set of elements to a subset specified by a range of indices.
+     * https://docs.k6.io/docs/selectionslicestart-end
+     * @param start - An integer indicating the 0-based position at which the
+     *     elements begin to be selected.
+     * @param end - An integer indicating the 0-based position at which the
+     *     elements stop being selected.
+     * @returns Selected elements.
+     */
     slice(start: number, end?: number): Selection;
+
+    /**
+     * Get the text content of the selection.
+     * @returns Text content.
+     */
     text(): string;
+
+    /**
+     * Retrieve all the elements contained in the selection as an array.
+     * https://docs.k6.io/docs/selectiontoarray
+     * @returns A unary selection of each element.
+     */
     toArray(): Selection[];
+
+    /**
+     * Get the current value of the first element.
+     * @returns The value of the first element.
+     */
     val(): string | undefined;
 }
+
 export interface FormValue {
     name: string;
     value: string;
