@@ -26,7 +26,7 @@ export interface PlaidLinkProps {
 
     // The Plaid products you wish to use, an array containing some of connect,
     // auth, identity, income, transactions, assets, liabilities
-    product: (
+    product: Array<
         | 'connect' // legacy product name
         | 'info' // legacy product name
         | 'auth'
@@ -35,7 +35,8 @@ export interface PlaidLinkProps {
         | 'transactions'
         | 'assets'
         | 'holdings'
-        | 'liabilities')[];
+        | 'liabilities'
+    >;
 
     // Specify an existing user's public token to launch Link in update mode.
     // This will cause Link to open directly to the authentication step for
@@ -65,7 +66,7 @@ export interface PlaidLinkProps {
         metadata: {
             link_session_id: string;
             institution: { name: string; institution_id: string };
-            accounts: {
+            accounts: Array<{
                 id: string;
                 name: string;
                 mask: string;
@@ -76,7 +77,7 @@ export interface PlaidLinkProps {
                     | 'pending_manual_verification'
                     | 'manually_verified'
                     | null;
-            }[];
+            }>;
         }
     ) => void;
 
