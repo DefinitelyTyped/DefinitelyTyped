@@ -134,8 +134,19 @@ export function sha512_256<OE extends OutputEncoding>(
     outputEncoding: OE
 ): Output<OE>;
 
-export function ripemd160(input: string, outputEncoding: BinaryEncoding): bytes;
-export function ripemd160(input: string, outputEncoding: StringEncoding): string;
+/**
+ * Hash with RIPEMD-160.
+ * https://docs.k6.io/docs/ripemd160-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns RIPEMD-160 digest.
+ * @public
+ */
+export function ripemd160<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
+
 export function createHash(algorithm: Algorithm): Hasher;
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 
