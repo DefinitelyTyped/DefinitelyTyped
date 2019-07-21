@@ -353,10 +353,18 @@ export abstract class Selection {
     val(): string | undefined;
 }
 
+/**
+ * Form value.
+ * @public
+ */
 export interface FormValue {
+    /** Field name. */
     name: string;
+
+    /** Field value. */
     value: string;
 }
+
 export interface Tester {
     (index: number, element: Element): boolean;
 }
