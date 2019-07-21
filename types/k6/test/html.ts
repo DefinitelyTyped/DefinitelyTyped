@@ -79,9 +79,9 @@ derived = selection.first();
 element = selection.get(7);
 derived = selection.has('.item');
 selection.html(); // $ExpectType string | undefined
-derived = selection.is('.item');
-derived = selection.is(tester);
-derived = selection.is(selection);
+selection.is('.item'); // $ExpectType boolean
+selection.is(tester); // $ExpectType boolean
+selection.is(selection); // $ExpectType boolean
 derived = selection.last();
 selection.map(mapper); // $ExpectType unknown[]
 derived = selection.next('span');
