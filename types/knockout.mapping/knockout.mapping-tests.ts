@@ -80,8 +80,8 @@ let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
 
 ////////////////////////////////
 // fromJS function with primitives
-let numberInput = 3
-let stringInput = "foo"
+let numberInput: number
+let stringInput: string
 let booleanInput: boolean
 let symbolInput: symbol
 let bigintInput: bigint
@@ -97,8 +97,8 @@ let booleanMapped: KnockoutObservable<boolean> = mapping.fromJS(booleanInput)
 ////////////////////////////////
 // fromJS function with JS Array
 let userArrayInput = [userInput]
-let untypedArrayObject: any[] = [2, 3]
-let numberArrayInput = [3, 4, 67]
+let untypedArrayObject: any[]
+let numberArrayInput: number[]
 
 mapping.fromJS(userArrayInput) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userArrayInput, {}) // $ExpectType KnockoutObservableArray<KnockoutObservableType<User>>
