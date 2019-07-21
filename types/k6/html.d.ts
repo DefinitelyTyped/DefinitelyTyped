@@ -3,6 +3,9 @@
  * https://docs.k6.io/docs/k6html
  */
 
+// === Main ===
+// ------------
+
 /**
  * Parse an HTML string.
  * @param html - HTML source.
@@ -11,7 +14,9 @@
  */
 export function parseHTML(html: string): Selection;
 
-// Selection
+// === Selection ===
+// -----------------
+
 export abstract class Selection {
     protected __brand: never;
     attr(name: string): string | undefined;
@@ -63,7 +68,9 @@ export interface Mapper {
     (index: number, element: Element): unknown;
 }
 
-// Attribute
+// === Attribute ===
+// -----------------
+
 export abstract class Attribute {
     protected __brand: never;
     name: string;
@@ -74,7 +81,9 @@ export abstract class Attribute {
     prefix(): string;
 }
 
-// NodeType
+// === NodeType ===
+// ----------------
+
 export enum NodeType {
     ElementNode = 1,
     TextNode = 3,
@@ -83,7 +92,9 @@ export enum NodeType {
     DoctypeNode = 10,
 }
 
-// Element
+// === Element ===
+// ---------------
+
 export abstract class Element {
     protected __brand: never;
     attributes(): { [name: string]: Attribute };
