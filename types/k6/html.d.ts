@@ -378,9 +378,18 @@ export interface Tester {
     (index: number, element: Element): boolean;
 }
 
+/**
+ * Handle procedure.
+ * @public
+ */
 export interface Handler {
+    /**
+     * @param index - Current index.
+     * @param element - Current element.
+     */
     (index: number, element: Element): void;
 }
+
 export interface Mapper {
     (index: number, element: Element): unknown;
 }
