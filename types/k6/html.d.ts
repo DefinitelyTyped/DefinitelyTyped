@@ -689,9 +689,15 @@ export abstract class CanvasElement extends Element {
     width(): number;
 }
 
+/**
+ * HTML <data> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class DataElement extends Element {
     protected __brand: never;
 }
+
 export abstract class DataListElement extends Element {
     protected __brand: never;
     options(): OptionElement[];
