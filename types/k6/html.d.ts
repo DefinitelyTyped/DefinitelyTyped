@@ -416,8 +416,8 @@ export abstract class Attribute {
     prefix(): string;
 }
 
-// === NodeType ===
-// ----------------
+// === Node type ===
+// -----------------
 
 export enum NodeType {
     ElementNode = 1,
