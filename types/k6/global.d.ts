@@ -12,7 +12,8 @@ export {};
 
 // Available without importing
 declare global {
-    // === Init context only
+    // === Init context only ===
+    // -------------------------
 
     /**
      * Opens a file, reading all its contents into memory.
@@ -32,7 +33,8 @@ declare global {
      */
     function open(filePath: string, mode: 'b'): bytes;
 
-    // === Init context and VU logic
+    // === Init context and VU logic ===
+    // ---------------------------------
 
     /**
      * Environment variables.
@@ -41,7 +43,8 @@ declare global {
      */
     const __ENV: { [name: string]: string };
 
-    // === VU logic only
+    // === VU logic only ===
+    // ---------------------
 
     /**
      * Interface to system console.

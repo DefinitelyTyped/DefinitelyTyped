@@ -43,7 +43,8 @@ import './metrics';
 import './options';
 import './ws';
 
-// === Main
+// === Main ===
+// ------------
 
 /**
  * Run checks on a value.
@@ -107,7 +108,8 @@ export interface Checkers<VT> {
     [description: string]: Checker<VT>;
 }
 
-// === Common types
+// === Common types ===
+// --------------------
 
 /**
  * Byte represented as number. Value range [0,256)
@@ -121,7 +123,8 @@ export type byte = number;
  */
 export type bytes = byte[];
 
-// === JSON
+// === JSON ===
+// ------------
 
 /**
  * JavaScript value representable with JSON.
