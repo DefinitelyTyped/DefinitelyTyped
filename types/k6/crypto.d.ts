@@ -30,8 +30,19 @@ export function hmac<OE extends OutputEncoding>(
     outputEncoding: OE
 ): Output<OE>;
 
-export function md4(input: string, outputEncoding: BinaryEncoding): bytes;
-export function md4(input: string, outputEncoding: StringEncoding): string;
+/**
+ * Hash with MD4.
+ * https://docs.k6.io/docs/md4-input-outputencoding
+ * @param input - Data to hash.
+ * @param outputEncoding - Output encoding.
+ * @returns MD4 digest.
+ * @public
+ */
+export function md4<OE extends OutputEncoding>(
+    input: string,
+    outputEncoding: OE
+): Output<OE>;
+
 export function md5(input: string, outputEncoding: BinaryEncoding): bytes;
 export function md5(input: string, outputEncoding: StringEncoding): string;
 export function sha1(input: string, outputEncoding: BinaryEncoding): bytes;
@@ -64,9 +75,10 @@ export type Algorithm =
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 export type BinaryEncoding = 'binary';
 export type OutputEncoding = StringEncoding | BinaryEncoding;
-export type Output<OE extends OutputEncoding>
-    = OE extends StringEncoding ? string
-    : OE extends BinaryEncoding ? bytes
+export type Output<OE extends OutputEncoding> = OE extends StringEncoding
+    ? string
+    : OE extends BinaryEncoding
+    ? bytes
     : never;
 
 export abstract class Hasher {
