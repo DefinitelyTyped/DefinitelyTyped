@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 4.2
+// Type definitions for tabulator-tables 4.3
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,7 +24,8 @@ declare namespace Tabulator {
             OptionsPersistentConfiguration,
             OptionsClipboard,
             OptionsDataTree,
-            OptionsCell {}
+            OptionsCell,
+            OptionsHTML {}
 
     interface OptionsCells extends CellCallbacks {
         /** The validationFailed event is triggered when the value entered into a cell during an edit fails to pass validation. */
@@ -139,7 +140,7 @@ declare namespace Tabulator {
     When using the page size selector like this, if you use the setPageSize function to set the page size to a value not in the list, the list will be regenerated using the new page size as the starting valuer	*/
         paginationSizeSelector?: true | number[];
         /**  By default the pagination controls are added to the footer of the table. If you wish the controls to be created in another element pass a DOM node or a CSS selector for that element to the paginationElement option.*/
-        paginationElement?: HTMLElement | 'string';
+        paginationElement?: HTMLElement | string;
         /** Lookup list to link expected data feilds from the server to their function	* default* {
         "current_page":"current_page",
         "last_page":"last_page",
@@ -597,6 +598,12 @@ declare namespace Tabulator {
 
         /** The columnTitleChanged callback is triggered whenever a user edits a column title when the editableTitle parameter has been enabled in the column definition array. */
         columnTitleChanged?: (column: ColumnComponent) => void;
+
+        /**By setting the headerVisible option to false you can hide the column headers and present the table as a simple list if needed. */
+        headerVisible?: boolean;
+
+        /**If you don't want to show a particular column in the print table you can set the print property in its column definition object to false */
+        print?: boolean;
     }
 
     interface OptionsCell {
@@ -697,14 +704,11 @@ declare namespace Tabulator {
 
     type DownloadType = 'csv' | 'json' | 'xlsx' | 'pdf';
 
-    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF {
-        downloadType: DownloadType;
-        fileName: string;
-    }
+    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF {}
 
     interface DownloadCSV {
         /** By default CSV files are created using a comma (,) delimiter. If you need to change this for any reason the you can pass the options object with a delimiter property to the download function which will then use this delimiter instead of the comma. */
-        delimiter?: 'string';
+        delimiter?: string;
         /** If you need the output CSV to include a byte order mark (BOM) to ensure that output with UTF-8 characters can be correctly interpereted across didfferent applications, you should set the bom option to true */
         bom?: boolean;
     }
@@ -721,6 +725,9 @@ declare namespace Tabulator {
         rowCalcStyles?: any;
         jsPDF?: any;
         autoTable?: {} | ((doc: any) => any);
+
+        /**An optional callback documentProcessing can be set on the download config object, that is passed the jsPDF document object after the auto-table creation to allow full customisation of the PDF */
+        documentProcessing?: (doc: any) => any;
     }
 
     interface OptionsDownload {
@@ -741,11 +748,48 @@ declare namespace Tabulator {
 
     You can choose to remove column headers groups, row groups or column calculations from the output data by setting the values in the downloadConfig option in the table definition: */
 
-        downloadConfig?: {
-            columnGroups?: boolean;
-            rowGroups?: boolean;
-            columnCalcs?: boolean;
-        };
+        downloadConfig?: AddditionalExportOptions;
+    }
+
+    interface OptionsHTML {
+        htmlOutputConfig?: AddditionalExportOptions;
+        /**By Default when a page is printed that includes a Tabulator it will be rendered on the page exactly as the table is drawn. While this ise useful in most cases, some users prefer tohave more controll over the print output, for example showing all rows of the table, instead of just those visible with the current position of the scroll bar.
+
+        Tabulator provides a print styling mode that will replace the Tabulator with an HTML table for the printout giving you much more control over the look and feel of the table for the print out., to enable this mode, set the printAsHtml option to true in the table constructor. 
+        
+        This will replace the table (in print outs only) with a simple HTML table with the class tabulator-print-table that you can use to style the table in any way you like.
+
+        It also has the benifit that because it is an HTML table, if it corsses a page break your browser will uatomatically add the column headers in at the top of the next page.
+        */
+        printAsHtml?: boolean;
+
+        /**The HTML table will contain column header groups, row groups, and column calculations.
+
+        You can choose to remove any of these from the output data by setting the values in the printConfig option in the table definition */
+        printConfig?: AddditionalExportOptions;
+
+        /**If you want your printed table to be styled to match your Tabulator you can set the printCopyStyle to true, this will copy key layout styling to the printed table */
+        printCopyStyle?: boolean;
+
+        /**By deafault, only the rows currently visible in the Tabulator will be added to the HTML table, If you want to inclued all the active data (all currently filted/sorted rows) in the table you can set the printVisibleRows option to false. */
+        printVisibleRows?: boolean;
+
+        /**You can use the printHeader table setup option to define a header to be displayed when the table is printed. */
+        printHeader?: StandardStringParam;
+
+        /**You can use the printFooter table setup option to define a footer to be displayed when the table is printed. */
+        printFooter?: StandardStringParam;
+
+        /**The printFormatter table setup option allows you to carry out any manipulation of the print output before it is displayed to the user for printing*/
+        printFormatter?: (tableHolderElement: any, tableElement: any) => any;
+    }
+
+    type StandardStringParam = string | HTMLElement | (() => string | HTMLElement);
+
+    interface AddditionalExportOptions {
+        columnGroups?: boolean;
+        rowGroups?: boolean;
+        columnCalcs?: boolean;
     }
 
     interface OptionsLocale {
@@ -990,6 +1034,9 @@ You can pass an optional additional property with sorter, sorterParams that shou
 
         /** disable live filtering of the table  */
         headerFilterLiveFilter?: boolean;
+
+        /** Show/Hide a particular column in the HTML output*/
+        htmlOutput?: boolean;
     }
 
     interface CellCallbacks {
@@ -1122,6 +1169,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | CheckboxParams
         | SelectParams
         | AutoCompleteParams
+        | InputParams
         | ((cell: CellComponent) => {});
 
     type ScrollToRowPostition = 'top' | 'center' | 'bottom' | 'nearest';
@@ -1196,6 +1244,11 @@ You can pass an optional additional property with sorter, sorterParams that shou
         min?: number;
         max?: number;
         step?: number;
+    }
+
+    interface InputParams {
+        /**Changes input type to 'search' and shows an 'X' clear button to clear the cell value easily */
+        search?: boolean;
     }
 
     interface CheckboxParams {
@@ -1549,8 +1602,12 @@ declare class Tabulator {
     searchRows: (field: string, type: Tabulator.FilterType, value: any) => Tabulator.RowComponent[];
     /** The searchData function allows you to retreive an array of table row data that match any filters you pass in. it accepts the same arguments as the setFilter function. */
     searchData: (field: string, type: Tabulator.FilterType, value: any) => any[];
-    /** You can retrieve the table data as a simple HTML table using the getHtml function. */
-    getHtml: (activeOnly?: boolean) => void;
+    /** Returns a table built of all active rows in the table (matching filters and sorts) */
+    getHtml: (activeOnly?: boolean, style?: boolean, config?: Tabulator.AddditionalExportOptions) => any;
+
+    /**You can use the print function to trigger a full page printing of the contents of the table without any other elements from the page */
+    print: (activeOnly?: boolean, style?: boolean, config?: Tabulator.AddditionalExportOptions) => any;
+
     /** You can retrieve the current AJAX URL of the table with the getAjaxUrl function.
    * 
    * This will return a HTML encoded string of the table data.
