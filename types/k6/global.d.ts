@@ -32,7 +32,7 @@ declare global {
      */
     function open(filePath: string, mode: 'b'): bytes;
 
-    // === Init context and VU body
+    // === Init context and VU logic
 
     /**
      * Environment variables.
@@ -41,7 +41,7 @@ declare global {
      */
     const __ENV: { [name: string]: string };
 
-    // === VU body only
+    // === VU logic only
 
     /**
      * Interface to system console.
