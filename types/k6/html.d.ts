@@ -628,6 +628,7 @@ export abstract class Element {
 
 /**
  * HTML <a> element.
+ * https://docs.k6.io/docs/element-k6html
  * @public
  */
 export abstract class AnchorElement extends HrefElement {
@@ -636,6 +637,7 @@ export abstract class AnchorElement extends HrefElement {
 
 /**
  * HTML <area> element.
+ * https://docs.k6.io/docs/element-k6html
  * @public
  */
 export abstract class AreaElement extends HrefElement {
