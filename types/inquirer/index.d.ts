@@ -795,15 +795,7 @@ declare namespace inquirer {
         /**
          * Provides a set of prompt-constructors.
          */
-        interface PromptCollection {
-            /**
-             * Gets a prompt-constructor.
-             *
-             * @param name
-             * The name of the prompt.
-             */
-            [name: string]: PromptConstructor;
-        }
+        type PromptCollection = Record<string, PromptConstructor>;
 
         /**
          * Provides data about the state of a prompt.
