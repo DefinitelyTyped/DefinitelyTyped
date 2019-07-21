@@ -749,12 +749,24 @@ export abstract class FieldSetElement extends Element {
     validity(): undefined;
 }
 
+/**
+ * HTML <form> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class FormElement extends Element {
     protected __brand: never;
+
+    /** Contained form control elements. */
     elements(): Element[];
+
+    /** Number of contained form control elements. */
     length(): number;
+
+    /** Form submission HTTP method. */
     method(): string;
 }
+
 export abstract class FormFieldElement extends Element {
     protected __brand: never;
     form(): FormElement | undefined;
