@@ -13,8 +13,23 @@ import { bytes } from '.';
  */
 export function randomBytes(size: number): bytes;
 
-export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: BinaryEncoding): bytes;
-export function hmac(algorithm: Algorithm, secret: string, data: string, outputEncoding: StringEncoding): string;
+/**
+ * Produce HMAC.
+ * https://docs.k6.io/docs/hmac-algorithm-secret-data-outputencoding
+ * @param algorithm - Hash algorithm.
+ * @param secret - Shared secret.
+ * @param data - Input data.
+ * @param outputEncoding - Output encoding.
+ * @returns Produced HMAC.
+ * @public
+ */
+export function hmac<OE extends OutputEncoding>(
+    algorithm: Algorithm,
+    secret: string,
+    data: string,
+    outputEncoding: OE
+): Output<OE>;
+
 export function md4(input: string, outputEncoding: BinaryEncoding): bytes;
 export function md4(input: string, outputEncoding: StringEncoding): string;
 export function md5(input: string, outputEncoding: BinaryEncoding): bytes;
@@ -48,6 +63,11 @@ export type Algorithm =
     | 'ripemd160';
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 export type BinaryEncoding = 'binary';
+export type OutputEncoding = StringEncoding | BinaryEncoding;
+export type Output<OE extends OutputEncoding>
+    = OE extends StringEncoding ? string
+    : OE extends BinaryEncoding ? bytes
+    : never;
 
 export abstract class Hasher {
     protected __brand: never;
