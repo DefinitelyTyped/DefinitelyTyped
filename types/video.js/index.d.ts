@@ -6689,31 +6689,31 @@ declare namespace videojs {
         width(): number;
     }
 
-	export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
-		aspectRatio?: string;
-		autoplay?: boolean | string;
-		controlBar?: videojs.ControlBarOptions | false;
-		textTrackSettings?: videojs.TextTrackSettingsOptions;
-		controls?: boolean;
-		defaultVolume?: number;
-		fluid?: boolean;
-		height?: number;
-		html5?: any;
-		inactivityTimeout?: number;
-		language?: string;
-		languages?: { [code: string]: videojs.LanguageTranslations };
-		loop?: boolean;
-		muted?: boolean;
-		nativeControlsForTouch?: boolean;
-		notSupportedMessage?: string;
-		playbackRates?: number[];
-		plugins?: any;
-		poster?: string;
-		preload?: string;
-		sourceOrder?: boolean;
-		sources?: videojs.Tech.SourceObject[];
-		src?: string;
-		techOrder?: string[];
-		tracks?: videojs.TextTrackOptions[];
-		width?: number;
+    export interface VideoJsPlayerOptions extends videojs.ComponentOptions {
+        aspectRatio?: string;
+        autoplay?: boolean | string;
+        controlBar?: videojs.ControlBarOptions | false;
+        textTrackSettings?: videojs.TextTrackSettingsOptions;
+        controls?: boolean;
+        defaultVolume?: number;
+        fluid?: boolean;
+        height?: number;
+        html5?: any;
+        inactivityTimeout?: number;
+        language?: string;
+        languages?: { [code: string]: videojs.LanguageTranslations };
+        loop?: boolean;
+        muted?: boolean;
+        nativeControlsForTouch?: boolean;
+        notSupportedMessage?: string;
+        playbackRates?: number[];
+        plugins?: any;
+        poster?: string;
+        preload?: string;
+        sourceOrder?: boolean;
+        sources?: videojs.Tech.SourceObject[];
+        src?: string;
+        techOrder?: string[];
+        tracks?: videojs.TextTrackOptions[];
+        width?: number;
 	}
