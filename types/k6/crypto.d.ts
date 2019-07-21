@@ -1,3 +1,8 @@
+/*
+ * Cryptography utilities.
+ * https://docs.k6.io/docs/k6crypto
+ */
+
 import { bytes } from '.';
 
 export function randomBytes(size: number): bytes;
