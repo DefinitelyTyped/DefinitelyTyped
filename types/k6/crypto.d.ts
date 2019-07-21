@@ -181,7 +181,12 @@ export type Algorithm =
     | 'sha512_256'
     | 'ripemd160';
 
+/**
+ * String output encoding.
+ * @public
+ */
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+
 export type BinaryEncoding = 'binary';
 export type OutputEncoding = StringEncoding | BinaryEncoding;
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding
