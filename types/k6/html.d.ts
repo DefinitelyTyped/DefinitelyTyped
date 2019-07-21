@@ -719,9 +719,15 @@ export abstract class DelElement extends ModElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <embed> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class EmbedElement extends Element {
     protected __brand: never;
 }
+
 export abstract class FieldSetElement extends Element {
     protected __brand: never;
     elements(): Element[];
