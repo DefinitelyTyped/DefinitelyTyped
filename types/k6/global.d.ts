@@ -52,7 +52,12 @@ declare global {
      */
     const __VU: number;
 
-    const __ITER: number; // Changes across iterations
+    /**
+     * Current iteration number.
+     * https://docs.k6.io/docs/execution-context-variables
+     * @public
+     */
+    const __ITER: number;
 }
 
 interface Console {
