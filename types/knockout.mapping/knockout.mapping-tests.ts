@@ -73,10 +73,10 @@ mapping.fromJS(untypedObject) // $ExpectType any
 
 ////////////////////////////////
 // fromJS function with JS object with Array properties
-let carInput: Car = { name: "hb20x", maintenance: [1,2], drivers: [userInput] }
+let carInput: Car = { name: "hb20x", maintenance: [1, 2], drivers: [userInput] }
 let mappedCar: MappedCar = mapping.fromJS(carInput)
 let drivers: KnockoutObservableArray<MappedUser> = mappedCar.drivers
-let maintenance : KnockoutReadonlyObservableArray<number> = mappedCar.maintenance
+let maintenance: KnockoutReadonlyObservableArray<number> = mappedCar.maintenance
 
 ////////////////////////////////
 // fromJS function with primitives
