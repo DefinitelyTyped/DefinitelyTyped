@@ -767,17 +767,39 @@ export abstract class FormElement extends Element {
     method(): string;
 }
 
+/**
+ * HTML form field element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class FormFieldElement extends Element {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
+
+    /** Form submission action URI. */
     formAction(): string;
+
+    /** Form submission encoding. */
     formEnctype(): string;
+
+    /** Form submission HTTP method. */
     formMethod(): string;
+
+    /** Whether form submits without validation. */
     formNoValidate(): boolean;
+
+    /** Form submission response display location. */
     formTarget(): string;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
+
+    /** Form field name. */
     name(): string;
 }
+
 export abstract class HrefElement extends Element {
     protected __brand: never;
     hash(): string;
