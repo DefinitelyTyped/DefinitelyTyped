@@ -137,6 +137,7 @@ class WrappedComponent extends React.Component<ComponentProps & InjectedStripePr
             paymentRequest.canMakePayment().then(res => undefined);
         }
     }
+
     onSubmit = () => {
         this.props
             .stripe!.createToken({
@@ -150,7 +151,7 @@ class WrappedComponent extends React.Component<ComponentProps & InjectedStripePr
                 currency: '',
             })
             .then((response: PatchedTokenResponse) => this.props.tokenCallback(response));
-    };
+    }
 
     isFormValid = () => {
         // use onChange callbacks from *Element components to detect if form is valid for submission
