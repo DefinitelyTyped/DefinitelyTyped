@@ -224,6 +224,10 @@ export abstract class Hasher {
      */
     update(input: string): void;
 
-    digest(outputEncoding: BinaryEncoding): bytes;
-    digest(outputEncoding: StringEncoding): string;
+    /**
+     * Return a digest from the data added so far.
+     * @param outputEncoding - Output encoding.
+     * @returns Digest of data added so far.
+     */
+    digest<OE extends OutputEncoding>(outputEncoding: OE): Output<OE>;
 }
