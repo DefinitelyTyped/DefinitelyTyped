@@ -728,13 +728,27 @@ export abstract class EmbedElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <fieldset> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class FieldSetElement extends Element {
     protected __brand: never;
+
+    /** Grouped elements. */
     elements(): Element[];
+
+    /** Containing <form> element. */
     form(): FormElement | undefined;
+
+    /** Field set type. Always `fieldset`. */
     type(): string;
+
+    /** Validity states. Unimplemented. Always `undefined`. */
     validity(): undefined;
 }
+
 export abstract class FormElement extends Element {
     protected __brand: never;
     elements(): Element[];
