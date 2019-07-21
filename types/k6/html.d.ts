@@ -674,11 +674,21 @@ export abstract class ButtonElement extends FormFieldElement {
     value(): string;
 }
 
+/**
+ * HTML <canvas> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class CanvasElement extends Element {
     protected __brand: never;
+
+    /** Coordinate space height in CSS pixels. */
     height(): number;
+
+    /** Coordinate space width in CSS pixels. */
     width(): number;
 }
+
 export abstract class DataElement extends Element {
     protected __brand: never;
 }
