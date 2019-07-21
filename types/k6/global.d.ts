@@ -42,8 +42,16 @@ declare global {
     const __ENV: { [name: string]: string };
 
     // === VU body only
+
     let console: Console;
-    const __VU: number; // Changes across VUs
+
+    /**
+     * Current VU number.
+     * https://docs.k6.io/docs/execution-context-variables
+     * @public
+     */
+    const __VU: number;
+
     const __ITER: number; // Changes across iterations
 }
 
