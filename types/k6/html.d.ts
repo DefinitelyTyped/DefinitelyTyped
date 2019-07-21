@@ -644,9 +644,15 @@ export abstract class AreaElement extends HrefElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <audio> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class AudioElement extends MediaElement {
     protected __brand: never;
 }
+
 export abstract class BaseElement extends Element {
     protected __brand: never;
 }
