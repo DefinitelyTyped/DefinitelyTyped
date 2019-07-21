@@ -147,7 +147,14 @@ export function ripemd160<OE extends OutputEncoding>(
     outputEncoding: OE
 ): Output<OE>;
 
+/**
+ * Create a hashing object.
+ * @param algorithm - Hash algorithm.
+ * @returns Hashing object.
+ * @public
+ */
 export function createHash(algorithm: Algorithm): Hasher;
+
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 
 export type Algorithm =
