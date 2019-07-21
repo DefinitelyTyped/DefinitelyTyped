@@ -432,30 +432,24 @@ options.cellEditing = cell => {
     console.log(cell);
 };
 
-//4.3 updates
-table = new Tabulator('#test', { headerVisible: false, printHeader: setHeader() });
+// 4.3 updates
+table = new Tabulator('#test', {
+    headerVisible: false,
+    printHeader: () => {
+        return 'Header';
+    },
+});
 colDef.editorParams = { search: true };
 table.getHtml(true, true, { columnCalcs: true });
 
-function setHeader() {
-    return 'Header';
-}
-
 table.download('pdf', 'data.pdf', {
-    documentProcessing: function(doc) {
-        //carry out an action on the doc object
-    },
+    documentProcessing: doc => {},
 });
 
 table.download('pdf', 'data.pdf', {
-    orientation: 'portrait', //set page orientation to portrait
-    autoTable: function(doc) {
-        //doc - the jsPDF document object
-
-        //add some text to the top left corner of the PDF
+    orientation: 'portrait',
+    autoTable: doc => {
         doc.text('SOME TEXT', 1, 1);
-
-        //return the autoTable config options object
         return {
             styles: {
                 fillColor: [200, 00, 00],
@@ -465,13 +459,12 @@ table.download('pdf', 'data.pdf', {
 });
 
 table.download('pdf', 'data.pdf', {
-    orientation: 'portrait', //set page orientation to portrait
-    title: 'Dynamics Quotation Report', //add title to report
+    orientation: 'portrait',
+    title: 'Dynamics Quotation Report',
     jsPDF: {
-        unit: 'in', //set units to inches
+        unit: 'in',
     },
     autoTable: {
-        //advanced table styling
         styles: {
             fillColor: [100, 255, 255],
         },
@@ -483,5 +476,5 @@ table.download('pdf', 'data.pdf', {
 });
 
 table.download('xlsx', 'AllData.xlsx');
-table.download('csv', 'data.csv', { bom: true }); //include BOM in output
-table.download('csv', 'data.csv', { delimiter: '.' }); //download a CSV file that uses a fullstop (.) delimiter
+table.download('csv', 'data.csv', { bom: true });
+table.download('csv', 'data.csv', { delimiter: '.' });
