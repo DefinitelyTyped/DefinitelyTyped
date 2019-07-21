@@ -1,3 +1,8 @@
+/*
+ * HTML parsing and access.
+ * https://docs.k6.io/docs/k6html
+ */
+
 export function parseHTML(html: string): Selection;
 
 // Selection
