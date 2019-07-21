@@ -653,9 +653,15 @@ export abstract class AudioElement extends MediaElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <base> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class BaseElement extends Element {
     protected __brand: never;
 }
+
 export abstract class ButtonElement extends FormFieldElement {
     protected __brand: never;
     value(): string;
