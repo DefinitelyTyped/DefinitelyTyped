@@ -166,6 +166,10 @@ export function createHash(algorithm: Algorithm): Hasher;
  */
 export function createHMAC(algorithm: Algorithm, secret: string): Hasher;
 
+/**
+ * Hash algorithm.
+ * @public
+ */
 export type Algorithm =
     | 'md4'
     | 'md5'
@@ -176,6 +180,7 @@ export type Algorithm =
     | 'sha512_224'
     | 'sha512_256'
     | 'ripemd160';
+
 export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
 export type BinaryEncoding = 'binary';
 export type OutputEncoding = StringEncoding | BinaryEncoding;
