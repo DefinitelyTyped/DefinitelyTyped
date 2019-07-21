@@ -634,9 +634,14 @@ export abstract class AnchorElement extends HrefElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <area> element.
+ * @public
+ */
 export abstract class AreaElement extends HrefElement {
     protected __brand: never;
 }
+
 export abstract class AudioElement extends MediaElement {
     protected __brand: never;
 }
