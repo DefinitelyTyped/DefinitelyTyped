@@ -1561,7 +1561,7 @@ export class Marker<P = any> extends Layer {
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
 
 export namespace Browser {
-    // sorting according to https://leafletjs.com/reference-1.5.0.html#browser                      
+    // sorting according to https://leafletjs.com/reference-1.5.0.html#browser
     const ie: boolean;
     const ielt9: boolean;
     const edge: boolean;
@@ -1590,7 +1590,7 @@ export namespace Browser {
     const retina: boolean;
     const canvas: boolean;
     const svg: boolean;
-    const vml : boolean;
+    const vml: boolean;
 }
 
 export namespace Util {
