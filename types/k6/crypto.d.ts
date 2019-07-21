@@ -149,6 +149,7 @@ export function ripemd160<OE extends OutputEncoding>(
 
 /**
  * Create a hashing object.
+ * https://docs.k6.io/docs/createhash-algorithm
  * @param algorithm - Hash algorithm.
  * @returns Hashing object.
  * @public
