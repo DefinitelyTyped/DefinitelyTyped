@@ -2,6 +2,7 @@
 // Project: https://github.com/pbernasconi/react-plaid-link
 // Definitions by: KeevanDance <https://github.com/DanceParty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 
