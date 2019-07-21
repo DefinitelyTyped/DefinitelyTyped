@@ -217,7 +217,13 @@ export type Output<OE extends OutputEncoding> = OE extends StringEncoding
  */
 export abstract class Hasher {
     protected __brand: never;
+
+    /**
+     * Add more data to the string we want to create a hash of.
+     * @param input - Data to add.
+     */
     update(input: string): void;
+
     digest(outputEncoding: BinaryEncoding): bytes;
     digest(outputEncoding: StringEncoding): string;
 }
