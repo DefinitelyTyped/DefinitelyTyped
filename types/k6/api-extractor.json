@@ -168,7 +168,7 @@
     /**
      * (REQUIRED) Whether to generate the .d.ts rollup file.
      */
-    "enabled": true,
+    "enabled": false,
 
     /**
      * Specifies the output path for a .d.ts rollup file to be generated without any trimming.
