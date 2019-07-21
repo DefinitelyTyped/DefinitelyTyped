@@ -12,14 +12,14 @@ export {};
 
 // Available without importing
 declare global {
-    // Init context only
+    // === Init context only
     function open(filePath: string): string;
     function open(filePath: string, mode: 'b'): bytes;
 
-    // Init context and VU body
+    // === Init context and VU body
     const __ENV: object;
 
-    // VU body only
+    // === VU body only
     let console: Console;
     const __VU: number; // Changes across VUs
     const __ITER: number; // Changes across iterations
