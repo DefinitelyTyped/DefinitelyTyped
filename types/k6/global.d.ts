@@ -39,7 +39,7 @@ declare global {
      * https://docs.k6.io/docs/environment-variables
      * @public
      */
-    const __ENV: object;
+    const __ENV: { [name: string]: string };
 
     // === VU body only
     let console: Console;
