@@ -221,7 +221,13 @@ export interface PongEventHandler {
 // === Error ===
 // -------------
 
+/**
+ * Error.
+ * @public
+ */
 export abstract class WebSocketError {
     protected __brand: never;
+
+    /** Error message. */
     error(): string;
 }
