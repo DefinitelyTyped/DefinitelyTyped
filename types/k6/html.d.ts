@@ -800,21 +800,51 @@ export abstract class FormFieldElement extends Element {
     name(): string;
 }
 
+/**
+ * HTML hyperlink element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class HrefElement extends Element {
     protected __brand: never;
+
+    /** `#` prefixed URL fragment identifier. */
     hash(): string;
+
+    /** URL hostname plus `:` delimited port if nonempty. `hostname[:port]` */
     host(): string;
+
+    /** URL hostname. */
     hostname(): string;
+
+    /** Unicode serialization of URL origin. */
     origin(): string;
+
+    /** URL password. */
     password(): string;
+
+    /** `/` prefixed URL path. */
     pathname(): string;
+
+    /** URL port number. Empty string if unspecified. */
+    port(): string;
+
+    /** `:` suffixed URL protocol scheme. */
     protocol(): string;
-    post(): string;
+
+    /** Link types. */
     relList(): string[];
+
+    /** `?` prefixed URL query string. */
     search(): string;
+
+    /** Text content. */
     text(): string;
+
+    /** URL username. */
     username(): string;
 }
+
 export abstract class IFrameElement extends Element {
     protected __brand: never;
 }
