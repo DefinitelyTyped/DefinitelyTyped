@@ -1121,9 +1121,15 @@ export abstract class ProgressElement extends Element {
     value(): number;
 }
 
+/**
+ * HTML <q> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class QuoteElement extends Element {
     protected __brand: never;
 }
+
 export abstract class ScriptElement extends Element {
     protected __brand: never;
     text(): string;
