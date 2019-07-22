@@ -1,3 +1,8 @@
+/*
+ * WebSocket client.
+ * https://docs.k6.io/docs/k6-websocket-api
+ */
+
 export function connect(url: string, executor: Executor): Response;
 export function connect(url: string, params: Params | null, executor: Executor): Response;
 
