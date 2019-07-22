@@ -553,9 +553,15 @@ export type CipherSuite =
     | 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
     | 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384';
 
+/**
+ * Refined response.
+ * Exposes body with best possible type.
+ * @public
+ */
 export interface RefinedResponse<RT extends ResponseType | undefined> extends Response {
     body: RefinedResponseBody<RT>;
 }
+
 export type ResponseBody = string | bytes | null;
 export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
     ? bytes
