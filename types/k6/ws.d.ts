@@ -3,10 +3,15 @@
  * https://docs.k6.io/docs/k6-websocket-api
  */
 
+// === Main ===
+// ------------
+
 export function connect(url: string, executor: Executor): Response;
 export function connect(url: string, params: Params | null, executor: Executor): Response;
 
-// Parameters
+// === Parameters ===
+// ------------------
+
 export interface Params {
     headers?: { [name: string]: string };
     tags?: { [name: string]: string };
@@ -15,7 +20,9 @@ export interface Executor {
     (socket: Socket): void;
 }
 
-// Response
+// === Response ===
+// ----------------
+
 export interface Response {
     url: string;
     status: number;
@@ -24,7 +31,9 @@ export interface Response {
     error: string;
 }
 
-// Socket
+// === Socket ===
+// --------------
+
 export abstract class Socket {
     protected __brand: never;
     close(code?: number): void;
@@ -52,7 +61,9 @@ export interface TimerHandler {
     (): void;
 }
 
-// Error
+// === Error ===
+// -------------
+
 export abstract class WebSocketError {
     protected __brand: never;
     error(): string;
