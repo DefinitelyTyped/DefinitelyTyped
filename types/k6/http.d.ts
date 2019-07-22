@@ -9,7 +9,6 @@ import { Selection } from './html';
 // === Main ===
 // ------------
 
-// Refineds refine response to expose body with correct type
 export function del<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
@@ -93,7 +92,10 @@ export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
 // === Refined batch request ===
 // -----------------------------
 
-export type RefinedBatchRequest<RT extends ResponseType | undefined> = string | ArrayRefinedBatchRequest<RT> | ObjectRefinedBatchRequest<RT>;
+export type RefinedBatchRequest<RT extends ResponseType | undefined> =
+    | string
+    | ArrayRefinedBatchRequest<RT>
+    | ObjectRefinedBatchRequest<RT>;
 export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
     string,
     string,
@@ -111,9 +113,7 @@ export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> 
 // -----------------------
 
 export type BatchResponses<Q> = {
-    [K in keyof Q]: Q[K] extends RefinedBatchRequest<infer RT>
-        ? RefinedResponse<RT>
-        : never;
+    [K in keyof Q]: Q[K] extends RefinedBatchRequest<infer RT> ? RefinedResponse<RT> : never;
 };
 
 // === Response ===
