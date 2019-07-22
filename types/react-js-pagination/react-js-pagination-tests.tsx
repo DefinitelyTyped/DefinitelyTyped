@@ -8,16 +8,20 @@ class ReactPagination extends React.Component<{}, {activePage: number}> {
 			activePage: 1
 		};
 		this.handleChange = this.handleChange.bind(this);
+		this.makePageUrl = this.makePageUrl.bind(this);
 	}
 	handleChange(pageNumber: number) {
 		this.setState({
 			activePage: pageNumber
 		});
 	}
+	makePageUrl(pageNumber: number) {
+		return `#;page=${pageNumber}`;
+	}
 	render() {
         return (
             <Pagination activePage={this.state.activePage} onChange={this.handleChange}
-                totalItemsCount={100}
+                totalItemsCount={100} getPageUrl={this.makePageUrl}
             />
         );
     }
