@@ -2,6 +2,7 @@ import * as React from "react";
 import CSSTransition = require("react-transition-group/CSSTransition");
 import Transition, { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from "react-transition-group/Transition";
 import TransitionGroup = require("react-transition-group/TransitionGroup");
+import SwitchTransition = require("react-transition-group/SwitchTransition");
 import Components = require("react-transition-group");
 
 interface ContainerProps {
