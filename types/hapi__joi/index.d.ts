@@ -119,7 +119,7 @@ export interface EmailOptions {
          * - A `Set` or array of the forbidden TLDs. Cannot be used together with a custom `allow` list.
          */
         deny?: Set<string> | string[];
-    };
+    } | false;
     /**
      * Number of segments required for the domain. Be careful since some domains, such as `io`, directly allow email.
      *
