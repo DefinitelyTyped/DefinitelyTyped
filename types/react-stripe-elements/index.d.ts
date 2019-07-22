@@ -39,7 +39,9 @@ export namespace ReactStripeElements {
 	interface StripeProps {
 		createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
 		createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
-		paymentRequest: stripe.Stripe['paymentRequest'];
+        paymentRequest: stripe.Stripe['paymentRequest'];
+        handleCardPayment: stripe.Stripe['handleCardPayment'];
+        handleCardSetup: stripe.Stripe['handleCardSetup'];
 	}
 
 	interface InjectOptions {
