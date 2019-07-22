@@ -311,49 +311,120 @@ export type BatchResponses<Q> = {
 // === Response ===
 // ----------------
 
+/**
+ * Response.
+ * https://docs.k6.io/docs/response-k6http
+ * @public
+ */
 export interface Response {
+    /** Response body. */
     body: ResponseBody;
+
+    /** Response cookies. */
     cookies: { [name: string]: ResponseCookie[] };
+
+    /** Non-HTTP error message. */
     error: string;
+
+    /** Error code. Present for 4xx 5xx responses and non-HTTP errors. */
     error_code: number;
+
+    /** Response headers. */
     headers: { [name: string]: string };
+
+    /** Online Certificate Status Protocol response. */
     ocsp: {
+        /** When response signed by responder in Unix time. */
         produced_at: number;
+
+        /** When indicated status was known correct in Unix time. */
         this_update: number;
+
+        /** When response will be refreshed with the CA in Unix time. */
         next_update: number;
+
+        /** Certificate revocation reason. One of `OCSP_REASON_*` constants. */
         revocation_reason: string;
+
+        /** When certificate was revoked in Unix time. */
         revoked_at: number;
+
+        /** Certificate status. One of `OCSP_STATUS_*` constants. */
         status: string;
     };
-    proto: string;
+
+    /** Protocol used to perform the transfer. */
+    proto: Protocol;
+
+    /** Server IP address. */
     remote_ip: string;
+
+    /** Remote port connected to. */
     remote_port: number;
+
+    /** Inciting request details. */
     request: {
+        /** Request body. */
         body: string;
+
+        /** Request cookies. */
         cookies: { [name: string]: RequestCookie[] };
+
+        /** Request headers. */
         headers: { [name: string]: string[] };
+
+        /** Request method. */
         method: string;
+
+        /** Request URL. */
         url: string;
     };
+
+    /** HTTP status code. */
     status: number;
+
+    /** Performance timing information. */
     timings: {
+        /** Milliseconds spent blocked before initiating request. */
         blocked: number;
+
+        /** Milliseconds spent setting up TCP connection to host. */
         connecting: number;
+
+        /** Milliseconds spent handshaking TLS session with host. */
         tls_handshaking: number;
+
+        /** Milliseconds spent sending request. */
         sending: number;
+
+        /** Milliseconds spent waiting for server response (TTFB). */
         waiting: number;
+
+        /** Milliseconds spent receiving response data. */
         receiving: number;
+
+        /** Total time in milliseconds. `sending+waiting+receiving` */
         duration: number;
     };
+
+    /** TLS cipher suite used. */
     tls_cipher_suite: string;
+
+    /** TLS/SSL version used. One of `TLS_*` `SSL_*` constants. */
     tls_version: string;
+
+    /** Fetched URL. May differ from request URL due to redirects. */
     url: string;
+
     clickLink<RT extends ResponseType | undefined>(args?: {
         selector?: string;
         params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
+
     html(selector?: string): Selection;
+
     json(selector?: string): JSONValue | undefined;
+
     submitForm<RT extends ResponseType | undefined>(args?: {
         formSelector?: string;
         fields?: { [name: string]: string };
@@ -361,6 +432,8 @@ export interface Response {
         params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
 }
+
+export type Protocol = 'HTTP/1.0' | 'HTTP/1.1' | 'HTTP/2.0';
 export interface RefinedResponse<RT extends ResponseType | undefined> extends Response {
     body: RefinedResponseBody<RT>;
 }
