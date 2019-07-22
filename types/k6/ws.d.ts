@@ -30,10 +30,18 @@ export function connect(url: string, params: Params | null, callback: Executor):
 // === Parameters ===
 // ------------------
 
+/**
+ * Request parameters.
+ * @public
+ */
 export interface Params {
+    /** Request headers. */
     headers?: { [name: string]: string };
+
+    /** Response time metric tags. */
     tags?: { [name: string]: string };
 }
+
 export interface Executor {
     (socket: Socket): void;
 }
