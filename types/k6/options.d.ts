@@ -116,8 +116,15 @@ export interface CollectorOptions {
     [name: string]: any;
 }
 
+/**
+ * Test stage.
+ * @public
+ */
 export interface Stage {
+    /** Stage duration. */
     duration: string;
+
+    /** Target number of VUs. */
     target: number;
 }
 
