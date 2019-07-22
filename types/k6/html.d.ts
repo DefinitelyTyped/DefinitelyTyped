@@ -1082,9 +1082,15 @@ export abstract class OutputElement extends Element {
     value(): string;
 }
 
+/**
+ * HTML <param> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class ParamElement extends Element {
     protected __brand: never;
 }
+
 export abstract class PreElement extends Element {
     protected __brand: never;
 }
