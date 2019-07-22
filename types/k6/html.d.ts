@@ -1232,9 +1232,15 @@ export abstract class TableColElement extends Element {
     span(): number;
 }
 
+/**
+ * HTML <td> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableDataCellElement extends TableCellElement {
     protected __brand: never;
 }
+
 export abstract class TableElement extends Element {
     protected __brand: never;
     caption(): Element | undefined;
