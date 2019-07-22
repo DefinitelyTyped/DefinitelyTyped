@@ -1034,15 +1034,33 @@ export abstract class OptGroupElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <option> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class OptionElement extends Element {
     protected __brand: never;
+
+    /** Whether disabled. */
     disabled(): boolean;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
+
+    /** Index in containing options list. */
     index(): number;
+
+    /** `label` attribute value. */
     label(): string;
+
+    /** Text content. */
     text(): string;
+
+    /** `value` attribute value. */
     value(): string;
 }
+
 export abstract class OutputElement extends Element {
     protected __brand: never;
     defaultValue(): string;
