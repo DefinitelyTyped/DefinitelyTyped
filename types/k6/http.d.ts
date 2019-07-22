@@ -524,7 +524,12 @@ export interface Response {
     }): RefinedResponse<RT>;
 }
 
+/**
+ * HTTP protocol.
+ * @public
+ */
 export type Protocol = 'HTTP/1.0' | 'HTTP/1.1' | 'HTTP/2.0';
+
 export type CipherSuite =
     | 'TLS_RSA_WITH_RC4_128_SHA'
     | 'TLS_RSA_WITH_3DES_EDE_CBC_SHA'
