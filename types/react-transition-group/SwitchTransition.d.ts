@@ -6,21 +6,18 @@ export enum modes {
 }
 
 declare namespace SwitchTransition {
-
   interface SwitchTransitionProps {
     /**
      * Transition modes.
      * `out-in`: Current element transitions out first, then when complete, the new element transitions in.
      * `in-out: New element transitions in first, then when complete, the current element transitions out.`
-     *
-     * @type {'out-in'|'in-out'}
      */
-    mode?: modes.out | modes.in
+    mode?: modes.out | modes.in;
 
     /**
      * Any `Transition` or `CSSTransition` component
      */
-    children: React.ReactElement
+    children: React.ReactElement;
   }
 }
 
