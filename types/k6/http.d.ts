@@ -192,7 +192,12 @@ export interface RefinedParams<RT extends ResponseType | undefined> extends Para
  */
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
 
+/**
+ * Response type.
+ * @public
+ */
 export type ResponseType = 'binary' | 'none' | 'text';
+
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
 // === Request body ===
