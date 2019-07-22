@@ -33,9 +33,15 @@ export class Counter extends Metric {
     protected __brand: never;
 }
 
+/**
+ * Gauge. Holds only latest value added.
+ * https://docs.k6.io/docs/gauge-k6metrics
+ * @public
+ */
 export class Gauge extends Metric {
     protected __brand: never;
 }
+
 export class Rate extends Metric {
     protected __brand: never;
 }
