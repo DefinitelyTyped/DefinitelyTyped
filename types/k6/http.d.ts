@@ -444,6 +444,15 @@ export interface Response {
      */
     json(selector?: string): JSONValue | undefined;
 
+    /**
+     * Submit form on page.
+     * https://docs.k6.io/docs/responsesubmitform-params
+     * @param formSelector - Selector expression locating form to submit.
+     * @param fields - Form field values.
+     * @param submitSelector - Selector expression locating submit button.
+     * @param params - Parameters for form submission request.
+     * @returns Form submission response.
+     */
     submitForm<RT extends ResponseType | undefined>(args?: {
         formSelector?: string;
         fields?: { [name: string]: string };
