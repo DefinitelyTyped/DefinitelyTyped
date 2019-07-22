@@ -471,7 +471,7 @@ export interface Response {
     };
 
     /** TLS cipher suite used. */
-    tls_cipher_suite: string;
+    tls_cipher_suite: CipherSuite;
 
     /** TLS/SSL version used. One of `TLS_*` `SSL_*` constants. */
     tls_version: string;
@@ -525,6 +525,25 @@ export interface Response {
 }
 
 export type Protocol = 'HTTP/1.0' | 'HTTP/1.1' | 'HTTP/2.0';
+export type CipherSuite =
+    | 'TLS_RSA_WITH_RC4_128_SHA'
+    | 'TLS_RSA_WITH_3DES_EDE_CBC_SHA'
+    | 'TLS_RSA_WITH_AES_128_CBC_SHA'
+    | 'TLS_RSA_WITH_AES_256_CBC_SHA'
+    | 'TLS_RSA_WITH_AES_128_GCM_SHA256'
+    | 'TLS_RSA_WITH_AES_256_GCM_SHA384'
+    | 'TLS_ECDHE_ECDSA_WITH_RC4_128_SHA'
+    | 'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA'
+    | 'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA'
+    | 'TLS_ECDHE_RSA_WITH_RC4_128_SHA'
+    | 'TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA'
+    | 'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA'
+    | 'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA'
+    | 'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'
+    | 'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256'
+    | 'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
+    | 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384';
+
 export interface RefinedResponse<RT extends ResponseType | undefined> extends Response {
     body: RefinedResponseBody<RT>;
 }
