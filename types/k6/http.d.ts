@@ -397,19 +397,19 @@ export interface Response {
 
     /** Online Certificate Status Protocol response. */
     ocsp: {
-        /** When response signed by responder in Unix time. */
+        /** When response signed by responder in millisecond Unix time. */
         produced_at: number;
 
-        /** When indicated status was known correct in Unix time. */
+        /** When indicated status was known correct in millisecond Unix time. */
         this_update: number;
 
-        /** When response will be refreshed with the CA in Unix time. */
+        /** When response will be refreshed with the CA in millisecond Unix time. */
         next_update: number;
 
         /** Certificate revocation reason. One of `OCSP_REASON_*` constants. */
         revocation_reason: string;
 
-        /** When certificate was revoked in Unix time. */
+        /** When certificate was revoked in millisecond Unix time. */
         revoked_at: number;
 
         /** Certificate status. One of `OCSP_STATUS_*` constants. */
