@@ -562,7 +562,12 @@ export interface RefinedResponse<RT extends ResponseType | undefined> extends Re
     body: RefinedResponseBody<RT>;
 }
 
+/**
+ * Response body.
+ * @public
+ */
 export type ResponseBody = string | bytes | null;
+
 export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
     ? bytes
     : RT extends 'none'
