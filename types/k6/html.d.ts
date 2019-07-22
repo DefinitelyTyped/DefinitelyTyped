@@ -1187,10 +1187,18 @@ export abstract class SourceElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <style> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class StyleElement extends Element {
     protected __brand: never;
+
+    /** `type` attribute value. */
     type(): string;
 }
+
 export abstract class TableBodyElement extends TableSectionElement {
     protected __brand: never;
 }
