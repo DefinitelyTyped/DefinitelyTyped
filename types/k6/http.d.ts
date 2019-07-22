@@ -654,11 +654,32 @@ export abstract class FileData {
 // === Cookie jar ===
 // ------------------
 
+/**
+ * Object for storing cookies.
+ * https://docs.k6.io/docs/cookiejar-k6http
+ * @public
+ */
 export abstract class CookieJar {
     protected __brand: never;
+
+    /**
+     * Get cookies set for a particular URL.
+     * https://docs.k6.io/docs/cookiejarcookiesforurlurl
+     * @param url - URL for which to get cookies.
+     * @returns Cookies for URL.
+     */
     cookiesForURL(url: string): CookieJarCookies;
+
+    /**
+     * Set cookie.
+     * https://docs.k6.io/docs/cookiejarsetname-value-options
+     * @param name - Cookie name.
+     * @param value - Cookie value.
+     * @param options - Optional settings.
+     */
     set(name: string, value: string, options?: CookieOptions | null): void;
 }
+
 export interface CookieJarCookies {
     [name: string]: string[];
 }
