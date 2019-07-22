@@ -845,9 +845,15 @@ export abstract class HrefElement extends Element {
     username(): string;
 }
 
+/**
+ * HTML <iframe> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class IFrameElement extends Element {
     protected __brand: never;
 }
+
 export abstract class ImageElement extends Element {
     protected __brand: never;
 }
