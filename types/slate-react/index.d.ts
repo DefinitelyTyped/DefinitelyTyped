@@ -10,6 +10,7 @@
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Jack Allen <https://github.com/jackall3n>
 //                 Benjamin Evenson <https://github.com/benjiro>
+//                 Kay Delaney <https://github.com/kaydelaney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -19,10 +20,9 @@ import {
     Node,
     Block,
     Inline,
-    Operations,
+    Operation,
     SchemaProperties,
     Value,
-    Operation,
     MarkProperties,
     BlockProperties,
     InlineProperties,
@@ -31,7 +31,8 @@ import {
     NodeProperties,
     Range,
     Controller,
-    Plugin as CorePlugin
+    Plugin as CorePlugin,
+    RangeType
 } from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
@@ -143,7 +144,7 @@ export interface EditorState {
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> implements Controller {
-    controller: CoreEditor;
+     controller: CoreEditor;
 
     readonly plugins: Plugin[];
     readonly operations: Immutable.List<Operation>;
@@ -154,16 +155,30 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     resolveController(plugins: Plugin[], schema: SchemaProperties, commands: any[], queries: any[]): void;
 
     // Controller
+    addAnnotation: CoreEditor['addAnnotation'];
     addMark: CoreEditor['addMark'];
+    addMarks: CoreEditor['addMarks'];
     delete: CoreEditor['delete'];
     deleteBackward: CoreEditor['deleteBackward'];
+    deleteCharBackward: CoreEditor['deleteCharBackward'];
+    deleteCharForward: CoreEditor['deleteCharForward'];
     deleteForward: CoreEditor['deleteForward'];
+    deleteLineBackward: CoreEditor['deleteLineBackward'];
+    deleteLineForward: CoreEditor['deleteLineForward'];
+    deleteWordBackward: CoreEditor['deleteWordBackward'];
+    deleteWordForward: CoreEditor['deleteWordForward'];
     insertBlock: CoreEditor['insertBlock'];
     insertFragment: CoreEditor['insertFragment'];
     insertInline: CoreEditor['insertInline'];
     insertText: CoreEditor['insertText'];
+    setAnchor: CoreEditor['setAnchor'];
+    setAnnotation: CoreEditor['setAnnotation'];
     setBlocks: CoreEditor['setBlocks'];
+    setData: CoreEditor['setData'];
+    setEnd: CoreEditor['setEnd'];
+    setFocus: CoreEditor['setFocus'];
     setInlines: CoreEditor['setInlines'];
+    setStart: CoreEditor['setStart'];
     splitBlock: CoreEditor['splitBlock'];
     splitInline: CoreEditor['splitInline'];
     removeMark: CoreEditor['removeMark'];
@@ -178,6 +193,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     deselect: CoreEditor['deselect'];
     flip: CoreEditor['flip'];
     focus: CoreEditor['focus'];
+
     moveAnchorBackward: CoreEditor['moveAnchorBackward'];
     moveAnchorForward: CoreEditor['moveAnchorForward'];
     moveAnchorTo: CoreEditor['moveAnchorTo'];
@@ -187,7 +203,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveAnchorToEndOfNextBlock: CoreEditor['moveAnchorToEndOfNextBlock'];
     moveAnchorToEndOfNextInline: CoreEditor['moveAnchorToEndOfNextInline'];
     moveAnchorToEndOfNextText: CoreEditor['moveAnchorToEndOfNextText'];
-    moveAnchorEndOfNode: CoreEditor['moveAnchorEndOfNode'];
+    moveAnchorToEndOfNode: CoreEditor['moveAnchorToEndOfNode'];
     moveAnchorToEndOfPreviousBlock: CoreEditor['moveAnchorToEndOfPreviousBlock'];
     moveAnchorToEndOfPreviousInline: CoreEditor['moveAnchorToEndOfPreviousInline'];
     moveAnchorToEndOfPreviousText: CoreEditor['moveAnchorToEndOfPreviousText'];
@@ -203,6 +219,9 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveAnchorToStartOfPreviousInline: CoreEditor['moveAnchorToStartOfPreviousInline'];
     moveAnchorToStartOfPreviousText: CoreEditor['moveAnchorToStartOfPreviousText'];
     moveAnchorToStartOfText: CoreEditor['moveAnchorToStartOfText'];
+    moveAnchorWordBackward: CoreEditor['moveAnchorWordBackward'];
+    moveAnchorWordForward: CoreEditor['moveAnchorWordForward'];
+    moveBackward: CoreEditor['moveBackward'];
     moveEndBackward: CoreEditor['moveEndBackward'];
     moveEndForward: CoreEditor['moveEndForward'];
     moveEndTo: CoreEditor['moveEndTo'];
@@ -228,6 +247,8 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveEndToStartOfPreviousInline: CoreEditor['moveEndToStartOfPreviousInline'];
     moveEndToStartOfPreviousText: CoreEditor['moveEndToStartOfPreviousText'];
     moveEndToStartOfText: CoreEditor['moveEndToStartOfText'];
+    moveEndWordBackward: CoreEditor['moveEndWordBackward'];
+    moveEndWordForward: CoreEditor['moveEndWordForward'];
     moveFocusBackward: CoreEditor['moveFocusBackward'];
     moveFocusForward: CoreEditor['moveFocusForward'];
     moveFocusTo: CoreEditor['moveFocusTo'];
@@ -253,6 +274,9 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveFocusToStartOfPreviousInline: CoreEditor['moveFocusToStartOfPreviousInline'];
     moveFocusToStartOfPreviousText: CoreEditor['moveFocusToStartOfPreviousText'];
     moveFocusToStartOfText: CoreEditor['moveFocusToStartOfText'];
+    moveFocusWordBackward: CoreEditor['moveFocusWordBackward'];
+    moveFocusWordForward: CoreEditor['moveFocusWordForward'];
+    moveForward: CoreEditor['moveForward'];
     moveStartForward: CoreEditor['moveStartForward'];
     moveStartBackward: CoreEditor['moveStartBackward'];
     moveStartTo: CoreEditor['moveStartTo'];
@@ -278,12 +302,10 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveStartToStartOfPreviousInline: CoreEditor['moveStartToStartOfPreviousInline'];
     moveStartToStartOfPreviousText: CoreEditor['moveStartToStartOfPreviousText'];
     moveStartToStartOfText: CoreEditor['moveStartToStartOfText'];
-    moveBackward: CoreEditor['moveBackward'];
-    moveForward: CoreEditor['moveForward'];
+    moveStartWordBackward: CoreEditor['moveStartWordBackward'];
+    moveStartWordForward: CoreEditor['moveStartWordForward'];
     moveTo: CoreEditor['moveTo'];
     moveToAnchor: CoreEditor['moveToAnchor'];
-    moveToFocus: CoreEditor['moveToFocus'];
-    moveToStart: CoreEditor['moveToStart'];
     moveToEnd: CoreEditor['moveToEnd'];
     moveToEndOfBlock: CoreEditor['moveToEndOfBlock'];
     moveToEndOfDocument: CoreEditor['moveToEndOfDocument'];
@@ -296,6 +318,10 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveToEndOfPreviousInline: CoreEditor['moveToEndOfPreviousInline'];
     moveToEndOfPreviousText: CoreEditor['moveToEndOfPreviousText'];
     moveToEndOfText: CoreEditor['moveToEndOfText'];
+    moveToFocus: CoreEditor['moveToFocus'];
+    moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
+    moveToRangeOfNode: CoreEditor['moveToRangeOfNode'];
+    moveToStart: CoreEditor['moveToStart'];
     moveToStartOfBlock: CoreEditor['moveToStartOfBlock'];
     moveToStartOfDocument: CoreEditor['moveToStartOfDocument'];
     moveToStartOfInline: CoreEditor['moveToStartOfInline'];
@@ -307,36 +333,41 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     moveToStartOfPreviousInline: CoreEditor['moveToStartOfPreviousInline'];
     moveToStartOfPreviousText: CoreEditor['moveToStartOfPreviousText'];
     moveToStartOfText: CoreEditor['moveToStartOfText'];
-    moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
-    moveToRangeOfNode: CoreEditor['moveToRangeOfNode'];
+    moveWordBackward: CoreEditor['moveWordBackward'];
+    moveWordForward: CoreEditor['moveWordForward'];
+    save: CoreEditor['save'];
     select: CoreEditor['select'];
+
     addMarkAtRange: CoreEditor['addMarkAtRange'];
+    addMarksAtRange: CoreEditor['addMarksAtRange'];
     deleteAtRange: CoreEditor['deleteAtRange'];
-    deleteCharBackwardAtRange: CoreEditor['deleteCharBackwardAtRange'];
-    deleteLineBackwardAtRange: CoreEditor['deleteLineBackwardAtRange'];
-    deleteWordBackwardAtRange: CoreEditor['deleteWordBackwardAtRange'];
     deleteBackwardAtRange: CoreEditor['deleteBackwardAtRange'];
+    deleteCharBackwardAtRange: CoreEditor['deleteCharBackwardAtRange'];
     deleteCharForwardAtRange: CoreEditor['deleteCharForwardAtRange'];
-    deleteLineForwardAtRange: CoreEditor['deleteLineForwardAtRange'];
-    deleteWordForwardAtRange: CoreEditor['deleteWordForwardAtRange'];
     deleteForwardAtRange: CoreEditor['deleteForwardAtRange'];
+    deleteLineBackwardAtRange: CoreEditor['deleteLineBackwardAtRange'];
+    deleteLineForwardAtRange: CoreEditor['deleteLineForwardAtRange'];
+    deleteWordBackwardAtRange: CoreEditor['deleteWordBackwardAtRange'];
+    deleteWordForwardAtRange: CoreEditor['deleteWordForwardAtRange'];
     insertBlockAtRange: CoreEditor['insertBlockAtRange'];
     insertFragmentAtRange: CoreEditor['insertFragmentAtRange'];
     insertInlineAtRange: CoreEditor['insertInlineAtRange'];
     insertTextAtRange: CoreEditor['insertTextAtRange'];
+    removeMarkAtRange: CoreEditor['removeMarkAtRange'];
     setBlocksAtRange: CoreEditor['setBlocksAtRange'];
     setInlinesAtRange: CoreEditor['setInlinesAtRange'];
     splitBlockAtRange: CoreEditor['splitBlockAtRange'];
     splitInlineAtRange: CoreEditor['splitInlineAtRange'];
-    removeMarkAtRange: CoreEditor['removeMarkAtRange'];
     toggleMarkAtRange: CoreEditor['toggleMarkAtRange'];
     unwrapBlockAtRange: CoreEditor['unwrapBlockAtRange'];
     unwrapInlineAtRange: CoreEditor['unwrapInlineAtRange'];
     wrapBlockAtRange: CoreEditor['wrapBlockAtRange'];
     wrapInlineAtRange: CoreEditor['wrapInlineAtRange'];
     wrapTextAtRange: CoreEditor['wrapTextAtRange'];
+
     addMarkByKey: CoreEditor['addMarkByKey'];
     addMarkByPath: CoreEditor['addMarkByPath'];
+    addMarksByPath: CoreEditor['addMarksByPath'];
     insertNodeByKey: CoreEditor['insertNodeByKey'];
     insertNodeByPath: CoreEditor['insertNodeByPath'];
     insertFragmentByKey: CoreEditor['insertFragmentByKey'];
@@ -347,33 +378,44 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     mergeNodeByPath: CoreEditor['mergeNodeByPath'];
     moveNodeByKey: CoreEditor['moveNodeByKey'];
     moveNodeByPath: CoreEditor['moveNodeByPath'];
+    removeAllMarksByKey: CoreEditor['removeAllMarksByKey'];
+    removeAllMarksByPath: CoreEditor['removeAllMarksByPath'];
     removeMarkByKey: CoreEditor['removeMarkByKey'];
     removeMarkByPath: CoreEditor['removeMarkByPath'];
+    removeMarksByPath: CoreEditor['removeMarksByPath'];
     removeNodeByKey: CoreEditor['removeNodeByKey'];
     removeNodeByPath: CoreEditor['removeNodeByPath'];
-    replaceNodeByKey: CoreEditor['replaceNodeByKey'];
-    replaceNodeByPath: CoreEditor['replaceNodeByPath'];
     removeTextByKey: CoreEditor['removeTextByKey'];
     removeTextByPath: CoreEditor['removeTextByPath'];
-    setDecorations: CoreEditor['setDecorations'];
+    replaceNodeByKey: CoreEditor['replaceNodeByKey'];
+    replaceNodeByPath: CoreEditor['replaceNodeByPath'];
+    replaceTextByKey: CoreEditor['replaceTextByKey'];
+    replaceTextByPath: CoreEditor['replaceTextByPath'];
     setMarkByKey: CoreEditor['setMarkByKey'];
-    setMarksByPath: CoreEditor['setMarksByPath'];
+    setMarkByPath: CoreEditor['setMarkByPath'];
     setNodeByKey: CoreEditor['setNodeByKey'];
     setNodeByPath: CoreEditor['setNodeByPath'];
+    setTextByKey: CoreEditor['setTextByKey'];
+    setTextByPath: CoreEditor['setTextByPath'];
+    splitDescendantsByKey: CoreEditor['splitDescendantsByKey'];
+    splitDescendantsByPath: CoreEditor['splitDescendantsByPath'];
     splitNodeByKey: CoreEditor['splitNodeByKey'];
     splitNodeByPath: CoreEditor['splitNodeByPath'];
-    unwrapInlineByKey: CoreEditor['unwrapInlineByKey'];
-    unwrapInlineByPath: CoreEditor['unwrapInlineByPath'];
     unwrapBlockByKey: CoreEditor['unwrapBlockByKey'];
     unwrapBlockByPath: CoreEditor['unwrapBlockByPath'];
+    unwrapChildrenByKey: CoreEditor['unwrapChildrenByKey'];
+    unwrapChildrenByPath: CoreEditor['unwrapChildrenByPath'];
+    unwrapInlineByKey: CoreEditor['unwrapInlineByKey'];
+    unwrapInlineByPath: CoreEditor['unwrapInlineByPath'];
     unwrapNodeByKey: CoreEditor['unwrapNodeByKey'];
     unwrapNodeByPath: CoreEditor['unwrapNodeByPath'];
-    wrapInlineByKey: CoreEditor['wrapInlineByKey'];
-    wrapInlineByPath: CoreEditor['wrapInlineByPath'];
     wrapBlockByKey: CoreEditor['wrapBlockByKey'];
     wrapBlockByPath: CoreEditor['wrapBlockByPath'];
+    wrapInlineByKey: CoreEditor['wrapInlineByKey'];
+    wrapInlineByPath: CoreEditor['wrapInlineByPath'];
     wrapNodeByKey: CoreEditor['wrapNodeByKey'];
     wrapNodeByPath: CoreEditor['wrapNodeByPath'];
+
     normalize: CoreEditor['normalize'];
     withoutNormalizing: CoreEditor['withoutNormalizing'];
     withoutSaving: CoreEditor['withoutSaving'];
@@ -387,6 +429,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     registerQuery: CoreEditor['registerQuery'];
     applyOperation: CoreEditor['applyOperation'];
     run: CoreEditor['run'];
+    removeAnnotation: CoreEditor['removeAnnotation'];
 }
 
 export type SlateType =
@@ -401,7 +444,7 @@ export function cloneFragment(event: Event | React.SyntheticEvent, editor: CoreE
 export function findDOMNode(node: Node, win?: Window): Element;
 export function findDOMRange(range: Range, win?: Window): Range;
 export function findNode(element: Element, editor: CoreEditor): Node;
-export function findRange(selection: Selection | Range, editor: CoreEditor): Range;
+export function findRange(selection: RangeType, editor: CoreEditor): Range;
 export function getEventRange(event: Event | React.SyntheticEvent, editor: CoreEditor): Range;
 export function getEventTransfer(event: Event | React.SyntheticEvent): { type: SlateType; node: Node };
 export function setEventTransfer(event: Event | React.SyntheticEvent, type: SlateType, data: any): void;
