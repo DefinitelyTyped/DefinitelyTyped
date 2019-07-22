@@ -6,8 +6,26 @@
 // === Main ===
 // ------------
 
-export function connect(url: string, executor: Executor): Response;
-export function connect(url: string, params: Params | null, executor: Executor): Response;
+/**
+ * Open WebSocket connection.
+ * https://docs.k6.io/docs/connect-url-params-func
+ * @param url - Request URL.
+ * @param callback - Logic to execute with socket.
+ * @returns HTTP response to connection request.
+ * @public
+ */
+export function connect(url: string, callback: Executor): Response;
+
+/**
+ * Open WebSocket connection.
+ * https://docs.k6.io/docs/connect-url-params-func
+ * @param url - Request URL.
+ * @param params - Request parameters.
+ * @param callback - Logic to execute with socket.
+ * @returns HTTP response to connection request.
+ * @public
+ */
+export function connect(url: string, params: Params | null, callback: Executor): Response;
 
 // === Parameters ===
 // ------------------
