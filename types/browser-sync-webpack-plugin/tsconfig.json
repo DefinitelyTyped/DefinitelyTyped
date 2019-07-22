@@ -10,7 +10,12 @@
         "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "micromatch": [
+                "micromatch/v2"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
