@@ -13,7 +13,7 @@ import { Selection } from './html';
  * Make DELETE request.
  * https://docs.k6.io/docs/del-url-body-params
  * @param url - Request URL.
- * @param body - Request body. Discouraged.
+ * @param body - Discouraged. Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
  */
@@ -35,11 +35,20 @@ export function get<RT extends ResponseType | undefined>(
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
+/**
+ * Make OPTIONS request.
+ * https://docs.k6.io/docs/options-url-body-params
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ */
 export function options<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
+
 export function patch<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
