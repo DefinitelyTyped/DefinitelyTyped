@@ -935,10 +935,18 @@ export abstract class LiElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <link> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class LinkElement extends Element {
     protected __brand: never;
+
+    /** Link types. */
     relList(): string[];
 }
+
 export abstract class MapElement extends Element {
     protected __brand: never;
     areas(): Element[];
