@@ -1340,9 +1340,15 @@ export abstract class TextAreaElement extends Element {
     length(): number;
 }
 
+/**
+ * HTML <time> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TimeElement extends Element {
     protected __brand: never;
 }
+
 export abstract class TitleElement extends Element {
     protected __brand: never;
     text(): string;
