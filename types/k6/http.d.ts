@@ -1,3 +1,8 @@
+/*
+ * HTTP client.
+ * https://docs.k6.io/docs/k6http
+ */
+
 import { bytes, JSONValue } from '.';
 import { Selection } from './html';
 
