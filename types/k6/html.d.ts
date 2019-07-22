@@ -863,10 +863,18 @@ export abstract class ImageElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <input> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class InputElement extends FormFieldElement {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
 }
+
 export abstract class InsElement extends ModElement {
     protected __brand: never;
 }
