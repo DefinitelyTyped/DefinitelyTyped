@@ -416,6 +416,13 @@ export interface Response {
     /** Fetched URL. May differ from request URL due to redirects. */
     url: string;
 
+    /**
+     * Click link on page.
+     * https://docs.k6.io/docs/responseclicklink-params
+     * @param selector - Selector expression locating link to click.
+     * @param params - Parameters for link click request.
+     * @returns Link click response.
+     */
     clickLink<RT extends ResponseType | undefined>(args?: {
         selector?: string;
         params?: RefinedParams<RT> | null;
