@@ -1349,10 +1349,18 @@ export abstract class TimeElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <title> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TitleElement extends Element {
     protected __brand: never;
+
+    /** Title text. */
     text(): string;
 }
+
 export abstract class TrackElement extends Element {
     protected __brand: never;
 }
