@@ -1208,10 +1208,18 @@ export abstract class TableBodyElement extends TableSectionElement {
     protected __brand: never;
 }
 
+/**
+ * HTML table cell element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableCellElement extends Element {
     protected __brand: never;
+
+    /** Index in containing row. */
     cellIndex(): number;
 }
+
 export abstract class TableColElement extends Element {
     protected __brand: never;
     span(): number;
