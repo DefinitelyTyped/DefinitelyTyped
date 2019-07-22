@@ -1199,9 +1199,15 @@ export abstract class StyleElement extends Element {
     type(): string;
 }
 
+/**
+ * HTML <tbody> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableBodyElement extends TableSectionElement {
     protected __brand: never;
 }
+
 export abstract class TableCellElement extends Element {
     protected __brand: never;
     cellIndex(): number;
