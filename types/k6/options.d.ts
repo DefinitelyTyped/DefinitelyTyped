@@ -108,6 +108,10 @@ export interface Options {
     vusMax: number;
 }
 
+/**
+ * Third party collector configuration.
+ * @public
+ */
 export interface CollectorOptions {
     [name: string]: any;
 }
