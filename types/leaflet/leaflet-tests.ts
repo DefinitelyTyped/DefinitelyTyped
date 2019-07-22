@@ -289,7 +289,7 @@ imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 html = imageOverlay.getElement();
 
-//svgOverlay
+// svgOverlay
 let svgOverlayOptions: L.SVGOverlayOptions;
   svgOverlayOptions = {
     opacity: 100,
@@ -304,19 +304,20 @@ let svgOverlayOptions: L.SVGOverlayOptions;
     pane: 'pane'
   };
 
-let svgOverlayBounds = latLngBounds;
-var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+const svgOverlayBounds = latLngBounds;
+const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 svgElement.setAttribute('xmlns', "http://www.w3.org/2000/svg");
 svgElement.setAttribute('viewBox', "0 0 200 200");
 svgElement.innerHTML = '<rect width="2000" height="2000"/><rect x="75" y="23" width="50" height="50" style="fill:red"/><rect x="75" y="123" width="50" height="50" style="fill:#0013ff"/>';
-var svgElementBounds: L.LatLngBoundsExpression = latLngBounds;
-let svgOverLay: L.SVGOverlay = L.svgOverlay(svgElement, svgElementBounds).addTo(this.leafletMap);
-svgOverLay = L.svgOverlay(svgElement, svgElementBounds, svgOverlayOptions).addTo(this.leafletMap);
+const svgElementBounds: L.LatLngBoundsExpression = latLngBounds;
+let svgOverLay: L.SVGOverlay;
+svgOverLay = L.svgOverlay(svgElement, svgElementBounds);
+svgOverLay = L.svgOverlay(svgElement, svgElementBounds, svgOverlayOptions);
 svgOverLay = L.svgOverlay(svgElement, svgElementBounds, {
   opacity: 100,
   alt: 'alt',
   className: 'className',
-}).addTo(this.leafletMap);
+});
 
 svgOverLay.setOpacity(100);
 svgOverLay.bringToFront();
