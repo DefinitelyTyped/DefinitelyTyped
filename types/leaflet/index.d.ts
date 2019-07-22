@@ -5,6 +5,7 @@
 //                 Michael Auer <https://github.com/mcauer>
 //                 Roni Karilkar <https://github.com/ronikar>
 //                 Sandra Frischmuth <https://github.com/sanfrisc>
+//                 Siva Sivakanesh <https://github.com/sivakanesh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
