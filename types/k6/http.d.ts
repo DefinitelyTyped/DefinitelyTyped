@@ -158,6 +158,21 @@ export const TLS_1_1 = 'tls1.1';
 /** @public */
 export const TLS_1_2 = 'tls1.2';
 
+// === OCSP statuses ===
+// ---------------------
+
+/** @public */
+export const OCSP_STATUS_GOOD = 'good';
+
+/** @public */
+export const OCSP_STATUS_REVOKED = 'revoked';
+
+/** @public */
+export const OCSP_STATUS_SERVER_FAILED = 'server_failed';
+
+/** @public */
+export const OCSP_STATUS_UNKNOWN = 'unknown';
+
 // === Params ===
 // --------------
 
