@@ -1130,10 +1130,18 @@ export abstract class QuoteElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <script> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class ScriptElement extends Element {
     protected __brand: never;
+
+    /** Source code. */
     text(): string;
 }
+
 export abstract class SelectElement extends Element {
     protected __brand: never;
     form(): FormElement | undefined;
