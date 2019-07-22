@@ -107,7 +107,15 @@ export function request<RT extends ResponseType | undefined>(
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
+/**
+ * Batch multiple HTTP requests together,
+ * to issue them in parallel over multiple TCP connections.
+ * https://docs.k6.io/docs/batch-requests
+ * @param requests - Request specifications.
+ * @returns Resulting responses.
+ */
 export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
+
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 export function cookieJar(): CookieJar;
 
