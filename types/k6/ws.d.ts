@@ -146,19 +146,77 @@ export interface TimerHandler {
     (): void;
 }
 
+// === Event handlers ===
+// ----------------------
+
+/**
+ * Event handler. Signature varies with event type.
+ * @public
+ */
 export type EventHandler<ET extends EventType> = ET extends 'close'
-    ? (code: number) => void
+    ? CloseEventHandler
     : ET extends 'error'
-    ? (error: WebSocketError) => void
+    ? ErrorEventHandler
     : ET extends 'message'
-    ? (message: string) => void
+    ? MessageEventHandler
     : ET extends 'open'
-    ? () => void
+    ? OpenEventHandler
     : ET extends 'ping'
-    ? () => void
+    ? PingEventHandler
     : ET extends 'pong'
-    ? () => void
+    ? PongEventHandler
     : never;
+
+/**
+ * Close event handler.
+ * @public
+ */
+export interface CloseEventHandler {
+    /** @param code - WebSocket status code. */
+    (code: number): void;
+}
+
+/**
+ * Error event handler.
+ * @public
+ */
+export interface ErrorEventHandler {
+    /** @param error - Error object. */
+    (error: WebSocketError): void;
+}
+
+/**
+ * Message event handler.
+ * @public
+ */
+export interface MessageEventHandler {
+    /** @param message - Message. */
+    (message: string): void;
+}
+
+/**
+ * Open event handler.
+ * @public
+ */
+export interface OpenEventHandler {
+    (): void;
+}
+
+/**
+ * Ping event handler.
+ * @public
+ */
+export interface PingEventHandler {
+    (): void;
+}
+
+/**
+ * Pong event handler.
+ * @public
+ */
+export interface PongEventHandler {
+    (): void;
+}
 
 // === Error ===
 // -------------
