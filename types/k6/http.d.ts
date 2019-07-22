@@ -633,10 +633,20 @@ export interface ResponseCookie {
 // === File data ===
 // -----------------
 
+/**
+ * File data for constructing a multipart request with file uploads.
+ * @public
+ */
 export abstract class FileData {
     protected __brand: never;
+
+    /** File data. */
     data: string | bytes;
+
+    /** Filename to include in MIME message. */
     filename?: string;
+
+    /** Content type to include in MIME message. */
     content_type?: string;
 }
 
