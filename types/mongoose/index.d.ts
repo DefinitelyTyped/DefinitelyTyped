@@ -2984,6 +2984,12 @@ declare module "mongoose" {
     createIndexes(cb?: (err: any) => void): Promise<void>;
 
     /**
+     * Returns true if at least one document exists in the database that matches
+     * the given `filter`, and false otherwise.
+     */
+    exists(filter: any, callback?: (err: any, res: boolean) => void): Promise<boolean>;
+
+    /**
      * Finds documents.
      * @param projection optional fields to return
      */
