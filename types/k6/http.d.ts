@@ -126,6 +126,11 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
  */
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 
+/**
+ * Get active cookie jar.
+ * https://docs.k6.io/docs/cookiejar
+ * @returns Active cookie jar.
+ */
 export function cookieJar(): CookieJar;
 
 // === Params ===
