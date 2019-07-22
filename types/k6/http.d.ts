@@ -23,10 +23,18 @@ export function del<RT extends ResponseType | undefined>(
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
+/**
+ * Make GET request.
+ * https://docs.k6.io/docs/get-url-body-params
+ * @param url - Request URL.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ */
 export function get<RT extends ResponseType | undefined>(
     url: string,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
+
 export function options<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
