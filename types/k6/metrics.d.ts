@@ -34,7 +34,7 @@ export class Counter extends Metric {
 }
 
 /**
- * Gauge. Holds only latest value added.
+ * Gauge. Holds only latest value.
  * https://docs.k6.io/docs/gauge-k6metrics
  * @public
  */
@@ -42,9 +42,15 @@ export class Gauge extends Metric {
     protected __brand: never;
 }
 
+/**
+ * Tracks percentage of nonzero values.
+ * https://docs.k6.io/docs/rate-k6metrics
+ * @public
+ */
 export class Rate extends Metric {
     protected __brand: never;
 }
+
 export class Trend extends Metric {
     protected __brand: never;
 }
