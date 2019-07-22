@@ -24,9 +24,15 @@ export abstract class Metric {
     add(value: number | boolean, tags?: { [name: string]: string }): void;
 }
 
+/**
+ * Cumulative counter.
+ * https://docs.k6.io/docs/counter-k6metrics
+ * @public
+ */
 export class Counter extends Metric {
     protected __brand: never;
 }
+
 export class Gauge extends Metric {
     protected __brand: never;
 }
