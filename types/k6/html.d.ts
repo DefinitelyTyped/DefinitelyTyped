@@ -1310,10 +1310,18 @@ export abstract class TableRowElement extends Element {
     sectionRowIndex(): number;
 }
 
+/**
+ * HTML table section element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableSectionElement extends Element {
     protected __brand: never;
+
+    /** Contained <tr> elements. */
     rows(): Element[];
 }
+
 export abstract class TextAreaElement extends Element {
     protected __brand: never;
     form(): FormElement | undefined;
