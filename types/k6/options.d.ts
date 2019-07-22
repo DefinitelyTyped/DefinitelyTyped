@@ -128,10 +128,26 @@ export interface Stage {
     target: number;
 }
 
+/**
+ * Threshold specification.
+ * https://docs.k6.io/docs/thresholds
+ * @public
+ */
 export type Threshold = string | ObjectThreshold;
+
+/**
+ * Object form threshold specification.
+ * https://docs.k6.io/docs/thresholds
+ * @public
+ */
 export interface ObjectThreshold {
+    /** Abort test if threshold violated. */
     abortOnFail?: boolean;
+
+    /** Duration to delay evaluation. Enables collecting additional metrics. */
     delayAbortEval?: string;
+
+    /** Threshold expression. */
     threshold: string;
 }
 
