@@ -429,6 +429,12 @@ export interface Response {
      */
     html(selector?: string): Selection;
 
+    /**
+     * Parse body as JSON. Optionally filter by selector.
+     * https://docs.k6.io/docs/response-k6http
+     * @param selector - GJSON expression.
+     * @returns Parse result if successful, `undefined` if unsuccessful.
+     */
     json(selector?: string): JSONValue | undefined;
 
     submitForm<RT extends ResponseType | undefined>(args?: {
