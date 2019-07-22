@@ -63,11 +63,20 @@ export function patch<RT extends ResponseType | undefined>(
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
+/**
+ * Make POST request.
+ * https://docs.k6.io/docs/post-url-body-params
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ */
 export function post<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
+
 export function put<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
