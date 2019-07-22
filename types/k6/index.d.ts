@@ -21,14 +21,6 @@
  * This follows the pattern used in the TypeScript compiler:
  * https://github.com/Microsoft/TypeScript/blob/7b48a182c05ea4dea81bab73ecbbe9e013a79e99/src/compiler/types.ts#L693-L698
  *
- * @privateRemarks
- * Run API Extractor to validate doc comments:
- * api-extractor run -c api-extractor.json -l
- *
- * The `@typeParam` tag is not yet supported by API Extractor and raises
- * warnings. These warnings are expected for now. They'll disappear when
- * support for the tag is added.
- *
  * @packageDocumentation
  */
 
