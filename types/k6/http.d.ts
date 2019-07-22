@@ -635,20 +635,21 @@ export interface ResponseCookie {
 
 /**
  * File data for constructing a multipart request with file uploads.
+ * https://docs.k6.io/docs/filedata-k6http
  * @public
  */
 export abstract class FileData {
-             protected __brand: never;
+        protected __brand: never;
 
-             /** File data. */
-             data: string | bytes;
+     /** File data. */
+        data: string | bytes;
 
-             /** Filename to include in MIME message. */
-             filename?: string;
+     /** Filename to include in MIME message. */
+        filename?: string;
 
-             /** Content type to include in MIME message. */
-             content_type?: string;
-         }
+     /** Content type to include in MIME message. */
+        content_type?: string;
+   }
 
 // === Cookie jar ===
 // ------------------
