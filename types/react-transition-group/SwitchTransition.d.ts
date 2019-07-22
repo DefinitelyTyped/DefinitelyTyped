@@ -2,8 +2,13 @@ import { Component } from "react";
 import { TransitionProps } from "./Transition";
 
 declare namespace SwitchTransition {
+    const modes = {
+        out: 'out-in',
+        in: 'in-out'
+    }
+    
     interface SwitchTransitionProps extends TransitionProps {
-        mode?: 'out-in' | 'in-out';
+        mode?: modes.out | modes.in;
     }
 }
 
