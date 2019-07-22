@@ -9,7 +9,7 @@ import { Selection } from './html';
 // === Main ===
 // ------------
 
-// Generics refine response to expose body with correct type
+// Refineds refine response to expose body with correct type
 export function del<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
@@ -90,12 +90,17 @@ export interface ObjectBatchRequest {
 }
 export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
 
-// === Generic batch request ===
+// === Refined batch request ===
 // -----------------------------
 
-export type GenericBatchRequest<RT extends ResponseType | undefined> = string | ArrayGenericBatchRequest<RT> | ObjectGenericBatchRequest<RT>;
-export type ArrayGenericBatchRequest<RT extends ResponseType | undefined> = [ string, string, (RequestBody | null)?, (RefinedParams<RT> | null)? ];
-export interface ObjectGenericBatchRequest<RT extends ResponseType | undefined> {
+export type RefinedBatchRequest<RT extends ResponseType | undefined> = string | ArrayRefinedBatchRequest<RT> | ObjectRefinedBatchRequest<RT>;
+export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
+    string,
+    string,
+    (RequestBody | null)?,
+    (RefinedParams<RT> | null)?
+];
+export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
     body?: RequestBody | null;
@@ -106,7 +111,7 @@ export interface ObjectGenericBatchRequest<RT extends ResponseType | undefined> 
 // -----------------------
 
 export type BatchResponses<Q> = {
-    [K in keyof Q]: Q[K] extends GenericBatchRequest<infer RT>
+    [K in keyof Q]: Q[K] extends RefinedBatchRequest<infer RT>
         ? RefinedResponse<RT>
         : never;
 };
