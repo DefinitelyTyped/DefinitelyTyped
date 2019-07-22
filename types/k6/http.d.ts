@@ -116,7 +116,16 @@ export function request<RT extends ResponseType | undefined>(
  */
 export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 
+/**
+ * Create a file object used for building multipart requests (file uploads).
+ * https://docs.k6.io/docs/file-data-filename-contenttype
+ * @param data - File data.
+ * @param filename - Filename. Included in MIME message.
+ * @param contentType - Content type. Included in MIME message.
+ * @returns File data object.
+ */
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
+
 export function cookieJar(): CookieJar;
 
 // === Params ===
