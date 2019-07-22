@@ -585,11 +585,21 @@ export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extend
     ? string | null
     : never;
 
+/**
+ * Request cookie description in response.
+ * @public
+ */
 export interface RequestCookie {
+    /** Name. */
     name: string;
+
+    /** Value. */
     value: string;
+
+    /** Whether configured to override VU cookie jar. */
     replace: boolean;
 }
+
 export interface ResponseCookie {
     name: string;
     value: string;
