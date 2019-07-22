@@ -143,6 +143,21 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
  */
 export function cookieJar(): CookieJar;
 
+// === SSL/TLS versions ===
+// ------------------------
+
+/** @public */
+export const SSL_3_0 = 'ssl3.0';
+
+/** @public */
+export const TLS_1_0 = 'tls1.0';
+
+/** @public */
+export const TLS_1_1 = 'tls1.1';
+
+/** @public */
+export const TLS_1_2 = 'tls1.2';
+
 // === Params ===
 // --------------
 
