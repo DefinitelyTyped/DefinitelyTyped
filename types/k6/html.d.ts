@@ -1379,6 +1379,11 @@ export abstract class UListElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <video> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class VideoElement extends MediaElement {
     protected __brand: never;
 }
