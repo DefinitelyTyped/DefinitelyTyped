@@ -1016,9 +1016,15 @@ export abstract class ObjectElement extends Element {
     form(): FormElement | undefined;
 }
 
+/**
+ * HTML <ol> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class OListElement extends Element {
     protected __brand: never;
 }
+
 export abstract class OptGroupElement extends Element {
     protected __brand: never;
 }
