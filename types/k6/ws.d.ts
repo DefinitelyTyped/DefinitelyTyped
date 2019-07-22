@@ -54,11 +54,24 @@ export interface Executor {
 // === Response ===
 // ----------------
 
+/**
+ * HTTP response to connection request.
+ * @public
+ */
 export interface Response {
+    /** Fetched URL. May differ from request URL due to redirects. */
     url: string;
+
+    /** HTTP status code. */
     status: number;
+
+    /** Response headers. */
     headers: { [name: string]: string };
+
+    /** Response body. */
     body: string;
+
+    /** Non-HTTP error message. */
     error: string;
 }
 
