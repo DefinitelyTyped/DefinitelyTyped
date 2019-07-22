@@ -315,6 +315,14 @@ export interface ResourceServer {
    * A friendly name for the resource server.
    */
   name?: string;
+  /**
+   * Enables the enforcement of the authorization policies.
+   */
+  enforce_policies?: boolean;
+  /**
+   * The dialect for the access token.
+   */
+  token_dialect?: 'access_token' | 'access_token_authz';
 }
 
 export interface CreateResourceServer extends ResourceServer {
