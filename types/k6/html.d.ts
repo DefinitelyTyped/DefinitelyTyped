@@ -1178,9 +1178,15 @@ export abstract class SelectElement extends Element {
     value(): string;
 }
 
+/**
+ * HTML <source> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class SourceElement extends Element {
     protected __brand: never;
 }
+
 export abstract class StyleElement extends Element {
     protected __brand: never;
     type(): string;
