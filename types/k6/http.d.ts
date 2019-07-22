@@ -568,6 +568,13 @@ export interface RefinedResponse<RT extends ResponseType | undefined> extends Re
  */
 export type ResponseBody = string | bytes | null;
 
+/**
+ * Refined response body.
+ * Best possible type given `responseType` from request parameters.
+ * @typeParam RT - `Params.responseType` value.
+ * @privateRemarks Default type is a union due to depending on program options.
+ * @public
+ */
 export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends 'binary'
     ? bytes
     : RT extends 'none'
@@ -575,8 +582,9 @@ export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extend
     : RT extends 'text'
     ? string
     : RT extends undefined
-    ? string | null // Default body type conditional on program options
+    ? string | null
     : never;
+
 export interface RequestCookie {
     name: string;
     value: string;
