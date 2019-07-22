@@ -210,8 +210,8 @@ href.hostname(); // $ExpectType string
 href.origin(); // $ExpectType string
 href.password(); // $ExpectType string
 href.pathname(); // $ExpectType string
+href.port(); // $ExpectType string
 href.protocol(); // $ExpectType string
-href.post(); // $ExpectType string
 href.relList(); // $ExpectType string[]
 href.search(); // $ExpectType string
 href.text(); // $ExpectType string
