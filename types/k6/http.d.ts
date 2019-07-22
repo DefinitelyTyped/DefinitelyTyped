@@ -173,6 +173,39 @@ export const OCSP_STATUS_SERVER_FAILED = 'server_failed';
 /** @public */
 export const OCSP_STATUS_UNKNOWN = 'unknown';
 
+// === OCSP revocation reasons ===
+// -------------------------------
+
+/** @public */
+export const OCSP_REASON_AA_COMPROMISE = 'aa_compromise';
+
+/** @public */
+export const OCSP_REASON_AFFILIATION_CHANGED = 'affiliation_changed';
+
+/** @public */
+export const OCSP_REASON_CA_COMPROMISE = 'ca_compromise';
+
+/** @public */
+export const OCSP_REASON_CERTIFICATE_HOLD = 'certificate_hold';
+
+/** @public */
+export const OCSP_REASON_CESSATION_OF_OPERATION = 'cessation_of_operation';
+
+/** @public */
+export const OCSP_REASON_KEY_COMPROMISE = 'key_compromise';
+
+/** @public */
+export const OCSP_REASON_PRIVILEGE_WITHDRAWN = 'privilege_withdrawn';
+
+/** @public */
+export const OCSP_REASON_REMOVE_FROM_CRL = 'remove_from_crl';
+
+/** @public */
+export const OCSP_REASON_SUPERSEDED = 'superseded';
+
+/** @public */
+export const OCSP_REASON_UNSPECIFIED = 'unspecified';
+
 // === Params ===
 // --------------
 
