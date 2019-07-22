@@ -1091,9 +1091,15 @@ export abstract class ParamElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <pre> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class PreElement extends Element {
     protected __brand: never;
 }
+
 export abstract class ProgressElement extends Element {
     protected __brand: never;
     labels(): LabelElement[];
