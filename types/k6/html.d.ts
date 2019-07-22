@@ -926,9 +926,15 @@ export abstract class LegendElement extends Element {
     form(): FormElement | undefined;
 }
 
+/**
+ * HTML <li> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class LiElement extends Element {
     protected __brand: never;
 }
+
 export abstract class LinkElement extends Element {
     protected __brand: never;
     relList(): string[];
