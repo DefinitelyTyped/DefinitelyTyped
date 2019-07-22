@@ -971,7 +971,7 @@ export abstract class MediaElement extends Element {
     protected __brand: never;
 
     /** Contained <track> elements. */
-    textTracks(): Element[];
+    textTracks(): TrackElement[];
 }
 
 /**
