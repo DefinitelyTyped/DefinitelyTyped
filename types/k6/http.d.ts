@@ -638,17 +638,17 @@ export interface ResponseCookie {
  * @public
  */
 export abstract class FileData {
-    protected __brand: never;
+             protected __brand: never;
 
-    /** File data. */
-    data: string | bytes;
+             /** File data. */
+             data: string | bytes;
 
-    /** Filename to include in MIME message. */
-    filename?: string;
+             /** Filename to include in MIME message. */
+             filename?: string;
 
-    /** Content type to include in MIME message. */
-    content_type?: string;
-}
+             /** Content type to include in MIME message. */
+             content_type?: string;
+         }
 
 // === Cookie jar ===
 // ------------------
