@@ -974,9 +974,15 @@ export abstract class MediaElement extends Element {
     textTracks(): Element[];
 }
 
+/**
+ * HTML <meta> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class MetaElement extends Element {
     protected __brand: never;
 }
+
 export abstract class MeterElement extends Element {
     protected __brand: never;
     labels(): LabelElement[];
