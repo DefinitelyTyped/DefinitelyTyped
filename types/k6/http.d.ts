@@ -300,6 +300,10 @@ export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> 
 // === Batch responses ===
 // -----------------------
 
+/**
+ * Set of batch responses. Array or object.
+ * @public
+ */
 export type BatchResponses<Q> = {
     [K in keyof Q]: Q[K] extends RefinedBatchRequest<infer RT> ? RefinedResponse<RT> : never;
 };
