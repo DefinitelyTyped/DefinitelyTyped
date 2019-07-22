@@ -125,6 +125,15 @@ const Test: React.StatelessComponent = () => {
             <CSSTransition timeout={ 100 }>
                 <div>{ "test" }</div>
             </CSSTransition>
+            
+            <SwitchTransition
+                timeout={ { enter : 500, exit : 500 } }
+                mode=modes.out
+            >
+                <CSSTransition timeout={ 100 }>
+                    <div>{ "test" }</div>
+                </CSSTransition>
+            </SwitchTransition>
         </TransitionGroup>
     );
 };
