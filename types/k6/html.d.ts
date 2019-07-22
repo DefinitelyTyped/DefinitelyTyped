@@ -1025,9 +1025,15 @@ export abstract class OListElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <optgroup> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class OptGroupElement extends Element {
     protected __brand: never;
 }
+
 export abstract class OptionElement extends Element {
     protected __brand: never;
     disabled(): boolean;
