@@ -1265,9 +1265,15 @@ export abstract class TableElement extends Element {
     tHead(): Element | undefined;
 }
 
+/**
+ * HTML <tfoot> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableFootElement extends TableSectionElement {
     protected __brand: never;
 }
+
 export abstract class TableHeadElement extends TableSectionElement {
     protected __brand: never;
 }
