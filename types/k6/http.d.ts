@@ -208,7 +208,12 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 // === Request body ===
 // --------------------
 
+/**
+ * Request body.
+ * @public
+ */
 export type RequestBody = string | StructuredRequestBody;
+
 export interface StructuredRequestBody {
     [name: string]: string | FileData;
 }
