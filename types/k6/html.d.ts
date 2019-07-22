@@ -1322,12 +1322,24 @@ export abstract class TableSectionElement extends Element {
     rows(): Element[];
 }
 
+/**
+ * HTML <textarea> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TextAreaElement extends Element {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
+
+    /** Byte length of current text value. */
     length(): number;
 }
+
 export abstract class TimeElement extends Element {
     protected __brand: never;
 }
