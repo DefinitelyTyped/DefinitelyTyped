@@ -1004,10 +1004,18 @@ export abstract class ModElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <object> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class ObjectElement extends Element {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
 }
+
 export abstract class OListElement extends Element {
     protected __brand: never;
 }
