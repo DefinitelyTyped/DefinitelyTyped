@@ -181,7 +181,7 @@ export interface Payment {
     payer: {
         payment_method: string;
     };
-    transactions: [ Transaction ];
+    transactions: Transaction[];
     readonly state?: string;
     experience_profile_id?: string;
     note_to_payer?: string;
