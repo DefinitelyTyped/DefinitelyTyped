@@ -1061,13 +1061,27 @@ export abstract class OptionElement extends Element {
     value(): string;
 }
 
+/**
+ * HTML <output> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class OutputElement extends Element {
     protected __brand: never;
+
+    /** Default value. */
     defaultValue(): string;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
+
+    /** Text content. */
     value(): string;
 }
+
 export abstract class ParamElement extends Element {
     protected __brand: never;
 }
