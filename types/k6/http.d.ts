@@ -600,14 +600,33 @@ export interface RequestCookie {
     replace: boolean;
 }
 
+/**
+ * Response cookie.
+ * @public
+ */
 export interface ResponseCookie {
+    /** Name. */
     name: string;
+
+    /** Value. */
     value: string;
+
+    /** Domain allowed to receive. */
     domain: string;
+
+    /** Scope path. */
     path: string;
+
+    /** Whether HTTP only. */
     httpOnly: boolean;
+
+    /** Whether secure. */
     secure: boolean;
+
+    /** Seconds until expiration. */
     maxAge: number;
+
+    /** Expiry time in millisecond Unix time. */
     expires: number;
 }
 
