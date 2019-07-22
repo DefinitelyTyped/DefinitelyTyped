@@ -6,6 +6,9 @@
 import { bytes, JSONValue } from '.';
 import { Selection } from './html';
 
+// === Main ===
+// ------------
+
 // Generics refine response to expose body with correct type
 export function del<RT extends ResponseType | undefined>(
     url: string,
@@ -46,7 +49,9 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 export function cookieJar(): CookieJar;
 
-// Params
+// === Params ===
+// --------------
+
 export interface Params {
     auth?: AuthMethod;
     cookies?: { [name: string]: ParamsCookieValue };
@@ -64,13 +69,17 @@ export type AuthMethod = 'basic' | 'digest' | 'ntlm';
 export type ResponseType = 'binary' | 'none' | 'text';
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
-// RequestBody
+// === Request body ===
+// --------------------
+
 export type RequestBody = string | StructuredRequestBody;
 export interface StructuredRequestBody {
     [name: string]: string | FileData;
 }
 
-// BatchRequest
+// === Batch request ===
+// ---------------------
+
 export type BatchRequest = string | ArrayBatchRequest | ObjectBatchRequest;
 export type ArrayBatchRequest = [ string, string, (RequestBody | null)?, (Params | null)? ];
 export interface ObjectBatchRequest {
@@ -81,7 +90,9 @@ export interface ObjectBatchRequest {
 }
 export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
 
-// GenericBatchRequest
+// === Generic batch request ===
+// -----------------------------
+
 export type GenericBatchRequest<RT extends ResponseType | undefined> = string | ArrayGenericBatchRequest<RT> | ObjectGenericBatchRequest<RT>;
 export type ArrayGenericBatchRequest<RT extends ResponseType | undefined> = [ string, string, (RequestBody | null)?, (GenericParams<RT> | null)? ];
 export interface ObjectGenericBatchRequest<RT extends ResponseType | undefined> {
@@ -91,14 +102,18 @@ export interface ObjectGenericBatchRequest<RT extends ResponseType | undefined> 
     params?: GenericParams<RT> | null;
 }
 
-// BatchResponses
+// === Batch responses ===
+// -----------------------
+
 export type BatchResponses<Q> = {
     [K in keyof Q]: Q[K] extends GenericBatchRequest<infer RT>
         ? RefinedResponse<RT>
         : never;
 };
 
-// Response
+// === Response ===
+// ----------------
+
 export interface Response {
     body: ResponseBody;
     cookies: { [name: string]: ResponseCookie[] };
@@ -178,7 +193,9 @@ export interface ResponseCookie {
     expires: number;
 }
 
-// FileData
+// === File data ===
+// -----------------
+
 export abstract class FileData {
     protected __brand: never;
     data: string | bytes;
@@ -186,7 +203,9 @@ export abstract class FileData {
     content_type?: string;
 }
 
-// CookieJar
+// === Cookie jar ===
+// ------------------
+
 export abstract class CookieJar {
     protected __brand: never;
     cookiesForURL(url: string): CookieJarCookies;
