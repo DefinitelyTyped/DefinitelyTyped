@@ -1241,14 +1241,30 @@ export abstract class TableDataCellElement extends TableCellElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <table> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableElement extends Element {
     protected __brand: never;
+
+    /** First child <caption> element. */
     caption(): Element | undefined;
+
+    /** Contained <tr> elements. */
     rows(): Element[];
+
+    /** Contained <tbody> elements. */
     tBodies(): Element[];
+
+    /** First child <tfoot> element. */
     tFoot(): Element | undefined;
+
+    /** First child <thead> element. */
     tHead(): Element | undefined;
 }
+
 export abstract class TableFootElement extends TableSectionElement {
     protected __brand: never;
 }
