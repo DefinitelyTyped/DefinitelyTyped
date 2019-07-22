@@ -138,6 +138,14 @@ export abstract class Socket {
  */
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
 
+/**
+ * Timer handler.
+ * @public
+ */
+export interface TimerHandler {
+    (): void;
+}
+
 export type EventHandler<ET extends EventType> = ET extends 'close'
     ? (code: number) => void
     : ET extends 'error'
@@ -151,9 +159,6 @@ export type EventHandler<ET extends EventType> = ET extends 'close'
     : ET extends 'pong'
     ? () => void
     : never;
-export interface TimerHandler {
-    (): void;
-}
 
 // === Error ===
 // -------------
