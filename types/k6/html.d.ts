@@ -1292,12 +1292,24 @@ export abstract class TableHeaderCellElement extends TableCellElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <tr> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableRowElement extends Element {
     protected __brand: never;
+
+    /** Contained table cell elements. */
     cells(): TableCellElement[];
+
+    /** Index in containing table. */
     rowIndex(): number;
+
+    /** Index in containing table section. */
     sectionRowIndex(): number;
 }
+
 export abstract class TableSectionElement extends Element {
     protected __brand: never;
     rows(): Element[];
