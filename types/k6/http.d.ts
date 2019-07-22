@@ -13,37 +13,37 @@ import { Selection } from './html';
 export function del<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function get<RT extends ResponseType | undefined>(
     url: string,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function options<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function patch<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function post<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function put<RT extends ResponseType | undefined>(
     url: string,
     body?: RequestBody | null,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function request<RT extends ResponseType | undefined>(
     method: string,
     url: string,
     body?: RequestBody | null,
-    params?: GenericParams<RT> | null
+    params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
@@ -62,7 +62,7 @@ export interface Params {
     timeout?: number;
     responseType?: ResponseType;
 }
-export interface GenericParams<RT extends ResponseType | undefined> extends Params {
+export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
     responseType?: RT;
 }
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
@@ -94,12 +94,12 @@ export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
 // -----------------------------
 
 export type GenericBatchRequest<RT extends ResponseType | undefined> = string | ArrayGenericBatchRequest<RT> | ObjectGenericBatchRequest<RT>;
-export type ArrayGenericBatchRequest<RT extends ResponseType | undefined> = [ string, string, (RequestBody | null)?, (GenericParams<RT> | null)? ];
+export type ArrayGenericBatchRequest<RT extends ResponseType | undefined> = [ string, string, (RequestBody | null)?, (RefinedParams<RT> | null)? ];
 export interface ObjectGenericBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
     body?: RequestBody | null;
-    params?: GenericParams<RT> | null;
+    params?: RefinedParams<RT> | null;
 }
 
 // === Batch responses ===
@@ -153,7 +153,7 @@ export interface Response {
     url: string;
     clickLink<RT extends ResponseType | undefined>(args?: {
         selector?: string;
-        params?: GenericParams<RT> | null;
+        params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
     html(selector?: string): Selection;
     json(selector?: string): JSONValue | undefined;
@@ -161,7 +161,7 @@ export interface Response {
         formSelector?: string;
         fields?: { [name: string]: string };
         submitSelector?: string;
-        params?: GenericParams<RT> | null;
+        params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
 }
 export interface RefinedResponse<RT extends ResponseType | undefined> extends Response {
