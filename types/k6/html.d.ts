@@ -1142,18 +1142,42 @@ export abstract class ScriptElement extends Element {
     text(): string;
 }
 
+/**
+ * HTML <select> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class SelectElement extends Element {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
+
+    /** Number of contained <option> elements. */
     length(): number;
+
+    /** Contained <option> elements. */
     options(): OptionElement[];
+
+    /** First selected <option> element index. */
     selectedIndex(): number;
+
+    /** Selected <option> elements. */
     selectedOptions(): OptionElement[];
+
+    /** Number of visible rows. */
     size(): number;
+
+    /** Select type. `select-one` or `select-multiple`. */
     type(): string;
+
+    /** First selected <option> element value. */
     value(): string;
 }
+
 export abstract class SourceElement extends Element {
     protected __brand: never;
 }
