@@ -151,8 +151,17 @@ export interface ObjectThreshold {
     threshold: string;
 }
 
+/**
+ * TLS client certificate.
+ * @public
+ */
 export interface Certificate {
+    /** PEM encoded certificate. */
     cert: string;
+
+    /** Domains certificate is valid for. */
     domains: string[];
+
+    /** PEM encoded certificate key. */
     key: string;
 }
