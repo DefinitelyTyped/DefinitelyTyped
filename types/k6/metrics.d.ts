@@ -1,3 +1,8 @@
+/*
+ * Custom metrics.
+ * https://docs.k6.io/docs/k6metrics
+ */
+
 export abstract class Metric {
     protected __brand: never;
     constructor(name: string, isTime?: boolean);
