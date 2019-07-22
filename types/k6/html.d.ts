@@ -914,10 +914,18 @@ export abstract class LabelElement extends Element {
     form(): FormElement | undefined;
 }
 
+/**
+ * HTML <legend> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class LegendElement extends Element {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
 }
+
 export abstract class LiElement extends Element {
     protected __brand: never;
 }
