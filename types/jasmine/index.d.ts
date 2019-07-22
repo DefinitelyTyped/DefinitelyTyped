@@ -236,17 +236,17 @@ declare namespace jasmine {
     }
 
     interface ArrayContaining<T> {
-        new (sample: ArrayLike<T>): ArrayLike<T>;
+        new?(sample: ArrayLike<T>): ArrayLike<T>;
 
         asymmetricMatch(other: any): boolean;
-        jasmineToString(): string;
+        jasmineToString?(): string;
     }
 
     interface ObjectContaining<T> {
-        new (sample: Partial<T>): Partial<T>;
+        new?(sample: Partial<T>): Partial<T>;
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
-        jasmineToString(): string;
+        jasmineToString?(): string;
     }
 
     interface Block {
