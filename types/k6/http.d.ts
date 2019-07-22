@@ -16,6 +16,7 @@ import { Selection } from './html';
  * @param body - Discouraged. Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function del<RT extends ResponseType | undefined>(
     url: string,
@@ -29,6 +30,7 @@ export function del<RT extends ResponseType | undefined>(
  * @param url - Request URL.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function get<RT extends ResponseType | undefined>(
     url: string,
@@ -42,6 +44,7 @@ export function get<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function options<RT extends ResponseType | undefined>(
     url: string,
@@ -56,6 +59,7 @@ export function options<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function patch<RT extends ResponseType | undefined>(
     url: string,
@@ -70,6 +74,7 @@ export function patch<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function post<RT extends ResponseType | undefined>(
     url: string,
@@ -84,6 +89,7 @@ export function post<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function put<RT extends ResponseType | undefined>(
     url: string,
@@ -99,6 +105,7 @@ export function put<RT extends ResponseType | undefined>(
  * @param body - Request body. Object form encoded.
  * @param params - Request parameters.
  * @returns Resulting response.
+ * @public
  */
 export function request<RT extends ResponseType | undefined>(
     method: string,
@@ -113,6 +120,7 @@ export function request<RT extends ResponseType | undefined>(
  * https://docs.k6.io/docs/batch-requests
  * @param requests - Request specifications.
  * @returns Resulting responses.
+ * @public
  */
 export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 
@@ -123,6 +131,7 @@ export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
  * @param filename - Filename. Included in MIME message.
  * @param contentType - Content type. Included in MIME message.
  * @returns File data object.
+ * @public
  */
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 
@@ -130,6 +139,7 @@ export function file(data: string | bytes, filename?: string, contentType?: stri
  * Get active cookie jar.
  * https://docs.k6.io/docs/cookiejar
  * @returns Active cookie jar.
+ * @public
  */
 export function cookieJar(): CookieJar;
 
