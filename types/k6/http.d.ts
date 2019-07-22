@@ -617,10 +617,10 @@ export interface ResponseCookie {
     /** Scope path. */
     path: string;
 
-    /** Whether HTTP only. */
+    /** HTTP only. */
     httpOnly: boolean;
 
-    /** Whether secure. */
+    /** Secure. */
     secure: boolean;
 
     /** Seconds until expiration. */
@@ -688,11 +688,26 @@ export interface CookieJarCookies {
     [name: string]: string[];
 }
 
+/**
+ * Optional settings when adding a cookie to a cookie jar.
+ * @public
+ */
 export interface CookieOptions {
+    /** Domain allowed to receive. */
     domain?: string;
+
+    /** Scope path. */
     path?: string;
+
+    /** Expiry time in RFC1123 format. */
     expires?: string;
+
+    /** Seconds until expiration. */
     max_age?: number;
+
+    /** Secure. */
     secure?: boolean;
+
+    /** HTTP only. */
     http_only?: boolean;
 }
