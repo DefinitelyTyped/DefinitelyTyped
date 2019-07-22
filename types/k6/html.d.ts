@@ -1220,10 +1220,18 @@ export abstract class TableCellElement extends Element {
     cellIndex(): number;
 }
 
+/**
+ * HTML <col> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableColElement extends Element {
     protected __brand: never;
+
+    /** Number of consecutive columns spanned. */
     span(): number;
 }
+
 export abstract class TableDataCellElement extends TableCellElement {
     protected __brand: never;
 }
