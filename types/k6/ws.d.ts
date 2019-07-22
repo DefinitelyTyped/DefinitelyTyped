@@ -132,7 +132,12 @@ export abstract class Socket {
     setTimeout(handler: TimerHandler, delay: number): void;
 }
 
+/**
+ * Event type.
+ * @public
+ */
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
+
 export type EventHandler<ET extends EventType> = ET extends 'close'
     ? (code: number) => void
     : ET extends 'error'
