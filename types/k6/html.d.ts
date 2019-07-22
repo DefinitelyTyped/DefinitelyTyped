@@ -962,10 +962,18 @@ export abstract class MapElement extends Element {
     images(): Element[];
 }
 
+/**
+ * HTML media element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class MediaElement extends Element {
     protected __brand: never;
+
+    /** Contained <track> elements. */
     textTracks(): Element[];
 }
+
 export abstract class MetaElement extends Element {
     protected __brand: never;
 }
