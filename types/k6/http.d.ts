@@ -225,14 +225,41 @@ export interface StructuredRequestBody {
 // === Batch request ===
 // ---------------------
 
+/**
+ * Batch request specification.
+ * https://docs.k6.io/docs/batch-requests
+ * @public
+ */
 export type BatchRequest = string | ArrayBatchRequest | ObjectBatchRequest;
+
+/**
+ * Array form batch request specification.
+ * @public
+ */
 export type ArrayBatchRequest = [ string, string, (RequestBody | null)?, (Params | null)? ];
+
+/**
+ * Object form batch request specification.
+ * @public
+ */
 export interface ObjectBatchRequest {
+    /** Request method. */
     method: string;
+
+    /** Request URL. */
     url: string;
+
+    /** Request body. */
     body?: RequestBody | null;
+
+    /** Requset parameters. */
     params?: Params | null;
 }
+
+/**
+ * Set of batch request specifications.
+ * @public
+ */
 export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
 
 // === Refined batch request ===
