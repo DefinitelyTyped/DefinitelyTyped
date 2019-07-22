@@ -35,7 +35,7 @@ declare global {
             select(opt?: SelectOptions): Query<TFields>;
             find(id: string): Promise<Response<TFields>>;
             create(record: TFields, opts?: { typecast: boolean }): Promise<Response<TFields>>;
-            create(records: Array<TFields>, opts?: { typecast: boolean }): Promise<Array<Response<TFields>>>;
+            create(records: TFields[], opts?: { typecast: boolean }): Promise<Array<Response<TFields>>>;
             update(...args: any[]): Promise<any>;
             replace(...args: any[]): Promise<any>;
             destroy(...args: any[]): Promise<any>;
