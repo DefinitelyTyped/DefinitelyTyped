@@ -421,6 +421,12 @@ export interface Response {
         params?: RefinedParams<RT> | null;
     }): RefinedResponse<RT>;
 
+    /**
+     * Parse body as HTML. Optionally filter by selector.
+     * https://docs.k6.io/docs/response-k6http
+     * @param selector - Selector expression.
+     * @returns Document node or selected elements.
+     */
     html(selector?: string): Selection;
 
     json(selector?: string): JSONValue | undefined;
