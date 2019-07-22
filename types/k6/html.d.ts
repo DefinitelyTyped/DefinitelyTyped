@@ -1370,9 +1370,15 @@ export abstract class TrackElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <ul> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class UListElement extends Element {
     protected __brand: never;
 }
+
 export abstract class VideoElement extends MediaElement {
     protected __brand: never;
 }
