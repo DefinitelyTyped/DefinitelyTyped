@@ -899,11 +899,21 @@ export abstract class KeygenElement extends Element {
     labels(): LabelElement[];
 }
 
+/**
+ * HTML <label> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class LabelElement extends Element {
     protected __brand: never;
+
+    /** Associated form control element. */
     control(): Element | undefined;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
 }
+
 export abstract class LegendElement extends Element {
     protected __brand: never;
     form(): FormElement | undefined;
