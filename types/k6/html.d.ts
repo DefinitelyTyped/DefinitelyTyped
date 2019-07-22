@@ -1100,13 +1100,27 @@ export abstract class PreElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <progress> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class ProgressElement extends Element {
     protected __brand: never;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
+
+    /** Work required. */
     max(): number;
+
+    /** Progress bar position. `value/max` */
     position(): number;
+
+    /** Work completed. */
     value(): number;
 }
+
 export abstract class QuoteElement extends Element {
     protected __brand: never;
 }
