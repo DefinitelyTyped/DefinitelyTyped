@@ -121,7 +121,6 @@ export interface Response {
     status: number;
     timings: {
         blocked: number;
-        looking_up: number;
         connecting: number;
         tls_handshaking: number;
         sending: number;
