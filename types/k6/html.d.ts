@@ -983,10 +983,18 @@ export abstract class MetaElement extends Element {
     protected __brand: never;
 }
 
+/**
+ * HTML <meter> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @Public
+ */
 export abstract class MeterElement extends Element {
     protected __brand: never;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
 }
+
 export abstract class ModElement extends Element {
     protected __brand: never;
 }
