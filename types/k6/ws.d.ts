@@ -42,7 +42,12 @@ export interface Params {
     tags?: { [name: string]: string };
 }
 
+/**
+ * Socket executor.
+ * @public
+ */
 export interface Executor {
+    /** @param socket - The opened socket. */
     (socket: Socket): void;
 }
 
