@@ -146,16 +146,37 @@ export function cookieJar(): CookieJar;
 // === Params ===
 // --------------
 
+/**
+ * Request parameters.
+ * https://docs.k6.io/docs/params-k6http
+ * @public
+ */
 export interface Params {
+    /** Authentication method. */
     auth?: AuthMethod;
+
+    /** Request scoped cookies. */
     cookies?: { [name: string]: ParamsCookieValue };
+
+    /** Request headers. */
     headers?: { [name: string]: string };
+
+    /** Cookie jar to override default VU cookie jar with. */
     jar?: CookieJar;
+
+    /** Maximum redirects to follow. */
     redirects?: number;
+
+    /** Response time metric tags. */
     tags?: { [name: string]: string };
+
+    /** Request timeout. */
     timeout?: number;
+
+    /** Response type. */
     responseType?: ResponseType;
 }
+
 export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
     responseType?: RT;
 }
