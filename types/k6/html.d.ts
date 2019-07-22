@@ -1283,9 +1283,15 @@ export abstract class TableHeadElement extends TableSectionElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <th> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class TableHeaderCellElement extends TableCellElement {
     protected __brand: never;
 }
+
 export abstract class TableRowElement extends Element {
     protected __brand: never;
     cells(): TableCellElement[];
