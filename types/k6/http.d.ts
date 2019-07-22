@@ -177,9 +177,15 @@ export interface Params {
     responseType?: ResponseType;
 }
 
+/**
+ * Request parameters with refined response type.
+ * Used to infer response body type.
+ * @public
+ */
 export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
     responseType?: RT;
 }
+
 export type AuthMethod = 'basic' | 'digest' | 'ntlm';
 export type ResponseType = 'binary' | 'none' | 'text';
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
