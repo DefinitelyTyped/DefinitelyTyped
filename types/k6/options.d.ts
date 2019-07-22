@@ -1,3 +1,8 @@
+/*
+ * Program options.
+ * https://docs.k6.io/docs/options
+ */
+
 export interface Options {
     batch: number;
     batchPerHost: number;
