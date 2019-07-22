@@ -265,16 +265,31 @@ export type BatchRequests = BatchRequest[] | { [name: string]: BatchRequest };
 // === Refined batch request ===
 // -----------------------------
 
+/**
+ * Refined batch request specification.
+ * Used to infer response body type.
+ * @public
+ */
 export type RefinedBatchRequest<RT extends ResponseType | undefined> =
     | string
     | ArrayRefinedBatchRequest<RT>
     | ObjectRefinedBatchRequest<RT>;
+
+/**
+ * Array form refined batch request specification.
+ * @public
+ */
 export type ArrayRefinedBatchRequest<RT extends ResponseType | undefined> = [
     string,
     string,
     (RequestBody | null)?,
     (RefinedParams<RT> | null)?
 ];
+
+/**
+ * Object form refined batch request specification.
+ * @public
+ */
 export interface ObjectRefinedBatchRequest<RT extends ResponseType | undefined> {
     method: string;
     url: string;
