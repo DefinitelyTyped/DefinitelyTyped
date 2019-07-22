@@ -51,6 +51,11 @@ export class Rate extends Metric {
     protected __brand: never;
 }
 
+/**
+ * Calculates summary statistics.
+ * https://docs.k6.io/docs/trend-k6metrics
+ * @public
+ */
 export class Trend extends Metric {
     protected __brand: never;
 }
