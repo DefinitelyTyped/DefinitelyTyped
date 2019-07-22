@@ -78,15 +78,60 @@ export interface Response {
 // === Socket ===
 // --------------
 
+/**
+ * Created socket.
+ * https://docs.k6.io/docs/socket
+ * @public
+ */
 export abstract class Socket {
     protected __brand: never;
+
+    /**
+     * Close connection.
+     * https://docs.k6.io/docs/socketclose
+     * @param code - WebSocket status code.
+     */
     close(code?: number): void;
+
+    /**
+     * Listen to event.
+     * https://docs.k6.io/docs/socketon
+     * @param event - Event type.
+     * @param handler - Event handler.
+     */
     on<ET extends EventType>(event: ET, handler: EventHandler<ET>): void;
+
+    /**
+     * Send ping.
+     * https://docs.k6.io/docs/socketping
+     */
     ping(): void;
+
+    /**
+     * Send data.
+     * https://docs.k6.io/docs/socketsend
+     * @param data - Data to send.
+     */
     send(data: string): void;
+
+    /**
+     * Call a function repeatedly, while the WebSocket connection is open.
+     * https://docs.k6.io/docs/socketsetinterval
+     * @param handler - The function to call every `interval` milliseconds.
+     * @param interval - Milliseconds between two calls to `callback`.
+     */
     setInterval(handler: TimerHandler, interval: number): void;
+
+    /**
+     * Call a function at a later time,
+     * if the WebSocket connection is still open then.
+     * https://docs.k6.io/docs/socketsettimeout
+     * @param handler - The function to call when `delay` has expired.
+     * @param delay - Delay in milliseconds.
+     */
     setTimeout(handler: TimerHandler, delay: number): void;
 }
+
 export type EventType = 'close' | 'error' | 'message' | 'open' | 'ping' | 'pong';
 export type EventHandler<ET extends EventType> = ET extends 'close'
     ? (code: number) => void
