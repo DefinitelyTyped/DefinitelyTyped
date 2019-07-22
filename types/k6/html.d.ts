@@ -884,11 +884,21 @@ export abstract class InsElement extends ModElement {
     protected __brand: never;
 }
 
+/**
+ * HTML <keygen> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class KeygenElement extends Element {
     protected __brand: never;
+
+    /** Owning <form> element. */
     form(): FormElement | undefined;
+
+    /** Associated <label> elements. */
     labels(): LabelElement[];
 }
+
 export abstract class LabelElement extends Element {
     protected __brand: never;
     control(): Element | undefined;
