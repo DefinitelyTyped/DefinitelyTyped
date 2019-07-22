@@ -1618,10 +1618,18 @@ export namespace Util {
     let emptyImageUrl: string;
 }
 
-      export interface SVGOverlayOptions extends ImageOverlayOptions {
+export interface SVGOverlayOptions extends ImageOverlayOptions {
+    opacity?: number;
+    alt?: string;
+    interactive?: boolean;
+    attribution?: string;
+    crossOrigin?: CrossOrigin;
+    errorOverlayUrl?: string;
+    zIndex?: number;
+    className?: string;
 }
 
-export class SVGOverlay extends ImageOverlay { 
+export class SVGOverlay extends ImageOverlay {
     constructor(svg: string | string[] | SVGElement, bounds: LatLngBoundsExpression, options?: SVGOverlayOptions);
     setOpacity(opacity: number): this;
     bringToFront(): this;
@@ -1641,5 +1649,3 @@ export class SVGOverlay extends ImageOverlay {
 }
 
 export function svgOverlay(svg: SVGElement|string, bounds: LatLngBoundsExpression, options?: SVGOverlayOptions): SVGOverlay;
-              
-                          
