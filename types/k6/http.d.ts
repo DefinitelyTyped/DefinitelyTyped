@@ -680,9 +680,14 @@ export abstract class CookieJar {
     set(name: string, value: string, options?: CookieOptions | null): void;
 }
 
+/**
+ * Cookies retrieved from cookie jar.
+ * @public
+ */
 export interface CookieJarCookies {
     [name: string]: string[];
 }
+
 export interface CookieOptions {
     domain?: string;
     path?: string;
