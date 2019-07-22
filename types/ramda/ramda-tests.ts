@@ -827,6 +827,18 @@ R.times(i, 5);
 };
 
 () => {
+    const compact = R.filter(Boolean);
+    const objA: R.Dictionary<number> = compact({ a: 0, b: 1 }); // => { b: 1 }
+    const listA: number[] = compact([0, 1]); // => [1]
+
+    const omitEmptyString = R.filter((val: string) => val !== '');
+    const objB: R.Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
+    const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
+
+    const objC = omitEmptyString({ some: 42 }); // $ExpectError
+};
+
+() => {
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
     }

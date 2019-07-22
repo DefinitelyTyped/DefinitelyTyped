@@ -607,10 +607,11 @@ declare namespace R {
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
     }
 
-    interface FilterOnceApplied<T> {
-        (list: ReadonlyArray<T>): T[];
-        (obj: Dictionary<T>): Dictionary<T>;
-    }
+    type FilterOnceApplied<T> =
+        <K extends ReadonlyArray<T> | Dictionary<T>>(source: K) =>
+            K extends ReadonlyArray<infer U> ? U[] :
+            K extends Dictionary<infer U> ? Dictionary<U> :
+            never;
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
         [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
