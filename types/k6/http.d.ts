@@ -198,6 +198,11 @@ export type AuthMethod = 'basic' | 'digest' | 'ntlm';
  */
 export type ResponseType = 'binary' | 'none' | 'text';
 
+/**
+ * Cookie value in request parameters.
+ * https://docs.k6.io/docs/params-k6http
+ * @public
+ */
 export type ParamsCookieValue = string | { value?: string; replace?: boolean };
 
 // === Request body ===
