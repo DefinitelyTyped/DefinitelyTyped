@@ -947,11 +947,21 @@ export abstract class LinkElement extends Element {
     relList(): string[];
 }
 
+/**
+ * HTML <map> element.
+ * https://docs.k6.io/docs/element-k6html
+ * @public
+ */
 export abstract class MapElement extends Element {
     protected __brand: never;
+
+    /** Associated <area> elements. */
     areas(): Element[];
+
+    /** Associated <img> and <object> elements. */
     images(): Element[];
 }
+
 export abstract class MediaElement extends Element {
     protected __brand: never;
     textTracks(): Element[];
