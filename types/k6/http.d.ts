@@ -214,6 +214,10 @@ export type ParamsCookieValue = string | { value?: string; replace?: boolean };
  */
 export type RequestBody = string | StructuredRequestBody;
 
+/**
+ * Structured request body. May include file uploads.
+ * @public
+ */
 export interface StructuredRequestBody {
     [name: string]: string | FileData;
 }
