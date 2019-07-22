@@ -91,12 +91,22 @@ export function put<RT extends ResponseType | undefined>(
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
 
+/**
+ * Make request.
+ * https://docs.k6.io/docs/request-method-url-body-params
+ * @param method - HTTP method.
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ */
 export function request<RT extends ResponseType | undefined>(
     method: string,
     url: string,
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null
 ): RefinedResponse<RT>;
+
 export function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
 export function file(data: string | bytes, filename?: string, contentType?: string): FileData;
 export function cookieJar(): CookieJar;
