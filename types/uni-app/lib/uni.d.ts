@@ -81,7 +81,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/frame?id=upx2px](http://uniapp.dcloud.io/frame?id=upx2px)
      */
-    upx2px(upx: number): number;
+    upx2px(upx?: number): number;
     /**
      * 创建一个 WebSocket 连接
      *
@@ -5285,11 +5285,11 @@ interface CanvasToTempFilePathOptions {
     /**
      * 输出图片宽度（默认为 width * 屏幕像素密度）
      */
-    destWidth?: boolean;
+    destWidth?: number;
     /**
      * 输出图片高度（默认为 height * 屏幕像素密度）
      */
-    destHeight?: () => void;
+    destHeight?: number;
     /**
      * 画布标识，传入 <canvas/> 的 canvas-id
      */
