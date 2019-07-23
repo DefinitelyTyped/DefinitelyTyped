@@ -27,6 +27,7 @@
 //                 Oleg Vaskevich <https://github.com/vaskevich>
 //                 Dylan Aspden <https://github.com/dhaspden>
 //                 Ethan Setnik <https://github.com/esetnik>
+//                 Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -4377,6 +4378,10 @@ declare namespace Stripe {
     }
 
     namespace paymentIntents {
+        type PaymentIntentCancelationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
+
+        type PaymentIntentFutureUsageType = 'on_session' | 'off_session';
+
         interface IPaymentIntent extends IResourceObject {
             /**
              * Value is "payment_intent".
@@ -4495,6 +4500,11 @@ declare namespace Stripe {
              */
             review?: string | reviews.IReview | null;
 
+            /*
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             */
+            setup_future_usage: PaymentIntentFutureUsageType | null;
+
             /**
              * Shipping information for this PaymentIntent.
              */
@@ -4561,8 +4571,6 @@ declare namespace Stripe {
              */
             use_stripe_sdk: any;
         }
-
-        type PaymentIntentCancelationReason = 'duplicate' | 'fraudulent' | 'requested_by_customer' | 'failed_invoice';
 
         interface IPaymentIntentCreationOptions {
             /**
@@ -4643,6 +4651,11 @@ declare namespace Stripe {
              */
             save_payment_method?: boolean;
 
+            /*
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             */
+            setup_future_usage?: PaymentIntentFutureUsageType;
+
             /**
              * Shipping information for this PaymentIntent.
              */
@@ -4708,6 +4721,11 @@ declare namespace Stripe {
              */
             save_payment_method?: boolean;
 
+            /*
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             */
+            setup_future_usage?: PaymentIntentFutureUsageType;
+
             /**
              * Shipping information for this PaymentIntent.
              */
@@ -4749,6 +4767,11 @@ declare namespace Stripe {
              * Set to `true` to save this PaymentIntent’s payment method to the associated Customer, if the payment method is not already attached. This parameter only applies to the payment method passed in the same request or the current payment method attached to the PaymentIntent and must be specified again if a new payment method is added.
              */
             save_payment_method?: boolean;
+
+            /*
+             * Indicates that you intend to make future payments with this PaymentIntent’s payment method.
+             */
+            setup_future_usage?: PaymentIntentFutureUsageType;
 
             /**
              * Shipping information for this PaymentIntent.
