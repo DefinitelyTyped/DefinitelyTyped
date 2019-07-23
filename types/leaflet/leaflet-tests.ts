@@ -309,7 +309,7 @@ const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg")
 svgElement.setAttribute('xmlns', "http://www.w3.org/2000/svg");
 svgElement.setAttribute('viewBox', "0 0 200 200");
 svgElement.innerHTML = '<rect width="2000" height="2000"/><rect x="75" y="23" width="50" height="50" style="fill:red"/><rect x="75" y="123" width="50" height="50" style="fill:#0013ff"/>';
-const svgElementBounds: L.LatLngBoundsExpression = latLngBounds;
+let svgElementBounds: L.LatLngBoundsExpression = latLngBounds;
 let svgOverLay: L.SVGOverlay;
 svgOverLay = L.svgOverlay(svgElement, svgElementBounds);
 svgOverLay = L.svgOverlay(svgElement, svgElementBounds, svgOverlayOptions);
