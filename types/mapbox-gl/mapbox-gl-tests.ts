@@ -542,6 +542,8 @@ expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: 'value' }));
 
+expectType<void>(map.triggerRepaint());
+
 /*
  * Map Events
  */
