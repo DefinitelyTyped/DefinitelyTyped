@@ -59,6 +59,7 @@ declare namespace braintree {
         dispute: T extends Dispute ? Dispute : never;
         merchantAccount: T extends MerchantAccount ? MerchantAccount : never;
         paymentMethod: T extends PaymentMethod ? PaymentMethod : never;
+        paymentMethodNonce: T extends PaymentMethodNonce ? PaymentMethodNonce : never;
         settlementBatchSumary: T extends SettlementBatchSummary ? SettlementBatchSummary : never;
         subscription: T extends Subscription ? Subscription : never;
         transaction: T extends Transaction ? Transaction : never;

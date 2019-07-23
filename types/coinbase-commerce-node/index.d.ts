@@ -45,12 +45,12 @@ type FiatCurrency = 'USD' | 'GBP' | 'EUR' | string;
 /**
  * Crypto currency.
  */
-type CryptoCurrency = 'BTC' | 'ETH' | 'BCH' | 'LTC';
+type CryptoCurrency = 'BTC' | 'ETH' | 'BCH' | 'LTC' | 'USDC';
 
 /**
  * Full crypto currency name.
  */
-type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin';
+type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin' | 'usdc';
 
 /**
  * Pricing type.
@@ -66,7 +66,7 @@ type Timestamp = string;
 /**
  * Payment status.
  */
-type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED';
+type PaymentStatus = 'NEW' | 'PENDING' | 'CONFIRMED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED' | 'CANCELED';
 
 /**
  * Crypto pricing object.

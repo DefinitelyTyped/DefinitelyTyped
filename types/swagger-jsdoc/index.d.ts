@@ -1,16 +1,18 @@
-// Type definitions for Swagger-JSDoc
+// Type definitions for swagger-jsdoc 3.0
 // Project: https://github.com/surnet/swagger-jsdoc
 // Definitions by: Daniel Grove <https://github.com/drGrove>
+//                 Neil Bryson Cargamento <https://github.com/neilbryson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 /* =================== USAGE ===================
 
-    import * as express from "express"
-    import swaggerJSDoc = require('swagger-jsdoc');
-    const app = express()
+    import * as express from 'express';
+    import swaggerJSDoc, { Options }  from 'swagger-jsdoc';
 
-    let options = {
+    const app = express();
+
+    const options: Options = {
         swaggerDefinition: {
           info: {
             title: 'Hello World',
@@ -27,7 +29,7 @@
       }
     };
 
-    var spec = swaggerJSDoc(options);
+    const spec = swaggerJSDoc(options);
 
     app.get('/api-docs.json', function(req, res) {
       res.setHeader('Content-Type', 'application/json');
@@ -36,7 +38,30 @@
 
  =============================================== */
 
-declare module "swagger-jsdoc" {
-    function swaggerJSDoc(options?: any): any;
-    export = swaggerJSDoc;
+export interface ApiInformation {
+    description?: string;
+    title: string;
+    version: string;
 }
+
+export interface ServerInformation {
+    url: string;
+    [key: string]: any;
+}
+
+export interface SwaggerDefinition {
+    basePath?: string;
+    host?: string;
+    info: ApiInformation;
+    openapi?: string;
+    servers?: ReadonlyArray<ServerInformation>;
+    [key: string]: any;
+}
+
+export interface Options {
+    apis?: ReadonlyArray<string>;
+    swaggerDefinition: SwaggerDefinition;
+    [key: string]: any;
+}
+
+export default function swaggerJSDoc(options?: Options): any;

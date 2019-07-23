@@ -189,7 +189,7 @@ const runPromiseTests = async (): Promise<void> => {
             // edition: 'myEdition',
             events: true,
             externalAuth: false,
-            homogenous: true,
+            homogeneous: true,
             password: DB_PASSWORD,
             poolAlias: 'myPool',
             poolIncrement: 1,

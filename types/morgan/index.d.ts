@@ -8,7 +8,7 @@
 import express = require('express');
 
 declare namespace morgan {
-    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string;
+    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string | undefined | null;
 
     type TokenCallbackFn = (req: express.Request, res: express.Response, arg?: string | number | boolean) => string;
 

@@ -330,7 +330,7 @@ declare namespace GoogleAppsScript {
       }
       export interface AboutFeatures {
         featureName?: string;
-        featureRate?: Number;
+        featureRate?: number;
       }
       export interface AboutImportFormats {
         source?: string;
@@ -635,21 +635,21 @@ declare namespace GoogleAppsScript {
         canUntrash?: boolean;
       }
       export interface FileImageMediaMetadata {
-        aperture?: Number;
+        aperture?: number;
         cameraMake?: string;
         cameraModel?: string;
         colorSpace?: string;
         date?: string;
-        exposureBias?: Number;
+        exposureBias?: number;
         exposureMode?: string;
-        exposureTime?: Number;
+        exposureTime?: number;
         flashUsed?: boolean;
-        focalLength?: Number;
+        focalLength?: number;
         height?: number;
         isoSpeed?: number;
         lens?: string;
         location?: Drive.Schema.FileImageMediaMetadataLocation;
-        maxApertureValue?: Number;
+        maxApertureValue?: number;
         meteringMode?: string;
         rotation?: number;
         sensor?: string;
@@ -658,9 +658,9 @@ declare namespace GoogleAppsScript {
         width?: number;
       }
       export interface FileImageMediaMetadataLocation {
-        altitude?: Number;
-        latitude?: Number;
-        longitude?: Number;
+        altitude?: number;
+        latitude?: number;
+        longitude?: number;
       }
       export interface FileIndexableText {
         text?: string;
@@ -813,9 +813,9 @@ declare namespace GoogleAppsScript {
       }
       export interface TeamDriveBackgroundImageFile {
         id?: string;
-        width?: Number;
-        xCoordinate?: Number;
-        yCoordinate?: Number;
+        width?: number;
+        xCoordinate?: number;
+        yCoordinate?: number;
       }
       export interface TeamDriveCapabilities {
         canAddChildren?: boolean;

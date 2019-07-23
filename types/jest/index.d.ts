@@ -1,6 +1,6 @@
 // Type definitions for Jest 24.0
-// Project: https://jestjs.io
-// Definitions by: Asana <https://asana.com>
+// Project: https://jestjs.io/
+// Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
 //                 jwbay <https://github.com/jwbay>
 //                 Alexey Svetliakov <https://github.com/asvetliakov>
@@ -20,6 +20,7 @@
 //                 Antoine Brault <https://github.com/antoinebrault>
 //                 Jeroen Claassens <https://github.com/favna>
 //                 Gregor Stamać <https://github.com/gstamac>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -106,7 +107,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
+    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -135,7 +136,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
+    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
@@ -1419,6 +1420,7 @@ declare namespace jest {
         runTestsByPath?: boolean;
         scriptPreprocessor?: string;
         setupFiles?: Path[];
+        setupFilesAfterEnv?: Path[];
         setupTestFrameworkScriptFile?: Path;
         silent?: boolean;
         skipFilter?: boolean;

@@ -24,8 +24,10 @@
 //                 Erik Lopez <https://github.com/niuware>
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
+//                 Grimmer Kang <https://github.com/grimmer0125>
+//                 Richard Davison <https://github.com/richarddd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -65,6 +67,16 @@ declare module "mongoose" {
   import mongoose = require('mongoose');
 
   /**
+   * Allows for nested objects and arrays to be partial
+   */
+  export type DeepPartial<T> = {
+    [P in keyof T]?:
+    T[P] extends (infer U)[] ? DeepPartial<U>[] :
+    T[P] extends object ? DeepPartial<T[P]> :
+    T[P];
+  };
+
+  /**
    * Gets and optionally overwrites the function used to pluralize collection names
    * @param fn function to use for pluralization of collection names
    * @returns the current function used to pluralize collection names (defaults to the `mongoose-legacy-pluralize` module's function)
@@ -93,6 +105,8 @@ declare module "mongoose" {
   export var STATES: ConnectionStates;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
+  /** An array containing all connections associated with this Mongoose instance. */
+  export var connections: Connection[];
   /** Models registred on the default mongoose connection. */
   export var models: { [index: string]: Model<any> };
   /** The node-mongodb-native driver Mongoose uses. */
@@ -400,7 +414,7 @@ declare module "mongoose" {
     static STATES: ConnectionStates;
   }
 
-  enum ConnectionStates {
+  export enum ConnectionStates {
     disconnected = 0,
     connected = 1,
     connecting = 2,
@@ -1935,9 +1949,9 @@ declare module "mongoose" {
      * Documents returned from queries with the lean option enabled are plain
      * javascript objects, not MongooseDocuments. They have no save method,
      * getters/setters or other Mongoose magic applied.
-     * @param bool defaults to true
+     * @param {Boolean|Object} bool defaults to true
      */
-    lean(bool?: boolean): Query<any> & QueryHelpers;
+    lean(bool?: boolean | object): Query<any> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -2810,7 +2824,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: any): T;
+    new(doc?: DeepPartial<T>): T;
 
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
@@ -2919,6 +2933,13 @@ declare module "mongoose" {
      * @param schema discriminator model schema
      */
     discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+
+    /**
+     * Adds a discriminator type.
+     * @param name discriminator model name
+     * @param schema discriminator model schema
+     */
+    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
 
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;

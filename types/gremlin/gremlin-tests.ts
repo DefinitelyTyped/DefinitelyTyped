@@ -1,4 +1,10 @@
 import {
+  driver,
+  process,
+  structure,
+} from "gremlin";
+
+const {
   RemoteConnection,
   RemoteStrategy,
   RemoteTraversal,
@@ -7,12 +13,14 @@ import {
   ResultSet,
   Authenticator,
   PlainTextSaslAuthenticator,
+} = driver;
+
+const {
   Bytecode,
   EnumValue,
   P,
   TextP,
   Traversal,
-  Graph,
   TraversalStrategies,
   TraversalSideEffects,
   TraversalStrategy,
@@ -21,16 +29,6 @@ import {
   GraphTraversalSource,
   Translator,
   AnonymousTraversalSource,
-  Element,
-  GraphSONReader,
-  GraphSONWriter,
-  Edge,
-  Vertex,
-  VertexProperty,
-  Path,
-  Property,
-  Long,
-  toLong,
   barrier,
   cardinality,
   column,
@@ -43,8 +41,22 @@ import {
   pop,
   scope,
   t,
-  statics
-} from "gremlin";
+  statics,
+} = process;
+
+const {
+  Graph,
+  Element,
+  GraphSONReader,
+  GraphSONWriter,
+  Edge,
+  Vertex,
+  VertexProperty,
+  Path,
+  Property,
+  Long,
+  toLong,
+} = structure;
 
 function constructorTests() {
   const remoteConnection = new RemoteConnection("test");

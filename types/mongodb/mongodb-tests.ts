@@ -163,6 +163,34 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
                 cursor.match({ bar: 1 }).limit(10);
             }
         );
+
+        interface Employee {
+            firstName: string;
+            lastName: string;
+            department: string;
+        }
+
+        interface EmployeeName {
+            fullName: string;
+        }
+
+        const cursor1: mongodb.AggregationCursor<EmployeeName> = (
+          collection.aggregate<Employee>().project<EmployeeName>({
+            fullName: { $concat: ['$firstName', ' ', '$lastName'] },
+          })
+        );
+
+        interface DepartmentSummary {
+            _id: string;
+            count: number;
+        }
+
+        const cursor2: mongodb.AggregationCursor<DepartmentSummary> = (
+          collection.aggregate<Employee>().group<DepartmentSummary>({
+            _id: '$department',
+            count: { $sum: 1 },
+          })
+        );
     }
 
     // test for new typings
@@ -173,11 +201,11 @@ mongodb.MongoClient.connect(connectionString, options, (err: mongodb.MongoError,
             fruitTags: string[];
         }
         const testCollection = db.collection<TestCollection>('testCollection');
-		testCollection.insertOne({
+        testCollection.insertOne({
             stringField: 'hola',
             fruitTags: ['Strawberry'],
         });
-		testCollection.insertMany([
+        testCollection.insertMany([
             { stringField: 'hola', fruitTags: ['Apple', 'Lemon'] },
             { stringField: 'hola', numberField: 1, fruitTags: [] },
         ]);

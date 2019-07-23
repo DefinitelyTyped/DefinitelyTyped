@@ -66,7 +66,7 @@ export class MongoClient extends EventEmitter {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#startSession */
     startSession(options?: SessionOptions): ClientSession;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
+    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
     withSession(operation: (session: ClientSession) => Promise<any>): Promise<void>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#withSession */
@@ -1056,7 +1056,7 @@ export interface Collection<TSchema = Default> {
     updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateOneOptions): Promise<UpdateWriteOpResult>;
     updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#watch */
-    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
+    watch(pipeline?: object[], options?: ChangeStreamOptions & { startAtOperationTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
 export type Condition<T, P extends keyof T> = {
@@ -1849,7 +1849,7 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#geoNear */
     geoNear(document: object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#group */
-    group(document: object): AggregationCursor<T>;
+    group<U = T>(document: object): AggregationCursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#hasNext */
     hasNext(): Promise<boolean>;
     hasNext(callback: MongoCallback<boolean>): void;
@@ -1867,7 +1867,7 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#out */
     out(destination: string): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#project */
-    project(document: object): AggregationCursor<T>;
+    project<U = T>(document: object): AggregationCursor<U>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#redact */
@@ -1884,7 +1884,7 @@ export class AggregationCursor<T = Default> extends Readable {
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unshift */
     unshift(stream: Buffer | string): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#unwind */
-    unwind(field: string): AggregationCursor<T>;
+    unwind<U = T>(field: string): AggregationCursor<U>;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */

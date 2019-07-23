@@ -5,6 +5,7 @@
 //                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
+//                 aereal <https://github.com/aereal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -996,11 +997,11 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
      *    http.createServer(app).listen(80);
      *    https.createServer({ ... }, app).listen(443);
      */
-    listen(port: number, hostname: string, backlog: number, callback?: () => void): http.Server;
-    listen(port: number, hostname: string, callback?: () => void): http.Server;
-    listen(port: number, callback?: () => void): http.Server;
-    listen(callback?: () => void): http.Server;
-    listen(path: string, callback?: () => void): http.Server;
+    listen(port: number, hostname: string, backlog: number, callback?: (...args: any[]) => void): http.Server;
+    listen(port: number, hostname: string, callback?: (...args: any[]) => void): http.Server;
+    listen(port: number, callback?: (...args: any[]) => void): http.Server;
+    listen(callback?: (...args: any[]) => void): http.Server;
+    listen(path: string, callback?: (...args: any[]) => void): http.Server;
     listen(handle: any, listeningListener?: () => void): http.Server;
 
     router: string;

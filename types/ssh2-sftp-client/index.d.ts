@@ -4,6 +4,7 @@
 //                 Ascari Andrea <https://github.com/ascariandrea>
 //                 Kartik Malik <https://github.com/kartik2406>
 //                 Michael Pertl <https://github.com/viamuli>
+//                 Orblazer <https://github.com/orblazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
@@ -12,11 +13,11 @@ import * as ssh2Stream from 'ssh2-streams';
 export = sftp;
 
 declare class sftp {
-    connect(options: ssh2.ConnectConfig): Promise<void>;
+    connect(options: ssh2.ConnectConfig): Promise<ssh2.SFTPWrapper>;
 
     list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
 
-    exists(remotePath: string): Promise<string>;
+    exists(remotePath: string): Promise<boolean>;
 
     stat(remotePath: string): Promise<sftp.FileStats>;
 
@@ -24,17 +25,17 @@ declare class sftp {
 
     fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
-    put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<void>;
+    put(input: string | Buffer | NodeJS.ReadableStream, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
     fastPut(localPath: string, remoteFilePath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
-    mkdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+    mkdir(remoteFilePath: string, recursive?: boolean): Promise<string>;
 
-    rmdir(remoteFilePath: string, recursive?: boolean): Promise<void>;
+    rmdir(remoteFilePath: string, recursive?: boolean): Promise<string>;
 
-    delete(remoteFilePath: string): Promise<void>;
+    delete(remoteFilePath: string): Promise<string>;
 
-    rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
+    rename(remoteSourcePath: string, remoteDestPath: string): Promise<string>;
 
     chmod(remotePath: string, mode: number | string): Promise<string>;
 

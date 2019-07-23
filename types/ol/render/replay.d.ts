@@ -1,4 +1,5 @@
-import ReplayType from 'ol/render/ReplayType';
+import ReplayType from './ReplayType';
+
 export const ORDER: ReplayType[];
 export enum TEXT_ALIGN {
     left = 0,

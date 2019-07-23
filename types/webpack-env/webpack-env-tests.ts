@@ -13,6 +13,8 @@ otherModule.otherMethod();
 let context = require.context('./somePath', true);
 let contextModule = context<SomeModule>('./someModule');
 
+const contextId: string = require.context('./somePath').id;
+
 require(['./someModule', './otherModule'], (someModule: SomeModule, otherModule: any) => {
 
 });

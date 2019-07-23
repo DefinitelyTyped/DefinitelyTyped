@@ -13,7 +13,7 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailApp {
       createDraft(recipient: string, subject: string, body: string): GmailDraft;
-      createDraft(recipient: string, subject: string, body: string, options: Object): GmailDraft;
+      createDraft(recipient: string, subject: string, body: string, options: any): GmailDraft;
       createLabel(name: string): GmailLabel;
       deleteLabel(label: GmailLabel): GmailApp;
       getAliases(): string[];
@@ -71,7 +71,7 @@ declare namespace GoogleAppsScript {
       search(query: string): GmailThread[];
       search(query: string, start: Integer, max: Integer): GmailThread[];
       sendEmail(recipient: string, subject: string, body: string): GmailApp;
-      sendEmail(recipient: string, subject: string, body: string, options: Object): GmailApp;
+      sendEmail(recipient: string, subject: string, body: string, options: any): GmailApp;
       setCurrentMessageAccessToken(accessToken: string): void;
       starMessage(message: GmailMessage): GmailApp;
       starMessages(messages: GmailMessage[]): GmailApp;

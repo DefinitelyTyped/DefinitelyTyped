@@ -1,7 +1,7 @@
 // Type definitions for oracledb v3.1.2
 // Project: https://github.com/oracle/node-oracledb
 // Definitions by: Richard Natal <https://github.com/Bigous>
-//                 Connor Fitzgerald <https://github.com/CFitzgerald1995>
+//                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -292,19 +292,6 @@ declare namespace OracleDB {
      */
     let fetchAsString: number[];
     /**
-     * This attribute is temporarily disabled. Setting it has no effect.
-     *
-     * Node-oracledb internally uses Oracle LOB Locators to manipulate long object (LOB) data.
-     * LOB Prefetching allows LOB data to be returned early to node-oracledb when these locators are first returned.
-     * This is similar to the way row prefetching allows for efficient use of resources and round-trips between
-     * node-oracledb and the database.
-     *
-     * Prefetching of LOBs is mostly useful for small LOBs.
-     *
-     * @default 16384
-     */
-    let lobPrefetchSize: number;
-    /**
      * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
      * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
      *
@@ -525,9 +512,7 @@ declare namespace OracleDB {
      *
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
-    interface BindParametersObject {
-        [parameter: string]: BindParameter | string | number | null;
-    }
+    type BindParameters = Record<string, BindParameter | string | number | null> | BindParameter[] | any[];
 
     interface CloseConnectionOptions {
         /**
@@ -691,10 +676,10 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string, bindParams: BindParametersObject | any[], options: ExecuteOptions): Promise<Result>;
+        execute(sql: string, bindParams: BindParameters, options: ExecuteOptions): Promise<Result>;
         execute(
             sql: string,
-            bindParams: BindParametersObject | any[],
+            bindParams: BindParameters,
             options: ExecuteOptions,
             callback: (error: DBError, result: Result) => void,
         ): void;
@@ -708,10 +693,10 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
          * @see https://oracle.github.io/node-oracledb/doc/api.html#querystream For an alternative
          */
-        execute(sql: string, bindParams: BindParametersObject | any[]): Promise<Result>;
+        execute(sql: string, bindParams: BindParameters): Promise<Result>;
         execute(
             sql: string,
-            bindParams: BindParametersObject | any[],
+            bindParams: BindParameters,
             callback: (error: DBError, result: Result) => void,
         ): void;
 
@@ -768,18 +753,14 @@ declare namespace OracleDB {
         executeMany(
             sql: string,
             binds: (
-                | {
-                      [parameter: string]: any;
-                  }
+                | Record<string, any>
                 | any[])[],
             options: ExecuteManyOptions,
         ): Promise<Results>;
         executeMany(
             sql: string,
             binds: (
-                | {
-                      [parameter: string]: any;
-                  }
+                | Record<string, any>
                 | any[])[],
             options: ExecuteManyOptions,
             callback: (error: DBError, result: Results) => void,
@@ -788,17 +769,13 @@ declare namespace OracleDB {
         executeMany(
             sql: string,
             binds: (
-                | {
-                      [parameter: string]: any;
-                  }
+                | Record<string, any>
                 | any[])[],
         ): Promise<Results>;
         executeMany(
             sql: string,
             binds: (
-                | {
-                      [parameter: string]: any;
-                  }
+                | Record<string, any>
                 | any[])[],
             callback: (error: DBError, result: Results) => void,
         ): void;
@@ -836,9 +813,6 @@ declare namespace OracleDB {
 
         /**
          * Returns a parent SodaDatabase object for use with Simple Oracle Document Access (SODA).
-         *
-         * SODA support in node-oracledb is in Preview status and should not be used in production.
-         * It will be supported with a future version of Oracle Client libraries.
          *
          * @since 3.0
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sodaoverview
@@ -898,8 +872,8 @@ declare namespace OracleDB {
          * @since 1.8
          * @see https://oracle.github.io/node-oracledb/doc/api.html#streamingresults
          */
-        queryStream(sql: string, bindParams: BindParametersObject | any[], options: ExecuteOptions): Readable;
-        queryStream(sql: string, bindParams: BindParametersObject | any[]): Readable;
+        queryStream(sql: string, bindParams: BindParameters, options: ExecuteOptions): Readable;
+        queryStream(sql: string, bindParams: BindParameters): Readable;
         queryStream(sql: string): Readable;
 
         /**
@@ -977,7 +951,7 @@ declare namespace OracleDB {
      */
     interface SubscribeOptions {
         /** An array (bind by position) or object (bind by name) containing the bind values to use in the sql property. */
-        binds?: BindParametersObject | any[];
+        binds?: BindParameters;
         /** The notification callback that will be called whenever notifications are sent by the database. */
         callback: (message: SubscriptionMessage) => void;
         /**
@@ -1240,11 +1214,9 @@ declare namespace OracleDB {
          *          "HIRE_DETAILS": { type: oracledb.DEFAULT }  // override fetchAsString or fetchAsBuffer
          *      }
          */
-        fetchInfo?: {
-            [columnName: string]: {
-                type: number;
-            };
-        };
+        fetchInfo?: Record<string, {
+            type: number;
+        }>;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1322,10 +1294,8 @@ declare namespace OracleDB {
          * It should be an array or an object, depending on the structure of the binds parameter.
          */
         bindDefs?:
-            | {
-                  [parameter: string]: BindDefinition;
-              }
-            | BindDefinition[];
+        | Record<string, BindDefinition>
+        | BindDefinition[];
         /**
          * When true, this optional property enables output of the number of rows affected by each input data record.
          * It can only be set true for INSERT, UPDATE, DELETE or MERGE statements.
@@ -1452,7 +1422,7 @@ declare namespace OracleDB {
         /**
          * The alias of this pool in the connection pool cache. An alias cannot be changed once the pool has been created.
          */
-        readonly poolAlias: number;
+        readonly poolAlias: string;
         /**
          * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
          */
@@ -1664,7 +1634,7 @@ declare namespace OracleDB {
          * @default true
          * @since 2.3
          */
-        homogenous?: boolean;
+        homogeneous?: boolean;
         /**
          * The password of the database user used by connections in the pool. A password is also necessary if a proxy user is specified at pool creation.
          * If homogeneous is false, then the password may be omitted at pool creation but given in subsequent pool.getConnection() calls.
@@ -1745,8 +1715,8 @@ declare namespace OracleDB {
          * @since 3.1
          */
         sessionCallback?:
-            | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
+        | string
+        | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void);
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -1782,10 +1752,8 @@ declare namespace OracleDB {
          * then outBinds is returned as an object. If there are no OUT or IN OUT binds, the value is undefined.
          */
         outBinds:
-            | {
-                  [parameter: string]: any;
-              }
-            | any[];
+        | Record<string, any>
+        | any[];
         /**
          * For SELECT statements when the resultSet option is true, use the resultSet object to fetch rows.
          *
@@ -1808,9 +1776,7 @@ declare namespace OracleDB {
          */
         rows: (
             | any[]
-            | {
-                  [column: string]: any;
-              })[];
+            | Record<string, any>)[];
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
@@ -1848,9 +1814,7 @@ declare namespace OracleDB {
          * variable identified.
          */
         outBinds: (
-            | {
-                  [parameter: string]: any;
-              }
+            | Record<string, any>
             | any[])[];
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
@@ -1898,18 +1862,14 @@ declare namespace OracleDB {
          * the execute() option fetchArraySize.
          */
         getRow(): Promise<
-            | {
-                  [column: string]: any;
-              }
+            | Record<string, any>
             | any[]
         >;
         getRow(
             callback: (
                 error: DBError,
                 row:
-                    | {
-                          [column: string]: any;
-                      }
+                    | Record<string, any>
                     | any[],
             ) => void,
         ): void;
@@ -1922,9 +1882,11 @@ declare namespace OracleDB {
          *
          * Different values of numRows may alter the time needed for fetching data from Oracle Database.
          * The value of fetchArraySize has no effect on getRows() performance or internal buffering.
+         *
+         * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<void>;
-        getRows(callback: (error: DBError, numRows: number) => void): void;
+        getRows(numRows: number): Promise<(Record<string, any> | any[])[]>;
+        getRows(numRows: number, callback: (error: DBError, rows: (Record<string, any> | any[])[]) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.
@@ -1943,9 +1905,6 @@ declare namespace OracleDB {
     }
 
     /**
-     * SODA support in node-oracledb is in Preview status and should not be used in production.
-     * It will be supported with a future version of Oracle Client libraries.
-     *
      * The SodaDatabase class is the top level object for node-oracledb SODA operations.
      * A ‘SODA database’ is an abstraction, allowing access to SODA collections in that ‘SODA database’,
      * which then allow access to documents in those collections.
@@ -2067,8 +2026,7 @@ declare namespace OracleDB {
     }
 
     /**
-     * SODA support in node-oracledb is in Preview status and should not be used in production.
-     * It will be supported with a future version of Oracle Client libraries.
+     * SODA can be used with Oracle Client 18.5 and Oracle Client 19.3, or later.
      */
     interface SodaCollection {
         /**
@@ -2208,11 +2166,9 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOne(newDocumentContent: { [key: string]: any }): Promise<void>;
+        insertOne(newDocumentContent: Record<string, any>): Promise<void>;
         insertOne(
-            newDocumentContent: {
-                [key: string]: any;
-            },
+            newDocumentContent: Record<string, any>,
             callback: (error: DBError) => void,
         ): Promise<void>;
 
@@ -2257,19 +2213,14 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOneAndGet(newDocumentContent: { [key: string]: any }): Promise<SodaDocument>;
+        insertOneAndGet(newDocumentContent: Record<string, any>): Promise<SodaDocument>;
         insertOneAndGet(
-            newDocumentContent: {
-                [key: string]: any;
-            },
+            newDocumentContent: Record<string, any>,
             callback: (error: DBError, document: SodaDocument) => void,
         ): Promise<void>;
     }
 
     /**
-     * Note SODA support in node-oracledb is in Preview status and should not be used in production.
-     * It will be supported with a future version of Oracle Client libraries.
-     *
      * SodaDocuments represents the document for SODA read and write operations.
      */
     interface SodaDocument {
@@ -2366,7 +2317,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sodaqbesearches
          * @since 3.0
          */
-        filter(filterSpec: { [filter: string]: any }): SodaOperation;
+        filter(filterSpec: Record<string, any>): SodaOperation;
         /**
          * Sets the key value to be used to match a document for the operation. Any previous calls made to this
          * method or keys() will be ignored.
@@ -2546,11 +2497,9 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        replaceOne(newDocumentContent: { [key: string]: any }): Promise<SodaReplaceOneResult>;
+        replaceOne(newDocumentContent: Record<string, any>): Promise<SodaReplaceOneResult>;
         replaceOne(
-            newDocumentContent: {
-                [key: string]: any;
-            },
+            newDocumentContent: Record<string, any>,
             callback: (error: DBError, result: SodaReplaceOneResult) => void,
         ): void;
         /**
@@ -2581,11 +2530,9 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        replaceOneAndGet(newDocumentContent: { [key: string]: any }): Promise<SodaDocument>;
+        replaceOneAndGet(newDocumentContent: Record<string, any>): Promise<SodaDocument>;
         replaceOneAndGet(
-            newDocumentContent: {
-                [key: string]: any;
-            },
+            newDocumentContent: Record<string, any>,
             callback: (error: DBError, document: SodaDocument) => void,
         ): void;
     }

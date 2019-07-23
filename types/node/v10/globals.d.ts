@@ -716,7 +716,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -958,21 +958,22 @@ declare namespace NodeJS {
     }
 
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {

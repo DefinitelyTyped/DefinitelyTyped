@@ -41,6 +41,8 @@ mongoose.createConnection(connectUri).then((conn)=> {
   return conn.collections;
 }, () => {
 
+var connections: mongoose.Connection[] = mongoose.connections;
+
 });
 mongoose.createConnection(connectUri).openUri('');
 mongoose.createConnection(connectUri, {
@@ -799,10 +801,28 @@ ImageModel.findOne({}, function(err, doc) {
     doc.id;
   }
 });
+
+/* Testing deep partials */
+interface NestedDoc extends mongoose.Document {
+  name: string;
+  image: ImageDoc;
+}
+var NestedDocSchema = new mongoose.Schema({
+  name: String,
+  image: ImageModel
+});
+const NestedModel = mongoose.model<NestedDoc>('Nested', NestedDocSchema);
+const nested = new NestedModel({
+  name: "name",
+  image: {
+    name: "name"
+  }
+})
+
 /* Using flatten maps example */
 interface Submission extends mongoose.Document {
   name: string;
-  fields: string[];
+  fields: Record<string,string>;
 }
 var SubmissionSchema = new mongoose.Schema({
   name: String,
@@ -1199,6 +1219,12 @@ query.
   sort('-occupation').
   select('name occupation').
   exec(cb).then(cb).catch(cb);
+/**
+ * https://mongoosejs.com/docs/api.html#query_Query-lean
+ */
+query.lean() // true
+query.lean(false)
+query.lean({})
 
 /*
  * section schema/array.js
