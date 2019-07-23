@@ -216,7 +216,7 @@ export interface MongoCallback<T> {
     (error: MongoError, result: T): void;
 }
 
-export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>
+export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoError.html */
 export class MongoError extends Error {
