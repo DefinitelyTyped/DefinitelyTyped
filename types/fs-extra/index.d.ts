@@ -14,6 +14,7 @@
 
 import * as fs from "fs";
 import Stats = fs.Stats;
+import Dirent = fs.Dirent;
 
 export * from "fs";
 
@@ -190,7 +191,13 @@ export function readFile(file: string | Buffer | number, encoding: string): Prom
 export function readFile(file: string | Buffer | number): Promise<Buffer>;
 
 export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+export function readdir(path: string | Buffer, options: { encoding?: string, withFileTypes?: false }, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+export function readdir(path: string | Buffer, options: { encoding: 'buffer', withFileTypes?: false }, callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
+export function readdir(path: string | Buffer, options: { encoding?: string, withFileTypes: true }, callback: (err: NodeJS.ErrnoException, files: Dirent[]) => void): void;
 export function readdir(path: string | Buffer): Promise<string[]>;
+export function readdir(path: string | Buffer, options: { encoding?: string, withFileTypes?: false }): Promise<string[]>;
+export function readdir(path: string | Buffer, options: { encoding: 'buffer', withFileTypes?: false }): Promise<Buffer[]>;
+export function readdir(path: string | Buffer, options: { encoding?: string, withFileTypes: true }): Promise<Dirent[]>;
 
 export function readlink(path: string | Buffer, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
 export function readlink(path: string | Buffer): Promise<string>;
