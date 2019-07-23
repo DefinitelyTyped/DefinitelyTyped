@@ -10,6 +10,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types='dom' />
+
 import * as webpack from 'webpack';
 import * as httpProxyMiddleware from 'http-proxy-middleware';
 import * as express from 'express';
