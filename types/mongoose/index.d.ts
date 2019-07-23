@@ -25,8 +25,9 @@
 //                 Vlad Melnik <https://github.com/vladmel1234>
 //                 Jarom Loveridge <https://github.com/jloveridge>
 //                 Grimmer Kang <https://github.com/grimmer0125>
+//                 Richard Davison <https://github.com/richarddd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -64,6 +65,16 @@ declare module "mongoose" {
   import mongodb = require('mongodb');
   import stream = require('stream');
   import mongoose = require('mongoose');
+
+  /**
+   * Allows for nested objects and arrays to be partial
+   */
+  export type DeepPartial<T> = {
+    [P in keyof T]?:
+    T[P] extends (infer U)[] ? DeepPartial<U>[] :
+    T[P] extends object ? DeepPartial<T[P]> :
+    T[P];
+  };
 
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
@@ -2813,7 +2824,7 @@ declare module "mongoose" {
      *   Model#ensureIndexes. If an error occurred it is passed with the event.
      *   The fields, options, and index name are also passed.
      */
-    new(doc?: Partial<T>): T;
+    new(doc?: DeepPartial<T>): T;
 
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.

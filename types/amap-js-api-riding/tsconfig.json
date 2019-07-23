@@ -5,6 +5,7 @@
             "es6",
             "dom"
         ],
+        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -14,11 +15,10 @@
             "../"
         ],
         "types": [],
-        "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "jdenticon-tests.ts"
+        "amap-js-api-riding-tests.ts"
     ]
 }

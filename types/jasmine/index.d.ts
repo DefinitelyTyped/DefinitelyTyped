@@ -179,7 +179,12 @@ declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, t
 declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
-    type Expected<T> = T | ObjectContaining<T> | Any | Spy;
+    type ExpectedRecursive<T> = T | ObjectContaining<T> | {
+        [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+    };
+    type Expected<T> = T | ObjectContaining<T> | Any | Spy | {
+        [K in keyof T]: ExpectedRecursive<T[K]>;
+    };
     type SpyObjMethodNames<T = undefined> =
         T extends undefined ?
             (ReadonlyArray<string> | {[methodName: string]: any}) :
@@ -231,17 +236,17 @@ declare namespace jasmine {
     }
 
     interface ArrayContaining<T> {
-        new (sample: ArrayLike<T>): ArrayLike<T>;
+        new?(sample: ArrayLike<T>): ArrayLike<T>;
 
         asymmetricMatch(other: any): boolean;
-        jasmineToString(): string;
+        jasmineToString?(): string;
     }
 
     interface ObjectContaining<T> {
-        new (sample: Partial<T>): Partial<T>;
+        new?(sample: Partial<T>): Partial<T>;
 
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
-        jasmineToString(): string;
+        jasmineToString?(): string;
     }
 
     interface Block {
