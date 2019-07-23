@@ -211,7 +211,10 @@ declare namespace webpack {
         hashSalt?: string;
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
-        /** Tells webpack to use the future version of asset emitting logic, which allows freeing memory of assets after emitting. It could break plugins which assume that assets are still readable after they were emitted. */
+        /**
+         * Tells webpack to use the future version of asset emitting logic, which allows freeing memory of assets after emitting. It could break plugins which
+         * assume that assets are still readable after they were emitted.
+         */
         futureEmitAssets?: boolean;
     }
 
