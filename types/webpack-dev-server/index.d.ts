@@ -180,6 +180,10 @@ declare class WebpackDevServer {
     listen(port: number, callback?: (error?: Error) => void): http.Server;
 
     close(callback?: () => void): void;
+    
+    sockets: WebSocket[];
+
+    sockWrite(sockets: WebSocket[], type: string, data: object): void;
 }
 
 export = WebpackDevServer;
