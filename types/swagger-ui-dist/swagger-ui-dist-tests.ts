@@ -1,4 +1,10 @@
-import * as SwaggerUIDist from "swagger-ui-dist";
+import {
+    SwaggerRequest,
+    SwaggerUIBundle,
+    SwaggerUIStandalonePreset,
+    absolutePath,
+    getAbsoluteFSPath,
+} from 'swagger-ui-dist';
 
-SwaggerUIDist.getAbsoluteFSPath(); // $ExpectType string
-SwaggerUIDist.absolutePath(); // $ExpectType string
+getAbsoluteFSPath(); // $ExpectType string
+absolutePath(); // $ExpectType string
