@@ -163,6 +163,7 @@ export class Response extends Body {
     clone(): Response;
     headers: Headers;
     ok: boolean;
+    redirected: boolean;
     status: number;
     statusText: string;
     type: ResponseType;
