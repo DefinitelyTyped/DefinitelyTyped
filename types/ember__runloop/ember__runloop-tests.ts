@@ -21,13 +21,13 @@ function testRun() {
     });
 
     // run(target, method)
-    run({}, () => { 
+    run({}, () => {
         // code to be executed within a RunLoop
         return 123;
     });
 
     // run(target, method, ...args)
-    run({}, () => { 
+    run({}, () => {
         // code to be executed within a RunLoop
         return 123;
     }, () => {
