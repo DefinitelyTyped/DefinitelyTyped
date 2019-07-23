@@ -1,9 +1,9 @@
 import * as express from 'express';
-import swaggerJSDoc, { Options } from 'swagger-jsdoc';
+import * as swaggerJSDoc from 'swagger-jsdoc';
 
 const app = express();
 
-const options: Options = {
+const options: swaggerJSDoc.Options = {
     swaggerDefinition: {
         info: {
             title: 'A test api',
