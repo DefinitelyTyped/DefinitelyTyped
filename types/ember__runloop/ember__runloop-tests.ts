@@ -20,6 +20,20 @@ function testRun() {
         return 123;
     });
 
+    // run(target, method)
+    run({}, () => { 
+        // code to be executed within a RunLoop
+        return 123;
+    });
+
+    // run(target, method, ...args)
+    run({}, () => { 
+        // code to be executed within a RunLoop
+        return 123;
+    }, () => {
+        console.log('foo');
+    }, 'bar', {});
+
     function destroyApp(application: EmberObject) {
         run(application, 'destroy');
         run(application, function() {
