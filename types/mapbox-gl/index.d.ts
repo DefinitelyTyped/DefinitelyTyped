@@ -161,8 +161,8 @@ declare namespace mapboxgl {
         loaded(): boolean;
 
         remove(): void;
-		
-		triggerRepaint(): void;
+
+        triggerRepaint(): void;
 
         showTileBoundaries: boolean;
 
