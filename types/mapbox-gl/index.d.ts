@@ -162,6 +162,8 @@ declare namespace mapboxgl {
 
         remove(): void;
 
+        triggerRepaint(): void;
+
         showTileBoundaries: boolean;
 
         showCollisionBoxes: boolean;
