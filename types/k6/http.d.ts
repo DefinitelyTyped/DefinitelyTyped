@@ -158,6 +158,9 @@ export const TLS_1_1 = 'tls1.1';
 /** @public */
 export const TLS_1_2 = 'tls1.2';
 
+/** @public */
+export const TLS_1_3 = 'tls1.3';
+
 // === OCSP statuses ===
 // ---------------------
 
