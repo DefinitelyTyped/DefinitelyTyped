@@ -747,7 +747,7 @@ export interface ParseHashOptions {
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
-    __enableIdPInitiatedLogin?:boolean;
+    __enableIdPInitiatedLogin?: boolean;
 
 }
 
