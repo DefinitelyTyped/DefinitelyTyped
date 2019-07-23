@@ -16,7 +16,11 @@ import { Autosave, Entity } from './';
  * @returns Whether or not the user can perform the action, or `undefined` if the OPTIONS request is
  * still being made.
  */
-export function canUser(action: 'create' | 'read' | 'update' | 'delete', resource: string, id: string | number): boolean | undefined;
+export function canUser(
+    action: 'create' | 'read' | 'update' | 'delete',
+    resource: string,
+    id: string | number
+): boolean | undefined;
 
 /**
  * Returns all available authors.
