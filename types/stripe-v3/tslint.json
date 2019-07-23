@@ -5,7 +5,6 @@
 		"dt-header": false,
         "npm-naming": false,
         "no-angle-bracket-type-assertion": false,
-		"no-any-union": false,
-		"unified-signatures": false
+		"no-any-union": false
 	}
 }

@@ -28,7 +28,10 @@ declare namespace stripe {
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
         createSource(options: SourceOptions): Promise<SourceResponse>;
         retrieveSource(options: RetrieveSourceOptions): Promise<SourceResponse>;
+        // We use function overloading instead of a union here to ensure that redirectToCheckout can only be
+        // called with either the server options or the client options - not a mix of both.
         redirectToCheckout(options: StripeClientCheckoutOptions): Promise<StripeRedirectResponse>;
+        // tslint:disable-next-line unified-signatures
         redirectToCheckout(options: StripeServerCheckoutOptions): Promise<StripeRedirectResponse>;
         paymentRequest(options: paymentRequest.StripePaymentRequestOptions): paymentRequest.StripePaymentRequest;
         createPaymentMethod(
