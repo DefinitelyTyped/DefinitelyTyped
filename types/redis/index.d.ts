@@ -11,6 +11,7 @@
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
 //                 Jake Ferrante <https://github.com/ferrantejake>
 //                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
+//                 Oliver Evans <https://github.com/OliverEvans96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -1175,7 +1176,7 @@ export interface Commands<R> {
 
 export const RedisClient: new (options: ClientOpts) => RedisClient;
 
-export interface RedisClient extends Commands<boolean>, EventEmitter {
+export interface RedisClient<T = boolean> extends Commands<T>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
@@ -1203,12 +1204,12 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     cork(): void;
     uncork(): void;
 
-    duplicate(options?: ClientOpts, cb?: Callback<RedisClient>): RedisClient;
+    duplicate(options?: ClientOpts, cb?: Callback<RedisClient<T>>): RedisClient<T>;
 
-    sendCommand(command: string, cb?: Callback<any>): boolean;
-    sendCommand(command: string, args?: any[], cb?: Callback<any>): boolean;
-    send_command(command: string, cb?: Callback<any>): boolean;
-    send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
+    sendCommand(command: string, cb?: Callback<any>): T;
+    sendCommand(command: string, args?: any[], cb?: Callback<any>): T;
+    send_command(command: string, cb?: Callback<any>): T;
+    send_command(command: string, args?: any[], cb?: Callback<any>): T;
 
     addCommand(command: string): void;
     add_command(command: string): void;
@@ -1216,29 +1217,29 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
     /**
      * Mark the start of a transaction block.
      */
-    multi(args?: Array<Array<string | number | Callback<any>>>): Multi;
-    MULTI(args?: Array<Array<string | number | Callback<any>>>): Multi;
+    multi(args?: Array<Array<string | number | Callback<any>>>): Multi<T>;
+    MULTI(args?: Array<Array<string | number | Callback<any>>>): Multi<T>;
 
-    batch(args?: Array<Array<string | number | Callback<any>>>): Multi;
-    BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi;
+    batch(args?: Array<Array<string | number | Callback<any>>>): Multi<T>;
+    BATCH(args?: Array<Array<string | number | Callback<any>>>): Multi<T>;
 }
 
 export const Multi: new () => Multi;
 
-export interface Multi extends Commands<Multi> {
-    exec(cb?: Callback<any[]>): boolean;
-    EXEC(cb?: Callback<any[]>): boolean;
+export interface Multi<T = boolean> extends Commands<Multi<T>> {
+    exec(cb?: Callback<any[]>): T;
+    EXEC(cb?: Callback<any[]>): T;
 
-    exec_atomic(cb?: Callback<any[]>): boolean;
-    EXEC_ATOMIC(cb?: Callback<any[]>): boolean;
+    exec_atomic(cb?: Callback<any[]>): T;
+    EXEC_ATOMIC(cb?: Callback<any[]>): T;
 }
 
 export let debug_mode: boolean;
 
-export function createClient(port: number, host?: string, options?: ClientOpts): RedisClient;
-export function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
-export function createClient(redis_url: string, options?: ClientOpts): RedisClient;
-export function createClient(options?: ClientOpts): RedisClient;
+export function createClient<T = boolean>(port: number, host?: string, options?: ClientOpts): RedisClient<T>;
+export function createClient<T = boolean>(unix_socket: string, options?: ClientOpts): RedisClient<T>;
+export function createClient<T = boolean>(redis_url: string, options?: ClientOpts): RedisClient<T>;
+export function createClient<T = boolean>(options?: ClientOpts): RedisClient<T>;
 
 export function print(err: Error | null, reply: any): void;
 
