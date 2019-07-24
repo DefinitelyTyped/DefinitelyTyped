@@ -213,6 +213,14 @@ declare namespace inquirer {
     interface Answers extends Record<string, any> { }
 
     /**
+     * Provides the functionality to validate answers.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    type Validator<T extends Answers = Answers> = (input: any, answers?: T) => boolean | string | Promise<boolean | string>;
+
+    /**
      * Represents a dynamic property for a question.
      */
     type DynamicQuestionProperty<T, TAnswers extends Answers = Answers> = T | ((answers: TAnswers) => T);
@@ -284,7 +292,7 @@ declare namespace inquirer {
          * @returns
          * Either a value indicating whether the answer is valid or a `string` which describes the error.
          */
-        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
+        validate?: Validator<T>;
     }
 
     /**
@@ -446,7 +454,7 @@ declare namespace inquirer {
      * @template TChoiceMap
      * The choice-types to provide.
      */
-    type DistinctChoice<TChoiceMap> =
+    type DistinctChoice<TChoiceMap = AllChoiceMap> =
         string |
         TChoiceMap[keyof TChoiceMap];
 
