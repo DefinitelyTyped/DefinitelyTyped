@@ -218,7 +218,15 @@ declare namespace inquirer {
      * @template T
      * The type of the answers.
      */
-    type Validator<T extends Answers = Answers> = (input: any, answers?: T) => boolean | string | Promise<boolean | string>;
+    type Validator<T extends Answers = Answers> = Question<T>["validate"];
+
+    /**
+     * Provides the functionality to transform an answer.
+     *
+     * @template T
+     * The type of the answers.
+     */
+    type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>["transformer"];
 
     /**
      * Represents a dynamic property for a question.
@@ -292,7 +300,7 @@ declare namespace inquirer {
          * @returns
          * Either a value indicating whether the answer is valid or a `string` which describes the error.
          */
-        validate?: Validator<T>;
+        validate?(input: any, answers?: T): boolean | string | Promise<boolean | string>;
     }
 
     /**
