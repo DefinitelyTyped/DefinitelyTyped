@@ -2026,6 +2026,12 @@ export interface Target {
 
   /** Returns the target URL. */
   url(): string;
+                                                             
+  /**
+  * If the target is not of type "service_worker" or "shared_worker", returns `null`.
+  * @since 1.16.0
+  */
+  worker(): Promise<Worker>
 }
 
 export interface LaunchOptions extends ChromeArgOptions, BrowserOptions, Timeoutable {
