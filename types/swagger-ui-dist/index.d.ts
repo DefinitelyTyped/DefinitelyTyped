@@ -4,43 +4,42 @@
 //                 Bryce <https://github.com/brycematheson1234>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export {};
+export as namespace SwaggerUIDist;
 
-declare module 'swagger-ui-dist' {
-    /**
-     * get an absolute path to swagger ui for static file serving
-     */
-    export function getAbsoluteFSPath(): string;
-    export function absolutePath(): string;
-  
-    export interface SwaggerUIBundle {
-      (a: {
-        deepLinking: boolean;
-        dom_id: string;
-        presets: any[];
-        plugins: any;
-        urls: { name: string; url: string; }[];
-        layout: string;
-      }): any;
-      presets: any;
-      plugins: any;
-      [k: string]: any;
-  
-      getConfigs(): SwaggerConfigs;
-    }
-  
-    export const SwaggerUIBundle: SwaggerUIBundle;
-  
-    interface SwaggerConfigs {
-      requestInterceptor: ((request: SwaggerRequest) => request);
-      [k: string]: any;
-    }
-  
-    export interface SwaggerRequest {
-      url: string;
-      credentials: string;
-      [k: string]: any;
-    }
-  
-    export const SwaggerUIStandalonePreset: any;
-  }
-  
+/**
+ * get an absolute path to swagger ui for static file serving
+ */
+export function getAbsoluteFSPath(): string;
+export function absolutePath(): string;
+
+interface SwaggerUIBundle {
+  (a: {
+    deepLinking: boolean;
+    dom_id: string;
+    presets: any[];
+    plugins: any;
+    urls: Array<[string, string]>;
+    layout: string;
+  }): any;
+  presets: any;
+  plugins: any;
+  [k: string]: any;
+
+  getConfigs(): SwaggerConfigs;
+}
+
+export const SwaggerUIBundle: SwaggerUIBundle;
+
+interface SwaggerConfigs {
+  requestInterceptor: ((request: SwaggerRequest) => SwaggerRequest);
+  [k: string]: any;
+}
+
+interface SwaggerRequest {
+  url: string;
+  credentials: string;
+  [k: string]: any;
+}
+
+export const SwaggerUIStandalonePreset: any;
