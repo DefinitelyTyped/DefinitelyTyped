@@ -1263,6 +1263,19 @@ export interface ChartAPI {
      */
     destroy(): null;
 
+    tooltip: {
+        (): void;
+        show(args: {
+            mouse: unknown;
+            data?: {
+                targets: DataSeries[];
+            };
+            id?: string;
+            x?: number;
+        }): void;
+        hide(): void;
+    }
+
     internal: ChartInternal;
 }
 
@@ -1395,10 +1408,6 @@ export interface DataPoint {
     value: number;
     id: string;
     index: number;
-}
-
-export interface DataPoint {
-
 }
 
 interface GenerateResizeReturn extends Function {
