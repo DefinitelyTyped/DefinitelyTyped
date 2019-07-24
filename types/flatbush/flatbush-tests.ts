@@ -1,6 +1,6 @@
-import Flatbush, { IFlatbush } from 'flatbush';
+import Flatbush from 'flatbush';
 
-const from: IFlatbush = Flatbush.from(new ArrayBuffer(0));
+const from: Flatbush = Flatbush.from(new ArrayBuffer(0));
 
 const index = new Flatbush(1);
 index.add(0, 0, 1, 1);
