@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import { IFlatbush } from 'flatbush';
+import { Flatbush } from 'flatbush';
 
 /**
  * Performs nearest neighbors queries for geographic bounding boxes, taking Earth curvature and date line wrapping into account.
@@ -13,7 +13,7 @@ import { IFlatbush } from 'flatbush';
  * @param maxDistance distance in kilometers, default Infinity
  */
 export function around(
-    index: IFlatbush,
+    index: Flatbush,
     longitude: number,
     latitude: number,
     maxResults?: number,
