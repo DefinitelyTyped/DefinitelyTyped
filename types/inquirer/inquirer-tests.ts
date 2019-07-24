@@ -1,4 +1,3 @@
-import "./test";
 import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
 {
