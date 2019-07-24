@@ -170,15 +170,15 @@ export type Plugin<T> = PluginBase<T> & (PluginNameVersion | PluginPackage);
 /**
  * User extensible types user credentials.
  */
-// tslint:disable-next-line:no-empty-interface
 export interface UserCredentials {
+    [key: string]: any,
 }
 
 /**
  * User extensible types app credentials.
  */
-// tslint:disable-next-line:no-empty-interface
 export interface AppCredentials {
+    [key: string]: any,
 }
 
 /**
@@ -199,6 +199,10 @@ export interface AuthCredentials {
      * If set, will only work with routes that set `access.entity` to `app`.
      */
     app?: AppCredentials;
+    /**
+     * Let user extend AuthCredentials.
+     */
+    [key: string]: any,
 }
 
 export type AuthMode = 'required' | 'optional' | 'try';
