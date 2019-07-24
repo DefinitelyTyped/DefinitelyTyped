@@ -2,6 +2,8 @@
 // Project: https://github.com/mourner/flatbush
 // Definitions by: Matt Fedderly <https://github.com/mfedderly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
 type TypedArrayConstructor =
     | Int8ArrayConstructor
     | Uint8ArrayConstructor
@@ -13,7 +15,7 @@ type TypedArrayConstructor =
     | Float32ArrayConstructor
     | Float64ArrayConstructor;
 
-export class Flatbush {
+declare class FlatbushClass {
     /**
      * @param numItems total number of items to be indexed
      * @param nodeSize size of the tree node, experiment with different values for best performance. Default 16.
@@ -24,22 +26,22 @@ export class Flatbush {
     /**
      * Adds a given rectangle to the index.
      */
-    public add(minX: number, minY: number, maxX: number, maxY: number): void;
+    add(minX: number, minY: number, maxX: number, maxY: number): void;
 
     /**
      * Performs indexing of the added rectangles. Their number must match the one provided when creating a Flatbush object.
      */
-    public finish(): void;
+    finish(): void;
 
     /**
      * Returns an array of indices of items in a given bounding box.
      */
-    public search(minX: number, minY: number, maxX: number, maxY: number, filter?: (idx: number) => boolean): number[];
+    search(minX: number, minY: number, maxX: number, maxY: number, filter?: (idx: number) => boolean): number[];
 
     /**
      * Returns an array of item indices in order of distance from the given x, y (known as K nearest neighbors, or KNN).
      */
-    public neighbors(
+    neighbors(
         x: number,
         y: number,
         maxResults?: number,
@@ -48,48 +50,51 @@ export class Flatbush {
     ): number[];
 
     /**
-     * Recreates a Flatbush index from raw ArrayBuffer data (that's exposed as index.data on a previously indexed Flatbush instance). Very useful for transferring indices between threads or storing them in a file.
+     * Recreates a Flatbush index from raw ArrayBuffer data (that's exposed as index.data on a previously indexed Flatbush instance).
+     * Very useful for transferring indices between threads or storing them in a file.
      */
-    public static from(data: ArrayBuffer): Flatbush;
+    static from(data: ArrayBuffer): Flatbush;
 
     /**
      * array buffer that holds the index
      */
-    public readonly data: ArrayBuffer;
+    readonly data: ArrayBuffer;
 
     /**
      * bounding box of the data.
      */
-    public readonly minX: number;
+    readonly minX: number;
     /**
      * bounding box of the data.
      */
-    public readonly minY: number;
+    readonly minY: number;
     /**
      * bounding box of the data.
      */
-    public readonly maxX: number;
+    readonly maxX: number;
     /**
      * bounding box of the data.
      */
-    public readonly maxY: number;
+    readonly maxY: number;
 
     /**
      * number of stored items.
      */
-    public readonly numItems: number;
+    readonly numItems: number;
     /**
      * number of items in a node tree.
      */
-    public readonly nodeSize: number;
+    readonly nodeSize: number;
     /**
      * array type used for internal coordinates storage.
      */
-    public readonly ArrayType: TypedArrayConstructor;
+    readonly ArrayType: TypedArrayConstructor;
     /**
      * array type used for internal item indices storage.
      */
-    public readonly IndexArrayType: TypedArrayConstructor;
+    readonly IndexArrayType: TypedArrayConstructor;
 }
 
-export default Flatbush;
+export type Flatbush = FlatbushClass;
+// tslint:disable-next-line:npm-naming https://github.com/mourner/flatbush/blob/master/index.js#L11
+export default FlatbushClass;

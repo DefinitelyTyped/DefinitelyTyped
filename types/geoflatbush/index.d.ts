@@ -2,8 +2,9 @@
 // Project: https://github.com/mourner/geoflatbush
 // Definitions by: Matt Fedderly <https://github.com/mfedderly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
-import { Flatbush } from 'flatbush';
+import { IFlatbush } from 'flatbush';
 
 /**
  * Performs nearest neighbors queries for geographic bounding boxes, taking Earth curvature and date line wrapping into account.
@@ -12,10 +13,10 @@ import { Flatbush } from 'flatbush';
  * @param maxDistance distance in kilometers, default Infinity
  */
 export function around(
-    index: Flatbush,
+    index: IFlatbush,
     longitude: number,
     latitude: number,
-    maxResults: number,
-    maxDistance: number,
+    maxResults?: number,
+    maxDistance?: number,
     filter?: (index: number) => boolean
 ): number[];
