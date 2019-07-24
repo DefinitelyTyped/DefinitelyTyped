@@ -37,7 +37,12 @@ export interface CSSProperties extends CSS.StandardProperties<number | string>, 
 /**
  * Map of all CSS pseudo selectors (`:hover`, `:focus`, ...)
  */
-export type CSSPseudoSelectorProps = { [Key in CSS.SimplePseudos]?: ResponsiveStyleProps<CSSProperties> };
+export type CSSPseudoSelectorProps<Properties> = { [Key in CSS.SimplePseudos]?: ResponsiveStyleProps<Properties> };
+
+/**
+ * CSS as POJO that is compatible with CSS-in-JS libaries.
+ */
+export type CSSObject = CSS.PropertiesFallback<number | string> & { [K in CSS.Pseudos]?: CSSObject };
 
 /**
  * Color system properties.
@@ -93,7 +98,7 @@ export type SpaceProps = ResponsiveStyleProps<{
 export type TypographyProps = ResponsiveStyleProps<{
     fontFamily: CSS.FontFamilyProperty;
     fontSize: CSS.FontSizeProperty<number>;
-    fontWeight: CSS.FontWeightProperty;
+    fontWeight: CSS.FontWeightProperty | string;
     lineHeight: CSS.LineHeightProperty<string>;
     letterSpacing: CSS.LetterSpacingProperty<string | number>;
 }>;
@@ -130,7 +135,6 @@ export type ShadowProps = ResponsiveStyleProps<{
  * See: https://styled-system.com/api/#layout
  */
 export type LayoutProps = ResponsiveStyleProps<{
-    zIndex: CSS.ZIndexProperty;
     width: CSS.WidthProperty<number>;
     minWidth: CSS.MinWidthProperty<number>;
     maxWidth: CSS.MaxWidthProperty<number>;
@@ -140,10 +144,42 @@ export type LayoutProps = ResponsiveStyleProps<{
 }>;
 
 /**
+ * Position system properties.
+ * See: https://styled-system.com/api/#position
+ */
+export type PositionProps = ResponsiveStyleProps<{
+    zIndex: CSS.ZIndexProperty | string;
+    top: CSS.TopProperty<number>;
+    right: CSS.RightProperty<number>;
+    bottom: CSS.BottomProperty<number>;
+    left: CSS.LeftProperty<number>;
+}>;
+
+/**
+ * Grid system properties.
+ * See: https://styled-system.com/api/#grid-layout
+ */
+export type GridProps = ResponsiveStyleProps<{
+    gap: CSS.GapProperty<number>;
+    gridGap: CSS.GapProperty<number>;
+    columnGap: CSS.ColumnGapProperty<number>;
+    gridColumnGap: CSS.ColumnGapProperty<number>;
+    rowGap: CSS.RowGapProperty<number>;
+    gridRowGap: CSS.RowGapProperty<number>;
+}>;
+
+/**
  * All supported style props.
  * See: https://styled-system.com/css#theme-keys
  */
-export type StyleProps = ColorProps & SpaceProps & TypographyProps & BorderProps & ShadowProps & LayoutProps;
+export type StyleProps = ColorProps &
+    SpaceProps &
+    TypographyProps &
+    BorderProps &
+    ShadowProps &
+    LayoutProps &
+    PositionProps &
+    GridProps;
 
 /**
  * Helper to define theme values.
@@ -180,14 +216,14 @@ export type Theme<Styles extends string = never> = {
     sizes?: ThemeValue<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>;
 } & { [key in Styles]: ThemeValue<SystemStyleObject> };
 
+type StyleObject = ResponsiveStyleProps<Omit<CSSProperties, 'boxShadow' | 'fontWeight'>> & StyleProps;
+
 /**
  * The `SystemStyleObject` extends [style props](https://emotion.sh/docs/object-styles)
  * such that properties that are part of the `Theme` will be transformed to
  * their corresponding values. Other valid CSS properties are also allowed.
  */
-export type SystemStyleObject = ResponsiveStyleProps<Omit<CSSProperties, 'boxShadow'>> &
-    CSSPseudoSelectorProps &
-    StyleProps;
+export type SystemStyleObject = StyleObject & CSSPseudoSelectorProps<StyleObject>;
 
 /**
  * Transforms `input` to a style object that can be processed by CSS-in-JS
@@ -198,7 +234,7 @@ export type SystemStyleObject = ResponsiveStyleProps<Omit<CSSProperties, 'boxSha
  */
 export function css(
     input?: SystemStyleObject & { variant?: string } | ((theme: Theme) => SystemStyleObject & { variant?: string })
-): (props?: Theme | { theme: Theme }) => CSS.Properties;
+): (props?: Theme | { theme: Theme }) => CSSObject;
 export default css;
 
 /**

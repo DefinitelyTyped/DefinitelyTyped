@@ -13,7 +13,7 @@ export interface WindowOption {
     contextMenu?: boolean;
     contextMenuSettings?: ContextMenuSettings;
     cornerRounding?: object;
-    customData?: string;
+    customData?: any;
     customRequestHeaders?: Array<CustomRequestHeaders>;
     defaultCentered?: boolean;
     defaultHeight?: number;

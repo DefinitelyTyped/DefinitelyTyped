@@ -2,9 +2,8 @@ import { EventsKey } from './events';
 import Event from './events/Event';
 import BaseObject, { ObjectEvent } from './Object';
 
-export class CollectionEvent<T> extends Event {
-    constructor();
-    element: T;
+export interface Options {
+    unique?: boolean;
 }
 export default class Collection<T> extends BaseObject {
     constructor(opt_array?: T[], opt_options?: Options);
@@ -39,6 +38,7 @@ export default class Collection<T> extends BaseObject {
     once(type: 'remove', listener: (evt: CollectionEvent<T>) => void): EventsKey;
     un(type: 'remove', listener: (evt: CollectionEvent<T>) => void): void;
 }
-export interface Options {
-    unique?: boolean;
+export class CollectionEvent<T> extends Event {
+    constructor();
+    element: T;
 }

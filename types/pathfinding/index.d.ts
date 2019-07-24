@@ -22,7 +22,7 @@ declare module "pathfinding" {
             Always = 1,
             Never = 2,
             IfAtMostOneObstacle = 3,
-            OnlyWhenNoObstacle = 4
+            OnlyWhenNoObstacles = 4
         }
 
         interface Node {

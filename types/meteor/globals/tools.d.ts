@@ -98,3 +98,5 @@ declare interface PackageAPI {
     }): void;
     versionsFrom(meteorRelease: string | string[]): void;
 }
+
+declare var console: Console;

@@ -1,7 +1,6 @@
 // Type definitions for ramda 0.26
 // Project: https://github.com/donnut/typescript-ramda, https://ramdajs.com
 // Definitions by: Erwin Poeze <https://github.com/donnut>
-//                 Tycho Grouwstra <https://github.com/tycho01>
 //                 Matt DeKrey <https://github.com/mdekrey>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
@@ -28,6 +27,7 @@
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>
 //                 Pierre-Antoine Mills <https://github.com/pirix-gh>
 //                 Brekk Bockrath <https://github.com/brekk>
+//                 Aram Kharazyan <https://github.com/nemo108>
 //                 Jituan Lin <https://github.com/jituanlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
@@ -546,6 +546,7 @@
 declare let R: R.Static;
 
 declare namespace R {
+    import ValueOfRecord = Tools.ValueOfRecord;
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
     type CommonKeys<T1, T2> = keyof T1 & keyof T2;
@@ -556,13 +557,10 @@ declare namespace R {
 
     type Path = ReadonlyArray<(number | string)>;
 
+    type KeyValuePair<K, V> = [K, V];
+
     interface Functor<T> {
         map<U>(fn: (t: T) => U): Functor<U>;
-    }
-
-    interface KeyValuePair<K, V> extends Array<K | V> {
-        0: K;
-        1: V;
     }
 
     interface ArrayLike {
@@ -609,10 +607,11 @@ declare namespace R {
         <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
     }
 
-    interface FilterOnceApplied<T> {
-        (list: ReadonlyArray<T>): T[];
-        (obj: Dictionary<T>): Dictionary<T>;
-    }
+    type FilterOnceApplied<T> =
+        <K extends ReadonlyArray<T> | Dictionary<T>>(source: K) =>
+            K extends ReadonlyArray<infer U> ? U[] :
+            K extends Dictionary<infer U> ? Dictionary<U> :
+            never;
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
         [P in keyof O]: P extends keyof E ? EvolveValue<O[P], E[P]> : O[P];
@@ -902,6 +901,11 @@ declare namespace R {
          * of the same structure, by mapping each property to the result of calling its associated function with
          * the supplied arguments.
          */
+        applySpec<Obj extends Record<string, (...args: any[]) => any>>(
+            obj: Obj
+        ): (
+            ...args: Parameters<ValueOfRecord<Obj>>
+        ) => { [Key in keyof Obj]: ReturnType<Obj[Key]> };
         applySpec<T>(obj: any): (...args: any[]) => T;
 
         /**
@@ -1155,13 +1159,13 @@ declare namespace R {
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          */
-        construct(fn: (...a: any[]) => any): (...a: any[]) => any;
+        construct<A extends any[], T>(constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: A) => T;
 
         /**
          * Wraps a constructor function inside a curried function that can be called with the same arguments and returns the same type.
          * The arity of the function returned is specified to allow using variadic constructor functions.
          */
-        constructN(n: number, fn: (...a: any[]) => any): (...a: any[]) => any;
+        constructN<A extends any[], T>(n: number, constructor: { new(...a: A): T } | ((...a: A) => T)): (...a: Partial<A>) => T;
 
         /**
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
@@ -1402,7 +1406,7 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
+        flatten<T>(x: ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>> | ReadonlyArray<T>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -1486,8 +1490,9 @@ declare namespace R {
          * Returns the first element in a list.
          * In some libraries this function is named `first`.
          */
-        head<T>(list: ReadonlyArray<T>): T | undefined;
-        head(list: string): string;
+        head(str: string): string;
+        head(list: []): undefined;
+        head<T extends any>(list: ReadonlyArray<T>): T;
 
         /**
          * Returns true if its arguments are identical, false otherwise. Values are identical if they reference the
@@ -1662,7 +1667,11 @@ declare namespace R {
         /**
          * Applies a list of functions to a list of values.
          */
-        juxt<T, U>(fns: Array<(...args: T[]) => U>): (...args: T[]) => U[];
+        juxt<A extends any[], R1, R2>(fns: [(...a: A) => R1, (...a: A) => R2]): (...a: A) => [R1, R2];
+        juxt<A extends any[], R1, R2, R3>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3]): (...a: A) => [R1, R2, R3];
+        juxt<A extends any[], R1, R2, R3, R4>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4]): (...a: A) => [R1, R2, R3, R4];
+        juxt<A extends any[], R1, R2, R3, R4, R5>(fns: [(...a: A) => R1, (...a: A) => R2, (...a: A) => R3, (...a: A) => R4, (...a: A) => R5]): (...a: A) => [R1, R2, R3, R4, R5];
+        juxt<A extends any[], U>(fns: Array<(...args: A) => U>): (...args: A) => U[];
 
         /**
          * Returns a list containing the names of all the enumerable own
@@ -1680,8 +1689,9 @@ declare namespace R {
         /**
          * Returns the last element from a list.
          */
-        last<T>(list: ReadonlyArray<T>): T | undefined;
-        last(list: string): string;
+        last(str: string): string;
+        last(list: []): undefined;
+        last<T extends any>(list: ReadonlyArray<T>): T;
 
         /**
          * Returns the position of the last occurrence of an item (by strict equality) in
@@ -2121,9 +2131,9 @@ declare namespace R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(defaultValue: T, path: Path, obj: any): any;
-        pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
-        pathOr<T>(defaultValue: T): Curry.Curry<(a: Path, b: any) => any>;
+        pathOr<T>(defaultValue: T, path: Path, obj: any): T;
+        pathOr<T>(defaultValue: T, path: Path): (obj: any) => T;
+        pathOr<T>(defaultValue: T): Curry.Curry<(a: Path, b: any) => T>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -2798,8 +2808,8 @@ declare namespace R {
         /**
          * Returns all but the first element of a list or string.
          */
-        tail<T>(list: ReadonlyArray<T>): T[];
         tail(list: string): string;
+        tail<T extends any>(list: ReadonlyArray<T>): T[];
 
         /**
          * Returns a new list containing the first `n` elements of the given list.  If
@@ -2807,9 +2817,9 @@ declare namespace R {
          */
         take<T>(n: number, xs: ReadonlyArray<T>): T[];
         take(n: number, xs: string): string;
-        take<T>(n: number): {
+        take(n: number): {
             (xs: string): string;
-            (xs: ReadonlyArray<T>): T[];
+            <T>(xs: ReadonlyArray<T>): T[];
         };
 
         /**

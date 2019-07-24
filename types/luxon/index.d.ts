@@ -22,14 +22,14 @@ export interface ZoneOptions {
 }
 
 export type ToRelativeUnit =
-    | 'year'
-    | 'quarter'
-    | 'month'
-    | 'week'
-    | 'day'
-    | 'hour'
-    | 'minute'
-    | 'second';
+    | 'years'
+    | 'quarters'
+    | 'months'
+    | 'weeks'
+    | 'days'
+    | 'hours'
+    | 'minutes'
+    | 'seconds';
 
 export interface ToRelativeOptions {
     /** The DateTime to use as the basis to which this time is compared. Defaults to now. */

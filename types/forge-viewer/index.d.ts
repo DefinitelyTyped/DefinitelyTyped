@@ -1,4 +1,4 @@
-// Type definitions for Forge Viewer 6.6
+// Type definitions for non-npm package Forge Viewer 6.6
 // Project: https://forge.autodesk.com/en/docs/viewer/v6/reference/javascript/viewer3d/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Alan Smith <https://github.com/alansmithnbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

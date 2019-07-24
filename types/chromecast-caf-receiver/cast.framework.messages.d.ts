@@ -142,7 +142,12 @@ export type MessageType =
     | 'FOCUS_STATE'
     | 'CUSTOM_COMMAND';
 
-export type PlayerState = 'IDLE' | 'PLAYING' | 'PAUSED' | 'BUFFERING';
+export enum PlayerState {
+    BUFFERING = 'BUFFERING',
+    IDLE = 'IDLE',
+    PAUSED = 'PAUSED',
+    PLAYING = 'PLAYING',
+}
 
 export type QueueChangeType = 'INSERT' | 'REMOVE' | 'ITEMS_CHANGE' | 'UPDATE' | 'NO_CHANGE';
 

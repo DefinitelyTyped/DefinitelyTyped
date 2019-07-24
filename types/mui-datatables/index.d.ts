@@ -3,6 +3,7 @@
 // Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
 //                 Ankith Konda <https://github.com/ankithkonda>
 //                 Herman "Von" Waters IV <https://github.com/hwatersiv>
+//                 souppower <https://github.com/souppower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -124,14 +125,21 @@ export interface MUIDataTableColumnOptions {
 export interface MUIDataTableOptions {
     caseSensitive?: boolean;
     count?: number;
-    customFooter?: (rowCount: number, page: number, rowsPerPage: number, changeRowsPerPage: () => any, changePage: number) => React.ReactNode;
+    customRowRender?: (data: any[], dataIndex: number, rowIndex: number) => React.ReactNode;
+    customFooter?: (
+        rowCount: number,
+        page: number,
+        rowsPerPage: number,
+        changeRowsPerPage: () => any,
+        changePage: number
+    ) => React.ReactNode;
     customSearch?: (searchQuery: string, currentRow: any[], columns: any[]) => boolean;
     customSort?: (data: any[], colIndex: number, order: string) => any[];
     customToolbar?: () => React.ReactNode;
     customToolbarSelect?: (
         selectedRows: {
-            data: Array<{ index: number; dataIndex: number }>,
-            lookup: { [key: number]: boolean }
+            data: Array<{ index: number; dataIndex: number }>;
+            lookup: { [key: number]: boolean };
         },
         displayData: Array<{ data: any[]; dataIndex: number }>,
         setSelectedRows: (rows: number[]) => void
@@ -144,12 +152,20 @@ export interface MUIDataTableOptions {
     filterType?: FilterType;
     fixedHeader?: boolean;
     isRowSelectable?: (dataIndex: number) => boolean;
-    onCellClick?: (colData: any, cellMeta: { colIndex: number, rowIndex: number, dataIndex: number, event: React.MouseEvent }) => void;
+    onCellClick?: (
+        colData: any,
+        cellMeta: { colIndex: number; rowIndex: number; dataIndex: number; event: React.MouseEvent }
+    ) => void;
     onChangePage?: (currentPage: number) => void;
     onChangeRowsPerPage?: (numberOfRows: number) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
-    onDownload?: (buildHead: (columns: any) => string, buildBody: (data: any) => string, columns: any, data: any) => string;
+    onDownload?: (
+        buildHead: (columns: any) => string,
+        buildBody: (data: any) => string,
+        columns: any,
+        data: any
+    ) => string;
     onFilterChange?: (changedColumn: string, filterList: any[]) => void;
     onRowClick?: (rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void;
     onRowsDelete?: (rowsDeleted: any[]) => void;

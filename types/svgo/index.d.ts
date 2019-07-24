@@ -205,7 +205,8 @@ interface OptimizedSvg {
 }
 
 declare class SVGO {
-    constructor(options?: SVGO.Options);
+    static Config(config?: SVGO.Options): SVGO.Options;
+    constructor(config?: SVGO.Options);
     optimize(svgString: string, info?: SvgInfo): Promise<OptimizedSvg>;
 }
 

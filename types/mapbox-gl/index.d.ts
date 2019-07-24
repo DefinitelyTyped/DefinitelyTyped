@@ -3,6 +3,7 @@
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
+//                 Dmytro Gokun <https://github.com/dmytro-gokun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -160,6 +161,8 @@ declare namespace mapboxgl {
         loaded(): boolean;
 
         remove(): void;
+
+        triggerRepaint(): void;
 
         showTileBoundaries: boolean;
 
@@ -604,10 +607,18 @@ declare namespace mapboxgl {
     }
 
     /**
-     * Fullscreen
+     * FullscreenControl
      */
     export class FullscreenControl extends Control {
-        constructor();
+        constructor(options?: FullscreenControlOptions | null);
+    }
+
+    export interface FullscreenControlOptions {
+        /**
+         * A compatible DOM element which should be made full screen.
+         * By default, the map container element will be made full screen.
+         */
+        container?: HTMLElement | null;
     }
 
     /**
@@ -766,6 +777,8 @@ declare namespace mapboxgl {
         type: 'image';
 
         constructor(options?: mapboxgl.ImageSourceOptions);
+
+        updateImage(options: ImageSourceOptions): this;
 
         setCoordinates(coordinates: number[][]): this;
     }

@@ -4,13 +4,19 @@ import MapEvent from '../MapEvent';
 import { ObjectEvent } from '../Object';
 import Control from './Control';
 
-export function render(mapEvent: MapEvent): void;
 export interface Options {
     className?: string;
     minWidth?: number;
     render?: ((p0: MapEvent) => void);
     target?: HTMLElement | string;
     units?: Units | string;
+}
+export enum Units {
+    DEGREES = 'degrees',
+    IMPERIAL = 'imperial',
+    NAUTICAL = 'nautical',
+    METRIC = 'metric',
+    US = 'us',
 }
 export default class ScaleLine extends Control {
     constructor(opt_options?: Options);
@@ -29,10 +35,4 @@ export default class ScaleLine extends Control {
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export enum Units {
-    DEGREES = 'degrees',
-    IMPERIAL = 'imperial',
-    NAUTICAL = 'nautical',
-    METRIC = 'metric',
-    US = 'us',
-}
+export function render(mapEvent: MapEvent): void;

@@ -131,10 +131,20 @@ export function matchPath<Params extends { [K in keyof Params]?: string }>(pathn
 
 export function generatePath(pattern: string, params?: { [paramName: string]: string | number | boolean | undefined }): string;
 
+export type WithRouterProps<C extends React.ComponentType<any>> = C extends React.ComponentClass
+  ? { wrappedComponentRef?: React.Ref<InstanceType<C>> }
+  : {};
+
+export interface WithRouterStatics<C extends React.ComponentType<any>> {
+  WrappedComponent: C;
+}
+
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @withRouter decorator in your code,
 // you will see a bunch of errors from TypeScript. The current workaround is to use withRouter() as a function call
 // on a separate line instead of as a decorator.
-export function withRouter<P extends RouteComponentProps<any>>(component: React.ComponentType<P>): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>>>;
+export function withRouter<P extends RouteComponentProps<any>, C extends React.ComponentType<P>>(
+  component: C & React.ComponentType<P>,
+): React.ComponentClass<Omit<P, keyof RouteComponentProps<any>> & WithRouterProps<C>> & WithRouterStatics<C>;
 
 export const __RouterContext: React.Context<RouteComponentProps>;

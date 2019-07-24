@@ -8,6 +8,21 @@ import VectorSource from '../source/Vector';
 import VectorLayer from './Vector';
 import VectorRenderType from './VectorRenderType';
 
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    gradient?: string[];
+    radius?: number;
+    blur?: number;
+    shadow?: number;
+    weight?: string | ((p0: Feature) => number);
+    renderMode?: VectorRenderType | string;
+    source?: VectorSource;
+}
 export default class Heatmap extends VectorLayer {
     constructor(opt_options?: Options);
     getBlur(): number;
@@ -67,19 +82,4 @@ export default class Heatmap extends VectorLayer {
     on(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     once(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     un(type: 'rendercomplete', listener: (evt: RenderEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    gradient?: string[];
-    radius?: number;
-    blur?: number;
-    shadow?: number;
-    weight?: string | ((p0: Feature) => number);
-    renderMode?: VectorRenderType | string;
-    source?: VectorSource;
 }

@@ -4,6 +4,11 @@ import MapEvent from '../MapEvent';
 import BaseObject, { ObjectEvent } from '../Object';
 import PluggableMap from '../PluggableMap';
 
+export interface Options {
+    element?: HTMLElement;
+    render?: ((p0: MapEvent) => void);
+    target?: HTMLElement | string;
+}
 export default class Control extends BaseObject {
     constructor(options: Options);
     protected element: HTMLElement;
@@ -20,9 +25,4 @@ export default class Control extends BaseObject {
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
-}
-export interface Options {
-    element?: HTMLElement;
-    render?: ((p0: MapEvent) => void);
-    target?: HTMLElement | string;
 }

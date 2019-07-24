@@ -5,6 +5,33 @@ const stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K");
 
 stripe.setApiVersion('2019-05-16');
 
+stripe.setAppInfo(); // $ExpectType void
+// $ExpectType void
+stripe.setAppInfo({
+    name: 'DefinitelyTyped',
+});
+
+stripe.setTelemetryEnabled(true); // $ExpectType void
+stripe.getTelemetryEnabled(); // $ExpectType boolean
+
+// generic list tests
+// ##################################################################################
+stripe.balance.listTransactions().then(items => {
+    items; // $ExpectType IList<IBalanceTransaction>
+});
+stripe.balance.listTransactions().autoPagingEach(async item => {
+    item; // $ExpectType IBalanceTransaction
+});
+stripe.balance.listTransactions().autoPagingToArray({}); // $ExpectError
+stripe.balance.listTransactions().autoPagingToArray({limit: 1}).then(items => {
+    items; // $ExpectType IBalanceTransaction[]
+});
+async function testAutoPaging() {
+    for await (const item of stripe.balance.listTransactions()) {
+        item; // $ExpectType IBalanceTransaction
+    }
+}
+
 //#region Balance tests
 // ##################################################################################
 
@@ -57,6 +84,10 @@ stripe.charges.create({
     description: "Charge for test@example.com"
 }).then((charge) => {
     // asynchronously called
+
+    charge.payment_intent; // $ExpectType string
+    charge.payment_method; // $ExpectType string
+    charge.payment_method_details; // $ExpectType IPaymentMethodDetails
 
     charge.refunds.create().then((refund) => {
         const reason = refund.failure_reason;
@@ -253,6 +284,76 @@ stripe.checkout.sessions.create({
 
 //#endregion
 
+//#region CreditNotes tests
+// ##################################################################################
+stripe.creditNotes.create({
+  amount: 100,
+  invoice: "in_15fvyXEe31JkLCeQH7QbgZZb",
+}, (err, creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+stripe.creditNotes.create({
+  amount: 100,
+  invoice: "in_15fvyXEe31JkLCeQH7QbgZZb",
+}).then((creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+stripe.creditNotes.retrieve(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+stripe.creditNotes.retrieve("cn_1FsAjKFpRTWZADwSy2clIZum").then((creditNote) => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+stripe.creditNotes.retrieve("cn_1FsAjKFpRTWZADwSy2clIZum", { expand: ["refund"] }).then((creditNote) => {
+  creditNote.refund;
+});
+
+stripe.creditNotes.update(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  {
+    memo: 'foobar',
+  },
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+stripe.creditNotes.update(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  {
+    memo: 'foobar',
+  }).then((creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+
+stripe.creditNotes.list(
+  { invoice: "in_15fvyXEe31JkLCeQH7QbgZZb", limit: 3 },
+  (err, creditNotes) => {
+    creditNotes; // $ExpectType IList<ICreditNote>
+  }
+);
+stripe.creditNotes.list({ invoice: "in_15fvyXEe31JkLCeQH7QbgZZb", limit: 3 }).then((creditNotes) => {
+  creditNotes; // $ExpectType IList<ICreditNote>
+});
+
+stripe.creditNotes.voidCreditNote(
+  "cn_1FsAjKFpRTWZADwSy2clIZum",
+  (err, creditNote) => {
+    creditNote; // $ExpectType ICreditNote
+  }
+);
+
+stripe.creditNotes.voidCreditNote("cn_1FsAjKFpRTWZADwSy2clIZum").then(creditNote => {
+  creditNote; // $ExpectType ICreditNote
+});
+
+//#endregion
+
 //#region Customer tests
 // ##################################################################################
 
@@ -310,8 +411,8 @@ stripe.customers.create({
     let metadata: Stripe.IOptionsMetadata;
     const num = 123;
     metadata["test"] = str;
-    metadata["test"] = num;
     metadata["test"] === str;
+    metadata["test"] = num;
     metadata["test"] === num;
     metadata.testStr = str;
     metadata.testNum = num;
@@ -598,7 +699,7 @@ stripe.customers.retrieveSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp"
     // asynchronously called
 });
 
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] },
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }], pay_immediately: false },
     (err, subscription) => {
         // asynchronously called
     }
@@ -745,8 +846,11 @@ stripe.accounts.retrieve(
 );
 stripe.accounts.retrieve(
     "acct_17wV8KBoqMA9o2xk").then(
-    (account) => {
+    account => {
         // asynchronously called
+
+        // account should have external_accounts property
+        account.external_accounts; // $ExpectType IList<ICard | IBankAccount>
     }
 );
 
@@ -1167,6 +1271,9 @@ stripe.invoices.retrieveLines(
 stripe.invoices.retrieveLines("in_15fvyXEe31JkLCeQH7QbgZZb", { limit: 5 }).then((lines) => {
     // asynchronously called
 });
+stripe.invoices.listLineItems("in_15fvyXEe31JkLCeQH7QbgZZb", { limit: 5 }).then((lines) => {
+    lines; // $ExpectType IList<IInvoiceLineItem>
+});
 
 stripe.invoices.retrieveUpcoming(
     "cus_5rfJKDJkuxzh5Q",
@@ -1187,6 +1294,9 @@ stripe.invoices.retrieveUpcoming(
 );
 stripe.invoices.retrieveUpcoming("cus_5rfJKDJkuxzh5Q").then((upcoming) => {
     // asynchronously called
+});
+stripe.invoices.listUpcomingLineItems({ limit: 5 }).then((lines) => {
+    lines; // $ExpectType IList<IInvoiceLineItem>
 });
 
 stripe.invoices.update(
@@ -1226,6 +1336,14 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { paid_out_of_band: true }).t
 
 stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { forgive: true }).then((invoice) => {
     // asynchronously called
+});
+
+stripe.invoices.finalizeInvoice("in_15fvyXEe31JkLCeQH7QbgZZb").then(invoice => {
+    invoice; // $ExpectType IInvoice
+});
+
+stripe.invoices.finalizeInvoice("in_15fvyXEe31JkLCeQH7QbgZZb", { auto_advance: true }).then(invoice => {
+    invoice; // $ExpectType IInvoice
 });
 
 stripe.invoices.list(
@@ -1552,6 +1670,16 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 });
 stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" }).then((subscriptions) => {
     // asynchronously called
+});
+
+//#endregion
+
+//#region Sources tests
+// ##################################################################################
+
+stripe.sources.retrieve("tok_15V2YhEe31JkLCeQy9iUgsJX").then((source) => {
+    // asynchronously called
+    source.card; // $ExpectType ICardHashInfo
 });
 
 //#endregion

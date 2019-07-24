@@ -42,6 +42,10 @@ declare class Chart {
     getDatasetMeta: (index: number) => Meta;
     ctx: CanvasRenderingContext2D | null;
     canvas: HTMLCanvasElement | null;
+    width: number | null;
+    height: number | null;
+    aspectRatio: number | null;
+    options: Chart.ChartOptions;
     chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
     static plugins: PluginServiceStatic;
@@ -154,10 +158,14 @@ declare namespace Chart {
     }
 
     interface ChartTooltipItem {
+        label?: string;
+        value?: string;
         xLabel?: string | number;
         yLabel?: string | number;
         datasetIndex?: number;
         index?: number;
+        x?: number;
+        y?: number;
     }
 
     interface ChartTooltipLabelColor {

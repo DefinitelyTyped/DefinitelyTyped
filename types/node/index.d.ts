@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 12.0
+// Type definitions for non-npm package Node.js 12.6
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -32,7 +32,6 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
-//                 Jeremie Rodriguez <https://github.com/jeremiergz>
 //                 Samuel Ainsworth <https://github.com/samuela>
 //                 Kyle Uehlein <https://github.com/kuehlein>
 //                 Jordi Oliveras Rovira <https://github.com/j-oliveras>
@@ -68,6 +67,7 @@ interface Map<K, V> {}
 interface ReadonlySet<T> {}
 interface IteratorResult<T> { }
 interface Iterable<T> { }
+interface AsyncIterable<T> { }
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }

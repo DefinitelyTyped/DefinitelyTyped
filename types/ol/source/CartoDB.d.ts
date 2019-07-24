@@ -6,6 +6,22 @@ import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
 import XYZ from './XYZ';
 
+export interface CartoDBLayerInfo {
+    layergroupid: string;
+    cdn_url: any;
+}
+export interface Options {
+    attributions?: AttributionLike;
+    cacheSize?: number;
+    crossOrigin?: string;
+    projection?: ProjectionLike;
+    maxZoom?: number;
+    minZoom?: number;
+    wrapX?: boolean;
+    config?: any;
+    map?: string;
+    account: string;
+}
 export default class CartoDB extends XYZ {
     constructor(options: Options);
     getConfig(): any;
@@ -29,20 +45,4 @@ export default class CartoDB extends XYZ {
     on(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
-}
-export interface CartoDBLayerInfo {
-    layergroupid: string;
-    cdn_url: any;
-}
-export interface Options {
-    attributions?: AttributionLike;
-    cacheSize?: number;
-    crossOrigin?: string;
-    projection?: ProjectionLike;
-    maxZoom?: number;
-    minZoom?: number;
-    wrapX?: boolean;
-    config?: any;
-    map?: string;
-    account: string;
 }

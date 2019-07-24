@@ -4,13 +4,6 @@ import PluggableMap from './PluggableMap';
 import Stroke from './style/Stroke';
 import Text from './style/Text';
 
-export default class Graticule {
-    constructor(opt_options?: Options);
-    getMap(): PluggableMap;
-    getMeridians(): LineString[];
-    getParallels(): LineString[];
-    setMap(map: PluggableMap): void;
-}
 export interface GraticuleLabelDataType {
     geom: Point;
     text: string;
@@ -28,4 +21,11 @@ export interface Options {
     lonLabelStyle?: Text;
     latLabelStyle?: Text;
     intervals?: number[];
+}
+export default class Graticule {
+    constructor(opt_options?: Options);
+    getMap(): PluggableMap;
+    getMeridians(): LineString[];
+    getParallels(): LineString[];
+    setMap(map: PluggableMap): void;
 }

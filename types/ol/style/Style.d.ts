@@ -9,10 +9,7 @@ import ImageStyle from './Image';
 import Stroke from './Stroke';
 import Text from './Text';
 
-export function createDefaultStyle(feature: FeatureLike, resolution: number): Style[];
-export function createEditingStyle(): { [key in GeometryType]: Style[] };
-export function toFunction(obj: StyleFunction | Style[] | Style): StyleFunction;
-export type GeometryFunction = ((p0: FeatureLike) => Geometry | RenderFeature);
+export type GeometryFunction = ((p0: FeatureLike) => (Geometry | RenderFeature));
 export interface Options {
     geometry?: string | Geometry | GeometryFunction;
     fill?: Fill;
@@ -22,7 +19,9 @@ export interface Options {
     text?: Text;
     zIndex?: number;
 }
-export type RenderFunction = ((p0: Coordinate | Coordinate[] | Coordinate[][], p1: State) => void);
+export type RenderFunction = ((p0: (Coordinate | Coordinate[] | Coordinate[][]), p1: State) => void);
+export type StyleFunction = ((p0: FeatureLike, p1: number) => (Style | Style[]));
+export type StyleLike = Style | Style[] | StyleFunction;
 export default class Style {
     constructor(opt_options?: Options);
     clone(): Style;
@@ -42,5 +41,6 @@ export default class Style {
     setText(text: Text): void;
     setZIndex(zIndex: number): void;
 }
-export type StyleFunction = ((p0: FeatureLike, p1: number) => Style | Style[]);
-export type StyleLike = Style | Style[] | StyleFunction;
+export function createDefaultStyle(feature: FeatureLike, resolution: number): Style[];
+export function createEditingStyle(): { [key in GeometryType]: Style[] };
+export function toFunction(obj: StyleFunction | Style[] | Style): StyleFunction;

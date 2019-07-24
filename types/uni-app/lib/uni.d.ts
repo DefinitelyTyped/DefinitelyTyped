@@ -81,7 +81,7 @@ declare class Uni {
      *
      * 参考: [http://uniapp.dcloud.io/frame?id=upx2px](http://uniapp.dcloud.io/frame?id=upx2px)
      */
-    upx2px(): number;
+    upx2px(upx?: number): number;
     /**
      * 创建一个 WebSocket 连接
      *
@@ -1457,6 +1457,21 @@ interface PreviewImageOptions {
      */
     urls?: string | any [];
     /**
+     * 图片指示器样式
+     * - default: 底部圆点指示器
+     * - number: 顶部数字指示器
+     * - none: 不显示指示器
+     */
+    indicator?: 'default' | 'number' | 'none';
+    /**
+     * 是否可循环预览
+     */
+    loop?: boolean;
+    /**
+     * 长按图片显示操作菜单，如不填默认为保存相册，1.9.5 起支持。
+     */
+    longPressActions?: LongPressActionsOptions;
+    /**
      * 接口调用成功的回调函数
      */
     success?: () => void;
@@ -1468,6 +1483,40 @@ interface PreviewImageOptions {
      * 接口调用结束的回调函数（调用成功、失败都会执行）
      */
     complete?: () => void;
+}
+
+interface LongPressActionsOptions {
+    /**
+     * 按钮的文字数组
+     */
+    itemList?: string [];
+    /**
+     * 按钮的文字颜色，字符串格式，默认为"#000000"
+     */
+    itemColor?: string;
+    /**
+     * 接口调用成功的回调函数
+     */
+    success?: (result: LongPressActionsSuccessData) => void;
+    /**
+     * 接口调用失败的回调函数
+     */
+    fail?: () => void;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    complete?: () => void;
+}
+
+interface LongPressActionsSuccessData {
+    /**
+     * 接口调用失败的回调函数
+     */
+    tapIndex?: number;
+    /**
+     * 接口调用结束的回调函数（调用成功、失败都会执行）
+     */
+    index?: number;
 }
 
 interface GetImageInfoOptions {
@@ -5236,11 +5285,11 @@ interface CanvasToTempFilePathOptions {
     /**
      * 输出图片宽度（默认为 width * 屏幕像素密度）
      */
-    destWidth?: boolean;
+    destWidth?: number;
     /**
      * 输出图片高度（默认为 height * 屏幕像素密度）
      */
-    destHeight?: () => void;
+    destHeight?: number;
     /**
      * 画布标识，传入 <canvas/> 的 canvas-id
      */

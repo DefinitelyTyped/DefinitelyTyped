@@ -1,4 +1,4 @@
-// Type definitions for PapaParse v4.5
+// Type definitions for PapaParse v5.0
 // Project: https://github.com/mholt/PapaParse
 // Definitions by: Pedro Flemming <https://github.com/torpedro>
 //                 Rain Shen <https://github.com/rainshen49>
@@ -110,6 +110,7 @@ export interface ParseConfig {
     chunk?(results: ParseResult, parser: Parser): void; // default: undefined
     beforeFirstChunk?(chunk: string): string | void; // default: undefined
     transform?(value: string, field: string | number): any; // default: undefined
+    transformHeader?(header: string): string; // default: undefined
 }
 
 export interface UnparseConfig {
@@ -119,6 +120,8 @@ export interface UnparseConfig {
     delimiter?: string; // default: ","
     header?: boolean; // default: true
     newline?: string; // default: "\r\n"
+    skipEmptyLines?: boolean | 'greedy'; // default: false
+    columns?: string[]; // default: null
 }
 
 export interface UnparseObject {

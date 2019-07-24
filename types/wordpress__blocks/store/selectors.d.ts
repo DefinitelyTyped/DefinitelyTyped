@@ -7,6 +7,7 @@ export {
     getCategories,
     getChildBlockNames,
     getDefaultBlockName,
+    getGroupingBlockName,
     hasBlockSupport,
     hasChildBlocks,
     hasChildBlocksWithInserterSupport,

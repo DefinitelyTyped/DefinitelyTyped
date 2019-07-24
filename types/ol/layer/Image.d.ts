@@ -9,6 +9,16 @@ import ImageSource from '../source/Image';
 import Source from '../source/Source';
 import Layer from './Layer';
 
+export interface Options {
+    opacity?: number;
+    visible?: boolean;
+    extent?: Extent;
+    zIndex?: number;
+    minResolution?: number;
+    maxResolution?: number;
+    map?: PluggableMap;
+    source?: ImageSource;
+}
 export default class ImageLayer extends Layer {
     constructor(opt_options?: Options);
     protected type: LayerType;
@@ -56,14 +66,4 @@ export default class ImageLayer extends Layer {
     on(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     once(type: 'rendercomplete', listener: (evt: RenderEvent) => void): EventsKey;
     un(type: 'rendercomplete', listener: (evt: RenderEvent) => void): void;
-}
-export interface Options {
-    opacity?: number;
-    visible?: boolean;
-    extent?: Extent;
-    zIndex?: number;
-    minResolution?: number;
-    maxResolution?: number;
-    map?: PluggableMap;
-    source?: ImageSource;
 }

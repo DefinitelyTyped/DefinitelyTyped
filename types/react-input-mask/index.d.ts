@@ -25,7 +25,7 @@ export interface MaskOptions {
   permanents: number[];
 }
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends React.HTMLAttributes<HTMLInputElement> {
   /**
    * Mask string. Format characters are:
    * * `9`: `0-9`

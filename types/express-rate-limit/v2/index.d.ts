@@ -36,7 +36,11 @@ declare namespace RateLimit {
         onLimitReached?(req: express.Request, res: express.Response, optionsUsed: Options): void;
         windowMs?: number;
     }
+
+    interface Instance extends express.RequestHandler {
+        resetKey(key: string): void;
+    }
 }
 
-declare var RateLimit: new (options: RateLimit.Options) => express.RequestHandler;
+declare var RateLimit: new (options: RateLimit.Options) => RateLimit.Instance;
 export = RateLimit;
