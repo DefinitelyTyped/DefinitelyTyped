@@ -1030,20 +1030,20 @@ export interface ChartAPI {
         done?(): any;
     }): void;
     /**
-     * Change data point state to selected. By this API, you can select data points. To use this API, data.selection.enabled needs to be set true.
+     * Change data point state to selected. By this API, you can select data points. To use this API, `data.selection.enabled` needs to be `true`.
      * @param ids Specify target ids to be selected. If this argument is not given, all targets will be the candidate.
      * @param indices Specify indices to be selected. If this argument is not given, all data points will be the candidate.
-     * @param resetOthers If this argument is set true, the data points that are not specified by ids, indices will be unselected.
+     * @param resetOther If this argument is set true, the data points that are not specified by ids, indices will be unselected.
      */
-    select(ids?: string[], indices?: number[], resetOthers?: boolean): void;
+    select(ids?: string[], indices?: number[], resetOther?: boolean): void;
     /**
-     * Change data point state to unselected. By this API, you can unselect data points. To use this API, data.selection.enabled needs to be set true.
+     * Change data point state to unselected. By this API, you can unselect data points. To use this API, `data.selection.enabled` needs to be `true`.
      * @param ids Specify target ids to be unselected. If this argument is not given, all targets will be the candidate.
      * @param indices Specify indices to be unselected. If this argument is not given, all data points will be the candidate.
      */
     unselect(ids?: string[], indices?: number[]): void;
     /**
-     * Get selected data points. By this API, you can get selected data points information. To use this API, data.selection.enabled needs to be set true.
+     * Get selected data points. By this API, you can get selected data points information. To use this API, `data.selection.enabled` needs to be `true`.
      * @param targetId You can filter the result by giving target id that you want to get. If not given, all of data points will be returned.
      */
     selected(targetId?: string): Data;
